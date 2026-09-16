@@ -39,6 +39,11 @@ export type Hover = {
 
 export type HoverHandler = (hover: Hover | null) => void
 
+type SeatPanelState = Omit<PlayerState, 'hand' | 'command'> & {
+  hand: Array<string | number | BattlefieldCard>
+  command: Array<string | number | BattlefieldCard>
+}
+
 export const phaseLabel = (phase: string) =>
   phase.replace(/(\D)(\d)/, '$1 $2').replace(/^./, (letter) => letter.toUpperCase())
 
@@ -489,7 +494,7 @@ export const SeatPanel = ({
 }: {
   game: ReplayGame
   seat: ReplaySeat
-  state: PlayerState
+  state: SeatPanelState
   active: boolean
   action: Set<string>
   currentPlan?: ReplayPlan

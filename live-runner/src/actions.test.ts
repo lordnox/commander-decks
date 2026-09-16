@@ -91,7 +91,7 @@ describe('play actions', () => {
   test('rejects stale and unavailable actions', () => {
     const state = createLobby()
     state.actions = {
-      p2: ['plan', 'pass'],
+      p2: ['plan', 'pass', 'act'],
       p3: ['confirm', 'replace'],
     }
     state.actionIds = { p1: 0, p2: 4, p3: 7, p4: 0 }
@@ -105,6 +105,16 @@ describe('play actions', () => {
       state,
       'p2',
       { type: 'pass', actionId: 3 },
+    )).toBe(false)
+    expect(acceptsPlayAction(
+      state,
+      'p2',
+      { type: 'act', kind: 'playLand', objectId: 'o1', actionId: 4 },
+    )).toBe(true)
+    expect(acceptsPlayAction(
+      state,
+      'p2',
+      { type: 'act', kind: 'playLand', objectId: 'o1', actionId: 3 },
     )).toBe(false)
     expect(acceptsPlayAction(
       state,

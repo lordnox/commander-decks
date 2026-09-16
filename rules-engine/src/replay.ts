@@ -8,6 +8,7 @@ import type {
   GameObject,
   GameState,
   PlayerId,
+  Plugin,
   StepId,
   TargetRef,
 } from './types'
@@ -141,7 +142,11 @@ const drawnName = (events: ReplayEvent[], event: ReplayEvent) => {
   )[0]
 }
 
-const bootstrapReplay = (replay: TableReplay, throughRound: number) => {
+const bootstrapReplay = (
+  replay: TableReplay,
+  throughRound: number,
+  cardPlugins: Plugin[] = [],
+) => {
   const setup = replay.events.filter((event) => event.turn === 0).at(-1)
   if (!setup) throw new Error('replay has no setup snapshot')
   const players = replay.seats.map((seat) => seat.id)
@@ -176,7 +181,7 @@ const bootstrapReplay = (replay: TableReplay, throughRound: number) => {
   const runtime = createServerGame(
     commanderRules,
     { players, libraries, hands, command },
-    { random: () => 0.5 },
+    { random: () => 0.5, cardPlugins },
   )
   return {
     ...runtime,
@@ -219,7 +224,10 @@ const openImportedTurn = (
  * Resume a private live replay from its exact latest snapshot. Past events stay
  * in the replay archive; the kernel journal begins at this authoritative frame.
  */
-export const importLiveReplayState = (replay: TableReplay) => {
+export const importLiveReplayState = (
+  replay: TableReplay,
+  cardPlugins: Plugin[] = [],
+) => {
   const latest = replay.events.at(-1)
   if (!latest) throw new Error('replay has no current snapshot')
   if (!replay._libraries) throw new Error('live replay has no private libraries')
@@ -262,7 +270,7 @@ export const importLiveReplayState = (replay: TableReplay) => {
   const runtime = createServerGame(
     commanderRules,
     { players, first, libraries, hands, battlefield, command },
-    { random: () => 0.5 },
+    { random: () => 0.5, cardPlugins },
   )
   const state = structuredClone(runtime.state)
   for (const seat of players) {
@@ -281,8 +289,12 @@ export const importLiveReplayState = (replay: TableReplay) => {
   return openImportedTurn(runtime.rules, state, players)
 }
 
-export const runReplayRounds = (replay: TableReplay, throughRound: number) => {
-  const runtime = bootstrapReplay(replay, throughRound)
+export const runReplayRounds = (
+  replay: TableReplay,
+  throughRound: number,
+  cardPlugins: Plugin[] = [],
+) => {
+  const runtime = bootstrapReplay(replay, throughRound, cardPlugins)
   const initial = structuredClone(runtime.state)
   let state = runtime.state
   const events: GameEvent[] = []

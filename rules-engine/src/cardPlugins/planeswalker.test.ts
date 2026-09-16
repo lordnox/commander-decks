@@ -8,6 +8,8 @@ import {
   pendingDialog,
 } from '../pendingDialog'
 import { createServerGame } from '../runtime'
+import { choiceEffects } from './choiceEffects'
+import { planeswalker as planeswalkerPlugin } from './planeswalker'
 
 const ugin = (loyalty = 7) => planeswalker('Ugin, the Spirit Dragon', 7, {
   manaCost: '{8}',
@@ -21,7 +23,7 @@ const gameWithUgin = (loyalty = 7, extras: Parameters<typeof createServerGame>[1
   createServerGame(commanderRules, {
     battlefield: { p1: [ugin(loyalty)] },
     ...extras,
-  })
+  }, { random: () => 0.5, cardPlugins: [planeswalkerPlugin, choiceEffects] })
 
 const uginId = (state: ReturnType<typeof gameWithUgin>['state']) =>
   Object.values(state.objects).find((object) => object.name === 'Ugin, the Spirit Dragon')!.id

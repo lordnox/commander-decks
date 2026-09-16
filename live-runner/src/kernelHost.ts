@@ -565,7 +565,7 @@ export const applyKernelChoice = (
     } else {
       for (const choice of ordered) {
         const to = destinationZone(choice.destination)
-        if (!to || to === 'library') continue
+        if (!to) continue
         const moved = kernel.dispatch({ type: 'move', objectId: choice.objectId, to })
         if (!moved.ok) throw new Error(moved.error)
         if (to === 'battlefield' && decision.kernel.stage === 'return-land') {
@@ -729,9 +729,10 @@ export const applyKernelAct = (
   }
 
   const current = kernel.history.current()
+  const actionName = 'name' in action ? action.name : action.kind
   lobby.actions = kernelActions(current)
   lobby.privateJudge = {
-    [seat]: `${action.name} was applied through ${events.length} kernel event(s).`,
+    [seat]: `${actionName} was applied through ${events.length} kernel event(s).`,
   }
   lobby.judge = `${lobby.occupants[seat]?.name ?? seat} acted.`
   lobby.waiting = `${lobby.occupants[kernelPriority(current) ?? seat]?.name ?? seat}: act, pass, or advance.`
@@ -822,8 +823,8 @@ export const openKernel = async (
     }
     if (!existing || blankJournal) {
       const converted = replay._libraries
-        ? { initial: importLiveReplayState(replay), events: [] }
-        : runReplayRounds(replay, lastTurn)
+        ? { initial: importLiveReplayState(replay, cardPlugins), events: [] }
+        : runReplayRounds(replay, lastTurn, cardPlugins)
       journal = {
         schema: 'rules-engine/v0',
         initial: converted.initial,

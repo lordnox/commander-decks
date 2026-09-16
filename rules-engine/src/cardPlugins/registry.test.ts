@@ -3,7 +3,6 @@ import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
 import { allHandlerIds, handlerIdsForNames } from './cardRules'
 import {
-  cardPlugins,
   cardPluginEntry,
   missingCardPlugins,
 } from './index'
@@ -21,24 +20,6 @@ describe('card plugin registry', () => {
     expect(handlerIdsForNames(['Field of the Dead'])).toEqual(['entersTapped', 'landfall'])
     expect(allHandlerIds().length).toBeGreaterThan(handlerIdsForNames(['Forest', 'Sol Ring']).length)
   })
-  test('the always-on land and search handlers are built into every new game', () => {
-    const built = new Set(cardPlugins.map((plugin) => plugin.id))
-    for (const handlerId of [
-      'additionalLandPlay',
-      'activated',
-      'entersTapped',
-      'landfall',
-      'librarySearch',
-      'onResolve',
-      'targetedResolve',
-      'zoneTriggers',
-      'choiceEffects',
-      'bestow',
-    ]) {
-      expect(built.has(handlerId)).toBe(true)
-    }
-  })
-
   test('the Sin Fall cards this pass covers stay registered', () => {
     const covered = [
       'Aesi, Tyrant of Gyre Strait',

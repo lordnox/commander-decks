@@ -1,10 +1,28 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame as createRuntimeGame } from '../runtime'
 import type { ReduceResult } from '../types'
 import { DIALOG_CHOSEN, dialogCandidates, pendingDialog } from '../pendingDialog'
-import { pendingSearch } from './librarySearch'
+import { choiceEffects } from './choiceEffects'
+import { entersTapped } from './entersTapped'
+import { landfall } from './landfall'
+import { librarySearch, pendingSearch } from './librarySearch'
+import { onResolve } from './onResolve'
+import { zoneTriggers } from './zoneTriggers'
+
+const createServerGame: typeof createRuntimeGame = (format, options) =>
+  createRuntimeGame(format, options, {
+    random: () => 0.5,
+    cardPlugins: [
+      choiceEffects,
+      entersTapped,
+      landfall,
+      librarySearch,
+      onResolve,
+      zoneTriggers,
+    ],
+  })
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)

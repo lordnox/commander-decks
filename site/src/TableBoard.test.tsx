@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { CardTile, HoverCard, StackOverlay, type Hover } from './TableBoard'
+import { CardPreview, CardTile, HoverCard, StackOverlay, type Hover } from './TableBoard'
 import type { ReplayGame } from './replayTypes'
 
 const game = {
@@ -93,4 +93,25 @@ test('a loyalty activation previews its source card and uses a readable label', 
   expect(html).toContain('Teferi, Who Slows the Sunset')
   expect(html).toContain('+1 loyalty activation')
   expect(html).not.toContain('teferi.plus-one')
+})
+
+test('a card preview lists its host-advertised actions', () => {
+  const html = renderToStaticMarkup(
+    <CardPreview
+      preview={{
+        name: 'Mossborn Hydra',
+        details: game.catalog['Mossborn Hydra'],
+        objectId: 'o7',
+      }}
+      acts={[
+        { kind: 'playLand', objectId: 'o7', name: 'Mossborn Hydra' },
+        { kind: 'tapForMana', objectId: 'o7', name: 'Mossborn Hydra', mana: 'G' },
+      ]}
+      onAct={() => {}}
+      onClose={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Play land')
+  expect(html).toContain('Tap for {G}')
 })

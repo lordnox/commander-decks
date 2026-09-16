@@ -65,6 +65,7 @@ type InboxType =
   | 'mulligan'
   | 'topdeck'
   | 'advance'
+  | 'act'
   | 'priority-mode'
   | 'hold'
 
@@ -95,7 +96,7 @@ export const toPlayerState = (
   seat: LiveSeat,
   revealHand: boolean,
   replica?: LiveSnapshot['replica'],
-): PlayerState => {
+) => {
   const handIds = replica?.zoneOrder[seat.id]?.hand
   const commandIds = replica?.zoneOrder[seat.id]?.command
   const withIds = (

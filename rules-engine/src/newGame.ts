@@ -1,4 +1,4 @@
-import { cardPlugins, grantedRulesFor } from './cardPlugins'
+import { grantedRulesFor } from './cardPlugins'
 import { effectsFor } from './cardPlugins/cardRules'
 import { serializableEffects } from './cardPlugins/effects'
 import { emptyMana } from './draft'
@@ -159,10 +159,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       put(playerId, 'command', card)
     }
   }
-  const builtin = opts?.builtinRules ?? [
-    ...format.rules,
-    ...cardPlugins.map((plugin) => plugin.id),
-  ]
+  const builtin = opts?.builtinRules ?? format.rules
   const rules: RuleInstance[] = builtin.map((pluginId, index) => ({
     instanceId: `builtin-${pluginId}`,
     pluginId,

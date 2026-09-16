@@ -1,4 +1,3 @@
-import { cardPlugins } from './cardPlugins'
 import { createCatalog } from './catalog'
 import type { GameFormat } from './formats'
 import { rules } from './kernel'
@@ -20,7 +19,7 @@ export type ServerDependencies = {
 const createRuntimeEngine = (
   format: GameFormat,
   hiddenInformation: ReturnType<typeof createAuthoritativeHiddenInformation>,
-  runtimeCardPlugins = cardPlugins,
+  runtimeCardPlugins: Plugin[] = [],
 ) => {
   const catalog = createCatalog([...format.plugins, ...runtimeCardPlugins, hiddenInformation])
   return {
@@ -70,7 +69,7 @@ export const createServerGame = (
     createAuthoritativeHiddenInformation(dependencies.random),
     dependencies.cardPlugins,
   )
-  const runtimeCardPlugins = dependencies.cardPlugins ?? cardPlugins
+  const runtimeCardPlugins = dependencies.cardPlugins ?? []
   const initialState = newGame(format, {
     ...options,
     builtinRules: options?.builtinRules ?? [
