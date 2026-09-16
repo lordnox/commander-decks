@@ -20,6 +20,7 @@ export type PendingDialog = {
     | 'reveal-pick'
     | 'copy-creature'
     | 'return-land'
+    | 'exile-graveyards'
     | 'may'
     | 'may-pay-life'
   prompt: string
@@ -27,7 +28,7 @@ export type PendingDialog = {
   judge: string
   chosenEvent: string
   destinations: Array<
-    'top' | 'bottom' | 'hand' | 'battlefield' | 'graveyard' | 'skip' | 'target'
+    'top' | 'bottom' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 'skip' | 'target'
   >
   count?: number
   types?: string[]
@@ -35,7 +36,7 @@ export type PendingDialog = {
   optional?: boolean
   after?: Array<'resolveTop'>
   requirements?: Partial<Record<
-    'battlefield' | 'hand' | 'target' | 'graveyard',
+    'battlefield' | 'hand' | 'target' | 'graveyard' | 'exile',
     { min?: number; max?: number }
   >>
 }
@@ -94,6 +95,12 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
       .filter((object): object is NonNullable<typeof object> =>
         Boolean(object)
         && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
+  }
+  if (dialog.kind === 'exile-graveyards') {
+    return state.playerOrder.flatMap((seat) =>
+      (state.zoneOrder[seat].graveyard ?? [])
+        .map((id) => state.objects[id])
+        .filter((object): object is NonNullable<typeof object> => Boolean(object)))
   }
   return (state.zoneOrder[dialog.seat].hand ?? [])
     .map((id) => state.objects[id])

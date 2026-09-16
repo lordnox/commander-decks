@@ -84,6 +84,10 @@ export type GameObject = {
   chosenType?: string
   /** The card this permanent is printed as, once a copy effect renamed it. */
   printedName?: string
+  /** Object ids currently linked to this permanent by an "exiled with" ability. */
+  exiledCards?: string[]
+  /** Object id of the permanent whose ability exiled this card. */
+  exiledWith?: string
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
 }

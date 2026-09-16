@@ -1,17 +1,24 @@
 import { addPools, emptyMana } from '../draft'
-import type { ManaId, Plugin } from '../types'
+import type { GameState, ManaId, Plugin } from '../types'
 import { payCost } from './spells'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 
-type ManaSource = { oracleText: string; tapProduces?: Partial<Record<ManaId, number>> }
+type ManaSource = {
+  oracleText: string
+  tapProduces?: Partial<Record<ManaId, number>>
+  exiledCards?: string[]
+}
 
 /**
  * The printed modes of a source's mana abilities. `Add {G}{U}` is one mode
  * worth two mana; `Add {W} or {U}` and `Add {B}, {G}, or {U}` are separate
  * one-mana modes.
  */
-export const manaModes = (object: ManaSource): Partial<Record<ManaId, number>>[] => {
+export const manaModes = (
+  object: ManaSource,
+  state?: Pick<GameState, 'objects'>,
+): Partial<Record<ManaId, number>>[] => {
   const modes: Partial<Record<ManaId, number>>[] = []
   for (const match of object.oracleText.matchAll(/Add ((?:\{[WUBRGC]\}(?:,? or |, )?)+)/gi)) {
     const clause = match[1]
@@ -28,12 +35,24 @@ export const manaModes = (object: ManaSource): Partial<Record<ManaId, number>>[]
   if (/one mana of any color/i.test(object.oracleText)) {
     for (const symbol of MANA_IDS.slice(0, 5)) modes.push({ [symbol]: 1 })
   }
+  if (/any of the exiled cards' colors/i.test(object.oracleText) && state) {
+    const colors = new Set(
+      (object.exiledCards ?? [])
+        .flatMap((objectId) => state.objects[objectId]?.colors ?? [])
+        .filter((color): color is ManaId => MANA_IDS.slice(0, 5).includes(color as ManaId)),
+    )
+    for (const color of colors) modes.push({ [color]: 1 })
+  }
   if (modes.length === 0 && object.tapProduces) modes.push(object.tapProduces)
   return modes
 }
 
-export const poolForChoice = (object: ManaSource, mana?: ManaId) => {
-  const modes = manaModes(object)
+export const poolForChoice = (
+  object: ManaSource,
+  mana?: ManaId,
+  state?: Pick<GameState, 'objects'>,
+) => {
+  const modes = manaModes(object, state)
   if (!mana) return modes.length === 1 ? modes[0] : object.tapProduces
   return modes.find((mode) => mode[mana] && Object.keys(mode).length === 1)
     ?? modes.find((mode) => mode[mana])
@@ -46,7 +65,7 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   if (object.zone !== 'battlefield') return `${object.name} is not on the battlefield`
   if (object.controller !== event.seat) return `${event.seat} does not control ${object.name}`
   if (object.tapped) return `${object.name} is already tapped`
-  if (!poolForChoice(object, event.mana)) {
+  if (!poolForChoice(object, event.mana, state)) {
     if (event.mana && MANA_IDS.includes(event.mana)) {
       return `${object.name} cannot produce ${event.mana}`
     }
@@ -59,11 +78,11 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   }
 }
 
-const apply: Plugin['apply'] = ({ event, draft }) => {
+const apply: Plugin['apply'] = ({ state, event, draft }) => {
   if (event.type === 'tapForMana') {
     const object = draft.object(event.objectId)
     if (!object) return
-    const pool = poolForChoice(object, event.mana)
+    const pool = poolForChoice(object, event.mana, state)
     if (!pool) return
     object.tapped = true
     const player = draft.players[event.seat]
