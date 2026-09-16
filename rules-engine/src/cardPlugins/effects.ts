@@ -924,7 +924,12 @@ export const runInstructions = (
     if (instruction.kind === 'returnTargetFromGraveyard') {
       const target = item?.targets[0]
       if (target?.kind !== 'object') continue
-      draft.enqueue({ type: 'move', objectId: target.objectId, to: instruction.to })
+      draft.enqueue({
+        type: 'move',
+        objectId: target.objectId,
+        to: instruction.to,
+        ...(instruction.to === 'battlefield' ? { controller: source.controller } : {}),
+      })
       if (instruction.tapped && instruction.to === 'battlefield') {
         draft.enqueue({ type: 'tap', objectId: target.objectId })
       }

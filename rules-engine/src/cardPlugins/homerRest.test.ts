@@ -3,7 +3,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
+import { DIALOG_CHOSEN, dialogCandidates, pendingDialog } from '../pendingDialog'
 import { pendingSearch } from './librarySearch'
 
 const ok = (result: ReduceResult) => {
@@ -110,6 +110,39 @@ describe('Homer remaining card plugins', () => {
     expect(clone.name).toBe('Sakashima of a Thousand Faces')
     expect(clone.subtypes).toContain('Crab')
     expect(copied.zoneOrder.p1.battlefield).toHaveLength(2)
+  })
+
+  test('an opponent-owned clone entering under your control copies your creature', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [cardTemplate('Sygg, River Cutthroat', { types: ['Creature'] })],
+          p2: [cardTemplate('Homer, the Hermit', { types: ['Creature'] })],
+        },
+        hands: {
+          p2: [cardTemplate('Spark Double', { types: ['Creature'] })],
+        },
+      },
+    )
+    const spark = named(server.state, 'Spark Double')
+    const buried = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: spark.id,
+      to: 'graveyard',
+    }))
+    const entered = ok(server.rules(buried, {
+      type: 'move',
+      objectId: spark.id,
+      to: 'battlefield',
+      controller: 'p1',
+    }))
+    const dialog = pendingDialog(entered)
+    expect(entered.objects[spark.id].controller).toBe('p1')
+    expect(dialog?.seat).toBe('p1')
+    expect(dialogCandidates(entered, dialog!).map((object) => object.name)).toEqual([
+      'Sygg, River Cutthroat',
+    ])
   })
 
   test('Yarok makes landfall happen an extra time for Aesi', () => {
