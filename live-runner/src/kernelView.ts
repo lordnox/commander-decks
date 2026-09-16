@@ -218,6 +218,20 @@ const summoningSicknessLabel = (object?: GameObject) =>
     ? { summoningSickness: true }
     : {}
 
+const linkedExileNote = (state: GameState, object?: GameObject) => {
+  if (!object?.exiledCards?.length) return {}
+  const cards = object.exiledCards
+    .map((id) => state.objects[id])
+    .filter((card): card is GameObject => card?.zone === 'exile')
+  if (cards.length === 0) return {}
+  const colors = [...new Set(cards.flatMap((card) => card.colors))]
+  return {
+    note: `Exiled with ${object.name}: ${cards.map((card) => card.name).join(', ')}.${
+      colors.length > 0 ? ` Available colors: ${colors.join(', ')}.` : ' No colored mana available.'
+    }`,
+  }
+}
+
 /** The card face shows tap state only, so attacks need their own label. */
 const combatLabels = (state: GameState, lobby: LobbyState, object?: GameObject) => {
   if (!object) return {}
@@ -279,10 +293,19 @@ export const liveSeatsFromState = (
           ...counterLabels(object),
           ...summoningSicknessLabel(object),
           ...combatLabels(state, lobby, object),
+          ...linkedExileNote(state, object),
         }
       }),
       graveyard: player.graveyard,
-      exile: player.exile,
+      exile: state.zoneOrder[playerId].exile.map((objectId) => {
+        const object = state.objects[objectId]
+        const source = object?.exiledWith ? state.objects[object.exiledWith] : undefined
+        return {
+          name: object?.name ?? objectId,
+          objectId,
+          ...(source ? { note: `Exiled with ${source.name}.` } : {}),
+        }
+      }),
       command: player.command,
     }
   })

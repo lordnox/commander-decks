@@ -52,7 +52,7 @@ export type PlayerState = {
   hand: Array<string | number>
   battlefield: BattlefieldCard[]
   graveyard: Array<string | number>
-  exile: Array<string | number>
+  exile: Array<string | number | BattlefieldCard>
   command: Array<string | number>
   revealed_top?: Array<string | number>
 }

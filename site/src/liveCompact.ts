@@ -318,7 +318,12 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       seat.hand === undefined ? HIDDEN : seat.hand.map((name) => table.cardRef(name, index)),
       packBattlefield(seat.battlefield ?? [], table, index),
       (seat.graveyard ?? []).map((name) => table.cardRef(name, index)),
-      (seat.exile ?? []).map((name) => table.cardRef(name, index)),
+      packBattlefield(
+        (seat.exile ?? []).map((card) =>
+          typeof card === 'object' ? card : { name: card }),
+        table,
+        index,
+      ),
       (seat.command ?? []).map((name) => table.cardRef(name, index)),
       seat.revealed_top === undefined
         ? ABSENT
@@ -527,7 +532,7 @@ export const expandLiveWire = (
       ),
       battlefield: unpackBattlefield(row[4], lists, extras, tokens),
       graveyard: unpackCards(row[5], lists, extras, tokens),
-      exile: unpackCards(row[6], lists, extras, tokens),
+      exile: unpackBattlefield(row[6], lists, extras, tokens),
       command: unpackCards(row[7], lists, extras, tokens),
     }
     const slug = slugs[index]
