@@ -94,6 +94,54 @@ describe('mana', () => {
     expect(next.objects[objectId].tapped).toBe(true)
   })
 
+  test('a bounce land taps for both of its printed symbols', () => {
+    const chamber = {
+      ...forest(),
+      name: 'Simic Growth Chamber',
+      oracleText: "This land enters tapped.\nWhen this land enters, return a land you control"
+        + " to its owner's hand.\n{T}: Add {G}{U}.",
+      tapProduces: { G: 1 },
+    }
+    const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [chamber] } })
+    const objectId = idOf(state, 'Simic Growth Chamber', 'battlefield')
+    const next = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalog))
+    expect(next.players.p1.mana.G).toBe(1)
+    expect(next.players.p1.mana.U).toBe(1)
+  })
+
+  test('a dual land can be tapped for either printed color', () => {
+    const pool = {
+      ...forest(),
+      name: 'Breeding Pool',
+      oracleText: '({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life.'
+        + " If you don't, it enters tapped.",
+      tapProduces: { G: 1 },
+    }
+    const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [pool] } })
+    const objectId = idOf(state, 'Breeding Pool', 'battlefield')
+    const blue = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana: 'U' }, catalog))
+    expect(blue.players.p1.mana).toMatchObject({ G: 0, U: 1 })
+    const green = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana: 'G' }, catalog))
+    expect(green.players.p1.mana).toMatchObject({ G: 1, U: 0 })
+  })
+
+  test('a triome offers all three of its colors', () => {
+    const triome = {
+      ...forest(),
+      name: 'Zagoth Triome',
+      oracleText: '({T}: Add {B}, {G}, or {U}.)\nThis land enters tapped.',
+      tapProduces: { B: 1 },
+    }
+    const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [triome] } })
+    const objectId = idOf(state, 'Zagoth Triome', 'battlefield')
+    for (const mana of ['B', 'G', 'U'] as const) {
+      const next = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana }, catalog))
+      expect(next.players.p1.mana[mana]).toBe(1)
+    }
+    const red = rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana: 'R' }, catalog)
+    expect(red.ok).toBe(false)
+  })
+
   test('a summoning sick mana creature cannot be tapped', () => {
     const state = newGame({
       builtinRules: ['mana'],
