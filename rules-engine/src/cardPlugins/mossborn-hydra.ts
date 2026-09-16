@@ -1,6 +1,6 @@
 import type { Plugin } from '../types'
 import { enteringObjectId } from './entersTapped'
-import { addPlusCounters } from './landfall'
+import { addPlusCounters } from './effects'
 
 export const mossbornHydra: Plugin = {
   id: 'mossborn-hydra',

@@ -34,6 +34,7 @@ import { createLobby } from './lobby'
 import {
   applyKernelAdvance,
   applyKernelChoice,
+  assertAgentKernelBoundary,
   kernelActions,
   kernelPath,
   kernelPriority,
@@ -207,6 +208,30 @@ const abilitySearchGame = (
 }
 
 describe('kernel host journal', () => {
+  test('an agent cannot pass through an actionable human turn', () => {
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [forest()] } },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const initial = structuredClone(server.state)
+    initial.step = 'precombatMain'
+    initial.active = 'p1'
+    initial.priority = 'p1'
+    const kernel = handleFor(server.rules, initial)
+    const candidate = recordAccepted(kernel.journal, {
+      type: 'passPriority',
+      seat: 'p1',
+    })
+
+    expect(() =>
+      assertAgentKernelBoundary(kernel, candidate, 'p4', 'p1')
+    ).toThrow('crossed an actionable p1 turn')
+    expect(() =>
+      assertAgentKernelBoundary(kernel, candidate, 'p1', 'p1')
+    ).not.toThrow()
+  })
+
   test('play start persists and restores a pass', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-host-'))
     mkdirGames(root)

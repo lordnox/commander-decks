@@ -77,6 +77,47 @@ export type KernelHandle = {
   save: () => void
 }
 
+/**
+ * Judge agents work on a scratch copy of the journal. Validate their appended
+ * events before replacing the authoritative copy so one seat's confirmed line
+ * cannot pass through a real decision on the human's turn.
+ */
+export const assertAgentKernelBoundary = (
+  kernel: KernelHandle,
+  candidate: KernelJournal,
+  actingSeat: SeatId,
+  human?: SeatId,
+) => {
+  const source = kernel.journal
+  if (JSON.stringify(candidate.initial) !== JSON.stringify(source.initial)) {
+    throw new Error('host agent changed the kernel initial state')
+  }
+  if (
+    candidate.events.length < source.events.length
+    || source.events.some(
+      (event, index) => JSON.stringify(event) !== JSON.stringify(candidate.events[index]),
+    )
+  ) {
+    throw new Error('host agent changed existing kernel events')
+  }
+
+  const history = restoreJournal(createJournal(kernel.history.current()), kernel.rules)
+  for (const event of candidate.events.slice(source.events.length)) {
+    const current = history.current()
+    if (
+      human
+      && actingSeat !== human
+      && current.active === human
+      && kernelPriority(current) === human
+      && availableActions(current, human).length > 0
+    ) {
+      throw new Error(`host agent crossed an actionable ${human} turn`)
+    }
+    const result = history.dispatch(event)
+    if (!result.ok) throw new Error(`host agent appended an illegal event: ${result.error}`)
+  }
+}
+
 const writeJournal = (slug: string, journal: KernelJournal, root: string) => {
   const path = kernelPath(slug, root)
   mkdirSync(dirname(path), { recursive: true })
