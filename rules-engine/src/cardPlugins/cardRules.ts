@@ -316,7 +316,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [bounceSelf()],
     }),
   ],
-  'Pit of Offerings': [entersTapped()],
+  'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
   'Polluted Delta': [
     fetchTypes('Search your library for an Island or Swamp card and put it onto the battlefield.', [
       'Island',

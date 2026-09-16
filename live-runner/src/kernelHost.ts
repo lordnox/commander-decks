@@ -528,6 +528,41 @@ export const applyKernelChoice = (
     settleKernelPriority(kernel, lobby)
     return true
   }
+  if (decision.kernel.stage === 'exile-graveyards') {
+    const orderedIds = objectIdsForNames(
+      state,
+      state.playerOrder.flatMap((player) => state.zoneOrder[player].graveyard),
+      message.choices.map(({ card }) => card),
+    )
+    const objectIds = message.choices
+      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
+      .filter(({ destination }) => destination === 'exile')
+      .map(({ objectId }) => objectId)
+    const max = decision.requirements?.exile?.max ?? 3
+    if (objectIds.length > max) throw new Error(`Choose at most ${max} card(s).`)
+    const chosenEvent = decision.kernel.chosenEvent
+    if (!chosenEvent) throw new Error('That graveyard choice is no longer open.')
+    const chosen = kernel.dispatch({
+      type: 'custom',
+      name: chosenEvent,
+      seat,
+      payload: { objectIds },
+    })
+    if (!chosen.ok) throw new Error(chosen.error)
+    lobby.topdeck = undefined
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    const names = objectIds.map((id) => state.objects[id]?.name).filter(Boolean)
+    lobby.privateJudge = {}
+    lobby.waiting =
+      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = names.length > 0
+      ? `Pit of Offerings targets ${names.join(', ')}.`
+      : 'Pit of Offerings chose no targets.'
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
   if (
     decision.kernel.stage === 'may'
     || decision.kernel.stage === 'may-pay-life'

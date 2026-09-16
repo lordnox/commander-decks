@@ -304,6 +304,48 @@ describe('events for available actions', () => {
       }],
     })
   })
+
+  test('a spell whose only choice happens on resolution uses the fast path', () => {
+    const fact = {
+      ...bolt(),
+      name: 'Fact or Fiction',
+      types: ['Instant'],
+      manaCost: '{3}{U}',
+      oracleText: 'Reveal the top five cards of your library. An opponent separates those cards '
+        + 'into two piles. Put one pile into your hand and the other into your graveyard.',
+    }
+    const state = newGame(commanderRules, { hands: { p1: [fact] } })
+    state.players.p1.mana = { ...empty, U: 1, C: 3 }
+
+    const action = legalActsFor(state, 'p1').find(
+      (candidate) => candidate.kind === 'castSpell' && candidate.name === 'Fact or Fiction',
+    )
+
+    expect(action).toBeDefined()
+    expect(eventsForAvailableAction(state, 'p1', action!).at(-1)).toEqual({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: objectNamed(state, 'Fact or Fiction').id,
+    })
+  })
+
+  test('a spell with a cast-time sacrifice choice still requires a plan', () => {
+    const scapeshift = {
+      ...bolt(),
+      name: 'Scapeshift',
+      types: ['Sorcery'],
+      manaCost: '{2}{G}{G}',
+      oracleText: 'As an additional cost to cast this spell, sacrifice any number of lands. '
+        + 'Search your library for up to that many land cards.',
+    }
+    const state = newGame(commanderRules, { hands: { p1: [scapeshift] } })
+    state.players.p1.mana = { ...empty, G: 2, C: 2 }
+    const action = availableActions(state, 'p1').find(
+      (candidate) => candidate.kind === 'castSpell' && candidate.name === 'Scapeshift',
+    )!
+
+    expect(eventsForAvailableAction(state, 'p1', action)).toBeNull()
+  })
 })
 
 describe('mana affordances', () => {
