@@ -9,6 +9,9 @@ import {
   pendingDialog,
   pendingDialogLock,
 } from '../pendingDialog'
+import { choiceEffects } from './choiceEffects'
+import { entersTapped } from './entersTapped'
+import { zoneTriggers } from './zoneTriggers'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
@@ -149,27 +152,94 @@ describe('librarySearch', () => {
     expect(done.objects[spell.id].zone).toBe('graveyard')
   })
 
-  test('a replayed Scapeshift search completion cannot reopen its sacrifice choice', () => {
+  test('a land fetched by Scapeshift keeps its own search', () => {
     const server = game({
       hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
       battlefield: [forest()],
+      library: [
+        card('Riveteers Overlook', ['Land']),
+        card('Mountain', ['Land'], { subtypes: ['Mountain'], supertypes: ['Basic'] }),
+      ],
     })
     const spell = named(server.state, 'Scapeshift')
+    const sacrificed = named(server.state, 'Forest')
+    const hideout = named(server.state, 'Riveteers Overlook')
     const funded = withMana(server.state)
     funded.players.p1.mana.G = 4
-    const cast = ok(server.rules(funded, {
+    const asking = run(server, ok(server.rules(funded, {
       type: 'castSpell',
       seat: 'p1',
       objectId: spell.id,
-    }))
-    const done = run(server, cast, [
-      // Search windows are host state and are absent when the journal replays.
+    })), [
+      { type: 'resolveTop' },
+      {
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat: 'p1',
+        payload: { objectIds: [sacrificed.id] },
+      },
+      // The host moves the found land, then reports the search answered.
+      { type: 'move', objectId: hideout.id, to: 'battlefield' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+
+    expect(asking.players.p1.life).toBe(41)
+    expect(pendingSearch(asking, 'p1')?.source).toBe('Riveteers Overlook')
+
+    const resolved = ok(server.rules(asking, { type: 'resolveTop' }))
+
+    expect(resolved.objects[spell.id].zone).toBe('graveyard')
+    expect(pendingSearch(resolved, 'p1')?.source).toBe('Riveteers Overlook')
+  })
+
+  test('a surveil land fetched by Scapeshift keeps its trigger', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })] },
+        battlefield: { p1: [forest()] },
+        libraries: { p1: [card('Undercity Sewers', ['Land']), island()] },
+      },
+      {
+        random: () => 0.5,
+        cardPlugins: [
+          librarySearch,
+          pendingDialogLock,
+          choiceEffects,
+          entersTapped,
+          zoneTriggers,
+        ],
+      },
+    )
+    const spell = named(server.state, 'Scapeshift')
+    const sacrificed = named(server.state, 'Forest')
+    const sewers = named(server.state, 'Undercity Sewers')
+    const funded = withMana(server.state)
+    funded.players.p1.mana.G = 4
+    const resolved = run(server, ok(server.rules(funded, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+    })), [
+      { type: 'resolveTop' },
+      {
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat: 'p1',
+        payload: { objectIds: [sacrificed.id] },
+      },
+      { type: 'move', objectId: sewers.id, to: 'battlefield' },
+      { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
       { type: 'resolveTop' },
     ])
 
-    expect(pendingDialog(done)).toBeUndefined()
-    expect(done.objects[spell.id].zone).toBe('graveyard')
+    expect(resolved.objects[spell.id].zone).toBe('graveyard')
+    expect(pendingDialog(resolved)).toMatchObject({
+      kind: 'surveil',
+      source: 'Undercity Sewers',
+    })
   })
 
   test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {

@@ -1,6 +1,7 @@
 import type { GameState, PlayerId, Plugin } from '../types'
 import {
   clearPendingDialog,
+  hasPendingDialog,
   pendingDialogFor,
   setPendingDialog,
 } from '../pendingDialog'
@@ -54,7 +55,7 @@ export const jointExploration: Plugin = {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
     if (item?.name !== NAME) return
-    if (pendingDialogFor(state, item.controller)?.kind === 'scry') return null
+    if (hasPendingDialog(state, item.controller, 'scry')) return null
     if (state.players[item.controller]?.data[JOINT_SCRY_DONE]) return
     return {
       type: 'custom',

@@ -15,6 +15,7 @@ import { enteringObjectId } from './entersTapped'
 import {
   clearPendingDialog,
   DIALOG_CHOSEN,
+  hasPendingDialog,
   pendingDialogFor,
   setPendingDialog,
 } from '../pendingDialog'
@@ -61,19 +62,27 @@ const entersSpec = (object: GameObject) => {
   return effect?.via === 'enters' ? effect.spec : undefined
 }
 
-export const pendingSearch = (
-  state: GameState,
-  seat: PlayerId,
-): PendingSearch | undefined => {
+const isPending = (value: unknown): value is PendingSearch =>
+  Boolean(value)
+  && typeof value === 'object'
+  && typeof (value as PendingSearch).source === 'string'
+  && Boolean(searchSpecFor((value as PendingSearch).source))
+
+/**
+ * Searches queue per seat. A fetch land put onto the battlefield by a resolving
+ * search spell opens its own search while that spell's search is still open, so
+ * one slot would silently drop the land's fetch.
+ */
+const pendingSearches = (state: GameState | Draft, seat: PlayerId): PendingSearch[] => {
   const value = state.players[seat]?.data[SEARCH_PENDING]
-  if (!value || typeof value !== 'object') return undefined
-  const pending = value as PendingSearch
-  return typeof pending.source === 'string' && searchSpecFor(pending.source)
-    ? pending
-    : undefined
+  if (Array.isArray(value)) return value.filter(isPending)
+  return isPending(value) ? [value] : []
 }
 
-/** The seat with an open search, if any. At most one is open at a time. */
+export const pendingSearch = (state: GameState, seat: PlayerId) =>
+  pendingSearches(state, seat)[0]
+
+/** The seat with an open search, if any. The oldest open search is presented. */
 export const searchingSeat = (state: GameState) =>
   state.playerOrder.find((seat) => pendingSearch(state, seat))
 
@@ -105,8 +114,15 @@ const searchDone = (state: GameState, seat: PlayerId) =>
   state.players[seat]?.data[SEARCH_DONE] === true
 
 const openSearch = (draft: Draft, seat: PlayerId, pending: PendingSearch) => {
-  draft.players[seat].data[SEARCH_PENDING] = pending
+  draft.players[seat].data[SEARCH_PENDING] = [...pendingSearches(draft, seat), pending]
   draft.note(`${seat} searches their library for ${pending.source}`)
+}
+
+/** Completes the oldest open search, which is the one the seat answered. */
+const closeSearch = (draft: Draft, seat: PlayerId) => {
+  const remaining = pendingSearches(draft, seat).slice(1)
+  if (remaining.length === 0) delete draft.players[seat].data[SEARCH_PENDING]
+  else draft.players[seat].data[SEARCH_PENDING] = remaining
 }
 
 const hasSearchAbility = (object: GameObject) => Boolean(abilityEffect(object))
@@ -171,7 +187,7 @@ export const librarySearch: Plugin = {
     // Scapeshift sacrifices as it resolves, so the spell waits on the stack
     // until its controller has chosen. Only then is the search bounded.
     if (spec.sacrificeOnResolve) {
-      if (pendingDialogFor(state, item.controller)?.kind === 'sacrifice-lands') return null
+      if (hasPendingDialog(state, item.controller, 'sacrifice-lands')) return null
       return {
         type: 'custom',
         name: SEARCH_SACRIFICE_BEGIN,
@@ -268,24 +284,8 @@ export const librarySearch: Plugin = {
 
     if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {
       const pending = pendingSearch(state, event.seat)
-      delete draft.players[event.seat].data[SEARCH_PENDING]
-      const stackObject = state.stack[0]
-        ? state.objects[state.stack[0].objectId]
-        : undefined
-      // A journal records the chosen cards and completion event, but not the
-      // host-only search window. On replay, infer the spell search from the
-      // unresolved top object so the following resolveTop cannot reopen it.
-      if (
-        pending?.via === 'spell'
-        || (
-          !pending
-          && stackObject
-          && state.stack[0].controller === event.seat
-          && spellSpec(stackObject)
-        )
-      ) {
-        draft.players[event.seat].data[SEARCH_DONE] = true
-      }
+      closeSearch(draft, event.seat)
+      if (pending?.via === 'spell') draft.players[event.seat].data[SEARCH_DONE] = true
       return
     }
 

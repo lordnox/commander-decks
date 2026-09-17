@@ -51,10 +51,28 @@ const isDialog = (value: unknown): value is PendingDialog =>
   && typeof (value as PendingDialog).kind === 'string'
   && typeof (value as PendingDialog).chosenEvent === 'string'
 
-export const pendingDialogFor = (state: GameState | Draft, seat: PlayerId) => {
+/**
+ * A seat can owe several choices at once: lands fetched by a resolving spell
+ * bring their own enters-triggers while that spell still waits. They queue in
+ * the order they were asked, and the seat answers the oldest first.
+ */
+export const pendingDialogsFor = (
+  state: GameState | Draft,
+  seat: PlayerId,
+): PendingDialog[] => {
   const value = state.players[seat]?.data[PENDING_DIALOG]
-  return isDialog(value) ? value : undefined
+  if (Array.isArray(value)) return value.filter(isDialog)
+  return isDialog(value) ? [value] : []
 }
+
+export const pendingDialogFor = (state: GameState | Draft, seat: PlayerId) =>
+  pendingDialogsFor(state, seat)[0]
+
+export const hasPendingDialog = (
+  state: GameState | Draft,
+  seat: PlayerId,
+  kind: PendingDialog['kind'],
+) => pendingDialogsFor(state, seat).some((dialog) => dialog.kind === kind)
 
 export const pendingDialog = (state: GameState) => {
   for (const seat of state.playerOrder) {
@@ -64,11 +82,17 @@ export const pendingDialog = (state: GameState) => {
 }
 
 export const setPendingDialog = (draft: Draft, dialog: PendingDialog) => {
-  draft.players[dialog.seat].data[PENDING_DIALOG] = dialog
+  draft.players[dialog.seat].data[PENDING_DIALOG] = [
+    ...pendingDialogsFor(draft, dialog.seat),
+    dialog,
+  ]
 }
 
+/** Answers the oldest open choice. */
 export const clearPendingDialog = (draft: Draft, seat: PlayerId) => {
-  delete draft.players[seat].data[PENDING_DIALOG]
+  const remaining = pendingDialogsFor(draft, seat).slice(1)
+  if (remaining.length === 0) delete draft.players[seat].data[PENDING_DIALOG]
+  else draft.players[seat].data[PENDING_DIALOG] = remaining
 }
 
 export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
@@ -127,8 +151,8 @@ const stranded = (state: GameState, dialog: PendingDialog) =>
 
 const liveDialog = (state: GameState) => {
   for (const seat of state.playerOrder) {
-    const dialog = pendingDialogFor(state, seat)
-    if (dialog && !stranded(state, dialog)) return dialog
+    const dialog = pendingDialogsFor(state, seat).find((open) => !stranded(state, open))
+    if (dialog) return dialog
   }
 }
 
@@ -146,8 +170,10 @@ export const pendingDialogLock: Plugin = {
       return
     }
     for (const seat of state.playerOrder) {
-      const dialog = pendingDialogFor(state, seat)
-      if (dialog && stranded(state, dialog)) clearPendingDialog(draft, seat)
+      const live = pendingDialogsFor(state, seat).filter((dialog) => !stranded(state, dialog))
+      if (live.length === pendingDialogsFor(state, seat).length) continue
+      if (live.length === 0) delete draft.players[seat].data[PENDING_DIALOG]
+      else draft.players[seat].data[PENDING_DIALOG] = live
     }
   },
 }
