@@ -91,9 +91,16 @@ describe('simple card effects', () => {
       seat: 'p1',
       objectId: triomeId,
     }))
+    // CR 602.2 — discard and mana at activation; draw on resolve (608.2).
     expect(cycled.objects[triomeId].zone).toBe('graveyard')
-    expect(named(cycled, 'Drawn card').zone).toBe('hand')
     expect(cycled.players.p1.mana.C).toBe(0)
+    expect(named(cycled, 'Drawn card').zone).toBe('library')
+    expect(cycled.stack).toHaveLength(1)
+    expect(cycled.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'cycling.zagothTriome' })
+
+    const resolved = ok(server.rules(cycled, { type: 'resolveTop' }))
+    expect(named(resolved, 'Drawn card').zone).toBe('hand')
+    expect(resolved.stack).toHaveLength(0)
   })
 
   test('Zagoth Triome cannot cycle from the battlefield', () => {
