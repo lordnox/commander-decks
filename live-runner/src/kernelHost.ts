@@ -311,11 +311,14 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
   return true
 }
 
+/** Dialogs that are a plain yes or no, so the seat picks no cards. */
+const OPTIONAL_DIALOGS = new Set(['may', 'may-draw', 'may-pay-life'])
+
 const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
   const dialog = pendingDialog(state)
   if (!dialog || !isSeatId(dialog.seat)) return false
-  const cards = dialog.kind === 'may' || dialog.kind === 'may-pay-life'
+  const cards = OPTIONAL_DIALOGS.has(dialog.kind)
     ? ['Yes']
     : dialogCandidates(state, dialog).map((object) => object.name)
   if (dialog.optional && cards.length === 0) {
@@ -612,8 +615,7 @@ export const applyKernelChoice = (
     return true
   }
   if (
-    decision.kernel.stage === 'may'
-    || decision.kernel.stage === 'may-pay-life'
+    OPTIONAL_DIALOGS.has(decision.kernel.stage)
     || decision.kernel.stage === 'copy-creature'
   ) {
     const accepted = message.choices.some(({ destination }) => destination === 'target')
