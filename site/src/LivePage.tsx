@@ -238,7 +238,18 @@ export const LivePage = () => {
     type: InboxType
   } | null>(null)
   const [openingOpen, setOpeningOpen] = useState(true)
+  const [declaredAttackers, setDeclaredAttackers] = useState<Record<string, string>>({})
+  const [choosingDefenderFor, setChoosingDefenderFor] = useState<string | null>(null)
   const planRef = useRef<HTMLTextAreaElement>(null)
+  const attackAction = snapshot?.legalActs?.find(
+    (action): action is Extract<AvailableAction, { kind: 'declareAttackers' }> =>
+      action.kind === 'declareAttackers',
+  )
+  const attackStepKey = JSON.stringify([
+    snapshot?.turn,
+    snapshot?.phase,
+    attackAction?.objectIds ?? [],
+  ])
 
   useEffect(() => {
     if (!isLivePath()) return
@@ -385,6 +396,11 @@ export const LivePage = () => {
   }, [snapshot?.actionId])
 
   useEffect(() => {
+    setDeclaredAttackers({})
+    setChoosingDefenderFor(null)
+  }, [attackStepKey])
+
+  useEffect(() => {
     if (snapshot?.actions?.includes('keep')) setOpeningOpen(true)
   }, [snapshot?.actions])
 
@@ -491,6 +507,7 @@ export const LivePage = () => {
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
+      attackers?: Array<{ objectId: string; defenderId: string }>
     } = {},
   ) => {
     if (viewingPast) {
@@ -552,6 +569,7 @@ export const LivePage = () => {
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
+          ...(extra.attackers ? { attackers: extra.attackers } : {}),
           ...action,
         }
       } else if (type === 'priority-mode') {
@@ -645,11 +663,70 @@ export const LivePage = () => {
   const canKeep = Boolean(snapshot.actions?.includes('keep'))
   const canMulligan = Boolean(snapshot.actions?.includes('mulligan'))
   const canAdvance = Boolean(snapshot.actions?.includes('advance'))
+  const canDeclareAttackers = Boolean(
+    attackAction
+    && snapshot.actions?.includes('act')
+    && snapshot.you === boardActive,
+  )
   const advanceLabel = snapshot.phase === 'planning'
     ? 'Untap & draw'
     : snapshot.phase === 'main2'
       ? 'End turn'
       : 'Next phase'
+  const objectName = (objectId: string) =>
+    snapshot.replica?.objects[objectId]?.name ?? objectId
+  const defenderName = (defenderId: string) =>
+    boardSeats.find((seat) => seat.id === defenderId)?.name
+    ?? snapshot.replica?.objects[defenderId]?.name
+    ?? defenderId
+  const chooseAttacker = (objectId: string) => {
+    if (declaredAttackers[objectId]) {
+      setDeclaredAttackers((current) => {
+        const next = { ...current }
+        delete next[objectId]
+        return next
+      })
+      setChoosingDefenderFor(null)
+      return
+    }
+    setChoosingDefenderFor((current) => current === objectId ? null : objectId)
+  }
+  const chooseDefender = (defenderId: string) => {
+    if (!choosingDefenderFor) return
+    setDeclaredAttackers((current) => ({
+      ...current,
+      [choosingDefenderFor]: defenderId,
+    }))
+    setChoosingDefenderFor(null)
+  }
+  const submitAdvance = () => {
+    if (!canDeclareAttackers) {
+      void sendInbox('advance')
+      return
+    }
+    void sendInbox('act', {
+      kind: 'declareAttackers',
+      attackers: Object.entries(declaredAttackers).map(([objectId, defenderId]) => ({
+        objectId,
+        defenderId,
+      })),
+    })
+  }
+  const eligibleAttackers = new Set(attackAction?.objectIds ?? [])
+  const selectedAttackers = new Set([
+    ...Object.keys(declaredAttackers),
+    ...(choosingDefenderFor ? [choosingDefenderFor] : []),
+  ])
+  const selectablePlaneswalkers = new Set(
+    Object.values(snapshot.replica?.objects ?? {})
+      .filter((object) =>
+        Boolean(choosingDefenderFor)
+        && object.zone === 'battlefield'
+        && object.controller !== snapshot.you
+        && !snapshot.replica?.players[object.controller]?.lost
+        && object.types.includes('Planeswalker'))
+      .map((object) => object.id),
+  )
   const pendingLabel = pendingAction
     ? pendingAction.type === 'confirm'
       ? 'Confirmed. Waiting for the judge to apply the line.'
@@ -907,14 +984,38 @@ export const LivePage = () => {
             </div>
           )}
           {yourAction && canSend && canAdvance && (
-            <button
-              type="button"
-              onClick={() => void sendInbox('advance')}
-              disabled={actionPending}
-              className="mt-3 w-full rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
-            >
-              {actionPending ? 'Advancing…' : advanceLabel}
-            </button>
+            <>
+              {canDeclareAttackers && (
+                <div className="mt-3 rounded-xl border border-orange-300/30 bg-orange-400/5 p-3">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-orange-200">
+                    Attackers · {Object.keys(declaredAttackers).length}
+                  </p>
+                  {choosingDefenderFor && (
+                    <p className="mt-1 text-xs text-stone-300">
+                      Choose a player or planeswalker for {objectName(choosingDefenderFor)}.
+                    </p>
+                  )}
+                  {Object.entries(declaredAttackers).map(([objectId, defenderId]) => (
+                    <button
+                      key={objectId}
+                      type="button"
+                      onClick={() => chooseAttacker(objectId)}
+                      className="mt-2 block w-full rounded-lg bg-black/20 px-2 py-1.5 text-left text-xs text-stone-200 hover:bg-black/35"
+                    >
+                      {objectName(objectId)} → {defenderName(defenderId)}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <button
+                type="button"
+                onClick={submitAdvance}
+                disabled={actionPending}
+                className="mt-3 w-full rounded-xl bg-gold-300 px-3 py-2 text-sm font-black text-ink-950 hover:bg-gold-200 disabled:cursor-wait disabled:opacity-40"
+              >
+                {actionPending ? 'Advancing…' : advanceLabel}
+              </button>
+            </>
           )}
           {priorityOpen && lastEvent && (
             <p className="mt-3 text-xs leading-5 text-stone-400">{lastEvent.summary}</p>
@@ -1000,6 +1101,11 @@ export const LivePage = () => {
         <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-2">
           {orderedSeats.map((seat) => {
             const isYou = snapshot.you === seat.id
+            const selectingDefender = Boolean(
+              choosingDefenderFor
+              && !isYou
+              && !snapshot.replica?.players[seat.id]?.lost,
+            )
             return (
               <SeatPanel
                 key={seat.id}
@@ -1014,6 +1120,25 @@ export const LivePage = () => {
                 onPreview={setPreview}
                 onHover={setHover}
                 onInsertName={onInsertName}
+                defenderSelectable={selectingDefender}
+                onSelectDefender={selectingDefender
+                  ? () => chooseDefender(seat.id)
+                  : undefined}
+                battlefieldInteraction={isYou && canDeclareAttackers
+                  ? {
+                      selectable: eligibleAttackers,
+                      selected: selectedAttackers,
+                      label: 'Select attacker',
+                      onSelect: chooseAttacker,
+                    }
+                  : selectingDefender
+                    ? {
+                        selectable: selectablePlaneswalkers,
+                        selected: new Set(),
+                        label: 'Attack planeswalker',
+                        onSelect: chooseDefender,
+                      }
+                    : undefined}
               />
             )
           })}

@@ -824,6 +824,44 @@ export const applyKernelAct = (
   message: Extract<InboxMessage, { type: 'act' }>,
 ) => {
   const state = kernel.history.current()
+  if (message.kind === 'declareAttackers') {
+    const available = legalActsFor(state, seat).find(
+      (candidate) => candidate.kind === 'declareAttackers',
+    )
+    if (!available) throw new Error('Attackers cannot be declared now')
+    const eligible = new Set(available.objectIds)
+    const attackers = message.attackers ?? []
+    if (new Set(attackers.map((attacker) => attacker.objectId)).size !== attackers.length) {
+      throw new Error('An attacker can only be declared once')
+    }
+    const event: GameEvent = {
+      type: 'declareAttackers',
+      seat,
+      attackers: attackers.map(({ objectId, defenderId }) => {
+        if (!eligible.has(objectId)) throw new Error('That creature cannot attack now')
+        return {
+          objectId,
+          defender: isSeatId(defenderId)
+            ? defenderId
+            : { kind: 'object', objectId: defenderId },
+        }
+      }),
+    }
+    const result = kernel.dispatch(event)
+    if (!result.ok) throw new Error(result.error)
+    const current = kernel.history.current()
+    lobby.actions = kernelActions(current)
+    lobby.privateJudge = {
+      [seat]: attackers.length > 0
+        ? `${attackers.length} attacker${attackers.length === 1 ? '' : 's'} declared.`
+        : 'No attackers declared.',
+    }
+    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} declares attackers.`
+    lobby.waiting =
+      `${lobby.occupants[kernelPriority(current) ?? seat]?.name ?? seat}: act or pass.`
+    lobby.privateWaiting = {}
+    return [event]
+  }
   const action = legalActsFor(state, seat).find((candidate) =>
     sameLegalAct(candidate, message))
   if (!action) throw new Error('That action is not available now')
@@ -865,6 +903,7 @@ const COMBAT_STEPS = new Set([
 const advanceTarget = (state: GameState) => {
   if (['untap', 'upkeep', 'draw'].includes(state.step)) return 'precombatMain'
   if (state.step === 'precombatMain') return 'beginCombat'
+  if (state.step === 'beginCombat') return 'declareAttackers'
   if (COMBAT_STEPS.has(state.step)) return 'postcombatMain'
   if (state.step === 'postcombatMain') return 'end'
   return null

@@ -88,6 +88,15 @@ describe('inbox', () => {
       objectId: 'spell',
       targetObjectId: 'target',
     })
+    expect(parseInbox('{"type":"act","kind":"declareAttackers","attackers":[{"objectId":"bear","defenderId":"p2"},{"objectId":"dragon","defenderId":"walker"}]}')).toEqual({
+      type: 'act',
+      kind: 'declareAttackers',
+      attackers: [
+        { objectId: 'bear', defenderId: 'p2' },
+        { objectId: 'dragon', defenderId: 'walker' },
+      ],
+    })
+    expect(parseInbox('{"type":"act","kind":"declareAttackers","attackers":[{"objectId":"bear"}]}')).toBeNull()
     expect(parseInbox('{"type":"priority-mode","always":true}')).toEqual({
       type: 'priority-mode',
       always: true,

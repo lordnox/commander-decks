@@ -39,6 +39,13 @@ export type Hover = {
 
 export type HoverHandler = (hover: Hover | null) => void
 
+export type CardInteraction = {
+  selectable: Set<string>
+  selected: Set<string>
+  label: string
+  onSelect: (objectId: string) => void
+}
+
 type SeatPanelState = Omit<PlayerState, 'hand' | 'command'> & {
   hand: Array<string | number | BattlefieldCard>
   command: Array<string | number | BattlefieldCard>
@@ -127,6 +134,7 @@ export const CardTile = ({
   onPreview,
   onHover,
   onInsertName,
+  interaction,
 }: {
   game: ReplayGame
   value: string | number
@@ -137,6 +145,7 @@ export const CardTile = ({
   onPreview: (preview: Preview) => void
   onHover: HoverHandler
   onInsertName?: (name: string) => void
+  interaction?: CardInteraction
 }) => {
   const { name, details } = cardInfo(game, value, entry)
   const printed = entry?.printed_name ? cardInfo(game, entry.printed_name) : undefined
@@ -147,12 +156,21 @@ export const CardTile = ({
   const { longPressProps, consumedClick } = useLongPress(
     onInsertName && (() => onInsertName(name)),
   )
+  const objectId = entry?.objectId
+  const selectable = Boolean(objectId && interaction?.selectable.has(objectId))
+  const selected = Boolean(objectId && interaction?.selected.has(objectId))
 
   return (
     <button
       type="button"
+      aria-pressed={selectable ? selected : undefined}
+      aria-label={selectable ? `${interaction?.label}: ${name}` : undefined}
       onClick={() => {
         if (consumedClick()) return
+        if (selectable && objectId) {
+          interaction?.onSelect(objectId)
+          return
+        }
         onPreview({
           name,
           details,
@@ -171,7 +189,11 @@ export const CardTile = ({
           ? 'h-24 w-[4.25rem] border-white/10'
           : 'h-32 w-[5.7rem] border-white/15'
       } ${entry?.tapped ? 'opacity-70' : ''} ${
-        active
+        selected
+          ? 'z-10 -translate-y-1 border-orange-300 shadow-[0_0_0_3px_#fb923c,0_0_1.75rem_rgba(251,146,60,0.55)]'
+          : selectable
+            ? 'z-10 border-gold-300 shadow-[0_0_0_2px_#e6d27a,0_0_1.5rem_rgba(230,210,122,0.45)]'
+            : active
           ? 'z-10 -translate-y-1 border-gold-300 shadow-[0_0_0_2px_#e6d27a,0_0_1.5rem_rgba(230,210,122,0.45)]'
           : ''
       }`}
@@ -291,6 +313,7 @@ export const CardRow = ({
   onPreview,
   onHover,
   onInsertName,
+  interaction,
 }: {
   game: ReplayGame
   cards: Array<string | number | BattlefieldCard>
@@ -300,6 +323,7 @@ export const CardRow = ({
   onPreview: (preview: Preview) => void
   onHover: HoverHandler
   onInsertName?: (name: string) => void
+  interaction?: CardInteraction
 }) => (
   <div className="flex flex-wrap gap-2 pb-1">
     {cards.map((card, index) => {
@@ -317,6 +341,7 @@ export const CardRow = ({
           onPreview={onPreview}
           onHover={onHover}
           onInsertName={onInsertName}
+          interaction={interaction}
         />
       )
     })}
@@ -379,6 +404,7 @@ export const Battlefield = ({
   onPreview,
   onHover,
   onInsertName,
+  interaction,
 }: {
   game: ReplayGame
   cards: BattlefieldCard[]
@@ -387,6 +413,7 @@ export const Battlefield = ({
   onPreview: (preview: Preview) => void
   onHover: HoverHandler
   onInsertName?: (name: string) => void
+  interaction?: CardInteraction
 }) => {
   if (cards.length === 0) return null
 
@@ -418,6 +445,7 @@ export const Battlefield = ({
                 onPreview={onPreview}
                 onHover={onHover}
                 onInsertName={onInsertName}
+                interaction={interaction}
               />
             </div>
           )
@@ -491,6 +519,9 @@ export const SeatPanel = ({
   onPreview,
   onHover,
   onInsertName,
+  battlefieldInteraction,
+  defenderSelectable = false,
+  onSelectDefender,
 }: {
   game: ReplayGame
   seat: ReplaySeat
@@ -504,6 +535,9 @@ export const SeatPanel = ({
   onPreview: (preview: Preview) => void
   onHover: HoverHandler
   onInsertName?: (name: string) => void
+  battlefieldInteraction?: CardInteraction
+  defenderSelectable?: boolean
+  onSelectDefender?: () => void
 }) => {
   const commanderDamage = Object.entries(state.commander_damage ?? {}).filter(
     ([, damage]) => damage > 0,
@@ -564,6 +598,15 @@ export const SeatPanel = ({
           </p>
         </div>
       </header>
+      {defenderSelectable && onSelectDefender && (
+        <button
+          type="button"
+          onClick={onSelectDefender}
+          className="mt-3 w-full rounded-xl border border-orange-300 bg-orange-400/10 px-3 py-2 text-sm font-black text-orange-200 shadow-[0_0_1.25rem_rgba(251,146,60,0.25)] hover:bg-orange-400/20"
+        >
+          Attack {seat.name}
+        </button>
+      )}
 
       <div className="mt-3 flex flex-wrap gap-2 text-[0.68rem] text-stone-300">
         <span className="rounded-full bg-white/5 px-2.5 py-1">
@@ -612,6 +655,7 @@ export const SeatPanel = ({
         onPreview={onPreview}
         onHover={onHover}
         onInsertName={onInsertName}
+        interaction={battlefieldInteraction}
       />
       {showHand && (
         <Zone

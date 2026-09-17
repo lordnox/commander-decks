@@ -54,6 +54,28 @@ test('loyalty is shown as a stat rather than a duplicate counter badge', () => {
   expect(html).not.toContain('5 loyalty')
 })
 
+test('an eligible attacker is highlighted and exposes its selection state', () => {
+  const html = renderToStaticMarkup(
+    <CardTile
+      game={game}
+      value="Mossborn Hydra"
+      entry={{ name: 'Mossborn Hydra', objectId: 'hydra' }}
+      interaction={{
+        selectable: new Set(['hydra']),
+        selected: new Set(['hydra']),
+        label: 'Select attacker',
+        onSelect: () => {},
+      }}
+      onPreview={() => {}}
+      onHover={() => {}}
+    />,
+  )
+
+  expect(html).toContain('aria-pressed="true"')
+  expect(html).toContain('aria-label="Select attacker: Mossborn Hydra"')
+  expect(html).toContain('border-orange-300')
+})
+
 test('hovering a clone shows the copied face beside the card it is printed as', () => {
   const hover: Hover = {
     name: 'Sygg, River Cutthroat',
