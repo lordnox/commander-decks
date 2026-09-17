@@ -52,6 +52,34 @@ Spell/ability resolves → Action(s) on stack → Event(s) apply → Trigger(s) 
 | APNAP trigger ordering | **Full CR 603.3b in Phase 3** — active player first, then turn order. |
 | Replay | **Phase 8** — stable `StackItem.id` across waiting round-trips; replay JSON records `continueAction` payloads. |
 | Client rollback | **Post-v1 add-on** — render prior authoritative state snapshot; not blocking Phases 0–9. |
+| Git branch | **End-to-end delivery over branch purity** — use whatever branch/worktree keeps momentum toward full plan completion (single long-lived feature branch or phased PRs as review needs dictate). |
+| Same-player trigger order (v1) | **Timestamp / card-rules order** when one player puts multiple triggers on the stack from one event. |
+| Same-player trigger order (later) | **Player-chosen stack order** when many triggers appear at once (e.g. recur whole graveyard) — not v1 UI, but Phase 0 types and Phase 3 bus must not preclude a `orderTriggers` / `continueAction` step. |
+
+---
+
+## 2c. Event taxonomy (retire `custom`)
+
+The Comprehensive Rules do **not** ship a fixed programming enum of kernel events. They define **game actions**, **state changes**, and **what can trigger** (603.2). The engine chooses a **`GameEvent` vocabulary** that is:
+
+- **Atomic** — one reducer step per event (`discard`, `draw`, `move`, `loseLife`, …)
+- **Named for CR concepts** — each builtin game-rule module documents which CR section it implements
+- **Typed** — no `custom` escape hatch for new behavior; add a new `GameEvent` variant instead
+
+**Target:** every host-visible interaction is a first-class event:
+
+| Category | Examples (existing or to add) |
+|----------|-------------------------------|
+| Priority / structure | `passPriority`, `resolveTop`, `advanceStep` |
+| Zone & card motion | `move`, `playLand`, `castSpell` |
+| CR keyword actions | `discard`, `draw`, `shuffleLibrary`, `reveal` |
+| Combat & damage | `declareAttackers`, `combatDamage`, `dealDamage`, `loseLife` |
+| Choices & continuations | `continueAction` (resume waiting stack item) |
+| Player processes | `searchLibrary`, `vote`, … (migrate from `custom` + `pendingDialog`) |
+
+`custom` remains only until its call sites are migrated; **new work must not add `custom` handlers.** Secret council → `vote` event; fetchlands → `searchLibrary` event; stack hand choices → `continueAction`.
+
+Phase 0 lists the full `GameEvent` union in `types.ts` with JSDoc per variant. Phase 7+ migrates legacy `custom` names off the hot path.
 
 ---
 
@@ -492,7 +520,9 @@ Phases 0–5 deliver the core architecture (Caress + Cry + client pause). Phases
 - [ ] Frozen file policy for `types.ts` — approve extensions
 - [ ] Acceptance scenarios A–E sufficient
 - [ ] Phase order acceptable (can parallelize 2+4 only after 3)
-- [x] `continueAction` for stack continuations (no `custom`)
+- [x] `continueAction` for stack continuations; migrate off `custom` toward typed events (`vote`, `searchLibrary`, …)
+- [x] Same-player trigger order: timestamp v1; player ordering post-v1 (§14)
+- [x] Branch strategy: deliver full plan end-to-end
 - [x] Full APNAP in Phase 3
 - [x] Replay in Phase 8; rollback deferred to Phase 10
 - [ ] JSDoc on all public kernel types (Phase 0)
@@ -515,6 +545,17 @@ Phases 0–5 deliver the core architecture (Caress + Cry + client pause). Phases
 - Replacing `CardInstruction` DSL (keep `runInstructions`; change when it runs)
 - Splitting `cardRules.ts` into per-card files (future cleanup)
 - cEDH-level shortcut rules (unless explicitly tested)
+- **UI for player-ordered triggers** (graveyard recur ordering) — architecture only in v1; UI in a follow-up after Phase 9
+
+---
+
+## 14. Post-v1: player trigger ordering
+
+When one player puts many triggered abilities on the stack at once (CR 603.3b), they choose the order. v1 uses timestamp default. Later:
+
+- [ ] After APNAP bucket assignment, active player (then each other player) gets `orderTriggers` with ability stack ids
+- [ ] `continueAction` or dedicated `orderTriggers` event carries the chosen id list
+- [ ] Replay records the chosen order
 
 ---
 
