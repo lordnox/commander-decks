@@ -38,6 +38,24 @@ export const PLAY_ACTIONS = [
   'act',
 ] as const
 export type PlayAction = (typeof PLAY_ACTIONS)[number]
+
+/**
+ * The parser checks incoming choices against this list, so a destination that
+ * exists only in the type is dropped as an invalid message.
+ */
+export const TOPDECK_DESTINATIONS = [
+  'top',
+  'bottom',
+  'graveyard',
+  'hand',
+  'exile',
+  'battlefield',
+  'library',
+  'target',
+  'sacrifice',
+  'skip',
+] as const
+export type TopdeckDestination = (typeof TOPDECK_DESTINATIONS)[number]
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
 export type SeatActionIds = Record<SeatId, number>
 
@@ -54,12 +72,7 @@ type InboxPayload =
   | { type: 'mulligan' }
   | {
       type: 'topdeck'
-      choices: Array<{
-        card: string
-        destination:
-          | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-          | 'target' | 'sacrifice' | 'skip'
-      }>
+      choices: Array<{ card: string; destination: TopdeckDestination }>
     }
   | { type: 'advance' }
   | {
@@ -206,19 +219,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
             choice
             && typeof choice === 'object'
             && typeof choice.card === 'string'
-            && [
-              'top',
-              'bottom',
-              'graveyard',
-              'hand',
-              'exile',
-              'battlefield',
-              'library',
-              'target',
-              'skip',
-            ].includes(
-              choice.destination,
-            ),
+            && (TOPDECK_DESTINATIONS as readonly string[]).includes(choice.destination),
         )
       ) {
         return null
