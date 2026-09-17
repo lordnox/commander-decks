@@ -3,7 +3,8 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog, pendingDialogFor } from '../pendingDialog'
 import { createServerGame } from '../runtime'
-import type { GameState, ReduceResult } from '../types'
+import { ok, resolveStack } from '../testHelpers'
+import type { GameState } from '../types'
 import { RANKLE_MODES, rankle } from './rankle'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
@@ -21,13 +22,7 @@ const rankleCard = () => creature('Rankle, Master of Pranks', {
     'Flying, haste\nWhenever Rankle deals combat damage to a player, choose any number —\n'
     + '• Each player discards a card.\n• Each player loses 1 life and draws a card.\n'
     + '• Each player sacrifices a creature of their choice.',
-  grantedRules: ['rankle'],
 })
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const game = (extra: { caress?: boolean } = {}) => createServerGame(
   commanderRules,
@@ -61,6 +56,11 @@ const connect = (server: ReturnType<typeof createServerGame>, state = server.sta
   }))
 }
 
+const resolveRankleTrigger = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+) => resolveStack(server.rules, state)
+
 const chooseModes = (
   server: ReturnType<typeof createServerGame>,
   state: GameState,
@@ -72,9 +72,18 @@ const chooseModes = (
   payload: { modes },
 }))
 
-test('combat damage asks Rankle for its modes', () => {
-  const asked = connect(game())
+test('combat damage puts Rankle on the stack before its modes are chosen', () => {
+  const server = game()
+  const triggered = connect(server)
 
+  expect(pendingDialog(triggered)).toBeUndefined()
+  expect(triggered.stack[0]).toMatchObject({
+    kind: 'ability',
+    name: 'Rankle, Master of Pranks',
+    controller: 'p1',
+  })
+
+  const asked = resolveRankleTrigger(server, triggered)
   expect(pendingDialog(asked)).toMatchObject({
     kind: 'choose-modes',
     seat: 'p1',
@@ -88,7 +97,7 @@ test('combat damage asks Rankle for its modes', () => {
 
 test('choosing no modes leaves the table alone', () => {
   const server = game()
-  const settled = chooseModes(server, connect(server), [])
+  const settled = chooseModes(server, resolveRankleTrigger(server, connect(server)), [])
 
   expect(pendingDialog(settled)).toBeUndefined()
   expect(settled.players.p2.life).toBe(commanderRules.startingLife - 3)
@@ -96,7 +105,11 @@ test('choosing no modes leaves the table alone', () => {
 
 test('the sacrifice mode asks every player with a creature', () => {
   const server = game()
-  const asked = chooseModes(server, connect(server), [RANKLE_MODES.sacrifice])
+  const asked = chooseModes(
+    server,
+    resolveRankleTrigger(server, connect(server)),
+    [RANKLE_MODES.sacrifice],
+  )
   const hydra = Object.values(asked.objects).find((object) => object.name === 'Lone Hydra')!
 
   expect(pendingDialogFor(asked, 'p2')).toMatchObject({ kind: 'sacrifice-creature' })
@@ -120,7 +133,11 @@ test('a player with no creature is not asked to sacrifice', () => {
     objectId: hydra.id,
     to: 'graveyard',
   }))
-  const asked = chooseModes(server, connect(server, empty), [RANKLE_MODES.sacrifice])
+  const asked = chooseModes(
+    server,
+    resolveRankleTrigger(server, connect(server, empty)),
+    [RANKLE_MODES.sacrifice],
+  )
 
   expect(pendingDialogFor(asked, 'p2')).toBeUndefined()
   expect(pendingDialogFor(asked, 'p1')).toMatchObject({ kind: 'sacrifice-creature' })
@@ -128,7 +145,11 @@ test('a player with no creature is not asked to sacrifice', () => {
 
 test('the drain mode costs each player a life and draws them a card', () => {
   const server = game()
-  const drained = chooseModes(server, connect(server), [RANKLE_MODES.drain])
+  const drained = chooseModes(
+    server,
+    resolveRankleTrigger(server, connect(server)),
+    [RANKLE_MODES.drain],
+  )
 
   expect(drained.players.p1.life).toBe(commanderRules.startingLife - 1)
   expect(drained.players.p2.life).toBe(commanderRules.startingLife - 4)
@@ -137,7 +158,11 @@ test('the drain mode costs each player a life and draws them a card', () => {
 
 test('the discard mode drains through Liliana\'s Caress', () => {
   const server = game({ caress: true })
-  const asked = chooseModes(server, connect(server), [RANKLE_MODES.discard])
+  const asked = chooseModes(
+    server,
+    resolveRankleTrigger(server, connect(server)),
+    [RANKLE_MODES.discard],
+  )
   const island = Object.values(asked.objects).find((object) => object.name === 'Island')!
   const discarded = ok(server.rules(asked, {
     type: 'custom',
@@ -160,7 +185,7 @@ test('the discard mode drains through Liliana\'s Caress', () => {
 
 test('choosing every mode queues discards before sacrifices', () => {
   const server = game()
-  const asked = chooseModes(server, connect(server), [
+  const asked = chooseModes(server, resolveRankleTrigger(server, connect(server)), [
     RANKLE_MODES.sacrifice,
     RANKLE_MODES.discard,
     RANKLE_MODES.drain,

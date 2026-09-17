@@ -179,6 +179,36 @@ const collectUpkeep = (
   }
 }
 
+const collectEnd = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== 'end') return
+  for (const object of draft.zoneOf('battlefield')) {
+    for (const effect of triggerEffects(effectsOf(object), 'end')) {
+      if (!conditionHolds(effect.if, state, object)) continue
+      pushCopies(matches, object, effect, 1)
+    }
+  }
+}
+
+const collectCombatDamage = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'combatDamage' || event.target.kind !== 'player') return
+  const source = draft.object(event.sourceId) ?? state.objects[event.sourceId]
+  if (!source || source.zone !== 'battlefield') return
+  for (const effect of triggerEffects(effectsOf(source), 'combatDamage')) {
+    if (!conditionHolds(effect.if, state, source)) continue
+    pushCopies(matches, source, effect, 1)
+  }
+}
+
 const handleMilledLandImmediate = (
   state: GameState,
   draft: Draft,
@@ -269,6 +299,8 @@ const collectEventTriggers = (
   collectEnters(state, draft, event, matches)
   collectAttacks(state, event, matches)
   collectUpkeep(state, draft, event, matches)
+  collectEnd(state, draft, event, matches)
+  collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(draft, event, matches)
   return matches
