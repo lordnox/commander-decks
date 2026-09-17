@@ -16,6 +16,7 @@ import {
   beginJudgeRound,
   isHostControlMessage,
   needsJudgment,
+  kernelOwnsChoice,
   restoreKernelWindow,
 } from './host'
 import { kernelActions, kernelPath, kernelPriority, openKernel } from './kernelHost'
@@ -134,6 +135,33 @@ describe('kernel host actions', () => {
     expect(lobby.waiting).toBe('p2 (p2): act, pass, or advance.')
     expect(lobby.waiting).not.toContain('Sin')
     expect(lobby.privateWaiting).toEqual({})
+  })
+
+  test('a dialog stage the router never heard of still reaches the kernel', async () => {
+    const { lobby } = await setup()
+    lobby.topdeck = {
+      seat: 'p4',
+      kind: 'sacrifice-lands',
+      cards: ['Forest'],
+      destinations: ['battlefield', 'sacrifice'],
+      kernel: { sourceId: 'o392', stage: 'sacrifice-lands' },
+    }
+    const answer = {
+      type: 'topdeck',
+      choices: [{ card: 'Forest', destination: 'sacrifice' }],
+    } as const
+
+    expect(kernelOwnsChoice(answer, lobby)).toBe(true)
+    expect(kernelOwnsChoice({ type: 'pass' }, lobby)).toBe(false)
+
+    // A replay-driven discard has no kernel, so the deterministic path keeps it.
+    lobby.topdeck = {
+      seat: 'p4',
+      kind: 'discard',
+      cards: ['Forest'],
+      destinations: ['hand', 'graveyard'],
+    }
+    expect(kernelOwnsChoice(answer, lobby)).toBe(false)
   })
 
   test('table talk and lobby bookkeeping never occupy the judge', () => {
