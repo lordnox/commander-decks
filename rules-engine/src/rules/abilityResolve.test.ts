@@ -54,8 +54,10 @@ describe('ability resolution', () => {
     expect(activatedState.objects[sourceId].zone).toBe('battlefield')
 
     let passed = activatedState
-    for (const seat of passed.playerOrder) {
-      passed = ok(server.rules(passed, { type: 'passPriority', seat }))
+    for (let round = 0; round < 2; round += 1) {
+      for (const seat of passed.playerOrder) {
+        passed = ok(server.rules(passed, { type: 'passPriority', seat }))
+      }
     }
     expect(passed.stack).toHaveLength(0)
     expect(named(passed, 'Top card').zone).toBe('hand')

@@ -98,7 +98,8 @@ describe('simple card effects', () => {
     expect(cycled.stack).toHaveLength(1)
     expect(cycled.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'cycling.zagothTriome' })
 
-    const resolved = ok(server.rules(cycled, { type: 'resolveTop' }))
+    const resolvedAbility = ok(server.rules(cycled, { type: 'resolveTop' }))
+    const resolved = ok(server.rules(resolvedAbility, { type: 'resolveTop' }))
     expect(named(resolved, 'Drawn card').zone).toBe('hand')
     expect(resolved.stack).toHaveLength(0)
   })

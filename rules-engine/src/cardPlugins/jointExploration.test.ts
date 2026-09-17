@@ -50,6 +50,7 @@ test('Joint Exploration completes scry, draw, and kicked land in the kernel', ()
     { type: 'move', objectId: bottomed, to: 'library', position: 'bottom' } as const,
     { type: 'custom', name: JOINT_SCRY_CHOSEN, seat: 'p1' } as const,
     { type: 'resolveTop' } as const,
+    { type: 'resolveTop' } as const,
   ]) {
     const result = server.rules(state, event)
     if (!result.ok) throw new Error(result.error)
