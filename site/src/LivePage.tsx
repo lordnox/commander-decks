@@ -728,7 +728,13 @@ export const LivePage = () => {
     choosingDefenderFor ? opposingPlaneswalkers.map((object) => object.id) : [],
   )
   // A seat is recognized by its commander art, and a partner pair by the first
-  // of the two, which is the card the table calls that deck.
+  // of the two, which is the card the table calls that deck. The seat's command
+  // zone only holds that card while it is uncast, so fall back to the tagged
+  // object wherever it currently sits.
+  const commanderCardOf = (seatId: string) =>
+    boardSeats.find((seat) => seat.id === seatId)?.commanders[0]
+    ?? Object.values(snapshot.replica?.objects ?? {}).find((object) =>
+      object.owner === seatId && object.tags.includes('commander'))?.name
   const defenderTargets: InteractionTarget[] = [
     ...boardSeats
       .filter((seat) =>
@@ -736,7 +742,7 @@ export const LivePage = () => {
       .map((seat) => ({
         id: seat.id,
         name: seat.name,
-        cardName: seat.commanders[0],
+        cardName: commanderCardOf(seat.id),
       })),
     ...opposingPlaneswalkers.map((object) => ({
       id: object.id,

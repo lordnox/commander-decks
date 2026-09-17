@@ -119,6 +119,31 @@ test('a chosen attacker shows its targets as art beside that card', () => {
   expect(html).toContain('cards.scryfall.io/small/front/a/b/ab111111-1111-1111-1111-111111111111.jpg')
 })
 
+test('a target with no art falls back to initials rather than a blank circle', () => {
+  const html = renderToStaticMarkup(
+    <CardRow
+      game={game}
+      cards={[{ name: 'Mossborn Hydra', objectId: 'hydra' }]}
+      action={new Set()}
+      interaction={{
+        selectable: new Set(['hydra']),
+        selected: new Set(['hydra']),
+        label: 'Select attacker',
+        onSelect: () => {},
+        choosingFor: 'hydra',
+        targetLabel: 'Attack',
+        targets: [{ id: 'p2', name: 'Dumpster-Diver Crab' }],
+        onChooseTarget: () => {},
+      }}
+      onPreview={() => {}}
+      onHover={() => {}}
+    />,
+  )
+
+  expect(html).toContain('aria-label="Attack: Dumpster-Diver Crab"')
+  expect(html).toContain('>Du<')
+})
+
 test('an unchosen attacker shows no target art', () => {
   const html = renderToStaticMarkup(
     <CardRow
