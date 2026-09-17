@@ -3,7 +3,12 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
-import { DIALOG_CHOSEN, pendingDialog, pendingDialogLock } from '../pendingDialog'
+import {
+  DIALOG_CHOSEN,
+  PENDING_DIALOG,
+  pendingDialog,
+  pendingDialogLock,
+} from '../pendingDialog'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
@@ -252,6 +257,34 @@ describe('librarySearch', () => {
     const passed = server.rules(state, { type: 'passPriority', seat: 'p1' })
     expect(passed.ok).toBe(false)
     expect(passed.ok === false && passed.error).toContain('searching their library')
+  })
+
+  // A journal that already carries the finished search rebuilds the dialog the
+  // spell posted while resolving. Nobody can answer it once the spell is gone.
+  test('a sacrifice choice dies with the spell that asked for it', () => {
+    const server = game({
+      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
+      battlefield: [forest()],
+    })
+    const spell = named(server.state, 'Scapeshift')
+    const stranded = structuredClone(server.state)
+    stranded.objects[spell.id].zone = 'graveyard'
+    stranded.zoneOrder.p1.hand = []
+    stranded.zoneOrder.p1.graveyard = [spell.id]
+    stranded.players.p1.data[PENDING_DIALOG] = {
+      sourceId: spell.id,
+      source: 'Scapeshift',
+      seat: 'p1',
+      kind: 'sacrifice-lands',
+      prompt: 'Sacrifice any number of lands.',
+      waiting: 'is choosing lands to sacrifice.',
+      judge: 'Scapeshift is resolving.',
+      chosenEvent: DIALOG_CHOSEN,
+      destinations: ['battlefield', 'sacrifice'],
+    }
+
+    const passed = ok(server.rules(stranded, { type: 'passPriority', seat: 'p1' }))
+    expect(pendingDialog(passed)).toBeUndefined()
   })
 
   test('a repeated resolveTop cannot skip the open choice', () => {

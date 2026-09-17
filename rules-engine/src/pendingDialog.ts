@@ -117,17 +117,37 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
       && (!dialog.permanent || isPermanentType(object.types)))
 }
 
+/**
+ * A choice posted while a spell resolves is moot once that spell has left the
+ * stack. Without this the lock would hold priority on a dialog whose answer
+ * the kernel would apply to a spell that is already in the graveyard.
+ */
+const stranded = (state: GameState, dialog: PendingDialog) =>
+  dialog.kind === 'sacrifice-lands' && state.objects[dialog.sourceId]?.zone !== 'stack'
+
+const liveDialog = (state: GameState) => {
+  for (const seat of state.playerOrder) {
+    const dialog = pendingDialogFor(state, seat)
+    if (dialog && !stranded(state, dialog)) return dialog
+  }
+}
+
 /** Blocks priority while any card has posted an open host dialog. */
 export const pendingDialogLock: Plugin = {
   id: 'pendingDialog',
   legal: ({ state, event }) => {
     if (event.type !== 'passPriority') return
-    const dialog = pendingDialog(state)
+    const dialog = liveDialog(state)
     if (dialog) return `${dialog.seat} is resolving ${dialog.source}`
   },
-  apply: ({ event, draft }) => {
+  apply: ({ state, event, draft }) => {
     if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
       clearPendingDialog(draft, event.seat)
+      return
+    }
+    for (const seat of state.playerOrder) {
+      const dialog = pendingDialogFor(state, seat)
+      if (dialog && stranded(state, dialog)) clearPendingDialog(draft, seat)
     }
   },
 }
