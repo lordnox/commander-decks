@@ -7,7 +7,7 @@ import { DIALOG_CHOSEN, dialogCandidates, pendingDialog, pendingDialogLock } fro
 import type { GameState, ReduceResult } from '../types'
 import { mana } from '../plugins/mana'
 import { lands } from '../plugins/lands'
-import { pitOfOfferings } from './pit-of-offerings'
+import { PIT_LINK_EXILED, pitOfOfferings } from './pit-of-offerings'
 
 const catalog = createCatalog([lands, mana, pendingDialogLock, pitOfOfferings])
 
@@ -95,5 +95,36 @@ describe('Pit of Offerings', () => {
       mana: 'B',
     }, catalog)
     expect(black.ok).toBe(false)
+  })
+
+  test('adopts cards a game imported from a replay already has in exile', () => {
+    const state = setup()
+    const pitId = named(state, 'Pit of Offerings').id
+    const blueId = named(state, 'Blue Card').id
+    const pit = state.objects[pitId]
+    pit.zone = 'battlefield'
+    state.zoneOrder.p1.hand = []
+    state.zoneOrder.p1.battlefield = [pitId]
+    const blue = state.objects[blueId]
+    blue.zone = 'exile'
+    state.zoneOrder.p2.graveyard = state.zoneOrder.p2.graveyard.filter((id) => id !== blueId)
+    state.zoneOrder.p2.exile = [blueId]
+
+    const linked = ok(rules(state, {
+      type: 'custom',
+      name: PIT_LINK_EXILED,
+      seat: 'p1',
+      payload: { sourceId: pitId, objectIds: [blueId] },
+    }, catalog))
+
+    // The trigger is history; adopting the cards must not ask for new targets.
+    expect(pendingDialog(linked)).toBeUndefined()
+    expect(linked.objects[pitId].exiledCards).toEqual([blueId])
+    expect(ok(rules(linked, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: pitId,
+      mana: 'U',
+    }, catalog)).players.p1.mana.U).toBe(1)
   })
 })

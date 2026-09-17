@@ -43,6 +43,7 @@ import {
 import {
   dialogCandidates,
   pendingDialog,
+  pendingDialogFor,
 } from '../../rules-engine/src/pendingDialog'
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
@@ -342,25 +343,33 @@ const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
 }
 
 /**
- * A library search is the one dialog the kernel can rebuild from scratch, so a
- * stored copy that disagrees with it is stale: an older host published Brokers
- * Hideout with no candidates because basics had lost their Basic supertype, and
- * that empty prompt then outlived the fix. Dialogs the kernel cannot rebuild,
- * like a scry captured mid-resolution, are left alone.
+ * A stored dialog only survives while the kernel still owns the same choice.
+ * An older host published Brokers Hideout with no candidates because basics had
+ * lost their Basic supertype, and that empty prompt outlived the fix; a dialog
+ * whose trigger has since been taken back out of the journal strands its seat
+ * the same way. A scry captured mid-resolution has no kernel marker to check,
+ * so it is left alone.
  */
 const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   const decision = lobby.topdeck
-  if (decision?.kernel?.stage !== 'library-search') return false
+  if (!decision?.kernel) return false
   const state = kernel.history.current()
-  if (searchingSeat(state) !== decision.seat) return true
-  const pending = pendingSearch(state, decision.seat)
-  const spec = pending ? searchSpecForPending(pending) : undefined
-  if (!pending || !spec) return true
-  return !sameNames(
-    searchCandidates(state, decision.seat, spec, pending.kicked)
-      .map((object) => object.name),
-    decision.cards,
-  )
+  if (decision.kernel.stage === 'library-search') {
+    if (searchingSeat(state) !== decision.seat) return true
+    const pending = pendingSearch(state, decision.seat)
+    const spec = pending ? searchSpecForPending(pending) : undefined
+    if (!pending || !spec) return true
+    return !sameNames(
+      searchCandidates(state, decision.seat, spec, pending.kicked)
+        .map((object) => object.name),
+      decision.cards,
+    )
+  }
+  if (decision.kernel.stage === 'player-targets') {
+    return pendingPlayerTargets(state)?.controller !== decision.seat
+  }
+  if (!decision.kernel.chosenEvent) return false
+  return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
 }
 
 export const prepareKernelPendingChoice = (
