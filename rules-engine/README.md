@@ -84,6 +84,13 @@ making every untapped land look like a reason to stop. Unknown target and
 card-specific restrictions are conservative: they leave a possible action in
 the list rather than permitting an unsafe automatic pass.
 
+When a resolving spell asks a player to discard, the kernel puts a waiting
+**action** on the stack instead of draining the choice internally. Priority
+does not auto-resolve that item. The host prompts the chooser and resumes
+with `continueAction` (`stackId` + chosen `objectIds`). Draw is one card at
+a time so draw triggers can interleave. Landfall, enters, attacks, and
+discard triggers sit on the stack as abilities (CR 603) before they resolve.
+
 For unsupported Oracle behavior, the live host can submit an audited
 `judgeFallback` containing minimal primitive effects. Every child still passes
 normal legality and state checks; one rejected child rolls back the whole

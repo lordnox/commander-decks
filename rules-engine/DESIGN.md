@@ -188,6 +188,9 @@ state with the `addRule` event (or `grantedRules` on an object).
 | `stateBased` | 0 life, 0 toughness, lethal damage, tokens, legend |
 | `combat` | attackers, blockers, emits `combatDamage` |
 | `damage` | `combatDamage` → `dealDamage` → `loseLife` |
+| `discard` | CR 701.9 — discard actions and one-card `discard` events (`src/rules/`) |
+| `draw` | CR 121.2 — one-card draws; remaining-N stays on the stack |
+| `triggers` | CR 603 — put matching triggered abilities on the stack (APNAP) |
 | `planeswalker` | starting loyalty and stack-based loyalty abilities |
 | `hiddenInformation` | Server resolves hidden zones; client ingests redacted state |
 | `judgeFallback` | Audited wrapper for atomically validated primitive effects |
@@ -206,7 +209,7 @@ Agents must not edit files they do not own.
 | Owner | Files |
 |---|---|
 | frozen | `DESIGN.md`, `src/catalog.ts`, `src/kernel.ts`, `src/newGame.ts` |
-| stack/triggers | `src/types.ts`, `src/draft.ts` (Phase 0+ stack/trigger refactor) |
+| stack/triggers | `src/types.ts`, `src/draft.ts`, `src/rules/` (stack/trigger pipeline) |
 | A turn | `src/plugins/turnStructure.ts`, `src/plugins/priority.ts`, tests |
 | B mana | `src/plugins/mana.ts`, `src/plugins/lands.ts`, `src/plugins/manaBurn.ts`, tests |
 | C fight | `src/plugins/spells.ts`, `src/plugins/stateBased.ts`, `src/plugins/combat.ts`, `src/plugins/commander.ts`, tests |
