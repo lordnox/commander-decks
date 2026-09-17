@@ -48,6 +48,7 @@ import {
   loadHostCardPlugins,
   openKernel,
   prepareKernelPendingChoice,
+  rollbackState,
   settleKernelHolds,
   settleKernelPriority,
   type KernelHandle,
@@ -1374,5 +1375,46 @@ describe('kernel host journal', () => {
       && event.seat === 'p2')).toBe(true)
     expect(kernel.history.current().stack).toHaveLength(0)
     expect(kernel.history.current().objects[handId].zone).toBe('graveyard')
+  })
+
+  test('after illegal continueAction rollback shows state before the rejected choice', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p2: [{ ...forest(), name: 'Victim Card' }] },
+      players: 4,
+    })
+    const handId = server.state.zoneOrder.p2.hand[0]
+    const waiting = {
+      ...server.state,
+      stack: [{
+        id: 'discard-action',
+        kind: 'action' as const,
+        actionId: 'discard',
+        objectId: 'cry',
+        controller: 'p2' as const,
+        name: 'Discard',
+        targets: [],
+        waiting: 'choice' as const,
+        payload: { seat: 'p2', count: 1, chooser: 'p2' },
+      }],
+      priority: 'p2',
+      passedInRow: [],
+    }
+    const kernel = handleFor(server.rules, waiting)
+    const rejected = kernel.dispatch({
+      type: 'continueAction',
+      stackId: 'discard-action',
+      seat: 'p2',
+      payload: { objectIds: ['missing-card'] },
+    })
+
+    expect(rejected.ok).toBe(false)
+    const rolled = rollbackState(kernel)
+    expect(rolled.stack[0]).toMatchObject({
+      id: 'discard-action',
+      waiting: 'choice',
+    })
+    expect(rolled.objects[handId].zone).toBe('hand')
+    expect(kernel.history.current().objects[handId].zone).toBe('hand')
+    expect(kernel.journal.events).toHaveLength(0)
   })
 })

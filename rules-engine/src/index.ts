@@ -51,7 +51,7 @@ export {
 } from './formats'
 export { rules as reduceWithCatalog } from './kernel'
 export { bears, bolt, forest, newGame, timetwister, yarokFixture, yurlokFixture } from './newGame'
-export { createHistory } from './history'
+export { createHistory, lastAuthoritativeState } from './history'
 export {
   createJournal,
   recordAccepted,

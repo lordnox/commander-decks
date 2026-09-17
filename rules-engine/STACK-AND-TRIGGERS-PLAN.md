@@ -1,6 +1,6 @@
 # Stack, actions, events, and triggers — implementation plan
 
-Status: **implemented** (Phases 0–9). Phase 10 client rollback remains post-v1.
+Status: **implemented** (Phases 0–10).
 
 Authoritative CR snapshot: [`rules-sources/MagicCompRules-20260819.txt`](../rules-sources/MagicCompRules-20260819.txt) (effective 2026-08-07).
 
