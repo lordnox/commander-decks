@@ -144,6 +144,29 @@ describe('librarySearch', () => {
     expect(done.objects[spell.id].zone).toBe('graveyard')
   })
 
+  test('a replayed Scapeshift search completion cannot reopen its sacrifice choice', () => {
+    const server = game({
+      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
+      battlefield: [forest()],
+    })
+    const spell = named(server.state, 'Scapeshift')
+    const funded = withMana(server.state)
+    funded.players.p1.mana.G = 4
+    const cast = ok(server.rules(funded, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+    }))
+    const done = run(server, cast, [
+      // Search windows are host state and are absent when the journal replays.
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      { type: 'resolveTop' },
+    ])
+
+    expect(pendingDialog(done)).toBeUndefined()
+    expect(done.objects[spell.id].zone).toBe('graveyard')
+  })
+
   test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {
     const server = game({
       hand: [card('Analyze the Pollen', ['Sorcery'], { manaCost: '{G}' })],
