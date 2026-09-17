@@ -1078,6 +1078,8 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().step).toBe('beginCombat')
     expect(kernel.journal.events.at(-1)).toEqual({ type: 'advanceStep' })
     expect(lobby.actions.p1).toContain('advance')
+    expect(applyKernelAdvance(kernel, lobby, 'p1')).toBe(true)
+    expect(kernel.history.current().step).toBe('declareAttackers')
   })
 
   test('plays a land from a structured act without a judge round', async () => {
@@ -1114,6 +1116,64 @@ describe('kernel host journal', () => {
       type: 'playLand',
       seat: 'p1',
       objectId: 'land-1',
+    })
+  })
+
+  test('declares selected attackers against players and planeswalkers', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-attack-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', (state) => {
+      state.objects.attacker = {
+        ...cardTemplate('Grizzly Bears', {
+          types: ['Creature'],
+          power: 2,
+          toughness: 2,
+        }),
+        id: 'attacker',
+        owner: 'p1',
+        controller: 'p1',
+        zone: 'battlefield',
+        summoningSickness: false,
+      }
+      state.objects.walker = {
+        ...cardTemplate('Test Walker', {
+          types: ['Planeswalker'],
+          power: null,
+          toughness: null,
+        }),
+        id: 'walker',
+        owner: 'p2',
+        controller: 'p2',
+        zone: 'battlefield',
+      }
+      state.zoneOrder.p1.battlefield = ['attacker']
+      state.zoneOrder.p2.battlefield = ['walker']
+      state.step = 'declareAttackers'
+      state.active = 'p1'
+      state.priority = 'p1'
+    })
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p1 = { name: 'Active player', deck: 'deck' }
+    const kernel = await openKernel('pod', root, lobby)
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'declareAttackers',
+      attackers: [{ objectId: 'attacker', defenderId: 'walker' }],
+    })
+
+    expect(kernel.history.current().objects.attacker).toMatchObject({
+      tapped: true,
+      attacking: { kind: 'object', objectId: 'walker' },
+    })
+    expect(kernel.journal.events.at(-1)).toEqual({
+      type: 'declareAttackers',
+      seat: 'p1',
+      attackers: [{
+        objectId: 'attacker',
+        defender: { kind: 'object', objectId: 'walker' },
+      }],
     })
   })
 })

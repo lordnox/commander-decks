@@ -139,6 +139,10 @@ describe('available actions', () => {
       kind: 'declareAttackers',
       objectIds: [attacker.id],
     })
+    expect(legalActsFor(state, 'p1')).toContainEqual({
+      kind: 'declareAttackers',
+      objectIds: [attacker.id],
+    })
 
     attacker.attacking = 'p2'
     attacker.tapped = true

@@ -77,12 +77,13 @@ type InboxPayload =
   | { type: 'advance' }
   | {
       type: 'act'
-      kind: 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility'
-      objectId: string
+      kind: 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility' | 'declareAttackers'
+      objectId?: string
       targetObjectId?: string
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
+      attackers?: Array<{ objectId: string; defenderId: string }>
     }
   | { type: 'priority-mode'; always: boolean }
   | { type: 'hold'; until: 'my-turn' | 'off' }
@@ -138,6 +139,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     targetObjectId?: unknown
     abilityId?: unknown
     mana?: unknown
+    attackers?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -184,6 +186,28 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const mana = message.mana
       const abilityId = message.abilityId
       const text = message.text
+      const attackers = message.attackers
+      if (kind === 'declareAttackers') {
+        if (
+          !Array.isArray(attackers)
+          || !attackers.every((attacker) =>
+            attacker
+            && typeof attacker === 'object'
+            && 'objectId' in attacker
+            && typeof attacker.objectId === 'string'
+            && attacker.objectId
+            && 'defenderId' in attacker
+            && typeof attacker.defenderId === 'string'
+            && attacker.defenderId)
+        ) {
+          return null
+        }
+        return parsed({
+          type: 'act',
+          kind: 'declareAttackers',
+          attackers: attackers.map(({ objectId, defenderId }) => ({ objectId, defenderId })),
+        })
+      }
       if (
         !['playLand', 'tapForMana', 'castSpell', 'activateAbility'].includes(kind as string)
         || typeof objectId !== 'string'

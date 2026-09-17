@@ -386,7 +386,10 @@ export const legalActsFor = (
 ): AvailableAction[] =>
   [...availableActions(state, seat), ...manaAffordances(state, seat)]
     .flatMap((action) => targetVariants(state, seat, action))
-    .filter((action) => eventsForAvailableAction(state, seat, action))
+    .filter((action) =>
+      action.kind === 'declareAttackers'
+      || action.kind === 'declareBlockers'
+      || eventsForAvailableAction(state, seat, action))
 
 export const sameLegalAct = (
   left: AvailableAction,
