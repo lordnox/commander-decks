@@ -5,6 +5,7 @@ import { payCost } from './plugins/spells'
 import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import { validTarget } from './cardPlugins/targetedResolve'
+import { hasKeyword } from './keywords'
 import type {
   GameEvent,
   GameObject,
@@ -78,7 +79,11 @@ const sourceCanTap = (object: GameObject, seat: PlayerId) =>
   object.zone === 'battlefield'
   && object.controller === seat
   && !object.tapped
-  && (!object.types.includes('Creature') || !object.summoningSickness)
+  && (
+    !object.types.includes('Creature')
+    || !object.summoningSickness
+    || hasKeyword(object, 'haste')
+  )
 
 const poolKey = (pool: ManaPool, cap: number) =>
   MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
@@ -312,7 +317,7 @@ export const availableActions = (
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped
-        && !object.summoningSickness)
+        && (!object.summoningSickness || hasKeyword(object, 'haste')))
       .map((object) => object.id)
     if (objectIds.length > 0) actions.push({ kind: 'declareAttackers', objectIds })
   }

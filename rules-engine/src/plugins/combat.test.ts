@@ -36,6 +36,30 @@ test('an unblocked attacker deals combat damage to the defending player', () => 
   expect(damaged.state.players.p2.life).toBe(38)
 })
 
+test('haste permits a summoning-sick creature to attack without removing sickness', () => {
+  const catalog = createCatalog([combat])
+  const state = newGame({
+    battlefield: { p1: [{ ...bears(), oracleText: 'Flying, haste' }] },
+    builtinRules: ['combat'],
+  })
+  const attacker = Object.values(state.objects)[0]
+  attacker.summoningSickness = true
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: attacker.id, defender: 'p2' }],
+  }, catalog)
+
+  expect(declared.ok).toBe(true)
+  if (!declared.ok) return
+  expect(declared.state.objects[attacker.id]).toMatchObject({
+    tapped: true,
+    summoningSickness: true,
+  })
+})
+
 test('entering the combat damage step assigns damage without being asked', () => {
   const catalog = createCatalog([combat, damage, turnStructure])
   const state = newGame({

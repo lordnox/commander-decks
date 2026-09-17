@@ -153,6 +153,27 @@ describe('available actions', () => {
     expect(availableActions({ ...state, priority: 'p3' }, 'p3')).toEqual([])
   })
 
+  test('offers a summoning-sick creature with haste as an attacker', () => {
+    const state = newGame(commanderRules, {
+      battlefield: {
+        p1: [
+          { ...bears(), name: 'Rankle', oracleText: 'Flying, haste' },
+          { ...bears(), name: 'Bear' },
+        ],
+      },
+    })
+    state.step = 'declareAttackers'
+    const rankle = objectNamed(state, 'Rankle')
+    const bear = objectNamed(state, 'Bear')
+    rankle.summoningSickness = true
+    bear.summoningSickness = true
+
+    expect(availableActions(state, 'p1')).toContainEqual({
+      kind: 'declareAttackers',
+      objectIds: [rankle.id],
+    })
+  })
+
   test('a counterspell is not an action while the stack is empty', () => {
     const veto = {
       ...bolt(),

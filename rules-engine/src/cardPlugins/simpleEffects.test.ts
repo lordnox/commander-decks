@@ -4,6 +4,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { activated } from './activated'
+import { activate } from './effects'
 import { onResolve } from './onResolve'
 
 const ok = (result: ReduceResult) => {
@@ -22,6 +23,43 @@ const land = (name: string) => cardTemplate(name, {
 const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
 
 describe('simple card effects', () => {
+  test('haste permits a summoning-sick creature to pay a tap cost', () => {
+    const druid = cardTemplate('Hasty Druid', {
+      types: ['Creature'],
+      oracleText: 'Haste\n{T}: Add {G}.',
+      effects: [activate({
+        id: 'mana.hastyDruid',
+        manaAbility: true,
+        costs: { tap: true },
+        do: [{ kind: 'addMana', mana: { G: 1 } }],
+      })],
+    })
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [druid] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const objectId = named(server.state, 'Hasty Druid').id
+    const entered = ok(server.rules(server.state, {
+      type: 'move',
+      objectId,
+      to: 'battlefield',
+    }))
+    const activatedDruid = ok(server.rules(entered, {
+      type: 'activateAbility',
+      abilityId: 'mana.hastyDruid',
+      seat: 'p1',
+      objectId,
+      manaAbility: true,
+    }))
+
+    expect(activatedDruid.objects[objectId]).toMatchObject({
+      tapped: true,
+      summoningSickness: true,
+    })
+    expect(activatedDruid.players.p1.mana.G).toBe(1)
+  })
+
   test('Zagoth Triome cycling requires three mana and resolves from hand', () => {
     const triome = cardTemplate('Zagoth Triome', {
       types: ['Land'],

@@ -1,5 +1,6 @@
 import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
+import { hasKeyword } from '../keywords'
 import type { GameObject, PlayerId } from '../types'
 import type { Plugin } from '../types'
 import {
@@ -84,7 +85,11 @@ export const activated: Plugin = {
     }
     if (effect.costs.tap) {
       if (source.tapped) return `${source.name} is already tapped`
-      if (source.types.includes('Creature') && source.summoningSickness) {
+      if (
+        source.types.includes('Creature')
+        && source.summoningSickness
+        && !hasKeyword(source, 'haste')
+      ) {
         return `${source.name} has summoning sickness`
       }
     }

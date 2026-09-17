@@ -1,4 +1,5 @@
 import { addPools, emptyMana } from '../draft'
+import { hasKeyword } from '../keywords'
 import type { GameState, ManaId, Plugin } from '../types'
 import { payCost } from './spells'
 
@@ -73,7 +74,11 @@ const legal: Plugin['legal'] = ({ state, event }) => {
       ? `${object.name} needs a mana color`
       : `${object.name} has no mana ability`
   }
-  if (object.types.includes('Creature') && object.summoningSickness) {
+  if (
+    object.types.includes('Creature')
+    && object.summoningSickness
+    && !hasKeyword(object, 'haste')
+  ) {
     return `${object.name} has summoning sickness`
   }
 }

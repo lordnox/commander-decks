@@ -155,6 +155,28 @@ describe('mana', () => {
     expect(result.ok === false && result.error).toContain('summoning sickness')
   })
 
+  test('haste permits a summoning sick mana creature to tap without removing sickness', () => {
+    const state = newGame({
+      builtinRules: ['mana'],
+      hands: {
+        p1: [{
+          ...bears(),
+          oracleText: 'Haste\n{T}: Add {G}.',
+          tapProduces: { G: 1 },
+        }],
+      },
+    })
+    const objectId = idOf(state, 'Grizzly Bears', 'hand')
+    const entered = ok(rules(state, { type: 'move', objectId, to: 'battlefield' }, catalog))
+    const tapped = ok(rules(entered, { type: 'tapForMana', seat: 'p1', objectId }, catalog))
+
+    expect(tapped.objects[objectId]).toMatchObject({
+      tapped: true,
+      summoningSickness: true,
+    })
+    expect(tapped.players.p1.mana.G).toBe(1)
+  })
+
   test('addMana fills only the named seat, emptyManaPools clears everyone', () => {
     const state = base()
     const added = ok(rules(state, { type: 'addMana', seat: 'p1', mana: { R: 2, C: 1 } }, catalog))
