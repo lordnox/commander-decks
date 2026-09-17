@@ -219,6 +219,18 @@ const packBattlefield = (
     return [ref, flags, extra]
   })
 
+type StackWireMeta = {
+  k?: 'spell' | 'trigger' | 'ability' | 'action'
+  w?: 'choice' | 'targets'
+}
+
+const packStackMeta = (item: LiveSnapshot['stack'][number]): StackWireMeta | null => {
+  const meta: StackWireMeta = {}
+  if (item.kind) meta.k = item.kind
+  if (item.waiting) meta.w = item.waiting
+  return Object.keys(meta).length > 0 ? meta : null
+}
+
 const packStack = (
   stack: LiveSnapshot['stack'],
   table: ReturnType<typeof createTable>,
@@ -228,6 +240,12 @@ const packStack = (
     const controller = item.controller
       ? SEAT_IDS.indexOf(item.controller as (typeof SEAT_IDS)[number])
       : -1
+    const meta = packStackMeta(item)
+    if (meta) {
+      const row: unknown[] = [ref, controller, item.text ?? '']
+      row.push(meta)
+      return row
+    }
     if (controller < 0 && !item.text) return ref
     if (!item.text) return [ref, controller]
     return [ref, controller, item.text]
@@ -615,13 +633,18 @@ export const expandLiveWire = (
     stack: (wire.s ?? []).map((item) => {
       if (typeof item === 'number') return { name: lookupRef(item, lists, extras, tokens) as string | number }
       if (!Array.isArray(item)) return { name: String(item) }
-      const packed: { name: string | number, controller?: string, text?: string } = {
+      const meta = item[3] && typeof item[3] === 'object'
+        ? item[3] as StackWireMeta
+        : null
+      const packed: LiveSnapshot['stack'][number] = {
         name: lookupRef(item[0], lists, extras, tokens) as string | number,
       }
       if (typeof item[1] === 'number' && item[1] >= 0 && item[1] < 4) {
         packed.controller = SEAT_IDS[item[1]]
       }
       if (item[2]) packed.text = String(item[2])
+      if (meta?.k) packed.kind = meta.k
+      if (meta?.w) packed.waiting = meta.w
       return packed
     }),
     seats,

@@ -341,6 +341,38 @@ describe('live compact v2', () => {
     expect(expanded.topdeck?.library).toEqual(['Forest', 'Island'])
   })
 
+  test('stack action kind and waiting survive the wire', () => {
+    const original = snapshot()
+    original.stack = [{
+      name: 'Counterspell',
+      kind: 'action',
+      controller: 'p2',
+      waiting: 'choice',
+      text: 'discard · waiting',
+    }]
+    const wire = compactLiveWire(original)
+    const stack = wire.s as unknown[]
+    expect(stack[0]).toEqual([2, 1, 'discard · waiting', { k: 'action', w: 'choice' }])
+    const expanded = expandLiveWire(wire, original.deckIndexes)
+    expect(expanded.stack[0]).toEqual({
+      name: 'Counterspell',
+      kind: 'action',
+      controller: 'p2',
+      waiting: 'choice',
+      text: 'discard · waiting',
+    })
+  })
+
+  test('legacy stack triples still expand without kind or waiting', () => {
+    const wire = compactLiveWire(snapshot())
+    const expanded = expandLiveWire(wire, snapshot().deckIndexes)
+    expect(expanded.stack[0]).toEqual({
+      name: 'Counterspell',
+      controller: 'p1',
+      text: 'on Sol Ring',
+    })
+  })
+
   test('private always-stop priority preference survives the wire', () => {
     const original = snapshot()
     original.alwaysStopOnPriority = true
