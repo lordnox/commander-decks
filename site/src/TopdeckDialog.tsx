@@ -4,7 +4,7 @@ import type { ReplayGame } from './replayTypes'
 
 type Destination =
   | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-  | 'target' | 'skip'
+  | 'target' | 'sacrifice' | 'skip'
 type Choice = {
   id: number
   card: string
@@ -19,6 +19,7 @@ const label = (destination: Destination) => {
   if (destination === 'battlefield') return 'Battlefield'
   if (destination === 'library') return 'Library'
   if (destination === 'target') return 'Target'
+  if (destination === 'sacrifice') return 'Sacrifice'
   if (destination === 'skip') return 'Not targeted'
   return 'Top'
 }
@@ -41,6 +42,7 @@ export const TopdeckDialog = ({
   const searching = decision.kind === 'search'
   const lookingAtTop = decision.kind === 'look-top'
   const targetingPlayers = decision.kind === 'target-players'
+  const sacrificingLands = decision.kind === 'sacrifice-lands'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -116,6 +118,8 @@ export const TopdeckDialog = ({
           ? `Look at the top ${choices.length}`
         : targetingPlayers
           ? 'Choose target players'
+        : sacrificingLands
+          ? 'Choose lands to sacrifice'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small
@@ -144,7 +148,15 @@ export const TopdeckDialog = ({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
-              {discarding ? 'Cleanup' : puttingLand ? 'Kicked spell' : searching ? 'Private search' : 'Private library choice'}
+              {discarding
+                ? 'Cleanup'
+                : puttingLand
+                  ? 'Kicked spell'
+                  : searching
+                    ? 'Private search'
+                    : sacrificingLands
+                      ? 'Additional casting cost'
+                      : 'Private choice'}
             </p>
             <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
               {title}
@@ -281,6 +293,8 @@ export const TopdeckDialog = ({
                           ? (destination === 'target' ? 'Target this player' : 'Do not target')
                           : puttingLand
                           ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')
+                          : sacrificingLands
+                            ? (destination === 'sacrifice' ? 'Sacrifice this land' : 'Keep this land')
                           : searching
                             ? (destination === 'library'
                               ? 'Leave in library'
@@ -336,6 +350,8 @@ export const TopdeckDialog = ({
                 ? 'Discard and end turn'
                 : targetingPlayers
                   ? 'Confirm targets'
+                : sacrificingLands
+                  ? 'Pay cost and cast'
                   : puttingLand
                   ? 'Confirm land choice'
                   : searching

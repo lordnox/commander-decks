@@ -85,11 +85,11 @@ export type LiveTopdeck = {
   library?: string[]
   destinations: Array<
     'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'skip'
+    | 'target' | 'sacrifice' | 'skip'
   >
   requirements?: Partial<Record<
     | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'skip',
+    | 'target' | 'sacrifice' | 'skip',
     { min?: number; max?: number }
   >>
 }

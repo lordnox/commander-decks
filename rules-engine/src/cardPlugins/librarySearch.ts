@@ -12,6 +12,7 @@ import { payActivateCosts } from './activated'
 import { conditionHolds, searchEffect, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
 import { enteringObjectId } from './entersTapped'
+import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
 
 export type { SearchDestination, SearchSpec } from './effects'
 
@@ -20,6 +21,7 @@ export const SEARCH_DONE = 'librarySearch.done'
 export const SEARCH_BEGIN = 'librarySearch.begin'
 export const SEARCH_CHOSEN = 'librarySearch.chosen'
 export const SEARCH_FETCH = 'librarySearch.fetch'
+export const SEARCH_SACRIFICE_BEGIN = 'librarySearch.sacrificeBegin'
 
 /** The searching seat's open choice, stored in authoritative state. */
 export type PendingSearch = {
@@ -142,6 +144,18 @@ export const librarySearch: Plugin = {
     if (fetchError) return fetchError
   },
   replace: ({ state, event }) => {
+    if (event.type === 'castSpell' && event.sacrifice === undefined) {
+      const object = state.objects[event.objectId]
+      const spec = object ? spellSpec(object) : undefined
+      if (spec?.sacrificeLands === 'any') {
+        return {
+          type: 'custom',
+          name: SEARCH_SACRIFICE_BEGIN,
+          seat: event.seat,
+          payload: { sourceId: object.id },
+        }
+      }
+    }
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
     const object = item ? state.objects[item.objectId] : undefined
@@ -169,6 +183,29 @@ export const librarySearch: Plugin = {
   },
   apply: (ctx) => {
     const { state, event, draft } = ctx
+    if (event.type === 'custom' && event.name === SEARCH_SACRIFICE_BEGIN && event.seat) {
+      const sourceId = event.payload?.sourceId
+      const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined
+      if (!source || source.zone !== 'hand') return
+      const lands = Object.values(draft.objects).filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === event.seat
+        && object.types.includes('Land'))
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: event.seat,
+        kind: 'sacrifice-lands',
+        prompt: `Choose any number of lands to sacrifice as the additional cost for ${source.name}.`,
+        waiting: 'is choosing lands to sacrifice.',
+        judge: `Waiting for ${source.name}’s additional cost.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['battlefield', 'sacrifice'],
+        requirements: { sacrifice: { min: 0, max: lands.length } },
+      })
+      draft.note(`${event.seat} chooses the additional cost for ${source.name}`)
+      return
+    }
     if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {
       const source = String(event.payload?.source ?? '')
       if (!searchSpecFor(source)) return

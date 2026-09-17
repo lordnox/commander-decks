@@ -481,7 +481,7 @@ export const LivePage = () => {
         card: string
         destination:
           | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-          | 'target' | 'skip'
+          | 'target' | 'sacrifice' | 'skip'
       }>
       always?: boolean
       until?: 'my-turn' | 'off'

@@ -3,6 +3,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
+import { DIALOG_CHOSEN, pendingDialog, pendingDialogLock } from '../pendingDialog'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
@@ -39,7 +40,7 @@ const game = (options: {
       battlefield: { p1: options.battlefield ?? [] },
       libraries: { p1: options.library ?? [] },
     },
-    { random: () => 0.5, cardPlugins: [librarySearch] },
+    { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
   )
 
 const run = (
@@ -60,6 +61,43 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('librarySearch', () => {
+  test('Scapeshift chooses and sacrifices lands before it is cast', () => {
+    const server = game({
+      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
+      battlefield: [forest('First Forest'), forest('Second Forest')],
+      library: [forest(), island()],
+    })
+    const spell = named(server.state, 'Scapeshift')
+    const funded = withMana(server.state)
+    funded.players.p1.mana.G = 4
+    const choosing = ok(server.rules(funded, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+    }))
+
+    expect(pendingDialog(choosing)).toMatchObject({
+      kind: 'sacrifice-lands',
+      source: 'Scapeshift',
+    })
+    expect(choosing.objects[spell.id].zone).toBe('hand')
+    expect(choosing.players.p1.mana.G).toBe(4)
+
+    const sacrificed = named(choosing, 'First Forest')
+    const cast = run(server, choosing, [
+      { type: 'castSpell', seat: 'p1', objectId: spell.id, sacrifice: [sacrificed.id] },
+      { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1' },
+    ])
+    expect(cast.objects[sacrificed.id].zone).toBe('graveyard')
+    expect(cast.stack[0]).toMatchObject({ name: 'Scapeshift', sacrificed: 1 })
+
+    const searching = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(pendingSearch(searching, 'p1')).toMatchObject({
+      source: 'Scapeshift',
+      max: 1,
+    })
+  })
+
   test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {
     const server = game({
       hand: [card('Analyze the Pollen', ['Sorcery'], { manaCost: '{G}' })],

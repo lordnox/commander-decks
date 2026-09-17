@@ -58,7 +58,7 @@ type InboxPayload =
         card: string
         destination:
           | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-          | 'target' | 'skip'
+          | 'target' | 'sacrifice' | 'skip'
       }>
     }
   | { type: 'advance' }

@@ -41,6 +41,7 @@ import {
   pendingPlayerTargets,
 } from '../../rules-engine/src/cardPlugins/playerTargets'
 import {
+  DIALOG_CHOSEN,
   dialogCandidates,
   pendingDialog,
   pendingDialogFor,
@@ -534,6 +535,47 @@ export const applyKernelChoice = (
     lobby.privateJudge = {}
     lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
     lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private choice.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
+  if (decision.kernel.stage === 'sacrifice-lands') {
+    const dialog = pendingDialogFor(state, seat)
+    if (dialog?.kind !== 'sacrifice-lands') {
+      throw new Error('That additional-cost choice is no longer open.')
+    }
+    const candidates = dialogCandidates(state, dialog)
+    const orderedIds = objectIdsForNames(
+      state,
+      candidates.map((object) => object.id),
+      message.choices.map(({ card }) => card),
+    )
+    const sacrifice = message.choices
+      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
+      .filter(({ destination }) => destination === 'sacrifice')
+      .map(({ objectId }) => objectId)
+    const cast = kernel.dispatch({
+      type: 'castSpell',
+      seat,
+      objectId: decision.kernel.sourceId,
+      sacrifice,
+    })
+    if (!cast.ok) throw new Error(cast.error)
+    const closed = kernel.dispatch({ type: 'custom', name: DIALOG_CHOSEN, seat })
+    if (!closed.ok) throw new Error(closed.error)
+    lobby.topdeck = undefined
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    lobby.privateJudge = {
+      [seat]: `${dialog.source} was cast, sacrificing ${
+        sacrifice.length > 0
+          ? sacrifice.map((id) => state.objects[id]?.name).join(', ')
+          : 'no lands'
+      }.`,
+    }
+    lobby.waiting =
+      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = `${dialog.source} was cast with ${sacrifice.length} land sacrifice(s).`
     settleKernelPriority(kernel, lobby)
     return true
   }
