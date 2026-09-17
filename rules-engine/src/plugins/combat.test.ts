@@ -108,6 +108,112 @@ test('a first striker keeps its own damage step', () => {
   expect(striking.state.step).toBe('firstStrikeDamage')
 })
 
+test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {
+  const catalog = createCatalog([combat, damage])
+  const state = newGame({
+    battlefield: {
+      p1: [{ ...bears(), name: 'Mossborn Hydra', power: 10, oracleText: 'Trample' }],
+      p2: [{ ...bears(), name: 'Homer, the Hermit', power: 0, toughness: 9 }],
+    },
+    builtinRules: ['combat', 'damage'],
+  })
+  const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
+  const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: attacker.id, defender: 'p2' }],
+  }, catalog)
+  if (!declared.ok) throw new Error(declared.error)
+  declared.state.step = 'declareBlockers'
+  const blocked = rules(declared.state, {
+    type: 'declareBlockers',
+    seat: 'p2',
+    blockers: [{ blockerId: blocker.id, attackerId: attacker.id }],
+  }, catalog)
+  if (!blocked.ok) throw new Error(blocked.error)
+
+  blocked.state.step = 'combatDamage'
+  const damaged = rules(blocked.state, { type: 'assignCombatDamage' }, catalog)
+  if (!damaged.ok) throw new Error(damaged.error)
+
+  expect(damaged.state.objects[blocker.id].damageMarked).toBe(9)
+  expect(damaged.state.players.p2.life).toBe(39)
+})
+
+test('a blocker already damaged this turn soaks less of a trampler', () => {
+  const catalog = createCatalog([combat, damage])
+  const state = newGame({
+    battlefield: {
+      p1: [{ ...bears(), power: 10, oracleText: 'Trample' }],
+      p2: [{ ...bears(), toughness: 9 }],
+    },
+    builtinRules: ['combat', 'damage'],
+  })
+  const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
+  const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
+  state.objects[blocker.id].damageMarked = 4
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: attacker.id, defender: 'p2' }],
+  }, catalog)
+  if (!declared.ok) throw new Error(declared.error)
+  declared.state.step = 'declareBlockers'
+  const blocked = rules(declared.state, {
+    type: 'declareBlockers',
+    seat: 'p2',
+    blockers: [{ blockerId: blocker.id, attackerId: attacker.id }],
+  }, catalog)
+  if (!blocked.ok) throw new Error(blocked.error)
+
+  blocked.state.step = 'combatDamage'
+  const damaged = rules(blocked.state, { type: 'assignCombatDamage' }, catalog)
+  if (!damaged.ok) throw new Error(damaged.error)
+
+  expect(damaged.state.objects[blocker.id].damageMarked).toBe(9)
+  expect(damaged.state.players.p2.life).toBe(35)
+})
+
+test('a blocked attacker without trample leaves the defender untouched', () => {
+  const catalog = createCatalog([combat, damage])
+  const state = newGame({
+    battlefield: {
+      p1: [{ ...bears(), power: 10 }],
+      p2: [{ ...bears(), toughness: 1 }],
+    },
+    builtinRules: ['combat', 'damage'],
+  })
+  const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
+  const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: attacker.id, defender: 'p2' }],
+  }, catalog)
+  if (!declared.ok) throw new Error(declared.error)
+  declared.state.step = 'declareBlockers'
+  const blocked = rules(declared.state, {
+    type: 'declareBlockers',
+    seat: 'p2',
+    blockers: [{ blockerId: blocker.id, attackerId: attacker.id }],
+  }, catalog)
+  if (!blocked.ok) throw new Error(blocked.error)
+
+  blocked.state.step = 'combatDamage'
+  const damaged = rules(blocked.state, { type: 'assignCombatDamage' }, catalog)
+  if (!damaged.ok) throw new Error(damaged.error)
+
+  expect(damaged.state.objects[blocker.id].damageMarked).toBe(10)
+  expect(damaged.state.players.p2.life).toBe(40)
+})
+
 test('an attacker cannot target a player outside the game', () => {
   const catalog = createCatalog([combat])
   const state = newGame({
