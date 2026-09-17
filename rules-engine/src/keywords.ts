@@ -22,3 +22,14 @@ export const hasKeyword = (object: GameObject, keyword: string) =>
 
 export const strikesFirst = (object: GameObject) =>
   hasKeyword(object, 'first strike') || hasKeyword(object, 'double strike')
+
+/**
+ * Damage that counts as lethal when a trampling attacker divides its damage
+ * (CR 510.1a). Deathtouch makes any nonzero amount lethal (CR 702.2c), so one
+ * point satisfies each blocker and everything else can trample through.
+ */
+export const lethalDamage = (blocker: GameObject, source?: GameObject) => {
+  const remaining = Math.max(0, (blocker.toughness ?? 0) - blocker.damageMarked)
+  if (!source || !hasKeyword(source, 'deathtouch')) return remaining
+  return Math.min(1, remaining)
+}

@@ -1,3 +1,4 @@
+import { hasKeyword } from '../keywords'
 import type { Plugin } from '../types'
 
 /**
@@ -36,6 +37,10 @@ export const damage: Plugin = {
         return
       }
       object.damageMarked += event.amount
+      const source = draft.objects[event.sourceId]
+      if (event.amount > 0 && source && hasKeyword(source, 'deathtouch')) {
+        object.deathtouched = true
+      }
       return
     }
 

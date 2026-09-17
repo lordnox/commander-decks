@@ -61,6 +61,8 @@ export type GameObject = {
   tapped: boolean
   summoningSickness: boolean
   damageMarked: number
+  /** Dealt damage by a deathtouch source this turn, so any of it is lethal. */
+  deathtouched?: boolean
   counters: Record<string, number>
   types: string[]
   subtypes: string[]

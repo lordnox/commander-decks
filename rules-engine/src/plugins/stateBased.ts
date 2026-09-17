@@ -35,7 +35,12 @@ export const stateBased: Plugin = {
         object.zone === 'battlefield'
         && object.types.includes('Creature')
         && object.toughness !== null
-        && (object.toughness <= 0 || object.damageMarked >= object.toughness)
+        && (
+          object.toughness <= 0
+          || object.damageMarked >= object.toughness
+          // Any damage from a deathtouch source destroys it (CR 704.5h).
+          || (object.deathtouched === true && object.damageMarked > 0)
+        )
       ) {
         return [moveToGraveyard(object.id)]
       }
