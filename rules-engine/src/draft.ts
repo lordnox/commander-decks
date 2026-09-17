@@ -71,7 +71,7 @@ export type Draft = GameState & {
   addToStack: (item: Omit<StackItem, 'id'> & { id?: string }) => StackItem
   /**
    * Push a triggered ability onto the stack. Stores `instructions` in
-   * `payload` for Phase 1 resolution via `addToStack`.
+   * `payload` and allocates a stable stack id via `addToStack`.
    */
   addTriggeredAbility: (
     source: GameObject,

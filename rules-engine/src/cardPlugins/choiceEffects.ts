@@ -1,5 +1,5 @@
 import type { Plugin } from '../types'
-import { DIALOG_CHOSEN, clearPendingDialog, pendingDialogFor } from '../pendingDialog'
+import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
 import { applyCopy, millLibrary } from './effects'
 import { effectsOf } from './cardRules'
 
@@ -100,8 +100,24 @@ export const choiceEffects: Plugin = {
       }
       draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
     }
-    if (dialog.kind !== 'fight-own') {
-      clearPendingDialog(draft, event.seat)
+    if (dialog.kind === 'discard-card') {
+      const objectId = targetIds.find((id) => {
+        const object = draft.objects[id]
+        return object?.zone === 'hand' && object.controller === event.seat
+      })
+      if (objectId) draft.enqueue({ type: 'discard', seat: event.seat, objectId })
+    }
+    if (dialog.kind === 'sacrifice-creature') {
+      const objectId = targetIds.find((id) => {
+        const object = draft.objects[id]
+        return object?.zone === 'battlefield'
+          && object.controller === event.seat
+          && object.types.includes('Creature')
+      })
+      if (objectId) {
+        draft.note(`${event.seat} sacrifices ${draft.objects[objectId]?.name} to ${dialog.source}`)
+        draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+      }
     }
   },
 }

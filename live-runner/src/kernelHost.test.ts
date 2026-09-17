@@ -25,7 +25,8 @@ import {
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
-import { RANKLE_MODES, rankle } from '../../rules-engine/src/cardPlugins/rankle'
+import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
+import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
@@ -55,6 +56,12 @@ import {
 } from './kernelHost'
 import { liveSnapshotFromState } from './kernelView'
 import type { SeatId } from './protocol'
+
+const RANKLE_MODES = {
+  discard: 'Each player discards a card',
+  drain: 'Each player loses 1 life and draws a card',
+  sacrifice: 'Each player sacrifices a creature',
+} as const
 
 const mkdirGames = (root: string) => {
   writeFileSync(join(root, 'package.json'), '{}\n')
@@ -1267,7 +1274,7 @@ describe('kernel host journal', () => {
           p2: [{ ...body('Lone Hydra'), grantedRules: [] }],
         },
       },
-      { random: () => 0.5, cardPlugins: [rankle] },
+      { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
     )
     const kernel = handleFor(server.rules, server.state)
     const lobby = createLobby()
@@ -1359,7 +1366,7 @@ describe('kernel host journal', () => {
       seat: 'p2',
       kind: 'discard-card',
       cards: ['Victim Card'],
-      kernel: { stage: 'stack-discard', stackId: 'discard-action' },
+      kernel: { stage: 'waiting-discard', stackId: 'discard-action' },
     })
     expect(kernel.journal.events.length - beforeEvents).toBeLessThan(20)
     expect(lobby.topdeck).toBeDefined()

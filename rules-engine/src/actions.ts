@@ -13,6 +13,7 @@ import type {
   ManaId,
   ManaPool,
   PlayerId,
+  StackItem,
 } from './types'
 
 export type AvailableAction =
@@ -51,10 +52,19 @@ export type AvailableAction =
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
-const waitingDiscardAction = (
+export type WaitingDiscard = {
+  item: StackItem
+  chooser: PlayerId
+  discardSeat: PlayerId
+  handIds: string[]
+  count: number
+}
+
+/** A discard action sitting on the stack until its chooser sends continueAction. */
+export const waitingDiscard = (
   state: GameState,
-  seat: PlayerId,
-): AvailableAction | null => {
+  seat?: PlayerId,
+): WaitingDiscard | null => {
   const item = state.stack[0]
   if (item?.kind !== 'action' || item.actionId !== 'discard' || item.waiting !== 'choice') {
     return null
@@ -64,16 +74,30 @@ const waitingDiscardAction = (
     return null
   }
   const chooser = (typeof payload.chooser === 'string' ? payload.chooser : payload.seat) as PlayerId
-  if (seat !== chooser) return null
+  if (seat && seat !== chooser) return null
   const discardSeat = payload.seat as PlayerId
   const handIds = state.zoneOrder[discardSeat]?.hand ?? []
-  const count = Math.min(payload.count, handIds.length)
+  return {
+    item,
+    chooser,
+    discardSeat,
+    handIds,
+    count: Math.min(payload.count, handIds.length),
+  }
+}
+
+export const waitingContinueAction = (
+  state: GameState,
+  seat: PlayerId,
+): AvailableAction | null => {
+  const waiting = waitingDiscard(state, seat)
+  if (!waiting) return null
   return {
     kind: 'continueAction',
-    stackId: item.id,
+    stackId: waiting.item.id,
     actionId: 'discard',
-    objectIds: handIds,
-    count,
+    objectIds: waiting.handIds,
+    count: waiting.count,
   }
 }
 const DAMAGE_PENDING_STEPS = new Set([
@@ -306,8 +330,8 @@ export const availableActions = (
 ): AvailableAction[] => {
   if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
   if (state.step === 'untap' || state.step === 'cleanup') return []
-  const waitingDiscard = waitingDiscardAction(state, seat)
-  if (waitingDiscard) return [waitingDiscard]
+  const waiting = waitingContinueAction(state, seat)
+  if (waiting) return [waiting]
   const actions: AvailableAction[] = []
   const hand = state.zoneOrder[seat]?.hand ?? []
 

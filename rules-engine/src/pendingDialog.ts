@@ -108,6 +108,21 @@ export const setPendingDialog = (draft: Draft, dialog: PendingDialog) => {
   ]
 }
 
+export const openSourceDialog = (
+  draft: Draft,
+  source: { id: string; name: string },
+  dialog: Omit<PendingDialog, 'sourceId' | 'source' | 'chosenEvent'> & {
+    chosenEvent?: string
+  },
+) => {
+  setPendingDialog(draft, {
+    sourceId: source.id,
+    source: source.name,
+    chosenEvent: DIALOG_CHOSEN,
+    ...dialog,
+  })
+}
+
 /** Answers the oldest open choice. */
 export const clearPendingDialog = (draft: Draft, seat: PlayerId) => {
   const remaining = pendingDialogsFor(draft, seat).slice(1)

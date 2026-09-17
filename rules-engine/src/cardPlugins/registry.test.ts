@@ -93,5 +93,7 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Bushwhack')?.handlerIds).toContain('modalSpell')
     expect(cardPluginEntry('Beast Whisperer')?.handlerIds).toContain('castTriggers')
     expect(cardPluginEntry('Twincast')?.handlerIds).toEqual(['targetedResolve', 'copySpell'])
+    expect(cardPluginEntry('Rankle, Master of Pranks')?.handlerIds)
+      .toEqual(['modalSpell', 'choiceEffects'])
   })
 })
