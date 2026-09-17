@@ -269,7 +269,23 @@ export const librarySearch: Plugin = {
     if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {
       const pending = pendingSearch(state, event.seat)
       delete draft.players[event.seat].data[SEARCH_PENDING]
-      if (pending?.via === 'spell') draft.players[event.seat].data[SEARCH_DONE] = true
+      const stackObject = state.stack[0]
+        ? state.objects[state.stack[0].objectId]
+        : undefined
+      // A journal records the chosen cards and completion event, but not the
+      // host-only search window. On replay, infer the spell search from the
+      // unresolved top object so the following resolveTop cannot reopen it.
+      if (
+        pending?.via === 'spell'
+        || (
+          !pending
+          && stackObject
+          && state.stack[0].controller === event.seat
+          && spellSpec(stackObject)
+        )
+      ) {
+        draft.players[event.seat].data[SEARCH_DONE] = true
+      }
       return
     }
 
