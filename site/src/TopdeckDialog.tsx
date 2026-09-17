@@ -155,7 +155,7 @@ export const TopdeckDialog = ({
                   : searching
                     ? 'Private search'
                     : sacrificingLands
-                      ? 'Additional casting cost'
+                      ? 'Resolving spell'
                       : 'Private choice'}
             </p>
             <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
@@ -351,7 +351,7 @@ export const TopdeckDialog = ({
                 : targetingPlayers
                   ? 'Confirm targets'
                 : sacrificingLands
-                  ? 'Pay cost and cast'
+                  ? 'Sacrifice and search'
                   : puttingLand
                   ? 'Confirm land choice'
                   : searching

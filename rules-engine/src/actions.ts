@@ -506,12 +506,6 @@ export const eventsForAvailableAction = (
       (effect.op === 'trigger' && effect.on === 'resolve')
       || (effect.op === 'search' && effect.via === 'spell'))
     : false
-  const choosesLandSacrifices = object
-    ? effectsOf(object).some((effect) =>
-      effect.op === 'search'
-      && effect.via === 'spell'
-      && effect.spec.sacrificeLands === 'any')
-    : false
   if (
     !object
     || (
@@ -521,11 +515,8 @@ export const eventsForAvailableAction = (
     )
     || targeted.length > 1
     || (targeted.length === 0 && /\btarget\b/i.test(object.oracleText))
-    || (
-      /(?:additional cost|enters(?: the battlefield)?|when you cast|choose)/i
-        .test(object.oracleText)
-      && !choosesLandSacrifices
-    )
+    || /(?:additional cost|enters(?: the battlefield)?|when you cast|choose)/i
+      .test(object.oracleText)
   ) {
     return null
   }
