@@ -1,4 +1,5 @@
 import { payCost } from './spells'
+import { hasKeyword } from '../keywords'
 import type { GameEvent, HookCtx, Plugin } from '../types'
 
 export type ActivateAbilityEvent = Extract<GameEvent, { type: 'activateAbility' }>
@@ -58,7 +59,11 @@ export const sourceCanTap = (): AbilityCheck => (ctx) => {
   const source = sourceOf(ctx)
   if (!source) return 'no such object'
   if (source.tapped) return `${source.name} is already tapped`
-  if (source.types.includes('Creature') && source.summoningSickness) {
+  if (
+    source.types.includes('Creature')
+    && source.summoningSickness
+    && !hasKeyword(source, 'haste')
+  ) {
     return `${source.name} has summoning sickness`
   }
 }

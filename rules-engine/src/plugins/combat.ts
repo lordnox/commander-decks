@@ -30,7 +30,9 @@ export const combat: Plugin = {
         }
         if (object.controller !== event.seat) return 'attacker is not controlled by that seat'
         if (object.tapped) return 'tapped creatures cannot attack'
-        if (object.summoningSickness) return 'creatures with summoning sickness cannot attack'
+        if (object.summoningSickness && !hasKeyword(object, 'haste')) {
+          return 'creatures with summoning sickness cannot attack'
+        }
         const defender = defendingPlayer(state, declaration.defender)
         if (!defender || !state.players[defender]) return 'defender is not in the game'
         if (defender === event.seat) return 'a creature cannot attack its controller'
