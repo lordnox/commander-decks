@@ -25,6 +25,7 @@ export const validTarget = (
   if (filter.controller === 'you' && object.controller !== controller) return false
   if (filter.controller === 'opponent' && object.controller === controller) return false
   if (filter.nonland && object.types.includes('Land')) return false
+  if (filter.noncreature && object.types.includes('Creature')) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false
@@ -75,6 +76,20 @@ export const targetedResolve: Plugin = {
         if (index < 0) continue
         draft.stack.splice(index, 1)
         draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+      } else if (effect.action === 'copy') {
+        const stackItem = state.stack.find((candidate) => candidate.objectId === object.id)
+        if (!stackItem || object.zone !== 'stack') continue
+        draft.stack.unshift({
+          id: draft.allocId('s'),
+          kind: 'spell',
+          objectId: object.id,
+          controller: item.controller,
+          name: object.name,
+          targets: [...stackItem.targets],
+          ...(stackItem.kicked ? { kicked: true } : {}),
+          ...(stackItem.x !== undefined ? { x: stackItem.x } : {}),
+          ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
+        })
       } else {
         const destination = effect.action === 'exile'
           ? 'exile'

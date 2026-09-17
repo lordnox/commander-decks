@@ -79,6 +79,31 @@ export type CardInstruction =
   | { kind: 'exchangeControlUntilEot' }
   | { kind: 'bounceAttacking' }
   | { kind: 'chooseVotesThisTurn' }
+  | { kind: 'createTreasures'; count: number; who: 'you' | 'targetController' }
+  | { kind: 'drawGreatestPower'; nonHuman?: boolean }
+  | {
+      kind: 'pumpControlled'
+      power: number
+      toughness: number
+      trample?: boolean
+      powerFromGreatest?: boolean
+      nonHuman?: boolean
+      other?: boolean
+    }
+  | { kind: 'searchLibrary'; spec: SearchSpec }
+  | { kind: 'fightOwnedVsOpponent' }
+  | { kind: 'counterUnlessPay'; amount: number }
+  | { kind: 'copyTargetSpell' }
+  | { kind: 'destroyTargetPermanent'; types: string[] }
+  | { kind: 'lookTopPutLand'; count: number }
+  | { kind: 'grantControlled'; keywords: string[]; other?: boolean; nonHuman?: boolean }
+
+export type ModalMode = { id: string; label: string; do: CardInstruction[] }
+
+export type ModalSpec = {
+  choose: 'one' | 'any'
+  modes: ModalMode[]
+}
 
 export type ActivateCost = {
   tap?: boolean
@@ -101,6 +126,7 @@ export type TargetFilter = {
   type?: string
   types?: string[]
   nonland?: boolean
+  noncreature?: boolean
   controller?: 'you' | 'opponent'
   spellTargetsControlledPermanent?: boolean
 }
@@ -124,16 +150,28 @@ export type SearchSpec = {
   sacrificeOnResolve?: 'any'
   empoweredMax?: number
   empoweredIf?: CardCondition
+  split?: {
+    battlefield: { min: number; max: number; tapped?: boolean }
+    hand: { min: number; max: number }
+    totalMax: number
+    paired?: boolean
+  }
+  /** Hideouts default sacrifice when gainLife or sacrificeSource !== false. */
+  sacrificeSource?: boolean
+  optionalEnter?: boolean
 }
 
 export type CardEffect =
   | { op: 'replacement'; on: 'enters'; do: 'tapSelf' | 'tapUnlessPayLife'; life?: number; if?: CardCondition }
   | {
       op: 'trigger'
-      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve' | 'landToGraveyard' | 'upkeep'
+      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve' | 'landToGraveyard' | 'upkeep' | 'cast'
       do: CardInstruction[]
       if?: CardCondition
+      creatureOnly?: boolean
+      modal?: ModalSpec
     }
+  | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
   | {
       op: 'activate'
       id: string
@@ -151,7 +189,7 @@ export type CardEffect =
       op: 'targetedResolve'
       target: number
       filter: TargetFilter
-      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'reanimate' | 'select'
+      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select'
       do?: CardInstruction[]
     }
   | { op: 'mana'; if: CardCondition }
@@ -528,6 +566,108 @@ export const searchAbility = (spec: SearchSpec, costs: ActivateCost): CardEffect
   via: 'ability',
   spec,
   costs,
+})
+
+export const splitBasicLandSearch = (): SearchSpec => ({
+  prompt: 'Search your library for up to two basic land cards. Put one onto the battlefield tapped and the other into your hand.',
+  match: basicLand,
+  destination: 'battlefield',
+  min: 0,
+  max: 2,
+  split: {
+    battlefield: { min: 0, max: 1, tapped: true },
+    hand: { min: 0, max: 1 },
+    totalMax: 2,
+    paired: true,
+  },
+})
+
+export const optionalBasicLandEnters = (): SearchSpec => ({
+  prompt: 'Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.',
+  match: basicLand,
+  destination: 'battlefield',
+  tapped: true,
+  min: 0,
+  max: 1,
+  sacrificeSource: false,
+  optionalEnter: true,
+})
+
+export const createTreasures = (
+  count: number,
+  who: 'you' | 'targetController',
+): CardInstruction => ({ kind: 'createTreasures', count, who })
+
+export const drawGreatestPower = (options: { nonHuman?: boolean } = {}): CardInstruction => ({
+  kind: 'drawGreatestPower',
+  ...options,
+})
+
+export const pumpControlled = (
+  power: number,
+  toughness: number,
+  options: {
+    trample?: boolean
+    powerFromGreatest?: boolean
+    nonHuman?: boolean
+    other?: boolean
+  } = {},
+): CardInstruction => ({
+  kind: 'pumpControlled',
+  power,
+  toughness,
+  ...options,
+})
+
+export const pumpControlledNonHuman = (power: number, toughness: number) =>
+  pumpControlled(power, toughness, { nonHuman: true })
+
+export const grantControlledUntilEot = (
+  ...keywords: string[]
+): CardInstruction => ({ kind: 'grantControlled', keywords })
+
+export const searchLibrary = (spec: SearchSpec): CardInstruction => ({
+  kind: 'searchLibrary',
+  spec,
+})
+
+export const fightOwnedVsOpponent = (): CardInstruction => ({ kind: 'fightOwnedVsOpponent' })
+
+export const counterUnlessPay = (amount: number): CardInstruction => ({
+  kind: 'counterUnlessPay',
+  amount,
+})
+
+export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
+  op: 'modal',
+  choose: 'one',
+  modes,
+})
+
+export const casts = (
+  ...args: [...CardInstruction[], { creatureOnly?: boolean }?]
+): CardEffect => {
+  const last = args[args.length - 1]
+  const options = last && typeof last === 'object' && 'creatureOnly' in last
+    ? (args.pop() as { creatureOnly?: boolean })
+    : undefined
+  return {
+    op: 'trigger',
+    on: 'cast',
+    do: args as CardInstruction[],
+    ...(options?.creatureOnly ? { creatureOnly: true } : {}),
+  }
+}
+
+export const castModal = (
+  modal: ModalSpec,
+  options: { creatureOnly?: boolean } = {},
+): CardEffect => ({
+  op: 'trigger',
+  on: 'cast',
+  do: [],
+  modal,
+  ...(options.creatureOnly ? { creatureOnly: true } : {}),
 })
 
 export const basicLand = (object: GameObject) =>
@@ -1272,6 +1412,172 @@ export const runInstructions = (
       }
       continue
     }
+    if (instruction.kind === 'createTreasures') {
+      const seat = instruction.who === 'you'
+        ? source.controller
+        : item?.targets[0]?.kind === 'object'
+          ? draft.object(item.targets[0].objectId)?.controller
+          : undefined
+      if (!seat) continue
+      for (let index = 0; index < instruction.count; index += 1) {
+        createToken(draft, seat, {
+          name: 'Treasure',
+          types: ['Artifact'],
+          subtypes: ['Treasure'],
+          oracleText: '{T}, Sacrifice this token: Add one mana of any color.',
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'drawGreatestPower') {
+      const greatest = Math.max(0, ...Object.values(draft.objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && object.controller === source.controller
+          && object.types.includes('Creature')
+          && (!instruction.nonHuman || !object.subtypes.includes('Human')))
+        .map((object) => object.power ?? 0))
+      if (greatest > 0) {
+        draft.enqueue({ type: 'draw', seat: source.controller, count: greatest })
+      }
+      continue
+    }
+    if (instruction.kind === 'pumpControlled') {
+      const bonus = instruction.powerFromGreatest
+        ? Math.max(0, ...Object.values(draft.objects)
+          .filter((object) =>
+            object.zone === 'battlefield'
+            && object.controller === source.controller
+            && object.types.includes('Creature'))
+          .map((object) => object.power ?? 0))
+        : instruction.power
+      const toughnessBonus = instruction.powerFromGreatest ? bonus : instruction.toughness
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone !== 'battlefield' || object.controller !== source.controller) continue
+        if (!object.types.includes('Creature')) continue
+        if (instruction.other && object.id === source.id) continue
+        if (instruction.nonHuman && object.subtypes.includes('Human')) continue
+        if (object.power !== null) object.power += bonus
+        if (object.toughness !== null) object.toughness += toughnessBonus
+        if (instruction.trample && !object.oracleText.toLowerCase().includes('trample')) {
+          object.oracleText = object.oracleText ? `${object.oracleText}\nTrample` : 'Trample'
+        }
+      }
+      continue
+    }
+    if (instruction.kind === 'searchLibrary') {
+      draft.enqueue({
+        type: 'custom',
+        name: 'librarySearch.begin',
+        seat: source.controller,
+        payload: {
+          source: source.name,
+          sourceId: source.id,
+          via: 'resolve',
+          spec: instruction.spec,
+        },
+      })
+      continue
+    }
+    if (instruction.kind === 'fightOwnedVsOpponent') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'fight-own',
+        prompt: 'Choose a creature you control to fight.',
+        waiting: 'is choosing a creature to fight with.',
+        judge: `Waiting for ${source.name} fight targets.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        types: ['Creature'],
+        optional: true,
+        requirements: { target: { max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'counterUnlessPay') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'counter-unless',
+        prompt: `Counter target noncreature spell unless its controller pays {${instruction.amount}}.`,
+        waiting: 'is choosing a spell to counter.',
+        judge: `Waiting for ${source.name} to pick a stack target.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        requirements: { target: { max: 1 } },
+      })
+      draft.players[source.controller].data['counterUnlessPay.amount'] = instruction.amount
+      continue
+    }
+    if (instruction.kind === 'copyTargetSpell') {
+      const target = item?.targets[0]
+      if (target?.kind !== 'object') continue
+      const copied = draft.object(target.objectId)
+      const stackItem = draft.stack.find((candidate) => candidate.objectId === target.objectId)
+      if (!copied || !stackItem || copied.zone !== 'stack') continue
+      draft.stack.unshift({
+        id: draft.allocId('s'),
+        kind: 'spell',
+        objectId: copied.id,
+        controller: source.controller,
+        name: copied.name,
+        targets: [...stackItem.targets],
+        ...(stackItem.kicked ? { kicked: true } : {}),
+        ...(stackItem.x !== undefined ? { x: stackItem.x } : {}),
+        ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
+      })
+      draft.note(`${source.name} copies ${copied.name}`)
+      continue
+    }
+    if (instruction.kind === 'destroyTargetPermanent') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'destroy-permanent',
+        prompt: `Destroy target ${instruction.types.join(' or ').toLowerCase()}.`,
+        waiting: 'is choosing a permanent to destroy.',
+        judge: `Waiting for ${source.name} to pick a target.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        types: instruction.types,
+        optional: true,
+        requirements: { target: { max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'grantControlled') {
+      const extra = instruction.keywords.join(', ')
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone !== 'battlefield' || object.controller !== source.controller) continue
+        if (!object.types.includes('Creature')) continue
+        if (instruction.other && object.id === source.id) continue
+        if (instruction.nonHuman && object.subtypes.includes('Human')) continue
+        object.oracleText = object.oracleText ? `${object.oracleText}\n${extra}` : extra
+      }
+      continue
+    }
+    if (instruction.kind === 'lookTopPutLand') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'look-top-land',
+        prompt: `Look at the top ${instruction.count} cards. You may put a land onto the battlefield tapped.`,
+        waiting: 'is choosing among the top cards.',
+        judge: 'Waiting for a look-top land choice.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['bottom', 'battlefield'],
+        count: instruction.count,
+        types: ['Land'],
+        optional: true,
+        requirements: { battlefield: { max: 1 } },
+      })
+      continue
+    }
   }
 }
 
@@ -1383,6 +1689,11 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     )) {
       ids.add('zoneTriggers')
     }
+    if (effect.op === 'trigger' && effect.on === 'cast') {
+      ids.add('castTriggers')
+      if (effect.modal) ids.add('choiceEffects')
+    }
+    if (effect.op === 'modal') ids.add('modalSpell')
     if (effect.op === 'trigger' && effect.on === 'landfall') ids.add('landfall')
     if (effect.op === 'trigger' && effect.on === 'resolve') ids.add('onResolve')
     if (effect.op === 'activate') {
@@ -1392,7 +1703,10 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (effect.op === 'mana') ids.add('activated')
     if (effect.op === 'search') ids.add('librarySearch')
-    if (effect.op === 'targetedResolve') ids.add('targetedResolve')
+    if (effect.op === 'targetedResolve') {
+      ids.add('targetedResolve')
+      if (effect.action === 'copy') ids.add('copySpell')
+    }
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
     if (effect.op === 'bestow') ids.add('bestow')
     if (effect.op === 'handler') ids.add(effect.pluginId)
@@ -1403,6 +1717,9 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
       'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
       'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
+      'createTreasures', 'drawGreatestPower', 'pumpControlled', 'searchLibrary',
+      'fightOwnedVsOpponent', 'counterUnlessPay', 'copyTargetSpell',
+      'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled',
     ].some((kind) => effect.do.some((instruction) => instruction.kind === kind))) {
       ids.add('choiceEffects')
       if (effect.do.some((instruction) => instruction.kind === 'putFromHand')) {
@@ -1413,8 +1730,19 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
         ids.add('secretCouncil')
       }
       if (effect.do.some((instruction) =>
-        instruction.kind === 'fight' || instruction.kind === 'fightUpToOne')) {
+        instruction.kind === 'fight'
+        || instruction.kind === 'fightUpToOne'
+        || instruction.kind === 'fightOwnedVsOpponent')) {
         ids.add('fight')
+      }
+      if (effect.do.some((instruction) => instruction.kind === 'searchLibrary')) {
+        ids.add('librarySearch')
+      }
+      if (effect.do.some((instruction) =>
+        instruction.kind === 'counterUnlessPay'
+        || instruction.kind === 'destroyTargetPermanent'
+        || instruction.kind === 'lookTopPutLand')) {
+        ids.add('choiceEffects')
       }
       if (effect.do.some((instruction) => instruction.kind === 'exchangeControlUntilEot')) {
         ids.add('reinsOfPower')

@@ -53,6 +53,55 @@ export const choiceEffects: Plugin = {
         land.tapped = true
       }
     }
-    clearPendingDialog(draft, event.seat)
+    if (dialog.kind === 'counter-unless') {
+      const amount = draft.players[event.seat].data['counterUnlessPay.amount']
+      const objectIds = Array.isArray(event.payload?.objectIds)
+        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+        : []
+      const targetId = objectIds[0]
+      const target = targetId ? draft.object(targetId) : undefined
+      if (target && target.zone === 'stack') {
+        const index = draft.stack.findIndex((candidate) => candidate.objectId === target.id)
+        if (index >= 0) {
+          draft.stack.splice(index, 1)
+          draft.enqueue({ type: 'move', objectId: target.id, to: 'graveyard' })
+          draft.note(`${dialog.source} counters ${target.name}${typeof amount === 'number' ? ` unless {${amount}}` : ''}`)
+        }
+      }
+      delete draft.players[event.seat].data['counterUnlessPay.amount']
+    }
+    if (dialog.kind === 'destroy-permanent') {
+      const objectIds = Array.isArray(event.payload?.objectIds)
+        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+        : []
+      const targetId = objectIds[0]
+      const target = targetId ? draft.object(targetId) : undefined
+      if (target && target.zone === 'battlefield') {
+        draft.enqueue({ type: 'move', objectId: target.id, to: 'graveyard' })
+        draft.note(`${dialog.source} destroys ${target.name}`)
+      }
+    }
+    if (dialog.kind === 'look-top-land') {
+      const objectIds = Array.isArray(event.payload?.objectIds)
+        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+        : []
+      const topIds = draft.zoneOrder[event.seat].library.slice(0, dialog.count ?? 5)
+      const toBattlefield = objectIds.filter((id) => {
+        const object = draft.object(id)
+        return object?.types.includes('Land')
+      })
+      for (const objectId of toBattlefield) {
+        draft.enqueue({ type: 'move', objectId, to: 'battlefield' })
+        draft.enqueue({ type: 'tap', objectId })
+      }
+      for (const objectId of topIds) {
+        if (toBattlefield.includes(objectId)) continue
+        draft.enqueue({ type: 'move', objectId, to: 'library' })
+      }
+      draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
+    }
+    if (dialog.kind !== 'fight-own') {
+      clearPendingDialog(draft, event.seat)
+    }
   },
 }

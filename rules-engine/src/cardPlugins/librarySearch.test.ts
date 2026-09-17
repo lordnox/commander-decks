@@ -625,6 +625,76 @@ describe('librarySearch', () => {
     expect(result.ok === false && result.error).toContain('another library search is still open')
   })
 
+  test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {
+    const server = game({
+      hand: [card('Cultivate', ['Sorcery'], { manaCost: '{2}{G}' })],
+      library: [
+        forest('Alpha Forest'),
+        forest('Beta Forest'),
+        card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'] }),
+      ],
+    })
+    const spell = server.state.zoneOrder.p1.hand[0]
+    const funded = withMana(server.state)
+    funded.players.p1.mana.G = 3
+    const opened = run(server, funded, [
+      { type: 'castSpell', seat: 'p1', objectId: spell },
+      { type: 'resolveTop' },
+    ])
+    expect(pendingSearch(opened, 'p1')?.source).toBe('Cultivate')
+    expect(searchSpecFor('Cultivate')?.split).toBeTruthy()
+
+    const alpha = named(opened, 'Alpha Forest').id
+    const beta = named(opened, 'Beta Forest').id
+    const resolved = run(server, opened, [
+      { type: 'move', objectId: alpha, to: 'battlefield' },
+      { type: 'tap', objectId: alpha },
+      { type: 'move', objectId: beta, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      { type: 'resolveTop' },
+    ])
+    expect(resolved.objects[alpha].zone).toBe('battlefield')
+    expect(resolved.objects[alpha].tapped).toBe(true)
+    expect(resolved.objects[beta].zone).toBe('hand')
+    expect(resolved.objects[spell].zone).toBe('graveyard')
+  })
+
+  test('Farhaven Elf optional search can be declined', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [card('Farhaven Elf', ['Creature'], { manaCost: '{2}{G}', power: 1, toughness: 1 })] },
+        libraries: { p1: [forest()] },
+      },
+      {
+        random: () => 0.5,
+        cardPlugins: [librarySearch, pendingDialogLock, choiceEffects, zoneTriggers],
+      },
+    )
+    const elf = server.state.zoneOrder.p1.hand[0]
+    const opened = ok(server.rules({
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 3, C: 0 } },
+      },
+    }, { type: 'castSpell', seat: 'p1', objectId: elf }))
+    const resolved = ok(server.rules(opened, { type: 'resolveTop' }))
+    expect(pendingDialog(resolved)).toMatchObject({
+      kind: 'may-search',
+      source: 'Farhaven Elf',
+    })
+    const declined = ok(server.rules(resolved, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p1',
+      payload: { accepted: false },
+    }))
+    expect(pendingSearch(declined, 'p1')).toBeUndefined()
+    expect(declined.objects[elf].zone).toBe('battlefield')
+  })
+
   test('a card with no search ability cannot borrow the fetch ability', () => {
     const server = game({ battlefield: [forest()], library: [forest()] })
     const result = server.rules(server.state, {

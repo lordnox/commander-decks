@@ -74,7 +74,24 @@ describe('card plugin registry', () => {
       'Concordant Crossroads',
       'Reliquary Tower',
       'Illusion of Choice',
+      "An Offer You Can't Refuse",
+      'Beast Whisperer',
+      'Bushwhack',
+      'Cultivate',
+      'Decisive Denial',
+      'End-Raze Forerunners',
+      'Farhaven Elf',
+      "Kodama's Reach",
+      'Overwhelming Stampede',
+      'Pathbreaker Ibex',
+      'Return of the Wildspeaker',
+      'Silverback Elder',
+      'Twincast',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
+    expect(cardPluginEntry('Cultivate')?.handlerIds).toContain('librarySearch')
+    expect(cardPluginEntry('Bushwhack')?.handlerIds).toContain('modalSpell')
+    expect(cardPluginEntry('Beast Whisperer')?.handlerIds).toContain('castTriggers')
+    expect(cardPluginEntry('Twincast')?.handlerIds).toEqual(['targetedResolve', 'copySpell'])
   })
 })
