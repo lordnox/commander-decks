@@ -43,6 +43,7 @@ import {
   landToGraveyard,
   landfall,
   legendRuleOff,
+  loseLife,
   loseLifeTargetManaValue,
   loyalty,
   loyaltyX,
@@ -76,6 +77,7 @@ import {
   staticExtraLandPlays,
   staticGrant,
   surveil,
+  triggerOn,
   tapUnlessPayLife,
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
@@ -771,7 +773,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Stitch Together': [
     targetOnResolve('bounce', { zone: 'graveyard', type: 'Creature' }),
   ],
-  "Liliana's Caress": [staticGrant('lilianasCaress'), handler('lilianasCaress')],
+  "Liliana's Caress": [
+    triggerOn('discard', {
+      if: { seat: 'opponent' },
+      do: [loseLife(2, 'triggeringPlayer')],
+    }),
+  ],
   'Rankle, Master of Pranks': [staticGrant('rankle'), handler('rankle')],
   'Sygg, River Cutthroat': [staticGrant('sygg'), handler('sygg')],
   "Tamiyo's Safekeeping": [

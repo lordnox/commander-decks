@@ -4,6 +4,7 @@ import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
 import { discard } from './plugins/discard'
+import { triggers } from './rules/triggers'
 import { fog } from './plugins/fog'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
@@ -49,6 +50,7 @@ export const corePlugins = [
   combat,
   damage,
   discard,
+  triggers,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,

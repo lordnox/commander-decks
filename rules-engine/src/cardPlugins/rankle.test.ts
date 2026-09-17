@@ -4,7 +4,6 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog, pendingDialogFor } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
-import { lilianasCaress } from './lilianasCaress'
 import { RANKLE_MODES, rankle } from './rankle'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
@@ -35,7 +34,7 @@ const game = (extra: { caress?: boolean } = {}) => createServerGame(
   {
     battlefield: {
       p1: [rankleCard(), creature('Gravedigger'), ...(extra.caress
-        ? [card("Liliana's Caress", ['Enchantment'], { grantedRules: ['lilianasCaress'] })]
+        ? [card("Liliana's Caress", ['Enchantment'])]
         : [])],
       p2: [creature('Lone Hydra', { power: 9, toughness: 9 })],
     },
@@ -48,7 +47,7 @@ const game = (extra: { caress?: boolean } = {}) => createServerGame(
       p2: [card('Plains', ['Land'])],
     },
   },
-  { random: () => 0.5, cardPlugins: [rankle, lilianasCaress] },
+  { random: () => 0.5, cardPlugins: [rankle] },
 )
 
 const connect = (server: ReturnType<typeof createServerGame>, state = server.state) => {
@@ -148,7 +147,15 @@ test('the discard mode drains through Liliana\'s Caress', () => {
   }))
 
   expect(discarded.objects[island.id].zone).toBe('graveyard')
-  expect(discarded.players.p2.life).toBe(commanderRules.startingLife - 5)
+  // CR 603: Caress triggers on the stack; life loss waits for resolution after combat damage.
+  expect(discarded.players.p2.life).toBe(commanderRules.startingLife - 3)
+  expect(discarded.stack[0]).toMatchObject({
+    kind: 'ability',
+    name: "Liliana's Caress",
+  })
+
+  const resolved = ok(server.rules(discarded, { type: 'resolveTop' }))
+  expect(resolved.players.p2.life).toBe(commanderRules.startingLife - 5)
 })
 
 test('choosing every mode queues discards before sacrifices', () => {

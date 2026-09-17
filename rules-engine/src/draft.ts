@@ -139,16 +139,22 @@ export const makeDraft = (state: GameState): Draft => {
     draft.stack.unshift(stackItem)
     return stackItem
   }
-  draft.addTriggeredAbility = (source, instructions, meta = {}) =>
-    draft.addToStack({
+  draft.addTriggeredAbility = (source, instructions, meta = {}) => {
+    const { payload: extraPayload, ...rest } = meta
+    return draft.addToStack({
       kind: 'ability',
       objectId: source.id,
       controller: source.controller,
       name: source.name,
       targets: [],
-      payload: { instructions },
-      ...meta,
+      ...rest,
+      payload: {
+        instructions,
+        triggeringPlayer: extraPayload?.triggeringPlayer,
+        ...extraPayload,
+      },
     })
+  }
   return draft
 }
 
