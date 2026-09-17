@@ -27,12 +27,13 @@ import {
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
+import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import {
   DIALOG_CHOSEN,
   PENDING_DIALOG,
   pendingDialogLock,
 } from '../../rules-engine/src/pendingDialog'
-import { cardTemplate } from '../../rules-engine/src/newGame'
+import { cardTemplate, planeswalker } from '../../rules-engine/src/newGame'
 import { createLobby } from './lobby'
 import {
   applyKernelAct,
@@ -1117,6 +1118,74 @@ describe('kernel host journal', () => {
       seat: 'p1',
       objectId: 'land-1',
     })
+  })
+
+  test('activates Teferi +1 with submitted targets and opens priority', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [
+            planeswalker('Teferi, Who Slows the Sunset', 4),
+            cardTemplate('Mana Rock', { types: ['Artifact'], tapped: true }),
+            forest(),
+          ],
+          p2: [cardTemplate('Target Creature', {
+            types: ['Creature'],
+            power: 2,
+            toughness: 2,
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [planeswalkerPlugin] },
+    )
+    const initial = structuredClone(server.state)
+    initial.step = 'precombatMain'
+    initial.active = 'p1'
+    initial.priority = 'p1'
+    const byName = (name: string) =>
+      Object.values(initial.objects).find((object) => object.name === name)!
+    const teferi = byName('Teferi, Who Slows the Sunset')
+    const rock = byName('Mana Rock')
+    const creature = byName('Target Creature')
+    const land = byName('Forest')
+    const kernel = handleFor(server.rules, initial)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: teferi.id,
+      abilityId: 'teferi.plus-one',
+      text: 'teferi.plus-one',
+      targetObjectIds: [rock.id, creature.id, land.id],
+    })
+
+    const current = kernel.history.current()
+    expect(current.objects[teferi.id].counters.loyalty).toBe(5)
+    expect(current.stack[0]).toMatchObject({
+      kind: 'ability',
+      abilityId: 'teferi.plus-one',
+      targets: [
+        { kind: 'object', objectId: rock.id },
+        { kind: 'object', objectId: creature.id },
+        { kind: 'object', objectId: land.id },
+      ],
+    })
+    expect(current.priority).toBe('p1')
+    expect(current.objects[rock.id].tapped).toBe(true)
+    expect(current.objects[creature.id].tapped).toBe(false)
+
+    for (const seat of ['p1', 'p2', 'p3', 'p4'] as const) {
+      const passed = kernel.dispatch({ type: 'passPriority', seat })
+      expect(passed.ok).toBe(true)
+    }
+    const resolved = kernel.history.current()
+    expect(resolved.stack).toHaveLength(0)
+    expect(resolved.objects[rock.id].tapped).toBe(false)
+    expect(resolved.objects[creature.id].tapped).toBe(true)
+    expect(resolved.players.p1.life).toBe(42)
   })
 
   test('declares selected attackers against players and planeswalkers', async () => {

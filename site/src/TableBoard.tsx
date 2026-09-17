@@ -973,7 +973,14 @@ export const legalActLabel = (action: AvailableAction) => {
   if (action.kind === 'tapForMana') {
     return action.mana ? `Tap for {${action.mana}}` : 'Tap for mana'
   }
-  if (action.kind === 'activateAbility') return action.text || 'Activate'
+  if (action.kind === 'activateAbility') {
+    const loyalty = action.abilityId?.match(/\.(plus|minus)-(one|two|seven)$/)
+    if (loyalty) {
+      const amount = { one: 1, two: 2, seven: 7 }[loyalty[2] as 'one' | 'two' | 'seven']
+      return loyalty[1] === 'plus' ? `+${amount}` : `−${amount}`
+    }
+    return action.text || 'Activate'
+  }
   if (action.kind === 'declareAttackers') return 'Declare attackers'
   return 'Declare blockers'
 }
@@ -983,6 +990,7 @@ export const CardPreview = ({
   onClose,
   onCopyName,
   onInsertName,
+  seatNames = {},
   acts = [],
   onAct,
 }: {
@@ -990,10 +998,13 @@ export const CardPreview = ({
   onClose: () => void
   onCopyName?: (name: string) => void
   onInsertName?: (name: string) => void
+  seatNames?: Record<string, string>
   acts?: AvailableAction[]
   onAct?: (action: AvailableAction) => void
 }) => {
   const [choosingTarget, setChoosingTarget] = useState(false)
+  const [choosingActivation, setChoosingActivation] = useState<string | null>(null)
+  const [activationTargets, setActivationTargets] = useState<Record<string, string>>({})
   const targetedCasts = acts.filter((
     action,
   ): action is Extract<AvailableAction, { kind: 'castSpell' }> & {
@@ -1001,8 +1012,17 @@ export const CardPreview = ({
     targetName: string
   } => action.kind === 'castSpell' && Boolean(action.targetObjectId && action.targetName))
   const directActs = acts.filter(
-    (action) => action.kind !== 'castSpell' || !action.targetObjectId,
+    (action) =>
+      (action.kind !== 'castSpell' || !action.targetObjectId)
+      && (action.kind !== 'activateAbility' || !action.targetGroups),
   )
+  const targetedActivations = acts.filter((
+    action,
+  ): action is Extract<AvailableAction, { kind: 'activateAbility' }> & {
+    targetGroups: NonNullable<
+      Extract<AvailableAction, { kind: 'activateAbility' }>['targetGroups']
+    >
+  } => action.kind === 'activateAbility' && Boolean(action.targetGroups))
 
   return (
   <div
@@ -1088,6 +1108,73 @@ export const CardPreview = ({
                 Cast
               </button>
             )}
+            {targetedActivations.map((action) => (
+              <div key={action.abilityId} className="w-full">
+                {choosingActivation !== action.abilityId ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setChoosingActivation(action.abilityId ?? action.text)
+                      setActivationTargets({})
+                    }}
+                    className="inline-flex items-center rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
+                  >
+                    {legalActLabel(action)}
+                  </button>
+                ) : (
+                  <div className="rounded-xl border border-moss-300/30 bg-black/20 p-3">
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wide text-moss-200">
+                      Choose up to one target of each type
+                    </p>
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      {action.targetGroups.map((group) => (
+                        <label
+                          key={group.label}
+                          className="grid gap-1 text-xs font-bold uppercase tracking-wide text-stone-300"
+                        >
+                          {group.label}
+                          <select
+                            aria-label={`${group.label} target`}
+                            value={activationTargets[group.label] ?? ''}
+                            onChange={(event) => setActivationTargets((current) => ({
+                              ...current,
+                              [group.label]: event.target.value,
+                            }))}
+                            className="min-w-0 rounded-lg border border-white/15 bg-ink-950 px-2 py-2 text-sm normal-case tracking-normal text-stone-100"
+                          >
+                            <option value="">No target</option>
+                            {group.targets.map((target) => (
+                              <option key={target.objectId} value={target.objectId}>
+                                {target.name} ({seatNames[target.controller] ?? target.controller})
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      ))}
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => onAct({
+                          ...action,
+                          targetObjectIds: Object.values(activationTargets).filter(Boolean),
+                        })}
+                        className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
+                      >
+                        Activate +1
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setChoosingActivation(null)}
+                        className="rounded-full bg-white/10 px-3 py-1.5 text-sm font-semibold text-stone-200 hover:bg-white/15"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
             {choosingTarget && (
               <div className="w-full rounded-xl border border-moss-300/30 bg-black/20 p-3">
                 <p className="mb-2 text-xs font-bold uppercase tracking-wide text-moss-200">

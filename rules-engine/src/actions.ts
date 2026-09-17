@@ -3,7 +3,7 @@ import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
 import { effectsOf } from './cardPlugins/cardRules'
-import { conditionHolds, type ActivateCost } from './cardPlugins/effects'
+import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import { validTarget } from './cardPlugins/targetedResolve'
 import type {
   GameEvent,
@@ -23,7 +23,20 @@ export type AvailableAction =
       targetObjectId?: string
       targetName?: string
     }
-  | { kind: 'activateAbility'; objectId: string; name: string; text: string; abilityId?: string }
+  | {
+      kind: 'activateAbility'
+      objectId: string
+      name: string
+      text: string
+      abilityId?: string
+      targetObjectIds?: string[]
+      targetGroups?: Array<{
+        label: string
+        min: number
+        max: number
+        targets: Array<{ objectId: string; name: string; controller: PlayerId }>
+      }>
+    }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | { kind: 'declareAttackers'; objectIds: string[] }
   | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
@@ -380,15 +393,45 @@ const targetVariants = (
     }))
 }
 
+const activationTargetGroups = (
+  state: GameState,
+  action: AvailableAction,
+): AvailableAction => {
+  if (action.kind !== 'activateAbility' || !action.abilityId) return action
+  const source = state.objects[action.objectId]
+  const effect = source
+    ? activateEffect(effectsOf(source), action.abilityId)
+    : undefined
+  if (effect?.targets !== 'teferiSunsetPlusOne') return action
+  const targets = Object.values(state.objects).filter((object) => object.zone === 'battlefield')
+  return {
+    ...action,
+    targetGroups: ['Artifact', 'Creature', 'Land'].map((type) => ({
+      label: type,
+      min: 0,
+      max: 1,
+      targets: targets
+        .filter((object) => object.types.includes(type))
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })),
+  }
+}
+
 export const legalActsFor = (
   state: GameState,
   seat: PlayerId = state.priority ?? '',
 ): AvailableAction[] =>
   [...availableActions(state, seat), ...manaAffordances(state, seat)]
     .flatMap((action) => targetVariants(state, seat, action))
+    .map((action) => activationTargetGroups(state, action))
     .filter((action) =>
       action.kind === 'declareAttackers'
       || action.kind === 'declareBlockers'
+      || (action.kind === 'activateAbility' && Boolean(action.targetGroups))
       || eventsForAvailableAction(state, seat, action))
 
 export const sameLegalAct = (
