@@ -89,6 +89,21 @@ test('accepting the trigger draws a card and declining does not', () => {
   expect(pendingDialog(declined)).toBeUndefined()
 })
 
+test('an opponent who died to that life loss still counts', () => {
+  const server = game()
+  let current = ok(server.rules(server.state, {
+    type: 'loseLife',
+    seat: 'p1',
+    amount: 60,
+  }))
+  current = ok(server.rules(current, { type: 'concede', seat: 'p1' }))
+
+  const ending = toEndStep(server, current)
+
+  expect(ending.players.p1.lost).toBe(true)
+  expect(pendingDialog(ending)).toMatchObject({ kind: 'may-draw', seat: 'p3' })
+})
+
 test('two life lost by an opponent is not enough', () => {
   const server = game()
   const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 2 }))
