@@ -3,9 +3,6 @@ import { abilities } from './plugins/activateAbility'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
-import { discard } from './plugins/discard'
-import { draw } from './plugins/draw'
-import { triggers } from './rules/triggers'
 import { fog } from './plugins/fog'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
@@ -16,6 +13,7 @@ import { priority } from './plugins/priority'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
+import { gameRules } from './rules/main'
 import type { PlayerId, Plugin, ZoneId } from './types'
 
 export type GameFormat = {
@@ -50,9 +48,7 @@ export const corePlugins = [
   stateBased,
   combat,
   damage,
-  discard,
-  draw,
-  triggers,
+  ...gameRules,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,
