@@ -1,16 +1,67 @@
 import type { PluginCatalog } from './catalog'
-import { freezeDraft, makeDraft } from './draft'
+import type { Draft } from './draft'
+import { freezeDraft, makeDraft, nextPlayer } from './draft'
 import type {
   GameEvent,
   GameState,
   HookCtx,
   EventTrace,
+  PlayerId,
   ReduceResult,
   RuleInstance,
   ZoneId,
 } from './types'
+import { ZONE_IDS } from './types'
 
 const SBA_CAP = 32
+
+const attackedPlayer = (attacking: NonNullable<GameState['objects'][string]['attacking']>) =>
+  typeof attacking === 'string'
+    ? attacking
+    : attacking.kind === 'player' ? attacking.player : null
+
+/**
+ * CR 800.4a: a player leaving the game takes every object they own with them,
+ * and permanents they merely controlled go back to their owners. Leaving the
+ * board behind would let a dead seat keep blocking and keep priority, which
+ * CR 800.4 does not allow.
+ */
+const leaveGame = (draft: Draft, seat: PlayerId) => {
+  for (const object of Object.values(draft.objects)) {
+    if (object.owner === seat) {
+      delete draft.objects[object.id]
+      continue
+    }
+    if (object.controller === seat) object.controller = object.owner
+  }
+  for (const zone of ZONE_IDS) {
+    draft.zoneOrder[seat][zone] = []
+    draft.zoneCounts[seat][zone] = 0
+  }
+  draft.stack = draft.stack.filter((item) => draft.objects[item.objectId])
+  draft.rules = draft.rules.filter((rule) => !rule.sourceId || draft.objects[rule.sourceId])
+  draft.passedInRow = draft.passedInRow.filter((player) => player !== seat)
+  for (const object of Object.values(draft.objects)) {
+    if (object.blocking && !draft.objects[object.blocking]) object.blocking = null
+    if (!object.attacking) continue
+    const player = attackedPlayer(object.attacking)
+    const gone = player
+      ? player === seat
+      : typeof object.attacking !== 'string'
+        && object.attacking.kind === 'object'
+        && !draft.objects[object.attacking.objectId]
+    if (gone) object.attacking = null
+  }
+  if (draft.priority === seat) {
+    let next = nextPlayer(draft, seat)
+    for (let index = 0; index < draft.playerOrder.length; index += 1) {
+      if (!draft.players[next].lost) break
+      next = nextPlayer(draft, next)
+    }
+    draft.priority = draft.players[next]?.lost ? null : next
+  }
+  draft.note(`${seat} leaves the game with everything they own`)
+}
 
 const sortedRules = (state: GameState) =>
   [...state.rules].sort((a, b) => a.timestamp - b.timestamp)
@@ -133,8 +184,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       return
     }
     case 'concede': {
+      if (draft.players[event.seat]?.lost) return
       draft.players[event.seat].lost = true
       draft.note(`${event.seat} concedes`)
+      leaveGame(draft, event.seat)
       return
     }
     default:
