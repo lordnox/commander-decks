@@ -22,6 +22,51 @@ test('state-based actions move a lethally damaged creature to the graveyard', ()
   expect(result.state.objects[bearId].zone).toBe('graveyard')
 })
 
+test('a player dying takes their whole board out of the game', () => {
+  const catalog = createCatalog([manaStub, stateBased])
+  const state = newGame({
+    battlefield: { p1: [bears()], p2: [bears(), planeswalker('Lost Walker', 3)] },
+    hands: { p2: [bears()] },
+    builtinRules: ['mana', 'stateBased'],
+  })
+  const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
+  const blocker = Object.values(state.objects).find(
+    (object) => object.controller === 'p2' && object.types.includes('Creature'),
+  )!
+  state.objects[attacker.id].attacking = 'p2'
+  state.objects[blocker.id].blocking = attacker.id
+  state.players.p2.life = 0
+  state.priority = 'p2'
+
+  const result = rules(state, { type: 'addMana', seat: 'p1', mana: {} }, catalog)
+  if (!result.ok) throw new Error(result.error)
+
+  expect(result.state.players.p2.lost).toBe(true)
+  expect(Object.values(result.state.objects).some((object) => object.owner === 'p2')).toBe(false)
+  expect(result.state.zoneOrder.p2.battlefield).toEqual([])
+  expect(result.state.zoneCounts.p2.hand).toBe(0)
+  // The survivor leaves combat and priority cannot sit with a dead seat.
+  expect(result.state.objects[attacker.id].attacking).toBeNull()
+  expect(result.state.priority).toBe('p3')
+})
+
+test('a permanent the dying player only controlled goes back to its owner', () => {
+  const catalog = createCatalog([manaStub, stateBased])
+  const state = newGame({
+    battlefield: { p1: [bears()] },
+    builtinRules: ['mana', 'stateBased'],
+  })
+  const stolen = Object.values(state.objects)[0]
+  state.objects[stolen.id].controller = 'p2'
+  state.players.p2.life = 0
+
+  const result = rules(state, { type: 'addMana', seat: 'p1', mana: {} }, catalog)
+  if (!result.ok) throw new Error(result.error)
+
+  expect(result.state.objects[stolen.id].controller).toBe('p1')
+  expect(result.state.objects[stolen.id].zone).toBe('battlefield')
+})
+
 test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {
   const catalog = createCatalog([manaStub, stateBased])
   const state = newGame({
