@@ -43,6 +43,7 @@ export const TopdeckDialog = ({
   const lookingAtTop = decision.kind === 'look-top'
   const targetingPlayers = decision.kind === 'target-players'
   const sacrificingLands = decision.kind === 'sacrifice-lands'
+  const optionalDraw = decision.kind === 'may-draw'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -127,6 +128,8 @@ export const TopdeckDialog = ({
           ? 'Choose target players'
         : sacrificingLands
           ? 'Choose lands to sacrifice'
+        : optionalDraw
+          ? 'Draw a card?'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small

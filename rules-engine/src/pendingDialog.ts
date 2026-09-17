@@ -23,6 +23,7 @@ export type PendingDialog = {
     | 'exile-graveyards'
     | 'sacrifice-lands'
     | 'may'
+    | 'may-draw'
     | 'may-pay-life'
   prompt: string
   waiting: string

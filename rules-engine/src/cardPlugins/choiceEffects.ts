@@ -36,6 +36,10 @@ export const choiceEffects: Plugin = {
     if (dialog.kind === 'may' && event.payload?.accepted === true) {
       millLibrary(draft, event.seat, dialog.count ?? 0)
     }
+    if (dialog.kind === 'may-draw' && event.payload?.accepted === true) {
+      draft.enqueue({ type: 'draw', seat: event.seat, count: dialog.count ?? 1 })
+      draft.note(`${event.seat} draws from ${dialog.source}`)
+    }
     if (dialog.kind === 'may-pay-life') {
       const land = draft.object(dialog.sourceId)
       if (event.payload?.accepted === true) {

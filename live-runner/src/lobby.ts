@@ -50,6 +50,7 @@ export type TopdeckDecision = {
       | 'return-land'
       | 'sacrifice-lands'
       | 'may'
+      | 'may-draw'
       | 'may-pay-life'
     resumePassSeat?: SeatId
     kicked?: boolean

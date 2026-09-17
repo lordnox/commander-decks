@@ -1,6 +1,7 @@
 import { emptyMana, nextPlayer, type Draft } from '../draft'
 import { strikesFirst } from '../keywords'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
+import { LIFE_LOST_THIS_TURN } from './damage'
 
 export const STEPS: StepId[] = [
   'untap',
@@ -56,6 +57,10 @@ const onUntap = (draft: Draft) => {
     object.loyaltyActivatedTurn = null
   }
   draft.players[draft.active].landsPlayed = 0
+  // "this turn" counters start over for everyone, not just the active seat.
+  for (const player of draft.playerOrder) {
+    delete draft.players[player].data[LIFE_LOST_THIS_TURN]
+  }
   draft.note(`${draft.active} untaps`)
 }
 

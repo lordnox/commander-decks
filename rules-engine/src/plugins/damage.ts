@@ -1,5 +1,17 @@
 import { hasKeyword } from '../keywords'
-import type { Plugin } from '../types'
+import type { PlayerState, Plugin } from '../types'
+
+export const LIFE_LOST_THIS_TURN = 'damage.lifeLostThisTurn'
+
+/**
+ * Life a player has lost since their turn-based reset. Cards ask this as an
+ * intervening-if ("if an opponent lost 3 or more life this turn"), so it has
+ * to survive the life total going back up (CR 118.2, 603.4).
+ */
+export const lifeLostThisTurn = (player: Pick<PlayerState, 'data'>) => {
+  const value = player.data[LIFE_LOST_THIS_TURN]
+  return Number.isSafeInteger(value) && Number(value) > 0 ? Number(value) : 0
+}
 
 /**
  * CR-shaped damage chain:
@@ -48,6 +60,7 @@ export const damage: Plugin = {
       const player = draft.players[event.seat]
       if (!player || player.lost) return
       player.life -= event.amount
+      player.data[LIFE_LOST_THIS_TURN] = lifeLostThisTurn(player) + event.amount
       draft.note(
         `${event.seat} loses ${event.amount} life${event.source ? ` (${event.source})` : ''}`,
       )
