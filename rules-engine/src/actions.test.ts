@@ -329,14 +329,16 @@ describe('events for available actions', () => {
     })
   })
 
-  test('a spell with a supported cast-time sacrifice choice opens its dialog', () => {
+  // Scapeshift's sacrifice happens on resolution, so nothing about casting it
+  // needs a choice and the fast path can send it straight to the stack.
+  test('a spell whose only choices happen on resolution stays fast-castable', () => {
     const scapeshift = {
       ...bolt(),
       name: 'Scapeshift',
       types: ['Sorcery'],
       manaCost: '{2}{G}{G}',
-      oracleText: 'As an additional cost to cast this spell, sacrifice any number of lands. '
-        + 'Search your library for up to that many land cards.',
+      oracleText: 'Sacrifice any number of lands. Search your library for up to that many '
+        + 'land cards, put them onto the battlefield tapped, then shuffle.',
     }
     const state = newGame(commanderRules, { hands: { p1: [scapeshift] } })
     state.players.p1.mana = { ...empty, G: 2, C: 2 }

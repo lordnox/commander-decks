@@ -20,6 +20,7 @@ import {
 } from '../../rules-engine/src/index'
 import {
   librarySearch,
+  pendingSearch,
   SEARCH_FETCH,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
@@ -895,7 +896,7 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck?.cards).toEqual(['Taiga', 'Forest'])
   })
 
-  test('Scapeshift sacrifices selected battlefield lands before it is cast', () => {
+  test('Scapeshift sacrifices lands as it resolves, then opens its search', () => {
     const server = createServerGame(
       commanderRules,
       {
@@ -912,6 +913,7 @@ describe('kernel host journal', () => {
             { ...forest(), name: 'Second Forest' },
           ],
         },
+        libraries: { p1: [{ ...forest(), name: 'Library Forest' }] },
       },
       { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
     )
@@ -919,10 +921,15 @@ describe('kernel host journal', () => {
     initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
     const spellId = initial.zoneOrder.p1.hand[0]
     const kernel = handleFor(server.rules, initial)
-    const opened = kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: spellId })
-    if (!opened.ok) throw new Error(opened.error)
+    const cast = kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: spellId })
+    if (!cast.ok) throw new Error(cast.error)
     const lobby = createLobby()
     lobby.phase = 'play'
+
+    // Nothing is chosen while the spell is castable; it waits on the stack.
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(false)
+    const resolving = kernel.dispatch({ type: 'resolveTop' })
+    if (!resolving.ok) throw new Error(resolving.error)
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
@@ -939,18 +946,12 @@ describe('kernel host journal', () => {
     })).toBe(true)
 
     const state = kernel.history.current()
-    expect(kernel.journal.events).toContainEqual({
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: spellId,
-      sacrifice: [
-        Object.values(state.objects).find((object) => object.name === 'First Forest')!.id,
-      ],
-    })
-    expect(state.objects[
-      Object.values(state.objects).find((object) => object.name === 'First Forest')!.id
-    ].zone).toBe('graveyard')
-    expect(lobby.topdeck).toBeUndefined()
+    const sacrificed = Object.values(state.objects).find(
+      (object) => object.name === 'First Forest',
+    )!
+    expect(state.objects[sacrificed.id].zone).toBe('graveyard')
+    expect(pendingSearch(state, 'p1')).toMatchObject({ source: 'Scapeshift', max: 1 })
+    expect(lobby.topdeck).toMatchObject({ kind: 'search', cards: ['Library Forest'] })
   })
 
   test('a search reads the whole library, not only the cards it may take', () => {

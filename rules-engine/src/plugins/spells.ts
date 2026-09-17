@@ -83,15 +83,10 @@ export const spells: Plugin = {
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       if (needed) {
         const sacrificed = event.sacrifice ?? []
-        if (needed === 'any') {
-          if (sacrificed.some((objectId) => {
-            const land = state.objects[objectId]
-            return !land || land.controller !== event.seat || !land.types.includes('Land')
-              || land.zone !== 'battlefield'
-          })) return 'illegal land sacrifice'
-        } else if (sacrificed.length !== needed) {
+        if (sacrificed.length !== needed) {
           return `${object.name} requires sacrificing ${needed} land(s)`
-        } else if (sacrificed.some((objectId) => {
+        }
+        if (sacrificed.some((objectId) => {
           const land = state.objects[objectId]
           return !land || land.controller !== event.seat || !land.types.includes('Land')
             || land.zone !== 'battlefield'

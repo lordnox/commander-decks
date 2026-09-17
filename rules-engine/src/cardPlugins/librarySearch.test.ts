@@ -61,7 +61,9 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('librarySearch', () => {
-  test('Scapeshift chooses and sacrifices lands before it is cast', () => {
+  // Scapeshift sacrifices as it resolves, so the spell is already on the stack
+  // and countering it means no land is lost.
+  test('Scapeshift sacrifices while it resolves, then searches for that many lands', () => {
     const server = game({
       hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
       battlefield: [forest('First Forest'), forest('Second Forest')],
@@ -70,32 +72,56 @@ describe('librarySearch', () => {
     const spell = named(server.state, 'Scapeshift')
     const funded = withMana(server.state)
     funded.players.p1.mana.G = 4
-    const choosing = ok(server.rules(funded, {
+    const cast = ok(server.rules(funded, {
       type: 'castSpell',
       seat: 'p1',
       objectId: spell.id,
     }))
 
+    expect(pendingDialog(cast)).toBeUndefined()
+    expect(cast.objects[spell.id].zone).toBe('stack')
+    expect(named(cast, 'First Forest').zone).toBe('battlefield')
+
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(pendingDialog(choosing)).toMatchObject({
       kind: 'sacrifice-lands',
       source: 'Scapeshift',
     })
-    expect(choosing.objects[spell.id].zone).toBe('hand')
-    expect(choosing.players.p1.mana.G).toBe(4)
+    expect(choosing.objects[spell.id].zone).toBe('stack')
 
     const sacrificed = named(choosing, 'First Forest')
-    const cast = run(server, choosing, [
-      { type: 'castSpell', seat: 'p1', objectId: spell.id, sacrifice: [sacrificed.id] },
-      { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1' },
-    ])
-    expect(cast.objects[sacrificed.id].zone).toBe('graveyard')
-    expect(cast.stack[0]).toMatchObject({ name: 'Scapeshift', sacrificed: 1 })
+    const searching = ok(server.rules(choosing, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p1',
+      payload: { objectIds: [sacrificed.id] },
+    }))
 
-    const searching = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(searching.objects[sacrificed.id].zone).toBe('graveyard')
     expect(pendingSearch(searching, 'p1')).toMatchObject({
       source: 'Scapeshift',
       max: 1,
     })
+  })
+
+  test('Scapeshift that sacrifices nothing finds nothing and finishes resolving', () => {
+    const server = game({
+      hand: [card('Scapeshift', ['Sorcery'], { manaCost: '{2}{G}{G}' })],
+      battlefield: [forest('First Forest')],
+      library: [forest(), island()],
+    })
+    const spell = named(server.state, 'Scapeshift')
+    const funded = withMana(server.state)
+    funded.players.p1.mana.G = 4
+    const done = run(server, funded, [
+      { type: 'castSpell', seat: 'p1', objectId: spell.id },
+      { type: 'resolveTop' },
+      { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { objectIds: [] } },
+    ])
+
+    expect(named(done, 'First Forest').zone).toBe('battlefield')
+    expect(pendingSearch(done, 'p1')).toBeUndefined()
+    expect(done.objects[spell.id].zone).toBe('graveyard')
   })
 
   test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {

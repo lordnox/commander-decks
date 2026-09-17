@@ -597,7 +597,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       tapped: true,
       min: 0,
       max: 99,
-      sacrificeLands: 'any',
+      sacrificeOnResolve: 'any',
     }),
   ],
   Six: [attacks(selfMill(3), revealPick(3, { type: 'Land' }))],

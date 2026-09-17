@@ -12,7 +12,12 @@ import { payActivateCosts } from './activated'
 import { conditionHolds, searchEffect, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
 import { enteringObjectId } from './entersTapped'
-import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
+import {
+  clearPendingDialog,
+  DIALOG_CHOSEN,
+  pendingDialogFor,
+  setPendingDialog,
+} from '../pendingDialog'
 
 export type { SearchDestination, SearchSpec } from './effects'
 
@@ -144,24 +149,24 @@ export const librarySearch: Plugin = {
     if (fetchError) return fetchError
   },
   replace: ({ state, event }) => {
-    if (event.type === 'castSpell' && event.sacrifice === undefined) {
-      const object = state.objects[event.objectId]
-      const spec = object ? spellSpec(object) : undefined
-      if (spec?.sacrificeLands === 'any') {
-        return {
-          type: 'custom',
-          name: SEARCH_SACRIFICE_BEGIN,
-          seat: event.seat,
-          payload: { sourceId: object.id },
-        }
-      }
-    }
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
     const object = item ? state.objects[item.objectId] : undefined
-    if (!item || !object || !spellSpec(object)) return
+    const spec = object ? spellSpec(object) : undefined
+    if (!item || !object || !spec) return
     if (searchDone(state, item.controller)) return
     if (pendingSearch(state, item.controller)) return null
+    // Scapeshift sacrifices as it resolves, so the spell waits on the stack
+    // until its controller has chosen. Only then is the search bounded.
+    if (spec.sacrificeOnResolve) {
+      if (pendingDialogFor(state, item.controller)?.kind === 'sacrifice-lands') return null
+      return {
+        type: 'custom',
+        name: SEARCH_SACRIFICE_BEGIN,
+        seat: item.controller,
+        payload: { sourceId: item.objectId },
+      }
+    }
     return {
       type: 'custom',
       name: SEARCH_BEGIN,
@@ -171,13 +176,11 @@ export const librarySearch: Plugin = {
         sourceId: item.objectId,
         via: 'spell',
         kicked: item.kicked === true,
-        max: spellSpec(object)?.sacrificeLands === 'any'
-          ? item.sacrificed ?? 0
-          : spellSpec(object)?.empoweredIf
-            && spellSpec(object)?.empoweredMax
-            && conditionHolds(spellSpec(object)!.empoweredIf, state, object)
-            ? spellSpec(object)!.empoweredMax
-            : undefined,
+        max: spec.empoweredIf
+          && spec.empoweredMax
+          && conditionHolds(spec.empoweredIf, state, object)
+          ? spec.empoweredMax
+          : undefined,
       },
     }
   },
@@ -186,24 +189,52 @@ export const librarySearch: Plugin = {
     if (event.type === 'custom' && event.name === SEARCH_SACRIFICE_BEGIN && event.seat) {
       const sourceId = event.payload?.sourceId
       const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined
-      if (!source || source.zone !== 'hand') return
-      const lands = Object.values(draft.objects).filter((object) =>
-        object.zone === 'battlefield'
-        && object.controller === event.seat
-        && object.types.includes('Land'))
+      if (!source) return
       setPendingDialog(draft, {
         sourceId: source.id,
         source: source.name,
         seat: event.seat,
         kind: 'sacrifice-lands',
-        prompt: `Choose any number of lands to sacrifice as the additional cost for ${source.name}.`,
+        prompt: `Sacrifice any number of lands. ${source.name} then searches for that many land cards.`,
         waiting: 'is choosing lands to sacrifice.',
-        judge: `Waiting for ${source.name}’s additional cost.`,
+        judge: `${source.name} is resolving; its controller is sacrificing lands.`,
         chosenEvent: DIALOG_CHOSEN,
         destinations: ['battlefield', 'sacrifice'],
-        requirements: { sacrifice: { min: 0, max: lands.length } },
       })
-      draft.note(`${event.seat} chooses the additional cost for ${source.name}`)
+      draft.note(`${source.name} resolves: ${event.seat} sacrifices lands`)
+      return
+    }
+
+    if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
+      const dialog = pendingDialogFor(state, event.seat)
+      if (dialog?.kind !== 'sacrifice-lands') return
+      const sacrificed = (Array.isArray(event.payload?.objectIds)
+        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+        : []).filter((objectId) => {
+        const land = draft.object(objectId)
+        return land?.zone === 'battlefield'
+          && land.controller === event.seat
+          && land.types.includes('Land')
+      })
+      for (const objectId of sacrificed) {
+        draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+      }
+      clearPendingDialog(draft, event.seat)
+      // Searching for up to zero cards finds nothing, so only the shuffle and
+      // the rest of the resolution are left.
+      if (sacrificed.length === 0) {
+        draft.players[event.seat].data[SEARCH_DONE] = true
+        draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
+        draft.enqueue({ type: 'resolveTop' })
+        draft.note(`${dialog.source} sacrifices no lands`)
+        return
+      }
+      openSearch(draft, event.seat, {
+        source: dialog.source,
+        sourceId: dialog.sourceId,
+        via: 'spell',
+        max: sacrificed.length,
+      })
       return
     }
     if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {

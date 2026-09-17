@@ -102,7 +102,10 @@ export type SearchSpec = {
   gainLife?: number
   validateSelection?: (objects: GameObject[]) => string | void
   untapWithFourLands?: boolean
-  sacrificeLands?: number | 'any'
+  /** Sacrificed while casting, as Harrow's printed additional cost. */
+  sacrificeLands?: number
+  /** Sacrificed while resolving, as Scapeshift's first sentence. */
+  sacrificeOnResolve?: 'any'
   empoweredMax?: number
   empoweredIf?: CardCondition
 }

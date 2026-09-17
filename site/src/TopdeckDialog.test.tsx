@@ -107,14 +107,13 @@ test('Homer offers every player as an optional target', () => {
   expect(html).toContain('Confirm targets')
 })
 
-test('Scapeshift asks for land sacrifices before opening a search', () => {
+test('a resolving Scapeshift asks for land sacrifices before opening a search', () => {
   const game = { catalog: { Forest: {}, Island: {} } } as unknown as ReplayGame
   const decision = {
     seat: 'p4',
     kind: 'sacrifice-lands',
     cards: ['Forest', 'Island'],
     destinations: ['battlefield', 'sacrifice'],
-    requirements: { sacrifice: { min: 0, max: 2 } },
   } as LiveTopdeck
   const html = renderToStaticMarkup(
     <TopdeckDialog
@@ -125,11 +124,11 @@ test('Scapeshift asks for land sacrifices before opening a search', () => {
     />,
   )
 
-  expect(html).toContain('Additional casting cost')
+  expect(html).toContain('Resolving spell')
   expect(html).toContain('Choose lands to sacrifice')
   expect(html).toContain('Sacrifice this land')
   expect(html).toContain('Keep this land')
-  expect(html).toContain('Pay cost and cast')
+  expect(html).toContain('Sacrifice and search')
   expect(html).not.toContain('Search your library')
 })
 

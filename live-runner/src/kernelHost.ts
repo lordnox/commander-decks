@@ -541,7 +541,7 @@ export const applyKernelChoice = (
   if (decision.kernel.stage === 'sacrifice-lands') {
     const dialog = pendingDialogFor(state, seat)
     if (dialog?.kind !== 'sacrifice-lands') {
-      throw new Error('That additional-cost choice is no longer open.')
+      throw new Error('That sacrifice choice is no longer open.')
     }
     const candidates = dialogCandidates(state, dialog)
     const orderedIds = objectIdsForNames(
@@ -549,33 +549,30 @@ export const applyKernelChoice = (
       candidates.map((object) => object.id),
       message.choices.map(({ card }) => card),
     )
-    const sacrifice = message.choices
+    const objectIds = message.choices
       .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
       .filter(({ destination }) => destination === 'sacrifice')
       .map(({ objectId }) => objectId)
-    const cast = kernel.dispatch({
-      type: 'castSpell',
+    const names = objectIds.map((id) => state.objects[id]?.name).filter(Boolean)
+    const chosen = kernel.dispatch({
+      type: 'custom',
+      name: dialog.chosenEvent ?? DIALOG_CHOSEN,
       seat,
-      objectId: decision.kernel.sourceId,
-      sacrifice,
+      payload: { objectIds },
     })
-    if (!cast.ok) throw new Error(cast.error)
-    const closed = kernel.dispatch({ type: 'custom', name: DIALOG_CHOSEN, seat })
-    if (!closed.ok) throw new Error(closed.error)
+    if (!chosen.ok) throw new Error(chosen.error)
     lobby.topdeck = undefined
     state = kernel.history.current()
     lobby.actions = kernelActions(state)
     lobby.privateWaiting = {}
     lobby.privateJudge = {
-      [seat]: `${dialog.source} was cast, sacrificing ${
-        sacrifice.length > 0
-          ? sacrifice.map((id) => state.objects[id]?.name).join(', ')
-          : 'no lands'
+      [seat]: `${dialog.source} sacrificed ${
+        names.length > 0 ? names.join(', ') : 'no lands'
       }.`,
     }
     lobby.waiting =
       `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = `${dialog.source} was cast with ${sacrifice.length} land sacrifice(s).`
+    lobby.judge = `${dialog.source} resolved after ${objectIds.length} land sacrifice(s).`
     settleKernelPriority(kernel, lobby)
     return true
   }
