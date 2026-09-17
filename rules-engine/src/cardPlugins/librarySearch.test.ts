@@ -11,7 +11,6 @@ import {
 } from '../pendingDialog'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
-import { zoneTriggers } from './zoneTriggers'
 import {
   SEARCH_CHOSEN,
   SEARCH_FETCH,
@@ -208,7 +207,6 @@ describe('librarySearch', () => {
           pendingDialogLock,
           choiceEffects,
           entersTapped,
-          zoneTriggers,
         ],
       },
     )
@@ -670,7 +668,7 @@ describe('librarySearch', () => {
       },
       {
         random: () => 0.5,
-        cardPlugins: [librarySearch, pendingDialogLock, choiceEffects, zoneTriggers],
+        cardPlugins: [librarySearch, pendingDialogLock, choiceEffects],
       },
     )
     const elf = server.state.zoneOrder.p1.hand[0]

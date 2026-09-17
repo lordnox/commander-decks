@@ -5,7 +5,6 @@ import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { SECRET_COUNCIL, secretCouncil } from './secretCouncil'
-import { zoneTriggers } from './zoneTriggers'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -38,7 +37,7 @@ describe('secret council', () => {
           p4: [cardTemplate('P4 Draw 1')],
         },
       },
-      { random: () => 0.5, cardPlugins: [zoneTriggers, secretCouncil] },
+      { random: () => 0.5, cardPlugins: [secretCouncil] },
     )
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
@@ -83,7 +82,7 @@ describe('secret council', () => {
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [cirdan()] } },
-      { random: () => 0.5, cardPlugins: [zoneTriggers, secretCouncil] },
+      { random: () => 0.5, cardPlugins: [secretCouncil] },
     )
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
@@ -93,7 +92,7 @@ describe('secret council', () => {
     const restored = createServerGame(
       commanderRules,
       {},
-      { random: () => 0.5, cardPlugins: [zoneTriggers, secretCouncil] },
+      { random: () => 0.5, cardPlugins: [secretCouncil] },
     )
     restored.state = structuredClone(entered)
     expect(pendingDialog(restored.state)).toMatchObject({

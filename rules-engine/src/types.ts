@@ -40,7 +40,6 @@ export type StepId =
 /** WUBRG plus colorless `{C}`. Generic `{N}` is paid from leftover pool, not stored as `C`. */
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
-/** Per-color mana in a player's pool. */
 export type ManaPool = Record<ManaId, number>
 
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
@@ -51,29 +50,21 @@ export type TargetRef =
 /**
  * One card or token in the game. Identity is `id`; `name` is Oracle for fixtures.
  * Zone membership is duplicated in `zone` and in the owner's `zoneOrder` lists.
+ * `grantedRules` are plugin ids installed while this object is on the battlefield.
+ * `tags` carry format roles such as `commander`. `tapProduces` is the mana ability.
  */
 export type GameObject = {
-  /** Stable object identity for moves, damage, and targeting. */
   id: string
-  /** Oracle card name for fixtures and logging. */
   name: string
-  /** Owner seat; does not change when control changes. */
   owner: PlayerId
-  /** Seat that currently controls this object. */
   controller: PlayerId
-  /** Current zone; mirrored in `zoneOrder` for that owner. */
   zone: ZoneId
-  /** Whether the permanent is tapped. */
   tapped: boolean
-  /** Summoning sickness until controller's next untap step. */
   summoningSickness: boolean
-  /** Damage marked on this permanent this turn. */
   damageMarked: number
   /** Dealt damage by a deathtouch source this turn, so any of it is lethal. */
   deathtouched?: boolean
-  /** Named counter buckets (for example `+1/+1`). */
   counters: Record<string, number>
-  /** Card types (Creature, Land, …). */
   types: string[]
   subtypes: string[]
   supertypes: string[]
@@ -100,12 +91,9 @@ export type GameObject = {
   attachedTo: string | null
   attacking: TargetRef | PlayerId | null
   blocking: string | null
-  /** Plugin ids installed while this object is on the battlefield. */
   grantedRules: string[]
   token: boolean
-  /** Format roles such as `commander`. */
   tags: string[]
-  /** Mana ability output when this permanent is tapped for mana. */
   tapProduces?: Partial<ManaPool>
   /** Chosen creature type, for example Roaming Throne. */
   chosenType?: string
@@ -120,67 +108,41 @@ export type GameObject = {
 }
 
 /**
- * One spell, triggered/activated ability, or action waiting to resolve on the stack.
- * The source card may stay `zone: 'stack'` while this item is in `state.stack`.
- * **`id` is allocated once** (via `draft.allocId('stack')`) and never regenerated —
+ * Spell, triggered/activated ability, or action on the stack (CR 405).
+ * `id` is allocated once via `draft.allocId('stack')` and never regenerated —
  * stable for `continueAction`, replay, and client round-trips.
  */
 export type StackItem = {
-  /** Stable stack identity; never changes after `addToStack`. */
   id: string
-  /** Spell from casting, ability from triggering/activating, or action from resolution. */
   kind: 'spell' | 'ability' | 'action'
-  /** Source object id (spell/ability) or contextual id for actions. */
   objectId: string
-  /** Seat that controls this stack item. */
   controller: PlayerId
-  /** Display name (usually the source card). */
   name: string
-  /** Targets chosen at cast or activation. */
   targets: TargetRef[]
-  /** Activated or triggered ability id from card rules. */
   abilityId?: string
-  /** Chosen X value for spells and abilities. */
   x?: number
-  /** Modal or other string choices made at activation. */
   choices?: string[]
-  /** Whether this spell was kicked. */
   kicked?: boolean
-  /** Number of additional sacrifices paid for this cast. */
   sacrificed?: number
-  /** Zone the spell was cast from. */
   castFrom?: ZoneId
-  /**
-   * Builtin action kind when `kind === 'action'`
-   * (for example `'discard'`, `'draw'`, `'chooseTargets'`).
-   */
+  /** Builtin action kind when `kind === 'action'` (for example `'discard'`, `'draw'`). */
   actionId?: string
-  /**
-   * Client must supply input before this action continues resolving.
-   * `null` or omitted means not waiting.
-   */
+  /** Client input required before resolution continues; omitted when not waiting. */
   waiting?: 'choice' | 'targets' | null
-  /**
-   * Action parameters and in-flight resolution state
-   * (seat, count, filter, chosen ids, or `{ instructions }` for abilities).
-   */
+  /** Action parameters and in-flight resolution state. */
   payload?: Record<string, unknown>
 }
 
 /**
  * A live plugin binding. Catalog entries are code; these instances are state.
- * Card rules set `sourceId` to the permanent that granted them.
+ * `timestamp` orders replace/legal/apply. `sourceId` ties the instance to a
+ * permanent so leaving the battlefield can remove it.
  */
 export type RuleInstance = {
-  /** Unique instance id for `removeRule`. */
   instanceId: string
-  /** Catalog plugin id. */
   pluginId: string
-  /** Permanent that installed this rule, or `null` for builtin game rules. */
   sourceId: string | null
-  /** Orders replace/legal/apply when multiple rules react. */
   timestamp: number
-  /** Plugin-specific configuration. */
   params: Record<string, unknown>
 }
 
@@ -189,71 +151,46 @@ export type RuleInstance = {
  * commander damage) live in untyped `data`, keyed however that format chooses.
  */
 export type PlayerState = {
-  /** Seat id matching `GameState.playerOrder`. */
   id: PlayerId
-  /** Current life total. */
   life: number
-  /** Poison counters. */
   poison: number
-  /** Mana currently in the pool. */
   mana: ManaPool
-  /** True once this player has lost the game. */
   lost: boolean
-  /** Lands played this turn. */
   landsPlayed: number
-  /** Maximum land plays allowed this turn. */
   landPlaysAllowed: number
-  /** Format-specific per-player data (commander tax, damage dealt, …). */
   data: Record<string, unknown>
 }
 
 /**
- * Frozen game snapshot returned by `rules(state, event)`.
- * History is not stored here; use `createHistory` for before/after trees.
+ * Frozen game after a reduce. History is not stored here.
+ * `knowledge` chooses the hidden-info profile: authoritative owns library
+ * identities; a replica is a viewer projection and must not leak them.
+ * `zoneCounts` stay public even when `zoneOrder.library` is emptied for a client.
+ * `rules` is the active plugin list. `log` is a human-readable apply trace.
  */
 export type GameState = {
-  /** Format id from `GameFormat`. */
   format: string
-  /** Hidden-information profile: authoritative server vs viewer replica. */
   knowledge: {
     mode: 'authoritative' | 'replica'
     viewer: PlayerId | null
   }
-  /** Turn and priority order. */
   playerOrder: PlayerId[]
-  /** Zones from which spells may be cast. */
   castableZones: ZoneId[]
-  /** Per-seat public and hidden totals. */
   players: Record<PlayerId, PlayerState>
-  /** All game objects by id. */
   objects: Record<string, GameObject>
-  /** Ordered object ids per seat and zone (authoritative only). */
   zoneOrder: Record<PlayerId, Record<ZoneId, string[]>>
-  /** Public zone sizes when identities are redacted. */
   zoneCounts: Record<PlayerId, Record<ZoneId, number>>
-  /** LIFO stack of spells, abilities, and actions waiting to resolve. */
   stack: StackItem[]
-  /** Seat whose turn it is (CR 500.4). */
   active: PlayerId
-  /** Seat that may act next in the priority window, or `null` between steps. */
   priority: PlayerId | null
-  /** Player-turn counter (not table rounds). */
   turn: number
-  /** Current step within the active player's turn. */
   step: StepId
-  /** Seats that passed priority in the current window without acting. */
   passedInRow: PlayerId[]
-  /** Active plugin instances in timestamp order. */
   rules: RuleInstance[]
-  /** Monotonic id allocator for objects, stack items, etc. */
   nextId: number
-  /** Monotonic timestamp allocator for new rules. */
   nextTimestamp: number
-  /** True when the game has ended. */
   ended: boolean
-  /** Set when a replacement effect prevented the current event. */
   prevented?: boolean
-  /** Human-readable apply trace for this reduce. */
   log: string[]
 }
 
@@ -275,11 +212,8 @@ export type TriggerBindingIf = {
  * (`orderTriggers`) without changing this shape.
  */
 export type TriggerBinding = {
-  /** `GameEvent.type` to listen for (for example `'discard'`, `'draw'`). */
   on: string
-  /** Optional filter on the triggering event and seats. */
   if?: TriggerBindingIf
-  /** Instructions executed when the triggered ability resolves. */
   do: CardInstruction[]
 }
 
@@ -394,17 +328,11 @@ export type GameEvent =
    */
   | { type: 'custom'; name: string; seat?: PlayerId; payload?: Record<string, unknown> }
 
-/** One line in the event-centric reduce trace. */
 export type EventTrace = {
-  /** Nesting depth for enqueued and replacement events. */
   depth: number
-  /** Event that was processed at this trace line. */
   event: GameEvent
-  /** How the kernel finished this event. */
   outcome: 'applied' | 'replaced' | 'prevented' | 'rejected'
-  /** Plugin that replaced or rejected, when applicable. */
   pluginId?: string
-  /** Error message when `outcome` is `rejected`. */
   error?: string
 }
 
@@ -422,42 +350,31 @@ export type ReduceErr = {
   state: GameState
   trace: EventTrace[]
 }
-/** Result of `rules(state, event)`. */
 export type ReduceResult = ReduceOk | ReduceErr
 
 /**
  * Plugin hook argument. `state` is the frozen pre-event snapshot.
  * `draft` is the mutable next state (cloned GameState plus enqueue helpers).
+ * `rule` is the instance currently being invoked. `catalog` looks up plugin code.
  */
 export type HookCtx = {
-  /** Immutable game snapshot before this event is applied. */
   state: GameState
-  /** Event currently being reduced. */
   event: GameEvent
-  /** Mutable working copy of the next state. */
   draft: Draft
-  /** Rule instance invoking this hook. */
   rule: RuleInstance
-  /** Lookup for plugin implementations by id. */
   catalog: PluginCatalog
 }
 
 /**
- * Catalog code registered for one `pluginId`.
- * Hooks receive `HookCtx`; only handle events they care about.
+ * Catalog code for one `pluginId`. Each hook may no-op.
+ * `legal` returns an error string to reject.
+ * `replace` runs before apply: `null` prevents, an array folds left-to-right.
+ * `apply` mutates `draft`. `sba` emits events until the loop goes quiet.
  */
 export type Plugin = {
-  /** Unique plugin id referenced by `RuleInstance.pluginId`. */
   id: string
-  /** Return an error string to reject the incoming event before apply. */
   legal?: (ctx: HookCtx) => string | void
-  /**
-   * Rewrite or prevent the event before apply.
-   * `null` prevents; an array folds left-to-right through `rules`.
-   */
   replace?: (ctx: HookCtx) => GameEvent | GameEvent[] | null | undefined
-  /** Mutate `draft` to apply the event. */
   apply?: (ctx: HookCtx) => void
-  /** Emit state-based-action follow-up events after apply. */
   sba?: (ctx: HookCtx) => GameEvent[]
 }

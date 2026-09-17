@@ -6,7 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { activated } from './activated'
 import { fight } from './fight'
-import { zoneTriggers } from './zoneTriggers'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -26,7 +25,7 @@ describe('fight', () => {
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [apex] }, battlefield: { p2: [prey] } },
-      { random: () => 0.5, cardPlugins: [zoneTriggers, fight] },
+      { random: () => 0.5, cardPlugins: [fight] },
     )
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',

@@ -11,7 +11,8 @@ import { createJournal, recordAccepted, restoreJournal } from './journal'
 import { cardTemplate, forest, type CardTemplate } from './newGame'
 import { replayComparableState } from './replay'
 import { createServerGame } from './runtime'
-import type { GameState, ReduceResult } from './types'
+import { ok } from './testHelpers'
+import type { GameState } from './types'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -31,11 +32,6 @@ const cryCard = () => card('Cry of Contrition Test', ['Sorcery'], {
   manaCost: '',
   effects: [onResolveEffect(discardCards(1, 'target'))],
 })
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const passAll = (server: ReturnType<typeof createServerGame>, state: GameState) => {
   let current = state

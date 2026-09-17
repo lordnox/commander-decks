@@ -1863,18 +1863,11 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
   const ids = new Set<string>()
   for (const effect of effects) {
     if (effect.op === 'replacement') ids.add('entersTapped')
-    if (effect.op === 'trigger' && (
-      effect.on === 'enters' || effect.on === 'dies' || effect.on === 'leaves'
-      || effect.on === 'attacks' || effect.on === 'landToGraveyard' || effect.on === 'upkeep'
-    )) {
-      ids.add('zoneTriggers')
-    }
     if (effect.op === 'trigger' && effect.on === 'cast') {
       ids.add('castTriggers')
       if (effect.modal) ids.add('choiceEffects')
     }
     if (effect.op === 'modal') ids.add('modalSpell')
-    if (effect.op === 'trigger' && effect.on === 'landfall') ids.add('landfall')
     if (effect.op === 'trigger' && effect.on === 'resolve') ids.add('onResolve')
     if (effect.op === 'activate') {
       ids.add(effect.costs.loyalty !== undefined || effect.costs.loyaltyX

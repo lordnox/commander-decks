@@ -4,8 +4,6 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { landfall } from './landfall'
-
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -23,7 +21,7 @@ const game = (options: {
       battlefield: { p1: options.battlefield ?? [] },
       libraries: { p1: options.library ?? [] },
     },
-    { random: () => 0.5, cardPlugins: [landfall] },
+    { random: () => 0.5 },
   )
 
 const battlefieldNames = (state: GameState, seat = 'p1') =>
@@ -186,7 +184,7 @@ describe('landfall', () => {
         hands: { p2: [forest()] },
         battlefield: { p1: [card('Scute Swarm', ['Creature'], { power: 1, toughness: 1 })] },
       },
-      { random: () => 0.5, cardPlugins: [landfall] },
+      { random: () => 0.5 },
     )
     const objectId = server.state.zoneOrder.p2.hand[0]
     const next = ok(server.rules(
