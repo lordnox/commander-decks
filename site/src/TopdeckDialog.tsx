@@ -61,6 +61,13 @@ export const TopdeckDialog = ({
     ? choices.filter((choice) =>
       choice.card.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
     : choices
+  const searchDestination = searching ? decision.destinations[1] : undefined
+  const searchMaximum = searchDestination
+    ? decision.requirements?.[searchDestination]?.max
+    : undefined
+  const selectedSearchCount = searchDestination
+    ? choices.filter((choice) => choice.destination === searchDestination).length
+    : 0
   const valid = (next: Choice[]) => Object.entries(
     decision.requirements ?? {},
   ).every(([destination, limits]) => {
@@ -202,13 +209,23 @@ export const TopdeckDialog = ({
           </p>
         )}
         {searching && (
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Filter matching cards"
-            className="mt-4 w-full rounded-xl border border-white/10 bg-ink-950 px-3 py-2 text-sm text-stone-100 outline-none placeholder:text-stone-600 focus:border-purple-200/60"
-          />
+          <>
+            {searchMaximum !== undefined && (
+              <p
+                aria-live="polite"
+                className="mt-3 text-sm font-bold text-gold-200"
+              >
+                Selected {selectedSearchCount} of {searchMaximum}
+              </p>
+            )}
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Filter matching cards"
+              className="mt-3 w-full rounded-xl border border-white/10 bg-ink-950 px-3 py-2 text-sm text-stone-100 outline-none placeholder:text-stone-600 focus:border-purple-200/60"
+            />
+          </>
         )}
         {searching && decision.library && decision.library.length > 0 && (
           <details className="mt-3 rounded-xl border border-white/10 bg-black/20 p-3">

@@ -62,6 +62,30 @@ test('library searches offer filtering and one explicit selection', () => {
   expect(html).toContain('disabled=""')
 })
 
+test('a bounded library search shows its live selection count', () => {
+  const game = {
+    catalog: { Forest: {}, Island: {} },
+  } as unknown as ReplayGame
+  const decision = {
+    seat: 'p4',
+    kind: 'search',
+    cards: ['Forest', 'Island'],
+    destinations: ['library', 'battlefield'],
+    requirements: { battlefield: { min: 0, max: 4 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Selected 0 of 4')
+  expect(html).toContain('aria-live="polite"')
+})
+
 test('a fetch search names the battlefield as the destination', () => {
   const game = { catalog: { Taiga: {}, Forest: {} } } as unknown as ReplayGame
   const decision = {
