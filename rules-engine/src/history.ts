@@ -49,3 +49,10 @@ export const createHistory = (
     },
   }
 }
+
+/** Last accepted state, or the stored `before` of a rejected event — no re-reduce. */
+export const lastAuthoritativeState = (history: History) => {
+  const last = history.entries().at(-1)
+  if (last && !last.accepted) return structuredClone(last.before)
+  return history.current()
+}

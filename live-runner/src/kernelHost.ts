@@ -13,6 +13,7 @@ import {
   createJournal,
   createServerGame,
   importLiveReplayState,
+  lastAuthoritativeState,
   legalActsFor,
   projectForViewer,
   recordAccepted,
@@ -1268,6 +1269,9 @@ export const openKernel = async (
   }
 }
 
+export const rollbackState = (handle: KernelHandle) =>
+  lastAuthoritativeState(handle.history)
+
 export const historyForViewer = (
   handle: KernelHandle,
   lobby: LobbyState,
@@ -1305,7 +1309,7 @@ export const encodeKernelSnapshot = (
   lobby: LobbyState,
   viewer: SeatId | undefined,
 ) => {
-  const current = handle.history.current()
+  const current = lastAuthoritativeState(handle.history)
   const history = historyForViewer(handle, lobby, viewer ?? null)
   const accepted = handle.history.entries().filter((entry) => entry.accepted)
   let traceCount = 0

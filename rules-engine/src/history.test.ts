@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from './formats'
-import { createHistory } from './history'
+import { createHistory, lastAuthoritativeState } from './history'
 import { forest } from './newGame'
 import { createServerGame } from './runtime'
 
@@ -27,4 +27,41 @@ test('history wraps the reducer without entering game state', () => {
   history.clear()
   expect(history.entries()).toHaveLength(0)
   expect(history.current().objects[land.id].zone).toBe('battlefield')
+})
+
+test('a rejected continueAction keeps the pre-event snapshot for rollback', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p2: [forest()] },
+    players: 4,
+  })
+  const handId = server.state.zoneOrder.p2.hand[0]
+  const waiting: typeof server.state = {
+    ...server.state,
+    stack: [{
+      id: 'discard-action',
+      kind: 'action',
+      actionId: 'discard',
+      objectId: 'cry',
+      controller: 'p2',
+      name: 'Discard',
+      targets: [],
+      waiting: 'choice',
+      payload: { seat: 'p2', count: 1, chooser: 'p2' },
+    }],
+    priority: 'p2',
+    passedInRow: [],
+  }
+  const history = createHistory(waiting, server.rules)
+  const rejected = history.dispatch({
+    type: 'continueAction',
+    stackId: 'discard-action',
+    seat: 'p2',
+    payload: { objectIds: ['missing-card'] },
+  })
+
+  expect(rejected.ok).toBe(false)
+  const rolled = lastAuthoritativeState(history)
+  expect(rolled.stack[0]).toMatchObject({ id: 'discard-action', waiting: 'choice' })
+  expect(rolled.objects[handId].zone).toBe('hand')
+  expect(history.current().objects[handId].zone).toBe('hand')
 })
