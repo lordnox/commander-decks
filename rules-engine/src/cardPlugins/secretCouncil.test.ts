@@ -3,14 +3,9 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame, projectForViewer } from '../runtime'
-import type { ReduceResult } from '../types'
+import { ok, resolveStack } from '../testHelpers'
 import { SECRET_COUNCIL, secretCouncil } from './secretCouncil'
 import { zoneTriggers } from './zoneTriggers'
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -45,11 +40,11 @@ describe('secret council', () => {
       },
       { random: () => 0.5, cardPlugins: [zoneTriggers, secretCouncil] },
     )
-    const entered = ok(server.rules(server.state, {
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
       objectId: named(server.state, 'Círdan the Shipwright').id,
       to: 'battlefield',
-    }))
+    })))
     expect(pendingDialog(entered)).toMatchObject({
       kind: 'secret-vote',
       seat: 'p1',
@@ -90,11 +85,11 @@ describe('secret council', () => {
       { hands: { p1: [cirdan()] } },
       { random: () => 0.5, cardPlugins: [zoneTriggers, secretCouncil] },
     )
-    const entered = ok(server.rules(server.state, {
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
       objectId: named(server.state, 'Círdan the Shipwright').id,
       to: 'battlefield',
-    }))
+    })))
     const restored = createServerGame(
       commanderRules,
       {},

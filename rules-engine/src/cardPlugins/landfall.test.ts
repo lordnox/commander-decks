@@ -2,18 +2,14 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import type { GameState, ReduceResult } from '../types'
+import { ok, resolveStack } from '../testHelpers'
+import type { GameState } from '../types'
 import { landfall } from './landfall'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
 const forest = (name = 'Forest') => card(name, ['Land'], { subtypes: ['Forest'] })
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const game = (options: {
   hand?: CardTemplate[]
@@ -35,10 +31,22 @@ const battlefieldNames = (state: GameState, seat = 'p1') =>
 
 const playTopLand = (server: ReturnType<typeof game>) => {
   const objectId = server.state.zoneOrder.p1.hand[0]
-  return ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+  const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+  return resolveStack(server.rules, played)
 }
 
 describe('landfall', () => {
+  test('CR 603.3: landfall triggers sit on the stack before resolution', () => {
+    const server = game({
+      hand: [forest()],
+      battlefield: [card('Scute Swarm', ['Creature'], { power: 1, toughness: 1 })],
+    })
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    expect(triggered.stack[0]).toMatchObject({ kind: 'ability', name: 'Scute Swarm' })
+    expect(battlefieldNames(triggered).filter((name) => name === 'Insect')).toHaveLength(0)
+  })
+
   test('Aesi draws through the shared instruction runner', () => {
     const server = game({
       hand: [forest()],
@@ -112,10 +120,10 @@ describe('landfall', () => {
     expect(hydra.counters['+1/+1']).toBe(2)
     expect([hydra.power, hydra.toughness]).toEqual([2, 2])
 
-    const second = ok(server.rules(
+    const second = resolveStack(server.rules, ok(server.rules(
       { ...first, players: { ...first.players, p1: { ...first.players.p1, landPlaysAllowed: 2 } } },
       { type: 'playLand', seat: 'p1', objectId: first.zoneOrder.p1.hand[0] },
-    ))
+    )))
     const doubled = Object.values(second.objects).find((object) => object.name === 'Mossborn Hydra')!
     expect(doubled.counters['+1/+1']).toBe(4)
     expect([doubled.power, doubled.toughness]).toEqual([4, 4])
@@ -185,6 +193,7 @@ describe('landfall', () => {
       { ...server.state, active: 'p2', priority: 'p2' },
       { type: 'playLand', seat: 'p2', objectId },
     ))
+    expect(next.stack).toHaveLength(0)
     expect(battlefieldNames(next)).not.toContain('Insect')
   })
 
@@ -195,6 +204,7 @@ describe('landfall', () => {
     })
     const objectId = server.state.zoneOrder.p1.hand[0]
     const next = ok(server.rules(server.state, { type: 'move', objectId, to: 'battlefield' }))
+    expect(next.stack).toHaveLength(0)
     expect(battlefieldNames(next)).not.toContain('Insect')
   })
 })

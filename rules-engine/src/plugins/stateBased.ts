@@ -13,7 +13,13 @@ export const stateBased: Plugin = {
     const entryChoicePending = draft.playerOrder.some(
       (seat) => hasPendingDialog(draft, seat, 'copy-creature'),
     )
-    if (entryChoicePending) return []
+    const copyChoiceOnStack = draft.stack.some((item) =>
+      item.kind === 'ability'
+      && Array.isArray(item.payload?.instructions)
+      && (item.payload.instructions as { kind?: string }[]).some(
+        (instruction) => instruction.kind === 'copyControlledCreature',
+      ))
+    if (entryChoicePending || copyChoiceOnStack) return []
 
     for (const player of Object.values(draft.players)) {
       if (!player.lost && player.life <= 0) return [{ type: 'concede', seat: player.id }]

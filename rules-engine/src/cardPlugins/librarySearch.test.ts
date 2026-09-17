@@ -230,6 +230,7 @@ describe('librarySearch', () => {
         payload: { objectIds: [sacrificed.id] },
       },
       { type: 'move', objectId: sewers.id, to: 'battlefield' },
+      { type: 'resolveTop' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
       { type: 'resolveTop' },
