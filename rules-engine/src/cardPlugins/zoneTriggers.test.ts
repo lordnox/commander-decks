@@ -4,7 +4,6 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { createTokenInstruction, enters } from './effects'
-import { zoneTriggers } from './zoneTriggers'
 
 const card = (name: string, types: string[]) => cardTemplate(name, { types })
 
@@ -23,7 +22,7 @@ describe("Stitcher's Supplier", () => {
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [maker] } },
-      { random: () => 0.5, cardPlugins: [zoneTriggers] },
+      { random: () => 0.5 },
     )
     const objectId = server.state.zoneOrder.p1.hand[0]
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {
@@ -45,7 +44,7 @@ describe("Stitcher's Supplier", () => {
           p1: Array.from({ length: 9 }, (_, index) => card(`Milled ${index}`, ['Instant'])),
         },
       },
-      { random: () => 0.5, cardPlugins: [zoneTriggers] },
+      { random: () => 0.5 },
     )
     const supplier = server.state.zoneOrder.p1.hand[0]
     const entered = resolveStack(server.rules, ok(server.rules(server.state, {

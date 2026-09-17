@@ -17,7 +17,7 @@ describe('card plugin registry', () => {
 
   test('a forest table does not load the whole handler catalog', () => {
     expect(handlerIdsForNames(['Forest'])).toEqual([])
-    expect(handlerIdsForNames(['Field of the Dead'])).toEqual(['entersTapped', 'landfall'])
+    expect(handlerIdsForNames(['Field of the Dead'])).toEqual(['entersTapped'])
     expect(allHandlerIds().length).toBeGreaterThan(handlerIdsForNames(['Forest', 'Sol Ring']).length)
   })
   test('the Sin Fall cards this pass covers stay registered', () => {
@@ -35,7 +35,7 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Field of the Dead')?.handlerIds)
-      .toEqual(['entersTapped', 'landfall'])
+      .toEqual(['entersTapped'])
   })
 
   test('the Homer commander is registered', () => {

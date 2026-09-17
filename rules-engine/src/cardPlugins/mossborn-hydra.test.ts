@@ -3,7 +3,6 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
-import { landfall } from './landfall'
 import { mossbornHydra } from './mossborn-hydra'
 
 const ok = (result: ReduceResult) => {
@@ -33,7 +32,7 @@ describe('mossborn hydra', () => {
         },
         battlefield: { p1: [forest(), forest(), forest()] },
       },
-      { random: () => 0.5, cardPlugins: [landfall, mossbornHydra] },
+      { random: () => 0.5, cardPlugins: [mossbornHydra] },
     )
     const [forestA, forestB, forestC] = server.state.zoneOrder.p1.battlefield
     const hydraId = server.state.zoneOrder.p1.hand[0]

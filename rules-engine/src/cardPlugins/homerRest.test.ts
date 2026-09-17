@@ -6,10 +6,8 @@ import { ok, resolveStack } from '../testHelpers'
 import { DIALOG_CHOSEN, dialogCandidates, pendingDialog } from '../pendingDialog'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
-import { landfall } from './landfall'
 import { librarySearch, pendingSearch } from './librarySearch'
 import { onResolve } from './onResolve'
-import { zoneTriggers } from './zoneTriggers'
 
 const createServerGame: typeof createRuntimeGame = (format, options) =>
   createRuntimeGame(format, options, {
@@ -17,10 +15,8 @@ const createServerGame: typeof createRuntimeGame = (format, options) =>
     cardPlugins: [
       choiceEffects,
       entersTapped,
-      landfall,
       librarySearch,
       onResolve,
-      zoneTriggers,
     ],
   })
 
