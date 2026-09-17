@@ -41,8 +41,41 @@ export type AvailableAction =
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | { kind: 'declareAttackers'; objectIds: string[] }
   | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
+  | {
+      kind: 'continueAction'
+      stackId: string
+      actionId: string
+      objectIds: string[]
+      count: number
+    }
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+
+const waitingDiscardAction = (
+  state: GameState,
+  seat: PlayerId,
+): AvailableAction | null => {
+  const item = state.stack[0]
+  if (item?.kind !== 'action' || item.actionId !== 'discard' || item.waiting !== 'choice') {
+    return null
+  }
+  const payload = item.payload
+  if (!payload || typeof payload.seat !== 'string' || typeof payload.count !== 'number') {
+    return null
+  }
+  const chooser = (typeof payload.chooser === 'string' ? payload.chooser : payload.seat) as PlayerId
+  if (seat !== chooser) return null
+  const discardSeat = payload.seat as PlayerId
+  const handIds = state.zoneOrder[discardSeat]?.hand ?? []
+  const count = Math.min(payload.count, handIds.length)
+  return {
+    kind: 'continueAction',
+    stackId: item.id,
+    actionId: 'discard',
+    objectIds: handIds,
+    count,
+  }
+}
 const DAMAGE_PENDING_STEPS = new Set([
   'declareAttackers',
   'declareBlockers',
@@ -273,6 +306,8 @@ export const availableActions = (
 ): AvailableAction[] => {
   if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
   if (state.step === 'untap' || state.step === 'cleanup') return []
+  const waitingDiscard = waitingDiscardAction(state, seat)
+  if (waitingDiscard) return [waitingDiscard]
   const actions: AvailableAction[] = []
   const hand = state.zoneOrder[seat]?.hand ?? []
 
@@ -436,6 +471,7 @@ export const legalActsFor = (
     .filter((action) =>
       action.kind === 'declareAttackers'
       || action.kind === 'declareBlockers'
+      || action.kind === 'continueAction'
       || (action.kind === 'activateAbility' && Boolean(action.targetGroups))
       || eventsForAvailableAction(state, seat, action))
 
@@ -457,6 +493,7 @@ export const sameLegalAct = (
     return left.abilityId === right.abilityId && left.text === right.text
   }
   if (left.kind === 'castSpell') return left.targetObjectId === right.targetObjectId
+  if (left.kind === 'continueAction') return left.stackId === right.stackId
   return true
 }
 
@@ -518,6 +555,7 @@ export const eventsForAvailableAction = (
   seat: PlayerId,
   action: AvailableAction,
 ): GameEvent[] | null => {
+  if (action.kind === 'continueAction') return null
   if (action.kind === 'playLand') {
     return [{ type: 'playLand', seat, objectId: action.objectId }]
   }
