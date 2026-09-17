@@ -1,12 +1,42 @@
 import type { Plugin } from '../types'
 import { DIALOG_CHOSEN, pendingDialogFor, setPendingDialog } from '../pendingDialog'
 import { effectsOf } from './cardRules'
-import { runInstructions } from './effects'
+import {
+  runInstructions,
+  type CardInstruction,
+  type ModalMode,
+} from './effects'
 
 export const MODAL_CHOOSE = 'modalSpell.choose'
 
 const modalEffects = (object: { effects?: ReturnType<typeof effectsOf> }) =>
   effectsOf(object).filter((effect) => effect.op === 'modal')
+
+const listedInstructions = (object: { effects?: ReturnType<typeof effectsOf> }) =>
+  effectsOf(object).flatMap((effect) => {
+    if (effect.op === 'trigger' || effect.op === 'activate') return effect.do
+    if (effect.op === 'modal') return effect.modes.flatMap((mode) => mode.do)
+    return [] as CardInstruction[]
+  })
+
+const chooseModesInstruction = (object: { effects?: ReturnType<typeof effectsOf> }) =>
+  listedInstructions(object).find((instruction): instruction is Extract<
+    CardInstruction,
+    { kind: 'chooseModes' }
+  > => instruction.kind === 'chooseModes')
+
+const chosenModes = (
+  modes: ModalMode[],
+  payload: { modes?: unknown } | undefined,
+  choose: 'one' | 'any',
+) => {
+  const labels = Array.isArray(payload?.modes)
+    ? payload.modes.filter((mode): mode is string => typeof mode === 'string')
+    : []
+  const selected = modes.filter((mode) => labels.includes(mode.label))
+  if (choose === 'one') return selected.slice(0, 1)
+  return selected
+}
 
 export const modalSpell: Plugin = {
   id: 'modalSpell',
@@ -50,16 +80,25 @@ export const modalSpell: Plugin = {
       const dialog = pendingDialogFor(state, event.seat)
       if (dialog?.kind !== 'choose-modes') return
       const source = draft.object(dialog.sourceId)
-      const modal = source ? modalEffects(source)[0] : undefined
+      if (!source) return
+      const modal = modalEffects(source)[0]
       const item = draft.stack.find((candidate) => candidate.objectId === dialog.sourceId)
-      if (!source || !modal || modal.op !== 'modal' || !item) return
-      const labels = Array.isArray(event.payload?.modes)
-        ? event.payload.modes.filter((mode): mode is string => typeof mode === 'string')
-        : []
-      const mode = modal.modes.find((entry) => labels.includes(entry.label))
-      if (!mode) return
-      item.choices = [mode.id, '__modalRan__']
-      draft.enqueue({ type: 'resolveTop' })
+      if (modal && modal.op === 'modal' && item) {
+        const [mode] = chosenModes(modal.modes, event.payload, modal.choose)
+        if (!mode) return
+        item.choices = [mode.id, '__modalRan__']
+        draft.enqueue({ type: 'resolveTop' })
+        return
+      }
+      const instruction = chooseModesInstruction(source)
+      if (!instruction) return
+      const modes = chosenModes(instruction.modes, event.payload, instruction.choose)
+      draft.note(
+        modes.length > 0
+          ? `${dialog.source}: ${modes.map((mode) => mode.label).join('; ')}`
+          : `${dialog.source} chooses no modes`,
+      )
+      for (const mode of modes) runInstructions(draft, source, mode.do)
       return
     }
 

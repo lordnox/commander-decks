@@ -21,6 +21,7 @@ import {
   runReplayRounds,
   sameLegalAct,
   eventsForAvailableAction,
+  waitingDiscard,
   type GameEvent,
   type GameState,
   type History,
@@ -392,55 +393,40 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   if (decision.kernel.stage === 'player-targets') {
     return pendingPlayerTargets(state)?.controller !== decision.seat
   }
-  if (decision.kernel.stage === 'stack-discard') {
-    const item = state.stack[0]
-    return (
-      !item
-      || item.id !== decision.kernel.stackId
-      || item.waiting !== 'choice'
-      || item.actionId !== 'discard'
-    )
+  if (decision.kernel.stage === 'waiting-discard') {
+    const waiting = waitingDiscard(state)
+    return !waiting || waiting.item.id !== decision.kernel.stackId
   }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
 }
 
-const prepareStackDiscardChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
-  const item = state.stack[0]
-  if (item?.kind !== 'action' || item.waiting !== 'choice' || item.actionId !== 'discard') {
-    return false
-  }
-  const payload = item.payload
-  if (!payload || typeof payload.seat !== 'string' || typeof payload.count !== 'number') {
-    return false
-  }
-  const chooser = (typeof payload.chooser === 'string' ? payload.chooser : payload.seat) as SeatId
-  if (!isSeatId(chooser)) return false
-  const discardSeat = payload.seat as SeatId
-  const handIds = state.zoneOrder[discardSeat]?.hand ?? []
-  const expected = Math.min(payload.count, handIds.length)
-  const cards = handIds
+  const waiting = waitingDiscard(state)
+  if (!waiting || !isSeatId(waiting.chooser)) return false
+  const cards = waiting.handIds
     .map((objectId) => state.objects[objectId]?.name ?? '')
     .filter(Boolean)
   lobby.topdeck = {
-    seat: chooser,
+    seat: waiting.chooser,
     kind: 'discard-card',
     cards,
-    destinations: expected === 1 ? ['graveyard'] : ['hand', 'graveyard'],
-    requirements: { graveyard: { min: expected, max: expected } },
+    destinations: waiting.count === 1 ? ['graveyard'] : ['hand', 'graveyard'],
+    requirements: { graveyard: { min: waiting.count, max: waiting.count } },
     kernel: {
-      sourceId: item.objectId,
-      stage: 'stack-discard',
-      stackId: item.id,
+      sourceId: waiting.item.objectId,
+      stage: 'waiting-discard',
+      stackId: waiting.item.id,
     },
   }
-  lobby.actions = { [chooser]: ['topdeck'] }
-  lobby.waiting = `${lobby.occupants[chooser]?.name ?? chooser} is choosing cards to discard.`
+  lobby.actions = { [waiting.chooser]: ['topdeck'] }
+  lobby.waiting =
+    `${lobby.occupants[waiting.chooser]?.name ?? waiting.chooser} is choosing cards to discard.`
   lobby.privateWaiting = {
-    [chooser]: `Discard ${expected} card${expected === 1 ? '' : 's'}.`,
+    [waiting.chooser]: `Discard ${waiting.count} card${waiting.count === 1 ? '' : 's'}.`,
   }
-  lobby.judge = 'Waiting for a stack discard choice.'
+  lobby.judge = 'Waiting for a discard choice on the stack.'
   return true
 }
 
@@ -475,7 +461,7 @@ export const prepareKernelPendingChoice = (
     return true
   }
   if (prepareLibrarySearchChoice(kernel, lobby)) return true
-  if (prepareStackDiscardChoice(kernel, lobby)) return true
+  if (prepareWaitingDiscardChoice(kernel, lobby)) return true
   return preparePendingDialog(kernel, lobby)
 }
 
@@ -495,6 +481,27 @@ const objectIdsForNames = (
   })
 }
 
+const closeKernelChoice = (
+  kernel: KernelHandle,
+  lobby: LobbyState,
+  seat: SeatId,
+  extra: {
+    privateJudge?: LobbyState['privateJudge']
+    judge?: string
+  } = {},
+) => {
+  lobby.topdeck = undefined
+  const state = kernel.history.current()
+  lobby.actions = kernelActions(state)
+  lobby.privateWaiting = {}
+  lobby.privateJudge = extra.privateJudge ?? {}
+  lobby.waiting =
+    `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+  if (extra.judge) lobby.judge = extra.judge
+  settleKernelPriority(kernel, lobby)
+  return true
+}
+
 export const applyKernelChoice = (
   kernel: KernelHandle,
   lobby: LobbyState,
@@ -512,34 +519,21 @@ export const applyKernelChoice = (
   }
 
   let state = kernel.history.current()
-  if (decision.kernel.stage === 'stack-discard') {
+  if (decision.kernel.stage === 'waiting-discard') {
+    const waiting = waitingDiscard(state)
     const stackId = decision.kernel.stackId
-    if (!stackId) throw new Error('That stack discard is no longer open.')
-    const item = state.stack[0]
-    if (
-      !item
-      || item.id !== stackId
-      || item.waiting !== 'choice'
-      || item.actionId !== 'discard'
-    ) {
-      throw new Error('That stack discard is no longer open.')
+    if (!waiting || waiting.item.id !== stackId) {
+      throw new Error('That discard is no longer open.')
     }
-    const payload = item.payload
-    if (!payload || typeof payload.seat !== 'string' || typeof payload.count !== 'number') {
-      throw new Error('That stack discard is no longer open.')
-    }
-    const discardSeat = payload.seat as SeatId
-    const handIds = state.zoneOrder[discardSeat]?.hand ?? []
-    const expected = Math.min(payload.count, handIds.length)
     const objectIds = objectIdsForNames(
       state,
-      handIds,
+      waiting.handIds,
       message.choices
         .filter(({ destination }) => destination === 'graveyard')
         .map(({ card }) => card),
     )
-    if (objectIds.length !== expected) {
-      throw new Error(`Choose exactly ${expected} card(s) to discard.`)
+    if (objectIds.length !== waiting.count) {
+      throw new Error(`Choose exactly ${waiting.count} card(s) to discard.`)
     }
     const continued = kernel.dispatch({
       type: 'continueAction',
@@ -549,18 +543,10 @@ export const applyKernelChoice = (
     })
     if (!continued.ok) throw new Error(continued.error)
     const name = state.objects[objectIds[0]]?.name ?? 'a card'
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {
-      [seat]: `You discarded ${name}.`,
-    }
-    lobby.waiting =
-      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} discarded ${name}.`
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: { [seat]: `You discarded ${name}.` },
+      judge: `${lobby.occupants[seat]?.name ?? seat} discarded ${name}.`,
+    })
   }
   if (decision.kernel.stage === 'player-targets') {
     const pending = pendingPlayerTargets(state)
@@ -577,23 +563,18 @@ export const applyKernelChoice = (
       payload: { targets },
     })
     if (!result.ok) throw new Error(result.error)
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {
-      [seat]: targets.length > 0
-        ? `${pending.source} targeted ${targets.join(', ')}.`
-        : `${pending.source} chose no targets.`,
-    }
-    lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = targets.length > 0
-      ? `${pending.source} targets ${targets.map(
-        (target) => lobby.occupants[target as SeatId]?.name ?? target,
-      ).join(', ')}.`
-      : `${pending.source} has no targets.`
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: {
+        [seat]: targets.length > 0
+          ? `${pending.source} targeted ${targets.join(', ')}.`
+          : `${pending.source} chose no targets.`,
+      },
+      judge: targets.length > 0
+        ? `${pending.source} targets ${targets.map(
+          (target) => lobby.occupants[target as SeatId]?.name ?? target,
+        ).join(', ')}.`
+        : `${pending.source} has no targets.`,
+    })
   }
   if (decision.kernel.stage === 'library-search') {
     const pending = pendingSearch(state, seat)
@@ -635,18 +616,14 @@ export const applyKernelChoice = (
     }))
     finishLibrarySearch(kernel, lobby, seat, pending, spec, moves)
     const selected = picked.map(({ card }) => card)
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {
-      [seat]: selected.length > 0
-        ? `${pending.source} found ${selected.join(', ')} and you shuffled.`
-        : `${pending.source} found nothing and you shuffled.`,
-    }
-    lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private library search.`
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: {
+        [seat]: selected.length > 0
+          ? `${pending.source} found ${selected.join(', ')} and you shuffled.`
+          : `${pending.source} found nothing and you shuffled.`,
+      },
+      judge: `${lobby.occupants[seat]?.name ?? seat} finished a private library search.`,
+    })
   }
   if (
     decision.kernel.stage === 'put-land'
@@ -675,15 +652,9 @@ export const applyKernelChoice = (
       payload: { objectIds },
     })
     if (!chosen.ok) throw new Error(chosen.error)
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {}
-    lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private choice.`
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: `${lobby.occupants[seat]?.name ?? seat} finished a private choice.`,
+    })
   }
   if (decision.kernel.stage === 'choose-modes') {
     const dialog = pendingDialogFor(state, seat)
@@ -698,18 +669,11 @@ export const applyKernelChoice = (
       payload: { modes },
     })
     if (!chosen.ok) throw new Error(chosen.error)
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {}
-    lobby.waiting =
-      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = modes.length > 0
-      ? `${dialog.source} chose: ${modes.join('; ')}.`
-      : `${dialog.source} chose no modes.`
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: modes.length > 0
+        ? `${dialog.source} chose: ${modes.join('; ')}.`
+        : `${dialog.source} chose no modes.`,
+    })
   }
   if (
     decision.kernel.stage === 'discard-card'
@@ -739,20 +703,12 @@ export const applyKernelChoice = (
     })
     if (!chosen.ok) throw new Error(chosen.error)
     const name = state.objects[objectIds[0]]?.name ?? 'a card'
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {
-      [seat]: `${dialog.source}: you chose ${name}.`,
-    }
-    lobby.waiting =
-      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = away === 'sacrifice'
-      ? `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`
-      : `${lobby.occupants[seat]?.name ?? seat} discarded to ${dialog.source}.`
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: { [seat]: `${dialog.source}: you chose ${name}.` },
+      judge: away === 'sacrifice'
+        ? `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`
+        : `${lobby.occupants[seat]?.name ?? seat} discarded to ${dialog.source}.`,
+    })
   }
   if (decision.kernel.stage === 'sacrifice-lands') {
     const dialog = pendingDialogFor(state, seat)
@@ -997,15 +953,11 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
       prepared = true
       break
     }
-    // A pending choice may have resolved itself, for example a search with
-    // nothing legal to find. Re-read before deciding anything else.
     if (kernel.journal.events.length !== seenEvents) {
       seenEvents = kernel.journal.events.length
       current = kernel.history.current()
       passed = true
     }
-    // Restored no-priority decisions are hard stops. Never pass through one
-    // merely because the host process restarted while its dialog was open.
     if (lobby.topdeck) break
     if (current.stack[0]?.waiting) {
       prepareKernelPendingChoice(kernel, lobby)
@@ -1024,8 +976,6 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
     current = kernel.history.current()
   }
   if (prepared) return true
-  // Even a settle that moves nothing has to leave the seat holding the buttons
-  // the kernel offers: a resolved dialog otherwise strands its own action.
   if (!passed) {
     if (!lobby.topdeck) lobby.actions = kernelActions(current)
     return false

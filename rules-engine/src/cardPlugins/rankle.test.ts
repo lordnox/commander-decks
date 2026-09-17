@@ -5,7 +5,14 @@ import { DIALOG_CHOSEN, pendingDialog, pendingDialogFor } from '../pendingDialog
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { RANKLE_MODES, rankle } from './rankle'
+import { choiceEffects } from './choiceEffects'
+import { modalSpell } from './modalSpell'
+
+const RANKLE_MODES = {
+  discard: 'Each player discards a card',
+  drain: 'Each player loses 1 life and draws a card',
+  sacrifice: 'Each player sacrifices a creature',
+} as const
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -42,7 +49,7 @@ const game = (extra: { caress?: boolean } = {}) => createServerGame(
       p2: [card('Plains', ['Land'])],
     },
   },
-  { random: () => 0.5, cardPlugins: [rankle] },
+  { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
 )
 
 const connect = (server: ReturnType<typeof createServerGame>, state = server.state) => {

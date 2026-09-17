@@ -13,6 +13,7 @@ import {
   type CardEffect,
 } from '../cardPlugins/effects'
 import type Draft from '../draft'
+import { apnapSeats } from '../turnOrder'
 import type { GameEvent, GameObject, GameState, PlayerId, Plugin, TriggerBindingIf } from '../types'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'draw'])
@@ -74,6 +75,19 @@ const pushCopies = (
   }
 }
 
+const collectEffects = (
+  source: GameObject,
+  on: TriggerEffect['on'],
+  state: GameState,
+  matches: PendingTrigger[],
+  copies = 1,
+) => {
+  for (const effect of triggerEffects(effectsOf(source), on)) {
+    if (!conditionHolds(effect.if, state, source)) continue
+    pushCopies(matches, source, effect, copies)
+  }
+}
+
 const battlefieldIndex = (draft: Draft, objectId: string, controller: PlayerId) => {
   const order = draft.zoneOrder[controller]?.battlefield ?? []
   const index = order.indexOf(objectId)
@@ -82,11 +96,7 @@ const battlefieldIndex = (draft: Draft, objectId: string, controller: PlayerId) 
 
 /** CR 603.3b — active player, then turn order; same-player ties by battlefield ETB index. */
 const apnapOrder = (draft: Draft, matches: PendingTrigger[]): PendingTrigger[] => {
-  const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
-  const startIdx = living.indexOf(draft.active)
-  const playerOrder = startIdx === -1
-    ? living
-    : [...living.slice(startIdx), ...living.slice(0, startIdx)]
+  const playerOrder = apnapSeats(draft)
 
   const buckets = new Map<PlayerId, PendingTrigger[]>()
   for (const match of matches) {
@@ -122,11 +132,13 @@ const collectLandfall = (
   if (!land || land.zone !== 'battlefield' || !land.types.includes('Land')) return
 
   for (const source of draft.zoneOf('battlefield', land.controller)) {
-    for (const effect of triggerEffects(effectsOf(source), 'landfall')) {
-      if (!conditionHolds(effect.if, draft, source)) continue
-      const extras = extraTriggerCount(draft, land.controller, 'landfall', source)
-      pushCopies(matches, source, effect, 1 + extras)
-    }
+    collectEffects(
+      source,
+      'landfall',
+      draft,
+      matches,
+      1 + extraTriggerCount(draft, land.controller, 'landfall', source),
+    )
   }
 }
 
@@ -141,11 +153,13 @@ const collectEnters = (
   const object = draft.object(objectId)
   if (!object || object.zone !== 'battlefield') return
 
-  for (const effect of triggerEffects(effectsOf(object), 'enters')) {
-    if (!conditionHolds(effect.if, draft, object)) continue
-    const extras = extraTriggerCount(draft, object.controller, 'enters', object)
-    pushCopies(matches, object, effect, 1 + extras)
-  }
+  collectEffects(
+    object,
+    'enters',
+    draft,
+    matches,
+    1 + extraTriggerCount(draft, object.controller, 'enters', object),
+  )
 }
 
 const collectAttacks = (
@@ -157,41 +171,19 @@ const collectAttacks = (
   for (const declaration of event.attackers) {
     const attacker = state.objects[declaration.objectId]
     if (!attacker) continue
-    for (const effect of triggerEffects(effectsOf(attacker), 'attacks')) {
-      if (!conditionHolds(effect.if, state, attacker)) continue
-      pushCopies(matches, attacker, effect, 1)
-    }
+    collectEffects(attacker, 'attacks', state, matches)
   }
 }
 
-const collectUpkeep = (
+const collectStep = (
+  on: 'upkeep' | 'end',
   state: GameState,
   draft: Draft,
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
-  if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== 'upkeep') return
-  for (const object of draft.zoneOf('battlefield')) {
-    for (const effect of triggerEffects(effectsOf(object), 'upkeep')) {
-      if (!conditionHolds(effect.if, state, object)) continue
-      pushCopies(matches, object, effect, 1)
-    }
-  }
-}
-
-const collectEnd = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-  matches: PendingTrigger[],
-) => {
-  if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== 'end') return
-  for (const object of draft.zoneOf('battlefield')) {
-    for (const effect of triggerEffects(effectsOf(object), 'end')) {
-      if (!conditionHolds(effect.if, state, object)) continue
-      pushCopies(matches, object, effect, 1)
-    }
-  }
+  if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== on) return
+  for (const object of draft.zoneOf('battlefield')) collectEffects(object, on, state, matches)
 }
 
 const collectCombatDamage = (
@@ -203,10 +195,7 @@ const collectCombatDamage = (
   if (event.type !== 'combatDamage' || event.target.kind !== 'player') return
   const source = draft.object(event.sourceId) ?? state.objects[event.sourceId]
   if (!source || source.zone !== 'battlefield') return
-  for (const effect of triggerEffects(effectsOf(source), 'combatDamage')) {
-    if (!conditionHolds(effect.if, state, source)) continue
-    pushCopies(matches, source, effect, 1)
-  }
+  collectEffects(source, 'combatDamage', state, matches)
 }
 
 const handleMilledLandImmediate = (
@@ -255,17 +244,11 @@ const collectMoveTriggers = (
   }
 
   if (before.zone === 'battlefield' && event.to !== 'battlefield') {
-    for (const effect of triggerEffects(effectsOf(before), 'leaves')) {
-      if (!conditionHolds(effect.if, state, before)) continue
-      pushCopies(matches, before, effect, 1)
-    }
+    collectEffects(before, 'leaves', state, matches)
   }
 
   if (event.to === 'graveyard' && before.types.includes('Creature')) {
-    for (const effect of triggerEffects(effectsOf(before), 'dies')) {
-      if (!conditionHolds(effect.if, state, before)) continue
-      pushCopies(matches, before, effect, 1)
-    }
+    collectEffects(before, 'dies', state, matches)
   }
 }
 
@@ -298,8 +281,8 @@ const collectEventTriggers = (
   collectLandfall(state, draft, event, matches)
   collectEnters(state, draft, event, matches)
   collectAttacks(state, event, matches)
-  collectUpkeep(state, draft, event, matches)
-  collectEnd(state, draft, event, matches)
+  collectStep('upkeep', state, draft, event, matches)
+  collectStep('end', state, draft, event, matches)
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(draft, event, matches)

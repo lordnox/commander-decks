@@ -63,7 +63,7 @@ export type TopdeckDecision = {
       | 'destroy-permanent'
       | 'look-top-land'
       | 'exile-graveyards'
-      | 'stack-discard'
+      | 'waiting-discard'
     stackId?: string
     resumePassSeat?: SeatId
     kicked?: boolean

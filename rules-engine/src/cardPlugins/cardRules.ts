@@ -65,7 +65,6 @@ import {
   putFromHand,
   putLandFromHand,
   putMilledLandTapped,
-  rankleModes,
   putPermanentsFromHand,
   revealPick,
   returnChosenLandFromGraveyard,
@@ -88,7 +87,12 @@ import {
   uniqueLandNames,
   upkeep,
   bounceAttacking,
+  chooseModes,
   chooseVotesThisTurn,
+  eachPlayerDiscard,
+  eachPlayerDraw,
+  eachPlayerLoseLife,
+  eachPlayerSacrifice,
   exchangeControlUntilEot,
   fight,
   fightUpToOne,
@@ -783,8 +787,25 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Rankle, Master of Pranks': [
-    triggerOn('combatDamage', { do: [rankleModes()] }),
-    handler('rankle'),
+    triggerOn('combatDamage', {
+      do: [chooseModes('any', [
+        {
+          id: 'discard',
+          label: 'Each player discards a card',
+          do: [eachPlayerDiscard(1)],
+        },
+        {
+          id: 'drain',
+          label: 'Each player loses 1 life and draws a card',
+          do: [eachPlayerLoseLife(1), eachPlayerDraw(1)],
+        },
+        {
+          id: 'sacrifice',
+          label: 'Each player sacrifices a creature',
+          do: [eachPlayerSacrifice('Creature')],
+        },
+      ])],
+    }),
   ],
   'Sygg, River Cutthroat': [
     triggerOn('end', {

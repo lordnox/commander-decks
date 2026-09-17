@@ -39,7 +39,10 @@ export {
   legalActsFor,
   manaAffordances,
   sameLegalAct,
+  waitingContinueAction,
+  waitingDiscard,
   type AvailableAction,
+  type WaitingDiscard,
 } from './actions'
 export { createCatalog } from './catalog'
 export { emptyMana, parseManaCost, payFromPool, poolTotal } from './draft'
