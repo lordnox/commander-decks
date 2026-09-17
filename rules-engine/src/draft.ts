@@ -95,6 +95,7 @@ export const makeDraft = (state: GameState): Draft => {
     if (to !== 'battlefield') {
       object.tapped = false
       object.damageMarked = 0
+      delete object.deathtouched
       object.attacking = null
       object.blocking = null
       object.summoningSickness = false

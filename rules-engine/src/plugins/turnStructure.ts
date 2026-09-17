@@ -77,6 +77,7 @@ const onCombatDamage = (draft: Draft) => {
 const onCleanup = (draft: Draft) => {
   for (const object of draft.zoneOf('battlefield')) {
     object.damageMarked = 0
+    delete object.deathtouched
     object.attacking = null
     object.blocking = null
   }

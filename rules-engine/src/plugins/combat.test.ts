@@ -4,6 +4,7 @@ import { rules } from '../kernel'
 import { bears, newGame, planeswalker } from '../testGame'
 import { combat } from './combat'
 import { damage } from './damage'
+import { stateBased } from './stateBased'
 import { turnStructure } from './turnStructure'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
@@ -141,6 +142,42 @@ test('a trampling attacker assigns lethal to its blocker and the rest to the pla
 
   expect(damaged.state.objects[blocker.id].damageMarked).toBe(9)
   expect(damaged.state.players.p2.life).toBe(39)
+})
+
+test('a deathtouch trampler only owes its blocker one damage', () => {
+  const catalog = createCatalog([combat, damage, stateBased])
+  const state = newGame({
+    battlefield: {
+      p1: [{ ...bears(), power: 10, oracleText: 'Trample, deathtouch' }],
+      p2: [{ ...bears(), toughness: 9 }],
+    },
+    builtinRules: ['combat', 'damage', 'stateBased'],
+  })
+  const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
+  const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: attacker.id, defender: 'p2' }],
+  }, catalog)
+  if (!declared.ok) throw new Error(declared.error)
+  declared.state.step = 'declareBlockers'
+  const blocked = rules(declared.state, {
+    type: 'declareBlockers',
+    seat: 'p2',
+    blockers: [{ blockerId: blocker.id, attackerId: attacker.id }],
+  }, catalog)
+  if (!blocked.ok) throw new Error(blocked.error)
+
+  blocked.state.step = 'combatDamage'
+  const damaged = rules(blocked.state, { type: 'assignCombatDamage' }, catalog)
+  if (!damaged.ok) throw new Error(damaged.error)
+
+  // One point is lethal, so nine trample through and the 2/9 still dies.
+  expect(damaged.state.players.p2.life).toBe(31)
+  expect(damaged.state.objects[blocker.id].zone).toBe('graveyard')
 })
 
 test('a blocker already damaged this turn soaks less of a trampler', () => {
