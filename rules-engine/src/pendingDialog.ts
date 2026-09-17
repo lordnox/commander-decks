@@ -22,6 +22,9 @@ export type PendingDialog = {
     | 'return-land'
     | 'exile-graveyards'
     | 'sacrifice-lands'
+    | 'sacrifice-creature'
+    | 'discard-card'
+    | 'choose-modes'
     | 'may'
     | 'may-draw'
     | 'may-pay-life'
@@ -34,6 +37,8 @@ export type PendingDialog = {
     | 'sacrifice' | 'skip' | 'target'
   >
   count?: number
+  /** Literal choices for a modal ability, used instead of cards on a board. */
+  options?: string[]
   types?: string[]
   permanent?: boolean
   optional?: boolean
@@ -112,6 +117,7 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
     dialog.kind === 'bounce-land'
     || dialog.kind === 'copy-creature'
     || dialog.kind === 'sacrifice-lands'
+    || dialog.kind === 'sacrifice-creature'
   ) {
     return Object.values(state.objects)
       .filter((object) =>
@@ -119,6 +125,7 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
         && object.controller === dialog.seat
         && (dialog.kind !== 'copy-creature' || object.id !== dialog.sourceId)
         && (dialog.kind !== 'sacrifice-lands' || object.types.includes('Land'))
+        && (dialog.kind !== 'sacrifice-creature' || object.types.includes('Creature'))
         && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
   }
   if (dialog.kind === 'return-land') {

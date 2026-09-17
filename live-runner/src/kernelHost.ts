@@ -318,9 +318,10 @@ const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
   const dialog = pendingDialog(state)
   if (!dialog || !isSeatId(dialog.seat)) return false
-  const cards = OPTIONAL_DIALOGS.has(dialog.kind)
-    ? ['Yes']
-    : dialogCandidates(state, dialog).map((object) => object.name)
+  const cards = dialog.options
+    ?? (OPTIONAL_DIALOGS.has(dialog.kind)
+      ? ['Yes']
+      : dialogCandidates(state, dialog).map((object) => object.name))
   if (dialog.optional && cards.length === 0) {
     const result = kernel.dispatch({ type: 'custom', name: dialog.chosenEvent, seat: dialog.seat })
     if (!result.ok) throw new Error(result.error)
@@ -538,6 +539,75 @@ export const applyKernelChoice = (
     lobby.privateJudge = {}
     lobby.waiting = `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
     lobby.judge = `${lobby.occupants[seat]?.name ?? seat} finished a private choice.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
+  if (decision.kernel.stage === 'choose-modes') {
+    const dialog = pendingDialogFor(state, seat)
+    if (dialog?.kind !== 'choose-modes') throw new Error('That choice is no longer open.')
+    const modes = message.choices
+      .filter(({ destination }) => destination === 'target')
+      .map(({ card }) => card)
+    const chosen = kernel.dispatch({
+      type: 'custom',
+      name: dialog.chosenEvent ?? DIALOG_CHOSEN,
+      seat,
+      payload: { modes },
+    })
+    if (!chosen.ok) throw new Error(chosen.error)
+    lobby.topdeck = undefined
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    lobby.privateJudge = {}
+    lobby.waiting =
+      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = modes.length > 0
+      ? `${dialog.source} chose: ${modes.join('; ')}.`
+      : `${dialog.source} chose no modes.`
+    settleKernelPriority(kernel, lobby)
+    return true
+  }
+  if (
+    decision.kernel.stage === 'discard-card'
+    || decision.kernel.stage === 'sacrifice-creature'
+  ) {
+    const dialog = pendingDialogFor(state, seat)
+    if (dialog?.kind !== decision.kernel.stage) {
+      throw new Error('That choice is no longer open.')
+    }
+    const away = decision.kernel.stage === 'discard-card' ? 'graveyard' : 'sacrifice'
+    const candidates = dialogCandidates(state, dialog)
+    const orderedIds = objectIdsForNames(
+      state,
+      candidates.map((object) => object.id),
+      message.choices.map(({ card }) => card),
+    )
+    const objectIds = message.choices
+      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
+      .filter(({ destination }) => destination === away)
+      .map(({ objectId }) => objectId)
+    if (objectIds.length !== 1) throw new Error(`Choose exactly one card for ${dialog.source}.`)
+    const chosen = kernel.dispatch({
+      type: 'custom',
+      name: dialog.chosenEvent ?? DIALOG_CHOSEN,
+      seat,
+      payload: { objectIds },
+    })
+    if (!chosen.ok) throw new Error(chosen.error)
+    const name = state.objects[objectIds[0]]?.name ?? 'a card'
+    lobby.topdeck = undefined
+    state = kernel.history.current()
+    lobby.actions = kernelActions(state)
+    lobby.privateWaiting = {}
+    lobby.privateJudge = {
+      [seat]: `${dialog.source}: you chose ${name}.`,
+    }
+    lobby.waiting =
+      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
+    lobby.judge = away === 'sacrifice'
+      ? `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`
+      : `${lobby.occupants[seat]?.name ?? seat} discarded to ${dialog.source}.`
     settleKernelPriority(kernel, lobby)
     return true
   }
