@@ -1,4 +1,5 @@
-import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
+import { hasKeyword } from '../keywords'
+import type { GameObject, GameState, PlayerId, Plugin, TargetRef } from '../types'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
   typeof target === 'string' ? { kind: 'player', player: target } : target
@@ -9,6 +10,14 @@ const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
     ? defender.player
     : state.objects[defender.objectId]?.controller
 }
+
+/**
+ * Damage that would destroy the blocker, which is what a trampling attacker
+ * must assign before any excess reaches the defender (CR 702.19b). Damage
+ * already marked this turn counts toward it (CR 510.1a).
+ */
+const lethalDamage = (blocker: GameObject) =>
+  Math.max(0, (blocker.toughness ?? 0) - blocker.damageMarked)
 
 export const combat: Plugin = {
   id: 'combat',
@@ -124,12 +133,35 @@ export const combat: Plugin = {
           (object) => object.zone === 'battlefield' && object.blocking === attacker.id,
         )
         const amount = attacker.power ?? 0
-        if (blockers.length > 0) {
+        if (blockers.length > 0 && !hasKeyword(attacker, 'trample')) {
           draft.enqueue({
             type: 'combatDamage',
             sourceId: attacker.id,
             target: { kind: 'object', objectId: blockers[0].id },
             amount,
+          })
+          continue
+        }
+
+        if (blockers.length > 0) {
+          let remaining = amount
+          for (const blocker of blockers) {
+            const lethal = Math.min(remaining, lethalDamage(blocker))
+            remaining -= lethal
+            if (lethal === 0) continue
+            draft.enqueue({
+              type: 'combatDamage',
+              sourceId: attacker.id,
+              target: { kind: 'object', objectId: blocker.id },
+              amount: lethal,
+            })
+          }
+          if (remaining === 0 || !attacker.attacking) continue
+          draft.enqueue({
+            type: 'combatDamage',
+            sourceId: attacker.id,
+            target: targetRef(attacker.attacking),
+            amount: remaining,
           })
           continue
         }
