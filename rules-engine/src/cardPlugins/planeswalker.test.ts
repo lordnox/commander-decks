@@ -135,8 +135,12 @@ describe('planeswalker loyalty abilities', () => {
     })
     if (!activated.ok) throw new Error(activated.error)
     expect(activated.state.objects[id].zone).toBe('graveyard')
-    const resolved = runtime.rules(activated.state, { type: 'resolveTop' })
+    let resolved = runtime.rules(activated.state, { type: 'resolveTop' })
     if (!resolved.ok) throw new Error(resolved.error)
+    for (let draws = 0; draws < 7 && resolved.state.stack.length > 0; draws += 1) {
+      resolved = runtime.rules(resolved.state, { type: 'resolveTop' })
+      if (!resolved.ok) throw new Error(resolved.error)
+    }
     expect(resolved.state.players.p1.life).toBe(47)
     expect(resolved.state.zoneOrder.p1.hand).toHaveLength(15)
 

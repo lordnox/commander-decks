@@ -200,7 +200,8 @@ describe('targeted spell resolution', () => {
       objectId: keepSafeId,
       targets: [{ kind: 'object', objectId: removalId }],
     }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    const countered = ok(server.rules(cast, { type: 'resolveTop' }))
+    const resolved = ok(server.rules(countered, { type: 'resolveTop' }))
 
     expect(resolved.objects[removalId].zone).toBe('graveyard')
     expect(resolved.objects[keepSafeId].zone).toBe('graveyard')

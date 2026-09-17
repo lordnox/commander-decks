@@ -1,6 +1,8 @@
 import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
+import { initiateDiscard } from '../rules/discard'
+import { initiateDraw } from '../rules/draw'
 import type {
   GameObject,
   GameState,
@@ -41,6 +43,7 @@ export type CardInstruction =
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   | { kind: 'draw'; count: number }
+  | { kind: 'discardCards'; count: number }
   | { kind: 'gainLife'; count: number }
   | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
   | { kind: 'loseLifeTargetManaValue' }
@@ -417,6 +420,8 @@ export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect 
 export const putMilledLandTapped = (): CardInstruction => ({ kind: 'putMilledLandTapped' })
 
 export const draw = (count: number): CardInstruction => ({ kind: 'draw', count })
+
+export const discardCards = (count: number): CardInstruction => ({ kind: 'discardCards', count })
 
 export const discardHandsThenDrawGreatest = (): CardInstruction => ({
   kind: 'discardHandsThenDrawGreatest',
@@ -895,19 +900,50 @@ const manaValueOf = (object: GameObject) =>
     }, 0)
     : object.manaValue ?? 0
 
+type BufferedStackAction =
+  | { kind: 'draw'; remaining: number }
+  | { kind: 'discard'; count: number }
+
+const flushStackActions = (
+  draft: Draft,
+  source: GameObject,
+  buffer: BufferedStackAction[],
+) => {
+  for (const action of [...buffer].reverse()) {
+    if (action.kind === 'draw') {
+      initiateDraw(draft, {
+        seat: source.controller,
+        remaining: action.remaining,
+        sourceId: source.id,
+        name: source.name,
+      })
+      continue
+    }
+    initiateDiscard(draft, {
+      seat: source.controller,
+      count: action.count,
+      sourceId: source.id,
+      name: source.name,
+    })
+  }
+}
+
 export const runInstructions = (
   draft: Draft,
   source: GameObject,
   instructions: CardInstruction[],
   item?: StackItem,
+  stackBuffer?: BufferedStackAction[],
 ) => {
+  const buffer = stackBuffer ?? (item ? [] as BufferedStackAction[] : undefined)
+
   for (const instruction of instructions) {
     if (instruction.kind === 'if') {
       const live = draft.object(source.id) ?? source
       const chosen = conditionHolds(instruction.if, draft, live)
         ? instruction.whenTrue
         : instruction.whenFalse ?? []
-      runInstructions(draft, source, chosen, item)
+      runInstructions(draft, source, chosen, item, buffer)
       continue
     }
     if (instruction.kind === 'selfMill') {
@@ -941,7 +977,24 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'draw') {
+      if (buffer) {
+        buffer.push({ kind: 'draw', remaining: instruction.count })
+        continue
+      }
       draft.enqueue({ type: 'draw', seat: source.controller, count: instruction.count })
+      continue
+    }
+    if (instruction.kind === 'discardCards') {
+      if (buffer) {
+        buffer.push({ kind: 'discard', count: instruction.count })
+        continue
+      }
+      initiateDiscard(draft, {
+        seat: source.controller,
+        count: instruction.count,
+        sourceId: source.id,
+        name: source.name,
+      })
       continue
     }
     if (instruction.kind === 'gainLife') {
@@ -1629,6 +1682,8 @@ export const runInstructions = (
       continue
     }
   }
+
+  if (buffer && stackBuffer === undefined) flushStackActions(draft, source, buffer)
 }
 
 export const extraTriggerCount = (

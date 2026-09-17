@@ -52,8 +52,7 @@ const nextStateRandom = (draft: Draft) => {
 }
 
 const hiddenEvent = (type: string) =>
-  type === 'draw'
-  || type === 'shuffleLibrary'
+  type === 'shuffleLibrary'
   || type === 'reveal'
   || type === 'authoritativeSync'
 
@@ -111,18 +110,10 @@ export const createAuthoritativeHiddenInformation = (
       if (!randomChoicePayload(event.payload)) return 'random choice payload is invalid'
       return
     }
-    if (
-      event.type !== 'draw'
-      && event.type !== 'shuffleLibrary'
-      && event.type !== 'reveal'
-    ) {
+    if (event.type !== 'shuffleLibrary' && event.type !== 'reveal') {
       return
     }
     if (!state.players[event.seat]) return 'player is not in the game'
-    if (event.type === 'draw') {
-      const count = event.count ?? 1
-      if (!Number.isInteger(count) || count < 1) return 'draw count must be a positive integer'
-    }
     if (event.type === 'reveal') {
       if (event.objectIds.length === 0) return 'reveal needs at least one card'
       const unknown = event.objectIds.find((id) => !state.objects[id])
@@ -181,19 +172,6 @@ export const createAuthoritativeHiddenInformation = (
       return
     }
 
-    if (event.type === 'draw') {
-      const count = event.count ?? 1
-      for (let index = 0; index < count; index += 1) {
-        const objectId = draft.zoneOrder[event.seat].library[0]
-        if (!objectId) {
-          draft.players[event.seat].lost = true
-          draft.note(`${event.seat} draws from an empty library`)
-          return
-        }
-        const object = draft.move(objectId, 'hand')
-        if (object) draft.note(`${event.seat} draws a card`)
-      }
-    }
   },
 })
 

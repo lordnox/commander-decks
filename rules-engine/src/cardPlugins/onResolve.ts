@@ -7,7 +7,8 @@ export const onResolve: Plugin = {
   apply: ({ state, event, draft }) => {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    const object = item ? state.objects[item.objectId] : undefined
+    if (!item || (item.kind !== 'spell' && item.kind !== 'ability')) return
+    const object = state.objects[item.objectId]
     if (!object) return
     for (const effect of triggerEffects(effectsOf(object), 'resolve')) {
       const pendingBefore = draft.pending.length

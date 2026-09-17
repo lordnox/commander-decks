@@ -47,14 +47,18 @@ export const jointExploration: Plugin = {
   legal: ({ state, event }) => {
     if (event.type !== 'passPriority') return
     const item = state.stack[0]
-    if (item?.name === NAME && state.players[item.controller]?.data[JOINT_SCRY_DONE]) {
+    if (
+      item?.kind === 'spell'
+      && item.name === NAME
+      && state.players[item.controller]?.data[JOINT_SCRY_DONE]
+    ) {
       return `${item.controller} is resolving ${NAME}`
     }
   },
   replace: ({ state, event }) => {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    if (item?.name !== NAME) return
+    if (item?.kind !== 'spell' || item.name !== NAME) return
     if (hasPendingDialog(state, item.controller, 'scry')) return null
     if (state.players[item.controller]?.data[JOINT_SCRY_DONE]) return
     return {
@@ -87,7 +91,13 @@ export const jointExploration: Plugin = {
     }
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    if (item?.name !== NAME || !state.players[item.controller]?.data[JOINT_SCRY_DONE]) return
+    if (
+      item?.kind !== 'spell'
+      || item.name !== NAME
+      || !state.players[item.controller]?.data[JOINT_SCRY_DONE]
+    ) {
+      return
+    }
     delete draft.players[item.controller].data[JOINT_SCRY_DONE]
     const kicked = draft.players[item.controller].data.jointKicked === true
     delete draft.players[item.controller].data.jointKicked

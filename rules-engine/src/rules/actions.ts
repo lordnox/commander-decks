@@ -7,6 +7,7 @@ import {
 import type Draft from '../draft'
 import type { GameState, StackItem } from '../types'
 import { resolveDiscardAction } from './discard'
+import { resolveDrawAction } from './draw'
 
 /**
  * Resolve an activated or triggered ability after it is popped from the stack.
@@ -35,4 +36,5 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
 export const resolveAction = (draft: Draft, item: StackItem, _state: GameState) => {
   if (item.kind !== 'action') return
   if (item.actionId === 'discard') resolveDiscardAction(draft, item)
+  if (item.actionId === 'draw') resolveDrawAction(draft, item)
 }

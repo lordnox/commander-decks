@@ -15,6 +15,7 @@ import { manaBurn } from './manaBurn'
 import { priority } from './priority'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
+import { draw } from '../rules/draw'
 import { triggers } from '../rules/triggers'
 import { turnStructure } from './turnStructure'
 
@@ -29,6 +30,7 @@ export const builtInPlugins = [
   stateBased,
   combat,
   damage,
+  draw,
   triggers,
   judgeFallback,
   unconfiguredHiddenInformation,
