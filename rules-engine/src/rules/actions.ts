@@ -5,7 +5,8 @@ import {
   type CardInstruction,
 } from '../cardPlugins/effects'
 import type Draft from '../draft'
-import type { StackItem } from '../types'
+import type { GameState, StackItem } from '../types'
+import { resolveDiscardAction } from './discard'
 
 /**
  * Resolve an activated or triggered ability after it is popped from the stack.
@@ -25,4 +26,13 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
 
   if (!instructions || !source) return
   runInstructions(draft, source, instructions, item)
+}
+
+/**
+ * Resolve a builtin action stack item during `resolveTop`.
+ * CR 608.2 — perform the action's instructions; waiting actions stay on the stack.
+ */
+export const resolveAction = (draft: Draft, item: StackItem, _state: GameState) => {
+  if (item.kind !== 'action') return
+  if (item.actionId === 'discard') resolveDiscardAction(draft, item)
 }

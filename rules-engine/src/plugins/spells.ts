@@ -3,7 +3,7 @@ import { poolTotal, type Draft } from '../draft'
 import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
 import { searchEffect } from '../cardPlugins/effects'
 import { effectsFor } from '../cardPlugins/cardRules'
-import { resolveAbility } from '../rules/actions'
+import { resolveAbility, resolveAction } from '../rules/actions'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -130,15 +130,15 @@ export const spells: Plugin = {
     }
 
     if (event.type === 'resolveTop') {
-      const item = draft.stack.shift()
+      const item = draft.stack[0]
       if (!item) return
-      if (item.kind === 'ability') {
-        resolveAbility(draft, item)
-        draft.passedInRow = []
-        draft.priority = state.active
+      if (item.kind === 'action') {
+        resolveAction(draft, item, state)
         return
       }
-      if (item.kind === 'action') {
+      draft.stack.shift()
+      if (item.kind === 'ability') {
+        resolveAbility(draft, item)
         draft.passedInRow = []
         draft.priority = state.active
         return
