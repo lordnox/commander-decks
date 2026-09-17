@@ -61,6 +61,26 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('librarySearch', () => {
+  test('Scapeshift cannot find an MDFC whose front face is not a land', () => {
+    const mdfc = card('Bala Ged Recovery', ['Sorcery', 'Land'], {
+      frontFace: {
+        types: ['Sorcery'],
+        subtypes: [],
+        supertypes: [],
+        manaCost: '{2}{G}',
+        manaValue: 3,
+        colors: ['G'],
+      },
+    })
+    const server = game({ library: [forest(), mdfc] })
+
+    expect(searchCandidates(
+      server.state,
+      'p1',
+      searchSpecFor('Scapeshift')!,
+    ).map((object) => object.name)).toEqual(['Forest'])
+  })
+
   // Scapeshift sacrifices as it resolves, so the spell is already on the stack
   // and countering it means no land is lost.
   test('Scapeshift sacrifices while it resolves, then searches for that many lands', () => {

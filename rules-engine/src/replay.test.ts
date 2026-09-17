@@ -91,7 +91,7 @@ describe('table replay conversion', () => {
     ).not.toContain(true)
   })
 
-  test('imports every printed supertype, so a basic land can still be searched for', () => {
+  test('imports printed supertypes and keeps a double-faced card front face', () => {
     const replay: TableReplay = {
       starting_life: 40,
       seats: [{ id: 'p1' }, { id: 'p2' }],
@@ -114,6 +114,23 @@ describe('table replay conversion', () => {
           oracle_text: 'Channel',
           stats: '',
         },
+        'Bala Ged Recovery': {
+          type_line: 'Sorcery // Land',
+          mana_cost: '{2}{G}',
+          oracle_text: 'Return target card from your graveyard to your hand. // {T}: Add {G}.',
+          stats: '',
+          faces: [{
+            type_line: 'Sorcery',
+            mana_cost: '{2}{G}',
+            oracle_text: 'Return target card from your graveyard to your hand.',
+            stats: '',
+          }, {
+            type_line: 'Land',
+            mana_cost: '',
+            oracle_text: '{T}: Add {G}.',
+            stats: '',
+          }],
+        },
       },
       events: [{
         id: 0,
@@ -132,6 +149,7 @@ describe('table replay conversion', () => {
               { name: 'Island' },
               { name: 'Snow-Covered Forest' },
               { name: 'Boseiju, Who Endures' },
+              { name: 'Bala Ged Recovery' },
             ]),
             p2: replayPlayer(),
           },
@@ -147,6 +165,12 @@ describe('table replay conversion', () => {
     expect(supertypesOf('Island')).toEqual(['Basic'])
     expect(supertypesOf('Snow-Covered Forest')).toEqual(['Basic', 'Snow'])
     expect(supertypesOf('Boseiju, Who Endures')).toEqual(['Legendary'])
+    expect(Object.values(imported.objects).find(
+      (object) => object.name === 'Bala Ged Recovery',
+    )?.frontFace).toMatchObject({
+      types: ['Sorcery'],
+      manaCost: '{2}{G}',
+    })
   })
 
   test('imports printed and current planeswalker loyalty', () => {

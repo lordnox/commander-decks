@@ -19,6 +19,8 @@ type ReplayCard = {
   mana_cost: string
   oracle_text: string
   stats: string
+  /** Present only for double-faced cards, not split, adventure, or Room cards. */
+  faces?: ReplayCard[]
 }
 
 type ReplayBattlefieldCard = {
@@ -93,22 +95,34 @@ const manaValueOf = (cost: string) =>
 const colorsOf = (cost: string) =>
   [...new Set([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))]
 
+const faceCharacteristics = (typeLine: string, manaCost: string) => ({
+  types: CARD_TYPES.filter((type) =>
+    typeLine.split(' — ')[0].split(' ').includes(type)),
+  supertypes: SUPERTYPES.filter((supertype) =>
+    typeLine.split(' — ')[0].split(' ').includes(supertype)),
+  subtypes: typeLine.split(' — ')[1]?.split(' ') ?? [],
+  manaCost,
+  manaValue: manaValueOf(manaCost),
+  colors: colorsOf(manaCost),
+})
+
 const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const typeLine = card?.type_line ?? ''
+  const faceTypeLines = typeLine.split(' // ')
+  const faceManaCosts = (card?.mana_cost ?? '').split(' // ')
   const types = CARD_TYPES.filter((type) =>
-    typeLine.split(' // ').some((face) => face.split(' — ')[0].split(' ').includes(type)),
+    faceTypeLines.some((face) => face.split(' — ')[0].split(' ').includes(type)),
   )
   const supertypes = SUPERTYPES.filter((supertype) =>
-    typeLine.split(' // ').some((face) => face.split(' — ')[0].split(' ').includes(supertype)),
+    faceTypeLines.some((face) => face.split(' — ')[0].split(' ').includes(supertype)),
   )
-  const subtypes = typeLine
-    .split(' // ')
+  const subtypes = faceTypeLines
     .flatMap((face) => face.split(' — ')[1]?.split(' ') ?? [])
   const stats = card?.stats.match(/^(-?\d+)\/(-?\d+)$/)
   const loyalty = types.includes('Planeswalker') && /^-?\d+$/.test(card?.stats ?? '')
     ? Number(card?.stats)
     : null
-  const manaCost = (card?.mana_cost ?? '').split(' // ')[0]
+  const manaCost = faceManaCosts[0]
   const modes = manaModes({ oracleText: card?.oracle_text ?? '' })
   const add = card?.oracle_text.match(/Add \{([WUBRGC])\}/)
   const tapProduces = modes.length === 1
@@ -122,6 +136,9 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     manaCost,
     manaValue: manaValueOf(manaCost),
     colors: colorsOf(manaCost),
+    ...(card?.faces?.[0]
+      ? { frontFace: faceCharacteristics(card.faces[0].type_line, card.faces[0].mana_cost) }
+      : {}),
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     printedLoyalty: loyalty,

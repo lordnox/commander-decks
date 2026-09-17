@@ -68,6 +68,18 @@ export type GameObject = {
   manaCost: string
   manaValue: number
   colors: string[]
+  /**
+   * Printed characteristics of the front face. In the library, only this face
+   * exists for a transforming or modal double-faced card (CR 712.8a).
+   */
+  frontFace?: {
+    types: string[]
+    subtypes: string[]
+    supertypes: string[]
+    manaCost: string
+    manaValue: number
+    colors: string[]
+  }
   power: number | null
   toughness: number | null
   printedLoyalty: number | null

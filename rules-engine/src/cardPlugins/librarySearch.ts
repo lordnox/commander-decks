@@ -77,6 +77,14 @@ export const pendingSearch = (
 export const searchingSeat = (state: GameState) =>
   state.playerOrder.find((seat) => pendingSearch(state, seat))
 
+/**
+ * A double-faced card in a library has only its front face's characteristics.
+ * The object's combined characteristics remain useful to the replay importer,
+ * but cannot make a front-face instant into a land a search may find.
+ */
+const libraryCharacteristics = (object: GameObject): GameObject =>
+  object.frontFace ? { ...object, ...object.frontFace } : object
+
 /** Library cards this search may legally find. Authoritative state only. */
 export const searchCandidates = (
   state: GameState,
@@ -87,7 +95,11 @@ export const searchCandidates = (
   (state.zoneOrder[seat]?.library ?? [])
     .map((objectId) => state.objects[objectId])
     .filter((object): object is GameObject =>
-      Boolean(object) && (kicked && spec.kickedMatch ? spec.kickedMatch(object) : spec.match(object)))
+      Boolean(object) && (
+        kicked && spec.kickedMatch
+          ? spec.kickedMatch(libraryCharacteristics(object))
+          : spec.match(libraryCharacteristics(object))
+      ))
 
 const searchDone = (state: GameState, seat: PlayerId) =>
   state.players[seat]?.data[SEARCH_DONE] === true
