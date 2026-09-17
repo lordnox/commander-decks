@@ -39,11 +39,24 @@ export type Hover = {
 
 export type HoverHandler = (hover: Hover | null) => void
 
+/** A player or permanent this selection may be pointed at. */
+export type InteractionTarget = {
+  id: string
+  name: string
+  /** Card whose art stands for the target, such as a seat's first commander. */
+  cardName?: string
+}
+
 export type CardInteraction = {
   selectable: Set<string>
   selected: Set<string>
   label: string
   onSelect: (objectId: string) => void
+  /** Permanent waiting for a target; its choices render beside that card. */
+  choosingFor?: string | null
+  targetLabel?: string
+  targets?: InteractionTarget[]
+  onChooseTarget?: (id: string) => void
 }
 
 type SeatPanelState = Omit<PlayerState, 'hand' | 'command'> & {
@@ -329,24 +342,84 @@ export const CardRow = ({
     {cards.map((card, index) => {
       const entry = typeof card === 'object' ? card : undefined
       const value = entry?.name ?? (card as string | number)
+      const choosing = Boolean(entry?.objectId && interaction?.choosingFor === entry.objectId)
       return (
-        <CardTile
-          key={`${String(value)}-${index}`}
-          game={game}
-          value={value}
-          entry={entry}
-          compact={compact}
-          active={action.has(resolveName(game, value))}
-          copyable={copyable}
-          onPreview={onPreview}
-          onHover={onHover}
-          onInsertName={onInsertName}
-          interaction={interaction}
-        />
+        <div key={`${String(value)}-${index}`} className="flex items-center gap-2">
+          <CardTile
+            game={game}
+            value={value}
+            entry={entry}
+            compact={compact}
+            active={action.has(resolveName(game, value))}
+            copyable={copyable}
+            onPreview={onPreview}
+            onHover={onHover}
+            onInsertName={onInsertName}
+            interaction={interaction}
+          />
+          {choosing && (
+            <TargetPicker
+              game={game}
+              label={interaction?.targetLabel ?? 'Target'}
+              targets={interaction?.targets ?? []}
+              onChoose={interaction?.onChooseTarget}
+            />
+          )}
+        </div>
       )
     })}
   </div>
 )
+
+/**
+ * Targets sit against the card that is pointing at them: a control in the
+ * sidebar reads as page furniture and is missed while the eye is on the board.
+ */
+const TargetPicker = ({
+  game,
+  label,
+  targets,
+  onChoose,
+}: {
+  game: ReplayGame
+  label: string
+  targets: InteractionTarget[]
+  onChoose?: (id: string) => void
+}) => {
+  if (targets.length === 0) return null
+
+  return (
+    <div className="flex items-center gap-1.5 rounded-2xl border border-orange-300/50 bg-orange-400/10 p-1.5 shadow-lg shadow-black/30">
+      {targets.map((target) => {
+        const { details } = cardInfo(game, target.cardName ?? target.name)
+        const image = details.image_small || details.image_normal
+        return (
+          <button
+            key={target.id}
+            type="button"
+            title={`${label}: ${target.name}`}
+            aria-label={`${label}: ${target.name}`}
+            onClick={() => onChoose?.(target.id)}
+            className="size-11 shrink-0 overflow-hidden rounded-full border-2 border-orange-300 bg-ink-950 transition hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-200"
+          >
+            {image ? (
+              <img
+                src={image}
+                alt=""
+                className="h-full w-full object-cover object-[50%_22%]"
+                loading="lazy"
+              />
+            ) : (
+              <span className="flex h-full items-center justify-center px-1 text-[0.6rem] font-black uppercase text-stone-200">
+                {target.name.slice(0, 2)}
+              </span>
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
 
 export const Zone = ({
   game,
@@ -520,8 +593,6 @@ export const SeatPanel = ({
   onHover,
   onInsertName,
   battlefieldInteraction,
-  defenderSelectable = false,
-  onSelectDefender,
 }: {
   game: ReplayGame
   seat: ReplaySeat
@@ -536,8 +607,6 @@ export const SeatPanel = ({
   onHover: HoverHandler
   onInsertName?: (name: string) => void
   battlefieldInteraction?: CardInteraction
-  defenderSelectable?: boolean
-  onSelectDefender?: () => void
 }) => {
   const commanderDamage = Object.entries(state.commander_damage ?? {}).filter(
     ([, damage]) => damage > 0,
@@ -598,16 +667,6 @@ export const SeatPanel = ({
           </p>
         </div>
       </header>
-      {defenderSelectable && onSelectDefender && (
-        <button
-          type="button"
-          onClick={onSelectDefender}
-          className="mt-3 w-full rounded-xl border border-orange-300 bg-orange-400/10 px-3 py-2 text-sm font-black text-orange-200 shadow-[0_0_1.25rem_rgba(251,146,60,0.25)] hover:bg-orange-400/20"
-        >
-          Attack {seat.name}
-        </button>
-      )}
-
       <div className="mt-3 flex flex-wrap gap-2 text-[0.68rem] text-stone-300">
         <span className="rounded-full bg-white/5 px-2.5 py-1">
           {displayedHandCount} in hand
