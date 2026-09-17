@@ -40,7 +40,18 @@ Spell/ability resolves → Action(s) on stack → Event(s) apply → Trigger(s) 
 
 **Plugin vs Rule:** reuse existing `Plugin` type. Builtin game rules register at game start; card rules install as `RuleInstance` on ETB and remove on leave.
 
-**Client resolver break:** when an action needs a choice, the kernel marks the stack item `waiting`, returns state to the host, and does **not** drain further events. The client sends the next event (choice made); the kernel resumes.
+**Client resolver break:** when an action needs a choice, the kernel marks the stack item `waiting`, returns state to the host, and does **not** drain further events. The client sends **`continueAction`** with the choice; the kernel resumes. Do **not** use `custom` events for stack continuations.
+
+---
+
+## 2b. Resolved design decisions
+
+| Decision | Resolution |
+|----------|------------|
+| Stack continuation event | **`continueAction`** only — `{ type: 'continueAction', stackId, seat, payload }`. Retire `custom` for this path. |
+| APNAP trigger ordering | **Full CR 603.3b in Phase 3** — active player first, then turn order. |
+| Replay | **Phase 8** — stable `StackItem.id` across waiting round-trips; replay JSON records `continueAction` payloads. |
+| Client rollback | **Post-v1 add-on** — render prior authoritative state snapshot; not blocking Phases 0–9. |
 
 ---
 
@@ -125,14 +136,55 @@ Each phase ends with **`bun test rules-engine`** green and a short commit. Do no
   - `actionId?: string` — e.g. `'discard'`, `'draw'`, `'chooseTargets'`
   - `waiting?: 'choice' | 'targets' | null`
   - `payload` for action parameters (seat, count, filter, chosen ids)
+  - **`id` allocated via `draft.allocId('stack')` and never regenerated** — stable for replay and `continueAction`
+- [ ] Add `GameEvent` variant **`continueAction`** (not `custom`):
+  ```typescript
+  | {
+      type: 'continueAction'
+      stackId: string
+      seat: PlayerId
+      payload: Record<string, unknown>  // e.g. { objectIds: string[] }
+    }
+  ```
 - [ ] Add `TriggerBinding` type for declarative card triggers (`on`, `if`, `do`).
 - [ ] Add `draft.addToStack(item)` and `draft.addTriggeredAbility(source, instructions, meta)` helpers on `Draft`.
 - [ ] Document CR citations in module headers (603.3, 701.9, 121.2).
+- [ ] **JSDoc pass on public kernel types** (`types.ts`, `draft.ts`) so IDE hover shows type-level and member-level docs. Follow [TypeScript JSDoc](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html): block comment on the type, `/** … */` on each property and hook.
+
+**JSDoc convention (required for Phase 0)**
+
+```typescript
+/**
+ * Frozen game snapshot returned by `rules(state, event)`.
+ * History is not stored here; use `createHistory` for before/after trees.
+ */
+export type GameState = {
+  /** LIFO stack of spells, abilities, and actions waiting to resolve. */
+  stack: StackItem[]
+  /** Seat whose turn it is (CR 500.4). */
+  active: PlayerId
+  // …
+}
+
+/**
+ * Catalog code registered for one `pluginId`.
+ * Hooks receive `HookCtx`; only handle events they care about.
+ */
+export type Plugin = {
+  id: string
+  /** Return an error string to reject the incoming event before apply. */
+  legal?: (ctx: HookCtx) => string | void
+  apply?: (ctx: HookCtx) => void
+}
+```
+
+Every type touched in this refactor must be hover-friendly: `GameState`, `GameObject`, `StackItem`, `GameEvent` (each variant documented or grouped), `Plugin`, `HookCtx`, `RuleInstance`, `PlayerState`, `ReduceResult`, `Draft` helpers (`enqueue`, `addToStack`, …). New types (`TriggerBinding`, action payloads) get the same treatment.
 
 **Acceptance**
 
 - Types compile; no behavior change yet.
 - One unit test: construct a `StackItem` action with `waiting: 'choice'`.
+- Spot-check in IDE: hovering `state.stack` shows `GameState` field doc; hovering `plugin.apply` shows hook doc.
 
 ---
 
@@ -163,7 +215,7 @@ Each phase ends with **`bun test rules-engine`** green and a short commit. Do no
 - [ ] Implement **discard action** stack item:
   - `initiateDiscard({ seat, count, chooser, random? })`
   - On resolve start: if cards not chosen, set `waiting: 'choice'`, return.
-  - Client sends `continueAction` / `custom` with chosen `objectIds`.
+  - Client sends `continueAction` with chosen `objectIds` and matching `stackId`.
   - Fire one `discard` event per card (701.9b — each discard triggers separately).
 - [ ] Tests for 701.9a/b: single discard, discard 2 triggers twice.
 
@@ -183,8 +235,9 @@ Each phase ends with **`bun test rules-engine`** green and a short commit. Do no
 - [ ] Add `rules/triggers.ts` plugin:
   - After each applied event, scan battlefield `RuleInstance`s and object `effects` for matching `on: event.type`.
   - Evaluate `if` conditions (`opponent`, `controller`, etc.).
-  - `addTriggeredAbility` for each trigger (APNAP: active player first, then turn order — CR 603.3b).
+  - **`addTriggeredAbility` in full APNAP order (CR 603.3b):** active player’s triggers first, then each other player in turn order; multiple triggers from one player in the order chosen by that player (default: timestamp / card order until UI supports reorder).
   - Do **not** run `do` until ability resolves.
+  - Test fixture: two players each with Caress — one discard puts both triggers on stack in APNAP order.
 - [ ] Extend `CardEffect` trigger union: `on: 'discard' | 'draw' | …` (map `GameEvent.type` → trigger `on`).
 - [ ] Add `loseLife` instruction variant: `who: 'triggeringPlayer' | 'controller'`.
 - [ ] Migrate **Liliana's Caress** to declarative trigger; delete `lilianasCaress.ts`.
@@ -227,7 +280,7 @@ Each phase ends with **`bun test rules-engine`** green and a short commit. Do no
 
 - [ ] `rules/actions.ts`: resolve `kind: 'action'` in `resolveTop`.
 - [ ] Unify `pendingDialog` with stack: dialog opens when action enters `waiting`; `chosenEvent` completes action and fires events.
-- [ ] `live-runner/kernelHost.ts`: detect `stack[0].waiting`, publish `lobby.topdeck` / choice UI, dispatch continuation event.
+- [ ] `live-runner/kernelHost.ts`: detect `stack[0].waiting`, publish `lobby.topdeck` / choice UI, dispatch **`continueAction`** (never `custom` for this path).
 - [ ] `rules-engine/actions.ts` (available actions): expose pass priority, respond, continue waiting action.
 - [ ] Priority plugin: do not auto-resolve while `stack[0].waiting`.
 
@@ -282,7 +335,8 @@ Each phase ends with **`bun test rules-engine`** green and a short commit. Do no
 
 **Work**
 
-- [ ] `replay.ts`: emit `continueAction` / discard choices where recorded; stack pauses round-trip.
+- [ ] `replay.ts`: record and replay **`continueAction`** with stable `stackId`; discard/draw choices serialized in payload.
+- [ ] Waiting stack items keep the same `StackItem.id` from creation through client round-trip.
 - [ ] Table games: verify JSON replay still validates.
 - [ ] `render-table-replay`: stack display shows actions and waiting state.
 
@@ -290,6 +344,21 @@ Each phase ends with **`bun test rules-engine`** green and a short commit. Do no
 
 - Committed example replay in `table-games/` still renders.
 - `replay.test.ts` green.
+- Fixture: pause on waiting discard action → `continueAction` → resume → Caress trigger resolves.
+
+---
+
+### Phase 10 — Client rollback (post-v1, optional)
+
+**Work**
+
+- [ ] Host stores pre-event authoritative snapshot (or journal frame).
+- [ ] Client can request / display **rollback** — render the prior state without re-simulating.
+- [ ] Not required for Phases 0–9 sign-off.
+
+**Acceptance**
+
+- One live-runner test: after illegal choice, rollback shows state before the rejected `continueAction`.
 
 ---
 
@@ -415,24 +484,27 @@ Phases 0–5 deliver the core architecture (Caress + Cry + client pause). Phases
 
 ## 11. Pre-implementation checklist (for reviewer)
 
-- [ ] Vocabulary (action / event / trigger) agreed
-- [ ] `Plugin` reused for game rules — agreed
-- [ ] Client owns choice resolution for waiting stack items — agreed
-- [ ] Draw one-at-a-time (121.2) — agreed
-- [ ] CR snapshot location — done (`rules-sources/`)
+- [x] Vocabulary (action / event / trigger) agreed
+- [x] `Plugin` reused for game rules — agreed
+- [x] Client owns choice resolution for waiting stack items — agreed
+- [x] Draw one-at-a-time (121.2) — agreed
+- [x] CR snapshot location — done (`rules-sources/`)
 - [ ] Frozen file policy for `types.ts` — approve extensions
 - [ ] Acceptance scenarios A–E sufficient
 - [ ] Phase order acceptable (can parallelize 2+4 only after 3)
+- [x] `continueAction` for stack continuations (no `custom`)
+- [x] Full APNAP in Phase 3
+- [x] Replay in Phase 8; rollback deferred to Phase 10
+- [ ] JSDoc on all public kernel types (Phase 0)
 
 ---
 
-## 12. Open questions (resolve before Phase 5)
+## 12. Resolved questions (was open before Phase 5)
 
-1. **`continueAction` event shape** — `{ type: 'continueAction', stackId, payload }` vs extend `custom`?
-2. **Stack item identity in replay** — stable `id` for waiting actions across client round-trips?
-3. **APNAP for simultaneous triggers** — full CR 603.3b in Phase 3 or defer to Phase 6?
-
-Recommend: decide (1) and (2) in Phase 0; implement full APNAP in Phase 3 (needed for Caress + multiple permanents).
+1. **`continueAction` event shape** — **`{ type: 'continueAction', stackId, seat, payload }`**. Do not use `custom` for stack continuations.
+2. **Stack item identity** — **`StackItem.id` stable** from `allocId('stack')` through waiting, replay, and `continueAction`.
+3. **APNAP** — **full implementation in Phase 3** (CR 603.3b).
+4. **Client rollback** — **Phase 10** (post-v1); replay correctness is Phase 8.
 
 ---
 
