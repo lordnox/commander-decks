@@ -299,6 +299,17 @@ const unpackMana = (value: unknown) => {
   return held.length > 0 ? Object.fromEntries(held) : undefined
 }
 
+/**
+ * Exile stays a plain list of card refs so a client built before linked exiles
+ * still reads it. The notes ride alongside in their own slot, which older
+ * readers ignore.
+ */
+const packExileNotes = (cards: LiveSeat['exile']) => {
+  const notes = cards.map((card) =>
+    typeof card === 'object' && card.note ? card.note : 0)
+  return notes.some((note) => note !== 0) ? notes : ABSENT
+}
+
 export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
   const seats = seatsOf(snapshot)
   const slugs = slugsFromSnapshot(snapshot)
@@ -318,17 +329,14 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       seat.hand === undefined ? HIDDEN : seat.hand.map((name) => table.cardRef(name, index)),
       packBattlefield(seat.battlefield ?? [], table, index),
       (seat.graveyard ?? []).map((name) => table.cardRef(name, index)),
-      packBattlefield(
-        (seat.exile ?? []).map((card) =>
-          typeof card === 'object' ? card : { name: card }),
-        table,
-        index,
-      ),
+      (seat.exile ?? []).map((card) =>
+        table.cardRef(typeof card === 'object' ? card : card, index)),
       (seat.command ?? []).map((name) => table.cardRef(name, index)),
       seat.revealed_top === undefined
         ? ABSENT
         : seat.revealed_top.map((name) => table.cardRef(name, index)),
       packMana(seat.mana),
+      packExileNotes(seat.exile ?? []),
     ]
   })
 
@@ -500,6 +508,19 @@ const unpackBattlefield = (
   })
 }
 
+const unpackExile = (
+  values: unknown,
+  noteValues: unknown,
+  lists: DeckCard[][],
+  extras: string[],
+  tokens: Array<[string, CardDetails]>,
+) => {
+  const cards = unpackCards(values, lists, extras, tokens)
+  const notes = Array.isArray(noteValues) ? noteValues : []
+  return cards.map((name, index) =>
+    typeof notes[index] === 'string' ? { name, note: notes[index] } : name)
+}
+
 export const expandLiveWire = (
   wire: LiveWireV2,
   indexes: Record<string, DeckIndex> = {},
@@ -532,7 +553,7 @@ export const expandLiveWire = (
       ),
       battlefield: unpackBattlefield(row[4], lists, extras, tokens),
       graveyard: unpackCards(row[5], lists, extras, tokens),
-      exile: unpackBattlefield(row[6], lists, extras, tokens),
+      exile: unpackExile(row[6], row[10], lists, extras, tokens),
       command: unpackCards(row[7], lists, extras, tokens),
     }
     const slug = slugs[index]

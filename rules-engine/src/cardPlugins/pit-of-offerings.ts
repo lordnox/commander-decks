@@ -7,7 +7,12 @@ import {
 import type { Plugin } from '../types'
 import { enteringObjectId } from './entersTapped'
 
-export const PIT_REPAIR_CHOICE = 'pitOfOfferings.chooseExiles'
+/**
+ * Record cards a Pit already exiled. A game imported from a replay carries the
+ * exile zone but not the link, and the trigger is long gone, so the colors it
+ * offers have to be attached to the cards rather than replayed.
+ */
+export const PIT_LINK_EXILED = 'pitOfOfferings.linkExiled'
 export const PIT_RESOLVE = 'pitOfOfferings.resolve'
 export const PIT_STACK_NAME = 'Pit of Offerings — Exile graveyard cards'
 
@@ -17,11 +22,6 @@ const openChoice = (
 ) => {
   const source = draft.object(sourceId)
   if (!source || source.name !== 'Pit of Offerings' || source.zone !== 'battlefield') return
-  for (const objectId of source.exiledCards ?? []) {
-    const card = draft.object(objectId)
-    if (card?.exiledWith === source.id) delete card.exiledWith
-  }
-  source.exiledCards = []
   setPendingDialog(draft, {
     sourceId: source.id,
     source: source.name,
@@ -60,9 +60,20 @@ export const pitOfOfferings: Plugin = {
       openChoice(draft, enteredId)
       return
     }
-    if (event.type === 'custom' && event.name === PIT_REPAIR_CHOICE) {
+    if (event.type === 'custom' && event.name === PIT_LINK_EXILED) {
       const sourceId = event.payload?.sourceId
-      if (typeof sourceId === 'string') openChoice(draft, sourceId)
+      const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined
+      if (!source) return
+      const ids = Array.isArray(event.payload?.objectIds)
+        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+        : []
+      source.exiledCards = ids.filter((id) => {
+        const card = draft.object(id)
+        if (card?.zone !== 'exile') return false
+        card.exiledWith = source.id
+        return true
+      })
+      draft.note(`${source.name} keeps ${source.exiledCards.length} exiled card(s)`)
       return
     }
     if (event.type !== 'custom' || !event.seat) return

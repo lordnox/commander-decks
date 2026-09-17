@@ -275,18 +275,19 @@ describe('live compact v2', () => {
 
   test('an exiled-with association survives the wire', () => {
     const original = snapshot()
-    original.seats[1].exile = [{
-      name: 'Blue Card',
-      note: 'Exiled with Pit of Offerings.',
-      objectId: 'o-blue',
-    }]
+    original.seats[1].exile = [
+      'Sol Ring',
+      { name: 'Forest', note: 'Exiled with Pit of Offerings.' },
+    ]
 
-    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
-    expect(expanded.seats[1].exile[0]).toEqual({
-      name: 'Blue Card',
-      note: 'Exiled with Pit of Offerings.',
-      objectId: 'o-blue',
-    })
+    const wire = compactLiveWire(original)
+    const expanded = expandLiveWire(wire, original.deckIndexes)
+    // A reader that predates linked exiles still finds plain card refs there.
+    expect((wire.z[1] as unknown[])[6]).toEqual([1 * STRIDE + 2, 1 * STRIDE + 1])
+    expect(expanded.seats[1].exile).toEqual([
+      'Sol Ring',
+      { name: 'Forest', note: 'Exiled with Pit of Offerings.' },
+    ])
   })
 
   test('a floating mana pool survives the wire', () => {
