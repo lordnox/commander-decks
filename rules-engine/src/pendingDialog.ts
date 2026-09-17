@@ -28,6 +28,8 @@ export type PendingDialog = {
     | 'may'
     | 'may-draw'
     | 'may-pay-life'
+    | 'secret-vote'
+    | 'fight-target'
   prompt: string
   waiting: string
   judge: string
@@ -42,6 +44,8 @@ export type PendingDialog = {
   types?: string[]
   permanent?: boolean
   optional?: boolean
+  /** Lower numbers are answered first when several seats owe a choice. */
+  sequence?: number
   after?: Array<'resolveTop'>
   requirements?: Partial<Record<
     'battlefield' | 'hand' | 'target' | 'graveyard' | 'exile' | 'sacrifice',
@@ -81,6 +85,11 @@ export const hasPendingDialog = (
 ) => pendingDialogsFor(state, seat).some((dialog) => dialog.kind === kind)
 
 export const pendingDialog = (state: GameState) => {
+  const open = state.playerOrder.flatMap((seat) => pendingDialogsFor(state, seat))
+  const sequenced = open.filter((dialog) => typeof dialog.sequence === 'number')
+  if (sequenced.length > 0) {
+    return [...sequenced].sort((left, right) => (left.sequence ?? 0) - (right.sequence ?? 0))[0]
+  }
   for (const seat of state.playerOrder) {
     const dialog = pendingDialogFor(state, seat)
     if (dialog) return dialog
@@ -128,6 +137,13 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
         && (dialog.kind !== 'sacrifice-creature' || object.types.includes('Creature'))
         && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
   }
+  if (dialog.kind === 'fight-target') {
+    return Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.types.includes('Creature')
+        && object.controller !== dialog.seat)
+  }
   if (dialog.kind === 'return-land') {
     return (state.zoneOrder[dialog.seat].graveyard ?? [])
       .map((id) => state.objects[id])
@@ -158,10 +174,13 @@ const stranded = (state: GameState, dialog: PendingDialog) =>
   dialog.kind === 'sacrifice-lands' && state.objects[dialog.sourceId]?.zone !== 'stack'
 
 const liveDialog = (state: GameState) => {
-  for (const seat of state.playerOrder) {
-    const dialog = pendingDialogsFor(state, seat).find((open) => !stranded(state, open))
-    if (dialog) return dialog
+  const open = state.playerOrder.flatMap((seat) =>
+    pendingDialogsFor(state, seat).filter((dialog) => !stranded(state, dialog)))
+  const sequenced = open.filter((dialog) => typeof dialog.sequence === 'number')
+  if (sequenced.length > 0) {
+    return [...sequenced].sort((left, right) => (left.sequence ?? 0) - (right.sequence ?? 0))[0]
   }
+  return open[0]
 }
 
 /** Blocks priority while any card has posted an open host dialog. */

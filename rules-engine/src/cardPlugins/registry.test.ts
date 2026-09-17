@@ -60,4 +60,21 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
   })
+
+  test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {
+    const covered = [
+      'Círdan the Shipwright',
+      'Show and Tell',
+      'Eureka',
+      'Hypergenesis',
+      'Braids, Conjurer Adept',
+      'Reins of Power',
+      'Apex Altisaur',
+      'Triangle of War',
+      'Concordant Crossroads',
+      'Reliquary Tower',
+      'Illusion of Choice',
+    ]
+    expect(missingCardPlugins(covered)).toEqual([])
+  })
 })

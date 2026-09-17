@@ -17,8 +17,13 @@ export const abilityTokens = (oracleText: string) =>
         .toLowerCase()
         .replace(/\.$/, ''))
 
-export const hasKeyword = (object: GameObject, keyword: string) =>
-  abilityTokens(object.oracleText).includes(keyword)
+export const hasKeyword = (object: GameObject, keyword: string, state?: {
+  rules: Array<{ pluginId: string }>
+}) => {
+  if (abilityTokens(object.oracleText).includes(keyword)) return true
+  return keyword === 'haste'
+    && Boolean(state?.rules.some((rule) => rule.pluginId === 'sharedHaste'))
+}
 
 export const strikesFirst = (object: GameObject) =>
   hasKeyword(object, 'first strike') || hasKeyword(object, 'double strike')

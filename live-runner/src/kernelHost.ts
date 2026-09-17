@@ -530,7 +530,12 @@ export const applyKernelChoice = (
     }
     const chosenEvent = decision.kernel.chosenEvent
     if (!chosenEvent) throw new Error('That card choice is no longer open.')
-    const chosen = kernel.dispatch({ type: 'custom', name: chosenEvent, seat })
+    const chosen = kernel.dispatch({
+      type: 'custom',
+      name: chosenEvent,
+      seat,
+      payload: { objectIds },
+    })
     if (!chosen.ok) throw new Error(chosen.error)
     lobby.topdeck = undefined
     state = kernel.history.current()
@@ -687,6 +692,8 @@ export const applyKernelChoice = (
   if (
     OPTIONAL_DIALOGS.has(decision.kernel.stage)
     || decision.kernel.stage === 'copy-creature'
+    || decision.kernel.stage === 'fight-target'
+    || decision.kernel.stage === 'secret-vote'
   ) {
     const accepted = message.choices.some(({ destination }) => destination === 'target')
     const chosenEvent = decision.kernel.chosenEvent
@@ -697,12 +704,26 @@ export const applyKernelChoice = (
         state.zoneOrder[seat].battlefield,
         message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card),
       )
-      : []
+      : decision.kernel.stage === 'fight-target'
+        ? objectIdsForNames(
+          state,
+          Object.values(state.objects)
+            .filter((object) =>
+              object.zone === 'battlefield'
+              && object.types.includes('Creature')
+              && object.controller !== seat)
+            .map((object) => object.id),
+          message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card),
+        )
+        : []
+    const targets = decision.kernel.stage === 'secret-vote'
+      ? message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card)
+      : undefined
     const chosen = kernel.dispatch({
       type: 'custom',
       name: chosenEvent,
       seat,
-      payload: { accepted, objectIds },
+      payload: { accepted, objectIds, ...(targets ? { targets } : {}) },
     })
     if (!chosen.ok) throw new Error(chosen.error)
     lobby.topdeck = undefined

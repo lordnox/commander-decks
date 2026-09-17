@@ -88,7 +88,7 @@ export const activated: Plugin = {
       if (
         source.types.includes('Creature')
         && source.summoningSickness
-        && !hasKeyword(source, 'haste')
+        && !hasKeyword(source, 'haste', state)
       ) {
         return `${source.name} has summoning sickness`
       }
@@ -115,7 +115,15 @@ export const activated: Plugin = {
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
     payActivateCosts(draft, source, event.seat, effect.costs)
-    runInstructions(draft, source, effect.do)
+    runInstructions(draft, source, effect.do, {
+      id: event.objectId,
+      kind: 'ability',
+      objectId: event.objectId,
+      controller: event.seat,
+      name: source.name,
+      targets: event.targets ?? [],
+      abilityId: event.abilityId,
+    })
     draft.note(`${event.seat} activates ${source.name}`)
   },
 }

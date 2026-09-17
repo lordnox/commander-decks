@@ -77,7 +77,7 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   if (
     object.types.includes('Creature')
     && object.summoningSickness
-    && !hasKeyword(object, 'haste')
+    && !hasKeyword(object, 'haste', state)
   ) {
     return `${object.name} has summoning sickness`
   }
