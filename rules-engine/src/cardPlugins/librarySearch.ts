@@ -9,7 +9,7 @@ import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import { payActivateCosts } from './activated'
-import { conditionHolds, searchEffect, type SearchSpec } from './effects'
+import { basicLand, conditionHolds, searchEffect, type SearchDestination, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
 import { enteringObjectId } from './entersTapped'
 import {
@@ -24,27 +24,74 @@ export type { SearchDestination, SearchSpec } from './effects'
 
 export const SEARCH_PENDING = 'librarySearch.pending'
 export const SEARCH_DONE = 'librarySearch.done'
+export const SEARCH_DEFERRED = 'librarySearch.deferred'
 export const SEARCH_BEGIN = 'librarySearch.begin'
 export const SEARCH_CHOSEN = 'librarySearch.chosen'
 export const SEARCH_FETCH = 'librarySearch.fetch'
 export const SEARCH_SACRIFICE_BEGIN = 'librarySearch.sacrificeBegin'
 
+export type SearchMove = {
+  objectId: string
+  destination: SearchDestination
+}
+
 /** The searching seat's open choice, stored in authoritative state. */
 export type PendingSearch = {
   source: string
   sourceId: string
-  via: 'spell' | 'ability' | 'enters'
+  via: 'spell' | 'ability' | 'enters' | 'resolve'
   kicked?: boolean
   max?: number
 }
 
+const inlineSpecKey = (sourceId: string) => `librarySearch.inlineSpec.${sourceId}`
+
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
   searchEffect(effectsFor(name))?.spec
 
-export const searchSpecForPending = (pending: PendingSearch): SearchSpec | undefined => {
-  const spec = searchSpecFor(pending.source)
+const inlineSpec = (state: GameState | Draft, sourceId: string): SearchSpec | undefined => {
+  for (const seat of state.playerOrder) {
+    const stored = state.players[seat]?.data[inlineSpecKey(sourceId)]
+    if (stored && typeof stored === 'object' && typeof (stored as SearchSpec).match === 'function') {
+      return stored as SearchSpec
+    }
+  }
+}
+
+export const searchSpecForPending = (
+  state: GameState | Draft,
+  pending: PendingSearch,
+): SearchSpec | undefined => {
+  const inline = inlineSpec(state, pending.sourceId)
+  const spec = inline ?? searchSpecFor(pending.source)
   if (!spec) return
   return pending.max === undefined ? spec : { ...spec, max: pending.max }
+}
+
+export const validateSplitSearchSelection = (
+  spec: SearchSpec,
+  selections: Array<{ destination: SearchDestination }>,
+): string | void => {
+  const split = spec.split
+  if (!split) return
+  const battlefield = selections.filter(({ destination }) => destination === 'battlefield').length
+  const hand = selections.filter(({ destination }) => destination === 'hand').length
+  if (selections.length > split.totalMax) {
+    return `Choose at most ${split.totalMax} basic land card(s).`
+  }
+  if (battlefield < split.battlefield.min || battlefield > split.battlefield.max) {
+    return `Choose ${split.battlefield.min === split.battlefield.max
+      ? split.battlefield.min
+      : `between ${split.battlefield.min} and ${split.battlefield.max}`} land(s) for the battlefield.`
+  }
+  if (hand < split.hand.min || hand > split.hand.max) {
+    return `Choose ${split.hand.min === split.hand.max
+      ? split.hand.min
+      : `between ${split.hand.min} and ${split.hand.max}`} land(s) for your hand.`
+  }
+  if (split.paired && selections.length === 2 && (battlefield !== 1 || hand !== 1)) {
+    return 'When you find two lands, put one onto the battlefield and one into your hand.'
+  }
 }
 
 const abilityEffect = (object: GameObject) => {
@@ -66,13 +113,8 @@ const isPending = (value: unknown): value is PendingSearch =>
   Boolean(value)
   && typeof value === 'object'
   && typeof (value as PendingSearch).source === 'string'
-  && Boolean(searchSpecFor((value as PendingSearch).source))
+  && typeof (value as PendingSearch).sourceId === 'string'
 
-/**
- * Searches queue per seat. A fetch land put onto the battlefield by a resolving
- * search spell opens its own search while that spell's search is still open, so
- * one slot would silently drop the land's fetch.
- */
 const pendingSearches = (state: GameState | Draft, seat: PlayerId): PendingSearch[] => {
   const value = state.players[seat]?.data[SEARCH_PENDING]
   if (Array.isArray(value)) return value.filter(isPending)
@@ -82,19 +124,12 @@ const pendingSearches = (state: GameState | Draft, seat: PlayerId): PendingSearc
 export const pendingSearch = (state: GameState, seat: PlayerId) =>
   pendingSearches(state, seat)[0]
 
-/** The seat with an open search, if any. The oldest open search is presented. */
 export const searchingSeat = (state: GameState) =>
   state.playerOrder.find((seat) => pendingSearch(state, seat))
 
-/**
- * A double-faced card in a library has only its front face's characteristics.
- * The object's combined characteristics remain useful to the replay importer,
- * but cannot make a front-face instant into a land a search may find.
- */
 const libraryCharacteristics = (object: GameObject): GameObject =>
   object.frontFace ? { ...object, ...object.frontFace } : object
 
-/** Library cards this search may legally find. Authoritative state only. */
 export const searchCandidates = (
   state: GameState,
   seat: PlayerId,
@@ -118,7 +153,6 @@ const openSearch = (draft: Draft, seat: PlayerId, pending: PendingSearch) => {
   draft.note(`${seat} searches their library for ${pending.source}`)
 }
 
-/** Completes the oldest open search, which is the one the seat answered. */
 const closeSearch = (draft: Draft, seat: PlayerId) => {
   const remaining = pendingSearches(draft, seat).slice(1)
   if (remaining.length === 0) delete draft.players[seat].data[SEARCH_PENDING]
@@ -127,13 +161,59 @@ const closeSearch = (draft: Draft, seat: PlayerId) => {
 
 const hasSearchAbility = (object: GameObject) => Boolean(abilityEffect(object))
 
-/**
- * One search capability for every "search your library" card in the pool. The
- * kernel never picks the card: it stops, records whose choice is open, and
- * resumes only after the host dispatches the chosen moves and
- * `librarySearch.chosen`. A restarted host rebuilds the same dialog from this
- * marker because it lives in authoritative state, not in the host process.
- */
+const shouldSacrificeOnEnter = (spec: SearchSpec) =>
+  spec.sacrificeSource !== false && Boolean(spec.gainLife)
+
+const storeInlineSpec = (draft: Draft, seat: PlayerId, sourceId: string, spec: SearchSpec) => {
+  draft.players[seat].data[inlineSpecKey(sourceId)] = spec
+}
+
+const resolvePayloadSpec = (payloadSpec: unknown): SearchSpec | undefined => {
+  if (!payloadSpec || typeof payloadSpec !== 'object') return
+  const candidate = payloadSpec as SearchSpec
+  if (typeof candidate.match === 'function') return candidate
+  if (candidate.destination && candidate.min !== undefined && candidate.max !== undefined) {
+    return {
+      ...candidate,
+      match: basicLand,
+    }
+  }
+}
+
+const beginEnterSearch = (
+  draft: Draft,
+  entered: GameObject,
+  enteredSpec: SearchSpec,
+) => {
+  if (enteredSpec.optionalEnter) {
+    setPendingDialog(draft, {
+      sourceId: entered.id,
+      source: entered.name,
+      seat: entered.controller,
+      kind: 'may-search',
+      prompt: enteredSpec.prompt,
+      waiting: 'is deciding whether to search.',
+      judge: `Waiting for optional search from ${entered.name}.`,
+      chosenEvent: DIALOG_CHOSEN,
+      destinations: ['skip', 'target'],
+      optional: true,
+    })
+    return
+  }
+  if (shouldSacrificeOnEnter(enteredSpec)) {
+    draft.enqueue({ type: 'move', objectId: entered.id, to: 'graveyard' })
+    if (enteredSpec.gainLife) {
+      draft.players[entered.controller].life += enteredSpec.gainLife
+      draft.note(`${entered.controller} gains ${enteredSpec.gainLife} life (${entered.name})`)
+    }
+  }
+  openSearch(draft, entered.controller, {
+    source: entered.name,
+    sourceId: entered.id,
+    via: 'enters',
+  })
+}
+
 export const librarySearch: Plugin = {
   id: 'librarySearch',
   legal: (ctx) => {
@@ -184,8 +264,6 @@ export const librarySearch: Plugin = {
     if (!item || !object || !spec) return
     if (searchDone(state, item.controller)) return
     if (pendingSearch(state, item.controller)) return null
-    // Scapeshift sacrifices as it resolves, so the spell waits on the stack
-    // until its controller has chosen. Only then is the search bounded.
     if (spec.sacrificeOnResolve) {
       if (hasPendingDialog(state, item.controller, 'sacrifice-lands')) return null
       return {
@@ -235,47 +313,72 @@ export const librarySearch: Plugin = {
 
     if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
       const dialog = pendingDialogFor(state, event.seat)
-      if (dialog?.kind !== 'sacrifice-lands') return
-      const sacrificed = (Array.isArray(event.payload?.objectIds)
-        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
-        : []).filter((objectId) => {
-        const land = draft.object(objectId)
-        return land?.zone === 'battlefield'
-          && land.controller === event.seat
-          && land.types.includes('Land')
-      })
-      for (const objectId of sacrificed) {
-        draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
-      }
-      clearPendingDialog(draft, event.seat)
-      // Searching for up to zero cards finds nothing, so only the shuffle and
-      // the rest of the resolution are left.
-      if (sacrificed.length === 0) {
-        draft.players[event.seat].data[SEARCH_DONE] = true
-        draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
-        draft.enqueue({ type: 'resolveTop' })
-        draft.note(`${dialog.source} sacrifices no lands`)
+      if (dialog?.kind === 'sacrifice-lands') {
+        const sacrificed = (Array.isArray(event.payload?.objectIds)
+          ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+          : []).filter((objectId) => {
+          const land = draft.object(objectId)
+          return land?.zone === 'battlefield'
+            && land.controller === event.seat
+            && land.types.includes('Land')
+        })
+        for (const objectId of sacrificed) {
+          draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+        }
+        clearPendingDialog(draft, event.seat)
+        if (sacrificed.length === 0) {
+          draft.players[event.seat].data[SEARCH_DONE] = true
+          draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
+          draft.enqueue({ type: 'resolveTop' })
+          draft.note(`${dialog.source} sacrifices no lands`)
+          return
+        }
+        openSearch(draft, event.seat, {
+          source: dialog.source,
+          sourceId: dialog.sourceId,
+          via: 'spell',
+          max: sacrificed.length,
+        })
         return
       }
-      openSearch(draft, event.seat, {
-        source: dialog.source,
-        sourceId: dialog.sourceId,
-        via: 'spell',
-        max: sacrificed.length,
-      })
-      return
+      if (dialog?.kind === 'may-search') {
+        const entered = draft.object(dialog.sourceId)
+        const enteredSpec = entered ? entersSpec(entered) : undefined
+        clearPendingDialog(draft, event.seat)
+        if (!entered || !enteredSpec || event.payload?.accepted !== true) {
+          draft.players[event.seat].data[SEARCH_DEFERRED] = true
+          draft.note(`${entered?.name ?? dialog.source}: no search`)
+          return
+        }
+        openSearch(draft, entered.controller, {
+          source: entered.name,
+          sourceId: entered.id,
+          via: 'enters',
+        })
+        return
+      }
     }
     if (event.type === 'custom' && event.name === SEARCH_BEGIN && event.seat) {
       const source = String(event.payload?.source ?? '')
-      if (!searchSpecFor(source)) return
+      const sourceId = String(event.payload?.sourceId ?? '')
+      const via = String(event.payload?.via) === 'ability'
+        ? 'ability'
+        : String(event.payload?.via) === 'enters'
+          ? 'enters'
+          : String(event.payload?.via) === 'resolve'
+            ? 'resolve'
+            : 'spell'
+      const payloadSpec = resolvePayloadSpec(event.payload?.spec)
+      if (via === 'resolve') {
+        if (!payloadSpec) return
+        storeInlineSpec(draft, event.seat, sourceId, payloadSpec)
+      } else if (!searchSpecFor(source)) {
+        return
+      }
       openSearch(draft, event.seat, {
         source,
-        sourceId: String(event.payload?.sourceId ?? ''),
-        via: String(event.payload?.via) === 'ability'
-          ? 'ability'
-          : String(event.payload?.via) === 'enters'
-            ? 'enters'
-            : 'spell',
+        sourceId,
+        via,
         ...(event.payload?.kicked === true ? { kicked: true } : {}),
         ...(typeof event.payload?.max === 'number' ? { max: event.payload.max } : {}),
       })
@@ -286,6 +389,7 @@ export const librarySearch: Plugin = {
       const pending = pendingSearch(state, event.seat)
       closeSearch(draft, event.seat)
       if (pending?.via === 'spell') draft.players[event.seat].data[SEARCH_DONE] = true
+      if (pending?.sourceId) delete draft.players[event.seat].data[inlineSpecKey(pending.sourceId)]
       return
     }
 
@@ -300,16 +404,7 @@ export const librarySearch: Plugin = {
     const entered = enteredId ? draft.object(enteredId) : undefined
     const enteredSpec = entered ? entersSpec(entered) : undefined
     if (entered && enteredSpec && entered.zone === 'battlefield') {
-      draft.enqueue({ type: 'move', objectId: entered.id, to: 'graveyard' })
-      if (enteredSpec.gainLife) {
-        draft.players[entered.controller].life += enteredSpec.gainLife
-        draft.note(`${entered.controller} gains ${enteredSpec.gainLife} life (${entered.name})`)
-      }
-      openSearch(draft, entered.controller, {
-        source: entered.name,
-        sourceId: entered.id,
-        via: 'enters',
-      })
+      beginEnterSearch(draft, entered, enteredSpec)
       return
     }
 

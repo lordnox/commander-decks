@@ -57,6 +57,11 @@ export type TopdeckDecision = {
       | 'may-pay-life'
       | 'secret-vote'
       | 'fight-target'
+      | 'fight-own'
+      | 'may-search'
+      | 'counter-unless'
+      | 'destroy-permanent'
+      | 'look-top-land'
       | 'exile-graveyards'
     resumePassSeat?: SeatId
     kicked?: boolean

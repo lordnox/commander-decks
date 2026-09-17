@@ -35,7 +35,9 @@ import {
   searchSpecForPending,
   searchingSeat,
   type PendingSearch,
+  type SearchMove,
   type SearchSpec,
+  validateSplitSearchSelection,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import {
   pendingPlayerTargets,
@@ -237,20 +239,23 @@ const finishLibrarySearch = (
   seat: SeatId,
   pending: PendingSearch,
   spec: SearchSpec,
-  objectIds: string[],
+  moves: SearchMove[],
 ) => {
   const events: GameEvent[] = []
+  const objectIds = moves.map((move) => move.objectId)
   if (spec.reveal && objectIds.length > 0) {
     events.push({ type: 'reveal', seat, objectIds, source: pending.source })
   }
-  for (const objectId of objectIds) {
-    events.push({ type: 'move', objectId, to: spec.destination })
-    if (spec.tapped && spec.destination === 'battlefield') {
-      events.push({ type: 'tap', objectId })
+  for (const move of moves) {
+    events.push({ type: 'move', objectId: move.objectId, to: move.destination })
+    const tapped = move.destination === 'battlefield'
+      && (spec.split?.battlefield.tapped ?? spec.tapped)
+    if (tapped) {
+      events.push({ type: 'tap', objectId: move.objectId })
     }
     if (
       spec.untapWithFourLands
-      && spec.destination === 'battlefield'
+      && move.destination === 'battlefield'
     ) {
       const landsBeforeEntry = Object.values(kernel.history.current().objects)
         .filter((object) =>
@@ -258,7 +263,7 @@ const finishLibrarySearch = (
           && object.controller === seat
           && object.types.includes('Land'))
         .length
-      if (landsBeforeEntry >= 3) events.push({ type: 'untap', objectId })
+      if (landsBeforeEntry >= 3) events.push({ type: 'untap', objectId: move.objectId })
     }
   }
   events.push({ type: 'shuffleLibrary', seat })
@@ -281,10 +286,13 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
   const seat = searchingSeat(state)
   if (!seat || !isSeatId(seat)) return false
   const pending = pendingSearch(state, seat)
-  const spec = pending ? searchSpecForPending(pending) : undefined
+  const spec = pending ? searchSpecForPending(state, pending) : undefined
   if (!pending || !spec) return false
   const cards = searchCandidates(state, seat, spec, pending.kicked).map((object) => object.name)
-  if (cards.length === 0 || cards.length < spec.min) {
+  const minRequired = spec.split
+    ? Math.min(spec.split.battlefield.min, spec.split.hand.min)
+    : spec.min
+  if (cards.length === 0 || cards.length < minRequired) {
     // Failing to find is a legal choice, and the only one available.
     finishLibrarySearch(kernel, lobby, seat, pending, spec, [])
     return false
@@ -298,8 +306,18 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
       .map((objectId) => state.objects[objectId]?.name ?? '')
       .filter(Boolean)
       .sort((left, right) => left.localeCompare(right)),
-    destinations: ['library', spec.destination],
-    requirements: { [spec.destination]: { min: spec.min, max: spec.max } },
+    destinations: spec.split
+      ? ['library', 'battlefield', 'hand']
+      : ['library', spec.destination],
+    requirements: spec.split
+      ? {
+          battlefield: {
+            min: spec.split.battlefield.min,
+            max: spec.split.battlefield.max,
+          },
+          hand: { min: spec.split.hand.min, max: spec.split.hand.max },
+        }
+      : { [spec.destination]: { min: spec.min, max: spec.max } },
     kernel: { sourceId: pending.sourceId, stage: 'library-search' },
   }
   lobby.actions = { [seat]: ['topdeck'] }
@@ -312,7 +330,7 @@ const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbyState) => 
 }
 
 /** Dialogs that are a plain yes or no, so the seat picks no cards. */
-const OPTIONAL_DIALOGS = new Set(['may', 'may-draw', 'may-pay-life'])
+const OPTIONAL_DIALOGS = new Set(['may', 'may-draw', 'may-pay-life', 'may-search'])
 
 const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
@@ -362,7 +380,7 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   if (decision.kernel.stage === 'library-search') {
     if (searchingSeat(state) !== decision.seat) return true
     const pending = pendingSearch(state, decision.seat)
-    const spec = pending ? searchSpecForPending(pending) : undefined
+    const spec = pending ? searchSpecForPending(state, pending) : undefined
     if (!pending || !spec) return true
     return !sameNames(
       searchCandidates(state, decision.seat, spec, pending.kicked)
@@ -479,24 +497,44 @@ export const applyKernelChoice = (
   }
   if (decision.kernel.stage === 'library-search') {
     const pending = pendingSearch(state, seat)
-    const spec = pending ? searchSpecForPending(pending) : undefined
+    const spec = pending ? searchSpecForPending(state, pending) : undefined
     if (!pending || !spec) throw new Error('That library search is no longer open.')
-    const selected = message.choices
-      .filter(({ destination }) => destination === spec.destination)
-      .map(({ card }) => card)
-    if (selected.length < spec.min || selected.length > spec.max) {
-      throw new Error(
-        spec.min === spec.max
-          ? `Choose ${spec.min} card(s) for ${pending.source}.`
-          : `Choose between ${spec.min} and ${spec.max} cards for ${pending.source}.`,
+    const picked = message.choices.filter(({ destination }) => destination !== 'library')
+    if (spec.split) {
+      const splitError = validateSplitSearchSelection(
+        spec,
+        picked.map(({ destination }) => ({ destination: destination as SearchMove['destination'] })),
       )
+      if (splitError) throw new Error(splitError)
+    } else {
+      const selected = picked
+        .filter(({ destination }) => destination === spec.destination)
+        .map(({ card }) => card)
+      if (selected.length < spec.min || selected.length > spec.max) {
+        throw new Error(
+          spec.min === spec.max
+            ? `Choose ${spec.min} card(s) for ${pending.source}.`
+            : `Choose between ${spec.min} and ${spec.max} cards for ${pending.source}.`,
+        )
+      }
     }
-    const ids = objectIdsForNames(state, state.zoneOrder[seat].library, selected)
+    const ids = objectIdsForNames(
+      state,
+      state.zoneOrder[seat].library,
+      picked.map(({ card }) => card),
+    )
     const selectionError = spec.validateSelection?.(
       ids.map((objectId) => state.objects[objectId]),
     )
     if (selectionError) throw new Error(selectionError)
-    finishLibrarySearch(kernel, lobby, seat, pending, spec, ids)
+    const moves: SearchMove[] = picked.map(({ card, destination }, index) => ({
+      objectId: ids[index],
+      destination: (spec.split
+        ? destination
+        : spec.destination) as SearchMove['destination'],
+    }))
+    finishLibrarySearch(kernel, lobby, seat, pending, spec, moves)
+    const selected = picked.map(({ card }) => card)
     state = kernel.history.current()
     lobby.actions = kernelActions(state)
     lobby.privateWaiting = {}

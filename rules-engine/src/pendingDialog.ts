@@ -30,6 +30,11 @@ export type PendingDialog = {
     | 'may-pay-life'
     | 'secret-vote'
     | 'fight-target'
+    | 'fight-own'
+    | 'may-search'
+    | 'counter-unless'
+    | 'destroy-permanent'
+    | 'look-top-land'
   prompt: string
   waiting: string
   judge: string
@@ -143,6 +148,34 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
         object.zone === 'battlefield'
         && object.types.includes('Creature')
         && object.controller !== dialog.seat)
+  }
+  if (dialog.kind === 'fight-own') {
+    return Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === dialog.seat
+        && object.types.includes('Creature')
+        && object.id !== dialog.sourceId)
+  }
+  if (dialog.kind === 'counter-unless') {
+    return state.stack
+      .map((item) => state.objects[item.objectId])
+      .filter((object): object is NonNullable<typeof object> =>
+        Boolean(object)
+        && object.zone === 'stack'
+        && !object.types.includes('Creature'))
+  }
+  if (dialog.kind === 'destroy-permanent') {
+    return Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && (!dialog.types || dialog.types.some((type) => object.types.includes(type))))
+  }
+  if (dialog.kind === 'look-top-land') {
+    return (state.zoneOrder[dialog.seat].library ?? [])
+      .slice(0, dialog.count ?? 1)
+      .map((id) => state.objects[id])
+      .filter((object): object is NonNullable<typeof object> => Boolean(object))
   }
   if (dialog.kind === 'return-land') {
     return (state.zoneOrder[dialog.seat].graveyard ?? [])
