@@ -75,14 +75,14 @@ const tapChoice = (
   return null
 }
 
-const sourceCanTap = (object: GameObject, seat: PlayerId) =>
+const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
   object.zone === 'battlefield'
   && object.controller === seat
   && !object.tapped
   && (
     !object.types.includes('Creature')
     || !object.summoningSickness
-    || hasKeyword(object, 'haste')
+    || hasKeyword(object, 'haste', state)
   )
 
 const poolKey = (pool: ManaPool, cap: number) =>
@@ -90,7 +90,7 @@ const poolKey = (pool: ManaPool, cap: number) =>
 
 const canFund = (state: GameState, seat: PlayerId, cost: string) => {
   const sources = Object.values(state.objects)
-    .filter((object) => sourceCanTap(object, seat))
+    .filter((object) => sourceCanTap(object, seat, state))
     .map((object) => manaModes(object, state))
     .filter((modes) => modes.length > 0)
   const cap = Math.max(
@@ -167,7 +167,7 @@ const canActivate = (
 ) => {
   if (object.zone !== 'battlefield' || object.controller !== seat) return false
   const cost = line.slice(0, line.indexOf(':'))
-  if (/\{T\}/i.test(cost) && !sourceCanTap(object, seat)) return false
+  if (/\{T\}/i.test(cost) && !sourceCanTap(object, seat, state)) return false
   if (
     (/activate only as a sorcery/i.test(line) || /^[+−-]\d+:/u.test(line))
     && (
@@ -207,7 +207,7 @@ const canPayActivateCosts = (
   seat: PlayerId,
   costs: ActivateCost,
 ) => {
-  if (costs.tap && !sourceCanTap(object, seat)) return false
+  if (costs.tap && !sourceCanTap(object, seat, state)) return false
   if (costs.mana && !canFund(state, seat, costs.mana)) return false
   if ((costs.life ?? 0) >= state.players[seat].life) return false
   return true
@@ -317,7 +317,7 @@ export const availableActions = (
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped
-        && (!object.summoningSickness || hasKeyword(object, 'haste')))
+        && (!object.summoningSickness || hasKeyword(object, 'haste', state)))
       .map((object) => object.id)
     if (objectIds.length > 0) actions.push({ kind: 'declareAttackers', objectIds })
   }
@@ -359,7 +359,7 @@ export const manaAffordances = (
   const actions: AvailableAction[] = []
   const seen = new Set<string>()
   for (const object of Object.values(state.objects)) {
-    if (!sourceCanTap(object, seat)) continue
+    if (!sourceCanTap(object, seat, state)) continue
     for (const mode of manaModes(object, state)) {
       const choice = tapChoice(state, object, mode)
       if (!choice) continue
@@ -468,7 +468,7 @@ const fundingEvents = (
   cost: string,
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
-    .filter((object) => sourceCanTap(object, seat))
+    .filter((object) => sourceCanTap(object, seat, state))
     .map((source) => ({ source, modes: manaModes(source, state) }))
     .filter(({ modes }) => modes.length > 0)
   let plans = [{

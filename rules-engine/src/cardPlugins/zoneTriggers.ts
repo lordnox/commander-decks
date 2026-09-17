@@ -31,6 +31,15 @@ export const zoneTriggers: Plugin = {
       }
     }
 
+    if (event.type === 'custom' && event.name === 'advanceStep' && draft.step === 'upkeep') {
+      for (const object of draft.zoneOf('battlefield')) {
+        for (const effect of triggerEffects(effectsOf(object), 'upkeep')) {
+          if (!conditionHolds(effect.if, state, object)) continue
+          runInstructions(draft, object, effect.do)
+        }
+      }
+    }
+
     if (event.type !== 'move') return
     const before = state.objects[event.objectId]
     if (!before) return

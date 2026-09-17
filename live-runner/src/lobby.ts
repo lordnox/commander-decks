@@ -55,6 +55,9 @@ export type TopdeckDecision = {
       | 'may'
       | 'may-draw'
       | 'may-pay-life'
+      | 'secret-vote'
+      | 'fight-target'
+      | 'exile-graveyards'
     resumePassSeat?: SeatId
     kicked?: boolean
     chosenEvent?: string

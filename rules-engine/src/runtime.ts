@@ -10,6 +10,7 @@ import {
   replicaHiddenInformation,
 } from './plugins/hiddenInformation'
 import type { GameEvent, GameState, PlayerId, Plugin } from './types'
+import { redactSecretCouncil } from './cardPlugins/secretCouncil'
 
 export type ServerDependencies = {
   random: () => number
@@ -55,6 +56,7 @@ export const projectForViewer = (
     if (player !== viewer) projected.zoneOrder[player].hand = []
     delete projected.players[player].data[RANDOM_STATE]
   }
+  redactSecretCouncil(projected.players, viewer)
 
   return projected
 }

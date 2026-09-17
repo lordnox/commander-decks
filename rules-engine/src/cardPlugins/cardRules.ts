@@ -45,9 +45,11 @@ import {
   onResolve,
   optionalMill,
   otherLands,
+  opponentsAtMost,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   pump,
+  putFromHand,
   putLandFromHand,
   putMilledLandTapped,
   putPermanentsFromHand,
@@ -56,6 +58,7 @@ import {
   returnOwnedGraveyardLands,
   searchAbility,
   searchSpell,
+  secretCouncil,
   selfMill,
   sharedBasicLandType,
   staticExtraLandPlays,
@@ -66,6 +69,13 @@ import {
   teferiSunsetPlusOne,
   targetOnResolve,
   uniqueLandNames,
+  upkeep,
+  bounceAttacking,
+  chooseVotesThisTurn,
+  exchangeControlUntilEot,
+  fight,
+  fightUpToOne,
+  lacksControlledSubtype,
   type CardEffect,
 } from './effects'
 
@@ -131,6 +141,56 @@ const insect = createTokenInstruction({
 })
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
+  'Aetherize': [onResolve(bounceAttacking())],
+  'An Offer You Can\'t Refuse': [
+    targetOnResolve('counter', { zone: 'stack' }),
+  ],
+  'Apex Altisaur': [enters(fightUpToOne())],
+  'Botanical Sanctum': [entersTapped(otherLands({ min: 3 }))],
+  'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
+  'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
+  'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
+  'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
+  'Eternal Witness': [targetOnResolve('bounce', { zone: 'graveyard' })],
+  'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
+  'Hinterland Harbor': [entersTapped(lacksControlledSubtype('Forest', 'Island'))],
+  'Hypergenesis': [onResolve(putFromHand('each', {
+    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
+    repeat: true,
+  }))],
+  'Illusion of Choice': [onResolve(chooseVotesThisTurn(), draw(1))],
+  'Kogla, the Titan Ape': [enters(fightUpToOne())],
+  'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
+  'Rejuvenating Springs': [entersTapped(opponentsAtMost(1))],
+  'Reliquary Tower': [staticGrant('noMaxHand'), handler('noMaxHand')],
+  'Sakura-Tribe Elder': [
+    searchAbility({
+      prompt: 'Search your library for a basic land card. It enters tapped.',
+      match: basicLand,
+      destination: 'battlefield',
+      tapped: true,
+      min: 1,
+      max: 1,
+    }, { sacrifice: 'self' }),
+  ],
+  'Show and Tell': [onResolve(putFromHand('each', {
+    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
+  }))],
+  'Thorn Mammoth': [enters(fightUpToOne())],
+  'Triangle of War': [
+    activate({
+      id: 'fight.triangle',
+      costs: { mana: '{2}', sacrifice: 'self' },
+      do: [fight('two-targets')],
+    }),
+  ],
+  'Ulvenwald Tracker': [
+    activate({
+      id: 'fight.tracker',
+      costs: { mana: '{1}{G}', tap: true },
+      do: [fight('two-targets')],
+    }),
+  ],
   'Aftermath Analyst': [
     activate({
       id: 'graveyardLands.aftermath',

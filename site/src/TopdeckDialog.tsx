@@ -41,7 +41,7 @@ export const TopdeckDialog = ({
   const puttingLand = decision.kind === 'put-land'
   const searching = decision.kind === 'search'
   const lookingAtTop = decision.kind === 'look-top'
-  const targetingPlayers = decision.kind === 'target-players'
+  const targetingPlayers = decision.kind === 'target-players' || decision.kind === 'secret-vote'
   const sacrificingLands = decision.kind === 'sacrifice-lands'
   const optionalDraw = decision.kind === 'may-draw'
   const orderMatters = decision.destinations.some(

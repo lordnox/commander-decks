@@ -12,6 +12,8 @@ export type CardCondition =
   | { kind: 'graveyardCards'; min: number }
   | { kind: 'graveyardPermanentCards'; min: number }
   | { kind: 'graveyardCardTypes'; min: number }
+  | { kind: 'lacksControlledSubtype'; subtypes: string[] }
+  | { kind: 'opponentsAtMost'; max: number }
 
 export type TokenSpec = {
   name: string
@@ -63,6 +65,20 @@ export type CardInstruction =
   | { kind: 'drawAtNextUpkeep'; count: number; who: 'you' | 'targetController'; optional?: boolean }
   | { kind: 'putMilledLandTapped' }
   | { kind: 'copyAllCreaturesUntilEot'; notLegendary?: boolean }
+  | {
+      kind: 'putFromHand'
+      who: 'each' | 'active' | 'controller'
+      max: number
+      types?: string[]
+      repeat?: boolean
+      optional?: boolean
+    }
+  | { kind: 'secretCouncil' }
+  | { kind: 'fight'; with: 'self-target' | 'two-targets' }
+  | { kind: 'fightUpToOne' }
+  | { kind: 'exchangeControlUntilEot' }
+  | { kind: 'bounceAttacking' }
+  | { kind: 'chooseVotesThisTurn' }
 
 export type ActivateCost = {
   tap?: boolean
@@ -114,7 +130,7 @@ export type CardEffect =
   | { op: 'replacement'; on: 'enters'; do: 'tapSelf' | 'tapUnlessPayLife'; life?: number; if?: CardCondition }
   | {
       op: 'trigger'
-      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve' | 'landToGraveyard'
+      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve' | 'landToGraveyard' | 'upkeep'
       do: CardInstruction[]
       if?: CardCondition
     }
@@ -439,6 +455,51 @@ export const putPermanentsFromHand = (max: number): CardInstruction => ({
   max,
 })
 
+export const putFromHand = (
+  who: 'each' | 'active' | 'controller',
+  extra: { max?: number; types?: string[]; repeat?: boolean; optional?: boolean } = {},
+): CardInstruction => ({
+  kind: 'putFromHand',
+  who,
+  max: extra.max ?? 1,
+  optional: extra.optional ?? true,
+  ...(extra.types ? { types: extra.types } : {}),
+  ...(extra.repeat ? { repeat: true } : {}),
+})
+
+export const secretCouncil = (): CardInstruction => ({ kind: 'secretCouncil' })
+
+export const fight = (withTargets: 'self-target' | 'two-targets'): CardInstruction => ({
+  kind: 'fight',
+  with: withTargets,
+})
+
+export const fightUpToOne = (): CardInstruction => ({ kind: 'fightUpToOne' })
+
+export const exchangeControlUntilEot = (): CardInstruction => ({
+  kind: 'exchangeControlUntilEot',
+})
+
+export const bounceAttacking = (): CardInstruction => ({ kind: 'bounceAttacking' })
+
+export const chooseVotesThisTurn = (): CardInstruction => ({ kind: 'chooseVotesThisTurn' })
+
+export const upkeep = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'upkeep',
+  do: instructions,
+})
+
+export const lacksControlledSubtype = (...subtypes: string[]): CardCondition => ({
+  kind: 'lacksControlledSubtype',
+  subtypes,
+})
+
+export const opponentsAtMost = (max: number): CardCondition => ({
+  kind: 'opponentsAtMost',
+  max,
+})
+
 export const manaIf = (condition: CardCondition): CardEffect => ({
   op: 'mana',
   if: condition,
@@ -616,6 +677,18 @@ export const conditionHolds = (
     )
     return types.size >= condition.min
   }
+  if (condition.kind === 'lacksControlledSubtype') {
+    return !Object.values(state.objects).some((candidate) =>
+      candidate.zone === 'battlefield'
+      && candidate.controller === object.controller
+      && candidate.id !== object.id
+      && condition.subtypes.some((subtype) => candidate.subtypes.includes(subtype)))
+  }
+  if (condition.kind === 'opponentsAtMost') {
+    const opponents = state.playerOrder.filter((seat) =>
+      seat !== object.controller && !state.players[seat].lost).length
+    return opponents <= condition.max
+  }
   const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
   return names.size >= condition.min
 }
@@ -784,6 +857,138 @@ export const runInstructions = (
         optional: true,
         requirements: { battlefield: { max: instruction.max } },
       })
+      continue
+    }
+    if (instruction.kind === 'putFromHand') {
+      const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
+      const start = instruction.who === 'active'
+        ? draft.active
+        : source.controller
+      const startIndex = Math.max(0, living.indexOf(start))
+      const seats = instruction.who === 'each'
+        ? [...living.slice(startIndex), ...living.slice(0, startIndex)]
+        : [start]
+      const types = instruction.types
+      for (const seat of seats) {
+        setPendingDialog(draft, {
+          sourceId: source.id,
+          source: source.name,
+          seat,
+          kind: 'put-permanents',
+          prompt: types
+            ? `You may put up to ${instruction.max} ${types.join(', ').toLowerCase()} card(s) from your hand onto the battlefield.`
+            : `You may put up to ${instruction.max} permanent card(s) from your hand onto the battlefield.`,
+          waiting: 'is choosing a card to put onto the battlefield.',
+          judge: `Waiting for ${source.name} dump choices.`,
+          chosenEvent: DIALOG_CHOSEN,
+          destinations: ['hand', 'battlefield'],
+          ...(types ? { types } : { permanent: true }),
+          optional: instruction.optional !== false,
+          sequence: draft.allocTs(),
+          requirements: { battlefield: { max: instruction.max } },
+        })
+      }
+      if (instruction.repeat) {
+        draft.players[source.controller].data['dumpFromHand.repeat'] = {
+          sourceId: source.id,
+          source: source.name,
+          types,
+          max: instruction.max,
+        }
+      }
+      continue
+    }
+    if (instruction.kind === 'secretCouncil') {
+      draft.enqueue({
+        type: 'custom',
+        name: 'secretCouncil.begin',
+        seat: source.controller,
+        payload: { sourceId: source.id, source: source.name },
+      })
+      continue
+    }
+    if (instruction.kind === 'fightUpToOne') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'fight-target',
+        prompt: `Choose up to one creature ${source.name} fights.`,
+        waiting: 'is choosing a creature to fight.',
+        judge: `Waiting for ${source.name} to pick a fight.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        types: ['Creature'],
+        optional: true,
+        sequence: draft.allocTs(),
+        requirements: { target: { max: 1 } },
+      })
+      continue
+    }
+    if (instruction.kind === 'fight') {
+      const left = instruction.with === 'self-target'
+        ? { kind: 'object' as const, objectId: source.id }
+        : item?.targets[0]
+      const right = instruction.with === 'self-target'
+        ? item?.targets[0]
+        : item?.targets[1]
+      if (left?.kind === 'object' && right?.kind === 'object') {
+        const first = draft.object(left.objectId)
+        const second = draft.object(right.objectId)
+        if (first && second) {
+          draft.enqueue({
+            type: 'dealDamage',
+            sourceId: first.id,
+            target: { kind: 'object', objectId: second.id },
+            amount: first.power ?? 0,
+          })
+          draft.enqueue({
+            type: 'dealDamage',
+            sourceId: second.id,
+            target: { kind: 'object', objectId: first.id },
+            amount: second.power ?? 0,
+          })
+          draft.note(`${first.name} fights ${second.name}`)
+        }
+      }
+      continue
+    }
+    if (instruction.kind === 'exchangeControlUntilEot') {
+      const opponent = item?.targets.find((target) => target.kind === 'player')
+      if (opponent?.kind === 'player') {
+        const you = source.controller
+        const them = opponent.player
+        const swaps: Array<{ objectId: string; previous: string }> = []
+        for (const object of Object.values(draft.objects)) {
+          if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
+          if (object.controller !== you && object.controller !== them) continue
+          swaps.push({ objectId: object.id, previous: object.controller })
+          object.controller = object.controller === you ? them : you
+          object.tapped = false
+          if (!/haste/i.test(object.oracleText)) {
+            object.oracleText = object.oracleText ? `${object.oracleText}\nHaste` : 'Haste'
+          }
+        }
+        draft.players[you].data['reinsOfPower.swaps'] = [
+          ...((Array.isArray(draft.players[you].data['reinsOfPower.swaps'])
+            ? draft.players[you].data['reinsOfPower.swaps']
+            : []) as Array<{ objectId: string; previous: string }>),
+          ...swaps,
+        ]
+        draft.note(`${you} exchanges creature control with ${them}`)
+      }
+      continue
+    }
+    if (instruction.kind === 'bounceAttacking') {
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone === 'battlefield' && object.attacking) {
+          draft.enqueue({ type: 'move', objectId: object.id, to: 'hand' })
+        }
+      }
+      continue
+    }
+    if (instruction.kind === 'chooseVotesThisTurn') {
+      draft.players[source.controller].data['secretCouncil.chooseVotes'] = true
       continue
     }
     if (instruction.kind === 'discardHandsThenDrawGreatest') {
@@ -1174,7 +1379,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'replacement') ids.add('entersTapped')
     if (effect.op === 'trigger' && (
       effect.on === 'enters' || effect.on === 'dies' || effect.on === 'leaves'
-      || effect.on === 'attacks' || effect.on === 'landToGraveyard'
+      || effect.on === 'attacks' || effect.on === 'landToGraveyard' || effect.on === 'upkeep'
     )) {
       ids.add('zoneTriggers')
     }
@@ -1196,15 +1401,34 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       'copyControlledCreature', 'copyTargetCreature', 'optionalMill',
       'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
       'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
+      'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
+      'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
     ].some((kind) => effect.do.some((instruction) => instruction.kind === kind))) {
       ids.add('choiceEffects')
+      if (effect.do.some((instruction) => instruction.kind === 'putFromHand')) {
+        ids.add('dumpFromHand')
+      }
+      if (effect.do.some((instruction) =>
+        instruction.kind === 'secretCouncil' || instruction.kind === 'chooseVotesThisTurn')) {
+        ids.add('secretCouncil')
+      }
+      if (effect.do.some((instruction) =>
+        instruction.kind === 'fight' || instruction.kind === 'fightUpToOne')) {
+        ids.add('fight')
+      }
+      if (effect.do.some((instruction) => instruction.kind === 'exchangeControlUntilEot')) {
+        ids.add('reinsOfPower')
+      }
     }
     if (effect.op === 'activate' && effect.do.some((instruction) =>
       instruction.kind === 'putLandFromHand'
       || instruction.kind === 'bounceChosenLand'
       || instruction.kind === 'copyTargetCreature'
-      || instruction.kind === 'addChosenColorMana')) {
+      || instruction.kind === 'addChosenColorMana'
+      || instruction.kind === 'fight'
+      || instruction.kind === 'putFromHand')) {
       ids.add('choiceEffects')
+      if (effect.do.some((instruction) => instruction.kind === 'fight')) ids.add('fight')
     }
   }
   return [...ids]
