@@ -15,6 +15,7 @@ import { manaBurn } from './manaBurn'
 import { priority } from './priority'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
+import { triggers } from '../rules/triggers'
 import { turnStructure } from './turnStructure'
 
 /** Available implementations. A GameFormat decides which become live rules. */
@@ -28,6 +29,7 @@ export const builtInPlugins = [
   stateBased,
   combat,
   damage,
+  triggers,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,

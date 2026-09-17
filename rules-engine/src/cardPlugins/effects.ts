@@ -1,7 +1,15 @@
 import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
-import type { GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from '../types'
+import type {
+  GameObject,
+  GameState,
+  ManaPool,
+  PlayerId,
+  StackItem,
+  TriggerBindingIf,
+  ZoneId,
+} from '../types'
 
 export type CardCondition =
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
@@ -34,6 +42,7 @@ export type CardInstruction =
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   | { kind: 'draw'; count: number }
   | { kind: 'gainLife'; count: number }
+  | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
   | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }
@@ -165,9 +174,20 @@ export type CardEffect =
   | { op: 'replacement'; on: 'enters'; do: 'tapSelf' | 'tapUnlessPayLife'; life?: number; if?: CardCondition }
   | {
       op: 'trigger'
-      on: 'enters' | 'leaves' | 'dies' | 'landfall' | 'attacks' | 'resolve' | 'landToGraveyard' | 'upkeep' | 'cast'
+      on:
+        | 'enters'
+        | 'leaves'
+        | 'dies'
+        | 'landfall'
+        | 'attacks'
+        | 'resolve'
+        | 'landToGraveyard'
+        | 'upkeep'
+        | 'cast'
+        | 'discard'
+        | 'draw'
       do: CardInstruction[]
-      if?: CardCondition
+      if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
       modal?: ModalSpec
     }
@@ -461,6 +481,22 @@ export const loyalty = (amount: number): ActivateCost => ({ loyalty: amount })
 export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
+
+export const loseLife = (
+  amount: number,
+  who: 'triggeringPlayer' | 'controller',
+): CardInstruction => ({ kind: 'loseLife', amount, who })
+
+/** Declarative trigger on a kernel event type (`discard`, `draw`, …). */
+export const triggerOn = (
+  on: 'discard' | 'draw',
+  options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
+): CardEffect => ({
+  op: 'trigger',
+  on,
+  do: options.do,
+  ...(options.if ? { if: options.if } : {}),
+})
 
 export const loseLifeTargetManaValue = (): CardInstruction => ({
   kind: 'loseLifeTargetManaValue',
@@ -910,6 +946,20 @@ export const runInstructions = (
     }
     if (instruction.kind === 'gainLife') {
       draft.players[source.controller].life += instruction.count
+      continue
+    }
+    if (instruction.kind === 'loseLife') {
+      const seat = instruction.who === 'controller'
+        ? source.controller
+        : typeof item?.payload?.triggeringPlayer === 'string'
+          ? item.payload.triggeringPlayer
+          : source.controller
+      draft.enqueue({
+        type: 'loseLife',
+        seat,
+        amount: instruction.amount,
+        source: source.id,
+      })
       continue
     }
     if (instruction.kind === 'loseLifeTargetManaValue') {

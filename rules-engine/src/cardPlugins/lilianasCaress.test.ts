@@ -1,9 +1,8 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate, type CardTemplate } from '../newGame'
+import { bolt, cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import type { ReduceResult } from '../types'
-import { lilianasCaress } from './lilianasCaress'
+import type { GameState, ReduceResult } from '../types'
 import { onResolve } from './onResolve'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
@@ -12,7 +11,6 @@ const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) 
 const caressCard = () => card("Liliana's Caress", ['Enchantment'], {
   manaCost: '{1}{B}',
   oracleText: 'Whenever an opponent discards a card, that player loses 2 life.',
-  grantedRules: ['lilianasCaress'],
 })
 
 const ok = (result: ReduceResult) => {
@@ -29,26 +27,41 @@ const game = () => createServerGame(
       p3: [card('Forest', ['Land'])],
     },
   },
-  { random: () => 0.5, cardPlugins: [lilianasCaress, onResolve] },
+  { random: () => 0.5, cardPlugins: [onResolve] },
 )
 
-test('an opponent discarding loses two life', () => {
-  const server = game()
-  const discarded = ok(server.rules(server.state, {
-    type: 'discard',
-    seat: 'p1',
-    objectId: server.state.zoneOrder.p1.hand[0],
-  }))
-
-  expect(discarded.players.p1.life).toBe(commanderRules.startingLife - 2)
-  expect(discarded.objects[server.state.zoneOrder.p1.hand[0]].zone).toBe('graveyard')
+const discard = (state: GameState, seat: string, objectId: string) => ({
+  type: 'discard' as const,
+  seat,
+  objectId,
 })
 
-test('each discarded card drains separately', () => {
+test('an opponent discarding puts Caress on the stack before life loss', () => {
+  const server = game()
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const afterDiscard = ok(server.rules(server.state, discard(server.state, 'p1', objectId)))
+
+  expect(afterDiscard.players.p1.life).toBe(commanderRules.startingLife)
+  expect(afterDiscard.stack).toHaveLength(1)
+  expect(afterDiscard.stack[0]).toMatchObject({
+    kind: 'ability',
+    controller: 'p3',
+    name: "Liliana's Caress",
+  })
+  expect(afterDiscard.objects[objectId].zone).toBe('graveyard')
+
+  const resolved = ok(server.rules(afterDiscard, { type: 'resolveTop' }))
+  expect(resolved.players.p1.life).toBe(commanderRules.startingLife - 2)
+  expect(resolved.stack).toHaveLength(0)
+})
+
+test('each discarded card triggers separately', () => {
   const server = game()
   let current = server.state
   for (const objectId of [...server.state.zoneOrder.p1.hand]) {
-    current = ok(server.rules(current, { type: 'discard', seat: 'p1', objectId }))
+    current = ok(server.rules(current, discard(current, 'p1', objectId)))
+    expect(current.stack.length).toBeGreaterThan(0)
+    current = ok(server.rules(current, { type: 'resolveTop' }))
   }
 
   expect(current.players.p1.life).toBe(commanderRules.startingLife - 4)
@@ -56,12 +69,10 @@ test('each discarded card drains separately', () => {
 
 test('the controller discarding is not an opponent', () => {
   const server = game()
-  const discarded = ok(server.rules(server.state, {
-    type: 'discard',
-    seat: 'p3',
-    objectId: server.state.zoneOrder.p3.hand[0],
-  }))
+  const objectId = server.state.zoneOrder.p3.hand[0]
+  const discarded = ok(server.rules(server.state, discard(server.state, 'p3', objectId)))
 
+  expect(discarded.stack).toHaveLength(0)
   expect(discarded.players.p3.life).toBe(commanderRules.startingLife)
 })
 
@@ -74,11 +85,78 @@ test('a Caress that has left the battlefield drains nobody', () => {
     objectId: caress.id,
     to: 'graveyard',
   }))
-  const discarded = ok(server.rules(gone, {
-    type: 'discard',
-    seat: 'p1',
-    objectId: server.state.zoneOrder.p1.hand[0],
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const discarded = ok(server.rules(gone, discard(gone, 'p1', objectId)))
+
+  expect(discarded.stack).toHaveLength(0)
+  expect(discarded.players.p1.life).toBe(commanderRules.startingLife)
+})
+
+test('players can respond to the Caress trigger before life loss', () => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      battlefield: { p3: [caressCard()] },
+      hands: {
+        p1: [card('Island', ['Land'])],
+        p3: [bolt()],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [onResolve] },
+  )
+  const discardedId = server.state.zoneOrder.p1.hand[0]
+  const boltId = server.state.zoneOrder.p3.hand[0]
+  const afterDiscard = ok(server.rules(server.state, discard(server.state, 'p1', discardedId)))
+
+  expect(afterDiscard.players.p1.life).toBe(commanderRules.startingLife)
+  expect(afterDiscard.stack).toHaveLength(1)
+
+  const ready = structuredClone(afterDiscard)
+  ready.priority = 'p3'
+  ready.players.p3.mana.R = 1
+  const bolted = ok(server.rules(ready, {
+    type: 'castSpell',
+    seat: 'p3',
+    objectId: boltId,
+    targets: [{ kind: 'player', player: 'p1' }],
   }))
 
-  expect(discarded.players.p1.life).toBe(commanderRules.startingLife)
+  expect(bolted.stack).toHaveLength(2)
+  expect(bolted.stack[0].name).toBe('Lightning Bolt')
+  expect(bolted.players.p1.life).toBe(commanderRules.startingLife)
+
+  const afterBolt = ok(server.rules(bolted, { type: 'resolveTop' }))
+  expect(afterBolt.players.p1.life).toBe(commanderRules.startingLife - 3)
+  expect(afterBolt.stack).toHaveLength(1)
+
+  const afterCaress = ok(server.rules(afterBolt, { type: 'resolveTop' }))
+  expect(afterCaress.players.p1.life).toBe(commanderRules.startingLife - 5)
+})
+
+test('two Caresses trigger in APNAP order', () => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      battlefield: {
+        p2: [caressCard()],
+        p3: [caressCard()],
+      },
+      hands: {
+        p1: [card('Island', ['Land'])],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [onResolve] },
+  )
+  const objectId = server.state.zoneOrder.p1.hand[0]
+  const afterDiscard = ok(server.rules(server.state, discard(server.state, 'p1', objectId)))
+
+  expect(afterDiscard.stack).toHaveLength(2)
+  expect(afterDiscard.stack[0].controller).toBe('p3')
+  expect(afterDiscard.stack[1].controller).toBe('p2')
+
+  const once = ok(server.rules(afterDiscard, { type: 'resolveTop' }))
+  expect(once.players.p1.life).toBe(commanderRules.startingLife - 2)
+
+  const twice = ok(server.rules(once, { type: 'resolveTop' }))
+  expect(twice.players.p1.life).toBe(commanderRules.startingLife - 4)
 })
