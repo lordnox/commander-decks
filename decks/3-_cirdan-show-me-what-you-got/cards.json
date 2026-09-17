@@ -1288,14 +1288,12 @@
       "submitted_name": "It That Betrays"
     },
     {
-      "cache": "cards/a011aefe-5853-4435-b686-179e931ba897.json",
+      "cache": "cards/68954295-54e3-4303-a6bc-fc4547a4e3a3.json",
       "card": {
         "cmc": 1.0,
-        "keywords": [
-          "Level Up"
-        ],
+        "keywords": [],
         "mana_cost": "{G}",
-        "oracle_text": "Level up {1}{G} ({1}{G}: Put a level counter on this. Level up only as a sorcery.)\nLEVEL 1-4\n1/2\n{T}: Add {G}{G}.\nLEVEL 5+\n1/4\nElves you control have \"{T}: Add {G}{G}.\"",
+        "oracle_text": "{T}: Add {G}.",
         "power": "1",
         "produced_mana": [
           "G"
@@ -1307,14 +1305,14 @@
         "ramp"
       ],
       "category_source": "decklist",
-      "name": "Joraga Treespeaker",
-      "oracle_id": "a011aefe-5853-4435-b686-179e931ba897",
+      "name": "Llanowar Elves",
+      "oracle_id": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/roe/190/joraga-treespeaker?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/fdn/227/llanowar-elves?utm_source=api",
       "submitted_categories": [
         "ramp"
       ],
-      "submitted_name": "Joraga Treespeaker"
+      "submitted_name": "Llanowar Elves"
     },
     {
       "cache": "cards/37a55560-6e32-4f54-b9a8-fd157aea6eb5.json",
@@ -2536,12 +2534,12 @@
     }
   ],
   "categorized_cards": 97,
-  "generated_at": "2026-09-17T14:13:30.222137+00:00",
+  "generated_at": "2026-09-17T14:18:36.755910+00:00",
   "maybeboard_cards": 4,
   "maybeboard_unique_cards": 4,
   "resolved_unique_cards": 97,
   "schema_version": 3,
-  "source": "decks/unrated_cirdan-show-me-what-you-got/decklist.txt",
+  "source": "decks/3-_cirdan-show-me-what-you-got/decklist.txt",
   "total_cards": 100,
   "unique_cards": 93,
   "unresolved": []

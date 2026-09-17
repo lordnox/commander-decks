@@ -54,7 +54,7 @@
 1 Island [land]
 1 Island [land]
 1 It That Betrays [Maybeboard{noDeck}{noPrice}]
-1 Joraga Treespeaker [ramp]
+1 Llanowar Elves [ramp]
 1 Khalni Ambush [land,removal]
 1 Kederekt Leviathan [board-wipe]
 1 Kiora Bests the Sea God [theft,token-production]

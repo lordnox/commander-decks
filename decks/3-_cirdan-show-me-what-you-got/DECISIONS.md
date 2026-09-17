@@ -69,7 +69,7 @@ First pass: jank 8, fun 8, mean 6, Politics 9, Theft 7. The vote and Show and Te
 - **Illusion of Choice** — One mana to choose every vote this turn and draw a card; the card that makes the bluff real.
 - **Illusionist's Gambit** — True attack redirect: those creatures take a second combat and cannot attack us.
 - **Island** — Blue source and Island count for Mystic Sanctuary.
-- **Joraga Treespeaker** — One-mana dork that levels into double green.
+- **Llanowar Elves** — One-mana dork that actually taps for green on turn two, unlike a level-up creature.
 - **Khalni Ambush** — Land when we need a drop, fight when a body is in play.
 - **Kederekt Leviathan** — Cheatable reset of nonlands, with unearth as a second use.
 - **Kiora Bests the Sea God** — Makes a blocker, taps a player, then steals a permanent; a slower theft payoff that still has a body.
@@ -119,7 +119,8 @@ First pass: jank 8, fun 8, mean 6, Politics 9, Theft 7. The vote and Show and Te
 
 ## Cards out
 
-Maybeboard (not in the 99): **Darksteel Colossus** and **Blightsteel Colossus** are legal dumps with no missing trigger, held out because they are statues the table already assumes and because Blightsteel turns Reins into infect. **Void Winnower** and **It That Betrays** are the Eldrazi that still work when cheated; they wait until the list needs a meaner closer.
+- **Joraga Treespeaker** — Cut after goldfish: it does not tap for mana until it is leveled, so it failed the turn-three Círdan job. Replaced by Llanowar Elves.
+- Maybeboard (not in the 99): **Darksteel Colossus** and **Blightsteel Colossus** are legal dumps with no missing trigger, held out because they are statues the table already assumes and because Blightsteel turns Reins into infect. **Void Winnower** and **It That Betrays** are the Eldrazi whose text still works when cheated; they wait until the list needs a meaner closer.
 
 ## Rules
 
@@ -136,3 +137,4 @@ Maybeboard (not in the 99): **Darksteel Colossus** and **Blightsteel Colossus** 
 ## Talks
 
 - **2026-09-17 — Autobrew from the Show and Tell grill.** Game plan: Círdan votes for cards or a free permanent; backup cheats (Show and Tell, Eureka, Hypergenesis, Braids, Stampede) dump when the table will not grant zero; finish by fighting their dump or borrowing a board with Reins plus Stampede or End-Raze. Target **Upgraded (Bracket 3)**: telegraphed monsters, a from-hand dump, expected win around turns eight to ten, high roll a Reins turn once boards exist. Operational threshold is Círdan at five, pushed toward turn three with one- and two-mana ramp. Fast mana, Game Changer tutors, Thassa's Oracle, and Expropriate extra turns stay out. Commander shortlist: Círdan won as the locked vote engine in Simic; Braids lost the zone because she cannot dump enchantments and is not a vote; Kona is one-sided and loses Show and Tell; Elrond is a 99 steal council rather than the commander. Construction calculator (99-card library, 11 cards seen, no mulligans): 36 lands, 14+ ramp, 10 draw, 12 interaction, 10 enablers / 8 payoffs / 4 enhancers → about 83% to see ramp, 71% draw, 43% to have both an enabler and a payoff by the modeled turn. Packages: vote (Illusion of Choice, Erestor, Elrond, Stampede, Trap, Portal, Sail, Split Decision), cheat (Show and Tell, Eureka, Hypergenesis, Braids), fight bodies, Reins/Twincast/Gambit, and the monster suite. User locks kept: no Old Man/Seasinger, Colossi on maybe, Sire in, Grothama in, lots of cheap ramp, title Show Me What You Got.
+- **2026-09-17 — Assessment.** Bracket **3−** from `BRACKET-DEFINITIONS.md` (Game Changers snapshot 2026-09-03): **0** Game Changers, no extra-turn chains, no permanent fast mana. Win texture is an Upgraded from-hand dump plus a Reins combat, not Incremental Core. Normal close is turns nine to ten because Reins needs opposing boards and Círdan is five mana. Goldfish seed 1729/2718: 11/12 keeps had Círdan by turn five after London mulligans; Joraga Treespeaker was cut because it does not make mana at level 0. High roll is Show and Tell a monster on turn three to five, not a table win. Bracket 2 is wrong because shared cheat and Reins are a from-hand dump. Bracket 4 is wrong because the list has no compact combo, no GC tutors, and no Sol Ring.
