@@ -1,6 +1,13 @@
 import { expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { CardPreview, CardTile, HoverCard, StackOverlay, type Hover } from './TableBoard'
+import {
+  CardPreview,
+  CardRow,
+  CardTile,
+  HoverCard,
+  StackOverlay,
+  type Hover,
+} from './TableBoard'
 import type { ReplayGame } from './replayTypes'
 
 const game = {
@@ -18,6 +25,11 @@ const game = {
       id: '12345678-1234-1234-1234-123456789abc',
       type_line: 'Legendary Planeswalker — Teferi',
       stats: '4',
+    },
+    'Lady Evangela': {
+      id: 'ab111111-1111-1111-1111-111111111111',
+      type_line: 'Legendary Creature — Human Cleric',
+      stats: '1/2',
     },
   },
 } as unknown as ReplayGame
@@ -74,6 +86,61 @@ test('an eligible attacker is highlighted and exposes its selection state', () =
   expect(html).toContain('aria-pressed="true"')
   expect(html).toContain('aria-label="Select attacker: Mossborn Hydra"')
   expect(html).toContain('border-orange-300')
+})
+
+test('a chosen attacker shows its targets as art beside that card', () => {
+  const html = renderToStaticMarkup(
+    <CardRow
+      game={game}
+      cards={[{ name: 'Mossborn Hydra', objectId: 'hydra' }]}
+      action={new Set()}
+      interaction={{
+        selectable: new Set(['hydra']),
+        selected: new Set(['hydra']),
+        label: 'Select attacker',
+        onSelect: () => {},
+        choosingFor: 'hydra',
+        targetLabel: 'Attack',
+        targets: [
+          { id: 'p1', name: 'Foggy Blood Transfusion', cardName: 'Lady Evangela' },
+          { id: 'walker', name: 'Teferi, Who Slows the Sunset' },
+        ],
+        onChooseTarget: () => {},
+      }}
+      onPreview={() => {}}
+      onHover={() => {}}
+    />,
+  )
+
+  expect(html).toContain('aria-label="Attack: Foggy Blood Transfusion"')
+  expect(html).toContain('aria-label="Attack: Teferi, Who Slows the Sunset"')
+  expect(html).toContain('rounded-full')
+  // The seat is recognized by its commander, not by the deck name.
+  expect(html).toContain('cards.scryfall.io/small/front/a/b/ab111111-1111-1111-1111-111111111111.jpg')
+})
+
+test('an unchosen attacker shows no target art', () => {
+  const html = renderToStaticMarkup(
+    <CardRow
+      game={game}
+      cards={[{ name: 'Mossborn Hydra', objectId: 'hydra' }]}
+      action={new Set()}
+      interaction={{
+        selectable: new Set(['hydra']),
+        selected: new Set(),
+        label: 'Select attacker',
+        onSelect: () => {},
+        choosingFor: null,
+        targetLabel: 'Attack',
+        targets: [{ id: 'p1', name: 'Eva', cardName: 'Lady Evangela' }],
+        onChooseTarget: () => {},
+      }}
+      onPreview={() => {}}
+      onHover={() => {}}
+    />,
+  )
+
+  expect(html).not.toContain('aria-label="Attack: Eva"')
 })
 
 test('hovering a clone shows the copied face beside the card it is printed as', () => {

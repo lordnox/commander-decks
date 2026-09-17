@@ -42,6 +42,7 @@ import {
   StackOverlay,
   phaseLabel,
   type Hover,
+  type InteractionTarget,
   type Preview,
 } from './TableBoard'
 import { hydrateLiveSnapshot } from './scryfallCache'
@@ -717,16 +718,32 @@ export const LivePage = () => {
     ...Object.keys(declaredAttackers),
     ...(choosingDefenderFor ? [choosingDefenderFor] : []),
   ])
+  const opposingPlaneswalkers = Object.values(snapshot.replica?.objects ?? {})
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller !== snapshot.you
+      && !snapshot.replica?.players[object.controller]?.lost
+      && object.types.includes('Planeswalker'))
   const selectablePlaneswalkers = new Set(
-    Object.values(snapshot.replica?.objects ?? {})
-      .filter((object) =>
-        Boolean(choosingDefenderFor)
-        && object.zone === 'battlefield'
-        && object.controller !== snapshot.you
-        && !snapshot.replica?.players[object.controller]?.lost
-        && object.types.includes('Planeswalker'))
-      .map((object) => object.id),
+    choosingDefenderFor ? opposingPlaneswalkers.map((object) => object.id) : [],
   )
+  // A seat is recognized by its commander art, and a partner pair by the first
+  // of the two, which is the card the table calls that deck.
+  const defenderTargets: InteractionTarget[] = [
+    ...boardSeats
+      .filter((seat) =>
+        seat.id !== snapshot.you && !snapshot.replica?.players[seat.id]?.lost)
+      .map((seat) => ({
+        id: seat.id,
+        name: seat.name,
+        cardName: seat.commanders[0],
+      })),
+    ...opposingPlaneswalkers.map((object) => ({
+      id: object.id,
+      name: object.name,
+      cardName: object.name,
+    })),
+  ]
   const pendingLabel = pendingAction
     ? pendingAction.type === 'confirm'
       ? 'Confirmed. Waiting for the judge to apply the line.'
@@ -1120,16 +1137,16 @@ export const LivePage = () => {
                 onPreview={setPreview}
                 onHover={setHover}
                 onInsertName={onInsertName}
-                defenderSelectable={selectingDefender}
-                onSelectDefender={selectingDefender
-                  ? () => chooseDefender(seat.id)
-                  : undefined}
                 battlefieldInteraction={isYou && canDeclareAttackers
                   ? {
                       selectable: eligibleAttackers,
                       selected: selectedAttackers,
                       label: 'Select attacker',
                       onSelect: chooseAttacker,
+                      choosingFor: choosingDefenderFor,
+                      targetLabel: 'Attack',
+                      targets: defenderTargets,
+                      onChooseTarget: chooseDefender,
                     }
                   : selectingDefender
                     ? {
