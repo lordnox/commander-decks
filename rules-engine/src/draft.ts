@@ -1,4 +1,5 @@
-import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, ZoneId } from './types'
+import type { CardInstruction } from './cardPlugins/effects'
+import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
 
@@ -38,19 +39,45 @@ export const nextPlayer = (state: GameState, player: PlayerId) => {
   return state.playerOrder[(index + 1) % state.playerOrder.length]
 }
 
+/**
+ * Mutable working copy of `GameState` during one reduce step.
+ * Helper methods are stripped by `freezeDraft` before returning to callers.
+ */
 export type Draft = GameState & {
+  /** Events queued during apply; drained after the current event finishes. */
   pending: GameEvent[]
+  /** Allocate a stable id (`stack5`, `obj12`, …). Never reuse or regenerate. */
   allocId: (prefix?: string) => string
+  /** Allocate the next rule timestamp. */
   allocTs: () => number
+  /** Append a follow-up event to `pending`. */
   enqueue: (event: GameEvent) => void
+  /** Append a line to `log`. */
   note: (line: string) => void
+  /** Look up an object by id in the draft. */
   object: (id: string) => GameObject | undefined
+  /** Move an object between zones and update `zoneOrder`. */
   move: (
     id: string,
     to: ZoneId,
     position?: 'top' | 'bottom',
   ) => GameObject | undefined
+  /** List objects in a zone, optionally filtered by controller. */
   zoneOf: (zone: ZoneId, player?: PlayerId) => GameObject[]
+  /**
+   * Push a stack item (LIFO: unshift). Allocates `id` via `allocId('stack')`
+   * when omitted; never regenerates an existing id.
+   */
+  addToStack: (item: Omit<StackItem, 'id'> & { id?: string }) => StackItem
+  /**
+   * Push a triggered ability onto the stack. Stores `instructions` in
+   * `payload` for Phase 1 resolution via `addToStack`.
+   */
+  addTriggeredAbility: (
+    source: GameObject,
+    instructions: CardInstruction[],
+    meta?: Partial<StackItem>,
+  ) => StackItem
 }
 
 export type { Draft as default }
@@ -106,9 +133,26 @@ export const makeDraft = (state: GameState): Draft => {
     Object.values(draft.objects).filter(
       (object) => object.zone === zone && (!seat || object.controller === seat),
     )
+  draft.addToStack = (item) => {
+    const id = item.id ?? draft.allocId('stack')
+    const stackItem: StackItem = { ...item, id }
+    draft.stack.unshift(stackItem)
+    return stackItem
+  }
+  draft.addTriggeredAbility = (source, instructions, meta = {}) =>
+    draft.addToStack({
+      kind: 'ability',
+      objectId: source.id,
+      controller: source.controller,
+      name: source.name,
+      targets: [],
+      payload: { instructions },
+      ...meta,
+    })
   return draft
 }
 
+/** Remove draft-only helpers and return a plain `GameState`. */
 export const freezeDraft = (draft: Draft): GameState => {
   const {
     allocId: _a,
@@ -119,6 +163,8 @@ export const freezeDraft = (draft: Draft): GameState => {
     zoneOf: _f,
     enqueue: _g,
     pending: _h,
+    addToStack: _i,
+    addTriggeredAbility: _j,
     ...state
   } = draft
   return state

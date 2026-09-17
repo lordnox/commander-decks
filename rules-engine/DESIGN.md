@@ -132,6 +132,32 @@ Combat defenders use `TargetRef`: a creature attacks either a player or a
 planeswalker object that player controls. Commander damage still counts only
 combat damage whose target is a player.
 
+## Stack, actions, events, and triggers
+
+Vocabulary (see also `STACK-AND-TRIGGERS-PLAN.md`):
+
+| Term | Meaning |
+|------|---------|
+| **Spell / ability** | `StackItem` from casting or triggering (CR 405, 601–603) |
+| **Action** | Stack item that resolves into events, often after a client choice (CR 608.2, 701.9) |
+| **Event** | Input to `rules(state, event)` — atomic state change |
+| **Game rule** | Always-on builtin `Plugin` (`sourceId: null`) |
+| **Card rule** | `RuleInstance` tied to a permanent |
+| **Trigger** | Card rule that puts a triggered ability on the stack (CR 603) |
+
+**Chain:** spell/ability resolves → action(s) on stack → event(s) apply → trigger(s) on stack.
+
+**Client resolver break:** when an action needs a choice, mark the stack item
+`waiting`, return state to the host, and do not drain further. The client sends
+`continueAction` with `{ stackId, seat, payload }` to resume. Do not use `custom`
+for stack continuations. `StackItem.id` is allocated once via
+`draft.allocId('stack')` and stays stable through waiting round-trips and replay.
+
+Declarative card triggers use `TriggerBinding` (`on`, `if`, `do`). v1 orders
+multiple triggers from one player by timestamp / card-rules order; later phases
+may add player-chosen ordering (`orderTriggers` / `continueAction`) without
+changing the binding shape.
+
 ## Plugin
 
 ```ts
@@ -179,7 +205,8 @@ Agents must not edit files they do not own.
 
 | Owner | Files |
 |---|---|
-| frozen | `DESIGN.md`, `src/types.ts`, `src/catalog.ts`, `src/draft.ts`, `src/kernel.ts`, `src/newGame.ts` |
+| frozen | `DESIGN.md`, `src/catalog.ts`, `src/kernel.ts`, `src/newGame.ts` |
+| stack/triggers | `src/types.ts`, `src/draft.ts` (Phase 0+ stack/trigger refactor) |
 | A turn | `src/plugins/turnStructure.ts`, `src/plugins/priority.ts`, tests |
 | B mana | `src/plugins/mana.ts`, `src/plugins/lands.ts`, `src/plugins/manaBurn.ts`, tests |
 | C fight | `src/plugins/spells.ts`, `src/plugins/stateBased.ts`, `src/plugins/combat.ts`, `src/plugins/commander.ts`, tests |
