@@ -197,6 +197,14 @@ export const applyHostControl = (
   }
 }
 
+/**
+ * Every dialog the kernel opened is answered by the kernel, whatever stage it
+ * is. Naming the stages here instead lets an unnamed one reach the judging
+ * agent, which leaves the seat waiting on a choice nobody applies.
+ */
+export const kernelOwnsChoice = (message: InboxMessage, state: LobbyState) =>
+  message.type === 'topdeck' && state.topdeck?.kernel !== undefined
+
 export const actionsAfterJudgment = (options: {
   current: LobbyState['actions']
   message: InboxMessage
@@ -505,26 +513,7 @@ export const runHost = async (options: {
     ) {
       settleKernelPriority(kernel, state)
       logLine(logFile, `${seat} kernel advance`)
-    } else if (
-      message.type === 'topdeck'
-      && kernel
-      && (
-        state.topdeck?.kernel?.stage === 'scry'
-        || state.topdeck?.kernel?.stage === 'look-top'
-        || state.topdeck?.kernel?.stage === 'put-land'
-        || state.topdeck?.kernel?.stage === 'put-permanents'
-        || state.topdeck?.kernel?.stage === 'search'
-        || state.topdeck?.kernel?.stage === 'library-search'
-        || state.topdeck?.kernel?.stage === 'player-targets'
-        || state.topdeck?.kernel?.stage === 'surveil'
-        || state.topdeck?.kernel?.stage === 'bounce-land'
-        || state.topdeck?.kernel?.stage === 'reveal-pick'
-        || state.topdeck?.kernel?.stage === 'copy-creature'
-        || state.topdeck?.kernel?.stage === 'return-land'
-        || state.topdeck?.kernel?.stage === 'may'
-        || state.topdeck?.kernel?.stage === 'may-pay-life'
-      )
-    ) {
+    } else if (kernel && kernelOwnsChoice(message, state)) {
       try {
         if (!applyKernelChoice(kernel, state, seat, message)) {
           throw new Error('That private choice is not available now.')
