@@ -1257,7 +1257,6 @@ describe('kernel host journal', () => {
       power: 3,
       toughness: 3,
       tapProduces: undefined,
-      grantedRules: ['rankle'],
     })
     const server = createServerGame(
       commanderRules,
@@ -1281,6 +1280,13 @@ describe('kernel host journal', () => {
       amount: 3,
     }).ok).toBe(true)
 
+    expect(kernel.history.current().stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Rankle, Master of Pranks',
+    })
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(false)
+
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',

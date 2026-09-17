@@ -1,8 +1,10 @@
 import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
+import { lifeLostThisTurn } from '../plugins/damage'
 import { initiateDiscard } from '../rules/discard'
 import { initiateDraw } from '../rules/draw'
+import { RANKLE_MODES } from './rankle'
 import type {
   GameObject,
   GameState,
@@ -24,6 +26,7 @@ export type CardCondition =
   | { kind: 'graveyardCardTypes'; min: number }
   | { kind: 'lacksControlledSubtype'; subtypes: string[] }
   | { kind: 'opponentsAtMost'; max: number }
+  | { kind: 'opponentLostLifeThisTurn'; min: number }
 
 export type TokenSpec = {
   name: string
@@ -73,6 +76,8 @@ export type CardInstruction =
   | { kind: 'dealDamageToSelf'; amount: number }
   | { kind: 'addChosenColorMana' }
   | { kind: 'optionalMill'; count: number }
+  | { kind: 'mayDraw'; count: number }
+  | { kind: 'rankleModes' }
   | { kind: 'returnChosenLandFromGraveyard'; tapped?: boolean }
   | { kind: 'drawAtNextUpkeep'; count: number; who: 'you' | 'targetController'; optional?: boolean }
   | { kind: 'putMilledLandTapped' }
@@ -189,6 +194,8 @@ export type CardEffect =
         | 'cast'
         | 'discard'
         | 'draw'
+        | 'end'
+        | 'combatDamage'
       do: CardInstruction[]
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
@@ -355,6 +362,10 @@ export const createXTokens = (token: TokenSpec): CardInstruction => ({
 
 export const optionalMill = (count: number): CardInstruction => ({ kind: 'optionalMill', count })
 
+export const mayDraw = (count: number): CardInstruction => ({ kind: 'mayDraw', count })
+
+export const rankleModes = (): CardInstruction => ({ kind: 'rankleModes' })
+
 export const returnChosenLandFromGraveyard = (tapped = true): CardInstruction => ({
   kind: 'returnChosenLandFromGraveyard',
   tapped,
@@ -495,9 +506,9 @@ export const loseLife = (
   who: 'triggeringPlayer' | 'controller',
 ): CardInstruction => ({ kind: 'loseLife', amount, who })
 
-/** Declarative trigger on a kernel event type (`discard`, `draw`, …). */
+/** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
-  on: 'discard' | 'draw',
+  on: 'discard' | 'draw' | 'end' | 'combatDamage',
   options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
 ): CardEffect => ({
   op: 'trigger',
@@ -580,6 +591,11 @@ export const lacksControlledSubtype = (...subtypes: string[]): CardCondition => 
 export const opponentsAtMost = (max: number): CardCondition => ({
   kind: 'opponentsAtMost',
   max,
+})
+
+export const opponentLostLifeThisTurn = (min: number): CardCondition => ({
+  kind: 'opponentLostLifeThisTurn',
+  min,
 })
 
 export const manaIf = (condition: CardCondition): CardEffect => ({
@@ -872,6 +888,11 @@ export const conditionHolds = (
     const opponents = state.playerOrder.filter((seat) =>
       seat !== object.controller && !state.players[seat].lost).length
     return opponents <= condition.max
+  }
+  if (condition.kind === 'opponentLostLifeThisTurn') {
+    return state.playerOrder.some((seat) =>
+      seat !== object.controller
+      && lifeLostThisTurn(state.players[seat]) >= condition.min)
   }
   const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
   return names.size >= condition.min
@@ -1491,6 +1512,40 @@ export const runInstructions = (
       })
       continue
     }
+    if (instruction.kind === 'mayDraw') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'may-draw',
+        prompt: 'An opponent lost 3 or more life this turn. You may draw a card.',
+        waiting: 'is deciding whether to draw.',
+        judge: `Waiting for an optional draw from ${source.name}.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        count: instruction.count,
+      })
+      continue
+    }
+    if (instruction.kind === 'rankleModes') {
+      setPendingDialog(draft, {
+        sourceId: source.id,
+        source: source.name,
+        seat: source.controller,
+        kind: 'choose-modes',
+        options: [
+          RANKLE_MODES.discard,
+          RANKLE_MODES.drain,
+          RANKLE_MODES.sacrifice,
+        ],
+        prompt: `${source.name} connected. Choose any number of its modes.`,
+        waiting: 'is choosing Rankle modes.',
+        judge: `${source.name} dealt combat damage; its controller is choosing modes.`,
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+      })
+      continue
+    }
     if (instruction.kind === 'returnChosenLandFromGraveyard') {
       setPendingDialog(draft, {
         sourceId: source.id,
@@ -1837,7 +1892,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'handler') ids.add(effect.pluginId)
     if (effect.op === 'trigger' && [
       'surveil', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
-      'copyControlledCreature', 'copyTargetCreature', 'optionalMill',
+      'copyControlledCreature', 'copyTargetCreature', 'optionalMill', 'mayDraw',
       'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
       'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
       'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',

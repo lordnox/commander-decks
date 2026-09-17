@@ -70,30 +70,13 @@ const askEachPlayer = (
  */
 export const rankle: Plugin = {
   id: 'rankle',
-  apply: ({ state, event, draft, rule }) => {
-    if (event.type === 'combatDamage' && event.target.kind === 'player') {
-      const source = draft.objects[rule.sourceId ?? '']
-      if (!source || event.sourceId !== source.id) return
-      setPendingDialog(draft, {
-        sourceId: source.id,
-        source: source.name,
-        seat: source.controller,
-        kind: 'choose-modes',
-        options: [...MODE_ORDER],
-        prompt: `${source.name} connected. Choose any number of its modes.`,
-        waiting: 'is choosing Rankle modes.',
-        judge: `${source.name} dealt combat damage; its controller is choosing modes.`,
-        chosenEvent: DIALOG_CHOSEN,
-        destinations: ['skip', 'target'],
-      })
-      return
-    }
-
+  apply: ({ state, event, draft }) => {
     if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return
     // The dialog lock has already answered the oldest choice on this draft, so
     // the question being answered is read from the state before the event.
     const dialog = pendingDialogFor(state, event.seat)
-    if (!dialog || dialog.sourceId !== rule.sourceId) return
+    const source = dialog ? draft.object(dialog.sourceId) : undefined
+    if (!dialog || !source || source.name !== 'Rankle, Master of Pranks') return
 
     if (dialog.kind === 'choose-modes') {
       const chosen = Array.isArray(event.payload?.modes)

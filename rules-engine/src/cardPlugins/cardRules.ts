@@ -49,12 +49,14 @@ import {
   loyaltyX,
   lookTopChooseOne,
   manaIf,
+  mayDraw,
   modalChooseOne,
   onResolve,
   optionalBasicLandEnters,
   optionalMill,
   otherLands,
   opponentsAtMost,
+  opponentLostLifeThisTurn,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   pump,
@@ -63,6 +65,7 @@ import {
   putFromHand,
   putLandFromHand,
   putMilledLandTapped,
+  rankleModes,
   putPermanentsFromHand,
   revealPick,
   returnChosenLandFromGraveyard,
@@ -779,8 +782,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [loseLife(2, 'triggeringPlayer')],
     }),
   ],
-  'Rankle, Master of Pranks': [staticGrant('rankle'), handler('rankle')],
-  'Sygg, River Cutthroat': [staticGrant('sygg'), handler('sygg')],
+  'Rankle, Master of Pranks': [
+    triggerOn('combatDamage', { do: [rankleModes()] }),
+    handler('rankle'),
+  ],
+  'Sygg, River Cutthroat': [
+    triggerOn('end', {
+      if: opponentLostLifeThisTurn(3),
+      do: [mayDraw(1)],
+    }),
+  ],
   "Tamiyo's Safekeeping": [
     targetOnResolve(
       'select',
