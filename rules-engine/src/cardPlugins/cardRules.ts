@@ -610,6 +610,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('bounce', { zone: 'graveyard', type: 'Creature' }),
   ],
   "Liliana's Caress": [staticGrant('lilianasCaress'), handler('lilianasCaress')],
+  'Rankle, Master of Pranks': [staticGrant('rankle'), handler('rankle')],
   'Sygg, River Cutthroat': [staticGrant('sygg'), handler('sygg')],
   "Tamiyo's Safekeeping": [
     targetOnResolve(

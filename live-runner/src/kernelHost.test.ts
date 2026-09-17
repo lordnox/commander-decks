@@ -25,6 +25,7 @@ import {
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
+import { RANKLE_MODES, rankle } from '../../rules-engine/src/cardPlugins/rankle'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
@@ -1244,5 +1245,70 @@ describe('kernel host journal', () => {
         defender: { kind: 'object', objectId: 'walker' },
       }],
     })
+  })
+
+  test('Rankle publishes its modes, then a sacrifice choice per player', () => {
+    const body = (name: string) => ({
+      ...forest(),
+      name,
+      types: ['Creature'],
+      subtypes: ['Faerie'],
+      supertypes: [],
+      power: 3,
+      toughness: 3,
+      tapProduces: undefined,
+      grantedRules: ['rankle'],
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [body('Rankle, Master of Pranks')],
+          p2: [{ ...body('Lone Hydra'), grantedRules: [] }],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [rankle] },
+    )
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const source = Object.values(server.state.objects)
+      .find((object) => object.name === 'Rankle, Master of Pranks')!
+    expect(kernel.dispatch({
+      type: 'combatDamage',
+      sourceId: source.id,
+      target: { kind: 'player', player: 'p2' },
+      amount: 3,
+    }).ok).toBe(true)
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose-modes',
+      cards: [RANKLE_MODES.discard, RANKLE_MODES.drain, RANKLE_MODES.sacrifice],
+    })
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: RANKLE_MODES.discard, destination: 'skip' },
+        { card: RANKLE_MODES.drain, destination: 'skip' },
+        { card: RANKLE_MODES.sacrifice, destination: 'target' },
+      ],
+    })).toBe(true)
+    prepareKernelPendingChoice(kernel, lobby)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'sacrifice-creature',
+      cards: ['Rankle, Master of Pranks'],
+    })
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Rankle, Master of Pranks', destination: 'sacrifice' }],
+    })).toBe(true)
+    expect(kernel.history.current().objects[source.id].zone).toBe('graveyard')
+    prepareKernelPendingChoice(kernel, lobby)
+    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice-creature' })
   })
 })
