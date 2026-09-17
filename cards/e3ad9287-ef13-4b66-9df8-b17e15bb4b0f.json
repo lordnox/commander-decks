@@ -1,0 +1,128 @@
+{
+  "artist": "John Severin Brassell",
+  "artist_ids": [
+    "a4f50310-4b01-4cd3-8ab8-85b31e6876db"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 291737,
+  "cmc": 1.0,
+  "collector_number": "31",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 8113,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Please vote with a clear head and vigilant heart, knowing each voice is meaningful regardless of the outcome.\"\n—Ottavio d'Oro, Electoral Committee Speaker of Paliano",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "ab54f283-92b6-4738-b2cd-fecb43750a4d",
+  "illustration_id": "c1d345a1-9ed2-4b86-8739-c080c8b1b447",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:09:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.webp?1783937358",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.jpg?1783937358",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.jpg?1783937358",
+    "crop": "https://cards.scryfall.io/crop/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.webp?1783937358",
+    "display": "https://cards.scryfall.io/display/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.webp?1783937358",
+    "grid": "https://cards.scryfall.io/grid/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.webp?1783937358",
+    "large": "https://cards.scryfall.io/large/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.jpg?1783937358",
+    "normal": "https://cards.scryfall.io/normal/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.jpg?1783937358",
+    "png": "https://cards.scryfall.io/png/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.png?1783937358",
+    "small": "https://cards.scryfall.io/small/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.jpg?1783937358",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/b/ab54f283-92b6-4738-b2cd-fecb43750a4d.webp?1783937358"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "multiverse_ids": [
+    416788
+  ],
+  "name": "Illusion of Choice",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e3ad9287-ef13-4b66-9df8-b17e15bb4b0f",
+  "oracle_text": "You choose how each player votes this turn.\nDraw a card.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.51",
+    "eur_foil": "7.58",
+    "tix": null,
+    "usd": "2.78",
+    "usd_etched": null,
+    "usd_foil": "7.74"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae3ad9287-ef13-4b66-9df8-b17e15bb4b0f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Illusion+of+Choice&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=291737&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F121427%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Illusion+of+Choice",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=416788&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DIllusion%2Bof%2BChoice",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DIllusion%2Bof%2BChoice"
+  },
+  "released_at": "2016-08-26",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ab54f283-92b6-4738-b2cd-fecb43750a4d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cn2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cn2/31/illusion-of-choice?utm_source=api",
+  "set": "cn2",
+  "set_id": "ad1b8847-1905-4080-9e26-80691ea7c1ef",
+  "set_name": "Conspiracy: Take the Crown",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acn2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/ad1b8847-1905-4080-9e26-80691ea7c1ef",
+  "story_spotlight": false,
+  "tcgplayer_id": 121427,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/ab54f283-92b6-4738-b2cd-fecb43750a4d",
+  "variation": false
+}

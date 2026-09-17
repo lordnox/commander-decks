@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "8a9cb417-8709-4336-be36-2fb0cea31fe1",
+      "name": "Poison Counter",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/8a9cb417-8709-4336-be36-2fb0cea31fe1"
+    },
+    {
+      "component": "combo_piece",
+      "id": "0ccd5597-2d4e-4f3e-94b7-46783486853a",
+      "name": "Blightsteel Colossus",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Phyrexian Golem",
+      "uri": "https://api.scryfall.com/cards/0ccd5597-2d4e-4f3e-94b7-46783486853a"
+    }
+  ],
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 462579,
+  "cmc": 12.0,
+  "collector_number": "235",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 995,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "18adbda4-8d36-47cd-afbc-c785aaa8ed80",
+  "illustration_id": "945af848-56b4-4ecd-a9c2-86f29dda6307",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:08:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.webp?1783930118",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.jpg?1783930118",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.jpg?1783930118",
+    "crop": "https://cards.scryfall.io/crop/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.webp?1783930118",
+    "display": "https://cards.scryfall.io/display/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.webp?1783930118",
+    "grid": "https://cards.scryfall.io/grid/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.webp?1783930118",
+    "large": "https://cards.scryfall.io/large/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.jpg?1783930118",
+    "normal": "https://cards.scryfall.io/normal/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.jpg?1783930118",
+    "png": "https://cards.scryfall.io/png/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.png?1783930118",
+    "small": "https://cards.scryfall.io/small/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.jpg?1783930118",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/8/18adbda4-8d36-47cd-afbc-c785aaa8ed80.webp?1783930118"
+  },
+  "keywords": [
+    "Indestructible",
+    "Trample",
+    "Infect"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{12}",
+  "mtgo_id": 82504,
+  "multiverse_ids": [
+    489908
+  ],
+  "name": "Blightsteel Colossus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e80772e2-8623-4094-81a2-70828b2b151c",
+  "oracle_text": "Trample, infect, indestructible\nIf Blightsteel Colossus would be put into a graveyard from anywhere, reveal Blightsteel Colossus and shuffle it into its owner's library instead.",
+  "oversized": false,
+  "penny_rank": 612,
+  "power": "11",
+  "preview": {
+    "previewed_at": "2020-05-21",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/news/also-announcing-double-masters-2020-05-21"
+  },
+  "prices": {
+    "eur": "25.26",
+    "eur_foil": "35.59",
+    "tix": "0.78",
+    "usd": "38.84",
+    "usd_etched": null,
+    "usd_foil": "47.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae80772e2-8623-4094-81a2-70828b2b151c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/82504?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=462579&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F214839%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Blightsteel+Colossus",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489908&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlightsteel%2BColossus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlightsteel%2BColossus"
+  },
+  "released_at": "2020-08-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/18adbda4-8d36-47cd-afbc-c785aaa8ed80/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2xm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2xm/235/blightsteel-colossus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2xm",
+  "set_id": "372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "set_name": "Double Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2xm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/372dafe8-b5d1-4b81-998f-3ae96b59498a",
+  "story_spotlight": false,
+  "tcgplayer_id": 214839,
+  "textless": false,
+  "toughness": "11",
+  "type_line": "Artifact Creature — Phyrexian Golem",
+  "uri": "https://api.scryfall.com/cards/18adbda4-8d36-47cd-afbc-c785aaa8ed80",
+  "variation": false
+}

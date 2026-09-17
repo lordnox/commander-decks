@@ -10,57 +10,57 @@
     },
     {
       "component": "combo_piece",
-      "id": "47033ba4-8f26-4a6b-97bd-5b366327325e",
+      "id": "7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb",
       "name": "Tropical Island",
       "object": "related_card",
       "type_line": "Land — Forest Island",
-      "uri": "https://api.scryfall.com/cards/47033ba4-8f26-4a6b-97bd-5b366327325e"
+      "uri": "https://api.scryfall.com/cards/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb"
     }
   ],
-  "artist": "Franz Vohwinkel",
+  "artist": "Jesper Myrfors",
   "artist_ids": [
-    "3a243c17-3baa-4b53-9599-645311cd7d3d"
+    "c011318e-8503-48c1-a990-46e50aff48a0"
   ],
-  "booster": true,
+  "booster": false,
   "border_color": "black",
-  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_back_id": "049a6229-ace9-4363-816a-60cb8773e95d",
+  "cardmarket_id": 686017,
   "cmc": 0.0,
-  "collector_number": "321",
+  "collector_number": "576",
   "color_identity": [
     "G",
     "U"
   ],
   "colors": [],
-  "digital": true,
+  "digital": false,
   "edhrec_rank": 352,
   "finishes": [
-    "nonfoil",
-    "foil"
+    "nonfoil"
   ],
-  "foil": true,
-  "frame": "2015",
+  "foil": false,
+  "frame": "1997",
   "full_art": false,
   "game_changer": false,
   "games": [
-    "mtgo"
+    "paper"
   ],
-  "highres_image": true,
-  "id": "47033ba4-8f26-4a6b-97bd-5b366327325e",
-  "illustration_id": "5a843e64-8099-4164-9c22-ce146cb5fcc2",
-  "image_status": "highres_scan",
-  "image_updated_at": "2026-07-13T10:40:16Z",
+  "highres_image": false,
+  "id": "7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb",
+  "illustration_id": "1064e64b-a67e-4bff-893a-a091e8acb052",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T05:07:21Z",
   "image_uris": {
-    "art": "https://cards.scryfall.io/art/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.webp?1783939216",
-    "art_crop": "https://cards.scryfall.io/art_crop/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.jpg?1783939216",
-    "border_crop": "https://cards.scryfall.io/border_crop/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.jpg?1783939216",
-    "crop": "https://cards.scryfall.io/crop/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.webp?1783939216",
-    "display": "https://cards.scryfall.io/display/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.webp?1783939216",
-    "grid": "https://cards.scryfall.io/grid/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.webp?1783939216",
-    "large": "https://cards.scryfall.io/large/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.jpg?1783939216",
-    "normal": "https://cards.scryfall.io/normal/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.jpg?1783939216",
-    "png": "https://cards.scryfall.io/png/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.png?1783939216",
-    "small": "https://cards.scryfall.io/small/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.jpg?1783939216",
-    "thumb": "https://cards.scryfall.io/thumb/front/4/7/47033ba4-8f26-4a6b-97bd-5b366327325e.webp?1783939216"
+    "art": "https://cards.scryfall.io/art/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.webp?1783919241",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.jpg?1783919241",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.jpg?1783919241",
+    "crop": "https://cards.scryfall.io/crop/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.webp?1783919241",
+    "display": "https://cards.scryfall.io/display/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.webp?1783919241",
+    "grid": "https://cards.scryfall.io/grid/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.webp?1783919241",
+    "large": "https://cards.scryfall.io/large/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.jpg?1783919241",
+    "normal": "https://cards.scryfall.io/normal/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.jpg?1783919241",
+    "png": "https://cards.scryfall.io/png/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.png?1783919241",
+    "small": "https://cards.scryfall.io/small/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.jpg?1783919241",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/a/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb.webp?1783919241"
   },
   "keywords": [],
   "lang": "en",
@@ -91,11 +91,7 @@
     "vintage": "legal"
   },
   "mana_cost": "",
-  "mtgo_foil_id": 53094,
-  "mtgo_id": 53093,
-  "multiverse_ids": [
-    383138
-  ],
+  "multiverse_ids": [],
   "name": "Tropical Island",
   "nonfoil": true,
   "object": "card",
@@ -103,9 +99,9 @@
   "oracle_text": "({T}: Add {G} or {U}.)",
   "oversized": false,
   "prices": {
-    "eur": null,
+    "eur": "351.11",
     "eur_foil": null,
-    "tix": "10.43",
+    "tix": null,
     "usd": null,
     "usd_etched": null,
     "usd_foil": null
@@ -117,33 +113,32 @@
   ],
   "promo": false,
   "purchase_uris": {
-    "cardhoarder": "https://www.cardhoarder.com/cards/53093?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
-    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Tropical+Island&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
-    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DTropical%2BIsland%26view%3Dgrid"
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Tropical+Island&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=686017&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F449480%3Fpage%3D1"
   },
   "rarity": "rare",
   "related_uris": {
     "edhrec": "https://edhrec.com/route/?cc=Tropical+Island",
-    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=383138&printed=false",
     "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTropical%2BIsland",
     "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTropical%2BIsland"
   },
-  "released_at": "2014-06-16",
+  "released_at": "2022-11-28",
   "reprint": true,
   "reserved": true,
-  "rulings_uri": "https://api.scryfall.com/cards/47033ba4-8f26-4a6b-97bd-5b366327325e/rulings",
-  "scryfall_set_uri": "https://scryfall.com/sets/vma?utm_source=api",
-  "scryfall_uri": "https://scryfall.com/card/vma/321/tropical-island?utm_source=api",
-  "security_stamp": "oval",
-  "set": "vma",
-  "set_id": "a944551a-73fa-41cd-9159-e8d0e4674403",
-  "set_name": "Vintage Masters",
-  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Avma&unique=prints",
-  "set_type": "masters",
-  "set_uri": "https://api.scryfall.com/sets/a944551a-73fa-41cd-9159-e8d0e4674403",
+  "rulings_uri": "https://api.scryfall.com/cards/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/30a?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/30a/576/tropical-island?utm_source=api",
+  "set": "30a",
+  "set_id": "c3cddb17-44d9-4abd-8d19-666f6c5171fe",
+  "set_name": "30th Anniversary Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A30a&unique=prints",
+  "set_type": "memorabilia",
+  "set_uri": "https://api.scryfall.com/sets/c3cddb17-44d9-4abd-8d19-666f6c5171fe",
   "story_spotlight": false,
+  "tcgplayer_id": 449480,
   "textless": false,
   "type_line": "Land — Forest Island",
-  "uri": "https://api.scryfall.com/cards/47033ba4-8f26-4a6b-97bd-5b366327325e",
+  "uri": "https://api.scryfall.com/cards/7ac0058d-52aa-4a77-a4a4-0fd9e4d069bb",
   "variation": false
 }

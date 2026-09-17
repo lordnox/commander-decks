@@ -1,0 +1,129 @@
+{
+  "artist": "Robbie Trevino",
+  "artist_ids": [
+    "34f236c4-d646-4e48-9723-9df5f507754d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 267063,
+  "cmc": 2.0,
+  "collector_number": "25",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 7213,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "83ed7ebe-48be-4e6e-a293-b81484f85142",
+  "illustration_id": "72c25d67-620c-43c5-b656-a10839e325de",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:42:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.webp?1783939376",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.jpg?1783939376",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.jpg?1783939376",
+    "crop": "https://cards.scryfall.io/crop/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.webp?1783939376",
+    "display": "https://cards.scryfall.io/display/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.webp?1783939376",
+    "grid": "https://cards.scryfall.io/grid/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.webp?1783939376",
+    "large": "https://cards.scryfall.io/large/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.jpg?1783939376",
+    "normal": "https://cards.scryfall.io/normal/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.jpg?1783939376",
+    "png": "https://cards.scryfall.io/png/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.png?1783939376",
+    "small": "https://cards.scryfall.io/small/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.jpg?1783939376",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/3/83ed7ebe-48be-4e6e-a293-b81484f85142.webp?1783939376"
+  },
+  "keywords": [
+    "Will of the council"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "multiverse_ids": [
+    382371
+  ],
+  "name": "Split Decision",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5f725d51-e133-488c-9ca9-1c7b0523b5bd",
+  "oracle_text": "Will of the council — Choose target instant or sorcery spell. Starting with you, each player votes for denial or duplication. If denial gets more votes, counter the spell. If duplication gets more votes or the vote is tied, copy the spell. You may choose new targets for the copy.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.03",
+    "eur_foil": "5.64",
+    "tix": null,
+    "usd": "1.96",
+    "usd_etched": null,
+    "usd_foil": "7.23"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5f725d51-e133-488c-9ca9-1c7b0523b5bd&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Split+Decision&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=267063&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F83274%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Split+Decision",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=382371&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSplit%2BDecision",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSplit%2BDecision"
+  },
+  "released_at": "2014-06-06",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/83ed7ebe-48be-4e6e-a293-b81484f85142/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cns?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cns/25/split-decision?utm_source=api",
+  "set": "cns",
+  "set_id": "7d4ebb59-a50b-45b8-8fff-ab70767819a5",
+  "set_name": "Conspiracy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acns&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/7d4ebb59-a50b-45b8-8fff-ab70767819a5",
+  "story_spotlight": false,
+  "tcgplayer_id": 83274,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/83ed7ebe-48be-4e6e-a293-b81484f85142",
+  "variation": false
+}

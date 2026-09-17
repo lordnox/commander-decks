@@ -42,3 +42,4 @@ Hot-seat live table. Homer emptied the other three libraries on turn 10 with [Lu
 20. **Lady Evangela — Foggy Blood Transfusion** — Draw-go aikido into Coffers drain. Wins around ten or later. Dense fogs and counters, no early kill.
 21. **Jhoira — Hot Tub Time Machine** — Suspend cook into free haste creatures. Usual threat around nine or ten; telegraphed, not an extra-turn kill.
 22. **Bruse Tarl & Falthis — The Butcher's Masquerade** — Morph crowd into one telegraphed alpha strike. Usually wins around eleven to thirteen; the turn-four Reaper high roll only cripples one player, and the five-card Extreme Plans assembled in four of twelve setup runs by turn twelve. Below Jhoira because it is slower, more board-dependent, and has no recovery for a removed Projektor.
+23. **Círdan — Show Me What You Got!** — Unplaced new deck. Secret-council cheat into a Reins combat; sits at the bottom until a table or goldfish places it.

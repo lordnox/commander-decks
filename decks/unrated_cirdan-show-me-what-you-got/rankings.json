@@ -1,0 +1,13 @@
+{
+  "goals": ["Politics", "Theft"],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 6,
+    "identity": {
+      "Politics": 9,
+      "Theft": 7
+    }
+  },
+  "notes": "Votes and shared dumps are the identity. Reins is a one-turn borrow rather than permanent theft, so Theft sits under Politics."
+}

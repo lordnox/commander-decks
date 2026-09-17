@@ -1,0 +1,133 @@
+{
+  "artist": "Lorenzo Mastroianni",
+  "artist_ids": [
+    "70213e7d-47e0-4543-a1ae-451009053e2d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 881638,
+  "cmc": 2.0,
+  "collector_number": "304",
+  "color_identity": [
+    "G",
+    "U"
+  ],
+  "colors": [
+    "G",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3288,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"I've heard enough.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b1ad1949-1c8e-4566-9286-caf240c88fcc",
+  "illustration_id": "a17e3613-16f8-4f90-a4aa-89753acea670",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:49:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.webp?1783903754",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.jpg?1783903754",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.jpg?1783903754",
+    "crop": "https://cards.scryfall.io/crop/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.webp?1783903754",
+    "display": "https://cards.scryfall.io/display/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.webp?1783903754",
+    "grid": "https://cards.scryfall.io/grid/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.webp?1783903754",
+    "large": "https://cards.scryfall.io/large/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.jpg?1783903754",
+    "normal": "https://cards.scryfall.io/normal/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.jpg?1783903754",
+    "png": "https://cards.scryfall.io/png/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.png?1783903754",
+    "small": "https://cards.scryfall.io/small/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.jpg?1783903754",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/1/b1ad1949-1c8e-4566-9286-caf240c88fcc.webp?1783903754"
+  },
+  "keywords": [
+    "Fight"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{G}{U}",
+  "mtgo_id": 149073,
+  "multiverse_ids": [],
+  "name": "Decisive Denial",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2d0bd780-b754-44a3-894c-a9c8aa711f05",
+  "oracle_text": "Choose one —\n• Target creature you control fights target creature you don't control. (Each deals damage equal to its power to the other.)\n• Counter target noncreature spell unless its controller pays {3}.",
+  "oversized": false,
+  "penny_rank": 1810,
+  "prices": {
+    "eur": "0.19",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.29",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2d0bd780-b754-44a3-894c-a9c8aa711f05&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/149073?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=881638&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F687621%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Decisive+Denial",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDecisive%2BDenial",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDecisive%2BDenial"
+  },
+  "released_at": "2026-04-24",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "03EE43C857C34AC046F5E879F5B153AC8B53907447E19671CEC4144489010413",
+  "rulings_uri": "https://api.scryfall.com/cards/b1ad1949-1c8e-4566-9286-caf240c88fcc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/soc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/soc/304/decisive-denial?utm_source=api",
+  "set": "soc",
+  "set_id": "97fab8d1-480a-419d-ab14-663968e29b9c",
+  "set_name": "Secrets of Strixhaven Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/97fab8d1-480a-419d-ab14-663968e29b9c",
+  "story_spotlight": false,
+  "tcgplayer_id": 687621,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b1ad1949-1c8e-4566-9286-caf240c88fcc",
+  "variation": false,
+  "watermark": "quandrix"
+}

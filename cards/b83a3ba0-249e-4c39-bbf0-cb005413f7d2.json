@@ -1,0 +1,129 @@
+{
+  "artist": "Zack Stella",
+  "artist_ids": [
+    "17bc7f55-958b-43f4-bb40-09746d05b3f9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 291797,
+  "cmc": 3.0,
+  "collector_number": "121",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6434,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "At the academy, \"show and tell\" too often becomes \"run and hide.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "fa7b7897-36e0-415a-8bb7-602886164852",
+  "illustration_id": "0f2d7b0e-7277-403d-bce7-427fe270c2c8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:08:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.webp?1783937320",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.jpg?1783937320",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.jpg?1783937320",
+    "crop": "https://cards.scryfall.io/crop/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.webp?1783937320",
+    "display": "https://cards.scryfall.io/display/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.webp?1783937320",
+    "grid": "https://cards.scryfall.io/grid/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.webp?1783937320",
+    "large": "https://cards.scryfall.io/large/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.jpg?1783937320",
+    "normal": "https://cards.scryfall.io/normal/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.jpg?1783937320",
+    "png": "https://cards.scryfall.io/png/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.png?1783937320",
+    "small": "https://cards.scryfall.io/small/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.jpg?1783937320",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/a/fa7b7897-36e0-415a-8bb7-602886164852.webp?1783937320"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "banned",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}",
+  "multiverse_ids": [
+    416878
+  ],
+  "name": "Show and Tell",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b83a3ba0-249e-4c39-bbf0-cb005413f7d2",
+  "oracle_text": "Each player may put an artifact, creature, enchantment, or land card from their hand onto the battlefield.",
+  "oversized": false,
+  "prices": {
+    "eur": "11.82",
+    "eur_foil": "27.74",
+    "tix": null,
+    "usd": "19.35",
+    "usd_etched": null,
+    "usd_foil": "38.02"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab83a3ba0-249e-4c39-bbf0-cb005413f7d2&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Show+and+Tell&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=291797&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F121906%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Show+and+Tell",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=416878&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShow%2Band%2BTell",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShow%2Band%2BTell"
+  },
+  "released_at": "2016-08-26",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/fa7b7897-36e0-415a-8bb7-602886164852/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cn2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cn2/121/show-and-tell?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cn2",
+  "set_id": "ad1b8847-1905-4080-9e26-80691ea7c1ef",
+  "set_name": "Conspiracy: Take the Crown",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acn2&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/ad1b8847-1905-4080-9e26-80691ea7c1ef",
+  "story_spotlight": false,
+  "tcgplayer_id": 121906,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/fa7b7897-36e0-415a-8bb7-602886164852",
+  "variation": false
+}

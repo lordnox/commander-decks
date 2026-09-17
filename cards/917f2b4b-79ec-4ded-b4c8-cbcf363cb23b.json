@@ -1,0 +1,127 @@
+{
+  "artist": "Kaja Foglio",
+  "artist_ids": [
+    "e8b85539-756a-4eac-ac66-a2258d7cf547"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 7070,
+  "cmc": 4.0,
+  "collector_number": "185",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 18049,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "1993",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "520db5fb-d961-45a3-af74-6f054b8be3ab",
+  "illustration_id": "4dbd9ada-19fb-47e1-b05b-d2fd21916d70",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T13:07:28Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.webp?1783948048",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.jpg?1783948048",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.jpg?1783948048",
+    "crop": "https://cards.scryfall.io/crop/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.webp?1783948048",
+    "display": "https://cards.scryfall.io/display/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.webp?1783948048",
+    "grid": "https://cards.scryfall.io/grid/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.webp?1783948048",
+    "large": "https://cards.scryfall.io/large/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.jpg?1783948048",
+    "normal": "https://cards.scryfall.io/normal/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.jpg?1783948048",
+    "png": "https://cards.scryfall.io/png/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.png?1783948048",
+    "small": "https://cards.scryfall.io/small/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.jpg?1783948048",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/2/520db5fb-d961-45a3-af74-6f054b8be3ab.webp?1783948048"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{G}{G}",
+  "multiverse_ids": [
+    1525
+  ],
+  "name": "Eureka",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "917f2b4b-79ec-4ded-b4c8-cbcf363cb23b",
+  "oracle_text": "Starting with you, each player may put a permanent card from their hand onto the battlefield. Repeat this process until no one puts a card onto the battlefield.",
+  "oversized": false,
+  "penny_rank": 1015,
+  "prices": {
+    "eur": "363.25",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "462.01",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A917f2b4b-79ec-4ded-b4c8-cbcf363cb23b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Eureka&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=7070&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F3860%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eureka",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=1525&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEureka",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEureka"
+  },
+  "released_at": "1994-06-01",
+  "reprint": false,
+  "reserved": true,
+  "rulings_uri": "https://api.scryfall.com/cards/520db5fb-d961-45a3-af74-6f054b8be3ab/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/leg?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/leg/185/eureka?utm_source=api",
+  "set": "leg",
+  "set_id": "78c50b4b-b220-455b-a2d5-cee458fa56f3",
+  "set_name": "Legends",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aleg&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/78c50b4b-b220-455b-a2d5-cee458fa56f3",
+  "story_spotlight": false,
+  "tcgplayer_id": 3860,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/520db5fb-d961-45a3-af74-6f054b8be3ab",
+  "variation": false
+}
