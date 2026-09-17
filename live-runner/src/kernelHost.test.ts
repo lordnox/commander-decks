@@ -1311,4 +1311,62 @@ describe('kernel host journal', () => {
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice-creature' })
   })
+
+  test('pauses on a waiting stack discard and resumes with continueAction', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-stack-discard-'))
+    mkdirGames(root)
+    const handId = 'hand-card'
+    seedKernel(root, 'pod', (state) => {
+      state.objects[handId] = {
+        ...forest(),
+        id: handId,
+        name: 'Victim Card',
+        types: ['Instant'],
+        owner: 'p2',
+        controller: 'p2',
+        zone: 'hand',
+      }
+      state.zoneOrder.p2.hand = [handId]
+      state.zoneCounts.p2.hand = 1
+      state.stack = [{
+        id: 'discard-action',
+        kind: 'action',
+        actionId: 'discard',
+        objectId: 'cry',
+        controller: 'p2',
+        name: 'Discard',
+        targets: [],
+        waiting: 'choice',
+        payload: { seat: 'p2', count: 1, chooser: 'p2' },
+      }]
+      state.priority = 'p2'
+      state.passedInRow = []
+    }, true)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const kernel = await openKernel('pod', root, lobby)
+    const beforeEvents = kernel.journal.events.length
+
+    expect(settleKernelPriority(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p2',
+      kind: 'discard-card',
+      cards: ['Victim Card'],
+      kernel: { stage: 'stack-discard', stackId: 'discard-action' },
+    })
+    expect(kernel.journal.events.length - beforeEvents).toBeLessThan(20)
+    expect(lobby.topdeck).toBeDefined()
+    expect(kernel.history.current().stack[0]?.waiting).toBe('choice')
+
+    expect(applyKernelChoice(kernel, lobby, 'p2', {
+      type: 'topdeck',
+      choices: [{ card: 'Victim Card', destination: 'graveyard' }],
+    })).toBe(true)
+    expect(kernel.journal.events.some((event) =>
+      event.type === 'continueAction'
+      && event.stackId === 'discard-action'
+      && event.seat === 'p2')).toBe(true)
+    expect(kernel.history.current().stack).toHaveLength(0)
+    expect(kernel.history.current().objects[handId].zone).toBe('graveyard')
+  })
 })

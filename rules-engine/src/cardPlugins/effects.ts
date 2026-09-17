@@ -43,7 +43,7 @@ export type CardInstruction =
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   | { kind: 'draw'; count: number }
-  | { kind: 'discardCards'; count: number }
+  | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
   | { kind: 'gainLife'; count: number }
   | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
   | { kind: 'loseLifeTargetManaValue' }
@@ -421,7 +421,10 @@ export const putMilledLandTapped = (): CardInstruction => ({ kind: 'putMilledLan
 
 export const draw = (count: number): CardInstruction => ({ kind: 'draw', count })
 
-export const discardCards = (count: number): CardInstruction => ({ kind: 'discardCards', count })
+export const discardCards = (
+  count: number,
+  who: 'controller' | 'target' = 'controller',
+): CardInstruction => ({ kind: 'discardCards', count, who })
 
 export const discardHandsThenDrawGreatest = (): CardInstruction => ({
   kind: 'discardHandsThenDrawGreatest',
@@ -902,12 +905,25 @@ const manaValueOf = (object: GameObject) =>
 
 type BufferedStackAction =
   | { kind: 'draw'; remaining: number }
-  | { kind: 'discard'; count: number }
+  | { kind: 'discard'; count: number; who?: 'controller' | 'target' }
+
+const discardSeatFor = (
+  source: GameObject,
+  item?: StackItem,
+  who: 'controller' | 'target' = 'controller',
+) => {
+  if (who === 'target') {
+    const target = item?.targets[0]
+    if (target?.kind === 'player') return target.player
+  }
+  return source.controller
+}
 
 const flushStackActions = (
   draft: Draft,
   source: GameObject,
   buffer: BufferedStackAction[],
+  item?: StackItem,
 ) => {
   for (const action of [...buffer].reverse()) {
     if (action.kind === 'draw') {
@@ -919,9 +935,11 @@ const flushStackActions = (
       })
       continue
     }
+    const seat = discardSeatFor(source, item, action.who)
     initiateDiscard(draft, {
-      seat: source.controller,
+      seat,
       count: action.count,
+      chooser: seat,
       sourceId: source.id,
       name: source.name,
     })
@@ -985,13 +1003,15 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'discardCards') {
+      const seat = discardSeatFor(source, item, instruction.who)
       if (buffer) {
-        buffer.push({ kind: 'discard', count: instruction.count })
+        buffer.push({ kind: 'discard', count: instruction.count, who: instruction.who })
         continue
       }
       initiateDiscard(draft, {
-        seat: source.controller,
+        seat,
         count: instruction.count,
+        chooser: seat,
         sourceId: source.id,
         name: source.name,
       })
@@ -1683,7 +1703,7 @@ export const runInstructions = (
     }
   }
 
-  if (buffer && stackBuffer === undefined) flushStackActions(draft, source, buffer)
+  if (buffer && stackBuffer === undefined) flushStackActions(draft, source, buffer, item)
 }
 
 export const extraTriggerCount = (

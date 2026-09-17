@@ -1,13 +1,19 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
+import { freezeDraft, makeDraft } from '../draft'
 import { rules } from '../kernel'
+import { commanderRules } from '../formats'
+import { cardTemplate } from '../newGame'
+import { createServerGame } from '../runtime'
+import { initiateDiscard } from '../rules/discard'
 import { bears, bolt, newGame } from '../testGame'
 import type { GameState, ReduceResult, StackItem } from '../types'
+import { discard } from '../rules/discard'
 import { priority } from './priority'
 import { spells } from './spells'
 import { turnStructure } from './turnStructure'
 
-const catalog = createCatalog([turnStructure, priority, spells])
+const catalog = createCatalog([turnStructure, priority, spells, discard])
 
 const builtinRules = ['turnStructure', 'priority', 'spells']
 
@@ -134,6 +140,30 @@ describe('priority', () => {
     expect(state.active).toBe('p2')
     expect(state.turn).toBe(2)
     expect(state.priority).toBe('p2')
+  })
+
+  test('all-pass while a discard action is waiting does not resolve or loop', () => {
+    const card = (name: string) => cardTemplate(name, { types: ['Instant'] })
+    const server = createServerGame(commanderRules, {
+      hands: { p2: [card('Waiting')] },
+      players: 4,
+    })
+    const draft = makeDraft(server.state)
+    initiateDiscard(draft, { seat: 'p2', count: 1 })
+    let current = freezeDraft(draft)
+    current = ok(rules(current, { type: 'resolveTop' }, catalog))
+    const stackId = current.stack[0].id
+
+    expect(current.stack[0].waiting).toBe('choice')
+
+    for (let round = 0; round < 3; round += 1) {
+      current = passRound(current)
+    }
+
+    expect(current.stack).toHaveLength(1)
+    expect(current.stack[0].id).toBe(stackId)
+    expect(current.stack[0].waiting).toBe('choice')
+    expect(current.priority).toBe('p2')
   })
 
   test('a cleanup pass round cannot carry eight cards into the next turn', () => {

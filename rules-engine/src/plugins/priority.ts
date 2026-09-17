@@ -18,6 +18,19 @@ const apply = ({ event, draft }: HookCtx) => {
     return
   }
 
+  const waitingTop = draft.stack[0]
+  if (waitingTop?.waiting) {
+    const payload = waitingTop.payload
+    const chooser = (
+      typeof payload?.chooser === 'string'
+        ? payload.chooser
+        : waitingTop.controller
+    ) as typeof draft.priority
+    draft.passedInRow = []
+    draft.priority = chooser
+    return
+  }
+
   if (draft.stack.length > 0) {
     draft.enqueue({ type: 'resolveTop' })
     draft.passedInRow = []
