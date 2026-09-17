@@ -76,6 +76,11 @@ describe('fight', () => {
         { kind: 'object', objectId: named(withMana, 'Grizzly Bears').id },
       ],
     }))
-    expect(activatedTriangle.objects[named(activatedTriangle, 'Grizzly Bears').id].zone).toBe('graveyard')
+    // CR 602.2/608.2 — fight damage happens when the ability resolves.
+    expect(activatedTriangle.objects[named(activatedTriangle, 'Grizzly Bears').id].zone)
+      .toBe('battlefield')
+    expect(activatedTriangle.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'fight.triangle' })
+    const resolved = ok(server.rules(activatedTriangle, { type: 'resolveTop' }))
+    expect(resolved.objects[named(resolved, 'Grizzly Bears').id].zone).toBe('graveyard')
   })
 })

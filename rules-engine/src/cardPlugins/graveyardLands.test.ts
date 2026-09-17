@@ -78,17 +78,23 @@ describe('graveyard lands', () => {
     const sourceId = server.state.zoneOrder.p1.battlefield[0]
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
-    const resolved = ok(server.rules(ready, {
+    const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
       abilityId: AFTERMATH_RECLAIM,
       seat: 'p1',
       objectId: sourceId,
     }))
+    // CR 602.2 — sacrifice and mana at activation; return lands on resolve (608.2).
+    expect(names(activatedState, 'battlefield')).toEqual([])
+    expect(names(activatedState, 'graveyard')).toEqual(['Forest', 'Spell', 'Aftermath Analyst'])
+    expect(activatedState.objects[sourceId].zone).toBe('graveyard')
+    expect(activatedState.players.p1.mana.G).toBe(0)
+    expect(activatedState.stack[0]).toMatchObject({ kind: 'ability', abilityId: AFTERMATH_RECLAIM })
 
+    const resolved = ok(server.rules(activatedState, { type: 'resolveTop' }))
     expect(names(resolved, 'battlefield')).toEqual(['Forest'])
     expect(names(resolved, 'graveyard')).toEqual(['Spell', 'Aftermath Analyst'])
     expect(resolved.objects[sourceId].zone).toBe('graveyard')
-    expect(resolved.players.p1.mana.G).toBe(0)
     expect(resolved.objects[resolved.zoneOrder.p1.battlefield[0]].tapped).toBe(true)
   })
 

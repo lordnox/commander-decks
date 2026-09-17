@@ -42,12 +42,16 @@ describe('self-bouncing lands', () => {
       active: 'p2',
       priority: 'p1',
     }
-    const returned = ok(server.rules(otherTurn, {
+    const activated = ok(server.rules(otherTurn, {
       type: 'activateAbility',
       abilityId: GHOST_TOWN_RETURN,
       seat: 'p1',
       objectId,
     }))
+    // CR 602.2/608.2 — bounce resolves from the stack, not at activation.
+    expect(activated.objects[objectId].zone).toBe('battlefield')
+    expect(activated.stack[0]).toMatchObject({ kind: 'ability', abilityId: GHOST_TOWN_RETURN })
+    const returned = ok(server.rules(activated, { type: 'resolveTop' }))
     expect(returned.objects[objectId].zone).toBe('hand')
   })
 
@@ -56,14 +60,17 @@ describe('self-bouncing lands', () => {
     const objectId = server.state.zoneOrder.p1.battlefield[0]
     const ready = structuredClone(server.state)
     ready.players.p1.mana.U = 1
-    const returned = ok(server.rules(ready, {
+    const activated = ok(server.rules(ready, {
       type: 'activateAbility',
       abilityId: OBORO_RETURN,
       seat: 'p1',
       objectId,
     }))
+    expect(activated.players.p1.mana.U).toBe(0)
+    expect(activated.objects[objectId].zone).toBe('battlefield')
+    expect(activated.stack[0]).toMatchObject({ kind: 'ability', abilityId: OBORO_RETURN })
+    const returned = ok(server.rules(activated, { type: 'resolveTop' }))
     expect(returned.objects[objectId].zone).toBe('hand')
-    expect(returned.players.p1.mana.U).toBe(0)
   })
 
   test('Oboro rejects an activation without mana', () => {

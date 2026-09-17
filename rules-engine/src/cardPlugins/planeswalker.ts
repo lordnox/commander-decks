@@ -1,5 +1,5 @@
 import type { GameObject, Plugin, TargetRef } from '../types'
-import { activateEffect, runInstructions } from './effects'
+import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
 
 const MAIN_PHASES = new Set(['precombatMain', 'postcombatMain'])
@@ -120,8 +120,7 @@ export const planeswalker: Plugin = {
       source.counters.loyalty = (source.counters.loyalty ?? 0)
         + loyaltyChange(effect, event.x)
       source.loyaltyActivatedTurn = state.turn
-      draft.stack.unshift({
-        id: draft.allocId('s'),
+      draft.addToStack({
         kind: 'ability',
         objectId: source.id,
         controller: event.seat,
@@ -133,13 +132,6 @@ export const planeswalker: Plugin = {
       draft.passedInRow = []
       draft.priority = event.seat
       draft.note(`${event.seat} activates ${source.name}`)
-      return
     }
-    if (event.type !== 'resolveTop') return
-    const item = state.stack[0]
-    if (item?.kind !== 'ability' || !item.abilityId) return
-    const source = draft.object(item.objectId)
-    const effect = loyaltyEffect(source, item.abilityId)
-    if (source && effect) runInstructions(draft, source, effect.do, item)
   },
 }

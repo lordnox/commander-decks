@@ -115,15 +115,30 @@ export const activated: Plugin = {
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
     payActivateCosts(draft, source, event.seat, effect.costs)
-    runInstructions(draft, source, effect.do, {
-      id: event.objectId,
-      kind: 'ability',
-      objectId: event.objectId,
-      controller: event.seat,
-      name: source.name,
-      targets: event.targets ?? [],
-      abilityId: event.abilityId,
-    })
+    if (effect.manaAbility || event.manaAbility) {
+      runInstructions(draft, source, effect.do, {
+        id: event.objectId,
+        kind: 'ability',
+        objectId: event.objectId,
+        controller: event.seat,
+        name: source.name,
+        targets: event.targets ?? [],
+        abilityId: event.abilityId,
+      })
+    } else {
+      draft.addToStack({
+        kind: 'ability',
+        objectId: source.id,
+        controller: event.seat,
+        name: source.name,
+        targets: event.targets ?? [],
+        abilityId: event.abilityId,
+        ...(event.x !== undefined ? { x: event.x } : {}),
+        ...(event.choices ? { choices: event.choices } : {}),
+      })
+      draft.passedInRow = []
+      draft.priority = event.seat
+    }
     draft.note(`${event.seat} activates ${source.name}`)
   },
 }
