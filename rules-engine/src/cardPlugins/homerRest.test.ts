@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame as createRuntimeGame } from '../runtime'
-import type { ReduceResult } from '../types'
+import { ok, resolveStack } from '../testHelpers'
 import { DIALOG_CHOSEN, dialogCandidates, pendingDialog } from '../pendingDialog'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
@@ -23,11 +23,6 @@ const createServerGame: typeof createRuntimeGame = (format, options) =>
       zoneTriggers,
     ],
   })
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const named = (state: import('../types').GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -78,11 +73,11 @@ describe('Homer remaining card plugins', () => {
         },
       },
     )
-    const entered = ok(server.rules(server.state, {
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'playLand',
       seat: 'p1',
       objectId: named(server.state, 'Simic Growth Chamber').id,
-    }))
+    })))
     expect(pendingDialog(entered)?.kind).toBe('bounce-land')
     expect(named(entered, 'Simic Growth Chamber').tapped).toBe(true)
   })
@@ -111,11 +106,11 @@ describe('Homer remaining card plugins', () => {
         },
       },
     )
-    const moved = ok(server.rules(server.state, {
+    const moved = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
       objectId: named(server.state, 'Sakashima of a Thousand Faces').id,
       to: 'battlefield',
-    }))
+    })))
     const sakashima = named(moved, 'Sakashima of a Thousand Faces')
     expect(pendingDialog(moved)?.kind).toBe('copy-creature')
     const copied = ok(server.rules(moved, {
@@ -153,12 +148,12 @@ describe('Homer remaining card plugins', () => {
       objectId: spark.id,
       to: 'graveyard',
     }))
-    const entered = ok(server.rules(buried, {
+    const entered = resolveStack(server.rules, ok(server.rules(buried, {
       type: 'move',
       objectId: spark.id,
       to: 'battlefield',
       controller: 'p1',
-    }))
+    })))
     const dialog = pendingDialog(entered)
     expect(entered.objects[spark.id].controller).toBe('p1')
     expect(entered.objects[spark.id].zone).toBe('battlefield')
@@ -187,11 +182,11 @@ describe('Homer remaining card plugins', () => {
         },
       },
     )
-    const next = ok(server.rules(server.state, {
+    const next = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'playLand',
       seat: 'p1',
       objectId: named(server.state, 'Forest').id,
-    }))
+    })))
     expect(next.zoneOrder.p1.hand.map((id) => next.objects[id].name)).toEqual(['First', 'Second'])
   })
 

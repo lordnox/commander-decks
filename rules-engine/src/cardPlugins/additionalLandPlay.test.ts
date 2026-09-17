@@ -2,7 +2,8 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import type { GameEvent, GameState, ReduceResult } from '../types'
+import { ok, resolveStack } from '../testHelpers'
+import type { GameEvent, GameState } from '../types'
 import { additionalLandPlay } from './additionalLandPlay'
 import { onResolve } from './onResolve'
 
@@ -11,11 +12,6 @@ const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) 
 
 const forest = (name = 'Forest') =>
   card(name, ['Land'], { subtypes: ['Forest'], tapProduces: { G: 1 } })
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const game = (options: {
   hand?: CardTemplate[]
@@ -59,11 +55,11 @@ describe('additionalLandPlay', () => {
 
   test('Aesi on the battlefield allows a second land', () => {
     const server = game({ hand: [forest('First'), forest('Second')], battlefield: [aesi()] })
-    const first = ok(server.rules(server.state, {
+    const first = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'playLand',
       seat: 'p1',
       objectId: server.state.zoneOrder.p1.hand[0],
-    }))
+    })))
     expect(first.players.p1.landPlaysAllowed).toBe(2)
     const second = ok(server.rules(first, {
       type: 'playLand',

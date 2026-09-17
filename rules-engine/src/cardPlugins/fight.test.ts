@@ -3,15 +3,10 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
-import type { ReduceResult } from '../types'
+import { ok, resolveStack } from '../testHelpers'
 import { activated } from './activated'
 import { fight } from './fight'
 import { zoneTriggers } from './zoneTriggers'
-
-const ok = (result: ReduceResult) => {
-  if (!result.ok) throw new Error(result.error)
-  return result.state
-}
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -33,11 +28,11 @@ describe('fight', () => {
       { hands: { p1: [apex] }, battlefield: { p2: [prey] } },
       { random: () => 0.5, cardPlugins: [zoneTriggers, fight] },
     )
-    const entered = ok(server.rules(server.state, {
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'move',
       objectId: named(server.state, 'Apex Altisaur').id,
       to: 'battlefield',
-    }))
+    })))
     const dialog = pendingDialog(entered)
     expect(dialog).toMatchObject({ kind: 'fight-target', seat: 'p1' })
     const fought = ok(server.rules(entered, {
