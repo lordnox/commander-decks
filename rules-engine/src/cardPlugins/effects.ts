@@ -793,7 +793,7 @@ export const runInstructions = (
       )
       for (const seat of draft.playerOrder) {
         for (const objectId of draft.zoneOrder[seat].hand) {
-          draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+          draft.enqueue({ type: 'discard', seat, objectId })
         }
         draft.enqueue({ type: 'draw', seat, count })
       }

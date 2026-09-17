@@ -609,6 +609,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Stitch Together': [
     targetOnResolve('bounce', { zone: 'graveyard', type: 'Creature' }),
   ],
+  "Liliana's Caress": [staticGrant('lilianasCaress'), handler('lilianasCaress')],
   'Sygg, River Cutthroat': [staticGrant('sygg'), handler('sygg')],
   "Tamiyo's Safekeeping": [
     targetOnResolve(

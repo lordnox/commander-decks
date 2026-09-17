@@ -245,6 +245,7 @@ export type GameEvent =
   | { type: 'untap'; objectId: string }
   | { type: 'advanceStep' }
   | { type: 'draw'; seat: PlayerId; count?: number }
+  | { type: 'discard'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   /** Publishes named cards to the whole table, even from a hidden zone. */
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }

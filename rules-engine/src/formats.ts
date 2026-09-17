@@ -3,6 +3,7 @@ import { abilities } from './plugins/activateAbility'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
+import { discard } from './plugins/discard'
 import { fog } from './plugins/fog'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
@@ -47,6 +48,7 @@ export const corePlugins = [
   stateBased,
   combat,
   damage,
+  discard,
   judgeFallback,
   unconfiguredHiddenInformation,
   pendingDialogLock,
