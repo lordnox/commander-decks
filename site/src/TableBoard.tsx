@@ -863,6 +863,16 @@ export const StackOverlay = ({
                             {controller.name}
                           </span>
                         )}
+                        {item.kind === 'action' && (
+                          <span className="text-[0.6rem] font-bold uppercase text-amber-300/90">
+                            Action
+                          </span>
+                        )}
+                        {item.waiting && (
+                          <span className="text-[0.6rem] font-bold uppercase text-sky-300/90">
+                            waiting
+                          </span>
+                        )}
                       </span>
                       {item.text && (
                         <span className="mt-1 block text-xs leading-5 text-stone-400">

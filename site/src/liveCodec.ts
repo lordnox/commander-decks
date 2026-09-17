@@ -118,8 +118,10 @@ export type LiveSnapshot = {
   awaiting?: string | null
   stack: Array<{
     name: string | number
+    kind?: 'spell' | 'trigger' | 'ability' | 'action'
     controller?: string
     text?: string
+    waiting?: 'choice' | 'targets' | null
   }>
   combat?: ReplayCombat
   seats: LiveSeat[] | Record<string, LiveSeat>

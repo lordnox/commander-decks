@@ -189,6 +189,28 @@ test('hovering a clone shows the copied face beside the card it is printed as', 
   expect(html).toContain('Actually')
 })
 
+test('a waiting discard action shows action and waiting cues', () => {
+  const html = renderToStaticMarkup(
+    <StackOverlay
+      game={game}
+      stack={[{
+        name: 'Discard',
+        kind: 'action',
+        controller: 'p1',
+        waiting: 'choice',
+        text: 'discard · waiting',
+      }]}
+      onPreview={() => {}}
+      onHover={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Discard')
+  expect(html).toContain('Action')
+  expect(html).toContain('waiting')
+  expect(html).toContain('discard · waiting')
+})
+
 test('a loyalty activation previews its source card and uses a readable label', () => {
   const html = renderToStaticMarkup(
     <StackOverlay

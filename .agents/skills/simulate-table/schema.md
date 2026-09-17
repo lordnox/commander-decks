@@ -134,6 +134,8 @@ printed ability, exact cause, effect, and targets. Keep the original spell in
 `state.stack` while a `trigger` event adds each ability above it. The trigger's
 stack row uses the source card as `name`, `kind: "trigger"`, and the printed
 ability plus targets in `text`, so the viewer shows the pending trigger list.
+Kernel discard/draw actions may use `kind: "action"` with optional
+`waiting: "choice"` or `"targets"` until the host sends `continueAction`.
 Resolve each trigger separately, then remove the spell in its own `resolve`
 or `move` event. The same rule applies to enter, landfall, attack,
 combat-damage, death, and second-draw triggers. An Aura cast names the

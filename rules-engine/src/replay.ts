@@ -479,6 +479,11 @@ const targetLabel = (state: GameState, target: TargetRef) => {
 }
 
 const stackItemText = (state: GameState, item: GameState['stack'][number]) => {
+  if (item.kind === 'action') {
+    const parts = [item.actionId ?? 'action']
+    if (item.waiting) parts.push('waiting')
+    return parts.join(' · ')
+  }
   const targets = item.targets
     .map((target) => targetLabel(state, target))
     .filter((label): label is string => Boolean(label))
@@ -509,6 +514,7 @@ export const replayComparableState = (state: GameState) => ({
       name: source?.name ?? item.name,
       kind: item.kind,
       controller: item.controller,
+      ...(item.waiting ? { waiting: item.waiting } : {}),
       ...(text ? { text } : {}),
     }
   }),

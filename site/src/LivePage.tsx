@@ -1112,12 +1112,20 @@ export const LivePage = () => {
                 Stack · {snapshot.stack.length}
               </p>
               <ol className="mt-2 space-y-1 text-sm leading-6 text-stone-300">
-                {[...snapshot.stack].reverse().map((item, index) => (
-                  <li key={`${String(item.name)}-${index}`}>
-                    {typeof item.name === 'string' ? item.name : String(item.name)}
-                    {item.text ? ` — ${item.text}` : ''}
-                  </li>
-                ))}
+                {[...snapshot.stack].reverse().map((item, index) => {
+                  const name = typeof item.name === 'string' ? item.name : String(item.name)
+                  const hints = [
+                    item.kind === 'action' ? 'Action' : '',
+                    item.waiting ? 'waiting' : '',
+                    item.text ?? '',
+                  ].filter(Boolean).join(' · ')
+                  return (
+                    <li key={`${String(item.name)}-${index}`}>
+                      {name}
+                      {hints ? ` — ${hints}` : ''}
+                    </li>
+                  )
+                })}
               </ol>
             </div>
           )}
