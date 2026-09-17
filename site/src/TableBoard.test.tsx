@@ -230,6 +230,36 @@ test('a card preview lists its host-advertised actions', () => {
   expect(html).toContain('Tap for {G}')
 })
 
+test('a targeted loyalty action starts its target selector from the card preview', () => {
+  const html = renderToStaticMarkup(
+    <CardPreview
+      preview={{
+        name: 'Teferi, Who Slows the Sunset',
+        details: game.catalog['Teferi, Who Slows the Sunset'],
+        objectId: 'teferi',
+      }}
+      acts={[{
+        kind: 'activateAbility',
+        objectId: 'teferi',
+        name: 'Teferi, Who Slows the Sunset',
+        text: 'teferi.plus-one',
+        abilityId: 'teferi.plus-one',
+        targetGroups: [{
+          label: 'Artifact',
+          min: 0,
+          max: 1,
+          targets: [{ objectId: 'rock', name: 'Arcane Signet', controller: 'p1' }],
+        }],
+      }]}
+      onAct={() => {}}
+      onClose={() => {}}
+    />,
+  )
+
+  expect(html).toContain('>+1<')
+  expect(html).not.toContain('Artifact target')
+})
+
 test('a targeted fast cast asks for its target after Cast', () => {
   const html = renderToStaticMarkup(
     <CardPreview

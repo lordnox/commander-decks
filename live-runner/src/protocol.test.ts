@@ -88,6 +88,13 @@ describe('inbox', () => {
       objectId: 'spell',
       targetObjectId: 'target',
     })
+    expect(parseInbox('{"type":"act","kind":"activateAbility","objectId":"teferi","abilityId":"teferi.plus-one","targetObjectIds":["rock","bear","land"]}')).toEqual({
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: 'teferi',
+      abilityId: 'teferi.plus-one',
+      targetObjectIds: ['rock', 'bear', 'land'],
+    })
     expect(parseInbox('{"type":"act","kind":"declareAttackers","attackers":[{"objectId":"bear","defenderId":"p2"},{"objectId":"dragon","defenderId":"walker"}]}')).toEqual({
       type: 'act',
       kind: 'declareAttackers',

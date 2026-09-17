@@ -1,4 +1,5 @@
 import { commanderRules } from '../formats'
+import { legalActsFor } from '../actions'
 import { cardTemplate, forest, planeswalker } from '../newGame'
 import { pendingDialogFor } from '../pendingDialog'
 import { replayComparableState } from '../replay'
@@ -47,6 +48,25 @@ const game = (loyalty = 4) => createServerGame(
 const target = (object: GameObject) => ({ kind: 'object' as const, objectId: object.id })
 
 describe('Teferi, Who Slows the Sunset', () => {
+  test('the action feed exposes +1 target selectors alongside −2', () => {
+    const runtime = game(6)
+    const actions = legalActsFor(runtime.state, 'p1')
+      .filter((action) => action.kind === 'activateAbility')
+
+    expect(actions.map((action) => action.abilityId)).toEqual([
+      'teferi.plus-one',
+      'teferi.minus-two',
+    ])
+    expect(actions[0]).toMatchObject({
+      abilityId: 'teferi.plus-one',
+      targetGroups: [
+        { label: 'Artifact', min: 0, max: 1 },
+        { label: 'Creature', min: 0, max: 1 },
+        { label: 'Land', min: 0, max: 1 },
+      ],
+    })
+  })
+
   test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {
     const runtime = game()
     const source = objectNamed(runtime.state, 'Teferi, Who Slows the Sunset')
@@ -62,6 +82,7 @@ describe('Teferi, Who Slows the Sunset', () => {
       ],
     }))
     expect(activated.objects[source.id].counters.loyalty).toBe(5)
+    expect(activated.priority).toBe('p1')
     expect(replayComparableState(activated).stack).toEqual([{
       name: 'Teferi, Who Slows the Sunset',
       kind: 'ability',

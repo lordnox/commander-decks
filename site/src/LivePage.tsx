@@ -505,6 +505,7 @@ export const LivePage = () => {
       kind?: AvailableAction['kind']
       objectId?: string
       targetObjectId?: string
+      targetObjectIds?: string[]
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
@@ -567,6 +568,7 @@ export const LivePage = () => {
           kind: extra.kind,
           objectId: extra.objectId,
           ...(extra.targetObjectId ? { targetObjectId: extra.targetObjectId } : {}),
+          ...(extra.targetObjectIds ? { targetObjectIds: extra.targetObjectIds } : {}),
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
@@ -1266,6 +1268,7 @@ export const LivePage = () => {
             flash('Card name copied')
           }}
           onInsertName={canSend ? onInsertName : undefined}
+          seatNames={Object.fromEntries(boardSeats.map((seat) => [seat.id, seat.name]))}
           acts={(snapshot.legalActs ?? []).filter((action) => {
             if (!('objectId' in action)) return false
             if (preview.objectId) return action.objectId === preview.objectId
@@ -1280,6 +1283,9 @@ export const LivePage = () => {
                   objectId: action.objectId,
                   ...('targetObjectId' in action && action.targetObjectId
                     ? { targetObjectId: action.targetObjectId }
+                    : {}),
+                  ...('targetObjectIds' in action && action.targetObjectIds
+                    ? { targetObjectIds: action.targetObjectIds }
                     : {}),
                   ...('abilityId' in action && action.abilityId
                     ? { abilityId: action.abilityId }

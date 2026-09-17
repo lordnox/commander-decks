@@ -867,7 +867,18 @@ export const applyKernelAct = (
   const action = legalActsFor(state, seat).find((candidate) =>
     sameLegalAct(candidate, message))
   if (!action) throw new Error('That action is not available now')
-  const events = eventsForAvailableAction(state, seat, action)
+  const events = action.kind === 'activateAbility' && action.targetGroups
+    ? [{
+        type: 'activateAbility' as const,
+        seat,
+        objectId: action.objectId,
+        abilityId: action.abilityId ?? '',
+        targets: (message.targetObjectIds ?? []).map((objectId) => ({
+          kind: 'object' as const,
+          objectId,
+        })),
+      }]
+    : eventsForAvailableAction(state, seat, action)
   if (!events) throw new Error('That action now needs a judge decision')
 
   let dryRun = state
