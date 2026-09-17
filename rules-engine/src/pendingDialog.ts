@@ -21,6 +21,7 @@ export type PendingDialog = {
     | 'copy-creature'
     | 'return-land'
     | 'exile-graveyards'
+    | 'sacrifice-lands'
     | 'may'
     | 'may-pay-life'
   prompt: string
@@ -28,7 +29,8 @@ export type PendingDialog = {
   judge: string
   chosenEvent: string
   destinations: Array<
-    'top' | 'bottom' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 'skip' | 'target'
+    'top' | 'bottom' | 'hand' | 'battlefield' | 'graveyard' | 'exile'
+    | 'sacrifice' | 'skip' | 'target'
   >
   count?: number
   types?: string[]
@@ -36,7 +38,7 @@ export type PendingDialog = {
   optional?: boolean
   after?: Array<'resolveTop'>
   requirements?: Partial<Record<
-    'battlefield' | 'hand' | 'target' | 'graveyard' | 'exile',
+    'battlefield' | 'hand' | 'target' | 'graveyard' | 'exile' | 'sacrifice',
     { min?: number; max?: number }
   >>
 }
@@ -81,12 +83,17 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
       .map((id) => state.objects[id])
       .filter((object): object is NonNullable<typeof object> => Boolean(object))
   }
-  if (dialog.kind === 'bounce-land' || dialog.kind === 'copy-creature') {
+  if (
+    dialog.kind === 'bounce-land'
+    || dialog.kind === 'copy-creature'
+    || dialog.kind === 'sacrifice-lands'
+  ) {
     return Object.values(state.objects)
       .filter((object) =>
         object.zone === 'battlefield'
         && object.controller === dialog.seat
         && (dialog.kind !== 'copy-creature' || object.id !== dialog.sourceId)
+        && (dialog.kind !== 'sacrifice-lands' || object.types.includes('Land'))
         && (!dialog.types || dialog.types.every((type) => object.types.includes(type))))
   }
   if (dialog.kind === 'return-land') {

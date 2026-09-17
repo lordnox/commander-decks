@@ -26,11 +26,11 @@ export type TopdeckDecision = {
   library?: string[]
   destinations: Array<
     'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'skip'
+    | 'target' | 'sacrifice' | 'skip'
   >
   requirements?: Partial<Record<
     | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'skip',
+    | 'target' | 'sacrifice' | 'skip',
     { min?: number; max?: number }
   >>
   kernel?: {
@@ -48,6 +48,7 @@ export type TopdeckDecision = {
       | 'reveal-pick'
       | 'copy-creature'
       | 'return-land'
+      | 'sacrifice-lands'
       | 'may'
       | 'may-pay-life'
     resumePassSeat?: SeatId

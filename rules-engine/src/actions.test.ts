@@ -329,7 +329,7 @@ describe('events for available actions', () => {
     })
   })
 
-  test('a spell with a cast-time sacrifice choice still requires a plan', () => {
+  test('a spell with a supported cast-time sacrifice choice opens its dialog', () => {
     const scapeshift = {
       ...bolt(),
       name: 'Scapeshift',
@@ -344,7 +344,11 @@ describe('events for available actions', () => {
       (candidate) => candidate.kind === 'castSpell' && candidate.name === 'Scapeshift',
     )!
 
-    expect(eventsForAvailableAction(state, 'p1', action)).toBeNull()
+    expect(eventsForAvailableAction(state, 'p1', action)?.at(-1)).toEqual({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: objectNamed(state, 'Scapeshift').id,
+    })
   })
 })
 
