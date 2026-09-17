@@ -1,0 +1,132 @@
+{
+  "artist": "Chris Rallis",
+  "artist_ids": [
+    "a8e7b854-b15a-421a-b66d-6e68187ae285"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 748499,
+  "cmc": 4.0,
+  "collector_number": "146",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 321,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Simic's strength comes from its diversity.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2c523ef7-d6c4-4887-9a4e-0c2bc6f63676",
+  "illustration_id": "66eac343-5b55-47df-b3af-5dfb4847dd20",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:28:22Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.webp?1783913302",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.jpg?1783913302",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.jpg?1783913302",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.webp?1783913302",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.webp?1783913302",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.webp?1783913302",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.jpg?1783913302",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.jpg?1783913302",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.png?1783913302",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.jpg?1783913302",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676.webp?1783913302"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{G}",
+  "mtgo_id": 120819,
+  "multiverse_ids": [
+    643153
+  ],
+  "name": "Guardian Project",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4f9e07ae-6341-4b46-9f77-f17ab659d266",
+  "oracle_text": "Whenever a nontoken creature you control enters, if it doesn't have the same name as another creature you control or a creature card in your graveyard, draw a card.",
+  "oversized": false,
+  "penny_rank": 10051,
+  "prices": {
+    "eur": "17.17",
+    "eur_foil": "13.74",
+    "tix": "0.32",
+    "usd": "14.92",
+    "usd_etched": null,
+    "usd_foil": "14.01"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4f9e07ae-6341-4b46-9f77-f17ab659d266&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120819?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=748499&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F530835%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Guardian+Project",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=643153&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGuardian%2BProject",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGuardian%2BProject"
+  },
+  "released_at": "2024-01-12",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/rvr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/rvr/146/guardian-project?utm_source=api",
+  "security_stamp": "oval",
+  "set": "rvr",
+  "set_id": "fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "set_name": "Ravnica Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Arvr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/fed2c8cd-ab92-44f6-808a-41e7809bcfe2",
+  "story_spotlight": false,
+  "tcgplayer_id": 530835,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/2c523ef7-d6c4-4887-9a4e-0c2bc6f63676",
+  "variation": false
+}

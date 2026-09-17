@@ -1,0 +1,132 @@
+{
+  "artist": "Christopher Moeller",
+  "artist_ids": [
+    "21e10012-06ae-44f2-b38d-3824dd2e73d4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 21124,
+  "cmc": 2.0,
+  "collector_number": "78",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6256,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Imitation is the most dangerous form of flattery.",
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f38eec33-a40e-4739-ad2c-2f57008cef4e",
+  "illustration_id": "fd3f3d9b-81a8-48c0-90f0-a36e1a0ba446",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:33:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.webp?1783942387",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.jpg?1783942387",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.jpg?1783942387",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.webp?1783942387",
+    "display": "https://cards.scryfall.io/display/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.webp?1783942387",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.webp?1783942387",
+    "large": "https://cards.scryfall.io/large/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.jpg?1783942387",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.jpg?1783942387",
+    "png": "https://cards.scryfall.io/png/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.png?1783942387",
+    "small": "https://cards.scryfall.io/small/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.jpg?1783942387",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f38eec33-a40e-4739-ad2c-2f57008cef4e.webp?1783942387"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{U}",
+  "mtgo_foil_id": 33060,
+  "mtgo_id": 33059,
+  "multiverse_ids": [
+    191322
+  ],
+  "name": "Twincast",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8f878efc-850f-43d2-a6fe-5ea8d1dd5afb",
+  "oracle_text": "Copy target instant or sorcery spell. You may choose new targets for the copy.",
+  "oversized": false,
+  "penny_rank": 2464,
+  "prices": {
+    "eur": "1.94",
+    "eur_foil": "7.21",
+    "tix": "0.02",
+    "usd": "7.93",
+    "usd_etched": null,
+    "usd_foil": "24.80"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8f878efc-850f-43d2-a6fe-5ea8d1dd5afb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/33059?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=21124&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F32748%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Twincast",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=191322&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DTwincast",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DTwincast"
+  },
+  "released_at": "2009-07-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f38eec33-a40e-4739-ad2c-2f57008cef4e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m10?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m10/78/twincast?utm_source=api",
+  "set": "m10",
+  "set_id": "0dba38a9-6b9d-4768-9831-4e03e8970a0b",
+  "set_name": "Magic 2010",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am10&unique=prints",
+  "set_type": "core",
+  "set_uri": "https://api.scryfall.com/sets/0dba38a9-6b9d-4768-9831-4e03e8970a0b",
+  "story_spotlight": false,
+  "tcgplayer_id": 32748,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f38eec33-a40e-4739-ad2c-2f57008cef4e",
+  "variation": false
+}

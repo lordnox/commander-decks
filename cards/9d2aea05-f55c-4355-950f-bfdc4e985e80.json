@@ -1,0 +1,131 @@
+{
+  "artist": "Svetlin Velinov",
+  "artist_ids": [
+    "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 819320,
+  "cmc": 6.0,
+  "collector_number": "269",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 4028,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4",
+  "illustration_id": "c3170536-c5c3-4e4a-909f-9282e9cd4bb8",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:44:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.webp?1783907040",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.jpg?1783907040",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.jpg?1783907040",
+    "crop": "https://cards.scryfall.io/crop/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.webp?1783907040",
+    "display": "https://cards.scryfall.io/display/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.webp?1783907040",
+    "grid": "https://cards.scryfall.io/grid/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.webp?1783907040",
+    "large": "https://cards.scryfall.io/large/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.jpg?1783907040",
+    "normal": "https://cards.scryfall.io/normal/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.jpg?1783907040",
+    "png": "https://cards.scryfall.io/png/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.png?1783907040",
+    "small": "https://cards.scryfall.io/small/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.jpg?1783907040",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/8/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4.webp?1783907040"
+  },
+  "keywords": [
+    "Council's dilemma"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{G}{G}",
+  "mtgo_id": 138475,
+  "multiverse_ids": [
+    696425
+  ],
+  "name": "Selvala's Stampede",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9d2aea05-f55c-4355-950f-bfdc4e985e80",
+  "oracle_text": "Council's dilemma — Starting with you, each player votes for wild or free. Reveal cards from the top of your library until you reveal a creature card for each wild vote. Put those creature cards onto the battlefield, then shuffle the rest into your library. You may put a permanent card from your hand onto the battlefield for each free vote.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.64",
+    "eur_foil": null,
+    "tix": "3.52",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9d2aea05-f55c-4355-950f-bfdc4e985e80&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138475?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=819320&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624960%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Selvala%27s+Stampede",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696425&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSelvala%2527s%2BStampede",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSelvala%2527s%2BStampede"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/269/selvalas-stampede?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624960,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/b84e46c2-f3ea-49ff-8f8b-58aa6a1175a4",
+  "variation": false
+}

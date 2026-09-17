@@ -1,0 +1,133 @@
+{
+  "artist": "Adam Rex",
+  "artist_ids": [
+    "445bd2fb-4a70-4599-87a4-83cf5979fc56"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 652906,
+  "cmc": 8.0,
+  "collector_number": "322",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 3993,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "97914abe-71d5-4bd6-87d7-8e7379abf1aa",
+  "illustration_id": "b3012268-5392-4dab-8338-eb4ce860149c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:13:55Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.webp?1783923235",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.jpg?1783923235",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.jpg?1783923235",
+    "crop": "https://cards.scryfall.io/crop/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.webp?1783923235",
+    "display": "https://cards.scryfall.io/display/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.webp?1783923235",
+    "grid": "https://cards.scryfall.io/grid/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.webp?1783923235",
+    "large": "https://cards.scryfall.io/large/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.jpg?1783923235",
+    "normal": "https://cards.scryfall.io/normal/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.jpg?1783923235",
+    "png": "https://cards.scryfall.io/png/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.png?1783923235",
+    "small": "https://cards.scryfall.io/small/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.jpg?1783923235",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/7/97914abe-71d5-4bd6-87d7-8e7379abf1aa.webp?1783923235"
+  },
+  "keywords": [
+    "Persist",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{G}{G}",
+  "multiverse_ids": [
+    559894
+  ],
+  "name": "Woodfall Primus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2f70f1bb-29fa-4abb-afc2-653acd0a08b9",
+  "oracle_text": "Trample\nWhen this creature enters, destroy target noncreature permanent.\nPersist (When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+  "oversized": false,
+  "penny_rank": 1926,
+  "power": "6",
+  "prices": {
+    "eur": "0.45",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.42",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2f70f1bb-29fa-4abb-afc2-653acd0a08b9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Woodfall+Primus&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=652906&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F269671%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Woodfall+Primus",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=559894&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWoodfall%2BPrimus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWoodfall%2BPrimus"
+  },
+  "released_at": "2022-04-29",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/97914abe-71d5-4bd6-87d7-8e7379abf1aa/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ncc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ncc/322/woodfall-primus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ncc",
+  "set_id": "c51de34b-d4d6-4179-a432-573744ded119",
+  "set_name": "New Capenna Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ancc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c51de34b-d4d6-4179-a432-573744ded119",
+  "story_spotlight": false,
+  "tcgplayer_id": 269671,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Treefolk Shaman",
+  "uri": "https://api.scryfall.com/cards/97914abe-71d5-4bd6-87d7-8e7379abf1aa",
+  "variation": false
+}

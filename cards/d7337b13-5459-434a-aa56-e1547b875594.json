@@ -1,0 +1,146 @@
+{
+  "arena_id": 70456,
+  "artist": "Svetlin Velinov",
+  "artist_ids": [
+    "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 399044,
+  "cmc": 7.0,
+  "collector_number": "323",
+  "color_identity": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 5896,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "It will come to the defense of all wild things, from the shivering wren to the towering giant.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "80138656-b2e2-43bf-9fe6-7a852f53f9e9",
+  "illustration_id": "a65a9657-1478-4b24-a58a-5b41f1a5d14c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:49:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.webp?1783932548",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.jpg?1783932548",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.jpg?1783932548",
+    "crop": "https://cards.scryfall.io/crop/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.webp?1783932548",
+    "display": "https://cards.scryfall.io/display/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.webp?1783932548",
+    "grid": "https://cards.scryfall.io/grid/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.webp?1783932548",
+    "large": "https://cards.scryfall.io/large/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.jpg?1783932548",
+    "normal": "https://cards.scryfall.io/normal/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.jpg?1783932548",
+    "png": "https://cards.scryfall.io/png/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.png?1783932548",
+    "small": "https://cards.scryfall.io/small/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.jpg?1783932548",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/0/80138656-b2e2-43bf-9fe6-7a852f53f9e9.webp?1783932548"
+  },
+  "keywords": [
+    "Trample",
+    "Fight"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{G}{G}",
+  "mtgo_id": 78706,
+  "multiverse_ids": [
+    476041
+  ],
+  "name": "Thorn Mammoth",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d7337b13-5459-434a-aa56-e1547b875594",
+  "oracle_text": "Trample\nWhenever this creature or another creature you control enters, this creature fights up to one target creature you don't control.",
+  "oversized": false,
+  "penny_rank": 13264,
+  "power": "6",
+  "preview": {
+    "previewed_at": "2019-09-04",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/card-preview/inside-throne-eldraine-brawl-decks-2019-09-04"
+  },
+  "prices": {
+    "eur": "1.37",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "1.07",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad7337b13-5459-434a-aa56-e1547b875594&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "brawldeck"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/78706?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=399044&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F198441%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Thorn+Mammoth",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=476041&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThorn%2BMammoth",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThorn%2BMammoth"
+  },
+  "released_at": "2019-10-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/80138656-b2e2-43bf-9fe6-7a852f53f9e9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eld?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eld/323/thorn-mammoth?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eld",
+  "set_id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "set_name": "Throne of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeld&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "story_spotlight": false,
+  "tcgplayer_id": 198441,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Elephant",
+  "uri": "https://api.scryfall.com/cards/80138656-b2e2-43bf-9fe6-7a852f53f9e9",
+  "variation": false
+}

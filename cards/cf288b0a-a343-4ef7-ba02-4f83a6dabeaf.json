@@ -1,0 +1,141 @@
+{
+  "artist": "Ron Spears",
+  "artist_ids": [
+    "fce9030b-86bd-4439-b06a-920a1eeb184c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 547161,
+  "cmc": 0.0,
+  "collector_number": "210",
+  "color_identity": [
+    "G"
+  ],
+  "color_indicator": [
+    "G"
+  ],
+  "colors": [
+    "G"
+  ],
+  "digital": false,
+  "edhrec_rank": 13104,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "65757321-2f26-44dc-a4f8-31d40fbf1681",
+  "illustration_id": "abd9e6ae-d52c-4595-b630-ab5226ab41b5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:29:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.webp?1783927779",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.jpg?1783927779",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.jpg?1783927779",
+    "crop": "https://cards.scryfall.io/crop/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.webp?1783927779",
+    "display": "https://cards.scryfall.io/display/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.webp?1783927779",
+    "grid": "https://cards.scryfall.io/grid/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.webp?1783927779",
+    "large": "https://cards.scryfall.io/large/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.jpg?1783927779",
+    "normal": "https://cards.scryfall.io/normal/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.jpg?1783927779",
+    "png": "https://cards.scryfall.io/png/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.png?1783927779",
+    "small": "https://cards.scryfall.io/small/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.jpg?1783927779",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/5/65757321-2f26-44dc-a4f8-31d40fbf1681.webp?1783927779"
+  },
+  "keywords": [
+    "Suspend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "banned",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 86795,
+  "multiverse_ids": [
+    509575
+  ],
+  "name": "Hypergenesis",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cf288b0a-a343-4ef7-ba02-4f83a6dabeaf",
+  "oracle_text": "Suspend 3—{1}{G}{G}\nStarting with you, each player may put an artifact, creature, enchantment, or land card from their hand onto the battlefield. Repeat this process until no one puts a card onto the battlefield.",
+  "oversized": false,
+  "penny_rank": 1654,
+  "preview": {
+    "previewed_at": "2021-03-03",
+    "source": "Caleb Durward",
+    "source_uri": "https://twitter.com/CalebDMTG/status/1367257488232493057"
+  },
+  "prices": {
+    "eur": "0.67",
+    "eur_foil": "2.06",
+    "tix": "0.03",
+    "usd": "1.24",
+    "usd_etched": null,
+    "usd_foil": "4.52"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acf288b0a-a343-4ef7-ba02-4f83a6dabeaf&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/86795?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=547161&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F234295%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Hypergenesis",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=509575&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHypergenesis",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHypergenesis"
+  },
+  "released_at": "2021-03-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/65757321-2f26-44dc-a4f8-31d40fbf1681/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tsr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tsr/210/hypergenesis?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tsr",
+  "set_id": "11e90d1b-0502-43e6-b056-e24836523c13",
+  "set_name": "Time Spiral Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atsr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/11e90d1b-0502-43e6-b056-e24836523c13",
+  "story_spotlight": false,
+  "tcgplayer_id": 234295,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/65757321-2f26-44dc-a4f8-31d40fbf1681",
+  "variation": false
+}

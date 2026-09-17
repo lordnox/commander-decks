@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Secret-council Simic cheat: vote for cards or a free monster, then win one combat with Reins of Power.",
+  "tags": [
+    {"name": "politics", "score": 5, "reason": "Círdan's secret council, Illusion of Choice, and the whole vote package are the plan."},
+    {"name": "theft", "score": 4, "reason": "Reins of Power, Elrond, Twincast, and Kiora close by using other people's creatures."},
+    {"name": "group hug", "score": 3, "reason": "Shared dumps and council draws give the table cards and permanents on purpose."},
+    {"name": "ramp", "score": 3, "reason": "Heavy one- and two-mana ramp exists to put Círdan out on turn three."},
+    {"name": "midrange", "score": 3, "reason": "The deck develops a monster board and wins in combat rather than combo."},
+    {"name": "control", "score": 2, "reason": "Fight spells and a few counters protect the dump, but answering is not the main plan."},
+    {"name": "stax", "score": 1, "reason": "Concordant Crossroads and Grothama change combat rules without locking the table."}
+  ]
+}
