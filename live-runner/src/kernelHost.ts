@@ -416,15 +416,20 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
       ? ['top', 'bottom']
       : selection.kind === 'surveil'
         ? ['top', 'graveyard']
-        : ['graveyard'])) as TopdeckDecision['destinations']
+        : selection.kind === 'sacrifice'
+          ? ['battlefield', 'sacrifice']
+          : ['graveyard'])) as TopdeckDecision['destinations']
+  const requirements = selection.kind === 'sacrifice'
+    ? { sacrifice: { min: count, max: count } }
+    : selection.kind === 'discard'
+      ? { graveyard: { min: count, max: count } }
+      : undefined
   lobby.topdeck = {
     seat: selection.seat,
     kind: selection.kind === 'discard' ? 'discard-card' : selection.kind,
     cards: names,
     destinations,
-    ...(selection.kind === 'discard'
-      ? { requirements: { graveyard: { min: count, max: count } } }
-      : {}),
+    ...(requirements ? { requirements } : {}),
     kernel: {
       sourceId: selection.sourceId ?? '',
       stage: 'select-cards',
@@ -570,12 +575,13 @@ export const applyKernelChoice = (
     if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
       throw new Error('That card choice is no longer open.')
     }
-    if (cardKind === 'discard') {
+    if (cardKind === 'discard' || cardKind === 'sacrifice') {
+      const chosenDestination = cardKind === 'sacrifice' ? 'sacrifice' : 'graveyard'
       const objectIds = objectIdsForNames(
         state,
         waiting.objectIds,
         message.choices
-          .filter(({ destination }) => destination === 'graveyard')
+          .filter(({ destination }) => destination === chosenDestination)
           .map(({ card }) => card),
       )
       if (objectIds.length !== waiting.count) {
@@ -590,11 +596,16 @@ export const applyKernelChoice = (
       })
       if (!continued.ok) throw new Error(continued.error)
       const name = state.objects[objectIds[0]]?.name ?? 'a card'
+      const verb = cardKind === 'sacrifice' ? 'sacrificed' : 'chose'
       return closeKernelChoice(kernel, lobby, seat, {
-        privateJudge: { [seat]: `You chose ${name}.` },
+        privateJudge: {
+          [seat]: cardKind === 'sacrifice'
+            ? `${waiting.selection.source}: you chose ${name}.`
+            : `You chose ${name}.`,
+        },
         judge: waiting.selection.source
-          ? `${lobby.occupants[seat]?.name ?? seat} chose ${name} for ${waiting.selection.source}.`
-          : `${lobby.occupants[seat]?.name ?? seat} chose ${name}.`,
+          ? `${lobby.occupants[seat]?.name ?? seat} ${verb} ${name} for ${waiting.selection.source}.`
+          : `${lobby.occupants[seat]?.name ?? seat} ${verb} ${name}.`,
       })
     }
     const choices = message.choices.map((choice) => ({
@@ -776,35 +787,6 @@ export const applyKernelChoice = (
       judge: modes.length > 0
         ? `${dialog.source} chose: ${modes.join('; ')}.`
         : `${dialog.source} chose no modes.`,
-    })
-  }
-  if (decision.kernel.stage === 'sacrifice-creature') {
-    const dialog = pendingDialogFor(state, seat)
-    if (dialog?.kind !== decision.kernel.stage) {
-      throw new Error('That choice is no longer open.')
-    }
-    const candidates = dialogCandidates(state, dialog)
-    const orderedIds = objectIdsForNames(
-      state,
-      candidates.map((object) => object.id),
-      message.choices.map(({ card }) => card),
-    )
-    const objectIds = message.choices
-      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
-      .filter(({ destination }) => destination === 'sacrifice')
-      .map(({ objectId }) => objectId)
-    if (objectIds.length !== 1) throw new Error(`Choose exactly one card for ${dialog.source}.`)
-    const chosen = kernel.dispatch({
-      type: 'custom',
-      name: dialog.chosenEvent ?? DIALOG_CHOSEN,
-      seat,
-      payload: { objectIds },
-    })
-    if (!chosen.ok) throw new Error(chosen.error)
-    const name = state.objects[objectIds[0]]?.name ?? 'a card'
-    return closeKernelChoice(kernel, lobby, seat, {
-      privateJudge: { [seat]: `${dialog.source}: you chose ${name}.` },
-      judge: `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`,
     })
   }
   if (decision.kernel.stage === 'sacrifice-lands') {

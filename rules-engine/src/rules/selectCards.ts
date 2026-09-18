@@ -3,7 +3,7 @@ import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
-export type CardSelectionKind = 'discard' | 'scry' | 'surveil'
+export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil'
 
 export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard'
 
@@ -98,6 +98,13 @@ const cardInHand = (state: GameState | Draft, seat: PlayerId, objectId: string) 
 const libraryTop = (state: GameState | Draft, seat: PlayerId, count: number) =>
   (state.zoneOrder[seat]?.library ?? []).slice(0, count)
 
+const battlefieldCreature = (state: GameState | Draft, seat: PlayerId, objectId: string) => {
+  const object = state.objects[objectId]
+  return object?.zone === 'battlefield'
+    && object.controller === seat
+    && object.types.includes('Creature')
+}
+
 const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   const fromSeat = selection.fromSeat ?? selection.seat
   if (selection.kind === 'discard') {
@@ -106,6 +113,10 @@ const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   if (selection.kind === 'scry' || selection.kind === 'surveil') {
     const top = new Set(libraryTop(state, fromSeat, selection.count))
     return selection.candidates.filter((objectId) => top.has(objectId))
+  }
+  if (selection.kind === 'sacrifice') {
+    return selection.candidates.filter((objectId) => battlefieldCreature(state, fromSeat, objectId))
+  }
   }
   return selection.candidates.filter((objectId) => Boolean(state.objects[objectId]))
 }
@@ -149,7 +160,7 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   const allowed = new Set(liveCandidates(state, selection))
   const destinations = new Set(allowedDestinations(selection))
 
-  if (selection.kind === 'discard') {
+  if (selection.kind === 'discard' || selection.kind === 'sacrifice') {
     const objectIds = event.objectIds
     if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
       return 'objectIds must be a string array'
@@ -243,20 +254,30 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         ? `${event.seat} discards ${name} to ${selection.source}`
         : `${event.seat} discards ${name}`,
     )
-    return
+  } else if (selection.kind === 'sacrifice') {
+    for (const objectId of event.objectIds ?? []) {
+      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+    }
+    const name = draft.objects[event.objectIds?.[0] ?? '']?.name ?? 'a creature'
+    draft.note(
+      selection.source
+        ? `${event.seat} sacrifices ${name} to ${selection.source}`
+        : `${event.seat} sacrifices ${name}`,
+    )
+  } else if (selection.kind === 'scry' || selection.kind === 'surveil') {
+    const choices = parseChoices(event)
+    if (!choices) return
+    applyTopDeckChoices(draft, event.seat, choices, selection.kind)
+    const names = choices
+      .map((choice) => draft.objects[choice.objectId]?.name ?? 'a card')
+      .join(', ')
+    draft.note(
+      selection.source
+        ? `${event.seat} ${selection.kind}s ${names} for ${selection.source}`
+        : `${event.seat} ${selection.kind}s ${names}`,
+    )
   }
 
-  const choices = parseChoices(event)
-  if (!choices) return
-  applyTopDeckChoices(draft, event.seat, choices, selection.kind)
-  const names = choices
-    .map((choice) => draft.objects[choice.objectId]?.name ?? 'a card')
-    .join(', ')
-  draft.note(
-    selection.source
-      ? `${event.seat} ${selection.kind}s ${names} for ${selection.source}`
-      : `${event.seat} ${selection.kind}s ${names}`,
-  )
   for (const followUp of after ?? []) {
     if (followUp === 'resolveTop') draft.enqueue({ type: 'resolveTop' })
   }

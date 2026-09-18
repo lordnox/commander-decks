@@ -120,16 +120,17 @@ test('the sacrifice mode asks every player with a creature', () => {
   )
   const hydra = Object.values(asked.objects).find((object) => object.name === 'Lone Hydra')!
 
-  expect(pendingDialogFor(asked, 'p2')).toMatchObject({ kind: 'sacrifice-creature' })
+  expect(pendingSelectionFor(asked, 'p2')).toMatchObject({ kind: 'sacrifice', count: 1 })
   const sacrificed = ok(server.rules(asked, {
-    type: 'custom',
-    name: DIALOG_CHOSEN,
+    type: 'selectCards',
     seat: 'p2',
-    payload: { objectIds: [hydra.id] },
+    kind: 'sacrifice',
+    count: 1,
+    objectIds: [hydra.id],
   }))
 
   expect(sacrificed.objects[hydra.id].zone).toBe('graveyard')
-  expect(pendingDialogFor(sacrificed, 'p2')).toBeUndefined()
+  expect(pendingSelectionFor(sacrificed, 'p2')).toBeUndefined()
 })
 
 test('a player with no creature is not asked to sacrifice', () => {
@@ -147,8 +148,8 @@ test('a player with no creature is not asked to sacrifice', () => {
     [RANKLE_MODES.sacrifice],
   )
 
-  expect(pendingDialogFor(asked, 'p2')).toBeUndefined()
-  expect(pendingDialogFor(asked, 'p1')).toMatchObject({ kind: 'sacrifice-creature' })
+  expect(pendingSelectionFor(asked, 'p2')).toBeUndefined()
+  expect(pendingSelectionFor(asked, 'p1')).toMatchObject({ kind: 'sacrifice', count: 1 })
 })
 
 test('the drain mode costs each player a life and draws them a card', () => {
