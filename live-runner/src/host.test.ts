@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
@@ -13,6 +13,7 @@ import {
   actionsAfterJudgment,
   applyHostControl,
   applyKernelPass,
+  applyOpeningThenKernel,
   beginJudgeRound,
   isHostControlMessage,
   needsJudgment,
@@ -162,6 +163,71 @@ describe('kernel host actions', () => {
       destinations: ['hand', 'graveyard'],
     }
     expect(kernelOwnsChoice(answer, lobby)).toBe(false)
+  })
+
+  test('the kernel is retried after a keep, once the replay is on turn one', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-host-opening-'))
+    mkdirSync(join(root, 'table-games'), { recursive: true })
+    writeFileSync(join(root, 'package.json'), '{}\n')
+    const player = (hand: string[]) => ({
+      life: 40,
+      poison: 0,
+      commander_damage: {},
+      commander_tax: 0,
+      library_count: 2,
+      hand,
+      battlefield: [],
+      graveyard: [],
+      exile: [],
+      command: ['Commander'],
+      revealed_top: [],
+    })
+    writeFileSync(
+      join(root, 'table-games', 'pod.json'),
+      JSON.stringify({
+        seed: 1729,
+        seats: [{ id: 'p1', name: 'Foggy', mulligans: 0 }],
+        catalog: {},
+        events: [{
+          id: 0,
+          turn: 0,
+          phase: 'setup',
+          seat: 'p1',
+          kind: 'keep',
+          state: {
+            active: 'p1',
+            turn: 0,
+            phase: 'setup',
+            stack: [],
+            players: { p1: player(['Swamp']) },
+          },
+        }],
+        _libraries: { p1: ['Island', 'Plains'] },
+      }),
+    )
+    const lobby = createLobby('pod')
+    lobby.phase = 'play'
+    lobby.firstPlayer = 'p1'
+    lobby.occupants = { p1: { name: 'Foggy', deck: 'decks/eva' } }
+
+    const turnsSeen: number[] = []
+    await applyOpeningThenKernel(
+      root,
+      'pod',
+      lobby,
+      'p1',
+      { type: 'keep', cards: [] },
+      async () => {
+        const replay = JSON.parse(
+          readFileSync(join(root, 'table-games', 'pod.json'), 'utf8'),
+        ) as { events: Array<{ turn: number }> }
+        turnsSeen.push(replay.events.at(-1)!.turn)
+      },
+    )
+
+    // openKernel refuses a turn-zero replay, so a retry that runs before the
+    // keep leaves the table without a kernel for the whole game.
+    expect(turnsSeen).toEqual([1])
   })
 
   test('table talk and lobby bookkeeping never occupy the judge', () => {
