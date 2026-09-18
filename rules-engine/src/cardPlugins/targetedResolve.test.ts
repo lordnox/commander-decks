@@ -9,6 +9,7 @@ import {
   pendingSearch,
 } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
+import { targetOnResolve } from './effects'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -206,5 +207,40 @@ describe('targeted spell resolution', () => {
     expect(countered.objects[keepSafeId].zone).toBe('graveyard')
     expect(named(countered, 'Fresh Card').zone).toBe('hand')
     expect(countered.stack).toHaveLength(0)
+  })
+
+  test('a bounced spell is removed from the stack before it can resolve', () => {
+    const bounce = cardTemplate('Stack Bounce', {
+      types: ['Instant'],
+      manaCost: '{U}',
+      effects: [
+        targetOnResolve('bounce', { zone: 'stack' }),
+      ],
+    })
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [bounce], p2: [cardTemplate('Threat', { types: ['Instant'] })] } },
+      { random: () => 0.5, cardPlugins: [targetedResolve] },
+    )
+    const ready = structuredClone(server.state)
+    ready.priority = 'p2'
+    const threat = named(ready, 'Threat').id
+    let state = ok(server.rules(ready, { type: 'castSpell', seat: 'p2', objectId: threat }))
+    state.priority = 'p1'
+    state.players.p1.mana.U = 1
+    const answer = named(state, 'Stack Bounce').id
+    state = run(server, state, [
+      {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: answer,
+        targets: [{ kind: 'object', objectId: threat }],
+      },
+      { type: 'resolveTop' },
+    ])
+
+    expect(state.objects[threat].zone).toBe('hand')
+    expect(state.objects[answer].zone).toBe('graveyard')
+    expect(state.stack).toHaveLength(0)
   })
 })

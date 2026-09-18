@@ -213,6 +213,60 @@ export const runInstructions = (
       draft.players[source.controller].life += instruction.count
       continue
     }
+    if (instruction.kind === 'drainOpponentsX') {
+      const amount = Math.max(0, item?.x ?? 0)
+      const opponents = draft.playerOrder.filter(
+        (seat) => seat !== source.controller && !draft.players[seat].lost,
+      )
+      for (const seat of opponents) {
+        draft.enqueue({ type: 'loseLife', seat, amount, source: source.id })
+      }
+      draft.players[source.controller].life += amount * opponents.length
+      continue
+    }
+    if (instruction.kind === 'addPlusCounters') {
+      const target = item?.targets[0]
+      const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+      if (object) addPlusCounters(object, instruction.count)
+      continue
+    }
+    if (instruction.kind === 'pumpAllCreaturesByX') {
+      const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
+        if (object.power !== null) object.power += amount
+        if (object.toughness !== null) object.toughness += amount
+      }
+      continue
+    }
+    if (instruction.kind === 'revealUntilBasicLand') {
+      const library = draft.zoneOrder[source.controller].library
+      const index = library.findIndex((objectId) => {
+        const object = draft.object(objectId)
+        return object?.types.includes('Land') && object.supertypes.includes('Basic')
+      })
+      const count = index < 0 ? library.length : index + 1
+      const revealed = library.slice(0, count)
+      if (revealed.length > 0) {
+        draft.enqueue({
+          type: 'reveal',
+          seat: source.controller,
+          objectIds: revealed,
+          source: source.name,
+        })
+      }
+      for (const objectId of revealed) {
+        const object = draft.object(objectId)
+        draft.enqueue({
+          type: 'move',
+          objectId,
+          to: object?.types.includes('Land') && object.supertypes.includes('Basic')
+            ? 'hand'
+            : 'graveyard',
+        })
+      }
+      continue
+    }
     if (instruction.kind === 'loseLife') {
       const seat = instruction.who === 'controller'
         ? source.controller

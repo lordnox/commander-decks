@@ -2,6 +2,7 @@ import { addPools, emptyMana } from '../draft'
 import { hasKeyword } from '../keywords'
 import type { GameObject, GameState, ManaId, PlayerId, Plugin } from '../types'
 import { payCost } from './spells'
+import { hasForestOverlay } from './forestOverlay'
 import { hasSwampOverlay } from './swampOverlay'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
@@ -77,6 +78,15 @@ export const manaModes = (
     && !modes.some((mode) => mode.B === 1 && Object.keys(mode).length === 1)
   ) {
     modes.push({ B: 1 })
+  }
+  if (
+    state
+    && hasForestOverlay(state)
+    && object.types?.includes('Land')
+    && !object.subtypes?.includes('Forest')
+    && !modes.some((mode) => mode.G === 1 && Object.keys(mode).length === 1)
+  ) {
+    modes.push({ G: 1 })
   }
   if (modes.length === 0 && object.tapProduces) modes.push(object.tapProduces)
   return modes

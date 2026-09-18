@@ -45,6 +45,10 @@ export type CardInstruction =
   | { kind: 'draw'; count: number }
   | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
   | { kind: 'gainLife'; count: number }
+  | { kind: 'drainOpponentsX' }
+  | { kind: 'addPlusCounters'; count: number }
+  | { kind: 'pumpAllCreaturesByX'; multiplier: number }
+  | { kind: 'revealUntilBasicLand' }
   | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
   | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
@@ -148,6 +152,7 @@ export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
 
 export type TargetFilter = {
   zone?: ZoneId
+  zones?: ZoneId[]
   type?: string
   types?: string[]
   nonland?: boolean
@@ -252,6 +257,7 @@ export type CardEffect =
       legendRuleOff?: boolean
     }
   | { op: 'handler'; pluginId: string }
+  | { op: 'castCost'; lifeX?: boolean }
   | { op: 'bestow'; cost: string }
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
@@ -596,6 +602,22 @@ export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
 
+export const drainOpponentsX = (): CardInstruction => ({ kind: 'drainOpponentsX' })
+
+export const addPlusCountersInstruction = (count: number): CardInstruction => ({
+  kind: 'addPlusCounters',
+  count,
+})
+
+export const pumpAllCreaturesByX = (multiplier = -1): CardInstruction => ({
+  kind: 'pumpAllCreaturesByX',
+  multiplier,
+})
+
+export const revealUntilBasicLand = (): CardInstruction => ({ kind: 'revealUntilBasicLand' })
+
+export const payLifeX = (): CardEffect => ({ op: 'castCost', lifeX: true })
+
 export const loseLife = (
   amount: number,
   who: 'triggeringPlayer' | 'controller',
@@ -712,6 +734,19 @@ export const targetOnResolve = (
 ): CardEffect => ({
   op: 'targetedResolve',
   target: 0,
+  filter,
+  action,
+  ...(instructions.length > 0 ? { do: instructions } : {}),
+})
+
+export const targetOnResolveAt = (
+  target: number,
+  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'targetedResolve',
+  target,
   filter,
   action,
   ...(instructions.length > 0 ? { do: instructions } : {}),
@@ -1142,6 +1177,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add('courserOfKruphix')
     }
     if (effect.op === 'bestow') ids.add('bestow')
+    if (effect.op === 'castCost') ids.add('castCosts')
     if (effect.op === 'handler') ids.add(effect.pluginId)
     const listed = effect.op === 'trigger' || effect.op === 'activate' || effect.op === 'modal'
       ? flattenInstructions(
