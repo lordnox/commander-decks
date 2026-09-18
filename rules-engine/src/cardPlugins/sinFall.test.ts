@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -237,5 +238,76 @@ describe('Sin Fall routine card support', () => {
       controller: 'p1',
     })
     expect(resolved.objects[body].subtypes).toContain('Phyrexian')
+  })
+
+  test('Burgeoning offers a private typed land choice after an opponent land play', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        first: 'p2',
+        battlefield: { p1: [card('Burgeoning', ['Enchantment'], '{G}')] },
+        hands: {
+          p1: [forest()],
+          p2: [card('Opponent Land', ['Land'])],
+        },
+      },
+    )
+    const opponentLand = server.state.zoneOrder.p2.hand[0]
+    let state = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p2',
+      objectId: opponentLand,
+    }))
+    expect(state.stack[0]?.name).toBe('Burgeoning')
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(state, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', count: 1, min: 0 })
+
+    const land = state.zoneOrder.p1.hand[0]
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [land],
+    }))
+    expect(state.objects[land].zone).toBe('battlefield')
+    expect(state.players.p1.landsPlayed).toBe(0)
+  })
+
+  test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [card('Rain of Filth', ['Instant'], '{B}')] },
+        battlefield: { p1: [forest()] },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.B = 1
+    const rain = ready.zoneOrder.p1.hand[0]
+    let state = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: rain,
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const land = state.zoneOrder.p1.battlefield[0]
+    expect(legalActsFor(state, 'p1')).toContainEqual(expect.objectContaining({
+      kind: 'activateAbility',
+      objectId: land,
+      abilityId: 'sacrificeLandMana.black',
+    }))
+
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      abilityId: 'sacrificeLandMana.black',
+      seat: 'p1',
+      objectId: land,
+      manaAbility: true,
+    }))
+    expect(state.objects[land].zone).toBe('graveyard')
+    expect(state.players.p1.mana.B).toBe(1)
   })
 })

@@ -18,6 +18,7 @@ import { mana } from './mana'
 import { manaBurn } from './manaBurn'
 import { swampOverlay } from './swampOverlay'
 import { priority } from './priority'
+import { sacrificeLandMana } from './sacrificeLandMana'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, triggers } from '../rules/main'
@@ -49,6 +50,7 @@ export const builtInPlugins = [
   swampOverlay,
   extraSwampMana,
   extraUntap,
+  sacrificeLandMana,
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
 ]
@@ -70,6 +72,7 @@ export {
   swampOverlay,
   pendingDialogLock,
   priority,
+  sacrificeLandMana,
   spells,
   stateBased,
   turnStructure,
