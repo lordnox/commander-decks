@@ -93,6 +93,44 @@ describe('selectCards game rule', () => {
     expect(result.state).toEqual(opened)
   })
 
+  test('search moves any chosen offered library cards tapped and then shuffles', () => {
+    const basic = cardTemplate('Plains', {
+      types: ['Land'],
+      supertypes: ['Basic'],
+      subtypes: ['Plains'],
+    })
+    const server = createServerGame(commanderRules, {
+      libraries: { p2: [basic, card('Other')] },
+      players: 2,
+    }, { random: () => 0.5 })
+    const plains = server.state.zoneOrder.p2.library.find(
+      (objectId) => server.state.objects[objectId]?.name === 'Plains',
+    )!
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p2',
+      kind: 'search',
+      count: 2,
+      min: 0,
+      candidates: [plains],
+      destinations: ['battlefield'],
+      tapped: true,
+    })
+    const opened = freezeDraft(draft)
+    const searched = ok(server.rules(opened, {
+      type: 'selectCards',
+      seat: 'p2',
+      kind: 'search',
+      count: 2,
+      objectIds: [plains],
+    }))
+
+    expect(searched.objects[plains]).toMatchObject({
+      zone: 'battlefield',
+      tapped: true,
+    })
+  })
+
   test('blocks passPriority while a selection is open', () => {
     const server = createServerGame(commanderRules, {
       hands: { p2: [card('Waiting')] },

@@ -168,6 +168,7 @@ const insect = createTokenInstruction({
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
   'Aetherize': [onResolve(bounceAttacking())],
+  'Archangel of Tithes': [handler('evaCards')],
   "An Offer You Can't Refuse": [
     targetOnResolve(
       'counter',
@@ -178,6 +179,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Apex Altisaur': [enters(fightUpToOne())],
   'Beast Whisperer': [casts(draw(1), { creatureOnly: true })],
   'Botanical Sanctum': [entersTapped(otherLands({ min: 3 }))],
+  'Baird, Steward of Argive': [handler('evaCards')],
+  'Batwing Brume': [handler('evaCards')],
   'Bushwhack': [modalChooseOne(
     {
       id: 'land',
@@ -202,6 +205,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Charcoal Diamond': [entersTapped()],
   'Choked Estuary': [tapUnlessRevealSubtype('Island', 'Swamp')],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
+  'Comeuppance': [handler('evaCards')],
+  "Council's Judgment": [handler('evaCards')],
+  'Crypt Ghast': [handler('evaCards')],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   'Courser of Kruphix': [
     staticRevealLibraryTop(),
@@ -222,12 +228,19 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [counterUnlessPay(3)],
     },
   )],
+  'Debt to the Deathless': [handler('evaCards')],
+  'Drain Life': [handler('evaCards')],
   'End-Raze Forerunners': [
     enters(
       pumpControlled(2, 2, { trample: true, other: true }),
       { kind: 'grantControlled', keywords: ['Vigilance', 'Trample'], other: true },
     ),
   ],
+  'Energy Arc': [handler('evaCards')],
+  'Ephemerate': [handler('evaCards')],
+  'Everybody Lives!': [handler('evaCards')],
+  'Exotic Orchard': [handler('evaCards')],
+  'Exsanguinate': [handler('evaCards')],
   'Eternal Witness': [targetOnResolve('bounce', { zone: 'graveyard' })],
   'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
   'Farhaven Elf': [{
@@ -235,14 +248,39 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     via: 'enters',
     spec: optionalBasicLandEnters(),
   }],
+  'Fractured Identity': [handler('evaCards')],
+  'Ghostly Flicker': [handler('evaCards')],
   'Hinterland Harbor': [entersTapped(lacksControlledSubtype('Forest', 'Island'))],
   'Hypergenesis': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
     repeat: true,
   }))],
   'Illusion of Choice': [onResolve(chooseVotesThisTurn(), draw(1))],
+  'Inkshield': [handler('evaCards')],
   "Kodama's Reach": [searchSpell(splitBasicLandSearch())],
   'Kogla, the Titan Ape': [enters(fightUpToOne())],
+  'Loran of the Third Path': [
+    handler('evaCards'),
+    activate({
+      id: 'eva.loranDraw',
+      costs: { tap: true },
+      targets: 'any',
+      do: [],
+    }),
+  ],
+  'Lotho, Corrupt Shirriff': [handler('evaCards')],
+  'Mirror Universe': [
+    handler('evaCards'),
+    activate({
+      id: 'eva.mirrorUniverse',
+      costs: { tap: true, sacrifice: 'self' },
+      targets: 'any',
+      do: [],
+    }),
+  ],
+  'Mirrorweave': [handler('evaCards')],
+  'Mister Negative': [handler('evaCards')],
+  'Mulldrifter': [enters(draw(2)), handler('evaCards')],
   'Overwhelming Stampede': [
     onResolve(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
   ],
@@ -250,6 +288,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
   ],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
+  'Repay in Kind': [handler('evaCards')],
+  'Reflecting Pool': [handler('evaCards')],
+  'Rings of Brighthearth': [handler('evaCards')],
   'Return of the Wildspeaker': [modalChooseOne(
     {
       id: 'draw',
@@ -273,6 +314,17 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       min: 1,
       max: 1,
     }, { sacrifice: 'self' }),
+  ],
+  'Settle the Wreckage': [handler('evaCards')],
+  'Snuff Out': [handler('evaCards')],
+  'Sokrates, Athenian Teacher': [
+    handler('evaCards'),
+    activate({
+      id: 'eva.sokrates',
+      costs: { tap: true },
+      targets: 'any',
+      do: [],
+    }),
   ],
   'Silverback Elder': [castModal({
     choose: 'one',
@@ -308,6 +360,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [fight('two-targets')],
     }),
   ],
+  'Vanish into Memory': [handler('evaCards')],
   'Ulvenwald Tracker': [
     activate({
       id: 'fight.tracker',
@@ -509,6 +562,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
+  'Phial of Galadriel': [handler('evaCards')],
   'Polluted Delta': [
     fetchTypes('Search your library for an Island or Swamp card and put it onto the battlefield.', [
       'Island',
@@ -764,6 +818,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true }),
     ),
   ],
+  'Queza, Augur of Agonies': [handler('evaCards')],
   'Raise the Palisade': [onResolve(pump(0, 0))],
   'Reanimate': [
     targetOnResolve(

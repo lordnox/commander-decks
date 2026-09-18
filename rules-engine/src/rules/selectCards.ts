@@ -3,7 +3,7 @@ import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
-export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
+export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal' | 'search'
 
 export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard' | 'battlefield' | 'sacrifice'
 
@@ -29,6 +29,7 @@ export type PendingCardSelection = {
   fromSeat?: PlayerId
   sequence?: number
   after?: Array<'resolveTop'>
+  tapped?: boolean
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -118,6 +119,10 @@ const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   if (selection.kind === 'sacrifice') {
     return selection.candidates.filter((objectId) => battlefieldCreature(state, fromSeat, objectId))
   }
+  if (selection.kind === 'search') {
+    return selection.candidates.filter((objectId) =>
+      state.objects[objectId]?.zone === 'library')
+  }
   return selection.candidates.filter((objectId) => Boolean(state.objects[objectId]))
 }
 
@@ -166,6 +171,7 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
     selection.kind === 'discard'
     || selection.kind === 'sacrifice'
     || selection.kind === 'reveal'
+    || selection.kind === 'search'
   ) {
     const objectIds = event.objectIds
     if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
@@ -290,6 +296,13 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         ? `${event.seat} sacrifices ${name} to ${selection.source}`
         : `${event.seat} sacrifices ${name}`,
     )
+  } else if (selection.kind === 'search') {
+    for (const objectId of event.objectIds ?? []) {
+      draft.enqueue({ type: 'move', objectId, to: 'battlefield' })
+      if (selection.tapped) draft.enqueue({ type: 'tap', objectId })
+    }
+    draft.enqueue({ type: 'shuffleLibrary', seat: fromSeat })
+    draft.note(`${event.seat} searches for ${event.objectIds?.length ?? 0} card(s)`)
   } else if (selection.kind === 'scry' || selection.kind === 'surveil') {
     const choices = parseChoices(event)
     if (!choices) return

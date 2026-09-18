@@ -427,6 +427,8 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
     ? { sacrifice: { min: count, max: count } }
     : selection.kind === 'discard'
       ? { graveyard: { min: count, max: count } }
+    : selection.kind === 'search'
+      ? { battlefield: { min: selection.min ?? count, max: count } }
       : selection.kind === 'reveal'
         ? { reveal: { min: selection.min ?? count, max: count } }
       : undefined
@@ -615,11 +617,18 @@ export const applyKernelChoice = (
     if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
       throw new Error('That card choice is no longer open.')
     }
-    if (cardKind === 'discard' || cardKind === 'sacrifice' || cardKind === 'reveal') {
+    if (
+      cardKind === 'discard'
+      || cardKind === 'sacrifice'
+      || cardKind === 'reveal'
+      || cardKind === 'search'
+    ) {
       const chosenDestination = cardKind === 'sacrifice'
         ? 'sacrifice'
         : cardKind === 'reveal'
           ? 'reveal'
+          : cardKind === 'search'
+            ? 'battlefield'
           : 'graveyard'
       const objectIds = objectIdsForNames(
         state,
@@ -628,7 +637,9 @@ export const applyKernelChoice = (
           .filter(({ destination }) => destination === chosenDestination)
           .map(({ card }) => card),
       )
-      const minimum = cardKind === 'reveal' ? waiting.selection.min ?? waiting.count : waiting.count
+      const minimum = cardKind === 'reveal' || cardKind === 'search'
+        ? waiting.selection.min ?? waiting.count
+        : waiting.count
       if (objectIds.length < minimum || objectIds.length > waiting.count) {
         throw new Error(
           minimum === waiting.count

@@ -244,6 +244,7 @@ export type GameEvent =
       additionalGeneric?: number
       alternativeCost?: 'evoke' | 'payLife'
       manaSpent?: ManaId[]
+      payExtort?: boolean
       kicked?: boolean
       x?: number
       sacrifice?: string[]
@@ -258,7 +259,7 @@ export type GameEvent =
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
   // — CR keyword actions —
-  | { type: 'draw'; seat: PlayerId; count?: number }
+  | { type: 'draw'; seat: PlayerId; count?: number; phialReplacement?: boolean }
   | { type: 'discard'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
@@ -267,7 +268,28 @@ export type GameEvent =
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool> }
   | { type: 'payMana'; seat: PlayerId; cost: string }
   | { type: 'emptyManaPools' }
-  | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
+  | {
+      type: 'gainLife'
+      seat: PlayerId
+      amount: number
+      source?: string
+      phialReplacement?: boolean
+    }
+  | {
+      type: 'createTokens'
+      seat: PlayerId
+      count: number
+      token: {
+        name: string
+        types: string[]
+        subtypes?: string[]
+        colors?: string[]
+        power?: number
+        toughness?: number
+        oracleText?: string
+      }
+      source?: string
+    }
   // — Combat & damage —
   | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[]; taxPaid?: number }
   | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[]; taxPaid?: number }
@@ -300,7 +322,7 @@ export type GameEvent =
       type: 'selectCards'
       /** Seat making the choice. */
       seat: PlayerId
-      kind: 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
+      kind: 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal' | 'search'
       count: number
       /** Cards selected from a hidden zone (discard / reveal). */
       objectIds?: string[]
@@ -310,6 +332,7 @@ export type GameEvent =
         destination: 'top' | 'bottom' | 'graveyard'
       }>
     }
+  | { type: 'vote'; seat: PlayerId; sourceId: string; objectId: string }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }
   | {

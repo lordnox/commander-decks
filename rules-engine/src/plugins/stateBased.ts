@@ -1,5 +1,6 @@
 import type { GameEvent, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
+import { hasKeyword } from '../keywords'
 
 const moveToGraveyard = (objectId: string): GameEvent => ({
   type: 'move',
@@ -10,6 +11,9 @@ const moveToGraveyard = (objectId: string): GameEvent => ({
 export const stateBased: Plugin = {
   id: 'stateBased',
   sba: ({ draft }) => {
+    const everybodyLives = Object.values(draft.players).some(
+      (player) => player.data['eva.everybodyLivesTurn'] === draft.turn,
+    )
     const entryChoicePending = draft.playerOrder.some(
       (seat) => hasPendingDialog(draft, seat, 'copy-creature'),
     )
@@ -22,11 +26,17 @@ export const stateBased: Plugin = {
     if (entryChoicePending || copyChoiceOnStack) return []
 
     for (const player of Object.values(draft.players)) {
-      if (!player.lost && player.life <= 0) return [{ type: 'concede', seat: player.id }]
+      const protectedThisTurn = player.data['eva.everybodyLivesTurn'] === draft.turn
+      if (!player.lost && player.life <= 0 && !protectedThisTurn) {
+        return [{ type: 'concede', seat: player.id }]
+      }
     }
 
     for (const player of Object.values(draft.players)) {
-      if (!player.lost && player.poison >= 10) return [{ type: 'concede', seat: player.id }]
+      const protectedThisTurn = player.data['eva.everybodyLivesTurn'] === draft.turn
+      if (!player.lost && player.poison >= 10 && !protectedThisTurn) {
+        return [{ type: 'concede', seat: player.id }]
+      }
     }
 
     for (const object of Object.values(draft.objects)) {
@@ -43,9 +53,18 @@ export const stateBased: Plugin = {
         && object.toughness !== null
         && (
           object.toughness <= 0
-          || object.damageMarked >= object.toughness
+          || (
+            object.damageMarked >= object.toughness
+            && !everybodyLives
+            && !hasKeyword(object, 'indestructible', draft)
+          )
           // Any damage from a deathtouch source destroys it (CR 704.5h).
-          || (object.deathtouched === true && object.damageMarked > 0)
+          || (
+            object.deathtouched === true
+            && object.damageMarked > 0
+            && !everybodyLives
+            && !hasKeyword(object, 'indestructible', draft)
+          )
         )
       ) {
         return [moveToGraveyard(object.id)]

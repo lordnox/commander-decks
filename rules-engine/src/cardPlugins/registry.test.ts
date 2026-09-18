@@ -95,6 +95,42 @@ describe('card plugin registry', () => {
     ])).toEqual([])
   })
 
+  test('the Foggy Blood Transfusion rules batch stays registered', () => {
+    expect(missingCardPlugins([
+      'Archangel of Tithes',
+      'Baird, Steward of Argive',
+      'Batwing Brume',
+      'Comeuppance',
+      "Council's Judgment",
+      'Crypt Ghast',
+      'Debt to the Deathless',
+      'Drain Life',
+      'Energy Arc',
+      'Ephemerate',
+      'Everybody Lives!',
+      'Exotic Orchard',
+      'Exsanguinate',
+      'Fractured Identity',
+      'Ghostly Flicker',
+      'Inkshield',
+      'Loran of the Third Path',
+      'Lotho, Corrupt Shirriff',
+      'Mirror Universe',
+      'Mirrorweave',
+      'Mister Negative',
+      'Mulldrifter',
+      'Phial of Galadriel',
+      'Queza, Augur of Agonies',
+      'Reflecting Pool',
+      'Repay in Kind',
+      'Rings of Brighthearth',
+      'Settle the Wreckage',
+      'Snuff Out',
+      'Sokrates, Athenian Teacher',
+      'Vanish into Memory',
+    ])).toEqual([])
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])
