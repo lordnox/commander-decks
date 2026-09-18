@@ -33,6 +33,30 @@ test('topdeck dialog offers card previews and a board-view escape', () => {
   expect(html).toContain('>Hide</button>')
 })
 
+test('a reveal-land choice says reveal instead of target', () => {
+  const game = {
+    catalog: { Island: {} },
+  } as unknown as ReplayGame
+  const decision = {
+    seat: 'p1',
+    kind: 'reveal',
+    cards: ['Island'],
+    destinations: ['hand', 'reveal'],
+    requirements: { reveal: { min: 0, max: 1 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Reveal 1')
+  expect(html).toContain('>Reveal</button>')
+})
+
 test('library searches offer filtering and one explicit selection', () => {
   const game = {
     catalog: {

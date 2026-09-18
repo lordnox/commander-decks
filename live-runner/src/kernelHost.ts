@@ -417,7 +417,7 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
       : selection.kind === 'surveil'
         ? ['top', 'graveyard']
         : selection.kind === 'reveal'
-          ? ['hand', 'target']
+          ? ['hand', 'reveal']
         : selection.kind === 'sacrifice'
           ? ['battlefield', 'sacrifice']
           : ['graveyard'])) as TopdeckDecision['destinations']
@@ -426,7 +426,7 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
     : selection.kind === 'discard'
       ? { graveyard: { min: count, max: count } }
       : selection.kind === 'reveal'
-        ? { target: { min: selection.min ?? count, max: count } }
+        ? { reveal: { min: selection.min ?? count, max: count } }
       : undefined
   lobby.topdeck = {
     seat: selection.seat,
@@ -617,7 +617,7 @@ export const applyKernelChoice = (
       const chosenDestination = cardKind === 'sacrifice'
         ? 'sacrifice'
         : cardKind === 'reveal'
-          ? 'target'
+          ? 'reveal'
           : 'graveyard'
       const objectIds = objectIdsForNames(
         state,

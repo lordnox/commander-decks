@@ -11,6 +11,7 @@ export const TOPDECK_DESTINATIONS = [
   'battlefield',
   'library',
   'target',
+  'reveal',
   'sacrifice',
   'skip',
 ] as const
