@@ -114,20 +114,24 @@ const askEachPlayerDiscard = (
 
 const askEachPlayerSacrifice = (draft: Draft, source: GameObject) => {
   for (const seat of apnapSeats(draft)) {
-    const hasCreature = Object.values(draft.objects).some((object) =>
-      object.zone === 'battlefield'
-      && object.controller === seat
-      && object.types.includes('Creature'))
-    if (!hasCreature) continue
-    openSourceDialog(draft, source, {
+    const candidates = Object.values(draft.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === seat
+        && object.types.includes('Creature'))
+      .map((object) => object.id)
+    if (candidates.length === 0) continue
+    openCardSelection(draft, {
       seat,
-      kind: 'sacrifice-creature',
-      prompt: `${source.name} makes each player sacrifice a creature. Choose one.`,
-      waiting: 'is choosing a creature to sacrifice.',
-      judge: `${source.name}: each player sacrifices a creature.`,
-      destinations: ['battlefield', 'sacrifice'],
-      requirements: { sacrifice: { min: 1, max: 1 } },
+      kind: 'sacrifice',
       count: 1,
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `${source.name} makes each player sacrifice a creature. Choose one.`,
+      destinations: ['battlefield', 'sacrifice'],
+      fromSeat: seat,
+      sequence: draft.allocTs(),
     })
   }
 }

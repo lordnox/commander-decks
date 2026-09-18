@@ -1313,8 +1313,9 @@ describe('kernel host journal', () => {
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'sacrifice-creature',
+      kind: 'sacrifice',
       cards: ['Rankle, Master of Pranks'],
+      destinations: ['battlefield', 'sacrifice'],
     })
 
     expect(applyKernelChoice(kernel, lobby, 'p1', {
@@ -1323,7 +1324,7 @@ describe('kernel host journal', () => {
     })).toBe(true)
     expect(kernel.history.current().objects[source.id].zone).toBe('graveyard')
     prepareKernelPendingChoice(kernel, lobby)
-    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice-creature' })
+    expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
   })
 
   test('pauses on a waiting stack discard and resumes with continueAction', async () => {

@@ -114,6 +114,38 @@ describe('selectCards game rule', () => {
     expect(result.error).toContain('p2 is choosing cards')
   })
 
+  test('sacrifice moves a chosen battlefield creature to the graveyard', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [cardTemplate('Hydra', { types: ['Creature'], power: 9, toughness: 9 })],
+      },
+      players: 2,
+    })
+    const hydra = server.state.zoneOrder.p1.battlefield[0]
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p1',
+      kind: 'sacrifice',
+      count: 1,
+      candidates: [hydra],
+      source: 'Rankle, Master of Pranks',
+      destinations: ['battlefield', 'sacrifice'],
+      fromSeat: 'p1',
+    })
+    const opened = freezeDraft(draft)
+
+    const sacrificed = ok(server.rules(opened, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'sacrifice',
+      count: 1,
+      objectIds: [hydra],
+    }))
+
+    expect(sacrificed.objects[hydra].zone).toBe('graveyard')
+    expect(pendingSelectionFor(sacrificed, 'p1')).toBeUndefined()
+  })
+
   test('pendingSelection returns the first open choice in player order', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [card('One')], p2: [card('Two')] },
