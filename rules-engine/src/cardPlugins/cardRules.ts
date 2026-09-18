@@ -516,6 +516,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Scute Swarm': [
     landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
   ],
+  'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
   'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
   "Sin, Spira's Punishment": [handler('sin')],
   'Skull Prophet': [

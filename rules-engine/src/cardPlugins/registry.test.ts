@@ -61,6 +61,20 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(covered)).toEqual([])
   })
 
+  test('every surveil land carries its enter trigger, not just its tap', () => {
+    const surveilLands = [
+      'Hedge Maze',
+      'Shadowy Backstreet',
+      'Undercity Sewers',
+      'Underground Mortuary',
+    ]
+    expect(missingCardPlugins(surveilLands)).toEqual([])
+    for (const land of surveilLands) {
+      expect(cardPluginEntry(land)?.handlerIds.toSorted())
+        .toEqual(['choiceEffects', 'entersTapped'])
+    }
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])

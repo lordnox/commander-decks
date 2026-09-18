@@ -2,7 +2,10 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
+import { resolveStack } from '../testHelpers'
 import type { GameState, ReduceResult } from '../types'
+import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
 
 const land = (name: string, subtypes: string[] = []) =>
@@ -86,6 +89,29 @@ describe('entersTapped', () => {
     const objectId = server.state.zoneOrder.p1.hand[0]
     const next = ok(server.rules(server.state, { type: 'move', objectId, to: 'battlefield' }))
     expect(named(next, 'Lotus Field').tapped).toBe(true)
+  })
+
+  test('a surveil land both enters tapped and opens its surveil', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [land('Shadowy Backstreet', ['Plains', 'Swamp'])] },
+        libraries: { p1: [land('Swamp', ['Swamp'])] },
+      },
+      { random: () => 0.5, cardPlugins: [entersTapped, choiceEffects] },
+    )
+    const objectId = server.state.zoneOrder.p1.hand[0]
+
+    const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    expect(played.objects[objectId].tapped).toBe(true)
+
+    // The enter trigger owes a surveil, so the land is not done entering when
+    // it hits the battlefield tapped.
+    const resolved = resolveStack(server.rules, played)
+    expect(pendingSelectionFor(resolved, 'p1')).toMatchObject({
+      kind: 'surveil',
+      source: 'Shadowy Backstreet',
+    })
   })
 
   test('another seat\'s lands are not counted for the conditional forms', () => {
