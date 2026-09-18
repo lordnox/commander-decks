@@ -139,6 +139,9 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     ...(card?.faces?.[0]
       ? { frontFace: faceCharacteristics(card.faces[0].type_line, card.faces[0].mana_cost) }
       : {}),
+    ...(card?.faces?.[1]
+      ? { backFace: faceCharacteristics(card.faces[1].type_line, card.faces[1].mana_cost) }
+      : {}),
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     printedLoyalty: loyalty,

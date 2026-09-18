@@ -3,6 +3,7 @@ import { abilities } from './plugins/activateAbility'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
+import { doubleFaced } from './plugins/doubleFaced'
 import { extraSwampMana } from './plugins/extraSwampMana'
 import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
@@ -51,6 +52,7 @@ export const corePlugins = [
   stateBased,
   combat,
   damage,
+  doubleFaced,
   ...gameRules,
   judgeFallback,
   unconfiguredHiddenInformation,

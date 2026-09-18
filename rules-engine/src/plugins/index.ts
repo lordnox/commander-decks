@@ -3,6 +3,7 @@ import { abilities } from './activateAbility'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
+import { doubleFaced } from './doubleFaced'
 import { extraSwampMana } from './extraSwampMana'
 import { extraUntap } from './extraUntap'
 import { fog } from './fog'
@@ -32,6 +33,7 @@ export const builtInPlugins = [
   stateBased,
   combat,
   damage,
+  doubleFaced,
   discard,
   draw,
   selectCards,
@@ -54,6 +56,7 @@ export {
   combat,
   commander,
   damage,
+  doubleFaced,
   extraSwampMana,
   extraUntap,
   fog,
