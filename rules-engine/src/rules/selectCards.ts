@@ -5,6 +5,13 @@ export const PENDING_SELECTION = 'kernel.pendingSelection'
 
 export type CardSelectionKind = 'discard' | 'scry' | 'surveil'
 
+export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard'
+
+export type CardSelectionChoice = {
+  objectId: string
+  destination: CardSelectionDestination
+}
+
 /** Server-owned choice state until the seat sends `selectCards` with `objectIds`. */
 export type PendingCardSelection = {
   id: string
@@ -16,10 +23,11 @@ export type PendingCardSelection = {
   sourceId?: string
   source?: string
   prompt?: string
-  destinations?: string[]
+  destinations?: CardSelectionDestination[]
   /** Whose zone the cards come from (defaults to `seat`). */
   fromSeat?: PlayerId
   sequence?: number
+  after?: Array<'resolveTop'>
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -87,16 +95,47 @@ const cardInHand = (state: GameState | Draft, seat: PlayerId, objectId: string) 
   return object?.zone === 'hand' && object.controller === seat
 }
 
+const libraryTop = (state: GameState | Draft, seat: PlayerId, count: number) =>
+  (state.zoneOrder[seat]?.library ?? []).slice(0, count)
+
 const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   const fromSeat = selection.fromSeat ?? selection.seat
   if (selection.kind === 'discard') {
     return selection.candidates.filter((objectId) => cardInHand(state, fromSeat, objectId))
+  }
+  if (selection.kind === 'scry' || selection.kind === 'surveil') {
+    const top = new Set(libraryTop(state, fromSeat, selection.count))
+    return selection.candidates.filter((objectId) => top.has(objectId))
   }
   return selection.candidates.filter((objectId) => Boolean(state.objects[objectId]))
 }
 
 const expectedCount = (state: GameState, selection: PendingCardSelection) =>
   Math.min(selection.count, liveCandidates(state, selection).length)
+
+const allowedDestinations = (selection: PendingCardSelection): CardSelectionDestination[] => {
+  if (selection.destinations?.length) return selection.destinations
+  if (selection.kind === 'scry') return ['top', 'bottom']
+  if (selection.kind === 'surveil') return ['top', 'graveyard']
+  return ['graveyard']
+}
+
+const parseChoices = (event: GameEvent): CardSelectionChoice[] | undefined => {
+  if (!Array.isArray(event.choices)) return
+  const choices: CardSelectionChoice[] = []
+  for (const entry of event.choices) {
+    if (
+      !entry
+      || typeof entry !== 'object'
+      || typeof (entry as CardSelectionChoice).objectId !== 'string'
+      || typeof (entry as CardSelectionChoice).destination !== 'string'
+    ) {
+      return
+    }
+    choices.push(entry as CardSelectionChoice)
+  }
+  return choices
+}
 
 const legalSelectCards = (state: GameState, event: GameEvent) => {
   if (event.type !== 'selectCards') return
@@ -106,23 +145,78 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   if (selection.kind !== event.kind) return `expected a ${selection.kind} selection`
   if (event.count !== selection.count) return `expected count ${selection.count}`
 
-  const objectIds = event.objectIds
-  if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
-    return 'objectIds must be a string array'
-  }
-
   const expected = expectedCount(state, selection)
-  if (objectIds.length !== expected) {
-    return `must choose exactly ${expected} card(s)`
+  const allowed = new Set(liveCandidates(state, selection))
+  const destinations = new Set(allowedDestinations(selection))
+
+  if (selection.kind === 'discard') {
+    const objectIds = event.objectIds
+    if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
+      return 'objectIds must be a string array'
+    }
+    if (objectIds.length !== expected) {
+      return `must choose exactly ${expected} card(s)`
+    }
+    for (const objectId of objectIds) {
+      if (!selection.candidates.includes(objectId)) {
+        return 'card was not offered for this selection'
+      }
+      if (!allowed.has(objectId)) {
+        return 'card is no longer a valid choice'
+      }
+    }
+    return
   }
 
-  const allowed = new Set(liveCandidates(state, selection))
-  for (const objectId of objectIds) {
-    if (!selection.candidates.includes(objectId)) {
+  const choices = parseChoices(event)
+  if (!choices) return 'choices must list each candidate with a destination'
+  if (choices.length !== expected) {
+    return `must assign exactly ${expected} card(s)`
+  }
+  const seen = new Set<string>()
+  for (const choice of choices) {
+    if (!selection.candidates.includes(choice.objectId)) {
       return 'card was not offered for this selection'
     }
-    if (!allowed.has(objectId)) {
+    if (!allowed.has(choice.objectId)) {
       return 'card is no longer a valid choice'
+    }
+    if (!destinations.has(choice.destination)) {
+      return `invalid destination ${choice.destination}`
+    }
+    if (seen.has(choice.objectId)) {
+      return 'each card may only be assigned once'
+    }
+    seen.add(choice.objectId)
+  }
+}
+
+const applyTopDeckChoices = (
+  draft: Draft,
+  seat: PlayerId,
+  choices: CardSelectionChoice[],
+  kind: 'scry' | 'surveil',
+) => {
+  for (const choice of choices.filter(({ destination }) => destination === 'top').reverse()) {
+    draft.enqueue({
+      type: 'move',
+      objectId: choice.objectId,
+      to: 'library',
+      position: 'top',
+    })
+  }
+  if (kind === 'scry') {
+    for (const choice of choices.filter(({ destination }) => destination === 'bottom')) {
+      draft.enqueue({
+        type: 'move',
+        objectId: choice.objectId,
+        to: 'library',
+        position: 'bottom',
+      })
+    }
+  } else {
+    for (const choice of choices.filter(({ destination }) => destination === 'graveyard')) {
+      draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'graveyard' })
     }
   }
 }
@@ -134,26 +228,42 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
   if (!selection || selection.kind !== event.kind) return
 
   const fromSeat = selection.fromSeat ?? selection.seat
+  const after = selection.after
   clearPendingSelection(draft, event.seat)
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
 
   if (selection.kind === 'discard') {
-    for (const objectId of event.objectIds) {
+    for (const objectId of event.objectIds ?? []) {
       draft.enqueue({ type: 'discard', seat: fromSeat, objectId })
     }
-    const name = draft.objects[event.objectIds[0]]?.name ?? 'a card'
+    const name = draft.objects[event.objectIds?.[0] ?? '']?.name ?? 'a card'
     draft.note(
       selection.source
         ? `${event.seat} discards ${name} to ${selection.source}`
         : `${event.seat} discards ${name}`,
     )
+    return
+  }
+
+  const choices = parseChoices(event)
+  if (!choices) return
+  applyTopDeckChoices(draft, event.seat, choices, selection.kind)
+  const names = choices
+    .map((choice) => draft.objects[choice.objectId]?.name ?? 'a card')
+    .join(', ')
+  draft.note(
+    selection.source
+      ? `${event.seat} ${selection.kind}s ${names} for ${selection.source}`
+      : `${event.seat} ${selection.kind}s ${names}`,
+  )
+  for (const followUp of after ?? []) {
+    if (followUp === 'resolveTop') draft.enqueue({ type: 'resolveTop' })
   }
 }
 
 /**
- * Builtin game rule for server-authoritative card selection (CR 701.9 discard today;
- * scry / surveil share the same continuation shape).
+ * Builtin game rule for server-authoritative card selection (discard, scry, surveil).
  */
 export const selectCards: Plugin = {
   id: 'selectCards',

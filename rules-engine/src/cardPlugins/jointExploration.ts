@@ -1,31 +1,16 @@
 import type { GameState, PlayerId, Plugin } from '../types'
 import {
   clearPendingDialog,
-  hasPendingDialog,
   pendingDialogFor,
   setPendingDialog,
 } from '../pendingDialog'
+import { openCardSelection, pendingSelectionFor } from '../rules/selectCards'
 
 export const JOINT_SCRY_BEGIN = 'jointExploration.scryBegin'
-export const JOINT_SCRY_CHOSEN = 'jointExploration.scryChosen'
 export const JOINT_LAND_CHOSEN = 'jointExploration.landChosen'
 export const JOINT_SCRY_DONE = 'jointExploration.scryDone'
 
 const NAME = 'Joint Exploration'
-
-const scryDialog = (sourceId: string, seat: PlayerId) => ({
-  sourceId,
-  source: NAME,
-  seat,
-  kind: 'scry' as const,
-  prompt: 'Scry 2, then this spell resolves.',
-  waiting: 'is making a private scry choice.',
-  judge: 'Waiting for a private scry 2 choice.',
-  chosenEvent: JOINT_SCRY_CHOSEN,
-  destinations: ['top', 'bottom'] as Array<'top' | 'bottom'>,
-  count: 2,
-  after: ['resolveTop' as const],
-})
 
 const landDialog = (sourceId: string, seat: PlayerId) => ({
   sourceId,
@@ -59,7 +44,7 @@ export const jointExploration: Plugin = {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
     if (item?.kind !== 'spell' || item.name !== NAME) return
-    if (hasPendingDialog(state, item.controller, 'scry')) return null
+    if (pendingSelectionFor(state, item.controller)?.kind === 'scry') return null
     if (state.players[item.controller]?.data[JOINT_SCRY_DONE]) return
     return {
       type: 'custom',
@@ -74,15 +59,29 @@ export const jointExploration: Plugin = {
   apply: ({ state, event, draft }) => {
     if (event.type === 'custom' && event.name === JOINT_SCRY_BEGIN && event.seat) {
       const sourceId = String(event.payload?.sourceId ?? '')
-      setPendingDialog(draft, scryDialog(sourceId, event.seat))
+      const candidates = draft.zoneOrder[event.seat].library.slice(0, 2)
+      if (candidates.length > 0) {
+        openCardSelection(draft, {
+          seat: event.seat,
+          kind: 'scry',
+          count: 2,
+          candidates,
+          sourceId,
+          source: NAME,
+          prompt: 'Scry 2, then this spell resolves.',
+          destinations: ['top', 'bottom'],
+          after: ['resolveTop'],
+        })
+      }
       draft.players[event.seat].data.jointKicked = event.payload?.kicked === true
       draft.note(`${event.seat} scries 2 for ${NAME}`)
       return
     }
-    if (event.type === 'custom' && event.name === JOINT_SCRY_CHOSEN && event.seat) {
-      if (pendingDialogFor(state, event.seat)?.kind !== 'scry') return
-      clearPendingDialog(draft, event.seat)
-      draft.players[event.seat].data[JOINT_SCRY_DONE] = true
+    if (event.type === 'selectCards' && event.kind === 'scry' && event.seat) {
+      const item = state.stack[0]
+      if (item?.kind === 'spell' && item.name === NAME) {
+        draft.players[event.seat].data[JOINT_SCRY_DONE] = true
+      }
       return
     }
     if (event.type === 'custom' && event.name === JOINT_LAND_CHOSEN && event.seat) {
@@ -106,8 +105,11 @@ export const jointExploration: Plugin = {
 }
 
 export const pendingJointExploration = (state: GameState, seat: PlayerId) => {
+  const selection = pendingSelectionFor(state, seat)
+  if (selection?.kind === 'scry') {
+    return { sourceId: selection.sourceId ?? '', stage: 'scry' as const }
+  }
   const dialog = pendingDialogFor(state, seat)
-  if (dialog?.kind === 'scry') return { sourceId: dialog.sourceId, stage: 'scry' as const }
   if (dialog?.kind === 'put-land') return { sourceId: dialog.sourceId, stage: 'putLand' as const }
   if (state.players[seat]?.data[JOINT_SCRY_DONE]) {
     return { sourceId: '', stage: 'scryDone' as const }
