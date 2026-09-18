@@ -4,7 +4,7 @@ import type { ReplayGame } from './replayTypes'
 
 type Destination =
   | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-  | 'target' | 'sacrifice' | 'skip'
+  | 'target' | 'reveal' | 'sacrifice' | 'skip'
 type Choice = {
   id: number
   card: string
@@ -19,6 +19,7 @@ const label = (destination: Destination) => {
   if (destination === 'battlefield') return 'Battlefield'
   if (destination === 'library') return 'Library'
   if (destination === 'target') return 'Target'
+  if (destination === 'reveal') return 'Reveal'
   if (destination === 'sacrifice') return 'Sacrifice'
   if (destination === 'skip') return 'Not targeted'
   return 'Top'
@@ -45,6 +46,7 @@ export const TopdeckDialog = ({
   const sacrificingLands = decision.kind === 'sacrifice-lands'
   const sacrificingCreatures = decision.kind === 'sacrifice'
   const optionalDraw = decision.kind === 'may-draw'
+  const revealing = decision.kind === 'reveal'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -196,6 +198,8 @@ export const TopdeckDialog = ({
                 ? 'Choose any number of players. Homer mills each chosen player when you confirm.'
                 : searching
                   ? 'Choose a matching card or decline when the search is optional. The rest stay in your library, then it is shuffled.'
+                  : revealing
+                    ? 'Reveal one offered card, or keep every card private and let the land enter tapped.'
                   : `Choose top or ${destinationLabel} for each card.`)}
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
@@ -328,6 +332,8 @@ export const TopdeckDialog = ({
                           ? 'Leave on top'
                           : destination === 'bottom'
                             ? 'Put on bottom'
+                          : revealing
+                            ? (destination === 'reveal' ? 'Reveal' : 'Keep private')
                             : discarding
                               ? (destination === 'hand' ? 'Keep' : 'Discard')
                               : `Put in ${destination}`}
