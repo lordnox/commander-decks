@@ -64,7 +64,10 @@ export type TopdeckDecision = {
       | 'look-top-land'
       | 'exile-graveyards'
       | 'waiting-discard'
+      | 'select-cards'
     stackId?: string
+    selectionId?: string
+    cardKind?: 'discard' | 'scry' | 'surveil'
     resumePassSeat?: SeatId
     kicked?: boolean
     chosenEvent?: string
