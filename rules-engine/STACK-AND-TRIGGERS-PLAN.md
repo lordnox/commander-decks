@@ -59,3 +59,6 @@ APNAP ordering live in `triggers.ts` (CR 603).
   single event — v1 uses timestamp / card-rules order; `orderTriggers` UI is not built.
 - **Fetchlands** and **secret council** still use `custom` events and `pendingDialog`
   rather than `searchLibrary` / `vote` stack actions.
+- **`selectCards` migration** — moving card-selection dialogs (`revealPick`, `putFromHand`,
+  and similar) onto stack `continueAction` is in progress; many paths still use
+  `pendingDialog`.

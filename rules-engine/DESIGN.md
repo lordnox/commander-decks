@@ -88,6 +88,14 @@ Add a plugin only when a new deck or card needs one. Write a regression test
 in the same step. Reuse `whenAbility` / `applyAbility` checks from
 `plugins/activateAbility.ts`.
 
+Some `CardInstruction` kinds are declared for card rules but not executed in
+`runInstructions.ts`. `addChosenColorMana` is handled by the `tapForMana` event
+(`plugins/mana.ts` applies; `cardPlugins/activated.ts` legal hook skips legacy
+journal objects that still embed the instruction). `putMilledLandTapped` is
+handled in `rules/triggers.ts` when a milled land hits the graveyard from the
+library (`handleMilledLandImmediate`). Unknown kinds that reach the end of the
+instruction loop are noted in the trace (`unknown instruction: …`).
+
 The live judge may keep a current game moving with `judgeFallback` when exact
 Oracle behavior has no plugin yet. The event names the source and missing
 capability and contains only ordinary primitive effects. Nested fallbacks and
