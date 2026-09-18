@@ -4,6 +4,7 @@ import {
   runInstructions,
   type CardInstruction,
 } from '../cardPlugins/effects'
+import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import type { GameObject, GameState, StackItem } from '../types'
 import { resolveDiscardAction } from './discard'
@@ -15,32 +16,12 @@ import { resolveDrawAction } from './draw'
  * CR 608.2 — perform the ability's instructions when it resolves.
  */
 const stackSourceFallback = (item: StackItem): GameObject => ({
+  ...gameObjectFieldDefaults(),
   id: item.objectId,
   name: item.name,
   owner: item.controller,
   controller: item.controller,
   zone: 'graveyard',
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  types: [],
-  subtypes: [],
-  supertypes: [],
-  manaCost: '',
-  manaValue: 0,
-  colors: [],
-  power: null,
-  toughness: null,
-  printedLoyalty: null,
-  loyaltyActivatedTurn: null,
-  oracleText: '',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  grantedRules: [],
-  token: false,
-  tags: [],
 })
 
 export const resolveAbility = (draft: Draft, item: StackItem) => {

@@ -1,3 +1,5 @@
+import type { GameObject } from './types'
+
 /** Shared Magic vocabulary. Rules and card files read these instead of inlining type lists. */
 
 export const CARD_TYPES = [
@@ -34,3 +36,31 @@ const PERMANENT_TYPE_SET: ReadonlySet<string> = new Set(PERMANENT_TYPES)
 /** CR 110.1: a permanent is a card or token on the battlefield, by its card types. */
 export const isPermanentType = (types: readonly string[]) =>
   types.some((type) => PERMANENT_TYPE_SET.has(type))
+
+/** Shared zeroed fields for cards, tokens, and templates. */
+export const gameObjectFieldDefaults = (): Omit<
+  GameObject,
+  'id' | 'name' | 'owner' | 'controller' | 'zone'
+> => ({
+  tapped: false,
+  summoningSickness: false,
+  damageMarked: 0,
+  counters: {},
+  types: [],
+  subtypes: [],
+  supertypes: [],
+  manaCost: '',
+  manaValue: 0,
+  colors: [],
+  power: null,
+  toughness: null,
+  printedLoyalty: null,
+  loyaltyActivatedTurn: null,
+  oracleText: '',
+  attachedTo: null,
+  attacking: null,
+  blocking: null,
+  grantedRules: [],
+  token: false,
+  tags: [],
+})

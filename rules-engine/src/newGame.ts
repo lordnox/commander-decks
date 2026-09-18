@@ -1,6 +1,7 @@
 import { grantedRulesFor } from './cardPlugins'
 import { effectsFor } from './cardPlugins/cardRules'
 import { serializableEffects } from './cardPlugins/effects'
+import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
 import type { GameFormat } from './formats'
 import {
@@ -17,28 +18,8 @@ export type CardTemplate = Omit<GameObject, 'id' | 'owner' | 'controller' | 'zon
 }
 
 const defaultObject = (): Omit<GameObject, 'id' | 'owner' | 'controller' | 'zone'> => ({
+  ...gameObjectFieldDefaults(),
   name: 'Unknown',
-  tapped: false,
-  summoningSickness: false,
-  damageMarked: 0,
-  counters: {},
-  types: [],
-  subtypes: [],
-  supertypes: [],
-  manaCost: '',
-  manaValue: 0,
-  colors: [],
-  power: null,
-  toughness: null,
-  printedLoyalty: null,
-  loyaltyActivatedTurn: null,
-  oracleText: '',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  grantedRules: [],
-  token: false,
-  tags: [],
 })
 
 /** One place that knows every GameObject field, so callers name only what matters. */
