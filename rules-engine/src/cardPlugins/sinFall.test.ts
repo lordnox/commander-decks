@@ -3,6 +3,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
 import { onResolve } from './onResolve'
@@ -128,5 +129,113 @@ describe('Sin Fall routine card support', () => {
     }))
 
     expect(tapped.players.p1.mana.G).toBe(1)
+  })
+
+  test('Reprocess uses a typed optional sacrifice and draws per chosen permanent', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [card('Reprocess', ['Sorcery'], '{2}{B}{B}')] },
+        battlefield: {
+          p1: [
+            card('Relic', ['Artifact']),
+            card('Body', ['Creature']),
+            card('Song', ['Enchantment']),
+          ],
+        },
+        libraries: { p1: [card('Fresh', ['Instant'])] },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 0, U: 0, B: 2, R: 0, G: 0, C: 2 }
+    const spell = ready.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell }))
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(choosing, 'p1')!
+
+    expect(selection).toMatchObject({ kind: 'sacrifice', count: 2, min: 0 })
+    expect(server.project(choosing, 'p2').players.p1.data['kernel.pendingSelection'])
+      .toBeUndefined()
+
+    const relic = Object.values(choosing.objects).find((object) => object.name === 'Relic')!
+    const resolved = ok(server.rules(structuredClone(choosing), {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'sacrifice',
+      count: selection.count,
+      objectIds: [relic.id],
+    }))
+    expect(resolved.objects[relic.id].zone).toBe('graveyard')
+    expect(Object.values(resolved.objects).find((object) => object.name === 'Fresh')?.zone)
+      .toBe('hand')
+    expect(Object.values(resolved.objects).find((object) => object.name === 'Song')?.zone)
+      .toBe('battlefield')
+  })
+
+  test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [card('Portal to Phyrexia', ['Artifact'], '{9}')] },
+        battlefield: {
+          p2: [
+            card('First Victim', ['Creature']),
+            card('Second Victim', ['Creature']),
+          ],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const portal = server.state.zoneOrder.p1.hand[0]
+    const entered = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: portal,
+      to: 'battlefield',
+    }))
+    const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(choosing, 'p2')!
+    expect(selection).toMatchObject({ kind: 'sacrifice', count: 2 })
+
+    const resolved = ok(server.rules(choosing, {
+      type: 'selectCards',
+      seat: 'p2',
+      kind: 'sacrifice',
+      count: 2,
+      objectIds: [...selection.candidates],
+    }))
+    expect(resolved.zoneOrder.p2.battlefield).toHaveLength(0)
+  })
+
+  test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: { p1: [card('Portal to Phyrexia', ['Artifact'], '{9}')] },
+        hands: { p2: [card('Borrowed Body', ['Creature'], '{4}{G}')] },
+      },
+    )
+    const body = server.state.zoneOrder.p2.hand[0]
+    let state = ok(server.rules(server.state, { type: 'move', objectId: body, to: 'graveyard' }))
+    state = { ...state, step: 'untap', active: 'p1', priority: 'p1' }
+    state = ok(server.rules(state, { type: 'advanceStep' }))
+    expect(state.stack[0]?.name).toBe('Portal to Phyrexia')
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+
+    const restarted = structuredClone(state)
+    const selection = pendingSelectionFor(restarted, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', count: 1 })
+    const resolved = ok(server.rules(restarted, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [body],
+    }))
+    expect(resolved.objects[body]).toMatchObject({
+      zone: 'battlefield',
+      controller: 'p1',
+    })
+    expect(resolved.objects[body].subtypes).toContain('Phyrexian')
   })
 })

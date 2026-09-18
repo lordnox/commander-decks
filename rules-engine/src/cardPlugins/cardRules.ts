@@ -59,6 +59,7 @@ import {
   optionalMill,
   otherLands,
   opponentsAtMost,
+  opponentsSacrifice,
   opponentLostLifeThisTurn,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
@@ -72,11 +73,13 @@ import {
   putPermanentsFromHand,
   revealPick,
   revealUntilBasicLand,
+  reanimateCreatureFromGraveyards,
   returnChosenLandFromGraveyard,
   returnOwnedGraveyardLands,
   searchAbility,
   searchLibrary,
   searchSpell,
+  sacrificePermanentsThenDraw,
   secretCouncil,
   selfMill,
   sharedBasicLandType,
@@ -281,6 +284,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Malakir Rebirth // Malakir Mire': [entersTapped()],
+  'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
+  'Portal to Phyrexia': [
+    enters(opponentsSacrifice('Creature', 3)),
+    upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
+  ],
+  Reprocess: [
+    onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
+  ],
   'Revitalizing Repast // Old-Growth Grove': [
     entersTapped(),
     targetOnResolve(

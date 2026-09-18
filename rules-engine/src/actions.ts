@@ -141,7 +141,6 @@ export const waitingSelectCards = (
     if (pending.kind === 'sacrifice') {
       return object?.zone === 'battlefield'
         && object.controller === fromSeat
-        && object.types.includes('Creature')
     }
     return Boolean(object)
   })

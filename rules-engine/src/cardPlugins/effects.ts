@@ -49,6 +49,9 @@ export type CardInstruction =
   | { kind: 'addPlusCounters'; count: number }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | { kind: 'revealUntilBasicLand' }
+  | { kind: 'sacrificePermanentsThenDraw'; types?: string[] }
+  | { kind: 'opponentsSacrifice'; type: string; count: number }
+  | { kind: 'reanimateCreatureFromGraveyards'; addSubtype?: string }
   | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
   | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
@@ -615,6 +618,24 @@ export const pumpAllCreaturesByX = (multiplier = -1): CardInstruction => ({
 })
 
 export const revealUntilBasicLand = (): CardInstruction => ({ kind: 'revealUntilBasicLand' })
+
+export const sacrificePermanentsThenDraw = (types?: string[]): CardInstruction => ({
+  kind: 'sacrificePermanentsThenDraw',
+  ...(types ? { types } : {}),
+})
+
+export const opponentsSacrifice = (type: string, count: number): CardInstruction => ({
+  kind: 'opponentsSacrifice',
+  type,
+  count,
+})
+
+export const reanimateCreatureFromGraveyards = (
+  addSubtype?: string,
+): CardInstruction => ({
+  kind: 'reanimateCreatureFromGraveyards',
+  ...(addSubtype ? { addSubtype } : {}),
+})
 
 export const payLifeX = (): CardEffect => ({ op: 'castCost', lifeX: true })
 
