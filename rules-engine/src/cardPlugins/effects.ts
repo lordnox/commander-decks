@@ -1,4 +1,4 @@
-import { isPermanentType } from '../definitions'
+import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { lifeLostThisTurn } from '../plugins/damage'
 import type {
@@ -792,28 +792,10 @@ const controlledLandList = (draft: Draft | GameState, seat: PlayerId) =>
     && candidate.types.includes('Land'))
 
 const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller'> => ({
+  ...gameObjectFieldDefaults(),
   zone: 'battlefield',
-  tapped: false,
   summoningSickness: true,
-  damageMarked: 0,
-  counters: {},
-  types: [],
-  subtypes: [],
-  supertypes: [],
-  manaCost: '',
-  manaValue: 0,
-  colors: [],
-  power: null,
-  toughness: null,
-  printedLoyalty: null,
-  loyaltyActivatedTurn: null,
-  oracleText: '',
-  attachedTo: null,
-  attacking: null,
-  blocking: null,
-  grantedRules: [],
   token: true,
-  tags: [],
   effects: [],
 })
 

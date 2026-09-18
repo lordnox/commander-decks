@@ -530,6 +530,40 @@ const objectIdsForNames = (
   })
 }
 
+type TopdeckChoice = Extract<InboxMessage, { type: 'topdeck' }>['choices'][number]
+
+const objectIdsByDestination = (
+  state: GameState,
+  candidateIds: string[],
+  choices: TopdeckChoice[],
+  destination: TopdeckChoice['destination'],
+) => {
+  const orderedIds = objectIdsForNames(
+    state,
+    candidateIds,
+    choices.map(({ card }) => card),
+  )
+  return choices
+    .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
+    .filter((choice) => choice.destination === destination)
+    .map(({ objectId }) => objectId)
+}
+
+const dispatchChoiceObjectIds = (
+  kernel: KernelHandle,
+  seat: SeatId,
+  chosenEvent: string,
+  objectIds: string[],
+) => {
+  const chosen = kernel.dispatch({
+    type: 'custom',
+    name: chosenEvent,
+    seat,
+    payload: { objectIds },
+  })
+  if (!chosen.ok) throw new Error(chosen.error)
+}
+
 const closeKernelChoice = (
   kernel: KernelHandle,
   lobby: LobbyState,
@@ -795,72 +829,47 @@ export const applyKernelChoice = (
       throw new Error('That sacrifice choice is no longer open.')
     }
     const candidates = dialogCandidates(state, dialog)
-    const orderedIds = objectIdsForNames(
+    const objectIds = objectIdsByDestination(
       state,
       candidates.map((object) => object.id),
-      message.choices.map(({ card }) => card),
+      message.choices,
+      'sacrifice',
     )
-    const objectIds = message.choices
-      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
-      .filter(({ destination }) => destination === 'sacrifice')
-      .map(({ objectId }) => objectId)
     const names = objectIds.map((id) => state.objects[id]?.name).filter(Boolean)
-    const chosen = kernel.dispatch({
-      type: 'custom',
-      name: dialog.chosenEvent ?? DIALOG_CHOSEN,
+    dispatchChoiceObjectIds(
+      kernel,
       seat,
-      payload: { objectIds },
+      dialog.chosenEvent ?? DIALOG_CHOSEN,
+      objectIds,
+    )
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: {
+        [seat]: `${dialog.source} sacrificed ${
+          names.length > 0 ? names.join(', ') : 'no lands'
+        }.`,
+      },
+      judge: `${dialog.source} resolved after ${objectIds.length} land sacrifice(s).`,
     })
-    if (!chosen.ok) throw new Error(chosen.error)
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
-    lobby.privateJudge = {
-      [seat]: `${dialog.source} sacrificed ${
-        names.length > 0 ? names.join(', ') : 'no lands'
-      }.`,
-    }
-    lobby.waiting =
-      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = `${dialog.source} resolved after ${objectIds.length} land sacrifice(s).`
-    settleKernelPriority(kernel, lobby)
-    return true
   }
   if (decision.kernel.stage === 'exile-graveyards') {
-    const orderedIds = objectIdsForNames(
+    const objectIds = objectIdsByDestination(
       state,
       state.playerOrder.flatMap((player) => state.zoneOrder[player].graveyard),
-      message.choices.map(({ card }) => card),
+      message.choices,
+      'exile',
     )
-    const objectIds = message.choices
-      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
-      .filter(({ destination }) => destination === 'exile')
-      .map(({ objectId }) => objectId)
     const max = decision.requirements?.exile?.max ?? 3
     if (objectIds.length > max) throw new Error(`Choose at most ${max} card(s).`)
     const chosenEvent = decision.kernel.chosenEvent
     if (!chosenEvent) throw new Error('That graveyard choice is no longer open.')
-    const chosen = kernel.dispatch({
-      type: 'custom',
-      name: chosenEvent,
-      seat,
-      payload: { objectIds },
-    })
-    if (!chosen.ok) throw new Error(chosen.error)
-    lobby.topdeck = undefined
-    state = kernel.history.current()
-    lobby.actions = kernelActions(state)
-    lobby.privateWaiting = {}
+    dispatchChoiceObjectIds(kernel, seat, chosenEvent, objectIds)
     const names = objectIds.map((id) => state.objects[id]?.name).filter(Boolean)
-    lobby.privateJudge = {}
-    lobby.waiting =
-      `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
-    lobby.judge = names.length > 0
-      ? `Pit of Offerings targets ${names.join(', ')}.`
-      : 'Pit of Offerings chose no targets.'
-    settleKernelPriority(kernel, lobby)
-    return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: {},
+      judge: names.length > 0
+        ? `Pit of Offerings targets ${names.join(', ')}.`
+        : 'Pit of Offerings chose no targets.',
+    })
   }
   if (
     OPTIONAL_DIALOGS.has(decision.kernel.stage)
