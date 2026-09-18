@@ -22,6 +22,7 @@ import {
   sameLegalAct,
   eventsForAvailableAction,
   waitingDiscard,
+  waitingSelectCards,
   type GameEvent,
   type GameState,
   type History,
@@ -52,7 +53,7 @@ import {
 } from '../../rules-engine/src/pendingDialog'
 import type { LiveHistoryFrame } from '../../site/src/liveCodec'
 import { compactLiveWire } from '../../site/src/liveCompact'
-import type { LobbyState } from './lobby'
+import type { LobbyState, TopdeckDecision } from './lobby'
 import {
   isSeatId,
   SEAT_IDS,
@@ -397,8 +398,42 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     const waiting = waitingDiscard(state)
     return !waiting || waiting.item.id !== decision.kernel.stackId
   }
+  if (decision.kernel.stage === 'select-cards') {
+    const waiting = waitingSelectCards(state, decision.seat)
+    return !waiting || waiting.selection.id !== decision.kernel.selectionId
+  }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
+}
+
+const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const waiting = waitingSelectCards(state)
+  if (!waiting || !isSeatId(waiting.selection.seat)) return false
+  const { selection, names, count } = waiting
+  lobby.topdeck = {
+    seat: selection.seat,
+    kind: selection.kind === 'discard' ? 'discard-card' : selection.kind,
+    cards: names,
+    destinations: (selection.destinations ?? ['graveyard']) as TopdeckDecision['destinations'],
+    requirements: { graveyard: { min: count, max: count } },
+    kernel: {
+      sourceId: selection.sourceId ?? '',
+      stage: 'select-cards',
+      selectionId: selection.id,
+      cardKind: selection.kind,
+    },
+  }
+  lobby.actions = { [selection.seat]: ['topdeck'] }
+  lobby.waiting =
+    `${lobby.occupants[selection.seat]?.name ?? selection.seat} is choosing cards.`
+  lobby.privateWaiting = {
+    [selection.seat]: selection.prompt ?? `Choose ${count} card${count === 1 ? '' : 's'}.`,
+  }
+  lobby.judge = selection.source
+    ? `Waiting for a ${selection.kind} choice for ${selection.source}.`
+    : `Waiting for a ${selection.kind} choice.`
+  return true
 }
 
 const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbyState) => {
@@ -462,6 +497,7 @@ export const prepareKernelPendingChoice = (
   }
   if (prepareLibrarySearchChoice(kernel, lobby)) return true
   if (prepareWaitingDiscardChoice(kernel, lobby)) return true
+  if (prepareSelectCardsChoice(kernel, lobby)) return true
   return preparePendingDialog(kernel, lobby)
 }
 
@@ -519,6 +555,39 @@ export const applyKernelChoice = (
   }
 
   let state = kernel.history.current()
+  if (decision.kernel.stage === 'select-cards') {
+    const waiting = waitingSelectCards(state, seat)
+    const selectionId = decision.kernel.selectionId
+    const cardKind = decision.kernel.cardKind
+    if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
+      throw new Error('That card choice is no longer open.')
+    }
+    const objectIds = objectIdsForNames(
+      state,
+      waiting.objectIds,
+      message.choices
+        .filter(({ destination }) => destination === 'graveyard')
+        .map(({ card }) => card),
+    )
+    if (objectIds.length !== waiting.count) {
+      throw new Error(`Choose exactly ${waiting.count} card(s).`)
+    }
+    const continued = kernel.dispatch({
+      type: 'selectCards',
+      seat,
+      kind: cardKind,
+      count: waiting.selection.count,
+      objectIds,
+    })
+    if (!continued.ok) throw new Error(continued.error)
+    const name = state.objects[objectIds[0]]?.name ?? 'a card'
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: { [seat]: `You chose ${name}.` },
+      judge: waiting.selection.source
+        ? `${lobby.occupants[seat]?.name ?? seat} chose ${name} for ${waiting.selection.source}.`
+        : `${lobby.occupants[seat]?.name ?? seat} chose ${name}.`,
+    })
+  }
   if (decision.kernel.stage === 'waiting-discard') {
     const waiting = waitingDiscard(state)
     const stackId = decision.kernel.stackId
@@ -675,15 +744,11 @@ export const applyKernelChoice = (
         : `${dialog.source} chose no modes.`,
     })
   }
-  if (
-    decision.kernel.stage === 'discard-card'
-    || decision.kernel.stage === 'sacrifice-creature'
-  ) {
+  if (decision.kernel.stage === 'sacrifice-creature') {
     const dialog = pendingDialogFor(state, seat)
     if (dialog?.kind !== decision.kernel.stage) {
       throw new Error('That choice is no longer open.')
     }
-    const away = decision.kernel.stage === 'discard-card' ? 'graveyard' : 'sacrifice'
     const candidates = dialogCandidates(state, dialog)
     const orderedIds = objectIdsForNames(
       state,
@@ -692,7 +757,7 @@ export const applyKernelChoice = (
     )
     const objectIds = message.choices
       .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
-      .filter(({ destination }) => destination === away)
+      .filter(({ destination }) => destination === 'sacrifice')
       .map(({ objectId }) => objectId)
     if (objectIds.length !== 1) throw new Error(`Choose exactly one card for ${dialog.source}.`)
     const chosen = kernel.dispatch({
@@ -705,9 +770,7 @@ export const applyKernelChoice = (
     const name = state.objects[objectIds[0]]?.name ?? 'a card'
     return closeKernelChoice(kernel, lobby, seat, {
       privateJudge: { [seat]: `${dialog.source}: you chose ${name}.` },
-      judge: away === 'sacrifice'
-        ? `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`
-        : `${lobby.occupants[seat]?.name ?? seat} discarded to ${dialog.source}.`,
+      judge: `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`,
     })
   }
   if (decision.kernel.stage === 'sacrifice-lands') {
