@@ -131,7 +131,9 @@ const allowedDestinations = (selection: PendingCardSelection): CardSelectionDest
   return ['graveyard']
 }
 
-const parseChoices = (event: GameEvent): CardSelectionChoice[] | undefined => {
+const parseChoices = (
+  event: Extract<GameEvent, { type: 'selectCards' }>,
+): CardSelectionChoice[] | undefined => {
   if (!Array.isArray(event.choices)) return
   const choices: CardSelectionChoice[] = []
   for (const entry of event.choices) {

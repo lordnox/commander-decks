@@ -148,9 +148,9 @@ describe('kernel host actions', () => {
       kernel: { sourceId: 'o392', stage: 'sacrifice-lands' },
     }
     const answer = {
-      type: 'topdeck',
-      choices: [{ card: 'Forest', destination: 'sacrifice' }],
-    } as const
+      type: 'topdeck' as const,
+      choices: [{ card: 'Forest', destination: 'sacrifice' as const }],
+    }
 
     expect(kernelOwnsChoice(answer, lobby)).toBe(true)
     expect(kernelOwnsChoice({ type: 'pass' }, lobby)).toBe(false)

@@ -117,7 +117,7 @@ const opponentHand = (
   })
   return [
     ...knownCards,
-    ...Array.from({ length: unknownCount }, () => ({ hidden: true })),
+    ...Array.from({ length: unknownCount }, () => ({ name: '', hidden: true })),
   ]
 }
 
@@ -521,7 +521,7 @@ export const LivePage = () => {
         card: string
         destination:
           | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-          | 'target' | 'sacrifice' | 'skip'
+          | 'target' | 'reveal' | 'sacrifice' | 'skip'
       }>
       always?: boolean
       until?: 'my-turn' | 'off'

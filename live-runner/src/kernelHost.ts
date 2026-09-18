@@ -409,7 +409,9 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
 const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
   const waiting = waitingSelectCards(state)
-  if (!waiting || !isSeatId(waiting.selection.seat)) return false
+  if (!waiting) return false
+  const seat = waiting.selection.seat
+  if (!isSeatId(seat)) return false
   const { selection, names, count } = waiting
   const destinations = (selection.destinations
     ?? (selection.kind === 'scry'
@@ -429,7 +431,7 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
         ? { reveal: { min: selection.min ?? count, max: count } }
       : undefined
   lobby.topdeck = {
-    seat: selection.seat,
+    seat,
     kind: selection.kind === 'discard' ? 'discard-card' : selection.kind,
     cards: names,
     destinations,
@@ -441,11 +443,11 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
       cardKind: selection.kind,
     },
   }
-  lobby.actions = { [selection.seat]: ['topdeck'] }
+  lobby.actions = { [seat]: ['topdeck'] }
   lobby.waiting =
-    `${lobby.occupants[selection.seat]?.name ?? selection.seat} is choosing cards.`
+    `${lobby.occupants[seat]?.name ?? seat} is choosing cards.`
   lobby.privateWaiting = {
-    [selection.seat]: selection.prompt ?? `Choose ${count} card${count === 1 ? '' : 's'}.`,
+    [seat]: selection.prompt ?? `Choose ${count} card${count === 1 ? '' : 's'}.`,
   }
   lobby.judge = selection.source
     ? `Waiting for a ${selection.kind} choice for ${selection.source}.`

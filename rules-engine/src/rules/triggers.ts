@@ -85,7 +85,11 @@ const collectEffects = (
   copies = 1,
 ) => {
   for (const effect of triggerEffects(effectsOf(source), on)) {
-    if (!conditionHolds(effect.if, state, source)) continue
+    if (
+      effect.if
+      && !isTriggerBindingIf(effect.if)
+      && !conditionHolds(effect.if, state, source)
+    ) continue
     pushCopies(matches, source, effect, copies)
   }
 }
@@ -214,7 +218,11 @@ const collectMoveTriggers = (
     const fromLibrary = before.zone === 'library'
     for (const source of draft.zoneOf('battlefield', before.owner)) {
       for (const effect of triggerEffects(effectsOf(source), 'landToGraveyard')) {
-        if (!conditionHolds(effect.if, state, source)) continue
+        if (
+          effect.if
+          && !isTriggerBindingIf(effect.if)
+          && !conditionHolds(effect.if, state, source)
+        ) continue
         const milledLand = effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')
         if (milledLand && !fromLibrary) continue
         pushCopies(matches, source, effect, 1, { triggeringObjectId: event.objectId })
