@@ -57,6 +57,36 @@ describe('table replay conversion', () => {
     )
   })
 
+  test('a planning frame that already drew does not draw again', async () => {
+    const replay = await Bun.file(replayPath).json() as TableReplay
+    const index = replay.events.findIndex(
+      (event) => event.phase === 'untap' && event.turn === 3,
+    )
+    replay.events = replay.events.slice(0, index + 1)
+    const latest = replay.events.at(-1)!
+    const seat = latest.state.active
+    latest.phase = 'planning'
+    latest.state.phase = 'planning'
+    // The opening walk records the turn draw before parking on planning.
+    latest.kind = 'draw'
+    replay._libraries = Object.fromEntries(
+      replay.seats.map(({ id }) => [
+        id,
+        Array.from(
+          { length: latest.state.players[id].library_count },
+          (_, card) => `Hidden ${id} ${card + 1}`,
+        ),
+      ]),
+    )
+    const handBefore = latest.state.players[seat].hand.length
+
+    const imported = importLiveReplayState(replay)
+
+    expect(imported.step).toBe('precombatMain')
+    expect(imported.zoneOrder[seat].hand).toHaveLength(handBefore)
+    expect(imported.log.some((line) => line.includes('draws a card'))).toBe(false)
+  })
+
   test('a planning frame still owes its untap and land drop', async () => {
     const replay = await Bun.file(replayPath).json() as TableReplay
     const index = replay.events.findIndex(

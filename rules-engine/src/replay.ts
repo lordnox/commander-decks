@@ -221,6 +221,13 @@ const stepFromReplay = (phase: string): StepId => {
   return phase as StepId
 }
 
+/** CR 504.1: the active player draws once per turn, so an imported frame whose draw is already recorded must not reopen the turn. */
+const drewThisTurn = (replay: TableReplay, latest: TableReplay['events'][number]) =>
+  replay.events.some((event) =>
+    event.turn === latest.turn
+    && event.seat === latest.state.active
+    && event.kind === 'draw')
+
 /**
  * A live "planning" frame is recorded before untap, so rewind to the previous
  * living seat's cleanup and let the engine wrap forward. Landing straight on
@@ -309,6 +316,13 @@ export const importLiveReplayState = (
   state.step = stepFromReplay(latest.state.phase)
   state.log.push(`imported live replay event ${latest.id}`)
   if (state.step !== 'untap') return state
+  // The opening walk is the exception to a planning frame preceding untap: it
+  // records untap, upkeep, and the turn draw, then parks on planning. Rewinding
+  // such a frame would draw for that turn a second time.
+  if (drewThisTurn(replay, latest)) {
+    state.step = 'precombatMain'
+    return state
+  }
   return openImportedTurn(runtime.rules, state, players)
 }
 
