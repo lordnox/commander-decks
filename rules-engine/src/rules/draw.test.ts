@@ -4,6 +4,7 @@ import { onResolve } from '../cardPlugins/onResolve'
 import {
   discardCards,
   draw,
+  eachPlayerDraw,
   loseLife,
   onResolve as onResolveEffect,
   triggerOn,
@@ -214,6 +215,39 @@ describe('draw game rule', () => {
 
     expect(current.zoneCounts.p1.hand).toBe(4)
     expect(current.stack[0]).toMatchObject({ actionId: 'discard' })
+  })
+
+  test('eachPlayerDraw routes through initiateDraw stack actions', () => {
+    const wheel = cardTemplate('Wheel Test', {
+      types: ['Sorcery'],
+      effects: [onResolveEffect(eachPlayerDraw(2))],
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [wheel] },
+        libraries: {
+          p1: [card('P1 One'), card('P1 Two')],
+          p2: [card('P2 One'), card('P2 Two')],
+        },
+        players: 2,
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const spellId = server.state.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spellId,
+    }))
+    const resolvedSpell = passAll(server, cast)
+
+    const drawActions = resolvedSpell.stack.filter((item) => item.actionId === 'draw')
+    expect(drawActions).toHaveLength(2)
+    expect(drawActions).toEqual(expect.arrayContaining([
+      expect.objectContaining({ payload: { seat: 'p1', remaining: 2 } }),
+      expect.objectContaining({ payload: { seat: 'p2', remaining: 2 } }),
+    ]))
   })
 
   test('replica draw event does not move cards or lose', () => {
