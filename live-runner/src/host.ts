@@ -159,6 +159,24 @@ export const beginJudgeRound = (
   return previous
 }
 
+/**
+ * The last keep walks the dealt replay to turn one, which is the first moment
+ * the kernel will open. Retrying after the opening message is applied is what
+ * keeps the seat from being stranded on the replay-derived window with no pass
+ * or act.
+ */
+export const applyOpeningThenKernel = async (
+  root: string,
+  slug: string,
+  state: LobbyState,
+  seat: SeatId,
+  message: InboxMessage,
+  ensureKernel: () => Promise<void>,
+) => {
+  applyOpeningMessage(root, slug, state, seat, message)
+  await ensureKernel()
+}
+
 /** Social speech and lobby bookkeeping are already published; only game questions cost a judging round. */
 export const needsJudgment = (message: InboxMessage) =>
   ['plan', 'replace', 'confirm', 'rules', 'pass', 'topdeck', 'advance'].includes(
@@ -497,7 +515,7 @@ export const runHost = async (options: {
       }
     } else if (message.type === 'keep' || message.type === 'mulligan') {
       try {
-        applyOpeningMessage(root, slug, state, seat, message)
+        await applyOpeningThenKernel(root, slug, state, seat, message, ensureKernel)
       } catch (reason) {
         const error = reason instanceof Error ? reason.message : String(reason)
         logLine(logFile, `${seat} opening ${message.type} rejected: ${error}`)
