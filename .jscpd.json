@@ -1,0 +1,7 @@
+{
+  "minLines": 6,
+  "minTokens": 50,
+  "threshold": 2,
+  "ignore": ["**/*.test.ts", "**/*.test.tsx"],
+  "path": ["rules-engine", "site", "live-runner"]
+}
