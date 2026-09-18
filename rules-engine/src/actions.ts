@@ -134,7 +134,7 @@ export const waitingSelectCards = (
   const fromSeat = pending.fromSeat ?? pending.seat
   const objectIds = pending.candidates.filter((objectId) => {
     const object = state.objects[objectId]
-    if (pending.kind === 'discard') {
+    if (pending.kind === 'discard' || pending.kind === 'reveal') {
       return object?.zone === 'hand' && object.controller === fromSeat
     }
     if (pending.kind === 'sacrifice') {

@@ -10,6 +10,7 @@ import {
   branch,
   castModal,
   casts,
+  controlledBasicLands,
   controlledCreaturePower,
   controlledLands,
   copyAllCreaturesUntilEot,
@@ -80,9 +81,11 @@ import {
   staticGrant,
   staticPlayLandsFromLibraryTop,
   staticRevealLibraryTop,
+  scry,
   surveil,
   triggerOn,
   tapUnlessPayLife,
+  tapUnlessRevealSubtype,
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
   targetOnResolve,
@@ -196,6 +199,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   )],
   'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
   'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
+  'Charcoal Diamond': [entersTapped()],
+  'Choked Estuary': [tapUnlessRevealSubtype('Island', 'Swamp')],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   'Courser of Kruphix': [
@@ -356,6 +361,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Dakmor Salvage': [entersTapped()],
   'Dimir Aqueduct': [entersTapped(), enters(bounceChosenLand())],
+  'Drowned Catacomb': [entersTapped(lacksControlledSubtype('Island', 'Swamp'))],
   Deathsprout: [
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
     searchSpell({
@@ -410,6 +416,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       })],
     }),
   ],
+  'Eclipsed Steppe': [entersTapped(controlledBasicLands({ max: 1 }))],
+  'Glacial Fortress': [entersTapped(lacksControlledSubtype('Plains', 'Island'))],
+  'Godless Shrine': [tapUnlessPayLife(2)],
   'Ghost Town': [
     activate({
       id: 'selfBounceLand.ghostTown',
@@ -421,6 +430,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Golgari Rot Farm': [entersTapped(), enters(bounceChosenLand())],
   'Hall of Storm Giants': [entersTapped(otherLands({ min: 2 }))],
   'Hedge Maze': [entersTapped(), enters(surveil(1))],
+  'Hallowed Fountain': [tapUnlessPayLife(2)],
   'Homer, the Hermit': [handler('homer')],
   'Icetill Explorer': [staticExtraLandPlays(1), landfall(selfMill(1))],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
@@ -473,6 +483,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       },
     ),
   ],
+  'Mistvault Bridge': [entersTapped()],
+  'Morphic Pool': [entersTapped(opponentsAtMost(1))],
+  'Orzhov Basilica': [entersTapped(), enters(bounceChosenLand())],
   "Nature's Lore": [
     searchSpell({
       prompt: 'Search your library for a Forest card and put it onto the battlefield.',
@@ -518,6 +531,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
   'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
+  'Sky Diamond': [entersTapped()],
   "Sin, Spira's Punishment": [handler('sin')],
   'Skull Prophet': [
     activate({
@@ -533,6 +547,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
   ],
   'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
+  'Temple of Deceit': [entersTapped(), enters(scry(1))],
   'Thawing Glaciers': [
     entersTapped(),
     searchAbility({
@@ -568,6 +583,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Undercity Sewers': [entersTapped(), enters(surveil(1))],
   'Underground Mortuary': [entersTapped(), enters(surveil(1))],
+  'Sunken Hollow': [entersTapped(controlledBasicLands({ max: 1 }))],
   'Ugin, the Spirit Dragon': [
     ability({
       id: 'ugin.plus-two',
@@ -620,6 +636,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(selfMill(3), returnChosenLandFromGraveyard()),
   ],
   'Breeding Pool': [tapUnlessPayLife(2)],
+  "Raffine's Tower": [entersTapped()],
   'Cephalid Coliseum': [
     activate({
       id: 'pain.cephalid',

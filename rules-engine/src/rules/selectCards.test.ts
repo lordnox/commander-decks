@@ -231,6 +231,37 @@ describe('selectCards game rule', () => {
     expect(milled.zoneOrder.p1.library).toEqual([deep])
   })
 
+  test('reveal optionally exposes one offered hand card without moving it', () => {
+    const server = createServerGame(commanderRules, {
+      hands: {
+        p1: [card('Island'), card('Lightning Bolt')],
+      },
+    })
+    const island = server.state.zoneOrder.p1.hand[0]
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p1',
+      kind: 'reveal',
+      count: 1,
+      min: 0,
+      candidates: [island],
+      source: 'Choked Estuary',
+    })
+    const opened = freezeDraft(draft)
+
+    const revealed = ok(server.rules(opened, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'reveal',
+      count: 1,
+      objectIds: [island],
+    }))
+    expect(revealed.objects[island]).toMatchObject({
+      zone: 'hand',
+      knownTo: revealed.playerOrder,
+    })
+  })
+
   test('only the choosing seat sees scry candidates in a projection', () => {
     const server = createServerGame(commanderRules, {
       libraries: {

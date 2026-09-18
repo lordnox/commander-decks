@@ -13,6 +13,7 @@ import type {
 export type CardCondition =
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
   | { kind: 'controlledLands'; min?: number; max?: number }
+  | { kind: 'controlledBasicLands'; min?: number; max?: number }
   | { kind: 'uniqueLandNames'; min: number }
   | { kind: 'notActivePlayer' }
   | { kind: 'controlledCreaturePower'; min: number }
@@ -59,6 +60,7 @@ export type CardInstruction =
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
   | { kind: 'surveil'; count: number }
+  | { kind: 'scry'; count: number }
   | { kind: 'putLandFromHand'; tapped?: boolean }
   | { kind: 'bounceChosenLand' }
   | { kind: 'revealPick'; count: number; type?: string; permanent?: boolean }
@@ -178,7 +180,14 @@ export type SearchSpec = {
 }
 
 export type CardEffect =
-  | { op: 'replacement'; on: 'enters'; do: 'tapSelf' | 'tapUnlessPayLife'; life?: number; if?: CardCondition }
+  | {
+      op: 'replacement'
+      on: 'enters'
+      do: 'tapSelf' | 'tapUnlessPayLife' | 'tapUnlessRevealSubtype'
+      life?: number
+      subtypes?: string[]
+      if?: CardCondition
+    }
   | {
       op: 'trigger'
       on:
@@ -285,6 +294,13 @@ export const controlledLands = (bounds: { min?: number; max?: number }): CardCon
   ...bounds,
 })
 
+export const controlledBasicLands = (
+  bounds: { min?: number; max?: number },
+): CardCondition => ({
+  kind: 'controlledBasicLands',
+  ...bounds,
+})
+
 export const uniqueLandNames = (min: number): CardCondition => ({
   kind: 'uniqueLandNames',
   min,
@@ -316,6 +332,8 @@ export const extraLandPlays = (count: number): CardInstruction => ({
 })
 
 export const surveil = (count: number): CardInstruction => ({ kind: 'surveil', count })
+
+export const scry = (count: number): CardInstruction => ({ kind: 'scry', count })
 
 export const putLandFromHand = (tapped = false): CardInstruction => ({
   kind: 'putLandFromHand',
@@ -411,6 +429,13 @@ export const tapUnlessPayLife = (life: number): CardEffect => ({
   on: 'enters',
   do: 'tapUnlessPayLife',
   life,
+})
+
+export const tapUnlessRevealSubtype = (...subtypes: string[]): CardEffect => ({
+  op: 'replacement',
+  on: 'enters',
+  do: 'tapUnlessRevealSubtype',
+  subtypes,
 })
 
 export const extraLandfall = (count = 1): CardEffect => ({
@@ -739,7 +764,7 @@ export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
 })
 
 export const casts = (
-  ...args: [...CardInstruction[], { creatureOnly?: boolean }?]
+  ...args: Array<CardInstruction | { creatureOnly?: boolean }>
 ): CardEffect => {
   const last = args[args.length - 1]
   const options = last && typeof last === 'object' && 'creatureOnly' in last
@@ -864,6 +889,13 @@ export const conditionHolds = (
   }
   if (condition.kind === 'controlledLands') {
     const lands = controlledLandList(state, object.controller)
+    if (condition.min !== undefined && lands.length < condition.min) return false
+    if (condition.max !== undefined && lands.length > condition.max) return false
+    return true
+  }
+  if (condition.kind === 'controlledBasicLands') {
+    const lands = controlledLandList(state, object.controller)
+      .filter((land) => land.supertypes.includes('Basic'))
     if (condition.min !== undefined && lands.length < condition.min) return false
     if (condition.max !== undefined && lands.length > condition.max) return false
     return true
@@ -1022,7 +1054,7 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
   })
 
 const CHOICE_KINDS = new Set([
-  'surveil', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
+  'surveil', 'scry', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
   'copyControlledCreature', 'copyTargetCreature', 'optionalMill', 'mayDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
   'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',

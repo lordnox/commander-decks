@@ -416,6 +416,8 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
       ? ['top', 'bottom']
       : selection.kind === 'surveil'
         ? ['top', 'graveyard']
+        : selection.kind === 'reveal'
+          ? ['hand', 'target']
         : selection.kind === 'sacrifice'
           ? ['battlefield', 'sacrifice']
           : ['graveyard'])) as TopdeckDecision['destinations']
@@ -423,6 +425,8 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
     ? { sacrifice: { min: count, max: count } }
     : selection.kind === 'discard'
       ? { graveyard: { min: count, max: count } }
+      : selection.kind === 'reveal'
+        ? { target: { min: selection.min ?? count, max: count } }
       : undefined
   lobby.topdeck = {
     seat: selection.seat,
@@ -609,8 +613,12 @@ export const applyKernelChoice = (
     if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
       throw new Error('That card choice is no longer open.')
     }
-    if (cardKind === 'discard' || cardKind === 'sacrifice') {
-      const chosenDestination = cardKind === 'sacrifice' ? 'sacrifice' : 'graveyard'
+    if (cardKind === 'discard' || cardKind === 'sacrifice' || cardKind === 'reveal') {
+      const chosenDestination = cardKind === 'sacrifice'
+        ? 'sacrifice'
+        : cardKind === 'reveal'
+          ? 'target'
+          : 'graveyard'
       const objectIds = objectIdsForNames(
         state,
         waiting.objectIds,
@@ -618,8 +626,13 @@ export const applyKernelChoice = (
           .filter(({ destination }) => destination === chosenDestination)
           .map(({ card }) => card),
       )
-      if (objectIds.length !== waiting.count) {
-        throw new Error(`Choose exactly ${waiting.count} card(s).`)
+      const minimum = cardKind === 'reveal' ? waiting.selection.min ?? waiting.count : waiting.count
+      if (objectIds.length < minimum || objectIds.length > waiting.count) {
+        throw new Error(
+          minimum === waiting.count
+            ? `Choose exactly ${waiting.count} card(s).`
+            : `Choose between ${minimum} and ${waiting.count} card(s).`,
+        )
       }
       const continued = kernel.dispatch({
         type: 'selectCards',
@@ -629,8 +642,12 @@ export const applyKernelChoice = (
         objectIds,
       })
       if (!continued.ok) throw new Error(continued.error)
-      const name = state.objects[objectIds[0]]?.name ?? 'a card'
-      const verb = cardKind === 'sacrifice' ? 'sacrificed' : 'chose'
+      const name = state.objects[objectIds[0]]?.name ?? 'no card'
+      const verb = cardKind === 'sacrifice'
+        ? 'sacrificed'
+        : cardKind === 'reveal'
+          ? 'revealed'
+          : 'chose'
       return closeKernelChoice(kernel, lobby, seat, {
         privateJudge: {
           [seat]: cardKind === 'sacrifice'

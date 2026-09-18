@@ -3,7 +3,7 @@ import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
-export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil'
+export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
 
 export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard' | 'battlefield' | 'sacrifice'
 
@@ -18,6 +18,7 @@ export type PendingCardSelection = {
   seat: PlayerId
   kind: CardSelectionKind
   count: number
+  min?: number
   /** Object ids the chooser may pick from; host must not infer these from hidden zones. */
   candidates: string[]
   sourceId?: string
@@ -107,7 +108,7 @@ const battlefieldCreature = (state: GameState | Draft, seat: PlayerId, objectId:
 
 const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   const fromSeat = selection.fromSeat ?? selection.seat
-  if (selection.kind === 'discard') {
+  if (selection.kind === 'discard' || selection.kind === 'reveal') {
     return selection.candidates.filter((objectId) => cardInHand(state, fromSeat, objectId))
   }
   if (selection.kind === 'scry' || selection.kind === 'surveil') {
@@ -159,7 +160,11 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   const allowed = new Set(liveCandidates(state, selection))
   const destinations = new Set(allowedDestinations(selection))
 
-  if (selection.kind === 'discard' || selection.kind === 'sacrifice') {
+  if (
+    selection.kind === 'discard'
+    || selection.kind === 'sacrifice'
+    || selection.kind === 'reveal'
+  ) {
     const objectIds = event.objectIds
     if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
       return 'objectIds must be a string array'
@@ -167,8 +172,11 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
     if (new Set(objectIds).size !== objectIds.length) {
       return 'objectIds must not contain duplicates'
     }
-    if (objectIds.length !== expected) {
-      return `must choose exactly ${expected} card(s)`
+    const minimum = selection.min ?? expected
+    if (objectIds.length < minimum || objectIds.length > expected) {
+      return minimum === expected
+        ? `must choose exactly ${expected} card(s)`
+        : `must choose between ${minimum} and ${expected} card(s)`
     }
     for (const objectId of objectIds) {
       if (!selection.candidates.includes(objectId)) {
@@ -256,6 +264,20 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         ? `${event.seat} discards ${name} to ${selection.source}`
         : `${event.seat} discards ${name}`,
     )
+  } else if (selection.kind === 'reveal') {
+    const objectIds = event.objectIds ?? []
+    const source = selection.sourceId ? draft.object(selection.sourceId) : undefined
+    if (objectIds.length > 0) {
+      draft.enqueue({
+        type: 'reveal',
+        seat: event.seat,
+        objectIds,
+        source: selection.source,
+      })
+    } else if (source?.zone === 'battlefield') {
+      source.tapped = true
+      draft.note(`${source.name} enters tapped`)
+    }
   } else if (selection.kind === 'sacrifice') {
     for (const objectId of event.objectIds ?? []) {
       draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
