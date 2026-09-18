@@ -16,7 +16,7 @@ import type Draft from '../draft'
 import { apnapSeats } from '../turnOrder'
 import type { GameEvent, GameObject, GameState, PlayerId, Plugin, TriggerBindingIf } from '../types'
 
-const EVENT_TRIGGER_ON = new Set(['discard', 'draw'])
+const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
 
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 

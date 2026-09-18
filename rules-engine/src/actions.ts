@@ -8,6 +8,10 @@ import { validTarget } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import {
+  canSacrificeLandForBlack,
+  SACRIFICE_LAND_FOR_BLACK,
+} from './plugins/sacrificeLandMana'
+import {
   pendingSelection,
   pendingSelectionFor,
   type CardSelectionKind,
@@ -437,6 +441,20 @@ export const availableActions = (
     }
     const declaredActions = cardRuleActions(state, object, seat)
     actions.push(...declaredActions)
+    if (
+      object.zone === 'battlefield'
+      && object.controller === seat
+      && object.types.includes('Land')
+      && canSacrificeLandForBlack(state, seat)
+    ) {
+      actions.push({
+        kind: 'activateAbility',
+        objectId: object.id,
+        name: object.name,
+        text: 'Sacrifice this land: Add {B}.',
+        abilityId: SACRIFICE_LAND_FOR_BLACK,
+      })
+    }
     if (declaredActions.length === 0) {
       for (const text of activatedText(object)) {
         if (canActivate(state, object, seat, text)) {
@@ -680,6 +698,15 @@ export const eventsForAvailableAction = (
   if (action.kind === 'activateAbility') {
     const object = state.objects[action.objectId]
     if (!object || !action.abilityId) return null
+    if (action.abilityId === SACRIFICE_LAND_FOR_BLACK) {
+      return [{
+        type: 'activateAbility',
+        abilityId: SACRIFICE_LAND_FOR_BLACK,
+        seat,
+        objectId: object.id,
+        manaAbility: true,
+      }]
+    }
     const effect = effectsOf(object).find(
       (candidate): candidate is Extract<ReturnType<typeof effectsOf>[number], { op: 'activate' }> =>
       candidate.op === 'activate'

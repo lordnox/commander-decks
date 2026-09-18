@@ -39,6 +39,7 @@ export type PendingCardSelection = {
   moveSelectedTo?: ZoneId
   moveSelectedController?: PlayerId
   addSubtypes?: string[]
+  tapSelected?: boolean
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -316,6 +317,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
             ? { controller: selection.moveSelectedController }
             : {}),
         })
+        if (selection.tapSelected) {
+          draft.enqueue({ type: 'tap', objectId })
+        }
       }
     }
   } else if (selection.kind === 'scry' || selection.kind === 'surveil') {

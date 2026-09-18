@@ -228,6 +228,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       putLandFromHand(),
     ),
   ],
+  Burgeoning: [
+    triggerOn('playLand', {
+      if: { seat: 'opponent' },
+      do: [putLandFromHand()],
+    }),
+  ],
   'Crop Rotation': [
     searchSpell({
       prompt: 'Search your library for a land card and put it onto the battlefield.',
@@ -291,6 +297,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   Reprocess: [
     onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
+  ],
+  'Rain of Filth': [
+    onResolve(addUntilCleanupRule('sacrificeLandMana')),
   ],
   'Revitalizing Repast // Old-Growth Grove': [
     entersTapped(),

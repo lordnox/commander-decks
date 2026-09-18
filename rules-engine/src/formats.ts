@@ -15,6 +15,7 @@ import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
 import { priority } from './plugins/priority'
+import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
@@ -67,6 +68,7 @@ export const optionalPlugins = [
   swampOverlay,
   extraSwampMana,
   extraUntap,
+  sacrificeLandMana,
 ]
 
 export const coreRules: GameFormat = {

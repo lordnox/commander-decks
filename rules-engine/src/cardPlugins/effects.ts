@@ -220,6 +220,7 @@ export type CardEffect =
         | 'draw'
         | 'end'
         | 'combatDamage'
+        | 'playLand'
       do: CardInstruction[]
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
@@ -646,7 +647,7 @@ export const loseLife = (
 
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
-  on: 'discard' | 'draw' | 'end' | 'combatDamage',
+  on: 'discard' | 'draw' | 'end' | 'combatDamage' | 'playLand',
   options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
 ): CardEffect => ({
   op: 'trigger',

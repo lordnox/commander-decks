@@ -645,21 +645,24 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'putLandFromHand') {
-      setPendingDialog(draft, {
+      const candidates = draft.zoneOrder[source.controller].hand.filter(
+        (objectId) => draft.object(objectId)?.types.includes('Land'),
+      )
+      if (candidates.length === 0) continue
+      openCardSelection(draft, {
+        seat: source.controller,
+        kind: 'choose',
+        count: 1,
+        min: 0,
+        candidates,
         sourceId: source.id,
         source: source.name,
-        seat: source.controller,
-        kind: 'put-land',
         prompt: instruction.tapped
           ? 'You may put a land from your hand onto the battlefield tapped.'
           : 'You may put a land from your hand onto the battlefield.',
-        waiting: 'is choosing a land privately.',
-        judge: 'Waiting for an optional land.',
-        chosenEvent: DIALOG_CHOSEN,
-        destinations: ['hand', 'battlefield'],
-        types: ['Land'],
-        optional: true,
-        requirements: { battlefield: { max: 1 } },
+        destinations: ['target'],
+        moveSelectedTo: 'battlefield',
+        tapSelected: instruction.tapped,
       })
       continue
     }
@@ -851,7 +854,7 @@ export const runInstructions = (
       draft.enqueue({
         type: 'addRule',
         pluginId: instruction.pluginId,
-        params: { untilCleanup: true, ...instruction.params },
+        params: { untilCleanup: true, controller: source.controller, ...instruction.params },
       })
       continue
     }
