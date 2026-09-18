@@ -229,6 +229,8 @@ export type CardEffect =
       extraLandfall?: number
       extraEnters?: number
       playLandsFromGraveyard?: boolean
+      playLandsFromLibraryTop?: boolean
+      revealLibraryTop?: boolean
       allCreatureTypes?: boolean
       legendRuleOff?: boolean
     }
@@ -498,6 +500,16 @@ export const staticGrant = (pluginId: string): CardEffect => ({
 export const staticExtraLandPlays = (count: number): CardEffect => ({
   op: 'static',
   extraLandPlays: count,
+})
+
+export const staticRevealLibraryTop = (): CardEffect => ({
+  op: 'static',
+  revealLibraryTop: true,
+})
+
+export const staticPlayLandsFromLibraryTop = (): CardEffect => ({
+  op: 'static',
+  playLandsFromLibraryTop: true,
 })
 
 export const handler = (pluginId: string): CardEffect => ({
@@ -1065,6 +1077,9 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (effect.action === 'copy') ids.add('copySpell')
     }
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
+    if (effect.op === 'static' && (effect.revealLibraryTop || effect.playLandsFromLibraryTop)) {
+      ids.add('courserOfKruphix')
+    }
     if (effect.op === 'bestow') ids.add('bestow')
     if (effect.op === 'handler') ids.add(effect.pluginId)
     const listed = effect.op === 'trigger' || effect.op === 'activate' || effect.op === 'modal'

@@ -1,3 +1,7 @@
+import {
+  revealBeforeDraw,
+  syncRevealedLibraryTop,
+} from '../cardPlugins/libraryTopKnowledge'
 import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, StackItem } from '../types'
 
@@ -74,6 +78,7 @@ export const resolveDrawAction = (draft: Draft, item: StackItem) => {
 }
 
 const authoritativeApply = (draft: Draft, seat: PlayerId) => {
+  revealBeforeDraw(draft, seat)
   const objectId = draft.zoneOrder[seat].library[0]
   if (!objectId) {
     draft.players[seat].lost = true
@@ -82,6 +87,7 @@ const authoritativeApply = (draft: Draft, seat: PlayerId) => {
   }
   const object = draft.move(objectId, 'hand')
   if (object) draft.note(`${seat} draws a card`)
+  syncRevealedLibraryTop(draft, [seat])
 }
 
 /**

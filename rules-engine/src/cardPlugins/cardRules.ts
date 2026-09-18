@@ -78,6 +78,8 @@ import {
   splitBasicLandSearch,
   staticExtraLandPlays,
   staticGrant,
+  staticPlayLandsFromLibraryTop,
+  staticRevealLibraryTop,
   surveil,
   triggerOn,
   tapUnlessPayLife,
@@ -196,6 +198,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
+  'Courser of Kruphix': [
+    staticRevealLibraryTop(),
+    staticPlayLandsFromLibraryTop(),
+    handler('courserOfKruphix'),
+    landfall(gainLife(1)),
+  ],
   'Cultivate': [searchSpell(splitBasicLandSearch())],
   'Decisive Denial': [modalChooseOne(
     {
