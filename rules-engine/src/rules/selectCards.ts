@@ -5,7 +5,7 @@ export const PENDING_SELECTION = 'kernel.pendingSelection'
 
 export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil'
 
-export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard'
+export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard' | 'battlefield' | 'sacrifice'
 
 export type CardSelectionChoice = {
   objectId: string
@@ -164,6 +164,9 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
     const objectIds = event.objectIds
     if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
       return 'objectIds must be a string array'
+    }
+    if (new Set(objectIds).size !== objectIds.length) {
+      return 'objectIds must not contain duplicates'
     }
     if (objectIds.length !== expected) {
       return `must choose exactly ${expected} card(s)`

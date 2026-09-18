@@ -157,6 +157,48 @@ describe('discard game rule', () => {
     expect(resolved.objects[objectId].zone).toBe('graveyard')
   })
 
+  test('random discard resolves immediately and picks distinct cards', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [card('One'), card('Two'), card('Three')] },
+      players: 2,
+    }, { random: () => 0 })
+    const { state: stacked } = pushDiscard(server.state, {
+      seat: 'p1',
+      count: 2,
+      random: true,
+    })
+
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+
+    expect(resolved.stack).toHaveLength(0)
+    expect(resolved.zoneOrder.p1.graveyard).toHaveLength(2)
+    expect(new Set(resolved.zoneOrder.p1.graveyard).size).toBe(2)
+    expect(resolved.zoneOrder.p1.hand).toHaveLength(1)
+  })
+
+  test('continueAction rejects duplicate objectIds', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [card('Only')] },
+      players: 2,
+    })
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const { state: stacked, item } = pushDiscard(server.state, {
+      seat: 'p1',
+      count: 1,
+    })
+    const waiting = ok(server.rules(stacked, { type: 'resolveTop' }))
+
+    const duplicate = server.rules(waiting, {
+      type: 'continueAction',
+      stackId: item.id,
+      seat: 'p1',
+      payload: { objectIds: [objectId, objectId] },
+    })
+    expect(duplicate.ok).toBe(false)
+    if (duplicate.ok) return
+    expect(duplicate.state).toEqual(waiting)
+  })
+
   test('illegal continueAction is rejected without changing state', () => {
     const server = createServerGame(commanderRules, {
       hands: {

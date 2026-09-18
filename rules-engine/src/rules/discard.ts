@@ -1,4 +1,5 @@
 import type Draft from '../draft'
+import { pickRandomChoices } from '../plugins/hiddenInformation'
 import type { GameEvent, GameState, PlayerId, Plugin, StackItem } from '../types'
 
 /** Parameters stored on a discard action stack item (`payload`). */
@@ -92,7 +93,7 @@ export const resolveDiscardAction = (draft: Draft, item: StackItem) => {
   const handIds = handCardIds(draft, seat)
 
   if (random) {
-    const toDiscard = handIds.slice(0, Math.min(count, handIds.length))
+    const toDiscard = pickRandomChoices(draft, handIds, count)
     popAndEnqueueDiscards(draft, item, seat, toDiscard)
     return
   }
@@ -121,9 +122,15 @@ const legalContinueDiscard = (state: GameState, event: GameEvent) => {
   const chooser = payload.chooser ?? payload.seat
   if (event.seat !== chooser) return `${event.seat} cannot choose cards for this discard`
 
+  if (payload.random) return 'random discard does not accept continueAction'
+
   const objectIds = event.payload.objectIds
   if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
     return 'objectIds must be a string array'
+  }
+
+  if (new Set(objectIds).size !== objectIds.length) {
+    return 'objectIds must not contain duplicates'
   }
 
   const handSize = handCardIds(state, payload.seat).length
