@@ -502,18 +502,20 @@ export const runInstructions = (
       draft.note(`${live.name} doubles to ${live.counters['+1/+1'] ?? 0} +1/+1 counters`)
       continue
     }
-    if (instruction.kind === 'surveil') {
+    if (instruction.kind === 'surveil' || instruction.kind === 'scry') {
       const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
       if (candidates.length === 0) continue
       openCardSelection(draft, {
         seat: source.controller,
-        kind: 'surveil',
+        kind: instruction.kind,
         count: instruction.count,
         candidates,
         sourceId: source.id,
         source: source.name,
-        prompt: `Surveil ${instruction.count}.`,
-        destinations: ['top', 'graveyard'],
+        prompt: `${instruction.kind === 'scry' ? 'Scry' : 'Surveil'} ${instruction.count}.`,
+        destinations: instruction.kind === 'scry'
+          ? ['top', 'bottom']
+          : ['top', 'graveyard'],
       })
       continue
     }

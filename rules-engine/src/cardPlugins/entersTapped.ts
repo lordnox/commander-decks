@@ -1,6 +1,7 @@
 import { isPermanentType } from '../definitions'
 import type { GameEvent, GameState, Plugin } from '../types'
 import { DIALOG_CHOSEN, setPendingDialog } from '../pendingDialog'
+import { openCardSelection } from '../rules/selectCards'
 import { conditionHolds, replacementTaps } from './effects'
 import { effectsOf } from './cardRules'
 
@@ -28,6 +29,35 @@ export const entersTapped: Plugin = {
     if (!objectId) return
     const object = draft.object(objectId)
     if (!object || object.zone !== 'battlefield' || object.tapped) return
+    const reveal = effectsOf(object).find(
+      (effect): effect is Extract<
+        ReturnType<typeof effectsOf>[number],
+        { op: 'replacement' }
+      > & { do: 'tapUnlessRevealSubtype' } =>
+        effect.op === 'replacement' && effect.do === 'tapUnlessRevealSubtype',
+    )
+    if (reveal) {
+      const candidates = draft.zoneOrder[object.controller].hand.filter((id) => {
+        const card = draft.object(id)
+        return card && reveal.subtypes?.some((subtype) => card.subtypes.includes(subtype))
+      })
+      if (candidates.length === 0) {
+        object.tapped = true
+        draft.note(`${object.name} enters tapped`)
+        return
+      }
+      openCardSelection(draft, {
+        seat: object.controller,
+        kind: 'reveal',
+        count: 1,
+        min: 0,
+        candidates,
+        sourceId: object.id,
+        source: object.name,
+        prompt: `Reveal an ${reveal.subtypes?.join(' or ')} card, or let ${object.name} enter tapped.`,
+      })
+      return
+    }
     const shock = effectsOf(object).some((effect) =>
       effect.op === 'replacement' && effect.do === 'tapUnlessPayLife')
     if (shock) {

@@ -75,6 +75,26 @@ describe('card plugin registry', () => {
     }
   })
 
+  test('the Eva and Sygg enter-tapped cards are registered', () => {
+    expect(missingCardPlugins([
+      'Charcoal Diamond',
+      'Choked Estuary',
+      'Drowned Catacomb',
+      'Eclipsed Steppe',
+      'Glacial Fortress',
+      'Godless Shrine',
+      'Hallowed Fountain',
+      'Mistvault Bridge',
+      'Morphic Pool',
+      'Orzhov Basilica',
+      "Raffine's Tower",
+      'Shadowy Backstreet',
+      'Sky Diamond',
+      'Sunken Hollow',
+      'Temple of Deceit',
+    ])).toEqual([])
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])

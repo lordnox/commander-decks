@@ -295,9 +295,9 @@ export type GameEvent =
       type: 'selectCards'
       /** Seat making the choice. */
       seat: PlayerId
-      kind: 'discard' | 'sacrifice' | 'scry' | 'surveil'
+      kind: 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
       count: number
-      /** Cards to discard (discard only). */
+      /** Cards selected from a hidden zone (discard / reveal). */
       objectIds?: string[]
       /** Ordered zone assignment for each candidate (scry / surveil). */
       choices?: Array<{
