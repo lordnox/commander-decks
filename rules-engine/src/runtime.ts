@@ -11,6 +11,7 @@ import {
 } from './plugins/hiddenInformation'
 import type { GameEvent, GameState, PlayerId, Plugin } from './types'
 import { redactSecretCouncil } from './cardPlugins/secretCouncil'
+import { pendingSelectionsFor } from './rules/selectCards'
 
 export type ServerDependencies = {
   random: () => number
@@ -45,8 +46,17 @@ export const projectForViewer = (
   const projected = structuredClone(authoritative)
   projected.knowledge = { mode: 'replica', viewer }
 
+  const visibleLibraryCards = new Set<string>()
+  if (viewer) {
+    for (const selection of pendingSelectionsFor(authoritative, viewer)) {
+      if (selection.kind === 'scry' || selection.kind === 'surveil') {
+        for (const objectId of selection.candidates) visibleLibraryCards.add(objectId)
+      }
+    }
+  }
+
   for (const [objectId, object] of Object.entries(projected.objects)) {
-    const hiddenLibrary = object.zone === 'library'
+    const hiddenLibrary = object.zone === 'library' && !visibleLibraryCards.has(objectId)
     const hiddenHand = object.zone === 'hand' && object.owner !== viewer
     if (hiddenLibrary || hiddenHand) delete projected.objects[objectId]
   }

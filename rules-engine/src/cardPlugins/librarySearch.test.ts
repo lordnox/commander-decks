@@ -9,6 +9,7 @@ import {
   pendingDialog,
   pendingDialogLock,
 } from '../pendingDialog'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
 import {
@@ -235,7 +236,7 @@ describe('librarySearch', () => {
     ])
 
     expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    expect(pendingDialog(resolved)).toMatchObject({
+    expect(pendingSelectionFor(resolved, 'p1')).toMatchObject({
       kind: 'surveil',
       source: 'Undercity Sewers',
     })

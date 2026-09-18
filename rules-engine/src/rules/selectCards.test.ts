@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { availableActions } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame, projectForViewer } from '../runtime'
 import type { ReduceResult } from '../types'
 import {
   openCardSelection,
@@ -137,5 +137,93 @@ describe('selectCards game rule', () => {
     const opened = freezeDraft(draft)
 
     expect(pendingSelection(opened)?.seat).toBe('p1')
+  })
+
+  test('scry 2 orders top and bottom from server-owned candidates', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: {
+        p1: [card('Top'), card('Bottom'), card('Deep')],
+      },
+    })
+    const [top, bottom] = server.state.zoneOrder.p1.library
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p1',
+      kind: 'scry',
+      count: 2,
+      candidates: [top, bottom],
+      destinations: ['top', 'bottom'],
+    })
+    const opened = freezeDraft(draft)
+
+    const resolved = ok(server.rules(opened, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'scry',
+      count: 2,
+      choices: [
+        { objectId: top, destination: 'top' },
+        { objectId: bottom, destination: 'bottom' },
+      ],
+    }))
+
+    expect(resolved.zoneOrder.p1.library.map((id) => resolved.objects[id].name))
+      .toEqual(['Top', 'Deep', 'Bottom'])
+  })
+
+  test('surveil 1 mills or keeps the private top card', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: {
+        p1: [card('Top'), card('Deep')],
+      },
+    })
+    const [top, deep] = server.state.zoneOrder.p1.library
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p1',
+      kind: 'surveil',
+      count: 1,
+      candidates: [top],
+      destinations: ['top', 'graveyard'],
+    })
+    const opened = freezeDraft(draft)
+
+    const milled = ok(server.rules(opened, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'surveil',
+      count: 1,
+      choices: [{ objectId: top, destination: 'graveyard' }],
+    }))
+    expect(milled.objects[top].zone).toBe('graveyard')
+    expect(milled.zoneOrder.p1.library).toEqual([deep])
+  })
+
+  test('only the choosing seat sees scry candidates in a projection', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: {
+        p1: [card('Seen'), card('Also Seen')],
+        p2: [card('Hidden')],
+      },
+      players: 2,
+    })
+    const draft = makeDraft(server.state)
+    openCardSelection(draft, {
+      seat: 'p1',
+      kind: 'scry',
+      count: 2,
+      candidates: server.state.zoneOrder.p1.library.slice(0, 2),
+      destinations: ['top', 'bottom'],
+    })
+    const opened = freezeDraft(draft)
+
+    const chooser = projectForViewer(opened, 'p1')
+    const opponent = projectForViewer(opened, 'p2')
+
+    expect(Object.values(chooser.objects).map((object) => object.name).sort())
+      .toEqual(['Also Seen', 'Seen'])
+    expect(Object.values(opponent.objects)).toEqual([])
+    expect(chooser.zoneOrder.p1.library).toEqual([])
+    expect(opponent.zoneOrder.p1.library).toEqual([])
   })
 })
