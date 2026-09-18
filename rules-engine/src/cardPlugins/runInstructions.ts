@@ -1,7 +1,6 @@
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../pendingDialog'
 import { initiateDiscard } from '../rules/discard'
-import { initiateDraw } from '../rules/draw'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, StackItem } from '../types'
 import {
@@ -70,11 +69,10 @@ const flushStackActions = (
 ) => {
   for (const action of [...buffer].reverse()) {
     if (action.kind === 'draw') {
-      initiateDraw(draft, {
+      draft.enqueue({
+        type: 'draw',
         seat: source.controller,
-        remaining: action.remaining,
-        sourceId: source.id,
-        name: source.name,
+        count: action.remaining,
       })
       continue
     }
@@ -441,12 +439,7 @@ export const runInstructions = (
         for (const objectId of draft.zoneOrder[seat].hand) {
           draft.enqueue({ type: 'discard', seat, objectId })
         }
-        initiateDraw(draft, {
-          seat,
-          remaining: count,
-          sourceId: source.id,
-          name: source.name,
-        })
+        draft.enqueue({ type: 'draw', seat, count })
       }
       continue
     }
@@ -735,12 +728,7 @@ export const runInstructions = (
     }
     if (instruction.kind === 'eachPlayerDraw') {
       for (const seat of apnapSeats(draft)) {
-        initiateDraw(draft, {
-          seat,
-          remaining: instruction.count,
-          sourceId: source.id,
-          name: source.name,
-        })
+        draft.enqueue({ type: 'draw', seat, count: instruction.count })
       }
       continue
     }

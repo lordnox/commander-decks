@@ -85,7 +85,7 @@ describe('draw game rule', () => {
     expect(resolved.objects[top].zone).toBe('hand')
   })
 
-  test('CR 121.2 / 603 scenario B: draw triggers interleave before the next draw and discard', () => {
+  test('CR 121.2 / 603: draw-3 during spell resolution applies three draw events without priority between cards', () => {
     const quezaLike = cardTemplate('Queza-like', {
       types: ['Creature'],
       effects: [
@@ -116,6 +116,7 @@ describe('draw game rule', () => {
     const discardId = server.state.zoneOrder.p1.hand.find(
       (id) => server.state.objects[id].name === 'To Discard',
     )!
+    const priorityBefore = server.state.priority
 
     const cast = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -124,34 +125,23 @@ describe('draw game rule', () => {
     }))
     const resolvedSpell = passAll(server, cast)
 
-    expect(resolvedSpell.stack).toHaveLength(2)
-    expect(resolvedSpell.stack[0]).toMatchObject({ actionId: 'draw', payload: { remaining: 3 } })
-    expect(resolvedSpell.stack[1]).toMatchObject({ actionId: 'discard' })
+    expect(resolvedSpell.objects[spellId].zone).toBe('graveyard')
+    expect(resolvedSpell.zoneCounts.p1.hand).toBe(4)
     expect(resolvedSpell.players.p1.life).toBe(commanderRules.startingLife)
-    expect(resolvedSpell.zoneCounts.p1.hand).toBe(1)
+    expect(resolvedSpell.stack.some((item) => item.actionId === 'draw')).toBe(false)
+    expect(resolvedSpell.stack.filter((item) => item.name === 'Queza-like')).toHaveLength(3)
+    expect(resolvedSpell.stack.at(-1)).toMatchObject({ actionId: 'discard' })
+    expect(resolvedSpell.priority).toBe(priorityBefore)
 
-    const afterFirstDraw = ok(server.rules(resolvedSpell, { type: 'resolveTop' }))
-
-    expect(afterFirstDraw.zoneCounts.p1.hand).toBe(2)
-    expect(afterFirstDraw.players.p1.life).toBe(commanderRules.startingLife)
-    expect(afterFirstDraw.stack[0]).toMatchObject({ kind: 'ability', name: 'Queza-like' })
-    expect(afterFirstDraw.stack[1]).toMatchObject({
-      actionId: 'draw',
-      payload: { remaining: 2 },
-    })
-
-    const afterFirstQueza = ok(server.rules(afterFirstDraw, { type: 'resolveTop' }))
+    const afterFirstQueza = ok(server.rules(resolvedSpell, { type: 'resolveTop' }))
     expect(afterFirstQueza.players.p1.life).toBe(commanderRules.startingLife - 1)
 
     let current = afterFirstQueza
-    for (let cardsDrawn = 2; cardsDrawn <= 3; cardsDrawn += 1) {
+    for (let life = 2; life <= 3; life += 1) {
       current = ok(server.rules(current, { type: 'resolveTop' }))
-      expect(current.players.p1.life).toBe(commanderRules.startingLife - (cardsDrawn - 1))
-      current = ok(server.rules(current, { type: 'resolveTop' }))
-      expect(current.players.p1.life).toBe(commanderRules.startingLife - cardsDrawn)
+      expect(current.players.p1.life).toBe(commanderRules.startingLife - life)
     }
 
-    expect(current.zoneCounts.p1.hand).toBe(4)
     expect(current.stack).toHaveLength(1)
     expect(current.stack[0]).toMatchObject({ actionId: 'discard' })
 
@@ -217,7 +207,7 @@ describe('draw game rule', () => {
     expect(current.stack[0]).toMatchObject({ actionId: 'discard' })
   })
 
-  test('eachPlayerDraw routes through initiateDraw stack actions', () => {
+  test('eachPlayerDraw enqueues draw events that finish during spell resolution', () => {
     const wheel = cardTemplate('Wheel Test', {
       types: ['Sorcery'],
       effects: [onResolveEffect(eachPlayerDraw(2))],
@@ -242,12 +232,10 @@ describe('draw game rule', () => {
     }))
     const resolvedSpell = passAll(server, cast)
 
-    const drawActions = resolvedSpell.stack.filter((item) => item.actionId === 'draw')
-    expect(drawActions).toHaveLength(2)
-    expect(drawActions).toEqual(expect.arrayContaining([
-      expect.objectContaining({ payload: { seat: 'p1', remaining: 2 } }),
-      expect.objectContaining({ payload: { seat: 'p2', remaining: 2 } }),
-    ]))
+    expect(resolvedSpell.stack.some((item) => item.actionId === 'draw')).toBe(false)
+    expect(resolvedSpell.zoneCounts.p1.hand).toBe(2)
+    expect(resolvedSpell.zoneCounts.p2.hand).toBe(2)
+    expect(resolvedSpell.objects[spellId].zone).toBe('graveyard')
   })
 
   test('replica draw event does not move cards or lose', () => {

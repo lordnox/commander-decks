@@ -18,8 +18,9 @@ const drawPayload = (item: StackItem): DrawPayload | undefined => {
 const drawCount = (event: Extract<GameEvent, { type: 'draw' }>) => event.count ?? 1
 
 /**
- * Push a draw action onto the stack (CR 121.2).
- * Each resolution draws one card; `remaining` sequences further draw actions.
+ * Push a draw action onto the stack when a spell or ability needs a stack object
+ * for a draw (for example a waiting discard paired with a draw).
+ * Normal “draw N” during 608.2 uses `{ type: 'draw', count: N }` events instead.
  */
 export const initiateDraw = (
   draft: Draft,
@@ -45,7 +46,7 @@ export const initiateDraw = (
 
 /**
  * Resolve a draw action at the top of the stack during `resolveTop`.
- * CR 121.2 — one card per resolution; further draws continue as stack actions.
+ * Each resolution enqueues one draw event; further draws stay on the stack as actions.
  */
 export const resolveDrawAction = (draft: Draft, item: StackItem) => {
   if (item.actionId !== 'draw') return
@@ -86,7 +87,10 @@ const authoritativeApply = (draft: Draft, seat: PlayerId) => {
 /**
  * Builtin game rule for drawing (CR 121.2).
  * - `draw` event: one card from library to hand (121.2a–c).
- * - `draw` action on stack: one event per resolution, triggers interleave between cards.
+ * - `count > 1` is replaced into N one-card draw events in the same reduce; each
+ *   event can trigger abilities (CR 603), which wait on the stack until priority
+ *   after the current spell or ability finishes (CR 117.3a / 608 / 704).
+ * - `draw` stack actions are only for cases that genuinely need a stack object.
  */
 export const draw: Plugin = {
   id: 'draw',
