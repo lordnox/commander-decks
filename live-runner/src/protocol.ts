@@ -39,23 +39,12 @@ export const PLAY_ACTIONS = [
 ] as const
 export type PlayAction = (typeof PLAY_ACTIONS)[number]
 
-/**
- * The parser checks incoming choices against this list, so a destination that
- * exists only in the type is dropped as an invalid message.
- */
-export const TOPDECK_DESTINATIONS = [
-  'top',
-  'bottom',
-  'graveyard',
-  'hand',
-  'exile',
-  'battlefield',
-  'library',
-  'target',
-  'sacrifice',
-  'skip',
-] as const
-export type TopdeckDestination = (typeof TOPDECK_DESTINATIONS)[number]
+import {
+  TOPDECK_DESTINATIONS,
+  type TopdeckDestination,
+} from '../../shared/liveTypes'
+
+export { TOPDECK_DESTINATIONS, type TopdeckDestination }
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
 export type SeatActionIds = Record<SeatId, number>
 

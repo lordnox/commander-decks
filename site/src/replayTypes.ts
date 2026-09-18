@@ -1,3 +1,5 @@
+import type { CardRef, LiveSeatSnapshot } from '../../shared/liveTypes'
+
 export type CardFace = {
   name: string
   image_small: string
@@ -42,21 +44,11 @@ export type BattlefieldCard = {
   hidden?: boolean
 }
 
-export type PlayerState = {
-  life: number
-  poison?: number
-  commander_damage?: Record<string, number>
-  commander_tax?: number
-  /** Floating mana, by symbol. Absent whenever the pool is empty. */
-  mana?: Record<string, number>
-  library_count: number
-  hand_count?: number
-  hand: Array<string | number>
-  battlefield: BattlefieldCard[]
-  graveyard: Array<string | number>
-  exile: Array<string | number | BattlefieldCard>
-  command: Array<string | number>
-  revealed_top?: Array<string | number>
+export type PlayerState = LiveSeatSnapshot<
+  BattlefieldCard,
+  CardRef | BattlefieldCard
+> & {
+  hand: Array<CardRef>
 }
 
 export type ReplaySeat = {
