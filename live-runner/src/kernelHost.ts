@@ -420,15 +420,19 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
         ? ['top', 'graveyard']
         : selection.kind === 'reveal'
           ? ['hand', 'reveal']
+        : selection.kind === 'choose'
+          ? ['target']
         : selection.kind === 'sacrifice'
           ? ['battlefield', 'sacrifice']
           : ['graveyard'])) as TopdeckDecision['destinations']
   const requirements = selection.kind === 'sacrifice'
-    ? { sacrifice: { min: count, max: count } }
+    ? { sacrifice: { min: selection.min ?? count, max: count } }
     : selection.kind === 'discard'
       ? { graveyard: { min: count, max: count } }
       : selection.kind === 'reveal'
         ? { reveal: { min: selection.min ?? count, max: count } }
+      : selection.kind === 'choose'
+        ? { target: { min: selection.min ?? count, max: count } }
       : undefined
   lobby.topdeck = {
     seat,
@@ -615,11 +619,18 @@ export const applyKernelChoice = (
     if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
       throw new Error('That card choice is no longer open.')
     }
-    if (cardKind === 'discard' || cardKind === 'sacrifice' || cardKind === 'reveal') {
+    if (
+      cardKind === 'choose'
+      || cardKind === 'discard'
+      || cardKind === 'sacrifice'
+      || cardKind === 'reveal'
+    ) {
       const chosenDestination = cardKind === 'sacrifice'
         ? 'sacrifice'
         : cardKind === 'reveal'
           ? 'reveal'
+          : cardKind === 'choose'
+            ? 'target'
           : 'graveyard'
       const objectIds = objectIdsForNames(
         state,
@@ -628,7 +639,9 @@ export const applyKernelChoice = (
           .filter(({ destination }) => destination === chosenDestination)
           .map(({ card }) => card),
       )
-      const minimum = cardKind === 'reveal' ? waiting.selection.min ?? waiting.count : waiting.count
+      const minimum = cardKind === 'discard'
+        ? waiting.count
+        : waiting.selection.min ?? waiting.count
       if (objectIds.length < minimum || objectIds.length > waiting.count) {
         throw new Error(
           minimum === waiting.count

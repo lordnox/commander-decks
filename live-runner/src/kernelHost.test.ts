@@ -1327,6 +1327,56 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
   })
 
+  test('Portal publishes and resumes a typed graveyard reanimation choice', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [cardTemplate('Portal to Phyrexia', { types: ['Artifact'], manaCost: '{9}' })],
+      },
+      hands: {
+        p2: [cardTemplate('Borrowed Body', {
+          types: ['Creature'],
+          subtypes: ['Beast'],
+          power: 4,
+          toughness: 4,
+        })],
+      },
+    })
+    const body = server.state.zoneOrder.p2.hand[0]
+    let state = server.rules(server.state, {
+      type: 'move',
+      objectId: body,
+      to: 'graveyard',
+    })
+    if (!state.ok) throw new Error(state.error)
+    const kernel = handleFor(server.rules, {
+      ...state.state,
+      step: 'untap',
+      active: 'p1',
+      priority: 'p1',
+    })
+    const lobby = createLobby()
+    lobby.phase = 'play'
+
+    expect(kernel.dispatch({ type: 'advanceStep' }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      cards: ['Borrowed Body'],
+      destinations: ['target'],
+    })
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Borrowed Body', destination: 'target' }],
+    })).toBe(true)
+    expect(kernel.history.current().objects[body]).toMatchObject({
+      zone: 'battlefield',
+      controller: 'p1',
+    })
+  })
+
   test('pauses on a waiting stack discard and resumes with continueAction', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-stack-discard-'))
     mkdirGames(root)

@@ -14,7 +14,7 @@ import {
 } from './plugins/hiddenInformation'
 import type { GameEvent, GameState, PlayerId, Plugin } from './types'
 import { redactSecretCouncil } from './cardPlugins/secretCouncil'
-import { pendingSelectionsFor } from './rules/selectCards'
+import { PENDING_SELECTION, pendingSelectionsFor } from './rules/selectCards'
 
 export type ServerDependencies = {
   random: () => number
@@ -84,6 +84,7 @@ export const projectForViewer = (
       )
     }
     delete projected.players[player].data[RANDOM_STATE]
+    if (player !== viewer) delete projected.players[player].data[PENDING_SELECTION]
     const topName = revealedTops[player]
     if (topName) projected.players[player].data.revealed_top = [topName]
     else delete projected.players[player].data.revealed_top

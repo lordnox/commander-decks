@@ -299,7 +299,7 @@ export type GameEvent =
       type: 'selectCards'
       /** Seat making the choice. */
       seat: PlayerId
-      kind: 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
+      kind: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
       count: number
       /** Cards selected from a hidden zone (discard / reveal). */
       objectIds?: string[]

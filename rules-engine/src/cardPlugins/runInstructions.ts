@@ -267,6 +267,76 @@ export const runInstructions = (
       }
       continue
     }
+    if (instruction.kind === 'sacrificePermanentsThenDraw') {
+      const candidates = Object.values(draft.objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && object.controller === source.controller
+          && (
+            !instruction.types
+            || instruction.types.some((type) => object.types.includes(type))
+          ))
+        .map((object) => object.id)
+      openCardSelection(draft, {
+        seat: source.controller,
+        kind: 'sacrifice',
+        count: candidates.length,
+        min: 0,
+        candidates,
+        sourceId: source.id,
+        source: source.name,
+        prompt: 'Sacrifice any number of eligible permanents, then draw that many cards.',
+        destinations: ['battlefield', 'sacrifice'],
+        fromSeat: source.controller,
+        drawPerSelected: 1,
+      })
+      continue
+    }
+    if (instruction.kind === 'opponentsSacrifice') {
+      for (const seat of apnapSeats(draft)) {
+        if (seat === source.controller) continue
+        const candidates = Object.values(draft.objects)
+          .filter((object) =>
+            object.zone === 'battlefield'
+            && object.controller === seat
+            && object.types.includes(instruction.type))
+          .map((object) => object.id)
+        if (candidates.length === 0) continue
+        openCardSelection(draft, {
+          seat,
+          kind: 'sacrifice',
+          count: Math.min(instruction.count, candidates.length),
+          candidates,
+          sourceId: source.id,
+          source: source.name,
+          prompt: `Sacrifice ${Math.min(instruction.count, candidates.length)} ${instruction.type.toLowerCase()} card(s).`,
+          destinations: ['battlefield', 'sacrifice'],
+          fromSeat: seat,
+          sequence: draft.allocTs(),
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'reanimateCreatureFromGraveyards') {
+      const candidates = Object.values(draft.objects)
+        .filter((object) => object.zone === 'graveyard' && object.types.includes('Creature'))
+        .map((object) => object.id)
+      if (candidates.length === 0) continue
+      openCardSelection(draft, {
+        seat: source.controller,
+        kind: 'choose',
+        count: 1,
+        candidates,
+        sourceId: source.id,
+        source: source.name,
+        prompt: 'Choose a creature card from a graveyard to put onto the battlefield.',
+        destinations: ['target'],
+        moveSelectedTo: 'battlefield',
+        moveSelectedController: source.controller,
+        ...(instruction.addSubtype ? { addSubtypes: [instruction.addSubtype] } : {}),
+      })
+      continue
+    }
     if (instruction.kind === 'loseLife') {
       const seat = instruction.who === 'controller'
         ? source.controller

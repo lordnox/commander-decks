@@ -61,7 +61,7 @@ export type TopdeckDecision = {
       | 'select-cards'
     stackId?: string
     selectionId?: string
-    cardKind?: 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
+    cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
     resumePassSeat?: SeatId
     kicked?: boolean
     chosenEvent?: string
