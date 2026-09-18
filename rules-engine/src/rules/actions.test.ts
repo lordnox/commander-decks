@@ -14,29 +14,25 @@ describe('resolveAbility', () => {
       libraries: { p1: [cardTemplate('Drawn', ['Instant'])] },
       players: 2,
     })
-    const draft = makeDraft(server.state)
-    const item: StackItem = {
-      id: 'stack1',
-      kind: 'ability',
-      objectId: 'gone-source',
-      controller: 'p1',
-      name: 'Ephemeral Trigger',
-      targets: [],
-      payload: {
-        instructions: [draw(1)],
-      },
+    const stacked = {
+      ...server.state,
+      stack: [{
+        id: 'stack1',
+        kind: 'ability' as const,
+        objectId: 'gone-source',
+        controller: 'p1',
+        name: 'Ephemeral Trigger',
+        targets: [],
+        payload: {
+          instructions: [draw(1)],
+        },
+      }],
     }
 
-    resolveAbility(draft, item)
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
 
-    const state = freezeDraft(draft)
-    expect(state.zoneCounts.p1.hand).toBe(0)
-    expect(state.stack).toEqual([
-      expect.objectContaining({
-        actionId: 'draw',
-        payload: { seat: 'p1', remaining: 1 },
-      }),
-    ])
+    expect(resolved.zoneCounts.p1.hand).toBe(1)
+    expect(resolved.stack.some((item) => item.actionId === 'draw')).toBe(false)
   })
 
   test('still requires a live source for abilityId lookups', () => {
