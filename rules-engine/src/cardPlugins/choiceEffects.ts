@@ -101,11 +101,12 @@ export const choiceEffects: Plugin = {
       draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
     }
     if (dialog.kind === 'discard-card') {
-      const objectId = targetIds.find((id) => {
-        const object = draft.objects[id]
-        return object?.zone === 'hand' && object.controller === event.seat
-      })
-      if (objectId) draft.enqueue({ type: 'discard', seat: event.seat, objectId })
+      for (const objectId of targetIds) {
+        const object = draft.objects[objectId]
+        if (object?.zone === 'hand' && object.controller === event.seat) {
+          draft.enqueue({ type: 'discard', seat: event.seat, objectId })
+        }
+      }
     }
     if (dialog.kind === 'sacrifice-creature') {
       const objectId = targetIds.find((id) => {

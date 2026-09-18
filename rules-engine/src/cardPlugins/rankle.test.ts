@@ -201,3 +201,40 @@ test('choosing every mode queues discards before sacrifices', () => {
   expect(pendingDialogFor(asked, 'p2')).toMatchObject({ kind: 'discard-card' })
   expect(asked.players.p2.life).toBe(commanderRules.startingLife - 4)
 })
+
+test('each-player discard opens dialogs in APNAP order', () => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      players: 4,
+      battlefield: {
+        p1: [rankleCard(), creature('Gravedigger')],
+        p2: [creature('Lone Hydra', { power: 9, toughness: 9 })],
+      },
+      hands: {
+        p1: [card('Swamp', ['Land'])],
+        p2: [card('Island', ['Land']), card('Forest', ['Land'])],
+        p3: [card('Mountain', ['Land'])],
+        p4: [card('Plains', ['Land'])],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
+  )
+  const activeP3 = { ...server.state, active: 'p3', priority: 'p3' }
+  const asked = chooseModes(
+    server,
+    resolveRankleTrigger(server, connect(server, activeP3)),
+    [RANKLE_MODES.discard],
+  )
+
+  expect(pendingDialog(asked)).toMatchObject({ kind: 'discard-card', seat: 'p3' })
+
+  const mountain = Object.values(asked.objects).find((object) => object.name === 'Mountain')!
+  const afterP3 = ok(server.rules(asked, {
+    type: 'custom',
+    name: DIALOG_CHOSEN,
+    seat: 'p3',
+    payload: { objectIds: [mountain.id] },
+  }))
+  expect(pendingDialog(afterP3)).toMatchObject({ kind: 'discard-card', seat: 'p4' })
+})

@@ -93,6 +93,7 @@ const askEachPlayerChoice = (
   draft: Draft,
   source: GameObject,
   kind: 'discard-card' | 'sacrifice-creature',
+  count = 1,
 ) => {
   const discard = kind === 'discard-card'
   for (const seat of apnapSeats(draft)) {
@@ -107,19 +108,24 @@ const askEachPlayerChoice = (
       seat,
       kind,
       prompt: discard
-        ? `${source.name} makes each player discard a card. Choose one.`
+        ? count === 1
+          ? `${source.name} makes each player discard a card. Choose one.`
+          : `${source.name} makes each player discard ${count} cards. Choose ${count}.`
         : `${source.name} makes each player sacrifice a creature. Choose one.`,
       waiting: discard
-        ? 'is choosing a card to discard.'
+        ? count === 1
+          ? 'is choosing a card to discard.'
+          : `is choosing ${count} cards to discard.`
         : 'is choosing a creature to sacrifice.',
       judge: `${source.name}: ${
         discard ? 'each player discards' : 'each player sacrifices a creature'
       }.`,
       destinations: discard ? ['hand', 'graveyard'] : ['battlefield', 'sacrifice'],
       requirements: discard
-        ? { graveyard: { min: 1, max: 1 } }
+        ? { graveyard: { min: count, max: count } }
         : { sacrifice: { min: 1, max: 1 } },
-      count: 1,
+      count,
+      sequence: draft.allocTs(),
     })
   }
 }
@@ -702,7 +708,7 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'eachPlayerDiscard') {
-      askEachPlayerChoice(draft, source, 'discard-card')
+      askEachPlayerChoice(draft, source, 'discard-card', instruction.count)
       continue
     }
     if (instruction.kind === 'eachPlayerSacrifice') {
