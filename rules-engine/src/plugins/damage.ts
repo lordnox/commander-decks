@@ -21,6 +21,14 @@ export const lifeLostThisTurn = (player: Pick<PlayerState, 'data'>) => {
 export const damage: Plugin = {
   id: 'damage',
   apply: ({ event, draft }) => {
+    if (event.type === 'gainLife') {
+      const player = draft.players[event.seat]
+      if (!player || player.lost) return
+      player.life += event.amount
+      draft.note(`${event.seat} gains ${event.amount} life${event.source ? ` (${event.source})` : ''}`)
+      return
+    }
+
     if (event.type === 'combatDamage') {
       draft.enqueue({
         type: 'dealDamage',

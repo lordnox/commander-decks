@@ -11,8 +11,24 @@ const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
-const spellCost = (object: GameObject, additionalGeneric = 0) =>
-  `${object.manaCost}${additionalGeneric > 0 ? `{${additionalGeneric}}` : ''}`
+const evokeCost = (object: GameObject) =>
+  object.oracleText.match(/Evoke\s+[—-]?\s*((?:\{[^}]+\})+)/i)?.[1]
+
+const spellCost = (
+  object: GameObject,
+  additionalGeneric = 0,
+  alternativeCost?: 'evoke' | 'payLife',
+) => {
+  const base = alternativeCost === 'evoke' ? evokeCost(object) ?? object.manaCost : object.manaCost
+  return `${base}${additionalGeneric > 0 ? `{${additionalGeneric}}` : ''}`
+}
+
+const controlsSwamp = (state: Parameters<NonNullable<Plugin['legal']>>[0]['state'], seat: string) =>
+  Object.values(state.objects).some((object) =>
+    object.zone === 'battlefield'
+    && object.controller === seat
+    && object.types.includes('Land')
+    && object.subtypes.includes('Swamp'))
 
 const coloredCosts = (manaCost: string) =>
   [...manaCost.matchAll(/\{([^}]+)\}/g)]
@@ -78,8 +94,17 @@ export const spells: Plugin = {
         if (state.stack.length > 0) return 'non-instant spells require an empty stack'
       }
 
-      const cost = spellCost(object, event.additionalGeneric)
-      if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
+      if (event.alternativeCost === 'evoke' && !evokeCost(object)) {
+        return `${object.name} has no evoke cost`
+      }
+      if (event.alternativeCost === 'payLife') {
+        if (object.name !== 'Snuff Out') return `${object.name} has no life alternative cost`
+        if (!controlsSwamp(state, event.seat)) return 'Snuff Out requires a Swamp'
+        if (state.players[event.seat].life <= 4) return `${event.seat} cannot pay 4 life`
+      } else {
+        const cost = spellCost(object, event.additionalGeneric, event.alternativeCost)
+        if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
+      }
       const search = searchEffect(effectsFor(object.name))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       if (needed) {
@@ -103,11 +128,14 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
-      const cost = spellCost(object, event.additionalGeneric)
-      const paid = payCost(draft.players[event.seat].mana, cost)
-      if (!paid) return
-
-      draft.players[event.seat].mana = paid
+      if (event.alternativeCost === 'payLife') {
+        draft.enqueue({ type: 'loseLife', seat: event.seat, amount: 4, source: object.name })
+      } else {
+        const cost = spellCost(object, event.additionalGeneric, event.alternativeCost)
+        const paid = payCost(draft.players[event.seat].mana, cost)
+        if (!paid) return
+        draft.players[event.seat].mana = paid
+      }
       draft.stack.unshift({
         id: draft.allocId('s'),
         kind: 'spell',
@@ -116,6 +144,8 @@ export const spells: Plugin = {
         name: object.name,
         targets: event.targets ?? [],
         ...(event.kicked ? { kicked: true } : {}),
+        ...(event.alternativeCost ? { alternativeCost: event.alternativeCost } : {}),
+        ...(event.manaSpent ? { manaSpent: [...event.manaSpent] } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
         castFrom: object.zone,
@@ -169,6 +199,9 @@ export const spells: Plugin = {
           object.counters.loyalty = object.printedLoyalty
         }
         installGrantedRules(draft, object)
+        if (item.alternativeCost === 'evoke') {
+          draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+        }
       } else {
         // CR 608.2: instructions run while the spell is still on the stack;
         // the card is put into the graveyard only after those events apply.

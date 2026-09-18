@@ -28,6 +28,62 @@ describe('spells', () => {
     expect(pool.C).toBe(2)
   })
 
+  test('evoke pays the printed cost and sacrifices the permanent after it enters', () => {
+    const mulldrifter = {
+      ...forest(),
+      name: 'Mulldrifter',
+      types: ['Creature'],
+      manaCost: '{4}{U}',
+      oracleText: 'Flying\nWhen this creature enters, draw two cards.\nEvoke {2}{U}',
+    }
+    const catalog = createCatalog([spells])
+    const state = newGame({
+      hands: { p1: [mulldrifter] },
+      builtinRules: ['spells'],
+    })
+    state.players.p1.mana = { ...emptyMana(), U: 1, C: 2 }
+    const objectId = state.zoneOrder.p1.hand[0]
+    const cast = rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId,
+      alternativeCost: 'evoke',
+    }, catalog)
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = rules(cast.state, { type: 'resolveTop' }, catalog)
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    expect(resolved.state.objects[objectId].zone).toBe('graveyard')
+  })
+
+  test('Snuff Out can pay four life instead of mana while its caster controls a Swamp', () => {
+    const snuffOut = {
+      ...bolt(),
+      name: 'Snuff Out',
+      manaCost: '{3}{B}',
+      oracleText: 'If you control a Swamp, you may pay 4 life rather than pay this spell’s mana cost.',
+    }
+    const swamp = { ...forest(), name: 'Swamp', subtypes: ['Swamp'] }
+    const catalog = createCatalog([spells, damage])
+    const state = newGame({
+      hands: { p1: [snuffOut] },
+      battlefield: { p1: [swamp] },
+      builtinRules: ['spells', 'damage'],
+    })
+    const objectId = state.zoneOrder.p1.hand[0]
+    const cast = rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId,
+      alternativeCost: 'payLife',
+    }, catalog)
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    expect(cast.state.players.p1.life).toBe(36)
+    expect(cast.state.objects[objectId].zone).toBe('stack')
+  })
+
   test('resolving an ability does not move its battlefield source', () => {
     const catalog = createCatalog([spells])
     const state = newGame({

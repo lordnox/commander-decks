@@ -6,9 +6,38 @@ import { payCost } from './spells'
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 
 type ManaSource = {
+  id?: string
+  name?: string
+  controller?: string
+  zone?: string
+  types?: string[]
   oracleText: string
   tapProduces?: Partial<Record<ManaId, number>>
   exiledCards?: string[]
+}
+
+const landColors = (
+  object: ManaSource,
+  state: Pick<GameState, 'objects'>,
+  seen = new Set<string>(),
+): ManaId[] => {
+  if (object.id && seen.has(object.id)) return []
+  const nextSeen = new Set(seen)
+  if (object.id) nextSeen.add(object.id)
+  if (object.name === 'Exotic Orchard' || object.name === 'Reflecting Pool') {
+    const lands = Object.values(state.objects).filter((land) =>
+      land.id !== object.id
+      && land.zone === 'battlefield'
+      && land.types.includes('Land')
+      && (
+        object.name === 'Exotic Orchard'
+          ? land.controller !== object.controller
+          : land.controller === object.controller
+      ))
+    return [...new Set(lands.flatMap((land) => landColors(land, state, nextSeen)))]
+  }
+  return [...new Set(manaModes(object, state, seen)
+    .flatMap((mode) => Object.keys(mode) as ManaId[]))]
 }
 
 /**
@@ -19,8 +48,16 @@ type ManaSource = {
 export const manaModes = (
   object: ManaSource,
   state?: Pick<GameState, 'objects'>,
+  seen = new Set<string>(),
 ): Partial<Record<ManaId, number>>[] => {
   const modes: Partial<Record<ManaId, number>>[] = []
+  if (
+    state
+    && (object.name === 'Exotic Orchard' || object.name === 'Reflecting Pool')
+  ) {
+    for (const color of landColors(object, state, seen)) modes.push({ [color]: 1 })
+    return modes
+  }
   for (const match of object.oracleText.matchAll(/Add ((?:\{[WUBRGC]\}(?:,? or |, )?)+)/gi)) {
     const clause = match[1]
     const symbols = [...clause.matchAll(/\{([WUBRGC])\}/g)]

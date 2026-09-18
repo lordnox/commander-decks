@@ -1,5 +1,6 @@
 import { hasKeyword, lethalDamage } from '../keywords'
 import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
+import { payCost } from './spells'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
   typeof target === 'string' ? { kind: 'player', player: target } : target
@@ -9,6 +10,38 @@ const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
   return defender.kind === 'player'
     ? defender.player
     : state.objects[defender.objectId]?.controller
+}
+
+const attackTax = (
+  state: GameState,
+  attackers: Array<{ defender: TargetRef | PlayerId }>,
+) => attackers.reduce((total, declaration) => {
+  const defender = defendingPlayer(state, declaration.defender)
+  if (!defender) return total
+  const taxers = Object.values(state.objects).filter((object) =>
+    object.zone === 'battlefield'
+    && object.controller === defender
+    && (
+      object.name === 'Baird, Steward of Argive'
+      || (object.name === 'Archangel of Tithes' && !object.tapped)
+    ))
+  return total + taxers.length
+}, 0)
+
+const blockTax = (state: GameState, blockerCount: number) => {
+  const taxers = Object.values(state.objects).filter((object) =>
+    object.zone === 'battlefield'
+    && object.controller === state.active
+    && object.name === 'Archangel of Tithes'
+    && object.attacking !== null)
+  return taxers.length * blockerCount
+}
+
+const taxError = (state: GameState, seat: PlayerId, required: number, paid = 0) => {
+  if (paid !== required) return `attack or block declaration requires paying {${required}}`
+  if (required > 0 && !payCost(state.players[seat].mana, `{${required}}`)) {
+    return `${seat} cannot pay combat tax {${required}}`
+  }
 }
 
 export const combat: Plugin = {
@@ -49,6 +82,8 @@ export const combat: Plugin = {
           }
         }
       }
+      const error = taxError(state, event.seat, attackTax(state, event.attackers), event.taxPaid)
+      if (error) return error
     }
 
     if (event.type === 'declareBlockers') {
@@ -88,6 +123,8 @@ export const combat: Plugin = {
           return 'attacker is not attacking that seat'
         }
       }
+      const error = taxError(state, event.seat, blockTax(state, event.blockers.length), event.taxPaid)
+      if (error) return error
     }
 
     if (
@@ -100,6 +137,10 @@ export const combat: Plugin = {
   },
   apply: ({ event, draft }) => {
     if (event.type === 'declareAttackers') {
+      if ((event.taxPaid ?? 0) > 0) {
+        const paid = payCost(draft.players[event.seat].mana, `{${event.taxPaid}}`)
+        if (paid) draft.players[event.seat].mana = paid
+      }
       for (const declaration of event.attackers) {
         const attacker = draft.object(declaration.objectId)
         if (!attacker) continue
@@ -111,6 +152,10 @@ export const combat: Plugin = {
     }
 
     if (event.type === 'declareBlockers') {
+      if ((event.taxPaid ?? 0) > 0) {
+        const paid = payCost(draft.players[event.seat].mana, `{${event.taxPaid}}`)
+        if (paid) draft.players[event.seat].mana = paid
+      }
       for (const declaration of event.blockers) {
         const blocker = draft.object(declaration.blockerId)
         if (blocker) blocker.blocking = declaration.attackerId

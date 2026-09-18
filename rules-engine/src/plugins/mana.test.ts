@@ -142,6 +142,50 @@ describe('mana', () => {
     expect(red.ok).toBe(false)
   })
 
+  test('Exotic Orchard and Reflecting Pool derive colors from battlefield lands', () => {
+    const orchard = {
+      ...forest(),
+      name: 'Exotic Orchard',
+      oracleText: '{T}: Add one mana of any color that a land an opponent controls could produce.',
+      tapProduces: undefined,
+    }
+    const pool = {
+      ...forest(),
+      name: 'Reflecting Pool',
+      oracleText: '{T}: Add one mana of any type that a land you control could produce.',
+      tapProduces: undefined,
+    }
+    const island = {
+      ...forest(),
+      name: 'Island',
+      subtypes: ['Island'],
+      oracleText: '{T}: Add {U}.',
+      tapProduces: { U: 1 },
+    }
+    const state = newGame({
+      builtinRules: ['mana'],
+      battlefield: { p1: [orchard, pool, forest()], p2: [island] },
+    })
+    const orchardId = idOf(state, 'Exotic Orchard', 'battlefield')
+    const poolId = idOf(state, 'Reflecting Pool', 'battlefield')
+
+    const blue = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: orchardId,
+      mana: 'U',
+    }, catalog))
+    expect(blue.players.p1.mana.U).toBe(1)
+
+    const green = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: poolId,
+      mana: 'G',
+    }, catalog))
+    expect(green.players.p1.mana.G).toBe(1)
+  })
+
   test('a summoning sick mana creature cannot be tapped', () => {
     const state = newGame({
       builtinRules: ['mana'],

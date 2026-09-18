@@ -36,6 +36,35 @@ test('an unblocked attacker deals combat damage to the defending player', () => 
   expect(damaged.state.players.p2.life).toBe(38)
 })
 
+test('Baird and an untapped Archangel collect one generic mana per attacker', () => {
+  const catalog = createCatalog([combat])
+  const baird = { ...bears(), name: 'Baird, Steward of Argive' }
+  const archangel = { ...bears(), name: 'Archangel of Tithes' }
+  const state = newGame({
+    battlefield: { p1: [bears(), bears()], p2: [baird, archangel] },
+    builtinRules: ['combat'],
+  })
+  state.step = 'declareAttackers'
+  state.players.p1.mana.C = 4
+  const attackers = state.zoneOrder.p1.battlefield.map((objectId) => ({
+    objectId,
+    defender: 'p2',
+  }))
+
+  const unpaid = rules(state, { type: 'declareAttackers', seat: 'p1', attackers }, catalog)
+  expect(unpaid.ok).toBe(false)
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers,
+    taxPaid: 4,
+  }, catalog)
+  expect(declared.ok).toBe(true)
+  if (!declared.ok) return
+  expect(declared.state.players.p1.mana.C).toBe(0)
+})
+
 test('haste permits a summoning-sick creature to attack without removing sickness', () => {
   const catalog = createCatalog([combat])
   const state = newGame({

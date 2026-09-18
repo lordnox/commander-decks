@@ -209,7 +209,12 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'gainLife') {
-      draft.players[source.controller].life += instruction.count
+      draft.enqueue({
+        type: 'gainLife',
+        seat: source.controller,
+        amount: instruction.count,
+        source: source.id,
+      })
       continue
     }
     if (instruction.kind === 'loseLife') {

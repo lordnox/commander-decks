@@ -125,6 +125,8 @@ export type StackItem = {
   x?: number
   choices?: string[]
   kicked?: boolean
+  alternativeCost?: 'evoke' | 'payLife'
+  manaSpent?: ManaId[]
   sacrificed?: number
   castFrom?: ZoneId
   /** Builtin action kind when `kind === 'action'` (for example `'discard'`, `'draw'`). */
@@ -240,6 +242,8 @@ export type GameEvent =
       objectId: string
       targets?: TargetRef[]
       additionalGeneric?: number
+      alternativeCost?: 'evoke' | 'payLife'
+      manaSpent?: ManaId[]
       kicked?: boolean
       x?: number
       sacrifice?: string[]
@@ -263,9 +267,10 @@ export type GameEvent =
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool> }
   | { type: 'payMana'; seat: PlayerId; cost: string }
   | { type: 'emptyManaPools' }
+  | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
   // — Combat & damage —
-  | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }
-  | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[] }
+  | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[]; taxPaid?: number }
+  | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[]; taxPaid?: number }
   | { type: 'assignCombatDamage' }
   | {
       type: 'combatDamage'
@@ -327,6 +332,7 @@ export type GameEvent =
       targets?: TargetRef[]
       x?: number
       choices?: string[]
+      copyWithRings?: boolean
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean
     }
