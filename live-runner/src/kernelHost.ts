@@ -411,12 +411,20 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const waiting = waitingSelectCards(state)
   if (!waiting || !isSeatId(waiting.selection.seat)) return false
   const { selection, names, count } = waiting
+  const destinations = (selection.destinations
+    ?? (selection.kind === 'scry'
+      ? ['top', 'bottom']
+      : selection.kind === 'surveil'
+        ? ['top', 'graveyard']
+        : ['graveyard'])) as TopdeckDecision['destinations']
   lobby.topdeck = {
     seat: selection.seat,
     kind: selection.kind === 'discard' ? 'discard-card' : selection.kind,
     cards: names,
-    destinations: (selection.destinations ?? ['graveyard']) as TopdeckDecision['destinations'],
-    requirements: { graveyard: { min: count, max: count } },
+    destinations,
+    ...(selection.kind === 'discard'
+      ? { requirements: { graveyard: { min: count, max: count } } }
+      : {}),
     kernel: {
       sourceId: selection.sourceId ?? '',
       stage: 'select-cards',
@@ -562,30 +570,56 @@ export const applyKernelChoice = (
     if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
       throw new Error('That card choice is no longer open.')
     }
-    const objectIds = objectIdsForNames(
-      state,
-      waiting.objectIds,
-      message.choices
-        .filter(({ destination }) => destination === 'graveyard')
-        .map(({ card }) => card),
-    )
-    if (objectIds.length !== waiting.count) {
-      throw new Error(`Choose exactly ${waiting.count} card(s).`)
+    if (cardKind === 'discard') {
+      const objectIds = objectIdsForNames(
+        state,
+        waiting.objectIds,
+        message.choices
+          .filter(({ destination }) => destination === 'graveyard')
+          .map(({ card }) => card),
+      )
+      if (objectIds.length !== waiting.count) {
+        throw new Error(`Choose exactly ${waiting.count} card(s).`)
+      }
+      const continued = kernel.dispatch({
+        type: 'selectCards',
+        seat,
+        kind: cardKind,
+        count: waiting.selection.count,
+        objectIds,
+      })
+      if (!continued.ok) throw new Error(continued.error)
+      const name = state.objects[objectIds[0]]?.name ?? 'a card'
+      return closeKernelChoice(kernel, lobby, seat, {
+        privateJudge: { [seat]: `You chose ${name}.` },
+        judge: waiting.selection.source
+          ? `${lobby.occupants[seat]?.name ?? seat} chose ${name} for ${waiting.selection.source}.`
+          : `${lobby.occupants[seat]?.name ?? seat} chose ${name}.`,
+      })
+    }
+    const choices = message.choices.map((choice) => ({
+      objectId: objectIdsForNames(state, waiting.objectIds, [choice.card])[0],
+      destination: choice.destination as 'top' | 'bottom' | 'graveyard',
+    }))
+    if (choices.length !== waiting.count) {
+      throw new Error(`Assign exactly ${waiting.count} card(s).`)
     }
     const continued = kernel.dispatch({
       type: 'selectCards',
       seat,
       kind: cardKind,
       count: waiting.selection.count,
-      objectIds,
+      choices,
     })
     if (!continued.ok) throw new Error(continued.error)
-    const name = state.objects[objectIds[0]]?.name ?? 'a card'
+    const summary = message.choices
+      .map(({ card, destination }) => `${card} → ${destination}`)
+      .join(', ')
     return closeKernelChoice(kernel, lobby, seat, {
-      privateJudge: { [seat]: `You chose ${name}.` },
+      privateJudge: { [seat]: `${cardKind}: ${summary}.` },
       judge: waiting.selection.source
-        ? `${lobby.occupants[seat]?.name ?? seat} chose ${name} for ${waiting.selection.source}.`
-        : `${lobby.occupants[seat]?.name ?? seat} chose ${name}.`,
+        ? `${lobby.occupants[seat]?.name ?? seat} finished ${cardKind} for ${waiting.selection.source}.`
+        : `${lobby.occupants[seat]?.name ?? seat} finished ${cardKind}.`,
     })
   }
   if (decision.kernel.stage === 'waiting-discard') {

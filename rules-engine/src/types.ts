@@ -297,7 +297,13 @@ export type GameEvent =
       seat: PlayerId
       kind: 'discard' | 'scry' | 'surveil'
       count: number
-      objectIds: string[]
+      /** Cards to discard (discard only). */
+      objectIds?: string[]
+      /** Ordered zone assignment for each candidate (scry / surveil). */
+      choices?: Array<{
+        objectId: string
+        destination: 'top' | 'bottom' | 'graveyard'
+      }>
     }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }

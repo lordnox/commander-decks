@@ -4,7 +4,6 @@ import { createServerGame } from '../runtime'
 import { cardTemplate } from '../newGame'
 import {
   JOINT_LAND_CHOSEN,
-  JOINT_SCRY_CHOSEN,
   jointExploration,
   pendingJointExploration,
 } from './jointExploration'
@@ -45,17 +44,22 @@ test('Joint Exploration completes scry, draw, and kicked land in the kernel', ()
   expect(pendingJointExploration(state, 'p1')?.stage).toBe('scry')
   expect(state.stack).toHaveLength(1)
 
+  const kept = state.zoneOrder.p1.library[0]
   const bottomed = state.zoneOrder.p1.library[1]
-  for (const event of [
-    { type: 'move', objectId: bottomed, to: 'library', position: 'bottom' } as const,
-    { type: 'custom', name: JOINT_SCRY_CHOSEN, seat: 'p1' } as const,
-    { type: 'resolveTop' } as const,
-    { type: 'resolveTop' } as const,
-  ]) {
-    const result = server.rules(state, event)
-    if (!result.ok) throw new Error(result.error)
-    state = result.state
-  }
+  const scried = server.rules(state, {
+    type: 'selectCards',
+    seat: 'p1',
+    kind: 'scry',
+    count: 2,
+    choices: [
+      { objectId: kept, destination: 'top' },
+      { objectId: bottomed, destination: 'bottom' },
+    ],
+  })
+  if (!scried.ok) throw new Error(scried.error)
+  const drawn = server.rules(scried.state, { type: 'resolveTop' })
+  if (!drawn.ok) throw new Error(drawn.error)
+  state = drawn.state
   expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name))
     .toEqual(['Hand Land', 'Kept'])
   expect(pendingJointExploration(state, 'p1')?.stage).toBe('putLand')

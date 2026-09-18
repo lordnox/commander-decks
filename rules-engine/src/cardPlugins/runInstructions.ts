@@ -498,17 +498,17 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'surveil') {
-      setPendingDialog(draft, {
-        sourceId: source.id,
-        source: source.name,
+      const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
+      if (candidates.length === 0) continue
+      openCardSelection(draft, {
         seat: source.controller,
         kind: 'surveil',
-        prompt: `Surveil ${instruction.count}.`,
-        waiting: 'is making a private surveil choice.',
-        judge: 'Waiting for a private surveil choice.',
-        chosenEvent: DIALOG_CHOSEN,
-        destinations: ['top', 'graveyard'],
         count: instruction.count,
+        candidates,
+        sourceId: source.id,
+        source: source.name,
+        prompt: `Surveil ${instruction.count}.`,
+        destinations: ['top', 'graveyard'],
       })
       continue
     }
