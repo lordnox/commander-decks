@@ -57,5 +57,12 @@ APNAP ordering live in `triggers.ts` (CR 603).
 
 - **Player-chosen trigger order** when one player puts many triggers on the stack from a
   single event — v1 uses timestamp / card-rules order; `orderTriggers` UI is not built.
+- **`selectCards` stack actions** — typed `continueAction` payloads for discard, scry,
+  surveil, and sacrifice; server filters visible cards per seat. Replaces ad-hoc `custom`
+  discard dialogs where not yet migrated.
+- **`knownTo` hands** — track which seats know which hand cards (reveal, surveil-to-opponent,
+  etc.) so the UI can show known faces without pausing play.
+- **Courser of Kruphix** reveal-before-draw and known-hand display — follow-up if not
+  merged with the draw/reveal pipeline.
 - **Fetchlands** and **secret council** still use `custom` events and `pendingDialog`
   rather than `searchLibrary` / `vote` stack actions.
