@@ -291,6 +291,14 @@ export type GameEvent =
       /** Choice payload (for example `{ objectIds: string[] }`). */
       payload: Record<string, unknown>
     }
+  | {
+      type: 'selectCards'
+      /** Seat making the choice. */
+      seat: PlayerId
+      kind: 'discard' | 'scry' | 'surveil'
+      count: number
+      objectIds: string[]
+    }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }
   | {

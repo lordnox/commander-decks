@@ -6,6 +6,12 @@ import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import { validTarget } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
+import {
+  pendingSelection,
+  pendingSelectionFor,
+  type CardSelectionKind,
+  type PendingCardSelection,
+} from './rules/selectCards'
 import type {
   GameEvent,
   GameObject,
@@ -48,6 +54,15 @@ export type AvailableAction =
       actionId: string
       objectIds: string[]
       count: number
+    }
+  | {
+      kind: 'selectCards'
+      selectionId: string
+      cardKind: CardSelectionKind
+      objectIds: string[]
+      names: string[]
+      count: number
+      destinations?: string[]
     }
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -98,6 +113,55 @@ export const waitingContinueAction = (
     actionId: 'discard',
     objectIds: waiting.handIds,
     count: waiting.count,
+  }
+}
+
+export type WaitingSelectCards = {
+  selection: PendingCardSelection
+  objectIds: string[]
+  names: string[]
+  count: number
+}
+
+/** A typed card selection waiting for `selectCards` from the chooser seat. */
+export const waitingSelectCards = (
+  state: GameState,
+  seat?: PlayerId,
+): WaitingSelectCards | null => {
+  const pending = seat ? pendingSelectionFor(state, seat) : pendingSelection(state)
+  if (!pending || (seat && pending.seat !== seat)) return null
+
+  const fromSeat = pending.fromSeat ?? pending.seat
+  const objectIds = pending.candidates.filter((objectId) => {
+    const object = state.objects[objectId]
+    if (pending.kind === 'discard') {
+      return object?.zone === 'hand' && object.controller === fromSeat
+    }
+    return Boolean(object)
+  })
+
+  return {
+    selection: pending,
+    objectIds,
+    names: objectIds.map((objectId) => state.objects[objectId]?.name ?? ''),
+    count: Math.min(pending.count, objectIds.length),
+  }
+}
+
+export const waitingCardSelection = (
+  state: GameState,
+  seat: PlayerId,
+): AvailableAction | null => {
+  const waiting = waitingSelectCards(state, seat)
+  if (!waiting) return null
+  return {
+    kind: 'selectCards',
+    selectionId: waiting.selection.id,
+    cardKind: waiting.selection.kind,
+    objectIds: waiting.objectIds,
+    names: waiting.names,
+    count: waiting.count,
+    destinations: waiting.selection.destinations,
   }
 }
 const DAMAGE_PENDING_STEPS = new Set([
@@ -330,7 +394,7 @@ export const availableActions = (
 ): AvailableAction[] => {
   if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
   if (state.step === 'untap' || state.step === 'cleanup') return []
-  const waiting = waitingContinueAction(state, seat)
+  const waiting = waitingContinueAction(state, seat) ?? waitingCardSelection(state, seat)
   if (waiting) return [waiting]
   const actions: AvailableAction[] = []
   const hand = state.zoneOrder[seat]?.hand ?? []
@@ -496,6 +560,7 @@ export const legalActsFor = (
       action.kind === 'declareAttackers'
       || action.kind === 'declareBlockers'
       || action.kind === 'continueAction'
+      || action.kind === 'selectCards'
       || (action.kind === 'activateAbility' && Boolean(action.targetGroups))
       || eventsForAvailableAction(state, seat, action))
 
@@ -518,6 +583,7 @@ export const sameLegalAct = (
   }
   if (left.kind === 'castSpell') return left.targetObjectId === right.targetObjectId
   if (left.kind === 'continueAction') return left.stackId === right.stackId
+  if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   return true
 }
 
@@ -579,7 +645,7 @@ export const eventsForAvailableAction = (
   seat: PlayerId,
   action: AvailableAction,
 ): GameEvent[] | null => {
-  if (action.kind === 'continueAction') return null
+  if (action.kind === 'continueAction' || action.kind === 'selectCards') return null
   if (action.kind === 'playLand') {
     return [{ type: 'playLand', seat, objectId: action.objectId }]
   }

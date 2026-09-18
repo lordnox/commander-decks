@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../pendingDialog'
 import { initiateDiscard } from '../rules/discard'
+import { openCardSelection } from '../rules/selectCards'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, StackItem } from '../types'
 import {
@@ -87,36 +88,45 @@ const flushStackActions = (
   }
 }
 
-const askEachPlayerChoice = (
+const askEachPlayerDiscard = (
   draft: Draft,
   source: GameObject,
-  kind: 'discard-card' | 'sacrifice-creature',
+  count: number,
 ) => {
-  const discard = kind === 'discard-card'
   for (const seat of apnapSeats(draft)) {
-    const hasChoice = discard
-      ? draft.zoneOrder[seat].hand.length > 0
-      : Object.values(draft.objects).some((object) =>
-        object.zone === 'battlefield'
-        && object.controller === seat
-        && object.types.includes('Creature'))
-    if (!hasChoice) continue
+    const candidates = draft.zoneOrder[seat].hand
+    if (candidates.length === 0) continue
+    openCardSelection(draft, {
+      seat,
+      kind: 'discard',
+      count,
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: count === 1
+        ? `${source.name} makes each player discard a card. Choose one.`
+        : `${source.name} makes each player discard ${count} cards. Choose ${count}.`,
+      destinations: ['graveyard'],
+      fromSeat: seat,
+    })
+  }
+}
+
+const askEachPlayerSacrifice = (draft: Draft, source: GameObject) => {
+  for (const seat of apnapSeats(draft)) {
+    const hasCreature = Object.values(draft.objects).some((object) =>
+      object.zone === 'battlefield'
+      && object.controller === seat
+      && object.types.includes('Creature'))
+    if (!hasCreature) continue
     openSourceDialog(draft, source, {
       seat,
-      kind,
-      prompt: discard
-        ? `${source.name} makes each player discard a card. Choose one.`
-        : `${source.name} makes each player sacrifice a creature. Choose one.`,
-      waiting: discard
-        ? 'is choosing a card to discard.'
-        : 'is choosing a creature to sacrifice.',
-      judge: `${source.name}: ${
-        discard ? 'each player discards' : 'each player sacrifices a creature'
-      }.`,
-      destinations: discard ? ['hand', 'graveyard'] : ['battlefield', 'sacrifice'],
-      requirements: discard
-        ? { graveyard: { min: 1, max: 1 } }
-        : { sacrifice: { min: 1, max: 1 } },
+      kind: 'sacrifice-creature',
+      prompt: `${source.name} makes each player sacrifice a creature. Choose one.`,
+      waiting: 'is choosing a creature to sacrifice.',
+      judge: `${source.name}: each player sacrifices a creature.`,
+      destinations: ['battlefield', 'sacrifice'],
+      requirements: { sacrifice: { min: 1, max: 1 } },
       count: 1,
     })
   }
@@ -710,11 +720,11 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'eachPlayerDiscard') {
-      askEachPlayerChoice(draft, source, 'discard-card')
+      askEachPlayerDiscard(draft, source, instruction.count)
       continue
     }
     if (instruction.kind === 'eachPlayerSacrifice') {
-      askEachPlayerChoice(draft, source, 'sacrifice-creature')
+      askEachPlayerSacrifice(draft, source)
       continue
     }
     if (instruction.kind === 'eachPlayerLoseLife') {
