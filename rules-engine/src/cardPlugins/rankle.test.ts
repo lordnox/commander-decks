@@ -2,7 +2,7 @@ import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog, pendingDialogFor } from '../pendingDialog'
-import { pendingSelectionFor } from '../rules/selectCards'
+import { pendingSelection, pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
@@ -230,14 +230,15 @@ test('each-player discard opens dialogs in APNAP order', () => {
     [RANKLE_MODES.discard],
   )
 
-  expect(pendingDialog(asked)).toMatchObject({ kind: 'discard-card', seat: 'p3' })
+  expect(pendingSelection(asked)).toMatchObject({ kind: 'discard', seat: 'p3', count: 1 })
 
   const mountain = Object.values(asked.objects).find((object) => object.name === 'Mountain')!
   const afterP3 = ok(server.rules(asked, {
-    type: 'custom',
-    name: DIALOG_CHOSEN,
+    type: 'selectCards',
     seat: 'p3',
-    payload: { objectIds: [mountain.id] },
+    kind: 'discard',
+    count: 1,
+    objectIds: [mountain.id],
   }))
-  expect(pendingDialog(afterP3)).toMatchObject({ kind: 'discard-card', seat: 'p4' })
+  expect(pendingSelection(afterP3)).toMatchObject({ kind: 'discard', seat: 'p4', count: 1 })
 })

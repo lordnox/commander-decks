@@ -1,5 +1,6 @@
 import type Draft from '../draft'
 import { isKnownTo, markKnownToAll } from '../knowledge'
+import { pendingSelectionsFor } from '../rules/selectCards'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 
 export const HIDDEN_INFORMATION_ID = 'hiddenInformation'
@@ -79,11 +80,25 @@ const hiddenHandIds = (
     return object && isKnownTo(object, viewer, snapshot.playerOrder)
   })
 
+const visibleLibraryIds = (snapshot: GameState, viewer: PlayerId | null) => {
+  const ids = new Set<string>()
+  if (!viewer) return ids
+  for (const selection of pendingSelectionsFor(snapshot, viewer)) {
+    if (selection.kind === 'scry' || selection.kind === 'surveil') {
+      for (const objectId of selection.candidates) ids.add(objectId)
+    }
+  }
+  return ids
+}
+
 export const replicaSnapshotError = (snapshot: import('../types').GameState) => {
   if (snapshot.knowledge.mode !== 'replica') return 'client snapshots must be replicas'
   const viewer = snapshot.knowledge.viewer
+  const visibleLibrary = visibleLibraryIds(snapshot, viewer)
   for (const object of Object.values(snapshot.objects)) {
-    if (object.zone === 'library') return 'client snapshot exposes a library object'
+    if (object.zone === 'library' && !visibleLibrary.has(object.id)) {
+      return 'client snapshot exposes a library object'
+    }
     if (
       object.zone === 'hand'
       && object.owner !== viewer
@@ -117,6 +132,7 @@ const redactObject = (
 ) => {
   const viewer = draft.knowledge.viewer
   const hiddenLibrary = object.zone === 'library'
+    && !visibleLibraryIds(draft, viewer).has(objectId)
   const hiddenHand = object.zone === 'hand'
     && object.owner !== viewer
     && !isKnownTo(object, viewer, draft.playerOrder)

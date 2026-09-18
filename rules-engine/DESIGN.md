@@ -93,7 +93,7 @@ Some `CardInstruction` kinds are declared for card rules but not executed in
 (`plugins/mana.ts` applies; `cardPlugins/activated.ts` legal hook skips legacy
 journal objects that still embed the instruction). `putMilledLandTapped` is
 handled in `rules/triggers.ts` when a milled land hits the graveyard from the
-library (`handleMilledLandImmediate`). Unknown kinds that reach the end of the
+library (`putMilledLandTapped` on the stacked trigger). Unknown kinds that reach the end of the
 instruction loop are noted in the trace (`unknown instruction: …`).
 
 The live judge may keep a current game moving with `judgeFallback` when exact
