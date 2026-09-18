@@ -578,6 +578,8 @@ export const sameLegalAct = (
     text?: string
     mana?: ManaId
     targetObjectId?: string
+    stackId?: string
+    selectionId?: string
   },
 ) => {
   if (left.kind !== right.kind) return false

@@ -962,7 +962,7 @@ export const runInstructions = (
       continue
     }
 
-    draft.note(`unknown instruction: ${instruction.kind}`)
+    draft.note(`unknown instruction: ${String((instruction as { kind?: unknown }).kind)}`)
   }
 
   if (buffer && stackBuffer === undefined) flushStackActions(draft, source, buffer, item)

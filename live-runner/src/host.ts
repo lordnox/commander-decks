@@ -531,7 +531,7 @@ export const runHost = async (options: {
     ) {
       settleKernelPriority(kernel, state)
       logLine(logFile, `${seat} kernel advance`)
-    } else if (kernel && kernelOwnsChoice(message, state)) {
+    } else if (message.type === 'topdeck' && kernel && kernelOwnsChoice(message, state)) {
       try {
         if (!applyKernelChoice(kernel, state, seat, message)) {
           throw new Error('That private choice is not available now.')

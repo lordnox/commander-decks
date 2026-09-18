@@ -9,17 +9,17 @@ import {
 
 export const MODAL_CHOOSE = 'modalSpell.choose'
 
-const modalEffects = (object: { effects?: ReturnType<typeof effectsOf> }) =>
+const modalEffects = (object: { name: string; effects?: ReturnType<typeof effectsOf> }) =>
   effectsOf(object).filter((effect) => effect.op === 'modal')
 
-const listedInstructions = (object: { effects?: ReturnType<typeof effectsOf> }) =>
+const listedInstructions = (object: { name: string; effects?: ReturnType<typeof effectsOf> }) =>
   effectsOf(object).flatMap((effect) => {
     if (effect.op === 'trigger' || effect.op === 'activate') return effect.do
     if (effect.op === 'modal') return effect.modes.flatMap((mode) => mode.do)
     return [] as CardInstruction[]
   })
 
-const chooseModesInstruction = (object: { effects?: ReturnType<typeof effectsOf> }) =>
+const chooseModesInstruction = (object: { name: string; effects?: ReturnType<typeof effectsOf> }) =>
   listedInstructions(object).find((instruction): instruction is Extract<
     CardInstruction,
     { kind: 'chooseModes' }
@@ -107,10 +107,11 @@ export const modalSpell: Plugin = {
     const object = item ? draft.object(item.objectId) : undefined
     const modal = object ? modalEffects(object)[0] : undefined
     if (!item || !object || !modal || modal.op !== 'modal') return
-    if (!item.choices?.[0] || item.choices.includes('__modalExecuted__')) return
-    const mode = modal.modes.find((entry) => entry.id === item.choices[0])
+    const choices = item.choices
+    if (!choices?.[0] || choices.includes('__modalExecuted__')) return
+    const mode = modal.modes.find((entry) => entry.id === choices[0])
     if (!mode) return
-    item.choices.push('__modalExecuted__')
+    choices.push('__modalExecuted__')
     const pendingBefore = draft.pending.length
     runInstructions(draft, object, mode.do, item)
     const instructions = draft.pending.splice(pendingBefore)
