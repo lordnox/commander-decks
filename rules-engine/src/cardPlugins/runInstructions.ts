@@ -441,7 +441,12 @@ export const runInstructions = (
         for (const objectId of draft.zoneOrder[seat].hand) {
           draft.enqueue({ type: 'discard', seat, objectId })
         }
-        draft.enqueue({ type: 'draw', seat, count })
+        initiateDraw(draft, {
+          seat,
+          remaining: count,
+          sourceId: source.id,
+          name: source.name,
+        })
       }
       continue
     }
@@ -651,6 +656,14 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'putMilledLandTapped') {
+      const objectId = typeof item?.payload?.triggeringObjectId === 'string'
+        ? item.payload.triggeringObjectId
+        : undefined
+      if (!objectId) continue
+      const land = draft.object(objectId)
+      if (!land || !land.types.includes('Land')) continue
+      draft.enqueue({ type: 'move', objectId, to: 'battlefield' })
+      draft.enqueue({ type: 'tap', objectId })
       continue
     }
     if (instruction.kind === 'optionalMill') {
@@ -722,7 +735,12 @@ export const runInstructions = (
     }
     if (instruction.kind === 'eachPlayerDraw') {
       for (const seat of apnapSeats(draft)) {
-        draft.enqueue({ type: 'draw', seat, count: instruction.count })
+        initiateDraw(draft, {
+          seat,
+          remaining: instruction.count,
+          sourceId: source.id,
+          name: source.name,
+        })
       }
       continue
     }
