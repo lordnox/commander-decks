@@ -355,6 +355,9 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
         : seat.revealed_top.map((name) => table.cardRef(name, index)),
       packMana(seat.mana),
       packExileNotes(seat.exile ?? []),
+      seat.known_hand === undefined
+        ? ABSENT
+        : seat.known_hand.map((name) => table.cardRef(name, index)),
     ]
   })
 
@@ -582,6 +585,10 @@ export const expandLiveWire = (
     }
     const mana = unpackMana(row[9])
     if (mana) seat.mana = mana
+    const knownHand = row[11]
+    if (knownHand !== ABSENT) {
+      seat.known_hand = unpackCards(knownHand, lists, extras, tokens)
+    }
     return seat
   })
 
