@@ -172,6 +172,14 @@ describe('live compact v2', () => {
     expect(stack[0]).toEqual([2, 0, 'on Sol Ring'])
   })
 
+  test('known opponent hand cards round-trip on the wire', () => {
+    const original = snapshot()
+    original.seats[0].known_hand = ['Island']
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.seats[0].known_hand).toEqual(['Island'])
+    expect(expanded.seats[0].hand).toBeUndefined()
+  })
+
   test('expand restores names from the four 99s', () => {
     const original = snapshot()
     const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)

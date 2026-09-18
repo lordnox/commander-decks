@@ -157,3 +157,36 @@ test('public payload redacts a private draw summary', async () => {
   expect(publicSnapshot.alwaysStopOnPriority).toBeUndefined()
   expect(JSON.stringify(publicSnapshot)).not.toContain('Secret Card')
 })
+
+test('public payload keeps known opponent hand cards', async () => {
+  const snapshot = {
+    v: 1,
+    you: 'p1',
+    headline: 'Test',
+    turn: 1,
+    phase: 'main1',
+    active: 'p2',
+    stack: [],
+    seats: [{
+      id: 'p2',
+      name: 'Beta',
+      commanders: [],
+      color: '#2f6f64',
+      life: 40,
+      library_count: 90,
+      hand_count: 3,
+      known_hand: ['Grizzly Bears'],
+      battlefield: [],
+      graveyard: [],
+      exile: [],
+      command: [],
+    }],
+    catalog: {},
+  } satisfies LiveSnapshot
+
+  const payload = await encodePublicLivePayload(snapshot)
+  const publicSnapshot = await openLivePayload(payload, '/')
+  expect(publicSnapshot.seats[0].known_hand).toEqual(['Grizzly Bears'])
+  expect(publicSnapshot.seats[0].hand).toBeUndefined()
+  expect(publicSnapshot.seats[0].hand_count).toBe(3)
+})

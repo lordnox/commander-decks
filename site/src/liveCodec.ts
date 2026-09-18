@@ -32,6 +32,8 @@ export type LiveSeat = {
   library_count: number
   hand_count: number
   hand?: Array<string | number>
+  /** Opponent hand cards everyone may see (subset of hand_count). */
+  known_hand?: Array<string | number>
   battlefield: BattlefieldCard[]
   graveyard: Array<string | number>
   exile: Array<string | number | BattlefieldCard>

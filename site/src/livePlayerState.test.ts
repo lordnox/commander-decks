@@ -19,6 +19,19 @@ test('a seat panel keeps the floating mana the snapshot reported', () => {
   expect(toPlayerState(seat(), true).mana).toBeUndefined()
 })
 
+test('opponent known hand slots mix faces with hidden backs', () => {
+  const panel = toPlayerState(seat({
+    hand_count: 3,
+    known_hand: ['Grizzly Bears'],
+  }), false)
+
+  expect(panel.hand).toEqual([
+    { name: 'Grizzly Bears' },
+    { hidden: true },
+    { hidden: true },
+  ])
+})
+
 test('private hand and command cards keep their kernel object IDs', () => {
   const state = {
     zoneOrder: {

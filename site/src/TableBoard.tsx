@@ -116,6 +116,20 @@ const CopyIcon = () => (
   </svg>
 )
 
+export const CardBackTile = ({ compact = false }: { compact?: boolean }) => (
+  <div
+    aria-label="Hidden card"
+    className={`relative shrink-0 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-indigo-950 via-ink-950 to-indigo-900 shadow-lg shadow-black/20 ${
+      compact ? 'h-24 w-[4.25rem]' : 'h-32 w-[5.7rem]'
+    }`}
+  >
+    <div className="absolute inset-2 rounded-lg border border-white/10 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.12),transparent_55%)]" />
+    <div className="absolute inset-0 flex items-center justify-center text-[0.55rem] font-black uppercase tracking-[0.2em] text-indigo-200/70">
+      MTG
+    </div>
+  </div>
+)
+
 const SummoningSicknessIcon = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true" className="size-3">
     <circle
@@ -341,6 +355,9 @@ export const CardRow = ({
   <div className="flex flex-wrap gap-2 pb-1">
     {cards.map((card, index) => {
       const entry = typeof card === 'object' ? card : undefined
+      if (entry?.hidden) {
+        return <CardBackTile key={`back-${index}`} compact={compact} />
+      }
       const value = entry?.name ?? (card as string | number)
       const choosing = Boolean(entry?.objectId && interaction?.choosingFor === entry.objectId)
       return (
@@ -425,6 +442,7 @@ export const Zone = ({
   game,
   label,
   cards,
+  count,
   compact,
   action,
   copyable,
@@ -435,6 +453,7 @@ export const Zone = ({
   game: ReplayGame
   label: string
   cards: Array<string | number | BattlefieldCard>
+  count?: number
   compact?: boolean
   action: Set<string>
   copyable?: boolean
@@ -446,7 +465,7 @@ export const Zone = ({
 
   return (
     <section className="mt-4">
-      <ZoneHeading label={label} count={cards.length} />
+      <ZoneHeading label={label} count={count ?? cards.length} />
       <CardRow
         game={game}
         cards={cards}
@@ -721,6 +740,7 @@ export const SeatPanel = ({
           game={game}
           label="Hand"
           cards={state.hand}
+          count={displayedHandCount}
           compact
           action={action}
           copyable={copyable}

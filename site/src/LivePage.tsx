@@ -93,6 +93,34 @@ const toReplaySeat = (seat: LiveSeat): ReplaySeat => ({
   color: seat.color,
 })
 
+const withObjectIds = (
+  cards: Array<string | number>,
+  ids?: string[],
+) =>
+  cards.map((card, index) => {
+    const objectId = ids?.[index]
+    return objectId ? { name: card, objectId } : card
+  })
+
+const opponentHand = (
+  seat: LiveSeat,
+  handIds?: string[],
+  objects?: NonNullable<LiveSnapshot['replica']>['objects'],
+) => {
+  const known = seat.known_hand ?? []
+  if (known.length === 0) return []
+  const total = seat.hand_count ?? known.length
+  const unknownCount = Math.max(0, total - known.length)
+  const knownCards = known.map((name) => {
+    const objectId = handIds?.find((id) => objects?.[id]?.name === name)
+    return objectId ? { name, objectId } : { name }
+  })
+  return [
+    ...knownCards,
+    ...Array.from({ length: unknownCount }, () => ({ hidden: true })),
+  ]
+}
+
 export const toPlayerState = (
   seat: LiveSeat,
   revealHand: boolean,
@@ -100,14 +128,9 @@ export const toPlayerState = (
 ) => {
   const handIds = replica?.zoneOrder[seat.id]?.hand
   const commandIds = replica?.zoneOrder[seat.id]?.command
-  const withIds = (
-    cards: Array<string | number>,
-    ids?: string[],
-  ) =>
-    cards.map((card, index) => {
-      const objectId = ids?.[index]
-      return objectId ? { name: card, objectId } : card
-    })
+  const hand = revealHand
+    ? withObjectIds(seat.hand ?? [], handIds)
+    : opponentHand(seat, handIds, replica?.objects)
   return {
     life: seat.life,
     poison: seat.poison,
@@ -115,11 +138,11 @@ export const toPlayerState = (
     commander_tax: seat.commander_tax,
     mana: seat.mana,
     library_count: seat.library_count,
-    hand: revealHand ? withIds(seat.hand ?? [], handIds) : [],
+    hand,
     battlefield: seat.battlefield ?? [],
     graveyard: seat.graveyard ?? [],
     exile: seat.exile ?? [],
-    command: withIds(seat.command ?? [], commandIds),
+    command: withObjectIds(seat.command ?? [], commandIds),
     revealed_top: seat.revealed_top,
   }
 }
@@ -1148,7 +1171,7 @@ export const LivePage = () => {
                 active={boardActive === seat.id}
                 action={new Set()}
                 handCount={seat.hand_count}
-                showHand={isYou}
+                showHand={isYou || (seat.known_hand?.length ?? 0) > 0}
                 copyable
                 onPreview={setPreview}
                 onHover={setHover}

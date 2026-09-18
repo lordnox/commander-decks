@@ -1,5 +1,6 @@
 import type Draft from '../draft'
-import type { GameState, Plugin } from '../types'
+import { isKnownTo, markKnownToAll } from '../knowledge'
+import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 
 export const HIDDEN_INFORMATION_ID = 'hiddenInformation'
 export const RANDOM_CHOICE = 'hiddenInformation.randomChoice'
@@ -56,12 +57,26 @@ const hiddenEvent = (type: string) =>
   || type === 'reveal'
   || type === 'authoritativeSync'
 
+const hiddenHandIds = (
+  snapshot: GameState,
+  owner: PlayerId,
+  viewer: PlayerId | null,
+) =>
+  snapshot.zoneOrder[owner].hand.filter((id) => {
+    const object = snapshot.objects[id]
+    return object && isKnownTo(object, viewer, snapshot.playerOrder)
+  })
+
 export const replicaSnapshotError = (snapshot: import('../types').GameState) => {
   if (snapshot.knowledge.mode !== 'replica') return 'client snapshots must be replicas'
   const viewer = snapshot.knowledge.viewer
   for (const object of Object.values(snapshot.objects)) {
     if (object.zone === 'library') return 'client snapshot exposes a library object'
-    if (object.zone === 'hand' && object.owner !== viewer) {
+    if (
+      object.zone === 'hand'
+      && object.owner !== viewer
+      && !isKnownTo(object, viewer, snapshot.playerOrder)
+    ) {
       return 'client snapshot exposes another player’s hand'
     }
   }
@@ -69,23 +84,43 @@ export const replicaSnapshotError = (snapshot: import('../types').GameState) => 
     if (snapshot.zoneOrder[player].library.length > 0) {
       return 'client snapshot exposes library order'
     }
-    if (player !== viewer && snapshot.zoneOrder[player].hand.length > 0) {
-      return 'client snapshot exposes another player’s hand order'
+    if (player !== viewer) {
+      const visible = hiddenHandIds(snapshot, player, viewer)
+      const order = snapshot.zoneOrder[player].hand
+      if (order.length > visible.length) {
+        return 'client snapshot exposes another player’s hand order'
+      }
+      if (order.some((id) => !visible.includes(id))) {
+        return 'client snapshot exposes another player’s hand order'
+      }
     }
   }
   return undefined
 }
 
+const redactObject = (
+  draft: import('../draft').Draft,
+  objectId: string,
+  object: GameObject,
+) => {
+  const viewer = draft.knowledge.viewer
+  const hiddenLibrary = object.zone === 'library'
+  const hiddenHand = object.zone === 'hand'
+    && object.owner !== viewer
+    && !isKnownTo(object, viewer, draft.playerOrder)
+  if (hiddenLibrary || hiddenHand) delete draft.objects[objectId]
+}
+
 const redactDraft = (draft: import('../draft').Draft) => {
   const viewer = draft.knowledge.viewer
   for (const [objectId, object] of Object.entries(draft.objects)) {
-    if (object.zone === 'library' || (object.zone === 'hand' && object.owner !== viewer)) {
-      delete draft.objects[objectId]
-    }
+    redactObject(draft, objectId, object)
   }
   for (const player of draft.playerOrder) {
     draft.zoneOrder[player].library = []
-    if (player !== viewer) draft.zoneOrder[player].hand = []
+    if (player !== viewer) {
+      draft.zoneOrder[player].hand = hiddenHandIds(draft, player, viewer)
+    }
   }
 }
 
@@ -147,8 +182,7 @@ export const createAuthoritativeHiddenInformation = (
     }
 
     if (event.type === 'reveal') {
-      // The log is copied into every viewer's projection, so naming the cards
-      // here is what makes a reveal public without unhiding the zone itself.
+      markKnownToAll(draft, event.objectIds)
       const names = event.objectIds
         .map((id) => state.objects[id]?.name)
         .filter(Boolean)
