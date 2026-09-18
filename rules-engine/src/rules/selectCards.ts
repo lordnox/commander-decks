@@ -11,7 +11,13 @@ export type CardSelectionKind =
   | 'surveil'
   | 'reveal'
 
-export type CardSelectionDestination = 'top' | 'bottom' | 'graveyard' | 'battlefield' | 'sacrifice'
+export type CardSelectionDestination =
+  | 'top'
+  | 'bottom'
+  | 'graveyard'
+  | 'battlefield'
+  | 'sacrifice'
+  | 'target'
 
 export type CardSelectionChoice = {
   objectId: string
