@@ -23,6 +23,7 @@ type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 type PendingTrigger = {
   source: GameObject
   effect: TriggerEffect
+  triggeringObjectId?: string
 }
 
 const isTriggerBindingIf = (
@@ -69,9 +70,10 @@ const pushCopies = (
   source: GameObject,
   effect: TriggerEffect,
   copies: number,
+  meta: Pick<PendingTrigger, 'triggeringObjectId'> = {},
 ) => {
   for (let index = 0; index < copies; index += 1) {
-    matches.push({ source, effect })
+    matches.push({ source, effect, ...meta })
   }
 }
 
@@ -198,27 +200,6 @@ const collectCombatDamage = (
   collectEffects(source, 'combatDamage', state, matches)
 }
 
-const handleMilledLandImmediate = (
-  state: GameState,
-  draft: Draft,
-  event: GameEvent,
-) => {
-  if (event.type !== 'move') return
-  const before = state.objects[event.objectId]
-  if (!before || event.to !== 'graveyard' || !before.types.includes('Land')) return
-  const fromLibrary = before.zone === 'library'
-
-  for (const source of draft.zoneOf('battlefield', before.owner)) {
-    for (const effect of triggerEffects(effectsOf(source), 'landToGraveyard')) {
-      if (!conditionHolds(effect.if, state, source)) continue
-      if (fromLibrary && effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')) {
-        draft.enqueue({ type: 'move', objectId: before.id, to: 'battlefield' })
-        draft.enqueue({ type: 'tap', objectId: before.id })
-      }
-    }
-  }
-}
-
 const collectMoveTriggers = (
   state: GameState,
   draft: Draft,
@@ -234,11 +215,9 @@ const collectMoveTriggers = (
     for (const source of draft.zoneOf('battlefield', before.owner)) {
       for (const effect of triggerEffects(effectsOf(source), 'landToGraveyard')) {
         if (!conditionHolds(effect.if, state, source)) continue
-        if (fromLibrary && effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')) {
-          continue
-        }
-        if (effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')) continue
-        pushCopies(matches, source, effect, 1)
+        const milledLand = effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')
+        if (milledLand && !fromLibrary) continue
+        pushCopies(matches, source, effect, 1, { triggeringObjectId: event.objectId })
       }
     }
   }
@@ -292,8 +271,6 @@ const collectEventTriggers = (
 export const triggers: Plugin = {
   id: 'triggers',
   apply: ({ state, event, draft }) => {
-    handleMilledLandImmediate(state, draft, event)
-
     const matches = collectEventTriggers(state, draft, event)
     if (matches.length === 0) return
 
@@ -302,11 +279,12 @@ export const triggers: Plugin = {
       ? event.seat
       : undefined
 
-    for (const { source, effect } of ordered) {
+    for (const { source, effect, triggeringObjectId } of ordered) {
       draft.addTriggeredAbility(source, effect.do, {
         payload: {
           instructions: effect.do,
           triggeringPlayer: triggeringPlayer ?? source.controller,
+          ...(triggeringObjectId ? { triggeringObjectId } : {}),
         },
         name: `${source.name}`,
       })

@@ -5,7 +5,7 @@ import {
   type CardInstruction,
 } from '../cardPlugins/effects'
 import type Draft from '../draft'
-import type { GameState, StackItem } from '../types'
+import type { GameObject, GameState, StackItem } from '../types'
 import { resolveDiscardAction } from './discard'
 import { resolveDrawAction } from './draw'
 
@@ -14,18 +14,50 @@ import { resolveDrawAction } from './draw'
  * CR 602.2 — costs are paid at activation; effects run on resolution.
  * CR 608.2 — perform the ability's instructions when it resolves.
  */
+const stackSourceFallback = (item: StackItem): GameObject => ({
+  id: item.objectId,
+  name: item.name,
+  owner: item.controller,
+  controller: item.controller,
+  zone: 'graveyard',
+  tapped: false,
+  summoningSickness: false,
+  damageMarked: 0,
+  counters: {},
+  types: [],
+  subtypes: [],
+  supertypes: [],
+  manaCost: '',
+  manaValue: 0,
+  colors: [],
+  power: null,
+  toughness: null,
+  printedLoyalty: null,
+  loyaltyActivatedTurn: null,
+  oracleText: '',
+  attachedTo: null,
+  attacking: null,
+  blocking: null,
+  grantedRules: [],
+  token: false,
+  tags: [],
+})
+
 export const resolveAbility = (draft: Draft, item: StackItem) => {
-  const source = draft.object(item.objectId)
   const payloadInstructions = item.payload?.instructions
   let instructions: CardInstruction[] | undefined
 
   if (Array.isArray(payloadInstructions)) {
     instructions = payloadInstructions as CardInstruction[]
-  } else if (item.abilityId && source) {
-    instructions = activateEffect(effectsOf(source), item.abilityId)?.do
+  } else if (item.abilityId) {
+    const live = draft.object(item.objectId)
+    if (!live) return
+    instructions = activateEffect(effectsOf(live), item.abilityId)?.do
   }
 
-  if (!instructions || !source) return
+  if (!instructions) return
+
+  const source = draft.object(item.objectId) ?? stackSourceFallback(item)
   runInstructions(draft, source, instructions, item)
 }
 

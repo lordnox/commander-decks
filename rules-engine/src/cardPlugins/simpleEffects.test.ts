@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { resolveStack } from '../testHelpers'
 import type { GameState, ReduceResult } from '../types'
 import { activated } from './activated'
 import { activate } from './effects'
@@ -193,7 +194,7 @@ describe('simple card effects', () => {
       seat: 'p1',
       objectId: windfallId,
     }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    const resolved = resolveStack(server.rules, ok(server.rules(cast, { type: 'resolveTop' })))
 
     expect(resolved.zoneOrder.p1.hand).toHaveLength(3)
     expect(resolved.zoneOrder.p2.hand).toHaveLength(3)
