@@ -648,9 +648,11 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'addChosenColorMana') {
+      // Chosen-color mana uses tapForMana (mana plugin); activated.ts legal skips legacy journals.
       continue
     }
     if (instruction.kind === 'putMilledLandTapped') {
+      // Land-from-library mill is applied in triggers.ts handleMilledLandImmediate on move resolve.
       continue
     }
     if (instruction.kind === 'optionalMill') {
@@ -936,6 +938,8 @@ export const runInstructions = (
       })
       continue
     }
+
+    draft.note(`unknown instruction: ${instruction.kind}`)
   }
 
   if (buffer && stackBuffer === undefined) flushStackActions(draft, source, buffer, item)
