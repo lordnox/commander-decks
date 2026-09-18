@@ -26,6 +26,7 @@ export const validTarget = (
   if (filter.controller === 'opponent' && object.controller === controller) return false
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.noncreature && object.types.includes('Creature')) return false
+  if (filter.nonblack && object.colors.includes('B')) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false

@@ -86,6 +86,7 @@ const onCleanup = (draft: Draft) => {
     object.attacking = null
     object.blocking = null
   }
+  draft.rules = draft.rules.filter((rule) => rule.params.untilCleanup !== true)
   draft.note('cleanup')
 }
 

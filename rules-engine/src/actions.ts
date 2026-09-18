@@ -360,11 +360,22 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
       ) {
         return []
       }
+      const fogsAllCombat = effect.do.some((instruction) =>
+        instruction.kind === 'preventCombatDamage'
+        && (instruction.from ?? 'all') === 'all'
+        && !instruction.toController)
+      if (fogsAllCombat) {
+        if (!DAMAGE_PENDING_STEPS.has(state.step)) return []
+        const attacking = Object.values(state.objects).some(
+          (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
+        )
+        if (!attacking) return []
+      }
       return [{
         kind: 'activateAbility',
         objectId: object.id,
         name: object.name,
-        text: effect.id,
+        text: fogsAllCombat ? object.oracleText : effect.id,
         abilityId: effect.id,
       }]
     }

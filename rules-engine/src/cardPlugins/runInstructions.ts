@@ -1,5 +1,6 @@
 import type Draft from '../draft'
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../pendingDialog'
+import { swampCount } from '../plugins/swampOverlay'
 import { initiateDiscard } from '../rules/discard'
 import { openCardSelection } from '../rules/selectCards'
 import { apnapSeats } from '../turnOrder'
@@ -659,6 +660,74 @@ export const runInstructions = (
         sourceId: source.id,
         target: { kind: 'player', player: source.controller },
         amount: instruction.amount,
+      })
+      continue
+    }
+    if (instruction.kind === 'preventCombatDamage') {
+      const target = item?.targets[0]
+      const sourceId = instruction.from === 'target' && target?.kind === 'object'
+        ? target.objectId
+        : undefined
+      draft.enqueue({
+        type: 'addRule',
+        pluginId: 'fog',
+        params: {
+          untilCleanup: true,
+          ...(sourceId ? { sourceId } : {}),
+          ...(instruction.toController ? { defender: source.controller } : {}),
+        },
+      })
+      continue
+    }
+    if (instruction.kind === 'untapTarget') {
+      const target = item?.targets[0]
+      if (target?.kind === 'object') {
+        draft.enqueue({ type: 'untap', objectId: target.objectId })
+      }
+      continue
+    }
+    if (instruction.kind === 'addManaPerSwamp') {
+      const count = swampCount(draft, source.controller, instruction.basic)
+      if (count > 0) {
+        draft.enqueue({ type: 'addMana', seat: source.controller, mana: { B: count } })
+      }
+      continue
+    }
+    if (instruction.kind === 'revealDrawLoseLife') {
+      const topId = draft.zoneOrder[source.controller].library[0]
+      const top = topId ? draft.object(topId) : undefined
+      if (top) {
+        draft.enqueue({
+          type: 'reveal',
+          seat: source.controller,
+          objectIds: [top.id],
+          source: source.name,
+        })
+        draft.enqueue({ type: 'move', objectId: top.id, to: 'hand' })
+        const amount = top.manaValue
+        if (amount > 0) {
+          draft.enqueue({
+            type: 'loseLife',
+            seat: source.controller,
+            amount,
+            source: source.name,
+          })
+        }
+      }
+      continue
+    }
+    if (instruction.kind === 'gainLifeTargetPower') {
+      const target = item?.targets[0]
+      const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+      const amount = object?.power ?? 0
+      if (amount > 0) draft.players[source.controller].life += amount
+      continue
+    }
+    if (instruction.kind === 'addUntilCleanupRule') {
+      draft.enqueue({
+        type: 'addRule',
+        pluginId: instruction.pluginId,
+        params: { untilCleanup: true, ...instruction.params },
       })
       continue
     }

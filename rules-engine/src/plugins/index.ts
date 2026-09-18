@@ -3,6 +3,8 @@ import { abilities } from './activateAbility'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
+import { extraSwampMana } from './extraSwampMana'
+import { extraUntap } from './extraUntap'
 import { fog } from './fog'
 import {
   replicaHiddenInformation,
@@ -12,6 +14,7 @@ import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
+import { swampOverlay } from './swampOverlay'
 import { priority } from './priority'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
@@ -39,6 +42,9 @@ export const builtInPlugins = [
   commander,
   manaBurn,
   fog,
+  swampOverlay,
+  extraSwampMana,
+  extraUntap,
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
 ]
@@ -48,11 +54,14 @@ export {
   combat,
   commander,
   damage,
+  extraSwampMana,
+  extraUntap,
   fog,
   judgeFallback,
   lands,
   mana,
   manaBurn,
+  swampOverlay,
   pendingDialogLock,
   priority,
   spells,

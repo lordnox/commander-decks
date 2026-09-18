@@ -3,12 +3,15 @@ import { abilities } from './plugins/activateAbility'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
+import { extraSwampMana } from './plugins/extraSwampMana'
+import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
 import { lands } from './plugins/lands'
 import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
+import { swampOverlay } from './plugins/swampOverlay'
 import { priority } from './plugins/priority'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
@@ -54,7 +57,7 @@ export const corePlugins = [
   pendingDialogLock,
 ]
 
-export const optionalPlugins = [manaBurn, fog]
+export const optionalPlugins = [manaBurn, fog, swampOverlay, extraSwampMana, extraUntap]
 
 export const coreRules: GameFormat = {
   id: 'magic',

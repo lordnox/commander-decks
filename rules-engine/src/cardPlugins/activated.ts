@@ -1,7 +1,8 @@
 import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
-import type { GameObject, PlayerId } from '../types'
+import { hasUntaxedTapMana } from '../plugins/mana'
+import type { GameObject, PlayerId, TargetRef } from '../types'
 import type { Plugin } from '../types'
 import {
   activateEffect,
@@ -11,6 +12,20 @@ import {
   type ActivateCost,
 } from './effects'
 import { effectsOf } from './cardRules'
+
+const legalActivateTarget = (
+  state: { objects: Record<string, GameObject | undefined>; players: Record<string, { lost?: boolean } | undefined> },
+  target: TargetRef | undefined,
+  kind: 'creature' | 'land',
+) => {
+  if (target?.kind !== 'object') return false
+  const object = state.objects[target.objectId]
+  return Boolean(
+    object
+    && object.zone === 'battlefield'
+    && object.types.includes(kind === 'creature' ? 'Creature' : 'Land'),
+  )
+}
 
 export const SKULL_PROPHET_MILL = 'selfMill.skullProphet'
 export const MILLIKIN_MANA = 'selfMill.millikin'
@@ -65,6 +80,7 @@ export const activated: Plugin = {
         if ((millMana.costs.mill ?? 0) > 0) {
           return `${source.name} mana must mill a card as an activation cost`
         }
+        if (hasUntaxedTapMana(source)) return
         return `${source.name} mana must use its printed mana ability`
       }
       return
@@ -105,6 +121,12 @@ export const activated: Plugin = {
         return `${source.name} can be returned only when it is not your turn`
       }
       return `${source.name} cannot be activated now`
+    }
+    if (effect.targets === 'creature' || effect.targets === 'land') {
+      const targets = event.targets ?? []
+      if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets)) {
+        return `${source.name} needs one ${effect.targets} target`
+      }
     }
   },
   apply: ({ event, draft }) => {

@@ -23,6 +23,7 @@ export type CardCondition =
   | { kind: 'lacksControlledSubtype'; subtypes: string[] }
   | { kind: 'opponentsAtMost'; max: number }
   | { kind: 'opponentLostLifeThisTurn'; min: number }
+  | { kind: 'controllerIsActive' }
 
 export type TokenSpec = {
   name: string
@@ -115,6 +116,12 @@ export type CardInstruction =
   | { kind: 'destroyTargetPermanent'; types: string[] }
   | { kind: 'lookTopPutLand'; count: number }
   | { kind: 'grantControlled'; keywords: string[]; other?: boolean; nonHuman?: boolean }
+  | { kind: 'preventCombatDamage'; from?: 'target' | 'all'; toController?: boolean }
+  | { kind: 'untapTarget' }
+  | { kind: 'addManaPerSwamp'; basic?: boolean }
+  | { kind: 'revealDrawLoseLife' }
+  | { kind: 'gainLifeTargetPower' }
+  | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -145,6 +152,7 @@ export type TargetFilter = {
   types?: string[]
   nonland?: boolean
   noncreature?: boolean
+  nonblack?: boolean
   controller?: 'you' | 'opponent'
   spellTargetsControlledPermanent?: boolean
 }
@@ -214,7 +222,7 @@ export type CardEffect =
       op: 'activate'
       id: string
       manaAbility?: boolean
-      targets?: 'any' | 'teferiSunsetPlusOne'
+      targets?: 'any' | 'teferiSunsetPlusOne' | 'creature' | 'land'
       zone?: ZoneId
       costs: ActivateCost
       if?: CardCondition
@@ -372,6 +380,34 @@ export const pump = (power: number, toughness: number): CardInstruction => ({
 export const grantUntilEot = (...keywords: string[]): CardInstruction => ({
   kind: 'grantUntilEot',
   keywords,
+})
+
+export const preventCombatDamage = (
+  extra: { from?: 'target' | 'all'; toController?: boolean } = {},
+): CardInstruction => ({
+  kind: 'preventCombatDamage',
+  from: extra.from ?? 'all',
+  ...(extra.toController ? { toController: true } : {}),
+})
+
+export const untapTarget = (): CardInstruction => ({ kind: 'untapTarget' })
+
+export const addManaPerSwamp = (basic = false): CardInstruction => ({
+  kind: 'addManaPerSwamp',
+  basic,
+})
+
+export const revealDrawLoseLife = (): CardInstruction => ({ kind: 'revealDrawLoseLife' })
+
+export const gainLifeTargetPower = (): CardInstruction => ({ kind: 'gainLifeTargetPower' })
+
+export const addUntilCleanupRule = (
+  pluginId: string,
+  params: Record<string, unknown> = {},
+): CardInstruction => ({
+  kind: 'addUntilCleanupRule',
+  pluginId,
+  params,
 })
 
 export const createXTokens = (token: TokenSpec): CardInstruction => ({
@@ -640,6 +676,13 @@ export const upkeep = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'upkeep',
   do: instructions,
+})
+
+export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'upkeep',
+  do: instructions,
+  if: { kind: 'controllerIsActive' },
 })
 
 export const lacksControlledSubtype = (...subtypes: string[]): CardCondition => ({
@@ -942,8 +985,12 @@ export const conditionHolds = (
       seat !== object.controller
       && lifeLostThisTurn(state.players[seat]) >= condition.min)
   }
-  const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
-  return names.size >= condition.min
+  if (condition.kind === 'controllerIsActive') return state.active === object.controller
+  if (condition.kind === 'uniqueLandNames') {
+    const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
+    return names.size >= condition.min
+  }
+  return false
 }
 
 /** CR 701.13b: a player asked to mill more cards than they have mills their whole library. */
