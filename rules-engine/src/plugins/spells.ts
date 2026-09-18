@@ -4,6 +4,7 @@ import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
 import { searchEffect } from '../cardPlugins/effects'
 import { effectsFor } from '../cardPlugins/cardRules'
 import { resolveAbility, resolveAction } from '../rules/actions'
+import { applyFace, castFaceOf } from './doubleFaced'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -64,13 +65,15 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
+      const face = castFaceOf(object)
+      const spell = face ? { ...object, ...face } : object
       if (!state.castableZones.includes(object.zone)) return 'spell is not in a castable zone'
       if (object.owner !== event.seat || object.controller !== event.seat) {
         return 'spell is not owned and controlled by that seat'
       }
       if (state.priority !== event.seat) return 'seat does not have priority'
 
-      if (!object.types.includes('Instant')) {
+      if (!spell.types.includes('Instant')) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
         if (state.step !== 'precombatMain' && state.step !== 'postcombatMain') {
           return 'non-instant spells require a main phase'
@@ -78,7 +81,7 @@ export const spells: Plugin = {
         if (state.stack.length > 0) return 'non-instant spells require an empty stack'
       }
 
-      const cost = spellCost(object, event.additionalGeneric)
+      const cost = spellCost(spell, event.additionalGeneric)
       if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
       const search = searchEffect(effectsFor(object.name))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
@@ -103,6 +106,8 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
+      const face = castFaceOf(object)
+      if (face) applyFace(object, face)
       const cost = spellCost(object, event.additionalGeneric)
       const paid = payCost(draft.players[event.seat].mana, cost)
       if (!paid) return

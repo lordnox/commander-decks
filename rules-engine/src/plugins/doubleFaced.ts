@@ -1,0 +1,52 @@
+import type { FaceCharacteristics, GameObject, Plugin } from '../types'
+
+const nonlandFace = (object: GameObject) => {
+  const faces = [object.frontFace, object.backFace].filter(
+    (face): face is FaceCharacteristics => Boolean(face),
+  )
+  return faces.find((face) => !face.types.includes('Land'))
+}
+
+const landFace = (object: GameObject) => {
+  const faces = [object.frontFace, object.backFace].filter(
+    (face): face is FaceCharacteristics => Boolean(face),
+  )
+  return faces.find((face) => face.types.includes('Land'))
+}
+
+export const castFaceOf = (object: GameObject) => nonlandFace(object)
+
+export const landFaceOf = (object: GameObject) => landFace(object)
+
+export const applyFace = (object: GameObject, face: FaceCharacteristics) => {
+  object.types = [...face.types]
+  object.subtypes = [...face.subtypes]
+  object.supertypes = [...face.supertypes]
+  object.manaCost = face.manaCost
+  object.manaValue = face.manaValue
+  object.colors = [...face.colors]
+}
+
+/**
+ * A modal double-faced card has only its front-face characteristics outside
+ * the stack and battlefield. Casting or playing it applies the chosen face.
+ */
+export const doubleFaced: Plugin = {
+  id: 'doubleFaced',
+  apply: ({ state, event, draft }) => {
+    if (event.type !== 'move') return
+    const before = state.objects[event.objectId]
+    const object = draft.object(event.objectId)
+    if (
+      !before
+      || !object
+      || before.zone !== 'battlefield'
+      || event.to === 'battlefield'
+      || object.token
+      || !object.frontFace
+    ) {
+      return
+    }
+    applyFace(object, object.frontFace)
+  },
+}

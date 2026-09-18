@@ -1,6 +1,7 @@
 import { seatPlaysLandsFromLibraryTop } from '../cardPlugins/libraryTopKnowledge'
 import type { GameState, Plugin } from '../types'
 import { effectsOf } from '../cardPlugins/cardRules'
+import { applyFace, landFaceOf } from './doubleFaced'
 
 const MAIN_STEPS = ['precombatMain', 'postcombatMain']
 
@@ -21,7 +22,7 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   if ((!fromGraveyard && !fromLibraryTop && object.zone !== 'hand') || object.controller !== event.seat) {
     return `${object.name} is not in ${event.seat}'s hand`
   }
-  if (!object.types.includes('Land')) return `${object.name} is not a land`
+  if (!object.types.includes('Land') && !landFaceOf(object)) return `${object.name} is not a land`
   if (state.priority !== event.seat) return `${event.seat} does not have priority`
   if (state.active !== event.seat) return `it is not ${event.seat}'s turn`
   if (!MAIN_STEPS.includes(state.step)) return 'lands are played in a main phase'
@@ -34,6 +35,9 @@ const legal: Plugin['legal'] = ({ state, event }) => {
 
 const apply: Plugin['apply'] = ({ event, draft }) => {
   if (event.type !== 'playLand') return
+  const pending = draft.object(event.objectId)
+  const face = pending ? landFaceOf(pending) : undefined
+  if (pending && face) applyFace(pending, face)
   const object = draft.move(event.objectId, 'battlefield')
   if (!object) return
   draft.players[event.seat].landsPlayed += 1

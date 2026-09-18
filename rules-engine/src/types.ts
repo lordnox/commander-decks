@@ -42,6 +42,15 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type ManaPool = Record<ManaId, number>
 
+export type FaceCharacteristics = {
+  types: string[]
+  subtypes: string[]
+  supertypes: string[]
+  manaCost: string
+  manaValue: number
+  colors: string[]
+}
+
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
 export type TargetRef =
   | { kind: 'player'; player: PlayerId }
@@ -75,14 +84,9 @@ export type GameObject = {
    * Printed characteristics of the front face. In the library, only this face
    * exists for a transforming or modal double-faced card (CR 712.8a).
    */
-  frontFace?: {
-    types: string[]
-    subtypes: string[]
-    supertypes: string[]
-    manaCost: string
-    manaValue: number
-    colors: string[]
-  }
+  frontFace?: FaceCharacteristics
+  /** Printed characteristics of the second face of a double-faced card. */
+  backFace?: FaceCharacteristics
   power: number | null
   toughness: number | null
   printedLoyalty: number | null

@@ -6,6 +6,7 @@ import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import { validTarget } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
+import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import {
   pendingSelection,
   pendingSelectionFor,
@@ -257,12 +258,14 @@ const needsStackTarget = (object: GameObject) =>
   /counter target[^.]*\b(spell|ability)\b/i.test(object.oracleText)
 
 const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
+  const face = castFaceOf(object)
+  const spell = face ? { ...object, ...face } : object
   if (!state.castableZones.includes(object.zone)) return false
-  if (object.types.includes('Land')) return false
+  if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
   if (state.stack.length === 0 && needsStackTarget(object)) return false
   if (
-    !object.types.includes('Instant')
+    !spell.types.includes('Instant')
     && (
       state.active !== seat
       || !MAIN_STEPS.has(state.step)
@@ -272,7 +275,7 @@ const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
     return false
   }
   const tax = taxFor(state, seat, object)
-  return canFund(state, seat, `${object.manaCost}${tax > 0 ? `{${tax}}` : ''}`)
+  return canFund(state, seat, `${spell.manaCost}${tax > 0 ? `{${tax}}` : ''}`)
 }
 
 const activatedText = (object: GameObject) =>
@@ -423,7 +426,7 @@ export const availableActions = (
   ) {
     for (const id of hand) {
       const object = state.objects[id]
-      if (object?.types.includes('Land')) {
+      if (object && (object.types.includes('Land') || landFaceOf(object))) {
         actions.push({ kind: 'playLand', objectId: id, name: object.name })
       }
     }
@@ -719,7 +722,7 @@ export const eventsForAvailableAction = (
   }
   if (targeted.length === 1 && !action.targetObjectId) return null
   const tax = taxFor(state, seat, object)
-  const cost = `${object.manaCost}${tax > 0 ? `{${tax}}` : ''}`
+  const cost = `${castFaceOf(object)?.manaCost ?? object.manaCost}${tax > 0 ? `{${tax}}` : ''}`
   const mana = fundingEvents(state, seat, cost)
   if (!mana) return null
   return [
