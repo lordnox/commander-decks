@@ -1,3 +1,4 @@
+import { isKnownTo } from '../../rules-engine/src/knowledge'
 import { abilityTokens } from '../../rules-engine/src/keywords'
 import { controlledBattlefield, replayComparableState } from '../../rules-engine/src/replay'
 import type {
@@ -267,6 +268,13 @@ export const liveSeatsFromState = (
     const player = comparable.players[playerId]
     const occupant = lobby.occupants[seat]
     const handHidden = viewer !== playerId
+    const knownHand = handHidden
+      ? state.zoneOrder[playerId].hand
+        .map((id) => state.objects[id])
+        .filter((object) => object && isKnownTo(object, viewer, state.playerOrder))
+        .map((object) => object!.name)
+      : []
+    const revealedTop = state.players[playerId].data.revealed_top
     return {
       id: seat,
       name: occupant?.name || seat,
@@ -280,6 +288,10 @@ export const liveSeatsFromState = (
       library_count: player.library_count,
       hand_count: state.zoneCounts[seat].hand,
       ...(handHidden ? {} : { hand: player.hand }),
+      ...(knownHand.length > 0 ? { known_hand: knownHand } : {}),
+      ...(Array.isArray(revealedTop) && revealedTop.length > 0
+        ? { revealed_top: revealedTop as string[] }
+        : {}),
       commander_damage: Object.fromEntries(
         state.playerOrder
           .filter((other) => other !== seat)

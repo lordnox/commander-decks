@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
 import {
+  CardBackTile,
   CardPreview,
   CardRow,
   CardTile,
@@ -33,6 +34,26 @@ const game = {
     },
   },
 } as unknown as ReplayGame
+
+test('a hidden hand slot renders a card back', () => {
+  const html = renderToStaticMarkup(
+    <CardRow
+      game={game}
+      cards={[{ name: 'Grizzly Bears' }, { hidden: true }]}
+      action={new Set()}
+      onPreview={() => {}}
+      onHover={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Grizzly Bears')
+  expect(html).toContain('aria-label="Hidden card"')
+})
+
+test('a card back tile is labeled for screen readers', () => {
+  const html = renderToStaticMarkup(<CardBackTile compact />)
+  expect(html).toContain('aria-label="Hidden card"')
+})
 
 test('a summoning-sick card shows a status icon', () => {
   const html = renderToStaticMarkup(

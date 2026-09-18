@@ -80,6 +80,44 @@ describe('authoritative and replica runtimes', () => {
     const opponent = server.project(revealed.state, 'p2')
     expect(opponent.objects[card]).toBeUndefined()
     expect(opponent.zoneOrder.p1.library).toEqual([])
+    expect(opponent.players.p1.data.revealed_top).toEqual(['Grizzly Bears'])
+  })
+
+  test('a revealed library top stays public after it is drawn into hand', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [bears(), forest()] },
+    })
+    const card = server.state.zoneOrder.p1.library[0]
+    const revealed = server.rules(server.state, {
+      type: 'reveal',
+      seat: 'p1',
+      objectIds: [card],
+    })
+    expect(revealed.ok).toBe(true)
+    if (!revealed.ok) return
+
+    const drawn = server.rules(revealed.state, { type: 'draw', seat: 'p1' })
+    expect(drawn.ok).toBe(true)
+    if (!drawn.ok) return
+
+    const opponent = server.project(drawn.state, 'p2')
+    expect(opponent.objects[card]?.name).toBe('Grizzly Bears')
+    expect(opponent.zoneOrder.p1.hand).toEqual([card])
+    expect(opponent.zoneCounts.p1.hand).toBe(1)
+    expect(opponent.players.p1.data.revealed_top).toBeUndefined()
+  })
+
+  test('knownTo on a library top exposes revealed_top without leaking order', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [forest(), bears(), bolt()] },
+    })
+    const top = server.state.zoneOrder.p1.library[0]
+    server.state.objects[top].knownTo = server.state.playerOrder
+
+    const view = server.project(server.state, 'p2')
+    expect(view.players.p1.data.revealed_top).toEqual(['Forest'])
+    expect(view.zoneOrder.p1.library).toEqual([])
+    expect(Object.values(view.objects).some((object) => object.zone === 'library')).toBe(false)
   })
 
   test('a seat cannot reveal cards it does not own', () => {

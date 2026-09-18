@@ -38,6 +38,8 @@ export type BattlefieldCard = {
   /** Card name this creature is blocking. */
   blocking?: string
   objectId?: string
+  /** Face-down hand slot visible to opponents without naming the card. */
+  hidden?: boolean
 }
 
 export type PlayerState = {

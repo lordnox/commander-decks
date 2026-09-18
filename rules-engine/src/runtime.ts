@@ -2,6 +2,7 @@ import { createCatalog } from './catalog'
 import type { GameFormat } from './formats'
 import { rules } from './kernel'
 import { newGame, type NewGameOptions } from './newGame'
+import { isKnownTo, revealedLibraryTop } from './knowledge'
 import {
   createAuthoritativeHiddenInformation,
   initializeRandomState,
@@ -45,16 +46,35 @@ export const projectForViewer = (
   const projected = structuredClone(authoritative)
   projected.knowledge = { mode: 'replica', viewer }
 
+  const revealedTops = Object.fromEntries(
+    projected.playerOrder.flatMap((player) => {
+      const top = revealedLibraryTop(projected, player, viewer)
+      return top ? [[player, top.name] as const] : []
+    }),
+  )
+
   for (const [objectId, object] of Object.entries(projected.objects)) {
     const hiddenLibrary = object.zone === 'library'
-    const hiddenHand = object.zone === 'hand' && object.owner !== viewer
+    const hiddenHand = object.zone === 'hand'
+      && object.owner !== viewer
+      && !isKnownTo(object, viewer, projected.playerOrder)
     if (hiddenLibrary || hiddenHand) delete projected.objects[objectId]
   }
 
   for (const player of projected.playerOrder) {
     projected.zoneOrder[player].library = []
-    if (player !== viewer) projected.zoneOrder[player].hand = []
+    if (player !== viewer) {
+      projected.zoneOrder[player].hand = projected.zoneOrder[player].hand.filter(
+        (id) => {
+          const object = projected.objects[id]
+          return object && isKnownTo(object, viewer, projected.playerOrder)
+        },
+      )
+    }
     delete projected.players[player].data[RANDOM_STATE]
+    const topName = revealedTops[player]
+    if (topName) projected.players[player].data.revealed_top = [topName]
+    else delete projected.players[player].data.revealed_top
   }
   redactSecretCouncil(projected.players, viewer)
 

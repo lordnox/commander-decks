@@ -105,6 +105,8 @@ export type GameObject = {
   exiledWith?: string
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
+  /** Seats that may see this card's face while it is in a hidden zone. */
+  knownTo?: PlayerId[]
 }
 
 /**
