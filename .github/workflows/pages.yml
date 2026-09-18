@@ -10,6 +10,7 @@ permissions:
   pages: write
   id-token: write
 
+# One Pages deploy at a time. A superseded push is cancelled, not failed.
 concurrency:
   group: pages
   cancel-in-progress: true

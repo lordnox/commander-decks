@@ -14,8 +14,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["bun"]
   },
-  "include": ["site/src"],
-  "exclude": ["site/src/**/*.test.ts", "site/src/**/*.test.tsx"]
+  "include": [
+    "site/src",
+    "rules-engine/src",
+    "live-runner/src",
+    "shared"
+  ],
+  "exclude": [
+    "site/src/**/*.test.ts",
+    "site/src/**/*.test.tsx",
+    "rules-engine/src/**/*.test.ts",
+    "live-runner/src/**/*.test.ts"
+  ]
 }
