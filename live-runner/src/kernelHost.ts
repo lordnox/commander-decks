@@ -411,12 +411,17 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const waiting = waitingSelectCards(state)
   if (!waiting || !isSeatId(waiting.selection.seat)) return false
   const { selection, names, count } = waiting
+  const sacrifice = selection.kind === 'sacrifice'
   lobby.topdeck = {
     seat: selection.seat,
     kind: selection.kind === 'discard' ? 'discard-card' : selection.kind,
     cards: names,
-    destinations: (selection.destinations ?? ['graveyard']) as TopdeckDecision['destinations'],
-    requirements: { graveyard: { min: count, max: count } },
+    destinations: (selection.destinations ?? (sacrifice
+      ? ['battlefield', 'sacrifice']
+      : ['graveyard'])) as TopdeckDecision['destinations'],
+    requirements: sacrifice
+      ? { sacrifice: { min: count, max: count } }
+      : { graveyard: { min: count, max: count } },
     kernel: {
       sourceId: selection.sourceId ?? '',
       stage: 'select-cards',
@@ -562,11 +567,12 @@ export const applyKernelChoice = (
     if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
       throw new Error('That card choice is no longer open.')
     }
+    const chosenDestination = cardKind === 'sacrifice' ? 'sacrifice' : 'graveyard'
     const objectIds = objectIdsForNames(
       state,
       waiting.objectIds,
       message.choices
-        .filter(({ destination }) => destination === 'graveyard')
+        .filter(({ destination }) => destination === chosenDestination)
         .map(({ card }) => card),
     )
     if (objectIds.length !== waiting.count) {
@@ -581,11 +587,16 @@ export const applyKernelChoice = (
     })
     if (!continued.ok) throw new Error(continued.error)
     const name = state.objects[objectIds[0]]?.name ?? 'a card'
+    const verb = cardKind === 'sacrifice' ? 'sacrificed' : 'chose'
     return closeKernelChoice(kernel, lobby, seat, {
-      privateJudge: { [seat]: `You chose ${name}.` },
+      privateJudge: {
+        [seat]: cardKind === 'sacrifice'
+          ? `${waiting.selection.source}: you chose ${name}.`
+          : `You chose ${name}.`,
+      },
       judge: waiting.selection.source
-        ? `${lobby.occupants[seat]?.name ?? seat} chose ${name} for ${waiting.selection.source}.`
-        : `${lobby.occupants[seat]?.name ?? seat} chose ${name}.`,
+        ? `${lobby.occupants[seat]?.name ?? seat} ${verb} ${name} for ${waiting.selection.source}.`
+        : `${lobby.occupants[seat]?.name ?? seat} ${verb} ${name}.`,
     })
   }
   if (decision.kernel.stage === 'waiting-discard') {
@@ -742,35 +753,6 @@ export const applyKernelChoice = (
       judge: modes.length > 0
         ? `${dialog.source} chose: ${modes.join('; ')}.`
         : `${dialog.source} chose no modes.`,
-    })
-  }
-  if (decision.kernel.stage === 'sacrifice-creature') {
-    const dialog = pendingDialogFor(state, seat)
-    if (dialog?.kind !== decision.kernel.stage) {
-      throw new Error('That choice is no longer open.')
-    }
-    const candidates = dialogCandidates(state, dialog)
-    const orderedIds = objectIdsForNames(
-      state,
-      candidates.map((object) => object.id),
-      message.choices.map(({ card }) => card),
-    )
-    const objectIds = message.choices
-      .map((choice, index) => ({ ...choice, objectId: orderedIds[index] }))
-      .filter(({ destination }) => destination === 'sacrifice')
-      .map(({ objectId }) => objectId)
-    if (objectIds.length !== 1) throw new Error(`Choose exactly one card for ${dialog.source}.`)
-    const chosen = kernel.dispatch({
-      type: 'custom',
-      name: dialog.chosenEvent ?? DIALOG_CHOSEN,
-      seat,
-      payload: { objectIds },
-    })
-    if (!chosen.ok) throw new Error(chosen.error)
-    const name = state.objects[objectIds[0]]?.name ?? 'a card'
-    return closeKernelChoice(kernel, lobby, seat, {
-      privateJudge: { [seat]: `${dialog.source}: you chose ${name}.` },
-      judge: `${lobby.occupants[seat]?.name ?? seat} sacrificed ${name} to ${dialog.source}.`,
     })
   }
   if (decision.kernel.stage === 'sacrifice-lands') {

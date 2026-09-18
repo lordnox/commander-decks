@@ -3,7 +3,7 @@ import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
-export type CardSelectionKind = 'discard' | 'scry' | 'surveil'
+export type CardSelectionKind = 'discard' | 'sacrifice' | 'scry' | 'surveil'
 
 /** Server-owned choice state until the seat sends `selectCards` with `objectIds`. */
 export type PendingCardSelection = {
@@ -87,10 +87,20 @@ const cardInHand = (state: GameState | Draft, seat: PlayerId, objectId: string) 
   return object?.zone === 'hand' && object.controller === seat
 }
 
+const battlefieldCreature = (state: GameState | Draft, seat: PlayerId, objectId: string) => {
+  const object = state.objects[objectId]
+  return object?.zone === 'battlefield'
+    && object.controller === seat
+    && object.types.includes('Creature')
+}
+
 const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   const fromSeat = selection.fromSeat ?? selection.seat
   if (selection.kind === 'discard') {
     return selection.candidates.filter((objectId) => cardInHand(state, fromSeat, objectId))
+  }
+  if (selection.kind === 'sacrifice') {
+    return selection.candidates.filter((objectId) => battlefieldCreature(state, fromSeat, objectId))
   }
   return selection.candidates.filter((objectId) => Boolean(state.objects[objectId]))
 }
@@ -147,6 +157,19 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       selection.source
         ? `${event.seat} discards ${name} to ${selection.source}`
         : `${event.seat} discards ${name}`,
+    )
+    return
+  }
+
+  if (selection.kind === 'sacrifice') {
+    for (const objectId of event.objectIds) {
+      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+    }
+    const name = draft.objects[event.objectIds[0]]?.name ?? 'a creature'
+    draft.note(
+      selection.source
+        ? `${event.seat} sacrifices ${name} to ${selection.source}`
+        : `${event.seat} sacrifices ${name}`,
     )
   }
 }

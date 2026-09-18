@@ -43,6 +43,7 @@ export const TopdeckDialog = ({
   const lookingAtTop = decision.kind === 'look-top'
   const targetingPlayers = decision.kind === 'target-players' || decision.kind === 'secret-vote'
   const sacrificingLands = decision.kind === 'sacrifice-lands'
+  const sacrificingCreatures = decision.kind === 'sacrifice'
   const optionalDraw = decision.kind === 'may-draw'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
@@ -128,6 +129,8 @@ export const TopdeckDialog = ({
           ? 'Choose target players'
         : sacrificingLands
           ? 'Choose lands to sacrifice'
+        : sacrificingCreatures
+          ? 'Choose a creature to sacrifice'
         : optionalDraw
           ? 'Draw a card?'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
@@ -164,7 +167,7 @@ export const TopdeckDialog = ({
                   ? 'Kicked spell'
                   : searching
                     ? 'Private search'
-                    : sacrificingLands
+                    : sacrificingLands || sacrificingCreatures
                       ? 'Resolving spell'
                       : 'Private choice'}
             </p>

@@ -293,7 +293,7 @@ export type GameEvent =
       type: 'selectCards'
       /** Seat making the choice. */
       seat: PlayerId
-      kind: 'discard' | 'scry' | 'surveil'
+      kind: 'discard' | 'sacrifice' | 'scry' | 'surveil'
       count: number
       objectIds: string[]
     }
