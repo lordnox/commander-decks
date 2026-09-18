@@ -102,6 +102,13 @@ import {
   fight,
   fightUpToOne,
   lacksControlledSubtype,
+  addManaPerSwamp,
+  addUntilCleanupRule,
+  gainLifeTargetPower,
+  preventCombatDamage,
+  revealDrawLoseLife,
+  untapTarget,
+  yourUpkeep,
   type CardEffect,
 } from './effects'
 
@@ -165,6 +172,39 @@ const insect = createTokenInstruction({
   power: 1,
   toughness: 1,
 })
+
+const bird = createTokenInstruction({
+  name: 'Bird',
+  types: ['Creature'],
+  subtypes: ['Bird'],
+  power: 2,
+  toughness: 2,
+  oracleText: 'Flying',
+})
+
+const signet = (id: string, mana: Partial<{ W: number; U: number; B: number; R: number; G: number }>): CardEffect =>
+  activate({
+    id,
+    manaAbility: true,
+    costs: { mana: '{1}', tap: true },
+    do: [{ kind: 'addMana', mana }],
+  })
+
+const coffersMana = (id: string, cost: string, basic = false): CardEffect =>
+  activate({
+    id,
+    manaAbility: true,
+    costs: { mana: cost, tap: true },
+    do: [addManaPerSwamp(basic)],
+  })
+
+const cycleFromHand = (id: string): CardEffect =>
+  activate({
+    id,
+    zone: 'hand',
+    costs: { mana: '{3}', discard: 'self' },
+    do: [draw(1)],
+  })
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
   'Aetherize': [onResolve(bounceAttacking())],
@@ -636,7 +676,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(selfMill(3), returnChosenLandFromGraveyard()),
   ],
   'Breeding Pool': [tapUnlessPayLife(2)],
-  "Raffine's Tower": [entersTapped()],
   'Cephalid Coliseum': [
     activate({
       id: 'pain.cephalid',
@@ -893,13 +932,102 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Zagoth Triome': [
     entersTapped(),
+    cycleFromHand('cycling.zagothTriome'),
+  ],
+  Absorb: [
+    targetOnResolve('counter', { zone: 'stack' }, gainLife(3)),
+  ],
+  'Anguished Unmaking': [
+    targetOnResolve(
+      'exile',
+      { zone: 'battlefield', nonland: true },
+      loseLife(3, 'controller'),
+    ),
+  ],
+  'Bender\'s Waterskin': [staticGrant('extraUntap')],
+  'Blanket of Night': [staticGrant('swampOverlay')],
+  'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
+  'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
+  'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
+  'Crypt Ghast': [staticGrant('extraSwampMana')],
+  Darkness: [onResolve(preventCombatDamage())],
+  'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
+  'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
+  'Deserted Temple': [
     activate({
-      id: 'cycling.zagothTriome',
-      zone: 'hand',
-      costs: { mana: '{3}', discard: 'self' },
-      do: [draw(1)],
+      id: 'desertedTemple.untap',
+      costs: { mana: '{1}', tap: true },
+      targets: 'land',
+      do: [untapTarget()],
     }),
   ],
+  'Dimir Signet': [signet('signet.dimir', { U: 1, B: 1 })],
+  "Dovin's Veto": [
+    targetOnResolve('counter', { zone: 'stack', noncreature: true }),
+  ],
+  'Esper Panorama': [
+    searchAbility({
+      prompt: 'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
+      match: (object) =>
+        basicLand(object) && hasSubtype('Plains', 'Island', 'Swamp')(object),
+      destination: 'battlefield',
+      tapped: true,
+      min: 0,
+      max: 1,
+    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
+  ],
+  'Expedition Map': [
+    searchAbility({
+      prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }, { mana: '{2}', tap: true, sacrifice: 'self' }),
+  ],
+  'Kami of False Hope': [
+    activate({
+      id: 'kami.fog',
+      costs: { sacrifice: 'self' },
+      do: [preventCombatDamage()],
+    }),
+  ],
+  'Lady Evangela': [
+    ability({
+      id: 'ladyEvangela.fog',
+      targets: 'creature',
+    }, { mana: '{W}{B}', tap: true }, preventCombatDamage({ from: 'target' })),
+  ],
+  'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
+  'Marsh Flats': [
+    fetchTypes('Search your library for a Plains or Swamp card and put it onto the battlefield.', [
+      'Plains',
+      'Swamp',
+    ]),
+  ],
+  Mulldrifter: [enters(draw(2))],
+  'Nirkana Revenant': [staticGrant('extraSwampMana')],
+  'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
+  "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
+  'Snuff Out': [
+    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
+  ],
+  'Swan Song': [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack', types: ['Enchantment', 'Instant', 'Sorcery'] },
+      bird,
+    ),
+  ],
+  'Swords to Plowshares': [
+    targetOnResolve(
+      'exile',
+      { zone: 'battlefield', type: 'Creature' },
+      gainLifeTargetPower(),
+    ),
+  ],
+  'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

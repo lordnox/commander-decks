@@ -6,6 +6,7 @@ import type { GameState, ReduceResult } from '../types'
 import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
+import { damage } from './damage'
 
 const catalog = createCatalog([mana, lands, manaBurn])
 
@@ -186,6 +187,93 @@ describe('mana', () => {
     const emptied = ok(rules(p2Added, { type: 'emptyManaPools' }, catalog))
     expect(emptied.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
     expect(emptied.players.p2.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
+  })
+
+  test('a pain land damages you only when it produces colored mana', () => {
+    const wastes = {
+      ...forest(),
+      name: 'Adarkar Wastes',
+      subtypes: [],
+      supertypes: [],
+      oracleText: '{T}: Add {C}.\n{T}: Add {W} or {U}. This land deals 1 damage to you.',
+      tapProduces: { C: 1 },
+    }
+    const catalogWithDamage = createCatalog([mana, lands, manaBurn, damage])
+    const state = newGame({
+      builtinRules: ['mana', 'damage'],
+      battlefield: { p1: [wastes] },
+    })
+    const objectId = idOf(state, 'Adarkar Wastes', 'battlefield')
+    const colorless = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalogWithDamage))
+    expect(colorless.players.p1.mana.C).toBe(1)
+    expect(colorless.players.p1.life).toBe(40)
+
+    const colored = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'U',
+    }, catalogWithDamage))
+    expect(colored.players.p1.mana.U).toBe(1)
+    expect(colored.players.p1.life).toBe(39)
+  })
+
+  test("Command Tower produces only the commander's identity colors", () => {
+    const tower = {
+      ...forest(),
+      name: 'Command Tower',
+      subtypes: [],
+      supertypes: [],
+      oracleText: "{T}: Add one mana of any color in your commander's color identity.",
+      tapProduces: undefined,
+    }
+    const eva = {
+      ...bears(),
+      name: 'Lady Evangela',
+      manaCost: '{W}{U}{B}',
+      colors: ['W', 'U', 'B'],
+      tags: ['commander'],
+    }
+    const state = newGame({
+      builtinRules: ['mana'],
+      battlefield: { p1: [tower] },
+      command: { p1: [eva] },
+    })
+    const objectId = idOf(state, 'Command Tower', 'battlefield')
+    const missing = rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalog)
+    expect(missing.ok).toBe(false)
+    expect(missing.ok === false && missing.error).toContain('identity')
+
+    const blue = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'U',
+    }, catalog))
+    expect(blue.players.p1.mana.U).toBe(1)
+
+    const red = rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'R',
+    }, catalog)
+    expect(red.ok).toBe(false)
+  })
+
+  test('Cabal Coffers does not free-tap for {B}', () => {
+    const coffers = {
+      ...forest(),
+      name: 'Cabal Coffers',
+      subtypes: [],
+      supertypes: [],
+      oracleText: '{2}, {T}: Add {B} for each Swamp you control.',
+      tapProduces: undefined,
+    }
+    const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [coffers] } })
+    const objectId = idOf(state, 'Cabal Coffers', 'battlefield')
+    const result = rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana: 'B' }, catalog)
+    expect(result.ok).toBe(false)
   })
 
   test('emptying pools without manaBurn costs no life', () => {
