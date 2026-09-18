@@ -7,6 +7,7 @@ import { doubleFaced } from './doubleFaced'
 import { extraSwampMana } from './extraSwampMana'
 import { extraUntap } from './extraUntap'
 import { fog } from './fog'
+import { forestOverlay } from './forestOverlay'
 import {
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
@@ -44,6 +45,7 @@ export const builtInPlugins = [
   commander,
   manaBurn,
   fog,
+  forestOverlay,
   swampOverlay,
   extraSwampMana,
   extraUntap,
@@ -60,6 +62,7 @@ export {
   extraSwampMana,
   extraUntap,
   fog,
+  forestOverlay,
   judgeFallback,
   lands,
   mana,

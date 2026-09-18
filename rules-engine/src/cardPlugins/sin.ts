@@ -56,17 +56,21 @@ const copyTemplate = (card: GameObject): Partial<GameObject> & { name: string } 
   name: card.name,
   tapped: true,
   summoningSickness: card.types.includes('Creature'),
-  counters: {},
+  counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
   types: [...card.types],
   subtypes: [...card.subtypes],
   supertypes: [...card.supertypes],
   manaCost: card.manaCost,
+  manaValue: card.manaValue,
+  colors: [...card.colors],
   power: card.power,
   toughness: card.toughness,
+  printedLoyalty: card.printedLoyalty,
   oracleText: card.oracleText,
   grantedRules: [...card.grantedRules],
   tags: [],
   tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
+  effects: card.effects ? [...card.effects] : [],
 })
 
 const payloadString = (

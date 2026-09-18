@@ -7,6 +7,7 @@ import { doubleFaced } from './plugins/doubleFaced'
 import { extraSwampMana } from './plugins/extraSwampMana'
 import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
+import { forestOverlay } from './plugins/forestOverlay'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
 import { lands } from './plugins/lands'
@@ -59,7 +60,14 @@ export const corePlugins = [
   pendingDialogLock,
 ]
 
-export const optionalPlugins = [manaBurn, fog, swampOverlay, extraSwampMana, extraUntap]
+export const optionalPlugins = [
+  manaBurn,
+  fog,
+  forestOverlay,
+  swampOverlay,
+  extraSwampMana,
+  extraUntap,
+]
 
 export const coreRules: GameFormat = {
   id: 'magic',

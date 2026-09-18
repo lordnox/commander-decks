@@ -20,6 +20,7 @@ export const validTarget = (
 ) => {
   if (!object) return false
   if (filter.zone && object.zone !== filter.zone) return false
+  if (filter.zones && !filter.zones.includes(object.zone)) return false
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.types && !filter.types.some((type) => object.types.includes(type))) return false
   if (filter.controller === 'you' && object.controller !== controller) return false
@@ -92,6 +93,10 @@ export const targetedResolve: Plugin = {
           ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
         })
       } else {
+        if (effect.action === 'bounce' && object.zone === 'stack') {
+          const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
+          if (index >= 0) draft.stack.splice(index, 1)
+        }
         const destination = effect.action === 'exile'
           ? 'exile'
           : effect.action === 'bounce'

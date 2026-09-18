@@ -2,6 +2,7 @@ import {
   ability,
   activate,
   allCreatureTypes,
+  addPlusCountersInstruction,
   attacks,
   basicLand,
   bestow,
@@ -26,6 +27,7 @@ import {
   doublePlusCounters,
   dealDamageToChosenTarget,
   draw,
+  drainOpponentsX,
   drawAtNextUpkeep,
   drawGreatestPower,
   enters,
@@ -61,6 +63,7 @@ import {
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   pump,
+  pumpAllCreaturesByX,
   pumpControlled,
   pumpControlledNonHuman,
   putFromHand,
@@ -68,6 +71,7 @@ import {
   putMilledLandTapped,
   putPermanentsFromHand,
   revealPick,
+  revealUntilBasicLand,
   returnChosenLandFromGraveyard,
   returnOwnedGraveyardLands,
   searchAbility,
@@ -89,6 +93,7 @@ import {
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
   targetOnResolve,
+  targetOnResolveAt,
   uniqueLandNames,
   upkeep,
   bounceAttacking,
@@ -110,6 +115,7 @@ import {
   untapTarget,
   yourUpkeep,
   type CardEffect,
+  payLifeX,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -207,6 +213,105 @@ const cycleFromHand = (id: string): CardEffect =>
   })
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
+  'Bala Ged Recovery // Bala Ged Sanctuary': [
+    entersTapped(),
+    targetOnResolve('bounce', { zone: 'graveyard' }),
+  ],
+  'Bridgeworks Battle // Tanglespan Bridgeworks': [tapUnlessPayLife(3)],
+  'Broken Bond': [
+    targetOnResolve(
+      'destroy',
+      { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
+      putLandFromHand(),
+    ),
+  ],
+  'Crop Rotation': [
+    searchSpell({
+      prompt: 'Search your library for a land card and put it onto the battlefield.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'battlefield',
+      min: 1,
+      max: 1,
+      sacrificeLands: 1,
+    }),
+  ],
+  Exsanguinate: [onResolve(drainOpponentsX())],
+  'Fell the Profane // Fell Mire': [
+    tapUnlessPayLife(3),
+    targetOnResolve(
+      'destroy',
+      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
+    ),
+  ],
+  'Hagra Mauling // Hagra Broodpit': [
+    entersTapped(),
+    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
+  ],
+  'Hermit Druid': [
+    activate({
+      id: 'hermitDruid.reveal',
+      costs: { mana: '{G}', tap: true },
+      do: [revealUntilBasicLand()],
+    }),
+  ],
+  'Horizon of Progress': [
+    activate({
+      id: 'horizon.putLand',
+      costs: { mana: '{3}', tap: true },
+      do: [putLandFromHand(true)],
+    }),
+    activate({
+      id: 'horizon.draw',
+      costs: { mana: '{1}', tap: true, sacrifice: 'self' },
+      do: [draw(1)],
+    }),
+  ],
+  'Khalni Ambush // Khalni Territory': [
+    entersTapped(),
+    targetOnResolveAt(0, 'select', {
+      zone: 'battlefield',
+      type: 'Creature',
+      controller: 'you',
+    }),
+    targetOnResolveAt(
+      1,
+      'select',
+      { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
+      fight('two-targets'),
+    ),
+  ],
+  'Malakir Rebirth // Malakir Mire': [entersTapped()],
+  'Revitalizing Repast // Old-Growth Grove': [
+    entersTapped(),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      addPlusCountersInstruction(1),
+      grantUntilEot('indestructible'),
+    ),
+  ],
+  'Sink into Stupor // Soporific Springs': [
+    tapUnlessPayLife(3),
+    targetOnResolve(
+      'bounce',
+      { zones: ['stack', 'battlefield'], nonland: true, controller: 'opponent' },
+    ),
+  ],
+  'Toxic Deluge': [payLifeX(), onResolve(pumpAllCreaturesByX())],
+  'Waterlogged Teachings // Inundated Archive': [
+    entersTapped(),
+    searchSpell({
+      prompt: 'Search your library for an instant card or a card with flash.',
+      match: (object) =>
+        object.types.includes('Instant') || /\bflash\b/i.test(object.oracleText),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }),
+  ],
+  'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
+  'Zanarkand, Ancient Metropolis // Lasting Fayth': [entersTapped()],
   'Aetherize': [onResolve(bounceAttacking())],
   "An Offer You Can't Refuse": [
     targetOnResolve(

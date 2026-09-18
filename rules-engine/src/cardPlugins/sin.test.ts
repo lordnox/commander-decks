@@ -4,6 +4,7 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { SIN_NAME, sin } from './sin'
+import { draw, enters } from './effects'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -173,5 +174,34 @@ describe(SIN_NAME, () => {
     expect(state.stack[0]?.name).toContain(SIN_NAME)
     state = resolveTrigger(server, state)
     expect(names(state, 'exile')).toEqual(['Relic'])
+  })
+
+  test('token copies keep stamped card effects', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [
+            sinCard(),
+            card('Value Relic', ['Artifact'], { effects: [enters(draw(1))] }),
+            card('Fresh Card', ['Instant']),
+          ],
+        },
+      },
+      { random: () => 0, cardPlugins: [sin] },
+    )
+    let state = server.state
+    const [sinId, relicId, freshId] = state.zoneOrder.p1.hand
+    state = ok(server.rules(state, { type: 'move', objectId: relicId, to: 'graveyard' }))
+    state = ok(server.rules(state, { type: 'move', objectId: freshId, to: 'library' }))
+    state = ok(server.rules(state, { type: 'move', objectId: sinId, to: 'battlefield' }))
+    state = resolveTrigger(server, state)
+
+    const copy = Object.values(state.objects).find(
+      (object) => object.token && object.name === 'Value Relic',
+    )
+    expect(copy?.effects).toEqual([enters(draw(1))])
+    state = resolveTrigger(server, state)
+    expect(state.objects[freshId].zone).toBe('hand')
   })
 })
