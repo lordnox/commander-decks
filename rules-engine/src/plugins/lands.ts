@@ -1,3 +1,4 @@
+import { seatPlaysLandsFromLibraryTop } from '../cardPlugins/libraryTopKnowledge'
 import type { GameState, Plugin } from '../types'
 import { effectsOf } from '../cardPlugins/cardRules'
 
@@ -14,7 +15,10 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   const object = state.objects[event.objectId]
   if (!object) return 'no such object'
   const fromGraveyard = object.zone === 'graveyard' && canPlayFromGraveyard(state, event.seat)
-  if ((!fromGraveyard && object.zone !== 'hand') || object.controller !== event.seat) {
+  const fromLibraryTop = object.zone === 'library'
+    && seatPlaysLandsFromLibraryTop(state, event.seat)
+    && state.zoneOrder[event.seat].library[0] === event.objectId
+  if ((!fromGraveyard && !fromLibraryTop && object.zone !== 'hand') || object.controller !== event.seat) {
     return `${object.name} is not in ${event.seat}'s hand`
   }
   if (!object.types.includes('Land')) return `${object.name} is not a land`

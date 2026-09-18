@@ -61,6 +61,11 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(covered)).toEqual([])
   })
 
+  test('Courser of Kruphix is registered', () => {
+    expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
+    expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])
+  })
+
   test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {
     const covered = [
       'Círdan the Shipwright',

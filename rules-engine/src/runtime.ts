@@ -1,5 +1,7 @@
+import { syncRevealedLibraryTop } from './cardPlugins/libraryTopKnowledge'
 import { createCatalog } from './catalog'
 import type { GameFormat } from './formats'
+import { freezeDraft, makeDraft } from './draft'
 import { rules } from './kernel'
 import { newGame, type NewGameOptions } from './newGame'
 import { isKnownTo, revealedLibraryTop } from './knowledge'
@@ -100,9 +102,12 @@ export const createServerGame = (
     ],
   })
   initializeRandomState(initialState, dependencies.random)
+  const boot = makeDraft(initialState)
+  syncRevealedLibraryTop(boot)
+  const state = freezeDraft(boot)
   return {
     ...engine,
-    state: initialState,
+    state,
     project: (state: GameState, viewer: PlayerId | null) =>
       projectForViewer(state, viewer),
   }
