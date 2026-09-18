@@ -1,6 +1,11 @@
 import type { AvailableAction } from '../../rules-engine/src/actions'
 import type { GameState } from '../../rules-engine/src/types'
 import type {
+  LiveSeatSnapshot,
+  TopdeckDestination,
+  TopdeckRequirements,
+} from '../../shared/liveTypes'
+import type {
   BattlefieldCard,
   CardDetails,
   ReplayCombat,
@@ -23,23 +28,8 @@ export type LiveSeat = {
   deck?: string
   commanders: string[]
   color: string
-  life: number
-  poison?: number
-  commander_damage?: Record<string, number>
-  commander_tax?: number
-  /** Floating mana, by symbol. Absent whenever the pool is empty. */
-  mana?: Record<string, number>
-  library_count: number
   hand_count: number
-  hand?: Array<string | number>
-  /** Opponent hand cards everyone may see (subset of hand_count). */
-  known_hand?: Array<string | number>
-  battlefield: BattlefieldCard[]
-  graveyard: Array<string | number>
-  exile: Array<string | number | BattlefieldCard>
-  command: Array<string | number>
-  revealed_top?: Array<string | number>
-}
+} & LiveSeatSnapshot<BattlefieldCard, string | number | BattlefieldCard>
 
 export type LiveEvent = {
   id: number
@@ -85,15 +75,8 @@ export type LiveTopdeck = {
   kind: string
   cards: Array<string | number>
   library?: string[]
-  destinations: Array<
-    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'sacrifice' | 'skip'
-  >
-  requirements?: Partial<Record<
-    | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'sacrifice' | 'skip',
-    { min?: number; max?: number }
-  >>
+  destinations: TopdeckDestination[]
+  requirements?: TopdeckRequirements
 }
 
 export type LiveSnapshot = {

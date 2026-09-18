@@ -1,3 +1,4 @@
+import type { TopdeckDestination, TopdeckRequirements } from '../../shared/liveTypes'
 import {
   SEAT_IDS,
   type InboxMessage,
@@ -24,15 +25,8 @@ export type TopdeckDecision = {
   cards: string[]
   /** CR 701.19a: searching means looking at every card, not only the matches. */
   library?: string[]
-  destinations: Array<
-    'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'sacrifice' | 'skip'
-  >
-  requirements?: Partial<Record<
-    | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-    | 'target' | 'sacrifice' | 'skip',
-    { min?: number; max?: number }
-  >>
+  destinations: TopdeckDestination[]
+  requirements?: TopdeckRequirements
   kernel?: {
     sourceId: string
     stage:
