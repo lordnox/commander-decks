@@ -201,11 +201,10 @@ describe('targeted spell resolution', () => {
       targets: [{ kind: 'object', objectId: removalId }],
     }))
     const countered = ok(server.rules(cast, { type: 'resolveTop' }))
-    const resolved = ok(server.rules(countered, { type: 'resolveTop' }))
 
-    expect(resolved.objects[removalId].zone).toBe('graveyard')
-    expect(resolved.objects[keepSafeId].zone).toBe('graveyard')
-    expect(named(resolved, 'Fresh Card').zone).toBe('hand')
-    expect(resolved.stack).toHaveLength(0)
+    expect(countered.objects[removalId].zone).toBe('graveyard')
+    expect(countered.objects[keepSafeId].zone).toBe('graveyard')
+    expect(named(countered, 'Fresh Card').zone).toBe('hand')
+    expect(countered.stack).toHaveLength(0)
   })
 })

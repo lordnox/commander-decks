@@ -131,7 +131,6 @@ describe('additionalLandPlay', () => {
     const next = run(server, state, [
       { type: 'castSpell', seat: 'p1', objectId: spell },
       { type: 'resolveTop' },
-      { type: 'resolveTop' },
     ])
     expect(next.players.p1.landPlaysAllowed).toBe(2)
     expect(next.zoneOrder.p1.hand.map((id) => next.objects[id].name)).toEqual(['Drawn'])

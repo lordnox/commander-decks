@@ -57,9 +57,7 @@ test('Joint Exploration completes scry, draw, and kicked land in the kernel', ()
     ],
   })
   if (!scried.ok) throw new Error(scried.error)
-  const drawn = server.rules(scried.state, { type: 'resolveTop' })
-  if (!drawn.ok) throw new Error(drawn.error)
-  state = drawn.state
+  state = scried.state
   expect(state.zoneOrder.p1.hand.map((id) => state.objects[id].name))
     .toEqual(['Hand Land', 'Kept'])
   expect(pendingJointExploration(state, 'p1')?.stage).toBe('putLand')

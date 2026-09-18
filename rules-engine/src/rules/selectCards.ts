@@ -117,7 +117,6 @@ const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   if (selection.kind === 'sacrifice') {
     return selection.candidates.filter((objectId) => battlefieldCreature(state, fromSeat, objectId))
   }
-  }
   return selection.candidates.filter((objectId) => Boolean(state.objects[objectId]))
 }
 

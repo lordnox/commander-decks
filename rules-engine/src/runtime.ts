@@ -72,8 +72,6 @@ export const projectForViewer = (
       && !isKnownTo(object, viewer, projected.playerOrder)
     if (hiddenLibrary || hiddenHand) delete projected.objects[objectId]
   }
-    if (hiddenLibrary || hiddenHand) delete projected.objects[objectId]
-  }
 
   for (const player of projected.playerOrder) {
     projected.zoneOrder[player].library = []

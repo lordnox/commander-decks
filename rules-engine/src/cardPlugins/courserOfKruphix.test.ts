@@ -60,28 +60,12 @@ describe('Courser of Kruphix', () => {
 
     const spellId = server.state.zoneOrder.p1.hand[0]
     const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellId }))
-    const resolving = passAll(server, cast)
+    const resolved = passAll(server, cast)
 
-    expect(resolving.stack[0]).toMatchObject({
-      actionId: 'draw',
-      payload: { remaining: 3 },
-    })
+    expect(resolved.stack).toHaveLength(0)
+    expect(resolved.stack.some((item) => item.actionId === 'draw')).toBe(false)
 
-    let current = resolving
-    const drawTraces: string[] = []
-    for (let index = 0; index < 3; index += 1) {
-      expect(current.stack.length).toBeGreaterThan(0)
-      const result = server.rules(current, { type: 'resolveTop' })
-      expect(result.ok).toBe(true)
-      if (!result.ok) return
-      drawTraces.push(...result.trace.map((entry) => entry.event.type))
-      current = result.state
-    }
-
-    expect(drawTraces.filter((type) => type === 'draw')).toHaveLength(3)
-    expect(current.stack.some((item) => item.actionId === 'draw')).toBe(false)
-
-    const opponent = server.project(current, 'p2')
+    const opponent = server.project(resolved, 'p2')
     expect(opponent.zoneOrder.p1.hand.map((id) => opponent.objects[id].name)).toEqual([
       'Card A',
       'Card B',
