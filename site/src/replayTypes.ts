@@ -23,7 +23,8 @@ export type CardDetails = {
 }
 
 export type BattlefieldCard = {
-  name: string | number
+  /** Omitted only for a face-down hand slot. */
+  name?: string | number
   tapped?: boolean
   summoningSickness?: boolean
   token?: boolean

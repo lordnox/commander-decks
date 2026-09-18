@@ -511,6 +511,7 @@ export const Battlefield = ({
 
   const rows = new Map<BattlefieldRow, BattlefieldCard[]>()
   for (const entry of cards) {
+    if (entry.name === undefined) continue
     const { details } = cardInfo(game, entry.name, entry)
     const row = battlefieldRow(details, entry)
     rows.set(row, [...(rows.get(row) ?? []), entry])

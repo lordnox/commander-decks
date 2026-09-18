@@ -117,7 +117,7 @@ const opponentHand = (
   })
   return [
     ...knownCards,
-    ...Array.from({ length: unknownCount }, () => ({ name: '', hidden: true })),
+    ...Array.from({ length: unknownCount }, () => ({ hidden: true })),
   ]
 }
 
