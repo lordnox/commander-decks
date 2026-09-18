@@ -108,6 +108,7 @@ const askEachPlayerDiscard = (
         : `${source.name} makes each player discard ${count} cards. Choose ${count}.`,
       destinations: ['graveyard'],
       fromSeat: seat,
+      sequence: draft.allocTs(),
     })
   }
 }

@@ -52,6 +52,18 @@ const nextStateRandom = (draft: Draft) => {
   return next / 0x100000000
 }
 
+/** Pick up to `count` distinct entries from `choices` using the authoritative PRNG. */
+export const pickRandomChoices = (draft: Draft, choices: string[], count: number) => {
+  const pool = [...choices]
+  const picked: string[] = []
+  const take = Math.min(count, pool.length)
+  for (let i = 0; i < take; i += 1) {
+    const index = Math.floor(nextStateRandom(draft) * pool.length)
+    picked.push(pool.splice(index, 1)[0])
+  }
+  return picked
+}
+
 const hiddenEvent = (type: string) =>
   type === 'shuffleLibrary'
   || type === 'reveal'
