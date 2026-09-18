@@ -2,6 +2,7 @@ import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog, pendingDialogFor } from '../pendingDialog'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
@@ -172,10 +173,11 @@ test('the discard mode drains through Liliana\'s Caress', () => {
   )
   const island = Object.values(asked.objects).find((object) => object.name === 'Island')!
   const discarded = ok(server.rules(asked, {
-    type: 'custom',
-    name: DIALOG_CHOSEN,
+    type: 'selectCards',
     seat: 'p2',
-    payload: { objectIds: [island.id] },
+    kind: 'discard',
+    count: 1,
+    objectIds: [island.id],
   }))
 
   expect(discarded.objects[island.id].zone).toBe('graveyard')
@@ -198,6 +200,6 @@ test('choosing every mode queues discards before sacrifices', () => {
     RANKLE_MODES.drain,
   ])
 
-  expect(pendingDialogFor(asked, 'p2')).toMatchObject({ kind: 'discard-card' })
+  expect(pendingSelectionFor(asked, 'p2')).toMatchObject({ kind: 'discard', count: 1 })
   expect(asked.players.p2.life).toBe(commanderRules.startingLife - 4)
 })
