@@ -15,11 +15,12 @@ import type {
 } from './types'
 
 type ReplayCard = {
+  name?: string
   type_line: string
   mana_cost: string
   oracle_text: string
   stats: string
-  /** Present only for double-faced cards, not split, adventure, or Room cards. */
+  /** Separate characteristics for double-faced cards and Room doors. */
   faces?: ReplayCard[]
 }
 
@@ -140,6 +141,12 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const tapProduces = modes.length === 1
     ? modes[0]
     : add ? { [add[1]]: 1 } : undefined
+  const roomFaces = card?.faces?.length === 2
+    && card.faces.every((face) => face.type_line.split(' // ').some(
+      (faceTypeLine) => faceTypeLine.split(' — ')[1]?.split(' ').includes('Room'),
+    ))
+    ? card.faces
+    : undefined
 
   return templateFor(name, {
     types,
@@ -148,8 +155,16 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     manaCost,
     manaValue: manaValueOf(manaCost),
     colors: colorsOf(manaCost),
-    ...(card?.faces?.[0] ? { frontFace: faceCharacteristics(card.faces[0]) } : {}),
-    ...(card?.faces?.[1] ? { backFace: faceCharacteristics(card.faces[1]) } : {}),
+    ...(roomFaces
+      ? {
+          roomDoors: roomFaces.map((face, index) => ({
+            ...faceCharacteristics(face),
+            name: face.name ?? name.split(' // ')[index],
+          })) as NonNullable<GameObject['roomDoors']>,
+        }
+      : {}),
+    ...(!roomFaces && card?.faces?.[0] ? { frontFace: faceCharacteristics(card.faces[0]) } : {}),
+    ...(!roomFaces && card?.faces?.[1] ? { backFace: faceCharacteristics(card.faces[1]) } : {}),
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     printedLoyalty: loyalty,

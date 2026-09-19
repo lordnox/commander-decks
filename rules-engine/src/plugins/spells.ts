@@ -24,6 +24,7 @@ import { resolveAbility, resolveAction } from '../rules/actions'
 import { ceaseSpellCopy } from '../rules/spellCopies'
 import { applyFace, castFaceOf } from './doubleFaced'
 import { reboundsOnResolution } from './rebound'
+import { applyRoomDoors, roomDoor } from './rooms'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -234,7 +235,7 @@ export const spells: Plugin = {
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
-      const face = castFaceOf(object)
+      const face = event.door ? roomDoor(object, event.door) : castFaceOf(object)
       const spell = face ? { ...object, ...face } : object
       const selected = availableAlternateCastEffect(
         state,
@@ -348,8 +349,9 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
-      const face = castFaceOf(object)
-      if (face) applyFace(object, face)
+      const face = event.door ? roomDoor(object, event.door) : castFaceOf(object)
+      if (event.door) applyRoomDoors(object, [event.door])
+      else if (face) applyFace(object, face)
       const selected = availableAlternateCastEffect(
         state,
         event.seat,
@@ -403,6 +405,7 @@ export const spells: Plugin = {
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
         ...(event.sagaChapter !== undefined ? { sagaChapter: event.sagaChapter } : {}),
+        ...(event.door ? { door: event.door } : {}),
         ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),

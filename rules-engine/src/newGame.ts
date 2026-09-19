@@ -3,6 +3,7 @@ import { effectsFor } from './cardPlugins/cardRules'
 import { serializableEffects } from './cardPlugins/effects'
 import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
+import { applyRoomCard, applyRoomDoors } from './plugins/rooms'
 import type { GameFormat } from './formats'
 import {
   type GameObject,
@@ -118,6 +119,14 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       ])],
       effects: serializableEffects(template.effects ?? effectsFor(template.name)),
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
+    }
+    if (objects[id].roomDoors) {
+      if (objects[id].zone === 'battlefield') {
+        objects[id].unlockedDoors = [...(objects[id].unlockedDoors ?? [])]
+        applyRoomDoors(objects[id], objects[id].unlockedDoors)
+      } else {
+        applyRoomCard(objects[id])
+      }
     }
     if (
       objects[id].zone === 'battlefield'

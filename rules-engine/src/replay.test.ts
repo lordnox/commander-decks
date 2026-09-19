@@ -161,6 +161,25 @@ describe('table replay conversion', () => {
             stats: '',
           }],
         },
+        'Funeral Room // Awakening Hall': {
+          type_line: 'Enchantment — Room // Enchantment — Room',
+          mana_cost: '{2}{B} // {6}{B}{B}',
+          oracle_text: 'Funeral text // Awakening text',
+          stats: '',
+          faces: [{
+            name: 'Funeral Room',
+            type_line: 'Enchantment — Room',
+            mana_cost: '{2}{B}',
+            oracle_text: 'Funeral text',
+            stats: '',
+          }, {
+            name: 'Awakening Hall',
+            type_line: 'Enchantment — Room',
+            mana_cost: '{6}{B}{B}',
+            oracle_text: 'Awakening text',
+            stats: '',
+          }],
+        },
       },
       events: [{
         id: 0,
@@ -180,6 +199,7 @@ describe('table replay conversion', () => {
               { name: 'Snow-Covered Forest' },
               { name: 'Boseiju, Who Endures' },
               { name: 'Bala Ged Recovery' },
+              { name: 'Funeral Room // Awakening Hall' },
             ]),
             p2: replayPlayer(),
           },
@@ -201,6 +221,12 @@ describe('table replay conversion', () => {
       types: ['Sorcery'],
       manaCost: '{2}{G}',
     })
+    expect(Object.values(imported.objects).find(
+      (object) => object.roomDoors,
+    )?.roomDoors).toMatchObject([
+      { name: 'Funeral Room', manaCost: '{2}{B}' },
+      { name: 'Awakening Hall', manaCost: '{6}{B}{B}' },
+    ])
   })
 
   test('imports printed and current planeswalker loyalty', () => {

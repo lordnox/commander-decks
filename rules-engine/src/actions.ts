@@ -32,6 +32,7 @@ import { hasKeyword } from './keywords'
 import { CAST_TRANSFORMED_ACTION } from './plugins/battle'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingFreeCastFor } from './plugins/rebound'
+import { roomDoor } from './plugins/rooms'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
@@ -62,6 +63,7 @@ import type {
   ManaId,
   ManaPool,
   PlayerId,
+  RoomDoorId,
   StackItem,
   AttackerDecl,
   BlockerDecl,
@@ -93,9 +95,17 @@ export type AvailableAction =
       convoke?: string[]
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
+      door?: RoomDoorId
       targetGroups?: ActionTargetGroup[]
     }
   | { kind: 'declineFreeCast'; objectId: string; name: string }
+  | {
+      kind: 'unlockDoor'
+      objectId: string
+      name: string
+      door: RoomDoorId
+      doorName: string
+    }
   | {
       kind: 'activateAbility'
       objectId: string
@@ -535,6 +545,22 @@ const bestowEffect = (object: GameObject) =>
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
+  if (object.roomDoors) {
+    const suffix = tax > 0 ? `{${tax}}` : ''
+    return (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
+      const characteristics = roomDoor(object, door)
+      if (!characteristics || !canFund(state, seat, `${characteristics.manaCost}${suffix}`)) {
+        return []
+      }
+      return [{
+        kind: 'castSpell',
+        objectId: object.id,
+        name: characteristics.name,
+        door,
+        castLabel: characteristics.name,
+      }]
+    })
+  }
   const alternatives = availableAlternateCastEffects(state, seat, object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   const face = castFaceOf(object)
@@ -844,6 +870,31 @@ export const availableActions = (
 
   for (const object of Object.values(state.objects)) {
     actions.push(...castActions(state, seat, object))
+    if (
+      object.roomDoors
+      && object.zone === 'battlefield'
+      && object.controller === seat
+      && state.active === seat
+      && MAIN_STEPS.has(state.step)
+      && state.stack.length === 0
+    ) {
+      for (const door of ['left', 'right'] as const) {
+        const characteristics = roomDoor(object, door)
+        if (
+          characteristics
+          && !object.unlockedDoors?.includes(door)
+          && canFund(state, seat, characteristics.manaCost)
+        ) {
+          actions.push({
+            kind: 'unlockDoor',
+            objectId: object.id,
+            name: object.name,
+            door,
+            doorName: characteristics.name,
+          })
+        }
+      }
+    }
     const declaredActions = cardRuleActions(state, object, seat)
     actions.push(...declaredActions)
     if (
@@ -1316,6 +1367,7 @@ export const sameLegalAct = (
     castOption?: string
     phyrexianLife?: number[]
     alternativeCost?: 'withoutPayingMana'
+    door?: RoomDoorId
     stackId?: string
     selectionId?: string
     triggerId?: string
@@ -1337,7 +1389,9 @@ export const sameLegalAct = (
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
       && left.alternativeCost === right.alternativeCost
+      && left.door === right.door
   }
+  if (left.kind === 'unlockDoor') return left.door === right.door
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   if (left.kind === 'selectPlayers') return left.selectionId === right.selectionId
@@ -1553,6 +1607,22 @@ export const eventsForAvailableAction = (
         }]
       : null
   }
+  if (action.kind === 'unlockDoor') {
+    const object = state.objects[action.objectId]
+    const door = object && roomDoor(object, action.door)
+    if (!object || !door) return null
+    const mana = fundingEvents(state, seat, door.manaCost)
+    if (!mana) return null
+    return [
+      ...mana,
+      {
+        type: 'unlockDoor',
+        seat,
+        objectId: object.id,
+        door: action.door,
+      },
+    ]
+  }
   if (action.kind !== 'castSpell') return null
   const object = state.objects[action.objectId]
   const targeted = object
@@ -1610,7 +1680,7 @@ export const eventsForAvailableAction = (
   ) return null
   if (object.name === 'Ghostly Flicker' && blinkTargets.length !== 2) return null
   const tax = taxFor(state, seat, object)
-  const face = castFaceOf(object)
+  const face = action.door ? roomDoor(object, action.door) : castFaceOf(object)
   const casting = face ? { ...object, ...face } : object
   const alternative = alternateCastEffects(object).find(
     (effect) => effect.id === action.castOption,
@@ -1658,6 +1728,7 @@ export const eventsForAvailableAction = (
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       ...(action.kicked ? { kicked: true } : {}),
+      ...(action.door ? { door: action.door } : {}),
       ...(action.targetObjectIds && alternative?.discard
         ? { discard: action.targetObjectIds.slice(0, 1) }
         : {}),

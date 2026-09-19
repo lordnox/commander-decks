@@ -25,6 +25,7 @@ import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { rebound } from './plugins/rebound'
 import { saga } from './plugins/saga'
 import { spells } from './plugins/spells'
+import { rooms } from './plugins/rooms'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
@@ -64,6 +65,7 @@ export const corePlugins = [
   spells,
   rebound,
   saga,
+  rooms,
   stateBased,
   combat,
   life,
