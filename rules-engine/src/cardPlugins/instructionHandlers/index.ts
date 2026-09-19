@@ -1,6 +1,7 @@
 import type { CardInstruction } from '../effects'
 import { combatCopyHandlers } from './combatCopy'
 import { controlHandlers } from './control'
+import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { multiplayerHandlers } from './multiplayer'
 import { resourceHandlers } from './resources'
@@ -18,6 +19,7 @@ const instructionHandlers = {
   ...zoneHandlers,
   ...combatCopyHandlers,
   ...multiplayerHandlers,
+  attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
 } satisfies InstructionHandlers
 

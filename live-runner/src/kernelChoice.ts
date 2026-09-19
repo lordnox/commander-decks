@@ -18,7 +18,13 @@ export type ChoiceContext = {
 }
 
 /** Dialogs that are a plain yes or no, so the seat picks no cards. */
-export const OPTIONAL_DIALOGS = new Set(['may', 'may-draw', 'may-pay-life', 'may-search'])
+export const OPTIONAL_DIALOGS = new Set([
+  'may',
+  'may-draw',
+  'may-pay-mana',
+  'may-pay-life',
+  'may-search',
+])
 
 export const sameNames = (left: string[], right: string[]) =>
   [...left].sort().join('\0') === [...right].sort().join('\0')
