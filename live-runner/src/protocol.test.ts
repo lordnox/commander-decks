@@ -82,12 +82,13 @@ describe('inbox', () => {
       objectId: 'o3',
       actionId: 6,
     })
-    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","targetObjectId":"target","castOption":"evoke"}')).toEqual({
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","targetObjectId":"target","castOption":"evoke","phyrexianLife":[0,1]}')).toEqual({
       type: 'act',
       kind: 'castSpell',
       objectId: 'spell',
       targetObjectId: 'target',
       castOption: 'evoke',
+      phyrexianLife: [0, 1],
     })
     expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"flicker","targetObjectIds":["rock","land"]}')).toEqual({
       type: 'act',

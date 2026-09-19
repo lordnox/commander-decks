@@ -542,6 +542,7 @@ export const LivePage = () => {
       targetObjectIds?: string[]
       abilityId?: string
       castOption?: string
+      phyrexianLife?: number[]
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -609,6 +610,7 @@ export const LivePage = () => {
           ...(extra.targetObjectIds ? { targetObjectIds: extra.targetObjectIds } : {}),
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
           ...(extra.castOption ? { castOption: extra.castOption } : {}),
+          ...(extra.phyrexianLife ? { phyrexianLife: extra.phyrexianLife } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
           ...(extra.x !== undefined ? { x: extra.x } : {}),
@@ -1450,6 +1452,9 @@ export const LivePage = () => {
                     : {}),
                   ...('castOption' in action && action.castOption
                     ? { castOption: action.castOption }
+                    : {}),
+                  ...('phyrexianLife' in action && action.phyrexianLife
+                    ? { phyrexianLife: action.phyrexianLife }
                     : {}),
                   ...('text' in action && action.text ? { text: action.text } : {}),
                   ...('mana' in action && action.mana ? { mana: action.mana } : {}),

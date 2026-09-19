@@ -1161,7 +1161,7 @@ export const CardPreview = ({
             {groupedTargets.map((action) => {
               const choiceId = action.kind === 'activateAbility'
                 ? action.abilityId ?? action.text
-                : `cast-${action.objectId}`
+                : `cast-${action.objectId}-${action.phyrexianLife?.join(',') ?? ''}`
               return (
               <div key={choiceId} className="w-full">
                 {choosingActivation !== choiceId ? (
@@ -1258,11 +1258,12 @@ export const CardPreview = ({
                 <div className="flex flex-wrap gap-2">
                   {targetedCasts.map((action) => (
                     <button
-                      key={`${action.objectId}-${action.targetObjectId ?? action.targetPlayerId}-${action.x ?? ''}`}
+                      key={`${action.objectId}-${action.targetObjectId ?? action.targetPlayerId}-${action.x ?? ''}-${action.phyrexianLife?.join(',') ?? ''}`}
                       type="button"
                       onClick={() => onAct(action)}
                       className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                     >
+                      {action.castLabel ? `${action.castLabel} — ` : ''}
                       {action.targetName}
                       {action.x === undefined ? '' : ` (X=${action.x})`}
                     </button>
