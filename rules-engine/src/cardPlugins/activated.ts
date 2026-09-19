@@ -52,7 +52,7 @@ export const payActivateCosts = (
   if (costs.tap) draft.enqueue({ type: 'tap', objectId: source.id })
   if (costs.mill) millLibrary(draft, seat, costs.mill)
   if (costs.sacrifice) {
-    draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+    draft.enqueue({ type: 'sacrifice', objectId: source.id })
   }
   if (costs.discard) {
     draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })

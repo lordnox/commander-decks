@@ -8,6 +8,7 @@ import {
   librarySearch,
   pendingSearch,
 } from './librarySearch'
+import { copySpell } from './copySpell'
 import { targetedResolve } from './targetedResolve'
 import { targetOnResolve } from './effects'
 
@@ -242,5 +243,46 @@ describe('targeted spell resolution', () => {
     expect(state.objects[threat].zone).toBe('hand')
     expect(state.objects[answer].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
+  })
+
+  test('Twincast creates a spell copy with a new object id', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Twincast', { types: ['Instant'], manaCost: '{U}{U}' })],
+          p2: [cardTemplate('Threat', { types: ['Instant'], manaCost: '{B}' })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [targetedResolve, copySpell] },
+    )
+    const ready = structuredClone(server.state)
+    ready.priority = 'p2'
+    ready.players.p2.mana.B = 1
+    const originalSpellId = named(ready, 'Threat').id
+    let state = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: originalSpellId,
+    }))
+    state.priority = 'p1'
+    state.players.p1.mana.U = 2
+    state = run(server, state, [
+      {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(state, 'Twincast').id,
+        targets: [{ kind: 'object', objectId: originalSpellId }],
+      },
+      { type: 'resolveTop' },
+    ])
+
+    expect(state.stack[0].objectId).not.toBe(originalSpellId)
+    expect(state.stack[1].objectId).toBe(originalSpellId)
+    expect(state.objects[state.stack[0].objectId]).toMatchObject({
+      zone: 'stack',
+      token: false,
+      controller: 'p1',
+    })
   })
 })
