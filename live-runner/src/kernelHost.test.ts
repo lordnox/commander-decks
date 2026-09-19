@@ -27,6 +27,7 @@ import {
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
+import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
@@ -1608,6 +1609,58 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().objects[source.id].zone).toBe('graveyard')
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
+  })
+
+  test('publishes and applies a Roaming Throne creature-type choice', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [cardTemplate('Homer, the Hermit', {
+            types: ['Creature'],
+            subtypes: ['Crab', 'Druid'],
+          })],
+        },
+        hands: {
+          p1: [cardTemplate('Roaming Throne', {
+            types: ['Artifact', 'Creature'],
+            subtypes: ['Golem'],
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [creatureTypeChoice] },
+    )
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const throne = Object.values(server.state.objects)
+      .find((object) => object.name === 'Roaming Throne')!
+    expect(kernel.dispatch({
+      type: 'move',
+      objectId: throne.id,
+      to: 'battlefield',
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose-creature-type',
+      cards: ['Crab', 'Druid', 'Golem', 'Other (no current creature)'],
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Crab', destination: 'target' },
+        { card: 'Druid', destination: 'skip' },
+        { card: 'Golem', destination: 'skip' },
+        { card: 'Other (no current creature)', destination: 'skip' },
+      ],
+    })).toBe(true)
+    expect(kernel.history.current().objects[throne.id]).toMatchObject({
+      chosenType: 'Crab',
+      subtypes: ['Golem', 'Crab'],
+    })
   })
 
   test('Portal publishes and resumes a typed graveyard reanimation choice', () => {

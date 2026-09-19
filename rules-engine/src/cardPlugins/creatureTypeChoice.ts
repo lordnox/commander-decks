@@ -61,7 +61,7 @@ export const chooseCreatureTypeInstruction: InstructionHandler<'chooseCreatureTy
     waiting: 'is choosing a creature type.',
     judge: `Waiting for ${source.name} creature-type choice.`,
     chosenEvent: DIALOG_CHOSEN,
-    destinations: ['target'],
+    destinations: ['skip', 'target'],
     requirements: { target: { min: 1, max: 1 } },
   })
   draft.players[source.controller].data[PENDING_ACTION] = {
