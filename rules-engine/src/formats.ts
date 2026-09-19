@@ -18,6 +18,7 @@ import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
 import { priority } from './plugins/priority'
+import { paradigm } from './plugins/paradigm'
 import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { rebound } from './plugins/rebound'
@@ -51,6 +52,7 @@ export type GameFormat = {
 
 export const corePlugins = [
   turnStructure,
+  paradigm,
   advancedCombatPrevention,
   continuousEffects,
   priority,

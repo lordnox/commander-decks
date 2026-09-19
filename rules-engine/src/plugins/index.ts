@@ -19,6 +19,7 @@ import { lands } from './lands'
 import { life } from './life'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
+import { paradigm } from './paradigm'
 import { swampOverlay } from './swampOverlay'
 import { priority } from './priority'
 import { phialReplacement } from './phialReplacement'
@@ -32,6 +33,7 @@ import { turnStructure } from './turnStructure'
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
   turnStructure,
+  paradigm,
   advancedCombatPrevention,
   continuousEffects,
   priority,
@@ -83,6 +85,7 @@ export {
   life,
   mana,
   manaBurn,
+  paradigm,
   swampOverlay,
   pendingDialogLock,
   phialReplacement,
