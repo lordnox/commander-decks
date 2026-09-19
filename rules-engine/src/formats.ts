@@ -18,6 +18,7 @@ import { priority } from './plugins/priority'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
+import { temporaryStats } from './plugins/temporaryStats'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
 import type { PlayerId, Plugin, ZoneId } from './types'
@@ -55,6 +56,7 @@ export const corePlugins = [
   combat,
   damage,
   doubleFaced,
+  temporaryStats,
   ...gameRules,
   judgeFallback,
   unconfiguredHiddenInformation,
