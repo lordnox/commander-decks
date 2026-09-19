@@ -81,6 +81,32 @@ describe('Sagas', () => {
     expect(chapterNumbers(precombat)).toEqual([2])
   })
 
+  test('a stolen Saga gets turn lore on its controller turn, not its owner turn', () => {
+    const base = newGame({
+      battlefield: { p2: [{ ...chapters(), counters: { lore: 1 } }] },
+      builtinRules,
+    })
+    const source = sagaObject(base)
+    const stolen: GameState = {
+      ...base,
+      objects: {
+        ...base.objects,
+        [source.id]: { ...base.objects[source.id], controller: 'p1' },
+      },
+      step: 'draw',
+    }
+
+    const controllerTurn = ok(rules(stolen, { type: 'advanceStep' }, catalog))
+    expect(controllerTurn.step).toBe('precombatMain')
+    expect(controllerTurn.objects[source.id].counters.lore).toBe(2)
+    expect(chapterNumbers(controllerTurn)).toEqual([2])
+
+    const ownerTurn = ok(rules({ ...stolen, active: 'p2' }, { type: 'advanceStep' }, catalog))
+    expect(ownerTurn.step).toBe('precombatMain')
+    expect(ownerTurn.objects[source.id].counters.lore).toBe(1)
+    expect(ownerTurn.stack).toHaveLength(0)
+  })
+
   test('one counter event triggers every crossed chapter', () => {
     const base = newGame({
       battlefield: { p1: [{ ...chapters(), counters: {} }] },
