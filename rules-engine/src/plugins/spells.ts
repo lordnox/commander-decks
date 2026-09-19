@@ -24,10 +24,13 @@ const spellCost = (
   castOption?: string,
 ) => {
   const selected = alternateCastEffect(object, castOption)
+  const bestowed = castOption === 'bestow'
+    ? effectsOf(object).find((effect) => effect.op === 'bestow')
+    : undefined
   const xCost = xManaKind(object) === 'black'
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
-  const base = selected?.manaCost ?? object.manaCost.replaceAll('{X}', xCost)
+  const base = selected?.manaCost ?? bestowed?.cost ?? object.manaCost.replaceAll('{X}', xCost)
   return `${base}${
     additionalGeneric > 0 ? `{${additionalGeneric}}` : ''
   }`
@@ -94,7 +97,9 @@ export const spells: Plugin = {
         return 'spell is not owned and controlled by that seat'
       }
       if (state.priority !== event.seat) return 'seat does not have priority'
-      if (event.castOption && !alternateCastEffect(spell, event.castOption)) {
+      const bestow = event.castOption === 'bestow'
+        && effectsOf(spell).some((effect) => effect.op === 'bestow')
+      if (event.castOption && !alternateCastEffect(spell, event.castOption) && !bestow) {
         return `${object.name} has no casting option ${event.castOption}`
       }
 

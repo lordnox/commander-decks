@@ -4,6 +4,7 @@ import {
   activate,
   allCreatureTypes,
   addPlusCountersInstruction,
+  attachedCopyOrToken,
   attackTax,
   attacks,
   basicLand,
@@ -205,13 +206,15 @@ const fetchHideout = (prompt: string, subtypes: string[]): CardEffect => ({
   },
 })
 
-const insect = createTokenInstruction({
+const insectToken = {
   name: 'Insect',
   types: ['Creature'],
   subtypes: ['Insect'],
   power: 1,
   toughness: 1,
-})
+}
+
+const insect = createTokenInstruction(insectToken)
 
 const eldraziSpawn = createTokenInstruction({
   name: 'Eldrazi Spawn',
@@ -1093,8 +1096,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Six: [attacks(selfMill(3), revealPick(3, { type: 'Land' }))],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
   'Springheart Nantuko': [
-    bestow('{1}{G}'),
-    landfall(branch(controlledLands({ min: 0 }), [insect])),
+    bestow('{1}{G}', { power: 1, toughness: 1 }),
+    landfall(attachedCopyOrToken('{1}{G}', insectToken)),
   ],
   'Stitch Together': [
     targetOnResolve(

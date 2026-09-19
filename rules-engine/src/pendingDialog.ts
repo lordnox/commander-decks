@@ -28,6 +28,7 @@ export type PendingDialog = {
     | 'choose-creature-type'
     | 'may'
     | 'may-draw'
+    | 'may-pay-mana'
     | 'may-pay-life'
     | 'secret-vote'
     | 'fight-target'
@@ -45,6 +46,7 @@ export type PendingDialog = {
     | 'sacrifice' | 'skip' | 'target'
   >
   count?: number
+  cost?: string
   /** Literal choices for a modal ability, used instead of cards on a board. */
   options?: string[]
   types?: string[]

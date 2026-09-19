@@ -224,6 +224,15 @@ export const playerAuraDeal = (): CardEffect => ({
   breakOnMutualAttack: true,
 })
 
+export const attachedCopyOrToken = (
+  cost: string,
+  token: TokenSpec,
+): CardInstruction => ({
+  kind: 'attachedCopyOrToken',
+  cost,
+  token,
+})
+
 export const createXTokens = (token: TokenSpec): CardInstruction => ({
   kind: 'createXTokens',
   token,
@@ -322,7 +331,10 @@ export const legendRuleOff = (): CardEffect => ({
   legendRuleOff: true,
 })
 
-export const bestow = (cost: string): CardEffect => ({ op: 'bestow', cost })
+export const bestow = (
+  cost: string,
+  bonus: { power: number; toughness: number },
+): CardEffect => ({ op: 'bestow', cost, ...bonus })
 
 export const attacks = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',

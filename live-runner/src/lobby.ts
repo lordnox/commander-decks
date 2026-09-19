@@ -51,6 +51,7 @@ export type TopdeckDecision = {
       | 'extort-payment'
       | 'may'
       | 'may-draw'
+      | 'may-pay-mana'
       | 'may-pay-life'
       | 'secret-vote'
       | 'fight-target'

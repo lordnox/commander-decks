@@ -454,6 +454,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
     }
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
+    if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')
     if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
     if (listed.some((instruction) =>
       instruction.kind === 'createToken' && instruction.token.sacrificeForMana)) {
