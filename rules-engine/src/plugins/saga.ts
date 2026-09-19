@@ -118,9 +118,10 @@ const addTurnLore = (state: GameState, event: GameEvent, draft: Draft) => {
     || draft.step !== 'precombatMain'
   ) return
 
-  for (const objectId of draft.zoneOrder[draft.active].battlefield) {
-    const source = draft.object(objectId)
-    if (!source || !isSaga(source) || finalChapter(source) === 0) continue
+  // Lore follows control, not ownership, so a stolen Saga advances on its
+  // controller's turn.
+  for (const source of draft.zoneOf('battlefield', draft.active)) {
+    if (!isSaga(source) || finalChapter(source) === 0) continue
     putLoreCounters(draft, source, 1)
   }
 }
