@@ -1001,7 +1001,8 @@ export const HoverCard = ({ hover }: { hover: Hover }) => {
 export const legalActLabel = (action: AvailableAction) => {
   if (action.kind === 'playLand') return 'Play land'
   if (action.kind === 'castSpell') {
-    return action.x === undefined ? 'Cast' : `Cast (X=${action.x})`
+    const label = action.castLabel ? `Cast — ${action.castLabel}` : 'Cast'
+    return action.x === undefined ? label : `${label} (X=${action.x})`
   }
   if (action.kind === 'tapForMana') {
     return action.mana ? `Tap for {${action.mana}}` : 'Tap for mana'

@@ -57,6 +57,36 @@ test('a reveal-land choice says reveal instead of target', () => {
   expect(html).toContain('>Reveal</button>')
 })
 
+test('cumulative upkeep renders one opponent choice per age counter and sacrifice', () => {
+  const game = {
+    catalog: {},
+    seats: [
+      { id: 'p2', name: 'Second player' },
+      { id: 'p3', name: 'Third player' },
+    ],
+  } as unknown as ReplayGame
+  const decision = {
+    kind: 'cumulative-upkeep',
+    cards: ['p2', 'p3'],
+    count: 2,
+    destinations: ['target', 'sacrifice'],
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Pay cumulative upkeep')
+  expect(html).toContain('Age counter 1')
+  expect(html).toContain('Age counter 2')
+  expect(html).toContain('Second player')
+  expect(html).toContain('Sacrifice permanent')
+})
+
 test('library searches offer filtering and one explicit selection', () => {
   const game = {
     catalog: {

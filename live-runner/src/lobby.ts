@@ -26,6 +26,7 @@ export type TopdeckDecision = {
   /** CR 701.19a: searching means looking at every card, not only the matches. */
   library?: string[]
   destinations: TopdeckDestination[]
+  count?: number
   requirements?: TopdeckRequirements
   kernel?: {
     sourceId: string
@@ -61,6 +62,7 @@ export type TopdeckDecision = {
       | 'waiting-discard'
       | 'select-cards'
       | 'select-players'
+      | 'cumulative-upkeep'
     stackId?: string
     selectionId?: string
     cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'

@@ -531,6 +531,7 @@ export const LivePage = () => {
       targetPlayerId?: string
       targetObjectIds?: string[]
       abilityId?: string
+      castOption?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -596,6 +597,7 @@ export const LivePage = () => {
           ...(extra.targetPlayerId ? { targetPlayerId: extra.targetPlayerId } : {}),
           ...(extra.targetObjectIds ? { targetObjectIds: extra.targetObjectIds } : {}),
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
+          ...(extra.castOption ? { castOption: extra.castOption } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
           ...(extra.x !== undefined ? { x: extra.x } : {}),
@@ -1327,6 +1329,9 @@ export const LivePage = () => {
                     : {}),
                   ...('abilityId' in action && action.abilityId
                     ? { abilityId: action.abilityId }
+                    : {}),
+                  ...('castOption' in action && action.castOption
+                    ? { castOption: action.castOption }
                     : {}),
                   ...('text' in action && action.text ? { text: action.text } : {}),
                   ...('mana' in action && action.mana ? { mana: action.mana } : {}),
