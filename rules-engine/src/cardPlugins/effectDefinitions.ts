@@ -284,7 +284,8 @@ export type CardEffect =
       creatureOnly?: boolean
       modal?: ModalSpec
       targets?: 'opponent'
-      oncePerTurn?: boolean
+      /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
+      firstTimeEachTurn?: boolean
     }
   | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
   | {

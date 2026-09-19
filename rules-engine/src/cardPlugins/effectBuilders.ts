@@ -361,7 +361,7 @@ export const landToGraveyardOnce = (...instructions: CardInstruction[]): CardEff
   op: 'trigger',
   on: 'landToGraveyard',
   do: instructions,
-  oncePerTurn: true,
+  firstTimeEachTurn: true,
 })
 
 export const putMilledLandTapped = (): CardInstruction => ({ kind: 'putMilledLandTapped' })
