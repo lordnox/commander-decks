@@ -12,6 +12,7 @@ const MANA_CHOICES = new Set(['W', 'U', 'B', 'R', 'G', 'C'])
 export type ActivationCostPicks = {
   discardId?: string
   sacrificeId?: string
+  crewIds?: string[]
 }
 
 const canPayFromPool = (state: GameState, seat: PlayerId): CanPayMana =>
@@ -51,10 +52,21 @@ export const sacrificeCostCandidates = (
     && (!other || object.id !== source.id)
     && object.types.includes(sacrificeTypeName(kind)))
 
+export const crewCostCandidates = (
+  state: GameState,
+  seat: PlayerId,
+) =>
+  Object.values(state.objects).filter((object) =>
+    object.zone === 'battlefield'
+    && object.controller === seat
+    && object.types.includes('Creature')
+    && !object.tapped)
+
 export const needsActivationCostPicks = (costs: ActivateCost) =>
   Boolean(
     (costs.discard && costs.discard !== 'self')
-    || costs.sacrificeTarget,
+    || costs.sacrificeTarget
+    || costs.crew !== undefined,
   )
 
 export const costPicksFromChoices = (
@@ -66,6 +78,7 @@ export const costPicksFromChoices = (
   const picks: ActivationCostPicks = {}
   if (costs.discard && costs.discard !== 'self') picks.discardId = ids[index++]
   if (costs.sacrificeTarget) picks.sacrificeId = ids[index++]
+  if (costs.crew !== undefined) picks.crewIds = ids.slice(index)
   return picks
 }
 
@@ -95,6 +108,28 @@ export const activationCostError = (
       && !hasKeyword(source, 'haste', state)
     ) {
       return `${source.name} has summoning sickness`
+    }
+  }
+  if (costs.crew !== undefined) {
+    const candidates = crewCostCandidates(state, seat)
+    const availablePower = candidates.reduce(
+      (total, object) => total + Math.max(0, object.power ?? 0),
+      0,
+    )
+    if (availablePower < costs.crew) {
+      return `${seat} has insufficient untapped creature power to crew ${source.name}`
+    }
+    if (options.requirePicks) {
+      const ids = picks.crewIds ?? []
+      const uniqueIds = new Set(ids)
+      const chosen = ids.map((id) => candidates.find((object) => object.id === id))
+      if (uniqueIds.size !== ids.length || chosen.some((object) => !object)) {
+        return `${source.name} must be crewed by untapped creatures ${seat} controls`
+      }
+      const power = chosen.reduce((total, object) => total + (object?.power ?? 0), 0)
+      if (power < costs.crew) {
+        return `${source.name} needs ${costs.crew} total creature power to crew`
+      }
     }
   }
   if (costs.mana && !canPayMana(costs.mana)) {
@@ -158,6 +193,9 @@ export const payActivationCosts = (
     })
   }
   if (costs.tap) draft.enqueue({ type: 'tap', objectId: source.id })
+  for (const objectId of picks.crewIds ?? []) {
+    draft.enqueue({ type: 'tap', objectId })
+  }
   if (costs.mill) millLibrary(draft, seat, costs.mill)
   if (costs.sacrifice) draft.enqueue({ type: 'sacrifice', objectId: source.id })
   if (costs.sacrificeTarget && picks.sacrificeId) {

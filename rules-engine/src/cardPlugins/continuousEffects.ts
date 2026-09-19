@@ -97,6 +97,15 @@ export const grantOracleLine = (
   return { kind: 'oracleLine', line }
 }
 
+export const addTypes = (
+  object: GameObject,
+  ...types: string[]
+): ReversibleEffect => {
+  const before = [...object.types]
+  object.types = [...new Set([...object.types, ...types])]
+  return { kind: 'typeChange', before, after: [...object.types] }
+}
+
 export const copyObject = (
   object: GameObject,
   copied: GameObject,
@@ -232,6 +241,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.toughness = effect.before.toughness
   } else if (effect.kind === 'oracleLine') {
     removeLastOracleLine(object, effect.line)
+  } else if (effect.kind === 'typeChange') {
+    object.types = [...effect.before]
   } else if (effect.kind === 'copy') {
     restoreCopy(object, effect.before)
   }
@@ -251,6 +262,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
         ? `${object.oracleText}\n${effect.line}`
         : effect.line
     }
+  } else if (effect.kind === 'typeChange') {
+    object.types = [...effect.after]
   } else if (effect.kind === 'copy') {
     restoreCopy(object, effect.after)
   } else if (object.zone === 'battlefield') {

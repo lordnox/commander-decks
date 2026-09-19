@@ -435,6 +435,12 @@ export const activate = (effect: Omit<Extract<CardEffect, { op: 'activate' }>, '
   ...effect,
 })
 
+export const crew = (power: number): CardEffect => activate({
+  id: `crew.${power}`,
+  costs: { crew: power },
+  do: [{ kind: 'crewVehicle' }],
+})
+
 /** Compose one activated ability from a cost and reusable effect instructions. */
 export const ability = (
   options: Omit<Extract<CardEffect, { op: 'activate' }>, 'op' | 'costs' | 'do'>,

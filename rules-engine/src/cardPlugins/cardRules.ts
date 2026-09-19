@@ -28,6 +28,7 @@ import {
   counterUnlessPay,
   createTokenInstruction,
   createTreasures,
+  crew,
   createXTokens,
   dies,
   discardHandsThenDrawGreatest,
@@ -1008,6 +1009,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Hedge Shredder': [
     attacks(optionalMill(2)),
     landToGraveyard(putMilledLandTapped()),
+    crew(1),
   ],
   "Irenicus's Vile Duplication": [
     targetOnResolve(
