@@ -40,7 +40,6 @@ export const randomExileCopy: Plugin = {
 
     if (event.name === RANDOM_EXILE_COPY_CARD_CHOSEN) {
       const selected = payloadString(event.payload, 'selected')
-      const sourceId = payloadString(event.payload, 'sourceId')
       const sourceName = payloadString(event.payload, 'sourceName')
       const repeatWhileType = payloadString(event.payload, 'repeatWhileType')
       const selectedIds = payloadStrings(event.payload, 'selectedIds')
@@ -48,7 +47,6 @@ export const randomExileCopy: Plugin = {
       const card = selected ? draft.object(selected) : undefined
       if (
         !card
-        || !sourceId
         || !sourceName
         || !repeatWhileType
         || selectedIds.includes(card.id)
@@ -71,7 +69,6 @@ export const randomExileCopy: Plugin = {
               choices,
               resultName: RANDOM_EXILE_COPY_CARD_CHOSEN,
               context: {
-                sourceId,
                 sourceName,
                 repeatWhileType,
                 tapped,

@@ -521,17 +521,6 @@ export const attacks = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
-/**
- * Sin, Spira's Punishment: exile a random permanent card from your graveyard and
- * copy it tapped, repeating while the exiled card is a land. No other card does
- * this, so the card rule names the ability and the handler runs the sequence.
- */
-export const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
-  kind: 'randomExileCopyWhile',
-  repeatWhileType: 'Land',
-  tapped: true,
-})
-
 export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'landToGraveyard',

@@ -50,7 +50,7 @@ const flushStackActions = (
   buffer: BufferedStackAction[],
   item?: StackItem,
 ) => {
-  for (const action of [...buffer].reverse()) {
+  for (const action of buffer.toReversed()) {
     if (action.kind === 'draw') {
       draft.enqueue({
         type: 'draw',
@@ -863,7 +863,6 @@ export const runInstructions = (
           choices,
           resultName: RANDOM_EXILE_COPY_CARD_CHOSEN,
           context: {
-            sourceId: source.id,
             sourceName: source.name,
             repeatWhileType: instruction.repeatWhileType,
             tapped: instruction.tapped === true,
