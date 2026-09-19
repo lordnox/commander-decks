@@ -283,8 +283,19 @@ export type GameEvent =
       target: TargetRef
       amount: number
       combat?: boolean
+      gainLife?: { seat: PlayerId; max?: number }
     }
   | { type: 'loseLife'; seat: PlayerId; amount: number; source?: string }
+  | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
+  | { type: 'payLife'; seat: PlayerId; amount: number; source?: string }
+  | { type: 'setLifeTotal'; seat: PlayerId; total: number; source?: string }
+  | {
+      type: 'exchangeLifeTotals'
+      first: PlayerId
+      second: PlayerId
+      source?: string
+    }
+  | { type: 'winGame'; seat: PlayerId; source?: string }
   // — Choices & continuations —
   | {
       type: 'continueAction'
@@ -308,6 +319,12 @@ export type GameEvent =
         objectId: string
         destination: 'top' | 'bottom' | 'graveyard'
       }>
+    }
+  | {
+      type: 'selectPlayers'
+      seat: PlayerId
+      selectionId: string
+      players: PlayerId[]
     }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }

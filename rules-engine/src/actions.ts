@@ -1,10 +1,10 @@
-import { emptyMana } from './draft'
+import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
 import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
-import { validTarget } from './cardPlugins/targetedResolve'
+import { validTargetRef } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import {
@@ -34,7 +34,9 @@ export type AvailableAction =
       objectId: string
       name: string
       targetObjectId?: string
+      targetPlayerId?: string
       targetName?: string
+      x?: number
     }
   | {
       kind: 'activateAbility'
@@ -47,8 +49,10 @@ export type AvailableAction =
         label: string
         min: number
         max: number
+        kind?: 'object' | 'player'
         targets: Array<{ objectId: string; name: string; controller: PlayerId }>
       }>
+      mana?: ManaId
     }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | { kind: 'declareAttackers'; objectIds: string[] }
@@ -266,6 +270,10 @@ const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
   if (!state.castableZones.includes(object.zone)) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
+  const endStepOnly = effectsOf(object).some(
+    (effect) => effect.op === 'castCost' && effect.timing === 'yourEndStep',
+  )
+  if (endStepOnly && (state.active !== seat || state.step !== 'end')) return false
   if (state.stack.length === 0 && needsStackTarget(object)) return false
   if (
     !spell.types.includes('Instant')
@@ -279,6 +287,40 @@ const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
   }
   const tax = taxFor(state, seat, object)
   return canFund(state, seat, `${spell.manaCost}${tax > 0 ? `{${tax}}` : ''}`)
+}
+
+const xManaKind = (object: GameObject) =>
+  effectsOf(object).flatMap((effect) =>
+    effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
+
+const costForX = (object: GameObject, x: number) => {
+  const xCost = xManaKind(object) === 'black'
+    ? '{B}'.repeat(x)
+    : x > 0 ? `{${x}}` : ''
+  return object.manaCost.replaceAll('{X}', xCost)
+}
+
+const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
+  if (!canCastNow(state, seat, object)) return []
+  const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+  if (!object.manaCost.includes('{X}') && !paysLifeX) {
+    return [{ kind: 'castSpell', objectId: object.id, name: object.name }]
+  }
+  const sourceMana = Object.values(state.objects)
+    .filter((source) => sourceCanTap(source, seat, state))
+    .reduce((total, source) => total + Math.max(
+      0,
+      ...manaModes(source, state).map((mode) => poolTotal({ ...emptyMana(), ...mode })),
+    ), 0)
+  const manaUpper = poolTotal(state.players[seat].mana) + sourceMana
+  const upper = paysLifeX && !object.manaCost.includes('{X}')
+    ? state.players[seat].life - 1
+    : paysLifeX
+      ? Math.min(manaUpper, state.players[seat].life - 1)
+      : manaUpper
+  return Array.from({ length: upper + 1 }, (_, x) => x)
+    .filter((x) => canFund(state, seat, costForX(object, x)))
+    .map((x) => ({ kind: 'castSpell', objectId: object.id, name: object.name, x }))
 }
 
 const activatedText = (object: GameObject) =>
@@ -436,9 +478,7 @@ export const availableActions = (
   }
 
   for (const object of Object.values(state.objects)) {
-    if (canCastNow(state, seat, object)) {
-      actions.push({ kind: 'castSpell', objectId: object.id, name: object.name })
-    }
+    actions.push(...castActions(state, seat, object))
     const declaredActions = cardRuleActions(state, object, seat)
     actions.push(...declaredActions)
     if (
@@ -518,6 +558,27 @@ export const manaAffordances = (
   const actions: AvailableAction[] = []
   const seen = new Set<string>()
   for (const object of Object.values(state.objects)) {
+    for (const effect of effectsOf(object)) {
+      if (
+        effect.op !== 'activate'
+        || !effect.manaAbility
+        || object.zone !== (effect.zone ?? 'battlefield')
+        || object.controller !== seat
+        || !canPayActivateCosts(state, object, seat, effect.costs)
+      ) continue
+      if (effect.do.some((instruction) => instruction.kind === 'addChosenColorMana')) {
+        for (const mana of MANA_IDS.filter((symbol) => symbol !== 'C')) {
+          actions.push({
+            kind: 'activateAbility',
+            objectId: object.id,
+            name: object.name,
+            text: effect.id,
+            abilityId: effect.id,
+            mana,
+          })
+        }
+      }
+    }
     if (!sourceCanTap(object, seat, state)) continue
     for (const mode of manaModes(object, state)) {
       const choice = tapChoice(state, object, mode)
@@ -548,13 +609,23 @@ const targetVariants = (
     : []
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
-  return Object.values(state.objects)
-    .filter((object) => validTarget(state, object, effect.filter, seat))
-    .map((target) => ({
+  const objectTargets = Object.values(state.objects)
+    .filter((object) =>
+      validTargetRef(state, { kind: 'object', objectId: object.id }, effect.filter, seat))
+    .map((target): AvailableAction => ({
       ...action,
       targetObjectId: target.id,
       targetName: target.name,
     }))
+  const playerTargets = state.playerOrder
+    .filter((player) =>
+      validTargetRef(state, { kind: 'player', player }, effect.filter, seat))
+    .map((player): AvailableAction => ({
+      ...action,
+      targetPlayerId: player,
+      targetName: player,
+    }))
+  return [...objectTargets, ...playerTargets]
 }
 
 const activationTargetGroups = (
@@ -566,6 +637,20 @@ const activationTargetGroups = (
   const effect = source
     ? activateEffect(effectsOf(source), action.abilityId)
     : undefined
+  if (effect?.targets === 'opponent') {
+    return {
+      ...action,
+      targetGroups: [{
+        label: 'Opponent',
+        min: 1,
+        max: 1,
+        kind: 'player',
+        targets: state.playerOrder
+          .filter((seat) => seat !== source?.controller && !state.players[seat].lost)
+          .map((seat) => ({ objectId: seat, name: seat, controller: seat })),
+      }],
+    }
+  }
   if (effect?.targets !== 'teferiSunsetPlusOne') return action
   const targets = Object.values(state.objects).filter((object) => object.zone === 'battlefield')
   return {
@@ -609,6 +694,8 @@ export const sameLegalAct = (
     text?: string
     mana?: ManaId
     targetObjectId?: string
+    targetPlayerId?: string
+    x?: number
     stackId?: string
     selectionId?: string
   },
@@ -617,9 +704,15 @@ export const sameLegalAct = (
   if ('objectId' in left && left.objectId !== right.objectId) return false
   if (left.kind === 'tapForMana') return left.mana === right.mana
   if (left.kind === 'activateAbility') {
-    return left.abilityId === right.abilityId && left.text === right.text
+    return left.abilityId === right.abilityId
+      && left.text === right.text
+      && left.mana === right.mana
   }
-  if (left.kind === 'castSpell') return left.targetObjectId === right.targetObjectId
+  if (left.kind === 'castSpell') {
+    return left.targetObjectId === right.targetObjectId
+      && left.targetPlayerId === right.targetPlayerId
+      && left.x === right.x
+  }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   return true
@@ -713,12 +806,14 @@ export const eventsForAvailableAction = (
       && candidate.id === action.abilityId
       && !candidate.targets,
     )
-    return effect && !effect.costs.loyaltyX
+    return effect && !effect.costs.loyaltyX && !effect.targets
       ? [{
           type: 'activateAbility',
           abilityId: effect.id,
           seat,
           objectId: object.id,
+          ...(effect.manaAbility ? { manaAbility: true } : {}),
+          ...(action.mana ? { choices: [action.mana] } : {}),
         }]
       : null
   }
@@ -732,6 +827,9 @@ export const eventsForAvailableAction = (
       (effect.op === 'trigger' && effect.on === 'resolve')
       || (effect.op === 'search' && effect.via === 'spell'))
     : false
+  const hasDeclarativeAdditionalCost = object
+    ? effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+    : false
   if (
     !object
     || (
@@ -741,14 +839,19 @@ export const eventsForAvailableAction = (
     )
     || targeted.length > 1
     || (targeted.length === 0 && /\btarget\b/i.test(object.oracleText))
-    || /(?:additional cost|enters(?: the battlefield)?|when you cast|choose)/i
-      .test(object.oracleText)
+    || /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
+    || (
+      /additional cost/i.test(object.oracleText)
+      && !hasDeclarativeAdditionalCost
+    )
   ) {
     return null
   }
   if (targeted.length === 1 && !action.targetObjectId) return null
   const tax = taxFor(state, seat, object)
-  const cost = `${castFaceOf(object)?.manaCost ?? object.manaCost}${tax > 0 ? `{${tax}}` : ''}`
+  const face = castFaceOf(object)
+  const casting = face ? { ...object, ...face } : object
+  const cost = `${costForX(casting, action.x ?? 0)}${tax > 0 ? `{${tax}}` : ''}`
   const mana = fundingEvents(state, seat, cost)
   if (!mana) return null
   return [
@@ -759,7 +862,10 @@ export const eventsForAvailableAction = (
       objectId: object.id,
       ...(action.targetObjectId
         ? { targets: [{ kind: 'object' as const, objectId: action.targetObjectId }] }
+        : action.targetPlayerId
+          ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }
         : {}),
+      ...(action.x !== undefined ? { x: action.x } : {}),
     },
   ]
 }

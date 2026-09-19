@@ -12,8 +12,18 @@ const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
-const spellCost = (object: GameObject, additionalGeneric = 0) =>
-  `${object.manaCost}${additionalGeneric > 0 ? `{${additionalGeneric}}` : ''}`
+const xManaKind = (object: GameObject) =>
+  effectsFor(object.name).flatMap((effect) =>
+    effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
+
+const spellCost = (object: GameObject, additionalGeneric = 0, x = 0) => {
+  const xCost = xManaKind(object) === 'black'
+    ? '{B}'.repeat(x)
+    : x > 0 ? `{${x}}` : ''
+  return `${object.manaCost.replaceAll('{X}', xCost)}${
+    additionalGeneric > 0 ? `{${additionalGeneric}}` : ''
+  }`
+}
 
 const coloredCosts = (manaCost: string) =>
   [...manaCost.matchAll(/\{([^}]+)\}/g)]
@@ -81,7 +91,13 @@ export const spells: Plugin = {
         if (state.stack.length > 0) return 'non-instant spells require an empty stack'
       }
 
-      const cost = spellCost(spell, event.additionalGeneric)
+      if (
+        spell.manaCost.includes('{X}')
+        && (!Number.isSafeInteger(event.x) || (event.x ?? -1) < 0)
+      ) {
+        return `${spell.name} requires a nonnegative integer X`
+      }
+      const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0)
       if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
       const search = searchEffect(effectsFor(object.name))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
@@ -108,7 +124,7 @@ export const spells: Plugin = {
       if (!object) return
       const face = castFaceOf(object)
       if (face) applyFace(object, face)
-      const cost = spellCost(object, event.additionalGeneric)
+      const cost = spellCost(object, event.additionalGeneric, event.x ?? 0)
       const paid = payCost(draft.players[event.seat].mana, cost)
       if (!paid) return
 

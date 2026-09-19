@@ -1,17 +1,8 @@
 import { hasKeyword } from '../keywords'
-import type { PlayerState, Plugin } from '../types'
+import type { Plugin } from '../types'
+import { LIFE_LOST_THIS_TURN, lifeLostThisTurn } from './life'
 
-export const LIFE_LOST_THIS_TURN = 'damage.lifeLostThisTurn'
-
-/**
- * Life a player has lost since their turn-based reset. Cards ask this as an
- * intervening-if ("if an opponent lost 3 or more life this turn"), so it has
- * to survive the life total going back up (CR 118.2, 603.4).
- */
-export const lifeLostThisTurn = (player: Pick<PlayerState, 'data'>) => {
-  const value = player.data[LIFE_LOST_THIS_TURN]
-  return Number.isSafeInteger(value) && Number(value) > 0 ? Number(value) : 0
-}
+export { LIFE_LOST_THIS_TURN, lifeLostThisTurn } from './life'
 
 /**
  * CR-shaped damage chain:
@@ -34,31 +25,51 @@ export const damage: Plugin = {
 
     if (event.type === 'dealDamage') {
       if (event.target.kind === 'player') {
+        const maximum = Math.max(0, draft.players[event.target.player]?.life ?? 0)
         draft.enqueue({
           type: 'loseLife',
           seat: event.target.player,
           amount: event.amount,
           source: event.sourceId,
         })
+        if (event.gainLife) {
+          draft.enqueue({
+            type: 'gainLife',
+            seat: event.gainLife.seat,
+            amount: Math.min(event.amount, event.gainLife.max ?? maximum),
+            source: event.sourceId,
+          })
+        }
         return
       }
       const object = draft.object(event.target.objectId)
       if (!object || object.zone !== 'battlefield') return
+      const maximum = object.types.includes('Planeswalker')
+        ? object.counters.loyalty ?? 0
+        : object.toughness ?? 0
       if (object.types.includes('Planeswalker')) {
         object.counters.loyalty = Math.max(0, (object.counters.loyalty ?? 0) - event.amount)
-        return
+      } else {
+        object.damageMarked += event.amount
+        const source = draft.objects[event.sourceId]
+        if (event.amount > 0 && source && hasKeyword(source, 'deathtouch')) {
+          object.deathtouched = true
+        }
       }
-      object.damageMarked += event.amount
-      const source = draft.objects[event.sourceId]
-      if (event.amount > 0 && source && hasKeyword(source, 'deathtouch')) {
-        object.deathtouched = true
+      if (event.gainLife) {
+        draft.enqueue({
+          type: 'gainLife',
+          seat: event.gainLife.seat,
+          amount: Math.min(event.amount, event.gainLife.max ?? Math.max(0, maximum)),
+          source: event.sourceId,
+        })
       }
       return
     }
 
     if (event.type === 'loseLife') {
       const player = draft.players[event.seat]
-      if (!player || player.lost) return
+      if (!player || player.lost || event.amount === 0) return
       player.life -= event.amount
       player.data[LIFE_LOST_THIS_TURN] = lifeLostThisTurn(player) + event.amount
       draft.note(

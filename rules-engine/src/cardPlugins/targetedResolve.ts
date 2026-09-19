@@ -1,4 +1,11 @@
-import type { GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
+import type {
+  GameObject,
+  GameState,
+  PlayerId,
+  Plugin,
+  StackItem,
+  TargetRef,
+} from '../types'
 import { effectsOf } from './cardRules'
 import { runInstructions, type TargetFilter } from './effects'
 
@@ -35,6 +42,24 @@ export const validTarget = (
   return true
 }
 
+export const validTargetRef = (
+  state: GameState,
+  target: TargetRef | undefined,
+  filter: TargetFilter,
+  controller: PlayerId,
+) => {
+  if (target?.kind === 'player') {
+    return Boolean(
+      filter.players
+      && state.players[target.player]
+      && !state.players[target.player].lost
+      && (filter.players !== 'opponent' || target.player !== controller),
+    )
+  }
+  return target?.kind === 'object'
+    && validTarget(state, state.objects[target.objectId], filter, controller)
+}
+
 const targetedEffects = (object: GameObject) =>
   effectsOf(object).filter((effect) => effect.op === 'targetedResolve')
 
@@ -51,8 +76,7 @@ export const targetedResolve: Plugin = {
     }
     for (const effect of effects) {
       const target = event.targets?.[effect.target]
-      if (target?.kind !== 'object') return `${source.name} requires an object target`
-      if (!validTarget(state, state.objects[target.objectId], effect.filter, event.seat)) {
+      if (!validTargetRef(state, target, effect.filter, event.seat)) {
         return `illegal target for ${source.name}`
       }
     }
@@ -64,15 +88,19 @@ export const targetedResolve: Plugin = {
     if (!item || !source) return
     for (const effect of targetedEffects(source)) {
       const target = item.targets[effect.target]
-      if (target?.kind !== 'object') continue
-      const object = state.objects[target.objectId]
-      if (!validTarget(state, object, effect.filter, item.controller)) continue
+      if (!validTargetRef(state, target, effect.filter, item.controller)) continue
 
       if (effect.action === 'select') {
         if (effect.do) runInstructions(draft, source, effect.do, item)
-        draft.note(`${source.name} targets ${object.name}`)
+        const targetName = target.kind === 'player'
+          ? target.player
+          : state.objects[target.objectId]?.name ?? target.objectId
+        draft.note(`${source.name} targets ${targetName}`)
         continue
       }
+      if (target.kind !== 'object') continue
+      const object = state.objects[target.objectId]
+      if (!object) continue
       if (effect.action === 'counter') {
         const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
         if (index < 0) continue

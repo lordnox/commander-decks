@@ -1,0 +1,109 @@
+import type Draft from '../draft'
+import type { GameState, PlayerId, Plugin } from '../types'
+
+export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
+
+export type PendingPlayerSelection = {
+  id: string
+  seat: PlayerId
+  sourceId: string
+  source: string
+  prompt: string
+  min: number
+  max: number
+  candidates: PlayerId[]
+  action:
+    | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
+}
+
+const isSelection = (value: unknown): value is PendingPlayerSelection =>
+  Boolean(value)
+  && typeof value === 'object'
+  && typeof (value as PendingPlayerSelection).id === 'string'
+  && typeof (value as PendingPlayerSelection).seat === 'string'
+  && Array.isArray((value as PendingPlayerSelection).candidates)
+
+export const pendingPlayerSelectionsFor = (
+  state: GameState | Draft,
+  seat: PlayerId,
+) => {
+  const value = state.players[seat]?.data[PENDING_PLAYER_SELECTION]
+  return Array.isArray(value) ? value.filter(isSelection) : []
+}
+
+export const pendingPlayerSelectionFor = (state: GameState | Draft, seat: PlayerId) =>
+  pendingPlayerSelectionsFor(state, seat)[0]
+
+export const pendingPlayerSelection = (state: GameState) => {
+  for (const seat of state.playerOrder) {
+    const pending = pendingPlayerSelectionFor(state, seat)
+    if (pending) return pending
+  }
+}
+
+export const openPlayerSelection = (
+  draft: Draft,
+  selection: Omit<PendingPlayerSelection, 'id'>,
+) => {
+  draft.players[selection.seat].data[PENDING_PLAYER_SELECTION] = [
+    ...pendingPlayerSelectionsFor(draft, selection.seat),
+    { id: draft.allocId('player-selection'), ...selection },
+  ]
+  draft.priority = selection.seat
+}
+
+const clearSelection = (draft: Draft, seat: PlayerId) => {
+  const remaining = pendingPlayerSelectionsFor(draft, seat).slice(1)
+  if (remaining.length > 0) {
+    draft.players[seat].data[PENDING_PLAYER_SELECTION] = remaining
+  } else {
+    delete draft.players[seat].data[PENDING_PLAYER_SELECTION]
+  }
+}
+
+export const selectPlayers: Plugin = {
+  id: 'selectPlayers',
+  legal: ({ state, event }) => {
+    const pending = pendingPlayerSelection(state)
+    if (event.type === 'passPriority' && pending) {
+      return `${pending.seat} is choosing players for ${pending.source}`
+    }
+    if (event.type !== 'selectPlayers') return
+    const selection = pendingPlayerSelectionFor(state, event.seat)
+    if (!selection) return `${event.seat} has no open player selection`
+    if (selection.id !== event.selectionId) return 'that player selection is no longer open'
+    if (new Set(event.players).size !== event.players.length) {
+      return 'players must not contain duplicates'
+    }
+    if (event.players.length < selection.min || event.players.length > selection.max) {
+      return `choose between ${selection.min} and ${selection.max} player(s)`
+    }
+    if (event.players.some((seat) =>
+      !selection.candidates.includes(seat) || state.players[seat]?.lost)) {
+      return 'illegal player choice'
+    }
+  },
+  apply: ({ event, draft }) => {
+    if (event.type !== 'selectPlayers') return
+    const selection = pendingPlayerSelectionFor(draft, event.seat)
+    if (!selection || selection.id !== event.selectionId) return
+    clearSelection(draft, event.seat)
+    const target = event.players[0]
+    if (selection.action.kind === 'exchangeLifeTotals' && target) {
+      const lifeLost = Math.max(
+        0,
+        draft.players[event.seat].life - draft.players[target].life,
+      )
+      draft.enqueue({
+        type: 'exchangeLifeTotals',
+        first: event.seat,
+        second: target,
+        source: selection.sourceId,
+      })
+      if (selection.action.drawLifeLost && lifeLost > 0) {
+        draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })
+      }
+    }
+    draft.priority = draft.active
+  },
+}

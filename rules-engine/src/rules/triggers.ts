@@ -292,6 +292,9 @@ export const triggers: Plugin = {
         payload: {
           instructions: effect.do,
           triggeringPlayer: triggeringPlayer ?? source.controller,
+          ...(effect.if && !isTriggerBindingIf(effect.if)
+            ? { interveningIf: effect.if }
+            : {}),
           ...(triggeringObjectId ? { triggeringObjectId } : {}),
         },
         name: `${source.name}`,

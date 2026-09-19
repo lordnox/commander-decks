@@ -43,7 +43,7 @@ export const payActivateCosts = (
   if (costs.mana) draft.enqueue({ type: 'payMana', seat, cost: costs.mana })
   if (costs.life) {
     draft.enqueue({
-      type: 'loseLife',
+      type: 'payLife',
       seat,
       amount: costs.life,
       source: source.name,
@@ -128,6 +128,19 @@ export const activated: Plugin = {
         return `${source.name} needs one ${effect.targets} target`
       }
     }
+    if (effect.targets === 'opponent') {
+      const targets = event.targets ?? []
+      const target = targets[0]
+      if (
+        targets.length !== 1
+        || target?.kind !== 'player'
+        || target.player === event.seat
+        || !state.players[target.player]
+        || state.players[target.player].lost
+      ) {
+        return `${source.name} needs one opponent target`
+      }
+    }
   },
   apply: ({ event, draft }) => {
     if (event.type !== 'activateAbility') return
@@ -146,6 +159,7 @@ export const activated: Plugin = {
         name: source.name,
         targets: event.targets ?? [],
         abilityId: event.abilityId,
+        ...(event.choices ? { choices: event.choices } : {}),
       })
     } else {
       draft.addToStack({
