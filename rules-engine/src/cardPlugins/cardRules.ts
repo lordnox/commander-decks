@@ -774,6 +774,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),
   ],
+  'Souls of the Faultless': [
+    triggerOn('dealtCombatDamage', {
+      do: [
+        gainLife('triggerAmount'),
+        loseLife('triggerAmount', 'triggeringPlayer'),
+      ],
+    }),
+  ],
   'Skull Prophet': [
     activate({
       id: 'selfMill.skullProphet',

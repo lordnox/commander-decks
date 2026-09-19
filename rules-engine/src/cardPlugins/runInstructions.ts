@@ -46,6 +46,15 @@ const discardSeatFor = (
   return source.controller
 }
 
+const instructionAmount = (
+  amount: number | 'triggerAmount',
+  item?: StackItem,
+) => amount === 'triggerAmount'
+  ? typeof item?.payload?.triggerAmount === 'number'
+    ? item.payload.triggerAmount
+    : 0
+  : amount
+
 const flushStackActions = (
   draft: Draft,
   source: GameObject,
@@ -197,7 +206,7 @@ export const runInstructions = (
       draft.enqueue({
         type: 'gainLife',
         seat: source.controller,
-        amount: instruction.count,
+        amount: instructionAmount(instruction.count, item),
         source: source.id,
       })
       continue
@@ -447,7 +456,7 @@ export const runInstructions = (
       draft.enqueue({
         type: 'loseLife',
         seat,
-        amount: instruction.amount,
+        amount: instructionAmount(instruction.amount, item),
         source: source.id,
       })
       continue

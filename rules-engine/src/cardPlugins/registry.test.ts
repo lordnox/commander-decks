@@ -97,6 +97,27 @@ describe('card plugin registry', () => {
     ])).toEqual([])
   })
 
+  test('Lady Evangela damage and mana cards only register card-specific rules', () => {
+    for (const generic of [
+      'Adarkar Wastes',
+      'Arcane Signet',
+      'Caves of Koilos',
+      'Command Tower',
+      'Underground River',
+    ]) {
+      expect(cardPluginEntry(generic)).toBeUndefined()
+    }
+
+    expect(cardPluginEntry("Bender's Waterskin")).toMatchObject({
+      pluginIds: ['extraUntap'],
+      handlerIds: [],
+    })
+    expect(cardPluginEntry('Souls of the Faultless')).toMatchObject({
+      pluginIds: [],
+      handlerIds: [],
+    })
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])
