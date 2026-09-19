@@ -320,4 +320,3 @@ export type CardEffect =
       breakOnMutualAttack: boolean
     }
   | { op: 'bestow'; cost: string }
-

@@ -119,7 +119,7 @@ export const whileSourceTappedAndPowerAtMost = (
   }
   // CR 611.2b: a "for as long as" effect does nothing if its duration
   // never starts; do not leave even a momentary control change behind.
-  if (!durationHolds(state, object, duration)) {
+  if (!durationHolds(state, object, duration, false)) {
     revertUnregisteredEffect(object, effect)
     return
   }
@@ -155,9 +155,10 @@ const durationHolds = (
   state: GameState,
   object: GameObject,
   duration: EffectDuration,
+  endTurnEffects: boolean,
 ) => {
   if (object.zone !== 'battlefield') return false
-  if (duration.kind === 'untilCleanup') return state.step !== 'cleanup'
+  if (duration.kind === 'untilCleanup') return !endTurnEffects
   const source = state.objects[duration.sourceId]
   return Boolean(
     source
@@ -168,6 +169,21 @@ const durationHolds = (
     && object.power <= source.power,
   )
 }
+
+const effectHolds = (
+  state: GameState,
+  object: GameObject,
+  entry: NonNullable<GameObject['continuousEffects']>[number],
+  endTurnEffects: boolean,
+) =>
+  durationHolds(state, object, entry.duration, endTurnEffects)
+  && (
+    entry.effect.kind !== 'controller'
+    || (
+      Boolean(state.players[entry.effect.controller])
+      && !state.players[entry.effect.controller].lost
+    )
+  )
 
 const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   if (effect.kind === 'pump') {
@@ -194,9 +210,14 @@ const revertUnregisteredEffect = (object: GameObject, effect: ReversibleEffect) 
   object.controller = activeControl?.controller ?? effect.base
 }
 
-const expireEffects = (state: GameState, object: GameObject) => {
+const expireEffects = (
+  state: GameState,
+  object: GameObject,
+  endTurnEffects: boolean,
+) => {
   const effects = object.continuousEffects ?? []
-  const remaining = effects.filter(({ duration }) => durationHolds(state, object, duration))
+  const remaining = effects.filter((entry) =>
+    effectHolds(state, object, entry, endTurnEffects))
   if (remaining.length === effects.length) return false
 
   const expired = effects.filter((entry) => !remaining.includes(entry))
@@ -220,17 +241,24 @@ const expireEffects = (state: GameState, object: GameObject) => {
 const hasExpiredEffects = (state: GameState) =>
   Object.values(state.objects).some((object) =>
     (object.continuousEffects ?? []).some(
-      ({ duration }) => !durationHolds(state, object, duration),
+      (entry) => !effectHolds(state, object, entry, false),
     ))
 
 export const continuousEffects: Plugin = {
   id: 'continuousEffects',
   apply: ({ event, draft }) => {
+    const endTurnEffects = event.type === 'custom'
+      && event.name === 'advanceStep'
+      && draft.step === 'cleanup'
     if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {
-      for (const object of Object.values(draft.objects)) expireEffects(draft, object)
+      for (const object of Object.values(draft.objects)) {
+        expireEffects(draft, object, false)
+      }
       return
     }
-    for (const object of Object.values(draft.objects)) expireEffects(draft, object)
+    for (const object of Object.values(draft.objects)) {
+      expireEffects(draft, object, endTurnEffects)
+    }
   },
   // Recheck after every reducer pass so a condition changed by a later plugin
   // expires before the game next reaches a stable priority window.

@@ -767,4 +767,3 @@ export const castModal = (
   modal,
   ...(options.creatureOnly ? { creatureOnly: true } : {}),
 })
-
