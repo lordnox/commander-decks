@@ -212,6 +212,16 @@ const insect = createTokenInstruction({
   toughness: 1,
 })
 
+const eldraziSpawn = createTokenInstruction({
+  name: 'Eldrazi Spawn',
+  types: ['Creature'],
+  subtypes: ['Eldrazi', 'Spawn'],
+  power: 0,
+  toughness: 1,
+  oracleText: 'Sacrifice this token: Add {C}.',
+  sacrificeForMana: { C: 1 },
+})
+
 const bird = createTokenInstruction({
   name: 'Bird',
   types: ['Creature'],
@@ -1004,7 +1014,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Malakir Mire': [entersTapped()],
   'Malakir Rebirth': [onResolve(grantUntilEot('indestructible'))],
-  'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), insect)],
+  'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), eldraziSpawn)],
   'Masked Vandal': [allCreatureTypes()],
   'Maskwood Nexus': [
     allCreatureTypes(),
