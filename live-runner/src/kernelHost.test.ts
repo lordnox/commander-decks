@@ -1367,6 +1367,55 @@ describe('kernel host journal', () => {
     })
   })
 
+  test('preserves two activation-cost groups in printed order', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Discard Me', { types: ['Instant'] })],
+        },
+        battlefield: {
+          p1: [
+            cardTemplate('Dreamscape Artist', { types: ['Creature'] }),
+            forest(),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [librarySearch] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
+    const artist = Object.values(initial.objects)
+      .find((object) => object.name === 'Dreamscape Artist')!
+    artist.summoningSickness = false
+    const card = Object.values(initial.objects)
+      .find((object) => object.name === 'Discard Me')!
+    const land = Object.values(initial.objects)
+      .find((object) => object.name === 'Forest')!
+    const kernel = handleFor(server.rules, initial)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: artist.id,
+      abilityId: SEARCH_FETCH,
+      text: 'Search your library for up to two basic land cards.',
+      targetObjectIds: [card.id, land.id],
+    })
+
+    const current = kernel.history.current()
+    expect(current.objects[card.id].zone).toBe('graveyard')
+    expect(current.objects[land.id].zone).toBe('graveyard')
+    expect(kernel.journal.events.at(-1)).toMatchObject({
+      type: 'activateAbility',
+      objectId: artist.id,
+      choices: [card.id, land.id],
+      targets: [],
+    })
+  })
+
   test('declares selected attackers against players and planeswalkers', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-attack-'))
     mkdirGames(root)

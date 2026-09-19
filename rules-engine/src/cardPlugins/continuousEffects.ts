@@ -61,8 +61,15 @@ export const grantOracleLine = (
   object: GameObject,
   line: string,
 ): ReversibleEffect | undefined => {
-  if (object.oracleText.split('\n').includes(line)) return
-  object.oracleText = object.oracleText ? `${object.oracleText}\n${line}` : line
+  const alreadyGranted = (object.continuousEffects ?? []).some(
+    ({ effect }) => effect.kind === 'oracleLine' && effect.line === line,
+  )
+  if (object.oracleText.split('\n').includes(line)) {
+    return alreadyGranted ? { kind: 'oracleLine', line } : undefined
+  }
+  object.oracleText = object.oracleText
+    ? `${object.oracleText}\n${line}`
+    : line
   return { kind: 'oracleLine', line }
 }
 
@@ -71,9 +78,9 @@ export const copyObject = (
   copied: GameObject,
   extra: { notLegendary?: boolean } = {},
 ): ReversibleEffect => {
-  const snapshot = snapshotCopy(object)
+  const before = snapshotCopy(object)
   applyCopy(object, copied, extra)
-  return { kind: 'copy', snapshot }
+  return { kind: 'copy', before, after: snapshotCopy(object) }
 }
 
 export const changeController = (
@@ -192,7 +199,24 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   } else if (effect.kind === 'oracleLine') {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'copy') {
-    restoreCopy(object, effect.snapshot)
+    restoreCopy(object, effect.before)
+  }
+}
+
+const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
+  if (effect.kind === 'pump') {
+    if (object.power !== null) object.power += effect.power
+    if (object.toughness !== null) object.toughness += effect.toughness
+  } else if (effect.kind === 'oracleLine') {
+    if (!object.oracleText.split('\n').includes(effect.line)) {
+      object.oracleText = object.oracleText
+        ? `${object.oracleText}\n${effect.line}`
+        : effect.line
+    }
+  } else if (effect.kind === 'copy') {
+    restoreCopy(object, effect.after)
+  } else if (object.zone === 'battlefield') {
+    object.controller = effect.controller
   }
 }
 
@@ -210,6 +234,19 @@ const revertUnregisteredEffect = (object: GameObject, effect: ReversibleEffect) 
   object.controller = activeControl?.controller ?? effect.base
 }
 
+const resetEffects = (
+  object: GameObject,
+  effects: NonNullable<GameObject['continuousEffects']>,
+) => {
+  for (let index = effects.length - 1; index >= 0; index -= 1) {
+    revertEffect(object, effects[index].effect)
+  }
+  const control = effects.find(({ effect }) => effect.kind === 'controller')
+  if (control?.effect.kind === 'controller' && object.zone === 'battlefield') {
+    object.controller = control.effect.base
+  }
+}
+
 const expireEffects = (
   state: GameState,
   object: GameObject,
@@ -217,21 +254,13 @@ const expireEffects = (
 ) => {
   const effects = object.continuousEffects ?? []
   const remaining = effects.filter((entry) =>
-    effectHolds(state, object, entry, endTurnEffects))
+    endTurnEffects
+      ? entry.duration.kind !== 'untilCleanup'
+      : effectHolds(state, object, entry, false))
   if (remaining.length === effects.length) return false
 
-  const expired = effects.filter((entry) => !remaining.includes(entry))
-  for (let index = expired.length - 1; index >= 0; index -= 1) {
-    revertEffect(object, expired[index].effect)
-  }
-
-  const expiredControl = expired.find(({ effect }) => effect.kind === 'controller')
-  if (expiredControl?.effect.kind === 'controller' && object.zone === 'battlefield') {
-    const activeControl = lastControlEffect(remaining)
-    object.controller = activeControl
-      ? activeControl.controller
-      : expiredControl.effect.base
-  }
+  resetEffects(object, effects)
+  for (const entry of remaining) applyStoredEffect(object, entry.effect)
 
   if (remaining.length > 0) object.continuousEffects = remaining
   else delete object.continuousEffects

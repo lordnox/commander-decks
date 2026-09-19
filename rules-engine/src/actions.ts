@@ -9,7 +9,13 @@ import {
   sacrificeCostCandidates,
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
-import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
+import {
+  activateEffect,
+  conditionHolds,
+  searchEffect,
+  type ActivateCost,
+} from './cardPlugins/effects'
+import { SEARCH_FETCH } from './cardPlugins/librarySearch'
 import { validTargetRef } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
@@ -896,8 +902,12 @@ const activationTargetGroups = (
   const effect = source
     ? activateEffect(effectsOf(source), action.abilityId)
     : undefined
-  const costGroups = source && effect
-    ? activationCostTargetGroups(state, source, effect.costs)
+  const search = source && action.abilityId === SEARCH_FETCH
+    ? searchEffect(effectsOf(source))
+    : undefined
+  const costs = effect?.costs ?? (search?.via === 'ability' ? search.costs : undefined)
+  const costGroups = source && costs
+    ? activationCostTargetGroups(state, source, costs)
     : []
   if (effect?.targets === 'opponent') {
     return {

@@ -8,6 +8,7 @@ import {
   changeController,
   changeStats,
   continuousEffects,
+  copyObject,
   untilEndOfTurn,
   whileSourceTappedAndPowerAtMost,
 } from './continuousEffects'
@@ -191,5 +192,39 @@ describe('continuous effect durations', () => {
     if (!result.ok) return
     expect(result.state.objects[target.id].controller).toBe('p2')
     expect(result.state.objects[target.id].continuousEffects).toBeUndefined()
+  })
+
+  test('an expiring copy replays a later pump that remains active', () => {
+    const catalog = createCatalog([continuousEffects])
+    const state = newGame({
+      battlefield: {
+        p1: [cardTemplate('Shapeshifter', { types: ['Creature'], power: 6, toughness: 6 })],
+        p2: [bears()],
+      },
+      builtinRules: ['continuousEffects'],
+    })
+    const source = Object.values(state.objects).find(
+      (object) => object.name === 'Shapeshifter',
+    )!
+    const target = Object.values(state.objects).find((object) => object.controller === 'p2')!
+    source.tapped = true
+    whileSourceTappedAndPowerAtMost(
+      state,
+      target,
+      copyObject(target, source),
+      source.id,
+    )
+    untilEndOfTurn(target, changeStats(target, 1, 1))
+
+    const result = rules(state, { type: 'untap', objectId: source.id }, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[target.id]).toMatchObject({
+      name: 'Grizzly Bears',
+      power: 3,
+      toughness: 3,
+    })
+    expect(result.state.objects[target.id].continuousEffects).toHaveLength(1)
   })
 })
