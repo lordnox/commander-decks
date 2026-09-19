@@ -130,6 +130,8 @@ export type StackItem = {
   abilityId?: string
   x?: number
   choices?: string[]
+  /** Mana actually removed from the pool while casting, by symbol. */
+  manaSpent?: Partial<ManaPool>
   kicked?: boolean
   castOption?: string
   uncounterable?: boolean
@@ -253,6 +255,25 @@ export type GameEvent =
       castOption?: string
       x?: number
       sacrifice?: string[]
+    }
+  | {
+      type: 'createToken'
+      controller: PlayerId
+      token: {
+        name: string
+        types: string[]
+        subtypes?: string[]
+        colors?: string[]
+        power?: number | null
+        toughness?: number | null
+        oracleText?: string
+      }
+    }
+  | {
+      type: 'searchBasicsForExiledAttackers'
+      seat: PlayerId
+      sourceId: string
+      objectIds: string[]
     }
   | {
       type: 'move'

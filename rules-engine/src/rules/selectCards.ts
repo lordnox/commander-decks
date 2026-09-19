@@ -17,6 +17,7 @@ export type CardSelectionDestination =
   | 'graveyard'
   | 'battlefield'
   | 'sacrifice'
+  | 'library'
   | 'target'
 
 export type CardSelectionChoice = {
@@ -39,8 +40,9 @@ export type PendingCardSelection = {
   destinations?: CardSelectionDestination[]
   /** Whose zone the cards come from (defaults to `seat`). */
   fromSeat?: PlayerId
+  fromZone?: ZoneId
   sequence?: number
-  after?: Array<'resolveTop'>
+  after?: Array<'resolveTop' | 'shuffleLibrary'>
   drawPerSelected?: number
   moveSelectedTo?: ZoneId
   moveSelectedController?: PlayerId
@@ -136,7 +138,12 @@ const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
   if (selection.kind === 'sacrifice') {
     return selection.candidates.filter((objectId) => battlefieldPermanent(state, fromSeat, objectId))
   }
-  return selection.candidates.filter((objectId) => Boolean(state.objects[objectId]))
+  return selection.candidates.filter((objectId) => {
+    const object = state.objects[objectId]
+    return Boolean(object)
+      && (!selection.fromZone || object?.zone === selection.fromZone)
+      && (!selection.fromSeat || object?.owner === selection.fromSeat)
+  })
 }
 
 const expectedCount = (state: GameState, selection: PendingCardSelection) =>
@@ -366,6 +373,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
 
   for (const followUp of after ?? []) {
     if (followUp === 'resolveTop') draft.enqueue({ type: 'resolveTop' })
+    if (followUp === 'shuffleLibrary') {
+      draft.enqueue({ type: 'shuffleLibrary', seat: selection.fromSeat ?? selection.seat })
+    }
   }
 }
 

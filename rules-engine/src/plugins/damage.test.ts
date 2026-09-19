@@ -87,15 +87,15 @@ describe('damage chain', () => {
     expect(result.state.objects[attackerId].tapped).toBe(true)
   })
 
-  test('preventing damage stops life loss but commander damage already counted', () => {
-    const { catalog, state, attackerId } = attack(2, { tags: ['commander'] })
+  test('preventing damage stops both life loss and commander damage', () => {
+    const { catalog, state } = attack(2, { tags: ['commander'] })
     const shielded = rules(state, { type: 'addRule', pluginId: 'preventDamage' }, catalog)
     if (!shielded.ok) throw new Error(shielded.error)
     const result = rules(shielded.state, { type: 'assignCombatDamage' }, catalog)
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.state.players.p2.life).toBe(40)
-    expect(result.state.players.p2.data.commanderDamage).toEqual({ [attackerId]: 2 })
+    expect(result.state.players.p2.data.commanderDamage).toEqual({})
   })
 
   test('preventing life loss also leaves commander damage intact', () => {
