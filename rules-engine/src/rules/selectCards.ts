@@ -46,6 +46,8 @@ export type PendingCardSelection = {
   moveSelectedController?: PlayerId
   addSubtypes?: string[]
   tapSelected?: boolean
+  /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
+  triggerAbilityId?: string
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -326,6 +328,18 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         if (selection.tapSelected) {
           draft.enqueue({ type: 'tap', objectId })
         }
+      }
+    }
+    if (selection.triggerAbilityId && selection.sourceId) {
+      const source = draft.object(selection.sourceId)
+      const targetId = event.objectIds?.[0]
+      if (source && targetId) {
+        draft.addTriggeredAbility(source, [], {
+          abilityId: selection.triggerAbilityId,
+          targets: [{ kind: 'object', objectId: targetId }],
+        })
+        draft.passedInRow = []
+        draft.priority = draft.active
       }
     }
   } else if (selection.kind === 'scry' || selection.kind === 'surveil') {

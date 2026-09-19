@@ -36,6 +36,10 @@ import {
   pendingDialogLock,
 } from '../../rules-engine/src/pendingDialog'
 import { cardTemplate, planeswalker } from '../../rules-engine/src/newGame'
+import {
+  PENDING_PLAYER_SELECTION,
+  type PendingPlayerSelection,
+} from '../../rules-engine/src/rules/selectPlayers'
 import { createLobby } from './lobby'
 import {
   applyKernelAct,
@@ -1537,5 +1541,60 @@ describe('kernel host journal', () => {
     expect(rolled.objects[handId].zone).toBe('hand')
     expect(kernel.history.current().objects[handId].zone).toBe('hand')
     expect(kernel.journal.events).toHaveLength(0)
+  })
+
+  test('a typed player target choice is rebuilt after a lobby restart', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [cardTemplate('Queza, Augur of Agonies', { types: ['Creature'] })],
+      },
+      players: 4,
+    }, { random: () => 0.5 })
+    const queza = Object.values(server.state.objects)[0]
+    const selection: PendingPlayerSelection = {
+      id: 'player-selection-1',
+      seat: 'p1',
+      candidates: ['p2', 'p3', 'p4'],
+      min: 1,
+      max: 1,
+      sourceId: queza.id,
+      source: queza.name,
+      prompt: 'Choose target opponent for Queza.',
+      abilityId: 'queza.drain',
+      instructions: [
+        { kind: 'gainLife', count: 1 },
+        { kind: 'loseLifeTargetPlayer', amount: 1 },
+      ],
+    }
+    server.state.players.p1.data[PENDING_PLAYER_SELECTION] = [selection]
+    server.state.priority = 'p1'
+    const kernel = handleFor(server.rules, server.state)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      kind: 'target-players',
+      cards: ['p2', 'p3', 'p4'],
+      kernel: { stage: 'select-players', selectionId: selection.id },
+    })
+
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'p2', destination: 'target' },
+        { card: 'p3', destination: 'skip' },
+        { card: 'p4', destination: 'skip' },
+      ],
+    })).toBe(true)
+    expect(kernel.journal.events).toContainEqual({
+      type: 'selectPlayers',
+      selectionId: selection.id,
+      seat: 'p1',
+      players: ['p2'],
+    })
   })
 })

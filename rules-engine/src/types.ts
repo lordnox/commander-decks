@@ -326,6 +326,13 @@ export type GameEvent =
       selectionId: string
       players: PlayerId[]
     }
+  | {
+      type: 'completeDelayedReturn'
+      objectId: string
+      seat: PlayerId
+      sourceId: string
+      discardCount: number
+    }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }
   | {

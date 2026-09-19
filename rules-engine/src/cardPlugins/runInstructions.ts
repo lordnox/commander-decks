@@ -452,6 +452,18 @@ export const runInstructions = (
       })
       continue
     }
+    if (instruction.kind === 'loseLifeTargetPlayer') {
+      const target = item?.targets[0]
+      if (target?.kind === 'player') {
+        draft.enqueue({
+          type: 'loseLife',
+          seat: target.player,
+          amount: instruction.amount,
+          source: source.id,
+        })
+      }
+      continue
+    }
     if (instruction.kind === 'loseLifeTargetManaValue') {
       const target = item?.targets[0]
       if (target?.kind !== 'object') continue
