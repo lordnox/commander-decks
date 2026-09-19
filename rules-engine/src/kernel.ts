@@ -162,6 +162,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (entered) {
         // CR 302.6 tracks continuous control of the permanent, not how long it
         // has been a creature. This matters if a noncreature is animated later.
+        object.enteredBattlefieldTurn = draft.turn
         object.summoningSickness = true
         for (const pluginId of object.grantedRules) {
           draft.rules.push({

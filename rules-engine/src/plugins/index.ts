@@ -26,6 +26,7 @@ import { priority } from './priority'
 import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
 import { rebound } from './rebound'
+import { saga } from './saga'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
@@ -43,6 +44,7 @@ export const builtInPlugins = [
   lands,
   spells,
   rebound,
+  saga,
   stateBased,
   combat,
   life,
@@ -95,6 +97,7 @@ export {
   priority,
   rebound,
   sacrificeLandMana,
+  saga,
   spells,
   stateBased,
   turnStructure,
