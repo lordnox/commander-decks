@@ -21,6 +21,7 @@ import { priority } from './priority'
 import { sacrificeLandMana } from './sacrificeLandMana'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
+import { temporaryStats } from './temporaryStats'
 import { discard, draw, selectCards, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
 
@@ -36,6 +37,7 @@ export const builtInPlugins = [
   combat,
   damage,
   doubleFaced,
+  temporaryStats,
   discard,
   draw,
   selectCards,
@@ -75,5 +77,6 @@ export {
   sacrificeLandMana,
   spells,
   stateBased,
+  temporaryStats,
   turnStructure,
 }

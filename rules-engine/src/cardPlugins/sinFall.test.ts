@@ -70,6 +70,14 @@ describe('Sin Fall routine card support', () => {
       .toMatchObject({ power: 2, toughness: 2 })
     expect(Object.values(resolved.objects).find((object) => object.name === 'Small')?.zone)
       .toBe('graveyard')
+    const cleaned = ok(server.rules(
+      { ...resolved, step: 'end', priority: 'p1' },
+      { type: 'advanceStep' },
+    ))
+    expect(Object.values(cleaned.objects).find((object) => object.name === 'Large'))
+      .toMatchObject({ power: 5, toughness: 5 })
+    expect(Object.values(cleaned.objects).find((object) => object.name === 'Small'))
+      .toMatchObject({ power: 2, toughness: 2 })
   })
 
   test('Hermit Druid reveals through the first basic land', () => {

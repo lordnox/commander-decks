@@ -5,6 +5,7 @@ import { initiateDiscard } from '../rules/discard'
 import { openCardSelection } from '../rules/selectCards'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, StackItem } from '../types'
+import { changeStatsUntilCleanup } from '../plugins/temporaryStats'
 import {
   addPlusCounters,
   applyCopy,
@@ -234,8 +235,13 @@ export const runInstructions = (
       const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
       for (const object of Object.values(draft.objects)) {
         if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
-        if (object.power !== null) object.power += amount
-        if (object.toughness !== null) object.toughness += amount
+        changeStatsUntilCleanup(
+          draft,
+          source.controller,
+          object,
+          amount,
+          amount,
+        )
       }
       continue
     }
@@ -753,8 +759,13 @@ export const runInstructions = (
       const target = item?.targets[0]
       const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
       if (!object || object.power === null || object.toughness === null) continue
-      object.power += instruction.power
-      object.toughness += instruction.toughness
+      changeStatsUntilCleanup(
+        draft,
+        source.controller,
+        object,
+        instruction.power,
+        instruction.toughness,
+      )
       continue
     }
     if (instruction.kind === 'grantUntilEot') {
@@ -1036,8 +1047,13 @@ export const runInstructions = (
         if (!object.types.includes('Creature')) continue
         if (instruction.other && object.id === source.id) continue
         if (instruction.nonHuman && object.subtypes.includes('Human')) continue
-        if (object.power !== null) object.power += bonus
-        if (object.toughness !== null) object.toughness += toughnessBonus
+        changeStatsUntilCleanup(
+          draft,
+          source.controller,
+          object,
+          bonus,
+          toughnessBonus,
+        )
         if (instruction.trample && !object.oracleText.toLowerCase().includes('trample')) {
           object.oracleText = object.oracleText ? `${object.oracleText}\nTrample` : 'Trample'
         }
