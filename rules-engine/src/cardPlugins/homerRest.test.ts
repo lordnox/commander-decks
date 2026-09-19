@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame as createRuntimeGame } from '../runtime'
@@ -29,6 +30,98 @@ const named = (state: import('../types').GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('Homer remaining card plugins', () => {
+  test('Dismember can pay Phyrexian symbols with life and resolves its -5/-5', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Dismember', {
+            types: ['Instant'],
+            manaCost: '{1}{B/P}{B/P}',
+          })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Target', {
+            types: ['Creature'],
+            power: 4,
+            toughness: 4,
+          })],
+        },
+      },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 1
+    const spell = named(ready, 'Dismember')
+    const target = named(ready, 'Target')
+    const funded = structuredClone(ready)
+    funded.players.p1.mana.B = 2
+    const paymentOptions = legalActsFor(funded, 'p1').filter((action) =>
+      action.kind === 'castSpell'
+      && action.objectId === spell.id
+      && action.targetObjectId === target.id)
+    expect(paymentOptions.map((action) =>
+      action.kind === 'castSpell' ? action.phyrexianLife ?? [] : null,
+    )).toEqual([[], [0], [0, 1]])
+    const actions = legalActsFor(ready, 'p1').filter((action) =>
+      action.kind === 'castSpell' && action.objectId === spell.id)
+    expect(actions.some((action) =>
+      action.kind === 'castSpell'
+      && action.phyrexianLife?.length === 2
+      && action.targetObjectId === target.id)).toBe(true)
+
+    const omitted = server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      targets: [{ kind: 'object', objectId: target.id }],
+    })
+    expect(omitted.ok).toBe(false)
+    const duplicate = server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      phyrexianLife: [0, 0],
+      targets: [{ kind: 'object', objectId: target.id }],
+    })
+    expect(duplicate.ok).toBe(false)
+    const lowLife = structuredClone(ready)
+    lowLife.players.p1.life = 3
+    const unaffordable = server.rules(lowLife, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      phyrexianLife: [0, 1],
+      targets: [{ kind: 'object', objectId: target.id }],
+    })
+    expect(unaffordable.ok).toBe(false)
+
+    const mixedReady = structuredClone(ready)
+    mixedReady.players.p1.mana.B = 1
+    const mixed = ok(server.rules(mixedReady, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      phyrexianLife: [0],
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    expect(mixed.players.p1.life).toBe(38)
+    expect(mixed.players.p1.mana.B).toBe(0)
+    expect(mixed.players.p1.mana.C).toBe(0)
+
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      phyrexianLife: [0, 1],
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    expect(cast.players.p1.life).toBe(36)
+    expect(cast.players.p1.mana.C).toBe(0)
+    const resolved = resolveStack(server.rules, cast)
+    expect(resolved.objects[target.id].zone).toBe('graveyard')
+    expect(resolved.objects[spell.id].zone).toBe('graveyard')
+  })
+
   test('Harrow sacrifices a land and opens a two-basic search', () => {
     const server = createServerGame(
       commanderRules,

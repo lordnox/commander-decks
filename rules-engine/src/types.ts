@@ -294,6 +294,7 @@ export type GameEvent =
       additionalGeneric?: number
       kicked?: boolean
       castOption?: string
+      phyrexianLife?: number[]
       x?: number
       sacrifice?: string[]
       convoke?: string[]
