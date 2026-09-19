@@ -168,6 +168,11 @@ export type ModalSpec = {
   modes: ModalMode[]
 }
 
+export type SagaChapter = {
+  numbers: number[]
+  do: CardInstruction[]
+}
+
 export type ActivateCost = {
   tap?: boolean
   crew?: number
@@ -241,6 +246,11 @@ export type SearchSpec = {
 
 export type CardEffect =
   | { op: 'dredge'; count: number }
+  | {
+      op: 'saga'
+      chapters: SagaChapter[]
+      readAhead?: boolean
+    }
   | {
       op: 'replacement'
       on: 'enters'

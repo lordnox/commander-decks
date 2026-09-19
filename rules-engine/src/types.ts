@@ -159,6 +159,8 @@ export type GameObject = {
   effects?: import('./cardPlugins/effects').CardEffect[]
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
+  /** Turn this object most recently entered the battlefield. */
+  enteredBattlefieldTurn?: number
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
   continuousEffects?: ContinuousEffect[]
@@ -184,6 +186,8 @@ export type StackItem = {
   kicked?: boolean
   castOption?: string
   exileAfterUse?: boolean
+  /** Read ahead choice carried from casting through battlefield entry. */
+  sagaChapter?: number
   uncounterable?: boolean
   sacrificed?: number
   castFrom?: ZoneId
@@ -330,6 +334,8 @@ export type GameEvent =
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
+      /** Starting lore count chosen for a Saga with read ahead. */
+      sagaChapter?: number
       x?: number
       sacrifice?: string[]
       convoke?: string[]
@@ -383,9 +389,12 @@ export type GameEvent =
       to: ZoneId
       position?: 'top' | 'bottom'
       controller?: PlayerId
+      /** Starting lore count chosen as a Saga with read ahead enters. */
+      sagaChapter?: number
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
+  | { type: 'putCounters'; objectId: string; counter: string; count: number }
   // — CR keyword actions —
   | {
       type: 'draw'

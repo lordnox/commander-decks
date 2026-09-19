@@ -402,6 +402,7 @@ export const spells: Plugin = {
         ...(event.kicked ? { kicked: true } : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
+        ...(event.sagaChapter !== undefined ? { sagaChapter: event.sagaChapter } : {}),
         ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
@@ -456,6 +457,7 @@ export const spells: Plugin = {
       if (isPermanentType(object.types)) {
         object.enteredWithCastOption = item.castOption
         draft.move(object.id, 'battlefield')
+        object.enteredBattlefieldTurn = draft.turn
         object.summoningSickness = true
         if (
           object.types.includes('Planeswalker')
