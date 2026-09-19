@@ -22,7 +22,9 @@ import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
+  availableAlternateCastEffects,
   canChooseAlternateCast,
+  type AlternateCastEffect,
 } from './cardPlugins/alternateCosts'
 import {
   attackTaxByDefender,
@@ -345,7 +347,6 @@ const needsStackTarget = (object: GameObject) =>
 const canCastAtTiming = (state: GameState, seat: PlayerId, object: GameObject) => {
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
-  if (!state.castableZones.includes(object.zone)) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
   const endStepOnly = effectsOf(object).some(
@@ -432,30 +433,76 @@ const fundedCasts = (
   })
 }
 
+const alternateCastCostGroups = (
+  state: GameState,
+  seat: PlayerId,
+  effect: AlternateCastEffect,
+): ActionTargetGroup[] => {
+  const groups: ActionTargetGroup[] = []
+  if (effect.discard === 'land') {
+    groups.push({
+      label: 'Land card to discard',
+      min: 1,
+      max: 1,
+      purpose: 'cost',
+      targets: state.zoneOrder[seat].hand
+        .map((objectId) => state.objects[objectId])
+        .filter((object) => object?.types.includes('Land'))
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })
+  }
+  if (effect.sacrifice) {
+    groups.push({
+      label: `${effect.sacrifice.type}s to sacrifice`,
+      min: effect.sacrifice.count,
+      max: effect.sacrifice.count,
+      purpose: 'cost',
+      targets: Object.values(state.objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && object.controller === seat
+          && object.types.includes(effect.sacrifice!.type))
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })
+  }
+  return groups
+}
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
   const suffix = tax > 0 ? `{${tax}}` : ''
-  const alternatives = alternateCastEffects(object)
+  const alternatives = availableAlternateCastEffects(state, seat, object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const face = castFaceOf(object)
     const cost = `${face?.manaCost ?? object.manaCost}${suffix}`
-    const actions: AvailableAction[] = fundedCasts(state, seat, object, cost).map((funded) => ({
-      kind: 'castSpell' as const,
-      objectId: object.id,
-      name: object.name,
-      ...(funded.labeled
-        ? {
-            phyrexianLife: funded.phyrexianLife,
-            castLabel: phyrexianCastLabel(cost, funded.phyrexianLife),
-          }
-        : {}),
-      ...(funded.convoke ? { convoke: funded.convoke } : {}),
-    }))
+    const actions: AvailableAction[] = state.castableZones.includes(object.zone)
+      ? fundedCasts(state, seat, object, cost).map((funded) => ({
+          kind: 'castSpell' as const,
+          objectId: object.id,
+          name: object.name,
+          ...(funded.labeled
+            ? {
+                phyrexianLife: funded.phyrexianLife,
+                castLabel: phyrexianCastLabel(cost, funded.phyrexianLife),
+              }
+            : {}),
+          ...(funded.convoke ? { convoke: funded.convoke } : {}),
+        }))
+      : []
     for (const alternative of alternatives) {
       const alternativeCost = `${alternative.manaCost}${suffix}`
-      if (!canChooseAlternateCast(state, seat, alternative)) continue
+      if (!canChooseAlternateCast(state, seat, alternative, object)) continue
+      const targetGroups = alternateCastCostGroups(state, seat, alternative)
       for (const funded of fundedCasts(state, seat, object, alternativeCost)) {
         const paymentLabel = phyrexianSymbols(alternativeCost).length > 0
           ? ` — ${phyrexianCastLabel(alternativeCost, funded.phyrexianLife)}`
@@ -468,6 +515,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           castLabel: `${alternative.label}${paymentLabel}`,
           ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
           ...(funded.convoke ? { convoke: funded.convoke } : {}),
+          ...(targetGroups.length > 0 ? { targetGroups } : {}),
         })
       }
     }
@@ -492,6 +540,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     : paysLifeX
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
+  if (!state.castableZones.includes(object.zone)) return []
   return Array.from({ length: upper + 1 }, (_, x) => x)
     .flatMap((x): AvailableAction[] => {
       const cost = `${costForX(object, x)}${suffix}`

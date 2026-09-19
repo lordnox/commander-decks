@@ -3,7 +3,12 @@ import { poolTotal, type Draft } from '../draft'
 import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
 import { searchEffect } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
-import { alternateCastEffect } from '../cardPlugins/alternateCosts'
+import {
+  alternateCastEffect,
+  availableAlternateCastEffect,
+  finishedSpellZone,
+  type AlternateCastEffect,
+} from '../cardPlugins/alternateCosts'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { applyFace, castFaceOf } from './doubleFaced'
 
@@ -22,12 +27,13 @@ const spellCost = (
   additionalGeneric = 0,
   x = 0,
   castOption?: string,
+  selected?: AlternateCastEffect,
 ) => {
-  const selected = alternateCastEffect(object, castOption)
+  const alternative = selected ?? alternateCastEffect(object, castOption)
   const xCost = xManaKind(object) === 'black'
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
-  const base = selected?.manaCost ?? object.manaCost.replaceAll('{X}', xCost)
+  const base = alternative?.manaCost ?? object.manaCost.replaceAll('{X}', xCost)
   return `${base}${
     additionalGeneric > 0 ? `{${additionalGeneric}}` : ''
   }`
@@ -166,12 +172,22 @@ export const spells: Plugin = {
       if (!object) return 'spell object does not exist'
       const face = castFaceOf(object)
       const spell = face ? { ...object, ...face } : object
-      if (!state.castableZones.includes(object.zone)) return 'spell is not in a castable zone'
+      const selected = availableAlternateCastEffect(
+        state,
+        event.seat,
+        spell,
+        event.castOption,
+      )
+      if (selected?.fromZone) {
+        if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
+      } else if (!state.castableZones.includes(object.zone)) {
+        return 'spell is not in a castable zone'
+      }
       if (object.owner !== event.seat || object.controller !== event.seat) {
         return 'spell is not owned and controlled by that seat'
       }
       if (state.priority !== event.seat) return 'seat does not have priority'
-      if (event.castOption && !alternateCastEffect(spell, event.castOption)) {
+      if (event.castOption && !selected) {
         return `${object.name} has no casting option ${event.castOption}`
       }
 
@@ -189,7 +205,13 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires a nonnegative integer X`
       }
-      const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0, event.castOption)
+      const cost = spellCost(
+        spell,
+        event.additionalGeneric,
+        event.x ?? 0,
+        event.castOption,
+        selected,
+      )
       const convoke = event.convoke ?? []
       if (new Set(convoke).size !== convoke.length) return 'duplicate convoke creature'
       if (convoke.length > 0 && !hasConvoke(object)) return `${object.name} does not have convoke`
@@ -214,6 +236,12 @@ export const spells: Plugin = {
       })) return 'not enough mana'
       const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
+      if ((event.discard?.length ?? 0) > 0 && !selected?.discard) {
+        return `${object.name} has no discard cost`
+      }
+      if ((event.sacrifice?.length ?? 0) > 0 && !selected?.sacrifice && !needed) {
+        return `${object.name} has no sacrifice cost`
+      }
       if (needed) {
         const sacrificed = event.sacrifice ?? []
         if (sacrificed.length !== needed) {
@@ -237,7 +265,19 @@ export const spells: Plugin = {
       if (!object) return
       const face = castFaceOf(object)
       if (face) applyFace(object, face)
-      const cost = spellCost(object, event.additionalGeneric, event.x ?? 0, event.castOption)
+      const selected = availableAlternateCastEffect(
+        state,
+        event.seat,
+        object,
+        event.castOption,
+      )
+      const cost = spellCost(
+        object,
+        event.additionalGeneric,
+        event.x ?? 0,
+        event.castOption,
+        selected,
+      )
       const creatures = (event.convoke ?? [])
         .map((objectId) => draft.object(objectId))
         .filter((creature): creature is GameObject => Boolean(creature))
@@ -273,6 +313,7 @@ export const spells: Plugin = {
         manaSpent,
         ...(event.kicked ? { kicked: true } : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
+        ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
         ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
@@ -336,7 +377,11 @@ export const spells: Plugin = {
       } else {
         // CR 608.2: instructions run while the spell is still on the stack;
         // the card is put into the graveyard only after those events apply.
-        draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+        draft.enqueue({
+          type: 'move',
+          objectId: object.id,
+          to: finishedSpellZone(item, 'graveyard'),
+        })
       }
       draft.passedInRow = []
       draft.priority = state.active
