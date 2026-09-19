@@ -2,7 +2,7 @@ import { payCost } from '../plugins/spells'
 import type { GameObject, GameState, PlayerId, Plugin, StackItem, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
-import { validTarget } from './targetedResolve'
+import { targetedEffectFilter, validTarget } from './targetedResolve'
 
 export const PENDING_STACK_COPY = 'kernel.pendingStackCopy'
 export const STACK_COPY_TRIGGER = 'stackCopy.trigger'
@@ -77,7 +77,12 @@ const legalObjectTarget = (
   const targeted = effectsOf(source).find((effect) =>
     effect.op === 'targetedResolve' && effect.target === index)
   if (targeted?.op === 'targetedResolve') {
-    return validTarget(state, object, targeted.filter, item.controller)
+    return validTarget(
+      state,
+      object,
+      targetedEffectFilter(targeted, item.kicked === true),
+      item.controller,
+    )
   }
   return object.zone === 'battlefield' || object.zone === 'stack'
 }
