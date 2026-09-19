@@ -143,6 +143,8 @@ export type StackItem = {
   waiting?: 'choice' | 'targets' | null
   /** Action parameters and in-flight resolution state. */
   payload?: Record<string, unknown>
+  /** A stack copy is not represented by another card and never changes the source object's zone. */
+  copy?: boolean
 }
 
 /**
@@ -348,6 +350,20 @@ export type GameEvent =
       seat: PlayerId
       /** Choice payload (for example `{ objectIds: string[] }`). */
       payload: Record<string, unknown>
+    }
+  | {
+      type: 'vote'
+      seat: PlayerId
+      sourceId: string
+      choice: TargetRef
+    }
+  | {
+      type: 'copyStackItem'
+      seat: PlayerId
+      sourceId: string
+      stackId: string
+      accept: boolean
+      targets?: TargetRef[]
     }
   | {
       type: 'selectCards'

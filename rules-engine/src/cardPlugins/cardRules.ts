@@ -139,6 +139,11 @@ import {
   yourUpkeepIf,
   cumulativeUpkeepOpponentLife,
   uncounterable,
+  combatDialogueUntilEot,
+  copyTargetForEachOtherPlayer,
+  councilVote,
+  playerAuraDeal,
+  targetingRequirement,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -1232,6 +1237,39 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
+  'Rings of Brighthearth': [handler('stackCopy')],
+  "Council's Judgment": [
+    councilVote(
+      'Vote for a nonland permanent you do not control.',
+      { zone: 'battlefield', nonland: true, controller: 'opponent' },
+    ),
+  ],
+  'Fractured Identity': [
+    targetOnResolve(
+      'exile',
+      { zone: 'battlefield', nonland: true },
+      copyTargetForEachOtherPlayer(),
+    ),
+  ],
+  Mirrorweave: [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature', nonlegendary: true },
+      copyAllCreaturesUntilEot(false),
+    ),
+  ],
+  'Standard Bearer': [targetingRequirement('flagbearer')],
+  'Sokrates, Athenian Teacher': [
+    targetingRequirement('hexproof-while-untapped'),
+    activate({
+      id: 'sokrates.dialogue',
+      costs: { tap: true },
+      targets: 'creature',
+      do: [combatDialogueUntilEot()],
+    }),
+    handler('combatDialogue'),
+  ],
+  'Tenuous Truce': [playerAuraDeal()],
   'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
   'Marsh Flats': [
     fetchTypes('Search your library for a Plains or Swamp card and put it onto the battlefield.', [

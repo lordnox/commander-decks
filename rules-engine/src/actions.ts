@@ -767,6 +767,18 @@ const targetVariants = (
   const targeted = source
     ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
     : []
+  const playerAura = source
+    ? effectsOf(source).some((effect) => effect.op === 'playerAuraDeal')
+    : false
+  if (playerAura) {
+    return state.playerOrder
+      .filter((player) => player !== seat && !state.players[player].lost)
+      .map((player) => ({
+        ...action,
+        targetObjectId: player,
+        targetName: player,
+      }))
+  }
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
   const objectTargets = Object.values(state.objects)
@@ -854,6 +866,33 @@ const activationTargetGroups = (
   }
   if (effect?.targets !== 'teferiSunsetPlusOne') return action
   const targets = Object.values(state.objects).filter((object) => object.zone === 'battlefield')
+  if (
+    effect?.targets === 'creature'
+    || effect?.targets === 'land'
+    || effect?.targets === 'any'
+  ) {
+    const type = effect.targets === 'creature'
+      ? 'Creature'
+      : effect.targets === 'land'
+        ? 'Land'
+        : undefined
+    return {
+      ...action,
+      targetGroups: [{
+        label: type ?? 'Permanent',
+        min: 1,
+        max: 1,
+        targets: targets
+          .filter((object) => !type || object.types.includes(type))
+          .map((object) => ({
+            objectId: object.id,
+            name: object.name,
+            controller: object.controller,
+          })),
+      }],
+    }
+  }
+  if (effect?.targets !== 'teferiSunsetPlusOne') return action
   return {
     ...action,
     targetGroups: ['Artifact', 'Creature', 'Land'].map((type) => ({
@@ -1092,7 +1131,11 @@ export const eventsForAvailableAction = (
       || (
         effect.op === 'handler'
         && effect.pluginId === 'combatPreventionCards'
-      ))
+      )
+      || effect.op === 'playerAuraDeal')
+    : false
+  const playerAura = object
+    ? effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
@@ -1106,7 +1149,7 @@ export const eventsForAvailableAction = (
       && !resolvesThroughKernel
     )
     || targeted.length > 1
-    || (targeted.length === 0 && /\btarget\b/i.test(object.oracleText))
+    || (targeted.length === 0 && !playerAura && /\btarget\b/i.test(object.oracleText))
     || (
       !hasAlternateCast
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
@@ -1120,7 +1163,7 @@ export const eventsForAvailableAction = (
       return null
     }
   }
-  if (targeted.length === 1 && !action.targetObjectId) return null
+  if ((targeted.length === 1 || playerAura) && !action.targetObjectId) return null
   const blinkTargets = action.targetObjectIds
     ?? (action.targetObjectId ? [action.targetObjectId] : [])
   if (
@@ -1148,10 +1191,12 @@ export const eventsForAvailableAction = (
       ...(action.castOption ? { castOption: action.castOption } : {}),
       ...(action.targetObjectId || action.targetObjectIds
         ? {
-            targets: blinkTargets.map((objectId) => ({
-              kind: 'object' as const,
-              objectId,
-            })),
+            targets: playerAura
+              ? [{ kind: 'player' as const, player: action.targetObjectId! }]
+              : blinkTargets.map((objectId) => ({
+                  kind: 'object' as const,
+                  objectId,
+                })),
           }
         : action.targetPlayerId
           ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }

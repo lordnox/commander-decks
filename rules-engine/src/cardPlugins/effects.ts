@@ -150,6 +150,8 @@ export type CardInstruction =
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
   | { kind: 'cumulativeUpkeepOpponentLife' }
   | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
+  | { kind: 'copyTargetForEachOtherPlayer' }
+  | { kind: 'combatDialogueUntilEot' }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -185,6 +187,7 @@ export type TargetFilter = {
   controller?: 'you' | 'opponent'
   spellTargetsControlledPermanent?: boolean
   players?: 'any' | 'opponent'
+  nonlegendary?: boolean
 }
 
 export type SearchSpec = {
@@ -306,6 +309,21 @@ export type CardEffect =
       controlledSubtype?: string
     }
   | { op: 'spellTrait'; uncounterable?: boolean }
+  | {
+      op: 'vote'
+      prompt: string
+      filter: TargetFilter
+      outcome: 'exile-most'
+    }
+  | {
+      op: 'targetingRequirement'
+      kind: 'flagbearer' | 'hexproof-while-untapped'
+    }
+  | {
+      op: 'playerAuraDeal'
+      drawAtEnchantedEnd: number
+      breakOnMutualAttack: boolean
+    }
   | { op: 'bestow'; cost: string }
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
@@ -485,6 +503,34 @@ export const addUntilCleanupRule = (
   kind: 'addUntilCleanupRule',
   pluginId,
   params,
+})
+
+export const copyTargetForEachOtherPlayer = (): CardInstruction => ({
+  kind: 'copyTargetForEachOtherPlayer',
+})
+
+export const combatDialogueUntilEot = (): CardInstruction => ({
+  kind: 'combatDialogueUntilEot',
+})
+
+export const councilVote = (
+  prompt: string,
+  filter: TargetFilter,
+): CardEffect => ({
+  op: 'vote',
+  prompt,
+  filter,
+  outcome: 'exile-most',
+})
+
+export const targetingRequirement = (
+  kind: Extract<CardEffect, { op: 'targetingRequirement' }>['kind'],
+): CardEffect => ({ op: 'targetingRequirement', kind })
+
+export const playerAuraDeal = (): CardEffect => ({
+  op: 'playerAuraDeal',
+  drawAtEnchantedEnd: 1,
+  breakOnMutualAttack: true,
 })
 
 export const createXTokens = (token: TokenSpec): CardInstruction => ({
@@ -1302,8 +1348,11 @@ export function applyCopy (
     ? copied.supertypes.filter((entry) => entry !== 'Legendary')
     : [...copied.supertypes]
   object.manaCost = copied.manaCost
+  object.manaValue = copied.manaValue
+  object.colors = [...copied.colors]
   object.power = copied.power
   object.toughness = copied.toughness
+  object.printedLoyalty = copied.printedLoyalty
   object.oracleText = copied.oracleText
   object.grantedRules = [...copied.grantedRules]
   object.tapProduces = copied.tapProduces ? { ...copied.tapProduces } : undefined
@@ -1385,7 +1434,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'search') ids.add('librarySearch')
     if (effect.op === 'targetedResolve') {
       ids.add('targetedResolve')
-      if (effect.action === 'copy') ids.add('copySpell')
+      if (effect.action === 'copy') ids.add('stackCopy')
     }
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
     if (effect.op === 'static' && (effect.attackTax || effect.blockTax)) {
@@ -1398,6 +1447,9 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'castCost') ids.add('castCosts')
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'handler') ids.add(effect.pluginId)
+    if (effect.op === 'vote') ids.add('vote')
+    if (effect.op === 'targetingRequirement') ids.add('targetingRequirements')
+    if (effect.op === 'playerAuraDeal') ids.add('attackDeal')
     const listed = effect.op === 'trigger' || effect.op === 'activate' || effect.op === 'modal'
       ? flattenInstructions(
         effect.op === 'modal'

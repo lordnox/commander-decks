@@ -177,8 +177,27 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Cultivate')?.handlerIds).toContain('librarySearch')
     expect(cardPluginEntry('Bushwhack')?.handlerIds).toContain('modalSpell')
     expect(cardPluginEntry('Beast Whisperer')?.handlerIds).toContain('castTriggers')
-    expect(cardPluginEntry('Twincast')?.handlerIds).toEqual(['targetedResolve', 'copySpell'])
+    expect(cardPluginEntry('Twincast')?.handlerIds).toEqual(['targetedResolve', 'stackCopy'])
     expect(cardPluginEntry('Rankle, Master of Pranks')?.handlerIds)
       .toEqual(['modalSpell', 'choiceEffects'])
+  })
+
+  test('the Lady Evangela copy-politics group stays registered', () => {
+    const covered = [
+      'Rings of Brighthearth',
+      "Council's Judgment",
+      'Fractured Identity',
+      'Mirrorweave',
+      'Standard Bearer',
+      'Sokrates, Athenian Teacher',
+      'Tenuous Truce',
+    ]
+    expect(missingCardPlugins(covered)).toEqual([])
+    expect(cardPluginEntry('Rings of Brighthearth')?.handlerIds).toContain('stackCopy')
+    expect(cardPluginEntry("Council's Judgment")?.handlerIds).toContain('vote')
+    expect(cardPluginEntry('Standard Bearer')?.handlerIds).toContain('targetingRequirements')
+    expect(cardPluginEntry('Sokrates, Athenian Teacher')?.handlerIds)
+      .toEqual(expect.arrayContaining(['activated', 'combatDialogue', 'targetingRequirements']))
+    expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')
   })
 })

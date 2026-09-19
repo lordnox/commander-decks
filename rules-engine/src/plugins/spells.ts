@@ -189,6 +189,11 @@ export const spells: Plugin = {
       }
       const object = draft.object(item.objectId)
       if (!object) return
+      if (item.copy) {
+        draft.passedInRow = []
+        draft.priority = state.active
+        return
+      }
 
       if (object.name === 'Timetwister') {
         for (const player of draft.playerOrder) {

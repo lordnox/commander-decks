@@ -9,6 +9,7 @@ import type {
 import { hasKeyword } from '../keywords'
 import { effectsOf } from './cardRules'
 import { runInstructions, type TargetFilter } from './effects'
+import { openStackCopyChoice } from './stackCopy'
 
 const controlledPermanentTarget = (
   state: GameState,
@@ -37,6 +38,7 @@ export const validTarget = (
   if (filter.noncreature && object.types.includes('Creature')) return false
   if (filter.nonblack && object.colors.includes('B')) return false
   if (object.controller !== controller && hasKeyword(object, 'hexproof', state)) return false
+  if (filter.nonlegendary && object.supertypes.includes('Legendary')) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false
@@ -116,18 +118,13 @@ export const targetedResolve: Plugin = {
       } else if (effect.action === 'copy') {
         const stackItem = state.stack.find((candidate) => candidate.objectId === object.id)
         if (!stackItem || object.zone !== 'stack') continue
-        draft.stack.unshift({
-          id: draft.allocId('s'),
-          kind: 'spell',
-          objectId: object.id,
-          controller: item.controller,
-          name: object.name,
-          targets: [...stackItem.targets],
-          ...(stackItem.kicked ? { kicked: true } : {}),
-          ...(stackItem.castOption ? { castOption: stackItem.castOption } : {}),
-          ...(stackItem.uncounterable ? { uncounterable: true } : {}),
-          ...(stackItem.x !== undefined ? { x: stackItem.x } : {}),
-          ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
+        openStackCopyChoice(draft, {
+          sourceId: source.id,
+          source: source.name,
+          seat: item.controller,
+          stackId: stackItem.id,
+          cost: '{0}',
+          optional: false,
         })
       } else {
         if (effect.action === 'destroy' && hasKeyword(object, 'indestructible', state)) {
