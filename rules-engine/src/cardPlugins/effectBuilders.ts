@@ -507,6 +507,9 @@ export const alternateCast = (
   extra: { life?: number; controlledSubtype?: string } = {},
 ): CardEffect => ({ op: 'alternateCast', id, label, manaCost, ...extra })
 
+export const cleave = (cost: string): CardEffect =>
+  alternateCast('cleave', `Cleave ${cost}`, cost)
+
 export const uncounterable = (): CardEffect => ({ op: 'spellTrait', uncounterable: true })
 
 export const cumulativeUpkeepOpponentLife = (): CardInstruction => ({

@@ -148,7 +148,7 @@ describe('Lady Evangela replacement gaps', () => {
           p3: [cardTemplate('Wash Away', { types: ['Instant'], manaCost: '{U}' })],
         },
       },
-      { random: () => 0.5, cardPlugins: [targetedResolve] },
+      { random: () => 0.5, cardPlugins: [alternateCosts, targetedResolve] },
     )
     const ready = structuredClone(server.state)
     ready.priority = 'p2'
@@ -172,12 +172,14 @@ describe('Lady Evangela replacement gaps', () => {
     expect(vetoCast.stack[0].uncounterable).toBe(true)
 
     vetoCast.priority = 'p3'
-    vetoCast.players.p3.mana.U = 1
+    vetoCast.players.p3.mana.U = 2
+    vetoCast.players.p3.mana.C = 1
     const wash = named(vetoCast, 'Wash Away')
     const washCast = ok(server.rules(vetoCast, {
       type: 'castSpell',
       seat: 'p3',
       objectId: wash.id,
+      castOption: 'cleave',
       targets: [{ kind: 'object', objectId: veto.id }],
     }))
     const washResolved = ok(server.rules(washCast, { type: 'resolveTop' }))

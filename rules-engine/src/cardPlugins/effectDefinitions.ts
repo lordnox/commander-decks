@@ -182,6 +182,10 @@ export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
 export type TargetFilter = {
   zone?: ZoneId
   zones?: ZoneId[]
+  /** Restrict a spell target by the zone it was cast from. */
+  castFromNot?: ZoneId
+  /** Restrictions printed in square brackets and removed by Cleave. */
+  bracketed?: TargetFilter
   type?: string
   types?: string[]
   nonland?: boolean
