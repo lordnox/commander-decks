@@ -247,6 +247,11 @@ const collectMoveTriggers = (
         ) continue
         const milledLand = effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')
         if (milledLand && !fromLibrary) continue
+        const onceKey = `triggers.oncePerTurn.${source.id}.landToGraveyard`
+        if (effect.oncePerTurn) {
+          if (draft.players[source.controller].data[onceKey] === draft.turn) continue
+          draft.players[source.controller].data[onceKey] = draft.turn
+        }
         pushCopies(matches, source, effect, 1, { triggeringObjectId: event.objectId })
       }
     }

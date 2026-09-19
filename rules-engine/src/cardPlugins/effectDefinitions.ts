@@ -253,6 +253,7 @@ export type CardEffect =
       creatureOnly?: boolean
       modal?: ModalSpec
       targets?: 'opponent'
+      oncePerTurn?: boolean
     }
   | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
   | {

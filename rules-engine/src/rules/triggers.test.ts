@@ -57,4 +57,28 @@ describe('landToGraveyard triggers', () => {
     expect(discarded.objects[landId].zone).toBe('graveyard')
     expect(discarded.stack).toHaveLength(0)
   })
+
+  test('Crawling Sensation triggers only for the first land each turn', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Crawling Sensation', { types: ['Enchantment'] })] },
+      hands: { p1: [land('First land'), land('Second land')] },
+      players: 2,
+    })
+    const [firstId, secondId] = server.state.zoneOrder.p1.hand
+    const first = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: firstId,
+      to: 'graveyard',
+    }))
+    const second = ok(server.rules(first, {
+      type: 'move',
+      objectId: secondId,
+      to: 'graveyard',
+    }))
+
+    expect(second.stack.map((item) => item.name)).toEqual(['Crawling Sensation'])
+    const resolved = resolveStack(server.rules, second)
+    expect(Object.values(resolved.objects).filter((object) =>
+      object.zone === 'battlefield' && object.name === 'Insect')).toHaveLength(1)
+  })
 })
