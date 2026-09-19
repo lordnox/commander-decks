@@ -1,0 +1,19 @@
+---
+description: Keep rules-engine plugins reusable across cards
+globs: rules-engine/src/**/*.ts
+alwaysApply: false
+---
+
+# Generic rules-engine plugins
+
+Every rules-engine plugin must implement reusable game behavior. A plugin must
+not identify, branch on, or be named after one specific card.
+
+- Describe card-specific abilities declaratively in `cardPlugins/cardRules.ts`.
+- Give a unique card ability a specific effect-constructor name when that makes
+  the card rule readable.
+- Parameterize the generic instruction or handler that executes the effect.
+- Plugins may inspect effect parameters, events, zones, types, and source IDs;
+  they must not inspect a source's card name to decide what behavior to run.
+- Add regression coverage that exercises the card rule through the generic
+  trigger and resolution paths.
