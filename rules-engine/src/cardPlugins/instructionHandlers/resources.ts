@@ -4,8 +4,10 @@ import { initiateDiscard } from '../../rules/discard'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
+  addTypes,
   changeStatsUntilEndOfTurn,
   grantOracleLineUntilEndOfTurn,
+  untilEndOfTurn,
 } from '../continuousEffects'
 import { addPlusCounters as applyPlusCounters, manaValueOf } from '../effects'
 import { discardSeatFor, instructionAmount } from './helpers'
@@ -275,6 +277,12 @@ const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
   }
 }
 
+const crewVehicle: InstructionHandler<'crewVehicle'> = ({ draft, source }) => {
+  const vehicle = draft.object(source.id)
+  if (!vehicle || vehicle.zone !== 'battlefield') return
+  untilEndOfTurn(vehicle, addTypes(vehicle, 'Artifact', 'Creature'))
+}
+
 const untapTarget: InstructionHandler<'untapTarget'> = ({ draft, item }) => {
   const target = item?.targets[0]
   if (target?.kind === 'object') {
@@ -434,6 +442,7 @@ export const resourceHandlers = {
   pumpTargetX,
   pumpSelf,
   grantUntilEot,
+  crewVehicle,
   untapTarget,
   addManaPerSwamp,
   gainLifeTargetPower,
