@@ -488,6 +488,9 @@ const alternateCastCostGroups = (
   return groups
 }
 
+const bestowEffect = (object: GameObject) =>
+  effectsOf(object).find((effect) => effect.op === 'bestow')
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
@@ -558,6 +561,16 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
         castLabel: alternative.label,
         ...(targetGroups.length > 0 ? { targetGroups } : {}),
       }, { castOption: alternative.id }))
+    }
+    const bestow = bestowEffect(object)
+    if (bestow) {
+      actions.push(...fundedVariants({
+        kind: 'castSpell',
+        objectId: object.id,
+        name: object.name,
+        castOption: 'bestow',
+        castLabel: `Bestow ${bestow.cost}`,
+      }, { castOption: 'bestow' }))
     }
     return actions
   }
@@ -909,6 +922,17 @@ const targetVariants = (
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
   const source = state.objects[action.objectId]
+  if (source && action.castOption === 'bestow' && bestowEffect(source)) {
+    return Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.types.includes('Creature'))
+      .map((target) => ({
+        ...action,
+        targetObjectId: target.id,
+        targetName: target.name,
+      }))
+  }
   if (source?.name === 'Settle the Wreckage') {
     return state.playerOrder
       .filter((player) => !state.players[player].lost)
@@ -1481,6 +1505,7 @@ export const eventsForAvailableAction = (
         effect.op === 'castCost' && (effect.lifeX || effect.kicker))
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
+  const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
   if (
     !object
     || (
@@ -1492,6 +1517,7 @@ export const eventsForAvailableAction = (
     || (targeted.length === 0 && !playerAura && /\btarget\b/i.test(object.oracleText))
     || (
       !hasAlternateCast
+      && !hasBestowCast
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
     )
     || (
@@ -1503,7 +1529,8 @@ export const eventsForAvailableAction = (
       return null
     }
   }
-  if ((targeted.length === 1 || playerAura) && !action.targetObjectId) return null
+  const bestowing = action.castOption === 'bestow' && hasBestowCast
+  if ((targeted.length === 1 || playerAura || bestowing) && !action.targetObjectId) return null
   const blinkTargets = action.targetObjectIds
     ?? (action.targetObjectId ? [action.targetObjectId] : [])
   if (
@@ -1532,7 +1559,7 @@ export const eventsForAvailableAction = (
   const cost = spellCost(state, casting, {
     additionalGeneric: tax,
     x: action.x,
-    castOption: alternative?.id,
+    castOption: alternative?.id ?? action.castOption,
     kicked: action.kicked,
     targets,
     seat,

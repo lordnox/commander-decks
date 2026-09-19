@@ -78,6 +78,7 @@ export type CardInstruction =
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'createToken'; token: TokenSpec }
+  | { kind: 'attachedCopyOrToken'; cost: string; token: TokenSpec }
   | { kind: 'copySelf' }
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
@@ -357,4 +358,9 @@ export type CardEffect =
       drawAtEnchantedEnd: number
       breakOnMutualAttack: boolean
     }
-  | { op: 'bestow'; cost: string }
+  | {
+      op: 'bestow'
+      cost: string
+      power: number
+      toughness: number
+    }

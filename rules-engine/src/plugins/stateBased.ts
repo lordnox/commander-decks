@@ -34,6 +34,21 @@ export const stateBased: Plugin = {
     }
 
     for (const object of Object.values(draft.objects)) {
+      // CR 704.5m: an Aura not attached to a legal object or player dies.
+      if (
+        object.zone === 'battlefield'
+        && object.subtypes.includes('Aura')
+        && (
+          !object.attachedTo
+          || (
+            !draft.players[object.attachedTo]
+            && draft.objects[object.attachedTo]?.zone !== 'battlefield'
+          )
+          || draft.players[object.attachedTo]?.lost
+        )
+      ) {
+        return [moveToGraveyard(object.id)]
+      }
       if (
         object.zone === 'battlefield'
         && object.types.includes('Planeswalker')
