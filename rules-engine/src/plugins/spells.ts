@@ -37,10 +37,33 @@ const cannotBeCountered = (object: GameObject) =>
   effectsOf(object).some((effect) =>
     effect.op === 'spellTrait' && effect.uncounterable)
 
-const coloredCosts = (manaCost: string) =>
-  [...manaCost.matchAll(/\{([^}]+)\}/g)]
-    .map((match) => match[1].split('/').filter((symbol) => MANA_SYMBOLS.has(symbol as ManaId)))
-    .filter((choices) => choices.length > 0) as ManaId[][]
+type ColoredCost = {
+  choices: ManaId[]
+  phyrexianIndex?: number
+}
+
+const coloredCosts = (manaCost: string) => {
+  let phyrexianIndex = 0
+  return [...manaCost.matchAll(/\{([^}]+)\}/g)].flatMap((match): ColoredCost[] => {
+    const parts = match[1].split('/')
+    const choices = parts.filter((symbol) => MANA_SYMBOLS.has(symbol as ManaId)) as ManaId[]
+    if (choices.length === 0) return []
+    if (!parts.includes('P')) return [{ choices }]
+    return [{ choices, phyrexianIndex: phyrexianIndex++ }]
+  })
+}
+
+export const phyrexianSymbols = (manaCost: string) =>
+  [...manaCost.matchAll(/\{([^{}]+\/P)\}/g)].map((match) => match[1])
+
+export const phyrexianSymbolCount = (manaCost: string) =>
+  phyrexianSymbols(manaCost).length
+
+const validPhyrexianLife = (manaCost: string, paidWithLife: number[]) => {
+  const count = phyrexianSymbolCount(manaCost)
+  return new Set(paidWithLife).size === paidWithLife.length
+    && paidWithLife.every((index) => Number.isSafeInteger(index) && index >= 0 && index < count)
+}
 
 const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | null => {
   if (index === costs.length) return pool
@@ -53,9 +76,21 @@ const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | nu
   return null
 }
 
-export const payCost = (pool: ManaPool, manaCost: string) => {
+export const payCost = (
+  pool: ManaPool,
+  manaCost: string,
+  phyrexianLife: number[] = [],
+) => {
+  if (!validPhyrexianLife(manaCost, phyrexianLife)) return null
+  const lifeSymbols = new Set(phyrexianLife)
   const generic = genericCost(manaCost)
-  const colored = payColored(pool, coloredCosts(manaCost))
+  const colored = payColored(
+    pool,
+    coloredCosts(manaCost)
+      .filter((cost) =>
+        cost.phyrexianIndex === undefined || !lifeSymbols.has(cost.phyrexianIndex))
+      .map((cost) => cost.choices),
+  )
   if (!colored) return null
   const remaining = { ...colored }
 
@@ -113,7 +148,14 @@ export const spells: Plugin = {
         return `${spell.name} requires a nonnegative integer X`
       }
       const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0, event.castOption)
-      if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
+      const phyrexianLife = event.phyrexianLife ?? []
+      if (!validPhyrexianLife(cost, phyrexianLife)) return 'invalid Phyrexian mana payment'
+      if (phyrexianLife.length * 2 > state.players[event.seat].life) {
+        return 'not enough life for Phyrexian mana'
+      }
+      if (!payCost(state.players[event.seat].mana, cost, phyrexianLife)) {
+        return 'not enough mana'
+      }
       const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       if (needed) {
@@ -140,7 +182,8 @@ export const spells: Plugin = {
       const face = castFaceOf(object)
       if (face) applyFace(object, face)
       const cost = spellCost(object, event.additionalGeneric, event.x ?? 0, event.castOption)
-      const paid = payCost(draft.players[event.seat].mana, cost)
+      const phyrexianLife = event.phyrexianLife ?? []
+      const paid = payCost(draft.players[event.seat].mana, cost, phyrexianLife)
       if (!paid) return
 
       const manaSpent = Object.fromEntries(
@@ -149,6 +192,14 @@ export const spells: Plugin = {
           .filter(([, amount]) => amount > 0),
       )
       draft.players[event.seat].mana = paid
+      if (phyrexianLife.length > 0) {
+        draft.enqueue({
+          type: 'payLife',
+          seat: event.seat,
+          amount: phyrexianLife.length * 2,
+          source: object.name,
+        })
+      }
       draft.stack.unshift({
         id: draft.allocId('s'),
         kind: 'spell',

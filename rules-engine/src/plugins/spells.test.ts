@@ -23,6 +23,14 @@ describe('spells', () => {
     expect(payCost(emptyMana(), '{U/B}{U/B}')).toBeNull()
   })
 
+  test('Phyrexian mana requires an explicit mana or life payment for every symbol', () => {
+    expect(payCost({ ...emptyMana(), B: 1 }, '{B/P}')).toEqual(emptyMana())
+    expect(payCost(emptyMana(), '{B/P}', [0])).toEqual(emptyMana())
+    expect(payCost(emptyMana(), '{B/P}')).toBeNull()
+    expect(payCost(emptyMana(), '{B/P}', [1])).toBeNull()
+    expect(payCost(emptyMana(), '{B/P}{B/P}', [0, 0])).toBeNull()
+  })
+
   test('payCost does not mutate the input pool', () => {
     const pool = { ...emptyMana(), C: 2 }
     expect(payCost(pool, '{1}')).toEqual({ ...emptyMana(), C: 1 })

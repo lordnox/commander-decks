@@ -1,7 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
-import { payCost } from './plugins/spells'
+import { payCost, phyrexianSymbols } from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
   discardCostCandidates,
@@ -74,6 +74,7 @@ export type AvailableAction =
       x?: number
       castOption?: string
       castLabel?: string
+      phyrexianLife?: number[]
       targetGroups?: ActionTargetGroup[]
     }
   | {
@@ -293,7 +294,12 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
 const poolKey = (pool: ManaPool, cap: number) =>
   MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
 
-const canFund = (state: GameState, seat: PlayerId, cost: string) => {
+const canFund = (
+  state: GameState,
+  seat: PlayerId,
+  cost: string,
+  phyrexianLife: number[] = [],
+) => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state))
     .map((object) => manaModes(object, state))
@@ -302,7 +308,7 @@ const canFund = (state: GameState, seat: PlayerId, cost: string) => {
     1,
     [...cost.matchAll(/\{(\d+)\}/g)].reduce(
       (total, match) => total + Number(match[1]),
-      [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGC])?\}/g)].length,
+      [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGCP])?\}/g)].length,
     ),
   )
   let pools = [state.players[seat]?.mana ?? emptyMana()]
@@ -316,7 +322,7 @@ const canFund = (state: GameState, seat: PlayerId, cost: string) => {
     }
     pools = [...next.values()]
   }
-  return pools.some((pool) => payCost(pool, cost))
+  return pools.some((pool) => payCost(pool, cost, phyrexianLife))
 }
 
 const taxFor = (state: GameState, seat: PlayerId, object: GameObject) => {
@@ -370,6 +376,31 @@ const costForX = (object: GameObject, x: number) => {
   return object.manaCost.replaceAll('{X}', xCost)
 }
 
+const phyrexianPayments = (cost: string, life: number) => {
+  const symbols = phyrexianSymbols(cost)
+  const payments = Array.from(
+    { length: 2 ** symbols.length },
+    (_, mask) => Array.from(
+      { length: symbols.length },
+      (__, index) => index,
+    ).filter((index) => mask & (1 << index)),
+  ).filter((symbols) => symbols.length * 2 <= life)
+  const unique = new Map<string, number[]>()
+  for (const payment of payments) {
+    const key = payment.map((index) => symbols[index]).sort().join(',')
+    if (!unique.has(key)) unique.set(key, payment)
+  }
+  return [...unique.values()]
+}
+
+const phyrexianCastLabel = (cost: string, payment: number[]) => {
+  if (payment.length === 0) return 'Pay mana'
+  const symbols = phyrexianSymbols(cost)
+  return `Pay ${payment.length * 2} life for ${
+    payment.map((index) => `{${symbols[index]}}`).join(' ')
+  }`
+}
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
@@ -378,24 +409,38 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const face = castFaceOf(object)
-    const actions: AvailableAction[] = canFund(
-      state,
-      seat,
-      `${face?.manaCost ?? object.manaCost}${suffix}`,
-    )
-      ? [{ kind: 'castSpell', objectId: object.id, name: object.name }]
-      : []
+    const cost = `${face?.manaCost ?? object.manaCost}${suffix}`
+    const payments = phyrexianPayments(cost, state.players[seat].life)
+    const actions: AvailableAction[] = payments.flatMap((phyrexianLife) =>
+      canFund(state, seat, cost, phyrexianLife)
+        ? [{
+            kind: 'castSpell',
+            objectId: object.id,
+            name: object.name,
+            ...(payments.length > 1
+              ? { phyrexianLife, castLabel: phyrexianCastLabel(cost, phyrexianLife) }
+              : {}),
+          }]
+        : [])
     for (const alternative of alternatives) {
-      if (
-        canChooseAlternateCast(state, seat, alternative)
-        && canFund(state, seat, `${alternative.manaCost}${suffix}`)
-      ) {
+      const alternativeCost = `${alternative.manaCost}${suffix}`
+      if (!canChooseAlternateCast(state, seat, alternative)) continue
+      const alternativePayments = phyrexianPayments(
+        alternativeCost,
+        state.players[seat].life,
+      )
+      for (const phyrexianLife of alternativePayments) {
+        if (!canFund(state, seat, alternativeCost, phyrexianLife)) continue
+        const paymentLabel = phyrexianSymbols(alternativeCost).length > 0
+          ? ` — ${phyrexianCastLabel(alternativeCost, phyrexianLife)}`
+          : ''
         actions.push({
           kind: 'castSpell',
           objectId: object.id,
           name: object.name,
           castOption: alternative.id,
-          castLabel: alternative.label,
+          castLabel: `${alternative.label}${paymentLabel}`,
+          ...(alternativePayments.length > 1 ? { phyrexianLife } : {}),
         })
       }
     }
@@ -414,8 +459,22 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
   return Array.from({ length: upper + 1 }, (_, x) => x)
-    .filter((x) => canFund(state, seat, costForX(object, x)))
-    .map((x) => ({ kind: 'castSpell', objectId: object.id, name: object.name, x }))
+    .flatMap((x): AvailableAction[] => {
+      const cost = costForX(object, x)
+      const payments = phyrexianPayments(cost, state.players[seat].life)
+      return payments.flatMap((phyrexianLife) =>
+        canFund(state, seat, cost, phyrexianLife)
+          ? [{
+              kind: 'castSpell',
+              objectId: object.id,
+              name: object.name,
+              x,
+              ...(payments.length > 1
+                ? { phyrexianLife, castLabel: phyrexianCastLabel(cost, phyrexianLife) }
+                : {}),
+            }]
+          : [])
+    })
 }
 
 const activatedText = (object: GameObject) =>
@@ -1008,6 +1067,7 @@ export const sameLegalAct = (
     targetPlayerId?: string
     x?: number
     castOption?: string
+    phyrexianLife?: number[]
     stackId?: string
     selectionId?: string
     triggerId?: string
@@ -1026,6 +1086,7 @@ export const sameLegalAct = (
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
       && left.castOption === right.castOption
+      && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
   }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
@@ -1043,6 +1104,7 @@ const fundingEvents = (
   seat: PlayerId,
   cost: string,
   excluded = new Set<string>(),
+  phyrexianLife: number[] = [],
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
@@ -1080,7 +1142,7 @@ const fundingEvents = (
     plans = [...next.values()]
   }
   return plans
-    .filter((plan) => payCost(plan.pool, cost))
+    .filter((plan) => payCost(plan.pool, cost, phyrexianLife))
     .sort((left, right) => left.events.length - right.events.length)[0]
     ?.events ?? null
 }
@@ -1252,7 +1314,7 @@ export const eventsForAvailableAction = (
   const cost = `${
     alternative?.manaCost ?? costForX(casting, action.x ?? 0)
   }${tax > 0 ? `{${tax}}` : ''}`
-  const mana = fundingEvents(state, seat, cost)
+  const mana = fundingEvents(state, seat, cost, new Set(), action.phyrexianLife)
   if (!mana) return null
   return [
     ...mana,
@@ -1261,6 +1323,7 @@ export const eventsForAvailableAction = (
       seat,
       objectId: object.id,
       ...(action.castOption ? { castOption: action.castOption } : {}),
+      ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       ...(action.targetObjectId || action.targetObjectIds
         ? {
             targets: playerAura
