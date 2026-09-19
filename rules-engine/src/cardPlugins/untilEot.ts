@@ -68,7 +68,7 @@ const removeLastOracleLine = (object: GameObject, line: string) => {
 }
 
 const revertUntilEot = (object: GameObject) => {
-  for (const change of [...(object.untilEot ?? [])].reverse()) {
+  for (const change of (object.untilEot ?? []).toReversed()) {
     if (change.kind === 'pump') {
       if (object.power !== null) object.power -= change.power
       if (object.toughness !== null) object.toughness -= change.toughness

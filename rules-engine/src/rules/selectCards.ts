@@ -308,7 +308,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     }
   } else if (selection.kind === 'sacrifice') {
     for (const objectId of event.objectIds ?? []) {
-      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+      draft.enqueue({ type: 'sacrifice', objectId })
     }
     const name = draft.objects[event.objectIds?.[0] ?? '']?.name ?? 'a creature'
     draft.note(

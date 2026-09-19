@@ -1,11 +1,27 @@
 import type { Plugin } from '../types'
-import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
+import { DIALOG_CHOSEN, pendingDialogFor, setPendingDialog } from '../pendingDialog'
 import { applyCopy, millLibrary } from './effects'
 import { effectsOf } from './cardRules'
 
 export const choiceEffects: Plugin = {
   id: 'choiceEffects',
   apply: ({ state, event, draft }) => {
+    if (event.type === 'custom' && event.name === 'delayedDraw.optional' && event.seat) {
+      const count = typeof event.payload?.count === 'number' ? event.payload.count : 1
+      setPendingDialog(draft, {
+        sourceId: event.seat,
+        source: 'delayed draw',
+        seat: event.seat,
+        kind: 'may-draw',
+        prompt: `You may draw ${count === 1 ? 'a card' : `${count} cards`}.`,
+        waiting: 'is deciding whether to draw.',
+        judge: 'Waiting for an optional delayed draw.',
+        chosenEvent: DIALOG_CHOSEN,
+        destinations: ['skip', 'target'],
+        count,
+      })
+      return
+    }
     if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) {
       return
     }
@@ -60,7 +76,8 @@ export const choiceEffects: Plugin = {
         : []
       const targetId = objectIds[0]
       const target = targetId ? draft.object(targetId) : undefined
-      if (target && target.zone === 'stack') {
+      const paid = event.payload?.paid === true || event.payload?.accepted === true
+      if (!paid && target && target.zone === 'stack') {
         const index = draft.stack.findIndex((candidate) => candidate.objectId === target.id)
         if (index >= 0 && draft.stack[index].uncounterable) {
           draft.note(`${dialog.source} cannot counter ${target.name}`)
@@ -91,7 +108,7 @@ export const choiceEffects: Plugin = {
         ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
         : []
       const topIds = draft.zoneOrder[event.seat].library.slice(0, dialog.count ?? 5)
-      const toBattlefield = objectIds.filter((id) => {
+      const toBattlefield = objectIds.filter((id) => topIds.includes(id)).filter((id) => {
         const object = draft.object(id)
         return object?.types.includes('Land')
       })
@@ -101,9 +118,8 @@ export const choiceEffects: Plugin = {
       }
       for (const objectId of topIds) {
         if (toBattlefield.includes(objectId)) continue
-        draft.enqueue({ type: 'move', objectId, to: 'library' })
+        draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
       }
-      draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
     }
   },
 }

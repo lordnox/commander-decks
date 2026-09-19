@@ -22,12 +22,18 @@ describe('Reins of Power', () => {
       manaValue: 4,
     })
     const ours = cardTemplate('Llanowar Elves', { types: ['Creature'], power: 1, toughness: 1 })
+    const hasty = cardTemplate('Raging Goblin', {
+      types: ['Creature'],
+      power: 1,
+      toughness: 1,
+      oracleText: 'Haste',
+    })
     const theirs = cardTemplate('Pathbreaker Ibex', { types: ['Creature'], power: 3, toughness: 3 })
     const server = createServerGame(
       commanderRules,
       {
         hands: { p1: [spell] },
-        battlefield: { p1: [ours], p2: [theirs] },
+        battlefield: { p1: [ours, hasty], p2: [theirs] },
       },
       { random: () => 0.5, cardPlugins: [onResolve, reinsOfPower] },
     )
@@ -55,6 +61,8 @@ describe('Reins of Power', () => {
     }
     expect(state.objects[named(state, 'Pathbreaker Ibex').id].controller).toBe('p2')
     expect(state.objects[named(state, 'Llanowar Elves').id].controller).toBe('p1')
+    expect(haste(state.objects[named(state, 'Pathbreaker Ibex').id])).toBe(false)
+    expect(haste(state.objects[named(state, 'Raging Goblin').id])).toBe(true)
   })
 })
 

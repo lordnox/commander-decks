@@ -1,5 +1,6 @@
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
+import { hasKeyword } from '../keywords'
 import { lifeLostThisTurn } from '../plugins/life'
 import type {
   GameObject,
@@ -7,6 +8,7 @@ import type {
   ManaPool,
   PlayerId,
   TriggerBindingIf,
+  StackItem,
   ZoneId,
 } from '../types'
 
@@ -1158,6 +1160,86 @@ export const createToken = (
   return token
 }
 
+export const manaValueOf = (object: GameObject) => {
+  if (object.manaValue !== 0 || !object.manaCost) return object.manaValue
+  return [...object.manaCost.matchAll(/\{([^}]+)\}/g)].reduce((total, match) => {
+    const symbol = match[1]
+    if (/^\d+$/.test(symbol)) return total + Number(symbol)
+    if (symbol === 'X') return total
+    const hybridNumber = symbol.match(/^(\d+)\//)
+    return total + (hybridNumber ? Number(hybridNumber[1]) : 1)
+  }, 0)
+}
+
+export const copyCharacteristics = (
+  copied: GameObject,
+  extra: { notLegendary?: boolean; flying?: boolean } = {},
+) => ({
+  name: copied.name,
+  types: [...copied.types],
+  subtypes: [...copied.subtypes],
+  supertypes: extra.notLegendary
+    ? copied.supertypes.filter((entry) => entry !== 'Legendary')
+    : [...copied.supertypes],
+  manaCost: copied.manaCost,
+  manaValue: manaValueOf(copied),
+  colors: [...copied.colors],
+  power: copied.power,
+  toughness: copied.toughness,
+  printedLoyalty: copied.printedLoyalty,
+  oracleText: extra.flying && !hasKeyword(copied, 'flying')
+    ? copied.oracleText
+      ? `${copied.oracleText}\nFlying`
+      : 'Flying'
+    : copied.oracleText,
+  grantedRules: [...copied.grantedRules],
+  tapProduces: copied.tapProduces ? { ...copied.tapProduces } : undefined,
+  effects: copied.effects ? [...copied.effects] : [],
+})
+
+export const copyStackSpell = (
+  draft: Draft,
+  originalObject: GameObject,
+  originalStackItem: StackItem,
+  controller: PlayerId,
+) => {
+  const objectId = draft.allocId('obj')
+  const copiedObject: GameObject = {
+    ...originalObject,
+    ...copyCharacteristics(originalObject),
+    id: objectId,
+    owner: controller,
+    controller,
+    zone: 'stack',
+    token: false,
+    tapped: false,
+    summoningSickness: false,
+    damageMarked: 0,
+    counters: {},
+    attachedTo: null,
+    attacking: null,
+    blocking: null,
+    tags: [...originalObject.tags],
+  }
+  draft.objects[objectId] = copiedObject
+  const stackZone = draft.zoneOrder[controller]?.stack
+  if (stackZone) {
+    stackZone.push(objectId)
+    draft.zoneCounts[controller].stack += 1
+  }
+  const copiedItem: StackItem = {
+    ...originalStackItem,
+    id: draft.allocId('s'),
+    objectId,
+    controller,
+    name: copiedObject.name,
+    targets: [...originalStackItem.targets],
+    ...(originalStackItem.choices ? { choices: [...originalStackItem.choices] } : {}),
+  }
+  draft.stack.unshift(copiedItem)
+  return copiedItem
+}
+
 export const copyTokenTemplate = (
   card: GameObject,
   extra: {
@@ -1166,29 +1248,12 @@ export const copyTokenTemplate = (
     tapped?: boolean
   } = {},
 ): Partial<GameObject> & { name: string } => ({
-  name: card.name,
+  ...copyCharacteristics(card, extra),
   // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
   ...(extra.tapped ? { tapped: true } : {}),
   summoningSickness: card.types.includes('Creature'),
   counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
-  types: [...card.types],
-  subtypes: [...card.subtypes],
-  supertypes: extra.notLegendary
-    ? card.supertypes.filter((entry) => entry !== 'Legendary')
-    : [...card.supertypes],
-  manaCost: card.manaCost,
-  manaValue: card.manaValue,
-  colors: [...card.colors],
-  power: card.power,
-  toughness: card.toughness,
-  printedLoyalty: card.printedLoyalty,
-  oracleText: extra.flying && !card.oracleText.toLowerCase().includes('flying')
-    ? `${card.oracleText}\nFlying`
-    : card.oracleText,
-  grantedRules: [...card.grantedRules],
   tags: [],
-  tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
-  effects: card.effects ? [...card.effects] : [],
 })
 
 export const addPlusCounters = (object: GameObject, amount: number) => {
@@ -1326,6 +1391,7 @@ export function applyCopy (
   copied: GameObject,
   extra: { notLegendary?: boolean; plusCounters?: number; keepName?: boolean } = {},
 ) {
+  const characteristics = copyCharacteristics(copied, extra)
   const keptStatic = extra.keepName
     ? (object.effects ?? []).filter((effect) => effect.op === 'static')
     : []
@@ -1333,23 +1399,21 @@ export function applyCopy (
     // The table still needs to read the card underneath: a clone is answered
     // differently once you know it is a Spark Double wearing someone's face.
     object.printedName = object.printedName ?? object.name
-    object.name = copied.name
+    object.name = characteristics.name
   }
-  object.types = [...copied.types]
-  object.subtypes = [...copied.subtypes]
-  object.supertypes = extra.notLegendary
-    ? copied.supertypes.filter((entry) => entry !== 'Legendary')
-    : [...copied.supertypes]
-  object.manaCost = copied.manaCost
-  object.manaValue = copied.manaValue
-  object.colors = [...copied.colors]
-  object.power = copied.power
-  object.toughness = copied.toughness
-  object.printedLoyalty = copied.printedLoyalty
-  object.oracleText = copied.oracleText
-  object.grantedRules = [...copied.grantedRules]
-  object.tapProduces = copied.tapProduces ? { ...copied.tapProduces } : undefined
-  object.effects = copied.effects ? [...copied.effects] : []
+  object.types = characteristics.types
+  object.subtypes = characteristics.subtypes
+  object.supertypes = characteristics.supertypes
+  object.manaCost = characteristics.manaCost
+  object.manaValue = characteristics.manaValue
+  object.colors = characteristics.colors
+  object.power = characteristics.power
+  object.toughness = characteristics.toughness
+  object.printedLoyalty = characteristics.printedLoyalty
+  object.oracleText = characteristics.oracleText
+  object.grantedRules = characteristics.grantedRules
+  object.tapProduces = characteristics.tapProduces
+  object.effects = characteristics.effects
   if (keptStatic.length > 0) object.effects = [...object.effects, ...keptStatic]
   if (extra.plusCounters && extra.plusCounters > 0) addPlusCounters(object, extra.plusCounters)
 }

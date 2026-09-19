@@ -45,18 +45,10 @@ export const fight: Plugin = {
       const second = objectIds[0] ? draft.object(objectIds[0]) : undefined
       if (!first || !second || first.zone !== 'battlefield' || second.zone !== 'battlefield') return
       draft.enqueue({
-        type: 'dealDamage',
-        sourceId: first.id,
-        target: { kind: 'object', objectId: second.id },
-        amount: first.power ?? 0,
+        type: 'fight',
+        leftId: first.id,
+        rightId: second.id,
       })
-      draft.enqueue({
-        type: 'dealDamage',
-        sourceId: second.id,
-        target: { kind: 'object', objectId: first.id },
-        amount: second.power ?? 0,
-      })
-      draft.note(`${first.name} fights ${second.name}`)
       return
     }
 
@@ -66,17 +58,9 @@ export const fight: Plugin = {
       return
     }
     draft.enqueue({
-      type: 'dealDamage',
-      sourceId: source.id,
-      target: { kind: 'object', objectId: target.id },
-      amount: source.power ?? 0,
+      type: 'fight',
+      leftId: source.id,
+      rightId: target.id,
     })
-    draft.enqueue({
-      type: 'dealDamage',
-      sourceId: target.id,
-      target: { kind: 'object', objectId: source.id },
-      amount: target.power ?? 0,
-    })
-    draft.note(`${source.name} fights ${target.name}`)
   },
 }

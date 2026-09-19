@@ -11,51 +11,19 @@ import type { GameObject, StackItem } from '../types'
 import { changeStatsUntilCleanup, copyUntilCleanup } from '../plugins/temporaryStats'
 import { lifeLostThisTurn } from '../plugins/life'
 import { openCumulativeUpkeep } from './cumulativeUpkeep'
+import { applyOracleLineUntilEot } from './untilEot'
 import {
   addPlusCounters,
   conditionHolds,
+  copyStackSpell,
   copyTokenTemplate,
   createToken,
+  manaValueOf,
   millLibrary,
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
   type CardInstruction,
 } from './effects'
-
-const manaValueOf = (object: GameObject) =>
-  object.manaCost
-    ? [...object.manaCost.matchAll(/\{([^}]+)\}/g)].reduce((total, match) => {
-      if (/^\d+$/.test(match[1])) return total + Number(match[1])
-      return match[1] === 'X' ? total : total + 1
-    }, 0)
-    : object.manaValue ?? 0
-
-function copyTemplate (
-  card: GameObject,
-  extra: { notLegendary?: boolean; flying?: boolean } = {},
-): Partial<GameObject> & { name: string } {
-  return {
-    name: card.name,
-    summoningSickness: card.types.includes('Creature'),
-    types: [...card.types],
-    subtypes: [...card.subtypes],
-    supertypes: extra.notLegendary
-      ? card.supertypes.filter((entry) => entry !== 'Legendary')
-      : [...card.supertypes],
-    manaCost: card.manaCost,
-    manaValue: card.manaValue,
-    colors: [...card.colors],
-    power: card.power,
-    toughness: card.toughness,
-    printedLoyalty: card.printedLoyalty,
-    oracleText: extra.flying && !card.oracleText.toLowerCase().includes('flying')
-      ? `${card.oracleText}\nFlying`
-      : card.oracleText,
-    grantedRules: [...card.grantedRules],
-    tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
-    effects: card.effects ? [...card.effects] : [],
-  }
-}
 
 type BufferedStackAction =
   | { kind: 'draw'; remaining: number }
@@ -88,8 +56,7 @@ const flushStackActions = (
   buffer: BufferedStackAction[],
   item?: StackItem,
 ) => {
-  for (let index = buffer.length - 1; index >= 0; index -= 1) {
-    const action = buffer[index]
+  for (const action of buffer) {
     if (action.kind === 'draw') {
       draft.enqueue({
         type: 'draw',
@@ -134,13 +101,13 @@ const askEachPlayerDiscard = (
   }
 }
 
-const askEachPlayerSacrifice = (draft: Draft, source: GameObject) => {
+const askEachPlayerSacrifice = (draft: Draft, source: GameObject, type = 'Creature') => {
   for (const seat of apnapSeats(draft)) {
     const candidates = Object.values(draft.objects)
       .filter((object) =>
         object.zone === 'battlefield'
         && object.controller === seat
-        && object.types.includes('Creature'))
+        && object.types.includes(type))
       .map((object) => object.id)
     if (candidates.length === 0) continue
     openCardSelection(draft, {
@@ -150,7 +117,7 @@ const askEachPlayerSacrifice = (draft: Draft, source: GameObject) => {
       candidates,
       sourceId: source.id,
       source: source.name,
-      prompt: `${source.name} makes each player sacrifice a creature. Choose one.`,
+      prompt: `${source.name} makes each player sacrifice a ${type.toLowerCase()}. Choose one.`,
       destinations: ['battlefield', 'sacrifice'],
       fromSeat: seat,
       sequence: draft.allocTs(),
@@ -173,7 +140,7 @@ export const runInstructions = (
       const chosen = conditionHolds(instruction.if, draft, live)
         ? instruction.whenTrue
         : instruction.whenFalse ?? []
-      runInstructions(draft, source, chosen, item, buffer)
+      runInstructions(draft, live, chosen, item, buffer)
       continue
     }
     if (instruction.kind === 'selfMill') {
@@ -193,7 +160,7 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'sacrificeSelf') {
-      draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+      draft.enqueue({ type: 'sacrifice', objectId: source.id })
       continue
     }
     if (instruction.kind === 'addMana') {
@@ -201,8 +168,8 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'addManaToEachPlayer') {
-      for (const player of Object.values(draft.players)) {
-        draft.enqueue({ type: 'addMana', seat: player.id, mana: instruction.mana })
+      for (const seat of apnapSeats(draft)) {
+        draft.enqueue({ type: 'addMana', seat, mana: instruction.mana })
       }
       continue
     }
@@ -496,7 +463,15 @@ export const runInstructions = (
       if (target?.kind !== 'object') continue
       const object = draft.object(target.objectId)
       if (!object) continue
-      draft.players[source.controller].life -= manaValueOf(object)
+      const amount = manaValueOf(object)
+      if (amount > 0) {
+        draft.enqueue({
+          type: 'loseLife',
+          seat: source.controller,
+          amount,
+          source: source.id,
+        })
+      }
       continue
     }
     if (instruction.kind === 'teferiSunsetPlusOne') {
@@ -660,19 +635,7 @@ export const runInstructions = (
         const first = draft.object(left.objectId)
         const second = draft.object(right.objectId)
         if (first && second) {
-          draft.enqueue({
-            type: 'dealDamage',
-            sourceId: first.id,
-            target: { kind: 'object', objectId: second.id },
-            amount: first.power ?? 0,
-          })
-          draft.enqueue({
-            type: 'dealDamage',
-            sourceId: second.id,
-            target: { kind: 'object', objectId: first.id },
-            amount: second.power ?? 0,
-          })
-          draft.note(`${first.name} fights ${second.name}`)
+          draft.enqueue({ type: 'fight', leftId: first.id, rightId: second.id })
         }
       }
       continue
@@ -682,21 +645,23 @@ export const runInstructions = (
       if (opponent?.kind === 'player') {
         const you = source.controller
         const them = opponent.player
-        const swaps: Array<{ objectId: string; previous: string }> = []
+        const swaps: Array<{ objectId: string; previous: string; oracleText: string }> = []
         for (const object of Object.values(draft.objects)) {
           if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
           if (object.controller !== you && object.controller !== them) continue
-          swaps.push({ objectId: object.id, previous: object.controller })
+          swaps.push({
+            objectId: object.id,
+            previous: object.controller,
+            oracleText: object.oracleText,
+          })
           object.controller = object.controller === you ? them : you
           object.tapped = false
-          if (!/haste/i.test(object.oracleText)) {
-            object.oracleText = object.oracleText ? `${object.oracleText}\nHaste` : 'Haste'
-          }
+          applyOracleLineUntilEot(object, 'Haste')
         }
         draft.players[you].data['reinsOfPower.swaps'] = [
           ...((Array.isArray(draft.players[you].data['reinsOfPower.swaps'])
             ? draft.players[you].data['reinsOfPower.swaps']
-            : []) as Array<{ objectId: string; previous: string }>),
+            : []) as Array<{ objectId: string; previous: string; oracleText?: string }>),
           ...swaps,
         ]
         draft.note(`${you} exchanges creature control with ${them}`)
@@ -716,11 +681,9 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'discardHandsThenDrawGreatest') {
-      const count = Math.max(
-        0,
-        ...draft.playerOrder.map((seat) => draft.zoneOrder[seat].hand.length),
-      )
-      for (const seat of draft.playerOrder) {
+      const seats = apnapSeats(draft)
+      const count = Math.max(0, ...seats.map((seat) => draft.zoneOrder[seat].hand.length))
+      for (const seat of seats) {
         for (const objectId of draft.zoneOrder[seat].hand) {
           draft.enqueue({ type: 'discard', seat, objectId })
         }
@@ -754,15 +717,7 @@ export const runInstructions = (
     }
     if (instruction.kind === 'copySelf') {
       const live = draft.object(source.id) ?? source
-      createToken(draft, live.controller, {
-        name: live.name,
-        types: [...live.types],
-        subtypes: [...live.subtypes],
-        power: live.power,
-        toughness: live.toughness,
-        oracleText: live.oracleText,
-        effects: live.effects ?? [],
-      })
+      createToken(draft, live.controller, copyTokenTemplate(live))
       continue
     }
     if (instruction.kind === 'doublePlusCounters') {
@@ -817,7 +772,7 @@ export const runInstructions = (
         source: source.name,
         seat: source.controller,
         kind: 'bounce-land',
-        prompt: 'Return a land you control to its owner’s hand.',
+        prompt: 'Return a land you control to its owner\'s hand.',
         waiting: 'is choosing a land to return.',
         judge: 'Waiting for a land to bounce.',
         chosenEvent: DIALOG_CHOSEN,
@@ -923,10 +878,7 @@ export const runInstructions = (
       const target = item?.targets[0]
       const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
       if (!object) continue
-      const extra = instruction.keywords.join(', ')
-      object.oracleText = object.oracleText
-        ? `${object.oracleText}\n${extra}`
-        : extra
+      for (const keyword of instruction.keywords) applyOracleLineUntilEot(object, keyword)
       continue
     }
     if (instruction.kind === 'createXTokens') {
@@ -1100,7 +1052,7 @@ export const runInstructions = (
         source: source.name,
         seat: source.controller,
         kind: 'may-draw',
-        prompt: 'An opponent lost 3 or more life this turn. You may draw a card.',
+        prompt: `You may draw ${instruction.count === 1 ? 'a card' : `${instruction.count} cards`}.`,
         waiting: 'is deciding whether to draw.',
         judge: `Waiting for an optional draw from ${source.name}.`,
         chosenEvent: DIALOG_CHOSEN,
@@ -1131,7 +1083,7 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'eachPlayerSacrifice') {
-      askEachPlayerSacrifice(draft, source)
+      askEachPlayerSacrifice(draft, source, instruction.type)
       continue
     }
     if (instruction.kind === 'eachPlayerLoseLife') {
@@ -1152,18 +1104,25 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'returnChosenLandFromGraveyard') {
-      setPendingDialog(draft, {
+      const candidates = (draft.zoneOrder[source.controller].graveyard ?? []).filter(
+        (objectId) => draft.object(objectId)?.types.includes('Land'),
+      )
+      if (candidates.length === 0) continue
+      const tapped = instruction.tapped !== false
+      openCardSelection(draft, {
+        seat: source.controller,
+        kind: 'choose',
+        count: 1,
+        candidates,
         sourceId: source.id,
         source: source.name,
-        seat: source.controller,
-        kind: 'return-land',
-        prompt: 'Return a land card from your graveyard to the battlefield tapped.',
-        waiting: 'is choosing a land in the graveyard.',
-        judge: 'Waiting for a graveyard land.',
-        chosenEvent: DIALOG_CHOSEN,
-        destinations: ['graveyard', 'battlefield'],
-        types: ['Land'],
-        requirements: { battlefield: { min: 1, max: 1 } },
+        prompt: tapped
+          ? 'Return a land card from your graveyard to the battlefield tapped.'
+          : 'Return a land card from your graveyard to the battlefield.',
+        destinations: ['target'],
+        fromSeat: source.controller,
+        moveSelectedTo: 'battlefield',
+        tapSelected: tapped,
       })
       continue
     }
@@ -1178,9 +1137,12 @@ export const runInstructions = (
       if (!seat) continue
       const player = draft.players[seat]
       const queued = Array.isArray(player.data.delayedDraw)
-        ? [...player.data.delayedDraw as number[]]
+        ? [...player.data.delayedDraw as Array<{ count: number; optional?: boolean }>]
         : []
-      queued.push(instruction.optional ? -instruction.count : instruction.count)
+      queued.push({
+        count: instruction.count,
+        ...(instruction.optional ? { optional: true } : {}),
+      })
       player.data.delayedDraw = queued
       continue
     }
@@ -1203,7 +1165,7 @@ export const runInstructions = (
       if (!copied) continue
       for (const seat of draft.playerOrder) {
         if (seat === copied.controller || draft.players[seat].lost) continue
-        createToken(draft, seat, copyTemplate(copied))
+        createToken(draft, seat, copyTokenTemplate(copied))
       }
       continue
     }
@@ -1222,7 +1184,9 @@ export const runInstructions = (
         ? source.controller
         : item?.targets[0]?.kind === 'object'
           ? draft.object(item.targets[0].objectId)?.controller
-          : undefined
+          : item?.targets[0]?.kind === 'player'
+            ? item.targets[0].player
+            : undefined
       if (!seat) continue
       for (let index = 0; index < instruction.count; index += 1) {
         createToken(draft, seat, {
@@ -1269,9 +1233,7 @@ export const runInstructions = (
           bonus,
           toughnessBonus,
         )
-        if (instruction.trample && !object.oracleText.toLowerCase().includes('trample')) {
-          object.oracleText = object.oracleText ? `${object.oracleText}\nTrample` : 'Trample'
-        }
+        if (instruction.trample) applyOracleLineUntilEot(object, 'Trample')
       }
       continue
     }
@@ -1328,17 +1290,7 @@ export const runInstructions = (
       const copied = draft.object(target.objectId)
       const stackItem = draft.stack.find((candidate) => candidate.objectId === target.objectId)
       if (!copied || !stackItem || copied.zone !== 'stack') continue
-      draft.stack.unshift({
-        id: draft.allocId('s'),
-        kind: 'spell',
-        objectId: copied.id,
-        controller: source.controller,
-        name: copied.name,
-        targets: [...stackItem.targets],
-        ...(stackItem.kicked ? { kicked: true } : {}),
-        ...(stackItem.x !== undefined ? { x: stackItem.x } : {}),
-        ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
-      })
+      copyStackSpell(draft, copied, stackItem, source.controller)
       draft.note(`${source.name} copies ${copied.name}`)
       continue
     }
@@ -1360,13 +1312,12 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'grantControlled') {
-      const extra = instruction.keywords.join(', ')
       for (const object of Object.values(draft.objects)) {
         if (object.zone !== 'battlefield' || object.controller !== source.controller) continue
         if (!object.types.includes('Creature')) continue
         if (instruction.other && object.id === source.id) continue
         if (instruction.nonHuman && object.subtypes.includes('Human')) continue
-        object.oracleText = object.oracleText ? `${object.oracleText}\n${extra}` : extra
+        for (const keyword of instruction.keywords) applyOracleLineUntilEot(object, keyword)
       }
       continue
     }
@@ -1389,7 +1340,8 @@ export const runInstructions = (
       continue
     }
 
-    draft.note(`unknown instruction: ${String((instruction as { kind?: unknown }).kind)}`)
+    const unreachable: never = instruction
+    draft.note(`unknown instruction: ${String(unreachable)}`)
   }
 
   if (buffer && stackBuffer === undefined) flushStackActions(draft, source, buffer, item)
