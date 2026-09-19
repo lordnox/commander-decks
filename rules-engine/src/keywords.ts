@@ -9,10 +9,10 @@ import type { GameObject } from './types'
 export const abilityTokens = (oracleText: string) =>
   oracleText
     .split(/\n|\/\//)
+    .map((line) => line.replace(/\s*\([^)]*\)\s*/g, ' '))
     .flatMap((line) => line.split(','))
     .map((token) =>
       token
-        .replace(/\s*\([^)]*\)\s*/g, ' ')
         .trim()
         .toLowerCase()
         .replace(/\.$/, ''))

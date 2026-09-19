@@ -23,6 +23,7 @@ import { swampOverlay } from './swampOverlay'
 import { priority } from './priority'
 import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
+import { rebound } from './rebound'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
@@ -38,6 +39,7 @@ export const builtInPlugins = [
   mana,
   lands,
   spells,
+  rebound,
   stateBased,
   combat,
   life,
@@ -85,6 +87,7 @@ export {
   pendingDialogLock,
   phialReplacement,
   priority,
+  rebound,
   sacrificeLandMana,
   spells,
   stateBased,

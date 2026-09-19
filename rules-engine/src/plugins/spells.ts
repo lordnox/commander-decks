@@ -22,6 +22,7 @@ import {
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { applyFace, castFaceOf } from './doubleFaced'
+import { reboundsOnResolution } from './rebound'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -66,6 +67,7 @@ export const spellCost = (
     targets?: TargetRef[]
     seat?: PlayerId
     selected?: AlternateCastEffect
+    withoutPayingMana?: boolean
   } = {},
 ) => {
   const selected = options.selected ?? alternateCastEffect(object, options.castOption)
@@ -76,7 +78,9 @@ export const spellCost = (
   const xCost = xManaKind(object) === 'black'
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
-  const base = selected?.manaCost ?? bestowed?.cost ?? object.manaCost.replaceAll('{X}', xCost)
+  const base = options.withoutPayingMana
+    ? ''
+    : selected?.manaCost ?? bestowed?.cost ?? object.manaCost.replaceAll('{X}', xCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
   }${
@@ -236,9 +240,10 @@ export const spells: Plugin = {
         spell,
         event.castOption,
       )
+      const freeCast = event.alternativeCost === 'withoutPayingMana'
       if (selected?.fromZone) {
         if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
-      } else if (!state.castableZones.includes(object.zone)) {
+      } else if (!state.castableZones.includes(object.zone) && !(freeCast && object.zone === 'exile')) {
         return 'spell is not in a castable zone'
       }
       if (object.owner !== event.seat || object.controller !== event.seat) {
@@ -251,7 +256,7 @@ export const spells: Plugin = {
         return `${object.name} has no casting option ${event.castOption}`
       }
 
-      if (!spell.types.includes('Instant')) {
+      if (!spell.types.includes('Instant') && !freeCast) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
         if (state.step !== 'precombatMain' && state.step !== 'postcombatMain') {
           return 'non-instant spells require a main phase'
@@ -261,9 +266,18 @@ export const spells: Plugin = {
 
       if (
         spell.manaCost.includes('{X}')
+        && !freeCast
         && (!Number.isSafeInteger(event.x) || (event.x ?? -1) < 0)
       ) {
         return `${spell.name} requires a nonnegative integer X`
+      }
+      if (
+        freeCast
+        && spell.manaCost.includes('{X}')
+        && event.x !== undefined
+        && event.x !== 0
+      ) {
+        return `${spell.name} requires X to be 0 when cast without paying its mana cost`
       }
       const cost = spellCost(state, spell, {
         additionalGeneric: event.additionalGeneric,
@@ -273,6 +287,7 @@ export const spells: Plugin = {
         targets: event.targets,
         seat: event.seat,
         selected,
+        withoutPayingMana: freeCast,
       })
       const convoke = event.convoke ?? []
       if (new Set(convoke).size !== convoke.length) return 'duplicate convoke creature'
@@ -341,6 +356,7 @@ export const spells: Plugin = {
         targets: event.targets,
         seat: event.seat,
         selected,
+        withoutPayingMana: event.alternativeCost === 'withoutPayingMana',
       })
       const creatures = (event.convoke ?? [])
         .map((objectId) => draft.object(objectId))
@@ -440,11 +456,14 @@ export const spells: Plugin = {
         installGrantedRules(draft, object)
       } else {
         // CR 608.2: instructions run while the spell is still on the stack;
-        // the card is put into the graveyard only after those events apply.
+        // the card is put into its resolution zone only after those events apply.
         draft.enqueue({
           type: 'move',
           objectId: object.id,
-          to: finishedSpellZone(item, 'graveyard'),
+          to: finishedSpellZone(
+            item,
+            reboundsOnResolution(object, item) ? 'exile' : 'graveyard',
+          ),
         })
       }
       draft.passedInRow = []

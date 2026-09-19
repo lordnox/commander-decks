@@ -1,5 +1,6 @@
 import { swampCount } from '../../plugins/swampOverlay'
 import { lifeLostThisTurn } from '../../plugins/life'
+import { openFreeCast } from '../../plugins/rebound'
 import { initiateDiscard } from '../../rules/discard'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openPlayerSelection } from '../../rules/selectPlayers'
@@ -377,6 +378,11 @@ const drawAtNextUpkeep: InstructionHandler<'drawAtNextUpkeep'> = (
   )
 }
 
+const mayCastFromExileWithoutPayingMana:
+InstructionHandler<'mayCastFromExileWithoutPayingMana'> = ({ draft, source }) => {
+  openFreeCast(draft, source)
+}
+
 const drawGreatestPower: InstructionHandler<'drawGreatestPower'> = (
   { draft, source },
   instruction,
@@ -463,6 +469,7 @@ export const resourceHandlers = {
   addUntilCleanupRule,
   addChosenColorMana,
   drawAtNextUpkeep,
+  mayCastFromExileWithoutPayingMana,
   drawGreatestPower,
   pumpControlled,
   grantControlled,

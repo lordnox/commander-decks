@@ -317,11 +317,13 @@ export type GameEvent =
       kicked?: boolean
       castOption?: string
       phyrexianLife?: number[]
+      alternativeCost?: 'withoutPayingMana'
       x?: number
       sacrifice?: string[]
       convoke?: string[]
       discard?: string[]
     }
+  | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }
   | {
       type: 'createToken'
       controller: PlayerId

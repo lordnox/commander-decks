@@ -20,6 +20,7 @@ import { swampOverlay } from './plugins/swampOverlay'
 import { priority } from './plugins/priority'
 import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
+import { rebound } from './plugins/rebound'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
@@ -57,6 +58,7 @@ export const corePlugins = [
   mana,
   lands,
   spells,
+  rebound,
   stateBased,
   combat,
   life,
