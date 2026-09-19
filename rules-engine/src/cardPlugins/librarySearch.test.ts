@@ -535,6 +535,46 @@ describe('librarySearch', () => {
     expect(pendingSearch(projected, 'p1')?.source).toBe('Obscura Storefront')
   })
 
+  test('Dreamscape Artist discards a card and sacrifices a land to search', () => {
+    const server = game({
+      battlefield: [
+        card('Dreamscape Artist', ['Creature']),
+        forest(),
+      ],
+      hand: [card('Idle Thoughts', ['Instant'])],
+      library: [forest('Dryad Arbor'), island()],
+    })
+    const artist = named(server.state, 'Dreamscape Artist').id
+    const landId = named(server.state, 'Forest').id
+    const discarded = named(server.state, 'Idle Thoughts').id
+    const ready = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 2, B: 0, R: 0, G: 0, C: 2 } },
+      },
+    }
+
+    expect(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: artist,
+    }).ok).toBe(false)
+
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: artist,
+      choices: [discarded, landId],
+    }))
+    expect(opened.objects[artist]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(opened.objects[discarded].zone).toBe('graveyard')
+    expect(opened.objects[landId].zone).toBe('graveyard')
+    expect(pendingSearch(opened, 'p1')?.source).toBe('Dreamscape Artist')
+  })
+
   test('Blighted Woodland requires and pays four mana', () => {
     const server = game({
       battlefield: [card('Blighted Woodland', ['Land'])],
