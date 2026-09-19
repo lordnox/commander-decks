@@ -51,8 +51,8 @@ const attack = (power: number, extras: { tags?: string[] } = {}) => {
 
 describe('damage chain', () => {
   test('gainLife increases life and logs the event', () => {
-    const catalog = createCatalog([damage])
-    const state = newGame({ builtinRules: ['damage'] })
+    const catalog = createCatalog([damage, life])
+    const state = newGame({ builtinRules: ['damage', 'life'] })
     const result = rules(state, { type: 'gainLife', seat: 'p1', amount: 3 }, catalog)
 
     expect(result.ok).toBe(true)

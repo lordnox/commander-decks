@@ -43,7 +43,7 @@ describe('runInstructions', () => {
     }))
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.players.p1.life).toBe(commanderRules.startingLife + 3)
-    expect(resolved.log).toContain('p1 gains 3 life')
+    expect(resolved.log).toContain(`p1 gains 3 life (${named(resolved, 'Life Test').id})`)
   })
 
   test('drawAtNextUpkeep draws on the next upkeep', () => {
