@@ -14,6 +14,7 @@ export type CardSelectionKind =
 export type CardSelectionDestination =
   | 'top'
   | 'bottom'
+  | 'skip'
   | 'graveyard'
   | 'battlefield'
   | 'sacrifice'
@@ -48,6 +49,11 @@ export type PendingCardSelection = {
   moveSelectedController?: PlayerId
   addSubtypes?: string[]
   tapSelected?: boolean
+  action?: {
+    kind: 'dredge'
+    replacedBy: string[]
+    remainingAfter?: number
+  }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
 }

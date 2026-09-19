@@ -28,6 +28,7 @@ import {
   createXTokens,
   dies,
   discardHandsThenDrawGreatest,
+  dredge,
   doublePlusCounters,
   dealDamageToChosenTarget,
   dealDamageTargetX,
@@ -626,7 +627,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ['Forest', 'Plains', 'Island'],
     ),
   ],
-  'Dakmor Salvage': [entersTapped()],
+  'Dakmor Salvage': [dredge(2), entersTapped()],
   'Dimir Aqueduct': [entersTapped(), enters(bounceChosenLand())],
   'Drowned Catacomb': [entersTapped(lacksControlledSubtype('Island', 'Swamp'))],
   Deathsprout: [
@@ -1012,6 +1013,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Life from the Loam': [
+    dredge(3),
     onResolve(returnChosenLandFromGraveyard(false)),
   ],
   'Lumra, Bellow of the Woods': [

@@ -93,9 +93,9 @@ const authoritativeApply = (draft: Draft, seat: PlayerId) => {
 /**
  * Builtin game rule for drawing (CR 121.2).
  * - `draw` event: one card from library to hand (121.2a–c).
- * - `count > 1` is replaced into N one-card draw events in the same reduce; each
- *   event can trigger abilities (CR 603), which wait on the stack until priority
- *   after the current spell or ability finishes (CR 117.3a / 608 / 704).
+ * - `count > 1` is replaced one card at a time. Each successful draw queues the
+ *   rest, allowing a replacement choice to pause before the next card without
+ *   introducing priority between draws (CR 117.3a / 121.2 / 608 / 704).
  * - `draw` stack actions are only for cases that genuinely need a stack object.
  */
 export const draw: Plugin = {
@@ -104,12 +104,13 @@ export const draw: Plugin = {
     if (event.type !== 'draw') return
     const count = drawCount(event)
     if (count <= 1) return
-    return Array.from({ length: count }, () => ({
+    return {
       type: 'draw' as const,
       seat: event.seat,
       count: 1,
+      remainingAfter: count - 1,
       ...(event.replacedBy ? { replacedBy: event.replacedBy } : {}),
-    }))
+    }
   },
   legal: ({ state, event }) => {
     if (event.type !== 'draw') return
@@ -121,5 +122,13 @@ export const draw: Plugin = {
     if (event.type !== 'draw') return
     if (draft.knowledge.mode !== 'authoritative') return
     authoritativeApply(draft, event.seat)
+    if (event.remainingAfter && !draft.players[event.seat].lost) {
+      draft.enqueue({
+        type: 'draw',
+        seat: event.seat,
+        count: event.remainingAfter,
+        ...(event.replacedBy ? { replacedBy: event.replacedBy } : {}),
+      })
+    }
   },
 }

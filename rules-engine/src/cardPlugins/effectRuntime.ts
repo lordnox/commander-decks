@@ -404,6 +404,7 @@ const hasKind = (instructions: CardInstruction[], ...kinds: string[]) =>
 export const handlerIdsFromEffects = (effects: CardEffect[]) => {
   const ids = new Set<string>()
   for (const effect of effects) {
+    if (effect.op === 'dredge') ids.add('dredge')
     if (effect.op === 'replacement') ids.add('entersTapped')
     if (effect.op === 'trigger' && effect.on === 'cast') {
       ids.add('castTriggers')
