@@ -379,17 +379,6 @@ const canCastAtTiming = (state: GameState, seat: PlayerId, object: GameObject) =
   return true
 }
 
-const xManaKind = (object: GameObject) =>
-  effectsOf(object).flatMap((effect) =>
-    effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
-
-const costForX = (object: GameObject, x: number) => {
-  const xCost = xManaKind(object) === 'black'
-    ? '{B}'.repeat(x)
-    : x > 0 ? `{${x}}` : ''
-  return object.manaCost.replaceAll('{X}', xCost)
-}
-
 const phyrexianPayments = (cost: string, life: number) => {
   const symbols = phyrexianSymbols(cost)
   const payments = Array.from(
@@ -1031,7 +1020,13 @@ const targetVariants = (
       kicked: candidate.kicked,
       targets,
       seat,
-    }))
+    }), {
+      phyrexianLife: candidate.phyrexianLife ?? [],
+      creatures: (candidate.convoke ?? [])
+        .map((objectId) => state.objects[objectId])
+        .filter((creature): creature is GameObject => Boolean(creature))
+        .map(convokeColors),
+    })
   })
 }
 
@@ -1585,6 +1580,12 @@ export const eventsForAvailableAction = (
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       ...(action.kicked ? { kicked: true } : {}),
+      ...(action.targetObjectIds && alternative?.discard
+        ? { discard: action.targetObjectIds.slice(0, 1) }
+        : {}),
+      ...(action.targetObjectIds && alternative?.sacrifice
+        ? { sacrifice: action.targetObjectIds.slice(0, alternative.sacrifice.count) }
+        : {}),
       ...(targets.length > 0 ? { targets } : {}),
       ...(action.x !== undefined ? { x: action.x } : {}),
     },
