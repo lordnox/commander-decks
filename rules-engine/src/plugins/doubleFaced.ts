@@ -19,7 +19,6 @@ export const castFaceOf = (object: GameObject) => nonlandFace(object)
 export const landFaceOf = (object: GameObject) => landFace(object)
 
 export const applyFace = (object: GameObject, face: FaceCharacteristics) => {
-  if (face.name !== undefined) object.name = face.name
   object.types = [...face.types]
   object.subtypes = [...face.subtypes]
   object.supertypes = [...face.supertypes]

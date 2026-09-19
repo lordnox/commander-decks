@@ -43,7 +43,6 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 export type ManaPool = Record<ManaId, number>
 
 export type FaceCharacteristics = {
-  name?: string
   types: string[]
   subtypes: string[]
   supertypes: string[]
