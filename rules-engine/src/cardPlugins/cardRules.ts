@@ -53,6 +53,7 @@ import {
   handlerIdsFromEffects,
   hasSubtype,
   landToGraveyard,
+  landToGraveyardOnce,
   landfall,
   legendRuleOff,
   loseLife,
@@ -924,7 +925,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Crawling Sensation': [
-    landToGraveyard(insect),
+    yourUpkeep(optionalMill(2)),
+    landToGraveyardOnce(insect),
   ],
   'Dismember': [
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }, pump(-5, -5)),

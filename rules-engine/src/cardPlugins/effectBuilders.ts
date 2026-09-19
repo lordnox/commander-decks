@@ -336,6 +336,13 @@ export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect 
   do: instructions,
 })
 
+export const landToGraveyardOnce = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'landToGraveyard',
+  do: instructions,
+  oncePerTurn: true,
+})
+
 export const putMilledLandTapped = (): CardInstruction => ({ kind: 'putMilledLandTapped' })
 
 export const draw = (count: number): CardInstruction => ({ kind: 'draw', count })
