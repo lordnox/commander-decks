@@ -15,6 +15,7 @@ import type {
 } from './types'
 
 type ReplayCard = {
+  name?: string
   type_line: string
   mana_cost: string
   oracle_text: string
@@ -95,16 +96,28 @@ const manaValueOf = (cost: string) =>
 const colorsOf = (cost: string) =>
   [...new Set([...cost.matchAll(/[WUBRG]/g)].map((match) => match[0]))]
 
-const faceCharacteristics = (typeLine: string, manaCost: string) => ({
-  types: CARD_TYPES.filter((type) =>
-    typeLine.split(' — ')[0].split(' ').includes(type)),
-  supertypes: SUPERTYPES.filter((supertype) =>
-    typeLine.split(' — ')[0].split(' ').includes(supertype)),
-  subtypes: typeLine.split(' — ')[1]?.split(' ') ?? [],
-  manaCost,
-  manaValue: manaValueOf(manaCost),
-  colors: colorsOf(manaCost),
-})
+const faceCharacteristics = (face: ReplayCard) => {
+  const types = CARD_TYPES.filter((type) =>
+    face.type_line.split(' — ')[0].split(' ').includes(type))
+  const stats = face.stats.match(/^(-?\d+)\/(-?\d+)$/)
+  const defense = types.includes('Battle') && /^\d+$/.test(face.stats)
+    ? Number(face.stats)
+    : null
+  return {
+    name: face.name,
+    types,
+    supertypes: SUPERTYPES.filter((supertype) =>
+      face.type_line.split(' — ')[0].split(' ').includes(supertype)),
+    subtypes: face.type_line.split(' — ')[1]?.split(' ') ?? [],
+    manaCost: face.mana_cost,
+    manaValue: manaValueOf(face.mana_cost),
+    colors: colorsOf(face.mana_cost),
+    power: stats ? Number(stats[1]) : null,
+    toughness: stats ? Number(stats[2]) : null,
+    printedDefense: defense,
+    oracleText: face.oracle_text,
+  }
+}
 
 const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const typeLine = card?.type_line ?? ''
@@ -136,15 +149,14 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     manaCost,
     manaValue: manaValueOf(manaCost),
     colors: colorsOf(manaCost),
-    ...(card?.faces?.[0]
-      ? { frontFace: faceCharacteristics(card.faces[0].type_line, card.faces[0].mana_cost) }
-      : {}),
-    ...(card?.faces?.[1]
-      ? { backFace: faceCharacteristics(card.faces[1].type_line, card.faces[1].mana_cost) }
-      : {}),
+    ...(card?.faces?.[0] ? { frontFace: faceCharacteristics(card.faces[0]) } : {}),
+    ...(card?.faces?.[1] ? { backFace: faceCharacteristics(card.faces[1]) } : {}),
     power: stats ? Number(stats[1]) : null,
     toughness: stats ? Number(stats[2]) : null,
     printedLoyalty: loyalty,
+    printedDefense: types.includes('Battle') && /^\d+$/.test(card?.stats ?? '')
+      ? Number(card?.stats)
+      : null,
     oracleText: card?.oracle_text ?? '',
     grantedRules: grantedRulesFor(name),
     ...(tapProduces ? { tapProduces } : {}),

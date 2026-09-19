@@ -60,9 +60,18 @@ export const damage: Plugin = {
       if (!object || object.zone !== 'battlefield') return
       const maximum = object.types.includes('Planeswalker')
         ? object.counters.loyalty ?? 0
+        : object.types.includes('Battle')
+          ? object.counters.defense ?? 0
         : object.toughness ?? 0
       if (object.types.includes('Planeswalker')) {
         object.counters.loyalty = Math.max(0, (object.counters.loyalty ?? 0) - event.amount)
+      } else if (object.types.includes('Battle')) {
+        draft.enqueue({
+          type: 'removeDefenseCounters',
+          objectId: object.id,
+          amount: event.amount,
+          sourceId: event.sourceId,
+        })
       } else {
         object.damageMarked += event.amount
         const source = draft.objects[event.sourceId]

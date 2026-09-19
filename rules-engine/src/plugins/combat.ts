@@ -6,9 +6,9 @@ const targetRef = (target: TargetRef | PlayerId): TargetRef =>
 
 const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
   const defender = targetRef(target)
-  return defender.kind === 'player'
-    ? defender.player
-    : state.objects[defender.objectId]?.controller
+  if (defender.kind === 'player') return defender.player
+  const object = state.objects[defender.objectId]
+  return object?.types.includes('Battle') ? object.protector : object?.controller
 }
 
 export const combat: Plugin = {
@@ -43,9 +43,12 @@ export const combat: Plugin = {
           if (
             !target
             || target.zone !== 'battlefield'
-            || !target.types.includes('Planeswalker')
+            || (
+              !target.types.includes('Planeswalker')
+              && !target.types.includes('Battle')
+            )
           ) {
-            return 'object defender is not a battlefield planeswalker'
+            return 'object defender is not a battlefield planeswalker or battle'
           }
         }
       }

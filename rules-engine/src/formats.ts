@@ -2,6 +2,7 @@ import { pendingDialogLock } from './pendingDialog'
 import { continuousEffects } from './cardPlugins/continuousEffects'
 import { abilities } from './plugins/activateAbility'
 import { advancedCombatPrevention } from './plugins/advancedCombatPrevention'
+import { battle } from './plugins/battle'
 import { combat } from './plugins/combat'
 import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
@@ -65,6 +66,7 @@ export const corePlugins = [
   combat,
   life,
   damage,
+  battle,
   doubleFaced,
   ...gameRules,
   judgeFallback,

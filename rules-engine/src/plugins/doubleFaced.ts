@@ -19,12 +19,17 @@ export const castFaceOf = (object: GameObject) => nonlandFace(object)
 export const landFaceOf = (object: GameObject) => landFace(object)
 
 export const applyFace = (object: GameObject, face: FaceCharacteristics) => {
+  if (face.name !== undefined) object.name = face.name
   object.types = [...face.types]
   object.subtypes = [...face.subtypes]
   object.supertypes = [...face.supertypes]
   object.manaCost = face.manaCost
   object.manaValue = face.manaValue
   object.colors = [...face.colors]
+  if (face.power !== undefined) object.power = face.power
+  if (face.toughness !== undefined) object.toughness = face.toughness
+  if (face.printedDefense !== undefined) object.printedDefense = face.printedDefense
+  if (face.oracleText !== undefined) object.oracleText = face.oracleText
 }
 
 /**
@@ -40,8 +45,8 @@ export const doubleFaced: Plugin = {
     if (
       !before
       || !object
-      || before.zone !== 'battlefield'
       || event.to === 'battlefield'
+      || event.to === 'stack'
       || object.token
       || !object.frontFace
     ) {

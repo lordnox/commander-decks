@@ -60,7 +60,11 @@ def cached_faces(cache: dict) -> list[dict] | None:
             "type_line": face.get("type_line") or "",
             "mana_cost": face.get("mana_cost") or "",
             "oracle_text": face.get("oracle_text") or "",
-            "stats": f"{face['power']}/{face['toughness']}" if face.get("power") is not None else "",
+            "stats": (
+                f"{face['power']}/{face['toughness']}"
+                if face.get("power") is not None
+                else str(face.get("defense") or "")
+            ),
         }
         for face in faces
     ]

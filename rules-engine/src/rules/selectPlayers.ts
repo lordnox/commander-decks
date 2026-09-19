@@ -16,6 +16,7 @@ export type PendingPlayerSelection = {
   action:
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
     | { kind: 'copyStackItem'; stackId: string }
+    | { kind: 'designateBattleProtector' }
     | {
         kind: 'putTriggeredAbility'
         instructions: CardInstruction[]
@@ -130,6 +131,12 @@ export const selectPlayers: Plugin = {
               : {}),
           },
         })
+      }
+    }
+    if (selection.action.kind === 'designateBattleProtector' && target) {
+      const battle = draft.object(selection.sourceId)
+      if (battle?.zone === 'battlefield' && battle.types.includes('Battle')) {
+        battle.protector = target
       }
     }
     const next = draft.playerOrder

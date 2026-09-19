@@ -2,6 +2,7 @@ import { pendingDialogLock } from '../pendingDialog'
 import { continuousEffects } from '../cardPlugins/continuousEffects'
 import { abilities } from './activateAbility'
 import { advancedCombatPrevention } from './advancedCombatPrevention'
+import { battle } from './battle'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
@@ -46,6 +47,7 @@ export const builtInPlugins = [
   combat,
   life,
   damage,
+  battle,
   doubleFaced,
   discard,
   draw,
@@ -71,6 +73,7 @@ export const builtInPlugins = [
 export {
   advancedCombatPrevention,
   abilities,
+  battle,
   combat,
   commander,
   continuousEffects,
