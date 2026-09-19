@@ -27,6 +27,7 @@ import {
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
+import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
@@ -547,6 +548,49 @@ describe('kernel host journal', () => {
     expect(settleKernelPriority(kernel, lobby)).toBe(false)
     expect(kernel.journal.events.length).toBe(before)
     expect(lobby.topdeck?.kind).toBe('scry')
+  })
+
+  test('a host restart rebuilds an open dredge replacement choice', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Life from the Loam', { types: ['Sorcery'] })] },
+        libraries: {
+          p1: ['One', 'Two', 'Three'].map((name) =>
+            cardTemplate(name, { types: ['Sorcery'] })),
+        },
+        players: 2,
+      },
+      { random: () => 0.5, cardPlugins: [dredge] },
+    )
+    const loam = server.state.zoneOrder.p1.hand[0]
+    const kernel = handleFor(server.rules, server.state)
+    expect(kernel.dispatch({ type: 'move', objectId: loam, to: 'graveyard' }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'draw', seat: 'p1' }).ok).toBe(true)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      cards: ['Life from the Loam'],
+      destinations: ['skip', 'target'],
+    })
+
+    const restartedKernel = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    restartedLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Life from the Loam', destination: 'target' }],
+    })).toBe(true)
+    expect(restartedKernel.history.current().objects[loam].zone).toBe('hand')
   })
 
   test('restores an interrupted Analyze the Pollen library search', async () => {
