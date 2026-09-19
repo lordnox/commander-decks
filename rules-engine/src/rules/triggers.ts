@@ -28,6 +28,13 @@ import { asRoomDoor, roomDoor } from '../plugins/rooms'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
 
+/**
+ * CR 603.2 — "for the first time each turn" is part of the trigger event, so it
+ * reads the turn's game history for that player rather than what any one source
+ * has already done. A source entering later in the turn has still missed it.
+ */
+const LAND_TO_GRAVEYARD_TURN = 'triggers.firstTimeEachTurn.landToGraveyard'
+
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets'>
 
@@ -249,6 +256,9 @@ const collectMoveTriggers = (
 
   if (event.to === 'graveyard' && before.types.includes('Land')) {
     const fromLibrary = before.zone === 'library'
+    const owner = draft.players[before.owner]
+    const firstThisTurn = owner.data[LAND_TO_GRAVEYARD_TURN] !== draft.turn
+    owner.data[LAND_TO_GRAVEYARD_TURN] = draft.turn
     for (const source of draft.zoneOf('battlefield', before.owner)) {
       for (const effect of triggerEffects(effectsOf(source), 'landToGraveyard')) {
         if (
@@ -258,11 +268,7 @@ const collectMoveTriggers = (
         ) continue
         const milledLand = effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')
         if (milledLand && !fromLibrary) continue
-        const onceKey = `triggers.oncePerTurn.${source.id}.landToGraveyard`
-        if (effect.oncePerTurn) {
-          if (draft.players[source.controller].data[onceKey] === draft.turn) continue
-          draft.players[source.controller].data[onceKey] = draft.turn
-        }
+        if (effect.firstTimeEachTurn && !firstThisTurn) continue
         pushCopies(matches, source, effect, 1, { triggeringObjectId: event.objectId })
       }
     }
