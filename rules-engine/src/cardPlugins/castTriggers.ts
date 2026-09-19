@@ -3,9 +3,6 @@ import { DIALOG_CHOSEN, pendingDialogFor, setPendingDialog } from '../pendingDia
 import { effectsOf } from './cardRules'
 import { runInstructions, triggerEffects } from './effects'
 
-const castModalEffects = (object: { name: string; effects?: ReturnType<typeof effectsOf> }) =>
-  triggerEffects(effectsOf(object), 'cast').filter((effect) => effect.modal)
-
 export const castTriggers: Plugin = {
   id: 'castTriggers',
   apply: ({ state, event, draft }) => {
