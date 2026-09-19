@@ -6,7 +6,11 @@ import {
   conditionHolds,
   runInstructions,
 } from './effects'
-import { activationCostError, payActivationCosts } from './activationCosts'
+import {
+  activationCostError,
+  costPicksFromChoices,
+  payActivationCosts,
+} from './activationCosts'
 import { effectsOf } from './cardRules'
 
 const legalActivateTarget = (
@@ -70,7 +74,11 @@ export const activated: Plugin = {
     if (effect.manaAbility && !event.manaAbility) {
       return `${source.name} is a mana ability`
     }
-    const costError = activationCostError(state, source, event.seat, effect.costs)
+    const picks = costPicksFromChoices(effect.costs, event.choices)
+    const costError = activationCostError(state, source, event.seat, effect.costs, {
+      picks,
+      requirePicks: true,
+    })
     if (costError) return costError
     if (!conditionHolds(effect.if, state, source)) {
       if (effect.if?.kind === 'notActivePlayer') {
@@ -105,7 +113,13 @@ export const activated: Plugin = {
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
-    payActivationCosts(draft, source, event.seat, effect.costs)
+    payActivationCosts(
+      draft,
+      source,
+      event.seat,
+      effect.costs,
+      costPicksFromChoices(effect.costs, event.choices),
+    )
     if (effect.manaAbility || event.manaAbility) {
       runInstructions(draft, source, effect.do, {
         id: event.objectId,

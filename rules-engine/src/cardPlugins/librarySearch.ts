@@ -6,7 +6,11 @@ import {
 } from '../plugins/activateAbility'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
-import { activationCostError, payActivationCosts } from './activationCosts'
+import {
+  activationCostError,
+  costPicksFromChoices,
+  payActivationCosts,
+} from './activationCosts'
 import { basicLand, conditionHolds, searchEffect, type SearchDestination, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
 import { enteringObjectId } from './entersTapped'
@@ -241,7 +245,10 @@ export const librarySearch: Plugin = {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
         const costs = source ? abilityEffect(source)?.costs : undefined
         if (!source || !costs) return
-        return activationCostError(abilityCtx.state, source, abilityCtx.event.seat, costs)
+        return activationCostError(abilityCtx.state, source, abilityCtx.event.seat, costs, {
+          picks: costPicksFromChoices(costs, abilityCtx.event.choices),
+          requirePicks: true,
+        })
       },
       (abilityCtx) => {
         if (searchingSeat(abilityCtx.state)) return 'another library search is still open'
@@ -406,7 +413,13 @@ export const librarySearch: Plugin = {
       if (!source) return
       const effect = abilityEffect(source)
       if (!effect) return
-      payActivationCosts(next, source, ability.seat, effect.costs)
+      payActivationCosts(
+        next,
+        source,
+        ability.seat,
+        effect.costs,
+        costPicksFromChoices(effect.costs, ability.choices),
+      )
       openSearch(next, ability.seat, {
         source: source.name,
         sourceId: source.id,

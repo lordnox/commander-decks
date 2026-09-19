@@ -2,7 +2,10 @@ import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
-import { canPayActivationCosts as canPayCardActivationCosts } from './cardPlugins/activationCosts'
+import {
+  canPayActivationCosts as canPayCardActivationCosts,
+  needsActivationCostPicks,
+} from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import { validTargetRef } from './cardPlugins/targetedResolve'
@@ -1109,7 +1112,10 @@ export const eventsForAvailableAction = (
       && candidate.id === action.abilityId
       && !candidate.targets,
     )
-    return effect && !effect.costs.loyaltyX && !effect.targets
+    return effect
+      && !effect.costs.loyaltyX
+      && !effect.targets
+      && !needsActivationCostPicks(effect.costs)
       ? [{
           type: 'activateAbility',
           abilityId: effect.id,
