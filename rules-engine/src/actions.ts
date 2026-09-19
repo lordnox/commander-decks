@@ -2,6 +2,7 @@ import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
+import { canPayActivationCosts as canPayCardActivationCosts } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
 import { validTargetRef } from './cardPlugins/targetedResolve'
@@ -466,12 +467,13 @@ const canPayActivateCosts = (
   object: GameObject,
   seat: PlayerId,
   costs: ActivateCost,
-) => {
-  if (costs.tap && !sourceCanTap(object, seat, state)) return false
-  if (costs.mana && !canFund(state, seat, costs.mana)) return false
-  if ((costs.life ?? 0) >= state.players[seat].life) return false
-  return true
-}
+) => canPayCardActivationCosts(
+  state,
+  object,
+  seat,
+  costs,
+  (cost) => canFund(state, seat, cost),
+)
 
 const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =>
   effectsOf(object).flatMap((effect): AvailableAction[] => {

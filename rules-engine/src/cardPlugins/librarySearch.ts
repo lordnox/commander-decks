@@ -1,14 +1,12 @@
 import {
   applyAbility,
   controlledByActivator,
-  sourceCanTap,
   sourceOnBattlefield,
   whenAbility,
 } from '../plugins/activateAbility'
-import { payCost } from '../plugins/spells'
 import type Draft from '../draft'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
-import { payActivateCosts } from './activated'
+import { activationCostError, payActivationCosts } from './activationCosts'
 import { basicLand, conditionHolds, searchEffect, type SearchDestination, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
 import { enteringObjectId } from './entersTapped'
@@ -239,20 +237,11 @@ export const librarySearch: Plugin = {
       },
       sourceOnBattlefield(),
       controlledByActivator(),
-      sourceCanTap(),
       (abilityCtx) => {
         const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        const life = source ? abilityEffect(source)?.costs.life ?? 0 : 0
-        if (abilityCtx.state.players[abilityCtx.event.seat].life <= life) {
-          return `${abilityCtx.event.seat} cannot pay ${life} life`
-        }
-      },
-      (abilityCtx) => {
-        const source = abilityCtx.state.objects[abilityCtx.event.objectId]
-        const cost = source ? abilityEffect(source)?.costs.mana : undefined
-        if (!cost) return
-        const pool = abilityCtx.state.players[abilityCtx.event.seat].mana
-        if (!payCost(pool, cost)) return `${abilityCtx.event.seat} cannot pay ${cost}`
+        const costs = source ? abilityEffect(source)?.costs : undefined
+        if (!source || !costs) return
+        return activationCostError(abilityCtx.state, source, abilityCtx.event.seat, costs)
       },
       (abilityCtx) => {
         if (searchingSeat(abilityCtx.state)) return 'another library search is still open'
@@ -417,7 +406,7 @@ export const librarySearch: Plugin = {
       if (!source) return
       const effect = abilityEffect(source)
       if (!effect) return
-      payActivateCosts(next, source, ability.seat, effect.costs)
+      payActivationCosts(next, source, ability.seat, effect.costs)
       openSearch(next, ability.seat, {
         source: source.name,
         sourceId: source.id,
