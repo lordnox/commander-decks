@@ -1,4 +1,4 @@
-import type { GameObject, TriggerBindingIf } from '../types'
+import type { TriggerBindingIf } from '../types'
 import type {
   ActivateCost,
   CardCondition,
