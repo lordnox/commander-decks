@@ -1,5 +1,7 @@
 import type Draft from '../draft'
+import { isPermanentType } from '../definitions'
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../pendingDialog'
+import { RANDOM_CHOICE } from '../plugins/hiddenInformation'
 import { swampCount } from '../plugins/swampOverlay'
 import { initiateDiscard } from '../rules/discard'
 import { openCardSelection } from '../rules/selectCards'
@@ -10,8 +12,10 @@ import {
   addPlusCounters,
   applyCopy,
   conditionHolds,
+  copyTokenTemplate,
   createToken,
   millLibrary,
+  RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
   type CardInstruction,
 } from './effects'
@@ -23,30 +27,6 @@ const manaValueOf = (object: GameObject) =>
       return match[1] === 'X' ? total : total + 1
     }, 0)
     : object.manaValue ?? 0
-
-function copyTemplate (
-  card: GameObject,
-  extra: { notLegendary?: boolean; flying?: boolean } = {},
-): Partial<GameObject> & { name: string } {
-  return {
-    name: card.name,
-    summoningSickness: card.types.includes('Creature'),
-    types: [...card.types],
-    subtypes: [...card.subtypes],
-    supertypes: extra.notLegendary
-      ? card.supertypes.filter((entry) => entry !== 'Legendary')
-      : [...card.supertypes],
-    manaCost: card.manaCost,
-    power: card.power,
-    toughness: card.toughness,
-    oracleText: extra.flying && !card.oracleText.toLowerCase().includes('flying')
-      ? `${card.oracleText}\nFlying`
-      : card.oracleText,
-    grantedRules: [...card.grantedRules],
-    tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
-    effects: card.effects ? [...card.effects] : [],
-  }
-}
 
 type BufferedStackAction =
   | { kind: 'draw'; remaining: number }
@@ -735,7 +715,7 @@ export const runInstructions = (
       if (target?.kind !== 'object') continue
       const copied = draft.object(target.objectId)
       if (!copied) continue
-      createToken(draft, source.controller, copyTemplate(copied, {
+      createToken(draft, source.controller, copyTokenTemplate(copied, {
         notLegendary: instruction.notLegendary,
         flying: instruction.flying,
       }))
@@ -866,6 +846,35 @@ export const runInstructions = (
         type: 'addRule',
         pluginId: instruction.pluginId,
         params: { untilCleanup: true, controller: source.controller, ...instruction.params },
+      })
+      continue
+    }
+    if (instruction.kind === 'randomExileCopyWhile') {
+      const choices = Object.values(draft.objects)
+        .filter((object) =>
+          object.owner === source.controller
+          && object.zone === 'graveyard'
+          && isPermanentType(object.types))
+        .map((object) => object.id)
+      if (choices.length === 0) {
+        draft.note(`${source.name} finds no matching card in ${source.controller}'s graveyard`)
+        continue
+      }
+      draft.enqueue({
+        type: 'custom',
+        name: RANDOM_CHOICE,
+        seat: source.controller,
+        payload: {
+          choices,
+          resultName: RANDOM_EXILE_COPY_CARD_CHOSEN,
+          context: {
+            sourceId: source.id,
+            sourceName: source.name,
+            repeatWhileType: instruction.repeatWhileType,
+            tapped: instruction.tapped === true,
+            selectedIds: [],
+          },
+        },
       })
       continue
     }

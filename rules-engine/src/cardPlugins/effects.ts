@@ -10,6 +10,9 @@ import type {
   ZoneId,
 } from '../types'
 
+export const RANDOM_EXILE_COPY_CARD_CHOSEN = 'randomExileCopy.cardChosen'
+export const RANDOM_EXILE_COPY_FINISH = 'randomExileCopy.finish'
+
 export type CardCondition =
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
   | { kind: 'controlledLands'; min?: number; max?: number }
@@ -129,6 +132,13 @@ export type CardInstruction =
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
+  | {
+      kind: 'randomExileCopyWhile'
+      from: 'controllerGraveyard'
+      match: 'permanent'
+      repeatWhileType: string
+      tapped?: boolean
+    }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -515,6 +525,14 @@ export const attacks = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'attacks',
   do: instructions,
+})
+
+export const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
+  kind: 'randomExileCopyWhile',
+  from: 'controllerGraveyard',
+  match: 'permanent',
+  repeatWhileType: 'Land',
+  tapped: true,
 })
 
 export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect => ({
@@ -966,6 +984,38 @@ export const createToken = (
   return token
 }
 
+export const copyTokenTemplate = (
+  card: GameObject,
+  extra: {
+    notLegendary?: boolean
+    flying?: boolean
+    tapped?: boolean
+  } = {},
+): Partial<GameObject> & { name: string } => ({
+  name: card.name,
+  tapped: extra.tapped,
+  summoningSickness: card.types.includes('Creature'),
+  counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
+  types: [...card.types],
+  subtypes: [...card.subtypes],
+  supertypes: extra.notLegendary
+    ? card.supertypes.filter((entry) => entry !== 'Legendary')
+    : [...card.supertypes],
+  manaCost: card.manaCost,
+  manaValue: card.manaValue,
+  colors: [...card.colors],
+  power: card.power,
+  toughness: card.toughness,
+  printedLoyalty: card.printedLoyalty,
+  oracleText: extra.flying && !card.oracleText.toLowerCase().includes('flying')
+    ? `${card.oracleText}\nFlying`
+    : card.oracleText,
+  grantedRules: [...card.grantedRules],
+  tags: [],
+  tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
+  effects: card.effects ? [...card.effects] : [],
+})
+
 export const addPlusCounters = (object: GameObject, amount: number) => {
   if (amount === 0) return
   object.counters['+1/+1'] = (object.counters['+1/+1'] ?? 0) + amount
@@ -1217,6 +1267,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'searchLibrary')) ids.add('librarySearch')
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
     }
+    if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (effect.op === 'activate' && hasKind(listed,
       'putLandFromHand',
       'bounceChosenLand',

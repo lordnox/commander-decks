@@ -36,6 +36,8 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Field of the Dead')?.handlerIds)
       .toEqual(['entersTapped'])
+    expect(cardPluginEntry("Sin, Spira's Punishment")?.handlerIds)
+      .toEqual(['randomExileCopy'])
   })
 
   test('the Homer commander is registered', () => {
