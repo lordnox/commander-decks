@@ -7,7 +7,7 @@ export const onResolve: Plugin = {
   apply: ({ state, event, draft }) => {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    if (!item || (item.kind !== 'spell' && item.kind !== 'ability')) return
+    if (!item || item.kind !== 'spell') return
     const object = state.objects[item.objectId]
     if (!object) return
     for (const effect of triggerEffects(effectsOf(object), 'resolve')) {

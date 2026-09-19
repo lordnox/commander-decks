@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { resolveStack } from '../testHelpers'
 import type { ReduceResult } from '../types'
 import {
   branch,
@@ -144,13 +145,16 @@ describe('runInstructions', () => {
     }))
     let state = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(named(state, 'Now').zone).toBe('hand')
-    expect(state.players.p1.data.delayedDraw).toEqual([{ count: 2 }])
+    expect(state.delayedTriggers).toHaveLength(1)
 
     while (!(state.active === 'p1' && state.step === 'upkeep' && state.turn > 1)) {
       state = ok(server.rules(state, { type: 'advanceStep' }))
     }
+    expect(named(state, 'Later One').zone).toBe('library')
+    state = resolveStack(server.rules, state)
     expect(named(state, 'Later One').zone).toBe('hand')
     expect(named(state, 'Later Two').zone).toBe('hand')
+    expect(state.delayedTriggers).toHaveLength(0)
   })
 
   test('optional delayed draws open a may-draw dialog', () => {
@@ -188,6 +192,7 @@ describe('runInstructions', () => {
     while (!(state.active === 'p1' && state.step === 'upkeep' && state.turn > 1)) {
       state = ok(server.rules(state, { type: 'advanceStep' }))
     }
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(pendingDialog(state)).toMatchObject({ kind: 'may-draw', seat: 'p1', count: 1 })
     state = ok(server.rules(state, {
       type: 'custom',

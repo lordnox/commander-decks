@@ -236,6 +236,7 @@ export type GameState = {
   zoneOrder: Record<PlayerId, Record<ZoneId, string[]>>
   zoneCounts: Record<PlayerId, Record<ZoneId, number>>
   stack: StackItem[]
+  delayedTriggers: DelayedTrigger[]
   active: PlayerId
   priority: PlayerId | null
   turn: number
@@ -271,6 +272,24 @@ export type TriggerBinding = {
   on: string
   if?: TriggerBindingIf
   do: CardInstruction[]
+}
+
+/**
+ * CR 603.7 — a delayed triggered ability exists independently of its source
+ * and, without a stated duration, triggers only the next time its event occurs.
+ */
+export type DelayedTriggerCondition =
+  | { kind: 'event'; type: GameEvent['type'] }
+  | { kind: 'step'; step: StepId; active?: PlayerId }
+
+export type DelayedTrigger = {
+  id: string
+  sourceId: string
+  sourceName: string
+  controller: PlayerId
+  condition: DelayedTriggerCondition
+  instructions: CardInstruction[]
+  timestamp: number
 }
 
 /**

@@ -99,11 +99,14 @@ export {
   pendingPlayerSelection,
   pendingPlayerSelectionFor,
 } from './rules/selectPlayers'
+export { registerDelayedTrigger } from './rules/delayedTriggers'
 export type { GameFormat } from './formats'
 export type { History, HistoryEntry } from './history'
 export type { NewGameOptions } from './newGame'
 export type { ServerDependencies } from './runtime'
 export type {
+  DelayedTrigger,
+  DelayedTriggerCondition,
   EventTrace,
   GameEvent,
   GameState,

@@ -12,18 +12,27 @@ import {
   type CardCondition,
   type CardEffect,
 } from '../cardPlugins/effects'
+import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
-import type { GameEvent, GameObject, GameState, PlayerId, Plugin, TriggerBindingIf } from '../types'
+import type {
+  GameEvent,
+  GameObject,
+  GameState,
+  PlayerId,
+  Plugin,
+  TriggerBindingIf,
+} from '../types'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
 
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
+type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets'>
 
 type PendingTrigger = {
   source: GameObject
-  effect: TriggerEffect
+  effect: PendingTriggerEffect
   triggeringObjectId?: string
   triggeringPlayer?: PlayerId
   triggerAmount?: number
@@ -71,7 +80,7 @@ const permanentEnteringObjectId = (event: GameEvent, state: GameState) => {
 const pushCopies = (
   matches: PendingTrigger[],
   source: GameObject,
-  effect: TriggerEffect,
+  effect: PendingTriggerEffect,
   copies: number,
   meta: Pick<
     PendingTrigger,
@@ -286,6 +295,47 @@ const collectDiscardDraw = (
   }
 }
 
+const delayedTriggerMatches = (
+  trigger: GameState['delayedTriggers'][number],
+  draft: Draft,
+  event: GameEvent,
+) => {
+  if (trigger.condition.kind === 'event') return event.type === trigger.condition.type
+  return (
+    event.type === 'custom'
+    && event.name === 'advanceStep'
+    && draft.step === trigger.condition.step
+    && (
+      trigger.condition.active === undefined
+      || trigger.condition.active === draft.active
+    )
+  )
+}
+
+const collectDelayedTriggers = (
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  const remaining: GameState['delayedTriggers'] = []
+  for (const delayed of draft.delayedTriggers) {
+    if (!delayedTriggerMatches(delayed, draft, event)) {
+      remaining.push(delayed)
+      continue
+    }
+    const source: GameObject = {
+      ...gameObjectFieldDefaults(),
+      id: delayed.sourceId,
+      name: delayed.sourceName,
+      owner: delayed.controller,
+      controller: delayed.controller,
+      zone: 'graveyard',
+    }
+    pushCopies(matches, source, { do: delayed.instructions }, 1)
+  }
+  draft.delayedTriggers = remaining
+}
+
 const collectEventTriggers = (
   state: GameState,
   draft: Draft,
@@ -300,6 +350,7 @@ const collectEventTriggers = (
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(draft, event, matches)
+  collectDelayedTriggers(draft, event, matches)
   return matches
 }
 

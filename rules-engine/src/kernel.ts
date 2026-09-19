@@ -39,6 +39,7 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
     draft.zoneCounts[seat][zone] = 0
   }
   draft.stack = draft.stack.filter((item) => draft.objects[item.objectId])
+  draft.delayedTriggers = draft.delayedTriggers.filter((trigger) => trigger.controller !== seat)
   draft.rules = draft.rules.filter((rule) => !rule.sourceId || draft.objects[rule.sourceId])
   draft.passedInRow = draft.passedInRow.filter((player) => player !== seat)
   for (const object of Object.values(draft.objects)) {

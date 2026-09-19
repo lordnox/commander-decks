@@ -262,6 +262,7 @@ export const replicaHiddenInformation: Plugin = {
       draft.zoneOrder = snapshot.zoneOrder
       draft.zoneCounts = snapshot.zoneCounts
       draft.stack = snapshot.stack
+      draft.delayedTriggers = snapshot.delayedTriggers
       draft.active = snapshot.active
       draft.priority = snapshot.priority
       draft.turn = snapshot.turn
