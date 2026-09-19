@@ -296,6 +296,11 @@ export type CardEffect =
       legendRuleOff?: boolean
       attackTax?: { amount: number; whileUntapped?: boolean }
       blockTax?: { amount: number; whileAttacking?: boolean }
+      grantRetrace?: {
+        nonlandPermanent?: boolean
+        duringYourTurn?: boolean
+        other?: boolean
+      }
     }
   | { op: 'handler'; pluginId: string }
   | {
@@ -311,6 +316,10 @@ export type CardEffect =
       manaCost: string
       life?: number
       controlledSubtype?: string
+      fromZone?: ZoneId
+      exileAfterUse?: boolean
+      discard?: 'land'
+      sacrifice?: { type: string; count: number }
     }
   | { op: 'spellTrait'; uncounterable?: boolean }
   | {

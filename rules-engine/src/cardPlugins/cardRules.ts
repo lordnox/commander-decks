@@ -150,6 +150,8 @@ import {
   councilVote,
   playerAuraDeal,
   targetingRequirement,
+  flashback,
+  grantRetrace,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -944,6 +946,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Drag to the Roots': [targetOnResolve('destroy', { zone: 'battlefield', nonland: true })],
   'Dread Return': [
+    flashback('Flashback—Sacrifice three creatures.', '', {
+      sacrifice: { type: 'Creature', count: 3 },
+    }),
     targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
   ],
   'Dreamscape Artist': [
@@ -1090,7 +1095,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       sacrificeOnResolve: 'any',
     }),
   ],
-  Six: [attacks(selfMill(3), revealPick(3, { type: 'Land' }))],
+  Six: [
+    attacks(selfMill(3), revealPick(3, { type: 'Land' })),
+    grantRetrace(),
+  ],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
   'Springheart Nantuko': [
     bestow('{1}{G}'),

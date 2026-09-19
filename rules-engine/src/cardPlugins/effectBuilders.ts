@@ -1,4 +1,4 @@
-import type { TriggerBindingIf } from '../types'
+import type { TriggerBindingIf, ZoneId } from '../types'
 import type {
   ActivateCost,
   CardCondition,
@@ -504,8 +504,34 @@ export const alternateCast = (
   id: string,
   label: string,
   manaCost: string,
-  extra: { life?: number; controlledSubtype?: string } = {},
+  extra: {
+    life?: number
+    controlledSubtype?: string
+    fromZone?: ZoneId
+    exileAfterUse?: boolean
+    discard?: 'land'
+    sacrifice?: { type: string; count: number }
+  } = {},
 ): CardEffect => ({ op: 'alternateCast', id, label, manaCost, ...extra })
+
+export const flashback = (
+  label: string,
+  manaCost: string,
+  extra: { sacrifice?: { type: string; count: number } } = {},
+): CardEffect => alternateCast('flashback', label, manaCost, {
+  fromZone: 'graveyard',
+  exileAfterUse: true,
+  ...extra,
+})
+
+export const grantRetrace = (): CardEffect => ({
+  op: 'static',
+  grantRetrace: {
+    nonlandPermanent: true,
+    duringYourTurn: true,
+    other: true,
+  },
+})
 
 export const uncounterable = (): CardEffect => ({ op: 'spellTrait', uncounterable: true })
 

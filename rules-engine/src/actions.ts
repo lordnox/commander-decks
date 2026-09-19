@@ -22,7 +22,9 @@ import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
+  availableAlternateCastEffects,
   canChooseAlternateCast,
+  type AlternateCastEffect,
 } from './cardPlugins/alternateCosts'
 import {
   attackTaxByDefender,
@@ -338,7 +340,6 @@ const needsStackTarget = (object: GameObject) =>
 const canCastAtTiming = (state: GameState, seat: PlayerId, object: GameObject) => {
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
-  if (!state.castableZones.includes(object.zone)) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
   const endStepOnly = effectsOf(object).some(
@@ -370,15 +371,58 @@ const costForX = (object: GameObject, x: number) => {
   return object.manaCost.replaceAll('{X}', xCost)
 }
 
+const alternateCastCostGroups = (
+  state: GameState,
+  seat: PlayerId,
+  effect: AlternateCastEffect,
+): ActionTargetGroup[] => {
+  const groups: ActionTargetGroup[] = []
+  if (effect.discard === 'land') {
+    groups.push({
+      label: 'Land card to discard',
+      min: 1,
+      max: 1,
+      purpose: 'cost',
+      targets: state.zoneOrder[seat].hand
+        .map((objectId) => state.objects[objectId])
+        .filter((object) => object?.types.includes('Land'))
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })
+  }
+  if (effect.sacrifice) {
+    groups.push({
+      label: `${effect.sacrifice.type}s to sacrifice`,
+      min: effect.sacrifice.count,
+      max: effect.sacrifice.count,
+      purpose: 'cost',
+      targets: Object.values(state.objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && object.controller === seat
+          && object.types.includes(effect.sacrifice!.type))
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })
+  }
+  return groups
+}
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
   const suffix = tax > 0 ? `{${tax}}` : ''
-  const alternatives = alternateCastEffects(object)
+  const alternatives = availableAlternateCastEffects(state, seat, object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const face = castFaceOf(object)
-    const actions: AvailableAction[] = canFund(
+    const actions: AvailableAction[] = state.castableZones.includes(object.zone) && canFund(
       state,
       seat,
       `${face?.manaCost ?? object.manaCost}${suffix}`,
@@ -387,15 +431,17 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       : []
     for (const alternative of alternatives) {
       if (
-        canChooseAlternateCast(state, seat, alternative)
+        canChooseAlternateCast(state, seat, alternative, object)
         && canFund(state, seat, `${alternative.manaCost}${suffix}`)
       ) {
+        const targetGroups = alternateCastCostGroups(state, seat, alternative)
         actions.push({
           kind: 'castSpell',
           objectId: object.id,
           name: object.name,
           castOption: alternative.id,
           castLabel: alternative.label,
+          ...(targetGroups.length > 0 ? { targetGroups } : {}),
         })
       }
     }
@@ -413,6 +459,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     : paysLifeX
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
+  if (!state.castableZones.includes(object.zone)) return []
   return Array.from({ length: upper + 1 }, (_, x) => x)
     .filter((x) => canFund(state, seat, costForX(object, x)))
     .map((x) => ({ kind: 'castSpell', objectId: object.id, name: object.name, x }))
