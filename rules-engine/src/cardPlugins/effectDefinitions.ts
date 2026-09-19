@@ -154,6 +154,7 @@ export type CardInstruction =
   | { kind: 'addManaPerSwamp'; basic?: boolean }
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
+  | { kind: 'mayCastFromExileWithoutPayingMana' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
   | { kind: 'cumulativeUpkeepOpponentLife' }
   | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
