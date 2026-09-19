@@ -226,6 +226,22 @@ const loseLifeTargetManaValue: InstructionHandler<'loseLifeTargetManaValue'> = (
   }
 }
 
+const loseLifeTargetController: InstructionHandler<'loseLifeTargetController'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const target = item?.targets[0]
+  if (target?.kind !== 'object') return
+  const object = draft.object(target.objectId)
+  if (!object) return
+  draft.enqueue({
+    type: 'loseLife',
+    seat: object.controller,
+    amount: instruction.amount,
+    source: source.id,
+  })
+}
+
 const pump: InstructionHandler<'pump'> = ({ draft, item }, instruction) => {
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
@@ -413,6 +429,7 @@ export const resourceHandlers = {
   loseLife,
   loseLifeTargetPlayer,
   loseLifeTargetManaValue,
+  loseLifeTargetController,
   pump,
   pumpTargetX,
   pumpSelf,

@@ -538,6 +538,11 @@ export const loseLifeTargetManaValue = (): CardInstruction => ({
   kind: 'loseLifeTargetManaValue',
 })
 
+export const loseLifeTargetController = (amount: number): CardInstruction => ({
+  kind: 'loseLifeTargetController',
+  amount,
+})
+
 export const teferiSunsetPlusOne = (): CardInstruction => ({
   kind: 'teferiSunsetPlusOne',
 })
