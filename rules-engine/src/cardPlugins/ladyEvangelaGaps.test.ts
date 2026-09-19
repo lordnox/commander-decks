@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
-import { cardTemplate, forest } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameEvent, GameState } from '../types'
+import type { GameState } from '../types'
 import { alternateCosts } from './alternateCosts'
 import {
   CUMULATIVE_UPKEEP_PENDING,
@@ -15,12 +15,6 @@ import { targetedResolve } from './targetedResolve'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
-
-const run = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  events: GameEvent[],
-) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
 describe('Lady Evangela replacement gaps', () => {
   test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {

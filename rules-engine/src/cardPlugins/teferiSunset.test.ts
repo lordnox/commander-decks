@@ -157,6 +157,7 @@ describe('Teferi, Who Slows the Sunset', () => {
     state = ok(runtime.rules(state, { type: 'advanceStep' }))
     state = ok(runtime.rules(state, { type: 'advanceStep' }))
     expect(state.step).toBe('draw')
-    expect(state.zoneOrder.p1.hand).toHaveLength(beforeHand + 1)
+    // Phial replaces the first draw while Teferi's controller has no cards.
+    expect(state.zoneOrder.p1.hand).toHaveLength(beforeHand + 2)
   })
 })

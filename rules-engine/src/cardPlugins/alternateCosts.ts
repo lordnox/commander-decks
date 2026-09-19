@@ -41,7 +41,6 @@ export const alternateCosts: Plugin = {
     if (event.type !== 'castSpell') return
     const object = state.objects[event.objectId]
     if (!object) return
-    const alternatives = alternateCastEffects(object)
     if (!event.castOption) return
     const selected = alternateCastEffect(object, event.castOption)
     if (!selected) return `${object.name} has no casting option ${event.castOption}`
