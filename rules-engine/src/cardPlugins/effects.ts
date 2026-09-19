@@ -132,13 +132,7 @@ export type CardInstruction =
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
-  | {
-      kind: 'randomExileCopyWhile'
-      from: 'controllerGraveyard'
-      match: 'permanent'
-      repeatWhileType: string
-      tapped?: boolean
-    }
+  | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -527,10 +521,13 @@ export const attacks = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
+/**
+ * Sin, Spira's Punishment: exile a random permanent card from your graveyard and
+ * copy it tapped, repeating while the exiled card is a land. No other card does
+ * this, so the card rule names the ability and the handler runs the sequence.
+ */
 export const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
   kind: 'randomExileCopyWhile',
-  from: 'controllerGraveyard',
-  match: 'permanent',
   repeatWhileType: 'Land',
   tapped: true,
 })
@@ -993,7 +990,8 @@ export const copyTokenTemplate = (
   } = {},
 ): Partial<GameObject> & { name: string } => ({
   name: card.name,
-  tapped: extra.tapped,
+  // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
+  ...(extra.tapped ? { tapped: true } : {}),
   summoningSickness: card.types.includes('Creature'),
   counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
   types: [...card.types],
@@ -1015,6 +1013,19 @@ export const copyTokenTemplate = (
   tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
   effects: card.effects ? [...card.effects] : [],
 })
+
+export const graveyardPermanentIds = (
+  draft: Draft,
+  seat: PlayerId,
+  exclude: string[] = [],
+) =>
+  Object.values(draft.objects)
+    .filter((object) =>
+      object.owner === seat
+      && object.zone === 'graveyard'
+      && isPermanentType(object.types)
+      && !exclude.includes(object.id))
+    .map((object) => object.id)
 
 export const addPlusCounters = (object: GameObject, amount: number) => {
   if (amount === 0) return
