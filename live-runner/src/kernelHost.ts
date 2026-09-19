@@ -482,7 +482,16 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
       : selection.kind === 'reveal'
         ? { reveal: { min: selection.min ?? count, max: count } }
       : selection.kind === 'choose'
-        ? { target: { min: selection.min ?? count, max: count } }
+        ? {
+            [selection.moveSelectedTo && selection.destinations?.some(
+              (destination) => destination === selection.moveSelectedTo,
+            )
+              ? selection.moveSelectedTo
+              : 'target']: {
+              min: selection.min ?? count,
+              max: count,
+            },
+          }
       : undefined
   lobby.topdeck = {
     seat,
@@ -783,7 +792,14 @@ export const applyKernelChoice = (
         : cardKind === 'reveal'
           ? 'reveal'
           : cardKind === 'choose'
-            ? 'target'
+            ? (
+                waiting.selection.moveSelectedTo
+                && waiting.selection.destinations?.some(
+                  (destination) => destination === waiting.selection.moveSelectedTo,
+                )
+                  ? waiting.selection.moveSelectedTo
+                  : 'target'
+              )
           : 'graveyard'
       const objectIds = objectIdsForNames(
         state,
@@ -962,7 +978,7 @@ export const applyKernelChoice = (
       ids.map((objectId) => state.objects[objectId]),
     )
     if (selectionError) throw new Error(selectionError)
-    const moves: SearchMove[] = picked.map(({ card, destination }, index) => ({
+    const moves: SearchMove[] = picked.map(({ destination }, index) => ({
       objectId: ids[index],
       destination: (spec.split
         ? destination
@@ -1396,6 +1412,16 @@ export const applyKernelAct = (
             : { kind: 'object' as const, objectId }
         }),
       }]
+    : action.kind === 'castSpell' && action.targetGroups
+      ? [{
+          type: 'castSpell' as const,
+          seat,
+          objectId: action.objectId,
+          targets: (message.targetObjectIds ?? []).map((objectId) => ({
+            kind: 'object' as const,
+            objectId,
+          })),
+        }]
     : eventsForAvailableAction(state, seat, action)
   if (!events) throw new Error('That action now needs a judge decision')
 

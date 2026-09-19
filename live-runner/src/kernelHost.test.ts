@@ -36,6 +36,7 @@ import {
 } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
+import { combatPreventionCards } from '../../rules-engine/src/cardPlugins/combatPreventionCards'
 import {
   DIALOG_CHOSEN,
   PENDING_DIALOG,
@@ -1568,6 +1569,74 @@ describe('kernel host journal', () => {
       zone: 'battlefield',
       controller: 'p1',
     })
+  })
+
+  test('Settle publishes and restores its private basic-land search', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Settle the Wreckage', {
+            types: ['Instant'],
+            manaCost: '{2}{W}{W}',
+          })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Attacker', {
+            types: ['Creature'],
+            power: 3,
+            toughness: 3,
+          })],
+        },
+        libraries: {
+          p2: [
+            cardTemplate('Plains', {
+              types: ['Land'],
+              supertypes: ['Basic'],
+              subtypes: ['Plains'],
+            }),
+            cardTemplate('Guildgate', { types: ['Land'] }),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 2 }
+    const attacker = Object.values(initial.objects).find((object) => object.name === 'Attacker')!
+    attacker.attacking = { kind: 'player', player: 'p1' }
+    const settle = Object.values(initial.objects)
+      .find((object) => object.name === 'Settle the Wreckage')!
+    const kernel = handleFor(server.rules, initial)
+    expect(kernel.dispatch({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: settle.id,
+      targets: [{ kind: 'player', player: 'p2' }],
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const restored = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(restored, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p2',
+      kind: 'choose',
+      cards: ['Plains'],
+      destinations: ['library', 'battlefield'],
+      requirements: { battlefield: { min: 0, max: 1 } },
+    })
+    expect(applyKernelChoice(restored, lobby, 'p2', {
+      type: 'topdeck',
+      choices: [{ card: 'Plains', destination: 'battlefield' }],
+    })).toBe(true)
+    const plains = Object.values(restored.history.current().objects)
+      .find((object) => object.name === 'Plains')!
+    expect(plains.zone).toBe('battlefield')
   })
 
   test('pauses on a waiting stack discard and resumes with continueAction', async () => {

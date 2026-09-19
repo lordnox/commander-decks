@@ -1158,6 +1158,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),
   ],
+  'Batwing Brume': [handler('combatPreventionCards')],
   'Anguished Unmaking': [
     targetOnResolve(
       'exile',
@@ -1172,6 +1173,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
   'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
   'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
+  Comeuppance: [handler('combatPreventionCards')],
   Darkness: [onResolve(preventCombatDamage())],
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
@@ -1201,6 +1203,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
   'Exotic Orchard': [manaFrom('opponentsLands')],
+  'Energy Arc': [handler('combatPreventionCards')],
+  'Everybody Lives!': [handler('combatPreventionCards')],
   'Expedition Map': [
     searchAbility({
       prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
@@ -1219,6 +1223,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [preventCombatDamage()],
     }),
   ],
+  Inkshield: [handler('combatPreventionCards')],
   'Lady Evangela': [
     ability({
       id: 'ladyEvangela.fog',
@@ -1273,6 +1278,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       gainLifeTargetPower(),
     ),
   ],
+  'Settle the Wreckage': [handler('combatPreventionCards')],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
   'Vanish into Memory': [handler('blinkValue')],
