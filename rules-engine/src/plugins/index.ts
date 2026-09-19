@@ -1,5 +1,5 @@
 import { pendingDialogLock } from '../pendingDialog'
-import { untilEot } from '../cardPlugins/untilEot'
+import { continuousEffects } from '../cardPlugins/continuousEffects'
 import { abilities } from './activateAbility'
 import { advancedCombatPrevention } from './advancedCombatPrevention'
 import { combat } from './combat'
@@ -25,7 +25,6 @@ import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
-import { temporaryStats } from './temporaryStats'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
 
@@ -33,7 +32,7 @@ import { turnStructure } from './turnStructure'
 export const builtInPlugins = [
   turnStructure,
   advancedCombatPrevention,
-  untilEot,
+  continuousEffects,
   priority,
   abilities,
   mana,
@@ -44,7 +43,6 @@ export const builtInPlugins = [
   life,
   damage,
   doubleFaced,
-  temporaryStats,
   discard,
   draw,
   selectCards,
@@ -71,6 +69,7 @@ export {
   abilities,
   combat,
   commander,
+  continuousEffects,
   damage,
   doubleFaced,
   extraSwampMana,
@@ -89,7 +88,5 @@ export {
   sacrificeLandMana,
   spells,
   stateBased,
-  temporaryStats,
   turnStructure,
-  untilEot,
 }

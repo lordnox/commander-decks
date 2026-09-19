@@ -62,17 +62,27 @@ export type CopySnapshot = {
   colors: string[]
   power: number | null
   toughness: number | null
+  printedLoyalty: number | null
   oracleText: string
   grantedRules: string[]
   tapProduces?: Partial<ManaPool>
   effects?: GameObject['effects']
 }
 
-export type UntilEotChange =
+export type ReversibleEffect =
   | { kind: 'pump'; power: number; toughness: number }
   | { kind: 'oracleLine'; line: string }
   | { kind: 'copy'; snapshot: CopySnapshot }
-  | { kind: 'controller'; previous: PlayerId }
+  | { kind: 'controller'; controller: PlayerId; base: PlayerId }
+
+export type EffectDuration =
+  | { kind: 'untilCleanup' }
+  | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
+
+export type ContinuousEffect = {
+  effect: ReversibleEffect
+  duration: EffectDuration
+}
 
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
 export type TargetRef =
@@ -136,7 +146,7 @@ export type GameObject = {
   enteredWithCastOption?: string
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
-  untilEot?: UntilEotChange[]
+  continuousEffects?: ContinuousEffect[]
 }
 
 /**
