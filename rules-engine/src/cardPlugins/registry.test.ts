@@ -129,6 +129,18 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Nirkana Revenant')?.handlerIds).toContain('activated')
   })
 
+  test('the Lady Evangela alternate and replacement cards stay registered', () => {
+    expect(missingCardPlugins([
+      "Dovin's Veto",
+      'Mulldrifter',
+      'Phial of Galadriel',
+      'Snuff Out',
+      'Wall of Shards',
+    ])).toEqual([])
+    expect(cardPluginEntry('Mulldrifter')?.handlerIds).toEqual(['alternateCosts'])
+    expect(cardPluginEntry('Wall of Shards')?.handlerIds).toEqual(['cumulativeUpkeep'])
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])

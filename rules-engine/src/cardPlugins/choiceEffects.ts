@@ -62,6 +62,11 @@ export const choiceEffects: Plugin = {
       const target = targetId ? draft.object(targetId) : undefined
       if (target && target.zone === 'stack') {
         const index = draft.stack.findIndex((candidate) => candidate.objectId === target.id)
+        if (index >= 0 && draft.stack[index].uncounterable) {
+          draft.note(`${dialog.source} cannot counter ${target.name}`)
+          delete draft.players[event.seat].data['counterUnlessPay.amount']
+          return
+        }
         if (index >= 0) {
           draft.stack.splice(index, 1)
           draft.enqueue({ type: 'move', objectId: target.id, to: 'graveyard' })

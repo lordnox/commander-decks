@@ -27,6 +27,7 @@ export type CardCondition =
   | { kind: 'opponentsAtMost'; max: number }
   | { kind: 'opponentLostLifeThisTurn'; min: number }
   | { kind: 'controllerIsActive' }
+  | { kind: 'castOption'; id: string }
   | { kind: 'controllerUpkeep' }
   | { kind: 'controllerLife'; min: number }
 
@@ -147,6 +148,7 @@ export type CardInstruction =
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
+  | { kind: 'cumulativeUpkeepOpponentLife' }
   | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
@@ -293,6 +295,15 @@ export type CardEffect =
       xMana?: 'generic' | 'black'
       timing?: 'yourEndStep'
     }
+  | {
+      op: 'alternateCast'
+      id: string
+      label: string
+      manaCost: string
+      life?: number
+      controlledSubtype?: string
+    }
+  | { op: 'spellTrait'; uncounterable?: boolean }
   | { op: 'bestow'; cost: string }
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
@@ -301,6 +312,16 @@ export const enters = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'enters',
   do: instructions,
+})
+
+export const entersIfCastOption = (
+  castOption: string,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'enters',
+  do: instructions,
+  if: { kind: 'castOption', id: castOption },
 })
 
 export const entersTargetingOpponent = (...instructions: CardInstruction[]): CardEffect => ({
@@ -713,6 +734,19 @@ export const reanimateCreatureFromGraveyards = (
 export const payLifeX = (
   options: { timing?: 'yourEndStep' } = {},
 ): CardEffect => ({ op: 'castCost', lifeX: true, ...options })
+
+export const alternateCast = (
+  id: string,
+  label: string,
+  manaCost: string,
+  extra: { life?: number; controlledSubtype?: string } = {},
+): CardEffect => ({ op: 'alternateCast', id, label, manaCost, ...extra })
+
+export const uncounterable = (): CardEffect => ({ op: 'spellTrait', uncounterable: true })
+
+export const cumulativeUpkeepOpponentLife = (): CardInstruction => ({
+  kind: 'cumulativeUpkeepOpponentLife',
+})
 
 export const xMana = (color: 'generic' | 'black' = 'generic'): CardEffect => ({
   op: 'castCost',
@@ -1177,6 +1211,7 @@ export const conditionHolds = (
       && lifeLostThisTurn(state.players[seat]) >= condition.min)
   }
   if (condition.kind === 'controllerIsActive') return state.active === object.controller
+  if (condition.kind === 'castOption') return object.enteredWithCastOption === condition.id
   if (condition.kind === 'controllerUpkeep') {
     return state.active === object.controller && state.step === 'upkeep'
   }
@@ -1340,6 +1375,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (effect.op === 'bestow') ids.add('bestow')
     if (effect.op === 'castCost') ids.add('castCosts')
+    if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'handler') ids.add(effect.pluginId)
     const listed = effect.op === 'trigger' || effect.op === 'activate' || effect.op === 'modal'
       ? flattenInstructions(
@@ -1349,6 +1385,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       )
       : []
     if (hasKind(listed, 'chooseModes')) ids.add('modalSpell')
+    if (hasKind(listed, 'cumulativeUpkeepOpponentLife')) ids.add('cumulativeUpkeep')
     if (listed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {
       ids.add('choiceEffects')
       if (hasKind(listed, 'putFromHand')) ids.add('dumpFromHand')

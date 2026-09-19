@@ -27,7 +27,7 @@ export const life: Plugin = {
       const invalid = amountError(event, event.amount)
       if (invalid) return invalid
       if (!state.players[event.seat]) return `no such player ${event.seat}`
-      if (event.type === 'payLife' && event.amount >= state.players[event.seat].life) {
+      if (event.type === 'payLife' && event.amount > state.players[event.seat].life) {
         return `${event.seat} cannot pay ${event.amount} life`
       }
     }

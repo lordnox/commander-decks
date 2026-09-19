@@ -10,6 +10,7 @@ import { apnapSeats } from '../turnOrder'
 import type { GameObject, StackItem } from '../types'
 import { changeStatsUntilCleanup } from '../plugins/temporaryStats'
 import { lifeLostThisTurn } from '../plugins/life'
+import { openCumulativeUpkeep } from './cumulativeUpkeep'
 import {
   addPlusCounters,
   applyCopy,
@@ -209,6 +210,10 @@ export const runInstructions = (
         amount: instructionAmount(instruction.count, item),
         source: source.id,
       })
+      continue
+    }
+    if (instruction.kind === 'cumulativeUpkeepOpponentLife') {
+      openCumulativeUpkeep(draft, source.id)
       continue
     }
     if (instruction.kind === 'drainOpponentsX') {
