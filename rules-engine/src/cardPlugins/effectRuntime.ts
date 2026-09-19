@@ -455,6 +455,10 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
+    if (listed.some((instruction) =>
+      instruction.kind === 'createToken' && instruction.token.sacrificeForMana)) {
+      ids.add('activated')
+    }
     if (effect.op === 'activate' && hasKind(listed,
       'putLandFromHand',
       'bounceChosenLand',

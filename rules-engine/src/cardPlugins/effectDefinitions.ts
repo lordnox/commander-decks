@@ -33,6 +33,7 @@ export type TokenSpec = {
   power?: number | null
   toughness?: number | null
   oracleText?: string
+  sacrificeForMana?: Partial<ManaPool>
 }
 
 export type CardInstruction =

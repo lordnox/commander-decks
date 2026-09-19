@@ -10,6 +10,7 @@ import { entersTapped } from './entersTapped'
 import { librarySearch, pendingSearch } from './librarySearch'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
+import { activated } from './activated'
 
 const createServerGame: typeof createRuntimeGame = (format, options) =>
   createRuntimeGame(format, options, {
@@ -20,6 +21,7 @@ const createServerGame: typeof createRuntimeGame = (format, options) =>
       librarySearch,
       onResolve,
       targetedResolve,
+      activated,
     ],
   })
 
@@ -309,5 +311,44 @@ describe('Homer remaining card plugins', () => {
       zone: 'battlefield',
       tapped: true,
     })
+  })
+
+  test('Malevolent Rumble creates a functional Eldrazi Spawn', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Malevolent Rumble', { types: ['Sorcery'] })] },
+        libraries: {
+          p1: [
+            cardTemplate('Permanent', { types: ['Artifact'] }),
+            cardTemplate('One', { types: ['Instant'] }),
+            cardTemplate('Two', { types: ['Instant'] }),
+            cardTemplate('Three', { types: ['Instant'] }),
+          ],
+        },
+      },
+    )
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(server.state, 'Malevolent Rumble').id,
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    const spawn = named(resolved, 'Eldrazi Spawn')
+    expect(spawn).toMatchObject({
+      types: ['Creature'],
+      subtypes: ['Eldrazi', 'Spawn'],
+      power: 0,
+      toughness: 1,
+    })
+    const sacrificed = ok(server.rules(resolved, {
+      type: 'activateAbility',
+      abilityId: 'token.sacrifice-for-mana',
+      seat: 'p1',
+      objectId: spawn.id,
+      manaAbility: true,
+    }))
+    expect(sacrificed.objects[spawn.id].zone).toBe('graveyard')
+    expect(sacrificed.players.p1.mana.C).toBe(1)
   })
 })

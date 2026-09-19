@@ -141,6 +141,15 @@ const createTokenHandler: InstructionHandler<'createToken'> = (
     power: instruction.token.power ?? null,
     toughness: instruction.token.toughness ?? null,
     oracleText: instruction.token.oracleText ?? '',
+    effects: instruction.token.sacrificeForMana
+      ? [{
+          op: 'activate' as const,
+          id: 'token.sacrifice-for-mana',
+          manaAbility: true,
+          costs: { sacrifice: 'self' as const },
+          do: [{ kind: 'addMana' as const, mana: instruction.token.sacrificeForMana }],
+        }]
+      : [],
   })
 }
 
