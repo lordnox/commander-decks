@@ -347,19 +347,6 @@ export const runInstructions = (
       draft.enqueue({ type: 'winGame', seat: source.controller, source: source.id })
       continue
     }
-    if (instruction.kind === 'pumpSelf') {
-      const live = draft.object(source.id)
-      if (live) {
-        changeStatsUntilCleanup(
-          draft,
-          source.controller,
-          live,
-          instruction.power,
-          instruction.toughness,
-        )
-      }
-      continue
-    }
     if (instruction.kind === 'addPlusCounters') {
       const target = item?.targets[0]
       const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined

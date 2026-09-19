@@ -111,8 +111,8 @@ describe('Lady Evangela blink and value cards', () => {
     expect(action).toMatchObject({
       kind: 'castSpell',
       targetGroups: [
-        { label: 'First permanent', min: 0, max: 1 },
-        { label: 'Second permanent', min: 0, max: 1 },
+        { label: 'First permanent', min: 1, max: 1 },
+        { label: 'Second permanent', min: 1, max: 1 },
       ],
     })
     if (action?.kind !== 'castSpell') throw new Error('missing Ghostly Flicker action')

@@ -687,6 +687,7 @@ export const prepareKernelPendingChoice = (
       },
       kernel: {
         sourceId: playerSelection.sourceId,
+        selectionId: playerSelection.id,
         stage: 'select-players',
       },
     }
@@ -1026,8 +1027,8 @@ export const applyKernelChoice = (
     })
   }
   if (decision.kernel.stage === 'select-players') {
-    const pending = pendingPlayerSelection(state)
-    if (!pending || pending.seat !== seat) {
+    const pending = pendingPlayerSelection(state, seat)
+    if (!pending || pending.id !== decision.kernel.selectionId) {
       throw new Error('That player choice is no longer open.')
     }
     const players = message.choices

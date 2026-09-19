@@ -352,7 +352,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
       action.kind === 'castSpell' && action.name === 'Settle the Wreckage')
     expect(settle).toHaveLength(4)
     expect(settle.every((action) =>
-      action.kind === 'castSpell' && Boolean(action.targetObjectId))).toBe(true)
+      action.kind === 'castSpell' && Boolean(action.targetPlayerId))).toBe(true)
     const energy = acts.find((action) =>
       action.kind === 'castSpell' && action.name === 'Energy Arc')
     expect(energy?.kind === 'castSpell' && energy.targetGroups?.[0].max).toBe(1)

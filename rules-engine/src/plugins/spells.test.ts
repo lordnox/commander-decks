@@ -5,6 +5,7 @@ import { emptyMana } from '../draft'
 import { rules } from '../kernel'
 import { bolt, forest, newGame, planeswalker, timetwister } from '../testGame'
 import { damage } from './damage'
+import { life } from './life'
 import { createAuthoritativeHiddenInformation } from './hiddenInformation'
 import { payCost, spells } from './spells'
 import { stateBased } from './stateBased'
@@ -62,10 +63,10 @@ describe('spells', () => {
         }
       },
     }
-    const catalog = createCatalog([spells, onResolve, damage, witness])
+    const catalog = createCatalog([spells, onResolve, damage, life, witness])
     const state = newGame({
       hands: { p1: [bolt()] },
-      builtinRules: ['spells', 'onResolve', 'damage', 'witness'],
+      builtinRules: ['spells', 'onResolve', 'damage', 'life', 'witness'],
     })
     const boltId = Object.values(state.objects)[0].id
     state.players.p1.mana.R = 1
@@ -118,11 +119,11 @@ describe('spells', () => {
   })
 
   test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {
-    const catalog = createCatalog([spells, onResolve, damage, stateBased])
+    const catalog = createCatalog([spells, onResolve, damage, life, stateBased])
     const state = newGame({
       hands: { p1: [bolt()] },
       battlefield: { p2: [planeswalker('Bolt Target', 3)] },
-      builtinRules: ['spells', 'onResolve', 'damage', 'stateBased'],
+      builtinRules: ['spells', 'onResolve', 'damage', 'life', 'stateBased'],
     })
     const boltId = Object.values(state.objects).find((object) => object.name === 'Lightning Bolt')!.id
     const walkerId = Object.values(state.objects).find((object) => object.name === 'Bolt Target')!.id

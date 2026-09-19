@@ -21,8 +21,12 @@ test('selectPlayers rejects stale and duplicate typed target submissions', () =>
     sourceId: source,
     source: 'Queza, Augur of Agonies',
     prompt: 'Choose target opponent.',
-    abilityId: 'queza.drain',
-    instructions: [{ kind: 'loseLifeTargetPlayer', amount: 1 }],
+    action: {
+      kind: 'putTriggeredAbility',
+      abilityId: 'queza.drain',
+      triggeringPlayer: 'p1',
+      instructions: [{ kind: 'loseLifeTargetPlayer', amount: 1 }],
+    },
   }
   server.state.players.p1.data[PENDING_PLAYER_SELECTION] = [selection]
   server.state.priority = 'p1'

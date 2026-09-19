@@ -864,7 +864,6 @@ const activationTargetGroups = (
       }],
     }
   }
-  if (effect?.targets !== 'teferiSunsetPlusOne') return action
   const targets = Object.values(state.objects).filter((object) => object.zone === 'battlefield')
   if (
     effect?.targets === 'creature'
@@ -925,7 +924,6 @@ export const legalActsFor = (
       || action.kind === 'selectPlayers'
       || (action.kind === 'castSpell' && Boolean(action.targetGroups))
       || (action.kind === 'activateAbility' && Boolean(action.targetGroups))
-      || (action.kind === 'castSpell' && Boolean(action.targetGroups))
       || eventsForAvailableAction(state, seat, action))
 
 export const sameLegalAct = (
@@ -939,6 +937,7 @@ export const sameLegalAct = (
     targetObjectId?: string
     targetPlayerId?: string
     x?: number
+    castOption?: string
     stackId?: string
     selectionId?: string
     triggerId?: string
@@ -1029,7 +1028,7 @@ export const eventsForCombatDeclaration = (
         const object = state.objects[attacker.objectId]
         return object && !hasKeyword(object, 'vigilance', state) ? [object.id] : []
       }))
-    : new Set(event.blockers.map((blocker) => blocker.objectId))
+    : new Set(event.blockers.map((blocker) => blocker.blockerId))
   const funding = fundingEvents(state, event.seat, `{${tax}}`, excluded)
   if (!funding) return null
   return [{
