@@ -1,0 +1,33 @@
+---
+description: Prefer switch statements for long equality chains on one value
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Switch long equality chains
+
+When four or more branches compare the same value for equality, use a `switch`
+instead of an `if` / `else if` chain.
+
+```typescript
+// Avoid
+if (stage === 'draw') handleDraw()
+else if (stage === 'discard') handleDiscard()
+else if (stage === 'sacrifice') handleSacrifice()
+else if (stage === 'search') handleSearch()
+
+// Prefer
+switch (stage) {
+  case 'draw':
+    return handleDraw()
+  case 'discard':
+    return handleDiscard()
+  case 'sacrifice':
+    return handleSacrifice()
+  case 'search':
+    return handleSearch()
+}
+```
+
+Keep guards as `if` statements when branches test different expressions,
+ranges, or compound conditions rather than one shared discriminant.
