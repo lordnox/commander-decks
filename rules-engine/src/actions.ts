@@ -4,7 +4,9 @@ import { manaModes, poolForChoice } from './plugins/mana'
 import { payCost } from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
+  discardCostCandidates,
   needsActivationCostPicks,
+  sacrificeCostCandidates,
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins/effects'
@@ -44,6 +46,15 @@ import type {
   BlockerDecl,
 } from './types'
 
+type ActionTargetGroup = {
+  label: string
+  min: number
+  max: number
+  kind?: 'object' | 'player'
+  purpose?: 'target' | 'cost'
+  targets: Array<{ objectId: string; name: string; controller: PlayerId }>
+}
+
 export type AvailableAction =
   | { kind: 'playLand'; objectId: string; name: string }
   | {
@@ -57,13 +68,7 @@ export type AvailableAction =
       x?: number
       castOption?: string
       castLabel?: string
-      targetGroups?: Array<{
-        label: string
-        min: number
-        max: number
-        kind?: 'object' | 'player'
-        targets: Array<{ objectId: string; name: string; controller: PlayerId }>
-      }>
+      targetGroups?: ActionTargetGroup[]
     }
   | {
       kind: 'activateAbility'
@@ -72,13 +77,7 @@ export type AvailableAction =
       text: string
       abilityId?: string
       targetObjectIds?: string[]
-      targetGroups?: Array<{
-        label: string
-        min: number
-        max: number
-        kind?: 'object' | 'player'
-        targets: Array<{ objectId: string; name: string; controller: PlayerId }>
-      }>
+      targetGroups?: ActionTargetGroup[]
       mana?: ManaId
     }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
@@ -813,6 +812,48 @@ const validBlinkSpellTarget = (
   && object.types.includes('Creature')
   && (name !== 'Ephemerate' || object.controller === seat)
 
+const activationCostTargetGroups = (
+  state: GameState,
+  source: GameObject,
+  costs: ActivateCost,
+): ActionTargetGroup[] => {
+  const groups: ActionTargetGroup[] = []
+  if (costs.discard && costs.discard !== 'self') {
+    groups.push({
+      label: costs.discard === 'land' ? 'Land card to discard' : 'Card to discard',
+      min: 1,
+      max: 1,
+      purpose: 'cost',
+      targets: discardCostCandidates(state, source.controller, costs.discard)
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })
+  }
+  if (costs.sacrificeTarget) {
+    groups.push({
+      label: `${costs.sacrificeTarget === 'land' ? 'Land' : 'Creature'} to sacrifice`,
+      min: 1,
+      max: 1,
+      purpose: 'cost',
+      targets: sacrificeCostCandidates(
+        state,
+        source,
+        source.controller,
+        costs.sacrificeTarget,
+        costs.sacrificeOther,
+      ).map((object) => ({
+        objectId: object.id,
+        name: object.name,
+        controller: object.controller,
+      })),
+    })
+  }
+  return groups
+}
+
 const activationTargetGroups = (
   state: GameState,
   action: AvailableAction,
@@ -855,18 +896,24 @@ const activationTargetGroups = (
   const effect = source
     ? activateEffect(effectsOf(source), action.abilityId)
     : undefined
+  const costGroups = source && effect
+    ? activationCostTargetGroups(state, source, effect.costs)
+    : []
   if (effect?.targets === 'opponent') {
     return {
       ...action,
-      targetGroups: [{
-        label: 'Opponent',
-        min: 1,
-        max: 1,
-        kind: 'player',
-        targets: state.playerOrder
-          .filter((seat) => seat !== source?.controller && !state.players[seat].lost)
-          .map((seat) => ({ objectId: seat, name: seat, controller: seat })),
-      }],
+      targetGroups: [
+        ...costGroups,
+        {
+          label: 'Opponent',
+          min: 1,
+          max: 1,
+          kind: 'player',
+          targets: state.playerOrder
+            .filter((seat) => seat !== source?.controller && !state.players[seat].lost)
+            .map((seat) => ({ objectId: seat, name: seat, controller: seat })),
+        },
+      ],
     }
   }
   const targets = Object.values(state.objects).filter((object) => object.zone === 'battlefield')
@@ -882,35 +929,43 @@ const activationTargetGroups = (
         : undefined
     return {
       ...action,
-      targetGroups: [{
-        label: type ?? 'Permanent',
-        min: 1,
+      targetGroups: [
+        ...costGroups,
+        {
+          label: type ?? 'Permanent',
+          min: 1,
+          max: 1,
+          targets: targets
+            .filter((object) => !type || object.types.includes(type))
+            .map((object) => ({
+              objectId: object.id,
+              name: object.name,
+              controller: object.controller,
+            })),
+        },
+      ],
+    }
+  }
+  if (effect?.targets !== 'teferiSunsetPlusOne') {
+    return costGroups.length > 0 ? { ...action, targetGroups: costGroups } : action
+  }
+  return {
+    ...action,
+    targetGroups: [
+      ...costGroups,
+      ...['Artifact', 'Creature', 'Land'].map((type) => ({
+        label: type,
+        min: 0,
         max: 1,
         targets: targets
-          .filter((object) => !type || object.types.includes(type))
+          .filter((object) => object.types.includes(type))
           .map((object) => ({
             objectId: object.id,
             name: object.name,
             controller: object.controller,
           })),
-      }],
-    }
-  }
-  if (effect?.targets !== 'teferiSunsetPlusOne') return action
-  return {
-    ...action,
-    targetGroups: ['Artifact', 'Creature', 'Land'].map((type) => ({
-      label: type,
-      min: 0,
-      max: 1,
-      targets: targets
-        .filter((object) => object.types.includes(type))
-        .map((object) => ({
-          objectId: object.id,
-          name: object.name,
-          controller: object.controller,
-        })),
-    })),
+      })),
+    ],
   }
 }
 

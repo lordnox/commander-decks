@@ -1137,7 +1137,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Zimone and Dina': [
     activate({
       id: 'zimone.draw',
-      costs: { tap: true, sacrificeTarget: 'creature' },
+      costs: { tap: true, sacrificeTarget: 'creature', sacrificeOther: true },
       do: [draw(1), putLandFromHand(true)],
     }),
   ],

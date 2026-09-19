@@ -162,6 +162,7 @@ export type ActivateCost = {
   sacrifice?: 'self'
   discard?: 'self' | 'land' | 'any'
   sacrificeTarget?: 'creature' | 'land'
+  sacrificeOther?: boolean
   /** Signed loyalty change paid before the ability goes on the stack. */
   loyalty?: number
   /** Use the activation event's chosen X as a negative loyalty cost. */

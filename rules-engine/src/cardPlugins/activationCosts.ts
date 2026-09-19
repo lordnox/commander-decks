@@ -43,11 +43,12 @@ export const sacrificeCostCandidates = (
   source: GameObject,
   seat: PlayerId,
   kind: NonNullable<ActivateCost['sacrificeTarget']>,
+  other = false,
 ) =>
   Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield'
     && object.controller === seat
-    && object.id !== source.id
+    && (!other || object.id !== source.id)
     && object.types.includes(sacrificeTypeName(kind)))
 
 export const needsActivationCostPicks = (costs: ActivateCost) =>
@@ -116,7 +117,13 @@ export const activationCostError = (
     }
   }
   if (costs.sacrificeTarget) {
-    const candidates = sacrificeCostCandidates(state, source, seat, costs.sacrificeTarget)
+    const candidates = sacrificeCostCandidates(
+      state,
+      source,
+      seat,
+      costs.sacrificeTarget,
+      costs.sacrificeOther,
+    )
     if (candidates.length === 0) {
       return `${seat} has no ${costs.sacrificeTarget} to sacrifice`
     }
