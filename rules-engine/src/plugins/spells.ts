@@ -42,6 +42,10 @@ const coloredCosts = (manaCost: string) =>
     .map((match) => match[1].split('/').filter((symbol) => MANA_SYMBOLS.has(symbol as ManaId)))
     .filter((choices) => choices.length > 0) as ManaId[][]
 
+export const convokeColors = (object: GameObject) =>
+  object.colors.filter((color): color is ManaId =>
+    color !== 'C' && MANA_SYMBOLS.has(color as ManaId))
+
 const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | null => {
   if (index === costs.length) return pool
   for (const symbol of costs[index]) {
@@ -53,9 +57,8 @@ const payColored = (pool: ManaPool, costs: ManaId[][], index = 0): ManaPool | nu
   return null
 }
 
-export const payCost = (pool: ManaPool, manaCost: string) => {
-  const generic = genericCost(manaCost)
-  const colored = payColored(pool, coloredCosts(manaCost))
+const payRemainingCost = (pool: ManaPool, generic: number, costs: ManaId[][]) => {
+  const colored = payColored(pool, costs)
   if (!colored) return null
   const remaining = { ...colored }
 
@@ -68,6 +71,39 @@ export const payCost = (pool: ManaPool, manaCost: string) => {
   }
   return remaining
 }
+
+export const payCost = (
+  pool: ManaPool,
+  manaCost: string,
+  creatures: ManaId[][] = [],
+): ManaPool | null => {
+  const payWithConvoke = (
+    index: number,
+    generic: number,
+    costs: ManaId[][],
+  ): ManaPool | null => {
+    if (index === creatures.length) return payRemainingCost(pool, generic, costs)
+    if (generic > 0) {
+      const paid = payWithConvoke(index + 1, generic - 1, costs)
+      if (paid) return paid
+    }
+    for (let costIndex = 0; costIndex < costs.length; costIndex += 1) {
+      if (!costs[costIndex].some((symbol) => creatures[index].includes(symbol))) continue
+      const paid = payWithConvoke(
+        index + 1,
+        generic,
+        costs.filter((_, candidate) => candidate !== costIndex),
+      )
+      if (paid) return paid
+    }
+    return null
+  }
+
+  return payWithConvoke(0, genericCost(manaCost), coloredCosts(manaCost))
+}
+
+export const hasConvoke = (object: GameObject) =>
+  effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
 
 const installGrantedRules = (draft: Draft, object: GameObject) => {
   for (const pluginId of object.grantedRules) {
@@ -113,7 +149,24 @@ export const spells: Plugin = {
         return `${spell.name} requires a nonnegative integer X`
       }
       const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0, event.castOption)
-      if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
+      const convoke = event.convoke ?? []
+      if (new Set(convoke).size !== convoke.length) return 'duplicate convoke creature'
+      if (convoke.length > 0 && !hasConvoke(object)) return `${object.name} does not have convoke`
+      const creatures = convoke.map((objectId) => state.objects[objectId])
+      if (creatures.some((creature) =>
+        !creature
+        || creature.zone !== 'battlefield'
+        || creature.controller !== event.seat
+        || !creature.types.includes('Creature')
+        || creature.tapped
+      )) {
+        return 'illegal convoke creature'
+      }
+      if (!payCost(
+        state.players[event.seat].mana,
+        cost,
+        creatures.map(convokeColors),
+      )) return 'not enough mana'
       const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       if (needed) {
@@ -140,7 +193,14 @@ export const spells: Plugin = {
       const face = castFaceOf(object)
       if (face) applyFace(object, face)
       const cost = spellCost(object, event.additionalGeneric, event.x ?? 0, event.castOption)
-      const paid = payCost(draft.players[event.seat].mana, cost)
+      const creatures = (event.convoke ?? [])
+        .map((objectId) => draft.object(objectId))
+        .filter((creature): creature is GameObject => Boolean(creature))
+      const paid = payCost(
+        draft.players[event.seat].mana,
+        cost,
+        creatures.map(convokeColors),
+      )
       if (!paid) return
 
       const manaSpent = Object.fromEntries(
@@ -149,6 +209,7 @@ export const spells: Plugin = {
           .filter(([, amount]) => amount > 0),
       )
       draft.players[event.seat].mana = paid
+      for (const creature of creatures) draft.enqueue({ type: 'tap', objectId: creature.id })
       draft.stack.unshift({
         id: draft.allocId('s'),
         kind: 'spell',

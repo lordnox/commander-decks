@@ -1,7 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
-import { payCost } from './plugins/spells'
+import { convokeColors, hasConvoke, payCost } from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
   discardCostCandidates,
@@ -74,6 +74,7 @@ export type AvailableAction =
       x?: number
       castOption?: string
       castLabel?: string
+      convoke?: string[]
       targetGroups?: ActionTargetGroup[]
     }
   | {
@@ -378,17 +379,27 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const face = castFaceOf(object)
-    const actions: AvailableAction[] = canFund(
-      state,
-      seat,
-      `${face?.manaCost ?? object.manaCost}${suffix}`,
-    )
-      ? [{ kind: 'castSpell', objectId: object.id, name: object.name }]
+    const cost = `${face?.manaCost ?? object.manaCost}${suffix}`
+    const convoke = hasConvoke(object) && !canFund(state, seat, cost)
+      ? convokeFundingPlan(state, seat, cost)?.convoke
+      : undefined
+    const actions: AvailableAction[] = canFund(state, seat, cost) || convoke
+      ? [{
+          kind: 'castSpell',
+          objectId: object.id,
+          name: object.name,
+          ...(convoke ? { convoke } : {}),
+        }]
       : []
     for (const alternative of alternatives) {
+      const alternativeCost = `${alternative.manaCost}${suffix}`
+      const alternativeConvoke =
+        hasConvoke(object) && !canFund(state, seat, alternativeCost)
+          ? convokeFundingPlan(state, seat, alternativeCost)?.convoke
+          : undefined
       if (
         canChooseAlternateCast(state, seat, alternative)
-        && canFund(state, seat, `${alternative.manaCost}${suffix}`)
+        && (canFund(state, seat, alternativeCost) || alternativeConvoke)
       ) {
         actions.push({
           kind: 'castSpell',
@@ -396,6 +407,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           name: object.name,
           castOption: alternative.id,
           castLabel: alternative.label,
+          ...(alternativeConvoke ? { convoke: alternativeConvoke } : {}),
         })
       }
     }
@@ -407,15 +419,35 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       0,
       ...manaModes(source, state).map((mode) => poolTotal({ ...emptyMana(), ...mode })),
     ), 0)
-  const manaUpper = poolTotal(state.players[seat].mana) + sourceMana
+  const convokeUpper = hasConvoke(object)
+    ? Object.values(state.objects).filter((candidate) =>
+        candidate.zone === 'battlefield'
+        && candidate.controller === seat
+        && candidate.types.includes('Creature')
+        && !candidate.tapped).length
+    : 0
+  const manaUpper = poolTotal(state.players[seat].mana) + sourceMana + convokeUpper
   const upper = paysLifeX && !object.manaCost.includes('{X}')
     ? state.players[seat].life
     : paysLifeX
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
   return Array.from({ length: upper + 1 }, (_, x) => x)
-    .filter((x) => canFund(state, seat, costForX(object, x)))
-    .map((x) => ({ kind: 'castSpell', objectId: object.id, name: object.name, x }))
+    .flatMap((x): AvailableAction[] => {
+      const cost = `${costForX(object, x)}${suffix}`
+      const convoke = hasConvoke(object) && !canFund(state, seat, cost)
+        ? convokeFundingPlan(state, seat, cost)?.convoke
+        : undefined
+      return canFund(state, seat, cost) || convoke
+        ? [{
+            kind: 'castSpell',
+            objectId: object.id,
+            name: object.name,
+            x,
+            ...(convoke ? { convoke } : {}),
+          }]
+        : []
+    })
 }
 
 const activatedText = (object: GameObject) =>
@@ -1043,6 +1075,7 @@ const fundingEvents = (
   seat: PlayerId,
   cost: string,
   excluded = new Set<string>(),
+  convoke: GameObject[] = [],
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
@@ -1080,10 +1113,50 @@ const fundingEvents = (
     plans = [...next.values()]
   }
   return plans
-    .filter((plan) => payCost(plan.pool, cost))
+    .filter((plan) => payCost(plan.pool, cost, convoke.map(convokeColors)))
     .sort((left, right) => left.events.length - right.events.length)[0]
     ?.events ?? null
 }
+
+const combinationsOf = <T>(values: T[], count: number) => {
+  const combinations: T[][] = []
+  const visit = (start: number, chosen: T[]) => {
+    if (chosen.length === count) {
+      combinations.push(chosen)
+      return
+    }
+    for (let index = start; index < values.length; index += 1) {
+      visit(index + 1, [...chosen, values[index]])
+    }
+  }
+  visit(0, [])
+  return combinations
+}
+
+const convokeFundingPlan = (
+  state: GameState,
+  seat: PlayerId,
+  cost: string,
+): { convoke: string[]; mana: GameEvent[] } | null => {
+  const candidates = Object.values(state.objects).filter((object) =>
+    object.zone === 'battlefield'
+    && object.controller === seat
+    && object.types.includes('Creature')
+    && !object.tapped)
+  const symbols = genericCostForAction(cost)
+    + [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGC])?\}/g)].length
+  for (let count = 1; count <= Math.min(symbols, candidates.length); count += 1) {
+    for (const creatures of combinationsOf(candidates, count)) {
+      const ids = creatures.map((creature) => creature.id)
+      const mana = fundingEvents(state, seat, cost, new Set(ids), creatures)
+      if (mana) return { convoke: ids, mana }
+    }
+  }
+  return null
+}
+
+const genericCostForAction = (cost: string) =>
+  [...cost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
 export const eventsForCombatDeclaration = (
   state: GameState,
@@ -1252,7 +1325,16 @@ export const eventsForAvailableAction = (
   const cost = `${
     alternative?.manaCost ?? costForX(casting, action.x ?? 0)
   }${tax > 0 ? `{${tax}}` : ''}`
-  const mana = fundingEvents(state, seat, cost)
+  const convoke = (action.convoke ?? [])
+    .map((objectId) => state.objects[objectId])
+    .filter((creature): creature is GameObject => Boolean(creature))
+  const mana = fundingEvents(
+    state,
+    seat,
+    cost,
+    new Set(convoke.map((creature) => creature.id)),
+    convoke,
+  )
   if (!mana) return null
   return [
     ...mana,
@@ -1261,6 +1343,7 @@ export const eventsForAvailableAction = (
       seat,
       objectId: object.id,
       ...(action.castOption ? { castOption: action.castOption } : {}),
+      ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.targetObjectId || action.targetObjectIds
         ? {
             targets: playerAura

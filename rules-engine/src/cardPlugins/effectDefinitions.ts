@@ -300,6 +300,7 @@ export type CardEffect =
   | { op: 'handler'; pluginId: string }
   | {
       op: 'castCost'
+      convoke?: boolean
       lifeX?: boolean
       xMana?: 'generic' | 'black'
       timing?: 'yourEndStep'

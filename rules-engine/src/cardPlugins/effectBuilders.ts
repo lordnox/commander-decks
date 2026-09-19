@@ -500,6 +500,8 @@ export const payLifeX = (
   options: { timing?: 'yourEndStep' } = {},
 ): CardEffect => ({ op: 'castCost', lifeX: true, ...options })
 
+export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
+
 export const alternateCast = (
   id: string,
   label: string,
