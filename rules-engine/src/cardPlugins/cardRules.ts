@@ -88,7 +88,6 @@ import {
   staticGrant,
   staticPlayLandsFromLibraryTop,
   staticRevealLibraryTop,
-  specificSinSpiraPunishmentTriggeredAbility,
   scry,
   surveil,
   triggerOn,
@@ -119,6 +118,7 @@ import {
   untapTarget,
   yourUpkeep,
   type CardEffect,
+  type CardInstruction,
   payLifeX,
 } from './effects'
 
@@ -215,6 +215,16 @@ const cycleFromHand = (id: string): CardEffect =>
     costs: { mana: '{3}', discard: 'self' },
     do: [draw(1)],
   })
+
+/**
+ * Sin, Spira's Punishment: exile a random permanent card from your graveyard and
+ * copy it tapped, repeating while the exiled card is a land.
+ */
+const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
+  kind: 'randomExileCopyWhile',
+  repeatWhileType: 'Land',
+  tapped: true,
+})
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
   'Bala Ged Recovery // Bala Ged Sanctuary': [
