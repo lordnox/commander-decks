@@ -1006,6 +1006,9 @@ export const legalActLabel = (action: AvailableAction) => {
   if (action.kind === 'tapForMana') {
     return action.mana ? `Tap for {${action.mana}}` : 'Tap for mana'
   }
+  if (action.kind === 'payExtort') {
+    return action.mana ? `Pay {${action.mana}} for extort` : 'Decline extort'
+  }
   if (action.kind === 'activateAbility') {
     if (action.mana) return `Add {${action.mana}}`
     const loyalty = action.abilityId?.match(/\.(plus|minus)-(one|two|seven)$/)

@@ -30,6 +30,7 @@ import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
+import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import {
   DIALOG_CHOSEN,
   PENDING_DIALOG,
@@ -1596,5 +1597,60 @@ describe('kernel host journal', () => {
       seat: 'p1',
       players: ['p2'],
     })
+  })
+})
+
+describe('extort live choice', () => {
+  test('publishes the persisted typed payment and applies the selected mana', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [cardTemplate('Crypt Ghast', { types: ['Creature'] })],
+        },
+        hands: {
+          p1: [cardTemplate('Test Instant', {
+            types: ['Instant'],
+            manaCost: '{1}',
+          })],
+        },
+        players: 2,
+      },
+      { random: () => 0.5, cardPlugins: [extort] },
+    )
+    server.state.players.p1.mana = { W: 1, U: 0, B: 0, R: 0, G: 0, C: 1 }
+    const spellId = Object.values(server.state.objects)
+      .find((object) => object.name === 'Test Instant')!.id
+    const cast = server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spellId,
+    })
+    if (!cast.ok) throw new Error(cast.error)
+    const choosing = server.rules(cast.state, { type: 'resolveTop' })
+    if (!choosing.ok) throw new Error(choosing.error)
+    const kernel = handleFor(server.rules, choosing.state)
+    const lobby = createLobby()
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'extort-payment',
+      cards: ['Decline', 'Pay {W}'],
+    })
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Decline', destination: 'skip' },
+        { card: 'Pay {W}', destination: 'target' },
+      ],
+    })).toBe(true)
+    expect(kernel.history.current().players.p1).toMatchObject({
+      life: 41,
+      mana: { W: 0 },
+    })
+    expect(kernel.history.current().players.p2.life).toBe(39)
+    expect(lobby.topdeck).toBeUndefined()
   })
 })

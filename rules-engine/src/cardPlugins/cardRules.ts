@@ -68,6 +68,7 @@ import {
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   pump,
+  pumpSelf,
   pumpAllCreaturesByX,
   pumpControlled,
   pumpControlledNonHuman,
@@ -116,6 +117,7 @@ import {
   fightUpToOne,
   lacksControlledSubtype,
   addManaPerSwamp,
+  manaFrom,
   addUntilCleanupRule,
   gainLifeTargetPower,
   gainLifeLostThisTurn,
@@ -1158,7 +1160,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
   'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
   'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
-  'Crypt Ghast': [staticGrant('extraSwampMana')],
+  'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
   Darkness: [onResolve(preventCombatDamage())],
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
@@ -1186,6 +1188,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       max: 1,
     }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
+  'Exotic Orchard': [manaFrom('opponentsLands')],
   'Expedition Map': [
     searchAbility({
       prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
@@ -1220,9 +1223,17 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ]),
   ],
   Mulldrifter: [enters(draw(2))],
-  'Nirkana Revenant': [staticGrant('extraSwampMana')],
+  'Nirkana Revenant': [
+    staticGrant('extraSwampMana'),
+    activate({
+      id: 'nirkanaRevenant.pump',
+      costs: { mana: '{B}' },
+      do: [pumpSelf(1, 1)],
+    }),
+  ],
   'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
   'Queza, Augur of Agonies': [handler('blinkValue')],
+  'Reflecting Pool': [manaFrom('controlledLands')],
   "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
   'Snuff Out': [
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),

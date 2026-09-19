@@ -46,6 +46,7 @@ export type TopdeckDecision = {
       | 'sacrifice-creature'
       | 'discard-card'
       | 'choose-modes'
+      | 'extort-payment'
       | 'may'
       | 'may-draw'
       | 'may-pay-life'

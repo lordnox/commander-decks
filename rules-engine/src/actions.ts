@@ -7,6 +7,7 @@ import { activateEffect, conditionHolds, type ActivateCost } from './cardPlugins
 import { validTargetRef } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
+import { pendingExtortFor } from './cardPlugins/extort'
 import {
   canSacrificeLandForBlack,
   SACRIFICE_LAND_FOR_BLACK,
@@ -64,6 +65,13 @@ export type AvailableAction =
       mana?: ManaId
     }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
+  | {
+      kind: 'payExtort'
+      triggerId: string
+      sourceId: string
+      source: string
+      mana?: 'W' | 'B'
+    }
   | { kind: 'declareAttackers'; objectIds: string[] }
   | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
   | {
@@ -488,7 +496,29 @@ export const availableActions = (
   state: GameState,
   seat: PlayerId = state.priority ?? '',
 ): AvailableAction[] => {
-  if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
+  if (!seat || state.players[seat]?.lost) return []
+  const extort = pendingExtortFor(state, seat)
+  if (extort) {
+    return [
+      {
+        kind: 'payExtort',
+        triggerId: extort.triggerId,
+        sourceId: extort.sourceId,
+        source: extort.source,
+      },
+      ...(['W', 'B'] as const).flatMap((mana): AvailableAction[] =>
+        canFund(state, seat, `{${mana}}`)
+          ? [{
+              kind: 'payExtort',
+              triggerId: extort.triggerId,
+              sourceId: extort.sourceId,
+              source: extort.source,
+              mana,
+            }]
+          : []),
+    ]
+  }
+  if (state.priority !== seat) return []
   if (state.step === 'untap' || state.step === 'cleanup') return []
   const waiting = waitingContinueAction(state, seat)
     ?? waitingPlayerSelection(state, seat)
@@ -785,6 +815,7 @@ export const sameLegalAct = (
     x?: number
     stackId?: string
     selectionId?: string
+    triggerId?: string
   },
 ) => {
   if (left.kind !== right.kind) return false
@@ -803,6 +834,9 @@ export const sameLegalAct = (
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   if (left.kind === 'selectPlayers') return left.selectionId === right.selectionId
+  if (left.kind === 'payExtort') {
+    return left.triggerId === right.triggerId && left.mana === right.mana
+  }
   return true
 }
 
@@ -869,6 +903,26 @@ export const eventsForAvailableAction = (
     || action.kind === 'selectCards'
     || action.kind === 'selectPlayers'
   ) return null
+  if (action.kind === 'payExtort') {
+    if (!action.mana) {
+      return [{
+        type: 'payExtort',
+        seat,
+        triggerId: action.triggerId,
+      }]
+    }
+    const mana = fundingEvents(state, seat, `{${action.mana}}`)
+    if (!mana) return null
+    return [
+      ...mana,
+      {
+        type: 'payExtort',
+        seat,
+        triggerId: action.triggerId,
+        mana: action.mana,
+      },
+    ]
+  }
   if (action.kind === 'playLand') {
     return [{ type: 'playLand', seat, objectId: action.objectId }]
   }

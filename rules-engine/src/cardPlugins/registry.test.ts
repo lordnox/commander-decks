@@ -118,6 +118,17 @@ describe('card plugin registry', () => {
     })
   })
 
+  test('the Lady Evangela mana and extort cards stay registered', () => {
+    expect(missingCardPlugins([
+      'Crypt Ghast',
+      'Exotic Orchard',
+      'Nirkana Revenant',
+      'Reflecting Pool',
+    ])).toEqual([])
+    expect(cardPluginEntry('Crypt Ghast')?.handlerIds).toContain('extort')
+    expect(cardPluginEntry('Nirkana Revenant')?.handlerIds).toContain('activated')
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])

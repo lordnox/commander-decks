@@ -43,6 +43,9 @@ const actionText = (action: AvailableAction) => {
   if (action.kind === 'activateAbility') {
     return `activate ${action.name}${action.abilityId ? ` (${action.abilityId})` : ''}`
   }
+  if (action.kind === 'payExtort') {
+    return action.mana ? `pay {${action.mana}} for extort` : 'decline extort'
+  }
   if (action.kind === 'declareAttackers') return 'declare attackers'
   return 'declare blockers'
 }

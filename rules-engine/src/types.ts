@@ -266,6 +266,12 @@ export type GameEvent =
   | { type: 'tapForMana'; seat: PlayerId; objectId: string; mana?: ManaId }
   | { type: 'addMana'; seat: PlayerId; mana: Partial<ManaPool> }
   | { type: 'payMana'; seat: PlayerId; cost: string }
+  | {
+      type: 'payExtort'
+      seat: PlayerId
+      triggerId: string
+      mana?: 'W' | 'B'
+    }
   | { type: 'emptyManaPools' }
   // — Combat & damage —
   | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }
