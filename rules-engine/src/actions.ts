@@ -727,6 +727,33 @@ const targetVariants = (
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
   const source = state.objects[action.objectId]
+  if (source?.name === 'Settle the Wreckage') {
+    return state.playerOrder
+      .filter((player) => !state.players[player].lost)
+      .map((player) => ({
+        ...action,
+        targetPlayerId: player,
+        targetName: player,
+      }))
+  }
+  if (source?.name === 'Energy Arc') {
+    const targets = Object.values(state.objects)
+      .filter((object) => object.zone === 'battlefield' && object.types.includes('Creature'))
+      .map((object) => ({
+        objectId: object.id,
+        name: object.name,
+        controller: object.controller,
+      }))
+    return [{
+      ...action,
+      targetGroups: [{
+        label: 'Creatures',
+        min: 0,
+        max: targets.length,
+        targets,
+      }],
+    }]
+  }
   if (source?.name === 'Ghostly Flicker') return [action]
   if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
     return Object.values(state.objects)
@@ -859,6 +886,7 @@ export const legalActsFor = (
       || action.kind === 'selectPlayers'
       || (action.kind === 'castSpell' && Boolean(action.targetGroups))
       || (action.kind === 'activateAbility' && Boolean(action.targetGroups))
+      || (action.kind === 'castSpell' && Boolean(action.targetGroups))
       || eventsForAvailableAction(state, seat, action))
 
 export const sameLegalAct = (
@@ -1060,7 +1088,11 @@ export const eventsForAvailableAction = (
   const resolvesThroughKernel = object
     ? effectsOf(object).some((effect) =>
       (effect.op === 'trigger' && effect.on === 'resolve')
-      || (effect.op === 'search' && effect.via === 'spell'))
+      || (effect.op === 'search' && effect.via === 'spell')
+      || (
+        effect.op === 'handler'
+        && effect.pluginId === 'combatPreventionCards'
+      ))
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
