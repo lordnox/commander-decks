@@ -189,13 +189,18 @@ describe('mana', () => {
     expect(emptied.players.p2.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
   })
 
-  test('a pain land damages you only when it produces colored mana', () => {
+  test.each([
+    ['Adarkar Wastes', 'W', 'U'],
+    ['Caves of Koilos', 'W', 'B'],
+    ['Underground River', 'U', 'B'],
+  ] as const)('%s damages you only when it produces colored mana', (name, first, second) => {
     const wastes = {
       ...forest(),
-      name: 'Adarkar Wastes',
+      name,
       subtypes: [],
       supertypes: [],
-      oracleText: '{T}: Add {C}.\n{T}: Add {W} or {U}. This land deals 1 damage to you.',
+      oracleText: `{T}: Add {C}.\n{T}: Add {${first}} or {${second}}. `
+        + 'This land deals 1 damage to you.',
       tapProduces: { C: 1 },
     }
     const catalogWithDamage = createCatalog([mana, lands, manaBurn, damage])
@@ -203,7 +208,7 @@ describe('mana', () => {
       builtinRules: ['mana', 'damage'],
       battlefield: { p1: [wastes] },
     })
-    const objectId = idOf(state, 'Adarkar Wastes', 'battlefield')
+    const objectId = idOf(state, name, 'battlefield')
     const colorless = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalogWithDamage))
     expect(colorless.players.p1.mana.C).toBe(1)
     expect(colorless.players.p1.life).toBe(40)
@@ -212,10 +217,46 @@ describe('mana', () => {
       type: 'tapForMana',
       seat: 'p1',
       objectId,
-      mana: 'U',
+      mana: second,
     }, catalogWithDamage))
-    expect(colored.players.p1.mana.U).toBe(1)
+    expect(colored.players.p1.mana[second]).toBe(1)
     expect(colored.players.p1.life).toBe(39)
+  })
+
+  test('Arcane Signet uses the generic commander-identity mana path', () => {
+    const signet = {
+      ...bears(),
+      name: 'Arcane Signet',
+      types: ['Artifact'],
+      oracleText: "{T}: Add one mana of any color in your commander's color identity.",
+      tapProduces: undefined,
+    }
+    const eva = {
+      ...bears(),
+      name: 'Lady Evangela',
+      colors: ['W', 'U', 'B'],
+      tags: ['commander'],
+    }
+    const state = newGame({
+      builtinRules: ['mana'],
+      battlefield: { p1: [signet] },
+      command: { p1: [eva] },
+    })
+    const objectId = idOf(state, 'Arcane Signet', 'battlefield')
+
+    const black = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'B',
+    }, catalog))
+    expect(black.players.p1.mana.B).toBe(1)
+    expect(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'R',
+    }, catalog).ok).toBe(false)
   })
 
   test("Command Tower produces only the commander's identity colors", () => {

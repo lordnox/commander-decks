@@ -25,6 +25,8 @@ type PendingTrigger = {
   source: GameObject
   effect: TriggerEffect
   triggeringObjectId?: string
+  triggeringPlayer?: PlayerId
+  triggerAmount?: number
 }
 
 const isTriggerBindingIf = (
@@ -71,7 +73,10 @@ const pushCopies = (
   source: GameObject,
   effect: TriggerEffect,
   copies: number,
-  meta: Pick<PendingTrigger, 'triggeringObjectId'> = {},
+  meta: Pick<
+    PendingTrigger,
+    'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount'
+  > = {},
 ) => {
   for (let index = 0; index < copies; index += 1) {
     matches.push({ source, effect, ...meta })
@@ -84,6 +89,10 @@ const collectEffects = (
   state: GameState,
   matches: PendingTrigger[],
   copies = 1,
+  meta: Pick<
+    PendingTrigger,
+    'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount'
+  > = {},
 ) => {
   for (const effect of triggerEffects(effectsOf(source), on)) {
     if (
@@ -91,7 +100,7 @@ const collectEffects = (
       && !isTriggerBindingIf(effect.if)
       && !conditionHolds(effect.if, state, source)
     ) continue
-    pushCopies(matches, source, effect, copies)
+    pushCopies(matches, source, effect, copies, meta)
   }
 }
 
@@ -199,10 +208,22 @@ const collectCombatDamage = (
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
-  if (event.type !== 'combatDamage' || event.target.kind !== 'player') return
-  const source = draft.object(event.sourceId) ?? state.objects[event.sourceId]
-  if (!source || source.zone !== 'battlefield') return
-  collectEffects(source, 'combatDamage', state, matches)
+  if (event.type !== 'combatDamage') return
+  const attacker = draft.object(event.sourceId) ?? state.objects[event.sourceId]
+  if (!attacker) return
+  const meta = {
+    triggeringPlayer: attacker.controller,
+    triggerAmount: event.amount,
+  }
+  if (event.target.kind === 'player') {
+    if (attacker.zone === 'battlefield') {
+      collectEffects(attacker, 'combatDamage', state, matches, 1, meta)
+    }
+    return
+  }
+  const recipient = draft.object(event.target.objectId) ?? state.objects[event.target.objectId]
+  if (!recipient || recipient.zone !== 'battlefield') return
+  collectEffects(recipient, 'dealtCombatDamage', state, matches, 1, meta)
 }
 
 const collectMoveTriggers = (
@@ -289,7 +310,13 @@ export const triggers: Plugin = {
       : undefined
     let choosingSeat: PlayerId | undefined
 
-    for (const { source, effect, triggeringObjectId } of ordered) {
+    for (const {
+      source,
+      effect,
+      triggeringObjectId,
+      triggeringPlayer: matchedPlayer,
+      triggerAmount,
+    } of ordered) {
       if (effect.targets === 'opponent') {
         const candidates = draft.playerOrder.filter(
           (seat) => seat !== source.controller && !draft.players[seat].lost,
@@ -306,7 +333,7 @@ export const triggers: Plugin = {
           action: {
             kind: 'putTriggeredAbility',
             instructions: effect.do,
-            triggeringPlayer: triggeringPlayer ?? source.controller,
+            triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
             ...(effect.if && !isTriggerBindingIf(effect.if)
               ? { interveningIf: effect.if }
               : {}),
@@ -318,11 +345,12 @@ export const triggers: Plugin = {
       draft.addTriggeredAbility(source, effect.do, {
         payload: {
           instructions: effect.do,
-          triggeringPlayer: triggeringPlayer ?? source.controller,
+          triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
           ...(effect.if && !isTriggerBindingIf(effect.if)
             ? { interveningIf: effect.if }
             : {}),
           ...(triggeringObjectId ? { triggeringObjectId } : {}),
+          ...(triggerAmount !== undefined ? { triggerAmount } : {}),
         },
         name: `${source.name}`,
       })

@@ -49,7 +49,7 @@ export type CardInstruction =
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   | { kind: 'draw'; count: number }
   | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
-  | { kind: 'gainLife'; count: number }
+  | { kind: 'gainLife'; count: number | 'triggerAmount' }
   | { kind: 'drainOpponentsX'; multiplier: number }
   | { kind: 'drawX' }
   | { kind: 'dealDamageTargetX' }
@@ -64,7 +64,11 @@ export type CardInstruction =
   | { kind: 'sacrificePermanentsThenDraw'; types?: string[] }
   | { kind: 'opponentsSacrifice'; type: string; count: number }
   | { kind: 'reanimateCreatureFromGraveyards'; addSubtype?: string }
-  | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
+  | {
+      kind: 'loseLife'
+      amount: number | 'triggerAmount'
+      who: 'triggeringPlayer' | 'controller'
+    }
   | { kind: 'loseLifeTargetPlayer'; amount: number }
   | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
@@ -235,6 +239,7 @@ export type CardEffect =
         | 'draw'
         | 'end'
         | 'combatDamage'
+        | 'dealtCombatDamage'
         | 'playLand'
       do: CardInstruction[]
       if?: CardCondition | TriggerBindingIf
@@ -632,7 +637,10 @@ export const loyalty = (amount: number): ActivateCost => ({ loyalty: amount })
 
 export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
-export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
+export const gainLife = (count: number | 'triggerAmount'): CardInstruction => ({
+  kind: 'gainLife',
+  count,
+})
 
 export const drainOpponentsX = (multiplier = 1): CardInstruction => ({
   kind: 'drainOpponentsX',
@@ -701,13 +709,13 @@ export const xMana = (color: 'generic' | 'black' = 'generic'): CardEffect => ({
 })
 
 export const loseLife = (
-  amount: number,
+  amount: number | 'triggerAmount',
   who: 'triggeringPlayer' | 'controller',
 ): CardInstruction => ({ kind: 'loseLife', amount, who })
 
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
-  on: 'discard' | 'draw' | 'end' | 'combatDamage' | 'playLand',
+  on: 'discard' | 'draw' | 'end' | 'combatDamage' | 'dealtCombatDamage' | 'playLand',
   options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
 ): CardEffect => ({
   op: 'trigger',
