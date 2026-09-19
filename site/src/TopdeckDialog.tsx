@@ -48,6 +48,8 @@ export const TopdeckDialog = ({
   const optionalDraw = decision.kind === 'may-draw'
   const revealing = decision.kind === 'reveal'
   const cumulativeUpkeep = decision.kind === 'cumulative-upkeep'
+  const voting = decision.kind === 'vote'
+  const copyingStackItem = decision.kind === 'stack-copy'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -142,6 +144,10 @@ export const TopdeckDialog = ({
           ? 'Choose a creature to sacrifice'
         : optionalDraw
           ? 'Draw a card?'
+        : voting
+          ? 'Cast your vote'
+        : copyingStackItem
+          ? 'Copy this ability?'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small
