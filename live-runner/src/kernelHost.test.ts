@@ -26,6 +26,7 @@ import {
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
+import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
@@ -1381,6 +1382,70 @@ describe('kernel host journal', () => {
         defender: { kind: 'object', objectId: 'walker' },
       }],
     })
+  })
+
+  test('declares and pays for taxed blocks without judge fallback', async () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [cardTemplate('Archangel of Tithes', {
+            types: ['Creature'],
+            power: 3,
+            toughness: 5,
+          })],
+          p2: [
+            cardTemplate('Blocker', {
+              types: ['Creature'],
+              power: 2,
+              toughness: 2,
+            }),
+            {
+              ...forest(),
+              name: 'Plains',
+              oracleText: '{T}: Add {W}.',
+              tapProduces: { W: 1 },
+            },
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [combatTax] },
+    )
+    const state = structuredClone(server.state)
+    const archangel = Object.values(state.objects).find(
+      (object) => object.name === 'Archangel of Tithes',
+    )!
+    const blocker = Object.values(state.objects).find((object) => object.name === 'Blocker')!
+    const plains = Object.values(state.objects).find((object) => object.name === 'Plains')!
+    archangel.tapped = true
+    archangel.summoningSickness = false
+    archangel.attacking = { kind: 'player', player: 'p2' }
+    blocker.summoningSickness = false
+    state.step = 'declareBlockers'
+    state.active = 'p1'
+    state.priority = 'p2'
+    const kernel = handleFor(server.rules, state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p2 = { name: 'Defender', deck: 'deck' }
+    expect(kernel.history.current().rules.some((rule) => rule.pluginId === 'combatTax')).toBe(true)
+
+    const events = applyKernelAct(kernel, lobby, 'p2', {
+      type: 'act',
+      kind: 'declareBlockers',
+      blockers: [{ blockerId: blocker.id, attackerId: archangel.id }],
+    })
+
+    expect(events).toEqual([{
+      type: 'declareBlockers',
+      seat: 'p2',
+      blockers: [{ blockerId: blocker.id, attackerId: archangel.id }],
+      payment: [{ objectId: plains.id }],
+    }])
+    expect(kernel.history.current().objects[blocker.id].blocking).toBe(archangel.id)
+    expect(kernel.history.current().objects[plains.id].tapped).toBe(true)
+    expect(kernel.history.current().players.p2.mana.W).toBe(0)
+    expect(kernel.journal.events.some((event) => event.type === 'judgeFallback')).toBe(false)
   })
 
   test('Rankle publishes its modes, then a sacrifice choice per player', () => {

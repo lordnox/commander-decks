@@ -1,5 +1,11 @@
 import { describe, expect, test } from 'bun:test'
-import { availableActions, eventsForAvailableAction, legalActsFor, manaAffordances } from './actions'
+import {
+  availableActions,
+  eventsForAvailableAction,
+  eventsForCombatDeclaration,
+  legalActsFor,
+  manaAffordances,
+} from './actions'
 import { commanderRules } from './formats'
 import { bears, bolt, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
@@ -173,6 +179,36 @@ describe('available actions', () => {
       kind: 'declareAttackers',
       objectIds: [rankle.id],
     })
+  })
+
+  test('publishes defender-specific attack taxes and builds one paid declaration', () => {
+    const state = newGame(commanderRules, {
+      battlefield: {
+        p1: [bears(), forest()],
+        p2: [{ ...bears(), name: 'Baird, Steward of Argive' }],
+      },
+    })
+    const attacker = objectNamed(state, 'Grizzly Bears')
+    attacker.summoningSickness = false
+    state.step = 'declareAttackers'
+    const action = legalActsFor(state, 'p1').find(
+      (candidate) => candidate.kind === 'declareAttackers',
+    )
+
+    expect(action).toMatchObject({
+      kind: 'declareAttackers',
+      taxByDefender: { p2: 1 },
+    })
+    expect(eventsForCombatDeclaration(state, {
+      type: 'declareAttackers',
+      seat: 'p1',
+      attackers: [{ objectId: attacker.id, defender: 'p2' }],
+    })).toEqual([{
+      type: 'declareAttackers',
+      seat: 'p1',
+      attackers: [{ objectId: attacker.id, defender: 'p2' }],
+      payment: [{ objectId: objectNamed(state, 'Forest').id }],
+    }])
   })
 
   test('a counterspell is not an action while the stack is empty', () => {

@@ -264,15 +264,23 @@ export const LivePage = () => {
   const [openingOpen, setOpeningOpen] = useState(true)
   const [declaredAttackers, setDeclaredAttackers] = useState<Record<string, string>>({})
   const [choosingDefenderFor, setChoosingDefenderFor] = useState<string | null>(null)
+  const [declaredBlockers, setDeclaredBlockers] = useState<Record<string, string>>({})
+  const [choosingAttackerFor, setChoosingAttackerFor] = useState<string | null>(null)
   const planRef = useRef<HTMLTextAreaElement>(null)
   const attackAction = snapshot?.legalActs?.find(
     (action): action is Extract<AvailableAction, { kind: 'declareAttackers' }> =>
       action.kind === 'declareAttackers',
   )
-  const attackStepKey = JSON.stringify([
+  const blockAction = snapshot?.legalActs?.find(
+    (action): action is Extract<AvailableAction, { kind: 'declareBlockers' }> =>
+      action.kind === 'declareBlockers',
+  )
+  const combatChoiceKey = JSON.stringify([
     snapshot?.turn,
     snapshot?.phase,
     attackAction?.objectIds ?? [],
+    blockAction?.objectIds ?? [],
+    blockAction?.attackerIds ?? [],
   ])
 
   useEffect(() => {
@@ -422,7 +430,9 @@ export const LivePage = () => {
   useEffect(() => {
     setDeclaredAttackers({})
     setChoosingDefenderFor(null)
-  }, [attackStepKey])
+    setDeclaredBlockers({})
+    setChoosingAttackerFor(null)
+  }, [combatChoiceKey])
 
   useEffect(() => {
     if (snapshot?.actions?.includes('keep')) setOpeningOpen(true)
@@ -536,6 +546,7 @@ export const LivePage = () => {
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
       attackers?: Array<{ objectId: string; defenderId: string }>
+      blockers?: Array<{ blockerId: string; attackerId: string }>
     } = {},
   ) => {
     if (viewingPast) {
@@ -602,6 +613,7 @@ export const LivePage = () => {
           ...(extra.mana ? { mana: extra.mana } : {}),
           ...(extra.x !== undefined ? { x: extra.x } : {}),
           ...(extra.attackers ? { attackers: extra.attackers } : {}),
+          ...(extra.blockers ? { blockers: extra.blockers } : {}),
           ...action,
         }
       } else if (type === 'priority-mode') {
@@ -700,6 +712,11 @@ export const LivePage = () => {
     && snapshot.actions?.includes('act')
     && snapshot.you === boardActive,
   )
+  const canDeclareBlockers = Boolean(
+    blockAction
+    && snapshot.actions?.includes('act')
+    && snapshot.you,
+  )
   const advanceLabel = snapshot.phase === 'planning'
     ? 'Untap & draw'
     : snapshot.phase === 'main2'
@@ -731,6 +748,26 @@ export const LivePage = () => {
     }))
     setChoosingDefenderFor(null)
   }
+  const chooseBlocker = (blockerId: string) => {
+    if (declaredBlockers[blockerId]) {
+      setDeclaredBlockers((current) => {
+        const next = { ...current }
+        delete next[blockerId]
+        return next
+      })
+      setChoosingAttackerFor(null)
+      return
+    }
+    setChoosingAttackerFor((current) => current === blockerId ? null : blockerId)
+  }
+  const chooseBlockedAttacker = (attackerId: string) => {
+    if (!choosingAttackerFor) return
+    setDeclaredBlockers((current) => ({
+      ...current,
+      [choosingAttackerFor]: attackerId,
+    }))
+    setChoosingAttackerFor(null)
+  }
   const submitAdvance = () => {
     if (!canDeclareAttackers) {
       void sendInbox('advance')
@@ -741,6 +778,15 @@ export const LivePage = () => {
       attackers: Object.entries(declaredAttackers).map(([objectId, defenderId]) => ({
         objectId,
         defenderId,
+      })),
+    })
+  }
+  const submitBlockers = () => {
+    void sendInbox('act', {
+      kind: 'declareBlockers',
+      blockers: Object.entries(declaredBlockers).map(([blockerId, attackerId]) => ({
+        blockerId,
+        attackerId,
       })),
     })
   }
@@ -758,6 +804,24 @@ export const LivePage = () => {
   const selectablePlaneswalkers = new Set(
     choosingDefenderFor ? opposingPlaneswalkers.map((object) => object.id) : [],
   )
+  const eligibleBlockers = new Set(blockAction?.objectIds ?? [])
+  const selectedBlockers = new Set([
+    ...Object.keys(declaredBlockers),
+    ...(choosingAttackerFor ? [choosingAttackerFor] : []),
+  ])
+  const selectableAttackers = new Set(
+    choosingAttackerFor
+      ? (blockAction?.attackerIds ?? []).filter(
+          (attackerId) => !Object.values(declaredBlockers).includes(attackerId),
+        )
+      : [],
+  )
+  const attackTax = Object.values(declaredAttackers).reduce(
+    (total, defenderId) => total + (attackAction?.taxByDefender?.[defenderId] ?? 0),
+    0,
+  )
+  const blockTax =
+    Object.keys(declaredBlockers).length * (blockAction?.taxPerBlocker ?? 0)
   // A seat is recognized by its commander art, and a partner pair by the first
   // of the two, which is the card the table calls that deck. The seat's command
   // zone only holds that card while it is uncast, so fall back to the tagged
@@ -1043,6 +1107,7 @@ export const LivePage = () => {
                 <div className="mt-3 rounded-xl border border-orange-300/30 bg-orange-400/5 p-3">
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-orange-200">
                     Attackers · {Object.keys(declaredAttackers).length}
+                    {attackTax > 0 ? ` · Pay {${attackTax}}` : ''}
                   </p>
                   {choosingDefenderFor && (
                     <p className="mt-1 text-xs text-stone-300">
@@ -1070,6 +1135,37 @@ export const LivePage = () => {
                 {actionPending ? 'Advancing…' : advanceLabel}
               </button>
             </>
+          )}
+          {yourAction && canSend && canDeclareBlockers && (
+            <div className="mt-3 rounded-xl border border-sky-300/30 bg-sky-400/5 p-3">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-sky-200">
+                Blockers · {Object.keys(declaredBlockers).length}
+                {blockTax > 0 ? ` · Pay {${blockTax}}` : ''}
+              </p>
+              {choosingAttackerFor && (
+                <p className="mt-1 text-xs text-stone-300">
+                  Choose an attacker for {objectName(choosingAttackerFor)} to block.
+                </p>
+              )}
+              {Object.entries(declaredBlockers).map(([blockerId, attackerId]) => (
+                <button
+                  key={blockerId}
+                  type="button"
+                  onClick={() => chooseBlocker(blockerId)}
+                  className="mt-2 block w-full rounded-lg bg-black/20 px-2 py-1.5 text-left text-xs text-stone-200 hover:bg-black/35"
+                >
+                  {objectName(blockerId)} blocks {objectName(attackerId)}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={submitBlockers}
+                disabled={actionPending}
+                className="mt-3 w-full rounded-xl bg-sky-200 px-3 py-2 text-sm font-black text-ink-950 hover:bg-sky-100 disabled:cursor-wait disabled:opacity-40"
+              >
+                {actionPending ? 'Submitting…' : 'Declare blockers'}
+              </button>
+            </div>
           )}
           {priorityOpen && lastEvent && (
             <p className="mt-3 text-xs leading-5 text-stone-400">{lastEvent.summary}</p>
@@ -1168,6 +1264,10 @@ export const LivePage = () => {
               && !isYou
               && !snapshot.replica?.players[seat.id]?.lost,
             )
+            const selectingAttacker = Boolean(
+              choosingAttackerFor
+              && !isYou,
+            )
             return (
               <SeatPanel
                 key={seat.id}
@@ -1193,6 +1293,17 @@ export const LivePage = () => {
                       targets: defenderTargets,
                       onChooseTarget: chooseDefender,
                     }
+                  : isYou && canDeclareBlockers
+                    ? {
+                        selectable: eligibleBlockers,
+                        selected: selectedBlockers,
+                        label: 'Select blocker',
+                        onSelect: chooseBlocker,
+                        choosingFor: choosingAttackerFor,
+                        targetLabel: 'Block',
+                        targets: [],
+                        onChooseTarget: chooseBlockedAttacker,
+                      }
                   : selectingDefender
                     ? {
                         selectable: selectablePlaneswalkers,
@@ -1200,6 +1311,13 @@ export const LivePage = () => {
                         label: 'Attack planeswalker',
                         onSelect: chooseDefender,
                       }
+                    : selectingAttacker
+                      ? {
+                          selectable: selectableAttackers,
+                          selected: new Set(),
+                          label: 'Block attacker',
+                          onSelect: chooseBlockedAttacker,
+                        }
                     : undefined}
               />
             )

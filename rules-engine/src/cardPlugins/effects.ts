@@ -287,6 +287,8 @@ export type CardEffect =
       revealLibraryTop?: boolean
       allCreatureTypes?: boolean
       legendRuleOff?: boolean
+      attackTax?: { amount: number; whileUntapped?: boolean }
+      blockTax?: { amount: number; whileAttacking?: boolean }
     }
   | { op: 'handler'; pluginId: string }
   | {
@@ -631,6 +633,22 @@ export const branch = (
 export const staticGrant = (pluginId: string): CardEffect => ({
   op: 'static',
   pluginId,
+})
+
+export const attackTax = (
+  amount: number,
+  options: { whileUntapped?: boolean } = {},
+): CardEffect => ({
+  op: 'static',
+  attackTax: { amount, ...options },
+})
+
+export const blockTax = (
+  amount: number,
+  options: { whileAttacking?: boolean } = {},
+): CardEffect => ({
+  op: 'static',
+  blockTax: { amount, ...options },
 })
 
 export const staticExtraLandPlays = (count: number): CardEffect => ({
@@ -1370,6 +1388,9 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (effect.action === 'copy') ids.add('copySpell')
     }
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
+    if (effect.op === 'static' && (effect.attackTax || effect.blockTax)) {
+      ids.add('combatTax')
+    }
     if (effect.op === 'static' && (effect.revealLibraryTop || effect.playLandsFromLibraryTop)) {
       ids.add('courserOfKruphix')
     }

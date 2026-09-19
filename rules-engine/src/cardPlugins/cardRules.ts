@@ -4,9 +4,11 @@ import {
   activate,
   allCreatureTypes,
   addPlusCountersInstruction,
+  attackTax,
   attacks,
   basicLand,
   bestow,
+  blockTax,
   bounceChosenLand,
   bounceSelf,
   branch,
@@ -1152,6 +1154,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Absorb: [
     targetOnResolve('counter', { zone: 'stack' }, gainLife(3)),
   ],
+  'Archangel of Tithes': [
+    attackTax(1, { whileUntapped: true }),
+    blockTax(1, { whileAttacking: true }),
+  ],
   'Anguished Unmaking': [
     targetOnResolve(
       'exile',
@@ -1160,6 +1166,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Bender\'s Waterskin': [staticGrant('extraUntap')],
+  'Baird, Steward of Argive': [attackTax(1)],
   'Blanket of Night': [staticGrant('swampOverlay')],
   'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
   'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
