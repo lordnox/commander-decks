@@ -55,6 +55,15 @@ export type FaceCharacteristics = {
   oracleText?: string
 }
 
+export type RoomDoorId = 'left' | 'right'
+
+export type RoomDoorCharacteristics = FaceCharacteristics & {
+  name: string
+  oracleText: string
+  grantedRules?: string[]
+  effects?: import('./cardPlugins/effects').CardEffect[]
+}
+
 export type CopySnapshot = {
   name: string
   printedName?: string
@@ -130,6 +139,10 @@ export type GameObject = {
   frontFace?: FaceCharacteristics
   /** Printed characteristics of the second face of a double-faced card. */
   backFace?: FaceCharacteristics
+  /** The two halves of a split permanent with the shared Room type line. */
+  roomDoors?: [RoomDoorCharacteristics, RoomDoorCharacteristics]
+  /** Battlefield-only unlocked designations (CR 709.5c). */
+  unlockedDoors?: RoomDoorId[]
   power: number | null
   toughness: number | null
   printedLoyalty: number | null
@@ -188,6 +201,7 @@ export type StackItem = {
   exileAfterUse?: boolean
   /** Read ahead choice carried from casting through battlefield entry. */
   sagaChapter?: number
+  door?: RoomDoorId
   uncounterable?: boolean
   sacrificed?: number
   castFrom?: ZoneId
@@ -336,6 +350,7 @@ export type GameEvent =
       alternativeCost?: 'withoutPayingMana'
       /** Starting lore count chosen for a Saga with read ahead. */
       sagaChapter?: number
+      door?: RoomDoorId
       x?: number
       sacrifice?: string[]
       convoke?: string[]
@@ -423,6 +438,13 @@ export type GameEvent =
       mana?: 'W' | 'B'
     }
   | { type: 'emptyManaPools' }
+  // — Special actions —
+  | {
+      type: 'unlockDoor'
+      seat: PlayerId
+      objectId: string
+      door: RoomDoorId
+    }
   // — Combat & damage —
   | {
       type: 'declareAttackers'

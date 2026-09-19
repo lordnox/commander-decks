@@ -316,14 +316,25 @@ const statLine = (cache: Json) => {
     .join(" // ")
 }
 
-/** One entry per side of a card that prints its faces on separate images. */
+/** One entry per DFC face or Room door. */
 export const cardFaces = (cache: Json) => {
-  const faces = (cache.card_faces ?? []).filter((face: Json) => face.image_uris?.small)
+  const cardFaces = cache.card_faces ?? []
+  const room = String(cache.type_line ?? '').split(' // ').every(
+    (typeLine) => typeLine.split(' — ')[1]?.split(' ').includes('Room'),
+  )
+  const faces = room
+    ? cardFaces
+    : cardFaces.filter((face: Json) => face.image_uris?.small)
   if (faces.length < 2) return undefined
   return faces.map((face: Json) => ({
     name: face.name || "",
-    image_small: face.image_uris.small || "",
-    image_normal: face.image_uris.normal || face.image_uris.small || "",
+    image_small: face.image_uris?.small || cache.image_uris?.small || "",
+    image_normal:
+      face.image_uris?.normal
+      || cache.image_uris?.normal
+      || face.image_uris?.small
+      || cache.image_uris?.small
+      || "",
     type_line: face.type_line || "",
     mana_cost: face.mana_cost || "",
     oracle_text: face.oracle_text || "",

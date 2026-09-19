@@ -3,7 +3,7 @@
  * CR 603.2 — a trigger watches for a game event matching its `on` binding.
  * CR 603.3b — APNAP: active player first, then turn order; within a player, ETB order.
  */
-import { effectsOf } from '../cardPlugins/cardRules'
+import { effectsFor, effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
 import {
   conditionHolds,
@@ -24,6 +24,7 @@ import type {
   Plugin,
   TriggerBindingIf,
 } from '../types'
+import { roomDoor } from '../plugins/rooms'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
 
@@ -340,6 +341,38 @@ const collectDelayedTriggers = (
   draft.delayedTriggers = remaining
 }
 
+const collectRoomUnlock = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  const doorId = event.type === 'unlockDoor'
+    ? event.door
+    : event.type === 'resolveTop'
+      ? state.stack[0]?.door
+      : undefined
+  if (!doorId) return
+  const objectId = event.type === 'unlockDoor'
+    ? event.objectId
+    : state.stack[0]?.objectId
+  if (!objectId) return
+  const source = draft.object(objectId)
+  const door = source && roomDoor(source, doorId)
+  if (!source?.roomDoors || !door || source.zone !== 'battlefield') return
+  const doorSource = {
+    ...source,
+    name: door.name,
+    effects: door.effects ?? effectsFor(door.name),
+  }
+  collectEffects(doorSource, 'unlock', draft, matches)
+
+  const beforeCount = state.objects[objectId]?.unlockedDoors?.length ?? 0
+  if ((source.unlockedDoors?.length ?? 0) === 2 && beforeCount < 2) {
+    collectEffects(source, 'fullyUnlock', draft, matches)
+  }
+}
+
 const collectEventTriggers = (
   state: GameState,
   draft: Draft,
@@ -355,6 +388,7 @@ const collectEventTriggers = (
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(draft, event, matches)
   collectDelayedTriggers(draft, event, matches)
+  collectRoomUnlock(state, draft, event, matches)
   return matches
 }
 

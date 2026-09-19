@@ -274,6 +274,8 @@ export type CardEffect =
         | 'discard'
         | 'draw'
         | 'end'
+        | 'unlock'
+        | 'fullyUnlock'
         | 'combatDamage'
         | 'dealtCombatDamage'
         | 'playLand'

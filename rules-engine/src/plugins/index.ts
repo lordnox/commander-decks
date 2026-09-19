@@ -28,6 +28,7 @@ import { sacrificeLandMana } from './sacrificeLandMana'
 import { rebound } from './rebound'
 import { saga } from './saga'
 import { spells } from './spells'
+import { rooms } from './rooms'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
@@ -45,6 +46,7 @@ export const builtInPlugins = [
   spells,
   rebound,
   saga,
+  rooms,
   stateBased,
   combat,
   life,
@@ -96,6 +98,7 @@ export {
   phialReplacement,
   priority,
   rebound,
+  rooms,
   sacrificeLandMana,
   saga,
   spells,
