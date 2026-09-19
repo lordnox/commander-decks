@@ -53,6 +53,7 @@ import {
   gainLife,
   grantUntilEot,
   graveyardCards,
+  graveyardCardTypes,
   graveyardPermanentCards,
   handler,
   handlerIdsFromEffects,
@@ -64,6 +65,7 @@ import {
   loseLife,
   loseLifeTargetManaValue,
   loseLifeTargetController,
+  kicker,
   loyalty,
   loyaltyX,
   lookTopChooseOne,
@@ -91,6 +93,7 @@ import {
   putPermanentsFromHand,
   revealPick,
   revealUntilBasicLand,
+  reduceGenericIf,
   reanimateCreatureFromGraveyards,
   returnChosenLandFromGraveyard,
   returnCreatureManaValueX,
@@ -116,6 +119,7 @@ import {
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
   targetOnResolve,
+  targetOnResolveKicked,
   targetOnResolveAt,
   uniqueLandNames,
   upkeep,
@@ -949,7 +953,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Dismember': [
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }, pump(-5, -5)),
   ],
-  'Drag to the Roots': [targetOnResolve('destroy', { zone: 'battlefield', nonland: true })],
+  'Drag to the Roots': [
+    reduceGenericIf(2, graveyardCardTypes(4)),
+    targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
+  ],
   'Dread Return': [
     flashback('Flashback—Sacrifice three creatures.', '', {
       sacrifice: { type: 'Creature', count: 3 },
@@ -1066,6 +1073,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
   ],
   'Price of Fame': [
+    reduceGenericIf(2, {
+      kind: 'target',
+      filter: { zone: 'battlefield', type: 'Creature', supertype: 'Legendary' },
+    }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }, surveil(2)),
   ],
   'Quantum Misalignment': [
@@ -1169,7 +1180,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       gainLife(2),
     ),
   ],
-  'Tear Asunder': [targetOnResolve('exile', { zone: 'battlefield', types: ['Artifact', 'Enchantment'] })],
+  'Tear Asunder': [
+    kicker('{1}{B}'),
+    targetOnResolveKicked(
+      'exile',
+      { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
+      { zone: 'battlefield', nonland: true },
+    ),
+  ],
   'Trade Routes': [
     activate({
       id: 'tradeRoutes.bounce',

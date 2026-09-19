@@ -1,7 +1,14 @@
 import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
-import { convokeColors, hasConvoke, payCost, phyrexianSymbols } from './plugins/spells'
+import {
+  convokeColors,
+  hasConvoke,
+  kickerCostOf,
+  payCost,
+  phyrexianSymbols,
+  spellCost,
+} from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
   crewCostCandidates,
@@ -17,7 +24,10 @@ import {
   type ActivateCost,
 } from './cardPlugins/effects'
 import { SEARCH_FETCH } from './cardPlugins/librarySearch'
-import { validTargetRef } from './cardPlugins/targetedResolve'
+import {
+  targetedEffectFilter,
+  validTargetRef,
+} from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingExtortFor } from './cardPlugins/extort'
@@ -75,6 +85,7 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetName?: string
       x?: number
+      kicked?: boolean
       castOption?: string
       castLabel?: string
       convoke?: string[]
@@ -480,45 +491,73 @@ const alternateCastCostGroups = (
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
-  const suffix = tax > 0 ? `{${tax}}` : ''
   const alternatives = availableAlternateCastEffects(state, seat, object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+  const face = castFaceOf(object)
+  const spell = face ? { ...object, ...face } : object
+  const hasTargetReduction = effectsOf(object).some((effect) =>
+    effect.op === 'castCost'
+    && effect.reduceGeneric?.if.kind === 'target')
+  const withKicker = (
+    action: Extract<AvailableAction, { kind: 'castSpell' }>,
+  ): AvailableAction[] =>
+    kickerCostOf(object)
+      ? [
+          action,
+          {
+            ...action,
+            kicked: true,
+            castLabel: action.castLabel
+              ? `${action.castLabel} kicked`
+              : 'Kicked',
+          },
+        ]
+      : [action]
+  const fundedVariants = (
+    base: Extract<AvailableAction, { kind: 'castSpell' }>,
+    options: { castOption?: string; x?: number } = {},
+  ) => withKicker(base).flatMap((action) => {
+    if (action.kind !== 'castSpell') return []
+    const cost = spellCost(state, spell, {
+      additionalGeneric: tax,
+      x: options.x ?? action.x,
+      castOption: options.castOption ?? action.castOption,
+      kicked: action.kicked,
+      seat,
+    })
+    if (hasTargetReduction) return [action]
+    return fundedCasts(state, seat, object, cost).map((funded) => {
+      const phyrexianLabel = funded.labeled
+        ? phyrexianCastLabel(cost, funded.phyrexianLife)
+        : undefined
+      const castLabel = [action.castLabel, phyrexianLabel].filter(Boolean).join(' — ')
+      return {
+        ...action,
+        ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
+        ...(funded.convoke ? { convoke: funded.convoke } : {}),
+        ...(castLabel ? { castLabel } : {}),
+      }
+    })
+  })
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
-    const face = castFaceOf(object)
-    const cost = `${face?.manaCost ?? object.manaCost}${suffix}`
     const actions: AvailableAction[] = state.castableZones.includes(object.zone)
-      ? fundedCasts(state, seat, object, cost).map((funded) => ({
-          kind: 'castSpell' as const,
-          objectId: object.id,
-          name: object.name,
-          ...(funded.labeled
-            ? {
-                phyrexianLife: funded.phyrexianLife,
-                castLabel: phyrexianCastLabel(cost, funded.phyrexianLife),
-              }
-            : {}),
-          ...(funded.convoke ? { convoke: funded.convoke } : {}),
-        }))
-      : []
-    for (const alternative of alternatives) {
-      const alternativeCost = `${alternative.manaCost}${suffix}`
-      if (!canChooseAlternateCast(state, seat, alternative, object)) continue
-      const targetGroups = alternateCastCostGroups(state, seat, alternative)
-      for (const funded of fundedCasts(state, seat, object, alternativeCost)) {
-        const paymentLabel = phyrexianSymbols(alternativeCost).length > 0
-          ? ` — ${phyrexianCastLabel(alternativeCost, funded.phyrexianLife)}`
-          : ''
-        actions.push({
+      ? fundedVariants({
           kind: 'castSpell',
           objectId: object.id,
           name: object.name,
-          castOption: alternative.id,
-          castLabel: `${alternative.label}${paymentLabel}`,
-          ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
-          ...(funded.convoke ? { convoke: funded.convoke } : {}),
-          ...(targetGroups.length > 0 ? { targetGroups } : {}),
         })
-      }
+      : []
+    for (const alternative of alternatives) {
+      if (!canChooseAlternateCast(state, seat, alternative, object)) continue
+      const targetGroups = alternateCastCostGroups(state, seat, alternative)
+      actions.push(...fundedVariants({
+        kind: 'castSpell',
+        objectId: object.id,
+        name: object.name,
+        castOption: alternative.id,
+        castLabel: alternative.label,
+        ...(targetGroups.length > 0 ? { targetGroups } : {}),
+      }, { castOption: alternative.id }))
     }
     return actions
   }
@@ -543,22 +582,12 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       : manaUpper
   if (!state.castableZones.includes(object.zone)) return []
   return Array.from({ length: upper + 1 }, (_, x) => x)
-    .flatMap((x): AvailableAction[] => {
-      const cost = `${costForX(object, x)}${suffix}`
-      return fundedCasts(state, seat, object, cost).map((funded) => ({
-        kind: 'castSpell' as const,
-        objectId: object.id,
-        name: object.name,
-        x,
-        ...(funded.labeled
-          ? {
-              phyrexianLife: funded.phyrexianLife,
-              castLabel: phyrexianCastLabel(cost, funded.phyrexianLife),
-            }
-          : {}),
-        ...(funded.convoke ? { convoke: funded.convoke } : {}),
-      }))
-    })
+    .flatMap((x): AvailableAction[] => fundedVariants({
+      kind: 'castSpell',
+      objectId: object.id,
+      name: object.name,
+      x,
+    }, { x }))
 }
 
 const activatedText = (object: GameObject) =>
@@ -934,12 +963,13 @@ const targetVariants = (
   }
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
+  const filter = targetedEffectFilter(effect, action.kicked === true)
   const objectTargets = Object.values(state.objects)
     .filter((object) =>
       validTargetRef(
         state,
         { kind: 'object', objectId: object.id },
-        effect.filter,
+        filter,
         seat,
         action.castOption,
       ))
@@ -953,7 +983,7 @@ const targetVariants = (
       validTargetRef(
         state,
         { kind: 'player', player },
-        effect.filter,
+        filter,
         seat,
         action.castOption,
       ))
@@ -962,7 +992,23 @@ const targetVariants = (
       targetPlayerId: player,
       targetName: player,
     }))
-  return [...objectTargets, ...playerTargets]
+  return [...objectTargets, ...playerTargets].filter((candidate) => {
+    if (candidate.kind !== 'castSpell') return false
+    const face = castFaceOf(source)
+    const spell = face ? { ...source, ...face } : source
+    const targets = candidate.targetObjectId
+      ? [{ kind: 'object' as const, objectId: candidate.targetObjectId }]
+      : candidate.targetPlayerId
+        ? [{ kind: 'player' as const, player: candidate.targetPlayerId }]
+        : []
+    return canFund(state, seat, spellCost(state, spell, {
+      additionalGeneric: taxFor(state, seat, source),
+      castOption: candidate.castOption,
+      kicked: candidate.kicked,
+      targets,
+      seat,
+    }))
+  })
 }
 
 const validBlinkSpellTarget = (
@@ -1176,6 +1222,7 @@ export const sameLegalAct = (
     targetObjectId?: string
     targetPlayerId?: string
     x?: number
+    kicked?: boolean
     castOption?: string
     phyrexianLife?: number[]
     stackId?: string
@@ -1195,6 +1242,7 @@ export const sameLegalAct = (
     return left.targetObjectId === right.targetObjectId
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
+      && left.kicked === right.kicked
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
   }
@@ -1429,7 +1477,8 @@ export const eventsForAvailableAction = (
     ? effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
   const hasDeclarativeAdditionalCost = object
-    ? effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+    ? effectsOf(object).some((effect) =>
+        effect.op === 'castCost' && (effect.lifeX || effect.kicker))
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   if (
@@ -1468,9 +1517,26 @@ export const eventsForAvailableAction = (
   const alternative = alternateCastEffects(object).find(
     (effect) => effect.id === action.castOption,
   )
-  const cost = `${
-    alternative?.manaCost ?? costForX(casting, action.x ?? 0)
-  }${tax > 0 ? `{${tax}}` : ''}`
+  const targets = action.targetObjectId || action.targetObjectIds
+    ? (
+        playerAura
+          ? [{ kind: 'player' as const, player: action.targetObjectId! }]
+          : blinkTargets.map((objectId) => ({
+              kind: 'object' as const,
+              objectId,
+            }))
+      )
+    : action.targetPlayerId
+      ? [{ kind: 'player' as const, player: action.targetPlayerId }]
+      : []
+  const cost = spellCost(state, casting, {
+    additionalGeneric: tax,
+    x: action.x,
+    castOption: alternative?.id,
+    kicked: action.kicked,
+    targets,
+    seat,
+  })
   const convoke = (action.convoke ?? [])
     .map((objectId) => state.objects[objectId])
     .filter((creature): creature is GameObject => Boolean(creature))
@@ -1491,18 +1557,8 @@ export const eventsForAvailableAction = (
       ...(action.castOption ? { castOption: action.castOption } : {}),
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
-      ...(action.targetObjectId || action.targetObjectIds
-        ? {
-            targets: playerAura
-              ? [{ kind: 'player' as const, player: action.targetObjectId! }]
-              : blinkTargets.map((objectId) => ({
-                  kind: 'object' as const,
-                  objectId,
-                })),
-          }
-        : action.targetPlayerId
-          ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }
-        : {}),
+      ...(action.kicked ? { kicked: true } : {}),
+      ...(targets.length > 0 ? { targets } : {}),
       ...(action.x !== undefined ? { x: action.x } : {}),
     },
   ]

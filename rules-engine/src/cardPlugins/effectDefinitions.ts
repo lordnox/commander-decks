@@ -191,6 +191,7 @@ export type TargetFilter = {
   bracketed?: TargetFilter
   type?: string
   types?: string[]
+  supertype?: string
   nonland?: boolean
   noncreature?: boolean
   nonblack?: boolean
@@ -199,6 +200,10 @@ export type TargetFilter = {
   players?: 'any' | 'opponent'
   nonlegendary?: boolean
 }
+
+export type CastCostCondition =
+  | CardCondition
+  | { kind: 'target'; filter: TargetFilter }
 
 export type SearchSpec = {
   prompt: string
@@ -283,6 +288,7 @@ export type CardEffect =
       op: 'targetedResolve'
       target: number
       filter: TargetFilter
+      kickedFilter?: TargetFilter
       action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select'
       do?: CardInstruction[]
     }
@@ -317,6 +323,11 @@ export type CardEffect =
       lifeX?: boolean
       xMana?: 'generic' | 'black'
       timing?: 'yourEndStep'
+      kicker?: string
+      reduceGeneric?: {
+        amount: number
+        if: CastCostCondition
+      }
     }
   | {
       op: 'alternateCast'

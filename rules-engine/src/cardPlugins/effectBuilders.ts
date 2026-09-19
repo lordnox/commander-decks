@@ -2,6 +2,7 @@ import type { TriggerBindingIf, ZoneId } from '../types'
 import type {
   ActivateCost,
   CardCondition,
+  CastCostCondition,
   CardEffect,
   CardInstruction,
   ModalMode,
@@ -516,6 +517,19 @@ export const payLifeX = (
 
 export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
 
+export const kicker = (cost: string): CardEffect => ({
+  op: 'castCost',
+  kicker: cost,
+})
+
+export const reduceGenericIf = (
+  amount: number,
+  condition: CastCostCondition,
+): CardEffect => ({
+  op: 'castCost',
+  reduceGeneric: { amount, if: condition },
+})
+
 export const alternateCast = (
   id: string,
   label: string,
@@ -707,6 +721,20 @@ export const targetOnResolve = (
   op: 'targetedResolve',
   target: 0,
   filter,
+  action,
+  ...(instructions.length > 0 ? { do: instructions } : {}),
+})
+
+export const targetOnResolveKicked = (
+  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
+  filter: TargetFilter,
+  kickedFilter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'targetedResolve',
+  target: 0,
+  filter,
+  kickedFilter,
   action,
   ...(instructions.length > 0 ? { do: instructions } : {}),
 })
