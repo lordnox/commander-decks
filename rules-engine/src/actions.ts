@@ -1,7 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
-import { payCost } from './plugins/spells'
+import { kickerCostOf, payCost, spellCost } from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
   discardCostCandidates,
@@ -16,7 +16,10 @@ import {
   type ActivateCost,
 } from './cardPlugins/effects'
 import { SEARCH_FETCH } from './cardPlugins/librarySearch'
-import { validTargetRef } from './cardPlugins/targetedResolve'
+import {
+  targetedEffectFilter,
+  validTargetRef,
+} from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingExtortFor } from './cardPlugins/extort'
@@ -72,6 +75,7 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetName?: string
       x?: number
+      kicked?: boolean
       castOption?: string
       castLabel?: string
       targetGroups?: ActionTargetGroup[]
@@ -373,30 +377,59 @@ const costForX = (object: GameObject, x: number) => {
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
-  const suffix = tax > 0 ? `{${tax}}` : ''
   const alternatives = alternateCastEffects(object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const face = castFaceOf(object)
-    const actions: AvailableAction[] = canFund(
-      state,
-      seat,
-      `${face?.manaCost ?? object.manaCost}${suffix}`,
-    )
-      ? [{ kind: 'castSpell', objectId: object.id, name: object.name }]
-      : []
+    const spell = face ? { ...object, ...face } : object
+    const hasTargetReduction = effectsOf(object).some((effect) =>
+      effect.op === 'castCost'
+      && effect.reduceGeneric?.if.kind === 'target')
+    const withKicker = (
+      action: Extract<AvailableAction, { kind: 'castSpell' }>,
+    ): AvailableAction[] =>
+      kickerCostOf(object)
+        ? [
+            action,
+            {
+              ...action,
+              kicked: true,
+              castLabel: action.castLabel
+                ? `${action.castLabel} kicked`
+                : 'Kicked',
+            },
+          ]
+        : [action]
+    const actions: AvailableAction[] = withKicker({
+      kind: 'castSpell',
+      objectId: object.id,
+      name: object.name,
+    }).filter((action) =>
+      action.kind === 'castSpell'
+      && (
+        hasTargetReduction
+        || canFund(state, seat, spellCost(state, spell, {
+          additionalGeneric: tax,
+          kicked: action.kicked,
+          seat,
+        }))
+      ))
     for (const alternative of alternatives) {
-      if (
-        canChooseAlternateCast(state, seat, alternative)
-        && canFund(state, seat, `${alternative.manaCost}${suffix}`)
-      ) {
-        actions.push({
+      if (canChooseAlternateCast(state, seat, alternative)) {
+        actions.push(...withKicker({
           kind: 'castSpell',
           objectId: object.id,
           name: object.name,
           castOption: alternative.id,
           castLabel: alternative.label,
-        })
+        }).filter((action) =>
+          action.kind === 'castSpell'
+          && canFund(state, seat, spellCost(state, spell, {
+            additionalGeneric: tax,
+            castOption: alternative.id,
+            kicked: action.kicked,
+            seat,
+          }))))
       }
     }
     return actions
@@ -791,9 +824,10 @@ const targetVariants = (
   }
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
+  const filter = targetedEffectFilter(effect, action.kicked === true)
   const objectTargets = Object.values(state.objects)
     .filter((object) =>
-      validTargetRef(state, { kind: 'object', objectId: object.id }, effect.filter, seat))
+      validTargetRef(state, { kind: 'object', objectId: object.id }, filter, seat))
     .map((target): AvailableAction => ({
       ...action,
       targetObjectId: target.id,
@@ -801,13 +835,29 @@ const targetVariants = (
     }))
   const playerTargets = state.playerOrder
     .filter((player) =>
-      validTargetRef(state, { kind: 'player', player }, effect.filter, seat))
+      validTargetRef(state, { kind: 'player', player }, filter, seat))
     .map((player): AvailableAction => ({
       ...action,
       targetPlayerId: player,
       targetName: player,
     }))
-  return [...objectTargets, ...playerTargets]
+  return [...objectTargets, ...playerTargets].filter((candidate) => {
+    if (candidate.kind !== 'castSpell') return false
+    const face = castFaceOf(source)
+    const spell = face ? { ...source, ...face } : source
+    const targets = candidate.targetObjectId
+      ? [{ kind: 'object' as const, objectId: candidate.targetObjectId }]
+      : candidate.targetPlayerId
+        ? [{ kind: 'player' as const, player: candidate.targetPlayerId }]
+        : []
+    return canFund(state, seat, spellCost(state, spell, {
+      additionalGeneric: taxFor(state, seat, source),
+      castOption: candidate.castOption,
+      kicked: candidate.kicked,
+      targets,
+      seat,
+    }))
+  })
 }
 
 const validBlinkSpellTarget = (
@@ -1007,6 +1057,7 @@ export const sameLegalAct = (
     targetObjectId?: string
     targetPlayerId?: string
     x?: number
+    kicked?: boolean
     castOption?: string
     stackId?: string
     selectionId?: string
@@ -1025,6 +1076,7 @@ export const sameLegalAct = (
     return left.targetObjectId === right.targetObjectId
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
+      && left.kicked === right.kicked
       && left.castOption === right.castOption
   }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
@@ -1210,7 +1262,8 @@ export const eventsForAvailableAction = (
     ? effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
   const hasDeclarativeAdditionalCost = object
-    ? effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+    ? effectsOf(object).some((effect) =>
+        effect.op === 'castCost' && (effect.lifeX || effect.kicker))
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   if (
@@ -1249,9 +1302,26 @@ export const eventsForAvailableAction = (
   const alternative = alternateCastEffects(object).find(
     (effect) => effect.id === action.castOption,
   )
-  const cost = `${
-    alternative?.manaCost ?? costForX(casting, action.x ?? 0)
-  }${tax > 0 ? `{${tax}}` : ''}`
+  const targets = action.targetObjectId || action.targetObjectIds
+    ? (
+        playerAura
+          ? [{ kind: 'player' as const, player: action.targetObjectId! }]
+          : blinkTargets.map((objectId) => ({
+              kind: 'object' as const,
+              objectId,
+            }))
+      )
+    : action.targetPlayerId
+      ? [{ kind: 'player' as const, player: action.targetPlayerId }]
+      : []
+  const cost = spellCost(state, casting, {
+    additionalGeneric: tax,
+    x: action.x,
+    castOption: alternative?.id,
+    kicked: action.kicked,
+    targets,
+    seat,
+  })
   const mana = fundingEvents(state, seat, cost)
   if (!mana) return null
   return [
@@ -1261,18 +1331,8 @@ export const eventsForAvailableAction = (
       seat,
       objectId: object.id,
       ...(action.castOption ? { castOption: action.castOption } : {}),
-      ...(action.targetObjectId || action.targetObjectIds
-        ? {
-            targets: playerAura
-              ? [{ kind: 'player' as const, player: action.targetObjectId! }]
-              : blinkTargets.map((objectId) => ({
-                  kind: 'object' as const,
-                  objectId,
-                })),
-          }
-        : action.targetPlayerId
-          ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }
-        : {}),
+      ...(targets.length > 0 ? { targets } : {}),
+      ...(action.kicked ? { kicked: true } : {}),
       ...(action.x !== undefined ? { x: action.x } : {}),
     },
   ]

@@ -1,9 +1,20 @@
 import { isPermanentType } from '../definitions'
 import { poolTotal, type Draft } from '../draft'
-import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
+import type {
+  GameObject,
+  GameState,
+  ManaId,
+  ManaPool,
+  PlayerId,
+  Plugin,
+  TargetRef,
+} from '../types'
+import type { CastCostCondition } from '../cardPlugins/effectDefinitions'
 import { searchEffect } from '../cardPlugins/effects'
+import { conditionHolds } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
 import { alternateCastEffect } from '../cardPlugins/alternateCosts'
+import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { applyFace, castFaceOf } from './doubleFaced'
 
@@ -17,20 +28,64 @@ const xManaKind = (object: GameObject) =>
   effectsOf(object).flatMap((effect) =>
     effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
 
-const spellCost = (
+export const kickerCostOf = (object: GameObject) =>
+  effectsOf(object).flatMap((effect) =>
+    effect.op === 'castCost' && effect.kicker ? [effect.kicker] : [])[0]
+
+const reduceGeneric = (manaCost: string, amount: number) => {
+  const reduced = Math.max(0, genericCost(manaCost) - amount)
+  const nonGeneric = manaCost.replaceAll(/\{\d+\}/g, '')
+  return `${reduced > 0 ? `{${reduced}}` : ''}${nonGeneric}`
+}
+
+const reductionApplies = (
+  state: GameState,
   object: GameObject,
-  additionalGeneric = 0,
-  x = 0,
-  castOption?: string,
+  condition: CastCostCondition,
+  targets: TargetRef[],
+  seat: PlayerId,
 ) => {
-  const selected = alternateCastEffect(object, castOption)
+  if (condition.kind !== 'target') return conditionHolds(condition, state, object)
+  return targets.some((target) =>
+    validTargetRef(state, target, condition.filter, seat))
+}
+
+export const spellCost = (
+  state: GameState,
+  object: GameObject,
+  options: {
+    additionalGeneric?: number
+    x?: number
+    castOption?: string
+    kicked?: boolean
+    targets?: TargetRef[]
+    seat?: PlayerId
+  } = {},
+) => {
+  const selected = alternateCastEffect(object, options.castOption)
+  const x = options.x ?? 0
   const xCost = xManaKind(object) === 'black'
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
   const base = selected?.manaCost ?? object.manaCost.replaceAll('{X}', xCost)
-  return `${base}${
-    additionalGeneric > 0 ? `{${additionalGeneric}}` : ''
+  const total = `${base}${
+    (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
+  }${
+    options.kicked ? kickerCostOf(object) ?? '' : ''
   }`
+  const reduction = effectsOf(object).reduce((amount, effect) =>
+    effect.op === 'castCost'
+      && effect.reduceGeneric
+      && reductionApplies(
+        state,
+        object,
+        effect.reduceGeneric.if,
+        options.targets ?? [],
+        options.seat ?? object.controller,
+      )
+      ? amount + effect.reduceGeneric.amount
+      : amount, 0)
+  return reduceGeneric(total, reduction)
 }
 
 const cannotBeCountered = (object: GameObject) =>
@@ -112,7 +167,14 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires a nonnegative integer X`
       }
-      const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0, event.castOption)
+      const cost = spellCost(state, spell, {
+        additionalGeneric: event.additionalGeneric,
+        x: event.x,
+        castOption: event.castOption,
+        kicked: event.kicked,
+        targets: event.targets,
+        seat: event.seat,
+      })
       if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
       const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
@@ -139,7 +201,14 @@ export const spells: Plugin = {
       if (!object) return
       const face = castFaceOf(object)
       if (face) applyFace(object, face)
-      const cost = spellCost(object, event.additionalGeneric, event.x ?? 0, event.castOption)
+      const cost = spellCost(state, object, {
+        additionalGeneric: event.additionalGeneric,
+        x: event.x,
+        castOption: event.castOption,
+        kicked: event.kicked,
+        targets: event.targets,
+        seat: event.seat,
+      })
       const paid = payCost(draft.players[event.seat].mana, cost)
       if (!paid) return
 

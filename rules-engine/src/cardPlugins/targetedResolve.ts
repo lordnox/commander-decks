@@ -32,6 +32,7 @@ export const validTarget = (
   if (filter.zones && !filter.zones.includes(object.zone)) return false
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.types && !filter.types.some((type) => object.types.includes(type))) return false
+  if (filter.supertype && !object.supertypes.includes(filter.supertype)) return false
   if (filter.controller === 'you' && object.controller !== controller) return false
   if (filter.controller === 'opponent' && object.controller === controller) return false
   if (filter.nonland && object.types.includes('Land')) return false
@@ -67,6 +68,11 @@ export const validTargetRef = (
 const targetedEffects = (object: GameObject) =>
   effectsOf(object).filter((effect) => effect.op === 'targetedResolve')
 
+export const targetedEffectFilter = (
+  effect: ReturnType<typeof targetedEffects>[number],
+  kicked: boolean,
+) => kicked && effect.kickedFilter ? effect.kickedFilter : effect.filter
+
 export const targetedResolve: Plugin = {
   id: 'targetedResolve',
   legal: ({ state, event }) => {
@@ -80,7 +86,8 @@ export const targetedResolve: Plugin = {
     }
     for (const effect of effects) {
       const target = event.targets?.[effect.target]
-      if (!validTargetRef(state, target, effect.filter, event.seat)) {
+      const filter = targetedEffectFilter(effect, event.kicked === true)
+      if (!validTargetRef(state, target, filter, event.seat)) {
         return `illegal target for ${source.name}`
       }
     }
@@ -92,7 +99,8 @@ export const targetedResolve: Plugin = {
     if (!item || !source) return
     for (const effect of targetedEffects(source)) {
       const target = item.targets[effect.target]
-      if (!validTargetRef(state, target, effect.filter, item.controller)) continue
+      const filter = targetedEffectFilter(effect, item.kicked === true)
+      if (!validTargetRef(state, target, filter, item.controller)) continue
 
       if (effect.action === 'select') {
         if (effect.do) runInstructions(draft, source, effect.do, item)

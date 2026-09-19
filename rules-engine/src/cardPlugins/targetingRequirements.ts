@@ -1,7 +1,7 @@
 import type { GameObject, GameState, Plugin, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
-import { validTarget } from './targetedResolve'
+import { targetedEffectFilter, validTarget } from './targetedResolve'
 
 const requirement = (
   object: GameObject,
@@ -31,7 +31,12 @@ const canFillObjectTarget = (
     const effect = effectsOf(source).find((entry) =>
       entry.op === 'targetedResolve' && entry.target === index)
     return effect?.op === 'targetedResolve'
-      ? validTarget(state, candidate, effect.filter, event.seat)
+      ? validTarget(
+          state,
+          candidate,
+          targetedEffectFilter(effect, event.kicked === true),
+          event.seat,
+        )
       : false
   }
   const effect = activateEffect(effectsOf(source), event.abilityId)
