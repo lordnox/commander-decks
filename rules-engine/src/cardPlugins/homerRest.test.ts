@@ -4,10 +4,12 @@ import { cardTemplate } from '../newGame'
 import { createServerGame as createRuntimeGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { DIALOG_CHOSEN, dialogCandidates, pendingDialog } from '../pendingDialog'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
 import { librarySearch, pendingSearch } from './librarySearch'
 import { onResolve } from './onResolve'
+import { targetedResolve } from './targetedResolve'
 
 const createServerGame: typeof createRuntimeGame = (format, options) =>
   createRuntimeGame(format, options, {
@@ -17,6 +19,7 @@ const createServerGame: typeof createRuntimeGame = (format, options) =>
       entersTapped,
       librarySearch,
       onResolve,
+      targetedResolve,
     ],
   })
 
@@ -201,5 +204,110 @@ describe('Homer remaining card plugins', () => {
       objectId: named(ready, 'Harrow').id,
     })
     expect(result.ok).toBe(false)
+  })
+
+  test('Join the Dead uses descend 4 for its full penalty', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Join the Dead', { types: ['Instant'] })] },
+        battlefield: {
+          p2: [cardTemplate('Target', { types: ['Creature'], power: 10, toughness: 10 })],
+        },
+        libraries: {
+          p1: [
+            cardTemplate('Land', { types: ['Land'], zone: 'graveyard' }),
+            cardTemplate('Creature', { types: ['Creature'], zone: 'graveyard' }),
+            cardTemplate('Artifact', { types: ['Artifact'], zone: 'graveyard' }),
+            cardTemplate('Enchantment', { types: ['Enchantment'], zone: 'graveyard' }),
+          ],
+        },
+      },
+    )
+    const spell = named(server.state, 'Join the Dead')
+    const target = named(server.state, 'Target')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[target.id].zone).toBe('graveyard')
+  })
+
+  test('Stitch Together changes destination at threshold', () => {
+    const graveyard = [
+      cardTemplate('Returned', { types: ['Creature'], zone: 'graveyard' }),
+      ...Array.from({ length: 6 }, (_, index) =>
+        cardTemplate(`Grave ${index}`, { types: ['Instant'], zone: 'graveyard' })),
+    ]
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Stitch Together', { types: ['Sorcery'] })] },
+        libraries: { p1: graveyard },
+      },
+    )
+    const spell = named(server.state, 'Stitch Together')
+    const target = named(server.state, 'Returned')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[target.id].zone).toBe('battlefield')
+  })
+
+  test('Black Sun’s Twilight scales with X and reanimates tapped at five', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Black Sun\'s Twilight', {
+            types: ['Instant'],
+            manaCost: '{X}{B}',
+          })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Target', { types: ['Creature'], power: 6, toughness: 6 })],
+        },
+        libraries: {
+          p1: [cardTemplate('Returned', {
+            types: ['Creature'],
+            manaValue: 4,
+            zone: 'graveyard',
+          })],
+        },
+      },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 0, U: 0, B: 6, R: 0, G: 0, C: 0 }
+    const spell = named(ready, 'Black Sun\'s Twilight')
+    const target = named(ready, 'Target')
+    const returned = named(ready, 'Returned')
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      x: 5,
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(choosing, 'p1')!
+    expect(choosing.objects[target.id]).toMatchObject({ power: 1, toughness: 1 })
+    const resolved = ok(server.rules(choosing, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: selection.count,
+      objectIds: [returned.id],
+    }))
+    expect(resolved.objects[returned.id]).toMatchObject({
+      zone: 'battlefield',
+      tapped: true,
+    })
   })
 })

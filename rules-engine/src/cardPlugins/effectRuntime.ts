@@ -388,6 +388,7 @@ const CHOICE_KINDS = new Set([
   'copyControlledCreature', 'copyTargetCreature', 'optionalMill', 'mayDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
   'chooseCreatureType',
+  'returnCreatureManaValueX',
   'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
   'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
   'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',

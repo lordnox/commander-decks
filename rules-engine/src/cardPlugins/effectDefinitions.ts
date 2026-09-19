@@ -88,6 +88,7 @@ export type CardInstruction =
   | { kind: 'copyTargetCreature'; notLegendary?: boolean; flying?: boolean }
   | { kind: 'returnTargetFromGraveyard'; to: 'hand' | 'battlefield'; tapped?: boolean }
   | { kind: 'pump'; power: number; toughness: number }
+  | { kind: 'pumpTargetX'; multiplier: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
   | { kind: 'createXTokens'; token: TokenSpec }
@@ -101,6 +102,7 @@ export type CardInstruction =
   | { kind: 'eachPlayerLoseLife'; amount: number }
   | { kind: 'eachPlayerSacrifice'; type: string }
   | { kind: 'returnChosenLandFromGraveyard'; tapped?: boolean }
+  | { kind: 'returnCreatureManaValueX'; minimumX?: number; tapped?: boolean }
   | { kind: 'drawAtNextUpkeep'; count: number; who: 'you' | 'targetController'; optional?: boolean }
   | { kind: 'putMilledLandTapped' }
   | { kind: 'copyAllCreaturesUntilEot'; notLegendary?: boolean }

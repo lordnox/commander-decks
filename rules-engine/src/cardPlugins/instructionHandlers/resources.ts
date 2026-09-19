@@ -233,6 +233,14 @@ const pump: InstructionHandler<'pump'> = ({ draft, item }, instruction) => {
   changeStatsUntilEndOfTurn(object, instruction.power, instruction.toughness)
 }
 
+const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, item }, instruction) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  if (!object || object.power === null || object.toughness === null) return
+  const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
+  changeStatsUntilEndOfTurn(object, amount, amount)
+}
+
 const pumpSelf: InstructionHandler<'pumpSelf'> = ({ draft, source }, instruction) => {
   const object = draft.object(source.id)
   if (!object || object.power === null || object.toughness === null) return
@@ -406,6 +414,7 @@ export const resourceHandlers = {
   loseLifeTargetPlayer,
   loseLifeTargetManaValue,
   pump,
+  pumpTargetX,
   pumpSelf,
   grantUntilEot,
   untapTarget,
