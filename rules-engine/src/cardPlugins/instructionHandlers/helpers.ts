@@ -52,29 +52,75 @@ export const flushStackActions = (
   }
 }
 
+export const askPlayerDiscard = (
+  draft: Draft,
+  source: GameObject,
+  seat: string,
+  count: number,
+  prompt = count === 1
+    ? `${source.name} makes you discard a card. Choose one.`
+    : `${source.name} makes you discard ${count} cards. Choose ${count}.`,
+) => {
+  const candidates = draft.zoneOrder[seat].hand
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat,
+    kind: 'discard',
+    count,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt,
+    destinations: ['graveyard'],
+    fromSeat: seat,
+    sequence: draft.allocTs(),
+  })
+}
+
 export const askEachPlayerDiscard = (
   draft: Draft,
   source: GameObject,
   count: number,
 ) => {
   for (const seat of apnapSeats(draft)) {
-    const candidates = draft.zoneOrder[seat].hand
-    if (candidates.length === 0) continue
-    openCardSelection(draft, {
+    askPlayerDiscard(
+      draft,
+      source,
       seat,
-      kind: 'discard',
       count,
-      candidates,
-      sourceId: source.id,
-      source: source.name,
-      prompt: count === 1
+      count === 1
         ? `${source.name} makes each player discard a card. Choose one.`
         : `${source.name} makes each player discard ${count} cards. Choose ${count}.`,
-      destinations: ['graveyard'],
-      fromSeat: seat,
-      sequence: draft.allocTs(),
-    })
+    )
   }
+}
+
+export const askPlayerSacrifice = (
+  draft: Draft,
+  source: GameObject,
+  seat: string,
+  type = 'Creature',
+  prompt = `${source.name} makes you sacrifice a ${type.toLowerCase()}. Choose one.`,
+) => {
+  const candidates = Object.values(draft.objects)
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller === seat
+      && object.types.includes(type))
+    .map((object) => object.id)
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat,
+    kind: 'sacrifice',
+    count: 1,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt,
+    destinations: ['battlefield', 'sacrifice'],
+    fromSeat: seat,
+    sequence: draft.allocTs(),
+  })
 }
 
 export const askEachPlayerSacrifice = (
@@ -83,24 +129,12 @@ export const askEachPlayerSacrifice = (
   type = 'Creature',
 ) => {
   for (const seat of apnapSeats(draft)) {
-    const candidates = Object.values(draft.objects)
-      .filter((object) =>
-        object.zone === 'battlefield'
-        && object.controller === seat
-        && object.types.includes(type))
-      .map((object) => object.id)
-    if (candidates.length === 0) continue
-    openCardSelection(draft, {
+    askPlayerSacrifice(
+      draft,
+      source,
       seat,
-      kind: 'sacrifice',
-      count: 1,
-      candidates,
-      sourceId: source.id,
-      source: source.name,
-      prompt: `${source.name} makes each player sacrifice a ${type.toLowerCase()}. Choose one.`,
-      destinations: ['battlefield', 'sacrifice'],
-      fromSeat: seat,
-      sequence: draft.allocTs(),
-    })
+      type,
+      `${source.name} makes each player sacrifice a ${type.toLowerCase()}. Choose one.`,
+    )
   }
 }
