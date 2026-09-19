@@ -69,10 +69,12 @@ type InboxPayload =
       kind: 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility' | 'declareAttackers'
       objectId?: string
       targetObjectId?: string
+      targetPlayerId?: string
       targetObjectIds?: string[]
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
+      x?: number
       attackers?: Array<{ objectId: string; defenderId: string }>
     }
   | { type: 'priority-mode'; always: boolean }
@@ -127,10 +129,12 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     kind?: unknown
     objectId?: unknown
     targetObjectId?: unknown
+    targetPlayerId?: unknown
     targetObjectIds?: unknown
     abilityId?: unknown
     mana?: unknown
     attackers?: unknown
+    x?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -174,11 +178,13 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const kind = message.kind
       const objectId = message.objectId
       const targetObjectId = message.targetObjectId
+      const targetPlayerId = message.targetPlayerId
       const targetObjectIds = message.targetObjectIds
       const mana = message.mana
       const abilityId = message.abilityId
       const text = message.text
       const attackers = message.attackers
+      const x = message.x
       if (kind === 'declareAttackers') {
         if (
           !Array.isArray(attackers)
@@ -212,6 +218,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         kind: kind as 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility',
         objectId,
         ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),
+        ...(typeof targetPlayerId === 'string' ? { targetPlayerId } : {}),
         ...(Array.isArray(targetObjectIds) && targetObjectIds.every(
           (target): target is string => typeof target === 'string' && Boolean(target),
         ) ? { targetObjectIds } : {}),
@@ -220,6 +227,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
           : {}),
+        ...(typeof x === 'number' && Number.isSafeInteger(x) && x >= 0 ? { x } : {}),
       })
     }
     case 'priority-mode':

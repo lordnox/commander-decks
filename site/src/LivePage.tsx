@@ -528,10 +528,12 @@ export const LivePage = () => {
       kind?: AvailableAction['kind']
       objectId?: string
       targetObjectId?: string
+      targetPlayerId?: string
       targetObjectIds?: string[]
       abilityId?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
+      x?: number
       attackers?: Array<{ objectId: string; defenderId: string }>
     } = {},
   ) => {
@@ -591,10 +593,12 @@ export const LivePage = () => {
           kind: extra.kind,
           objectId: extra.objectId,
           ...(extra.targetObjectId ? { targetObjectId: extra.targetObjectId } : {}),
+          ...(extra.targetPlayerId ? { targetPlayerId: extra.targetPlayerId } : {}),
           ...(extra.targetObjectIds ? { targetObjectIds: extra.targetObjectIds } : {}),
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
+          ...(extra.x !== undefined ? { x: extra.x } : {}),
           ...(extra.attackers ? { attackers: extra.attackers } : {}),
           ...action,
         }
@@ -1315,6 +1319,9 @@ export const LivePage = () => {
                   ...('targetObjectId' in action && action.targetObjectId
                     ? { targetObjectId: action.targetObjectId }
                     : {}),
+                  ...('targetPlayerId' in action && action.targetPlayerId
+                    ? { targetPlayerId: action.targetPlayerId }
+                    : {}),
                   ...('targetObjectIds' in action && action.targetObjectIds
                     ? { targetObjectIds: action.targetObjectIds }
                     : {}),
@@ -1323,6 +1330,7 @@ export const LivePage = () => {
                     : {}),
                   ...('text' in action && action.text ? { text: action.text } : {}),
                   ...('mana' in action && action.mana ? { mana: action.mana } : {}),
+                  ...('x' in action && action.x !== undefined ? { x: action.x } : {}),
                 })
               }
             : undefined}

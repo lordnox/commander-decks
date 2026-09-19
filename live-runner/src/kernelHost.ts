@@ -23,6 +23,7 @@ import {
   eventsForAvailableAction,
   waitingDiscard,
   waitingSelectCards,
+  pendingPlayerSelection,
   type GameEvent,
   type GameState,
   type History,
@@ -402,6 +403,10 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     const waiting = waitingSelectCards(state, decision.seat)
     return !waiting || waiting.selection.id !== decision.kernel.selectionId
   }
+  if (decision.kernel.stage === 'select-players') {
+    const pending = pendingPlayerSelection(state)
+    return !pending || pending.seat !== decision.seat
+  }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
 }
@@ -495,6 +500,28 @@ export const prepareKernelPendingChoice = (
   if (lobby.topdeck) {
     if (!kernelDialogIsStale(kernel, lobby)) return false
     delete lobby.topdeck
+  }
+  const playerSelection = pendingPlayerSelection(kernel.history.current())
+  if (playerSelection && isSeatId(playerSelection.seat)) {
+    const seat = playerSelection.seat
+    lobby.topdeck = {
+      seat,
+      kind: 'target-players',
+      cards: playerSelection.candidates,
+      destinations: ['skip', 'target'],
+      requirements: {
+        target: { min: playerSelection.min, max: playerSelection.max },
+      },
+      kernel: {
+        sourceId: playerSelection.sourceId,
+        stage: 'select-players',
+      },
+    }
+    lobby.actions = { [seat]: ['topdeck'] }
+    lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is choosing an opponent.`
+    lobby.privateWaiting = { [seat]: playerSelection.prompt }
+    lobby.judge = `Waiting for ${playerSelection.source} player choice.`
+    return true
   }
   const targetsPending = pendingPlayerTargets(kernel.history.current())
   if (targetsPending && isSeatId(targetsPending.controller)) {
@@ -697,6 +724,27 @@ export const applyKernelChoice = (
       judge: waiting.selection.source
         ? `${lobby.occupants[seat]?.name ?? seat} finished ${cardKind} for ${waiting.selection.source}.`
         : `${lobby.occupants[seat]?.name ?? seat} finished ${cardKind}.`,
+    })
+  }
+  if (decision.kernel.stage === 'select-players') {
+    const pending = pendingPlayerSelection(state)
+    if (!pending || pending.seat !== seat) {
+      throw new Error('That player choice is no longer open.')
+    }
+    const players = message.choices
+      .filter(({ destination }) => destination === 'target')
+      .map(({ card }) => card)
+    const result = kernel.dispatch({
+      type: 'selectPlayers',
+      seat,
+      selectionId: pending.id,
+      players,
+    })
+    if (!result.ok) throw new Error(result.error)
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: players.length > 0
+        ? `${pending.source} targets ${players.join(', ')}.`
+        : `${pending.source} chose no opponent.`,
     })
   }
   if (decision.kernel.stage === 'waiting-discard') {
@@ -1176,10 +1224,13 @@ export const applyKernelAct = (
         seat,
         objectId: action.objectId,
         abilityId: action.abilityId ?? '',
-        targets: (message.targetObjectIds ?? []).map((objectId) => ({
-          kind: 'object' as const,
-          objectId,
-        })),
+        targets: (message.targetObjectIds ?? []).map((objectId) => {
+          const group = action.targetGroups?.find((candidate) =>
+            candidate.targets.some((target) => target.objectId === objectId))
+          return group?.kind === 'player'
+            ? { kind: 'player' as const, player: objectId }
+            : { kind: 'object' as const, objectId }
+        }),
       }]
     : eventsForAvailableAction(state, seat, action)
   if (!events) throw new Error('That action now needs a judge decision')
