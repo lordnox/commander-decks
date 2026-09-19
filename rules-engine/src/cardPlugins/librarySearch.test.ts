@@ -548,7 +548,7 @@ describe('librarySearch', () => {
       objectId: sourceId,
     })
     expect(rejected.ok).toBe(false)
-    expect(rejected.ok === false && rejected.error).toContain('cannot pay {3}{G}')
+    expect(rejected.ok === false && rejected.error).toContain('not enough mana')
 
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
@@ -578,7 +578,7 @@ describe('librarySearch', () => {
     expect(result.ok === false && result.error).toContain('already tapped')
   })
 
-  test('a seat that cannot pay the life cannot crack the fetchland', () => {
+  test('a seat may pay its final life to crack a fetchland', () => {
     const server = game({
       battlefield: [card('Verdant Catacombs', ['Land'])],
       library: [forest()],
@@ -596,8 +596,8 @@ describe('librarySearch', () => {
       seat: 'p1',
       objectId: server.state.zoneOrder.p1.battlefield[0],
     })
-    expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('cannot pay 1 life')
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.state.players.p1.life).toBe(0)
   })
 
   test('a second search cannot open while one is still unanswered', () => {

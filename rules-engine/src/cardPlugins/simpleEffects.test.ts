@@ -61,6 +61,31 @@ describe('simple card effects', () => {
     expect(activatedDruid.players.p1.mana.G).toBe(1)
   })
 
+  test('an activated ability may cost exactly the activator life total', () => {
+    const source = cardTemplate('Final Bargain', {
+      types: ['Artifact'],
+      effects: [activate({
+        id: 'bargain.final',
+        costs: { life: 40 },
+        do: [],
+      })],
+    })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [source] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const objectId = named(server.state, 'Final Bargain').id
+    const result = server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'bargain.final',
+      seat: 'p1',
+      objectId,
+    })
+
+    expect(result.ok).toBe(true)
+  })
+
   test('Zagoth Triome cycling requires three mana and resolves from hand', () => {
     const triome = cardTemplate('Zagoth Triome', {
       types: ['Land'],
