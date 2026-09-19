@@ -5,6 +5,7 @@ import { cardTemplate } from '../newGame'
 import { bears, newGame } from '../testGame'
 import { turnStructure } from '../plugins/turnStructure'
 import {
+  animateUntilEndOfTurn,
   changeController,
   changeStats,
   continuousEffects,
@@ -14,6 +15,35 @@ import {
 } from './continuousEffects'
 
 describe('continuous effect durations', () => {
+  test('cleanup reverts a land animation while retaining its original type', () => {
+    const catalog = createCatalog([turnStructure, continuousEffects])
+    const state = newGame({
+      battlefield: { p1: [cardTemplate('Dry Land', { types: ['Land'] })] },
+      builtinRules: ['turnStructure', 'continuousEffects'],
+    })
+    const land = Object.values(state.objects)[0]
+    animateUntilEndOfTurn(land, 3, 3)
+    expect(land).toMatchObject({
+      types: ['Land', 'Creature'],
+      power: 3,
+      toughness: 3,
+    })
+
+    const result = rules(
+      { ...state, step: 'end' },
+      { type: 'advanceStep' },
+      catalog,
+    )
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[land.id]).toMatchObject({
+      types: ['Land'],
+      power: null,
+      toughness: null,
+    })
+  })
+
   test('cleanup reverts a temporary pump', () => {
     const catalog = createCatalog([turnStructure, continuousEffects])
     const state = newGame({

@@ -159,7 +159,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         draft.note(`${object.name} leaves battlefield`)
       }
       if (entered) {
-        object.summoningSickness = object.types.includes('Creature')
+        // CR 302.6 tracks continuous control of the permanent, not how long it
+        // has been a creature. This matters if a noncreature is animated later.
+        object.summoningSickness = true
         for (const pluginId of object.grantedRules) {
           draft.rules.push({
             instanceId: draft.allocId('rule'),

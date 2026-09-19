@@ -163,6 +163,12 @@ export const pumpSelf = (power: number, toughness: number): CardInstruction => (
   toughness,
 })
 
+export const animateUntilEot = (power: number, toughness: number): CardInstruction => ({
+  kind: 'animateUntilEot',
+  power,
+  toughness,
+})
+
 export const grantUntilEot = (...keywords: string[]): CardInstruction => ({
   kind: 'grantUntilEot',
   keywords,
