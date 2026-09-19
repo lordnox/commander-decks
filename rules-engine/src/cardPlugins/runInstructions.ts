@@ -8,12 +8,11 @@ import { openCardSelection } from '../rules/selectCards'
 import { openPlayerSelection } from '../rules/selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, StackItem } from '../types'
-import { changeStatsUntilCleanup } from '../plugins/temporaryStats'
+import { changeStatsUntilCleanup, copyUntilCleanup } from '../plugins/temporaryStats'
 import { lifeLostThisTurn } from '../plugins/life'
 import { openCumulativeUpkeep } from './cumulativeUpkeep'
 import {
   addPlusCounters,
-  applyCopy,
   conditionHolds,
   copyTokenTemplate,
   createToken,
@@ -30,6 +29,33 @@ const manaValueOf = (object: GameObject) =>
       return match[1] === 'X' ? total : total + 1
     }, 0)
     : object.manaValue ?? 0
+
+function copyTemplate (
+  card: GameObject,
+  extra: { notLegendary?: boolean; flying?: boolean } = {},
+): Partial<GameObject> & { name: string } {
+  return {
+    name: card.name,
+    summoningSickness: card.types.includes('Creature'),
+    types: [...card.types],
+    subtypes: [...card.subtypes],
+    supertypes: extra.notLegendary
+      ? card.supertypes.filter((entry) => entry !== 'Legendary')
+      : [...card.supertypes],
+    manaCost: card.manaCost,
+    manaValue: card.manaValue,
+    colors: [...card.colors],
+    power: card.power,
+    toughness: card.toughness,
+    printedLoyalty: card.printedLoyalty,
+    oracleText: extra.flying && !card.oracleText.toLowerCase().includes('flying')
+      ? `${card.oracleText}\nFlying`
+      : card.oracleText,
+    grantedRules: [...card.grantedRules],
+    tapProduces: card.tapProduces ? { ...card.tapProduces } : undefined,
+    effects: card.effects ? [...card.effects] : [],
+  }
+}
 
 type BufferedStackAction =
   | { kind: 'draw'; remaining: number }
@@ -1178,8 +1204,30 @@ export const runInstructions = (
       for (const object of Object.values(draft.objects)) {
         if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
         if (object.id === copied.id) continue
-        applyCopy(object, copied, { notLegendary: instruction.notLegendary })
+        copyUntilCleanup(draft, source.controller, object, copied, {
+          notLegendary: instruction.notLegendary,
+        })
       }
+      continue
+    }
+    if (instruction.kind === 'copyTargetForEachOtherPlayer') {
+      const target = item?.targets[0]
+      const copied = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+      if (!copied) continue
+      for (const seat of draft.playerOrder) {
+        if (seat === copied.controller || draft.players[seat].lost) continue
+        createToken(draft, seat, copyTemplate(copied))
+      }
+      continue
+    }
+    if (instruction.kind === 'combatDialogueUntilEot') {
+      const target = item?.targets[0]
+      if (target?.kind !== 'object') continue
+      draft.enqueue({
+        type: 'addRule',
+        pluginId: 'combatDialogue',
+        params: { creatureId: target.objectId, untilCleanup: true },
+      })
       continue
     }
     if (instruction.kind === 'createTreasures') {
