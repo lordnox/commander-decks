@@ -1,7 +1,12 @@
 import type { GameEvent, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
+import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import { everybodyLives } from './advancedCombatPrevention'
 import { hasKeyword } from '../keywords'
+import {
+  BATTLE_DEFEATED_ABILITY,
+  validBattleProtector,
+} from './battle'
 
 const moveToGraveyard = (objectId: string): GameEvent => ({
   type: 'move',
@@ -48,6 +53,43 @@ export const stateBased: Plugin = {
         )
       ) {
         return [moveToGraveyard(object.id)]
+      }
+      if (
+        object.zone === 'battlefield'
+        && object.types.includes('Battle')
+        && (object.counters.defense ?? 0) <= 0
+      ) {
+        const defeatTriggerPending = object.subtypes.includes('Siege')
+          && draft.stack.some(
+            (item) =>
+              item.objectId === object.id
+              && item.kind === 'ability'
+              && item.abilityId === BATTLE_DEFEATED_ABILITY,
+          )
+        if (!defeatTriggerPending) return [moveToGraveyard(object.id)]
+      }
+      if (
+        object.zone === 'battlefield'
+        && object.types.includes('Battle')
+        && !validBattleProtector(draft, object)
+      ) {
+        const choicePending = draft.playerOrder.some((seat) =>
+          pendingPlayerSelectionsFor(draft, seat).some(
+            (selection) =>
+              selection.sourceId === object.id
+              && selection.action.kind === 'designateBattleProtector',
+          ))
+        const beingAttacked = Object.values(draft.objects).some(
+          (attacker) =>
+            attacker.zone === 'battlefield'
+            && typeof attacker.attacking !== 'string'
+            && attacker.attacking?.kind === 'object'
+            && attacker.attacking.objectId === object.id,
+        )
+        const invalidProtector = object.protector !== undefined
+        if (!choicePending && (invalidProtector || !beingAttacked)) {
+          return [{ type: 'chooseBattleProtector', objectId: object.id }]
+        }
       }
       if (
         object.zone === 'battlefield'

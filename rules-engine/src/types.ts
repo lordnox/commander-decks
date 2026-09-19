@@ -43,12 +43,17 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 export type ManaPool = Record<ManaId, number>
 
 export type FaceCharacteristics = {
+  name?: string
   types: string[]
   subtypes: string[]
   supertypes: string[]
   manaCost: string
   manaValue: number
   colors: string[]
+  power?: number | null
+  toughness?: number | null
+  printedDefense?: number | null
+  oracleText?: string
 }
 
 export type CopySnapshot = {
@@ -129,6 +134,9 @@ export type GameObject = {
   power: number | null
   toughness: number | null
   printedLoyalty: number | null
+  printedDefense: number | null
+  /** Player currently designated to protect this battle (CR 310.9). */
+  protector?: PlayerId
   loyaltyActivatedTurn: number | null
   oracleText: string
   attachedTo: string | null
@@ -435,6 +443,13 @@ export type GameEvent =
       combat?: boolean
       gainLife?: { seat: PlayerId; max?: number }
     }
+  | {
+      type: 'removeDefenseCounters'
+      objectId: string
+      amount: number
+      sourceId?: string
+    }
+  | { type: 'chooseBattleProtector'; objectId: string }
   | { type: 'loseLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'payLife'; seat: PlayerId; amount: number; source?: string }

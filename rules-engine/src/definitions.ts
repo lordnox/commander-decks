@@ -55,6 +55,7 @@ export const gameObjectFieldDefaults = (): Omit<
   power: null,
   toughness: null,
   printedLoyalty: null,
+  printedDefense: null,
   loyaltyActivatedTurn: null,
   oracleText: '',
   attachedTo: null,
