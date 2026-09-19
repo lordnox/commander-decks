@@ -35,6 +35,7 @@ export const addPlugin = catalog.register
 
 export {
   availableActions,
+  eventsForCombatDeclaration,
   eventsForAvailableAction,
   legalActsFor,
   manaAffordances,

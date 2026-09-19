@@ -21,6 +21,7 @@ import {
   runReplayRounds,
   sameLegalAct,
   eventsForAvailableAction,
+  eventsForCombatDeclaration,
   waitingDiscard,
   waitingSelectCards,
   pendingPlayerSelection,
@@ -1302,43 +1303,81 @@ export const applyKernelAct = (
   message: Extract<InboxMessage, { type: 'act' }>,
 ) => {
   const state = kernel.history.current()
-  if (message.kind === 'declareAttackers') {
+  if (message.kind === 'declareAttackers' || message.kind === 'declareBlockers') {
     const available = legalActsFor(state, seat).find(
-      (candidate) => candidate.kind === 'declareAttackers',
+      (candidate) => candidate.kind === message.kind,
     )
-    if (!available) throw new Error('Attackers cannot be declared now')
+    if (!available || !('objectIds' in available)) {
+      throw new Error(
+        message.kind === 'declareAttackers'
+          ? 'Attackers cannot be declared now'
+          : 'Blockers cannot be declared now',
+      )
+    }
     const eligible = new Set(available.objectIds)
-    const attackers = message.attackers ?? []
-    if (new Set(attackers.map((attacker) => attacker.objectId)).size !== attackers.length) {
-      throw new Error('An attacker can only be declared once')
+    let declaration:
+      | Extract<GameEvent, { type: 'declareAttackers' }>
+      | Extract<GameEvent, { type: 'declareBlockers' }>
+    if (message.kind === 'declareAttackers') {
+      const attackers = message.attackers ?? []
+      if (new Set(attackers.map((attacker) => attacker.objectId)).size !== attackers.length) {
+        throw new Error('An attacker can only be declared once')
+      }
+      declaration = {
+        type: 'declareAttackers',
+        seat,
+        attackers: attackers.map(({ objectId, defenderId }) => {
+          if (!eligible.has(objectId)) throw new Error('That creature cannot attack now')
+          return {
+            objectId,
+            defender: isSeatId(defenderId)
+              ? defenderId
+              : { kind: 'object', objectId: defenderId },
+          }
+        }),
+      }
+    } else {
+      const blockers = message.blockers ?? []
+      const attackerIds = new Set(
+        available.kind === 'declareBlockers' ? available.attackerIds : [],
+      )
+      if (new Set(blockers.map((blocker) => blocker.blockerId)).size !== blockers.length) {
+        throw new Error('A blocker can only be declared once')
+      }
+      if (new Set(blockers.map((blocker) => blocker.attackerId)).size !== blockers.length) {
+        throw new Error('Only one blocker per attacker is supported')
+      }
+      declaration = {
+        type: 'declareBlockers',
+        seat,
+        blockers: blockers.map(({ blockerId, attackerId }) => {
+          if (!eligible.has(blockerId)) throw new Error('That creature cannot block now')
+          if (!attackerIds.has(attackerId)) throw new Error('That creature is not attacking you')
+          return { blockerId, attackerId }
+        }),
+      }
     }
-    const event: GameEvent = {
-      type: 'declareAttackers',
-      seat,
-      attackers: attackers.map(({ objectId, defenderId }) => {
-        if (!eligible.has(objectId)) throw new Error('That creature cannot attack now')
-        return {
-          objectId,
-          defender: isSeatId(defenderId)
-            ? defenderId
-            : { kind: 'object', objectId: defenderId },
-        }
-      }),
-    }
+    const events = eventsForCombatDeclaration(state, declaration)
+    if (!events) throw new Error('The combat tax cannot be paid')
+    const event = events[0]
     const result = kernel.dispatch(event)
     if (!result.ok) throw new Error(result.error)
     const current = kernel.history.current()
     lobby.actions = kernelActions(current)
+    const declarations = message.kind === 'declareAttackers'
+      ? message.attackers ?? []
+      : message.blockers ?? []
+    const noun = message.kind === 'declareAttackers' ? 'attacker' : 'blocker'
     lobby.privateJudge = {
-      [seat]: attackers.length > 0
-        ? `${attackers.length} attacker${attackers.length === 1 ? '' : 's'} declared.`
-        : 'No attackers declared.',
+      [seat]: declarations.length > 0
+        ? `${declarations.length} ${noun}${declarations.length === 1 ? '' : 's'} declared.`
+        : `No ${noun}s declared.`,
     }
-    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} declares attackers.`
+    lobby.judge = `${lobby.occupants[seat]?.name ?? seat} declares ${noun}s.`
     lobby.waiting =
       `${lobby.occupants[kernelPriority(current) ?? seat]?.name ?? seat}: act or pass.`
     lobby.privateWaiting = {}
-    return [event]
+    return events
   }
   const action = legalActsFor(state, seat).find((candidate) =>
     sameLegalAct(candidate, message))

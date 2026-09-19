@@ -111,6 +111,12 @@ describe('inbox', () => {
       ],
     })
     expect(parseInbox('{"type":"act","kind":"declareAttackers","attackers":[{"objectId":"bear"}]}')).toBeNull()
+    expect(parseInbox('{"type":"act","kind":"declareBlockers","blockers":[{"blockerId":"soldier","attackerId":"dragon"}]}')).toEqual({
+      type: 'act',
+      kind: 'declareBlockers',
+      blockers: [{ blockerId: 'soldier', attackerId: 'dragon' }],
+    })
+    expect(parseInbox('{"type":"act","kind":"declareBlockers","blockers":[{"blockerId":"soldier"}]}')).toBeNull()
     expect(parseInbox('{"type":"priority-mode","always":true}')).toEqual({
       type: 'priority-mode',
       always: true,

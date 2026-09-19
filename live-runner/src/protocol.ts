@@ -66,7 +66,13 @@ type InboxPayload =
   | { type: 'advance' }
   | {
       type: 'act'
-      kind: 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility' | 'declareAttackers'
+      kind:
+        | 'playLand'
+        | 'tapForMana'
+        | 'castSpell'
+        | 'activateAbility'
+        | 'declareAttackers'
+        | 'declareBlockers'
       objectId?: string
       targetObjectId?: string
       targetPlayerId?: string
@@ -77,6 +83,7 @@ type InboxPayload =
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
       attackers?: Array<{ objectId: string; defenderId: string }>
+      blockers?: Array<{ blockerId: string; attackerId: string }>
     }
   | { type: 'priority-mode'; always: boolean }
   | { type: 'hold'; until: 'my-turn' | 'off' }
@@ -137,6 +144,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     mana?: unknown
     attackers?: unknown
     x?: unknown
+    blockers?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -188,6 +196,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const text = message.text
       const attackers = message.attackers
       const x = message.x
+      const blockers = message.blockers
       if (kind === 'declareAttackers') {
         if (
           !Array.isArray(attackers)
@@ -207,6 +216,27 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           type: 'act',
           kind: 'declareAttackers',
           attackers: attackers.map(({ objectId, defenderId }) => ({ objectId, defenderId })),
+        })
+      }
+      if (kind === 'declareBlockers') {
+        if (
+          !Array.isArray(blockers)
+          || !blockers.every((blocker) =>
+            blocker
+            && typeof blocker === 'object'
+            && 'blockerId' in blocker
+            && typeof blocker.blockerId === 'string'
+            && blocker.blockerId
+            && 'attackerId' in blocker
+            && typeof blocker.attackerId === 'string'
+            && blocker.attackerId)
+        ) {
+          return null
+        }
+        return parsed({
+          type: 'act',
+          kind: 'declareBlockers',
+          blockers: blockers.map(({ blockerId, attackerId }) => ({ blockerId, attackerId })),
         })
       }
       if (

@@ -13,6 +13,11 @@ import {
   canChooseAlternateCast,
 } from './cardPlugins/alternateCosts'
 import {
+  attackTaxByDefender,
+  blockTaxPerCreature,
+  combatTaxAmount,
+} from './cardPlugins/combatTax'
+import {
   canSacrificeLandForBlack,
   SACRIFICE_LAND_FOR_BLACK,
 } from './plugins/sacrificeLandMana'
@@ -31,6 +36,8 @@ import type {
   ManaPool,
   PlayerId,
   StackItem,
+  AttackerDecl,
+  BlockerDecl,
 } from './types'
 
 export type AvailableAction =
@@ -78,8 +85,17 @@ export type AvailableAction =
       source: string
       mana?: 'W' | 'B'
     }
-  | { kind: 'declareAttackers'; objectIds: string[] }
-  | { kind: 'declareBlockers'; objectIds: string[]; attackerIds: string[] }
+  | {
+      kind: 'declareAttackers'
+      objectIds: string[]
+      taxByDefender?: Record<string, number>
+    }
+  | {
+      kind: 'declareBlockers'
+      objectIds: string[]
+      attackerIds: string[]
+      taxPerBlocker?: number
+    }
   | {
       kind: 'continueAction'
       stackId: string
@@ -612,7 +628,14 @@ export const availableActions = (
         && !object.tapped
         && (!object.summoningSickness || hasKeyword(object, 'haste', state)))
       .map((object) => object.id)
-    if (objectIds.length > 0) actions.push({ kind: 'declareAttackers', objectIds })
+    if (objectIds.length > 0) {
+      const taxByDefender = attackTaxByDefender(state)
+      actions.push({
+        kind: 'declareAttackers',
+        objectIds,
+        ...(Object.keys(taxByDefender).length > 0 ? { taxByDefender } : {}),
+      })
+    }
   }
 
   if (state.step === 'declareBlockers') {
@@ -632,7 +655,13 @@ export const availableActions = (
         && !object.tapped)
       .map((object) => object.id)
     if (attackerIds.length > 0 && objectIds.length > 0) {
-      actions.push({ kind: 'declareBlockers', objectIds, attackerIds })
+      const taxPerBlocker = blockTaxPerCreature(state)
+      actions.push({
+        kind: 'declareBlockers',
+        objectIds,
+        attackerIds,
+        ...(taxPerBlocker > 0 ? { taxPerBlocker } : {}),
+      })
     }
   }
 
@@ -877,9 +906,10 @@ const fundingEvents = (
   state: GameState,
   seat: PlayerId,
   cost: string,
+  excluded = new Set<string>(),
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
-    .filter((object) => sourceCanTap(object, seat, state))
+    .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
     .map((source) => ({ source, modes: manaModes(source, state) }))
     .filter(({ modes }) => modes.length > 0)
   let plans = [{
@@ -917,6 +947,34 @@ const fundingEvents = (
     .filter((plan) => payCost(plan.pool, cost))
     .sort((left, right) => left.events.length - right.events.length)[0]
     ?.events ?? null
+}
+
+export const eventsForCombatDeclaration = (
+  state: GameState,
+  event:
+    | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }
+    | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[] },
+): GameEvent[] | null => {
+  const tax = combatTaxAmount(state, event)
+  if (tax === 0) return [event]
+  const excluded = event.type === 'declareAttackers'
+    ? new Set(event.attackers.flatMap((attacker) => {
+        const object = state.objects[attacker.objectId]
+        return object && !hasKeyword(object, 'vigilance', state) ? [object.id] : []
+      }))
+    : new Set(event.blockers.map((blocker) => blocker.objectId))
+  const funding = fundingEvents(state, event.seat, `{${tax}}`, excluded)
+  if (!funding) return null
+  return [{
+    ...event,
+    payment: funding.flatMap((payment) =>
+      payment.type === 'tapForMana'
+        ? [{
+            objectId: payment.objectId,
+            ...('mana' in payment && payment.mana ? { mana: payment.mana } : {}),
+          }]
+        : []),
+  }]
 }
 
 /**

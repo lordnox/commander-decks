@@ -206,6 +206,7 @@ export type GameState = {
 
 export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }
 export type BlockerDecl = { blockerId: string; attackerId: string }
+export type ManaPayment = { objectId: string; mana?: ManaId }
 
 /**
  * Optional predicate on a declarative trigger. `seat` compares the triggering
@@ -279,8 +280,18 @@ export type GameEvent =
     }
   | { type: 'emptyManaPools' }
   // — Combat & damage —
-  | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }
-  | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[] }
+  | {
+      type: 'declareAttackers'
+      seat: PlayerId
+      attackers: AttackerDecl[]
+      payment?: ManaPayment[]
+    }
+  | {
+      type: 'declareBlockers'
+      seat: PlayerId
+      blockers: BlockerDecl[]
+      payment?: ManaPayment[]
+    }
   | { type: 'assignCombatDamage' }
   | {
       type: 'combatDamage'
