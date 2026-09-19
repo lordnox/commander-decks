@@ -3,7 +3,7 @@ import {
   syncRevealedLibraryTop,
 } from '../cardPlugins/libraryTopKnowledge'
 import type Draft from '../draft'
-import type { GameEvent, GameState, PlayerId, Plugin, StackItem } from '../types'
+import type { GameEvent, PlayerId, Plugin, StackItem } from '../types'
 
 /** Parameters stored on a draw action stack item (`payload`). */
 type DrawPayload = {
