@@ -2,7 +2,8 @@ import { isPermanentType } from '../definitions'
 import { poolTotal, type Draft } from '../draft'
 import type { GameObject, ManaId, ManaPool, Plugin } from '../types'
 import { searchEffect } from '../cardPlugins/effects'
-import { effectsFor } from '../cardPlugins/cardRules'
+import { effectsOf } from '../cardPlugins/cardRules'
+import { alternateCastEffect } from '../cardPlugins/alternateCosts'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { applyFace, castFaceOf } from './doubleFaced'
 
@@ -13,17 +14,28 @@ const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
 
 const xManaKind = (object: GameObject) =>
-  effectsFor(object.name).flatMap((effect) =>
+  effectsOf(object).flatMap((effect) =>
     effect.op === 'castCost' && effect.xMana ? [effect.xMana] : [])[0]
 
-const spellCost = (object: GameObject, additionalGeneric = 0, x = 0) => {
+const spellCost = (
+  object: GameObject,
+  additionalGeneric = 0,
+  x = 0,
+  castOption?: string,
+) => {
+  const selected = alternateCastEffect(object, castOption)
   const xCost = xManaKind(object) === 'black'
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
-  return `${object.manaCost.replaceAll('{X}', xCost)}${
+  const base = selected?.manaCost ?? object.manaCost.replaceAll('{X}', xCost)
+  return `${base}${
     additionalGeneric > 0 ? `{${additionalGeneric}}` : ''
   }`
 }
+
+const cannotBeCountered = (object: GameObject) =>
+  effectsOf(object).some((effect) =>
+    effect.op === 'spellTrait' && effect.uncounterable)
 
 const coloredCosts = (manaCost: string) =>
   [...manaCost.matchAll(/\{([^}]+)\}/g)]
@@ -82,6 +94,9 @@ export const spells: Plugin = {
         return 'spell is not owned and controlled by that seat'
       }
       if (state.priority !== event.seat) return 'seat does not have priority'
+      if (event.castOption && !alternateCastEffect(spell, event.castOption)) {
+        return `${object.name} has no casting option ${event.castOption}`
+      }
 
       if (!spell.types.includes('Instant')) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
@@ -97,9 +112,9 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires a nonnegative integer X`
       }
-      const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0)
+      const cost = spellCost(spell, event.additionalGeneric, event.x ?? 0, event.castOption)
       if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana'
-      const search = searchEffect(effectsFor(object.name))
+      const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       if (needed) {
         const sacrificed = event.sacrifice ?? []
@@ -124,7 +139,7 @@ export const spells: Plugin = {
       if (!object) return
       const face = castFaceOf(object)
       if (face) applyFace(object, face)
-      const cost = spellCost(object, event.additionalGeneric, event.x ?? 0)
+      const cost = spellCost(object, event.additionalGeneric, event.x ?? 0, event.castOption)
       const paid = payCost(draft.players[event.seat].mana, cost)
       if (!paid) return
 
@@ -137,6 +152,8 @@ export const spells: Plugin = {
         name: object.name,
         targets: event.targets ?? [],
         ...(event.kicked ? { kicked: true } : {}),
+        ...(event.castOption ? { castOption: event.castOption } : {}),
+        ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
         castFrom: object.zone,
@@ -181,6 +198,7 @@ export const spells: Plugin = {
       }
 
       if (isPermanentType(object.types)) {
+        object.enteredWithCastOption = item.castOption
         draft.move(object.id, 'battlefield')
         object.summoningSickness = object.types.includes('Creature')
         if (

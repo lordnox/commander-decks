@@ -16,6 +16,7 @@ import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
 import { priority } from './plugins/priority'
+import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
@@ -73,6 +74,7 @@ export const optionalPlugins = [
   extraSwampMana,
   extraUntap,
   sacrificeLandMana,
+  phialReplacement,
 ]
 
 export const coreRules: GameFormat = {

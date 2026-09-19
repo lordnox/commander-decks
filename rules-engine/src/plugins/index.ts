@@ -19,6 +19,7 @@ import { mana } from './mana'
 import { manaBurn } from './manaBurn'
 import { swampOverlay } from './swampOverlay'
 import { priority } from './priority'
+import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
@@ -56,6 +57,7 @@ export const builtInPlugins = [
   extraSwampMana,
   extraUntap,
   sacrificeLandMana,
+  phialReplacement,
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
 ]
@@ -77,6 +79,7 @@ export {
   manaBurn,
   swampOverlay,
   pendingDialogLock,
+  phialReplacement,
   priority,
   sacrificeLandMana,
   spells,

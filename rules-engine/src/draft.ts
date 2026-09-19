@@ -120,6 +120,7 @@ export const makeDraft = (state: GameState): Draft => {
     draft.zoneCounts[object.owner][to] += 1
     object.zone = to
     if (to !== 'battlefield') {
+      delete object.enteredWithCastOption
       object.tapped = false
       object.damageMarked = 0
       delete object.deathtouched

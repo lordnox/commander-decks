@@ -109,6 +109,8 @@ export type GameObject = {
   exiledWith?: string
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
+  /** Alternative casting option used for the current battlefield entry. */
+  enteredWithCastOption?: string
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
 }
@@ -129,6 +131,8 @@ export type StackItem = {
   x?: number
   choices?: string[]
   kicked?: boolean
+  castOption?: string
+  uncounterable?: boolean
   sacrificed?: number
   castFrom?: ZoneId
   /** Builtin action kind when `kind === 'action'` (for example `'discard'`, `'draw'`). */
@@ -245,6 +249,7 @@ export type GameEvent =
       targets?: TargetRef[]
       additionalGeneric?: number
       kicked?: boolean
+      castOption?: string
       x?: number
       sacrifice?: string[]
     }
@@ -258,7 +263,7 @@ export type GameEvent =
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
   // — CR keyword actions —
-  | { type: 'draw'; seat: PlayerId; count?: number }
+  | { type: 'draw'; seat: PlayerId; count?: number; replacedBy?: string[] }
   | { type: 'discard'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
@@ -338,6 +343,14 @@ export type GameEvent =
       seat: PlayerId
       sourceId: string
       discardCount: number
+    }
+  | {
+      type: 'payCumulativeUpkeep'
+      seat: PlayerId
+      choiceId: string
+      objectId: string
+      pay: boolean
+      recipients?: PlayerId[]
     }
   // — Player processes & rules —
   | { type: 'concede'; seat: PlayerId }

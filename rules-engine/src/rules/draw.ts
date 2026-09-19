@@ -108,6 +108,7 @@ export const draw: Plugin = {
       type: 'draw' as const,
       seat: event.seat,
       count: 1,
+      ...(event.replacedBy ? { replacedBy: event.replacedBy } : {}),
     }))
   },
   legal: ({ state, event }) => {

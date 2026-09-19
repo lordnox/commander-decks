@@ -207,7 +207,7 @@ const beginEnterSearch = (
         type: 'gainLife',
         seat: entered.controller,
         amount: enteredSpec.gainLife,
-        source: entered.name,
+        source: entered.id,
       })
     }
   }

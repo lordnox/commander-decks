@@ -1,5 +1,6 @@
 import {
   ability,
+  alternateCast,
   activate,
   allCreatureTypes,
   addPlusCountersInstruction,
@@ -34,6 +35,7 @@ import {
   drawAtNextUpkeep,
   drawGreatestPower,
   enters,
+  entersIfCastOption,
   entersTargetingOpponent,
   entersTapped,
   extraEnters,
@@ -133,6 +135,8 @@ import {
   winGame,
   xMana,
   yourUpkeepIf,
+  cumulativeUpkeepOpponentLife,
+  uncounterable,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -1175,6 +1179,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Dimir Signet': [signet('signet.dimir', { U: 1, B: 1 })],
   "Dovin's Veto": [
+    uncounterable(),
     targetOnResolve('counter', { zone: 'stack', noncreature: true }),
   ],
   'Esper Panorama': [
@@ -1222,7 +1227,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'Swamp',
     ]),
   ],
-  Mulldrifter: [enters(draw(2))],
+  Mulldrifter: [
+    alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
+    entersIfCastOption('evoke', { kind: 'sacrificeSelf' }),
+    enters(draw(2)),
+  ],
   'Nirkana Revenant': [
     staticGrant('extraSwampMana'),
     activate({
@@ -1236,8 +1245,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Reflecting Pool': [manaFrom('controlledLands')],
   "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
   'Snuff Out': [
+    alternateCast('pay-4-life', 'Pay 4 life', '', {
+      life: 4,
+      controlledSubtype: 'Swamp',
+    }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
   ],
+  'Phial of Galadriel': [staticGrant('phialReplacement')],
   'Swan Song': [
     targetOnResolve(
       'counter',
@@ -1253,6 +1267,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
+  'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
   'Vanish into Memory': [handler('blinkValue')],
 }
 

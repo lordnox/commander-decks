@@ -102,6 +102,11 @@ export const targetedResolve: Plugin = {
       const object = state.objects[target.objectId]
       if (!object) continue
       if (effect.action === 'counter') {
+        const targetItem = draft.stack.find((candidate) => candidate.objectId === object.id)
+        if (targetItem?.uncounterable) {
+          draft.note(`${source.name} cannot counter ${object.name}`)
+          continue
+        }
         const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
         if (index < 0) continue
         draft.stack.splice(index, 1)
@@ -117,6 +122,8 @@ export const targetedResolve: Plugin = {
           name: object.name,
           targets: [...stackItem.targets],
           ...(stackItem.kicked ? { kicked: true } : {}),
+          ...(stackItem.castOption ? { castOption: stackItem.castOption } : {}),
+          ...(stackItem.uncounterable ? { uncounterable: true } : {}),
           ...(stackItem.x !== undefined ? { x: stackItem.x } : {}),
           ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
         })

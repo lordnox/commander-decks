@@ -9,6 +9,10 @@ import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
+  alternateCastEffects,
+  canChooseAlternateCast,
+} from './cardPlugins/alternateCosts'
+import {
   canSacrificeLandForBlack,
   SACRIFICE_LAND_FOR_BLACK,
 } from './plugins/sacrificeLandMana'
@@ -40,6 +44,8 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetName?: string
       x?: number
+      castOption?: string
+      castLabel?: string
       targetGroups?: Array<{
         label: string
         min: number
@@ -304,7 +310,7 @@ const taxFor = (state: GameState, seat: PlayerId, object: GameObject) => {
 const needsStackTarget = (object: GameObject) =>
   /counter target[^.]*\b(spell|ability)\b/i.test(object.oracleText)
 
-const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
+const canCastAtTiming = (state: GameState, seat: PlayerId, object: GameObject) => {
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
   if (!state.castableZones.includes(object.zone)) return false
@@ -325,8 +331,7 @@ const canCastNow = (state: GameState, seat: PlayerId, object: GameObject) => {
   ) {
     return false
   }
-  const tax = taxFor(state, seat, object)
-  return canFund(state, seat, `${spell.manaCost}${tax > 0 ? `{${tax}}` : ''}`)
+  return true
 }
 
 const xManaKind = (object: GameObject) =>
@@ -341,10 +346,35 @@ const costForX = (object: GameObject, x: number) => {
 }
 
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
-  if (!canCastNow(state, seat, object)) return []
+  if (!canCastAtTiming(state, seat, object)) return []
+  const tax = taxFor(state, seat, object)
+  const suffix = tax > 0 ? `{${tax}}` : ''
+  const alternatives = alternateCastEffects(object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
-    return [{ kind: 'castSpell', objectId: object.id, name: object.name }]
+    const face = castFaceOf(object)
+    const actions: AvailableAction[] = canFund(
+      state,
+      seat,
+      `${face?.manaCost ?? object.manaCost}${suffix}`,
+    )
+      ? [{ kind: 'castSpell', objectId: object.id, name: object.name }]
+      : []
+    for (const alternative of alternatives) {
+      if (
+        canChooseAlternateCast(state, seat, alternative)
+        && canFund(state, seat, `${alternative.manaCost}${suffix}`)
+      ) {
+        actions.push({
+          kind: 'castSpell',
+          objectId: object.id,
+          name: object.name,
+          castOption: alternative.id,
+          castLabel: alternative.label,
+        })
+      }
+    }
+    return actions
   }
   const sourceMana = Object.values(state.objects)
     .filter((source) => sourceCanTap(source, seat, state))
@@ -354,9 +384,9 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     ), 0)
   const manaUpper = poolTotal(state.players[seat].mana) + sourceMana
   const upper = paysLifeX && !object.manaCost.includes('{X}')
-    ? state.players[seat].life - 1
+    ? state.players[seat].life
     : paysLifeX
-      ? Math.min(manaUpper, state.players[seat].life - 1)
+      ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
   return Array.from({ length: upper + 1 }, (_, x) => x)
     .filter((x) => canFund(state, seat, costForX(object, x)))
@@ -830,6 +860,7 @@ export const sameLegalAct = (
     return left.targetObjectId === right.targetObjectId
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
+      && left.castOption === right.castOption
   }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
@@ -976,6 +1007,7 @@ export const eventsForAvailableAction = (
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
     : false
+  const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   if (
     !object
     || (
@@ -985,7 +1017,10 @@ export const eventsForAvailableAction = (
     )
     || targeted.length > 1
     || (targeted.length === 0 && /\btarget\b/i.test(object.oracleText))
-    || /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
+    || (
+      !hasAlternateCast
+      && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
+    )
     || (
       /additional cost/i.test(object.oracleText)
       && !hasDeclarativeAdditionalCost
@@ -1006,7 +1041,12 @@ export const eventsForAvailableAction = (
   const tax = taxFor(state, seat, object)
   const face = castFaceOf(object)
   const casting = face ? { ...object, ...face } : object
-  const cost = `${costForX(casting, action.x ?? 0)}${tax > 0 ? `{${tax}}` : ''}`
+  const alternative = alternateCastEffects(object).find(
+    (effect) => effect.id === action.castOption,
+  )
+  const cost = `${
+    alternative?.manaCost ?? costForX(casting, action.x ?? 0)
+  }${tax > 0 ? `{${tax}}` : ''}`
   const mana = fundingEvents(state, seat, cost)
   if (!mana) return null
   return [
@@ -1015,6 +1055,7 @@ export const eventsForAvailableAction = (
       type: 'castSpell',
       seat,
       objectId: object.id,
+      ...(action.castOption ? { castOption: action.castOption } : {}),
       ...(action.targetObjectId || action.targetObjectIds
         ? {
             targets: blinkTargets.map((objectId) => ({

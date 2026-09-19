@@ -75,6 +75,16 @@ export const damage: Plugin = {
       draft.note(
         `${event.seat} loses ${event.amount} life${event.source ? ` (${event.source})` : ''}`,
       )
+      return
+    }
+
+    if (event.type === 'gainLife') {
+      const player = draft.players[event.seat]
+      if (!player || player.lost) return
+      player.life += event.amount
+      draft.note(
+        `${event.seat} gains ${event.amount} life${event.source ? ` (${event.source})` : ''}`,
+      )
     }
   },
 }
