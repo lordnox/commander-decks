@@ -47,6 +47,10 @@ import {
   pendingPlayerTargets,
 } from '../../rules-engine/src/cardPlugins/playerTargets'
 import {
+  pendingExtort,
+  pendingExtortFor,
+} from '../../rules-engine/src/cardPlugins/extort'
+import {
   DIALOG_CHOSEN,
   dialogCandidates,
   pendingDialog,
@@ -369,6 +373,37 @@ const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) => {
   return true
 }
 
+const prepareExtortChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const pending = pendingExtort(state)
+  if (!pending || !isSeatId(pending.seat)) return false
+  const payments = legalActsFor(state, pending.seat)
+    .filter((
+      action,
+    ): action is Extract<ReturnType<typeof legalActsFor>[number], { kind: 'payExtort' }>
+      & { mana: 'W' | 'B' } =>
+      action.kind === 'payExtort' && Boolean(action.mana))
+    .map((action) => `Pay {${action.mana}}`)
+  lobby.topdeck = {
+    seat: pending.seat,
+    kind: 'extort-payment',
+    cards: ['Decline', ...payments],
+    destinations: ['skip', 'target'],
+    requirements: { target: { min: 0, max: 1 } },
+    kernel: {
+      sourceId: pending.sourceId,
+      stage: 'extort-payment',
+    },
+  }
+  lobby.actions = { [pending.seat]: ['topdeck'] }
+  lobby.waiting = `${lobby.occupants[pending.seat]?.name ?? pending.seat} is choosing whether to pay extort.`
+  lobby.privateWaiting = {
+    [pending.seat]: `${pending.source}: you may pay {W/B}.`,
+  }
+  lobby.judge = `Waiting for ${pending.source}'s extort payment.`
+  return true
+}
+
 /**
  * A stored dialog only survives while the kernel still owns the same choice.
  * An older host published Brokers Hideout with no candidates because basics had
@@ -405,6 +440,9 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   }
   if (decision.kernel.stage === 'select-players') {
     return pendingPlayerSelection(state, decision.seat)?.id !== decision.kernel.selectionId
+  }
+  if (decision.kernel.stage === 'extort-payment') {
+    return !pendingExtortFor(state, decision.seat)
   }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
@@ -500,6 +538,7 @@ export const prepareKernelPendingChoice = (
     if (!kernelDialogIsStale(kernel, lobby)) return false
     delete lobby.topdeck
   }
+  if (prepareExtortChoice(kernel, lobby)) return true
   const playerSelection = pendingPlayerSelection(kernel.history.current())
   if (playerSelection && isSeatId(playerSelection.seat)) {
     const seat = playerSelection.seat
@@ -638,6 +677,28 @@ export const applyKernelChoice = (
   }
 
   let state = kernel.history.current()
+  if (decision.kernel.stage === 'extort-payment') {
+    const pending = pendingExtortFor(state, seat)
+    if (!pending) throw new Error('That extort payment is no longer open.')
+    const selected = message.choices.find(({ destination }) => destination === 'target')
+    const mana = selected?.card.match(/^Pay \{([WB])\}$/)?.[1] as 'W' | 'B' | undefined
+    const action = legalActsFor(state, seat).find((candidate) =>
+      candidate.kind === 'payExtort'
+      && candidate.triggerId === pending.triggerId
+      && candidate.mana === mana)
+    if (!action) throw new Error('That extort payment is not available.')
+    const events = eventsForAvailableAction(state, seat, action)
+    if (!events) throw new Error('That extort payment cannot be completed.')
+    for (const event of events) {
+      const result = kernel.dispatch(event)
+      if (!result.ok) throw new Error(result.error)
+    }
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: mana
+        ? `${pending.source}: ${lobby.occupants[seat]?.name ?? seat} paid {${mana}}.`
+        : `${pending.source}: ${lobby.occupants[seat]?.name ?? seat} declined extort.`,
+    })
+  }
   if (decision.kernel.stage === 'select-cards') {
     const waiting = waitingSelectCards(state, seat)
     const selectionId = decision.kernel.selectionId

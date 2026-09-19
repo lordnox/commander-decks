@@ -889,6 +889,18 @@ export const runInstructions = (
       )
       continue
     }
+    if (instruction.kind === 'pumpSelf') {
+      const object = draft.object(source.id)
+      if (!object || object.power === null || object.toughness === null) continue
+      changeStatsUntilCleanup(
+        draft,
+        source.controller,
+        object,
+        instruction.power,
+        instruction.toughness,
+      )
+      continue
+    }
     if (instruction.kind === 'grantUntilEot') {
       const target = item?.targets[0]
       const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined

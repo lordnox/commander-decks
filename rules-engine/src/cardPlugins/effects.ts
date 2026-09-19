@@ -93,6 +93,7 @@ export type CardInstruction =
   | { kind: 'copyTargetCreature'; notLegendary?: boolean; flying?: boolean }
   | { kind: 'returnTargetFromGraveyard'; to: 'hand' | 'battlefield'; tapped?: boolean }
   | { kind: 'pump'; power: number; toughness: number }
+  | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
   | { kind: 'createXTokens'; token: TokenSpec }
   | { kind: 'dealDamageToSelf'; amount: number }
@@ -270,6 +271,10 @@ export type CardEffect =
     }
   | { op: 'mana'; if: CardCondition }
   | {
+      op: 'manaCapability'
+      from: 'opponentsLands' | 'controlledLands'
+    }
+  | {
       op: 'static'
       pluginId?: string
       extraLandPlays?: number
@@ -416,6 +421,12 @@ export const returnTargetFromGraveyard = (
 
 export const pump = (power: number, toughness: number): CardInstruction => ({
   kind: 'pump',
+  power,
+  toughness,
+})
+
+export const pumpSelf = (power: number, toughness: number): CardInstruction => ({
+  kind: 'pumpSelf',
   power,
   toughness,
 })
@@ -830,6 +841,13 @@ export const opponentLostLifeThisTurn = (min: number): CardCondition => ({
 export const manaIf = (condition: CardCondition): CardEffect => ({
   op: 'mana',
   if: condition,
+})
+
+export const manaFrom = (
+  from: Extract<CardEffect, { op: 'manaCapability' }>['from'],
+): CardEffect => ({
+  op: 'manaCapability',
+  from,
 })
 
 export const targetOnResolve = (

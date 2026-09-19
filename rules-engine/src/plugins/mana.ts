@@ -1,5 +1,6 @@
 import { addPools, emptyMana } from '../draft'
 import { hasKeyword } from '../keywords'
+import type { CardEffect } from '../cardPlugins/effects'
 import type { GameObject, GameState, ManaId, PlayerId, Plugin } from '../types'
 import { payCost } from './spells'
 import { hasForestOverlay } from './forestOverlay'
@@ -9,12 +10,14 @@ const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const COLORS: ManaId[] = ['W', 'U', 'B', 'R', 'G']
 
 type ManaSource = {
+  id?: string
   oracleText: string
   tapProduces?: Partial<Record<ManaId, number>>
   exiledCards?: string[]
   controller?: PlayerId
   types?: string[]
   subtypes?: string[]
+  effects?: CardEffect[]
 }
 
 const commanderIdentity = (state: Pick<GameState, 'objects'>, seat: PlayerId) => {
@@ -37,7 +40,10 @@ const commanderIdentity = (state: Pick<GameState, 'objects'>, seat: PlayerId) =>
 export const manaModes = (
   object: ManaSource,
   state?: Pick<GameState, 'objects' | 'rules'>,
+  visited = new Set<string>(),
 ): Partial<Record<ManaId, number>>[] => {
+  const nextVisited = new Set(visited)
+  if (object.id) nextVisited.add(object.id)
   const modes: Partial<Record<ManaId, number>>[] = []
   for (const match of object.oracleText.matchAll(
     /Add ((?:\{[WUBRGC]\}(?:,? or |, )?)+)(?! for each)/gi,
@@ -54,7 +60,14 @@ export const manaModes = (
     if (symbols.length > 0) modes.push(pool)
   }
   const identityMana = /commander's color identity/i.test(object.oracleText)
-  if (/one mana of any color/i.test(object.oracleText) && !identityMana) {
+  const hasDynamicCapability = object.effects?.some(
+    (effect) => effect.op === 'manaCapability',
+  )
+  if (
+    /one mana of any color/i.test(object.oracleText)
+    && !identityMana
+    && !hasDynamicCapability
+  ) {
     for (const symbol of COLORS) modes.push({ [symbol]: 1 })
   }
   if (identityMana && state && object.controller) {
@@ -69,6 +82,32 @@ export const manaModes = (
         .filter((color): color is ManaId => COLORS.includes(color as ManaId)),
     )
     for (const color of colors) modes.push({ [color]: 1 })
+  }
+  if (state && object.controller) {
+    for (const capability of object.effects ?? []) {
+      if (capability.op !== 'manaCapability') continue
+      const referenced = Object.values(state.objects).filter((candidate) =>
+        candidate.zone === 'battlefield'
+        && candidate.types.includes('Land')
+        && !nextVisited.has(candidate.id)
+        && (
+          capability.from === 'controlledLands'
+            ? candidate.controller === object.controller
+            : candidate.controller !== object.controller
+        ))
+      const symbols = new Set<ManaId>()
+      for (const candidate of referenced) {
+        for (const mode of manaModes(candidate, state, nextVisited)) {
+          for (const symbol of MANA_IDS) {
+            if ((mode[symbol] ?? 0) > 0) symbols.add(symbol)
+          }
+        }
+      }
+      for (const symbol of symbols) {
+        if (capability.from === 'opponentsLands' && symbol === 'C') continue
+        modes.push({ [symbol]: 1 })
+      }
+    }
   }
   if (
     state
