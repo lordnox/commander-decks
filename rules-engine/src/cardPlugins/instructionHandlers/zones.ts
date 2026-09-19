@@ -370,6 +370,33 @@ const returnChosenLandFromGraveyard: InstructionHandler<'returnChosenLandFromGra
   })
 }
 
+const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const x = Math.max(0, item?.x ?? 0)
+  if (x < (instruction.minimumX ?? 0)) return
+  const candidates = (draft.zoneOrder[source.controller].graveyard ?? []).filter((objectId) => {
+    const object = draft.object(objectId)
+    return object?.types.includes('Creature') && object.manaValue <= x
+  })
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'choose',
+    count: 1,
+    min: 0,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `You may return a creature card with mana value ${x} or less to the battlefield.`,
+    destinations: ['target'],
+    fromSeat: source.controller,
+    moveSelectedTo: 'battlefield',
+    tapSelected: instruction.tapped,
+  })
+}
+
 export const zoneHandlers = {
   selfMill,
   bounceSelf,
@@ -391,4 +418,5 @@ export const zoneHandlers = {
   randomExileCopyWhile,
   putMilledLandTapped,
   returnChosenLandFromGraveyard,
+  returnCreatureManaValueX,
 } satisfies Partial<InstructionHandlers>

@@ -48,6 +48,7 @@ import {
   gainLife,
   grantUntilEot,
   graveyardCards,
+  graveyardPermanentCards,
   handler,
   handlerIdsFromEffects,
   hasSubtype,
@@ -72,6 +73,7 @@ import {
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   pump,
+  pumpTargetX,
   pumpSelf,
   pumpAllCreaturesByX,
   pumpControlled,
@@ -84,6 +86,8 @@ import {
   revealUntilBasicLand,
   reanimateCreatureFromGraveyards,
   returnChosenLandFromGraveyard,
+  returnCreatureManaValueX,
+  returnTargetFromGraveyard,
   returnOwnedGraveyardLands,
   searchAbility,
   searchLibrary,
@@ -892,7 +896,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('bounce', { zone: 'graveyard' }),
   ],
   'Bala Ged Sanctuary': [entersTapped()],
-  'Black Sun\'s Twilight': [onResolve(pump(-1, -1))],
+  'Black Sun\'s Twilight': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      pumpTargetX(-1),
+      returnCreatureManaValueX(5, true),
+    ),
+  ],
   'Blossoming Tortoise': [
     enters(selfMill(3), returnChosenLandFromGraveyard()),
     attacks(selfMill(3), returnChosenLandFromGraveyard()),
@@ -976,7 +987,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Join the Dead': [
-    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }, pump(-5, -5)),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      branch(graveyardPermanentCards(4), [pump(-10, -10)], [pump(-5, -5)]),
+    ),
   ],
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Life from the Loam': [
@@ -1065,7 +1080,15 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landfall(branch(controlledLands({ min: 0 }), [insect])),
   ],
   'Stitch Together': [
-    targetOnResolve('bounce', { zone: 'graveyard', type: 'Creature' }),
+    targetOnResolve(
+      'select',
+      { zone: 'graveyard', type: 'Creature' },
+      branch(
+        graveyardCards(7),
+        [returnTargetFromGraveyard('battlefield')],
+        [returnTargetFromGraveyard('hand')],
+      ),
+    ),
   ],
   "Liliana's Caress": [
     triggerOn('discard', {

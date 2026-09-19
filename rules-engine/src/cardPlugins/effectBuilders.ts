@@ -152,6 +152,11 @@ export const pump = (power: number, toughness: number): CardInstruction => ({
   toughness,
 })
 
+export const pumpTargetX = (multiplier = 1): CardInstruction => ({
+  kind: 'pumpTargetX',
+  multiplier,
+})
+
 export const pumpSelf = (power: number, toughness: number): CardInstruction => ({
   kind: 'pumpSelf',
   power,
@@ -257,6 +262,11 @@ export const returnChosenLandFromGraveyard = (tapped = true): CardInstruction =>
   kind: 'returnChosenLandFromGraveyard',
   tapped,
 })
+
+export const returnCreatureManaValueX = (
+  minimumX = 0,
+  tapped = false,
+): CardInstruction => ({ kind: 'returnCreatureManaValueX', minimumX, tapped })
 
 export const drawAtNextUpkeep = (
   count: number,
