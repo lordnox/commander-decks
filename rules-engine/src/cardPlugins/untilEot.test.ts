@@ -37,6 +37,49 @@ describe('continuous effect durations', () => {
     expect(result.state.objects[creature.id].continuousEffects).toBeUndefined()
   })
 
+  test('an until-end-of-turn effect created later in cleanup waits for the next cleanup', () => {
+    const catalog = createCatalog([continuousEffects])
+    const state = newGame({
+      battlefield: { p1: [bears()] },
+      builtinRules: ['continuousEffects'],
+    })
+    state.step = 'cleanup'
+    const creature = Object.values(state.objects)[0]
+    untilEndOfTurn(creature, changeStats(creature, 2, 2))
+
+    const result = rules(state, { type: 'custom', name: 'test.createdInCleanup' }, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[creature.id].power).toBe(4)
+    expect(result.state.objects[creature.id].continuousEffects).toHaveLength(1)
+  })
+
+  test('a temporary characteristic change ends when the object leaves the battlefield', () => {
+    const catalog = createCatalog([continuousEffects])
+    const state = newGame({
+      battlefield: { p1: [bears()] },
+      builtinRules: ['continuousEffects'],
+    })
+    const creature = Object.values(state.objects)[0]
+    untilEndOfTurn(creature, changeStats(creature, 2, 2))
+
+    const result = rules(
+      state,
+      { type: 'move', objectId: creature.id, to: 'graveyard' },
+      catalog,
+    )
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[creature.id]).toMatchObject({
+      zone: 'graveyard',
+      power: 2,
+      toughness: 2,
+    })
+    expect(result.state.objects[creature.id].continuousEffects).toBeUndefined()
+  })
+
   test('conditional control ends when its source untaps', () => {
     const catalog = createCatalog([continuousEffects])
     const state = newGame({

@@ -470,4 +470,3 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
 export const pluginIdsFromEffects = (effects: CardEffect[]) =>
   effects.flatMap((effect) =>
     effect.op === 'static' && effect.pluginId ? [effect.pluginId] : [])
-
