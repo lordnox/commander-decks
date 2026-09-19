@@ -15,6 +15,7 @@ export type PendingPlayerSelection = {
   candidates: PlayerId[]
   action:
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
+    | { kind: 'copyStackItem'; stackId: string }
     | {
         kind: 'putTriggeredAbility'
         instructions: CardInstruction[]

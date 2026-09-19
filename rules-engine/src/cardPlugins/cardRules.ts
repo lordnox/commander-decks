@@ -1232,6 +1232,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Incarnation Technique': [
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
+    handler('demonstrate'),
   ],
   'Yurlok of Scorch Thrash': [
     staticGrant('manaBurn'),

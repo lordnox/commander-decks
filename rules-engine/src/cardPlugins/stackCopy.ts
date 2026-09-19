@@ -1,8 +1,12 @@
 import { payCost } from '../plugins/spells'
+import {
+  openPlayerSelection,
+  pendingPlayerSelectionFor,
+} from '../rules/selectPlayers'
 import type { GameObject, GameState, PlayerId, Plugin, StackItem, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
-import { targetedEffectFilter, validTarget } from './targetedResolve'
+import { targetedEffectFilter, validTarget, validTargetRef } from './targetedResolve'
 
 export const PENDING_STACK_COPY = 'kernel.pendingStackCopy'
 export const STACK_COPY_TRIGGER = 'stackCopy.trigger'
@@ -15,6 +19,7 @@ export type PendingStackCopy = {
   stackId: string
   cost: string
   optional: boolean
+  chooseOpponentAfterCopy?: boolean
 }
 
 const pendingStackCopy = (state: GameState): PendingStackCopy | undefined => {
@@ -53,11 +58,12 @@ const legalObjectTarget = (
   item: StackItem,
   object: GameObject,
   index: number,
+  controller = item.controller,
 ) => {
   const source = state.objects[item.objectId]
   if (!source) return false
   if (
-    object.controller !== item.controller
+    object.controller !== controller
     && !object.tapped
     && effectsOf(object).some((effect) =>
       effect.op === 'targetingRequirement'
@@ -81,7 +87,7 @@ const legalObjectTarget = (
       state,
       object,
       targetedEffectFilter(targeted, item.kicked === true),
-      item.controller,
+      controller,
     )
   }
   return object.zone === 'battlefield' || object.zone === 'stack'
@@ -94,13 +100,14 @@ export const stackCopyTargetCandidates = (
   const item = state.stack.find((candidate) => candidate.id === pending.stackId)
   if (!item || item.targets.length !== 1 || item.targets[0]?.kind !== 'object') return []
   return Object.values(state.objects)
-    .filter((object) => legalObjectTarget(state, item, object, 0))
+    .filter((object) => legalObjectTarget(state, item, object, 0, pending.seat))
 }
 
 const targetsError = (
   state: GameState,
   item: StackItem,
   targets: TargetRef[],
+  controller: PlayerId,
 ) => {
   if (targets.length !== item.targets.length) return 'the copy needs the same number of targets'
   for (let index = 0; index < targets.length; index += 1) {
@@ -108,10 +115,22 @@ const targetsError = (
     if (target.kind === 'player') {
       const original = item.targets[index]
       const source = state.objects[item.objectId]
+      const targeted = source && effectsOf(source).find((effect) =>
+        effect.op === 'targetedResolve' && effect.target === index)
       const ability = source && item.abilityId
         ? activateEffect(effectsOf(source), item.abilityId)
         : undefined
-      if (original?.kind !== 'player' && ability?.targets !== 'any') {
+      if (
+        targeted?.op === 'targetedResolve'
+        && !validTargetRef(state, target, targeted.filter, controller)
+      ) {
+        return 'the copy has an illegal player target'
+      }
+      if (
+        targeted?.op !== 'targetedResolve'
+        && original?.kind !== 'player'
+        && ability?.targets !== 'any'
+      ) {
         return 'the copy has an illegal player target'
       }
       if (!state.players[target.player] || state.players[target.player].lost) {
@@ -120,7 +139,7 @@ const targetsError = (
       continue
     }
     const object = state.objects[target.objectId]
-    if (!object || !legalObjectTarget(state, item, object, index)) {
+    if (!object || !legalObjectTarget(state, item, object, index, controller)) {
       return 'the copy has an illegal object target'
     }
   }
@@ -152,7 +171,7 @@ export const stackCopy: Plugin = {
     if (!payCost(state.players[event.seat].mana, pending.cost)) {
       return `not enough mana to pay ${pending.cost}`
     }
-    return targetsError(state, item, event.targets ?? item.targets)
+    return targetsError(state, item, event.targets ?? item.targets, event.seat)
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'activateAbility' && !event.manaAbility) {
@@ -191,6 +210,21 @@ export const stackCopy: Plugin = {
       return
     }
 
+    if (event.type === 'selectPlayers') {
+      const selection = pendingPlayerSelectionFor(state, event.seat)
+      const opponent = event.players[0]
+      if (selection?.action.kind !== 'copyStackItem' || !opponent) return
+      openStackCopyChoice(draft, {
+        sourceId: selection.sourceId,
+        source: selection.source,
+        seat: opponent,
+        stackId: selection.action.stackId,
+        cost: '{0}',
+        optional: false,
+      })
+      return
+    }
+
     if (event.type !== 'copyStackItem') return
     const pending = pendingStackCopy(state)
     if (!pending) return
@@ -209,5 +243,22 @@ export const stackCopy: Plugin = {
     draft.passedInRow = []
     draft.priority = event.seat
     draft.note(`${pending.source} copies ${item.name}`)
+    if (pending.chooseOpponentAfterCopy) {
+      const candidates = draft.playerOrder.filter(
+        (seat) => seat !== event.seat && !draft.players[seat].lost,
+      )
+      if (candidates.length > 0) {
+        openPlayerSelection(draft, {
+          seat: event.seat,
+          sourceId: pending.sourceId,
+          source: pending.source,
+          prompt: `Choose an opponent to copy ${item.name}.`,
+          min: 1,
+          max: 1,
+          candidates,
+          action: { kind: 'copyStackItem', stackId: pending.stackId },
+        })
+      }
+    }
   },
 }
