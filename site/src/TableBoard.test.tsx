@@ -46,6 +46,16 @@ test('alternate casting actions use their live cost label', () => {
   })).toBe('Cast — Evoke {2}{U}')
 })
 
+test('Phyrexian casting actions show the chosen life payment', () => {
+  expect(legalActLabel({
+    kind: 'castSpell',
+    objectId: 'dismember',
+    name: 'Dismember',
+    phyrexianLife: [0, 1],
+    castLabel: 'Pay 4 life for {B/P} {B/P}',
+  })).toBe('Cast — Pay 4 life for {B/P} {B/P}')
+})
+
 test('a hidden hand slot renders a card back', () => {
   const html = renderToStaticMarkup(
     <CardRow

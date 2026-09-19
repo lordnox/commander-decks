@@ -139,6 +139,7 @@ export const applyKernelAct = (
           type: 'castSpell' as const,
           seat,
           objectId: action.objectId,
+          ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
           targets: (message.targetObjectIds ?? []).map((objectId) => ({
             kind: 'object' as const,
             objectId,
