@@ -1,5 +1,5 @@
 import type { Plugin } from '../types'
-import { DIALOG_CHOSEN, pendingDialogFor, setPendingDialog } from '../pendingDialog'
+import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
 import { applyCopy, millLibrary } from './effects'
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
@@ -7,22 +7,6 @@ import { finishedSpellZone } from './alternateCosts'
 export const choiceEffects: Plugin = {
   id: 'choiceEffects',
   apply: ({ state, event, draft }) => {
-    if (event.type === 'custom' && event.name === 'delayedDraw.optional' && event.seat) {
-      const count = typeof event.payload?.count === 'number' ? event.payload.count : 1
-      setPendingDialog(draft, {
-        sourceId: event.seat,
-        source: 'delayed draw',
-        seat: event.seat,
-        kind: 'may-draw',
-        prompt: `You may draw ${count === 1 ? 'a card' : `${count} cards`}.`,
-        waiting: 'is deciding whether to draw.',
-        judge: 'Waiting for an optional delayed draw.',
-        chosenEvent: DIALOG_CHOSEN,
-        destinations: ['skip', 'target'],
-        count,
-      })
-      return
-    }
     if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) {
       return
     }

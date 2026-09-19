@@ -175,6 +175,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     zoneOrder,
     zoneCounts,
     stack: [],
+    delayedTriggers: [],
     active: first,
     priority: first,
     turn: 1,

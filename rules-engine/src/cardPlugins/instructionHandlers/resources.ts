@@ -1,6 +1,7 @@
 import { swampCount } from '../../plugins/swampOverlay'
 import { lifeLostThisTurn } from '../../plugins/life'
 import { initiateDiscard } from '../../rules/discard'
+import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
@@ -362,16 +363,15 @@ const drawAtNextUpkeep: InstructionHandler<'drawAtNextUpkeep'> = (
         ? item.targets[0].player
         : undefined
   if (!seat) return
-  const player = draft.players[seat]
-  const current = player.data.delayedDraw
-  const queued: Array<{ count: number; optional?: boolean }> = Array.isArray(current)
-    ? [...current]
-    : []
-  queued.push({
-    count: instruction.count,
-    ...(instruction.optional ? { optional: true } : {}),
-  })
-  player.data.delayedDraw = queued
+  registerDelayedTrigger(
+    draft,
+    source,
+    { kind: 'step', step: 'upkeep', active: seat },
+    [{
+      kind: instruction.optional ? 'mayDraw' : 'draw',
+      count: instruction.count,
+    }],
+  )
 }
 
 const drawGreatestPower: InstructionHandler<'drawGreatestPower'> = (

@@ -77,27 +77,6 @@ describe('turnStructure', () => {
     expect(next.players.p1.lost).toBe(false)
   })
 
-  test('upkeep resolves and clears delayed draws', () => {
-    const base = newGame({
-      builtinRules,
-      libraries: {
-        p1: [
-          { ...bears(), name: 'Delayed One' },
-          { ...bears(), name: 'Delayed Two' },
-          forest(),
-        ],
-      },
-    })
-    base.players.p1.data.delayedDraw = [{ count: 2 }]
-    const next = step({ ...base, step: 'untap' })
-
-    expect(next.step).toBe('upkeep')
-    expect(next.zoneCounts.p1.hand).toBe(2)
-    expect(named(next, 'Delayed One')[0].zone).toBe('hand')
-    expect(named(next, 'Delayed Two')[0].zone).toBe('hand')
-    expect(next.players.p1.data.delayedDraw).toBeUndefined()
-  })
-
   test('drawing from an empty library loses the game', () => {
     const base = newGame({ builtinRules })
     const next = step({ ...base, step: 'upkeep' })
