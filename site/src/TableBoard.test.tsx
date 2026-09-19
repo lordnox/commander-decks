@@ -7,6 +7,7 @@ import {
   CardTile,
   HoverCard,
   StackOverlay,
+  legalActLabel,
   type Hover,
 } from './TableBoard'
 import type { ReplayGame } from './replayTypes'
@@ -34,6 +35,16 @@ const game = {
     },
   },
 } as unknown as ReplayGame
+
+test('alternate casting actions use their live cost label', () => {
+  expect(legalActLabel({
+    kind: 'castSpell',
+    objectId: 'mulldrifter',
+    name: 'Mulldrifter',
+    castOption: 'evoke',
+    castLabel: 'Evoke {2}{U}',
+  })).toBe('Cast — Evoke {2}{U}')
+})
 
 test('a hidden hand slot renders a card back', () => {
   const html = renderToStaticMarkup(

@@ -74,6 +74,7 @@ export type LiveOpening = {
 export type LiveTopdeck = {
   kind: string
   cards: Array<string | number>
+  count?: number
   library?: string[]
   destinations: TopdeckDestination[]
   requirements?: TopdeckRequirements

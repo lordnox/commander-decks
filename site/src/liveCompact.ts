@@ -48,6 +48,7 @@ export type LiveWireV2 = {
     LiveTopdeck['destinations'],
     LiveTopdeck['requirements']?,
     unknown[]?,
+    number?,
   ]
   b?: 1
   hd?: 1
@@ -404,6 +405,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       snapshot.topdeck.destinations,
       snapshot.topdeck.requirements,
       snapshot.topdeck.library?.map((card) => table.cardRef(card, prefer)),
+      snapshot.topdeck.count,
     ]
   }
   if (snapshot.alwaysStopOnPriority) wire.b = 1
@@ -621,6 +623,7 @@ export const expandLiveWire = (
           library: wire.l[4]
             ? unpackCards(wire.l[4], lists, extras, tokens).map(String)
             : undefined,
+          count: wire.l[5],
         }
       : undefined,
     alwaysStopOnPriority: wire.b === 1 ? true : undefined,

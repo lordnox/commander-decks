@@ -72,6 +72,7 @@ type InboxPayload =
       targetPlayerId?: string
       targetObjectIds?: string[]
       abilityId?: string
+      castOption?: string
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -132,6 +133,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     targetPlayerId?: unknown
     targetObjectIds?: unknown
     abilityId?: unknown
+    castOption?: unknown
     mana?: unknown
     attackers?: unknown
     x?: unknown
@@ -182,6 +184,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const targetObjectIds = message.targetObjectIds
       const mana = message.mana
       const abilityId = message.abilityId
+      const castOption = message.castOption
       const text = message.text
       const attackers = message.attackers
       const x = message.x
@@ -223,6 +226,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           (target): target is string => typeof target === 'string' && Boolean(target),
         ) ? { targetObjectIds } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
+        ...(typeof castOption === 'string' ? { castOption } : {}),
         ...(typeof text === 'string' ? { text } : {}),
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }

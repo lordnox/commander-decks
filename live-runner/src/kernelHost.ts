@@ -51,6 +51,9 @@ import {
   pendingExtortFor,
 } from '../../rules-engine/src/cardPlugins/extort'
 import {
+  pendingCumulativeUpkeep,
+} from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
+import {
   DIALOG_CHOSEN,
   dialogCandidates,
   pendingDialog,
@@ -444,6 +447,10 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   if (decision.kernel.stage === 'extort-payment') {
     return !pendingExtortFor(state, decision.seat)
   }
+  if (decision.kernel.stage === 'cumulative-upkeep') {
+    const pending = pendingCumulativeUpkeep(state, decision.seat)
+    return !pending || pending.id !== decision.kernel.selectionId
+  }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
 }
@@ -498,6 +505,32 @@ const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   lobby.judge = selection.source
     ? `Waiting for a ${selection.kind} choice for ${selection.source}.`
     : `Waiting for a ${selection.kind} choice.`
+  return true
+}
+
+const prepareCumulativeUpkeepChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const pending = pendingCumulativeUpkeep(kernel.history.current())
+  if (!pending || !isSeatId(pending.seat)) return false
+  const opponents = pending.opponents.filter(isSeatId)
+  lobby.topdeck = {
+    seat: pending.seat,
+    kind: 'cumulative-upkeep',
+    cards: opponents,
+    count: pending.count,
+    destinations: ['target', 'sacrifice'],
+    kernel: {
+      sourceId: pending.objectId,
+      stage: 'cumulative-upkeep',
+      selectionId: pending.id,
+    },
+  }
+  lobby.actions = { [pending.seat]: ['topdeck'] }
+  lobby.waiting =
+    `${lobby.occupants[pending.seat]?.name ?? pending.seat} is resolving cumulative upkeep.`
+  lobby.privateWaiting = {
+    [pending.seat]: `Choose an opponent to gain 1 life for each of ${pending.count} age counter(s), or sacrifice ${pending.source}.`,
+  }
+  lobby.judge = `Waiting for ${pending.source}'s cumulative upkeep.`
   return true
 }
 
@@ -586,6 +619,7 @@ export const prepareKernelPendingChoice = (
   if (prepareLibrarySearchChoice(kernel, lobby)) return true
   if (prepareWaitingDiscardChoice(kernel, lobby)) return true
   if (prepareSelectCardsChoice(kernel, lobby)) return true
+  if (prepareCumulativeUpkeepChoice(kernel, lobby)) return true
   return preparePendingDialog(kernel, lobby)
 }
 
@@ -668,6 +702,37 @@ export const applyKernelChoice = (
 ) => {
   const decision = lobby.topdeck
   if (!decision?.kernel || decision.seat !== seat) return false
+  if (decision.kernel.stage === 'cumulative-upkeep') {
+    const state = kernel.history.current()
+    const pending = pendingCumulativeUpkeep(state, seat)
+    if (!pending || pending.id !== decision.kernel.selectionId) {
+      throw new Error('That cumulative upkeep choice is no longer open.')
+    }
+    const sacrificing = message.choices.length === 0
+      || message.choices.every(({ destination }) => destination === 'sacrifice')
+    const recipients = sacrificing
+      ? []
+      : message.choices.map(({ card, destination }) => {
+          if (destination !== 'target' || !pending.opponents.includes(card)) {
+            throw new Error('Choose a living opponent for every age counter.')
+          }
+          return card
+        })
+    const result = kernel.dispatch({
+      type: 'payCumulativeUpkeep',
+      seat,
+      choiceId: pending.id,
+      objectId: pending.objectId,
+      pay: !sacrificing,
+      ...(sacrificing ? {} : { recipients }),
+    })
+    if (!result.ok) throw new Error(result.error)
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: sacrificing
+        ? `${pending.source} was sacrificed to cumulative upkeep.`
+        : `${pending.source}'s cumulative upkeep was paid.`,
+    })
+  }
   if (!sameNames(message.choices.map(({ card }) => card), decision.cards)) {
     throw new Error('The cards in this choice changed. Refresh and choose again.')
   }

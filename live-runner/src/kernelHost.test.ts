@@ -29,6 +29,10 @@ import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
 import { jointExploration } from '../../rules-engine/src/cardPlugins/jointExploration'
 import { onResolve } from '../../rules-engine/src/cardPlugins/onResolve'
+import {
+  CUMULATIVE_UPKEEP_PENDING,
+  cumulativeUpkeep,
+} from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import {
@@ -227,6 +231,62 @@ const abilitySearchGame = (
 }
 
 describe('kernel host journal', () => {
+  test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [cardTemplate('Wall of Shards', {
+            types: ['Creature'],
+            counters: { age: 2 },
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [cumulativeUpkeep] },
+    )
+    const state = structuredClone(server.state)
+    const wall = Object.values(state.objects).find((object) => object.name === 'Wall of Shards')!
+    state.rules.push({
+      instanceId: 'builtin-cumulativeUpkeep',
+      pluginId: 'cumulativeUpkeep',
+      sourceId: null,
+      timestamp: state.nextTimestamp++,
+      params: {},
+    })
+    state.players.p1.data[CUMULATIVE_UPKEEP_PENDING] = {
+      id: 'upkeep-choice',
+      objectId: wall.id,
+      source: wall.name,
+      seat: 'p1',
+      count: 2,
+      opponents: ['p2', 'p3', 'p4'],
+    }
+
+    const firstLobby = createLobby()
+    expect(prepareKernelPendingChoice(handleFor(server.rules, state), firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      kind: 'cumulative-upkeep',
+      cards: ['p2', 'p3', 'p4'],
+      count: 2,
+    })
+
+    const restartedLobby = createLobby()
+    const restarted = handleFor(server.rules, structuredClone(state))
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'p2', destination: 'target' },
+        { card: 'p3', destination: 'target' },
+      ],
+    })).toBe(true)
+    expect(restarted.history.current().players.p2.life).toBe(41)
+    expect(restarted.history.current().players.p3.life).toBe(41)
+    expect(restarted.history.current().players.p1.data[CUMULATIVE_UPKEEP_PENDING])
+      .toBeUndefined()
+  })
+
   test('an agent cannot pass through an actionable human turn', () => {
     const server = createServerGame(
       commanderRules,

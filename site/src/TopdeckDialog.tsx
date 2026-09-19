@@ -47,6 +47,7 @@ export const TopdeckDialog = ({
   const sacrificingCreatures = decision.kind === 'sacrifice'
   const optionalDraw = decision.kind === 'may-draw'
   const revealing = decision.kind === 'reveal'
+  const cumulativeUpkeep = decision.kind === 'cumulative-upkeep'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -61,6 +62,12 @@ export const TopdeckDialog = ({
   const [previewCard, setPreviewCard] = useState<string | null>(null)
   const [previewPinned, setPreviewPinned] = useState(false)
   const [query, setQuery] = useState('')
+  const [upkeepRecipients, setUpkeepRecipients] = useState<string[]>(
+    Array.from(
+      { length: decision.count ?? 0 },
+      () => String(decision.cards[0] ?? ''),
+    ),
+  )
   const visibleChoices = searching && query
     ? choices.filter((choice) =>
       choice.card.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
@@ -138,6 +145,75 @@ export const TopdeckDialog = ({
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small
+
+  if (cumulativeUpkeep) {
+    const opponents = decision.cards.map(String)
+    return (
+      <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-3 backdrop-blur-sm sm:items-center">
+        <section
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cumulative-upkeep-title"
+          className="w-full max-w-lg rounded-[1.5rem] border border-purple-300/30 bg-ink-950 p-5 shadow-2xl shadow-black"
+        >
+          <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-purple-200">
+            Upkeep choice
+          </p>
+          <h2 id="cumulative-upkeep-title" className="mt-1 font-display text-2xl text-stone-50">
+            Pay cumulative upkeep
+          </h2>
+          <p className="mt-2 text-sm text-stone-400">
+            {prompt || 'Choose an opponent to gain 1 life for each age counter.'}
+          </p>
+          <div className="mt-5 space-y-3">
+            {upkeepRecipients.map((recipient, index) => (
+              <label key={index} className="block text-sm font-semibold text-stone-200">
+                Age counter {index + 1}
+                <select
+                  aria-label={`Age counter ${index + 1} recipient`}
+                  value={recipient}
+                  disabled={pending}
+                  onChange={(event) => {
+                    const next = [...upkeepRecipients]
+                    next[index] = event.target.value
+                    setUpkeepRecipients(next)
+                  }}
+                  className="mt-1 block w-full rounded-xl border border-white/10 bg-ink-900 px-3 py-2"
+                >
+                  {opponents.map((seat) => (
+                    <option key={seat} value={seat}>
+                      {game.seats?.find((candidate) => candidate.id === seat)?.name ?? seat}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <button
+              type="button"
+              disabled={pending || upkeepRecipients.length === 0}
+              onClick={() => onResolve(upkeepRecipients.map((card) => ({
+                card,
+                destination: 'target',
+              })))}
+              className="rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 disabled:opacity-40"
+            >
+              Pay upkeep
+            </button>
+            <button
+              type="button"
+              disabled={pending}
+              onClick={() => onResolve([])}
+              className="rounded-xl bg-red-900/60 px-4 py-2 text-sm font-black text-red-100 disabled:opacity-40"
+            >
+              Sacrifice permanent
+            </button>
+          </div>
+        </section>
+      </div>
+    )
+  }
 
   if (hidden) {
     return (
