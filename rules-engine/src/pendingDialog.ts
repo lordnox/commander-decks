@@ -25,6 +25,7 @@ export type PendingDialog = {
     | 'sacrifice-creature'
     | 'discard-card'
     | 'choose-modes'
+    | 'choose-creature-type'
     | 'may'
     | 'may-draw'
     | 'may-pay-life'

@@ -105,6 +105,10 @@ export type CardInstruction =
   | { kind: 'putMilledLandTapped' }
   | { kind: 'copyAllCreaturesUntilEot'; notLegendary?: boolean }
   | {
+      kind: 'chooseCreatureType'
+      action: 'addToSource' | 'destroyOthers' | 'bounceOthers'
+    }
+  | {
       kind: 'putFromHand'
       who: 'each' | 'active' | 'controller'
       max: number

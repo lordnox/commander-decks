@@ -47,7 +47,9 @@ export const applyChooseModes = (
   { kernel, lobby, seat, message, state }: ChoiceContext,
 ) => {
   const dialog = pendingDialogFor(state, seat)
-  if (dialog?.kind !== 'choose-modes') throw new Error('That choice is no longer open.')
+  if (dialog?.kind !== 'choose-modes' && dialog?.kind !== 'choose-creature-type') {
+    throw new Error('That choice is no longer open.')
+  }
   const modes = message.choices
     .filter(({ destination }) => destination === 'target')
     .map(({ card }) => card)

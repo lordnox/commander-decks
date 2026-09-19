@@ -1,6 +1,7 @@
 import type { CardInstruction } from '../effects'
 import { combatCopyHandlers } from './combatCopy'
 import { controlHandlers } from './control'
+import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { multiplayerHandlers } from './multiplayer'
 import { resourceHandlers } from './resources'
 import type {
@@ -17,6 +18,7 @@ const instructionHandlers = {
   ...zoneHandlers,
   ...combatCopyHandlers,
   ...multiplayerHandlers,
+  chooseCreatureType: chooseCreatureTypeInstruction,
 } satisfies InstructionHandlers
 
 export const dispatchInstruction = (

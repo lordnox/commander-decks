@@ -110,6 +110,7 @@ import {
   upkeep,
   bounceAttacking,
   chooseModes,
+  chooseCreatureType,
   chooseVotesThisTurn,
   eachPlayerDiscard,
   eachPlayerDraw,
@@ -977,7 +978,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Join the Dead': [
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }, pump(-5, -5)),
   ],
-  'Kindred Dominance': [onResolve(pump(0, 0))],
+  'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Life from the Loam': [
     onResolve(returnChosenLandFromGraveyard(false)),
   ],
@@ -1024,7 +1025,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true }),
     ),
   ],
-  'Raise the Palisade': [onResolve(pump(0, 0))],
+  'Raise the Palisade': [onResolve(chooseCreatureType('bounceOthers'))],
   'Reanimate': [
     targetOnResolve(
       'reanimate',
@@ -1033,7 +1034,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Ripples of Undeath': [enters(selfMill(3))],
-  'Roaming Throne': [enters(copyControlledCreature())],
+  'Roaming Throne': [enters(chooseCreatureType('addToSource'))],
   'Sakashima of a Thousand Faces': [
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),

@@ -33,12 +33,7 @@ export const choiceEffects: Plugin = {
     if (dialog.kind === 'copy-creature') {
       const source = draft.object(dialog.sourceId)
       const copied = targetIds[0] ? draft.object(targetIds[0]) : undefined
-      if (source?.name === 'Roaming Throne' && copied) {
-        source.chosenType = copied.subtypes[0]
-        if (source.chosenType && !source.subtypes.includes(source.chosenType)) {
-          source.subtypes = [...source.subtypes, source.chosenType]
-        }
-      } else if (source && copied) {
+      if (source && copied) {
         const copy = effectsOf(source)
           .flatMap((effect) => effect.op === 'trigger' ? effect.do : [])
           .find((instruction) => instruction.kind === 'copyControlledCreature')

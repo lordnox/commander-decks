@@ -387,6 +387,7 @@ const CHOICE_KINDS = new Set([
   'surveil', 'scry', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
   'copyControlledCreature', 'copyTargetCreature', 'optionalMill', 'mayDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
+  'chooseCreatureType',
   'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
   'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
   'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
@@ -452,6 +453,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
     }
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
+    if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
     if (effect.op === 'activate' && hasKind(listed,
       'putLandFromHand',
       'bounceChosenLand',

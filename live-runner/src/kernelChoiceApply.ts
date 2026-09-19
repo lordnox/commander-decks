@@ -75,6 +75,7 @@ export const applyKernelChoice = (
     case 'put-permanents':
       return applyPutPermanents(context)
     case 'choose-modes':
+    case 'choose-creature-type':
       return applyChooseModes(context)
     case 'sacrifice-lands':
       return applySacrificeLands(context)
