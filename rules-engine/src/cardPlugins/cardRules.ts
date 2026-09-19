@@ -19,6 +19,7 @@ import {
   controlledCreaturePower,
   controlledLands,
   controllerLife,
+  convoke,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
   copySelf,
@@ -1046,6 +1047,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Overgrown Tomb': [tapUnlessPayLife(2)],
   'Pile On': [
+    convoke(),
     targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
   ],
   'Price of Fame': [

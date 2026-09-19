@@ -291,6 +291,7 @@ export type GameEvent =
       castOption?: string
       x?: number
       sacrifice?: string[]
+      convoke?: string[]
     }
   | {
       type: 'createToken'
