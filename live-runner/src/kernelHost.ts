@@ -55,6 +55,17 @@ import {
   pendingCumulativeUpkeep,
 } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
 import {
+  currentVoter,
+  pendingVote,
+  votingSeat,
+  voteCandidates,
+} from '../../rules-engine/src/cardPlugins/vote'
+import {
+  KEEP_STACK_TARGETS,
+  stackCopyPending,
+  stackCopyTargetCandidates,
+} from '../../rules-engine/src/cardPlugins/stackCopy'
+import {
   DIALOG_CHOSEN,
   dialogCandidates,
   pendingDialog,
@@ -452,6 +463,18 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     const pending = pendingCumulativeUpkeep(state, decision.seat)
     return !pending || pending.id !== decision.kernel.selectionId
   }
+  if (decision.kernel.stage === 'vote') {
+    const pending = pendingVote(state)
+    return !pending
+      || pending.sourceId !== decision.kernel.sourceId
+      || votingSeat(state, pending) !== decision.seat
+  }
+  if (decision.kernel.stage === 'stack-copy') {
+    const pending = stackCopyPending(state)
+    return !pending
+      || pending.sourceId !== decision.kernel.sourceId
+      || pending.stackId !== decision.kernel.stackId
+  }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
 }
@@ -544,6 +567,75 @@ const prepareCumulativeUpkeepChoice = (kernel: KernelHandle, lobby: LobbyState) 
   return true
 }
 
+const prepareVoteChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const pending = pendingVote(state)
+  const voter = pending ? currentVoter(pending) : undefined
+  const seat = pending ? votingSeat(state, pending) : undefined
+  if (!pending || !voter || !seat || !isSeatId(seat)) return false
+  const cards = voteCandidates(state, pending, voter).map((object) => object.name)
+  lobby.topdeck = {
+    seat,
+    kind: 'vote',
+    cards,
+    destinations: ['skip', 'target'],
+    requirements: { target: { min: 1, max: 1 } },
+    kernel: {
+      sourceId: pending.sourceId,
+      stage: 'vote',
+    },
+  }
+  lobby.actions = { [seat]: ['topdeck'] }
+  lobby.waiting = `${lobby.occupants[seat]?.name ?? seat} is voting.`
+  lobby.privateWaiting = { [seat]: pending.effect.prompt }
+  lobby.judge = `Waiting for ${pending.source}'s public vote.`
+  return true
+}
+
+const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const pending = stackCopyPending(state)
+  if (!pending || !isSeatId(pending.seat)) return false
+  const item = state.stack.find((candidate) => candidate.id === pending.stackId)
+  if (!item) return false
+  const candidates = stackCopyTargetCandidates(state, pending)
+  const playerCandidates = item.targets.length === 1 && item.targets[0]?.kind === 'player'
+    ? state.playerOrder.filter((seat) => !state.players[seat].lost)
+    : []
+  const cards = item.targets.length === 0
+    ? [`Copy ${item.name}`]
+    : [
+        ...(!pending.optional ? [KEEP_STACK_TARGETS] : []),
+        ...(playerCandidates.length > 0
+          ? playerCandidates
+          : candidates.map((object) => object.name)),
+      ]
+  lobby.topdeck = {
+    seat: pending.seat,
+    kind: 'stack-copy',
+    cards,
+    destinations: ['skip', 'target'],
+    requirements: {
+      target: {
+        ...(!pending.optional ? { min: 1 } : {}),
+        max: 1,
+      },
+    },
+    kernel: {
+      sourceId: pending.sourceId,
+      stage: 'stack-copy',
+      stackId: pending.stackId,
+    },
+  }
+  lobby.actions = { [pending.seat]: ['topdeck'] }
+  lobby.waiting = `${lobby.occupants[pending.seat]?.name ?? pending.seat} is deciding whether to copy an ability.`
+  lobby.privateWaiting = {
+    [pending.seat]: `Pay ${pending.cost} to copy ${item.name}? You may choose a new target.`,
+  }
+  lobby.judge = `Waiting for ${pending.source}'s copy choice.`
+  return true
+}
+
 const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
   const waiting = waitingDiscard(state)
@@ -630,6 +722,8 @@ export const prepareKernelPendingChoice = (
   if (prepareWaitingDiscardChoice(kernel, lobby)) return true
   if (prepareSelectCardsChoice(kernel, lobby)) return true
   if (prepareCumulativeUpkeepChoice(kernel, lobby)) return true
+  if (prepareVoteChoice(kernel, lobby)) return true
+  if (prepareStackCopyChoice(kernel, lobby)) return true
   return preparePendingDialog(kernel, lobby)
 }
 
@@ -772,6 +866,69 @@ export const applyKernelChoice = (
       judge: mana
         ? `${pending.source}: ${lobby.occupants[seat]?.name ?? seat} paid {${mana}}.`
         : `${pending.source}: ${lobby.occupants[seat]?.name ?? seat} declined extort.`,
+    })
+  }
+  if (decision.kernel.stage === 'vote') {
+    const pending = pendingVote(state)
+    const voter = pending ? currentVoter(pending) : undefined
+    if (!pending || !voter || votingSeat(state, pending) !== seat) {
+      throw new Error('That vote is no longer open.')
+    }
+    const selected = message.choices.filter(({ destination }) => destination === 'target')
+    if (selected.length !== 1) throw new Error('Choose exactly one permanent.')
+    const candidateIds = voteCandidates(state, pending, voter).map((object) => object.id)
+    const objectId = objectIdsForNames(state, candidateIds, [selected[0].card])[0]
+    const result = kernel.dispatch({
+      type: 'vote',
+      seat,
+      sourceId: pending.sourceId,
+      choice: { kind: 'object', objectId },
+    })
+    if (!result.ok) throw new Error(result.error)
+    lobby.topdeck = undefined
+    if (prepareKernelPendingChoice(kernel, lobby)) return true
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: `${lobby.occupants[seat]?.name ?? seat} voted for ${selected[0].card}.`,
+    })
+  }
+  if (decision.kernel.stage === 'stack-copy') {
+    const pending = stackCopyPending(state)
+    if (!pending || pending.seat !== seat) {
+      throw new Error('That stack-copy choice is no longer open.')
+    }
+    const selected = message.choices.filter(({ destination }) => destination === 'target')
+    if (selected.length > 1) throw new Error('Choose at most one target.')
+    const item = state.stack.find((candidate) => candidate.id === pending.stackId)
+    if (!item) throw new Error('The ability to copy is no longer on the stack.')
+    const keepTargets = selected[0]?.card === KEEP_STACK_TARGETS
+    const accept = selected.length === 1
+    const targets = item.targets.length === 0
+      ? undefined
+      : selected.length === 1 && !keepTargets
+        ? item.targets[0]?.kind === 'player'
+          ? [{ kind: 'player' as const, player: selected[0].card }]
+          : [{
+              kind: 'object' as const,
+              objectId: objectIdsForNames(
+                state,
+                stackCopyTargetCandidates(state, pending).map((object) => object.id),
+                [selected[0].card],
+              )[0],
+            }]
+        : undefined
+    const result = kernel.dispatch({
+      type: 'copyStackItem',
+      seat,
+      sourceId: pending.sourceId,
+      stackId: pending.stackId,
+      accept,
+      ...(targets ? { targets } : {}),
+    })
+    if (!result.ok) throw new Error(result.error)
+    return closeKernelChoice(kernel, lobby, seat, {
+      judge: accept
+        ? `${pending.source} copied ${item.name}.`
+        : `${pending.source} declined to copy ${item.name}.`,
     })
   }
   if (decision.kernel.stage === 'select-cards') {

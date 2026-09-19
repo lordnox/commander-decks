@@ -63,6 +63,8 @@ export type TopdeckDecision = {
       | 'select-cards'
       | 'select-players'
       | 'cumulative-upkeep'
+      | 'vote'
+      | 'stack-copy'
     stackId?: string
     selectionId?: string
     cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
