@@ -98,13 +98,13 @@ export const combat: Plugin = {
       return 'combat damage can only be assigned in a combat damage step'
     }
   },
-  apply: ({ event, draft }) => {
+  apply: ({ state, event, draft }) => {
     if (event.type === 'declareAttackers') {
       for (const declaration of event.attackers) {
         const attacker = draft.object(declaration.objectId)
         if (!attacker) continue
         attacker.attacking = targetRef(declaration.defender)
-        attacker.tapped = true
+        if (!hasKeyword(attacker, 'vigilance', state)) attacker.tapped = true
       }
       draft.passedInRow = []
       return
