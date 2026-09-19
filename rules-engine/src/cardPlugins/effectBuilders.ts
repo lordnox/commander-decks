@@ -269,6 +269,10 @@ export const copyAllCreaturesUntilEot = (notLegendary = true): CardInstruction =
   notLegendary,
 })
 
+export const chooseCreatureType = (
+  action: Extract<CardInstruction, { kind: 'chooseCreatureType' }>['action'],
+): CardInstruction => ({ kind: 'chooseCreatureType', action })
+
 export const tapUnlessPayLife = (life: number): CardEffect => ({
   op: 'replacement',
   on: 'enters',
