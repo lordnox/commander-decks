@@ -1559,11 +1559,23 @@ export const applyKernelAct = (
   const activationGroups = action.kind === 'activateAbility'
     ? action.targetGroups ?? []
     : []
-  const costChoiceCount = activationGroups
-    .filter(({ purpose }) => purpose === 'cost')
+  const costGroups = activationGroups.filter(({ purpose }) => purpose === 'cost')
+  const costChoiceCount = costGroups
     .reduce((total, group) => total + group.max, 0)
   const activationChoices = (message.targetObjectIds ?? []).slice(0, costChoiceCount)
   const activationTargets = (message.targetObjectIds ?? []).slice(costChoiceCount)
+  let costChoiceOffset = 0
+  for (const group of costGroups) {
+    const selected = activationChoices.slice(costChoiceOffset, costChoiceOffset + group.max)
+    if (
+      selected.length < group.min
+      || selected.some((objectId) =>
+        !group.targets.some((target) => target.objectId === objectId))
+    ) {
+      throw new Error(`Invalid selection for ${group.label}`)
+    }
+    costChoiceOffset += group.max
+  }
   const events = action.kind === 'activateAbility' && action.targetGroups
     ? [{
         type: 'activateAbility' as const,
