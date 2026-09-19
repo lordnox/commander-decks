@@ -1,0 +1,15 @@
+---
+description: KISS/DRY when writing or reviewing code; extract on the third repeat; delete unused code
+alwaysApply: true
+---
+
+# Simple, DRY code
+
+When writing or reviewing code, keep the existing structure and prefer the smallest change that fits it.
+
+- **KISS:** one job per helper. Do not add a new plugin, event type, picker, or abstraction until a named capability already in `plugins/`, `cardPlugins/`, or `rules/` cannot express it.
+- **DRY / rule of three:** if the same logic appears a third time, extract it into the existing layer that already owns that job. Two copies may stay if they are about to diverge.
+- Do not copy a second `selectPlayers`, pending-choice, live-host, or projection path. Extend the current typed choice/resume/restart stack instead.
+- Prefer generic capabilities over card-name dictionaries and over near-duplicate card handlers.
+- Delete unused code, dead branches, leftover `judgeFallback` paths, and superseded helpers in the same change. Do not leave a compatibility shim for something nothing calls.
+- Reviews must flag repetition, unused leftovers, and extra machinery. Do not suggest a new framework to paper over copies.
