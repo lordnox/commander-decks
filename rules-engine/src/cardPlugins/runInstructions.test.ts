@@ -3,7 +3,15 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
-import { draw, drawAtNextUpkeep, gainLife, onResolve } from './effects'
+import {
+  branch,
+  controllerLife,
+  discardCards,
+  draw,
+  drawAtNextUpkeep,
+  gainLife,
+  onResolve,
+} from './effects'
 import { choiceEffects } from './choiceEffects'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
@@ -44,6 +52,53 @@ describe('runInstructions', () => {
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.players.p1.life).toBe(commanderRules.startingLife + 3)
     expect(resolved.log).toContain(`p1 gains 3 life (${named(resolved, 'Life Test').id})`)
+  })
+
+  test('nested if dispatch shares the root buffer and preserves instruction order', () => {
+    const spell = cardTemplate('Nested Buffer Test', {
+      types: ['Sorcery'],
+      manaCost: '{0}',
+      manaValue: 0,
+      effects: [
+        onResolve(
+          branch(controllerLife(1), [draw(1)]),
+          gainLife(1),
+          discardCards(1),
+        ),
+      ],
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: { p1: [spell, cardTemplate('Before Draw')] },
+        libraries: {
+          p1: [cardTemplate('Nested Draw')],
+          p2: [cardTemplate('Opponent Card')],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+    )
+    const withMana = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
+      },
+    }
+    const cast = ok(server.rules(withMana, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(withMana, 'Nested Buffer Test').id,
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+
+    expect(named(resolved, 'Nested Draw').zone).toBe('hand')
+    expect(resolved.stack.at(-1)).toMatchObject({ actionId: 'discard' })
+    const gainIndex = resolved.log.findIndex((line) => line.includes('gains 1 life'))
+    const drawIndex = resolved.log.findIndex((line) => line === 'p1 draws a card')
+    expect(gainIndex).toBeGreaterThanOrEqual(0)
+    expect(drawIndex).toBeGreaterThan(gainIndex)
   })
 
   test('drawAtNextUpkeep draws on the next upkeep', () => {
