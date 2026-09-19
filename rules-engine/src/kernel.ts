@@ -221,6 +221,11 @@ const collectSba = (
 }
 
 const checkEnded = (draft: ReturnType<typeof makeDraft>) => {
+  if (draft.rules.some((rule) =>
+    rule.pluginId === 'advancedCombatPrevention'
+    && rule.params.mode === 'everybodyLives')) {
+    return
+  }
   const alive = Object.values(draft.players).filter((player) => !player.lost)
   if (alive.length <= 1) draft.ended = true
 }

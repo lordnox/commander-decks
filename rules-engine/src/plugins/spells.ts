@@ -143,6 +143,11 @@ export const spells: Plugin = {
       const paid = payCost(draft.players[event.seat].mana, cost)
       if (!paid) return
 
+      const manaSpent = Object.fromEntries(
+        MANA_ORDER
+          .map((symbol) => [symbol, draft.players[event.seat].mana[symbol] - paid[symbol]] as const)
+          .filter(([, amount]) => amount > 0),
+      )
       draft.players[event.seat].mana = paid
       draft.stack.unshift({
         id: draft.allocId('s'),
@@ -151,6 +156,7 @@ export const spells: Plugin = {
         controller: event.seat,
         name: object.name,
         targets: event.targets ?? [],
+        manaSpent,
         ...(event.kicked ? { kicked: true } : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(cannotBeCountered(object) ? { uncounterable: true } : {}),

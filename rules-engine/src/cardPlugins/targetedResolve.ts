@@ -6,6 +6,7 @@ import type {
   StackItem,
   TargetRef,
 } from '../types'
+import { hasKeyword } from '../keywords'
 import { effectsOf } from './cardRules'
 import { runInstructions, type TargetFilter } from './effects'
 
@@ -35,6 +36,7 @@ export const validTarget = (
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.noncreature && object.types.includes('Creature')) return false
   if (filter.nonblack && object.colors.includes('B')) return false
+  if (object.controller !== controller && hasKeyword(object, 'hexproof', state)) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false
@@ -128,6 +130,10 @@ export const targetedResolve: Plugin = {
           ...(stackItem.choices ? { choices: [...stackItem.choices] } : {}),
         })
       } else {
+        if (effect.action === 'destroy' && hasKeyword(object, 'indestructible', state)) {
+          draft.note(`${source.name} cannot destroy indestructible ${object.name}`)
+          continue
+        }
         if (effect.action === 'bounce' && object.zone === 'stack') {
           const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
           if (index >= 0) draft.stack.splice(index, 1)

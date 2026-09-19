@@ -60,8 +60,10 @@ export const projectForViewer = (
   const visibleLibraryCards = new Set<string>()
   if (viewer) {
     for (const selection of pendingSelectionsFor(authoritative, viewer)) {
-      if (selection.kind === 'scry' || selection.kind === 'surveil') {
-        for (const objectId of selection.candidates) visibleLibraryCards.add(objectId)
+      for (const objectId of selection.candidates) {
+        if (authoritative.objects[objectId]?.zone === 'library') {
+          visibleLibraryCards.add(objectId)
+        }
       }
     }
   }

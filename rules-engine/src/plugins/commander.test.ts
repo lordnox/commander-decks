@@ -2,10 +2,36 @@ import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
 import { bears, newGame } from '../testGame'
+import type { Plugin } from '../types'
 import { commander } from './commander'
 import { spells } from './spells'
 
 describe('commander', () => {
+  test('prevented combat damage is not commander damage', () => {
+    const preventDamage: Plugin = {
+      id: 'preventDamage',
+      replace: ({ event }) => event.type === 'dealDamage' ? null : undefined,
+    }
+    const catalog = createCatalog([commander, preventDamage])
+    const state = newGame({
+      battlefield: {
+        p1: [{ ...bears(), supertypes: ['Legendary'], tags: ['commander'] }],
+      },
+      builtinRules: ['commander', 'preventDamage'],
+    })
+    const source = Object.values(state.objects)[0]
+    const result = rules(state, {
+      type: 'dealDamage',
+      sourceId: source.id,
+      target: { kind: 'player', player: 'p2' },
+      amount: 7,
+      combat: true,
+    }, catalog)
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.players.p2.data.commanderDamage).toEqual({})
+  })
+
   test('21 damage from one commander causes a player to lose', () => {
     const catalog = createCatalog([commander])
     const state = newGame({ builtinRules: ['commander'] })

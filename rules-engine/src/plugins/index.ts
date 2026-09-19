@@ -1,5 +1,6 @@
 import { pendingDialogLock } from '../pendingDialog'
 import { abilities } from './activateAbility'
+import { advancedCombatPrevention } from './advancedCombatPrevention'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
@@ -30,6 +31,7 @@ import { turnStructure } from './turnStructure'
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
   turnStructure,
+  advancedCombatPrevention,
   priority,
   abilities,
   mana,
@@ -63,6 +65,7 @@ export const builtInPlugins = [
 ]
 
 export {
+  advancedCombatPrevention,
   abilities,
   combat,
   commander,

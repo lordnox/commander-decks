@@ -18,9 +18,18 @@ export const abilityTokens = (oracleText: string) =>
         .replace(/\.$/, ''))
 
 export const hasKeyword = (object: GameObject, keyword: string, state?: {
-  rules: Array<{ pluginId: string }>
+  rules: Array<{ pluginId: string; params: Record<string, unknown> }>
 }) => {
   if (abilityTokens(object.oracleText).includes(keyword)) return true
+  if (
+    object.types.includes('Creature')
+    && (keyword === 'hexproof' || keyword === 'indestructible')
+    && state?.rules.some((rule) =>
+      rule.pluginId === 'advancedCombatPrevention'
+      && rule.params.mode === 'everybodyLives')
+  ) {
+    return true
+  }
   return keyword === 'haste'
     && Boolean(state?.rules.some((rule) => rule.pluginId === 'sharedHaste'))
 }

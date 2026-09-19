@@ -1,5 +1,7 @@
 import type { GameEvent, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
+import { everybodyLives } from './advancedCombatPrevention'
+import { hasKeyword } from '../keywords'
 
 const moveToGraveyard = (objectId: string): GameEvent => ({
   type: 'move',
@@ -21,12 +23,14 @@ export const stateBased: Plugin = {
       ))
     if (entryChoicePending || copyChoiceOnStack) return []
 
-    for (const player of Object.values(draft.players)) {
-      if (!player.lost && player.life <= 0) return [{ type: 'concede', seat: player.id }]
-    }
+    if (!everybodyLives(draft)) {
+      for (const player of Object.values(draft.players)) {
+        if (!player.lost && player.life <= 0) return [{ type: 'concede', seat: player.id }]
+      }
 
-    for (const player of Object.values(draft.players)) {
-      if (!player.lost && player.poison >= 10) return [{ type: 'concede', seat: player.id }]
+      for (const player of Object.values(draft.players)) {
+        if (!player.lost && player.poison >= 10) return [{ type: 'concede', seat: player.id }]
+      }
     }
 
     for (const object of Object.values(draft.objects)) {
@@ -43,9 +47,16 @@ export const stateBased: Plugin = {
         && object.toughness !== null
         && (
           object.toughness <= 0
-          || object.damageMarked >= object.toughness
+          || (
+            object.damageMarked >= object.toughness
+            && !hasKeyword(object, 'indestructible', draft)
+          )
           // Any damage from a deathtouch source destroys it (CR 704.5h).
-          || (object.deathtouched === true && object.damageMarked > 0)
+          || (
+            object.deathtouched === true
+            && object.damageMarked > 0
+            && !hasKeyword(object, 'indestructible', draft)
+          )
         )
       ) {
         return [moveToGraveyard(object.id)]

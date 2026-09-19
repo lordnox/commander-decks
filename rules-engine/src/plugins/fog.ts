@@ -15,6 +15,20 @@ export const fog: Plugin = {
     if (typeof defender === 'string') {
       if (event.target.kind !== 'player' || event.target.player !== defender) return
     }
+    const creatures = Array.isArray(rule.params.creatureIds)
+      ? rule.params.creatureIds.filter((id): id is string => typeof id === 'string')
+      : []
+    if (
+      creatures.length > 0
+      && event.sourceId !== undefined
+      && !creatures.includes(event.sourceId)
+      && !(
+        event.target.kind === 'object'
+        && creatures.includes(event.target.objectId)
+      )
+    ) {
+      return
+    }
     return null
   },
 }

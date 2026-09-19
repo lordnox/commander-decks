@@ -1,5 +1,6 @@
 import { payCost } from './spells'
 import type { Plugin } from '../types'
+import { everybodyLives } from './advancedCombatPrevention'
 
 const taxedCost = (manaCost: string, tax: number) => `${manaCost}${tax > 0 ? `{${tax}}` : ''}`
 
@@ -50,7 +51,7 @@ export const commander: Plugin = {
       data.commanderTax = { ...tax, [object.id]: (tax[object.id] ?? 0) + 2 }
       return
     }
-    if (event.type === 'combatDamage') {
+    if (event.type === 'dealDamage' && event.combat === true) {
       if (event.target.kind !== 'player') return
       const source = draft.objects[event.sourceId]
       const player = draft.players[event.target.player]
@@ -63,6 +64,7 @@ export const commander: Plugin = {
     }
   },
   sba: ({ draft }) => {
+    if (everybodyLives(draft)) return []
     for (const player of Object.values(draft.players)) {
       if (player.lost) continue
       if (Object.values(commanderDamage(player.data)).some((amount) => amount >= 21)) {
