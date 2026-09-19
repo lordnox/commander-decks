@@ -239,6 +239,7 @@ export type CardEffect =
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
       modal?: ModalSpec
+      targets?: 'opponent'
     }
   | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
   | {
@@ -288,6 +289,13 @@ export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill',
 export const enters = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'enters',
+  do: instructions,
+})
+
+export const entersTargetingOpponent = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'enters',
+  targets: 'opponent',
   do: instructions,
 })
 

@@ -265,7 +265,7 @@ export const runInstructions = (
     }
     if (instruction.kind === 'exchangeLifeWithOpponent') {
       const target = item?.targets[0]
-      if (target?.kind === 'player') {
+      if (target?.kind === 'player' && !instruction.optional) {
         const lifeLost = Math.max(
           0,
           draft.players[source.controller].life - draft.players[target.player].life,
@@ -281,9 +281,11 @@ export const runInstructions = (
         }
         continue
       }
-      const candidates = draft.playerOrder.filter(
-        (seat) => seat !== source.controller && !draft.players[seat].lost,
-      )
+      const candidates = target?.kind === 'player'
+        ? [target.player]
+        : draft.playerOrder.filter(
+          (seat) => seat !== source.controller && !draft.players[seat].lost,
+        )
       openPlayerSelection(draft, {
         seat: source.controller,
         sourceId: source.id,

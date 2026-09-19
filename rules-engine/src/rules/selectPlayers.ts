@@ -1,4 +1,5 @@
 import type Draft from '../draft'
+import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
@@ -14,6 +15,12 @@ export type PendingPlayerSelection = {
   candidates: PlayerId[]
   action:
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
+    | {
+        kind: 'putTriggeredAbility'
+        instructions: CardInstruction[]
+        triggeringPlayer: PlayerId
+        interveningIf?: CardCondition
+      }
 }
 
 const isSelection = (value: unknown): value is PendingPlayerSelection =>
@@ -104,6 +111,24 @@ export const selectPlayers: Plugin = {
         draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })
       }
     }
-    draft.priority = draft.active
+    if (selection.action.kind === 'putTriggeredAbility' && target) {
+      const source = draft.object(selection.sourceId)
+      if (source) {
+        draft.addTriggeredAbility(source, selection.action.instructions, {
+          targets: [{ kind: 'player', player: target }],
+          payload: {
+            instructions: selection.action.instructions,
+            triggeringPlayer: selection.action.triggeringPlayer,
+            ...(selection.action.interveningIf
+              ? { interveningIf: selection.action.interveningIf }
+              : {}),
+          },
+        })
+      }
+    }
+    const next = draft.playerOrder
+      .map((seat) => pendingPlayerSelectionFor(draft, seat))
+      .find(Boolean)
+    draft.priority = next?.seat ?? draft.active
   },
 }
