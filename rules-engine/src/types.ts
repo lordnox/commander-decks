@@ -331,7 +331,19 @@ export type GameEvent =
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
   // — CR keyword actions —
-  | { type: 'draw'; seat: PlayerId; count?: number; replacedBy?: string[] }
+  | {
+      type: 'draw'
+      seat: PlayerId
+      count?: number
+      replacedBy?: string[]
+      remainingAfter?: number
+    }
+  | {
+      type: 'beginDredgeChoice'
+      seat: PlayerId
+      replacedBy: string[]
+      remainingAfter?: number
+    }
   | { type: 'discard'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }

@@ -231,6 +231,7 @@ export type SearchSpec = {
 }
 
 export type CardEffect =
+  | { op: 'dredge'; count: number }
   | {
       op: 'replacement'
       on: 'enters'

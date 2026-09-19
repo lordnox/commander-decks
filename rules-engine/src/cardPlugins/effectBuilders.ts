@@ -14,6 +14,8 @@ import { basicLand } from './effectRuntime'
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
 
+export const dredge = (count: number): CardEffect => ({ op: 'dredge', count })
+
 export const enters = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'enters',
