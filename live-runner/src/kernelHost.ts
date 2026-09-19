@@ -605,7 +605,7 @@ const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const cards = item.targets.length === 0
     ? [`Copy ${item.name}`]
     : [
-        ...(!pending.optional ? [KEEP_STACK_TARGETS] : []),
+        KEEP_STACK_TARGETS,
         ...(playerCandidates.length > 0
           ? playerCandidates
           : candidates.map((object) => object.name)),
