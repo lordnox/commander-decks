@@ -1,5 +1,5 @@
 import { pendingDialogLock } from './pendingDialog'
-import { untilEot } from './cardPlugins/untilEot'
+import { continuousEffects } from './cardPlugins/continuousEffects'
 import { abilities } from './plugins/activateAbility'
 import { advancedCombatPrevention } from './plugins/advancedCombatPrevention'
 import { combat } from './plugins/combat'
@@ -22,7 +22,6 @@ import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { spells } from './plugins/spells'
 import { stateBased } from './plugins/stateBased'
-import { temporaryStats } from './plugins/temporaryStats'
 import { turnStructure } from './plugins/turnStructure'
 import { gameRules } from './rules/main'
 import type { PlayerId, Plugin, ZoneId } from './types'
@@ -52,7 +51,7 @@ export type GameFormat = {
 export const corePlugins = [
   turnStructure,
   advancedCombatPrevention,
-  untilEot,
+  continuousEffects,
   priority,
   abilities,
   mana,
@@ -63,7 +62,6 @@ export const corePlugins = [
   life,
   damage,
   doubleFaced,
-  temporaryStats,
   ...gameRules,
   judgeFallback,
   unconfiguredHiddenInformation,

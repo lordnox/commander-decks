@@ -1,6 +1,11 @@
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
-import { changeStatsUntilCleanup, copyUntilCleanup } from '../../plugins/temporaryStats'
-import { applyOracleLineUntilEot } from '../untilEot'
+import {
+  changeController,
+  changeStatsUntilEndOfTurn,
+  copyUntilEndOfTurn,
+  grantOracleLineUntilEndOfTurn,
+  untilEndOfTurn,
+} from '../continuousEffects'
 import {
   copyStackSpell,
   copyTokenTemplate,
@@ -24,13 +29,13 @@ const dealDamageTargetX: InstructionHandler<'dealDamageTargetX'> = (
 }
 
 const pumpAllCreaturesByX: InstructionHandler<'pumpAllCreaturesByX'> = (
-  { draft, source, item },
+  { draft, item },
   instruction,
 ) => {
   const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
   for (const object of Object.values(draft.objects)) {
     if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
-    changeStatsUntilCleanup(draft, source.controller, object, amount, amount)
+    changeStatsUntilEndOfTurn(object, amount, amount)
   }
 }
 
@@ -114,23 +119,14 @@ const exchangeControlUntilEot: InstructionHandler<'exchangeControlUntilEot'> = (
   if (opponent?.kind !== 'player') return
   const you = source.controller
   const them = opponent.player
-  const swaps: Array<{ objectId: string; previous: string; oracleText: string }> = []
   for (const object of Object.values(draft.objects)) {
     if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
     if (object.controller !== you && object.controller !== them) continue
-    swaps.push({
-      objectId: object.id,
-      previous: object.controller,
-      oracleText: object.oracleText,
-    })
-    object.controller = object.controller === you ? them : you
+    const controller = object.controller === you ? them : you
+    untilEndOfTurn(object, changeController(object, controller))
     object.tapped = false
-    applyOracleLineUntilEot(object, 'Haste')
+    grantOracleLineUntilEndOfTurn(object, 'Haste')
   }
-  const current = draft.players[you].data['reinsOfPower.swaps']
-  const previous: Array<{ objectId: string; previous: string; oracleText?: string }> =
-    Array.isArray(current) ? current : []
-  draft.players[you].data['reinsOfPower.swaps'] = [...previous, ...swaps]
   draft.note(`${you} exchanges creature control with ${them}`)
 }
 
@@ -235,7 +231,7 @@ const preventCombatDamage: InstructionHandler<'preventCombatDamage'> = (
 }
 
 const copyAllCreaturesUntilEot: InstructionHandler<'copyAllCreaturesUntilEot'> = (
-  { draft, source, item },
+  { draft, item },
   instruction,
 ) => {
   const target = item?.targets[0]
@@ -244,7 +240,7 @@ const copyAllCreaturesUntilEot: InstructionHandler<'copyAllCreaturesUntilEot'> =
   for (const object of Object.values(draft.objects)) {
     if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
     if (object.id === copied.id) continue
-    copyUntilCleanup(draft, source.controller, object, copied, {
+    copyUntilEndOfTurn(object, copied, {
       notLegendary: instruction.notLegendary,
     })
   }

@@ -1,10 +1,12 @@
 import { swampCount } from '../../plugins/swampOverlay'
-import { changeStatsUntilCleanup } from '../../plugins/temporaryStats'
 import { lifeLostThisTurn } from '../../plugins/life'
 import { initiateDiscard } from '../../rules/discard'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
-import { applyOracleLineUntilEot } from '../untilEot'
+import {
+  changeStatsUntilEndOfTurn,
+  grantOracleLineUntilEndOfTurn,
+} from '../continuousEffects'
 import { addPlusCounters as applyPlusCounters, manaValueOf } from '../effects'
 import { discardSeatFor, instructionAmount } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
@@ -224,29 +226,17 @@ const loseLifeTargetManaValue: InstructionHandler<'loseLifeTargetManaValue'> = (
   }
 }
 
-const pump: InstructionHandler<'pump'> = ({ draft, source, item }, instruction) => {
+const pump: InstructionHandler<'pump'> = ({ draft, item }, instruction) => {
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   if (!object || object.power === null || object.toughness === null) return
-  changeStatsUntilCleanup(
-    draft,
-    source.controller,
-    object,
-    instruction.power,
-    instruction.toughness,
-  )
+  changeStatsUntilEndOfTurn(object, instruction.power, instruction.toughness)
 }
 
 const pumpSelf: InstructionHandler<'pumpSelf'> = ({ draft, source }, instruction) => {
   const object = draft.object(source.id)
   if (!object || object.power === null || object.toughness === null) return
-  changeStatsUntilCleanup(
-    draft,
-    source.controller,
-    object,
-    instruction.power,
-    instruction.toughness,
-  )
+  changeStatsUntilEndOfTurn(object, instruction.power, instruction.toughness)
 }
 
 const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
@@ -256,7 +246,9 @@ const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   if (!object) return
-  for (const keyword of instruction.keywords) applyOracleLineUntilEot(object, keyword)
+  for (const keyword of instruction.keywords) {
+    grantOracleLineUntilEndOfTurn(object, keyword)
+  }
 }
 
 const untapTarget: InstructionHandler<'untapTarget'> = ({ draft, item }) => {
@@ -374,14 +366,8 @@ const pumpControlled: InstructionHandler<'pumpControlled'> = (
     if (!object.types.includes('Creature')) continue
     if (instruction.other && object.id === source.id) continue
     if (instruction.nonHuman && object.subtypes.includes('Human')) continue
-    changeStatsUntilCleanup(
-      draft,
-      source.controller,
-      object,
-      bonus,
-      toughnessBonus,
-    )
-    if (instruction.trample) applyOracleLineUntilEot(object, 'Trample')
+    changeStatsUntilEndOfTurn(object, bonus, toughnessBonus)
+    if (instruction.trample) grantOracleLineUntilEndOfTurn(object, 'Trample')
   }
 }
 
@@ -394,7 +380,9 @@ const grantControlled: InstructionHandler<'grantControlled'> = (
     if (!object.types.includes('Creature')) continue
     if (instruction.other && object.id === source.id) continue
     if (instruction.nonHuman && object.subtypes.includes('Human')) continue
-    for (const keyword of instruction.keywords) applyOracleLineUntilEot(object, keyword)
+    for (const keyword of instruction.keywords) {
+      grantOracleLineUntilEndOfTurn(object, keyword)
+    }
   }
 }
 
