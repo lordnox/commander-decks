@@ -432,6 +432,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'bestow') ids.add('bestow')
     if (effect.op === 'castCost') ids.add('castCosts')
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
+    if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
     if (effect.op === 'handler') ids.add(effect.pluginId)
     if (effect.op === 'vote') ids.add('vote')
     if (effect.op === 'targetingRequirement') ids.add('targetingRequirements')

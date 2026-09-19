@@ -2,6 +2,7 @@ import type { Plugin } from '../types'
 import { DIALOG_CHOSEN, pendingDialogFor, setPendingDialog } from '../pendingDialog'
 import { applyCopy, millLibrary } from './effects'
 import { effectsOf } from './cardRules'
+import { finishedSpellZone } from './alternateCosts'
 
 export const choiceEffects: Plugin = {
   id: 'choiceEffects',
@@ -80,8 +81,12 @@ export const choiceEffects: Plugin = {
           return
         }
         if (index >= 0) {
-          draft.stack.splice(index, 1)
-          draft.enqueue({ type: 'move', objectId: target.id, to: 'graveyard' })
+          const [countered] = draft.stack.splice(index, 1)
+          draft.enqueue({
+            type: 'move',
+            objectId: target.id,
+            to: finishedSpellZone(countered, 'graveyard'),
+          })
           draft.note(`${dialog.source} counters ${target.name}${typeof amount === 'number' ? ` unless {${amount}}` : ''}`)
         }
       }

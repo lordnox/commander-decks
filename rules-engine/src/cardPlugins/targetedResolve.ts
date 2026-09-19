@@ -10,6 +10,7 @@ import { hasKeyword } from '../keywords'
 import { effectsOf } from './cardRules'
 import { runInstructions, type TargetFilter } from './effects'
 import { openStackCopyChoice } from './stackCopy'
+import { finishedSpellZone } from './alternateCosts'
 
 const controlledPermanentTarget = (
   state: GameState,
@@ -130,8 +131,12 @@ export const targetedResolve: Plugin = {
         }
         const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
         if (index < 0) continue
-        draft.stack.splice(index, 1)
-        draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+        const [countered] = draft.stack.splice(index, 1)
+        draft.enqueue({
+          type: 'move',
+          objectId: object.id,
+          to: finishedSpellZone(countered, 'graveyard'),
+        })
       } else if (effect.action === 'copy') {
         const stackItem = state.stack.find((candidate) => candidate.objectId === object.id)
         if (!stackItem || object.zone !== 'stack') continue
@@ -148,17 +153,22 @@ export const targetedResolve: Plugin = {
           draft.note(`${source.name} cannot destroy indestructible ${object.name}`)
           continue
         }
+        let removedFromStack: StackItem | undefined
         if (effect.action === 'bounce' && object.zone === 'stack') {
           const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
-          if (index >= 0) draft.stack.splice(index, 1)
+          if (index >= 0) {
+            const [removed] = draft.stack.splice(index, 1)
+            removedFromStack = removed
+          }
         }
-        const destination = effect.action === 'exile'
+        const normalDestination = effect.action === 'exile'
           ? 'exile'
           : effect.action === 'bounce'
             ? 'hand'
             : effect.action === 'reanimate'
               ? 'battlefield'
               : 'graveyard'
+        const destination = finishedSpellZone(removedFromStack, normalDestination)
         draft.enqueue({
           type: 'move',
           objectId: object.id,

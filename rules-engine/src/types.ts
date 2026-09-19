@@ -173,6 +173,7 @@ export type StackItem = {
   manaSpent?: Partial<ManaPool>
   kicked?: boolean
   castOption?: string
+  exileAfterUse?: boolean
   uncounterable?: boolean
   sacrificed?: number
   castFrom?: ZoneId
@@ -298,6 +299,7 @@ export type GameEvent =
       x?: number
       sacrifice?: string[]
       convoke?: string[]
+      discard?: string[]
     }
   | {
       type: 'createToken'
