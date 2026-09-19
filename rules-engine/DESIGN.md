@@ -142,7 +142,7 @@ combat damage whose target is a player.
 
 ## Stack, actions, events, and triggers
 
-Vocabulary (see also `STACK-AND-TRIGGERS-PLAN.md`):
+Vocabulary:
 
 | Term | Meaning |
 |------|---------|
@@ -162,9 +162,14 @@ for stack continuations. `StackItem.id` is allocated once via
 `draft.allocId('stack')` and stays stable through waiting round-trips and replay.
 
 Declarative card triggers use `TriggerBinding` (`on`, `if`, `do`). v1 orders
-multiple triggers from one player by timestamp / card-rules order; later phases
+multiple triggers from one player by timestamp / card-rules order; later work
 may add player-chosen ordering (`orderTriggers` / `continueAction`) without
 changing the binding shape.
+
+Still deferred: typed `continueAction` for remaining `selectCards` dialogs
+(scry, surveil, sacrifice, reveal-pick, put-from-hand); `knownTo` hands;
+Courser of Kruphix reveal-before-draw; fetchlands and secret council still on
+`custom` / `pendingDialog` rather than `searchLibrary` / `vote` stack actions.
 
 ## Plugin
 
