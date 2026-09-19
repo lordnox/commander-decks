@@ -1,5 +1,22 @@
 import { hasKeyword } from '../keywords'
-import type { Plugin } from '../types'
+import type Draft from '../draft'
+import type { GameObject, Plugin } from '../types'
+
+const dealToObject = (
+  draft: Draft,
+  source: GameObject | undefined,
+  object: GameObject,
+  amount: number,
+) => {
+  if (object.types.includes('Planeswalker')) {
+    object.counters.loyalty = Math.max(0, (object.counters.loyalty ?? 0) - amount)
+    return
+  }
+  object.damageMarked += amount
+  if (amount > 0 && source && hasKeyword(source, 'deathtouch')) {
+    object.deathtouched = true
+  }
+}
 
 /**
  * CR-shaped damage chain:
@@ -61,6 +78,33 @@ export const damage: Plugin = {
           source: event.sourceId,
         })
       }
+      return
+    }
+
+    if (event.type === 'fight') {
+      const left = draft.object(event.leftId)
+      const right = draft.object(event.rightId)
+      if (
+        !left
+        || !right
+        || left.zone !== 'battlefield'
+        || right.zone !== 'battlefield'
+        || !left.types.includes('Creature')
+        || !right.types.includes('Creature')
+      ) return
+      const leftPower = Math.max(0, left.power ?? 0)
+      const rightPower = Math.max(0, right.power ?? 0)
+      dealToObject(draft, right, left, rightPower)
+      dealToObject(draft, left, right, leftPower)
+      draft.note(`${left.name} fights ${right.name}`)
+      return
+    }
+
+    if (event.type === 'sacrifice') {
+      const object = draft.object(event.objectId)
+      if (!object || object.zone !== 'battlefield') return
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+      draft.note(`${object.controller} sacrifices ${object.name}`)
       return
     }
   },

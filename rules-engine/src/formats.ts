@@ -1,4 +1,5 @@
 import { pendingDialogLock } from './pendingDialog'
+import { untilEot } from './cardPlugins/untilEot'
 import { abilities } from './plugins/activateAbility'
 import { advancedCombatPrevention } from './plugins/advancedCombatPrevention'
 import { combat } from './plugins/combat'
@@ -51,6 +52,7 @@ export type GameFormat = {
 export const corePlugins = [
   turnStructure,
   advancedCombatPrevention,
+  untilEot,
   priority,
   abilities,
   mana,

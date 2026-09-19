@@ -1,4 +1,5 @@
 import { pendingDialogLock } from '../pendingDialog'
+import { untilEot } from '../cardPlugins/untilEot'
 import { abilities } from './activateAbility'
 import { advancedCombatPrevention } from './advancedCombatPrevention'
 import { combat } from './combat'
@@ -32,6 +33,7 @@ import { turnStructure } from './turnStructure'
 export const builtInPlugins = [
   turnStructure,
   advancedCombatPrevention,
+  untilEot,
   priority,
   abilities,
   mana,
@@ -89,4 +91,5 @@ export {
   stateBased,
   temporaryStats,
   turnStructure,
+  untilEot,
 }
