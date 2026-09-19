@@ -161,6 +161,7 @@ describe('continuous effect durations', () => {
   test('an earlier duration ending does not overwrite a later control effect', () => {
     const catalog = createCatalog([turnStructure, continuousEffects])
     const state = newGame({
+      players: ['p1', 'p2', 'p3'],
       battlefield: {
         p1: [cardTemplate('Old Man', { types: ['Creature'], power: 2, toughness: 3 })],
         p2: [bears()],
@@ -176,12 +177,12 @@ describe('continuous effect durations', () => {
       changeController(target, 'p1'),
       source.id,
     )
-    untilEndOfTurn(target, changeController(target, 'p1'))
+    untilEndOfTurn(target, changeController(target, 'p3'))
 
     let result = rules(state, { type: 'untap', objectId: source.id }, catalog)
     expect(result.ok).toBe(true)
     if (!result.ok) return
-    expect(result.state.objects[target.id].controller).toBe('p1')
+    expect(result.state.objects[target.id].controller).toBe('p3')
 
     result = rules(
       { ...result.state, step: 'end' },
