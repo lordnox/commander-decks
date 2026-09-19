@@ -1,4 +1,5 @@
 import type Draft from '../draft'
+import { isPermanentType } from '../definitions'
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../pendingDialog'
 import { RANDOM_CHOICE } from '../plugins/hiddenInformation'
 import { swampCount } from '../plugins/swampOverlay'
@@ -13,7 +14,6 @@ import {
   conditionHolds,
   copyTokenTemplate,
   createToken,
-  graveyardPermanentIds,
   millLibrary,
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
@@ -50,7 +50,8 @@ const flushStackActions = (
   buffer: BufferedStackAction[],
   item?: StackItem,
 ) => {
-  for (const action of buffer.toReversed()) {
+  for (let index = buffer.length - 1; index >= 0; index -= 1) {
+    const action = buffer[index]
     if (action.kind === 'draw') {
       draft.enqueue({
         type: 'draw',
@@ -850,7 +851,12 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'randomExileCopyWhile') {
-      const choices = graveyardPermanentIds(draft, source.controller)
+      const choices = Object.values(draft.objects)
+        .filter((object) =>
+          object.owner === source.controller
+          && object.zone === 'graveyard'
+          && isPermanentType(object.types))
+        .map((object) => object.id)
       if (choices.length === 0) {
         draft.note(`${source.name} finds no matching card in ${source.controller}'s graveyard`)
         continue

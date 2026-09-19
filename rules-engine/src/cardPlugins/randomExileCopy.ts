@@ -5,7 +5,6 @@ import { PERMANENT_ENTERED } from './entersTapped'
 import {
   copyTokenTemplate,
   createToken,
-  graveyardPermanentIds,
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   RANDOM_EXILE_COPY_FINISH,
 } from './effects'
@@ -59,7 +58,13 @@ export const randomExileCopy: Plugin = {
       draft.enqueue({ type: 'move', objectId: card.id, to: 'exile' })
 
       if (card.types.includes(repeatWhileType)) {
-        const choices = graveyardPermanentIds(draft, event.seat, copies)
+        const choices = Object.values(draft.objects)
+          .filter((candidate) =>
+            candidate.owner === event.seat
+            && candidate.zone === 'graveyard'
+            && isPermanentType(candidate.types)
+            && !copies.includes(candidate.id))
+          .map((candidate) => candidate.id)
         if (choices.length > 0) {
           draft.enqueue({
             type: 'custom',

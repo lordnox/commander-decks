@@ -1003,19 +1003,6 @@ export const copyTokenTemplate = (
   effects: card.effects ? [...card.effects] : [],
 })
 
-export const graveyardPermanentIds = (
-  draft: Draft,
-  seat: PlayerId,
-  exclude: string[] = [],
-) =>
-  Object.values(draft.objects)
-    .filter((object) =>
-      object.owner === seat
-      && object.zone === 'graveyard'
-      && isPermanentType(object.types)
-      && !exclude.includes(object.id))
-    .map((object) => object.id)
-
 export const addPlusCounters = (object: GameObject, amount: number) => {
   if (amount === 0) return
   object.counters['+1/+1'] = (object.counters['+1/+1'] ?? 0) + amount
