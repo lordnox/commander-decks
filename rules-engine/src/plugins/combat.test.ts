@@ -60,6 +60,26 @@ test('haste permits a summoning-sick creature to attack without removing sicknes
   })
 })
 
+test('vigilance keeps an attacker untapped', () => {
+  const catalog = createCatalog([combat])
+  const state = newGame({
+    battlefield: { p1: [{ ...bears(), oracleText: 'Vigilance' }] },
+    builtinRules: ['combat'],
+  })
+  const attacker = Object.values(state.objects)[0]
+  state.step = 'declareAttackers'
+
+  const declared = rules(state, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: attacker.id, defender: 'p2' }],
+  }, catalog)
+
+  expect(declared.ok).toBe(true)
+  if (!declared.ok) return
+  expect(declared.state.objects[attacker.id].tapped).toBe(false)
+})
+
 test('entering the combat damage step assigns damage without being asked', () => {
   const catalog = createCatalog([combat, damage, turnStructure])
   const state = newGame({
