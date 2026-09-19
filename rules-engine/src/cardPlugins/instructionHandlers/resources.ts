@@ -4,6 +4,7 @@ import { initiateDiscard } from '../../rules/discard'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
+  animateUntilEndOfTurn,
   changeStatsUntilEndOfTurn,
   grantOracleLineUntilEndOfTurn,
 } from '../continuousEffects'
@@ -263,6 +264,15 @@ const pumpSelf: InstructionHandler<'pumpSelf'> = ({ draft, source }, instruction
   changeStatsUntilEndOfTurn(object, instruction.power, instruction.toughness)
 }
 
+const animateUntilEot: InstructionHandler<'animateUntilEot'> = (
+  { draft, source },
+  instruction,
+) => {
+  const object = draft.object(source.id)
+  if (!object || object.zone !== 'battlefield') return
+  animateUntilEndOfTurn(object, instruction.power, instruction.toughness)
+}
+
 const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
   { draft, item },
   instruction,
@@ -433,6 +443,7 @@ export const resourceHandlers = {
   pump,
   pumpTargetX,
   pumpSelf,
+  animateUntilEot,
   grantUntilEot,
   untapTarget,
   addManaPerSwamp,

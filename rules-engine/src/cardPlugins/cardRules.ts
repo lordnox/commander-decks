@@ -3,6 +3,7 @@ import {
   alternateCast,
   activate,
   allCreatureTypes,
+  animateUntilEot,
   addPlusCountersInstruction,
   attackTax,
   attacks,
@@ -981,6 +982,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Firdoch Core': [
     allCreatureTypes(),
+    activate({
+      id: 'animate.firdochCore',
+      costs: { mana: '{4}' },
+      do: [animateUntilEot(4, 4)],
+    }),
   ],
   "Fortune's Favor": [onResolve(revealPick(4))],
   'Growth Spiral': [onResolve(draw(1), putLandFromHand())],

@@ -71,6 +71,11 @@ export type CopySnapshot = {
 
 export type ReversibleEffect =
   | { kind: 'pump'; power: number; toughness: number }
+  | {
+      kind: 'animation'
+      before: { types: string[]; power: number | null; toughness: number | null }
+      after: { types: string[]; power: number; toughness: number }
+    }
   | { kind: 'oracleLine'; line: string }
   | { kind: 'copy'; before: CopySnapshot; after: CopySnapshot }
   | { kind: 'controller'; controller: PlayerId; base: PlayerId }
