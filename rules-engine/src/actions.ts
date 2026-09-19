@@ -1,7 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
-import { convokeColors, hasConvoke, payCost } from './plugins/spells'
+import { convokeColors, hasConvoke, payCost, phyrexianSymbols } from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
   discardCostCandidates,
@@ -75,6 +75,7 @@ export type AvailableAction =
       castOption?: string
       castLabel?: string
       convoke?: string[]
+      phyrexianLife?: number[]
       targetGroups?: ActionTargetGroup[]
     }
   | {
@@ -294,7 +295,12 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
 const poolKey = (pool: ManaPool, cap: number) =>
   MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
 
-const canFund = (state: GameState, seat: PlayerId, cost: string) => {
+const canFund = (
+  state: GameState,
+  seat: PlayerId,
+  cost: string,
+  extras: number[] | { creatures?: ManaId[][]; phyrexianLife?: number[] } = {},
+) => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state))
     .map((object) => manaModes(object, state))
@@ -303,7 +309,7 @@ const canFund = (state: GameState, seat: PlayerId, cost: string) => {
     1,
     [...cost.matchAll(/\{(\d+)\}/g)].reduce(
       (total, match) => total + Number(match[1]),
-      [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGC])?\}/g)].length,
+      [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGCP])?\}/g)].length,
     ),
   )
   let pools = [state.players[seat]?.mana ?? emptyMana()]
@@ -317,7 +323,7 @@ const canFund = (state: GameState, seat: PlayerId, cost: string) => {
     }
     pools = [...next.values()]
   }
-  return pools.some((pool) => payCost(pool, cost))
+  return pools.some((pool) => payCost(pool, cost, extras))
 }
 
 const taxFor = (state: GameState, seat: PlayerId, object: GameObject) => {
@@ -371,6 +377,61 @@ const costForX = (object: GameObject, x: number) => {
   return object.manaCost.replaceAll('{X}', xCost)
 }
 
+const phyrexianPayments = (cost: string, life: number) => {
+  const symbols = phyrexianSymbols(cost)
+  const payments = Array.from(
+    { length: 2 ** symbols.length },
+    (_, mask) => Array.from(
+      { length: symbols.length },
+      (__, index) => index,
+    ).filter((index) => mask & (1 << index)),
+  ).filter((symbols) => symbols.length * 2 <= life)
+  const unique = new Map<string, number[]>()
+  for (const payment of payments) {
+    const key = payment.map((index) => symbols[index]).sort().join(',')
+    if (!unique.has(key)) unique.set(key, payment)
+  }
+  return [...unique.values()]
+}
+
+const phyrexianCastLabel = (cost: string, payment: number[]) => {
+  if (payment.length === 0) return 'Pay mana'
+  const symbols = phyrexianSymbols(cost)
+  return `Pay ${payment.length * 2} life for ${
+    payment.map((index) => `{${symbols[index]}}`).join(' ')
+  }`
+}
+
+const convokeIfNeeded = (
+  state: GameState,
+  seat: PlayerId,
+  object: GameObject,
+  cost: string,
+  phyrexianLife: number[] = [],
+) => {
+  if (canFund(state, seat, cost, phyrexianLife)) return undefined
+  if (!hasConvoke(object)) return null
+  return convokeFundingPlan(state, seat, cost, phyrexianLife)?.convoke ?? null
+}
+
+/**
+ * One cast can need both a Phyrexian life payment and convoked creatures, so
+ * each payment combination carries the convoke plan that funds it.
+ */
+const fundedCasts = (
+  state: GameState,
+  seat: PlayerId,
+  object: GameObject,
+  cost: string,
+) => {
+  const payments = phyrexianPayments(cost, state.players[seat].life)
+  return payments.flatMap((phyrexianLife) => {
+    const convoke = convokeIfNeeded(state, seat, object, cost, phyrexianLife)
+    if (convoke === null) return []
+    return [{ phyrexianLife, convoke, labeled: payments.length > 1 }]
+  })
+}
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
@@ -380,34 +441,33 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const face = castFaceOf(object)
     const cost = `${face?.manaCost ?? object.manaCost}${suffix}`
-    const convoke = hasConvoke(object) && !canFund(state, seat, cost)
-      ? convokeFundingPlan(state, seat, cost)?.convoke
-      : undefined
-    const actions: AvailableAction[] = canFund(state, seat, cost) || convoke
-      ? [{
-          kind: 'castSpell',
-          objectId: object.id,
-          name: object.name,
-          ...(convoke ? { convoke } : {}),
-        }]
-      : []
+    const actions: AvailableAction[] = fundedCasts(state, seat, object, cost).map((funded) => ({
+      kind: 'castSpell' as const,
+      objectId: object.id,
+      name: object.name,
+      ...(funded.labeled
+        ? {
+            phyrexianLife: funded.phyrexianLife,
+            castLabel: phyrexianCastLabel(cost, funded.phyrexianLife),
+          }
+        : {}),
+      ...(funded.convoke ? { convoke: funded.convoke } : {}),
+    }))
     for (const alternative of alternatives) {
       const alternativeCost = `${alternative.manaCost}${suffix}`
-      const alternativeConvoke =
-        hasConvoke(object) && !canFund(state, seat, alternativeCost)
-          ? convokeFundingPlan(state, seat, alternativeCost)?.convoke
-          : undefined
-      if (
-        canChooseAlternateCast(state, seat, alternative)
-        && (canFund(state, seat, alternativeCost) || alternativeConvoke)
-      ) {
+      if (!canChooseAlternateCast(state, seat, alternative)) continue
+      for (const funded of fundedCasts(state, seat, object, alternativeCost)) {
+        const paymentLabel = phyrexianSymbols(alternativeCost).length > 0
+          ? ` — ${phyrexianCastLabel(alternativeCost, funded.phyrexianLife)}`
+          : ''
         actions.push({
           kind: 'castSpell',
           objectId: object.id,
           name: object.name,
           castOption: alternative.id,
-          castLabel: alternative.label,
-          ...(alternativeConvoke ? { convoke: alternativeConvoke } : {}),
+          castLabel: `${alternative.label}${paymentLabel}`,
+          ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
+          ...(funded.convoke ? { convoke: funded.convoke } : {}),
         })
       }
     }
@@ -435,18 +495,19 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   return Array.from({ length: upper + 1 }, (_, x) => x)
     .flatMap((x): AvailableAction[] => {
       const cost = `${costForX(object, x)}${suffix}`
-      const convoke = hasConvoke(object) && !canFund(state, seat, cost)
-        ? convokeFundingPlan(state, seat, cost)?.convoke
-        : undefined
-      return canFund(state, seat, cost) || convoke
-        ? [{
-            kind: 'castSpell',
-            objectId: object.id,
-            name: object.name,
-            x,
-            ...(convoke ? { convoke } : {}),
-          }]
-        : []
+      return fundedCasts(state, seat, object, cost).map((funded) => ({
+        kind: 'castSpell' as const,
+        objectId: object.id,
+        name: object.name,
+        x,
+        ...(funded.labeled
+          ? {
+              phyrexianLife: funded.phyrexianLife,
+              castLabel: phyrexianCastLabel(cost, funded.phyrexianLife),
+            }
+          : {}),
+        ...(funded.convoke ? { convoke: funded.convoke } : {}),
+      }))
     })
 }
 
@@ -1052,6 +1113,7 @@ export const sameLegalAct = (
     targetPlayerId?: string
     x?: number
     castOption?: string
+    phyrexianLife?: number[]
     stackId?: string
     selectionId?: string
     triggerId?: string
@@ -1070,6 +1132,7 @@ export const sameLegalAct = (
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
       && left.castOption === right.castOption
+      && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
   }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
@@ -1087,7 +1150,7 @@ const fundingEvents = (
   seat: PlayerId,
   cost: string,
   excluded = new Set<string>(),
-  convoke: GameObject[] = [],
+  extras: { creatures?: GameObject[]; phyrexianLife?: number[] } = {},
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
@@ -1125,7 +1188,10 @@ const fundingEvents = (
     plans = [...next.values()]
   }
   return plans
-    .filter((plan) => payCost(plan.pool, cost, convoke.map(convokeColors)))
+    .filter((plan) => payCost(plan.pool, cost, {
+      creatures: (extras.creatures ?? []).map(convokeColors),
+      phyrexianLife: extras.phyrexianLife ?? [],
+    }))
     .sort((left, right) => left.events.length - right.events.length)[0]
     ?.events ?? null
 }
@@ -1149,6 +1215,7 @@ const convokeFundingPlan = (
   state: GameState,
   seat: PlayerId,
   cost: string,
+  phyrexianLife: number[] = [],
 ): { convoke: string[]; mana: GameEvent[] } | null => {
   const candidates = Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield'
@@ -1160,7 +1227,10 @@ const convokeFundingPlan = (
   for (let count = 1; count <= Math.min(symbols, candidates.length); count += 1) {
     for (const creatures of combinationsOf(candidates, count)) {
       const ids = creatures.map((creature) => creature.id)
-      const mana = fundingEvents(state, seat, cost, new Set(ids), creatures)
+      const mana = fundingEvents(state, seat, cost, new Set(ids), {
+        creatures,
+        phyrexianLife,
+      })
       if (mana) return { convoke: ids, mana }
     }
   }
@@ -1345,7 +1415,7 @@ export const eventsForAvailableAction = (
     seat,
     cost,
     new Set(convoke.map((creature) => creature.id)),
-    convoke,
+    { creatures: convoke, phyrexianLife: action.phyrexianLife },
   )
   if (!mana) return null
   return [
@@ -1356,6 +1426,7 @@ export const eventsForAvailableAction = (
       objectId: object.id,
       ...(action.castOption ? { castOption: action.castOption } : {}),
       ...(action.convoke ? { convoke: action.convoke } : {}),
+      ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       ...(action.targetObjectId || action.targetObjectIds
         ? {
             targets: playerAura

@@ -37,10 +37,33 @@ const cannotBeCountered = (object: GameObject) =>
   effectsOf(object).some((effect) =>
     effect.op === 'spellTrait' && effect.uncounterable)
 
-const coloredCosts = (manaCost: string) =>
-  [...manaCost.matchAll(/\{([^}]+)\}/g)]
-    .map((match) => match[1].split('/').filter((symbol) => MANA_SYMBOLS.has(symbol as ManaId)))
-    .filter((choices) => choices.length > 0) as ManaId[][]
+type ColoredCost = {
+  choices: ManaId[]
+  phyrexianIndex?: number
+}
+
+const coloredCosts = (manaCost: string) => {
+  let phyrexianIndex = 0
+  return [...manaCost.matchAll(/\{([^}]+)\}/g)].flatMap((match): ColoredCost[] => {
+    const parts = match[1].split('/')
+    const choices = parts.filter((symbol) => MANA_SYMBOLS.has(symbol as ManaId)) as ManaId[]
+    if (choices.length === 0) return []
+    if (!parts.includes('P')) return [{ choices }]
+    return [{ choices, phyrexianIndex: phyrexianIndex++ }]
+  })
+}
+
+export const phyrexianSymbols = (manaCost: string) =>
+  [...manaCost.matchAll(/\{([^{}]+\/P)\}/g)].map((match) => match[1])
+
+export const phyrexianSymbolCount = (manaCost: string) =>
+  phyrexianSymbols(manaCost).length
+
+const validPhyrexianLife = (manaCost: string, paidWithLife: number[]) => {
+  const count = phyrexianSymbolCount(manaCost)
+  return new Set(paidWithLife).size === paidWithLife.length
+    && paidWithLife.every((index) => Number.isSafeInteger(index) && index >= 0 && index < count)
+}
 
 export const convokeColors = (object: GameObject) =>
   object.colors.filter((color): color is ManaId =>
@@ -72,11 +95,29 @@ const payRemainingCost = (pool: ManaPool, generic: number, costs: ManaId[][]) =>
   return remaining
 }
 
+type PayCostHelp = number[] | { creatures?: ManaId[][]; phyrexianLife?: number[] }
+
+const payCostHelp = (extras: PayCostHelp) =>
+  Array.isArray(extras)
+    ? { phyrexianLife: extras, creatures: [] as ManaId[][] }
+    : {
+      phyrexianLife: extras.phyrexianLife ?? [],
+      creatures: extras.creatures ?? [],
+    }
+
 export const payCost = (
   pool: ManaPool,
   manaCost: string,
-  creatures: ManaId[][] = [],
+  extras: PayCostHelp = {},
 ): ManaPool | null => {
+  const { phyrexianLife, creatures } = payCostHelp(extras)
+  if (!validPhyrexianLife(manaCost, phyrexianLife)) return null
+  const lifeSymbols = new Set(phyrexianLife)
+  const remainingColored = coloredCosts(manaCost)
+    .filter((cost) =>
+      cost.phyrexianIndex === undefined || !lifeSymbols.has(cost.phyrexianIndex))
+    .map((cost) => cost.choices)
+
   const payWithConvoke = (
     index: number,
     generic: number,
@@ -99,7 +140,7 @@ export const payCost = (
     return null
   }
 
-  return payWithConvoke(0, genericCost(manaCost), coloredCosts(manaCost))
+  return payWithConvoke(0, genericCost(manaCost), remainingColored)
 }
 
 export const hasConvoke = (object: GameObject) =>
@@ -162,11 +203,15 @@ export const spells: Plugin = {
       )) {
         return 'illegal convoke creature'
       }
-      if (!payCost(
-        state.players[event.seat].mana,
-        cost,
-        creatures.map(convokeColors),
-      )) return 'not enough mana'
+      const phyrexianLife = event.phyrexianLife ?? []
+      if (!validPhyrexianLife(cost, phyrexianLife)) return 'invalid Phyrexian mana payment'
+      if (phyrexianLife.length * 2 > state.players[event.seat].life) {
+        return 'not enough life for Phyrexian mana'
+      }
+      if (!payCost(state.players[event.seat].mana, cost, {
+        creatures: creatures.map(convokeColors),
+        phyrexianLife,
+      })) return 'not enough mana'
       const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
       if (needed) {
@@ -196,11 +241,11 @@ export const spells: Plugin = {
       const creatures = (event.convoke ?? [])
         .map((objectId) => draft.object(objectId))
         .filter((creature): creature is GameObject => Boolean(creature))
-      const paid = payCost(
-        draft.players[event.seat].mana,
-        cost,
-        creatures.map(convokeColors),
-      )
+      const phyrexianLife = event.phyrexianLife ?? []
+      const paid = payCost(draft.players[event.seat].mana, cost, {
+        creatures: creatures.map(convokeColors),
+        phyrexianLife,
+      })
       if (!paid) return
 
       const manaSpent = Object.fromEntries(
@@ -210,6 +255,14 @@ export const spells: Plugin = {
       )
       draft.players[event.seat].mana = paid
       for (const creature of creatures) draft.enqueue({ type: 'tap', objectId: creature.id })
+      if (phyrexianLife.length > 0) {
+        draft.enqueue({
+          type: 'payLife',
+          seat: event.seat,
+          amount: phyrexianLife.length * 2,
+          source: object.name,
+        })
+      }
       draft.stack.unshift({
         id: draft.allocId('s'),
         kind: 'spell',

@@ -25,7 +25,9 @@ export const commander: Plugin = {
       return 'commander is not owned and controlled by that seat'
     }
     const cost = taxedCost(object.manaCost, taxFor(state.players[event.seat].data, object.id))
-    if (!payCost(state.players[event.seat].mana, cost)) return 'not enough mana for commander tax'
+    if (!payCost(state.players[event.seat].mana, cost, event.phyrexianLife)) {
+      return 'not enough mana for commander tax'
+    }
   },
   replace: ({ state, event }) => {
     if (event.type === 'castSpell') {
