@@ -5,9 +5,11 @@ import { RANDOM_CHOICE } from '../plugins/hiddenInformation'
 import { swampCount } from '../plugins/swampOverlay'
 import { initiateDiscard } from '../rules/discard'
 import { openCardSelection } from '../rules/selectCards'
+import { openPlayerSelection } from '../rules/selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, StackItem } from '../types'
 import { changeStatsUntilCleanup } from '../plugins/temporaryStats'
+import { lifeLostThisTurn } from '../plugins/life'
 import {
   addPlusCounters,
   applyCopy,
@@ -192,18 +194,128 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'gainLife') {
-      draft.players[source.controller].life += instruction.count
+      draft.enqueue({
+        type: 'gainLife',
+        seat: source.controller,
+        amount: instruction.count,
+        source: source.id,
+      })
       continue
     }
     if (instruction.kind === 'drainOpponentsX') {
-      const amount = Math.max(0, item?.x ?? 0)
+      const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
       const opponents = draft.playerOrder.filter(
         (seat) => seat !== source.controller && !draft.players[seat].lost,
       )
+      draft.enqueue({
+        type: 'gainLife',
+        seat: source.controller,
+        amount: amount * opponents.length,
+        source: source.id,
+      })
       for (const seat of opponents) {
         draft.enqueue({ type: 'loseLife', seat, amount, source: source.id })
       }
-      draft.players[source.controller].life += amount * opponents.length
+      continue
+    }
+    if (instruction.kind === 'drawX') {
+      draft.enqueue({
+        type: 'draw',
+        seat: source.controller,
+        count: Math.max(0, item?.x ?? 0),
+      })
+      continue
+    }
+    if (instruction.kind === 'dealDamageTargetX') {
+      const target = item?.targets[0]
+      if (target) {
+        draft.enqueue({
+          type: 'dealDamage',
+          sourceId: source.id,
+          target,
+          amount: Math.max(0, item?.x ?? 0),
+          gainLife: { seat: source.controller },
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'setAllLifeToLowest') {
+      const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
+      const lowest = Math.min(...living.map((seat) => draft.players[seat].life))
+      for (const seat of living) {
+        draft.enqueue({ type: 'setLifeTotal', seat, total: lowest, source: source.id })
+      }
+      continue
+    }
+    if (instruction.kind === 'gainLifeLostThisTurn') {
+      const seats = instruction.who === 'all'
+        ? draft.playerOrder
+        : [source.controller]
+      const amount = seats.reduce(
+        (total, seat) => total + lifeLostThisTurn(draft.players[seat]),
+        0,
+      )
+      draft.enqueue({
+        type: 'gainLife',
+        seat: source.controller,
+        amount,
+        source: source.id,
+      })
+      continue
+    }
+    if (instruction.kind === 'exchangeLifeWithOpponent') {
+      const target = item?.targets[0]
+      if (target?.kind === 'player') {
+        const lifeLost = Math.max(
+          0,
+          draft.players[source.controller].life - draft.players[target.player].life,
+        )
+        draft.enqueue({
+          type: 'exchangeLifeTotals',
+          first: source.controller,
+          second: target.player,
+          source: source.id,
+        })
+        if (instruction.drawLifeLost && lifeLost > 0) {
+          draft.enqueue({ type: 'draw', seat: source.controller, count: lifeLost })
+        }
+        continue
+      }
+      const candidates = draft.playerOrder.filter(
+        (seat) => seat !== source.controller && !draft.players[seat].lost,
+      )
+      openPlayerSelection(draft, {
+        seat: source.controller,
+        sourceId: source.id,
+        source: source.name,
+        prompt: instruction.optional
+          ? `You may exchange life totals with target opponent.`
+          : 'Choose an opponent to exchange life totals with.',
+        min: instruction.optional ? 0 : 1,
+        max: 1,
+        candidates,
+        action: {
+          kind: 'exchangeLifeTotals',
+          ...(instruction.drawLifeLost ? { drawLifeLost: true } : {}),
+        },
+      })
+      continue
+    }
+    if (instruction.kind === 'winGame') {
+      draft.enqueue({ type: 'winGame', seat: source.controller, source: source.id })
+      continue
+    }
+    if (instruction.kind === 'pumpSelf') {
+      const live = draft.object(source.id)
+      if (live) {
+        changeStatsUntilCleanup(
+          draft,
+          source.controller,
+          live,
+          instruction.power,
+          instruction.toughness,
+        )
+      }
       continue
     }
     if (instruction.kind === 'addPlusCounters') {
@@ -356,7 +468,12 @@ export const runInstructions = (
           objectId: object.id,
         })
       }
-      draft.players[source.controller].life += 2
+      draft.enqueue({
+        type: 'gainLife',
+        seat: source.controller,
+        amount: 2,
+        source: source.id,
+      })
       continue
     }
     if (instruction.kind === 'lookTopChooseOne') {
@@ -839,7 +956,14 @@ export const runInstructions = (
       const target = item?.targets[0]
       const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
       const amount = object?.power ?? 0
-      if (amount > 0) draft.players[source.controller].life += amount
+      if (amount > 0) {
+        draft.enqueue({
+          type: 'gainLife',
+          seat: source.controller,
+          amount,
+          source: source.id,
+        })
+      }
       continue
     }
     if (instruction.kind === 'addUntilCleanupRule') {
@@ -879,7 +1003,14 @@ export const runInstructions = (
       continue
     }
     if (instruction.kind === 'addChosenColorMana') {
-      // Chosen-color mana uses tapForMana (mana plugin); activated.ts legal skips legacy journals.
+      const choice = item?.choices?.[0]
+      if (choice && ['W', 'U', 'B', 'R', 'G'].includes(choice)) {
+        draft.enqueue({
+          type: 'addMana',
+          seat: source.controller,
+          mana: { [choice]: 1 },
+        })
+      }
       continue
     }
     if (instruction.kind === 'putMilledLandTapped') {

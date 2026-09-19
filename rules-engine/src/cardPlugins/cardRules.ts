@@ -14,6 +14,7 @@ import {
   controlledBasicLands,
   controlledCreaturePower,
   controlledLands,
+  controllerLife,
   copyAllCreaturesUntilEot,
   copyControlledCreature,
   copySelf,
@@ -26,7 +27,9 @@ import {
   discardHandsThenDrawGreatest,
   doublePlusCounters,
   dealDamageToChosenTarget,
+  dealDamageTargetX,
   draw,
+  drawX,
   drainOpponentsX,
   drawAtNextUpkeep,
   drawGreatestPower,
@@ -107,12 +110,14 @@ import {
   eachPlayerLoseLife,
   eachPlayerSacrifice,
   exchangeControlUntilEot,
+  exchangeLifeWithOpponent,
   fight,
   fightUpToOne,
   lacksControlledSubtype,
   addManaPerSwamp,
   addUntilCleanupRule,
   gainLifeTargetPower,
+  gainLifeLostThisTurn,
   preventCombatDamage,
   revealDrawLoseLife,
   untapTarget,
@@ -120,6 +125,11 @@ import {
   type CardEffect,
   type CardInstruction,
   payLifeX,
+  pumpSelf,
+  setAllLifeToLowest,
+  winGame,
+  xMana,
+  yourUpkeepIf,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -255,7 +265,58 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       sacrificeLands: 1,
     }),
   ],
-  Exsanguinate: [onResolve(drainOpponentsX())],
+  Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
+  'Debt to the Deathless': [xMana(), onResolve(drainOpponentsX(2))],
+  'Drain Life': [
+    xMana('black'),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', types: ['Creature', 'Planeswalker'], players: 'any' },
+      dealDamageTargetX(),
+    ),
+  ],
+  'Repay in Kind': [onResolve(setAllLifeToLowest())],
+  Necrologia: [payLifeX({ timing: 'yourEndStep' }), onResolve(drawX())],
+  'Test of Endurance': [
+    yourUpkeepIf(controllerLife(50), winGame()),
+  ],
+  'Mister Negative': [
+    enters(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
+  ],
+  'Mirror Universe': [
+    ability({
+      id: 'mirrorUniverse.exchange',
+      targets: 'opponent',
+      if: { kind: 'controllerUpkeep' },
+    }, { tap: true, sacrifice: 'self' }, exchangeLifeWithOpponent()),
+  ],
+  'Wall of Blood': [
+    ability({ id: 'wallOfBlood.pump' }, { life: 1 }, pumpSelf(1, 1)),
+  ],
+  'Selenia, Dark Angel': [
+    ability({ id: 'selenia.return' }, { life: 2 }, bounceSelf()),
+  ],
+  'Children of Korlis': [
+    ability(
+      { id: 'childrenOfKorlis.recover' },
+      { sacrifice: 'self' },
+      gainLifeLostThisTurn(),
+    ),
+  ],
+  'Tainted Sigil': [
+    ability(
+      { id: 'taintedSigil.recover' },
+      { tap: true, sacrifice: 'self' },
+      gainLifeLostThisTurn('all'),
+    ),
+  ],
+  'Blood Celebrant': [
+    ability(
+      { id: 'bloodCelebrant.mana', manaAbility: true },
+      { mana: '{B}', life: 1 },
+      { kind: 'addChosenColorMana' },
+    ),
+  ],
   'Fell the Profane // Fell Mire': [
     tapUnlessPayLife(3),
     targetOnResolve(

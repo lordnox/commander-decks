@@ -1,7 +1,9 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import {
   activateEffect,
+  conditionHolds,
   runInstructions,
+  type CardCondition,
   type CardInstruction,
 } from '../cardPlugins/effects'
 import { gameObjectFieldDefaults } from '../definitions'
@@ -39,6 +41,8 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
   if (!instructions) return
 
   const source = draft.object(item.objectId) ?? stackSourceFallback(item)
+  const interveningIf = item.payload?.interveningIf as CardCondition | undefined
+  if (interveningIf && !conditionHolds(interveningIf, draft, source)) return
   runInstructions(draft, source, instructions, item)
 }
 

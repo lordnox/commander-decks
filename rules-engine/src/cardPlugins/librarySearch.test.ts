@@ -430,7 +430,7 @@ describe('librarySearch', () => {
     expect(state.players.p1.life).toBe(39)
     expect(state.objects[fetch].zone).toBe('graveyard')
     expect(activation.trace.map(({ event }) => event.type))
-      .toEqual(['activateAbility', 'loseLife', 'tap', 'move'])
+      .toEqual(['activateAbility', 'payLife', 'loseLife', 'tap', 'move'])
     expect(pendingSearch(state, 'p1')?.via).toBe('ability')
     expect(searchCandidates(state, 'p1', searchSpecFor('Misty Rainforest')!).map((o) => o.name))
       .toEqual(['Wooded Foothills'])

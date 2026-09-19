@@ -93,6 +93,10 @@ export {
   projectForViewer,
 } from './runtime'
 export { fog, manaBurn } from './plugins'
+export {
+  pendingPlayerSelection,
+  pendingPlayerSelectionFor,
+} from './rules/selectPlayers'
 export type { GameFormat } from './formats'
 export type { History, HistoryEntry } from './history'
 export type { NewGameOptions } from './newGame'

@@ -14,6 +14,7 @@ import {
 } from './hiddenInformation'
 import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
+import { life } from './life'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
 import { swampOverlay } from './swampOverlay'
@@ -22,7 +23,7 @@ import { sacrificeLandMana } from './sacrificeLandMana'
 import { spells } from './spells'
 import { stateBased } from './stateBased'
 import { temporaryStats } from './temporaryStats'
-import { discard, draw, selectCards, triggers } from '../rules/main'
+import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
 
 /** Available implementations. A GameFormat decides which become live rules. */
@@ -35,12 +36,14 @@ export const builtInPlugins = [
   spells,
   stateBased,
   combat,
+  life,
   damage,
   doubleFaced,
   temporaryStats,
   discard,
   draw,
   selectCards,
+  selectPlayers,
   triggers,
   judgeFallback,
   unconfiguredHiddenInformation,
@@ -69,6 +72,7 @@ export {
   forestOverlay,
   judgeFallback,
   lands,
+  life,
   mana,
   manaBurn,
   swampOverlay,

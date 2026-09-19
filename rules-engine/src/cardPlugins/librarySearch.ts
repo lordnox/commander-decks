@@ -203,8 +203,12 @@ const beginEnterSearch = (
   if (shouldSacrificeOnEnter(enteredSpec)) {
     draft.enqueue({ type: 'move', objectId: entered.id, to: 'graveyard' })
     if (enteredSpec.gainLife) {
-      draft.players[entered.controller].life += enteredSpec.gainLife
-      draft.note(`${entered.controller} gains ${enteredSpec.gainLife} life (${entered.name})`)
+      draft.enqueue({
+        type: 'gainLife',
+        seat: entered.controller,
+        amount: enteredSpec.gainLife,
+        source: entered.name,
+      })
     }
   }
   openSearch(draft, entered.controller, {

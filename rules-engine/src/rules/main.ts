@@ -1,6 +1,7 @@
 import { discard } from './discard'
 import { draw } from './draw'
 import { selectCards } from './selectCards'
+import { selectPlayers } from './selectPlayers'
 import { triggers } from './triggers'
 
 export { discard, initiateDiscard } from './discard'
@@ -16,7 +17,14 @@ export {
   type PendingCardSelection,
 } from './selectCards'
 export { triggers } from './triggers'
+export {
+  openPlayerSelection,
+  pendingPlayerSelection,
+  pendingPlayerSelectionFor,
+  selectPlayers,
+  type PendingPlayerSelection,
+} from './selectPlayers'
 export { resolveAbility, resolveAction } from './actions'
 
 /** CR 701 / 121 / 603 — always-on game rules for the stack pipeline. */
-export const gameRules = [discard, draw, selectCards, triggers]
+export const gameRules = [discard, draw, selectCards, selectPlayers, triggers]

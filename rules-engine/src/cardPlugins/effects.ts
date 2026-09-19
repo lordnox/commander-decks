@@ -27,6 +27,8 @@ export type CardCondition =
   | { kind: 'opponentsAtMost'; max: number }
   | { kind: 'opponentLostLifeThisTurn'; min: number }
   | { kind: 'controllerIsActive' }
+  | { kind: 'controllerUpkeep' }
+  | { kind: 'controllerLife'; min: number }
 
 export type TokenSpec = {
   name: string
@@ -48,7 +50,14 @@ export type CardInstruction =
   | { kind: 'draw'; count: number }
   | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
   | { kind: 'gainLife'; count: number }
-  | { kind: 'drainOpponentsX' }
+  | { kind: 'drainOpponentsX'; multiplier: number }
+  | { kind: 'drawX' }
+  | { kind: 'dealDamageTargetX' }
+  | { kind: 'setAllLifeToLowest' }
+  | { kind: 'gainLifeLostThisTurn'; who: 'controller' | 'all' }
+  | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }
+  | { kind: 'winGame' }
+  | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'addPlusCounters'; count: number }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | { kind: 'revealUntilBasicLand' }
@@ -167,6 +176,7 @@ export type TargetFilter = {
   nonblack?: boolean
   controller?: 'you' | 'opponent'
   spellTargetsControlledPermanent?: boolean
+  players?: 'any' | 'opponent'
 }
 
 export type SearchSpec = {
@@ -235,7 +245,7 @@ export type CardEffect =
       op: 'activate'
       id: string
       manaAbility?: boolean
-      targets?: 'any' | 'teferiSunsetPlusOne' | 'creature' | 'land'
+      targets?: 'any' | 'opponent' | 'teferiSunsetPlusOne' | 'creature' | 'land'
       zone?: ZoneId
       costs: ActivateCost
       if?: CardCondition
@@ -265,7 +275,12 @@ export type CardEffect =
       legendRuleOff?: boolean
     }
   | { op: 'handler'; pluginId: string }
-  | { op: 'castCost'; lifeX?: boolean }
+  | {
+      op: 'castCost'
+      lifeX?: boolean
+      xMana?: 'generic' | 'black'
+      timing?: 'yourEndStep'
+    }
   | { op: 'bestow'; cost: string }
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
@@ -610,7 +625,32 @@ export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
 export const gainLife = (count: number): CardInstruction => ({ kind: 'gainLife', count })
 
-export const drainOpponentsX = (): CardInstruction => ({ kind: 'drainOpponentsX' })
+export const drainOpponentsX = (multiplier = 1): CardInstruction => ({
+  kind: 'drainOpponentsX',
+  multiplier,
+})
+
+export const drawX = (): CardInstruction => ({ kind: 'drawX' })
+
+export const dealDamageTargetX = (): CardInstruction => ({ kind: 'dealDamageTargetX' })
+
+export const setAllLifeToLowest = (): CardInstruction => ({ kind: 'setAllLifeToLowest' })
+
+export const gainLifeLostThisTurn = (
+  who: 'controller' | 'all' = 'controller',
+): CardInstruction => ({ kind: 'gainLifeLostThisTurn', who })
+
+export const exchangeLifeWithOpponent = (
+  options: { optional?: boolean; drawLifeLost?: boolean } = {},
+): CardInstruction => ({ kind: 'exchangeLifeWithOpponent', ...options })
+
+export const winGame = (): CardInstruction => ({ kind: 'winGame' })
+
+export const pumpSelf = (power: number, toughness: number): CardInstruction => ({
+  kind: 'pumpSelf',
+  power,
+  toughness,
+})
 
 export const addPlusCountersInstruction = (count: number): CardInstruction => ({
   kind: 'addPlusCounters',
@@ -642,7 +682,14 @@ export const reanimateCreatureFromGraveyards = (
   ...(addSubtype ? { addSubtype } : {}),
 })
 
-export const payLifeX = (): CardEffect => ({ op: 'castCost', lifeX: true })
+export const payLifeX = (
+  options: { timing?: 'yourEndStep' } = {},
+): CardEffect => ({ op: 'castCost', lifeX: true, ...options })
+
+export const xMana = (color: 'generic' | 'black' = 'generic'): CardEffect => ({
+  op: 'castCost',
+  xMana: color,
+})
 
 export const loseLife = (
   amount: number,
@@ -731,6 +778,21 @@ export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
   on: 'upkeep',
   do: instructions,
   if: { kind: 'controllerIsActive' },
+})
+
+export const yourUpkeepIf = (
+  condition: CardCondition,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'upkeep',
+  do: instructions,
+  if: condition,
+})
+
+export const controllerLife = (min: number): CardCondition => ({
+  kind: 'controllerLife',
+  min,
 })
 
 export const lacksControlledSubtype = (...subtypes: string[]): CardCondition => ({
@@ -1080,6 +1142,12 @@ export const conditionHolds = (
       && lifeLostThisTurn(state.players[seat]) >= condition.min)
   }
   if (condition.kind === 'controllerIsActive') return state.active === object.controller
+  if (condition.kind === 'controllerUpkeep') {
+    return state.active === object.controller && state.step === 'upkeep'
+  }
+  if (condition.kind === 'controllerLife') {
+    return state.players[object.controller].life >= condition.min
+  }
   if (condition.kind === 'uniqueLandNames') {
     const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
     return names.size >= condition.min
