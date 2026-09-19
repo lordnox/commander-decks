@@ -94,6 +94,7 @@ export type CardInstruction =
   | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'animateUntilEot'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
+  | { kind: 'crewVehicle' }
   | { kind: 'createXTokens'; token: TokenSpec }
   | { kind: 'dealDamageToSelf'; amount: number }
   | { kind: 'addChosenColorMana' }
@@ -165,6 +166,7 @@ export type ModalSpec = {
 
 export type ActivateCost = {
   tap?: boolean
+  crew?: number
   mana?: string
   mill?: number
   life?: number

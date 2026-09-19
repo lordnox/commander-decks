@@ -4,6 +4,7 @@ import { manaModes, poolForChoice } from './plugins/mana'
 import { convokeColors, hasConvoke, payCost, phyrexianSymbols } from './plugins/spells'
 import {
   canPayActivationCosts as canPayCardActivationCosts,
+  crewCostCandidates,
   discardCostCandidates,
   needsActivationCostPicks,
   sacrificeCostCandidates,
@@ -1005,6 +1006,20 @@ const activationCostTargetGroups = (
         costs.sacrificeTarget,
         costs.sacrificeOther,
       ).map((object) => ({
+        objectId: object.id,
+        name: object.name,
+        controller: object.controller,
+      })),
+    })
+  }
+  if (costs.crew !== undefined) {
+    const creatures = crewCostCandidates(state, source.controller)
+    groups.push({
+      label: `Creatures to crew ${costs.crew}`,
+      min: costs.crew > 0 ? 1 : 0,
+      max: creatures.length,
+      purpose: 'cost',
+      targets: creatures.map((object) => ({
         objectId: object.id,
         name: object.name,
         controller: object.controller,
