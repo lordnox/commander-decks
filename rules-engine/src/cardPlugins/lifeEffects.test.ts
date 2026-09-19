@@ -219,13 +219,22 @@ describe('Lady Evangela life-total and X cards', () => {
     let state = structuredClone(server.state)
     state.players.p2.life = 10
     state = ok(server.rules(state, { type: 'move', objectId: mister, to: 'battlefield' }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    const pending = pendingPlayerSelectionFor(state, 'p1')!
-    expect(pending).toMatchObject({ min: 0, max: 1, candidates: ['p2', 'p3', 'p4'] })
+    const targetChoice = pendingPlayerSelectionFor(state, 'p1')!
+    expect(targetChoice).toMatchObject({ min: 1, max: 1, candidates: ['p2', 'p3', 'p4'] })
     state = ok(server.rules(state, {
       type: 'selectPlayers',
       seat: 'p1',
-      selectionId: pending.id,
+      selectionId: targetChoice.id,
+      players: ['p2'],
+    }))
+    expect(state.stack[0]?.targets).toEqual([{ kind: 'player', player: 'p2' }])
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const exchangeChoice = pendingPlayerSelectionFor(state, 'p1')!
+    expect(exchangeChoice).toMatchObject({ min: 0, max: 1, candidates: ['p2'] })
+    state = ok(server.rules(state, {
+      type: 'selectPlayers',
+      seat: 'p1',
+      selectionId: exchangeChoice.id,
       players: ['p2'],
     }))
     expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])

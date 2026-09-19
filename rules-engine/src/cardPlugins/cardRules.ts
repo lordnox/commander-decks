@@ -34,6 +34,7 @@ import {
   drawAtNextUpkeep,
   drawGreatestPower,
   enters,
+  entersTargetingOpponent,
   entersTapped,
   extraEnters,
   extraLandfall,
@@ -281,7 +282,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     yourUpkeepIf(controllerLife(50), winGame()),
   ],
   'Mister Negative': [
-    enters(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
+    entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
   ],
   'Mirror Universe': [
     ability({

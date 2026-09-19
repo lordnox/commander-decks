@@ -13,6 +13,7 @@ import {
   type CardEffect,
 } from '../cardPlugins/effects'
 import type Draft from '../draft'
+import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type { GameEvent, GameObject, GameState, PlayerId, Plugin, TriggerBindingIf } from '../types'
 
@@ -286,8 +287,34 @@ export const triggers: Plugin = {
     const triggeringPlayer = 'seat' in event && typeof event.seat === 'string'
       ? event.seat
       : undefined
+    let choosingSeat: PlayerId | undefined
 
     for (const { source, effect, triggeringObjectId } of ordered) {
+      if (effect.targets === 'opponent') {
+        const candidates = draft.playerOrder.filter(
+          (seat) => seat !== source.controller && !draft.players[seat].lost,
+        )
+        if (candidates.length === 0) continue
+        openPlayerSelection(draft, {
+          seat: source.controller,
+          sourceId: source.id,
+          source: source.name,
+          prompt: `Choose target opponent for ${source.name}.`,
+          min: 1,
+          max: 1,
+          candidates,
+          action: {
+            kind: 'putTriggeredAbility',
+            instructions: effect.do,
+            triggeringPlayer: triggeringPlayer ?? source.controller,
+            ...(effect.if && !isTriggerBindingIf(effect.if)
+              ? { interveningIf: effect.if }
+              : {}),
+          },
+        })
+        choosingSeat ??= source.controller
+        continue
+      }
       draft.addTriggeredAbility(source, effect.do, {
         payload: {
           instructions: effect.do,
@@ -302,6 +329,6 @@ export const triggers: Plugin = {
     }
 
     draft.passedInRow = []
-    draft.priority = draft.active
+    draft.priority = choosingSeat ?? draft.active
   },
 }

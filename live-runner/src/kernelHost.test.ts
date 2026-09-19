@@ -920,7 +920,6 @@ describe('kernel host journal', () => {
     lobby.phase = 'play'
     const mister = initial.zoneOrder.p1.hand[0]
     expect(kernel.dispatch({ type: 'move', objectId: mister, to: 'battlefield' }).ok).toBe(true)
-    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
@@ -939,7 +938,23 @@ describe('kernel host journal', () => {
       ],
     })).toBe(true)
 
-    const state = kernel.history.current()
+    let state = kernel.history.current()
+    if (state.stack.length > 0) {
+      expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    }
+    prepareKernelPendingChoice(kernel, lobby)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      cards: ['p2'],
+      requirements: { target: { min: 0, max: 1 } },
+      kernel: { stage: 'select-players' },
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'p2', destination: 'target' }],
+    })).toBe(true)
+
+    state = kernel.history.current()
     expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])
     expect(state.zoneOrder.p1.hand).toHaveLength(30)
   })
