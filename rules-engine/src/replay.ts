@@ -15,7 +15,6 @@ import type {
 } from './types'
 
 type ReplayCard = {
-  name?: string
   type_line: string
   mana_cost: string
   oracle_text: string
@@ -29,6 +28,7 @@ type ReplayBattlefieldCard = {
   tapped?: boolean
   commander?: boolean
   counters?: Record<string, number>
+  protector?: PlayerId
   printed_name?: string
 }
 
@@ -104,7 +104,6 @@ const faceCharacteristics = (face: ReplayCard) => {
     ? Number(face.stats)
     : null
   return {
-    name: face.name,
     types,
     supertypes: SUPERTYPES.filter((supertype) =>
       face.type_line.split(' — ')[0].split(' ').includes(supertype)),
@@ -303,6 +302,7 @@ export const importLiveReplayState = (
       ...cardTemplate(card.name, replay.catalog[card.name]),
       tapped: Boolean(card.tapped),
       counters: { ...card.counters },
+      ...(card.protector ? { protector: card.protector } : {}),
       tags: card.commander ? ['commander'] : [],
     })),
   ]))
@@ -563,6 +563,7 @@ export const replayComparableState = (state: GameState) => ({
           ...(Object.keys(object.counters).length > 0
             ? { counters: { ...object.counters } }
             : {}),
+          ...(object.protector ? { protector: object.protector } : {}),
           ...(object.tags.includes('commander') ? { commander: true } : {}),
           ...(object.printedName && object.printedName !== object.name
             ? { printed_name: object.printedName }
@@ -595,6 +596,7 @@ export const replayExpectedState = (replay: TableReplay, throughRound: number) =
           name: object.name,
           tapped: object.tapped ?? false,
           ...(object.counters ? { counters: { ...object.counters } } : {}),
+          ...(object.protector ? { protector: object.protector } : {}),
           ...(object.commander ? { commander: true } : {}),
         })),
         graveyard: player.graveyard,

@@ -13,7 +13,6 @@ const siege = () => cardTemplate('Test Siege // Test Victor', {
   manaCost: '{2}{G}',
   printedDefense: 3,
   frontFace: {
-    name: 'Test Siege',
     types: ['Battle'],
     subtypes: ['Siege'],
     supertypes: [],
@@ -26,7 +25,6 @@ const siege = () => cardTemplate('Test Siege // Test Victor', {
     oracleText: 'Siege reminder text',
   },
   backFace: {
-    name: 'Test Victor',
     types: ['Creature'],
     subtypes: ['Warrior'],
     supertypes: [],
@@ -60,7 +58,7 @@ describe('Siege battles', () => {
     const { server, objectId, state } = castSiege()
     expect(state.objects[objectId]).toMatchObject({
       zone: 'battlefield',
-      name: 'Test Siege',
+      name: 'Test Siege // Test Victor',
       counters: { defense: 3 },
     })
 
@@ -172,7 +170,7 @@ describe('Siege battles', () => {
     current = ok(server.rules(current, { type: 'resolveTop' }))
     expect(current.objects[objectId]).toMatchObject({
       zone: 'exile',
-      name: 'Test Siege',
+      name: 'Test Siege // Test Victor',
     })
     expect(current.stack[0]).toMatchObject({
       objectId,
@@ -188,7 +186,7 @@ describe('Siege battles', () => {
     }))
     expect(current.objects[objectId]).toMatchObject({
       zone: 'stack',
-      name: 'Test Victor',
+      name: 'Test Siege // Test Victor',
       types: ['Creature'],
       power: 4,
       toughness: 4,
@@ -197,7 +195,7 @@ describe('Siege battles', () => {
     current = ok(server.rules(current, { type: 'resolveTop' }))
     expect(current.objects[objectId]).toMatchObject({
       zone: 'battlefield',
-      name: 'Test Victor',
+      name: 'Test Siege // Test Victor',
       types: ['Creature'],
     })
   })
@@ -244,7 +242,6 @@ describe('Siege battles', () => {
   test('a transformed back-face instant or sorcery returns to its front face off the stack', () => {
     const card = siege()
     card.backFace = {
-      name: 'Test Victory',
       types: ['Sorcery'],
       subtypes: [],
       supertypes: [],
@@ -280,7 +277,7 @@ describe('Siege battles', () => {
 
     expect(current.objects[objectId]).toMatchObject({
       zone: 'graveyard',
-      name: 'Test Siege',
+      name: 'Test Siege // Test Victor',
       types: ['Battle'],
       printedDefense: 3,
     })
