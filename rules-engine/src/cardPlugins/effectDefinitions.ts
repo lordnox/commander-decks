@@ -67,6 +67,7 @@ export type CardInstruction =
     }
   | { kind: 'loseLifeTargetPlayer'; amount: number }
   | { kind: 'loseLifeTargetManaValue' }
+  | { kind: 'loseLifeTargetController'; amount: number }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }
   | { kind: 'lookTopChooseOne'; count: number }

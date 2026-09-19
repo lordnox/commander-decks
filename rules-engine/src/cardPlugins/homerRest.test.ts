@@ -351,4 +351,60 @@ describe('Homer remaining card plugins', () => {
     expect(sacrificed.objects[spawn.id].zone).toBe('graveyard')
     expect(sacrificed.players.p1.mana.C).toBe(1)
   })
+
+  test('Fell the Profane destroys and drains the target’s controller', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Fell the Profane', { types: ['Instant'] })] },
+        battlefield: {
+          p2: [cardTemplate('Target', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      },
+    )
+    const target = named(server.state, 'Target')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(server.state, 'Fell the Profane').id,
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[target.id].zone).toBe('graveyard')
+    expect(resolved.players.p2.life).toBe(38)
+  })
+
+  test('Incarnation Technique reanimates a creature rather than a land', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cardTemplate('Incarnation Technique', { types: ['Sorcery'] })] },
+        libraries: {
+          p1: [
+            cardTemplate('Body', { types: ['Creature'], zone: 'graveyard' }),
+            cardTemplate('Land', { types: ['Land'], zone: 'graveyard' }),
+            ...Array.from({ length: 5 }, (_, index) =>
+              cardTemplate(`Milled ${index}`, { types: ['Instant'] })),
+          ],
+        },
+      },
+    )
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(server.state, 'Incarnation Technique').id,
+    }))
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(choosing, 'p1')!
+    expect(selection.candidates).toEqual([named(choosing, 'Body').id])
+    const resolved = ok(server.rules(choosing, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: selection.candidates,
+    }))
+    expect(named(resolved, 'Body').zone).toBe('battlefield')
+    expect(named(resolved, 'Land').zone).toBe('graveyard')
+  })
 })

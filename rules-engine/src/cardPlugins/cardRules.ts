@@ -58,6 +58,7 @@ import {
   legendRuleOff,
   loseLife,
   loseLifeTargetManaValue,
+  loseLifeTargetController,
   loyalty,
   loyaltyX,
   lookTopChooseOne,
@@ -970,7 +971,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Fact or Fiction': [onResolve(revealPick(5, { permanent: true }))],
   'Fell Mire': [entersTapped()],
   'Fell the Profane': [
-    targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }),
+    targetOnResolve(
+      'destroy',
+      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
+      loseLifeTargetController(2),
+    ),
   ],
   'Firdoch Core': [
     allCreatureTypes(),
@@ -1177,7 +1182,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [draw(1), putLandFromHand(true)],
     }),
   ],
-  'Incarnation Technique': [onResolve(selfMill(5), returnChosenLandFromGraveyard())],
+  'Incarnation Technique': [
+    onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
+  ],
   'Yurlok of Scorch Thrash': [
     staticGrant('manaBurn'),
     activate({
