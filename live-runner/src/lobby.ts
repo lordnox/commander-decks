@@ -59,6 +59,7 @@ export type TopdeckDecision = {
       | 'exile-graveyards'
       | 'waiting-discard'
       | 'select-cards'
+      | 'select-players'
     stackId?: string
     selectionId?: string
     cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'

@@ -50,6 +50,21 @@ const traceSummary = (trace: EventTrace, state: GameState) => {
     case 'loseLife':
       summary = `${event.seat} loses ${event.amount} life`
       break
+    case 'gainLife':
+      summary = `${event.seat} gains ${event.amount} life`
+      break
+    case 'payLife':
+      summary = `${event.seat} pays ${event.amount} life`
+      break
+    case 'setLifeTotal':
+      summary = `${event.seat}'s life total becomes ${event.total}`
+      break
+    case 'exchangeLifeTotals':
+      summary = `${event.first} and ${event.second} exchange life totals`
+      break
+    case 'winGame':
+      summary = `${event.seat} wins the game`
+      break
     case 'judgeFallback':
       summary = 'Judge fallback applied'
       break

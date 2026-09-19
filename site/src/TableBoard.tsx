@@ -1000,11 +1000,14 @@ export const HoverCard = ({ hover }: { hover: Hover }) => {
 
 export const legalActLabel = (action: AvailableAction) => {
   if (action.kind === 'playLand') return 'Play land'
-  if (action.kind === 'castSpell') return 'Cast'
+  if (action.kind === 'castSpell') {
+    return action.x === undefined ? 'Cast' : `Cast (X=${action.x})`
+  }
   if (action.kind === 'tapForMana') {
     return action.mana ? `Tap for {${action.mana}}` : 'Tap for mana'
   }
   if (action.kind === 'activateAbility') {
+    if (action.mana) return `Add {${action.mana}}`
     const loyalty = action.abilityId?.match(/\.(plus|minus)-(one|two|seven)$/)
     if (loyalty) {
       const amount = { one: 1, two: 2, seven: 7 }[loyalty[2] as 'one' | 'two' | 'seven']
@@ -1039,12 +1042,13 @@ export const CardPreview = ({
   const targetedCasts = acts.filter((
     action,
   ): action is Extract<AvailableAction, { kind: 'castSpell' }> & {
-    targetObjectId: string
     targetName: string
-  } => action.kind === 'castSpell' && Boolean(action.targetObjectId && action.targetName))
+  } => action.kind === 'castSpell' && Boolean(
+    (action.targetObjectId || action.targetPlayerId) && action.targetName,
+  ))
   const directActs = acts.filter(
     (action) =>
-      (action.kind !== 'castSpell' || !action.targetObjectId)
+      (action.kind !== 'castSpell' || (!action.targetObjectId && !action.targetPlayerId))
       && (action.kind !== 'activateAbility' || !action.targetGroups),
   )
   const targetedActivations = acts.filter((
@@ -1192,7 +1196,7 @@ export const CardPreview = ({
                         })}
                         className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                       >
-                        Activate +1
+                        Activate
                       </button>
                       <button
                         type="button"
@@ -1214,12 +1218,13 @@ export const CardPreview = ({
                 <div className="flex flex-wrap gap-2">
                   {targetedCasts.map((action) => (
                     <button
-                      key={`${action.objectId}-${action.targetObjectId}`}
+                      key={`${action.objectId}-${action.targetObjectId ?? action.targetPlayerId}-${action.x ?? ''}`}
                       type="button"
                       onClick={() => onAct(action)}
                       className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                     >
                       {action.targetName}
+                      {action.x === undefined ? '' : ` (X=${action.x})`}
                     </button>
                   ))}
                   <button

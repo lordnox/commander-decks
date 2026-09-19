@@ -896,6 +896,54 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeUndefined()
   })
 
+  test('typed life-exchange player choices round-trip through the live host', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Mister Negative', {
+            types: ['Creature'],
+            manaCost: '{5}{W}{B}',
+          })],
+        },
+        libraries: {
+          p1: Array.from({ length: 30 }, (_, index) =>
+            cardTemplate(`Draw ${index + 1}`, { types: ['Instant'] })),
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p2.life = 10
+    const kernel = handleFor(server.rules, initial)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const mister = initial.zoneOrder.p1.hand[0]
+    expect(kernel.dispatch({ type: 'move', objectId: mister, to: 'battlefield' }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'target-players',
+      cards: ['p2', 'p3', 'p4'],
+      destinations: ['skip', 'target'],
+      kernel: { stage: 'select-players' },
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'p2', destination: 'target' },
+        { card: 'p3', destination: 'skip' },
+        { card: 'p4', destination: 'skip' },
+      ],
+    })).toBe(true)
+
+    const state = kernel.history.current()
+    expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])
+    expect(state.zoneOrder.p1.hand).toHaveLength(30)
+  })
+
   test('a saved dialog that no longer matches the kernel is rebuilt', () => {
     const { kernel, lobby } = searchGame()
     prepareKernelPendingChoice(kernel, lobby)
