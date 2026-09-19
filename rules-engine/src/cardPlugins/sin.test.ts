@@ -3,8 +3,10 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
-import { SIN_NAME, sin } from './sin'
 import { draw, enters } from './effects'
+import { randomExileCopy } from './randomExileCopy'
+
+const SIN_NAME = "Sin, Spira's Punishment"
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -43,7 +45,7 @@ describe(SIN_NAME, () => {
           ],
         },
       },
-      { random: () => 0, cardPlugins: [sin] },
+      { random: () => 0, cardPlugins: [randomExileCopy] },
     )
     let state = server.state
     for (const objectId of state.zoneOrder.p1.hand.slice(1)) {
@@ -82,7 +84,7 @@ describe(SIN_NAME, () => {
           ],
         },
       },
-      { random: () => values.shift() ?? 0, cardPlugins: [sin] },
+      { random: () => values.shift() ?? 0, cardPlugins: [randomExileCopy] },
     )
     let state = server.state
     for (const objectId of state.zoneOrder.p1.hand.slice(1)) {
@@ -106,7 +108,7 @@ describe(SIN_NAME, () => {
         hands: { p1: [card('Relic', ['Artifact'])] },
         battlefield: { p1: [sinCard()] },
       },
-      { random: () => 0, cardPlugins: [sin] },
+      { random: () => 0, cardPlugins: [randomExileCopy] },
     )
     let state = ok(server.rules(server.state, {
       type: 'move',
@@ -134,7 +136,7 @@ describe(SIN_NAME, () => {
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [sinCard()] } },
-      { random: () => 0, cardPlugins: [sin] },
+      { random: () => 0, cardPlugins: [randomExileCopy] },
     )
     const state = ok(server.rules(server.state, {
       type: 'move',
@@ -150,7 +152,7 @@ describe(SIN_NAME, () => {
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [sinCard(), card('Relic', ['Artifact'])] } },
-      { random: () => 0, cardPlugins: [sin] },
+      { random: () => 0, cardPlugins: [randomExileCopy] },
     )
     let state = ok(server.rules(server.state, {
       type: 'move',
@@ -188,7 +190,7 @@ describe(SIN_NAME, () => {
           ],
         },
       },
-      { random: () => 0, cardPlugins: [sin] },
+      { random: () => 0, cardPlugins: [randomExileCopy] },
     )
     let state = server.state
     const [sinId, relicId, freshId] = state.zoneOrder.p1.hand

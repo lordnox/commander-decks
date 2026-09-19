@@ -88,6 +88,7 @@ import {
   staticGrant,
   staticPlayLandsFromLibraryTop,
   staticRevealLibraryTop,
+  specificSinSpiraPunishmentTriggeredAbility,
   scry,
   surveil,
   triggerOn,
@@ -697,7 +698,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
   'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
   'Sky Diamond': [entersTapped()],
-  "Sin, Spira's Punishment": [handler('sin')],
+  "Sin, Spira's Punishment": [
+    enters(specificSinSpiraPunishmentTriggeredAbility()),
+    attacks(specificSinSpiraPunishmentTriggeredAbility()),
+  ],
   'Skull Prophet': [
     activate({
       id: 'selfMill.skullProphet',
