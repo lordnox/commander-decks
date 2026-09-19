@@ -61,6 +61,99 @@ describe('simple card effects', () => {
     expect(activatedDruid.players.p1.mana.G).toBe(1)
   })
 
+  test('an activated ability may cost exactly the activator life total', () => {
+    const source = cardTemplate('Final Bargain', {
+      types: ['Artifact'],
+      effects: [activate({
+        id: 'bargain.final',
+        costs: { life: 40 },
+        do: [],
+      })],
+    })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [source] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const objectId = named(server.state, 'Final Bargain').id
+    const result = server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'bargain.final',
+      seat: 'p1',
+      objectId,
+    })
+
+    expect(result.ok).toBe(true)
+  })
+
+  test('Trade Routes discards a chosen land, not itself', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: { p1: [cardTemplate('Trade Routes', { types: ['Enchantment'] })] },
+        hands: { p1: [land('Forest'), creature('Grizzly Bears')] },
+      },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const routes = named(server.state, 'Trade Routes').id
+    const forest = named(server.state, 'Forest').id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 1
+
+    expect(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: 'tradeRoutes.draw',
+      seat: 'p1',
+      objectId: routes,
+    }).ok).toBe(false)
+
+    const paid = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: 'tradeRoutes.draw',
+      seat: 'p1',
+      objectId: routes,
+      choices: [forest],
+    }))
+    expect(paid.objects[routes].zone).toBe('battlefield')
+    expect(paid.objects[forest].zone).toBe('graveyard')
+    expect(named(paid, 'Grizzly Bears').zone).toBe('hand')
+  })
+
+  test('Zimone and Dina sacrifice another creature as the activation cost', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [
+            cardTemplate('Zimone and Dina', { types: ['Creature'] }),
+            creature('Offering'),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const zimone = named(server.state, 'Zimone and Dina').id
+    const offering = named(server.state, 'Offering').id
+
+    expect(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'zimone.draw',
+      seat: 'p1',
+      objectId: zimone,
+      choices: [zimone],
+    }).ok).toBe(false)
+
+    const paid = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'zimone.draw',
+      seat: 'p1',
+      objectId: zimone,
+      choices: [offering],
+    }))
+    expect(paid.objects[zimone]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(paid.objects[offering].zone).toBe('graveyard')
+  })
+
   test('Zagoth Triome cycling requires three mana and resolves from hand', () => {
     const triome = cardTemplate('Zagoth Triome', {
       types: ['Land'],

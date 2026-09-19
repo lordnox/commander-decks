@@ -430,7 +430,7 @@ describe('librarySearch', () => {
     expect(state.players.p1.life).toBe(39)
     expect(state.objects[fetch].zone).toBe('graveyard')
     expect(activation.trace.map(({ event }) => event.type))
-      .toEqual(['activateAbility', 'payLife', 'loseLife', 'tap', 'move'])
+      .toEqual(['activateAbility', 'payLife', 'loseLife', 'tap', 'sacrifice', 'move'])
     expect(pendingSearch(state, 'p1')?.via).toBe('ability')
     expect(searchCandidates(state, 'p1', searchSpecFor('Misty Rainforest')!).map((o) => o.name))
       .toEqual(['Wooded Foothills'])
@@ -535,6 +535,46 @@ describe('librarySearch', () => {
     expect(pendingSearch(projected, 'p1')?.source).toBe('Obscura Storefront')
   })
 
+  test('Dreamscape Artist discards a card and sacrifices a land to search', () => {
+    const server = game({
+      battlefield: [
+        card('Dreamscape Artist', ['Creature']),
+        forest(),
+      ],
+      hand: [card('Idle Thoughts', ['Instant'])],
+      library: [forest('Dryad Arbor'), island()],
+    })
+    const artist = named(server.state, 'Dreamscape Artist').id
+    const landId = named(server.state, 'Forest').id
+    const discarded = named(server.state, 'Idle Thoughts').id
+    const ready = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 2, B: 0, R: 0, G: 0, C: 2 } },
+      },
+    }
+
+    expect(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: artist,
+    }).ok).toBe(false)
+
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: artist,
+      choices: [discarded, landId],
+    }))
+    expect(opened.objects[artist]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(opened.objects[discarded].zone).toBe('graveyard')
+    expect(opened.objects[landId].zone).toBe('graveyard')
+    expect(pendingSearch(opened, 'p1')?.source).toBe('Dreamscape Artist')
+  })
+
   test('Blighted Woodland requires and pays four mana', () => {
     const server = game({
       battlefield: [card('Blighted Woodland', ['Land'])],
@@ -548,7 +588,7 @@ describe('librarySearch', () => {
       objectId: sourceId,
     })
     expect(rejected.ok).toBe(false)
-    expect(rejected.ok === false && rejected.error).toContain('cannot pay {3}{G}')
+    expect(rejected.ok === false && rejected.error).toContain('not enough mana')
 
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
@@ -578,7 +618,7 @@ describe('librarySearch', () => {
     expect(result.ok === false && result.error).toContain('already tapped')
   })
 
-  test('a seat that cannot pay the life cannot crack the fetchland', () => {
+  test('a seat may pay its final life to crack a fetchland', () => {
     const server = game({
       battlefield: [card('Verdant Catacombs', ['Land'])],
       library: [forest()],
@@ -596,8 +636,8 @@ describe('librarySearch', () => {
       seat: 'p1',
       objectId: server.state.zoneOrder.p1.battlefield[0],
     })
-    expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('cannot pay 1 life')
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.state.players.p1.life).toBe(0)
   })
 
   test('a second search cannot open while one is still unanswered', () => {

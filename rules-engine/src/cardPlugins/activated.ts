@@ -1,16 +1,16 @@
-import { payCost } from '../plugins/spells'
-import type Draft from '../draft'
-import { hasKeyword } from '../keywords'
 import { hasUntaxedTapMana } from '../plugins/mana'
-import type { GameObject, PlayerId, TargetRef } from '../types'
+import type { GameObject, TargetRef } from '../types'
 import type { Plugin } from '../types'
 import {
   activateEffect,
   conditionHolds,
-  millLibrary,
   runInstructions,
-  type ActivateCost,
 } from './effects'
+import {
+  activationCostError,
+  costPicksFromChoices,
+  payActivationCosts,
+} from './activationCosts'
 import { effectsOf } from './cardRules'
 
 const legalActivateTarget = (
@@ -33,31 +33,6 @@ export const GHOST_TOWN_RETURN = 'selfBounceLand.ghostTown'
 export const OBORO_RETURN = 'selfBounceLand.oboro'
 export const AFTERMATH_RECLAIM = 'graveyardLands.aftermath'
 export const YURLOK_MANA_RAIN = 'yurlok.mana-rain'
-
-export const payActivateCosts = (
-  draft: Draft,
-  source: GameObject,
-  seat: PlayerId,
-  costs: ActivateCost,
-) => {
-  if (costs.mana) draft.enqueue({ type: 'payMana', seat, cost: costs.mana })
-  if (costs.life) {
-    draft.enqueue({
-      type: 'payLife',
-      seat,
-      amount: costs.life,
-      source: source.name,
-    })
-  }
-  if (costs.tap) draft.enqueue({ type: 'tap', objectId: source.id })
-  if (costs.mill) millLibrary(draft, seat, costs.mill)
-  if (costs.sacrifice) {
-    draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
-  }
-  if (costs.discard) {
-    draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
-  }
-}
 
 export const activated: Plugin = {
   id: 'activated',
@@ -99,23 +74,12 @@ export const activated: Plugin = {
     if (effect.manaAbility && !event.manaAbility) {
       return `${source.name} is a mana ability`
     }
-    if (effect.costs.tap) {
-      if (source.tapped) return `${source.name} is already tapped`
-      if (
-        source.types.includes('Creature')
-        && source.summoningSickness
-        && !hasKeyword(source, 'haste', state)
-      ) {
-        return `${source.name} has summoning sickness`
-      }
-    }
-    if (effect.costs.mana && !payCost(state.players[event.seat]?.mana, effect.costs.mana)) {
-      return `not enough mana to activate ${source.name}`
-    }
-    if ((effect.costs.life ?? 0) > 0
-      && state.players[event.seat].life <= (effect.costs.life ?? 0)) {
-      return `${event.seat} cannot pay ${effect.costs.life} life`
-    }
+    const picks = costPicksFromChoices(effect.costs, event.choices)
+    const costError = activationCostError(state, source, event.seat, effect.costs, {
+      picks,
+      requirePicks: true,
+    })
+    if (costError) return costError
     if (!conditionHolds(effect.if, state, source)) {
       if (effect.if?.kind === 'notActivePlayer') {
         return `${source.name} can be returned only when it is not your turn`
@@ -149,7 +113,13 @@ export const activated: Plugin = {
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
-    payActivateCosts(draft, source, event.seat, effect.costs)
+    payActivationCosts(
+      draft,
+      source,
+      event.seat,
+      effect.costs,
+      costPicksFromChoices(effect.costs, event.choices),
+    )
     if (effect.manaAbility || event.manaAbility) {
       runInstructions(draft, source, effect.do, {
         id: event.objectId,

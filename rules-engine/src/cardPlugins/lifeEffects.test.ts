@@ -296,7 +296,7 @@ describe('Lady Evangela life-total and X cards', () => {
       { random: () => 0.5, cardPlugins: plugins },
     )
     let state = structuredClone(server.state)
-    state.players.p1.life = 4
+    state.players.p1.life = 3
     const wall = state.zoneOrder.p1.battlefield[0]
     const selenia = state.zoneOrder.p1.battlefield[1]
     for (let index = 0; index < 2; index += 1) {
@@ -307,7 +307,7 @@ describe('Lady Evangela life-total and X cards', () => {
         objectId: wall,
       }))
     }
-    expect(state.players.p1.life).toBe(2)
+    expect(state.players.p1.life).toBe(1)
     expect(server.rules(state, {
       type: 'activateAbility',
       abilityId: 'selenia.return',
@@ -325,7 +325,7 @@ describe('Lady Evangela life-total and X cards', () => {
       objectId: selenia,
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.players.p1.life).toBe(2)
+    expect(state.players.p1.life).toBe(1)
     expect(state.objects[selenia].zone).toBe('hand')
   })
 

@@ -1,13 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { rules } from '../kernel'
-import { bears, newGame, planeswalker } from '../testGame'
+import { bears, forest, newGame, planeswalker } from '../testGame'
 import type { Plugin } from '../types'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
 import { life } from './life'
 import { fog } from './fog'
+import { stateBased } from './stateBased'
 
 const preventDamage: Plugin = {
   id: 'preventDamage',
@@ -49,6 +50,87 @@ const attack = (power: number, extras: { tags?: string[] } = {}) => {
 }
 
 describe('damage chain', () => {
+  test('gainLife increases life and logs the event', () => {
+    const catalog = createCatalog([damage, life])
+    const state = newGame({ builtinRules: ['damage', 'life'] })
+    const result = rules(state, { type: 'gainLife', seat: 'p1', amount: 3 }, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.players.p1.life).toBe(43)
+    expect(result.state.log).toContain('p1 gains 3 life')
+  })
+
+  test('fight deals both creatures damage before state-based actions', () => {
+    const catalog = createCatalog([damage, stateBased])
+    const state = newGame({
+      battlefield: {
+        p1: [{ ...bears(), name: 'Small Fighter', power: 2, toughness: 2 }],
+        p2: [{ ...bears(), name: 'Large Fighter', power: 5, toughness: 5 }],
+      },
+      builtinRules: ['damage', 'stateBased'],
+    })
+    const small = Object.values(state.objects).find((object) => object.name === 'Small Fighter')!
+    const large = Object.values(state.objects).find((object) => object.name === 'Large Fighter')!
+    const result = rules(
+      state,
+      { type: 'fight', leftId: small.id, rightId: large.id },
+      catalog,
+    )
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[small.id].zone).toBe('graveyard')
+    expect(result.state.objects[large.id].damageMarked).toBe(2)
+    expect(result.state.log).toContain('Small Fighter fights Large Fighter')
+  })
+
+  test('fight does nothing unless both objects are battlefield creatures', () => {
+    const catalog = createCatalog([damage])
+    const state = newGame({
+      battlefield: { p1: [{ ...bears(), name: 'Fighter' }, forest()] },
+      hands: { p2: [{ ...bears(), name: 'Hand Creature' }] },
+      builtinRules: ['damage'],
+    })
+    const fighter = Object.values(state.objects).find((object) => object.name === 'Fighter')!
+    const forestObject = Object.values(state.objects).find((object) => object.name === 'Forest')!
+    const handCreature = Object.values(state.objects).find(
+      (object) => object.name === 'Hand Creature',
+    )!
+
+    const nonCreature = rules(
+      state,
+      { type: 'fight', leftId: fighter.id, rightId: forestObject.id },
+      catalog,
+    )
+    if (!nonCreature.ok) throw new Error(nonCreature.error)
+    const wrongZone = rules(
+      nonCreature.state,
+      { type: 'fight', leftId: fighter.id, rightId: handCreature.id },
+      catalog,
+    )
+
+    expect(wrongZone.ok).toBe(true)
+    if (!wrongZone.ok) return
+    expect(wrongZone.state.objects[fighter.id].damageMarked).toBe(0)
+    expect(wrongZone.state.log.some((line) => line.includes('fights'))).toBe(false)
+  })
+
+  test('sacrifice moves a battlefield permanent to its graveyard', () => {
+    const catalog = createCatalog([damage])
+    const state = newGame({
+      battlefield: { p1: [{ ...bears(), name: 'Offering' }] },
+      builtinRules: ['damage'],
+    })
+    const offering = Object.values(state.objects)[0]
+    const result = rules(state, { type: 'sacrifice', objectId: offering.id }, catalog)
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[offering.id].zone).toBe('graveyard')
+    expect(result.state.log).toContain('p1 sacrifices Offering')
+  })
+
   test('damage removes loyalty instead of marking a planeswalker', () => {
     const catalog = createCatalog([damage, life])
     const state = newGame({

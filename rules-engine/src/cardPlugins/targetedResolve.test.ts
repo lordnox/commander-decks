@@ -243,4 +243,5 @@ describe('targeted spell resolution', () => {
     expect(state.objects[answer].zone).toBe('graveyard')
     expect(state.stack).toHaveLength(0)
   })
+
 })
