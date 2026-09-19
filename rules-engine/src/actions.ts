@@ -793,7 +793,13 @@ const targetVariants = (
   const effect = targeted[0]
   const objectTargets = Object.values(state.objects)
     .filter((object) =>
-      validTargetRef(state, { kind: 'object', objectId: object.id }, effect.filter, seat))
+      validTargetRef(
+        state,
+        { kind: 'object', objectId: object.id },
+        effect.filter,
+        seat,
+        action.castOption,
+      ))
     .map((target): AvailableAction => ({
       ...action,
       targetObjectId: target.id,
@@ -801,7 +807,13 @@ const targetVariants = (
     }))
   const playerTargets = state.playerOrder
     .filter((player) =>
-      validTargetRef(state, { kind: 'player', player }, effect.filter, seat))
+      validTargetRef(
+        state,
+        { kind: 'player', player },
+        effect.filter,
+        seat,
+        action.castOption,
+      ))
     .map((player): AvailableAction => ({
       ...action,
       targetPlayerId: player,

@@ -26,10 +26,15 @@ export const validTarget = (
   object: GameObject | undefined,
   filter: TargetFilter,
   controller: PlayerId,
+  castOption?: string,
 ) => {
   if (!object) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.zones && !filter.zones.includes(object.zone)) return false
+  if (filter.castFromNot) {
+    const item = state.stack.find((candidate) => candidate.objectId === object.id)
+    if (!item || item.kind !== 'spell' || item.castFrom === filter.castFromNot) return false
+  }
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.types && !filter.types.some((type) => object.types.includes(type))) return false
   if (filter.controller === 'you' && object.controller !== controller) return false
@@ -43,6 +48,11 @@ export const validTarget = (
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false
   }
+  if (
+    filter.bracketed
+    && castOption !== 'cleave'
+    && !validTarget(state, object, filter.bracketed, controller, castOption)
+  ) return false
   return true
 }
 
@@ -51,6 +61,7 @@ export const validTargetRef = (
   target: TargetRef | undefined,
   filter: TargetFilter,
   controller: PlayerId,
+  castOption?: string,
 ) => {
   if (target?.kind === 'player') {
     return Boolean(
@@ -61,7 +72,7 @@ export const validTargetRef = (
     )
   }
   return target?.kind === 'object'
-    && validTarget(state, state.objects[target.objectId], filter, controller)
+    && validTarget(state, state.objects[target.objectId], filter, controller, castOption)
 }
 
 const targetedEffects = (object: GameObject) =>
@@ -80,7 +91,7 @@ export const targetedResolve: Plugin = {
     }
     for (const effect of effects) {
       const target = event.targets?.[effect.target]
-      if (!validTargetRef(state, target, effect.filter, event.seat)) {
+      if (!validTargetRef(state, target, effect.filter, event.seat, event.castOption)) {
         return `illegal target for ${source.name}`
       }
     }
@@ -92,7 +103,13 @@ export const targetedResolve: Plugin = {
     if (!item || !source) return
     for (const effect of targetedEffects(source)) {
       const target = item.targets[effect.target]
-      if (!validTargetRef(state, target, effect.filter, item.controller)) continue
+      if (!validTargetRef(
+        state,
+        target,
+        effect.filter,
+        item.controller,
+        item.castOption,
+      )) continue
 
       if (effect.action === 'select') {
         if (effect.do) runInstructions(draft, source, effect.do, item)

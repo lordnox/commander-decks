@@ -14,6 +14,7 @@ import {
   branch,
   castModal,
   casts,
+  cleave,
   controlledBasicLands,
   controlledCreaturePower,
   controlledLands,
@@ -1168,7 +1169,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Vantress Visions': [onResolve(copyTargetCreature())],
   'Walk-In Closet': [playLandsFromGraveyard()],
   'Forgotten Cellar': [playLandsFromGraveyard()],
-  'Wash Away': [targetOnResolve('counter', { zone: 'stack' })],
+  'Wash Away': [
+    cleave('{1}{U}{U}'),
+    targetOnResolve('counter', {
+      zone: 'stack',
+      bracketed: { castFromNot: 'hand' },
+    }),
+  ],
   'Watery Grave': [tapUnlessPayLife(2)],
   'World Shaper': [
     attacks(optionalMill(3)),
