@@ -79,6 +79,7 @@ type InboxPayload =
       targetObjectIds?: string[]
       abilityId?: string
       castOption?: string
+      phyrexianLife?: number[]
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -193,6 +194,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const mana = message.mana
       const abilityId = message.abilityId
       const castOption = message.castOption
+      const phyrexianLife = message.phyrexianLife
       const text = message.text
       const attackers = message.attackers
       const x = message.x
@@ -257,6 +259,9 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ) ? { targetObjectIds } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
         ...(typeof castOption === 'string' ? { castOption } : {}),
+        ...(Array.isArray(phyrexianLife) && phyrexianLife.every(
+          (index): index is number => Number.isSafeInteger(index) && Number(index) >= 0,
+        ) ? { phyrexianLife } : {}),
         ...(typeof text === 'string' ? { text } : {}),
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
