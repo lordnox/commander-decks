@@ -132,7 +132,6 @@ import {
   type CardEffect,
   type CardInstruction,
   payLifeX,
-  pumpSelf,
   setAllLifeToLowest,
   winGame,
   xMana,

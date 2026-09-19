@@ -49,10 +49,16 @@ describe('reusable life-total rules', () => {
     expect(state.players.p1.life).toBe(31)
     expect(lifeLostThisTurn(state.players.p1)).toBe(12)
     expect(lifeGainedThisTurn(state.players.p1)).toBe(3)
+    // CR 119.4: a payment is legal while the life total is at least the amount.
     expect(server.rules(state, {
       type: 'payLife',
       seat: 'p1',
       amount: 31,
+    }).ok).toBe(true)
+    expect(server.rules(state, {
+      type: 'payLife',
+      seat: 'p1',
+      amount: 32,
     }).ok).toBe(false)
 
     state = ok(server.rules(state, {

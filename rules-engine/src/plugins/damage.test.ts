@@ -6,6 +6,7 @@ import type { Plugin } from '../types'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
+import { life } from './life'
 import { fog } from './fog'
 
 const preventDamage: Plugin = {
@@ -23,12 +24,12 @@ const preventLifeLoss: Plugin = {
 }
 
 const attack = (power: number, extras: { tags?: string[] } = {}) => {
-  const catalog = createCatalog([combat, damage, commander, fog, preventDamage, preventLifeLoss])
+  const catalog = createCatalog([combat, damage, life, commander, fog, preventDamage, preventLifeLoss])
   const state = newGame({
     battlefield: {
       p1: [{ ...bears(), power, tags: extras.tags ?? [] }],
     },
-    builtinRules: ['combat', 'damage', 'commander'],
+    builtinRules: ['combat', 'damage', 'life', 'commander'],
   })
   const attackerId = Object.values(state.objects)[0].id
   state.objects[attackerId].summoningSickness = false
@@ -49,10 +50,10 @@ const attack = (power: number, extras: { tags?: string[] } = {}) => {
 
 describe('damage chain', () => {
   test('damage removes loyalty instead of marking a planeswalker', () => {
-    const catalog = createCatalog([damage])
+    const catalog = createCatalog([damage, life])
     const state = newGame({
       battlefield: { p2: [planeswalker('Target Walker', 5)] },
-      builtinRules: ['damage'],
+      builtinRules: ['damage', 'life'],
     })
     const walker = Object.values(state.objects)[0]
     const result = rules(state, {

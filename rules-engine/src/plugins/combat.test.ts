@@ -4,14 +4,15 @@ import { rules } from '../kernel'
 import { bears, newGame, planeswalker } from '../testGame'
 import { combat } from './combat'
 import { damage } from './damage'
+import { life } from './life'
 import { stateBased } from './stateBased'
 import { turnStructure } from './turnStructure'
 
 test('an unblocked attacker deals combat damage to the defending player', () => {
-  const catalog = createCatalog([combat, damage])
+  const catalog = createCatalog([combat, damage, life])
   const state = newGame({
     battlefield: { p1: [bears()], p2: [bears()] },
-    builtinRules: ['combat', 'damage'],
+    builtinRules: ['combat', 'damage', 'life'],
   })
   const attackerId = Object.values(state.objects).find((object) => object.controller === 'p1')!.id
   state.step = 'declareAttackers'
@@ -81,10 +82,10 @@ test('vigilance keeps an attacker untapped', () => {
 })
 
 test('entering the combat damage step assigns damage without being asked', () => {
-  const catalog = createCatalog([combat, damage, turnStructure])
+  const catalog = createCatalog([combat, damage, life, turnStructure])
   const state = newGame({
     battlefield: { p1: [bears()], p2: [bears()] },
-    builtinRules: ['combat', 'damage', 'turnStructure'],
+    builtinRules: ['combat', 'damage', 'life', 'turnStructure'],
   })
   const attackerId = Object.values(state.objects).find((object) => object.controller === 'p1')!.id
   state.step = 'declareAttackers'
@@ -112,10 +113,10 @@ test('entering the combat damage step assigns damage without being asked', () =>
 })
 
 test('a combat nobody joined skips blockers and damage', () => {
-  const catalog = createCatalog([combat, damage, turnStructure])
+  const catalog = createCatalog([combat, damage, life, turnStructure])
   const state = newGame({
     battlefield: { p1: [bears()], p2: [bears()] },
-    builtinRules: ['combat', 'damage', 'turnStructure'],
+    builtinRules: ['combat', 'damage', 'life', 'turnStructure'],
   })
   state.step = 'declareAttackers'
 
@@ -126,10 +127,10 @@ test('a combat nobody joined skips blockers and damage', () => {
 })
 
 test('a first striker keeps its own damage step', () => {
-  const catalog = createCatalog([combat, damage, turnStructure])
+  const catalog = createCatalog([combat, damage, life, turnStructure])
   const state = newGame({
     battlefield: { p1: [{ ...bears(), oracleText: 'First strike' }] },
-    builtinRules: ['combat', 'damage', 'turnStructure'],
+    builtinRules: ['combat', 'damage', 'life', 'turnStructure'],
   })
   const attackerId = Object.values(state.objects)[0].id
   state.step = 'declareAttackers'
@@ -154,13 +155,13 @@ test('a first striker keeps its own damage step', () => {
 })
 
 test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {
-  const catalog = createCatalog([combat, damage])
+  const catalog = createCatalog([combat, damage, life])
   const state = newGame({
     battlefield: {
       p1: [{ ...bears(), name: 'Mossborn Hydra', power: 10, oracleText: 'Trample' }],
       p2: [{ ...bears(), name: 'Homer, the Hermit', power: 0, toughness: 9 }],
     },
-    builtinRules: ['combat', 'damage'],
+    builtinRules: ['combat', 'damage', 'life'],
   })
   const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
@@ -189,13 +190,13 @@ test('a trampling attacker assigns lethal to its blocker and the rest to the pla
 })
 
 test('a deathtouch trampler only owes its blocker one damage', () => {
-  const catalog = createCatalog([combat, damage, stateBased])
+  const catalog = createCatalog([combat, damage, life, stateBased])
   const state = newGame({
     battlefield: {
       p1: [{ ...bears(), power: 10, oracleText: 'Trample, deathtouch' }],
       p2: [{ ...bears(), toughness: 9 }],
     },
-    builtinRules: ['combat', 'damage', 'stateBased'],
+    builtinRules: ['combat', 'damage', 'life', 'stateBased'],
   })
   const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
@@ -225,13 +226,13 @@ test('a deathtouch trampler only owes its blocker one damage', () => {
 })
 
 test('a blocker already damaged this turn soaks less of a trampler', () => {
-  const catalog = createCatalog([combat, damage])
+  const catalog = createCatalog([combat, damage, life])
   const state = newGame({
     battlefield: {
       p1: [{ ...bears(), power: 10, oracleText: 'Trample' }],
       p2: [{ ...bears(), toughness: 9 }],
     },
-    builtinRules: ['combat', 'damage'],
+    builtinRules: ['combat', 'damage', 'life'],
   })
   const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
@@ -261,13 +262,13 @@ test('a blocker already damaged this turn soaks less of a trampler', () => {
 })
 
 test('a blocked attacker without trample leaves the defender untouched', () => {
-  const catalog = createCatalog([combat, damage])
+  const catalog = createCatalog([combat, damage, life])
   const state = newGame({
     battlefield: {
       p1: [{ ...bears(), power: 10 }],
       p2: [{ ...bears(), toughness: 1 }],
     },
-    builtinRules: ['combat', 'damage'],
+    builtinRules: ['combat', 'damage', 'life'],
   })
   const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const blocker = Object.values(state.objects).find((object) => object.controller === 'p2')!
@@ -319,10 +320,10 @@ test('an attacker cannot target a player outside the game', () => {
 })
 
 test('an unblocked creature can attack and damage an opponent planeswalker', () => {
-  const catalog = createCatalog([combat, damage])
+  const catalog = createCatalog([combat, damage, life])
   const state = newGame({
     battlefield: { p1: [bears()], p2: [planeswalker('Target Walker', 5)] },
-    builtinRules: ['combat', 'damage'],
+    builtinRules: ['combat', 'damage', 'life'],
   })
   const attacker = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const walker = Object.values(state.objects).find((object) => object.name === 'Target Walker')!

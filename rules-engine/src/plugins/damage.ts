@@ -1,8 +1,5 @@
 import { hasKeyword } from '../keywords'
 import type { Plugin } from '../types'
-import { LIFE_LOST_THIS_TURN, lifeLostThisTurn } from './life'
-
-export { LIFE_LOST_THIS_TURN, lifeLostThisTurn } from './life'
 
 /**
  * CR-shaped damage chain:
@@ -65,26 +62,6 @@ export const damage: Plugin = {
         })
       }
       return
-    }
-
-    if (event.type === 'loseLife') {
-      const player = draft.players[event.seat]
-      if (!player || player.lost || event.amount === 0) return
-      player.life -= event.amount
-      player.data[LIFE_LOST_THIS_TURN] = lifeLostThisTurn(player) + event.amount
-      draft.note(
-        `${event.seat} loses ${event.amount} life${event.source ? ` (${event.source})` : ''}`,
-      )
-      return
-    }
-
-    if (event.type === 'gainLife') {
-      const player = draft.players[event.seat]
-      if (!player || player.lost) return
-      player.life += event.amount
-      draft.note(
-        `${event.seat} gains ${event.amount} life${event.source ? ` (${event.source})` : ''}`,
-      )
     }
   },
 }

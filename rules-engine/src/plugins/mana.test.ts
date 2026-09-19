@@ -7,6 +7,7 @@ import { lands } from './lands'
 import { mana } from './mana'
 import { manaBurn } from './manaBurn'
 import { damage } from './damage'
+import { life } from './life'
 
 const catalog = createCatalog([mana, lands, manaBurn])
 
@@ -203,9 +204,9 @@ describe('mana', () => {
         + 'This land deals 1 damage to you.',
       tapProduces: { C: 1 },
     }
-    const catalogWithDamage = createCatalog([mana, lands, manaBurn, damage])
+    const catalogWithDamage = createCatalog([mana, lands, manaBurn, damage, life])
     const state = newGame({
-      builtinRules: ['mana', 'damage'],
+      builtinRules: ['mana', 'damage', 'life'],
       battlefield: { p1: [wastes] },
     })
     const objectId = idOf(state, name, 'battlefield')

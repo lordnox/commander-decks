@@ -1,6 +1,6 @@
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
-import { lifeLostThisTurn } from '../plugins/damage'
+import { lifeLostThisTurn } from '../plugins/life'
 import type {
   GameObject,
   GameState,
@@ -58,7 +58,6 @@ export type CardInstruction =
   | { kind: 'gainLifeLostThisTurn'; who: 'controller' | 'all' }
   | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }
   | { kind: 'winGame' }
-  | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'addPlusCounters'; count: number }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | { kind: 'revealUntilBasicLand' }
@@ -758,12 +757,6 @@ export const exchangeLifeWithOpponent = (
 ): CardInstruction => ({ kind: 'exchangeLifeWithOpponent', ...options })
 
 export const winGame = (): CardInstruction => ({ kind: 'winGame' })
-
-export const pumpSelf = (power: number, toughness: number): CardInstruction => ({
-  kind: 'pumpSelf',
-  power,
-  toughness,
-})
 
 export const addPlusCountersInstruction = (count: number): CardInstruction => ({
   kind: 'addPlusCounters',

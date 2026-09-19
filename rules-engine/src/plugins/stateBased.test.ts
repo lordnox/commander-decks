@@ -4,6 +4,7 @@ import { rules } from '../kernel'
 import { bears, newGame, planeswalker } from '../testGame'
 import type { Plugin } from '../types'
 import { damage } from './damage'
+import { life } from './life'
 import { stateBased } from './stateBased'
 
 const manaStub: Plugin = { id: 'mana' }
@@ -24,13 +25,13 @@ test('state-based actions move a lethally damaged creature to the graveyard', ()
 })
 
 test('one point of deathtouch damage destroys a bigger creature', () => {
-  const catalog = createCatalog([manaStub, stateBased, damage])
+  const catalog = createCatalog([manaStub, stateBased, damage, life])
   const state = newGame({
     battlefield: {
       p1: [{ ...bears(), name: 'Pit Fighter', oracleText: 'Deathtouch' }],
       p2: [{ ...bears(), toughness: 9 }],
     },
-    builtinRules: ['mana', 'stateBased', 'damage'],
+    builtinRules: ['mana', 'stateBased', 'damage', 'life'],
   })
   const source = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const victim = Object.values(state.objects).find((object) => object.controller === 'p2')!
@@ -47,10 +48,10 @@ test('one point of deathtouch damage destroys a bigger creature', () => {
 })
 
 test('one point from a plain creature leaves a bigger creature alive', () => {
-  const catalog = createCatalog([manaStub, stateBased, damage])
+  const catalog = createCatalog([manaStub, stateBased, damage, life])
   const state = newGame({
     battlefield: { p1: [bears()], p2: [{ ...bears(), toughness: 9 }] },
-    builtinRules: ['mana', 'stateBased', 'damage'],
+    builtinRules: ['mana', 'stateBased', 'damage', 'life'],
   })
   const source = Object.values(state.objects).find((object) => object.controller === 'p1')!
   const victim = Object.values(state.objects).find((object) => object.controller === 'p2')!

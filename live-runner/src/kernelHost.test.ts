@@ -1755,11 +1755,15 @@ describe('kernel host journal', () => {
       sourceId: queza.id,
       source: queza.name,
       prompt: 'Choose target opponent for Queza.',
-      abilityId: 'queza.drain',
-      instructions: [
-        { kind: 'gainLife', count: 1 },
-        { kind: 'loseLifeTargetPlayer', amount: 1 },
-      ],
+      action: {
+        kind: 'putTriggeredAbility',
+        abilityId: 'queza.drain',
+        triggeringPlayer: 'p1',
+        instructions: [
+          { kind: 'gainLife', count: 1 },
+          { kind: 'loseLifeTargetPlayer', amount: 1 },
+        ],
+      },
     }
     server.state.players.p1.data[PENDING_PLAYER_SELECTION] = [selection]
     server.state.priority = 'p1'
