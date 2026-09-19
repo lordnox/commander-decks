@@ -7,7 +7,7 @@ import {
   manaAffordances,
 } from './actions'
 import { commanderRules } from './formats'
-import { bears, bolt, forest, newGame } from './newGame'
+import { bears, bolt, cardTemplate, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
 
 const empty = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 } satisfies ManaPool
@@ -73,6 +73,33 @@ describe('available actions', () => {
         abilityId: 'librarySearch.fetch',
       }),
     ]))
+  })
+
+  test('publishes activation-cost card choices as cost groups', () => {
+    const state = newGame(commanderRules, {
+      hands: { p1: [forest()] },
+      battlefield: {
+        p1: [cardTemplate('Trade Routes', { types: ['Enchantment'] })],
+      },
+    })
+    state.players.p1.mana.C = 1
+    const action = legalActsFor(state, 'p1').find((candidate) =>
+      candidate.kind === 'activateAbility'
+      && candidate.abilityId === 'tradeRoutes.draw')
+
+    expect(action).toMatchObject({
+      kind: 'activateAbility',
+      targetGroups: [{
+        label: 'Land card to discard',
+        purpose: 'cost',
+        min: 1,
+        max: 1,
+        targets: [{
+          objectId: objectNamed(state, 'Forest').id,
+          name: 'Forest',
+        }],
+      }],
+    })
   })
 
   test('untap and cleanup never expose priority actions', () => {

@@ -1556,19 +1556,31 @@ export const applyKernelAct = (
   const action = legalActsFor(state, seat).find((candidate) =>
     sameLegalAct(candidate, message))
   if (!action) throw new Error('That action is not available now')
+  const activationGroups = action.kind === 'activateAbility'
+    ? action.targetGroups ?? []
+    : []
+  const costChoiceCount = activationGroups
+    .filter(({ purpose }) => purpose === 'cost')
+    .reduce((total, group) => total + group.max, 0)
+  const activationChoices = (message.targetObjectIds ?? []).slice(0, costChoiceCount)
+  const activationTargets = (message.targetObjectIds ?? []).slice(costChoiceCount)
   const events = action.kind === 'activateAbility' && action.targetGroups
     ? [{
         type: 'activateAbility' as const,
         seat,
         objectId: action.objectId,
         abilityId: action.abilityId ?? '',
-        targets: (message.targetObjectIds ?? []).map((objectId) => {
-          const group = action.targetGroups?.find((candidate) =>
-            candidate.targets.some((target) => target.objectId === objectId))
-          return group?.kind === 'player'
-            ? { kind: 'player' as const, player: objectId }
-            : { kind: 'object' as const, objectId }
+        targets: activationTargets.map((objectId) => {
+          const group = activationGroups.find((candidate) =>
+            candidate.purpose !== 'cost'
+            && candidate.targets.some((target) => target.objectId === objectId))
+          return (
+            group?.kind === 'player'
+              ? { kind: 'player' as const, player: objectId }
+              : { kind: 'object' as const, objectId }
+          )
         }),
+        choices: activationChoices,
       }]
     : action.kind === 'castSpell' && action.targetGroups
       ? [{

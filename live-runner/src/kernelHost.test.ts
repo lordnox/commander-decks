@@ -25,6 +25,7 @@ import {
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
+import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
@@ -1325,6 +1326,45 @@ describe('kernel host journal', () => {
     expect(resolved.objects[rock.id].tapped).toBe(false)
     expect(resolved.objects[creature.id].tapped).toBe(true)
     expect(resolved.players.p1.life).toBe(42)
+  })
+
+  test('sends submitted activation-cost cards as choices, not targets', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [forest()] },
+        battlefield: {
+          p1: [cardTemplate('Trade Routes', { types: ['Enchantment'] })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [activatedPlugin] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana.C = 1
+    const routes = Object.values(initial.objects)
+      .find((object) => object.name === 'Trade Routes')!
+    const land = Object.values(initial.objects)
+      .find((object) => object.name === 'Forest')!
+    const kernel = handleFor(server.rules, initial)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: routes.id,
+      abilityId: 'tradeRoutes.draw',
+      text: 'tradeRoutes.draw',
+      targetObjectIds: [land.id],
+    })
+
+    expect(kernel.history.current().objects[land.id].zone).toBe('graveyard')
+    expect(kernel.journal.events.at(-1)).toMatchObject({
+      type: 'activateAbility',
+      objectId: routes.id,
+      choices: [land.id],
+      targets: [],
+    })
   })
 
   test('declares selected attackers against players and planeswalkers', async () => {
