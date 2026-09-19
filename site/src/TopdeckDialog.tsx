@@ -195,7 +195,7 @@ export const TopdeckDialog = ({
             : puttingLand
               ? 'Choose at most one land. Leave every other card in your hand.'
               : targetingPlayers
-                ? 'Choose any number of players. Homer mills each chosen player when you confirm.'
+                ? 'Choose the required player targets, then confirm.'
                 : searching
                   ? 'Choose a matching card or decline when the search is optional. The rest stay in your library, then it is shuffled.'
                   : revealing

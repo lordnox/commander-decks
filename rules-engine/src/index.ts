@@ -41,6 +41,7 @@ export {
   sameLegalAct,
   waitingContinueAction,
   waitingDiscard,
+  waitingPlayerSelection,
   waitingSelectCards,
   type AvailableAction,
   type WaitingDiscard,

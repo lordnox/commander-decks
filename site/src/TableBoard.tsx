@@ -1048,7 +1048,8 @@ export const CardPreview = ({
   ))
   const directActs = acts.filter(
     (action) =>
-      (action.kind !== 'castSpell' || (!action.targetObjectId && !action.targetPlayerId))
+      (action.kind !== 'castSpell'
+        || (!action.targetObjectId && !action.targetPlayerId && !action.targetGroups))
       && (action.kind !== 'activateAbility' || !action.targetGroups),
   )
   const targetedActivations = acts.filter((
@@ -1196,7 +1197,7 @@ export const CardPreview = ({
                         })}
                         className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                       >
-                        Activate
+                        {action.kind === 'castSpell' ? 'Cast' : 'Activate'}
                       </button>
                       <button
                         type="button"

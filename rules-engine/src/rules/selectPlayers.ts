@@ -19,6 +19,7 @@ export type PendingPlayerSelection = {
         kind: 'putTriggeredAbility'
         instructions: CardInstruction[]
         triggeringPlayer: PlayerId
+        abilityId?: string
         interveningIf?: CardCondition
       }
 }
@@ -41,7 +42,8 @@ export const pendingPlayerSelectionsFor = (
 export const pendingPlayerSelectionFor = (state: GameState | Draft, seat: PlayerId) =>
   pendingPlayerSelectionsFor(state, seat)[0]
 
-export const pendingPlayerSelection = (state: GameState) => {
+export const pendingPlayerSelection = (state: GameState | Draft, seat?: PlayerId) => {
+  if (seat) return pendingPlayerSelectionFor(state, seat)
   for (const seat of state.playerOrder) {
     const pending = pendingPlayerSelectionFor(state, seat)
     if (pending) return pending
@@ -52,11 +54,13 @@ export const openPlayerSelection = (
   draft: Draft,
   selection: Omit<PendingPlayerSelection, 'id'>,
 ) => {
+  const pending = { id: draft.allocId('player-selection'), ...selection }
   draft.players[selection.seat].data[PENDING_PLAYER_SELECTION] = [
     ...pendingPlayerSelectionsFor(draft, selection.seat),
-    { id: draft.allocId('player-selection'), ...selection },
+    pending,
   ]
-  draft.priority = selection.seat
+  draft.priority = pendingPlayerSelection(draft)?.seat ?? selection.seat
+  return pending
 }
 
 const clearSelection = (draft: Draft, seat: PlayerId) => {
@@ -115,6 +119,7 @@ export const selectPlayers: Plugin = {
       const source = draft.object(selection.sourceId)
       if (source) {
         draft.addTriggeredAbility(source, selection.action.instructions, {
+          ...(selection.action.abilityId ? { abilityId: selection.action.abilityId } : {}),
           targets: [{ kind: 'player', player: target }],
           payload: {
             instructions: selection.action.instructions,

@@ -17,6 +17,7 @@ import {
   type CardSelectionKind,
   type PendingCardSelection,
 } from './rules/selectCards'
+import { pendingPlayerSelection } from './rules/selectPlayers'
 import type {
   GameEvent,
   GameObject,
@@ -35,8 +36,16 @@ export type AvailableAction =
       name: string
       targetObjectId?: string
       targetPlayerId?: string
+      targetObjectIds?: string[]
       targetName?: string
       x?: number
+      targetGroups?: Array<{
+        label: string
+        min: number
+        max: number
+        kind?: 'object' | 'player'
+        targets: Array<{ objectId: string; name: string; controller: PlayerId }>
+      }>
     }
   | {
       kind: 'activateAbility'
@@ -72,6 +81,13 @@ export type AvailableAction =
       names: string[]
       count: number
       destinations?: string[]
+    }
+  | {
+      kind: 'selectPlayers'
+      selectionId: string
+      players: PlayerId[]
+      min: number
+      max: number
     }
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -177,6 +193,22 @@ export const waitingCardSelection = (
     destinations: waiting.selection.destinations,
   }
 }
+
+export const waitingPlayerSelection = (
+  state: GameState,
+  seat: PlayerId,
+): AvailableAction | null => {
+  const selection = pendingPlayerSelection(state, seat)
+  if (!selection) return null
+  return {
+    kind: 'selectPlayers',
+    selectionId: selection.id,
+    players: selection.candidates.filter((player) => !state.players[player]?.lost),
+    min: selection.min,
+    max: selection.max,
+  }
+}
+
 const DAMAGE_PENDING_STEPS = new Set([
   'declareAttackers',
   'declareBlockers',
@@ -458,7 +490,9 @@ export const availableActions = (
 ): AvailableAction[] => {
   if (!seat || state.priority !== seat || state.players[seat]?.lost) return []
   if (state.step === 'untap' || state.step === 'cleanup') return []
-  const waiting = waitingContinueAction(state, seat) ?? waitingCardSelection(state, seat)
+  const waiting = waitingContinueAction(state, seat)
+    ?? waitingPlayerSelection(state, seat)
+    ?? waitingCardSelection(state, seat)
   if (waiting) return [waiting]
   const actions: AvailableAction[] = []
   const hand = state.zoneOrder[seat]?.hand ?? []
@@ -604,6 +638,16 @@ const targetVariants = (
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
   const source = state.objects[action.objectId]
+  if (source?.name === 'Ghostly Flicker') return [action]
+  if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
+    return Object.values(state.objects)
+      .filter((object) => validBlinkSpellTarget(source.name, object, seat))
+      .map((target) => ({
+        ...action,
+        targetObjectId: target.id,
+        targetName: target.name,
+      }))
+  }
   const targeted = source
     ? effectsOf(source).filter((effect) => effect.op === 'targetedResolve')
     : []
@@ -628,12 +672,53 @@ const targetVariants = (
   return [...objectTargets, ...playerTargets]
 }
 
+const validBlinkSpellTarget = (
+  name: string,
+  object: GameObject,
+  seat: PlayerId,
+) => object.zone === 'battlefield'
+  && object.types.includes('Creature')
+  && (name !== 'Ephemerate' || object.controller === seat)
+
 const activationTargetGroups = (
   state: GameState,
   action: AvailableAction,
 ): AvailableAction => {
+  if (action.kind === 'castSpell' && action.name === 'Ghostly Flicker') {
+    const targets = Object.values(state.objects)
+      .filter((object) =>
+        object.zone === 'battlefield'
+        && object.controller === state.priority
+        && ['Artifact', 'Creature', 'Land'].some((type) => object.types.includes(type)))
+      .map((object) => ({
+        objectId: object.id,
+        name: object.name,
+        controller: object.controller,
+      }))
+    return {
+      ...action,
+      targetGroups: [
+        { label: 'First permanent', min: 1, max: 1, targets },
+        { label: 'Second permanent', min: 1, max: 1, targets },
+      ],
+    }
+  }
   if (action.kind !== 'activateAbility' || !action.abilityId) return action
   const source = state.objects[action.objectId]
+  if (action.abilityId === 'loran.draw') {
+    return {
+      ...action,
+      targetGroups: [{
+        label: 'Opponent',
+        min: 1,
+        max: 1,
+        kind: 'player',
+        targets: state.playerOrder
+          .filter((player) => player !== source?.controller && !state.players[player].lost)
+          .map((player) => ({ objectId: player, name: player, controller: player })),
+      }],
+    }
+  }
   const effect = source
     ? activateEffect(effectsOf(source), action.abilityId)
     : undefined
@@ -682,6 +767,8 @@ export const legalActsFor = (
       || action.kind === 'declareBlockers'
       || action.kind === 'continueAction'
       || action.kind === 'selectCards'
+      || action.kind === 'selectPlayers'
+      || (action.kind === 'castSpell' && Boolean(action.targetGroups))
       || (action.kind === 'activateAbility' && Boolean(action.targetGroups))
       || eventsForAvailableAction(state, seat, action))
 
@@ -715,6 +802,7 @@ export const sameLegalAct = (
   }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
+  if (left.kind === 'selectPlayers') return left.selectionId === right.selectionId
   return true
 }
 
@@ -776,7 +864,11 @@ export const eventsForAvailableAction = (
   seat: PlayerId,
   action: AvailableAction,
 ): GameEvent[] | null => {
-  if (action.kind === 'continueAction' || action.kind === 'selectCards') return null
+  if (
+    action.kind === 'continueAction'
+    || action.kind === 'selectCards'
+    || action.kind === 'selectPlayers'
+  ) return null
   if (action.kind === 'playLand') {
     return [{ type: 'playLand', seat, objectId: action.objectId }]
   }
@@ -845,9 +937,18 @@ export const eventsForAvailableAction = (
       && !hasDeclarativeAdditionalCost
     )
   ) {
-    return null
+    if (!['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(object?.name ?? '')) {
+      return null
+    }
   }
   if (targeted.length === 1 && !action.targetObjectId) return null
+  const blinkTargets = action.targetObjectIds
+    ?? (action.targetObjectId ? [action.targetObjectId] : [])
+  if (
+    ['Ephemerate', 'Vanish into Memory'].includes(object.name)
+    && blinkTargets.length !== 1
+  ) return null
+  if (object.name === 'Ghostly Flicker' && blinkTargets.length !== 2) return null
   const tax = taxFor(state, seat, object)
   const face = castFaceOf(object)
   const casting = face ? { ...object, ...face } : object
@@ -860,8 +961,13 @@ export const eventsForAvailableAction = (
       type: 'castSpell',
       seat,
       objectId: object.id,
-      ...(action.targetObjectId
-        ? { targets: [{ kind: 'object' as const, objectId: action.targetObjectId }] }
+      ...(action.targetObjectId || action.targetObjectIds
+        ? {
+            targets: blinkTargets.map((objectId) => ({
+              kind: 'object' as const,
+              objectId,
+            })),
+          }
         : action.targetPlayerId
           ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }
         : {}),

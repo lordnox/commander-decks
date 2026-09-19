@@ -65,6 +65,7 @@ export type CardInstruction =
   | { kind: 'opponentsSacrifice'; type: string; count: number }
   | { kind: 'reanimateCreatureFromGraveyards'; addSubtype?: string }
   | { kind: 'loseLife'; amount: number; who: 'triggeringPlayer' | 'controller' }
+  | { kind: 'loseLifeTargetPlayer'; amount: number }
   | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }

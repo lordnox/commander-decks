@@ -1154,6 +1154,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Darkness: [onResolve(preventCombatDamage())],
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
+  Ephemerate: [handler('blinkValue')],
   'Deserted Temple': [
     activate({
       id: 'desertedTemple.untap',
@@ -1187,6 +1188,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     }, { mana: '{2}', tap: true, sacrifice: 'self' }),
   ],
+  'Ghostly Flicker': [handler('blinkValue')],
   'Kami of False Hope': [
     activate({
       id: 'kami.fog',
@@ -1200,6 +1202,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       targets: 'creature',
     }, { mana: '{W}{B}', tap: true }, preventCombatDamage({ from: 'target' })),
   ],
+  'Loran of the Third Path': [handler('blinkValue')],
+  'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
   'Marsh Flats': [
     fetchTypes('Search your library for a Plains or Swamp card and put it onto the battlefield.', [
@@ -1210,6 +1214,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Mulldrifter: [enters(draw(2))],
   'Nirkana Revenant': [staticGrant('extraSwampMana')],
   'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
+  'Queza, Augur of Agonies': [handler('blinkValue')],
   "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
   'Snuff Out': [
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
@@ -1229,6 +1234,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
+  'Vanish into Memory': [handler('blinkValue')],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

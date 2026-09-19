@@ -404,8 +404,7 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     return !waiting || waiting.selection.id !== decision.kernel.selectionId
   }
   if (decision.kernel.stage === 'select-players') {
-    const pending = pendingPlayerSelection(state)
-    return !pending || pending.seat !== decision.seat
+    return pendingPlayerSelection(state, decision.seat)?.id !== decision.kernel.selectionId
   }
   if (!decision.kernel.chosenEvent) return false
   return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
