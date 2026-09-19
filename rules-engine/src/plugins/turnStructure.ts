@@ -1,5 +1,6 @@
 import { emptyMana, nextPlayer, type Draft } from '../draft'
 import { strikesFirst } from '../keywords'
+import { apnapSeats } from '../turnOrder'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
 import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 
@@ -69,6 +70,35 @@ const onDraw = (draft: Draft) => {
   draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })
 }
 
+type DelayedDraw = { count: number; optional?: boolean }
+
+const isDelayedDraw = (value: unknown): value is DelayedDraw =>
+  Boolean(value)
+  && typeof value === 'object'
+  && typeof (value as DelayedDraw).count === 'number'
+
+const onUpkeep = (draft: Draft) => {
+  for (const seat of apnapSeats(draft)) {
+    const stored = draft.players[seat].data.delayedDraw
+    const delayed = Array.isArray(stored) ? stored.filter(isDelayedDraw) : []
+    delete draft.players[seat].data.delayedDraw
+    for (const entry of delayed) {
+      if (entry.count <= 0) continue
+      if (entry.optional) {
+        // turnStructure cannot open a may-dialog; choiceEffects can handle this event later.
+        draft.enqueue({
+          type: 'custom',
+          name: 'delayedDraw.optional',
+          seat,
+          payload: { count: entry.count },
+        })
+      } else {
+        draft.enqueue({ type: 'draw', seat, count: entry.count })
+      }
+    }
+  }
+}
+
 /**
  * Combat damage is a turn-based action, not something a seat has to ask for.
  * First strike is not modelled, so every attacker hits in this one step.
@@ -93,6 +123,7 @@ const onCleanup = (draft: Draft) => {
 
 const enterStep = (draft: Draft, step: StepId) => {
   if (step === 'untap') return onUntap(draft)
+  if (step === 'upkeep') return onUpkeep(draft)
   if (step === 'draw') return onDraw(draft)
   if (step === 'combatDamage') return onCombatDamage(draft)
   if (step === 'cleanup') return onCleanup(draft)

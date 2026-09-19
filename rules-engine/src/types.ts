@@ -51,6 +51,29 @@ export type FaceCharacteristics = {
   colors: string[]
 }
 
+export type CopySnapshot = {
+  name: string
+  printedName?: string
+  types: string[]
+  subtypes: string[]
+  supertypes: string[]
+  manaCost: string
+  manaValue: number
+  colors: string[]
+  power: number | null
+  toughness: number | null
+  oracleText: string
+  grantedRules: string[]
+  tapProduces?: Partial<ManaPool>
+  effects?: GameObject['effects']
+}
+
+export type UntilEotChange =
+  | { kind: 'pump'; power: number; toughness: number }
+  | { kind: 'oracleLine'; line: string }
+  | { kind: 'copy'; snapshot: CopySnapshot }
+  | { kind: 'controller'; previous: PlayerId }
+
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
 export type TargetRef =
   | { kind: 'player'; player: PlayerId }
@@ -113,6 +136,7 @@ export type GameObject = {
   enteredWithCastOption?: string
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
+  untilEot?: UntilEotChange[]
 }
 
 /**
@@ -341,6 +365,8 @@ export type GameEvent =
       source?: string
     }
   | { type: 'winGame'; seat: PlayerId; source?: string }
+  | { type: 'sacrifice'; objectId: string }
+  | { type: 'fight'; leftId: string; rightId: string }
   // — Choices & continuations —
   | {
       type: 'continueAction'
