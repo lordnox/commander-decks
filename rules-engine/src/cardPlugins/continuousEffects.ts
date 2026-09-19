@@ -57,6 +57,30 @@ export const changeStats = (
   return { kind: 'pump', power, toughness }
 }
 
+export const becomeCreature = (
+  object: GameObject,
+  power: number,
+  toughness: number,
+): ReversibleEffect => {
+  const before = {
+    types: [...object.types],
+    power: object.power,
+    toughness: object.toughness,
+  }
+  if (!object.types.includes('Creature')) object.types.push('Creature')
+  object.power = power
+  object.toughness = toughness
+  return {
+    kind: 'animation',
+    before,
+    after: {
+      types: [...object.types],
+      power,
+      toughness,
+    },
+  }
+}
+
 export const grantOracleLine = (
   object: GameObject,
   line: string,
@@ -139,6 +163,12 @@ export const changeStatsUntilEndOfTurn = (
   toughness: number,
 ) => untilEndOfTurn(object, changeStats(object, power, toughness))
 
+export const animateUntilEndOfTurn = (
+  object: GameObject,
+  power: number,
+  toughness: number,
+) => untilEndOfTurn(object, becomeCreature(object, power, toughness))
+
 export const grantOracleLineUntilEndOfTurn = (
   object: GameObject,
   line: string,
@@ -196,6 +226,10 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
   if (effect.kind === 'pump') {
     if (object.power !== null) object.power -= effect.power
     if (object.toughness !== null) object.toughness -= effect.toughness
+  } else if (effect.kind === 'animation') {
+    object.types = [...effect.before.types]
+    object.power = effect.before.power
+    object.toughness = effect.before.toughness
   } else if (effect.kind === 'oracleLine') {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'copy') {
@@ -207,6 +241,10 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
   if (effect.kind === 'pump') {
     if (object.power !== null) object.power += effect.power
     if (object.toughness !== null) object.toughness += effect.toughness
+  } else if (effect.kind === 'animation') {
+    object.types = [...effect.after.types]
+    object.power = effect.after.power
+    object.toughness = effect.after.toughness
   } else if (effect.kind === 'oracleLine') {
     if (!object.oracleText.split('\n').includes(effect.line)) {
       object.oracleText = object.oracleText

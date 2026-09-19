@@ -29,7 +29,6 @@ export const bestow: Plugin = {
     source.attachedTo = target.objectId
     source.power = null
     source.toughness = null
-    source.summoningSickness = false
     draft.note(`${source.name} enters attached`)
   },
 }

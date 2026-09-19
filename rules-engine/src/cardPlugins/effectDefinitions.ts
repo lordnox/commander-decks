@@ -92,6 +92,7 @@ export type CardInstruction =
   | { kind: 'pump'; power: number; toughness: number }
   | { kind: 'pumpTargetX'; multiplier: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
+  | { kind: 'animateUntilEot'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
   | { kind: 'createXTokens'; token: TokenSpec }
   | { kind: 'dealDamageToSelf'; amount: number }

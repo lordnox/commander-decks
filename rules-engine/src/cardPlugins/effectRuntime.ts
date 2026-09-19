@@ -178,7 +178,7 @@ export const copyTokenTemplate = (
   ...copyCharacteristics(card, extra),
   // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
   ...(extra.tapped ? { tapped: true } : {}),
-  summoningSickness: card.types.includes('Creature'),
+  summoningSickness: true,
   counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
   tags: [],
 })

@@ -211,7 +211,7 @@ export const spells: Plugin = {
       if (isPermanentType(object.types)) {
         object.enteredWithCastOption = item.castOption
         draft.move(object.id, 'battlefield')
-        object.summoningSickness = object.types.includes('Creature')
+        object.summoningSickness = true
         if (
           object.types.includes('Planeswalker')
           && object.printedLoyalty !== null
