@@ -2,31 +2,35 @@ import {
   animateWhileSourceOnBattlefield,
   reviseContinuousEffects,
 } from '../cardPlugins/continuousEffects'
-import type { ContinuousEffect, GameObject, Plugin } from '../types'
+import type {
+  ContinuousEffect,
+  GameObject,
+  Plugin,
+  ReversibleEffect,
+} from '../types'
 
-const animationFrom = (sourceId: string) => (entry: ContinuousEffect) =>
-  entry.effect.kind === 'animation'
-  && entry.duration.kind === 'whileSourceOnBattlefield'
-  && entry.duration.sourceId === sourceId
+type AnimationEntry = ContinuousEffect & {
+  effect: Extract<ReversibleEffect, { kind: 'animation' }>
+}
 
-const isStale = (entry: ContinuousEffect, object: GameObject) =>
-  entry.effect.kind === 'animation'
-  && (
-    entry.effect.after.power !== object.manaValue
-    || entry.effect.after.toughness !== object.manaValue
-    || !object.types.includes('Creature')
-  )
+const animationFrom = (sourceId: string) =>
+  (entry: ContinuousEffect): entry is AnimationEntry =>
+    entry.effect.kind === 'animation'
+    && entry.duration.kind === 'whileSourceOnBattlefield'
+    && entry.duration.sourceId === sourceId
 
-const rebase = (entry: ContinuousEffect, manaValue: number): ContinuousEffect =>
-  entry.effect.kind === 'animation'
-    ? {
-        ...entry,
-        effect: {
-          ...entry.effect,
-          after: { ...entry.effect.after, power: manaValue, toughness: manaValue },
-        },
-      }
-    : entry
+const isStale = (entry: AnimationEntry, object: GameObject) =>
+  entry.effect.after.power !== object.manaValue
+  || entry.effect.after.toughness !== object.manaValue
+  || !object.types.includes('Creature')
+
+const rebase = (entry: AnimationEntry, manaValue: number): ContinuousEffect => ({
+  ...entry,
+  effect: {
+    ...entry.effect,
+    after: { ...entry.effect.after, power: manaValue, toughness: manaValue },
+  },
+})
 
 export const starfieldOfNyx: Plugin = {
   id: 'starfieldOfNyx',
