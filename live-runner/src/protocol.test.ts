@@ -96,6 +96,17 @@ describe('inbox', () => {
       objectId: 'flicker',
       targetObjectIds: ['rock', 'land'],
     })
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"rebound","alternativeCost":"withoutPayingMana"}')).toEqual({
+      type: 'act',
+      kind: 'castSpell',
+      objectId: 'rebound',
+      alternativeCost: 'withoutPayingMana',
+    })
+    expect(parseInbox('{"type":"act","kind":"declineFreeCast","objectId":"rebound"}')).toEqual({
+      type: 'act',
+      kind: 'declineFreeCast',
+      objectId: 'rebound',
+    })
     expect(parseInbox('{"type":"act","kind":"activateAbility","objectId":"teferi","abilityId":"teferi.plus-one","targetObjectIds":["rock","bear","land"]}')).toEqual({
       type: 'act',
       kind: 'activateAbility',

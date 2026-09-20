@@ -30,6 +30,7 @@ import {
 } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
+import { pendingFreeCastFor } from './plugins/rebound'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
@@ -90,8 +91,10 @@ export type AvailableAction =
       castLabel?: string
       convoke?: string[]
       phyrexianLife?: number[]
+      alternativeCost?: 'withoutPayingMana'
       targetGroups?: ActionTargetGroup[]
     }
+  | { kind: 'declineFreeCast'; objectId: string; name: string }
   | {
       kind: 'activateAbility'
       objectId: string
@@ -356,18 +359,32 @@ const taxFor = (state: GameState, seat: PlayerId, object: GameObject) => {
 const needsStackTarget = (object: GameObject) =>
   /counter target[^.]*\b(spell|ability)\b/i.test(object.oracleText)
 
-const canCastAtTiming = (state: GameState, seat: PlayerId, object: GameObject) => {
+const canCastAtTiming = (
+  state: GameState,
+  seat: PlayerId,
+  object: GameObject,
+  withoutPayingMana = false,
+) => {
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
+  if (
+    !state.castableZones.includes(object.zone)
+    && !(withoutPayingMana && object.zone === 'exile')
+  ) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
   const endStepOnly = effectsOf(object).some(
     (effect) => effect.op === 'castCost' && effect.timing === 'yourEndStep',
   )
-  if (endStepOnly && (state.active !== seat || state.step !== 'end')) return false
+  if (
+    !withoutPayingMana
+    && endStepOnly
+    && (state.active !== seat || state.step !== 'end')
+  ) return false
   if (state.stack.length === 0 && needsStackTarget(object)) return false
   if (
-    !spell.types.includes('Instant')
+    !withoutPayingMana
+    && !spell.types.includes('Instant')
     && (
       state.active !== seat
       || !MAIN_STEPS.has(state.step)
@@ -727,6 +744,25 @@ export const availableActions = (
   seat: PlayerId = state.priority ?? '',
 ): AvailableAction[] => {
   if (!seat || state.players[seat]?.lost) return []
+  const freeCast = pendingFreeCastFor(state, seat)
+  if (freeCast) {
+    const object = state.objects[freeCast.objectId]
+    return [
+      ...(object && canCastAtTiming(state, seat, object, true)
+        ? [{
+            kind: 'castSpell' as const,
+            objectId: object.id,
+            name: object.name,
+            alternativeCost: 'withoutPayingMana' as const,
+          }]
+        : []),
+      {
+        kind: 'declineFreeCast',
+        objectId: freeCast.objectId,
+        name: object?.name ?? 'free cast',
+      },
+    ]
+  }
   const extort = pendingExtortFor(state, seat)
   if (extort) {
     return [
@@ -1244,6 +1280,7 @@ export const sameLegalAct = (
     kicked?: boolean
     castOption?: string
     phyrexianLife?: number[]
+    alternativeCost?: 'withoutPayingMana'
     stackId?: string
     selectionId?: string
     triggerId?: string
@@ -1264,6 +1301,7 @@ export const sameLegalAct = (
       && left.kicked === right.kicked
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
+      && left.alternativeCost === right.alternativeCost
   }
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
@@ -1414,6 +1452,9 @@ export const eventsForAvailableAction = (
     || action.kind === 'selectCards'
     || action.kind === 'selectPlayers'
   ) return null
+  if (action.kind === 'declineFreeCast') {
+    return [{ type: 'declineFreeCast', seat, objectId: action.objectId }]
+  }
   if (action.kind === 'payExtort') {
     if (!action.mana) {
       return [{
@@ -1558,6 +1599,7 @@ export const eventsForAvailableAction = (
     kicked: action.kicked,
     targets,
     seat,
+    withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
   })
   const convoke = (action.convoke ?? [])
     .map((objectId) => state.objects[objectId])
@@ -1576,6 +1618,7 @@ export const eventsForAvailableAction = (
       type: 'castSpell',
       seat,
       objectId: object.id,
+      ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
       ...(action.castOption ? { castOption: action.castOption } : {}),
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),

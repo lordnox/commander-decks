@@ -39,7 +39,12 @@ const actionsIfPriority = (state: GameState, seat: PlayerId) =>
 
 const actionText = (action: AvailableAction) => {
   if (action.kind === 'playLand') return `play ${action.name}`
-  if (action.kind === 'castSpell') return `cast ${action.name}`
+  if (action.kind === 'castSpell') {
+    return action.alternativeCost === 'withoutPayingMana'
+      ? `cast ${action.name} without paying its mana cost`
+      : `cast ${action.name}`
+  }
+  if (action.kind === 'declineFreeCast') return `decline the free cast of ${action.name}`
   if (action.kind === 'activateAbility') {
     return `activate ${action.name}${action.abilityId ? ` (${action.abilityId})` : ''}`
   }
