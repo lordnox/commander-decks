@@ -381,7 +381,11 @@ describe('Lady Evangela remaining coverage', () => {
       objectId: named(state, 'Cryptic Command').id,
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(pendingDialog(state)).toMatchObject({ kind: 'choose-modes', source: 'Cryptic Command' })
+    expect(pendingDialog(state)).toMatchObject({
+      kind: 'choose-modes',
+      source: 'Cryptic Command',
+      requirements: { target: { min: 2, max: 2 } },
+    })
     expect(server.rules(state, {
       type: 'custom',
       name: DIALOG_CHOSEN,
