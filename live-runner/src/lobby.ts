@@ -62,6 +62,7 @@ export type TopdeckDecision = {
       | 'look-top-land'
       | 'exile-graveyards'
       | 'waiting-discard'
+      | 'battle-cast-transformed'
       | 'select-cards'
       | 'select-players'
       | 'cumulative-upkeep'

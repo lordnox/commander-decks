@@ -29,6 +29,7 @@ import {
   validTargetRef,
 } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
+import { CAST_TRANSFORMED_ACTION } from './plugins/battle'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingFreeCastFor } from './plugins/rebound'
 import { pendingExtortFor } from './cardPlugins/extort'
@@ -130,6 +131,7 @@ export type AvailableAction =
       actionId: string
       objectIds: string[]
       count: number
+      options?: string[]
     }
   | {
       kind: 'selectCards'
@@ -184,19 +186,52 @@ export const waitingDiscard = (
   }
 }
 
+export type WaitingCastTransformed = {
+  item: StackItem
+  chooser: PlayerId
+}
+
+export const waitingCastTransformed = (
+  state: GameState,
+  seat?: PlayerId,
+): WaitingCastTransformed | null => {
+  const item = state.stack[0]
+  if (
+    item?.kind !== 'action'
+    || item.actionId !== CAST_TRANSFORMED_ACTION
+    || item.waiting !== 'choice'
+  ) return null
+  const chooser = (typeof item.payload?.chooser === 'string'
+    ? item.payload.chooser
+    : item.controller) as PlayerId
+  return seat && seat !== chooser ? null : { item, chooser }
+}
+
 export const waitingContinueAction = (
   state: GameState,
   seat: PlayerId,
 ): AvailableAction | null => {
-  const waiting = waitingDiscard(state, seat)
-  if (!waiting) return null
-  return {
-    kind: 'continueAction',
-    stackId: waiting.item.id,
-    actionId: 'discard',
-    objectIds: waiting.handIds,
-    count: waiting.count,
+  const discard = waitingDiscard(state, seat)
+  if (discard) {
+    return {
+      kind: 'continueAction',
+      stackId: discard.item.id,
+      actionId: 'discard',
+      objectIds: discard.handIds,
+      count: discard.count,
+    }
   }
+  const transformed = waitingCastTransformed(state, seat)
+  return transformed
+    ? {
+        kind: 'continueAction',
+        stackId: transformed.item.id,
+        actionId: CAST_TRANSFORMED_ACTION,
+        objectIds: [transformed.item.objectId],
+        count: 1,
+        options: ['cast', 'decline'],
+      }
+    : null
 }
 
 export type WaitingSelectCards = {

@@ -8,6 +8,7 @@ import {
   type TopdeckMessage,
 } from './kernelChoice'
 import {
+  applyCastTransformed,
   applyLibrarySearch,
   applySelectCards,
   applyWaitingDiscard,
@@ -67,6 +68,8 @@ export const applyKernelChoice = (
       return applySelectPlayers(context)
     case 'waiting-discard':
       return applyWaitingDiscard(context)
+    case 'battle-cast-transformed':
+      return applyCastTransformed(context)
     case 'player-targets':
       return applyPlayerTargets(context)
     case 'library-search':

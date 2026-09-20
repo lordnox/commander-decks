@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
@@ -177,6 +178,16 @@ describe('Siege battles', () => {
       actionId: CAST_TRANSFORMED_ACTION,
       waiting: 'choice',
     })
+    expect(legalActsFor(current, 'p1')).toContainEqual({
+      kind: 'continueAction',
+      stackId: current.stack[0].id,
+      actionId: CAST_TRANSFORMED_ACTION,
+      objectIds: [objectId],
+      count: 1,
+      options: ['cast', 'decline'],
+    })
+    expect(current.objects[objectId].counters.defense).toBeUndefined()
+    expect(current.objects[objectId].protector).toBeUndefined()
 
     current = ok(server.rules(current, {
       type: 'continueAction',
@@ -225,18 +236,39 @@ describe('Siege battles', () => {
     expect(current.objects[objectId].zone).toBe('graveyard')
   })
 
-  test('chooses a new legal protector as a state-based action', () => {
-    const { server, objectId, state } = castSiege()
-    const pending = pendingPlayerSelectionFor(state, 'p1')!
-    let current = ok(server.rules(state, {
-      type: 'selectPlayers',
+  test('clears a stale protector but waits until combat ends to choose another', () => {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      battlefield: {
+        p1: [bears(), { ...siege(), protector: 'p2', counters: { defense: 3 } }],
+      },
+    })
+    const battle = Object.values(server.state.objects).find((object) =>
+      object.types.includes('Battle'))!
+    const attacker = Object.values(server.state.objects).find((object) =>
+      object.types.includes('Creature'))!
+    attacker.summoningSickness = false
+    server.state.step = 'declareAttackers'
+    let current = ok(server.rules(server.state, {
+      type: 'declareAttackers',
       seat: 'p1',
-      selectionId: pending.id,
-      players: ['p2'],
+      attackers: [{
+        objectId: attacker.id,
+        defender: { kind: 'object', objectId: battle.id },
+      }],
     }))
 
     current = ok(server.rules(current, { type: 'concede', seat: 'p2' }))
-    expect(current.objects[objectId].protector).toBe('p3')
+    expect(current.objects[battle.id].protector).toBeUndefined()
+    expect(pendingPlayerSelectionFor(current, 'p1')).toBeUndefined()
+
+    current.objects[attacker.id].attacking = null
+    current = ok(server.rules(current, {
+      type: 'addMana',
+      seat: 'p1',
+      mana: { C: 1 },
+    }))
+    expect(current.objects[battle.id].protector).toBe('p3')
   })
 
   test('a transformed back-face instant or sorcery returns to its front face off the stack', () => {

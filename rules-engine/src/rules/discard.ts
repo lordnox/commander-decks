@@ -113,7 +113,12 @@ const legalContinueDiscard = (state: GameState, event: GameEvent) => {
 
   const item = state.stack[0]
   if (!item || item.id !== event.stackId) return 'stack item not found'
-  if (item.kind !== 'action' || item.actionId !== 'discard') return
+  if (
+    item.kind === 'action'
+    && item.waiting === 'choice'
+    && item.actionId !== 'discard'
+  ) return
+  if (item.kind !== 'action' || item.actionId !== 'discard') return 'not a discard action'
   if (item.waiting !== 'choice') return 'discard action is not waiting for a choice'
 
   const payload = discardPayload(item)

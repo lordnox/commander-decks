@@ -449,6 +449,7 @@ export type GameEvent =
       sourceId?: string
     }
   | { type: 'chooseBattleProtector'; objectId: string }
+  | { type: 'clearBattleProtector'; objectId: string }
   | { type: 'loseLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'payLife'; seat: PlayerId; amount: number; source?: string }

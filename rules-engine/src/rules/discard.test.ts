@@ -244,4 +244,25 @@ describe('discard game rule', () => {
     if (notInHand.ok) return
     expect(notInHand.state).toEqual(waiting)
   })
+
+  test('continueAction against a spell is rejected instead of becoming a no-op', () => {
+    const server = createServerGame(commanderRules, { players: 2 })
+    server.state.stack = [{
+      id: 'spell-1',
+      kind: 'spell',
+      objectId: 'missing-card',
+      controller: 'p1',
+      name: 'Test Spell',
+      targets: [],
+    }]
+
+    const continued = server.rules(server.state, {
+      type: 'continueAction',
+      stackId: 'spell-1',
+      seat: 'p1',
+      payload: {},
+    })
+    expect(continued.ok).toBe(false)
+    if (!continued.ok) expect(continued.error).toBe('not a discard action')
+  })
 })

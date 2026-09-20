@@ -1,4 +1,5 @@
 import {
+  waitingCastTransformed,
   waitingDiscard,
   waitingSelectCards,
   pendingPlayerSelection,
@@ -19,6 +20,7 @@ import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
 import { sameNames } from './kernelChoice'
 import {
+  prepareCastTransformedChoice,
   prepareLibrarySearchChoice,
   prepareSelectCardsChoice,
   prepareWaitingDiscardChoice,
@@ -65,6 +67,10 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const waiting = waitingDiscard(state)
       return !waiting || waiting.item.id !== decision.kernel.stackId
     }
+    case 'battle-cast-transformed': {
+      const waiting = waitingCastTransformed(state)
+      return !waiting || waiting.item.id !== decision.kernel.stackId
+    }
     case 'select-cards': {
       const waiting = waitingSelectCards(state, decision.seat)
       return !waiting || waiting.selection.id !== decision.kernel.selectionId
@@ -107,6 +113,7 @@ export const prepareKernelPendingChoice = (
   if (prepareSelectPlayersChoice(kernel, lobby)) return true
   if (preparePlayerTargetsChoice(kernel, lobby)) return true
   if (prepareLibrarySearchChoice(kernel, lobby)) return true
+  if (prepareCastTransformedChoice(kernel, lobby)) return true
   if (prepareWaitingDiscardChoice(kernel, lobby)) return true
   if (prepareSelectCardsChoice(kernel, lobby)) return true
   if (prepareCumulativeUpkeepChoice(kernel, lobby)) return true
