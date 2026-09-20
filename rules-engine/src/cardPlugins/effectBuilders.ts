@@ -911,6 +911,7 @@ export const alternateCast = (
     discard?: 'land'
     sacrifice?: { type: string; count: number }
     afterWarp?: boolean
+    exileGraveyard?: { count: number; other?: boolean }
   } = {},
 ): CardEffect => ({ op: 'alternateCast', id, label, manaCost, ...extra })
 
@@ -959,6 +960,31 @@ export const embalm = (
 export const foretell = (manaCost: string): CardEffect => ({
   op: 'foretell',
   manaCost,
+})
+
+export const escape = (
+  manaCost: string,
+  exileCount: number,
+): CardEffect => alternateCast(
+  'escape',
+  `Escape—${manaCost}, Exile ${exileCount} other cards from your graveyard.`,
+  manaCost,
+  {
+    fromZone: 'graveyard',
+    exileGraveyard: { count: exileCount, other: true },
+  },
+)
+
+export const replaceDrawByType = (): CardEffect => ({ op: 'drawReplacementByType' })
+
+export const hiddenPileNegotiation = (
+  pileSize: number,
+  lifeLoss: number,
+): CardInstruction => ({
+  kind: 'hiddenPileNegotiation',
+  pileSize,
+  pileCount: 2,
+  lifeLoss,
 })
 
 export const grantRetrace = (): CardEffect => ({

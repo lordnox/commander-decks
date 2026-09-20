@@ -11,6 +11,7 @@ import {
   applyCastTransformed,
   applyLibrarySearch,
   applySelectCards,
+  applyOptionSelection,
   applyWaitingDiscard,
 } from './kernelChoiceApplyCards'
 import {
@@ -64,6 +65,8 @@ export const applyKernelChoice = (
       return applyStackCopy(context)
     case 'select-cards':
       return applySelectCards(context)
+    case 'option-selection':
+      return applyOptionSelection(context)
     case 'select-players':
       return applySelectPlayers(context)
     case 'waiting-discard':

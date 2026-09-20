@@ -19,6 +19,7 @@ import { CUMULATIVE_UPKEEP_PENDING } from './cardPlugins/cumulativeUpkeep'
 import { PENDING_SELECTION, pendingSelectionsFor } from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION } from './rules/selectPlayers'
 import { PENDING_DIALOG, pendingDialogsFor } from './pendingDialog'
+import { PENDING_OPTION_SELECTION } from './rules/selectOptions'
 
 export type ServerDependencies = {
   random: () => number
@@ -70,14 +71,17 @@ export const projectForViewer = (
       }
     }
   }
-
   for (const [objectId, object] of Object.entries(projected.objects)) {
     const hiddenLibrary = object.zone === 'library' && !visibleLibraryCards.has(objectId)
     const hiddenHand = object.zone === 'hand'
       && object.owner !== viewer
       && !isKnownTo(object, viewer, projected.playerOrder)
     const hiddenForetold = isHiddenForetold(object, viewer, projected.playerOrder)
-    if (hiddenLibrary || hiddenHand || hiddenForetold) delete projected.objects[objectId]
+    const hiddenFaceDown = object.faceDown
+      && !isKnownTo(object, viewer, projected.playerOrder)
+    if (hiddenLibrary || hiddenHand || hiddenForetold || hiddenFaceDown) {
+      delete projected.objects[objectId]
+    }
   }
 
   for (const player of projected.playerOrder) {
@@ -100,6 +104,7 @@ export const projectForViewer = (
     if (player !== viewer) {
       delete projected.players[player].data[PENDING_SELECTION]
       delete projected.players[player].data[PENDING_PLAYER_SELECTION]
+      delete projected.players[player].data[PENDING_OPTION_SELECTION]
       if (pendingDialogsFor(authoritative, player).length > 0) {
         delete projected.players[player].data[PENDING_DIALOG]
       }
@@ -108,6 +113,14 @@ export const projectForViewer = (
     const topName = revealedTops[player]
     if (topName) projected.players[player].data.revealed_top = [topName]
     else delete projected.players[player].data.revealed_top
+  }
+  for (const player of projected.playerOrder) {
+    for (const zone of Object.keys(projected.zoneOrder[player])) {
+      if (zone === 'library') continue
+      projected.zoneOrder[player][zone as keyof typeof projected.zoneOrder[typeof player]] =
+        projected.zoneOrder[player][zone as keyof typeof projected.zoneOrder[typeof player]]
+          .filter((id) => Boolean(projected.objects[id]))
+    }
   }
   redactSecretCouncil(projected.players, viewer)
 

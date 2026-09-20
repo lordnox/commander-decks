@@ -12,6 +12,7 @@ import {
 import { objectIdsForNames, type ChoiceContext } from './kernelChoice'
 import { finishLibrarySearch } from './kernelChoicePrepareCards'
 import { closeKernelChoice } from './kernelSettle'
+import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 
 export const applySelectCards = (
   { kernel, lobby, seat, message, decision, state }: ChoiceContext,
@@ -107,6 +108,32 @@ export const applySelectCards = (
     judge: waiting.selection.source
       ? `${lobby.occupants[seat]?.name ?? seat} finished ${cardKind} for ${waiting.selection.source}.`
       : `${lobby.occupants[seat]?.name ?? seat} finished ${cardKind}.`,
+  })
+}
+
+export const applyOptionSelection = (
+  { kernel, lobby, seat, message, decision, state }: ChoiceContext,
+) => {
+  const pending = pendingOptionSelection(state, seat)
+  if (!pending || pending.id !== decision.kernel.selectionId) {
+    throw new Error('That option choice is no longer open.')
+  }
+  const chosen = message.choices.filter(({ destination }) => destination === 'target')
+  if (chosen.length !== 1) throw new Error('Choose exactly one option.')
+  const option = pending.options.find((candidate) => candidate.label === chosen[0].card)
+  if (!option) throw new Error('That option was not offered.')
+  const result = kernel.dispatch({
+    type: 'selectOption',
+    seat,
+    selectionId: pending.id,
+    optionId: option.id,
+  })
+  if (!result.ok) throw new Error(result.error)
+  return closeKernelChoice(kernel, lobby, seat, {
+    privateJudge: { [seat]: `You chose ${option.label}.` },
+    judge: `${lobby.occupants[seat]?.name ?? seat} made a private choice${
+      pending.source ? ` for ${pending.source}` : ''
+    }.`,
   })
 }
 

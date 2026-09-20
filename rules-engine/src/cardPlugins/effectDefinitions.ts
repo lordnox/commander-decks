@@ -301,6 +301,7 @@ export type CardInstruction =
   | { kind: 'bounceTargetPermanent' }
   | { kind: 'addPlusCountersToControlled'; count: number }
   | { kind: 'opponentMayDrawThenStealCast'; count: number }
+  | { kind: 'hiddenPileNegotiation'; pileSize: number; pileCount: 2; lifeLoss: number }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -564,8 +565,10 @@ export type CardEffect =
       sacrifice?: { type: string; count: number }
       /** Cast from exile after a warp exile; manaCost `__printed__` uses the object's mana cost. */
       afterWarp?: boolean
+      exileGraveyard?: { count: number; other?: boolean }
     }
   | { op: 'foretell'; manaCost: string }
+  | { op: 'drawReplacementByType' }
   | { op: 'spellTrait'; uncounterable?: boolean }
   | {
       op: 'vote'

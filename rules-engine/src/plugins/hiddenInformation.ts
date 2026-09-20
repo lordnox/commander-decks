@@ -100,6 +100,9 @@ export const replicaSnapshotError = (snapshot: import('../types').GameState) => 
     if (object.zone === 'library' && !visibleLibrary.has(object.id)) {
       return 'client snapshot exposes a library object'
     }
+    if (object.faceDown && !isKnownTo(object, viewer, snapshot.playerOrder)) {
+      return 'client snapshot exposes a face-down object'
+    }
     if (
       object.zone === 'hand'
       && object.owner !== viewer
@@ -141,7 +144,11 @@ const redactObject = (
     && object.owner !== viewer
     && !isKnownTo(object, viewer, draft.playerOrder)
   const hiddenForetold = isHiddenForetold(object, viewer, draft.playerOrder)
-  if (hiddenLibrary || hiddenHand || hiddenForetold) delete draft.objects[objectId]
+  const hiddenFaceDown = object.faceDown
+    && !isKnownTo(object, viewer, draft.playerOrder)
+  if (hiddenLibrary || hiddenHand || hiddenForetold || hiddenFaceDown) {
+    delete draft.objects[objectId]
+  }
 }
 
 const redactDraft = (draft: import('../draft').Draft) => {

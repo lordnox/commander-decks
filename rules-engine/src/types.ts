@@ -253,6 +253,8 @@ export type GameObject = {
   foretold?: boolean
   /** Turn this card was foretold; same-turn foretell casts are illegal. */
   foretoldTurn?: number
+  /** A face-down card in a normally public zone. */
+  faceDown?: boolean
   continuousEffects?: ContinuousEffect[]
 }
 
@@ -448,6 +450,7 @@ export type GameEvent =
       adventureCast?: boolean
       x?: number
       sacrifice?: string[]
+      exile?: string[]
       convoke?: string[]
       discard?: string[]
       copy?: boolean
@@ -519,6 +522,13 @@ export type GameEvent =
   | {
       type: 'beginDredgeChoice'
       seat: PlayerId
+      replacedBy: string[]
+      remainingAfter?: number
+    }
+  | {
+      type: 'beginAbundanceChoice'
+      seat: PlayerId
+      sourceId: string
       replacedBy: string[]
       remainingAfter?: number
     }
@@ -648,6 +658,12 @@ export type GameEvent =
       seat: PlayerId
       selectionId: string
       players: PlayerId[]
+    }
+  | {
+      type: 'selectOption'
+      seat: PlayerId
+      selectionId: string
+      optionId: string
     }
   | {
       type: 'completeDelayedReturn'

@@ -16,6 +16,7 @@ import { pendingCumulativeUpkeep } from '../../rules-engine/src/cardPlugins/cumu
 import { pendingVote, votingSeat } from '../../rules-engine/src/cardPlugins/vote'
 import { stackCopyPending } from '../../rules-engine/src/cardPlugins/stackCopy'
 import { pendingDialogFor } from '../../rules-engine/src/pendingDialog'
+import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
 import { sameNames } from './kernelChoice'
@@ -23,6 +24,7 @@ import {
   prepareCastTransformedChoice,
   prepareLibrarySearchChoice,
   prepareSelectCardsChoice,
+  prepareOptionSelectionChoice,
   prepareWaitingDiscardChoice,
 } from './kernelChoicePrepareCards'
 import {
@@ -75,6 +77,8 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const waiting = waitingSelectCards(state, decision.seat)
       return !waiting || waiting.selection.id !== decision.kernel.selectionId
     }
+    case 'option-selection':
+      return pendingOptionSelection(state, decision.seat)?.id !== decision.kernel.selectionId
     case 'select-players':
       return pendingPlayerSelection(state, decision.seat)?.id !== decision.kernel.selectionId
     case 'extort-payment':
@@ -116,6 +120,7 @@ export const prepareKernelPendingChoice = (
   if (prepareCastTransformedChoice(kernel, lobby)) return true
   if (prepareWaitingDiscardChoice(kernel, lobby)) return true
   if (prepareSelectCardsChoice(kernel, lobby)) return true
+  if (prepareOptionSelectionChoice(kernel, lobby)) return true
   if (prepareCumulativeUpkeepChoice(kernel, lobby)) return true
   if (prepareVoteChoice(kernel, lobby)) return true
   if (prepareStackCopyChoice(kernel, lobby)) return true

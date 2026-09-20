@@ -498,6 +498,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
   const ids = new Set<string>()
   for (const effect of effects) {
     if (effect.op === 'dredge') ids.add('dredge')
+    if (effect.op === 'drawReplacementByType') ids.add('abundance')
     if (effect.op === 'replacement') ids.add('entersTapped')
     if (effect.op === 'trigger' && effect.on === 'cast') {
       ids.add('castTriggers')
@@ -574,6 +575,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
         ids.add('permanentControl')
       }
       if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
+    if (hasKind(listed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     }
     if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(listed, 'encoreTokens')) ids.add('encore')

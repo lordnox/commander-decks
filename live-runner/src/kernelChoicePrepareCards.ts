@@ -18,6 +18,7 @@ import type { LobbyState, TopdeckDecision } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
 import { openTopdeck } from './kernelChoice'
+import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 
 /**
  * Move the found cards, shuffle, close the marker, and let a spell finish
@@ -235,6 +236,33 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       judge: selection.source
         ? `Waiting for a ${selection.kind} choice for ${selection.source}.`
         : `Waiting for a ${selection.kind} choice.`,
+    },
+  )
+}
+
+export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const pending = pendingOptionSelection(kernel.history.current())
+  if (!pending || !isSeatId(pending.seat)) return false
+  return openTopdeck(
+    lobby,
+    {
+      seat: pending.seat,
+      kind: 'choose',
+      cards: pending.options.map((option) => option.label),
+      destinations: ['skip', 'target'],
+      requirements: { target: { min: 1, max: 1 } },
+      kernel: {
+        sourceId: pending.sourceId ?? '',
+        stage: 'option-selection',
+        selectionId: pending.id,
+      },
+    },
+    {
+      waiting: `${lobby.occupants[pending.seat]?.name ?? pending.seat} is choosing privately.`,
+      prompt: pending.prompt,
+      judge: pending.source
+        ? `Waiting for a choice for ${pending.source}.`
+        : 'Waiting for a private choice.',
     },
   )
 }

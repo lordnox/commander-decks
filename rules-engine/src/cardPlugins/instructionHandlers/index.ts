@@ -7,6 +7,7 @@ import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { monarchExileInstructionHandlers } from '../monarchExile'
 import { encoreHandlers } from '../encore'
+import { hiddenPileNegotiationInstruction } from '../hiddenPiles'
 import { multiplayerHandlers } from './multiplayer'
 import { permanentControlHandlers } from '../permanentControl'
 import { opponentCreatureHandlers } from './opponentCreatures'
@@ -43,6 +44,7 @@ const instructionHandlers = {
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
   monstrosity: monstrosityInstruction,
+  hiddenPileNegotiation: hiddenPileNegotiationInstruction,
 } satisfies InstructionHandlers
 
 export const dispatchInstruction = (
