@@ -3,6 +3,7 @@ import {
   eventsForCombatDeclaration,
   legalActsFor,
   sameLegalAct,
+  type ActionTargetGroup,
   type GameEvent,
   type GameState,
 } from '../../rules-engine/src/index'
@@ -10,6 +11,36 @@ import type { LobbyState } from './lobby'
 import { isSeatId, type InboxMessage, type SeatId } from './protocol'
 import { kernelActions, kernelPriority, type KernelHandle } from './kernelHandle'
 import { availableAlternateCastEffect } from '../../rules-engine/src/cardPlugins/alternateCosts'
+
+// Cost picks are sent ahead of spell targets, one slot per cost group max.
+const splitGroupSelection = (groups: ActionTargetGroup[], selected: string[]) => {
+  const costGroups = groups.filter(({ purpose }) => purpose === 'cost')
+  const costSlots = costGroups.reduce((total, group) => total + group.max, 0)
+  const choices = selected.slice(0, costSlots)
+  let offset = 0
+  for (const group of costGroups) {
+    const picks = choices.slice(offset, offset + group.max)
+    if (
+      picks.length < group.min
+      || picks.some((objectId) =>
+        !group.targets.some((target) => target.objectId === objectId))
+    ) {
+      throw new Error(`Invalid selection for ${group.label}`)
+    }
+    offset += group.max
+  }
+  return { choices, targets: selected.slice(costSlots) }
+}
+
+const targetRefs = (groups: ActionTargetGroup[], objectIds: string[]) =>
+  objectIds.map((objectId) => {
+    const group = groups.find((candidate) =>
+      candidate.purpose !== 'cost'
+      && candidate.targets.some((target) => target.objectId === objectId))
+    return group?.kind === 'player'
+      ? { kind: 'player' as const, player: objectId }
+      : { kind: 'object' as const, objectId }
+  })
 
 export const applyKernelAct = (
   kernel: KernelHandle,
@@ -101,73 +132,45 @@ export const applyKernelAct = (
     ? action.targetGroups ?? []
     : []
   const castGroups = action.kind === 'castSpell' ? action.targetGroups ?? [] : []
-  const costGroups = activationGroups.filter(({ purpose }) => purpose === 'cost')
-  const costChoiceCount = costGroups
-    .reduce((total, group) => total + group.max, 0)
-  const activationChoices = (message.targetObjectIds ?? []).slice(0, costChoiceCount)
-  const activationTargets = (message.targetObjectIds ?? []).slice(costChoiceCount)
-  let costChoiceOffset = 0
-  for (const group of costGroups) {
-    const selected = activationChoices.slice(costChoiceOffset, costChoiceOffset + group.max)
-    if (
-      selected.length < group.min
-      || selected.some((objectId) =>
-        !group.targets.some((target) => target.objectId === objectId))
-    ) {
-      throw new Error(`Invalid selection for ${group.label}`)
-    }
-    costChoiceOffset += group.max
-  }
+  const groups = action.kind === 'activateAbility' ? activationGroups : castGroups
+  const { choices, targets: selectedTargets } =
+    splitGroupSelection(groups, message.targetObjectIds ?? [])
   const events = action.kind === 'activateAbility' && action.targetGroups
     ? [{
         type: 'activateAbility' as const,
         seat,
         objectId: action.objectId,
         abilityId: action.abilityId ?? '',
-        targets: activationTargets.map((objectId) => {
-          const group = activationGroups.find((candidate) =>
-            candidate.purpose !== 'cost'
-            && candidate.targets.some((target) => target.objectId === objectId))
-          return (
-            group?.kind === 'player'
-              ? { kind: 'player' as const, player: objectId }
-              : { kind: 'object' as const, objectId }
-          )
-        }),
-        choices: activationChoices,
+        targets: targetRefs(activationGroups, selectedTargets),
+        choices,
       }]
     : action.kind === 'castSpell' && action.targetGroups
       ? (() => {
-          const selected = message.targetObjectIds ?? []
-          for (const group of castGroups.filter(({ purpose }) => purpose === 'cost')) {
-            if (
-              selected.length < group.min
-              || selected.length > group.max
-              || selected.some((objectId) =>
-                !group.targets.some((target) => target.objectId === objectId))
-            ) throw new Error(`Invalid selection for ${group.label}`)
-          }
           const castObject = state.objects[action.objectId]
           const alternative = castObject
             ? availableAlternateCastEffect(state, seat, castObject, action.castOption)
             : undefined
+          const hasTargetGroup = castGroups.some(({ purpose }) => purpose !== 'cost')
+          const spellTargets = hasTargetGroup
+            ? targetRefs(castGroups, selectedTargets)
+            : action.targetObjectId
+              ? [{ kind: 'object' as const, objectId: action.targetObjectId }]
+              : action.targetPlayerId
+                ? [{ kind: 'player' as const, player: action.targetPlayerId }]
+                : []
           return [{
-          type: 'castSpell' as const,
-          seat,
-          objectId: action.objectId,
-          ...(action.castOption ? { castOption: action.castOption } : {}),
-          ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
-          ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
-          ...(action.door ? { door: action.door } : {}),
-          ...(alternative?.exileGraveyard ? { exile: selected } : {}),
-          ...(alternative?.discard ? { discard: selected } : {}),
-          ...(alternative?.sacrifice ? { sacrifice: selected } : {}),
-          ...(action.targetObjectId
-            ? { targets: [{ kind: 'object' as const, objectId: action.targetObjectId }] }
-            : action.targetPlayerId
-              ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }
-              : {}),
-        }]
+            type: 'castSpell' as const,
+            seat,
+            objectId: action.objectId,
+            ...(action.castOption ? { castOption: action.castOption } : {}),
+            ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
+            ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
+            ...(action.door ? { door: action.door } : {}),
+            ...(alternative?.exileGraveyard ? { exile: choices } : {}),
+            ...(alternative?.discard ? { discard: choices } : {}),
+            ...(alternative?.sacrifice ? { sacrifice: choices } : {}),
+            ...(hasTargetGroup || spellTargets.length > 0 ? { targets: spellTargets } : {}),
+          }]
         })()
     : eventsForAvailableAction(state, seat, action)
   if (!events) throw new Error('That action now needs a judge decision')

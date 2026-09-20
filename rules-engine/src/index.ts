@@ -45,6 +45,7 @@ export {
   waitingDiscard,
   waitingPlayerSelection,
   waitingSelectCards,
+  type ActionTargetGroup,
   type AvailableAction,
   type WaitingCastTransformed,
   type WaitingDiscard,
