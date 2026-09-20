@@ -18,6 +18,29 @@ export type ActivationCostPicks = {
 const canPayFromPool = (state: GameState, seat: PlayerId): CanPayMana =>
   (cost) => Boolean(payCost(state.players[seat]?.mana, cost))
 
+const reducedActivationManaCost = (
+  state: GameState | Draft,
+  seat: PlayerId,
+  costs: ActivateCost,
+  x = 0,
+) => {
+  const printed = costs.xMana
+    ? (costs.mana ?? '').replaceAll('{X}', `{${x}}`)
+    : costs.mana
+  if (!printed || !costs.reducePerLegendaryCreature) return printed
+  const legendaryCreatures = Object.values(state.objects).filter((object) =>
+    object.zone === 'battlefield'
+    && !object.phasedOut
+    && object.controller === seat
+    && object.types.includes('Creature')
+    && object.supertypes.includes('Legendary')).length
+  const reduction = legendaryCreatures * costs.reducePerLegendaryCreature
+  const generic = [...printed.matchAll(/\{(\d+)\}/g)]
+    .reduce((total, match) => total + Number(match[1]), 0)
+  const reduced = Math.max(0, generic - reduction)
+  return `${reduced > 0 ? `{${reduced}}` : ''}${printed.replaceAll(/\{\d+\}/g, '')}`
+}
+
 const discardTypeName = (kind: NonNullable<ActivateCost['discard']>) =>
   kind === 'land' ? 'land card' : 'card'
 
@@ -104,9 +127,7 @@ export const activationCostError = (
   if (costs.if && !conditionHolds(costs.if, state, source)) {
     return `${source.name} cannot be activated now`
   }
-  const manaCost = costs.xMana
-    ? (costs.mana ?? '').replaceAll('{X}', `{${options.x ?? 0}}`)
-    : costs.mana
+  const manaCost = reducedActivationManaCost(state, seat, costs, options.x)
   if (costs.tap) {
     if (source.tapped) return `${source.name} is already tapped`
     if (
@@ -202,9 +223,7 @@ export const payActivationCosts = (
   picks: ActivationCostPicks = {},
   x = 0,
 ) => {
-  const manaCost = costs.xMana
-    ? (costs.mana ?? '').replaceAll('{X}', `{${x}}`)
-    : costs.mana
+  const manaCost = reducedActivationManaCost(draft, seat, costs, x)
   if (manaCost) draft.enqueue({ type: 'payMana', seat, cost: manaCost })
   if (costs.energy) {
     draft.enqueue({

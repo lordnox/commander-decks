@@ -75,6 +75,9 @@ export const activated: Plugin = {
     if (requiredZone === 'graveyard' && source.owner !== event.seat) {
       return `${source.name} is not in ${event.seat}'s graveyard`
     }
+    if (requiredZone === 'battlefield' && source.phasedOut) {
+      return `${source.name} is phased out`
+    }
     if (source.controller !== event.seat) {
       return `${event.seat} does not control ${source.name}`
     }
@@ -150,6 +153,18 @@ export const activated: Plugin = {
         || state.players[target.player].lost
       ) {
         return `${source.name} needs one opponent target`
+      }
+    } else if (
+      effect.targets
+      && typeof effect.targets === 'object'
+      && !('filter' in effect.targets)
+    ) {
+      const targets = event.targets ?? []
+      if (
+        targets.length !== 1
+        || !validTargetRef(state, targets[0], effect.targets, event.seat)
+      ) {
+        return `${source.name} needs one legal target`
       }
     }
   },

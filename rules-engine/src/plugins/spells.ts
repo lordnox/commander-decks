@@ -232,6 +232,54 @@ export const payCost = (
   return payWithConvoke(0, genericCost(manaCost), remainingColored)
 }
 
+const hasAllCreatureTypes = (state: GameState, seat: PlayerId) =>
+  Object.values(state.objects).some((object) =>
+    object.zone === 'battlefield'
+    && !object.phasedOut
+    && object.controller === seat
+    && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes))
+
+const paySpellCost = (
+  state: GameState,
+  seat: PlayerId,
+  object: GameObject,
+  cost: string,
+  extras: PayCostHelp = {},
+) => {
+  const stored = state.players[seat].restrictedMana ?? []
+  const allTypes = hasAllCreatureTypes(state, seat)
+  const eligible = stored.filter((mana) =>
+    object.types.includes('Creature')
+    && Boolean(mana.creatureType)
+    && (allTypes || object.subtypes.includes(mana.creatureType!)))
+  const combined = { ...state.players[seat].mana }
+  for (const mana of eligible) combined[mana.mana] += 1
+  const paid = payCost(combined, cost, extras)
+  if (!paid) return null
+
+  const consumedBySymbol = Object.fromEntries(
+    MANA_ORDER.map((symbol) => [symbol, combined[symbol] - paid[symbol]]),
+  ) as ManaPool
+  const consumed = new Set<number>()
+  const remainingToAssign = { ...consumedBySymbol }
+  eligible.forEach((mana, index) => {
+    if (remainingToAssign[mana.mana] < 1) return
+    consumed.add(stored.indexOf(mana, index))
+    remainingToAssign[mana.mana] -= 1
+  })
+  const pool = { ...state.players[seat].mana }
+  for (const symbol of MANA_ORDER) {
+    pool[symbol] -= Math.max(0, consumedBySymbol[symbol] - (
+      [...consumed].filter((index) => stored[index]?.mana === symbol).length
+    ))
+  }
+  return {
+    pool,
+    restrictedMana: stored.filter((_, index) => !consumed.has(index)),
+    usedRestricted: [...consumed].map((index) => stored[index]),
+  }
+}
+
 export const hasConvoke = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
 
@@ -291,6 +339,13 @@ export const spells: Plugin = {
         && effectsOf(spell).some((effect) => effect.op === 'bestow')
       if (event.castOption && !selected && !bestow) {
         return `${object.name} has no casting option ${event.castOption}`
+      }
+      if (
+        effectsOf(object).some((effect) =>
+          effect.op === 'alternateCast' && effect.id === 'adventure')
+        && event.castOption !== 'adventure'
+      ) {
+        return `${object.name} must use its Adventure casting option`
       }
 
       if (!spell.types.includes('Instant') && !(freeCast && !stealCast)) {
@@ -356,7 +411,7 @@ export const spells: Plugin = {
       if (phyrexianLife.length * 2 > state.players[event.seat].life) {
         return 'not enough life for Phyrexian mana'
       }
-      if (!payCost(state.players[event.seat].mana, cost, {
+      if (!paySpellCost(state, event.seat, spell, cost, {
         creatures: creatures.map(convokeColors),
         phyrexianLife,
       })) return 'not enough mana'
@@ -420,18 +475,23 @@ export const spells: Plugin = {
         .map((objectId) => draft.object(objectId))
         .filter((creature): creature is GameObject => Boolean(creature))
       const phyrexianLife = event.phyrexianLife ?? []
-      const paid = payCost(draft.players[event.seat].mana, cost, {
+      const payment = paySpellCost(state, event.seat, object, cost, {
         creatures: creatures.map(convokeColors),
         phyrexianLife,
       })
-      if (!paid) return
+      if (!payment) return
 
       const manaSpent = Object.fromEntries(
         MANA_ORDER
-          .map((symbol) => [symbol, draft.players[event.seat].mana[symbol] - paid[symbol]] as const)
+          .map((symbol) => [
+            symbol,
+            draft.players[event.seat].mana[symbol] - payment.pool[symbol]
+              + payment.usedRestricted.filter((mana) => mana.mana === symbol).length,
+          ] as const)
           .filter(([, amount]) => amount > 0),
       )
-      draft.players[event.seat].mana = paid
+      draft.players[event.seat].mana = payment.pool
+      draft.players[event.seat].restrictedMana = payment.restrictedMana
       for (const creature of creatures) draft.enqueue({ type: 'tap', objectId: creature.id })
       if (phyrexianLife.length > 0) {
         draft.enqueue({
@@ -468,7 +528,10 @@ export const spells: Plugin = {
         ...(event.sagaChapter !== undefined ? { sagaChapter: event.sagaChapter } : {}),
         ...(event.door ? { door: event.door } : {}),
         ...(event.adventureCast ? { adventureCast: true } : {}),
-        ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
+        ...(cannotBeCountered(object)
+          || payment.usedRestricted.some((mana) => mana.uncounterable)
+          ? { uncounterable: true }
+          : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
         ...(event.copy ? { copy: true } : {}),
@@ -553,6 +616,9 @@ export const spells: Plugin = {
       } else {
         // CR 608.2: instructions run while the spell is still on the stack;
         // the card is put into its resolution zone only after those events apply.
+        if (item.castOption === 'adventure' && item.exileAfterUse) {
+          object.adventureReady = true
+        }
         draft.enqueue({
           type: 'move',
           objectId: object.id,

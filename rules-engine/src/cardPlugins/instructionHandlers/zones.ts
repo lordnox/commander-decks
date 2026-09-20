@@ -4,6 +4,8 @@ import { pickRandomChoices, RANDOM_CHOICE } from '../../plugins/hiddenInformatio
 import { openCardSelection } from '../../rules/selectCards'
 import { apnapSeats } from '../../turnOrder'
 import {
+  addPlusCounters,
+  createToken,
   millLibrary,
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
@@ -36,6 +38,74 @@ const finishWarpExile: InstructionHandler<'finishWarpExile'> = ({ draft, source 
 const exileSelf: InstructionHandler<'exileSelf'> = ({ draft, source }) => {
   if (source.zone !== 'battlefield') return
   draft.enqueue({ type: 'move', objectId: source.id, to: 'exile' })
+}
+
+const putSelfOntoBattlefield: InstructionHandler<'putSelfOntoBattlefield'> = (
+  { draft, source },
+) => {
+  draft.enqueue({
+    type: 'move',
+    objectId: source.id,
+    to: 'battlefield',
+    controller: source.controller,
+  })
+}
+
+const phaseOutTarget: InstructionHandler<'phaseOutTarget'> = ({ draft, item }) => {
+  const target = item?.targets[0]
+  if (target?.kind === 'object') {
+    draft.enqueue({ type: 'phaseOut', objectId: target.objectId })
+  }
+}
+
+const createHeroWithLandCounters: InstructionHandler<'createHeroWithLandCounters'> = (
+  { draft, source },
+) => {
+  const lands = Object.values(draft.objects).filter((object) =>
+    object.zone === 'battlefield'
+    && !object.phasedOut
+    && object.controller === source.controller
+    && object.types.includes('Land')).length
+  const hero = createToken(draft, source.controller, {
+    name: 'Hero',
+    types: ['Creature'],
+    subtypes: ['Hero'],
+    colors: [],
+    power: 1,
+    toughness: 1,
+  })
+  if (lands > 0) addPlusCounters(hero, lands)
+}
+
+const searchTargetControllerForBasicLandType: InstructionHandler<
+  'searchTargetControllerForBasicLandType'
+> = ({ draft, source, item }) => {
+  const target = item?.targets[0]
+  const targetObject = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const seat = targetObject?.controller
+  if (!seat) return
+  const basicTypes = new Set(['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'])
+  const candidates = draft.zoneOrder[seat].library.filter((objectId) => {
+    const object = draft.object(objectId)
+    const face = object?.frontFace ?? object
+    return Boolean(face?.types.includes('Land') && face.subtypes.some((type) => basicTypes.has(type)))
+  })
+  openCardSelection(draft, {
+    seat,
+    kind: 'choose',
+    count: 1,
+    min: 0,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: 'You may find a land card with a basic land type.',
+    destinations: ['target'],
+    fromSeat: seat,
+    fromZone: 'library',
+    moveSelectedTo: 'battlefield',
+    moveSelectedController: seat,
+    after: ['shuffleLibrary'],
+  })
 }
 
 const sacrificeSelf: InstructionHandler<'sacrificeSelf'> = ({ draft, source }) => {
@@ -592,6 +662,10 @@ export const zoneHandlers = {
   bounceSelf,
   finishWarpExile,
   exileSelf,
+  putSelfOntoBattlefield,
+  phaseOutTarget,
+  createHeroWithLandCounters,
+  searchTargetControllerForBasicLandType,
   sacrificeSelf,
   revealUntil,
   revealUntilBasicLand,

@@ -1925,6 +1925,13 @@ describe('kernel host journal', () => {
       kind: 'choose-creature-type',
       cards: ['Crab', 'Druid', 'Golem', 'Other (no current creature)'],
     })
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(settleKernelPriority(kernel, restarted)).toBe(true)
+    expect(restarted.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose-creature-type',
+    })
     expect(applyKernelChoice(kernel, lobby, 'p1', {
       type: 'topdeck',
       choices: [
@@ -1937,6 +1944,44 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().objects[throne.id]).toMatchObject({
       chosenType: 'Crab',
       subtypes: ['Golem', 'Crab'],
+    })
+  })
+
+  test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Otawara, Soaring City', { types: ['Land'] })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Target Creature', { types: ['Creature'] })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [activatedPlugin] },
+    )
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 3 }
+    const kernel = handleFor(server.rules, ready)
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(settleKernelPriority(kernel, restarted)).toBe(false)
+    const source = Object.values(ready.objects)
+      .find((object) => object.name === 'Otawara, Soaring City')!
+    const target = Object.values(ready.objects)
+      .find((object) => object.name === 'Target Creature')!
+
+    expect(applyKernelAct(kernel, restarted, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: source.id,
+      abilityId: 'channel.otawara',
+      text: 'channel.otawara',
+      targetObjectIds: [target.id],
+    })).toHaveLength(1)
+    expect(kernel.history.current().stack[0]).toMatchObject({
+      abilityId: 'channel.otawara',
+      targets: [{ kind: 'object', objectId: target.id }],
     })
   })
 

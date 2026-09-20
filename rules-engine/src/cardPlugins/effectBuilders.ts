@@ -64,6 +64,16 @@ export const entersTargeting = (
   do: instructions,
 })
 
+export const entersTargetingUpToOne = (
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'enters',
+  targets: { filter, min: 0 },
+  do: instructions,
+})
+
 export const entersIfCastOption = (
   castOption: string,
   ...instructions: CardInstruction[]
@@ -165,6 +175,16 @@ export const landfallTargeting = (
 export const onResolve = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'resolve',
+  do: instructions,
+})
+
+export const onResolveIfCastOption = (
+  castOption: string,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'resolve',
+  if: { kind: 'castOption', id: castOption },
   do: instructions,
 })
 
@@ -540,6 +560,12 @@ export const allCreatureTypes = (): CardEffect => ({
   allCreatureTypes: true,
 })
 
+export const restrictedCreatureMana = (): CardEffect => ({
+  op: 'restrictedMana',
+  creatureOfChosenType: true,
+  uncounterable: true,
+})
+
 export const legendRuleOff = (): CardEffect => ({
   op: 'static',
   legendRuleOff: true,
@@ -594,6 +620,24 @@ export const returnOwnedGraveyardLands = (tapped = true): CardInstruction => ({
 })
 
 export const bounceSelf = (): CardInstruction => ({ kind: 'bounceSelf' })
+
+export const removeTarget = (
+  action: 'destroy' | 'bounce',
+): CardInstruction => ({ kind: 'removeTarget', action })
+
+export const putSelfOntoBattlefield = (): CardInstruction => ({
+  kind: 'putSelfOntoBattlefield',
+})
+
+export const phaseOutTarget = (): CardInstruction => ({ kind: 'phaseOutTarget' })
+
+export const createHeroWithLandCounters = (): CardInstruction => ({
+  kind: 'createHeroWithLandCounters',
+})
+
+export const searchTargetControllerForBasicLandType = (): CardInstruction => ({
+  kind: 'searchTargetControllerForBasicLandType',
+})
 
 export const createTokenInstruction = (token: TokenSpec): CardInstruction => ({
   kind: 'createToken',
