@@ -1,16 +1,32 @@
 import {
   animateWhileSourceOnBattlefield,
-  removeContinuousEffects,
+  reviseContinuousEffects,
 } from '../cardPlugins/continuousEffects'
-import type { GameObject, Plugin } from '../types'
+import type { ContinuousEffect, GameObject, Plugin } from '../types'
 
-const isStarfieldAnimation = (
-  entry: NonNullable<GameObject['continuousEffects']>[number],
-  sourceId?: string,
-) =>
+const animationFrom = (sourceId: string) => (entry: ContinuousEffect) =>
   entry.effect.kind === 'animation'
   && entry.duration.kind === 'whileSourceOnBattlefield'
-  && (sourceId === undefined || entry.duration.sourceId === sourceId)
+  && entry.duration.sourceId === sourceId
+
+const isStale = (entry: ContinuousEffect, object: GameObject) =>
+  entry.effect.kind === 'animation'
+  && (
+    entry.effect.after.power !== object.manaValue
+    || entry.effect.after.toughness !== object.manaValue
+    || !object.types.includes('Creature')
+  )
+
+const rebase = (entry: ContinuousEffect, manaValue: number): ContinuousEffect =>
+  entry.effect.kind === 'animation'
+    ? {
+        ...entry,
+        effect: {
+          ...entry.effect,
+          after: { ...entry.effect.after, power: manaValue, toughness: manaValue },
+        },
+      }
+    : entry
 
 export const starfieldOfNyx: Plugin = {
   id: 'starfieldOfNyx',
@@ -22,40 +38,37 @@ export const starfieldOfNyx: Plugin = {
     const active = battlefield.filter((object) =>
       object.controller === source.controller
       && object.types.includes('Enchantment')).length >= 5
+    const mine = animationFrom(source.id)
 
-    if (!active) {
-      for (const object of battlefield) {
-        removeContinuousEffects(object, (entry) =>
-          isStarfieldAnimation(entry, source.id))
+    for (const object of battlefield) {
+      const animate = active
+        && object.id !== source.id
+        && object.controller === source.controller
+        && object.types.includes('Enchantment')
+        && !object.subtypes.includes('Aura')
+      const existing = object.continuousEffects?.find(mine)
+
+      if (!animate) {
+        if (existing) {
+          reviseContinuousEffects(object, (entry) => mine(entry) ? undefined : entry)
+        }
+        continue
       }
-      return
-    }
-
-    const shouldAnimate = (object: GameObject) =>
-      object.id !== source.id
-      && object.controller === source.controller
-      && object.types.includes('Enchantment')
-      && !object.subtypes.includes('Aura')
-
-    for (const object of battlefield) {
-      if (shouldAnimate(object)) continue
-      removeContinuousEffects(object, (entry) =>
-        isStarfieldAnimation(entry, source.id))
-    }
-
-    for (const object of battlefield) {
-      if (
-        !shouldAnimate(object)
-        || object.continuousEffects?.some((entry) => isStarfieldAnimation(entry))
-      ) continue
-
-      // CR 613.4b: Starfield sets base power and toughness before later modifiers.
-      animateWhileSourceOnBattlefield(
-        object,
-        object.manaValue,
-        object.manaValue,
-        source.id,
-      )
+      if (!existing) {
+        animateWhileSourceOnBattlefield(
+          object,
+          object.manaValue,
+          object.manaValue,
+          source.id,
+        )
+        continue
+      }
+      // CR 613.5: this is not a one-shot stat change, so the base set is
+      // recomputed from the permanent's mana value, which unlocking a Room
+      // door changes (CR 709.5).
+      if (!isStale(existing, object)) continue
+      reviseContinuousEffects(object, (entry) =>
+        mine(entry) ? rebase(entry, object.manaValue) : entry)
     }
   },
 }

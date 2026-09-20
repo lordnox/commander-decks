@@ -1,4 +1,5 @@
 import type {
+  ContinuousEffect,
   CopySnapshot,
   EffectDuration,
   GameObject,
@@ -67,26 +68,16 @@ export const becomeCreature = (
     power: object.power,
     toughness: object.toughness,
   }
-  const counterBonus = object.counters['+1/+1'] ?? 0
-  const pumpEffects = (object.continuousEffects ?? [])
-    .map(({ effect }) => effect)
-    .filter((effect) => effect.kind === 'pump')
-  const finalPower = power
-    + counterBonus
-    + pumpEffects.reduce((total, effect) => total + effect.power, 0)
-  const finalToughness = toughness
-    + counterBonus
-    + pumpEffects.reduce((total, effect) => total + effect.toughness, 0)
   if (!object.types.includes('Creature')) object.types.push('Creature')
-  object.power = finalPower
-  object.toughness = finalToughness
+  object.power = power
+  object.toughness = toughness
   return {
     kind: 'animation',
     before,
     after: {
       types: [...object.types],
-      power: finalPower,
-      toughness: finalToughness,
+      power,
+      toughness,
     },
   }
 }
@@ -322,18 +313,26 @@ const resetEffects = (
   }
 }
 
-export const removeContinuousEffects = (
+/**
+ * Drop or rewrite stored effects, then reapply the survivors in stored order so
+ * anything recorded after a rewritten entry still lands on top of it.
+ * Returning the same entry leaves it, and its applied result, untouched.
+ */
+export const reviseContinuousEffects = (
   object: GameObject,
-  remove: (entry: NonNullable<GameObject['continuousEffects']>[number]) => boolean,
+  revise: (entry: ContinuousEffect) => ContinuousEffect | undefined,
 ) => {
   const effects = object.continuousEffects ?? []
-  const remaining = effects.filter((entry) => !remove(entry))
-  if (remaining.length === effects.length) return
+  const revised = effects.flatMap((entry) => revise(entry) ?? [])
+  if (
+    revised.length === effects.length
+    && revised.every((entry, index) => entry === effects[index])
+  ) return
 
   resetEffects(object, effects)
-  for (const entry of remaining) applyStoredEffect(object, entry.effect)
+  for (const entry of revised) applyStoredEffect(object, entry.effect)
 
-  if (remaining.length > 0) object.continuousEffects = remaining
+  if (revised.length > 0) object.continuousEffects = revised
   else delete object.continuousEffects
 }
 
