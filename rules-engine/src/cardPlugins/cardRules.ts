@@ -329,8 +329,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     staticGrant('starfieldOfNyx'),
     yourUpkeepTarget(
       { zone: 'graveyard', type: 'Enchantment', controller: 'you' },
-      [returnTargetFromGraveyard('battlefield')],
-      true,
+      [returnTargetFromGraveyard('battlefield', false, true)],
     ),
   ],
   'Mister Negative': [

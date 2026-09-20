@@ -197,6 +197,13 @@ describe('Starfield of Nyx', () => {
     }])
 
     state = ok(withGraveyard.rules(state, { type: 'resolveTop' }))
+    state = ok(withGraveyard.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(state, 'Returned Enchantment').id],
+    }))
     expect(named(state, 'Returned Enchantment').zone).toBe('battlefield')
   })
 
@@ -212,6 +219,14 @@ describe('Starfield of Nyx', () => {
       to: 'graveyard',
     }))
     state = advanceToUpkeep(server, state)
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(state, 'Declined Enchantment').id],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',

@@ -91,7 +91,12 @@ export type CardInstruction =
   | { kind: 'revealPick'; count: number; type?: string; permanent?: boolean }
   | { kind: 'copyControlledCreature'; notLegendary?: boolean; plusCounters?: number; keepName?: boolean }
   | { kind: 'copyTargetCreature'; notLegendary?: boolean; flying?: boolean }
-  | { kind: 'returnTargetFromGraveyard'; to: 'hand' | 'battlefield'; tapped?: boolean }
+  | {
+      kind: 'returnTargetFromGraveyard'
+      to: 'hand' | 'battlefield'
+      tapped?: boolean
+      optional?: boolean
+    }
   | { kind: 'pump'; power: number; toughness: number }
   | { kind: 'pumpTargetX'; multiplier: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
@@ -285,7 +290,6 @@ export type CardEffect =
       modal?: ModalSpec
       targets?: 'opponent' | {
         filter: TargetFilter
-        optional?: boolean
       }
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
