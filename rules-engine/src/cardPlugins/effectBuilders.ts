@@ -147,7 +147,13 @@ export const copyTargetCreature = (extra: {
 export const returnTargetFromGraveyard = (
   to: 'hand' | 'battlefield',
   tapped = false,
-): CardInstruction => ({ kind: 'returnTargetFromGraveyard', to, tapped })
+  optional = false,
+): CardInstruction => ({
+  kind: 'returnTargetFromGraveyard',
+  to,
+  tapped,
+  optional,
+})
 
 export const pump = (power: number, toughness: number): CardInstruction => ({
   kind: 'pump',
@@ -694,13 +700,12 @@ export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
 export const yourUpkeepTarget = (
   filter: TargetFilter,
   instructions: CardInstruction[],
-  optional = false,
 ): CardEffect => ({
   op: 'trigger',
   on: 'upkeep',
   do: instructions,
   if: { kind: 'controllerIsActive' },
-  targets: { filter, optional },
+  targets: { filter },
 })
 
 export const yourUpkeepIf = (

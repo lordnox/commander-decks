@@ -431,7 +431,7 @@ export const triggers: Plugin = {
           seat: source.controller,
           kind: 'choose',
           count: 1,
-          min: targetSpec.optional ? 0 : 1,
+          min: 1,
           candidates,
           sourceId: source.id,
           source: source.name,

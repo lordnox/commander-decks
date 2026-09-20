@@ -309,6 +309,29 @@ const returnTargetFromGraveyard: InstructionHandler<'returnTargetFromGraveyard'>
 ) => {
   const target = item?.targets[0]
   if (target?.kind !== 'object') return
+  if (instruction.optional) {
+    openCardSelection(draft, {
+      seat: source.controller,
+      kind: 'choose',
+      count: 1,
+      min: 0,
+      candidates: [target.objectId],
+      sourceId: source.id,
+      source: source.name,
+      prompt: `You may return the targeted card to ${instruction.to}.`,
+      fromSeat: source.controller,
+      fromZone: 'graveyard',
+      destinations: ['target'],
+      moveSelectedTo: instruction.to,
+      ...(instruction.to === 'battlefield'
+        ? { moveSelectedController: source.controller }
+        : {}),
+      ...(instruction.tapped && instruction.to === 'battlefield'
+        ? { tapSelected: true }
+        : {}),
+    })
+    return
+  }
   draft.enqueue({
     type: 'move',
     objectId: target.objectId,
