@@ -1,6 +1,7 @@
 import type {
   GameObject,
   ManaPool,
+  PlayerId,
   TriggerBindingIf,
   ZoneId,
 } from '../types'
@@ -44,7 +45,8 @@ export type CardInstruction =
   | { kind: 'sacrificeSelf' }
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
-  | { kind: 'draw'; count: number }
+  /** `seat` names a drawer other than the controller, snapshot when the instruction is built. */
+  | { kind: 'draw'; count: number; seat?: PlayerId }
   | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
   | { kind: 'gainLife'; count: number | 'triggerAmount' }
   | { kind: 'drainOpponentsX'; multiplier: number }
@@ -100,7 +102,7 @@ export type CardInstruction =
   | { kind: 'dealDamageToSelf'; amount: number }
   | { kind: 'addChosenColorMana' }
   | { kind: 'optionalMill'; count: number }
-  | { kind: 'mayDraw'; count: number }
+  | { kind: 'mayDraw'; count: number; seat?: PlayerId }
   | { kind: 'chooseModes'; choose: 'one' | 'any'; modes: ModalMode[] }
   | { kind: 'eachPlayerDiscard'; count: number }
   | { kind: 'eachPlayerDraw'; count: number }
