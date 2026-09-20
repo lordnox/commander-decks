@@ -412,9 +412,12 @@ const canCastAtTiming = (
 ) => {
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
+  const fromAlternateZone = availableAlternateCastEffects(state, seat, object)
+    .some((effect) => effect.fromZone === object.zone)
   if (
     !state.castableZones.includes(object.zone)
     && !(withoutPayingMana && object.zone === 'exile')
+    && !fromAlternateZone
   ) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
