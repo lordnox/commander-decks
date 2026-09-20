@@ -64,7 +64,7 @@ const funded = (state: GameState, mana: Partial<ManaPool>) => ({
   },
 })
 
-/** One reducer pass that neither advances the turn nor changes the board. */
+/** One reducer pass; Starfield is never tapped here, so untapping it is inert. */
 const settle = (
   server: ReturnType<typeof createServerGame>,
   state = server.state,
@@ -169,11 +169,46 @@ describe('Starfield of Nyx', () => {
       door: 'right',
     }))
 
-    // The new base set is 10/10, and the +2/+2 still applies on top of it.
+    // The new base set is 10/10, with the +2/+2 and the counter still on top.
     expect(state.objects[roomId]).toMatchObject({
       manaValue: 10,
-      power: 12,
-      toughness: 12,
+      power: 13,
+      toughness: 13,
+    })
+  })
+
+  test('keeps a +1/+1 counter when the animated mana value changes', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          starfield(),
+          room(['left']),
+          enchantment('Fixture One'),
+          enchantment('Fixture Two'),
+          enchantment('Fixture Three'),
+        ],
+      },
+    })
+
+    let state = settle(server)
+    const roomId = named(state, 'Charred Foyer').id
+    state = ok(server.rules(state, {
+      type: 'putCounters',
+      objectId: roomId,
+      counter: '+1/+1',
+      count: 1,
+    }))
+    state = ok(server.rules(funded(state, { R: 2, C: 4 }), {
+      type: 'unlockDoor',
+      seat: 'p1',
+      objectId: roomId,
+      door: 'right',
+    }))
+
+    expect(state.objects[roomId]).toMatchObject({
+      manaValue: 10,
+      power: 11,
+      toughness: 11,
     })
   })
 
