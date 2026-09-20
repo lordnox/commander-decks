@@ -77,6 +77,26 @@ const installNewRules = (
   }
 }
 
+const setUnlockedDoors = (
+  object: GameObject,
+  doors: RoomDoorId[],
+  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
+) => {
+  const beforeRules = new Set(object.grantedRules)
+  object.unlockedDoors = unique(doors)
+  applyRoomDoors(object, object.unlockedDoors)
+  draft.rules = draft.rules.filter((rule) =>
+    rule.sourceId !== object.id || object.grantedRules.includes(rule.pluginId))
+  installNewRules(object, beforeRules, draft)
+}
+
+const roomOnBattlefield = (object: GameObject | undefined, seat: string) => {
+  if (!object?.roomDoors || object.zone !== 'battlefield') {
+    return 'Room permanent does not exist'
+  }
+  if (object.controller !== seat) return 'seat does not control that Room'
+}
+
 export const rooms: Plugin = {
   id: 'rooms',
   legal: ({ state, event }) => {
@@ -91,19 +111,27 @@ export const rooms: Plugin = {
       return
     }
 
+    if (event.type === 'lockDoor') {
+      const object = state.objects[event.objectId]
+      const error = roomOnBattlefield(object, event.seat)
+      if (error) return error
+      if (!roomDoor(object!, event.door)) return 'Room door does not exist'
+      if (!object!.unlockedDoors?.includes(event.door)) return 'door is already locked'
+      return
+    }
+
     if (event.type !== 'unlockDoor') return
     const object = state.objects[event.objectId]
-    if (!object?.roomDoors || object.zone !== 'battlefield') {
-      return 'Room permanent does not exist'
-    }
-    if (object.controller !== event.seat) return 'seat does not control that Room'
+    const error = roomOnBattlefield(object, event.seat)
+    if (error) return error
+    if (object!.unlockedDoors?.includes(event.door)) return 'door is already unlocked'
+    const door = roomDoor(object!, event.door)
+    if (!door) return 'Room door does not exist'
+    if (event.withoutCost) return
     if (state.priority !== event.seat) return 'seat does not have priority'
     if (state.active !== event.seat || !isMainPhase(state.step) || state.stack.length > 0) {
       return 'a door can be unlocked only as a sorcery'
     }
-    if (object.unlockedDoors?.includes(event.door)) return 'door is already unlocked'
-    const door = roomDoor(object, event.door)
-    if (!door) return 'Room door does not exist'
     if (!payCost(state.players[event.seat].mana, door.manaCost)) return 'not enough mana'
   },
   apply: ({ state, event, draft }) => {
@@ -113,19 +141,29 @@ export const rooms: Plugin = {
       return
     }
 
+    if (event.type === 'lockDoor') {
+      const object = draft.object(event.objectId)
+      if (!object?.roomDoors) return
+      setUnlockedDoors(
+        object,
+        (object.unlockedDoors ?? []).filter((door) => door !== event.door),
+        draft,
+      )
+      return
+    }
+
     if (event.type === 'unlockDoor') {
       const object = draft.object(event.objectId)
       const door = object && roomDoor(object, event.door)
       if (!object?.roomDoors || !door) return
-      const paid = payCost(draft.players[event.seat].mana, door.manaCost)
-      if (!paid) return
-      const beforeRules = new Set(object.grantedRules)
-      draft.players[event.seat].mana = paid
-      object.unlockedDoors = unique([...(object.unlockedDoors ?? []), event.door])
-      applyRoomDoors(object, object.unlockedDoors)
-      installNewRules(object, beforeRules, draft)
-      draft.passedInRow = []
-      draft.priority = event.seat
+      if (!event.withoutCost) {
+        const paid = payCost(draft.players[event.seat].mana, door.manaCost)
+        if (!paid) return
+        draft.players[event.seat].mana = paid
+        draft.passedInRow = []
+        draft.priority = event.seat
+      }
+      setUnlockedDoors(object, [...(object.unlockedDoors ?? []), event.door], draft)
       return
     }
 

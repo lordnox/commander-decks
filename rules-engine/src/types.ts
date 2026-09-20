@@ -444,6 +444,14 @@ export type GameEvent =
       seat: PlayerId
       objectId: string
       door: RoomDoorId
+      /** Ability effects skip the paid special action (CR 709.5c vs Marina). */
+      withoutCost?: boolean
+    }
+  | {
+      type: 'lockDoor'
+      seat: PlayerId
+      objectId: string
+      door: RoomDoorId
     }
   // — Combat & damage —
   | {
@@ -575,6 +583,7 @@ export type GameEvent =
       targets?: TargetRef[]
       x?: number
       choices?: string[]
+      door?: RoomDoorId
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean
     }

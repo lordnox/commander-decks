@@ -1,6 +1,6 @@
 import { isPermanentType } from '../../definitions'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
-import { RANDOM_CHOICE } from '../../plugins/hiddenInformation'
+import { pickRandomChoices, RANDOM_CHOICE } from '../../plugins/hiddenInformation'
 import { openCardSelection } from '../../rules/selectCards'
 import { apnapSeats } from '../../turnOrder'
 import {
@@ -50,6 +50,57 @@ const revealUntilBasicLand: InstructionHandler<'revealUntilBasicLand'> = (
         : 'graveyard',
     })
   }
+}
+
+const revealMatchingToHand: InstructionHandler<'revealMatchingToHand'> = (
+  { draft, source },
+  instruction,
+) => {
+  const ids = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
+  if (ids.length === 0) return
+  draft.enqueue({
+    type: 'reveal',
+    seat: source.controller,
+    objectIds: ids,
+    source: source.name,
+  })
+  const matching = ids.filter((objectId) =>
+    draft.object(objectId)?.types.includes(instruction.type))
+  const rest = pickRandomChoices(
+    draft,
+    ids.filter((objectId) => !matching.includes(objectId)),
+    ids.length,
+  )
+  for (const objectId of matching) {
+    draft.enqueue({ type: 'move', objectId, to: 'hand' })
+  }
+  for (const objectId of rest) {
+    draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
+  }
+}
+
+const lockOrUnlockDoor: InstructionHandler<'lockOrUnlockDoor'> = ({ draft, source, item }) => {
+  const target = item?.targets[0]
+  const door = item?.door
+  if (target?.kind !== 'object' || (door !== 'left' && door !== 'right')) return
+  const object = draft.object(target.objectId)
+  if (!object?.roomDoors || object.controller !== source.controller) return
+  if (object.unlockedDoors?.includes(door)) {
+    draft.enqueue({
+      type: 'lockDoor',
+      seat: source.controller,
+      objectId: object.id,
+      door,
+    })
+    return
+  }
+  draft.enqueue({
+    type: 'unlockDoor',
+    seat: source.controller,
+    objectId: object.id,
+    door,
+    withoutCost: true,
+  })
 }
 
 const sacrificePermanentsThenDraw: InstructionHandler<'sacrificePermanentsThenDraw'> = (
@@ -402,6 +453,8 @@ export const zoneHandlers = {
   bounceSelf,
   sacrificeSelf,
   revealUntilBasicLand,
+  revealMatchingToHand,
+  lockOrUnlockDoor,
   sacrificePermanentsThenDraw,
   opponentsSacrifice,
   reanimateCreatureFromGraveyards,

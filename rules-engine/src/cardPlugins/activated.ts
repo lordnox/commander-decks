@@ -1,6 +1,5 @@
 import { hasUntaxedTapMana } from '../plugins/mana'
-import type { GameObject, TargetRef } from '../types'
-import type { Plugin } from '../types'
+import type { GameObject, Plugin, TargetRef } from '../types'
 import {
   activateEffect,
   conditionHolds,
@@ -13,18 +12,21 @@ import {
 } from './activationCosts'
 import { effectsOf } from './cardRules'
 
+const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+
 const legalActivateTarget = (
-  state: { objects: Record<string, GameObject | undefined>; players: Record<string, { lost?: boolean } | undefined> },
+  state: { objects: Record<string, GameObject | undefined> },
   target: TargetRef | undefined,
-  kind: 'creature' | 'land',
+  kind: 'creature' | 'land' | 'room',
+  seat: string,
 ) => {
   if (target?.kind !== 'object') return false
   const object = state.objects[target.objectId]
-  return Boolean(
-    object
-    && object.zone === 'battlefield'
-    && object.types.includes(kind === 'creature' ? 'Creature' : 'Land'),
-  )
+  if (!object || object.zone !== 'battlefield') return false
+  if (kind === 'room') {
+    return Boolean(object.roomDoors && object.controller === seat)
+  }
+  return object.types.includes(kind === 'creature' ? 'Creature' : 'Land')
 }
 
 export const SKULL_PROPHET_MILL = 'selfMill.skullProphet'
@@ -86,11 +88,23 @@ export const activated: Plugin = {
       }
       return `${source.name} cannot be activated now`
     }
-    if (effect.targets === 'creature' || effect.targets === 'land') {
+    if (effect.sorcery
+      && (
+        state.active !== event.seat
+        || !MAIN_STEPS.has(state.step)
+        || state.stack.length > 0
+      )
+    ) {
+      return `${source.name} can be activated only as a sorcery`
+    }
+    if (effect.targets === 'creature' || effect.targets === 'land' || effect.targets === 'room') {
       const targets = event.targets ?? []
-      if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets)) {
+      if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets, event.seat)) {
         return `${source.name} needs one ${effect.targets} target`
       }
+    }
+    if (effect.targets === 'room' && event.door !== 'left' && event.door !== 'right') {
+      return `${source.name} needs a door to lock or unlock`
     }
     if (effect.targets === 'opponent') {
       const targets = event.targets ?? []
@@ -130,6 +144,7 @@ export const activated: Plugin = {
         targets: event.targets ?? [],
         abilityId: event.abilityId,
         ...(event.choices ? { choices: event.choices } : {}),
+        ...(event.door ? { door: event.door } : {}),
       })
     } else {
       draft.addToStack({
@@ -141,6 +156,7 @@ export const activated: Plugin = {
         abilityId: event.abilityId,
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.choices ? { choices: event.choices } : {}),
+        ...(event.door ? { door: event.door } : {}),
       })
       draft.passedInRow = []
       draft.priority = event.seat

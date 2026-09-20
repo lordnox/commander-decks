@@ -505,6 +505,14 @@ export const pumpAllCreaturesByX = (multiplier = -1): CardInstruction => ({
 
 export const revealUntilBasicLand = (): CardInstruction => ({ kind: 'revealUntilBasicLand' })
 
+export const revealMatchingToHand = (count: number, type: string): CardInstruction => ({
+  kind: 'revealMatchingToHand',
+  count,
+  type,
+})
+
+export const lockOrUnlockDoor = (): CardInstruction => ({ kind: 'lockOrUnlockDoor' })
+
 export const sacrificePermanentsThenDraw = (types?: string[]): CardInstruction => ({
   kind: 'sacrificePermanentsThenDraw',
   ...(types ? { types } : {}),
