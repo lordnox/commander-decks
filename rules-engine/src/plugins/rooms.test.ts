@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'bun:test'
-import { legalActsFor } from '../actions'
+import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { gainLife } from '../cardPlugins/effects'
 import type { CardEffect } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
-import type { RoomDoorCharacteristics } from '../types'
+import type { ManaPool, RoomDoorCharacteristics } from '../types'
 
 const door = (
   name: string,
@@ -35,7 +35,7 @@ const trigger = (on: 'enters' | 'unlock' | 'fullyUnlock', life: number): CardEff
 const room = (unlockedDoors?: Array<'left' | 'right'>) =>
   cardTemplate('Funeral Room // Awakening Hall', {
     roomDoors: [
-      door('Funeral Room', '{2}{B}', 'Whenever a creature you control dies, drain.', [
+      door('Funeral Room', '{2}{B}', 'When this Room enters and whenever you unlock this door, each opponent loses 1 life and you gain 1 life.', [
         trigger('enters', 1),
         trigger('unlock', 2),
       ]),
@@ -49,14 +49,14 @@ const room = (unlockedDoors?: Array<'left' | 'right'>) =>
 
 const funded = (
   state: ReturnType<typeof createServerGame>['state'],
-  mana: { B: number; C: number },
+  mana: Partial<ManaPool>,
 ) => ({
   ...state,
   players: {
     ...state.players,
     p1: {
       ...state.players.p1,
-      mana: { W: 0, U: 0, B: mana.B, R: 0, G: 0, C: mana.C },
+      mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, ...mana },
     },
   },
 })
@@ -96,6 +96,42 @@ describe('Room doors', () => {
 
     const triggered = ok(server.rules(resolved, { type: 'resolveTop' }))
     expect(triggered.players.p1.life).toBe(43)
+  })
+
+  test('a door naming entering and unlocking is still castable without the judge', () => {
+    const server = createServerGame(commanderRules, { hands: { p1: [room()] } })
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const state = funded(server.state, { B: 1, C: 2 })
+    const cast = legalActsFor(state, 'p1').find(
+      (action) => action.kind === 'castSpell' && action.door === 'left',
+    )
+
+    expect(cast).toBeDefined()
+    expect(eventsForAvailableAction(state, 'p1', cast!)).toEqual([
+      { type: 'castSpell', seat: 'p1', objectId, door: 'left' },
+    ])
+  })
+
+  test('a door without inline effects takes its rules text from the card table', () => {
+    const closet = cardTemplate('Walk-In Closet // Forgotten Cellar', {
+      roomDoors: [
+        door('Walk-In Closet', '{2}{G}', 'You may play lands from your graveyard.'),
+        door('Forgotten Cellar', '{3}{G}{G}', 'When you unlock this door, cast from your graveyard.'),
+      ],
+    })
+    const server = createServerGame(commanderRules, { battlefield: { p1: [closet] } })
+    const objectId = server.state.zoneOrder.p1.battlefield[0]
+    const state = funded(server.state, { G: 2, C: 3 })
+
+    const unlocked = ok(server.rules(state, {
+      type: 'unlockDoor',
+      seat: 'p1',
+      objectId,
+      door: 'right',
+    }))
+    expect(unlocked.objects[objectId].effects).toEqual([
+      { op: 'static', playLandsFromGraveyard: true },
+    ])
   })
 
   test('the cast door produces both its enter and unlock triggers', () => {
