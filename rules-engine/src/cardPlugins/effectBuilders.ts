@@ -691,6 +691,18 @@ export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
   if: { kind: 'controllerIsActive' },
 })
 
+export const yourUpkeepTarget = (
+  filter: TargetFilter,
+  instructions: CardInstruction[],
+  optional = false,
+): CardEffect => ({
+  op: 'trigger',
+  on: 'upkeep',
+  do: instructions,
+  if: { kind: 'controllerIsActive' },
+  targets: { filter, optional },
+})
+
 export const yourUpkeepIf = (
   condition: CardCondition,
   ...instructions: CardInstruction[]

@@ -29,6 +29,7 @@ import { rebound } from './rebound'
 import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
+import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
@@ -67,6 +68,7 @@ export const builtInPlugins = [
   forestOverlay,
   swampOverlay,
   extraSwampMana,
+  starfieldOfNyx,
   extraUntap,
   sacrificeLandMana,
   phialReplacement,
@@ -102,6 +104,7 @@ export {
   sacrificeLandMana,
   saga,
   spells,
+  starfieldOfNyx,
   stateBased,
   turnStructure,
 }

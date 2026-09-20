@@ -148,6 +148,7 @@ import {
   revealDrawLoseLife,
   untapTarget,
   yourUpkeep,
+  yourUpkeepTarget,
   type CardEffect,
   type CardInstruction,
   payLifeX,
@@ -325,6 +326,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Necrologia: [payLifeX({ timing: 'yourEndStep' }), onResolve(drawX())],
   'Test of Endurance': [
     yourUpkeepIf(controllerLife(50), winGame()),
+  ],
+  'Starfield of Nyx': [
+    staticGrant('starfieldOfNyx'),
+    yourUpkeepTarget(
+      { zone: 'graveyard', type: 'Enchantment', controller: 'you' },
+      [returnTargetFromGraveyard('battlefield')],
+      true,
+    ),
   ],
   'Mister Negative': [
     entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
