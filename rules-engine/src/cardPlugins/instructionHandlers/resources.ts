@@ -7,7 +7,6 @@ import { initiateDiscard } from '../../rules/discard'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openCardSelection } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
-import { openCardSelection } from '../../rules/selectCards'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
   addTypes,
