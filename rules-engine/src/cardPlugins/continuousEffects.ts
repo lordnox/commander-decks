@@ -58,6 +58,15 @@ export const changeStats = (
   return { kind: 'pump', power, toughness }
 }
 
+/**
+ * CR 613.4c: +1/+1 counters modify power and toughness after a layer 7b set.
+ * They are applied eagerly rather than stored, so setting a base value has to
+ * add them back instead of overwriting their contribution.
+ */
+const withCounters = (object: GameObject, base: number) =>
+  base + (object.counters['+1/+1'] ?? 0)
+
+/** `after` records the layer 7b base set, not the resulting power and toughness. */
 export const becomeCreature = (
   object: GameObject,
   power: number,
@@ -69,8 +78,8 @@ export const becomeCreature = (
     toughness: object.toughness,
   }
   if (!object.types.includes('Creature')) object.types.push('Creature')
-  object.power = power
-  object.toughness = toughness
+  object.power = withCounters(object, power)
+  object.toughness = withCounters(object, toughness)
   return {
     kind: 'animation',
     before,
@@ -269,8 +278,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     if (object.toughness !== null) object.toughness += effect.toughness
   } else if (effect.kind === 'animation') {
     object.types = [...effect.after.types]
-    object.power = effect.after.power
-    object.toughness = effect.after.toughness
+    object.power = withCounters(object, effect.after.power)
+    object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'oracleLine') {
     if (!object.oracleText.split('\n').includes(effect.line)) {
       object.oracleText = object.oracleText
