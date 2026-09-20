@@ -1,12 +1,16 @@
 import { describe, expect, test } from 'bun:test'
-import { pump, targetOnResolve } from '../cardPlugins/effects'
+import {
+  addPlusCountersInstruction,
+  pump,
+  targetOnResolve,
+} from '../cardPlugins/effects'
 import { targetedResolve } from '../cardPlugins/targetedResolve'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
-import { ok } from '../testHelpers'
-import type { GameState } from '../types'
+import { ok, roomDoor } from '../testHelpers'
+import type { GameState, ManaPool, RoomDoorId } from '../types'
 
 const enchantment = (
   name: string,
@@ -21,13 +25,53 @@ const enchantment = (
 
 const starfield = () => enchantment('Starfield of Nyx', 5)
 
+/** Charred Foyer is mana value 4, Warped Space 6, so both doors are 10. */
+const room = (unlockedDoors?: RoomDoorId[]) =>
+  cardTemplate('Charred Foyer // Warped Space', {
+    roomDoors: [
+      roomDoor('Charred Foyer', '{3}{R}'),
+      roomDoor('Warped Space', '{4}{R}{R}'),
+    ],
+    ...(unlockedDoors ? { unlockedDoors } : {}),
+  })
+
+/** Sets base power and toughness, then stacks +2/+2 and a +1/+1 counter on it. */
+const growthSpell = () => cardTemplate('Growth Test', {
+  types: ['Instant'],
+  manaCost: '{0}',
+  manaValue: 0,
+  effects: [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      pump(2, 2),
+      addPlusCountersInstruction(1),
+    ),
+  ],
+})
+
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
-const applyContinuousEffects = (
+const funded = (state: GameState, mana: Partial<ManaPool>) => ({
+  ...state,
+  players: {
+    ...state.players,
+    p1: {
+      ...state.players.p1,
+      mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0, ...mana },
+    },
+  },
+})
+
+/** One reducer pass that neither advances the turn nor changes the board. */
+const settle = (
   server: ReturnType<typeof createServerGame>,
   state = server.state,
-) => ok(server.rules(state, { type: 'advanceStep' }))
+) => ok(server.rules(state, {
+  type: 'untap',
+  objectId: named(state, 'Starfield of Nyx').id,
+}))
 
 const advanceToUpkeep = (
   server: ReturnType<typeof createServerGame>,
@@ -51,23 +95,7 @@ describe('Starfield of Nyx', () => {
           enchantment('Fixture Two'),
         ],
       },
-      hands: {
-        p1: [
-          enchantment('Fifth Enchantment'),
-          cardTemplate('Growth Test', {
-            types: ['Instant'],
-            manaCost: '{0}',
-            manaValue: 0,
-            effects: [
-              targetOnResolve(
-                'select',
-                { zone: 'battlefield', type: 'Creature' },
-                pump(2, 2),
-              ),
-            ],
-          }),
-        ],
-      },
+      hands: { p1: [enchantment('Fifth Enchantment'), growthSpell()] },
     }, { random: () => 0.5, cardPlugins: [targetedResolve] })
 
     expect(named(server.state, 'Subject')).toMatchObject({
@@ -97,9 +125,83 @@ describe('Starfield of Nyx', () => {
     }))
     const pumped = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(named(pumped, 'Subject')).toMatchObject({
-      power: 5,
-      toughness: 5,
+      power: 6,
+      toughness: 6,
+      counters: { '+1/+1': 1 },
     })
+  })
+
+  test('recomputes base stats when unlocking a door changes the Room mana value', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          starfield(),
+          room(['left']),
+          enchantment('Fixture One'),
+          enchantment('Fixture Two'),
+          enchantment('Fixture Three'),
+        ],
+      },
+      hands: { p1: [growthSpell()] },
+    }, { random: () => 0.5, cardPlugins: [targetedResolve] })
+
+    let state = settle(server)
+    const roomId = named(state, 'Charred Foyer').id
+    expect(state.objects[roomId]).toMatchObject({
+      manaValue: 4,
+      power: 4,
+      toughness: 4,
+    })
+
+    state = ok(server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(state, 'Growth Test').id,
+      targets: [{ kind: 'object', objectId: roomId }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.objects[roomId]).toMatchObject({ power: 7, toughness: 7 })
+
+    state = ok(server.rules(funded(state, { R: 2, C: 4 }), {
+      type: 'unlockDoor',
+      seat: 'p1',
+      objectId: roomId,
+      door: 'right',
+    }))
+
+    // The new base set is 10/10, and the +2/+2 still applies on top of it.
+    expect(state.objects[roomId]).toMatchObject({
+      manaValue: 10,
+      power: 12,
+      toughness: 12,
+    })
+  })
+
+  test('a Room put onto the battlefield locked is 0/0 and dies to state-based actions', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          starfield(),
+          enchantment('Fixture One'),
+          enchantment('Fixture Two'),
+          enchantment('Fixture Three'),
+          enchantment('Fixture Four'),
+        ],
+      },
+      hands: { p1: [room()] },
+    })
+
+    let state = settle(server)
+    const roomId = named(state, 'Charred Foyer // Warped Space').id
+    state = ok(server.rules(state, {
+      type: 'move',
+      objectId: roomId,
+      to: 'battlefield',
+    }))
+
+    // CR 709.5: both doors locked means mana value 0, so CR 704.5f applies.
+    expect(state.objects[roomId].zone).toBe('graveyard')
+    expect(state.objects[roomId].types).not.toContain('Creature')
   })
 
   test('excludes itself, Auras, and opponents enchantments', () => {
@@ -118,7 +220,7 @@ describe('Starfield of Nyx', () => {
         p2: [enchantment('Opponent Enchantment', 4)],
       },
     })
-    const state = applyContinuousEffects(server)
+    const state = settle(server)
 
     expect(named(state, 'Subject').types).toContain('Creature')
     expect(named(state, 'Starfield of Nyx').types).toEqual(['Enchantment'])
@@ -140,7 +242,7 @@ describe('Starfield of Nyx', () => {
     })
 
     const thresholdServer = makeServer()
-    let state = applyContinuousEffects(thresholdServer)
+    let state = settle(thresholdServer)
     expect(named(state, 'Subject').types).toContain('Creature')
     state = ok(thresholdServer.rules(state, {
       type: 'move',
@@ -154,7 +256,7 @@ describe('Starfield of Nyx', () => {
     })
 
     const sourceServer = makeServer()
-    state = applyContinuousEffects(sourceServer)
+    state = settle(sourceServer)
     state = ok(sourceServer.rules(state, {
       type: 'move',
       objectId: named(state, 'Starfield of Nyx').id,
