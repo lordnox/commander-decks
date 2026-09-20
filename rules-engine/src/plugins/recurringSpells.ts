@@ -154,8 +154,8 @@ export const recurringSpells: Plugin = {
       }
       return
     }
-    if (event.type !== 'castSpell' || (!event.copy && !event.withoutPayingMana)) return
-    if (!event.copy || !event.withoutPayingMana) {
+    if (event.type !== 'castSpell' || !event.copy) return
+    if (!event.withoutPayingMana) {
       return 'spell copies cast without paying their mana cost require an effect'
     }
     if (

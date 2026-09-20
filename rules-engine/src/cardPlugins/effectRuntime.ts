@@ -487,6 +487,8 @@ const CHOICE_KINDS = new Set([
   'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled',
   'eachPlayerDiscard', 'eachPlayerSacrifice',
   'linkExile',
+  'counterTargetSpell', 'bounceTargetPermanent', 'addPlusCountersToControlled',
+  'opponentMayDrawThenStealCast',
 ])
 
 const hasKind = (instructions: CardInstruction[], ...kinds: string[]) =>
@@ -571,6 +573,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'gainControlPermanent', 'pairDonateToOpponents')) {
         ids.add('permanentControl')
       }
+      if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
     }
     if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(listed, 'encoreTokens')) ids.add('encore')

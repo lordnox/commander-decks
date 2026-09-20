@@ -303,6 +303,43 @@ describe('mana', () => {
     expect(red.ok).toBe(false)
   })
 
+  test('Mana Confluence pays 1 life for any color and refuses at 0 life', () => {
+    const confluence = {
+      ...forest(),
+      name: 'Mana Confluence',
+      subtypes: [],
+      supertypes: [],
+      oracleText: '{T}, Pay 1 life: Add one mana of any color.',
+      tapProduces: undefined,
+    }
+    const catalogWithLife = createCatalog([mana, lands, manaBurn, damage, life])
+    const state = newGame({
+      builtinRules: ['mana', 'damage', 'life'],
+      battlefield: { p1: [confluence] },
+    })
+    const objectId = idOf(state, 'Mana Confluence', 'battlefield')
+    const missing = rules(state, { type: 'tapForMana', seat: 'p1', objectId }, catalogWithLife)
+    expect(missing.ok).toBe(false)
+
+    const blue = ok(rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'U',
+    }, catalogWithLife))
+    expect(blue.players.p1.mana.U).toBe(1)
+    expect(blue.players.p1.life).toBe(39)
+
+    const broke = structuredClone(state)
+    broke.players.p1.life = 0
+    expect(rules(broke, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId,
+      mana: 'U',
+    }, catalogWithLife).ok).toBe(false)
+  })
+
   test('Cabal Coffers does not free-tap for {B}', () => {
     const coffers = {
       ...forest(),

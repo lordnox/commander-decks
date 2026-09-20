@@ -59,6 +59,27 @@ export const modalSpell: Plugin = {
       payload: { sourceId: item.objectId },
     }
   },
+  legal: ({ state, event }) => {
+    if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return
+    const dialog = pendingDialogFor(state, event.seat)
+    if (dialog?.kind !== 'choose-modes') return
+    const source = state.objects[dialog.sourceId]
+    const modal = source ? modalEffects(source)[0] : undefined
+    const instruction = source ? chooseModesInstruction(source) : undefined
+    const choose = modal && modal.op === 'modal'
+      ? modal.choose
+      : instruction?.choose
+    if (choose !== 'two' && choose !== 'one') return
+    const modes = modal && modal.op === 'modal' ? modal.modes : instruction?.modes
+    if (!modes) return
+    const selected = chosenModes(modes, event.payload, choose)
+    if (choose === 'two' && selected.length !== 2) {
+      return `${dialog.source} requires exactly two modes`
+    }
+    if (choose === 'one' && selected.length !== 1) {
+      return `${dialog.source} requires exactly one mode`
+    }
+  },
   apply: ({ state, event, draft }) => {
     if (event.type === 'custom' && event.name === MODAL_CHOOSE && event.seat) {
       const sourceId = event.payload?.sourceId
@@ -72,7 +93,7 @@ export const modalSpell: Plugin = {
         : modal.choose === 'two'
           ? 2
           : 1
-      const min = 1
+      const min = modal.choose === 'two' ? 2 : 1
       setPendingDialog(draft, {
         sourceId: source.id,
         source: source.name,

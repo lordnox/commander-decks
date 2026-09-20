@@ -25,6 +25,7 @@ import type {
   GameState,
   PlayerId,
   Plugin,
+  TargetRef,
   TriggerBindingIf,
 } from '../types'
 import { asRoomDoor } from '../plugins/rooms'
@@ -34,7 +35,7 @@ import {
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 
-const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand'])
+const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
 /**
  * CR 603.2 — "for the first time each turn" is part of the trigger event, so it
@@ -70,6 +71,22 @@ const triggerIfPasses = (
   if (!condition) return true
   if (!isTriggerBindingIf(condition)) {
     return conditionHolds(condition, state, source)
+  }
+  if (condition.fromSpell && event.type !== 'resolveTop') return false
+  if (condition.duringActiveTurn) {
+    if (!('seat' in event) || typeof event.seat !== 'string' || event.seat !== state.active) {
+      return false
+    }
+  }
+  if (condition.opponentControlsSameName) {
+    if (!('seat' in event) || typeof event.seat !== 'string' || event.seat === source.controller) {
+      return false
+    }
+    const named = Object.values(state.objects).some((candidate) =>
+      candidate.zone === 'battlefield'
+      && candidate.controller === event.seat
+      && candidate.name === source.name)
+    if (!named) return false
   }
   if (!('seat' in event) || typeof event.seat !== 'string') return true
   if (condition.seat === 'opponent') return event.seat !== source.controller
@@ -149,14 +166,13 @@ const collectEffects = (
     PendingTrigger,
     'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount'
   > = {},
+  event?: GameEvent,
 ) => {
   const catalog = effectsOf(source)
   for (const effect of triggerEffects(catalog, on)) {
-    if (
-      effect.if
-      && !isTriggerBindingIf(effect.if)
-      && !conditionHolds(effect.if, state, source)
-    ) continue
+    if (effect.if && isTriggerBindingIf(effect.if)) {
+      if (!event || !triggerIfPasses(state, source, event, effect.if)) continue
+    } else if (effect.if && !conditionHolds(effect.if, state, source)) continue
     if (!passesOnceEachTurn(source, effect, catalog, state.turn)) continue
     const stackCopies = effect.onceEachTurn ? 1 : copies
     pushCopies(matches, source, effect, stackCopies, {
@@ -249,6 +265,8 @@ const collectEnters = (
     draft,
     matches,
     1 + extraTriggerCount(draft, object.controller, 'enters', object),
+    {},
+    event,
   )
 }
 
@@ -261,8 +279,52 @@ const collectAttacks = (
   for (const declaration of event.attackers) {
     const attacker = state.objects[declaration.objectId]
     if (!attacker) continue
-    collectEffects(attacker, 'attacks', state, matches)
+    collectEffects(attacker, 'attacks', state, matches, 1, {}, event)
   }
+}
+
+const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
+  if (typeof target === 'string') return target
+  return target.kind === 'player'
+    ? target.player
+    : state.objects[target.objectId]?.controller
+}
+
+const collectPlayerAttacks = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'declareAttackers') return
+  for (const source of draft.zoneOf('battlefield')) {
+    const live = draft.object(source.id)
+    if (!live || live.zone !== 'battlefield') continue
+    const qualifying = event.attackers.some((declaration) => {
+      const defender = defendingPlayer(state, declaration.defender)
+      if (!defender || defender === live.controller || state.players[defender]?.lost) return false
+      return state.playerOrder.some((seat) =>
+        seat !== live.controller
+        && seat !== defender
+        && !state.players[seat].lost
+        && state.players[defender].life > state.players[seat].life)
+    })
+    if (!qualifying) continue
+    collectEffects(live, 'playerAttacks', state, matches, 1, {
+      triggeringPlayer: event.seat,
+    }, event)
+  }
+}
+
+const collectTapped = (
+  state: GameState,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'tap' && event.type !== 'tapForMana') return
+  const object = state.objects[event.objectId]
+  if (!object) return
+  collectEffects(object, 'tapped', state, matches, 1, {}, event)
 }
 
 const collectStep = (
@@ -363,6 +425,8 @@ const collectDiscardDraw = (
       if (!passesOnceEachTurn(live, effect, catalog, draft.turn)) continue
       pushCopies(matches, live, effect, 1, {
         triggerEffectKey: triggerEffectKey(catalog, effect),
+        triggeringPlayer: 'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+        triggerAmount: event.type === 'gainLife' ? event.amount : undefined,
       })
     }
   }
@@ -374,10 +438,13 @@ const delayedTriggerMatches = (
   event: GameEvent,
 ) => {
   if (trigger.condition.kind === 'event') return event.type === trigger.condition.type
+  const steps = Array.isArray(trigger.condition.step)
+    ? trigger.condition.step
+    : [trigger.condition.step]
   return (
     event.type === 'custom'
     && event.name === 'advanceStep'
-    && draft.step === trigger.condition.step
+    && steps.includes(draft.step)
     && (
       trigger.condition.active === undefined
       || trigger.condition.active === draft.active
@@ -449,6 +516,8 @@ const collectEventTriggers = (
   collectEnters(state, draft, event, matches)
   collectBecomesMonstrous(state, event, matches)
   collectAttacks(state, event, matches)
+  collectPlayerAttacks(state, draft, event, matches)
+  collectTapped(state, event, matches)
   collectStep('upkeep', state, draft, event, matches)
   collectStep('end', state, draft, event, matches)
   collectCombatDamage(state, draft, event, matches)
