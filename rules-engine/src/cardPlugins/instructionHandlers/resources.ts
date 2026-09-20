@@ -28,11 +28,12 @@ const addMana: InstructionHandler<'addMana'> = ({ draft, source }, instruction) 
 }
 
 const draw: InstructionHandler<'draw'> = ({ draft, source, buffer }, instruction) => {
+  const seat = instruction.seat ?? source.controller
   if (buffer) {
-    buffer.push({ kind: 'draw', remaining: instruction.count })
+    buffer.push({ kind: 'draw', remaining: instruction.count, seat })
     return
   }
-  draft.enqueue({ type: 'draw', seat: source.controller, count: instruction.count })
+  draft.enqueue({ type: 'draw', seat, count: instruction.count })
 }
 
 const discardCards: InstructionHandler<'discardCards'> = (
@@ -363,13 +364,15 @@ const drawAtNextUpkeep: InstructionHandler<'drawAtNextUpkeep'> = (
         ? item.targets[0].player
         : undefined
   if (!seat) return
+  // "At the beginning of the next upkeep" is whichever upkeep comes first, not the drawer's.
   registerDelayedTrigger(
     draft,
     source,
-    { kind: 'step', step: 'upkeep', active: seat },
+    { kind: 'step', step: 'upkeep' },
     [{
       kind: instruction.optional ? 'mayDraw' : 'draw',
       count: instruction.count,
+      seat,
     }],
   )
 }

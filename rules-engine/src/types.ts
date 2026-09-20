@@ -280,6 +280,7 @@ export type TriggerBinding = {
  */
 export type DelayedTriggerCondition =
   | { kind: 'event'; type: GameEvent['type'] }
+  /** Omit `active` for "the next upkeep"; name a seat for "your next upkeep". */
   | { kind: 'step'; step: StepId; active?: PlayerId }
 
 export type DelayedTrigger = {

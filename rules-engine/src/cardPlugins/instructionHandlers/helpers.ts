@@ -36,7 +36,7 @@ export const flushStackActions = (
     if (action.kind === 'draw') {
       draft.enqueue({
         type: 'draw',
-        seat: source.controller,
+        seat: action.seat ?? source.controller,
         count: action.remaining,
       })
       continue

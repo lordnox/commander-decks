@@ -1,9 +1,9 @@
 import type Draft from '../../draft'
-import type { GameObject, StackItem } from '../../types'
+import type { GameObject, PlayerId, StackItem } from '../../types'
 import type { CardInstruction } from '../effects'
 
 export type BufferedStackAction =
-  | { kind: 'draw'; remaining: number }
+  | { kind: 'draw'; remaining: number; seat?: PlayerId }
   | { kind: 'discard'; count: number; who?: 'controller' | 'target' }
 
 export type InstructionContext = {

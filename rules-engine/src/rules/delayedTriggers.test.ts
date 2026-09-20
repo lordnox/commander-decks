@@ -80,7 +80,21 @@ describe('delayed triggers', () => {
     expect(state.stack).toHaveLength(0)
   })
 
-  test('a step trigger waits for the specified player and stacks at step entry', () => {
+  test('a step trigger without an active seat fires at the next such step', () => {
+    const server = setup()
+    let state = register(
+      { ...server.state, step: 'untap' },
+      { kind: 'step', step: 'upkeep' },
+      [{ kind: 'gainLife', count: 2 }],
+    )
+
+    state = ok(server.rules(state, { type: 'advanceStep' }))
+    expect(state.step).toBe('upkeep')
+    expect(state.stack[0]).toMatchObject({ kind: 'ability', controller: 'p1' })
+    expect(state.delayedTriggers).toHaveLength(0)
+  })
+
+  test('a step trigger for a named active seat waits for that player\'s step', () => {
     const server = setup()
     let state = register(
       { ...server.state, step: 'untap' },

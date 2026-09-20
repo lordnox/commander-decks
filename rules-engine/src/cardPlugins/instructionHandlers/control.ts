@@ -120,7 +120,7 @@ const mayDraw: InstructionHandler<'mayDraw'> = ({ draft, source }, instruction) 
   setPendingDialog(draft, {
     sourceId: source.id,
     source: source.name,
-    seat: source.controller,
+    seat: instruction.seat ?? source.controller,
     kind: 'may-draw',
     prompt: `You may draw ${instruction.count === 1 ? 'a card' : `${instruction.count} cards`}.`,
     waiting: 'is deciding whether to draw.',

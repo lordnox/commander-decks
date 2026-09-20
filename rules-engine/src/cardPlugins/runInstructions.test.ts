@@ -3,7 +3,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { resolveStack } from '../testHelpers'
-import type { ReduceResult } from '../types'
+import type { Plugin, ReduceResult, TargetRef } from '../types'
 import {
   branch,
   controllerLife,
@@ -12,6 +12,7 @@ import {
   drawAtNextUpkeep,
   gainLife,
   onResolve,
+  type CardInstruction,
 } from './effects'
 import { choiceEffects } from './choiceEffects'
 import { onResolve as onResolvePlugin } from './onResolve'
@@ -24,6 +25,58 @@ const ok = (result: ReduceResult) => {
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
+
+/** Cast a free instant from p1's hand and resolve it, so its delayed trigger is registered. */
+const castDelaySpell = (
+  name: string,
+  instructions: CardInstruction[],
+  options: { cardPlugins?: Plugin[]; targets?: TargetRef[] } = {},
+) => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      players: 2,
+      hands: {
+        p1: [cardTemplate(name, {
+          types: ['Instant'],
+          manaCost: '{0}',
+          manaValue: 0,
+          effects: [onResolve(...instructions)],
+        })],
+      },
+      libraries: {
+        p1: [cardTemplate('Now'), cardTemplate('Later One'), cardTemplate('Later Two')],
+        p2: [cardTemplate('Opp A'), cardTemplate('Opp B'), cardTemplate('Opp C')],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [onResolvePlugin, ...options.cardPlugins ?? []] },
+  )
+  const withMana = {
+    ...server.state,
+    players: {
+      ...server.state.players,
+      p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
+    },
+  }
+  const cast = ok(server.rules(withMana, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(withMana, name).id,
+    ...(options.targets ? { targets: options.targets } : {}),
+  }))
+  return { server, resolved: ok(server.rules(cast, { type: 'resolveTop' })) }
+}
+
+const nextUpkeep = (
+  server: ReturnType<typeof createServerGame>,
+  state: ReturnType<typeof createServerGame>['state'],
+) => {
+  let current = state
+  while (current.step !== 'upkeep') {
+    current = ok(server.rules(current, { type: 'advanceStep' }))
+  }
+  return current
+}
 
 describe('runInstructions', () => {
   test('gainLife goes through the life event', () => {
@@ -102,97 +155,50 @@ describe('runInstructions', () => {
     expect(drawIndex).toBeGreaterThan(gainIndex)
   })
 
-  test('drawAtNextUpkeep draws on the next upkeep', () => {
-    const spell = cardTemplate('Delay Test', {
-      types: ['Instant'],
-      manaCost: '{0}',
-      manaValue: 0,
-      effects: [onResolve(draw(1), drawAtNextUpkeep(2))],
-    })
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 2,
-        hands: { p1: [spell] },
-        libraries: {
-          p1: [
-            cardTemplate('Now'),
-            cardTemplate('Later One'),
-            cardTemplate('Later Two'),
-            cardTemplate('Turn Draw'),
-          ],
-          p2: [
-            cardTemplate('P2a'),
-            cardTemplate('P2b'),
-            cardTemplate('P2c'),
-            cardTemplate('P2d'),
-          ],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+  test('drawAtNextUpkeep draws on the next upkeep, which is the next player\'s', () => {
+    const { server, resolved } = castDelaySpell(
+      'Delay Test',
+      [draw(1), drawAtNextUpkeep(2)],
     )
-    const withMana = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
-      },
-    }
-    const cast = ok(server.rules(withMana, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(withMana, 'Delay Test').id,
-    }))
-    let state = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(named(state, 'Now').zone).toBe('hand')
-    expect(state.delayedTriggers).toHaveLength(1)
+    expect(named(resolved, 'Now').zone).toBe('hand')
+    expect(resolved.delayedTriggers).toHaveLength(1)
 
-    while (!(state.active === 'p1' && state.step === 'upkeep' && state.turn > 1)) {
-      state = ok(server.rules(state, { type: 'advanceStep' }))
-    }
-    expect(named(state, 'Later One').zone).toBe('library')
-    state = resolveStack(server.rules, state)
+    const upkeep = nextUpkeep(server, resolved)
+    expect(upkeep.active).toBe('p2')
+    expect(named(upkeep, 'Later One').zone).toBe('library')
+    expect(upkeep.delayedTriggers).toHaveLength(0)
+
+    const state = resolveStack(server.rules, upkeep)
     expect(named(state, 'Later One').zone).toBe('hand')
     expect(named(state, 'Later Two').zone).toBe('hand')
-    expect(state.delayedTriggers).toHaveLength(0)
+    expect(state.zoneOrder.p1.hand).toHaveLength(3)
+  })
+
+  test('drawAtNextUpkeep for a target controller draws for that opponent', () => {
+    const { server, resolved } = castDelaySpell(
+      'Opponent Delay',
+      [drawAtNextUpkeep(2, 'targetController')],
+      { targets: [{ kind: 'player', player: 'p2' }] },
+    )
+    const upkeep = nextUpkeep(server, resolved)
+
+    // CR 603.7d: the creating spell's controller keeps the ability, p2 only draws.
+    expect(upkeep.stack[0]).toMatchObject({ kind: 'ability', controller: 'p1' })
+
+    const state = resolveStack(server.rules, upkeep)
+    expect(named(state, 'Opp A').zone).toBe('hand')
+    expect(named(state, 'Opp B').zone).toBe('hand')
+    expect(state.zoneOrder.p1.hand).toHaveLength(0)
+    expect(state.zoneOrder.p2.hand).toHaveLength(2)
   })
 
   test('optional delayed draws open a may-draw dialog', () => {
-    const spell = cardTemplate('Optional Delay', {
-      types: ['Instant'],
-      manaCost: '{0}',
-      manaValue: 0,
-      effects: [onResolve(drawAtNextUpkeep(1, 'you', true))],
-    })
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 2,
-        hands: { p1: [spell] },
-        libraries: {
-          p1: [cardTemplate('Maybe'), cardTemplate('Pad One'), cardTemplate('Pad Two')],
-          p2: [cardTemplate('Opp A'), cardTemplate('Opp B'), cardTemplate('Opp C')],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [onResolvePlugin, choiceEffects] },
+    const { server, resolved } = castDelaySpell(
+      'Optional Delay',
+      [drawAtNextUpkeep(1, 'you', true)],
+      { cardPlugins: [choiceEffects] },
     )
-    const withMana = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
-      },
-    }
-    const cast = ok(server.rules(withMana, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(withMana, 'Optional Delay').id,
-    }))
-    let state = ok(server.rules(cast, { type: 'resolveTop' }))
-    while (!(state.active === 'p1' && state.step === 'upkeep' && state.turn > 1)) {
-      state = ok(server.rules(state, { type: 'advanceStep' }))
-    }
-    state = ok(server.rules(state, { type: 'resolveTop' }))
+    let state = ok(server.rules(nextUpkeep(server, resolved), { type: 'resolveTop' }))
     expect(pendingDialog(state)).toMatchObject({ kind: 'may-draw', seat: 'p1', count: 1 })
     state = ok(server.rules(state, {
       type: 'custom',
@@ -200,6 +206,21 @@ describe('runInstructions', () => {
       seat: 'p1',
       payload: { accepted: true },
     }))
-    expect(named(state, 'Maybe').zone).toBe('hand')
+    expect(named(state, 'Now').zone).toBe('hand')
+  })
+
+  test('an optional delayed draw asks the opponent who was named as the drawer', () => {
+    const { server, resolved } = castDelaySpell(
+      'Optional Opponent Delay',
+      [drawAtNextUpkeep(1, 'targetController', true)],
+      { cardPlugins: [choiceEffects], targets: [{ kind: 'player', player: 'p2' }] },
+    )
+    const state = ok(server.rules(nextUpkeep(server, resolved), { type: 'resolveTop' }))
+
+    expect(pendingDialog(state)).toMatchObject({
+      kind: 'may-draw',
+      seat: 'p2',
+      source: 'Optional Opponent Delay',
+    })
   })
 })
