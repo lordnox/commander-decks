@@ -84,6 +84,11 @@ export type CopySnapshot = {
 
 export type ReversibleEffect =
   | { kind: 'pump'; power: number; toughness: number }
+  /**
+   * `after` is the layer 7b base set and `before` the pre-animation values.
+   * Neither includes the +1/+1 counter contribution (CR 613.4c); it is
+   * re-derived from the live counter map on both apply and revert.
+   */
   | {
       kind: 'animation'
       before: { types: string[]; power: number | null; toughness: number | null }
