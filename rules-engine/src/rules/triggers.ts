@@ -14,6 +14,8 @@ import {
 } from '../cardPlugins/effects'
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
+import { validTarget } from '../cardPlugins/targetedResolve'
+import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type {
@@ -24,7 +26,7 @@ import type {
   Plugin,
   TriggerBindingIf,
 } from '../types'
-import { asRoomDoor, roomDoor } from '../plugins/rooms'
+import { asRoomDoor } from '../plugins/rooms'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
 
@@ -413,6 +415,43 @@ export const triggers: Plugin = {
       triggerAmount,
       payload,
     } of ordered) {
+      if (effect.targets && effect.targets !== 'opponent') {
+        const targetSpec = effect.targets
+        const candidates = Object.values(draft.objects)
+          .filter((object) =>
+            validTarget(
+              draft,
+              object,
+              targetSpec.filter,
+              source.controller,
+            ))
+          .map((object) => object.id)
+        if (candidates.length === 0) continue
+        openCardSelection(draft, {
+          seat: source.controller,
+          kind: 'choose',
+          count: 1,
+          min: targetSpec.optional ? 0 : 1,
+          candidates,
+          sourceId: source.id,
+          source: source.name,
+          prompt: `Choose target for ${source.name}.`,
+          destinations: ['target'],
+          triggerInstructions: effect.do,
+          triggerPayload: {
+            targetFilter: targetSpec.filter,
+            triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
+            ...(effect.if && !isTriggerBindingIf(effect.if)
+              ? { interveningIf: effect.if }
+              : {}),
+            ...(triggeringObjectId ? { triggeringObjectId } : {}),
+            ...(triggerAmount !== undefined ? { triggerAmount } : {}),
+            ...payload,
+          },
+        })
+        choosingSeat ??= source.controller
+        continue
+      }
       if (effect.targets === 'opponent') {
         const candidates = draft.playerOrder.filter(
           (seat) => seat !== source.controller && !draft.players[seat].lost,

@@ -283,7 +283,10 @@ export type CardEffect =
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
       modal?: ModalSpec
-      targets?: 'opponent'
+      targets?: 'opponent' | {
+        filter: TargetFilter
+        optional?: boolean
+      }
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
     }

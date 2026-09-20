@@ -96,6 +96,7 @@ export type ReversibleEffect =
 
 export type EffectDuration =
   | { kind: 'untilCleanup' }
+  | { kind: 'whileSourceOnBattlefield'; sourceId: string }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
 
 export type ContinuousEffect = {

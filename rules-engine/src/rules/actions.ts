@@ -9,6 +9,8 @@ import {
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import type { GameObject, GameState, StackItem } from '../types'
+import { validTargetRef } from '../cardPlugins/targetedResolve'
+import type { TargetFilter } from '../cardPlugins/effects'
 import { resolveDiscardAction } from './discard'
 import { resolveDrawAction } from './draw'
 
@@ -43,6 +45,11 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
   const source = draft.object(item.objectId) ?? stackSourceFallback(item)
   const interveningIf = item.payload?.interveningIf as CardCondition | undefined
   if (interveningIf && !conditionHolds(interveningIf, draft, source)) return
+  const targetFilter = item.payload?.targetFilter as TargetFilter | undefined
+  if (
+    targetFilter
+    && !validTargetRef(draft, item.targets[0], targetFilter, item.controller)
+  ) return
   runInstructions(draft, source, instructions, item)
 }
 

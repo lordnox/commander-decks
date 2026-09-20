@@ -1,5 +1,6 @@
 import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
+import type { CardInstruction } from '../cardPlugins/effects'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
@@ -56,6 +57,8 @@ export type PendingCardSelection = {
   }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
+  triggerInstructions?: CardInstruction[]
+  triggerPayload?: Record<string, unknown>
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -343,13 +346,21 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         }
       }
     }
-    if (selection.triggerAbilityId && selection.sourceId) {
+    if (
+      (selection.triggerAbilityId || selection.triggerInstructions)
+      && selection.sourceId
+    ) {
       const source = draft.object(selection.sourceId)
       const targetId = event.objectIds?.[0]
       if (source && targetId) {
-        draft.addTriggeredAbility(source, [], {
-          abilityId: selection.triggerAbilityId,
+        draft.addTriggeredAbility(source, selection.triggerInstructions ?? [], {
+          ...(selection.triggerAbilityId
+            ? { abilityId: selection.triggerAbilityId }
+            : {}),
           targets: [{ kind: 'object', objectId: targetId }],
+          ...(selection.triggerPayload
+            ? { payload: selection.triggerPayload }
+            : {}),
         })
         draft.passedInRow = []
         draft.priority = draft.active

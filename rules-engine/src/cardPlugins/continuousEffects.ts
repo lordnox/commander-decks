@@ -67,16 +67,26 @@ export const becomeCreature = (
     power: object.power,
     toughness: object.toughness,
   }
+  const counterBonus = object.counters['+1/+1'] ?? 0
+  const pumpEffects = (object.continuousEffects ?? [])
+    .map(({ effect }) => effect)
+    .filter((effect) => effect.kind === 'pump')
+  const finalPower = power
+    + counterBonus
+    + pumpEffects.reduce((total, effect) => total + effect.power, 0)
+  const finalToughness = toughness
+    + counterBonus
+    + pumpEffects.reduce((total, effect) => total + effect.toughness, 0)
   if (!object.types.includes('Creature')) object.types.push('Creature')
-  object.power = power
-  object.toughness = toughness
+  object.power = finalPower
+  object.toughness = finalToughness
   return {
     kind: 'animation',
     before,
     after: {
       types: [...object.types],
-      power,
-      toughness,
+      power: finalPower,
+      toughness: finalToughness,
     },
   }
 }
@@ -178,6 +188,17 @@ export const animateUntilEndOfTurn = (
   toughness: number,
 ) => untilEndOfTurn(object, becomeCreature(object, power, toughness))
 
+export const animateWhileSourceOnBattlefield = (
+  object: GameObject,
+  power: number,
+  toughness: number,
+  sourceId: string,
+) => withDuration(
+  object,
+  becomeCreature(object, power, toughness),
+  { kind: 'whileSourceOnBattlefield', sourceId },
+)
+
 export const grantOracleLineUntilEndOfTurn = (
   object: GameObject,
   line: string,
@@ -206,6 +227,9 @@ const durationHolds = (
   if (object.zone !== 'battlefield') return false
   if (duration.kind === 'untilCleanup') return !endTurnEffects
   const source = state.objects[duration.sourceId]
+  if (duration.kind === 'whileSourceOnBattlefield') {
+    return source?.zone === 'battlefield'
+  }
   return Boolean(
     source
     && source.zone === 'battlefield'
@@ -296,6 +320,21 @@ const resetEffects = (
   if (control?.effect.kind === 'controller' && object.zone === 'battlefield') {
     object.controller = control.effect.base
   }
+}
+
+export const removeContinuousEffects = (
+  object: GameObject,
+  remove: (entry: NonNullable<GameObject['continuousEffects']>[number]) => boolean,
+) => {
+  const effects = object.continuousEffects ?? []
+  const remaining = effects.filter((entry) => !remove(entry))
+  if (remaining.length === effects.length) return
+
+  resetEffects(object, effects)
+  for (const entry of remaining) applyStoredEffect(object, entry.effect)
+
+  if (remaining.length > 0) object.continuousEffects = remaining
+  else delete object.continuousEffects
 }
 
 const expireEffects = (
