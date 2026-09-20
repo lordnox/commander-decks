@@ -44,7 +44,7 @@ export const applyPutPermanents = (
 }
 
 export const applyChooseModes = (
-  { kernel, lobby, seat, message, state }: ChoiceContext,
+  { kernel, lobby, seat, message, decision, state }: ChoiceContext,
 ) => {
   const dialog = pendingDialogFor(state, seat)
   if (dialog?.kind !== 'choose-modes' && dialog?.kind !== 'choose-creature-type') {
@@ -53,6 +53,14 @@ export const applyChooseModes = (
   const modes = message.choices
     .filter(({ destination }) => destination === 'target')
     .map(({ card }) => card)
+  const min = decision.requirements?.target?.min
+  const max = decision.requirements?.target?.max
+  if (min !== undefined && modes.length < min) {
+    throw new Error(`Choose at least ${min} mode(s).`)
+  }
+  if (max !== undefined && modes.length > max) {
+    throw new Error(`Choose at most ${max} mode(s).`)
+  }
   const chosen = kernel.dispatch({
     type: 'custom',
     name: dialog.chosenEvent ?? DIALOG_CHOSEN,
@@ -128,12 +136,9 @@ export const applyDialogChoice = (
   const accepted = message.choices.some(({ destination }) => destination === 'target')
   const chosenEvent = decision.kernel.chosenEvent
   if (!chosenEvent) throw new Error('That choice is no longer open.')
+  const named = message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card)
   const objectIds = decision.kernel.stage === 'copy-creature'
-    ? objectIdsForNames(
-      state,
-      state.zoneOrder[seat].battlefield,
-      message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card),
-    )
+    ? objectIdsForNames(state, state.zoneOrder[seat].battlefield, named)
     : decision.kernel.stage === 'fight-target'
       ? objectIdsForNames(
         state,
@@ -143,9 +148,23 @@ export const applyDialogChoice = (
             && object.types.includes('Creature')
             && object.controller !== seat)
           .map((object) => object.id),
-        message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card),
+        named,
       )
-      : []
+      : decision.kernel.stage === 'bounce-permanent' || decision.kernel.stage === 'destroy-permanent'
+        ? objectIdsForNames(
+          state,
+          Object.values(state.objects)
+            .filter((object) => object.zone === 'battlefield')
+            .map((object) => object.id),
+          named,
+        )
+        : decision.kernel.stage === 'counter-spell' || decision.kernel.stage === 'counter-unless'
+          ? objectIdsForNames(
+            state,
+            state.stack.map((item) => item.objectId),
+            named,
+          )
+          : []
   const targets = decision.kernel.stage === 'secret-vote'
     ? message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card)
     : undefined
