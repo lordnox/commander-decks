@@ -1638,15 +1638,16 @@ export const eventsForAvailableAction = (
     && effects.some((effect) =>
       effect.op === 'trigger' && (effect.on === 'enters' || effect.on === 'unlock'))
   const resolvesThroughKernel = doorTriggers
-    || effects.some((effect) =>
-      (effect.op === 'trigger' && effect.on === 'resolve')
-      || (effect.op === 'search' && effect.via === 'spell')
-      || (
-        effect.op === 'handler'
-        && effect.pluginId === 'combatPreventionCards'
-      )
-      || effect.op === 'playerAuraDeal')
-    : false
+    || (object
+      ? effects.some((effect) =>
+        (effect.op === 'trigger' && effect.on === 'resolve')
+        || (effect.op === 'search' && effect.via === 'spell')
+        || (
+          effect.op === 'handler'
+          && effect.pluginId === 'combatPreventionCards'
+        )
+        || effect.op === 'playerAuraDeal')
+      : false)
   const playerAura = object
     ? effectsOf(object).some((effect) => effect.op === 'playerAuraDeal')
     : false
