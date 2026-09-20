@@ -9,6 +9,7 @@ import {
 import type { LobbyState } from './lobby'
 import { isSeatId, type InboxMessage, type SeatId } from './protocol'
 import { kernelActions, kernelPriority, type KernelHandle } from './kernelHandle'
+import { availableAlternateCastEffect } from '../../rules-engine/src/cardPlugins/alternateCosts'
 
 export const applyKernelAct = (
   kernel: KernelHandle,
@@ -99,6 +100,7 @@ export const applyKernelAct = (
   const activationGroups = action.kind === 'activateAbility'
     ? action.targetGroups ?? []
     : []
+  const castGroups = action.kind === 'castSpell' ? action.targetGroups ?? [] : []
   const costGroups = activationGroups.filter(({ purpose }) => purpose === 'cost')
   const costChoiceCount = costGroups
     .reduce((total, group) => total + group.max, 0)
@@ -135,18 +137,38 @@ export const applyKernelAct = (
         choices: activationChoices,
       }]
     : action.kind === 'castSpell' && action.targetGroups
-      ? [{
+      ? (() => {
+          const selected = message.targetObjectIds ?? []
+          for (const group of castGroups.filter(({ purpose }) => purpose === 'cost')) {
+            if (
+              selected.length < group.min
+              || selected.length > group.max
+              || selected.some((objectId) =>
+                !group.targets.some((target) => target.objectId === objectId))
+            ) throw new Error(`Invalid selection for ${group.label}`)
+          }
+          const castObject = state.objects[action.objectId]
+          const alternative = castObject
+            ? availableAlternateCastEffect(state, seat, castObject, action.castOption)
+            : undefined
+          return [{
           type: 'castSpell' as const,
           seat,
           objectId: action.objectId,
+          ...(action.castOption ? { castOption: action.castOption } : {}),
           ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
           ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
           ...(action.door ? { door: action.door } : {}),
-          targets: (message.targetObjectIds ?? []).map((objectId) => ({
-            kind: 'object' as const,
-            objectId,
-          })),
+          ...(alternative?.exileGraveyard ? { exile: selected } : {}),
+          ...(alternative?.discard ? { discard: selected } : {}),
+          ...(alternative?.sacrifice ? { sacrifice: selected } : {}),
+          ...(action.targetObjectId
+            ? { targets: [{ kind: 'object' as const, objectId: action.targetObjectId }] }
+            : action.targetPlayerId
+              ? { targets: [{ kind: 'player' as const, player: action.targetPlayerId }] }
+              : {}),
         }]
+        })()
     : eventsForAvailableAction(state, seat, action)
   if (!events) throw new Error('That action now needs a judge decision')
 

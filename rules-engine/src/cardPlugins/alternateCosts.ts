@@ -65,6 +65,7 @@ const costCandidates = (
   state: GameState,
   seat: string,
   effect: AlternateCastEffect,
+  castObject?: GameObject,
 ) => {
   const controlled = Object.values(state.objects).filter((object) => object.controller === seat)
   const discard = effect.discard === 'land'
@@ -74,7 +75,12 @@ const costCandidates = (
     ? controlled.filter((object) =>
         object.zone === 'battlefield' && object.types.includes(effect.sacrifice!.type))
     : []
-  return { discard, sacrifice }
+  const exileGraveyard = effect.exileGraveyard
+    ? controlled.filter((candidate) =>
+        candidate.zone === 'graveyard'
+        && (!effect.exileGraveyard?.other || candidate.id !== castObject?.id))
+    : []
+  return { discard, sacrifice, exileGraveyard }
 }
 
 export const printedAlternateManaCost = (
@@ -108,13 +114,17 @@ export const canChooseAlternateCast = (
   ) {
     return false
   }
-  const candidates = costCandidates(state, seat, effect)
+  const candidates = costCandidates(state, seat, effect, object)
   if (effect.discard && candidates.discard.length < 1) return false
   if (effect.sacrifice && candidates.sacrifice.length < effect.sacrifice.count) return false
   if (effect.id === FORETELL_CAST_ID && object) {
     if (!object.foretold || object.zone !== 'exile') return false
     if (state.turn === object.foretoldTurn) return false
   }
+  if (
+    effect.exileGraveyard
+    && candidates.exileGraveyard.length < effect.exileGraveyard.count
+  ) return false
   return true
 }
 
@@ -138,7 +148,7 @@ export const alternateCosts: Plugin = {
     const discard = event.discard ?? []
     if (selected.discard && (
       discard.length !== 1
-      || !costCandidates(state, event.seat, selected).discard.some(
+      || !costCandidates(state, event.seat, selected, object).discard.some(
         (candidate) => candidate.id === discard[0],
       )
     )) return `${event.castOption} requires discarding a land card`
@@ -147,11 +157,22 @@ export const alternateCosts: Plugin = {
       sacrifice.length !== selected.sacrifice.count
       || new Set(sacrifice).size !== sacrifice.length
       || sacrifice.some((objectId) =>
-        !costCandidates(state, event.seat, selected).sacrifice.some(
+        !costCandidates(state, event.seat, selected, object).sacrifice.some(
           (candidate) => candidate.id === objectId,
         ))
     )) {
       return `${event.castOption} requires sacrificing ${selected.sacrifice.count} ${selected.sacrifice.type.toLowerCase()}(s)`
+    }
+    const exile = event.exile ?? []
+    if (selected.exileGraveyard && (
+      exile.length !== selected.exileGraveyard.count
+      || new Set(exile).size !== exile.length
+      || exile.some((objectId) =>
+        !costCandidates(state, event.seat, selected, object).exileGraveyard.some(
+          (candidate) => candidate.id === objectId,
+        ))
+    )) {
+      return `${event.castOption} requires exiling ${selected.exileGraveyard.count} other card(s) from your graveyard`
     }
   },
   apply: ({ event, draft }) => {
@@ -171,6 +192,9 @@ export const alternateCosts: Plugin = {
     }
     for (const objectId of event.discard ?? []) {
       draft.enqueue({ type: 'discard', seat: event.seat, objectId })
+    }
+    for (const objectId of event.exile ?? []) {
+      draft.enqueue({ type: 'move', objectId, to: 'exile' })
     }
   },
 }

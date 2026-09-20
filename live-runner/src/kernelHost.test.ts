@@ -28,6 +28,10 @@ import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
+import { abundance } from '../../rules-engine/src/cardPlugins/abundance'
+import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
+import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
+import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
@@ -71,6 +75,7 @@ import {
 } from './kernelHost'
 import { liveSnapshotFromState } from './kernelView'
 import type { SeatId } from './protocol'
+import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 
 const RANKLE_MODES = {
   discard: 'Each player discards a card',
@@ -592,6 +597,134 @@ describe('kernel host journal', () => {
       choices: [{ card: 'Life from the Loam', destination: 'target' }],
     })).toBe(true)
     expect(restartedKernel.history.current().objects[loam].zone).toBe('hand')
+  })
+
+  test('a host restart rebuilds and resumes an Abundance draw choice', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        battlefield: {
+          p1: [cardTemplate('Abundance', { types: ['Enchantment'] })],
+        },
+        libraries: {
+          p1: [cardTemplate('Drawn Card', { types: ['Sorcery'] })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [abundance] },
+    )
+    const kernel = handleFor(server.rules, server.state)
+    expect(kernel.dispatch({ type: 'draw', seat: 'p1' }).ok).toBe(true)
+    const firstLobby = createLobby()
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Draw normally', destination: 'target' },
+        { card: 'Land', destination: 'skip' },
+        { card: 'Nonland', destination: 'skip' },
+      ],
+    })).toBe(true)
+    expect(restarted.history.current().zoneOrder.p1.hand).toHaveLength(1)
+    expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
+  })
+
+  test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: {
+          p1: [cardTemplate('Hostile Negotiations', {
+            types: ['Instant'],
+            manaCost: '{3}{B}',
+          })],
+        },
+        libraries: {
+          p1: Array.from({ length: 6 }, (_, index) =>
+            cardTemplate(`Secret ${index + 1}`, { types: ['Sorcery'] })),
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve, hiddenPiles] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana.B = 1
+    initial.players.p1.mana.C = 3
+    const spell = initial.zoneOrder.p1.hand[0]
+    const kernel = handleFor(server.rules, initial)
+    expect(kernel.dispatch({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell,
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    const firstLobby = createLobby()
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(restartedLobby.topdeck?.cards.join(' ')).toContain('Secret 1')
+    expect(projectForViewer(restarted.history.current(), 'p2').zoneOrder.p1.exile)
+      .toHaveLength(0)
+  })
+
+  test('Cling to Dust escape cost cards round-trip through a structured live act', () => {
+    const cards = [
+      cardTemplate('Cling to Dust', { types: ['Instant'], manaCost: '{B}' }),
+      ...Array.from({ length: 5 }, (_, index) =>
+        cardTemplate(`Escape cost ${index + 1}`, { types: ['Sorcery'] })),
+      cardTemplate('Escape target', { types: ['Creature'] }),
+    ]
+    const server = createServerGame(
+      commanderRules,
+      { players: 2, hands: { p1: cards } },
+      { random: () => 0.5, cardPlugins: [alternateCosts, targetedResolve] },
+    )
+    let state = server.state
+    for (const objectId of state.zoneOrder.p1.hand.slice()) {
+      const moved = server.rules(state, { type: 'move', objectId, to: 'graveyard' })
+      if (!moved.ok) throw new Error(moved.error)
+      state = moved.state
+    }
+    state = structuredClone(state)
+    state.players.p1.mana.B = 1
+    state.players.p1.mana.C = 3
+    const cling = Object.values(state.objects).find((object) => object.name === 'Cling to Dust')!
+    const target = Object.values(state.objects).find((object) => object.name === 'Escape target')!
+    const costs = Object.values(state.objects)
+      .filter((object) => object.name.startsWith('Escape cost'))
+      .map((object) => object.id)
+    const kernel = handleFor(server.rules, state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId: cling.id,
+      castOption: 'escape',
+      targetObjectId: target.id,
+      targetObjectIds: costs,
+    })).toHaveLength(1)
+    const current = kernel.history.current()
+    expect(costs.every((objectId) => current.objects[objectId].zone === 'exile')).toBe(true)
+    expect(current.stack[0]).toMatchObject({
+      objectId: cling.id,
+      castOption: 'escape',
+      targets: [{ kind: 'object', objectId: target.id }],
+    })
   })
 
   test('restores an interrupted Analyze the Pollen library search', async () => {

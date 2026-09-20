@@ -42,7 +42,7 @@ import { grantControlledSubtypeTrigger } from '../cardPlugins/grantControlledSub
 import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
-import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
+import { discard, draw, selectCards, selectOptions, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
 import { warp } from './warp'
 
@@ -79,6 +79,7 @@ export const builtInPlugins = [
   discard,
   draw,
   selectCards,
+  selectOptions,
   selectPlayers,
   triggers,
   judgeFallback,

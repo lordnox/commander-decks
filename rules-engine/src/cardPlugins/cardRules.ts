@@ -226,6 +226,9 @@ import {
   bounceCreaturesExcept,
   addPlusCountersEqualToLands,
   discardCards,
+  escape,
+  hiddenPileNegotiation,
+  replaceDrawByType,
 } from './effects'
 
 const astralDriftCycleBlink = blink({
@@ -380,6 +383,8 @@ const artifactWithManaAbility = (object: GameObject) =>
   )
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
+  Abundance: [replaceDrawByType()],
+  'Hostile Negotiations': [onResolve(hiddenPileNegotiation(3, 3))],
   'Bala Ged Recovery // Bala Ged Sanctuary': [
     entersTapped(),
     targetOnResolve('bounce', { zone: 'graveyard' }),
@@ -487,6 +492,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Hedron Crab': [landfallTargeting('player', millTarget(3))],
   'Cling to Dust': [
+    escape('{3}{B}', 5),
     targetOnResolve(
       'exile',
       { zone: 'graveyard' },

@@ -62,6 +62,9 @@ export type PendingCardSelection = {
     kind: 'dredge'
     replacedBy: string[]
     remainingAfter?: number
+  } | {
+    kind: 'abundance-order'
+    remainingAfter?: number
   }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
@@ -157,7 +160,10 @@ export const liveSelectionCandidates = (
   if (selection.kind === 'discard' || selection.kind === 'reveal') {
     return selection.candidates.filter((objectId) => cardInHand(state, fromSeat, objectId))
   }
-  if (selection.kind === 'scry' || selection.kind === 'surveil') {
+  if (
+    (selection.kind === 'scry' || selection.kind === 'surveil')
+    && (!selection.fromZone || selection.fromZone === 'library')
+  ) {
     const top = new Set(libraryTop(state, fromSeat, selection.count))
     return selection.candidates.filter((objectId) => top.has(objectId))
   }

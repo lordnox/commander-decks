@@ -530,6 +530,7 @@ const alternateCastCostGroups = (
   state: GameState,
   seat: PlayerId,
   effect: AlternateCastEffect,
+  castObject: GameObject,
 ): ActionTargetGroup[] => {
   const groups: ActionTargetGroup[] = []
   if (effect.discard === 'land') {
@@ -559,6 +560,24 @@ const alternateCastCostGroups = (
           object.zone === 'battlefield'
           && object.controller === seat
           && object.types.includes(effect.sacrifice!.type))
+        .map((object) => ({
+          objectId: object.id,
+          name: object.name,
+          controller: object.controller,
+        })),
+    })
+  }
+  if (effect.exileGraveyard) {
+    groups.push({
+      label: 'Other graveyard cards to exile',
+      min: effect.exileGraveyard.count,
+      max: effect.exileGraveyard.count,
+      purpose: 'cost',
+      targets: state.zoneOrder[seat].graveyard
+        .map((objectId) => state.objects[objectId])
+        .filter((object): object is GameObject =>
+          Boolean(object)
+          && (!effect.exileGraveyard?.other || object.id !== castObject.id))
         .map((object) => ({
           objectId: object.id,
           name: object.name,
@@ -770,7 +789,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       : []
     for (const alternative of alternatives) {
       if (!canChooseAlternateCast(state, seat, alternative, object)) continue
-      const targetGroups = alternateCastCostGroups(state, seat, alternative)
+      const targetGroups = alternateCastCostGroups(state, seat, alternative, object)
       actions.push(...fundedVariants({
         kind: 'castSpell',
         objectId: object.id,
@@ -2006,6 +2025,9 @@ export const eventsForAvailableAction = (
         : {}),
       ...(action.targetObjectIds && alternative?.sacrifice
         ? { sacrifice: action.targetObjectIds.slice(0, alternative.sacrifice.count) }
+        : {}),
+      ...(action.targetObjectIds && alternative?.exileGraveyard
+        ? { exile: action.targetObjectIds.slice(0, alternative.exileGraveyard.count) }
         : {}),
       ...(targets.length > 0 ? { targets } : {}),
       ...(action.x !== undefined ? { x: action.x } : {}),
