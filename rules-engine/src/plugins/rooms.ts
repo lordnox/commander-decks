@@ -18,7 +18,7 @@ export const roomDoor = (
 const characteristicsFor = (
   object: GameObject,
   doors: RoomDoorId[],
-) => doors.flatMap((door) => {
+) => DOORS.filter((door) => doors.includes(door)).flatMap((door) => {
   const characteristics = roomDoor(object, door)
   return characteristics ? [characteristics] : []
 })
