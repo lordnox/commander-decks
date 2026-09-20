@@ -37,7 +37,7 @@ const room = (unlockedDoors?: RoomDoorId[]) =>
   })
 
 /** A printed enchantment creature, so ending the animation restores 2/2. */
-const enchantmentCreature = () => cardTemplate('Living Relic', {
+const enchantmentCreature = () => cardTemplate('Fixture Enchantment Creature', {
   types: ['Enchantment', 'Creature'],
   manaCost: '{3}',
   manaValue: 3,
@@ -260,7 +260,7 @@ describe('Starfield of Nyx', () => {
         p1: [
           starfield(),
           enchantment('Subject', 3),
-          enchantment('Pacifism', 2, {
+          enchantment('Fixture Aura', 2, {
             subtypes: ['Aura'],
             attachedTo: 'p1',
           }),
@@ -274,7 +274,7 @@ describe('Starfield of Nyx', () => {
 
     expect(named(state, 'Subject').types).toContain('Creature')
     expect(named(state, 'Starfield of Nyx').types).toEqual(['Enchantment'])
-    expect(named(state, 'Pacifism').types).toEqual(['Enchantment'])
+    expect(named(state, 'Fixture Aura').types).toEqual(['Enchantment'])
     expect(named(state, 'Opponent Enchantment').types).toEqual(['Enchantment'])
   })
 
@@ -335,11 +335,11 @@ describe('Starfield of Nyx', () => {
 
     const counteredWhileAnimated = (server: ReturnType<typeof makeServer>) => {
       const animated = settle(server)
-      const relicId = named(animated, 'Living Relic').id
-      expect(animated.objects[relicId]).toMatchObject({ power: 3, toughness: 3 })
-      const state = castAt(server, animated, 'Counter Test', relicId)
-      expect(state.objects[relicId]).toMatchObject({ power: 4, toughness: 4 })
-      return { state, relicId }
+      const creatureId = named(animated, 'Fixture Enchantment Creature').id
+      expect(animated.objects[creatureId]).toMatchObject({ power: 3, toughness: 3 })
+      const state = castAt(server, animated, 'Counter Test', creatureId)
+      expect(state.objects[creatureId]).toMatchObject({ power: 4, toughness: 4 })
+      return { state, creatureId }
     }
 
     const thresholdServer = makeServer()
@@ -349,7 +349,7 @@ describe('Starfield of Nyx', () => {
       objectId: named(dropped.state, 'Fixture Three').id,
       to: 'graveyard',
     }))
-    expect(belowFive.objects[dropped.relicId]).toMatchObject({
+    expect(belowFive.objects[dropped.creatureId]).toMatchObject({
       power: 3,
       toughness: 3,
       counters: { '+1/+1': 1 },
@@ -362,7 +362,7 @@ describe('Starfield of Nyx', () => {
       objectId: named(left.state, 'Starfield of Nyx').id,
       to: 'graveyard',
     }))
-    expect(withoutStarfield.objects[left.relicId]).toMatchObject({
+    expect(withoutStarfield.objects[left.creatureId]).toMatchObject({
       power: 3,
       toughness: 3,
     })

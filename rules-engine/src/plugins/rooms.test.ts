@@ -51,11 +51,12 @@ const funded = (
   },
 })
 
+/** Only the door names, costs, and mana values matter, so both doors stay blank. */
 const charredFoyer = () =>
   cardTemplate('Charred Foyer // Warped Space', {
     roomDoors: [
-      roomFace('Charred Foyer', '{3}{R}', 'At the beginning of your upkeep, exile the top card of your library. You may play it this turn.'),
-      roomFace('Warped Space', '{4}{R}{R}', 'Once each turn, you may pay {0} rather than pay the mana cost for a spell you cast from exile.'),
+      roomDoor('Charred Foyer', '{3}{R}'),
+      roomDoor('Warped Space', '{4}{R}{R}'),
     ],
   })
 
@@ -66,40 +67,15 @@ const starfield = () => cardTemplate('Starfield of Nyx', {
   oracleText: 'At the beginning of your upkeep, you may return target enchantment card from your graveyard to the battlefield.\nAs long as you control five or more enchantments, each other non-Aura enchantment you control is a creature in addition to its other types and has base power and base toughness each equal to its mana value.',
 })
 
-// These cards affect only hand visibility, spell count, attacks, or artifact abilities,
-// none of which changes the Room casts, unlocks, or graveyard return below.
-const quietEnchantments = () => [
-  cardTemplate('Telepathy', {
+// Five inert enchantments reach Starfield's threshold. Every mana value is at least
+// 1 so animating them never makes a 0/0 that state-based actions would remove.
+const plainEnchantments = () => [1, 2, 3, 4, 5].map((manaValue) =>
+  cardTemplate(`Fixture Enchantment ${manaValue}`, {
     types: ['Enchantment'],
-    manaCost: '{U}',
-    manaValue: 1,
-    oracleText: 'Your opponents play with their hands revealed.',
-  }),
-  cardTemplate('Arcane Laboratory', {
-    types: ['Enchantment'],
-    manaCost: '{2}{U}',
-    manaValue: 3,
-    oracleText: 'Each player can\'t cast more than one spell each turn.',
-  }),
-  cardTemplate('Propaganda', {
-    types: ['Enchantment'],
-    manaCost: '{2}{U}',
-    manaValue: 3,
-    oracleText: 'Creatures can\'t attack you unless their controller pays {2} for each creature they control that\'s attacking you.',
-  }),
-  cardTemplate('Ghostly Prison', {
-    types: ['Enchantment'],
-    manaCost: '{2}{W}',
-    manaValue: 3,
-    oracleText: 'Creatures can\'t attack you unless their controller pays {2} for each creature they control that\'s attacking you.',
-  }),
-  cardTemplate('Stony Silence', {
-    types: ['Enchantment'],
-    manaCost: '{1}{W}',
-    manaValue: 2,
-    oracleText: 'Activated abilities of artifacts can\'t be activated.',
-  }),
-]
+    manaCost: `{${manaValue}}`,
+    manaValue,
+    oracleText: 'Fixture: no abilities.',
+  }))
 
 const starfieldGame = () => createServerGame(
   commanderRules,
@@ -108,7 +84,7 @@ const starfieldGame = () => createServerGame(
     battlefield: {
       p1: [
         starfield(),
-        ...quietEnchantments(),
+        ...plainEnchantments(),
       ],
     },
   },
@@ -423,7 +399,7 @@ describe('Room doors', () => {
         battlefield: {
           p1: [
             starfield(),
-            ...quietEnchantments(),
+            ...plainEnchantments(),
           ],
         },
         hands: { p1: [charredFoyer()] },
