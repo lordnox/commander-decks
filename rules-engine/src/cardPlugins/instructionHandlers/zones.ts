@@ -16,6 +16,12 @@ const selfMill: InstructionHandler<'selfMill'> = ({ draft, source }, instruction
   millLibrary(draft, source.controller, instruction.count)
 }
 
+const millTarget: InstructionHandler<'millTarget'> = ({ draft, source, item }, instruction) => {
+  const target = item?.targets[0]
+  const seat = target?.kind === 'player' ? target.player : source.controller
+  millLibrary(draft, seat, instruction.count)
+}
+
 const bounceSelf: InstructionHandler<'bounceSelf'> = ({ draft, source }) => {
   draft.enqueue({ type: 'move', objectId: source.id, to: 'hand' })
 }
@@ -436,22 +442,121 @@ const returnChosenLandFromGraveyard: InstructionHandler<'returnChosenLandFromGra
     (objectId) => draft.object(objectId)?.types.includes('Land'),
   )
   if (candidates.length === 0) return
-  const tapped = instruction.tapped !== false
+  const destination = instruction.to ?? 'battlefield'
+  const count = Math.min(instruction.count ?? 1, candidates.length)
+  const min = instruction.min ?? (instruction.count ? 0 : 1)
+  if (count < 1 && min < 1) return
+  const tapped = destination === 'battlefield' && instruction.tapped !== false
   openCardSelection(draft, {
     seat: source.controller,
     kind: 'choose',
-    count: 1,
+    count,
+    min,
     candidates,
     sourceId: source.id,
     source: source.name,
-    prompt: tapped
-      ? 'Return a land card from your graveyard to the battlefield tapped.'
-      : 'Return a land card from your graveyard to the battlefield.',
+    prompt: destination === 'hand'
+      ? `Return up to ${count} land card(s) from your graveyard to your hand.`
+      : tapped
+        ? 'Return a land card from your graveyard to the battlefield tapped.'
+        : 'Return a land card from your graveyard to the battlefield.',
     destinations: ['target'],
     fromSeat: source.controller,
-    moveSelectedTo: 'battlefield',
+    moveSelectedTo: destination,
     tapSelected: tapped,
   })
+}
+
+const sacrificeControlled: InstructionHandler<'sacrificeControlled'> = (
+  { draft, source },
+  instruction,
+) => {
+  const candidates = Object.values(draft.objects)
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller === source.controller
+      && (
+        !instruction.types
+        || instruction.types.some((type) => object.types.includes(type))
+      ))
+    .map((object) => object.id)
+  if (candidates.length === 0) return
+  const count = Math.min(instruction.count, candidates.length)
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'sacrifice',
+    count,
+    min: count,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Sacrifice ${count} permanent(s).`,
+    destinations: ['battlefield', 'sacrifice'],
+    fromSeat: source.controller,
+  })
+}
+
+const putTargetOnLibraryTop: InstructionHandler<'putTargetOnLibraryTop'> = (
+  { draft, item },
+) => {
+  const target = item?.targets[0]
+  if (target?.kind !== 'object') return
+  draft.enqueue({ type: 'move', objectId: target.objectId, to: 'library', position: 'top' })
+}
+
+const destroyAllCreatures: InstructionHandler<'destroyAllCreatures'> = ({ draft }) => {
+  for (const object of Object.values(draft.objects)) {
+    if (object.zone === 'battlefield' && object.types.includes('Creature')) {
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+    }
+  }
+}
+
+const millHalfTargetPlayers: InstructionHandler<'millHalfTargetPlayers'> = (
+  { draft, item },
+) => {
+  const seats = (item?.targets ?? [])
+    .filter((target): target is Extract<typeof target, { kind: 'player' }> =>
+      target.kind === 'player')
+    .map((target) => target.player)
+  for (const seat of seats) {
+    millLibrary(draft, seat, Math.floor(draft.zoneOrder[seat].library.length / 2))
+  }
+}
+
+const bounceCreaturesExcept: InstructionHandler<'bounceCreaturesExcept'> = (
+  { draft },
+  instruction,
+) => {
+  for (const object of Object.values(draft.objects)) {
+    if (
+      object.zone !== 'battlefield'
+      || !object.types.includes('Creature')
+      || instruction.subtypes.some((subtype) => object.subtypes.includes(subtype))
+    ) continue
+    draft.enqueue({ type: 'move', objectId: object.id, to: 'hand' })
+  }
+}
+
+const revealTopLandsTapped: InstructionHandler<'revealTopLandsTapped'> = (
+  { draft, source, item },
+) => {
+  const count = Math.max(0, item?.x ?? 0)
+  const top = draft.zoneOrder[source.controller].library.slice(0, count)
+  const lands: string[] = []
+  const rest: string[] = []
+  for (const objectId of top) {
+    const object = draft.object(objectId)
+    if (object?.types.includes('Land')) lands.push(objectId)
+    else rest.push(objectId)
+  }
+  for (const objectId of lands) {
+    draft.enqueue({ type: 'move', objectId, to: 'battlefield' })
+    draft.enqueue({ type: 'tap', objectId })
+  }
+  for (const objectId of rest) {
+    draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
+  }
 }
 
 const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> = (
@@ -483,6 +588,7 @@ const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> =
 
 export const zoneHandlers = {
   selfMill,
+  millTarget,
   bounceSelf,
   finishWarpExile,
   exileSelf,
@@ -508,5 +614,11 @@ export const zoneHandlers = {
   randomExileCopyWhile,
   putMilledLandTapped,
   returnChosenLandFromGraveyard,
+  sacrificeControlled,
+  putTargetOnLibraryTop,
+  destroyAllCreatures,
+  millHalfTargetPlayers,
+  bounceCreaturesExcept,
+  revealTopLandsTapped,
   returnCreatureManaValueX,
 } satisfies Partial<InstructionHandlers>

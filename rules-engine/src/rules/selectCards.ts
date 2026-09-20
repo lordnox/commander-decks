@@ -53,6 +53,7 @@ export type PendingCardSelection = {
   moveSelectedController?: PlayerId
   addSubtypes?: string[]
   tapSelected?: boolean
+  untapSelected?: boolean
   action?: {
     kind: 'dredge'
     replacedBy: string[]
@@ -370,6 +371,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         if (selection.tapSelected) {
           draft.enqueue({ type: 'tap', objectId })
         }
+      }
+      if (selection.untapSelected) {
+        draft.enqueue({ type: 'untap', objectId })
       }
     }
     if (

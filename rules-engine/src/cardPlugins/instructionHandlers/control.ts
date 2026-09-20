@@ -10,6 +10,18 @@ const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, ins
   run(chosen, live)
 }
 
+const ifTargetTypes: InstructionHandler<'ifTargetTypes'> = (
+  { draft, item, run, source },
+  instruction,
+) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const chosen = object && instruction.types.some((type) => object.types.includes(type))
+    ? instruction.whenTrue
+    : instruction.whenFalse ?? []
+  run(chosen, source)
+}
+
 const lookTopChooseOne: InstructionHandler<'lookTopChooseOne'> = (
   { draft, source },
   instruction,
@@ -217,20 +229,25 @@ const lookTopPutLand: InstructionHandler<'lookTopPutLand'> = (
     source: source.name,
     seat: source.controller,
     kind: 'look-top-land',
-    prompt: `Look at the top ${instruction.count} cards. You may put a land onto the battlefield tapped.`,
+    prompt: instruction.orHand
+      ? `Look at the top ${instruction.count} cards. You may put a land onto the battlefield tapped, or put a card into your hand.`
+      : `Look at the top ${instruction.count} cards. You may put a land onto the battlefield tapped.`,
     waiting: 'is choosing among the top cards.',
     judge: 'Waiting for a look-top land choice.',
     chosenEvent: DIALOG_CHOSEN,
-    destinations: ['bottom', 'battlefield'],
+    destinations: instruction.orHand ? ['bottom', 'battlefield', 'hand'] : ['bottom', 'battlefield'],
     count: instruction.count,
-    types: ['Land'],
+    types: instruction.orHand ? undefined : ['Land'],
     optional: true,
-    requirements: { battlefield: { max: 1 } },
+    requirements: instruction.orHand
+      ? { battlefield: { max: 1 }, hand: { max: 1 } }
+      : { battlefield: { max: 1 } },
   })
 }
 
 export const controlHandlers = {
   if: conditional,
+  ifTargetTypes,
   lookTopChooseOne,
   teferiSunsetEmblem,
   putPermanentsFromHand,

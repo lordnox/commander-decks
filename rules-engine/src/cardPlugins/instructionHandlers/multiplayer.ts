@@ -78,6 +78,21 @@ const eachPlayerLoseLife: InstructionHandler<'eachPlayerLoseLife'> = (
   }
 }
 
+const opponentsLoseLife: InstructionHandler<'opponentsLoseLife'> = (
+  { draft, source },
+  instruction,
+) => {
+  for (const seat of apnapSeats(draft)) {
+    if (seat === source.controller || draft.players[seat].lost) continue
+    draft.enqueue({
+      type: 'loseLife',
+      seat,
+      amount: instruction.amount,
+      source: source.id,
+    })
+  }
+}
+
 const eachPlayerDraw: InstructionHandler<'eachPlayerDraw'> = (
   { draft },
   instruction,
@@ -130,6 +145,7 @@ export const multiplayerHandlers = {
   eachPlayerDiscard,
   eachPlayerSacrifice,
   eachPlayerLoseLife,
+  opponentsLoseLife,
   eachPlayerDraw,
   copyTargetForEachOtherPlayer,
   createTreasures,

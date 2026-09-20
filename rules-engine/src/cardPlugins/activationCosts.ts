@@ -96,6 +96,7 @@ export const activationCostError = (
     canPayMana?: CanPayMana
     picks?: ActivationCostPicks
     requirePicks?: boolean
+    x?: number
   } = {},
 ) => {
   const canPayMana = options.canPayMana ?? canPayFromPool(state, seat)
@@ -103,6 +104,9 @@ export const activationCostError = (
   if (costs.if && !conditionHolds(costs.if, state, source)) {
     return `${source.name} cannot be activated now`
   }
+  const manaCost = costs.xMana
+    ? (costs.mana ?? '').replaceAll('{X}', `{${options.x ?? 0}}`)
+    : costs.mana
   if (costs.tap) {
     if (source.tapped) return `${source.name} is already tapped`
     if (
@@ -135,7 +139,7 @@ export const activationCostError = (
       }
     }
   }
-  if (costs.mana && !canPayMana(costs.mana)) {
+  if (manaCost && !canPayMana(manaCost)) {
     return `not enough mana to activate ${source.name}`
   }
   if ((costs.life ?? 0) > state.players[seat].life) {
@@ -196,8 +200,12 @@ export const payActivationCosts = (
   seat: PlayerId,
   costs: ActivateCost,
   picks: ActivationCostPicks = {},
+  x = 0,
 ) => {
-  if (costs.mana) draft.enqueue({ type: 'payMana', seat, cost: costs.mana })
+  const manaCost = costs.xMana
+    ? (costs.mana ?? '').replaceAll('{X}', `{${x}}`)
+    : costs.mana
+  if (manaCost) draft.enqueue({ type: 'payMana', seat, cost: manaCost })
   if (costs.energy) {
     draft.enqueue({
       type: 'payEnergy',
