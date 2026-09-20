@@ -9,9 +9,36 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from render_replay import REPLAYS, ROOT, replay_paths
-
+ROOT = Path(__file__).resolve().parents[4]
+TABLE_GAMES = ROOT / "table-games"
+REPLAYS = ROOT / "site" / "public" / "replays"
+# Live-runner and working files share the replay directory but are not replays.
+SIDECAR_SUFFIXES = (
+    ".working.json",
+    ".live.json",
+    ".conduit.json",
+    ".runner.json",
+    ".kernel.json",
+)
 GAMES_JSON = ROOT / "site" / "public" / "games.json"
+
+
+def replay_paths(explicit: list[Path]) -> list[Path]:
+    if explicit:
+        resolved = []
+        for path in explicit:
+            candidate = path if path.is_absolute() else ROOT / path
+            if not candidate.exists():
+                raise ValueError(f"replay not found: {path}")
+            resolved.append(candidate.resolve())
+        return resolved
+    if not TABLE_GAMES.is_dir():
+        return []
+    return sorted(
+        path
+        for path in TABLE_GAMES.glob("*.json")
+        if not any(path.name.endswith(suffix) for suffix in SIDECAR_SUFFIXES)
+    )
 
 
 def commander_art(game: dict, commander: str) -> str:
