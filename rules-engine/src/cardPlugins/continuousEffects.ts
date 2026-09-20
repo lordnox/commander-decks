@@ -194,6 +194,17 @@ export const animateUntilEndOfTurn = (
   toughness: number,
 ) => untilEndOfTurn(object, becomeCreature(object, power, toughness))
 
+export const pumpWhileSourceOnBattlefield = (
+  object: GameObject,
+  power: number,
+  toughness: number,
+  sourceId: string,
+) => withDuration(
+  object,
+  changeStats(object, power, toughness),
+  { kind: 'whileSourceOnBattlefield', sourceId },
+)
+
 export const animateWhileSourceOnBattlefield = (
   object: GameObject,
   power: number,

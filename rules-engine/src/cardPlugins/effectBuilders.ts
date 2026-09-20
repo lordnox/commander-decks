@@ -10,16 +10,29 @@ import type {
   SearchSpec,
   TargetFilter,
   TokenSpec,
+  SagaChapter,
 } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 
 export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill', count })
+
+export const millTarget = (count: number): CardInstruction => ({ kind: 'millTarget', count })
 
 export const dredge = (count: number): CardEffect => ({ op: 'dredge', count })
 
 export const enters = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'enters',
+  do: instructions,
+})
+
+export const entersTargeting = (
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'enters',
+  targets: { filter },
   do: instructions,
 })
 
@@ -55,6 +68,16 @@ export const leaves = (...instructions: CardInstruction[]): CardEffect => ({
 export const landfall = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'landfall',
+  do: instructions,
+})
+
+export const landfallTargeting = (
+  targets: Extract<CardEffect, { op: 'trigger' }>['targets'],
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'landfall',
+  targets,
   do: instructions,
 })
 
@@ -172,10 +195,15 @@ export const pumpSelf = (power: number, toughness: number): CardInstruction => (
   toughness,
 })
 
-export const animateUntilEot = (power: number, toughness: number): CardInstruction => ({
+export const animateUntilEot = (
+  power: number,
+  toughness: number,
+  extra: { fromX?: boolean } = {},
+): CardInstruction => ({
   kind: 'animateUntilEot',
   power,
   toughness,
+  ...extra,
 })
 
 export const grantUntilEot = (...keywords: string[]): CardInstruction => ({
@@ -258,7 +286,7 @@ export const optionalMill = (count: number): CardInstruction => ({ kind: 'option
 export const mayDraw = (count: number): CardInstruction => ({ kind: 'mayDraw', count })
 
 export const chooseModes = (
-  choose: 'one' | 'any',
+  choose: 'one' | 'any' | 'two',
   modes: ModalMode[],
 ): CardInstruction => ({ kind: 'chooseModes', choose, modes })
 
@@ -282,9 +310,62 @@ export const eachPlayerSacrifice = (type: string): CardInstruction => ({
   type,
 })
 
-export const returnChosenLandFromGraveyard = (tapped = true): CardInstruction => ({
+export const returnChosenLandFromGraveyard = (
+  tapped = true,
+  extra: { count?: number; min?: number; to?: 'hand' | 'battlefield' } = {},
+): CardInstruction => ({
   kind: 'returnChosenLandFromGraveyard',
   tapped,
+  ...extra,
+})
+
+export const sacrificeControlled = (
+  count: number,
+  types?: string[],
+): CardInstruction => ({
+  kind: 'sacrificeControlled',
+  count,
+  ...(types ? { types } : {}),
+})
+
+export const putTargetOnLibraryTop = (): CardInstruction => ({ kind: 'putTargetOnLibraryTop' })
+
+export const destroyAllCreatures = (): CardInstruction => ({ kind: 'destroyAllCreatures' })
+
+export const millHalfTargetPlayers = (): CardInstruction => ({ kind: 'millHalfTargetPlayers' })
+
+export const untapUpToLands = (count: number): CardInstruction => ({
+  kind: 'untapUpToLands',
+  count,
+})
+
+export const opponentsLoseLife = (amount: number): CardInstruction => ({
+  kind: 'opponentsLoseLife',
+  amount,
+})
+
+export const revealTopLandsTapped = (): CardInstruction => ({ kind: 'revealTopLandsTapped' })
+
+export const pumpAttached = (power: number, toughness: number): CardInstruction => ({
+  kind: 'pumpAttached',
+  power,
+  toughness,
+})
+
+export const tapAttached = (): CardInstruction => ({ kind: 'tapAttached' })
+
+export const bounceCreaturesExcept = (...subtypes: string[]): CardInstruction => ({
+  kind: 'bounceCreaturesExcept',
+  subtypes,
+})
+
+export const addPlusCountersEqualToLands = (): CardInstruction => ({
+  kind: 'addPlusCountersEqualToLands',
+})
+
+export const pumpTargetEqualToLands = (trample = false): CardInstruction => ({
+  kind: 'pumpTargetEqualToLands',
+  trample,
 })
 
 export const returnCreatureManaValueX = (
@@ -406,6 +487,17 @@ export const branch = (
 ): CardInstruction => ({
   kind: 'if',
   if: condition,
+  whenTrue,
+  ...(whenFalse ? { whenFalse } : {}),
+})
+
+export const ifTargetTypes = (
+  types: string[],
+  whenTrue: CardInstruction[],
+  whenFalse?: CardInstruction[],
+): CardInstruction => ({
+  kind: 'ifTargetTypes',
+  types,
   whenTrue,
   ...(whenFalse ? { whenFalse } : {}),
 })
@@ -635,6 +727,15 @@ export const teferiSunsetPlusOne = (): CardInstruction => ({
 export const lookTopChooseOne = (count: number): CardInstruction => ({
   kind: 'lookTopChooseOne',
   count,
+})
+
+export const lookTopPutLand = (
+  count: number,
+  extra: { orHand?: boolean } = {},
+): CardInstruction => ({
+  kind: 'lookTopPutLand',
+  count,
+  ...extra,
 })
 
 export const teferiSunsetEmblem = (): CardInstruction => ({
@@ -876,6 +977,24 @@ export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
   op: 'modal',
   choose: 'one',
   modes,
+})
+
+export const modalChooseTwo = (...modes: ModalMode[]): CardEffect => ({
+  op: 'modal',
+  choose: 'two',
+  modes,
+})
+
+export const modalCommanderChooseBoth = (...modes: ModalMode[]): CardEffect => ({
+  op: 'modal',
+  choose: 'one',
+  commanderChooseBoth: true,
+  modes,
+})
+
+export const sagaChapters = (...chapters: SagaChapter[]): CardEffect => ({
+  op: 'saga',
+  chapters,
 })
 
 export const casts = (

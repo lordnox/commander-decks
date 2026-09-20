@@ -4,12 +4,14 @@ import { openFreeCast } from '../../plugins/rebound'
 import { initiateDiscard } from '../../rules/discard'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openPlayerSelection } from '../../rules/selectPlayers'
+import { openCardSelection } from '../../rules/selectCards'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
   addTypes,
   animateUntilEndOfTurn,
   changeStatsUntilEndOfTurn,
   grantOracleLineUntilEndOfTurn,
+  pumpWhileSourceOnBattlefield,
   untilEndOfTurn,
 } from '../continuousEffects'
 import { addPlusCounters as applyPlusCounters, manaValueOf } from '../effects'
@@ -208,7 +210,7 @@ const loseLifeTargetPlayer: InstructionHandler<'loseLifeTargetPlayer'> = (
     draft.enqueue({
       type: 'loseLife',
       seat: target.player,
-      amount: instruction.amount,
+      amount: instruction.amount || Math.max(0, item?.x ?? 0),
       source: source.id,
     })
   }
@@ -270,12 +272,95 @@ const pumpSelf: InstructionHandler<'pumpSelf'> = ({ draft, source }, instruction
 }
 
 const animateUntilEot: InstructionHandler<'animateUntilEot'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
   const object = draft.object(source.id)
   if (!object || object.zone !== 'battlefield') return
-  animateUntilEndOfTurn(object, instruction.power, instruction.toughness)
+  const amount = instruction.fromX ? Math.max(0, item?.x ?? 0) : instruction.power
+  const toughness = instruction.fromX ? amount : instruction.toughness
+  if (instruction.fromX && amount < 1) return
+  animateUntilEndOfTurn(object, amount, toughness)
+}
+
+const attachedCreature = (
+  draft: Parameters<InstructionHandler<'tapAttached'>>[0]['draft'],
+  source: Parameters<InstructionHandler<'tapAttached'>>[0]['source'],
+) => {
+  const aura = draft.object(source.id) ?? source
+  const attachedId = aura.attachedTo
+  return typeof attachedId === 'string' ? draft.object(attachedId) : undefined
+}
+
+const pumpAttached: InstructionHandler<'pumpAttached'> = (
+  { draft, source },
+  instruction,
+) => {
+  const creature = attachedCreature(draft, source)
+  if (!creature || creature.zone !== 'battlefield') return
+  pumpWhileSourceOnBattlefield(creature, instruction.power, instruction.toughness, source.id)
+}
+
+const tapAttached: InstructionHandler<'tapAttached'> = ({ draft, source }) => {
+  const creature = attachedCreature(draft, source)
+  if (creature && creature.zone === 'battlefield') {
+    draft.enqueue({ type: 'tap', objectId: creature.id })
+  }
+}
+
+const landCount = (
+  draft: Parameters<InstructionHandler<'addPlusCountersEqualToLands'>>[0]['draft'],
+  seat: string,
+) => Object.values(draft.objects).filter((object) =>
+  object.zone === 'battlefield'
+  && object.controller === seat
+  && object.types.includes('Land')).length
+
+const addPlusCountersEqualToLands: InstructionHandler<'addPlusCountersEqualToLands'> = (
+  { draft, source, item },
+) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const count = landCount(draft, source.controller)
+  if (object && count > 0) applyPlusCounters(object, count)
+}
+
+const pumpTargetEqualToLands: InstructionHandler<'pumpTargetEqualToLands'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const amount = landCount(draft, source.controller)
+  if (!object || object.power === null || object.toughness === null) return
+  changeStatsUntilEndOfTurn(object, amount, amount)
+  if (instruction.trample) grantOracleLineUntilEndOfTurn(object, 'Trample')
+}
+
+const untapUpToLands: InstructionHandler<'untapUpToLands'> = (
+  { draft, source },
+  instruction,
+) => {
+  const candidates = Object.values(draft.objects)
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller === source.controller
+      && object.types.includes('Land')
+      && object.tapped)
+    .map((object) => object.id)
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'choose',
+    count: Math.min(instruction.count, candidates.length),
+    min: 0,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Untap up to ${instruction.count} land(s).`,
+    destinations: ['target'],
+    untapSelected: true,
+  })
 }
 
 const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
@@ -461,6 +546,11 @@ export const resourceHandlers = {
   pumpTargetX,
   pumpSelf,
   animateUntilEot,
+  pumpAttached,
+  tapAttached,
+  addPlusCountersEqualToLands,
+  pumpTargetEqualToLands,
+  untapUpToLands,
   grantUntilEot,
   crewVehicle,
   untapTarget,

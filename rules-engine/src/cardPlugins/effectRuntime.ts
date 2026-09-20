@@ -380,6 +380,13 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
         ...flattenInstructions(instruction.whenFalse ?? []),
       ]
     }
+    if (instruction.kind === 'ifTargetTypes') {
+      return [
+        instruction,
+        ...flattenInstructions(instruction.whenTrue),
+        ...flattenInstructions(instruction.whenFalse ?? []),
+      ]
+    }
     return [instruction]
   })
 

@@ -415,7 +415,7 @@ export const triggers: Plugin = {
       triggerAmount,
       payload,
     } of ordered) {
-      if (effect.targets && effect.targets !== 'opponent') {
+      if (effect.targets && effect.targets !== 'opponent' && effect.targets !== 'player') {
         const targetSpec = effect.targets
         const candidates = Object.values(draft.objects)
           .filter((object) =>
@@ -452,16 +452,20 @@ export const triggers: Plugin = {
         choosingSeat ??= source.controller
         continue
       }
-      if (effect.targets === 'opponent') {
+      if (effect.targets === 'opponent' || effect.targets === 'player') {
         const candidates = draft.playerOrder.filter(
-          (seat) => seat !== source.controller && !draft.players[seat].lost,
+          (seat) =>
+            !draft.players[seat].lost
+            && (effect.targets !== 'opponent' || seat !== source.controller),
         )
         if (candidates.length === 0) continue
         openPlayerSelection(draft, {
           seat: source.controller,
           sourceId: source.id,
           source: source.name,
-          prompt: `Choose target opponent for ${source.name}.`,
+          prompt: effect.targets === 'player'
+            ? `Choose target player for ${source.name}.`
+            : `Choose target opponent for ${source.name}.`,
           min: 1,
           max: 1,
           candidates,

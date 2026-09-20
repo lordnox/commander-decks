@@ -77,9 +77,13 @@ export const activated: Plugin = {
       return `${source.name} is a mana ability`
     }
     const picks = costPicksFromChoices(effect.costs, event.choices)
+    if (effect.costs.xMana && (!Number.isSafeInteger(event.x) || (event.x ?? 0) < 1)) {
+      return `${source.name} requires X greater than 0`
+    }
     const costError = activationCostError(state, source, event.seat, effect.costs, {
       picks,
       requirePicks: true,
+      x: event.x,
     })
     if (costError) return costError
     if (!conditionHolds(effect.if, state, source)) {
@@ -133,6 +137,7 @@ export const activated: Plugin = {
       event.seat,
       effect.costs,
       costPicksFromChoices(effect.costs, event.choices),
+      event.x ?? 0,
     )
     if (effect.manaAbility || event.manaAbility) {
       runInstructions(draft, source, effect.do, {

@@ -39,6 +39,7 @@ export type TokenSpec = {
 
 export type CardInstruction =
   | { kind: 'selfMill'; count: number }
+  | { kind: 'millTarget'; count: number }
   | { kind: 'bounceSelf' }
   | { kind: 'tap' }
   | { kind: 'payMana'; cost: string }
@@ -86,6 +87,12 @@ export type CardInstruction =
   | { kind: 'copySelf' }
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
+  | {
+      kind: 'ifTargetTypes'
+      types: string[]
+      whenTrue: CardInstruction[]
+      whenFalse?: CardInstruction[]
+    }
   | { kind: 'surveil'; count: number }
   | { kind: 'scry'; count: number }
   | { kind: 'putLandFromHand'; tapped?: boolean }
@@ -102,7 +109,7 @@ export type CardInstruction =
   | { kind: 'pump'; power: number; toughness: number }
   | { kind: 'pumpTargetX'; multiplier: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
-  | { kind: 'animateUntilEot'; power: number; toughness: number }
+  | { kind: 'animateUntilEot'; power: number; toughness: number; fromX?: boolean }
   | { kind: 'grantUntilEot'; keywords: string[] }
   | { kind: 'crewVehicle' }
   | { kind: 'createXTokens'; token: TokenSpec }
@@ -110,12 +117,30 @@ export type CardInstruction =
   | { kind: 'addChosenColorMana' }
   | { kind: 'optionalMill'; count: number }
   | { kind: 'mayDraw'; count: number; seat?: PlayerId }
-  | { kind: 'chooseModes'; choose: 'one' | 'any'; modes: ModalMode[] }
+  | { kind: 'chooseModes'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
   | { kind: 'eachPlayerDiscard'; count: number }
   | { kind: 'eachPlayerDraw'; count: number }
   | { kind: 'eachPlayerLoseLife'; amount: number }
   | { kind: 'eachPlayerSacrifice'; type: string }
-  | { kind: 'returnChosenLandFromGraveyard'; tapped?: boolean }
+  | {
+      kind: 'returnChosenLandFromGraveyard'
+      tapped?: boolean
+      count?: number
+      min?: number
+      to?: 'hand' | 'battlefield'
+    }
+  | { kind: 'sacrificeControlled'; types?: string[]; count: number }
+  | { kind: 'putTargetOnLibraryTop' }
+  | { kind: 'destroyAllCreatures' }
+  | { kind: 'millHalfTargetPlayers' }
+  | { kind: 'untapUpToLands'; count: number }
+  | { kind: 'opponentsLoseLife'; amount: number }
+  | { kind: 'revealTopLandsTapped' }
+  | { kind: 'pumpAttached'; power: number; toughness: number }
+  | { kind: 'tapAttached' }
+  | { kind: 'bounceCreaturesExcept'; subtypes: string[] }
+  | { kind: 'addPlusCountersEqualToLands' }
+  | { kind: 'pumpTargetEqualToLands'; trample?: boolean }
   | { kind: 'returnCreatureManaValueX'; minimumX?: number; tapped?: boolean }
   | { kind: 'drawAtNextUpkeep'; count: number; who: 'you' | 'targetController'; optional?: boolean }
   | { kind: 'putMilledLandTapped' }
@@ -154,7 +179,7 @@ export type CardInstruction =
   | { kind: 'counterUnlessPay'; amount: number }
   | { kind: 'copyTargetSpell' }
   | { kind: 'destroyTargetPermanent'; types: string[] }
-  | { kind: 'lookTopPutLand'; count: number }
+  | { kind: 'lookTopPutLand'; count: number; orHand?: boolean }
   | { kind: 'grantControlled'; keywords: string[]; other?: boolean; nonHuman?: boolean }
   | { kind: 'preventCombatDamage'; from?: 'target' | 'all'; toController?: boolean }
   | { kind: 'untapTarget' }
@@ -171,7 +196,8 @@ export type CardInstruction =
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
 export type ModalSpec = {
-  choose: 'one' | 'any'
+  choose: 'one' | 'any' | 'two'
+  commanderChooseBoth?: boolean
   modes: ModalMode[]
 }
 
@@ -194,6 +220,8 @@ export type ActivateCost = {
   loyalty?: number
   /** Use the activation event's chosen X as a negative loyalty cost. */
   loyaltyX?: boolean
+  /** Replace `{X}` in `mana` with the activation event's chosen X. */
+  xMana?: boolean
 }
 
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
@@ -290,13 +318,18 @@ export type CardEffect =
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
       modal?: ModalSpec
-      targets?: 'opponent' | {
+      targets?: 'opponent' | 'player' | {
         filter: TargetFilter
       }
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
     }
-  | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
+  | {
+      op: 'modal'
+      choose: 'one' | 'any' | 'two'
+      commanderChooseBoth?: boolean
+      modes: ModalMode[]
+    }
   | {
       op: 'activate'
       id: string
