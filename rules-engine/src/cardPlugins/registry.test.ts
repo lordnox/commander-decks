@@ -246,4 +246,24 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Bishop of Binding')?.handlerIds.toSorted())
       .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
   })
+
+  test('the Lady Evangela remaining group stays registered', () => {
+    expect(missingCardPlugins([
+      'Counterspell',
+      'Arcanis the Omnipotent',
+      "Minamo, School at Water's Edge",
+      'Condemn',
+      'Hatred',
+      'Infernal Contract',
+      'Mana Drain',
+      'Desertion',
+      'City of Brass',
+      'Cryptic Command',
+      'Wedding Ring',
+      'Breena, the Demagogue',
+      'Kuroki, Thief of Talents',
+    ])).toEqual([])
+    expect(cardPluginEntry('Kuroki, Thief of Talents')?.handlerIds).toContain('stealCast')
+    expect(cardPluginEntry('Cryptic Command')?.handlerIds).toContain('modalSpell')
+  })
 })

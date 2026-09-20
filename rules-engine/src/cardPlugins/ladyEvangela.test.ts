@@ -74,6 +74,12 @@ describe('Lady Evangela foggy blood transfusion coverage', () => {
       'Urborg, Tomb of Yawgmoth',
       'Wall of Blood',
       'Children of Korlis',
+      'Counterspell',
+      'Arcanis the Omnipotent',
+      'Cryptic Command',
+      'Wedding Ring',
+      'Breena, the Demagogue',
+      'Kuroki, Thief of Talents',
     ])).toEqual([])
   })
 
