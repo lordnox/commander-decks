@@ -10,6 +10,7 @@ import { cardTemplate } from '../newGame'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, roomDoor } from '../testHelpers'
+import type { CardInstruction } from '../cardPlugins/effects'
 import type { GameState, ManaPool, RoomDoorId } from '../types'
 
 const enchantment = (
@@ -35,20 +36,29 @@ const room = (unlockedDoors?: RoomDoorId[]) =>
     ...(unlockedDoors ? { unlockedDoors } : {}),
   })
 
-/** Sets base power and toughness, then stacks +2/+2 and a +1/+1 counter on it. */
-const growthSpell = () => cardTemplate('Growth Test', {
-  types: ['Instant'],
-  manaCost: '{0}',
-  manaValue: 0,
-  effects: [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      pump(2, 2),
-      addPlusCountersInstruction(1),
-    ),
-  ],
+/** A printed enchantment creature, so ending the animation restores 2/2. */
+const enchantmentCreature = () => cardTemplate('Living Relic', {
+  types: ['Enchantment', 'Creature'],
+  manaCost: '{3}',
+  manaValue: 3,
+  power: 2,
+  toughness: 2,
 })
+
+const modifierSpell = (name: string, ...instructions: CardInstruction[]) =>
+  cardTemplate(name, {
+    types: ['Instant'],
+    manaCost: '{0}',
+    manaValue: 0,
+    effects: [
+      targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }, ...instructions),
+    ],
+  })
+
+const growthSpell = () => modifierSpell('Growth Test', pump(2, 2), addPlusCountersInstruction(1))
+
+/** Uses the eager addPlusCounters path, which also moves power and toughness. */
+const counterSpell = () => modifierSpell('Counter Test', addPlusCountersInstruction(1))
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -72,6 +82,21 @@ const settle = (
   type: 'untap',
   objectId: named(state, 'Starfield of Nyx').id,
 }))
+
+const castAt = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  spell: string,
+  objectId: string,
+) => {
+  const cast = ok(server.rules(state, {
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(state, spell).id,
+    targets: [{ kind: 'object', objectId }],
+  }))
+  return ok(server.rules(cast, { type: 'resolveTop' }))
+}
 
 const advanceToUpkeep = (
   server: ReturnType<typeof createServerGame>,
@@ -117,13 +142,7 @@ describe('Starfield of Nyx', () => {
       toughness: 3,
     })
 
-    const cast = ok(server.rules(animated, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(animated, 'Growth Test').id,
-      targets: [{ kind: 'object', objectId: named(animated, 'Subject').id }],
-    }))
-    const pumped = ok(server.rules(cast, { type: 'resolveTop' }))
+    const pumped = castAt(server, animated, 'Growth Test', named(animated, 'Subject').id)
     expect(named(pumped, 'Subject')).toMatchObject({
       power: 6,
       toughness: 6,
@@ -153,13 +172,7 @@ describe('Starfield of Nyx', () => {
       toughness: 4,
     })
 
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Growth Test').id,
-      targets: [{ kind: 'object', objectId: roomId }],
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
+    state = castAt(server, state, 'Growth Test', roomId)
     expect(state.objects[roomId]).toMatchObject({ power: 7, toughness: 7 })
 
     state = ok(server.rules(funded(state, { R: 2, C: 4 }), {
@@ -192,6 +205,8 @@ describe('Starfield of Nyx', () => {
 
     let state = settle(server)
     const roomId = named(state, 'Charred Foyer').id
+    // putCounters only records the counter, so 11/11 below can only come from
+    // the recompute re-deriving it rather than from an eager power change.
     state = ok(server.rules(state, {
       type: 'putCounters',
       objectId: roomId,
@@ -301,6 +316,55 @@ describe('Starfield of Nyx', () => {
       types: ['Enchantment'],
       power: null,
       toughness: null,
+    })
+  })
+
+  test('restores an enchantment creature to its printed stats plus its counters', () => {
+    const makeServer = () => createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          starfield(),
+          enchantmentCreature(),
+          enchantment('Fixture One'),
+          enchantment('Fixture Two'),
+          enchantment('Fixture Three'),
+        ],
+      },
+      hands: { p1: [counterSpell()] },
+    }, { random: () => 0.5, cardPlugins: [targetedResolve] })
+
+    const counteredWhileAnimated = (server: ReturnType<typeof makeServer>) => {
+      const animated = settle(server)
+      const relicId = named(animated, 'Living Relic').id
+      expect(animated.objects[relicId]).toMatchObject({ power: 3, toughness: 3 })
+      const state = castAt(server, animated, 'Counter Test', relicId)
+      expect(state.objects[relicId]).toMatchObject({ power: 4, toughness: 4 })
+      return { state, relicId }
+    }
+
+    const thresholdServer = makeServer()
+    const dropped = counteredWhileAnimated(thresholdServer)
+    const belowFive = ok(thresholdServer.rules(dropped.state, {
+      type: 'move',
+      objectId: named(dropped.state, 'Fixture Three').id,
+      to: 'graveyard',
+    }))
+    expect(belowFive.objects[dropped.relicId]).toMatchObject({
+      power: 3,
+      toughness: 3,
+      counters: { '+1/+1': 1 },
+    })
+
+    const sourceServer = makeServer()
+    const left = counteredWhileAnimated(sourceServer)
+    const withoutStarfield = ok(sourceServer.rules(left.state, {
+      type: 'move',
+      objectId: named(left.state, 'Starfield of Nyx').id,
+      to: 'graveyard',
+    }))
+    expect(withoutStarfield.objects[left.relicId]).toMatchObject({
+      power: 3,
+      toughness: 3,
     })
   })
 
