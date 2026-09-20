@@ -4,6 +4,7 @@ import { gainLife } from '../cardPlugins/effects'
 import type { CardEffect } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, roomDoor } from '../testHelpers'
 import type { GameState, ManaPool, Plugin, RoomDoorId } from '../types'
@@ -58,56 +59,47 @@ const charredFoyer = () =>
     ],
   })
 
-const enchantment = (name: string) => cardTemplate(name, {
-  types: ['Enchantment'],
-  manaCost: '{1}',
-  manaValue: 1,
-})
-
-const starfield = cardTemplate('Starfield of Nyx', {
+const starfield = () => cardTemplate('Starfield of Nyx', {
   types: ['Enchantment'],
   manaCost: '{4}{W}',
   manaValue: 5,
+  oracleText: 'At the beginning of your upkeep, you may return target enchantment card from your graveyard to the battlefield.\nAs long as you control five or more enchantments, each other non-Aura enchantment you control is a creature in addition to its other types and has base power and base toughness each equal to its mana value.',
 })
 
-const STARFIELD_ANIMATED = 'test:starfield-animated'
-
-const starfieldOfNyx: Plugin = {
-  id: 'testStarfieldOfNyx',
-  apply: ({ draft }) => {
-    const battlefield = Object.values(draft.objects)
-      .filter((object) => object.zone === 'battlefield')
-    const activeControllers = new Set(
-      battlefield
-        .filter((object) => object.name === 'Starfield of Nyx')
-        .filter((source) =>
-          battlefield.filter((object) =>
-            object.controller === source.controller
-            && object.types.includes('Enchantment')).length >= 5)
-        .map((source) => source.controller),
-    )
-
-    for (const object of Object.values(draft.objects)) {
-      const animated = object.tags.includes(STARFIELD_ANIMATED)
-      const shouldAnimate = object.zone === 'battlefield'
-        && activeControllers.has(object.controller)
-        && object.name !== 'Starfield of Nyx'
-        && object.types.includes('Enchantment')
-        && !object.subtypes.includes('Aura')
-      if (shouldAnimate) {
-        if (!object.types.includes('Creature')) object.types.push('Creature')
-        object.power = object.manaValue
-        object.toughness = object.manaValue
-        if (!animated) object.tags.push(STARFIELD_ANIMATED)
-      } else if (animated) {
-        object.types = object.types.filter((type) => type !== 'Creature')
-        object.power = null
-        object.toughness = null
-        object.tags = object.tags.filter((tag) => tag !== STARFIELD_ANIMATED)
-      }
-    }
-  },
-}
+// These cards affect only hand visibility, spell count, attacks, or artifact abilities,
+// none of which changes the Room casts, unlocks, or graveyard return below.
+const quietEnchantments = () => [
+  cardTemplate('Telepathy', {
+    types: ['Enchantment'],
+    manaCost: '{U}',
+    manaValue: 1,
+    oracleText: 'Your opponents play with their hands revealed.',
+  }),
+  cardTemplate('Arcane Laboratory', {
+    types: ['Enchantment'],
+    manaCost: '{2}{U}',
+    manaValue: 3,
+    oracleText: 'Each player can\'t cast more than one spell each turn.',
+  }),
+  cardTemplate('Propaganda', {
+    types: ['Enchantment'],
+    manaCost: '{2}{U}',
+    manaValue: 3,
+    oracleText: 'Creatures can\'t attack you unless their controller pays {2} for each creature they control that\'s attacking you.',
+  }),
+  cardTemplate('Ghostly Prison', {
+    types: ['Enchantment'],
+    manaCost: '{2}{W}',
+    manaValue: 3,
+    oracleText: 'Creatures can\'t attack you unless their controller pays {2} for each creature they control that\'s attacking you.',
+  }),
+  cardTemplate('Stony Silence', {
+    types: ['Enchantment'],
+    manaCost: '{1}{W}',
+    manaValue: 2,
+    oracleText: 'Activated abilities of artifacts can\'t be activated.',
+  }),
+]
 
 const starfieldGame = () => createServerGame(
   commanderRules,
@@ -115,12 +107,12 @@ const starfieldGame = () => createServerGame(
     hands: { p1: [charredFoyer()] },
     battlefield: {
       p1: [
-        starfield,
-        ...Array.from({ length: 5 }, (_, index) => enchantment(`Fixture ${index + 1}`)),
+        starfield(),
+        ...quietEnchantments(),
       ],
     },
   },
-  { random: () => 0.5, cardPlugins: [starfieldOfNyx] },
+  { random: () => 0.5 },
 )
 
 const castRoomDoor = (
@@ -141,6 +133,17 @@ const castRoomDoor = (
 const roomIn = (state: GameState) =>
   Object.values(state.objects).find((object) =>
     object.roomDoors?.some((door) => door.name === 'Charred Foyer'))!
+
+const advanceToUpkeep = (
+  server: ReturnType<typeof createServerGame>,
+  state = server.state,
+) => {
+  let current = state
+  do {
+    current = ok(server.rules(current, { type: 'advanceStep' }))
+  } while (current.step !== 'upkeep' || current.active !== 'p1')
+  return current
+}
 
 describe('Room doors', () => {
   test('casts either half and unlocks only the cast door as it enters', () => {
@@ -396,6 +399,8 @@ describe('Room doors', () => {
 
   test('a Room returned by Starfield enters locked, becomes 0/0, and dies to state-based actions', () => {
     let observedLockedZeroZero = false
+    // The public reducer completes state-based actions before returning, so this
+    // observer is the only view of the transient locked 0/0 battlefield state.
     const witness: Plugin = {
       id: 'testLockedRoomWitness',
       apply: ({ state, event }) => {
@@ -414,32 +419,54 @@ describe('Room doors', () => {
     const server = createServerGame(
       commanderRules,
       {
+        first: 'p2',
         battlefield: {
           p1: [
-            starfield,
-            ...Array.from({ length: 5 }, (_, index) => enchantment(`Fixture ${index + 1}`)),
-            { ...charredFoyer(), zone: 'graveyard' },
+            starfield(),
+            ...quietEnchantments(),
           ],
         },
+        hands: { p1: [charredFoyer()] },
       },
-      { random: () => 0.5, cardPlugins: [starfieldOfNyx, witness] },
+      { random: () => 0.5, cardPlugins: [witness] },
     )
     const foyer = roomIn(server.state)
-
-    // Resolving Starfield of Nyx's upkeep trigger moves the targeted enchantment
-    // directly from the graveyard to the battlefield.
-    const returned = ok(server.rules(server.state, {
+    let state = ok(server.rules(server.state, {
       type: 'move',
       objectId: foyer.id,
-      to: 'battlefield',
+      to: 'graveyard',
+    }))
+    state = advanceToUpkeep(server, state)
+
+    const targetSelection = pendingSelectionFor(state, 'p1')!
+    expect(targetSelection.candidates).toEqual([foyer.id])
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [foyer.id],
+    }))
+    expect(state.stack[0].targets).toEqual([{ kind: 'object', objectId: foyer.id }])
+
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [foyer.id],
     }))
 
+    // CR 709.5d gives the returned Room no unlocked designation; its resulting
+    // 0 toughness makes CR 704.5f apply before the reducer returns.
     expect(observedLockedZeroZero).toBe(true)
-    expect(returned.objects[foyer.id]).toMatchObject({
+    expect(state.objects[foyer.id]).toMatchObject({
       zone: 'graveyard',
       name: 'Charred Foyer // Warped Space',
       manaValue: 10,
     })
-    expect(returned.objects[foyer.id].unlockedDoors).toBeUndefined()
+    expect(state.objects[foyer.id].types).not.toContain('Creature')
+    expect(state.objects[foyer.id].unlockedDoors).toBeUndefined()
   })
 })
