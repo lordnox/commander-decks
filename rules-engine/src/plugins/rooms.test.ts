@@ -51,12 +51,12 @@ const funded = (
   },
 })
 
-/** Only the door names, costs, and mana values matter, so both doors stay blank. */
-const charredFoyer = () =>
-  cardTemplate('Charred Foyer // Warped Space', {
+/** Functional fixture: only Room door costs and mana values matter. */
+const testRoom = () =>
+  cardTemplate('Fixture Room Left // Fixture Room Right', {
     roomDoors: [
-      roomDoor('Charred Foyer', '{3}{R}'),
-      roomDoor('Warped Space', '{4}{R}{R}'),
+      roomDoor('Fixture Room Left', '{3}{R}'),
+      roomDoor('Fixture Room Right', '{4}{R}{R}'),
     ],
   })
 
@@ -80,7 +80,7 @@ const plainEnchantments = () => [1, 2, 3, 4, 5].map((manaValue) =>
 const starfieldGame = () => createServerGame(
   commanderRules,
   {
-    hands: { p1: [charredFoyer()] },
+    hands: { p1: [testRoom()] },
     battlefield: {
       p1: [
         starfield(),
@@ -108,7 +108,7 @@ const castRoomDoor = (
 
 const roomIn = (state: GameState) =>
   Object.values(state.objects).find((object) =>
-    object.roomDoors?.some((door) => door.name === 'Charred Foyer'))!
+    object.roomDoors?.some((door) => door.name === 'Fixture Room Left'))!
 
 const advanceToUpkeep = (
   server: ReturnType<typeof createServerGame>,
@@ -329,8 +329,8 @@ describe('Room doors', () => {
   })
 
   test.each([
-    ['left', 'Charred Foyer', 4],
-    ['right', 'Warped Space', 6],
+    ['left', 'Fixture Room Left', 4],
+    ['right', 'Fixture Room Right', 6],
   ] as const)('Starfield animates the cast %s door using only %s mana value', (doorId, name, stats) => {
     const server = starfieldGame()
     const resolved = castRoomDoor(server, doorId)
@@ -364,7 +364,7 @@ describe('Room doors', () => {
     }))
 
     expect(unlocked.objects[foyer.id]).toMatchObject({
-      name: 'Charred Foyer // Warped Space',
+      name: 'Fixture Room Left // Fixture Room Right',
       manaValue: 10,
       types: ['Enchantment', 'Creature'],
       power: 10,
@@ -402,7 +402,7 @@ describe('Room doors', () => {
             ...plainEnchantments(),
           ],
         },
-        hands: { p1: [charredFoyer()] },
+        hands: { p1: [testRoom()] },
       },
       { random: () => 0.5, cardPlugins: [witness] },
     )
@@ -439,7 +439,7 @@ describe('Room doors', () => {
     expect(observedLockedZeroZero).toBe(true)
     expect(state.objects[foyer.id]).toMatchObject({
       zone: 'graveyard',
-      name: 'Charred Foyer // Warped Space',
+      name: 'Fixture Room Left // Fixture Room Right',
       manaValue: 10,
     })
     expect(state.objects[foyer.id].types).not.toContain('Creature')
