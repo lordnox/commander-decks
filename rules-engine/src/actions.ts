@@ -1411,7 +1411,10 @@ export const sameLegalAct = (
       && left.text === right.text
       && left.mana === right.mana
       && left.door === right.door
-      && JSON.stringify(left.targetObjectIds ?? []) === JSON.stringify(right.targetObjectIds ?? [])
+      && (
+        left.targetObjectIds === undefined
+        || JSON.stringify(left.targetObjectIds) === JSON.stringify(right.targetObjectIds ?? [])
+      )
   }
   if (left.kind === 'castSpell') {
     return left.targetObjectId === right.targetObjectId
