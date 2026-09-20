@@ -56,6 +56,16 @@ test('Phyrexian casting actions show the chosen life payment', () => {
   })).toBe('Cast — Pay 4 life for {B/P} {B/P}')
 })
 
+test('unlocking a door is labelled with the door, not as a blocker declaration', () => {
+  expect(legalActLabel({
+    kind: 'unlockDoor',
+    objectId: 'closet',
+    name: 'Walk-In Closet',
+    door: 'right',
+    doorName: 'Forgotten Cellar',
+  })).toBe('Unlock — Forgotten Cellar')
+})
+
 test('a hidden hand slot renders a card back', () => {
   const html = renderToStaticMarkup(
     <CardRow

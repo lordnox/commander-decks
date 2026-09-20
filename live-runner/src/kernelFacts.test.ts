@@ -52,6 +52,35 @@ test('legal actions are listed so a line built from them cannot be called illega
   expect(facts).toContain('must not be rejected as illegal')
 })
 
+const roomDoor = (name: string, manaCost: string, manaValue: number) => ({
+  name,
+  types: ['Enchantment'],
+  subtypes: ['Room'],
+  supertypes: [],
+  manaCost,
+  manaValue,
+  colors: ['G'],
+  oracleText: 'You may play lands from your graveyard.',
+})
+
+test('a locked door is offered by name rather than as a blocker declaration', () => {
+  const server = createServerGame(commanderRules, {
+    battlefield: {
+      p1: [cardTemplate('Walk-In Closet // Forgotten Cellar', {
+        roomDoors: [
+          roomDoor('Walk-In Closet', '{2}{G}', 3),
+          roomDoor('Forgotten Cellar', '{3}{G}{G}', 5),
+        ],
+        unlockedDoors: ['left'],
+      })],
+    },
+  }, { random: () => 0.5, cardPlugins: [] })
+  const state = structuredClone(server.state)
+  state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 3 }
+
+  expect(kernelFacts(state, 'p1')).toContain('unlock Forgotten Cellar')
+})
+
 test('a responder the judge would rule tapped out is counted, never named', () => {
   const state = table()
   state.active = 'p2'

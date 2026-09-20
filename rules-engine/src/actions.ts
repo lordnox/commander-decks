@@ -32,7 +32,7 @@ import { hasKeyword } from './keywords'
 import { CAST_TRANSFORMED_ACTION } from './plugins/battle'
 import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
 import { pendingFreeCastFor } from './plugins/rebound'
-import { roomDoor } from './plugins/rooms'
+import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
@@ -1624,12 +1624,21 @@ export const eventsForAvailableAction = (
     ]
   }
   if (action.kind !== 'castSpell') return null
-  const object = state.objects[action.objectId]
-  const targeted = object
-    ? effectsOf(object).filter((effect) => effect.op === 'targetedResolve')
-    : []
-  const resolvesThroughKernel = object
-    ? effectsOf(object).some((effect) =>
+  const card = state.objects[action.objectId]
+  // CR 709.3b: only the chosen door is cast, so read this line off that door
+  // rather than off the combined card.
+  const door = card && action.door ? asRoomDoor(card, action.door) : undefined
+  if (action.door && !door) return null
+  const object = door ?? card
+  const effects = object ? effectsOf(object) : []
+  const targeted = effects.filter((effect) => effect.op === 'targetedResolve')
+  // A door's enter and unlock triggers go on the stack like any other trigger,
+  // so their printed wording is no reason to hand the cast to the judge.
+  const doorTriggers = Boolean(action.door)
+    && effects.some((effect) =>
+      effect.op === 'trigger' && (effect.on === 'enters' || effect.on === 'unlock'))
+  const resolvesThroughKernel = doorTriggers
+    || effects.some((effect) =>
       (effect.op === 'trigger' && effect.on === 'resolve')
       || (effect.op === 'search' && effect.via === 'spell')
       || (
@@ -1659,6 +1668,7 @@ export const eventsForAvailableAction = (
     || (
       !hasAlternateCast
       && !hasBestowCast
+      && !doorTriggers
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
     )
     || (
@@ -1680,7 +1690,7 @@ export const eventsForAvailableAction = (
   ) return null
   if (object.name === 'Ghostly Flicker' && blinkTargets.length !== 2) return null
   const tax = taxFor(state, seat, object)
-  const face = action.door ? roomDoor(object, action.door) : castFaceOf(object)
+  const face = castFaceOf(object)
   const casting = face ? { ...object, ...face } : object
   const alternative = alternateCastEffects(object).find(
     (effect) => effect.id === action.castOption,

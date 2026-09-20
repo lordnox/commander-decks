@@ -1019,6 +1019,7 @@ export const legalActLabel = (action: AvailableAction) => {
     }
     return action.text || 'Activate'
   }
+  if (action.kind === 'unlockDoor') return `Unlock — ${action.doorName}`
   if (action.kind === 'declareAttackers') return 'Declare attackers'
   return 'Declare blockers'
 }

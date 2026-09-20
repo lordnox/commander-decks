@@ -3,7 +3,7 @@
  * CR 603.2 — a trigger watches for a game event matching its `on` binding.
  * CR 603.3b — APNAP: active player first, then turn order; within a player, ETB order.
  */
-import { effectsFor, effectsOf } from '../cardPlugins/cardRules'
+import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
 import {
   conditionHolds,
@@ -24,7 +24,7 @@ import type {
   Plugin,
   TriggerBindingIf,
 } from '../types'
-import { roomDoor } from '../plugins/rooms'
+import { asRoomDoor, roomDoor } from '../plugins/rooms'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
 
@@ -358,13 +358,8 @@ const collectRoomUnlock = (
     : state.stack[0]?.objectId
   if (!objectId) return
   const source = draft.object(objectId)
-  const door = source && roomDoor(source, doorId)
-  if (!source?.roomDoors || !door || source.zone !== 'battlefield') return
-  const doorSource = {
-    ...source,
-    name: door.name,
-    effects: door.effects ?? effectsFor(door.name),
-  }
+  const doorSource = source && asRoomDoor(source, doorId)
+  if (!source?.roomDoors || !doorSource || source.zone !== 'battlefield') return
   collectEffects(doorSource, 'unlock', draft, matches)
 
   const beforeCount = state.objects[objectId]?.unlockedDoors?.length ?? 0

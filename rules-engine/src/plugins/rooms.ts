@@ -1,4 +1,4 @@
-import { effectsFor } from '../cardPlugins/cardRules'
+import { effectsOf } from '../cardPlugins/cardRules'
 import type {
   GameObject,
   Plugin,
@@ -25,6 +25,16 @@ const characteristicsFor = (
 
 const unique = <T>(values: T[]) => [...new Set(values)]
 
+/** CR 709.5b: each half exists on its own, even while the card is a spell. */
+export const asRoomDoor = (
+  object: GameObject,
+  door: RoomDoorId,
+): GameObject | undefined => {
+  const characteristics = roomDoor(object, door)
+  if (!characteristics) return undefined
+  return { ...object, ...characteristics, effects: effectsOf(characteristics) }
+}
+
 /** CR 709.5: locked Room halves lose their name, mana cost, and rules text. */
 export const applyRoomDoors = (object: GameObject, doors: RoomDoorId[]) => {
   if (!object.roomDoors) return
@@ -39,9 +49,7 @@ export const applyRoomDoors = (object: GameObject, doors: RoomDoorId[]) => {
   object.colors = unique(characteristics.flatMap((door) => door.colors))
   object.oracleText = characteristics.map((door) => door.oracleText).join(' // ')
   object.grantedRules = unique(characteristics.flatMap((door) => door.grantedRules ?? []))
-  object.effects = characteristics.flatMap(
-    (door) => door.effects ?? effectsFor(door.name),
-  )
+  object.effects = characteristics.flatMap((door) => effectsOf(door))
 }
 
 export const applyRoomCard = (object: GameObject) => {
