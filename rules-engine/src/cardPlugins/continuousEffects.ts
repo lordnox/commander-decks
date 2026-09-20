@@ -58,15 +58,21 @@ export const changeStats = (
   return { kind: 'pump', power, toughness }
 }
 
+const counterBonus = (object: GameObject) => object.counters['+1/+1'] ?? 0
+
 /**
  * CR 613.4c: +1/+1 counters modify power and toughness after a layer 7b set.
- * They are applied eagerly rather than stored, so setting a base value has to
- * add them back instead of overwriting their contribution.
+ * This engine applies them eagerly instead of storing them, so an `animation`
+ * keeps both snapshots free of their contribution and re-derives it from the
+ * live counter map. Apply and revert therefore stay inverses even when counters
+ * arrive or leave while the animation applies.
  */
-const withCounters = (object: GameObject, base: number) =>
-  base + (object.counters['+1/+1'] ?? 0)
+const withCounters = (object: GameObject, value: number | null) =>
+  value === null ? null : value + counterBonus(object)
 
-/** `after` records the layer 7b base set, not the resulting power and toughness. */
+const withoutCounters = (object: GameObject, value: number | null) =>
+  value === null ? null : value - counterBonus(object)
+
 export const becomeCreature = (
   object: GameObject,
   power: number,
@@ -74,8 +80,8 @@ export const becomeCreature = (
 ): ReversibleEffect => {
   const before = {
     types: [...object.types],
-    power: object.power,
-    toughness: object.toughness,
+    power: withoutCounters(object, object.power),
+    toughness: withoutCounters(object, object.toughness),
   }
   if (!object.types.includes('Creature')) object.types.push('Creature')
   object.power = withCounters(object, power)
@@ -261,8 +267,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     if (object.toughness !== null) object.toughness -= effect.toughness
   } else if (effect.kind === 'animation') {
     object.types = [...effect.before.types]
-    object.power = effect.before.power
-    object.toughness = effect.before.toughness
+    object.power = withCounters(object, effect.before.power)
+    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'oracleLine') {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'typeChange') {
