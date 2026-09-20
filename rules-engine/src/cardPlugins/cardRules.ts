@@ -26,6 +26,8 @@ import {
   copyControlledCreature,
   copySelf,
   copyTargetCreature,
+  counterTargetSpell,
+  bounceTargetPermanent,
   counterUnlessPay,
   createTokenInstruction,
   createTreasures,
@@ -74,6 +76,7 @@ import {
   manaIf,
   mayDraw,
   modalChooseOne,
+  modalChooseTwo,
   onResolve,
   optionalBasicLandEnters,
   optionalMill,
@@ -156,6 +159,7 @@ import {
   winGame,
   xMana,
   yourUpkeepIf,
+  yourEndTargetingOpponent,
   cumulativeUpkeepOpponentLife,
   uncounterable,
   combatDialogueUntilEot,
@@ -163,6 +167,12 @@ import {
   councilVote,
   playerAuraDeal,
   targetingRequirement,
+  loseHalfLifeRoundedUp,
+  addManaAtNextMainFromTarget,
+  gainLifeTargetToughness,
+  tapOpponentsCreatures,
+  addPlusCountersToControlled,
+  opponentMayDrawThenStealCast,
   flashback,
   grantRetrace,
 } from './effects'
@@ -1431,6 +1441,107 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
   'Vanish into Memory': [handler('blinkValue')],
+  Counterspell: [targetOnResolve('counter', { zone: 'stack' })],
+  'Arcanis the Omnipotent': [
+    activate({
+      id: 'arcanis.draw',
+      costs: { tap: true },
+      do: [draw(3)],
+    }),
+    activate({
+      id: 'arcanis.bounce',
+      costs: { mana: '{2}{U}{U}' },
+      do: [bounceSelf()],
+    }),
+  ],
+  "Minamo, School at Water's Edge": [
+    activate({
+      id: 'minamo.untap',
+      costs: { mana: '{U}', tap: true },
+      targets: 'legendary',
+      do: [untapTarget()],
+    }),
+  ],
+  Condemn: [
+    targetOnResolve(
+      'libraryBottom',
+      { zone: 'battlefield', type: 'Creature', attacking: true },
+      gainLifeTargetToughness(),
+    ),
+  ],
+  Hatred: [
+    payLifeX(),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      pumpTargetX(1, 0),
+    ),
+  ],
+  'Infernal Contract': [onResolve(draw(4), loseHalfLifeRoundedUp())],
+  'Mana Drain': [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack' },
+      addManaAtNextMainFromTarget(),
+    ),
+  ],
+  Desertion: [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack', stealIfTypes: ['Artifact', 'Creature'] },
+    ),
+  ],
+  'City of Brass': [
+    triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
+  ],
+  'Cryptic Command': [modalChooseTwo(
+    {
+      id: 'counter',
+      label: 'Counter target spell',
+      do: [counterTargetSpell()],
+    },
+    {
+      id: 'bounce',
+      label: "Return target permanent to its owner's hand",
+      do: [bounceTargetPermanent()],
+    },
+    {
+      id: 'tap',
+      label: 'Tap all creatures your opponents control',
+      do: [tapOpponentsCreatures()],
+    },
+    {
+      id: 'draw',
+      label: 'Draw a card',
+      do: [draw(1)],
+    },
+  )],
+  'Wedding Ring': [
+    triggerOn('enters', {
+      if: { fromSpell: true },
+      targets: 'opponent',
+      do: [copySelf({ for: 'targetPlayer' })],
+    }),
+    triggerOn('draw', {
+      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
+      do: [draw(1)],
+    }),
+    triggerOn('gainLife', {
+      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
+      do: [gainLife('triggerAmount')],
+    }),
+  ],
+  'Breena, the Demagogue': [
+    triggerOn('playerAttacks', {
+      do: [
+        { kind: 'draw', count: 1, who: 'triggeringPlayer' },
+        addPlusCountersToControlled(2),
+      ],
+    }),
+  ],
+  'Kuroki, Thief of Talents': [
+    yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
+  ],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []

@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
-import { DIALOG_CHOSEN, pendingDialog, pendingDialogFor } from '../pendingDialog'
+import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { pendingSelection, pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'

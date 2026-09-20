@@ -87,6 +87,10 @@ export const applyKernelChoice = (
     case 'copy-creature':
     case 'fight-target':
     case 'secret-vote':
+    case 'counter-spell':
+    case 'bounce-permanent':
+    case 'destroy-permanent':
+    case 'counter-unless':
       return applyDialogChoice(context)
     case 'bounce-land':
     case 'return-land':
