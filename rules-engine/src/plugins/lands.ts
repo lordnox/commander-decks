@@ -19,7 +19,11 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   const fromLibraryTop = object.zone === 'library'
     && seatPlaysLandsFromLibraryTop(state, event.seat)
     && state.zoneOrder[event.seat].library[0] === event.objectId
-  if ((!fromGraveyard && !fromLibraryTop && object.zone !== 'hand') || object.controller !== event.seat) {
+  const fromAdventure = object.zone === 'exile' && object.adventureReady === true
+  if (
+    (!fromGraveyard && !fromLibraryTop && !fromAdventure && object.zone !== 'hand')
+    || object.controller !== event.seat
+  ) {
     return `${object.name} is not in ${event.seat}'s hand`
   }
   if (!object.types.includes('Land') && !landFaceOf(object)) return `${object.name} is not a land`
@@ -40,6 +44,7 @@ const apply: Plugin['apply'] = ({ event, draft }) => {
   if (pending && face) applyFace(pending, face)
   const object = draft.move(event.objectId, 'battlefield')
   if (!object) return
+  delete object.adventureReady
   draft.players[event.seat].landsPlayed += 1
   draft.passedInRow = []
   draft.priority = event.seat

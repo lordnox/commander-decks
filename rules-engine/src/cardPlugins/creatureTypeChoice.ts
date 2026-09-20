@@ -12,21 +12,21 @@ const PENDING_ACTION = 'creatureTypeChoice.action'
 
 type TypeAction = {
   sourceId: string
-  action: 'addToSource' | 'destroyOthers' | 'bounceOthers'
+  action: 'addToSource' | 'setChosenType' | 'destroyOthers' | 'bounceOthers'
 }
 
 const isTypeAction = (value: unknown): value is TypeAction =>
   Boolean(value)
   && typeof value === 'object'
   && typeof (value as TypeAction).sourceId === 'string'
-  && ['addToSource', 'destroyOthers', 'bounceOthers'].includes(
+  && ['addToSource', 'setChosenType', 'destroyOthers', 'bounceOthers'].includes(
     (value as TypeAction).action,
   )
 
 const allTypes = (objects: Record<string, GameObject>) => [
   ...new Set(
     Object.values(objects)
-      .filter((object) => object.zone === 'battlefield' && object.types.includes('Creature'))
+      .filter((object) => object.types.includes('Creature'))
       .flatMap((object) => object.subtypes),
   ),
 ].sort()
@@ -95,9 +95,16 @@ export const creatureTypeChoice: Plugin = {
     if (!isTypeAction(pending) || !chosenType) return
 
     const source = draft.object(pending.sourceId)
-    if (pending.action === 'addToSource' && source) {
+    if (
+      (pending.action === 'addToSource' || pending.action === 'setChosenType')
+      && source
+    ) {
       source.chosenType = chosenType
-      if (chosenType !== OTHER_TYPE && !source.subtypes.includes(chosenType)) {
+      if (
+        pending.action === 'addToSource'
+        && chosenType !== OTHER_TYPE
+        && !source.subtypes.includes(chosenType)
+      ) {
         source.subtypes = [...source.subtypes, chosenType]
       }
     } else {

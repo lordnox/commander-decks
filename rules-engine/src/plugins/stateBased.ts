@@ -125,12 +125,16 @@ export const stateBased: Plugin = {
     }
 
     const legendary = Object.values(draft.objects).filter(
-      (object) => object.zone === 'battlefield' && object.supertypes.includes('Legendary'),
+      (object) =>
+        object.zone === 'battlefield'
+        && !object.phasedOut
+        && object.supertypes.includes('Legendary'),
     )
     const legendOff = new Set(
       Object.values(draft.objects)
         .filter((object) =>
           object.zone === 'battlefield'
+          && !object.phasedOut
           && (object.effects ?? []).some((effect) => effect.op === 'static' && effect.legendRuleOff))
         .map((object) => object.controller),
     )

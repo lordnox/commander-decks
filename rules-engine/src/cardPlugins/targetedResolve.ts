@@ -62,6 +62,7 @@ export const matchesTargetFilter = (
   if (filter.fromBattlefieldThisTurn && !putIntoGraveyardFromBattlefieldThisTurn(object)) {
     return false
   }
+  if (filter.nonbasic && object.supertypes.includes('Basic')) return false
   if (filter.attacking && object.attacking === null) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)

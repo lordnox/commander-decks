@@ -42,6 +42,13 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type ManaPool = Record<ManaId, number>
 
+export type RestrictedMana = {
+  mana: ManaId
+  sourceId: string
+  creatureType?: string
+  uncounterable?: boolean
+}
+
 export type FaceCharacteristics = {
   types: string[]
   subtypes: string[]
@@ -255,6 +262,10 @@ export type GameObject = {
   foretoldTurn?: number
   /** A face-down card in a normally public zone. */
   faceDown?: boolean
+  /** CR 702.26: phased-out permanents are treated as though they do not exist. */
+  phasedOut?: boolean
+  /** An Adventure card exiled by its Adventure spell may be played from exile. */
+  adventureReady?: boolean
   continuousEffects?: ContinuousEffect[]
 }
 
@@ -325,6 +336,8 @@ export type PlayerState = {
   /** Player-owned energy counters ({E}); public and persist across turns. */
   energy: number
   mana: ManaPool
+  /** Mana with spending restrictions, tracked separately from the ordinary pool. */
+  restrictedMana?: RestrictedMana[]
   lost: boolean
   landsPlayed: number
   landPlaysAllowed: number

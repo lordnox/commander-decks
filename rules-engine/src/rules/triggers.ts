@@ -168,6 +168,7 @@ const collectEffects = (
   > = {},
   event?: GameEvent,
 ) => {
+  if (source.phasedOut) return
   const catalog = effectsOf(source)
   for (const effect of triggerEffects(catalog, on)) {
     if (effect.if && isTriggerBindingIf(effect.if)) {
@@ -562,12 +563,12 @@ export const triggers: Plugin = {
               source.id,
             ))
           .map((object) => object.id)
-        if (candidates.length === 0) continue
+        if (candidates.length === 0 && targetSpec.min !== 0) continue
         openCardSelection(draft, {
           seat: source.controller,
           kind: 'choose',
           count: 1,
-          min: 1,
+          min: targetSpec.min ?? 1,
           candidates,
           sourceId: source.id,
           source: source.name,

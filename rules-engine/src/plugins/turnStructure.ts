@@ -32,7 +32,10 @@ export const nextLivingPlayer = (draft: Draft, from: PlayerId) => {
 }
 
 export const emptyAllManaPools = (draft: Draft) => {
-  for (const player of draft.playerOrder) draft.players[player].mana = emptyMana()
+  for (const player of draft.playerOrder) {
+    draft.players[player].mana = emptyMana()
+    delete draft.players[player].restrictedMana
+  }
 }
 
 export const maximumHandSize = (state: GameState, player: PlayerId) => {

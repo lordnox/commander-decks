@@ -5,6 +5,7 @@ import type { GameObject, GameState, ManaId, PlayerId, Plugin } from '../types'
 import { payCost } from './spells'
 import { hasForestOverlay } from './forestOverlay'
 import { hasSwampOverlay } from './swampOverlay'
+import { effectsOf } from '../cardPlugins/cardRules'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const COLORS: ManaId[] = ['W', 'U', 'B', 'R', 'G']
@@ -18,6 +19,7 @@ type ManaSource = {
   types?: string[]
   subtypes?: string[]
   effects?: CardEffect[]
+  chosenType?: string
 }
 
 const commanderIdentity = (state: Pick<GameState, 'objects'>, seat: PlayerId) => {
@@ -61,7 +63,7 @@ export const manaModes = (
   }
   const identityMana = /commander's color identity/i.test(object.oracleText)
   const hasDynamicCapability = object.effects?.some(
-    (effect) => effect.op === 'manaCapability',
+    (effect) => effect.op === 'manaCapability' || effect.op === 'restrictedMana',
   )
   if (
     /one mana of any color/i.test(object.oracleText)
@@ -85,6 +87,10 @@ export const manaModes = (
   }
   if (state && object.controller) {
     for (const capability of object.effects ?? []) {
+      if (capability.op === 'restrictedMana') {
+        for (const symbol of COLORS) modes.push({ [symbol]: 1 })
+        continue
+      }
       if (capability.op !== 'manaCapability') continue
       const referenced = Object.values(state.objects).filter((candidate) =>
         candidate.zone === 'battlefield'
@@ -150,6 +156,7 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   const object = state.objects[event.objectId]
   if (!object) return 'no such object'
   if (object.zone !== 'battlefield') return `${object.name} is not on the battlefield`
+  if (object.phasedOut) return `${object.name} is phased out`
   if (object.controller !== event.seat) return `${event.seat} does not control ${object.name}`
   if (object.tapped) return `${object.name} is already tapped`
   if (!poolForChoice(object, event.mana, state)) {
@@ -183,7 +190,23 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
     if (!pool) return
     object.tapped = true
     const player = draft.players[event.seat]
-    player.mana = addPools(player.mana, pool)
+    const restriction = effectsOf(object).find((effect) => effect.op === 'restrictedMana')
+    const restrictedSymbol = event.mana && event.mana !== 'C' && restriction
+      ? event.mana
+      : undefined
+    if (restrictedSymbol) {
+      player.restrictedMana = [
+        ...(player.restrictedMana ?? []),
+        {
+          mana: restrictedSymbol,
+          sourceId: object.id,
+          ...(object.chosenType ? { creatureType: object.chosenType } : {}),
+          ...(restriction?.uncounterable ? { uncounterable: true } : {}),
+        },
+      ]
+    } else {
+      player.mana = addPools(player.mana, pool)
+    }
     draft.note(`${event.seat} taps ${object.name} for mana`)
     if (
       /this land deals 1 damage to you/i.test(object.oracleText)

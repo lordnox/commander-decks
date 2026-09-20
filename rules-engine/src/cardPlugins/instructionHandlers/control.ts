@@ -1,6 +1,7 @@
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pendingDialog'
 import { STEAL_CAST_DRAW } from '../stealCast'
 import { conditionHolds } from '../effects'
+import { hasKeyword } from '../../keywords'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, instruction) => {
@@ -21,6 +22,21 @@ const ifTargetTypes: InstructionHandler<'ifTargetTypes'> = (
     ? instruction.whenTrue
     : instruction.whenFalse ?? []
   run(chosen, source)
+}
+
+const removeTarget: InstructionHandler<'removeTarget'> = (
+  { draft, item },
+  instruction,
+) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  if (!object || object.phasedOut) return
+  if (instruction.action === 'destroy' && hasKeyword(object, 'indestructible', draft)) return
+  draft.enqueue({
+    type: 'move',
+    objectId: object.id,
+    to: instruction.action === 'bounce' ? 'hand' : 'graveyard',
+  })
 }
 
 const lookTopChooseOne: InstructionHandler<'lookTopChooseOne'> = (
@@ -308,6 +324,7 @@ const lookTopPutLand: InstructionHandler<'lookTopPutLand'> = (
 export const controlHandlers = {
   if: conditional,
   ifTargetTypes,
+  removeTarget,
   lookTopChooseOne,
   teferiSunsetEmblem,
   putPermanentsFromHand,

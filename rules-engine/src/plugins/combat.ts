@@ -55,6 +55,7 @@ export const combat: Plugin = {
           if (
             !target
             || target.zone !== 'battlefield'
+            || target.phasedOut
             || (
               !target.types.includes('Planeswalker')
               && !target.types.includes('Battle')
@@ -71,6 +72,7 @@ export const combat: Plugin = {
       const attackers = Object.values(state.objects).filter(
         (object) =>
           object.zone === 'battlefield'
+          && !object.phasedOut
           && object.attacking !== null
           && defendingPlayer(state, object.attacking) === event.seat,
       )

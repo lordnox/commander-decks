@@ -58,6 +58,7 @@ import {
   entersIfCastOption,
   entersTargetingOpponent,
   entersTarget,
+  entersTargetingUpToOne,
   entersTapped,
   gift,
   ifGiftPromised,
@@ -106,6 +107,7 @@ import {
   modalChooseTwo,
   modalCommanderChooseBoth,
   onResolve,
+  onResolveIfCastOption,
   optionalBasicLandEnters,
   optionalMill,
   otherLands,
@@ -199,6 +201,12 @@ import {
   yourEndTargetingOpponent,
   cumulativeUpkeepOpponentLife,
   uncounterable,
+  restrictedCreatureMana,
+  phaseOutTarget,
+  putSelfOntoBattlefield,
+  createHeroWithLandCounters,
+  searchTargetControllerForBasicLandType,
+  removeTarget,
   combatDialogueUntilEot,
   copyTargetForEachOtherPlayer,
   councilVote,
@@ -663,7 +671,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
-  'Zanarkand, Ancient Metropolis // Lasting Fayth': [entersTapped()],
+  'Zanarkand, Ancient Metropolis // Lasting Fayth': [
+    entersTapped(),
+    alternateCast('adventure', 'Lasting Fayth — {4}{G}{G}', '{4}{G}{G}', {
+      fromZone: 'hand',
+      exileAfterUse: true,
+    }),
+    onResolveIfCastOption('adventure', createHeroWithLandCounters()),
+  ],
   'Aetherize': [onResolve(bounceAttacking())],
   "An Offer You Can't Refuse": [
     targetOnResolve(
@@ -696,6 +711,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   )],
   'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
   'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
+  'Cavern of Souls': [
+    enters(chooseCreatureType('setChosenType')),
+    restrictedCreatureMana(),
+  ],
   'Charcoal Diamond': [entersTapped()],
   "Commander's Sphere": [
     ability(
@@ -1156,6 +1175,43 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [bounceSelf()],
     }),
   ],
+  'Otawara, Soaring City': [
+    activate({
+      id: 'channel.otawara',
+      zone: 'hand',
+      costs: {
+        mana: '{3}{U}',
+        discard: 'self',
+        reducePerLegendaryCreature: 1,
+      },
+      targets: {
+        zone: 'battlefield',
+        types: ['Artifact', 'Creature', 'Enchantment', 'Planeswalker'],
+      },
+      do: [removeTarget('bounce')],
+    }),
+  ],
+  'Boseiju, Who Endures': [
+    activate({
+      id: 'channel.boseiju',
+      zone: 'hand',
+      costs: {
+        mana: '{1}{G}',
+        discard: 'self',
+        reducePerLegendaryCreature: 1,
+      },
+      targets: {
+        zone: 'battlefield',
+        types: ['Artifact', 'Enchantment', 'Land'],
+        controller: 'opponent',
+        nonbasic: true,
+      },
+      do: [
+        removeTarget('destroy'),
+        searchTargetControllerForBasicLandType(),
+      ],
+    }),
+  ],
   'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
   'Polluted Delta': [
     fetchTypes('Search your library for an Island or Swamp card and put it onto the battlefield.', [
@@ -1228,6 +1284,24 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         keepAbility: true,
       }),
     ),
+  ],
+  'Talon Gates of Madara': [
+    entersTargetingUpToOne(
+      { zone: 'battlefield', type: 'Creature' },
+      phaseOutTarget(),
+    ),
+    activate({
+      id: 'talon.any-mana',
+      manaAbility: true,
+      costs: { mana: '{1}', tap: true },
+      do: [{ kind: 'addChosenColorMana' }],
+    }),
+    activate({
+      id: 'talon.put',
+      zone: 'hand',
+      costs: { mana: '{4}' },
+      do: [putSelfOntoBattlefield()],
+    }),
   ],
   'Thawing Glaciers': [
     entersTapped(),

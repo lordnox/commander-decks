@@ -1,4 +1,5 @@
 import { emptyMana, poolTotal } from './draft'
+import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { giftSpecOf } from './cardPlugins/giftCast'
@@ -28,6 +29,7 @@ import {
   conditionHolds,
   searchEffect,
   type ActivateCost,
+  type TargetFilter,
 } from './cardPlugins/effects'
 import { SEARCH_FETCH } from './cardPlugins/librarySearch'
 import {
@@ -365,6 +367,7 @@ const tapChoice = (
 
 const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
   object.zone === 'battlefield'
+  && !object.phasedOut
   && object.controller === seat
   && !object.tapped
   && (
@@ -376,15 +379,40 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
 const poolKey = (pool: ManaPool, cap: number) =>
   MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
 
+const canUseRestrictedMana = (
+  state: GameState,
+  seat: PlayerId,
+  spell: GameObject | undefined,
+  creatureType?: string,
+) => Boolean(
+  spell?.types.includes('Creature')
+  && creatureType
+  && (
+    spell.subtypes.includes(creatureType)
+    || Object.values(state.objects).some((object) =>
+      object.zone === 'battlefield'
+      && !object.phasedOut
+      && object.controller === seat
+      && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes))
+  ),
+)
+
 const canFund = (
   state: GameState,
   seat: PlayerId,
   cost: string,
   extras: number[] | { creatures?: ManaId[][]; phyrexianLife?: number[] } = {},
+  spell?: GameObject,
 ) => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state))
-    .map((object) => manaModes(object, state))
+    .map((object) => {
+      const modes = manaModes(object, state)
+      const restricted = effectsOf(object).some((effect) => effect.op === 'restrictedMana')
+      return restricted && !canUseRestrictedMana(state, seat, spell, object.chosenType)
+        ? modes.filter((mode) => (mode.C ?? 0) > 0)
+        : modes
+    })
     .filter((modes) => modes.length > 0)
   const cap = Math.max(
     1,
@@ -393,7 +421,11 @@ const canFund = (
       [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGCP])?\}/g)].length,
     ),
   )
-  let pools = [state.players[seat]?.mana ?? emptyMana()]
+  const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
+  for (const mana of state.players[seat]?.restrictedMana ?? []) {
+    if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
+  }
+  let pools = [available]
   for (const modes of sources) {
     const next = new Map<string, ManaPool>()
     for (const pool of pools) {
@@ -503,7 +535,7 @@ const convokeIfNeeded = (
   cost: string,
   phyrexianLife: number[] = [],
 ) => {
-  if (canFund(state, seat, cost, phyrexianLife)) return undefined
+  if (canFund(state, seat, cost, phyrexianLife, object)) return undefined
   if (!hasConvoke(object)) return null
   return convokeFundingPlan(state, seat, cost, phyrexianLife)?.convoke ?? null
 }
@@ -780,7 +812,8 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     }).flatMap((action) => action.kind === 'castSpell' ? withGift(action) : [action]),
   )
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
-    const actions: AvailableAction[] = state.castableZones.includes(object.zone)
+    const adventure = alternatives.some((effect) => effect.id === 'adventure')
+    const actions: AvailableAction[] = state.castableZones.includes(object.zone) && !adventure
       ? fundedVariants({
           kind: 'castSpell',
           objectId: object.id,
@@ -909,7 +942,12 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
   if (object.controller !== seat) return []
   if (object.zone === 'graveyard' && object.owner !== seat) return []
   const objectZone = object.zone
-  if (objectZone !== 'battlefield' && objectZone !== 'graveyard') return []
+  if (objectZone === 'battlefield' && isPhasedOut(object)) return []
+  if (
+    objectZone !== 'battlefield'
+    && objectZone !== 'graveyard'
+    && objectZone !== 'hand'
+  ) return []
   return effectsOf(object).flatMap((effect): AvailableAction[] => {
     if (effect.op === 'activate' && !effect.manaAbility) {
       const requiredZone = effect.zone ?? 'battlefield'
@@ -1063,7 +1101,11 @@ export const availableActions = (
     && state.stack.length === 0
     && state.players[seat].landsPlayed < state.players[seat].landPlaysAllowed
   ) {
-    for (const id of hand) {
+    const playableLands = [
+      ...hand,
+      ...state.zoneOrder[seat].exile.filter((id) => state.objects[id]?.adventureReady),
+    ]
+    for (const id of playableLands) {
       const object = state.objects[id]
       if (object && (object.types.includes('Land') || landFaceOf(object))) {
         actions.push({ kind: 'playLand', objectId: id, name: object.name })
@@ -1135,6 +1177,7 @@ export const availableActions = (
     const objectIds = Object.values(state.objects)
       .filter((object) =>
         object.zone === 'battlefield'
+        && !object.phasedOut
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped
@@ -1153,7 +1196,7 @@ export const availableActions = (
   if (state.step === 'declareBlockers') {
     const attackerIds = Object.values(state.objects)
       .filter((object) => {
-        if (object.zone !== 'battlefield' || !object.attacking) return false
+        if (object.zone !== 'battlefield' || object.phasedOut || !object.attacking) return false
         if (typeof object.attacking === 'string') return object.attacking === seat
         if (object.attacking.kind === 'player') return object.attacking.player === seat
         return state.objects[object.attacking.objectId]?.controller === seat
@@ -1162,6 +1205,7 @@ export const availableActions = (
     const objectIds = Object.values(state.objects)
       .filter((object) =>
         object.zone === 'battlefield'
+        && !object.phasedOut
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped)
@@ -1355,7 +1399,7 @@ const targetVariants = (
         .map((objectId) => state.objects[objectId])
         .filter((creature): creature is GameObject => Boolean(creature))
         .map(convokeColors),
-    })
+    }, spell)
   })
 }
 
@@ -1490,6 +1534,34 @@ const activationTargetGroups = (
     }
   }
   const targets = Object.values(state.objects).filter((object) => object.zone === 'battlefield')
+  if (effect?.targets && typeof effect.targets === 'object') {
+    const filter = 'filter' in effect.targets
+      ? effect.targets.filter
+      : effect.targets
+    return {
+      ...action,
+      targetGroups: [
+        ...costGroups,
+        {
+          label: 'Target',
+          min: 1,
+          max: 1,
+          targets: Object.values(state.objects)
+            .filter((object) => validTargetRef(
+              state,
+              { kind: 'object', objectId: object.id },
+              filter,
+              source?.controller ?? state.priority ?? '',
+            ))
+            .map((object) => ({
+              objectId: object.id,
+              name: object.name,
+              controller: object.controller,
+            })),
+        },
+      ],
+    }
+  }
   if (
     effect?.targets === 'creature'
     || effect?.targets === 'land'
@@ -1636,13 +1708,27 @@ const fundingEvents = (
   cost: string,
   excluded = new Set<string>(),
   extras: { creatures?: GameObject[]; phyrexianLife?: number[] } = {},
+  spell?: GameObject,
 ): GameEvent[] | null => {
   const sources = Object.values(state.objects)
     .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
-    .map((source) => ({ source, modes: manaModes(source, state) }))
+    .map((source) => {
+      const modes = manaModes(source, state)
+      const restricted = effectsOf(source).some((effect) => effect.op === 'restrictedMana')
+      return {
+        source,
+        modes: restricted && !canUseRestrictedMana(state, seat, spell, source.chosenType)
+          ? modes.filter((mode) => (mode.C ?? 0) > 0)
+          : modes,
+      }
+    })
     .filter(({ modes }) => modes.length > 0)
+  const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
+  for (const mana of state.players[seat]?.restrictedMana ?? []) {
+    if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
+  }
   let plans = [{
-    pool: state.players[seat]?.mana ?? emptyMana(),
+    pool: available,
     events: [] as GameEvent[],
   }]
   for (const { source, modes } of sources) {
@@ -1999,6 +2085,7 @@ export const eventsForAvailableAction = (
     cost,
     new Set(convoke.map((creature) => creature.id)),
     { creatures: convoke, phyrexianLife: action.phyrexianLife },
+    casting,
   )
   if (!mana) return null
   return [

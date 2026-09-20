@@ -60,6 +60,11 @@ export type CardInstruction =
   | { kind: 'bounceSelf' }
   | { kind: 'unearthSelf' }
   | { kind: 'exileSelf' }
+  | { kind: 'removeTarget'; action: 'destroy' | 'bounce' }
+  | { kind: 'putSelfOntoBattlefield' }
+  | { kind: 'phaseOutTarget' }
+  | { kind: 'createHeroWithLandCounters' }
+  | { kind: 'searchTargetControllerForBasicLandType' }
   | { kind: 'tap' }
   | { kind: 'payMana'; cost: string }
   | { kind: 'getEnergy'; count: number }
@@ -190,7 +195,7 @@ export type CardInstruction =
   | { kind: 'copyAllCreaturesUntilEot'; notLegendary?: boolean }
   | {
       kind: 'chooseCreatureType'
-      action: 'addToSource' | 'destroyOthers' | 'bounceOthers'
+      action: 'addToSource' | 'setChosenType' | 'destroyOthers' | 'bounceOthers'
     }
   | {
       kind: 'putFromHand'
@@ -345,6 +350,8 @@ export type ActivateCost = {
   if?: CardCondition
   /** Replace `{X}` in `mana` with the activation event's chosen X. */
   xMana?: boolean
+  /** Reduce only the generic component once per legendary creature controlled. */
+  reducePerLegendaryCreature?: number
 }
 
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
@@ -373,6 +380,7 @@ export type TargetFilter = {
   permanent?: boolean
   /** In a graveyard and moved there from the battlefield this turn (not mill or discard). */
   fromBattlefieldThisTurn?: boolean
+  nonbasic?: boolean
   attacking?: boolean
   stealIfTypes?: string[]
 }
@@ -457,6 +465,7 @@ export type CardEffect =
       modal?: ModalSpec
       targets?: 'opponent' | 'player' | {
         filter: TargetFilter
+        min?: 0 | 1
       }
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
@@ -484,6 +493,7 @@ export type CardEffect =
         | 'room'
         | 'legendary'
         | { filter: TargetFilter }
+        | TargetFilter
       sorcery?: boolean
       zone?: ZoneId
       costs: ActivateCost
@@ -507,6 +517,11 @@ export type CardEffect =
   | {
       op: 'manaCapability'
       from: 'opponentsLands' | 'controlledLands'
+    }
+  | {
+      op: 'restrictedMana'
+      creatureOfChosenType: true
+      uncounterable?: boolean
     }
   | {
       op: 'static'
