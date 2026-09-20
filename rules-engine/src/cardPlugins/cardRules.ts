@@ -62,6 +62,7 @@ import {
   landToGraveyard,
   landToGraveyardOnce,
   landfall,
+  landfallTargeting,
   legendRuleOff,
   loseLife,
   loseLifeTargetManaValue,
@@ -70,10 +71,15 @@ import {
   loyalty,
   loyaltyX,
   lookTopChooseOne,
+  lookTopPutLand,
   lockOrUnlockDoor,
   manaIf,
   mayDraw,
+  millHalfTargetPlayers,
+  millTarget,
   modalChooseOne,
+  modalChooseTwo,
+  modalCommanderChooseBoth,
   onResolve,
   optionalBasicLandEnters,
   optionalMill,
@@ -165,6 +171,19 @@ import {
   targetingRequirement,
   flashback,
   grantRetrace,
+  ifTargetTypes,
+  opponentsLoseLife,
+  pumpAttached,
+  pumpTargetEqualToLands,
+  putTargetOnLibraryTop,
+  revealTopLandsTapped,
+  sacrificeControlled,
+  sagaChapters,
+  tapAttached,
+  destroyAllCreatures,
+  bounceCreaturesExcept,
+  addPlusCountersEqualToLands,
+  discardCards,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -389,6 +408,110 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [revealUntilBasicLand()],
     }),
   ],
+  'Hedron Crab': [landfallTargeting('player', millTarget(3))],
+  'Cling to Dust': [
+    targetOnResolve(
+      'exile',
+      { zone: 'graveyard' },
+      ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
+    ),
+  ],
+  'Frantic Search': [onResolve(draw(2), discardCards(2))],
+  'Planar Genesis': [onResolve(lookTopPutLand(4, { orHand: true }))],
+  "Animist's Awakening": [xMana(), onResolve(revealTopLandsTapped())],
+  "Archdruid's Charm": [modalChooseOne(
+    {
+      id: 'search',
+      label: 'Search your library for a creature or land card.',
+      do: [searchLibrary({
+        prompt: 'Search for a creature or land card.',
+        match: (object) => object.types.includes('Creature') || object.types.includes('Land'),
+        destination: 'hand',
+        min: 1,
+        max: 1,
+        reveal: true,
+      })],
+    },
+    {
+      id: 'fight',
+      label: 'Put a +1/+1 counter on a creature you control. It fights.',
+      do: [fightOwnedVsOpponent()],
+    },
+    {
+      id: 'exile',
+      label: 'Exile target artifact or enchantment.',
+      do: [{ kind: 'destroyTargetPermanent', types: ['Artifact', 'Enchantment'] }],
+    },
+  )],
+  Colossification: [
+    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
+    enters(tapAttached(), pumpAttached(20, 20)),
+  ],
+  'Retreat to Hagra': [landfall(chooseModes('one', [
+    {
+      id: 'pump',
+      label: 'Target creature gets +1/+0 and gains deathtouch until end of turn.',
+      do: [pump(1, 0), grantUntilEot('deathtouch')],
+    },
+    {
+      id: 'drain',
+      label: 'Each opponent loses 1 life and you gain 1 life.',
+      do: [opponentsLoseLife(1), gainLife(1)],
+    },
+  ]))],
+  'Singularity Rupture': [
+    onResolve(destroyAllCreatures(), millHalfTargetPlayers()),
+    targetOnResolve('select', { players: 'any' }),
+  ],
+  'Profane Command': [
+    xMana(),
+    modalChooseTwo(
+      {
+        id: 'drain',
+        label: 'Target player loses X life.',
+        do: [{ kind: 'loseLifeTargetPlayer', amount: 0 }],
+      },
+      {
+        id: 'reanimate',
+        label: 'Return a creature card with mana value X or less from your graveyard.',
+        do: [returnCreatureManaValueX()],
+      },
+      {
+        id: 'shrink',
+        label: 'Target creature gets -X/-X until end of turn.',
+        do: [pumpTargetX(-1)],
+      },
+      {
+        id: 'fear',
+        label: 'Up to X target creatures gain fear until end of turn.',
+        do: [grantUntilEot('fear')],
+      },
+    ),
+  ],
+  'Will of the Sultai': [modalCommanderChooseBoth(
+    {
+      id: 'lands',
+      label: 'Target player mills three cards. Return all land cards from your graveyard tapped.',
+      do: [selfMill(3), returnOwnedGraveyardLands()],
+    },
+    {
+      id: 'pump',
+      label: 'Put X +1/+1 counters on target creature, where X is the number of lands you control. It gains trample.',
+      do: [addPlusCountersEqualToLands(), pumpTargetEqualToLands(true)],
+    },
+  )],
+  'Summon: Leviathan': [sagaChapters(
+    {
+      numbers: [1],
+      do: [bounceCreaturesExcept('Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent')],
+    },
+    { numbers: [2, 3], do: [] },
+  )],
+  'Summon: Titan': [sagaChapters(
+    { numbers: [1], do: [selfMill(5)] },
+    { numbers: [2], do: [returnOwnedGraveyardLands()] },
+    { numbers: [3], do: [pumpTargetEqualToLands(true)] },
+  )],
   'Horizon of Progress': [
     activate({
       id: 'horizon.putLand',
@@ -719,11 +842,23 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Golgari Rot Farm': [entersTapped(), enters(bounceChosenLand())],
-  'Hall of Storm Giants': [entersTapped(otherLands({ min: 2 }))],
+  'Hall of Storm Giants': [
+    entersTapped(otherLands({ min: 2 })),
+    activate({
+      id: 'hall.animate',
+      costs: { mana: '{6}{U}' },
+      if: graveyardCards(7),
+      do: [animateUntilEot(7, 7)],
+    }),
+  ],
   'Hedge Maze': [entersTapped(), enters(surveil(1))],
   'Hallowed Fountain': [tapUnlessPayLife(2)],
   'Homer, the Hermit': [handler('homer')],
-  'Icetill Explorer': [staticExtraLandPlays(1), landfall(selfMill(1))],
+  'Icetill Explorer': [
+    staticExtraLandPlays(1),
+    playLandsFromGraveyard(),
+    landfall(selfMill(1)),
+  ],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Keep Safe': [
     targetOnResolve(
@@ -732,9 +867,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       draw(1),
     ),
   ],
-  'Lair of the Hydra': [entersTapped(otherLands({ min: 2 }))],
+  'Lair of the Hydra': [
+    entersTapped(otherLands({ min: 2 })),
+    activate({
+      id: 'lair.animate',
+      costs: { mana: '{X}{G}', xMana: true },
+      do: [animateUntilEot(0, 0, { fromX: true })],
+    }),
+  ],
   'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
-  'Lotus Field': [entersTapped()],
+  'Lotus Field': [entersTapped(), enters(sacrificeControlled(2, ['Land']))],
   Millikin: [
     activate({
       id: 'selfMill.millikin',
@@ -760,7 +902,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     })),
   ],
   'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
-  'Mystic Sanctuary': [entersTapped(otherLands({ max: 2, subtype: 'Island' }))],
+  'Mystic Sanctuary': [
+    entersTapped(otherLands({ max: 2, subtype: 'Island' })),
+    {
+      op: 'trigger',
+      on: 'enters',
+      if: otherLands({ min: 3, subtype: 'Island' }),
+      targets: { filter: { zone: 'graveyard', types: ['Instant', 'Sorcery'], controller: 'you' } },
+      do: [putTargetOnLibraryTop()],
+    },
+  ],
   'Myriad Landscape': [
     entersTapped(),
     fetchBasic(
@@ -1049,7 +1200,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Life from the Loam': [
     dredge(3),
-    onResolve(returnChosenLandFromGraveyard(false)),
+    onResolve(returnChosenLandFromGraveyard(false, { count: 3, min: 0, to: 'hand' })),
   ],
   'Lumra, Bellow of the Woods': [
     enters(selfMill(4), returnOwnedGraveyardLands()),
