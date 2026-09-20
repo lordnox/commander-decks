@@ -434,7 +434,11 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'castCost') ids.add('castCosts')
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
-    if (effect.op === 'handler') ids.add(effect.pluginId)
+    if (effect.op === 'handler') {
+      ids.add(effect.pluginId)
+      // Demonstrate only opens the copy choice; stackCopy resolves it.
+      if (effect.pluginId === 'demonstrate') ids.add('stackCopy')
+    }
     if (effect.op === 'vote') ids.add('vote')
     if (effect.op === 'targetingRequirement') ids.add('targetingRequirements')
     if (effect.op === 'playerAuraDeal') ids.add('attackDeal')
