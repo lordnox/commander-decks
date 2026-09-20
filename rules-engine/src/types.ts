@@ -136,6 +136,8 @@ export type GameObject = {
   blocking: string | null
   grantedRules: string[]
   token: boolean
+  /** A copy of a spell that ceases to exist after leaving the stack. */
+  spellCopy?: boolean
   tags: string[]
   tapProduces?: Partial<ManaPool>
   /** Chosen creature type, for example Roaming Throne. */
@@ -277,6 +279,7 @@ export type TriggerBinding = {
 /**
  * CR 603.7 — a delayed triggered ability exists independently of its source
  * and, without a stated duration, triggers only the next time its event occurs.
+ * `recurring` represents an explicit "for the rest of the game" duration.
  */
 export type DelayedTriggerCondition =
   | { kind: 'event'; type: GameEvent['type'] }
@@ -291,6 +294,8 @@ export type DelayedTrigger = {
   condition: DelayedTriggerCondition
   instructions: CardInstruction[]
   timestamp: number
+  recurring?: boolean
+  payload?: Record<string, unknown>
 }
 
 /**
@@ -322,8 +327,30 @@ export type GameEvent =
       sacrifice?: string[]
       convoke?: string[]
       discard?: string[]
+      copy?: boolean
+      withoutPayingMana?: boolean
     }
   | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }
+  | {
+      type: 'chooseParadigm'
+      seat: PlayerId
+      copyId: string
+      cast: boolean
+      targets?: TargetRef[]
+    }
+  | {
+      type: 'chooseEpicTargets'
+      seat: PlayerId
+      sourceId: string
+      targets?: TargetRef[]
+    }
+  | {
+      type: 'resolveRecurringSpell'
+      seat: PlayerId
+      mode: 'epic' | 'paradigm'
+      spell: GameObject
+      targets: TargetRef[]
+    }
   | {
       type: 'createToken'
       controller: PlayerId
