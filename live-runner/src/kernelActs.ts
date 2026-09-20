@@ -140,6 +140,7 @@ export const applyKernelAct = (
           seat,
           objectId: action.objectId,
           ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
+          ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
           targets: (message.targetObjectIds ?? []).map((objectId) => ({
             kind: 'object' as const,
             objectId,

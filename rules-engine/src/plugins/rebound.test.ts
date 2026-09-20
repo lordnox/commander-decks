@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -9,21 +10,39 @@ const reboundSpell = () => cardTemplate('Test Rebound', {
   types: ['Sorcery'],
   manaCost: '{4}{U}',
   oracleText: 'Rebound (If you cast this spell from your hand, exile it as it resolves.)',
+  effects: [{
+    op: 'trigger',
+    on: 'resolve',
+    do: [{ kind: 'gainLife', count: 1 }],
+  }],
 })
 
 const setup = () => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    hands: { p1: [reboundSpell()] },
+    hands: {
+      p1: [
+        reboundSpell(),
+        cardTemplate('Other Instant', { types: ['Instant'], manaCost: '{0}' }),
+      ],
+    },
+    battlefield: {
+      p1: [cardTemplate('Mana Rock', {
+        types: ['Artifact'],
+        tapProduces: { C: 1 },
+      })],
+    },
   })
   const objectId = server.state.zoneOrder.p1.hand[0]
+  const otherId = server.state.zoneOrder.p1.hand[1]
+  const manaId = server.state.zoneOrder.p1.battlefield[0]
   server.state.players.p1.mana.U = 1
   server.state.players.p1.mana.C = 4
-  return { server, objectId }
+  return { server, objectId, otherId, manaId }
 }
 
 const castAndResolve = () => {
-  const { server, objectId } = setup()
+  const { server, objectId, otherId, manaId } = setup()
   const cast = ok(server.rules(server.state, {
     type: 'castSpell',
     seat: 'p1',
@@ -32,6 +51,8 @@ const castAndResolve = () => {
   return {
     server,
     objectId,
+    otherId,
+    manaId,
     state: ok(server.rules(cast, { type: 'resolveTop' })),
   }
 }
@@ -80,11 +101,33 @@ describe('rebound', () => {
       seat: 'p1',
     }).ok).toBe(false)
 
-    const recast = ok(server.rules(offered, {
-      type: 'castWithoutPayingMana',
+    const actions = legalActsFor(offered, 'p1')
+    const accept = actions.find((action) =>
+      action.kind === 'castSpell' && action.objectId === objectId)
+    const decline = actions.find((action) => action.kind === 'declineFreeCast')
+    expect(accept).toMatchObject({
+      kind: 'castSpell',
+      objectId,
+      alternativeCost: 'withoutPayingMana',
+    })
+    expect(decline).toMatchObject({ kind: 'declineFreeCast', objectId })
+    expect(accept && eventsForAvailableAction(offered, 'p1', accept)).toEqual([{
+      type: 'castSpell',
       seat: 'p1',
       objectId,
-      accept: true,
+      alternativeCost: 'withoutPayingMana',
+    }])
+    expect(decline && eventsForAvailableAction(offered, 'p1', decline)).toEqual([{
+      type: 'declineFreeCast',
+      seat: 'p1',
+      objectId,
+    }])
+
+    const recast = ok(server.rules(offered, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId,
+      alternativeCost: 'withoutPayingMana',
     }))
     expect(recast.objects[objectId].zone).toBe('stack')
     expect(recast.players.p1.mana).toEqual(offered.players.p1.mana)
@@ -107,15 +150,40 @@ describe('rebound', () => {
     const upkeep = beginUpkeep(server, state, 'p1')
     const offered = ok(server.rules(upkeep, { type: 'resolveTop' }))
     const declined = ok(server.rules(offered, {
-      type: 'castWithoutPayingMana',
+      type: 'declineFreeCast',
       seat: 'p1',
       objectId,
-      accept: false,
     }))
 
     expect(declined.objects[objectId].zone).toBe('exile')
     expect(declined.delayedTriggers).toHaveLength(0)
     expect(server.rules(declined, { type: 'passPriority', seat: 'p1' }).ok).toBe(true)
+  })
+
+  test('allows mana abilities but no other priority actions while the choice is pending', () => {
+    const { server, objectId, otherId, manaId, state } = castAndResolve()
+    const upkeep = beginUpkeep(server, state, 'p1')
+    const offered = ok(server.rules(upkeep, { type: 'resolveTop' }))
+
+    expect(server.rules(offered, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: otherId,
+    }).ok).toBe(false)
+
+    const withMana = ok(server.rules(offered, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: manaId,
+    }))
+    expect(withMana.players.p1.mana.C).toBe(1)
+
+    expect(server.rules(withMana, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId,
+      alternativeCost: 'withoutPayingMana',
+    }).ok).toBe(true)
   })
 
   test('does not rebound when cast from outside the hand', () => {

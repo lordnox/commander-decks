@@ -70,6 +70,7 @@ type InboxPayload =
         | 'playLand'
         | 'tapForMana'
         | 'castSpell'
+        | 'declineFreeCast'
         | 'activateAbility'
         | 'declareAttackers'
         | 'declareBlockers'
@@ -80,6 +81,7 @@ type InboxPayload =
       abilityId?: string
       castOption?: string
       phyrexianLife?: number[]
+      alternativeCost?: 'withoutPayingMana'
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -195,6 +197,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const abilityId = message.abilityId
       const castOption = message.castOption
       const phyrexianLife = message.phyrexianLife
+      const alternativeCost = message.alternativeCost
       const text = message.text
       const attackers = message.attackers
       const x = message.x
@@ -242,7 +245,13 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         })
       }
       if (
-        !['playLand', 'tapForMana', 'castSpell', 'activateAbility'].includes(kind as string)
+        ![
+          'playLand',
+          'tapForMana',
+          'castSpell',
+          'declineFreeCast',
+          'activateAbility',
+        ].includes(kind as string)
         || typeof objectId !== 'string'
         || !objectId
       ) {
@@ -250,7 +259,12 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       }
       return parsed({
         type: 'act',
-        kind: kind as 'playLand' | 'tapForMana' | 'castSpell' | 'activateAbility',
+        kind: kind as
+          | 'playLand'
+          | 'tapForMana'
+          | 'castSpell'
+          | 'declineFreeCast'
+          | 'activateAbility',
         objectId,
         ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),
         ...(typeof targetPlayerId === 'string' ? { targetPlayerId } : {}),
@@ -262,6 +276,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ...(Array.isArray(phyrexianLife) && phyrexianLife.every(
           (index): index is number => Number.isSafeInteger(index) && Number(index) >= 0,
         ) ? { phyrexianLife } : {}),
+        ...(alternativeCost === 'withoutPayingMana' ? { alternativeCost } : {}),
         ...(typeof text === 'string' ? { text } : {}),
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
