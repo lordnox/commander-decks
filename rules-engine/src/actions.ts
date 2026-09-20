@@ -92,7 +92,7 @@ import type {
   BlockerDecl,
 } from './types'
 
-type ActionTargetGroup = {
+export type ActionTargetGroup = {
   label: string
   min: number
   max: number

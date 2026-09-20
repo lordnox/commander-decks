@@ -727,6 +727,43 @@ describe('kernel host journal', () => {
     })
   })
 
+  test('a grouped multi-target cast sends every selected object as a target', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: { p1: [cardTemplate('Energy Arc', { types: ['Instant'], manaCost: '{W}{U}' })] },
+        battlefield: {
+          p2: [
+            cardTemplate('Guard', { types: ['Creature'], power: 2, toughness: 2 }),
+            cardTemplate('Raider', { types: ['Creature'], power: 3, toughness: 3 }),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+    )
+    const state = structuredClone(server.state)
+    state.players.p1.mana.W = 1
+    state.players.p1.mana.U = 1
+    const named = (name: string) =>
+      Object.values(state.objects).find((object) => object.name === name)!
+    const arc = named('Energy Arc')
+    const chosen = [named('Guard').id, named('Raider').id]
+    const kernel = handleFor(server.rules, state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId: arc.id,
+      targetObjectIds: chosen,
+    })).toHaveLength(1)
+    expect(kernel.history.current().stack[0]).toMatchObject({
+      objectId: arc.id,
+      targets: chosen.map((objectId) => ({ kind: 'object', objectId })),
+    })
+  })
+
   test('restores an interrupted Analyze the Pollen library search', async () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-search-restart-'))
     mkdirGames(root)
