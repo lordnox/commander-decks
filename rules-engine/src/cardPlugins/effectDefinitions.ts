@@ -59,6 +59,8 @@ export type CardInstruction =
   | { kind: 'addPlusCounters'; count: number }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | { kind: 'revealUntilBasicLand' }
+  | { kind: 'revealMatchingToHand'; count: number; type: string }
+  | { kind: 'lockOrUnlockDoor' }
   | { kind: 'sacrificePermanentsThenDraw'; types?: string[] }
   | { kind: 'opponentsSacrifice'; type: string; count: number }
   | { kind: 'reanimateCreatureFromGraveyards'; addSubtype?: string }
@@ -292,7 +294,8 @@ export type CardEffect =
       op: 'activate'
       id: string
       manaAbility?: boolean
-      targets?: 'any' | 'opponent' | 'teferiSunsetPlusOne' | 'creature' | 'land'
+      targets?: 'any' | 'opponent' | 'teferiSunsetPlusOne' | 'creature' | 'land' | 'room'
+      sorcery?: boolean
       zone?: ZoneId
       costs: ActivateCost
       if?: CardCondition

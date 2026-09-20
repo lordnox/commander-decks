@@ -198,6 +198,24 @@ describe('Room doors', () => {
     })
   })
 
+  test('an ability can lock a door without paying its mana cost', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [room(['left', 'right'])] },
+    })
+    const objectId = server.state.zoneOrder.p1.battlefield[0]
+    const locked = ok(server.rules(server.state, {
+      type: 'lockDoor',
+      seat: 'p1',
+      objectId,
+      door: 'right',
+    }))
+
+    expect(locked.objects[objectId]).toMatchObject({
+      name: 'Funeral Room',
+      unlockedDoors: ['left'],
+    })
+  })
+
   test('a Room put onto the battlefield has both doors locked', () => {
     const server = createServerGame(commanderRules, { hands: { p1: [room()] } })
     const objectId = server.state.zoneOrder.p1.hand[0]

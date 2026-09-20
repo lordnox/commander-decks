@@ -70,6 +70,7 @@ import {
   loyalty,
   loyaltyX,
   lookTopChooseOne,
+  lockOrUnlockDoor,
   manaIf,
   mayDraw,
   modalChooseOne,
@@ -93,6 +94,7 @@ import {
   putMilledLandTapped,
   putPermanentsFromHand,
   revealPick,
+  revealMatchingToHand,
   revealUntilBasicLand,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
@@ -1047,6 +1049,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Malakir Mire': [entersTapped()],
   'Malakir Rebirth': [onResolve(grantUntilEot('indestructible'))],
   'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), eldraziSpawn)],
+  'Marina Vendrell': [
+    enters(revealMatchingToHand(7, 'Enchantment')),
+    activate({
+      id: 'marina.lockOrUnlock',
+      costs: { tap: true },
+      targets: 'room',
+      sorcery: true,
+      do: [lockOrUnlockDoor()],
+    }),
+  ],
   'Masked Vandal': [allCreatureTypes()],
   'Maskwood Nexus': [
     allCreatureTypes(),

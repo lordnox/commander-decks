@@ -115,6 +115,7 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetGroups?: ActionTargetGroup[]
       mana?: ManaId
+      door?: RoomDoorId
     }
   | { kind: 'tapForMana'; objectId: string; name: string; mana?: ManaId }
   | {
@@ -747,17 +748,42 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
         !canPayActivateCosts(state, object, seat, effect.costs)
         || !conditionHolds(effect.if, state, object)
         || (
-          loyalty !== undefined
+          (loyalty !== undefined || effect.sorcery)
           && (
             state.active !== seat
             || !MAIN_STEPS.has(state.step)
             || state.stack.length > 0
-            || object.loyaltyActivatedTurn === state.turn
-            || (loyalty < 0 && (object.counters.loyalty ?? 0) < -loyalty)
+            || (
+              loyalty !== undefined
+              && (
+                object.loyaltyActivatedTurn === state.turn
+                || (loyalty < 0 && (object.counters.loyalty ?? 0) < -loyalty)
+              )
+            )
           )
         )
       ) {
         return []
+      }
+      if (effect.targets === 'room') {
+        const rooms = Object.values(state.objects).filter((candidate) =>
+          candidate.zone === 'battlefield'
+          && candidate.controller === seat
+          && candidate.roomDoors)
+        return rooms.flatMap((room) =>
+          (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
+            const characteristics = roomDoor(room, door)
+            if (!characteristics) return []
+            return [{
+              kind: 'activateAbility',
+              objectId: object.id,
+              name: object.name,
+              text: `Lock or unlock ${characteristics.name}`,
+              abilityId: effect.id,
+              targetObjectIds: [room.id],
+              door,
+            }]
+          }))
       }
       const fogsAllCombat = effect.do.some((instruction) =>
         instruction.kind === 'preventCombatDamage'
@@ -1364,6 +1390,7 @@ export const sameLegalAct = (
     text?: string
     mana?: ManaId
     targetObjectId?: string
+    targetObjectIds?: string[]
     targetPlayerId?: string
     x?: number
     kicked?: boolean
@@ -1383,6 +1410,8 @@ export const sameLegalAct = (
     return left.abilityId === right.abilityId
       && left.text === right.text
       && left.mana === right.mana
+      && left.door === right.door
+      && JSON.stringify(left.targetObjectIds ?? []) === JSON.stringify(right.targetObjectIds ?? [])
   }
   if (left.kind === 'castSpell') {
     return left.targetObjectId === right.targetObjectId
@@ -1596,6 +1625,22 @@ export const eventsForAvailableAction = (
       && candidate.id === action.abilityId
       && !candidate.targets,
     )
+    if (
+      action.door
+      && action.targetObjectIds?.[0]
+    ) {
+      const targeted = activateEffect(effectsOf(object), action.abilityId)
+      if (targeted?.targets === 'room') {
+        return [{
+          type: 'activateAbility',
+          abilityId: targeted.id,
+          seat,
+          objectId: object.id,
+          targets: [{ kind: 'object', objectId: action.targetObjectIds[0] }],
+          door: action.door,
+        }]
+      }
+    }
     return effect
       && !effect.costs.loyaltyX
       && !effect.targets
