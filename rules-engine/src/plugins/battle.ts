@@ -58,10 +58,13 @@ const transformedAction = (item: StackItem | undefined): item is StackItem =>
 export const battle: Plugin = {
   id: 'battle',
   legal: ({ state, event }) => {
-    if (event.type === 'chooseBattleProtector') {
+    if (
+      event.type === 'chooseBattleProtector'
+      || event.type === 'clearBattleProtector'
+    ) {
       const object = state.objects[event.objectId]
       if (!object || object.zone !== 'battlefield' || !object.types.includes('Battle')) {
-        return 'protector can only be chosen for a battlefield battle'
+        return 'protector can only change for a battlefield battle'
       }
     }
 
@@ -84,6 +87,12 @@ export const battle: Plugin = {
     }
   },
   apply: ({ state, event, draft }) => {
+    if (event.type === 'clearBattleProtector') {
+      const object = draft.object(event.objectId)
+      if (object) delete object.protector
+      return
+    }
+
     if (event.type === 'chooseBattleProtector') {
       const object = draft.object(event.objectId)
       if (object) chooseProtector(draft, object)
@@ -95,6 +104,13 @@ export const battle: Plugin = {
       const object = draft.object(event.objectId)
       if (before?.zone !== 'battlefield' && object?.zone === 'battlefield') {
         enterBattle(draft, object)
+      } else if (
+        before?.zone === 'battlefield'
+        && object
+        && (object.zone !== 'battlefield' || !object.types.includes('Battle'))
+      ) {
+        delete object.protector
+        delete object.counters.defense
       }
       return
     }
@@ -162,6 +178,8 @@ export const battle: Plugin = {
     }
 
     applyFace(object, object.backFace)
+    delete object.protector
+    delete object.counters.defense
     draft.move(object.id, 'stack')
     draft.addToStack({
       kind: 'spell',

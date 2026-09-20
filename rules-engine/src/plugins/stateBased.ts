@@ -86,8 +86,10 @@ export const stateBased: Plugin = {
             && attacker.attacking?.kind === 'object'
             && attacker.attacking.objectId === object.id,
         )
-        const invalidProtector = object.protector !== undefined
-        if (!choicePending && (invalidProtector || !beingAttacked)) {
+        if (object.protector !== undefined) {
+          return [{ type: 'clearBattleProtector', objectId: object.id }]
+        }
+        if (!choicePending && !beingAttacked) {
           return [{ type: 'chooseBattleProtector', objectId: object.id }]
         }
       }

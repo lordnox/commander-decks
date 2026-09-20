@@ -40,11 +40,13 @@ export {
   legalActsFor,
   manaAffordances,
   sameLegalAct,
+  waitingCastTransformed,
   waitingContinueAction,
   waitingDiscard,
   waitingPlayerSelection,
   waitingSelectCards,
   type AvailableAction,
+  type WaitingCastTransformed,
   type WaitingDiscard,
   type WaitingSelectCards,
 } from './actions'

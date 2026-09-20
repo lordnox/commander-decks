@@ -1,4 +1,5 @@
 import {
+  waitingCastTransformed,
   waitingDiscard,
   waitingSelectCards,
   type GameEvent,
@@ -145,6 +146,33 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
       waiting: `${lobby.occupants[waiting.chooser]?.name ?? waiting.chooser} is choosing cards to discard.`,
       prompt: `Discard ${waiting.count} card${waiting.count === 1 ? '' : 's'}.`,
       judge: 'Waiting for a discard choice on the stack.',
+    },
+  )
+}
+
+export const prepareCastTransformedChoice = (kernel: KernelHandle, lobby: LobbyState) => {
+  const state = kernel.history.current()
+  const waiting = waitingCastTransformed(state)
+  if (!waiting || !isSeatId(waiting.chooser)) return false
+  const source = state.objects[waiting.item.objectId]
+  return openTopdeck(
+    lobby,
+    {
+      seat: waiting.chooser,
+      kind: 'may',
+      cards: ['Yes'],
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 0, max: 1 } },
+      kernel: {
+        sourceId: waiting.item.objectId,
+        stage: 'battle-cast-transformed',
+        stackId: waiting.item.id,
+      },
+    },
+    {
+      waiting: `${lobby.occupants[waiting.chooser]?.name ?? waiting.chooser} may cast a defeated Siege transformed.`,
+      prompt: `Cast ${source?.name ?? 'the defeated Siege'} transformed without paying its mana cost?`,
+      judge: 'Waiting for the defeated Siege casting choice.',
     },
   )
 }

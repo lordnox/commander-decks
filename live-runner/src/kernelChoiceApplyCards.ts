@@ -1,4 +1,5 @@
 import {
+  waitingCastTransformed,
   waitingDiscard,
   waitingSelectCards,
 } from '../../rules-engine/src/index'
@@ -138,6 +139,31 @@ export const applyWaitingDiscard = (
   return closeKernelChoice(kernel, lobby, seat, {
     privateJudge: { [seat]: `You discarded ${name}.` },
     judge: `${lobby.occupants[seat]?.name ?? seat} discarded ${name}.`,
+  })
+}
+
+export const applyCastTransformed = (
+  { kernel, lobby, seat, message, decision, state }: ChoiceContext,
+) => {
+  const waiting = waitingCastTransformed(state, seat)
+  if (!waiting || waiting.item.id !== decision.kernel.stackId) {
+    throw new Error('That Siege casting choice is no longer open.')
+  }
+  const cast = message.choices.some(({ destination }) => destination === 'target')
+  const continued = kernel.dispatch({
+    type: 'continueAction',
+    stackId: waiting.item.id,
+    seat,
+    payload: { cast },
+  })
+  if (!continued.ok) throw new Error(continued.error)
+  return closeKernelChoice(kernel, lobby, seat, {
+    privateJudge: {
+      [seat]: cast ? 'You cast the Siege transformed.' : 'You declined to cast the Siege.',
+    },
+    judge: cast
+      ? `${lobby.occupants[seat]?.name ?? seat} cast the defeated Siege transformed.`
+      : `${lobby.occupants[seat]?.name ?? seat} declined to cast the defeated Siege.`,
   })
 }
 

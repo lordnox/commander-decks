@@ -1883,6 +1883,80 @@ describe('kernel host journal', () => {
     expect(kernel.history.current().objects[handId].zone).toBe('graveyard')
   })
 
+  test('publishes and applies the defeated Siege casting choice', () => {
+    const server = createServerGame(commanderRules, {
+      players: 4,
+      hands: {
+        p1: [cardTemplate('Test Siege // Test Victor', {
+          types: ['Battle'],
+          subtypes: ['Siege'],
+          frontFace: {
+            types: ['Battle'],
+            subtypes: ['Siege'],
+            supertypes: [],
+            manaCost: '{2}{G}',
+            manaValue: 3,
+            colors: ['G'],
+            printedDefense: 3,
+          },
+          backFace: {
+            types: ['Creature'],
+            subtypes: ['Warrior'],
+            supertypes: [],
+            manaCost: '',
+            manaValue: 0,
+            colors: ['G'],
+            power: 4,
+            toughness: 4,
+          },
+        })],
+      },
+    })
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    server.state.objects[objectId].zone = 'exile'
+    server.state.zoneOrder.p1.hand = []
+    server.state.zoneOrder.p1.exile = [objectId]
+    server.state.zoneCounts.p1.hand = 0
+    server.state.zoneCounts.p1.exile = 1
+    server.state.stack = [{
+      id: 'battle-cast',
+      kind: 'action',
+      actionId: 'cast-battle-transformed',
+      objectId,
+      controller: 'p1',
+      name: 'Cast Test Siege transformed',
+      targets: [],
+      waiting: 'choice',
+      payload: { chooser: 'p1' },
+    }]
+    server.state.priority = 'p1'
+
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'may',
+      cards: ['Yes'],
+      destinations: ['target', 'skip'],
+      kernel: { stage: 'battle-cast-transformed', stackId: 'battle-cast' },
+    })
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Yes', destination: 'target' }],
+    })).toBe(true)
+    expect(kernel.journal.events).toContainEqual({
+      type: 'continueAction',
+      stackId: 'battle-cast',
+      seat: 'p1',
+      payload: { cast: true },
+    })
+    expect(kernel.history.current().objects[objectId].types).toEqual(['Creature'])
+    expect(kernel.history.current().objects[objectId].zone).toBe('battlefield')
+  })
+
   test('after illegal continueAction rollback shows state before the rejected choice', () => {
     const server = createServerGame(commanderRules, {
       hands: { p2: [{ ...forest(), name: 'Victim Card' }] },
