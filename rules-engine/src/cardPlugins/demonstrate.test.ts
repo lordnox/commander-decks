@@ -5,6 +5,7 @@ import { createServerGame } from '../runtime'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
+import { handlerIdsForNames } from './cardRules'
 import { cardPluginEntry } from './index'
 import { targetOnResolve } from './effects'
 import { demonstrate } from './demonstrate'
@@ -50,9 +51,12 @@ const serverWithTechnique = () => createServerGame(
 )
 
 describe('demonstrate', () => {
-  test('Incarnation Technique loads the generic demonstrate handler', () => {
+  test('Incarnation Technique loads both the trigger and the copy handler', () => {
     expect(cardPluginEntry('Incarnation Technique')?.handlerIds)
-      .toContain('demonstrate')
+      .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))
+    // The live and table hosts load plugins from this list alone.
+    expect(handlerIdsForNames(['Incarnation Technique']))
+      .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))
   })
 
   test('the caster may decline to copy the spell', () => {
