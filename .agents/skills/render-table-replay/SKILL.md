@@ -130,7 +130,7 @@ bun run build
 ```
 
 `site:prepare` runs `table:render`, `table:pages`, and `table:decks`.
-`build_pages.py` regenerates `site/public/games.json` from the replay JSON, so
+`build-pages.ts` regenerates `site/public/games.json` from the replay JSON, so
 a new game appears in the React index without hand-editing it. The index is
 newest-first and includes `played_at` plus a play-order `index` (oldest game
 is 1). It warns about a
