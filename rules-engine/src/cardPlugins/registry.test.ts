@@ -141,6 +141,19 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Wall of Shards')?.handlerIds).toEqual(['cumulativeUpkeep'])
   })
 
+  test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {
+    expect(missingCardPlugins([
+      'Abundance',
+      'Cling to Dust',
+      'Hostile Negotiations',
+    ])).toEqual([])
+    expect(handlerIdsForNames(['Abundance'])).toEqual(['abundance'])
+    expect(handlerIdsForNames(['Hostile Negotiations']).toSorted())
+      .toEqual(['hiddenPiles', 'onResolve'])
+    expect(handlerIdsForNames(['Cling to Dust']).toSorted())
+      .toEqual(['alternateCosts', 'targetedResolve'])
+  })
+
   test('Courser of Kruphix is registered', () => {
     expect(missingCardPlugins(['Courser of Kruphix'])).toEqual([])
     expect(cardPluginEntry('Courser of Kruphix')?.handlerIds).toEqual(['courserOfKruphix'])

@@ -575,8 +575,8 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
         ids.add('permanentControl')
       }
       if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
-    if (hasKind(listed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     }
+    if (hasKind(listed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(listed, 'encoreTokens')) ids.add('encore')
     if (hasKind(listed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')
