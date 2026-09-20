@@ -21,6 +21,7 @@ import {
 } from '../cardPlugins/alternateCosts'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
+import { ceaseSpellCopy } from '../rules/spellCopies'
 import { applyFace, castFaceOf } from './doubleFaced'
 import { reboundsOnResolution } from './rebound'
 
@@ -232,6 +233,7 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
+      if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
       const face = castFaceOf(object)
       const spell = face ? { ...object, ...face } : object
       const selected = availableAlternateCastEffect(
@@ -240,7 +242,7 @@ export const spells: Plugin = {
         spell,
         event.castOption,
       )
-      const freeCast = event.alternativeCost === 'withoutPayingMana'
+      const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
       if (selected?.fromZone) {
         if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
       } else if (!state.castableZones.includes(object.zone) && !(freeCast && object.zone === 'exile')) {
@@ -337,6 +339,12 @@ export const spells: Plugin = {
     if (event.type === 'resolveTop' && state.stack.length === 0) return 'stack is empty'
   },
   apply: ({ state, event, draft }) => {
+    if (event.type === 'move') {
+      const moved = draft.object(event.objectId)
+      if (moved?.spellCopy && moved.zone !== 'stack') ceaseSpellCopy(draft, moved)
+      return
+    }
+
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
@@ -356,7 +364,7 @@ export const spells: Plugin = {
         targets: event.targets,
         seat: event.seat,
         selected,
-        withoutPayingMana: event.alternativeCost === 'withoutPayingMana',
+        withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
       })
       const creatures = (event.convoke ?? [])
         .map((objectId) => draft.object(objectId))
@@ -397,6 +405,7 @@ export const spells: Plugin = {
         ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
+        ...(event.copy ? { copy: true } : {}),
         castFrom: object.zone,
       })
       draft.move(object.id, 'stack')
@@ -425,6 +434,7 @@ export const spells: Plugin = {
       const object = draft.object(item.objectId)
       if (!object) return
       if (item.copy) {
+        if (object.spellCopy) ceaseSpellCopy(draft, object)
         draft.passedInRow = []
         draft.priority = state.active
         return

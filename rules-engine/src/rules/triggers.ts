@@ -36,6 +36,7 @@ type PendingTrigger = {
   triggeringObjectId?: string
   triggeringPlayer?: PlayerId
   triggerAmount?: number
+  payload?: Record<string, unknown>
 }
 
 const isTriggerBindingIf = (
@@ -84,7 +85,7 @@ const pushCopies = (
   copies: number,
   meta: Pick<
     PendingTrigger,
-    'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount'
+    'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
   > = {},
 ) => {
   for (let index = 0; index < copies; index += 1) {
@@ -323,6 +324,7 @@ const collectDelayedTriggers = (
       remaining.push(delayed)
       continue
     }
+    if (delayed.recurring) remaining.push(delayed)
     const source: GameObject = {
       ...gameObjectFieldDefaults(),
       id: delayed.sourceId,
@@ -331,7 +333,9 @@ const collectDelayedTriggers = (
       controller: delayed.controller,
       zone: 'graveyard',
     }
-    pushCopies(matches, source, { do: delayed.instructions }, 1)
+    pushCopies(matches, source, { do: delayed.instructions }, 1, {
+      payload: delayed.payload,
+    })
   }
   draft.delayedTriggers = remaining
 }
@@ -372,6 +376,7 @@ export const triggers: Plugin = {
       triggeringObjectId,
       triggeringPlayer: matchedPlayer,
       triggerAmount,
+      payload,
     } of ordered) {
       if (effect.targets === 'opponent') {
         const candidates = draft.playerOrder.filter(
@@ -407,6 +412,7 @@ export const triggers: Plugin = {
             : {}),
           ...(triggeringObjectId ? { triggeringObjectId } : {}),
           ...(triggerAmount !== undefined ? { triggerAmount } : {}),
+          ...payload,
         },
         name: `${source.name}`,
       })

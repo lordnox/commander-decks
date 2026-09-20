@@ -8,6 +8,10 @@ export const registerDelayedTrigger = (
   source: GameObject,
   condition: DelayedTriggerCondition,
   instructions: CardInstruction[],
+  options: {
+    recurring?: boolean
+    payload?: Record<string, unknown>
+  } = {},
 ) => {
   draft.delayedTriggers.push({
     id: draft.allocId('delayed'),
@@ -17,5 +21,7 @@ export const registerDelayedTrigger = (
     condition,
     instructions,
     timestamp: draft.allocTs(),
+    ...(options.recurring ? { recurring: true } : {}),
+    ...(options.payload ? { payload: options.payload } : {}),
   })
 }
