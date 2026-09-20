@@ -460,6 +460,16 @@ export const spells: Plugin = {
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
         ...(event.copy ? { copy: true } : {}),
+        ...(
+          effectsOf(object).some((effect) =>
+            effect.op === 'modal' && effect.commanderChooseBoth)
+          && Object.values(draft.objects).some((candidate) =>
+            candidate.zone === 'battlefield'
+            && candidate.controller === event.seat
+            && candidate.tags.includes('commander'))
+            ? { payload: { commanderCast: true } }
+            : {}
+        ),
         castFrom: object.zone,
       })
       draft.move(object.id, 'stack')
@@ -516,6 +526,10 @@ export const spells: Plugin = {
         draft.move(object.id, 'battlefield')
         object.enteredBattlefieldTurn = draft.turn
         object.summoningSickness = true
+        const auraTarget = item.targets[0]
+        if (object.subtypes.includes('Aura') && auraTarget?.kind === 'object') {
+          object.attachedTo = auraTarget.objectId
+        }
         if (
           object.types.includes('Planeswalker')
           && object.printedLoyalty !== null

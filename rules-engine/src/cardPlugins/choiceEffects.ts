@@ -92,16 +92,23 @@ export const choiceEffects: Plugin = {
         ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
         : []
       const topIds = draft.zoneOrder[event.seat].library.slice(0, dialog.count ?? 5)
-      const toBattlefield = objectIds.filter((id) => topIds.includes(id)).filter((id) => {
-        const object = draft.object(id)
-        return object?.types.includes('Land')
-      })
+      const chosen = objectIds.filter((id) => topIds.includes(id))
+      const landId = chosen.find((id) => draft.object(id)?.types.includes('Land'))
+      const toBattlefield = landId && (dialog.destinations?.includes('battlefield') !== false)
+        ? [landId]
+        : []
+      const toHand = toBattlefield.length === 0 && dialog.destinations?.includes('hand')
+        ? chosen.slice(0, 1)
+        : []
       for (const objectId of toBattlefield) {
         draft.enqueue({ type: 'move', objectId, to: 'battlefield' })
         draft.enqueue({ type: 'tap', objectId })
       }
+      for (const objectId of toHand) {
+        draft.enqueue({ type: 'move', objectId, to: 'hand' })
+      }
       for (const objectId of topIds) {
-        if (toBattlefield.includes(objectId)) continue
+        if (toBattlefield.includes(objectId) || toHand.includes(objectId)) continue
         draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
       }
     }
