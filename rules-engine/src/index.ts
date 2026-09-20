@@ -115,6 +115,7 @@ export type {
   PlayerId,
   Plugin,
   ReduceResult,
+  RoomDoorId,
   RuleInstance,
   TargetRef,
 } from './types'

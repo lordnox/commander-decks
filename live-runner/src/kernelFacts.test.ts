@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import { commanderRules, createServerGame } from '../../rules-engine/src/index'
 import { cardTemplate, forest } from '../../rules-engine/src/newGame'
+import { roomDoor } from '../../rules-engine/src/testHelpers'
 import { kernelFacts } from './kernelFacts'
 
 const table = () => {
@@ -52,24 +53,16 @@ test('legal actions are listed so a line built from them cannot be called illega
   expect(facts).toContain('must not be rejected as illegal')
 })
 
-const roomDoor = (name: string, manaCost: string, manaValue: number) => ({
-  name,
-  types: ['Enchantment'],
-  subtypes: ['Room'],
-  supertypes: [],
-  manaCost,
-  manaValue,
-  colors: ['G'],
-  oracleText: 'You may play lands from your graveyard.',
-})
+const cellarDoor = (name: string, manaCost: string) =>
+  roomDoor(name, manaCost, { oracleText: 'You may play lands from your graveyard.' })
 
 test('a locked door is offered by name rather than as a blocker declaration', () => {
   const server = createServerGame(commanderRules, {
     battlefield: {
       p1: [cardTemplate('Walk-In Closet // Forgotten Cellar', {
         roomDoors: [
-          roomDoor('Walk-In Closet', '{2}{G}', 3),
-          roomDoor('Forgotten Cellar', '{3}{G}{G}', 5),
+          cellarDoor('Walk-In Closet', '{2}{G}'),
+          cellarDoor('Forgotten Cellar', '{3}{G}{G}'),
         ],
         unlockedDoors: ['left'],
       })],

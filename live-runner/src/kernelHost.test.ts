@@ -46,6 +46,7 @@ import {
   pendingDialogLock,
 } from '../../rules-engine/src/pendingDialog'
 import { cardTemplate, planeswalker } from '../../rules-engine/src/newGame'
+import { roomDoor } from '../../rules-engine/src/testHelpers'
 import {
   PENDING_PLAYER_SELECTION,
   type PendingPlayerSelection,
@@ -1302,6 +1303,68 @@ describe('kernel host journal', () => {
       type: 'playLand',
       seat: 'p1',
       objectId: 'land-1',
+    })
+  })
+
+  test('casts one Room half and later unlocks the other from structured acts', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [cardTemplate('Funeral Room // Awakening Hall', {
+            roomDoors: [
+              roomDoor('Funeral Room', '{2}{B}'),
+              roomDoor('Awakening Hall', '{6}{B}{B}'),
+            ],
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const initial = structuredClone(server.state)
+    initial.step = 'precombatMain'
+    initial.active = 'p1'
+    initial.priority = 'p1'
+    initial.players.p1.mana = { W: 0, U: 0, B: 4, R: 0, G: 0, C: 12 }
+    const objectId = initial.zoneOrder.p1.hand[0]
+    const kernel = handleFor(server.rules, initial)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId,
+      door: 'left',
+    })
+    expect(kernel.journal.events.at(-1)).toMatchObject({
+      type: 'castSpell',
+      objectId,
+      door: 'left',
+    })
+    for (const seat of ['p1', 'p2', 'p3', 'p4'] as const) {
+      expect(kernel.dispatch({ type: 'passPriority', seat }).ok).toBe(true)
+    }
+    expect(kernel.history.current().objects[objectId]).toMatchObject({
+      zone: 'battlefield',
+      name: 'Funeral Room',
+      unlockedDoors: ['left'],
+    })
+
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'unlockDoor',
+      objectId,
+      door: 'right',
+    })
+    expect(kernel.journal.events.at(-1)).toMatchObject({
+      type: 'unlockDoor',
+      objectId,
+      door: 'right',
+    })
+    expect(kernel.history.current().objects[objectId]).toMatchObject({
+      name: 'Funeral Room // Awakening Hall',
+      unlockedDoors: ['left', 'right'],
     })
   })
 

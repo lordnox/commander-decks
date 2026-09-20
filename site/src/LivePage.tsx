@@ -7,7 +7,11 @@ import {
 import { CombatOverlay } from './CombatOverlay'
 import { LiveControlsDrawer } from './LiveControlsDrawer'
 import { liveHeader } from './liveHeader'
-import { commanderRules, createClientGame } from '../../rules-engine/src/index'
+import {
+  commanderRules,
+  createClientGame,
+  type RoomDoorId,
+} from '../../rules-engine/src/index'
 import {
   conduitPublicUrl,
   encodePublicLivePayload,
@@ -543,6 +547,7 @@ export const LivePage = () => {
       abilityId?: string
       castOption?: string
       phyrexianLife?: number[]
+      door?: RoomDoorId
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -611,6 +616,7 @@ export const LivePage = () => {
           ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
           ...(extra.castOption ? { castOption: extra.castOption } : {}),
           ...(extra.phyrexianLife ? { phyrexianLife: extra.phyrexianLife } : {}),
+          ...(extra.door ? { door: extra.door } : {}),
           ...(extra.text ? { text: extra.text } : {}),
           ...(extra.mana ? { mana: extra.mana } : {}),
           ...(extra.x !== undefined ? { x: extra.x } : {}),
@@ -1456,6 +1462,7 @@ export const LivePage = () => {
                   ...('phyrexianLife' in action && action.phyrexianLife
                     ? { phyrexianLife: action.phyrexianLife }
                     : {}),
+                  ...('door' in action && action.door ? { door: action.door } : {}),
                   ...('text' in action && action.text ? { text: action.text } : {}),
                   ...('mana' in action && action.mana ? { mana: action.mana } : {}),
                   ...('x' in action && action.x !== undefined ? { x: action.x } : {}),

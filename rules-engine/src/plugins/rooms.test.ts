@@ -5,26 +5,15 @@ import type { CardEffect } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { ok } from '../testHelpers'
-import type { ManaPool, RoomDoorCharacteristics } from '../types'
+import { ok, roomDoor } from '../testHelpers'
+import type { ManaPool } from '../types'
 
 const door = (
   name: string,
   manaCost: string,
   oracleText: string,
   effects: CardEffect[] = [],
-): RoomDoorCharacteristics => ({
-  name,
-  types: ['Enchantment'],
-  subtypes: ['Room'],
-  supertypes: [],
-  manaCost,
-  manaValue: [...manaCost.matchAll(/\{(\d+|[WUBRGC])\}/g)]
-    .reduce((total, match) => total + (/^\d+$/.test(match[1]) ? Number(match[1]) : 1), 0),
-  colors: [...new Set([...manaCost.matchAll(/[WUBRG]/g)].map((match) => match[0]))],
-  oracleText,
-  effects,
-})
+) => roomDoor(name, manaCost, { oracleText, effects })
 
 const trigger = (on: 'enters' | 'unlock' | 'fullyUnlock', life: number): CardEffect => ({
   op: 'trigger',
