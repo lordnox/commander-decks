@@ -170,6 +170,9 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   ) {
     return `${object.name} has summoning sickness`
   }
+  if (/\{T\}, Pay 1 life:/i.test(object.oracleText) && state.players[event.seat].life < 1) {
+    return `${event.seat} cannot pay 1 life`
+  }
 }
 
 const apply: Plugin['apply'] = ({ state, event, draft }) => {
@@ -191,6 +194,14 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
         sourceId: object.id,
         target: { kind: 'player', player: event.seat },
         amount: 1,
+      })
+    }
+    if (/\{T\}, Pay 1 life:/i.test(object.oracleText)) {
+      draft.enqueue({
+        type: 'payLife',
+        seat: event.seat,
+        amount: 1,
+        source: object.name,
       })
     }
     return

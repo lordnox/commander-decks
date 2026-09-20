@@ -28,6 +28,7 @@ import {
 } from '../cardPlugins/alternateCosts'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
+import { PENDING_STEAL_CAST } from '../rules/selectCards'
 import { ceaseSpellCopy } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
 import { giftSpecOf } from '../cardPlugins/giftCast'
@@ -262,16 +263,27 @@ export const spells: Plugin = {
         event.castOption,
       )
       const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
+      const steal = state.players[event.seat]?.data[PENDING_STEAL_CAST]
+      const stealCast = Boolean(
+        steal
+        && typeof steal === 'object'
+        && (steal as { objectId?: string }).objectId === object.id
+        && (steal as { seat?: string }).seat === event.seat,
+      )
       if (selected?.fromZone) {
         if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
       } else if (
         !state.castableZones.includes(object.zone)
         && !(freeCast && object.zone === 'exile')
         && !(object.adventured && object.zone === 'exile' && !event.adventureCast)
+        && !(stealCast && object.zone === 'hand')
       ) {
         return 'spell is not in a castable zone'
       }
-      if (object.owner !== event.seat || object.controller !== event.seat) {
+      if (
+        !stealCast
+        && (object.owner !== event.seat || object.controller !== event.seat)
+      ) {
         return 'spell is not owned and controlled by that seat'
       }
       if (state.priority !== event.seat) return 'seat does not have priority'
@@ -281,7 +293,7 @@ export const spells: Plugin = {
         return `${object.name} has no casting option ${event.castOption}`
       }
 
-      if (!spell.types.includes('Instant') && !freeCast) {
+      if (!spell.types.includes('Instant') && !(freeCast && !stealCast)) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
         if (state.step !== 'precombatMain' && state.step !== 'postcombatMain') {
           return 'non-instant spells require a main phase'
@@ -478,6 +490,7 @@ export const spells: Plugin = {
       }
       draft.passedInRow = []
       draft.priority = event.seat
+      delete draft.players[event.seat].data[PENDING_STEAL_CAST]
       return
     }
 

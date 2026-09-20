@@ -4,8 +4,10 @@ import type { CardInstruction, TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { validTarget } from '../cardPlugins/targetedResolve'
+import { addPlusCounters } from '../cardPlugins/effectRuntime'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
+export const PENDING_STEAL_CAST = 'stealCast.pending'
 
 export type CardSelectionKind =
   | 'choose'
@@ -54,6 +56,8 @@ export type PendingCardSelection = {
   addSubtypes?: string[]
   tapSelected?: boolean
   untapSelected?: boolean
+  plusCounters?: number
+  castWithoutPaying?: boolean
   action?: {
     kind: 'dredge'
     replacedBy: string[]
@@ -374,6 +378,26 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       }
       if (selection.untapSelected) {
         draft.enqueue({ type: 'untap', objectId })
+      }
+      if (selection.plusCounters) {
+        addPlusCounters(object, selection.plusCounters)
+      }
+    }
+    if (selection.castWithoutPaying) {
+      const objectId = event.objectIds?.[0]
+      const stolen = objectId ? draft.object(objectId) : undefined
+      if (stolen) {
+        stolen.controller = event.seat
+        draft.players[event.seat].data[PENDING_STEAL_CAST] = {
+          objectId: stolen.id,
+          seat: event.seat,
+        }
+        draft.enqueue({
+          type: 'castSpell',
+          seat: event.seat,
+          objectId: stolen.id,
+          withoutPayingMana: true,
+        })
       }
     }
     if (

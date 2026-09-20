@@ -114,6 +114,20 @@ describe('delayed triggers', () => {
     expect(state.players.p1.life).toBe(40)
   })
 
+  test('a step trigger can wait for any of several named steps', () => {
+    const server = setup()
+    let state = register(
+      { ...server.state, step: 'draw' },
+      { kind: 'step', step: ['precombatMain', 'postcombatMain'], active: 'p1' },
+      [{ kind: 'gainLife', count: 2 }],
+    )
+
+    state = ok(server.rules(state, { type: 'advanceStep' }))
+    expect(state.step).toBe('precombatMain')
+    expect(state.stack[0]).toMatchObject({ kind: 'ability', controller: 'p1' })
+    expect(state.delayedTriggers).toHaveLength(0)
+  })
+
   test('removes delayed triggers controlled by a player who leaves the game', () => {
     const server = setup()
     const state = register(

@@ -3,6 +3,7 @@ import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
 import { applyCopy, millLibrary } from './effects'
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
+import { STEAL_CAST_DRAW } from './stealCast'
 
 export const choiceEffects: Plugin = {
   id: 'choiceEffects',
@@ -33,8 +34,18 @@ export const choiceEffects: Plugin = {
       millLibrary(draft, event.seat, dialog.count ?? 0)
     }
     if (dialog.kind === 'may-draw' && event.payload?.accepted === true) {
-      draft.enqueue({ type: 'draw', seat: event.seat, count: dialog.count ?? 1 })
-      draft.note(`${event.seat} draws from ${dialog.source}`)
+      const stealPending = Object.values(state.players).some((player) => {
+        const pending = player.data[STEAL_CAST_DRAW]
+        return Boolean(
+          pending
+          && typeof pending === 'object'
+          && (pending as { opponent?: string }).opponent === event.seat,
+        )
+      })
+      if (!stealPending) {
+        draft.enqueue({ type: 'draw', seat: event.seat, count: dialog.count ?? 1 })
+        draft.note(`${event.seat} draws from ${dialog.source}`)
+      }
     }
     if (dialog.kind === 'may-pay-life') {
       const land = draft.object(dialog.sourceId)
@@ -76,15 +87,46 @@ export const choiceEffects: Plugin = {
       }
       delete draft.players[event.seat].data['counterUnlessPay.amount']
     }
-    if (dialog.kind === 'destroy-permanent') {
+    if (dialog.kind === 'destroy-permanent' || dialog.kind === 'bounce-permanent') {
       const objectIds = Array.isArray(event.payload?.objectIds)
         ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
         : []
       const targetId = objectIds[0]
       const target = targetId ? draft.object(targetId) : undefined
       if (target && target.zone === 'battlefield') {
-        draft.enqueue({ type: 'move', objectId: target.id, to: 'graveyard' })
-        draft.note(`${dialog.source} destroys ${target.name}`)
+        draft.enqueue({
+          type: 'move',
+          objectId: target.id,
+          to: dialog.kind === 'bounce-permanent' ? 'hand' : 'graveyard',
+        })
+        draft.note(
+          dialog.kind === 'bounce-permanent'
+            ? `${dialog.source} returns ${target.name}`
+            : `${dialog.source} destroys ${target.name}`,
+        )
+      }
+    }
+    if (dialog.kind === 'counter-spell') {
+      const objectIds = Array.isArray(event.payload?.objectIds)
+        ? event.payload.objectIds.filter((id): id is string => typeof id === 'string')
+        : []
+      const targetId = objectIds[0]
+      const target = targetId ? draft.object(targetId) : undefined
+      if (target && target.zone === 'stack') {
+        const index = draft.stack.findIndex((candidate) => candidate.objectId === target.id)
+        if (index >= 0 && draft.stack[index].uncounterable) {
+          draft.note(`${dialog.source} cannot counter ${target.name}`)
+          return
+        }
+        if (index >= 0) {
+          const [countered] = draft.stack.splice(index, 1)
+          draft.enqueue({
+            type: 'move',
+            objectId: target.id,
+            to: finishedSpellZone(countered, 'graveyard'),
+          })
+          draft.note(`${dialog.source} counters ${target.name}`)
+        }
       }
     }
     if (dialog.kind === 'look-top-land') {

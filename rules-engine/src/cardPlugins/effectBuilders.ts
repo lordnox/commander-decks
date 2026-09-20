@@ -270,9 +270,10 @@ export const pump = (power: number, toughness: number): CardInstruction => ({
   toughness,
 })
 
-export const pumpTargetX = (multiplier = 1): CardInstruction => ({
+export const pumpTargetX = (multiplier = 1, toughnessMultiplier = multiplier): CardInstruction => ({
   kind: 'pumpTargetX',
   multiplier,
+  ...(toughnessMultiplier !== multiplier ? { toughnessMultiplier } : {}),
 })
 
 export const pumpSelf = (power: number, toughness: number): CardInstruction => ({
@@ -599,7 +600,10 @@ export const createTokenInstruction = (token: TokenSpec): CardInstruction => ({
   token,
 })
 
-export const copySelf = (): CardInstruction => ({ kind: 'copySelf' })
+export const copySelf = (extra: { for?: 'controller' | 'targetPlayer' } = {}): CardInstruction => ({
+  kind: 'copySelf',
+  ...extra,
+})
 
 export const doublePlusCounters = (): CardInstruction => ({ kind: 'doublePlusCounters' })
 
@@ -995,13 +999,18 @@ export const loseLife = (
 
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
-  on: 'discard' | 'cycle' | 'draw' | 'end' | 'combatDamage' | 'dealtCombatDamage' | 'playLand',
-  options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
+  on: Extract<CardEffect, { op: 'trigger' }>['on'],
+  options: {
+    if?: TriggerBindingIf | CardCondition
+    do: CardInstruction[]
+    targets?: Extract<CardEffect, { op: 'trigger' }>['targets']
+  },
 ): CardEffect => ({
   op: 'trigger',
   on,
   do: options.do,
   ...(options.if ? { if: options.if } : {}),
+  ...(options.targets ? { targets: options.targets } : {}),
 })
 
 export const loseLifeTargetManaValue = (): CardInstruction => ({
@@ -1350,4 +1359,36 @@ export const castModal = (
   do: [],
   modal,
   ...(options.creatureOnly ? { creatureOnly: true } : {}),
+})
+
+export const loseHalfLifeRoundedUp = (): CardInstruction => ({ kind: 'loseHalfLifeRoundedUp' })
+
+export const addManaAtNextMainFromTarget = (): CardInstruction => ({
+  kind: 'addManaAtNextMainFromTarget',
+})
+
+export const gainLifeTargetToughness = (): CardInstruction => ({ kind: 'gainLifeTargetToughness' })
+
+export const tapOpponentsCreatures = (): CardInstruction => ({ kind: 'tapOpponentsCreatures' })
+
+export const counterTargetSpell = (): CardInstruction => ({ kind: 'counterTargetSpell' })
+
+export const bounceTargetPermanent = (): CardInstruction => ({ kind: 'bounceTargetPermanent' })
+
+export const addPlusCountersToControlled = (count: number): CardInstruction => ({
+  kind: 'addPlusCountersToControlled',
+  count,
+})
+
+export const opponentMayDrawThenStealCast = (count: number): CardInstruction => ({
+  kind: 'opponentMayDrawThenStealCast',
+  count,
+})
+
+export const yourEndTargetingOpponent = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'end',
+  targets: 'opponent',
+  do: instructions,
+  if: { kind: 'controllerIsActive' },
 })

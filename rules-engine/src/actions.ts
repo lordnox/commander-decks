@@ -1475,6 +1475,7 @@ const activationTargetGroups = (
     effect?.targets === 'creature'
     || effect?.targets === 'land'
     || effect?.targets === 'any'
+    || effect?.targets === 'legendary'
   ) {
     const type = effect.targets === 'creature'
       ? 'Creature'
@@ -1486,11 +1487,14 @@ const activationTargetGroups = (
       targetGroups: [
         ...costGroups,
         {
-          label: type ?? 'Permanent',
+          label: effect.targets === 'legendary' ? 'Legendary permanent' : type ?? 'Permanent',
           min: 1,
           max: 1,
           targets: targets
-            .filter((object) => !type || object.types.includes(type))
+            .filter((object) =>
+              effect.targets === 'legendary'
+                ? object.supertypes.includes('Legendary')
+                : !type || object.types.includes(type))
             .map((object) => ({
               objectId: object.id,
               name: object.name,

@@ -24,6 +24,18 @@ export const markKnownToAll = (
   }
 }
 
+export const markKnownTo = (
+  draft: { objects: Record<string, GameObject> },
+  objectIds: string[],
+  viewers: PlayerId[],
+) => {
+  for (const id of objectIds) {
+    const object = draft.objects[id]
+    if (!object) continue
+    object.knownTo = [...new Set([...(object.knownTo ?? []), ...viewers])]
+  }
+}
+
 /** Top library card known to the viewer, if any. */
 export const revealedLibraryTop = (
   state: {

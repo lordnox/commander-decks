@@ -68,7 +68,7 @@ export type CardInstruction =
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   /** `seat` names a drawer other than the controller, snapshot when the instruction is built. */
-  | { kind: 'draw'; count: number; seat?: PlayerId }
+  | { kind: 'draw'; count: number; seat?: PlayerId; who?: 'controller' | 'triggeringPlayer' }
   | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
   | { kind: 'gainLife'; count: number | 'triggerAmount' }
   | { kind: 'drainOpponentsX'; multiplier: number }
@@ -120,7 +120,7 @@ export type CardInstruction =
       extraSubtypes: string[]
     }
   | { kind: 'attachedCopyOrToken'; cost: string; token: TokenSpec }
-  | { kind: 'copySelf' }
+  | { kind: 'copySelf'; for?: 'controller' | 'targetPlayer' }
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
   | {
@@ -143,7 +143,7 @@ export type CardInstruction =
       optional?: boolean
     }
   | { kind: 'pump'; power: number; toughness: number }
-  | { kind: 'pumpTargetX'; multiplier: number }
+  | { kind: 'pumpTargetX'; multiplier: number; toughnessMultiplier?: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'animateUntilEot'; power: number; toughness: number; fromX?: boolean }
   | { kind: 'grantUntilEot'; keywords: string[] }
@@ -293,6 +293,14 @@ export type CardInstruction =
   | { kind: 'pumpFromLinkedExilePowerApply'; applyTo: 'self' | 'stackTarget' }
   | { kind: 'putLinkedExileToGraveyardGainLife' }
   | { kind: 'putLinkedExileToGraveyardGainLifeApply' }
+  | { kind: 'loseHalfLifeRoundedUp' }
+  | { kind: 'addManaAtNextMainFromTarget' }
+  | { kind: 'gainLifeTargetToughness' }
+  | { kind: 'tapOpponentsCreatures' }
+  | { kind: 'counterTargetSpell' }
+  | { kind: 'bounceTargetPermanent' }
+  | { kind: 'addPlusCountersToControlled'; count: number }
+  | { kind: 'opponentMayDrawThenStealCast'; count: number }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -364,6 +372,8 @@ export type TargetFilter = {
   permanent?: boolean
   /** In a graveyard and moved there from the battlefield this turn (not mill or discard). */
   fromBattlefieldThisTurn?: boolean
+  attacking?: boolean
+  stealIfTypes?: string[]
 }
 
 export type CastCostCondition =
@@ -437,6 +447,9 @@ export type CardEffect =
         | 'dealtCombatDamage'
         | 'playLand'
         | 'becomesMonstrous'
+        | 'tapped'
+        | 'gainLife'
+        | 'playerAttacks'
       do: CardInstruction[]
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
@@ -468,6 +481,7 @@ export type CardEffect =
         | 'creature'
         | 'land'
         | 'room'
+        | 'legendary'
         | { filter: TargetFilter }
       sorcery?: boolean
       zone?: ZoneId
@@ -485,7 +499,7 @@ export type CardEffect =
       target: number
       filter: TargetFilter
       kickedFilter?: TargetFilter
-      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select'
+      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select' | 'libraryBottom'
       do?: CardInstruction[]
     }
   | { op: 'mana'; if: CardCondition }
