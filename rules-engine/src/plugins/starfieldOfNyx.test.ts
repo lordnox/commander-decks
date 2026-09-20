@@ -26,12 +26,12 @@ const enchantment = (
 
 const starfield = () => enchantment('Starfield of Nyx', 5)
 
-/** Charred Foyer is mana value 4, Warped Space 6, so both doors are 10. */
+/** Functional fixture with mana values 4 and 6, so both doors total 10. */
 const room = (unlockedDoors?: RoomDoorId[]) =>
-  cardTemplate('Charred Foyer // Warped Space', {
+  cardTemplate('Fixture Room Left // Fixture Room Right', {
     roomDoors: [
-      roomDoor('Charred Foyer', '{3}{R}'),
-      roomDoor('Warped Space', '{4}{R}{R}'),
+      roomDoor('Fixture Room Left', '{3}{R}'),
+      roomDoor('Fixture Room Right', '{4}{R}{R}'),
     ],
     ...(unlockedDoors ? { unlockedDoors } : {}),
   })
@@ -165,7 +165,7 @@ describe('Starfield of Nyx', () => {
     }, { random: () => 0.5, cardPlugins: [targetedResolve] })
 
     let state = settle(server)
-    const roomId = named(state, 'Charred Foyer').id
+    const roomId = named(state, 'Fixture Room Left').id
     expect(state.objects[roomId]).toMatchObject({
       manaValue: 4,
       power: 4,
@@ -204,7 +204,7 @@ describe('Starfield of Nyx', () => {
     })
 
     let state = settle(server)
-    const roomId = named(state, 'Charred Foyer').id
+    const roomId = named(state, 'Fixture Room Left').id
     // putCounters only records the counter, so 11/11 below can only come from
     // the recompute re-deriving it rather than from an eager power change.
     state = ok(server.rules(state, {
@@ -242,7 +242,7 @@ describe('Starfield of Nyx', () => {
     })
 
     let state = settle(server)
-    const roomId = named(state, 'Charred Foyer // Warped Space').id
+    const roomId = named(state, 'Fixture Room Left // Fixture Room Right').id
     state = ok(server.rules(state, {
       type: 'move',
       objectId: roomId,
