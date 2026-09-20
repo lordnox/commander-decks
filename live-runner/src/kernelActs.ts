@@ -141,6 +141,7 @@ export const applyKernelAct = (
           objectId: action.objectId,
           ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
           ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
+          ...(action.door ? { door: action.door } : {}),
           targets: (message.targetObjectIds ?? []).map((objectId) => ({
             kind: 'object' as const,
             objectId,

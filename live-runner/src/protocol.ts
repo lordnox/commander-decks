@@ -43,6 +43,7 @@ import {
   TOPDECK_DESTINATIONS,
   type TopdeckDestination,
 } from '../../shared/liveTypes'
+import type { RoomDoorId } from '../../rules-engine/src/index'
 
 export { TOPDECK_DESTINATIONS, type TopdeckDestination }
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
@@ -72,6 +73,7 @@ type InboxPayload =
         | 'castSpell'
         | 'declineFreeCast'
         | 'activateAbility'
+        | 'unlockDoor'
         | 'declareAttackers'
         | 'declareBlockers'
       objectId?: string
@@ -82,6 +84,8 @@ type InboxPayload =
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
+      /** Which half of a Room is being cast or unlocked. */
+      door?: RoomDoorId
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -144,6 +148,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     targetObjectIds?: unknown
     abilityId?: unknown
     castOption?: unknown
+    door?: unknown
     mana?: unknown
     attackers?: unknown
     x?: unknown
@@ -198,6 +203,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const castOption = message.castOption
       const phyrexianLife = message.phyrexianLife
       const alternativeCost = message.alternativeCost
+      const door = message.door
       const text = message.text
       const attackers = message.attackers
       const x = message.x
@@ -251,6 +257,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           'castSpell',
           'declineFreeCast',
           'activateAbility',
+          'unlockDoor',
         ].includes(kind as string)
         || typeof objectId !== 'string'
         || !objectId
@@ -264,7 +271,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           | 'tapForMana'
           | 'castSpell'
           | 'declineFreeCast'
-          | 'activateAbility',
+          | 'activateAbility'
+          | 'unlockDoor',
         objectId,
         ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),
         ...(typeof targetPlayerId === 'string' ? { targetPlayerId } : {}),
@@ -277,6 +285,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           (index): index is number => Number.isSafeInteger(index) && Number(index) >= 0,
         ) ? { phyrexianLife } : {}),
         ...(alternativeCost === 'withoutPayingMana' ? { alternativeCost } : {}),
+        ...(door === 'left' || door === 'right' ? { door } : {}),
         ...(typeof text === 'string' ? { text } : {}),
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }

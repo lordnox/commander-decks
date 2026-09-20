@@ -107,6 +107,23 @@ describe('inbox', () => {
       kind: 'declineFreeCast',
       objectId: 'rebound',
     })
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"room","door":"left"}')).toEqual({
+      type: 'act',
+      kind: 'castSpell',
+      objectId: 'room',
+      door: 'left',
+    })
+    expect(parseInbox('{"type":"act","kind":"unlockDoor","objectId":"room","door":"right"}')).toEqual({
+      type: 'act',
+      kind: 'unlockDoor',
+      objectId: 'room',
+      door: 'right',
+    })
+    expect(parseInbox('{"type":"act","kind":"unlockDoor","objectId":"room","door":"middle"}')).toEqual({
+      type: 'act',
+      kind: 'unlockDoor',
+      objectId: 'room',
+    })
     expect(parseInbox('{"type":"act","kind":"activateAbility","objectId":"teferi","abilityId":"teferi.plus-one","targetObjectIds":["rock","bear","land"]}')).toEqual({
       type: 'act',
       kind: 'activateAbility',
