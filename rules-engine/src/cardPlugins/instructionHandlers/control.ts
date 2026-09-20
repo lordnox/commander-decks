@@ -1,4 +1,5 @@
 import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pendingDialog'
+import { STEAL_CAST_DRAW } from '../stealCast'
 import { conditionHolds } from '../effects'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
@@ -131,6 +132,61 @@ const mayDraw: InstructionHandler<'mayDraw'> = ({ draft, source }, instruction) 
   })
 }
 
+const opponentMayDrawThenStealCast: InstructionHandler<'opponentMayDrawThenStealCast'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const opponent = item?.targets[0]?.kind === 'player' ? item.targets[0].player : undefined
+  if (!opponent) return
+  draft.players[source.controller].data[STEAL_CAST_DRAW] = {
+    sourceId: source.id,
+    opponent,
+    count: instruction.count,
+  }
+  setPendingDialog(draft, {
+    sourceId: source.id,
+    source: source.name,
+    seat: opponent,
+    kind: 'may-draw',
+    prompt: `You may draw ${instruction.count} cards.`,
+    waiting: 'is deciding whether to draw.',
+    judge: `Waiting for ${source.name}'s optional draw.`,
+    chosenEvent: DIALOG_CHOSEN,
+    destinations: ['skip', 'target'],
+    count: instruction.count,
+  })
+}
+
+const counterTargetSpell: InstructionHandler<'counterTargetSpell'> = ({ draft, source }) => {
+  setPendingDialog(draft, {
+    sourceId: source.id,
+    source: source.name,
+    seat: source.controller,
+    kind: 'counter-spell',
+    prompt: 'Counter target spell.',
+    waiting: 'is choosing a spell to counter.',
+    judge: `Waiting for ${source.name} to pick a stack target.`,
+    chosenEvent: DIALOG_CHOSEN,
+    destinations: ['skip', 'target'],
+    requirements: { target: { min: 1, max: 1 } },
+  })
+}
+
+const bounceTargetPermanent: InstructionHandler<'bounceTargetPermanent'> = ({ draft, source }) => {
+  setPendingDialog(draft, {
+    sourceId: source.id,
+    source: source.name,
+    seat: source.controller,
+    kind: 'bounce-permanent',
+    prompt: "Return target permanent to its owner's hand.",
+    waiting: 'is choosing a permanent to return.',
+    judge: `Waiting for ${source.name} to pick a target.`,
+    chosenEvent: DIALOG_CHOSEN,
+    destinations: ['skip', 'target'],
+    requirements: { target: { min: 1, max: 1 } },
+  })
+}
+
 const chooseModes: InstructionHandler<'chooseModes'> = (
   { draft, source },
   instruction,
@@ -141,13 +197,17 @@ const chooseModes: InstructionHandler<'chooseModes'> = (
     options: instruction.modes.map((mode) => mode.label),
     prompt: instruction.choose === 'any'
       ? `${source.name}: choose any number of modes.`
-      : `Choose one — ${source.name}.`,
+      : instruction.choose === 'two'
+        ? `Choose two — ${source.name}.`
+        : `Choose one — ${source.name}.`,
     waiting: 'is choosing modes.',
     judge: `Waiting for ${source.name} mode choice.`,
     destinations: ['skip', 'target'],
     ...(instruction.choose === 'one'
       ? { requirements: { target: { min: 1, max: 1 } } }
-      : {}),
+      : instruction.choose === 'two'
+        ? { requirements: { target: { min: 2, max: 2 } } }
+        : {}),
   })
 }
 
@@ -236,6 +296,9 @@ export const controlHandlers = {
   putFromHand,
   optionalMill,
   mayDraw,
+  opponentMayDrawThenStealCast,
+  counterTargetSpell,
+  bounceTargetPermanent,
   chooseModes,
   searchLibrary,
   counterUnlessPay,

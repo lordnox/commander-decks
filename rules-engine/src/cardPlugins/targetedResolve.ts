@@ -46,6 +46,7 @@ export const validTarget = (
   if (filter.nonblack && object.colors.includes('B')) return false
   if (object.controller !== controller && hasKeyword(object, 'hexproof', state)) return false
   if (filter.nonlegendary && object.supertypes.includes('Legendary')) return false
+  if (filter.attacking && object.attacking === null) return false
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false
@@ -139,11 +140,17 @@ export const targetedResolve: Plugin = {
         }
         const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
         if (index < 0) continue
+        const stealToBattlefield = Boolean(
+          effect.filter.stealIfTypes?.some((type) => object.types.includes(type)),
+        )
         const [countered] = draft.stack.splice(index, 1)
         draft.enqueue({
           type: 'move',
           objectId: object.id,
-          to: finishedSpellZone(countered, 'graveyard'),
+          to: stealToBattlefield
+            ? 'battlefield'
+            : finishedSpellZone(countered, 'graveyard'),
+          ...(stealToBattlefield ? { controller: item.controller } : {}),
         })
       } else if (effect.action === 'copy') {
         const stackItem = state.stack.find((candidate) => candidate.objectId === object.id)
@@ -173,6 +180,8 @@ export const targetedResolve: Plugin = {
           ? 'exile'
           : effect.action === 'bounce'
             ? 'hand'
+            : effect.action === 'libraryBottom'
+              ? 'library'
             : effect.action === 'reanimate'
               ? 'battlefield'
               : 'graveyard'
@@ -181,8 +190,8 @@ export const targetedResolve: Plugin = {
           type: 'move',
           objectId: object.id,
           to: destination,
-          // A reanimated card arrives under the spell's controller, not its owner.
           ...(destination === 'battlefield' ? { controller: item.controller } : {}),
+          ...(effect.action === 'libraryBottom' ? { position: 'bottom' as const } : {}),
         })
       }
       if (effect.do) runInstructions(draft, source, effect.do, item)

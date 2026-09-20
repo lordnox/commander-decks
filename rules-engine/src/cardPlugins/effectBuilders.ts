@@ -161,9 +161,10 @@ export const pump = (power: number, toughness: number): CardInstruction => ({
   toughness,
 })
 
-export const pumpTargetX = (multiplier = 1): CardInstruction => ({
+export const pumpTargetX = (multiplier = 1, toughnessMultiplier = multiplier): CardInstruction => ({
   kind: 'pumpTargetX',
   multiplier,
+  ...(toughnessMultiplier !== multiplier ? { toughnessMultiplier } : {}),
 })
 
 export const pumpSelf = (power: number, toughness: number): CardInstruction => ({
@@ -258,7 +259,7 @@ export const optionalMill = (count: number): CardInstruction => ({ kind: 'option
 export const mayDraw = (count: number): CardInstruction => ({ kind: 'mayDraw', count })
 
 export const chooseModes = (
-  choose: 'one' | 'any',
+  choose: 'one' | 'any' | 'two',
   modes: ModalMode[],
 ): CardInstruction => ({ kind: 'chooseModes', choose, modes })
 
@@ -395,7 +396,10 @@ export const createTokenInstruction = (token: TokenSpec): CardInstruction => ({
   token,
 })
 
-export const copySelf = (): CardInstruction => ({ kind: 'copySelf' })
+export const copySelf = (extra: { for?: 'controller' | 'targetPlayer' } = {}): CardInstruction => ({
+  kind: 'copySelf',
+  ...extra,
+})
 
 export const doublePlusCounters = (): CardInstruction => ({ kind: 'doublePlusCounters' })
 
@@ -610,13 +614,18 @@ export const loseLife = (
 
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
-  on: 'discard' | 'draw' | 'end' | 'combatDamage' | 'dealtCombatDamage' | 'playLand',
-  options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
+  on: Extract<CardEffect, { op: 'trigger' }>['on'],
+  options: {
+    if?: TriggerBindingIf | CardCondition
+    do: CardInstruction[]
+    targets?: Extract<CardEffect, { op: 'trigger' }>['targets']
+  },
 ): CardEffect => ({
   op: 'trigger',
   on,
   do: options.do,
   ...(options.if ? { if: options.if } : {}),
+  ...(options.targets ? { targets: options.targets } : {}),
 })
 
 export const loseLifeTargetManaValue = (): CardInstruction => ({
@@ -878,6 +887,12 @@ export const modalChooseOne = (...modes: ModalMode[]): CardEffect => ({
   modes,
 })
 
+export const modalChooseTwo = (...modes: ModalMode[]): CardEffect => ({
+  op: 'modal',
+  choose: 'two',
+  modes,
+})
+
 export const casts = (
   ...args: Array<CardInstruction | { creatureOnly?: boolean }>
 ): CardEffect => {
@@ -902,4 +917,36 @@ export const castModal = (
   do: [],
   modal,
   ...(options.creatureOnly ? { creatureOnly: true } : {}),
+})
+
+export const loseHalfLifeRoundedUp = (): CardInstruction => ({ kind: 'loseHalfLifeRoundedUp' })
+
+export const addManaAtNextMainFromTarget = (): CardInstruction => ({
+  kind: 'addManaAtNextMainFromTarget',
+})
+
+export const gainLifeTargetToughness = (): CardInstruction => ({ kind: 'gainLifeTargetToughness' })
+
+export const tapOpponentsCreatures = (): CardInstruction => ({ kind: 'tapOpponentsCreatures' })
+
+export const counterTargetSpell = (): CardInstruction => ({ kind: 'counterTargetSpell' })
+
+export const bounceTargetPermanent = (): CardInstruction => ({ kind: 'bounceTargetPermanent' })
+
+export const addPlusCountersToControlled = (count: number): CardInstruction => ({
+  kind: 'addPlusCountersToControlled',
+  count,
+})
+
+export const opponentMayDrawThenStealCast = (count: number): CardInstruction => ({
+  kind: 'opponentMayDrawThenStealCast',
+  count,
+})
+
+export const yourEndTargetingOpponent = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'end',
+  targets: 'opponent',
+  do: instructions,
+  if: { kind: 'controllerIsActive' },
 })

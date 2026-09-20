@@ -396,6 +396,8 @@ const CHOICE_KINDS = new Set([
   'fightOwnedVsOpponent', 'counterUnlessPay', 'copyTargetSpell',
   'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled',
   'eachPlayerDiscard', 'eachPlayerSacrifice',
+  'counterTargetSpell', 'bounceTargetPermanent', 'addPlusCountersToControlled',
+  'opponentMayDrawThenStealCast',
 ])
 
 const hasKind = (instructions: CardInstruction[], ...kinds: string[]) =>
@@ -458,6 +460,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
       if (hasKind(listed, 'searchLibrary')) ids.add('librarySearch')
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
+      if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
     }
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')

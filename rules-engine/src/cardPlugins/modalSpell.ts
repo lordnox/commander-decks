@@ -28,13 +28,14 @@ const chooseModesInstruction = (object: { name: string; effects?: ReturnType<typ
 const chosenModes = (
   modes: ModalMode[],
   payload: { modes?: unknown } | undefined,
-  choose: 'one' | 'any',
+  choose: 'one' | 'any' | 'two',
 ) => {
   const labels = Array.isArray(payload?.modes)
     ? payload.modes.filter((mode): mode is string => typeof mode === 'string')
     : []
   const selected = modes.filter((mode) => labels.includes(mode.label))
   if (choose === 'one') return selected.slice(0, 1)
+  if (choose === 'two') return selected.length === 2 ? selected : []
   return selected
 }
 
@@ -53,24 +54,50 @@ export const modalSpell: Plugin = {
       payload: { sourceId: item.objectId },
     }
   },
+  legal: ({ state, event }) => {
+    if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return
+    const dialog = pendingDialogFor(state, event.seat)
+    if (dialog?.kind !== 'choose-modes') return
+    const source = state.objects[dialog.sourceId]
+    const modal = source ? modalEffects(source)[0] : undefined
+    const instruction = source ? chooseModesInstruction(source) : undefined
+    const choose = modal && modal.op === 'modal'
+      ? modal.choose
+      : instruction?.choose
+    if (choose !== 'two' && choose !== 'one') return
+    const modes = modal && modal.op === 'modal' ? modal.modes : instruction?.modes
+    if (!modes) return
+    const selected = chosenModes(modes, event.payload, choose)
+    if (choose === 'two' && selected.length !== 2) {
+      return `${dialog.source} requires exactly two modes`
+    }
+    if (choose === 'one' && selected.length !== 1) {
+      return `${dialog.source} requires exactly one mode`
+    }
+  },
   apply: ({ state, event, draft }) => {
     if (event.type === 'custom' && event.name === MODAL_CHOOSE && event.seat) {
       const sourceId = event.payload?.sourceId
       const source = typeof sourceId === 'string' ? draft.object(sourceId) : undefined
       const modal = source ? modalEffects(source)[0] : undefined
       if (!source || !modal || modal.op !== 'modal') return
+      const chooseTwo = modal.choose === 'two'
       setPendingDialog(draft, {
         sourceId: source.id,
         source: source.name,
         seat: event.seat,
         kind: 'choose-modes',
         options: modal.modes.map((mode) => mode.label),
-        prompt: `Choose one — ${source.name}.`,
+        prompt: chooseTwo
+          ? `Choose two — ${source.name}.`
+          : `Choose one — ${source.name}.`,
         waiting: 'is choosing a mode.',
         judge: `Waiting for ${source.name} mode choice.`,
         chosenEvent: DIALOG_CHOSEN,
         destinations: ['skip', 'target'],
-        requirements: { target: { min: 1, max: 1 } },
+        requirements: chooseTwo
+          ? { target: { min: 2, max: 2 } }
+          : { target: { min: 1, max: 1 } },
       })
       draft.players[event.seat].data['modalSpell.modeIds'] = modal.modes.map((mode) => mode.id)
       return
@@ -84,9 +111,9 @@ export const modalSpell: Plugin = {
       const modal = modalEffects(source)[0]
       const item = draft.stack.find((candidate) => candidate.objectId === dialog.sourceId)
       if (modal && modal.op === 'modal' && item) {
-        const [mode] = chosenModes(modal.modes, event.payload, modal.choose)
-        if (!mode) return
-        item.choices = [mode.id, '__modalRan__']
+        const selected = chosenModes(modal.modes, event.payload, modal.choose)
+        if (selected.length === 0) return
+        item.choices = [...selected.map((mode) => mode.id), '__modalRan__']
         draft.enqueue({ type: 'resolveTop' })
         return
       }
@@ -109,13 +136,13 @@ export const modalSpell: Plugin = {
     if (!item || !object || !modal || modal.op !== 'modal') return
     const choices = item.choices
     if (!choices?.[0] || choices.includes('__modalExecuted__')) return
-    const mode = modal.modes.find((entry) => entry.id === choices[0])
-    if (!mode) return
+    const selected = modal.modes.filter((entry) => choices.includes(entry.id))
+    if (selected.length === 0) return
     choices.push('__modalExecuted__')
     const pendingBefore = draft.pending.length
-    runInstructions(draft, object, mode.do, item)
+    for (const mode of selected) runInstructions(draft, object, mode.do, item)
     const instructions = draft.pending.splice(pendingBefore)
     draft.pending.unshift(...instructions)
-    draft.note(`${object.name}: ${mode.label}`)
+    draft.note(`${object.name}: ${selected.map((mode) => mode.label).join('; ')}`)
   },
 }

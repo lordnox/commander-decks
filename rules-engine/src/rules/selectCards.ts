@@ -1,8 +1,10 @@
 import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
 import type { CardInstruction } from '../cardPlugins/effects'
+import { addPlusCounters } from '../cardPlugins/effectRuntime'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
+export const PENDING_STEAL_CAST = 'stealCast.pending'
 
 export type CardSelectionKind =
   | 'choose'
@@ -50,6 +52,8 @@ export type PendingCardSelection = {
   moveSelectedController?: PlayerId
   addSubtypes?: string[]
   tapSelected?: boolean
+  plusCounters?: number
+  castWithoutPaying?: boolean
   action?: {
     kind: 'dredge'
     replacedBy: string[]
@@ -344,6 +348,26 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         if (selection.tapSelected) {
           draft.enqueue({ type: 'tap', objectId })
         }
+      }
+      if (selection.plusCounters) {
+        addPlusCounters(object, selection.plusCounters)
+      }
+    }
+    if (selection.castWithoutPaying) {
+      const objectId = event.objectIds?.[0]
+      const stolen = objectId ? draft.object(objectId) : undefined
+      if (stolen) {
+        stolen.controller = event.seat
+        draft.players[event.seat].data[PENDING_STEAL_CAST] = {
+          objectId: stolen.id,
+          seat: event.seat,
+        }
+        draft.enqueue({
+          type: 'castSpell',
+          seat: event.seat,
+          objectId: stolen.id,
+          withoutPayingMana: true,
+        })
       }
     }
     if (

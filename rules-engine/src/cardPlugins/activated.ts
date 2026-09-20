@@ -17,7 +17,7 @@ const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
   target: TargetRef | undefined,
-  kind: 'creature' | 'land' | 'room',
+  kind: 'creature' | 'land' | 'room' | 'legendary',
   seat: string,
 ) => {
   if (target?.kind !== 'object') return false
@@ -26,6 +26,7 @@ const legalActivateTarget = (
   if (kind === 'room') {
     return Boolean(object.roomDoors && object.controller === seat)
   }
+  if (kind === 'legendary') return object.supertypes.includes('Legendary')
   return object.types.includes(kind === 'creature' ? 'Creature' : 'Land')
 }
 
@@ -97,7 +98,12 @@ export const activated: Plugin = {
     ) {
       return `${source.name} can be activated only as a sorcery`
     }
-    if (effect.targets === 'creature' || effect.targets === 'land' || effect.targets === 'room') {
+    if (
+      effect.targets === 'creature'
+      || effect.targets === 'land'
+      || effect.targets === 'room'
+      || effect.targets === 'legendary'
+    ) {
       const targets = event.targets ?? []
       if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets, event.seat)) {
         return `${source.name} needs one ${effect.targets} target`

@@ -153,9 +153,13 @@ const createTokenHandler: InstructionHandler<'createToken'> = (
   })
 }
 
-const copySelf: InstructionHandler<'copySelf'> = ({ draft, source }) => {
+const copySelf: InstructionHandler<'copySelf'> = ({ draft, source, item }, instruction) => {
   const live = draft.object(source.id) ?? source
-  createToken(draft, live.controller, copyTokenTemplate(live))
+  const controller = instruction.for === 'targetPlayer'
+    && item?.targets[0]?.kind === 'player'
+    ? item.targets[0].player
+    : live.controller
+  createToken(draft, controller, copyTokenTemplate(live))
 }
 
 const copyControlledCreature: InstructionHandler<'copyControlledCreature'> = (
@@ -286,6 +290,19 @@ const fightOwnedVsOpponent: InstructionHandler<'fightOwnedVsOpponent'> = (
   })
 }
 
+const tapOpponentsCreatures: InstructionHandler<'tapOpponentsCreatures'> = (
+  { draft, source },
+) => {
+  for (const object of Object.values(draft.objects)) {
+    if (
+      object.zone !== 'battlefield'
+      || !object.types.includes('Creature')
+      || object.controller === source.controller
+    ) continue
+    draft.enqueue({ type: 'tap', objectId: object.id })
+  }
+}
+
 const copyTargetSpell: InstructionHandler<'copyTargetSpell'> = (
   { draft, source, item },
 ) => {
@@ -317,4 +334,5 @@ export const combatCopyHandlers = {
   combatDialogueUntilEot,
   fightOwnedVsOpponent,
   copyTargetSpell,
+  tapOpponentsCreatures,
 } satisfies Partial<InstructionHandlers>

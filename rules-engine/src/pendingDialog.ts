@@ -35,7 +35,9 @@ export type PendingDialog = {
     | 'fight-own'
     | 'may-search'
     | 'counter-unless'
+    | 'counter-spell'
     | 'destroy-permanent'
+    | 'bounce-permanent'
     | 'look-top-land'
   prompt: string
   waiting: string
@@ -183,7 +185,13 @@ export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
         && object.zone === 'stack'
         && !object.types.includes('Creature'))
   }
-  if (dialog.kind === 'destroy-permanent') {
+  if (dialog.kind === 'counter-spell') {
+    return state.stack
+      .map((item) => state.objects[item.objectId])
+      .filter((object): object is NonNullable<typeof object> =>
+        Boolean(object) && object.zone === 'stack')
+  }
+  if (dialog.kind === 'destroy-permanent' || dialog.kind === 'bounce-permanent') {
     return Object.values(state.objects)
       .filter((object) =>
         object.zone === 'battlefield'

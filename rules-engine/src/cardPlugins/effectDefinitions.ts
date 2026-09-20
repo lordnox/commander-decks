@@ -46,7 +46,7 @@ export type CardInstruction =
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   /** `seat` names a drawer other than the controller, snapshot when the instruction is built. */
-  | { kind: 'draw'; count: number; seat?: PlayerId }
+  | { kind: 'draw'; count: number; seat?: PlayerId; who?: 'controller' | 'triggeringPlayer' }
   | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
   | { kind: 'gainLife'; count: number | 'triggerAmount' }
   | { kind: 'drainOpponentsX'; multiplier: number }
@@ -83,7 +83,7 @@ export type CardInstruction =
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'createToken'; token: TokenSpec }
   | { kind: 'attachedCopyOrToken'; cost: string; token: TokenSpec }
-  | { kind: 'copySelf' }
+  | { kind: 'copySelf'; for?: 'controller' | 'targetPlayer' }
   | { kind: 'doublePlusCounters' }
   | { kind: 'if'; if: CardCondition; whenTrue: CardInstruction[]; whenFalse?: CardInstruction[] }
   | { kind: 'surveil'; count: number }
@@ -100,7 +100,7 @@ export type CardInstruction =
       optional?: boolean
     }
   | { kind: 'pump'; power: number; toughness: number }
-  | { kind: 'pumpTargetX'; multiplier: number }
+  | { kind: 'pumpTargetX'; multiplier: number; toughnessMultiplier?: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'animateUntilEot'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
@@ -110,7 +110,7 @@ export type CardInstruction =
   | { kind: 'addChosenColorMana' }
   | { kind: 'optionalMill'; count: number }
   | { kind: 'mayDraw'; count: number; seat?: PlayerId }
-  | { kind: 'chooseModes'; choose: 'one' | 'any'; modes: ModalMode[] }
+  | { kind: 'chooseModes'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
   | { kind: 'eachPlayerDiscard'; count: number }
   | { kind: 'eachPlayerDraw'; count: number }
   | { kind: 'eachPlayerLoseLife'; amount: number }
@@ -167,11 +167,19 @@ export type CardInstruction =
   | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
   | { kind: 'copyTargetForEachOtherPlayer' }
   | { kind: 'combatDialogueUntilEot' }
+  | { kind: 'loseHalfLifeRoundedUp' }
+  | { kind: 'addManaAtNextMainFromTarget' }
+  | { kind: 'gainLifeTargetToughness' }
+  | { kind: 'tapOpponentsCreatures' }
+  | { kind: 'counterTargetSpell' }
+  | { kind: 'bounceTargetPermanent' }
+  | { kind: 'addPlusCountersToControlled'; count: number }
+  | { kind: 'opponentMayDrawThenStealCast'; count: number }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
 export type ModalSpec = {
-  choose: 'one' | 'any'
+  choose: 'one' | 'any' | 'two'
   modes: ModalMode[]
 }
 
@@ -215,6 +223,8 @@ export type TargetFilter = {
   spellTargetsControlledPermanent?: boolean
   players?: 'any' | 'opponent'
   nonlegendary?: boolean
+  attacking?: boolean
+  stealIfTypes?: string[]
 }
 
 export type CastCostCondition =
@@ -286,6 +296,9 @@ export type CardEffect =
         | 'combatDamage'
         | 'dealtCombatDamage'
         | 'playLand'
+        | 'tapped'
+        | 'gainLife'
+        | 'playerAttacks'
       do: CardInstruction[]
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
@@ -296,12 +309,12 @@ export type CardEffect =
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
     }
-  | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
+  | { op: 'modal'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
   | {
       op: 'activate'
       id: string
       manaAbility?: boolean
-      targets?: 'any' | 'opponent' | 'teferiSunsetPlusOne' | 'creature' | 'land' | 'room'
+      targets?: 'any' | 'opponent' | 'teferiSunsetPlusOne' | 'creature' | 'land' | 'room' | 'legendary'
       sorcery?: boolean
       zone?: ZoneId
       costs: ActivateCost
@@ -316,7 +329,7 @@ export type CardEffect =
       target: number
       filter: TargetFilter
       kickedFilter?: TargetFilter
-      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select'
+      action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select' | 'libraryBottom'
       do?: CardInstruction[]
     }
   | { op: 'mana'; if: CardCondition }

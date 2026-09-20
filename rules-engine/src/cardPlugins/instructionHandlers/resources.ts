@@ -3,6 +3,7 @@ import { lifeLostThisTurn } from '../../plugins/life'
 import { openFreeCast } from '../../plugins/rebound'
 import { initiateDiscard } from '../../rules/discard'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
+import { openCardSelection } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
@@ -28,8 +29,12 @@ const addMana: InstructionHandler<'addMana'> = ({ draft, source }, instruction) 
   draft.enqueue({ type: 'addMana', seat: source.controller, mana: instruction.mana })
 }
 
-const draw: InstructionHandler<'draw'> = ({ draft, source, buffer }, instruction) => {
-  const seat = instruction.seat ?? source.controller
+const draw: InstructionHandler<'draw'> = ({ draft, source, item, buffer }, instruction) => {
+  const seat = instruction.seat
+    ?? (instruction.who === 'triggeringPlayer'
+      && typeof item?.payload?.triggeringPlayer === 'string'
+      ? item.payload.triggeringPlayer
+      : source.controller)
   if (buffer) {
     buffer.push({ kind: 'draw', remaining: instruction.count, seat })
     return
@@ -170,11 +175,13 @@ const winGame: InstructionHandler<'winGame'> = ({ draft, source }) => {
 }
 
 const addPlusCounters: InstructionHandler<'addPlusCounters'> = (
-  { draft, item },
+  { draft, source, item },
   instruction,
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object'
+    ? draft.object(target.objectId)
+    : draft.object(source.id)
   if (object) applyPlusCounters(object, instruction.count)
 }
 
@@ -260,7 +267,8 @@ const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, item }, instruc
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   if (!object || object.power === null || object.toughness === null) return
   const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
-  changeStatsUntilEndOfTurn(object, amount, amount)
+  const toughness = Math.max(0, item?.x ?? 0) * (instruction.toughnessMultiplier ?? instruction.multiplier)
+  changeStatsUntilEndOfTurn(object, amount, toughness)
 }
 
 const pumpSelf: InstructionHandler<'pumpSelf'> = ({ draft, source }, instruction) => {
@@ -327,6 +335,77 @@ const gainLifeTargetPower: InstructionHandler<'gainLifeTargetPower'> = (
       source: source.id,
     })
   }
+}
+
+const gainLifeTargetToughness: InstructionHandler<'gainLifeTargetToughness'> = (
+  { draft, source, item },
+) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const amount = object?.toughness ?? 0
+  if (amount > 0) {
+    draft.enqueue({
+      type: 'gainLife',
+      seat: object?.controller ?? source.controller,
+      amount,
+      source: source.id,
+    })
+  }
+}
+
+const loseHalfLifeRoundedUp: InstructionHandler<'loseHalfLifeRoundedUp'> = (
+  { draft, source },
+) => {
+  const life = draft.players[source.controller]?.life ?? 0
+  const amount = Math.ceil(life / 2)
+  if (amount > 0) {
+    draft.enqueue({
+      type: 'loseLife',
+      seat: source.controller,
+      amount,
+      source: source.id,
+    })
+  }
+}
+
+const addManaAtNextMainFromTarget: InstructionHandler<'addManaAtNextMainFromTarget'> = (
+  { draft, source, item },
+) => {
+  const target = item?.targets[0]
+  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const amount = object ? manaValueOf(object) : 0
+  if (amount <= 0) return
+  registerDelayedTrigger(
+    draft,
+    source,
+    { kind: 'step', step: ['precombatMain', 'postcombatMain'], active: source.controller },
+    [{ kind: 'addMana', mana: { C: amount } }],
+  )
+}
+
+const addPlusCountersToControlled: InstructionHandler<'addPlusCountersToControlled'> = (
+  { draft, source },
+  instruction,
+) => {
+  const candidates = Object.values(draft.objects)
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller === source.controller
+      && object.types.includes('Creature'))
+    .map((object) => object.id)
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'choose',
+    count: 1,
+    min: 1,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Put ${instruction.count} +1/+1 counter(s) on a creature you control.`,
+    destinations: ['target'],
+    plusCounters: instruction.count,
+  })
 }
 
 const addUntilCleanupRule: InstructionHandler<'addUntilCleanupRule'> = (
@@ -466,6 +545,10 @@ export const resourceHandlers = {
   untapTarget,
   addManaPerSwamp,
   gainLifeTargetPower,
+  gainLifeTargetToughness,
+  loseHalfLifeRoundedUp,
+  addManaAtNextMainFromTarget,
+  addPlusCountersToControlled,
   addUntilCleanupRule,
   addChosenColorMana,
   drawAtNextUpkeep,

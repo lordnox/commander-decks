@@ -4,7 +4,7 @@ import type { GameObject, PlayerId } from './types'
 export const isKnownTo = (
   object: GameObject,
   viewer: PlayerId | null,
-  playerOrder: PlayerId[],
+  _playerOrder: PlayerId[],
 ) => {
   const known = object.knownTo
   if (!known || known.length === 0) return false
@@ -21,6 +21,18 @@ export const markKnownToAll = (
     const object = draft.objects[id]
     if (!object) continue
     object.knownTo = all
+  }
+}
+
+export const markKnownTo = (
+  draft: { objects: Record<string, GameObject> },
+  objectIds: string[],
+  viewers: PlayerId[],
+) => {
+  for (const id of objectIds) {
+    const object = draft.objects[id]
+    if (!object) continue
+    object.knownTo = [...new Set([...(object.knownTo ?? []), ...viewers])]
   }
 }
 
