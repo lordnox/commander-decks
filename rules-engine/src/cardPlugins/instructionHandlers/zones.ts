@@ -15,6 +15,48 @@ import { runRevealUntil } from '../revealUntil'
 import { returnAsEnchantmentOnly } from '../continuousEffects'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
+const devour: InstructionHandler<'devour'> = ({ draft, source, run }, instruction) => {
+  const candidates = Object.values(draft.objects)
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller === source.controller
+      && instruction.types.some((type) => object.types.includes(type)))
+    .map((object) => object.id)
+  if (candidates.length === 0) {
+    run(instruction.then ?? [], source)
+    return
+  }
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'sacrifice',
+    count: candidates.length,
+    min: 0,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `You may sacrifice any number of ${instruction.types.join('/')}s. ${source.name} enters with ${instruction.countersPer} +1/+1 counter(s) on it for each.`,
+    triggerInstructions: [
+      {
+        kind: 'addPlusCountersFromSacrifice',
+        countersPer: instruction.countersPer,
+      },
+      ...(instruction.then ?? []),
+    ],
+    triggerPayload: { devour: true },
+  })
+}
+
+const addPlusCountersFromSacrifice: InstructionHandler<'addPlusCountersFromSacrifice'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const sacrificed = item?.payload?.sacrificedCount
+  const count = typeof sacrificed === 'number'
+    ? sacrificed * instruction.countersPer
+    : 0
+  if (count > 0) addPlusCounters(draft.object(source.id) ?? source, count)
+}
+
 const selfMill: InstructionHandler<'selfMill'> = ({ draft, source }, instruction) => {
   millLibrary(draft, source.controller, instruction.count)
 }
@@ -676,6 +718,8 @@ const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> =
 }
 
 export const zoneHandlers = {
+  devour,
+  addPlusCountersFromSacrifice,
   selfMill,
   millTarget,
   bounceSelf,

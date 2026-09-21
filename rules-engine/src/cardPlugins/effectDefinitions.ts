@@ -33,6 +33,7 @@ export type CardCondition =
   | { kind: 'notMonstrous' }
   /** Intervening if for "if it was a creature" on a dies trigger (LKI: still a creature in graveyard). */
   | { kind: 'wasCreature' }
+  | { kind: 'stackXAtLeast'; min: number }
 
 export type GiftSpec = {
   label?: string
@@ -225,6 +226,7 @@ export type CardInstruction =
       toughness: number
       trample?: boolean
       powerFromGreatest?: boolean
+      fromStackX?: boolean
       nonHuman?: boolean
       other?: boolean
     }
@@ -233,7 +235,17 @@ export type CardInstruction =
   | { kind: 'counterUnlessPay'; amount: number }
   | { kind: 'copyTargetSpell' }
   | { kind: 'destroyTargetPermanent'; types: string[] }
-  | { kind: 'lookTopPutLand'; count: number; orHand?: boolean }
+  | {
+      kind: 'lookTopPutLand'
+      count: number
+      orHand?: boolean
+      countFromPower?: boolean
+      anyNumber?: boolean
+      tapped?: boolean
+      shuffleAfter?: boolean
+    }
+  | { kind: 'devour'; types: string[]; countersPer: number; then?: CardInstruction[] }
+  | { kind: 'addPlusCountersFromSacrifice'; countersPer: number }
   | { kind: 'grantControlled'; keywords: string[]; other?: boolean; nonHuman?: boolean }
   | { kind: 'preventCombatDamage'; from?: 'target' | 'all'; toController?: boolean }
   | { kind: 'untapTarget' }
@@ -406,6 +418,10 @@ export type SearchSpec = {
   sacrificeLands?: number
   /** Sacrificed while resolving, as Scapeshift's first sentence. */
   sacrificeOnResolve?: 'any'
+  zones?: ZoneId[]
+  maxManaValue?: number | 'x'
+  shuffleIfSearched?: boolean
+  then?: CardInstruction[]
   empoweredMax?: number
   empoweredIf?: CardCondition
   split?: {
@@ -550,6 +566,9 @@ export type CardEffect =
         do: CardInstruction[]
       }
       pumpPerLinkedExile?: { power: number; toughness: number }
+      ward?: { mana?: number; sacrifice?: { count: number; nonland?: boolean } }
+      exileOpponentGraveyard?: boolean
+      playExiledWithLife?: boolean
     }
   | { op: 'handler'; pluginId: string }
   | {

@@ -141,6 +141,27 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Wall of Shards')?.handlerIds).toEqual(['cumulativeUpkeep'])
   })
 
+  test('the Sin Fall finisher cards load their handlers', () => {
+    expect(missingCardPlugins([
+      'Famished Worldsire',
+      'Finale of Devastation',
+      'Valgavoth, Terror Eater',
+    ])).toEqual([])
+    expect(handlerIdsForNames(['Famished Worldsire']).toSorted()).toEqual([
+      'choiceEffects',
+      'ward',
+    ])
+    expect(handlerIdsForNames(['Finale of Devastation']).toSorted()).toEqual([
+      'castCosts',
+      'librarySearch',
+    ])
+    expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([
+      'exiledWith',
+      'ward',
+    ])
+    expect(cardPluginEntry('Valgavoth, Terror Eater')?.pluginIds).toEqual(['exiledWith'])
+  })
+
   test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {
     expect(missingCardPlugins([
       'Abundance',

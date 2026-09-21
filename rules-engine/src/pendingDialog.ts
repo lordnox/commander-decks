@@ -39,6 +39,7 @@ export type PendingDialog = {
     | 'destroy-permanent'
     | 'bounce-permanent'
     | 'look-top-land'
+    | 'ward-pay'
   prompt: string
   waiting: string
   judge: string
@@ -61,6 +62,7 @@ export type PendingDialog = {
     'battlefield' | 'hand' | 'target' | 'graveyard' | 'exile' | 'sacrifice',
     { min?: number; max?: number }
   >>
+  shuffleAfter?: boolean
 }
 
 const isDialog = (value: unknown): value is PendingDialog =>

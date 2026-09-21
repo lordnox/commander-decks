@@ -468,6 +468,7 @@ export type GameEvent =
       discard?: string[]
       copy?: boolean
       withoutPayingMana?: boolean
+      wardPaid?: boolean
     }
   | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }
   | {
@@ -718,6 +719,7 @@ export type GameEvent =
       door?: RoomDoorId
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean
+      wardPaid?: boolean
     }
   | { type: 'authoritativeSync'; snapshot: GameState }
   | {

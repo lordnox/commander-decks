@@ -11,7 +11,17 @@ import {
   costPicksFromChoices,
   payActivationCosts,
 } from './activationCosts'
-import { basicLand, conditionHolds, hasSubtype, searchEffect, type SearchDestination, type SearchSpec } from './effects'
+import {
+  basicLand,
+  conditionHolds,
+  hasSubtype,
+  manaValueOf,
+  runInstructions,
+  searchEffect,
+  triggerEffects,
+  type SearchDestination,
+  type SearchSpec,
+} from './effects'
 import { effectsFor } from './cardRules'
 import { emitCycleEvent, typecyclingFromHand } from './cycling'
 import { enteringObjectId } from './entersTapped'
@@ -45,6 +55,8 @@ export type PendingSearch = {
   via: 'spell' | 'ability' | 'enters' | 'resolve'
   kicked?: boolean
   max?: number
+  x?: number
+  shuffleIfSearched?: boolean
 }
 
 const inlineSpecKey = (sourceId: string) => `librarySearch.inlineSpec.${sourceId}`
@@ -85,12 +97,21 @@ const inlineSpec = (state: GameState | Draft, sourceId: string): SearchSpec | un
   return stored as SearchSpec
 }
 
+const resolveSearchSpec = (name: string): SearchSpec | undefined => {
+  for (const effect of triggerEffects(effectsFor(name), 'resolve')) {
+    for (const instruction of effect.do) {
+      if (instruction.kind === 'searchLibrary') return instruction.spec
+    }
+  }
+}
+
 export const searchSpecForPending = (
   state: GameState | Draft,
   pending: PendingSearch,
 ): SearchSpec | undefined => {
   const inline = inlineSpec(state, pending.sourceId)
-  const spec = inline ?? searchSpecFor(pending.source)
+  const resolved = pending.via === 'resolve' ? resolveSearchSpec(pending.source) : undefined
+  const spec = inline ?? resolved ?? searchSpecFor(pending.source)
   if (!spec) return
   return pending.max === undefined ? spec : { ...spec, max: pending.max }
 }
@@ -157,20 +178,41 @@ export const searchingSeat = (state: GameState) =>
 const libraryCharacteristics = (object: GameObject): GameObject =>
   object.frontFace ? { ...object, ...object.frontFace } : object
 
+const matchesSearch = (
+  object: GameObject,
+  spec: SearchSpec,
+  kicked: boolean,
+  x?: number,
+) => {
+  const characteristics = libraryCharacteristics(object)
+  if (kicked && spec.kickedMatch) {
+    if (!spec.kickedMatch(characteristics)) return false
+  } else if (!spec.match(characteristics)) return false
+  if (spec.maxManaValue === 'x') return manaValueOf(characteristics) <= Math.max(0, x ?? 0)
+  if (typeof spec.maxManaValue === 'number') {
+    return manaValueOf(characteristics) <= spec.maxManaValue
+  }
+  return true
+}
+
 export const searchCandidates = (
   state: GameState,
   seat: PlayerId,
   spec: SearchSpec,
   kicked = false,
-) =>
-  (state.zoneOrder[seat]?.library ?? [])
-    .map((objectId) => state.objects[objectId])
-    .filter((object): object is GameObject =>
-      Boolean(object) && (
-        kicked && spec.kickedMatch
-          ? spec.kickedMatch(libraryCharacteristics(object))
-          : spec.match(libraryCharacteristics(object))
-      ))
+  x?: number,
+) => {
+  const zones = spec.zones ?? ['library']
+  return zones.flatMap((zone) => {
+    const ids = (zone === 'graveyard'
+      ? state.zoneOrder[seat]?.graveyard
+      : state.zoneOrder[seat]?.library) ?? []
+    return ids
+      .map((objectId) => state.objects[objectId])
+      .filter((object): object is GameObject =>
+        Boolean(object) && matchesSearch(object, spec, kicked, x))
+  })
+}
 
 const searchDone = (state: GameState, seat: PlayerId) =>
   state.players[seat]?.data[SEARCH_DONE] === true
@@ -312,6 +354,8 @@ export const librarySearch: Plugin = {
           && conditionHolds(spec.empoweredIf, state, object)
           ? spec.empoweredMax
           : undefined,
+        ...(typeof item.x === 'number' ? { x: item.x } : {}),
+        ...(spec.shuffleIfSearched ? { shuffleIfSearched: true } : {}),
       },
     }
   },
@@ -394,6 +438,8 @@ export const librarySearch: Plugin = {
             ? 'resolve'
             : 'spell'
       const payloadSpec = resolvePayloadSpec(event.payload?.spec)
+      const namedSpec = searchSpecFor(source)
+      const resolvedSpec = via === 'resolve' ? resolveSearchSpec(source) : undefined
       if (via === 'resolve') {
         const subtype = typeof event.payload?.subtype === 'string'
           ? event.payload.subtype
@@ -402,16 +448,21 @@ export const librarySearch: Plugin = {
           storeInlineSpec(draft, event.seat, sourceId, { subtype })
         } else if (payloadSpec) {
           storeInlineSpec(draft, event.seat, sourceId, payloadSpec)
-        } else return
-      } else if (!searchSpecFor(source)) {
+        } else if (!resolvedSpec) return
+      } else if (!namedSpec) {
         return
       }
+      const spec = via === 'resolve' ? (resolvedSpec ?? payloadSpec) : namedSpec
       openSearch(draft, event.seat, {
         source,
         sourceId,
         via,
         ...(event.payload?.kicked === true ? { kicked: true } : {}),
         ...(typeof event.payload?.max === 'number' ? { max: event.payload.max } : {}),
+        ...(typeof event.payload?.x === 'number' ? { x: event.payload.x } : {}),
+        ...(event.payload?.shuffleIfSearched === true || spec?.shuffleIfSearched
+          ? { shuffleIfSearched: true }
+          : {}),
       })
       return
     }
@@ -424,8 +475,16 @@ export const librarySearch: Plugin = {
           emitCycleEvent(draft, event.seat, pending.sourceId)
         }
       }
+      const spec = pending ? searchSpecForPending(state, pending) : undefined
       closeSearch(draft, event.seat)
-      if (pending?.via === 'spell') draft.players[event.seat].data[SEARCH_DONE] = true
+      if (pending?.via === 'spell') {
+        draft.players[event.seat].data[SEARCH_DONE] = true
+        const source = pending?.sourceId ? draft.object(pending.sourceId) : undefined
+        const item = state.stack[0]
+        if (spec?.then && source && item?.kind === 'spell') {
+          runInstructions(draft, source, spec.then, item)
+        }
+      }
       if (pending?.sourceId) delete draft.players[event.seat].data[inlineSpecKey(pending.sourceId)]
       return
     }

@@ -71,6 +71,7 @@ export type TopdeckDecision = {
       | 'vote'
       | 'stack-copy'
       | 'option-selection'
+      | 'ward-pay'
     stackId?: string
     selectionId?: string
     cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'

@@ -24,6 +24,7 @@ export const OPTIONAL_DIALOGS = new Set([
   'may-pay-mana',
   'may-pay-life',
   'may-search',
+  'ward-pay',
 ])
 
 export const sameNames = (left: string[], right: string[]) =>

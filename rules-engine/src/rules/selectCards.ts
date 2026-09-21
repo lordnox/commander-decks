@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
-import type { CardInstruction, TargetFilter } from '../cardPlugins/effects'
+import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { validTarget } from '../cardPlugins/targetedResolve'
@@ -414,28 +414,49 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         })
       }
     }
-    if (
-      (selection.triggerAbilityId || selection.triggerInstructions)
-      && selection.sourceId
-    ) {
-      const source = draft.object(selection.sourceId)
-      const targetId = event.objectIds?.[0]
-      if (source && targetId) {
+  }
+
+  if (
+    (selection.kind === 'choose' || selection.kind === 'sacrifice')
+    && (selection.triggerAbilityId || selection.triggerInstructions)
+    && selection.sourceId
+  ) {
+    const source = draft.object(selection.sourceId)
+    const targetId = event.objectIds?.[0]
+    const sacrificeCount = selection.kind === 'sacrifice'
+      ? (event.objectIds?.length ?? 0)
+      : undefined
+    if (source && (targetId || sacrificeCount !== undefined)) {
+      const payload = {
+        ...(selection.triggerPayload ?? {}),
+        ...(sacrificeCount !== undefined ? { sacrificedCount: sacrificeCount } : {}),
+      }
+      if (selection.triggerPayload?.devour && selection.triggerInstructions) {
+        runInstructions(draft, source, selection.triggerInstructions, {
+          id: 'devour-follow-up',
+          kind: 'ability',
+          objectId: source.id,
+          controller: source.controller,
+          name: source.name,
+          targets: targetId ? [{ kind: 'object', objectId: targetId }] : [],
+          payload,
+        })
+      } else {
         draft.addTriggeredAbility(source, selection.triggerInstructions ?? [], {
           ...(selection.triggerAbilityId
             ? { abilityId: selection.triggerAbilityId }
             : {}),
           ...(selection.triggerX !== undefined ? { x: selection.triggerX } : {}),
-          targets: [{ kind: 'object', objectId: targetId }],
-          ...(selection.triggerPayload
-            ? { payload: selection.triggerPayload }
-            : {}),
+          ...(targetId ? { targets: [{ kind: 'object', objectId: targetId }] } : {}),
+          payload,
         })
-        draft.passedInRow = []
-        draft.priority = draft.active
       }
+      draft.passedInRow = []
+      draft.priority = draft.active
     }
-  } else if (selection.kind === 'scry' || selection.kind === 'surveil') {
+  }
+
+  if (selection.kind === 'scry' || selection.kind === 'surveil') {
     const choices = parseChoices(event)
     if (!choices) return
     applyTopDeckChoices(draft, event.seat, choices, selection.kind)

@@ -240,7 +240,7 @@ const chooseModes: InstructionHandler<'chooseModes'> = (
 }
 
 const searchLibrary: InstructionHandler<'searchLibrary'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
   if (!instruction.subtype && !instruction.spec) return
@@ -253,6 +253,7 @@ const searchLibrary: InstructionHandler<'searchLibrary'> = (
       sourceId: source.id,
       via: 'resolve',
       ...(instruction.subtype ? { subtype: instruction.subtype } : { spec: instruction.spec }),
+      ...(item?.x !== undefined ? { x: item.x } : {}),
     },
   })
 }
@@ -300,24 +301,33 @@ const lookTopPutLand: InstructionHandler<'lookTopPutLand'> = (
   { draft, source },
   instruction,
 ) => {
+  const count = instruction.countFromPower
+    ? Math.max(0, source.power ?? 0)
+    : instruction.count
+  if (count <= 0 && !instruction.orHand) return
   setPendingDialog(draft, {
     sourceId: source.id,
     source: source.name,
     seat: source.controller,
     kind: 'look-top-land',
-    prompt: instruction.orHand
-      ? `Look at the top ${instruction.count} cards. You may put a land onto the battlefield tapped, or put a card into your hand.`
-      : `Look at the top ${instruction.count} cards. You may put a land onto the battlefield tapped.`,
+    prompt: instruction.anyNumber
+      ? `Look at the top ${count} cards. Put any number of land cards onto the battlefield tapped.`
+      : instruction.orHand
+        ? `Look at the top ${count} cards. You may put a land onto the battlefield tapped, or put a card into your hand.`
+        : `Look at the top ${count} cards. You may put a land onto the battlefield tapped.`,
     waiting: 'is choosing among the top cards.',
     judge: 'Waiting for a look-top land choice.',
     chosenEvent: DIALOG_CHOSEN,
     destinations: instruction.orHand ? ['bottom', 'battlefield', 'hand'] : ['bottom', 'battlefield'],
-    count: instruction.count,
+    count,
     types: instruction.orHand ? undefined : ['Land'],
     optional: true,
-    requirements: instruction.orHand
-      ? { battlefield: { max: 1 }, hand: { max: 1 } }
-      : { battlefield: { max: 1 } },
+    shuffleAfter: instruction.shuffleAfter,
+    requirements: instruction.anyNumber
+      ? { battlefield: { min: 0, max: count } }
+      : instruction.orHand
+        ? { battlefield: { max: 1 }, hand: { max: 1 } }
+        : { battlefield: { max: 1 } },
   })
 }
 

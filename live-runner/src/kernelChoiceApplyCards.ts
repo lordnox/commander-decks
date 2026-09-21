@@ -219,9 +219,13 @@ export const applyLibrarySearch = (
       )
     }
   }
+  const searchZones = spec.zones ?? ['library']
   const ids = objectIdsForNames(
     state,
-    state.zoneOrder[seat].library,
+    [
+      ...state.zoneOrder[seat].library,
+      ...(searchZones.includes('graveyard') ? state.zoneOrder[seat].graveyard : []),
+    ],
     picked.map(({ card }) => card),
   )
   const selectionError = spec.validateSelection?.(

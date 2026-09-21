@@ -26,6 +26,8 @@ import {
   printedAlternateManaCost,
   type AlternateCastEffect,
 } from '../cardPlugins/alternateCosts'
+import { canPlayExiledWithLife } from '../cardPlugins/exiledWith'
+import { manaValueOf } from '../cardPlugins/effects'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { PENDING_STEAL_CAST } from '../rules/selectCards'
@@ -95,7 +97,7 @@ export const spellCost = (
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
   const withX = (manaCost: string) => manaCost.replaceAll('{X}', xCost)
-  const base = options.withoutPayingMana
+  const base = options.withoutPayingMana || options.castOption === 'exiledWithLife'
     ? ''
     : (selected ? withX(printedAlternateManaCost(selected, object)) : undefined)
       ?? bestowed?.cost
@@ -318,7 +320,14 @@ export const spells: Plugin = {
         && (steal as { objectId?: string }).objectId === object.id
         && (steal as { seat?: string }).seat === event.seat,
       )
-      if (selected?.fromZone) {
+      if (event.castOption === 'exiledWithLife') {
+        if (!canPlayExiledWithLife(state, event.seat, object)) {
+          return 'card cannot be played from exile this way'
+        }
+        if (manaValueOf(object) > state.players[event.seat].life) {
+          return 'not enough life'
+        }
+      } else if (selected?.fromZone) {
         if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
       } else if (
         !state.castableZones.includes(object.zone)
@@ -330,6 +339,7 @@ export const spells: Plugin = {
       }
       if (
         !stealCast
+        && event.castOption !== 'exiledWithLife'
         && (object.owner !== event.seat || object.controller !== event.seat)
       ) {
         return 'spell is not owned and controlled by that seat'
@@ -337,7 +347,12 @@ export const spells: Plugin = {
       if (state.priority !== event.seat) return 'seat does not have priority'
       const bestow = event.castOption === 'bestow'
         && effectsOf(spell).some((effect) => effect.op === 'bestow')
-      if (event.castOption && !selected && !bestow) {
+      if (
+        event.castOption
+        && !selected
+        && !bestow
+        && !(event.castOption === 'exiledWithLife' && canPlayExiledWithLife(state, event.seat, object))
+      ) {
         return `${object.name} has no casting option ${event.castOption}`
       }
       if (
@@ -348,7 +363,11 @@ export const spells: Plugin = {
         return `${object.name} must use its Adventure casting option`
       }
 
-      if (!spell.types.includes('Instant') && !(freeCast && !stealCast)) {
+      if (
+        !spell.types.includes('Instant')
+        && !(freeCast && !stealCast)
+        && event.castOption !== 'exiledWithLife'
+      ) {
         if (state.active !== event.seat) return 'non-instant spells require the active player'
         if (state.step !== 'precombatMain' && state.step !== 'postcombatMain') {
           return 'non-instant spells require a main phase'
@@ -547,6 +566,17 @@ export const spells: Plugin = {
         ),
         castFrom: object.zone,
       })
+      if (event.castOption === 'exiledWithLife') {
+        const life = manaValueOf(object)
+        if (life > 0) {
+          draft.enqueue({
+            type: 'loseLife',
+            seat: event.seat,
+            amount: life,
+            source: object.id,
+          })
+        }
+      }
       draft.move(object.id, 'stack')
       for (const objectId of event.sacrifice ?? []) {
         draft.enqueue({ type: 'move', objectId, to: 'graveyard' })

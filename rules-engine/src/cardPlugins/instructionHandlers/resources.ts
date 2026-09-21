@@ -746,18 +746,22 @@ const drawGreatestPower: InstructionHandler<'drawGreatestPower'> = (
 }
 
 const pumpControlled: InstructionHandler<'pumpControlled'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
-  const bonus = instruction.powerFromGreatest
-    ? Math.max(0, ...Object.values(draft.objects)
-      .filter((object) =>
-        object.zone === 'battlefield'
-        && object.controller === source.controller
-        && object.types.includes('Creature'))
-      .map((object) => object.power ?? 0))
-    : instruction.power
-  const toughnessBonus = instruction.powerFromGreatest ? bonus : instruction.toughness
+  const bonus = instruction.fromStackX
+    ? Math.max(0, item?.x ?? 0)
+    : instruction.powerFromGreatest
+      ? Math.max(0, ...Object.values(draft.objects)
+        .filter((object) =>
+          object.zone === 'battlefield'
+          && object.controller === source.controller
+          && object.types.includes('Creature'))
+        .map((object) => object.power ?? 0))
+      : instruction.power
+  const toughnessBonus = instruction.fromStackX || instruction.powerFromGreatest
+    ? bonus
+    : instruction.toughness
   for (const object of Object.values(draft.objects)) {
     if (object.zone !== 'battlefield' || object.controller !== source.controller) continue
     if (!object.types.includes('Creature')) continue
