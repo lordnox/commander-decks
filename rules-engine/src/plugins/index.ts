@@ -9,6 +9,7 @@ import { damage } from './damage'
 import { adventure } from './adventure'
 import { doubleFaced } from './doubleFaced'
 import { extraSwampMana } from './extraSwampMana'
+import { attackSubtypeDraw } from './attackSubtypeDraw'
 import { extraUntap } from './extraUntap'
 import { fog } from './fog'
 import { forestOverlay } from './forestOverlay'
@@ -95,6 +96,7 @@ export const builtInPlugins = [
   grantControlledSubtypeTrigger,
   exilePayoffs,
   extraUntap,
+  attackSubtypeDraw,
   sacrificeLandMana,
   phialReplacement,
   replicaHiddenInformation,

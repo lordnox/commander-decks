@@ -2,6 +2,7 @@ import { isPermanentType } from '../../definitions'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { pickRandomChoices, RANDOM_CHOICE } from '../../plugins/hiddenInformation'
 import { openCardSelection } from '../../rules/selectCards'
+import { openPlayerSelection } from '../../rules/selectPlayers'
 import { apnapSeats } from '../../turnOrder'
 import {
   addPlusCounters,
@@ -20,8 +21,26 @@ const selfMill: InstructionHandler<'selfMill'> = ({ draft, source }, instruction
 
 const millTarget: InstructionHandler<'millTarget'> = ({ draft, source, item }, instruction) => {
   const target = item?.targets[0]
-  const seat = target?.kind === 'player' ? target.player : source.controller
-  millLibrary(draft, seat, instruction.count)
+  if (target?.kind === 'player') {
+    millLibrary(draft, target.player, instruction.count)
+    return
+  }
+  const candidates = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
+  if (candidates.length === 0) return
+  openPlayerSelection(draft, {
+    seat: source.controller,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Choose a player to mill ${instruction.count} cards.`,
+    min: 1,
+    max: 1,
+    candidates,
+    action: {
+      kind: 'putTriggeredAbility',
+      triggeringPlayer: source.controller,
+      instructions: [{ kind: 'millTarget', count: instruction.count }],
+    },
+  })
 }
 
 const bounceSelf: InstructionHandler<'bounceSelf'> = ({ draft, source }) => {

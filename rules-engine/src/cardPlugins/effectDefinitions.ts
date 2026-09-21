@@ -151,7 +151,7 @@ export type CardInstruction =
   | { kind: 'pumpTargetX'; multiplier: number; toughnessMultiplier?: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'animateUntilEot'; power: number; toughness: number; fromX?: boolean }
-  | { kind: 'grantUntilEot'; keywords: string[] }
+  | { kind: 'grantUntilEot'; keywords: string[]; maxFromX?: boolean }
   | { kind: 'goadTargets'; untilEndOfTurn?: boolean }
   | { kind: 'phaseOutControlled' }
   | { kind: 'grantProtectionFromEverything' }

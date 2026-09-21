@@ -4,6 +4,7 @@ import type { CardInstruction, TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { validTarget } from '../cardPlugins/targetedResolve'
+import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
@@ -75,6 +76,8 @@ export type PendingCardSelection = {
   /** Exile chosen permanents until an opponent becomes monarch. */
   exileUntilOpponentMonarch?: boolean
   targetFilter?: TargetFilter
+  triggerX?: number
+  grantKeywordsUntilEot?: string[]
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -388,6 +391,11 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       if (selection.plusCounters) {
         addPlusCounters(object, selection.plusCounters)
       }
+      if (selection.grantKeywordsUntilEot) {
+        for (const keyword of selection.grantKeywordsUntilEot) {
+          grantOracleLineUntilEndOfTurn(object, keyword)
+        }
+      }
     }
     if (selection.castWithoutPaying) {
       const objectId = event.objectIds?.[0]
@@ -417,6 +425,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           ...(selection.triggerAbilityId
             ? { abilityId: selection.triggerAbilityId }
             : {}),
+          ...(selection.triggerX !== undefined ? { x: selection.triggerX } : {}),
           targets: [{ kind: 'object', objectId: targetId }],
           ...(selection.triggerPayload
             ? { payload: selection.triggerPayload }
