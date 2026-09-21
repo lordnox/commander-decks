@@ -9,6 +9,7 @@ import { enteringObjectId } from '../cardPlugins/entersTapped'
 import {
   conditionHolds,
   extraTriggerCount,
+  runInstructions,
   triggerEffects,
   type CardCondition,
   type CardEffect,
@@ -615,6 +616,18 @@ export const triggers: Plugin = {
           },
         })
         noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
+        choosingSeat ??= source.controller
+        continue
+      }
+      if (effect.do.length === 1 && effect.do[0].kind === 'devour') {
+        runInstructions(draft, source, effect.do, {
+          id: 'devour-enter',
+          kind: 'ability',
+          objectId: source.id,
+          controller: source.controller,
+          name: source.name,
+          targets: [],
+        })
         choosingSeat ??= source.controller
         continue
       }

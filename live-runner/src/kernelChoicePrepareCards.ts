@@ -34,6 +34,7 @@ export const finishLibrarySearch = (
   moves: SearchMove[],
 ) => {
   const events: GameEvent[] = []
+  const before = kernel.history.current()
   const objectIds = moves.map((move) => move.objectId)
   if (spec.reveal && objectIds.length > 0) {
     events.push({ type: 'reveal', seat, objectIds, source: pending.source })
@@ -58,7 +59,10 @@ export const finishLibrarySearch = (
       if (landsBeforeEntry >= 3) events.push({ type: 'untap', objectId: move.objectId })
     }
   }
-  events.push({ type: 'shuffleLibrary', seat })
+  const searchedLibrary = moves.some((move) =>
+    before.objects[move.objectId]?.zone === 'library')
+  const shouldShuffle = pending.shuffleIfSearched ? searchedLibrary : true
+  if (shouldShuffle) events.push({ type: 'shuffleLibrary', seat })
   events.push({ type: 'custom', name: SEARCH_CHOSEN, seat })
   if (pending.via === 'spell') events.push({ type: 'resolveTop' })
   for (const event of events) {
@@ -80,7 +84,9 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
   const pending = pendingSearch(state, seat)
   const spec = pending ? searchSpecForPending(state, pending) : undefined
   if (!pending || !spec) return false
-  const cards = searchCandidates(state, seat, spec, pending.kicked).map((object) => object.name)
+  const zones = spec.zones ?? ['library']
+  const cards = searchCandidates(state, seat, spec, pending.kicked, pending.x)
+    .map((object) => object.name)
   const minRequired = spec.split
     ? Math.min(spec.split.battlefield.min, spec.split.hand.min)
     : spec.min
@@ -102,7 +108,9 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
         .sort((left, right) => left.localeCompare(right)),
       destinations: spec.split
         ? ['library', 'battlefield', 'hand']
-        : ['library', spec.destination],
+        : zones.includes('graveyard')
+          ? ['library', 'graveyard', spec.destination]
+          : ['library', spec.destination],
       requirements: spec.split
         ? {
             battlefield: {

@@ -339,6 +339,7 @@ export const conditionHolds = (
   }
   if (condition.kind === 'notMonstrous') return !object.monstrous
   if (condition.kind === 'wasCreature') return object.types.includes('Creature')
+  if (condition.kind === 'stackXAtLeast') return (stackItem?.x ?? 0) >= condition.min
   return false
 }
 
@@ -484,7 +485,8 @@ const CHOICE_KINDS = new Set([
   'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
   'createTreasures', 'drawGreatestPower', 'pumpControlled', 'searchLibrary',
   'fightOwnedVsOpponent', 'counterUnlessPay', 'copyTargetSpell',
-  'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled',
+  'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled', 'devour',
+  'addPlusCountersFromSacrifice',
   'eachPlayerDiscard', 'eachPlayerSacrifice',
   'linkExile',
   'counterTargetSpell', 'bounceTargetPermanent', 'addPlusCountersToControlled',
@@ -523,6 +525,10 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'static' && effect.extraLandPlays) ids.add('additionalLandPlay')
     if (effect.op === 'static' && (effect.attackTax || effect.blockTax)) {
       ids.add('combatTax')
+    }
+    if (effect.op === 'static' && effect.ward) ids.add('ward')
+    if (effect.op === 'static' && (effect.exileOpponentGraveyard || effect.playExiledWithLife)) {
+      ids.add('exiledWith')
     }
     if (effect.op === 'static' && (effect.revealLibraryTop || effect.playLandsFromLibraryTop)) {
       ids.add('courserOfKruphix')

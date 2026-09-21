@@ -1103,11 +1103,50 @@ export const lookTopChooseOne = (count: number): CardInstruction => ({
 
 export const lookTopPutLand = (
   count: number,
-  extra: { orHand?: boolean } = {},
+  extra: {
+    orHand?: boolean
+    countFromPower?: boolean
+    anyNumber?: boolean
+    tapped?: boolean
+    shuffleAfter?: boolean
+  } = {},
 ): CardInstruction => ({
   kind: 'lookTopPutLand',
   count,
   ...extra,
+})
+
+export const devour = (
+  types: string[],
+  countersPer: number,
+  ...then: CardInstruction[]
+): CardInstruction => ({
+  kind: 'devour',
+  types,
+  countersPer,
+  ...(then.length > 0 ? { then } : {}),
+})
+
+export const stackXAtLeast = (min: number): CardCondition => ({
+  kind: 'stackXAtLeast',
+  min,
+})
+
+export const ward = (
+  options: { mana?: number; sacrifice?: { count: number; nonland?: boolean } },
+): CardEffect => ({
+  op: 'static',
+  ward: options,
+})
+
+export const exileOpponentGraveyard = (): CardEffect => ({
+  op: 'static',
+  exileOpponentGraveyard: true,
+})
+
+export const playExiledWithLife = (): CardEffect => ({
+  op: 'static',
+  playExiledWithLife: true,
 })
 
 export const teferiSunsetEmblem = (): CardInstruction => ({
@@ -1352,6 +1391,7 @@ export const pumpControlled = (
   options: {
     trample?: boolean
     powerFromGreatest?: boolean
+    fromStackX?: boolean
     nonHuman?: boolean
     other?: boolean
   } = {},

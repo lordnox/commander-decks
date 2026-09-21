@@ -1,6 +1,7 @@
-import type { GameEvent, Plugin } from '../types'
+import type { GameEvent, GameState, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
 import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { everybodyLives } from './advancedCombatPrevention'
 import { hasKeyword } from '../keywords'
 import { isPhasedOut } from './phasing'
@@ -14,6 +15,14 @@ const moveToGraveyard = (objectId: string): GameEvent => ({
   objectId,
   to: 'graveyard',
 })
+
+const devourSacrificePending = (state: GameState, objectId: string) =>
+  state.playerOrder.some((seat) => {
+    const pending = pendingSelectionFor(state, seat)
+    return pending?.kind === 'sacrifice'
+      && pending.sourceId === objectId
+      && pending.triggerPayload?.devour === true
+  })
 
 export const stateBased: Plugin = {
   id: 'stateBased',
@@ -106,6 +115,7 @@ export const stateBased: Plugin = {
         object.zone === 'battlefield'
         && object.types.includes('Creature')
         && object.toughness !== null
+        && !devourSacrificePending(draft, object.id)
         && (
           object.toughness <= 0
           || (

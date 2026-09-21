@@ -49,6 +49,8 @@ import { resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
 import { pendingFreeCastFor } from './plugins/rebound'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
+import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
+import { manaValueOf } from './cardPlugins/effects'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
@@ -624,6 +626,19 @@ const bestowEffect = (object: GameObject) =>
   effectsOf(object).find((effect) => effect.op === 'bestow')
 
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
+  if (canPlayExiledWithLife(state, seat, object)) {
+    const life = manaValueOf(object)
+    if (state.players[seat].life >= life) {
+      return [{
+        kind: 'castSpell',
+        objectId: object.id,
+        name: object.name,
+        castOption: 'exiledWithLife',
+        castLabel: `Cast for ${life} life`,
+      }]
+    }
+    return []
+  }
   const tax = taxFor(state, seat, object)
   if (object.roomDoors) {
     const suffix = tax > 0 ? `{${tax}}` : ''

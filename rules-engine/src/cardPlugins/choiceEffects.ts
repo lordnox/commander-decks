@@ -135,11 +135,16 @@ export const choiceEffects: Plugin = {
         : []
       const topIds = draft.zoneOrder[event.seat].library.slice(0, dialog.count ?? 5)
       const chosen = objectIds.filter((id) => topIds.includes(id))
-      const landId = chosen.find((id) => draft.object(id)?.types.includes('Land'))
-      const toBattlefield = landId && (dialog.destinations?.includes('battlefield') !== false)
-        ? [landId]
-        : []
-      const toHand = toBattlefield.length === 0 && dialog.destinations?.includes('hand')
+      const anyNumber = (dialog.requirements?.battlefield?.max ?? 1) > 1
+      const toBattlefield = anyNumber
+        ? chosen.filter((id) => draft.object(id)?.types.includes('Land'))
+        : (() => {
+          const landId = chosen.find((id) => draft.object(id)?.types.includes('Land'))
+          return landId && (dialog.destinations?.includes('battlefield') !== false)
+            ? [landId]
+            : []
+        })()
+      const toHand = !anyNumber && toBattlefield.length === 0 && dialog.destinations?.includes('hand')
         ? chosen.slice(0, 1)
         : []
       for (const objectId of toBattlefield) {
@@ -152,6 +157,9 @@ export const choiceEffects: Plugin = {
       for (const objectId of topIds) {
         if (toBattlefield.includes(objectId) || toHand.includes(objectId)) continue
         draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
+      }
+      if (dialog.shuffleAfter) {
+        draft.enqueue({ type: 'shuffleLibrary', seat: event.seat })
       }
     }
   },
