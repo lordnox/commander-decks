@@ -31,6 +31,7 @@ export type PendingPlayerSelection = {
         abilityId?: string
         triggerEffectKey?: string
         interveningIf?: CardCondition
+        x?: number
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -144,6 +145,7 @@ export const selectPlayers: Plugin = {
       if (source) {
         draft.addTriggeredAbility(source, selection.action.instructions, {
           ...(selection.action.abilityId ? { abilityId: selection.action.abilityId } : {}),
+          ...(selection.action.x !== undefined ? { x: selection.action.x } : {}),
           targets: [{ kind: 'player', player: target }],
           payload: {
             instructions: selection.action.instructions,

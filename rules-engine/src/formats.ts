@@ -8,6 +8,7 @@ import { commander } from './plugins/commander'
 import { damage } from './plugins/damage'
 import { doubleFaced } from './plugins/doubleFaced'
 import { extraSwampMana } from './plugins/extraSwampMana'
+import { attackSubtypeDraw } from './plugins/attackSubtypeDraw'
 import { extraUntap } from './plugins/extraUntap'
 import { fog } from './plugins/fog'
 import { forestOverlay } from './plugins/forestOverlay'
@@ -111,6 +112,7 @@ export const optionalPlugins = [
   grantControlledSubtypeTrigger,
   exilePayoffs,
   extraUntap,
+  attackSubtypeDraw,
   sacrificeLandMana,
   phialReplacement,
 ]

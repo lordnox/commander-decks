@@ -189,6 +189,7 @@ import {
   preventCombatDamage,
   revealDrawLoseLife,
   untapTarget,
+  untapUpToLands,
   yourUpkeep,
   yourUpkeepTarget,
   type CardEffect,
@@ -507,7 +508,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
     ),
   ],
-  'Frantic Search': [onResolve(draw(2), discardCards(2))],
+  'Frantic Search': [onResolve(draw(2), discardCards(2), untapUpToLands(3))],
   'Planar Genesis': [onResolve(lookTopPutLand(4, { orHand: true }))],
   "Animist's Awakening": [xMana(), onResolve(revealTopLandsTapped())],
   "Archdruid's Charm": [modalChooseOne(
@@ -575,7 +576,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       {
         id: 'fear',
         label: 'Up to X target creatures gain fear until end of turn.',
-        do: [grantUntilEot('fear')],
+        do: [{ kind: 'grantUntilEot', keywords: ['fear'], maxFromX: true }],
       },
     ),
   ],
@@ -583,7 +584,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     {
       id: 'lands',
       label: 'Target player mills three cards. Return all land cards from your graveyard tapped.',
-      do: [selfMill(3), returnOwnedGraveyardLands()],
+      do: [millTarget(3), returnOwnedGraveyardLands()],
     },
     {
       id: 'pump',
@@ -596,7 +597,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       numbers: [1],
       do: [bounceCreaturesExcept('Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent')],
     },
-    { numbers: [2, 3], do: [] },
+    {
+      numbers: [2, 3],
+      do: [addUntilCleanupRule('attackSubtypeDraw', {
+        subtypes: ['Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent'],
+      })],
+    },
   )],
   'Summon: Titan': [sagaChapters(
     { numbers: [1], do: [selfMill(5)] },

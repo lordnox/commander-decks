@@ -50,7 +50,7 @@ export const modalSpell: Plugin = {
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
     const object = item ? state.objects[item.objectId] : undefined
-    if (!item || !object || modalEffects(object).length === 0) return
+    if (!item || item.kind !== 'spell' || !object || modalEffects(object).length === 0) return
     if ((item.choices?.length ?? 0) > 0) return
     return {
       type: 'custom',
@@ -148,7 +148,7 @@ export const modalSpell: Plugin = {
     const item = state.stack[0]
     const object = item ? draft.object(item.objectId) : undefined
     const modal = object ? modalEffects(object)[0] : undefined
-    if (!item || !object || !modal || modal.op !== 'modal') return
+    if (!item || item.kind !== 'spell' || !object || !modal || modal.op !== 'modal') return
     const choices = item.choices
     if (!choices?.[0] || choices.includes('__modalExecuted__')) return
     const selected = modal.modes.filter((entry) => choices.includes(entry.id))

@@ -286,14 +286,33 @@ const loseLifeTargetPlayer: InstructionHandler<'loseLifeTargetPlayer'> = (
   instruction,
 ) => {
   const target = item?.targets[0]
+  const amount = instruction.amount || Math.max(0, item?.x ?? 0)
   if (target?.kind === 'player') {
     draft.enqueue({
       type: 'loseLife',
       seat: target.player,
-      amount: instruction.amount || Math.max(0, item?.x ?? 0),
+      amount,
       source: source.id,
     })
+    return
   }
+  const candidates = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
+  if (candidates.length === 0 || amount <= 0) return
+  openPlayerSelection(draft, {
+    seat: source.controller,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Choose a player to lose ${amount} life.`,
+    min: 1,
+    max: 1,
+    candidates,
+    action: {
+      kind: 'putTriggeredAbility',
+      triggeringPlayer: source.controller,
+      instructions: [{ kind: 'loseLifeTargetPlayer', amount: instruction.amount }],
+      x: item?.x,
+    },
+  })
 }
 
 const loseLifeTargetManaValue: InstructionHandler<'loseLifeTargetManaValue'> = (
@@ -337,12 +356,36 @@ const pump: InstructionHandler<'pump'> = ({ draft, item }, instruction) => {
   changeStatsUntilEndOfTurn(object, instruction.power, instruction.toughness)
 }
 
-const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, item }, instruction) => {
+const battlefieldCreatures = (
+  draft: Parameters<InstructionHandler<'pumpTargetX'>>[0]['draft'],
+) => Object.values(draft.objects)
+  .filter((object) => object.zone === 'battlefield' && object.types.includes('Creature'))
+  .map((object) => object.id)
+
+const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, source, item }, instruction) => {
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
-  if (!object || object.power === null || object.toughness === null) return
-  const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
-  const toughness = Math.max(0, item?.x ?? 0) * (instruction.toughnessMultiplier ?? instruction.multiplier)
+  const x = Math.max(0, item?.x ?? 0)
+  if (!object || object.power === null || object.toughness === null) {
+    const candidates = battlefieldCreatures(draft)
+    if (candidates.length === 0 || x <= 0) return
+    openCardSelection(draft, {
+      seat: source.controller,
+      kind: 'choose',
+      count: 1,
+      min: 1,
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Choose a creature to get ${instruction.multiplier * x}/${(instruction.toughnessMultiplier ?? instruction.multiplier) * x} until end of turn.`,
+      destinations: ['target'],
+      triggerInstructions: [instruction],
+      triggerX: x,
+    })
+    return
+  }
+  const amount = x * instruction.multiplier
+  const toughness = x * (instruction.toughnessMultiplier ?? instruction.multiplier)
   changeStatsUntilEndOfTurn(object, amount, toughness)
 }
 
@@ -413,7 +456,31 @@ const pumpTargetEqualToLands: InstructionHandler<'pumpTargetEqualToLands'> = (
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   const amount = landCount(draft, source.controller)
-  if (!object || object.power === null || object.toughness === null) return
+  if (!object || object.power === null || object.toughness === null) {
+    const candidates = Object.values(draft.objects)
+      .filter((entry) =>
+        entry.zone === 'battlefield'
+        && entry.controller === source.controller
+        && entry.types.includes('Creature'))
+      .map((entry) => entry.id)
+    if (candidates.length === 0 || amount <= 0) return
+    openCardSelection(draft, {
+      seat: source.controller,
+      kind: 'choose',
+      count: 1,
+      min: 1,
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Choose a creature you control to get +${amount}/+${amount}${instruction.trample ? ' and trample' : ''} until end of turn.`,
+      destinations: ['target'],
+      triggerInstructions: [
+        { kind: 'addPlusCountersEqualToLands' },
+        { kind: 'pumpTargetEqualToLands', trample: instruction.trample },
+      ],
+    })
+    return
+  }
   changeStatsUntilEndOfTurn(object, amount, amount)
   if (instruction.trample) grantOracleLineUntilEndOfTurn(object, 'Trample')
 }
@@ -445,9 +512,27 @@ const untapUpToLands: InstructionHandler<'untapUpToLands'> = (
 }
 
 const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
-  { draft, item },
+  { draft, source, item },
   instruction,
 ) => {
+  const x = Math.max(0, item?.x ?? 0)
+  if (instruction.maxFromX) {
+    const candidates = battlefieldCreatures(draft)
+    if (candidates.length === 0 || x <= 0) return
+    openCardSelection(draft, {
+      seat: source.controller,
+      kind: 'choose',
+      count: x,
+      min: 0,
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Choose up to ${x} creature(s) to gain ${instruction.keywords.join(', ')} until end of turn.`,
+      destinations: ['target'],
+      grantKeywordsUntilEot: instruction.keywords,
+    })
+    return
+  }
   const target = item?.targets[0]
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   if (!object) return
