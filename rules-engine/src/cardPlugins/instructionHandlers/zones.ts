@@ -19,6 +19,13 @@ const bounceSelf: InstructionHandler<'bounceSelf'> = ({ draft, source }) => {
   draft.enqueue({ type: 'move', objectId: source.id, to: 'hand' })
 }
 
+const finishWarpExile: InstructionHandler<'finishWarpExile'> = ({ draft, source }) => {
+  const live = draft.object(source.id)
+  if (!live || live.zone === 'exile' || live.zone === 'stack') return
+  live.warpExiledTurn = draft.turn
+  draft.enqueue({ type: 'move', objectId: live.id, to: 'exile' })
+}
+
 const sacrificeSelf: InstructionHandler<'sacrificeSelf'> = ({ draft, source }) => {
   draft.enqueue({ type: 'sacrifice', objectId: source.id })
 }
@@ -458,6 +465,7 @@ const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> =
 export const zoneHandlers = {
   selfMill,
   bounceSelf,
+  finishWarpExile,
   sacrificeSelf,
   revealUntil,
   revealUntilBasicLand,

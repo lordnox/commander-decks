@@ -733,6 +733,15 @@ export const flashback = (
   ...extra,
 })
 
+/** Warp from hand, exile at the next end step, then cast from exile for the printed cost. */
+export const warp = (warpCost: string): CardEffect[] => [
+  alternateCast('warp', `Warp ${warpCost}`, warpCost, { fromZone: 'hand' }),
+  alternateCast('warp-from-exile', 'Cast from exile', '__printed__', {
+    fromZone: 'exile',
+    afterWarp: true,
+  }),
+]
+
 export const grantRetrace = (): CardEffect => ({
   op: 'static',
   grantRetrace: {

@@ -190,6 +190,7 @@ export type CardInstruction =
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
   | { kind: 'mayCastFromExileWithoutPayingMana' }
+  | { kind: 'finishWarpExile' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
   | { kind: 'cumulativeUpkeepOpponentLife' }
   | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
@@ -458,6 +459,8 @@ export type CardEffect =
       exileAfterUse?: boolean
       discard?: 'land'
       sacrifice?: { type: string; count: number }
+      /** Cast from exile after a warp exile; manaCost `__printed__` uses the object's mana cost. */
+      afterWarp?: boolean
     }
   | { op: 'spellTrait'; uncounterable?: boolean }
   | {

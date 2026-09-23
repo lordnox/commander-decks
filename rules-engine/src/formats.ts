@@ -28,6 +28,7 @@ import { recurringSpells } from './plugins/recurringSpells'
 import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { rebound } from './plugins/rebound'
+import { warp } from './plugins/warp'
 import { saga } from './plugins/saga'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
@@ -74,6 +75,7 @@ export const corePlugins = [
   lands,
   spells,
   rebound,
+  warp,
   saga,
   rooms,
   stateBased,
