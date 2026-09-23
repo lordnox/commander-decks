@@ -228,4 +228,22 @@ describe('card plugin registry', () => {
       expect(cardPluginEntry(generic)).toBeUndefined()
     }
   })
+
+  test('Dack Fayden part 34 linked-exile cages stay registered', () => {
+    const covered = [
+      'Angel of Sanctions',
+      'Banisher Priest',
+      'Bishop of Binding',
+      'Fiend Hunter',
+      'Glorious Protector',
+      'Lumbering Battlement',
+      'Palace Jailer',
+      'Werefox Bodyguard',
+    ]
+    expect(missingCardPlugins(covered)).toEqual([])
+    expect(cardPluginEntry('Fiend Hunter')?.handlerIds.toSorted())
+      .toEqual(['choiceEffects', 'linkedExile'])
+    expect(cardPluginEntry('Bishop of Binding')?.handlerIds.toSorted())
+      .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
+  })
 })

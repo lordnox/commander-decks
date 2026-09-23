@@ -10,7 +10,10 @@ import {
   attachedCopyOrToken,
   attackTax,
   attacks,
+  becomeMonarch,
   basicLand,
+  embalm,
+  exileUntilOpponentBecomesMonarch,
   bestow,
   blink,
   blockTax,
@@ -100,6 +103,8 @@ import {
   pumpAllCreaturesByX,
   pumpControlled,
   pumpControlledNonHuman,
+  pumpFromLinkedExilePower,
+  pumpPerLinkedExile,
   putFromHand,
   putLandFromHand,
   putMilledLandTapped,
@@ -1757,6 +1762,71 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       },
       do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
     }),
+  ],
+  'Angel of Sanctions': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
+    enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
+  ],
+  'Banisher Priest': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
+  ],
+  'Bishop of Binding': [
+    handler('linkedExile'),
+    handler('exilePayoffs'),
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
+    {
+      op: 'trigger',
+      on: 'attacks',
+      targets: { filter: { type: 'Creature' } },
+      do: [pumpFromLinkedExilePower('stackTarget')],
+    },
+  ],
+  'Fiend Hunter': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', other: true }, { optional: true })),
+  ],
+  'Glorious Protector': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile(
+      { type: 'Creature', other: true, excludeSubtypes: ['Angel'] },
+      { controlled: true, optional: true },
+    )),
+  ],
+  'Lumbering Battlement': [
+    handler('linkedExile'),
+    handler('exilePayoffs'),
+    linkedExileUntilLeaves(),
+    pumpPerLinkedExile(2, 2),
+    enters(linkExile(
+      { type: 'Creature', other: true },
+      { controlled: true, optional: true },
+    )),
+  ],
+  'Palace Jailer': [
+    enters(
+      becomeMonarch(),
+      exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' }),
+    ),
+  ],
+  'Werefox Bodyguard': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile(
+      { type: 'Creature', other: true, excludeSubtypes: ['Fox'] },
+      { optional: true, max: 1 },
+    )),
+    ability(
+      { id: 'werefoxBodyguard.gain' },
+      { mana: '{W}', sacrifice: 'self' },
+      gainLife(2),
+    ),
   ],
 }
 
