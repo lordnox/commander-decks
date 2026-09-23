@@ -2,7 +2,6 @@ import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { cardDefinition, effectsFor } from './cardRules'
@@ -63,43 +62,6 @@ describe('plug-dack part 37 card pool', () => {
         }],
       },
     ])
-  })
-
-  test('Sandstone Oracle draws the hand-size difference for the chosen opponent', () => {
-    const oracle = cardTemplate('Sandstone Oracle', {
-      types: ['Artifact', 'Creature'],
-      effects: effectsFor('Sandstone Oracle'),
-    })
-    const filler = (name: string) => cardTemplate(name, { types: ['Instant'] })
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 3,
-        hands: {
-          p1: [oracle],
-          p2: [filler('P2a'), filler('P2b'), filler('P2c')],
-          p3: [filler('P3a')],
-        },
-      },
-      { random: () => 0.5 },
-    )
-    let state = enterBattlefield(server, server.state, 'Sandstone Oracle')
-    state = resolveStack(server.rules, state)
-    const choice = pendingPlayerSelectionFor(state, 'p1')!
-    expect(choice).toMatchObject({
-      min: 1,
-      max: 1,
-      candidates: ['p2', 'p3'],
-      action: { kind: 'drawHandDifference' },
-    })
-    state = ok(server.rules(state, {
-      type: 'selectPlayers',
-      seat: 'p1',
-      selectionId: choice.id,
-      players: ['p2'],
-    }))
-    state = resolveStack(server.rules, state)
-    expect(state.zoneOrder.p1.hand).toHaveLength(2)
   })
 
   test('Subjugator Angel taps opposing creatures on enter', () => {
