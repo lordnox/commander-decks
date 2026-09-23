@@ -198,7 +198,6 @@ import {
   flashback,
   grantRetrace,
   warp,
-  unearth,
 } from './effects'
 
 const astralDriftCycleBlink = blink({
@@ -671,8 +670,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
-  'Timeless Dragon': [typecycleHand('cycling.timelessDragon', '{2}', 'Plains')],
-  'Tri-Sentinel, Act of Vengeance': [unearth('{7}')],
   'Thorn Mammoth': [enters(fightUpToOne())],
   'Twincast': [
     targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
@@ -986,8 +983,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ['Plains', 'Island', 'Swamp'],
     ),
   ],
-  'Ondu Inversion // Ondu Skyruins': [entersTapped()],
-  'Ondu Skyruins': [entersTapped()],
   'Oboro, Palace in the Clouds': [
     activate({
       id: 'selfBounceLand.oboro',
@@ -1028,7 +1023,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),
   ],
-  'Serra Avatar': [ptEqualsLife({ who: 'controller' })],
   'Soul of Eternity': [
     ptEqualsLife({ who: 'controller' }),
     encore('{7}{W}{W}'),
