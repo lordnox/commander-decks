@@ -130,6 +130,11 @@ export type ReversibleEffect =
       extraSubtype: string
       power: number
       toughness: number
+  | {
+      kind: 'pumpPerLinkedExile'
+      perCard: { power: number; toughness: number }
+      before: { power: number | null; toughness: number | null }
+      after: { power: number; toughness: number }
     }
 
 export type EffectDuration =
@@ -138,6 +143,7 @@ export type EffectDuration =
   | { kind: 'whileSourceOnBattlefield'; sourceId: string }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
   | { kind: 'cdaLifePt' }
+  | { kind: 'pumpPerLinkedExile' }
 
 export type ContinuousEffect = {
   effect: ReversibleEffect

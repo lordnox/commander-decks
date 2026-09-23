@@ -1,6 +1,6 @@
 import { grantedRulesFor } from './cardPlugins'
 import { effectsFor } from './cardPlugins/cardRules'
-import { serializableEffects } from './cardPlugins/effects'
+import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
 import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
 import { applyRoomCard, applyRoomDoors } from './plugins/rooms'
@@ -106,6 +106,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
   const put = (playerId: PlayerId, zone: GameObject['zone'], template: CardTemplate) => {
     const id = `o${nextId}`
     nextId += 1
+    const effects = serializableEffects(template.effects ?? effectsFor(template.name))
     objects[id] = {
       ...defaultObject(),
       ...template,
@@ -117,8 +118,9 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
         ...defaultObject().grantedRules,
         ...(template.grantedRules ?? []),
         ...grantedRulesFor(template.name),
+        ...pluginIdsFromEffects(effects),
       ])],
-      effects: serializableEffects(template.effects ?? effectsFor(template.name)),
+      effects,
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
     if (objects[id].roomDoors) {

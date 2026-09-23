@@ -1,4 +1,5 @@
 import type { CardInstruction } from '../effects'
+import { exilePayoffsInstructionHandlers } from '../exilePayoffs'
 import { combatCopyHandlers } from './combatCopy'
 import { becomeCopyOfTargetHandlers } from './becomeCopyOfTarget'
 import { controlHandlers } from './control'
@@ -24,6 +25,7 @@ import { statusEffectHandlers } from '../statusEffects'
 import { monstrosityInstruction } from '../monstrosity'
 
 const instructionHandlers = {
+  ...exilePayoffsInstructionHandlers,
   ...controlHandlers,
   ...permanentControlHandlers,
   ...resourceHandlers,

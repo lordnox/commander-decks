@@ -525,6 +525,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'static' && effect.grantControlledSubtypeTrigger) {
       ids.add('grantControlledSubtypeTrigger')
     }
+    if (effect.op === 'static' && effect.pumpPerLinkedExile) ids.add('exilePayoffs')
     if (effect.op === 'handler') {
       ids.add(effect.pluginId)
       // Demonstrate only opens the copy choice; stackCopy resolves it.
@@ -558,6 +559,11 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (hasKind(listed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (hasKind(listed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
+    if (hasKind(
+      listed,
+      'pumpFromLinkedExilePower',
+      'putLinkedExileToGraveyardGainLife',
+    )) ids.add('exilePayoffs')
     if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')
     if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
     if (hasKind(listed, 'exileUntilOpponentBecomesMonarch')) ids.add('monarchExile')

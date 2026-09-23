@@ -39,6 +39,7 @@ import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
 import { grantControlledSubtypeTrigger } from '../cardPlugins/grantControlledSubtypeTrigger'
+import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
@@ -91,6 +92,7 @@ export const builtInPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantControlledSubtypeTrigger,
+  exilePayoffs,
   extraUntap,
   sacrificeLandMana,
   phialReplacement,
