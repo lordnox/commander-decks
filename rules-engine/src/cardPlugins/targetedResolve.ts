@@ -57,8 +57,6 @@ export const matchesTargetFilter = (
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.noncreature && object.types.includes('Creature')) return false
   if (filter.nonblack && object.colors.includes('B')) return false
-  if (hasProtectionFromEverything(state, object)) return false
-  if (object.controller !== controller && hasKeyword(object, 'hexproof', state)) return false
   if (filter.nonlegendary && object.supertypes.includes('Legendary')) return false
   if (filter.permanent && !isPermanentType(object.types)) return false
   if (filter.fromBattlefieldThisTurn && !putIntoGraveyardFromBattlefieldThisTurn(object)) {
@@ -71,8 +69,7 @@ export const matchesTargetFilter = (
   if (
     filter.bracketed
     && castOption !== 'cleave'
-    && !validTarget(state, object, filter.bracketed, controller, castOption, excludeSourceId)
-    && !matchesTargetFilter(state, object, filter.bracketed, controller, castOption)
+    && !matchesTargetFilter(state, object, filter.bracketed, controller, castOption, excludeSourceId)
   ) return false
   return true
 }
@@ -83,8 +80,12 @@ export const validTarget = (
   filter: TargetFilter,
   controller: PlayerId,
   castOption?: string,
+  excludeSourceId?: string,
 ) => {
-  if (!matchesTargetFilter(state, object, filter, controller, castOption)) return false
+  if (!matchesTargetFilter(state, object, filter, controller, castOption, excludeSourceId)) {
+    return false
+  }
+  if (hasProtectionFromEverything(state, object)) return false
   if (object && object.controller !== controller && hasKeyword(object, 'hexproof', state)) {
     return false
   }

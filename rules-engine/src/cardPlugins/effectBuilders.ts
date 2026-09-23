@@ -274,6 +274,8 @@ export const goadTarget = (): CardInstruction => ({ kind: 'goadTargets' })
 export const goadTargetUntilEot = (): CardInstruction => ({
   kind: 'goadTargets',
   untilEndOfTurn: true,
+})
+
 export const phaseOutControlled = (): CardInstruction => ({ kind: 'phaseOutControlled' })
 
 export const grantProtectionFromEverything = (): CardInstruction => ({
@@ -782,6 +784,8 @@ export const spreeMode = (
 export const spree = (modes: SpreeMode[]): CardEffect => ({
   op: 'castCost',
   spree: modes,
+})
+
 export const multikicker = (cost: string): CardEffect => ({
   op: 'castCost',
   multikicker: cost,
@@ -810,6 +814,7 @@ export const alternateCast = (
     exileAfterUse?: boolean
     discard?: 'land'
     sacrifice?: { type: string; count: number }
+    afterWarp?: boolean
   } = {},
 ): CardEffect => ({ op: 'alternateCast', id, label, manaCost, ...extra })
 
@@ -853,6 +858,8 @@ export const embalm = (
     colors: [...options.colors],
     extraSubtypes: [...options.extraSubtypes],
   }],
+})
+
 export const foretell = (manaCost: string): CardEffect => ({
   op: 'foretell',
   manaCost,

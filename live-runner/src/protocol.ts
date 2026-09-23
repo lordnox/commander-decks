@@ -90,6 +90,11 @@ type InboxPayload =
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
+      kicked?: boolean
+      giftPromised?: boolean
+      giftRecipientId?: string
+      spreeModes?: string[]
+      timesKicked?: number
       attackers?: Array<{ objectId: string; defenderId: string }>
       blockers?: Array<{ blockerId: string; attackerId: string }>
     }

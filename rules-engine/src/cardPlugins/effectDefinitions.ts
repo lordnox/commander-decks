@@ -30,6 +30,9 @@ export type CardCondition =
   | { kind: 'controllerLife'; min: number }
   | { kind: 'giftPromised' }
   | { kind: 'giftNotPromised' }
+  | { kind: 'notMonstrous' }
+  /** Intervening if for "if it was a creature" on a dies trigger (LKI: still a creature in graveyard). */
+  | { kind: 'wasCreature' }
 
 export type GiftSpec = {
   label?: string
@@ -37,9 +40,6 @@ export type GiftSpec = {
   extraTurn?: true
   token?: TokenSpec & { tapped?: boolean }
 }
-  | { kind: 'notMonstrous' }
-  /** Intervening if for "if it was a creature" on a dies trigger (LKI: still a creature in graveyard). */
-  | { kind: 'wasCreature' }
 
 export type TokenSpec = {
   name: string
@@ -251,9 +251,13 @@ export type CardInstruction =
       min?: number
       max?: number
       optional?: boolean
+    }
+  | {
       kind: 'becomeCopyOfTarget'
       filter: TargetFilter
       keepAbility?: boolean
+    }
+  | {
       kind: 'loseAbilitiesBecome'
       extraSubtype: string
       power: number

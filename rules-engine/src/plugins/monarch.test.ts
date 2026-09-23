@@ -5,7 +5,6 @@ import {
   becomeMonarch,
   enters,
   exileUntilOpponentBecomesMonarch,
-  onResolve,
 } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'

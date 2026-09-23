@@ -148,7 +148,6 @@ describe('loseAbilitiesBecome', () => {
   })
 
   test('does not restamp creatures that enter later under that opponent', () => {
-    const catalog = createCatalog([continuousEffects])
     const state = newGame({
       players: ['p1', 'p2'],
       battlefield: { p2: [bears()] },

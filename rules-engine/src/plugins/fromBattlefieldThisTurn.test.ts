@@ -21,8 +21,6 @@ const creature = (name: string) => cardTemplate(name, {
   toughness: 2,
 })
 
-const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
-
 const diedThisTurnFilter = {
   zone: 'graveyard',
   controller: 'you',

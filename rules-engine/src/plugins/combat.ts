@@ -1,7 +1,7 @@
 import { encoreAttackDeclarationError } from '../cardPlugins/encore'
 import { hasKeyword, lethalDamage } from '../keywords'
 import { attackDeclarationError, defenderLegalForGoadedAttacker } from './goad'
-import { existsOnBattlefield, isPhasedOut } from './phasing'
+import { existsOnBattlefield } from './phasing'
 import { hasProtectionFromEverything } from './protectionFromEverything'
 import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
 

@@ -44,7 +44,7 @@ const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand'])
 const LAND_TO_GRAVEYARD_TURN = 'triggers.firstTimeEachTurn.landToGraveyard'
 
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
-type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets'>
+type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets' | 'onceEachTurn'>
 
 type PendingTrigger = {
   source: GameObject
@@ -120,7 +120,7 @@ const passesOnceEachTurn = (
 const noteOnceEachTurnIfNeeded = (
   draft: Draft,
   source: GameObject,
-  effect: TriggerEffect,
+  effect: Pick<TriggerEffect, 'onceEachTurn'>,
   key?: string,
 ) => {
   if (!effect.onceEachTurn || !key) return
@@ -130,7 +130,7 @@ const noteOnceEachTurnIfNeeded = (
 }
 
 const triggerPayloadExtras = (
-  effect: TriggerEffect,
+  effect: Pick<TriggerEffect, 'if'>,
   key?: string,
   extras: Record<string, unknown> = {},
 ) => ({

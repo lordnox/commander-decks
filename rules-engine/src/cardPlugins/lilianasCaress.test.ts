@@ -134,7 +134,7 @@ test('an opponent discarding puts Caress on the stack before life loss', () => {
 test('each discarded card triggers separately', () => {
   const server = game()
   let current = server.state
-  for (const objectId of [...server.state.zoneOrder.p1.hand]) {
+  for (const objectId of server.state.zoneOrder.p1.hand) {
     current = ok(server.rules(current, discard(current, 'p1', objectId)))
     expect(current.stack.length).toBeGreaterThan(0)
     current = ok(server.rules(current, { type: 'resolveTop' }))
