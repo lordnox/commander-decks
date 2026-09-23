@@ -8,6 +8,7 @@ import {
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
 } from '../effects'
+import { runRevealUntil } from '../revealUntil'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const selfMill: InstructionHandler<'selfMill'> = ({ draft, source }, instruction) => {
@@ -22,34 +23,17 @@ const sacrificeSelf: InstructionHandler<'sacrificeSelf'> = ({ draft, source }) =
   draft.enqueue({ type: 'sacrifice', objectId: source.id })
 }
 
-const revealUntilBasicLand: InstructionHandler<'revealUntilBasicLand'> = (
-  { draft, source },
-) => {
-  const library = draft.zoneOrder[source.controller].library
-  const index = library.findIndex((objectId) => {
-    const object = draft.object(objectId)
-    return object?.types.includes('Land') && object.supertypes.includes('Basic')
+const revealUntil: InstructionHandler<'revealUntil'> = ({ draft, source }, instruction) => {
+  runRevealUntil(draft, source, instruction)
+}
+
+const revealUntilBasicLand: InstructionHandler<'revealUntilBasicLand'> = ({ draft, source }) => {
+  runRevealUntil(draft, source, {
+    count: 1,
+    match: { type: 'Land', supertype: 'Basic' },
+    destination: 'hand',
+    nonMatch: 'mill',
   })
-  const count = index < 0 ? library.length : index + 1
-  const revealed = library.slice(0, count)
-  if (revealed.length > 0) {
-    draft.enqueue({
-      type: 'reveal',
-      seat: source.controller,
-      objectIds: revealed,
-      source: source.name,
-    })
-  }
-  for (const objectId of revealed) {
-    const object = draft.object(objectId)
-    draft.enqueue({
-      type: 'move',
-      objectId,
-      to: object?.types.includes('Land') && object.supertypes.includes('Basic')
-        ? 'hand'
-        : 'graveyard',
-    })
-  }
 }
 
 const revealMatchingToHand: InstructionHandler<'revealMatchingToHand'> = (
@@ -475,6 +459,7 @@ export const zoneHandlers = {
   selfMill,
   bounceSelf,
   sacrificeSelf,
+  revealUntil,
   revealUntilBasicLand,
   revealMatchingToHand,
   lockOrUnlockDoor,

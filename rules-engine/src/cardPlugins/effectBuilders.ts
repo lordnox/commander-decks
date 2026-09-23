@@ -8,6 +8,7 @@ import type {
   ModalMode,
   ModalSpec,
   SearchSpec,
+  RevealUntilNonMatch,
   TargetFilter,
   TokenSpec,
 } from './effectDefinitions'
@@ -593,7 +594,15 @@ export const pumpAllCreaturesByX = (multiplier = -1): CardInstruction => ({
   multiplier,
 })
 
-export const revealUntilBasicLand = (): CardInstruction => ({ kind: 'revealUntilBasicLand' })
+export const revealUntil = (
+  count: number | 'opponentCount',
+  match: TargetFilter,
+  destination: 'hand' | 'battlefield',
+  nonMatch: RevealUntilNonMatch,
+): CardInstruction => ({ kind: 'revealUntil', count, match, destination, nonMatch })
+
+export const revealUntilBasicLand = (): CardInstruction =>
+  revealUntil(1, { type: 'Land', supertype: 'Basic' }, 'hand', 'mill')
 
 export const revealMatchingToHand = (count: number, type: string): CardInstruction => ({
   kind: 'revealMatchingToHand',

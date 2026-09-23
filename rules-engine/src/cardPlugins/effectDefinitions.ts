@@ -37,6 +37,8 @@ export type TokenSpec = {
   sacrificeForMana?: Partial<ManaPool>
 }
 
+export type RevealUntilNonMatch = 'mill' | 'shuffle'
+
 export type CardInstruction =
   | { kind: 'selfMill'; count: number }
   | { kind: 'bounceSelf' }
@@ -58,6 +60,13 @@ export type CardInstruction =
   | { kind: 'winGame' }
   | { kind: 'addPlusCounters'; count: number }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
+  | {
+      kind: 'revealUntil'
+      count: number | 'opponentCount'
+      match: TargetFilter
+      destination: 'hand' | 'battlefield'
+      nonMatch: RevealUntilNonMatch
+    }
   | { kind: 'revealUntilBasicLand' }
   | { kind: 'revealMatchingToHand'; count: number; type: string }
   | { kind: 'lockOrUnlockDoor' }
