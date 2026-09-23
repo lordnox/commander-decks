@@ -1,6 +1,10 @@
 import { hasKeyword } from '../keywords'
 import type Draft from '../draft'
 import type { GameObject, Plugin } from '../types'
+import {
+  isLegendaryCreature,
+  noteLegendaryCombatDamageToPlayer,
+} from './combatLegendaryDamage'
 
 const dealToObject = (
   draft: Draft,
@@ -39,6 +43,13 @@ export const damage: Plugin = {
 
     if (event.type === 'dealDamage') {
       if (event.target.kind === 'player') {
+        if (event.combat === true && event.amount > 0) {
+          const source = draft.objects[event.sourceId]
+          const victim = draft.players[event.target.player]
+          if (victim && isLegendaryCreature(source)) {
+            noteLegendaryCombatDamageToPlayer(victim, source!.controller)
+          }
+        }
         const maximum = Math.max(0, draft.players[event.target.player]?.life ?? 0)
         draft.enqueue({
           type: 'loseLife',

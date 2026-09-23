@@ -1053,6 +1053,13 @@ export const opponentLostLifeThisTurn = (min: number): CardCondition => ({
   min,
 })
 
+export const opponentDealtCombatDamageByLegendaryThisTurn = (
+  controller: 'you' | 'any' = 'any',
+): CardCondition => ({
+  kind: 'opponentDealtCombatDamageByLegendaryThisTurn',
+  ...(controller === 'you' ? { controller } : {}),
+})
+
 export const manaIf = (condition: CardCondition): CardEffect => ({
   op: 'mana',
   if: condition,
