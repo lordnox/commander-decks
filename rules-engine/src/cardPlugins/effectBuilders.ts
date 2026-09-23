@@ -846,6 +846,17 @@ export const cumulativeUpkeepOpponentLife = (): CardInstruction => ({
   kind: 'cumulativeUpkeepOpponentLife',
 })
 
+export const loseAbilitiesBecome = (
+  extraSubtype: string,
+  power: number,
+  toughness: number,
+): CardInstruction => ({
+  kind: 'loseAbilitiesBecome',
+  extraSubtype,
+  power,
+  toughness,
+})
+
 export const xMana = (color: 'generic' | 'black' = 'generic'): CardEffect => ({
   op: 'castCost',
   xMana: color,

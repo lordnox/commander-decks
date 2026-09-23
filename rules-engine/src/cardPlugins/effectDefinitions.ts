@@ -250,6 +250,10 @@ export type CardInstruction =
       kind: 'becomeCopyOfTarget'
       filter: TargetFilter
       keepAbility?: boolean
+      kind: 'loseAbilitiesBecome'
+      extraSubtype: string
+      power: number
+      toughness: number
     }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }

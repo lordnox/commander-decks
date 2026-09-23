@@ -12,6 +12,7 @@ import type {
 import { effectsFor } from './cardRules'
 import type { CardEffect } from './effectDefinitions'
 import { applyCopy } from './effectRuntime'
+import { applyCopy, serializableEffects } from './effectRuntime'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
 
@@ -143,6 +144,33 @@ export const returnAsEnchantmentOnly = (object: GameObject) => {
   ])]
   object.power = null
   object.toughness = null
+export type LoseAbilitiesBecomeParams = {
+  extraSubtype: string
+  power: number
+  toughness: number
+}
+
+export const loseAbilitiesBecome = (
+  object: GameObject,
+  { extraSubtype, power, toughness }: LoseAbilitiesBecomeParams,
+): ReversibleEffect => {
+  const before = {
+    oracleText: object.oracleText,
+    grantedRules: [...object.grantedRules],
+    effects: object.effects?.length
+      ? serializableEffects(object.effects)
+      : undefined,
+    subtypes: [...object.subtypes],
+    power: withoutCounters(object, object.power),
+    toughness: withoutCounters(object, object.toughness),
+  }
+  object.oracleText = ''
+  object.grantedRules = []
+  object.effects = []
+  object.subtypes = [...new Set([...object.subtypes, extraSubtype])]
+  if (object.power !== null) object.power = withCounters(object, power)
+  if (object.toughness !== null) object.toughness = withCounters(object, toughness)
+  return { kind: 'loseAbilitiesBecome', before, extraSubtype, power, toughness }
 }
 
 export const copyObject = (
@@ -217,6 +245,10 @@ export const changeControllerPermanent = (
   object: GameObject,
   controller: PlayerId,
 ) => withDuration(object, changeController(object, controller), { kind: 'permanent' })
+export const permanent = (
+  object: GameObject,
+  effect: ReversibleEffect | undefined,
+) => withDuration(object, effect, { kind: 'permanent' })
 
 export const whileSourceTappedAndPowerAtMost = (
   state: GameState,
@@ -355,6 +387,15 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'typeChange') {
     object.types = [...effect.before]
+  } else if (effect.kind === 'loseAbilitiesBecome') {
+    object.oracleText = effect.before.oracleText
+    object.grantedRules = [...effect.before.grantedRules]
+    object.effects = effect.before.effects
+      ? serializableEffects(effect.before.effects)
+      : undefined
+    object.subtypes = [...effect.before.subtypes]
+    object.power = withCounters(object, effect.before.power)
+    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'copy') {
     restoreCopy(object, effect.before)
   } else if (effect.kind === 'goad') {
@@ -391,6 +432,13 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     }
   } else if (effect.kind === 'typeChange') {
     object.types = [...effect.after]
+  } else if (effect.kind === 'loseAbilitiesBecome') {
+    object.oracleText = ''
+    object.grantedRules = []
+    object.effects = []
+    object.subtypes = [...new Set([...object.subtypes, effect.extraSubtype])]
+    if (object.power !== null) object.power = withCounters(object, effect.power)
+    if (object.toughness !== null) object.toughness = withCounters(object, effect.toughness)
   } else if (effect.kind === 'copy') {
     restoreCopy(object, effect.after)
   } else if (effect.kind === 'goad') {

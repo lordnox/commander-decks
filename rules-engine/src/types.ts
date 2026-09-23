@@ -117,6 +117,19 @@ export type ReversibleEffect =
       sourceId: string
       grantId: string
       trigger: import('./cardPlugins/effects').CardEffect
+  | {
+      kind: 'loseAbilitiesBecome'
+      before: {
+        oracleText: string
+        grantedRules: string[]
+        effects?: GameObject['effects']
+        subtypes: string[]
+        power: number | null
+        toughness: number | null
+      }
+      extraSubtype: string
+      power: number
+      toughness: number
     }
 
 export type EffectDuration =
