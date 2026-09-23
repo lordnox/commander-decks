@@ -12,6 +12,17 @@ This file is the deck's memory. The primer is how to play the deck. This file is
 
 Every unique card needs a Cards in line. The other headings appear when there is something to record.
 
+## Goals
+
+- **Donate** — Dack gives each opponent a creature after you take its enter trigger; owner-return blinks reclaim the gift, they do not become the opponent's card.
+- **Blink** — Restamp Dack and the cages. Self-blink and owner-return blinks are the engine, not a control shell.
+- **Goad** — Donated creatures are goaded for the rest of the game so they keep attacking someone else.
+- **Cages** — Fiend Hunter-style ETBs exile opposing permanents before the creature changes teams.
+
+## Rankings
+
+First pass: jank 8, fun 8, mean 5, Donate 9, Blink 8, Goad 7, Cages 8. Mean stays moderate because cages are telegraphed and the table still plays; goad is only on Dack's dump.
+
 ## Cards in
 
 - **Abdel Adrian, Gorion's Ward** — Self-blink engine: exile Dack and other nonlands, make Soldiers, then let Abdel leave so everything ETBs again.
@@ -100,4 +111,10 @@ Dack puts the revealed creatures onto the battlefield under your control, their 
 
 ### 2026-09-23 — Import from Archidekt
 
-Imported [Dack Fayden's Party](https://archidekt.com/decks/26599447/dack_faydens_party). Endless Sands was tagged Commander on Archidekt; Dack is the only commander, so the desert is a land. Sol Ring is in the submitted 99 (kitchen-table 4+ fast mana). Rankings skipped until identity goals are named.
+Imported [Dack Fayden's Party](https://archidekt.com/decks/26599447/dack_faydens_party). Endless Sands was tagged Commander on Archidekt; Dack is the only commander, so the desert is a land. Sol Ring is in the submitted 99 (kitchen-table 4+ fast mana).
+
+### 2026-09-23 — Bracket 2+ and rankings
+
+Assessed as Bracket 2+ against [BRACKET-DEFINITIONS.md](../../BRACKET-DEFINITIONS.md) (Game Changers snapshot 2026-09-03: **0** in the 99). Win texture is Incremental Core: goaded combat after cages, no from-hand dump, no two-card infinite in the 99. Sol Ring is kitchen-table 4+ permanent fast mana but isolated; a turn-four Dack cages the table, it does not win it. Usual goldfish kill around nine to eleven. Not Bracket 3: 6-mana commander, 28 Plains, no tutors or extra turns. Not Bracket 2−: the Fiend Hunter suite plus a restamp is real mid-game disruption.
+
+Identity goals locked from the import talk: Donate, Blink, Goad, Cages. Goad scores 7 because only Dack applies it.
