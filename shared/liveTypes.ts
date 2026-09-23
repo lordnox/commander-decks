@@ -32,6 +32,7 @@ export type LiveSeatSnapshot<
 > = {
   life: number
   poison?: number
+  energy?: number
   commander_damage?: Record<string, number>
   commander_tax?: number
   /** Floating mana, by symbol. Absent whenever the pool is empty. */

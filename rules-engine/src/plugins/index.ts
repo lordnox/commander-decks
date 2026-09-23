@@ -18,6 +18,7 @@ import {
 } from './hiddenInformation'
 import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
+import { energy } from './energy'
 import { life } from './life'
 import { lifeTotalLock } from './lifeTotalLock'
 import { phasing } from './phasing'
@@ -67,6 +68,7 @@ export const builtInPlugins = [
   combat,
   life,
   monarch,
+  energy,
   damage,
   battle,
   doubleFaced,
@@ -110,6 +112,7 @@ export {
   lands,
   life,
   monarch,
+  energy,
   mana,
   manaBurn,
   recurringSpells,

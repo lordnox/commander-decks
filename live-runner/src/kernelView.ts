@@ -56,6 +56,12 @@ const traceSummary = (trace: EventTrace, state: GameState) => {
     case 'payLife':
       summary = `${event.seat} pays ${event.amount} life`
       break
+    case 'addEnergy':
+      summary = `${event.seat} gets ${event.amount} energy`
+      break
+    case 'payEnergy':
+      summary = `${event.seat} pays ${event.amount} energy`
+      break
     case 'setLifeTotal':
       summary = `${event.seat}'s life total becomes ${event.total}`
       break
@@ -298,6 +304,7 @@ export const liveSeatsFromState = (
       color: SEAT_COLORS[index] ?? SEAT_COLORS[0],
       life: player.life,
       poison: player.poison,
+      energy: state.players[playerId].energy,
       commander_tax: 0,
       ...manaLabel(state.players[playerId].mana),
       library_count: player.library_count,

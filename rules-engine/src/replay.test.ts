@@ -19,6 +19,7 @@ const replayPlayer = (
 ) => ({
   life: 40,
   poison: 0,
+  energy: 0,
   library_count: 0,
   hand: [],
   battlefield,

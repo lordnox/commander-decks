@@ -39,6 +39,7 @@ const player = (format: GameFormat, id: PlayerId): PlayerState => ({
   id,
   life: format.startingLife,
   poison: 0,
+  energy: 0,
   mana: emptyMana(),
   lost: false,
   landsPlayed: 0,
