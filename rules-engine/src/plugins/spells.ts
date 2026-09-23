@@ -18,6 +18,7 @@ import {
   alternateCastEffect,
   availableAlternateCastEffect,
   finishedSpellZone,
+  printedAlternateManaCost,
   type AlternateCastEffect,
 } from '../cardPlugins/alternateCosts'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
@@ -85,7 +86,9 @@ export const spellCost = (
     : x > 0 ? `{${x}}` : ''
   const base = options.withoutPayingMana
     ? ''
-    : selected?.manaCost ?? bestowed?.cost ?? object.manaCost.replaceAll('{X}', xCost)
+    : (selected ? printedAlternateManaCost(selected, object) : undefined)
+      ?? bestowed?.cost
+      ?? object.manaCost.replaceAll('{X}', xCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
   }${

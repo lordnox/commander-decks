@@ -38,6 +38,7 @@ import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
 import { discard, draw, selectCards, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
+import { warp } from './warp'
 
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
@@ -55,6 +56,7 @@ export const builtInPlugins = [
   lands,
   spells,
   rebound,
+  warp,
   saga,
   rooms,
   stateBased,
@@ -111,6 +113,7 @@ export {
   phialReplacement,
   priority,
   rebound,
+  warp,
   rooms,
   sacrificeLandMana,
   saga,

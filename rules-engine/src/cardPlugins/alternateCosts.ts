@@ -73,12 +73,22 @@ const costCandidates = (
   return { discard, sacrifice }
 }
 
+export const printedAlternateManaCost = (
+  effect: AlternateCastEffect,
+  object: GameObject,
+) => effect.manaCost === '__printed__' ? object.manaCost : effect.manaCost
+
 export const canChooseAlternateCast = (
   state: GameState,
   seat: string,
   effect: AlternateCastEffect,
   object?: GameObject,
 ) => {
+  if (effect.afterWarp) {
+    if (object?.zone !== 'exile') return false
+    if (object.warpExiledTurn === undefined) return false
+    if (state.turn <= object.warpExiledTurn) return false
+  }
   if (effect.fromZone && object?.zone !== effect.fromZone) return false
   if ((effect.life ?? 0) > state.players[seat].life) return false
   if (

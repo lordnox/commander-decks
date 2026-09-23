@@ -197,6 +197,8 @@ export type GameObject = {
       resolveCount?: number
     }
   >
+  /** Turn this card was exiled by its warp delayed trigger; enables warp-from-exile casting. */
+  warpExiledTurn?: number
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
   continuousEffects?: ContinuousEffect[]
