@@ -6,9 +6,11 @@ import type {
   StackItem,
   TargetRef,
 } from '../types'
+import { isPermanentType } from '../definitions'
 import { hasKeyword } from '../keywords'
 import { isPhasedOut } from '../plugins/phasing'
 import { hasProtectionFromEverything } from '../plugins/protectionFromEverything'
+import { putIntoGraveyardFromBattlefieldThisTurn } from '../plugins/fromBattlefieldThisTurn'
 import { effectsOf } from './cardRules'
 import { spellWasKicked } from '../plugins/kickCast'
 import { runInstructions, type TargetFilter } from './effects'
@@ -58,6 +60,10 @@ export const matchesTargetFilter = (
   if (hasProtectionFromEverything(state, object)) return false
   if (object.controller !== controller && hasKeyword(object, 'hexproof', state)) return false
   if (filter.nonlegendary && object.supertypes.includes('Legendary')) return false
+  if (filter.permanent && !isPermanentType(object.types)) return false
+  if (filter.fromBattlefieldThisTurn && !putIntoGraveyardFromBattlefieldThisTurn(object)) {
+    return false
+  }
   if (filter.spellTargetsControlledPermanent) {
     const item = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!item || !controlledPermanentTarget(state, item, controller)) return false

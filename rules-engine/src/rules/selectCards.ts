@@ -3,6 +3,8 @@ import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
 import type { CardInstruction } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
+import type { CardInstruction, TargetFilter } from '../cardPlugins/effects'
+import { validTarget } from '../cardPlugins/targetedResolve'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
@@ -65,6 +67,7 @@ export type PendingCardSelection = {
   linkExile?: boolean
   /** Exile chosen permanents until an opponent becomes monarch. */
   exileUntilOpponentMonarch?: boolean
+  targetFilter?: TargetFilter
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -141,8 +144,12 @@ const battlefieldPermanent = (state: GameState | Draft, seat: PlayerId, objectId
     && object.controller === seat
 }
 
-const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
+export const liveSelectionCandidates = (
+  state: GameState | Draft,
+  selection: PendingCardSelection,
+) => {
   const fromSeat = selection.fromSeat ?? selection.seat
+  const controller = selection.seat
   if (selection.kind === 'discard' || selection.kind === 'reveal') {
     return selection.candidates.filter((objectId) => cardInHand(state, fromSeat, objectId))
   }
@@ -158,8 +165,13 @@ const liveCandidates = (state: GameState, selection: PendingCardSelection) => {
     return Boolean(object)
       && (!selection.fromZone || object?.zone === selection.fromZone)
       && (!selection.fromSeat || object?.owner === selection.fromSeat)
+      && (!selection.targetFilter
+        || validTarget(state as GameState, object, selection.targetFilter, controller))
   })
 }
+
+const liveCandidates = (state: GameState, selection: PendingCardSelection) =>
+  liveSelectionCandidates(state, selection)
 
 const expectedCount = (state: GameState, selection: PendingCardSelection) =>
   Math.min(selection.count, liveCandidates(state, selection).length)

@@ -11,6 +11,7 @@ import type {
   RuleInstance,
   ZoneId,
 } from './types'
+import { markPutIntoGraveyardFromBattlefieldThisTurn } from './plugins/fromBattlefieldThisTurn'
 import { ZONE_IDS } from './types'
 
 const SBA_CAP = 32
@@ -157,6 +158,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         : object.owner
       if (leftBattlefield) {
         draft.rules = draft.rules.filter((rule) => rule.sourceId !== event.objectId)
+        if (previous === 'battlefield' && event.to === 'graveyard') {
+          markPutIntoGraveyardFromBattlefieldThisTurn(object)
+        }
         draft.note(`${object.name} leaves battlefield`)
       }
       if (entered) {

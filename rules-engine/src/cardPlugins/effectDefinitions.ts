@@ -324,6 +324,10 @@ export type TargetFilter = {
   /** Exclude the source permanent ("another target"). */
   other?: boolean
   excludeSubtypes?: string[]
+  /** Card types must include a permanent type (creature, land, artifact, etc.). */
+  permanent?: boolean
+  /** In a graveyard and moved there from the battlefield this turn (not mill or discard). */
+  fromBattlefieldThisTurn?: boolean
 }
 
 export type CastCostCondition =
