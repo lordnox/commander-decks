@@ -7,7 +7,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
-import { abilityTokens } from '../keywords'
 import type { GameState } from '../types'
 import { activated } from './activated'
 import { effectsFor } from './cardRules'
@@ -20,13 +19,35 @@ import {
 } from './librarySearch'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
-import { unearth as unearthPlugin } from './unearth'
-import { energy } from '../plugins/energy'
 
 const deckCardsPath = join(
   import.meta.dir,
   '../../../decks/2+_dack-faydens-party/cards.json',
 )
+
+/** Pass 2 slot for each assigned creature (exact `cards.json` names). */
+const PART36_INVENTORY = {
+  'Aang, the Last Airbender': 'gap',
+  'Akroma, Angel of Wrath': 'keywords-only',
+  'Alabaster Host Intercessor': 'registered',
+  'Angel of Indemnity': 'gap',
+  'Angel of the Dire Hour': 'gap',
+  'Angel of the Ruins': 'gap',
+  'Appa, Loyal Sky Bison': 'gap',
+  'Bronzebeak Foragers': 'gap',
+  'Curious Colossus': 'registered',
+  'Darksteel Colossus': 'gap',
+  'Eagle of Deliverance': 'gap',
+  'Githzerai Monk': 'registered',
+  'Knight-Captain of Eos': 'gap',
+  'Luminate Primordial': 'gap',
+  'Meteor Golem': 'registered',
+  'Myr Battlesphere': 'gap',
+  'Protector of the Wastes': 'gap',
+  'Resolute Archangel': 'gap',
+  'Salvation Colossus': 'gap',
+  'Salvation Swan': 'gap',
+} as const satisfies Record<string, 'registered' | 'keywords-only' | 'gap'>
 
 const oracleFor = (name: string) => {
   const deck = JSON.parse(readFileSync(deckCardsPath, 'utf8')) as {
@@ -60,9 +81,35 @@ const plains = () =>
     tapProduces: { W: 1 },
   })
 
-describe('plug Dack part 36 creatures', () => {
+describe('plug Dack part 36 creatures inventory', () => {
+  test('every assigned name is registered, keywords-only, or an explicit GAP', () => {
+    expect(Object.keys(PART36_INVENTORY)).toHaveLength(20)
+    for (const [name, slot] of Object.entries(PART36_INVENTORY)) {
+      expect(oracleFor(name).length).toBeGreaterThan(0)
+      const effects = effectsFor(name)
+      if (slot === 'registered') {
+        expect(effects.length).toBeGreaterThan(0)
+      } else {
+        expect(effects).toEqual([])
+      }
+    }
+  })
+
+  test('Darksteel Colossus is a GAP for the graveyard shuffle replacement, not kernel-only', () => {
+    expect(PART36_INVENTORY['Darksteel Colossus']).toBe('gap')
+    expect(effectsFor('Darksteel Colossus')).toEqual([])
+    expect(oracleFor('Darksteel Colossus')).toContain('shuffle it into its owner\'s library')
+  })
+
+  test('Salvation Colossus stays off cardRules until a declare-attackers-wide trigger exists', () => {
+    expect(PART36_INVENTORY['Salvation Colossus']).toBe('gap')
+    expect(effectsFor('Salvation Colossus')).toEqual([])
+    expect(oracleFor('Salvation Colossus')).toMatch(/Whenever you attack/)
+  })
+})
+
+describe('plug Dack part 36 registered creatures', () => {
   test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {
-    expect(effectsFor('Alabaster Host Intercessor').length).toBeGreaterThan(0)
     expect(oracleFor('Alabaster Host Intercessor')).toContain('Plainscycling {2}')
 
     const intercessor = deckCreature('Alabaster Host Intercessor', { manaCost: '{5}{W}' })
@@ -118,7 +165,7 @@ describe('plug Dack part 36 creatures', () => {
       objectId: intercessorId,
     }))
     const opened = ok(server.rules(cycled, { type: 'resolveTop' }))
-    const search = pendingSearch(opened, 'p1')!
+    pendingSearch(opened, 'p1')!
     const found = named(opened, 'Plains').id
     state = ok(server.rules(opened, {
       type: 'move',
@@ -224,72 +271,5 @@ describe('plug Dack part 36 creatures', () => {
     }))
     state = resolveStack(server.rules, state)
     expect(state.objects[rockId].zone).toBe('graveyard')
-  })
-
-  test('Salvation Colossus pumps on attack and unearths for eight energy', () => {
-    expect(oracleFor('Salvation Colossus')).toContain('Pay eight {E}')
-    const colossus = deckCreature('Salvation Colossus', {
-      manaCost: '{5}{W}{W}',
-      power: 9,
-      toughness: 9,
-    })
-    const ally = fixtureCreature('Fixture Colossus Ally', { controller: 'p1', power: 2, toughness: 2 })
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: { p1: [colossus] },
-        battlefield: { p1: [ally] },
-        graveyards: { p1: [] },
-      },
-      { random: () => 0.5, cardPlugins: [activated, unearthPlugin, energy, onResolve] },
-    )
-    let state = structuredClone(server.state)
-    state.players.p1.mana = { W: 5, U: 0, B: 0, R: 0, G: 0, C: 0 }
-    const colossusId = named(state, 'Salvation Colossus').id
-    state = ok(server.rules(state, {
-      type: 'move',
-      objectId: colossusId,
-      to: 'battlefield',
-    }))
-    state = resolveStack(server.rules, state)
-    state.objects[colossusId].summoningSickness = false
-
-    state = structuredClone(state)
-    state.step = 'declareAttackers'
-    state.active = 'p1'
-    state.priority = 'p1'
-    state = ok(server.rules(state, {
-      type: 'declareAttackers',
-      seat: 'p1',
-      attackers: [{ objectId: colossusId, defender: 'p2' }],
-    }))
-    state = resolveStack(server.rules, state)
-    while (state.stack.length > 0) {
-      state = ok(server.rules(state, { type: 'resolveTop' }))
-    }
-    const allyObject = named(state, 'Fixture Colossus Ally')
-    expect(allyObject.power).toBe(4)
-    expect(abilityTokens(allyObject.oracleText).includes('indestructible')).toBe(true)
-
-    state = ok(server.rules(state, { type: 'move', objectId: colossusId, to: 'graveyard' }))
-    state = ok(server.rules(state, { type: 'addEnergy', seat: 'p1', amount: 8 }))
-    state.step = 'precombatMain'
-    state.phase = 'main'
-    state.active = 'p1'
-    state.priority = 'p1'
-    const stacked = ok(server.rules(state, {
-      type: 'activateAbility',
-      abilityId: 'unearth',
-      seat: 'p1',
-      objectId: colossusId,
-    }))
-    const unearthed = resolveStack(server.rules, stacked)
-    expect(unearthed.objects[colossusId].zone).toBe('battlefield')
-    expect(unearthed.players.p1.energy).toBe(0)
-  })
-
-  test('kernel-only creatures stay off cardRules', () => {
-    expect(effectsFor('Akroma, Angel of Wrath')).toEqual([])
-    expect(effectsFor('Darksteel Colossus')).toEqual([])
   })
 })
