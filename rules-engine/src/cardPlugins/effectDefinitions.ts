@@ -203,6 +203,7 @@ export type CardInstruction =
   | { kind: 'grantControlled'; keywords: string[]; other?: boolean; nonHuman?: boolean }
   | { kind: 'preventCombatDamage'; from?: 'target' | 'all'; toController?: boolean }
   | { kind: 'untapTarget' }
+  | { kind: 'tapAll'; filter: TargetFilter }
   | { kind: 'addManaPerSwamp'; basic?: boolean }
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
@@ -311,7 +312,7 @@ export type TargetFilter = {
   nonland?: boolean
   noncreature?: boolean
   nonblack?: boolean
-  controller?: 'you' | 'opponent'
+  controller?: 'you' | 'opponent' | 'notController'
   spellTargetsControlledPermanent?: boolean
   players?: 'any' | 'opponent'
   nonlegendary?: boolean

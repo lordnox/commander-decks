@@ -50,6 +50,7 @@ export const validTarget = (
   if (filter.supertype && !object.supertypes.includes(filter.supertype)) return false
   if (filter.controller === 'you' && object.controller !== controller) return false
   if (filter.controller === 'opponent' && object.controller === controller) return false
+  if (filter.controller === 'notController' && object.controller === controller) return false
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.noncreature && object.types.includes('Creature')) return false
   if (filter.nonblack && object.colors.includes('B')) return false
