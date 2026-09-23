@@ -16,7 +16,6 @@ import type { GameObject, GameState, StackItem } from '../types'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import type { TargetFilter } from '../cardPlugins/effects'
 import { emitCyclingResolved } from '../cardPlugins/cycling'
-import { EMBALM_ABILITY_ID, resolveEmbalmAbility } from '../cardPlugins/graveyardCasting'
 import { resolveDiscardAction } from './discard'
 import { resolveDrawAction } from './draw'
 
@@ -40,9 +39,6 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
 
   if (Array.isArray(payloadInstructions)) {
     instructions = payloadInstructions as CardInstruction[]
-  } else if (item.abilityId === EMBALM_ABILITY_ID) {
-    resolveEmbalmAbility(draft, item)
-    return
   } else if (item.abilityId) {
     const live = draft.object(item.objectId)
     if (!live) return

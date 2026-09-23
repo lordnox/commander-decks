@@ -6,8 +6,9 @@ import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { embalm } from './effectBuilders'
-import { EMBALM_ABILITY_ID, graveyardCasting } from './graveyardCasting'
 import { activated } from './activated'
+
+export const EMBALM_ABILITY_ID = 'embalm'
 
 const moveToGraveyard = (state: GameState, name: string) => {
   const object = Object.values(state.objects).find((entry) => entry.name === name)!
@@ -36,10 +37,16 @@ describe('embalm', () => {
     const stamped = embalm('{3}{U}', { colors: ['U'], extraSubtypes: ['Zombie', 'Horror'] })
     const cloned = structuredClone(stamped)
     expect(cloned).toEqual({
-      op: 'embalm',
-      manaCost: '{3}{U}',
-      colors: ['U'],
-      extraSubtypes: ['Zombie', 'Horror'],
+      op: 'activate',
+      id: 'embalm',
+      zone: 'graveyard',
+      sorcery: true,
+      costs: { mana: '{3}{U}', exileFromGraveyard: true },
+      do: [{
+        kind: 'embalmToken',
+        colors: ['U'],
+        extraSubtypes: ['Zombie', 'Horror'],
+      }],
     })
   })
 
@@ -49,7 +56,7 @@ describe('embalm', () => {
       {
         battlefield: { p1: [cryptWarden()] },
       },
-      { random: () => 0.5, cardPlugins: [graveyardCasting, activated] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const ready = structuredClone(server.state)
     moveToGraveyard(ready, 'Crypt Warden')
@@ -61,7 +68,7 @@ describe('embalm', () => {
       && action.abilityId === EMBALM_ABILITY_ID)
     expect(embalmAct).toMatchObject({
       kind: 'activateAbility',
-      text: 'Embalm {4}{W}',
+      abilityId: 'embalm',
     })
 
     const activatedState = ok(server.rules(ready, {
@@ -100,7 +107,7 @@ describe('embalm', () => {
         battlefield: { p1: [cryptWarden()] },
         hands: { p2: [cardTemplate('Shock', { types: ['Instant'], manaCost: '{R}' })] },
       },
-      { random: () => 0.5, cardPlugins: [graveyardCasting, activated] },
+      { random: () => 0.5, cardPlugins: [activated] },
     )
     const onBattlefield = structuredClone(server.state)
     onBattlefield.players.p1.mana.W = 5
@@ -109,6 +116,15 @@ describe('embalm', () => {
       action.kind === 'activateAbility'
       && action.objectId === source
       && action.abilityId === EMBALM_ABILITY_ID)).toBe(false)
+
+    const stolen = structuredClone(server.state)
+    moveToGraveyard(stolen, 'Crypt Warden')
+    const stolenCard = Object.values(stolen.objects).find((o) => o.name === 'Crypt Warden')!
+    stolenCard.owner = 'p2'
+    stolenCard.controller = 'p1'
+    stolen.players.p1.mana.W = 5
+    expect(legalActsFor(stolen, 'p1').some((action) =>
+      action.objectId === stolenCard.id && action.abilityId === EMBALM_ABILITY_ID)).toBe(false)
 
     const wrongTurn = structuredClone(server.state)
     moveToGraveyard(wrongTurn, 'Crypt Warden')

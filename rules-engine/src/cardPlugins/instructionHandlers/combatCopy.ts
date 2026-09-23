@@ -158,6 +158,18 @@ const copySelf: InstructionHandler<'copySelf'> = ({ draft, source }) => {
   createToken(draft, live.controller, copyTokenTemplate(live))
 }
 
+const embalmToken: InstructionHandler<'embalmToken'> = (
+  { draft, source },
+  instruction,
+) => {
+  const live = draft.object(source.id) ?? source
+  createToken(draft, live.controller, copyTokenTemplate(live, {
+    colors: instruction.colors,
+    extraSubtypes: instruction.extraSubtypes,
+    noManaCost: true,
+  }))
+}
+
 const copyControlledCreature: InstructionHandler<'copyControlledCreature'> = (
   { draft, source },
 ) => {
@@ -308,6 +320,7 @@ export const combatCopyHandlers = {
   exchangeControlUntilEot,
   createToken: createTokenHandler,
   copySelf,
+  embalmToken,
   copyControlledCreature,
   copyTargetCreature,
   createXTokens,

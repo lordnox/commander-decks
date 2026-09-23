@@ -102,6 +102,11 @@ export type CardInstruction =
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'createToken'; token: TokenSpec }
+  | {
+      kind: 'embalmToken'
+      colors: string[]
+      extraSubtypes: string[]
+    }
   | { kind: 'attachedCopyOrToken'; cost: string; token: TokenSpec }
   | { kind: 'copySelf' }
   | { kind: 'doublePlusCounters' }
@@ -264,6 +269,7 @@ export type ActivateCost = {
   sacrifice?: 'self'
   /** Exile this card from your graveyard as an additional activation cost. */
   exileSelf?: boolean
+  exileFromGraveyard?: boolean
   discard?: 'self' | 'land' | 'any'
   sacrificeTarget?: 'creature' | 'land'
   sacrificeOther?: boolean
@@ -489,10 +495,4 @@ export type CardEffect =
       cost: string
       power: number
       toughness: number
-    }
-  | {
-      op: 'embalm'
-      manaCost: string
-      colors: string[]
-      extraSubtypes: string[]
     }

@@ -19,7 +19,6 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
-import { EMBALM_ABILITY_ID, embalmActions } from './cardPlugins/graveyardCasting'
 import {
   activateEffect,
   conditionHolds,
@@ -794,21 +793,15 @@ const canPayActivateCosts = (
   (cost) => canFund(state, seat, cost),
 )
 
-const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =>
-  effectsOf(object).flatMap((effect): AvailableAction[] => {
-    if (object.controller !== seat) return []
-    const requiredZone = effect.op === 'activate'
-      ? (effect.zone ?? 'battlefield')
-      : 'battlefield'
-    if (object.zone !== requiredZone) return []
 const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) => {
   if (object.controller !== seat) return []
-  if (object.zone === 'graveyard') return embalmActions(state, object, seat)
-  if (object.zone !== 'battlefield') return []
+  if (object.zone === 'graveyard' && object.owner !== seat) return []
+  const objectZone = object.zone
+  if (objectZone !== 'battlefield' && objectZone !== 'graveyard') return []
   return effectsOf(object).flatMap((effect): AvailableAction[] => {
     if (effect.op === 'activate' && !effect.manaAbility) {
       const requiredZone = effect.zone ?? 'battlefield'
-      if (object.zone !== requiredZone) return []
+      if (objectZone !== requiredZone) return []
       const loyalty = effect.costs.loyalty
       if (
         !canPayActivateCosts(state, object, seat, effect.costs)
@@ -1685,14 +1678,6 @@ export const eventsForAvailableAction = (
   if (action.kind === 'activateAbility') {
     const object = state.objects[action.objectId]
     if (!object || !action.abilityId) return null
-    if (action.abilityId === EMBALM_ABILITY_ID) {
-      return [{
-        type: 'activateAbility',
-        abilityId: EMBALM_ABILITY_ID,
-        seat,
-        objectId: object.id,
-      }]
-    }
     if (action.abilityId === SACRIFICE_LAND_FOR_BLACK) {
       return [{
         type: 'activateAbility',
