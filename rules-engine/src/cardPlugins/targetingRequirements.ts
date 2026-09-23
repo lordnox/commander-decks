@@ -34,7 +34,7 @@ const canFillObjectTarget = (
       ? validTarget(
           state,
           candidate,
-          targetedEffectFilter(effect, event.kicked === true),
+          targetedEffectFilter(effect, (event.timesKicked ?? (event.kicked ? 1 : 0)) > 0),
           event.seat,
         )
       : false

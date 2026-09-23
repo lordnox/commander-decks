@@ -3,6 +3,10 @@ import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { giftSpecOf } from './cardPlugins/giftCast'
 import {
+  kickCastLabel,
+  multikickerCostOf,
+} from './plugins/kickCast'
+import {
   convokeColors,
   hasConvoke,
   kickerCostOf,
@@ -111,6 +115,7 @@ export type AvailableAction =
       giftPromised?: boolean
       giftRecipientId?: string
       spreeModes?: string[]
+      timesKicked?: number
       castOption?: string
       castLabel?: string
       convoke?: string[]
@@ -671,6 +676,33 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     const spec = giftSpecOf(object)
     if (!spec) return [action]
     const label = spec.label ?? 'gift'
+    options: { castOption?: string; x?: number } = {},
+  ): AvailableAction[] => {
+    const multikicker = multikickerCostOf(object)
+    if (multikicker) {
+      const variants: AvailableAction[] = []
+      for (let timesKicked = 0; timesKicked < 100; timesKicked += 1) {
+        const cost = spellCost(state, spell, {
+          additionalGeneric: tax,
+          x: options.x ?? action.x,
+          castOption: options.castOption ?? action.castOption,
+          timesKicked,
+          seat,
+        })
+        if (!canFund(state, seat, cost)) {
+          if (timesKicked === 0) break
+          break
+        }
+        variants.push({
+          ...action,
+          timesKicked,
+          ...(timesKicked > 0 ? { kicked: true } : {}),
+          castLabel: kickCastLabel(action.castLabel, timesKicked),
+        })
+      }
+      return variants
+    }
+    if (!kickerCostOf(object)) return [action]
     return [
       action,
       {
@@ -739,6 +771,39 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       })
     }).flatMap((action) => action.kind === 'castSpell' ? withGift(action) : [action]),
   )
+        kicked: true,
+        timesKicked: 1,
+        castLabel: kickCastLabel(action.castLabel, 1),
+      },
+    ]
+  }
+  const fundedVariants = (
+    base: Extract<AvailableAction, { kind: 'castSpell' }>,
+    options: { castOption?: string; x?: number } = {},
+  ) => withKicker(base, options).flatMap((action) => {
+    if (action.kind !== 'castSpell') return []
+    const cost = spellCost(state, spell, {
+      additionalGeneric: tax,
+      x: options.x ?? action.x,
+      castOption: options.castOption ?? action.castOption,
+      kicked: action.kicked,
+      timesKicked: action.timesKicked,
+      seat,
+    })
+    if (hasTargetReduction) return [action]
+    return fundedCasts(state, seat, object, cost).map((funded) => {
+      const phyrexianLabel = funded.labeled
+        ? phyrexianCastLabel(cost, funded.phyrexianLife)
+        : undefined
+      const castLabel = [action.castLabel, phyrexianLabel].filter(Boolean).join(' — ')
+      return {
+        ...action,
+        ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
+        ...(funded.convoke ? { convoke: funded.convoke } : {}),
+        ...(castLabel ? { castLabel } : {}),
+      }
+    })
+  })
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const actions: AvailableAction[] = state.castableZones.includes(object.zone)
       ? fundedVariants({
@@ -1306,6 +1371,7 @@ const targetVariants = (
       additionalGeneric: taxFor(state, seat, source),
       castOption: candidate.castOption,
       kicked: candidate.kicked,
+      timesKicked: candidate.timesKicked,
       targets,
       seat,
     }), {
@@ -1531,6 +1597,7 @@ export const sameLegalAct = (
     targetPlayerId?: string
     x?: number
     kicked?: boolean
+    timesKicked?: number
     castOption?: string
     phyrexianLife?: number[]
     alternativeCost?: 'withoutPayingMana'
@@ -1559,6 +1626,7 @@ export const sameLegalAct = (
       && left.giftPromised === right.giftPromised
       && left.giftRecipientId === right.giftRecipientId
       && JSON.stringify(left.spreeModes ?? []) === JSON.stringify(right.spreeModes ?? [])
+      && left.timesKicked === right.timesKicked
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
       && left.alternativeCost === right.alternativeCost
@@ -1864,6 +1932,7 @@ export const eventsForAvailableAction = (
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>
         effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.gift || effect.spree))
+        effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.multikicker))
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
@@ -1933,6 +2002,7 @@ export const eventsForAvailableAction = (
     castOption: alternative?.id ?? action.castOption,
     kicked: action.kicked,
     spreeModes: action.spreeModes,
+    timesKicked: action.timesKicked,
     targets,
     seat,
     withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
@@ -1964,6 +2034,7 @@ export const eventsForAvailableAction = (
       ...(action.spreeModes && action.spreeModes.length > 0
         ? { spreeModes: action.spreeModes }
         : {}),
+      ...(action.timesKicked !== undefined ? { timesKicked: action.timesKicked } : {}),
       ...(action.door ? { door: action.door } : {}),
       ...(action.adventureCast ? { adventureCast: true } : {}),
       ...(action.targetObjectIds && alternative?.discard
