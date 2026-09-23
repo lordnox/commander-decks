@@ -299,6 +299,7 @@ export const conditionHolds = (
     return names.size >= condition.min
   }
   if (condition.kind === 'notMonstrous') return !object.monstrous
+  if (condition.kind === 'wasCreature') return object.types.includes('Creature')
   return false
 }
 

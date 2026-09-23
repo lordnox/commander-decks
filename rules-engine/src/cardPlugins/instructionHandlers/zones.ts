@@ -9,6 +9,7 @@ import {
   returnOwnedLands,
 } from '../effects'
 import { runRevealUntil } from '../revealUntil'
+import { returnAsEnchantmentOnly } from '../continuousEffects'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const selfMill: InstructionHandler<'selfMill'> = ({ draft, source }, instruction) => {
@@ -198,6 +199,19 @@ const returnOwnedGraveyardLands: InstructionHandler<'returnOwnedGraveyardLands'>
   instruction,
 ) => {
   returnOwnedLands(draft, source.controller, instruction.tapped !== false)
+}
+
+const returnSelfAsEnchantment: InstructionHandler<'returnSelfAsEnchantment'> = (
+  { draft, source },
+) => {
+  if (source.zone !== 'graveyard') return
+  returnAsEnchantmentOnly(source)
+  draft.enqueue({
+    type: 'move',
+    objectId: source.id,
+    to: 'battlefield',
+    controller: source.owner,
+  })
 }
 
 const surveil: InstructionHandler<'surveil'> = ({ draft, source }, instruction) => {
@@ -482,6 +496,7 @@ export const zoneHandlers = {
   reanimateCreatureFromGraveyards,
   exileColoredPermanentsAtMostX,
   returnOwnedGraveyardLands,
+  returnSelfAsEnchantment,
   surveil,
   scry,
   putLandFromHand,
