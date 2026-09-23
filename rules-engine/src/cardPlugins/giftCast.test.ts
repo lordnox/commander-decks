@@ -159,8 +159,6 @@ describe('gift cast and extra turns', () => {
     )
     const ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 }
-    const spell = Object.values(ready.objects).find((object) =>
-      object.name === 'Fable of Borrowed Moments')!
     const gifted = legalActsFor(ready, 'p1').find((action) =>
       action.kind === 'castSpell'
       && action.giftPromised

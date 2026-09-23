@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate, type CardTemplate } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import { activated } from './activated'

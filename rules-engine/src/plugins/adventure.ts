@@ -13,7 +13,7 @@ import { roomDoor } from './rooms'
 export const asAdventureSpell = (object: GameObject) => {
   const face = adventureFaceOf(object)
   if (!face) return undefined
-  return { ...object, ...face, effects: effectsOf(face) }
+  return { ...object, ...face, effects: effectsOf({ name: object.name, ...face }) }
 }
 
 export const resolveCastFace = (

@@ -83,7 +83,7 @@ export const giftCast: Plugin = {
     if (event.type === 'custom' && event.name === 'giftCast.openSelection') {
       const cast = event.payload?.cast as PendingGiftCast | undefined
       const object = cast ? state.objects[cast.objectId] : undefined
-      if (!cast || !object) return
+      if (!cast || !object || !event.seat) return
       const candidates = livingOpponents(draft, event.seat)
       if (candidates.length === 0) return
       openPlayerSelection(draft, {

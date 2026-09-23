@@ -2,7 +2,6 @@ import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
-import type { GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 

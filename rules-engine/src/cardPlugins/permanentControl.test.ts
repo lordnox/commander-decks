@@ -160,7 +160,6 @@ describe('permanent control change', () => {
           fictional('Party Guest', 'p1'),
         ],
       },
-      builtinRules: ['continuousEffects'],
     })
     const host = Object.values(state.objects).find((o) => o.name === 'Fictional Host')!
     const guest = Object.values(state.objects).find((o) => o.name === 'Party Guest')!
@@ -198,7 +197,6 @@ describe('permanent control change', () => {
       players: 4,
       builtinRules: ['continuousEffects', 'selectPlayers', 'permanentControl'],
       battlefield: { p1: [fictional('Blinked Guest', 'p1')] },
-      builtinRules: ['continuousEffects'],
     })
     const original = Object.values(state.objects)[0]
     const draft = makeDraft(state)

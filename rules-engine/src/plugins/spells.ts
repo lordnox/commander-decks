@@ -17,7 +17,6 @@ import { effectsOf } from '../cardPlugins/cardRules'
 import {
   extraKickMana,
   hasMultikicker,
-  kickerCostOf,
   timesKickedFromCast,
 } from './kickCast'
 import {
@@ -30,11 +29,10 @@ import {
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { ceaseSpellCopy } from '../rules/spellCopies'
-import { applyFace, castFaceOf } from './doubleFaced'
-import { giftSpecOf } from '../cardPlugins/giftCast'
 import { applyCastFace, resolveCastFace } from './adventure'
+import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
-import { applyRoomDoors, roomDoor } from './rooms'
+import { applyRoomDoors } from './rooms'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -104,12 +102,9 @@ export const spellCost = (
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
   }${
-    options.kicked ? kickerCostOf(object) ?? '' : ''
-  }${
     options.spreeModes && options.spreeModes.length > 0
       ? spreeExtraCost(spreeModesOf(object) ?? [], options.spreeModes)
       : ''
-  }`
   }${extraKickMana(object, timesKickedFromCast(options))}`
   const reduction = effectsOf(object).reduce((amount, effect) =>
     effect.op === 'castCost'
@@ -311,6 +306,7 @@ export const spells: Plugin = {
       }
       if (event.giftPromised && !giftSpecOf(spell)) {
         return `${spell.name} has no gift cost`
+      }
       if (
         hasMultikicker(spell)
         && event.timesKicked !== undefined
@@ -450,6 +446,7 @@ export const spells: Plugin = {
           : {}),
         ...(event.spreeModes && event.spreeModes.length > 0
           ? { spreeModes: event.spreeModes }
+          : {}),
         ...(timesKicked > 0 ? { kicked: true } : {}),
         ...(hasMultikicker(object) || event.timesKicked !== undefined
           ? { timesKicked }

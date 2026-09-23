@@ -10,7 +10,7 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { spreeModesOf } from '../spreeCost'
 import { effectsOf } from './cardRules'
 import { runInstructions } from './effects'
-import type { SpreeMode } from './effectDefinitions'
+import type { CardEffect, SpreeMode } from './effectDefinitions'
 
 const PENDING_CAST = 'spreeCast.pending'
 const SPREE_RESUME = 'spreeCast.resume'
@@ -25,7 +25,8 @@ type SpreeResume = {
 type PendingSpreeCast = Omit<Extract<GameEvent, { type: 'castSpell' }>, 'type' | 'spreeModes'>
 
 const spreeEffect = (object: GameObject) =>
-  effectsOf(object).find((effect) => effect.op === 'castCost' && effect.spree)
+  effectsOf(object).find((effect): effect is Extract<CardEffect, { op: 'castCost' }> =>
+    effect.op === 'castCost' && Boolean(effect.spree))
 
 const labelsToIds = (modes: SpreeMode[], labels: string[]) => {
   const selected = modes.filter((mode) => labels.includes(mode.label))

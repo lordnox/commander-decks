@@ -1,9 +1,8 @@
 import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
-import type { CardInstruction } from '../cardPlugins/effects'
+import type { CardInstruction, TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
-import type { CardInstruction, TargetFilter } from '../cardPlugins/effects'
 import { validTarget } from '../cardPlugins/targetedResolve'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'

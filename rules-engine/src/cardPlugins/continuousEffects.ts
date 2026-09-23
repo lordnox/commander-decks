@@ -11,7 +11,6 @@ import type {
 } from '../types'
 import { effectsFor } from './cardRules'
 import type { CardEffect } from './effectDefinitions'
-import { applyCopy } from './effectRuntime'
 import { applyCopy, serializableEffects } from './effectRuntime'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
@@ -144,6 +143,8 @@ export const returnAsEnchantmentOnly = (object: GameObject) => {
   ])]
   object.power = null
   object.toughness = null
+}
+
 export type LoseAbilitiesBecomeParams = {
   extraSubtype: string
   power: number
@@ -351,6 +352,7 @@ const durationHolds = (
 ) => {
   if (duration.kind === 'cdaLifePt') {
     return objectSupportsCdaLifePt(object)
+  }
   if (duration.kind === 'pumpPerLinkedExile') {
     return objectSupportsPumpPerLinkedExile(object)
   }
@@ -395,6 +397,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'cdaLifePt') {
+    object.power = withCounters(object, effect.before.power)
+    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'pumpPerLinkedExile') {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
@@ -437,6 +441,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'cdaLifePt') {
+    object.power = withCounters(object, effect.after.power)
+    object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'pumpPerLinkedExile') {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
@@ -466,7 +472,9 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     if (!effects.some((entry) => triggersMatch(entry, effect.trigger))) {
       object.effects = [...effects, structuredClone(effect.trigger)]
     }
-  } else if (object.zone === 'battlefield') {
+  } else if (effect.kind === 'protectionFromEverything') {
+    // Status only; targeting reads continuousEffects directly.
+  } else if (effect.kind === 'controller' && object.zone === 'battlefield') {
     object.controller = effect.controller
   }
 }

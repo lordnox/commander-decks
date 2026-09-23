@@ -99,7 +99,6 @@ const blinkInstruction: InstructionHandler<'blink'> = (
         ))
       .map((object) => object.id)
     if (candidates.length === 0) return
-    const { optional, filter, prompt, ...rest } = instruction
     openCardSelection(draft, {
       seat: source.controller,
       kind: 'choose',
@@ -108,9 +107,9 @@ const blinkInstruction: InstructionHandler<'blink'> = (
       candidates,
       sourceId: source.id,
       source: source.name,
-      prompt: prompt ?? 'You may exile a permanent, then return it.',
+      prompt: instruction.prompt ?? 'You may exile a permanent, then return it.',
       destinations: ['target'],
-      triggerInstructions: [{ kind: 'blink', ...rest, optional: false }],
+      triggerInstructions: [{ ...instruction, optional: false }],
     })
     return
   }
