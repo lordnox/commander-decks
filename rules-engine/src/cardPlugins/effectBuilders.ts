@@ -694,6 +694,8 @@ export const exchangeLifeWithOpponent = (
   options: { optional?: boolean; drawLifeLost?: boolean } = {},
 ): CardInstruction => ({ kind: 'exchangeLifeWithOpponent', ...options })
 
+export const drawHandDifference = (): CardInstruction => ({ kind: 'drawHandDifference' })
+
 export const winGame = (): CardInstruction => ({ kind: 'winGame' })
 
 export const addPlusCountersInstruction = (count: number): CardInstruction => ({

@@ -74,6 +74,7 @@ export type CardInstruction =
   | { kind: 'setAllLifeToLowest' }
   | { kind: 'gainLifeLostThisTurn'; who: 'controller' | 'all' }
   | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }
+  | { kind: 'drawHandDifference' }
   | { kind: 'winGame' }
   | { kind: 'addPlusCounters'; count: number }
   | { kind: 'putChargeCountersFromTimesKicked' }
