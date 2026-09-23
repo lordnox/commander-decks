@@ -122,6 +122,8 @@ import {
   selfMill,
   sharedBasicLandType,
   splitBasicLandSearch,
+  spree,
+  spreeMode,
   staticExtraLandPlays,
   staticGrant,
   staticPlayLandsFromLibraryTop,
@@ -157,6 +159,8 @@ import {
   addUntilCleanupRule,
   gainLifeTargetPower,
   gainLifeLostThisTurn,
+  gift,
+  ifGiftNotPromised,
   preventCombatDamage,
   revealDrawLoseLife,
   untapTarget,
@@ -1272,6 +1276,29 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     convoke(),
     targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
   ],
+  'Parting Gust': [
+    gift({
+      label: 'Gift a tapped Fish',
+      token: {
+        name: 'Fish',
+        types: ['Creature'],
+        subtypes: ['Fish'],
+        power: 1,
+        toughness: 1,
+        tapped: true,
+      },
+    }),
+    targetOnResolve(
+      'exile',
+      { zone: 'battlefield', type: 'Creature' },
+      ifGiftNotPromised(blink({
+        when: 'nextEndStep',
+        plusCounters: 1,
+        returnController: 'owner',
+        targetIndex: 0,
+      })),
+    ),
+  ],
   'Price of Fame': [
     reduceGenericIf(2, {
       kind: 'target',
@@ -1558,6 +1585,23 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, { mana: '{2}', tap: true, sacrifice: 'self' }),
   ],
   'Ghostly Flicker': [handler('blinkValue')],
+  'Getaway Glamer': [
+    spree([
+      spreeMode(
+        'blink',
+        '+ {1} — Exile target nontoken creature. Return it to the battlefield under its owner\'s control at the beginning of the next end step.',
+        '{1}',
+        [blink({ when: 'nextEndStep', returnController: 'owner', targetIndex: 0 })],
+      ),
+      spreeMode(
+        'kill',
+        '+ {2} — Destroy target creature if no other creature has greater power.',
+        '{2}',
+        [dealDamageToChosenTarget(9999)],
+      ),
+    ]),
+    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
+  ],
   'Guardian of Ghirapur': [
     enters(
       blink({

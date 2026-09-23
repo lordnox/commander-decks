@@ -46,6 +46,20 @@ export const performBlink = (
   target: GameObject,
   spec: BlinkSpec = {},
 ) => {
+  if (target.zone === 'exile' && spec.when === 'nextEndStep') {
+    registerDelayedTrigger(
+      draft,
+      source,
+      { kind: 'step', step: 'end' },
+      [{
+        kind: 'blinkReturn',
+        objectId: target.id,
+        returnController: spec.returnController ?? 'owner',
+        ...(spec.plusCounters ? { plusCounters: spec.plusCounters } : {}),
+      }],
+    )
+    return
+  }
   if (target.zone !== 'battlefield') return
   draft.enqueue({ type: 'move', objectId: target.id, to: 'exile' })
   if (spec.when === 'nextEndStep') {
