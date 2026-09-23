@@ -139,6 +139,7 @@ describe('warp', () => {
       castOption: 'warp-from-exile',
     }))
     expect(cast.stack[0].castOption).toBe('warp-from-exile')
+    expect(cast.objects[mothId].warpExiledTurn).toBe(1)
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.objects[mothId].zone).toBe('battlefield')
     expect(resolved.objects[mothId].warpExiledTurn).toBeUndefined()
