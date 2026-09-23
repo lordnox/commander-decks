@@ -19,6 +19,7 @@ import { zoneHandlers } from './zones'
 import { linkedExileInstructionHandlers } from '../linkedExile'
 import { blinkHandlers } from '../blink'
 import { statusEffectHandlers } from '../statusEffects'
+import { monstrosityInstruction } from '../monstrosity'
 
 const instructionHandlers = {
   ...controlHandlers,
@@ -35,6 +36,7 @@ const instructionHandlers = {
   ...encoreHandlers,
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
+  monstrosity: monstrosityInstruction,
 } satisfies InstructionHandlers
 
 export const dispatchInstruction = (
