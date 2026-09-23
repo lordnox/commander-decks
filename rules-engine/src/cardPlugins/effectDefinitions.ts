@@ -150,7 +150,7 @@ export type CardInstruction =
       nonHuman?: boolean
       other?: boolean
     }
-  | { kind: 'searchLibrary'; spec: SearchSpec }
+  | { kind: 'searchLibrary'; spec?: SearchSpec; subtype?: string }
   | { kind: 'fightOwnedVsOpponent' }
   | { kind: 'counterUnlessPay'; amount: number }
   | { kind: 'copyTargetSpell' }
@@ -310,6 +310,7 @@ export type CardEffect =
         | 'upkeep'
         | 'cast'
         | 'discard'
+        | 'cycle'
         | 'draw'
         | 'end'
         | 'unlock'
@@ -345,6 +346,8 @@ export type CardEffect =
       costs: ActivateCost
       if?: CardCondition
       do: CardInstruction[]
+      /** CR 702.89 — cycling activated from hand; emits a `cycle` event on resolve. */
+      cycling?: true
     }
   | { op: 'search'; via: 'spell'; spec: SearchSpec }
   | { op: 'search'; via: 'ability'; spec: SearchSpec; costs: ActivateCost }

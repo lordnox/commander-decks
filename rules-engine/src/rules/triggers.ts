@@ -28,7 +28,7 @@ import type {
 } from '../types'
 import { asRoomDoor } from '../plugins/rooms'
 
-const EVENT_TRIGGER_ON = new Set(['discard', 'draw', 'playLand'])
+const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand'])
 
 /**
  * CR 603.2 — "for the first time each turn" is part of the trigger event, so it

@@ -11,7 +11,7 @@ import {
   costPicksFromChoices,
   payActivationCosts,
 } from './activationCosts'
-import { basicLand, conditionHolds, searchEffect, type SearchDestination, type SearchSpec } from './effects'
+import { basicLand, conditionHolds, hasSubtype, searchEffect, type SearchDestination, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
 import { enteringObjectId } from './entersTapped'
 import {
@@ -51,13 +51,37 @@ const inlineSpecKey = (sourceId: string) => `librarySearch.inlineSpec.${sourceId
 export const searchSpecFor = (name: string): SearchSpec | undefined =>
   searchEffect(effectsFor(name))?.spec
 
-const inlineSpec = (state: GameState | Draft, sourceId: string): SearchSpec | undefined => {
+export const typecycleSearchSpec = (subtype: string): SearchSpec => ({
+  prompt: `Search your library for a ${subtype} card, reveal it, put it into your hand, then shuffle.`,
+  match: hasSubtype(subtype),
+  destination: 'hand',
+  min: 1,
+  max: 1,
+  reveal: true,
+})
+
+type InlineSearchRef = SearchSpec | { subtype: string }
+
+const inlineSearchRef = (state: GameState | Draft, sourceId: string): InlineSearchRef | undefined => {
   for (const seat of state.playerOrder) {
     const stored = state.players[seat]?.data[inlineSpecKey(sourceId)]
-    if (stored && typeof stored === 'object' && typeof (stored as SearchSpec).match === 'function') {
+    if (!stored || typeof stored !== 'object') continue
+    if (typeof (stored as { subtype?: string }).subtype === 'string') {
+      return stored as { subtype: string }
+    }
+    if (typeof (stored as SearchSpec).match === 'function') {
       return stored as SearchSpec
     }
   }
+}
+
+const inlineSpec = (state: GameState | Draft, sourceId: string): SearchSpec | undefined => {
+  const stored = inlineSearchRef(state, sourceId)
+  if (!stored) return
+  if (typeof (stored as { subtype?: string }).subtype === 'string') {
+    return typecycleSearchSpec((stored as { subtype: string }).subtype)
+  }
+  return stored as SearchSpec
 }
 
 export const searchSpecForPending = (
@@ -166,7 +190,7 @@ const hasSearchAbility = (object: GameObject) => Boolean(abilityEffect(object))
 const shouldSacrificeOnEnter = (spec: SearchSpec) =>
   spec.sacrificeSource !== false && Boolean(spec.gainLife)
 
-const storeInlineSpec = (draft: Draft, seat: PlayerId, sourceId: string, spec: SearchSpec) => {
+const storeInlineSpec = (draft: Draft, seat: PlayerId, sourceId: string, spec: InlineSearchRef) => {
   draft.players[seat].data[inlineSpecKey(sourceId)] = spec
 }
 
@@ -370,8 +394,14 @@ export const librarySearch: Plugin = {
             : 'spell'
       const payloadSpec = resolvePayloadSpec(event.payload?.spec)
       if (via === 'resolve') {
-        if (!payloadSpec) return
-        storeInlineSpec(draft, event.seat, sourceId, payloadSpec)
+        const subtype = typeof event.payload?.subtype === 'string'
+          ? event.payload.subtype
+          : undefined
+        if (subtype) {
+          storeInlineSpec(draft, event.seat, sourceId, { subtype })
+        } else if (payloadSpec) {
+          storeInlineSpec(draft, event.seat, sourceId, payloadSpec)
+        } else return
       } else if (!searchSpecFor(source)) {
         return
       }

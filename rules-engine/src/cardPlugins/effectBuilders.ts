@@ -519,6 +519,27 @@ export const activate = (effect: Omit<Extract<CardEffect, { op: 'activate' }>, '
   ...effect,
 })
 
+/** Cycling or typecycling from hand: discard self, pay mana, then draw or library-search on resolve. */
+export const cycleHand = (
+  id: string,
+  mana: string,
+  outcome: 'draw' | { subtype: string } = 'draw',
+): CardEffect => activate({
+  id,
+  zone: 'hand',
+  costs: { mana, discard: 'self' },
+  do: outcome === 'draw'
+    ? [draw(1)]
+    : [{ kind: 'searchLibrary', subtype: outcome.subtype }],
+  cycling: true,
+})
+
+export const typecycleHand = (
+  id: string,
+  mana: string,
+  subtype: string,
+): CardEffect => cycleHand(id, mana, { subtype })
+
 export const crew = (power: number): CardEffect => activate({
   id: `crew.${power}`,
   costs: { crew: power },
@@ -673,7 +694,7 @@ export const loseLife = (
 
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
-  on: 'discard' | 'draw' | 'end' | 'combatDamage' | 'dealtCombatDamage' | 'playLand',
+  on: 'discard' | 'cycle' | 'draw' | 'end' | 'combatDamage' | 'dealtCombatDamage' | 'playLand',
   options: { if?: TriggerBindingIf | CardCondition; do: CardInstruction[] },
 ): CardEffect => ({
   op: 'trigger',

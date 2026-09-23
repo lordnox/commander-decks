@@ -155,6 +155,7 @@ const searchLibrary: InstructionHandler<'searchLibrary'> = (
   { draft, source },
   instruction,
 ) => {
+  if (!instruction.subtype && !instruction.spec) return
   draft.enqueue({
     type: 'custom',
     name: 'librarySearch.begin',
@@ -163,7 +164,7 @@ const searchLibrary: InstructionHandler<'searchLibrary'> = (
       source: source.name,
       sourceId: source.id,
       via: 'resolve',
-      spec: instruction.spec,
+      ...(instruction.subtype ? { subtype: instruction.subtype } : { spec: instruction.spec }),
     },
   })
 }
