@@ -1,0 +1,20 @@
+{
+  "goals": [
+    "Donate",
+    "Blink",
+    "Goad",
+    "Cages"
+  ],
+  "scores": {
+    "jankiness": 8,
+    "fun": 8,
+    "oppressiveness": 5,
+    "identity": {
+      "Donate": 9,
+      "Blink": 8,
+      "Goad": 7,
+      "Cages": 8
+    }
+  },
+  "notes": "Every Dack trigger gifts a goaded creature after you take its ETB. Blink restamps him and owner-return blinks reclaim gifts. Goad is only on Dack's dump. Ten Fiend Hunter-style cages are the interaction, not a lock."
+}
