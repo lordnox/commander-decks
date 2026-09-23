@@ -21,6 +21,7 @@ import { lifeTotalLock } from './plugins/lifeTotalLock'
 import { phasing } from './plugins/phasing'
 import { protectionFromEverything } from './plugins/protectionFromEverything'
 import { untilNextTurn } from './plugins/untilNextTurn'
+import { cdaLifePt } from './plugins/cdaLifePt'
 import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
@@ -88,6 +89,7 @@ export const corePlugins = [
   life,
   monarch,
   energy,
+  cdaLifePt,
   damage,
   battle,
   doubleFaced,

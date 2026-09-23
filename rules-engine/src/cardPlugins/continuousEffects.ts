@@ -7,10 +7,21 @@ import type {
   PlayerId,
   Plugin,
   ReversibleEffect,
+  ZoneId,
 } from '../types'
 import { applyCopy } from './effectRuntime'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
+
+/** CR 208.2 / 604.3: CDAs apply wherever power and toughness are defined. */
+export const zoneHasPowerToughness = (zone: ZoneId) =>
+  zone === 'battlefield'
+  || zone === 'stack'
+  || zone === 'hand'
+  || zone === 'graveyard'
+  || zone === 'exile'
+  || zone === 'command'
+  || zone === 'library'
 
 export const snapshotCopy = (object: GameObject): CopySnapshot => ({
   name: object.name,
@@ -244,12 +255,19 @@ const removeLastOracleLine = (object: GameObject, line: string) => {
   object.oracleText = lines.join('\n')
 }
 
+const objectSupportsCdaLifePt = (object: GameObject) =>
+  zoneHasPowerToughness(object.zone)
+  && (object.types.includes('Creature') || object.power !== null || object.toughness !== null)
+
 const durationHolds = (
   state: GameState,
   object: GameObject,
   duration: EffectDuration,
   endTurnEffects: boolean,
 ) => {
+  if (duration.kind === 'cdaLifePt') {
+    return objectSupportsCdaLifePt(object)
+  }
   if (object.zone !== 'battlefield') return false
   if (duration.kind === 'untilCleanup') return !endTurnEffects
   if (duration.kind === 'permanent') return true
@@ -290,6 +308,9 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.before.types]
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
+  } else if (effect.kind === 'cdaLifePt') {
+    object.power = withCounters(object, effect.before.power)
+    object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'oracleLine') {
     removeLastOracleLine(object, effect.line)
   } else if (effect.kind === 'typeChange') {
@@ -309,6 +330,9 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     if (object.toughness !== null) object.toughness += effect.toughness
   } else if (effect.kind === 'animation') {
     object.types = [...effect.after.types]
+    object.power = withCounters(object, effect.after.power)
+    object.toughness = withCounters(object, effect.after.toughness)
+  } else if (effect.kind === 'cdaLifePt') {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'oracleLine') {
@@ -405,6 +429,78 @@ const hasExpiredEffects = (state: GameState) =>
     (object.continuousEffects ?? []).some(
       (entry) => !effectHolds(state, object, entry, false),
     ))
+
+const cdaLifePtEntry = (object: GameObject) =>
+  object.continuousEffects?.find(({ effect, duration }) =>
+    effect.kind === 'cdaLifePt' && duration.kind === 'cdaLifePt')
+
+export const lifeTotalForCda = (
+  state: GameState,
+  object: GameObject,
+  who: 'controller' | 'owner',
+) => state.players[who === 'controller' ? object.controller : object.owner]?.life ?? 0
+
+const makeCdaLifePtEffect = (
+  object: GameObject,
+  who: 'controller' | 'owner',
+  life: number,
+): ReversibleEffect => {
+  const before = {
+    power: withoutCounters(object, object.power),
+    toughness: withoutCounters(object, object.toughness),
+  }
+  object.power = withCounters(object, life)
+  object.toughness = withCounters(object, life)
+  return {
+    kind: 'cdaLifePt',
+    who,
+    before,
+    after: { power: life, toughness: life },
+  }
+}
+
+/** Install or refresh the layer-7a life CDA on one object from its stamped static effect. */
+export const refreshCdaLifePt = (
+  state: GameState,
+  object: GameObject,
+  who: 'controller' | 'owner',
+) => {
+  const life = lifeTotalForCda(state, object, who)
+  const active = objectSupportsCdaLifePt(object)
+  const existing = cdaLifePtEntry(object)
+
+  if (!active) {
+    if (existing) {
+      reviseContinuousEffects(object, (entry) =>
+        entry === existing ? undefined : entry)
+    }
+    return
+  }
+
+  if (!existing) {
+    withDuration(
+      object,
+      makeCdaLifePtEffect(object, who, life),
+      { kind: 'cdaLifePt' },
+    )
+    return
+  }
+
+  if (
+    existing.effect.kind === 'cdaLifePt'
+    && existing.effect.after.power === life
+    && existing.effect.after.toughness === life
+    && existing.effect.who === who
+  ) return
+
+  reviseContinuousEffects(object, (entry) => {
+    if (entry !== existing || existing.effect.kind !== 'cdaLifePt') return entry
+    return {
+      ...entry,
+      effect: { ...existing.effect, who, after: { power: life, toughness: life } },
+    }
+  })
+}
 
 export const continuousEffects: Plugin = {
   id: 'continuousEffects',
