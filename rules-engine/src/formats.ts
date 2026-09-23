@@ -30,6 +30,7 @@ import { sacrificeLandMana } from './plugins/sacrificeLandMana'
 import { rebound } from './plugins/rebound'
 import { warp } from './plugins/warp'
 import { saga } from './plugins/saga'
+import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
@@ -74,6 +75,7 @@ export const corePlugins = [
   mana,
   lands,
   spells,
+  adventure,
   rebound,
   warp,
   saga,

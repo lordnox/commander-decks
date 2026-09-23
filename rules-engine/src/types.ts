@@ -151,6 +151,8 @@ export type GameObject = {
   frontFace?: FaceCharacteristics
   /** Printed characteristics of the second face of a double-faced card. */
   backFace?: FaceCharacteristics
+  /** Set when the Adventure half has resolved and the card may be cast from exile. */
+  adventured?: boolean
   /** The two halves of a split permanent with the shared Room type line. */
   roomDoors?: [RoomDoorCharacteristics, RoomDoorCharacteristics]
   /** Battlefield-only unlocked designations (CR 709.5c). */
@@ -232,6 +234,8 @@ export type StackItem = {
   /** Read ahead choice carried from casting through battlefield entry. */
   sagaChapter?: number
   door?: RoomDoorId
+  /** The Adventure half was cast; the card exiles on resolution instead of going to the graveyard. */
+  adventureCast?: boolean
   uncounterable?: boolean
   sacrificed?: number
   castFrom?: ZoneId
@@ -388,6 +392,7 @@ export type GameEvent =
       /** Starting lore count chosen for a Saga with read ahead. */
       sagaChapter?: number
       door?: RoomDoorId
+      adventureCast?: boolean
       x?: number
       sacrifice?: string[]
       convoke?: string[]

@@ -6,6 +6,7 @@ import { battle } from './battle'
 import { combat } from './combat'
 import { commander } from './commander'
 import { damage } from './damage'
+import { adventure } from './adventure'
 import { doubleFaced } from './doubleFaced'
 import { extraSwampMana } from './extraSwampMana'
 import { extraUntap } from './extraUntap'
@@ -55,6 +56,7 @@ export const builtInPlugins = [
   mana,
   lands,
   spells,
+  adventure,
   rebound,
   warp,
   saga,
@@ -96,6 +98,7 @@ export {
   commander,
   continuousEffects,
   damage,
+  adventure,
   doubleFaced,
   extraSwampMana,
   extraUntap,
