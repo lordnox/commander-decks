@@ -756,6 +756,15 @@ export const encore = (manaCost: string): CardEffect => ability(
   { mana: manaCost, exileSelf: true },
   { kind: 'encoreTokens' },
 )
+export const embalm = (
+  manaCost: string,
+  options: { colors: string[]; extraSubtypes: string[] },
+): CardEffect => ({
+  op: 'embalm',
+  manaCost,
+  colors: [...options.colors],
+  extraSubtypes: [...options.extraSubtypes],
+})
 
 export const grantRetrace = (): CardEffect => ({
   op: 'static',
