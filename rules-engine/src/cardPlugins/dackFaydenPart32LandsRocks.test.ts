@@ -38,6 +38,25 @@ const run = (
   events: GameEvent[],
 ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
+const passAll = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+  let current = state
+  for (let round = 0; round < 12; round += 1) {
+    if (current.stack.length === 0) break
+    const top = current.stack[0]
+    if (top.kind === 'action' && top.waiting === 'choice') break
+    current = ok(server.rules(current, { type: 'resolveTop' }))
+  }
+  return current
+}
+
+const forest = () =>
+  cardTemplate('Forest', {
+    types: ['Land'],
+    subtypes: ['Forest'],
+    supertypes: ['Basic'],
+    tapProduces: { G: 1 },
+  })
+
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -190,7 +209,22 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       count: 1,
       objectIds: [quarryId],
     }))
-    expect(picked.objects[stageId].tapProduces).toEqual({ G: 1 })
+    expect(picked.objects[stageId]).toMatchObject({
+      name: 'Quarry',
+      tapProduces: { G: 1 },
+    })
+    expect(picked.objects[stageId].effects?.some((effect) =>
+      effect.op === 'activate' && effect.id === 'thespiansStage.copy')).toBe(true)
+    picked.players.p1.mana.C = 2
+    picked.objects[stageId].tapped = false
+    const reactivated = ok(server.rules(picked, {
+      type: 'activateAbility',
+      abilityId: 'thespiansStage.copy',
+      seat: 'p1',
+      objectId: stageId,
+    }))
+    const again = ok(server.rules(reactivated, { type: 'resolveTop' }))
+    expect(pendingSelectionFor(again, 'p1')?.candidates).toContain(quarryId)
   })
 
   test('Endless Sands exiles your creature then returns it when sacrificed', () => {
@@ -349,6 +383,46 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(projectForViewer(finished, 'p2').libraries?.p1).toBeUndefined()
   })
 
+  test("Archaeomancer's Map offers a land drop when an ahead opponent plays a land", () => {
+    const map = cardTemplate("Archaeomancer's Map", {
+      types: ['Artifact'],
+      effects: effectsFor("Archaeomancer's Map"),
+    })
+    const oppLand = cardTemplate('Opponent Land', { types: ['Land'], tapProduces: { C: 1 } })
+    const server = createServerGame(
+      commanderRules,
+      {
+        first: 'p2',
+        battlefield: {
+          p1: [map, plains()],
+          p2: [cardTemplate('Opp One', { types: ['Land'] }), cardTemplate('Opp Two', { types: ['Land'] })],
+        },
+        hands: { p1: [forest()], p2: [oppLand] },
+      },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const opponentLandId = server.state.zoneOrder.p2.hand[0]
+    let state = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p2',
+      objectId: opponentLandId,
+    }))
+    expect(state.stack[0]?.name).toBe("Archaeomancer's Map")
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(state, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', count: 1, min: 0 })
+    const landId = state.zoneOrder.p1.hand.find((id) => state.objects[id]?.types.includes('Land'))!
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [landId],
+    }))
+    expect(state.objects[landId].zone).toBe('battlefield')
+    expect(state.players.p1.landsPlayed).toBe(0)
+  })
+
   test('Everflowing Chalice enters with charge counters from multikicker', () => {
     const chalice = cardTemplate('Everflowing Chalice', {
       types: ['Artifact'],
@@ -482,6 +556,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       seat: 'p1',
       objectId: sphereId,
     }))
+    expect(activatedState.objects[sphereId].tapped).toBe(true)
     const resolved = resolveStack(server.rules, activatedState)
     expect(resolved.objects[sphereId].zone).toBe('graveyard')
     expect(named(resolved, 'Sphere Draw').zone).toBe('hand')
@@ -598,7 +673,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(named(withPlains, 'Plains').zone).toBe('hand')
   })
 
-  test("Thrór's Map loot draws a card when the ability resolves", () => {
+  test("Thrór's Map loot draws then discards through continueAction", () => {
     const map = cardTemplate("Thrór's Map", {
       types: ['Artifact'],
       manaCost: '{2}',
@@ -616,6 +691,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       { random: () => 0.5, cardPlugins: plugins },
     )
     const mapId = named(server.state, "Thrór's Map").id
+    const discardId = named(server.state, 'To Discard').id
     const ready = structuredClone(server.state)
     ready.step = 'precombatMain'
     ready.active = 'p1'
@@ -626,9 +702,20 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       seat: 'p1',
       objectId: mapId,
     }))
-    const drew = ok(server.rules(lootStart, { type: 'resolveTop' }))
-    expect(named(drew, 'Loot Draw').zone).toBe('hand')
-    expect(drew.stack.length).toBeGreaterThan(0)
+    const afterAbility = passAll(server, lootStart)
+    expect(named(afterAbility, 'Loot Draw').zone).toBe('hand')
+    expect(afterAbility.stack[0]).toMatchObject({ actionId: 'discard' })
+    const waiting = ok(server.rules(afterAbility, { type: 'resolveTop' }))
+    expect(waiting.stack[0].waiting).toBe('choice')
+    const finished = ok(server.rules(waiting, {
+      type: 'continueAction',
+      stackId: waiting.stack[0].id,
+      seat: 'p1',
+      payload: { objectIds: [discardId] },
+    }))
+    expect(finished.stack).toHaveLength(0)
+    expect(finished.objects[discardId].zone).toBe('graveyard')
+    expect(finished.zoneOrder.p1.hand).toHaveLength(1)
   })
 
   test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {
@@ -666,5 +753,33 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(opened.objects[landscapeId].zone).toBe('graveyard')
     const spec = searchSpecFor('Myriad Landscape')!
     expect(searchCandidates(opened, 'p1', spec).map((object) => object.name)).toEqual(['Forest A', 'Forest B'])
+  })
+})
+
+describe('Dack Fayden part 32 — explicit GAP checklist', () => {
+  test('Emergence Zone and Northampton Farm have no CARD_RULES entry', () => {
+    expect(cardPluginEntry('Emergence Zone')).toBeUndefined()
+    expect(cardPluginEntry('Northampton Farm')).toBeUndefined()
+  })
+
+  test.each([
+    [
+      'Emergence Zone',
+      'Sacrifice-for-flash and {1},{T} timing are not composable from existing plugins; only basic tap-for-{C} is modeled without CARD_RULES.',
+    ],
+    [
+      'Northampton Farm',
+      'Exile a creature you own, then return one exiled creature to the battlefield and other exiled cards to hand is not composable from linkedExile like Endless Sands.',
+    ],
+    [
+      'Everflowing Chalice (tap mana)',
+      'Multikicker charge counters on ETB are wired; {T}: Add {C} for each charge counter has no generic mana-capability.',
+    ],
+    [
+      "Archaeomancer's Map (land enter)",
+      'Second ability uses playLand + opponentHasMore, not land-enter nor comparing land counts to the triggering opponent in multiplayer.',
+    ],
+  ] as const)('documented GAP: %s', (_label, note) => {
+    expect(note.length).toBeGreaterThan(20)
   })
 })
