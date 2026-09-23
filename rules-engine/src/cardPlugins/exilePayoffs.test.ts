@@ -73,6 +73,30 @@ describe('exile payoffs', () => {
     expect([state.objects[source.id].power, state.objects[source.id].toughness]).toEqual([3, 3])
   })
 
+  test('does not enqueue exilePayoffs.sync after an unrelated event once the pump is current', () => {
+    const hoarder = cardTemplate('Linked Exile Hoarder Fixture', {
+      types: ['Creature'],
+      power: 1,
+      toughness: 1,
+      effects: [pumpPerLinkedExile(1, 1)],
+    })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [hoarder] } },
+      { random: () => 0.5 },
+    )
+    const source = server.state.objects[server.state.zoneOrder.p1.battlefield[0]]
+    linkExile(source, addExiled(server.state, 'p1', exiledFixture('Exiled One Fixture', 3, 3)))
+
+    const synced = ok(server.rules(server.state, { type: 'custom', name: 'exilePayoffs.sync' }))
+    const logBefore = synced.log.length
+
+    const afterLife = ok(server.rules(synced, { type: 'gainLife', seat: 'p1', amount: 1 }))
+    const syncLog = afterLife.log.slice(logBefore).filter((line) => line.includes('exilePayoffs.sync'))
+    expect(syncLog).toEqual([])
+    expect(exilePayoffs.sba?.({ state: afterLife } as never)).toEqual([])
+  })
+
   test('pumps itself until end of turn by the power of a linked exiled card', () => {
     const source = cardTemplate('Power Borrower Fixture', {
       types: ['Creature'],

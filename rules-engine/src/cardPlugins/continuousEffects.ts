@@ -562,17 +562,6 @@ const makeCdaLifePtEffect = (
   who: 'controller' | 'owner',
   life: number,
 ): ReversibleEffect => {
-const pumpPerLinkedExileEntry = (object: GameObject) =>
-  object.continuousEffects?.find(({ effect, duration }) =>
-    effect.kind === 'pumpPerLinkedExile' && duration.kind === 'pumpPerLinkedExile')
-
-const makePumpPerLinkedExileEffect = (
-  object: GameObject,
-  perCard: { power: number; toughness: number },
-  linked: number,
-): ReversibleEffect => {
-  const bonusPower = linked * perCard.power
-  const bonusToughness = linked * perCard.toughness
   const before = {
     power: withoutCounters(object, object.power),
     toughness: withoutCounters(object, object.toughness),
@@ -596,13 +585,94 @@ export const refreshCdaLifePt = (
   const life = lifeTotalForCda(state, object, who)
   const active = objectSupportsCdaLifePt(object)
   const existing = cdaLifePtEntry(object)
+
+  if (!active) {
+    if (existing) {
+      reviseContinuousEffects(object, (entry) =>
+        entry === existing ? undefined : entry)
+    }
+    return
+  }
+
+  if (!existing) {
+    withDuration(
+      object,
+      makeCdaLifePtEffect(object, who, life),
+      { kind: 'cdaLifePt' },
+    )
+    return
+  }
+
+  if (
+    existing.effect.kind === 'cdaLifePt'
+    && existing.effect.after.power === life
+    && existing.effect.after.toughness === life
+    && existing.effect.who === who
+  ) return
+
+  reviseContinuousEffects(object, (entry) => {
+    if (entry !== existing || existing.effect.kind !== 'cdaLifePt') return entry
+    return {
+      ...entry,
+      effect: { ...existing.effect, who, after: { power: life, toughness: life } },
+    }
+  })
+}
+
+const pumpPerLinkedExileEntry = (object: GameObject) =>
+  object.continuousEffects?.find(({ effect, duration }) =>
+    effect.kind === 'pumpPerLinkedExile' && duration.kind === 'pumpPerLinkedExile')
+
+const expectedPumpPerLinkedExileAfter = (
+  before: { power: number | null; toughness: number | null },
+  linked: number,
+  perCard: { power: number; toughness: number },
+) => ({
+  power: (before.power ?? 0) + linked * perCard.power,
+  toughness: (before.toughness ?? 0) + linked * perCard.toughness,
+})
+
+/** True when the stamped per-linked-exile pump does not match live exiledCards. */
+export const pumpPerLinkedExileOutOfSync = (
+  state: GameState,
+  object: GameObject,
+  perCard: { power: number; toughness: number },
+) => {
+  const linked = linkedExileCardIds(state, object).length
+  const active = objectSupportsPumpPerLinkedExile(object)
+  const existing = pumpPerLinkedExileEntry(object)
+  if (!active) return existing !== undefined
+  if (!existing || existing.effect.kind !== 'pumpPerLinkedExile') return true
+  const nextAfter = expectedPumpPerLinkedExileAfter(existing.effect.before, linked, perCard)
+  return (
+    existing.effect.after.power !== nextAfter.power
+    || existing.effect.after.toughness !== nextAfter.toughness
+    || existing.effect.perCard.power !== perCard.power
+    || existing.effect.perCard.toughness !== perCard.toughness
+  )
+}
+
+const makePumpPerLinkedExileEffect = (
+  object: GameObject,
+  perCard: { power: number; toughness: number },
+  linked: number,
+): ReversibleEffect => {
+  const bonusPower = linked * perCard.power
+  const bonusToughness = linked * perCard.toughness
+  const before = {
+    power: withoutCounters(object, object.power),
+    toughness: withoutCounters(object, object.toughness),
+  }
   object.power = withCounters(object, (before.power ?? 0) + bonusPower)
   object.toughness = withCounters(object, (before.toughness ?? 0) + bonusToughness)
   return {
     kind: 'pumpPerLinkedExile',
     perCard,
     before,
-    after: { power: (before.power ?? 0) + bonusPower, toughness: (before.toughness ?? 0) + bonusToughness },
+    after: {
+      power: (before.power ?? 0) + bonusPower,
+      toughness: (before.toughness ?? 0) + bonusToughness,
+    },
   }
 }
 
@@ -627,38 +697,17 @@ export const refreshPumpPerLinkedExile = (
   if (!existing) {
     withDuration(
       object,
-      makeCdaLifePtEffect(object, who, life),
-      { kind: 'cdaLifePt' },
       makePumpPerLinkedExileEffect(object, perCard, linked),
       { kind: 'pumpPerLinkedExile' },
     )
     return
   }
 
-  if (
-    existing.effect.kind === 'cdaLifePt'
-    && existing.effect.after.power === life
-    && existing.effect.after.toughness === life
-    && existing.effect.who === who
-  ) return
+  if (!pumpPerLinkedExileOutOfSync(state, object, perCard)) return
 
-  reviseContinuousEffects(object, (entry) => {
-    if (entry !== existing || existing.effect.kind !== 'cdaLifePt') return entry
-    return {
-      ...entry,
-      effect: { ...existing.effect, who, after: { power: life, toughness: life } },
   if (existing.effect.kind !== 'pumpPerLinkedExile') return
   const before = existing.effect.before
-  const nextAfter = {
-    power: (before.power ?? 0) + linked * perCard.power,
-    toughness: (before.toughness ?? 0) + linked * perCard.toughness,
-  }
-  if (
-    existing.effect.after.power === nextAfter.power
-    && existing.effect.after.toughness === nextAfter.toughness
-    && existing.effect.perCard.power === perCard.power
-    && existing.effect.perCard.toughness === perCard.toughness
-  ) return
+  const nextAfter = expectedPumpPerLinkedExileAfter(before, linked, perCard)
 
   reviseContinuousEffects(object, (entry) => {
     if (entry !== existing || entry.effect.kind !== 'pumpPerLinkedExile') return entry

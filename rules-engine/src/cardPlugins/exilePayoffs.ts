@@ -4,6 +4,7 @@ import type { GameObject, GameState, Plugin } from '../types'
 import {
   changeStatsUntilEndOfTurn,
   linkedExileCardIds,
+  pumpPerLinkedExileOutOfSync,
   refreshPumpPerLinkedExile,
 } from './continuousEffects'
 import { enteringObjectId } from './entersTapped'
@@ -187,13 +188,7 @@ const shouldRefresh = (
 const needsSync = (state: GameState) =>
   Object.values(state.objects).some((object) => {
     const spec = pumpPerLinkedExileSpec(object)
-    if (!spec) return false
-    const linked = linkedExileCardIds(state, object).length
-    const bonus = linked * spec.power
-    const entry = object.continuousEffects?.find(({ effect, duration }) =>
-      effect.kind === 'pumpPerLinkedExile' && duration.kind === 'pumpPerLinkedExile')
-    if (!entry || entry.effect.kind !== 'pumpPerLinkedExile') return true
-    return entry.effect.after.power !== bonus || entry.effect.after.toughness !== linked * spec.toughness
+    return spec ? pumpPerLinkedExileOutOfSync(state, object, spec) : false
   })
 
 export const exilePayoffs: Plugin = {
