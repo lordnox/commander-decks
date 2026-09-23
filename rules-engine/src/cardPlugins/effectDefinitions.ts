@@ -458,6 +458,11 @@ export type CardEffect =
       /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
       linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
       ptEqualsLife?: { who: 'controller' | 'owner' }
+      grantControlledSubtypeTrigger?: {
+        subtype: string
+        on: Extract<CardEffect, { op: 'trigger' }>['on']
+        do: CardInstruction[]
+      }
     }
   | { op: 'handler'; pluginId: string }
   | {

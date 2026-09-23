@@ -4,6 +4,7 @@
  * CR 603.3b — APNAP: active player first, then turn order; within a player, ETB order.
  */
 import { effectsOf } from '../cardPlugins/cardRules'
+import { syncGrantControlledSubtypeTriggers } from '../cardPlugins/grantControlledSubtypeTrigger'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
 import {
   conditionHolds,
@@ -236,6 +237,7 @@ const collectEnters = (
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
+  syncGrantControlledSubtypeTriggers(draft)
   const objectId = permanentEnteringObjectId(event, state)
   if (!objectId) return
   const object = draft.object(objectId)

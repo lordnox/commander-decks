@@ -112,6 +112,11 @@ export type ReversibleEffect =
       who: 'controller' | 'owner'
       before: { power: number | null; toughness: number | null }
       after: { power: number; toughness: number }
+  | {
+      kind: 'triggerGrant'
+      sourceId: string
+      grantId: string
+      trigger: import('./cardPlugins/effects').CardEffect
     }
 
 export type EffectDuration =
