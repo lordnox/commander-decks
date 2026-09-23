@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { eventsForAvailableAction, legalActsFor, projectForViewer } from '../index'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -11,15 +12,20 @@ import { activated } from './activated'
 import { alternateCosts } from './alternateCosts'
 import { blinkPlugin } from './blink'
 import { choiceEffects } from './choiceEffects'
+import { giftCast } from './giftCast'
 import { linkedExile } from './linkedExile'
+import { onResolve as onResolvePlugin } from './onResolve'
+import { spreeCast } from './spreeCast'
 import { targetedResolve } from './targetedResolve'
 
 const dackBlinkNames = [
   'Cloudshift',
   'Ephemerate',
   'Flicker of Fate',
+  'Getaway Glamer',
   'Long Road Home',
   'Otherworldly Journey',
+  'Parting Gust',
   'Flickerwisp',
   'Restoration Angel',
   'Felidar Guardian',
@@ -35,6 +41,9 @@ const dackBlinkPlugins = [
   linkedExile,
   alternateCosts,
   choiceEffects,
+  giftCast,
+  spreeCast,
+  onResolvePlugin,
 ]
 
 const named = (state: GameState, name: string) =>
@@ -61,12 +70,17 @@ const castAndResolve = (
   state: GameState,
   spellName: string,
   targets?: Array<{ kind: 'object'; objectId: string }>,
+  extra: { spreeModes?: string[]; giftPromised?: boolean; giftRecipientId?: string } = {},
 ) => {
   const cast = ok(server.rules(mana(structuredClone(state)), {
     type: 'castSpell',
     seat: 'p1',
     objectId: named(state, spellName).id,
     ...(targets ? { targets } : {}),
+    ...(extra.spreeModes ? { spreeModes: extra.spreeModes } : {}),
+    ...(extra.giftPromised
+      ? { giftPromised: true, giftRecipient: extra.giftRecipientId ?? 'p2' }
+      : {}),
   }))
   return ok(server.rules(cast, { type: 'resolveTop' }))
 }
@@ -79,8 +93,11 @@ describe('Dack party blink pass 2', () => {
       'alternateCosts',
       'blink',
       'blinkValue',
+      'castCosts',
       'choiceEffects',
+      'giftCast',
       'linkedExile',
+      'spreeCast',
       'targetedResolve',
     ])
   })
@@ -140,6 +157,108 @@ describe('Dack party blink pass 2', () => {
     const atEnd = advanceToEndStep(server, exiled)
     const returned = resolveStack(server.rules, atEnd)
     expect(returned.objects[catId].counters['+1/+1']).toBe(1)
+  })
+
+  test('Otherworldly Journey matches Long Road Home delayed return with a counter', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Otherworldly Journey')] },
+      battlefield: {
+        p1: [cardTemplate('Journey Cat', { types: ['Creature'], power: 2, toughness: 2 })],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const catId = named(server.state, 'Journey Cat').id
+    const exiled = castAndResolve(server, server.state, 'Otherworldly Journey', [
+      { kind: 'object', objectId: catId },
+    ])
+    expect(exiled.objects[catId].zone).toBe('exile')
+    const atEnd = advanceToEndStep(server, exiled)
+    const returned = resolveStack(server.rules, atEnd)
+    expect(returned.objects[catId].counters['+1/+1']).toBe(1)
+  })
+
+  test('Getaway Glamer spree blink mode exiles until the next end step', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Getaway Glamer')] },
+      battlefield: {
+        p2: [cardTemplate('Glamer Prey', { types: ['Creature'], power: 3, toughness: 3 })],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const preyId = named(server.state, 'Glamer Prey').id
+    const resolved = castAndResolve(
+      server,
+      server.state,
+      'Getaway Glamer',
+      [{ kind: 'object', objectId: preyId }],
+      { spreeModes: ['blink'] },
+    )
+    expect(resolved.objects[preyId].zone).toBe('exile')
+    const atEnd = advanceToEndStep(server, resolved)
+    const returned = resolveStack(server.rules, atEnd)
+    expect(returned.objects[preyId].zone).toBe('battlefield')
+  })
+
+  test('Getaway Glamer spree kill mode removes the chosen creature', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Getaway Glamer')] },
+      battlefield: {
+        p2: [cardTemplate('Solo Beast', { types: ['Creature'], power: 4, toughness: 4 })],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const beastId = named(server.state, 'Solo Beast').id
+    const resolved = castAndResolve(
+      server,
+      server.state,
+      'Getaway Glamer',
+      [{ kind: 'object', objectId: beastId }],
+      { spreeModes: ['kill'] },
+    )
+    expect(resolved.objects[beastId].zone).toBe('graveyard')
+  })
+
+  test('Parting Gust without the gift blinks with a counter at the next end step', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Parting Gust')] },
+      battlefield: {
+        p2: [cardTemplate('Gusty Fox', { types: ['Creature'], power: 2, toughness: 2 })],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const foxId = named(server.state, 'Gusty Fox').id
+    const resolved = castAndResolve(server, server.state, 'Parting Gust', [
+      { kind: 'object', objectId: foxId },
+    ])
+    expect(resolved.objects[foxId].zone).toBe('exile')
+    const atEnd = advanceToEndStep(server, resolved)
+    const returned = resolveStack(server.rules, atEnd)
+    expect(returned.objects[foxId].counters['+1/+1']).toBe(1)
+  })
+
+  test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Parting Gust')] },
+      battlefield: {
+        p2: [cardTemplate('Gift Target', { types: ['Creature'], power: 2, toughness: 2 })],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const ready = structuredClone(server.state)
+    const targetId = named(ready, 'Gift Target').id
+    const spell = named(ready, 'Parting Gust')
+    const gifted = legalActsFor(ready, 'p1').find((action) =>
+      action.kind === 'castSpell'
+      && action.objectId === spell.id
+      && action.giftPromised
+      && action.giftRecipientId === 'p2')!
+    const cast = ok(server.rules(ready, {
+      ...eventsForAvailableAction(ready, 'p1', gifted)![0],
+      targets: [{ kind: 'object', objectId: targetId }],
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[targetId].zone).toBe('exile')
+    const fish = Object.values(resolved.objects).find((object) =>
+      object.name === 'Fish' && object.controller === 'p2')
+    expect(fish?.tapped).toBe(true)
+    const atEnd = advanceToEndStep(server, resolved)
+    const afterEnd = resolveStack(server.rules, atEnd)
+    expect(afterEnd.objects[targetId].zone).toBe('exile')
   })
 
   test('Flickerwisp cannot blink itself and returns another permanent at end step', () => {
@@ -204,6 +323,59 @@ describe('Dack party blink pass 2', () => {
     }))
     const resolved = resolveStack(server.rules, chose)
     expect(resolved.objects[friendId].zone).toBe('battlefield')
+  })
+
+  test('optional blink selections are hidden from non-controllers', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Felidar Guardian', { types: ['Creature'] })] },
+      battlefield: {
+        p1: [
+          cardTemplate('Felidar Friend', { types: ['Creature'] }),
+          cardTemplate('Felidar Rock', { types: ['Artifact'] }),
+        ],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const guardianId = named(server.state, 'Felidar Guardian').id
+    const cast = ok(server.rules(mana(structuredClone(server.state)), {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: guardianId,
+    }))
+    const waiting = resolveStack(server.rules, ok(server.rules(cast, { type: 'resolveTop' })))
+    expect(pendingSelectionFor(waiting, 'p1')).toBeDefined()
+    expect(pendingSelectionFor(projectForViewer(waiting, 'p2'), 'p2')).toBeUndefined()
+    expect(pendingSelectionFor(projectForViewer(waiting, 'p1'), 'p1')).toBeDefined()
+  })
+
+  test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          cardTemplate('Guardian of Ghirapur'),
+          cardTemplate('Ghirapur Relic', { types: ['Artifact'] }),
+        ],
+      },
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
+    const guardianId = named(server.state, 'Guardian of Ghirapur').id
+    const relicId = named(server.state, 'Ghirapur Relic').id
+    const entered = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: guardianId,
+      to: 'battlefield',
+    }))
+    const waiting = resolveStack(server.rules, entered)
+    const picked = ok(server.rules(waiting, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [relicId],
+    }))
+    const afterBlink = resolveStack(server.rules, picked)
+    expect(afterBlink.objects[relicId].zone).toBe('exile')
+    const atEnd = advanceToEndStep(server, afterBlink)
+    const returned = resolveStack(server.rules, atEnd)
+    expect(returned.objects[relicId].zone).toBe('battlefield')
   })
 
   test('Restoration Angel cannot blink another Angel', () => {
