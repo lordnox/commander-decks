@@ -71,6 +71,9 @@ export const activated: Plugin = {
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return
     const requiredZone = effect.zone ?? 'battlefield'
     if (source.zone !== requiredZone) return `${source.name} is not in ${requiredZone}`
+    if (requiredZone === 'graveyard' && source.owner !== event.seat) {
+      return `${source.name} is not in ${event.seat}'s graveyard`
+    }
     if (source.controller !== event.seat) {
       return `${event.seat} does not control ${source.name}`
     }

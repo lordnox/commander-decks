@@ -468,7 +468,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
     if (effect.op === 'static' && effect.linkedExileUntilLeaves) ids.add('linkedExile')
-    if (effect.op === 'embalm') ids.add('graveyardCasting')
     if (effect.op === 'handler') {
       ids.add(effect.pluginId)
       // Demonstrate only opens the copy choice; stackCopy resolves it.
