@@ -17,7 +17,7 @@
     {
       "name": "exile",
       "score": 4,
-      "reason": "The Fiend Hunter suite and Helvault or desert lands are the interaction package."
+      "reason": "The Fiend Hunter suite and desert blink lands are the interaction package."
     },
     {
       "name": "forced combat",
@@ -43,6 +43,11 @@
       "name": "midrange",
       "score": 2,
       "reason": "The deck develops a creature board and wins in combat rather than combo."
+    },
+    {
+      "name": "monarch",
+      "score": 1,
+      "reason": "Palace Jailer is the only monarch card; the crown is a side benefit of that cage."
     }
   ]
 }

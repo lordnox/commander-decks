@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "3a8c2a84-e0f2-4611-af3d-42f4578ad4e3",
+      "name": "Palace Jailer",
+      "object": "related_card",
+      "type_line": "Creature — Human Soldier",
+      "uri": "https://api.scryfall.com/cards/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3"
+    },
+    {
+      "component": "combo_piece",
+      "id": "fca6ceed-a7d3-47a2-bb0d-7582e596c1f6",
+      "name": "The Monarch",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/fca6ceed-a7d3-47a2-bb0d-7582e596c1f6"
+    }
+  ],
+  "artist": "Bastien L. Deharme",
+  "artist_ids": [
+    "798f63ec-41ad-474e-9708-df08193345c6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892688,
+  "cmc": 4.0,
+  "collector_number": "140",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4014,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I've never needed to use this. Don't make me start now.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3a8c2a84-e0f2-4611-af3d-42f4578ad4e3",
+  "illustration_id": "0fc88c13-1c9a-4b4a-8438-4866a475aecc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.webp?1783903243",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.jpg?1783903243",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.jpg?1783903243",
+    "crop": "https://cards.scryfall.io/crop/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.webp?1783903243",
+    "display": "https://cards.scryfall.io/display/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.webp?1783903243",
+    "grid": "https://cards.scryfall.io/grid/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.webp?1783903243",
+    "large": "https://cards.scryfall.io/large/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.jpg?1783903243",
+    "normal": "https://cards.scryfall.io/normal/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.jpg?1783903243",
+    "png": "https://cards.scryfall.io/png/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.png?1783903243",
+    "small": "https://cards.scryfall.io/small/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.jpg?1783903243",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/a/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3.webp?1783903243"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{W}",
+  "mtgo_id": 150749,
+  "multiverse_ids": [],
+  "name": "Palace Jailer",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+  "oracle_text": "When this creature enters, you become the monarch.\nWhen this creature enters, exile target creature an opponent controls until an opponent becomes the monarch.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.11",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A180eda7c-fca2-403b-85cd-8ffebaf9f408&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150749?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892688&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698181%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Palace+Jailer",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPalace%2BJailer",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPalace%2BJailer"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "DBCD4C82DAFB4BE6412F842F66684332D5E05A13E3B1F227AFDBF69066CBE585",
+  "rulings_uri": "https://api.scryfall.com/cards/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/140/palace-jailer?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698181,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Soldier",
+  "uri": "https://api.scryfall.com/cards/3a8c2a84-e0f2-4611-af3d-42f4578ad4e3",
+  "variation": false
+}
