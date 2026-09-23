@@ -83,6 +83,9 @@ import {
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
+  linkExile,
+  linkedExileUntilLeaves,
+  loseAbilitiesBecome,
   loseLife,
   loseLifeTargetManaValue,
   loseLifeTargetController,
@@ -145,9 +148,9 @@ import {
   scry,
   surveil,
   triggerOn,
-  typecycleHand,
-  tapUnlessPayLife,
+  tapAll,
   tapUnlessRevealSubtype,
+  typecycleHand,
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
   targetOnResolve,
@@ -1903,6 +1906,31 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { mana: '{W}', sacrifice: 'self' },
       gainLife(2),
     ),
+  ],
+  'Alabaster Host Intercessor': [
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
+    typecycleHand('plainscycling.alabasterHostIntercessor', '{2}', 'Plains'),
+  ],
+  'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
+  'Githzerai Monk': [
+    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'notController' })),
+  ],
+  'Meteor Golem': [
+    targetOnResolve('destroy', { zone: 'battlefield', nonland: true, controller: 'opponent' }),
+  ],
+  'Salvation Colossus': [
+    attacks(
+      pumpControlled(2, 2, { other: true }),
+      { kind: 'grantControlled', keywords: ['Indestructible'], other: true },
+    ),
+    activate({
+      id: 'unearth',
+      zone: 'graveyard',
+      sorcery: true,
+      costs: { energy: 8 },
+      do: [{ kind: 'unearthSelf' }],
+    }),
   ],
 }
 
