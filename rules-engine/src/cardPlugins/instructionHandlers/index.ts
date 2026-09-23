@@ -8,6 +8,7 @@ import { monarchExileInstructionHandlers } from '../monarchExile'
 import { encoreHandlers } from '../encore'
 import { multiplayerHandlers } from './multiplayer'
 import { permanentControlHandlers } from '../permanentControl'
+import { opponentCreatureHandlers } from './opponentCreatures'
 import { resourceHandlers } from './resources'
 import type {
   InstructionContext,
@@ -36,6 +37,7 @@ const instructionHandlers = {
   ...blinkHandlers,
   ...statusEffectHandlers,
   ...encoreHandlers,
+  ...opponentCreatureHandlers,
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
   monstrosity: monstrosityInstruction,

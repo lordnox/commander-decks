@@ -1,6 +1,8 @@
 import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
+import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
+import type { GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -29,6 +31,12 @@ export type PendingPlayerSelection = {
         abilityId?: string
         triggerEffectKey?: string
         interveningIf?: CardCondition
+      }
+    | {
+        kind: 'loseAbilitiesBecomeOpponent'
+        extraSubtype: string
+        power: number
+        toughness: number
       }
 }
 
@@ -147,6 +155,9 @@ export const selectPlayers: Plugin = {
       if (battle?.zone === 'battlefield' && battle.types.includes('Battle')) {
         battle.protector = target
       }
+    }
+    if (selection.action.kind === 'loseAbilitiesBecomeOpponent' && target) {
+      stampLoseAbilitiesBecomeOnOpponentCreatures(draft, target, selection.action)
     }
     const next = draft.playerOrder
       .map((seat) => pendingPlayerSelectionFor(draft, seat))
