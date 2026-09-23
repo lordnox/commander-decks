@@ -929,10 +929,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     entersTapped(),
     typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
   ],
-  'Secluded Steppe': [
-    entersTapped(),
-    typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
-  ],
   'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
   'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
   'Sky Diamond': [entersTapped()],
@@ -1353,14 +1349,18 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Vantress Visions': [onResolve(copyTargetCreature())],
   'Walk-In Closet': [playLandsFromGraveyard()],
   "Thrór's Map": [
-    enters(searchLibrary({
-      prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
-      match: basicLand,
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    })),
+    {
+      op: 'search',
+      via: 'enters',
+      spec: {
+        prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
+        match: basicLand,
+        destination: 'hand',
+        min: 1,
+        max: 1,
+        reveal: true,
+      },
+    },
     ability(
       { id: 'throrsMap.loot' },
       { mana: '{2}', tap: true },
