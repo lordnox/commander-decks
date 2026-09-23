@@ -173,15 +173,31 @@ export const copyTokenTemplate = (
     notLegendary?: boolean
     flying?: boolean
     tapped?: boolean
+    colors?: string[]
+    extraSubtypes?: string[]
+    noManaCost?: boolean
   } = {},
-): Partial<GameObject> & { name: string } => ({
-  ...copyCharacteristics(card, extra),
-  // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
-  ...(extra.tapped ? { tapped: true } : {}),
-  summoningSickness: true,
-  counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
-  tags: [],
-})
+): Partial<GameObject> & { name: string } => {
+  const characteristics = copyCharacteristics(card, extra)
+  const subtypes = extra.extraSubtypes
+    ? [...new Set([...extra.extraSubtypes, ...characteristics.subtypes])]
+    : characteristics.subtypes
+  const colors = extra.colors ?? characteristics.colors
+  const manaCost = extra.noManaCost ? '' : characteristics.manaCost
+  const manaValue = extra.noManaCost ? 0 : characteristics.manaValue
+  return {
+    ...characteristics,
+    subtypes,
+    colors,
+    manaCost,
+    manaValue,
+    // Leaving `tapped` out keeps createToken's untapped default instead of undefined.
+    ...(extra.tapped ? { tapped: true } : {}),
+    summoningSickness: true,
+    counters: card.printedLoyalty === null ? {} : { loyalty: card.printedLoyalty },
+    tags: [],
+  }
+}
 
 export const addPlusCounters = (object: GameObject, amount: number) => {
   if (amount === 0) return
@@ -452,6 +468,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
     if (effect.op === 'static' && effect.linkedExileUntilLeaves) ids.add('linkedExile')
+    if (effect.op === 'embalm') ids.add('graveyardCasting')
     if (effect.op === 'handler') {
       ids.add(effect.pluginId)
       // Demonstrate only opens the copy choice; stackCopy resolves it.

@@ -19,6 +19,7 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
+import { EMBALM_ABILITY_ID, embalmActions } from './cardPlugins/graveyardCasting'
 import {
   activateEffect,
   conditionHolds,
@@ -800,6 +801,11 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
       ? (effect.zone ?? 'battlefield')
       : 'battlefield'
     if (object.zone !== requiredZone) return []
+const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) => {
+  if (object.controller !== seat) return []
+  if (object.zone === 'graveyard') return embalmActions(state, object, seat)
+  if (object.zone !== 'battlefield') return []
+  return effectsOf(object).flatMap((effect): AvailableAction[] => {
     if (effect.op === 'activate' && !effect.manaAbility) {
       const requiredZone = effect.zone ?? 'battlefield'
       if (object.zone !== requiredZone) return []
@@ -880,6 +886,7 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
     }
     return []
   })
+}
 
 /**
  * Enumerate meaningful choices for the seat with priority. Mana abilities are
@@ -1678,6 +1685,14 @@ export const eventsForAvailableAction = (
   if (action.kind === 'activateAbility') {
     const object = state.objects[action.objectId]
     if (!object || !action.abilityId) return null
+    if (action.abilityId === EMBALM_ABILITY_ID) {
+      return [{
+        type: 'activateAbility',
+        abilityId: EMBALM_ABILITY_ID,
+        seat,
+        objectId: object.id,
+      }]
+    }
     if (action.abilityId === SACRIFICE_LAND_FOR_BLACK) {
       return [{
         type: 'activateAbility',

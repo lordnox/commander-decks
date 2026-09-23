@@ -490,3 +490,9 @@ export type CardEffect =
       power: number
       toughness: number
     }
+  | {
+      op: 'embalm'
+      manaCost: string
+      colors: string[]
+      extraSubtypes: string[]
+    }
