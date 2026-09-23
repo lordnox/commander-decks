@@ -21,6 +21,7 @@ export type CardCondition =
   | { kind: 'graveyardCardTypes'; min: number }
   | { kind: 'lacksControlledSubtype'; subtypes: string[] }
   | { kind: 'opponentsAtMost'; max: number }
+  | { kind: 'opponentHasMore'; stat: 'lands' | 'life' | 'creatures' | 'cardsInHand' }
   | { kind: 'opponentLostLifeThisTurn'; min: number }
   | { kind: 'controllerIsActive' }
   | { kind: 'castOption'; id: string }

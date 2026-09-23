@@ -37,6 +37,15 @@ const controlledLandList = (draft: Draft | GameState, seat: PlayerId) =>
     && candidate.controller === seat
     && candidate.types.includes('Land'))
 
+const activeOpponents = (state: GameState, controller: PlayerId) =>
+  state.playerOrder.filter((seat) => seat !== controller && !state.players[seat].lost)
+
+const controlledCreatureCount = (state: GameState, seat: PlayerId) =>
+  Object.values(state.objects).filter((candidate) =>
+    candidate.zone === 'battlefield'
+    && candidate.controller === seat
+    && candidate.types.includes('Creature')).length
+
 const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller'> => ({
   ...gameObjectFieldDefaults(),
   zone: 'battlefield',
@@ -275,9 +284,28 @@ export const conditionHolds = (
       && condition.subtypes.some((subtype) => candidate.subtypes.includes(subtype)))
   }
   if (condition.kind === 'opponentsAtMost') {
-    const opponents = state.playerOrder.filter((seat) =>
-      seat !== object.controller && !state.players[seat].lost).length
-    return opponents <= condition.max
+    return activeOpponents(state, object.controller).length <= condition.max
+  }
+  if (condition.kind === 'opponentHasMore') {
+    const you = object.controller
+    const opponents = activeOpponents(state, you)
+    if (condition.stat === 'lands') {
+      const yours = controlledLandList(state, you).length
+      return opponents.some((seat) => controlledLandList(state, seat).length > yours)
+    }
+    if (condition.stat === 'life') {
+      const yours = state.players[you].life
+      return opponents.some((seat) => state.players[seat].life > yours)
+    }
+    if (condition.stat === 'creatures') {
+      const yours = controlledCreatureCount(state, you)
+      return opponents.some((seat) => controlledCreatureCount(state, seat) > yours)
+    }
+    if (condition.stat === 'cardsInHand') {
+      const yours = state.zoneOrder[you]?.hand.length ?? 0
+      return opponents.some((seat) => (state.zoneOrder[seat]?.hand.length ?? 0) > yours)
+    }
+    return false
   }
   if (condition.kind === 'opponentLostLifeThisTurn') {
     return state.playerOrder.some((seat) =>
