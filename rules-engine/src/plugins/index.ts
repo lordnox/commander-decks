@@ -18,6 +18,10 @@ import {
 import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
 import { life } from './life'
+import { lifeTotalLock } from './lifeTotalLock'
+import { phasing } from './phasing'
+import { protectionFromEverything } from './protectionFromEverything'
+import { untilNextTurn } from './untilNextTurn'
 import { mana } from './mana'
 import { monarch } from './monarch'
 import { manaBurn } from './manaBurn'
@@ -38,6 +42,10 @@ import { turnStructure } from './turnStructure'
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
   turnStructure,
+  untilNextTurn,
+  phasing,
+  protectionFromEverything,
+  lifeTotalLock,
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,

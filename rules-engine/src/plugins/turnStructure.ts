@@ -2,6 +2,7 @@ import { emptyMana, nextPlayer, type Draft } from '../draft'
 import { strikesFirst } from '../keywords'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
 import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
+import { phaseInControlledBeforeUntap } from './phasing'
 
 export const STEPS: StepId[] = [
   'untap',
@@ -51,6 +52,7 @@ const cleanupHandSizeError = (state: GameState) => {
 }
 
 const onUntap = (draft: Draft) => {
+  phaseInControlledBeforeUntap(draft, draft.active)
   for (const object of draft.zoneOf('battlefield', draft.active)) {
     object.tapped = false
     object.summoningSickness = false

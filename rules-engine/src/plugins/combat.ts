@@ -1,5 +1,7 @@
 import { hasKeyword, lethalDamage } from '../keywords'
 import { attackDeclarationError, defenderLegalForGoadedAttacker } from './goad'
+import { existsOnBattlefield, isPhasedOut } from './phasing'
+import { hasProtectionFromEverything } from './protectionFromEverything'
 import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
@@ -29,7 +31,7 @@ export const combat: Plugin = {
         const object = state.objects[declaration.objectId]
         if (seen.has(declaration.objectId)) return 'an attacker can only be declared once'
         seen.add(declaration.objectId)
-        if (!object || object.zone !== 'battlefield' || !object.types.includes('Creature')) {
+        if (!existsOnBattlefield(object) || !object.types.includes('Creature')) {
           return 'attacker is not a battlefield creature'
         }
         if (object.controller !== event.seat) return 'attacker is not controlled by that seat'
@@ -81,8 +83,7 @@ export const combat: Plugin = {
         blockerIds.add(declaration.blockerId)
         attackerIds.add(declaration.attackerId)
         if (
-          !blocker
-          || blocker.zone !== 'battlefield'
+          !existsOnBattlefield(blocker)
           || !blocker.types.includes('Creature')
           || blocker.controller !== event.seat
           || blocker.tapped
@@ -90,8 +91,13 @@ export const combat: Plugin = {
           return 'blocker is not an untapped creature controlled by that seat'
         }
         if (
-          !attacker
-          || attacker.zone !== 'battlefield'
+          hasProtectionFromEverything(state, attacker)
+          && blocker
+        ) {
+          return 'a creature with protection from everything cannot be blocked'
+        }
+        if (
+          !existsOnBattlefield(attacker)
           || !attacker.attacking
           || defendingPlayer(state, attacker.attacking) !== event.seat
         ) {
@@ -130,11 +136,11 @@ export const combat: Plugin = {
 
     if (event.type === 'assignCombatDamage') {
       const attackers = Object.values(draft.objects).filter(
-        (object) => object.zone === 'battlefield' && object.attacking !== null,
+        (object) => existsOnBattlefield(object) && object.attacking !== null,
       )
       for (const attacker of attackers) {
         const blockers = Object.values(draft.objects).filter(
-          (object) => object.zone === 'battlefield' && object.blocking === attacker.id,
+          (object) => existsOnBattlefield(object) && object.blocking === attacker.id,
         )
         const amount = attacker.power ?? 0
         if (blockers.length > 0 && !hasKeyword(attacker, 'trample')) {

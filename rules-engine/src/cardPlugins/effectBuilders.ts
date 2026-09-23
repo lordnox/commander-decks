@@ -217,6 +217,14 @@ export const goadTarget = (): CardInstruction => ({ kind: 'goadTargets' })
 export const goadTargetUntilEot = (): CardInstruction => ({
   kind: 'goadTargets',
   untilEndOfTurn: true,
+export const phaseOutControlled = (): CardInstruction => ({ kind: 'phaseOutControlled' })
+
+export const grantProtectionFromEverything = (): CardInstruction => ({
+  kind: 'grantProtectionFromEverything',
+})
+
+export const lifeTotalCannotChange = (): CardInstruction => ({
+  kind: 'lifeTotalCannotChange',
 })
 
 export const preventCombatDamage = (
