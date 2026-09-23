@@ -12,6 +12,7 @@ import {
   attacks,
   basicLand,
   bestow,
+  blink,
   blockTax,
   bounceChosenLand,
   bounceSelf,
@@ -49,6 +50,7 @@ import {
   enters,
   entersIfCastOption,
   entersTargetingOpponent,
+  entersTarget,
   entersTapped,
   extraEnters,
   extraLandfall,
@@ -67,6 +69,7 @@ import {
   landToGraveyardOnce,
   landfall,
   linkExile,
+  linkedExileUntilLeaves,
   legendRuleOff,
   loseLife,
   loseLifeTargetManaValue,
@@ -175,6 +178,7 @@ import {
   targetingRequirement,
   flashback,
   grantRetrace,
+  warp,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -521,6 +525,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landfall(gainLife(1)),
   ],
   'Cultivate': [searchSpell(splitBasicLandSearch())],
+  Cloudshift: [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature', controller: 'you' },
+      blink({ returnController: 'controller' }),
+    ),
+  ],
   'Decisive Denial': [modalChooseOne(
     {
       id: 'fight',
@@ -646,6 +657,20 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       max: 1,
       reveal: true,
     }),
+  ],
+  'All-Fates Stalker': [
+    ...warp('{1}{W}'),
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    {
+      op: 'trigger',
+      on: 'enters',
+      targets: { filter: { type: 'Creature', excludeSubtypes: ['Assassin'] } },
+      do: [linkExile(
+        { type: 'Creature', excludeSubtypes: ['Assassin'] },
+        { optional: true, max: 1 },
+      )],
+    },
   ],
   "Archaeomancer's Map": [
     {
@@ -1125,6 +1150,33 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Fact or Fiction': [onResolve(revealPick(5, { permanent: true }))],
   'Fell Mire': [entersTapped()],
+  'Felidar Guardian': [
+    enters(
+      blink({
+        optional: true,
+        filter: {
+          controller: 'you',
+          other: true,
+          permanent: true,
+        },
+        returnController: 'owner',
+        prompt: 'You may exile another target permanent you control, then return it under its owner\'s control.',
+      }),
+    ),
+  ],
+  'Flicker of Fate': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', types: ['Creature', 'Enchantment'] },
+      blink({ returnController: 'owner' }),
+    ),
+  ],
+  Flickerwisp: [
+    entersTarget(
+      { zone: 'battlefield', other: true },
+      blink({ when: 'nextEndStep', returnController: 'owner' }),
+    ),
+  ],
   'Fell the Profane': [
     targetOnResolve(
       'destroy',
@@ -1506,6 +1558,21 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, { mana: '{2}', tap: true, sacrifice: 'self' }),
   ],
   'Ghostly Flicker': [handler('blinkValue')],
+  'Guardian of Ghirapur': [
+    enters(
+      blink({
+        optional: true,
+        filter: {
+          controller: 'you',
+          types: ['Creature', 'Artifact'],
+          other: true,
+        },
+        when: 'nextEndStep',
+        returnController: 'owner',
+        prompt: 'You may exile another target creature or artifact you control, then return it at the next end step.',
+      }),
+    ),
+  ],
   'Kami of False Hope': [
     activate({
       id: 'kami.fog',
@@ -1519,6 +1586,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'ladyEvangela.fog',
       targets: 'creature',
     }, { mana: '{W}{B}', tap: true }, preventCombatDamage({ from: 'target' })),
+  ],
+  'Long Road Home': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
+    ),
   ],
   'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
@@ -1577,7 +1651,28 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
   'Queza, Augur of Agonies': [handler('blinkValue')],
+  'Otherworldly Journey': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
+    ),
+  ],
   'Reflecting Pool': [manaFrom('controlledLands')],
+  'Restoration Angel': [
+    enters(
+      blink({
+        optional: true,
+        filter: {
+          controller: 'you',
+          type: 'Creature',
+          excludeSubtypes: ['Angel'],
+        },
+        returnController: 'controller',
+        prompt: 'You may exile target non-Angel creature you control, then return it under your control.',
+      }),
+    ),
+  ],
   "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
   'Snuff Out': [
     alternateCast('pay-4-life', 'Pay 4 life', '', {
@@ -1605,6 +1700,20 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
   'Vanish into Memory': [handler('blinkValue')],
+  'Voyager Staff': [
+    activate({
+      id: 'voyagerStaff.blink',
+      costs: { mana: '{2}', tap: true, sacrifice: 'self' },
+      targets: {
+        filter: {
+          controller: 'you',
+          types: ['Artifact', 'Creature', 'Land'],
+          other: true,
+        },
+      },
+      do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
+    }),
+  ],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []
