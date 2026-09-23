@@ -48,6 +48,7 @@ export type TokenSpec = {
   power?: number | null
   toughness?: number | null
   oracleText?: string
+  colors?: string[]
   sacrificeForMana?: Partial<ManaPool>
 }
 

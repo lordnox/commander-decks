@@ -285,6 +285,7 @@ const fish = createTokenInstruction({
   name: 'Fish',
   types: ['Creature'],
   subtypes: ['Fish'],
+  colors: ['U'],
   power: 1,
   toughness: 1,
 })
