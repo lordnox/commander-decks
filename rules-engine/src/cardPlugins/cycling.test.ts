@@ -120,6 +120,47 @@ describe('cycling', () => {
     expect(finished.stack).toHaveLength(0)
   })
 
+  test('plainscycling cycle triggers wait until the library search closes', () => {
+    const cycler = cardTemplate('Plains Cycler', {
+      types: ['Creature'],
+      effects: [typecycleHand('cycling.plainsCycler', '{2}', 'Plains')],
+    })
+    const listener = cardTemplate('Cycle Listener', {
+      types: ['Enchantment'],
+      effects: [triggerOn('cycle', { do: [draw(1)] })],
+    })
+    const bonus = cardTemplate('Bonus card', { types: ['Instant'] })
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: { p1: [listener] },
+        hands: { p1: [cycler] },
+        libraries: { p1: [plains(), bonus] },
+      },
+      { random: () => 0.5, cardPlugins: [activated, cycling, librarySearch] },
+    )
+    const cyclerId = named(server.state, 'Plains Cycler').id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 2
+
+    const opened = ok(server.rules(ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: 'cycling.plainsCycler',
+      seat: 'p1',
+      objectId: cyclerId,
+    })), { type: 'resolveTop' }))
+    expect(opened.stack.some((item) => item.name === 'Cycle Listener')).toBe(false)
+
+    const found = named(opened, 'Plains').id
+    const finished = run(server, opened, [
+      { type: 'move', objectId: found, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(finished.stack.some((item) => item.name === 'Cycle Listener')).toBe(true)
+    expect(named(finished, 'Bonus card').zone).toBe('library')
+  })
+
   test('cycle event triggers battlefield listeners without name checks', () => {
     const cycler = cardTemplate('Cycle Meadow', {
       types: ['Land'],

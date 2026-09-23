@@ -51,8 +51,15 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
     targetFilter
     && !validTargetRef(draft, item.targets[0], targetFilter, item.controller)
   ) return
-  emitCyclingResolved(draft, item)
   runInstructions(draft, source, instructions, item)
+  if (!item.abilityId) return
+  const effect = activateEffect(effectsOf(source), item.abilityId)
+  if (
+    effect?.cycling
+    && !effect.do.some((instruction) => instruction.kind === 'searchLibrary')
+  ) {
+    emitCyclingResolved(draft, item)
+  }
 }
 
 /**

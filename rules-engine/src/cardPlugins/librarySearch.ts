@@ -13,6 +13,7 @@ import {
 } from './activationCosts'
 import { basicLand, conditionHolds, hasSubtype, searchEffect, type SearchDestination, type SearchSpec } from './effects'
 import { effectsFor } from './cardRules'
+import { emitCycleEvent, typecyclingFromHand } from './cycling'
 import { enteringObjectId } from './entersTapped'
 import {
   clearPendingDialog,
@@ -417,6 +418,12 @@ export const librarySearch: Plugin = {
 
     if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {
       const pending = pendingSearch(state, event.seat)
+      if (pending?.via === 'resolve' && pending.sourceId) {
+        const source = draft.object(pending.sourceId) ?? state.objects[pending.sourceId]
+        if (source && typecyclingFromHand(source)) {
+          emitCycleEvent(draft, event.seat, pending.sourceId)
+        }
+      }
       closeSearch(draft, event.seat)
       if (pending?.via === 'spell') draft.players[event.seat].data[SEARCH_DONE] = true
       if (pending?.sourceId) delete draft.players[event.seat].data[inlineSpecKey(pending.sourceId)]
