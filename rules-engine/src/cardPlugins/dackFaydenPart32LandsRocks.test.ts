@@ -4,7 +4,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameState } from '../types'
+import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { cardDefinition, effectsFor } from './cardRules'
@@ -13,12 +13,30 @@ import { entersTapped } from './entersTapped'
 import { cardPluginEntry, missingCardPlugins } from './index'
 import {
   librarySearch,
+  SEARCH_CHOSEN,
   SEARCH_FETCH,
   pendingSearch,
+  searchCandidates,
+  searchSpecFor,
 } from './librarySearch'
 import { linkedExile } from './linkedExile'
+import { onResolve } from './onResolve'
 
-const plugins = [activated, becomeCopyOfTarget, cycling, entersTapped, librarySearch, linkedExile]
+const plugins = [
+  activated,
+  becomeCopyOfTarget,
+  cycling,
+  entersTapped,
+  librarySearch,
+  linkedExile,
+  onResolve,
+]
+
+const run = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  events: GameEvent[],
+) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -285,5 +303,368 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(cardDefinition("Thespian's Stage")?.handlerIds).toEqual(
       expect.arrayContaining(['becomeCopyOfTarget', 'activated']),
     )
+  })
+
+  test("Archaeomancer's Map ETB finds up to two Plains and puts them in hand", () => {
+    const map = cardTemplate("Archaeomancer's Map", {
+      types: ['Artifact'],
+      manaCost: '{2}{W}',
+      effects: effectsFor("Archaeomancer's Map"),
+    })
+    const p1 = plains()
+    const p2 = cardTemplate('Plains Two', {
+      types: ['Land'],
+      subtypes: ['Plains'],
+      supertypes: ['Basic'],
+      tapProduces: { W: 1 },
+    })
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [map] }, libraries: { p1: [p1, p2, cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] })] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const mapId = server.state.zoneOrder.p1.hand[0]
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana = { W: 1, U: 0, B: 0, R: 0, G: 0, C: 2 }
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: mapId,
+    }))
+    const resolved = resolveStack(server.rules, cast)
+    expect(pendingSearch(resolved, 'p1')).toMatchObject({ source: "Archaeomancer's Map", via: 'enters' })
+    const spec = searchSpecFor("Archaeomancer's Map")!
+    expect(searchCandidates(resolved, 'p1', spec).map((object) => object.name)).toEqual(['Plains', 'Plains Two'])
+    const first = named(resolved, 'Plains').id
+    const second = named(resolved, 'Plains Two').id
+    const finished = run(server, resolved, [
+      { type: 'move', objectId: first, to: 'hand' },
+      { type: 'move', objectId: second, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(finished.zoneOrder.p1.hand).toHaveLength(2)
+    expect(projectForViewer(finished, 'p2').libraries?.p1).toBeUndefined()
+  })
+
+  test('Everflowing Chalice enters with charge counters from multikicker', () => {
+    const chalice = cardTemplate('Everflowing Chalice', {
+      types: ['Artifact'],
+      manaCost: '{0}',
+      oracleText: '{T}: Add {C} for each charge counter on this artifact.',
+      effects: effectsFor('Everflowing Chalice'),
+    })
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [chalice] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 4 }
+    const spell = ready.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell,
+      timesKicked: 2,
+    }))
+    const resolved = resolveStack(server.rules, cast)
+    expect(resolved.objects[spell].counters.charge).toBe(2)
+  })
+
+  test('Secluded Steppe plainscycles into hand after the search closes', () => {
+    const steppe = cardTemplate('Secluded Steppe', {
+      types: ['Land'],
+      subtypes: ['Plains'],
+      tapProduces: { W: 1 },
+      effects: effectsFor('Secluded Steppe'),
+    })
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [steppe] }, libraries: { p1: [plains()] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const steppeId = named(server.state, 'Secluded Steppe').id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.W = 1
+    const cycled = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: 'cycling.secludedSteppe',
+      seat: 'p1',
+      objectId: steppeId,
+    }))
+    const opened = ok(server.rules(cycled, { type: 'resolveTop' }))
+    const found = named(opened, 'Plains').id
+    const finished = run(server, opened, [
+      { type: 'move', objectId: found, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(named(finished, 'Plains').zone).toBe('hand')
+    expect(finished.objects[steppeId].zone).toBe('graveyard')
+  })
+
+  test("Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped", () => {
+    const cave = cardTemplate("Urza's Cave", {
+      types: ['Land'],
+      tapProduces: { C: 1 },
+      effects: effectsFor("Urza's Cave"),
+    })
+    const quarry = cardTemplate('Quarry Land', { types: ['Land'], tapProduces: { C: 1 } })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [cave] }, libraries: { p1: [quarry] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const caveId = named(server.state, "Urza's Cave").id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 3
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: caveId,
+    }))
+    expect(opened.objects[caveId].zone).toBe('graveyard')
+    const found = named(opened, 'Quarry Land').id
+    const finished = run(server, opened, [
+      { type: 'move', objectId: found, to: 'battlefield' },
+      { type: 'tap', objectId: found },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(finished.objects[found].zone).toBe('battlefield')
+    expect(finished.objects[found].tapped).toBe(true)
+  })
+
+  test('Worn Powerstone enters the battlefield tapped', () => {
+    const stone = cardTemplate('Worn Powerstone', {
+      types: ['Artifact'],
+      manaCost: '{3}',
+      tapProduces: { C: 2 },
+      effects: effectsFor('Worn Powerstone'),
+    })
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [stone] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana.C = 3
+    const spell = ready.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell }))
+    const resolved = resolveStack(server.rules, cast)
+    expect(resolved.objects[spell].tapped).toBe(true)
+  })
+
+  test("Commander's Sphere sacrifices for a card", () => {
+    const drawn = cardTemplate('Sphere Draw', { types: ['Instant'] })
+    const sphere = cardTemplate("Commander's Sphere", {
+      types: ['Artifact'],
+      tapProduces: { C: 1 },
+      effects: effectsFor("Commander's Sphere"),
+    })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [sphere] }, libraries: { p1: [drawn] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const sphereId = named(server.state, "Commander's Sphere").id
+    const activatedState = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'commandersSphere.draw',
+      seat: 'p1',
+      objectId: sphereId,
+    }))
+    const resolved = resolveStack(server.rules, activatedState)
+    expect(resolved.objects[sphereId].zone).toBe('graveyard')
+    expect(named(resolved, 'Sphere Draw').zone).toBe('hand')
+  })
+
+  test('Hedron Archive sacrifices for two cards', () => {
+    const a = cardTemplate('Archive A', { types: ['Instant'] })
+    const b = cardTemplate('Archive B', { types: ['Instant'] })
+    const archive = cardTemplate('Hedron Archive', {
+      types: ['Artifact'],
+      tapProduces: { C: 2 },
+      effects: effectsFor('Hedron Archive'),
+    })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [archive] }, libraries: { p1: [a, b] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const archiveId = named(server.state, 'Hedron Archive').id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 2
+    const activatedState = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: 'hedronArchive.draw',
+      seat: 'p1',
+      objectId: archiveId,
+    }))
+    const resolved = resolveStack(server.rules, activatedState)
+    expect(resolved.zoneOrder.p1.hand).toHaveLength(2)
+    expect(resolved.objects[archiveId].zone).toBe('graveyard')
+  })
+
+  test('High Market sacrifices a creature and gains 1 life', () => {
+    const market = cardTemplate('High Market', {
+      types: ['Land'],
+      tapProduces: { C: 1 },
+      effects: effectsFor('High Market'),
+    })
+    const elf = cardTemplate('Elf', { types: ['Creature'], power: 1, toughness: 1 })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [market, elf] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const marketId = named(server.state, 'High Market').id
+    const elfId = named(server.state, 'Elf').id
+    const activatedState = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'highMarket.gain',
+      seat: 'p1',
+      objectId: marketId,
+      choices: [elfId],
+    }))
+    const resolved = resolveStack(server.rules, activatedState)
+    expect(resolved.objects[elfId].zone).toBe('graveyard')
+    expect(resolved.players.p1.life).toBe(41)
+  })
+
+  test('Moonsilver Key finds an artifact with a mana ability to hand', () => {
+    const key = cardTemplate('Moonsilver Key', {
+      types: ['Artifact'],
+      effects: effectsFor('Moonsilver Key'),
+    })
+    const ring = solRing()
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [key] }, libraries: { p1: [ring] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const keyId = named(server.state, 'Moonsilver Key').id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 1
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: keyId,
+    }))
+    expect(opened.objects[keyId].zone).toBe('graveyard')
+    const found = named(opened, 'Sol Ring').id
+    const finished = run(server, opened, [
+      { type: 'move', objectId: found, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(named(finished, 'Sol Ring').zone).toBe('hand')
+  })
+
+  test("Thrór's Map ETB finds a basic land to hand", () => {
+    const map = cardTemplate("Thrór's Map", {
+      types: ['Artifact'],
+      manaCost: '{2}',
+      effects: effectsFor("Thrór's Map"),
+    })
+    const drawn = plains()
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [map] }, libraries: { p1: [drawn] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana.C = 2
+    const spell = ready.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell }))
+    const entered = resolveStack(server.rules, cast)
+    const found = named(entered, 'Plains').id
+    const withPlains = run(server, entered, [
+      { type: 'move', objectId: found, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(named(withPlains, 'Plains').zone).toBe('hand')
+  })
+
+  test("Thrór's Map loot draws a card when the ability resolves", () => {
+    const map = cardTemplate("Thrór's Map", {
+      types: ['Artifact'],
+      manaCost: '{2}',
+      effects: effectsFor("Thrór's Map"),
+    })
+    const toDiscard = cardTemplate('To Discard', { types: ['Instant'] })
+    const drawn = cardTemplate('Loot Draw', { types: ['Instant'] })
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: { p1: [map] },
+        hands: { p1: [toDiscard] },
+        libraries: { p1: [drawn] },
+      },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const mapId = named(server.state, "Thrór's Map").id
+    const ready = structuredClone(server.state)
+    ready.step = 'precombatMain'
+    ready.active = 'p1'
+    ready.players.p1.mana.C = 2
+    const lootStart = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: 'throrsMap.loot',
+      seat: 'p1',
+      objectId: mapId,
+    }))
+    const drew = ok(server.rules(lootStart, { type: 'resolveTop' }))
+    expect(named(drew, 'Loot Draw').zone).toBe('hand')
+    expect(drew.stack.length).toBeGreaterThan(0)
+  })
+
+  test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {
+    const landscape = cardTemplate('Myriad Landscape', {
+      types: ['Land'],
+      tapProduces: { C: 1 },
+      effects: effectsFor('Myriad Landscape'),
+    })
+    const forestA = cardTemplate('Forest A', {
+      types: ['Land'],
+      subtypes: ['Forest'],
+      supertypes: ['Basic'],
+      tapProduces: { G: 1 },
+    })
+    const forestB = cardTemplate('Forest B', {
+      types: ['Land'],
+      subtypes: ['Forest'],
+      supertypes: ['Basic'],
+      tapProduces: { G: 1 },
+    })
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [landscape] }, libraries: { p1: [forestA, forestB] } },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+    const landscapeId = named(server.state, 'Myriad Landscape').id
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana.C = 2
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: landscapeId,
+    }))
+    expect(opened.objects[landscapeId].zone).toBe('graveyard')
+    const spec = searchSpecFor('Myriad Landscape')!
+    expect(searchCandidates(opened, 'p1', spec).map((object) => object.name)).toEqual(['Forest A', 'Forest B'])
   })
 })
