@@ -4,6 +4,7 @@ import { controlHandlers } from './control'
 import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { monarchExileInstructionHandlers } from '../monarchExile'
+import { encoreHandlers } from '../encore'
 import { multiplayerHandlers } from './multiplayer'
 import { permanentControlHandlers } from '../permanentControl'
 import { resourceHandlers } from './resources'
@@ -29,6 +30,7 @@ const instructionHandlers = {
   ...linkedExileInstructionHandlers,
   ...blinkHandlers,
   ...statusEffectHandlers,
+  ...encoreHandlers,
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
 } satisfies InstructionHandlers

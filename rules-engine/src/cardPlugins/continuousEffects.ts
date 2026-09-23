@@ -298,6 +298,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     restoreCopy(object, effect.before)
   } else if (effect.kind === 'goad') {
     // Status only; combat reads continuousEffects directly.
+  } else if (effect.kind === 'encoreAttack') {
+    // combat restriction metadata only
   }
 }
 
@@ -321,6 +323,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     restoreCopy(object, effect.after)
   } else if (effect.kind === 'goad') {
     // Status only; combat reads continuousEffects directly.
+  } else if (effect.kind === 'encoreAttack') {
+    // combat restriction metadata only
   } else if (object.zone === 'battlefield') {
     object.controller = effect.controller
   }
