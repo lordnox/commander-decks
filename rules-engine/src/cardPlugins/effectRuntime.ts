@@ -389,7 +389,7 @@ const CHOICE_KINDS = new Set([
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
   'chooseCreatureType',
   'returnCreatureManaValueX',
-  'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens',
+  'drawAtNextUpkeep', 'grantUntilEot', 'goadTargets', 'pump', 'createXTokens',
   'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
   'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
   'createTreasures', 'drawGreatestPower', 'pumpControlled', 'searchLibrary',

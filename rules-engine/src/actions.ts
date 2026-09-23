@@ -45,6 +45,7 @@ import {
   blockTaxPerCreature,
   combatTaxAmount,
 } from './cardPlugins/combatTax'
+import { attackDeclarationError } from './plugins/goad'
 import {
   canSacrificeLandForBlack,
   SACRIFICE_LAND_FOR_BLACK,
@@ -1536,6 +1537,10 @@ export const eventsForCombatDeclaration = (
     | { type: 'declareAttackers'; seat: PlayerId; attackers: AttackerDecl[] }
     | { type: 'declareBlockers'; seat: PlayerId; blockers: BlockerDecl[] },
 ): GameEvent[] | null => {
+  if (event.type === 'declareAttackers') {
+    const goadError = attackDeclarationError(state, event.seat, event.attackers)
+    if (goadError) return null
+  }
   const tax = combatTaxAmount(state, event)
   if (tax === 0) return [event]
   const excluded = event.type === 'declareAttackers'

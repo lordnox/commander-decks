@@ -210,6 +210,21 @@ export const grantOracleLineUntilEndOfTurn = (
   line: string,
 ) => untilEndOfTurn(object, grantOracleLine(object, line))
 
+const hasGoadFrom = (object: GameObject, sourceController: PlayerId) =>
+  (object.continuousEffects ?? []).some(
+    ({ effect }) =>
+      effect.kind === 'goad' && effect.sourceController === sourceController,
+  )
+
+export const goadUntilEndOfTurn = (object: GameObject, sourceController: PlayerId) => {
+  untilEndOfTurn(object, { kind: 'goad', sourceController })
+}
+
+export const goadPermanent = (object: GameObject, sourceController: PlayerId) => {
+  if (hasGoadFrom(object, sourceController)) return
+  withDuration(object, { kind: 'goad', sourceController }, { kind: 'permanent' })
+}
+
 export const copyUntilEndOfTurn = (
   object: GameObject,
   copied: GameObject,
@@ -232,6 +247,7 @@ const durationHolds = (
 ) => {
   if (object.zone !== 'battlefield') return false
   if (duration.kind === 'untilCleanup') return !endTurnEffects
+  if (duration.kind === 'permanent') return true
   const source = state.objects[duration.sourceId]
   if (duration.kind === 'whileSourceOnBattlefield') {
     return source?.zone === 'battlefield'
@@ -275,6 +291,8 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.before]
   } else if (effect.kind === 'copy') {
     restoreCopy(object, effect.before)
+  } else if (effect.kind === 'goad') {
+    // Status only; combat reads continuousEffects directly.
   }
 }
 
@@ -296,6 +314,8 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.after]
   } else if (effect.kind === 'copy') {
     restoreCopy(object, effect.after)
+  } else if (effect.kind === 'goad') {
+    // Status only; combat reads continuousEffects directly.
   } else if (object.zone === 'battlefield') {
     object.controller = effect.controller
   }

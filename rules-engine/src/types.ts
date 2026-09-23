@@ -98,9 +98,12 @@ export type ReversibleEffect =
   | { kind: 'typeChange'; before: string[]; after: string[] }
   | { kind: 'copy'; before: CopySnapshot; after: CopySnapshot }
   | { kind: 'controller'; controller: PlayerId; base: PlayerId }
+  /** CR 701.38: attacks each combat if able; prefers non-goading players. */
+  | { kind: 'goad'; sourceController: PlayerId }
 
 export type EffectDuration =
   | { kind: 'untilCleanup' }
+  | { kind: 'permanent' }
   | { kind: 'whileSourceOnBattlefield'; sourceId: string }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
 

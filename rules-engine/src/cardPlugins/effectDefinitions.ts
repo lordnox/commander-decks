@@ -104,6 +104,7 @@ export type CardInstruction =
   | { kind: 'pumpSelf'; power: number; toughness: number }
   | { kind: 'animateUntilEot'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
+  | { kind: 'goadTargets'; untilEndOfTurn?: boolean }
   | { kind: 'crewVehicle' }
   | { kind: 'createXTokens'; token: TokenSpec }
   | { kind: 'dealDamageToSelf'; amount: number }

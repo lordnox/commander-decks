@@ -9,6 +9,8 @@ import {
   addTypes,
   animateUntilEndOfTurn,
   changeStatsUntilEndOfTurn,
+  goadPermanent,
+  goadUntilEndOfTurn,
   grantOracleLineUntilEndOfTurn,
   untilEndOfTurn,
 } from '../continuousEffects'
@@ -290,6 +292,19 @@ const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
   }
 }
 
+const goadTargets: InstructionHandler<'goadTargets'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const apply = instruction.untilEndOfTurn ? goadUntilEndOfTurn : goadPermanent
+  for (const target of item?.targets ?? []) {
+    if (target.kind !== 'object') continue
+    const object = draft.object(target.objectId)
+    if (!object || !object.types.includes('Creature') || object.zone !== 'battlefield') continue
+    apply(object, source.controller)
+  }
+}
+
 const crewVehicle: InstructionHandler<'crewVehicle'> = ({ draft, source }) => {
   const vehicle = draft.object(source.id)
   if (!vehicle || vehicle.zone !== 'battlefield') return
@@ -462,6 +477,7 @@ export const resourceHandlers = {
   pumpSelf,
   animateUntilEot,
   grantUntilEot,
+  goadTargets,
   crewVehicle,
   untapTarget,
   addManaPerSwamp,

@@ -210,6 +210,13 @@ export const grantUntilEot = (...keywords: string[]): CardInstruction => ({
   keywords,
 })
 
+export const goadTarget = (): CardInstruction => ({ kind: 'goadTargets' })
+
+export const goadTargetUntilEot = (): CardInstruction => ({
+  kind: 'goadTargets',
+  untilEndOfTurn: true,
+})
+
 export const preventCombatDamage = (
   extra: { from?: 'target' | 'all'; toController?: boolean } = {},
 ): CardInstruction => ({

@@ -1,4 +1,5 @@
 import { hasKeyword, lethalDamage } from '../keywords'
+import { attackDeclarationError, defenderLegalForGoadedAttacker } from './goad'
 import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
@@ -20,6 +21,9 @@ export const combat: Plugin = {
         return 'only the active player with priority can declare attackers'
       }
 
+      const goadError = attackDeclarationError(state, event.seat, event.attackers)
+      if (goadError) return goadError
+
       const seen = new Set<string>()
       for (const declaration of event.attackers) {
         const object = state.objects[declaration.objectId]
@@ -37,6 +41,9 @@ export const combat: Plugin = {
         if (!defender || !state.players[defender]) return 'defender is not in the game'
         if (defender === event.seat) return 'a creature cannot attack its controller'
         if (state.players[defender].lost) return 'a player who lost cannot be attacked'
+        if (!defenderLegalForGoadedAttacker(state, object, declaration.defender)) {
+          return 'a goaded creature must attack a player other than the goading player if able'
+        }
         const declaredTarget = targetRef(declaration.defender)
         if (declaredTarget.kind === 'object') {
           const target = state.objects[declaredTarget.objectId]
