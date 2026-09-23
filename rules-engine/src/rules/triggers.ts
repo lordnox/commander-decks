@@ -219,6 +219,17 @@ const collectLandfall = (
   }
 }
 
+const collectBecomesMonstrous = (
+  state: GameState,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'becomesMonstrous') return
+  const object = state.objects[event.objectId]
+  if (!object || object.zone !== 'battlefield') return
+  collectEffects(object, 'becomesMonstrous', state, matches)
+}
+
 const collectEnters = (
   state: GameState,
   draft: Draft,
@@ -434,6 +445,7 @@ const collectEventTriggers = (
   const matches: PendingTrigger[] = []
   collectLandfall(state, draft, event, matches)
   collectEnters(state, draft, event, matches)
+  collectBecomesMonstrous(state, event, matches)
   collectAttacks(state, event, matches)
   collectStep('upkeep', state, draft, event, matches)
   collectStep('end', state, draft, event, matches)

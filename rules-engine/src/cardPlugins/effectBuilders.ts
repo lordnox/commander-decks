@@ -29,6 +29,22 @@ export const unearth = (manaCost: string): CardEffect =>
     do: [{ kind: 'unearthSelf' }],
   })
 
+export const MONSTROSITY_ABILITY = 'monstrosity'
+
+export const monstrosity = (manaCost: string, count: number): CardEffect =>
+  activate({
+    id: MONSTROSITY_ABILITY,
+    costs: { mana: manaCost },
+    if: { kind: 'notMonstrous' },
+    do: [{ kind: 'monstrosity', count }],
+  })
+
+export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'becomesMonstrous',
+  do: instructions,
+})
+
 export const enters = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'enters',

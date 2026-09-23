@@ -1,6 +1,6 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
-import type { CardInstruction, SagaChapter } from '../cardPlugins/effects'
+import { addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
 import type Draft from '../draft'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 
@@ -165,6 +165,8 @@ export const saga: Plugin = {
       if (!object) return
       if (event.counter === 'lore' && object.zone === 'battlefield' && isSaga(object)) {
         putLoreCounters(draft, object, event.count)
+      } else if (event.counter === '+1/+1') {
+        addPlusCounters(object, event.count)
       } else {
         object.counters[event.counter] = (object.counters[event.counter] ?? 0) + event.count
       }

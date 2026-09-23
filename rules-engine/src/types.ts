@@ -138,6 +138,8 @@ export type GameObject = {
   /** Dealt damage by a deathtouch source this turn, so any of it is lethal. */
   deathtouched?: boolean
   counters: Record<string, number>
+  /** Monstrosity marker; lost when the object changes zones (CR 701.109). */
+  monstrous?: boolean
   types: string[]
   subtypes: string[]
   supertypes: string[]
@@ -460,6 +462,7 @@ export type GameEvent =
   | { type: 'phaseOut'; objectId: string }
   | { type: 'phaseIn'; objectId: string }
   | { type: 'putCounters'; objectId: string; counter: string; count: number }
+  | { type: 'becomesMonstrous'; objectId: string }
   // — CR keyword actions —
   | {
       type: 'draw'

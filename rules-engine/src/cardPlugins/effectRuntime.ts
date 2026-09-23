@@ -298,6 +298,7 @@ export const conditionHolds = (
     const names = new Set(controlledLandList(state, object.controller).map((land) => land.name))
     return names.size >= condition.min
   }
+  if (condition.kind === 'notMonstrous') return !object.monstrous
   return false
 }
 
@@ -447,6 +448,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
         : 'activated')
       if (effect.cycling) ids.add('cycling')
       if (effect.id === 'unearth') ids.add('unearth')
+      if (effect.id === 'monstrosity') ids.add('monstrosity')
     }
     if (effect.op === 'mana') ids.add('activated')
     if (effect.op === 'search') ids.add('librarySearch')

@@ -35,6 +35,7 @@ export type GiftSpec = {
   extraTurn?: true
   token?: TokenSpec & { tapped?: boolean }
 }
+  | { kind: 'notMonstrous' }
 
 export type TokenSpec = {
   name: string
@@ -136,6 +137,7 @@ export type CardInstruction =
   | { kind: 'grantProtectionFromEverything' }
   | { kind: 'lifeTotalCannotChange' }
   | { kind: 'crewVehicle' }
+  | { kind: 'monstrosity'; count: number }
   | { kind: 'createXTokens'; token: TokenSpec }
   | { kind: 'encoreTokens' }
   | { kind: 'sacrificeObjectIds'; objectIds: string[] }
@@ -377,6 +379,7 @@ export type CardEffect =
         | 'combatDamage'
         | 'dealtCombatDamage'
         | 'playLand'
+        | 'becomesMonstrous'
       do: CardInstruction[]
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
