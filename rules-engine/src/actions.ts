@@ -72,6 +72,7 @@ import {
   SACRIFICE_LAND_FOR_BLACK,
 } from './plugins/sacrificeLandMana'
 import {
+  liveSelectionCandidates,
   pendingSelection,
   pendingSelectionFor,
   type CardSelectionKind,
@@ -288,18 +289,7 @@ export const waitingSelectCards = (
   const pending = seat ? pendingSelectionFor(state, seat) : pendingSelection(state)
   if (!pending || (seat && pending.seat !== seat)) return null
 
-  const fromSeat = pending.fromSeat ?? pending.seat
-  const objectIds = pending.candidates.filter((objectId) => {
-    const object = state.objects[objectId]
-    if (pending.kind === 'discard' || pending.kind === 'reveal') {
-      return object?.zone === 'hand' && object.controller === fromSeat
-    }
-    if (pending.kind === 'sacrifice') {
-      return object?.zone === 'battlefield'
-        && object.controller === fromSeat
-    }
-    return Boolean(object)
-  })
+  const objectIds = liveSelectionCandidates(state, pending)
 
   return {
     selection: pending,
