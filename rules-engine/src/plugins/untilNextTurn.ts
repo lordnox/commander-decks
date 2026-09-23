@@ -17,10 +17,21 @@ export const untilNextTurnExpired = (
   && turn > rule.params.createdOnTurn,
 )
 
-export const untilNextTurnStillHolds = (rule: RuleInstance, turn: number) => {
+/**
+ * Turn bumps when the next player untaps, not when the stamped controller's
+ * turn returns. Hold until that controller's own untap with turn > createdOnTurn.
+ */
+export const untilNextTurnStillHolds = (
+  rule: RuleInstance,
+  active: PlayerId,
+  turn: number,
+) => {
   if (!rule.params.untilControllerNextTurn) return true
+  const seat = rule.params.seat
   const created = rule.params.createdOnTurn
-  return typeof created !== 'number' || turn <= created
+  if (typeof seat !== 'string' || typeof created !== 'number') return true
+  if (active === seat && turn > created) return false
+  return true
 }
 
 export const activeUntilNextTurnRule = (
@@ -30,7 +41,7 @@ export const activeUntilNextTurnRule = (
 ) => state.rules.some((rule) =>
   rule.pluginId === pluginId
   && rule.params.seat === seat
-  && untilNextTurnStillHolds(rule, state.turn))
+  && untilNextTurnStillHolds(rule, state.active, state.turn))
 
 export const untilNextTurn: Plugin = {
   id: 'untilNextTurn',

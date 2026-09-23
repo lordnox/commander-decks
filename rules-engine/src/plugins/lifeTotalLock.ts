@@ -9,7 +9,7 @@ export const lifeTotalLock: Plugin = {
   replace: ({ state, event, rule }) => {
     if (rule.pluginId !== 'lifeTotalLock') return
     const seat = typeof rule.params.seat === 'string' ? rule.params.seat as PlayerId : undefined
-    if (!seat || !untilNextTurnStillHolds(rule, state.turn)) return
+    if (!seat || !untilNextTurnStillHolds(rule, state.active, state.turn)) return
     if (
       event.type === 'loseLife'
       || event.type === 'gainLife'

@@ -90,6 +90,38 @@ describe('phasing, protection from everything, and life lock', () => {
     expect(result.state.objects[phased.id].phasedOut).toBe(true)
   })
 
+  test('protection and life lock still apply on an opponent turn before the controller untaps again', () => {
+    const filler = bears()
+    let state = newGame({
+      players: 2,
+      libraries: { p1: [filler, filler], p2: [filler, filler] },
+    })
+    const source = cardTemplate('Fictional Perch', { controller: 'p1', owner: 'p1' })
+    state = applyInstructions(state, source, [
+      grantProtectionFromEverything(),
+      lifeTotalCannotChange(),
+    ])
+    expect(state.turn).toBe(1)
+    expect(state.active).toBe('p1')
+
+    while (state.active !== 'p2' || state.step !== 'untap' || state.turn < 2) {
+      state = ok(rules(state, { type: 'advanceStep' }, catalog))
+    }
+    expect(state.active).toBe('p2')
+    expect(state.turn).toBe(2)
+
+    state = ok(rules(state, {
+      type: 'dealDamage',
+      sourceId: source.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 5,
+    }, catalog))
+    expect(state.players.p1.life).toBe(40)
+    const gain = rules(state, { type: 'gainLife', seat: 'p1', amount: 3 }, catalog)
+    expect(gain.ok).toBe(true)
+    expect(gain.ok && gain.state.players.p1.life).toBe(40)
+  })
+
   test('full perch-shaped resolution blocks life changes and damage until next turn', () => {
     const creature = fixtureCreature('Vault Guardian')
     const filler = bears()

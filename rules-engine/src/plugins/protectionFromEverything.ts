@@ -65,7 +65,9 @@ export const protectionFromEverything: Plugin = {
   replace: ({ state, event, rule }) => {
     if (rule.pluginId !== 'protectionFromEverything') return
     const seat = rule.params.seat
-    if (typeof seat !== 'string' || !untilNextTurnStillHolds(rule, state.turn)) return
+    if (typeof seat !== 'string' || !untilNextTurnStillHolds(rule, state.active, state.turn)) {
+      return
+    }
     if (event.type === 'dealDamage' && event.target.kind === 'player' && event.target.player === seat) {
       return null
     }
