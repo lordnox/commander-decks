@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import { isKnownTo, markKnownToAll } from '../knowledge'
 import { pendingSelectionsFor } from '../rules/selectCards'
+import { isHiddenForetold } from './foretell'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 
 export const HIDDEN_INFORMATION_ID = 'hiddenInformation'
@@ -106,6 +107,9 @@ export const replicaSnapshotError = (snapshot: import('../types').GameState) => 
     ) {
       return 'client snapshot exposes another player’s hand'
     }
+    if (isHiddenForetold(object, viewer, snapshot.playerOrder)) {
+      return 'client snapshot exposes a face-down foretold card'
+    }
   }
   for (const player of snapshot.playerOrder) {
     if (snapshot.zoneOrder[player].library.length > 0) {
@@ -136,7 +140,8 @@ const redactObject = (
   const hiddenHand = object.zone === 'hand'
     && object.owner !== viewer
     && !isKnownTo(object, viewer, draft.playerOrder)
-  if (hiddenLibrary || hiddenHand) delete draft.objects[objectId]
+  const hiddenForetold = isHiddenForetold(object, viewer, draft.playerOrder)
+  if (hiddenLibrary || hiddenHand || hiddenForetold) delete draft.objects[objectId]
 }
 
 const redactDraft = (draft: import('../draft').Draft) => {
@@ -146,6 +151,10 @@ const redactDraft = (draft: import('../draft').Draft) => {
   }
   for (const player of draft.playerOrder) {
     draft.zoneOrder[player].library = []
+    draft.zoneOrder[player].exile = draft.zoneOrder[player].exile.filter((id) => {
+      const object = draft.objects[id]
+      return object && !isHiddenForetold(object, viewer, draft.playerOrder)
+    })
     if (player !== viewer) {
       draft.zoneOrder[player].hand = hiddenHandIds(draft, player, viewer)
     }

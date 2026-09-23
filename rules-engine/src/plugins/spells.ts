@@ -77,7 +77,12 @@ export const spellCost = (
     withoutPayingMana?: boolean
   } = {},
 ) => {
-  const selected = options.selected ?? alternateCastEffect(object, options.castOption)
+  const seat = options.seat ?? object.controller
+  const selected = options.selected ?? (
+    options.castOption
+      ? availableAlternateCastEffect(state, seat, object, options.castOption)
+      : undefined
+  ) ?? alternateCastEffect(object, options.castOption)
   const bestowed = options.castOption === 'bestow'
     ? effectsOf(object).find((effect) => effect.op === 'bestow')
     : undefined

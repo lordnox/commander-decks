@@ -474,6 +474,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       }
     }
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
+    if (effect.op === 'foretell') ids.add('foretell')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
     if (effect.op === 'static' && effect.linkedExileUntilLeaves) ids.add('linkedExile')
     if (effect.op === 'handler') {

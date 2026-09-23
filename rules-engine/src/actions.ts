@@ -46,10 +46,17 @@ import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { pendingExtortFor } from './cardPlugins/extort'
 import {
   alternateCastEffects,
+  availableAlternateCastEffect,
   availableAlternateCastEffects,
   canChooseAlternateCast,
   type AlternateCastEffect,
 } from './cardPlugins/alternateCosts'
+import {
+  canCastForetold,
+  canForetellFromHand,
+  FORETELL_ACTION_COST,
+  FORETELL_CAST_ID,
+} from './plugins/foretell'
 import {
   attackTaxByDefender,
   blockTaxPerCreature,
@@ -121,6 +128,7 @@ export type AvailableAction =
       door: RoomDoorId
       doorName: string
     }
+  | { kind: 'foretell'; objectId: string; name: string }
   | {
       kind: 'activateAbility'
       objectId: string
@@ -1020,6 +1028,9 @@ export const availableActions = (
       if (object && (object.types.includes('Land') || landFaceOf(object))) {
         actions.push({ kind: 'playLand', objectId: id, name: object.name })
       }
+      if (object && canForetellFromHand(state, seat, object)) {
+        actions.push({ kind: 'foretell', objectId: id, name: object.name })
+      }
     }
   }
 
@@ -1555,6 +1566,7 @@ export const sameLegalAct = (
       && left.adventureCast === right.adventureCast
   }
   if (left.kind === 'unlockDoor') return left.door === right.door
+  if (left.kind === 'foretell') return true
   if (left.kind === 'continueAction') return left.stackId === right.stackId
   if (left.kind === 'selectCards') return left.selectionId === right.selectionId
   if (left.kind === 'selectPlayers') return left.selectionId === right.selectionId
@@ -1806,6 +1818,20 @@ export const eventsForAvailableAction = (
       },
     ]
   }
+  if (action.kind === 'foretell') {
+    const object = state.objects[action.objectId]
+    if (!object || !canForetellFromHand(state, seat, object)) return null
+    const mana = fundingEvents(state, seat, FORETELL_ACTION_COST)
+    if (!mana) return null
+    return [
+      ...mana,
+      {
+        type: 'foretell',
+        seat,
+        objectId: object.id,
+      },
+    ]
+  }
   if (action.kind !== 'castSpell') return null
   const card = state.objects[action.objectId]
   // CR 709.3b: only the chosen door is cast, so read this line off that door
@@ -1841,10 +1867,16 @@ export const eventsForAvailableAction = (
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
+  const foretoldCast = Boolean(
+    object
+    && action.castOption === FORETELL_CAST_ID
+    && canCastForetold(state, object),
+  )
   if (
     !object
     || (
-      targeted.length === 0
+      !foretoldCast
+      && targeted.length === 0
       && !object.types.some((type) => SIMPLE_PERMANENT.has(type))
       && !resolvesThroughKernel
     )
@@ -1880,9 +1912,9 @@ export const eventsForAvailableAction = (
     adventureCast: action.adventureCast,
   })
   const casting = face ? { ...object, ...face } : object
-  const alternative = alternateCastEffects(object).find(
-    (effect) => effect.id === action.castOption,
-  )
+  const alternative = action.castOption
+    ? availableAlternateCastEffect(state, seat, object, action.castOption)
+    : undefined
   const targets = action.targetObjectId || action.targetObjectIds
     ? (
         playerAura
