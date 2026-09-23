@@ -200,4 +200,32 @@ describe('card plugin registry', () => {
       .toEqual(expect.arrayContaining(['activated', 'combatDialogue', 'targetingRequirements']))
     expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')
   })
+
+  test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {
+    const covered = [
+      "Archaeomancer's Map",
+      "Commander's Sphere",
+      'Endless Sands',
+      'Everflowing Chalice',
+      'Expedition Map',
+      'Geier Reach Sanitarium',
+      'Gilded Lotus',
+      'Hedron Archive',
+      'High Market',
+      'Mind Stone',
+      'Moonsilver Key',
+      'Myriad Landscape',
+      'Secluded Steppe',
+      'Temple of the False God',
+      "Thespian's Stage",
+      "Thrór's Map",
+      "Urza's Cave",
+      'World Map',
+      'Worn Powerstone',
+    ]
+    expect(missingCardPlugins(covered)).toEqual([])
+    for (const generic of ['Plains', 'Sol Ring', 'Thran Dynamo', 'Emergence Zone', 'Northampton Farm']) {
+      expect(cardPluginEntry(generic)).toBeUndefined()
+    }
+  })
 })
