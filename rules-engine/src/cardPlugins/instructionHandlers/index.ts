@@ -14,6 +14,7 @@ import type {
   InstructionHandlers,
   InstructionKind,
 } from './types'
+import { unearthSelfInstruction } from '../unearth'
 import { zoneHandlers } from './zones'
 import { linkedExileInstructionHandlers } from '../linkedExile'
 import { blinkHandlers } from '../blink'
@@ -24,6 +25,7 @@ const instructionHandlers = {
   ...permanentControlHandlers,
   ...resourceHandlers,
   ...zoneHandlers,
+  unearthSelf: unearthSelfInstruction,
   ...combatCopyHandlers,
   ...monarchExileInstructionHandlers,
   ...multiplayerHandlers,

@@ -801,6 +801,8 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
       : 'battlefield'
     if (object.zone !== requiredZone) return []
     if (effect.op === 'activate' && !effect.manaAbility) {
+      const requiredZone = effect.zone ?? 'battlefield'
+      if (object.zone !== requiredZone || object.controller !== seat) return []
       const loyalty = effect.costs.loyalty
       if (
         !canPayActivateCosts(state, object, seat, effect.costs)

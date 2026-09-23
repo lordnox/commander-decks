@@ -422,6 +422,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
         ? 'planeswalker'
         : 'activated')
       if (effect.cycling) ids.add('cycling')
+      if (effect.id === 'unearth') ids.add('unearth')
     }
     if (effect.op === 'mana') ids.add('activated')
     if (effect.op === 'search') ids.add('librarySearch')

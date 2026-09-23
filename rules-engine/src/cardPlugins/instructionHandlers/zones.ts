@@ -26,6 +26,11 @@ const finishWarpExile: InstructionHandler<'finishWarpExile'> = ({ draft, source 
   draft.enqueue({ type: 'move', objectId: live.id, to: 'exile' })
 }
 
+const exileSelf: InstructionHandler<'exileSelf'> = ({ draft, source }) => {
+  if (source.zone !== 'battlefield') return
+  draft.enqueue({ type: 'move', objectId: source.id, to: 'exile' })
+}
+
 const sacrificeSelf: InstructionHandler<'sacrificeSelf'> = ({ draft, source }) => {
   draft.enqueue({ type: 'sacrifice', objectId: source.id })
 }
@@ -466,6 +471,7 @@ export const zoneHandlers = {
   selfMill,
   bounceSelf,
   finishWarpExile,
+  exileSelf,
   sacrificeSelf,
   revealUntil,
   revealUntilBasicLand,
