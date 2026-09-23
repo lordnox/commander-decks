@@ -743,6 +743,17 @@ export const exileColoredPermanentsAtMostX = (): CardInstruction => ({
   kind: 'exileColoredPermanentsAtMostX',
 })
 
+export const becomeMonarch = (): CardInstruction => ({ kind: 'becomeMonarch' })
+
+export const exileUntilOpponentBecomesMonarch = (
+  filter: TargetFilter,
+  options: { min?: number; max?: number; optional?: boolean } = {},
+): CardInstruction => ({
+  kind: 'exileUntilOpponentBecomesMonarch',
+  filter,
+  ...options,
+})
+
 export const putPermanentsFromHand = (max: number): CardInstruction => ({
   kind: 'putPermanentsFromHand',
   max,

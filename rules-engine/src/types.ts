@@ -177,6 +177,8 @@ export type GameObject = {
   exiledCards?: string[]
   /** Object id of the permanent whose ability exiled this card. */
   exiledWith?: string
+  /** Exiled until an opponent becomes the monarch (Palace Jailer shape). */
+  exiledUntilOpponentMonarch?: boolean
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
   /** Alternative casting option used for the current battlefield entry. */
@@ -283,6 +285,8 @@ export type GameState = {
   nextTimestamp: number
   ended: boolean
   prevented?: boolean
+  /** At most one monarch; `null` when the crown is vacant. */
+  monarch: PlayerId | null
   log: string[]
 }
 
@@ -501,6 +505,7 @@ export type GameEvent =
   | { type: 'clearBattleProtector'; objectId: string }
   | { type: 'loseLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
+  | { type: 'becomeMonarch'; seat: PlayerId }
   | { type: 'payLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'setLifeTotal'; seat: PlayerId; total: number; source?: string }
   | {

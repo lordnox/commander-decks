@@ -19,6 +19,7 @@ import { judgeFallback } from './judgeFallback'
 import { lands } from './lands'
 import { life } from './life'
 import { mana } from './mana'
+import { monarch } from './monarch'
 import { manaBurn } from './manaBurn'
 import { recurringSpells } from './recurringSpells'
 import { swampOverlay } from './swampOverlay'
@@ -51,6 +52,7 @@ export const builtInPlugins = [
   stateBased,
   combat,
   life,
+  monarch,
   damage,
   battle,
   doubleFaced,
@@ -92,6 +94,7 @@ export {
   judgeFallback,
   lands,
   life,
+  monarch,
   mana,
   manaBurn,
   recurringSpells,

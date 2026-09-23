@@ -210,6 +210,14 @@ export type CardInstruction =
       returnController?: 'owner' | 'controller'
       plusCounters?: number
     }
+  | { kind: 'becomeMonarch' }
+  | {
+      kind: 'exileUntilOpponentBecomesMonarch'
+      filter: TargetFilter
+      min?: number
+      max?: number
+      optional?: boolean
+    }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
