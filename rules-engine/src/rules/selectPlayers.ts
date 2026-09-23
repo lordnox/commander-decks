@@ -17,6 +17,7 @@ export type PendingPlayerSelection = {
   candidates: PlayerId[]
   action:
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
+    | { kind: 'drawHandDifference' }
     | { kind: 'copyStackItem'; stackId: string }
     | { kind: 'designateBattleProtector' }
     | { kind: 'assignDonatedPermanent'; donationId: string; objectId: string }
@@ -129,6 +130,14 @@ export const selectPlayers: Plugin = {
       })
       if (selection.action.drawLifeLost && lifeLost > 0) {
         draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })
+      }
+    }
+    if (selection.action.kind === 'drawHandDifference' && target) {
+      const yourHand = draft.zoneOrder[event.seat].hand.length
+      const theirHand = draft.zoneOrder[target].hand.length
+      const count = Math.max(0, theirHand - yourHand)
+      if (count > 0) {
+        draft.enqueue({ type: 'draw', seat: event.seat, count })
       }
     }
     if (selection.action.kind === 'putTriggeredAbility' && target) {

@@ -1,3 +1,5 @@
+import type Draft from '../../draft'
+import type { PlayerId } from '../../types'
 import { swampCount } from '../../plugins/swampOverlay'
 import { lifeLostThisTurn } from '../../plugins/life'
 import { openFreeCast } from '../../plugins/rebound'
@@ -141,6 +143,42 @@ const gainLifeLostThisTurn: InstructionHandler<'gainLifeLostThisTurn'> = (
     seat: source.controller,
     amount,
     source: source.id,
+  })
+}
+
+const handDifferenceDrawCount = (
+  draft: Draft,
+  controller: PlayerId,
+  opponent: PlayerId,
+) => Math.max(
+  0,
+  draft.zoneOrder[opponent].hand.length - draft.zoneOrder[controller].hand.length,
+)
+
+const drawHandDifference: InstructionHandler<'drawHandDifference'> = (
+  { draft, source, item },
+) => {
+  const target = item?.targets[0]
+  if (target?.kind === 'player') {
+    const count = handDifferenceDrawCount(draft, source.controller, target.player)
+    if (count > 0) {
+      draft.enqueue({ type: 'draw', seat: source.controller, count })
+    }
+    return
+  }
+  const candidates = draft.playerOrder.filter(
+    (seat) => seat !== source.controller && !draft.players[seat].lost,
+  )
+  if (candidates.length === 0) return
+  openPlayerSelection(draft, {
+    seat: source.controller,
+    sourceId: source.id,
+    source: source.name,
+    prompt: 'Choose an opponent.',
+    min: 1,
+    max: 1,
+    candidates,
+    action: { kind: 'drawHandDifference' },
   })
 }
 
@@ -512,6 +550,7 @@ export const resourceHandlers = {
   setAllLifeToLowest,
   gainLifeLostThisTurn,
   exchangeLifeWithOpponent,
+  drawHandDifference,
   winGame,
   addPlusCounters,
   putChargeCountersFromTimesKicked,
