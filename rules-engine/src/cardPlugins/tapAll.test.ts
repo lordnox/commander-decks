@@ -129,6 +129,21 @@ describe('tapAll', () => {
     })
   })
 
+  test('taps hexproof opponent creatures because tapAll does not target', () => {
+    const state = resolveFixtureSpell({
+      battlefield: {
+        p2: [cardTemplate('Fixture Hexproof Foe', {
+          types: ['Creature'],
+          power: 2,
+          toughness: 2,
+          oracleText: 'Hexproof',
+        })],
+      },
+      filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
+    })
+    expect(named(state, 'Fixture Hexproof Foe').tapped).toBe(true)
+  })
+
   test('ignores noncreature permanents when the filter requires creatures', () => {
     const state = resolveFixtureSpell({
       battlefield: {

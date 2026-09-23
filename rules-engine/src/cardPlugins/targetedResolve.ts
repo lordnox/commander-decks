@@ -25,7 +25,8 @@ const controlledPermanentTarget = (
   return object?.zone === 'battlefield' && object.controller === controller
 })
 
-export const validTarget = (
+/** Permanent filter match without targeting restrictions (hexproof, etc.). */
+export const matchesTargetFilter = (
   state: GameState,
   object: GameObject | undefined,
   filter: TargetFilter,
@@ -65,7 +66,22 @@ export const validTarget = (
     filter.bracketed
     && castOption !== 'cleave'
     && !validTarget(state, object, filter.bracketed, controller, castOption, excludeSourceId)
+    && !matchesTargetFilter(state, object, filter.bracketed, controller, castOption)
   ) return false
+  return true
+}
+
+export const validTarget = (
+  state: GameState,
+  object: GameObject | undefined,
+  filter: TargetFilter,
+  controller: PlayerId,
+  castOption?: string,
+) => {
+  if (!matchesTargetFilter(state, object, filter, controller, castOption)) return false
+  if (object && object.controller !== controller && hasKeyword(object, 'hexproof', state)) {
+    return false
+  }
   return true
 }
 
