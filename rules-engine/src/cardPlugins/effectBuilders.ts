@@ -217,6 +217,11 @@ export const copyTargetCreature = (extra: {
   flying?: boolean
 } = {}): CardInstruction => ({ kind: 'copyTargetCreature', ...extra })
 
+export const becomeCopyOfTarget = (extra: {
+  filter: TargetFilter
+  keepAbility?: boolean
+}): CardInstruction => ({ kind: 'becomeCopyOfTarget', ...extra })
+
 export const returnTargetFromGraveyard = (
   to: 'hand' | 'battlefield',
   tapped = false,

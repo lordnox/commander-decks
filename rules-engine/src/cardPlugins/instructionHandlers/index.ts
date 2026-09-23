@@ -1,5 +1,6 @@
 import type { CardInstruction } from '../effects'
 import { combatCopyHandlers } from './combatCopy'
+import { becomeCopyOfTargetHandlers } from './becomeCopyOfTarget'
 import { controlHandlers } from './control'
 import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
@@ -29,6 +30,7 @@ const instructionHandlers = {
   unearthSelf: unearthSelfInstruction,
   ...combatCopyHandlers,
   ...monarchExileInstructionHandlers,
+  ...becomeCopyOfTargetHandlers,
   ...multiplayerHandlers,
   ...linkedExileInstructionHandlers,
   ...blinkHandlers,
