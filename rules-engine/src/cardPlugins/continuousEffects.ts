@@ -162,6 +162,11 @@ export const untilEndOfTurn = (
   effect: ReversibleEffect | undefined,
 ) => withDuration(object, effect, { kind: 'untilCleanup' })
 
+export const changeControllerPermanent = (
+  object: GameObject,
+  controller: PlayerId,
+) => withDuration(object, changeController(object, controller), { kind: 'permanent' })
+
 export const whileSourceTappedAndPowerAtMost = (
   state: GameState,
   object: GameObject,

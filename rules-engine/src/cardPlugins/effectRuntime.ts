@@ -461,6 +461,9 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
       if (hasKind(listed, 'searchLibrary')) ids.add('librarySearch')
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
+      if (hasKind(listed, 'gainControlPermanent', 'pairDonateToOpponents')) {
+        ids.add('permanentControl')
+      }
     }
     if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')

@@ -4,6 +4,7 @@ import { controlHandlers } from './control'
 import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { multiplayerHandlers } from './multiplayer'
+import { permanentControlHandlers } from '../permanentControl'
 import { resourceHandlers } from './resources'
 import type {
   InstructionContext,
@@ -17,6 +18,7 @@ import { blinkHandlers } from '../blink'
 
 const instructionHandlers = {
   ...controlHandlers,
+  ...permanentControlHandlers,
   ...resourceHandlers,
   ...zoneHandlers,
   ...combatCopyHandlers,
