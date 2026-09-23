@@ -1,7 +1,9 @@
+import type { GameObject } from '../types'
 import {
   ability,
   alternateCast,
   activate,
+  becomeCopyOfTarget,
   allCreatureTypes,
   animateUntilEot,
   addPlusCountersInstruction,
@@ -33,6 +35,7 @@ import {
   crew,
   createXTokens,
   dies,
+  discardCards,
   discardHandsThenDrawGreatest,
   dredge,
   doublePlusCounters,
@@ -63,11 +66,14 @@ import {
   landToGraveyard,
   landToGraveyardOnce,
   landfall,
+  linkExile,
   legendRuleOff,
   loseLife,
   loseLifeTargetManaValue,
   loseLifeTargetController,
   kicker,
+  multikicker,
+  putChargeCountersFromTimesKicked,
   loyalty,
   loyaltyX,
   lookTopChooseOne,
@@ -102,6 +108,7 @@ import {
   returnChosenLandFromGraveyard,
   returnCreatureManaValueX,
   returnTargetFromGraveyard,
+  returnLinkedExile,
   returnOwnedGraveyardLands,
   searchAbility,
   searchLibrary,
@@ -118,6 +125,7 @@ import {
   scry,
   surveil,
   triggerOn,
+  typecycleHand,
   tapUnlessPayLife,
   tapUnlessRevealSubtype,
   teferiSunsetEmblem,
@@ -277,6 +285,15 @@ const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
   repeatWhileType: 'Land',
   tapped: true,
 })
+
+const artifactWithManaAbility = (object: GameObject) =>
+  object.types.includes('Artifact')
+  && (
+    Boolean(object.tapProduces)
+    || /\{T\}: Add /i.test(object.oracleText)
+    || (object.effects ?? []).some((effect) =>
+      effect.op === 'activate' && effect.manaAbility)
+  )
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
   'Bala Ged Recovery // Bala Ged Sanctuary': [
@@ -486,6 +503,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
   'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
   'Charcoal Diamond': [entersTapped()],
+  "Commander's Sphere": [
+    ability(
+      { id: 'commandersSphere.draw' },
+      { sacrifice: 'self' },
+      draw(1),
+    ),
+  ],
   'Choked Estuary': [tapUnlessRevealSubtype('Island', 'Swamp')],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
@@ -622,6 +646,20 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     }),
   ],
+  "Archaeomancer's Map": [
+    {
+      op: 'search',
+      via: 'enters',
+      spec: {
+        prompt: 'Search your library for up to two basic Plains cards, reveal them, put them into your hand, then shuffle.',
+        match: (object) => basicLand(object) && hasSubtype('Plains')(object),
+        destination: 'hand',
+        min: 0,
+        max: 2,
+        reveal: true,
+      },
+    },
+  ],
   'Buried Alive': [
     searchSpell({
       prompt: 'Search your library for up to three creature cards and put them into your graveyard.',
@@ -717,6 +755,60 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Hall of Storm Giants': [entersTapped(otherLands({ min: 2 }))],
   'Hedge Maze': [entersTapped(), enters(surveil(1))],
   'Hallowed Fountain': [tapUnlessPayLife(2)],
+  'Endless Sands': [
+    handler('linkedExile'),
+    ability(
+      {
+        id: 'endlessSands.exile',
+        targets: { filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } },
+      },
+      { mana: '{2}', tap: true },
+      linkExile({ type: 'Creature', controller: 'you' }, {}),
+    ),
+    ability(
+      { id: 'endlessSands.return', sorcery: true },
+      { mana: '{4}', tap: true, sacrifice: 'self' },
+      returnLinkedExile(),
+    ),
+  ],
+  'Everflowing Chalice': [
+    multikicker('{2}'),
+    enters(putChargeCountersFromTimesKicked()),
+  ],
+  'Geier Reach Sanitarium': [
+    ability(
+      { id: 'geierReach.tableLoot' },
+      { mana: '{2}', tap: true },
+      eachPlayerDraw(1),
+      eachPlayerDiscard(1),
+    ),
+  ],
+  'Gilded Lotus': [
+    activate({
+      id: 'gildedLotus.mana',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [
+        { kind: 'addChosenColorMana' },
+        { kind: 'addChosenColorMana' },
+        { kind: 'addChosenColorMana' },
+      ],
+    }),
+  ],
+  'Hedron Archive': [
+    ability(
+      { id: 'hedronArchive.draw' },
+      { mana: '{2}', tap: true, sacrifice: 'self' },
+      draw(2),
+    ),
+  ],
+  'High Market': [
+    ability(
+      { id: 'highMarket.gain' },
+      { tap: true, sacrificeTarget: 'creature' },
+      gainLife(1),
+    ),
+  ],
   'Homer, the Hermit': [handler('homer')],
   'Icetill Explorer': [staticExtraLandPlays(1), landfall(selfMill(1))],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
@@ -743,6 +835,23 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'Forest',
       'Island',
     ]),
+  ],
+  'Mind Stone': [
+    ability(
+      { id: 'mindStone.draw' },
+      { mana: '{1}', tap: true, sacrifice: 'self' },
+      draw(1),
+    ),
+  ],
+  'Moonsilver Key': [
+    searchAbility({
+      prompt: 'Search your library for an artifact card with a mana ability or a basic land card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => basicLand(object) || artifactWithManaAbility(object),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
   'Mole Man, Moloid Master': [
     landfall(createTokenInstruction({
@@ -815,6 +924,15 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Scute Swarm': [
     landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
   ],
+  'Secret Council': [enters(secretCouncil()), attacks(secretCouncil())],
+  'Secluded Steppe': [
+    entersTapped(),
+    typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
+  ],
+  'Secluded Steppe': [
+    entersTapped(),
+    typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
+  ],
   'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
   'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
   'Sky Diamond': [entersTapped()],
@@ -845,6 +963,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Temple of Deceit': [entersTapped(), enters(scry(1))],
+  'Thespian\'s Stage': [
+    ability(
+      { id: 'thespiansStage.copy', sorcery: true },
+      { mana: '{2}', tap: true },
+      becomeCopyOfTarget({
+        filter: { zone: 'battlefield', type: 'Land' },
+        keepAbility: true,
+      }),
+    ),
+  ],
   'Thawing Glaciers': [
     entersTapped(),
     searchAbility({
@@ -1224,6 +1352,51 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
   'Vantress Visions': [onResolve(copyTargetCreature())],
   'Walk-In Closet': [playLandsFromGraveyard()],
+  "Thrór's Map": [
+    enters(searchLibrary({
+      prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
+      match: basicLand,
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    })),
+    ability(
+      { id: 'throrsMap.loot' },
+      { mana: '{2}', tap: true },
+      draw(1),
+      discardCards(1),
+    ),
+  ],
+  "Urza's Cave": [
+    searchAbility({
+      prompt: 'Search your library for a land card, put it onto the battlefield tapped, then shuffle.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'battlefield',
+      tapped: true,
+      min: 1,
+      max: 1,
+    }, { mana: '{3}', tap: true, sacrifice: 'self' }),
+  ],
+  'World Map': [
+    searchAbility({
+      prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
+      match: basicLand,
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
+    searchAbility({
+      prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }, { mana: '{3}', tap: true, sacrifice: 'self' }),
+  ],
+  'Worn Powerstone': [entersTapped()],
   'Forgotten Cellar': [playLandsFromGraveyard()],
   'Wash Away': [
     cleave('{1}{U}{U}'),
