@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "cec5cc8b-bc15-415a-bde6-6c783f8d0b0b",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/cec5cc8b-bc15-415a-bde6-6c783f8d0b0b"
+    },
+    {
+      "component": "combo_piece",
+      "id": "46155477-758e-47a0-9fb9-dec7869978d9",
+      "name": "Daily Bugle Newspaper",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/46155477-758e-47a0-9fb9-dec7869978d9"
+    }
+  ],
+  "arena_id": 105759,
+  "artist": "Jason Smith",
+  "artist_ids": [
+    "f51581c1-fab2-47f5-8c86-40ad1f52c369"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892231,
+  "cmc": 2.0,
+  "collector_number": "749",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 15749,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"How can the public be sure there wasn't any pineapple on there as well?\"\n—J. Jonah Jameson",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "46155477-758e-47a0-9fb9-dec7869978d9",
+  "illustration_id": "500f5a2a-c828-4c5c-9f95-e373e02facb4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:37:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.webp?1783903029",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.jpg?1783903029",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.jpg?1783903029",
+    "crop": "https://cards.scryfall.io/crop/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.webp?1783903029",
+    "display": "https://cards.scryfall.io/display/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.webp?1783903029",
+    "grid": "https://cards.scryfall.io/grid/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.webp?1783903029",
+    "large": "https://cards.scryfall.io/large/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.jpg?1783903029",
+    "normal": "https://cards.scryfall.io/normal/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.jpg?1783903029",
+    "png": "https://cards.scryfall.io/png/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.png?1783903029",
+    "small": "https://cards.scryfall.io/small/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.jpg?1783903029",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/6/46155477-758e-47a0-9fb9-dec7869978d9.webp?1783903029"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 151947,
+  "multiverse_ids": [],
+  "name": "Daily Bugle Newspaper",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d2a3f735-9523-4ddd-96a9-b0a5ecd39284",
+  "oracle_text": "{2}, {T}: Draw a card, then discard a card. Create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": "0.54",
+    "tix": "0.53",
+    "usd": "0.27",
+    "usd_etched": null,
+    "usd_foil": "2.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad2a3f735-9523-4ddd-96a9-b0a5ecd39284&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/151947?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892231&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F697428%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Daily+Bugle+Newspaper",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDaily%2BBugle%2BNewspaper",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDaily%2BBugle%2BNewspaper"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "257AFEC0BD028C07D290476495776D0D4029FE3FA016210513A4A6ED871D953D",
+  "rulings_uri": "https://api.scryfall.com/cards/46155477-758e-47a0-9fb9-dec7869978d9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/749/daily-bugle-newspaper?utm_source=api",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 697428,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/46155477-758e-47a0-9fb9-dec7869978d9",
+  "variation": false
+}

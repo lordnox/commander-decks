@@ -1,0 +1,147 @@
+{
+  "arena_id": 97282,
+  "artist": "Tomoyo Asatani",
+  "artist_ids": [
+    "eaa3e9b8-209c-4bd3-9f0e-a39442ccfc60"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857404,
+  "cmc": 6.0,
+  "collector_number": "9",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6286,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a9b2a843-c6fe-4d19-801e-1538e4381ab0",
+  "illustration_id": "b263346d-0429-4570-a6ed-514b6e082c0c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:10:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.webp?1783905006",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.jpg?1783905006",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.jpg?1783905006",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.webp?1783905006",
+    "display": "https://cards.scryfall.io/display/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.webp?1783905006",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.webp?1783905006",
+    "large": "https://cards.scryfall.io/large/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.jpg?1783905006",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.jpg?1783905006",
+    "png": "https://cards.scryfall.io/png/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.png?1783905006",
+    "small": "https://cards.scryfall.io/small/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.jpg?1783905006",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9b2a843-c6fe-4d19-801e-1538e4381ab0.webp?1783905006"
+  },
+  "keywords": [
+    "Flying",
+    "Airbend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "mtgo_id": 144494,
+  "multiverse_ids": [],
+  "name": "Appa, Loyal Sky Bison",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c6e28cf0-81c7-4f52-a29b-988cc6fd31ee",
+  "oracle_text": "Flying\nWhenever Appa enters or attacks, choose one —\n• Target creature you control gains flying until end of turn.\n• Airbend another target nonland permanent you control. (Exile it. While it's exiled, its owner may cast it for {2} rather than its mana cost.)",
+  "oversized": false,
+  "penny_rank": 6570,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2025-10-31",
+    "source": "The Command Zone",
+    "source_uri": "https://www.youtube.com/watch?v=DxIomU_20bc"
+  },
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.18",
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": "0.35"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac6e28cf0-81c7-4f52-a29b-988cc6fd31ee&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/144494?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857404&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F661921%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Appa%2C+Loyal+Sky+Bison",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAppa%252C%2BLoyal%2BSky%2BBison",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAppa%252C%2BLoyal%2BSky%2BBison"
+  },
+  "released_at": "2025-11-21",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "3A8EBB3275647D40A6FFD2693FB4491582DD5C99E1BFB1551308238ABA0AB6BD",
+  "rulings_uri": "https://api.scryfall.com/cards/a9b2a843-c6fe-4d19-801e-1538e4381ab0/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tla?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tla/9/appa-loyal-sky-bison?utm_source=api",
+  "set": "tla",
+  "set_id": "118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "set_name": "Avatar: The Last Airbender",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atla&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "story_spotlight": false,
+  "tcgplayer_id": 661921,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Bison Ally",
+  "uri": "https://api.scryfall.com/cards/a9b2a843-c6fe-4d19-801e-1538e4381ab0",
+  "variation": false,
+  "watermark": "airnomads"
+}

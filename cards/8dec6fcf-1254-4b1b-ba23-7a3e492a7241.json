@@ -1,0 +1,135 @@
+{
+  "artist": "Heather Hudson",
+  "artist_ids": [
+    "4441fe52-9e41-40c1-9b74-8510426279ab"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834312,
+  "cmc": 0.0,
+  "collector_number": "177",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1471,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "aaa5bee9-3f6a-45b0-a282-6b23222e948f",
+  "illustration_id": "cee4e93f-a71a-4d2d-8468-1b820ba6ccbf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:26:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.webp?1783906007",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.jpg?1783906007",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.jpg?1783906007",
+    "crop": "https://cards.scryfall.io/crop/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.webp?1783906007",
+    "display": "https://cards.scryfall.io/display/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.webp?1783906007",
+    "grid": "https://cards.scryfall.io/grid/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.webp?1783906007",
+    "large": "https://cards.scryfall.io/large/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.jpg?1783906007",
+    "normal": "https://cards.scryfall.io/normal/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.jpg?1783906007",
+    "png": "https://cards.scryfall.io/png/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.png?1783906007",
+    "small": "https://cards.scryfall.io/small/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.jpg?1783906007",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/a/aaa5bee9-3f6a-45b0-a282-6b23222e948f.webp?1783906007"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 142491,
+  "multiverse_ids": [],
+  "name": "Secluded Steppe",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8dec6fcf-1254-4b1b-ba23-7a3e492a7241",
+  "oracle_text": "This land enters tapped.\n{T}: Add {W}.\nCycling {W} ({W}, Discard this card: Draw a card.)",
+  "oversized": false,
+  "penny_rank": 427,
+  "preview": {
+    "previewed_at": "2025-07-10",
+    "source": "EDHijinks",
+    "source_uri": "https://www.youtube.com/watch?v=Swjj0JGhFco"
+  },
+  "prices": {
+    "eur": "0.30",
+    "eur_foil": null,
+    "tix": "0.04",
+    "usd": "0.33",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8dec6fcf-1254-4b1b-ba23-7a3e492a7241&unique=prints",
+  "produced_mana": [
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142491?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834312&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642863%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Secluded+Steppe",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSecluded%2BSteppe",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSecluded%2BSteppe"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "DE14A597A93BE2FA977459E28EAB2718CDD07EF32CD38FE85C635BBEC1F3756A",
+  "rulings_uri": "https://api.scryfall.com/cards/aaa5bee9-3f6a-45b0-a282-6b23222e948f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/177/secluded-steppe?utm_source=api",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642863,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/aaa5bee9-3f6a-45b0-a282-6b23222e948f",
+  "variation": false
+}

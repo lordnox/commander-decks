@@ -1,0 +1,132 @@
+{
+  "artist": "Vance Kovacs",
+  "artist_ids": [
+    "b5516011-4722-4fc8-8542-102cecc52b71"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 282888,
+  "cmc": 2.0,
+  "collector_number": "30",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 9065,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The landscape shimmered and I felt a chill breeze. When my vision cleared, I found myself alone among the corpses of my fallen friends.\"\n—Journal found in Numai",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "5cd220e4-2e2a-437e-aa4e-1007247c8e4d",
+  "illustration_id": "c727ba8e-f169-42b6-81bf-74905c845736",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:27:04Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.webp?1783938424",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.jpg?1783938424",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.jpg?1783938424",
+    "crop": "https://cards.scryfall.io/crop/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.webp?1783938424",
+    "display": "https://cards.scryfall.io/display/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.webp?1783938424",
+    "grid": "https://cards.scryfall.io/grid/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.webp?1783938424",
+    "large": "https://cards.scryfall.io/large/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.jpg?1783938424",
+    "normal": "https://cards.scryfall.io/normal/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.jpg?1783938424",
+    "png": "https://cards.scryfall.io/png/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.png?1783938424",
+    "small": "https://cards.scryfall.io/small/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.jpg?1783938424",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/c/5cd220e4-2e2a-437e-aa4e-1007247c8e4d.webp?1783938424"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_foil_id": 57401,
+  "mtgo_id": 57400,
+  "multiverse_ids": [
+    397855
+  ],
+  "name": "Otherworldly Journey",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4a080242-412d-4968-ad57-2667dab977f5",
+  "oracle_text": "Exile target creature. At the beginning of the next end step, return that card to the battlefield under its owner's control with a +1/+1 counter on it.",
+  "oversized": false,
+  "penny_rank": 6409,
+  "prices": {
+    "eur": "0.15",
+    "eur_foil": "0.36",
+    "tix": "0.03",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": "0.44"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4a080242-412d-4968-ad57-2667dab977f5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/57400?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=282888&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F98748%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Otherworldly+Journey",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=397855&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOtherworldly%2BJourney",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOtherworldly%2BJourney"
+  },
+  "released_at": "2015-05-22",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/5cd220e4-2e2a-437e-aa4e-1007247c8e4d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mm2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mm2/30/otherworldly-journey?utm_source=api",
+  "set": "mm2",
+  "set_id": "28cac015-43df-4e88-90d0-95dcdd894834",
+  "set_name": "Modern Masters 2015",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amm2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/28cac015-43df-4e88-90d0-95dcdd894834",
+  "story_spotlight": false,
+  "tcgplayer_id": 98748,
+  "textless": false,
+  "type_line": "Instant — Arcane",
+  "uri": "https://api.scryfall.com/cards/5cd220e4-2e2a-437e-aa4e-1007247c8e4d",
+  "variation": false
+}

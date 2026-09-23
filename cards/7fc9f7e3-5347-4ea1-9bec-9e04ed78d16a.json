@@ -1,0 +1,139 @@
+{
+  "arena_id": 103601,
+  "artist": "Dmitry Burmak",
+  "artist_ids": [
+    "9872f5c0-274a-48ce-a9ad-6f0d5654e29c"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 898830,
+  "cmc": 7.0,
+  "collector_number": "6",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 11747,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "inverted"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "911bd55d-00c7-4362-ba2d-eef0a9dadb6c",
+  "illustration_id": "8657a6c1-eec9-41d6-a32d-3b2fe08e0ab2",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-18T12:20:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.webp?1784377208",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.jpg?1784377208",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.jpg?1784377208",
+    "crop": "https://cards.scryfall.io/crop/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.webp?1784377208",
+    "display": "https://cards.scryfall.io/display/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.webp?1784377208",
+    "grid": "https://cards.scryfall.io/grid/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.webp?1784377208",
+    "large": "https://cards.scryfall.io/large/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.jpg?1784377208",
+    "normal": "https://cards.scryfall.io/normal/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.jpg?1784377208",
+    "png": "https://cards.scryfall.io/png/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.png?1784377208",
+    "small": "https://cards.scryfall.io/small/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.jpg?1784377208",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/1/911bd55d-00c7-4362-ba2d-eef0a9dadb6c.webp?1784377208"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}",
+  "mtgo_id": 154630,
+  "multiverse_ids": [],
+  "name": "Ori, Plate Stacker",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7fc9f7e3-5347-4ea1-9bec-9e04ed78d16a",
+  "oracle_text": "When Ori enters, destroy all artifacts and enchantments your opponents control. You gain 1 life for each permanent destroyed this way.",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "6.70",
+    "eur_foil": "6.78",
+    "tix": "2.20",
+    "usd": "3.84",
+    "usd_etched": null,
+    "usd_foil": "3.13"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7fc9f7e3-5347-4ea1-9bec-9e04ed78d16a&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/154630?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=898830&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F707074%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ori%2C+Plate+Stacker",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOri%252C%2BPlate%2BStacker",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOri%252C%2BPlate%2BStacker"
+  },
+  "released_at": "2026-08-14",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "3865A2338046A0F09F941DC10236C9E520CBF89216FBBDDBEEEDE230DEC168CC",
+  "rulings_uri": "https://api.scryfall.com/cards/911bd55d-00c7-4362-ba2d-eef0a9dadb6c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hoc/6/ori-plate-stacker?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hoc",
+  "set_id": "a185c905-5359-4f40-85c3-a3eae2ca4ff0",
+  "set_name": "The Hobbit Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahoc&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a185c905-5359-4f40-85c3-a3eae2ca4ff0",
+  "story_spotlight": false,
+  "tcgplayer_id": 707074,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Dwarf Bard",
+  "uri": "https://api.scryfall.com/cards/911bd55d-00c7-4362-ba2d-eef0a9dadb6c",
+  "variation": false
+}

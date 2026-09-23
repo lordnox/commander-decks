@@ -1,0 +1,158 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "a80e1cab-ff67-459f-ab64-2c340a8e36ac",
+      "name": "Angel of Sanctions",
+      "object": "related_card",
+      "type_line": "Token Creature — Zombie Angel",
+      "uri": "https://api.scryfall.com/cards/a80e1cab-ff67-459f-ab64-2c340a8e36ac"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8",
+      "name": "Angel of Sanctions",
+      "object": "related_card",
+      "type_line": "Creature — Angel",
+      "uri": "https://api.scryfall.com/cards/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8"
+    }
+  ],
+  "artist": "Min Yum",
+  "artist_ids": [
+    "9cb65d6f-8851-4d56-9add-9eefa274bd1b"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 391987,
+  "cmc": 5.0,
+  "collector_number": "61",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8804,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8",
+  "illustration_id": "6ce3ed26-bf8c-4c24-a070-b7419f028166",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:53:11Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.webp?1783932791",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.jpg?1783932791",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.jpg?1783932791",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.webp?1783932791",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.webp?1783932791",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.webp?1783932791",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.jpg?1783932791",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.jpg?1783932791",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.png?1783932791",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.jpg?1783932791",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8.webp?1783932791"
+  },
+  "keywords": [
+    "Flying",
+    "Embalm"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}{W}",
+  "mtgo_id": 77232,
+  "multiverse_ids": [
+    470607
+  ],
+  "name": "Angel of Sanctions",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3c49e98d-d33b-47fa-8b07-b38b367de2c7",
+  "oracle_text": "Flying\nWhen this creature enters, you may exile target nonland permanent an opponent controls until this creature leaves the battlefield.\nEmbalm {5}{W} ({5}{W}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a white Zombie Angel with no mana cost. Embalm only as a sorcery.)",
+  "oversized": false,
+  "penny_rank": 3220,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2019-08-07",
+    "source": "Jolt",
+    "source_uri": "https://www.youtube.com/watch?v=7LAfZePkqmQ"
+  },
+  "prices": {
+    "eur": "0.21",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3c49e98d-d33b-47fa-8b07-b38b367de2c7&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/77232?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=391987&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F196625%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Angel+of+Sanctions",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=470607&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2BSanctions",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2BSanctions"
+  },
+  "released_at": "2019-08-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c19?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c19/61/angel-of-sanctions?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c19",
+  "set_id": "0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "set_name": "Commander 2019",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac19&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0fa3ccbb-d86d-4a2e-a55e-c4979c4feeb2",
+  "story_spotlight": false,
+  "tcgplayer_id": 196625,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/f3f7f258-7ac0-4149-9d8c-712b5ea7f0a8",
+  "variation": false
+}

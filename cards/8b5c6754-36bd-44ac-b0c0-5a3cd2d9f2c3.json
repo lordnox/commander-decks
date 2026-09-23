@@ -1,0 +1,167 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "3c6c7310-c789-4334-9aa7-1f5e891bae9f",
+      "name": "Salvation Colossus",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Construct",
+      "uri": "https://api.scryfall.com/cards/3c6c7310-c789-4334-9aa7-1f5e891bae9f"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1c516212-ad39-4396-8e05-ae57f100309f",
+      "name": "Energy Reserve",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/1c516212-ad39-4396-8e05-ae57f100309f"
+    }
+  ],
+  "artist": "José Parodi",
+  "artist_ids": [
+    "4aac5bf3-5a92-40f6-a0c3-6edc7373cc71"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 772521,
+  "cmc": 8.0,
+  "collector_number": "43",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7014,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "extendedart"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "3842803c-2d51-4ee0-88c3-800e2948d32c",
+  "illustration_id": "69fe4745-c2ba-4c11-a769-0c7a5f80764c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:57:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.webp?1783911426",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.jpg?1783911426",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.jpg?1783911426",
+    "crop": "https://cards.scryfall.io/crop/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.webp?1783911426",
+    "display": "https://cards.scryfall.io/display/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.webp?1783911426",
+    "grid": "https://cards.scryfall.io/grid/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.webp?1783911426",
+    "large": "https://cards.scryfall.io/large/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.jpg?1783911426",
+    "normal": "https://cards.scryfall.io/normal/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.jpg?1783911426",
+    "png": "https://cards.scryfall.io/png/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.png?1783911426",
+    "small": "https://cards.scryfall.io/small/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.jpg?1783911426",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/8/3842803c-2d51-4ee0-88c3-800e2948d32c.webp?1783911426"
+  },
+  "keywords": [
+    "Flying",
+    "Vigilance",
+    "Unearth",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{W}{W}",
+  "mtgo_id": 126649,
+  "multiverse_ids": [
+    665053
+  ],
+  "name": "Salvation Colossus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b5c6754-36bd-44ac-b0c0-5a3cd2d9f2c3",
+  "oracle_text": "Flying, vigilance, trample\nWhenever you attack, other creatures you control get +2/+2 and gain indestructible until end of turn.\nUnearth—Pay eight {E}. (Pay eight energy counters: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.)",
+  "oversized": false,
+  "power": "9",
+  "preview": {
+    "previewed_at": "2024-05-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/2157562531"
+  },
+  "prices": {
+    "eur": "0.48",
+    "eur_foil": "1.04",
+    "tix": "2.96",
+    "usd": "0.77",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b5c6754-36bd-44ac-b0c0-5a3cd2d9f2c3&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "ripplefoil",
+    "boosterfun"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/126649?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=772521&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F552971%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Salvation+Colossus",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=665053&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSalvation%2BColossus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSalvation%2BColossus"
+  },
+  "released_at": "2024-06-14",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/3842803c-2d51-4ee0-88c3-800e2948d32c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/m3c?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/m3c/43/salvation-colossus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "m3c",
+  "set_id": "f5e00721-cf99-43ba-bf16-b22d56d12c73",
+  "set_name": "Modern Horizons 3 Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Am3c&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f5e00721-cf99-43ba-bf16-b22d56d12c73",
+  "story_spotlight": false,
+  "tcgplayer_id": 552971,
+  "textless": false,
+  "toughness": "9",
+  "type_line": "Artifact Creature — Construct",
+  "uri": "https://api.scryfall.com/cards/3842803c-2d51-4ee0-88c3-800e2948d32c",
+  "variation": false
+}

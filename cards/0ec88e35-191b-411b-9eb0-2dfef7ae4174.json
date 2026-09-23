@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "e97c95ac-f992-4e99-9469-bc1bc695e49f",
+      "name": "Belonging",
+      "object": "related_card",
+      "type_line": "Creature — Elemental Incarnation",
+      "uri": "https://api.scryfall.com/cards/e97c95ac-f992-4e99-9469-bc1bc695e49f"
+    },
+    {
+      "component": "token",
+      "id": "c2963ce1-f9d8-437a-9489-e0913a8b8d26",
+      "name": "Shapeshifter",
+      "object": "related_card",
+      "type_line": "Token Creature — Shapeshifter",
+      "uri": "https://api.scryfall.com/cards/c2963ce1-f9d8-437a-9489-e0913a8b8d26"
+    }
+  ],
+  "artist": "Danny Schwartz",
+  "artist_ids": [
+    "48e30a4a-5b4d-48e2-9c53-03125085374e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 864957,
+  "cmc": 6.0,
+  "collector_number": "5",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7408,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "a930c3f1-9c59-4627-829a-3cefb87ae2f4",
+  "illustration_id": "4cd111c8-9e36-4a9e-9433-a65885c09d9f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:03:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.webp?1783904607",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.jpg?1783904607",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.jpg?1783904607",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.webp?1783904607",
+    "display": "https://cards.scryfall.io/display/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.webp?1783904607",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.webp?1783904607",
+    "large": "https://cards.scryfall.io/large/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.jpg?1783904607",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.jpg?1783904607",
+    "png": "https://cards.scryfall.io/png/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.png?1783904607",
+    "small": "https://cards.scryfall.io/small/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.jpg?1783904607",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a930c3f1-9c59-4627-829a-3cefb87ae2f4.webp?1783904607"
+  },
+  "keywords": [
+    "Encore"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}",
+  "mtgo_id": 145983,
+  "multiverse_ids": [],
+  "name": "Belonging",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "0ec88e35-191b-411b-9eb0-2dfef7ae4174",
+  "oracle_text": "When this creature enters, create three 1/1 colorless Shapeshifter creature tokens with changeling. (They're every creature type.)\nEncore {6}{W}{W} ({6}{W}{W}, Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+  "oversized": false,
+  "power": "6",
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": null,
+    "tix": "0.77",
+    "usd": "0.26",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A0ec88e35-191b-411b-9eb0-2dfef7ae4174&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/145983?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=864957&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F671131%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Belonging",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBelonging",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBelonging"
+  },
+  "released_at": "2026-01-23",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "BCB84E7BD31481C3EC44D2F10BF7752A19CD5788819082E5A976707754010A9C",
+  "rulings_uri": "https://api.scryfall.com/cards/a930c3f1-9c59-4627-829a-3cefb87ae2f4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ecc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ecc/5/belonging?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ecc",
+  "set_id": "805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "set_name": "Lorwyn Eclipsed Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aecc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "story_spotlight": false,
+  "tcgplayer_id": 671131,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Creature — Elemental Incarnation",
+  "uri": "https://api.scryfall.com/cards/a930c3f1-9c59-4627-829a-3cefb87ae2f4",
+  "variation": false
+}

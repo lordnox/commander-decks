@@ -1,0 +1,142 @@
+{
+  "artist": "Chris Rallis",
+  "artist_ids": [
+    "a8e7b854-b15a-421a-b66d-6e68187ae285"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818756,
+  "cmc": 8.0,
+  "collector_number": "142",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1649,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "The sky takes flight and the earth trembles.",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "78c71a23-8e73-406e-bbd0-4474c17c1d04",
+  "illustration_id": "f690a34d-1d22-4aa4-9fcb-d28997a5fd1c",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:45:12Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.webp?1783907112",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.jpg?1783907112",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.jpg?1783907112",
+    "crop": "https://cards.scryfall.io/crop/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.webp?1783907112",
+    "display": "https://cards.scryfall.io/display/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.webp?1783907112",
+    "grid": "https://cards.scryfall.io/grid/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.webp?1783907112",
+    "large": "https://cards.scryfall.io/large/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.jpg?1783907112",
+    "normal": "https://cards.scryfall.io/normal/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.jpg?1783907112",
+    "png": "https://cards.scryfall.io/png/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.png?1783907112",
+    "small": "https://cards.scryfall.io/small/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.jpg?1783907112",
+    "thumb": "https://cards.scryfall.io/thumb/front/7/8/78c71a23-8e73-406e-bbd0-4474c17c1d04.webp?1783907112"
+  },
+  "keywords": [
+    "Flying",
+    "Indestructible",
+    "Vigilance",
+    "Trample",
+    "Double strike"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{6}{W}{W}",
+  "mtgo_id": 138221,
+  "multiverse_ids": [
+    696298
+  ],
+  "name": "Zetalpa, Primal Dawn",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "7da0e5de-3e4c-420a-8685-991206100b9d",
+  "oracle_text": "Flying, double strike, vigilance, trample, indestructible",
+  "oversized": false,
+  "penny_rank": 2371,
+  "power": "4",
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A7da0e5de-3e4c-420a-8685-991206100b9d&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138221?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818756&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624669%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Zetalpa%2C+Primal+Dawn",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696298&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DZetalpa%252C%2BPrimal%2BDawn",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DZetalpa%252C%2BPrimal%2BDawn"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/78c71a23-8e73-406e-bbd0-4474c17c1d04/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/142/zetalpa-primal-dawn?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624669,
+  "textless": false,
+  "toughness": "8",
+  "type_line": "Legendary Creature — Elder Dinosaur",
+  "uri": "https://api.scryfall.com/cards/78c71a23-8e73-406e-bbd0-4474c17c1d04",
+  "variation": false
+}

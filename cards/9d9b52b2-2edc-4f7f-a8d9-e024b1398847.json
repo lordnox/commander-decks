@@ -1,0 +1,204 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "ca20548f-6324-4858-adbe-87303ff1ca52",
+      "name": "Spirit",
+      "object": "related_card",
+      "type_line": "Token Creature — Spirit",
+      "uri": "https://api.scryfall.com/cards/ca20548f-6324-4858-adbe-87303ff1ca52"
+    },
+    {
+      "component": "combo_piece",
+      "id": "070d6344-ee01-4e27-a513-467d8775a853",
+      "name": "The Restoration of Eiganjo // Architect of Restoration",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga // Enchantment Creature — Fox Monk",
+      "uri": "https://api.scryfall.com/cards/070d6344-ee01-4e27-a513-467d8775a853"
+    }
+  ],
+  "arena_id": 79455,
+  "artist": "Titus Lunter",
+  "artist_ids": [
+    "b11e6b3a-f4ca-4cf1-8fd7-475696de5f5c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Titus Lunter",
+      "artist_id": "b11e6b3a-f4ca-4cf1-8fd7-475696de5f5c",
+      "colors": [
+        "W"
+      ],
+      "illustration_id": "45d88f8a-a44e-485c-ba23-001b9b901ad1",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "crop": "https://cards.scryfall.io/crop/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "display": "https://cards.scryfall.io/display/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "grid": "https://cards.scryfall.io/grid/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "large": "https://cards.scryfall.io/large/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "normal": "https://cards.scryfall.io/normal/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "png": "https://cards.scryfall.io/png/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.png?1783923920",
+        "small": "https://cards.scryfall.io/small/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920"
+      },
+      "mana_cost": "{2}{W}",
+      "name": "The Restoration of Eiganjo",
+      "object": "card_face",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter.)\nI — Search your library for a basic Plains card, reveal it, put it into your hand, then shuffle.\nII — You may discard a card. When you do, return target permanent card with mana value 2 or less from your graveyard to the battlefield tapped.\nIII — Exile this Saga, then return it to the battlefield transformed under your control.",
+      "type_line": "Enchantment — Saga"
+    },
+    {
+      "artist": "Titus Lunter",
+      "artist_id": "b11e6b3a-f4ca-4cf1-8fd7-475696de5f5c",
+      "color_indicator": [
+        "W"
+      ],
+      "colors": [
+        "W"
+      ],
+      "flavor_text": "\"A visionary looks at rubble and sees not only what was, but also what could be.\"\n—Onyx-Eye, architect of Eiganjo",
+      "illustration_id": "f589def6-2dc2-40b5-a5bd-d6cd4d0674a4",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "crop": "https://cards.scryfall.io/crop/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "display": "https://cards.scryfall.io/display/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "grid": "https://cards.scryfall.io/grid/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920",
+        "large": "https://cards.scryfall.io/large/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "normal": "https://cards.scryfall.io/normal/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "png": "https://cards.scryfall.io/png/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.png?1783923920",
+        "small": "https://cards.scryfall.io/small/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.webp?1783923920"
+      },
+      "mana_cost": "",
+      "name": "Architect of Restoration",
+      "object": "card_face",
+      "oracle_text": "Vigilance\nWhenever this creature attacks or blocks, create a 1/1 colorless Spirit creature token.",
+      "power": "3",
+      "toughness": "4",
+      "type_line": "Enchantment Creature — Fox Monk"
+    }
+  ],
+  "cardmarket_id": 607398,
+  "cmc": 3.0,
+  "collector_number": "34",
+  "color_identity": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4362,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "fandfc",
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:25:20Z",
+  "keywords": [
+    "Vigilance",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 96980,
+  "multiverse_ids": [
+    548328,
+    548329
+  ],
+  "name": "The Restoration of Eiganjo // Architect of Restoration",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9d9b52b2-2edc-4f7f-a8d9-e024b1398847",
+  "oversized": false,
+  "penny_rank": 1138,
+  "preview": {
+    "previewed_at": "2022-01-31",
+    "source": "Numot The Nummy",
+    "source_uri": "https://twitter.com/NumotTheNummy/status/1488242516772093952"
+  },
+  "prices": {
+    "eur": "0.76",
+    "eur_foil": "1.02",
+    "tix": "0.02",
+    "usd": "0.50",
+    "usd_etched": null,
+    "usd_foil": "0.72"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9d9b52b2-2edc-4f7f-a8d9-e024b1398847&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/96980?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=607398&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F262322%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Restoration+of+Eiganjo",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=548328&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BRestoration%2Bof%2BEiganjo%2B%252F%252F%2BArchitect%2Bof%2BRestoration",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BRestoration%2Bof%2BEiganjo%2B%252F%252F%2BArchitect%2Bof%2BRestoration"
+  },
+  "released_at": "2022-02-18",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/neo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/neo/34/the-restoration-of-eiganjo-architect-of-restoration?utm_source=api",
+  "security_stamp": "oval",
+  "set": "neo",
+  "set_id": "59a2059f-5482-433f-8761-eb2e17859b71",
+  "set_name": "Kamigawa: Neon Dynasty",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aneo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59a2059f-5482-433f-8761-eb2e17859b71",
+  "story_spotlight": false,
+  "tcgplayer_id": 262322,
+  "textless": false,
+  "type_line": "Enchantment — Saga // Enchantment Creature — Fox Monk",
+  "uri": "https://api.scryfall.com/cards/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc",
+  "variation": false
+}

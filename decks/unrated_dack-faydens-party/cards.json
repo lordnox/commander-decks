@@ -1,0 +1,2715 @@
+{
+  "cards": [
+    {
+      "cache": "cards/70564c3a-858f-498e-8b92-acb3ca54ae7e.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Airbend"
+        ],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "Flying\nWhen Aang enters, airbend up to one other target nonland permanent. (Exile it. While it's exiled, its owner may cast it for {2} rather than its mana cost.)\nWhenever you cast a Lesson spell, Aang gains lifelink until end of turn.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Legendary Creature — Human Avatar Ally"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Aang, the Last Airbender",
+      "oracle_id": "70564c3a-858f-498e-8b92-acb3ca54ae7e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/4/aang-the-last-airbender?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "submitted_name": "Aang, the Last Airbender"
+    },
+    {
+      "cache": "cards/cab092f9-b7ff-43b9-935f-310869a4daf8.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Choose a background"
+        ],
+        "mana_cost": "{4}{W}",
+        "oracle_text": "When Abdel Adrian enters, exile any number of other nonland permanents you control until Abdel Adrian leaves the battlefield. Create a 1/1 white Soldier creature token for each permanent exiled this way.\nChoose a Background (You can have a Background as a second commander.)",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Human Warrior"
+      },
+      "categories": [
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Abdel Adrian, Gorion's Ward",
+      "oracle_id": "cab092f9-b7ff-43b9-935f-310869a4daf8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/2/abdel-adrian-gorions-ward?utm_source=api",
+      "submitted_categories": [
+        "Self Blink"
+      ],
+      "submitted_name": "Abdel Adrian, Gorion's Ward"
+    },
+    {
+      "cache": "cards/107f204c-9fd3-490d-8887-be63d14fc6a4.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Flying",
+          "Vigilance",
+          "First strike",
+          "Protection",
+          "Haste",
+          "Trample"
+        ],
+        "mana_cost": "{5}{W}{W}{W}",
+        "oracle_text": "Flying, first strike, vigilance, trample, haste, protection from black and from red",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Legendary Creature — Angel"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Akroma, Angel of Wrath",
+      "oracle_id": "107f204c-9fd3-490d-8887-be63d14fc6a4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/73/akroma-angel-of-wrath?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Akroma, Angel of Wrath"
+    },
+    {
+      "cache": "cards/d1d719e9-9c02-40cf-8849-91a5c120a516.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Plainscycling",
+          "Landcycling",
+          "Typecycling",
+          "Cycling"
+        ],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Phyrexian Samurai"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Alabaster Host Intercessor",
+      "oracle_id": "d1d719e9-9c02-40cf-8849-91a5c120a516",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/3/alabaster-host-intercessor?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Alabaster Host Intercessor"
+    },
+    {
+      "cache": "cards/da9ec010-8b42-4927-b602-4e96bced4e99.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Warp"
+        ],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "When this creature enters, exile up to one target non-Assassin creature until this creature leaves the battlefield.\nWarp {1}{W} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+        "power": "2",
+        "toughness": "3",
+        "type_line": "Creature — Drix Assassin"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "All-Fates Stalker",
+      "oracle_id": "da9ec010-8b42-4927-b602-4e96bced4e99",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoe/3/all-fates-stalker?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "All-Fates Stalker"
+    },
+    {
+      "cache": "cards/4f57a320-b6b5-49de-af0a-f2e2649758a7.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying",
+          "Lifelink",
+          "Encore"
+        ],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "Flying, lifelink\nWhen this creature enters, return target permanent card with mana value 4 or less from your graveyard to the battlefield.\nEncore {6}{W}{W} ({6}{W}{W}, Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Angel Warrior"
+      },
+      "categories": [
+        "recursion"
+      ],
+      "category_source": "decklist",
+      "name": "Angel of Indemnity",
+      "oracle_id": "4f57a320-b6b5-49de-af0a-f2e2649758a7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/133/angel-of-indemnity?utm_source=api",
+      "submitted_categories": [
+        "recursion"
+      ],
+      "submitted_name": "Angel of Indemnity"
+    },
+    {
+      "cache": "cards/3c49e98d-d33b-47fa-8b07-b38b367de2c7.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Flying",
+          "Embalm"
+        ],
+        "mana_cost": "{3}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, you may exile target nonland permanent an opponent controls until this creature leaves the battlefield.\nEmbalm {5}{W} ({5}{W}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a white Zombie Angel with no mana cost. Embalm only as a sorcery.)",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Angel of Sanctions",
+      "oracle_id": "3c49e98d-d33b-47fa-8b07-b38b367de2c7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c19/61/angel-of-sanctions?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Angel of Sanctions"
+    },
+    {
+      "cache": "cards/f4ce6078-8c7b-4f68-b324-13130c63a983.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{4}{W}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, you may exile up to three other target creatures from the battlefield and/or creature cards from graveyards.\nWhen this creature leaves the battlefield, return the exiled cards to their owners' hands.",
+        "power": "5",
+        "toughness": "6",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Angel of Serenity",
+      "oracle_id": "f4ce6078-8c7b-4f68-b324-13130c63a983",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c21/83/angel-of-serenity?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Angel of Serenity"
+    },
+    {
+      "cache": "cards/8b1e6b7c-892d-4058-b183-9121cdd623f0.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Flying",
+          "Flash"
+        ],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "Flash\nFlying\nWhen this creature enters, if you cast it from your hand, exile all attacking creatures.",
+        "power": "5",
+        "toughness": "4",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Angel of the Dire Hour",
+      "oracle_id": "8b1e6b7c-892d-4058-b183-9121cdd623f0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/85/angel-of-the-dire-hour?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Angel of the Dire Hour"
+    },
+    {
+      "cache": "cards/14878a5f-7983-4133-a1a7-9d539531e092.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Flying",
+          "Plainscycling",
+          "Landcycling",
+          "Typecycling",
+          "Cycling"
+        ],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, exile up to two target artifacts and/or enchantments.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+        "power": "5",
+        "toughness": "7",
+        "type_line": "Artifact Creature — Angel"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Angel of the Ruins",
+      "oracle_id": "14878a5f-7983-4133-a1a7-9d539531e092",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/63/angel-of-the-ruins?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Angel of the Ruins"
+    },
+    {
+      "cache": "cards/c6e28cf0-81c7-4f52-a29b-988cc6fd31ee.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying",
+          "Airbend"
+        ],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "Flying\nWhenever Appa enters or attacks, choose one —\n• Target creature you control gains flying until end of turn.\n• Airbend another target nonland permanent you control. (Exile it. While it's exiled, its owner may cast it for {2} rather than its mana cost.)",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Legendary Creature — Bison Ally"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Appa, Loyal Sky Bison",
+      "oracle_id": "c6e28cf0-81c7-4f52-a29b-988cc6fd31ee",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tla/9/appa-loyal-sky-bison?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "submitted_name": "Appa, Loyal Sky Bison"
+    },
+    {
+      "cache": "cards/ef833546-f755-4ac5-867a-3926984e68a0.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "When this artifact enters, search your library for up to two basic Plains cards, reveal them, put them into your hand, then shuffle.\nWhenever a land an opponent controls enters, if that player controls more lands than you, you may put a land card from your hand onto the battlefield.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Archaeomancer's Map",
+      "oracle_id": "ef833546-f755-4ac5-867a-3926984e68a0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/136/archaeomancers-map?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Archaeomancer's Map"
+    },
+    {
+      "cache": "cards/7aa5db50-5057-45fd-bce9-fb4a5e874263.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Whenever you cycle this card or cycle another card while this enchantment is on the battlefield, you may exile target creature. If you do, return that card to the battlefield under its owner's control at the beginning of the next end step.\nCycling {2}{W} ({2}{W}, Discard this card: Draw a card.)",
+        "type_line": "Enchantment"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Astral Drift",
+      "oracle_id": "7aa5db50-5057-45fd-bce9-fb4a5e874263",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/76/astral-drift?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Astral Drift"
+    },
+    {
+      "cache": "cards/c0cbb347-b060-43ce-a9c5-8c835be3cf1b.json",
+      "card": {
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{2}",
+            "name": "Azor's Gateway",
+            "oracle_text": "{1}, {T}: Draw a card, then exile a card from your hand. If cards with five or more different mana values are exiled with Azor's Gateway, you gain 5 life, untap Azor's Gateway, and transform it.",
+            "type_line": "Legendary Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "Sanctum of the Sun",
+            "oracle_text": "(Transforms from Azor's Gateway.)\n{T}: Add X mana of any one color, where X is your life total.",
+            "type_line": "Legendary Land"
+          }
+        ],
+        "keywords": [
+          "Transform"
+        ],
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Legendary Artifact // Legendary Land"
+      },
+      "categories": [
+        "Looter"
+      ],
+      "category_source": "decklist",
+      "name": "Azor's Gateway // Sanctum of the Sun",
+      "oracle_id": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rix/176/azors-gateway-sanctum-of-the-sun?utm_source=api",
+      "submitted_categories": [
+        "Looter"
+      ],
+      "submitted_name": "Azor's Gateway // Sanctum of the Sun"
+    },
+    {
+      "cache": "cards/9f560b83-32d4-4bb4-a956-8f5db18599db.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Banisher Priest",
+      "oracle_id": "9f560b83-32d4-4bb4-a956-8f5db18599db",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/moc/173/banisher-priest?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Banisher Priest"
+    },
+    {
+      "cache": "cards/0ec88e35-191b-411b-9eb0-2dfef7ae4174.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Encore"
+        ],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "When this creature enters, create three 1/1 colorless Shapeshifter creature tokens with changeling. (They're every creature type.)\nEncore {6}{W}{W} ({6}{W}{W}, Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+        "power": "6",
+        "toughness": "6",
+        "type_line": "Creature — Elemental Incarnation"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Belonging",
+      "oracle_id": "0ec88e35-191b-411b-9eb0-2dfef7ae4174",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/5/belonging?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Belonging"
+    },
+    {
+      "cache": "cards/020de6d7-f5a2-4036-ad25-451e5977b4d4.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "When Beza enters, create a Treasure token if an opponent controls more lands than you. You gain 4 life if an opponent has more life than you. Create two 1/1 blue Fish creature tokens if an opponent controls more creatures than you. Draw a card if an opponent has more cards in hand than you.",
+        "power": "4",
+        "toughness": "5",
+        "type_line": "Legendary Creature — Elemental Elk"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Beza, the Bounding Spring",
+      "oracle_id": "020de6d7-f5a2-4036-ad25-451e5977b4d4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/2/beza-the-bounding-spring?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Beza, the Bounding Spring"
+    },
+    {
+      "cache": "cards/c2dd6c78-e482-4a3c-ad9c-7dd71b3e34d2.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield.\nWhenever this creature attacks, target Vampire gets +X/+X until end of turn, where X is the power of the exiled card.",
+        "power": "1",
+        "toughness": "1",
+        "type_line": "Creature — Vampire Cleric"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Bishop of Binding",
+      "oracle_id": "c2dd6c78-e482-4a3c-ad9c-7dd71b3e34d2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rix/2/bishop-of-binding?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Bishop of Binding"
+    },
+    {
+      "cache": "cards/75719f87-ce1a-40d6-ac5a-5ebf0c936c84.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "GOOOOAAAALLL!"
+        ],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color.\nGOOOOAAAALLL! — {T}, Sacrifice this artifact: Draw two cards. Activate only if an opponent was dealt combat damage by a legendary creature this turn.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Blitzball",
+      "oracle_id": "75719f87-ce1a-40d6-ac5a-5ebf0c936c84",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fin/254/blitzball?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Blitzball"
+    },
+    {
+      "cache": "cards/0f5f6f3e-1b3c-43e2-b11d-bd454366845c.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "When this creature enters, for each opponent, exile up to one target nonland permanent that player controls until this creature leaves the battlefield.\n{X}{W}: Put target card with mana value X exiled with this creature into its owner's graveyard. You gain X life.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Dinosaur"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Bronzebeak Foragers",
+      "oracle_id": "0f5f6f3e-1b3c-43e2-b11d-bd454366845c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/69/bronzebeak-foragers?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Bronzebeak Foragers"
+    },
+    {
+      "cache": "cards/6879f5ce-7a1b-4606-bad1-885779b0d456.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{W}",
+        "oracle_text": "Exile target creature you control, then return that card to the battlefield under your control.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Cloudshift",
+      "oracle_id": "6879f5ce-7a1b-4606-bad1-885779b0d456",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tle/152/cloudshift?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Cloudshift"
+    },
+    {
+      "cache": "cards/f460ff80-8175-43f7-9810-540cf3817085.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "{2}, {T}: Draw a card, then discard a card. Create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Looter"
+      ],
+      "category_source": "decklist",
+      "name": "Collector's Vault",
+      "oracle_id": "f460ff80-8175-43f7-9810-540cf3817085",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/244/collectors-vault?utm_source=api",
+      "submitted_categories": [
+        "Looter"
+      ],
+      "submitted_name": "Collector's Vault"
+    },
+    {
+      "cache": "cards/0b67c4e2-f88b-4e01-85a1-9d5f5b8db13b.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{T}: Add one mana of any color in your commander's color identity.\nSacrifice this artifact: Draw a card.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Commander's Sphere",
+      "oracle_id": "0b67c4e2-f88b-4e01-85a1-9d5f5b8db13b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecc/139/commanders-sphere?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Commander's Sphere"
+    },
+    {
+      "cache": "cards/fd26f893-6f45-44df-aa4e-c919fc118aff.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{5}{W}",
+        "oracle_text": "Sliver creatures you control have \"When this creature enters, you may exile target creature an opponent controls until this creature leaves the battlefield.\"",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Sliver"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Constricting Sliver",
+      "oracle_id": "fd26f893-6f45-44df-aa4e-c919fc118aff",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/818/constricting-sliver?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Constricting Sliver"
+    },
+    {
+      "cache": "cards/42b03dd7-e796-47c3-b596-87960d72818b.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}, Sacrifice a creature: Put a charge counter on this artifact.\n{1}, Sacrifice this artifact: Draw a card for each charge counter on this artifact.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Sac"
+      ],
+      "category_source": "decklist",
+      "name": "Culling Dais",
+      "oracle_id": "42b03dd7-e796-47c3-b596-87960d72818b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/246/culling-dais?utm_source=api",
+      "submitted_categories": [
+        "Sac"
+      ],
+      "submitted_name": "Culling Dais"
+    },
+    {
+      "cache": "cards/c8de2e1b-f2fa-4b6a-a3c5-9811c7f5f051.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "When this creature enters, each creature target opponent controls loses all abilities, becomes a Coward in addition to its other types, and has base power and toughness 1/1.",
+        "power": "7",
+        "toughness": "7",
+        "type_line": "Creature — Giant Warrior"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Curious Colossus",
+      "oracle_id": "c8de2e1b-f2fa-4b6a-a3c5-9811c7f5f051",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ecl/12/curious-colossus?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Curious Colossus"
+    },
+    {
+      "cache": "cards/3b21abb0-9a58-4e62-9650-4b04ce2bfb12.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "When Dack Fayden enters, reveal cards from the top of your library until you reveal X creature cards, where X is the number of opponents you have. Put those creature cards onto the battlefield, then shuffle. They're goaded for the rest of the game. For each of those permanents, choose a different opponent. Each opponent gains control of the permanent for which they were chosen.",
+        "power": "4",
+        "toughness": "6",
+        "type_line": "Legendary Creature — Human Advisor"
+      },
+      "categories": [
+        "Commander{top}"
+      ],
+      "category_source": "decklist",
+      "name": "Dack Fayden, Helping Hand",
+      "oracle_id": "3b21abb0-9a58-4e62-9650-4b04ce2bfb12",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/frc/4/dack-fayden-helping-hand?utm_source=api",
+      "submitted_categories": [
+        "Commander{top}"
+      ],
+      "submitted_name": "Dack Fayden, Helping Hand"
+    },
+    {
+      "cache": "cards/d2a3f735-9523-4ddd-96a9-b0a5ecd39284.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Treasure"
+        ],
+        "mana_cost": "{2}",
+        "oracle_text": "{2}, {T}: Draw a card, then discard a card. Create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Looter"
+      ],
+      "category_source": "decklist",
+      "name": "Daily Bugle Newspaper",
+      "oracle_id": "d2a3f735-9523-4ddd-96a9-b0a5ecd39284",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/749/daily-bugle-newspaper?utm_source=api",
+      "submitted_categories": [
+        "Looter"
+      ],
+      "submitted_name": "Daily Bugle Newspaper"
+    },
+    {
+      "cache": "cards/1b09d0cf-403c-4a15-aeee-602a1bdaf0c1.json",
+      "card": {
+        "cmc": 11.0,
+        "keywords": [
+          "Indestructible",
+          "Trample"
+        ],
+        "mana_cost": "{11}",
+        "oracle_text": "Trample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)\nIndestructible (Damage and effects that say \"destroy\" don't destroy this creature.)\nIf Darksteel Colossus would be put into a graveyard from anywhere, reveal Darksteel Colossus and shuffle it into its owner's library instead.",
+        "power": "11",
+        "toughness": "11",
+        "type_line": "Artifact Creature — Golem"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Darksteel Colossus",
+      "oracle_id": "1b09d0cf-403c-4a15-aeee-602a1bdaf0c1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/671/darksteel-colossus?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Darksteel Colossus"
+    },
+    {
+      "cache": "cards/f76a86f3-568a-40b3-8e2c-f84db4141293.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}{W}",
+        "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield. If that creature had power 2 or less, put a +1/+1 counter on this creature.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Elemental Coyote"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Driftgloom Coyote",
+      "oracle_id": "f76a86f3-568a-40b3-8e2c-f84db4141293",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/11/driftgloom-coyote?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Driftgloom Coyote"
+    },
+    {
+      "cache": "cards/4446e59c-29f7-4722-92be-2625c1d3dab9.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, put an indestructible counter on another target creature you control. Draw a card if that creature's power is 2 or less.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Bird Soldier"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Eagle of Deliverance",
+      "oracle_id": "4446e59c-29f7-4722-92be-2625c1d3dab9",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ltr/824/eagle-of-deliverance?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Eagle of Deliverance"
+    },
+    {
+      "cache": "cards/7536eb66-959d-4dca-9b75-895572ef733c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this land: You may cast spells this turn as though they had flash.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Emergence Zone",
+      "oracle_id": "7536eb66-959d-4dca-9b75-895572ef733c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/war/245/emergence-zone?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Land"
+      ],
+      "submitted_name": "Emergence Zone"
+    },
+    {
+      "cache": "cards/c4033d97-769f-4811-8b11-f85b8817b7a2.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{2}, {T}: Exile target creature you control.\n{4}, {T}, Sacrifice this land: Return each creature card exiled with this land to the battlefield under its owner's control.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land — Desert"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Endless Sands",
+      "oracle_id": "c4033d97-769f-4811-8b11-f85b8817b7a2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c20/272/endless-sands?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Endless Sands"
+    },
+    {
+      "cache": "cards/0fd57894-b917-41c8-a394-360d1d31b236.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Rebound"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Exile target creature you control, then return it to the battlefield under its owner's control.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Ephemerate",
+      "oracle_id": "0fd57894-b917-41c8-a394-360d1d31b236",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh1/7/ephemerate?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Ephemerate"
+    },
+    {
+      "cache": "cards/0a79237e-0811-4a8a-bd4d-db3ca91bff22.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Multikicker"
+        ],
+        "mana_cost": "{0}",
+        "oracle_text": "Multikicker {2} (You may pay an additional {2} any number of times as you cast this spell.)\nThis artifact enters with a charge counter on it for each time it was kicked.\n{T}: Add {C} for each charge counter on this artifact.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Everflowing Chalice",
+      "oracle_id": "0a79237e-0811-4a8a-bd4d-db3ca91bff22",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/137/everflowing-chalice?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Everflowing Chalice"
+    },
+    {
+      "cache": "cards/8fcf50cd-e6d0-4516-850f-d42ee75dcc3a.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a land card, reveal it, put it into your hand, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Expedition Map",
+      "oracle_id": "8fcf50cd-e6d0-4516-850f-d42ee75dcc3a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/724/expedition-map?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Expedition Map"
+    },
+    {
+      "cache": "cards/33869ba6-13e5-4e48-8963-92f7965648fb.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "When this creature enters, you may exile another target permanent you control, then return that card to the battlefield under its owner's control.",
+        "power": "1",
+        "toughness": "4",
+        "type_line": "Creature — Cat Beast"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Felidar Guardian",
+      "oracle_id": "33869ba6-13e5-4e48-8963-92f7965648fb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/aer/19/felidar-guardian?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "submitted_name": "Felidar Guardian"
+    },
+    {
+      "cache": "cards/cb9d557a-fc06-428c-8be6-7d28add33028.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "When this creature enters, you may exile another target creature.\nWhen this creature leaves the battlefield, return the exiled card to the battlefield under its owner's control.",
+        "power": "1",
+        "toughness": "3",
+        "type_line": "Creature — Human Cleric"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Fiend Hunter",
+      "oracle_id": "cb9d557a-fc06-428c-8be6-7d28add33028",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/167/fiend-hunter?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Fiend Hunter"
+    },
+    {
+      "cache": "cards/d5b9d250-92f5-40d8-b962-4ae4adb466c8.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Exile target creature or enchantment, then return it to the battlefield under its owner's control.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Flicker of Fate",
+      "oracle_id": "d5b9d250-92f5-40d8-b962-4ae4adb466c8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/thb/16/flicker-of-fate?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Flicker of Fate"
+    },
+    {
+      "cache": "cards/b23a3d30-6b8e-4aad-890f-db0c3af43ace.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, exile another target permanent. Return that card to the battlefield under its owner's control at the beginning of the next end step.",
+        "power": "3",
+        "toughness": "1",
+        "type_line": "Creature — Elemental"
+      },
+      "categories": [
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Flickerwisp",
+      "oracle_id": "b23a3d30-6b8e-4aad-890f-db0c3af43ace",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2x2/11/flickerwisp?utm_source=api",
+      "submitted_categories": [
+        "Self Blink"
+      ],
+      "submitted_name": "Flickerwisp"
+    },
+    {
+      "cache": "cards/7b9fafe7-d26a-4ed5-b4c4-ce13763770b5.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{2}, {T}: Each player draws a card, then discards a card.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Legendary Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Geier Reach Sanitarium",
+      "oracle_id": "7b9fafe7-d26a-4ed5-b4c4-ce13763770b5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/335/geier-reach-sanitarium?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Geier Reach Sanitarium"
+    },
+    {
+      "cache": "cards/98eac0f7-3f4d-46ef-9575-680c52e967cf.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [
+          "Spree"
+        ],
+        "mana_cost": "{W}",
+        "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1} — Exile target nontoken creature. Return it to the battlefield under its owner's control at the beginning of the next end step.\n+ {2} — Destroy target creature if no other creature has greater power.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Getaway Glamer",
+      "oracle_id": "98eac0f7-3f4d-46ef-9575-680c52e967cf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/otj/14/getaway-glamer?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Getaway Glamer"
+    },
+    {
+      "cache": "cards/9a02a9a7-39d9-4763-85d3-747a0540b60b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{5}",
+        "oracle_text": "{T}: Add three mana of any one color.",
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Gilded Lotus",
+      "oracle_id": "9a02a9a7-39d9-4763-85d3-747a0540b60b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/199/gilded-lotus?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Gilded Lotus"
+    },
+    {
+      "cache": "cards/d4d3cba8-562d-4208-ab0a-c82b4dd8e959.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Flying",
+          "Psychic Defense",
+          "Flash"
+        ],
+        "mana_cost": "{4}{W}",
+        "oracle_text": "Flash\nFlying\nPsychic Defense — When this creature enters, tap all creatures you don't control.",
+        "power": "3",
+        "toughness": "2",
+        "type_line": "Creature — Gith Monk"
+      },
+      "categories": [
+        "tap-down"
+      ],
+      "category_source": "decklist",
+      "name": "Githzerai Monk",
+      "oracle_id": "d4d3cba8-562d-4208-ab0a-c82b4dd8e959",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/20/githzerai-monk?utm_source=api",
+      "submitted_categories": [
+        "tap-down"
+      ],
+      "submitted_name": "Githzerai Monk"
+    },
+    {
+      "cache": "cards/6bdc4996-f7d9-4dc4-b70a-aa63f6816b1d.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Flash",
+          "Foretell"
+        ],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "Flash\nFlying\nWhen this creature enters, you may exile any number of non-Angel creatures you control until this creature leaves the battlefield.\nForetell {2}{W}",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Angel Cleric"
+      },
+      "categories": [
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Glorious Protector",
+      "oracle_id": "6bdc4996-f7d9-4dc4-b70a-aa63f6816b1d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/695/glorious-protector?utm_source=api",
+      "submitted_categories": [
+        "Self Blink"
+      ],
+      "submitted_name": "Glorious Protector"
+    },
+    {
+      "cache": "cards/aebfdcc0-c5b9-4737-8498-764a5021b087.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [],
+        "mana_cost": "{8}",
+        "oracle_text": "Juggernauts you control attack each combat if able.\nJuggernauts you control can't be blocked by Walls.\nOther creatures you control have base power and toughness 5/3 and are Juggernauts in addition to their other creature types.",
+        "power": "7",
+        "toughness": "5",
+        "type_line": "Legendary Artifact Creature — Juggernaut"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Graaz, Unstoppable Juggernaut",
+      "oracle_id": "aebfdcc0-c5b9-4737-8498-764a5021b087",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/one/229/graaz-unstoppable-juggernaut?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Graaz, Unstoppable Juggernaut"
+    },
+    {
+      "cache": "cards/2553ab57-ceb6-4654-a59d-bc61735da908.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{2}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, exile up to one other target creature or artifact you control. Return it to the battlefield under its owner's control at the beginning of the next end step.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Guardian of Ghirapur",
+      "oracle_id": "2553ab57-ceb6-4654-a59d-bc61735da908",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mom/16/guardian-of-ghirapur?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Self Blink"
+      ],
+      "submitted_name": "Guardian of Ghirapur"
+    },
+    {
+      "cache": "cards/32263baa-d3f0-463f-92b3-4e9938476add.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{T}: Add {C}{C}.\n{2}, {T}, Sacrifice this artifact: Draw two cards.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Hedron Archive",
+      "oracle_id": "32263baa-d3f0-463f-92b3-4e9938476add",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fdn/726/hedron-archive?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Hedron Archive"
+    },
+    {
+      "cache": "cards/fa3d8a6f-dc5b-4890-a806-f785a41660c7.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{1}, {T}: Exile target creature you control.\n{7}, {T}: Exile target creature you don't control.\nWhen Helvault is put into a graveyard from the battlefield, return all cards exiled with it to the battlefield under their owners' control.",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "Sac"
+      ],
+      "category_source": "decklist",
+      "name": "Helvault",
+      "oracle_id": "fa3d8a6f-dc5b-4890-a806-f785a41660c7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/266/helvault?utm_source=api",
+      "submitted_categories": [
+        "Sac"
+      ],
+      "submitted_name": "Helvault"
+    },
+    {
+      "cache": "cards/86fb3749-37d6-48a6-8524-71e996850307.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice a creature: You gain 1 life.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land",
+        "Sac"
+      ],
+      "category_source": "decklist",
+      "name": "High Market",
+      "oracle_id": "86fb3749-37d6-48a6-8524-71e996850307",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/380/high-market?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "Sac"
+      ],
+      "submitted_name": "High Market"
+    },
+    {
+      "cache": "cards/611f1714-a8bb-4ce4-a810-4d26fe64e358.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [],
+        "mana_cost": "{4}{W}",
+        "oracle_text": "When this creature enters, create two 1/1 white Soldier creature tokens.\n{W}, Sacrifice a Soldier: Prevent all combat damage that would be dealt this turn.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Knight"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Knight-Captain of Eos",
+      "oracle_id": "611f1714-a8bb-4ce4-a810-4d26fe64e358",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/ala/17/knight-captain-of-eos?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Knight-Captain of Eos"
+    },
+    {
+      "cache": "cards/a8f53018-c496-41f3-bc3f-3c4703b9e4e1.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Exile target creature. At the beginning of the next end step, return that card to the battlefield under its owner's control with a +1/+1 counter on it.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Long Road Home",
+      "oracle_id": "a8f53018-c496-41f3-bc3f-3c4703b9e4e1",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/jmp/120/long-road-home?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Long Road Home"
+    },
+    {
+      "cache": "cards/dcf7d099-a726-4388-9744-70d37c5ea860.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Vigilance"
+        ],
+        "mana_cost": "{4}{W}",
+        "oracle_text": "Vigilance\nWhen this creature enters, exile any number of other nontoken creatures you control until it leaves the battlefield.\nThis creature gets +2/+2 for each card exiled with it.",
+        "power": "4",
+        "toughness": "5",
+        "type_line": "Creature — Beast"
+      },
+      "categories": [
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Lumbering Battlement",
+      "oracle_id": "dcf7d099-a726-4388-9744-70d37c5ea860",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rna/15/lumbering-battlement?utm_source=api",
+      "submitted_categories": [
+        "Self Blink"
+      ],
+      "submitted_name": "Lumbering Battlement"
+    },
+    {
+      "cache": "cards/c1bc819a-f291-4b55-94f7-269f160ce76b.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Vigilance"
+        ],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "Vigilance\nWhen this creature enters, for each opponent, exile up to one target creature that player controls and that player gains life equal to its power.",
+        "power": "4",
+        "toughness": "7",
+        "type_line": "Creature — Avatar"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Luminate Primordial",
+      "oracle_id": "c1bc819a-f291-4b55-94f7-269f160ce76b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/gtc/20/luminate-primordial?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Luminate Primordial"
+    },
+    {
+      "cache": "cards/16182e01-22ff-4786-985d-919b47c4aa4d.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{3}",
+            "name": "Matzalantli, the Great Door",
+            "oracle_text": "{T}: Draw a card, then discard a card.\n{4}, {T}: Transform Matzalantli. Activate only if there are four or more permanent types among cards in your graveyard. (Artifact, battle, creature, enchantment, land, and planeswalker are permanent types.)",
+            "type_line": "Legendary Artifact"
+          },
+          {
+            "mana_cost": "",
+            "name": "The Core",
+            "oracle_text": "(Transforms from Matzalantli.)\nFathomless descent — {T}: Add X mana of any one color, where X is the number of permanent cards in your graveyard.",
+            "type_line": "Legendary Land"
+          }
+        ],
+        "keywords": [
+          "Transform",
+          "Fathomless descent"
+        ],
+        "produced_mana": [
+          "B",
+          "G",
+          "R",
+          "U",
+          "W"
+        ],
+        "type_line": "Legendary Artifact // Legendary Land"
+      },
+      "categories": [
+        "Looter"
+      ],
+      "category_source": "decklist",
+      "name": "Matzalantli, the Great Door // The Core",
+      "oracle_id": "16182e01-22ff-4786-985d-919b47c4aa4d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lci/256/matzalantli-the-great-door-the-core?utm_source=api",
+      "submitted_categories": [
+        "Looter"
+      ],
+      "submitted_name": "Matzalantli, the Great Door // The Core"
+    },
+    {
+      "cache": "cards/d9f11aa1-9219-42a8-85a9-a8f204160706.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{7}",
+        "oracle_text": "When this creature enters, destroy target nonland permanent an opponent controls.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Artifact Creature — Golem"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Meteor Golem",
+      "oracle_id": "d9f11aa1-9219-42a8-85a9-a8f204160706",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/205/meteor-golem?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Meteor Golem"
+    },
+    {
+      "cache": "cards/c97361b5-af16-4a7b-af85-a429dbaf4ad2.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Mind Stone",
+      "oracle_id": "c97361b5-af16-4a7b-af85-a429dbaf4ad2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mbc/76/mind-stone?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Mind Stone"
+    },
+    {
+      "cache": "cards/373395b2-f04b-46c9-b9f4-4f6815b71009.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "{1}, {T}, Sacrifice this artifact: Search your library for an artifact card with a mana ability or a basic land card, reveal it, put it into your hand, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Moonsilver Key",
+      "oracle_id": "373395b2-f04b-46c9-b9f4-4f6815b71009",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mid/255/moonsilver-key?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Moonsilver Key"
+    },
+    {
+      "cache": "cards/c53ba31a-ba27-4e17-9a92-311acb1cab29.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{7}",
+        "oracle_text": "When this creature enters, create four 1/1 colorless Myr artifact creature tokens.\nWhenever this creature attacks, you may tap X untapped Myr you control. If you do, this creature gets +X/+0 until end of turn and deals X damage to the player or planeswalker it's attacking.",
+        "power": "4",
+        "toughness": "7",
+        "type_line": "Artifact Creature — Myr Construct"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Myr Battlesphere",
+      "oracle_id": "c53ba31a-ba27-4e17-9a92-311acb1cab29",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/322/myr-battlesphere?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Myr Battlesphere"
+    },
+    {
+      "cache": "cards/2549bc57-9ffb-4053-9f10-f2a5f792b845.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Myriad Landscape",
+      "oracle_id": "2549bc57-9ffb-4053-9f10-f2a5f792b845",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/169/myriad-landscape?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Myriad Landscape"
+    },
+    {
+      "cache": "cards/e05f1a43-16ce-4e88-b0ad-2202efb25516.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{1}, {T}: Exile target creature you own.\n{2}, {T}, Sacrifice this land: Return a creature card exiled with this land to the battlefield under your control. Return each other card exiled with this land to its owner's hand.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Northampton Farm",
+      "oracle_id": "e05f1a43-16ce-4e88-b0ad-2202efb25516",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tmt/188/northampton-farm?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Northampton Farm"
+    },
+    {
+      "cache": "cards/15fc4e74-300e-4c2d-8ed7-004553b2f7c2.json",
+      "card": {
+        "cmc": 8.0,
+        "faces": [
+          {
+            "mana_cost": "{6}{W}{W}",
+            "name": "Ondu Inversion",
+            "oracle_text": "Destroy all nonland permanents.",
+            "type_line": "Sorcery"
+          },
+          {
+            "mana_cost": "",
+            "name": "Ondu Skyruins",
+            "oracle_text": "This land enters tapped.\n{T}: Add {W}.",
+            "type_line": "Land"
+          }
+        ],
+        "keywords": [],
+        "produced_mana": [
+          "W"
+        ],
+        "type_line": "Sorcery // Land"
+      },
+      "categories": [
+        "Land",
+        "board-wipe"
+      ],
+      "category_source": "decklist",
+      "name": "Ondu Inversion // Ondu Skyruins",
+      "oracle_id": "15fc4e74-300e-4c2d-8ed7-004553b2f7c2",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/znr/30/ondu-inversion-ondu-skyruins?utm_source=api",
+      "submitted_categories": [
+        "Land",
+        "board-wipe"
+      ],
+      "submitted_name": "Ondu Inversion // Ondu Skyruins"
+    },
+    {
+      "cache": "cards/7fc9f7e3-5347-4ea1-9bec-9e04ed78d16a.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "When Ori enters, destroy all artifacts and enchantments your opponents control. You gain 1 life for each permanent destroyed this way.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Legendary Creature — Dwarf Bard"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Ori, Plate Stacker",
+      "oracle_id": "7fc9f7e3-5347-4ea1-9bec-9e04ed78d16a",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hoc/6/ori-plate-stacker?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Ori, Plate Stacker"
+    },
+    {
+      "cache": "cards/4a080242-412d-4968-ad57-2667dab977f5.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Exile target creature. At the beginning of the next end step, return that card to the battlefield under its owner's control with a +1/+1 counter on it.",
+        "type_line": "Instant — Arcane"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Otherworldly Journey",
+      "oracle_id": "4a080242-412d-4968-ad57-2667dab977f5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mm2/30/otherworldly-journey?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Otherworldly Journey"
+    },
+    {
+      "cache": "cards/367bb252-41e1-4f98-9d22-442dd332cccf.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Gift"
+        ],
+        "mana_cost": "{W}{W}",
+        "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nExile target nontoken creature. If the gift wasn't promised, return that card to the battlefield under its owner's control with a +1/+1 counter on it at the beginning of the next end step.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Parting Gust",
+      "oracle_id": "367bb252-41e1-4f98-9d22-442dd332cccf",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/24/parting-gust?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Parting Gust"
+    },
+    {
+      "cache": "cards/295fe873-ecb5-4d5e-a73c-3af6c478afc5.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Gift"
+        ],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "Gift an extra turn (You may promise an opponent a gift as you cast this spell. If you do, they take an extra turn after this one.)\nCreate four 2/2 blue Bird creature tokens with flying. If the gift was promised, all permanents you control phase out, and until your next turn, your life total can't change and you gain protection from everything.\nExile Perch Protection.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "End Game{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Perch Protection",
+      "oracle_id": "295fe873-ecb5-4d5e-a73c-3af6c478afc5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/plst/BLC-11/perch-protection?utm_source=api",
+      "submitted_categories": [
+        "End Game{noDeck}"
+      ],
+      "submitted_name": "Perch Protection"
+    },
+    {
+      "cache": "cards/b628150b-08a1-4ea3-978d-60255dfb0b7e.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "{2}, {T}, Sacrifice a creature: Draw a card.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Sac"
+      ],
+      "category_source": "decklist",
+      "name": "Phyrexian Vault",
+      "oracle_id": "b628150b-08a1-4ea3-978d-60255dfb0b7e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dde/21/phyrexian-vault?utm_source=api",
+      "submitted_categories": [
+        "Sac"
+      ],
+      "submitted_name": "Phyrexian Vault"
+    },
+    {
+      "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "({T}: Add {W}.)",
+        "produced_mana": [
+          "W"
+        ],
+        "type_line": "Basic Land — Plains"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Plains",
+      "oracle_id": "bc71ebf6-2056-41f7-be35-b2e5c34afa99",
+      "quantity": 28,
+      "scryfall_uri": "https://scryfall.com/card/trk/317/plains?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Plains"
+    },
+    {
+      "cache": "cards/4534e260-06fd-4054-8077-505c2f6c5767.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying",
+          "Monstrosity"
+        ],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters or becomes monstrous, exile up to two target artifacts and/or enchantments controlled by different players.\n{4}{W}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Dragon"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Protector of the Wastes",
+      "oracle_id": "4534e260-06fd-4054-8077-505c2f6c5767",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/14/protector-of-the-wastes?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Protector of the Wastes"
+    },
+    {
+      "cache": "cards/9d612686-2d7f-49a3-b9c4-1e99a30134f6.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{X}{W}{W}",
+        "oracle_text": "Return each creature card with mana value X or less from your graveyard to the battlefield. Exile those creatures at the beginning of your next upkeep. Exile Rally the Ancestors.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "End Game{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Rally the Ancestors",
+      "oracle_id": "9d612686-2d7f-49a3-b9c4-1e99a30134f6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/frf/22/rally-the-ancestors?utm_source=api",
+      "submitted_categories": [
+        "End Game{noDeck}"
+      ],
+      "submitted_name": "Rally the Ancestors"
+    },
+    {
+      "cache": "cards/a1d17244-9c92-4094-9843-d7ee31c85ea4.json",
+      "card": {
+        "cmc": 7.0,
+        "faces": [
+          {
+            "mana_cost": "{5}{W}{W}",
+            "name": "Realm-Cloaked Giant",
+            "oracle_text": "Vigilance",
+            "power": "7",
+            "toughness": "7",
+            "type_line": "Creature — Giant"
+          },
+          {
+            "mana_cost": "{3}{W}{W}",
+            "name": "Cast Off",
+            "oracle_text": "Destroy all non-Giant creatures. (Then exile this card. You may cast the creature later from exile.)",
+            "type_line": "Sorcery — Adventure"
+          }
+        ],
+        "keywords": [
+          "Vigilance"
+        ],
+        "mana_cost": "{5}{W}{W} // {3}{W}{W}",
+        "power": "7",
+        "toughness": "7",
+        "type_line": "Creature — Giant // Sorcery — Adventure"
+      },
+      "categories": [
+        "board-wipe"
+      ],
+      "category_source": "decklist",
+      "name": "Realm-Cloaked Giant // Cast Off",
+      "oracle_id": "a1d17244-9c92-4094-9843-d7ee31c85ea4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/afc/70/realm-cloaked-giant-cast-off?utm_source=api",
+      "submitted_categories": [
+        "board-wipe"
+      ],
+      "submitted_name": "Realm-Cloaked Giant // Cast Off"
+    },
+    {
+      "cache": "cards/0d6dc95d-55ce-4ef8-b065-d7203f5bf642.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, if your life total is less than your starting life total, it becomes equal to your starting life total.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "lifegain"
+      ],
+      "category_source": "decklist",
+      "name": "Resolute Archangel",
+      "oracle_id": "0d6dc95d-55ce-4ef8-b065-d7203f5bf642",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m15/28/resolute-archangel?utm_source=api",
+      "submitted_categories": [
+        "lifegain"
+      ],
+      "submitted_name": "Resolute Archangel"
+    },
+    {
+      "cache": "cards/dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Flash"
+        ],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "Flash\nFlying\nWhen this creature enters, you may exile target non-Angel creature you control, then return that card to the battlefield under your control.",
+        "power": "3",
+        "toughness": "4",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Restoration Angel",
+      "oracle_id": "dfbd3afc-9905-4cff-a4f4-df08a4d0a7fa",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/38/restoration-angel?utm_source=api",
+      "submitted_categories": [
+        "Self Blink"
+      ],
+      "submitted_name": "Restoration Angel"
+    },
+    {
+      "cache": "cards/8b5c6754-36bd-44ac-b0c0-5a3cd2d9f2c3.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Flying",
+          "Vigilance",
+          "Unearth",
+          "Trample"
+        ],
+        "mana_cost": "{6}{W}{W}",
+        "oracle_text": "Flying, vigilance, trample\nWhenever you attack, other creatures you control get +2/+2 and gain indestructible until end of turn.\nUnearth—Pay eight {E}. (Pay eight energy counters: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.)",
+        "power": "9",
+        "toughness": "9",
+        "type_line": "Artifact Creature — Construct"
+      },
+      "categories": [
+        "win-condition"
+      ],
+      "category_source": "decklist",
+      "name": "Salvation Colossus",
+      "oracle_id": "8b5c6754-36bd-44ac-b0c0-5a3cd2d9f2c3",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m3c/43/salvation-colossus?utm_source=api",
+      "submitted_categories": [
+        "win-condition"
+      ],
+      "submitted_name": "Salvation Colossus"
+    },
+    {
+      "cache": "cards/0f68ae67-1671-4281-8b6b-3e52fdd4915f.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Flying",
+          "Flash"
+        ],
+        "mana_cost": "{3}{W}",
+        "oracle_text": "Flash\nFlying\nWhenever this creature or another Bird you control enters, exile up to one target creature you control without flying. Return it to the battlefield under its owner's control with a flying counter on it at the beginning of the next end step.",
+        "power": "3",
+        "toughness": "3",
+        "type_line": "Creature — Bird Cleric"
+      },
+      "categories": [
+        "Self Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Salvation Swan",
+      "oracle_id": "0f68ae67-1671-4281-8b6b-3e52fdd4915f",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/blb/28/salvation-swan?utm_source=api",
+      "submitted_categories": [
+        "Self Blink"
+      ],
+      "submitted_name": "Salvation Swan"
+    },
+    {
+      "cache": "cards/850e2dbd-b904-41b9-8ffe-0aa562837bde.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{7}",
+        "oracle_text": "Flying\nWhen this creature enters, choose an opponent. If that player has more cards in hand than you, draw cards equal to the difference.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Artifact Creature — Sphinx"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Sandstone Oracle",
+      "oracle_id": "850e2dbd-b904-41b9-8ffe-0aa562837bde",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/406/sandstone-oracle?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "Sandstone Oracle"
+    },
+    {
+      "cache": "cards/8dec6fcf-1254-4b1b-ba23-7a3e492a7241.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [
+          "Cycling"
+        ],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped.\n{T}: Add {W}.\nCycling {W} ({W}, Discard this card: Draw a card.)",
+        "produced_mana": [
+          "W"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Secluded Steppe",
+      "oracle_id": "8dec6fcf-1254-4b1b-ba23-7a3e492a7241",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/eoc/177/secluded-steppe?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Secluded Steppe"
+    },
+    {
+      "cache": "cards/c363725f-15cf-4955-aaf1-536b1f8daaed.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{4}{W}{W}{W}",
+        "oracle_text": "Serra Avatar's power and toughness are each equal to your life total.\nWhen Serra Avatar is put into a graveyard from anywhere, shuffle it into its owner's library.",
+        "power": "*",
+        "toughness": "*",
+        "type_line": "Creature — Avatar"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Serra Avatar",
+      "oracle_id": "c363725f-15cf-4955-aaf1-536b1f8daaed",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dmr/26/serra-avatar?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Serra Avatar"
+    },
+    {
+      "cache": "cards/6ad8011d-3471-4369-9d68-b264cc027487.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{T}: Add {C}{C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Sol Ring",
+      "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/211/sol-ring?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Sol Ring"
+    },
+    {
+      "cache": "cards/4d211447-9f18-4d23-8f19-cdf6ad3c68ba.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Encore"
+        ],
+        "mana_cost": "{5}{W}{W}",
+        "oracle_text": "Soul of Eternity's power and toughness are each equal to your life total.\nEncore {7}{W}{W} ({7}{W}{W}, Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+        "power": "*",
+        "toughness": "*",
+        "type_line": "Creature — Avatar"
+      },
+      "categories": [
+        "win-condition"
+      ],
+      "category_source": "decklist",
+      "name": "Soul of Eternity",
+      "oracle_id": "4d211447-9f18-4d23-8f19-cdf6ad3c68ba",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmr/50/soul-of-eternity?utm_source=api",
+      "submitted_categories": [
+        "win-condition"
+      ],
+      "submitted_name": "Soul of Eternity"
+    },
+    {
+      "cache": "cards/ea7b0704-7715-4f8a-b32f-d2d2f3b36054.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "Sacrifice a creature: Put a charge counter on this artifact.\n{1}, Remove two charge counters from this artifact: Create a 2/2 colorless Spawn artifact creature token.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Sac Outlet"
+      ],
+      "category_source": "decklist",
+      "name": "Spawning Pit",
+      "oracle_id": "ea7b0704-7715-4f8a-b32f-d2d2f3b36054",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/plst/TD2-69/spawning-pit?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Sac Outlet"
+      ],
+      "submitted_name": "Spawning Pit"
+    },
+    {
+      "cache": "cards/6e64f1e0-ddd6-4ee7-8797-086e234b02e8.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{6}",
+        "oracle_text": "Flying\n{2}: This creature gets +1/+0 until end of turn.\n{X}: Destroy each nonland permanent with mana value X whose controller was dealt combat damage by this creature this turn. Activate only once each turn.",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Artifact Creature — Dragon"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Steel Hellkite",
+      "oracle_id": "6e64f1e0-ddd6-4ee7-8797-086e234b02e8",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/327/steel-hellkite?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Steel Hellkite"
+    },
+    {
+      "cache": "cards/7022ae9a-2589-493b-a050-a230fd02f80b.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "Return all creature cards from your graveyard to the battlefield. Each of them is a 1/1 Spirit with flying in addition to its other types. Exile Storm of Souls.",
+        "type_line": "Sorcery"
+      },
+      "categories": [
+        "End Game{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Storm of Souls",
+      "oracle_id": "7022ae9a-2589-493b-a050-a230fd02f80b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/voc/9/storm-of-souls?utm_source=api",
+      "submitted_categories": [
+        "End Game{noDeck}"
+      ],
+      "submitted_name": "Storm of Souls"
+    },
+    {
+      "cache": "cards/88b1e06c-5899-4e83-8204-e2c32c0c6aff.json",
+      "card": {
+        "cmc": 6.0,
+        "keywords": [
+          "Flying"
+        ],
+        "mana_cost": "{4}{W}{W}",
+        "oracle_text": "Flying\nWhen this creature enters, tap all creatures your opponents control.",
+        "power": "4",
+        "toughness": "3",
+        "type_line": "Creature — Angel"
+      },
+      "categories": [
+        "tap-down"
+      ],
+      "category_source": "decklist",
+      "name": "Subjugator Angel",
+      "oracle_id": "88b1e06c-5899-4e83-8204-e2c32c0c6aff",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/inr/43/subjugator-angel?utm_source=api",
+      "submitted_categories": [
+        "tap-down"
+      ],
+      "submitted_name": "Subjugator Angel"
+    },
+    {
+      "cache": "cards/a5b0f351-5536-41ec-aa09-1e5344a0effb.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "Choose up to three target permanent cards in graveyards that were put there from the battlefield this turn. Return them to the battlefield tapped under their owners' control. You draw a card for each opponent who controls one or more of those permanents.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "End Game{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "Sudden Salvation",
+      "oracle_id": "a5b0f351-5536-41ec-aa09-1e5344a0effb",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/voc/10/sudden-salvation?utm_source=api",
+      "submitted_categories": [
+        "End Game{noDeck}"
+      ],
+      "submitted_name": "Sudden Salvation"
+    },
+    {
+      "cache": "cards/cfdd5dc6-593e-495a-8cfe-3a56b3c4c7df.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Temple of the False God",
+      "oracle_id": "cfdd5dc6-593e-495a-8cfe-3a56b3c4c7df",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/soc/416/temple-of-the-false-god?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Temple of the False God"
+    },
+    {
+      "cache": "cards/58b349ec-9987-4832-a8f3-8e92027ea75b.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "First strike"
+        ],
+        "mana_cost": "{3}{W}{W}",
+        "oracle_text": "First strike\nWhen this creature enters, you may search your library for a legendary card, reveal it, put it into your hand, then shuffle.",
+        "power": "4",
+        "toughness": "4",
+        "type_line": "Creature — Human Knight"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Thalia's Lancers",
+      "oracle_id": "58b349ec-9987-4832-a8f3-8e92027ea75b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/emn/47/thalias-lancers?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Thalia's Lancers"
+    },
+    {
+      "cache": "cards/169a4a77-12ff-4997-9550-bdcd456aa2f7.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [
+          "Kicker"
+        ],
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Kicker {2}{W}{W} (You may pay an additional {2}{W}{W} as you cast this spell.)\nChoose target creature you own. If this spell was kicked, instead choose any number of target creatures you own. Return each chosen creature to your hand. At the beginning of the next upkeep, create a 4/4 white Bird Soldier creature token with flying for each creature returned to your hand this way.",
+        "type_line": "Instant"
+      },
+      "categories": [
+        "End Game{noDeck}"
+      ],
+      "category_source": "decklist",
+      "name": "The Eagles Are Coming!",
+      "oracle_id": "169a4a77-12ff-4997-9550-bdcd456aa2f7",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hob/12/the-eagles-are-coming!?utm_source=api",
+      "submitted_categories": [
+        "End Game{noDeck}"
+      ],
+      "submitted_name": "The Eagles Are Coming!"
+    },
+    {
+      "cache": "cards/9d9b52b2-2edc-4f7f-a8d9-e024b1398847.json",
+      "card": {
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{2}{W}",
+            "name": "The Restoration of Eiganjo",
+            "oracle_text": "(As this Saga enters and after your draw step, add a lore counter.)\nI — Search your library for a basic Plains card, reveal it, put it into your hand, then shuffle.\nII — You may discard a card. When you do, return target permanent card with mana value 2 or less from your graveyard to the battlefield tapped.\nIII — Exile this Saga, then return it to the battlefield transformed under your control.",
+            "type_line": "Enchantment — Saga"
+          },
+          {
+            "mana_cost": "",
+            "name": "Architect of Restoration",
+            "oracle_text": "Vigilance\nWhenever this creature attacks or blocks, create a 1/1 colorless Spirit creature token.",
+            "power": "3",
+            "toughness": "4",
+            "type_line": "Enchantment Creature — Fox Monk"
+          }
+        ],
+        "keywords": [
+          "Vigilance",
+          "Transform"
+        ],
+        "type_line": "Enchantment — Saga // Enchantment Creature — Fox Monk"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "The Restoration of Eiganjo // Architect of Restoration",
+      "oracle_id": "9d9b52b2-2edc-4f7f-a8d9-e024b1398847",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/neo/34/the-restoration-of-eiganjo-architect-of-restoration?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "The Restoration of Eiganjo // Architect of Restoration"
+    },
+    {
+      "cache": "cards/b01e698b-608a-4fc7-8073-b01d044743ec.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{2}, {T}: This land becomes a copy of target land, except it has this ability.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Thespian's Stage",
+      "oracle_id": "b01e698b-608a-4fc7-8073-b01d044743ec",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/2xm/327/thespians-stage?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Thespian's Stage"
+    },
+    {
+      "cache": "cards/a699c663-8131-4045-9265-a83e86609374.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{4}",
+        "oracle_text": "{T}: Add {C}{C}{C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Thran Dynamo",
+      "oracle_id": "a699c663-8131-4045-9265-a83e86609374",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/cmm/415/thran-dynamo?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Thran Dynamo"
+    },
+    {
+      "cache": "cards/925cacdc-6d09-4fbd-9258-9f0539da180c.json",
+      "card": {
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{2}",
+        "oracle_text": "When Thrór's Map enters, search your library for a basic land card, reveal it, put it into your hand, then shuffle.\n{2}, {T}: Draw a card, then discard a card.",
+        "type_line": "Legendary Artifact"
+      },
+      "categories": [
+        "Looter"
+      ],
+      "category_source": "decklist",
+      "name": "Thrór's Map",
+      "oracle_id": "925cacdc-6d09-4fbd-9258-9f0539da180c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/hob/179/thr%C3%B3rs-map?utm_source=api",
+      "submitted_categories": [
+        "Looter"
+      ],
+      "submitted_name": "Thrór's Map"
+    },
+    {
+      "cache": "cards/a5ae93e9-0385-47fd-9d8f-306e9a6b7fe6.json",
+      "card": {
+        "cmc": 5.0,
+        "keywords": [
+          "Flying",
+          "Plainscycling",
+          "Landcycling",
+          "Typecycling",
+          "Cycling",
+          "Eternalize"
+        ],
+        "mana_cost": "{3}{W}{W}",
+        "oracle_text": "Flying\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)\nEternalize {2}{W}{W} ({2}{W}{W}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie Dragon with no mana cost. Eternalize only as a sorcery.)",
+        "power": "5",
+        "toughness": "5",
+        "type_line": "Creature — Dragon"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Timeless Dragon",
+      "oracle_id": "a5ae93e9-0385-47fd-9d8f-306e9a6b7fe6",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh2/35/timeless-dragon?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Timeless Dragon"
+    },
+    {
+      "cache": "cards/d9cc9fc9-522e-4598-9a09-c95824d77acd.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [
+          "Flying",
+          "Unearth",
+          "Trample",
+          "Menace"
+        ],
+        "mana_cost": "{7}",
+        "oracle_text": "Flying, menace, trample\nWhen Tri-Sentinel enters, for each opponent, Tri-Sentinel deals 3 damage to up to one target creature that player controls.\nUnearth {7} ({7}: Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.)",
+        "power": "7",
+        "toughness": "7",
+        "type_line": "Legendary Artifact Creature — Robot Villain"
+      },
+      "categories": [
+        "removal"
+      ],
+      "category_source": "decklist",
+      "name": "Tri-Sentinel, Act of Vengeance",
+      "oracle_id": "d9cc9fc9-522e-4598-9a09-c95824d77acd",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/115/tri-sentinel-act-of-vengeance?utm_source=api",
+      "submitted_categories": [
+        "removal"
+      ],
+      "submitted_name": "Tri-Sentinel, Act of Vengeance"
+    },
+    {
+      "cache": "cards/4a8f2104-57ec-4b23-9857-f26afa5cbcfe.json",
+      "card": {
+        "cmc": 7.0,
+        "keywords": [],
+        "mana_cost": "{7}",
+        "oracle_text": "Whenever you attack, choose odd or even. Creatures with mana value of that quality can't block this turn. (Zero is even.)\nEach other colorless creature you control has bloodthirst 2. (If an opponent was dealt damage this turn, that creature enters with two additional +1/+1 counters on it.)",
+        "power": "8",
+        "toughness": "6",
+        "type_line": "Creature — Eldrazi"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "category_source": "decklist",
+      "name": "Twins of Discord",
+      "oracle_id": "4a8f2104-57ec-4b23-9857-f26afa5cbcfe",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/m3c/37/twins-of-discord?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}"
+      ],
+      "submitted_name": "Twins of Discord"
+    },
+    {
+      "cache": "cards/4474ecee-0ec3-409b-90df-738d9313fe3c.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "{T}: Add {C}.\n{3}, {T}, Sacrifice this land: Search your library for a land card, put it onto the battlefield tapped, then shuffle.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Land — Urza's Cave"
+      },
+      "categories": [
+        "Land"
+      ],
+      "category_source": "decklist",
+      "name": "Urza's Cave",
+      "oracle_id": "4474ecee-0ec3-409b-90df-738d9313fe3c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/234/urzas-cave?utm_source=api",
+      "submitted_categories": [
+        "Land"
+      ],
+      "submitted_name": "Urza's Cave"
+    },
+    {
+      "cache": "cards/4573f044-7011-412e-81bd-ae8d0c21283b.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{2}, Sacrifice this artifact: Exile target creature. Return the exiled card to the battlefield under its owner's control at the beginning of the next end step.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "ALL BLINK"
+      ],
+      "category_source": "decklist",
+      "name": "Voyager Staff",
+      "oracle_id": "4573f044-7011-412e-81bd-ae8d0c21283b",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/rvr/271/voyager-staff?utm_source=api",
+      "submitted_categories": [
+        "ALL BLINK"
+      ],
+      "submitted_name": "Voyager Staff"
+    },
+    {
+      "cache": "cards/3c2aec69-ffd9-4a34-888c-58adbbb99bb5.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [],
+        "mana_cost": "{5}{W}{W}{W}",
+        "oracle_text": "When this creature enters, if you cast it from your hand, destroy all non-Dinosaur creatures.",
+        "power": "7",
+        "toughness": "7",
+        "type_line": "Creature — Dinosaur Avatar"
+      },
+      "categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "category_source": "decklist",
+      "name": "Wakening Sun's Avatar",
+      "oracle_id": "3c2aec69-ffd9-4a34-888c-58adbbb99bb5",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/lcc/139/wakening-suns-avatar?utm_source=api",
+      "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
+        "Creature"
+      ],
+      "submitted_name": "Wakening Sun's Avatar"
+    },
+    {
+      "cache": "cards/d5ee2ced-29f4-430f-962e-2f930b92624c.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Flash"
+        ],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "Flash\nWhen this creature enters, exile up to one other target non-Fox creature until this creature leaves the battlefield.\n{1}{W}, Sacrifice this creature: You gain 2 life.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Elf Fox Knight"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Werefox Bodyguard",
+      "oracle_id": "d5ee2ced-29f4-430f-962e-2f930b92624c",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/woe/39/werefox-bodyguard?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Werefox Bodyguard"
+    },
+    {
+      "cache": "cards/51d4f95e-aad2-4e5f-9f15-a68bbdf9ab3e.json",
+      "card": {
+        "cmc": 1.0,
+        "keywords": [],
+        "mana_cost": "{1}",
+        "oracle_text": "{1}, {T}, Sacrifice this artifact: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.\n{3}, {T}, Sacrifice this artifact: Search your library for a land card, reveal it, put it into your hand, then shuffle.",
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "World Map",
+      "oracle_id": "51d4f95e-aad2-4e5f-9f15-a68bbdf9ab3e",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/fin/270/world-map?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "World Map"
+    },
+    {
+      "cache": "cards/b166b670-febc-4821-855e-f8d465644c03.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [],
+        "mana_cost": "{3}",
+        "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}.",
+        "produced_mana": [
+          "C"
+        ],
+        "type_line": "Artifact"
+      },
+      "categories": [
+        "Ramp"
+      ],
+      "category_source": "decklist",
+      "name": "Worn Powerstone",
+      "oracle_id": "b166b670-febc-4821-855e-f8d465644c03",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/mh3/298/worn-powerstone?utm_source=api",
+      "submitted_categories": [
+        "Ramp"
+      ],
+      "submitted_name": "Worn Powerstone"
+    },
+    {
+      "cache": "cards/7da0e5de-3e4c-420a-8685-991206100b9d.json",
+      "card": {
+        "cmc": 8.0,
+        "keywords": [
+          "Flying",
+          "Indestructible",
+          "Vigilance",
+          "Trample",
+          "Double strike"
+        ],
+        "mana_cost": "{6}{W}{W}",
+        "oracle_text": "Flying, double strike, vigilance, trample, indestructible",
+        "power": "4",
+        "toughness": "8",
+        "type_line": "Legendary Creature — Elder Dinosaur"
+      },
+      "categories": [
+        "win-condition"
+      ],
+      "category_source": "decklist",
+      "name": "Zetalpa, Primal Dawn",
+      "oracle_id": "7da0e5de-3e4c-420a-8685-991206100b9d",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/tdc/142/zetalpa-primal-dawn?utm_source=api",
+      "submitted_categories": [
+        "win-condition"
+      ],
+      "submitted_name": "Zetalpa, Primal Dawn"
+    }
+  ],
+  "categorized_cards": 102,
+  "generated_at": "2026-09-23T07:35:11.335184+00:00",
+  "maybeboard_cards": 29,
+  "maybeboard_unique_cards": 29,
+  "resolved_unique_cards": 102,
+  "schema_version": 3,
+  "source": "decks/unrated_dack-faydens-party/decklist.txt",
+  "total_cards": 100,
+  "unique_cards": 73,
+  "unresolved": []
+}

@@ -1,0 +1,141 @@
+{
+  "arena_id": 97277,
+  "artist": "Yueko",
+  "artist_ids": [
+    "42c66a88-445c-4693-9742-be2203b51325"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 844403,
+  "cmc": 4.0,
+  "collector_number": "4",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6155,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "245e008c-e073-443f-9592-6f628c0026ec",
+  "illustration_id": "1b990a63-4e54-4520-9d12-9c442d4745da",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:10:08Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.webp?1783905008",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.jpg?1783905008",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.jpg?1783905008",
+    "crop": "https://cards.scryfall.io/crop/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.webp?1783905008",
+    "display": "https://cards.scryfall.io/display/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.webp?1783905008",
+    "grid": "https://cards.scryfall.io/grid/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.webp?1783905008",
+    "large": "https://cards.scryfall.io/large/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.jpg?1783905008",
+    "normal": "https://cards.scryfall.io/normal/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.jpg?1783905008",
+    "png": "https://cards.scryfall.io/png/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.png?1783905008",
+    "small": "https://cards.scryfall.io/small/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.jpg?1783905008",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/4/245e008c-e073-443f-9592-6f628c0026ec.webp?1783905008"
+  },
+  "keywords": [
+    "Flying",
+    "Airbend"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 144484,
+  "multiverse_ids": [],
+  "name": "Aang, the Last Airbender",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "70564c3a-858f-498e-8b92-acb3ca54ae7e",
+  "oracle_text": "Flying\nWhen Aang enters, airbend up to one other target nonland permanent. (Exile it. While it's exiled, its owner may cast it for {2} rather than its mana cost.)\nWhenever you cast a Lesson spell, Aang gains lifelink until end of turn.",
+  "oversized": false,
+  "power": "3",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.21",
+    "tix": "0.04",
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": "0.30"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A70564c3a-858f-498e-8b92-acb3ca54ae7e&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/144484?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=844403&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F649354%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aang%2C+the+Last+Airbender",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAang%252C%2Bthe%2BLast%2BAirbender",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAang%252C%2Bthe%2BLast%2BAirbender"
+  },
+  "released_at": "2025-11-21",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "036FA37BD2D5A856D959E101D4906131A87D6CB117F7E3DE03F945B80238444B",
+  "rulings_uri": "https://api.scryfall.com/cards/245e008c-e073-443f-9592-6f628c0026ec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tla?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tla/4/aang-the-last-airbender?utm_source=api",
+  "set": "tla",
+  "set_id": "118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "set_name": "Avatar: The Last Airbender",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atla&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "story_spotlight": false,
+  "tcgplayer_id": 649354,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Human Avatar Ally",
+  "uri": "https://api.scryfall.com/cards/245e008c-e073-443f-9592-6f628c0026ec",
+  "variation": false,
+  "watermark": "airnomads"
+}
