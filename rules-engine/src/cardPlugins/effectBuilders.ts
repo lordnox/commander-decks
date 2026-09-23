@@ -1019,6 +1019,13 @@ export const opponentsAtMost = (max: number): CardCondition => ({
   max,
 })
 
+export const opponentHasMore = (
+  stat: Extract<CardCondition, { kind: 'opponentHasMore' }>['stat'],
+): CardCondition => ({
+  kind: 'opponentHasMore',
+  stat,
+})
+
 export const opponentLostLifeThisTurn = (min: number): CardCondition => ({
   kind: 'opponentLostLifeThisTurn',
   min,
