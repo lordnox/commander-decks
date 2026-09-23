@@ -773,6 +773,17 @@ export const exchangeControlUntilEot = (): CardInstruction => ({
   kind: 'exchangeControlUntilEot',
 })
 
+export const gainControlPermanent = (): CardInstruction => ({ kind: 'gainControlPermanent' })
+
+export const pairDonateToOpponents = (
+  objectIds: string[],
+  distinctWhenBalanced = true,
+): CardInstruction => ({
+  kind: 'pairDonateToOpponents',
+  objectIds,
+  distinctWhenBalanced,
+})
+
 export const bounceAttacking = (): CardInstruction => ({ kind: 'bounceAttacking' })
 
 export const chooseVotesThisTurn = (): CardInstruction => ({ kind: 'chooseVotesThisTurn' })

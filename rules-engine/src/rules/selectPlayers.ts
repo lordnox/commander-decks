@@ -17,6 +17,7 @@ export type PendingPlayerSelection = {
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
     | { kind: 'copyStackItem'; stackId: string }
     | { kind: 'designateBattleProtector' }
+    | { kind: 'assignDonatedPermanent'; donationId: string; objectId: string }
     | {
         kind: 'putTriggeredAbility'
         instructions: CardInstruction[]

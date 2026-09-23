@@ -146,6 +146,12 @@ export type CardInstruction =
   | { kind: 'fight'; with: 'self-target' | 'two-targets' }
   | { kind: 'fightUpToOne' }
   | { kind: 'exchangeControlUntilEot' }
+  | { kind: 'gainControlPermanent' }
+  | {
+      kind: 'pairDonateToOpponents'
+      objectIds: string[]
+      distinctWhenBalanced?: boolean
+    }
   | { kind: 'bounceAttacking' }
   | { kind: 'chooseVotesThisTurn' }
   | { kind: 'createTreasures'; count: number; who: 'you' | 'targetController' }
