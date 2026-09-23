@@ -243,6 +243,9 @@ export type CardInstruction =
       min?: number
       max?: number
       optional?: boolean
+      kind: 'becomeCopyOfTarget'
+      filter: TargetFilter
+      keepAbility?: boolean
     }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
