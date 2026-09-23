@@ -1,0 +1,160 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "bf1ef8ec-d915-41f2-b087-3d6d82e3db85",
+      "name": "Akroma, Angel of Wrath",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Angel",
+      "uri": "https://api.scryfall.com/cards/bf1ef8ec-d915-41f2-b087-3d6d82e3db85"
+    },
+    {
+      "component": "combo_piece",
+      "id": "9a845742-a20d-4332-aaa8-d6cd2d5f482b",
+      "name": "Nivea, Beloved Battlemage",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Wizard Warrior",
+      "uri": "https://api.scryfall.com/cards/9a845742-a20d-4332-aaa8-d6cd2d5f482b"
+    }
+  ],
+  "artist": "Terese Nielsen",
+  "artist_ids": [
+    "eb55171c-2342-45f4-a503-2d5a75baf752"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 453558,
+  "cmc": 8.0,
+  "collector_number": "73",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4497,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Wrath is no vice when inflicted upon the deserving.\"",
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bf1ef8ec-d915-41f2-b087-3d6d82e3db85",
+  "illustration_id": "81e65bd6-af15-4880-9c99-409a543b5f6d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:26:46Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.webp?1783931206",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.jpg?1783931206",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.jpg?1783931206",
+    "crop": "https://cards.scryfall.io/crop/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.webp?1783931206",
+    "display": "https://cards.scryfall.io/display/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.webp?1783931206",
+    "grid": "https://cards.scryfall.io/grid/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.webp?1783931206",
+    "large": "https://cards.scryfall.io/large/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.jpg?1783931206",
+    "normal": "https://cards.scryfall.io/normal/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.jpg?1783931206",
+    "png": "https://cards.scryfall.io/png/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.png?1783931206",
+    "small": "https://cards.scryfall.io/small/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.jpg?1783931206",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/f/bf1ef8ec-d915-41f2-b087-3d6d82e3db85.webp?1783931206"
+  },
+  "keywords": [
+    "Flying",
+    "Vigilance",
+    "First strike",
+    "Protection",
+    "Haste",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}{W}",
+  "multiverse_ids": [
+    482701
+  ],
+  "name": "Akroma, Angel of Wrath",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "107f204c-9fd3-490d-8887-be63d14fc6a4",
+  "oracle_text": "Flying, first strike, vigilance, trample, haste, protection from black and from red",
+  "oversized": false,
+  "penny_rank": 5390,
+  "power": "6",
+  "prices": {
+    "eur": "2.95",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "3.43",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A107f204c-9fd3-490d-8887-be63d14fc6a4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Akroma%2C+Angel+of+Wrath&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=453558&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F212324%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Akroma%2C+Angel+of+Wrath",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=482701&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAkroma%252C%2BAngel%2Bof%2BWrath",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAkroma%252C%2BAngel%2Bof%2BWrath"
+  },
+  "released_at": "2020-04-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bf1ef8ec-d915-41f2-b087-3d6d82e3db85/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c20?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c20/73/akroma-angel-of-wrath?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c20",
+  "set_id": "f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "set_name": "Commander 2020",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac20&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/f60ec786-1f8d-42f7-9abc-0d880fe243f6",
+  "story_spotlight": false,
+  "tcgplayer_id": 212324,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/bf1ef8ec-d915-41f2-b087-3d6d82e3db85",
+  "variation": false
+}

@@ -1,0 +1,140 @@
+{
+  "arena_id": 72147,
+  "artist": "Jack Wang",
+  "artist_ids": [
+    "331942ac-401c-4af3-9d70-85f67717496c"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 473714,
+  "cmc": 7.0,
+  "collector_number": "85",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8904,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "She arrived like a meteorite, and the enemy fell in a shock wave of holy vengeance.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "b7ab81d4-aaf7-4c72-9651-5e1482126928",
+  "illustration_id": "ce6f3bdd-aefd-42f8-8d8d-97fb57b4461c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:14:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.webp?1783930481",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.jpg?1783930481",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.jpg?1783930481",
+    "crop": "https://cards.scryfall.io/crop/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.webp?1783930481",
+    "display": "https://cards.scryfall.io/display/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.webp?1783930481",
+    "grid": "https://cards.scryfall.io/grid/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.webp?1783930481",
+    "large": "https://cards.scryfall.io/large/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.jpg?1783930481",
+    "normal": "https://cards.scryfall.io/normal/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.jpg?1783930481",
+    "png": "https://cards.scryfall.io/png/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.png?1783930481",
+    "small": "https://cards.scryfall.io/small/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.jpg?1783930481",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/7/b7ab81d4-aaf7-4c72-9651-5e1482126928.webp?1783930481"
+  },
+  "keywords": [
+    "Flying",
+    "Flash"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}",
+  "multiverse_ids": [
+    489569
+  ],
+  "name": "Angel of the Dire Hour",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b1e6b7c-892d-4058-b183-9121cdd623f0",
+  "oracle_text": "Flash\nFlying\nWhen this creature enters, if you cast it from your hand, exile all attacking creatures.",
+  "oversized": false,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2020-06-19",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.94",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "2.32",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b1e6b7c-892d-4058-b183-9121cdd623f0&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Angel+of+the+Dire+Hour&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=473714&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F216353%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Angel+of+the+Dire+Hour",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=489569&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2Bthe%2BDire%2BHour",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2Bthe%2BDire%2BHour"
+  },
+  "released_at": "2020-07-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b7ab81d4-aaf7-4c72-9651-5e1482126928/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/jmp?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/jmp/85/angel-of-the-dire-hour?utm_source=api",
+  "security_stamp": "oval",
+  "set": "jmp",
+  "set_id": "0f6ccf25-a627-4263-86df-5757137f1696",
+  "set_name": "Jumpstart",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ajmp&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/0f6ccf25-a627-4263-86df-5757137f1696",
+  "story_spotlight": false,
+  "tcgplayer_id": 216353,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/b7ab81d4-aaf7-4c72-9651-5e1482126928",
+  "variation": false
+}

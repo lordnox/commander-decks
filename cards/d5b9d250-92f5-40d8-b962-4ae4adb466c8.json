@@ -1,0 +1,133 @@
+{
+  "arena_id": 70527,
+  "artist": "Tomasz Jedruszek",
+  "artist_ids": [
+    "bba69285-2445-4a4b-a847-59397be972ea"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 432069,
+  "cmc": 2.0,
+  "collector_number": "16",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2108,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "An infinite journey in an infinitesimal time.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "59e19bac-176c-4e37-bfc8-27c00de7c37f",
+  "illustration_id": "5fa22c4e-66da-446b-9637-aafb4e95d14b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:33:17Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.webp?1783931597",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.jpg?1783931597",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.jpg?1783931597",
+    "crop": "https://cards.scryfall.io/crop/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.webp?1783931597",
+    "display": "https://cards.scryfall.io/display/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.webp?1783931597",
+    "grid": "https://cards.scryfall.io/grid/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.webp?1783931597",
+    "large": "https://cards.scryfall.io/large/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.jpg?1783931597",
+    "normal": "https://cards.scryfall.io/normal/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.jpg?1783931597",
+    "png": "https://cards.scryfall.io/png/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.png?1783931597",
+    "small": "https://cards.scryfall.io/small/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.jpg?1783931597",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/9/59e19bac-176c-4e37-bfc8-27c00de7c37f.webp?1783931597"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 79156,
+  "multiverse_ids": [
+    476267
+  ],
+  "name": "Flicker of Fate",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d5b9d250-92f5-40d8-b962-4ae4adb466c8",
+  "oracle_text": "Exile target creature or enchantment, then return it to the battlefield under its owner's control.",
+  "oversized": false,
+  "penny_rank": 4654,
+  "prices": {
+    "eur": "0.17",
+    "eur_foil": "0.57",
+    "tix": "0.03",
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.84"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad5b9d250-92f5-40d8-b962-4ae4adb466c8&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/79156?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=432069&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F207097%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Flicker+of+Fate",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=476267&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DFlicker%2Bof%2BFate",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DFlicker%2Bof%2BFate"
+  },
+  "released_at": "2020-01-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/59e19bac-176c-4e37-bfc8-27c00de7c37f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/thb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/thb/16/flicker-of-fate?utm_source=api",
+  "set": "thb",
+  "set_id": "5f23a78d-cda1-462a-8be3-a62b40c34913",
+  "set_name": "Theros Beyond Death",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Athb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5f23a78d-cda1-462a-8be3-a62b40c34913",
+  "story_spotlight": false,
+  "tcgplayer_id": 207097,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/59e19bac-176c-4e37-bfc8-27c00de7c37f",
+  "variation": false
+}

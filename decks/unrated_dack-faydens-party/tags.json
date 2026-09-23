@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "title": "Dack Fayden — Dack Fayden's Party",
+  "summary": "Mono-white donate-blink: Dack dumps ETB creatures, you take the enters, then each opponent is handed a goaded party guest.",
+  "tags": [
+    {
+      "name": "blink",
+      "score": 5,
+      "reason": "Self-blink restamps Dack; owner-return blinks reclaim donated cages."
+    },
+    {
+      "name": "donate",
+      "score": 5,
+      "reason": "The commander gives each opponent a creature after you take its enter trigger."
+    },
+    {
+      "name": "exile",
+      "score": 4,
+      "reason": "The Fiend Hunter suite and Helvault or desert lands are the interaction package."
+    },
+    {
+      "name": "forced combat",
+      "score": 3,
+      "reason": "Donated creatures are goaded for the rest of the game, so they keep attacking someone else."
+    },
+    {
+      "name": "politics",
+      "score": 3,
+      "reason": "Who receives which goaded guest, and which cage stays closed, is a table conversation."
+    },
+    {
+      "name": "ramp",
+      "score": 3,
+      "reason": "A dense rock suite exists to cast the six-mana commander on time."
+    },
+    {
+      "name": "angels",
+      "score": 2,
+      "reason": "Several payload creatures are Angels, but there is no angel tribal payoff."
+    },
+    {
+      "name": "midrange",
+      "score": 2,
+      "reason": "The deck develops a creature board and wins in combat rather than combo."
+    }
+  ]
+}

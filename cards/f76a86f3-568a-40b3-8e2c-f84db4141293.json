@@ -1,0 +1,139 @@
+{
+  "arena_id": 91547,
+  "artist": "Betty Jiang",
+  "artist_ids": [
+    "2e823b11-7bf4-49b6-986a-8a6fb10d74eb"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778119,
+  "cmc": 5.0,
+  "collector_number": "11",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 21492,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"The fog is descending like a starving beast. I believe our expedition ends here.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d7ab2de3-3aea-461a-a74f-fb742cf8a198",
+  "illustration_id": "c1b71de8-e03c-4d20-9ccd-4e589e3013a8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.webp?1783910861",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.jpg?1783910861",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.jpg?1783910861",
+    "crop": "https://cards.scryfall.io/crop/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.webp?1783910861",
+    "display": "https://cards.scryfall.io/display/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.webp?1783910861",
+    "grid": "https://cards.scryfall.io/grid/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.webp?1783910861",
+    "large": "https://cards.scryfall.io/large/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.jpg?1783910861",
+    "normal": "https://cards.scryfall.io/normal/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.jpg?1783910861",
+    "png": "https://cards.scryfall.io/png/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.png?1783910861",
+    "small": "https://cards.scryfall.io/small/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.jpg?1783910861",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/7/d7ab2de3-3aea-461a-a74f-fb742cf8a198.webp?1783910861"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}{W}",
+  "mtgo_id": 129267,
+  "multiverse_ids": [
+    668925
+  ],
+  "name": "Driftgloom Coyote",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f76a86f3-568a-40b3-8e2c-f84db4141293",
+  "oracle_text": "When this creature enters, exile target creature an opponent controls until this creature leaves the battlefield. If that creature had power 2 or less, put a +1/+1 counter on this creature.",
+  "oversized": false,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2024-07-11",
+    "source": "Limited Resources",
+    "source_uri": "https://twitter.com/Marshall_LR/status/1811570808604807458"
+  },
+  "prices": {
+    "eur": "0.06",
+    "eur_foil": "0.17",
+    "tix": "0.03",
+    "usd": "0.19",
+    "usd_etched": null,
+    "usd_foil": "0.22"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af76a86f3-568a-40b3-8e2c-f84db4141293&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129267?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778119&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559039%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Driftgloom+Coyote",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668925&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDriftgloom%2BCoyote",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDriftgloom%2BCoyote"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d7ab2de3-3aea-461a-a74f-fb742cf8a198/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/11/driftgloom-coyote?utm_source=api",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559039,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Elemental Coyote",
+  "uri": "https://api.scryfall.com/cards/d7ab2de3-3aea-461a-a74f-fb742cf8a198",
+  "variation": false
+}

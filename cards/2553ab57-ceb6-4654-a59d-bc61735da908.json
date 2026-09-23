@@ -1,0 +1,143 @@
+{
+  "arena_id": 84264,
+  "artist": "Cynthia Sheppard",
+  "artist_ids": [
+    "9dfbdd58-65e6-40cf-951a-80e141061939"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 703460,
+  "cmc": 3.0,
+  "collector_number": "16",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 8208,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "She was hope incarnate, an incandescent bulwark against the tide of machines.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2",
+  "illustration_id": "47aca9f4-0248-45c4-8f17-6ce0cd663979",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:31:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.webp?1783917062",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.jpg?1783917062",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.jpg?1783917062",
+    "crop": "https://cards.scryfall.io/crop/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.webp?1783917062",
+    "display": "https://cards.scryfall.io/display/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.webp?1783917062",
+    "grid": "https://cards.scryfall.io/grid/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.webp?1783917062",
+    "large": "https://cards.scryfall.io/large/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.jpg?1783917062",
+    "normal": "https://cards.scryfall.io/normal/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.jpg?1783917062",
+    "png": "https://cards.scryfall.io/png/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.png?1783917062",
+    "small": "https://cards.scryfall.io/small/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.jpg?1783917062",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/5/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2.webp?1783917062"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 109828,
+  "multiverse_ids": [
+    607028
+  ],
+  "name": "Guardian of Ghirapur",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2553ab57-ceb6-4654-a59d-bc61735da908",
+  "oracle_text": "Flying\nWhen this creature enters, exile up to one other target creature or artifact you control. Return it to the battlefield under its owner's control at the beginning of the next end step.",
+  "oversized": false,
+  "penny_rank": 582,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2023-03-29",
+    "source": "Cedric Phillips",
+    "source_uri": "https://twitter.com/CedricAPhillips/status/1641107956350570496"
+  },
+  "prices": {
+    "eur": "0.25",
+    "eur_foil": "0.57",
+    "tix": "0.02",
+    "usd": "0.39",
+    "usd_etched": null,
+    "usd_foil": "0.38"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2553ab57-ceb6-4654-a59d-bc61735da908&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/109828?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=703460&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F490487%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Guardian+of+Ghirapur",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=607028&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGuardian%2Bof%2BGhirapur",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGuardian%2Bof%2BGhirapur"
+  },
+  "released_at": "2023-04-21",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mom?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mom/16/guardian-of-ghirapur?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mom",
+  "set_id": "392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "set_name": "March of the Machine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amom&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/392f7315-dc53-40a3-a2cc-5482dbd498b3",
+  "story_spotlight": false,
+  "tcgplayer_id": 490487,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/9503a1e6-f0bf-44d0-a28b-56fbfcff1ff2",
+  "variation": false
+}

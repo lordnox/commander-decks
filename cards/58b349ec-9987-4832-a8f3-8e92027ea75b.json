@@ -1,0 +1,137 @@
+{
+  "artist": "David Palumbo",
+  "artist_ids": [
+    "04ce1c75-e30c-4b7a-8cb0-b53e4ecc2f39"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 290927,
+  "cmc": 5.0,
+  "collector_number": "47",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7448,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Let the points of our lances lead the way.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9930d08d-5965-4c16-a84d-43c8ccf2ad0b",
+  "illustration_id": "dcfaacd7-01bb-4833-989e-348df6ca3240",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:11:47Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.webp?1783937507",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.jpg?1783937507",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.jpg?1783937507",
+    "crop": "https://cards.scryfall.io/crop/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.webp?1783937507",
+    "display": "https://cards.scryfall.io/display/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.webp?1783937507",
+    "grid": "https://cards.scryfall.io/grid/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.webp?1783937507",
+    "large": "https://cards.scryfall.io/large/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.jpg?1783937507",
+    "normal": "https://cards.scryfall.io/normal/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.jpg?1783937507",
+    "png": "https://cards.scryfall.io/png/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.png?1783937507",
+    "small": "https://cards.scryfall.io/small/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.jpg?1783937507",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/9/9930d08d-5965-4c16-a84d-43c8ccf2ad0b.webp?1783937507"
+  },
+  "keywords": [
+    "First strike"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}{W}",
+  "mtgo_foil_id": 61311,
+  "mtgo_id": 61310,
+  "multiverse_ids": [
+    414339
+  ],
+  "name": "Thalia's Lancers",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "58b349ec-9987-4832-a8f3-8e92027ea75b",
+  "oracle_text": "First strike\nWhen this creature enters, you may search your library for a legendary card, reveal it, put it into your hand, then shuffle.",
+  "oversized": false,
+  "penny_rank": 4564,
+  "power": "4",
+  "prices": {
+    "eur": "0.53",
+    "eur_foil": "0.86",
+    "tix": "0.02",
+    "usd": "0.45",
+    "usd_etched": null,
+    "usd_foil": "1.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A58b349ec-9987-4832-a8f3-8e92027ea75b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/61310?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=290927&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F119690%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Thalia%27s+Lancers",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=414339&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThalia%2527s%2BLancers",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThalia%2527s%2BLancers"
+  },
+  "released_at": "2016-07-22",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9930d08d-5965-4c16-a84d-43c8ccf2ad0b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/emn?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/emn/47/thalias-lancers?utm_source=api",
+  "security_stamp": "oval",
+  "set": "emn",
+  "set_id": "5f0e4093-334f-4439-bbb5-a0affafd0ffc",
+  "set_name": "Eldritch Moon",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aemn&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/5f0e4093-334f-4439-bbb5-a0affafd0ffc",
+  "story_spotlight": false,
+  "tcgplayer_id": 119690,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Human Knight",
+  "uri": "https://api.scryfall.com/cards/9930d08d-5965-4c16-a84d-43c8ccf2ad0b",
+  "variation": false
+}

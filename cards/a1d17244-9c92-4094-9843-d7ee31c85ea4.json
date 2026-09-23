@@ -1,0 +1,172 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5e289bb3-f6de-450d-9f7e-77e2e70cb7cc",
+      "name": "On an Adventure",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/5e289bb3-f6de-450d-9f7e-77e2e70cb7cc"
+    },
+    {
+      "component": "combo_piece",
+      "id": "d6fc6ed9-740a-4726-8f2c-5d662636f687",
+      "name": "Realm-Cloaked Giant // Cast Off",
+      "object": "related_card",
+      "type_line": "Creature — Giant // Sorcery — Adventure",
+      "uri": "https://api.scryfall.com/cards/d6fc6ed9-740a-4726-8f2c-5d662636f687"
+    }
+  ],
+  "artist": "Adam Paquette",
+  "artist_ids": [
+    "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_faces": [
+    {
+      "artist": "Adam Paquette",
+      "artist_id": "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2",
+      "illustration_id": "6db841f6-7c2b-4248-8e99-3eb08f381b1c",
+      "mana_cost": "{5}{W}{W}",
+      "name": "Realm-Cloaked Giant",
+      "object": "card_face",
+      "oracle_text": "Vigilance",
+      "power": "7",
+      "toughness": "7",
+      "type_line": "Creature — Giant"
+    },
+    {
+      "artist": "Adam Paquette",
+      "artist_id": "89023dad-e6c0-41e0-83fb-eb2bfbbdc3f2",
+      "mana_cost": "{3}{W}{W}",
+      "name": "Cast Off",
+      "object": "card_face",
+      "oracle_text": "Destroy all non-Giant creatures. (Then exile this card. You may cast the creature later from exile.)",
+      "type_line": "Sorcery — Adventure"
+    }
+  ],
+  "cardmarket_id": 572243,
+  "cmc": 7.0,
+  "collector_number": "70",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 7142,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "d6fc6ed9-740a-4726-8f2c-5d662636f687",
+  "illustration_id": "6db841f6-7c2b-4248-8e99-3eb08f381b1c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T07:03:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.webp?1783926231",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.jpg?1783926231",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.jpg?1783926231",
+    "crop": "https://cards.scryfall.io/crop/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.webp?1783926231",
+    "display": "https://cards.scryfall.io/display/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.webp?1783926231",
+    "grid": "https://cards.scryfall.io/grid/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.webp?1783926231",
+    "large": "https://cards.scryfall.io/large/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.jpg?1783926231",
+    "normal": "https://cards.scryfall.io/normal/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.jpg?1783926231",
+    "png": "https://cards.scryfall.io/png/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.png?1783926231",
+    "small": "https://cards.scryfall.io/small/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.jpg?1783926231",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/6/d6fc6ed9-740a-4726-8f2c-5d662636f687.webp?1783926231"
+  },
+  "keywords": [
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "adventure",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W} // {3}{W}{W}",
+  "multiverse_ids": [
+    532457
+  ],
+  "name": "Realm-Cloaked Giant // Cast Off",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "a1d17244-9c92-4094-9843-d7ee31c85ea4",
+  "oversized": false,
+  "penny_rank": 6012,
+  "power": "7",
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.25",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aa1d17244-9c92-4094-9843-d7ee31c85ea4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Realm-Cloaked+Giant&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=572243&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F243817%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Realm-Cloaked+Giant",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=532457&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRealm-Cloaked%2BGiant%2B%252F%252F%2BCast%2BOff",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRealm-Cloaked%2BGiant%2B%252F%252F%2BCast%2BOff"
+  },
+  "released_at": "2021-07-23",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d6fc6ed9-740a-4726-8f2c-5d662636f687/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/afc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/afc/70/realm-cloaked-giant-cast-off?utm_source=api",
+  "security_stamp": "oval",
+  "set": "afc",
+  "set_id": "db1b46f9-893c-4623-9465-985ff6e4472c",
+  "set_name": "Forgotten Realms Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aafc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/db1b46f9-893c-4623-9465-985ff6e4472c",
+  "story_spotlight": false,
+  "tcgplayer_id": 243817,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Creature — Giant // Sorcery — Adventure",
+  "uri": "https://api.scryfall.com/cards/d6fc6ed9-740a-4726-8f2c-5d662636f687",
+  "variation": false
+}

@@ -1,0 +1,141 @@
+{
+  "artist": "Viko Menezes",
+  "artist_ids": [
+    "92dfef2a-d0fa-42fd-bdd6-bc4c9286cb56"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 834238,
+  "cmc": 7.0,
+  "collector_number": "63",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1066,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e",
+  "illustration_id": "99bea449-9008-4ad6-8a93-efe0a426983c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:27:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.webp?1783906047",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.jpg?1783906047",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.jpg?1783906047",
+    "crop": "https://cards.scryfall.io/crop/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.webp?1783906047",
+    "display": "https://cards.scryfall.io/display/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.webp?1783906047",
+    "grid": "https://cards.scryfall.io/grid/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.webp?1783906047",
+    "large": "https://cards.scryfall.io/large/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.jpg?1783906047",
+    "normal": "https://cards.scryfall.io/normal/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.jpg?1783906047",
+    "png": "https://cards.scryfall.io/png/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.png?1783906047",
+    "small": "https://cards.scryfall.io/small/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.jpg?1783906047",
+    "thumb": "https://cards.scryfall.io/thumb/front/4/a/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e.webp?1783906047"
+  },
+  "keywords": [
+    "Flying",
+    "Plainscycling",
+    "Landcycling",
+    "Typecycling",
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}",
+  "mtgo_id": 142263,
+  "multiverse_ids": [],
+  "name": "Angel of the Ruins",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "14878a5f-7983-4133-a1a7-9d539531e092",
+  "oracle_text": "Flying\nWhen this creature enters, exile up to two target artifacts and/or enchantments.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+  "oversized": false,
+  "penny_rank": 5913,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2025-07-10",
+    "source": "EDHijinks",
+    "source_uri": "https://www.youtube.com/watch?v=Swjj0JGhFco"
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": null,
+    "tix": "0.03",
+    "usd": "0.23",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A14878a5f-7983-4133-a1a7-9d539531e092&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/142263?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=834238&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F642784%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Angel+of+the+Ruins",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2Bthe%2BRuins",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAngel%2Bof%2Bthe%2BRuins"
+  },
+  "released_at": "2025-08-01",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "263E07CDD45DD613FE1DEFA3B57A22717F57BC1ABF43BA0951D496CABDCA39C8",
+  "rulings_uri": "https://api.scryfall.com/cards/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eoc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eoc/63/angel-of-the-ruins?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eoc",
+  "set_id": "b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "set_name": "Edge of Eternities Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/b6ec8c6b-b4e6-4cb4-84d6-06234ace3b44",
+  "story_spotlight": false,
+  "tcgplayer_id": 642784,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Artifact Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/4ad8d899-5901-4fc8-b4f0-adcc0d97fc6e",
+  "variation": false
+}

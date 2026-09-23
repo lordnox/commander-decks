@@ -1,0 +1,133 @@
+{
+  "artist": "Tyler Jacobson",
+  "artist_ids": [
+    "522af130-8db4-4b4b-950c-6e2b246339cf"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 743492,
+  "cmc": 8.0,
+  "collector_number": "139",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 3245,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Kinjalli's encompassing rays herald new life in the moment of the sun's dawning.\"\n—Chitlati, Lightning Rider",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "820b6327-2cbf-4054-bc33-4baf9c26dd70",
+  "illustration_id": "c4a9e213-c289-4937-8708-82618c21c427",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:38:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.webp?1783913893",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.jpg?1783913893",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.jpg?1783913893",
+    "crop": "https://cards.scryfall.io/crop/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.webp?1783913893",
+    "display": "https://cards.scryfall.io/display/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.webp?1783913893",
+    "grid": "https://cards.scryfall.io/grid/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.webp?1783913893",
+    "large": "https://cards.scryfall.io/large/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.jpg?1783913893",
+    "normal": "https://cards.scryfall.io/normal/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.jpg?1783913893",
+    "png": "https://cards.scryfall.io/png/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.png?1783913893",
+    "small": "https://cards.scryfall.io/small/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.jpg?1783913893",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/2/820b6327-2cbf-4054-bc33-4baf9c26dd70.webp?1783913893"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}{W}",
+  "mtgo_id": 118674,
+  "multiverse_ids": [
+    640435
+  ],
+  "name": "Wakening Sun's Avatar",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3c2aec69-ffd9-4a34-888c-58adbbb99bb5",
+  "oracle_text": "When this creature enters, if you cast it from your hand, destroy all non-Dinosaur creatures.",
+  "oversized": false,
+  "penny_rank": 18087,
+  "power": "7",
+  "prices": {
+    "eur": "0.40",
+    "eur_foil": null,
+    "tix": "0.10",
+    "usd": "0.40",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3c2aec69-ffd9-4a34-888c-58adbbb99bb5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/118674?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743492&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F525757%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wakening+Sun%27s+Avatar",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=640435&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWakening%2BSun%2527s%2BAvatar",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWakening%2BSun%2527s%2BAvatar"
+  },
+  "released_at": "2023-11-17",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/820b6327-2cbf-4054-bc33-4baf9c26dd70/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lcc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lcc/139/wakening-suns-avatar?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lcc",
+  "set_id": "d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "set_name": "The Lost Caverns of Ixalan Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alcc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d253edc3-5bc7-4cf1-9446-a8540dedffa5",
+  "story_spotlight": false,
+  "tcgplayer_id": 525757,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Creature — Dinosaur Avatar",
+  "uri": "https://api.scryfall.com/cards/820b6327-2cbf-4054-bc33-4baf9c26dd70",
+  "variation": false
+}

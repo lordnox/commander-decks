@@ -1,0 +1,153 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "62a7ff97-b940-4745-9e2e-3258fb51b846",
+      "name": "The Eagles Are Coming!",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/62a7ff97-b940-4745-9e2e-3258fb51b846"
+    },
+    {
+      "component": "token",
+      "id": "9ed2d2f3-e1b0-41e0-a29d-31624e5e9004",
+      "name": "Bird Soldier",
+      "object": "related_card",
+      "type_line": "Token Creature — Bird Soldier",
+      "uri": "https://api.scryfall.com/cards/9ed2d2f3-e1b0-41e0-a29d-31624e5e9004"
+    }
+  ],
+  "arena_id": 103380,
+  "artist": "Zezhou Chen",
+  "artist_ids": [
+    "810677e5-a502-4c03-b726-78cd808a75d4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 898478,
+  "cmc": 2.0,
+  "collector_number": "12",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 11566,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "0bda1b62-47fc-42c2-a841-ccad8ea0db48",
+  "illustration_id": "cbed36eb-3ed4-48f2-9f14-ce51a8b23138",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-18T12:15:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.webp?1784376936",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.jpg?1784376936",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.jpg?1784376936",
+    "crop": "https://cards.scryfall.io/crop/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.webp?1784376936",
+    "display": "https://cards.scryfall.io/display/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.webp?1784376936",
+    "grid": "https://cards.scryfall.io/grid/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.webp?1784376936",
+    "large": "https://cards.scryfall.io/large/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.jpg?1784376936",
+    "normal": "https://cards.scryfall.io/normal/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.jpg?1784376936",
+    "png": "https://cards.scryfall.io/png/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.png?1784376936",
+    "small": "https://cards.scryfall.io/small/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.jpg?1784376936",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/b/0bda1b62-47fc-42c2-a841-ccad8ea0db48.webp?1784376936"
+  },
+  "keywords": [
+    "Kicker"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 153938,
+  "multiverse_ids": [],
+  "name": "The Eagles Are Coming!",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "169a4a77-12ff-4997-9550-bdcd456aa2f7",
+  "oracle_text": "Kicker {2}{W}{W} (You may pay an additional {2}{W}{W} as you cast this spell.)\nChoose target creature you own. If this spell was kicked, instead choose any number of target creatures you own. Return each chosen creature to your hand. At the beginning of the next upkeep, create a 4/4 white Bird Soldier creature token with flying for each creature returned to your hand this way.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.60",
+    "eur_foil": "0.81",
+    "tix": "0.01",
+    "usd": "0.41",
+    "usd_etched": null,
+    "usd_foil": "0.69"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A169a4a77-12ff-4997-9550-bdcd456aa2f7&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/153938?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=898478&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F707057%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Eagles+Are+Coming%21",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BEagles%2BAre%2BComing%2521",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BEagles%2BAre%2BComing%2521"
+  },
+  "released_at": "2026-08-14",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "0B757F5EF78151F8C16628FCE4F9CF6B759324058EB7432EB7443C484D014A73",
+  "rulings_uri": "https://api.scryfall.com/cards/0bda1b62-47fc-42c2-a841-ccad8ea0db48/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hob?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hob/12/the-eagles-are-coming!?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hob",
+  "set_id": "59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "set_name": "The Hobbit",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahob&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "story_spotlight": false,
+  "tcgplayer_id": 707057,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/0bda1b62-47fc-42c2-a841-ccad8ea0db48",
+  "variation": false
+}

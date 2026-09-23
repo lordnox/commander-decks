@@ -1,0 +1,134 @@
+{
+  "artist": "Lius Lasahido",
+  "artist_ids": [
+    "0a0e9093-ce44-4a69-93a7-09b63e7c330d"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 805709,
+  "cmc": 6.0,
+  "collector_number": "43",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 9498,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The remnants of Innistrad's corrupted angelic hosts collapsed to form the Flight of Nightmares.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "bb89585f-0c68-42e6-8115-07d5752f6c1c",
+  "illustration_id": "f32870f3-c4cb-4268-aa9c-27126ceb8d60",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:02:53Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.webp?1783908173",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.jpg?1783908173",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.jpg?1783908173",
+    "crop": "https://cards.scryfall.io/crop/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.webp?1783908173",
+    "display": "https://cards.scryfall.io/display/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.webp?1783908173",
+    "grid": "https://cards.scryfall.io/grid/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.webp?1783908173",
+    "large": "https://cards.scryfall.io/large/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.jpg?1783908173",
+    "normal": "https://cards.scryfall.io/normal/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.jpg?1783908173",
+    "png": "https://cards.scryfall.io/png/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.png?1783908173",
+    "small": "https://cards.scryfall.io/small/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.jpg?1783908173",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/b/bb89585f-0c68-42e6-8115-07d5752f6c1c.webp?1783908173"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "mtgo_id": 135448,
+  "multiverse_ids": [
+    685860
+  ],
+  "name": "Subjugator Angel",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "88b1e06c-5899-4e83-8204-e2c32c0c6aff",
+  "oracle_text": "Flying\nWhen this creature enters, tap all creatures your opponents control.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "0.12",
+    "eur_foil": "0.23",
+    "tix": "0.04",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": "0.41"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A88b1e06c-5899-4e83-8204-e2c32c0c6aff&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/135448?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=805709&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F610013%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Subjugator+Angel",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=685860&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSubjugator%2BAngel",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSubjugator%2BAngel"
+  },
+  "released_at": "2025-01-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bb89585f-0c68-42e6-8115-07d5752f6c1c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/inr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/inr/43/subjugator-angel?utm_source=api",
+  "set": "inr",
+  "set_id": "b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "set_name": "Innistrad Remastered",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ainr&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/b9618c8c-9f31-4b42-9798-2991893c27bf",
+  "story_spotlight": false,
+  "tcgplayer_id": 610013,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Angel",
+  "uri": "https://api.scryfall.com/cards/bb89585f-0c68-42e6-8115-07d5752f6c1c",
+  "variation": false
+}

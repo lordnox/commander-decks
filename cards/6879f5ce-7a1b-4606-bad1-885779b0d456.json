@@ -1,0 +1,133 @@
+{
+  "arena_id": 98297,
+  "artist": "Devin Elle Kurtz",
+  "artist_ids": [
+    "7324e6e2-bb7c-467c-b615-ef52328c1857"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 857904,
+  "cmc": 1.0,
+  "collector_number": "152",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 780,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Clouds are made of water and air, so between the two of us, we ought to be able to bend them into any shape we want.\"\n—Aang",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6dc0c976-26d2-40c9-a571-c370e9139d1d",
+  "illustration_id": "24465ec9-9e62-4890-abd9-9b3aeb098b3b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:06:49Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.webp?1783904809",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.jpg?1783904809",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.jpg?1783904809",
+    "crop": "https://cards.scryfall.io/crop/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.webp?1783904809",
+    "display": "https://cards.scryfall.io/display/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.webp?1783904809",
+    "grid": "https://cards.scryfall.io/grid/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.webp?1783904809",
+    "large": "https://cards.scryfall.io/large/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.jpg?1783904809",
+    "normal": "https://cards.scryfall.io/normal/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.jpg?1783904809",
+    "png": "https://cards.scryfall.io/png/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.png?1783904809",
+    "small": "https://cards.scryfall.io/small/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.jpg?1783904809",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/d/6dc0c976-26d2-40c9-a571-c370e9139d1d.webp?1783904809"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "multiverse_ids": [],
+  "name": "Cloudshift",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6879f5ce-7a1b-4606-bad1-885779b0d456",
+  "oracle_text": "Exile target creature you control, then return that card to the battlefield under your control.",
+  "oversized": false,
+  "penny_rank": 3221,
+  "prices": {
+    "eur": "1.90",
+    "eur_foil": "1.99",
+    "tix": null,
+    "usd": "1.27",
+    "usd_etched": null,
+    "usd_foil": "3.17"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6879f5ce-7a1b-4606-bad1-885779b0d456&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Cloudshift&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=857904&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662377%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Cloudshift",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCloudshift",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCloudshift"
+  },
+  "released_at": "2025-11-21",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "811B0065BE9EE6BC9DB4B97CCE460FDC6297A17192CAE08F1ACCC92DBA3E4E8C",
+  "rulings_uri": "https://api.scryfall.com/cards/6dc0c976-26d2-40c9-a571-c370e9139d1d/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tle?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tle/152/cloudshift?utm_source=api",
+  "set": "tle",
+  "set_id": "a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "set_name": "Avatar: The Last Airbender Eternal",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atle&unique=prints",
+  "set_type": "eternal",
+  "set_uri": "https://api.scryfall.com/sets/a75e6ceb-d62c-4063-8e96-f269e3a0b025",
+  "story_spotlight": false,
+  "tcgplayer_id": 662377,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/6dc0c976-26d2-40c9-a571-c370e9139d1d",
+  "variation": false
+}

@@ -1,0 +1,135 @@
+{
+  "artist": "Stephan Martiniere",
+  "artist_ids": [
+    "018799f5-76d7-4849-9375-f1b9030977e6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 259909,
+  "cmc": 7.0,
+  "collector_number": "20",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 12683,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b0747b12-c75a-4fdf-a881-f2383a23ccdd",
+  "illustration_id": "ea09cbcb-5b76-43c1-818a-662cecb46bf1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:55:42Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.webp?1783940142",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.jpg?1783940142",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.jpg?1783940142",
+    "crop": "https://cards.scryfall.io/crop/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.webp?1783940142",
+    "display": "https://cards.scryfall.io/display/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.webp?1783940142",
+    "grid": "https://cards.scryfall.io/grid/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.webp?1783940142",
+    "large": "https://cards.scryfall.io/large/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.jpg?1783940142",
+    "normal": "https://cards.scryfall.io/normal/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.jpg?1783940142",
+    "png": "https://cards.scryfall.io/png/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.png?1783940142",
+    "small": "https://cards.scryfall.io/small/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.jpg?1783940142",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/0/b0747b12-c75a-4fdf-a881-f2383a23ccdd.webp?1783940142"
+  },
+  "keywords": [
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}{W}",
+  "mtgo_foil_id": 47910,
+  "mtgo_id": 47909,
+  "multiverse_ids": [
+    366240
+  ],
+  "name": "Luminate Primordial",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c1bc819a-f291-4b55-94f7-269f160ce76b",
+  "oracle_text": "Vigilance\nWhen this creature enters, for each opponent, exile up to one target creature that player controls and that player gains life equal to its power.",
+  "oversized": false,
+  "penny_rank": 14158,
+  "power": "4",
+  "prices": {
+    "eur": "0.40",
+    "eur_foil": "1.24",
+    "tix": "0.02",
+    "usd": "0.37",
+    "usd_etched": null,
+    "usd_foil": "1.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac1bc819a-f291-4b55-94f7-269f160ce76b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/47909?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=259909&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F67420%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Luminate+Primordial",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=366240&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLuminate%2BPrimordial",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLuminate%2BPrimordial"
+  },
+  "released_at": "2013-02-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b0747b12-c75a-4fdf-a881-f2383a23ccdd/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/gtc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/gtc/20/luminate-primordial?utm_source=api",
+  "set": "gtc",
+  "set_id": "035a05f7-e020-4f50-a141-ed16ba704bd2",
+  "set_name": "Gatecrash",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agtc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/035a05f7-e020-4f50-a141-ed16ba704bd2",
+  "story_spotlight": false,
+  "tcgplayer_id": 67420,
+  "textless": false,
+  "toughness": "7",
+  "type_line": "Creature — Avatar",
+  "uri": "https://api.scryfall.com/cards/b0747b12-c75a-4fdf-a881-f2383a23ccdd",
+  "variation": false
+}

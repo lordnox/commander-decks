@@ -1,0 +1,137 @@
+{
+  "artist": "Loïc Canavaggia",
+  "artist_ids": [
+    "f1e2e10b-08be-4e92-8f50-95a72850a811"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 722856,
+  "cmc": 6.0,
+  "collector_number": "818",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 6848,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Newborn slivers will sometimes wrap themselves playfully around a human's finger. They grow out of the \"playful\" part.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "6f7d8e62-9bc0-4064-81c5-919c076de086",
+  "illustration_id": "ade1a017-ed40-47e6-a389-5060a5ca480b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:04:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.webp?1783915453",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.jpg?1783915453",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.jpg?1783915453",
+    "crop": "https://cards.scryfall.io/crop/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.webp?1783915453",
+    "display": "https://cards.scryfall.io/display/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.webp?1783915453",
+    "grid": "https://cards.scryfall.io/grid/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.webp?1783915453",
+    "large": "https://cards.scryfall.io/large/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.jpg?1783915453",
+    "normal": "https://cards.scryfall.io/normal/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.jpg?1783915453",
+    "png": "https://cards.scryfall.io/png/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.png?1783915453",
+    "small": "https://cards.scryfall.io/small/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.jpg?1783915453",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/f/6f7d8e62-9bc0-4064-81c5-919c076de086.webp?1783915453"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{W}",
+  "mtgo_id": 113977,
+  "multiverse_ids": [
+    625223
+  ],
+  "name": "Constricting Sliver",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fd26f893-6f45-44df-aa4e-c919fc118aff",
+  "oracle_text": "Sliver creatures you control have \"When this creature enters, you may exile target creature an opponent controls until this creature leaves the battlefield.\"",
+  "oversized": false,
+  "penny_rank": 11635,
+  "power": "3",
+  "preview": {
+    "previewed_at": "2023-07-17",
+    "source": "Commander At Home",
+    "source_uri": "https://www.youtube.com/watch?v=LyQ-JPT3XEk"
+  },
+  "prices": {
+    "eur": "0.42",
+    "eur_foil": null,
+    "tix": "0.18",
+    "usd": "1.13",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afd26f893-6f45-44df-aa4e-c919fc118aff&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/113977?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=722856&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F505117%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Constricting+Sliver",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=625223&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DConstricting%2BSliver",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DConstricting%2BSliver"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/6f7d8e62-9bc0-4064-81c5-919c076de086/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/818/constricting-sliver?utm_source=api",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 505117,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Creature — Sliver",
+  "uri": "https://api.scryfall.com/cards/6f7d8e62-9bc0-4064-81c5-919c076de086",
+  "variation": false
+}

@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "73cbf189-a79b-4dca-8b29-33aef6306b5a",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/73cbf189-a79b-4dca-8b29-33aef6306b5a"
+    },
+    {
+      "component": "combo_piece",
+      "id": "967a4f27-8cd6-437d-8c05-8aedbc7ddc4b",
+      "name": "Collector's Vault",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b"
+    }
+  ],
+  "arena_id": 86976,
+  "artist": "Artur Nakhodkin",
+  "artist_ids": [
+    "36450ae0-6428-47cb-b1ff-0549e0bbb7ee"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 729568,
+  "cmc": 2.0,
+  "collector_number": "244",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1801,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Beluna makes a habit of \"liberating\" valuables from the world below, from priceless artifacts to historic buildings.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "967a4f27-8cd6-437d-8c05-8aedbc7ddc4b",
+  "illustration_id": "318aa69c-059c-44c3-928f-80deff0e9ca5",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:57:40Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.webp?1783915060",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.jpg?1783915060",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.jpg?1783915060",
+    "crop": "https://cards.scryfall.io/crop/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.webp?1783915060",
+    "display": "https://cards.scryfall.io/display/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.webp?1783915060",
+    "grid": "https://cards.scryfall.io/grid/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.webp?1783915060",
+    "large": "https://cards.scryfall.io/large/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.jpg?1783915060",
+    "normal": "https://cards.scryfall.io/normal/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.jpg?1783915060",
+    "png": "https://cards.scryfall.io/png/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.png?1783915060",
+    "small": "https://cards.scryfall.io/small/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.jpg?1783915060",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/6/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b.webp?1783915060"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 116876,
+  "multiverse_ids": [
+    629745
+  ],
+  "name": "Collector's Vault",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f460ff80-8175-43f7-9810-540cf3817085",
+  "oracle_text": "{2}, {T}: Draw a card, then discard a card. Create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "penny_rank": 663,
+  "preview": {
+    "previewed_at": "2023-08-22",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/products/wilds-of-eldraine/card-image-gallery"
+  },
+  "prices": {
+    "eur": "0.68",
+    "eur_foil": "0.81",
+    "tix": "0.03",
+    "usd": "0.84",
+    "usd_etched": null,
+    "usd_foil": "1.28"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af460ff80-8175-43f7-9810-540cf3817085&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/116876?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=729568&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F513354%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Collector%27s+Vault",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=629745&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCollector%2527s%2BVault",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCollector%2527s%2BVault"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woe/244/collectors-vault?utm_source=api",
+  "set": "woe",
+  "set_id": "79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "set_name": "Wilds of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "story_spotlight": false,
+  "tcgplayer_id": 513354,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/967a4f27-8cd6-437d-8c05-8aedbc7ddc4b",
+  "variation": false
+}

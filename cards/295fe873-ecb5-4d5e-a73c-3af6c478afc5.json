@@ -1,0 +1,142 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "f3afb862-c156-495b-a0df-4c4ed0bbc869",
+      "name": "Perch Protection",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/f3afb862-c156-495b-a0df-4c4ed0bbc869"
+    },
+    {
+      "component": "token",
+      "id": "2a3d4bf9-2107-4686-8df5-cd7c934d0691",
+      "name": "Bird",
+      "object": "related_card",
+      "type_line": "Token Creature — Bird",
+      "uri": "https://api.scryfall.com/cards/2a3d4bf9-2107-4686-8df5-cd7c934d0691"
+    }
+  ],
+  "artist": "Edgar Sánchez Hidalgo",
+  "artist_ids": [
+    "cd897b75-a7b0-4902-8dc4-b1fda5303ec8"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cmc": 6.0,
+  "collector_number": "BLC-11",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2397,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "f3afb862-c156-495b-a0df-4c4ed0bbc869",
+  "illustration_id": "40777718-bc59-49d3-b623-c39a4c6d8e72",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-08-25T17:01:58Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.webp?1787677318",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.jpg?1787677318",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.jpg?1787677318",
+    "crop": "https://cards.scryfall.io/crop/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.webp?1787677318",
+    "display": "https://cards.scryfall.io/display/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.webp?1787677318",
+    "grid": "https://cards.scryfall.io/grid/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.webp?1787677318",
+    "large": "https://cards.scryfall.io/large/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.jpg?1787677318",
+    "normal": "https://cards.scryfall.io/normal/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.jpg?1787677318",
+    "png": "https://cards.scryfall.io/png/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.png?1787677318",
+    "small": "https://cards.scryfall.io/small/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.jpg?1787677318",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/3/f3afb862-c156-495b-a0df-4c4ed0bbc869.webp?1787677318"
+  },
+  "keywords": [
+    "Gift"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "multiverse_ids": [],
+  "name": "Perch Protection",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "295fe873-ecb5-4d5e-a73c-3af6c478afc5",
+  "oracle_text": "Gift an extra turn (You may promise an opponent a gift as you cast this spell. If you do, they take an extra turn after this one.)\nCreate four 2/2 blue Bird creature tokens with flying. If the gift was promised, all permanents you control phase out, and until your next turn, your life total can't change and you gain protection from everything.\nExile Perch Protection.",
+  "oversized": false,
+  "prices": {
+    "eur": null,
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A295fe873-ecb5-4d5e-a73c-3af6c478afc5&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Perch+Protection&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Perch+Protection&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DPerch%2BProtection%26view%3Dgrid"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Perch+Protection",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DPerch%2BProtection",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DPerch%2BProtection"
+  },
+  "released_at": "2026-11-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/f3afb862-c156-495b-a0df-4c4ed0bbc869/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/plst?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/plst/BLC-11/perch-protection?utm_source=api",
+  "security_stamp": "oval",
+  "set": "plst",
+  "set_id": "67e47ba2-b019-4181-9005-fe9fc021de44",
+  "set_name": "The List",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aplst&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/67e47ba2-b019-4181-9005-fe9fc021de44",
+  "story_spotlight": false,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/f3afb862-c156-495b-a0df-4c4ed0bbc869",
+  "variation": false
+}

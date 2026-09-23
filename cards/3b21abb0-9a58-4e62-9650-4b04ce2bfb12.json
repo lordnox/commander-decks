@@ -1,0 +1,135 @@
+{
+  "artist": "Josiah \"Jo\" Cameron",
+  "artist_ids": [
+    "2a8b4b91-ddff-4477-ba10-b92bc04a4358"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 909797,
+  "cmc": 6.0,
+  "collector_number": "4",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 26850,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b0db02cb-d029-46d5-9df2-dee980047758",
+  "illustration_id": "9b840c1e-d081-4174-aca3-1b6416a587cc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-09-17T11:23:19Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.webp?1789644199",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.jpg?1789644199",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.jpg?1789644199",
+    "crop": "https://cards.scryfall.io/crop/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.webp?1789644199",
+    "display": "https://cards.scryfall.io/display/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.webp?1789644199",
+    "grid": "https://cards.scryfall.io/grid/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.webp?1789644199",
+    "large": "https://cards.scryfall.io/large/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.jpg?1789644199",
+    "normal": "https://cards.scryfall.io/normal/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.jpg?1789644199",
+    "png": "https://cards.scryfall.io/png/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.png?1789644199",
+    "small": "https://cards.scryfall.io/small/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.jpg?1789644199",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/0/b0db02cb-d029-46d5-9df2-dee980047758.webp?1789644199"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "not_legal",
+    "competitivebrawl": "not_legal",
+    "duel": "not_legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "not_legal",
+    "modern": "not_legal",
+    "oathbreaker": "not_legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "not_legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "multiverse_ids": [],
+  "name": "Dack Fayden, Helping Hand",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "3b21abb0-9a58-4e62-9650-4b04ce2bfb12",
+  "oracle_text": "When Dack Fayden enters, reveal cards from the top of your library until you reveal X creature cards, where X is the number of opponents you have. Put those creature cards onto the battlefield, then shuffle. They're goaded for the rest of the game. For each of those permanents, choose a different opponent. Each opponent gains control of the permanent for which they were chosen.",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2026-09-16",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://youtu.be/mvTyHbTbfBo"
+  },
+  "prices": {
+    "eur": "1.08",
+    "eur_foil": null,
+    "tix": null,
+    "usd": null,
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A3b21abb0-9a58-4e62-9650-4b04ce2bfb12&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Dack+Fayden%2C+Helping+Hand&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=909797&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fmagic%2Fproduct%3FproductLineName%3Dmagic%26q%3DDack%2BFayden%252C%2BHelping%2BHand%26view%3Dgrid"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Dack+Fayden%2C+Helping+Hand",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDack%2BFayden%252C%2BHelping%2BHand",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDack%2BFayden%252C%2BHelping%2BHand"
+  },
+  "released_at": "2026-10-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b0db02cb-d029-46d5-9df2-dee980047758/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/frc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/frc/4/dack-fayden-helping-hand?utm_source=api",
+  "security_stamp": "oval",
+  "set": "frc",
+  "set_id": "cfd10490-7397-4143-bda7-d388b877636f",
+  "set_name": "Reality Fracture Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afrc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/cfd10490-7397-4143-bda7-d388b877636f",
+  "story_spotlight": false,
+  "textless": false,
+  "toughness": "6",
+  "type_line": "Legendary Creature — Human Advisor",
+  "uri": "https://api.scryfall.com/cards/b0db02cb-d029-46d5-9df2-dee980047758",
+  "variation": false,
+  "watermark": "echoverse"
+}

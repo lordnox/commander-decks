@@ -1,0 +1,145 @@
+{
+  "arena_id": 84970,
+  "artist": "Sidharth Chaturvedi",
+  "artist_ids": [
+    "55e6d846-2f73-4fba-9b88-441686bb8dcb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738040,
+  "cmc": 6.0,
+  "collector_number": "824",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 12268,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Even as he came swooping down, Gwaihir saw the two figures fall, worn out, hiding their eyes from death.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a4631187-9a5b-43d5-92d8-de6e609d2a03",
+  "illustration_id": "52060184-2704-4aee-913e-117ab7f51c24",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:39:24Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.webp?1783913964",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.jpg?1783913964",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.jpg?1783913964",
+    "crop": "https://cards.scryfall.io/crop/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.webp?1783913964",
+    "display": "https://cards.scryfall.io/display/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.webp?1783913964",
+    "grid": "https://cards.scryfall.io/grid/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.webp?1783913964",
+    "large": "https://cards.scryfall.io/large/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.jpg?1783913964",
+    "normal": "https://cards.scryfall.io/normal/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.jpg?1783913964",
+    "png": "https://cards.scryfall.io/png/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.png?1783913964",
+    "small": "https://cards.scryfall.io/small/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.jpg?1783913964",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/4/a4631187-9a5b-43d5-92d8-de6e609d2a03.webp?1783913964"
+  },
+  "keywords": [
+    "Flying"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}{W}{W}",
+  "mtgo_id": 119274,
+  "multiverse_ids": [
+    636310
+  ],
+  "name": "Eagle of Deliverance",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "4446e59c-29f7-4722-92be-2625c1d3dab9",
+  "oracle_text": "Flying\nWhen this creature enters, put an indestructible counter on another target creature you control. Draw a card if that creature's power is 2 or less.",
+  "oversized": false,
+  "penny_rank": 15582,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2023-09-22",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.77",
+    "eur_foil": null,
+    "tix": "0.02",
+    "usd": "0.93",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A4446e59c-29f7-4722-92be-2625c1d3dab9&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/119274?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738040&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F518221%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Eagle+of+Deliverance",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636310&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DEagle%2Bof%2BDeliverance",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DEagle%2Bof%2BDeliverance"
+  },
+  "released_at": "2023-11-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a4631187-9a5b-43d5-92d8-de6e609d2a03/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/824/eagle-of-deliverance?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 518221,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Creature — Bird Soldier",
+  "uri": "https://api.scryfall.com/cards/a4631187-9a5b-43d5-92d8-de6e609d2a03",
+  "variation": false
+}
