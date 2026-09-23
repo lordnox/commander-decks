@@ -7,6 +7,8 @@ import type {
   TargetRef,
 } from '../types'
 import { hasKeyword } from '../keywords'
+import { isPhasedOut } from '../plugins/phasing'
+import { hasProtectionFromEverything } from '../plugins/protectionFromEverything'
 import { effectsOf } from './cardRules'
 import { runInstructions, type TargetFilter } from './effects'
 import { openStackCopyChoice } from './stackCopy'
@@ -35,6 +37,7 @@ export const validTarget = (
   if (filter.excludeSubtypes?.some((subtype) => object.subtypes.includes(subtype))) {
     return false
   }
+  if (isPhasedOut(object)) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.zones && !filter.zones.includes(object.zone)) return false
   if (filter.castFromNot) {
@@ -49,6 +52,7 @@ export const validTarget = (
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.noncreature && object.types.includes('Creature')) return false
   if (filter.nonblack && object.colors.includes('B')) return false
+  if (hasProtectionFromEverything(state, object)) return false
   if (object.controller !== controller && hasKeyword(object, 'hexproof', state)) return false
   if (filter.nonlegendary && object.supertypes.includes('Legendary')) return false
   if (filter.spellTargetsControlledPermanent) {
@@ -76,7 +80,8 @@ export const validTargetRef = (
       filter.players
       && state.players[target.player]
       && !state.players[target.player].lost
-      && (filter.players !== 'opponent' || target.player !== controller),
+      && (filter.players !== 'opponent' || target.player !== controller)
+      && !hasProtectionFromEverything(state, undefined, target.player),
     )
   }
   return target?.kind === 'object'

@@ -123,6 +123,9 @@ export type CardInstruction =
   | { kind: 'animateUntilEot'; power: number; toughness: number }
   | { kind: 'grantUntilEot'; keywords: string[] }
   | { kind: 'goadTargets'; untilEndOfTurn?: boolean }
+  | { kind: 'phaseOutControlled' }
+  | { kind: 'grantProtectionFromEverything' }
+  | { kind: 'lifeTotalCannotChange' }
   | { kind: 'crewVehicle' }
   | { kind: 'createXTokens'; token: TokenSpec }
   | { kind: 'dealDamageToSelf'; amount: number }

@@ -100,6 +100,7 @@ export type ReversibleEffect =
   | { kind: 'controller'; controller: PlayerId; base: PlayerId }
   /** CR 701.38: attacks each combat if able; prefers non-goading players. */
   | { kind: 'goad'; sourceController: PlayerId }
+  | { kind: 'protectionFromEverything' }
 
 export type EffectDuration =
   | { kind: 'untilCleanup' }
@@ -161,6 +162,8 @@ export type GameObject = {
   loyaltyActivatedTurn: number | null
   oracleText: string
   attachedTo: string | null
+  /** Phased-out permanents are treated as though they do not exist (CR 702.26). */
+  phasedOut?: boolean
   attacking: TargetRef | PlayerId | null
   blocking: string | null
   grantedRules: string[]
@@ -428,6 +431,8 @@ export type GameEvent =
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
+  | { type: 'phaseOut'; objectId: string }
+  | { type: 'phaseIn'; objectId: string }
   | { type: 'putCounters'; objectId: string; counter: string; count: number }
   // — CR keyword actions —
   | {

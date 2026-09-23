@@ -3,6 +3,7 @@ import { hasPendingDialog } from '../pendingDialog'
 import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import { everybodyLives } from './advancedCombatPrevention'
 import { hasKeyword } from '../keywords'
+import { isPhasedOut } from './phasing'
 import {
   BATTLE_DEFEATED_ABILITY,
   validBattleProtector,
@@ -39,6 +40,7 @@ export const stateBased: Plugin = {
     }
 
     for (const object of Object.values(draft.objects)) {
+      if (isPhasedOut(object)) continue
       // CR 704.5m: an Aura not attached to a legal object or player dies.
       if (
         object.zone === 'battlefield'

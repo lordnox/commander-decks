@@ -16,6 +16,10 @@ import { judgeFallback } from './plugins/judgeFallback'
 import { lands } from './plugins/lands'
 import { life } from './plugins/life'
 import { monarch } from './plugins/monarch'
+import { lifeTotalLock } from './plugins/lifeTotalLock'
+import { phasing } from './plugins/phasing'
+import { protectionFromEverything } from './plugins/protectionFromEverything'
+import { untilNextTurn } from './plugins/untilNextTurn'
 import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
@@ -57,6 +61,10 @@ export type GameFormat = {
 
 export const corePlugins = [
   turnStructure,
+  untilNextTurn,
+  phasing,
+  protectionFromEverything,
+  lifeTotalLock,
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,
