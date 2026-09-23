@@ -194,6 +194,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     nextId,
     nextTimestamp,
     ended: false,
+    monarch: null,
     log: [],
   }
 }

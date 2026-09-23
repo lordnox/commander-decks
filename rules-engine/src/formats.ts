@@ -15,6 +15,7 @@ import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
 import { lands } from './plugins/lands'
 import { life } from './plugins/life'
+import { monarch } from './plugins/monarch'
 import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
@@ -70,6 +71,7 @@ export const corePlugins = [
   stateBased,
   combat,
   life,
+  monarch,
   damage,
   battle,
   doubleFaced,

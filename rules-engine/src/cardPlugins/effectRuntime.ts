@@ -470,6 +470,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (hasKind(listed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
     if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')
     if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
+    if (hasKind(listed, 'exileUntilOpponentBecomesMonarch')) ids.add('monarchExile')
     if (listed.some((instruction) =>
       instruction.kind === 'createToken' && instruction.token.sacrificeForMana)) {
       ids.add('activated')

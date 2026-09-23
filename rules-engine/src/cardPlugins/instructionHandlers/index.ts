@@ -3,6 +3,7 @@ import { combatCopyHandlers } from './combatCopy'
 import { controlHandlers } from './control'
 import { attachedCopyOrTokenInstruction } from '../bestow'
 import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
+import { monarchExileInstructionHandlers } from '../monarchExile'
 import { multiplayerHandlers } from './multiplayer'
 import { permanentControlHandlers } from '../permanentControl'
 import { resourceHandlers } from './resources'
@@ -22,6 +23,7 @@ const instructionHandlers = {
   ...resourceHandlers,
   ...zoneHandlers,
   ...combatCopyHandlers,
+  ...monarchExileInstructionHandlers,
   ...multiplayerHandlers,
   ...linkedExileInstructionHandlers,
   ...blinkHandlers,

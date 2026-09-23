@@ -2,6 +2,7 @@ import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
 import type { CardInstruction } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
+import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
@@ -62,6 +63,8 @@ export type PendingCardSelection = {
   triggerPayload?: Record<string, unknown>
   /** Exile chosen permanents linked to `sourceId` (see `linkedExile` plugin). */
   linkExile?: boolean
+  /** Exile chosen permanents until an opponent becomes monarch. */
+  exileUntilOpponentMonarch?: boolean
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -333,6 +336,10 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     if (selection.linkExile && selection.sourceId) {
       const source = draft.object(selection.sourceId)
       if (source) linkExileSelected(draft, source, chosenIds)
+    }
+    if (selection.exileUntilOpponentMonarch && selection.sourceId) {
+      const source = draft.object(selection.sourceId)
+      if (source) linkMonarchExileSelected(draft, source, chosenIds)
     }
     for (const objectId of chosenIds) {
       const object = draft.object(objectId)
