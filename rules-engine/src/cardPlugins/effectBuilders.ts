@@ -432,6 +432,15 @@ export const extraEnters = (count = 1): CardEffect => ({
   extraEnters: count,
 })
 
+export const grantControlledSubtypeTrigger = (
+  subtype: string,
+  on: Extract<CardEffect, { op: 'trigger' }>['on'],
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'static',
+  grantControlledSubtypeTrigger: { subtype, on, do: instructions },
+})
+
 export const playLandsFromGraveyard = (): CardEffect => ({
   op: 'static',
   playLandsFromGraveyard: true,

@@ -36,6 +36,7 @@ import { saga } from './plugins/saga'
 import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
+import { grantControlledSubtypeTrigger } from './cardPlugins/grantControlledSubtypeTrigger'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
@@ -106,6 +107,7 @@ export const optionalPlugins = [
   swampOverlay,
   extraSwampMana,
   starfieldOfNyx,
+  grantControlledSubtypeTrigger,
   extraUntap,
   sacrificeLandMana,
   phialReplacement,
