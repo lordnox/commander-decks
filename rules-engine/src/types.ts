@@ -103,12 +103,23 @@ export type ReversibleEffect =
   | { kind: 'protectionFromEverything' }
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
+  /**
+   * Layer 7a CDA: base power and toughness each equal a player's life total.
+   * `after` is the 7a set; +1/+1 counters apply on top (CR 613.4c).
+   */
+  | {
+      kind: 'cdaLifePt'
+      who: 'controller' | 'owner'
+      before: { power: number | null; toughness: number | null }
+      after: { power: number; toughness: number }
+    }
 
 export type EffectDuration =
   | { kind: 'untilCleanup' }
   | { kind: 'permanent' }
   | { kind: 'whileSourceOnBattlefield'; sourceId: string }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
+  | { kind: 'cdaLifePt' }
 
 export type ContinuousEffect = {
   effect: ReversibleEffect

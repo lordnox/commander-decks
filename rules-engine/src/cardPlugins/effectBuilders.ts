@@ -439,6 +439,12 @@ export const legendRuleOff = (): CardEffect => ({
   legendRuleOff: true,
 })
 
+/** Layer 7a CDA: power and toughness each equal the chosen player's life total. */
+export const ptEqualsLife = (options: { who: 'controller' | 'owner' }): CardEffect => ({
+  op: 'static',
+  ptEqualsLife: options,
+})
+
 export const bestow = (
   cost: string,
   bonus: { power: number; toughness: number },

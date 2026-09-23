@@ -454,6 +454,7 @@ export type CardEffect =
       }
       /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
       linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
+      ptEqualsLife?: { who: 'controller' | 'owner' }
     }
   | { op: 'handler'; pluginId: string }
   | {
