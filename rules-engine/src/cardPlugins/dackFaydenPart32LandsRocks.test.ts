@@ -552,13 +552,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     const sphereId = named(server.state, "Commander's Sphere").id
     const tapped = structuredClone(server.state)
     tapped.objects[sphereId].tapped = true
-    expect(server.rules(tapped, {
-      type: 'activateAbility',
-      abilityId: 'commandersSphere.draw',
-      seat: 'p1',
-      objectId: sphereId,
-    }).ok).toBe(false)
-    const activatedState = ok(server.rules(server.state, {
+    const activatedState = ok(server.rules(tapped, {
       type: 'activateAbility',
       abilityId: 'commandersSphere.draw',
       seat: 'p1',

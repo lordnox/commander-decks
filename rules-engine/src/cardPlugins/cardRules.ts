@@ -507,7 +507,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   "Commander's Sphere": [
     ability(
       { id: 'commandersSphere.draw' },
-      { tap: true, sacrifice: 'self' },
+      { sacrifice: 'self' },
       draw(1),
     ),
   ],
