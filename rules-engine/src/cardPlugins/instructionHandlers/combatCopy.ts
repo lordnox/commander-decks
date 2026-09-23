@@ -140,6 +140,7 @@ const createTokenHandler: InstructionHandler<'createToken'> = (
     subtypes: instruction.token.subtypes ?? [],
     power: instruction.token.power ?? null,
     toughness: instruction.token.toughness ?? null,
+    colors: instruction.token.colors ?? [],
     oracleText: instruction.token.oracleText ?? '',
     effects: instruction.token.sacrificeForMana
       ? [{
