@@ -27,6 +27,7 @@ export type PendingPlayerSelection = {
         instructions: CardInstruction[]
         triggeringPlayer: PlayerId
         abilityId?: string
+        triggerEffectKey?: string
         interveningIf?: CardCondition
       }
 }
@@ -131,6 +132,9 @@ export const selectPlayers: Plugin = {
           payload: {
             instructions: selection.action.instructions,
             triggeringPlayer: selection.action.triggeringPlayer,
+            ...(selection.action.triggerEffectKey
+              ? { triggerEffectKey: selection.action.triggerEffectKey }
+              : {}),
             ...(selection.action.interveningIf
               ? { interveningIf: selection.action.interveningIf }
               : {}),

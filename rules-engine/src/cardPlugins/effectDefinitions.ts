@@ -362,6 +362,10 @@ export type CardEffect =
       }
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
+      /** That ability on this object triggers at most once each turn (not the same as `firstTimeEachTurn`). */
+      onceEachTurn?: boolean
+      /** On the nth resolution this turn, run `do` instead of the base `do`. */
+      whenResolvedNth?: { nth: number; do: CardInstruction[] }
     }
   | { op: 'modal'; choose: 'one' | 'any'; modes: ModalMode[] }
   | {
