@@ -15,7 +15,7 @@ import {
   untilEndOfTurn,
 } from '../continuousEffects'
 import { addPlusCounters as applyPlusCounters, manaValueOf } from '../effects'
-import { validTarget } from '../targetedResolve'
+import { matchesTargetFilter } from '../targetedResolve'
 import type { GameState } from '../../types'
 import { discardSeatFor, instructionAmount } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
@@ -358,7 +358,7 @@ const tapAll: InstructionHandler<'tapAll'> = ({ draft, source, item }, instructi
     : { ...instruction.filter, zone: 'battlefield' as const }
   const state = draft as GameState
   for (const object of Object.values(draft.objects)) {
-    if (!validTarget(state, object, filter, source.controller, item?.castOption)) continue
+    if (!matchesTargetFilter(state, object, filter, source.controller, item?.castOption)) continue
     draft.enqueue({ type: 'tap', objectId: object.id })
   }
 }
