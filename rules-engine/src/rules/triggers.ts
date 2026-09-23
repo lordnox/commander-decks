@@ -27,6 +27,11 @@ import type {
   TriggerBindingIf,
 } from '../types'
 import { asRoomDoor } from '../plugins/rooms'
+import {
+  markTriggeredOnceEachTurn,
+  mayTriggerOnceEachTurn,
+  triggerEffectKey,
+} from '../cardPlugins/triggerFrequency'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand'])
 
@@ -43,6 +48,7 @@ type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets'>
 type PendingTrigger = {
   source: GameObject
   effect: PendingTriggerEffect
+  triggerEffectKey?: string
   triggeringObjectId?: string
   triggeringPlayer?: PlayerId
   triggerAmount?: number
@@ -95,13 +101,42 @@ const pushCopies = (
   copies: number,
   meta: Pick<
     PendingTrigger,
-    'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
+    'triggerEffectKey' | 'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
   > = {},
 ) => {
   for (let index = 0; index < copies; index += 1) {
     matches.push({ source, effect, ...meta })
   }
 }
+
+const passesOnceEachTurn = (
+  source: GameObject,
+  effect: TriggerEffect,
+  catalog: CardEffect[],
+  turn: number,
+) => !effect.onceEachTurn || mayTriggerOnceEachTurn(source, triggerEffectKey(catalog, effect), turn)
+
+const noteOnceEachTurnIfNeeded = (
+  draft: Draft,
+  source: GameObject,
+  effect: TriggerEffect,
+  key?: string,
+) => {
+  if (!effect.onceEachTurn || !key) return
+  const live = draft.object(source.id)
+  if (!live) return
+  markTriggeredOnceEachTurn(live, key, draft.turn)
+}
+
+const triggerPayloadExtras = (
+  effect: TriggerEffect,
+  key?: string,
+  extras: Record<string, unknown> = {},
+) => ({
+  ...(key ? { triggerEffectKey: key } : {}),
+  ...(effect.if && !isTriggerBindingIf(effect.if) ? { interveningIf: effect.if } : {}),
+  ...extras,
+})
 
 const collectEffects = (
   source: GameObject,
@@ -114,13 +149,18 @@ const collectEffects = (
     'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount'
   > = {},
 ) => {
-  for (const effect of triggerEffects(effectsOf(source), on)) {
+  const catalog = effectsOf(source)
+  for (const effect of triggerEffects(catalog, on)) {
     if (
       effect.if
       && !isTriggerBindingIf(effect.if)
       && !conditionHolds(effect.if, state, source)
     ) continue
-    pushCopies(matches, source, effect, copies, meta)
+    if (!passesOnceEachTurn(source, effect, catalog, state.turn)) continue
+    pushCopies(matches, source, effect, copies, {
+      ...meta,
+      triggerEffectKey: triggerEffectKey(catalog, effect),
+    })
   }
 }
 
@@ -262,7 +302,8 @@ const collectMoveTriggers = (
     const firstThisTurn = owner.data[LAND_TO_GRAVEYARD_TURN] !== draft.turn
     owner.data[LAND_TO_GRAVEYARD_TURN] = draft.turn
     for (const source of draft.zoneOf('battlefield', before.owner)) {
-      for (const effect of triggerEffects(effectsOf(source), 'landToGraveyard')) {
+      const catalog = effectsOf(source)
+      for (const effect of triggerEffects(catalog, 'landToGraveyard')) {
         if (
           effect.if
           && !isTriggerBindingIf(effect.if)
@@ -271,7 +312,11 @@ const collectMoveTriggers = (
         const milledLand = effect.do.some((instruction) => instruction.kind === 'putMilledLandTapped')
         if (milledLand && !fromLibrary) continue
         if (effect.firstTimeEachTurn && !firstThisTurn) continue
-        pushCopies(matches, source, effect, 1, { triggeringObjectId: event.objectId })
+        if (!passesOnceEachTurn(source, effect, catalog, draft.turn)) continue
+        pushCopies(matches, source, effect, 1, {
+          triggeringObjectId: event.objectId,
+          triggerEffectKey: triggerEffectKey(catalog, effect),
+        })
       }
     }
   }
@@ -296,11 +341,15 @@ const collectDiscardDraw = (
     const live = draft.object(source.id)
     if (!live || live.zone !== 'battlefield') continue
 
-    for (const effect of effectsOf(live)) {
+    const catalog = effectsOf(live)
+    for (const effect of catalog) {
       if (effect.op !== 'trigger' || effect.on !== event.type) continue
       if (!EVENT_TRIGGER_ON.has(effect.on)) continue
       if (!triggerIfPasses(draft, live, event, effect.if)) continue
-      pushCopies(matches, live, effect, 1)
+      if (!passesOnceEachTurn(live, effect, catalog, draft.turn)) continue
+      pushCopies(matches, live, effect, 1, {
+        triggerEffectKey: triggerEffectKey(catalog, effect),
+      })
     }
   }
 }
@@ -410,6 +459,7 @@ export const triggers: Plugin = {
     for (const {
       source,
       effect,
+      triggerEffectKey: effectKey,
       triggeringObjectId,
       triggeringPlayer: matchedPlayer,
       triggerAmount,
@@ -440,17 +490,15 @@ export const triggers: Plugin = {
           prompt: `Choose target for ${source.name}.`,
           destinations: ['target'],
           triggerInstructions: effect.do,
-          triggerPayload: {
+          triggerPayload: triggerPayloadExtras(effect, effectKey, {
             targetFilter: targetSpec.filter,
             triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
-            ...(effect.if && !isTriggerBindingIf(effect.if)
-              ? { interveningIf: effect.if }
-              : {}),
             ...(triggeringObjectId ? { triggeringObjectId } : {}),
             ...(triggerAmount !== undefined ? { triggerAmount } : {}),
             ...payload,
-          },
+          }),
         })
+        noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
         choosingSeat ??= source.controller
         continue
       }
@@ -471,11 +519,13 @@ export const triggers: Plugin = {
             kind: 'putTriggeredAbility',
             instructions: effect.do,
             triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
+            ...(effectKey ? { triggerEffectKey: effectKey } : {}),
             ...(effect.if && !isTriggerBindingIf(effect.if)
               ? { interveningIf: effect.if }
               : {}),
           },
         })
+        noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
         choosingSeat ??= source.controller
         continue
       }
@@ -483,15 +533,15 @@ export const triggers: Plugin = {
         payload: {
           instructions: effect.do,
           triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
-          ...(effect.if && !isTriggerBindingIf(effect.if)
-            ? { interveningIf: effect.if }
-            : {}),
-          ...(triggeringObjectId ? { triggeringObjectId } : {}),
-          ...(triggerAmount !== undefined ? { triggerAmount } : {}),
-          ...payload,
+          ...triggerPayloadExtras(effect, effectKey, {
+            ...(triggeringObjectId ? { triggeringObjectId } : {}),
+            ...(triggerAmount !== undefined ? { triggerAmount } : {}),
+            ...payload,
+          }),
         },
         name: `${source.name}`,
       })
+      noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
     }
 
     draft.passedInRow = []

@@ -188,6 +188,15 @@ export type GameObject = {
   enteredWithCastOption?: string
   /** Turn this object most recently entered the battlefield. */
   enteredBattlefieldTurn?: number
+  /** Per-ability trigger and resolve counts for generic trigger frequency flags. */
+  triggerFrequency?: Record<
+    string,
+    {
+      triggeredTurn?: number
+      resolveCountTurn?: number
+      resolveCount?: number
+    }
+  >
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
   continuousEffects?: ContinuousEffect[]
