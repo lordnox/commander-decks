@@ -36,6 +36,8 @@ export type GiftSpec = {
   token?: TokenSpec & { tapped?: boolean }
 }
   | { kind: 'notMonstrous' }
+  /** Intervening if for "if it was a creature" on a dies trigger (LKI: still a creature in graveyard). */
+  | { kind: 'wasCreature' }
 
 export type TokenSpec = {
   name: string
@@ -104,6 +106,7 @@ export type CardInstruction =
   | { kind: 'discardHandsThenDrawGreatest' }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
+  | { kind: 'returnSelfAsEnchantment' }
   | { kind: 'createToken'; token: TokenSpec }
   | {
       kind: 'embalmToken'

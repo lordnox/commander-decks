@@ -101,6 +101,14 @@ export const dies = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
+/** When this dies as a creature, return under its owner's control as a noncreature enchantment. */
+export const diesReturnAsEnchantment = (): CardEffect => ({
+  op: 'trigger',
+  on: 'dies',
+  if: { kind: 'wasCreature' },
+  do: [{ kind: 'returnSelfAsEnchantment' }],
+})
+
 export const leaves = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'leaves',
