@@ -11,16 +11,16 @@ const warpExileInstructions = [{ kind: 'finishWarpExile' as const }]
 export const warp: Plugin = {
   id: 'warp',
   apply: ({ state, event, draft }) => {
-    if (event.type === 'castSpell' && event.castOption === 'warp-from-exile') {
-      const object = draft.object(event.objectId)
-      if (object) delete object.warpExiledTurn
-      return
-    }
     if (event.type !== 'resolveTop') return
     const item = state.stack[0]
-    if (!item || item.kind !== 'spell' || item.castOption !== 'warp') return
-    const object = state.objects[item.objectId]
-    if (!object || !hasWarp(object)) return
+    if (!item || item.kind !== 'spell') return
+    const object = draft.object(item.objectId)
+    if (!object) return
+    if (item.castOption === 'warp-from-exile') {
+      delete object.warpExiledTurn
+      return
+    }
+    if (item.castOption !== 'warp' || !hasWarp(object)) return
     registerDelayedTrigger(
       draft,
       object,

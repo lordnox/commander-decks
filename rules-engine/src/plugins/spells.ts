@@ -84,11 +84,12 @@ export const spellCost = (
   const xCost = xManaKind(object) === 'black'
     ? '{B}'.repeat(x)
     : x > 0 ? `{${x}}` : ''
+  const withX = (manaCost: string) => manaCost.replaceAll('{X}', xCost)
   const base = options.withoutPayingMana
     ? ''
-    : (selected ? printedAlternateManaCost(selected, object) : undefined)
+    : (selected ? withX(printedAlternateManaCost(selected, object)) : undefined)
       ?? bestowed?.cost
-      ?? object.manaCost.replaceAll('{X}', xCost)
+      ?? withX(object.manaCost)
   const total = `${base}${
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
   }${
