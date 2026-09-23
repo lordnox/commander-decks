@@ -74,6 +74,7 @@ type InboxPayload =
         | 'declineFreeCast'
         | 'activateAbility'
         | 'unlockDoor'
+        | 'foretell'
         | 'declareAttackers'
         | 'declareBlockers'
       objectId?: string
@@ -261,6 +262,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           'declineFreeCast',
           'activateAbility',
           'unlockDoor',
+          'foretell',
         ].includes(kind as string)
         || typeof objectId !== 'string'
         || !objectId
@@ -275,7 +277,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           | 'castSpell'
           | 'declineFreeCast'
           | 'activateAbility'
-          | 'unlockDoor',
+          | 'unlockDoor'
+          | 'foretell',
         objectId,
         ...(typeof targetObjectId === 'string' ? { targetObjectId } : {}),
         ...(typeof targetPlayerId === 'string' ? { targetPlayerId } : {}),
