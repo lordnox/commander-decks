@@ -795,7 +795,11 @@ const canPayActivateCosts = (
 
 const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =>
   effectsOf(object).flatMap((effect): AvailableAction[] => {
-    if (object.zone !== 'battlefield' || object.controller !== seat) return []
+    if (object.controller !== seat) return []
+    const requiredZone = effect.op === 'activate'
+      ? (effect.zone ?? 'battlefield')
+      : 'battlefield'
+    if (object.zone !== requiredZone) return []
     if (effect.op === 'activate' && !effect.manaAbility) {
       const loyalty = effect.costs.loyalty
       if (

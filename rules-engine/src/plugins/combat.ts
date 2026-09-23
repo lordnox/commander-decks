@@ -1,3 +1,4 @@
+import { encoreAttackDeclarationError } from '../cardPlugins/encore'
 import { hasKeyword, lethalDamage } from '../keywords'
 import { attackDeclarationError, defenderLegalForGoadedAttacker } from './goad'
 import { existsOnBattlefield, isPhasedOut } from './phasing'
@@ -22,6 +23,8 @@ export const combat: Plugin = {
       if (event.seat !== state.active || event.seat !== state.priority) {
         return 'only the active player with priority can declare attackers'
       }
+      const encoreError = encoreAttackDeclarationError(state, event.seat, event.attackers)
+      if (encoreError) return encoreError
 
       const goadError = attackDeclarationError(state, event.seat, event.attackers)
       if (goadError) return goadError

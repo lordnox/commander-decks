@@ -741,6 +741,12 @@ export const warp = (warpCost: string): CardEffect[] => [
     afterWarp: true,
   }),
 ]
+/** Graveyard activated ability: one copy token per opponent, haste, encore attack restriction. */
+export const encore = (manaCost: string): CardEffect => ability(
+  { id: 'encore', zone: 'graveyard', sorcery: true },
+  { mana: manaCost, exileSelf: true },
+  { kind: 'encoreTokens' },
+)
 
 export const grantRetrace = (): CardEffect => ({
   op: 'static',

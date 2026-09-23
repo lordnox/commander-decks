@@ -128,6 +128,8 @@ export type CardInstruction =
   | { kind: 'lifeTotalCannotChange' }
   | { kind: 'crewVehicle' }
   | { kind: 'createXTokens'; token: TokenSpec }
+  | { kind: 'encoreTokens' }
+  | { kind: 'sacrificeObjectIds'; objectIds: string[] }
   | { kind: 'dealDamageToSelf'; amount: number }
   | { kind: 'addChosenColorMana' }
   | { kind: 'optionalMill'; count: number }
@@ -258,6 +260,8 @@ export type ActivateCost = {
   mill?: number
   life?: number
   sacrifice?: 'self'
+  /** Exile this card from your graveyard as an additional activation cost. */
+  exileSelf?: boolean
   discard?: 'self' | 'land' | 'any'
   sacrificeTarget?: 'creature' | 'land'
   sacrificeOther?: boolean

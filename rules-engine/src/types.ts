@@ -101,6 +101,8 @@ export type ReversibleEffect =
   /** CR 701.38: attacks each combat if able; prefers non-goading players. */
   | { kind: 'goad'; sourceController: PlayerId }
   | { kind: 'protectionFromEverything' }
+  /** Encore tokens must attack this player this turn if able. */
+  | { kind: 'encoreAttack'; defender: PlayerId }
 
 export type EffectDuration =
   | { kind: 'untilCleanup' }

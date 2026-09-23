@@ -151,6 +151,9 @@ export const activationCostError = (
       return `${source.name} needs one ${discardTypeName(costs.discard)} to discard`
     }
   }
+  if (costs.exileSelf && (source.zone !== 'graveyard' || source.controller !== seat)) {
+    return `${source.name} must be in ${seat}'s graveyard to exile`
+  }
   if (costs.sacrificeTarget) {
     const candidates = sacrificeCostCandidates(
       state,
@@ -197,6 +200,7 @@ export const payActivationCosts = (
     draft.enqueue({ type: 'tap', objectId })
   }
   if (costs.mill) millLibrary(draft, seat, costs.mill)
+  if (costs.exileSelf) draft.enqueue({ type: 'move', objectId: source.id, to: 'exile' })
   if (costs.sacrifice) draft.enqueue({ type: 'sacrifice', objectId: source.id })
   if (costs.sacrificeTarget && picks.sacrificeId) {
     draft.enqueue({ type: 'sacrifice', objectId: picks.sacrificeId })

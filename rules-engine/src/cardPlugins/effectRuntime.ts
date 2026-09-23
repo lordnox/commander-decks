@@ -393,6 +393,7 @@ const CHOICE_KINDS = new Set([
   'chooseCreatureType',
   'returnCreatureManaValueX',
   'drawAtNextUpkeep', 'grantUntilEot', 'goadTargets', 'pump', 'createXTokens',
+  'drawAtNextUpkeep', 'grantUntilEot', 'pump', 'createXTokens', 'encoreTokens',
   'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
   'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
   'createTreasures', 'drawGreatestPower', 'pumpControlled', 'searchLibrary',
@@ -479,6 +480,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       }
     }
     if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
+    if (hasKind(listed, 'encoreTokens')) ids.add('encore')
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (hasKind(listed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
     if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')
