@@ -2,9 +2,9 @@ import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pending
 import { conditionHolds } from '../effects'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
-const conditional: InstructionHandler<'if'> = ({ draft, source, run }, instruction) => {
+const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, instruction) => {
   const live = draft.object(source.id) ?? source
-  const chosen = conditionHolds(instruction.if, draft, live)
+  const chosen = conditionHolds(instruction.if, draft, live, item)
     ? instruction.whenTrue
     : instruction.whenFalse ?? []
   run(chosen, live)

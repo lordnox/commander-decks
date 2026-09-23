@@ -1,6 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
+import { giftSpecOf } from './cardPlugins/giftCast'
 import {
   convokeColors,
   hasConvoke,
@@ -91,6 +92,8 @@ export type AvailableAction =
       targetName?: string
       x?: number
       kicked?: boolean
+      giftPromised?: boolean
+      giftRecipientId?: string
       castOption?: string
       castLabel?: string
       convoke?: string[]
@@ -588,32 +591,63 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           },
         ]
       : [action]
+  const withGift = (
+    action: Extract<AvailableAction, { kind: 'castSpell' }>,
+  ): AvailableAction[] => {
+    const spec = giftSpecOf(object)
+    if (!spec) return [action]
+    const label = spec.label ?? 'gift'
+    return [
+      action,
+      {
+        ...action,
+        giftPromised: true,
+        castLabel: action.castLabel ? `${action.castLabel} — ${label}` : label,
+      },
+    ]
+  }
+  const withGiftRecipients = (
+    actions: AvailableAction[],
+  ): AvailableAction[] =>
+    actions.flatMap((action) => {
+      if (action.kind !== 'castSpell' || !action.giftPromised) return [action]
+      const opponents = state.playerOrder.filter((player) =>
+        player !== seat && !state.players[player].lost)
+      const funded = opponents.map((opponent) => ({
+        ...action,
+        giftRecipientId: opponent,
+        castLabel: [action.castLabel, `to ${opponent}`].filter(Boolean).join(' '),
+      }))
+      return funded.length > 0 ? funded : [action]
+    })
   const fundedVariants = (
     base: Extract<AvailableAction, { kind: 'castSpell' }>,
     options: { castOption?: string; x?: number } = {},
-  ) => withKicker(base).flatMap((action) => {
-    if (action.kind !== 'castSpell') return []
-    const cost = spellCost(state, spell, {
-      additionalGeneric: tax,
-      x: options.x ?? action.x,
-      castOption: options.castOption ?? action.castOption,
-      kicked: action.kicked,
-      seat,
-    })
-    if (hasTargetReduction) return [action]
-    return fundedCasts(state, seat, object, cost).map((funded) => {
-      const phyrexianLabel = funded.labeled
-        ? phyrexianCastLabel(cost, funded.phyrexianLife)
-        : undefined
-      const castLabel = [action.castLabel, phyrexianLabel].filter(Boolean).join(' — ')
-      return {
-        ...action,
-        ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
-        ...(funded.convoke ? { convoke: funded.convoke } : {}),
-        ...(castLabel ? { castLabel } : {}),
-      }
-    })
-  })
+  ) => withGiftRecipients(
+    withKicker(base).flatMap((action) => {
+      if (action.kind !== 'castSpell') return []
+      const cost = spellCost(state, spell, {
+        additionalGeneric: tax,
+        x: options.x ?? action.x,
+        castOption: options.castOption ?? action.castOption,
+        kicked: action.kicked,
+        seat,
+      })
+      if (hasTargetReduction) return [action]
+      return fundedCasts(state, seat, object, cost).map((funded) => {
+        const phyrexianLabel = funded.labeled
+          ? phyrexianCastLabel(cost, funded.phyrexianLife)
+          : undefined
+        const castLabel = [action.castLabel, phyrexianLabel].filter(Boolean).join(' — ')
+        return {
+          ...action,
+          ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
+          ...(funded.convoke ? { convoke: funded.convoke } : {}),
+          ...(castLabel ? { castLabel } : {}),
+        }
+      })
+    }).flatMap((action) => withGift(action)),
+  )
   if (!object.manaCost.includes('{X}') && !paysLifeX) {
     const actions: AvailableAction[] = state.castableZones.includes(object.zone)
       ? fundedVariants({
@@ -1419,6 +1453,8 @@ export const sameLegalAct = (
       && left.targetPlayerId === right.targetPlayerId
       && left.x === right.x
       && left.kicked === right.kicked
+      && left.giftPromised === right.giftPromised
+      && left.giftRecipientId === right.giftRecipientId
       && left.castOption === right.castOption
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
       && left.alternativeCost === right.alternativeCost
@@ -1706,7 +1742,7 @@ export const eventsForAvailableAction = (
     : false
   const hasDeclarativeAdditionalCost = object
     ? effectsOf(object).some((effect) =>
-        effect.op === 'castCost' && (effect.lifeX || effect.kicker))
+        effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.gift))
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
@@ -1792,6 +1828,8 @@ export const eventsForAvailableAction = (
       ...(action.convoke ? { convoke: action.convoke } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       ...(action.kicked ? { kicked: true } : {}),
+      ...(action.giftPromised ? { giftPromised: true } : {}),
+      ...(action.giftRecipientId ? { giftRecipient: action.giftRecipientId } : {}),
       ...(action.door ? { door: action.door } : {}),
       ...(action.targetObjectIds && alternative?.discard
         ? { discard: action.targetObjectIds.slice(0, 1) }

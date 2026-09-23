@@ -208,6 +208,8 @@ export type StackItem = {
   /** Mana actually removed from the pool while casting, by symbol. */
   manaSpent?: Partial<ManaPool>
   kicked?: boolean
+  giftPromised?: boolean
+  giftRecipient?: PlayerId
   castOption?: string
   exileAfterUse?: boolean
   /** Read ahead choice carried from casting through battlefield entry. */
@@ -280,6 +282,8 @@ export type GameState = {
   turn: number
   step: StepId
   passedInRow: PlayerId[]
+  /** Extra turns queued to begin after the current turn ends (FIFO). */
+  extraTurns?: PlayerId[]
   rules: RuleInstance[]
   nextId: number
   nextTimestamp: number
@@ -358,6 +362,8 @@ export type GameEvent =
       targets?: TargetRef[]
       additionalGeneric?: number
       kicked?: boolean
+      giftPromised?: boolean
+      giftRecipient?: PlayerId
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'

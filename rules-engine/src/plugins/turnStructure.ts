@@ -126,7 +126,8 @@ export const advanceTurnStep = (draft: Draft) => {
   const step = skipEmptyStep(draft, STEPS[(index + 1) % STEPS.length])
   draft.step = step
   if (wraps) {
-    draft.active = nextLivingPlayer(draft, draft.active)
+    const queued = draft.extraTurns?.shift()
+    draft.active = queued ?? nextLivingPlayer(draft, draft.active)
     draft.turn += 1
   }
   enterStep(draft, step)

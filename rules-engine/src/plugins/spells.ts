@@ -23,6 +23,7 @@ import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { ceaseSpellCopy } from '../rules/spellCopies'
 import { applyFace, castFaceOf } from './doubleFaced'
+import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
 import { applyRoomDoors, roomDoor } from './rooms'
 
@@ -282,6 +283,9 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires X to be 0 when cast without paying its mana cost`
       }
+      if (event.giftPromised && !giftSpecOf(spell)) {
+        return `${spell.name} has no gift cost`
+      }
       const cost = spellCost(state, spell, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
@@ -402,6 +406,12 @@ export const spells: Plugin = {
         targets: event.targets ?? [],
         manaSpent,
         ...(event.kicked ? { kicked: true } : {}),
+        ...(event.giftPromised
+          ? {
+              giftPromised: true,
+              ...(event.giftRecipient ? { giftRecipient: event.giftRecipient } : {}),
+            }
+          : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
         ...(event.sagaChapter !== undefined ? { sagaChapter: event.sagaChapter } : {}),
