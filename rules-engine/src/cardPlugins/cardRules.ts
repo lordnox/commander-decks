@@ -87,6 +87,7 @@ import {
   otherLands,
   opponentsAtMost,
   opponentsSacrifice,
+  opponentHasMore,
   opponentLostLifeThisTurn,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
@@ -506,7 +507,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   "Commander's Sphere": [
     ability(
       { id: 'commandersSphere.draw' },
-      { sacrifice: 'self' },
+      { tap: true, sacrifice: 'self' },
       draw(1),
     ),
   ],
@@ -659,6 +660,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         reveal: true,
       },
     },
+    triggerOn('playLand', {
+      if: { seat: 'opponent' },
+      do: [
+        branch(opponentHasMore('lands'), [putLandFromHand()], []),
+      ],
+    }),
   ],
   'Buried Alive': [
     searchSpell({
@@ -924,7 +931,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Scute Swarm': [
     landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
   ],
-  'Secret Council': [enters(secretCouncil()), attacks(secretCouncil())],
   'Secluded Steppe': [
     entersTapped(),
     typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
