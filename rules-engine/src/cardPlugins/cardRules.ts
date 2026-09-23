@@ -50,13 +50,13 @@ import {
   drainOpponentsX,
   drawAtNextUpkeep,
   drawGreatestPower,
+  drawHandDifference,
   encore,
   enters,
   entersIfCastOption,
   entersTargetingOpponent,
   entersTarget,
   entersTapped,
-  discardCards,
   gift,
   ifGiftPromised,
   grantProtectionFromEverything,
@@ -83,8 +83,6 @@ import {
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
-  linkExile,
-  linkedExileUntilLeaves,
   loseAbilitiesBecome,
   loseLife,
   loseLifeTargetManaValue,
@@ -105,10 +103,10 @@ import {
   otherLands,
   opponentsAtMost,
   opponentsSacrifice,
-  opponentHasMore,
   opponentLostLifeThisTurn,
   playLandsFromGraveyard,
   pluginIdsFromEffects,
+  ptEqualsLife,
   pump,
   pumpTargetX,
   pumpSelf,
@@ -147,8 +145,9 @@ import {
   staticRevealLibraryTop,
   scry,
   surveil,
-  triggerOn,
   tapAll,
+  triggerOn,
+  tapUnlessPayLife,
   tapUnlessRevealSubtype,
   typecycleHand,
   teferiSunsetEmblem,
@@ -176,7 +175,6 @@ import {
   addUntilCleanupRule,
   gainLifeTargetPower,
   gainLifeLostThisTurn,
-  gift,
   ifGiftNotPromised,
   preventCombatDamage,
   revealDrawLoseLife,
@@ -200,7 +198,14 @@ import {
   flashback,
   grantRetrace,
   warp,
+  unearth,
 } from './effects'
+
+const astralDriftCycleBlink = blink({
+  optional: true,
+  when: 'nextEndStep',
+  filter: { zone: 'battlefield', type: 'Creature' },
+})
 
 const fetchBasic = (prompt: string, extra: {
   life?: number
@@ -666,6 +671,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
+  'Timeless Dragon': [typecycleHand('cycling.timelessDragon', '{2}', 'Plains')],
+  'Tri-Sentinel, Act of Vengeance': [unearth('{7}')],
   'Thorn Mammoth': [enters(fightUpToOne())],
   'Twincast': [
     targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
@@ -690,6 +697,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       costs: { mana: '{3}{G}', sacrifice: 'self' },
       do: [returnOwnedGraveyardLands()],
     }),
+  ],
+  'Astral Drift': [
+    triggerOn('cycle', { do: [astralDriftCycleBlink] }),
+    cycleHand('cycling.astralDrift', '{2}{W}'),
   ],
   'Aesi, Tyrant of Gyre Strait': [staticExtraLandPlays(1), landfall(draw(1))],
   'Analyze the Pollen': [
@@ -975,6 +986,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ['Plains', 'Island', 'Swamp'],
     ),
   ],
+  'Ondu Inversion // Ondu Skyruins': [entersTapped()],
+  'Ondu Skyruins': [entersTapped()],
   'Oboro, Palace in the Clouds': [
     activate({
       id: 'selfBounceLand.oboro',
@@ -1000,6 +1013,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ['Swamp', 'Mountain', 'Forest'],
     ),
   ],
+  'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
   'Scute Swarm': [
     landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
   ],
@@ -1014,6 +1028,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),
   ],
+  'Serra Avatar': [ptEqualsLife({ who: 'controller' })],
+  'Soul of Eternity': [
+    ptEqualsLife({ who: 'controller' }),
+    encore('{7}{W}{W}'),
+  ],
   'Souls of the Faultless': [
     triggerOn('dealtCombatDamage', {
       do: [
@@ -1021,6 +1040,9 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         loseLife('triggerAmount', 'triggeringPlayer'),
       ],
     }),
+  ],
+  'Subjugator Angel': [
+    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'opponent' })),
   ],
   'Skull Prophet': [
     activate({
@@ -1070,6 +1092,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'teferi.minus-seven',
     }, loyalty(-7), teferiSunsetEmblem()),
     handler('teferiSunset'),
+  ],
+  "Thalia's Lancers": [
+    enters(searchLibrary({
+      prompt: 'Search your library for a legendary card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => object.supertypes.includes('Legendary'),
+      destination: 'hand',
+      min: 0,
+      max: 1,
+      reveal: true,
+    })),
   ],
   'Three Visits': [
     searchSpell({
