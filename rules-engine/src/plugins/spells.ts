@@ -26,6 +26,7 @@ import { resolveAbility, resolveAction } from '../rules/actions'
 import { ceaseSpellCopy } from '../rules/spellCopies'
 import { applyFace, castFaceOf } from './doubleFaced'
 import { giftSpecOf } from '../cardPlugins/giftCast'
+import { applyCastFace, resolveCastFace } from './adventure'
 import { reboundsOnResolution } from './rebound'
 import { applyRoomDoors, roomDoor } from './rooms'
 
@@ -246,7 +247,7 @@ export const spells: Plugin = {
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
-      const face = event.door ? roomDoor(object, event.door) : castFaceOf(object)
+      const face = resolveCastFace(object, event)
       const spell = face ? { ...object, ...face } : object
       const selected = availableAlternateCastEffect(
         state,
@@ -257,7 +258,11 @@ export const spells: Plugin = {
       const freeCast = event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana
       if (selected?.fromZone) {
         if (object.zone !== selected.fromZone) return `${event.castOption} requires ${selected.fromZone}`
-      } else if (!state.castableZones.includes(object.zone) && !(freeCast && object.zone === 'exile')) {
+      } else if (
+        !state.castableZones.includes(object.zone)
+        && !(freeCast && object.zone === 'exile')
+        && !(object.adventured && object.zone === 'exile' && !event.adventureCast)
+      ) {
         return 'spell is not in a castable zone'
       }
       if (object.owner !== event.seat || object.controller !== event.seat) {
@@ -364,9 +369,8 @@ export const spells: Plugin = {
     if (event.type === 'castSpell') {
       const object = draft.object(event.objectId)
       if (!object) return
-      const face = event.door ? roomDoor(object, event.door) : castFaceOf(object)
       if (event.door) applyRoomDoors(object, [event.door])
-      else if (face) applyFace(object, face)
+      else applyCastFace(object, event)
       const selected = availableAlternateCastEffect(
         state,
         event.seat,
@@ -431,6 +435,7 @@ export const spells: Plugin = {
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
         ...(event.sagaChapter !== undefined ? { sagaChapter: event.sagaChapter } : {}),
         ...(event.door ? { door: event.door } : {}),
+        ...(event.adventureCast ? { adventureCast: true } : {}),
         ...(cannotBeCountered(object) ? { uncounterable: true } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.sacrifice ? { sacrificed: event.sacrifice.length } : {}),
@@ -502,7 +507,7 @@ export const spells: Plugin = {
           objectId: object.id,
           to: finishedSpellZone(
             item,
-            reboundsOnResolution(object, item) ? 'exile' : 'graveyard',
+            (item.adventureCast || reboundsOnResolution(object, item)) ? 'exile' : 'graveyard',
           ),
         })
       }

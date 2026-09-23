@@ -134,6 +134,13 @@ export const copyStackSpell = (
   const copiedObject: GameObject = {
     ...originalObject,
     ...copyCharacteristics(originalObject),
+    ...(originalObject.frontFace
+      ? { frontFace: structuredClone(originalObject.frontFace) }
+      : {}),
+    ...(originalObject.backFace
+      ? { backFace: structuredClone(originalObject.backFace) }
+      : {}),
+    ...(originalObject.adventured ? { adventured: originalObject.adventured } : {}),
     id: objectId,
     owner: controller,
     controller,
@@ -162,6 +169,7 @@ export const copyStackSpell = (
     name: copiedObject.name,
     targets: [...originalStackItem.targets],
     ...(originalStackItem.choices ? { choices: [...originalStackItem.choices] } : {}),
+    ...(originalStackItem.adventureCast ? { adventureCast: true } : {}),
   }
   draft.stack.unshift(copiedItem)
   return copiedItem

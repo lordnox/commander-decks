@@ -1,18 +1,30 @@
 import type { FaceCharacteristics, GameObject, Plugin } from '../types'
 
-const nonlandFace = (object: GameObject) => {
-  const faces = [object.frontFace, object.backFace].filter(
+const printedFaces = (object: GameObject) =>
+  [object.frontFace, object.backFace].filter(
     (face): face is FaceCharacteristics => Boolean(face),
   )
-  return faces.find((face) => !face.types.includes('Land'))
+
+const isAdventureSpellFace = (face: FaceCharacteristics) =>
+  face.subtypes.includes('Adventure')
+
+const nonlandFace = (object: GameObject) => {
+  const faces = printedFaces(object)
+  return faces.find((face) =>
+    !face.types.includes('Land') && !isAdventureSpellFace(face))
 }
 
-const landFace = (object: GameObject) => {
-  const faces = [object.frontFace, object.backFace].filter(
-    (face): face is FaceCharacteristics => Boolean(face),
-  )
-  return faces.find((face) => face.types.includes('Land'))
-}
+export const adventureFaceOf = (object: GameObject) =>
+  printedFaces(object).find(isAdventureSpellFace)
+
+export const permanentFaceOf = (object: GameObject) =>
+  printedFaces(object).find((face) => !isAdventureSpellFace(face))
+
+export const isAdventureCard = (object: GameObject) =>
+  Boolean(adventureFaceOf(object) && permanentFaceOf(object))
+
+const landFace = (object: GameObject) =>
+  printedFaces(object).find((face) => face.types.includes('Land'))
 
 export const castFaceOf = (object: GameObject) => nonlandFace(object)
 

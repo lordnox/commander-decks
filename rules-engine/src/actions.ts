@@ -32,7 +32,15 @@ import {
 } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
 import { CAST_TRANSFORMED_ACTION } from './plugins/battle'
-import { castFaceOf, landFaceOf } from './plugins/doubleFaced'
+import {
+  adventureFaceOf,
+  castFaceOf,
+  isAdventureCard,
+  landFaceOf,
+  permanentFaceOf,
+} from './plugins/doubleFaced'
+import { resolveCastFace } from './plugins/adventure'
+import type { FaceCharacteristics } from './types'
 import { pendingFreeCastFor } from './plugins/rebound'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { pendingExtortFor } from './cardPlugins/extort'
@@ -102,6 +110,7 @@ export type AvailableAction =
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
       door?: RoomDoorId
+      adventureCast?: boolean
       targetGroups?: ActionTargetGroup[]
     }
   | { kind: 'declineFreeCast'; objectId: string; name: string }
@@ -416,15 +425,23 @@ const canCastAtTiming = (
   seat: PlayerId,
   object: GameObject,
   withoutPayingMana = false,
+  spellFace?: FaceCharacteristics,
 ) => {
-  const face = castFaceOf(object)
+  const face = spellFace ?? castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
   const fromAlternateZone = availableAlternateCastEffects(state, seat, object)
     .some((effect) => effect.fromZone === object.zone)
+  const fromAdventureExile = Boolean(
+    object.adventured
+    && object.zone === 'exile'
+    && spellFace
+    && !spellFace.subtypes.includes('Adventure'),
+  )
   if (
     !state.castableZones.includes(object.zone)
     && !(withoutPayingMana && object.zone === 'exile')
     && !fromAlternateZone
+    && !fromAdventureExile
   ) return false
   if (object.types.includes('Land') && !face) return false
   if (object.owner !== seat || object.controller !== seat) return false
@@ -553,7 +570,6 @@ const bestowEffect = (object: GameObject) =>
   effectsOf(object).find((effect) => effect.op === 'bestow')
 
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
-  if (!canCastAtTiming(state, seat, object)) return []
   const tax = taxFor(state, seat, object)
   if (object.roomDoors) {
     const suffix = tax > 0 ? `{${tax}}` : ''
@@ -571,6 +587,54 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       }]
     })
   }
+  if (isAdventureCard(object)) {
+    const permanent = permanentFaceOf(object)
+    const adventure = adventureFaceOf(object)
+    const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+    const fundedForFace = (
+      face: FaceCharacteristics,
+      base: Extract<AvailableAction, { kind: 'castSpell' }>,
+    ): AvailableAction[] => {
+      if (!canCastAtTiming(state, seat, object, false, face)) return []
+      const spell = { ...object, ...face }
+      const cost = spellCost(state, spell, { additionalGeneric: tax, seat })
+      return fundedCasts(state, seat, object, cost).map((funded) => ({
+        ...base,
+        ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
+        ...(funded.convoke ? { convoke: funded.convoke } : {}),
+      }))
+    }
+    const actions: AvailableAction[] = []
+    if (permanent && castFaceOf(object) && object.zone === 'hand') {
+      actions.push(...fundedForFace(permanent, {
+        kind: 'castSpell',
+        objectId: object.id,
+        name: object.name,
+        castLabel: object.name,
+      }))
+    }
+    if (adventure && object.zone === 'hand') {
+      const adventureLabel = object.name.split(' // ')[1] ?? 'Adventure'
+      actions.push(...fundedForFace(adventure, {
+        kind: 'castSpell',
+        objectId: object.id,
+        name: adventureLabel,
+        adventureCast: true,
+        castLabel: adventureLabel,
+      }))
+    }
+    if (permanent && object.adventured && object.zone === 'exile') {
+      actions.push(...fundedForFace(permanent, {
+        kind: 'castSpell',
+        objectId: object.id,
+        name: object.name,
+        castLabel: `${object.name} from exile`,
+      }))
+    }
+    if (paysLifeX || object.manaCost.includes('{X}')) return actions
+    return actions
+  }
+  if (!canCastAtTiming(state, seat, object)) return []
   const alternatives = availableAlternateCastEffects(state, seat, object)
   const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
   const face = castFaceOf(object)
@@ -1460,6 +1524,7 @@ export const sameLegalAct = (
     phyrexianLife?: number[]
     alternativeCost?: 'withoutPayingMana'
     door?: RoomDoorId
+    adventureCast?: boolean
     stackId?: string
     selectionId?: string
     triggerId?: string
@@ -1487,6 +1552,7 @@ export const sameLegalAct = (
       && JSON.stringify(left.phyrexianLife ?? []) === JSON.stringify(right.phyrexianLife ?? [])
       && left.alternativeCost === right.alternativeCost
       && left.door === right.door
+      && left.adventureCast === right.adventureCast
   }
   if (left.kind === 'unlockDoor') return left.door === right.door
   if (left.kind === 'continueAction') return left.stackId === right.stackId
@@ -1809,7 +1875,10 @@ export const eventsForAvailableAction = (
   ) return null
   if (object.name === 'Ghostly Flicker' && blinkTargets.length !== 2) return null
   const tax = taxFor(state, seat, object)
-  const face = castFaceOf(object)
+  const face = resolveCastFace(object, {
+    door: action.door,
+    adventureCast: action.adventureCast,
+  })
   const casting = face ? { ...object, ...face } : object
   const alternative = alternateCastEffects(object).find(
     (effect) => effect.id === action.castOption,
@@ -1864,6 +1933,7 @@ export const eventsForAvailableAction = (
         ? { spreeModes: action.spreeModes }
         : {}),
       ...(action.door ? { door: action.door } : {}),
+      ...(action.adventureCast ? { adventureCast: true } : {}),
       ...(action.targetObjectIds && alternative?.discard
         ? { discard: action.targetObjectIds.slice(0, 1) }
         : {}),
