@@ -13,6 +13,7 @@ import type {
 } from './types'
 import { zoneHandlers } from './zones'
 import { linkedExileInstructionHandlers } from '../linkedExile'
+import { blinkHandlers } from '../blink'
 
 const instructionHandlers = {
   ...controlHandlers,
@@ -21,6 +22,7 @@ const instructionHandlers = {
   ...combatCopyHandlers,
   ...multiplayerHandlers,
   ...linkedExileInstructionHandlers,
+  ...blinkHandlers,
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
 } satisfies InstructionHandlers

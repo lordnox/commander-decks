@@ -424,6 +424,8 @@ export const triggers: Plugin = {
               object,
               targetSpec.filter,
               source.controller,
+              undefined,
+              source.id,
             ))
           .map((object) => object.id)
         if (candidates.length === 0) continue

@@ -28,8 +28,13 @@ export const validTarget = (
   filter: TargetFilter,
   controller: PlayerId,
   castOption?: string,
+  excludeSourceId?: string,
 ) => {
   if (!object) return false
+  if (filter.other && excludeSourceId && object.id === excludeSourceId) return false
+  if (filter.excludeSubtypes?.some((subtype) => object.subtypes.includes(subtype))) {
+    return false
+  }
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.zones && !filter.zones.includes(object.zone)) return false
   if (filter.castFromNot) {
@@ -53,7 +58,7 @@ export const validTarget = (
   if (
     filter.bracketed
     && castOption !== 'cleave'
-    && !validTarget(state, object, filter.bracketed, controller, castOption)
+    && !validTarget(state, object, filter.bracketed, controller, castOption, excludeSourceId)
   ) return false
   return true
 }

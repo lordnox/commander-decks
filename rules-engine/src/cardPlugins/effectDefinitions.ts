@@ -178,6 +178,22 @@ export type CardInstruction =
       perOpponent?: { max: number }
     }
   | { kind: 'returnLinkedExile'; returnTo?: 'battlefield' | 'hand' }
+  | {
+      kind: 'blink'
+      returnController?: 'owner' | 'controller'
+      when?: 'immediate' | 'nextEndStep'
+      plusCounters?: number
+      targetIndex?: number
+      optional?: boolean
+      filter?: TargetFilter
+      prompt?: string
+    }
+  | {
+      kind: 'blinkReturn'
+      objectId: string
+      returnController?: 'owner' | 'controller'
+      plusCounters?: number
+    }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -226,6 +242,9 @@ export type TargetFilter = {
   spellTargetsControlledPermanent?: boolean
   players?: 'any' | 'opponent'
   nonlegendary?: boolean
+  /** Exclude the source permanent ("another target"). */
+  other?: boolean
+  excludeSubtypes?: string[]
 }
 
 export type CastCostCondition =
@@ -312,7 +331,14 @@ export type CardEffect =
       op: 'activate'
       id: string
       manaAbility?: boolean
-      targets?: 'any' | 'opponent' | 'teferiSunsetPlusOne' | 'creature' | 'land' | 'room'
+      targets?:
+        | 'any'
+        | 'opponent'
+        | 'teferiSunsetPlusOne'
+        | 'creature'
+        | 'land'
+        | 'room'
+        | { filter: TargetFilter }
       sorcery?: boolean
       zone?: ZoneId
       costs: ActivateCost

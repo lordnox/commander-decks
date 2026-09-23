@@ -461,6 +461,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'searchLibrary')) ids.add('librarySearch')
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
     }
+    if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (hasKind(listed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
     if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')

@@ -40,6 +40,33 @@ export const entersTargetingOpponent = (...instructions: CardInstruction[]): Car
   do: instructions,
 })
 
+export const entersTarget = (
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'enters',
+  targets: { filter },
+  do: instructions,
+})
+
+export type BlinkOptions = {
+  returnController?: 'owner' | 'controller'
+  when?: 'immediate' | 'nextEndStep'
+  plusCounters?: number
+  targetIndex?: number
+  optional?: boolean
+  filter?: TargetFilter
+  prompt?: string
+}
+
+export const blink = (options: BlinkOptions = {}): CardInstruction => ({
+  kind: 'blink',
+  returnController: 'owner',
+  when: 'immediate',
+  ...options,
+})
+
 export const dies = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'dies',
