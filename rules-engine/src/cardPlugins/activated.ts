@@ -11,6 +11,7 @@ import {
   payActivationCosts,
 } from './activationCosts'
 import { effectsOf } from './cardRules'
+import { validTargetRef } from './targetedResolve'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
@@ -97,7 +98,19 @@ export const activated: Plugin = {
     ) {
       return `${source.name} can be activated only as a sorcery`
     }
-    if (effect.targets === 'creature' || effect.targets === 'land' || effect.targets === 'room') {
+    if (
+      effect.targets
+      && typeof effect.targets === 'object'
+      && 'filter' in effect.targets
+    ) {
+      const targets = event.targets ?? []
+      if (
+        targets.length !== 1
+        || !validTargetRef(state, targets[0], effect.targets.filter, event.seat)
+      ) {
+        return `${source.name} needs one legal target`
+      }
+    } else if (effect.targets === 'creature' || effect.targets === 'land' || effect.targets === 'room') {
       const targets = event.targets ?? []
       if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets, event.seat)) {
         return `${source.name} needs one ${effect.targets} target`
