@@ -50,11 +50,20 @@ import {
   drainOpponentsX,
   drawAtNextUpkeep,
   drawGreatestPower,
+  encore,
   enters,
   entersIfCastOption,
   entersTargetingOpponent,
   entersTarget,
   entersTapped,
+  discardCards,
+  gift,
+  ifGiftPromised,
+  grantProtectionFromEverything,
+  lifeTotalCannotChange,
+  opponentDealtCombatDamageByLegendaryThisTurn,
+  opponentHasMore,
+  phaseOutControlled,
   extraEnters,
   extraLandfall,
   extraLandPlays,
@@ -270,6 +279,31 @@ const bird = createTokenInstruction({
   power: 2,
   toughness: 2,
   oracleText: 'Flying',
+})
+
+const fish = createTokenInstruction({
+  name: 'Fish',
+  types: ['Creature'],
+  subtypes: ['Fish'],
+  power: 1,
+  toughness: 1,
+})
+
+const changelingShapeshifter = () => createTokenInstruction({
+  name: 'Shapeshifter',
+  types: ['Creature'],
+  subtypes: ['Shapeshifter'],
+  power: 1,
+  toughness: 1,
+  oracleText: 'Changeling',
+})
+
+const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
+
+const lootAndTreasure = (id: string): CardEffect => activate({
+  id,
+  costs: { mana: '{2}', tap: true },
+  do: [draw(1), discardCards(1), createTreasures(1, 'you')],
 })
 
 const signet = (id: string, mana: Partial<{ W: number; U: number; B: number; R: number; G: number }>): CardEffect =>
@@ -1538,6 +1572,47 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'exile',
       { zone: 'battlefield', nonland: true },
       loseLife(3, 'controller'),
+    ),
+  ],
+  Belonging: [
+    enters(
+      changelingShapeshifter(),
+      changelingShapeshifter(),
+      changelingShapeshifter(),
+    ),
+    allCreatureTypes(),
+    encore('{6}{W}{W}'),
+  ],
+  'Beza, the Bounding Spring': [
+    enters(
+      branch(opponentHasMore('lands'), [createTreasures(1, 'you')]),
+      branch(opponentHasMore('life'), [gainLife(4)]),
+      branch(opponentHasMore('creatures'), [fish, fish]),
+      branch(opponentHasMore('cardsInHand'), [draw(1)]),
+    ),
+  ],
+  Blitzball: [
+    ability(
+      { id: 'blitzball.goal' },
+      {
+        tap: true,
+        sacrifice: 'self',
+        if: opponentDealtCombatDamageByLegendaryThisTurn(),
+      },
+      draw(2),
+    ),
+  ],
+  'Collector\'s Vault': [lootAndTreasure('collectorsVault.loot')],
+  'Daily Bugle Newspaper': [lootAndTreasure('dailyBugle.loot')],
+  'Perch Protection': [
+    gift({ label: 'Gift an extra turn', extraTurn: true }),
+    onResolve(
+      ...perchBirds(),
+      ifGiftPromised(
+        phaseOutControlled(),
+        grantProtectionFromEverything(),
+        lifeTotalCannotChange(),
+      ),
     ),
   ],
   'Bender\'s Waterskin': [staticGrant('extraUntap')],
