@@ -20,6 +20,15 @@ export const selfMill = (count: number): CardInstruction => ({ kind: 'selfMill',
 
 export const dredge = (count: number): CardEffect => ({ op: 'dredge', count })
 
+export const unearth = (manaCost: string): CardEffect =>
+  activate({
+    id: 'unearth',
+    zone: 'graveyard',
+    sorcery: true,
+    costs: { mana: manaCost },
+    do: [{ kind: 'unearthSelf' }],
+  })
+
 export const enters = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'enters',

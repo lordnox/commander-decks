@@ -51,6 +51,8 @@ export type RevealUntilNonMatch = 'mill' | 'shuffle'
 export type CardInstruction =
   | { kind: 'selfMill'; count: number }
   | { kind: 'bounceSelf' }
+  | { kind: 'unearthSelf' }
+  | { kind: 'exileSelf' }
   | { kind: 'tap' }
   | { kind: 'payMana'; cost: string }
   | { kind: 'sacrificeSelf' }
