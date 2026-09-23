@@ -434,6 +434,7 @@ export type GameEvent =
       remainingAfter?: number
     }
   | { type: 'discard'; seat: PlayerId; objectId: string }
+  | { type: 'cycle'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
   // — Mana —

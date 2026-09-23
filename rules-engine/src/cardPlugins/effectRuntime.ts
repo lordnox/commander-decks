@@ -417,6 +417,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add(effect.costs.loyalty !== undefined || effect.costs.loyaltyX
         ? 'planeswalker'
         : 'activated')
+      if (effect.cycling) ids.add('cycling')
     }
     if (effect.op === 'mana') ids.add('activated')
     if (effect.op === 'search') ids.add('librarySearch')

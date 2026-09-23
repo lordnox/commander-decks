@@ -11,6 +11,7 @@ import type Draft from '../draft'
 import type { GameObject, GameState, StackItem } from '../types'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import type { TargetFilter } from '../cardPlugins/effects'
+import { emitCyclingResolved } from '../cardPlugins/cycling'
 import { resolveDiscardAction } from './discard'
 import { resolveDrawAction } from './draw'
 
@@ -50,6 +51,7 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
     targetFilter
     && !validTargetRef(draft, item.targets[0], targetFilter, item.controller)
   ) return
+  emitCyclingResolved(draft, item)
   runInstructions(draft, source, instructions, item)
 }
 

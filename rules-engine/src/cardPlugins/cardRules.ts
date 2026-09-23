@@ -27,6 +27,7 @@ import {
   copySelf,
   copyTargetCreature,
   counterUnlessPay,
+  cycleHand,
   createTokenInstruction,
   createTreasures,
   crew,
@@ -265,13 +266,7 @@ const coffersMana = (id: string, cost: string, basic = false): CardEffect =>
     do: [addManaPerSwamp(basic)],
   })
 
-const cycleFromHand = (id: string): CardEffect =>
-  activate({
-    id,
-    zone: 'hand',
-    costs: { mana: '{3}', discard: 'self' },
-    do: [draw(1)],
-  })
+const cycleFromHand = (id: string, mana = '{3}') => cycleHand(id, mana)
 
 /**
  * Sin, Spira's Punishment: exile a random permanent card from your graveyard and
