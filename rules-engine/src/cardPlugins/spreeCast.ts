@@ -1,16 +1,26 @@
-import type { GameEvent, GameObject, GameState, Plugin } from '../types'
+import type Draft from '../draft'
+import type { GameEvent, GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
 import {
   clearPendingDialog,
   DIALOG_CHOSEN,
   pendingDialogFor,
   setPendingDialog,
 } from '../pendingDialog'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { spreeModesOf } from '../spreeCost'
 import { effectsOf } from './cardRules'
 import { runInstructions } from './effects'
 import type { SpreeMode } from './effectDefinitions'
 
 const PENDING_CAST = 'spreeCast.pending'
+const SPREE_RESUME = 'spreeCast.resume'
+const SPREE_RAN_PREFIX = '__spreeRan:'
+
+type SpreeResume = {
+  objectId: string
+  spreeModes: string[]
+  completed: string[]
+}
 
 type PendingSpreeCast = Omit<Extract<GameEvent, { type: 'castSpell' }>, 'type' | 'spreeModes'>
 
@@ -20,6 +30,113 @@ const spreeEffect = (object: GameObject) =>
 const labelsToIds = (modes: SpreeMode[], labels: string[]) => {
   const selected = modes.filter((mode) => labels.includes(mode.label))
   return selected.map((mode) => mode.id)
+}
+
+const activeResume = (state: GameState | Draft): [PlayerId, SpreeResume] | undefined => {
+  for (const seat of state.playerOrder) {
+    const resume = state.players[seat]?.data[SPREE_RESUME] as SpreeResume | undefined
+    if (resume?.objectId) return [seat, resume]
+  }
+}
+
+const awaitingSpreeChoice = (
+  state: GameState | Draft,
+  objectId: string,
+  seat: PlayerId,
+) => {
+  const selection = pendingSelectionFor(state, seat)
+  if (selection?.sourceId === objectId) return true
+  const dialog = pendingDialogFor(state, seat)
+  return Boolean(dialog?.sourceId === objectId && dialog.kind !== 'choose-modes')
+}
+
+const finishSpreeResolution = (
+  draft: Draft,
+  seat: PlayerId,
+  item: StackItem | undefined,
+  object: GameObject,
+  resume: SpreeResume,
+) => {
+  delete draft.players[seat].data[SPREE_RESUME]
+  if (item) {
+    item.choices = [...(item.choices ?? []), '__spreeExecuted__']
+  }
+  draft.note(`${object.name}: ${resume.spreeModes.map((id) =>
+    spreeModesOf(object)?.find((mode) => mode.id === id)?.label ?? id).join('; ')}`)
+}
+
+const SPREE_CONTINUE = 'spreeCast.continue'
+
+const advanceSpreeResolution = (
+  draft: Draft,
+  state: GameState,
+  spellItem: StackItem | undefined,
+) => {
+  const resumed = activeResume(state)
+  const seat = spellItem?.controller ?? resumed?.[0]
+  if (!seat) return
+
+  let resume = draft.players[seat].data[SPREE_RESUME] as SpreeResume | undefined
+  if (spellItem && !resume) {
+    resume = {
+      objectId: spellItem.objectId,
+      spreeModes: [...spellItem.spreeModes!],
+      completed: [],
+    }
+    draft.players[seat].data[SPREE_RESUME] = resume
+  }
+  if (!resume) return
+
+  const object = draft.object(resume.objectId)
+  const modes = object ? spreeModesOf(object) : undefined
+  if (!object || !modes) {
+    delete draft.players[seat].data[SPREE_RESUME]
+    return
+  }
+
+  if (
+    spellItem?.choices?.includes('__spreeExecuted__')
+    || (resume.completed.length === resume.spreeModes.length
+      && !awaitingSpreeChoice(state, resume.objectId, seat))
+  ) {
+    return
+  }
+
+  if (awaitingSpreeChoice(state, resume.objectId, seat)) return
+
+  const nextId = resume.spreeModes.find((id) => !resume.completed.includes(id))
+  if (!nextId) {
+    finishSpreeResolution(draft, seat, spellItem, object, resume)
+    return
+  }
+
+  const mode = modes.find((entry) => entry.id === nextId)
+  if (!mode) return
+
+  const pendingBefore = draft.pending.length
+  runInstructions(draft, object, mode.do, spellItem ?? state.stack[0])
+  const instructions = draft.pending.splice(pendingBefore)
+  draft.pending.unshift(...instructions)
+
+  resume.completed.push(nextId)
+  draft.players[seat].data[SPREE_RESUME] = resume
+  if (spellItem) {
+    spellItem.choices = [...(spellItem.choices ?? []), `${SPREE_RAN_PREFIX}${nextId}`]
+  }
+
+  if (awaitingSpreeChoice(draft, resume.objectId, seat)) return
+
+  if (resume.completed.length < resume.spreeModes.length) {
+    draft.enqueue({
+      type: 'custom',
+      name: SPREE_CONTINUE,
+      seat,
+      payload: { objectId: resume.objectId },
+    })
+    return
+  }
+
+  finishSpreeResolution(draft, seat, spellItem, object, resume)
 }
 
 const validateSpreeModes = (modes: SpreeMode[], selected: string[] | undefined) => {
@@ -33,20 +150,21 @@ const validateSpreeModes = (modes: SpreeMode[], selected: string[] | undefined) 
 export const spreeCast: Plugin = {
   id: 'spreeCast',
   replace: ({ state, event }) => {
-    if (event.type !== 'castSpell' || event.spreeModes) return
-    const object = state.objects[event.objectId]
-    if (!object || !spreeEffect(object)) return
-    const {
-      type: _type,
-      spreeModes: _modes,
-      ...cast
-    } = event
-    return [{
-      type: 'custom' as const,
-      name: 'spreeCast.openSelection',
-      seat: event.seat,
-      payload: { cast },
-    }]
+    if (event.type === 'castSpell' && !event.spreeModes) {
+      const object = state.objects[event.objectId]
+      if (!object || !spreeEffect(object)) return
+      const {
+        type: _type,
+        spreeModes: _modes,
+        ...cast
+      } = event
+      return [{
+        type: 'custom' as const,
+        name: 'spreeCast.openSelection',
+        seat: event.seat,
+        payload: { cast },
+      }]
+    }
   },
   legal: ({ state, event }) => {
     if (event.type === 'custom' && event.name === DIALOG_CHOSEN && event.seat) {
@@ -118,23 +236,34 @@ export const spreeCast: Plugin = {
       return
     }
 
-    if (event.type !== 'resolveTop') return
-    const item = state.stack[0]
-    if (!item || item.kind !== 'spell' || !item.spreeModes?.length) return
-    if (item.choices?.includes('__spreeExecuted__')) return
-    const object = draft.object(item.objectId)
-    const modes = object ? spreeModesOf(object) : undefined
-    if (!object || !modes) return
-    item.choices = [...(item.choices ?? []), '__spreeExecuted__']
-    for (const id of item.spreeModes) {
-      const mode = modes.find((entry) => entry.id === id)
-      if (!mode) continue
-      const pendingBefore = draft.pending.length
-      runInstructions(draft, object, mode.do, item)
-      const instructions = draft.pending.splice(pendingBefore)
-      draft.pending.unshift(...instructions)
+    if (event.type === 'selectCards' && event.seat) {
+      const resumed = activeResume(draft)
+      if (!resumed) return
+      const [seat, resume] = resumed
+      if (event.seat !== seat) return
+      if (awaitingSpreeChoice(draft, resume.objectId, seat)) return
+      if (resume.completed.length < resume.spreeModes.length) {
+        draft.enqueue({
+          type: 'custom',
+          name: SPREE_CONTINUE,
+          seat,
+          payload: { objectId: resume.objectId },
+        })
+      }
+      return
     }
-    draft.note(`${object.name}: ${item.spreeModes.map((id) =>
-      modes.find((mode) => mode.id === id)?.label ?? id).join('; ')}`)
+
+    if (event.type === 'custom' && event.name === SPREE_CONTINUE && event.seat) {
+      advanceSpreeResolution(draft, state, undefined)
+      return
+    }
+
+    if (event.type !== 'resolveTop') return
+    const stackItem = state.stack[0]
+    const spellItem = stackItem?.kind === 'spell' && stackItem.spreeModes?.length
+      ? stackItem
+      : undefined
+    if (!spellItem) return
+    advanceSpreeResolution(draft, state, spellItem)
   },
 }
