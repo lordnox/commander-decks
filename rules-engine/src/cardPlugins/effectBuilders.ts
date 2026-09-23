@@ -7,6 +7,7 @@ import type {
   CardInstruction,
   ModalMode,
   ModalSpec,
+  SpreeMode,
   SearchSpec,
   RevealUntilNonMatch,
   TargetFilter,
@@ -683,6 +684,18 @@ export const ifGiftNotPromised = (...whenTrue: CardInstruction[]): CardInstructi
   kind: 'if',
   if: { kind: 'giftNotPromised' },
   whenTrue,
+})
+
+export const spreeMode = (
+  id: string,
+  label: string,
+  extraCost: string,
+  instructions: CardInstruction[],
+): SpreeMode => ({ id, label, extraCost, do: instructions })
+
+export const spree = (modes: SpreeMode[]): CardEffect => ({
+  op: 'castCost',
+  spree: modes,
 })
 
 export const reduceGenericIf = (

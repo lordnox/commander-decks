@@ -439,6 +439,13 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'castCost') {
       ids.add('castCosts')
       if (effect.gift) ids.add('giftCast')
+      if (effect.spree) {
+        ids.add('spreeCast')
+        const spreeListed = effect.spree.flatMap((mode) => flattenInstructions(mode.do))
+        if (spreeListed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {
+          ids.add('choiceEffects')
+        }
+      }
     }
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')

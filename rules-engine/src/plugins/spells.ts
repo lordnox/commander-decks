@@ -10,6 +10,7 @@ import type {
   TargetRef,
 } from '../types'
 import type { CastCostCondition } from '../cardPlugins/effectDefinitions'
+import { spreeExtraCost, spreeModesOf } from '../spreeCost'
 import { searchEffect } from '../cardPlugins/effects'
 import { conditionHolds } from '../cardPlugins/effects'
 import { effectsOf } from '../cardPlugins/cardRules'
@@ -67,6 +68,7 @@ export const spellCost = (
     x?: number
     castOption?: string
     kicked?: boolean
+    spreeModes?: string[]
     targets?: TargetRef[]
     seat?: PlayerId
     selected?: AlternateCastEffect
@@ -88,6 +90,10 @@ export const spellCost = (
     (options.additionalGeneric ?? 0) > 0 ? `{${options.additionalGeneric}}` : ''
   }${
     options.kicked ? kickerCostOf(object) ?? '' : ''
+  }${
+    options.spreeModes && options.spreeModes.length > 0
+      ? spreeExtraCost(spreeModesOf(object) ?? [], options.spreeModes)
+      : ''
   }`
   const reduction = effectsOf(object).reduce((amount, effect) =>
     effect.op === 'castCost'
@@ -291,6 +297,7 @@ export const spells: Plugin = {
         x: event.x,
         castOption: event.castOption,
         kicked: event.kicked,
+        spreeModes: event.spreeModes,
         targets: event.targets,
         seat: event.seat,
         selected,
@@ -367,6 +374,7 @@ export const spells: Plugin = {
         x: event.x,
         castOption: event.castOption,
         kicked: event.kicked,
+        spreeModes: event.spreeModes,
         targets: event.targets,
         seat: event.seat,
         selected,
@@ -411,6 +419,9 @@ export const spells: Plugin = {
               giftPromised: true,
               ...(event.giftRecipient ? { giftRecipient: event.giftRecipient } : {}),
             }
+          : {}),
+        ...(event.spreeModes && event.spreeModes.length > 0
+          ? { spreeModes: event.spreeModes }
           : {}),
         ...(event.castOption ? { castOption: event.castOption } : {}),
         ...(selected?.exileAfterUse ? { exileAfterUse: true } : {}),
