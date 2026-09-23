@@ -2,6 +2,7 @@ import { emptyMana, nextPlayer, type Draft } from '../draft'
 import { strikesFirst } from '../keywords'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
 import { clearPutIntoGraveyardFromBattlefieldThisTurn } from './fromBattlefieldThisTurn'
+import { LEGENDARY_COMBAT_DAMAGE_FROM } from './combatLegendaryDamage'
 import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 import { phaseInControlledBeforeUntap } from './phasing'
 
@@ -64,6 +65,7 @@ const onUntap = (draft: Draft) => {
   for (const player of draft.playerOrder) {
     delete draft.players[player].data[LIFE_LOST_THIS_TURN]
     delete draft.players[player].data[LIFE_GAINED_THIS_TURN]
+    delete draft.players[player].data[LEGENDARY_COMBAT_DAMAGE_FROM]
   }
   clearPutIntoGraveyardFromBattlefieldThisTurn(draft)
   draft.note(`${draft.active} untaps`)

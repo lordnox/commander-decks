@@ -3,7 +3,7 @@ import { hasKeyword } from '../keywords'
 import { payCost } from '../plugins/spells'
 import type { GameObject, GameState, PlayerId } from '../types'
 import type { ActivateCost } from './effectDefinitions'
-import { millLibrary } from './effectRuntime'
+import { conditionHolds, millLibrary } from './effectRuntime'
 
 type CanPayMana = (cost: string) => boolean
 
@@ -100,6 +100,9 @@ export const activationCostError = (
 ) => {
   const canPayMana = options.canPayMana ?? canPayFromPool(state, seat)
   const picks = options.picks ?? {}
+  if (costs.if && !conditionHolds(costs.if, state, source)) {
+    return `${source.name} cannot be activated now`
+  }
   if (costs.tap) {
     if (source.tapped) return `${source.name} is already tapped`
     if (

@@ -1,6 +1,7 @@
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
+import { legendaryCombatDamageFrom } from '../plugins/combatLegendaryDamage'
 import { lifeLostThisTurn } from '../plugins/life'
 import type {
   GameObject,
@@ -311,6 +312,16 @@ export const conditionHolds = (
     return state.playerOrder.some((seat) =>
       seat !== object.controller
       && lifeLostThisTurn(state.players[seat]) >= condition.min)
+  }
+  if (condition.kind === 'opponentDealtCombatDamageByLegendaryThisTurn') {
+    const scope = condition.controller ?? 'any'
+    const you = object.controller
+    return state.playerOrder.some((seat) => {
+      if (seat === you || state.players[seat].lost) return false
+      const from = legendaryCombatDamageFrom(state.players[seat])
+      if (scope === 'you') return Boolean(from[you])
+      return Object.keys(from).length > 0
+    })
   }
   if (condition.kind === 'controllerIsActive') return state.active === object.controller
   if (condition.kind === 'castOption') return object.enteredWithCastOption === condition.id

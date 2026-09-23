@@ -23,6 +23,7 @@ export type CardCondition =
   | { kind: 'opponentsAtMost'; max: number }
   | { kind: 'opponentHasMore'; stat: 'lands' | 'life' | 'creatures' | 'cardsInHand' }
   | { kind: 'opponentLostLifeThisTurn'; min: number }
+  | { kind: 'opponentDealtCombatDamageByLegendaryThisTurn'; controller?: 'you' | 'any' }
   | { kind: 'controllerIsActive' }
   | { kind: 'castOption'; id: string }
   | { kind: 'controllerUpkeep' }
@@ -301,6 +302,7 @@ export type ActivateCost = {
   loyaltyX?: boolean
   /** Energy counters ({E}) paid from the controller's pool. */
   energy?: number
+  if?: CardCondition
 }
 
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
