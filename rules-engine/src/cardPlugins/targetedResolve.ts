@@ -10,6 +10,7 @@ import { hasKeyword } from '../keywords'
 import { isPhasedOut } from '../plugins/phasing'
 import { hasProtectionFromEverything } from '../plugins/protectionFromEverything'
 import { effectsOf } from './cardRules'
+import { spellWasKicked } from '../plugins/kickCast'
 import { runInstructions, type TargetFilter } from './effects'
 import { openStackCopyChoice } from './stackCopy'
 import { finishedSpellZone } from './alternateCosts'
@@ -116,7 +117,7 @@ export const targetedResolve: Plugin = {
     }
     for (const effect of effects) {
       const target = event.targets?.[effect.target]
-      const filter = targetedEffectFilter(effect, event.kicked === true)
+      const filter = targetedEffectFilter(effect, spellWasKicked(event))
       if (!validTargetRef(state, target, filter, event.seat, event.castOption)) {
         return `illegal target for ${source.name}`
       }
@@ -129,7 +130,7 @@ export const targetedResolve: Plugin = {
     if (!item || !source) return
     for (const effect of targetedEffects(source)) {
       const target = item.targets[effect.target]
-      const filter = targetedEffectFilter(effect, item.kicked === true)
+      const filter = targetedEffectFilter(effect, spellWasKicked(item))
       if (!validTargetRef(
         state,
         target,

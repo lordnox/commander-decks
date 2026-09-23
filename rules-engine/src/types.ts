@@ -208,6 +208,8 @@ export type GameObject = {
   effects?: import('./cardPlugins/effects').CardEffect[]
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
+  /** Multikicker count stamped when this permanent entered from a resolving spell. */
+  enteredWithTimesKicked?: number
   /** Turn this object most recently entered the battlefield. */
   enteredBattlefieldTurn?: number
   /** Per-ability trigger and resolve counts for generic trigger frequency flags. */
@@ -251,6 +253,8 @@ export type StackItem = {
   giftPromised?: boolean
   giftRecipient?: PlayerId
   spreeModes?: string[]
+  /** Times the multikicker cost was paid; 0 is explicit for multikicker spells. */
+  timesKicked?: number
   castOption?: string
   exileAfterUse?: boolean
   /** Read ahead choice carried from casting through battlefield entry. */
@@ -410,6 +414,7 @@ export type GameEvent =
       giftPromised?: boolean
       giftRecipient?: PlayerId
       spreeModes?: string[]
+      timesKicked?: number
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'

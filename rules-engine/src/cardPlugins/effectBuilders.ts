@@ -755,6 +755,13 @@ export const spreeMode = (
 export const spree = (modes: SpreeMode[]): CardEffect => ({
   op: 'castCost',
   spree: modes,
+export const multikicker = (cost: string): CardEffect => ({
+  op: 'castCost',
+  multikicker: cost,
+})
+
+export const putChargeCountersFromTimesKicked = (): CardInstruction => ({
+  kind: 'putChargeCountersFromTimesKicked',
 })
 
 export const reduceGenericIf = (

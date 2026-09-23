@@ -75,6 +75,7 @@ export type CardInstruction =
   | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }
   | { kind: 'winGame' }
   | { kind: 'addPlusCounters'; count: number }
+  | { kind: 'putChargeCountersFromTimesKicked' }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | {
       kind: 'revealUntil'
@@ -474,6 +475,7 @@ export type CardEffect =
       kicker?: string
       gift?: GiftSpec
       spree?: SpreeMode[]
+      multikicker?: string
       reduceGeneric?: {
         amount: number
         if: CastCostCondition
