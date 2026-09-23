@@ -359,49 +359,6 @@
       "submitted_name": "Astral Drift"
     },
     {
-      "cache": "cards/c0cbb347-b060-43ce-a9c5-8c835be3cf1b.json",
-      "card": {
-        "cmc": 2.0,
-        "faces": [
-          {
-            "mana_cost": "{2}",
-            "name": "Azor's Gateway",
-            "oracle_text": "{1}, {T}: Draw a card, then exile a card from your hand. If cards with five or more different mana values are exiled with Azor's Gateway, you gain 5 life, untap Azor's Gateway, and transform it.",
-            "type_line": "Legendary Artifact"
-          },
-          {
-            "mana_cost": "",
-            "name": "Sanctum of the Sun",
-            "oracle_text": "(Transforms from Azor's Gateway.)\n{T}: Add X mana of any one color, where X is your life total.",
-            "type_line": "Legendary Land"
-          }
-        ],
-        "keywords": [
-          "Transform"
-        ],
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Legendary Artifact // Legendary Land"
-      },
-      "categories": [
-        "Looter"
-      ],
-      "category_source": "decklist",
-      "name": "Azor's Gateway // Sanctum of the Sun",
-      "oracle_id": "c0cbb347-b060-43ce-a9c5-8c835be3cf1b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/rix/176/azors-gateway-sanctum-of-the-sun?utm_source=api",
-      "submitted_categories": [
-        "Looter"
-      ],
-      "submitted_name": "Azor's Gateway // Sanctum of the Sun"
-    },
-    {
       "cache": "cards/9f560b83-32d4-4bb4-a956-8f5db18599db.json",
       "card": {
         "cmc": 3.0,
@@ -467,8 +424,7 @@
         "type_line": "Legendary Creature — Elemental Elk"
       },
       "categories": [
-        "Maybeboard{noDeck}{noPrice}",
-        "Creature"
+        "card-draw"
       ],
       "category_source": "decklist",
       "name": "Beza, the Bounding Spring",
@@ -476,8 +432,7 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/blb/2/beza-the-bounding-spring?utm_source=api",
       "submitted_categories": [
-        "Maybeboard{noDeck}{noPrice}",
-        "Creature"
+        "card-draw"
       ],
       "submitted_name": "Beza, the Bounding Spring"
     },
@@ -665,28 +620,6 @@
         "Enemy Blink"
       ],
       "submitted_name": "Constricting Sliver"
-    },
-    {
-      "cache": "cards/42b03dd7-e796-47c3-b596-87960d72818b.json",
-      "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{2}",
-        "oracle_text": "{T}, Sacrifice a creature: Put a charge counter on this artifact.\n{1}, Sacrifice this artifact: Draw a card for each charge counter on this artifact.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Sac"
-      ],
-      "category_source": "decklist",
-      "name": "Culling Dais",
-      "oracle_id": "42b03dd7-e796-47c3-b596-87960d72818b",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2xm/246/culling-dais?utm_source=api",
-      "submitted_categories": [
-        "Sac"
-      ],
-      "submitted_name": "Culling Dais"
     },
     {
       "cache": "cards/c8de2e1b-f2fa-4b6a-a3c5-9811c7f5f051.json",
@@ -899,6 +832,32 @@
         "Land"
       ],
       "submitted_name": "Endless Sands"
+    },
+    {
+      "cache": "cards/98a389f4-2905-47f3-b60e-3d4afb3e5cb0.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Lifelink"
+        ],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "Lifelink\nWhenever one or more other creatures you control with power 2 or less enter, draw a card. This ability triggers only once each turn.\nWhen Enduring Innocence dies, if it was a creature, return it to the battlefield under its owner's control. It's an enchantment. (It's not a creature.)",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Enchantment Creature — Sheep Glimmer"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Enduring Innocence",
+      "oracle_id": "98a389f4-2905-47f3-b60e-3d4afb3e5cb0",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dsk/6/enduring-innocence?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "Enduring Innocence"
     },
     {
       "cache": "cards/0fd57894-b917-41c8-a394-360d1d31b236.json",
@@ -1285,28 +1244,6 @@
       "submitted_name": "Hedron Archive"
     },
     {
-      "cache": "cards/fa3d8a6f-dc5b-4890-a806-f785a41660c7.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "{1}, {T}: Exile target creature you control.\n{7}, {T}: Exile target creature you don't control.\nWhen Helvault is put into a graveyard from the battlefield, return all cards exiled with it to the battlefield under their owners' control.",
-        "type_line": "Legendary Artifact"
-      },
-      "categories": [
-        "Sac"
-      ],
-      "category_source": "decklist",
-      "name": "Helvault",
-      "oracle_id": "fa3d8a6f-dc5b-4890-a806-f785a41660c7",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/inr/266/helvault?utm_source=api",
-      "submitted_categories": [
-        "Sac"
-      ],
-      "submitted_name": "Helvault"
-    },
-    {
       "cache": "cards/86fb3749-37d6-48a6-8524-71e996850307.json",
       "card": {
         "cmc": 0.0,
@@ -1430,50 +1367,6 @@
         "removal"
       ],
       "submitted_name": "Luminate Primordial"
-    },
-    {
-      "cache": "cards/16182e01-22ff-4786-985d-919b47c4aa4d.json",
-      "card": {
-        "cmc": 3.0,
-        "faces": [
-          {
-            "mana_cost": "{3}",
-            "name": "Matzalantli, the Great Door",
-            "oracle_text": "{T}: Draw a card, then discard a card.\n{4}, {T}: Transform Matzalantli. Activate only if there are four or more permanent types among cards in your graveyard. (Artifact, battle, creature, enchantment, land, and planeswalker are permanent types.)",
-            "type_line": "Legendary Artifact"
-          },
-          {
-            "mana_cost": "",
-            "name": "The Core",
-            "oracle_text": "(Transforms from Matzalantli.)\nFathomless descent — {T}: Add X mana of any one color, where X is the number of permanent cards in your graveyard.",
-            "type_line": "Legendary Land"
-          }
-        ],
-        "keywords": [
-          "Transform",
-          "Fathomless descent"
-        ],
-        "produced_mana": [
-          "B",
-          "G",
-          "R",
-          "U",
-          "W"
-        ],
-        "type_line": "Legendary Artifact // Legendary Land"
-      },
-      "categories": [
-        "Looter"
-      ],
-      "category_source": "decklist",
-      "name": "Matzalantli, the Great Door // The Core",
-      "oracle_id": "16182e01-22ff-4786-985d-919b47c4aa4d",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/lci/256/matzalantli-the-great-door-the-core?utm_source=api",
-      "submitted_categories": [
-        "Looter"
-      ],
-      "submitted_name": "Matzalantli, the Great Door // The Core"
     },
     {
       "cache": "cards/d9f11aa1-9219-42a8-85a9-a8f204160706.json",
@@ -1708,6 +1601,30 @@
       "submitted_name": "Otherworldly Journey"
     },
     {
+      "cache": "cards/180eda7c-fca2-403b-85cd-8ffebaf9f408.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [],
+        "mana_cost": "{2}{W}{W}",
+        "oracle_text": "When this creature enters, you become the monarch.\nWhen this creature enters, exile target creature an opponent controls until an opponent becomes the monarch.",
+        "power": "2",
+        "toughness": "2",
+        "type_line": "Creature — Human Soldier"
+      },
+      "categories": [
+        "Enemy Blink"
+      ],
+      "category_source": "decklist",
+      "name": "Palace Jailer",
+      "oracle_id": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/msc/140/palace-jailer?utm_source=api",
+      "submitted_categories": [
+        "Enemy Blink"
+      ],
+      "submitted_name": "Palace Jailer"
+    },
+    {
       "cache": "cards/367bb252-41e1-4f98-9d22-442dd332cccf.json",
       "card": {
         "cmc": 2.0,
@@ -1743,7 +1660,7 @@
         "type_line": "Instant"
       },
       "categories": [
-        "End Game{noDeck}"
+        "protection"
       ],
       "category_source": "decklist",
       "name": "Perch Protection",
@@ -1751,31 +1668,9 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/plst/BLC-11/perch-protection?utm_source=api",
       "submitted_categories": [
-        "End Game{noDeck}"
+        "protection"
       ],
       "submitted_name": "Perch Protection"
-    },
-    {
-      "cache": "cards/b628150b-08a1-4ea3-978d-60255dfb0b7e.json",
-      "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{3}",
-        "oracle_text": "{2}, {T}, Sacrifice a creature: Draw a card.",
-        "type_line": "Artifact"
-      },
-      "categories": [
-        "Sac"
-      ],
-      "category_source": "decklist",
-      "name": "Phyrexian Vault",
-      "oracle_id": "b628150b-08a1-4ea3-978d-60255dfb0b7e",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dde/21/phyrexian-vault?utm_source=api",
-      "submitted_categories": [
-        "Sac"
-      ],
-      "submitted_name": "Phyrexian Vault"
     },
     {
       "cache": "cards/bc71ebf6-2056-41f7-be35-b2e5c34afa99.json",
@@ -1944,6 +1839,33 @@
         "Self Blink"
       ],
       "submitted_name": "Restoration Angel"
+    },
+    {
+      "cache": "cards/3ceca713-38de-4428-a4f1-2146f6e98393.json",
+      "card": {
+        "cmc": 3.0,
+        "keywords": [
+          "Alliance",
+          "Scry"
+        ],
+        "mana_cost": "{1}{W}{W}",
+        "oracle_text": "Alliance — Whenever another creature you control enters, scry 1. If this is the second time this ability has resolved this turn, draw a card instead.",
+        "power": "2",
+        "toughness": "1",
+        "type_line": "Creature — Elf Wizard"
+      },
+      "categories": [
+        "card-draw"
+      ],
+      "category_source": "decklist",
+      "name": "Rumor Gatherer",
+      "oracle_id": "3ceca713-38de-4428-a4f1-2146f6e98393",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/clb/705/rumor-gatherer?utm_source=api",
+      "submitted_categories": [
+        "card-draw"
+      ],
+      "submitted_name": "Rumor Gatherer"
     },
     {
       "cache": "cards/8b5c6754-36bd-44ac-b0c0-5a3cd2d9f2c3.json",
@@ -2702,11 +2624,11 @@
       "submitted_name": "Zetalpa, Primal Dawn"
     }
   ],
-  "categorized_cards": 102,
-  "generated_at": "2026-09-23T07:35:11.335184+00:00",
-  "maybeboard_cards": 29,
-  "maybeboard_unique_cards": 29,
-  "resolved_unique_cards": 102,
+  "categorized_cards": 100,
+  "generated_at": "2026-09-23T11:07:04.105382+00:00",
+  "maybeboard_cards": 27,
+  "maybeboard_unique_cards": 27,
+  "resolved_unique_cards": 100,
   "schema_version": 3,
   "source": "decks/2+_dack-faydens-party/decklist.txt",
   "total_cards": 100,
