@@ -257,6 +257,10 @@ export type CardInstruction =
       power: number
       toughness: number
     }
+  | { kind: 'pumpFromLinkedExilePower'; applyTo: 'self' | 'stackTarget' }
+  | { kind: 'pumpFromLinkedExilePowerApply'; applyTo: 'self' | 'stackTarget' }
+  | { kind: 'putLinkedExileToGraveyardGainLife' }
+  | { kind: 'putLinkedExileToGraveyardGainLifeApply' }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -470,6 +474,7 @@ export type CardEffect =
         on: Extract<CardEffect, { op: 'trigger' }>['on']
         do: CardInstruction[]
       }
+      pumpPerLinkedExile?: { power: number; toughness: number }
     }
   | { op: 'handler'; pluginId: string }
   | {

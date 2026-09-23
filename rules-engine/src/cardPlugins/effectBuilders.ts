@@ -536,6 +536,26 @@ export const staticGrant = (pluginId: string): CardEffect => ({
   pluginId,
 })
 
+export const pumpPerLinkedExile = (
+  power: number,
+  toughness: number,
+): CardEffect => ({
+  op: 'static',
+  pluginId: 'exilePayoffs',
+  pumpPerLinkedExile: { power, toughness },
+})
+
+export const pumpFromLinkedExilePower = (
+  applyTo: 'self' | 'stackTarget',
+): CardInstruction => ({
+  kind: 'pumpFromLinkedExilePower',
+  applyTo,
+})
+
+export const putLinkedExileToGraveyardGainLife = (): CardInstruction => ({
+  kind: 'putLinkedExileToGraveyardGainLife',
+})
+
 export const attackTax = (
   amount: number,
   options: { whileUntapped?: boolean } = {},

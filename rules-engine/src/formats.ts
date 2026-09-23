@@ -37,6 +37,7 @@ import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
 import { grantControlledSubtypeTrigger } from './cardPlugins/grantControlledSubtypeTrigger'
+import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
 import { turnStructure } from './plugins/turnStructure'
@@ -108,6 +109,7 @@ export const optionalPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantControlledSubtypeTrigger,
+  exilePayoffs,
   extraUntap,
   sacrificeLandMana,
   phialReplacement,

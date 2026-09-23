@@ -319,6 +319,18 @@ export const copyUntilEndOfTurn = (
   extra: { notLegendary?: boolean } = {},
 ) => untilEndOfTurn(object, copyObject(object, copied, extra))
 
+export const linkedExileCardIds = (state: GameState, source: GameObject) =>
+  (source.exiledCards ?? []).filter((id) => {
+    const card = state.objects[id]
+    return card?.zone === 'exile' && card.exiledWith === source.id
+  })
+
+const objectSupportsPumpPerLinkedExile = (object: GameObject) =>
+  object.zone === 'battlefield'
+  && object.types.includes('Creature')
+  && object.power !== null
+  && object.toughness !== null
+
 const removeLastOracleLine = (object: GameObject, line: string) => {
   const lines = object.oracleText.split('\n')
   const index = lines.lastIndexOf(line)
@@ -339,6 +351,8 @@ const durationHolds = (
 ) => {
   if (duration.kind === 'cdaLifePt') {
     return objectSupportsCdaLifePt(object)
+  if (duration.kind === 'pumpPerLinkedExile') {
+    return objectSupportsPumpPerLinkedExile(object)
   }
   if (object.zone !== 'battlefield') return false
   if (duration.kind === 'untilCleanup') return !endTurnEffects
@@ -381,6 +395,7 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'cdaLifePt') {
+  } else if (effect.kind === 'pumpPerLinkedExile') {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'oracleLine') {
@@ -422,6 +437,7 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'cdaLifePt') {
+  } else if (effect.kind === 'pumpPerLinkedExile') {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'oracleLine') {
@@ -546,6 +562,17 @@ const makeCdaLifePtEffect = (
   who: 'controller' | 'owner',
   life: number,
 ): ReversibleEffect => {
+const pumpPerLinkedExileEntry = (object: GameObject) =>
+  object.continuousEffects?.find(({ effect, duration }) =>
+    effect.kind === 'pumpPerLinkedExile' && duration.kind === 'pumpPerLinkedExile')
+
+const makePumpPerLinkedExileEffect = (
+  object: GameObject,
+  perCard: { power: number; toughness: number },
+  linked: number,
+): ReversibleEffect => {
+  const bonusPower = linked * perCard.power
+  const bonusToughness = linked * perCard.toughness
   const before = {
     power: withoutCounters(object, object.power),
     toughness: withoutCounters(object, object.toughness),
@@ -569,6 +596,25 @@ export const refreshCdaLifePt = (
   const life = lifeTotalForCda(state, object, who)
   const active = objectSupportsCdaLifePt(object)
   const existing = cdaLifePtEntry(object)
+  object.power = withCounters(object, (before.power ?? 0) + bonusPower)
+  object.toughness = withCounters(object, (before.toughness ?? 0) + bonusToughness)
+  return {
+    kind: 'pumpPerLinkedExile',
+    perCard,
+    before,
+    after: { power: (before.power ?? 0) + bonusPower, toughness: (before.toughness ?? 0) + bonusToughness },
+  }
+}
+
+/** Install or refresh +N/+N per card exiled with this permanent. */
+export const refreshPumpPerLinkedExile = (
+  state: GameState,
+  object: GameObject,
+  perCard: { power: number; toughness: number },
+) => {
+  const linked = linkedExileCardIds(state, object).length
+  const active = objectSupportsPumpPerLinkedExile(object)
+  const existing = pumpPerLinkedExileEntry(object)
 
   if (!active) {
     if (existing) {
@@ -583,6 +629,8 @@ export const refreshCdaLifePt = (
       object,
       makeCdaLifePtEffect(object, who, life),
       { kind: 'cdaLifePt' },
+      makePumpPerLinkedExileEffect(object, perCard, linked),
+      { kind: 'pumpPerLinkedExile' },
     )
     return
   }
@@ -599,6 +647,24 @@ export const refreshCdaLifePt = (
     return {
       ...entry,
       effect: { ...existing.effect, who, after: { power: life, toughness: life } },
+  if (existing.effect.kind !== 'pumpPerLinkedExile') return
+  const before = existing.effect.before
+  const nextAfter = {
+    power: (before.power ?? 0) + linked * perCard.power,
+    toughness: (before.toughness ?? 0) + linked * perCard.toughness,
+  }
+  if (
+    existing.effect.after.power === nextAfter.power
+    && existing.effect.after.toughness === nextAfter.toughness
+    && existing.effect.perCard.power === perCard.power
+    && existing.effect.perCard.toughness === perCard.toughness
+  ) return
+
+  reviseContinuousEffects(object, (entry) => {
+    if (entry !== existing || entry.effect.kind !== 'pumpPerLinkedExile') return entry
+    return {
+      ...entry,
+      effect: { ...entry.effect, perCard, after: nextAfter },
     }
   })
 }
