@@ -27,6 +27,7 @@ import { priority } from './plugins/priority'
 import { recurringSpells } from './plugins/recurringSpells'
 import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
+import { foretell } from './plugins/foretell'
 import { rebound } from './plugins/rebound'
 import { warp } from './plugins/warp'
 import { saga } from './plugins/saga'
@@ -76,6 +77,7 @@ export const corePlugins = [
   lands,
   spells,
   adventure,
+  foretell,
   rebound,
   warp,
   saga,

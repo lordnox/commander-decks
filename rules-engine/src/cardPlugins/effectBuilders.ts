@@ -769,6 +769,9 @@ export const embalm = (
     colors: [...options.colors],
     extraSubtypes: [...options.extraSubtypes],
   }],
+export const foretell = (manaCost: string): CardEffect => ({
+  op: 'foretell',
+  manaCost,
 })
 
 export const grantRetrace = (): CardEffect => ({

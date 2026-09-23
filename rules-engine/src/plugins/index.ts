@@ -31,6 +31,7 @@ import { swampOverlay } from './swampOverlay'
 import { priority } from './priority'
 import { phialReplacement } from './phialReplacement'
 import { sacrificeLandMana } from './sacrificeLandMana'
+import { foretell } from './foretell'
 import { rebound } from './rebound'
 import { saga } from './saga'
 import { spells } from './spells'
@@ -57,6 +58,7 @@ export const builtInPlugins = [
   lands,
   spells,
   adventure,
+  foretell,
   rebound,
   warp,
   saga,
@@ -115,6 +117,7 @@ export {
   pendingDialogLock,
   phialReplacement,
   priority,
+  foretell,
   rebound,
   warp,
   rooms,

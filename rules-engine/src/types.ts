@@ -205,6 +205,10 @@ export type GameObject = {
   warpExiledTurn?: number
   /** Seats that may see this card's face while it is in a hidden zone. */
   knownTo?: PlayerId[]
+  /** Face-down foretell exile (CR 702.143). */
+  foretold?: boolean
+  /** Turn this card was foretold; same-turn foretell casts are illegal. */
+  foretoldTurn?: number
   continuousEffects?: ContinuousEffect[]
 }
 
@@ -492,6 +496,7 @@ export type GameEvent =
       /** Ability effects skip the paid special action (CR 709.5c vs Marina). */
       withoutCost?: boolean
     }
+  | { type: 'foretell'; seat: PlayerId; objectId: string }
   | {
       type: 'lockDoor'
       seat: PlayerId

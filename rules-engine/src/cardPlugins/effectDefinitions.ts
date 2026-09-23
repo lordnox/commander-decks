@@ -474,6 +474,7 @@ export type CardEffect =
       /** Cast from exile after a warp exile; manaCost `__printed__` uses the object's mana cost. */
       afterWarp?: boolean
     }
+  | { op: 'foretell'; manaCost: string }
   | { op: 'spellTrait'; uncounterable?: boolean }
   | {
       op: 'vote'

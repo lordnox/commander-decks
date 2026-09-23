@@ -5,6 +5,7 @@ import { freezeDraft, makeDraft } from './draft'
 import { rules } from './kernel'
 import { newGame, type NewGameOptions } from './newGame'
 import { isKnownTo, revealedLibraryTop } from './knowledge'
+import { isHiddenForetold } from './plugins/foretell'
 import {
   createAuthoritativeHiddenInformation,
   initializeRandomState,
@@ -75,11 +76,18 @@ export const projectForViewer = (
     const hiddenHand = object.zone === 'hand'
       && object.owner !== viewer
       && !isKnownTo(object, viewer, projected.playerOrder)
-    if (hiddenLibrary || hiddenHand) delete projected.objects[objectId]
+    const hiddenForetold = isHiddenForetold(object, viewer, projected.playerOrder)
+    if (hiddenLibrary || hiddenHand || hiddenForetold) delete projected.objects[objectId]
   }
 
   for (const player of projected.playerOrder) {
     projected.zoneOrder[player].library = []
+    projected.zoneOrder[player].exile = projected.zoneOrder[player].exile.filter(
+      (id) => {
+        const object = projected.objects[id]
+        return object && !isHiddenForetold(object, viewer, projected.playerOrder)
+      },
+    )
     if (player !== viewer) {
       projected.zoneOrder[player].hand = projected.zoneOrder[player].hand.filter(
         (id) => {

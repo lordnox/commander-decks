@@ -1,6 +1,7 @@
 import { isPermanentType } from '../definitions'
 import type { GameObject, GameState, Plugin, StackItem, ZoneId } from '../types'
 import { isSwamp } from '../plugins/swampOverlay'
+import { FORETELL_CAST_ID, foretellCastOptions } from '../plugins/foretell'
 import { effectsOf } from './cardRules'
 import type { CardEffect } from './effects'
 
@@ -28,7 +29,10 @@ export const availableAlternateCastEffects = (
   seat: string,
   object: GameObject,
 ) => {
-  const effects = [...alternateCastEffects(object)]
+  const effects = [
+    ...alternateCastEffects(object),
+    ...foretellCastOptions(state, seat, object),
+  ]
   for (const source of Object.values(state.objects)) {
     if (source.zone !== 'battlefield' || source.controller !== seat) continue
     for (const effect of effectsOf(source)) {
@@ -107,6 +111,10 @@ export const canChooseAlternateCast = (
   const candidates = costCandidates(state, seat, effect)
   if (effect.discard && candidates.discard.length < 1) return false
   if (effect.sacrifice && candidates.sacrifice.length < effect.sacrifice.count) return false
+  if (effect.id === FORETELL_CAST_ID && object) {
+    if (!object.foretold || object.zone !== 'exile') return false
+    if (state.turn === object.foretoldTurn) return false
+  }
   return true
 }
 
