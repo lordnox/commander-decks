@@ -3,7 +3,13 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import { draw, gainLife, landfallOnceEachTurn, landfallResolveNth } from './effectBuilders'
+import {
+  draw,
+  extraLandfall,
+  gainLife,
+  landfallOnceEachTurn,
+  landfallResolveNth,
+} from './effectBuilders'
 
 const land = (name: string) => cardTemplate(name, { types: ['Land'] })
 const fillerLibrary = () => [
@@ -44,6 +50,37 @@ describe('trigger frequency flags', () => {
     }))
     expect(secondLand.stack).toHaveLength(0)
     expect(secondLand.zoneCounts.p1.hand).toBe(1)
+  })
+
+  test('onceEachTurn is not multiplied by extra landfall triggers on the same event', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          cardTemplate('Echo Beacon', {
+            types: ['Creature'],
+            effects: [extraLandfall(1)],
+          }),
+          cardTemplate('Fable Warden', {
+            types: ['Creature'],
+            effects: [landfallOnceEachTurn(draw(1))],
+          }),
+        ],
+      },
+      hands: { p1: [land('Stepping Stone')] },
+      libraries: { p1: fillerLibrary() },
+      players: 2,
+    })
+    const landId = server.state.zoneOrder.p1.hand[0]
+
+    const played = ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: landId,
+    }))
+    expect(played.stack.filter((item) => item.name === 'Fable Warden')).toHaveLength(1)
+
+    const resolved = resolveStack(server.rules, played)
+    expect(resolved.zoneCounts.p1.hand).toBe(1)
   })
 
   test('onceEachTurn is tracked per object, not per card name', () => {
