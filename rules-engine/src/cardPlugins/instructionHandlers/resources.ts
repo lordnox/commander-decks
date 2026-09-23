@@ -26,6 +26,24 @@ const payMana: InstructionHandler<'payMana'> = ({ draft, source }, instruction) 
   draft.enqueue({ type: 'payMana', seat: source.controller, cost: instruction.cost })
 }
 
+const getEnergy: InstructionHandler<'getEnergy'> = ({ draft, source }, instruction) => {
+  draft.enqueue({
+    type: 'addEnergy',
+    seat: source.controller,
+    amount: instruction.count,
+    source: source.id,
+  })
+}
+
+const payEnergyInstruction: InstructionHandler<'payEnergy'> = ({ draft, source }, instruction) => {
+  draft.enqueue({
+    type: 'payEnergy',
+    seat: source.controller,
+    amount: instruction.count,
+    source: source.id,
+  })
+}
+
 const addMana: InstructionHandler<'addMana'> = ({ draft, source }, instruction) => {
   draft.enqueue({ type: 'addMana', seat: source.controller, mana: instruction.mana })
 }
@@ -455,6 +473,8 @@ const grantControlled: InstructionHandler<'grantControlled'> = (
 export const resourceHandlers = {
   tap,
   payMana,
+  getEnergy,
+  payEnergy: payEnergyInstruction,
   addMana,
   draw,
   discardCards,

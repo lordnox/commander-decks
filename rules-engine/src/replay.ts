@@ -36,6 +36,7 @@ type ReplayBattlefieldCard = {
 type ReplayPlayerState = {
   life: number
   poison: number
+  energy: number
   library_count: number
   hand: string[]
   battlefield: ReplayBattlefieldCard[]
@@ -336,6 +337,7 @@ export const importLiveReplayState = (
   for (const seat of players) {
     state.players[seat].life = latest.state.players[seat].life
     state.players[seat].poison = latest.state.players[seat].poison
+    state.players[seat].energy = latest.state.players[seat].energy ?? 0
   }
   const firstIndex = players.indexOf(first)
   const activeIndex = players.indexOf(latest.state.active)
@@ -569,6 +571,7 @@ export const replayComparableState = (state: GameState) => ({
     return [seat, {
       life: player.life,
       poison: player.poison,
+      energy: player.energy,
       library_count: state.zoneCounts[seat].library,
       hand: names('hand'),
       battlefield: controlledBattlefield(state, seat).map((object) => {
@@ -605,6 +608,7 @@ export const replayExpectedState = (replay: TableReplay, throughRound: number) =
       {
         life: player.life,
         poison: player.poison,
+        energy: player.energy ?? 0,
         library_count: player.library_count,
         hand: player.hand,
         battlefield: player.battlefield.map((object) => ({

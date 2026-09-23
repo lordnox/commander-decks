@@ -138,6 +138,9 @@ export const activationCostError = (
   if ((costs.life ?? 0) > state.players[seat].life) {
     return `${seat} cannot pay ${costs.life} life`
   }
+  if ((costs.energy ?? 0) > state.players[seat].energy) {
+    return `${seat} cannot pay ${costs.energy} energy`
+  }
   if (costs.discard === 'self') {
     if (source.zone !== 'hand' || source.controller !== seat) {
       return `${source.name} is not in ${seat}'s hand`
@@ -192,6 +195,14 @@ export const payActivationCosts = (
   picks: ActivationCostPicks = {},
 ) => {
   if (costs.mana) draft.enqueue({ type: 'payMana', seat, cost: costs.mana })
+  if (costs.energy) {
+    draft.enqueue({
+      type: 'payEnergy',
+      seat,
+      amount: costs.energy,
+      source: source.name,
+    })
+  }
   if (costs.life) {
     draft.enqueue({
       type: 'payLife',

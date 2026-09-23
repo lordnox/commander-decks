@@ -14,6 +14,7 @@ import { forestOverlay } from './plugins/forestOverlay'
 import { unconfiguredHiddenInformation } from './plugins/hiddenInformation'
 import { judgeFallback } from './plugins/judgeFallback'
 import { lands } from './plugins/lands'
+import { energy } from './plugins/energy'
 import { life } from './plugins/life'
 import { monarch } from './plugins/monarch'
 import { lifeTotalLock } from './plugins/lifeTotalLock'
@@ -86,6 +87,7 @@ export const corePlugins = [
   combat,
   life,
   monarch,
+  energy,
   damage,
   battle,
   doubleFaced,

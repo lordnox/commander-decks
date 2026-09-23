@@ -55,6 +55,8 @@ export type CardInstruction =
   | { kind: 'exileSelf' }
   | { kind: 'tap' }
   | { kind: 'payMana'; cost: string }
+  | { kind: 'getEnergy'; count: number }
+  | { kind: 'payEnergy'; count: number }
   | { kind: 'sacrificeSelf' }
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
@@ -277,6 +279,8 @@ export type ActivateCost = {
   loyalty?: number
   /** Use the activation event's chosen X as a negative loyalty cost. */
   loyaltyX?: boolean
+  /** Energy counters ({E}) paid from the controller's pool. */
+  energy?: number
 }
 
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'

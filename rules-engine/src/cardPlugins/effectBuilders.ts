@@ -595,6 +595,12 @@ export const loyalty = (amount: number): ActivateCost => ({ loyalty: amount })
 
 export const loyaltyX = (): ActivateCost => ({ loyalty: 0, loyaltyX: true })
 
+export const energyCost = (amount: number): ActivateCost => ({ energy: amount })
+
+export const getEnergy = (count: number): CardInstruction => ({ kind: 'getEnergy', count })
+
+export const payEnergy = (count: number): CardInstruction => ({ kind: 'payEnergy', count })
+
 export const gainLife = (count: number | 'triggerAmount'): CardInstruction => ({
   kind: 'gainLife',
   count,

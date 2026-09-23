@@ -274,6 +274,8 @@ export type PlayerState = {
   id: PlayerId
   life: number
   poison: number
+  /** Player-owned energy counters ({E}); public and persist across turns. */
+  energy: number
   mana: ManaPool
   lost: boolean
   landsPlayed: number
@@ -543,6 +545,8 @@ export type GameEvent =
   | { type: 'gainLife'; seat: PlayerId; amount: number; source?: string }
   | { type: 'becomeMonarch'; seat: PlayerId }
   | { type: 'payLife'; seat: PlayerId; amount: number; source?: string }
+  | { type: 'addEnergy'; seat: PlayerId; amount: number; source?: string }
+  | { type: 'payEnergy'; seat: PlayerId; amount: number; source?: string }
   | { type: 'setLifeTotal'; seat: PlayerId; total: number; source?: string }
   | {
       type: 'exchangeLifeTotals'
