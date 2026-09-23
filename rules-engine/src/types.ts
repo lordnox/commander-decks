@@ -222,6 +222,7 @@ export type StackItem = {
   kicked?: boolean
   giftPromised?: boolean
   giftRecipient?: PlayerId
+  spreeModes?: string[]
   castOption?: string
   exileAfterUse?: boolean
   /** Read ahead choice carried from casting through battlefield entry. */
@@ -376,6 +377,7 @@ export type GameEvent =
       kicked?: boolean
       giftPromised?: boolean
       giftRecipient?: PlayerId
+      spreeModes?: string[]
       castOption?: string
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
