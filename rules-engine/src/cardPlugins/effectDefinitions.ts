@@ -26,6 +26,15 @@ export type CardCondition =
   | { kind: 'castOption'; id: string }
   | { kind: 'controllerUpkeep' }
   | { kind: 'controllerLife'; min: number }
+  | { kind: 'giftPromised' }
+  | { kind: 'giftNotPromised' }
+
+export type GiftSpec = {
+  label?: string
+  draw?: number
+  extraTurn?: true
+  token?: TokenSpec & { tapped?: boolean }
+}
 
 export type TokenSpec = {
   name: string
@@ -417,6 +426,7 @@ export type CardEffect =
       xMana?: 'generic' | 'black'
       timing?: 'yourEndStep'
       kicker?: string
+      gift?: GiftSpec
       reduceGeneric?: {
         amount: number
         if: CastCostCondition

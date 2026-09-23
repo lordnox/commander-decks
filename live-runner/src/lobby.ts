@@ -73,6 +73,8 @@ export type TopdeckDecision = {
     cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
     resumePassSeat?: SeatId
     kicked?: boolean
+    giftPromised?: boolean
+    giftRecipientId?: string
     chosenEvent?: string
     after?: Array<'resolveTop'>
   }

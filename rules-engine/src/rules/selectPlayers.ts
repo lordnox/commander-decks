@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
-import type { GameState, PlayerId, Plugin } from '../types'
+import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -18,6 +18,10 @@ export type PendingPlayerSelection = {
     | { kind: 'copyStackItem'; stackId: string }
     | { kind: 'designateBattleProtector' }
     | { kind: 'assignDonatedPermanent'; donationId: string; objectId: string }
+    | {
+        kind: 'finishGiftCast'
+        cast: Omit<Extract<GameEvent, { type: 'castSpell' }>, 'type' | 'giftRecipient'>
+      }
     | {
         kind: 'putTriggeredAbility'
         instructions: CardInstruction[]

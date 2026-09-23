@@ -10,6 +10,7 @@ import type {
   SearchSpec,
   RevealUntilNonMatch,
   TargetFilter,
+  GiftSpec,
   TokenSpec,
 } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
@@ -639,6 +640,23 @@ export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
 export const kicker = (cost: string): CardEffect => ({
   op: 'castCost',
   kicker: cost,
+})
+
+export const gift = (spec: GiftSpec): CardEffect => ({
+  op: 'castCost',
+  gift: spec,
+})
+
+export const ifGiftPromised = (...whenTrue: CardInstruction[]): CardInstruction => ({
+  kind: 'if',
+  if: { kind: 'giftPromised' },
+  whenTrue,
+})
+
+export const ifGiftNotPromised = (...whenTrue: CardInstruction[]): CardInstruction => ({
+  kind: 'if',
+  if: { kind: 'giftNotPromised' },
+  whenTrue,
 })
 
 export const reduceGenericIf = (

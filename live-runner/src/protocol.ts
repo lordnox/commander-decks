@@ -207,6 +207,9 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const text = message.text
       const attackers = message.attackers
       const x = message.x
+      const kicked = message.kicked
+      const giftPromised = message.giftPromised
+      const giftRecipientId = message.giftRecipientId
       const blockers = message.blockers
       if (kind === 'declareAttackers') {
         if (
@@ -291,6 +294,9 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
           : {}),
         ...(typeof x === 'number' && Number.isSafeInteger(x) && x >= 0 ? { x } : {}),
+        ...(kicked === true ? { kicked: true } : {}),
+        ...(giftPromised === true ? { giftPromised: true } : {}),
+        ...(typeof giftRecipientId === 'string' ? { giftRecipientId } : {}),
       })
     }
     case 'priority-mode':

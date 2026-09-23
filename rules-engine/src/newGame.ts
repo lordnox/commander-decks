@@ -190,6 +190,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
     turn: 1,
     step: 'precombatMain',
     passedInRow: [],
+    extraTurns: [],
     rules,
     nextId,
     nextTimestamp,

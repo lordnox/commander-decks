@@ -16,6 +16,7 @@ import type { GameEvent, GameState, PlayerId, Plugin } from './types'
 import { redactSecretCouncil } from './cardPlugins/secretCouncil'
 import { CUMULATIVE_UPKEEP_PENDING } from './cardPlugins/cumulativeUpkeep'
 import { PENDING_SELECTION, pendingSelectionsFor } from './rules/selectCards'
+import { PENDING_PLAYER_SELECTION } from './rules/selectPlayers'
 
 export type ServerDependencies = {
   random: () => number
@@ -88,6 +89,7 @@ export const projectForViewer = (
     }
     delete projected.players[player].data[RANDOM_STATE]
     if (player !== viewer) delete projected.players[player].data[PENDING_SELECTION]
+    if (player !== viewer) delete projected.players[player].data[PENDING_PLAYER_SELECTION]
     if (player !== viewer) delete projected.players[player].data[CUMULATIVE_UPKEEP_PENDING]
     const topName = revealedTops[player]
     if (topName) projected.players[player].data.revealed_top = [topName]

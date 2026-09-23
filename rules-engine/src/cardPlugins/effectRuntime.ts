@@ -194,6 +194,7 @@ export const conditionHolds = (
   condition: CardCondition | undefined,
   state: GameState,
   object: GameObject,
+  stackItem?: StackItem,
 ) => {
   if (!condition) return true
   if (condition.kind === 'notActivePlayer') return state.active !== object.controller
@@ -261,6 +262,8 @@ export const conditionHolds = (
   }
   if (condition.kind === 'controllerIsActive') return state.active === object.controller
   if (condition.kind === 'castOption') return object.enteredWithCastOption === condition.id
+  if (condition.kind === 'giftPromised') return stackItem?.giftPromised === true
+  if (condition.kind === 'giftNotPromised') return stackItem?.giftPromised !== true
   if (condition.kind === 'controllerUpkeep') {
     return state.active === object.controller && state.step === 'upkeep'
   }
@@ -433,7 +436,10 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add('courserOfKruphix')
     }
     if (effect.op === 'bestow') ids.add('bestow')
-    if (effect.op === 'castCost') ids.add('castCosts')
+    if (effect.op === 'castCost') {
+      ids.add('castCosts')
+      if (effect.gift) ids.add('giftCast')
+    }
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
     if (effect.op === 'static' && effect.linkedExileUntilLeaves) ids.add('linkedExile')

@@ -31,6 +31,19 @@ describe('turnStructure', () => {
     expect(step(step(state)).step).toBe('declareAttackers')
   })
 
+  test('queued extra turns run before the next seat in order', () => {
+    const base = newGame({ builtinRules, first: 'p1' })
+    const state: GameState = {
+      ...base,
+      step: 'cleanup',
+      active: 'p1',
+      extraTurns: ['p3'],
+    }
+    const next = step(state)
+    expect(next.active).toBe('p3')
+    expect(next.extraTurns).toEqual([])
+  })
+
   test('cleanup wraps into the next player untap and bumps the turn', () => {
     const base = newGame({
       builtinRules,
