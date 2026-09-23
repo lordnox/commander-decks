@@ -802,7 +802,7 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
     if (object.zone !== requiredZone) return []
     if (effect.op === 'activate' && !effect.manaAbility) {
       const requiredZone = effect.zone ?? 'battlefield'
-      if (object.zone !== requiredZone || object.controller !== seat) return []
+      if (object.zone !== requiredZone) return []
       const loyalty = effect.costs.loyalty
       if (
         !canPayActivateCosts(state, object, seat, effect.costs)
@@ -867,6 +867,7 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
     if (
       effect.op === 'search'
       && effect.via === 'ability'
+      && object.zone === 'battlefield'
       && canPayActivateCosts(state, object, seat, effect.costs)
     ) {
       return [{
