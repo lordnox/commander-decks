@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
 import type { CardInstruction } from '../cardPlugins/effects'
+import { linkExileSelected } from '../cardPlugins/linkedExile'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 
@@ -59,6 +60,8 @@ export type PendingCardSelection = {
   triggerAbilityId?: string
   triggerInstructions?: CardInstruction[]
   triggerPayload?: Record<string, unknown>
+  /** Exile chosen permanents linked to `sourceId` (see `linkedExile` plugin). */
+  linkExile?: boolean
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -326,13 +329,18 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         : `${event.seat} sacrifices ${name}`,
     )
   } else if (selection.kind === 'choose') {
-    for (const objectId of event.objectIds ?? []) {
+    const chosenIds = event.objectIds ?? []
+    if (selection.linkExile && selection.sourceId) {
+      const source = draft.object(selection.sourceId)
+      if (source) linkExileSelected(draft, source, chosenIds)
+    }
+    for (const objectId of chosenIds) {
       const object = draft.object(objectId)
       if (!object) continue
       if (selection.addSubtypes) {
         object.subtypes = [...new Set([...object.subtypes, ...selection.addSubtypes])]
       }
-      if (selection.moveSelectedTo) {
+      if (selection.moveSelectedTo && !selection.linkExile) {
         draft.enqueue({
           type: 'move',
           objectId,

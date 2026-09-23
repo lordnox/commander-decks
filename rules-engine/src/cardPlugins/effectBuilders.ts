@@ -446,6 +446,35 @@ export const staticPlayLandsFromLibraryTop = (): CardEffect => ({
   playLandsFromLibraryTop: true,
 })
 
+export const linkedExileUntilLeaves = (
+  returnTo: 'battlefield' | 'hand' = 'battlefield',
+): CardEffect => ({
+  op: 'static',
+  linkedExileUntilLeaves: { returnTo },
+})
+
+export const linkExile = (
+  filter: TargetFilter,
+  options: {
+    min?: number
+    max?: number
+    optional?: boolean
+    controlled?: boolean
+    perOpponent?: { max: number }
+  } = {},
+): CardInstruction => ({
+  kind: 'linkExile',
+  filter,
+  ...options,
+})
+
+export const returnLinkedExile = (
+  returnTo?: 'battlefield' | 'hand',
+): CardInstruction => ({
+  kind: 'returnLinkedExile',
+  ...(returnTo ? { returnTo } : {}),
+})
+
 export const handler = (pluginId: string): CardEffect => ({
   op: 'handler',
   pluginId,
