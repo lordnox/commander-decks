@@ -294,6 +294,11 @@ export const preventCombatDamage = (
 
 export const untapTarget = (): CardInstruction => ({ kind: 'untapTarget' })
 
+export const tapAll = (filter: TargetFilter): CardInstruction => ({
+  kind: 'tapAll',
+  filter,
+})
+
 export const addManaPerSwamp = (basic = false): CardInstruction => ({
   kind: 'addManaPerSwamp',
   basic,
