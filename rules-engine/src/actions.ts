@@ -864,7 +864,8 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
       }]
     }
     if (
-      effect.op === 'search'
+      objectZone === 'battlefield'
+      && effect.op === 'search'
       && effect.via === 'ability'
       && object.zone === 'battlefield'
       && canPayActivateCosts(state, object, seat, effect.costs)
