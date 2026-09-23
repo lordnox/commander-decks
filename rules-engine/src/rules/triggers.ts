@@ -157,7 +157,8 @@ const collectEffects = (
       && !conditionHolds(effect.if, state, source)
     ) continue
     if (!passesOnceEachTurn(source, effect, catalog, state.turn)) continue
-    pushCopies(matches, source, effect, copies, {
+    const stackCopies = effect.onceEachTurn ? 1 : copies
+    pushCopies(matches, source, effect, stackCopies, {
       ...meta,
       triggerEffectKey: triggerEffectKey(catalog, effect),
     })
