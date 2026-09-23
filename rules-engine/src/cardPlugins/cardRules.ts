@@ -1919,19 +1919,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Meteor Golem': [
     targetOnResolve('destroy', { zone: 'battlefield', nonland: true, controller: 'opponent' }),
   ],
-  'Salvation Colossus': [
-    attacks(
-      pumpControlled(2, 2, { other: true }),
-      { kind: 'grantControlled', keywords: ['Indestructible'], other: true },
-    ),
-    activate({
-      id: 'unearth',
-      zone: 'graveyard',
-      sorcery: true,
-      costs: { energy: 8 },
-      do: [{ kind: 'unearthSelf' }],
-    }),
-  ],
 }
 
 export const effectsFor = (name: string): CardEffect[] => CARD_RULES[name] ?? []
