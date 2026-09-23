@@ -396,6 +396,7 @@ const CHOICE_KINDS = new Set([
   'fightOwnedVsOpponent', 'counterUnlessPay', 'copyTargetSpell',
   'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled',
   'eachPlayerDiscard', 'eachPlayerSacrifice',
+  'linkExile',
 ])
 
 const hasKind = (instructions: CardInstruction[], ...kinds: string[]) =>
@@ -434,6 +435,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (effect.op === 'castCost') ids.add('castCosts')
     if (effect.op === 'alternateCast') ids.add('alternateCosts')
     if (effect.op === 'static' && effect.grantRetrace) ids.add('alternateCosts')
+    if (effect.op === 'static' && effect.linkedExileUntilLeaves) ids.add('linkedExile')
     if (effect.op === 'handler') {
       ids.add(effect.pluginId)
       // Demonstrate only opens the copy choice; stackCopy resolves it.
@@ -460,6 +462,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
     }
     if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
+    if (hasKind(listed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
     if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')
     if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
     if (listed.some((instruction) =>

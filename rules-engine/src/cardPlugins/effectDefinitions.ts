@@ -167,6 +167,17 @@ export type CardInstruction =
   | { kind: 'randomExileCopyWhile'; repeatWhileType: string; tapped?: boolean }
   | { kind: 'copyTargetForEachOtherPlayer' }
   | { kind: 'combatDialogueUntilEot' }
+  | {
+      kind: 'linkExile'
+      filter: TargetFilter
+      min?: number
+      max?: number
+      optional?: boolean
+      /** Exile permanents you control (mass self-exile). */
+      controlled?: boolean
+      perOpponent?: { max: number }
+    }
+  | { kind: 'returnLinkedExile'; returnTo?: 'battlefield' | 'hand' }
 
 export type ModalMode = { id: string; label: string; do: CardInstruction[] }
 
@@ -342,6 +353,8 @@ export type CardEffect =
         duringYourTurn?: boolean
         other?: boolean
       }
+      /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
+      linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
     }
   | { op: 'handler'; pluginId: string }
   | {
