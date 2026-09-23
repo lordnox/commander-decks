@@ -230,6 +230,7 @@ describe('generic blink', () => {
             filter: {
               controller: 'you',
               types: ['Artifact', 'Creature', 'Land'],
+              other: true,
             },
           },
           do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
@@ -244,6 +245,14 @@ describe('generic blink', () => {
     )
     const staffId = named(server.state, 'Voyager Rod Fixture').id
     const rockId = named(server.state, 'Staff Rock').id
+    expect(server.rules(mana(structuredClone(server.state)), {
+      type: 'activateAbility',
+      abilityId: 'voyager.blink',
+      seat: 'p1',
+      objectId: staffId,
+      targets: [{ kind: 'object', objectId: staffId }],
+    })).toMatchObject({ ok: false })
+
     const activatedState = ok(server.rules(mana(structuredClone(server.state)), {
       type: 'activateAbility',
       abilityId: 'voyager.blink',

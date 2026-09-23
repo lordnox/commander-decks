@@ -106,7 +106,14 @@ export const activated: Plugin = {
       const targets = event.targets ?? []
       if (
         targets.length !== 1
-        || !validTargetRef(state, targets[0], effect.targets.filter, event.seat)
+        || !validTargetRef(
+          state,
+          targets[0],
+          effect.targets.filter,
+          event.seat,
+          undefined,
+          event.objectId,
+        )
       ) {
         return `${source.name} needs one legal target`
       }

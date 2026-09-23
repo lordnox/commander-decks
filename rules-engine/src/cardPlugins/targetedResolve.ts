@@ -69,6 +69,7 @@ export const validTargetRef = (
   filter: TargetFilter,
   controller: PlayerId,
   castOption?: string,
+  excludeSourceId?: string,
 ) => {
   if (target?.kind === 'player') {
     return Boolean(
@@ -79,7 +80,14 @@ export const validTargetRef = (
     )
   }
   return target?.kind === 'object'
-    && validTarget(state, state.objects[target.objectId], filter, controller, castOption)
+    && validTarget(
+      state,
+      state.objects[target.objectId],
+      filter,
+      controller,
+      castOption,
+      excludeSourceId,
+    )
 }
 
 const targetedEffects = (object: GameObject) =>
