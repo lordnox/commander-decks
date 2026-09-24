@@ -243,6 +243,25 @@ import {
   escape,
   hiddenPileNegotiation,
   replaceDrawByType,
+  opponentPiles,
+  millThenRecover,
+  yourFirstMain,
+  repeatIf,
+  ifYouDoExileFromGraveyard,
+  ptEqualsCount,
+  reduceActivationCost,
+  staticBoardPump,
+  targetsOnResolve,
+  optionalTargetOnResolve,
+  upToTargetsOnResolve,
+  addChosenColorMana,
+  delay,
+  returnIfDiesThisTurn,
+  destroyTargetPermanent,
+  mayDiscard,
+  secondCardDrawn,
+  loseLifeTargetPlayer,
+  onUnlock,
 } from './effects'
 
 const astralDriftCycleBlink = blink({
@@ -888,6 +907,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Aftermath Analyst': [
+    enters(selfMill(3)),
     activate({
       id: 'graveyardLands.aftermath',
       costs: { mana: '{3}{G}', sacrifice: 'self' },
@@ -1159,6 +1179,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
   'Mole Man, Moloid Master': [
+    playLandsFromGraveyard(),
     landfall(createTokenInstruction({
       name: 'Moloid',
       types: ['Creature'],
@@ -1166,6 +1187,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       power: 1,
       toughness: 1,
       oracleText: 'Whenever this token attacks, you may mill a card.',
+      effects: [attacks(optionalMill(1))],
     })),
   ],
   'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
@@ -1304,6 +1326,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Skull Prophet': [
     activate({
+      id: 'skullProphet.mana',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [addChosenColorMana(['B', 'G'])],
+    }),
+    activate({
       id: 'selfMill.skullProphet',
       costs: { tap: true, mill: 2 },
       do: [],
@@ -1354,6 +1382,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       tapped: true,
       min: 1,
       max: 1,
+      after: [delay({ kind: 'step', step: 'cleanup' }, bounceSelf())],
     }, { tap: true, mana: '{1}' }),
   ],
   'Teferi, Who Slows the Sunset': [
@@ -1424,7 +1453,21 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
   ],
   'Awaken the Honored Dead': [
-    enters(selfMill(3)),
+    sagaChapters(
+      {
+        numbers: [1],
+        targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
+        do: [destroyTargetPermanent()],
+      },
+      { numbers: [2], do: [selfMill(3)] },
+      {
+        numbers: [3],
+        do: [mayDiscard(1, {
+          filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
+          do: [returnTargetFromGraveyard('hand')],
+        })],
+      },
+    ),
   ],
   'Awaken the Woods': [onResolve(createXTokens({
     name: 'Forest Dryad',
@@ -1438,7 +1481,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Bala Ged Sanctuary': [entersTapped()],
   'Black Sun\'s Twilight': [
-    targetOnResolve(
+    xMana(),
+    optionalTargetOnResolve(
       'select',
       { zone: 'battlefield', type: 'Creature' },
       pumpTargetX(-1),
@@ -1448,6 +1492,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Blossoming Tortoise': [
     enters(selfMill(3), returnChosenLandFromGraveyard()),
     attacks(selfMill(3), returnChosenLandFromGraveyard()),
+    reduceActivationCost(1),
+    staticBoardPump(1, 1, ['Land']),
   ],
   'Breeding Pool': [tapUnlessPayLife(2)],
   'Cephalid Coliseum': [
@@ -1461,7 +1507,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'threshold.cephalid',
       costs: { mana: '{U}', tap: true, sacrifice: 'self' },
       if: graveyardCards(7),
-      do: [draw(3)],
+      targets: { filter: { players: 'any' } },
+      do: [draw(3, 'target'), discardCards(3, 'target')],
     }),
   ],
   'Crawling Sensation': [
@@ -1503,7 +1550,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       empoweredIf: controlledCreaturePower(4),
     }),
   ],
-  'Fact or Fiction': [onResolve(revealPick(5, { permanent: true }))],
+  'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
   'Fell Mire': [entersTapped()],
   'Felidar Guardian': [
     enters(
@@ -1542,12 +1589,24 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Firdoch Core': [
     allCreatureTypes(),
     activate({
+      id: 'firdoch.mana',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [addChosenColorMana()],
+    }),
+    activate({
       id: 'animate.firdochCore',
       costs: { mana: '{4}' },
       do: [animateUntilEot(4, 4)],
     }),
   ],
-  "Fortune's Favor": [onResolve(revealPick(4))],
+  "Fortune's Favor": [
+    targetOnResolve(
+      'select',
+      { players: 'opponent' },
+      opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
+    ),
+  ],
   'Growth Spiral': [onResolve(draw(1), putLandFromHand())],
   Harrow: [
     searchSpell({
@@ -1581,13 +1640,21 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Life from the Loam': [
     dredge(3),
-    onResolve(returnChosenLandFromGraveyard(false, { count: 3, min: 0, to: 'hand' })),
+    upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
   ],
   'Lumra, Bellow of the Woods': [
+    ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
   ],
   'Malakir Mire': [entersTapped()],
-  'Malakir Rebirth': [onResolve(grantUntilEot('indestructible'))],
+  'Malakir Rebirth': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      loseLife(2, 'controller'),
+      returnIfDiesThisTurn(),
+    ),
+  ],
   'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), eldraziSpawn)],
   'Marina Vendrell': [
     enters(revealMatchingToHand(7, 'Enchantment')),
@@ -1599,7 +1666,13 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [lockOrUnlockDoor()],
     }),
   ],
-  'Masked Vandal': [allCreatureTypes()],
+  'Masked Vandal': [
+    allCreatureTypes(),
+    entersTarget(
+      { types: ['Artifact', 'Enchantment'], controller: 'opponent' },
+      ifYouDoExileFromGraveyard({ type: 'Creature' }),
+    ),
+  ],
   'Maskwood Nexus': [
     allCreatureTypes(),
     activate({
@@ -1672,8 +1745,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       loseLifeTargetManaValue(),
     ),
   ],
-  'Ripples of Undeath': [enters(selfMill(3))],
-  'Roaming Throne': [enters(chooseCreatureType('addToSource'))],
+  'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
+  'Roaming Throne': [
+    ward({ mana: 2 }),
+    handler('ward'),
+    enters(chooseCreatureType('addToSource')),
+  ],
   'Sakashima of a Thousand Faces': [
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
@@ -1779,10 +1856,16 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Victimize': [
-    targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
+    targetsOnResolve(
+      'reanimate',
+      { zone: 'graveyard', type: 'Creature', controller: 'you' },
+      { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
+    ),
   ],
   'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
-  'Vantress Visions': [onResolve(copyTargetCreature())],
+  'Vantress Visions': [
+    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
+  ],
   'Walk-In Closet': [playLandsFromGraveyard()],
   "Thrór's Map": [
     {
@@ -1833,7 +1916,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, { mana: '{3}', tap: true, sacrifice: 'self' }),
   ],
   'Worn Powerstone': [entersTapped()],
-  'Forgotten Cellar': [playLandsFromGraveyard()],
+  'Forgotten Cellar': [onUnlock()],
   'Wash Away': [
     cleave('{1}{U}{U}'),
     targetOnResolve('counter', {
@@ -1848,10 +1931,19 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
   'Zimone and Dina': [
+    triggerOn('draw', {
+      if: secondCardDrawn(),
+      targets: 'opponent',
+      do: [loseLifeTargetPlayer(2), gainLife(2)],
+    }),
     activate({
       id: 'zimone.draw',
       costs: { tap: true, sacrificeTarget: 'creature', sacrificeOther: true },
-      do: [draw(1), putLandFromHand(true)],
+      do: [
+        draw(1),
+        putLandFromHand(true),
+        repeatIf(controlledLands({ min: 8 }), draw(1), putLandFromHand(true)),
+      ],
     }),
   ],
   'Incarnation Technique': [

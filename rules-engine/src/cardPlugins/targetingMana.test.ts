@@ -22,7 +22,7 @@ import {
   pumpTargetX,
   returnCreatureManaValueX,
   returnTargetFromGraveyard,
-  saga,
+  sagaChapters,
   selfMill,
   serializableEffects,
   upToTargetsOnResolve,
@@ -431,7 +431,7 @@ describe('saga chapter builders', () => {
     subtypes: ['Saga'],
     oracleText: 'I — Destroy target nonland permanent.\nII — Mill three cards.\nIII — You may discard a card.',
     effects: serializableEffects([
-      saga([
+      sagaChapters(
         {
           numbers: [1],
           targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
@@ -445,7 +445,7 @@ describe('saga chapter builders', () => {
             do: [returnTargetFromGraveyard('hand')],
           })],
         },
-      ]),
+      ),
     ]),
   })
 

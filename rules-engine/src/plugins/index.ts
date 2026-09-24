@@ -26,7 +26,6 @@ import { phasing } from './phasing'
 import { protectionFromEverything } from './protectionFromEverything'
 import { untilNextTurn } from './untilNextTurn'
 import { cdaLifePt } from './cdaLifePt'
-import { ward } from './ward'
 import { mana } from './mana'
 import { monarch } from './monarch'
 import { manaBurn } from './manaBurn'
@@ -76,7 +75,6 @@ export const builtInPlugins = [
   monarch,
   energy,
   cdaLifePt,
-  ward,
   damage,
   battle,
   doubleFaced,
@@ -144,5 +142,4 @@ export {
   starfieldOfNyx,
   stateBased,
   turnStructure,
-  ward,
 }

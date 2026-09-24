@@ -23,37 +23,42 @@ describe('Sin Fall remaining card support', () => {
     const server = createServerGame(
       commanderRules,
       {
-        hands: { p1: [card('Life from the Loam', ['Sorcery'], { manaCost: '{1}{G}' })] },
-        libraries: {
+        hands: {
           p1: [
+            card('Life from the Loam', ['Sorcery'], { manaCost: '{1}{G}' }),
             card('First Land', ['Land']),
             card('Second Land', ['Land']),
             card('Third Land', ['Land']),
-            card('Creature', ['Creature']),
-          ].map((entry) => ({ ...entry, zone: 'graveyard' as const })),
+          ],
         },
       },
-      { random: () => 0.5, cardPlugins: [onResolve] },
+      { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] },
     )
-    const ready = structuredClone(server.state)
+    let ready = structuredClone(server.state)
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 1 }
+    for (const name of ['First Land', 'Second Land', 'Third Land']) {
+      ready = ok(server.rules(ready, {
+        type: 'move',
+        objectId: named(ready, name).id,
+        to: 'graveyard',
+      }))
+    }
     const spell = named(ready, 'Life from the Loam').id
-    const choosing = ok(server.rules(
-      ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell })),
-      { type: 'resolveTop' },
-    ))
-    const selection = pendingSelectionFor(choosing, 'p1')!
-    expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0 })
-    expect(selection.moveSelectedTo).toBe('hand')
-    const lands = selection.candidates.slice(0, 2)
-    const resolved = ok(server.rules(choosing, {
-      type: 'selectCards',
+    const first = named(ready, 'First Land').id
+    const second = named(ready, 'Second Land').id
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
       seat: 'p1',
-      kind: 'choose',
-      count: 3,
-      objectIds: lands,
+      objectId: spell,
+      targets: [
+        { kind: 'object', objectId: first },
+        { kind: 'object', objectId: second },
+      ],
     }))
-    expect(lands.every((id) => resolved.objects[id].zone === 'hand')).toBe(true)
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[first].zone).toBe('hand')
+    expect(resolved.objects[second].zone).toBe('hand')
+    expect(named(resolved, 'Third Land').zone).toBe('graveyard')
   })
 
   test('Lotus Field asks to sacrifice two lands on entry', () => {

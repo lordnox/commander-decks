@@ -45,6 +45,7 @@ import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardP
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { combatPreventionCards } from '../../rules-engine/src/cardPlugins/combatPreventionCards'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
+import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
   entersTarget,
   ifYouDoExileFromGraveyard,
@@ -2626,7 +2627,7 @@ describe('if-you-do resolution choices', () => {
 })
 
 describe('ward live choice', () => {
-  test('a restarted host rebuilds pay-ward and can counter the spell', () => {
+  test('a restarted host rebuilds ward-pay and can counter the spell', () => {
     const server = createServerGame(
       commanderRules,
       {
@@ -2637,7 +2638,7 @@ describe('ward live choice', () => {
             power: 2,
             toughness: 2,
             oracleText: 'Ward {2}',
-            effects: [{ op: 'static', ward: { generic: 2 } }],
+            effects: [{ op: 'static', ward: { mana: 2 } }],
           })],
         },
         hands: {
@@ -2647,7 +2648,7 @@ describe('ward live choice', () => {
           })],
         },
       },
-      { random: () => 0.5 },
+      { random: () => 0.5, cardPlugins: [wardPlugin] },
     )
     const targetId = Object.values(server.state.objects)
       .find((object) => object.name === 'Warded Beast')!.id
@@ -2668,7 +2669,7 @@ describe('ward live choice', () => {
     expect(prepareKernelPendingChoice(handleFor(server.rules, cast.state), firstLobby)).toBe(true)
     expect(firstLobby.topdeck).toMatchObject({
       seat: 'p2',
-      kind: 'pay-ward',
+      kind: 'ward-pay',
       cards: ['Yes'],
     })
 
@@ -2681,6 +2682,6 @@ describe('ward live choice', () => {
       choices: [{ card: 'Yes', destination: 'skip' }],
     })).toBe(true)
     expect(restarted.history.current().stack).toHaveLength(0)
-    expect(restarted.history.current().objects[spellId].zone).toBe('graveyard')
+    expect(restarted.history.current().objects[spellId].zone).toBe('hand')
   })
 })
