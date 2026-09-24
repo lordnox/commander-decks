@@ -34,6 +34,7 @@ import {
 import { SEARCH_FETCH } from './cardPlugins/librarySearch'
 import {
   targetedEffectFilter,
+  targetedResolveBounds,
   validTargetRef,
 } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
@@ -1273,7 +1274,11 @@ export const manaAffordances = (
         || !canPayActivateCosts(state, object, seat, effect.costs)
       ) continue
       if (effect.do.some((instruction) => instruction.kind === 'addChosenColorMana')) {
-        for (const mana of MANA_IDS.filter((symbol) => symbol !== 'C')) {
+        const allowed = effect.do.find((instruction) => instruction.kind === 'addChosenColorMana')
+        const colors = allowed?.kind === 'addChosenColorMana'
+          ? allowed.colors ?? MANA_IDS.filter((symbol) => symbol !== 'C')
+          : MANA_IDS.filter((symbol) => symbol !== 'C')
+        for (const mana of colors) {
           actions.push({
             kind: 'activateAbility',
             objectId: object.id,
@@ -1376,8 +1381,8 @@ const targetVariants = (
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
   const filter = targetedEffectFilter(effect, action.kicked === true)
-  const count = effect.count ?? 1
-  const objectMatches = Object.values(state.objects)
+  const bounds = targetedResolveBounds(effect)
+  const objectTargets = Object.values(state.objects)
     .filter((object) =>
       validTargetRef(
         state,
@@ -1386,43 +1391,49 @@ const targetVariants = (
         seat,
         action.castOption,
       ))
-  if (count > 1) {
-    if (objectMatches.length < count) return []
+  const playerTargets = state.playerOrder.filter((player) =>
+    validTargetRef(
+      state,
+      { kind: 'player', player },
+      filter,
+      seat,
+      action.castOption,
+    ))
+  if (bounds.max > 1 || bounds.min === 0) {
+    if (bounds.min > 0 && objectTargets.length + playerTargets.length < bounds.min) return []
     return [{
       ...action,
       targetGroups: [{
-        label: 'Targets',
-        min: count,
-        max: count,
-        targets: objectMatches.map((target) => ({
-          objectId: target.id,
-          name: target.name,
-          controller: target.controller,
-        })),
+        label: filter.players ? 'Player' : 'Target',
+        min: bounds.min,
+        max: bounds.max,
+        ...(filter.players ? { kind: 'player' as const } : {}),
+        targets: [
+          ...objectTargets.map((target) => ({
+            objectId: target.id,
+            name: target.name,
+            controller: target.controller,
+          })),
+          ...playerTargets.map((player) => ({
+            objectId: player,
+            name: player,
+            controller: player,
+          })),
+        ],
       }],
     }]
   }
-  const objectTargets = objectMatches
-    .map((target): AvailableAction => ({
+  const objectActions = objectTargets.map((target): AvailableAction => ({
       ...action,
       targetObjectId: target.id,
       targetName: target.name,
     }))
-  const playerTargets = state.playerOrder
-    .filter((player) =>
-      validTargetRef(
-        state,
-        { kind: 'player', player },
-        filter,
-        seat,
-        action.castOption,
-      ))
-    .map((player): AvailableAction => ({
+  const playerActions = playerTargets.map((player): AvailableAction => ({
       ...action,
       targetPlayerId: player,
       targetName: player,
     }))
-  return [...objectTargets, ...playerTargets].filter((candidate) => {
+  return [...objectActions, ...playerActions].filter((candidate) => {
     if (candidate.kind !== 'castSpell') return false
     const face = castFaceOf(source)
     const spell = face ? { ...source, ...face } : source
@@ -1573,6 +1584,29 @@ const activationTargetGroups = (
           kind: 'player',
           targets: state.playerOrder
             .filter((seat) => seat !== source?.controller && !state.players[seat].lost)
+            .map((seat) => ({ objectId: seat, name: seat, controller: seat })),
+        },
+      ],
+    }
+  }
+  if (
+    typeof effect?.targets === 'object'
+    && 'filter' in effect.targets
+    && effect.targets.filter.players
+  ) {
+    const filter = effect.targets.filter
+    return {
+      ...action,
+      targetGroups: [
+        ...costGroups,
+        {
+          label: filter.players === 'opponent' ? 'Opponent' : 'Player',
+          min: 1,
+          max: 1,
+          kind: 'player',
+          targets: state.playerOrder
+            .filter((seat) =>
+              validTargetRef(state, { kind: 'player', player: seat }, filter, source?.controller ?? ''))
             .map((seat) => ({ objectId: seat, name: seat, controller: seat })),
         },
       ],
@@ -2081,12 +2115,23 @@ export const eventsForAvailableAction = (
     }
   }
   const bestowing = action.castOption === 'bestow' && hasBestowCast
-  const requiredTargets = targeted.length === 1 ? (targeted[0].count ?? 1) : targeted.length
-  if (requiredTargets > 1) {
-    if ((action.targetObjectIds?.length ?? 0) !== requiredTargets) return null
-  } else if ((targeted.length === 1 || playerAura || bestowing) && !action.targetObjectId) {
-    return null
+  const optionalTarget = targeted.length === 1
+    && targetedResolveBounds(targeted[0]).min === 0
+  if (targeted.length === 1) {
+    const { min, max } = targetedResolveBounds(targeted[0])
+    if (max > 1 && action.targetObjectIds) {
+      const n = action.targetObjectIds.length
+      if (n < min || n > max) return null
+    }
   }
+  if (
+    (targeted.length === 1 || playerAura || bestowing)
+    && !action.targetObjectId
+    && !action.targetPlayerId
+    && !action.targetObjectIds
+    && !action.targetGroups
+    && !optionalTarget
+  ) return null
   const blinkTargets = action.targetObjectIds
     ?? (action.targetObjectId ? [action.targetObjectId] : [])
   if (
@@ -2103,7 +2148,13 @@ export const eventsForAvailableAction = (
   const alternative = action.castOption
     ? availableAlternateCastEffect(state, seat, object, action.castOption)
     : undefined
-  const targets = action.targetObjectId || action.targetObjectIds
+  const targets = action.targetObjectIds?.length
+    ? action.targetObjectIds.map((objectId) => (
+        playerAura || action.targetGroups?.some((group) => group.kind === 'player')
+          ? { kind: 'player' as const, player: objectId }
+          : { kind: 'object' as const, objectId }
+      ))
+    : action.targetObjectId || action.targetObjectIds
     ? (
         playerAura
           ? [{ kind: 'player' as const, player: action.targetObjectId! }]

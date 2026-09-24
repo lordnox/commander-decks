@@ -1,4 +1,4 @@
-import type { DelayedTriggerCondition, TriggerBindingIf, ZoneId } from '../types'
+import type { DelayedTriggerCondition, ManaId, TriggerBindingIf, ZoneId } from '../types'
 import type {
   ActivateCost,
   CardCondition,
@@ -472,7 +472,13 @@ export const eachPlayerSacrifice = (type: string): CardInstruction => ({
 
 export const returnChosenLandFromGraveyard = (
   tapped = true,
-  extra: { count?: number; min?: number; to?: 'hand' | 'battlefield' } = {},
+  extra: {
+    count?: number
+    min?: number
+    max?: number
+    to?: 'hand' | 'battlefield'
+    filter?: TargetFilter
+  } = {},
 ): CardInstruction => ({
   kind: 'returnChosenLandFromGraveyard',
   tapped,
@@ -526,6 +532,37 @@ export const addPlusCountersEqualToLands = (): CardInstruction => ({
 export const pumpTargetEqualToLands = (trample = false): CardInstruction => ({
   kind: 'pumpTargetEqualToLands',
   trample,
+})
+
+export const returnFromGraveyard = (options: {
+  max: number
+  min?: number
+  to?: 'hand' | 'battlefield'
+  filter?: TargetFilter
+  tapped?: boolean
+}): CardInstruction => ({
+  kind: 'returnChosenLandFromGraveyard',
+  min: options.min ?? 0,
+  max: options.max,
+  to: options.to ?? 'hand',
+  ...(options.filter ? { filter: options.filter } : {}),
+  ...(options.tapped !== undefined ? { tapped: options.tapped } : {}),
+})
+
+/** You may put a permanent card from your graveyard onto the battlefield. */
+export const putPermanentFromGraveyard = (): CardInstruction => ({
+  kind: 'returnChosenLandFromGraveyard',
+  min: 0,
+  max: 1,
+  to: 'battlefield',
+  tapped: false,
+  filter: { permanent: true },
+})
+
+export const onUnlock = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'unlock',
+  do: instructions,
 })
 
 export const returnCreatureManaValueX = (
@@ -668,12 +705,38 @@ export const landToGraveyardOnce = (...instructions: CardInstruction[]): CardEff
 
 export const putMilledLandTapped = (): CardInstruction => ({ kind: 'putMilledLandTapped' })
 
-export const draw = (count: number): CardInstruction => ({ kind: 'draw', count })
+export const draw = (
+  count: number,
+  who: 'controller' | 'target' = 'controller',
+): CardInstruction => ({
+  kind: 'draw',
+  count,
+  ...(who === 'target' ? { who } : {}),
+})
 
 export const discardCards = (
   count: number,
   who: 'controller' | 'target' = 'controller',
-): CardInstruction => ({ kind: 'discardCards', count, who })
+  extra: {
+    optional?: boolean
+    then?: { filter: TargetFilter; do: CardInstruction[] }
+  } = {},
+): CardInstruction => ({
+  kind: 'discardCards',
+  count,
+  who,
+  ...extra,
+})
+
+export const mayDiscard = (
+  count = 1,
+  then?: { filter: TargetFilter; do: CardInstruction[] },
+): CardInstruction => ({
+  kind: 'discardCards',
+  count,
+  optional: true,
+  ...(then ? { then } : {}),
+})
 
 export const discardHandsThenDrawGreatest = (): CardInstruction => ({
   kind: 'discardHandsThenDrawGreatest',
@@ -1340,6 +1403,30 @@ export const yourFirstMain = (...instructions: CardInstruction[]): CardEffect =>
   if: { kind: 'controllerIsActive' },
 })
 
+export const yourUpkeepPutPermanentFromGraveyard = (): CardEffect =>
+  yourUpkeep(putPermanentFromGraveyard())
+
+export const saga = (
+  chapters: Extract<CardEffect, { op: 'saga' }>['chapters'],
+  extra: { readAhead?: boolean } = {},
+): CardEffect => ({
+  op: 'saga',
+  chapters,
+  ...extra,
+})
+
+export const addChosenColorMana = (
+  colors?: Array<Exclude<ManaId, 'C'>>,
+): CardInstruction => ({
+  kind: 'addChosenColorMana',
+  ...(colors ? { colors } : {}),
+})
+
+export const destroyTargetPermanent = (...types: string[]): CardInstruction => ({
+  kind: 'destroyTargetPermanent',
+  types,
+})
+
 export const yourUpkeepTarget = (
   filter: TargetFilter,
   instructions: CardInstruction[],
@@ -1444,6 +1531,29 @@ export const targetsOnResolve = (
   ...(options.tapped ? { tapped: true } : {}),
   ...(options.sacrificeThen ? { sacrificeThen: options.sacrificeThen } : {}),
   ...(instructions.length > 0 ? { do: instructions } : {}),
+})
+
+export const optionalTargetOnResolve = (
+  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  ...targetOnResolve(action, filter, ...instructions),
+  optional: true,
+  min: 0,
+  max: 1,
+})
+
+export const upToTargetsOnResolve = (
+  max: number,
+  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  ...targetOnResolve(action, filter, ...instructions),
+  optional: true,
+  min: 0,
+  max,
 })
 
 export const targetOnResolveKicked = (

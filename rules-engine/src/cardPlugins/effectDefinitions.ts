@@ -1,6 +1,7 @@
 import type {
   DelayedTriggerCondition,
   GameObject,
+  ManaId,
   ManaPool,
   PlayerId,
   TriggerBindingIf,
@@ -86,8 +87,14 @@ export type CardInstruction =
   | { kind: 'addMana'; mana: Partial<ManaPool> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   /** `seat` names a drawer other than the controller, snapshot when the instruction is built. */
-  | { kind: 'draw'; count: number; seat?: PlayerId; who?: 'controller' | 'triggeringPlayer' }
-  | { kind: 'discardCards'; count: number; who?: 'controller' | 'target' }
+  | { kind: 'draw'; count: number; seat?: PlayerId; who?: 'controller' | 'triggeringPlayer' | 'target' }
+  | {
+      kind: 'discardCards'
+      count: number
+      who?: 'controller' | 'target'
+      optional?: boolean
+      then?: { filter: TargetFilter; do: CardInstruction[] }
+    }
   | { kind: 'gainLife'; count: number | 'triggerAmount' }
   | { kind: 'drainOpponentsX'; multiplier: number }
   | { kind: 'drawX' }
@@ -205,7 +212,7 @@ export type CardInstruction =
   | { kind: 'encoreTokens' }
   | { kind: 'sacrificeObjectIds'; objectIds: string[] }
   | { kind: 'dealDamageToSelf'; amount: number }
-  | { kind: 'addChosenColorMana' }
+  | { kind: 'addChosenColorMana'; colors?: Array<Exclude<ManaId, 'C'>> }
   | { kind: 'optionalMill'; count: number }
   | { kind: 'mayDraw'; count: number; seat?: PlayerId }
   | { kind: 'chooseModes'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
@@ -218,7 +225,9 @@ export type CardInstruction =
       tapped?: boolean
       count?: number
       min?: number
+      max?: number
       to?: 'hand' | 'battlefield'
+      filter?: TargetFilter
     }
   | { kind: 'sacrificeControlled'; types?: string[]; count: number }
   | { kind: 'putTargetOnLibraryTop' }
@@ -380,6 +389,7 @@ export type ModalSpec = {
 export type SagaChapter = {
   numbers: number[]
   do: CardInstruction[]
+  targets?: { filter: TargetFilter }
 }
 
 export type ActivateCost = {
@@ -579,6 +589,9 @@ export type CardEffect =
       /** Sacrifice a matching controlled creature on resolution; only then apply the action. */
       sacrificeThen?: { type: string }
       do?: CardInstruction[]
+      optional?: boolean
+      min?: number
+      max?: number
     }
   | { op: 'mana'; if: CardCondition }
   | {

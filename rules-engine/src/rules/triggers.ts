@@ -13,6 +13,7 @@ import {
   triggerEffects,
   type CardCondition,
   type CardEffect,
+  type TargetFilter,
 } from '../cardPlugins/effects'
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
@@ -505,7 +506,13 @@ const collectDelayedTriggers = (
         controller: delayed.controller,
         zone: 'graveyard',
       }
-    pushCopies(matches, source, { do: delayed.instructions }, 1, {
+    const filter = delayed.payload?.targetFilter
+    pushCopies(matches, source, {
+      do: delayed.instructions,
+      ...(filter && typeof filter === 'object'
+        ? { targets: { filter: filter as TargetFilter } }
+        : {}),
+    }, 1, {
       payload: delayed.payload,
     })
   }

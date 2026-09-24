@@ -4,8 +4,8 @@ import { swampCount } from '../../plugins/swampOverlay'
 import { lifeLostThisTurn } from '../../plugins/life'
 import { openFreeCast } from '../../plugins/rebound'
 import { initiateDiscard } from '../../rules/discard'
-import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openCardSelection } from '../../rules/selectCards'
+import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import {
@@ -55,11 +55,13 @@ const addMana: InstructionHandler<'addMana'> = ({ draft, source }, instruction) 
 }
 
 const draw: InstructionHandler<'draw'> = ({ draft, source, item, buffer }, instruction) => {
-  const seat = instruction.seat
-    ?? (instruction.who === 'triggeringPlayer'
-      && typeof item?.payload?.triggeringPlayer === 'string'
-      ? item.payload.triggeringPlayer
-      : source.controller)
+  const seat = instruction.who === 'target'
+    ? discardSeatFor(source, item, 'target')
+    : instruction.seat
+      ?? (instruction.who === 'triggeringPlayer'
+        && typeof item?.payload?.triggeringPlayer === 'string'
+        ? item.payload.triggeringPlayer
+        : source.controller)
   if (buffer) {
     buffer.push({ kind: 'draw', remaining: instruction.count, seat })
     return
@@ -72,6 +74,30 @@ const discardCards: InstructionHandler<'discardCards'> = (
   instruction,
 ) => {
   const seat = discardSeatFor(source, item, instruction.who)
+  if (instruction.optional || instruction.then) {
+    const candidates = draft.zoneOrder[seat].hand
+    if (candidates.length === 0) return
+    openCardSelection(draft, {
+      seat,
+      kind: 'discard',
+      count: instruction.count,
+      min: instruction.optional ? 0 : Math.min(instruction.count, candidates.length),
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: instruction.optional
+        ? instruction.count === 1
+          ? 'You may discard a card.'
+          : `You may discard ${instruction.count} cards.`
+        : instruction.count === 1
+          ? `${source.name} makes you discard a card. Choose one.`
+          : `${source.name} makes you discard ${instruction.count} cards. Choose ${instruction.count}.`,
+      destinations: ['graveyard'],
+      fromSeat: seat,
+      ...(instruction.then ? { reflexive: instruction.then } : {}),
+    })
+    return
+  }
   if (buffer) {
     buffer.push({ kind: 'discard', count: instruction.count, who: instruction.who })
     return
@@ -686,11 +712,15 @@ const addUntilCleanupRule: InstructionHandler<'addUntilCleanupRule'> = (
   })
 }
 
+const COLORS = ['W', 'U', 'B', 'R', 'G'] as const
+
 const addChosenColorMana: InstructionHandler<'addChosenColorMana'> = (
   { draft, source, item },
+  instruction,
 ) => {
+  const allowed = instruction.colors ?? COLORS
   const choice = item?.choices?.[0]
-  if (choice && ['W', 'U', 'B', 'R', 'G'].includes(choice)) {
+  if (choice && allowed.includes(choice as typeof COLORS[number])) {
     draft.enqueue({
       type: 'addMana',
       seat: source.controller,

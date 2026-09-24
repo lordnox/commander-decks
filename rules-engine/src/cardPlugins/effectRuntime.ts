@@ -497,6 +497,9 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
     if (instruction.kind === 'repeatIf' || instruction.kind === 'delay') {
       return [instruction, ...flattenInstructions(instruction.do)]
     }
+    if (instruction.kind === 'discardCards' && instruction.then) {
+      return [instruction, ...flattenInstructions(instruction.then.do)]
+    }
     return [instruction]
   })
 
@@ -504,7 +507,7 @@ const CHOICE_KINDS = new Set([
   'surveil', 'scry', 'opponentPiles', 'putLandFromHand', 'millThenRecover', 'bounceChosenLand', 'revealPick',
   'copyControlledCreature', 'copyTargetCreature', 'becomeCopyOfTarget', 'optionalMill', 'mayDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
-  'chooseCreatureType',
+  'chooseCreatureType', 'discardCards',
   'returnCreatureManaValueX',
   'untapUpToLands',
   'drawAtNextUpkeep', 'grantUntilEot', 'goadTargets', 'pump', 'createXTokens', 'encoreTokens',
@@ -528,6 +531,12 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
   for (const effect of effects) {
     if (effect.op === 'dredge') ids.add('dredge')
     if (effect.op === 'drawReplacementByType') ids.add('abundance')
+    if (effect.op === 'saga') {
+      const listed = flattenInstructions(effect.chapters.flatMap((chapter) => chapter.do))
+      if (listed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {
+        ids.add('choiceEffects')
+      }
+    }
     if (effect.op === 'replacement') ids.add('entersTapped')
     if (effect.op === 'trigger' && effect.on === 'cast') {
       ids.add('castTriggers')

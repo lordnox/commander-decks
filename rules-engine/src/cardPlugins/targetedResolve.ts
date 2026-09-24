@@ -137,8 +137,15 @@ export const targetedEffectFilter = (
   kicked: boolean,
 ) => kicked && effect.kickedFilter ? effect.kickedFilter : effect.filter
 
+export const targetedResolveBounds = (
+  effect: TargetedResolveEffect,
+) => ({
+  min: effect.min ?? (effect.optional ? 0 : (effect.count ?? 1)),
+  max: effect.max ?? effect.count ?? 1,
+})
+
 export const targetedSlotCount = (effects: TargetedResolveEffect[]) =>
-  effects.reduce((total, effect) => total + (effect.count ?? 1), 0)
+  effects.reduce((total, effect) => total + targetedResolveBounds(effect).max, 0)
 
 export const targetedEffectForIndex = (
   effects: CardEffect[],
@@ -146,8 +153,8 @@ export const targetedEffectForIndex = (
 ) => {
   for (const effect of effects) {
     if (effect.op !== 'targetedResolve') continue
-    const count = effect.count ?? 1
-    if (index >= effect.target && index < effect.target + count) return effect
+    const { max } = targetedResolveBounds(effect)
+    if (index >= effect.target && index < effect.target + max) return effect
   }
 }
 
@@ -159,8 +166,8 @@ const eachTargetedSlot = (
 ) => {
   for (const effect of effects) {
     const filter = targetedEffectFilter(effect, kicked)
-    const count = effect.count ?? 1
-    for (let offset = 0; offset < count; offset += 1) {
+    const { max } = targetedResolveBounds(effect)
+    for (let offset = 0; offset < max; offset += 1) {
       visit(effect, targets?.[effect.target + offset], filter)
     }
   }
@@ -191,7 +198,6 @@ const applyTargetedAction = (
   target: TargetRef,
 ) => {
   if (effect.action === 'select') {
-    if (effect.do) runInstructions(draft, source, effect.do, item)
     const targetName = target.kind === 'player'
       ? target.player
       : state.objects[target.objectId]?.name ?? target.objectId
@@ -257,7 +263,6 @@ const applyTargetedAction = (
       draft.enqueue({ type: 'tap', objectId: object.id })
     }
   }
-  if (effect.do) runInstructions(draft, source, effect.do, item)
   draft.note(`${source.name} ${effect.action}s ${object.name}`)
 }
 
@@ -346,6 +351,16 @@ export const targetedResolveInstructionHandlers = {
   ifYouDoExileFromGraveyard,
 }
 
+const targetsForEffect = (
+  targets: TargetRef[],
+  effect: TargetedResolveEffect,
+) => {
+  const { max } = targetedResolveBounds(effect)
+  if (max > 1) return targets.slice(effect.target, effect.target + max)
+  const target = targets[effect.target]
+  return target ? [target] : []
+}
+
 export const targetedResolve: Plugin = {
   id: 'targetedResolve',
   legal: ({ state, event }) => {
@@ -354,22 +369,36 @@ export const targetedResolve: Plugin = {
     if (!source) return
     const effects = targetedEffects(source)
     if (effects.length === 0) return
-    const required = targetedSlotCount(effects)
-    if ((event.targets?.length ?? 0) !== required) {
-      return `${source.name} requires ${required} target${required === 1 ? '' : 's'}`
-    }
-    const objectIds = (event.targets ?? [])
-      .flatMap((target) => target.kind === 'object' ? [target.objectId] : [])
-    if (new Set(objectIds).size !== objectIds.length) {
-      return `illegal target for ${source.name}`
-    }
-    let illegal = false
-    eachTargetedSlot(effects, event.targets, spellWasKicked(event), (effect, target, filter) => {
-      if (!validTargetRef(state, target, filter, event.seat, event.castOption)) {
-        illegal = true
+    const chosen = event.targets ?? []
+    if (effects.length === 1) {
+      const { min, max } = targetedResolveBounds(effects[0])
+      if (chosen.length < min || chosen.length > max) {
+        return min === max
+          ? `${source.name} requires ${min} target`
+          : `${source.name} requires between ${min} and ${max} targets`
       }
-    })
-    if (illegal) return `illegal target for ${source.name}`
+    } else {
+      const minTotal = effects.reduce((total, effect) => total + targetedResolveBounds(effect).min, 0)
+      const maxTotal = effects.reduce((total, effect) => total + targetedResolveBounds(effect).max, 0)
+      if (chosen.length < minTotal || chosen.length > maxTotal) {
+        return `${source.name} requires ${effects.length} target`
+      }
+    }
+    const seen = new Set<string>()
+    for (const effect of effects) {
+      const filter = targetedEffectFilter(effect, spellWasKicked(event))
+      const { min } = targetedResolveBounds(effect)
+      const slice = effects.length === 1 ? chosen : targetsForEffect(chosen, effect)
+      if (slice.length < min) return `${source.name} requires ${min} target`
+      for (const target of slice) {
+        if (!validTargetRef(state, target, filter, event.seat, event.castOption)) {
+          return `illegal target for ${source.name}`
+        }
+        if (target.kind !== 'object') continue
+        if (seen.has(target.objectId)) return `duplicate target for ${source.name}`
+        seen.add(target.objectId)
+      }
+    }
   },
   apply: ({ state, event, draft }) => {
     if (event.type !== 'resolveTop') return
@@ -379,10 +408,22 @@ export const targetedResolve: Plugin = {
     const effects = targetedEffects(source)
     if (effects.length === 0) return
     if (openResolutionSacrifice(draft, state, source, item, effects)) return
-    eachTargetedSlot(effects, item.targets, spellWasKicked(item), (effect, target, filter) => {
-      if (!target) return
-      if (!validTargetRef(state, target, filter, item.controller, item.castOption)) return
-      applyTargetedAction(draft, state, source, item, effect, target)
-    })
+    for (const effect of effects) {
+      const filter = targetedEffectFilter(effect, spellWasKicked(item))
+      const { min } = targetedResolveBounds(effect)
+      const chosen = targetsForEffect(item.targets, effect)
+      const legal = chosen.filter((target) =>
+        validTargetRef(state, target, filter, item.controller, item.castOption))
+      // CR 608.2b: chosen targets that are all illegal fizzle this effect, including extra `do`.
+      // Zero chosen targets on an "up to N" spell still resolve the rest of the instructions.
+      if (legal.length === 0 && (min > 0 || chosen.length > 0)) continue
+
+      for (const target of legal) {
+        applyTargetedAction(draft, state, source, item, effect, target)
+      }
+      if (effect.do) {
+        runInstructions(draft, source, effect.do, item)
+      }
+    }
   },
 }
