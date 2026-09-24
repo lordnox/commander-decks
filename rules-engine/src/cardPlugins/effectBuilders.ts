@@ -1500,7 +1500,7 @@ export const targetOnResolve = (
   action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
   filter: TargetFilter,
   ...instructions: CardInstruction[]
-): CardEffect => ({
+): Extract<CardEffect, { op: 'targetedResolve' }> => ({
   op: 'targetedResolve',
   target: 0,
   filter,
