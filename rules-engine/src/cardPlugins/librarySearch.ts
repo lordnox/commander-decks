@@ -16,15 +16,15 @@ import {
   conditionHolds,
   hasSubtype,
   manaValueOf,
-  runInstructions,
   searchEffect,
   triggerEffects,
   type SearchDestination,
   type SearchSpec,
 } from './effects'
-import { effectsFor } from './cardRules'
+import { effectsFor, effectsOf } from './cardRules'
 import { emitCycleEvent, typecyclingFromHand } from './cycling'
 import { enteringObjectId } from './entersTapped'
+import { runInstructions } from './runInstructions'
 import {
   clearPendingDialog,
   DIALOG_CHOSEN,
@@ -111,7 +111,10 @@ export const searchSpecForPending = (
 ): SearchSpec | undefined => {
   const inline = inlineSpec(state, pending.sourceId)
   const resolved = pending.via === 'resolve' ? resolveSearchSpec(pending.source) : undefined
-  const spec = inline ?? resolved ?? searchSpecFor(pending.source)
+  const named = searchSpecFor(pending.source)
+  const live = state.objects[pending.sourceId]
+  const stamped = live ? searchEffect(effectsOf(live))?.spec : undefined
+  const spec = inline ?? resolved ?? named ?? (stamped ? withSearchMatch(stamped) : undefined)
   if (!spec) return
   return pending.max === undefined ? spec : { ...spec, max: pending.max }
 }
@@ -142,19 +145,29 @@ export const validateSplitSearchSelection = (
   }
 }
 
+const withSearchMatch = (spec: SearchSpec): SearchSpec =>
+  typeof spec.match === 'function' ? spec : { ...spec, match: basicLand }
+
 const abilityEffect = (object: GameObject) => {
-  const effect = searchEffect(effectsFor(object.name))
-  return effect?.via === 'ability' ? effect : undefined
+  const named = searchEffect(effectsFor(object.name))
+  if (named?.via === 'ability') return named
+  const stamped = searchEffect(effectsOf(object))
+  if (stamped?.via !== 'ability') return
+  return { ...stamped, spec: withSearchMatch(stamped.spec) }
 }
 
 const spellSpec = (object: GameObject) => {
-  const effect = searchEffect(effectsFor(object.name))
-  return effect?.via === 'spell' ? effect.spec : undefined
+  const named = searchEffect(effectsFor(object.name))
+  if (named?.via === 'spell') return named.spec
+  const stamped = searchEffect(effectsOf(object))
+  return stamped?.via === 'spell' ? withSearchMatch(stamped.spec) : undefined
 }
 
 const entersSpec = (object: GameObject) => {
-  const effect = searchEffect(effectsFor(object.name))
-  return effect?.via === 'enters' ? effect.spec : undefined
+  const named = searchEffect(effectsFor(object.name))
+  if (named?.via === 'enters') return named.spec
+  const stamped = searchEffect(effectsOf(object))
+  return stamped?.via === 'enters' ? withSearchMatch(stamped.spec) : undefined
 }
 
 const isPending = (value: unknown): value is PendingSearch =>
@@ -469,6 +482,7 @@ export const librarySearch: Plugin = {
 
     if (event.type === 'custom' && event.name === SEARCH_CHOSEN && event.seat) {
       const pending = pendingSearch(state, event.seat)
+      const spec = pending ? searchSpecForPending(state, pending) : undefined
       if (pending?.via === 'resolve' && pending.sourceId) {
         const source = draft.object(pending.sourceId) ?? state.objects[pending.sourceId]
         if (source && typecyclingFromHand(source)) {
@@ -486,6 +500,10 @@ export const librarySearch: Plugin = {
         }
       }
       if (pending?.sourceId) delete draft.players[event.seat].data[inlineSpecKey(pending.sourceId)]
+      if (spec?.after?.length && pending?.sourceId) {
+        const source = draft.object(pending.sourceId) ?? state.objects[pending.sourceId]
+        if (source) runInstructions(draft, source, spec.after)
+      }
       return
     }
 

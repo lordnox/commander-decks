@@ -1,4 +1,5 @@
 import type {
+  DelayedTriggerCondition,
   GameObject,
   ManaPool,
   PlayerId,
@@ -51,6 +52,8 @@ export type TokenSpec = {
   oracleText?: string
   colors?: string[]
   sacrificeForMana?: Partial<ManaPool>
+  /** Stamped onto the token; plugins read these, never the token's name. */
+  effects?: CardEffect[]
 }
 
 export type RevealUntilNonMatch = 'mill' | 'shuffle'
@@ -59,6 +62,15 @@ export type CardInstruction =
   | { kind: 'selfMill'; count: number }
   | { kind: 'millTarget'; count: number }
   | { kind: 'bounceSelf' }
+  | {
+      kind: 'delay'
+      condition: DelayedTriggerCondition
+      do: CardInstruction[]
+      untilCleanup?: boolean
+      /** Snapshot the first object target into the condition and return instructions. */
+      bindTarget?: boolean
+    }
+  | { kind: 'returnToOwnersControl'; objectId?: string }
   | { kind: 'unearthSelf' }
   | { kind: 'exileSelf' }
   | { kind: 'removeTarget'; action: 'destroy' | 'bounce' }
@@ -463,6 +475,8 @@ export type SearchSpec = {
   /** Hideouts default sacrifice when gainLife or sacrificeSource !== false. */
   sacrificeSource?: boolean
   optionalEnter?: boolean
+  /** Run after the search choice completes (fail-to-find included). */
+  after?: CardInstruction[]
 }
 
 export type CardEffect =

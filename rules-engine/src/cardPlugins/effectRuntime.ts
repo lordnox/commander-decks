@@ -9,7 +9,7 @@ import type {
   PlayerId,
   StackItem,
 } from '../types'
-import type { CardCondition, CardEffect, CardInstruction } from './effectDefinitions'
+import type { CardCondition, CardEffect, CardInstruction, TokenSpec } from './effectDefinitions'
 
 export const basicLand = (object: GameObject) =>
   object.types.includes('Land') && object.supertypes.includes('Basic')
@@ -53,6 +53,30 @@ const tokenDefaults = (): Omit<GameObject, 'id' | 'name' | 'owner' | 'controller
   summoningSickness: true,
   token: true,
   effects: [],
+})
+
+export const effectsFromTokenSpec = (token: TokenSpec): CardEffect[] => {
+  const effects = token.effects ? [...token.effects] : []
+  if (!token.sacrificeForMana) return effects
+  effects.push({
+    op: 'activate',
+    id: 'token.sacrifice-for-mana',
+    manaAbility: true,
+    costs: { sacrifice: 'self' },
+    do: [{ kind: 'addMana', mana: token.sacrificeForMana }],
+  })
+  return effects
+}
+
+export const tokenFieldsFromSpec = (token: TokenSpec): Partial<GameObject> & { name: string } => ({
+  name: token.name,
+  types: token.types,
+  subtypes: token.subtypes ?? [],
+  power: token.power ?? null,
+  toughness: token.toughness ?? null,
+  colors: token.colors ?? [],
+  oracleText: token.oracleText ?? '',
+  effects: effectsFromTokenSpec(token),
 })
 
 /** Tokens are created by an effect rather than moved from another zone. */
@@ -470,7 +494,7 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
         ...flattenInstructions(instruction.whenFalse ?? []),
       ]
     }
-    if (instruction.kind === 'repeatIf') {
+    if (instruction.kind === 'repeatIf' || instruction.kind === 'delay') {
       return [instruction, ...flattenInstructions(instruction.do)]
     }
     return [instruction]
@@ -571,40 +595,62 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
           ? effect.modes.flatMap((mode) => mode.do)
           : effect.do,
       )
-      : []
-    if (hasKind(listed, 'chooseModes')) ids.add('modalSpell')
-    if (hasKind(listed, 'cumulativeUpkeepOpponentLife')) ids.add('cumulativeUpkeep')
-    if (listed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {
+      : effect.op === 'search' && effect.spec.after
+        ? flattenInstructions(effect.spec.after)
+        : effect.op === 'targetedResolve' && effect.do
+          ? flattenInstructions(effect.do)
+          : []
+    const fromTokens = listed.flatMap((instruction) => {
+      if (instruction.kind !== 'createToken' && instruction.kind !== 'createXTokens') return []
+      return (instruction.token.effects ?? []).flatMap((tokenEffect) =>
+        tokenEffect.op === 'trigger' || tokenEffect.op === 'activate' || tokenEffect.op === 'modal'
+          ? flattenInstructions(
+            tokenEffect.op === 'modal'
+              ? tokenEffect.modes.flatMap((mode) => mode.do)
+              : tokenEffect.do,
+          )
+          : [])
+    })
+    const allListed = [...listed, ...fromTokens]
+    if (hasKind(allListed, 'chooseModes')) ids.add('modalSpell')
+    if (hasKind(allListed, 'cumulativeUpkeepOpponentLife')) ids.add('cumulativeUpkeep')
+    if (allListed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {
       ids.add('choiceEffects')
-      if (hasKind(listed, 'putFromHand')) ids.add('dumpFromHand')
-      if (hasKind(listed, 'secretCouncil', 'chooseVotesThisTurn')) ids.add('secretCouncil')
-      if (hasKind(listed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
-      if (hasKind(listed, 'searchLibrary')) ids.add('librarySearch')
-      if (hasKind(listed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
-      if (hasKind(listed, 'gainControlPermanent', 'pairDonateToOpponents')) {
+      if (hasKind(allListed, 'putFromHand')) ids.add('dumpFromHand')
+      if (hasKind(allListed, 'secretCouncil', 'chooseVotesThisTurn')) ids.add('secretCouncil')
+      if (hasKind(allListed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
+      if (hasKind(allListed, 'searchLibrary')) ids.add('librarySearch')
+      if (hasKind(allListed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
+      if (hasKind(allListed, 'gainControlPermanent', 'pairDonateToOpponents')) {
         ids.add('permanentControl')
       }
       if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
     }
-    if (hasKind(listed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
-    if (hasKind(listed, 'blink', 'blinkReturn')) ids.add('blink')
-    if (hasKind(listed, 'encoreTokens')) ids.add('encore')
-    if (hasKind(listed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')
-    if (hasKind(listed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
-    if (hasKind(listed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
+    if (hasKind(allListed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
+    if (hasKind(allListed, 'blink', 'blinkReturn')) ids.add('blink')
+    if (hasKind(allListed, 'encoreTokens')) ids.add('encore')
+    if (hasKind(allListed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')
+    if (hasKind(allListed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
+    if (hasKind(allListed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
     if (hasKind(
-      listed,
+      allListed,
       'pumpFromLinkedExilePower',
       'putLinkedExileToGraveyardGainLife',
     )) ids.add('exilePayoffs')
-    if (hasKind(listed, 'attachedCopyOrToken')) ids.add('bestow')
-    if (hasKind(listed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
-    if (hasKind(listed, 'exileUntilOpponentBecomesMonarch')) ids.add('monarchExile')
-    if (listed.some((instruction) =>
-      instruction.kind === 'createToken' && instruction.token.sacrificeForMana)) {
+    if (hasKind(allListed, 'attachedCopyOrToken')) ids.add('bestow')
+    if (hasKind(allListed, 'chooseCreatureType')) ids.add('creatureTypeChoice')
+    if (hasKind(allListed, 'exileUntilOpponentBecomesMonarch')) ids.add('monarchExile')
+    if (
+      listed.some((instruction) =>
+        (instruction.kind === 'createToken' || instruction.kind === 'createXTokens')
+        && (
+          Boolean(instruction.token.sacrificeForMana)
+          || (instruction.token.effects ?? []).some((tokenEffect) => tokenEffect.op === 'activate')
+        ))
+    ) {
       ids.add('activated')
     }
-    if (effect.op === 'activate' && hasKind(listed,
+    if (effect.op === 'activate' && hasKind(allListed,
       'putLandFromHand',
       'bounceChosenLand',
       'copyTargetCreature',
@@ -613,7 +659,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       'putFromHand',
     )) {
       ids.add('choiceEffects')
-      if (hasKind(listed, 'fight')) ids.add('fight')
+      if (hasKind(allListed, 'fight')) ids.add('fight')
     }
   }
   return [...ids]

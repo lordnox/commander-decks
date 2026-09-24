@@ -99,6 +99,7 @@ const onCleanup = (draft: Draft) => {
     object.blocking = null
   }
   draft.rules = draft.rules.filter((rule) => rule.params.untilCleanup !== true)
+  draft.delayedTriggers = draft.delayedTriggers.filter((trigger) => !trigger.untilCleanup)
   draft.note('cleanup')
 }
 

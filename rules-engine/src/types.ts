@@ -416,7 +416,13 @@ export type TriggerBinding = {
  * `recurring` represents an explicit "for the rest of the game" duration.
  */
 export type DelayedTriggerCondition =
-  | { kind: 'event'; type: GameEvent['type'] }
+  | {
+      kind: 'event'
+      type: GameEvent['type']
+      objectId?: string
+      from?: ZoneId
+      to?: ZoneId
+    }
   /** Omit `active` for "the next upkeep"; name a seat for "your next upkeep". */
   | { kind: 'step'; step: StepId | StepId[]; active?: PlayerId }
 
@@ -430,6 +436,8 @@ export type DelayedTrigger = {
   timestamp: number
   recurring?: boolean
   payload?: Record<string, unknown>
+  /** Dropped at cleanup without firing — "this turn" delayed triggers. */
+  untilCleanup?: boolean
 }
 
 /**

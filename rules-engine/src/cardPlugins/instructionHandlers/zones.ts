@@ -135,6 +135,21 @@ const bounceSelf: InstructionHandler<'bounceSelf'> = ({ draft, source }) => {
   draft.enqueue({ type: 'move', objectId: source.id, to: 'hand' })
 }
 
+const returnToOwnersControl: InstructionHandler<'returnToOwnersControl'> = (
+  { draft },
+  instruction,
+) => {
+  if (!instruction.objectId) return
+  const object = draft.object(instruction.objectId)
+  if (!object || object.zone !== 'graveyard') return
+  draft.enqueue({
+    type: 'move',
+    objectId: object.id,
+    to: 'battlefield',
+    controller: object.owner,
+  })
+}
+
 const finishWarpExile: InstructionHandler<'finishWarpExile'> = ({ draft, source }) => {
   const live = draft.object(source.id)
   if (!live || live.zone === 'exile' || live.zone === 'stack') return
@@ -812,6 +827,7 @@ export const zoneHandlers = {
   millTarget,
   millThenRecover,
   bounceSelf,
+  returnToOwnersControl,
   finishWarpExile,
   exileSelf,
   putSelfOntoBattlefield,

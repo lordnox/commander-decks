@@ -21,6 +21,12 @@ import {
   searchSpecFor,
   searchingSeat,
 } from './librarySearch'
+import {
+  basicLand,
+  bounceSelf,
+  delay,
+  searchAbility,
+} from './effects'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
@@ -745,5 +751,63 @@ describe('librarySearch', () => {
     })
     expect(result.ok).toBe(false)
     expect(result.ok === false && result.error).toContain('no library-search ability')
+  })
+
+  test('search after registers delayed bounce at cleanup, not immediately', () => {
+    const glacier = card('Test Cleanup Fetch', ['Land'], {
+      effects: [searchAbility({
+        prompt: 'Search your library for a basic land card. It enters tapped.',
+        match: basicLand,
+        destination: 'battlefield',
+        tapped: true,
+        min: 0,
+        max: 1,
+        sacrificeSource: false,
+        after: [delay({ kind: 'step', step: 'cleanup' }, bounceSelf())],
+      }, { tap: true, mana: '{1}' })],
+    })
+    const server = game({
+      battlefield: [glacier],
+      library: [forest()],
+    })
+    const sourceId = named(server.state, 'Test Cleanup Fetch').id
+    const found = named(server.state, 'Forest').id
+    const ready = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: {
+          ...server.state.players.p1,
+          mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 },
+        },
+      },
+    }
+    const opened = ok(server.rules(ready, {
+      type: 'activateAbility',
+      abilityId: SEARCH_FETCH,
+      seat: 'p1',
+      objectId: sourceId,
+    }))
+    expect(opened.objects[sourceId]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(opened.delayedTriggers).toHaveLength(0)
+
+    const searched = run(server, opened, [
+      { type: 'move', objectId: found, to: 'battlefield' },
+      { type: 'tap', objectId: found },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
+    expect(searched.objects[sourceId]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(searched.objects[found].zone).toBe('battlefield')
+    expect(searched.delayedTriggers).toHaveLength(1)
+    expect(searched.delayedTriggers[0].condition).toEqual({ kind: 'step', step: 'cleanup' })
+
+    let state = { ...searched, step: 'end' as const }
+    state = ok(server.rules(state, { type: 'advanceStep' }))
+    expect(state.objects[sourceId].zone).toBe('battlefield')
+    expect(state.stack[0]).toMatchObject({ kind: 'ability', name: 'Test Cleanup Fetch' })
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.objects[sourceId].zone).toBe('hand')
+    expect(state.objects[found].zone).toBe('battlefield')
   })
 })

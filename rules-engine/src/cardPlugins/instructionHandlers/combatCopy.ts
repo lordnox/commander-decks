@@ -10,6 +10,7 @@ import {
   copyStackSpell,
   copyTokenTemplate,
   createToken,
+  tokenFieldsFromSpec,
 } from '../effects'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
@@ -134,24 +135,7 @@ const createTokenHandler: InstructionHandler<'createToken'> = (
   { draft, source },
   instruction,
 ) => {
-  createToken(draft, source.controller, {
-    name: instruction.token.name,
-    types: instruction.token.types,
-    subtypes: instruction.token.subtypes ?? [],
-    power: instruction.token.power ?? null,
-    toughness: instruction.token.toughness ?? null,
-    colors: instruction.token.colors ?? [],
-    oracleText: instruction.token.oracleText ?? '',
-    effects: instruction.token.sacrificeForMana
-      ? [{
-          op: 'activate' as const,
-          id: 'token.sacrifice-for-mana',
-          manaAbility: true,
-          costs: { sacrifice: 'self' as const },
-          do: [{ kind: 'addMana' as const, mana: instruction.token.sacrificeForMana }],
-        }]
-      : [],
-  })
+  createToken(draft, source.controller, tokenFieldsFromSpec(instruction.token))
 }
 
 const copySelf: InstructionHandler<'copySelf'> = ({ draft, source, item }, instruction) => {
@@ -214,14 +198,7 @@ const createXTokens: InstructionHandler<'createXTokens'> = (
 ) => {
   const count = Math.max(0, item?.x ?? 0)
   for (let index = 0; index < count; index += 1) {
-    createToken(draft, source.controller, {
-      name: instruction.token.name,
-      types: instruction.token.types,
-      subtypes: instruction.token.subtypes ?? [],
-      power: instruction.token.power ?? null,
-      toughness: instruction.token.toughness ?? null,
-      oracleText: instruction.token.oracleText ?? '',
-    })
+    createToken(draft, source.controller, tokenFieldsFromSpec(instruction.token))
   }
 }
 
