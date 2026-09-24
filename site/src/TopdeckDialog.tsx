@@ -1,28 +1,43 @@
 import { useState } from 'react'
+import type { TopdeckDestination } from '../../shared/liveTypes'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
 
-type Destination =
-  | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-  | 'target' | 'reveal' | 'sacrifice' | 'skip'
 type Choice = {
   id: number
   card: string
-  destination: Destination
+  destination: TopdeckDestination
 }
 
-const label = (destination: Destination) => {
-  if (destination === 'graveyard') return 'Graveyard'
-  if (destination === 'bottom') return 'Bottom'
-  if (destination === 'hand') return 'Hand'
-  if (destination === 'exile') return 'Exile'
-  if (destination === 'battlefield') return 'Battlefield'
-  if (destination === 'library') return 'Library'
-  if (destination === 'target') return 'Target'
-  if (destination === 'reveal') return 'Reveal'
-  if (destination === 'sacrifice') return 'Sacrifice'
-  if (destination === 'skip') return 'Not targeted'
-  return 'Top'
+const label = (destination: TopdeckDestination) => {
+  switch (destination) {
+    case 'graveyard':
+      return 'Graveyard'
+    case 'bottom':
+      return 'Bottom'
+    case 'hand':
+      return 'Hand'
+    case 'exile':
+      return 'Exile'
+    case 'battlefield':
+      return 'Battlefield'
+    case 'library':
+      return 'Library'
+    case 'target':
+      return 'Target'
+    case 'reveal':
+      return 'Reveal'
+    case 'sacrifice':
+      return 'Sacrifice'
+    case 'skip':
+      return 'Not targeted'
+    case 'face-up':
+      return 'Face-up'
+    case 'face-down':
+      return 'Face-down'
+    default:
+      return 'Top'
+  }
 }
 
 export const TopdeckDialog = ({
@@ -36,7 +51,7 @@ export const TopdeckDialog = ({
   decision: LiveTopdeck
   prompt?: string
   pending: boolean
-  onResolve: (choices: Array<{ card: string; destination: Destination }>) => void
+  onResolve: (choices: Array<{ card: string; destination: TopdeckDestination }>) => void
 }) => {
   const discarding = decision.kind === 'discard'
   const puttingLand = decision.kind === 'put-land'
@@ -50,6 +65,8 @@ export const TopdeckDialog = ({
   const cumulativeUpkeep = decision.kind === 'cumulative-upkeep'
   const voting = decision.kind === 'vote'
   const copyingStackItem = decision.kind === 'stack-copy'
+  const partitioning = decision.kind === 'partition'
+  const choosingPile = decision.kind === 'choosePile'
   const orderMatters = decision.destinations.some(
     (destination) => destination === 'top' || destination === 'bottom',
   )
@@ -93,7 +110,7 @@ export const TopdeckDialog = ({
     )
   })
 
-  const setDestination = (id: number, destination: Destination) => {
+  const setDestination = (id: number, destination: TopdeckDestination) => {
     const next = choices.map((choice) =>
       choice.id === id ? { ...choice, destination } : choice
     )
@@ -148,6 +165,10 @@ export const TopdeckDialog = ({
           ? 'Cast your vote'
         : copyingStackItem
           ? 'Copy this ability?'
+        : partitioning
+          ? 'Separate into piles'
+        : choosingPile
+          ? 'Choose a pile'
       : `${decision.kind[0]?.toUpperCase()}${decision.kind.slice(1)} ${choices.length}`
   const previewDetails = previewCard ? game.catalog[previewCard] : null
   const previewImage = previewDetails?.image_normal || previewDetails?.image_small
@@ -282,6 +303,10 @@ export const TopdeckDialog = ({
                   ? 'Choose a matching card or decline when the search is optional. The rest stay in your library, then it is shuffled.'
                   : revealing
                     ? 'Reveal one offered card, or keep every card private and let the land enter tapped.'
+                  : partitioning
+                    ? 'Put each card into the face-up pile or the face-down pile.'
+                  : choosingPile
+                    ? 'Put one pile into your hand. The other pile goes to your graveyard.'
                   : `Choose top or ${destinationLabel} for each card.`)}
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'

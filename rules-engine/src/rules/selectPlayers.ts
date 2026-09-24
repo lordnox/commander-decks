@@ -2,6 +2,7 @@ import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
+import { openOpponentPilePartition } from './selectCards'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -38,6 +39,12 @@ export type PendingPlayerSelection = {
         extraSubtype: string
         power: number
         toughness: number
+      }
+    | {
+        kind: 'opponentPiles'
+        count: number
+        reveal: 'public' | 'look'
+        piles: 'public' | 'facedown-faceup'
       }
 }
 
@@ -168,6 +175,17 @@ export const selectPlayers: Plugin = {
     }
     if (selection.action.kind === 'loseAbilitiesBecomeOpponent' && target) {
       stampLoseAbilitiesBecomeOnOpponentCreatures(draft, target, selection.action)
+    }
+    if (selection.action.kind === 'opponentPiles' && target) {
+      openOpponentPilePartition(draft, {
+        opponent: target,
+        controller: event.seat,
+        sourceId: selection.sourceId,
+        source: selection.source,
+        count: selection.action.count,
+        reveal: selection.action.reveal,
+        piles: selection.action.piles,
+      })
     }
     const next = draft.playerOrder
       .map((seat) => pendingPlayerSelectionFor(draft, seat))

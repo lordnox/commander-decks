@@ -14,6 +14,8 @@ export const TOPDECK_DESTINATIONS = [
   'reveal',
   'sacrifice',
   'skip',
+  'face-up',
+  'face-down',
 ] as const
 
 export type TopdeckDestination = (typeof TOPDECK_DESTINATIONS)[number]

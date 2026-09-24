@@ -20,6 +20,17 @@ import type { KernelHandle } from './kernelHandle'
 import { openTopdeck } from './kernelChoice'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 
+const pileLabel = (
+  state: { objects: Record<string, { name: string }> },
+  ids: string[],
+  hidden: boolean,
+  title: string,
+) => {
+  if (hidden) return `${title} (${ids.length} card${ids.length === 1 ? '' : 's'})`
+  if (ids.length === 0) return `${title} (empty)`
+  return `${title}: ${ids.map((id) => state.objects[id]?.name ?? 'a card').join(', ')}`
+}
+
 /**
  * Move the found cards, shuffle, close the marker, and let a spell finish
  * resolving. An empty selection is a legal "fail to find" and runs the same
@@ -193,11 +204,44 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
   const seat = waiting.selection.seat
   if (!isSeatId(seat)) return false
   const { selection, names, count } = waiting
+  if (selection.kind === 'choosePile') {
+    const piles = selection.piles ?? { 'face-up': [], 'face-down': [] }
+    const hideFaceDown = selection.pileVisibility === 'facedown-faceup'
+    const pileCards = [
+      pileLabel(state, piles['face-up'], false, 'Face-up pile'),
+      pileLabel(state, piles['face-down'], hideFaceDown, 'Face-down pile'),
+    ]
+    return openTopdeck(
+      lobby,
+      {
+        seat,
+        kind: 'choosePile',
+        cards: pileCards,
+        destinations: ['graveyard', 'hand'],
+        requirements: { hand: { min: 1, max: 1 } },
+        kernel: {
+          sourceId: selection.sourceId ?? '',
+          stage: 'select-cards',
+          selectionId: selection.id,
+          cardKind: selection.kind,
+        },
+      },
+      {
+        waiting: `${lobby.occupants[seat]?.name ?? seat} is choosing a pile.`,
+        prompt: selection.prompt ?? 'Put one pile into your hand and the other into your graveyard.',
+        judge: selection.source
+          ? `Waiting for a pile choice for ${selection.source}.`
+          : 'Waiting for a pile choice.',
+      },
+    )
+  }
   const destinations = (selection.destinations
     ?? (selection.kind === 'scry'
       ? ['top', 'bottom']
       : selection.kind === 'surveil'
         ? ['top', 'graveyard']
+        : selection.kind === 'partition'
+          ? ['face-up', 'face-down']
         : selection.kind === 'reveal'
           ? ['hand', 'reveal']
         : selection.kind === 'choose'

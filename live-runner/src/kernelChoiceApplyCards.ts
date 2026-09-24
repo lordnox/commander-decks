@@ -28,7 +28,33 @@ export const applySelectCards = (
     || cardKind === 'discard'
     || cardKind === 'sacrifice'
     || cardKind === 'reveal'
+    || cardKind === 'choosePile'
   ) {
+    if (cardKind === 'choosePile') {
+      const piles = waiting.selection.piles ?? { 'face-up': [], 'face-down': [] }
+      const taken = message.choices.find(({ destination }) => destination === 'hand')
+      if (!taken) throw new Error('Choose exactly one pile for your hand.')
+      const faceUpLabel = decision.cards[0]
+      const objectIds = taken.card === faceUpLabel ? piles['face-up'] : piles['face-down']
+      const continued = kernel.dispatch({
+        type: 'selectCards',
+        seat,
+        kind: 'choosePile',
+        count: waiting.selection.count,
+        objectIds,
+      })
+      if (!continued.ok) throw new Error(continued.error)
+      return closeKernelChoice(kernel, lobby, seat, {
+        privateJudge: {
+          [seat]: waiting.selection.source
+            ? `${waiting.selection.source}: you took ${taken.card}.`
+            : `You took ${taken.card}.`,
+        },
+        judge: waiting.selection.source
+          ? `${lobby.occupants[seat]?.name ?? seat} chose a pile for ${waiting.selection.source}.`
+          : `${lobby.occupants[seat]?.name ?? seat} chose a pile.`,
+      })
+    }
     const chosenDestination = cardKind === 'sacrifice'
       ? 'sacrifice'
       : cardKind === 'reveal'
@@ -87,7 +113,7 @@ export const applySelectCards = (
   }
   const choices = message.choices.map((choice) => ({
     objectId: objectIdsForNames(state, waiting.objectIds, [choice.card])[0],
-    destination: choice.destination as 'top' | 'bottom' | 'graveyard',
+    destination: choice.destination as 'top' | 'bottom' | 'graveyard' | 'face-up' | 'face-down',
   }))
   if (choices.length !== waiting.count) {
     throw new Error(`Assign exactly ${waiting.count} card(s).`)

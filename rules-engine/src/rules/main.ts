@@ -9,6 +9,7 @@ export { discard, initiateDiscard } from './discard'
 export { draw, initiateDraw } from './draw'
 export {
   openCardSelection,
+  openOpponentPilePartition,
   pendingSelection,
   pendingSelectionById,
   pendingSelectionFor,

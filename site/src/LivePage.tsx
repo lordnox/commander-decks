@@ -26,6 +26,7 @@ import {
   type LiveSeat,
   type LiveSnapshot,
 } from './liveCodec'
+import type { TopdeckDestination } from '../../shared/liveTypes'
 import {
   appendSnapshot,
   getLatestSnapshot,
@@ -533,9 +534,7 @@ export const LivePage = () => {
       cheat?: boolean
       choices?: Array<{
         card: string
-        destination:
-          | 'top' | 'bottom' | 'graveyard' | 'hand' | 'exile' | 'battlefield' | 'library'
-          | 'target' | 'reveal' | 'sacrifice' | 'skip'
+        destination: TopdeckDestination
       }>
       always?: boolean
       until?: 'my-turn' | 'off'

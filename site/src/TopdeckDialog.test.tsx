@@ -263,3 +263,28 @@ test('only the card list scrolls, so hide and resolve stay reachable', () => {
   expect(html).toContain('<ol class="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">')
   expect(html).toContain('shrink-0 self-start rounded-xl bg-purple-200')
 })
+
+test('a pile partition offers face-up and face-down destinations', () => {
+  const game = {
+    catalog: { Island: {}, Forest: {} },
+  } as unknown as ReplayGame
+  const decision = {
+    seat: 'p2',
+    kind: 'partition',
+    cards: ['Island', 'Forest'],
+    destinations: ['face-up', 'face-down'],
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Separate into piles')
+  expect(html).toContain('Put in face-up')
+  expect(html).toContain('Put in face-down')
+  expect(html).toContain('Resolve partition')
+})

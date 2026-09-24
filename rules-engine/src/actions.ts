@@ -83,6 +83,7 @@ import {
   type PendingCardSelection,
 } from './rules/selectCards'
 import { pendingPlayerSelection } from './rules/selectPlayers'
+import { isKnownTo } from './knowledge'
 import type {
   GameEvent,
   GameObject,
@@ -298,7 +299,18 @@ export const waitingSelectCards = (
   return {
     selection: pending,
     objectIds,
-    names: objectIds.map((objectId) => state.objects[objectId]?.name ?? ''),
+    names: objectIds.map((objectId) => {
+      const object = state.objects[objectId]
+      if (!object) return ''
+      if (
+        pending.kind === 'choosePile'
+        && object.zone === 'library'
+        && !isKnownTo(object, pending.seat, state.playerOrder)
+      ) {
+        return 'Face-down card'
+      }
+      return object.name
+    }),
     count: Math.min(pending.count, objectIds.length),
   }
 }
