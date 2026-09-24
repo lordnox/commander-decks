@@ -16,7 +16,10 @@ import {
 import type { GameEvent, GameState, PlayerId, Plugin } from './types'
 import { redactSecretCouncil } from './cardPlugins/secretCouncil'
 import { CUMULATIVE_UPKEEP_PENDING } from './cardPlugins/cumulativeUpkeep'
-import { PENDING_SELECTION, pendingSelectionsFor } from './rules/selectCards'
+import {
+  PENDING_SELECTION,
+  visibleLibrarySelectionIds,
+} from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION } from './rules/selectPlayers'
 import { PENDING_DIALOG, pendingDialogsFor } from './pendingDialog'
 import { PENDING_OPTION_SELECTION } from './rules/selectOptions'
@@ -61,22 +64,8 @@ export const projectForViewer = (
     }),
   )
 
-  const visibleLibraryCards = new Set<string>()
-  if (viewer) {
-    for (const selection of pendingSelectionsFor(authoritative, viewer)) {
-      for (const objectId of selection.candidates) {
-        const object = authoritative.objects[objectId]
-        if (object?.zone !== 'library') continue
-        if (
-          selection.kind === 'choosePile'
-          && !isKnownTo(object, viewer, authoritative.playerOrder)
-        ) {
-          continue
-        }
-        visibleLibraryCards.add(objectId)
-      }
-    }
-  }
+  const visibleLibraryCards = visibleLibrarySelectionIds(authoritative, viewer)
+
   for (const [objectId, object] of Object.entries(projected.objects)) {
     const hiddenLibrary = object.zone === 'library' && !visibleLibraryCards.has(objectId)
     const hiddenHand = object.zone === 'hand'
