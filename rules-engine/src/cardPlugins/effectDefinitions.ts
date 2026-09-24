@@ -173,6 +173,11 @@ export type CardInstruction =
       tapped?: boolean
       optional?: boolean
     }
+  | {
+      /** You may exile a matching card from your graveyard. If you do, exile stack targets. */
+      kind: 'ifYouDoExileFromGraveyard'
+      filter: TargetFilter
+    }
   | { kind: 'pump'; power: number; toughness: number }
   | { kind: 'pumpTargetX'; multiplier: number; toughnessMultiplier?: number }
   | { kind: 'pumpSelf'; power: number; toughness: number }
@@ -550,9 +555,15 @@ export type CardEffect =
   | {
       op: 'targetedResolve'
       target: number
+      /** Consecutive targets sharing `filter`, starting at `target`. */
+      count?: number
       filter: TargetFilter
       kickedFilter?: TargetFilter
       action: 'destroy' | 'exile' | 'bounce' | 'counter' | 'copy' | 'reanimate' | 'select' | 'libraryBottom'
+      /** Return reanimated permanents tapped. */
+      tapped?: boolean
+      /** Sacrifice a matching controlled creature on resolution; only then apply the action. */
+      sacrificeThen?: { type: string }
       do?: CardInstruction[]
     }
   | { op: 'mana'; if: CardCondition }

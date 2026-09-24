@@ -1347,6 +1347,13 @@ export const manaFrom = (
   from,
 })
 
+export const ifYouDoExileFromGraveyard = (
+  filter: TargetFilter = { type: 'Creature' },
+): CardInstruction => ({
+  kind: 'ifYouDoExileFromGraveyard',
+  filter,
+})
+
 export const targetOnResolve = (
   action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
   filter: TargetFilter,
@@ -1356,6 +1363,26 @@ export const targetOnResolve = (
   target: 0,
   filter,
   action,
+  ...(instructions.length > 0 ? { do: instructions } : {}),
+})
+
+export const targetsOnResolve = (
+  action: Extract<CardEffect, { op: 'targetedResolve' }>['action'],
+  filter: TargetFilter,
+  options: {
+    count?: number
+    tapped?: boolean
+    sacrificeThen?: { type: string }
+  },
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'targetedResolve',
+  target: 0,
+  filter,
+  action,
+  ...(options.count !== undefined ? { count: options.count } : {}),
+  ...(options.tapped ? { tapped: true } : {}),
+  ...(options.sacrificeThen ? { sacrificeThen: options.sacrificeThen } : {}),
   ...(instructions.length > 0 ? { do: instructions } : {}),
 })
 
