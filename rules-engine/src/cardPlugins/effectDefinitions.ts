@@ -137,6 +137,14 @@ export type CardInstruction =
     }
   | { kind: 'surveil'; count: number }
   | { kind: 'scry'; count: number }
+  | {
+      kind: 'opponentPiles'
+      count: number
+      /** `public` reveals the cards; `look` shows them only to the chosen opponent. */
+      reveal: 'public' | 'look'
+      /** `public` keeps both piles public; `facedown-faceup` hides the face-down pile. */
+      piles: 'public' | 'facedown-faceup'
+    }
   | { kind: 'putLandFromHand'; tapped?: boolean }
   | { kind: 'bounceChosenLand' }
   | { kind: 'revealPick'; count: number; type?: string; permanent?: boolean }

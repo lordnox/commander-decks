@@ -74,7 +74,7 @@ export type TopdeckDecision = {
       | 'ward-pay'
     stackId?: string
     selectionId?: string
-    cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal'
+    cardKind?: 'choose' | 'discard' | 'sacrifice' | 'scry' | 'surveil' | 'reveal' | 'partition' | 'choosePile'
     resumePassSeat?: SeatId
     kicked?: boolean
     giftPromised?: boolean

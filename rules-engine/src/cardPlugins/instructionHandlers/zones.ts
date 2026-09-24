@@ -1,7 +1,7 @@
 import { isPermanentType } from '../../definitions'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { pickRandomChoices, RANDOM_CHOICE } from '../../plugins/hiddenInformation'
-import { openCardSelection } from '../../rules/selectCards'
+import { openCardSelection, openOpponentPilePartition } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { apnapSeats } from '../../turnOrder'
 import {
@@ -381,6 +381,44 @@ const scry: InstructionHandler<'scry'> = ({ draft, source }, instruction) => {
   })
 }
 
+const opponentPiles: InstructionHandler<'opponentPiles'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const targeted = item?.targets.find((target) => target.kind === 'player')
+  if (targeted?.kind === 'player') {
+    openOpponentPilePartition(draft, {
+      opponent: targeted.player,
+      controller: source.controller,
+      sourceId: source.id,
+      source: source.name,
+      count: instruction.count,
+      reveal: instruction.reveal,
+      piles: instruction.piles,
+    })
+    return
+  }
+  const candidates = draft.playerOrder.filter(
+    (seat) => seat !== source.controller && !draft.players[seat].lost,
+  )
+  if (candidates.length === 0) return
+  openPlayerSelection(draft, {
+    seat: source.controller,
+    sourceId: source.id,
+    source: source.name,
+    prompt: 'Choose an opponent to separate the cards.',
+    min: 1,
+    max: 1,
+    candidates,
+    action: {
+      kind: 'opponentPiles',
+      count: instruction.count,
+      reveal: instruction.reveal,
+      piles: instruction.piles,
+    },
+  })
+}
+
 const putLandFromHand: InstructionHandler<'putLandFromHand'> = (
   { draft, source },
   instruction,
@@ -742,6 +780,7 @@ export const zoneHandlers = {
   returnSelfAsEnchantment,
   surveil,
   scry,
+  opponentPiles,
   putLandFromHand,
   bounceChosenLand,
   revealPick,

@@ -3,6 +3,7 @@ import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
+import { markKnownTo, markKnownToAll } from '../knowledge'
 import { validTarget } from '../cardPlugins/targetedResolve'
 import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
@@ -17,6 +18,8 @@ export type CardSelectionKind =
   | 'scry'
   | 'surveil'
   | 'reveal'
+  | 'partition'
+  | 'choosePile'
 
 export type CardSelectionDestination =
   | 'top'
@@ -27,6 +30,12 @@ export type CardSelectionDestination =
   | 'sacrifice'
   | 'library'
   | 'target'
+  | 'hand'
+  | 'face-up'
+  | 'face-down'
+
+export type OpponentPileReveal = 'public' | 'look'
+export type OpponentPileVisibility = 'public' | 'facedown-faceup'
 
 export type CardSelectionChoice = {
   objectId: string
@@ -78,6 +87,10 @@ export type PendingCardSelection = {
   targetFilter?: TargetFilter
   triggerX?: number
   grantKeywordsUntilEot?: string[]
+  piles?: { 'face-up': string[]; 'face-down': string[] }
+  pileController?: PlayerId
+  pileReveal?: OpponentPileReveal
+  pileVisibility?: OpponentPileVisibility
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -164,11 +177,17 @@ export const liveSelectionCandidates = (
     return selection.candidates.filter((objectId) => cardInHand(state, fromSeat, objectId))
   }
   if (
-    (selection.kind === 'scry' || selection.kind === 'surveil')
+    (selection.kind === 'scry' || selection.kind === 'surveil' || selection.kind === 'partition')
     && (!selection.fromZone || selection.fromZone === 'library')
   ) {
     const top = new Set(libraryTop(state, fromSeat, selection.count))
     return selection.candidates.filter((objectId) => top.has(objectId))
+  }
+  if (selection.kind === 'choosePile') {
+    return selection.candidates.filter((objectId) => {
+      const object = state.objects[objectId]
+      return object?.zone === 'library'
+    })
   }
   if (selection.kind === 'sacrifice') {
     return selection.candidates.filter((objectId) => battlefieldPermanent(state, fromSeat, objectId))
@@ -193,7 +212,58 @@ const allowedDestinations = (selection: PendingCardSelection): CardSelectionDest
   if (selection.destinations?.length) return selection.destinations
   if (selection.kind === 'scry') return ['top', 'bottom']
   if (selection.kind === 'surveil') return ['top', 'graveyard']
+  if (selection.kind === 'partition') return ['face-up', 'face-down']
+  if (selection.kind === 'choosePile') return ['hand']
   return ['graveyard']
+}
+
+const sameIdSet = (left: string[], right: string[]) => {
+  if (left.length !== right.length) return false
+  const rightIds = new Set(right)
+  return left.every((id) => rightIds.has(id))
+}
+
+export const openOpponentPilePartition = (
+  draft: Draft,
+  args: {
+    opponent: PlayerId
+    controller: PlayerId
+    sourceId: string
+    source: string
+    count: number
+    reveal: OpponentPileReveal
+    piles: OpponentPileVisibility
+  },
+) => {
+  const candidates = draft.zoneOrder[args.controller].library.slice(0, args.count)
+  if (candidates.length === 0) return
+  if (args.reveal === 'public') {
+    draft.enqueue({
+      type: 'reveal',
+      seat: args.controller,
+      objectIds: candidates,
+      source: args.source,
+    })
+  } else {
+    markKnownTo(draft, candidates, [args.opponent])
+    draft.note(`${args.opponent} looks at the top ${candidates.length} cards for ${args.source}`)
+  }
+  openCardSelection(draft, {
+    seat: args.opponent,
+    kind: 'partition',
+    count: args.count,
+    candidates,
+    sourceId: args.sourceId,
+    source: args.source,
+    prompt: args.piles === 'public'
+      ? `Separate these cards into two piles.`
+      : `Separate these cards into a face-down pile and a face-up pile.`,
+    destinations: ['face-up', 'face-down'],
+    fromSeat: args.controller,
+    pileController: args.controller,
+    pileReveal: args.reveal,
+    pileVisibility: args.piles,
+  })
 }
 
 const parseChoices = (
@@ -226,6 +296,30 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   const expected = expectedCount(state, selection)
   const allowed = new Set(liveCandidates(state, selection))
   const destinations = new Set(allowedDestinations(selection))
+
+  if (selection.kind === 'choosePile') {
+    const objectIds = event.objectIds
+    if (!Array.isArray(objectIds) || !objectIds.every((id) => typeof id === 'string')) {
+      return 'objectIds must be a string array'
+    }
+    if (new Set(objectIds).size !== objectIds.length) {
+      return 'objectIds must not contain duplicates'
+    }
+    const piles = selection.piles
+    if (!piles) return 'no piles were constructed for this selection'
+    const matchesPile = sameIdSet(objectIds, piles['face-up'])
+      || sameIdSet(objectIds, piles['face-down'])
+    if (!matchesPile) return 'must choose exactly one constructed pile'
+    for (const objectId of objectIds) {
+      if (!selection.candidates.includes(objectId)) {
+        return 'card was not offered for this selection'
+      }
+      if (!allowed.has(objectId)) {
+        return 'card is no longer a valid choice'
+      }
+    }
+    return
+  }
 
   if (
     selection.kind === 'discard'
@@ -467,6 +561,75 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       selection.source
         ? `${event.seat} ${selection.kind}s ${names} for ${selection.source}`
         : `${event.seat} ${selection.kind}s ${names}`,
+    )
+  } else if (selection.kind === 'partition') {
+    const choices = parseChoices(event)
+    if (!choices || !selection.pileController) return
+    const faceUp = choices
+      .filter(({ destination }) => destination === 'face-up')
+      .map(({ objectId }) => objectId)
+    const faceDown = choices
+      .filter(({ destination }) => destination === 'face-down')
+      .map(({ objectId }) => objectId)
+    if (selection.pileVisibility === 'public') {
+      markKnownToAll(draft, [...faceUp, ...faceDown])
+    } else {
+      markKnownToAll(draft, faceUp)
+    }
+    const controller = selection.pileController
+    const source = selection.source ?? 'the spell'
+    const named = (ids: string[]) => ids
+      .map((objectId) => draft.objects[objectId]?.name ?? 'a card')
+      .join(', ')
+      || 'no cards'
+    draft.note(
+      selection.pileVisibility === 'public'
+        ? `${event.seat} made two piles for ${source}: ${named(faceUp)} and ${named(faceDown)}`
+        : `${event.seat} made a face-up pile (${named(faceUp)}) and a face-down pile for ${source}`,
+    )
+    openCardSelection(draft, {
+      seat: controller,
+      kind: 'choosePile',
+      count: 1,
+      min: 0,
+      candidates: [...faceUp, ...faceDown],
+      sourceId: selection.sourceId,
+      source: selection.source,
+      prompt: 'Put one pile into your hand and the other into your graveyard.',
+      destinations: ['hand'],
+      fromSeat: controller,
+      fromZone: 'library',
+      piles: { 'face-up': faceUp, 'face-down': faceDown },
+      pileController: controller,
+      pileReveal: selection.pileReveal,
+      pileVisibility: selection.pileVisibility,
+    })
+  } else if (selection.kind === 'choosePile') {
+    const taken = event.objectIds ?? []
+    const piles = selection.piles
+    if (!piles) return
+    const faceUp = piles['face-up']
+    const faceDown = piles['face-down']
+    const toHand = sameIdSet(taken, faceUp) ? faceUp : faceDown
+    const toYard = toHand === faceUp ? faceDown : faceUp
+    for (const objectId of toHand) {
+      draft.enqueue({ type: 'move', objectId, to: 'hand' })
+    }
+    for (const objectId of toYard) {
+      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+    }
+    const named = (ids: string[]) => ids
+      .map((objectId) => draft.objects[objectId]?.name ?? 'a card')
+      .join(', ')
+      || 'no cards'
+    const hideFaceDown = selection.pileVisibility === 'facedown-faceup'
+    const handPublic = hideFaceDown && sameIdSet(toHand, faceDown)
+      ? `${toHand.length} face-down card${toHand.length === 1 ? '' : 's'}`
+      : named(toHand)
+    draft.note(
+      selection.source
+        ? `${event.seat} put ${handPublic} into hand for ${selection.source}`
+        : `${event.seat} put ${handPublic} into hand`,
     )
   }
 

@@ -474,7 +474,7 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
   })
 
 const CHOICE_KINDS = new Set([
-  'surveil', 'scry', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
+  'surveil', 'scry', 'opponentPiles', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
   'copyControlledCreature', 'copyTargetCreature', 'becomeCopyOfTarget', 'optionalMill', 'mayDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
   'chooseCreatureType',

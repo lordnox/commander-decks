@@ -245,6 +245,19 @@ export const surveil = (count: number): CardInstruction => ({ kind: 'surveil', c
 
 export const scry = (count: number): CardInstruction => ({ kind: 'scry', count })
 
+export const opponentPiles = (
+  count: number,
+  options: {
+    reveal: 'public' | 'look'
+    piles: 'public' | 'facedown-faceup'
+  },
+): CardInstruction => ({
+  kind: 'opponentPiles',
+  count,
+  reveal: options.reveal,
+  piles: options.piles,
+})
+
 export const putLandFromHand = (tapped = false): CardInstruction => ({
   kind: 'putLandFromHand',
   tapped,

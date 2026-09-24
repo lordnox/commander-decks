@@ -16,11 +16,18 @@ export const markKnownToAll = (
   draft: { objects: Record<string, GameObject>; playerOrder: PlayerId[] },
   objectIds: string[],
 ) => {
-  const all = [...draft.playerOrder]
+  markKnownTo(draft, objectIds, draft.playerOrder)
+}
+
+export const markKnownTo = (
+  draft: { objects: Record<string, GameObject> },
+  objectIds: string[],
+  seats: PlayerId[],
+) => {
   for (const id of objectIds) {
     const object = draft.objects[id]
     if (!object) continue
-    object.knownTo = all
+    object.knownTo = [...seats]
   }
 }
 

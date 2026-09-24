@@ -65,9 +65,15 @@ export const projectForViewer = (
   if (viewer) {
     for (const selection of pendingSelectionsFor(authoritative, viewer)) {
       for (const objectId of selection.candidates) {
-        if (authoritative.objects[objectId]?.zone === 'library') {
-          visibleLibraryCards.add(objectId)
+        const object = authoritative.objects[objectId]
+        if (object?.zone !== 'library') continue
+        if (
+          selection.kind === 'choosePile'
+          && !isKnownTo(object, viewer, authoritative.playerOrder)
+        ) {
+          continue
         }
+        visibleLibraryCards.add(objectId)
       }
     }
   }
@@ -113,6 +119,16 @@ export const projectForViewer = (
     const topName = revealedTops[player]
     if (topName) projected.players[player].data.revealed_top = [topName]
     else delete projected.players[player].data.revealed_top
+    const knownLibrary = (authoritative.zoneOrder[player]?.library ?? [])
+      .map((objectId) => authoritative.objects[objectId])
+      .filter((object): object is NonNullable<typeof object> =>
+        Boolean(object) && isKnownTo(object, viewer, authoritative.playerOrder))
+      .map((object) => object.name)
+    if (knownLibrary.length > 0) {
+      projected.players[player].data.revealed_library = knownLibrary
+    } else {
+      delete projected.players[player].data.revealed_library
+    }
   }
   for (const player of projected.playerOrder) {
     for (const zone of Object.keys(projected.zoneOrder[player])) {
