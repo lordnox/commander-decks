@@ -34,6 +34,14 @@ export const hasKeyword = (object: GameObject, keyword: string, state?: {
     && Boolean(state?.rules.some((rule) => rule.pluginId === 'sharedHaste'))
 }
 
+/** Generic Ward {N} from a keyword line. Stamped `ward(n)` effects take precedence at the plugin. */
+export const wardGeneric = (object: GameObject) => {
+  for (const token of abilityTokens(object.oracleText)) {
+    const match = /^ward \{(\d+)\}$/.exec(token)
+    if (match) return Number(match[1])
+  }
+}
+
 export const strikesFirst = (object: GameObject) =>
   hasKeyword(object, 'first strike') || hasKeyword(object, 'double strike')
 

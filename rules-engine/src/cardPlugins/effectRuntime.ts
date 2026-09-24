@@ -556,6 +556,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add('grantControlledSubtypeTrigger')
     }
     if (effect.op === 'static' && effect.pumpPerLinkedExile) ids.add('exilePayoffs')
+    if (effect.op === 'static' && effect.staticBoardPump) ids.add('staticBoardPump')
     if (effect.op === 'handler') {
       ids.add(effect.pluginId)
       // Demonstrate only opens the copy choice; stackCopy resolves it.

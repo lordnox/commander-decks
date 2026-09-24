@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { changeController, untilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { applyCopy } from '../cardPlugins/effectRuntime'
-import { ptEqualsLife } from '../cardPlugins/effects'
+import { ptEqualsCount, ptEqualsLife } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
+import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { ReduceResult } from '../types'
 
@@ -161,6 +161,68 @@ describe('cda life power and toughness', () => {
 
   test('structuredClone keeps the ptEqualsLife static effect', () => {
     const stamped = [ptEqualsLife({ who: 'controller' })]
+    expect(structuredClone(stamped)).toEqual(stamped)
+  })
+})
+
+const countedElemental = () => cardTemplate('Counted Elemental', {
+  types: ['Creature'],
+  subtypes: ['Elemental'],
+  power: null,
+  toughness: null,
+  oracleText: 'This creature\'s power and toughness are each equal to the number of lands you control.',
+  effects: [ptEqualsCount('Land')],
+})
+
+describe('cda counted power and toughness', () => {
+  test('0 lands is 0/0 and 3 lands is 3/3', () => {
+    const server = createServerGame(
+      commanderRules,
+      { command: { p1: [countedElemental()] } },
+      { random: () => 0.5 },
+    )
+    const id = server.state.zoneOrder.p1.command[0]
+    let state = ok(server.rules(server.state, { type: 'custom', name: 'cdaLifePt.sync' }))
+    expect([state.objects[id].power, state.objects[id].toughness]).toEqual([0, 0])
+
+    const withLands = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [countedElemental(), forest(), forest(), forest()],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const creatureId = Object.values(withLands.state.objects)
+      .find((object) => object.name === 'Counted Elemental')!.id
+    state = ok(withLands.rules(withLands.state, { type: 'custom', name: 'cdaLifePt.sync' }))
+    expect([state.objects[creatureId].power, state.objects[creatureId].toughness]).toEqual([3, 3])
+  })
+
+  test('P/T updates when a counted land leaves', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [countedElemental(), forest(), forest(), forest()],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const creatureId = Object.values(server.state.objects)
+      .find((object) => object.name === 'Counted Elemental')!.id
+    const landId = Object.values(server.state.objects)
+      .find((object) => object.types.includes('Land'))!.id
+    let state = ok(server.rules(server.state, { type: 'custom', name: 'cdaLifePt.sync' }))
+    expect([state.objects[creatureId].power, state.objects[creatureId].toughness]).toEqual([3, 3])
+
+    state = ok(server.rules(state, { type: 'move', objectId: landId, to: 'graveyard' }))
+    expect([state.objects[creatureId].power, state.objects[creatureId].toughness]).toEqual([2, 2])
+  })
+
+  test('structuredClone keeps the ptEqualsCount static effect', () => {
+    const stamped = [ptEqualsCount(['Land'])]
     expect(structuredClone(stamped)).toEqual(stamped)
   })
 })

@@ -597,13 +597,24 @@ export type CardEffect =
       /** Release linked exiles when this permanent leaves the battlefield (not a triggered ability). */
       linkedExileUntilLeaves?: { returnTo?: 'battlefield' | 'hand' }
       ptEqualsLife?: { who: 'controller' | 'owner' }
+      /** Layer 7a CDA: P/T each equal the number of matching permanents you control. */
+      ptEqualsCount?: { types: string[] }
+      /** Activated abilities of matching permanents you control cost this much less. */
+      reduceActivationCost?: { generic: number; requireTypes?: string[] }
+      /** Matching creatures you control get +N/+N while this source is on the battlefield. */
+      staticBoardPump?: { power: number; toughness: number; requireTypes: string[] }
+      /** Ward: generic {N}, mana {N}, or a sacrifice cost (CR 702.21). */
+      ward?: {
+        generic?: number
+        mana?: number
+        sacrifice?: { count: number; nonland?: boolean }
+      }
       grantControlledSubtypeTrigger?: {
         subtype: string
         on: Extract<CardEffect, { op: 'trigger' }>['on']
         do: CardInstruction[]
       }
       pumpPerLinkedExile?: { power: number; toughness: number }
-      ward?: { mana?: number; sacrifice?: { count: number; nonland?: boolean } }
       exileOpponentGraveyard?: boolean
       playExiledWithLife?: boolean
     }
