@@ -489,7 +489,6 @@ export const librarySearch: Plugin = {
           emitCycleEvent(draft, event.seat, pending.sourceId)
         }
       }
-      const spec = pending ? searchSpecForPending(state, pending) : undefined
       closeSearch(draft, event.seat)
       if (pending?.via === 'spell') {
         draft.players[event.seat].data[SEARCH_DONE] = true
