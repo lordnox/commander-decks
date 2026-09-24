@@ -262,8 +262,6 @@ export type GameObject = {
   foretoldTurn?: number
   /** A face-down card in a normally public zone. */
   faceDown?: boolean
-  /** CR 702.26: phased-out permanents are treated as though they do not exist. */
-  phasedOut?: boolean
   /** An Adventure card exiled by its Adventure spell may be played from exile. */
   adventureReady?: boolean
   continuousEffects?: ContinuousEffect[]

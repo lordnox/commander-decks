@@ -240,7 +240,6 @@ import {
   destroyAllCreatures,
   bounceCreaturesExcept,
   addPlusCountersEqualToLands,
-  discardCards,
   escape,
   hiddenPileNegotiation,
   replaceDrawByType,

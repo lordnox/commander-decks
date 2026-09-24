@@ -20,7 +20,6 @@ import { PENDING_SELECTION, pendingSelectionsFor } from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION } from './rules/selectPlayers'
 import { PENDING_DIALOG, pendingDialogsFor } from './pendingDialog'
 import { PENDING_OPTION_SELECTION } from './rules/selectOptions'
-import { PENDING_DIALOG } from './pendingDialog'
 
 export type ServerDependencies = {
   random: () => number
