@@ -107,6 +107,13 @@ export type PendingCardSelection = {
   payMana?: string
   /** Pay this life only if at least one card is chosen. */
   payLife?: number
+  /** After a non-empty choice, also move these objects (Masked Vandal / Victimize "if you do"). */
+  ifYouDo?: {
+    objectIds: string[]
+    to: ZoneId
+    controller?: PlayerId
+    tapped?: boolean
+  }
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -702,11 +709,32 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     )
   }
 
+  const chosenIds = event.objectIds ?? []
+  if (chosenIds.length > 0 && selection.ifYouDo) {
+    for (const objectId of selection.ifYouDo.objectIds) {
+      const object = draft.object(objectId)
+      if (!object) continue
+      if (selection.ifYouDo.to === 'battlefield' && object.zone !== 'graveyard') continue
+      if (selection.ifYouDo.to === 'exile' && object.zone !== 'battlefield') continue
+      draft.enqueue({
+        type: 'move',
+        objectId,
+        to: selection.ifYouDo.to,
+        ...(selection.ifYouDo.controller
+          ? { controller: selection.ifYouDo.controller }
+          : {}),
+      })
+      if (selection.ifYouDo.tapped) {
+        draft.enqueue({ type: 'tap', objectId })
+      }
+    }
+  }
+
   if (selection.drawPerSelected) {
     draft.enqueue({
       type: 'draw',
       seat: selection.seat,
-      count: (event.objectIds?.length ?? 0) * selection.drawPerSelected,
+      count: chosenIds.length * selection.drawPerSelected,
     })
   }
 

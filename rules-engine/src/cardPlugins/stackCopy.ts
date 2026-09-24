@@ -7,7 +7,7 @@ import type { GameObject, GameState, PlayerId, Plugin, StackItem, TargetRef } fr
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
 import { spellWasKicked } from '../plugins/kickCast'
-import { targetedEffectFilter, validTarget, validTargetRef } from './targetedResolve'
+import { targetedEffectFilter, targetedEffectForIndex, validTarget, validTargetRef } from './targetedResolve'
 
 export const PENDING_STACK_COPY = 'kernel.pendingStackCopy'
 export const STACK_COPY_TRIGGER = 'stackCopy.trigger'
@@ -81,8 +81,7 @@ const legalObjectTarget = (
   if (ability?.targets === 'land') {
     return object.zone === 'battlefield' && object.types.includes('Land')
   }
-  const targeted = effectsOf(source).find((effect) =>
-    effect.op === 'targetedResolve' && effect.target === index)
+  const targeted = targetedEffectForIndex(effectsOf(source), index)
   if (targeted?.op === 'targetedResolve') {
     return validTarget(
       state,
@@ -116,8 +115,7 @@ const targetsError = (
     if (target.kind === 'player') {
       const original = item.targets[index]
       const source = state.objects[item.objectId]
-      const targeted = source && effectsOf(source).find((effect) =>
-        effect.op === 'targetedResolve' && effect.target === index)
+      const targeted = source && targetedEffectForIndex(effectsOf(source), index)
       const ability = source && item.abilityId
         ? activateEffect(effectsOf(source), item.abilityId)
         : undefined

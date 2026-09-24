@@ -45,6 +45,12 @@ import {
 import { planeswalker as planeswalkerPlugin } from '../../rules-engine/src/cardPlugins/planeswalker'
 import { extort } from '../../rules-engine/src/cardPlugins/extort'
 import { combatPreventionCards } from '../../rules-engine/src/cardPlugins/combatPreventionCards'
+import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
+import {
+  entersTarget,
+  ifYouDoExileFromGraveyard,
+  targetsOnResolve,
+} from '../../rules-engine/src/cardPlugins/effects'
 import {
   DIALOG_CHOSEN,
   PENDING_DIALOG,
@@ -2459,3 +2465,164 @@ describe('extort live choice', () => {
     expect(lobby.topdeck).toBeUndefined()
   })
 })
+
+describe('if-you-do resolution choices', () => {
+  test('rebuilds an optional graveyard-exile choice after a host restart', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [
+            cardTemplate('Changeling Scrubber', {
+              types: ['Creature'],
+              effects: [
+                entersTarget(
+                  { types: ['Artifact', 'Enchantment'], controller: 'opponent' },
+                  ifYouDoExileFromGraveyard({ type: 'Creature' }),
+                ),
+              ],
+            }),
+            cardTemplate('Yard Beast', { types: ['Creature'] }),
+          ],
+        },
+        battlefield: {
+          p2: [cardTemplate('Enemy Rock', { types: ['Artifact'] })],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const yard = Object.values(server.state.objects)
+      .find((object) => object.name === 'Yard Beast')!
+    const moved = server.rules(server.state, {
+      type: 'move',
+      objectId: yard.id,
+      to: 'graveyard',
+    })
+    if (!moved.ok) throw new Error(moved.error)
+    const kernel = handleFor(server.rules, moved.state)
+    const scrubber = Object.values(kernel.history.current().objects)
+      .find((object) => object.name === 'Changeling Scrubber')!
+    const rock = Object.values(kernel.history.current().objects)
+      .find((object) => object.name === 'Enemy Rock')!
+    expect(kernel.dispatch({
+      type: 'move',
+      objectId: scrubber.id,
+      to: 'battlefield',
+    }).ok).toBe(true)
+    expect(kernel.dispatch({
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [rock.id],
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      cards: ['Yard Beast'],
+    })
+
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+    expect(restarted.topdeck?.kernel?.selectionId).toBe(firstLobby.topdeck?.kernel?.selectionId)
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Yard Beast', destination: 'target' }],
+    })).toBe(true)
+    expect(kernel.history.current().objects[rock.id].zone).toBe('exile')
+    expect(kernel.history.current().objects[yard.id].zone).toBe('exile')
+  })
+
+  test('rebuilds a resolution-sacrifice choice after a host restart', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: {
+          p1: [
+            cardTemplate('Two-for-One Return', {
+              types: ['Sorcery'],
+              manaCost: '{2}{B}',
+              effects: [
+                targetsOnResolve(
+                  'reanimate',
+                  { zone: 'graveyard', type: 'Creature', controller: 'you' },
+                  { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
+                ),
+              ],
+            }),
+            cardTemplate('Returned Bear', { types: ['Creature'] }),
+            cardTemplate('Returned Elk', { types: ['Creature'] }),
+          ],
+        },
+        battlefield: {
+          p1: [cardTemplate('Fodder Goat', { types: ['Creature'] })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [targetedResolve] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
+    const bear = Object.values(initial.objects)
+      .find((object) => object.name === 'Returned Bear')!
+    const elk = Object.values(initial.objects)
+      .find((object) => object.name === 'Returned Elk')!
+    const goat = Object.values(initial.objects)
+      .find((object) => object.name === 'Fodder Goat')!
+    const spell = Object.values(initial.objects)
+      .find((object) => object.name === 'Two-for-One Return')!
+    const kernel = handleFor(server.rules, initial)
+    expect(kernel.dispatch({
+      type: 'move',
+      objectId: bear.id,
+      to: 'graveyard',
+    }).ok).toBe(true)
+    expect(kernel.dispatch({
+      type: 'move',
+      objectId: elk.id,
+      to: 'graveyard',
+    }).ok).toBe(true)
+    expect(kernel.dispatch({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      targets: [
+        { kind: 'object', objectId: bear.id },
+        { kind: 'object', objectId: elk.id },
+      ],
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'sacrifice',
+      cards: ['Fodder Goat'],
+    })
+
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Fodder Goat', destination: 'sacrifice' }],
+    })).toBe(true)
+    expect(kernel.history.current().objects[goat.id].zone).toBe('graveyard')
+    expect(kernel.history.current().objects[bear.id]).toMatchObject({
+      zone: 'battlefield',
+      tapped: true,
+    })
+    expect(kernel.history.current().objects[elk.id]).toMatchObject({
+      zone: 'battlefield',
+      tapped: true,
+    })
+  })
+})
+

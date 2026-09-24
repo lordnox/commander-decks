@@ -1376,7 +1376,8 @@ const targetVariants = (
   if (targeted.length !== 1 || !source) return [action]
   const effect = targeted[0]
   const filter = targetedEffectFilter(effect, action.kicked === true)
-  const objectTargets = Object.values(state.objects)
+  const count = effect.count ?? 1
+  const objectMatches = Object.values(state.objects)
     .filter((object) =>
       validTargetRef(
         state,
@@ -1385,6 +1386,23 @@ const targetVariants = (
         seat,
         action.castOption,
       ))
+  if (count > 1) {
+    if (objectMatches.length < count) return []
+    return [{
+      ...action,
+      targetGroups: [{
+        label: 'Targets',
+        min: count,
+        max: count,
+        targets: objectMatches.map((target) => ({
+          objectId: target.id,
+          name: target.name,
+          controller: target.controller,
+        })),
+      }],
+    }]
+  }
+  const objectTargets = objectMatches
     .map((target): AvailableAction => ({
       ...action,
       targetObjectId: target.id,
@@ -2063,7 +2081,12 @@ export const eventsForAvailableAction = (
     }
   }
   const bestowing = action.castOption === 'bestow' && hasBestowCast
-  if ((targeted.length === 1 || playerAura || bestowing) && !action.targetObjectId) return null
+  const requiredTargets = targeted.length === 1 ? (targeted[0].count ?? 1) : targeted.length
+  if (requiredTargets > 1) {
+    if ((action.targetObjectIds?.length ?? 0) !== requiredTargets) return null
+  } else if ((targeted.length === 1 || playerAura || bestowing) && !action.targetObjectId) {
+    return null
+  }
   const blinkTargets = action.targetObjectIds
     ?? (action.targetObjectId ? [action.targetObjectId] : [])
   if (

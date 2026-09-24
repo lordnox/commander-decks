@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
   SEARCH_CHOSEN,
@@ -9,7 +9,9 @@ import {
   pendingSearch,
 } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
-import { targetOnResolve } from './effects'
+import { targetOnResolve, targetsOnResolve } from './effects'
+import { pendingSelectionFor } from '../rules/selectCards'
+import { legalActsFor } from '../actions'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -245,3 +247,177 @@ describe('targeted spell resolution', () => {
   })
 
 })
+
+const victimize = () => cardTemplate('Two-for-One Return', {
+  types: ['Sorcery'],
+  manaCost: '{2}{B}',
+  effects: [
+    targetsOnResolve(
+      'reanimate',
+      { zone: 'graveyard', type: 'Creature', controller: 'you' },
+      { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
+    ),
+  ],
+})
+
+const victimizeGame = () => {
+  const server = createServerGame(
+    commanderRules,
+    {
+      hands: {
+        p1: [
+          victimize(),
+          cardTemplate('Returned Bear', { types: ['Creature'] }),
+          cardTemplate('Returned Elk', { types: ['Creature'] }),
+        ],
+      },
+      battlefield: {
+        p1: [
+          cardTemplate('Fodder Goat', { types: ['Creature'] }),
+          cardTemplate('Home Rock', { types: ['Artifact'] }),
+        ],
+        p2: [cardTemplate('Enemy Bear', { types: ['Creature'] })],
+      },
+    },
+    { random: () => 0.5, cardPlugins: [targetedResolve] },
+  )
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
+  const withYard = run(server, ready, [
+    { type: 'move', objectId: named(ready, 'Returned Bear').id, to: 'graveyard' },
+    { type: 'move', objectId: named(ready, 'Returned Elk').id, to: 'graveyard' },
+  ])
+  return { server, ready: withYard }
+}
+
+const castBoth = (
+  server: ReturnType<typeof createServerGame>,
+  ready: GameState,
+) => ok(server.rules(ready, {
+  type: 'castSpell',
+  seat: 'p1',
+  objectId: named(ready, 'Two-for-One Return').id,
+  targets: [
+    { kind: 'object', objectId: named(ready, 'Returned Bear').id },
+    { kind: 'object', objectId: named(ready, 'Returned Elk').id },
+  ],
+}))
+
+describe('sacrifice then return N targeted graveyard creatures tapped', () => {
+
+  test('sacrificing a battlefield creature returns both targets tapped', () => {
+    const { server, ready } = victimizeGame()
+    const choosing = ok(server.rules(castBoth(server, ready), { type: 'resolveTop' }))
+    expect(pendingSelectionFor(choosing, 'p1')).toMatchObject({
+      kind: 'sacrifice',
+      min: 0,
+      count: 1,
+    })
+    expect(pendingSelectionFor(choosing, 'p1')?.candidates).toContain(
+      named(choosing, 'Fodder Goat').id,
+    )
+    expect(pendingSelectionFor(choosing, 'p1')?.candidates).not.toContain(
+      named(choosing, 'Home Rock').id,
+    )
+    expect(pendingSelectionFor(choosing, 'p1')?.candidates).not.toContain(
+      named(choosing, 'Enemy Bear').id,
+    )
+    expect(pendingSelectionFor(choosing, 'p1')?.candidates).not.toContain(
+      named(choosing, 'Returned Bear').id,
+    )
+    const resolved = ok(server.rules(choosing, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'sacrifice',
+      count: 1,
+      objectIds: [named(choosing, 'Fodder Goat').id],
+    }))
+    expect(named(resolved, 'Fodder Goat').zone).toBe('graveyard')
+    expect(named(resolved, 'Returned Bear')).toMatchObject({
+      zone: 'battlefield',
+      tapped: true,
+      controller: 'p1',
+    })
+    expect(named(resolved, 'Returned Elk')).toMatchObject({
+      zone: 'battlefield',
+      tapped: true,
+      controller: 'p1',
+    })
+  })
+
+  test('skipping or failing the sacrifice leaves both cards in the graveyard', () => {
+    const { server, ready } = victimizeGame()
+    const choosing = ok(server.rules(castBoth(server, ready), { type: 'resolveTop' }))
+    const skipped = ok(server.rules(choosing, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'sacrifice',
+      count: 1,
+      objectIds: [],
+    }))
+    expect(named(skipped, 'Returned Bear').zone).toBe('graveyard')
+    expect(named(skipped, 'Returned Elk').zone).toBe('graveyard')
+    expect(named(skipped, 'Fodder Goat').zone).toBe('battlefield')
+
+    const { server: failServer, ready: failReady } = victimizeGame()
+    const sacrificed = ok(failServer.rules(failReady, {
+      type: 'sacrifice',
+      objectId: named(failReady, 'Fodder Goat').id,
+    }))
+    const failed = ok(failServer.rules(castBoth(failServer, sacrificed), { type: 'resolveTop' }))
+    expect(pendingSelectionFor(failed, 'p1')).toBeUndefined()
+    expect(named(failed, 'Returned Bear').zone).toBe('graveyard')
+    expect(named(failed, 'Returned Elk').zone).toBe('graveyard')
+  })
+
+  test('cannot choose 0 or 1 target when 2 are required', () => {
+    const { server, ready } = victimizeGame()
+    const spell = named(ready, 'Two-for-One Return').id
+    const bear = named(ready, 'Returned Bear').id
+    expect(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell,
+    }).ok).toBe(false)
+    expect(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell,
+      targets: [{ kind: 'object', objectId: bear }],
+    }).ok).toBe(false)
+    expect(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell,
+      targets: [
+        { kind: 'object', objectId: bear },
+        { kind: 'object', objectId: bear },
+      ],
+    }).ok).toBe(false)
+    const acts = legalActsFor(ready, 'p1').filter((action) =>
+      action.kind === 'castSpell' && action.name === 'Two-for-One Return')
+    expect(acts).toHaveLength(1)
+    expect(acts[0]).toMatchObject({
+      targetGroups: [{ min: 2, max: 2 }],
+    })
+  })
+
+  test('a host restart preserves an open sacrifice choice', () => {
+    const { server, ready } = victimizeGame()
+    const choosing = ok(server.rules(castBoth(server, ready), { type: 'resolveTop' }))
+    const selection = pendingSelectionFor(choosing, 'p1')!
+    const restarted = structuredClone(choosing)
+    expect(pendingSelectionFor(restarted, 'p1')?.id).toBe(selection.id)
+    expect(pendingSelectionFor(projectForViewer(restarted, 'p2'), 'p2')).toBeUndefined()
+    const resolved = ok(server.rules(restarted, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'sacrifice',
+      count: 1,
+      objectIds: [named(restarted, 'Fodder Goat').id],
+    }))
+    expect(named(resolved, 'Returned Bear').zone).toBe('battlefield')
+    expect(named(resolved, 'Returned Elk').tapped).toBe(true)
+  })
+})
+

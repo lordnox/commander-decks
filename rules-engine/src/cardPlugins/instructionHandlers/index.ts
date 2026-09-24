@@ -24,6 +24,7 @@ import { linkedExileInstructionHandlers } from '../linkedExile'
 import { blinkHandlers } from '../blink'
 import { statusEffectHandlers } from '../statusEffects'
 import { monstrosityInstruction } from '../monstrosity'
+import { targetedResolveInstructionHandlers } from '../targetedResolve'
 
 const instructionHandlers = {
   ...exilePayoffsInstructionHandlers,
@@ -38,6 +39,7 @@ const instructionHandlers = {
   ...multiplayerHandlers,
   ...linkedExileInstructionHandlers,
   ...blinkHandlers,
+  ...targetedResolveInstructionHandlers,
   ...statusEffectHandlers,
   ...encoreHandlers,
   ...opponentCreatureHandlers,
