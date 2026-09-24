@@ -11,6 +11,7 @@ export const registerDelayedTrigger = (
   options: {
     recurring?: boolean
     payload?: Record<string, unknown>
+    untilCleanup?: boolean
   } = {},
 ) => {
   draft.delayedTriggers.push({
@@ -23,5 +24,6 @@ export const registerDelayedTrigger = (
     timestamp: draft.allocTs(),
     ...(options.recurring ? { recurring: true } : {}),
     ...(options.payload ? { payload: options.payload } : {}),
+    ...(options.untilCleanup ? { untilCleanup: true } : {}),
   })
 }

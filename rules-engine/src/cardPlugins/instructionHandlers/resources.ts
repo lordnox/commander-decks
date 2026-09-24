@@ -699,6 +699,26 @@ const addChosenColorMana: InstructionHandler<'addChosenColorMana'> = (
   }
 }
 
+const delay: InstructionHandler<'delay'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const targetId = instruction.bindTarget
+    ? item?.targets.find((target) => target.kind === 'object')?.objectId
+    : undefined
+  if (instruction.bindTarget && !targetId) return
+  const condition = instruction.condition.kind === 'event' && targetId
+    ? { ...instruction.condition, objectId: targetId }
+    : instruction.condition
+  const steps = instruction.do.map((step) =>
+    step.kind === 'returnToOwnersControl' && !step.objectId && targetId
+      ? { ...step, objectId: targetId }
+      : step)
+  registerDelayedTrigger(draft, source, condition, steps, {
+    untilCleanup: instruction.untilCleanup,
+  })
+}
+
 const drawAtNextUpkeep: InstructionHandler<'drawAtNextUpkeep'> = (
   { draft, source, item },
   instruction,
@@ -833,6 +853,7 @@ export const resourceHandlers = {
   addPlusCountersToControlled,
   addUntilCleanupRule,
   addChosenColorMana,
+  delay,
   drawAtNextUpkeep,
   mayCastFromExileWithoutPayingMana,
   drawGreatestPower,

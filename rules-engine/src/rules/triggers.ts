@@ -441,12 +441,32 @@ const collectDiscardDraw = (
   }
 }
 
+const eventObjectId = (event: GameEvent) =>
+  'objectId' in event && typeof event.objectId === 'string' ? event.objectId : undefined
+
 const delayedTriggerMatches = (
   trigger: GameState['delayedTriggers'][number],
+  state: GameState,
   draft: Draft,
   event: GameEvent,
 ) => {
-  if (trigger.condition.kind === 'event') return event.type === trigger.condition.type
+  if (trigger.condition.kind === 'event') {
+    if (event.type !== trigger.condition.type) return false
+    if (
+      trigger.condition.objectId !== undefined
+      && eventObjectId(event) !== trigger.condition.objectId
+    ) {
+      return false
+    }
+    if (trigger.condition.to !== undefined) {
+      if (event.type !== 'move' || event.to !== trigger.condition.to) return false
+    }
+    if (trigger.condition.from !== undefined) {
+      const objectId = eventObjectId(event)
+      if (!objectId || state.objects[objectId]?.zone !== trigger.condition.from) return false
+    }
+    return true
+  }
   const steps = Array.isArray(trigger.condition.step)
     ? trigger.condition.step
     : [trigger.condition.step]
@@ -462,25 +482,29 @@ const delayedTriggerMatches = (
 }
 
 const collectDelayedTriggers = (
+  state: GameState,
   draft: Draft,
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
   const remaining: GameState['delayedTriggers'] = []
   for (const delayed of draft.delayedTriggers) {
-    if (!delayedTriggerMatches(delayed, draft, event)) {
+    if (!delayedTriggerMatches(delayed, state, draft, event)) {
       remaining.push(delayed)
       continue
     }
     if (delayed.recurring) remaining.push(delayed)
-    const source: GameObject = {
-      ...gameObjectFieldDefaults(),
-      id: delayed.sourceId,
-      name: delayed.sourceName,
-      owner: delayed.controller,
-      controller: delayed.controller,
-      zone: 'graveyard',
-    }
+    const live = draft.object(delayed.sourceId)
+    const source: GameObject = live
+      ? { ...live, controller: delayed.controller }
+      : {
+        ...gameObjectFieldDefaults(),
+        id: delayed.sourceId,
+        name: delayed.sourceName,
+        owner: delayed.controller,
+        controller: delayed.controller,
+        zone: 'graveyard',
+      }
     pushCopies(matches, source, { do: delayed.instructions }, 1, {
       payload: delayed.payload,
     })
@@ -531,7 +555,7 @@ const collectEventTriggers = (
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(draft, event, matches)
-  collectDelayedTriggers(draft, event, matches)
+  collectDelayedTriggers(state, draft, event, matches)
   collectRoomUnlock(state, draft, event, matches)
   return matches
 }

@@ -1,4 +1,4 @@
-import type { TriggerBindingIf, ZoneId } from '../types'
+import type { DelayedTriggerCondition, TriggerBindingIf, ZoneId } from '../types'
 import type {
   ActivateCost,
   CardCondition,
@@ -702,6 +702,39 @@ export const createHeroWithLandCounters = (): CardInstruction => ({
 
 export const searchTargetControllerForBasicLandType = (): CardInstruction => ({
   kind: 'searchTargetControllerForBasicLandType',
+})
+
+export const delay = (
+  condition: DelayedTriggerCondition,
+  ...instructions: CardInstruction[]
+): CardInstruction => ({
+  kind: 'delay',
+  condition,
+  do: instructions,
+})
+
+export const delayThisTurn = (
+  condition: DelayedTriggerCondition,
+  ...instructions: CardInstruction[]
+): CardInstruction => ({
+  kind: 'delay',
+  condition,
+  do: instructions,
+  untilCleanup: true,
+})
+
+export const returnToOwnersControl = (objectId?: string): CardInstruction => ({
+  kind: 'returnToOwnersControl',
+  ...(objectId ? { objectId } : {}),
+})
+
+/** If the first object target dies this turn, return it under its owner's control. */
+export const returnIfDiesThisTurn = (): CardInstruction => ({
+  kind: 'delay',
+  condition: { kind: 'event', type: 'move', from: 'battlefield', to: 'graveyard' },
+  do: [returnToOwnersControl()],
+  untilCleanup: true,
+  bindTarget: true,
 })
 
 export const createTokenInstruction = (token: TokenSpec): CardInstruction => ({

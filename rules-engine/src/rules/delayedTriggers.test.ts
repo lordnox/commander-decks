@@ -11,7 +11,10 @@ import { registerDelayedTrigger } from './delayedTriggers'
 const setup = () => createServerGame(commanderRules, {
   players: 2,
   battlefield: {
-    p1: [cardTemplate('Delayed Source', { types: ['Enchantment'] })],
+    p1: [
+      cardTemplate('Delayed Source', { types: ['Enchantment'] }),
+      cardTemplate('Watched Bear', { types: ['Creature'] }),
+    ],
   },
 })
 
@@ -19,10 +22,11 @@ const register = (
   state: GameState,
   condition: DelayedTriggerCondition,
   instructions: CardInstruction[],
+  options: { untilCleanup?: boolean } = {},
 ) => {
   const draft = makeDraft(state)
   const source = draft.zoneOf('battlefield', 'p1')[0]
-  registerDelayedTrigger(draft, source, condition, instructions)
+  registerDelayedTrigger(draft, source, condition, instructions, options)
   return freezeDraft(draft)
 }
 
@@ -138,5 +142,40 @@ describe('delayed triggers', () => {
     const conceded = ok(server.rules(state, { type: 'concede', seat: 'p1' }))
 
     expect(conceded.delayedTriggers).toHaveLength(0)
+  })
+
+  test('an event trigger can watch a single object dying', () => {
+    const server = setup()
+    const sourceId = server.state.zoneOrder.p1.battlefield[0]
+    const bearId = server.state.zoneOrder.p1.battlefield[1]
+    let state = register(
+      server.state,
+      { kind: 'event', type: 'move', objectId: bearId, from: 'battlefield', to: 'graveyard' },
+      [{ kind: 'gainLife', count: 1 }],
+    )
+    state = ok(server.rules(state, { type: 'move', objectId: sourceId, to: 'graveyard' }))
+    expect(state.delayedTriggers).toHaveLength(1)
+    expect(state.stack).toHaveLength(0)
+
+    state = ok(server.rules(state, { type: 'move', objectId: bearId, to: 'graveyard' }))
+    expect(state.delayedTriggers).toHaveLength(0)
+    expect(state.stack[0]).toMatchObject({ kind: 'ability', controller: 'p1' })
+  })
+
+  test('untilCleanup delayed triggers expire at cleanup without firing', () => {
+    const server = setup()
+    let state = register(
+      { ...server.state, step: 'end' },
+      { kind: 'event', type: 'gainLife' },
+      [{ kind: 'gainLife', count: 3 }],
+      { untilCleanup: true },
+    )
+    state = ok(server.rules(state, { type: 'advanceStep' }))
+    expect(state.step).toBe('cleanup')
+    expect(state.delayedTriggers).toHaveLength(0)
+    expect(state.stack).toHaveLength(0)
+    state = ok(server.rules(state, { type: 'gainLife', seat: 'p1', amount: 1 }))
+    expect(state.players.p1.life).toBe(41)
+    expect(state.stack).toHaveLength(0)
   })
 })
