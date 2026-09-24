@@ -3,7 +3,14 @@ import {
   syncRevealedLibraryTop,
 } from '../cardPlugins/libraryTopKnowledge'
 import type Draft from '../draft'
-import type { GameEvent, PlayerId, Plugin, StackItem } from '../types'
+import type { GameEvent, PlayerId, PlayerState, Plugin, StackItem } from '../types'
+
+export const CARDS_DRAWN_THIS_TURN = 'draw.cardsThisTurn'
+
+export const cardsDrawnThisTurn = (player: Pick<PlayerState, 'data'>) => {
+  const value = player.data[CARDS_DRAWN_THIS_TURN]
+  return Number.isSafeInteger(value) && Number(value) > 0 ? Number(value) : 0
+}
 
 /** Parameters stored on a draw action stack item (`payload`). */
 type DrawPayload = {
@@ -86,7 +93,11 @@ const authoritativeApply = (draft: Draft, seat: PlayerId) => {
     return
   }
   const object = draft.move(objectId, 'hand')
-  if (object) draft.note(`${seat} draws a card`)
+  if (object) {
+    const player = draft.players[seat]
+    player.data[CARDS_DRAWN_THIS_TURN] = cardsDrawnThisTurn(player) + 1
+    draft.note(`${seat} draws a card`)
+  }
   syncRevealedLibraryTop(draft, [seat])
 }
 

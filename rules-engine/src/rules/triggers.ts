@@ -35,6 +35,7 @@ import {
   mayTriggerOnceEachTurn,
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
+import { cardsDrawnThisTurn } from './draw'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
@@ -90,8 +91,12 @@ const triggerIfPasses = (
     if (!named) return false
   }
   if (!('seat' in event) || typeof event.seat !== 'string') return true
-  if (condition.seat === 'opponent') return event.seat !== source.controller
-  if (condition.seat === 'controller') return event.seat === source.controller
+  if (condition.seat === 'opponent' && event.seat === source.controller) return false
+  if (condition.seat === 'controller' && event.seat !== source.controller) return false
+  if (typeof condition.cardsDrawnThisTurn === 'number') {
+    const drawer = state.players[event.seat]
+    if (!drawer || cardsDrawnThisTurn(drawer) !== condition.cardsDrawnThisTurn) return false
+  }
   return true
 }
 
@@ -329,8 +334,10 @@ const collectTapped = (
   collectEffects(object, 'tapped', state, matches, 1, {}, event)
 }
 
+const STEP_TRIGGERS = ['upkeep', 'precombatMain', 'end'] as const
+
 const collectStep = (
-  on: 'upkeep' | 'end',
+  on: (typeof STEP_TRIGGERS)[number],
   state: GameState,
   draft: Draft,
   event: GameEvent,
@@ -520,8 +527,7 @@ const collectEventTriggers = (
   collectAttacks(state, event, matches)
   collectPlayerAttacks(state, draft, event, matches)
   collectTapped(state, event, matches)
-  collectStep('upkeep', state, draft, event, matches)
-  collectStep('end', state, draft, event, matches)
+  for (const on of STEP_TRIGGERS) collectStep(on, state, draft, event, matches)
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
   collectDiscardDraw(draft, event, matches)

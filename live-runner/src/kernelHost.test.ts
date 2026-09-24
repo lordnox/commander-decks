@@ -32,6 +32,7 @@ import { abundance } from '../../rules-engine/src/cardPlugins/abundance'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
+import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
 import { modalSpell } from '../../rules-engine/src/cardPlugins/modalSpell'
@@ -762,6 +763,74 @@ describe('kernel host journal', () => {
       objectId: arc.id,
       targets: chosen.map((objectId) => ({ kind: 'object', objectId })),
     })
+  })
+
+  test('a host restart rebuilds an open mill-then-recover choice', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Ripple Relic', {
+            types: ['Instant'],
+            manaCost: '{0}',
+            manaValue: 0,
+            effects: [onResolveEffect(millThenRecover(3, { mana: '{1}', life: 2 }))],
+          })],
+        },
+        libraries: {
+          p1: ['Milled One', 'Milled Two', 'Milled Three', 'Library Rest'].map((name) =>
+            cardTemplate(name, { types: ['Instant'] })),
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const withMana = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 } },
+      },
+    }
+    const relic = Object.values(withMana.objects).find((object) => object.name === 'Ripple Relic')!
+    const kernel = handleFor(server.rules, withMana)
+    expect(kernel.dispatch({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: relic.id,
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      cards: ['Milled One', 'Milled Two', 'Milled Three'],
+      destinations: ['skip', 'target'],
+    })
+
+    const restartedKernel = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    restartedLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Milled One', destination: 'skip' },
+        { card: 'Milled Two', destination: 'target' },
+        { card: 'Milled Three', destination: 'skip' },
+      ],
+    })).toBe(true)
+    const milledTwo = Object.values(restartedKernel.history.current().objects)
+      .find((object) => object.name === 'Milled Two')!
+    expect(milledTwo.zone).toBe('hand')
+    expect(restartedKernel.history.current().players.p1.life).toBe(commanderRules.startingLife - 2)
   })
 
   test('restores an interrupted Analyze the Pollen library search', async () => {

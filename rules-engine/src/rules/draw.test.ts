@@ -14,7 +14,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { initiateDiscard } from './discard'
-import { draw as drawPlugin, initiateDraw } from './draw'
+import { cardsDrawnThisTurn, draw as drawPlugin, initiateDraw } from './draw'
 
 const card = (name: string, types: string[] = ['Instant']) =>
   cardTemplate(name, { types })
@@ -264,5 +264,35 @@ describe('draw game rule', () => {
 
     expect(draft.zoneCounts.p1.hand).toBe(0)
     expect(draft.players.p1.lost).toBe(false)
+  })
+
+  test('successful draws increment cards drawn this turn and empty-library draws do not', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [card('First'), card('Second')] },
+      players: 2,
+    })
+
+    const first = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+    expect(cardsDrawnThisTurn(first.players.p1)).toBe(1)
+    const second = ok(server.rules(first, { type: 'draw', seat: 'p1' }))
+    expect(cardsDrawnThisTurn(second.players.p1)).toBe(2)
+
+    const empty = createServerGame(commanderRules, { players: 2 })
+    const lost = ok(empty.rules(empty.state, { type: 'draw', seat: 'p1' }))
+    expect(lost.players.p1.lost).toBe(true)
+    expect(cardsDrawnThisTurn(lost.players.p1)).toBe(0)
+  })
+
+  test('cards drawn this turn clear when a player untaps', () => {
+    const server = createServerGame(commanderRules, {
+      libraries: { p1: [card('Drawn')] },
+      players: 2,
+    })
+    const drawn = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+    expect(cardsDrawnThisTurn(drawn.players.p1)).toBe(1)
+
+    const nextTurn = ok(server.rules({ ...drawn, step: 'cleanup' }, { type: 'advanceStep' }))
+    expect(nextTurn.step).toBe('untap')
+    expect(cardsDrawnThisTurn(nextTurn.players.p1)).toBe(0)
   })
 })

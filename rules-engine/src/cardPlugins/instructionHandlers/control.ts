@@ -39,6 +39,21 @@ const removeTarget: InstructionHandler<'removeTarget'> = (
   })
 }
 
+const repeatIf: InstructionHandler<'repeatIf'> = (
+  { draft, source, item, run, appendRemaining },
+  instruction,
+) => {
+  const live = draft.object(source.id) ?? source
+  if (!instruction.spent) {
+    const paused = run(instruction.do, live)
+    if (paused) {
+      appendRemaining({ ...instruction, spent: true })
+      return
+    }
+  }
+  if (conditionHolds(instruction.if, draft, live, item)) run(instruction.do, live)
+}
+
 const lookTopChooseOne: InstructionHandler<'lookTopChooseOne'> = (
   { draft, source },
   instruction,
@@ -335,6 +350,7 @@ export const controlHandlers = {
   if: conditional,
   ifTargetTypes,
   removeTarget,
+  repeatIf,
   lookTopChooseOne,
   teferiSunsetEmblem,
   putPermanentsFromHand,

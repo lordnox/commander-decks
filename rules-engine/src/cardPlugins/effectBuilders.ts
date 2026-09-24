@@ -263,6 +263,24 @@ export const putLandFromHand = (tapped = false): CardInstruction => ({
   tapped,
 })
 
+export const millThenRecover = (
+  count: number,
+  cost: { mana?: string; life?: number } = {},
+): CardInstruction => ({
+  kind: 'millThenRecover',
+  count,
+  ...cost,
+})
+
+export const repeatIf = (
+  condition: CardCondition,
+  ...process: CardInstruction[]
+): CardInstruction => ({
+  kind: 'repeatIf',
+  if: condition,
+  do: process,
+})
+
 export const bounceChosenLand = (): CardInstruction => ({ kind: 'bounceChosenLand' })
 
 export const revealPick = (
@@ -1080,6 +1098,17 @@ export const loseLife = (
   who: 'triggeringPlayer' | 'controller',
 ): CardInstruction => ({ kind: 'loseLife', amount, who })
 
+export const loseLifeTargetPlayer = (amount: number): CardInstruction => ({
+  kind: 'loseLifeTargetPlayer',
+  amount,
+})
+
+/** After this player draws their second card this turn. */
+export const secondCardDrawn = (): TriggerBindingIf => ({
+  seat: 'controller',
+  cardsDrawnThisTurn: 2,
+})
+
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
   on: Extract<CardEffect, { op: 'trigger' }>['on'],
@@ -1240,6 +1269,13 @@ export const upkeep = (...instructions: CardInstruction[]): CardEffect => ({
 export const yourUpkeep = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'upkeep',
+  do: instructions,
+  if: { kind: 'controllerIsActive' },
+})
+
+export const yourFirstMain = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'precombatMain',
   do: instructions,
   if: { kind: 'controllerIsActive' },
 })

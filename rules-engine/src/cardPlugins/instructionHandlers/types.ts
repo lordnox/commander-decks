@@ -11,7 +11,8 @@ export type InstructionContext = {
   source: GameObject
   item?: StackItem
   buffer?: BufferedStackAction[]
-  run: (instructions: CardInstruction[], source?: GameObject) => void
+  run: (instructions: CardInstruction[], source?: GameObject) => boolean
+  appendRemaining: (instruction: CardInstruction) => void
 }
 
 export type InstructionKind = CardInstruction['kind']

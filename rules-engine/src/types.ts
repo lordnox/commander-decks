@@ -390,6 +390,8 @@ export type ManaPayment = { objectId: string; mana?: ManaId }
  */
 export type TriggerBindingIf = {
   seat?: 'opponent' | 'controller' | 'triggeringPlayer'
+  /** After a draw event, the drawer's cards-drawn-this-turn total. */
+  cardsDrawnThisTurn?: number
 } & Record<string, unknown>
 
 /**
