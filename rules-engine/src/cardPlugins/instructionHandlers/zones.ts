@@ -14,6 +14,7 @@ import {
 } from '../effects'
 import { runRevealUntil } from '../revealUntil'
 import { returnAsEnchantmentOnly } from '../continuousEffects'
+import { matchesTargetFilter } from '../targetedResolve'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const devour: InstructionHandler<'devour'> = ({ draft, source, run }, instruction) => {
@@ -672,32 +673,41 @@ const returnChosenLandFromGraveyard: InstructionHandler<'returnChosenLandFromGra
   { draft, source },
   instruction,
 ) => {
-  const candidates = (draft.zoneOrder[source.controller].graveyard ?? []).filter(
-    (objectId) => draft.object(objectId)?.types.includes('Land'),
-  )
+  const max = instruction.max ?? instruction.count ?? 1
+  const min = instruction.min ?? (instruction.count !== undefined ? 0 : (max === 0 ? 0 : 1))
+  const to = instruction.to ?? 'battlefield'
+  const tapped = to === 'battlefield' && instruction.tapped !== false
+  const filter = instruction.filter ?? { type: 'Land' }
+  const candidates = (draft.zoneOrder[source.controller].graveyard ?? []).filter((objectId) => {
+    const object = draft.object(objectId)
+    return matchesTargetFilter(draft, object, filter, source.controller)
+  })
   if (candidates.length === 0) return
-  const destination = instruction.to ?? 'battlefield'
-  const count = Math.min(instruction.count ?? 1, candidates.length)
-  const min = instruction.min ?? (instruction.count ? 0 : 1)
+  const count = Math.min(max, candidates.length)
   if (count < 1 && min < 1) return
-  const tapped = destination === 'battlefield' && instruction.tapped !== false
   openCardSelection(draft, {
     seat: source.controller,
     kind: 'choose',
     count,
-    min,
+    min: Math.min(min, count),
     candidates,
     sourceId: source.id,
     source: source.name,
-    prompt: destination === 'hand'
-      ? `Return up to ${count} land card(s) from your graveyard to your hand.`
+    prompt: to === 'hand'
+      ? count === 1
+        ? 'Return a card from your graveyard to your hand.'
+        : `Return up to ${count} cards from your graveyard to your hand.`
       : tapped
         ? 'Return a land card from your graveyard to the battlefield tapped.'
-        : 'Return a land card from your graveyard to the battlefield.',
+        : count === 1
+          ? 'You may put a permanent card from your graveyard onto the battlefield.'
+          : `Return up to ${count} cards from your graveyard to the battlefield.`,
     destinations: ['target'],
     fromSeat: source.controller,
-    moveSelectedTo: destination,
+    fromZone: 'graveyard',
+    moveSelectedTo: to,
     tapSelected: tapped,
+    targetFilter: filter,
   })
 }
 

@@ -8,6 +8,7 @@ import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve
 import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
+import { registerDelayedTrigger } from './delayedTriggers'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -114,6 +115,8 @@ export type PendingCardSelection = {
     controller?: PlayerId
     tapped?: boolean
   }
+  /** After a successful discard, register a one-shot "when you do" trigger. */
+  reflexive?: { filter: TargetFilter; do: CardInstruction[] }
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -480,15 +483,28 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
   if (next) draft.priority = next.seat
 
   if (selection.kind === 'discard') {
-    for (const objectId of event.objectIds ?? []) {
+    const discarded = event.objectIds ?? []
+    for (const objectId of discarded) {
       draft.enqueue({ type: 'discard', seat: fromSeat, objectId })
     }
-    const name = draft.objects[event.objectIds?.[0] ?? '']?.name ?? 'a card'
+    const name = draft.objects[discarded[0] ?? '']?.name ?? 'a card'
     draft.note(
       selection.source
         ? `${event.seat} discards ${name} to ${selection.source}`
         : `${event.seat} discards ${name}`,
     )
+    if (selection.reflexive && discarded.length > 0 && selection.sourceId) {
+      const source = draft.object(selection.sourceId)
+      if (source) {
+        registerDelayedTrigger(
+          draft,
+          source,
+          { kind: 'event', type: 'discard' },
+          selection.reflexive.do,
+          { payload: { targetFilter: selection.reflexive.filter } },
+        )
+      }
+    }
   } else if (selection.kind === 'reveal') {
     const objectIds = event.objectIds ?? []
     const source = selection.sourceId ? draft.object(selection.sourceId) : undefined

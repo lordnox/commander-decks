@@ -1,7 +1,9 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
 import { addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
+import { validTarget } from '../cardPlugins/targetedResolve'
 import type Draft from '../draft'
+import { openCardSelection } from '../rules/selectCards'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 
 const ROMAN_VALUES: Record<string, number> = {
@@ -69,6 +71,31 @@ const addChapterTriggers = (
     for (const number of chapter.numbers) {
       if (before >= number || after < number) continue
       if (readAheadThisTurn && after !== number) continue
+      if (chapter.targets) {
+        const candidates = Object.values(draft.objects)
+          .filter((object) =>
+            validTarget(draft, object, chapter.targets!.filter, source.controller, undefined, source.id))
+          .map((object) => object.id)
+        if (candidates.length === 0) continue
+        openCardSelection(draft, {
+          seat: source.controller,
+          kind: 'choose',
+          count: 1,
+          min: 1,
+          candidates,
+          sourceId: source.id,
+          source: source.name,
+          prompt: `Choose target for ${chapterName(source, number)}.`,
+          destinations: ['target'],
+          triggerInstructions: chapter.do,
+          triggerPayload: {
+            instructions: chapter.do,
+            sagaChapter: number,
+            targetFilter: chapter.targets.filter,
+          },
+        })
+        continue
+      }
       draft.addTriggeredAbility(source, chapter.do, {
         name: chapterName(source, number),
         payload: {

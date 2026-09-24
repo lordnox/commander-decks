@@ -167,6 +167,14 @@ export const activated: Plugin = {
         return `${source.name} needs one legal target`
       }
     }
+    const colorMana = effect.do.find((instruction) => instruction.kind === 'addChosenColorMana')
+    if (colorMana?.kind === 'addChosenColorMana') {
+      const allowed = colorMana.colors ?? ['W', 'U', 'B', 'R', 'G']
+      const choice = event.choices?.[0]
+      if (!choice || !allowed.includes(choice as typeof allowed[number])) {
+        return `${source.name} needs a mana color`
+      }
+    }
   },
   apply: ({ event, draft }) => {
     if (event.type !== 'activateAbility') return

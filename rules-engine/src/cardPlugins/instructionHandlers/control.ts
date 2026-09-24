@@ -293,9 +293,26 @@ const counterUnlessPay: InstructionHandler<'counterUnlessPay'> = (
 }
 
 const destroyTargetPermanent: InstructionHandler<'destroyTargetPermanent'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
+  const objectTargets = (item?.targets ?? []).flatMap((target) =>
+    target.kind === 'object' ? [target.objectId] : [])
+  if (objectTargets.length > 0) {
+    for (const objectId of objectTargets) {
+      const object = draft.object(objectId)
+      if (!object || object.zone !== 'battlefield') continue
+      if (instruction.types.length > 0
+        && !instruction.types.some((type) => object.types.includes(type))) continue
+      if (hasKeyword(object, 'indestructible', draft)) {
+        draft.note(`${source.name} cannot destroy indestructible ${object.name}`)
+        continue
+      }
+      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+      draft.note(`${source.name} destroys ${object.name}`)
+    }
+    return
+  }
   setPendingDialog(draft, {
     sourceId: source.id,
     source: source.name,
