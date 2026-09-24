@@ -31,7 +31,6 @@ import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
 import { abundance } from '../../rules-engine/src/cardPlugins/abundance'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
-import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
 import { combatTax } from '../../rules-engine/src/cardPlugins/combatTax'
@@ -2626,3 +2625,62 @@ describe('if-you-do resolution choices', () => {
   })
 })
 
+describe('ward live choice', () => {
+  test('a restarted host rebuilds pay-ward and can counter the spell', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: ['p1', 'p2'],
+        battlefield: {
+          p1: [cardTemplate('Warded Beast', {
+            types: ['Creature'],
+            power: 2,
+            toughness: 2,
+            oracleText: 'Ward {2}',
+            effects: [{ op: 'static', ward: { generic: 2 } }],
+          })],
+        },
+        hands: {
+          p2: [cardTemplate('Test Hex', {
+            types: ['Instant'],
+            manaCost: '{C}',
+          })],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const targetId = Object.values(server.state.objects)
+      .find((object) => object.name === 'Warded Beast')!.id
+    const spellId = Object.values(server.state.objects)
+      .find((object) => object.name === 'Test Hex')!.id
+    const ready = structuredClone(server.state)
+    ready.priority = 'p2'
+    ready.players.p2.mana.C = 3
+    const cast = server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: spellId,
+      targets: [{ kind: 'object', objectId: targetId }],
+    })
+    if (!cast.ok) throw new Error(cast.error)
+
+    const firstLobby = createLobby()
+    expect(prepareKernelPendingChoice(handleFor(server.rules, cast.state), firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p2',
+      kind: 'pay-ward',
+      cards: ['Yes'],
+    })
+
+    const restartedLobby = createLobby()
+    const restarted = handleFor(server.rules, structuredClone(cast.state))
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', {
+      type: 'topdeck',
+      choices: [{ card: 'Yes', destination: 'skip' }],
+    })).toBe(true)
+    expect(restarted.history.current().stack).toHaveLength(0)
+    expect(restarted.history.current().objects[spellId].zone).toBe('graveyard')
+  })
+})

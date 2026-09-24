@@ -608,6 +608,40 @@ export const ptEqualsLife = (options: { who: 'controller' | 'owner' }): CardEffe
   ptEqualsLife: options,
 })
 
+/** Layer 7a CDA: power and toughness each equal the number of matching permanents you control. */
+export const ptEqualsCount = (types: string | string[]): CardEffect => ({
+  op: 'static',
+  ptEqualsCount: { types: Array.isArray(types) ? types : [types] },
+})
+
+/** Activated abilities of matching permanents you control cost {N} less to activate. */
+export const reduceActivationCost = (
+  generic: number,
+  requireTypes: string[] = ['Land'],
+): CardEffect => ({
+  op: 'static',
+  reduceActivationCost: { generic, requireTypes },
+})
+
+/** Matching creatures you control get +N/+N while this source is on the battlefield. */
+export const staticBoardPump = (
+  power: number,
+  toughness: number,
+  requireTypes: string[],
+): CardEffect => ({
+  op: 'static',
+  pluginId: 'staticBoardPump',
+  staticBoardPump: { power, toughness, requireTypes },
+})
+
+/** Ward {N} or a mana/sacrifice Ward cost (CR 702.21). */
+export const ward = (
+  options: number | { generic?: number; mana?: number; sacrifice?: { count: number; nonland?: boolean } },
+): CardEffect => ({
+  op: 'static',
+  ward: typeof options === 'number' ? { generic: options } : options,
+})
+
 export const bestow = (
   cost: string,
   bonus: { power: number; toughness: number },
@@ -1172,13 +1206,6 @@ export const devour = (
 export const stackXAtLeast = (min: number): CardCondition => ({
   kind: 'stackXAtLeast',
   min,
-})
-
-export const ward = (
-  options: { mana?: number; sacrifice?: { count: number; nonland?: boolean } },
-): CardEffect => ({
-  op: 'static',
-  ward: options,
 })
 
 export const exileOpponentGraveyard = (): CardEffect => ({

@@ -49,7 +49,7 @@ const xManaKind = (object: GameObject) =>
 
 export { kickerCostOf, multikickerCostOf, hasMultikicker } from './kickCast'
 
-const reduceGeneric = (manaCost: string, amount: number) => {
+export const reduceGenericManaCost = (manaCost: string, amount: number) => {
   const reduced = Math.max(0, genericCost(manaCost) - amount)
   const nonGeneric = manaCost.replaceAll(/\{\d+\}/g, '')
   return `${reduced > 0 ? `{${reduced}}` : ''}${nonGeneric}`
@@ -121,7 +121,7 @@ export const spellCost = (
       )
       ? amount + effect.reduceGeneric.amount
       : amount, 0)
-  return reduceGeneric(total, reduction)
+  return reduceGenericManaCost(total, reduction)
 }
 
 const cannotBeCountered = (object: GameObject) =>

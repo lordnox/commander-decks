@@ -30,6 +30,7 @@ export type PendingDialog = {
     | 'may-draw'
     | 'may-pay-mana'
     | 'may-pay-life'
+    | 'pay-ward'
     | 'secret-vote'
     | 'fight-target'
     | 'fight-own'
@@ -50,6 +51,8 @@ export type PendingDialog = {
   >
   count?: number
   cost?: string
+  stackId?: string
+  targetId?: string
   /** Literal choices for a modal ability, used instead of cards on a board. */
   options?: string[]
   types?: string[]

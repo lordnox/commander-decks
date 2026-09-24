@@ -26,6 +26,7 @@ import { phasing } from './phasing'
 import { protectionFromEverything } from './protectionFromEverything'
 import { untilNextTurn } from './untilNextTurn'
 import { cdaLifePt } from './cdaLifePt'
+import { ward } from './ward'
 import { mana } from './mana'
 import { monarch } from './monarch'
 import { manaBurn } from './manaBurn'
@@ -40,6 +41,7 @@ import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
 import { grantControlledSubtypeTrigger } from '../cardPlugins/grantControlledSubtypeTrigger'
+import { staticBoardPump } from '../cardPlugins/staticBoardPump'
 import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
 import { stateBased } from './stateBased'
@@ -74,6 +76,7 @@ export const builtInPlugins = [
   monarch,
   energy,
   cdaLifePt,
+  ward,
   damage,
   battle,
   doubleFaced,
@@ -95,6 +98,7 @@ export const builtInPlugins = [
   extraSwampMana,
   starfieldOfNyx,
   grantControlledSubtypeTrigger,
+  staticBoardPump,
   exilePayoffs,
   extraUntap,
   attackSubtypeDraw,
@@ -140,4 +144,5 @@ export {
   starfieldOfNyx,
   stateBased,
   turnStructure,
+  ward,
 }

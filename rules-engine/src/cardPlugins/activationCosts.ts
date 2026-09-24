@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
-import { payCost } from '../plugins/spells'
+import { payCost, reduceGenericManaCost } from '../plugins/spells'
 import type { GameObject, GameState, PlayerId } from '../types'
 import type { ActivateCost } from './effectDefinitions'
 import { conditionHolds, millLibrary } from './effectRuntime'
@@ -110,6 +110,33 @@ const chosenAmong = (
   candidates: GameObject[],
 ) => candidates.some((object) => object.id === objectId)
 
+export const activationCostReduction = (
+  state: GameState | Draft,
+  source: GameObject,
+) =>
+  Object.values(state.objects).reduce((amount, candidate) => {
+    if (candidate.zone !== 'battlefield' || candidate.controller !== source.controller) {
+      return amount
+    }
+    for (const effect of candidate.effects ?? []) {
+      if (effect.op !== 'static' || !effect.reduceActivationCost) continue
+      const types = effect.reduceActivationCost.requireTypes ?? ['Land']
+      if (!types.every((type) => source.types.includes(type))) continue
+      amount += effect.reduceActivationCost.generic
+    }
+    return amount
+  }, 0)
+
+export const reducedActivationMana = (
+  state: GameState | Draft,
+  source: GameObject,
+  mana: string | undefined,
+) => {
+  if (!mana) return mana
+  const reduction = activationCostReduction(state, source)
+  return reduction > 0 ? reduceGenericManaCost(mana, reduction) : mana
+}
+
 export const activationCostError = (
   state: GameState,
   source: GameObject,
@@ -127,7 +154,11 @@ export const activationCostError = (
   if (costs.if && !conditionHolds(costs.if, state, source)) {
     return `${source.name} cannot be activated now`
   }
-  const manaCost = reducedActivationManaCost(state, seat, costs, options.x)
+  const manaCost = reducedActivationMana(
+    state,
+    source,
+    reducedActivationManaCost(state, seat, costs, options.x),
+  )
   if (costs.tap) {
     if (source.tapped) return `${source.name} is already tapped`
     if (
@@ -223,7 +254,11 @@ export const payActivationCosts = (
   picks: ActivationCostPicks = {},
   x = 0,
 ) => {
-  const manaCost = reducedActivationManaCost(draft, seat, costs, x)
+  const manaCost = reducedActivationMana(
+    draft,
+    source,
+    reducedActivationManaCost(draft, seat, costs, x),
+  )
   if (manaCost) draft.enqueue({ type: 'payMana', seat, cost: manaCost })
   if (costs.energy) {
     draft.enqueue({

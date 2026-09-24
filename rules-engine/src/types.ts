@@ -111,12 +111,13 @@ export type ReversibleEffect =
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
   /**
-   * Layer 7a CDA: base power and toughness each equal a player's life total.
-   * `after` is the 7a set; +1/+1 counters apply on top (CR 613.4c).
+   * Layer 7a CDA: base power and toughness each equal a computed value
+   * (life total, counted permanents, …). `after` is the 7a set; +1/+1
+   * counters apply on top (CR 613.4c). `who` is stored for life CDAs.
    */
   | {
       kind: 'cdaLifePt'
-      who: 'controller' | 'owner'
+      who?: 'controller' | 'owner'
       before: { power: number | null; toughness: number | null }
       after: { power: number; toughness: number }
     }
@@ -154,6 +155,7 @@ export type EffectDuration =
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
   | { kind: 'cdaLifePt' }
   | { kind: 'pumpPerLinkedExile' }
+  | { kind: 'staticBoardPump'; sourceId: string; requireTypes: string[] }
 
 export type ContinuousEffect = {
   effect: ReversibleEffect
@@ -308,6 +310,8 @@ export type StackItem = {
   payload?: Record<string, unknown>
   /** A stack copy is not represented by another card and never changes the source object's zone. */
   copy?: boolean
+  /** Object ids whose ward cost has been paid or declined for this item (CR 702.21). */
+  wardSettled?: string[]
 }
 
 /**
