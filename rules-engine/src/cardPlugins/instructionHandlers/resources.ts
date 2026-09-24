@@ -393,7 +393,7 @@ const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, source, item },
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   const x = Math.max(0, item?.x ?? 0)
   if (!object || object.power === null || object.toughness === null) {
-    const optionalCastChoseNone = Boolean(item)
+    const optionalCastChoseNone = item !== undefined
       && (source.effects ?? []).some((effect) =>
         effect.op === 'targetedResolve' && effect.optional)
       && !item.targets.some((candidate) => candidate.kind === 'object')
