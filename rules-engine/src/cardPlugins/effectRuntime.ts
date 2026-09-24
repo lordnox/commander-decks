@@ -470,11 +470,14 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
         ...flattenInstructions(instruction.whenFalse ?? []),
       ]
     }
+    if (instruction.kind === 'repeatIf') {
+      return [instruction, ...flattenInstructions(instruction.do)]
+    }
     return [instruction]
   })
 
 const CHOICE_KINDS = new Set([
-  'surveil', 'scry', 'opponentPiles', 'putLandFromHand', 'bounceChosenLand', 'revealPick',
+  'surveil', 'scry', 'opponentPiles', 'putLandFromHand', 'millThenRecover', 'bounceChosenLand', 'revealPick',
   'copyControlledCreature', 'copyTargetCreature', 'becomeCopyOfTarget', 'optionalMill', 'mayDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
   'chooseCreatureType',

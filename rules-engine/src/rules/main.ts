@@ -1,3 +1,4 @@
+import { instructionResume } from '../cardPlugins/runInstructions'
 import { discard } from './discard'
 import { draw } from './draw'
 import { selectCards } from './selectCards'
@@ -34,6 +35,7 @@ export {
   type PendingOptionSelection,
 } from './selectOptions'
 export { resolveAbility, resolveAction } from './actions'
+export { instructionResume } from '../cardPlugins/runInstructions'
 
 /** CR 701 / 121 / 603 — always-on game rules for the stack pipeline. */
-export const gameRules = [discard, draw, selectCards, selectOptions, selectPlayers, triggers]
+export const gameRules = [discard, draw, selectCards, selectOptions, selectPlayers, triggers, instructionResume]

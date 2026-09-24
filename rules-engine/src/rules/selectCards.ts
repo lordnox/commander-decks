@@ -1,15 +1,23 @@
 import type Draft from '../draft'
-import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
+import type { GameEvent, GameState, PlayerId, Plugin, StackItem, ZoneId } from '../types'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { isKnownTo, markKnownTo, markKnownToAll } from '../knowledge'
-import { validTarget } from '../cardPlugins/targetedResolve'
+import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'
 import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
+import { payCost } from '../plugins/spells'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
+export const INSTRUCTIONS_RESUME = 'instructions.resume'
+
+export type InstructionResume = {
+  sourceId: string
+  remaining: CardInstruction[]
+  item?: StackItem
+}
 
 export type CardSelectionKind =
   | 'choose'
@@ -91,6 +99,14 @@ export type PendingCardSelection = {
   pileController?: PlayerId
   pileReveal?: OpponentPileReveal
   pileVisibility?: OpponentPileVisibility
+  /** Refresh candidates from `fromZone` while the choice is open. */
+  liveZone?: true
+  /** Remaining instructions after this choice; applied once the selected cards have moved. */
+  resume?: InstructionResume
+  /** Pay this mana only if at least one card is chosen. */
+  payMana?: string
+  /** Pay this life only if at least one card is chosen. */
+  payLife?: number
 }
 
 const isSelection = (value: unknown): value is PendingCardSelection =>
@@ -214,6 +230,14 @@ export const liveSelectionCandidates = (
   }
   if (selection.kind === 'sacrifice') {
     return selection.candidates.filter((objectId) => battlefieldPermanent(state, fromSeat, objectId))
+  }
+  if (selection.kind === 'choose' && selection.liveZone && selection.fromZone) {
+    return (state.zoneOrder[fromSeat]?.[selection.fromZone] ?? []).filter((objectId) => {
+      const object = state.objects[objectId]
+      if (!object) return false
+      if (!selection.targetFilter) return true
+      return matchesTargetFilter(state as GameState, object, selection.targetFilter, controller)
+    })
   }
   return selection.candidates.filter((objectId) => {
     const object = state.objects[objectId]
@@ -364,11 +388,19 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
         : `must choose between ${minimum} and ${expected} card(s)`
     }
     for (const objectId of objectIds) {
-      if (!selection.candidates.includes(objectId)) {
+      if (!selection.liveZone && !selection.candidates.includes(objectId)) {
         return 'card was not offered for this selection'
       }
       if (!allowed.has(objectId)) {
         return 'card is no longer a valid choice'
+      }
+    }
+    if (objectIds.length > 0) {
+      if (selection.payMana && !payCost(state.players[event.seat].mana, selection.payMana)) {
+        return `${event.seat} cannot pay ${selection.payMana}`
+      }
+      if (selection.payLife && state.players[event.seat].life < selection.payLife) {
+        return `${event.seat} cannot pay ${selection.payLife} life`
       }
     }
     return
@@ -435,6 +467,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
 
   const fromSeat = selection.fromSeat ?? selection.seat
   const after = selection.after
+  const resume = selection.resume
   clearPendingSelection(draft, event.seat)
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
@@ -482,6 +515,19 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     if (selection.exileUntilOpponentMonarch && selection.sourceId) {
       const source = draft.object(selection.sourceId)
       if (source) linkMonarchExileSelected(draft, source, chosenIds)
+    }
+    if (chosenIds.length > 0) {
+      if (selection.payMana) {
+        draft.enqueue({ type: 'payMana', seat: event.seat, cost: selection.payMana })
+      }
+      if (selection.payLife) {
+        draft.enqueue({
+          type: 'payLife',
+          seat: event.seat,
+          amount: selection.payLife,
+          source: selection.source,
+        })
+      }
     }
     for (const objectId of chosenIds) {
       const object = draft.object(objectId)
@@ -669,6 +715,18 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     if (followUp === 'shuffleLibrary') {
       draft.enqueue({ type: 'shuffleLibrary', seat: selection.fromSeat ?? selection.seat })
     }
+  }
+
+  if (resume) {
+    draft.enqueue({
+      type: 'custom',
+      name: INSTRUCTIONS_RESUME,
+      payload: {
+        sourceId: resume.sourceId,
+        remaining: resume.remaining,
+        ...(resume.item ? { item: resume.item } : {}),
+      },
+    })
   }
 }
 

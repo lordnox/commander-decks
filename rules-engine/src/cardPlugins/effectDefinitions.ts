@@ -135,6 +135,23 @@ export type CardInstruction =
       whenTrue: CardInstruction[]
       whenFalse?: CardInstruction[]
     }
+  /** Run `do`, then if `if` still holds, run `do` once more. */
+  | {
+      kind: 'repeatIf'
+      if: CardCondition
+      do: CardInstruction[]
+      /** After the first process has finished; only the condition check remains. */
+      spent?: true
+    }
+  /** Mill `count`, then the controller may pay mana and life to put one of those cards into hand. */
+  | {
+      kind: 'millThenRecover'
+      count: number
+      mana?: string
+      life?: number
+      /** Snapshot of milled object ids; set when offering the recover choice after mill. */
+      fromObjectIds?: string[]
+    }
   | { kind: 'surveil'; count: number }
   | { kind: 'scry'; count: number }
   | {
@@ -469,6 +486,7 @@ export type CardEffect =
         | 'resolve'
         | 'landToGraveyard'
         | 'upkeep'
+        | 'precombatMain'
         | 'cast'
         | 'discard'
         | 'cycle'
