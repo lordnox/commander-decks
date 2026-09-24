@@ -310,9 +310,9 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     const choosing = ok(server.rules(castBoth(server, ready), { type: 'resolveTop' }))
     expect(pendingSelectionFor(choosing, 'p1')).toMatchObject({
       kind: 'sacrifice',
-      min: 0,
       count: 1,
     })
+    expect(pendingSelectionFor(choosing, 'p1')?.min).toBeUndefined()
     expect(pendingSelectionFor(choosing, 'p1')?.candidates).toContain(
       named(choosing, 'Fodder Goat').id,
     )
@@ -345,26 +345,27 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     })
   })
 
-  test('skipping or failing the sacrifice leaves both cards in the graveyard', () => {
+  test('an empty sacrifice is illegal while a creature remains', () => {
     const { server, ready } = victimizeGame()
     const choosing = ok(server.rules(castBoth(server, ready), { type: 'resolveTop' }))
-    const skipped = ok(server.rules(choosing, {
+    expect(server.rules(choosing, {
       type: 'selectCards',
       seat: 'p1',
       kind: 'sacrifice',
       count: 1,
       objectIds: [],
-    }))
-    expect(named(skipped, 'Returned Bear').zone).toBe('graveyard')
-    expect(named(skipped, 'Returned Elk').zone).toBe('graveyard')
-    expect(named(skipped, 'Fodder Goat').zone).toBe('battlefield')
+    }).ok).toBe(false)
+    expect(named(choosing, 'Returned Bear').zone).toBe('graveyard')
+    expect(named(choosing, 'Fodder Goat').zone).toBe('battlefield')
+  })
 
-    const { server: failServer, ready: failReady } = victimizeGame()
-    const sacrificed = ok(failServer.rules(failReady, {
+  test('failing the sacrifice with no creature leaves both cards in the graveyard', () => {
+    const { server, ready } = victimizeGame()
+    const sacrificed = ok(server.rules(ready, {
       type: 'sacrifice',
-      objectId: named(failReady, 'Fodder Goat').id,
+      objectId: named(ready, 'Fodder Goat').id,
     }))
-    const failed = ok(failServer.rules(castBoth(failServer, sacrificed), { type: 'resolveTop' }))
+    const failed = ok(server.rules(castBoth(server, sacrificed), { type: 'resolveTop' }))
     expect(pendingSelectionFor(failed, 'p1')).toBeUndefined()
     expect(named(failed, 'Returned Bear').zone).toBe('graveyard')
     expect(named(failed, 'Returned Elk').zone).toBe('graveyard')

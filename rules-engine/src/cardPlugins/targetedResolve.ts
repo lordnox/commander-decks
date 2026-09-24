@@ -295,7 +295,6 @@ const openResolutionSacrifice = (
     seat: item.controller,
     kind: 'sacrifice',
     count: 1,
-    min: 0,
     candidates,
     sourceId: source.id,
     source: source.name,
