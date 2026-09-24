@@ -389,12 +389,16 @@ const battlefieldCreatures = (
   .map((object) => object.id)
 
 const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, source, item }, instruction) => {
-  const target = item?.targets[0]
+  const target = item?.targets.find((candidate) => candidate.kind === 'object')
   const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
   const x = Math.max(0, item?.x ?? 0)
   if (!object || object.power === null || object.toughness === null) {
-    // A stack item already chose its targets, including "up to one" choosing none.
-    if (item) return
+    const optionalCastChoseNone = Boolean(item)
+      && (source.effects ?? []).some((effect) =>
+        effect.op === 'targetedResolve' && effect.optional)
+      && !item.targets.some((candidate) => candidate.kind === 'object')
+    if (optionalCastChoseNone) return
+    if (item?.targets.some((candidate) => candidate.kind === 'object')) return
     const candidates = battlefieldCreatures(draft)
     if (candidates.length === 0 || x <= 0) return
     openCardSelection(draft, {

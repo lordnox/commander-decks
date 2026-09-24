@@ -23,7 +23,6 @@ export const OPTIONAL_DIALOGS = new Set([
   'may-draw',
   'may-pay-mana',
   'may-pay-life',
-  'pay-ward',
   'may-search',
   'ward-pay',
 ])

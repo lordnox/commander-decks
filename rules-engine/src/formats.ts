@@ -23,7 +23,6 @@ import { phasing } from './plugins/phasing'
 import { protectionFromEverything } from './plugins/protectionFromEverything'
 import { untilNextTurn } from './plugins/untilNextTurn'
 import { cdaLifePt } from './plugins/cdaLifePt'
-import { ward } from './plugins/ward'
 import { mana } from './plugins/mana'
 import { manaBurn } from './plugins/manaBurn'
 import { swampOverlay } from './plugins/swampOverlay'
@@ -95,7 +94,6 @@ export const corePlugins = [
   monarch,
   energy,
   cdaLifePt,
-  ward,
   damage,
   battle,
   doubleFaced,

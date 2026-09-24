@@ -676,7 +676,11 @@ export const ward = (
   options: number | { generic?: number; mana?: number; sacrifice?: { count: number; nonland?: boolean } },
 ): CardEffect => ({
   op: 'static',
-  ward: typeof options === 'number' ? { generic: options } : options,
+  ward: typeof options === 'number'
+    ? { mana: options }
+    : options.generic !== undefined && options.mana === undefined
+      ? { ...options, mana: options.generic }
+      : options,
 })
 
 export const bestow = (
@@ -1405,15 +1409,6 @@ export const yourFirstMain = (...instructions: CardInstruction[]): CardEffect =>
 
 export const yourUpkeepPutPermanentFromGraveyard = (): CardEffect =>
   yourUpkeep(putPermanentFromGraveyard())
-
-export const saga = (
-  chapters: Extract<CardEffect, { op: 'saga' }>['chapters'],
-  extra: { readAhead?: boolean } = {},
-): CardEffect => ({
-  op: 'saga',
-  chapters,
-  ...extra,
-})
 
 export const addChosenColorMana = (
   colors?: Array<Exclude<ManaId, 'C'>>,

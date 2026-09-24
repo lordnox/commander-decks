@@ -190,7 +190,7 @@ describe('Room doors', () => {
       door: 'right',
     }))
     expect(unlocked.objects[objectId].effects).toEqual([
-      { op: 'static', playLandsFromGraveyard: true },
+      { op: 'trigger', on: 'unlock', do: [] },
     ])
   })
 

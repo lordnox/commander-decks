@@ -4,6 +4,7 @@ import {
   pendingDialogFor,
   setPendingDialog,
 } from '../pendingDialog'
+import { wardGeneric } from '../keywords'
 import { openCardSelection } from '../rules/selectCards'
 import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
 import { effectsOf } from './cardRules'
@@ -19,9 +20,18 @@ type PendingCast = {
   event: Extract<GameEvent, { type: 'castSpell' | 'activateAbility' }>
 }
 
-const wardEffect = (object: GameObject): WardSpec | undefined =>
-  effectsOf(object).flatMap((effect) =>
+const wardEffect = (object: GameObject): WardSpec | undefined => {
+  const stamped = effectsOf(object).flatMap((effect) =>
     effect.op === 'static' && effect.ward ? [effect.ward] : [])[0]
+  if (stamped) {
+    if (stamped.generic !== undefined && stamped.mana === undefined) {
+      return { ...stamped, mana: stamped.generic }
+    }
+    return stamped
+  }
+  const generic = wardGeneric(object)
+  if (generic !== undefined) return { mana: generic }
+}
 
 const targetedObjectIds = (targets: TargetRef[] | undefined) =>
   (targets ?? []).flatMap((target) =>
