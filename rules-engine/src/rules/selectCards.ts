@@ -3,7 +3,7 @@ import type { GameEvent, GameState, PlayerId, Plugin, ZoneId } from '../types'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
-import { markKnownTo, markKnownToAll } from '../knowledge'
+import { isKnownTo, markKnownTo, markKnownToAll } from '../knowledge'
 import { validTarget } from '../cardPlugins/targetedResolve'
 import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
@@ -113,6 +113,29 @@ export const pendingSelectionsFor = (
 
 export const pendingSelectionFor = (state: GameState | Draft, seat: PlayerId) =>
   pendingSelectionsFor(state, seat)[0]
+
+/** Library objects a viewer may keep: pending candidates, except unknown choosePile cards. */
+export const visibleLibrarySelectionIds = (
+  state: GameState | Draft,
+  viewer: PlayerId | null,
+) => {
+  const ids = new Set<string>()
+  if (!viewer) return ids
+  for (const selection of pendingSelectionsFor(state, viewer)) {
+    for (const objectId of selection.candidates) {
+      const object = state.objects[objectId]
+      if (object?.zone !== 'library') continue
+      if (
+        selection.kind === 'choosePile'
+        && !isKnownTo(object, viewer, state.playerOrder)
+      ) {
+        continue
+      }
+      ids.add(objectId)
+    }
+  }
+  return ids
+}
 
 export const pendingSelectionById = (state: GameState | Draft, id: string) => {
   for (const seat of state.playerOrder) {

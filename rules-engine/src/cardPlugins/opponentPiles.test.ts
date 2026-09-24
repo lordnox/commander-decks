@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame, projectForViewer } from '../runtime'
+import { createServerGame, projectForViewer, createClientGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
@@ -305,6 +305,22 @@ describe('opponentPiles', () => {
     expect(named(state, 'Look D').zone).toBe('hand')
     expect(named(state, 'Look A').zone).toBe('graveyard')
     expect(named(state, 'Look B').zone).toBe('graveyard')
+  })
+
+  test('a pile chooser replica is accepted by createClientGame', () => {
+    const { server, state: looking } = castLook()
+    expect(() => createClientGame(commanderRules, projectForViewer(looking, 'p2')))
+      .not.toThrow()
+
+    const partitioned = ok(server.rules(looking, {
+      type: 'selectCards',
+      seat: 'p2',
+      kind: 'partition',
+      count: 4,
+      choices: partitionChoices(looking, ['Look A', 'Look B'], ['Look C', 'Look D']),
+    }))
+    expect(() => createClientGame(commanderRules, projectForViewer(partitioned, 'p1')))
+      .not.toThrow()
   })
 
   test('a host restart restores an open partition without passing through it', () => {
