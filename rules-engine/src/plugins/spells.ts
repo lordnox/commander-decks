@@ -593,7 +593,7 @@ export const spells: Plugin = {
         }
       }
 
-      if (isPermanentType(object.types)) {
+      if (isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure') {
         object.enteredWithCastOption = item.castOption
         const resolvedTimesKicked = timesKickedFromCast(item)
         if (hasMultikicker(object) || item.timesKicked !== undefined || item.kicked) {

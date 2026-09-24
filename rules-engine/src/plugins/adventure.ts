@@ -18,17 +18,17 @@ export const asAdventureSpell = (object: GameObject) => {
 
 export const resolveCastFace = (
   object: GameObject,
-  event: { door?: RoomDoorId; adventureCast?: boolean },
+  event: { door?: RoomDoorId; adventureCast?: boolean; castOption?: string },
 ): FaceCharacteristics | undefined => {
   if (event.door) return roomDoor(object, event.door)
-  if (event.adventureCast) return adventureFaceOf(object)
+  if (event.adventureCast || event.castOption === 'adventure') return adventureFaceOf(object)
   if (object.adventured && object.zone === 'exile') return permanentFaceOf(object)
   return castFaceOf(object)
 }
 
 export const applyCastFace = (
   object: GameObject,
-  event: { door?: RoomDoorId; adventureCast?: boolean },
+  event: { door?: RoomDoorId; adventureCast?: boolean; castOption?: string },
 ) => {
   const face = resolveCastFace(object, event)
   if (face) applyFace(object, face)
