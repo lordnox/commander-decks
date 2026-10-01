@@ -512,6 +512,7 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
 const CHOICE_KINDS = new Set([
   'surveil', 'scry', 'opponentPiles', 'putLandFromHand', 'millThenRecover', 'bounceChosenLand', 'revealPick',
   'copyControlledCreature', 'copyTargetCreature', 'becomeCopyOfTarget', 'optionalMill', 'mayDraw',
+  'mayPayLifeDraw',
   'returnChosenLandFromGraveyard', 'copyAllCreaturesUntilEot',
   'chooseCreatureType', 'discardCards',
   'returnCreatureManaValueX',

@@ -325,6 +325,12 @@ describe('card plugin registry', () => {
       .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
   })
 
+  test('Niv-Mizzet, Ghost Counsel stays registered', () => {
+    expect(missingCardPlugins(['Niv-Mizzet, Ghost Counsel'])).toEqual([])
+    expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')?.handlerIds.toSorted())
+      .toEqual(['activated', 'choiceEffects'])
+  })
+
   test('the Lady Evangela remaining group stays registered', () => {
     expect(missingCardPlugins([
       'Counterspell',

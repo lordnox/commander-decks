@@ -4,6 +4,7 @@ import { conditionHolds } from '../effects'
 import { hasKeyword } from '../../keywords'
 import { counterStackSpell } from '../targetedResolve'
 import { instructionCount } from '../voteResult'
+import { instructionAmount } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, instruction) => {
@@ -143,6 +144,26 @@ const optionalMill: InstructionHandler<'optionalMill'> = (
     chosenEvent: DIALOG_CHOSEN,
     destinations: ['skip', 'target'],
     count: instruction.count,
+    optional: true,
+  })
+}
+
+const mayPayLifeDraw: InstructionHandler<'mayPayLifeDraw'> = ({ draft, source, item }) => {
+  const amount = instructionAmount('triggerAmount', item)
+  if (amount <= 0) return
+  setPendingDialog(draft, {
+    sourceId: source.id,
+    source: source.name,
+    seat: source.controller,
+    kind: 'may-pay-life-draw',
+    prompt: amount === 1
+      ? 'You may pay 1 life. If you do, draw a card.'
+      : `You may pay ${amount} life. If you do, draw ${amount} cards.`,
+    waiting: 'is deciding whether to pay life to draw.',
+    judge: `Waiting for ${source.name}'s optional life payment.`,
+    chosenEvent: DIALOG_CHOSEN,
+    destinations: ['skip', 'target'],
+    count: amount,
     optional: true,
   })
 }
@@ -369,6 +390,7 @@ export const controlHandlers = {
   putPermanentsFromHand,
   putFromHand,
   optionalMill,
+  mayPayLifeDraw,
   mayDraw,
   opponentMayDrawThenStealCast,
   counterTargetSpell,
