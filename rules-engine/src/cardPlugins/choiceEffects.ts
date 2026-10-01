@@ -7,6 +7,16 @@ import { STEAL_CAST_DRAW } from './stealCast'
 
 export const choiceEffects: Plugin = {
   id: 'choiceEffects',
+  legal: ({ state, event }) => {
+    if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) return
+    const dialog = pendingDialogFor(state, event.seat)
+    if (dialog?.kind === 'may-pay-life-draw' && event.payload?.accepted === true) {
+      const cost = dialog.count ?? 0
+      if (cost > state.players[event.seat].life) {
+        return `${event.seat} cannot pay ${cost} life`
+      }
+    }
+  },
   apply: ({ state, event, draft }) => {
     if (event.type !== 'custom' || event.name !== DIALOG_CHOSEN || !event.seat) {
       return
@@ -62,6 +72,17 @@ export const choiceEffects: Plugin = {
       } else if (land && land.zone === 'battlefield') {
         land.tapped = true
       }
+    }
+    if (dialog.kind === 'may-pay-life-draw' && event.payload?.accepted === true) {
+      const amount = dialog.count ?? 0
+      draft.enqueue({
+        type: 'payLife',
+        seat: event.seat,
+        amount,
+        source: dialog.source,
+      })
+      draft.enqueue({ type: 'draw', seat: event.seat, count: amount })
+      draft.note(`${event.seat} pays ${amount} life to draw ${amount}`)
     }
     if (dialog.kind === 'counter-unless') {
       const amount = draft.players[event.seat].data['counterUnlessPay.amount']

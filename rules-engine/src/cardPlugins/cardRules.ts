@@ -111,6 +111,7 @@ import {
   manaIf,
   mayCastFromHandWithoutPayingMana,
   mayDraw,
+  mayPayLifeDraw,
   millHalfTargetPlayers,
   millTarget,
   modalChooseOne,
@@ -2399,6 +2400,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'nirkanaRevenant.pump',
       costs: { mana: '{B}' },
       do: [pumpSelf(1, 1)],
+    }),
+  ],
+  'Niv-Mizzet, Ghost Counsel': [
+    triggerOn('gainLife', { do: [mayPayLifeDraw()] }),
+    activate({
+      id: 'nivMizzetGhostCounsel.drain',
+      costs: { tap: true },
+      do: [opponentsLoseLife(1), gainLife(1)],
     }),
   ],
   'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],

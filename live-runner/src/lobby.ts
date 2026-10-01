@@ -51,6 +51,7 @@ export type TopdeckDecision = {
       | 'may-draw'
       | 'may-pay-mana'
       | 'may-pay-life'
+      | 'may-pay-life-draw'
       | 'secret-vote'
       | 'fight-target'
       | 'fight-own'

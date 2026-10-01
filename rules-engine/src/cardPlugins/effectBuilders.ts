@@ -540,6 +540,8 @@ export const optionalMill = (count: number): CardInstruction => ({ kind: 'option
 
 export const mayDraw = (count: number): CardInstruction => ({ kind: 'mayDraw', count })
 
+export const mayPayLifeDraw = (): CardInstruction => ({ kind: 'mayPayLifeDraw' })
+
 export const chooseModes = (
   choose: 'one' | 'any' | 'two',
   modes: ModalMode[],

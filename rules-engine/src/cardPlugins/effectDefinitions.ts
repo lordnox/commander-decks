@@ -284,6 +284,7 @@ export type CardInstruction =
   | { kind: 'addChosenColorMana'; colors?: Array<Exclude<ManaId, 'C'>> }
   | { kind: 'optionalMill'; count: number }
   | { kind: 'mayDraw'; count: number; seat?: PlayerId }
+  | { kind: 'mayPayLifeDraw' }
   | { kind: 'chooseModes'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
   | { kind: 'eachPlayerDiscard'; count: number }
   | { kind: 'eachPlayerDraw'; count: number }
