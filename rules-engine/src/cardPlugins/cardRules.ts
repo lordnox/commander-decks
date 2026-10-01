@@ -2403,7 +2403,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Niv-Mizzet, Ghost Counsel': [
-    triggerOn('gainLife', { do: [mayPayLifeDraw()] }),
+    triggerOn('gainLife', { if: { seat: 'controller' }, do: [mayPayLifeDraw()] }),
     activate({
       id: 'nivMizzetGhostCounsel.drain',
       costs: { tap: true },

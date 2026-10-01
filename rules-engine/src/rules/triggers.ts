@@ -495,10 +495,7 @@ const collectDiscardDraw = (
     for (const effect of catalog) {
       if (effect.op !== 'trigger' || effect.on !== event.type) continue
       if (!EVENT_TRIGGER_ON.has(effect.on)) continue
-      const bindingIf = effect.on === 'gainLife' && effect.if === undefined
-        ? { seat: 'controller' as const }
-        : effect.if
-      if (!triggerIfPasses(draft, live, event, bindingIf)) continue
+      if (!triggerIfPasses(draft, live, event, effect.if)) continue
       if (!passesOnceEachTurn(live, effect, catalog, draft.turn)) continue
       pushCopies(matches, live, effect, 1, {
         triggerEffectKey: triggerEffectKey(catalog, effect),
