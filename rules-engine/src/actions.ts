@@ -62,6 +62,7 @@ import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
 import { manaValueOf } from './cardPlugins/effects'
 import { pendingExtortFor } from './cardPlugins/extort'
+import { pendingOptionalManaPayFor } from './cardPlugins/optionalManaPay'
 import {
   alternateCastEffects,
   availableAlternateCastEffect,
@@ -179,6 +180,13 @@ export type AvailableAction =
       sourceId: string
       source: string
       mana?: 'W' | 'B'
+    }
+  | {
+      kind: 'payOptionalMana'
+      pendingId: string
+      source: string
+      /** Full mana cost when paying; omit to decline. */
+      cost?: string
     }
   | {
       kind: 'declareAttackers'
@@ -1261,6 +1269,24 @@ export const availableActions = (
           : []),
     ]
   }
+  const optionalMana = pendingOptionalManaPayFor(state, seat)
+  if (optionalMana) {
+    return [
+      {
+        kind: 'payOptionalMana',
+        pendingId: optionalMana.id,
+        source: optionalMana.source,
+      },
+      ...(canFund(state, seat, optionalMana.cost)
+        ? [{
+            kind: 'payOptionalMana' as const,
+            pendingId: optionalMana.id,
+            source: optionalMana.source,
+            cost: optionalMana.cost,
+          }]
+        : []),
+    ]
+  }
   if (state.priority !== seat) return []
   if (state.step === 'untap' || state.step === 'cleanup') return []
   const waiting = waitingContinueAction(state, seat)
@@ -1980,6 +2006,9 @@ export const sameLegalAct = (
   if (left.kind === 'payExtort') {
     return left.triggerId === right.triggerId && left.mana === right.mana
   }
+  if (left.kind === 'payOptionalMana') {
+    return left.pendingId === right.pendingId
+  }
   return true
 }
 
@@ -2148,6 +2177,28 @@ export const eventsForAvailableAction = (
         seat,
         triggerId: action.triggerId,
         mana: action.mana,
+      },
+    ]
+  }
+  if (action.kind === 'payOptionalMana') {
+    const pending = pendingOptionalManaPayFor(state, seat)
+    if (!pending || pending.id !== action.pendingId) return null
+    if (!action.cost) {
+      return [{
+        type: 'payOptionalMana',
+        seat,
+        pendingId: action.pendingId,
+      }]
+    }
+    const mana = fundingEvents(state, seat, action.cost)
+    if (!mana) return null
+    return [
+      ...mana,
+      {
+        type: 'payOptionalMana',
+        seat,
+        pendingId: action.pendingId,
+        cost: action.cost,
       },
     ]
   }

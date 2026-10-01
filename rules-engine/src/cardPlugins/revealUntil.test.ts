@@ -81,6 +81,21 @@ describe('revealUntil', () => {
     })
   })
 
+  test('non-matches go to the library bottom after a bottomRandom reveal', () => {
+    const { resolved } = castFixture(
+      'Bottom Random',
+      [onResolve(revealUntil(1, { types: ['Creature', 'Planeswalker'] }, 'battlefield', 'bottomRandom'))],
+      [
+        instant('One'),
+        instant('Two'),
+        creature('Found'),
+      ],
+    )
+    expect(named(resolved, 'Found').zone).toBe('battlefield')
+    expect(resolved.zoneOrder.p1.library).toHaveLength(2)
+    expect(graveyardNames(resolved)).toEqual(['Bottom Random'])
+  })
+
   test('revealUntilBasicLand builder uses the generalized instruction', () => {
     expect(revealUntilBasicLand()).toEqual({
       kind: 'revealUntil',

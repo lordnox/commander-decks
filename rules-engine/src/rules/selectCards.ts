@@ -73,6 +73,7 @@ export type PendingCardSelection = {
   after?: Array<'resolveTop' | 'shuffleLibrary'>
   drawPerSelected?: number
   moveSelectedTo?: ZoneId
+  moveLibraryPosition?: 'top' | 'bottom'
   moveSelectedController?: PlayerId
   addSubtypes?: string[]
   tapSelected?: boolean
@@ -583,6 +584,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           type: 'move',
           objectId,
           to: selection.moveSelectedTo,
+          ...(selection.moveLibraryPosition
+            ? { position: selection.moveLibraryPosition }
+            : {}),
           ...(selection.moveSelectedController
             ? { controller: selection.moveSelectedController }
             : {}),

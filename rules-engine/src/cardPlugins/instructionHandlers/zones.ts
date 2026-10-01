@@ -597,6 +597,29 @@ const opponentPiles: InstructionHandler<'opponentPiles'> = (
   })
 }
 
+const putHandCardOnLibraryBottom: InstructionHandler<'putHandCardOnLibraryBottom'> = (
+  { draft, source },
+) => {
+  const candidates = draft.zoneOrder[source.controller].hand
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'choose',
+    count: 1,
+    min: 1,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: 'Put a card from your hand on the bottom of your library.',
+    destinations: ['target'],
+    fromSeat: source.controller,
+    fromZone: 'hand',
+    liveZone: true,
+    moveSelectedTo: 'library',
+    moveLibraryPosition: 'bottom',
+  })
+}
+
 const putLandFromHand: InstructionHandler<'putLandFromHand'> = (
   { draft, source },
   instruction,
@@ -989,6 +1012,7 @@ export const zoneHandlers = {
   scry,
   lookTopPick,
   opponentPiles,
+  putHandCardOnLibraryBottom,
   putLandFromHand,
   bounceChosenLand,
   revealPick,

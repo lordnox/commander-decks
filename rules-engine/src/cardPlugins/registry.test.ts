@@ -331,6 +331,13 @@ describe('card plugin registry', () => {
       .toEqual(['activated', 'choiceEffects'])
   })
 
+  test('Jace, Multiverse Architect is registered with optional mana pay', () => {
+    expect(missingCardPlugins(['Jace, Multiverse Architect'])).toEqual([])
+    expect(cardPluginEntry('Jace, Multiverse Architect')?.handlerIds).toEqual(
+      expect.arrayContaining(['optionalManaPay', 'planeswalker']),
+    )
+  })
+
   test('the Lady Evangela remaining group stays registered', () => {
     expect(missingCardPlugins([
       'Counterspell',

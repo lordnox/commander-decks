@@ -6,6 +6,7 @@ import { LEGENDARY_COMBAT_DAMAGE_FROM } from './combatLegendaryDamage'
 import { clearDamageDealt } from './damageLedger'
 import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 import { phaseInControlledBeforeUntap } from './phasing'
+import { clearAttackBans } from '../cardPlugins/attackBan'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
 import { untapStepUntaps } from '../rules/untap'
 
@@ -82,6 +83,7 @@ const onUntap = (draft: Draft) => {
     delete draft.players[player].data[CARDS_DRAWN_THIS_TURN]
   }
   clearPutIntoGraveyardFromBattlefieldThisTurn(draft)
+  clearAttackBans(draft)
   draft.note(`${draft.active} untaps`)
 }
 

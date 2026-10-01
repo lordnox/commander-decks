@@ -1,3 +1,4 @@
+import { attackDeclarationBanned } from '../cardPlugins/attackBan'
 import { encoreAttackDeclarationError } from '../cardPlugins/encore'
 import { hasKeyword, lethalDamage } from '../keywords'
 import { attackDeclarationError, defenderLegalForGoadedAttacker } from './goad'
@@ -100,6 +101,8 @@ export const combat: Plugin = {
         if (!defenderLegalForGoadedAttacker(state, object, declaration.defender)) {
           return 'a goaded creature must attack a player other than the goading player if able'
         }
+        const attackBanError = attackDeclarationBanned(state, event.seat, declaration)
+        if (attackBanError) return attackBanError
         const declaredTarget = targetRef(declaration.defender)
         if (declaredTarget.kind === 'object') {
           const target = state.objects[declaredTarget.objectId]

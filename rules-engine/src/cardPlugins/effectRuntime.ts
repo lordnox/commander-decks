@@ -657,6 +657,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (hasKind(allListed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')
     if (hasKind(allListed, 'randomExileCopyWhile')) ids.add('randomExileCopy')
     if (hasKind(allListed, 'linkExile', 'returnLinkedExile')) ids.add('linkedExile')
+    if (hasKind(allListed, 'opponentMayPayMana')) ids.add('optionalManaPay')
     if (hasKind(
       allListed,
       'pumpFromLinkedExilePower',

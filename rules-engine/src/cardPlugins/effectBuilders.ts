@@ -928,8 +928,32 @@ export const bounceSelf = (): CardInstruction => ({ kind: 'bounceSelf' })
 export const exileThisSpell = (): CardInstruction => ({ kind: 'exileThisSpell' })
 
 export const removeTarget = (
-  action: 'destroy' | 'bounce',
+  action: 'destroy' | 'bounce' | 'exile',
 ): CardInstruction => ({ kind: 'removeTarget', action })
+
+export const opponentMayPayMana = (
+  cost: string,
+  ifNot: CardInstruction[],
+  payer: 'active' | 'controller' = 'active',
+): CardInstruction => ({
+  kind: 'opponentMayPayMana',
+  cost,
+  payer,
+  ifNot,
+})
+
+export const attackBanUntilEot = (
+  defenderFilter: TargetFilter,
+  attackerController: 'active' | 'controller' = 'active',
+): CardInstruction => ({
+  kind: 'attackBanUntilEot',
+  defenderFilter,
+  attackerController,
+})
+
+export const putHandCardOnLibraryBottom = (): CardInstruction => ({
+  kind: 'putHandCardOnLibraryBottom',
+})
 
 export const putSelfOntoBattlefield = (): CardInstruction => ({
   kind: 'putSelfOntoBattlefield',
