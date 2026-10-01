@@ -274,6 +274,11 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')
   })
 
+  test('Dack Fayden, Helping Hand is registered', () => {
+    expect(missingCardPlugins(['Dack Fayden, Helping Hand'])).toEqual([])
+    expect(cardPluginEntry('Dack Fayden, Helping Hand')?.handlerIds).toContain('permanentControl')
+  })
+
   test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {
     const covered = [
       "Archaeomancer's Map",

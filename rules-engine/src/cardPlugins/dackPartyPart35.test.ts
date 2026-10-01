@@ -25,7 +25,7 @@ const plugins = [onResolvePlugin, giftCast, activated, encorePlugin]
 
 /** Pass-35 assigned inventory (12 names). */
 const INVENTORY: Record<string, 'registered' | 'kernel-only' | 'GAP'> = {
-  'Dack Fayden': 'GAP',
+  'Dack Fayden, Helping Hand': 'registered',
   'Helping Hand': 'kernel-only',
   'Collector\'s Vault': 'registered',
   'Daily Bugle Newspaper': 'registered',
@@ -40,9 +40,6 @@ const INVENTORY: Record<string, 'registered' | 'kernel-only' | 'GAP'> = {
 }
 
 const GAP_REASON: Partial<Record<string, string>> = {
-  'Dack Fayden':
-    'Pass 1 lacks compose path: revealUntil→battlefield then goad (not goadTargets) '
-    + 'and pairDonateToOpponents with runtime objectIds from that reveal.',
   'Rumor Gatherer':
     'Pass 1 lacks controlled-creature-enter trigger with whenResolvedNth (alliance); '
     + 'only landfallResolveNth exists today.',

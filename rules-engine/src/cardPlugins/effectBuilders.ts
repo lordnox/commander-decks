@@ -402,6 +402,17 @@ export const grantUntilEot = (...keywords: string[]): CardInstruction => ({
 
 export const goadTarget = (): CardInstruction => ({ kind: 'goadTargets' })
 
+export const goadObjectIds = (objectIds: string[]): CardInstruction => ({
+  kind: 'goadObjectIds',
+  objectIds,
+})
+
+export const goadRevealUntilMatches = (): CardInstruction => ({
+  kind: 'goadObjectIds',
+  objectIds: [],
+  objectIdsFromRevealUntil: true,
+})
+
 export const goadTargetUntilEot = (): CardInstruction => ({
   kind: 'goadTargets',
   untilEndOfTurn: true,
@@ -1219,7 +1230,15 @@ export const revealUntil = (
   match: TargetFilter,
   destination: 'hand' | 'battlefield',
   nonMatch: RevealUntilNonMatch,
-): CardInstruction => ({ kind: 'revealUntil', count, match, destination, nonMatch })
+  ...then: CardInstruction[]
+): CardInstruction => ({
+  kind: 'revealUntil',
+  count,
+  match,
+  destination,
+  nonMatch,
+  ...(then.length > 0 ? { then } : {}),
+})
 
 export const revealUntilBasicLand = (): CardInstruction =>
   revealUntil(1, { type: 'Land', supertype: 'Basic' }, 'hand', 'mill')
@@ -1591,6 +1610,13 @@ export const pairDonateToOpponents = (
 ): CardInstruction => ({
   kind: 'pairDonateToOpponents',
   objectIds,
+  distinctWhenBalanced,
+})
+
+export const pairDonateRevealUntilMatches = (distinctWhenBalanced = true): CardInstruction => ({
+  kind: 'pairDonateToOpponents',
+  objectIds: [],
+  objectIdsFromRevealUntil: true,
   distinctWhenBalanced,
 })
 

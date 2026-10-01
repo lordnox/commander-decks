@@ -141,7 +141,10 @@ import {
   putPermanentsFromHand,
   revealPick,
   revealMatchingToHand,
+  revealUntil,
   revealUntilBasicLand,
+  goadRevealUntilMatches,
+  pairDonateRevealUntilMatches,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
   returnChosenLandFromGraveyard,
@@ -2102,6 +2105,18 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Collector\'s Vault': [lootAndTreasure('collectorsVault.loot')],
+  'Dack Fayden, Helping Hand': [
+    enters(
+      revealUntil(
+        'opponentCount',
+        { type: 'Creature' },
+        'battlefield',
+        'shuffle',
+        goadRevealUntilMatches(),
+        pairDonateRevealUntilMatches(),
+      ),
+    ),
+  ],
   'Daily Bugle Newspaper': [lootAndTreasure('dailyBugle.loot')],
   'Perch Protection': [
     gift({ label: 'Gift an extra turn', extraTurn: true }),

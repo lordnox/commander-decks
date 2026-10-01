@@ -3,7 +3,9 @@ import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { ReduceResult } from '../types'
-import { onResolve, revealUntil, revealUntilBasicLand } from './effects'
+import { continuousEffects } from './continuousEffects'
+import { isGoaded } from '../plugins/goad'
+import { onResolve, goadRevealUntilMatches, revealUntil, revealUntilBasicLand } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { serializableEffects } from './effectRuntime'
 
@@ -43,7 +45,7 @@ const castFixture = (
       },
       libraries: { p1: library },
     },
-    { random: () => 0, cardPlugins: [onResolvePlugin] },
+    { random: () => 0, cardPlugins: [onResolvePlugin, continuousEffects] },
   )
   const withMana = {
     ...server.state,
@@ -174,5 +176,33 @@ describe('revealUntil', () => {
     expect(resolved.zoneOrder.p1.library.map((id) => resolved.objects[id].name))
       .toEqual(['Buried'])
     expect(resolved.zoneCounts.p1.library).toBe(1)
+  })
+
+  test('revealUntil with then goads matches after they enter the battlefield', () => {
+    const { resolved } = castFixture(
+      'Fixture Then Goad',
+      [onResolve(revealUntil(
+        2,
+        { type: 'Creature' },
+        'battlefield',
+        'shuffle',
+        goadRevealUntilMatches(),
+      ))],
+      [
+        instant('Lead'),
+        creature('First'),
+        instant('Between'),
+        creature('Second'),
+        creature('Hidden'),
+      ],
+      { players: 2 },
+    )
+    const names = ['First', 'Second']
+    for (const name of names) {
+      const object = named(resolved, name)
+      expect(object.zone).toBe('battlefield')
+      expect(isGoaded(object)).toBe(true)
+    }
+    expect(isGoaded(named(resolved, 'Hidden'))).toBe(false)
   })
 })

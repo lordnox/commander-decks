@@ -164,6 +164,7 @@ export type CardInstruction =
       match: TargetFilter
       destination: 'hand' | 'battlefield'
       nonMatch: RevealUntilNonMatch
+      then?: CardInstruction[]
     }
   | { kind: 'revealUntilBasicLand' }
   | { kind: 'revealMatchingToHand'; count: number; type: string }
@@ -270,6 +271,7 @@ export type CardInstruction =
   | { kind: 'animateUntilEot'; power: number; toughness: number; fromX?: boolean }
   | { kind: 'grantUntilEot'; keywords: string[]; maxFromX?: boolean }
   | { kind: 'goadTargets'; untilEndOfTurn?: boolean }
+  | { kind: 'goadObjectIds'; objectIds: string[]; objectIdsFromRevealUntil?: boolean }
   | { kind: 'phaseOutControlled' }
   | { kind: 'grantProtectionFromEverything' }
   | { kind: 'lifeTotalCannotChange' }
@@ -349,6 +351,7 @@ export type CardInstruction =
       kind: 'pairDonateToOpponents'
       objectIds: string[]
       distinctWhenBalanced?: boolean
+      objectIdsFromRevealUntil?: boolean
     }
   | { kind: 'bounceAttacking' }
   | { kind: 'chooseVotesThisTurn' }

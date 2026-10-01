@@ -13,7 +13,7 @@ import {
   RANDOM_EXILE_COPY_CARD_CHOSEN,
   returnOwnedLands,
 } from '../effects'
-import { runRevealUntil } from '../revealUntil'
+import { resolveRevealUntilThen, runRevealUntil } from '../revealUntil'
 import { instructionCount } from '../voteResult'
 import { returnAsEnchantmentOnly } from '../continuousEffects'
 import { matchesTargetFilter } from '../targetedResolve'
@@ -260,7 +260,18 @@ const revealUntil: InstructionHandler<'revealUntil'> = ({ draft, source, item },
   const count = instruction.count === 'opponentCount'
     ? instruction.count
     : instructionCount(instruction.count, source.controller, item)
-  if (count !== 0) runRevealUntil(draft, source, { ...instruction, count })
+  if (count === 0) return
+  const { matchedIds } = runRevealUntil(draft, source, { ...instruction, count })
+  if (!instruction.then?.length) return
+  draft.enqueue({
+    type: 'custom',
+    name: INSTRUCTIONS_RESUME,
+    payload: {
+      sourceId: source.id,
+      remaining: resolveRevealUntilThen(instruction.then, matchedIds),
+      ...(item ? { item } : {}),
+    },
+  })
 }
 
 const revealUntilBasicLand: InstructionHandler<'revealUntilBasicLand'> = ({ draft, source }) => {

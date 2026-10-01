@@ -618,6 +618,17 @@ const goadTargets: InstructionHandler<'goadTargets'> = (
   }
 }
 
+const goadObjectIds: InstructionHandler<'goadObjectIds'> = (
+  { draft, source },
+  instruction,
+) => {
+  for (const objectId of instruction.objectIds) {
+    const object = draft.object(objectId)
+    if (!object || !object.types.includes('Creature') || object.zone !== 'battlefield') continue
+    goadPermanent(object, source.controller)
+  }
+}
+
 const crewVehicle: InstructionHandler<'crewVehicle'> = ({ draft, source }) => {
   const vehicle = draft.object(source.id)
   if (!vehicle || vehicle.zone !== 'battlefield') return
@@ -928,6 +939,7 @@ export const resourceHandlers = {
   untapUpToLands,
   grantUntilEot,
   goadTargets,
+  goadObjectIds,
   crewVehicle,
   untapTarget,
   tapAll,
