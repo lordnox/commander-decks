@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import type { GameObject, PlayerId } from '../types'
-import type { RevealUntilNonMatch, TargetFilter } from './effectDefinitions'
+import type { CardInstruction, RevealUntilNonMatch, TargetFilter } from './effectDefinitions'
 import { validTarget } from './targetedResolve'
 
 export type RevealUntilParams = {
@@ -8,7 +8,25 @@ export type RevealUntilParams = {
   match: TargetFilter
   destination: 'hand' | 'battlefield'
   nonMatch: RevealUntilNonMatch
+  then?: CardInstruction[]
 }
+
+export const resolveRevealUntilThen = (
+  then: CardInstruction[],
+  matchedIds: string[],
+): CardInstruction[] => then.map((instruction) => {
+  if (instruction.kind === 'goadObjectIds' && instruction.objectIdsFromRevealUntil) {
+    return { kind: 'goadObjectIds', objectIds: matchedIds }
+  }
+  if (instruction.kind === 'pairDonateToOpponents' && instruction.objectIdsFromRevealUntil) {
+    return {
+      kind: 'pairDonateToOpponents',
+      objectIds: matchedIds,
+      distinctWhenBalanced: instruction.distinctWhenBalanced,
+    }
+  }
+  return instruction
+})
 
 const resolveCount = (draft: Draft, controller: PlayerId, count: number | 'opponentCount') => {
   if (count !== 'opponentCount') return count
@@ -30,22 +48,24 @@ export const runRevealUntil = (
   draft: Draft,
   source: GameObject,
   params: RevealUntilParams,
-) => {
+): { matchedIds: string[] } => {
   const controller = source.controller
   const needed = resolveCount(draft, controller, params.count)
   const library = draft.zoneOrder[controller].library
   const revealed: string[] = []
+  const matchedIds: string[] = []
   let matchCount = 0
 
   for (const objectId of library) {
     revealed.push(objectId)
     if (libraryMatches(draft, objectId, controller, params.match)) {
+      matchedIds.push(objectId)
       matchCount += 1
       if (matchCount >= needed) break
     }
   }
 
-  if (revealed.length === 0) return
+  if (revealed.length === 0) return { matchedIds }
 
   draft.enqueue({
     type: 'reveal',
@@ -71,4 +91,6 @@ export const runRevealUntil = (
   if (params.nonMatch === 'shuffle') {
     draft.enqueue({ type: 'shuffleLibrary', seat: controller })
   }
+
+  return { matchedIds }
 }

@@ -500,6 +500,12 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
     if (instruction.kind === 'discardCards' && instruction.then) {
       return [instruction, ...flattenInstructions(instruction.then.do)]
     }
+    if (instruction.kind === 'revealUntil' && instruction.then) {
+      return [instruction, ...flattenInstructions(instruction.then)]
+    }
+    if (instruction.kind === 'devour' && instruction.then) {
+      return [instruction, ...flattenInstructions(instruction.then)]
+    }
     return [instruction]
   })
 
@@ -635,10 +641,10 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(allListed, 'fight', 'fightUpToOne', 'fightOwnedVsOpponent')) ids.add('fight')
       if (hasKind(allListed, 'searchLibrary')) ids.add('librarySearch')
       if (hasKind(allListed, 'exchangeControlUntilEot')) ids.add('reinsOfPower')
-      if (hasKind(allListed, 'gainControlPermanent', 'pairDonateToOpponents')) {
-        ids.add('permanentControl')
-      }
       if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
+    }
+    if (hasKind(allListed, 'gainControlPermanent', 'pairDonateToOpponents')) {
+      ids.add('permanentControl')
     }
     if (hasKind(allListed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     if (hasKind(allListed, 'vote')) ids.add('vote')
