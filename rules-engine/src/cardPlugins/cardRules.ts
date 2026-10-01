@@ -146,6 +146,9 @@ import {
   revealUntilBasicLand,
   goadRevealUntilMatches,
   pairDonateRevealUntilMatches,
+  opponentMayPayMana,
+  attackBanUntilEot,
+  putHandCardOnLibraryBottom,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
   returnChosenLandFromGraveyard,
@@ -1214,6 +1217,39 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     staticExtraLandPlays(1),
     playLandsFromGraveyard(),
     landfall(selfMill(1)),
+  ],
+  'Jace, Multiverse Architect': [
+    triggerOn('beginCombat', {
+      if: { kind: 'notActivePlayer' },
+      do: [
+        opponentMayPayMana('{2}', [
+          attackBanUntilEot({
+            zone: 'battlefield',
+            types: ['Planeswalker'],
+            subtypes: ['Jace'],
+            controller: 'you',
+          }),
+        ]),
+      ],
+    }),
+    ability({ id: 'jace.plus-one' }, loyalty(1), draw(2), putHandCardOnLibraryBottom()),
+    ability(
+      {
+        id: 'jace.minus-three',
+        targets: {
+          filter: {
+            zone: 'battlefield',
+            types: ['Creature', 'Planeswalker'],
+            controller: 'you',
+            other: true,
+          },
+        },
+      },
+      loyalty(-3),
+      removeTarget('exile'),
+      revealUntil(1, { types: ['Creature', 'Planeswalker'] }, 'battlefield', 'bottomRandom'),
+    ),
+    handler('optionalManaPay'),
   ],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Keep Safe': [

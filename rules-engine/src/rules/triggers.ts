@@ -396,7 +396,7 @@ const collectVotesFinished = (
   }
 }
 
-const STEP_TRIGGERS = ['upkeep', 'precombatMain', 'end'] as const
+const STEP_TRIGGERS = ['upkeep', 'precombatMain', 'beginCombat', 'end'] as const
 
 const collectStep = (
   on: (typeof STEP_TRIGGERS)[number],

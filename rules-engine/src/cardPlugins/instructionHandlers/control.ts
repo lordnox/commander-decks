@@ -38,7 +38,11 @@ const removeTarget: InstructionHandler<'removeTarget'> = (
   draft.enqueue({
     type: 'move',
     objectId: object.id,
-    to: instruction.action === 'bounce' ? 'hand' : 'graveyard',
+    to: instruction.action === 'bounce'
+      ? 'hand'
+      : instruction.action === 'exile'
+        ? 'exile'
+        : 'graveyard',
   })
 }
 

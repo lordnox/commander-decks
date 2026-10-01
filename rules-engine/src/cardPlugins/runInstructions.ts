@@ -15,7 +15,11 @@ import {
 } from '../rules/selectCards'
 
 /** Instructions that read the hand, so earlier draws and other queued events must land first. */
-const AFTER_QUEUED_EVENTS = new Set(['putLandFromHand', 'mayCastFromHandWithoutPayingMana'])
+const AFTER_QUEUED_EVENTS = new Set([
+  'putLandFromHand',
+  'putHandCardOnLibraryBottom',
+  'mayCastFromHandWithoutPayingMana',
+])
 
 const isResumeEvent = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>
   event.type === 'custom' && event.name === INSTRUCTIONS_RESUME

@@ -79,7 +79,7 @@ export type ManaValuePredicate = {
   max?: number
 }
 
-export type RevealUntilNonMatch = 'mill' | 'shuffle'
+export type RevealUntilNonMatch = 'mill' | 'shuffle' | 'bottomRandom'
 
 /**
  * Voters of the vote an instruction list is resolving for. The opponent
@@ -116,7 +116,19 @@ export type CardInstruction =
   | { kind: 'exileSelf' }
   /** "Then you exile this spell": the resolving instant or sorcery is exiled instead of going to the graveyard. */
   | { kind: 'exileThisSpell' }
-  | { kind: 'removeTarget'; action: 'destroy' | 'bounce' }
+  | { kind: 'removeTarget'; action: 'destroy' | 'bounce' | 'exile' }
+  | {
+      kind: 'opponentMayPayMana'
+      cost: string
+      payer: 'active' | 'controller'
+      ifNot: CardInstruction[]
+    }
+  | {
+      kind: 'attackBanUntilEot'
+      defenderFilter: TargetFilter
+      attackerController: 'active' | 'controller'
+    }
+  | { kind: 'putHandCardOnLibraryBottom' }
   | { kind: 'putSelfOntoBattlefield' }
   | { kind: 'phaseOutTarget' }
   | { kind: 'createHeroWithLandCounters' }
@@ -557,6 +569,7 @@ export type TargetFilter = {
   bracketed?: TargetFilter
   type?: string
   types?: string[]
+  subtypes?: string[]
   supertype?: string
   nonland?: boolean
   noncreature?: boolean
@@ -670,6 +683,7 @@ export type CardEffect =
         | 'landToGraveyard'
         | 'upkeep'
         | 'precombatMain'
+        | 'beginCombat'
         | 'cast'
         | 'discard'
         | 'cycle'

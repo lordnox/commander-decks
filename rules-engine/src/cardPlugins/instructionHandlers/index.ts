@@ -27,6 +27,7 @@ import { blinkHandlers } from '../blink'
 import { statusEffectHandlers } from '../statusEffects'
 import { monstrosityInstruction } from '../monstrosity'
 import { targetedResolveInstructionHandlers } from '../targetedResolve'
+import { optionalManaPayInstructionHandlers } from '../optionalManaPay'
 import { voteInstruction } from '../vote'
 import { voteResultHandlers } from '../voteInstructions'
 import { destroyThenTokenHandlers } from '../destroyThenToken'
@@ -57,6 +58,7 @@ const instructionHandlers = {
   monstrosity: monstrosityInstruction,
   eachPlayerMayWheel: eachPlayerMayWheelInstruction,
   hiddenPileNegotiation: hiddenPileNegotiationInstruction,
+  ...optionalManaPayInstructionHandlers,
 } satisfies InstructionHandlers
 
 export const dispatchInstruction = (

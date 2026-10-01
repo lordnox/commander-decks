@@ -609,6 +609,12 @@ export type GameEvent =
       triggerId: string
       mana?: 'W' | 'B'
     }
+  | {
+      type: 'payOptionalMana'
+      seat: PlayerId
+      pendingId: string
+      cost?: string
+    }
   | { type: 'emptyManaPools' }
   // — Special actions —
   | {

@@ -1,6 +1,7 @@
 import type { GameObject, Plugin, TargetRef } from '../types'
 import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
+import { validTargetRef } from './targetedResolve'
 
 const MAIN_PHASES = new Set(['precombatMain', 'postcombatMain'])
 
@@ -91,6 +92,24 @@ export const planeswalker: Plugin = {
     } else if (effect.targets === 'teferiSunsetPlusOne') {
       if (!legalTeferiTargets(state, targets)) {
         return `${source.name} needs at most one artifact, creature, and land target`
+      }
+    } else if (
+      effect.targets
+      && typeof effect.targets === 'object'
+      && 'filter' in effect.targets
+    ) {
+      if (
+        targets.length !== 1
+        || !validTargetRef(
+          state,
+          targets[0],
+          effect.targets.filter,
+          event.seat,
+          undefined,
+          event.objectId,
+        )
+      ) {
+        return `${source.name} needs one legal target`
       }
     } else if (targets.length > 0) {
       return `${source.name} does not have a targeted ability`

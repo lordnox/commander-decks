@@ -2,6 +2,7 @@ import type Draft from '../draft'
 import type { GameObject, PlayerId } from '../types'
 import type { CardInstruction, RevealUntilNonMatch, TargetFilter } from './effectDefinitions'
 import { validTarget } from './targetedResolve'
+import { pickRandomChoices } from '../plugins/hiddenInformation'
 
 export type RevealUntilParams = {
   count: number | 'opponentCount'
@@ -74,18 +75,37 @@ export const runRevealUntil = (
     source: source.name,
   })
 
+  const matched: string[] = []
+  const nonMatched: string[] = []
   for (const objectId of revealed) {
-    const object = draft.object(objectId)
-    if (!object) continue
     if (libraryMatches(draft, objectId, controller, params.match)) {
-      draft.enqueue({ type: 'move', objectId, to: params.destination })
-      continue
-    }
-    if (params.nonMatch === 'mill') {
-      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+      matched.push(objectId)
     } else {
+      nonMatched.push(objectId)
+    }
+  }
+
+  for (const objectId of matched.slice(0, needed)) {
+    draft.enqueue({ type: 'move', objectId, to: params.destination })
+  }
+
+  if (params.nonMatch === 'mill') {
+    for (const objectId of nonMatched) {
+      draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+    }
+    return { matchedIds }
+  }
+
+  if (params.nonMatch === 'bottomRandom') {
+    const order = pickRandomChoices(draft, nonMatched, nonMatched.length)
+    for (const objectId of order) {
       draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
     }
+    return { matchedIds }
+  }
+
+  for (const objectId of nonMatched) {
+    draft.enqueue({ type: 'move', objectId, to: 'library', position: 'bottom' })
   }
 
   if (params.nonMatch === 'shuffle') {

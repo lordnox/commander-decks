@@ -72,6 +72,9 @@ export const matchesTargetFilter = (
   }
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.types && !filter.types.some((type) => object.types.includes(type))) return false
+  if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) {
+    return false
+  }
   if (filter.supertype && !object.supertypes.includes(filter.supertype)) return false
   if (filter.controller === 'you' && object.controller !== controller) return false
   if (filter.controller === 'opponent' && object.controller === controller) return false
