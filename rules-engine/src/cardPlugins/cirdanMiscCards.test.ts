@@ -932,6 +932,52 @@ describe('Phyrexian Ingester', () => {
     expect(gone.objects[target.id].zone).toBe('exile')
   })
 
+  const imprinted = async () => {
+    const { server, open } = await entering()
+    const done = resolveStack(server.rules, ok(server.rules(open, choose(open, 'Big Foe'))))
+    expect(stats(done, 'Phyrexian Ingester')).toEqual([7, 9])
+    return { server, done }
+  }
+
+  const reenter = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    via: 'hand' | 'graveyard',
+  ) => {
+    const id = named(state, 'Phyrexian Ingester').id
+    const left = resolveStack(server.rules, ok(server.rules(state, { type: 'move', objectId: id, to: via })))
+    expect(left.objects[id].exiledCards ?? []).toEqual([])
+    expect(left.objects[named(left, 'Big Foe').id].exiledWith).toBeUndefined()
+    return resolveStack(server.rules, ok(server.rules(left, { type: 'move', objectId: id, to: 'battlefield' })))
+  }
+
+  test('a bounced Ingester comes back with no imprint, and declining the new one leaves it 3/3', async () => {
+    const { server, done } = await imprinted()
+    const back = reenter(server, done, 'hand')
+    expect(pendingSelectionFor(back, 'p1')).toBeDefined()
+    const declined = resolveStack(server.rules, ok(server.rules(back, choose(back))))
+    expect(stats(declined, 'Phyrexian Ingester')).toEqual([3, 3])
+    expect(named(declined, 'Phyrexian Ingester').exiledCards ?? []).toEqual([])
+    expect(named(declined, 'Big Foe').zone).toBe('exile')
+  })
+
+  test('a second imprint after re-entering counts only the new exiled creature', async () => {
+    const { server, done } = await imprinted()
+    const back = reenter(server, done, 'hand')
+    const second = resolveStack(server.rules, ok(server.rules(back, choose(back, 'Own Bear'))))
+    expect(named(second, 'Own Bear').zone).toBe('exile')
+    expect(named(second, 'Phyrexian Ingester').exiledCards).toEqual([named(second, 'Own Bear').id])
+    expect(stats(second, 'Phyrexian Ingester')).toEqual([5, 5])
+  })
+
+  test('an Ingester that died and was reanimated is a fresh object with no imprint', async () => {
+    const { server, done } = await imprinted()
+    const back = reenter(server, done, 'graveyard')
+    const declined = resolveStack(server.rules, ok(server.rules(back, choose(back))))
+    expect(stats(declined, 'Phyrexian Ingester')).toEqual([3, 3])
+    expect(named(declined, 'Big Foe').zone).toBe('exile')
+  })
+
   test('exiling your own creature or the Ingester itself is allowed', async () => {
     const { server, open } = await entering()
     const own = resolveStack(server.rules, ok(server.rules(open, choose(open, 'Own Bear'))))
