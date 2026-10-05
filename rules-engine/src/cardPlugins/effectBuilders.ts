@@ -1829,30 +1829,41 @@ export const sagaChapters = (...chapters: SagaChapter[]): CardEffect => ({
   chapters,
 })
 
+type CastFilters = {
+  creatureOnly?: boolean
+  noncreatureOnly?: boolean
+  castBy?: 'opponent'
+}
+
+const castFilters = (options: CastFilters = {}): CastFilters => ({
+  ...(options.creatureOnly ? { creatureOnly: true } : {}),
+  ...(options.noncreatureOnly ? { noncreatureOnly: true } : {}),
+  ...(options.castBy ? { castBy: options.castBy } : {}),
+})
+
+/** Instructions, then optionally the filters (an object without a `kind`) as the last argument. */
 export const casts = (
-  ...args: Array<CardInstruction | { creatureOnly?: boolean }>
+  ...args: Array<CardInstruction | CastFilters>
 ): CardEffect => {
-  const last = args[args.length - 1]
-  const options = last && typeof last === 'object' && 'creatureOnly' in last
-    ? (args.pop() as { creatureOnly?: boolean })
-    : undefined
+  const last = args.at(-1)
+  const options = last && !('kind' in last) ? (args.pop() as CastFilters) : undefined
   return {
     op: 'trigger',
     on: 'cast',
     do: args as CardInstruction[],
-    ...(options?.creatureOnly ? { creatureOnly: true } : {}),
+    ...castFilters(options),
   }
 }
 
 export const castModal = (
   modal: ModalSpec,
-  options: { creatureOnly?: boolean } = {},
+  options: CastFilters = {},
 ): CardEffect => ({
   op: 'trigger',
   on: 'cast',
   do: [],
   modal,
-  ...(options.creatureOnly ? { creatureOnly: true } : {}),
+  ...castFilters(options),
 })
 
 export const loseHalfLifeRoundedUp = (): CardInstruction => ({ kind: 'loseHalfLifeRoundedUp' })

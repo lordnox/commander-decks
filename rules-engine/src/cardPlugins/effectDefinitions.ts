@@ -639,6 +639,10 @@ export type CardEffect =
       watch?: TargetFilter
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
+      /** A `cast` trigger only fires for noncreature spells. */
+      noncreatureOnly?: boolean
+      /** Whose casts fire a `cast` trigger; by default only the permanent's controller's. */
+      castBy?: 'opponent'
       modal?: ModalSpec
       targets?: 'opponent' | 'player' | {
         filter: TargetFilter
