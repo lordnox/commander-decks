@@ -1968,6 +1968,7 @@ export const sameLegalAct = (
     stackId?: string
     selectionId?: string
     triggerId?: string
+    pendingId?: string
   },
 ) => {
   if (left.kind !== right.kind) return false

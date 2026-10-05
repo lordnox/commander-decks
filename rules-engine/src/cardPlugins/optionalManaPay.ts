@@ -1,5 +1,5 @@
 import { payCost } from '../plugins/spells'
-import type { GameState, PlayerId, Plugin, StackItem } from '../types'
+import type { GameState, HookCtx, PlayerId, Plugin, StackItem } from '../types'
 import { runInstructions, type CardInstruction } from './effects'
 import { addAttackBan, type AttackBanAdd } from './attackBan'
 import type { TargetFilter } from './effectDefinitions'
@@ -48,7 +48,7 @@ const allowedDuringPayment = new Set([
 ])
 
 export const openOptionalManaPay = (
-  draft: Parameters<Plugin['apply']>[0]['draft'],
+  draft: HookCtx['draft'],
   options: {
     payer: PlayerId
     cost: string
