@@ -453,6 +453,16 @@ const advanceUntil = (
   return current
 }
 
+/** The kernel choice for chapter III, answered by offered position with exactly the picked cards as targets. */
+const stealAnswer = (cards: string[], picked: string[]) => ({
+  type: 'topdeck' as const,
+  choices: cards.map((card, slot) => ({
+    card,
+    slot,
+    destination: (picked.includes(card) ? 'target' : 'skip') as 'target' | 'skip',
+  })),
+})
+
 describe('Kiora Bests the Sea God', () => {
   const permanents = () => ({
     p1: [island('Own Island')],
@@ -530,16 +540,6 @@ describe('Kiora Bests the Sea God', () => {
     expect(named(done, 'Bystander').tapped).toBe(true)
     expect(named(done, 'Shrouded Mage')).toMatchObject({ tapped: true, skipNextUntap: true })
     expect(named(done, 'Foe Alpha').tapped).toBe(false)
-  })
-
-  /** The kernel choice for chapter III, answered by offered position with exactly the picked cards as targets. */
-  const stealAnswer = (cards: string[], picked: string[]) => ({
-    type: 'topdeck' as const,
-    choices: cards.map((card, slot) => ({
-      card,
-      slot,
-      destination: (picked.includes(card) ? 'target' : 'skip') as 'target' | 'skip',
-    })),
   })
 
   /** Answer the open chapter III choice with the engine, leaving the chapter ability on the stack. */
