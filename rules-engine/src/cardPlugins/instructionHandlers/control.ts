@@ -2,6 +2,7 @@ import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pending
 import { STEAL_CAST_DRAW } from '../stealCast'
 import { conditionHolds } from '../effects'
 import { hasKeyword } from '../../keywords'
+import { counterStackSpell } from '../targetedResolve'
 import { instructionCount } from '../voteResult'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
@@ -186,7 +187,17 @@ const opponentMayDrawThenStealCast: InstructionHandler<'opponentMayDrawThenSteal
   })
 }
 
-const counterTargetSpell: InstructionHandler<'counterTargetSpell'> = ({ draft, source }) => {
+const counterTargetSpell: InstructionHandler<'counterTargetSpell'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  if (instruction.chosen) {
+    // Legality is checked now: a spell that left the stack since targeting is no longer there to counter.
+    const target = item?.targets[0]
+    const spell = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+    if (spell?.zone === 'stack') counterStackSpell(draft, source, spell)
+    return
+  }
   setPendingDialog(draft, {
     sourceId: source.id,
     source: source.name,

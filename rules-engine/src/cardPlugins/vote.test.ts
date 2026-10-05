@@ -18,9 +18,11 @@ import {
   gainLife,
   ifVoteLeads,
   onVotesFinished,
+  putCountersOnTriggeringObject,
   putPermanentsFromHand,
   revealUntil,
   scry,
+  tapTriggeringObject,
   vote as voteInstruction,
 } from './effectBuilders'
 import type { CardInstruction, VoteOptions } from './effectDefinitions'
@@ -417,6 +419,61 @@ describe('vote results', () => {
     expect(Object.values(resolved.objects).filter((object) => object.name === 'Treasure'))
       .toHaveLength(0)
     expect(pendingSelectionsFor(resolved, 'p1')[0]).toMatchObject({ kind: 'scry', count: 3 })
+  })
+})
+
+describe('per-option effects on the voted object', () => {
+  const trap = voteInstruction(
+    'Secretly vote for a creature you do not control.',
+    { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } },
+    [forEachVotedOption(putCountersOnTriggeringObject('stun', 'triggerAmount'), tapTriggeringObject())],
+    true,
+  )
+  const board = { battlefield: { p2: [bear('Bear')], p3: [bear('Boar')], p4: [bear('Elk')] } }
+
+  test('each voted creature gets one stun counter per vote and taps; unvoted ones are left alone', () => {
+    const { game, state } = open(trap, board)
+    const [bearId, boarId] = ['Bear', 'Boar'].map((name) => named(state, name).id)
+    const afterTwo = castAll(game, state, [['p1', bearId], ['p2', bearId]]).state
+    // Secret until the end: other seats never see who is being stunned.
+    expect(pendingVote(projectForViewer(afterTwo, 'p3'))?.votes).toEqual({ p1: '*', p2: '*' })
+    expect(named(afterTwo, 'Bear').counters.stun).toBeUndefined()
+
+    const done = castAll(game, afterTwo, [['p3', bearId], ['p4', boarId]]).state
+    expect(named(done, 'Bear')).toMatchObject({ counters: { stun: 3 }, tapped: true })
+    expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 1 }, tapped: true })
+    expect(named(done, 'Elk')).toMatchObject({ counters: {}, tapped: false })
+    expect(pendingVote(projectForViewer(done, 'p3'))).toBeUndefined()
+  })
+
+  test('a creature that left the battlefield during the vote is skipped', () => {
+    const { game, state } = open(trap, board)
+    const bearId = named(state, 'Bear').id
+    const boarId = named(state, 'Boar').id
+    const voted = castAll(game, state, [['p1', bearId], ['p2', boarId], ['p3', bearId]]).state
+    const gone = ok(game.rules(voted, { type: 'move', objectId: bearId, to: 'graveyard' }))
+    const done = castAll(game, gone, [['p4', boarId]]).state
+    expect(named(done, 'Bear')).toMatchObject({ zone: 'graveyard', counters: {}, tapped: false })
+    expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 2 }, tapped: true })
+  })
+
+  test('stun counters make the creature skip untaps one at a time', () => {
+    const { game, state } = open(trap, board)
+    const bearId = named(state, 'Bear').id
+    const stunned = castAll(game, state, [
+      ['p1', bearId], ['p2', bearId], ['p3', bearId], ['p4', bearId],
+    ]).state
+    expect(named(stunned, 'Bear').counters.stun).toBe(4)
+    const first = ok(game.rules(stunned, { type: 'untap', objectId: bearId }))
+    expect(named(first, 'Bear')).toMatchObject({ counters: { stun: 3 }, tapped: true })
+    let next = first
+    for (let index = 0; index < 3; index += 1) {
+      next = ok(game.rules(next, { type: 'untap', objectId: bearId }))
+    }
+    expect(named(next, 'Bear').tapped).toBe(true)
+    expect(named(next, 'Bear').counters.stun).toBeUndefined()
+    expect(named(ok(game.rules(next, { type: 'untap', objectId: bearId })), 'Bear').tapped)
+      .toBe(false)
   })
 })
 

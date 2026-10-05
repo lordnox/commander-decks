@@ -121,7 +121,8 @@ export type CardInstruction =
   | { kind: 'phaseOutTarget' }
   | { kind: 'createHeroWithLandCounters' }
   | { kind: 'searchTargetControllerForBasicLandType' }
-  | { kind: 'tap' }
+  /** Taps this object, or the voted object when `subject` is `triggeringObject`. */
+  | { kind: 'tap'; subject?: 'triggeringObject' }
   | { kind: 'payMana'; cost: string }
   | { kind: 'getEnergy'; count: number }
   | { kind: 'payEnergy'; count: number }
@@ -153,6 +154,8 @@ export type CardInstruction =
   | { kind: 'drawHandDifference' }
   | { kind: 'winGame' }
   | { kind: 'addPlusCounters'; count: InstructionCount }
+  /** Puts counters of any kind on the object a per-option or per-trigger pass is about; skipped once it has left the battlefield. */
+  | { kind: 'putCounters'; counter: string; count: number | 'triggerAmount'; subject: 'triggeringObject' }
   | { kind: 'putChargeCountersFromTimesKicked' }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | {
@@ -388,6 +391,7 @@ export type CardInstruction =
   | { kind: 'searchLibrary'; spec?: SearchSpec; subtype?: string }
   | { kind: 'fightOwnedVsOpponent' }
   | { kind: 'counterUnlessPay'; amount: number }
+  /** Copy the spell this item targeted; its controller keeps the targets or picks new ones. */
   | { kind: 'copyTargetSpell' }
   | { kind: 'destroyTargetPermanent'; types: string[] }
   | {
@@ -482,7 +486,8 @@ export type CardInstruction =
   | { kind: 'addManaAtNextMainFromTarget' }
   | { kind: 'gainLifeTargetToughness' }
   | { kind: 'tapOpponentsCreatures' }
-  | { kind: 'counterTargetSpell' }
+  /** `chosen` counters the spell this item already targeted instead of asking for one. */
+  | { kind: 'counterTargetSpell'; chosen?: true }
   | { kind: 'bounceTargetPermanent' }
   | { kind: 'addPlusCountersToControlled'; count: number }
   | { kind: 'opponentMayDrawThenStealCast'; count: number }

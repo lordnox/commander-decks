@@ -158,57 +158,6 @@ export const copyCharacteristics = (
   effects: copied.effects ? [...copied.effects] : [],
 })
 
-export const copyStackSpell = (
-  draft: Draft,
-  originalObject: GameObject,
-  originalStackItem: StackItem,
-  controller: PlayerId,
-) => {
-  const objectId = draft.allocId('obj')
-  const copiedObject: GameObject = {
-    ...originalObject,
-    ...copyCharacteristics(originalObject),
-    ...(originalObject.frontFace
-      ? { frontFace: structuredClone(originalObject.frontFace) }
-      : {}),
-    ...(originalObject.backFace
-      ? { backFace: structuredClone(originalObject.backFace) }
-      : {}),
-    ...(originalObject.adventured ? { adventured: originalObject.adventured } : {}),
-    id: objectId,
-    owner: controller,
-    controller,
-    zone: 'stack',
-    token: false,
-    tapped: false,
-    summoningSickness: false,
-    damageMarked: 0,
-    counters: {},
-    attachedTo: null,
-    attacking: null,
-    blocking: null,
-    tags: [...originalObject.tags],
-  }
-  draft.objects[objectId] = copiedObject
-  const stackZone = draft.zoneOrder[controller]?.stack
-  if (stackZone) {
-    stackZone.push(objectId)
-    draft.zoneCounts[controller].stack += 1
-  }
-  const copiedItem: StackItem = {
-    ...originalStackItem,
-    id: draft.allocId('s'),
-    objectId,
-    controller,
-    name: copiedObject.name,
-    targets: [...originalStackItem.targets],
-    ...(originalStackItem.choices ? { choices: [...originalStackItem.choices] } : {}),
-    ...(originalStackItem.adventureCast ? { adventureCast: true } : {}),
-  }
-  draft.stack.unshift(copiedItem)
-  return copiedItem
-}
-
 export const copyTokenTemplate = (
   card: GameObject,
   extra: {
@@ -565,7 +514,7 @@ const CHOICE_KINDS = new Set([
   'putFromHand', 'secretCouncil', 'fight', 'fightUpToOne',
   'exchangeControlUntilEot', 'bounceAttacking', 'chooseVotesThisTurn',
   'createTreasures', 'drawGreatestPower', 'pumpControlled', 'searchLibrary',
-  'fightOwnedVsOpponent', 'counterUnlessPay', 'copyTargetSpell',
+  'fightOwnedVsOpponent', 'counterUnlessPay',
   'destroyTargetPermanent', 'lookTopPutLand', 'grantControlled', 'devour',
   'addPlusCountersFromSacrifice',
   'eachPlayerDiscard', 'eachPlayerSacrifice',
@@ -691,6 +640,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (hasKind(allListed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     if (hasKind(allListed, 'vote')) ids.add('vote')
+    if (hasKind(allListed, 'copyTargetSpell')) ids.add('stackCopy')
     if (hasKind(allListed, 'addManaChoice')) ids.add('manaChoice')
     if (hasKind(allListed, 'eachPlayerMayWheel')) ids.add('eachPlayerWheel')
     if (hasKind(allListed, 'blink', 'blinkReturn')) ids.add('blink')
