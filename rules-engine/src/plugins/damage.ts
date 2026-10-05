@@ -4,6 +4,7 @@ import {
   isLegendaryCreature,
   noteLegendaryCombatDamageToPlayer,
 } from './combatLegendaryDamage'
+import { recordDamageDealt } from './damageLedger'
 
 /**
  * CR 702.15b: damage from a lifelink source also gains its controller that
@@ -71,6 +72,7 @@ export const damage: Plugin = {
       const object = draft.object(event.target.objectId)
       if (!object || object.zone !== 'battlefield') return
       const source = draft.objects[event.sourceId]
+      recordDamageDealt(object, source, event.amount)
       const maximum = object.types.includes('Planeswalker')
         ? object.counters.loyalty ?? 0
         : object.types.includes('Battle')

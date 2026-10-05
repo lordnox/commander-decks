@@ -189,6 +189,12 @@ export type GameObject = {
   damageMarked: number
   /** Dealt damage by a deathtouch source this turn, so any of it is lethal. */
   deathtouched?: boolean
+  /**
+   * Damage dealt to this object this turn, totalled by the controller of the
+   * source. Survives leaving the battlefield (last-known information) and is
+   * cleared at cleanup or when the object next enters the battlefield.
+   */
+  damageDealtBy?: Record<PlayerId, number>
   counters: Record<string, number>
   /** Monstrosity marker; lost when the object changes zones (CR 701.109). */
   monstrous?: boolean

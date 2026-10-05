@@ -536,6 +536,10 @@ export const eachPlayerDraw = (count: number): CardInstruction => ({
   count,
 })
 
+export const eachPlayerDrawDamageDealtToSource = (): CardInstruction => ({
+  kind: 'eachPlayerDrawDamageDealtToSource',
+})
+
 export const eachPlayerLoseLife = (amount: number): CardInstruction => ({
   kind: 'eachPlayerLoseLife',
   amount,
