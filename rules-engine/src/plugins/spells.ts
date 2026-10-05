@@ -38,6 +38,7 @@ import { reboundsOnResolution } from './rebound'
 import { cantCastSpellWith } from './opponentRestrictions'
 import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
+import { mayCastAsThoughFlash } from './flashGrant'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -377,6 +378,7 @@ export const spells: Plugin = {
 
       if (
         !spell.types.includes('Instant')
+        && !mayCastAsThoughFlash(state, event.seat)
         && !(freeCast && !stealCast)
         && event.castOption !== 'exiledWithLife'
       ) {
