@@ -9,6 +9,13 @@ import { effectsOf } from '../cardPlugins/cardRules'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const COLORS: ManaId[] = ['W', 'U', 'B', 'R', 'G']
+const BASIC_LAND_MANA: Record<string, ManaId> = {
+  Plains: 'W',
+  Island: 'U',
+  Swamp: 'B',
+  Mountain: 'R',
+  Forest: 'G',
+}
 
 type ManaSource = {
   id?: string
@@ -34,16 +41,45 @@ const commanderIdentity = (state: Pick<GameState, 'objects'>, seat: PlayerId) =>
   return [...colors]
 }
 
+const ABILITY_WORD = String.raw`(?:[A-Z][^\n—]* — )?`
+const FREE_TAP_LINE = new RegExp(String.raw`^\(?${ABILITY_WORD}\{T\}(?:, Pay 1 life)?:`, 'i')
+const SACRIFICE_SELF_LINE = new RegExp(
+  String.raw`^\(?${ABILITY_WORD}(?:\{T\}, )?Sacrifice this \w+:`,
+  'i',
+)
+
+const manaLines = (oracleText: string) => {
+  const lines = oracleText.split('\n')
+  return {
+    free: lines.filter((line) => FREE_TAP_LINE.test(line)),
+    sacrifice: lines.filter((line) => SACRIFICE_SELF_LINE.test(line)),
+  }
+}
+
 /**
- * Oracle lines whose only costs are `{T}` and life, the abilities a bare
- * `tapForMana` may use. A line with any other cost (`{1}, {T}: Add {G}{U}`,
- * `{T}, Mill a card: Add {C}`) is an activated mana ability and is not a mode.
+ * Oracle lines a bare `tapForMana` may use: `{T}` and life costs, and a
+ * sacrifice of the source itself (Treasure, Lotus Petal). A line with any
+ * other cost (`{1}, {T}: Add {G}{U}`, `{T}, Mill a card: Add {C}`, `Sacrifice a
+ * creature: Add {C}{C}`) is an activated mana ability and is not a mode.
+ * Sacrifice lines count only when the source has no free line, and not when an
+ * explicit mana-ability effect already covers them.
  */
-const freeTapText = (oracleText: string) =>
-  oracleText
-    .split('\n')
-    .filter((line) => /^\(?\{T\}(?:, Pay 1 life)?:/i.test(line))
-    .join('\n')
+const tapManaText = (object: Pick<ManaSource, 'oracleText' | 'effects'>) => {
+  const { free, sacrifice } = manaLines(object.oracleText)
+  const explicitSacrifice = object.effects?.some((effect) =>
+    effect.op === 'activate' && effect.manaAbility && effect.costs.sacrifice)
+  return (free.length > 0 ? free : explicitSacrifice ? [] : sacrifice).join('\n')
+}
+
+/** Whether tapping this source for mana sacrifices it, as a Treasure does. */
+export const sacrificesForMana = (object: Pick<ManaSource, 'oracleText' | 'effects'>) =>
+  manaLines(object.oracleText).free.length === 0 && tapManaText(object) !== ''
+
+/** A sacrifice-only ability with no `{T}` (Basal Thrull) needs no untapped, unsick source. */
+export const manaRequiresTap = (object: Pick<ManaSource, 'oracleText'>) => {
+  const { free, sacrifice } = manaLines(object.oracleText)
+  return free.length > 0 || sacrifice.length === 0 || sacrifice.some((line) => line.includes('{T}'))
+}
 
 /**
  * The printed modes of a source's free mana abilities. `Add {G}{U}` is one mode
@@ -58,7 +94,7 @@ export const manaModes = (
   const nextVisited = new Set(visited)
   if (object.id) nextVisited.add(object.id)
   const modes: Partial<Record<ManaId, number>>[] = []
-  const freeText = freeTapText(object.oracleText)
+  const freeText = tapManaText(object)
   for (const match of freeText.matchAll(
     /Add ((?:\{[WUBRGC]\}(?:,? or |, )?)+)(?! for each)/gi,
   )) {
@@ -145,6 +181,13 @@ export const manaModes = (
   ) {
     modes.push({ G: 1 })
   }
+  // CR 305.6: a land with a basic land type has that type's mana ability even
+  // when its text does not print it (Dryad Arbor).
+  if (modes.length === 0 && object.types?.includes('Land')) {
+    for (const subtype of object.subtypes ?? []) {
+      if (BASIC_LAND_MANA[subtype]) modes.push({ [BASIC_LAND_MANA[subtype]]: 1 })
+    }
+  }
   if (modes.length === 0 && object.tapProduces) modes.push(object.tapProduces)
   return modes
 }
@@ -170,7 +213,8 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   if (object.zone !== 'battlefield') return `${object.name} is not on the battlefield`
   if (object.phasedOut) return `${object.name} is phased out`
   if (object.controller !== event.seat) return `${event.seat} does not control ${object.name}`
-  if (object.tapped) return `${object.name} is already tapped`
+  const requiresTap = manaRequiresTap(object)
+  if (requiresTap && object.tapped) return `${object.name} is already tapped`
   if (!poolForChoice(object, event.mana, state)) {
     if (event.mana && MANA_IDS.includes(event.mana)) {
       return `${object.name} cannot produce ${event.mana}`
@@ -183,7 +227,8 @@ const legal: Plugin['legal'] = ({ state, event }) => {
       : `${object.name} has no mana ability`
   }
   if (
-    object.types.includes('Creature')
+    requiresTap
+    && object.types.includes('Creature')
     && object.summoningSickness
     && !hasKeyword(object, 'haste', state)
   ) {
@@ -201,6 +246,7 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
     const pool = poolForChoice(object, event.mana, state)
     if (!pool) return
     object.tapped = true
+    if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })
     const player = draft.players[event.seat]
     const restriction = effectsOf(object).find((effect) => effect.op === 'restrictedMana')
     const restrictedSymbol = event.mana && event.mana !== 'C' && restriction

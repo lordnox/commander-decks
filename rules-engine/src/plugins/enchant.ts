@@ -3,11 +3,13 @@ import { isForest } from './forestOverlay'
 import { isSwamp } from './swampOverlay'
 
 /**
- * The single-word `Enchant land` / `Enchant Forest` / `Enchant creature` line
- * of an Aura. Longer restrictions (`Enchant artifact or creature`, `Enchant
- * player`) are not parsed, so those Auras keep their unchecked behavior.
+ * The `Enchant <word>` line of an Aura, for the words that name a battlefield
+ * type or basic land type. Other restrictions (`Enchant player`, `Enchant
+ * opponent`, `Enchant artifact or creature`) are not parsed, so those Auras
+ * keep their unchecked behavior.
  */
-const ENCHANT_LINE = /^Enchant (\w+)$/m
+const ENCHANT_LINE =
+  /^Enchant (permanent|land|creature|artifact|enchantment|planeswalker|plains|island|swamp|mountain|forest)$/im
 
 export const enchantRestriction = (object: Pick<GameObject, 'oracleText' | 'subtypes'>) =>
   object.subtypes.includes('Aura')

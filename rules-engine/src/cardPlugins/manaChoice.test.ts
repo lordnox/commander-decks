@@ -77,12 +77,32 @@ describe('costed mana abilities are not free modes', () => {
     expect(result.ok === false && result.error).toContain('no mana ability')
   })
 
-  test('life and tap costs stay free, mill and sacrifice costs do not', () => {
+  test('life and tap costs stay free, mill and other-sacrifice costs do not', () => {
     expect(manaModes({ oracleText: '{T}, Pay 1 life: Add {G} or {U}.' }))
       .toEqual([{ G: 1 }, { U: 1 }])
     expect(manaModes({ oracleText: '{T}, Mill a card: Add {C}.' })).toEqual([])
+    expect(manaModes({ oracleText: 'Sacrifice a creature: Add {C}{C}.' })).toEqual([])
+  })
+
+  test('an ability-word prefix does not hide a free tap ability', () => {
     expect(manaModes({
-      oracleText: '{T}, Sacrifice this artifact: Add one mana of any color.',
+      oracleText: 'Genomic Enhancement — {T}: Add one mana of any color.',
+    })).toHaveLength(5)
+  })
+
+  test('a land with a basic land type taps for it even without printed text (Dryad Arbor)', () => {
+    expect(manaModes({
+      oracleText: '(Dryad Arbor is a Forest and has "{T}: Add {G}" only through its type.)',
+      types: ['Land', 'Creature'],
+      subtypes: ['Forest', 'Dryad'],
+    })).toEqual([{ G: 1 }])
+  })
+
+  test('reminder text that merely quotes a mana ability gives no mana', () => {
+    expect(manaModes({
+      oracleText: 'Prototype {1}{G}\n(It has "{T}: Add {C}." as an example.)',
+      types: ['Artifact', 'Creature'],
+      subtypes: ['Golem'],
     })).toEqual([])
   })
 

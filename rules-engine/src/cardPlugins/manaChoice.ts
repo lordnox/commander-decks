@@ -57,7 +57,7 @@ export const manaChoice: Plugin = {
 export type ActivatedManaOption = {
   abilityId: string
   /** Mana paid from the pool before the ability adds `pool`. */
-  cost: string
+  cost?: string
   pool: Pool
   /** The `choices[0]` that selects this pool, for abilities that offer several. */
   choice?: string
@@ -73,9 +73,10 @@ const addPools = (left: Pool, right: Pool) => {
 
 /**
  * The costed mana abilities of a battlefield source whose result is known in
- * advance: `{1}, {T}: Add {G}{U}` (Signet) and
- * `{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}` (filter land). Their cost keeps
- * them out of `manaModes`; the planner activates them as mana abilities.
+ * advance: `{1}, {T}: Add {G}{U}` (Signet),
+ * `{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}` (filter land) and
+ * `Sacrifice this token: Add {C}` (Eldrazi Spawn). Their cost keeps them out
+ * of `manaModes`; the planner activates them as mana abilities.
  */
 export const activatedManaOptions = (
   state: GameState,
@@ -85,8 +86,8 @@ export const activatedManaOptions = (
     if (
       effect.op !== 'activate'
       || !effect.manaAbility
-      || !effect.costs.mana
-      || !Object.keys(effect.costs).every((key) => key === 'mana' || key === 'tap')
+      || !(effect.costs.mana || effect.costs.sacrifice)
+      || !Object.keys(effect.costs).every((key) => ['mana', 'tap', 'sacrifice'].includes(key))
       || (effect.zone ?? 'battlefield') !== object.zone
       || !conditionHolds(effect.if, state, object)
     ) return []
@@ -94,7 +95,7 @@ export const activatedManaOptions = (
     const fixed = effect.do.filter((instruction) => instruction.kind === 'addMana')
     if (choices.length > 1 || choices.length + fixed.length !== effect.do.length) return []
     const base = fixed.reduce((pool, instruction) => addPools(pool, instruction.mana), {} as Pool)
-    const cost = reducedActivationMana(state, object, effect.costs.mana)!
+    const cost = reducedActivationMana(state, object, effect.costs.mana)
     return choices.length === 0
       ? [{ abilityId: effect.id, cost, pool: base }]
       : choices[0].options.map((pool) => ({
