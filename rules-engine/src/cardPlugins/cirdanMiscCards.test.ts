@@ -212,6 +212,7 @@ describe('Dig Through Time', () => {
       type: 'topdeck' as const,
       choices: TOP.toReversed().map((card) => ({
         card,
+        slot: TOP.indexOf(card),
         destination: (hand.includes(card) ? 'hand' : 'bottom') as 'hand' | 'bottom',
       })),
     })
@@ -286,8 +287,9 @@ const costed = (name: string, types: string[], manaValue: number, extra: Partial
 
 const playerBallot = (targets: string[]) => ({
   type: 'topdeck' as const,
-  choices: ['p2', 'p3'].map((card) => ({
+  choices: ['p2', 'p3'].map((card, slot) => ({
     card,
+    slot,
     destination: (targets.includes(card) ? 'target' : 'skip') as 'target' | 'skip',
   })),
 })
@@ -1052,8 +1054,9 @@ describe('Phyrexian Ingester', () => {
 
     const answer = (picked: string[]) => ({
       type: 'topdeck' as const,
-      choices: (lobby.topdeck!.cards as string[]).map((card) => ({
+      choices: (lobby.topdeck!.cards as string[]).map((card, slot) => ({
         card,
+        slot,
         destination: (picked.includes(card) ? 'target' : 'skip') as 'target' | 'skip',
       })),
     })
