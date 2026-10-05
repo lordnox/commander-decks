@@ -212,14 +212,20 @@ for (const colossusName of COLOSSI) {
       }
     })
 
-    test('a token copy of it is not a card, so it is never shuffled into a library', () => {
+    test('a token copy of it is not a card: it is not shuffled into a library, and it ceases to exist (CR 704.5d)', () => {
       const server = game({
         battlefield: { p1: [deckCard(colossusName, { token: true })] },
       })
       const id = named(server.state, colossusName).id
+      const libraryBefore = [...server.state.zoneOrder.p1.library]
       const state = ok(server.rules(server.state, { type: 'sacrifice', objectId: id }))
-      expect(state.zoneOrder.p1.library).not.toContain(id)
-      expect(state.objects[id].zone).toBe('graveyard')
+      expect(state.objects[id]).toBeUndefined()
+      for (const seat of ['p1', 'p2', 'p3'] as const) {
+        for (const zone of ['battlefield', 'graveyard', 'exile', 'hand', 'library'] as const) {
+          expect(state.zoneOrder[seat][zone]).not.toContain(id)
+        }
+      }
+      expect(state.zoneOrder.p1.library).toEqual(libraryBefore)
     })
   })
 }
