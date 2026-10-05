@@ -729,6 +729,25 @@ describe('Sea Gate Restoration // Sea Gate, Reborn', () => {
     expect(one(settled, SEA_GATE).tapped).toBe(true)
   })
 
+  test('at exactly 3 life the 3-life payment is allowed, and it costs the game', () => {
+    const server = game({ hand: [card()] })
+    const edge = structuredClone(server.state)
+    edge.players.p1.life = 3
+    const asked = ok(server.rules(edge, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: one(edge, SEA_GATE).id,
+    }))
+    const settled = ok(server.rules(asked, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p1',
+      payload: { accepted: true },
+    }))
+    expect(settled.players.p1.life).toBe(0)
+    expect(settled.players.p1.lost).toBe(true)
+  })
+
   test('the life choice is private to its controller and survives a restart', () => {
     const server = game({ hand: [card()] })
     const asked = play(server)

@@ -250,6 +250,8 @@ const SCENARIOS: Record<string, Scenario> = {
   'Waterlogged Teachings // Inundated Archive': landFace('{U}', '{B}'),
   'Sea Gate Restoration // Sea Gate, Reborn': landFace('{U}'),
   'Zanarkand, Ancient Metropolis // Lasting Fayth': landFace('{G}'),
+  // Both faces are lands; the table plays the front one unless a face is named (landFace.test.ts plays the back).
+  'Barkchannel Pathway // Tidechannel Pathway': landFace('{G}'),
 }
 
 type ActCase = {
@@ -328,9 +330,7 @@ const ACT_CASES: Record<string, ActCase> = {
  */
 const KNOWN_GAPS: Record<string, string> = {
   'Castle Garenbrig':
-    '{2}{G}{G},{T}: Add six {G} that may only pay for creature spells or creature abilities needs a restricted-mana variant besides the chosen-creature-type one',
-  'Barkchannel Pathway // Tidechannel Pathway':
-    'playLand always shows the first land face; there is no way to choose the Tidechannel (blue) face',
+    'taps for {G} (and enters tapped without a Forest), but its {2}{G}{G},{T}: Add six {G} ability, spendable only on creature spells and creature abilities, is unimplemented: it needs a restricted-mana variant for creature spells and creature abilities',
 }
 
 /** Sources with their own describe block below. */

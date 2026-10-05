@@ -38,7 +38,7 @@ const actionsIfPriority = (state: GameState, seat: PlayerId) =>
   availableActions(state.priority === seat ? state : { ...state, priority: seat }, seat)
 
 const actionText = (action: AvailableAction) => {
-  if (action.kind === 'playLand') return `play ${action.name}`
+  if (action.kind === 'playLand') return `play ${action.faceName ?? action.name}`
   if (action.kind === 'castSpell') {
     return action.alternativeCost === 'withoutPayingMana'
       ? `cast ${action.name} without paying its mana cost`

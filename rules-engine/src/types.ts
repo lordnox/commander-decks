@@ -482,7 +482,8 @@ export type GameEvent =
   | { type: 'resolveTop' }
   | { type: 'advanceStep' }
   // — Zone & card motion —
-  | { type: 'playLand'; seat: PlayerId; objectId: string }
+  /** `face` picks a face of a double-faced land card; omitted, the first land face is played. */
+  | { type: 'playLand'; seat: PlayerId; objectId: string; face?: 'front' | 'back' }
   | {
       type: 'castSpell'
       seat: PlayerId

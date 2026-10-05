@@ -66,6 +66,17 @@ test('unlocking a door is labelled with the door, not as a blocker declaration',
   })).toBe('Unlock — Forgotten Cellar')
 })
 
+test('a land face of a two-land card is labelled with its face name', () => {
+  expect(legalActLabel({
+    kind: 'playLand',
+    objectId: 'path',
+    name: 'Barkchannel Pathway // Tidechannel Pathway',
+    face: 'back',
+    faceName: 'Tidechannel Pathway',
+  })).toBe('Play land — Tidechannel Pathway')
+  expect(legalActLabel({ kind: 'playLand', objectId: 'forest', name: 'Forest' })).toBe('Play land')
+})
+
 test('a hidden hand slot renders a card back', () => {
   const html = renderToStaticMarkup(
     <CardRow

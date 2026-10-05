@@ -294,6 +294,16 @@ const abilitySearchGame = (
   return { kernel, lobby, sourceId }
 }
 
+const landFaceOf = (oracleText: string) => ({
+  types: ['Land'],
+  subtypes: [],
+  supertypes: [],
+  manaCost: '',
+  manaValue: 0,
+  colors: [],
+  oracleText,
+})
+
 describe('kernel host journal', () => {
   test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {
     const server = createServerGame(
@@ -1935,6 +1945,58 @@ describe('kernel host journal', () => {
       type: 'playLand',
       seat: 'p1',
       objectId: 'land-1',
+    })
+  })
+
+  test('plays the chosen land face of a two-land card from a structured act', async () => {
+    const root = mkdtempSync(join(tmpdir(), 'kernel-act-'))
+    mkdirGames(root)
+    seedKernel(root, 'pod', (state) => {
+      const id = 'path-1'
+      state.objects[id] = {
+        ...cardTemplate('Barkchannel Pathway // Tidechannel Pathway', {
+          types: ['Land'],
+          oracleText: '{T}: Add {G}. // {T}: Add {U}.',
+          frontFace: landFaceOf('{T}: Add {G}.'),
+          backFace: landFaceOf('{T}: Add {U}.'),
+        }),
+        id,
+        owner: 'p1',
+        controller: 'p1',
+        zone: 'hand',
+      }
+      state.zoneOrder.p1.hand = [id]
+      state.zoneCounts.p1.hand = 1
+      state.step = 'precombatMain'
+      state.active = 'p1'
+      state.priority = 'p1'
+    })
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    lobby.occupants.p1 = { name: 'Active player', deck: 'deck' }
+    const kernel = await openKernel('pod', root, lobby)
+
+    // Without a face the act is ambiguous between the two land faces.
+    expect(() => applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'playLand',
+      objectId: 'path-1',
+    })).toThrow('That action is not available now')
+    applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'playLand',
+      objectId: 'path-1',
+      face: 'back',
+    })
+    expect(kernel.history.current().objects['path-1']).toMatchObject({
+      zone: 'battlefield',
+      oracleText: '{T}: Add {U}.',
+    })
+    expect(kernel.journal.events.at(-1)).toEqual({
+      type: 'playLand',
+      seat: 'p1',
+      objectId: 'path-1',
+      face: 'back',
     })
   })
 
