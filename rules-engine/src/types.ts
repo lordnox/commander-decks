@@ -46,6 +46,8 @@ export type RestrictedMana = {
   mana: ManaId
   sourceId: string
   creatureType?: string
+  /** Spend this mana only to cast a legendary spell. */
+  legendary?: boolean
   uncounterable?: boolean
 }
 

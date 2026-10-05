@@ -7,6 +7,7 @@ import type {
   ManaPool,
   PlayerId,
   Plugin,
+  RestrictedMana,
   TargetRef,
 } from '../types'
 import type { CastCostCondition } from '../cardPlugins/effectDefinitions'
@@ -244,6 +245,19 @@ const hasAllCreatureTypes = (state: GameState, seat: PlayerId) =>
     && object.controller === seat
     && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes))
 
+/** Whether mana with a spending restriction may pay for this spell. */
+export const restrictedManaFits = (
+  mana: Pick<RestrictedMana, 'creatureType' | 'legendary'>,
+  spell: Pick<GameObject, 'types' | 'subtypes' | 'supertypes'> | undefined,
+  everyCreatureType: boolean,
+) => {
+  if (!spell) return false
+  if (mana.legendary) return spell.supertypes.includes('Legendary')
+  return spell.types.includes('Creature')
+    && Boolean(mana.creatureType)
+    && (everyCreatureType || spell.subtypes.includes(mana.creatureType!))
+}
+
 const paySpellCost = (
   state: GameState,
   seat: PlayerId,
@@ -253,10 +267,7 @@ const paySpellCost = (
 ) => {
   const stored = state.players[seat].restrictedMana ?? []
   const allTypes = hasAllCreatureTypes(state, seat)
-  const eligible = stored.filter((mana) =>
-    object.types.includes('Creature')
-    && Boolean(mana.creatureType)
-    && (allTypes || object.subtypes.includes(mana.creatureType!)))
+  const eligible = stored.filter((mana) => restrictedManaFits(mana, object, allTypes))
   const combined = { ...state.players[seat].mana }
   for (const mana of eligible) combined[mana.mana] += 1
   const paid = payCost(combined, cost, extras)
