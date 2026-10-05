@@ -692,6 +692,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     if (hasKind(allListed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     if (hasKind(allListed, 'vote')) ids.add('vote')
     if (hasKind(allListed, 'addManaChoice')) ids.add('manaChoice')
+    if (hasKind(allListed, 'eachPlayerMayWheel')) ids.add('eachPlayerWheel')
     if (hasKind(allListed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(allListed, 'encoreTokens')) ids.add('encore')
     if (hasKind(allListed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')

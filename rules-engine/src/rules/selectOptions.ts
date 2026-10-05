@@ -15,6 +15,11 @@ export type PendingOptionSelection = {
     replacedBy: string[]
     remainingAfter?: number
   } | {
+    /** Each remaining seat, in turn order, is asked after this one answers. */
+    kind: 'wheel'
+    count: number
+    remaining: PlayerId[]
+  } | {
     kind: 'hidden-piles-reveal'
     piles: [string[], string[]]
     opponents: PlayerId[]
