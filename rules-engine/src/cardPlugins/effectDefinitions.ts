@@ -666,6 +666,8 @@ export type CardEffect =
         do: CardInstruction[]
       }
       pumpPerLinkedExile?: { power: number; toughness: number }
+      /** If this card would be put into a graveyard from anywhere, reveal it and shuffle it into its owner's library. */
+      shuffleIntoLibraryInstead?: true
       exileOpponentGraveyard?: boolean
       playExiledWithLife?: boolean
     }

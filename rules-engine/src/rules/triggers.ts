@@ -411,7 +411,7 @@ const collectMoveTriggers = (
     collectEffects(before, 'leaves', state, matches)
   }
 
-  if (event.to === 'graveyard' && before.types.includes('Creature')) {
+  if (before.zone === 'battlefield' && event.to === 'graveyard' && before.types.includes('Creature')) {
     collectEffects(before, 'dies', state, matches)
   }
 }

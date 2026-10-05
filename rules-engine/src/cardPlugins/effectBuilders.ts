@@ -688,6 +688,12 @@ export const ward = (
       : options,
 })
 
+/** Reveal this card and shuffle it into its owner's library instead of putting it into a graveyard. */
+export const shuffleIntoLibraryInstead = (): CardEffect => ({
+  op: 'static',
+  shuffleIntoLibraryInstead: true,
+})
+
 export const bestow = (
   cost: string,
   bonus: { power: number; toughness: number },
