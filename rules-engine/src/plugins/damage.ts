@@ -144,6 +144,12 @@ export const damage: Plugin = {
       return
     }
 
+    // CR 400.7: an object that enters the battlefield is new and has been dealt no damage.
+    if (event.type === 'move' && event.to === 'battlefield') {
+      delete draft.object(event.objectId)?.damageDealtBy
+      return
+    }
+
     if (event.type === 'sacrifice') {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'battlefield') return
