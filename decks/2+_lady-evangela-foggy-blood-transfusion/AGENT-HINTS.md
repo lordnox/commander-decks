@@ -31,11 +31,13 @@ Primer owns the plan. This file is the seat checklist.
 
 ## Combat
 
-This deck does not attack for damage, but it may arrange a harmless Sokrates
-attack to draw cards. Block with Souls or Baird when the math is good, **and**
-still fire prevention at the rest of the team. Baird's tax is the
-**attacker's** cost; this seat does not pay it, but the attack is illegal if
-they did not.
+Lashwrithe's Germ may attack to flip Elbrus. Do not attack just to "use" the sword
+if a fog or counter is the real play this turn. Withengar has no haste.
+
+Sokrates may still arrange a harmless attack to draw cards. Block with Souls or
+Baird when the math is good, **and** still fire prevention at the rest of the
+team. Baird's tax is the **attacker's** cost; this seat does not pay it, but
+the attack is illegal if they did not.
 
 ## Politics
 

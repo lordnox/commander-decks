@@ -1,0 +1,198 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "825c61e7-bf33-45ea-af78-97ab3bc96753",
+      "name": "Dark Ascension Checklist",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/825c61e7-bf33-45ea-af78-97ab3bc96753"
+    },
+    {
+      "component": "combo_piece",
+      "id": "683af377-c491-4f62-900c-6b83d75c33c9",
+      "name": "Elbrus, the Binding Blade // Withengar Unbound",
+      "object": "related_card",
+      "type_line": "Legendary Artifact — Equipment // Legendary Creature — Demon",
+      "uri": "https://api.scryfall.com/cards/683af377-c491-4f62-900c-6b83d75c33c9"
+    }
+  ],
+  "artist": "Eric Deschamps",
+  "artist_ids": [
+    "37970e22-9cee-44c1-af44-5ee27cf26b76"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Eric Deschamps",
+      "artist_id": "37970e22-9cee-44c1-af44-5ee27cf26b76",
+      "colors": [],
+      "flavor_text": "Those who grasp its hilt soon hear the demon's call.",
+      "illustration_id": "2769c231-53cc-4915-9503-8efb42eb0797",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "crop": "https://cards.scryfall.io/crop/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "display": "https://cards.scryfall.io/display/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "grid": "https://cards.scryfall.io/grid/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "large": "https://cards.scryfall.io/large/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "normal": "https://cards.scryfall.io/normal/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "png": "https://cards.scryfall.io/png/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.png?1783940797",
+        "small": "https://cards.scryfall.io/small/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "thumb": "https://cards.scryfall.io/thumb/front/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797"
+      },
+      "mana_cost": "{7}",
+      "name": "Elbrus, the Binding Blade",
+      "object": "card_face",
+      "oracle_text": "Equipped creature gets +1/+0.\nWhen equipped creature deals combat damage to a player, unattach Elbrus, then transform it.\nEquip {1}",
+      "type_line": "Legendary Artifact — Equipment"
+    },
+    {
+      "artist": "Eric Deschamps",
+      "artist_id": "37970e22-9cee-44c1-af44-5ee27cf26b76",
+      "color_indicator": [
+        "B"
+      ],
+      "colors": [
+        "B"
+      ],
+      "flavor_text": "There are not enough lives on Innistrad to satisfy his thirst for retribution.",
+      "illustration_id": "689b61b1-df95-4779-b171-ed5fa724c838",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "crop": "https://cards.scryfall.io/crop/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "display": "https://cards.scryfall.io/display/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "grid": "https://cards.scryfall.io/grid/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797",
+        "large": "https://cards.scryfall.io/large/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "normal": "https://cards.scryfall.io/normal/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "png": "https://cards.scryfall.io/png/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.png?1783940797",
+        "small": "https://cards.scryfall.io/small/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.jpg?1783940797",
+        "thumb": "https://cards.scryfall.io/thumb/back/6/8/683af377-c491-4f62-900c-6b83d75c33c9.webp?1783940797"
+      },
+      "mana_cost": "",
+      "name": "Withengar Unbound",
+      "object": "card_face",
+      "oracle_text": "Flying, intimidate, trample (A creature with intimidate can't be blocked except by artifact creatures and/or creatures that share a color with it.)\nWhenever a player loses the game, put thirteen +1/+1 counters on Withengar Unbound.",
+      "power": "13",
+      "toughness": "13",
+      "type_line": "Legendary Creature — Demon"
+    }
+  ],
+  "cardmarket_id": 252626,
+  "cmc": 7.0,
+  "collector_number": "147",
+  "color_identity": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 9742,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "frame_effects": [
+    "sunmoondfc"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "683af377-c491-4f62-900c-6b83d75c33c9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:06:37Z",
+  "keywords": [
+    "Flying",
+    "Transform",
+    "Trample",
+    "Equip",
+    "Intimidate"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_foil_id": 43240,
+  "mtgo_id": 43239,
+  "multiverse_ids": [
+    244740,
+    244738
+  ],
+  "name": "Elbrus, the Binding Blade // Withengar Unbound",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "da5881ca-b86e-4582-ae0e-1570c59773ae",
+  "oversized": false,
+  "penny_rank": 6034,
+  "prices": {
+    "eur": "2.33",
+    "eur_foil": "7.40",
+    "tix": "0.02",
+    "usd": "6.50",
+    "usd_etched": null,
+    "usd_foil": "12.58"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ada5881ca-b86e-4582-ae0e-1570c59773ae&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/43239?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=252626&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F57802%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Elbrus%2C+the+Binding+Blade",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=244740&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DElbrus%252C%2Bthe%2BBinding%2BBlade%2B%252F%252F%2BWithengar%2BUnbound",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DElbrus%252C%2Bthe%2BBinding%2BBlade%2B%252F%252F%2BWithengar%2BUnbound"
+  },
+  "released_at": "2012-02-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/683af377-c491-4f62-900c-6b83d75c33c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dka?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dka/147/elbrus-the-binding-blade-withengar-unbound?utm_source=api",
+  "set": "dka",
+  "set_id": "8052750a-aaf2-46fc-b46d-633f14124017",
+  "set_name": "Dark Ascension",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Adka&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/8052750a-aaf2-46fc-b46d-633f14124017",
+  "story_spotlight": false,
+  "tcgplayer_id": 57802,
+  "textless": false,
+  "type_line": "Legendary Artifact — Equipment // Legendary Creature — Demon",
+  "uri": "https://api.scryfall.com/cards/683af377-c491-4f62-900c-6b83d75c33c9",
+  "variation": false
+}

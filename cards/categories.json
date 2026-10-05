@@ -12188,8 +12188,20 @@
       "categories": [
         "removal"
       ]
+    },
+    "da5881ca-b86e-4582-ae0e-1570c59773ae": {
+      "name": "Elbrus, the Binding Blade // Withengar Unbound",
+      "categories": [
+        "win-condition"
+      ]
+    },
+    "066ba81e-b32d-4808-97ab-0b5f52d557e4": {
+      "name": "Lashwrithe",
+      "categories": [
+        "token-production"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-09-23T11:07:04.105382+00:00"
+  "updated_at": "2026-10-05T20:40:25.364483+00:00"
 }

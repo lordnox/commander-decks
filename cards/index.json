@@ -1968,8 +1968,12 @@
     "wakening sun's avatar": "3c2aec69-ffd9-4a34-888c-58adbbb99bb5",
     "world map": "51d4f95e-aad2-4e5f-9f15-a68bbdf9ab3e",
     "zetalpa, primal dawn": "7da0e5de-3e4c-420a-8685-991206100b9d",
-    "palace jailer": "180eda7c-fca2-403b-85cd-8ffebaf9f408"
+    "palace jailer": "180eda7c-fca2-403b-85cd-8ffebaf9f408",
+    "elbrus, the binding blade": "da5881ca-b86e-4582-ae0e-1570c59773ae",
+    "elbrus, the binding blade // withengar unbound": "da5881ca-b86e-4582-ae0e-1570c59773ae",
+    "withengar unbound": "da5881ca-b86e-4582-ae0e-1570c59773ae",
+    "lashwrithe": "066ba81e-b32d-4808-97ab-0b5f52d557e4"
   },
   "schema_version": 1,
-  "updated_at": "2026-09-23T11:07:04.105382+00:00"
+  "updated_at": "2026-10-05T20:40:25.364483+00:00"
 }

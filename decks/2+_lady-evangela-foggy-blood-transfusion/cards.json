@@ -964,6 +964,48 @@
       "submitted_name": "Eclipsed Steppe"
     },
     {
+      "cache": "cards/da5881ca-b86e-4582-ae0e-1570c59773ae.json",
+      "card": {
+        "cmc": 7.0,
+        "faces": [
+          {
+            "mana_cost": "{7}",
+            "name": "Elbrus, the Binding Blade",
+            "oracle_text": "Equipped creature gets +1/+0.\nWhen equipped creature deals combat damage to a player, unattach Elbrus, then transform it.\nEquip {1}",
+            "type_line": "Legendary Artifact — Equipment"
+          },
+          {
+            "mana_cost": "",
+            "name": "Withengar Unbound",
+            "oracle_text": "Flying, intimidate, trample (A creature with intimidate can't be blocked except by artifact creatures and/or creatures that share a color with it.)\nWhenever a player loses the game, put thirteen +1/+1 counters on Withengar Unbound.",
+            "power": "13",
+            "toughness": "13",
+            "type_line": "Legendary Creature — Demon"
+          }
+        ],
+        "keywords": [
+          "Flying",
+          "Transform",
+          "Trample",
+          "Equip",
+          "Intimidate"
+        ],
+        "type_line": "Legendary Artifact — Equipment // Legendary Creature — Demon"
+      },
+      "categories": [
+        "Drain Finisher"
+      ],
+      "category_source": "decklist",
+      "name": "Elbrus, the Binding Blade // Withengar Unbound",
+      "oracle_id": "da5881ca-b86e-4582-ae0e-1570c59773ae",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/dka/147/elbrus-the-binding-blade-withengar-unbound?utm_source=api",
+      "submitted_categories": [
+        "Drain Finisher"
+      ],
+      "submitted_name": "Elbrus, the Binding Blade"
+    },
+    {
       "cache": "cards/959bcf99-3c9a-4f99-98b2-13514d3dac16.json",
       "card": {
         "cmc": 2.0,
@@ -1451,6 +1493,33 @@
         "Commander{top}"
       ],
       "submitted_name": "Lady Evangela"
+    },
+    {
+      "cache": "cards/066ba81e-b32d-4808-97ab-0b5f52d557e4.json",
+      "card": {
+        "cmc": 4.0,
+        "keywords": [
+          "Equip",
+          "Living weapon"
+        ],
+        "mana_cost": "{4}",
+        "oracle_text": "Living weapon (When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this to it.)\nEquipped creature gets +1/+1 for each Swamp you control.\nEquip {B/P}{B/P} ({B/P} can be paid with either {B} or 2 life.)",
+        "type_line": "Artifact — Equipment"
+      },
+      "categories": [
+        "Swamp Engine",
+        "Life Payment"
+      ],
+      "category_source": "decklist",
+      "name": "Lashwrithe",
+      "oracle_id": "066ba81e-b32d-4808-97ab-0b5f52d557e4",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/c14/245/lashwrithe?utm_source=api",
+      "submitted_categories": [
+        "Swamp Engine",
+        "Life Payment"
+      ],
+      "submitted_name": "Lashwrithe"
     },
     {
       "cache": "cards/b3d81980-76f2-44e2-b1c9-01e30c726312.json",
@@ -2494,6 +2563,7 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
+        "Maybeboard{noDeck}{noPrice}",
         "Draw",
         "Politics"
       ],
@@ -2503,6 +2573,7 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/ncc/87/tenuous-truce?utm_source=api",
       "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
         "Draw",
         "Politics"
       ],
@@ -2518,6 +2589,7 @@
         "type_line": "Enchantment"
       },
       "categories": [
+        "Maybeboard{noDeck}{noPrice}",
         "Drain Finisher"
       ],
       "category_source": "decklist",
@@ -2526,6 +2598,7 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/dmr/32/test-of-endurance?utm_source=api",
       "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
         "Drain Finisher"
       ],
       "submitted_name": "Test of Endurance"
@@ -2751,11 +2824,11 @@
       "submitted_name": "Wedding Ring"
     }
   ],
-  "categorized_cards": 106,
-  "generated_at": "2026-08-31T15:17:45.703521+00:00",
-  "maybeboard_cards": 15,
-  "maybeboard_unique_cards": 15,
-  "resolved_unique_cards": 106,
+  "categorized_cards": 108,
+  "generated_at": "2026-10-05T20:40:25.364483+00:00",
+  "maybeboard_cards": 17,
+  "maybeboard_unique_cards": 17,
+  "resolved_unique_cards": 108,
   "schema_version": 3,
   "source": "decks/2+_lady-evangela-foggy-blood-transfusion/decklist.txt",
   "total_cards": 100,
