@@ -541,6 +541,11 @@ export const eachPlayerDrawDamageDealtToSource = (): CardInstruction => ({
   kind: 'eachPlayerDrawDamageDealtToSource',
 })
 
+export const eachPlayerMayWheel = (count: number): CardInstruction => ({
+  kind: 'eachPlayerMayWheel',
+  count,
+})
+
 export const eachPlayerLoseLife = (amount: number): CardInstruction => ({
   kind: 'eachPlayerLoseLife',
   amount,
@@ -623,6 +628,7 @@ export const returnFromGraveyard = (options: {
   to?: 'hand' | 'battlefield'
   filter?: TargetFilter
   tapped?: boolean
+  eachPlayer?: true
 }): CardInstruction => ({
   kind: 'returnChosenLandFromGraveyard',
   min: options.min ?? 0,
@@ -630,7 +636,12 @@ export const returnFromGraveyard = (options: {
   to: options.to ?? 'hand',
   ...(options.filter ? { filter: options.filter } : {}),
   ...(options.tapped !== undefined ? { tapped: options.tapped } : {}),
+  ...(options.eachPlayer ? { eachPlayer: true } : {}),
 })
+
+/** Each player returns up to `count` cards from their graveyard to their hand. */
+export const eachPlayerReturn = (count: number): CardInstruction =>
+  returnFromGraveyard({ max: count, filter: {}, eachPlayer: true })
 
 /** You may put a permanent card from your graveyard onto the battlefield. */
 export const putPermanentFromGraveyard = (): CardInstruction => ({

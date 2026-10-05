@@ -783,37 +783,41 @@ const returnChosenLandFromGraveyard: InstructionHandler<'returnChosenLandFromGra
   const to = instruction.to ?? 'battlefield'
   const tapped = to === 'battlefield' && instruction.tapped !== false
   const filter = instruction.filter ?? { type: 'Land' }
-  const candidates = (draft.zoneOrder[source.controller].graveyard ?? []).filter((objectId) => {
-    const object = draft.object(objectId)
-    return matchesTargetFilter(draft, object, filter, source.controller)
-  })
-  if (candidates.length === 0) return
-  const count = Math.min(max, candidates.length)
-  if (count < 1 && min < 1) return
-  openCardSelection(draft, {
-    seat: source.controller,
-    kind: 'choose',
-    count,
-    min: Math.min(min, count),
-    candidates,
-    sourceId: source.id,
-    source: source.name,
-    prompt: to === 'hand'
-      ? count === 1
-        ? 'Return a card from your graveyard to your hand.'
-        : `Return up to ${count} cards from your graveyard to your hand.`
-      : tapped
-        ? 'Return a land card from your graveyard to the battlefield tapped.'
-        : count === 1
-          ? 'You may put a permanent card from your graveyard onto the battlefield.'
-          : `Return up to ${count} cards from your graveyard to the battlefield.`,
-    destinations: ['target'],
-    fromSeat: source.controller,
-    fromZone: 'graveyard',
-    moveSelectedTo: to,
-    tapSelected: tapped,
-    targetFilter: filter,
-  })
+  const seats = instruction.eachPlayer ? apnapSeats(draft) : [source.controller]
+  for (const seat of seats) {
+    const candidates = (draft.zoneOrder[seat].graveyard ?? []).filter((objectId) => {
+      const object = draft.object(objectId)
+      return matchesTargetFilter(draft, object, filter, seat)
+    })
+    if (candidates.length === 0) continue
+    const count = Math.min(max, candidates.length)
+    if (count < 1 && min < 1) continue
+    openCardSelection(draft, {
+      seat,
+      kind: 'choose',
+      count,
+      min: Math.min(min, count),
+      candidates,
+      sourceId: source.id,
+      source: source.name,
+      prompt: to === 'hand'
+        ? count === 1
+          ? 'Return a card from your graveyard to your hand.'
+          : `Return up to ${count} cards from your graveyard to your hand.`
+        : tapped
+          ? 'Return a land card from your graveyard to the battlefield tapped.'
+          : count === 1
+            ? 'You may put a permanent card from your graveyard onto the battlefield.'
+            : `Return up to ${count} cards from your graveyard to the battlefield.`,
+      destinations: ['target'],
+      fromSeat: seat,
+      fromZone: 'graveyard',
+      moveSelectedTo: to,
+      tapSelected: tapped,
+      targetFilter: filter,
+      sequence: draft.allocTs(),
+    })
+  }
 }
 
 const sacrificeControlled: InstructionHandler<'sacrificeControlled'> = (

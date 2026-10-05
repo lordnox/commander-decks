@@ -8,6 +8,7 @@ import { chooseCreatureTypeInstruction } from '../creatureTypeChoice'
 import { addManaChoiceInstruction } from '../manaChoice'
 import { monarchExileInstructionHandlers } from '../monarchExile'
 import { encoreHandlers } from '../encore'
+import { eachPlayerMayWheelInstruction } from '../eachPlayerWheel'
 import { hiddenPileNegotiationInstruction } from '../hiddenPiles'
 import { multiplayerHandlers } from './multiplayer'
 import { permanentControlHandlers } from '../permanentControl'
@@ -54,6 +55,7 @@ const instructionHandlers = {
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
   monstrosity: monstrosityInstruction,
+  eachPlayerMayWheel: eachPlayerMayWheelInstruction,
   hiddenPileNegotiation: hiddenPileNegotiationInstruction,
 } satisfies InstructionHandlers
 

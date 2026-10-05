@@ -274,6 +274,8 @@ export type CardInstruction =
   | { kind: 'eachPlayerDraw'; count: number }
   /** Each player draws cards equal to the damage dealt to this by sources they controlled this turn. */
   | { kind: 'eachPlayerDrawDamageDealtToSource' }
+  /** Each player, in turn order, may discard their hand and, if they do, draws `count` cards. */
+  | { kind: 'eachPlayerMayWheel'; count: number }
   | { kind: 'eachPlayerLoseLife'; amount: number }
   | { kind: 'eachPlayerSacrifice'; type: string }
   | {
@@ -284,6 +286,8 @@ export type CardInstruction =
       max?: number
       to?: 'hand' | 'battlefield'
       filter?: TargetFilter
+      /** Each living player chooses from their own graveyard, in turn order, instead of only the controller. */
+      eachPlayer?: true
     }
   | { kind: 'sacrificeControlled'; types?: string[]; count: number }
   | { kind: 'putTargetOnLibraryTop' }
