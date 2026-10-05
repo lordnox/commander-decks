@@ -2,7 +2,6 @@ import { payCost } from '../plugins/spells'
 import type { GameState, HookCtx, PlayerId, Plugin, StackItem } from '../types'
 import { runInstructions, type CardInstruction } from './effects'
 import { addAttackBan, type AttackBanAdd } from './attackBan'
-import type { TargetFilter } from './effectDefinitions'
 import type { InstructionHandler } from './instructionHandlers/types'
 
 export const PENDING_OPTIONAL_MANA = 'kernel.pendingOptionalManaPay'
