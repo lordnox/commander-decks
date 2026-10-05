@@ -1406,6 +1406,11 @@ export const teferiSunsetPlusOne = (): CardInstruction => ({
 })
 
 /** Look at the top `count` cards, put `pick` into your hand, the rest on the bottom in any order. */
+export const mayCastFromHandWithoutPayingMana = (maxManaValue: number): CardInstruction => ({
+  kind: 'mayCastFromHandWithoutPayingMana',
+  maxManaValue,
+})
+
 export const lookTopPick = (count: number, pick: number): CardInstruction => ({
   kind: 'lookTopPick',
   count,

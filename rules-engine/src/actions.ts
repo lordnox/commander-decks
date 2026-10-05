@@ -51,7 +51,7 @@ import {
 } from './plugins/doubleFaced'
 import { resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
-import { pendingFreeCastFor } from './plugins/rebound'
+import { freeCastCandidates, pendingFreeCastFor } from './plugins/rebound'
 import { enchantTargets } from './plugins/enchant'
 import { mayCastAsThoughFlash } from './plugins/flashGrant'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
@@ -1195,20 +1195,19 @@ export const availableActions = (
   if (!seat || state.players[seat]?.lost) return []
   const freeCast = pendingFreeCastFor(state, seat)
   if (freeCast) {
-    const object = state.objects[freeCast.objectId]
     return [
-      ...(object && canCastAtTiming(state, seat, object, true)
-        ? [{
-            kind: 'castSpell' as const,
-            objectId: object.id,
-            name: object.name,
-            alternativeCost: 'withoutPayingMana' as const,
-          }]
-        : []),
+      ...freeCastCandidates(state, freeCast)
+        .filter((object) => canCastAtTiming(state, seat, object, true))
+        .map((object): AvailableAction => ({
+          kind: 'castSpell',
+          objectId: object.id,
+          name: object.name,
+          alternativeCost: 'withoutPayingMana',
+        })),
       {
         kind: 'declineFreeCast',
         objectId: freeCast.objectId,
-        name: object?.name ?? 'free cast',
+        name: state.objects[freeCast.objectId]?.name ?? 'free cast',
       },
     ]
   }
@@ -1585,6 +1584,7 @@ const targetVariants = (
       timesKicked: candidate.timesKicked,
       targets,
       seat,
+      withoutPayingMana: candidate.alternativeCost === 'withoutPayingMana',
     }), delveMax), {
       phyrexianLife: candidate.phyrexianLife ?? [],
       creatures: (candidate.convoke ?? [])

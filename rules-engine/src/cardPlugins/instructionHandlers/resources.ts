@@ -795,6 +795,12 @@ InstructionHandler<'mayCastFromExileWithoutPayingMana'> = ({ draft, source }) =>
   openFreeCast(draft, source)
 }
 
+/** Ends the resolution: the choice stays open until the controller casts or declines. */
+const mayCastFromHandWithoutPayingMana:
+InstructionHandler<'mayCastFromHandWithoutPayingMana'> = ({ draft, source }, instruction) => {
+  openFreeCast(draft, source, { maxManaValue: instruction.maxManaValue })
+}
+
 const drawGreatestPower: InstructionHandler<'drawGreatestPower'> = (
   { draft, source },
   instruction,
@@ -902,6 +908,7 @@ export const resourceHandlers = {
   delay,
   drawAtNextUpkeep,
   mayCastFromExileWithoutPayingMana,
+  mayCastFromHandWithoutPayingMana,
   drawGreatestPower,
   pumpControlled,
   grantControlled,
