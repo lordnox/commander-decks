@@ -188,7 +188,8 @@ export const discard: Plugin = {
     if (event.type === 'discard') {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'hand') return
-      draft.move(event.objectId, 'graveyard')
+      // A `move` event, not a direct move, so "put into a graveyard" replacements see the discard.
+      draft.enqueue({ type: 'move', objectId: event.objectId, to: 'graveyard' })
       draft.note(`${event.seat} discards ${object.name}`)
       return
     }

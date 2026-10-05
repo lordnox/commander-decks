@@ -570,6 +570,9 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       ids.add('combatTax')
     }
     if (effect.op === 'static' && effect.ward) ids.add('ward')
+    if (effect.op === 'static' && effect.shuffleIntoLibraryInstead) {
+      ids.add('shuffleIntoLibraryInstead')
+    }
     if (effect.op === 'static' && (effect.exileOpponentGraveyard || effect.playExiledWithLife)) {
       ids.add('exiledWith')
     }

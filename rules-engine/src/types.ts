@@ -533,6 +533,8 @@ export type GameEvent =
       controller?: PlayerId
       /** Starting lore count chosen as a Saga with read ahead enters. */
       sagaChapter?: number
+      /** Rule instances whose replacement already rewrote this move. */
+      replacedBy?: string[]
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
