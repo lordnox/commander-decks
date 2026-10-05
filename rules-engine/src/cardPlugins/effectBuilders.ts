@@ -887,6 +887,8 @@ export const returnOwnedGraveyardLands = (tapped = true): CardInstruction => ({
 
 export const bounceSelf = (): CardInstruction => ({ kind: 'bounceSelf' })
 
+export const exileThisSpell = (): CardInstruction => ({ kind: 'exileThisSpell' })
+
 export const removeTarget = (
   action: 'destroy' | 'bounce',
 ): CardInstruction => ({ kind: 'removeTarget', action })

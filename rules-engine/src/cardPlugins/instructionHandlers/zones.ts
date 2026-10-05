@@ -167,6 +167,23 @@ const exileSelf: InstructionHandler<'exileSelf'> = ({ draft, source }) => {
   draft.enqueue({ type: 'move', objectId: source.id, to: 'exile' })
 }
 
+/**
+ * While the spell's own instructions run, `spells` has already queued its move to the
+ * graveyard, so that move is retargeted. After a pause (a vote) the card already sits in
+ * the graveyard and is moved on. Copies cease to exist instead of being exiled.
+ */
+const exileThisSpell: InstructionHandler<'exileThisSpell'> = ({ draft, source }) => {
+  const spell = draft.object(source.id)
+  if (!spell || spell.spellCopy) return
+  const cleanup = draft.pending.find((event) =>
+    event.type === 'move' && event.objectId === spell.id && event.to === 'graveyard')
+  if (cleanup?.type === 'move') {
+    cleanup.to = 'exile'
+    return
+  }
+  if (spell.zone === 'graveyard') draft.enqueue({ type: 'move', objectId: spell.id, to: 'exile' })
+}
+
 const putSelfOntoBattlefield: InstructionHandler<'putSelfOntoBattlefield'> = (
   { draft, source },
 ) => {
@@ -932,6 +949,7 @@ export const zoneHandlers = {
   returnToOwnersControl,
   finishWarpExile,
   exileSelf,
+  exileThisSpell,
   putSelfOntoBattlefield,
   phaseOutTarget,
   createHeroWithLandCounters,
