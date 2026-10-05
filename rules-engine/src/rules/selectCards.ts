@@ -64,6 +64,8 @@ export type PendingCardSelection = {
   source?: string
   prompt?: string
   destinations?: CardSelectionDestination[]
+  /** Exact number of cards a `scry` look must put into hand (fewer when fewer cards were looked at). */
+  handQuota?: number
   /** Whose zone the cards come from (defaults to `seat`). */
   fromSeat?: PlayerId
   fromZone?: ZoneId
@@ -437,6 +439,11 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
     }
     seen.add(choice.objectId)
   }
+  if (selection.handQuota !== undefined) {
+    const toHand = choices.filter(({ destination }) => destination === 'hand').length
+    const required = Math.min(selection.handQuota, expected)
+    if (toHand !== required) return `must put exactly ${required} card(s) into hand`
+  }
 }
 
 const applyTopDeckChoices = (
@@ -452,6 +459,9 @@ const applyTopDeckChoices = (
       to: 'library',
       position: 'top',
     })
+  }
+  for (const choice of choices.filter(({ destination }) => destination === 'hand')) {
+    draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })
   }
   if (kind === 'scry') {
     for (const choice of choices.filter(({ destination }) => destination === 'bottom')) {
@@ -646,13 +656,15 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     const choices = parseChoices(event)
     if (!choices) return
     applyTopDeckChoices(draft, event.seat, choices, selection.kind)
-    const names = choices
+    // The log reaches every seat, so name only the cards that become public.
+    const binned = choices
+      .filter(({ destination }) => destination === 'graveyard')
       .map((choice) => draft.objects[choice.objectId]?.name ?? 'a card')
       .join(', ')
     draft.note(
-      selection.source
-        ? `${event.seat} ${selection.kind}s ${names} for ${selection.source}`
-        : `${event.seat} ${selection.kind}s ${names}`,
+      `${event.seat} ${selection.kind === 'scry' ? 'looks at' : 'surveils'} ${choices.length} card(s)${
+        selection.source ? ` for ${selection.source}` : ''
+      }${binned ? `, putting ${binned} into the graveyard` : ''}`,
     )
   } else if (selection.kind === 'partition') {
     const choices = parseChoices(event)

@@ -116,7 +116,7 @@ export const applySelectCards = (
   }
   const choices = message.choices.map((choice) => ({
     objectId: objectIdsForNames(state, waiting.objectIds, [choice.card])[0],
-    destination: choice.destination as 'top' | 'bottom' | 'graveyard' | 'face-up' | 'face-down',
+    destination: choice.destination as 'top' | 'bottom' | 'hand' | 'graveyard' | 'face-up' | 'face-down',
   }))
   if (choices.length !== waiting.count) {
     throw new Error(`Assign exactly ${waiting.count} card(s).`)

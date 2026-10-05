@@ -99,7 +99,7 @@ import {
   putChargeCountersFromTimesKicked,
   loyalty,
   loyaltyX,
-  lookTopChooseOne,
+  lookTopPick,
   lookTopPutLand,
   lockOrUnlockDoor,
   manaIf,
@@ -1393,7 +1393,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, loyalty(1), teferiSunsetPlusOne()),
     ability({
       id: 'teferi.minus-two',
-    }, loyalty(-2), lookTopChooseOne(3)),
+    }, loyalty(-2), lookTopPick(3, 1)),
     ability({
       id: 'teferi.minus-seven',
     }, loyalty(-7), teferiSunsetEmblem()),

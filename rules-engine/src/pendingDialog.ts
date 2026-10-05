@@ -12,7 +12,6 @@ export type PendingDialog = {
   seat: PlayerId
   kind:
     | 'scry'
-    | 'look-top'
     | 'put-land'
     | 'put-permanents'
     | 'surveil'
@@ -140,7 +139,6 @@ export const clearPendingDialog = (draft: Draft, seat: PlayerId) => {
 export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
   if (
     dialog.kind === 'scry'
-    || dialog.kind === 'look-top'
     || dialog.kind === 'surveil'
     || dialog.kind === 'reveal-pick'
   ) {

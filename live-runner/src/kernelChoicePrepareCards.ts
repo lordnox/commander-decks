@@ -267,12 +267,18 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
               max: count,
             },
           }
+      : selection.handQuota !== undefined
+        ? { hand: { min: Math.min(selection.handQuota, count), max: Math.min(selection.handQuota, count) } }
       : undefined
   return openTopdeck(
     lobby,
     {
       seat,
-      kind: selection.kind === 'discard' ? 'discard-card' : selection.kind,
+      kind: selection.kind === 'discard'
+        ? 'discard-card'
+        : selection.handQuota !== undefined
+          ? 'look-top'
+          : selection.kind,
       cards: names,
       destinations,
       ...(requirements ? { requirements } : {}),

@@ -1,7 +1,7 @@
 import { commanderRules } from '../formats'
 import { legalActsFor } from '../actions'
 import { cardTemplate, forest, planeswalker } from '../newGame'
-import { pendingDialogFor } from '../pendingDialog'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { replayComparableState } from '../replay'
 import { createServerGame } from '../runtime'
 import type { GameObject, ReduceResult } from '../types'
@@ -128,11 +128,11 @@ describe('Teferi, Who Slows the Sunset', () => {
     const resolved = ok(runtime.rules(activated, { type: 'resolveTop' }))
 
     expect(resolved.objects[source.id].counters.loyalty).toBe(2)
-    expect(pendingDialogFor(resolved, 'p1')).toMatchObject({
-      kind: 'look-top',
+    expect(pendingSelectionFor(resolved, 'p1')).toMatchObject({
+      kind: 'scry',
       count: 3,
       destinations: ['bottom', 'hand'],
-      requirements: { hand: { min: 1, max: 1 } },
+      handQuota: 1,
     })
   })
 

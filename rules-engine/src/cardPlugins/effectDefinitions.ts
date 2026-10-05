@@ -170,7 +170,7 @@ export type CardInstruction =
   | { kind: 'loseLifeTargetController'; amount: number }
   | { kind: 'dealDamageToChosenTarget'; amount: number }
   | { kind: 'teferiSunsetPlusOne' }
-  | { kind: 'lookTopChooseOne'; count: number }
+  | { kind: 'lookTopPick'; count: number; pick: number }
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
   | { kind: 'putPermanentsFromHand'; max: InstructionCount }

@@ -99,7 +99,6 @@ export const applyKernelChoice = (
     case 'surveil':
       return applyZoneChoice(context)
     case 'scry':
-    case 'look-top':
       return applyTopOfLibrary(context)
     default:
       return OPTIONAL_DIALOGS.has(decision.kernel.stage)
