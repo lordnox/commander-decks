@@ -1162,7 +1162,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       linkExile({ type: 'Creature', controller: 'you' }, {}),
     ),
     ability(
-      { id: 'endlessSands.return', sorcery: true },
+      { id: 'endlessSands.return' },
       { mana: '{4}', tap: true, sacrifice: 'self' },
       returnLinkedExile(),
     ),
@@ -2448,14 +2448,8 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Voyager Staff': [
     activate({
       id: 'voyagerStaff.blink',
-      costs: { mana: '{2}', tap: true, sacrifice: 'self' },
-      targets: {
-        filter: {
-          controller: 'you',
-          types: ['Artifact', 'Creature', 'Land'],
-          other: true,
-        },
-      },
+      costs: { mana: '{2}', sacrifice: 'self' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
       do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
     }),
   ],
