@@ -35,8 +35,6 @@ import {
 import { holdMessage, priorityModeMessage } from './liveMessages'
 import type { AvailableAction } from '../../rules-engine/src/actions'
 import type {
-  PlayerState,
-  ReplayEvent,
   ReplayGame,
   ReplaySeat,
 } from './replayTypes'

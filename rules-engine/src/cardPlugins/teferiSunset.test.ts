@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { legalActsFor } from '../actions'
 import { cardTemplate, forest, planeswalker } from '../newGame'

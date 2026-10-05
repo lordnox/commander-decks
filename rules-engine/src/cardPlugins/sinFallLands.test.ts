@@ -198,7 +198,6 @@ describe('Sin-fall lands and alternate casting', () => {
       objectId: talon.id,
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    const choice = pendingSelectionFor(state, 'p1')!
     const target = named(state, 'Target Creature')
     state = ok(server.rules(state, {
       type: 'selectCards',

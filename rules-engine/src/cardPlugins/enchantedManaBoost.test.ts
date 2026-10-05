@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'bun:test'
 import { availableActions, eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
-import { cardTemplate, forest } from '../newGame'
+import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import type { CardTemplate, GameEvent, GameState } from '../types'
+import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
 import { chosenColor } from './chosenColor'
 import {

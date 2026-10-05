@@ -1,6 +1,5 @@
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import { effectsOf } from './cardRules'
-import { manaValueOf } from './effectRuntime'
 
 export const canPlayExiledWithLife = (
   state: GameState,

@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate, forest } from '../newGame'
+import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { ok, resolveStack } from '../testHelpers'
+import { ok } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelection, pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
@@ -161,7 +161,6 @@ describe('Sin-fall modal and saga behavior', () => {
       players: ['p2'],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    const pickCreature = pendingSelectionFor(state, 'p1')!
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',
