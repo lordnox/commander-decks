@@ -1977,6 +1977,66 @@ describe('kernel host journal', () => {
     expect(kernel.journal.events.some((event) => event.type === 'judgeFallback')).toBe(false)
   })
 
+  describe('multiple blockers on one attacker', () => {
+    const blockSetup = (attackerText: string) => {
+      const creature = (name: string, oracleText = '') =>
+        cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, oracleText })
+      const server = createServerGame(
+        commanderRules,
+        {
+          players: 2,
+          battlefield: {
+            p1: [creature('Attacker', attackerText)],
+            p2: [creature('Blocker A'), creature('Blocker B')],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const state = structuredClone(server.state)
+      const byName = (name: string) =>
+        Object.values(state.objects).find((object) => object.name === name)!
+      const attacker = byName('Attacker')
+      attacker.tapped = true
+      attacker.summoningSickness = false
+      attacker.attacking = { kind: 'player', player: 'p2' }
+      for (const name of ['Blocker A', 'Blocker B']) byName(name).summoningSickness = false
+      state.step = 'declareBlockers'
+      state.active = 'p1'
+      state.priority = 'p2'
+      const kernel = handleFor(server.rules, state)
+      const lobby = createLobby()
+      lobby.phase = 'play'
+      lobby.occupants.p2 = { name: 'Defender', deck: 'deck' }
+      const block = (...names: string[]) =>
+        applyKernelAct(kernel, lobby, 'p2', {
+          type: 'act',
+          kind: 'declareBlockers',
+          blockers: names.map((name) => ({ blockerId: byName(name).id, attackerId: attacker.id })),
+        })
+      return { kernel, block, byName, attacker }
+    }
+
+    test('two blockers can block one attacker', () => {
+      const { kernel, block, byName, attacker } = blockSetup('')
+      block('Blocker A', 'Blocker B')
+      const current = kernel.history.current()
+      expect(current.objects[byName('Blocker A').id].blocking).toBe(attacker.id)
+      expect(current.objects[byName('Blocker B').id].blocking).toBe(attacker.id)
+    })
+
+    test('a menace attacker can be blocked by two creatures', () => {
+      const { kernel, block, byName, attacker } = blockSetup('Menace')
+      block('Blocker A', 'Blocker B')
+      expect(kernel.history.current().objects[byName('Blocker B').id].blocking).toBe(attacker.id)
+    })
+
+    test('a menace attacker is not blocked by one creature', () => {
+      const { kernel, block, byName } = blockSetup('Menace')
+      expect(() => block('Blocker A')).toThrow('menace')
+      expect(kernel.history.current().objects[byName('Blocker A').id].blocking).toBeNull()
+    })
+  })
+
   test('Rankle publishes its modes, then a sacrifice choice per player', () => {
     const body = (name: string) => ({
       ...forest(),
