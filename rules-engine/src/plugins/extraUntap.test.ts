@@ -33,3 +33,22 @@ test("Bender's Waterskin uses generic mana and extra-untap rules", () => {
   expect(nextTurn.step).toBe('untap')
   expect(nextTurn.objects[objectId].tapped).toBe(false)
 })
+
+test('an extra untap spends a stun counter instead of untapping', () => {
+  const waterskin = cardTemplate("Bender's Waterskin", {
+    types: ['Artifact'],
+    oracleText: "Untap this artifact during each other player's untap step.\n"
+      + '{T}: Add one mana of any color.',
+  })
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [{ ...waterskin, tapped: true, counters: { stun: 1 } }] },
+  })
+  const objectId = Object.values(server.state.objects)
+    .find((object) => object.name === "Bender's Waterskin")!.id
+  const nextTurn = ok(server.rules(
+    { ...server.state, step: 'cleanup' },
+    { type: 'advanceStep' },
+  ))
+  expect(nextTurn.objects[objectId].tapped).toBe(true)
+  expect(nextTurn.objects[objectId].counters.stun).toBeUndefined()
+})

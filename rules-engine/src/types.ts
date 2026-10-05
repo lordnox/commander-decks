@@ -184,6 +184,8 @@ export type GameObject = {
   zone: ZoneId
   tapped: boolean
   summoningSickness: boolean
+  /** "Doesn't untap during its controller's next untap step"; cleared by that step. */
+  skipNextUntap?: true
   damageMarked: number
   /** Dealt damage by a deathtouch source this turn, so any of it is lethal. */
   deathtouched?: boolean

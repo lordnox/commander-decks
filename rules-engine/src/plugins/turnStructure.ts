@@ -6,6 +6,7 @@ import { LEGENDARY_COMBAT_DAMAGE_FROM } from './combatLegendaryDamage'
 import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 import { phaseInControlledBeforeUntap } from './phasing'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
+import { untapStepUntaps } from '../rules/untap'
 
 export const STEPS: StepId[] = [
   'untap',
@@ -60,7 +61,7 @@ const cleanupHandSizeError = (state: GameState) => {
 const onUntap = (draft: Draft) => {
   phaseInControlledBeforeUntap(draft, draft.active)
   for (const object of draft.zoneOf('battlefield', draft.active)) {
-    object.tapped = false
+    untapStepUntaps(draft, object)
     object.summoningSickness = false
     object.loyaltyActivatedTurn = null
   }

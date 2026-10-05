@@ -12,6 +12,7 @@ import {
   createToken,
   tokenFieldsFromSpec,
 } from '../effects'
+import { untapPermanent } from '../../rules/untap'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const dealDamageTargetX: InstructionHandler<'dealDamageTargetX'> = (
@@ -125,7 +126,7 @@ const exchangeControlUntilEot: InstructionHandler<'exchangeControlUntilEot'> = (
     if (object.controller !== you && object.controller !== them) continue
     const controller = object.controller === you ? them : you
     untilEndOfTurn(object, changeController(object, controller))
-    object.tapped = false
+    untapPermanent(draft, object)
     grantOracleLineUntilEndOfTurn(object, 'Haste')
   }
   draft.note(`${you} exchanges creature control with ${them}`)
