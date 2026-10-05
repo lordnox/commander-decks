@@ -275,6 +275,11 @@ import {
   secondCardDrawn,
   loseLifeTargetPlayer,
   onUnlock,
+  delve,
+  unearth,
+  bounceAll,
+  blinkSelf,
+  pumpFromLinkedExileStats,
 } from './effects'
 
 const astralDriftCycleBlink = blink({
@@ -2516,6 +2521,31 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
+  ],
+  'Dig Through Time': [delve(), onResolve(lookTopPick(7, 2))],
+  'Kederekt Leviathan': [
+    enters(bounceAll({ nonland: true, other: true })),
+    unearth('{6}{U}'),
+  ],
+  'Nezahal, Primal Tide': [
+    uncounterable(),
+    staticGrant('noMaxHand'),
+    handler('noMaxHand'),
+    casts(draw(1), { castBy: 'opponent', noncreatureOnly: true }),
+    ability(
+      { id: 'nezahal.reset' },
+      { discard: 'any', discardCount: 3 },
+      blinkSelf({ when: 'nextEndStep', tapped: true }),
+    ),
+  ],
+  'Phyrexian Ingester': [
+    pumpFromLinkedExileStats(),
+    {
+      op: 'trigger',
+      on: 'enters',
+      targets: { filter: { type: 'Creature', nontoken: true }, min: 0 },
+      do: [linkExile({ type: 'Creature', nontoken: true }, { optional: true, max: 1 })],
+    },
   ],
 }
 
