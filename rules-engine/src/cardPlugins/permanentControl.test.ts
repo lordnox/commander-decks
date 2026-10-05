@@ -419,8 +419,9 @@ describe('permanent control change', () => {
     const cards = restarted.topdeck?.cards ?? []
     expect(applyKernelChoice(kernel, restarted, 'p1', {
       type: 'topdeck',
-      choices: cards.map((card) => ({
+      choices: cards.map((card, slot) => ({
         card,
+        slot,
         destination: card === 'p2' ? 'target' : 'skip',
       })),
     })).toBe(true)

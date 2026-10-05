@@ -50,5 +50,7 @@ export const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) 
       prompt: `Pay ${pending.cost} to copy ${item.name}? You may choose a new target.`,
       judge: `Waiting for ${pending.source}'s copy choice.`,
     },
+    // Slot 0 is the keep-targets option; object targets follow it.
+    [undefined, ...candidates],
   )
 }

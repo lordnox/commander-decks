@@ -5,11 +5,11 @@ import {
 } from '../../rules-engine/src/pendingDialog'
 import {
   dispatchChoiceObjectIds,
+  dialogObjectIds,
   objectIdsByDestination,
-  objectIdsForNames,
+  objectIdsForChoices,
   type ChoiceContext,
 } from './kernelChoice'
-import { preparePendingDialog } from './kernelChoicePrepareDialog'
 import { closeKernelChoice } from './kernelSettle'
 
 export const applyPutPermanents = (
@@ -20,10 +20,10 @@ export const applyPutPermanents = (
   if (max !== undefined && selected.length > max) {
     throw new Error(`Choose at most ${max} card(s).`)
   }
-  const objectIds = objectIdsForNames(
+  const objectIds = objectIdsForChoices(
     state,
-    state.zoneOrder[seat].hand,
-    selected.map(({ card }) => card),
+    dialogObjectIds(state, seat, decision),
+    selected,
   )
   for (const objectId of objectIds) {
     const moved = kernel.dispatch({ type: 'move', objectId, to: 'battlefield' })
@@ -111,7 +111,7 @@ export const applyExileGraveyards = (
 ) => {
   const objectIds = objectIdsByDestination(
     state,
-    state.playerOrder.flatMap((player) => state.zoneOrder[player].graveyard),
+    dialogObjectIds(state, seat, decision),
     message.choices,
     'exile',
   )
@@ -129,6 +129,16 @@ export const applyExileGraveyards = (
   })
 }
 
+/** The dialogs below that carry one picked object besides the yes or no. */
+const PICKED_OBJECT_STAGES = new Set([
+  'copy-creature',
+  'fight-target',
+  'bounce-permanent',
+  'destroy-permanent',
+  'counter-spell',
+  'counter-unless',
+])
+
 /** Yes-or-no dialogs plus the ones that carry a single picked permanent. */
 export const applyDialogChoice = (
   { kernel, lobby, seat, message, decision, state }: ChoiceContext,
@@ -136,37 +146,12 @@ export const applyDialogChoice = (
   const accepted = message.choices.some(({ destination }) => destination === 'target')
   const chosenEvent = decision.kernel.chosenEvent
   if (!chosenEvent) throw new Error('That choice is no longer open.')
-  const named = message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card)
-  const objectIds = decision.kernel.stage === 'copy-creature'
-    ? objectIdsForNames(state, state.zoneOrder[seat].battlefield, named)
-    : decision.kernel.stage === 'fight-target'
-      ? objectIdsForNames(
-        state,
-        Object.values(state.objects)
-          .filter((object) =>
-            object.zone === 'battlefield'
-            && object.types.includes('Creature')
-            && object.controller !== seat)
-          .map((object) => object.id),
-        named,
-      )
-      : decision.kernel.stage === 'bounce-permanent' || decision.kernel.stage === 'destroy-permanent'
-        ? objectIdsForNames(
-          state,
-          Object.values(state.objects)
-            .filter((object) => object.zone === 'battlefield')
-            .map((object) => object.id),
-          named,
-        )
-        : decision.kernel.stage === 'counter-spell' || decision.kernel.stage === 'counter-unless'
-          ? objectIdsForNames(
-            state,
-            state.stack.map((item) => item.objectId),
-            named,
-          )
-          : []
+  const picked = message.choices.filter(({ destination }) => destination === 'target')
+  const objectIds = PICKED_OBJECT_STAGES.has(decision.kernel.stage)
+    ? objectIdsForChoices(state, dialogObjectIds(state, seat, decision), picked)
+    : []
   const targets = decision.kernel.stage === 'secret-vote'
-    ? message.choices.filter(({ destination }) => destination === 'target').map(({ card }) => card)
+    ? picked.map(({ card }) => card)
     : undefined
   const chosen = kernel.dispatch({
     type: 'custom',
@@ -182,12 +167,11 @@ export const applyDialogChoice = (
 export const applyZoneChoice = (
   { kernel, lobby, seat, message, decision, state }: ChoiceContext,
 ) => {
-  const zone = decision.kernel.stage === 'bounce-land'
-    ? state.zoneOrder[seat].battlefield
-    : decision.kernel.stage === 'return-land'
-      ? state.zoneOrder[seat].graveyard
-      : state.zoneOrder[seat].library.slice(0, decision.cards.length)
-  const ids = objectIdsForNames(state, zone, message.choices.map(({ card }) => card))
+  const ids = objectIdsForChoices(
+    state,
+    dialogObjectIds(state, seat, decision),
+    message.choices,
+  )
   const ordered = message.choices.map((choice, index) => ({
     ...choice,
     objectId: ids[index],

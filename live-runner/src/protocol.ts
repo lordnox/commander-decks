@@ -62,7 +62,12 @@ type InboxPayload =
   | { type: 'mulligan' }
   | {
       type: 'topdeck'
-      choices: Array<{ card: string; destination: TopdeckDestination }>
+      /**
+       * `slot` is the card's position in the offered `cards`. Two offered cards
+       * can share a name, so the kernel resolves a pick by position, never by
+       * name. Only the legacy replay flow, whose cards are plain names, omits it.
+       */
+      choices: Array<{ card: string; slot?: number; destination: TopdeckDestination }>
     }
   | { type: 'advance' }
   | {
@@ -323,6 +328,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
             choice
             && typeof choice === 'object'
             && typeof choice.card === 'string'
+            && (choice.slot === undefined
+              || (Number.isSafeInteger(choice.slot) && choice.slot >= 0))
             && (TOPDECK_DESTINATIONS as readonly string[]).includes(choice.destination),
         )
       ) {
@@ -330,8 +337,9 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       }
       return parsed({
         type: 'topdeck',
-        choices: message.choices.map(({ card, destination }) => ({
+        choices: message.choices.map(({ card, slot, destination }) => ({
           card,
+          ...(slot === undefined ? {} : { slot }),
           destination,
         })),
       })

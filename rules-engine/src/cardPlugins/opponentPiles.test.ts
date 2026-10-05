@@ -353,10 +353,10 @@ describe('opponentPiles', () => {
     expect(applyKernelChoice(kernel, lobby, 'p2', {
       type: 'topdeck',
       choices: [
-        { card: 'Look A', destination: 'face-up' },
-        { card: 'Look B', destination: 'face-up' },
-        { card: 'Look C', destination: 'face-down' },
-        { card: 'Look D', destination: 'face-down' },
+        { card: 'Look A', slot: 0, destination: 'face-up' },
+        { card: 'Look B', slot: 1, destination: 'face-up' },
+        { card: 'Look C', slot: 2, destination: 'face-down' },
+        { card: 'Look D', slot: 3, destination: 'face-down' },
       ],
     })).toBe(true)
     expect(lobby.topdeck).toMatchObject({
@@ -374,8 +374,8 @@ describe('opponentPiles', () => {
     expect(applyKernelChoice(kernel, restarted, 'p1', {
       type: 'topdeck',
       choices: [
-        { card: restarted.topdeck!.cards[0], destination: 'hand' },
-        { card: restarted.topdeck!.cards[1], destination: 'graveyard' },
+        { card: restarted.topdeck!.cards[0], slot: 0, destination: 'hand' },
+        { card: restarted.topdeck!.cards[1], slot: 1, destination: 'graveyard' },
       ],
     })).toBe(true)
     const finished = kernel.history.current()
