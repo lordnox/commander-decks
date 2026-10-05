@@ -220,6 +220,10 @@ import {
   vote,
   ifVoteLeads,
   forEachVoter,
+  forEachVotedOption,
+  copyTargetSpell,
+  putCountersOnTriggeringObject,
+  tapTriggeringObject,
   onVotesFinished,
   eachPlayerReturn,
   eachPlayerMayWheel,
@@ -2186,6 +2190,34 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         filter: { zone: 'battlefield', nonland: true, controller: 'opponent' },
       },
       [exileVoteWinners()],
+    )),
+  ],
+  'Split Decision': [
+    targetOnResolve(
+      'select',
+      { zone: 'stack', types: ['Instant', 'Sorcery'] },
+      vote(
+        'Vote for denial or duplication.',
+        {
+          kind: 'named',
+          options: [{ id: 'denial', label: 'Denial' }, { id: 'duplication', label: 'Duplication' }],
+        },
+        [ifVoteLeads('denial', [counterTargetSpell(true)], [copyTargetSpell()])],
+      ),
+    ),
+  ],
+  'Trap the Trespassers': [
+    onResolve(vote(
+      'Secretly vote for a creature the caster does not control.',
+      {
+        kind: 'objects',
+        filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
+      },
+      [forEachVotedOption(
+        putCountersOnTriggeringObject('stun', 'triggerAmount'),
+        tapTriggeringObject(),
+      )],
+      true,
     )),
   ],
   'Fractured Identity': [
