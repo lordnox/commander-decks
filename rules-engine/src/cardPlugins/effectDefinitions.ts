@@ -35,6 +35,8 @@ export type CardCondition =
   | { kind: 'notMonstrous' }
   /** Intervening if for "if it was a creature" on a dies trigger (LKI: still a creature in graveyard). */
   | { kind: 'wasCreature' }
+  /** True when the object has no counter of this kind; on a dies trigger it reads last-known information. */
+  | { kind: 'lacksCounter'; counter: string }
   | { kind: 'stackXAtLeast'; min: number }
   /** The source's controller controls a commander they own (e.g. Lieutenant). */
   | { kind: 'controlsCommander' }
@@ -174,6 +176,8 @@ export type CardInstruction =
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
   | { kind: 'returnSelfAsEnchantment' }
+  /** Return this card from the graveyard to the battlefield under its owner's control with one counter. */
+  | { kind: 'returnSelfWithCounter'; counter: string }
   | { kind: 'createToken'; token: TokenSpec }
   | {
       kind: 'embalmToken'
