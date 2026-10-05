@@ -54,6 +54,7 @@ import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
   delve,
   entersTarget,
+  mayCastFromHandWithoutPayingMana,
   ifYouDoExileFromGraveyard,
   targetOnResolve,
   targetsOnResolve,
@@ -961,6 +962,68 @@ describe('kernel host journal', () => {
       targets: [{ kind: 'object', objectId: victim.id }],
     })
     expect(current.objects[named('Gy One').id].zone).toBe('graveyard')
+  })
+
+  test('a free cast from hand is chosen or declined through live acts', () => {
+    const build = () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          players: 2,
+          hands: {
+            p1: [
+              cardTemplate('Free Caster', {
+                types: ['Sorcery'],
+                manaCost: '{0}',
+                effects: [onResolveEffect(mayCastFromHandWithoutPayingMana(5))],
+              }),
+              cardTemplate('Cheap Bear', { types: ['Creature'], manaCost: '{3}{G}', manaValue: 4 }),
+              cardTemplate('Big Beast', { types: ['Creature'], manaCost: '{6}', manaValue: 6 }),
+            ],
+          },
+        },
+        { random: () => 0.5, cardPlugins: [onResolve] },
+      )
+      const kernel = handleFor(server.rules, server.state)
+      const caster = Object.values(server.state.objects).find((object) => object.name === 'Free Caster')!
+      for (const event of [
+        { type: 'castSpell', seat: 'p1', objectId: caster.id },
+        { type: 'resolveTop' },
+      ] as const) {
+        expect(kernel.dispatch(event).ok).toBe(true)
+      }
+      const lobby = createLobby()
+      lobby.phase = 'play'
+      return { kernel, lobby, caster }
+    }
+    const named = (kernel: KernelHandle, name: string) =>
+      Object.values(kernel.history.current().objects).find((object) => object.name === name)!
+
+    const cast = build()
+    const bear = named(cast.kernel, 'Cheap Bear')
+    expect(() => applyKernelAct(cast.kernel, cast.lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId: named(cast.kernel, 'Big Beast').id,
+      alternativeCost: 'withoutPayingMana',
+    })).toThrow()
+    expect(applyKernelAct(cast.kernel, cast.lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId: bear.id,
+      alternativeCost: 'withoutPayingMana',
+    })).toHaveLength(1)
+    expect(cast.kernel.history.current().stack[0]).toMatchObject({ name: 'Cheap Bear', castFrom: 'hand' })
+
+    const decline = build()
+    applyKernelAct(decline.kernel, decline.lobby, 'p1', {
+      type: 'act',
+      kind: 'declineFreeCast',
+      objectId: decline.caster.id,
+    })
+    const after = decline.kernel.history.current()
+    expect(named(decline.kernel, 'Cheap Bear').zone).toBe('hand')
+    expect(kernelActions(after).p1).toContain('pass')
   })
 
   test('a grouped multi-target cast sends every selected object as a target', () => {

@@ -378,6 +378,7 @@ export type CardInstruction =
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
   | { kind: 'mayCastFromExileWithoutPayingMana' }
+  | { kind: 'mayCastFromHandWithoutPayingMana'; maxManaValue: number }
   | { kind: 'finishWarpExile' }
   | { kind: 'addUntilCleanupRule'; pluginId: string; params?: Record<string, unknown> }
   | { kind: 'cumulativeUpkeepOpponentLife' }
