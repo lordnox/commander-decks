@@ -442,7 +442,6 @@ export type TargetFilter = {
   types?: string[]
   supertype?: string
   nonland?: boolean
-  nontoken?: boolean
   noncreature?: boolean
   nonblack?: boolean
   controller?: 'you' | 'opponent' | 'notController'
