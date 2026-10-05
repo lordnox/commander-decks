@@ -1,13 +1,20 @@
 import { useState } from 'react'
-import type { TopdeckDestination } from '../../shared/liveTypes'
+import { distinctCardLabels, type TopdeckDestination } from '../../shared/liveTypes'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
 
 type Choice = {
+  /** The card's position in the offered list, which stays put when the list is reordered. */
   id: number
   card: string
   destination: TopdeckDestination
 }
+
+type Answer = { card: string; slot?: number; destination: TopdeckDestination }
+
+/** The host tells same-named cards apart by position, so every answer carries it. */
+export const answerFor = (choices: Choice[]): Answer[] =>
+  choices.map(({ id, card, destination }) => ({ card, slot: id, destination }))
 
 const label = (destination: TopdeckDestination) => {
   switch (destination) {
@@ -51,7 +58,7 @@ export const TopdeckDialog = ({
   decision: LiveTopdeck
   prompt?: string
   pending: boolean
-  onResolve: (choices: Array<{ card: string; destination: TopdeckDestination }>) => void
+  onResolve: (choices: Answer[]) => void
 }) => {
   const discarding = decision.kind === 'discard'
   const puttingLand = decision.kind === 'put-land'
@@ -77,6 +84,7 @@ export const TopdeckDialog = ({
       destination: decision.destinations[0] ?? 'top',
     })),
   )
+  const labels = distinctCardLabels(decision.cards.map(String))
   const [hidden, setHidden] = useState(false)
   const [previewCard, setPreviewCard] = useState<string | null>(null)
   const [previewPinned, setPreviewPinned] = useState(false)
@@ -116,10 +124,7 @@ export const TopdeckDialog = ({
     )
     setChoices(next)
     if (next.length === 1 && valid(next)) {
-      onResolve(next.map(({ card, destination: selected }) => ({
-        card,
-        destination: selected,
-      })))
+      onResolve(answerFor(next))
     }
   }
 
@@ -368,7 +373,7 @@ export const TopdeckDialog = ({
             const details = game.catalog[choice.card]
             const displayName = targetingPlayers || voting
               ? game.seats?.find((seat) => seat.id === choice.card)?.name ?? choice.card
-              : choice.card
+              : labels[choice.id]
             return (
               <li
                 key={choice.id}
@@ -377,7 +382,7 @@ export const TopdeckDialog = ({
                 {details?.image_small || details?.image_normal ? (
                   <button
                     type="button"
-                    aria-label={`Preview ${choice.card}`}
+                    aria-label={`Preview ${displayName}`}
                     onPointerEnter={() => {
                       if (!previewPinned) setPreviewCard(choice.card)
                     }}
@@ -478,9 +483,7 @@ export const TopdeckDialog = ({
         {(choices.length > 1 || searching) && (
           <button
             type="button"
-            onClick={() => onResolve(
-              choices.map(({ card, destination }) => ({ card, destination })),
-            )}
+            onClick={() => onResolve(answerFor(choices))}
             disabled={pending || !valid(choices)}
             className="mt-5 shrink-0 self-start rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 hover:bg-purple-100 disabled:opacity-40"
           >

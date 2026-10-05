@@ -534,6 +534,7 @@ export const LivePage = () => {
       cheat?: boolean
       choices?: Array<{
         card: string
+        slot?: number
         destination: TopdeckDestination
       }>
       always?: boolean
