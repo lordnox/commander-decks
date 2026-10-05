@@ -71,6 +71,7 @@ import {
   blockTaxPerCreature,
   combatTaxAmount,
 } from './cardPlugins/combatTax'
+import { blockRestriction } from './plugins/combat'
 import { attackDeclarationError } from './plugins/goad'
 import {
   canSacrificeLandForBlack,
@@ -1222,21 +1223,29 @@ export const availableActions = (
   }
 
   if (state.step === 'declareBlockers') {
-    const attackerIds = Object.values(state.objects)
+    const attackers = Object.values(state.objects)
       .filter((object) => {
         if (object.zone !== 'battlefield' || object.phasedOut || !object.attacking) return false
         if (typeof object.attacking === 'string') return object.attacking === seat
         if (object.attacking.kind === 'player') return object.attacking.player === seat
         return state.objects[object.attacking.objectId]?.controller === seat
       })
-      .map((object) => object.id)
-    const objectIds = Object.values(state.objects)
+    const untapped = Object.values(state.objects)
       .filter((object) =>
         object.zone === 'battlefield'
         && !object.phasedOut
         && object.controller === seat
         && object.types.includes('Creature')
         && !object.tapped)
+    // Offer only creatures that can block something and attackers something can block.
+    // Menace needs two blockers at once, so it is left to the declaration check.
+    const canBlock = (blocker: GameObject, attacker: GameObject) =>
+      !blockRestriction(state, blocker, attacker)
+    const objectIds = untapped
+      .filter((blocker) => attackers.some((attacker) => canBlock(blocker, attacker)))
+      .map((object) => object.id)
+    const attackerIds = attackers
+      .filter((attacker) => untapped.some((blocker) => canBlock(blocker, attacker)))
       .map((object) => object.id)
     if (attackerIds.length > 0 && objectIds.length > 0) {
       const taxPerBlocker = blockTaxPerCreature(state)

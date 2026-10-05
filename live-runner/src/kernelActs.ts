@@ -90,9 +90,6 @@ export const applyKernelAct = (
       if (new Set(blockers.map((blocker) => blocker.blockerId)).size !== blockers.length) {
         throw new Error('A blocker can only be declared once')
       }
-      if (new Set(blockers.map((blocker) => blocker.attackerId)).size !== blockers.length) {
-        throw new Error('Only one blocker per attacker is supported')
-      }
       declaration = {
         type: 'declareBlockers',
         seat,

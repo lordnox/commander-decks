@@ -18,7 +18,7 @@ const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
 }
 
 /** Why `blocker` can't block `attacker` on its own, ignoring what other blockers do (CR 509.1b). */
-const blockRestriction = (state: GameState, blocker: GameObject, attacker: GameObject) => {
+export const blockRestriction = (state: GameState, blocker: GameObject, attacker: GameObject) => {
   if (
     hasKeyword(attacker, 'flying', state)
     && !hasKeyword(blocker, 'flying', state)

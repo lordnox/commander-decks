@@ -187,6 +187,37 @@ describe('available actions', () => {
     expect(availableActions({ ...state, priority: 'p3' }, 'p3')).toEqual([])
   })
 
+  test('offers only blocks that flying and reach allow', () => {
+    const state = newGame(commanderRules, {
+      battlefield: {
+        p1: [
+          { ...bears(), name: 'Drake', oracleText: 'Flying' },
+          { ...bears(), name: 'Ogre' },
+        ],
+        p2: [{ ...bears(), name: 'Walker' }, { ...bears(), name: 'Spider', oracleText: 'Reach' }],
+      },
+    })
+    state.step = 'declareBlockers'
+    state.priority = 'p2'
+    for (const name of ['Drake', 'Ogre']) objectNamed(state, name).attacking = 'p2'
+    const blockAction = () => availableActions(state, 'p2').find(
+      (action) => action.kind === 'declareBlockers',
+    )
+    expect(blockAction()).toMatchObject({
+      objectIds: [objectNamed(state, 'Walker').id, objectNamed(state, 'Spider').id].sort(),
+      attackerIds: [objectNamed(state, 'Drake').id, objectNamed(state, 'Ogre').id].sort(),
+    })
+
+    // With only a ground blocker left, the flyer is no longer blockable.
+    objectNamed(state, 'Spider').tapped = true
+    expect(blockAction()).toMatchObject({
+      objectIds: [objectNamed(state, 'Walker').id],
+      attackerIds: [objectNamed(state, 'Ogre').id],
+    })
+    objectNamed(state, 'Ogre').attacking = null
+    expect(blockAction()).toBeUndefined()
+  })
+
   test('offers a summoning-sick creature with haste as an attacker', () => {
     const state = newGame(commanderRules, {
       battlefield: {
