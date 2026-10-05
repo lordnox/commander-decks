@@ -46,7 +46,7 @@ export const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) 
       },
     },
     {
-      waiting: `${lobby.occupants[pending.seat]?.name ?? pending.seat} is deciding whether to copy an ability.`,
+      waiting: `${lobby.occupants[pending.seat]?.name ?? pending.seat} is deciding whether to copy ${item.kind === 'ability' ? 'an ability' : 'a spell'}.`,
       prompt: `Pay ${pending.cost} to copy ${item.name}? You may choose a new target.`,
       judge: `Waiting for ${pending.source}'s copy choice.`,
     },

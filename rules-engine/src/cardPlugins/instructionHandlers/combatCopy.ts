@@ -8,12 +8,12 @@ import {
   untilEndOfTurn,
 } from '../continuousEffects'
 import {
-  copyStackSpell,
   copyTokenTemplate,
   createToken,
   tokenFieldsFromSpec,
 } from '../effects'
 import { untapPermanent } from '../../rules/untap'
+import { openStackCopyChoice } from '../stackCopy'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const dealDamageTargetX: InstructionHandler<'dealDamageTargetX'> = (
@@ -323,12 +323,17 @@ const copyTargetSpell: InstructionHandler<'copyTargetSpell'> = (
   { draft, source, item },
 ) => {
   const target = item?.targets[0]
-  if (target?.kind !== 'object') return
-  const copied = draft.object(target.objectId)
+  if (target?.kind !== 'object' || draft.object(target.objectId)?.zone !== 'stack') return
   const stackItem = draft.stack.find((candidate) => candidate.objectId === target.objectId)
-  if (!copied || !stackItem || copied.zone !== 'stack') return
-  copyStackSpell(draft, copied, stackItem, source.controller)
-  draft.note(`${source.name} copies ${copied.name}`)
+  if (!stackItem) return
+  openStackCopyChoice(draft, {
+    sourceId: source.id,
+    source: source.name,
+    seat: source.controller,
+    stackId: stackItem.id,
+    cost: '{0}',
+    optional: false,
+  })
 }
 
 export const combatCopyHandlers = {

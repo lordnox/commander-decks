@@ -213,6 +213,29 @@ const destinationFor = (
   return finishedSpellZone(removedFromStack, normal)
 }
 
+/** Counters a spell still on the stack; a spell that already left it is left alone. */
+export const counterStackSpell = (
+  draft: Draft,
+  source: GameObject,
+  object: GameObject,
+  stealFor?: PlayerId,
+) => {
+  const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
+  if (index < 0) return
+  if (draft.stack[index].uncounterable) {
+    draft.note(`${source.name} cannot counter ${object.name}`)
+    return
+  }
+  const [countered] = draft.stack.splice(index, 1)
+  draft.enqueue({
+    type: 'move',
+    objectId: object.id,
+    to: stealFor ? 'battlefield' : finishedSpellZone(countered, 'graveyard'),
+    ...(stealFor ? { controller: stealFor } : {}),
+  })
+  draft.note(`${source.name} counters ${object.name}`)
+}
+
 const applyTargetedAction = (
   draft: Draft,
   state: GameState,
@@ -232,25 +255,11 @@ const applyTargetedAction = (
   const object = state.objects[target.objectId]
   if (!object) return
   if (effect.action === 'counter') {
-    const targetItem = draft.stack.find((candidate) => candidate.objectId === object.id)
-    if (targetItem?.uncounterable) {
-      draft.note(`${source.name} cannot counter ${object.name}`)
-      return
-    }
-    const index = draft.stack.findIndex((candidate) => candidate.objectId === object.id)
-    if (index < 0) return
     const stealToBattlefield = Boolean(
       effect.filter.stealIfTypes?.some((type) => object.types.includes(type)),
     )
-    const [countered] = draft.stack.splice(index, 1)
-    draft.enqueue({
-      type: 'move',
-      objectId: object.id,
-      to: stealToBattlefield
-        ? 'battlefield'
-        : finishedSpellZone(countered, 'graveyard'),
-      ...(stealToBattlefield ? { controller: item.controller } : {}),
-    })
+    counterStackSpell(draft, source, object, stealToBattlefield ? item.controller : undefined)
+    return
   } else if (effect.action === 'copy') {
     const stackItem = state.stack.find((candidate) => candidate.objectId === object.id)
     if (!stackItem || object.zone !== 'stack') return

@@ -1188,6 +1188,16 @@ export const drawHandDifference = (): CardInstruction => ({ kind: 'drawHandDiffe
 
 export const winGame = (): CardInstruction => ({ kind: 'winGame' })
 
+export const putCountersOnTriggeringObject = (
+  counter: string,
+  count: number | 'triggerAmount',
+): CardInstruction => ({ kind: 'putCounters', counter, count, subject: 'triggeringObject' })
+
+export const tapTriggeringObject = (): CardInstruction => ({
+  kind: 'tap',
+  subject: 'triggeringObject',
+})
+
 export const addPlusCountersInstruction = (count: InstructionCount): CardInstruction => ({
   kind: 'addPlusCounters',
   count,
@@ -1928,7 +1938,12 @@ export const gainLifeTargetToughness = (): CardInstruction => ({ kind: 'gainLife
 
 export const tapOpponentsCreatures = (): CardInstruction => ({ kind: 'tapOpponentsCreatures' })
 
-export const counterTargetSpell = (): CardInstruction => ({ kind: 'counterTargetSpell' })
+export const counterTargetSpell = (chosen = false): CardInstruction => ({
+  kind: 'counterTargetSpell',
+  ...(chosen ? { chosen: true as const } : {}),
+})
+
+export const copyTargetSpell = (): CardInstruction => ({ kind: 'copyTargetSpell' })
 
 export const bounceTargetPermanent = (): CardInstruction => ({ kind: 'bounceTargetPermanent' })
 

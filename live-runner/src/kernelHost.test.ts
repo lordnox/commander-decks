@@ -34,7 +34,13 @@ import { chosenColor } from '../../rules-engine/src/cardPlugins/chosenColor'
 import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/cardPlugins/effects'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
 import { PENDING_VOTE, pendingVote, vote as votePlugin } from '../../rules-engine/src/cardPlugins/vote'
-import { vote as voteInstruction } from '../../rules-engine/src/cardPlugins/effectBuilders'
+import {
+  copyTargetSpell,
+  counterTargetSpell,
+  ifVoteLeads,
+  vote as voteInstruction,
+} from '../../rules-engine/src/cardPlugins/effectBuilders'
+import { PENDING_STACK_COPY, stackCopy } from '../../rules-engine/src/cardPlugins/stackCopy'
 import { eachPlayerWheel } from '../../rules-engine/src/cardPlugins/eachPlayerWheel'
 import { blinkPlugin } from '../../rules-engine/src/cardPlugins/blink'
 import {
@@ -882,6 +888,105 @@ describe('kernel host journal', () => {
     expect(restartedLobby.judge).toContain('Secret Ballot votes')
     expect(restartedLobby.judge).toContain('for Alpha')
     expect(restartedLobby.judge).toContain('for Beta')
+  })
+
+  test('a duplication vote opens a private copy choice that survives a restart and retargets the copy', () => {
+    const named = [{ id: 'denial', label: 'Denial' }, { id: 'duplication', label: 'Duplication' }]
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: {
+          p1: [
+            cardTemplate('Smite', {
+              types: ['Instant'],
+              manaCost: '{R}',
+              effects: [targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' })],
+            }),
+            cardTemplate('Split', {
+              types: ['Instant'],
+              manaCost: '{1}{U}',
+              effects: [targetOnResolve(
+                'select',
+                { zone: 'stack', types: ['Instant', 'Sorcery'] },
+                voteInstruction('Denial or duplication?', { kind: 'named', options: named }, [
+                  ifVoteLeads('denial', [counterTargetSpell(true)], [copyTargetSpell()]),
+                ]),
+              )],
+            }),
+          ],
+        },
+        battlefield: {
+          p3: [
+            cardTemplate('Bear', { types: ['Creature'] }),
+            cardTemplate('Boar', { types: ['Creature'] }),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [targetedResolve, votePlugin, stackCopy] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana = { W: 0, U: 2, B: 0, R: 2, G: 0, C: 2 }
+    const idOf = (name: string) =>
+      Object.values(initial.objects).find((object) => object.name === name)!.id
+    const kernel = handleFor(server.rules, initial)
+    for (const [name, target] of [['Smite', 'Bear'], ['Split', 'Smite']]) {
+      expect(kernel.dispatch({
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: idOf(name),
+        targets: [{ kind: 'object', objectId: idOf(target) }],
+      }).ok).toBe(true)
+    }
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const lobby = createLobby()
+    const ballot = (card: string) => ({
+      type: 'topdeck' as const,
+      choices: named.map(({ label }) => ({
+        card: label,
+        destination: label === card ? 'target' as const : 'skip' as const,
+      })),
+    })
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    for (const [seat, card] of [['p1', 'Duplication'], ['p2', 'Duplication'], ['p3', 'Denial']] as const) {
+      expect(applyKernelChoice(kernel, lobby, seat, slotted(lobby, ballot(card)))).toBe(true)
+    }
+
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'stack-copy',
+      cards: ['Copy with current targets', 'Bear', 'Boar'],
+    })
+    const snapshotFor = (viewer: SeatId) => liveSnapshotFromState({
+      state: projectForViewer(kernel.history.current(), viewer),
+      lobby,
+      viewer,
+    })
+    expect(snapshotFor('p1').topdeck?.kind).toBe('stack-copy')
+    expect(snapshotFor('p2').topdeck).toBeUndefined()
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(lobby.topdeck)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Copy with current targets', destination: 'skip' },
+        { card: 'Bear', destination: 'skip' },
+        { card: 'Boar', destination: 'target' },
+      ],
+    }))).toBe(true)
+    const after = restarted.history.current()
+    expect(after.players.p1.data[PENDING_STACK_COPY]).toBeUndefined()
+    // The original smote the Bear; only the retargeted copy can have smitten the Boar.
+    const zoneOf = (name: string) =>
+      Object.values(after.objects).find((object) => object.name === name)!.zone
+    expect([zoneOf('Bear'), zoneOf('Boar')]).toEqual(['graveyard', 'graveyard'])
   })
 
   test('Cling to Dust escape cost cards round-trip through a structured live act', () => {

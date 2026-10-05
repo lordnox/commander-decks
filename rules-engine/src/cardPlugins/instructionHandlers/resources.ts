@@ -1,5 +1,5 @@
 import type Draft from '../../draft'
-import type { PlayerId } from '../../types'
+import type { PlayerId, StackItem } from '../../types'
 import { swampCount } from '../../plugins/swampOverlay'
 import { NO_MAXIMUM_HAND_SIZE } from '../../plugins/turnStructure'
 import { lifeLostThisTurn } from '../../plugins/life'
@@ -26,8 +26,26 @@ import type { GameState } from '../../types'
 import { discardSeatFor, instructionAmount } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
-const tap: InstructionHandler<'tap'> = ({ draft, source }) => {
-  draft.enqueue({ type: 'tap', objectId: source.id })
+/** The permanent a per-option or per-trigger pass is about, while it is still on the battlefield. */
+const triggeringPermanent = (draft: Draft, item?: StackItem) => {
+  const objectId = item?.payload?.triggeringObjectId
+  const object = typeof objectId === 'string' ? draft.object(objectId) : undefined
+  return object?.zone === 'battlefield' ? object : undefined
+}
+
+const tap: InstructionHandler<'tap'> = ({ draft, source, item }, instruction) => {
+  const objectId = instruction.subject === 'triggeringObject'
+    ? triggeringPermanent(draft, item)?.id
+    : source.id
+  if (objectId) draft.enqueue({ type: 'tap', objectId })
+}
+
+const putCounters: InstructionHandler<'putCounters'> = ({ draft, item }, instruction) => {
+  const object = triggeringPermanent(draft, item)
+  const count = instructionAmount(instruction.count, item)
+  if (object && count > 0) {
+    draft.enqueue({ type: 'putCounters', objectId: object.id, counter: instruction.counter, count })
+  }
 }
 
 const payMana: InstructionHandler<'payMana'> = ({ draft, source }, instruction) => {
@@ -892,6 +910,7 @@ export const resourceHandlers = {
   drawHandDifference,
   winGame,
   addPlusCounters,
+  putCounters,
   putChargeCountersFromTimesKicked,
   doublePlusCounters,
   loseLife,
