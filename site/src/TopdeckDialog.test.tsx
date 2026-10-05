@@ -215,6 +215,33 @@ test('typed player targeting uses a generic prompt and exact requirement', () =>
   expect(html).not.toContain('Homer')
 })
 
+test('a vote offers named options, permanents, and players by their seat names', () => {
+  const game = {
+    catalog: { 'Grizzly Bears': { image_small: 'bears.jpg' } },
+    seats: [{ id: 'p2', name: 'Opponent Two' }],
+  } as unknown as ReplayGame
+  const decision = {
+    seat: 'p1',
+    kind: 'vote',
+    cards: ['carnage', 'Grizzly Bears', 'p2'],
+    destinations: ['skip', 'target'],
+    requirements: { target: { min: 1, max: 1 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Cast your vote')
+  expect(html).toContain('carnage')
+  expect(html).toContain('aria-label="Preview Grizzly Bears"')
+  expect(html).toContain('Opponent Two')
+})
+
 test('a resolving Scapeshift asks for land sacrifices before opening a search', () => {
   const game = { catalog: { Forest: {}, Island: {} } } as unknown as ReplayGame
   const decision = {
