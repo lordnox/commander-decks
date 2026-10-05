@@ -775,9 +775,11 @@ const putMilledLandTapped: InstructionHandler<'putMilledLandTapped'> = (
 }
 
 const returnChosenLandFromGraveyard: InstructionHandler<'returnChosenLandFromGraveyard'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
+  // A resolving spell already sits in the graveyard once resolution paused; it cannot return itself.
+  const resolvingSpellId = item?.kind === 'spell' ? source.id : undefined
   const max = instruction.max ?? instruction.count ?? 1
   const min = instruction.min ?? (instruction.count !== undefined ? 0 : (max === 0 ? 0 : 1))
   const to = instruction.to ?? 'battlefield'
@@ -787,7 +789,7 @@ const returnChosenLandFromGraveyard: InstructionHandler<'returnChosenLandFromGra
   for (const seat of seats) {
     const candidates = (draft.zoneOrder[seat].graveyard ?? []).filter((objectId) => {
       const object = draft.object(objectId)
-      return matchesTargetFilter(draft, object, filter, seat)
+      return objectId !== resolvingSpellId && matchesTargetFilter(draft, object, filter, seat)
     })
     if (candidates.length === 0) continue
     const count = Math.min(max, candidates.length)

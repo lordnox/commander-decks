@@ -10,6 +10,7 @@ import type { GameState } from '../types'
 import { choiceEffects } from './choiceEffects'
 import { eachPlayerWheel } from './eachPlayerWheel'
 import {
+  eachPlayerDiscard,
   eachPlayerMayWheel,
   eachPlayerReturn,
   exileThisSpell,
@@ -155,6 +156,34 @@ describe('eachPlayerReturn', () => {
     expect(current.zoneOrder.p3.hand).toEqual([])
     expect(current.zoneOrder.p1.hand).toEqual([])
     expect(named(current, 'Common Grave').zone).toBe('exile')
+  })
+})
+
+describe('eachPlayerReturn after a pause', () => {
+  test('never offers the resolving spell, which already sits in the graveyard', () => {
+    const server = createServerGame(commanderRules, {
+      hands: {
+        p1: [
+          instant('Paused Grave', onResolve(
+            eachPlayerDiscard(1),
+            eachPlayerReturn(2),
+            exileThisSpell(),
+          )),
+          ...filler('Fodder', 1),
+        ],
+      },
+      libraries: { p1: filler('Lib', 3) },
+    }, { random: () => 0.5, cardPlugins: [onResolvePlugin, choiceEffects] })
+    const paused = castAndResolve(server, server.state, 'p1', 'Paused Grave')
+    const afterDiscard = resolveStack(server.rules, ok(server.rules(paused, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'discard',
+      count: 1,
+      objectIds: [named(paused, 'Fodder 1').id],
+    })))
+    expect(pendingSelectionFor(afterDiscard, 'p1')?.candidates)
+      .toEqual([named(afterDiscard, 'Fodder 1').id])
   })
 })
 

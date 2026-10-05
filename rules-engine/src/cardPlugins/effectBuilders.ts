@@ -548,6 +548,7 @@ export const eachPlayerDrawDamageDealtToSource = (): CardInstruction => ({
   kind: 'eachPlayerDrawDamageDealtToSource',
 })
 
+/** Must be the last instruction in its list: option choices do not resume later instructions. */
 export const eachPlayerMayWheel = (count: number): CardInstruction => ({
   kind: 'eachPlayerMayWheel',
   count,
