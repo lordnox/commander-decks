@@ -243,7 +243,6 @@ import {
   eachPlayerReturn,
   eachPlayerMayWheel,
   exileThisSpell,
-  revealUntil,
   destroyAll,
   playerAuraDeal,
   targetingRequirement,

@@ -2,9 +2,9 @@ import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pending
 import { STEAL_CAST_DRAW } from '../stealCast'
 import { conditionHolds } from '../effects'
 import { hasKeyword } from '../../keywords'
+import { instructionAmount } from './helpers'
 import { counterStackSpell } from '../targetedResolve'
 import { instructionCount } from '../voteResult'
-import { instructionAmount } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, instruction) => {
