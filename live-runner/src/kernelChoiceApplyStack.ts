@@ -3,7 +3,7 @@ import {
   stackCopyPending,
   stackCopyTargetCandidates,
 } from '../../rules-engine/src/cardPlugins/stackCopy'
-import { objectIdsForNames, type ChoiceContext } from './kernelChoice'
+import { objectIdsForChoices, type ChoiceContext } from './kernelChoice'
 import { closeKernelChoice } from './kernelSettle'
 
 export const applyStackCopy = ({ kernel, lobby, seat, message, state }: ChoiceContext) => {
@@ -24,10 +24,11 @@ export const applyStackCopy = ({ kernel, lobby, seat, message, state }: ChoiceCo
         ? [{ kind: 'player' as const, player: selected[0].card }]
         : [{
             kind: 'object' as const,
-            objectId: objectIdsForNames(
+            // Slot 0 offered "keep the targets", so object targets start at 1.
+            objectId: objectIdsForChoices(
               state,
-              stackCopyTargetCandidates(state, pending).map((object) => object.id),
-              [selected[0].card],
+              ['', ...stackCopyTargetCandidates(state, pending).map((object) => object.id)],
+              selected,
             )[0],
           }]
       : undefined

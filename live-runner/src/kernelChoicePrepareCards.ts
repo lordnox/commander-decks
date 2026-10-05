@@ -97,8 +97,8 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
   const spec = pending ? searchSpecForPending(state, pending) : undefined
   if (!pending || !spec) return false
   const zones = spec.zones ?? ['library']
-  const cards = searchCandidates(state, seat, spec, pending.kicked, pending.x)
-    .map((object) => object.name)
+  const candidates = searchCandidates(state, seat, spec, pending.kicked, pending.x)
+  const cards = candidates.map((object) => object.name)
   const minRequired = spec.split
     ? Math.min(spec.split.battlefield.min, spec.split.hand.min)
     : spec.min
@@ -139,6 +139,7 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
       prompt: pending.kicked && spec.kickedPrompt ? spec.kickedPrompt : spec.prompt,
       judge: 'Waiting for a private library search.',
     },
+    candidates,
   )
 }
 
@@ -146,16 +147,16 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
   const state = kernel.history.current()
   const waiting = waitingDiscard(state)
   if (!waiting || !isSeatId(waiting.chooser)) return false
-  const cards = waiting.handIds
-    .map((objectId) => state.objects[objectId]?.name ?? '')
-    .filter(Boolean)
+  const hand = waiting.handIds.map((objectId) => state.objects[objectId])
+  const cards = hand.map((object) => object?.name ?? '')
   return openTopdeck(
     lobby,
     {
       seat: waiting.chooser,
       kind: 'discard-card',
       cards,
-      destinations: waiting.count === 1 ? ['graveyard'] : ['hand', 'graveyard'],
+      // A seat with several cards in hand must be able to keep some of them.
+      destinations: cards.length === 1 ? ['graveyard'] : ['hand', 'graveyard'],
       requirements: { graveyard: { min: waiting.count, max: waiting.count } },
       kernel: {
         sourceId: waiting.item.objectId,
@@ -168,6 +169,7 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
       prompt: `Discard ${waiting.count} card${waiting.count === 1 ? '' : 's'}.`,
       judge: 'Waiting for a discard choice on the stack.',
     },
+    hand,
   )
 }
 
@@ -296,6 +298,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         ? `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat} for ${selection.source}.`
         : `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat}.`,
     },
+    waiting.objectIds.map((objectId) => state.objects[objectId]),
   )
 }
 

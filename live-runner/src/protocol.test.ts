@@ -162,6 +162,12 @@ describe('inbox', () => {
         { card: 'p3', destination: 'skip' },
       ],
     })
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Forest","slot":1,"destination":"target"}]}')).toEqual({
+      type: 'topdeck',
+      choices: [{ card: 'Forest', slot: 1, destination: 'target' }],
+    })
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Forest","slot":-1,"destination":"target"}]}')).toBeNull()
+    expect(parseInbox('{"type":"topdeck","choices":[{"card":"Forest","slot":"0","destination":"target"}]}')).toBeNull()
     // A resolving Scapeshift sends its lands here, so dropping them would
     // silently strand the dialog.
     expect(parseInbox('{"type":"topdeck","choices":[{"card":"Forest","destination":"sacrifice"}]}')).toEqual({

@@ -99,14 +99,36 @@ import {
   type KernelHandle,
 } from './kernelHost'
 import { liveSnapshotFromState } from './kernelView'
+import type { TopdeckMessage } from './kernelChoice'
 import type { SeatId } from './protocol'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
+import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 
 const RANKLE_MODES = {
   discard: 'Each player discards a card',
   drain: 'Each player loses 1 life and draws a card',
   sacrifice: 'Each player sacrifices a creature',
 } as const
+
+/**
+ * Answers an open dialog the way the UI does: every choice names its position
+ * in the offered cards. Namesakes take the first free position, in order.
+ */
+const slotted = (
+  lobby: ReturnType<typeof createLobby>,
+  message: TopdeckMessage,
+): TopdeckMessage => {
+  const offered = lobby.topdeck?.cards.map(String) ?? []
+  const taken = new Set<number>()
+  return {
+    ...message,
+    choices: message.choices.map((choice) => {
+      const slot = offered.findIndex((card, index) => card === choice.card && !taken.has(index))
+      taken.add(slot)
+      return { ...choice, slot }
+    }),
+  }
+}
 
 const mkdirGames = (root: string) => {
   writeFileSync(join(root, 'package.json'), '{}\n')
@@ -310,13 +332,13 @@ describe('kernel host journal', () => {
     const restarted = handleFor(server.rules, structuredClone(state))
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
         { card: 'p2', destination: 'target' },
         { card: 'p3', destination: 'target' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restarted.history.current().players.p2.life).toBe(41)
     expect(restarted.history.current().players.p3.life).toBe(41)
     expect(restarted.history.current().players.p1.data[CUMULATIVE_UPKEEP_PENDING])
@@ -617,10 +639,10 @@ describe('kernel host journal', () => {
     restartedLobby.phase = 'play'
     expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', {
+    expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [{ card: 'Life from the Loam', destination: 'target' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restartedKernel.history.current().objects[loam].zone).toBe('hand')
   })
 
@@ -650,14 +672,14 @@ describe('kernel host journal', () => {
     const restartedLobby = createLobby()
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
         { card: 'Draw normally', destination: 'target' },
         { card: 'Land', destination: 'skip' },
         { card: 'Nonland', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restarted.history.current().zoneOrder.p1.hand).toHaveLength(1)
     expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
   })
@@ -714,7 +736,7 @@ describe('kernel host journal', () => {
     const restartedLobby = createLobby()
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
         { card: 'White', destination: 'skip' },
@@ -723,7 +745,7 @@ describe('kernel host journal', () => {
         { card: 'Red', destination: 'target' },
         { card: 'Green', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     const state = restarted.history.current()
     expect(pendingOptionSelection(state)).toBeUndefined()
     expect(state.objects[state.zoneOrder.p1.battlefield.find(
@@ -835,27 +857,27 @@ describe('kernel host journal', () => {
       ],
     })
     // A ballot that names no offered option, or two of them, is refused.
-    expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', {
+    expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [{ card: 'Gamma', destination: 'target' }, { card: 'Beta', destination: 'skip' }],
-    })).toThrow()
-    expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', {
+    }))).toThrow()
+    expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
         { card: 'Alpha', destination: 'target' },
         { card: 'Beta', destination: 'target' },
       ],
-    })).toThrow()
+    }))).toThrow()
 
-    expect(applyKernelChoice(restarted, restartedLobby, 'p1', ballot('Alpha'))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, ballot('Alpha')))).toBe(true)
     expect(restartedLobby.topdeck).toMatchObject({ seat: 'p2', kind: 'vote' })
     expect(restartedLobby.judge).toContain('secret vote')
     expect(restartedLobby.judge).not.toContain('Alpha')
     expect(projectForViewer(restarted.history.current(), 'p3').players.p1.data[PENDING_VOTE])
       .toMatchObject({ votes: { p1: '*' } })
 
-    expect(applyKernelChoice(restarted, restartedLobby, 'p2', ballot('Beta'))).toBe(true)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p3', ballot('Alpha'))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', slotted(restartedLobby, ballot('Beta')))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p3', slotted(restartedLobby, ballot('Alpha')))).toBe(true)
     expect(pendingVote(restarted.history.current())).toBeUndefined()
     expect(restartedLobby.judge).toContain('Secret Ballot votes')
     expect(restartedLobby.judge).toContain('for Alpha')
@@ -1127,14 +1149,14 @@ describe('kernel host journal', () => {
     restartedLobby.phase = 'play'
     expect(prepareKernelPendingChoice(restartedKernel, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', {
+    expect(applyKernelChoice(restartedKernel, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
         { card: 'Milled One', destination: 'skip' },
         { card: 'Milled Two', destination: 'target' },
         { card: 'Milled Three', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     const milledTwo = Object.values(restartedKernel.history.current().objects)
       .find((object) => object.name === 'Milled Two')!
     expect(milledTwo.zone).toBe('hand')
@@ -1296,13 +1318,13 @@ describe('kernel host journal', () => {
     })
     expect(lobby.topdeck?.cards).toEqual(['Taiga', 'Forest'])
 
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Taiga', destination: 'battlefield' },
         { card: 'Forest', destination: 'library' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
 
     const state = kernel.history.current()
     const taiga = Object.values(state.objects).find((object) => object.name === 'Taiga')!
@@ -1347,15 +1369,15 @@ describe('kernel host journal', () => {
     const lobby = createLobby()
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck?.kind).toBe('scry')
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Top Card', destination: 'top' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(lobby.topdeck?.kind).toBe('put-land')
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Breeding Pool', destination: 'battlefield' }],
-    })).toBe(true)
+    }))).toBe(true)
 
     const state = kernel.history.current()
     const land = Object.values(state.objects).find((object) => object.name === 'Breeding Pool')!
@@ -1399,13 +1421,13 @@ describe('kernel host journal', () => {
       kind: 'put-permanents',
       cards: ['First Permanent', 'Second Permanent'],
     })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'First Permanent', destination: 'battlefield' },
         { card: 'Second Permanent', destination: 'battlefield' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
 
     expect(kernel.history.current().zoneOrder.p1.battlefield).toHaveLength(2)
     expect(kernel.history.current().players.p1.data[PENDING_DIALOG]).toBeUndefined()
@@ -1439,10 +1461,10 @@ describe('kernel host journal', () => {
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.actions).toEqual({ p1: ['topdeck'] })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Bear', destination: 'target' }],
-    })).toBe(true)
+    }))).toBe(true)
 
     expect(lobby.topdeck).toBeUndefined()
     expect(lobby.actions.p1).not.toContain('topdeck')
@@ -1497,7 +1519,7 @@ describe('kernel host journal', () => {
       cards: ['p1', 'p2', 'p3', 'p4'],
       destinations: ['skip', 'target'],
     })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'p1', destination: 'skip' },
@@ -1505,7 +1527,7 @@ describe('kernel host journal', () => {
         { card: 'p3', destination: 'skip' },
         { card: 'p4', destination: 'target' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
 
     const state = kernel.history.current()
     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
@@ -1548,14 +1570,14 @@ describe('kernel host journal', () => {
       destinations: ['skip', 'target'],
       kernel: { stage: 'select-players' },
     })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'p2', destination: 'target' },
         { card: 'p3', destination: 'skip' },
         { card: 'p4', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
 
     let state = kernel.history.current()
     if (state.stack.length > 0) {
@@ -1568,10 +1590,10 @@ describe('kernel host journal', () => {
       requirements: { target: { min: 0, max: 1 } },
       kernel: { stage: 'select-players' },
     })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'p2', destination: 'target' }],
-    })).toBe(true)
+    }))).toBe(true)
 
     state = kernel.history.current()
     expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])
@@ -1629,13 +1651,13 @@ describe('kernel host journal', () => {
       cards: ['First Forest', 'Second Forest'],
       destinations: ['battlefield', 'sacrifice'],
     })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'First Forest', destination: 'sacrifice' },
         { card: 'Second Forest', destination: 'battlefield' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
 
     const state = kernel.history.current()
     const sacrificed = Object.values(state.objects).find(
@@ -1699,13 +1721,13 @@ describe('kernel host journal', () => {
     const { kernel, lobby } = searchGame()
     prepareKernelPendingChoice(kernel, lobby)
 
-    expect(() => applyKernelChoice(kernel, lobby, 'p1', {
+    expect(() => applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Taiga', destination: 'battlefield' },
         { card: 'Forest', destination: 'battlefield' },
       ],
-    })).toThrow('Choose 1 card(s)')
+    }))).toThrow('Choose 1 card(s)')
     expect(searchingSeat(kernel.history.current())).toBe('p1')
   })
 
@@ -1716,10 +1738,10 @@ describe('kernel host journal', () => {
       3,
     )
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Forest', destination: 'battlefield' }],
-    })).toBe(true)
+    }))).toBe(true)
 
     const state = kernel.history.current()
     const found = Object.values(state.objects).find(
@@ -1739,13 +1761,13 @@ describe('kernel host journal', () => {
       ],
     )
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(() => applyKernelChoice(kernel, lobby, 'p1', {
+    expect(() => applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Forest', destination: 'battlefield' },
         { card: 'Island', destination: 'battlefield' },
       ],
-    })).toThrow('must share a land type')
+    }))).toThrow('must share a land type')
     expect(searchingSeat(kernel.history.current())).toBe('p1')
   })
 
@@ -2258,14 +2280,14 @@ describe('kernel host journal', () => {
       cards: [RANKLE_MODES.discard, RANKLE_MODES.drain, RANKLE_MODES.sacrifice],
     })
 
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: RANKLE_MODES.discard, destination: 'skip' },
         { card: RANKLE_MODES.drain, destination: 'skip' },
         { card: RANKLE_MODES.sacrifice, destination: 'target' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
@@ -2274,10 +2296,10 @@ describe('kernel host journal', () => {
       destinations: ['battlefield', 'sacrifice'],
     })
 
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Rankle, Master of Pranks', destination: 'sacrifice' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.history.current().objects[source.id].zone).toBe('graveyard')
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({ seat: 'p2', kind: 'sacrifice' })
@@ -2327,7 +2349,7 @@ describe('kernel host journal', () => {
       seat: 'p1',
       kind: 'choose-creature-type',
     })
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Crab', destination: 'target' },
@@ -2335,7 +2357,7 @@ describe('kernel host journal', () => {
         { card: 'Golem', destination: 'skip' },
         { card: 'Other (no current creature)', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.history.current().objects[throne.id]).toMatchObject({
       chosenType: 'Crab',
       subtypes: ['Golem', 'Crab'],
@@ -2420,10 +2442,10 @@ describe('kernel host journal', () => {
       destinations: ['target'],
     })
 
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Borrowed Body', destination: 'target' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.history.current().objects[body]).toMatchObject({
       zone: 'battlefield',
       controller: 'p1',
@@ -2489,10 +2511,10 @@ describe('kernel host journal', () => {
       destinations: ['library', 'battlefield'],
       requirements: { battlefield: { min: 0, max: 1 } },
     })
-    expect(applyKernelChoice(restored, lobby, 'p2', {
+    expect(applyKernelChoice(restored, lobby, 'p2', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Plains', destination: 'battlefield' }],
-    })).toBe(true)
+    }))).toBe(true)
     const plains = Object.values(restored.history.current().objects)
       .find((object) => object.name === 'Plains')!
     expect(plains.zone).toBe('battlefield')
@@ -2544,10 +2566,10 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck).toBeDefined()
     expect(kernel.history.current().stack[0]?.waiting).toBe('choice')
 
-    expect(applyKernelChoice(kernel, lobby, 'p2', {
+    expect(applyKernelChoice(kernel, lobby, 'p2', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Victim Card', destination: 'graveyard' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.journal.events.some((event) =>
       event.type === 'continueAction'
       && event.stackId === 'discard-action'
@@ -2616,10 +2638,10 @@ describe('kernel host journal', () => {
       kernel: { stage: 'battle-cast-transformed', stackId: 'battle-cast' },
     })
 
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [{ card: 'Yes', destination: 'target' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.journal.events).toContainEqual({
       type: 'continueAction',
       stackId: 'battle-cast',
@@ -2714,14 +2736,14 @@ describe('kernel host journal', () => {
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
-    expect(applyKernelChoice(kernel, restarted, 'p1', {
+    expect(applyKernelChoice(kernel, restarted, 'p1', slotted(restarted, {
       type: 'topdeck',
       choices: [
         { card: 'p2', destination: 'target' },
         { card: 'p3', destination: 'skip' },
         { card: 'p4', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.journal.events).toContainEqual({
       type: 'selectPlayers',
       selectionId: selection.id,
@@ -2770,13 +2792,13 @@ describe('extort live choice', () => {
       cards: ['Decline', 'Pay {W}'],
     })
 
-    expect(applyKernelChoice(kernel, lobby, 'p1', {
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Decline', destination: 'skip' },
         { card: 'Pay {W}', destination: 'target' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.history.current().players.p1).toMatchObject({
       life: 41,
       mana: { W: 0 },
@@ -2851,10 +2873,10 @@ describe('if-you-do resolution choices', () => {
     restarted.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
     expect(restarted.topdeck?.kernel?.selectionId).toBe(firstLobby.topdeck?.kernel?.selectionId)
-    expect(applyKernelChoice(kernel, restarted, 'p1', {
+    expect(applyKernelChoice(kernel, restarted, 'p1', slotted(restarted, {
       type: 'topdeck',
       choices: [{ card: 'Yard Beast', destination: 'target' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.history.current().objects[rock.id].zone).toBe('exile')
     expect(kernel.history.current().objects[yard.id].zone).toBe('exile')
   })
@@ -2930,10 +2952,10 @@ describe('if-you-do resolution choices', () => {
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
-    expect(applyKernelChoice(kernel, restarted, 'p1', {
+    expect(applyKernelChoice(kernel, restarted, 'p1', slotted(restarted, {
       type: 'topdeck',
       choices: [{ card: 'Fodder Goat', destination: 'sacrifice' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(kernel.history.current().objects[goat.id].zone).toBe('graveyard')
     expect(kernel.history.current().objects[bear.id]).toMatchObject({
       zone: 'battlefield',
@@ -2997,10 +3019,10 @@ describe('ward live choice', () => {
     const restarted = handleFor(server.rules, structuredClone(cast.state))
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p2', {
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [{ card: 'Yes', destination: 'skip' }],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restarted.history.current().stack).toHaveLength(0)
     expect(restarted.history.current().objects[spellId].zone).toBe('hand')
   })
@@ -3065,14 +3087,14 @@ describe('up-to-N trigger targets live choice', () => {
     restarted.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
     expect(restarted.topdeck?.kernel?.selectionId).toBe(firstLobby.topdeck?.kernel?.selectionId)
-    expect(applyKernelChoice(kernel, restarted, 'p1', {
+    expect(applyKernelChoice(kernel, restarted, 'p1', slotted(restarted, {
       type: 'topdeck',
       choices: [
         { card: 'Enemy Rock', destination: 'target' },
         { card: 'Enemy Ring', destination: 'target' },
         { card: 'Spared Charm', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
 
     const done = kernel.history.current()
     expect(done.objects[byName('Enemy Rock').id].zone).toBe('graveyard')
@@ -3128,13 +3150,13 @@ describe('ward life live choice', () => {
     const restarted = handleFor(server.rules, structuredClone(cast.state))
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p2', {
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
         { card: 'Pay 7 life', destination: 'target' },
         { card: 'Do not pay (it is countered)', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restarted.history.current().players.p2.life).toBe(33)
     // The host passed priority, so the spell that Ward let through already resolved.
     expect(restarted.history.current().objects[object('Test Hex').id].zone).toBe('graveyard')
@@ -3182,22 +3204,22 @@ describe('each-player and cost live choices', () => {
       seat: 'p1',
       cards: ['Discard your hand and draw 2 cards', 'Keep your hand'],
     })
-    expect(applyKernelChoice(restarted, lobby, 'p1', {
+    expect(applyKernelChoice(restarted, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Discard your hand and draw 2 cards', destination: 'target' },
         { card: 'Keep your hand', destination: 'skip' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restarted.history.current().zoneOrder.p1.hand).toHaveLength(2)
     expect(lobby.topdeck).toMatchObject({ seat: 'p2' })
-    expect(applyKernelChoice(restarted, lobby, 'p2', {
+    expect(applyKernelChoice(restarted, lobby, 'p2', slotted(lobby, {
       type: 'topdeck',
       choices: [
         { card: 'Discard your hand and draw 2 cards', destination: 'skip' },
         { card: 'Keep your hand', destination: 'target' },
       ],
-    })).toBe(true)
+    }))).toBe(true)
     expect(restarted.history.current().zoneOrder.p2.hand).toHaveLength(1)
     expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
   })
@@ -3252,5 +3274,273 @@ describe('each-player and cost live choices', () => {
     const current = kernel.history.current()
     expect(picks.every((objectId) => current.objects[objectId].zone === 'graveyard')).toBe(true)
     expect(current.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'elder.reset' })
+  })
+})
+
+describe('same-named candidates are picked by position', () => {
+  const idsNamed = (state: GameState, name: string, zone: string) =>
+    Object.values(state.objects)
+      .filter((object) => object.name === name && object.zone === zone)
+      .sort((left, right) => left.controller.localeCompare(right.controller))
+      .map((object) => object.id)
+
+  const stamp = (state: GameState, selection: Record<string, unknown>) => {
+    state.players.p1.data[PENDING_SELECTION] = [{
+      id: 'selection-1',
+      seat: 'p1',
+      sourceId: 'source',
+      source: 'Test Source',
+      ...selection,
+    }]
+    state.priority = 'p1'
+  }
+
+  const offer = (kernel: KernelHandle) => {
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    return lobby
+  }
+
+  test('a battlefield pick exiles the chosen controller\'s Forest, not the first one', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [forest()],
+        p2: [forest()],
+        p3: [forest(), cardTemplate('Treasure', { types: ['Artifact'] })],
+      },
+    })
+    const [mine, theirs, third] = idsNamed(server.state, 'Forest', 'battlefield')
+    const treasure = idsNamed(server.state, 'Treasure', 'battlefield')[0]
+    stamp(server.state, {
+      kind: 'choose',
+      count: 3,
+      min: 0,
+      candidates: [mine, theirs, treasure, third],
+      destinations: ['skip', 'target'],
+      moveSelectedTo: 'exile',
+    })
+    const kernel = handleFor(server.rules, server.state)
+    const first = offer(kernel)
+
+    expect(first.topdeck?.cards).toEqual(['Forest', 'Forest', 'Treasure', 'Forest'])
+    // The prompt tells the chooser whose Forest is which; the dialog numbers them the same way.
+    expect(first.privateWaiting.p1).toContain(
+      "Forest #1 (p1's battlefield), Forest #2 (p2's battlefield), Forest #3 (p3's battlefield)",
+    )
+
+    // A restarted host rebuilds the identical dialog from the kernel state alone.
+    const restarted = offer(kernel)
+    expect(restarted.topdeck).toEqual(first.topdeck)
+
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', slot: 0, destination: 'skip' },
+        { card: 'Forest', slot: 1, destination: 'target' },
+        { card: 'Treasure', slot: 2, destination: 'skip' },
+        { card: 'Forest', slot: 3, destination: 'target' },
+      ],
+    })).toBe(true)
+
+    const after = kernel.history.current()
+    expect(after.objects[mine].zone).toBe('battlefield')
+    expect(after.objects[treasure].zone).toBe('battlefield')
+    expect(after.objects[theirs].zone).toBe('exile')
+    expect(after.objects[third].zone).toBe('exile')
+  })
+
+  test('a pick that cannot be matched slot by slot is rejected and changes nothing', () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [forest()], p2: [forest()] },
+    })
+    const [mine, theirs] = idsNamed(server.state, 'Forest', 'battlefield')
+    stamp(server.state, {
+      kind: 'choose',
+      count: 1,
+      candidates: [mine, theirs],
+      destinations: ['skip', 'target'],
+      moveSelectedTo: 'exile',
+    })
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = offer(kernel)
+    const journalLength = kernel.journal.events.length
+    const answer = (choices: Array<{ card: string; slot?: number; destination: 'skip' | 'target' }>) =>
+      () => applyKernelChoice(kernel, lobby, 'p1', { type: 'topdeck', choices })
+
+    // An older client that names cards without positions cannot say which Forest.
+    expect(answer([
+      { card: 'Forest', destination: 'skip' },
+      { card: 'Forest', destination: 'target' },
+    ])).toThrow('changed')
+    // One position answered twice leaves the other Forest unanswered.
+    expect(answer([
+      { card: 'Forest', slot: 1, destination: 'skip' },
+      { card: 'Forest', slot: 1, destination: 'target' },
+    ])).toThrow('changed')
+    expect(answer([
+      { card: 'Forest', slot: 0, destination: 'skip' },
+      { card: 'Forest', slot: 2, destination: 'target' },
+    ])).toThrow('changed')
+    expect(answer([
+      { card: 'Island', slot: 0, destination: 'skip' },
+      { card: 'Forest', slot: 1, destination: 'target' },
+    ])).toThrow('changed')
+    expect(kernel.journal.events.length).toBe(journalLength)
+    expect(kernel.history.current().objects[theirs].zone).toBe('battlefield')
+    expect(lobby.topdeck).toBeDefined()
+  })
+
+  test('a discard pick of duplicate cards in hand discards the chosen copy', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [forest(), forest(), cardTemplate('Island', { types: ['Land'] })] },
+    })
+    const [firstCopy, secondCopy] = server.state.zoneOrder.p1.hand
+    stamp(server.state, {
+      kind: 'discard',
+      count: 1,
+      candidates: server.state.zoneOrder.p1.hand,
+      destinations: ['hand', 'graveyard'],
+    })
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = offer(kernel)
+
+    expect(lobby.topdeck?.cards).toEqual(['Forest', 'Forest', 'Island'])
+    // Both copies sit in the chooser's own hand, so no holder note is needed.
+    expect(lobby.privateWaiting.p1).not.toContain('Same-named')
+    // Positions, not object ids, travel to the client, and only the chooser gets the dialog.
+    const published = (viewer: SeatId) => liveSnapshotFromState({
+      state: projectForViewer(kernel.history.current(), viewer),
+      lobby,
+      viewer,
+    })
+    expect(JSON.stringify(published('p1').topdeck)).not.toContain(firstCopy)
+    expect(JSON.stringify(published('p1').topdeck)).not.toContain(secondCopy)
+    expect(published('p2').topdeck).toBeUndefined()
+    expect(JSON.stringify(published('p2'))).not.toContain('Forest')
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', slot: 0, destination: 'hand' },
+        { card: 'Forest', slot: 1, destination: 'graveyard' },
+        { card: 'Island', slot: 2, destination: 'hand' },
+      ],
+    })).toBe(true)
+
+    const after = kernel.history.current()
+    expect(after.objects[firstCopy].zone).toBe('hand')
+    expect(after.objects[secondCopy].zone).toBe('graveyard')
+  })
+
+  test('a stack discard of duplicate cards in hand discards the chosen copy after a restart', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p2: [forest(), forest()] },
+    })
+    const [firstCopy, secondCopy] = server.state.zoneOrder.p2.hand
+    server.state.stack = [{
+      id: 'discard-action',
+      kind: 'action',
+      actionId: 'discard',
+      objectId: 'cry',
+      controller: 'p2',
+      name: 'Discard',
+      targets: [],
+      waiting: 'choice',
+      payload: { seat: 'p2', count: 1, chooser: 'p2' },
+    }]
+    server.state.priority = 'p2'
+    const kernel = handleFor(server.rules, server.state)
+    const first = offer(kernel)
+    const restarted = offer(kernel)
+
+    expect(restarted.topdeck).toEqual(first.topdeck)
+    expect(restarted.topdeck?.cards).toEqual(['Forest', 'Forest'])
+    expect(applyKernelChoice(kernel, restarted, 'p2', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', slot: 0, destination: 'hand' },
+        { card: 'Forest', slot: 1, destination: 'graveyard' },
+      ],
+    })).toBe(true)
+
+    const after = kernel.history.current()
+    expect(after.objects[firstCopy].zone).toBe('hand')
+    expect(after.objects[secondCopy].zone).toBe('graveyard')
+  })
+
+  test('a graveyard pick between players\' same-named cards targets the chosen one', () => {
+    const server = createServerGame(commanderRules, {
+      hands: { p1: [forest()], p2: [forest()], p3: [cardTemplate('Island', { types: ['Land'] })] },
+    })
+    let state = server.state
+    for (const seat of ['p1', 'p2', 'p3'] as const) {
+      const moved = server.rules(state, {
+        type: 'move',
+        objectId: state.zoneOrder[seat].hand[0],
+        to: 'graveyard',
+      })
+      if (!moved.ok) throw new Error(moved.error)
+      state = moved.state
+    }
+    const [mine, theirs] = idsNamed(state, 'Forest', 'graveyard')
+    state.players.p1.data[PENDING_DIALOG] = {
+      sourceId: 'pit',
+      source: 'Test Pit',
+      seat: 'p1',
+      kind: 'exile-graveyards',
+      prompt: 'Choose up to three cards in graveyards.',
+      waiting: 'is choosing cards in graveyards.',
+      judge: 'Waiting for graveyard targets.',
+      chosenEvent: DIALOG_CHOSEN,
+      destinations: ['graveyard', 'exile'],
+      optional: true,
+      requirements: { exile: { min: 0, max: 3 } },
+    }
+    const kernel = handleFor(server.rules, state)
+    const first = offer(kernel)
+    const restarted = offer(kernel)
+
+    expect(restarted.topdeck).toEqual(first.topdeck)
+    expect(restarted.topdeck?.cards).toEqual(['Forest', 'Forest', 'Island'])
+    expect(restarted.privateWaiting.p1).toContain(
+      "Forest #1 (p1's graveyard), Forest #2 (p2's graveyard)",
+    )
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', slot: 0, destination: 'graveyard' },
+        { card: 'Forest', slot: 1, destination: 'exile' },
+        { card: 'Island', slot: 2, destination: 'graveyard' },
+      ],
+    })).toBe(true)
+
+    expect(kernel.journal.events).toContainEqual({
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p1',
+      payload: { objectIds: [theirs] },
+    })
+    expect(kernel.journal.events).not.toContainEqual(
+      expect.objectContaining({ payload: { objectIds: [mine] } }),
+    )
+  })
+
+  test('a library search takes the chosen copy of a duplicated land', () => {
+    const { kernel, lobby } = searchGame({ library: ['Forest', 'Forest'] })
+    const [firstCopy, secondCopy] = kernel.history.current().zoneOrder.p1.library
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck?.cards).toEqual(['Forest', 'Forest'])
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', slot: 0, destination: 'library' },
+        { card: 'Forest', slot: 1, destination: 'battlefield' },
+      ],
+    })).toBe(true)
+
+    const after = kernel.history.current()
+    expect(after.objects[secondCopy].zone).toBe('battlefield')
+    expect(after.objects[firstCopy].zone).toBe('library')
   })
 })

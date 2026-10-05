@@ -25,6 +25,23 @@ export type TopdeckRequirements = Partial<Record<
   { min?: number; max?: number }
 >>
 
+/**
+ * Offered cards may share a name (two Forests, one per controller). Each
+ * duplicate gets its position among its namesakes so the player can tell the
+ * choices apart and the prompt can describe them; unique names stay as they are.
+ */
+export const distinctCardLabels = (names: string[]) => {
+  const totals = new Map<string, number>()
+  for (const name of names) totals.set(name, (totals.get(name) ?? 0) + 1)
+  const seen = new Map<string, number>()
+  return names.map((name) => {
+    if ((totals.get(name) ?? 0) < 2) return name
+    const nth = (seen.get(name) ?? 0) + 1
+    seen.set(name, nth)
+    return `${name} #${nth}`
+  })
+}
+
 export type CardRef = string | number
 
 /** Per-seat board state shared between live wire seats and replay player state. */

@@ -3,7 +3,7 @@ import type { SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
 import {
   OPTIONAL_DIALOGS,
-  sameNames,
+  assertOfferedSlots,
   type ChoiceContext,
   type TopdeckMessage,
 } from './kernelChoice'
@@ -48,9 +48,7 @@ export const applyKernelChoice = (
   }
   // Cumulative upkeep answers with opponent names, not with the offered cards.
   if (decision.kernel.stage === 'cumulative-upkeep') return applyCumulativeUpkeep(context)
-  if (!sameNames(message.choices.map(({ card }) => card), decision.cards)) {
-    throw new Error('The cards in this choice changed. Refresh and choose again.')
-  }
+  assertOfferedSlots(decision.cards, message.choices)
   if (message.choices.some(({ destination }) =>
     !decision.destinations.includes(destination))) {
     throw new Error(`Invalid ${decision.kind} destination.`)

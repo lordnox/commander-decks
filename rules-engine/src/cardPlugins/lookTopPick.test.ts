@@ -100,8 +100,9 @@ const pick = (
 
 const live = (assignments: Array<[string, string]>) => ({
   type: 'topdeck' as const,
-  choices: assignments.map(([card, destination]) => ({
+  choices: assignments.map(([card, destination], slot) => ({
     card,
+    slot,
     destination: destination as 'hand' | 'bottom',
   })),
 })

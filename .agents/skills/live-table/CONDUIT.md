@@ -61,8 +61,12 @@ recomputes `legalActs` and dispatches without a judge. `keep` may include `cards
 the bottom, in order) and `cheat: true` (keep seven anyway, for testing).
 `mulligan` shuffles the hand into the library and draws seven. Commander's first
 mulligan is free; later ones bottom `mulligans - 1` cards.
-`topdeck` sends ordered `{card,destination}` choices for the private dialog;
-the host validates the current hidden library and resolves it without an agent.
+`topdeck` sends ordered `{card,slot,destination}` choices for the private dialog;
+`slot` is the card's position in the dialog's offered `cards`, because two offered
+cards can share a name (two Forests of different controllers). A kernel dialog
+answers every offered slot exactly once and rejects a choice whose slot is missing,
+repeated, or does not hold that `card`. The host validates the current hidden
+library and resolves it without an agent.
 A decision of kind `discard` carries the seat's hand instead of the library top,
 with `hand` and `graveyard` destinations and the excess as a requirement; the
 host records the discard and ends the turn.

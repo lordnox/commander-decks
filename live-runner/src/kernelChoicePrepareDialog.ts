@@ -12,10 +12,11 @@ export const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) =>
   const state = kernel.history.current()
   const dialog = pendingDialog(state)
   if (!dialog || !isSeatId(dialog.seat)) return false
+  const candidates = dialog.options || OPTIONAL_DIALOGS.has(dialog.kind)
+    ? []
+    : dialogCandidates(state, dialog)
   const cards = dialog.options
-    ?? (OPTIONAL_DIALOGS.has(dialog.kind)
-      ? ['Yes']
-      : dialogCandidates(state, dialog).map((object) => object.name))
+    ?? (OPTIONAL_DIALOGS.has(dialog.kind) ? ['Yes'] : candidates.map((object) => object.name))
   if (dialog.optional && cards.length === 0) {
     const result = kernel.dispatch({ type: 'custom', name: dialog.chosenEvent, seat: dialog.seat })
     if (!result.ok) throw new Error(result.error)
@@ -41,5 +42,6 @@ export const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) =>
       prompt: dialog.prompt,
       judge: dialog.judge,
     },
+    candidates,
   )
 }

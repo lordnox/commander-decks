@@ -197,8 +197,8 @@ describe('Saga chapter with a player target', () => {
     expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
       type: 'topdeck',
       choices: [
-        { card: 'p2', destination: 'skip' },
-        { card: 'p3', destination: 'target' },
+        { card: 'p2', slot: 0, destination: 'skip' },
+        { card: 'p3', slot: 1, destination: 'target' },
       ],
     })).toBe(true)
     const selection = pendingPlayerSelectionFor(kernel.history.current(), 'p1')!

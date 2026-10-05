@@ -5,11 +5,12 @@ import {
 } from '../../rules-engine/src/index'
 import {
   pendingSearch,
+  searchCandidates,
   searchSpecForPending,
   type SearchMove,
   validateSplitSearchSelection,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
-import { objectIdsForNames, type ChoiceContext } from './kernelChoice'
+import { objectIdsForChoices, type ChoiceContext } from './kernelChoice'
 import type { LobbyState } from './lobby'
 import type { SeatId } from './protocol'
 import { finishLibrarySearch } from './kernelChoicePrepareCards'
@@ -72,12 +73,10 @@ export const applySelectCards = (
                 : 'target'
             )
         : 'graveyard'
-    const objectIds = objectIdsForNames(
+    const objectIds = objectIdsForChoices(
       state,
       waiting.objectIds,
-      message.choices
-        .filter(({ destination }) => destination === chosenDestination)
-        .map(({ card }) => card),
+      message.choices.filter(({ destination }) => destination === chosenDestination),
     )
     const minimum = cardKind === 'discard'
       ? waiting.count
@@ -114,8 +113,9 @@ export const applySelectCards = (
         : `${lobby.occupants[seat]?.name ?? seat} ${verb} ${name}.`,
     })
   }
-  const choices = message.choices.map((choice) => ({
-    objectId: objectIdsForNames(state, waiting.objectIds, [choice.card])[0],
+  const pickedIds = objectIdsForChoices(state, waiting.objectIds, message.choices)
+  const choices = message.choices.map((choice, index) => ({
+    objectId: pickedIds[index],
     destination: choice.destination as 'top' | 'bottom' | 'hand' | 'graveyard' | 'face-up' | 'face-down',
   }))
   if (choices.length !== waiting.count) {
@@ -201,12 +201,10 @@ export const applyWaitingDiscard = (
   if (!waiting || waiting.item.id !== stackId) {
     throw new Error('That discard is no longer open.')
   }
-  const objectIds = objectIdsForNames(
+  const objectIds = objectIdsForChoices(
     state,
     waiting.handIds,
-    message.choices
-      .filter(({ destination }) => destination === 'graveyard')
-      .map(({ card }) => card),
+    message.choices.filter(({ destination }) => destination === 'graveyard'),
   )
   if (objectIds.length !== waiting.count) {
     throw new Error(`Choose exactly ${waiting.count} card(s) to discard.`)
@@ -275,14 +273,10 @@ export const applyLibrarySearch = (
       )
     }
   }
-  const searchZones = spec.zones ?? ['library']
-  const ids = objectIdsForNames(
+  const ids = objectIdsForChoices(
     state,
-    [
-      ...state.zoneOrder[seat].library,
-      ...(searchZones.includes('graveyard') ? state.zoneOrder[seat].graveyard : []),
-    ],
-    picked.map(({ card }) => card),
+    searchCandidates(state, seat, spec, pending.kicked, pending.x).map((object) => object.id),
+    picked,
   )
   const selectionError = spec.validateSelection?.(
     ids.map((objectId) => state.objects[objectId]),

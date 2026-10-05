@@ -268,16 +268,17 @@ describe('annihilator', () => {
     expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
     expect(restarted.topdeck?.kernel?.selectionId).toBe(selectionId)
 
+    const slot = (card: string) => restarted.topdeck!.cards.indexOf(card)
     expect(() => applyKernelChoice(kernel, restarted, 'p2', {
       type: 'topdeck',
-      choices: [{ card: 'P2 Rock', destination: 'sacrifice' }],
+      choices: [{ card: 'P2 Rock', slot: slot('P2 Rock'), destination: 'sacrifice' }],
     })).toThrow()
     expect(applyKernelChoice(kernel, restarted, 'p2', {
       type: 'topdeck',
       choices: [
-        { card: 'P2 Rock', destination: 'sacrifice' },
-        { card: 'P2 Treasure', destination: 'sacrifice' },
-        { card: 'P2 Swamp', destination: 'battlefield' },
+        { card: 'P2 Rock', slot: slot('P2 Rock'), destination: 'sacrifice' },
+        { card: 'P2 Treasure', slot: slot('P2 Treasure'), destination: 'sacrifice' },
+        { card: 'P2 Swamp', slot: slot('P2 Swamp'), destination: 'battlefield' },
       ],
     })).toBe(true)
     const settled = resolveStack(kernel.rules, kernel.history.current())
