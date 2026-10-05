@@ -2,7 +2,7 @@ import { expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
-import { TopdeckDialog } from './TopdeckDialog'
+import { TopdeckDialog, answerFor } from './TopdeckDialog'
 
 test('topdeck dialog offers card previews and a board-view escape', () => {
   const game = {
@@ -342,4 +342,48 @@ test('a pile partition offers face-up and face-down destinations', () => {
   expect(html).toContain('Put in face-up')
   expect(html).toContain('Put in face-down')
   expect(html).toContain('Resolve partition')
+})
+
+test('same-named cards are numbered so each can be picked on its own', () => {
+  const game = {
+    catalog: { Forest: {}, Treasure: {} },
+  } as unknown as ReplayGame
+  const decision = {
+    seat: 'p1',
+    kind: 'choose',
+    cards: ['Forest', 'Treasure', 'Forest'],
+    destinations: ['skip', 'target'],
+    requirements: { target: { min: 0, max: 3 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Forest #1')
+  expect(html).toContain('Forest #2')
+  expect(html).not.toContain('Treasure #')
+  expect(html).not.toContain('>Forest<')
+})
+
+test('each answer names the offered position of its card, not just its name', () => {
+  // The second Forest is the one targeted, so the host must not read it as the first.
+  expect(answerFor([
+    { id: 0, card: 'Forest', destination: 'skip' },
+    { id: 1, card: 'Treasure', destination: 'skip' },
+    { id: 2, card: 'Forest', destination: 'target' },
+  ])).toEqual([
+    { card: 'Forest', slot: 0, destination: 'skip' },
+    { card: 'Treasure', slot: 1, destination: 'skip' },
+    { card: 'Forest', slot: 2, destination: 'target' },
+  ])
+  // A reordered scry keeps each card's original position.
+  expect(answerFor([
+    { id: 1, card: 'Island', destination: 'top' },
+    { id: 0, card: 'Island', destination: 'bottom' },
+  ]).map(({ slot }) => slot)).toEqual([1, 0])
 })
