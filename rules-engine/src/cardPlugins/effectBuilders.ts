@@ -393,9 +393,14 @@ export const preventCombatDamage = (
 
 export const untapTarget = (): CardInstruction => ({ kind: 'untapTarget' })
 
-export const tapAll = (filter: TargetFilter): CardInstruction => ({
+export const tapAll = (
+  filter: TargetFilter,
+  extra: { ofTargetPlayer?: boolean; skipNextUntap?: boolean } = {},
+): CardInstruction => ({
   kind: 'tapAll',
   filter,
+  ...(extra.ofTargetPlayer ? { ofTargetPlayer: true } : {}),
+  ...(extra.skipNextUntap ? { skipNextUntap: true } : {}),
 })
 
 export const addManaPerSwamp = (basic = false): CardInstruction => ({
@@ -1478,7 +1483,10 @@ export const exchangeControlUntilEot = (): CardInstruction => ({
   kind: 'exchangeControlUntilEot',
 })
 
-export const gainControlPermanent = (): CardInstruction => ({ kind: 'gainControlPermanent' })
+export const gainControlPermanent = (untap = false): CardInstruction => ({
+  kind: 'gainControlPermanent',
+  ...(untap ? { untap: true } : {}),
+})
 
 export const pairDonateToOpponents = (
   objectIds: string[],

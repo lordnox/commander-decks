@@ -601,13 +601,22 @@ const untapTarget: InstructionHandler<'untapTarget'> = ({ draft, item }) => {
 }
 
 const tapAll: InstructionHandler<'tapAll'> = ({ draft, source, item }, instruction) => {
-  const filter = instruction.filter.zone ?? instruction.filter.zones
-    ? instruction.filter
-    : { ...instruction.filter, zone: 'battlefield' as const }
+  const targetPlayer = instruction.ofTargetPlayer
+    ? item?.targets.find((target) => target.kind === 'player')
+    : undefined
+  if (instruction.ofTargetPlayer && !targetPlayer) return
+  const scoped = targetPlayer
+    ? { ...instruction.filter, controller: undefined }
+    : instruction.filter
+  const filter = scoped.zone ?? scoped.zones
+    ? scoped
+    : { ...scoped, zone: 'battlefield' as const }
   const state = draft as GameState
   for (const object of Object.values(draft.objects)) {
     if (!matchesTargetFilter(state, object, filter, source.controller, item?.castOption)) continue
+    if (targetPlayer?.kind === 'player' && object.controller !== targetPlayer.player) continue
     draft.enqueue({ type: 'tap', objectId: object.id })
+    if (instruction.skipNextUntap) object.skipNextUntap = true
   }
 }
 

@@ -301,7 +301,7 @@ export type CardInstruction =
   | { kind: 'fight'; with: 'self-target' | 'two-targets' }
   | { kind: 'fightUpToOne' }
   | { kind: 'exchangeControlUntilEot' }
-  | { kind: 'gainControlPermanent' }
+  | { kind: 'gainControlPermanent'; untap?: boolean }
   | {
       kind: 'pairDonateToOpponents'
       objectIds: string[]
@@ -364,7 +364,14 @@ export type CardInstruction =
   | { kind: 'grantControlled'; keywords: string[]; other?: boolean; nonHuman?: boolean }
   | { kind: 'preventCombatDamage'; from?: 'target' | 'all'; toController?: boolean }
   | { kind: 'untapTarget' }
-  | { kind: 'tapAll'; filter: TargetFilter }
+  | {
+      kind: 'tapAll'
+      filter: TargetFilter
+      /** Only permanents controlled by the targeted player; `filter.controller` is ignored. */
+      ofTargetPlayer?: boolean
+      /** They don't untap during their controller's next untap step. */
+      skipNextUntap?: boolean
+    }
   | { kind: 'addManaPerSwamp'; basic?: boolean }
   | { kind: 'revealDrawLoseLife' }
   | { kind: 'gainLifeTargetPower' }
