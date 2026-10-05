@@ -169,6 +169,28 @@ export const exilePayoffsInstructionHandlers = {
   putLinkedExileToGraveyardGainLifeApply,
 }
 
+/**
+ * An imprint belongs to one stay on the battlefield: when its holder leaves, the link is
+ * forgotten (the exiled card stays exiled), so a returning permanent is a new object with no
+ * imprint. Holders that release their cards on leaving (`linkedExileUntilLeaves`) are left to
+ * the `linkedExile` plugin.
+ */
+const forgetImprint = (
+  state: GameState,
+  objectId: string,
+  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
+) => {
+  const before = state.objects[objectId]
+  if (!before || before.zone !== 'battlefield') return
+  const effects = before.effects ?? []
+  if (!pumpPerLinkedExileSpec(before)) return
+  if (effects.some((effect) => effect.op === 'static' && effect.linkedExileUntilLeaves)) return
+  const holder = draft.object(objectId)
+  if (!holder) return
+  for (const cardId of holder.exiledCards ?? []) unlinkLinkedExile(draft, holder, cardId)
+  holder.exiledCards = []
+}
+
 const refreshAll = (draft: GameState) => {
   for (const object of Object.values(draft.objects)) {
     const spec = pumpPerLinkedExileSpec(object)
@@ -194,6 +216,7 @@ const needsSync = (state: GameState) =>
 export const exilePayoffs: Plugin = {
   id: 'exilePayoffs',
   apply: ({ state, event, draft }) => {
+    if (event.type === 'move' && event.to !== 'battlefield') forgetImprint(state, event.objectId, draft)
     if (!shouldRefresh(event, state)) return
     refreshAll(draft)
   },
