@@ -767,7 +767,10 @@ export type CardEffect =
     }
   | {
       op: 'restrictedMana'
-      creatureOfChosenType: true
+      /** Spend this mana only to cast a creature spell of the creature type the source chose. */
+      creatureOfChosenType?: true
+      /** Spend this mana only to cast a legendary spell. */
+      legendary?: true
       uncounterable?: boolean
     }
   | {

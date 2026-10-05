@@ -214,6 +214,7 @@ import {
   cumulativeUpkeepOpponentLife,
   uncounterable,
   restrictedCreatureMana,
+  restrictedLegendaryMana,
   phaseOutTarget,
   putSelfOntoBattlefield,
   createHeroWithLandCounters,
@@ -785,6 +786,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
   ],
+  'Delighted Halfling': [restrictedLegendaryMana()],
   'Charcoal Diamond': [entersTapped()],
   "Commander's Sphere": [
     ability(

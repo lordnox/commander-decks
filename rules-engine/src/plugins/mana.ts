@@ -275,7 +275,9 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
         {
           mana: restrictedSymbol,
           sourceId: object.id,
-          ...(object.chosenType ? { creatureType: object.chosenType } : {}),
+          ...(restriction?.op === 'restrictedMana' && restriction.legendary
+            ? { legendary: true }
+            : object.chosenType ? { creatureType: object.chosenType } : {}),
           ...(restriction?.uncounterable ? { uncounterable: true } : {}),
         },
       ]

@@ -2,6 +2,7 @@ import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, manaRequiresTap, poolForChoice, sacrificesForMana } from './plugins/mana'
+import type { CardEffect } from './cardPlugins/effects'
 import { giftSpecOf } from './cardPlugins/giftCast'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
@@ -16,6 +17,7 @@ import {
   payCost,
   phyrexianSymbols,
   reduceGenericManaCost,
+  restrictedManaFits,
   spellCost,
 } from './plugins/spells'
 import {
@@ -422,8 +424,14 @@ const manaPlays = (
   spell?: GameObject,
 ): ManaPlay[] => {
   const modes = manaModes(source, state)
-  const restricted = effectsOf(source).some((effect) => effect.op === 'restrictedMana')
-  const taps = restricted && !canUseRestrictedMana(state, seat, spell, source.chosenType)
+  const restriction = effectsOf(source).find(
+    (effect): effect is Extract<CardEffect, { op: 'restrictedMana' }> => effect.op === 'restrictedMana',
+  )
+  const taps = restriction
+    && !canUseRestrictedMana(state, seat, spell, {
+      creatureType: source.chosenType,
+      legendary: restriction.legendary === true,
+    })
     ? modes.filter((mode) => (mode.C ?? 0) > 0)
     : modes
   return [
@@ -498,18 +506,15 @@ const canUseRestrictedMana = (
   state: GameState,
   seat: PlayerId,
   spell: GameObject | undefined,
-  creatureType?: string,
-) => Boolean(
-  spell?.types.includes('Creature')
-  && creatureType
-  && (
-    spell.subtypes.includes(creatureType)
-    || Object.values(state.objects).some((object) =>
-      object.zone === 'battlefield'
-      && !object.phasedOut
-      && object.controller === seat
-      && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes))
-  ),
+  restriction: { creatureType?: string; legendary?: boolean },
+) => restrictedManaFits(
+  restriction,
+  spell,
+  Object.values(state.objects).some((object) =>
+    object.zone === 'battlefield'
+    && !object.phasedOut
+    && object.controller === seat
+    && effectsOf(object).some((effect) => effect.op === 'static' && effect.allCreatureTypes)),
 )
 
 const canFund = (
@@ -522,7 +527,7 @@ const canFund = (
   const cap = Math.max(1, costSize(cost))
   const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
-    if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
+    if (canUseRestrictedMana(state, seat, spell, mana)) available[mana.mana] += 1
   }
   let pools = [available]
   for (const plays of manaSources(state, seat, spell)) {
@@ -1974,7 +1979,7 @@ const fundingEvents = (
 ): GameEvent[] | null => {
   const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
-    if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
+    if (canUseRestrictedMana(state, seat, spell, mana)) available[mana.mana] += 1
   }
   let plans: FundingPlan[] = [{ pool: available, events: [], sacrifices: 0 }]
   for (const plays of manaSources(state, seat, spell, excluded)) {

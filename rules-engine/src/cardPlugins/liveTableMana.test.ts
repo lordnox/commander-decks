@@ -81,6 +81,8 @@ const landFace = (...costs: string[]): Scenario => ({ play: true, fund: costs, r
 const ELF: Probe = { types: ['Creature'], subtypes: ['Elf'] }
 const GOBLIN: Probe = { types: ['Creature'], subtypes: ['Goblin'] }
 const ARTIFACT: Probe = { types: ['Artifact'] }
+const LEGEND: Probe = { types: ['Creature'], supertypes: ['Legendary'] }
+const PLAIN: Probe = { types: ['Creature'] }
 
 const SCENARIOS: Record<string, Scenario> = {
   // Basic lands and basic-typed duals: the land type itself is the mana ability.
@@ -214,6 +216,18 @@ const SCENARIOS: Record<string, Scenario> = {
       { cost: '{G}', probe: ARTIFACT },
     ],
   },
+  'Delighted Halfling': {
+    sickBlocked: true,
+    fund: [
+      '{C}',
+      { cost: '{G}', life: 0, probe: LEGEND },
+      { cost: '{R}', life: 0, probe: LEGEND },
+    ],
+    refuse: [
+      { cost: '{G}', probe: PLAIN },
+      { cost: '{G}', probe: ARTIFACT },
+    ],
+  },
   // Costed mana abilities the planner funds from other sources: a Signet is not a free tap.
   'Dimir Signet': { helpers: ['Island'], fund: ['{U}{B}'], refuse: ['{G}'] },
   'Orzhov Signet': { helpers: ['Plains'], fund: ['{W}{B}'], refuse: ['{G}'] },
@@ -315,8 +329,6 @@ const ACT_CASES: Record<string, ActCase> = {
 const KNOWN_GAPS: Record<string, string> = {
   'Castle Garenbrig':
     '{2}{G}{G},{T}: Add six {G} that may only pay for creature spells or creature abilities needs a restricted-mana variant besides the chosen-creature-type one',
-  'Delighted Halfling':
-    'its any-color mana may only pay for a legendary spell and makes it uncounterable; restrictedMana only knows the creature type Cavern of Souls chose, so the colors are currently unrestricted',
   'Barkchannel Pathway // Tidechannel Pathway':
     'playLand always shows the first land face; there is no way to choose the Tidechannel (blue) face',
 }

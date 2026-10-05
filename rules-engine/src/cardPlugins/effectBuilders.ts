@@ -738,6 +738,12 @@ export const restrictedCreatureMana = (): CardEffect => ({
   uncounterable: true,
 })
 
+export const restrictedLegendaryMana = (): CardEffect => ({
+  op: 'restrictedMana',
+  legendary: true,
+  uncounterable: true,
+})
+
 export const legendRuleOff = (): CardEffect => ({
   op: 'static',
   legendRuleOff: true,
