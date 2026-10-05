@@ -63,11 +63,16 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
   const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined
   if (interveningIf && !conditionHolds(interveningIf, draft, source, undefined, triggering)) return
   const targetFilter = item.payload?.targetFilter as TargetFilter | undefined
-  if (
-    targetFilter
-    && !validTargetRef(draft, item.targets[0], targetFilter, item.controller)
-  ) return
-  runInstructions(draft, source, instructions, item)
+  let resolving = item
+  if (targetFilter) {
+    // CR 608.2b: each target is re-checked on its own; the ability fizzles only
+    // when none remain legal, and otherwise acts on the targets that still are.
+    const legal = item.targets.filter((target) =>
+      validTargetRef(draft, target, targetFilter, item.controller))
+    if (legal.length === 0) return
+    resolving = { ...item, targets: legal }
+  }
+  runInstructions(draft, source, instructions, resolving)
   if (!item.abilityId) return
   const effect = activateEffect(effectsOf(source), item.abilityId)
   if (

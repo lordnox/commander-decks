@@ -28,6 +28,7 @@ import { monstrosityInstruction } from '../monstrosity'
 import { targetedResolveInstructionHandlers } from '../targetedResolve'
 import { voteInstruction } from '../vote'
 import { voteResultHandlers } from '../voteInstructions'
+import { destroyThenTokenHandlers } from '../destroyThenToken'
 
 const instructionHandlers = {
   ...exilePayoffsInstructionHandlers,
@@ -43,6 +44,7 @@ const instructionHandlers = {
   ...linkedExileInstructionHandlers,
   ...blinkHandlers,
   ...targetedResolveInstructionHandlers,
+  ...destroyThenTokenHandlers,
   ...statusEffectHandlers,
   ...encoreHandlers,
   ...opponentCreatureHandlers,
