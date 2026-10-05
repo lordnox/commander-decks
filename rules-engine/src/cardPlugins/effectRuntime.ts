@@ -538,6 +538,8 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       }
     }
     if (effect.op === 'replacement') ids.add('entersTapped')
+    // The pay-life dialog is answered, and the life paid, by choiceEffects.
+    if (effect.op === 'replacement' && effect.do === 'tapUnlessPayLife') ids.add('choiceEffects')
     if (effect.op === 'replacement' && effect.do === 'chooseColor') ids.add('chosenColor')
     if (effect.op === 'trigger' && effect.on === 'cast') {
       ids.add('castTriggers')
