@@ -285,14 +285,16 @@ export type CardInstruction =
     }
   | { kind: 'sacrificeControlled'; types?: string[]; count: number }
   | { kind: 'putTargetOnLibraryTop' }
-  | { kind: 'destroyAllCreatures' }
+  /** Destroy every battlefield permanent matching `filter`; `other` spares the source. Indestructible survives. */
+  | { kind: 'destroyAll'; filter: TargetFilter }
+  /** Return every battlefield permanent matching `filter` to its owner's hand. */
+  | { kind: 'bounceAll'; filter: TargetFilter }
   | { kind: 'millHalfTargetPlayers' }
   | { kind: 'untapUpToLands'; count: number }
   | { kind: 'opponentsLoseLife'; amount: number }
   | { kind: 'revealTopLandsTapped' }
   | { kind: 'pumpAttached'; power: number; toughness: number }
   | { kind: 'tapAttached' }
-  | { kind: 'bounceCreaturesExcept'; subtypes: string[] }
   | { kind: 'addPlusCountersEqualToLands' }
   | { kind: 'pumpTargetEqualToLands'; trample?: boolean }
   | { kind: 'returnCreatureManaValueX'; minimumX?: number; tapped?: boolean }

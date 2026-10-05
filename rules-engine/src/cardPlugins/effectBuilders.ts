@@ -577,7 +577,11 @@ export const sacrificeControlled = (
 
 export const putTargetOnLibraryTop = (): CardInstruction => ({ kind: 'putTargetOnLibraryTop' })
 
-export const destroyAllCreatures = (): CardInstruction => ({ kind: 'destroyAllCreatures' })
+export const destroyAll = (filter: TargetFilter): CardInstruction => ({ kind: 'destroyAll', filter })
+
+export const destroyAllCreatures = (): CardInstruction => destroyAll({ type: 'Creature' })
+
+export const bounceAll = (filter: TargetFilter): CardInstruction => ({ kind: 'bounceAll', filter })
 
 export const millHalfTargetPlayers = (): CardInstruction => ({ kind: 'millHalfTargetPlayers' })
 
@@ -601,10 +605,8 @@ export const pumpAttached = (power: number, toughness: number): CardInstruction 
 
 export const tapAttached = (): CardInstruction => ({ kind: 'tapAttached' })
 
-export const bounceCreaturesExcept = (...subtypes: string[]): CardInstruction => ({
-  kind: 'bounceCreaturesExcept',
-  subtypes,
-})
+export const bounceCreaturesExcept = (...subtypes: string[]): CardInstruction =>
+  bounceAll({ type: 'Creature', excludeSubtypes: subtypes })
 
 export const addPlusCountersEqualToLands = (): CardInstruction => ({
   kind: 'addPlusCountersEqualToLands',
