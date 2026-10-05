@@ -1,3 +1,4 @@
+import { untapPermanent } from '../rules/untap'
 import type { PlayerId, Plugin } from '../types'
 
 const EMBLEMS = 'teferiSunset.emblems'
@@ -19,7 +20,7 @@ export const teferiSunset: Plugin = {
       const count = emblemCount(player.data[EMBLEMS])
       if (count === 0 || player.id === draft.active) continue
       if (draft.step === 'untap') {
-        for (const object of draft.zoneOf('battlefield', player.id)) object.tapped = false
+        for (const object of draft.zoneOf('battlefield', player.id)) untapPermanent(draft, object)
         draft.note(`${player.id} untaps from a Teferi emblem`)
       }
       if (draft.step === 'draw') {

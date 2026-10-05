@@ -12,6 +12,7 @@ import type {
   ZoneId,
 } from './types'
 import { markPutIntoGraveyardFromBattlefieldThisTurn } from './plugins/fromBattlefieldThisTurn'
+import { untapPermanent } from './rules/untap'
 import { ZONE_IDS } from './types'
 
 const SBA_CAP = 32
@@ -188,7 +189,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'untap': {
       const object = draft.object(event.objectId)
-      if (object) object.tapped = false
+      if (object) untapPermanent(draft, object)
       return
     }
     case 'concede': {

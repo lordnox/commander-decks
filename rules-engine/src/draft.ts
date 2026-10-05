@@ -1,3 +1,4 @@
+import { STUN_COUNTER } from './rules/untap'
 import type { CardInstruction } from './cardPlugins/effects'
 import { counterPtBonus } from './definitions'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
@@ -137,6 +138,8 @@ export const makeDraft = (state: GameState): Draft => {
       delete object.blocked
       object.blocking = null
       object.summoningSickness = false
+      delete object.skipNextUntap
+      delete object.counters[STUN_COUNTER]
     }
     return object
   }
