@@ -778,9 +778,9 @@ export const staticBoardPump = (
   staticBoardPump: { power, toughness, requireTypes, ...options },
 })
 
-/** Ward {N} or a mana/sacrifice Ward cost (CR 702.21). */
+/** Ward {N} or a mana/life/sacrifice Ward cost (CR 702.21). */
 export const ward = (
-  options: number | { generic?: number; mana?: number; sacrifice?: { count: number; nonland?: boolean } },
+  options: number | NonNullable<Extract<CardEffect, { op: 'static' }>['ward']>,
 ): CardEffect => ({
   op: 'static',
   ward: typeof options === 'number'

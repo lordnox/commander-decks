@@ -793,10 +793,11 @@ export type CardEffect =
       reduceActivationCost?: { generic: number; requireTypes?: string[] }
       /** Matching permanents get +N/+N and keyword changes while this source is on the battlefield. */
       staticBoardPump?: StaticBoardPumpSpec
-      /** Ward: generic {N}, mana {N}, or a sacrifice cost (CR 702.21). */
+      /** Ward: generic {N}, mana {N}, life, or a sacrifice cost (CR 702.21). */
       ward?: {
         generic?: number
         mana?: number
+        life?: number
         sacrifice?: { count: number; nonland?: boolean }
       }
       /** While this is on the battlefield, matching creatures have the stamped triggered ability. */

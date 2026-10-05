@@ -15,6 +15,10 @@ export type PendingOptionSelection = {
     replacedBy: string[]
     remainingAfter?: number
   } | {
+    /** Pay this much life or the warded spell or ability is countered. */
+    kind: 'ward-life'
+    life: number
+  } | {
     /** Each remaining seat, in turn order, is asked after this one answers. */
     kind: 'wheel'
     count: number
