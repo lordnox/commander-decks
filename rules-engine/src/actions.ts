@@ -11,9 +11,11 @@ import {
 import {
   convokeColors,
   hasConvoke,
+  hasDelve,
   kickerCostOf,
   payCost,
   phyrexianSymbols,
+  reduceGenericManaCost,
   spellCost,
 } from './plugins/spells'
 import {
@@ -107,6 +109,8 @@ export type ActionTargetGroup = {
   max: number
   kind?: 'object' | 'player'
   purpose?: 'target' | 'cost'
+  /** The cost group whose picks are exiled from the graveyard to pay generic mana. */
+  delve?: true
   targets: Array<{ objectId: string; name: string; controller: PlayerId }>
 }
 
@@ -129,6 +133,7 @@ export type AvailableAction =
       castOption?: string
       castLabel?: string
       convoke?: string[]
+      delve?: string[]
       phyrexianLife?: number[]
       alternativeCost?: 'withoutPayingMana'
       door?: RoomDoorId
@@ -623,6 +628,41 @@ const convokeIfNeeded = (
 }
 
 /**
+ * Delve pays generic mana one graveyard card at a time, and which cards go is
+ * the caster's choice, so it is offered as a cost group instead of a plan.
+ * `null` means the cast cannot be paid even exiling every useful card.
+ */
+const delveGroupFor = (
+  state: GameState,
+  seat: PlayerId,
+  object: GameObject,
+  cost: string,
+  phyrexianLife: number[],
+): ActionTargetGroup | null | undefined => {
+  const candidates = state.zoneOrder[seat].graveyard
+    .filter((objectId) => objectId !== object.id)
+  const max = Math.min(genericCostForAction(cost), candidates.length)
+  for (let min = 0; min <= max; min += 1) {
+    if (!canFund(state, seat, reduceGenericManaCost(cost, min), phyrexianLife, object)) continue
+    return max === 0
+      ? undefined
+      : {
+          label: 'Graveyard cards to exile (delve)',
+          min,
+          max,
+          purpose: 'cost',
+          delve: true,
+          targets: candidates.map((objectId) => ({
+            objectId,
+            name: state.objects[objectId].name,
+            controller: state.objects[objectId].controller,
+          })),
+        }
+  }
+  return null
+}
+
+/**
  * One cast can need both a Phyrexian life payment and convoked creatures, so
  * each payment combination carries the convoke plan that funds it.
  */
@@ -633,10 +673,20 @@ const fundedCasts = (
   cost: string,
 ) => {
   const payments = phyrexianPayments(cost, state.players[seat].life)
-  return payments.flatMap((phyrexianLife) => {
+  return payments.flatMap((phyrexianLife): Array<{
+    phyrexianLife: number[]
+    labeled: boolean
+    convoke?: string[]
+    delve?: ActionTargetGroup
+  }> => {
+    const labeled = payments.length > 1
+    if (hasDelve(object)) {
+      const delve = delveGroupFor(state, seat, object, cost, phyrexianLife)
+      return delve === null ? [] : [{ phyrexianLife, labeled, ...(delve ? { delve } : {}) }]
+    }
     const convoke = convokeIfNeeded(state, seat, object, cost, phyrexianLife)
     if (convoke === null) return []
-    return [{ phyrexianLife, convoke, labeled: payments.length > 1 }]
+    return [{ phyrexianLife, labeled, ...(convoke ? { convoke } : {}) }]
   })
 }
 
@@ -901,6 +951,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           ...action,
           ...(funded.labeled ? { phyrexianLife: funded.phyrexianLife } : {}),
           ...(funded.convoke ? { convoke: funded.convoke } : {}),
+          ...(funded.delve ? { targetGroups: [funded.delve] } : {}),
           ...(castLabel ? { castLabel } : {}),
         }
       })
@@ -1485,7 +1536,7 @@ const targetVariants = (
     if (bounds.min > 0 && objectTargets.length + playerTargets.length < bounds.min) return []
     return [{
       ...action,
-      targetGroups: [{
+      targetGroups: [...(action.targetGroups ?? []), {
         label: filter.players ? 'Player' : 'Target',
         min: bounds.min,
         max: bounds.max,
@@ -1524,14 +1575,15 @@ const targetVariants = (
       : candidate.targetPlayerId
         ? [{ kind: 'player' as const, player: candidate.targetPlayerId }]
         : []
-    return canFund(state, seat, spellCost(state, spell, {
+    const delveMax = candidate.targetGroups?.find((group) => group.delve)?.max ?? 0
+    return canFund(state, seat, reduceGenericManaCost(spellCost(state, spell, {
       additionalGeneric: taxFor(state, seat, source),
       castOption: candidate.castOption,
       kicked: candidate.kicked,
       timesKicked: candidate.timesKicked,
       targets,
       seat,
-    }), {
+    }), delveMax), {
       phyrexianLife: candidate.phyrexianLife ?? [],
       creatures: (candidate.convoke ?? [])
         .map((objectId) => state.objects[objectId])
@@ -2239,7 +2291,7 @@ export const eventsForAvailableAction = (
     : action.targetPlayerId
       ? [{ kind: 'player' as const, player: action.targetPlayerId }]
       : []
-  const cost = spellCost(state, casting, {
+  const cost = reduceGenericManaCost(spellCost(state, casting, {
     additionalGeneric: tax,
     x: action.x,
     castOption: alternative?.id ?? action.castOption,
@@ -2249,7 +2301,7 @@ export const eventsForAvailableAction = (
     targets,
     seat,
     withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
-  })
+  }), action.delve?.length ?? 0)
   const convoke = (action.convoke ?? [])
     .map((objectId) => state.objects[objectId])
     .filter((creature): creature is GameObject => Boolean(creature))
@@ -2271,6 +2323,7 @@ export const eventsForAvailableAction = (
       ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
       ...(action.castOption ? { castOption: action.castOption } : {}),
       ...(action.convoke ? { convoke: action.convoke } : {}),
+      ...(action.delve?.length ? { delve: action.delve } : {}),
       ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       ...(action.kicked ? { kicked: true } : {}),
       ...(action.giftPromised ? { giftPromised: true } : {}),
