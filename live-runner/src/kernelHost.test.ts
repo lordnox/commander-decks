@@ -16,6 +16,7 @@ import {
   projectForViewer,
   recordAccepted,
   restoreJournal,
+  type GameEvent,
   type GameState,
 } from '../../rules-engine/src/index'
 import {
@@ -29,6 +30,8 @@ import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
 import { abundance } from '../../rules-engine/src/cardPlugins/abundance'
+import { chosenColor } from '../../rules-engine/src/cardPlugins/chosenColor'
+import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/cardPlugins/effects'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
 import { PENDING_VOTE, pendingVote, vote as votePlugin } from '../../rules-engine/src/cardPlugins/vote'
 import { vote as voteInstruction } from '../../rules-engine/src/cardPlugins/effectBuilders'
@@ -644,6 +647,78 @@ describe('kernel host journal', () => {
     })).toBe(true)
     expect(restarted.history.current().zoneOrder.p1.hand).toHaveLength(1)
     expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
+  })
+
+  test('a host restart resumes an open Aura color choice and the boost uses the pick', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Test Sprawl', {
+            types: ['Enchantment'],
+            subtypes: ['Aura'],
+            manaCost: '{G}',
+            oracleText: 'Enchant Forest\nAs this Aura enters, choose a color.',
+            effects: [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
+          })],
+        },
+        battlefield: { p1: [forest()] },
+        libraries: {
+          p1: Array.from({ length: 10 }, forest),
+          p2: Array.from({ length: 10 }, forest),
+        },
+      },
+      { random: () => 0.5, cardPlugins: [chosenColor] },
+    )
+    const landId = server.state.zoneOrder.p1.battlefield[0]
+    const kernel = handleFor(server.rules, {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 0 } },
+      },
+    })
+    const events: GameEvent[] = [
+      {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: server.state.zoneOrder.p1.hand[0],
+        targets: [{ kind: 'object', objectId: landId }],
+      },
+      { type: 'resolveTop' },
+    ]
+    for (const event of events) {
+      expect(kernel.dispatch(event).ok).toBe(true)
+    }
+    const firstLobby = createLobby()
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'White', destination: 'skip' },
+        { card: 'Blue', destination: 'skip' },
+        { card: 'Black', destination: 'skip' },
+        { card: 'Red', destination: 'target' },
+        { card: 'Green', destination: 'skip' },
+      ],
+    })).toBe(true)
+    const state = restarted.history.current()
+    expect(pendingOptionSelection(state)).toBeUndefined()
+    expect(state.objects[state.zoneOrder.p1.battlefield.find(
+      (id) => state.objects[id].name === 'Test Sprawl',
+    )!].chosenColor).toBe('R')
+    const tap = restarted.dispatch({ type: 'tapForMana', seat: 'p1', objectId: landId })
+    expect(tap.ok ? '' : tap.error).toBe('')
+    expect(restarted.history.current().players.p1.mana).toMatchObject({ G: 1, R: 1 })
   })
 
   test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {

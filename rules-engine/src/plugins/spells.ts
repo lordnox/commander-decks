@@ -36,6 +36,7 @@ import { applyCastFace, resolveCastFace } from './adventure'
 import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
 import { cantCastSpellWith } from './opponentRestrictions'
+import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
@@ -420,6 +421,8 @@ export const spells: Plugin = {
         selected,
         withoutPayingMana: freeCast,
       })
+      const enchantError = !event.copy && enchantTargetError(state, spell, event.targets)
+      if (enchantError) return enchantError
       const convoke = event.convoke ?? []
       if (new Set(convoke).size !== convoke.length) return 'duplicate convoke creature'
       if (convoke.length > 0 && !hasConvoke(object)) return `${object.name} does not have convoke`
@@ -629,6 +632,14 @@ export const spells: Plugin = {
           }
           draft.enqueue({ type: 'shuffleLibrary', seat: player })
         }
+      }
+
+      if (enchantTargetError(state, object, item.targets)) {
+        // CR 608.2b: an Aura spell whose target is gone or illegal does not resolve.
+        draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+        draft.passedInRow = []
+        draft.priority = state.active
+        return
       }
 
       if (isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure') {

@@ -50,6 +50,7 @@ import {
 import { resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
 import { pendingFreeCastFor } from './plugins/rebound'
+import { enchantTargets } from './plugins/enchant'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
 import { manaValueOf } from './cardPlugins/effects'
@@ -560,6 +561,7 @@ const canCastAtTiming = (
     && (state.active !== seat || state.step !== 'end')
   ) return false
   if (state.stack.length === 0 && needsStackTarget(object)) return false
+  if (enchantTargets(state, spell)?.length === 0) return false
   if (
     !withoutPayingMana
     && !spell.types.includes('Instant')
@@ -1389,6 +1391,14 @@ const targetVariants = (
         targetName: target.name,
       }))
   }
+  const enchantable = source && !action.castOption ? enchantTargets(state, source) : undefined
+  if (enchantable) {
+    return enchantable.map((target) => ({
+      ...action,
+      targetObjectId: target.id,
+      targetName: target.name,
+    }))
+  }
   if (source?.name === 'Settle the Wreckage') {
     return state.playerOrder
       .filter((player) => !state.players[player].lost)
@@ -2131,6 +2141,10 @@ export const eventsForAvailableAction = (
     : false
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
+  const enchanting = Boolean(object && !action.castOption && enchantTargets(state, object))
+  // The kernel stores the color an entering permanent chooses.
+  const entryChoice = effects.some((effect) =>
+    effect.op === 'replacement' && effect.do === 'chooseColor')
   const foretoldCast = Boolean(
     object
     && action.castOption === FORETELL_CAST_ID
@@ -2150,6 +2164,7 @@ export const eventsForAvailableAction = (
       !hasAlternateCast
       && !hasBestowCast
       && !doorTriggers
+      && !entryChoice
       && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
     )
     || (
@@ -2172,7 +2187,7 @@ export const eventsForAvailableAction = (
     }
   }
   if (
-    (targeted.length === 1 || playerAura || bestowing)
+    (targeted.length === 1 || playerAura || bestowing || enchanting)
     && !action.targetObjectId
     && !action.targetPlayerId
     && !action.targetObjectIds
