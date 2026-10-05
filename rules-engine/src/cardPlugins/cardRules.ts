@@ -280,6 +280,22 @@ import {
   bounceAll,
   blinkSelf,
   pumpFromLinkedExileStats,
+  persist,
+  annihilator,
+  shuffleIntoLibraryInstead,
+  opponentsCantBlock,
+  opponentsCantCast,
+  grantCreatureTrigger,
+  mayFightGrantSource,
+  leaves,
+  eachPlayerDrawDamageDealtToSource,
+  entersTargetingUpTo,
+  entersTargeting,
+  destroyThenTokenForController,
+  permanentSacrificed,
+  putTriggeringCardOntoBattlefield,
+  permanentEnters,
+  triggeringCreatureNameUnique,
 } from './effects'
 
 const astralDriftCycleBlink = blink({
@@ -2546,6 +2562,77 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       targets: { filter: { type: 'Creature', nontoken: true }, min: 0 },
       do: [linkExile({ type: 'Creature', nontoken: true }, { optional: true, max: 1 })],
     },
+  ],
+  'Archetype of Endurance': [
+    staticBoardPump(0, 0, ['Creature'], { grantKeywords: ['hexproof'] }),
+    staticBoardPump(0, 0, ['Creature'], {
+      controller: 'opponent',
+      suppressKeywords: ['hexproof'],
+    }),
+  ],
+  'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
+  'Darksteel Colossus': [shuffleIntoLibraryInstead()],
+  'Sire of Seven Deaths': [ward({ life: 7 })],
+  'Void Winnower': [
+    opponentsCantCast({ parity: 'even' }),
+    opponentsCantBlock({ parity: 'even' }),
+  ],
+  'Spearbreaker Behemoth': [
+    activate({
+      id: 'spearbreaker.indestructible',
+      costs: { mana: '{1}' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
+      do: [grantUntilEot('indestructible')],
+    }),
+  ],
+  'Thunderfoot Baloth': [
+    staticBoardPump(2, 2, ['Creature'], {
+      if: { kind: 'controlsCommander' },
+      affects: 'self',
+    }),
+    staticBoardPump(2, 2, ['Creature'], {
+      if: { kind: 'controlsCommander' },
+      affects: 'others',
+      grantKeywords: ['trample'],
+    }),
+  ],
+  'Woodfall Primus': [
+    entersTargeting(
+      { zone: 'battlefield', permanent: true, noncreature: true },
+      destroyTargetPermanent(),
+    ),
+    persist(),
+  ],
+  'It That Betrays': [
+    annihilator(2),
+    permanentSacrificed(
+      { controller: 'opponent', nontoken: true },
+      putTriggeringCardOntoBattlefield(),
+    ),
+  ],
+  'Grothama, All-Devouring': [
+    grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
+    leaves(eachPlayerDrawDamageDealtToSource()),
+  ],
+  Terastodon: [
+    entersTargetingUpTo(
+      3,
+      { zone: 'battlefield', permanent: true, noncreature: true },
+      destroyThenTokenForController({
+        name: 'Elephant',
+        types: ['Creature'],
+        subtypes: ['Elephant'],
+        colors: ['G'],
+        power: 3,
+        toughness: 3,
+      }),
+    ),
+  ],
+  'Guardian Project': [
+    permanentEnters(
+      { type: 'Creature', controller: 'you', nontoken: true },
+      { if: triggeringCreatureNameUnique(), do: [draw(1)] },
+    ),
   ],
 }
 
