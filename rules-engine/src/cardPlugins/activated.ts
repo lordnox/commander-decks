@@ -4,6 +4,8 @@ import {
   activateEffect,
   conditionHolds,
   runInstructions,
+  type CardEffect,
+  type TargetFilter,
 } from './effects'
 import {
   activationCostError,
@@ -30,6 +32,14 @@ const legalActivateTarget = (
   }
   if (kind === 'legendary') return object.supertypes.includes('Legendary')
   return object.types.includes(kind === 'creature' ? 'Creature' : 'Land')
+}
+
+/** A filtered target is checked again on resolution (CR 608.2b), so the stack item keeps its filter. */
+const activatedTargetFilter = (
+  targets: Extract<CardEffect, { op: 'activate' }>['targets'],
+): TargetFilter | undefined => {
+  if (!targets || typeof targets === 'string') return undefined
+  return 'filter' in targets ? targets.filter : targets
 }
 
 export const SKULL_PROPHET_MILL = 'selfMill.skullProphet'
@@ -210,6 +220,7 @@ export const activated: Plugin = {
         ...(event.door ? { door: event.door } : {}),
       })
     } else {
+      const targetFilter = activatedTargetFilter(effect.targets)
       draft.addToStack({
         kind: 'ability',
         objectId: source.id,
@@ -217,6 +228,7 @@ export const activated: Plugin = {
         name: source.name,
         targets: event.targets ?? [],
         abilityId: event.abilityId,
+        ...(targetFilter ? { payload: { targetFilter } } : {}),
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.choices ? { choices: event.choices } : {}),
         ...(event.door ? { door: event.door } : {}),
