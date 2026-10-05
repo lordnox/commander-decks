@@ -1,24 +1,18 @@
 import { hasKeyword } from '../keywords'
-import type Draft from '../draft'
-import type { GameObject, Plugin } from '../types'
+import type { GameEvent, GameObject, Plugin } from '../types'
 import {
   isLegendaryCreature,
   noteLegendaryCombatDamageToPlayer,
 } from './combatLegendaryDamage'
 
-const dealToObject = (
-  draft: Draft,
-  source: GameObject | undefined,
-  object: GameObject,
-  amount: number,
-) => {
-  if (object.types.includes('Planeswalker')) {
-    object.counters.loyalty = Math.max(0, (object.counters.loyalty ?? 0) - amount)
-    return
-  }
-  object.damageMarked += amount
-  if (amount > 0 && source && hasKeyword(source, 'deathtouch')) {
-    object.deathtouched = true
+/**
+ * CR 702.15b: damage from a lifelink source also gains its controller that
+ * much life. An explicit `gainLife` on the event (a spell's own wording) wins.
+ */
+const lifeGainFor = (event: Extract<GameEvent, { type: 'dealDamage' }>, source?: GameObject) => {
+  if (event.gainLife) return event.gainLife
+  if (event.amount > 0 && source && hasKeyword(source, 'lifelink')) {
+    return { seat: source.controller, max: event.amount }
   }
 }
 
@@ -51,17 +45,24 @@ export const damage: Plugin = {
           }
         }
         const maximum = Math.max(0, draft.players[event.target.player]?.life ?? 0)
-        draft.enqueue({
-          type: 'loseLife',
-          seat: event.target.player,
-          amount: event.amount,
-          source: event.sourceId,
-        })
-        if (event.gainLife) {
+        const source = draft.objects[event.sourceId]
+        if (source && hasKeyword(source, 'infect')) {
+          // CR 702.90b: infect damage to a player is poison counters, not life loss.
+          draft.players[event.target.player].poison += event.amount
+        } else {
+          draft.enqueue({
+            type: 'loseLife',
+            seat: event.target.player,
+            amount: event.amount,
+            source: event.sourceId,
+          })
+        }
+        const gain = lifeGainFor(event, source)
+        if (gain) {
           draft.enqueue({
             type: 'gainLife',
-            seat: event.gainLife.seat,
-            amount: Math.min(event.amount, event.gainLife.max ?? maximum),
+            seat: gain.seat,
+            amount: Math.min(event.amount, gain.max ?? maximum),
             source: event.sourceId,
           })
         }
@@ -69,6 +70,7 @@ export const damage: Plugin = {
       }
       const object = draft.object(event.target.objectId)
       if (!object || object.zone !== 'battlefield') return
+      const source = draft.objects[event.sourceId]
       const maximum = object.types.includes('Planeswalker')
         ? object.counters.loyalty ?? 0
         : object.types.includes('Battle')
@@ -83,18 +85,28 @@ export const damage: Plugin = {
           amount: event.amount,
           sourceId: event.sourceId,
         })
+      } else if (source && hasKeyword(source, 'infect')) {
+        // CR 702.90c: infect damage to a creature is -1/-1 counters, not marked damage.
+        if (event.amount > 0) {
+          draft.enqueue({
+            type: 'putCounters',
+            objectId: object.id,
+            counter: '-1/-1',
+            count: event.amount,
+          })
+        }
       } else {
         object.damageMarked += event.amount
-        const source = draft.objects[event.sourceId]
         if (event.amount > 0 && source && hasKeyword(source, 'deathtouch')) {
           object.deathtouched = true
         }
       }
-      if (event.gainLife) {
+      const gain = lifeGainFor(event, source)
+      if (gain) {
         draft.enqueue({
           type: 'gainLife',
-          seat: event.gainLife.seat,
-          amount: Math.min(event.amount, event.gainLife.max ?? Math.max(0, maximum)),
+          seat: gain.seat,
+          amount: Math.min(event.amount, gain.max ?? Math.max(0, maximum)),
           source: event.sourceId,
         })
       }
@@ -114,8 +126,18 @@ export const damage: Plugin = {
       ) return
       const leftPower = Math.max(0, left.power ?? 0)
       const rightPower = Math.max(0, right.power ?? 0)
-      dealToObject(draft, right, left, rightPower)
-      dealToObject(draft, left, right, leftPower)
+      draft.enqueue({
+        type: 'dealDamage',
+        sourceId: right.id,
+        target: { kind: 'object', objectId: left.id },
+        amount: rightPower,
+      })
+      draft.enqueue({
+        type: 'dealDamage',
+        sourceId: left.id,
+        target: { kind: 'object', objectId: right.id },
+        amount: leftPower,
+      })
       draft.note(`${left.name} fights ${right.name}`)
       return
     }

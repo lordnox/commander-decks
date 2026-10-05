@@ -241,12 +241,19 @@ export const copyTokenTemplate = (
   }
 }
 
-export const addPlusCounters = (object: GameObject, amount: number) => {
+const addPtCounters = (object: GameObject, counter: '+1/+1' | '-1/-1', amount: number) => {
   if (amount === 0) return
-  object.counters['+1/+1'] = (object.counters['+1/+1'] ?? 0) + amount
-  if (object.power !== null) object.power += amount
-  if (object.toughness !== null) object.toughness += amount
+  object.counters[counter] = (object.counters[counter] ?? 0) + amount
+  const delta = counter === '+1/+1' ? amount : -amount
+  if (object.power !== null) object.power += delta
+  if (object.toughness !== null) object.toughness += delta
 }
+
+export const addPlusCounters = (object: GameObject, amount: number) =>
+  addPtCounters(object, '+1/+1', amount)
+
+export const addMinusCounters = (object: GameObject, amount: number) =>
+  addPtCounters(object, '-1/-1', amount)
 
 /** Objects keep the whole "Front // Back" card name, and which face is up is not tracked, so names compare by front face. */
 const frontFaceName = (object: GameObject) => object.name.split(' // ')[0]

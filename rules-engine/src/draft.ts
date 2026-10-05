@@ -1,4 +1,5 @@
 import type { CardInstruction } from './cardPlugins/effects'
+import { counterPtBonus } from './definitions'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
@@ -119,12 +120,21 @@ export const makeDraft = (state: GameState): Draft => {
     )
     draft.zoneCounts[object.owner][to] += 1
     object.zone = to
+    if (from === 'battlefield' && to !== 'battlefield') {
+      // CR 400.7: the object that arrives is new, so counters do not follow it.
+      // Their contribution to P/T is stored eagerly and must come back out.
+      const bonus = counterPtBonus(object)
+      if (object.power !== null) object.power -= bonus
+      if (object.toughness !== null) object.toughness -= bonus
+      object.counters = {}
+    }
     if (to !== 'battlefield') {
       delete object.enteredWithCastOption
       object.tapped = false
       object.damageMarked = 0
       delete object.deathtouched
       object.attacking = null
+      delete object.blocked
       object.blocking = null
       object.summoningSickness = false
     }
