@@ -179,8 +179,9 @@ export const applyOptionSelection = (
   }
   const chosen = message.choices.filter(({ destination }) => destination === 'target')
   if (chosen.length !== 1) throw new Error('Choose exactly one option.')
-  const option = pending.options.find((candidate) => candidate.label === chosen[0].card)
-  if (!option) throw new Error('That option was not offered.')
+  // Two options can share a label (a vote between same-named permanents), so the slot picks.
+  const option = chosen[0].slot === undefined ? undefined : pending.options[chosen[0].slot]
+  if (option?.label !== chosen[0].card) throw new Error('That option was not offered.')
   const open = pending.action.kind === 'vote' ? pendingVote(state) : undefined
   const result = kernel.dispatch({
     type: 'selectOption',
