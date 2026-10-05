@@ -17,7 +17,9 @@ import { runRevealUntil } from '../revealUntil'
 import { instructionCount } from '../voteResult'
 import { returnAsEnchantmentOnly } from '../continuousEffects'
 import { matchesTargetFilter } from '../targetedResolve'
-import type { InstructionHandler, InstructionHandlers } from './types'
+import { hasKeyword } from '../../keywords'
+import type { TargetFilter } from '../effects'
+import type { InstructionContext, InstructionHandler, InstructionHandlers } from './types'
 
 const devour: InstructionHandler<'devour'> = ({ draft, source, run }, instruction) => {
   const candidates = Object.values(draft.objects)
@@ -834,11 +836,23 @@ const putTargetOnLibraryTop: InstructionHandler<'putTargetOnLibraryTop'> = (
   draft.enqueue({ type: 'move', objectId: target.objectId, to: 'library', position: 'top' })
 }
 
-const destroyAllCreatures: InstructionHandler<'destroyAllCreatures'> = ({ draft }) => {
-  for (const object of Object.values(draft.objects)) {
-    if (object.zone === 'battlefield' && object.types.includes('Creature')) {
-      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
-    }
+const battlefieldMatching = (
+  { draft, source }: InstructionContext,
+  filter: TargetFilter,
+) => Object.values(draft.objects).filter((object) =>
+  matchesTargetFilter(
+    draft,
+    object,
+    { ...filter, zone: 'battlefield' },
+    source.controller,
+    undefined,
+    source.id,
+  ))
+
+const destroyAll: InstructionHandler<'destroyAll'> = (ctx, instruction) => {
+  for (const object of battlefieldMatching(ctx, instruction.filter)) {
+    if (hasKeyword(object, 'indestructible', ctx.draft)) continue
+    ctx.draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
   }
 }
 
@@ -854,17 +868,9 @@ const millHalfTargetPlayers: InstructionHandler<'millHalfTargetPlayers'> = (
   }
 }
 
-const bounceCreaturesExcept: InstructionHandler<'bounceCreaturesExcept'> = (
-  { draft },
-  instruction,
-) => {
-  for (const object of Object.values(draft.objects)) {
-    if (
-      object.zone !== 'battlefield'
-      || !object.types.includes('Creature')
-      || instruction.subtypes.some((subtype) => object.subtypes.includes(subtype))
-    ) continue
-    draft.enqueue({ type: 'move', objectId: object.id, to: 'hand' })
+const bounceAll: InstructionHandler<'bounceAll'> = (ctx, instruction) => {
+  for (const object of battlefieldMatching(ctx, instruction.filter)) {
+    ctx.draft.enqueue({ type: 'move', objectId: object.id, to: 'hand' })
   }
 }
 
@@ -959,9 +965,9 @@ export const zoneHandlers = {
   returnChosenLandFromGraveyard,
   sacrificeControlled,
   putTargetOnLibraryTop,
-  destroyAllCreatures,
+  destroyAll,
   millHalfTargetPlayers,
-  bounceCreaturesExcept,
+  bounceAll,
   revealTopLandsTapped,
   returnCreatureManaValueX,
 } satisfies Partial<InstructionHandlers>
