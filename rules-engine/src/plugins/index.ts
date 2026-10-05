@@ -12,6 +12,7 @@ import { enchantedManaBoost } from './enchantedManaBoost'
 import { extraSwampMana } from './extraSwampMana'
 import { attackSubtypeDraw } from './attackSubtypeDraw'
 import { extraUntap } from './extraUntap'
+import { flashGrant } from './flashGrant'
 import { fog } from './fog'
 import { forestOverlay } from './forestOverlay'
 import {
@@ -103,6 +104,7 @@ export const builtInPlugins = [
   extraUntap,
   attackSubtypeDraw,
   sacrificeLandMana,
+  flashGrant,
   phialReplacement,
   replicaHiddenInformation,
   unconfiguredHiddenInformation,
@@ -121,6 +123,7 @@ export {
   enchantedManaBoost,
   extraSwampMana,
   extraUntap,
+  flashGrant,
   fog,
   forestOverlay,
   judgeFallback,

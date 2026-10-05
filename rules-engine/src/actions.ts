@@ -53,6 +53,7 @@ import { resolveCastFace } from './plugins/adventure'
 import type { FaceCharacteristics } from './types'
 import { pendingFreeCastFor } from './plugins/rebound'
 import { enchantTargets } from './plugins/enchant'
+import { mayCastAsThoughFlash } from './plugins/flashGrant'
 import { asRoomDoor, roomDoor } from './plugins/rooms'
 import { canPlayExiledWithLife } from './cardPlugins/exiledWith'
 import { manaValueOf } from './cardPlugins/effects'
@@ -579,6 +580,7 @@ const canCastAtTiming = (
   if (
     !withoutPayingMana
     && !spell.types.includes('Instant')
+    && !mayCastAsThoughFlash(state, seat)
     && (
       state.active !== seat
       || !MAIN_STEPS.has(state.step)

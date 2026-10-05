@@ -31,6 +31,7 @@ import { priority } from './plugins/priority'
 import { recurringSpells } from './plugins/recurringSpells'
 import { phialReplacement } from './plugins/phialReplacement'
 import { sacrificeLandMana } from './plugins/sacrificeLandMana'
+import { flashGrant } from './plugins/flashGrant'
 import { foretell } from './plugins/foretell'
 import { rebound } from './plugins/rebound'
 import { warp } from './plugins/warp'
@@ -118,6 +119,7 @@ export const optionalPlugins = [
   extraUntap,
   attackSubtypeDraw,
   sacrificeLandMana,
+  flashGrant,
   phialReplacement,
 ]
 
