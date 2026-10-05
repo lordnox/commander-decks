@@ -9,9 +9,13 @@ import { makeDraft } from '../draft'
 import { continuousEffects } from './continuousEffects'
 import {
   gainControlPermanent,
+  draw,
+  enters,
   onResolve,
   pairDonateToOpponents,
+  targetOnResolve,
 } from './effectBuilders'
+import { targetedResolve } from './targetedResolve'
 import { runInstructions } from './runInstructions'
 import { serializableEffects } from './effectRuntime'
 import {
@@ -427,5 +431,110 @@ describe('permanent control change', () => {
       players: ['p2'],
     })
     expect(kernel.history.current().players.p1.data[PENDING_PERMANENT_DONATION]).toBeDefined()
+  })
+})
+
+describe('gain control of a target permanent without a player target', () => {
+  const steal = () => cardTemplate('Fixture Steal Spell', {
+    types: ['Instant'],
+    manaCost: '{0}',
+    manaValue: 0,
+    effects: [targetOnResolve(
+      'select',
+      { zone: 'battlefield', permanent: true, controller: 'opponent' },
+      gainControlPermanent(true),
+    )],
+  })
+
+  const setupSteal = (extra: ReturnType<typeof cardTemplate>[] = []) => {
+    const server = createServerGame(commanderRules, {
+      players: 3,
+      hands: { p1: [steal()] },
+      battlefield: {
+        p1: [fictional('Fixture Own Creature', 'p1')],
+        p2: [
+          {
+            ...fictional('Fixture Victim', 'p2'),
+            tapped: true,
+            counters: { stun: 1 },
+            attacking: 'p3',
+          },
+          ...extra,
+        ],
+      },
+    }, { random: () => 0.5, cardPlugins: [...plugins, targetedResolve] })
+    const find = (state: GameState, name: string) =>
+      Object.values(state.objects).find((object) => object.name === name)!
+    const cast = (target: string) => server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: find(server.state, 'Fixture Steal Spell').id,
+      targets: [{ kind: 'object', objectId: find(server.state, target).id }],
+    })
+    return { server, find, cast }
+  }
+
+  test('the caster gains control for good, summoning sick and out of combat', () => {
+    const { server, find, cast } = setupSteal()
+    const resolved = ok(server.rules(ok(cast('Fixture Victim')), { type: 'resolveTop' }))
+    const victim = find(resolved, 'Fixture Victim')
+    expect(victim.controller).toBe('p1')
+    expect(victim.owner).toBe('p2')
+    expect(victim.summoningSickness).toBe(true)
+    expect(victim.attacking).toBeNull()
+    expect(victim.continuousEffects?.[0].duration).toEqual({ kind: 'permanent' })
+    expect(resolved.stack).toHaveLength(0)
+
+    const nextTurn = ok(server.rules(
+      { ...resolved, step: 'cleanup' },
+      { type: 'advanceStep' },
+    ))
+    expect(find(nextTurn, 'Fixture Victim').controller).toBe('p1')
+  })
+
+  test('the untap is a real untap event, so a stun counter is spent instead', () => {
+    const { server, find, cast } = setupSteal()
+    const resolved = ok(server.rules(ok(cast('Fixture Victim')), { type: 'resolveTop' }))
+    expect(find(resolved, 'Fixture Victim').tapped).toBe(true)
+    expect(find(resolved, 'Fixture Victim').counters.stun).toBeUndefined()
+  })
+
+  test('an unstunned permanent is untapped', () => {
+    const { server, find, cast } = setupSteal([
+      { ...fictional('Fixture Loose Rock', 'p2'), tapped: true },
+    ])
+    const resolved = ok(server.rules(ok(cast('Fixture Loose Rock')), { type: 'resolveTop' }))
+    expect(find(resolved, 'Fixture Loose Rock').controller).toBe('p1')
+    expect(find(resolved, 'Fixture Loose Rock').tapped).toBe(false)
+  })
+
+  test('gaining control does not trigger enters-the-battlefield abilities', () => {
+    const { server, find, cast } = setupSteal([
+      {
+        ...fictional('Fixture Loose Rock', 'p2'),
+        effects: [enters(draw(1))],
+      },
+    ])
+    const resolved = ok(server.rules(ok(cast('Fixture Loose Rock')), { type: 'resolveTop' }))
+    expect(find(resolved, 'Fixture Loose Rock').controller).toBe('p1')
+    expect(resolved.stack).toHaveLength(0)
+  })
+
+  test('your own permanent is not a legal target', () => {
+    const { cast } = setupSteal()
+    expect(cast('Fixture Own Creature').ok).toBe(false)
+  })
+
+  test('a hexproof permanent is not a legal target', () => {
+    const { cast } = setupSteal([
+      cardTemplate('Fixture Shrouded', {
+        types: ['Creature'],
+        power: 1,
+        toughness: 1,
+        controller: 'p2',
+        oracleText: 'Hexproof',
+      }),
+    ])
+    expect(cast('Fixture Shrouded').ok).toBe(false)
   })
 })

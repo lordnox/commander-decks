@@ -128,15 +128,24 @@ const applyDonationChoice = (
   openPermanentDonationStep(draft, next)
 }
 
+/**
+ * "Gain control of target permanent" gives it to the source's controller;
+ * "target player gains control of target permanent" (Donate) names the player.
+ */
 export const gainControlPermanentInstruction: InstructionHandler<'gainControlPermanent'> = (
-  { draft, item },
+  { draft, source, item },
+  instruction,
 ) => {
   const objectRef = item?.targets.find((target) => target.kind === 'object')
   const playerRef = item?.targets.find((target) => target.kind === 'player')
-  if (objectRef?.kind !== 'object' || playerRef?.kind !== 'player') return
+  if (objectRef?.kind !== 'object') return
   const object = draft.object(objectRef.objectId)
   if (!object || object.zone !== 'battlefield') return
-  changeControllerPermanent(object, playerRef.player)
+  changeControllerPermanent(
+    object,
+    playerRef?.kind === 'player' ? playerRef.player : source.controller,
+  )
+  if (instruction.untap) draft.enqueue({ type: 'untap', objectId: object.id })
 }
 
 export const pairDonateToOpponentsInstruction: InstructionHandler<'pairDonateToOpponents'> = (

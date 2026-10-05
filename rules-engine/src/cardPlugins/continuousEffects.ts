@@ -262,6 +262,13 @@ export const changeController = (
   const base = existing?.effect.kind === 'controller'
     ? existing.effect.base
     : object.controller
+  if (object.controller !== controller) {
+    // CR 302.6: the new controller has not controlled it since their turn began.
+    // CR 506.4: a permanent that changes controllers leaves combat.
+    object.summoningSickness = true
+    object.attacking = null
+    object.blocking = null
+  }
   object.controller = controller
   return { kind: 'controller', controller, base }
 }
