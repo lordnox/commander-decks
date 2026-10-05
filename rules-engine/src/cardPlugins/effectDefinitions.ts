@@ -38,6 +38,11 @@ export type CardCondition =
   | { kind: 'stackXAtLeast'; min: number }
   /** The source's controller controls a commander they own (e.g. Lieutenant). */
   | { kind: 'controlsCommander' }
+  /**
+   * Intervening if on a trigger watching a creature: it has no other creature
+   * you control, and no creature card in your graveyard, with its name.
+   */
+  | { kind: 'triggeringCreatureNameUnique' }
 
 export type GiftSpec = {
   label?: string
@@ -121,6 +126,10 @@ export type CardInstruction =
   | { kind: 'lockOrUnlockDoor' }
   | { kind: 'sacrificePermanentsThenDraw'; types?: string[] }
   | { kind: 'opponentsSacrifice'; type: string; count: number }
+  /** The defending player named by an attack trigger sacrifices that many permanents of their choice. */
+  | { kind: 'defendingPlayerSacrifices'; count: number }
+  /** Put the card that caused this trigger onto the battlefield under your control if it is still in a graveyard. */
+  | { kind: 'putTriggeringCardOntoBattlefield' }
   | { kind: 'reanimateCreatureFromGraveyards'; addSubtype?: string }
   | {
       kind: 'loseLife'
@@ -433,6 +442,7 @@ export type TargetFilter = {
   types?: string[]
   supertype?: string
   nonland?: boolean
+  nontoken?: boolean
   noncreature?: boolean
   nonblack?: boolean
   controller?: 'you' | 'opponent' | 'notController'
@@ -554,7 +564,16 @@ export type CardEffect =
         | 'tapped'
         | 'gainLife'
         | 'playerAttacks'
+        | 'permanentEnters'
+        | 'permanentSacrificed'
       do: CardInstruction[]
+      /**
+       * For `permanentEnters` and `permanentSacrificed`: the permanent that
+       * entered or was sacrificed, not necessarily the source, must match. The
+       * filter reads that permanent's characteristics as the event saw them,
+       * and `controller` is relative to this ability's controller.
+       */
+      watch?: TargetFilter
       if?: CardCondition | TriggerBindingIf
       creatureOnly?: boolean
       modal?: ModalSpec

@@ -17,7 +17,7 @@ import {
 } from '../cardPlugins/effects'
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
-import { validTarget } from '../cardPlugins/targetedResolve'
+import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
@@ -163,28 +163,40 @@ const triggerPayloadExtras = (
   ...extras,
 })
 
+type TriggerMeta = Pick<
+  PendingTrigger,
+  'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount' | 'payload'
+>
+
+/**
+ * `watched` is the permanent a `permanentEnters` / `permanentSacrificed` trigger
+ * is about. Such an effect only triggers when `watched` matches its `watch`
+ * filter, and its intervening if can read `watched` as well.
+ */
 const collectEffects = (
   source: GameObject,
   on: TriggerEffect['on'],
   state: GameState,
   matches: PendingTrigger[],
   copies = 1,
-  meta: Pick<
-    PendingTrigger,
-    'triggeringObjectId' | 'triggeringPlayer' | 'triggerAmount'
-  > = {},
+  meta: TriggerMeta & { watched?: GameObject } = {},
   event?: GameEvent,
 ) => {
   if (source.phasedOut) return
+  const { watched, ...pending } = meta
   const catalog = effectsOf(source)
   for (const effect of triggerEffects(catalog, on)) {
+    if (
+      effect.watch
+      && !matchesTargetFilter(state, watched, effect.watch, source.controller, undefined, source.id)
+    ) continue
     if (effect.if && isTriggerBindingIf(effect.if)) {
       if (!event || !triggerIfPasses(state, source, event, effect.if)) continue
-    } else if (effect.if && !conditionHolds(effect.if, state, source)) continue
+    } else if (effect.if && !conditionHolds(effect.if, state, source, undefined, watched)) continue
     if (!passesOnceEachTurn(source, effect, catalog, state.turn)) continue
     const stackCopies = effect.onceEachTurn ? 1 : copies
     pushCopies(matches, source, effect, stackCopies, {
-      ...meta,
+      ...pending,
       triggerEffectKey: triggerEffectKey(catalog, effect),
     })
   }
@@ -276,8 +288,46 @@ const collectEnters = (
     {},
     event,
   )
+  for (const watcher of draft.zoneOf('battlefield')) {
+    collectEffects(watcher, 'permanentEnters', draft, matches, 1, {
+      triggeringObjectId: object.id,
+      watched: object,
+    })
+  }
 }
 
+/**
+ * The `sacrifice` event is the one place a sacrifice is visible before the
+ * permanent has left, so watchers read its controller and tokenhood from the
+ * pre-event state. Whatever the card does afterwards (a replacement may send it
+ * to a library) is for the ability's resolution to find out.
+ */
+const collectSacrifices = (
+  state: GameState,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'sacrifice') return
+  const sacrificed = state.objects[event.objectId]
+  if (!sacrificed || sacrificed.zone !== 'battlefield') return
+  for (const watcher of Object.values(state.objects)) {
+    if (watcher.zone !== 'battlefield') continue
+    collectEffects(watcher, 'permanentSacrificed', state, matches, 1, {
+      triggeringObjectId: sacrificed.id,
+      triggeringPlayer: sacrificed.controller,
+      watched: sacrificed,
+    })
+  }
+}
+
+const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
+  if (typeof target === 'string') return target
+  if (target.kind === 'player') return target.player
+  const attacked = state.objects[target.objectId]
+  return attacked?.protector ?? attacked?.controller
+}
+
+/** An attack trigger carries the defending player of the attacker it belongs to. */
 const collectAttacks = (
   state: GameState,
   event: GameEvent,
@@ -287,15 +337,10 @@ const collectAttacks = (
   for (const declaration of event.attackers) {
     const attacker = state.objects[declaration.objectId]
     if (!attacker) continue
-    collectEffects(attacker, 'attacks', state, matches, 1, {}, event)
+    const defender = defendingPlayer(state, declaration.defender)
+    const meta = defender ? { payload: { defendingPlayer: defender } } : {}
+    collectEffects(attacker, 'attacks', state, matches, 1, meta, event)
   }
-}
-
-const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
-  if (typeof target === 'string') return target
-  return target.kind === 'player'
-    ? target.player
-    : state.objects[target.objectId]?.controller
 }
 
 const collectPlayerAttacks = (
@@ -556,6 +601,7 @@ const collectEventTriggers = (
   collectEnters(state, draft, event, matches)
   collectBecomesMonstrous(state, event, matches)
   collectAttacks(state, event, matches)
+  collectSacrifices(state, event, matches)
   collectPlayerAttacks(state, draft, event, matches)
   collectTapped(state, event, matches)
   for (const on of STEP_TRIGGERS) collectStep(on, state, draft, event, matches)

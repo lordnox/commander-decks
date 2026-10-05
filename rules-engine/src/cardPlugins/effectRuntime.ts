@@ -248,11 +248,16 @@ export const addPlusCounters = (object: GameObject, amount: number) => {
   if (object.toughness !== null) object.toughness += amount
 }
 
+/** Objects keep the whole "Front // Back" card name, and which face is up is not tracked, so names compare by front face. */
+const frontFaceName = (object: GameObject) => object.name.split(' // ')[0]
+
+/** `triggering` is the permanent a watching trigger saw enter or be sacrificed. */
 export const conditionHolds = (
   condition: CardCondition | undefined,
   state: GameState,
   object: GameObject,
   stackItem?: StackItem,
+  triggering?: GameObject,
 ) => {
   if (!condition) return true
   if (condition.kind === 'notActivePlayer') return state.active !== object.controller
@@ -370,6 +375,24 @@ export const conditionHolds = (
       && candidate.tags.includes('commander')
       && candidate.owner === object.controller
       && candidate.controller === object.controller)
+  }
+  if (condition.kind === 'triggeringCreatureNameUnique') {
+    if (!triggering) return false
+    const name = frontFaceName(triggering)
+    // The triggering creature may itself sit in the graveyard by resolution; as a
+    // creature card there it still has its own name.
+    return !Object.values(state.objects).some((candidate) =>
+      frontFaceName(candidate) === name
+      && candidate.types.includes('Creature')
+      && (
+        (candidate.zone === 'battlefield'
+          && !candidate.phasedOut
+          && candidate.controller === object.controller
+          && candidate.id !== triggering.id)
+        || (candidate.zone === 'graveyard'
+          && candidate.owner === object.controller
+          && !candidate.token)
+      ))
   }
   return false
 }
