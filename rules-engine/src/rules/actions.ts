@@ -68,7 +68,7 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
     // CR 608.2b: each target is re-checked on its own; the ability fizzles only
     // when none remain legal, and otherwise acts on the targets that still are.
     const legal = item.targets.filter((target) =>
-      validTargetRef(draft, target, targetFilter, item.controller))
+      validTargetRef(draft, target, targetFilter, item.controller, undefined, item.objectId))
     if (legal.length === 0) return
     resolving = { ...item, targets: legal }
   }
