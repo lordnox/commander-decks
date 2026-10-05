@@ -158,6 +158,21 @@ describe('entersTapped', () => {
     }])
   })
 
+  test.each([
+    'Bridgeworks Battle // Tanglespan Bridgeworks',
+    'Fell the Profane // Fell Mire',
+  ])('%s asks for the three life its Oracle text prints, not two', (name) => {
+    const server = game([land(name)])
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const next = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    const [dialog] = next.players.p1.data['kernel.pendingDialog'] as Array<{
+      count: number
+      prompt: string
+    }>
+    expect(dialog.count).toBe(3)
+    expect(dialog.prompt).toContain('pay 3 life')
+  })
+
   test('Morphic Pool checks for two opponents', () => {
     const headsUp = createServerGame(
       commanderRules,

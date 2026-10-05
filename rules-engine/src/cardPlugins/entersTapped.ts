@@ -58,20 +58,21 @@ export const entersTapped: Plugin = {
       })
       return
     }
-    const shock = effectsOf(object).some((effect) =>
+    const shock = effectsOf(object).find((effect) =>
       effect.op === 'replacement' && effect.do === 'tapUnlessPayLife')
     if (shock) {
+      const life = shock.op === 'replacement' ? shock.life ?? 2 : 2
       setPendingDialog(draft, {
         sourceId: object.id,
         source: object.name,
         seat: object.controller,
         kind: 'may-pay-life',
-        prompt: `You may pay 2 life. If you don’t, ${object.name} enters tapped.`,
+        prompt: `You may pay ${life} life. If you don’t, ${object.name} enters tapped.`,
         waiting: 'is deciding whether to pay life.',
         judge: 'Waiting for a shock-land payment.',
         chosenEvent: DIALOG_CHOSEN,
         destinations: ['skip', 'target'],
-        count: 2,
+        count: life,
         optional: true,
       })
       return

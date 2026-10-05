@@ -49,7 +49,10 @@ export const choiceEffects: Plugin = {
     }
     if (dialog.kind === 'may-pay-life') {
       const land = draft.object(dialog.sourceId)
-      if (event.payload?.accepted === true) {
+      // CR 119.4: a player can't pay more life than they have, so a 3-life
+      // payment at 2 life is not an option and the land enters tapped.
+      const affordable = draft.players[event.seat].life >= (dialog.count ?? 2)
+      if (event.payload?.accepted === true && affordable) {
         draft.enqueue({
           type: 'loseLife',
           seat: event.seat,
