@@ -11,8 +11,9 @@ export const castTriggers: Plugin = {
       if (!spell) return
       for (const permanent of draft.zoneOf('battlefield')) {
         for (const effect of triggerEffects(effectsOf(permanent), 'cast')) {
-          if (event.seat !== permanent.controller) continue
+          if ((effect.castBy === 'opponent') === (event.seat === permanent.controller)) continue
           if (effect.creatureOnly && !spell.types.includes('Creature')) continue
+          if (effect.noncreatureOnly && spell.types.includes('Creature')) continue
           if (effect.modal) {
             setPendingDialog(draft, {
               sourceId: permanent.id,
