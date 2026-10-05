@@ -36,6 +36,8 @@ export type CardCondition =
   /** Intervening if for "if it was a creature" on a dies trigger (LKI: still a creature in graveyard). */
   | { kind: 'wasCreature' }
   | { kind: 'stackXAtLeast'; min: number }
+  /** The source's controller controls a commander they own (e.g. Lieutenant). */
+  | { kind: 'controlsCommander' }
 
 export type GiftSpec = {
   label?: string
@@ -455,6 +457,22 @@ export type TargetFilter = {
   manaValue?: { eq?: number; min?: number; max?: number; parity?: 'even' | 'odd' }
 }
 
+/** Layer-style static effect on matching permanents; keywords are lowercase ability tokens. */
+export type StaticBoardPumpSpec = {
+  power: number
+  toughness: number
+  requireTypes: string[]
+  /** Only while the condition holds for the source; re-evaluated as the game changes. */
+  if?: CardCondition
+  /** `self` is only the source; `others` excludes it. Default: every matching permanent. */
+  affects?: 'self' | 'others'
+  /** Whose permanents are affected. Default: the source's controller. */
+  controller?: 'you' | 'opponent'
+  grantKeywords?: string[]
+  /** "Lose and can't have or gain": wins over every grant, printed or static. */
+  suppressKeywords?: string[]
+}
+
 export type CastCostCondition =
   | CardCondition
   | { kind: 'target'; filter: TargetFilter }
@@ -634,8 +652,8 @@ export type CardEffect =
       ptEqualsCount?: { types: string[] }
       /** Activated abilities of matching permanents you control cost this much less. */
       reduceActivationCost?: { generic: number; requireTypes?: string[] }
-      /** Matching creatures you control get +N/+N while this source is on the battlefield. */
-      staticBoardPump?: { power: number; toughness: number; requireTypes: string[] }
+      /** Matching permanents get +N/+N and keyword changes while this source is on the battlefield. */
+      staticBoardPump?: StaticBoardPumpSpec
       /** Ward: generic {N}, mana {N}, or a sacrifice cost (CR 702.21). */
       ward?: {
         generic?: number

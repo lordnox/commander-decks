@@ -10,8 +10,9 @@ import type {
   ZoneId,
 } from '../types'
 import { effectsFor } from './cardRules'
-import type { CardEffect } from './effectDefinitions'
+import type { CardEffect, StaticBoardPumpSpec } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
+import { pumpApplies, pumpSpecs } from './staticBoardPumpSpec'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
 
@@ -212,35 +213,45 @@ export const grantTriggerWhileSourceOnBattlefield = (
   { kind: 'whileSourceOnBattlefield', sourceId },
 )
 
-const staticBoardPumpEntry = (object: GameObject, sourceId: string) =>
-  object.continuousEffects?.find(({ effect, duration }) =>
-    effect.kind === 'pump'
-    && duration.kind === 'staticBoardPump'
-    && duration.sourceId === sourceId)
+const fromStaticBoardPump = (
+  { duration }: ContinuousEffect,
+  sourceId: string,
+  index?: number,
+) =>
+  duration.kind === 'staticBoardPump'
+  && duration.sourceId === sourceId
+  && (index === undefined || duration.index === index)
 
+export const hasStaticBoardPump = (object: GameObject, sourceId: string, index: number) =>
+  (object.continuousEffects ?? []).some((entry) => fromStaticBoardPump(entry, sourceId, index))
+
+/** Stamp one spec's pump (always, so presence is checkable) and keyword layer on `object`. */
 export const applyStaticBoardPump = (
   object: GameObject,
-  power: number,
-  toughness: number,
+  spec: Pick<StaticBoardPumpSpec, 'power' | 'toughness' | 'grantKeywords' | 'suppressKeywords'>,
   sourceId: string,
-  requireTypes: string[],
+  index: number,
 ) => {
-  if (staticBoardPumpEntry(object, sourceId)) return
-  withDuration(
-    object,
-    changeStats(object, power, toughness),
-    { kind: 'staticBoardPump', sourceId, requireTypes },
-  )
+  if (hasStaticBoardPump(object, sourceId, index)) return
+  const duration = { kind: 'staticBoardPump' as const, sourceId, index }
+  withDuration(object, changeStats(object, spec.power, spec.toughness), duration)
+  if (spec.grantKeywords || spec.suppressKeywords) {
+    withDuration(
+      object,
+      {
+        kind: 'staticKeywords',
+        grant: spec.grantKeywords ?? [],
+        suppress: spec.suppressKeywords ?? [],
+      },
+      duration,
+    )
+  }
 }
 
-export const removeStaticBoardPump = (object: GameObject, sourceId: string) => {
-  if (!staticBoardPumpEntry(object, sourceId)) return
+/** Drop one spec's stamps, or every spec of the source when `index` is omitted. */
+export const removeStaticBoardPump = (object: GameObject, sourceId: string, index?: number) => {
   reviseContinuousEffects(object, (entry) =>
-    entry.effect.kind === 'pump'
-    && entry.duration.kind === 'staticBoardPump'
-    && entry.duration.sourceId === sourceId
-      ? undefined
-      : entry)
+    fromStaticBoardPump(entry, sourceId, index) ? undefined : entry)
 }
 
 export const changeController = (
@@ -397,15 +408,8 @@ const durationHolds = (
   }
   if (duration.kind === 'staticBoardPump') {
     const source = state.objects[duration.sourceId]
-    return Boolean(
-      source
-      && source.zone === 'battlefield'
-      && object.zone === 'battlefield'
-      && object.controller === source.controller
-      && duration.requireTypes.every((type) => object.types.includes(type))
-      && object.power !== null
-      && object.toughness !== null,
-    )
+    const spec = source && pumpSpecs(source)[duration.index]
+    return Boolean(spec && pumpApplies(state, source, spec, object))
   }
   if (duration.kind === 'pumpPerLinkedExile') {
     return objectSupportsPumpPerLinkedExile(object)

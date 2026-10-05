@@ -364,6 +364,13 @@ export const conditionHolds = (
   if (condition.kind === 'notMonstrous') return !object.monstrous
   if (condition.kind === 'wasCreature') return object.types.includes('Creature')
   if (condition.kind === 'stackXAtLeast') return (stackItem?.x ?? 0) >= condition.min
+  if (condition.kind === 'controlsCommander') {
+    return Object.values(state.objects).some((candidate) =>
+      candidate.zone === 'battlefield'
+      && candidate.tags.includes('commander')
+      && candidate.owner === object.controller
+      && candidate.controller === object.controller)
+  }
   return false
 }
 

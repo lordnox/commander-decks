@@ -14,6 +14,7 @@ import type {
   GiftSpec,
   TokenSpec,
   SagaChapter,
+  StaticBoardPumpSpec,
 } from './effectDefinitions'
 import { basicLand } from './effectRuntime'
 
@@ -660,15 +661,19 @@ export const reduceActivationCost = (
   reduceActivationCost: { generic, requireTypes },
 })
 
-/** Matching creatures you control get +N/+N while this source is on the battlefield. */
+/**
+ * Matching permanents get +N/+N while this source is on the battlefield; options add a
+ * condition, a self/others or opponent scope, and granted or suppressed keywords.
+ */
 export const staticBoardPump = (
   power: number,
   toughness: number,
   requireTypes: string[],
+  options: Omit<StaticBoardPumpSpec, 'power' | 'toughness' | 'requireTypes'> = {},
 ): CardEffect => ({
   op: 'static',
   pluginId: 'staticBoardPump',
-  staticBoardPump: { power, toughness, requireTypes },
+  staticBoardPump: { power, toughness, requireTypes, ...options },
 })
 
 /** Ward {N} or a mana/sacrifice Ward cost (CR 702.21). */
