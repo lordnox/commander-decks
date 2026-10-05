@@ -38,7 +38,8 @@ export const createSpellCopy = (
   return copy
 }
 
-export const ceaseSpellCopy = (draft: Draft, object: GameObject) => {
+/** Removes a spell copy or token from the game entirely (CR 704.5d, CR 707.10a). */
+export const ceaseToExist = (draft: Draft, object: GameObject) => {
   const order = draft.zoneOrder[object.owner][object.zone]
   const index = order.indexOf(object.id)
   if (index >= 0) {

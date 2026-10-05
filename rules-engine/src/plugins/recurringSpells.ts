@@ -1,7 +1,7 @@
 import { hasKeyword } from '../keywords'
 import { registerDelayedTrigger } from '../rules/delayedTriggers'
 import {
-  ceaseSpellCopy,
+  ceaseToExist,
   createSpellCopy,
   putSpellCopyOnStack,
 } from '../rules/spellCopies'
@@ -200,7 +200,7 @@ export const recurringSpells: Plugin = {
     }
     if (event.type === 'chooseParadigm' && pending?.mode === 'paradigm') {
       const copy = draft.object(pending.copyId)
-      if (copy) ceaseSpellCopy(draft, copy)
+      if (copy) ceaseToExist(draft, copy)
       delete draft.players[pending.seat].data[PENDING_RECURRING_SPELL]
       return
     }

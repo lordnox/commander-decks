@@ -568,6 +568,8 @@ export type GameEvent =
   | { type: 'putCounters'; objectId: string; counter: string; count: number }
   /** CR 704.5q: a permanent with both +1/+1 and -1/-1 counters removes a pair of each. */
   | { type: 'annihilateCounters'; objectId: string }
+  /** CR 704.5d: a token in a zone other than the battlefield ceases to exist. */
+  | { type: 'tokenCeases'; objectId: string }
   | { type: 'becomesMonstrous'; objectId: string }
   // — CR keyword actions —
   | {

@@ -228,7 +228,8 @@ export const activated: Plugin = {
         name: source.name,
         targets: event.targets ?? [],
         abilityId: event.abilityId,
-        ...(targetFilter ? { payload: { targetFilter } } : {}),
+        // The ability outlives its source, which a token leaves behind when sacrificed to pay for it.
+        payload: { instructions: effect.do, ...(targetFilter ? { targetFilter } : {}) },
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.choices ? { choices: event.choices } : {}),
         ...(event.door ? { door: event.door } : {}),

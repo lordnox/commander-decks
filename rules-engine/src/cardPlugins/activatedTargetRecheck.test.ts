@@ -128,6 +128,6 @@ describe('activated ability target re-check on resolution (CR 608.2b)', () => {
       seat: 'p1',
       objectId: named(server.state, 'Fixture Plain').id,
     }))
-    expect(stacked.stack[0].payload).toBeUndefined()
+    expect(stacked.stack[0].payload?.targetFilter).toBeUndefined()
   })
 })

@@ -272,7 +272,8 @@ describe('encore', () => {
       state = ok(server.rules(state, { type: 'resolveTop' }))
     }
     for (const tokenId of tokenIds) {
-      expect(state.objects[tokenId].zone).toBe('graveyard')
+      // CR 704.5d: a sacrificed token ceases to exist instead of resting in the graveyard.
+      expect(state.objects[tokenId]).toBeUndefined()
     }
   })
 })

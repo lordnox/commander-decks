@@ -441,7 +441,8 @@ describe('Homer remaining card plugins', () => {
       objectId: spawn.id,
       manaAbility: true,
     }))
-    expect(sacrificed.objects[spawn.id].zone).toBe('graveyard')
+    // CR 704.5d: the sacrificed token ceases to exist, but its mana was already made.
+    expect(sacrificed.objects[spawn.id]).toBeUndefined()
     expect(sacrificed.players.p1.mana.C).toBe(1)
   })
 

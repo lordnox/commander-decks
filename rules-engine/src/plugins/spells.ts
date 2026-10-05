@@ -31,7 +31,7 @@ import { manaValueOf } from '../cardPlugins/effects'
 import { validTargetRef } from '../cardPlugins/targetedResolve'
 import { resolveAbility, resolveAction } from '../rules/actions'
 import { PENDING_STEAL_CAST } from '../rules/selectCards'
-import { ceaseSpellCopy } from '../rules/spellCopies'
+import { ceaseToExist } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
 import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
@@ -487,7 +487,7 @@ export const spells: Plugin = {
   apply: ({ state, event, draft }) => {
     if (event.type === 'move') {
       const moved = draft.object(event.objectId)
-      if (moved?.spellCopy && moved.zone !== 'stack') ceaseSpellCopy(draft, moved)
+      if (moved?.spellCopy && moved.zone !== 'stack') ceaseToExist(draft, moved)
       return
     }
 
@@ -632,7 +632,7 @@ export const spells: Plugin = {
       const object = draft.object(item.objectId)
       if (!object) return
       if (item.copy) {
-        if (object.spellCopy) ceaseSpellCopy(draft, object)
+        if (object.spellCopy) ceaseToExist(draft, object)
         draft.passedInRow = []
         draft.priority = state.active
         return
