@@ -293,8 +293,8 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       waiting: `${lobby.occupants[seat]?.name ?? seat} is choosing cards.`,
       prompt: selection.prompt ?? `Choose ${count} card${count === 1 ? '' : 's'}.`,
       judge: selection.source
-        ? `Waiting for a ${selection.kind} choice for ${selection.source}.`
-        : `Waiting for a ${selection.kind} choice.`,
+        ? `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat} for ${selection.source}.`
+        : `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat}.`,
     },
   )
 }

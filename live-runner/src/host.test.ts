@@ -113,7 +113,7 @@ describe('kernel host actions', () => {
       destinations: ['top', 'bottom'],
       kernel: {
         sourceId: 'spell',
-        stage: 'scry',
+        stage: 'surveil',
         resumePassSeat: 'p3',
       },
     }

@@ -31,7 +31,6 @@ export type TopdeckDecision = {
   kernel?: {
     sourceId: string
     stage:
-      | 'scry'
       | 'put-land'
       | 'put-permanents'
       | 'search'

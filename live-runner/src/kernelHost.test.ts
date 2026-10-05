@@ -559,7 +559,7 @@ describe('kernel host journal', () => {
       destinations: ['top', 'bottom'],
       kernel: {
         sourceId: 'spell',
-        stage: 'scry',
+        stage: 'surveil',
         resumePassSeat: 'p1',
       },
     }
