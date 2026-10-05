@@ -5,7 +5,6 @@ import { dirname, join, resolve } from "node:path"
 import { createInterface } from "node:readline/promises"
 import {
   ROOT,
-  SEAT_IDS,
   loadManifest,
   readJson,
   seededRandom,

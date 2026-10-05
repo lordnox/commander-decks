@@ -971,7 +971,6 @@ export const validatePlans = (
 const validateCombatFlow = (
   events: Json[],
   seatIds: Set<string>,
-  rows: Json[],
 ) => {
   let attack: Json = {}
   for (let index = 0; index < events.length; index += 1) {
@@ -1154,7 +1153,7 @@ export const publicGame = (game: unknown, options: { strict?: boolean } = {}): R
   validatePlans(events, seatIds, cleaned.planning === 1 && strict)
   for (const event of events) validateCombatShape(event, rows)
   if (cleaned.schema >= 2) {
-    validateCombatFlow(events, seatIds, rows)
+    validateCombatFlow(events, seatIds)
     const earlyCatalog = isJson(cleaned.catalog) ? cleaned.catalog : {}
     validateCommandersPresent(seats, events, rows)
     if (strict) {

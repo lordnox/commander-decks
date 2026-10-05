@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { resolveStack } from '../testHelpers'

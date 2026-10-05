@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "site/src",
+    "rules-engine/src",
+    "live-runner/src",
+    "shared",
+    ".agents/skills/**/scripts"
+  ],
+  "exclude": []
+}

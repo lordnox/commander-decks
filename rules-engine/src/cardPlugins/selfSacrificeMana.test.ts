@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'bun:test'
 import { availableActions, eventsForAvailableAction } from '../actions'
 import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import type { CardTemplate, GameState } from '../types'
+import type { GameState } from '../types'
 import { activated } from './activated'
 import { activate, createTreasures, effectsFromTokenSpec } from './effects'
 
