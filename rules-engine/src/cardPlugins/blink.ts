@@ -8,7 +8,7 @@ import type { InstructionHandler } from './instructionHandlers/types'
 
 export type BlinkSpec = Pick<
   BlinkOptions,
-  'returnController' | 'when' | 'plusCounters'
+  'returnController' | 'when' | 'plusCounters' | 'tapped'
 >
 
 const returnControllerFor = (
@@ -30,6 +30,7 @@ const enqueueReturn = (
     to: 'battlefield',
     controller,
   })
+  if (spec.tapped) draft.enqueue({ type: 'tap', objectId: target.id })
   if (spec.plusCounters && spec.plusCounters > 0) {
     draft.enqueue({
       type: 'putCounters',
@@ -40,6 +41,27 @@ const enqueueReturn = (
   }
 }
 
+/** "Return it at the beginning of the next end step." */
+const registerEndStepReturn = (
+  draft: Draft,
+  source: GameObject,
+  target: GameObject,
+  spec: BlinkSpec,
+) => {
+  registerDelayedTrigger(
+    draft,
+    source,
+    { kind: 'step', step: 'end' },
+    [{
+      kind: 'blinkReturn',
+      objectId: target.id,
+      returnController: spec.returnController ?? 'owner',
+      ...(spec.plusCounters ? { plusCounters: spec.plusCounters } : {}),
+      ...(spec.tapped ? { tapped: true as const } : {}),
+    }],
+  )
+}
+
 export const performBlink = (
   draft: Draft,
   source: GameObject,
@@ -47,33 +69,13 @@ export const performBlink = (
   spec: BlinkSpec = {},
 ) => {
   if (target.zone === 'exile' && spec.when === 'nextEndStep') {
-    registerDelayedTrigger(
-      draft,
-      source,
-      { kind: 'step', step: 'end' },
-      [{
-        kind: 'blinkReturn',
-        objectId: target.id,
-        returnController: spec.returnController ?? 'owner',
-        ...(spec.plusCounters ? { plusCounters: spec.plusCounters } : {}),
-      }],
-    )
+    registerEndStepReturn(draft, source, target, spec)
     return
   }
   if (target.zone !== 'battlefield') return
   draft.enqueue({ type: 'move', objectId: target.id, to: 'exile' })
   if (spec.when === 'nextEndStep') {
-    registerDelayedTrigger(
-      draft,
-      source,
-      { kind: 'step', step: 'end' },
-      [{
-        kind: 'blinkReturn',
-        objectId: target.id,
-        returnController: spec.returnController ?? 'owner',
-        ...(spec.plusCounters ? { plusCounters: spec.plusCounters } : {}),
-      }],
-    )
+    registerEndStepReturn(draft, source, target, spec)
     return
   }
   enqueueReturn(draft, source, target, spec)
@@ -98,6 +100,7 @@ const blinkInstruction: InstructionHandler<'blink'> = (
     returnController: instruction.returnController ?? 'owner',
     when: instruction.when ?? 'immediate',
     plusCounters: instruction.plusCounters,
+    tapped: instruction.tapped,
   }
 
   if (instruction.optional && instruction.filter) {
@@ -128,10 +131,10 @@ const blinkInstruction: InstructionHandler<'blink'> = (
     return
   }
 
-  const targetIndex = instruction.targetIndex ?? 0
-  const targetRef = item?.targets[targetIndex]
-  if (targetRef?.kind !== 'object') return
-  const target = draft.object(targetRef.objectId)
+  const targetRef = item?.targets[instruction.targetIndex ?? 0]
+  const target = instruction.self
+    ? draft.object(source.id)
+    : targetRef?.kind === 'object' ? draft.object(targetRef.objectId) : undefined
   if (!target) return
   performBlink(draft, source, target, spec)
 }
@@ -143,6 +146,7 @@ const blinkReturnInstruction: InstructionHandler<'blinkReturn'> = (
   applyBlinkReturn(draft, source, instruction.objectId, {
     returnController: instruction.returnController ?? 'owner',
     plusCounters: instruction.plusCounters,
+    tapped: instruction.tapped,
   })
 }
 

@@ -22,6 +22,7 @@ import {
   canPayActivationCosts as canPayCardActivationCosts,
   crewCostCandidates,
   discardCostCandidates,
+  discardCostCount,
   needsActivationCostPicks,
   sacrificeCostCandidates,
 } from './cardPlugins/activationCosts'
@@ -1611,9 +1612,11 @@ const activationCostTargetGroups = (
   const groups: ActionTargetGroup[] = []
   if (costs.discard && costs.discard !== 'self') {
     groups.push({
-      label: costs.discard === 'land' ? 'Land card to discard' : 'Card to discard',
-      min: 1,
-      max: 1,
+      label: costs.discard === 'land'
+        ? 'Land card to discard'
+        : discardCostCount(costs) > 1 ? 'Cards to discard' : 'Card to discard',
+      min: discardCostCount(costs),
+      max: discardCostCount(costs),
       purpose: 'cost',
       targets: discardCostCandidates(state, source.controller, costs.discard)
         .map((object) => ({

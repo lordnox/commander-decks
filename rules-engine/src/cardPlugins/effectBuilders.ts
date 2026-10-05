@@ -117,6 +117,8 @@ export type BlinkOptions = {
   returnController?: 'owner' | 'controller'
   when?: 'immediate' | 'nextEndStep'
   plusCounters?: number
+  tapped?: true
+  self?: true
   targetIndex?: number
   optional?: boolean
   filter?: TargetFilter
@@ -129,6 +131,11 @@ export const blink = (options: BlinkOptions = {}): CardInstruction => ({
   when: 'immediate',
   ...options,
 })
+
+/** Exile this permanent, then return it (immediately or at the next end step). */
+export const blinkSelf = (
+  options: Pick<BlinkOptions, 'when' | 'tapped' | 'returnController'> = {},
+): CardInstruction => blink({ ...options, self: true })
 
 export const dies = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',

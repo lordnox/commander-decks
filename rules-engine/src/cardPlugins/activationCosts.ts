@@ -10,7 +10,7 @@ type CanPayMana = (cost: string) => boolean
 const MANA_CHOICES = new Set(['W', 'U', 'B', 'R', 'G', 'C'])
 
 export type ActivationCostPicks = {
-  discardId?: string
+  discardIds?: string[]
   sacrificeId?: string
   crewIds?: string[]
 }
@@ -43,6 +43,8 @@ const reducedActivationManaCost = (
 
 const discardTypeName = (kind: NonNullable<ActivateCost['discard']>) =>
   kind === 'land' ? 'land card' : 'card'
+
+export const discardCostCount = (costs: ActivateCost) => costs.discardCount ?? 1
 
 const sacrificeTypeName = (kind: NonNullable<ActivateCost['sacrificeTarget']>) =>
   kind === 'land' ? 'Land' : 'Creature'
@@ -99,7 +101,11 @@ export const costPicksFromChoices = (
   const ids = (choices ?? []).filter((entry) => !MANA_CHOICES.has(entry))
   let index = 0
   const picks: ActivationCostPicks = {}
-  if (costs.discard && costs.discard !== 'self') picks.discardId = ids[index++]
+  if (costs.discard && costs.discard !== 'self') {
+    const count = discardCostCount(costs)
+    picks.discardIds = ids.slice(index, index + count)
+    index += count
+  }
   if (costs.sacrificeTarget) picks.sacrificeId = ids[index++]
   if (costs.crew !== undefined) picks.crewIds = ids.slice(index)
   return picks
@@ -109,6 +115,14 @@ const chosenAmong = (
   objectId: string | undefined,
   candidates: GameObject[],
 ) => candidates.some((object) => object.id === objectId)
+
+const chosenAllAmong = (
+  objectIds: string[] | undefined,
+  count: number,
+  candidates: GameObject[],
+) => objectIds?.length === count
+  && new Set(objectIds).size === count
+  && objectIds.every((objectId) => chosenAmong(objectId, candidates))
 
 export const activationCostReduction = (
   state: GameState | Draft,
@@ -206,11 +220,12 @@ export const activationCostError = (
     }
   } else if (costs.discard) {
     const candidates = discardCostCandidates(state, seat, costs.discard)
-    if (candidates.length === 0) {
+    const count = discardCostCount(costs)
+    if (candidates.length < count) {
       return `${seat} has no ${discardTypeName(costs.discard)} to discard`
     }
-    if (options.requirePicks && !chosenAmong(picks.discardId, candidates)) {
-      return `${source.name} needs one ${discardTypeName(costs.discard)} to discard`
+    if (options.requirePicks && !chosenAllAmong(picks.discardIds, count, candidates)) {
+      return `${source.name} needs ${count} ${discardTypeName(costs.discard)}${count === 1 ? '' : 's'} to discard`
     }
   }
   if (costs.exileSelf && (source.zone !== 'graveyard' || source.controller !== seat)) {
@@ -291,7 +306,9 @@ export const payActivationCosts = (
   }
   if (costs.discard === 'self') {
     draft.enqueue({ type: 'discard', seat, objectId: source.id })
-  } else if (costs.discard && picks.discardId) {
-    draft.enqueue({ type: 'discard', seat, objectId: picks.discardId })
+  } else if (costs.discard) {
+    for (const objectId of picks.discardIds ?? []) {
+      draft.enqueue({ type: 'discard', seat, objectId })
+    }
   }
 }

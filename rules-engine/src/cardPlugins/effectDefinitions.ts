@@ -430,6 +430,10 @@ export type CardInstruction =
       returnController?: 'owner' | 'controller'
       when?: 'immediate' | 'nextEndStep'
       plusCounters?: number
+      /** Return the permanent tapped. */
+      tapped?: true
+      /** Blink the source itself instead of an ability or spell target. */
+      self?: true
       targetIndex?: number
       optional?: boolean
       filter?: TargetFilter
@@ -440,6 +444,7 @@ export type CardInstruction =
       objectId: string
       returnController?: 'owner' | 'controller'
       plusCounters?: number
+      tapped?: true
     }
   | { kind: 'becomeMonarch' }
   | {
@@ -506,6 +511,8 @@ export type ActivateCost = {
   exileSelf?: boolean
   exileFromGraveyard?: boolean
   discard?: 'self' | 'land' | 'any'
+  /** How many cards a hand `discard` cost takes (default 1): "Discard three cards:". */
+  discardCount?: number
   sacrificeTarget?: 'creature' | 'land'
   sacrificeOther?: boolean
   /** Signed loyalty change paid before the ability goes on the stack. */
