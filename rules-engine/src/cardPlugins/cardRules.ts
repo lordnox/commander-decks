@@ -218,6 +218,14 @@ import {
   copyTargetForEachOtherPlayer,
   exileVoteWinners,
   vote,
+  ifVoteLeads,
+  forEachVoter,
+  onVotesFinished,
+  eachPlayerReturn,
+  eachPlayerMayWheel,
+  exileThisSpell,
+  revealUntil,
+  destroyAll,
   playerAuraDeal,
   targetingRequirement,
   loseHalfLifeRoundedUp,
@@ -2126,6 +2134,50 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Rings of Brighthearth': [handler('stackCopy')],
+  'Erestor of the Council': [onVotesFinished(
+    forEachVoter('opponentsAgreeing', createTreasures(1, 'triggeringPlayer')),
+    scry({ voters: 'opponentsDisagreeing' }),
+    draw(1),
+  )],
+  'Sail into the West': [
+    onResolve(vote(
+      'Vote for return or embark.',
+      {
+        kind: 'named',
+        options: [{ id: 'return', label: 'Return' }, { id: 'embark', label: 'Embark' }],
+      },
+      [ifVoteLeads(
+        'return',
+        [eachPlayerReturn(2), exileThisSpell()],
+        [eachPlayerMayWheel(7)],
+      )],
+    )),
+  ],
+  "Selvala's Stampede": [
+    onResolve(vote(
+      'Vote for wild or free.',
+      {
+        kind: 'named',
+        options: [{ id: 'wild', label: 'Wild' }, { id: 'free', label: 'Free' }],
+      },
+      [
+        revealUntil({ voters: { votedFor: 'wild' } }, { type: 'Creature' }, 'battlefield', 'shuffle'),
+        putPermanentsFromHand({ voters: { votedFor: 'free' } }),
+      ],
+    )),
+  ],
+  'Coercive Portal': [yourUpkeep(vote(
+    'Vote for carnage or homage.',
+    {
+      kind: 'named',
+      options: [{ id: 'carnage', label: 'Carnage' }, { id: 'homage', label: 'Homage' }],
+    },
+    [ifVoteLeads(
+      'carnage',
+      [{ kind: 'sacrificeSelf' }, destroyAll({ nonland: true })],
+      [draw(1)],
+    )],
+  ))],
   "Council's Judgment": [
     onResolve(vote(
       'Vote for a nonland permanent you do not control.',
