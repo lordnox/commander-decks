@@ -2207,6 +2207,12 @@ export const eventsForAvailableAction = (
     ? effectsOf(object).some((effect) =>
         effect.op === 'castCost' && (effect.lifeX || effect.kicker || effect.gift || effect.spree || effect.multikicker))
     : false
+  // A double-faced card is cast as one face, so the other face's text (a land that
+  // "enters tapped") says nothing about the spell.
+  const face = object
+    ? resolveCastFace(object, { door: action.door, adventureCast: action.adventureCast })
+    : undefined
+  const spellText = face?.oracleText ?? object?.oracleText ?? ''
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
   const enchanting = Boolean(object && !action.castOption && enchantTargets(state, object))
@@ -2227,16 +2233,16 @@ export const eventsForAvailableAction = (
       && !resolvesThroughKernel
     )
     || targeted.length > 1
-    || (targeted.length === 0 && !playerAura && /\btarget\b/i.test(object.oracleText))
+    || (targeted.length === 0 && !playerAura && /\btarget\b/i.test(spellText))
     || (
       !hasAlternateCast
       && !hasBestowCast
       && !doorTriggers
       && !entryChoice
-      && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(object.oracleText)
+      && /(?:enters(?: the battlefield)?|when you cast|choose)/i.test(spellText)
     )
     || (
-      /additional cost/i.test(object.oracleText)
+      /additional cost/i.test(spellText)
       && !hasDeclarativeAdditionalCost
     )
   ) {
@@ -2270,10 +2276,6 @@ export const eventsForAvailableAction = (
   ) return null
   if (object.name === 'Ghostly Flicker' && blinkTargets.length !== 2) return null
   const tax = taxFor(state, seat, object)
-  const face = resolveCastFace(object, {
-    door: action.door,
-    adventureCast: action.adventureCast,
-  })
   const casting = face ? { ...object, ...face } : object
   const alternative = action.castOption
     ? availableAlternateCastEffect(state, seat, object, action.castOption)
