@@ -50,6 +50,8 @@ const dealDamage = (state: GameState, sourceName: string, targetName: string, am
   amount,
 })
 
+const handSize = (state: GameState, seat: string) => state.zoneOrder[seat].hand.length
+
 describe('damage ledger', () => {
   test('dealDamage totals damage to an object by the controller of each source', () => {
     const { server, state } = setup()
@@ -112,8 +114,6 @@ describe('damage ledger', () => {
 })
 
 describe('each player draws the damage dealt to this by sources they controlled', () => {
-  const handSize = (state: GameState, seat: string) => state.zoneOrder[seat].hand.length
-
   test('a lethal fight and a bear each pay their controller when the wurm leaves', () => {
     const { server, state } = setup()
     const hurt = [

@@ -41,7 +41,7 @@ import { rebound } from './rebound'
 import { saga } from './saga'
 import { spells } from './spells'
 import { rooms } from './rooms'
-import { grantControlledSubtypeTrigger } from '../cardPlugins/grantControlledSubtypeTrigger'
+import { grantCreatureTrigger } from '../cardPlugins/grantCreatureTrigger'
 import { staticBoardPump } from '../cardPlugins/staticBoardPump'
 import { exilePayoffs } from '../cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './starfieldOfNyx'
@@ -98,7 +98,7 @@ export const builtInPlugins = [
   extraSwampMana,
   enchantedManaBoost,
   starfieldOfNyx,
-  grantControlledSubtypeTrigger,
+  grantCreatureTrigger,
   staticBoardPump,
   exilePayoffs,
   extraUntap,

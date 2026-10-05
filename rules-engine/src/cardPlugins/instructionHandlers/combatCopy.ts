@@ -1,4 +1,5 @@
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
+import { openCardSelection } from '../../rules/selectCards'
 import {
   changeController,
   changeStatsUntilEndOfTurn,
@@ -91,6 +92,30 @@ const fightUpToOne: InstructionHandler<'fightUpToOne'> = ({ draft, source }) => 
     optional: true,
     sequence: draft.allocTs(),
     requirements: { target: { max: 1 } },
+  })
+}
+
+/**
+ * The "you may" is the pick itself: choosing the granting creature sends the
+ * fight to the stack, and choosing nothing declines it.
+ */
+const mayFightGrantSource: InstructionHandler<'mayFightGrantSource'> = (
+  { draft, source },
+  instruction,
+) => {
+  const granter = instruction.grantedBy ? draft.object(instruction.grantedBy) : undefined
+  if (granter?.zone !== 'battlefield' || !granter.types.includes('Creature')) return
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'choose',
+    count: 1,
+    min: 0,
+    candidates: [granter.id],
+    sourceId: source.id,
+    source: source.name,
+    prompt: `You may have ${source.name} fight ${granter.name}.`,
+    destinations: ['skip', 'target'],
+    triggerInstructions: [{ kind: 'fight', with: 'self-target' }],
   })
 }
 
@@ -312,6 +337,7 @@ export const combatCopyHandlers = {
   teferiSunsetPlusOne,
   dealDamageToChosenTarget,
   fightUpToOne,
+  mayFightGrantSource,
   fight,
   exchangeControlUntilEot,
   createToken: createTokenHandler,

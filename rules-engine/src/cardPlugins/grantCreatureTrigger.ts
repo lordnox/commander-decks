@@ -3,12 +3,8 @@ import {
   grantTriggerWhileSourceOnBattlefield,
   reviseContinuousEffects,
 } from './continuousEffects'
-import type { CardEffect } from './effectDefinitions'
+import type { CardEffect, GrantCreatureTrigger } from './effectDefinitions'
 import type { ContinuousEffect, GameObject, Plugin, ReversibleEffect } from '../types'
-
-type GrantSpec = NonNullable<
-  Extract<CardEffect, { op: 'static' }>['grantControlledSubtypeTrigger']
->
 
 type TriggerGrantEntry = ContinuousEffect & {
   effect: Extract<ReversibleEffect, { kind: 'triggerGrant' }>
@@ -25,30 +21,38 @@ const grantEntryFrom = (sourceId: string, grantId: string) =>
 const grantSpecs = (source: GameObject) => {
   let index = 0
   return effectsOf(source).flatMap((effect) => {
-    if (effect.op !== 'static' || !effect.grantControlledSubtypeTrigger) return []
+    if (effect.op !== 'static' || !effect.grantCreatureTrigger) return []
     const grantId = `${source.id}:${index}`
     index += 1
-    return [{ grantId, spec: effect.grantControlledSubtypeTrigger }]
+    return [{ grantId, spec: effect.grantCreatureTrigger }]
   })
 }
 
-const stampedTrigger = (spec: GrantSpec): Extract<CardEffect, { op: 'trigger' }> => ({
+/** Each recipient carries its own copy, with the granting permanent named where an instruction needs it. */
+const stampedTrigger = (
+  spec: GrantCreatureTrigger,
+  sourceId: string,
+): Extract<CardEffect, { op: 'trigger' }> => ({
   op: 'trigger',
   on: spec.on,
-  do: structuredClone(spec.do),
+  do: structuredClone(spec.do).map((instruction) =>
+    instruction.kind === 'mayFightGrantSource'
+      ? { ...instruction, grantedBy: sourceId }
+      : instruction),
 })
 
-const creatureMatches = (
+const receivesGrant = (
   object: GameObject,
-  subtype: string,
-  controller: GameObject['controller'],
+  source: GameObject,
+  { to }: GrantCreatureTrigger,
 ) =>
   object.zone === 'battlefield'
-  && object.controller === controller
   && object.types.includes('Creature')
-  && object.subtypes.includes(subtype)
+  && (to.controller === 'any' || object.controller === source.controller)
+  && !(to.other && object.id === source.id)
+  && (!to.subtype || object.subtypes.includes(to.subtype))
 
-export const syncGrantControlledSubtypeTriggers = (draft: {
+export const syncGrantCreatureTriggers = (draft: {
   zoneOf: (zone: 'battlefield', controller?: GameObject['controller']) => GameObject[]
   object: (id: string) => GameObject | undefined
 }) => {
@@ -61,10 +65,10 @@ export const syncGrantControlledSubtypeTriggers = (draft: {
   const battlefield = draft.zoneOf('battlefield')
   for (const { source, specs } of sources) {
     for (const { grantId, spec } of specs) {
-      const trigger = stampedTrigger(spec)
+      const trigger = stampedTrigger(spec, source.id)
       const mine = grantEntryFrom(source.id, grantId)
       for (const object of battlefield) {
-        const shouldGrant = creatureMatches(object, spec.subtype, source.controller)
+        const shouldGrant = receivesGrant(object, source, spec)
         const existing = object.continuousEffects?.find(mine)
         if (!shouldGrant) {
           if (existing) {
@@ -85,10 +89,10 @@ export const syncGrantControlledSubtypeTriggers = (draft: {
   }
 }
 
-/** Stamps matching controlled creatures with a granted trigger read from the source effects. */
-export const grantControlledSubtypeTrigger: Plugin = {
-  id: 'grantControlledSubtypeTrigger',
+/** Stamps matching creatures with a granted trigger read from the source effects. */
+export const grantCreatureTrigger: Plugin = {
+  id: 'grantCreatureTrigger',
   apply: ({ draft }) => {
-    syncGrantControlledSubtypeTriggers(draft)
+    syncGrantCreatureTriggers(draft)
   },
 }

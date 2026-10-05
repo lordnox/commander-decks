@@ -314,6 +314,11 @@ export type CardInstruction =
   | { kind: 'secretCouncil' }
   | { kind: 'fight'; with: 'self-target' | 'two-targets' }
   | { kind: 'fightUpToOne' }
+  /**
+   * "You may have it fight [the permanent that granted this ability]." The
+   * grant stamps `grantedBy` with the granting permanent's id.
+   */
+  | { kind: 'mayFightGrantSource'; grantedBy?: string }
   | { kind: 'exchangeControlUntilEot' }
   | { kind: 'gainControlPermanent'; untap?: boolean }
   | {
@@ -597,6 +602,10 @@ export type SearchSpec = {
   after?: CardInstruction[]
 }
 
+export type GrantCreatureTrigger = NonNullable<
+  Extract<CardEffect, { op: 'static' }>['grantCreatureTrigger']
+>
+
 export type CardEffect =
   | { op: 'dredge'; count: number }
   | {
@@ -765,8 +774,16 @@ export type CardEffect =
         mana?: number
         sacrifice?: { count: number; nonland?: boolean }
       }
-      grantControlledSubtypeTrigger?: {
-        subtype: string
+      /** While this is on the battlefield, matching creatures have the stamped triggered ability. */
+      grantCreatureTrigger?: {
+        to: {
+          /** Whose creatures receive it; `any` includes every player's. */
+          controller: 'you' | 'any'
+          /** Omit to match every creature. */
+          subtype?: string
+          /** Exclude the granting permanent ("other creatures"). */
+          other?: boolean
+        }
         on: Extract<CardEffect, { op: 'trigger' }>['on']
         do: CardInstruction[]
       }

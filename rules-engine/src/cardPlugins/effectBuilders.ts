@@ -16,6 +16,7 @@ import type {
   VoteOptions,
   VoterGroup,
   GiftSpec,
+  GrantCreatureTrigger,
   TokenSpec,
   SagaChapter,
   StaticBoardPumpSpec,
@@ -689,14 +690,16 @@ export const extraEnters = (count = 1): CardEffect => ({
   extraEnters: count,
 })
 
-export const grantControlledSubtypeTrigger = (
-  subtype: string,
-  on: Extract<CardEffect, { op: 'trigger' }>['on'],
+export const grantCreatureTrigger = (
+  to: GrantCreatureTrigger['to'],
+  on: GrantCreatureTrigger['on'],
   ...instructions: CardInstruction[]
 ): CardEffect => ({
   op: 'static',
-  grantControlledSubtypeTrigger: { subtype, on, do: instructions },
+  grantCreatureTrigger: { to, on, do: instructions },
 })
+
+export const mayFightGrantSource = (): CardInstruction => ({ kind: 'mayFightGrantSource' })
 
 export const playLandsFromGraveyard = (): CardEffect => ({
   op: 'static',
