@@ -1,10 +1,11 @@
-import type { GameEvent, GameState, Plugin } from '../types'
+import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 import { hasPendingDialog } from '../pendingDialog'
 import { pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { everybodyLives } from './advancedCombatPrevention'
 import { hasKeyword } from '../keywords'
 import { isPhasedOut } from './phasing'
+import { ceaseToExist } from '../rules/spellCopies'
 import {
   BATTLE_DEFEATED_ABILITY,
   validBattleProtector,
@@ -24,9 +25,25 @@ const devourSacrificePending = (state: GameState, objectId: string) =>
       && pending.triggerPayload?.devour === true
   })
 
+const strandedToken = (object: GameObject | undefined) =>
+  Boolean(object?.token) && object?.zone !== 'battlefield'
+
 export const stateBased: Plugin = {
   id: 'stateBased',
+  // CR 111.8: a token that has left the battlefield cannot move to another zone or return.
+  replace: ({ state, event }) =>
+    event.type === 'move' && strandedToken(state.objects[event.objectId]) ? [] : undefined,
+  legal: ({ state, event }) => {
+    if (event.type === 'tokenCeases' && !strandedToken(state.objects[event.objectId])) {
+      return 'only a token outside the battlefield ceases to exist'
+    }
+  },
   apply: ({ event, draft }) => {
+    if (event.type === 'tokenCeases') {
+      const token = draft.object(event.objectId)
+      if (token) ceaseToExist(draft, token)
+      return
+    }
     if (event.type !== 'annihilateCounters') return
     const object = draft.object(event.objectId)
     if (!object) return
@@ -60,6 +77,7 @@ export const stateBased: Plugin = {
     }
 
     for (const object of Object.values(draft.objects)) {
+      if (strandedToken(object)) return [{ type: 'tokenCeases', objectId: object.id }]
       if (isPhasedOut(object)) continue
       // CR 704.5m: an Aura not attached to a legal object or player dies.
       if (

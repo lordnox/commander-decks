@@ -175,7 +175,9 @@ describe('shuffleIntoLibraryInstead', () => {
       { type: 'move', objectId: token, to: 'graveyard' },
     ))
     expect(state.objects[bear].zone).toBe('graveyard')
-    expect(state.objects[token].zone).toBe('graveyard')
+    // CR 704.5d: the token ceases to exist; it is never shuffled into the library.
+    expect(state.objects[token]).toBeUndefined()
+    expect(state.zoneOrder.p1.library).not.toContain(token)
 
     const buried = named(server.state, 'Graveyard Colossus').id
     expect(server.state.objects[buried].zone).toBe('graveyard')

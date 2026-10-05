@@ -54,6 +54,10 @@ const game = (caster = freeCaster(), extraHand: ReturnType<typeof cardTemplate>[
     { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] },
   )
 
+const castable = (state: GameState) =>
+  legalActsFor(state, 'p1').flatMap((action) =>
+    action.kind === 'castSpell' ? [action.name] : [])
+
 const offered = (server = game()) => {
   const cast = ok(server.rules(server.state, {
     type: 'castSpell',
@@ -257,9 +261,6 @@ describe('free cast from hand', () => {
       }))
       return ok(server.rules(cast, { type: 'resolveTop' }))
     }
-    const castable = (state: GameState) =>
-      legalActsFor(state, 'p1').flatMap((action) =>
-        action.kind === 'castSpell' ? [action.name] : [])
 
     for (const [label, build] of [
       ['a plain draw', () => drawThenCast(draw(1))],

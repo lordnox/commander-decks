@@ -483,8 +483,8 @@ const returnSelfWithCounter: InstructionHandler<'returnSelfWithCounter'> = (
   { draft, source },
   instruction,
 ) => {
-  // A token has already ceased to exist by the time this resolves.
-  if (source.zone !== 'graveyard' || source.token) return
+  // A token has already ceased to exist by the time this resolves, and `source` is then a stand-in.
+  if (draft.object(source.id)?.zone !== 'graveyard') return
   draft.enqueue({
     type: 'move',
     objectId: source.id,

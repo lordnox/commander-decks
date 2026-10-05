@@ -209,8 +209,7 @@ describe('annihilator', () => {
     }))
     expect(sacrificed.stack).toHaveLength(1)
     const stolen = resolveStack(server.rules, sacrificed)
-    expect(stolen.objects[treasure].zone).toBe('graveyard')
-    expect(stolen.objects[treasure].controller).toBe('p2')
+    expect(stolen.objects[treasure]).toBeUndefined()
     expect(stolen.objects[rock]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
   })
 
@@ -283,7 +282,7 @@ describe('annihilator', () => {
     })).toBe(true)
     const settled = resolveStack(kernel.rules, kernel.history.current())
     expect(named(settled, 'P2 Rock')).toMatchObject({ zone: 'battlefield', controller: 'p1' })
-    expect(named(settled, 'P2 Treasure').zone).toBe('graveyard')
+    expect(Object.values(settled.objects).some((object) => object.name === 'P2 Treasure')).toBe(false)
     expect(named(settled, 'P2 Swamp')).toMatchObject({ zone: 'battlefield', controller: 'p2' })
   })
 })

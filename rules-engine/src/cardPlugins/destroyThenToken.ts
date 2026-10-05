@@ -18,7 +18,9 @@ const destroyThenTokenForController: InstructionHandler<'destroyThenTokenForCont
 ) => {
   if (instruction.destroyed) {
     for (const { objectId, controller } of instruction.destroyed) {
-      if (draft.object(objectId)?.zone !== 'graveyard') continue
+      // A destroyed token has already ceased to exist, which still counts as destroyed.
+      const destroyedObject = draft.object(objectId)
+      if (destroyedObject && destroyedObject.zone !== 'graveyard') continue
       createToken(draft, controller, tokenFieldsFromSpec(instruction.token))
     }
     return
