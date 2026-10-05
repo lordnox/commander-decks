@@ -195,6 +195,57 @@ const handleFor = (
   }
 }
 
+const namedVoteBallot = (card: string) => ({
+  type: 'topdeck' as const,
+  choices: [
+    { card: 'Alpha', destination: card === 'Alpha' ? 'target' as const : 'skip' as const },
+    { card: 'Beta', destination: card === 'Beta' ? 'target' as const : 'skip' as const },
+  ],
+})
+
+const objectNamed = (kernel: KernelHandle, name: string) =>
+  Object.values(kernel.history.current().objects).find((object) => object.name === name)!
+
+const blockCreature = (name: string, oracleText = '') =>
+  cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, oracleText })
+
+const faerieBody = (name: string) => ({
+  ...forest(),
+  name,
+  types: ['Creature'],
+  subtypes: ['Faerie'],
+  supertypes: [],
+  power: 3,
+  toughness: 3,
+  tapProduces: undefined,
+})
+
+const idsNamed = (state: GameState, name: string, zone: string) =>
+  Object.values(state.objects)
+    .filter((object) => object.name === name && object.zone === zone)
+    .sort((left, right) => left.controller.localeCompare(right.controller))
+    .map((object) => object.id)
+
+const stamp = (state: GameState, selection: Record<string, unknown>) => {
+  state.players.p1.data[PENDING_SELECTION] = [{
+    id: 'selection-1',
+    seat: 'p1',
+    sourceId: 'source',
+    source: 'Test Source',
+    ...selection,
+  }]
+  state.priority = 'p1'
+}
+
+const offer = (kernel: KernelHandle) => {
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  return lobby
+}
+
+const namedInstant = (name: string) => cardTemplate(name, { types: ['Instant'] })
+
 /** A live game stopped mid-resolution on Nature's Lore, with no files involved. */
 const searchGame = (options: { library?: string[] } = {}) => {
   const libraryNames = options.library ?? ['Taiga', 'Forest']
@@ -865,13 +916,6 @@ describe('kernel host journal', () => {
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(lobby.topdeck)
 
-    const ballot = (card: string) => ({
-      type: 'topdeck' as const,
-      choices: [
-        { card: 'Alpha', destination: card === 'Alpha' ? 'target' as const : 'skip' as const },
-        { card: 'Beta', destination: card === 'Beta' ? 'target' as const : 'skip' as const },
-      ],
-    })
     // A ballot that names no offered option, or two of them, is refused.
     expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
@@ -885,15 +929,15 @@ describe('kernel host journal', () => {
       ],
     }))).toThrow()
 
-    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, ballot('Alpha')))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, namedVoteBallot('Alpha')))).toBe(true)
     expect(restartedLobby.topdeck).toMatchObject({ seat: 'p2', kind: 'vote' })
     expect(restartedLobby.judge).toContain('secret vote')
     expect(restartedLobby.judge).not.toContain('Alpha')
     expect(projectForViewer(restarted.history.current(), 'p3').players.p1.data[PENDING_VOTE])
       .toMatchObject({ votes: { p1: '*' } })
 
-    expect(applyKernelChoice(restarted, restartedLobby, 'p2', slotted(restartedLobby, ballot('Beta')))).toBe(true)
-    expect(applyKernelChoice(restarted, restartedLobby, 'p3', slotted(restartedLobby, ballot('Alpha')))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', slotted(restartedLobby, namedVoteBallot('Beta')))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p3', slotted(restartedLobby, namedVoteBallot('Alpha')))).toBe(true)
     expect(pendingVote(restarted.history.current())).toBeUndefined()
     expect(restartedLobby.judge).toContain('Secret Ballot votes')
     expect(restartedLobby.judge).toContain('for Alpha')
@@ -1143,15 +1187,13 @@ describe('kernel host journal', () => {
       lobby.phase = 'play'
       return { kernel, lobby, caster }
     }
-    const named = (kernel: KernelHandle, name: string) =>
-      Object.values(kernel.history.current().objects).find((object) => object.name === name)!
 
     const cast = build()
-    const bear = named(cast.kernel, 'Cheap Bear')
+    const bear = objectNamed(cast.kernel, 'Cheap Bear')
     expect(() => applyKernelAct(cast.kernel, cast.lobby, 'p1', {
       type: 'act',
       kind: 'castSpell',
-      objectId: named(cast.kernel, 'Big Beast').id,
+      objectId: objectNamed(cast.kernel, 'Big Beast').id,
       alternativeCost: 'withoutPayingMana',
     })).toThrow()
     expect(applyKernelAct(cast.kernel, cast.lobby, 'p1', {
@@ -1169,7 +1211,7 @@ describe('kernel host journal', () => {
       objectId: decline.caster.id,
     })
     const after = decline.kernel.history.current()
-    expect(named(decline.kernel, 'Cheap Bear').zone).toBe('hand')
+    expect(objectNamed(decline.kernel, 'Cheap Bear').zone).toBe('hand')
     expect(kernelActions(after).p1).toContain('pass')
   })
 
@@ -2342,15 +2384,13 @@ describe('kernel host journal', () => {
 
   describe('multiple blockers on one attacker', () => {
     const blockSetup = (attackerText: string) => {
-      const creature = (name: string, oracleText = '') =>
-        cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, oracleText })
       const server = createServerGame(
         commanderRules,
         {
           players: 2,
           battlefield: {
-            p1: [creature('Attacker', attackerText)],
-            p2: [creature('Blocker A'), creature('Blocker B')],
+            p1: [blockCreature('Attacker', attackerText)],
+            p2: [blockCreature('Blocker A'), blockCreature('Blocker B')],
           },
         },
         { random: () => 0.5 },
@@ -2401,22 +2441,12 @@ describe('kernel host journal', () => {
   })
 
   test('Rankle publishes its modes, then a sacrifice choice per player', () => {
-    const body = (name: string) => ({
-      ...forest(),
-      name,
-      types: ['Creature'],
-      subtypes: ['Faerie'],
-      supertypes: [],
-      power: 3,
-      toughness: 3,
-      tapProduces: undefined,
-    })
     const server = createServerGame(
       commanderRules,
       {
         battlefield: {
-          p1: [body('Rankle, Master of Pranks')],
-          p2: [{ ...body('Lone Hydra'), grantedRules: [] }],
+          p1: [faerieBody('Rankle, Master of Pranks')],
+          p2: [{ ...faerieBody('Lone Hydra'), grantedRules: [] }],
         },
       },
       { random: () => 0.5, cardPlugins: [modalSpell, choiceEffects] },
@@ -3445,30 +3475,6 @@ describe('each-player and cost live choices', () => {
 })
 
 describe('same-named candidates are picked by position', () => {
-  const idsNamed = (state: GameState, name: string, zone: string) =>
-    Object.values(state.objects)
-      .filter((object) => object.name === name && object.zone === zone)
-      .sort((left, right) => left.controller.localeCompare(right.controller))
-      .map((object) => object.id)
-
-  const stamp = (state: GameState, selection: Record<string, unknown>) => {
-    state.players.p1.data[PENDING_SELECTION] = [{
-      id: 'selection-1',
-      seat: 'p1',
-      sourceId: 'source',
-      source: 'Test Source',
-      ...selection,
-    }]
-    state.priority = 'p1'
-  }
-
-  const offer = (kernel: KernelHandle) => {
-    const lobby = createLobby()
-    lobby.phase = 'play'
-    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    return lobby
-  }
-
   test('a battlefield pick exiles the chosen controller\'s Forest, not the first one', () => {
     const server = createServerGame(commanderRules, {
       battlefield: {
@@ -3712,9 +3718,8 @@ describe('same-named candidates are picked by position', () => {
   })
 
   test('discarding from an opponent\'s hand offers it by name, not in hand order', () => {
-    const named = (name: string) => cardTemplate(name, { types: ['Instant'] })
     const server = createServerGame(commanderRules, {
-      hands: { p2: [named('Zebra'), named('Apple'), named('Mango')] },
+      hands: { p2: [namedInstant('Zebra'), namedInstant('Apple'), namedInstant('Mango')] },
     })
     const [zebra, apple, mango] = server.state.zoneOrder.p2.hand
     server.state.stack = [{

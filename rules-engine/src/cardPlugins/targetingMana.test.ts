@@ -62,6 +62,29 @@ const bury = (
   state,
 )
 
+const testChronicle = () => cardTemplate('Test Chronicle', {
+  types: ['Enchantment'],
+  subtypes: ['Saga'],
+  oracleText: 'I — Destroy target nonland permanent.\nII — Mill three cards.\nIII — You may discard a card.',
+  effects: serializableEffects([
+    sagaChapters(
+      {
+        numbers: [1],
+        targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
+        do: [destroyTargetPermanent()],
+      },
+      { numbers: [2], do: [selfMill(3)] },
+      {
+        numbers: [3],
+        do: [mayDiscard(1, {
+          filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
+          do: [returnTargetFromGraveyard('hand')],
+        })],
+      },
+    ),
+  ]),
+})
+
 describe('optional and up-to targeting', () => {
   test('an up-to-one pump spell casts with zero or one target and still runs extra instructions', () => {
     const spell = cardTemplate('Optional Drain', {
@@ -224,14 +247,14 @@ describe('targeted player draw then discard', () => {
     ready.step = 'precombatMain'
     const p1Library = ready.zoneOrder.p1.library.length
     const p1Hand = ready.zoneOrder.p1.hand.length
-    const activated = ok(server.rules(ready, {
+    const afterActivate = ok(server.rules(ready, {
       type: 'activateAbility',
       abilityId: 'loot.target',
       seat: 'p1',
       objectId: named(ready, 'Target Loot').id,
       targets: [{ kind: 'player', player: 'p2' }],
     }))
-    const afterAbility = ok(server.rules(activated, { type: 'resolveTop' }))
+    const afterAbility = ok(server.rules(afterActivate, { type: 'resolveTop' }))
     expect(afterAbility.zoneOrder.p1.library.length).toBe(p1Library)
     expect(afterAbility.zoneOrder.p1.hand.length).toBe(p1Hand)
     expect(afterAbility.zoneOrder.p2.hand.length).toBe(6)
@@ -426,35 +449,12 @@ describe('optional graveyard permanent put', () => {
 })
 
 describe('saga chapter builders', () => {
-  const chronicle = () => cardTemplate('Test Chronicle', {
-    types: ['Enchantment'],
-    subtypes: ['Saga'],
-    oracleText: 'I — Destroy target nonland permanent.\nII — Mill three cards.\nIII — You may discard a card.',
-    effects: serializableEffects([
-      sagaChapters(
-        {
-          numbers: [1],
-          targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
-          do: [destroyTargetPermanent()],
-        },
-        { numbers: [2], do: [selfMill(3)] },
-        {
-          numbers: [3],
-          do: [mayDiscard(1, {
-            filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
-            do: [returnTargetFromGraveyard('hand')],
-          })],
-        },
-      ),
-    ]),
-  })
-
   test('chapter I destroys the chosen nonland after lore enters', () => {
     const server = createServerGame(
       commanderRules,
       {
         battlefield: {
-          p1: [chronicle()],
+          p1: [testChronicle()],
           p2: [creature('Rock Bear'), land('Safe Forest')],
         },
       },
@@ -489,7 +489,7 @@ describe('saga chapter builders', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [{ ...chronicle(), counters: { lore: 1 } }] },
+        battlefield: { p1: [{ ...testChronicle(), counters: { lore: 1 } }] },
         libraries: {
           p1: [land('M1'), land('M2'), land('M3'), land('M4')],
         },
@@ -513,7 +513,7 @@ describe('saga chapter builders', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [{ ...chronicle(), counters: { lore: 2 } }] },
+        battlefield: { p1: [{ ...testChronicle(), counters: { lore: 2 } }] },
         hands: { p1: [creature('Discarded Bear'), land('Loam Land')] },
       },
       { random: () => 0.5, cardPlugins: plugins },

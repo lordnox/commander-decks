@@ -98,6 +98,8 @@ export const PART37_GAP_REASONS: Partial<Record<typeof PART37_ASSIGNED[number], 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
+const filler = (name: string) => cardTemplate(name, { types: ['Instant'] })
+
 const enterBattlefield = (
   server: ReturnType<typeof createServerGame>,
   state: GameState,
@@ -154,7 +156,6 @@ describe('plug-dack part 37 card pool', () => {
   })
 
   test('Sandstone Oracle resolves entersTargetingOpponent into drawHandDifference draws', () => {
-    const filler = (name: string) => cardTemplate(name, { types: ['Instant'] })
     const oracle = cardTemplate('Sandstone Oracle', {
       types: ['Artifact', 'Creature'],
       effects: effectsFor('Sandstone Oracle'),

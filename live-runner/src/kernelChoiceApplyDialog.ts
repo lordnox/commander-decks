@@ -12,6 +12,13 @@ import {
 } from './kernelChoice'
 import { closeKernelChoice } from './kernelSettle'
 
+const destinationZone = (destination: string) => {
+  if (destination === 'hand') return 'hand' as const
+  if (destination === 'graveyard') return 'graveyard' as const
+  if (destination === 'battlefield') return 'battlefield' as const
+  return undefined
+}
+
 export const applyPutPermanents = (
   { kernel, lobby, seat, message, decision, state }: ChoiceContext,
 ) => {
@@ -176,14 +183,8 @@ export const applyZoneChoice = (
     ...choice,
     objectId: ids[index],
   }))
-  const destinationZone = (destination: string) => {
-    if (destination === 'hand') return 'hand' as const
-    if (destination === 'graveyard') return 'graveyard' as const
-    if (destination === 'battlefield') return 'battlefield' as const
-    return undefined
-  }
   if (decision.kernel.stage === 'surveil') {
-    for (const choice of ordered.filter(({ destination }) => destination === 'top').reverse()) {
+    for (const choice of ordered.filter(({ destination }) => destination === 'top').toReversed()) {
       if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'library', position: 'top' }).ok) {
         throw new Error(`Could not keep ${choice.card} on top`)
       }

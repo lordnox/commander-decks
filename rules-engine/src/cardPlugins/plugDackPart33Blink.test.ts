@@ -451,14 +451,14 @@ describe('Dack party blink pass 2', () => {
       objectId: staffId,
       targets: [{ kind: 'object', objectId: staffId }],
     })).toMatchObject({ ok: false })
-    const activated = ok(server.rules(mana(structuredClone(server.state)), {
+    const afterActivate = ok(server.rules(mana(structuredClone(server.state)), {
       type: 'activateAbility',
       abilityId: 'voyagerStaff.blink',
       seat: 'p1',
       objectId: staffId,
       targets: [{ kind: 'object', objectId: petId }],
     }))
-    const resolved = resolveStack(server.rules, activated)
+    const resolved = resolveStack(server.rules, afterActivate)
     expect(resolved.objects[staffId].zone).toBe('graveyard')
     expect(resolved.objects[petId].zone).toBe('exile')
   })

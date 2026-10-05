@@ -32,6 +32,12 @@ const creature = (name: string, controller?: 'p1' | 'p2' | 'p3') =>
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
+const linkedExileGame = (setup: {
+  hands?: Record<string, ReturnType<typeof cardTemplate>[]>
+  battlefield?: Record<string, ReturnType<typeof cardTemplate>[]>
+}) =>
+  createServerGame(commanderRules, { ...setup, players: 3 }, { random: () => 0.5 })
+
 describe('monarch', () => {
   test('becomeMonarch designates at most one monarch', () => {
     const catalog = createCatalog([monarch])
@@ -92,12 +98,6 @@ describe('monarch', () => {
 })
 
 describe('monarch linked exile', () => {
-  const game = (setup: {
-    hands?: Record<string, ReturnType<typeof cardTemplate>[]>
-    battlefield?: Record<string, ReturnType<typeof cardTemplate>[]>
-  }) =>
-    createServerGame(commanderRules, { ...setup, players: 3 }, { random: () => 0.5 })
-
   test('exiles until an opponent becomes monarch and survives the source leaving', () => {
     const warden = creature('Throne Warden', 'p1')
     warden.effects = [
@@ -109,7 +109,7 @@ describe('monarch linked exile', () => {
       },
     ]
     const hostage = creature('Held Captive', 'p2')
-    const server = game({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
+    const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
     const wardenId = named(server.state, 'Throne Warden').id
     const hostageId = named(server.state, 'Held Captive').id
 
@@ -159,7 +159,7 @@ describe('monarch linked exile', () => {
       },
     ]
     const hostage = creature('Held Captive', 'p2')
-    const server = game({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
+    const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
     const wardenId = named(server.state, 'Throne Warden').id
     const entered = ok(server.rules(server.state, {
       type: 'move',
@@ -179,7 +179,7 @@ describe('monarch linked exile', () => {
       enters(exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' })),
     ]
     const hostage = creature('Held Captive', 'p2')
-    const server = game({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
+    const server = linkedExileGame({ hands: { p1: [warden] }, battlefield: { p2: [hostage] } })
     const wardenId = named(server.state, 'Throne Warden').id
     const hostageId = named(server.state, 'Held Captive').id
     let entered = ok(server.rules(server.state, {

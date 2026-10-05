@@ -14,6 +14,11 @@ import { pendingPlayerSelectionFor } from './selectPlayers'
 
 const land = (name: string) => cardTemplate(name, { types: ['Land'] })
 
+const firstMainBeacon = (name: string) => cardTemplate(name, {
+  types: ['Enchantment'],
+  effects: [yourFirstMain(gainLife(3))],
+})
+
 describe('landToGraveyard triggers', () => {
   test('Hedge Shredder mills a land onto the stack before it enters tapped', () => {
     const server = createServerGame(commanderRules, {
@@ -193,14 +198,10 @@ describe('second-card-drawn triggers', () => {
 
 describe('first-main triggers', () => {
   test('fires on precombatMain for the controller only', () => {
-    const beacon = (name: string) => cardTemplate(name, {
-      types: ['Enchantment'],
-      effects: [yourFirstMain(gainLife(3))],
-    })
     const server = createServerGame(commanderRules, {
       battlefield: {
-        p1: [beacon('First Main Beacon')],
-        p2: [beacon('Other Main Beacon')],
+        p1: [firstMainBeacon('First Main Beacon')],
+        p2: [firstMainBeacon('Other Main Beacon')],
       },
       players: 2,
     })

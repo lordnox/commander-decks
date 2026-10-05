@@ -219,8 +219,8 @@ describe('becomeCopyOfTarget', () => {
       objectId: named(ready, 'Fictional Mirror').id,
       abilityId: 'fictional.mirror',
     }
-    const activated = ok(server.rules(ready, activateEvent))
-    const resolved = ok(server.rules(activated, { type: 'resolveTop' }))
+    const afterActivate = ok(server.rules(ready, activateEvent))
+    const resolved = ok(server.rules(afterActivate, { type: 'resolveTop' }))
     const selection = pendingSelectionFor(resolved, 'p1')!
 
     const p1View = projectForViewer(resolved, 'p1')

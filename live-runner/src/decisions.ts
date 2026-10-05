@@ -140,10 +140,10 @@ export const prepareTopdeckDecision = (
   return true
 }
 
-const sameCards = (left: string[], right: string[]) => {
-  const sorted = (cards: string[]) => [...cards].sort((a, b) => a.localeCompare(b))
-  return JSON.stringify(sorted(left)) === JSON.stringify(sorted(right))
-}
+const sortedCards = (cards: string[]) => [...cards].sort((a, b) => a.localeCompare(b))
+
+const sameCards = (left: string[], right: string[]) =>
+  JSON.stringify(sortedCards(left)) === JSON.stringify(sortedCards(right))
 
 export const MAX_HAND_SIZE = 7
 

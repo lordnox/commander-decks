@@ -856,7 +856,7 @@ export const StackOverlay = ({
         </button>
         {open && (
           <ol className="max-h-[45vh] overflow-y-auto p-2">
-            {[...stack].reverse().map((item, index) => {
+            {stack.toReversed().map((item, index) => {
               const { name, details } = cardInfo(game, item.name)
               const controller = game.seats.find((seat) => seat.id === item.controller)
               return (

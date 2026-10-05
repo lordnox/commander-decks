@@ -294,9 +294,9 @@ export const LivePage = () => {
 
     const load = async () => {
       try {
-        const request = readLiveRequest()
-        setRequest(request)
-        if (!request) {
+        const liveRequest = readLiveRequest()
+        setRequest(liveRequest)
+        if (!liveRequest) {
           if (!cancelled) {
             setSnapshot(null)
             setError('')
@@ -304,9 +304,9 @@ export const LivePage = () => {
           return
         }
 
-        if (request.kind === 'conduit') {
+        if (liveRequest.kind === 'conduit') {
           const readKey =
-            request.read ?? (request.you && request.seat ? request.seat : request.host)
+            liveRequest.read ?? (liveRequest.you && liveRequest.seat ? liveRequest.seat : liveRequest.host)
           let update = 0
           const openBody = async (bytes: Uint8Array) => {
             const currentUpdate = ++update
@@ -336,12 +336,12 @@ export const LivePage = () => {
             }
           }
 
-          const latest = await getLatestSnapshot(request.origin, readKey)
+          const latest = await getLatestSnapshot(liveRequest.origin, readKey)
           if (cancelled) return
           if (latest) await openBody(latest)
           if (cancelled) return
           watch = watchSnapshots(
-            request.origin,
+            liveRequest.origin,
             readKey,
             (bytes) => void openBody(bytes),
             (connected) => {
@@ -359,8 +359,8 @@ export const LivePage = () => {
           return
         }
 
-        if (request.kind === 'payload') {
-          const decoded = await openLivePayload(request.payload, base)
+        if (liveRequest.kind === 'payload') {
+          const decoded = await openLivePayload(liveRequest.payload, base)
           if (cancelled) return
           setSnapshot(decoded)
           setHistoryIndex(decoded.historyCursor ?? decoded.history?.length ?? null)
@@ -383,12 +383,12 @@ export const LivePage = () => {
           return
         }
 
-        const response = await fetch(`${base}replays/${request.game}.json`)
+        const response = await fetch(`${base}replays/${liveRequest.game}.json`)
         if (!response.ok) {
           throw new Error('Could not load this published game')
         }
         const replay = await response.json() as ReplayGame
-        const decoded = replayToLiveSnapshot(replay, request)
+        const decoded = replayToLiveSnapshot(replay, liveRequest)
 
         if (cancelled) return
         setSnapshot(decoded)
@@ -1220,7 +1220,7 @@ export const LivePage = () => {
                 Your judge history · {snapshot.judgeHistory.length}
               </summary>
               <ol className="mt-3 space-y-3">
-                {[...snapshot.judgeHistory].reverse().map((entry) => (
+                {snapshot.judgeHistory.toReversed().map((entry) => (
                   <li
                     key={`${entry.id}-${entry.type}`}
                     className="border-b border-white/5 pb-3 last:border-0 last:pb-0"
@@ -1242,7 +1242,7 @@ export const LivePage = () => {
                 Stack · {snapshot.stack.length}
               </p>
               <ol className="mt-2 space-y-1 text-sm leading-6 text-stone-300">
-                {[...snapshot.stack].reverse().map((item, index) => {
+                {snapshot.stack.toReversed().map((item, index) => {
                   const name = typeof item.name === 'string' ? item.name : String(item.name)
                   const hints = [
                     item.kind === 'action' ? 'Action' : '',
