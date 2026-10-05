@@ -1316,7 +1316,7 @@ describe('kernel host journal', () => {
       destinations: ['library', 'battlefield'],
       requirements: { battlefield: { min: 1, max: 1 } },
     })
-    expect(lobby.topdeck?.cards).toEqual(['Taiga', 'Forest'])
+    expect(lobby.topdeck?.cards).toEqual(['Forest', 'Taiga'])
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
@@ -1607,7 +1607,7 @@ describe('kernel host journal', () => {
     // What an older host published before basics carried their Basic supertype.
     lobby.topdeck = { ...lobby.topdeck!, cards: [] }
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    expect(lobby.topdeck?.cards).toEqual(['Taiga', 'Forest'])
+    expect(lobby.topdeck?.cards).toEqual(['Forest', 'Taiga'])
   })
 
   test('Scapeshift sacrifices lands as it resolves, then opens its search', () => {
@@ -1691,7 +1691,7 @@ describe('kernel host journal', () => {
     expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
     expect(snapshotFor('p2').topdeck).toBeUndefined()
     expect(JSON.stringify(snapshotFor('p2'))).not.toContain('Taiga')
-    expect(snapshotFor('p1').topdeck?.cards).toEqual(['Taiga', 'Forest'])
+    expect(snapshotFor('p1').topdeck?.cards).toEqual(['Forest', 'Taiga'])
   })
 
   test('a restarted host rebuilds the open search instead of resolving past it', () => {
@@ -3542,5 +3542,72 @@ describe('same-named candidates are picked by position', () => {
     const after = kernel.history.current()
     expect(after.objects[secondCopy].zone).toBe('battlefield')
     expect(after.objects[firstCopy].zone).toBe('library')
+  })
+
+  test('discarding from an opponent\'s hand offers it by name, not in hand order', () => {
+    const named = (name: string) => cardTemplate(name, { types: ['Instant'] })
+    const server = createServerGame(commanderRules, {
+      hands: { p2: [named('Zebra'), named('Apple'), named('Mango')] },
+    })
+    const [zebra, apple, mango] = server.state.zoneOrder.p2.hand
+    server.state.stack = [{
+      id: 'discard-action',
+      kind: 'action',
+      actionId: 'discard',
+      objectId: 'duress',
+      controller: 'p1',
+      name: 'Discard',
+      targets: [],
+      waiting: 'choice',
+      payload: { seat: 'p2', count: 1, chooser: 'p1' },
+    }]
+    server.state.priority = 'p1'
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = offer(kernel)
+
+    expect(lobby.topdeck?.cards).toEqual(['Apple', 'Mango', 'Zebra'])
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Apple', slot: 0, destination: 'hand' },
+        { card: 'Mango', slot: 1, destination: 'graveyard' },
+        { card: 'Zebra', slot: 2, destination: 'hand' },
+      ],
+    })).toBe(true)
+
+    const after = kernel.history.current()
+    expect(after.objects[mango].zone).toBe('graveyard')
+    expect(after.objects[apple].zone).toBe('hand')
+    expect(after.objects[zebra].zone).toBe('hand')
+  })
+
+  test('a library search offers its matches by name, so the offer does not reveal library order', () => {
+    const { kernel, lobby } = searchGame({ library: ['Taiga', 'Forest', 'Taiga', 'Forest'] })
+    const [firstTaiga, firstForest, secondTaiga, secondForest] =
+      kernel.history.current().zoneOrder.p1.library
+
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    // Name-sorted; namesakes keep their library order, which shows nothing new.
+    expect(lobby.topdeck?.cards).toEqual(['Forest', 'Forest', 'Taiga', 'Taiga'])
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+    expect(restarted.topdeck?.cards).toEqual(lobby.topdeck?.cards)
+
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Forest', slot: 0, destination: 'library' },
+        { card: 'Forest', slot: 1, destination: 'library' },
+        { card: 'Taiga', slot: 2, destination: 'library' },
+        { card: 'Taiga', slot: 3, destination: 'battlefield' },
+      ],
+    })).toBe(true)
+
+    const after = kernel.history.current()
+    expect(after.objects[secondTaiga].zone).toBe('battlefield')
+    for (const untouched of [firstTaiga, firstForest, secondForest]) {
+      expect(after.objects[untouched].zone).toBe('library')
+    }
   })
 })

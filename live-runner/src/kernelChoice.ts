@@ -3,6 +3,12 @@ import {
   dialogCandidates,
   pendingDialogsFor,
 } from '../../rules-engine/src/pendingDialog'
+import type { WaitingDiscard, WaitingSelectCards } from '../../rules-engine/src/actions'
+import {
+  searchCandidates,
+  type PendingSearch,
+  type SearchSpec,
+} from '../../rules-engine/src/cardPlugins/librarySearch'
 import { distinctCardLabels } from '../../shared/liveTypes'
 import type { LobbyState, TopdeckDecision } from './lobby'
 import type { InboxMessage, SeatId } from './protocol'
@@ -48,6 +54,54 @@ export const assertOfferedSlots = (cards: string[], choices: TopdeckChoice[]) =>
     return true
   })
   if (!answered) throw new Error('The cards in this choice changed. Refresh and choose again.')
+}
+
+/** The candidates of one choice and their names, in the order slots count them. */
+type Offer = { ids: string[]; names: string[] }
+
+/**
+ * A chooser may read a searched library or an opponent's hand but not learn its
+ * order, so those candidates are offered sorted by name. Namesakes keep their
+ * zone order, which tells the chooser nothing. Prepare and apply both build
+ * their offer here, so slot N is the same card on each side.
+ */
+const sortedByName = ({ ids, names }: Offer): Offer => {
+  const order = names
+    .map((_, index) => index)
+    .sort((left, right) => names[left].localeCompare(names[right]) || left - right)
+  return { ids: order.map((index) => ids[index]), names: order.map((index) => names[index]) }
+}
+
+export const searchOffer = (
+  state: GameState,
+  seat: SeatId,
+  spec: SearchSpec,
+  pending: PendingSearch,
+): Offer => {
+  const candidates = searchCandidates(state, seat, spec, pending.kicked, pending.x)
+  return sortedByName({
+    ids: candidates.map((object) => object.id),
+    names: candidates.map((object) => object.name),
+  })
+}
+
+export const discardOffer = (state: GameState, waiting: WaitingDiscard): Offer => {
+  const offer = {
+    ids: waiting.handIds,
+    names: waiting.handIds.map((id) => state.objects[id]?.name ?? ''),
+  }
+  return waiting.chooser === waiting.discardSeat ? offer : sortedByName(offer)
+}
+
+export const selectCardsOffer = (waiting: WaitingSelectCards): Offer => {
+  const { selection } = waiting
+  const zone = selection.fromZone ?? (selection.kind === 'choose' ? undefined : 'hand')
+  const unseenOrder = selection.fromSeat !== undefined
+    && selection.fromSeat !== selection.seat
+    && (zone === 'hand' || zone === 'library')
+    && (selection.kind === 'choose' || selection.kind === 'discard' || selection.kind === 'reveal')
+  const offer = { ids: waiting.objectIds, names: waiting.names }
+  return unseenOrder ? sortedByName(offer) : offer
 }
 
 /**
