@@ -33,6 +33,8 @@ export type PendingPlayerSelection = {
         triggerEffectKey?: string
         interveningIf?: CardCondition
         x?: number
+        /** Extra stack payload, such as a Saga's `sagaChapter` and re-checked `targetFilter`. */
+        payload?: Record<string, unknown>
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -163,6 +165,7 @@ export const selectPlayers: Plugin = {
             ...(selection.action.interveningIf
               ? { interveningIf: selection.action.interveningIf }
               : {}),
+            ...selection.action.payload,
           },
         })
       }

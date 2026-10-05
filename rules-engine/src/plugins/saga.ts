@@ -1,9 +1,10 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
 import { addMinusCounters, addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
-import { validTarget } from '../cardPlugins/targetedResolve'
+import { validTarget, validTargetRef } from '../cardPlugins/targetedResolve'
 import type Draft from '../draft'
-import { openCardSelection } from '../rules/selectCards'
+import { openCardSelection, pendingSelectionsFor } from '../rules/selectCards'
+import { openPlayerSelection, pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 
 const ROMAN_VALUES: Record<string, number> = {
@@ -71,6 +72,33 @@ const addChapterTriggers = (
     for (const number of chapter.numbers) {
       if (before >= number || after < number) continue
       if (readAheadThisTurn && after !== number) continue
+      if (chapter.targets?.filter.players) {
+        // A player target (CR 115.1) is chosen as the chapter ability triggers.
+        const candidates = draft.playerOrder.filter((seat) =>
+          validTargetRef(
+            draft,
+            { kind: 'player', player: seat },
+            chapter.targets!.filter,
+            source.controller,
+          ))
+        if (candidates.length === 0) continue
+        openPlayerSelection(draft, {
+          seat: source.controller,
+          sourceId: source.id,
+          source: source.name,
+          prompt: `Choose target player for ${chapterName(source, number)}.`,
+          min: 1,
+          max: 1,
+          candidates,
+          action: {
+            kind: 'putTriggeredAbility',
+            instructions: chapter.do,
+            triggeringPlayer: source.controller,
+            payload: { sagaChapter: number, targetFilter: chapter.targets.filter },
+          },
+        })
+        continue
+      }
       if (chapter.targets) {
         const candidates = Object.values(draft.objects)
           .filter((object) =>
@@ -153,11 +181,20 @@ const addTurnLore = (state: GameState, event: GameEvent, draft: Draft) => {
   }
 }
 
-const chapterOnStack = (state: GameState, objectId: string) =>
+/** A chapter ability is pending while it is on the stack or still choosing its target. */
+const chapterPending = (state: GameState, objectId: string) =>
   state.stack.some((item) =>
     item.kind === 'ability'
     && item.objectId === objectId
     && typeof item.payload?.sagaChapter === 'number')
+  || state.playerOrder.some((seat) =>
+    pendingSelectionsFor(state, seat).some((selection) =>
+      selection.sourceId === objectId
+      && typeof selection.triggerPayload?.sagaChapter === 'number')
+    || pendingPlayerSelectionsFor(state, seat).some((selection) =>
+      selection.sourceId === objectId
+      && selection.action.kind === 'putTriggeredAbility'
+      && typeof selection.action.payload?.sagaChapter === 'number'))
 
 export const saga: Plugin = {
   id: 'saga',
@@ -213,7 +250,7 @@ export const saga: Plugin = {
       if (
         last > 0
         && (source.counters.lore ?? 0) >= last
-        && !chapterOnStack(state, source.id)
+        && !chapterPending(state, source.id)
       ) {
         return [{ type: 'sacrifice', objectId: source.id }]
       }

@@ -59,6 +59,17 @@ const resolveFixtureSpell = (
   return ok(server.rules(cast, { type: 'resolveTop' }))
 }
 
+const targetedFreeze = () => cardTemplate('Fixture Targeted Freeze', {
+  types: ['Instant'],
+  manaCost: '{0}',
+  manaValue: 0,
+  effects: [targetOnResolve(
+    'select',
+    { players: 'opponent' },
+    tapAll({ zone: 'battlefield', nonland: true }, { ofTargetPlayer: true, skipNextUntap: true }),
+  )],
+})
+
 describe('tapAll', () => {
   test('taps every opponent creature on the battlefield with no choice', () => {
     const state = resolveFixtureSpell({
@@ -161,23 +172,12 @@ describe('tapAll', () => {
   })
 
   describe('targeting a player', () => {
-    const wave = () => cardTemplate('Fixture Targeted Freeze', {
-      types: ['Instant'],
-      manaCost: '{0}',
-      manaValue: 0,
-      effects: [targetOnResolve(
-        'select',
-        { players: 'opponent' },
-        tapAll({ zone: 'battlefield', nonland: true }, { ofTargetPlayer: true, skipNextUntap: true }),
-      )],
-    })
-
     const castAt = (target: 'p1' | 'p2' | undefined) => {
       const server = createServerGame(
         commanderRules,
         {
           players: 3,
-          hands: { p1: [wave()] },
+          hands: { p1: [targetedFreeze()] },
           battlefield: {
             p1: [fixtureCreature('Fixture Ally Creature')],
             p2: [

@@ -434,18 +434,21 @@ describe('permanent control change', () => {
   })
 })
 
-describe('gain control of a target permanent without a player target', () => {
-  const steal = () => cardTemplate('Fixture Steal Spell', {
-    types: ['Instant'],
-    manaCost: '{0}',
-    manaValue: 0,
-    effects: [targetOnResolve(
-      'select',
-      { zone: 'battlefield', permanent: true, controller: 'opponent' },
-      gainControlPermanent(true),
-    )],
-  })
+const steal = () => cardTemplate('Fixture Steal Spell', {
+  types: ['Instant'],
+  manaCost: '{0}',
+  manaValue: 0,
+  effects: [targetOnResolve(
+    'select',
+    { zone: 'battlefield', permanent: true, controller: 'opponent' },
+    gainControlPermanent(true),
+  )],
+})
 
+const find = (state: GameState, name: string) =>
+  Object.values(state.objects).find((object) => object.name === name)!
+
+describe('gain control of a target permanent without a player target', () => {
   const setupSteal = (extra: ReturnType<typeof cardTemplate>[] = []) => {
     const server = createServerGame(commanderRules, {
       players: 3,
@@ -463,19 +466,17 @@ describe('gain control of a target permanent without a player target', () => {
         ],
       },
     }, { random: () => 0.5, cardPlugins: [...plugins, targetedResolve] })
-    const find = (state: GameState, name: string) =>
-      Object.values(state.objects).find((object) => object.name === name)!
     const cast = (target: string) => server.rules(server.state, {
       type: 'castSpell',
       seat: 'p1',
       objectId: find(server.state, 'Fixture Steal Spell').id,
       targets: [{ kind: 'object', objectId: find(server.state, target).id }],
     })
-    return { server, find, cast }
+    return { server, cast }
   }
 
   test('the caster gains control for good, summoning sick and out of combat', () => {
-    const { server, find, cast } = setupSteal()
+    const { server, cast } = setupSteal()
     const resolved = ok(server.rules(ok(cast('Fixture Victim')), { type: 'resolveTop' }))
     const victim = find(resolved, 'Fixture Victim')
     expect(victim.controller).toBe('p1')
@@ -493,14 +494,14 @@ describe('gain control of a target permanent without a player target', () => {
   })
 
   test('the untap is a real untap event, so a stun counter is spent instead', () => {
-    const { server, find, cast } = setupSteal()
+    const { server, cast } = setupSteal()
     const resolved = ok(server.rules(ok(cast('Fixture Victim')), { type: 'resolveTop' }))
     expect(find(resolved, 'Fixture Victim').tapped).toBe(true)
     expect(find(resolved, 'Fixture Victim').counters.stun).toBeUndefined()
   })
 
   test('an unstunned permanent is untapped', () => {
-    const { server, find, cast } = setupSteal([
+    const { server, cast } = setupSteal([
       { ...fictional('Fixture Loose Rock', 'p2'), tapped: true },
     ])
     const resolved = ok(server.rules(ok(cast('Fixture Loose Rock')), { type: 'resolveTop' }))
@@ -509,7 +510,7 @@ describe('gain control of a target permanent without a player target', () => {
   })
 
   test('gaining control does not trigger enters-the-battlefield abilities', () => {
-    const { server, find, cast } = setupSteal([
+    const { server, cast } = setupSteal([
       {
         ...fictional('Fixture Loose Rock', 'p2'),
         effects: [enters(draw(1))],
