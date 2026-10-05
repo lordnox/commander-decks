@@ -27,7 +27,6 @@ import {
   applyExileGraveyards,
   applyPutPermanents,
   applySacrificeLands,
-  applyTopOfLibrary,
   applyZoneChoice,
 } from './kernelChoiceApplyDialog'
 
@@ -98,8 +97,6 @@ export const applyKernelChoice = (
     case 'reveal-pick':
     case 'surveil':
       return applyZoneChoice(context)
-    case 'scry':
-      return applyTopOfLibrary(context)
     default:
       return OPTIONAL_DIALOGS.has(decision.kernel.stage)
         ? applyDialogChoice(context)

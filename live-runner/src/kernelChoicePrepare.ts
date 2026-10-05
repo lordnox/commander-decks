@@ -40,8 +40,7 @@ import { preparePendingDialog } from './kernelChoicePrepareDialog'
  * An older host published Brokers Hideout with no candidates because basics had
  * lost their Basic supertype, and that empty prompt outlived the fix; a dialog
  * whose trigger has since been taken back out of the journal strands its seat
- * the same way. A scry captured mid-resolution has no kernel marker to check,
- * so it is left alone.
+ * the same way. A stage with no kernel marker to check is left alone.
  */
 const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
   const decision = lobby.topdeck

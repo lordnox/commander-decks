@@ -11,7 +11,6 @@ export type PendingDialog = {
   source: string
   seat: PlayerId
   kind:
-    | 'scry'
     | 'put-land'
     | 'put-permanents'
     | 'surveil'
@@ -138,8 +137,7 @@ export const clearPendingDialog = (draft: Draft, seat: PlayerId) => {
 
 export const dialogCandidates = (state: GameState, dialog: PendingDialog) => {
   if (
-    dialog.kind === 'scry'
-    || dialog.kind === 'surveil'
+    dialog.kind === 'surveil'
     || dialog.kind === 'reveal-pick'
   ) {
     return (state.zoneOrder[dialog.seat].library ?? [])
