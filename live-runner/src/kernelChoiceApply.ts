@@ -20,7 +20,7 @@ import {
   applyPlayerTargets,
   applySelectPlayers,
 } from './kernelChoiceApplyPlayers'
-import { applyStackCopy, applyVote } from './kernelChoiceApplyStack'
+import { applyStackCopy } from './kernelChoiceApplyStack'
 import {
   applyChooseModes,
   applyDialogChoice,
@@ -59,8 +59,6 @@ export const applyKernelChoice = (
   switch (decision.kernel.stage) {
     case 'extort-payment':
       return applyExtortPayment(context)
-    case 'vote':
-      return applyVote(context)
     case 'stack-copy':
       return applyStackCopy(context)
     case 'select-cards':

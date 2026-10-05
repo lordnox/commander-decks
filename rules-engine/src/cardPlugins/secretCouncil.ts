@@ -4,6 +4,7 @@ import {
   pendingDialogFor,
   setPendingDialog,
 } from '../pendingDialog'
+import { tallyVotes } from './voteResult'
 
 export const SECRET_COUNCIL = 'secretCouncil.pending'
 export const CHOOSE_VOTES = 'secretCouncil.chooseVotes'
@@ -60,6 +61,13 @@ const finish = (
     if (tallies[voted] !== undefined) tallies[voted] += 1
   }
   draft.note(`${pending.source} reveals the secret council`)
+  // Círdan keeps its own dialogs, but every vote at the table is heard alike.
+  draft.enqueue({
+    type: 'votesFinished',
+    sourceId: pending.sourceId,
+    owner,
+    result: tallyVotes(pending.votes, pending.voters),
+  })
   for (const seat of draft.playerOrder) {
     const count = tallies[seat] ?? 0
     if (count > 0) draft.enqueue({ type: 'draw', seat, count })

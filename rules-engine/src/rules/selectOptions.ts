@@ -23,6 +23,11 @@ export type PendingOptionSelection = {
     kind: 'hidden-piles-take'
     piles: [string[], string[]]
     lifeLoss: number
+  } | {
+    kind: 'vote'
+    voteId: string
+    /** Whose vote this answers; a vote chooser answers for each voter in turn. */
+    voter: PlayerId
   }
 }
 

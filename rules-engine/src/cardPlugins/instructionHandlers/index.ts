@@ -25,6 +25,8 @@ import { blinkHandlers } from '../blink'
 import { statusEffectHandlers } from '../statusEffects'
 import { monstrosityInstruction } from '../monstrosity'
 import { targetedResolveInstructionHandlers } from '../targetedResolve'
+import { voteInstruction } from '../vote'
+import { voteResultHandlers } from '../voteInstructions'
 
 const instructionHandlers = {
   ...exilePayoffsInstructionHandlers,
@@ -43,6 +45,8 @@ const instructionHandlers = {
   ...statusEffectHandlers,
   ...encoreHandlers,
   ...opponentCreatureHandlers,
+  ...voteResultHandlers,
+  vote: voteInstruction,
   attachedCopyOrToken: attachedCopyOrTokenInstruction,
   chooseCreatureType: chooseCreatureTypeInstruction,
   monstrosity: monstrosityInstruction,

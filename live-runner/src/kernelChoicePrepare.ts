@@ -13,7 +13,6 @@ import {
 import { pendingPlayerTargets } from '../../rules-engine/src/cardPlugins/playerTargets'
 import { pendingExtortFor } from '../../rules-engine/src/cardPlugins/extort'
 import { pendingCumulativeUpkeep } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
-import { pendingVote, votingSeat } from '../../rules-engine/src/cardPlugins/vote'
 import { stackCopyPending } from '../../rules-engine/src/cardPlugins/stackCopy'
 import { pendingDialogFor } from '../../rules-engine/src/pendingDialog'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
@@ -33,10 +32,7 @@ import {
   preparePlayerTargetsChoice,
   prepareSelectPlayersChoice,
 } from './kernelChoicePreparePlayers'
-import {
-  prepareStackCopyChoice,
-  prepareVoteChoice,
-} from './kernelChoicePrepareStack'
+import { prepareStackCopyChoice } from './kernelChoicePrepareStack'
 import { preparePendingDialog } from './kernelChoicePrepareDialog'
 
 /**
@@ -87,12 +83,6 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const pending = pendingCumulativeUpkeep(state, decision.seat)
       return !pending || pending.id !== decision.kernel.selectionId
     }
-    case 'vote': {
-      const pending = pendingVote(state)
-      return !pending
-        || pending.sourceId !== decision.kernel.sourceId
-        || votingSeat(state, pending) !== decision.seat
-    }
     case 'stack-copy': {
       const pending = stackCopyPending(state)
       return !pending
@@ -122,7 +112,6 @@ export const prepareKernelPendingChoice = (
   if (prepareSelectCardsChoice(kernel, lobby)) return true
   if (prepareOptionSelectionChoice(kernel, lobby)) return true
   if (prepareCumulativeUpkeepChoice(kernel, lobby)) return true
-  if (prepareVoteChoice(kernel, lobby)) return true
   if (prepareStackCopyChoice(kernel, lobby)) return true
   return preparePendingDialog(kernel, lobby)
 }

@@ -1,42 +1,10 @@
 import {
-  currentVoter,
-  pendingVote,
-  votingSeat,
-  voteCandidates,
-} from '../../rules-engine/src/cardPlugins/vote'
-import {
   KEEP_STACK_TARGETS,
   stackCopyPending,
   stackCopyTargetCandidates,
 } from '../../rules-engine/src/cardPlugins/stackCopy'
 import { objectIdsForNames, type ChoiceContext } from './kernelChoice'
-import { prepareKernelPendingChoice } from './kernelChoicePrepare'
 import { closeKernelChoice } from './kernelSettle'
-
-export const applyVote = ({ kernel, lobby, seat, message, state }: ChoiceContext) => {
-  const pending = pendingVote(state)
-  const voter = pending ? currentVoter(pending) : undefined
-  if (!pending || !voter || votingSeat(state, pending) !== seat) {
-    throw new Error('That vote is no longer open.')
-  }
-  const selected = message.choices.filter(({ destination }) => destination === 'target')
-  if (selected.length !== 1) throw new Error('Choose exactly one permanent.')
-  const candidateIds = voteCandidates(state, pending, voter).map((object) => object.id)
-  const objectId = objectIdsForNames(state, candidateIds, [selected[0].card])[0]
-  const result = kernel.dispatch({
-    type: 'vote',
-    seat,
-    sourceId: pending.sourceId,
-    choice: { kind: 'object', objectId },
-  })
-  if (!result.ok) throw new Error(result.error)
-  lobby.topdeck = undefined
-  // A vote that still has voters left reopens straight into the next seat.
-  if (prepareKernelPendingChoice(kernel, lobby)) return true
-  return closeKernelChoice(kernel, lobby, seat, {
-    judge: `${lobby.occupants[seat]?.name ?? seat} voted for ${selected[0].card}.`,
-  })
-}
 
 export const applyStackCopy = ({ kernel, lobby, seat, message, state }: ChoiceContext) => {
   const pending = stackCopyPending(state)

@@ -19,6 +19,7 @@ import { isSeatId, type SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
 import { openTopdeck } from './kernelChoice'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
+import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
 const pileLabel = (
   state: { objects: Record<string, { name: string }> },
@@ -293,13 +294,17 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
 }
 
 export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyState) => {
-  const pending = pendingOptionSelection(kernel.history.current())
+  const state = kernel.history.current()
+  const pending = pendingOptionSelection(state)
   if (!pending || !isSeatId(pending.seat)) return false
+  const name = lobby.occupants[pending.seat]?.name ?? pending.seat
+  const open = pending.action.kind === 'vote' ? pendingVote(state) : undefined
+  const secret = open?.secret ? 'secret ' : 'public '
   return openTopdeck(
     lobby,
     {
       seat: pending.seat,
-      kind: 'choose',
+      kind: open ? 'vote' : 'choose',
       cards: pending.options.map((option) => option.label),
       destinations: ['skip', 'target'],
       requirements: { target: { min: 1, max: 1 } },
@@ -310,11 +315,15 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
       },
     },
     {
-      waiting: `${lobby.occupants[pending.seat]?.name ?? pending.seat} is choosing privately.`,
+      waiting: open
+        ? `${name} is voting${open.secret ? ' in secret' : ''}.`
+        : `${name} is choosing privately.`,
       prompt: pending.prompt,
-      judge: pending.source
-        ? `Waiting for a choice for ${pending.source}.`
-        : 'Waiting for a private choice.',
+      judge: open
+        ? `Waiting for ${open.source}'s ${secret}vote.`
+        : pending.source
+          ? `Waiting for a choice for ${pending.source}.`
+          : 'Waiting for a private choice.',
     },
   )
 }

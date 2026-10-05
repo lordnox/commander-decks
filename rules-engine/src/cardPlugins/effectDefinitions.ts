@@ -66,6 +66,24 @@ export type TokenSpec = {
 
 export type RevealUntilNonMatch = 'mill' | 'shuffle'
 
+/**
+ * Voters of the vote an instruction list is resolving for. The opponent
+ * groups compare each opponent's vote with the controller's own.
+ */
+export type VoterGroup =
+  | 'all'
+  | 'opponentsAgreeing'
+  | 'opponentsDisagreeing'
+  | { votedFor: string }
+
+/** A count that may be read from the vote result instead of fixed. */
+export type InstructionCount = number | { voters: VoterGroup }
+
+export type VoteOptions =
+  | { kind: 'named'; options: Array<{ id: string; label: string }> }
+  | { kind: 'players' }
+  | { kind: 'objects'; filter: TargetFilter }
+
 export type CardInstruction =
   | { kind: 'selfMill'; count: number }
   | { kind: 'millTarget'; count: number }
@@ -111,12 +129,12 @@ export type CardInstruction =
   | { kind: 'exchangeLifeWithOpponent'; optional?: boolean; drawLifeLost?: boolean }
   | { kind: 'drawHandDifference' }
   | { kind: 'winGame' }
-  | { kind: 'addPlusCounters'; count: number }
+  | { kind: 'addPlusCounters'; count: InstructionCount }
   | { kind: 'putChargeCountersFromTimesKicked' }
   | { kind: 'pumpAllCreaturesByX'; multiplier: number }
   | {
       kind: 'revealUntil'
-      count: number | 'opponentCount'
+      count: InstructionCount | 'opponentCount'
       match: TargetFilter
       destination: 'hand' | 'battlefield'
       nonMatch: RevealUntilNonMatch
@@ -144,7 +162,7 @@ export type CardInstruction =
   | { kind: 'lookTopChooseOne'; count: number }
   | { kind: 'teferiSunsetEmblem' }
   | { kind: 'exileColoredPermanentsAtMostX' }
-  | { kind: 'putPermanentsFromHand'; max: number }
+  | { kind: 'putPermanentsFromHand'; max: InstructionCount }
   | { kind: 'discardHandsThenDrawGreatest' }
   | { kind: 'extraLandPlays'; count: number }
   | { kind: 'returnOwnedGraveyardLands'; tapped?: boolean }
@@ -183,7 +201,7 @@ export type CardInstruction =
       fromObjectIds?: string[]
     }
   | { kind: 'surveil'; count: number }
-  | { kind: 'scry'; count: number }
+  | { kind: 'scry'; count: InstructionCount }
   | {
       kind: 'opponentPiles'
       count: number
@@ -263,7 +281,7 @@ export type CardInstruction =
   | {
       kind: 'putFromHand'
       who: 'each' | 'active' | 'controller'
-      max: number
+      max: InstructionCount
       types?: string[]
       repeat?: boolean
       optional?: boolean
@@ -280,7 +298,31 @@ export type CardInstruction =
     }
   | { kind: 'bounceAttacking' }
   | { kind: 'chooseVotesThisTurn' }
-  | { kind: 'createTreasures'; count: number; who: 'you' | 'targetController' }
+  | { kind: 'createTreasures'; count: number; who: 'you' | 'targetController' | 'triggeringPlayer' }
+  /**
+   * Every player votes, starting with the controller. Put every instruction
+   * that follows the vote in `outcome`: it runs once the last vote is in, with
+   * the result readable by the vote instructions below.
+   */
+  | {
+      kind: 'vote'
+      prompt: string
+      options: VoteOptions
+      secret?: boolean
+      outcome: CardInstruction[]
+    }
+  /** `option` has strictly more votes than every other option; a tie runs `whenFalse`. */
+  | {
+      kind: 'ifVoteLeads'
+      option: string
+      whenTrue: CardInstruction[]
+      whenFalse?: CardInstruction[]
+    }
+  /** Run `do` once per voter in `who`, with that voter as the triggering player. */
+  | { kind: 'forEachVoter'; who: VoterGroup; do: CardInstruction[] }
+  /** Run `do` once per option with votes; the vote count is the trigger amount. */
+  | { kind: 'forEachVotedOption'; do: CardInstruction[] }
+  | { kind: 'exileVoteWinners' }
   | { kind: 'drawGreatestPower'; nonHuman?: boolean }
   | {
       kind: 'pumpControlled'
@@ -565,6 +607,7 @@ export type CardEffect =
         | 'playerAttacks'
         | 'permanentEnters'
         | 'permanentSacrificed'
+        | 'votesFinished'
       do: CardInstruction[]
       /**
        * For `permanentEnters` and `permanentSacrificed`: the permanent that
@@ -723,12 +766,6 @@ export type CardEffect =
   | { op: 'foretell'; manaCost: string }
   | { op: 'drawReplacementByType' }
   | { op: 'spellTrait'; uncounterable?: boolean }
-  | {
-      op: 'vote'
-      prompt: string
-      filter: TargetFilter
-      outcome: 'exile-most'
-    }
   | {
       op: 'targetingRequirement'
       kind: 'flagbearer' | 'hexproof-while-untapped'

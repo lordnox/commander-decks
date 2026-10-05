@@ -10,9 +10,12 @@ import {
   validateSplitSearchSelection,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
 import { objectIdsForNames, type ChoiceContext } from './kernelChoice'
+import type { LobbyState } from './lobby'
+import type { SeatId } from './protocol'
 import { finishLibrarySearch } from './kernelChoicePrepareCards'
 import { closeKernelChoice } from './kernelSettle'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
+import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
 export const applySelectCards = (
   { kernel, lobby, seat, message, decision, state }: ChoiceContext,
@@ -137,6 +140,31 @@ export const applySelectCards = (
   })
 }
 
+type OpenVote = NonNullable<ReturnType<typeof pendingVote>>
+
+/** A public vote names its choice; a secret vote is revealed only once it is finished. */
+const voteJudge = (
+  lobby: LobbyState,
+  vote: OpenVote,
+  voter: string,
+  option: { id: string; label: string },
+  finished: boolean,
+) => {
+  const name = lobby.occupants[voter as SeatId]?.name ?? voter
+  if (!finished) {
+    return vote.secret
+      ? `${name} voted in secret for ${vote.source}.`
+      : `${name} voted for ${option.label}.`
+  }
+  const revealed = Object.entries({ ...vote.votes, [voter]: option.id })
+    .map(([seat, id]) =>
+      `${lobby.occupants[seat as SeatId]?.name ?? seat} for ${
+        vote.options.find((candidate) => candidate.id === id)?.label ?? id
+      }`)
+    .join(', ')
+  return `${vote.source} votes: ${revealed}.`
+}
+
 export const applyOptionSelection = (
   { kernel, lobby, seat, message, decision, state }: ChoiceContext,
 ) => {
@@ -148,6 +176,7 @@ export const applyOptionSelection = (
   if (chosen.length !== 1) throw new Error('Choose exactly one option.')
   const option = pending.options.find((candidate) => candidate.label === chosen[0].card)
   if (!option) throw new Error('That option was not offered.')
+  const open = pending.action.kind === 'vote' ? pendingVote(state) : undefined
   const result = kernel.dispatch({
     type: 'selectOption',
     seat,
@@ -155,11 +184,12 @@ export const applyOptionSelection = (
     optionId: option.id,
   })
   if (!result.ok) throw new Error(result.error)
+  const name = lobby.occupants[seat]?.name ?? seat
   return closeKernelChoice(kernel, lobby, seat, {
     privateJudge: { [seat]: `You chose ${option.label}.` },
-    judge: `${lobby.occupants[seat]?.name ?? seat} made a private choice${
-      pending.source ? ` for ${pending.source}` : ''
-    }.`,
+    judge: open && pending.action.kind === 'vote'
+      ? voteJudge(lobby, open, pending.action.voter, option, !pendingVote(kernel.history.current()))
+      : `${name} made a private choice${pending.source ? ` for ${pending.source}` : ''}.`,
   })
 }
 

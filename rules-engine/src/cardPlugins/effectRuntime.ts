@@ -527,6 +527,19 @@ const flattenInstructions = (instructions: CardInstruction[]): CardInstruction[]
     if (instruction.kind === 'repeatIf' || instruction.kind === 'delay') {
       return [instruction, ...flattenInstructions(instruction.do)]
     }
+    if (instruction.kind === 'forEachVoter' || instruction.kind === 'forEachVotedOption') {
+      return [instruction, ...flattenInstructions(instruction.do)]
+    }
+    if (instruction.kind === 'vote') {
+      return [instruction, ...flattenInstructions(instruction.outcome)]
+    }
+    if (instruction.kind === 'ifVoteLeads') {
+      return [
+        instruction,
+        ...flattenInstructions(instruction.whenTrue),
+        ...flattenInstructions(instruction.whenFalse ?? []),
+      ]
+    }
     if (instruction.kind === 'discardCards' && instruction.then) {
       return [instruction, ...flattenInstructions(instruction.then.do)]
     }
@@ -628,7 +641,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       // Demonstrate only opens the copy choice; stackCopy resolves it.
       if (effect.pluginId === 'demonstrate') ids.add('stackCopy')
     }
-    if (effect.op === 'vote') ids.add('vote')
     if (effect.op === 'targetingRequirement') ids.add('targetingRequirements')
     if (effect.op === 'playerAuraDeal') ids.add('attackDeal')
     const listed = effect.op === 'trigger' || effect.op === 'activate' || effect.op === 'modal'
@@ -669,6 +681,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       if (hasKind(listed, 'opponentMayDrawThenStealCast')) ids.add('stealCast')
     }
     if (hasKind(allListed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
+    if (hasKind(allListed, 'vote')) ids.add('vote')
     if (hasKind(allListed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(allListed, 'encoreTokens')) ids.add('encore')
     if (hasKind(allListed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')

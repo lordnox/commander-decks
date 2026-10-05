@@ -118,14 +118,17 @@ const createTreasures: InstructionHandler<'createTreasures'> = (
   { draft, source, item },
   instruction,
 ) => {
+  const target = item?.targets[0]
   const seat = instruction.who === 'you'
     ? source.controller
-    : item?.targets[0]?.kind === 'object'
-      ? draft.object(item.targets[0].objectId)?.controller
-      : item?.targets[0]?.kind === 'player'
-        ? item.targets[0].player
-        : undefined
-  if (!seat) return
+    : instruction.who === 'triggeringPlayer'
+      ? item?.payload?.triggeringPlayer
+      : target?.kind === 'object'
+        ? draft.object(target.objectId)?.controller
+        : target?.kind === 'player'
+          ? target.player
+          : undefined
+  if (typeof seat !== 'string') return
   for (let index = 0; index < instruction.count; index += 1) {
     createToken(draft, seat, {
       name: 'Treasure',
