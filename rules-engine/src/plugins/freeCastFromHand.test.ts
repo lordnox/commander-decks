@@ -7,6 +7,8 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import {
+  draw,
+  drawGreatestPower,
   mayCastFromHandWithoutPayingMana,
   onResolve as onResolveEffect,
   targetOnResolve,
@@ -228,5 +230,81 @@ describe('free cast from hand', () => {
       .toEqual(['castSpell', 'castSpell', 'declineFreeCast'])
     expect(ok(server.rules(restored, castFree(restored, 'Zero Trick'))).stack[0])
       .toMatchObject({ name: 'Zero Trick' })
+  })
+  describe('candidates are read after earlier instructions have landed', () => {
+    // "Draw cards equal to the greatest power among creatures you control.
+    // You may cast a spell with mana value 5 or less from your hand without paying its mana cost."
+    const drawThenCast = (...drawing: ReturnType<typeof draw>[]) => createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: { p1: [spell('Draw Then Cast', ['Sorcery'], '{0}', 0, {
+          effects: [onResolveEffect(...drawing, mayCastFromHandWithoutPayingMana(5))],
+        })] },
+        libraries: { p1: [
+          spell('Drawn Bear', ['Creature'], '{2}{G}', 3),
+          spell('Drawn Land', ['Land'], '', 0, { types: ['Land'] }),
+        ] },
+        battlefield: { p1: [cardTemplate('Big Friend', { types: ['Creature'], power: 1, toughness: 1 })] },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const resolved = (server: ReturnType<typeof drawThenCast>) => {
+      const cast = ok(server.rules(server.state, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(server.state, 'Draw Then Cast').id,
+      }))
+      return ok(server.rules(cast, { type: 'resolveTop' }))
+    }
+    const castable = (state: GameState) =>
+      legalActsFor(state, 'p1').flatMap((action) =>
+        action.kind === 'castSpell' ? [action.name] : [])
+
+    for (const [label, build] of [
+      ['a plain draw', () => drawThenCast(draw(1))],
+      ['a draw equal to the greatest power', () => drawThenCast(drawGreatestPower())],
+    ] as const) {
+      test(`${label} that brings the only castable card opens the offer with it`, () => {
+        const state = resolved(build())
+
+        expect(named(state, 'Drawn Bear').zone).toBe('hand')
+        expect(castable(state)).toEqual(['Drawn Bear'])
+        expect(legalActsFor(state, 'p1').some((action) => action.kind === 'declineFreeCast')).toBe(true)
+      })
+    }
+
+    test('the offer drawn into can be declined, or accepted after a journal restart', () => {
+      const server = drawThenCast(draw(1))
+      const state = resolved(server)
+      const declined = ok(server.rules(state, {
+        type: 'declineFreeCast',
+        seat: 'p1',
+        objectId: named(state, 'Draw Then Cast').id,
+      }))
+      expect(named(declined, 'Drawn Bear').zone).toBe('hand')
+      expect(legalActsFor(declined, 'p1').some((action) => action.kind === 'declineFreeCast')).toBe(false)
+
+      let journal = createJournal(server.state)
+      for (const event of [
+        { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Draw Then Cast').id },
+        { type: 'resolveTop' },
+      ] as const) {
+        journal = recordAccepted(journal, event)
+      }
+      const restored = restoreJournal(journal, server.rules).current()
+      expect(castable(restored)).toEqual(['Drawn Bear'])
+      expect(ok(server.rules(restored, castFree(restored, 'Drawn Bear'))).stack[0])
+        .toMatchObject({ name: 'Drawn Bear', castFrom: 'hand' })
+    })
+
+    test('a draw that brings only a land opens no offer', () => {
+      const server = drawThenCast(draw(1))
+      server.state.zoneOrder.p1.library.reverse()
+      const state = resolved(server)
+
+      expect(named(state, 'Drawn Land').zone).toBe('hand')
+      expect(legalActsFor(state, 'p1').some((action) => action.kind === 'declineFreeCast')).toBe(false)
+    })
   })
 })
