@@ -19,14 +19,9 @@
       "reason": "Five counterspells, instant-speed removal, and a draw-go posture defend the engine until the drain turn."
     },
     {
-      "name": "life exchange",
-      "score": 4,
-      "reason": "Mirror Universe, Mister Negative, and Repay in Kind are the remaining transfusion package after the slow six-drops left."
-    },
-    {
       "name": "life paying",
       "score": 4,
-      "reason": "Wall of Blood, Selenia, Necrologia, Dark Confidant, Pain's Reward, Snuff Out, and the pain lands intentionally dump life before an exchange."
+      "reason": "Wall of Blood, Selenia, Necrologia, Dark Confidant, Snuff Out, and the pain lands intentionally dump life before an exchange."
     },
     {
       "name": "pillow fort",
@@ -36,7 +31,7 @@
     {
       "name": "politics",
       "score": 4,
-      "reason": "Sokrates, Loran, Fact or Fiction, Fractured Identity, and Council's Judgment let the table's own choices decide who takes damage."
+      "reason": "Tenuous Truce, Sokrates, Loran, Fact or Fiction, Fractured Identity, and Council's Judgment let the table's own choices decide who takes damage."
     },
     {
       "name": "big mana",
@@ -52,6 +47,11 @@
       "name": "draw",
       "score": 3,
       "reason": "The deck refuses tutors and finds its finishers by drawing: life-for-cards plus shared-draw politics."
+    },
+    {
+      "name": "life exchange",
+      "score": 3,
+      "reason": "Mister Negative and Repay in Kind are the remaining transfusion package."
     },
     {
       "name": "ramp",
@@ -81,7 +81,7 @@
     {
       "name": "equipment",
       "score": 2,
-      "reason": "Lashwrithe and Elbrus are a two-card swamp-Germ into Demon line, not an equipment deck."
+      "reason": "Lashwrithe and Elbrus are independent swamp-mana cards, not an equipment deck."
     },
     {
       "name": "lands matter",

@@ -1738,6 +1738,7 @@
         "type_line": "Artifact"
       },
       "categories": [
+        "Maybeboard{noDeck}{noPrice}",
         "Life Exchange"
       ],
       "category_source": "decklist",
@@ -1746,6 +1747,7 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/leg/287/mirror-universe?utm_source=api",
       "submitted_categories": [
+        "Maybeboard{noDeck}{noPrice}",
         "Life Exchange"
       ],
       "submitted_name": "Mirror Universe"
@@ -2563,7 +2565,6 @@
         "type_line": "Enchantment — Aura"
       },
       "categories": [
-        "Maybeboard{noDeck}{noPrice}",
         "Draw",
         "Politics"
       ],
@@ -2573,7 +2574,6 @@
       "quantity": 1,
       "scryfall_uri": "https://scryfall.com/card/ncc/87/tenuous-truce?utm_source=api",
       "submitted_categories": [
-        "Maybeboard{noDeck}{noPrice}",
         "Draw",
         "Politics"
       ],
@@ -2825,7 +2825,7 @@
     }
   ],
   "categorized_cards": 108,
-  "generated_at": "2026-10-05T20:40:25.364483+00:00",
+  "generated_at": "2026-10-05T22:52:49.469530+00:00",
   "maybeboard_cards": 17,
   "maybeboard_unique_cards": 17,
   "resolved_unique_cards": 108,
