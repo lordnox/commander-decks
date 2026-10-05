@@ -27,7 +27,7 @@
     "dup:check": "jscpd",
     "lint": "oxlint rules-engine live-runner site/src shared .agents/skills",
     "lint:fix": "oxlint --fix rules-engine live-runner site/src shared .agents/skills",
-    "typecheck:live-runner": "tsc --ignoreConfig --noEmit --strict --moduleResolution Bundler --module ESNext --target ES2022 --types bun live-runner/src/*.ts",
+    "typecheck:live-runner": "tsc --ignoreConfig --noEmit --strict --moduleResolution Bundler --module ESNext --target ES2023 --types bun live-runner/src/*.ts",
     "table:decks": "python3 .agents/skills/live-table/scripts/publish_deck_indexes.py",
     "site:prepare": "bun run table:render && bun run table:pages && bun run table:decks"
   },

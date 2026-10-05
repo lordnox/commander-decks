@@ -12,7 +12,6 @@
   },
   "rules": {
     "unicorn/no-array-sort": "off",
-    "unicorn/no-array-reverse": "off",
     "unicorn/no-thenable": "off",
     "no-underscore-dangle": ["warn", { "allow": ["_libraries"] }]
   }
