@@ -579,7 +579,7 @@ export const spells: Plugin = {
       }
       draft.move(object.id, 'stack')
       for (const objectId of event.sacrifice ?? []) {
-        draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+        draft.enqueue({ type: 'sacrifice', objectId })
       }
       draft.passedInRow = []
       draft.priority = event.seat

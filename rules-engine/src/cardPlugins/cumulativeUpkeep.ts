@@ -83,7 +83,7 @@ export const cumulativeUpkeep: Plugin = {
     if (!pending || pending.id !== event.choiceId) return
     delete draft.players[event.seat].data[CUMULATIVE_UPKEEP_PENDING]
     if (!event.pay) {
-      draft.enqueue({ type: 'move', objectId: pending.objectId, to: 'graveyard' })
+      draft.enqueue({ type: 'sacrifice', objectId: pending.objectId })
       draft.note(`${event.seat} declines cumulative upkeep for ${pending.source}`)
       return
     }

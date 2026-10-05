@@ -94,7 +94,7 @@ export const attackDeal: Plugin = {
         return
       }
       if (item?.abilityId === BREAK_ABILITY && source?.zone === 'battlefield') {
-        draft.enqueue({ type: 'move', objectId: source.id, to: 'graveyard' })
+        draft.enqueue({ type: 'sacrifice', objectId: source.id })
       }
       return
     }
