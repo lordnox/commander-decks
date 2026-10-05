@@ -11,6 +11,8 @@ import type Draft from '../draft'
 import { isPermanentType } from '../definitions'
 import { hasKeyword } from '../keywords'
 import { isPhasedOut } from '../plugins/phasing'
+import { isForest } from '../plugins/forestOverlay'
+import { isSwamp } from '../plugins/swampOverlay'
 import { hasProtectionFromEverything } from '../plugins/protectionFromEverything'
 import { putIntoGraveyardFromBattlefieldThisTurn } from '../plugins/fromBattlefieldThisTurn'
 import { effectsOf } from './cardRules'
@@ -30,6 +32,22 @@ const controlledPermanentTarget = (
   const object = state.objects[target.objectId]
   return object?.zone === 'battlefield' && object.controller === controller
 })
+
+const hasSubtype = (state: GameState, object: GameObject, subtype: string) =>
+  subtype === 'Forest'
+    ? isForest(object, state)
+    : subtype === 'Swamp'
+      ? isSwamp(object, state)
+      : object.subtypes.includes(subtype)
+
+const manaValueMatches = (
+  value: number,
+  { eq, min, max, parity }: NonNullable<TargetFilter['manaValue']>,
+) =>
+  (eq === undefined || value === eq)
+  && (min === undefined || value >= min)
+  && (max === undefined || value <= max)
+  && (parity === undefined || (value % 2 === 0) === (parity === 'even'))
 
 /** Permanent filter match without targeting restrictions (hexproof, etc.). */
 export const matchesTargetFilter = (
@@ -66,6 +84,12 @@ export const matchesTargetFilter = (
   if (filter.fromBattlefieldThisTurn && !putIntoGraveyardFromBattlefieldThisTurn(object)) {
     return false
   }
+  if (filter.subtype && !hasSubtype(state, object, filter.subtype)) return false
+  if (filter.nontoken && object.token) return false
+  if (filter.powerAtLeast !== undefined && (object.power ?? -Infinity) < filter.powerAtLeast) {
+    return false
+  }
+  if (filter.manaValue && !manaValueMatches(object.manaValue, filter.manaValue)) return false
   if (filter.nonbasic && object.supertypes.includes('Basic')) return false
   if (filter.attacking && object.attacking === null) return false
   if (filter.spellTargetsControlledPermanent) {
