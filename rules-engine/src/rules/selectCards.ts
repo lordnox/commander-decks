@@ -618,11 +618,15 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     && selection.sourceId
   ) {
     const source = draft.object(selection.sourceId)
-    const targetId = event.objectIds?.[0]
+    // A target choice names every chosen target; a sacrifice names only its first card.
+    const targetIds = selection.kind === 'choose'
+      ? event.objectIds ?? []
+      : (event.objectIds ?? []).slice(0, 1)
+    const targets = targetIds.map((objectId) => ({ kind: 'object' as const, objectId }))
     const sacrificeCount = selection.kind === 'sacrifice'
       ? (event.objectIds?.length ?? 0)
       : undefined
-    if (source && (targetId || sacrificeCount !== undefined)) {
+    if (source && (targetIds.length > 0 || sacrificeCount !== undefined)) {
       const payload = {
         ...(selection.triggerPayload ?? {}),
         ...(sacrificeCount !== undefined ? { sacrificedCount: sacrificeCount } : {}),
@@ -634,7 +638,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           objectId: source.id,
           controller: source.controller,
           name: source.name,
-          targets: targetId ? [{ kind: 'object', objectId: targetId }] : [],
+          targets,
           payload,
         })
       } else {
@@ -643,7 +647,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
             ? { abilityId: selection.triggerAbilityId }
             : {}),
           ...(selection.triggerX !== undefined ? { x: selection.triggerX } : {}),
-          ...(targetId ? { targets: [{ kind: 'object', objectId: targetId }] } : {}),
+          targets,
           payload,
         })
       }

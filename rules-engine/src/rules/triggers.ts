@@ -665,16 +665,20 @@ export const triggers: Plugin = {
             ))
           .map((object) => object.id)
         if (candidates.length === 0 && targetSpec.min !== 0) continue
+        const maxTargets = targetSpec.max ?? 1
         openCardSelection(draft, {
           seat: source.controller,
           kind: 'choose',
-          count: 1,
-          min: targetSpec.min ?? 1,
+          count: maxTargets,
+          min: Math.min(targetSpec.min ?? maxTargets, candidates.length),
           candidates,
           sourceId: source.id,
           source: source.name,
-          prompt: `Choose target for ${source.name}.`,
-          destinations: ['target'],
+          prompt: maxTargets === 1
+            ? `Choose target for ${source.name}.`
+            : `Choose up to ${maxTargets} targets for ${source.name}.`,
+          // Offering "not targeted" lets the chooser leave candidates out of an optional or multiple pick.
+          destinations: targetSpec.min === 0 || maxTargets > 1 ? ['skip', 'target'] : ['target'],
           triggerInstructions: effect.do,
           triggerPayload: triggerPayloadExtras(effect, effectKey, {
             targetFilter: targetSpec.filter,

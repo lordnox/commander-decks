@@ -53,7 +53,9 @@ import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedReso
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
   delve,
+  destroyThenTokenForController,
   entersTarget,
+  entersTargetingUpTo,
   mayCastFromHandWithoutPayingMana,
   ifYouDoExileFromGraveyard,
   targetOnResolve,
@@ -2993,5 +2995,85 @@ describe('ward live choice', () => {
     })).toBe(true)
     expect(restarted.history.current().stack).toHaveLength(0)
     expect(restarted.history.current().objects[spellId].zone).toBe('hand')
+  })
+})
+
+describe('up-to-N trigger targets live choice', () => {
+  test('a restarted host rebuilds the multi-target pick and the chosen permanents are destroyed', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: {
+          p1: [cardTemplate('Fixture Destroyer', {
+            types: ['Creature'],
+            effects: [
+              entersTargetingUpTo(
+                3,
+                { zone: 'battlefield', permanent: true, noncreature: true },
+                destroyThenTokenForController({
+                  name: 'Elephant',
+                  types: ['Creature'],
+                  subtypes: ['Elephant'],
+                  colors: ['G'],
+                  power: 3,
+                  toughness: 3,
+                }),
+              ),
+            ],
+          })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Enemy Rock', { types: ['Artifact'] })],
+          p3: [
+            cardTemplate('Enemy Ring', { types: ['Artifact'] }),
+            cardTemplate('Spared Charm', { types: ['Enchantment'] }),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const byName = (name: string) => Object.values(server.state.objects)
+      .find((object) => object.name === name)!
+    const kernel = handleFor(server.rules, server.state)
+    expect(kernel.dispatch({
+      type: 'move',
+      objectId: byName('Fixture Destroyer').id,
+      to: 'battlefield',
+    }).ok).toBe(true)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      requirements: { target: { min: 0, max: 3 } },
+    })
+    expect([...(firstLobby.topdeck?.cards ?? [])].sort())
+      .toEqual(['Enemy Ring', 'Enemy Rock', 'Spared Charm'])
+
+    const restarted = createLobby()
+    restarted.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+    expect(restarted.topdeck?.kernel?.selectionId).toBe(firstLobby.topdeck?.kernel?.selectionId)
+    expect(applyKernelChoice(kernel, restarted, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Enemy Rock', destination: 'target' },
+        { card: 'Enemy Ring', destination: 'target' },
+        { card: 'Spared Charm', destination: 'skip' },
+      ],
+    })).toBe(true)
+
+    const done = kernel.history.current()
+    expect(done.objects[byName('Enemy Rock').id].zone).toBe('graveyard')
+    expect(done.objects[byName('Enemy Ring').id].zone).toBe('graveyard')
+    expect(done.objects[byName('Spared Charm').id].zone).toBe('battlefield')
+    const elephantsOf = (seat: string) => done.zoneOrder[seat].battlefield
+      .filter((id) => done.objects[id].name === 'Elephant')
+    expect(elephantsOf('p2')).toHaveLength(1)
+    expect(elephantsOf('p3')).toHaveLength(1)
+    expect(elephantsOf('p1')).toHaveLength(0)
   })
 })

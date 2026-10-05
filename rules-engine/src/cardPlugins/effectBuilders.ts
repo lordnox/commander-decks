@@ -69,15 +69,21 @@ export const entersTargeting = (
   do: instructions,
 })
 
-export const entersTargetingUpToOne = (
+export const entersTargetingUpTo = (
+  max: number,
   filter: TargetFilter,
   ...instructions: CardInstruction[]
 ): CardEffect => ({
   op: 'trigger',
   on: 'enters',
-  targets: { filter, min: 0 },
+  targets: { filter, min: 0, max },
   do: instructions,
 })
+
+export const entersTargetingUpToOne = (
+  filter: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => entersTargetingUpTo(1, filter, ...instructions)
 
 export const entersIfCastOption = (
   castOption: string,
@@ -925,6 +931,11 @@ export const returnIfDiesThisTurn = (): CardInstruction => ({
 
 export const createTokenInstruction = (token: TokenSpec): CardInstruction => ({
   kind: 'createToken',
+  token,
+})
+
+export const destroyThenTokenForController = (token: TokenSpec): CardInstruction => ({
+  kind: 'destroyThenTokenForController',
   token,
 })
 

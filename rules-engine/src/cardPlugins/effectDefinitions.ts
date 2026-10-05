@@ -181,6 +181,16 @@ export type CardInstruction =
   /** Return this card from the graveyard to the battlefield under its owner's control with one counter. */
   | { kind: 'returnSelfWithCounter'; counter: string }
   | { kind: 'createToken'; token: TokenSpec }
+  /**
+   * Destroy every legal target, then each destroyed permanent's controller
+   * creates `token` for each permanent that was actually put into a graveyard.
+   */
+  | {
+      kind: 'destroyThenTokenForController'
+      token: TokenSpec
+      /** Set once the destroy events are queued: each destroyed target and its controller. */
+      destroyed?: Array<{ objectId: string; controller: PlayerId }>
+    }
   | {
       kind: 'embalmToken'
       colors: string[]
@@ -646,7 +656,10 @@ export type CardEffect =
       modal?: ModalSpec
       targets?: 'opponent' | 'player' | {
         filter: TargetFilter
+        /** Fewest targets; defaults to `max`, so `0` makes "up to N" a "you may". */
         min?: 0 | 1
+        /** Most targets, chosen together before the ability goes on the stack. Defaults to 1. */
+        max?: number
       }
       /** CR 603.2 — trigger only on the turn's first matching event, source or not. */
       firstTimeEachTurn?: boolean
