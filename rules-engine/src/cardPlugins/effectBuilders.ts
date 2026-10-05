@@ -137,6 +137,18 @@ export const diesReturnAsEnchantment = (): CardEffect => ({
   do: [{ kind: 'returnSelfAsEnchantment' }],
 })
 
+/**
+ * CR 702.79 persist: when this dies, if it had no -1/-1 counters on it, return
+ * it under its owner's control with a -1/-1 counter. The condition is checked
+ * against last-known information when the trigger is put on the stack.
+ */
+export const persist = (): CardEffect => ({
+  op: 'trigger',
+  on: 'dies',
+  if: { kind: 'lacksCounter', counter: '-1/-1' },
+  do: [{ kind: 'returnSelfWithCounter', counter: '-1/-1' }],
+})
+
 export const leaves = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'leaves',

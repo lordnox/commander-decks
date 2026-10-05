@@ -460,6 +460,26 @@ const returnSelfAsEnchantment: InstructionHandler<'returnSelfAsEnchantment'> = (
   })
 }
 
+const returnSelfWithCounter: InstructionHandler<'returnSelfWithCounter'> = (
+  { draft, source },
+  instruction,
+) => {
+  // A token has already ceased to exist by the time this resolves.
+  if (source.zone !== 'graveyard' || source.token) return
+  draft.enqueue({
+    type: 'move',
+    objectId: source.id,
+    to: 'battlefield',
+    controller: source.owner,
+  })
+  draft.enqueue({
+    type: 'putCounters',
+    objectId: source.id,
+    counter: instruction.counter,
+    count: 1,
+  })
+}
+
 const surveil: InstructionHandler<'surveil'> = ({ draft, source }, instruction) => {
   const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
   if (candidates.length === 0) return
@@ -905,6 +925,7 @@ export const zoneHandlers = {
   exileColoredPermanentsAtMostX,
   returnOwnedGraveyardLands,
   returnSelfAsEnchantment,
+  returnSelfWithCounter,
   surveil,
   scry,
   opponentPiles,
