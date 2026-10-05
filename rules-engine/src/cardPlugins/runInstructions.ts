@@ -14,7 +14,8 @@ import {
   type PendingCardSelection,
 } from '../rules/selectCards'
 
-const YIELD_AFTER_BUFFER = new Set(['putLandFromHand'])
+/** Instructions that read the hand, so earlier draws and other queued events must land first. */
+const AFTER_QUEUED_EVENTS = new Set(['putLandFromHand', 'mayCastFromHandWithoutPayingMana'])
 
 const isResumeEvent = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>
   event.type === 'custom' && event.name === INSTRUCTIONS_RESUME
@@ -122,9 +123,11 @@ export const runInstructions = (
     }
     for (let index = 0; index < nested.length; index += 1) {
       const instruction = nested[index]
-      if (buffer?.length && YIELD_AFTER_BUFFER.has(instruction.kind)) {
-        flushStackActions(draft, nestedSource, buffer, nestedItem)
-        buffer.length = 0
+      if (AFTER_QUEUED_EVENTS.has(instruction.kind) && (buffer?.length || draft.pending.length > 0)) {
+        if (buffer?.length) {
+          flushStackActions(draft, nestedSource, buffer, nestedItem)
+          buffer.length = 0
+        }
         draft.enqueue({
           type: 'custom',
           name: INSTRUCTIONS_RESUME,
