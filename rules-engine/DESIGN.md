@@ -140,6 +140,14 @@ Combat defenders use `TargetRef`: a creature attacks either a player or a
 planeswalker object that player controls. Commander damage still counts only
 combat damage whose target is a player.
 
+Every untap goes through `untapPermanent` (`rules/untap.ts`): a tapped permanent
+with a `stun` counter loses one counter instead of untapping. The untap step
+also honours `skipNextUntap` ("doesn't untap during its controller's next untap
+step"), which that step clears. `tapAll` can take the targeted player's
+permanents and set the marker. A Saga chapter whose `targets.filter` has
+`players` opens a typed `selectPlayers` choice; the chosen player becomes the
+chapter ability's target.
+
 ## Stack, actions, events, and triggers
 
 Vocabulary:
