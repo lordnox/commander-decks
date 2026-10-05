@@ -108,6 +108,8 @@ export type CardInstruction =
   | { kind: 'returnToOwnersControl'; objectId?: string }
   | { kind: 'unearthSelf' }
   | { kind: 'exileSelf' }
+  /** "Then you exile this spell": the resolving instant or sorcery is exiled instead of going to the graveyard. */
+  | { kind: 'exileThisSpell' }
   | { kind: 'removeTarget'; action: 'destroy' | 'bounce' }
   | { kind: 'putSelfOntoBattlefield' }
   | { kind: 'phaseOutTarget' }
