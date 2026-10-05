@@ -171,7 +171,5 @@ export const applyDeterministicPass = (
     endTurnAt(root, slug, state, active, turn)
     return 'turn'
   }
-  writeFileSync(path, `${JSON.stringify(replay, null, 2)}\n`)
-  return 'turn'
 }
 

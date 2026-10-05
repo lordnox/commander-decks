@@ -1,3 +1,3 @@
 #!/bin/sh
 # Enabled by `bun install` (see the `prepare` script in package.json).
-exec bun run check:imports
+bun run check:imports && bun run lint --quiet

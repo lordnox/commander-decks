@@ -642,7 +642,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       : undefined
     if (source && (targetIds.length > 0 || sacrificeCount !== undefined)) {
       const payload = {
-        ...(selection.triggerPayload ?? {}),
+        ...selection.triggerPayload,
         ...(sacrificeCount !== undefined ? { sacrificedCount: sacrificeCount } : {}),
       }
       if (selection.triggerPayload?.devour && selection.triggerInstructions) {

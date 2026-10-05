@@ -160,7 +160,7 @@ const fetchDeckTokens = async (deck: Deck, refresh: boolean, repo: string) => {
     ...new Set([...Object.values(producedBy).flat(), ...Object.keys(extras)]),
   ]
   const tokens: Record<string, Json> = refresh ? { ...extras } : {
-    ...(previous?.tokens ?? {}),
+    ...previous?.tokens,
     ...extras,
   }
   const missing = required.filter((id) => !tokens[id])

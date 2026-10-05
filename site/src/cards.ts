@@ -72,7 +72,7 @@ export const cardInfo = (
   const token = entry?.token_id ? game.tokens?.[entry.token_id] : undefined
   // A token printing can be a name-only stub, so the printed card of the same
   // name still supplies the type line and Oracle text the board rows need.
-  const details = { ...(game.catalog[name] ?? {}), ...(token ?? {}) }
+  const details = { ...game.catalog[name], ...token }
   const face = selectedFace(details, entry)
   const selected = face ? { ...details, ...face } : details
   return {
