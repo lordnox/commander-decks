@@ -284,7 +284,10 @@ export type CardInstruction =
   | { kind: 'eachPlayerDraw'; count: number }
   /** Each player draws cards equal to the damage dealt to this by sources they controlled this turn. */
   | { kind: 'eachPlayerDrawDamageDealtToSource' }
-  /** Each player, in turn order, may discard their hand and, if they do, draws `count` cards. */
+  /**
+   * Each player, in turn order, may discard their hand and, if they do, draws `count` cards.
+   * Must be the last instruction in its list: option choices do not resume later instructions.
+   */
   | { kind: 'eachPlayerMayWheel'; count: number }
   | { kind: 'eachPlayerLoseLife'; amount: number }
   | { kind: 'eachPlayerSacrifice'; type: string }

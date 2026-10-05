@@ -132,8 +132,10 @@ const blinkInstruction: InstructionHandler<'blink'> = (
   }
 
   const targetRef = item?.targets[instruction.targetIndex ?? 0]
+  // A source that already left the battlefield is a new object (CR 400.7); the ability does nothing.
+  const self = draft.object(source.id)
   const target = instruction.self
-    ? draft.object(source.id)
+    ? self?.zone === 'battlefield' ? self : undefined
     : targetRef?.kind === 'object' ? draft.object(targetRef.objectId) : undefined
   if (!target) return
   performBlink(draft, source, target, spec)

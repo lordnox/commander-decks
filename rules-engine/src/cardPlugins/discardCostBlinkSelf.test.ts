@@ -175,4 +175,14 @@ describe('blinkSelf', () => {
     expect(resolved.objects[elder.id].zone).toBe('graveyard')
     expect(resolved.delayedTriggers).toHaveLength(0)
   })
+
+  test('does nothing if the source was exiled in response, even though it is in exile', () => {
+    const { server, ready } = game(3, blinkSelf({ when: 'nextEndStep', tapped: true }))
+    const elder = named(ready, 'Tide Elder')
+    const started = ok(activate(server, ready, paid(ready)))
+    const exiled = ok(server.rules(started, { type: 'move', objectId: elder.id, to: 'exile' }))
+    const resolved = resolveStack(server.rules, exiled)
+    expect(resolved.objects[elder.id].zone).toBe('exile')
+    expect(resolved.delayedTriggers).toHaveLength(0)
+  })
 })
