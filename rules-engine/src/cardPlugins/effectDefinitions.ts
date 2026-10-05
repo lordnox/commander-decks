@@ -119,6 +119,8 @@ export type CardInstruction =
   | { kind: 'payEnergy'; count: number }
   | { kind: 'sacrificeSelf' }
   | { kind: 'addMana'; mana: Partial<ManaPool> }
+  /** Adds one of the listed pools; the controller picks privately unless the activation already named one. */
+  | { kind: 'addManaChoice'; options: Array<Partial<ManaPool>> }
   | { kind: 'addManaToEachPlayer'; mana: Partial<ManaPool> }
   /** `seat` names a drawer other than the controller, snapshot when the instruction is built. */
   | { kind: 'draw'; count: number; seat?: PlayerId; who?: 'controller' | 'triggeringPlayer' | 'target' }
@@ -592,7 +594,7 @@ export type CardEffect =
   | {
       op: 'replacement'
       on: 'enters'
-      do: 'tapSelf' | 'tapUnlessPayLife' | 'tapUnlessRevealSubtype'
+      do: 'tapSelf' | 'tapUnlessPayLife' | 'tapUnlessRevealSubtype' | 'chooseColor'
       life?: number
       subtypes?: string[]
       if?: CardCondition
@@ -751,6 +753,8 @@ export type CardEffect =
       pumpPerLinkedExile?: { power: number; toughness: number }
       /** If this card would be put into a graveyard from anywhere, reveal it and shuffle it into its owner's library. */
       shuffleIntoLibraryInstead?: true
+      /** Whenever the permanent this Aura enchants is tapped for mana, its controller adds one more mana. */
+      enchantedManaBoost?: { mana: Exclude<ManaId, 'C'> } | { chosenColor: true }
       exileOpponentGraveyard?: boolean
       playExiledWithLife?: boolean
     }

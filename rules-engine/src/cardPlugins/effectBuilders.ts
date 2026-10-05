@@ -1,4 +1,4 @@
-import type { DelayedTriggerCondition, ManaId, TriggerBindingIf, ZoneId } from '../types'
+import type { DelayedTriggerCondition, ManaId, ManaPool, TriggerBindingIf, ZoneId } from '../types'
 import type {
   ActivateCost,
   CardCondition,
@@ -210,6 +210,26 @@ export const entersTapped = (condition?: CardCondition): CardEffect => ({
   on: 'enters',
   do: 'tapSelf',
   ...(condition ? { if: condition } : {}),
+})
+
+/** "As this enters, choose a color." The pick is stored as `chosenColor`. */
+export const chooseColorOnEnter = (): CardEffect => ({
+  op: 'replacement',
+  on: 'enters',
+  do: 'chooseColor',
+})
+
+export const addManaChoice = (...options: Array<Partial<ManaPool>>): CardInstruction => ({
+  kind: 'addManaChoice',
+  options,
+})
+
+export const enchantedManaBoost = (
+  boost: Extract<CardEffect, { op: 'static' }>['enchantedManaBoost'],
+): CardEffect => ({
+  op: 'static',
+  pluginId: 'enchantedManaBoost',
+  enchantedManaBoost: boost,
 })
 
 export const otherLands = (

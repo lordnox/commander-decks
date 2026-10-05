@@ -234,6 +234,8 @@ export type GameObject = {
   tapProduces?: Partial<ManaPool>
   /** Chosen creature type, for example Roaming Throne. */
   chosenType?: string
+  /** Chosen color of a permanent that says "choose a color" as it enters. */
+  chosenColor?: ManaId
   /** The card this permanent is printed as, once a copy effect renamed it. */
   printedName?: string
   /** Object ids currently linked to this permanent by an "exiled with" ability. */

@@ -141,7 +141,7 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
   const add = card?.oracle_text.match(/Add \{([WUBRGC])\}/)
   const tapProduces = modes.length === 1
     ? modes[0]
-    : add ? { [add[1]]: 1 } : undefined
+    : modes.length > 1 && add ? { [add[1]]: 1 } : undefined
   const roomFaces = card?.faces?.length === 2
     && card.faces.every((face) => face.type_line.split(' // ').some(
       (faceTypeLine) => faceTypeLine.split(' — ')[1]?.split(' ').includes('Room'),

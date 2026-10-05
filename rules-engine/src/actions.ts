@@ -3,6 +3,7 @@ import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, poolForChoice } from './plugins/mana'
 import { giftSpecOf } from './cardPlugins/giftCast'
+import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
   kickCastLabel,
   multikickerCostOf,
@@ -392,6 +393,72 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
     || hasKeyword(object, 'haste', state)
   )
 
+/** One way a source can add mana: a bare tap, or an activated mana ability that costs mana first. */
+type ManaPlay = {
+  pool: Partial<ManaPool>
+  cost?: string
+  event: GameEvent
+}
+
+const manaPlays = (
+  state: GameState,
+  seat: PlayerId,
+  source: GameObject,
+  spell?: GameObject,
+): ManaPlay[] => {
+  const modes = manaModes(source, state)
+  const restricted = effectsOf(source).some((effect) => effect.op === 'restrictedMana')
+  const taps = restricted && !canUseRestrictedMana(state, seat, spell, source.chosenType)
+    ? modes.filter((mode) => (mode.C ?? 0) > 0)
+    : modes
+  return [
+    ...taps.flatMap((mode): ManaPlay[] => {
+      const choice = tapChoice(state, source, mode)
+      return choice
+        ? [{
+            pool: mode,
+            event: { type: 'tapForMana', seat, objectId: source.id, ...choice },
+          }]
+        : []
+    }),
+    ...activatedManaOptions(state, source).map(({ abilityId, cost, pool, choice }): ManaPlay => ({
+      pool,
+      cost,
+      event: {
+        type: 'activateAbility',
+        seat,
+        objectId: source.id,
+        abilityId,
+        manaAbility: true,
+        ...(choice ? { choices: [choice] } : {}),
+      },
+    })),
+  ]
+}
+
+/**
+ * Sources that can add mana, ordered so a costed ability sees the mana the
+ * free taps before it have already put in the pool.
+ */
+const manaSources = (
+  state: GameState,
+  seat: PlayerId,
+  spell?: GameObject,
+  excluded = new Set<string>(),
+) =>
+  Object.values(state.objects)
+    .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
+    .map((source) => manaPlays(state, seat, source, spell))
+    .filter((plays) => plays.length > 0)
+    .sort((left, right) =>
+      Number(left.some((play) => play.cost)) - Number(right.some((play) => play.cost)))
+
+const costSize = (cost: string) =>
+  [...cost.matchAll(/\{(\d+)\}/g)].reduce(
+    (total, match) => total + Number(match[1]),
+    [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGCP])?\}/g)].length,
+  )
+
 const poolKey = (pool: ManaPool, cap: number) =>
   MANA_IDS.map((mana) => Math.min(pool[mana], cap)).join(',')
 
@@ -420,33 +487,21 @@ const canFund = (
   extras: number[] | { creatures?: ManaId[][]; phyrexianLife?: number[] } = {},
   spell?: GameObject,
 ) => {
-  const sources = Object.values(state.objects)
-    .filter((object) => sourceCanTap(object, seat, state))
-    .map((object) => {
-      const modes = manaModes(object, state)
-      const restricted = effectsOf(object).some((effect) => effect.op === 'restrictedMana')
-      return restricted && !canUseRestrictedMana(state, seat, spell, object.chosenType)
-        ? modes.filter((mode) => (mode.C ?? 0) > 0)
-        : modes
-    })
-    .filter((modes) => modes.length > 0)
-  const cap = Math.max(
-    1,
-    [...cost.matchAll(/\{(\d+)\}/g)].reduce(
-      (total, match) => total + Number(match[1]),
-      [...cost.matchAll(/\{[WUBRGC](?:\/[WUBRGCP])?\}/g)].length,
-    ),
-  )
+  const cap = Math.max(1, costSize(cost))
   const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
     if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
   }
   let pools = [available]
-  for (const modes of sources) {
+  for (const plays of manaSources(state, seat, spell)) {
+    const costed = plays.some((play) => play.cost)
     const next = new Map<string, ManaPool>()
     for (const pool of pools) {
-      for (const mode of modes) {
-        const candidate = addPool(pool, mode)
+      if (costed) next.set(poolKey(pool, cap), pool)
+      for (const play of plays) {
+        const paid = play.cost ? payCost(pool, play.cost) : pool
+        if (!paid) continue
+        const candidate = addPool(paid, play.pool)
         next.set(poolKey(candidate, cap), candidate)
       }
     }
@@ -873,12 +928,11 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     }
     return actions
   }
-  const sourceMana = Object.values(state.objects)
-    .filter((source) => sourceCanTap(source, seat, state))
-    .reduce((total, source) => total + Math.max(
-      0,
-      ...manaModes(source, state).map((mode) => poolTotal({ ...emptyMana(), ...mode })),
-    ), 0)
+  const sourceMana = manaSources(state, seat).reduce((total, plays) => total + Math.max(
+    0,
+    ...plays.map((play) =>
+      poolTotal({ ...emptyMana(), ...play.pool }) - (play.cost ? costSize(play.cost) : 0)),
+  ), 0)
   const convokeUpper = hasConvoke(object)
     ? Object.values(state.objects).filter((candidate) =>
         candidate.zone === 'battlefield'
@@ -1798,19 +1852,6 @@ const fundingEvents = (
   extras: { creatures?: GameObject[]; phyrexianLife?: number[] } = {},
   spell?: GameObject,
 ): GameEvent[] | null => {
-  const sources = Object.values(state.objects)
-    .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
-    .map((source) => {
-      const modes = manaModes(source, state)
-      const restricted = effectsOf(source).some((effect) => effect.op === 'restrictedMana')
-      return {
-        source,
-        modes: restricted && !canUseRestrictedMana(state, seat, spell, source.chosenType)
-          ? modes.filter((mode) => (mode.C ?? 0) > 0)
-          : modes,
-      }
-    })
-    .filter(({ modes }) => modes.length > 0)
   const available = { ...(state.players[seat]?.mana ?? emptyMana()) }
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
     if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
@@ -1819,20 +1860,17 @@ const fundingEvents = (
     pool: available,
     events: [] as GameEvent[],
   }]
-  for (const { source, modes } of sources) {
+  for (const plays of manaSources(state, seat, spell, excluded)) {
     const next = new Map<string, typeof plans[number]>()
     for (const plan of plans) {
       const candidates = [
         plan,
-        ...modes.flatMap((mode) => {
-          const choice = tapChoice(state, source, mode)
-          if (!choice) return []
+        ...plays.flatMap((play) => {
+          const paid = play.cost ? payCost(plan.pool, play.cost) : plan.pool
+          if (!paid) return []
           return [{
-            pool: addPool(plan.pool, mode),
-            events: [
-              ...plan.events,
-              { type: 'tapForMana', seat, objectId: source.id, ...choice } as GameEvent,
-            ],
+            pool: addPool(paid, play.pool),
+            events: [...plan.events, play.event],
           }]
         }),
       ]
