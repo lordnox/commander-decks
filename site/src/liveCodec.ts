@@ -338,7 +338,7 @@ export const replayToLiveSnapshot = (
       color: seat?.color || '#888888',
       life: player?.life ?? replay.starting_life ?? 40,
       poison: player?.poison ?? 0,
-      commander_damage: { ...(player?.commander_damage ?? {}) },
+      commander_damage: { ...player?.commander_damage },
       commander_tax: player?.commander_tax ?? 0,
       library_count: player?.library_count ?? 0,
       hand_count: player?.hand_count ?? hand.length,
