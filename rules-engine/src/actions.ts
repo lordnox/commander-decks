@@ -1415,6 +1415,29 @@ export const manaAffordances = (
             mana,
           })
         }
+        continue
+      }
+      // A costed mana ability the planner cannot fund by itself (Millikin's mill,
+      // Cabal Coffers' per-Swamp mana) is offered once its cost is in the pool.
+      const costed = Boolean(effect.costs.mana || effect.costs.mill || effect.costs.life)
+      if (
+        costed
+        && !activatedManaOptions(state, object).some((option) => option.abilityId === effect.id)
+        && canPayCardActivationCosts(
+          state,
+          object,
+          seat,
+          effect.costs,
+          (cost) => Boolean(payCost(state.players[seat].mana, cost)),
+        )
+      ) {
+        actions.push({
+          kind: 'activateAbility',
+          objectId: object.id,
+          name: object.name,
+          text: effect.id,
+          abilityId: effect.id,
+        })
       }
     }
     if (!sourceCanTap(object, seat, state)) continue

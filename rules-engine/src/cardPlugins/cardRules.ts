@@ -678,6 +678,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       costs: { mana: '{3}', tap: true },
       do: [putLandFromHand(true)],
     }),
+    manaFrom('controlledLands'),
     activate({
       id: 'horizon.draw',
       costs: { mana: '{1}', tap: true, sacrifice: 'self' },
@@ -1185,7 +1186,20 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
-  'Lotus Field': [entersTapped(), enters(sacrificeControlled(2, ['Land']))],
+  'Lotus Field': [
+    entersTapped(),
+    enters(sacrificeControlled(2, ['Land'])),
+    activate({
+      id: 'lotusField.mana',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [
+        { kind: 'addChosenColorMana' },
+        { kind: 'addChosenColorMana' },
+        { kind: 'addChosenColorMana' },
+      ],
+    }),
+  ],
   Millikin: [
     activate({
       id: 'selfMill.millikin',
@@ -2132,6 +2146,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
   'Exotic Orchard': [manaFrom('opponentsLands')],
+  'Fellwar Stone': [manaFrom('opponentsLands')],
   'Energy Arc': [handler('combatPreventionCards')],
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Expedition Map': [
