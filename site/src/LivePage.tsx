@@ -1220,7 +1220,7 @@ export const LivePage = () => {
                 Your judge history · {snapshot.judgeHistory.length}
               </summary>
               <ol className="mt-3 space-y-3">
-                {snapshot.judgeHistory.toReversed().map((entry) => (
+                {[...snapshot.judgeHistory].reverse().map((entry) => (
                   <li
                     key={`${entry.id}-${entry.type}`}
                     className="border-b border-white/5 pb-3 last:border-0 last:pb-0"
@@ -1242,7 +1242,7 @@ export const LivePage = () => {
                 Stack · {snapshot.stack.length}
               </p>
               <ol className="mt-2 space-y-1 text-sm leading-6 text-stone-300">
-                {snapshot.stack.toReversed().map((item, index) => {
+                {[...snapshot.stack].reverse().map((item, index) => {
                   const name = typeof item.name === 'string' ? item.name : String(item.name)
                   const hints = [
                     item.kind === 'action' ? 'Action' : '',
