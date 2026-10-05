@@ -17,7 +17,7 @@ const ROMAN_VALUES: Record<string, number> = {
   M: 1000,
 }
 
-const romanNumber = (value: string) => {
+export const romanNumber = (value: string) => {
   let total = 0
   let previous = 0
   for (let index = value.length - 1; index >= 0; index -= 1) {

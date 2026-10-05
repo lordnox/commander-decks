@@ -98,6 +98,20 @@ describe('costed mana abilities are not free modes', () => {
     })).toEqual([{ G: 1 }])
   })
 
+  test("a Land Saga taps for {C} once chapter I's lore counter is there (Urza's Saga)", () => {
+    const saga = {
+      oracleText: '(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\n'
+        + 'I — This Saga gains "{T}: Add {C}."\n'
+        + 'II — This Saga gains "{2}, {T}: Create a Construct token."\n'
+        + 'III — Search your library for an artifact card.',
+      types: ['Land'],
+      subtypes: ["Urza's", 'Saga'],
+    }
+    expect(manaModes({ ...saga, counters: {} })).toEqual([])
+    expect(manaModes({ ...saga, counters: { lore: 1 } })).toEqual([{ C: 1 }])
+    expect(manaModes({ ...saga, counters: { lore: 2 } })).toEqual([{ C: 1 }])
+  })
+
   test('reminder text that merely quotes a mana ability gives no mana', () => {
     expect(manaModes({
       oracleText: 'Prototype {1}{G}\n(It has "{T}: Add {C}." as an example.)',
@@ -117,6 +131,28 @@ describe('costed mana abilities are not free modes', () => {
       objectId,
       mana: 'G',
     }).ok).toBe(false)
+  })
+})
+
+const saga = (lore: number) => cardTemplate("Test Urza's Saga", {
+  types: ['Land'],
+  subtypes: ["Urza's", 'Saga'],
+  counters: lore > 0 ? { lore } : {},
+  oracleText: 'I — This Saga gains "{T}: Add {C}."\nIII — Search your library for an artifact card.',
+})
+
+describe('a Land Saga that gains a mana ability', () => {
+  test('taps for {C} once it has its lore counter, not before', () => {
+    const before = game([saga(0)])
+    const objectId = named(before.state, "Test Urza's Saga").id
+    expect(before.rules(before.state, { type: 'tapForMana', seat: 'p1', objectId }).ok).toBe(false)
+    const after = game([saga(1)])
+    const tapped = ok(after.rules(after.state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: named(after.state, "Test Urza's Saga").id,
+    }))
+    expect(tapped.players.p1.mana.C).toBe(1)
   })
 })
 

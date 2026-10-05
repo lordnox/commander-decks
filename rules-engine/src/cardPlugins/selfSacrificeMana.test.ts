@@ -32,6 +32,56 @@ const spell = (manaCost: string) => cardTemplate('Planner Spell', {
   manaCost,
 })
 
+const spawn = () => cardTemplate('Eldrazi Spawn', {
+  types: ['Creature'],
+  token: true,
+  oracleText: 'Sacrifice this token: Add {C}.',
+  effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', sacrificeForMana: { C: 1 } }),
+})
+
+const basic = (name: 'Forest' | 'Mountain'): CardTemplate => cardTemplate(name, {
+  types: ['Land'],
+  subtypes: [name],
+  supertypes: ['Basic'],
+  tapProduces: { [name === 'Forest' ? 'G' : 'R']: 1 },
+  oracleText: `{T}: Add {${name === 'Forest' ? 'G' : 'R'}}.`,
+})
+
+/** Names of the sources the planner uses to cast Planner Spell, in plan order. */
+const plannedSources = (server: ReturnType<typeof game>) => {
+  const objectId = named(server.state, 'Planner Spell')[0].id
+  const action = availableActions(server.state, 'p1').find((candidate) =>
+    candidate.kind === 'castSpell' && candidate.objectId === objectId)!
+  return eventsForAvailableAction(server.state, 'p1', action)!.flatMap((event) =>
+    event.type === 'tapForMana' || event.type === 'activateAbility'
+      ? [server.state.objects[event.objectId].name]
+      : [])
+}
+
+describe('planning prefers lands over sacrifice sources', () => {
+  test.each([
+    ['land first', [basic('Forest'), treasure()]],
+    ['treasure first', [treasure(), basic('Forest')]],
+  ])('a {G} spell taps the Forest, not the Treasure (%s)', (_, battlefield) => {
+    expect(plannedSources(game(battlefield, [spell('{G}')]))).toEqual(['Forest'])
+  })
+
+  test.each([
+    ['land first', [basic('Forest'), treasure()]],
+    ['treasure first', [treasure(), basic('Forest')]],
+  ])('the Treasure is spent when it is genuinely needed (%s)', (_, battlefield) => {
+    expect(plannedSources(game(battlefield, [spell('{G}{R}')])).sort())
+      .toEqual(['Forest', 'Treasure'])
+  })
+
+  test('an Eldrazi Spawn is kept when a land pays, in either order', () => {
+    expect(plannedSources(game([spawn(), basic('Mountain')], [spell('{1}')])))
+      .toEqual(['Mountain'])
+    expect(plannedSources(game([basic('Mountain'), spawn()], [spell('{1}')])))
+      .toEqual(['Mountain'])
+  })
+})
+
 describe('sacrifice-this mana abilities', () => {
   test('tapping a Treasure adds the chosen color and sacrifices it', () => {
     const server = game([treasure()])
@@ -148,7 +198,7 @@ describe('sacrifice-this mana abilities', () => {
   })
 
   test('an Eldrazi Spawn funds a spell through its explicit ability while summoning sick', () => {
-    const spawn = cardTemplate('Eldrazi Spawn', {
+    const sickSpawn = cardTemplate('Eldrazi Spawn', {
       types: ['Creature'],
       subtypes: ['Eldrazi', 'Spawn'],
       summoningSickness: true,
@@ -156,7 +206,7 @@ describe('sacrifice-this mana abilities', () => {
       oracleText: 'Sacrifice this token: Add {C}.',
       effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', sacrificeForMana: { C: 1 } }),
     })
-    const server = game([spawn], [spell('{1}')])
+    const server = game([sickSpawn], [spell('{1}')])
     const objectId = named(server.state, 'Planner Spell')[0].id
     const action = availableActions(server.state, 'p1').find((candidate) =>
       candidate.kind === 'castSpell' && candidate.objectId === objectId)!

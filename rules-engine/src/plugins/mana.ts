@@ -6,6 +6,7 @@ import { payCost } from './spells'
 import { hasForestOverlay } from './forestOverlay'
 import { hasSwampOverlay } from './swampOverlay'
 import { effectsOf } from '../cardPlugins/cardRules'
+import { romanNumber } from './saga'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 const COLORS: ManaId[] = ['W', 'U', 'B', 'R', 'G']
@@ -27,6 +28,7 @@ type ManaSource = {
   subtypes?: string[]
   effects?: CardEffect[]
   chosenType?: string
+  counters?: Record<string, number>
 }
 
 const commanderIdentity = (state: Pick<GameState, 'objects'>, seat: PlayerId) => {
@@ -48,10 +50,23 @@ const SACRIFICE_SELF_LINE = new RegExp(
   'i',
 )
 
-const manaLines = (oracleText: string) => {
-  const lines = oracleText.split('\n')
+/**
+ * Saga chapters that grant `"{T}: Add {C}."` (Urza's Saga) count as that
+ * ability once the Saga has at least that many lore counters; a grant from a
+ * chapter lasts as long as the Saga stays on the battlefield.
+ */
+const grantedTapLines = ({ oracleText, counters }: Pick<ManaSource, 'oracleText' | 'counters'>) =>
+  oracleText.split('\n').flatMap((line) => {
+    const grant = /^([IVXLC]+(?:,\s*[IVXLC]+)*)\s+[—-].* gains "(\{T\}: Add [^"]*)"/u.exec(line)
+    const reached = grant?.[1].split(',').some((chapter) =>
+      (counters?.lore ?? 0) >= romanNumber(chapter.trim()))
+    return grant && reached ? [grant[2]] : []
+  })
+
+const manaLines = (object: Pick<ManaSource, 'oracleText' | 'counters'>) => {
+  const lines = object.oracleText.split('\n')
   return {
-    free: lines.filter((line) => FREE_TAP_LINE.test(line)),
+    free: [...lines, ...grantedTapLines(object)].filter((line) => FREE_TAP_LINE.test(line)),
     sacrifice: lines.filter((line) => SACRIFICE_SELF_LINE.test(line)),
   }
 }
@@ -64,20 +79,22 @@ const manaLines = (oracleText: string) => {
  * Sacrifice lines count only when the source has no free line, and not when an
  * explicit mana-ability effect already covers them.
  */
-const tapManaText = (object: Pick<ManaSource, 'oracleText' | 'effects'>) => {
-  const { free, sacrifice } = manaLines(object.oracleText)
+const tapManaText = (object: Pick<ManaSource, 'oracleText' | 'effects' | 'counters'>) => {
+  const { free, sacrifice } = manaLines(object)
   const explicitSacrifice = object.effects?.some((effect) =>
     effect.op === 'activate' && effect.manaAbility && effect.costs.sacrifice)
   return (free.length > 0 ? free : explicitSacrifice ? [] : sacrifice).join('\n')
 }
 
 /** Whether tapping this source for mana sacrifices it, as a Treasure does. */
-export const sacrificesForMana = (object: Pick<ManaSource, 'oracleText' | 'effects'>) =>
-  manaLines(object.oracleText).free.length === 0 && tapManaText(object) !== ''
+export const sacrificesForMana = (
+  object: Pick<ManaSource, 'oracleText' | 'effects' | 'counters'>,
+) =>
+  manaLines(object).free.length === 0 && tapManaText(object) !== ''
 
 /** A sacrifice-only ability with no `{T}` (Basal Thrull) needs no untapped, unsick source. */
-export const manaRequiresTap = (object: Pick<ManaSource, 'oracleText'>) => {
-  const { free, sacrifice } = manaLines(object.oracleText)
+export const manaRequiresTap = (object: Pick<ManaSource, 'oracleText' | 'counters'>) => {
+  const { free, sacrifice } = manaLines(object)
   return free.length > 0 || sacrifice.length === 0 || sacrifice.some((line) => line.includes('{T}'))
 }
 
