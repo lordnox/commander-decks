@@ -101,7 +101,7 @@ import {
 import { liveSnapshotFromState } from './kernelView'
 import type { TopdeckMessage } from './kernelChoice'
 import type { SeatId } from './protocol'
-import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
+import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 
 const RANKLE_MODES = {
@@ -3579,6 +3579,32 @@ describe('same-named candidates are picked by position', () => {
     expect(after.objects[mango].zone).toBe('graveyard')
     expect(after.objects[apple].zone).toBe('hand')
     expect(after.objects[zebra].zone).toBe('hand')
+  })
+
+  test('a typed option choice answers with the offered position when labels repeat', () => {
+    const server = createServerGame(commanderRules, {})
+    server.state.players.p1.data[PENDING_OPTION_SELECTION] = {
+      id: 'option-1',
+      seat: 'p1',
+      prompt: 'Choose one.',
+      options: [{ id: 'first', label: 'Same' }, { id: 'second', label: 'Same' }],
+      action: { kind: 'choose-color' },
+    }
+    server.state.priority = 'p1'
+    const kernel = handleFor(server.rules, server.state)
+    const lobby = offer(kernel)
+
+    expect(applyKernelChoice(kernel, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Same', slot: 0, destination: 'skip' },
+        { card: 'Same', slot: 1, destination: 'target' },
+      ],
+    })).toBe(true)
+
+    expect(kernel.journal.events).toContainEqual(
+      expect.objectContaining({ type: 'selectOption', optionId: 'second' }),
+    )
   })
 
   test('a library search offers its matches by name, so the offer does not reveal library order', () => {
