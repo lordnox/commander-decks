@@ -354,16 +354,24 @@ describe('permanentSacrificed', () => {
   })
 })
 
-describe('permanentSacrificed from other sacrifice paths', () => {
-  const asP2 = (state: GameState) => {
-    const next = structuredClone(state)
-    next.active = 'p2'
-    next.priority = 'p2'
-    return next
-  }
+const asP2 = (state: GameState) => {
+  const next = structuredClone(state)
+  next.active = 'p2'
+  next.priority = 'p2'
+  return next
+}
 
+const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
+
+const forest = (name: string) => cardTemplate(name, {
+  types: ['Land'],
+  subtypes: ['Forest'],
+  supertypes: ['Basic'],
+  tapProduces: { G: 1 },
+})
+
+describe('permanentSacrificed from other sacrifice paths', () => {
   test('a sacrifice paid as a spell cost triggers it for each permanent', () => {
-    const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       {
@@ -402,12 +410,6 @@ describe('permanentSacrificed from other sacrifice paths', () => {
   })
 
   test('lands sacrificed while a search spell resolves trigger it', () => {
-    const forest = (name: string) => cardTemplate(name, {
-      types: ['Land'],
-      subtypes: ['Forest'],
-      supertypes: ['Basic'],
-      tapProduces: { G: 1 },
-    })
     const server = createServerGame(
       commanderRules,
       {
