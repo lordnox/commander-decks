@@ -319,9 +319,10 @@ const KNOWN_GAPS: Record<string, string> = {
     'its any-color mana may only pay for a legendary spell and makes it uncounterable; restrictedMana only knows the creature type Cavern of Souls chose, so the colors are currently unrestricted',
   'Barkchannel Pathway // Tidechannel Pathway':
     'playLand always shows the first land face; there is no way to choose the Tidechannel (blue) face',
-  'City of Brass':
-    'tapping it puts its damage trigger on the stack at once, so the planner cannot tap it and cast a sorcery-speed spell in one step; tapped by hand it adds its mana and pings once the trigger resolves (tested below)',
 }
+
+/** Sources with their own describe block below. */
+const BESPOKE = ['City of Brass']
 
 const PROBE = 'Probe'
 
@@ -368,6 +369,8 @@ const build = (
     override?: Partial<CardTemplate>
     sick?: boolean
     inHand?: boolean
+    /** Put the source after its helpers in object order. */
+    last?: boolean
     library?: number
   },
 ) => {
@@ -381,7 +384,7 @@ const build = (
     {
       players: 2,
       battlefield: {
-        p1: options.inHand ? helpers : [source, ...helpers],
+        p1: options.inHand ? helpers : options.last ? [...helpers, source] : [source, ...helpers],
         p2: (options.opponent ?? []).map((name) => deckCardTemplate(name)),
       },
       hands: {
@@ -525,6 +528,65 @@ describe('act route: costed mana abilities are offered and add exactly their Ora
 })
 
 describe('City of Brass', () => {
+  const creature = () => cardTemplate(PROBE, {
+    types: ['Creature'],
+    manaCost: '{G}',
+    manaValue: 1,
+  })
+  const castActs = (state: GameState) => legalActsFor(state, 'p1').filter((act) =>
+    act.kind === 'castSpell' && act.name === PROBE)
+
+  test.each([[false], [true]])(
+    'a {G} creature is paid by the Forest, never by City of Brass, whatever the object order (City last: %s)',
+    (last) => {
+      const { server, state } = build('City of Brass', {
+        helpers: ['Forest'],
+        hand: [creature()],
+        last,
+      })
+      const [act] = castActs(state)
+      const events = eventsForAvailableAction(state, 'p1', act)!
+      expect(events.map((event) => event.type)).toEqual(['tapForMana', 'castSpell'])
+      expect(state.objects[(events[0] as { objectId: string }).objectId].name).toBe('Forest')
+      const next = resolveStack(server.rules, events.reduce(
+        (current, event) => ok(server.rules(current, event)),
+        state,
+      ))
+      expect(named(next, PROBE)[0].zone).toBe('battlefield')
+      expect(next.players.p1.life).toBe(state.players.p1.life)
+      expect(named(next, 'City of Brass')[0].tapped).toBe(false)
+    },
+  )
+
+  test('alone it is not offered a sorcery-speed cast, but can be tapped by hand and then cast from', () => {
+    const { server, state, sourceId } = build('City of Brass', { hand: [creature()] })
+    expect(castActs(state)).toEqual([])
+    const manual = legalActsFor(state, 'p1').filter((act) =>
+      act.kind === 'tapForMana' && act.objectId === sourceId)
+    expect(manual.map((act) => act.kind === 'tapForMana' ? act.mana : undefined).toSorted())
+      .toEqual(['B', 'G', 'R', 'U', 'W'])
+
+    const tapped = ok(server.rules(state, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: sourceId,
+      mana: 'G',
+    }))
+    // The trigger waits on the stack, and the spell is not castable until it resolves.
+    expect(tapped.stack).toHaveLength(1)
+    expect(server.rules(tapped, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(tapped, PROBE)[0].id,
+    }).ok).toBe(false)
+    const resolved = resolveStack(server.rules, tapped)
+    expect(resolved.players.p1.life).toBe(state.players.p1.life - 1)
+    const [act] = castActs(resolved)
+    const cast = eventsForAvailableAction(resolved, 'p1', act)!
+      .reduce((current, event) => ok(server.rules(current, event)), resolved)
+    expect(named(resolveStack(server.rules, cast), PROBE)[0].zone).toBe('battlefield')
+  })
+
   test.each(['W', 'U', 'B', 'R', 'G'] as const)(
     'tapped by hand it adds {%s} and pings once the trigger resolves',
     (mana) => {
@@ -556,6 +618,7 @@ describe('the mana-source inventory of the four decks is complete', () => {
       ...Object.keys(SCENARIOS),
       ...Object.keys(ACT_CASES),
       ...Object.keys(KNOWN_GAPS),
+      ...BESPOKE,
     ])
     expect([...new Set(manaCards)].filter((name) => !covered.has(name))).toEqual([])
   })
@@ -567,6 +630,7 @@ describe('the mana-source inventory of the four decks is complete', () => {
       ...Object.keys(SCENARIOS),
       ...Object.keys(ACT_CASES),
       ...Object.keys(KNOWN_GAPS),
+      ...BESPOKE,
     ].filter((name) => !played.has(name))
     expect(missing).toEqual([])
   })

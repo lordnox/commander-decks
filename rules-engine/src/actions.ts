@@ -453,6 +453,18 @@ const manaPlays = (
   ]
 }
 
+/** Sorcery-speed spells (and special actions) cannot be cast or taken while anything waits on the stack. */
+const needsEmptyStack = (state: GameState, seat: PlayerId, spell: GameObject) =>
+  !spell.types.includes('Instant') && !mayCastAsThoughFlash(state, seat)
+
+/**
+ * Tapping this source for mana puts a "becomes tapped" trigger on the stack
+ * (City of Brass), so the cast it pays for would be rejected as the stack is
+ * no longer empty. Such a source is left to a manual tap, then a cast.
+ */
+const tapTriggersOnStack = (object: GameObject) =>
+  effectsOf(object).some((effect) => effect.op === 'trigger' && effect.on === 'tapped')
+
 /**
  * Sources that can add mana, ordered so a costed ability sees the mana the
  * free taps before it have already put in the pool.
@@ -464,7 +476,10 @@ const manaSources = (
   excluded = new Set<string>(),
 ) =>
   Object.values(state.objects)
-    .filter((object) => sourceCanTap(object, seat, state) && !excluded.has(object.id))
+    .filter((object) =>
+      sourceCanTap(object, seat, state)
+      && !excluded.has(object.id)
+      && !(spell && needsEmptyStack(state, seat, spell) && tapTriggersOnStack(object)))
     .map((source) => manaPlays(state, seat, source, spell))
     .filter((plays) => plays.length > 0)
     .sort((left, right) =>
@@ -627,7 +642,7 @@ const convokeIfNeeded = (
 ) => {
   if (canFund(state, seat, cost, phyrexianLife, object)) return undefined
   if (!hasConvoke(object)) return null
-  return convokeFundingPlan(state, seat, cost, phyrexianLife)?.convoke ?? null
+  return convokeFundingPlan(state, seat, cost, phyrexianLife, object)?.convoke ?? null
 }
 
 /**
@@ -777,7 +792,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
     const suffix = tax > 0 ? `{${tax}}` : ''
     return (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
       const characteristics = roomDoor(object, door)
-      if (!characteristics || !canFund(state, seat, `${characteristics.manaCost}${suffix}`)) {
+      if (!characteristics || !canFund(state, seat, `${characteristics.manaCost}${suffix}`, [], object)) {
         return []
       }
       return [{
@@ -859,7 +874,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
           timesKicked,
           seat,
         })
-        if (!canFund(state, seat, cost)) {
+        if (!canFund(state, seat, cost, [], spell)) {
           if (timesKicked === 0) break
           break
         }
@@ -1278,7 +1293,7 @@ export const availableActions = (
         if (
           characteristics
           && !object.unlockedDoors?.includes(door)
-          && canFund(state, seat, characteristics.manaCost)
+          && canFund(state, seat, characteristics.manaCost, [], object)
         ) {
           actions.push({
             kind: 'unlockDoor',
@@ -2014,6 +2029,7 @@ const convokeFundingPlan = (
   seat: PlayerId,
   cost: string,
   phyrexianLife: number[] = [],
+  spell?: GameObject,
 ): { convoke: string[]; mana: GameEvent[] } | null => {
   const candidates = Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield'
@@ -2028,7 +2044,7 @@ const convokeFundingPlan = (
       const mana = fundingEvents(state, seat, cost, new Set(ids), {
         creatures,
         phyrexianLife,
-      })
+      }, spell)
       if (mana) return { convoke: ids, mana }
     }
   }
@@ -2171,7 +2187,7 @@ export const eventsForAvailableAction = (
     const object = state.objects[action.objectId]
     const door = object && roomDoor(object, action.door)
     if (!object || !door) return null
-    const mana = fundingEvents(state, seat, door.manaCost)
+    const mana = fundingEvents(state, seat, door.manaCost, new Set(), {}, object)
     if (!mana) return null
     return [
       ...mana,
