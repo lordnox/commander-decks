@@ -256,14 +256,14 @@ describe('Dack Party pass-35 cardRules', () => {
     ready.players.p2.data[LEGENDARY_COMBAT_DAMAGE_FROM] = { p1: true }
     expect(legendaryCombatDamageFrom(ready.players.p2)).toEqual({ p1: true })
 
-    const activated = ok(server.rules(ready, {
+    const afterActivate = ok(server.rules(ready, {
       type: 'activateAbility',
       seat: 'p1',
       objectId: ballId,
       abilityId: 'blitzball.goal',
     }))
-    expect(activated.stack).toHaveLength(1)
-    const resolved = resolveStack(server.rules, activated)
+    expect(afterActivate.stack).toHaveLength(1)
+    const resolved = resolveStack(server.rules, afterActivate)
     expect(resolved.zoneCounts.p1.hand).toBe(2)
     expect(resolved.zoneCounts.p1.battlefield).toBe(0)
     expect(resolved.zoneCounts.p1.graveyard).toBe(1)

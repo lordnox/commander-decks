@@ -636,7 +636,7 @@ const phyrexianPayments = (cost: string, life: number) => {
       { length: symbols.length },
       (__, index) => index,
     ).filter((index) => mask & (1 << index)),
-  ).filter((symbols) => symbols.length * 2 <= life)
+  ).filter((indexes) => indexes.length * 2 <= life)
   const unique = new Map<string, number[]>()
   for (const payment of payments) {
     const key = payment.map((index) => symbols[index]).sort().join(',')

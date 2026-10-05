@@ -145,13 +145,13 @@ const openCardDatabase = () =>
       return
     }
     const request = indexedDB.open(databaseName, 1)
-    request.onupgradeneeded = () => {
+    request.addEventListener('upgradeneeded', () => {
       if (!request.result.objectStoreNames.contains(storeName)) {
         request.result.createObjectStore(storeName, { keyPath: 'id' })
       }
-    }
-    request.onsuccess = () => resolve(request.result)
-    request.onerror = () => reject(request.error ?? new Error('Could not open card cache'))
+    })
+    request.addEventListener('success', () => resolve(request.result))
+    request.addEventListener('error', () => reject(request.error ?? new Error('Could not open card cache')))
   })
 
 const readCachedCards = async (ids: string[], now: number) => {
@@ -166,16 +166,16 @@ const readCachedCards = async (ids: string[], now: number) => {
       const store = transaction.objectStore(storeName)
       for (const id of ids) {
         const request = store.get(id)
-        request.onsuccess = () => {
+        request.addEventListener('success', () => {
           const cached = request.result as CachedCard | undefined
           if (!cached) return
           const target = now - cached.fetchedAt < cacheTtl ? fresh : stale
           target.set(id, cached.details)
-        }
+        })
       }
-      transaction.oncomplete = () => resolve()
-      transaction.onerror = () => reject(transaction.error ?? new Error('Could not read card cache'))
-      transaction.onabort = () => reject(transaction.error ?? new Error('Card cache read aborted'))
+      transaction.addEventListener('complete', () => resolve())
+      transaction.addEventListener('error', () => reject(transaction.error ?? new Error('Could not read card cache')))
+      transaction.addEventListener('abort', () => reject(transaction.error ?? new Error('Card cache read aborted')))
     })
   } finally {
     database.close()
@@ -193,9 +193,9 @@ const writeCachedCards = async (cards: Map<string, CardDetails>, fetchedAt: numb
       for (const [id, details] of cards) {
         store.put({ id, fetchedAt, details } satisfies CachedCard)
       }
-      transaction.oncomplete = () => resolve()
-      transaction.onerror = () => reject(transaction.error ?? new Error('Could not update card cache'))
-      transaction.onabort = () => reject(transaction.error ?? new Error('Card cache update aborted'))
+      transaction.addEventListener('complete', () => resolve())
+      transaction.addEventListener('error', () => reject(transaction.error ?? new Error('Could not update card cache')))
+      transaction.addEventListener('abort', () => reject(transaction.error ?? new Error('Card cache update aborted')))
     })
   } finally {
     database.close()

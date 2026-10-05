@@ -159,8 +159,8 @@ export const createServerGame = (
   return {
     ...engine,
     state,
-    project: (state: GameState, viewer: PlayerId | null) =>
-      projectForViewer(state, viewer),
+    project: (snapshot: GameState, viewer: PlayerId | null) =>
+      projectForViewer(snapshot, viewer),
   }
 }
 

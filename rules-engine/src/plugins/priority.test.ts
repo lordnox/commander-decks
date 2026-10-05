@@ -43,6 +43,8 @@ const stackItem = (objectId: string, name: string): StackItem => ({
   targets: [],
 })
 
+const instantCard = (name: string) => cardTemplate(name, { types: ['Instant'] })
+
 const idOf = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!.id
 
@@ -143,9 +145,8 @@ describe('priority', () => {
   })
 
   test('all-pass while a discard action is waiting does not resolve or loop', () => {
-    const card = (name: string) => cardTemplate(name, { types: ['Instant'] })
     const server = createServerGame(commanderRules, {
-      hands: { p2: [card('Waiting')] },
+      hands: { p2: [instantCard('Waiting')] },
       players: 4,
     })
     const draft = makeDraft(server.state)

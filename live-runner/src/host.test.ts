@@ -38,6 +38,20 @@ const setup = async () => {
   return { kernel, lobby }
 }
 
+const openingPlayer = (hand: string[]) => ({
+  life: 40,
+  poison: 0,
+  commander_damage: {},
+  commander_tax: 0,
+  library_count: 2,
+  hand,
+  battlefield: [],
+  graveyard: [],
+  exile: [],
+  command: ['Commander'],
+  revealed_top: [],
+})
+
 describe('kernel host actions', () => {
   test('automation controls update host state without a judge round', () => {
     const lobby = createLobby()
@@ -169,19 +183,6 @@ describe('kernel host actions', () => {
     const root = mkdtempSync(join(tmpdir(), 'kernel-host-opening-'))
     mkdirSync(join(root, 'table-games'), { recursive: true })
     writeFileSync(join(root, 'package.json'), '{}\n')
-    const player = (hand: string[]) => ({
-      life: 40,
-      poison: 0,
-      commander_damage: {},
-      commander_tax: 0,
-      library_count: 2,
-      hand,
-      battlefield: [],
-      graveyard: [],
-      exile: [],
-      command: ['Commander'],
-      revealed_top: [],
-    })
     writeFileSync(
       join(root, 'table-games', 'pod.json'),
       JSON.stringify({
@@ -199,7 +200,7 @@ describe('kernel host actions', () => {
             turn: 0,
             phase: 'setup',
             stack: [],
-            players: { p1: player(['Swamp']) },
+            players: { p1: openingPlayer(['Swamp']) },
           },
         }],
         _libraries: { p1: ['Island', 'Plains'] },

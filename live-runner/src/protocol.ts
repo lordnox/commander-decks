@@ -244,7 +244,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         return parsed({
           type: 'act',
           kind: 'declareAttackers',
-          attackers: attackers.map(({ objectId, defenderId }) => ({ objectId, defenderId })),
+          attackers: attackers.map((attacker) => ({
+            objectId: attacker.objectId,
+            defenderId: attacker.defenderId,
+          })),
         })
       }
       if (kind === 'declareBlockers') {

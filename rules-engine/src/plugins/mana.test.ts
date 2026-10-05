@@ -136,9 +136,9 @@ describe('mana', () => {
     }
     const state = newGame({ builtinRules: ['mana'], battlefield: { p1: [triome] } })
     const objectId = idOf(state, 'Zagoth Triome', 'battlefield')
-    for (const mana of ['B', 'G', 'U'] as const) {
-      const next = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana }, catalog))
-      expect(next.players.p1.mana[mana]).toBe(1)
+    for (const color of ['B', 'G', 'U'] as const) {
+      const next = ok(rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana: color }, catalog))
+      expect(next.players.p1.mana[color]).toBe(1)
     }
     const red = rules(state, { type: 'tapForMana', seat: 'p1', objectId, mana: 'R' }, catalog)
     expect(red.ok).toBe(false)

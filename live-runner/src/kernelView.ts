@@ -319,8 +319,8 @@ export const liveSeatsFromState = (
           .filter((other) => other !== seat)
           .map((other) => [other, 0]),
       ),
-      battlefield: player.battlefield.map((card, index) => {
-        const object = controlledBattlefield(state, seat)[index]
+      battlefield: player.battlefield.map((card, cardIndex) => {
+        const object = controlledBattlefield(state, seat)[cardIndex]
         return {
           ...card,
           objectId: object?.id,

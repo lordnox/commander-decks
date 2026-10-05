@@ -70,8 +70,8 @@ export const pendingPlayerSelectionFor = (state: GameState | Draft, seat: Player
 
 export const pendingPlayerSelection = (state: GameState | Draft, seat?: PlayerId) => {
   if (seat) return pendingPlayerSelectionFor(state, seat)
-  for (const seat of state.playerOrder) {
-    const pending = pendingPlayerSelectionFor(state, seat)
+  for (const candidate of state.playerOrder) {
+    const pending = pendingPlayerSelectionFor(state, candidate)
     if (pending) return pending
   }
 }

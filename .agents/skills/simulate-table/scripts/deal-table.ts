@@ -318,13 +318,13 @@ const statLine = (cache: Json) => {
 
 /** One entry per DFC face or Room door. */
 export const cardFaces = (cache: Json) => {
-  const cardFaces = cache.card_faces ?? []
+  const printedFaces = cache.card_faces ?? []
   const room = String(cache.type_line ?? '').split(' // ').every(
     (typeLine) => typeLine.split(' — ')[1]?.split(' ').includes('Room'),
   )
   const faces = room
-    ? cardFaces
-    : cardFaces.filter((face: Json) => face.image_uris?.small)
+    ? printedFaces
+    : printedFaces.filter((face: Json) => face.image_uris?.small)
   if (faces.length < 2) return undefined
   return faces.map((face: Json) => ({
     name: face.name || "",

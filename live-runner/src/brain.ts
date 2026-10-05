@@ -321,8 +321,8 @@ preserves _libraries. The runner will validate and publish it.
 const escapePattern = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-export const redactHiddenCards = (note: string, replayPath: string) => {
-  const replay = JSON.parse(readFileSync(replayPath, 'utf8')) as {
+export const redactHiddenCards = (note: string, path: string) => {
+  const replay = JSON.parse(readFileSync(path, 'utf8')) as {
     events?: Array<{
       state?: {
         players?: Record<string, { hand?: unknown[] }>

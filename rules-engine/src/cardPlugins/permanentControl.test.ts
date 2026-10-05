@@ -36,17 +36,17 @@ import {
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 
 const handleFor = (
-  rules: (state: GameState, event: Parameters<KernelHandle['dispatch']>[0]) => ReturnType<KernelHandle['dispatch']>,
+  reduce: (state: GameState, event: Parameters<KernelHandle['dispatch']>[0]) => ReturnType<KernelHandle['dispatch']>,
   initial: GameState,
 ): KernelHandle => {
   let journal = createJournal(initial)
-  const history = restoreJournal(journal, rules)
+  const history = restoreJournal(journal, reduce)
   return {
     get journal() {
       return journal
     },
     history,
-    rules,
+    rules: reduce,
     dispatch: (event) => {
       const result = history.dispatch(event)
       if (result.ok) journal = recordAccepted(journal, event)
