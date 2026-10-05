@@ -30,6 +30,8 @@ import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
 import { abundance } from '../../rules-engine/src/cardPlugins/abundance'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
+import { PENDING_VOTE, pendingVote, vote as votePlugin } from '../../rules-engine/src/cardPlugins/vote'
+import { vote as voteInstruction } from '../../rules-engine/src/cardPlugins/effectBuilders'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
@@ -686,6 +688,90 @@ describe('kernel host journal', () => {
     expect(restartedLobby.topdeck?.cards.join(' ')).toContain('Secret 1')
     expect(projectForViewer(restarted.history.current(), 'p2').zoneOrder.p1.exile)
       .toHaveLength(0)
+  })
+
+  test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: {
+          p1: [cardTemplate('Secret Ballot', {
+            types: ['Instant'],
+            manaCost: '{1}',
+            effects: [onResolveEffect(voteInstruction(
+              'Alpha or Beta?',
+              {
+                kind: 'named',
+                options: [{ id: 'a', label: 'Alpha' }, { id: 'b', label: 'Beta' }],
+              },
+              [],
+              true,
+            ))],
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve, votePlugin] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana.C = 1
+    const kernel = handleFor(server.rules, initial)
+    expect(kernel.dispatch({
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: initial.zoneOrder.p1.hand[0],
+    }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const lobby = createLobby()
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'vote',
+      cards: ['Alpha', 'Beta'],
+    })
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const restartedLobby = createLobby()
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(lobby.topdeck)
+
+    const ballot = (card: string) => ({
+      type: 'topdeck' as const,
+      choices: [
+        { card: 'Alpha', destination: card === 'Alpha' ? 'target' as const : 'skip' as const },
+        { card: 'Beta', destination: card === 'Beta' ? 'target' as const : 'skip' as const },
+      ],
+    })
+    // A ballot that names no offered option, or two of them, is refused.
+    expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [{ card: 'Gamma', destination: 'target' }, { card: 'Beta', destination: 'skip' }],
+    })).toThrow()
+    expect(() => applyKernelChoice(restarted, restartedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Alpha', destination: 'target' },
+        { card: 'Beta', destination: 'target' },
+      ],
+    })).toThrow()
+
+    expect(applyKernelChoice(restarted, restartedLobby, 'p1', ballot('Alpha'))).toBe(true)
+    expect(restartedLobby.topdeck).toMatchObject({ seat: 'p2', kind: 'vote' })
+    expect(restartedLobby.judge).toContain('secret vote')
+    expect(restartedLobby.judge).not.toContain('Alpha')
+    expect(projectForViewer(restarted.history.current(), 'p3').players.p1.data[PENDING_VOTE])
+      .toMatchObject({ votes: { p1: '*' } })
+
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', ballot('Beta'))).toBe(true)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p3', ballot('Alpha'))).toBe(true)
+    expect(pendingVote(restarted.history.current())).toBeUndefined()
+    expect(restartedLobby.judge).toContain('Secret Ballot votes')
+    expect(restartedLobby.judge).toContain('for Alpha')
+    expect(restartedLobby.judge).toContain('for Beta')
   })
 
   test('Cling to Dust escape cost cards round-trip through a structured live act', () => {

@@ -4,6 +4,7 @@ import { cardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
+import { draw, onVotesFinished } from './effectBuilders'
 import { SECRET_COUNCIL, secretCouncil } from './secretCouncil'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
@@ -76,6 +77,50 @@ describe('secret council', () => {
       kind: 'put-permanents',
       seat: 'p1',
     })
+  })
+
+  test('finishing the council is heard like any other vote', () => {
+    const listener = cardTemplate('Watcher', {
+      types: ['Creature'],
+      effects: [onVotesFinished(draw(1))],
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [cirdan()] },
+        battlefield: { p3: [listener] },
+        libraries: { p3: [cardTemplate('Watcher Draw')] },
+      },
+      { random: () => 0.5, cardPlugins: [secretCouncil] },
+    )
+    let state = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'move',
+      objectId: named(server.state, 'Círdan the Shipwright').id,
+      to: 'battlefield',
+    })))
+    let last: ReturnType<typeof server.rules> | undefined
+    for (const seat of ['p1', 'p2', 'p3', 'p4'] as const) {
+      last = server.rules(state, {
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat,
+        payload: { targets: ['p2'] },
+      })
+      state = ok(last)
+    }
+    const event = last?.trace.map((entry) => entry.event)
+      .find((candidate) => candidate.type === 'votesFinished')
+    expect(event).toMatchObject({
+      type: 'votesFinished',
+      owner: 'p1',
+      result: {
+        votes: { p1: 'p2', p2: 'p2', p3: 'p2', p4: 'p2' },
+        tallies: { p1: 0, p2: 4, p3: 0, p4: 0 },
+        winners: ['p2'],
+        tied: false,
+      },
+    })
+    expect(state.stack[0]).toMatchObject({ name: 'Watcher', controller: 'p3' })
   })
 
   test('a host restart still sees the open secret vote', () => {
