@@ -1,11 +1,16 @@
 import type { GameObject } from '../types'
 import {
   ability,
+  addManaChoice,
   alternateCast,
   activate,
   becomeCopyOfTarget,
   allCreatureTypes,
   animateUntilEot,
+  chooseColorOnEnter,
+  drawHandSize,
+  enchantedManaBoost,
+  noMaximumHandSize,
   addPlusCountersInstruction,
   attachedCopyOrToken,
   attackTax,
@@ -2074,6 +2079,43 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Dimir Signet': [signet('signet.dimir', { U: 1, B: 1 })],
+  'Alchemist\'s Refuge': [
+    activate({
+      id: 'alchemistsRefuge.flash',
+      costs: { mana: '{G}{U}', tap: true },
+      do: [addUntilCleanupRule('flashGrant')],
+    }),
+  ],
+  'Arbor Elf': [
+    activate({
+      id: 'arborElf.untap',
+      costs: { tap: true },
+      targets: { filter: { zone: 'battlefield', type: 'Land', subtype: 'Forest' } },
+      do: [untapTarget()],
+    }),
+  ],
+  'Flooded Grove': [
+    activate({
+      id: 'floodedGrove.filter',
+      manaAbility: true,
+      costs: { mana: '{G/U}', tap: true },
+      do: [addManaChoice({ G: 2 }, { G: 1, U: 1 }, { U: 2 })],
+    }),
+  ],
+  'Sea Gate Restoration // Sea Gate, Reborn': [
+    tapUnlessPayLife(3),
+    onResolve(drawHandSize(1), noMaximumHandSize()),
+  ],
+  'Simic Signet': [signet('signet.simic', { G: 1, U: 1 })],
+  'Utopia Sprawl': [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
+  'Waterlogged Grove': [
+    ability(
+      { id: 'waterloggedGrove.draw' },
+      { mana: '{1}', tap: true, sacrifice: 'self' },
+      draw(1),
+    ),
+  ],
+  'Wild Growth': [enchantedManaBoost({ mana: 'G' })],
   "Dovin's Veto": [
     uncounterable(),
     targetOnResolve('counter', { zone: 'stack', noncreature: true }),
