@@ -1,9 +1,11 @@
 import { encoreAttackDeclarationError } from '../cardPlugins/encore'
 import { hasKeyword, lethalDamage } from '../keywords'
 import { attackDeclarationError, defenderLegalForGoadedAttacker } from './goad'
+import { cantBlockWith } from './opponentRestrictions'
 import { existsOnBattlefield } from './phasing'
 import { hasProtectionFromEverything } from './protectionFromEverything'
-import type { GameState, PlayerId, Plugin, TargetRef } from '../types'
+import type { GameObject, GameState, PlayerId, Plugin, StepId, TargetRef } from '../types'
+import type Draft from '../draft'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
   typeof target === 'string' ? { kind: 'player', player: target } : target
@@ -13,6 +15,55 @@ const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
   if (defender.kind === 'player') return defender.player
   const object = state.objects[defender.objectId]
   return object?.types.includes('Battle') ? object.protector : object?.controller
+}
+
+/** Why `blocker` can't block `attacker` on its own, ignoring what other blockers do (CR 509.1b). */
+const blockRestriction = (state: GameState, blocker: GameObject, attacker: GameObject) => {
+  if (
+    hasKeyword(attacker, 'flying', state)
+    && !hasKeyword(blocker, 'flying', state)
+    && !hasKeyword(blocker, 'reach', state)
+  ) {
+    return 'a creature with flying can only be blocked by creatures with flying or reach'
+  }
+  if (cantBlockWith(state, blocker)) {
+    return `${blocker.name} can't block because an opponent's permanent forbids it`
+  }
+}
+
+/** CR 510.4: first and double strikers deal damage first; double strikers and everyone without it deal again. */
+const dealsDamageIn = (object: GameObject, step: StepId, state: GameState) => {
+  const doubleStrike = hasKeyword(object, 'double strike', state)
+  return step === 'firstStrikeDamage'
+    ? hasKeyword(object, 'first strike', state) || doubleStrike
+    : !hasKeyword(object, 'first strike', state) || doubleStrike
+}
+
+const enqueueDamage = (draft: Draft, source: GameObject, target: TargetRef, amount: number) => {
+  if (amount > 0) draft.enqueue({ type: 'combatDamage', sourceId: source.id, target, amount })
+}
+
+/**
+ * Split an attacker's damage. Without a choice prompt each blocker in turn
+ * takes lethal damage and the last one (or the defender, with trample) takes
+ * the rest (CR 510.1c).
+ */
+const assignAttackerDamage = (draft: Draft, attacker: GameObject, blockers: GameObject[]) => {
+  let remaining = Math.max(0, attacker.power ?? 0)
+  const defender = attacker.attacking ? targetRef(attacker.attacking) : undefined
+  const tramples = hasKeyword(attacker, 'trample', draft)
+  if (!attacker.blocked && blockers.length === 0) {
+    if (defender) enqueueDamage(draft, attacker, defender, remaining)
+    return
+  }
+  blockers.forEach((blocker, index) => {
+    const last = index === blockers.length - 1 && !tramples
+    const amount = last ? remaining : Math.min(remaining, lethalDamage(blocker, attacker))
+    remaining -= amount
+    enqueueDamage(draft, attacker, { kind: 'object', objectId: blocker.id }, amount)
+  })
+  // A blocked attacker without trample never damages the defender, even if its blockers are gone.
+  if (tramples && defender) enqueueDamage(draft, attacker, defender, remaining)
 }
 
 export const combat: Plugin = {
@@ -79,14 +130,15 @@ export const combat: Plugin = {
       if (attackers.length === 0) return 'seat is not a defending player'
 
       const blockerIds = new Set<string>()
-      const attackerIds = new Set<string>()
+      const blockersOf = new Map<string, number>()
       for (const declaration of event.blockers) {
         const blocker = state.objects[declaration.blockerId]
         const attacker = state.objects[declaration.attackerId]
-        if (blockerIds.has(declaration.blockerId)) return 'a creature can only block once'
-        if (attackerIds.has(declaration.attackerId)) return 'only one blocker per attacker is supported'
+        if (blockerIds.has(declaration.blockerId) || blocker?.blocking) {
+          return 'a creature can only block once'
+        }
         blockerIds.add(declaration.blockerId)
-        attackerIds.add(declaration.attackerId)
+        blockersOf.set(declaration.attackerId, (blockersOf.get(declaration.attackerId) ?? 0) + 1)
         if (
           !existsOnBattlefield(blocker)
           || !blocker.types.includes('Creature')
@@ -107,6 +159,14 @@ export const combat: Plugin = {
           || defendingPlayer(state, attacker.attacking) !== event.seat
         ) {
           return 'attacker is not attacking that seat'
+        }
+        const restriction = blockRestriction(state, blocker, attacker)
+        if (restriction) return restriction
+      }
+      for (const [attackerId, count] of blockersOf) {
+        // CR 702.111b: a creature with menace can't be blocked except by two or more creatures.
+        if (count < 2 && hasKeyword(state.objects[attackerId], 'menace', state)) {
+          return 'a creature with menace must be blocked by two or more creatures'
         }
       }
     }
@@ -135,60 +195,27 @@ export const combat: Plugin = {
       for (const declaration of event.blockers) {
         const blocker = draft.object(declaration.blockerId)
         if (blocker) blocker.blocking = declaration.attackerId
+        const attacker = draft.object(declaration.attackerId)
+        if (attacker) attacker.blocked = true
       }
       return
     }
 
     if (event.type === 'assignCombatDamage') {
-      const attackers = Object.values(draft.objects).filter(
-        (object) => existsOnBattlefield(object) && object.attacking !== null,
-      )
-      for (const attacker of attackers) {
-        const blockers = Object.values(draft.objects).filter(
-          (object) => existsOnBattlefield(object) && object.blocking === attacker.id,
-        )
-        const amount = attacker.power ?? 0
-        if (blockers.length > 0 && !hasKeyword(attacker, 'trample')) {
-          draft.enqueue({
-            type: 'combatDamage',
-            sourceId: attacker.id,
-            target: { kind: 'object', objectId: blockers[0].id },
-            amount,
-          })
-          continue
+      // Every amount is fixed from the board as it stands now; damage is simultaneous.
+      const onBattlefield = Object.values(draft.objects).filter(existsOnBattlefield)
+      for (const attacker of onBattlefield.filter((object) => object.attacking !== null)) {
+        const blockers = onBattlefield.filter((object) => object.blocking === attacker.id)
+        if (dealsDamageIn(attacker, draft.step, draft)) assignAttackerDamage(draft, attacker, blockers)
+        for (const blocker of blockers) {
+          if (!dealsDamageIn(blocker, draft.step, draft)) continue
+          enqueueDamage(
+            draft,
+            blocker,
+            { kind: 'object', objectId: attacker.id },
+            Math.max(0, blocker.power ?? 0),
+          )
         }
-
-        if (blockers.length > 0) {
-          let remaining = amount
-          for (const blocker of blockers) {
-            const lethal = Math.min(remaining, lethalDamage(blocker, attacker))
-            remaining -= lethal
-            if (lethal === 0) continue
-            draft.enqueue({
-              type: 'combatDamage',
-              sourceId: attacker.id,
-              target: { kind: 'object', objectId: blocker.id },
-              amount: lethal,
-            })
-          }
-          if (remaining === 0 || !attacker.attacking) continue
-          draft.enqueue({
-            type: 'combatDamage',
-            sourceId: attacker.id,
-            target: targetRef(attacker.attacking),
-            amount: remaining,
-          })
-          continue
-        }
-
-        const defender = attacker.attacking
-        if (!defender) continue
-        draft.enqueue({
-          type: 'combatDamage',
-          sourceId: attacker.id,
-          target: targetRef(defender),
-          amount,
-        })
       }
     }
   },

@@ -26,6 +26,17 @@ const devourSacrificePending = (state: GameState, objectId: string) =>
 
 export const stateBased: Plugin = {
   id: 'stateBased',
+  apply: ({ event, draft }) => {
+    if (event.type !== 'annihilateCounters') return
+    const object = draft.object(event.objectId)
+    if (!object) return
+    // The pair cancels in P/T as well, so the stored P/T is already right.
+    const pairs = Math.min(object.counters['+1/+1'] ?? 0, object.counters['-1/-1'] ?? 0)
+    for (const counter of ['+1/+1', '-1/-1']) {
+      object.counters[counter] -= pairs
+      if (object.counters[counter] === 0) delete object.counters[counter]
+    }
+  },
   sba: ({ draft }) => {
     const entryChoicePending = draft.playerOrder.some(
       (seat) => hasPendingDialog(draft, seat, 'copy-creature'),
@@ -64,6 +75,13 @@ export const stateBased: Plugin = {
         )
       ) {
         return [moveToGraveyard(object.id)]
+      }
+      if (
+        object.zone === 'battlefield'
+        && (object.counters['+1/+1'] ?? 0) > 0
+        && (object.counters['-1/-1'] ?? 0) > 0
+      ) {
+        return [{ type: 'annihilateCounters', objectId: object.id }]
       }
       if (
         object.zone === 'battlefield'

@@ -1,6 +1,6 @@
 import { effectsOf } from '../cardPlugins/cardRules'
 import { enteringObjectId } from '../cardPlugins/entersTapped'
-import { addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
+import { addMinusCounters, addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
 import { validTarget } from '../cardPlugins/targetedResolve'
 import type Draft from '../draft'
 import { openCardSelection } from '../rules/selectCards'
@@ -194,6 +194,8 @@ export const saga: Plugin = {
         putLoreCounters(draft, object, event.count)
       } else if (event.counter === '+1/+1') {
         addPlusCounters(object, event.count)
+      } else if (event.counter === '-1/-1') {
+        addMinusCounters(object, event.count)
       } else {
         object.counters[event.counter] = (object.counters[event.counter] ?? 0) + event.count
       }

@@ -82,7 +82,7 @@ const onDraw = (draft: Draft) => {
 
 /**
  * Combat damage is a turn-based action, not something a seat has to ask for.
- * First strike is not modelled, so every attacker hits in this one step.
+ * It runs once per damage step; `combat` decides who deals damage in which.
  */
 const onCombatDamage = (draft: Draft) => {
   const attacking = draft
@@ -96,6 +96,7 @@ const onCleanup = (draft: Draft) => {
     object.damageMarked = 0
     delete object.deathtouched
     object.attacking = null
+    delete object.blocked
     object.blocking = null
   }
   draft.rules = draft.rules.filter((rule) => rule.params.untilCleanup !== true)
@@ -106,7 +107,7 @@ const onCleanup = (draft: Draft) => {
 const enterStep = (draft: Draft, step: StepId) => {
   if (step === 'untap') return onUntap(draft)
   if (step === 'draw') return onDraw(draft)
-  if (step === 'combatDamage') return onCombatDamage(draft)
+  if (step === 'firstStrikeDamage' || step === 'combatDamage') return onCombatDamage(draft)
   if (step === 'cleanup') return onCleanup(draft)
 }
 

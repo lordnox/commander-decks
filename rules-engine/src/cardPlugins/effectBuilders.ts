@@ -5,6 +5,7 @@ import type {
   CastCostCondition,
   CardEffect,
   CardInstruction,
+  ManaValuePredicate,
   ModalMode,
   ModalSpec,
   SpreeMode,
@@ -922,6 +923,18 @@ export const ifTargetTypes = (
 export const staticGrant = (pluginId: string): CardEffect => ({
   op: 'static',
   pluginId,
+})
+
+/** While on the battlefield, its controller's opponents can't block with creatures matching `predicate`. */
+export const opponentsCantBlock = (predicate: ManaValuePredicate): CardEffect => ({
+  op: 'static',
+  opponentsCantBlock: predicate,
+})
+
+/** While on the battlefield, its controller's opponents can't cast spells matching `predicate`. */
+export const opponentsCantCast = (predicate: ManaValuePredicate): CardEffect => ({
+  op: 'static',
+  opponentsCantCast: predicate,
 })
 
 export const pumpPerLinkedExile = (

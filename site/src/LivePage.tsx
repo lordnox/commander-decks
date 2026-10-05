@@ -816,12 +816,9 @@ export const LivePage = () => {
     ...Object.keys(declaredBlockers),
     ...(choosingAttackerFor ? [choosingAttackerFor] : []),
   ])
+  // Several blockers may block one attacker, and menace requires it.
   const selectableAttackers = new Set(
-    choosingAttackerFor
-      ? (blockAction?.attackerIds ?? []).filter(
-          (attackerId) => !Object.values(declaredBlockers).includes(attackerId),
-        )
-      : [],
+    choosingAttackerFor ? blockAction?.attackerIds ?? [] : [],
   )
   const attackTax = Object.values(declaredAttackers).reduce(
     (total, defenderId) => total + (attackAction?.taxByDefender?.[defenderId] ?? 0),

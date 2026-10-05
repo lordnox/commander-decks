@@ -35,6 +35,7 @@ import { ceaseSpellCopy } from '../rules/spellCopies'
 import { applyCastFace, resolveCastFace } from './adventure'
 import { giftSpecOf } from '../cardPlugins/giftCast'
 import { reboundsOnResolution } from './rebound'
+import { cantCastSpellWith } from './opponentRestrictions'
 import { applyRoomDoors } from './rooms'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
@@ -345,6 +346,13 @@ export const spells: Plugin = {
         return 'spell is not owned and controlled by that seat'
       }
       if (state.priority !== event.seat) return 'seat does not have priority'
+      // CR 202.3e: while a spell is on the stack, each {X} counts as the chosen X.
+      const spellManaValue = manaValueOf(spell)
+        + (event.x ?? 0) * [...spell.manaCost.matchAll(/\{X\}/g)].length
+      // A copy is created, not cast, so it ignores "can't cast" restrictions.
+      if (!event.copy && cantCastSpellWith(state, event.seat, spellManaValue)) {
+        return `${spell.name} cannot be cast: an opponent's permanent forbids spells with mana value ${spellManaValue}`
+      }
       const bestow = event.castOption === 'bestow'
         && effectsOf(spell).some((effect) => effect.op === 'bestow')
       if (

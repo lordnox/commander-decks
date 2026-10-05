@@ -9,6 +9,7 @@ import type {
   ReversibleEffect,
   ZoneId,
 } from '../types'
+import { counterPtBonus } from '../definitions'
 import { effectsFor } from './cardRules'
 import type { CardEffect, StaticBoardPumpSpec } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
@@ -72,20 +73,18 @@ export const changeStats = (
   return { kind: 'pump', power, toughness }
 }
 
-const counterBonus = (object: GameObject) => object.counters['+1/+1'] ?? 0
-
 /**
- * CR 613.4c: +1/+1 counters modify power and toughness after a layer 7b set.
+ * CR 613.4c: +1/+1 and -1/-1 counters modify power and toughness after a layer 7b set.
  * This engine applies them eagerly instead of storing them, so an `animation`
  * keeps both snapshots free of their contribution and re-derives it from the
  * live counter map. Apply and revert therefore stay inverses even when counters
  * arrive or leave while the animation applies.
  */
 const withCounters = (object: GameObject, value: number | null) =>
-  value === null ? null : value + counterBonus(object)
+  value === null ? null : value + counterPtBonus(object)
 
 const withoutCounters = (object: GameObject, value: number | null) =>
-  value === null ? null : value - counterBonus(object)
+  value === null ? null : value - counterPtBonus(object)
 
 export const becomeCreature = (
   object: GameObject,

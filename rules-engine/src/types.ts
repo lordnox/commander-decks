@@ -221,6 +221,8 @@ export type GameObject = {
   /** Phased-out permanents are treated as though they do not exist (CR 702.26). */
   phasedOut?: boolean
   attacking: TargetRef | PlayerId | null
+  /** Set once an attacker is blocked; it stays blocked after every blocker leaves (CR 509.1h). */
+  blocked?: true
   blocking: string | null
   grantedRules: string[]
   token: boolean
@@ -553,6 +555,8 @@ export type GameEvent =
   | { type: 'phaseOut'; objectId: string }
   | { type: 'phaseIn'; objectId: string }
   | { type: 'putCounters'; objectId: string; counter: string; count: number }
+  /** CR 704.5q: a permanent with both +1/+1 and -1/-1 counters removes a pair of each. */
+  | { type: 'annihilateCounters'; objectId: string }
   | { type: 'becomesMonstrous'; objectId: string }
   // — CR keyword actions —
   | {
