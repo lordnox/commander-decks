@@ -31,8 +31,10 @@ Primer owns the plan. This file is the seat checklist.
 
 ## Combat
 
-Lashwrithe's Germ may attack to flip Elbrus. Do not attack just to "use" the sword
-if a fog or counter is the real play this turn. Withengar has no haste.
+Elbrus connects through a deal (Evangela, Sokrates, a fog for a hit next turn)
+or a flyer, not because Lashwrithe's Germ is on the table. Do not attack just
+to "use" the sword if a fog or counter is the real play this turn. Withengar
+has no haste. Tenuous Truce locks one seat; point it at the friend.
 
 Sokrates may still arrange a harmless attack to draw cards. Block with Souls or
 Baird when the math is good, **and** still fire prevention at the rest of the
