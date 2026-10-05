@@ -6,6 +6,7 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
+import { ward as wardPlugin } from './ward'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
@@ -19,17 +20,10 @@ import {
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 import { effectsFor, handlerIdsForNames } from './cardRules'
 import {
-  createTokenInstruction,
   drawGreatestPower,
-  gainControlPermanent,
   mayCastFromHandWithoutPayingMana,
   onResolve,
-  sagaChapters,
-  tapAll,
 } from './effectBuilders'
-import { choiceEffects } from './choiceEffects'
-import { onResolve as onResolvePlugin } from './onResolve'
-import { serializableEffects } from './effectRuntime'
 
 const ROOT = new URL('../../../', import.meta.url).pathname
 const NAMES = JSON.parse(readFileSync(`${ROOT}cards/index.json`, 'utf8')).names as Record<string, string>
@@ -459,39 +453,6 @@ const advanceUntil = (
   return current
 }
 
-/**
- * Kiora's Oracle chapters, composed from the Pass 1 builders. NOT registered in cardRules.ts:
- * chapter III opens a mandatory `choose` card selection whose only destination is `target`,
- * which a live seat cannot answer when several permanents qualify (see the gap test below).
- */
-const kioraEffects = () => serializableEffects([sagaChapters(
-  {
-    numbers: [1],
-    do: [createTokenInstruction({
-      name: 'Kraken',
-      types: ['Creature'],
-      subtypes: ['Kraken'],
-      colors: ['U'],
-      power: 8,
-      toughness: 8,
-      oracleText: 'Hexproof',
-    })],
-  },
-  {
-    numbers: [2],
-    targets: { filter: { players: 'opponent' } },
-    do: [tapAll(
-      { zone: 'battlefield', nonland: true },
-      { ofTargetPlayer: true, skipNextUntap: true },
-    )],
-  },
-  {
-    numbers: [3],
-    targets: { filter: { zone: 'battlefield', permanent: true, controller: 'opponent' } },
-    do: [gainControlPermanent(true)],
-  },
-)])
-
 describe('Kiora Bests the Sea God', () => {
   const permanents = () => ({
     p1: [island('Own Island')],
@@ -508,16 +469,14 @@ describe('Kiora Bests the Sea God', () => {
   })
 
   const setup = async (lore?: number) => {
-    const kiora = real('Kiora Bests the Sea God', {
-      effects: kioraEffects(),
-      ...(lore === undefined ? {} : { counters: { lore } }),
-    })
+    const plugins = await knownPlugins(['Kiora Bests the Sea God'])
+    const kiora = real('Kiora Bests the Sea God', lore === undefined ? {} : { counters: { lore } })
     const server = createServerGame(commanderRules, {
       players: 3,
       hands: lore === undefined ? { p1: [kiora] } : {},
       battlefield: { ...permanents(), ...(lore === undefined ? {} : { p1: [island('Own Island'), kiora] }) },
       libraries: { p1: filler('A', 12), p2: filler('B', 12), p3: filler('C', 12) },
-    }, { random: () => 0.5, cardPlugins: [] })
+    }, { random: () => 0.5, cardPlugins: plugins })
     return { server, state: server.state }
   }
 
@@ -531,8 +490,12 @@ describe('Kiora Bests the Sea God', () => {
     if (!result.ok) throw new Error(result.error)
   }
 
-  test('is deliberately not registered yet', () => {
-    expect(effectsFor('Kiora Bests the Sea God')).toEqual([])
+  test('is registered as a saga with its three chapters', () => {
+    expect(scryfall('Kiora Bests the Sea God').oracle_text).toContain('Gain control of target permanent an opponent controls. Untap it.')
+    const [saga] = effectsFor('Kiora Bests the Sea God')
+    expect(saga).toMatchObject({ op: 'saga' })
+    expect((saga as { chapters: Array<{ numbers: number[] }> }).chapters.map((chapter) => chapter.numbers))
+      .toEqual([[1], [2], [3]])
     expect(real('Kiora Bests the Sea God')).toMatchObject({
       manaCost: '{5}{U}{U}',
       types: ['Enchantment'],
@@ -569,31 +532,196 @@ describe('Kiora Bests the Sea God', () => {
     expect(named(done, 'Foe Alpha').tapped).toBe(false)
   })
 
-  test('GAP: a live seat cannot answer chapter III when several permanents qualify', async () => {
+  /** The kernel choice for chapter III, answered by offered position with exactly the picked cards as targets. */
+  const stealAnswer = (cards: string[], picked: string[]) => ({
+    type: 'topdeck' as const,
+    choices: cards.map((card, slot) => ({
+      card,
+      slot,
+      destination: (picked.includes(card) ? 'target' : 'skip') as 'target' | 'skip',
+    })),
+  })
+
+  /** Answer the open chapter III choice with the engine, leaving the chapter ability on the stack. */
+  const chooseSteal = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    name: string,
+  ) => {
+    const stacked = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: 1,
+      objectIds: [named(state, name).id],
+    }))
+    expect(stacked.stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Kiora Bests the Sea God',
+      payload: { sagaChapter: 3 },
+    })
+    expect(stacked.stack[0].payload?.targetFilter).toMatchObject({ controller: 'opponent' })
+    return structuredClone(stacked)
+  }
+
+  test('chapter III with several qualifying permanents offers exactly one target pick, live and across a restart', async () => {
     const { server, state } = await setup(2)
     const kernel = handleFor(server.rules, state)
     intoNextChapter(kernel, state)
     const lobby = playLobby()
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    // Hexproof Shrouded Mage and the saga controller's own Island are not legal targets.
     expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
       kind: 'choose',
       cards: ['Foe Alpha', 'Foe Beta', 'Foe Relic', 'Foe Forest', 'Bystander'],
-      destinations: ['target'],
+      destinations: ['skip', 'target'],
       requirements: { target: { min: 1, max: 1 } },
     })
     const cards = lobby.topdeck!.cards as string[]
-    const answer = (chosen: string[], rest?: 'skip') => ({
-      type: 'topdeck' as const,
-      choices: cards.flatMap((card) => chosen.includes(card)
-        ? [{ card, destination: 'target' as const }]
-        : rest ? [{ card, destination: rest }] : []),
-    })
-    // Every card defaults to the only destination, so exactly one can never be picked.
-    expect(() => applyKernelChoice(kernel, lobby, 'p1', answer(cards))).toThrow('Choose exactly 1 card(s).')
-    expect(() => applyKernelChoice(kernel, lobby, 'p1', answer(['Foe Alpha'], 'skip')))
-      .toThrow('Invalid choose destination.')
-    expect(() => applyKernelChoice(kernel, lobby, 'p1', answer(['Foe Alpha'])))
-      .toThrow('The cards in this choice changed')
+    const open = kernel.history.current()
+    expect(kernel.dispatch({ type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+    // The Saga waits for its chapter ability, so it is not sacrificed while the choice is open.
+    expect(named(open, 'Kiora Bests the Sea God').zone).toBe('battlefield')
+
+    const restartedKernel = handleFor(server.rules, state, kernel.journal)
+    const restarted = playLobby()
+    expect(prepareKernelPendingChoice(restartedKernel, restarted)).toBe(true)
+    expect(restarted.topdeck).toEqual(lobby.topdeck)
+
+    // Every card defaulting to the target destination, none, or two cards are all refused.
+    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', stealAnswer(cards, cards)))
+      .toThrow('Choose exactly 1 card(s).')
+    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', stealAnswer(cards, [])))
+      .toThrow('Choose exactly 1 card(s).')
+    expect(() => applyKernelChoice(restartedKernel, restarted, 'p1', stealAnswer(cards, ['Foe Alpha', 'Foe Beta'])))
+      .toThrow('Choose exactly 1 card(s).')
+    expect(applyKernelChoice(restartedKernel, restarted, 'p2', stealAnswer(cards, ['Foe Alpha']))).toBe(false)
+    expect(pendingSelectionFor(restartedKernel.history.current(), 'p1')).toBeDefined()
+
+    expect(applyKernelChoice(restartedKernel, restarted, 'p1', stealAnswer(cards, ['Foe Relic']))).toBe(true)
+    // The live host settles the stack once nobody can respond, so the chapter ability has resolved.
+    const done = passUntilResolved(restartedKernel)
+    expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+    expect(done.stack).toHaveLength(0)
+    expect(named(done, 'Foe Relic')).toMatchObject({ controller: 'p1', owner: 'p2', zone: 'battlefield' })
+    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Forest', 'Bystander']) {
+      expect(named(done, name).controller).not.toBe('p1')
+    }
+    // Only after the chapter ability resolved is the Saga sacrificed (CR 714.4).
+    expect(named(done, 'Kiora Bests the Sea God').zone).toBe('graveyard')
+  })
+
+  test('chapter III cannot be answered with a permanent that is not a candidate', async () => {
+    const { server, state } = await setup(2)
+    const kernel = handleFor(server.rules, state)
+    intoNextChapter(kernel, state)
+    const selection = pendingSelectionFor(kernel.history.current(), 'p1')!
+    for (const name of ['Shrouded Mage', 'Own Island']) {
+      const objectId = named(state, name).id
+      expect(selection.candidates).not.toContain(objectId)
+      expect(kernel.dispatch({
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'choose',
+        count: 1,
+        objectIds: [objectId],
+      }).ok).toBe(false)
+    }
+    expect(pendingSelectionFor(kernel.history.current(), 'p1')).toBeDefined()
+  })
+
+  test('chapter III with a single legal permanent still takes it, and sacrifices the Saga when none qualifies', async () => {
+    const { server, state } = await setup(2)
+    const lone = structuredClone(state)
+    for (const name of ['Foe Alpha', 'Foe Beta', 'Foe Forest', 'Bystander']) {
+      delete lone.objects[named(lone, name).id]
+    }
+    for (const seat of ['p2', 'p3']) {
+      lone.zoneOrder[seat].battlefield = lone.zoneOrder[seat].battlefield.filter((id) => lone.objects[id])
+    }
+    const kernel = handleFor(server.rules, lone)
+    intoNextChapter(kernel, lone)
+    const lobby = playLobby()
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({ kind: 'choose', cards: ['Foe Relic'] })
+    expect(applyKernelChoice(kernel, lobby, 'p1', stealAnswer(['Foe Relic'], ['Foe Relic']))).toBe(true)
+    const done = passUntilResolved(kernel)
+    expect(named(done, 'Foe Relic').controller).toBe('p1')
+    expect(named(done, 'Kiora Bests the Sea God').zone).toBe('graveyard')
+
+    // Nothing but hexproof and own permanents left: no choice opens and the Saga is just sacrificed.
+    const none = structuredClone(lone)
+    delete none.objects[named(none, 'Foe Relic').id]
+    none.zoneOrder.p2.battlefield = none.zoneOrder.p2.battlefield.filter((id) => none.objects[id])
+    const emptyKernel = handleFor(server.rules, none)
+    intoNextChapter(emptyKernel, none)
+    const emptied = resolveStack(server.rules, emptyKernel.history.current())
+    expect(pendingSelectionFor(emptied, 'p1')).toBeUndefined()
+    expect(emptied.stack).toHaveLength(0)
+    expect(named(emptied, 'Kiora Bests the Sea God').zone).toBe('graveyard')
+  })
+
+  test('a chapter III target that gains hexproof in response is not stolen, and the Saga is still sacrificed', async () => {
+    const { server, state } = await setup(2)
+    const kernel = handleFor(server.rules, state)
+    intoNextChapter(kernel, state)
+    const stacked = chooseSteal(server, kernel.history.current(), 'Foe Alpha')
+    expect(named(stacked, 'Kiora Bests the Sea God').zone).toBe('battlefield')
+    named(stacked, 'Foe Alpha').oracleText = 'Hexproof'
+    const done = resolveStack(server.rules, stacked)
+    expect(named(done, 'Foe Alpha')).toMatchObject({ controller: 'p2', zone: 'battlefield' })
+    expect(named(done, 'Kiora Bests the Sea God').zone).toBe('graveyard')
+  })
+
+  test('a chapter III target that left the battlefield in response fizzles and nothing is stolen', async () => {
+    const { server, state } = await setup(2)
+    const kernel = handleFor(server.rules, state)
+    intoNextChapter(kernel, state)
+    const stacked = chooseSteal(server, kernel.history.current(), 'Foe Beta')
+    const gone = ok(server.rules(stacked, { type: 'move', objectId: named(stacked, 'Foe Beta').id, to: 'graveyard' }))
+    const done = resolveStack(server.rules, gone)
+    expect(named(done, 'Foe Beta')).toMatchObject({ zone: 'graveyard', controller: 'p2' })
+    expect(Object.values(done.objects)
+      .filter((object) => object.controller === 'p1' && object.zone === 'battlefield')
+      .map((object) => object.name)).toEqual(['Own Island'])
+    expect(named(done, 'Kiora Bests the Sea God').zone).toBe('graveyard')
+  })
+
+  test('the Kraken is a token, so it ceases to exist rather than reaching a graveyard (CR 704.5d)', async () => {
+    const { server, state } = await setup()
+    let current = pool(mainPhase(state), { U: 2, C: 5 })
+    current = resolveStack(server.rules, ok(server.rules(current, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(current, 'Kiora Bests the Sea God').id,
+    })))
+    const krakenId = named(current, 'Kraken').id
+    const dead = resolveStack(server.rules, ok(server.rules(current, { type: 'move', objectId: krakenId, to: 'graveyard' })))
+    expect(dead.objects[krakenId]).toBeUndefined()
+    for (const zone of ['battlefield', 'graveyard', 'exile', 'hand', 'library'] as const) {
+      expect(dead.zoneOrder.p1[zone]).not.toContain(krakenId)
+    }
+    // Chapter III can still take a permanent without the Kraken, and the Saga is unaffected by its death.
+    expect(named(dead, 'Kiora Bests the Sea God').zone).toBe('battlefield')
+  })
+
+  test('GAP: ward is not enforced when a chapter ability targets a warded permanent', async () => {
+    // The ward plugin only reacts to cast spells and activated abilities, so a chapter
+    // ability that targets a Ward permanent takes it without the ward cost being asked.
+    const wardedGame = createServerGame(commanderRules, {
+      players: 3,
+      battlefield: {
+        p1: [real('Kiora Bests the Sea God', { counters: { lore: 2 } })],
+        p2: [creature('Warded Foe', { oracleText: 'Ward {5}' })],
+      },
+      libraries: { p1: filler('A', 12), p2: filler('B', 12), p3: filler('C', 12) },
+    }, { random: () => 0.5, cardPlugins: [...await knownPlugins(['Kiora Bests the Sea God']), wardPlugin] })
+    const kernel = handleFor(wardedGame.rules, wardedGame.state)
+    intoNextChapter(kernel, wardedGame.state)
+    const stacked = chooseSteal(wardedGame, kernel.history.current(), 'Warded Foe')
+    const done = resolveStack(wardedGame.rules, stacked)
+    expect(named(done, 'Warded Foe').controller).toBe('p1')
   })
 
   test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {
@@ -1070,25 +1198,17 @@ describe('Phyrexian Ingester', () => {
   })
 })
 
-/**
- * Rishkar's Expertise from the Pass 1 builders. NOT registered in cardRules.ts: the free-cast
- * offer is evaluated before the queued draw lands, so it never opens when no card of mana value
- * 5 or less was already in hand (see the gap test below).
- */
-const rishkarEffects = () => serializableEffects([
-  onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
-])
-
 describe("Rishkar's Expertise", () => {
   const setup = async (options: {
     hand?: CardTemplate[]
     creatures?: CardTemplate[]
     libraryCount?: number
+    library?: CardTemplate[]
   } = {}) => {
-    const plugins = [onResolvePlugin, choiceEffects]
+    const plugins = await knownPlugins(["Rishkar's Expertise"])
     const server = createServerGame(commanderRules, {
       players: 2,
-      hands: { p1: [real("Rishkar's Expertise", { effects: rishkarEffects() }), ...(options.hand ?? [])] },
+      hands: { p1: [real("Rishkar's Expertise"), ...(options.hand ?? [])] },
       battlefield: {
         p1: options.creatures ?? [
           creature('Big Ally', { power: 5, toughness: 5 }),
@@ -1096,7 +1216,7 @@ describe("Rishkar's Expertise", () => {
         ],
         p2: [creature('Huge Foe', { power: 9, toughness: 9 })],
       },
-      libraries: { p1: filler('Lib', options.libraryCount ?? 12, ['Creature'], 2) },
+      libraries: { p1: options.library ?? filler('Lib', options.libraryCount ?? 12, ['Creature'], 2) },
     }, { random: () => 0.5, cardPlugins: plugins })
     return { server, state: server.state }
   }
@@ -1118,8 +1238,14 @@ describe("Rishkar's Expertise", () => {
     alternativeCost: 'withoutPayingMana',
   })
 
-  test('is deliberately not registered yet', () => {
-    expect(effectsFor("Rishkar's Expertise")).toEqual([])
+  test('is registered: draw by greatest power, then the free cast as the last instruction', () => {
+    expect(scryfall("Rishkar's Expertise").oracle_text).toBe(
+      'Draw cards equal to the greatest power among creatures you control.\n'
+      + 'You may cast a spell with mana value 5 or less from your hand without paying its mana cost.',
+    )
+    expect(effectsFor("Rishkar's Expertise")).toEqual([
+      onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
+    ])
     expect(real("Rishkar's Expertise")).toMatchObject({ manaCost: '{4}{G}{G}', types: ['Sorcery'] })
   })
 
@@ -1158,14 +1284,60 @@ describe("Rishkar's Expertise", () => {
     expect(server.rules(resolved, { ...castFree(resolved, 'Held Five'), seat: 'p2' }).ok).toBe(false)
   })
 
-  test('GAP: no free cast opens when nothing castable was in hand before the draw', async () => {
+  test('the offer opens for cards the Expertise itself drew, even with nothing castable held before', async () => {
     const { server, state } = await setup()
     const resolved = resolveExpertise(server, state)
-    // The five drawn creatures are in hand and qualify, but the offer was never opened.
     expect(handOf(resolved)).toEqual(['Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5'])
+    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'declineFreeCast')).toHaveLength(1)
+    expect(legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')).toHaveLength(5)
+    const cast = ok(server.rules(resolved, castFree(resolved, 'Lib 3')))
+    expect(cast.stack[0]).toMatchObject({ name: 'Lib 3', castFrom: 'hand' })
+    expect(cast.players.p1.mana).toEqual(resolved.players.p1.mana)
+    expect(handOf(cast)).not.toContain('Lib 3')
+  })
+
+  test('only the drawn card of mana value 5 or less is offered; drawn lands and bigger spells are not', async () => {
+    const { server, state } = await setup({
+      creatures: [creature('Big Ally', { power: 3, toughness: 3 })],
+      library: [
+        costed('Drawn Five', ['Creature'], 5),
+        cardTemplate('Drawn Land', { types: ['Land'] }),
+        costed('Drawn Eight', ['Sorcery'], 8),
+        costed('Undrawn Two', ['Creature'], 2),
+      ],
+    })
+    const resolved = resolveExpertise(server, state)
+    expect(handOf(resolved)).toEqual(['Drawn Five', 'Drawn Land', 'Drawn Eight'])
+    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
+    expect(offered.map((action) => 'name' in action && action.name)).toEqual(['Drawn Five'])
+    for (const name of ['Drawn Land', 'Drawn Eight']) {
+      expect(server.rules(resolved, castFree(resolved, name)))
+        .toMatchObject({ ok: false, error: 'card is not awaiting a free cast' })
+    }
+  })
+
+  test('with nothing castable drawn or held no offer opens and priority carries on', async () => {
+    const { server, state } = await setup({
+      hand: [cardTemplate('Held Land', { types: ['Land'] }), costed('Held Six', ['Creature'], 6)],
+      library: [costed('Drawn Seven', ['Creature'], 7), ...filler('Deep', 10)],
+      creatures: [creature('Big Ally', { power: 1, toughness: 1 })],
+    })
+    const resolved = resolveExpertise(server, state)
     expect(legalActsFor(resolved, 'p1').some((action) => action.kind === 'declineFreeCast')).toBe(false)
-    expect(server.rules(resolved, castFree(resolved, 'Lib 3')))
-      .toMatchObject({ ok: false, error: 'card is not awaiting a free cast' })
+    expect(server.rules(resolved, { type: 'passPriority', seat: 'p1' }).ok).toBe(true)
+  })
+
+  test('a spell with X in its cost is castable for free with X equal to 0', async () => {
+    const { server, state } = await setup({
+      hand: [costed('Fixture Hydra', ['Creature'], 1, { manaCost: '{X}{G}', power: 0, toughness: 0 })],
+    })
+    const resolved = resolveExpertise(server, state)
+    const offered = legalActsFor(resolved, 'p1').filter((action) => action.kind === 'castSpell')
+    expect(offered.map((action) => 'name' in action && action.name)).toContain('Fixture Hydra')
+    const cast = ok(server.rules(resolved, castFree(resolved, 'Fixture Hydra')))
+    expect(cast.stack[0]).toMatchObject({ name: 'Fixture Hydra', castFrom: 'hand' })
+    expect(cast.stack[0].x ?? 0).toBe(0)
+    expect(cast.players.p1.mana).toEqual(resolved.players.p1.mana)
   })
 
   test('declining ends the offer and keeps every card in hand', async () => {
@@ -1227,3 +1399,159 @@ describe("Rishkar's Expertise", () => {
   })
 }
 )
+
+describe('Spearbreaker Behemoth', () => {
+  const ABILITY = 'spearbreaker.indestructible'
+
+  const setup = async () => {
+    const plugins = await knownPlugins(['Spearbreaker Behemoth', 'Drag to the Roots'])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [real('Drag to the Roots')] },
+      battlefield: {
+        p1: [
+          real('Spearbreaker Behemoth'),
+          creature('Own Giant', { power: 5, toughness: 5 }),
+          creature('Own Runt', { power: 4, toughness: 4 }),
+        ],
+        p2: [
+          creature('Foe Giant', { power: 6, toughness: 6 }),
+          creature('Foe Shrouded', { power: 7, toughness: 7, oracleText: 'Hexproof' }),
+        ],
+      },
+      libraries: { p1: filler('A', 12), p2: filler('B', 12) },
+    }, { random: () => 0.5, cardPlugins: plugins })
+    const ready = pool(mainPhase(server.state), { B: 2, G: 2, C: 8 })
+    return { server, ready }
+  }
+
+  const activate = (state: GameState, targetName: string, seat = 'p1'): GameEvent => ({
+    type: 'activateAbility',
+    abilityId: ABILITY,
+    seat,
+    objectId: named(state, 'Spearbreaker Behemoth').id,
+    targets: [{ kind: 'object', objectId: named(state, targetName).id }],
+  })
+
+  const indestructible = (state: GameState, name: string) =>
+    hasKeyword(named(state, name), 'indestructible', state)
+
+  const lethalDamage = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
+    ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: named(state, 'Foe Giant').id,
+      target: { kind: 'object', objectId: named(state, name).id },
+      amount: 20,
+    }))
+
+  const dragTo = (server: ReturnType<typeof createServerGame>, state: GameState, name: string) =>
+    resolveStack(server.rules, ok(server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(state, 'Drag to the Roots').id,
+      targets: [{ kind: 'object', objectId: named(state, name).id }],
+    })))
+
+  test('is registered from its exact Oracle text and is indestructible itself', async () => {
+    expect(scryfall('Spearbreaker Behemoth').oracle_text)
+      .toBe('Indestructible\n{1}: Target creature with power 5 or greater gains indestructible until end of turn.')
+    expect(effectsFor('Spearbreaker Behemoth')).toEqual([{
+      op: 'activate',
+      id: ABILITY,
+      costs: { mana: '{1}' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
+      do: [{ kind: 'grantUntilEot', keywords: ['indestructible'] }],
+    }])
+    const { server, ready } = await setup()
+    expect(indestructible(ready, 'Spearbreaker Behemoth')).toBe(true)
+    const survived = lethalDamage(server, ready, 'Spearbreaker Behemoth')
+    expect(named(survived, 'Spearbreaker Behemoth').zone).toBe('battlefield')
+    const unharmed = dragTo(server, ready, 'Spearbreaker Behemoth')
+    expect(named(unharmed, 'Spearbreaker Behemoth').zone).toBe('battlefield')
+  })
+
+  test('a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn', async () => {
+    const { server, ready } = await setup()
+    for (const name of ['Own Giant', 'Foe Giant', 'Spearbreaker Behemoth']) {
+      const stacked = ok(server.rules(ready, activate(ready, name)))
+      expect(stacked.stack[0]).toMatchObject({ kind: 'ability', abilityId: ABILITY })
+      expect(stacked.players.p1.mana.C).toBe(7)
+      const resolved = resolveStack(server.rules, stacked)
+      expect(indestructible(resolved, name)).toBe(true)
+      expect(named(lethalDamage(server, resolved, name), name).zone).toBe('battlefield')
+    }
+    const stacked = ok(server.rules(ready, activate(ready, 'Foe Giant')))
+    const protectedGiant = resolveStack(server.rules, stacked)
+    expect(named(dragTo(server, protectedGiant, 'Foe Giant'), 'Foe Giant').zone).toBe('battlefield')
+    // Without the grant the same removal kills it.
+    expect(named(dragTo(server, ready, 'Foe Giant'), 'Foe Giant').zone).toBe('graveyard')
+    expect(named(lethalDamage(server, ready, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
+  })
+
+  test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {
+    const { server, ready } = await setup()
+    for (const name of ['Own Runt', 'Foe Shrouded', 'Drag to the Roots']) {
+      expect(server.rules(ready, activate(ready, name)).ok).toBe(false)
+    }
+    expect(server.rules(ready, { ...activate(ready, 'Own Giant'), targets: [] }).ok).toBe(false)
+    expect(server.rules(ready, { ...activate(ready, 'Own Giant'), seat: 'p2' }).ok).toBe(false)
+  })
+
+  test('the controller may target its own hexproof creature', async () => {
+    const { server, ready } = await setup()
+    const edited = structuredClone(ready)
+    named(edited, 'Own Giant').oracleText = 'Hexproof'
+    const resolved = resolveStack(server.rules, ok(server.rules(edited, activate(edited, 'Own Giant'))))
+    expect(indestructible(resolved, 'Own Giant')).toBe(true)
+  })
+
+  test('a target whose power drops below 5 in response is not protected', async () => {
+    const { server, ready } = await setup()
+    const stacked = structuredClone(ok(server.rules(ready, activate(ready, 'Own Giant'))))
+    named(stacked, 'Own Giant').power = 4
+    const resolved = resolveStack(server.rules, stacked)
+    expect(resolved.stack).toHaveLength(0)
+    expect(indestructible(resolved, 'Own Giant')).toBe(false)
+    expect(named(lethalDamage(server, resolved, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
+  })
+
+  test("an opponent's creature that gains hexproof in response fizzles the ability", async () => {
+    const { server, ready } = await setup()
+    const stacked = structuredClone(ok(server.rules(ready, activate(ready, 'Foe Giant'))))
+    named(stacked, 'Foe Giant').oracleText = 'Hexproof'
+    const resolved = resolveStack(server.rules, stacked)
+    expect(indestructible(resolved, 'Foe Giant')).toBe(false)
+  })
+
+  test('a target that left the battlefield in response fizzles the ability', async () => {
+    const { server, ready } = await setup()
+    const stacked = ok(server.rules(ready, activate(ready, 'Own Giant')))
+    const gone = ok(server.rules(stacked, {
+      type: 'move',
+      objectId: named(stacked, 'Own Giant').id,
+      to: 'exile',
+    }))
+    const resolved = resolveStack(server.rules, gone)
+    expect(resolved.stack).toHaveLength(0)
+    expect(named(resolved, 'Own Giant').zone).toBe('exile')
+    expect(indestructible(resolved, 'Own Giant')).toBe(false)
+  })
+
+  test('the protection wears off at cleanup, and the ability needs its {1}', async () => {
+    const { server, ready } = await setup()
+    const broke = structuredClone(ready)
+    broke.players.p1.mana.C = 0
+    broke.players.p1.mana.B = 0
+    broke.players.p1.mana.G = 0
+    expect(server.rules(broke, activate(broke, 'Own Giant')).ok).toBe(false)
+
+    const resolved = resolveStack(server.rules, ok(server.rules(ready, activate(ready, 'Own Giant'))))
+    expect(indestructible(resolved, 'Own Giant')).toBe(true)
+    const next = advanceTo(server, resolved, 'upkeep')
+    expect(next.active).toBe('p2')
+    expect(indestructible(next, 'Own Giant')).toBe(false)
+    expect(named(lethalDamage(server, next, 'Own Giant'), 'Own Giant').zone).toBe('graveyard')
+    // Spearbreaker's own text keeps it indestructible.
+    expect(indestructible(next, 'Spearbreaker Behemoth')).toBe(true)
+  })
+})
