@@ -240,6 +240,34 @@ test('a resolving Scapeshift asks for land sacrifices before opening a search', 
   expect(html).not.toContain('Search your library')
 })
 
+test('an opponent-forced sacrifice offers every eligible permanent, not only creatures', () => {
+  const game = { catalog: { Rock: {}, Swamp: {} } } as unknown as ReplayGame
+  const decision = {
+    seat: 'p2',
+    kind: 'sacrifice',
+    cards: ['Rock', 'Swamp'],
+    destinations: ['battlefield', 'sacrifice'],
+    requirements: { sacrifice: { min: 2, max: 2 } },
+  } as LiveTopdeck
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={game}
+      decision={decision}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Required sacrifice')
+  expect(html).toContain('Choose what to sacrifice')
+  expect(html).not.toContain('creature to sacrifice')
+  expect(html).toContain('Required: 2 in sacrifice')
+  expect(html).toContain('>Rock</p>')
+  expect(html).toContain('>Swamp</p>')
+  expect(html).toContain('Sacrifice this permanent')
+  expect(html).toContain('Keep this permanent')
+})
+
 test('only the card list scrolls, so hide and resolve stay reachable', () => {
   const game = { catalog: {} } as unknown as ReplayGame
   const decision = {

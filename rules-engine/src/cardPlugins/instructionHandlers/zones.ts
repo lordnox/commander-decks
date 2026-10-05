@@ -1,6 +1,7 @@
 import { isPermanentType } from '../../definitions'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { pickRandomChoices, RANDOM_CHOICE } from '../../plugins/hiddenInformation'
+import { isPhasedOut } from '../../plugins/phasing'
 import { payCost } from '../../plugins/spells'
 import { INSTRUCTIONS_RESUME, openCardSelection, openOpponentPilePartition } from '../../rules/selectCards'
 import { openPlayerSelection } from '../../rules/selectPlayers'
@@ -353,6 +354,48 @@ const opponentsSacrifice: InstructionHandler<'opponentsSacrifice'> = (
       sequence: draft.allocTs(),
     })
   }
+}
+
+/** The defending player was recorded on the attack trigger when it was put on the stack. */
+const defendingPlayerSacrifices: InstructionHandler<'defendingPlayerSacrifices'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const defender = item?.payload?.defendingPlayer
+  if (typeof defender !== 'string' || draft.players[defender]?.lost) return
+  const candidates = Object.values(draft.objects)
+    .filter((object) =>
+      object.zone === 'battlefield'
+      && object.controller === defender
+      && !isPhasedOut(object))
+    .map((object) => object.id)
+  if (candidates.length === 0) return
+  const count = Math.min(instruction.count, candidates.length)
+  openCardSelection(draft, {
+    seat: defender,
+    kind: 'sacrifice',
+    count,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Sacrifice ${count} permanent${count === 1 ? '' : 's'}.`,
+    destinations: ['battlefield', 'sacrifice'],
+    fromSeat: defender,
+  })
+}
+
+/** The card must still be in a graveyard when the ability resolves; a replacement may have sent it elsewhere. */
+const putTriggeringCardOntoBattlefield: InstructionHandler<'putTriggeringCardOntoBattlefield'> = (
+  { draft, source, item },
+) => {
+  const objectId = item?.payload?.triggeringObjectId
+  if (typeof objectId !== 'string' || draft.object(objectId)?.zone !== 'graveyard') return
+  draft.enqueue({
+    type: 'move',
+    objectId,
+    to: 'battlefield',
+    controller: source.controller,
+  })
 }
 
 const reanimateCreatureFromGraveyards: InstructionHandler<'reanimateCreatureFromGraveyards'> = (
@@ -851,6 +894,8 @@ export const zoneHandlers = {
   lockOrUnlockDoor,
   sacrificePermanentsThenDraw,
   opponentsSacrifice,
+  defendingPlayerSacrifices,
+  putTriggeringCardOntoBattlefield,
   reanimateCreatureFromGraveyards,
   exileColoredPermanentsAtMostX,
   returnOwnedGraveyardLands,

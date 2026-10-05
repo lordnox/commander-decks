@@ -705,6 +705,45 @@ export const attacks = (...instructions: CardInstruction[]): CardEffect => ({
   do: instructions,
 })
 
+/** Annihilator N: whenever this attacks, the defending player sacrifices N permanents of their choice. */
+export const annihilator = (count: number): CardEffect =>
+  attacks({ kind: 'defendingPlayerSacrifices', count })
+
+/**
+ * Whenever a permanent matching `watch` enters, whether or not it is the source.
+ * `watch.controller` is relative to the source's controller.
+ */
+export const permanentEnters = (
+  watch: TargetFilter,
+  options: { if?: CardCondition; do: CardInstruction[] },
+): CardEffect => ({
+  op: 'trigger',
+  on: 'permanentEnters',
+  watch,
+  do: options.do,
+  ...(options.if ? { if: options.if } : {}),
+})
+
+/** Whenever a permanent matching `watch` is sacrificed; the player who sacrificed it is the triggering player. */
+export const permanentSacrificed = (
+  watch: TargetFilter,
+  ...instructions: CardInstruction[]
+): CardEffect => ({
+  op: 'trigger',
+  on: 'permanentSacrificed',
+  watch,
+  do: instructions,
+})
+
+export const putTriggeringCardOntoBattlefield = (): CardInstruction => ({
+  kind: 'putTriggeringCardOntoBattlefield',
+})
+
+/** "If it doesn't have the same name as another creature you control or a creature card in your graveyard." */
+export const triggeringCreatureNameUnique = (): CardCondition => ({
+  kind: 'triggeringCreatureNameUnique',
+})
+
 export const landToGraveyard = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
   on: 'landToGraveyard',

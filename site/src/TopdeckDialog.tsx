@@ -59,7 +59,7 @@ export const TopdeckDialog = ({
   const lookingAtTop = decision.kind === 'look-top'
   const targetingPlayers = decision.kind === 'target-players' || decision.kind === 'secret-vote'
   const sacrificingLands = decision.kind === 'sacrifice-lands'
-  const sacrificingCreatures = decision.kind === 'sacrifice'
+  const sacrificing = decision.kind === 'sacrifice'
   const optionalDraw = decision.kind === 'may-draw'
   const revealing = decision.kind === 'reveal'
   const cumulativeUpkeep = decision.kind === 'cumulative-upkeep'
@@ -157,8 +157,8 @@ export const TopdeckDialog = ({
           ? 'Choose target players'
         : sacrificingLands
           ? 'Choose lands to sacrifice'
-        : sacrificingCreatures
-          ? 'Choose a creature to sacrifice'
+        : sacrificing
+          ? 'Choose what to sacrifice'
         : optionalDraw
           ? 'Draw a card?'
         : voting
@@ -272,9 +272,11 @@ export const TopdeckDialog = ({
                   ? 'Kicked spell'
                   : searching
                     ? 'Private search'
-                    : sacrificingLands || sacrificingCreatures
+                    : sacrificingLands
                       ? 'Resolving spell'
-                      : 'Private choice'}
+                      : sacrificing
+                        ? 'Required sacrifice'
+                        : 'Private choice'}
             </p>
             <h2 id="topdeck-title" className="mt-1 font-display text-2xl text-stone-50">
               {title}
@@ -427,8 +429,10 @@ export const TopdeckDialog = ({
                           ? (destination === 'target' ? 'Target this player' : 'Do not target')
                           : puttingLand
                           ? (destination === 'hand' ? 'Keep in hand' : 'Put onto battlefield')
-                          : sacrificingLands
-                            ? (destination === 'sacrifice' ? 'Sacrifice this land' : 'Keep this land')
+                          : sacrificingLands || sacrificing
+                            ? (destination === 'sacrifice'
+                              ? `Sacrifice this ${sacrificing ? 'permanent' : 'land'}`
+                              : `Keep this ${sacrificing ? 'permanent' : 'land'}`)
                           : searching
                             ? (destination === 'library'
                               ? 'Leave in library'

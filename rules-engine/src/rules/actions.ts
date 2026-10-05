@@ -59,7 +59,9 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
     }
   }
   const interveningIf = item.payload?.interveningIf as CardCondition | undefined
-  if (interveningIf && !conditionHolds(interveningIf, draft, source)) return
+  const triggeringId = item.payload?.triggeringObjectId
+  const triggering = typeof triggeringId === 'string' ? draft.object(triggeringId) : undefined
+  if (interveningIf && !conditionHolds(interveningIf, draft, source, undefined, triggering)) return
   const targetFilter = item.payload?.targetFilter as TargetFilter | undefined
   if (
     targetFilter
