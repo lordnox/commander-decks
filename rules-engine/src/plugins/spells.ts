@@ -287,6 +287,9 @@ const paySpellCost = (
 export const hasConvoke = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
 
+export const hasDelve = (object: GameObject) =>
+  effectsOf(object).some((effect) => effect.op === 'castCost' && effect.delve)
+
 const installGrantedRules = (draft: Draft, object: GameObject) => {
   for (const pluginId of object.grantedRules) {
     draft.rules.push({
@@ -409,7 +412,7 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires a nonnegative integer multikicker count`
       }
-      const cost = spellCost(state, spell, {
+      const fullCost = spellCost(state, spell, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
@@ -423,6 +426,15 @@ export const spells: Plugin = {
       })
       const enchantError = !event.copy && enchantTargetError(state, spell, event.targets)
       if (enchantError) return enchantError
+      const delve = event.delve ?? []
+      if (delve.length > 0 && !hasDelve(object)) return `${object.name} does not have delve`
+      if (new Set(delve).size !== delve.length) return 'duplicate delve card'
+      const graveyard = state.zoneOrder[event.seat].graveyard
+      if (delve.some((objectId) => objectId === object.id || !graveyard.includes(objectId))) {
+        return 'illegal delve card'
+      }
+      if (delve.length > genericCost(fullCost)) return 'delve exceeds the generic mana cost'
+      const cost = reduceGenericManaCost(fullCost, delve.length)
       const convoke = event.convoke ?? []
       if (new Set(convoke).size !== convoke.length) return 'duplicate convoke creature'
       if (convoke.length > 0 && !hasConvoke(object)) return `${object.name} does not have convoke`
@@ -488,7 +500,7 @@ export const spells: Plugin = {
         object,
         event.castOption,
       )
-      const cost = spellCost(state, object, {
+      const cost = reduceGenericManaCost(spellCost(state, object, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
@@ -499,7 +511,7 @@ export const spells: Plugin = {
         seat: event.seat,
         selected,
         withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
-      })
+      }), event.delve?.length ?? 0)
       const timesKicked = timesKickedFromCast(event)
       const creatures = (event.convoke ?? [])
         .map((objectId) => draft.object(objectId))
@@ -523,6 +535,9 @@ export const spells: Plugin = {
       draft.players[event.seat].mana = payment.pool
       draft.players[event.seat].restrictedMana = payment.restrictedMana
       for (const creature of creatures) draft.enqueue({ type: 'tap', objectId: creature.id })
+      for (const objectId of event.delve ?? []) {
+        draft.enqueue({ type: 'move', objectId, to: 'exile' })
+      }
       if (phyrexianLife.length > 0) {
         draft.enqueue({
           type: 'payLife',

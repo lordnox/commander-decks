@@ -1050,7 +1050,9 @@ export const CardPreview = ({
   ): action is Extract<AvailableAction, { kind: 'castSpell' }> & {
     targetName: string
   } => action.kind === 'castSpell' && Boolean(
-    (action.targetObjectId || action.targetPlayerId) && action.targetName,
+    (action.targetObjectId || action.targetPlayerId)
+    && action.targetName
+    && !action.targetGroups,
   ))
   const directActs = acts.filter(
     (action) =>
@@ -1163,7 +1165,7 @@ export const CardPreview = ({
             {groupedTargets.map((action) => {
               const choiceId = action.kind === 'activateAbility'
                 ? action.abilityId ?? action.text
-                : `cast-${action.objectId}-${action.phyrexianLife?.join(',') ?? ''}`
+                : `cast-${action.objectId}-${action.targetObjectId ?? action.targetPlayerId ?? ''}-${action.phyrexianLife?.join(',') ?? ''}`
               return (
               <div key={choiceId} className="w-full">
                 {choosingActivation !== choiceId ? (
@@ -1176,6 +1178,7 @@ export const CardPreview = ({
                     className="inline-flex items-center rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                   >
                     {legalActLabel(action)}
+                    {action.kind === 'castSpell' && action.targetName ? ` — ${action.targetName}` : ''}
                   </button>
                 ) : (
                   <div className="rounded-xl border border-moss-300/30 bg-black/20 p-3">
@@ -1233,7 +1236,9 @@ export const CardPreview = ({
                         type="button"
                         onClick={() => onAct({
                           ...action,
-                          targetObjectIds: Object.values(activationTargets).flat(),
+                          targetObjectIds: action.targetGroups.flatMap(
+                            (group) => activationTargets[group.label] ?? [],
+                          ),
                         })}
                         className="rounded-full bg-moss-300 px-3 py-1.5 text-sm font-black text-ink-950 hover:bg-moss-200"
                       >

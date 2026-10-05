@@ -1188,6 +1188,8 @@ export const payLifeX = (
 
 export const convoke = (): CardEffect => ({ op: 'castCost', convoke: true })
 
+export const delve = (): CardEffect => ({ op: 'castCost', delve: true })
+
 export const kicker = (cost: string): CardEffect => ({
   op: 'castCost',
   kicker: cost,

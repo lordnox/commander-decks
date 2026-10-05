@@ -762,6 +762,7 @@ export type CardEffect =
   | {
       op: 'castCost'
       convoke?: boolean
+      delve?: boolean
       lifeX?: boolean
       xMana?: 'generic' | 'black'
       timing?: 'yourEndStep'

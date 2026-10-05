@@ -52,8 +52,10 @@ import { combatPreventionCards } from '../../rules-engine/src/cardPlugins/combat
 import { targetedResolve } from '../../rules-engine/src/cardPlugins/targetedResolve'
 import { ward as wardPlugin } from '../../rules-engine/src/cardPlugins/ward'
 import {
+  delve,
   entersTarget,
   ifYouDoExileFromGraveyard,
+  targetOnResolve,
   targetsOnResolve,
 } from '../../rules-engine/src/cardPlugins/effects'
 import {
@@ -893,6 +895,72 @@ describe('kernel host journal', () => {
       castOption: 'escape',
       targets: [{ kind: 'object', objectId: target.id }],
     })
+  })
+
+  test('a delve cast exiles the picked graveyard cards and taps lands for the rest', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: {
+          p1: [
+            cardTemplate('Deep Cut', {
+              types: ['Instant'],
+              manaCost: '{3}{G}',
+              effects: [delve(), targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' })],
+            }),
+            ...['Gy One', 'Gy Two', 'Gy Three'].map((name) =>
+              cardTemplate(name, { types: ['Sorcery'] })),
+          ],
+        },
+        battlefield: {
+          p1: [forest(), forest()],
+          p2: [cardTemplate('Victim', { types: ['Creature'] })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [targetedResolve] },
+    )
+    let state = server.state
+    for (const name of ['Gy One', 'Gy Two', 'Gy Three']) {
+      const moved = server.rules(state, {
+        type: 'move',
+        objectId: Object.values(state.objects).find((object) => object.name === name)!.id,
+        to: 'graveyard',
+      })
+      if (!moved.ok) throw new Error(moved.error)
+      state = moved.state
+    }
+    const named = (name: string) =>
+      Object.values(state.objects).find((object) => object.name === name)!
+    const spell = named('Deep Cut')
+    const victim = named('Victim')
+    const kernel = handleFor(server.rules, state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    const pick = [named('Gy Two').id, named('Gy Three').id]
+
+    expect(() => applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId: spell.id,
+      targetObjectId: victim.id,
+      targetObjectIds: [],
+    })).toThrow('Invalid selection for Graveyard cards to exile (delve)')
+
+    expect(applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'castSpell',
+      objectId: spell.id,
+      targetObjectId: victim.id,
+      targetObjectIds: pick,
+    }).map((event) => event.type)).toEqual(['tapForMana', 'tapForMana', 'castSpell'])
+    const current = kernel.history.current()
+    expect(pick.map((objectId) => current.objects[objectId].zone)).toEqual(['exile', 'exile'])
+    expect(current.stack[0]).toMatchObject({
+      objectId: spell.id,
+      targets: [{ kind: 'object', objectId: victim.id }],
+    })
+    expect(current.objects[named('Gy One').id].zone).toBe('graveyard')
   })
 
   test('a grouped multi-target cast sends every selected object as a target', () => {

@@ -357,3 +357,38 @@ test('a targeted fast cast asks for its target after Cast', () => {
   expect(html).toContain('>Cast<')
   expect(html).not.toContain('Choose target')
 })
+
+test('a targeted delve cast offers its graveyard picker rather than casting at once', () => {
+  const html = renderToStaticMarkup(
+    <CardPreview
+      preview={{
+        name: 'Deep Cut',
+        details: game.catalog['Mossborn Hydra'],
+        objectId: 'spell',
+      }}
+      acts={[{
+        kind: 'castSpell',
+        objectId: 'spell',
+        name: 'Deep Cut',
+        targetObjectId: 'creature',
+        targetName: 'Mossborn Hydra',
+        targetGroups: [{
+          label: 'Graveyard cards to exile (delve)',
+          min: 1,
+          max: 2,
+          purpose: 'cost',
+          delve: true,
+          targets: [
+            { objectId: 'a', name: 'Gy One', controller: 'p1' },
+            { objectId: 'b', name: 'Gy Two', controller: 'p1' },
+          ],
+        }],
+      }]}
+      onAct={() => {}}
+      onClose={() => {}}
+    />,
+  )
+
+  expect(html).toContain('Cast — Mossborn Hydra')
+  expect(html).not.toContain('Choose target')
+})

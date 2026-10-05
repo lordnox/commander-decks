@@ -498,6 +498,8 @@ export type GameEvent =
       sacrifice?: string[]
       exile?: string[]
       convoke?: string[]
+      /** Graveyard cards exiled to pay generic mana (delve). */
+      delve?: string[]
       discard?: string[]
       copy?: boolean
       withoutPayingMana?: boolean

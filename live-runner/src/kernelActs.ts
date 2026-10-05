@@ -12,24 +12,27 @@ import { isSeatId, type InboxMessage, type SeatId } from './protocol'
 import { kernelActions, kernelPriority, type KernelHandle } from './kernelHandle'
 import { availableAlternateCastEffect } from '../../rules-engine/src/cardPlugins/alternateCosts'
 
-// Cost picks are sent ahead of spell targets, one slot per cost group max.
+// Cost picks are sent ahead of spell targets, one run per cost group. A run
+// takes leading ids that belong to its group, up to the group's max.
 const splitGroupSelection = (groups: ActionTargetGroup[], selected: string[]) => {
-  const costGroups = groups.filter(({ purpose }) => purpose === 'cost')
-  const costSlots = costGroups.reduce((total, group) => total + group.max, 0)
-  const choices = selected.slice(0, costSlots)
-  let offset = 0
-  for (const group of costGroups) {
-    const picks = choices.slice(offset, offset + group.max)
-    if (
-      picks.length < group.min
-      || picks.some((objectId) =>
-        !group.targets.some((target) => target.objectId === objectId))
+  let rest = selected
+  const choices: string[] = []
+  const delve: string[] = []
+  for (const group of groups.filter(({ purpose }) => purpose === 'cost')) {
+    const picks: string[] = []
+    while (
+      picks.length < group.max
+      && rest.length > 0
+      && group.targets.some((target) => target.objectId === rest[0])
     ) {
-      throw new Error(`Invalid selection for ${group.label}`)
+      picks.push(rest[0])
+      rest = rest.slice(1)
     }
-    offset += group.max
+    if (picks.length < group.min) throw new Error(`Invalid selection for ${group.label}`)
+    if (group.delve) delve.push(...picks)
+    else choices.push(...picks)
   }
-  return { choices, targets: selected.slice(costSlots) }
+  return { choices, delve, targets: rest }
 }
 
 const targetRefs = (groups: ActionTargetGroup[], objectIds: string[]) =>
@@ -130,9 +133,19 @@ export const applyKernelAct = (
     : []
   const castGroups = action.kind === 'castSpell' ? action.targetGroups ?? [] : []
   const groups = action.kind === 'activateAbility' ? activationGroups : castGroups
-  const { choices, targets: selectedTargets } =
+  const { choices, delve, targets: selectedTargets } =
     splitGroupSelection(groups, message.targetObjectIds ?? [])
-  const events = action.kind === 'activateAbility' && action.targetGroups
+  const otherGroups = groups.filter((group) => !group.delve)
+  // A delve cast is funded by the kernel like any other planned cast, so only
+  // the delve picks and the spell's own targets travel on the event.
+  const events = action.kind === 'castSpell' && otherGroups.length < groups.length
+    ? eventsForAvailableAction(state, seat, {
+        ...action,
+        delve,
+        targetGroups: otherGroups.length > 0 ? otherGroups : undefined,
+        ...(selectedTargets.length > 0 ? { targetObjectIds: selectedTargets } : {}),
+      })
+    : action.kind === 'activateAbility' && action.targetGroups
     ? [{
         type: 'activateAbility' as const,
         seat,
