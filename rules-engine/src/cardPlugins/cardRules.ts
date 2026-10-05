@@ -79,6 +79,7 @@ import {
   extraLandPlays,
   exileColoredPermanentsAtMostX,
   fightOwnedVsOpponent,
+  gainControlPermanent,
   gainLife,
   grantControlledUntilEot,
   grantUntilEot,
@@ -108,6 +109,7 @@ import {
   lookTopPutLand,
   lockOrUnlockDoor,
   manaIf,
+  mayCastFromHandWithoutPayingMana,
   mayDraw,
   millHalfTargetPlayers,
   millTarget,
@@ -673,6 +675,44 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     { numbers: [2], do: [returnOwnedGraveyardLands()] },
     { numbers: [3], do: [pumpTargetEqualToLands(true)] },
   )],
+  'Kiora Bests the Sea God': [sagaChapters(
+    {
+      numbers: [1],
+      do: [createTokenInstruction({
+        name: 'Kraken',
+        types: ['Creature'],
+        subtypes: ['Kraken'],
+        colors: ['U'],
+        power: 8,
+        toughness: 8,
+        oracleText: 'Hexproof',
+      })],
+    },
+    {
+      numbers: [2],
+      targets: { filter: { players: 'opponent' } },
+      do: [tapAll(
+        { zone: 'battlefield', nonland: true },
+        { ofTargetPlayer: true, skipNextUntap: true },
+      )],
+    },
+    {
+      numbers: [3],
+      targets: { filter: { zone: 'battlefield', permanent: true, controller: 'opponent' } },
+      do: [gainControlPermanent(true)],
+    },
+  )],
+  "Rishkar's Expertise": [
+    onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
+  ],
+  'Spearbreaker Behemoth': [
+    activate({
+      id: 'spearbreaker.indestructible',
+      costs: { mana: '{1}' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
+      do: [grantUntilEot('indestructible')],
+    }),
+  ],
   'Horizon of Progress': [
     activate({
       id: 'horizon.putLand',
