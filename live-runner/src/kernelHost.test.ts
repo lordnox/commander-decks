@@ -35,6 +35,14 @@ import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/c
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
 import { PENDING_VOTE, pendingVote, vote as votePlugin } from '../../rules-engine/src/cardPlugins/vote'
 import { vote as voteInstruction } from '../../rules-engine/src/cardPlugins/effectBuilders'
+import { eachPlayerWheel } from '../../rules-engine/src/cardPlugins/eachPlayerWheel'
+import { blinkPlugin } from '../../rules-engine/src/cardPlugins/blink'
+import {
+  ability,
+  blinkSelf,
+  eachPlayerMayWheel,
+  ward,
+} from '../../rules-engine/src/cardPlugins/effects'
 import { alternateCosts } from '../../rules-engine/src/cardPlugins/alternateCosts'
 import { millThenRecover, onResolve as onResolveEffect } from '../../rules-engine/src/cardPlugins/effects'
 import { creatureTypeChoice } from '../../rules-engine/src/cardPlugins/creatureTypeChoice'
@@ -3075,5 +3083,174 @@ describe('up-to-N trigger targets live choice', () => {
     expect(elephantsOf('p2')).toHaveLength(1)
     expect(elephantsOf('p3')).toHaveLength(1)
     expect(elephantsOf('p1')).toHaveLength(0)
+  })
+})
+
+describe('ward life live choice', () => {
+  test('a restarted host rebuilds the Ward life choice and paying lets the spell resolve', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: ['p1', 'p2'],
+        battlefield: {
+          p1: [cardTemplate('Life Warded Beast', {
+            types: ['Creature'],
+            power: 2,
+            toughness: 2,
+            effects: [ward({ life: 7 })],
+          })],
+        },
+        hands: { p2: [cardTemplate('Test Hex', { types: ['Instant'], manaCost: '{C}' })] },
+      },
+      { random: () => 0.5, cardPlugins: [wardPlugin] },
+    )
+    const object = (name: string) =>
+      Object.values(server.state.objects).find((candidate) => candidate.name === name)!
+    const ready = structuredClone(server.state)
+    ready.priority = 'p2'
+    ready.players.p2.mana.C = 1
+    const cast = server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: object('Test Hex').id,
+      targets: [{ kind: 'object', objectId: object('Life Warded Beast').id }],
+    })
+    if (!cast.ok) throw new Error(cast.error)
+
+    const firstLobby = createLobby()
+    expect(prepareKernelPendingChoice(handleFor(server.rules, cast.state), firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      seat: 'p2',
+      cards: ['Pay 7 life', 'Do not pay (it is countered)'],
+    })
+
+    const restartedLobby = createLobby()
+    const restarted = handleFor(server.rules, structuredClone(cast.state))
+    expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
+    expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(applyKernelChoice(restarted, restartedLobby, 'p2', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Pay 7 life', destination: 'target' },
+        { card: 'Do not pay (it is countered)', destination: 'skip' },
+      ],
+    })).toBe(true)
+    expect(restarted.history.current().players.p2.life).toBe(33)
+    // The host passed priority, so the spell that Ward let through already resolved.
+    expect(restarted.history.current().objects[object('Test Hex').id].zone).toBe('graveyard')
+  })
+})
+
+describe('each-player and cost live choices', () => {
+  test('the wheel asks each player in turn through the host, across a restart', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: {
+          p1: [
+            cardTemplate('Tide Wheel', {
+              types: ['Instant'],
+              manaCost: '{C}',
+              effects: [onResolveEffect(eachPlayerMayWheel(2))],
+            }),
+            cardTemplate('Old One', { types: ['Sorcery'] }),
+          ],
+          p2: [cardTemplate('Old Two', { types: ['Sorcery'] })],
+        },
+        libraries: {
+          p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`New A${index}`)),
+          p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`New B${index}`)),
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve, eachPlayerWheel] },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana.C = 1
+    const kernel = handleFor(server.rules, initial)
+    const wheel = initial.zoneOrder.p1.hand[0]
+    expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: wheel }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const lobby = createLobby()
+    expect(prepareKernelPendingChoice(restarted, lobby)).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      cards: ['Discard your hand and draw 2 cards', 'Keep your hand'],
+    })
+    expect(applyKernelChoice(restarted, lobby, 'p1', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Discard your hand and draw 2 cards', destination: 'target' },
+        { card: 'Keep your hand', destination: 'skip' },
+      ],
+    })).toBe(true)
+    expect(restarted.history.current().zoneOrder.p1.hand).toHaveLength(2)
+    expect(lobby.topdeck).toMatchObject({ seat: 'p2' })
+    expect(applyKernelChoice(restarted, lobby, 'p2', {
+      type: 'topdeck',
+      choices: [
+        { card: 'Discard your hand and draw 2 cards', destination: 'skip' },
+        { card: 'Keep your hand', destination: 'target' },
+      ],
+    })).toBe(true)
+    expect(restarted.history.current().zoneOrder.p2.hand).toHaveLength(1)
+    expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
+  })
+
+  test('discard-three activation cost round-trips through a structured live act', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: {
+          p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`Held ${index + 1}`)),
+        },
+        battlefield: {
+          p1: [cardTemplate('Tide Elder', {
+            types: ['Creature'],
+            power: 6,
+            toughness: 6,
+            effects: [ability(
+              { id: 'elder.reset' },
+              { discard: 'any', discardCount: 3 },
+              blinkSelf({ when: 'nextEndStep', tapped: true }),
+            )],
+          })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [activatedPlugin, blinkPlugin] },
+    )
+    const state = structuredClone(server.state)
+    state.step = 'precombatMain'
+    const elder = Object.values(state.objects).find((object) => object.name === 'Tide Elder')!
+    const picks = ['Held 1', 'Held 2', 'Held 3'].map((name) =>
+      Object.values(state.objects).find((object) => object.name === name)!.id)
+    const kernel = handleFor(server.rules, state)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(() => applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: elder.id,
+      abilityId: 'elder.reset',
+      text: 'elder.reset',
+      targetObjectIds: picks.slice(0, 2),
+    })).toThrow()
+    expect(applyKernelAct(kernel, lobby, 'p1', {
+      type: 'act',
+      kind: 'activateAbility',
+      objectId: elder.id,
+      abilityId: 'elder.reset',
+      text: 'elder.reset',
+      targetObjectIds: picks,
+    })).toHaveLength(1)
+    const current = kernel.history.current()
+    expect(picks.every((objectId) => current.objects[objectId].zone === 'graveyard')).toBe(true)
+    expect(current.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'elder.reset' })
   })
 })
