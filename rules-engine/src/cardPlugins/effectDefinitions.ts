@@ -447,6 +447,12 @@ export type TargetFilter = {
   nonbasic?: boolean
   attacking?: boolean
   stealIfTypes?: string[]
+  /** Subtype, honoring land-type overlays (a Forest/Swamp overlay makes every land one). */
+  subtype?: string
+  nontoken?: boolean
+  powerAtLeast?: number
+  /** Mana value predicates; zero is even. */
+  manaValue?: { eq?: number; min?: number; max?: number; parity?: 'even' | 'odd' }
 }
 
 export type CastCostCondition =
