@@ -185,6 +185,16 @@ export const pendingSelection = (state: GameState) => {
   }
 }
 
+/**
+ * A seat answers a pick by giving every offered card a destination, so it needs
+ * "not targeted" whenever it may leave candidates out (more offered than the minimum).
+ */
+export const targetDestinations = (
+  candidates: number,
+  min: number,
+): CardSelectionDestination[] =>
+  min === 0 || candidates > min ? ['skip', 'target'] : ['target']
+
 export const openCardSelection = (
   draft: Draft,
   args: Omit<PendingCardSelection, 'id'>,

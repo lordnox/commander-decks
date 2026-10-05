@@ -8,6 +8,8 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import {
   destroyThenTokenForController,
+  destroyTargetPermanent,
+  entersTargeting,
   entersTargetingUpTo,
 } from './effects'
 
@@ -256,5 +258,54 @@ describe('up-to-N triggered targets', () => {
     const done = resolveStack(server.rules, ok(server.rules(restored, pick)))
     expect(elephants(done, 'p2')).toHaveLength(1)
     expect(elephants(done, 'p3')).toHaveLength(1)
+  })
+})
+
+describe('mandatory single triggered target', () => {
+  const sniper = cardTemplate('Fixture Sniper', {
+    types: ['Creature'],
+    effects: [entersTargeting(NONCREATURE_PERMANENT, destroyTargetPermanent('Artifact'))],
+  })
+  const open = (battlefield: Record<string, ReturnType<typeof cardTemplate>[]>) => {
+    const server = createServerGame(
+      commanderRules,
+      { hands: { p1: [sniper] }, battlefield, players: 3 },
+      { random: () => 0.5, cardPlugins: [] },
+    )
+    const state = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: named(server.state, 'Fixture Sniper').id,
+      to: 'battlefield',
+    }))
+    return { server, state }
+  }
+  const pick = (state: GameState, names: string[]): GameEvent => ({
+    type: 'selectCards',
+    seat: 'p1',
+    kind: 'choose',
+    count: 1,
+    objectIds: names.map((name) => named(state, name).id),
+  })
+
+  test('several candidates offer "not targeted" and need exactly one pick', () => {
+    const { server, state } = open({ p2: [artifact('Rock A'), artifact('Rock B')] })
+    expect(pendingSelectionFor(state, 'p1')).toMatchObject({
+      count: 1,
+      min: 1,
+      destinations: ['skip', 'target'],
+    })
+    expect(server.rules(state, pick(state, [])).ok).toBe(false)
+    expect(server.rules(state, pick(state, ['Rock A', 'Rock B'])).ok).toBe(false)
+    const done = resolveStack(server.rules, ok(server.rules(state, pick(state, ['Rock B']))))
+    expect(named(done, 'Rock B').zone).toBe('graveyard')
+    expect(named(done, 'Rock A').zone).toBe('battlefield')
+  })
+
+  test('a lone candidate is offered as the target only', () => {
+    const { state } = open({ p2: [artifact('Only Rock')] })
+    expect(pendingSelectionFor(state, 'p1')).toMatchObject({
+      min: 1,
+      destinations: ['target'],
+    })
   })
 })

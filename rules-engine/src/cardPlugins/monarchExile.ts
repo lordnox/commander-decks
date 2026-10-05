@@ -1,5 +1,5 @@
 import type Draft from '../draft'
-import { openCardSelection } from '../rules/selectCards'
+import { openCardSelection, targetDestinations } from '../rules/selectCards'
 import type { GameState, GameObject, PlayerId, StackItem } from '../types'
 import type { TargetFilter } from './effectDefinitions'
 import { validTarget } from './targetedResolve'
@@ -88,7 +88,7 @@ const openMonarchExileChoice = (
     sourceId: source.id,
     source: source.name,
     prompt: options.prompt,
-    destinations: ['target'],
+    destinations: targetDestinations(options.candidates.length, options.min),
     exileUntilOpponentMonarch: true,
   })
 }
