@@ -25,12 +25,17 @@ const enterBattlefield = (
   to: 'battlefield',
 })))
 
-describe('destroyAll', () => {
-  const sweeper = () => cardTemplate('Sweeper Engine', {
-    types: ['Artifact'],
-    effects: [enters(destroyAll({ nonland: true, other: true }))],
-  })
+const sweeper = () => cardTemplate('Sweeper Engine', {
+  types: ['Artifact'],
+  effects: [enters(destroyAll({ nonland: true, other: true }))],
+})
 
+const tideEngine = () => cardTemplate('Tide Engine', {
+  types: ['Creature'],
+  effects: [enters(bounceAll({ nonland: true, other: true }))],
+})
+
+describe('destroyAll', () => {
   test('destroys every other nonland permanent and spares lands and indestructible', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [sweeper()] },
@@ -95,11 +100,6 @@ describe('destroyAll', () => {
 })
 
 describe('bounceAll', () => {
-  const tideEngine = () => cardTemplate('Tide Engine', {
-    types: ['Creature'],
-    effects: [enters(bounceAll({ nonland: true, other: true }))],
-  })
-
   test('returns every other nonland permanent to its owner hand, keeping lands', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [tideEngine()] },
