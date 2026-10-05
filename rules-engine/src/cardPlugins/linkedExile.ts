@@ -1,5 +1,5 @@
 import type Draft from '../draft'
-import { openCardSelection } from '../rules/selectCards'
+import { openCardSelection, targetDestinations } from '../rules/selectCards'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, Plugin, StackItem } from '../types'
 import { validTarget } from './targetedResolve'
@@ -105,7 +105,7 @@ const openLinkExileChoice = (
     sourceId: source.id,
     source: source.name,
     prompt: options.prompt,
-    destinations: ['target'],
+    destinations: targetDestinations(options.candidates.length, options.min),
     linkExile: true,
   })
 }

@@ -3,7 +3,7 @@ import { enteringObjectId } from '../cardPlugins/entersTapped'
 import { addMinusCounters, addPlusCounters, type CardInstruction, type SagaChapter } from '../cardPlugins/effects'
 import { validTarget, validTargetRef } from '../cardPlugins/targetedResolve'
 import type Draft from '../draft'
-import { openCardSelection, pendingSelectionsFor } from '../rules/selectCards'
+import { openCardSelection, pendingSelectionsFor, targetDestinations } from '../rules/selectCards'
 import { openPlayerSelection, pendingPlayerSelectionsFor } from '../rules/selectPlayers'
 import type { GameEvent, GameObject, GameState, Plugin } from '../types'
 
@@ -114,7 +114,7 @@ const addChapterTriggers = (
           sourceId: source.id,
           source: source.name,
           prompt: `Choose target for ${chapterName(source, number)}.`,
-          destinations: ['target'],
+          destinations: targetDestinations(candidates.length, 1),
           triggerInstructions: chapter.do,
           triggerPayload: {
             instructions: chapter.do,

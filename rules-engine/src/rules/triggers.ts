@@ -18,7 +18,7 @@ import {
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'
-import { openCardSelection } from './selectCards'
+import { openCardSelection, targetDestinations } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type {
@@ -669,19 +669,19 @@ export const triggers: Plugin = {
           .map((object) => object.id)
         if (candidates.length === 0 && targetSpec.min !== 0) continue
         const maxTargets = targetSpec.max ?? 1
+        const minTargets = Math.min(targetSpec.min ?? maxTargets, candidates.length)
         openCardSelection(draft, {
           seat: source.controller,
           kind: 'choose',
           count: maxTargets,
-          min: Math.min(targetSpec.min ?? maxTargets, candidates.length),
+          min: minTargets,
           candidates,
           sourceId: source.id,
           source: source.name,
           prompt: maxTargets === 1
             ? `Choose target for ${source.name}.`
             : `Choose up to ${maxTargets} targets for ${source.name}.`,
-          // Offering "not targeted" lets the chooser leave candidates out of an optional or multiple pick.
-          destinations: targetSpec.min === 0 || maxTargets > 1 ? ['skip', 'target'] : ['target'],
+          destinations: targetDestinations(candidates.length, minTargets),
           triggerInstructions: effect.do,
           triggerPayload: triggerPayloadExtras(effect, effectKey, {
             targetFilter: targetSpec.filter,

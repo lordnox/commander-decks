@@ -230,6 +230,74 @@ describe('Saga chapter that gains control of an opponent permanent', () => {
     expect(named(open, 'Fixture Tide Chronicle').zone).toBe('battlefield')
   })
 
+  test('offers "not targeted" so exactly one of several candidates can be marked', () => {
+    const { open } = setup(2)
+    expect(pendingSelectionFor(open, 'p1')).toMatchObject({
+      count: 1,
+      min: 1,
+      destinations: ['skip', 'target'],
+    })
+  })
+
+  test('rejects choosing no permanent or two permanents', () => {
+    const { server, open } = setup(2)
+    const [first, second] = pendingSelectionFor(open, 'p1')!.candidates
+    for (const objectIds of [[], [first, second]]) {
+      expect(server.rules(open, {
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'choose',
+        count: 1,
+        objectIds,
+      }).ok).toBe(false)
+    }
+  })
+
+  test('a live host takes exactly one marked card, survives restart, and rejects 0 or 2', () => {
+    const { server, loreEvent } = setup(2)
+    const kernel = handleFor(server.rules, server.state)
+    const added = kernel.dispatch(loreEvent)
+    if (!added.ok) throw new Error(added.error)
+
+    const firstLobby = createLobby()
+    firstLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
+    expect(firstLobby.topdeck).toMatchObject({
+      destinations: ['skip', 'target'],
+      requirements: { target: { min: 1, max: 1 } },
+    })
+    const offered = (firstLobby.topdeck?.cards ?? []).map(String)
+    expect(offered).toHaveLength(4)
+
+    const restarted = handleFor(
+      server.rules,
+      restoreJournal(kernel.journal, server.rules).current(),
+    )
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(restarted, lobby)).toBe(true)
+    expect(lobby.topdeck).toEqual(firstLobby.topdeck)
+
+    const answer = (targeted: number[]) => ({
+      type: 'topdeck' as const,
+      choices: offered.map((card, slot) => ({
+        card,
+        slot,
+        destination: targeted.includes(slot) ? 'target' as const : 'skip' as const,
+      })),
+    })
+    expect(() => applyKernelChoice(restarted, lobby, 'p1', answer([]))).toThrow()
+    expect(() => applyKernelChoice(restarted, lobby, 'p1', answer([0, 1]))).toThrow()
+    expect(pendingSelectionFor(restarted.history.current(), 'p1')).toBeDefined()
+
+    const pick = offered.indexOf('Fixture Foe Beta')
+    expect(applyKernelChoice(restarted, lobby, 'p1', answer([pick]))).toBe(true)
+    const current = restarted.history.current()
+    expect(pendingSelectionFor(current, 'p1')).toBeUndefined()
+    expect(named(current, 'Fixture Foe Beta').controller).toBe('p1')
+    expect(named(current, 'Fixture Foe Alpha').controller).toBe('p2')
+  })
+
   test('steals the chosen permanent for good and untaps it, then sacrifices the Saga', () => {
     const { server, open } = setup(2)
     const target = named(open, 'Fixture Foe Alpha')
