@@ -55,25 +55,6 @@ const repeatIf: InstructionHandler<'repeatIf'> = (
   if (conditionHolds(instruction.if, draft, live, item)) run(instruction.do, live)
 }
 
-const lookTopChooseOne: InstructionHandler<'lookTopChooseOne'> = (
-  { draft, source },
-  instruction,
-) => {
-  setPendingDialog(draft, {
-    sourceId: source.id,
-    source: source.name,
-    seat: source.controller,
-    kind: 'look-top',
-    prompt: `Look at the top ${instruction.count} cards. Put one into your hand and the rest on the bottom in any order.`,
-    waiting: 'is making a private top-card choice.',
-    judge: 'Waiting for a private top-card choice.',
-    chosenEvent: DIALOG_CHOSEN,
-    destinations: ['bottom', 'hand'],
-    count: instruction.count,
-    requirements: { hand: { min: 1, max: 1 } },
-  })
-}
-
 const teferiSunsetEmblem: InstructionHandler<'teferiSunsetEmblem'> = ({ draft, source }) => {
   draft.enqueue({
     type: 'custom',
@@ -373,7 +354,6 @@ export const controlHandlers = {
   ifTargetTypes,
   removeTarget,
   repeatIf,
-  lookTopChooseOne,
   teferiSunsetEmblem,
   putPermanentsFromHand,
   putFromHand,

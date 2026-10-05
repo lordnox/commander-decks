@@ -511,6 +511,24 @@ const scry: InstructionHandler<'scry'> = ({ draft, source, item }, instruction) 
   })
 }
 
+const lookTopPick: InstructionHandler<'lookTopPick'> = ({ draft, source }, instruction) => {
+  const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
+    seat: source.controller,
+    kind: 'scry',
+    count: instruction.count,
+    candidates,
+    sourceId: source.id,
+    source: source.name,
+    prompt: `Look at the top ${instruction.count} cards. Put ${
+      instruction.pick === 1 ? 'one' : instruction.pick
+    } into your hand and the rest on the bottom of your library in any order.`,
+    destinations: ['bottom', 'hand'],
+    handQuota: instruction.pick,
+  })
+}
+
 const opponentPiles: InstructionHandler<'opponentPiles'> = (
   { draft, source, item },
   instruction,
@@ -928,6 +946,7 @@ export const zoneHandlers = {
   returnSelfWithCounter,
   surveil,
   scry,
+  lookTopPick,
   opponentPiles,
   putLandFromHand,
   bounceChosenLand,
