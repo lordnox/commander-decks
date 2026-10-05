@@ -235,6 +235,26 @@ describe('card plugin registry', () => {
       .toEqual(['modalSpell', 'choiceEffects'])
   })
 
+  test('the Círdan creature group stays registered', () => {
+    const covered = [
+      'Archetype of Endurance',
+      'Blightsteel Colossus',
+      'Darksteel Colossus',
+      'Grothama, All-Devouring',
+      'Guardian Project',
+      'It That Betrays',
+      'Sire of Seven Deaths',
+      'Terastodon',
+      'Thunderfoot Baloth',
+      'Void Winnower',
+      'Woodfall Primus',
+    ]
+    expect(missingCardPlugins(covered)).toEqual([])
+    expect(cardPluginEntry('Blightsteel Colossus')?.handlerIds).toEqual(['shuffleIntoLibraryInstead'])
+    expect(cardPluginEntry('Sire of Seven Deaths')?.handlerIds).toEqual(['ward'])
+    expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])
+  })
+
   test('the Lady Evangela copy-politics group stays registered', () => {
     const covered = [
       'Rings of Brighthearth',

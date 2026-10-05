@@ -34,6 +34,19 @@ const watcher = () => cardTemplate('Graveyard Watcher', {
   effects: [triggerOn('discard', { do: [gainLife(1)] })],
 })
 
+const attack = (server: ReturnType<typeof game>, state: GameState) => {
+  const ready = structuredClone(state)
+  ready.step = 'declareAttackers'
+  named(ready, 'It That Betrays').summoningSickness = false
+  return ok(server.rules(ready, {
+    type: 'declareAttackers',
+    seat: 'p1',
+    attackers: [{ objectId: named(ready, 'It That Betrays').id, defender: 'p2' }],
+  }))
+}
+
+const betrayer = () => deckCard('It That Betrays')
+
 describe('Blightsteel and Darksteel Colossus registration', () => {
   test('both load only the shuffle replacement handler', () => {
     for (const name of COLOSSI) {
@@ -305,7 +318,6 @@ describe('Darksteel Colossus combat keywords', () => {
 })
 
 describe('It That Betrays does not steal a Colossus', () => {
-  const betrayer = () => deckCard('It That Betrays')
 
   const betrayGame = (colossusName: typeof COLOSSI[number]) => game({
     battlefield: {
@@ -317,16 +329,6 @@ describe('It That Betrays does not steal a Colossus', () => {
     },
   })
 
-  const attack = (server: ReturnType<typeof game>, state: GameState) => {
-    const ready = structuredClone(state)
-    ready.step = 'declareAttackers'
-    named(ready, 'It That Betrays').summoningSickness = false
-    return ok(server.rules(ready, {
-      type: 'declareAttackers',
-      seat: 'p1',
-      attackers: [{ objectId: named(ready, 'It That Betrays').id, defender: 'p2' }],
-    }))
-  }
 
   for (const colossusName of COLOSSI) {
     test(`annihilator makes p2 sacrifice ${colossusName} and a rock: the rock is stolen, the Colossus shuffled`, () => {
