@@ -11,7 +11,7 @@
     {
       "name": "lifedrain",
       "score": 5,
-      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the X wins, backed by Queza; Test of Endurance is the 50-life upkeep close."
+      "reason": "Exsanguinate, Debt to the Deathless, and Drain Life are the X wins, backed by Queza; Elbrus into Withengar is the combat close."
     },
     {
       "name": "control",
@@ -36,7 +36,7 @@
     {
       "name": "politics",
       "score": 4,
-      "reason": "Sokrates, Tenuous Truce, Secret Rendezvous, Loran, Pain's Reward, Promise of Loyalty, and Council's Judgment let the table's own choices decide who takes damage."
+      "reason": "Sokrates, Loran, Fact or Fiction, Fractured Identity, and Council's Judgment let the table's own choices decide who takes damage."
     },
     {
       "name": "big mana",
@@ -79,6 +79,11 @@
       "reason": "Rings of Brighthearth with Deserted Temple or Magus of the Coffers scales black mana arbitrarily, but it is a mana engine rather than the primary plan."
     },
     {
+      "name": "equipment",
+      "score": 2,
+      "reason": "Lashwrithe and Elbrus are a two-card swamp-Germ into Demon line, not an equipment deck."
+    },
+    {
       "name": "lands matter",
       "score": 2,
       "reason": "Urborg and Blanket of Night make every land a Swamp so Cabal Coffers and Cabal Stronghold count higher."
@@ -96,7 +101,7 @@
     {
       "name": "tokens",
       "score": 1,
-      "reason": "Inkshield makes incidental bodies."
+      "reason": "Inkshield makes incidental bodies; Lashwrithe makes a Germ."
     }
   ]
 }

@@ -1,0 +1,150 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "de21d433-5c2c-49c0-80d1-bf6e8471f9d4",
+      "name": "Lashwrithe",
+      "object": "related_card",
+      "type_line": "Artifact — Equipment",
+      "uri": "https://api.scryfall.com/cards/de21d433-5c2c-49c0-80d1-bf6e8471f9d4"
+    },
+    {
+      "component": "token",
+      "id": "53c05e53-84c7-4796-ae02-d778faa5afa6",
+      "name": "Phyrexian Germ",
+      "object": "related_card",
+      "type_line": "Token Creature — Phyrexian Germ",
+      "uri": "https://api.scryfall.com/cards/53c05e53-84c7-4796-ae02-d778faa5afa6"
+    }
+  ],
+  "artist": "Jason Felix",
+  "artist_ids": [
+    "af42a44c-8ec3-47a7-9047-5d29ddad186d"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 270711,
+  "cmc": 4.0,
+  "collector_number": "245",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8109,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "de21d433-5c2c-49c0-80d1-bf6e8471f9d4",
+  "illustration_id": "b301d74e-2791-4d0e-a557-32f573b1b6cf",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:33:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.webp?1783938821",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.jpg?1783938821",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.jpg?1783938821",
+    "crop": "https://cards.scryfall.io/crop/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.webp?1783938821",
+    "display": "https://cards.scryfall.io/display/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.webp?1783938821",
+    "grid": "https://cards.scryfall.io/grid/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.webp?1783938821",
+    "large": "https://cards.scryfall.io/large/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.jpg?1783938821",
+    "normal": "https://cards.scryfall.io/normal/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.jpg?1783938821",
+    "png": "https://cards.scryfall.io/png/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.png?1783938821",
+    "small": "https://cards.scryfall.io/small/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.jpg?1783938821",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/e/de21d433-5c2c-49c0-80d1-bf6e8471f9d4.webp?1783938821"
+  },
+  "keywords": [
+    "Equip",
+    "Living weapon"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{4}",
+  "mtgo_foil_id": 54938,
+  "mtgo_id": 54937,
+  "multiverse_ids": [
+    389575
+  ],
+  "name": "Lashwrithe",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "066ba81e-b32d-4808-97ab-0b5f52d557e4",
+  "oracle_text": "Living weapon (When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this to it.)\nEquipped creature gets +1/+1 for each Swamp you control.\nEquip {B/P}{B/P} ({B/P} can be paid with either {B} or 2 life.)",
+  "oversized": false,
+  "penny_rank": 1928,
+  "prices": {
+    "eur": "0.52",
+    "eur_foil": null,
+    "tix": "0.20",
+    "usd": "0.67",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A066ba81e-b32d-4808-97ab-0b5f52d557e4&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/54937?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=270711&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F94412%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lashwrithe",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=389575&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLashwrithe",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLashwrithe"
+  },
+  "released_at": "2014-11-07",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/de21d433-5c2c-49c0-80d1-bf6e8471f9d4/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/c14?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/c14/245/lashwrithe?utm_source=api",
+  "security_stamp": "oval",
+  "set": "c14",
+  "set_id": "0980a6e2-eb78-4ad2-8396-cef08fce365e",
+  "set_name": "Commander 2014",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ac14&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/0980a6e2-eb78-4ad2-8396-cef08fce365e",
+  "story_spotlight": false,
+  "tcgplayer_id": 94412,
+  "textless": false,
+  "type_line": "Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/de21d433-5c2c-49c0-80d1-bf6e8471f9d4",
+  "variation": false
+}
