@@ -65,7 +65,11 @@ mulligan is free; later ones bottom `mulligans - 1` cards.
 `slot` is the card's position in the dialog's offered `cards`, because two offered
 cards can share a name (two Forests of different controllers). A kernel dialog
 answers every offered slot exactly once and rejects a choice whose slot is missing,
-repeated, or does not hold that `card`. The host validates the current hidden
+repeated, or does not hold that `card`. Only the legacy replay flow (no kernel,
+cards are plain names) and the cumulative-upkeep dialog (answered with opponent
+seats) omit `slot`. Candidates the chooser may read but whose order must stay
+hidden (a searched library, an opponent's hand) are offered sorted by name.
+The host validates the current hidden
 library and resolves it without an agent.
 A decision of kind `discard` carries the seat's hand instead of the library top,
 with `hand` and `graveyard` destinations and the excess as a requirement; the

@@ -7,7 +7,6 @@ import {
 import {
   SEARCH_CHOSEN,
   pendingSearch,
-  searchCandidates,
   searchSpecForPending,
   searchingSeat,
   type PendingSearch,
@@ -17,7 +16,7 @@ import {
 import type { LobbyState, TopdeckDecision } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
-import { openTopdeck } from './kernelChoice'
+import { discardOffer, openTopdeck, searchOffer, selectCardsOffer } from './kernelChoice'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
@@ -97,8 +96,9 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
   const spec = pending ? searchSpecForPending(state, pending) : undefined
   if (!pending || !spec) return false
   const zones = spec.zones ?? ['library']
-  const candidates = searchCandidates(state, seat, spec, pending.kicked, pending.x)
-  const cards = candidates.map((object) => object.name)
+  const offer = searchOffer(state, seat, spec, pending)
+  const cards = offer.names
+  const candidates = offer.ids.map((objectId) => state.objects[objectId])
   const minRequired = spec.split
     ? Math.min(spec.split.battlefield.min, spec.split.hand.min)
     : spec.min
@@ -147,8 +147,9 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
   const state = kernel.history.current()
   const waiting = waitingDiscard(state)
   if (!waiting || !isSeatId(waiting.chooser)) return false
-  const hand = waiting.handIds.map((objectId) => state.objects[objectId])
-  const cards = hand.map((object) => object?.name ?? '')
+  const offer = discardOffer(state, waiting)
+  const hand = offer.ids.map((objectId) => state.objects[objectId])
+  const cards = offer.names
   return openTopdeck(
     lobby,
     {
@@ -206,7 +207,8 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
   if (!waiting) return false
   const seat = waiting.selection.seat
   if (!isSeatId(seat)) return false
-  const { selection, names, count } = waiting
+  const { selection, count } = waiting
+  const offer = selectCardsOffer(waiting)
   if (selection.kind === 'choosePile') {
     const piles = selection.piles ?? { 'face-up': [], 'face-down': [] }
     const hideFaceDown = selection.pileVisibility === 'facedown-faceup'
@@ -281,7 +283,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         : selection.handQuota !== undefined
           ? 'look-top'
           : selection.kind,
-      cards: names,
+      cards: offer.names,
       destinations,
       ...(requirements ? { requirements } : {}),
       kernel: {
@@ -298,7 +300,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         ? `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat} for ${selection.source}.`
         : `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat}.`,
     },
-    waiting.objectIds.map((objectId) => state.objects[objectId]),
+    offer.ids.map((objectId) => state.objects[objectId]),
   )
 }
 

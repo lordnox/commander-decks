@@ -5,12 +5,17 @@ import {
 } from '../../rules-engine/src/index'
 import {
   pendingSearch,
-  searchCandidates,
   searchSpecForPending,
   type SearchMove,
   validateSplitSearchSelection,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
-import { objectIdsForChoices, type ChoiceContext } from './kernelChoice'
+import {
+  discardOffer,
+  objectIdsForChoices,
+  searchOffer,
+  selectCardsOffer,
+  type ChoiceContext,
+} from './kernelChoice'
 import type { LobbyState } from './lobby'
 import type { SeatId } from './protocol'
 import { finishLibrarySearch } from './kernelChoicePrepareCards'
@@ -75,7 +80,7 @@ export const applySelectCards = (
         : 'graveyard'
     const objectIds = objectIdsForChoices(
       state,
-      waiting.objectIds,
+      selectCardsOffer(waiting).ids,
       message.choices.filter(({ destination }) => destination === chosenDestination),
     )
     const minimum = cardKind === 'discard'
@@ -113,7 +118,7 @@ export const applySelectCards = (
         : `${lobby.occupants[seat]?.name ?? seat} ${verb} ${name}.`,
     })
   }
-  const pickedIds = objectIdsForChoices(state, waiting.objectIds, message.choices)
+  const pickedIds = objectIdsForChoices(state, selectCardsOffer(waiting).ids, message.choices)
   const choices = message.choices.map((choice, index) => ({
     objectId: pickedIds[index],
     destination: choice.destination as 'top' | 'bottom' | 'hand' | 'graveyard' | 'face-up' | 'face-down',
@@ -203,7 +208,7 @@ export const applyWaitingDiscard = (
   }
   const objectIds = objectIdsForChoices(
     state,
-    waiting.handIds,
+    discardOffer(state, waiting).ids,
     message.choices.filter(({ destination }) => destination === 'graveyard'),
   )
   if (objectIds.length !== waiting.count) {
@@ -275,7 +280,7 @@ export const applyLibrarySearch = (
   }
   const ids = objectIdsForChoices(
     state,
-    searchCandidates(state, seat, spec, pending.kicked, pending.x).map((object) => object.id),
+    searchOffer(state, seat, spec, pending).ids,
     picked,
   )
   const selectionError = spec.validateSelection?.(
