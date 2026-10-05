@@ -6,6 +6,7 @@ import {
 } from '../pendingDialog'
 import { wardGeneric } from '../keywords'
 import { openCardSelection } from '../rules/selectCards'
+import { openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
@@ -13,6 +14,9 @@ import type { CardEffect } from './effects'
 
 export const WARD_PENDING_CAST = 'ward.pendingCast'
 export const WARD_AWAITING = 'ward.awaitingSacrifice'
+
+const PAY_LIFE = 'pay'
+const DECLINE = 'decline'
 
 type WardSpec = NonNullable<Extract<CardEffect, { op: 'static' }>['ward']>
 
@@ -109,6 +113,25 @@ const openWardChoice = (
     draft.priority = seat
     return
   }
+  if (ward.life !== undefined) {
+    if (draft.players[seat].life < ward.life) {
+      counterPending(draft, pending)
+      return
+    }
+    openOptionSelection(draft, {
+      seat,
+      sourceId: warded.id,
+      source: warded.name,
+      prompt: `Pay ${ward.life} life or the spell or ability targeting ${warded.name} is countered.`,
+      options: [
+        { id: PAY_LIFE, label: `Pay ${ward.life} life` },
+        { id: DECLINE, label: 'Do not pay (it is countered)' },
+      ],
+      action: { kind: 'ward-life', life: ward.life },
+    })
+    storePendingCast(draft, seat, pending.event)
+    return
+  }
   if (ward.sacrifice) {
     const candidates = Object.values(draft.objects)
       .filter((object) =>
@@ -176,6 +199,7 @@ export const ward: Plugin = {
     if (pending && seat) {
       const allowed = event.type === 'custom'
         || event.type === 'selectCards'
+        || event.type === 'selectOption'
         || event.type === 'tapForMana'
         || event.type === 'addMana'
         || event.type === 'authoritativeSync'
@@ -230,6 +254,29 @@ export const ward: Plugin = {
       }
       clearPendingCast(draft, event.seat)
       counterPending(draft, pending)
+      return
+    }
+
+    if (event.type === 'selectOption') {
+      const selection = pendingOptionSelection(state, event.seat)
+      const pending = pendingCastFor(state, event.seat)
+      if (selection?.action.kind !== 'ward-life' || !pending) return
+      clearPendingCast(draft, event.seat)
+      if (event.optionId !== PAY_LIFE) {
+        counterPending(draft, pending)
+        return
+      }
+      draft.enqueue({
+        type: 'payLife',
+        seat: event.seat,
+        amount: selection.action.life,
+        source: selection.source,
+      })
+      // Paying all of your life is legal, but then you lose before the spell could go on.
+      if (draft.players[event.seat].life > selection.action.life) {
+        draft.enqueue({ ...pending.event, wardPaid: true })
+      }
+      draft.note(`${event.seat} pays Ward—${selection.action.life} life`)
       return
     }
 
