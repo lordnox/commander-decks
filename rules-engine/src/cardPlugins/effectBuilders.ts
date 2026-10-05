@@ -1023,6 +1023,13 @@ export const pumpPerLinkedExile = (
   pumpPerLinkedExile: { power, toughness },
 })
 
+/** Gets +X/+Y, where X and Y are the power and toughness of each card exiled with it. */
+export const pumpFromLinkedExileStats = (): CardEffect => ({
+  op: 'static',
+  pluginId: 'exilePayoffs',
+  pumpPerLinkedExile: { fromLinked: true },
+})
+
 export const pumpFromLinkedExilePower = (
   applyTo: 'self' | 'stackTarget',
 ): CardInstruction => ({

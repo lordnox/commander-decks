@@ -11,6 +11,12 @@ import type {
 export const RANDOM_EXILE_COPY_CARD_CHOSEN = 'randomExileCopy.cardChosen'
 export const RANDOM_EXILE_COPY_FINISH = 'randomExileCopy.finish'
 
+/**
+ * Static P/T from cards exiled with the source: a fixed bonus per card, or
+ * (`fromLinked`) each linked card's own power and toughness (Imprint).
+ */
+export type LinkedExilePump = { power: number; toughness: number } | { fromLinked: true }
+
 export type CardCondition =
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
   | { kind: 'controlledLands'; min?: number; max?: number }
@@ -806,7 +812,7 @@ export type CardEffect =
         on: Extract<CardEffect, { op: 'trigger' }>['on']
         do: CardInstruction[]
       }
-      pumpPerLinkedExile?: { power: number; toughness: number }
+      pumpPerLinkedExile?: LinkedExilePump
       /** If this card would be put into a graveyard from anywhere, reveal it and shuffle it into its owner's library. */
       shuffleIntoLibraryInstead?: true
       /** Whenever the permanent this Aura enchants is tapped for mana, its controller adds one more mana. */

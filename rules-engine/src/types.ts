@@ -145,7 +145,6 @@ export type ReversibleEffect =
     }
   | {
       kind: 'pumpPerLinkedExile'
-      perCard: { power: number; toughness: number }
       before: { power: number | null; toughness: number | null }
       after: { power: number; toughness: number }
     }
