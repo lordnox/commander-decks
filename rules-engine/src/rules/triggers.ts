@@ -469,7 +469,10 @@ const collectMoveTriggers = (
   }
 
   if (before.zone === 'battlefield' && event.to !== 'battlefield') {
-    collectEffects(before, 'leaves', state, matches)
+    // The leaving object stops existing for the ledger, so the ability keeps what it knew.
+    collectEffects(before, 'leaves', state, matches, 1, before.damageDealtBy
+      ? { payload: { lastKnownDamage: before.damageDealtBy } }
+      : {})
   }
 
   if (before.zone === 'battlefield' && event.to === 'graveyard' && before.types.includes('Creature')) {

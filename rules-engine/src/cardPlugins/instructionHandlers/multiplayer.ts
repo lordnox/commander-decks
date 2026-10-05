@@ -1,4 +1,5 @@
 import { apnapSeats } from '../../turnOrder'
+import type { PlayerId } from '../../types'
 import { copyTokenTemplate, createToken } from '../effects'
 import { askEachPlayerDiscard, askEachPlayerSacrifice } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
@@ -102,6 +103,17 @@ const eachPlayerDraw: InstructionHandler<'eachPlayerDraw'> = (
   }
 }
 
+const eachPlayerDrawDamageDealtToSource: InstructionHandler<
+  'eachPlayerDrawDamageDealtToSource'
+> = ({ draft, source, item }) => {
+  const ledger = (item?.payload?.lastKnownDamage ?? source.damageDealtBy ?? {}) as
+    Record<PlayerId, number>
+  for (const seat of apnapSeats(draft)) {
+    const count = ledger[seat] ?? 0
+    if (count > 0) draft.enqueue({ type: 'draw', seat, count })
+  }
+}
+
 const copyTargetForEachOtherPlayer: InstructionHandler<'copyTargetForEachOtherPlayer'> = (
   { draft, item },
 ) => {
@@ -150,6 +162,7 @@ export const multiplayerHandlers = {
   eachPlayerLoseLife,
   opponentsLoseLife,
   eachPlayerDraw,
+  eachPlayerDrawDamageDealtToSource,
   copyTargetForEachOtherPlayer,
   createTreasures,
 } satisfies Partial<InstructionHandlers>

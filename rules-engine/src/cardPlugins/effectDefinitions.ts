@@ -270,6 +270,8 @@ export type CardInstruction =
   | { kind: 'chooseModes'; choose: 'one' | 'any' | 'two'; modes: ModalMode[] }
   | { kind: 'eachPlayerDiscard'; count: number }
   | { kind: 'eachPlayerDraw'; count: number }
+  /** Each player draws cards equal to the damage dealt to this by sources they controlled this turn. */
+  | { kind: 'eachPlayerDrawDamageDealtToSource' }
   | { kind: 'eachPlayerLoseLife'; amount: number }
   | { kind: 'eachPlayerSacrifice'; type: string }
   | {

@@ -3,6 +3,7 @@ import { strikesFirst } from '../keywords'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
 import { clearPutIntoGraveyardFromBattlefieldThisTurn } from './fromBattlefieldThisTurn'
 import { LEGENDARY_COMBAT_DAMAGE_FROM } from './combatLegendaryDamage'
+import { clearDamageDealt } from './damageLedger'
 import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 import { phaseInControlledBeforeUntap } from './phasing'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
@@ -100,6 +101,7 @@ const onCleanup = (draft: Draft) => {
     delete object.blocked
     object.blocking = null
   }
+  clearDamageDealt(draft)
   draft.rules = draft.rules.filter((rule) => rule.params.untilCleanup !== true)
   draft.delayedTriggers = draft.delayedTriggers.filter((trigger) => !trigger.untilCleanup)
   draft.note('cleanup')
