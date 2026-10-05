@@ -20,6 +20,11 @@ export const abilityTokens = (oracleText: string) =>
 export const hasKeyword = (object: GameObject, keyword: string, state?: {
   rules: Array<{ pluginId: string; params: Record<string, unknown> }>
 }) => {
+  const layers = (object.continuousEffects ?? []).flatMap(({ effect }) =>
+    effect.kind === 'staticKeywords' ? [effect] : [])
+  // "Can't have or gain" outranks every source of the keyword, printed or granted.
+  if (layers.some(({ suppress }) => suppress.includes(keyword))) return false
+  if (layers.some(({ grant }) => grant.includes(keyword))) return true
   if (abilityTokens(object.oracleText).includes(keyword)) return true
   if (
     object.types.includes('Creature')

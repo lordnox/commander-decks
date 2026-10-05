@@ -108,6 +108,8 @@ export type ReversibleEffect =
   /** CR 701.38: attacks each combat if able; prefers non-goading players. */
   | { kind: 'goad'; sourceController: PlayerId }
   | { kind: 'protectionFromEverything' }
+  /** Static-layer keywords: `suppress` ("can't have or gain") beats `grant`; read by `hasKeyword`. */
+  | { kind: 'staticKeywords'; grant: string[]; suppress: string[] }
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
   /**
@@ -155,7 +157,8 @@ export type EffectDuration =
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
   | { kind: 'cdaLifePt' }
   | { kind: 'pumpPerLinkedExile' }
-  | { kind: 'staticBoardPump'; sourceId: string; requireTypes: string[] }
+  /** `index` is the spec's position among the source's `staticBoardPump` effects. */
+  | { kind: 'staticBoardPump'; sourceId: string; index: number }
 
 export type ContinuousEffect = {
   effect: ReversibleEffect

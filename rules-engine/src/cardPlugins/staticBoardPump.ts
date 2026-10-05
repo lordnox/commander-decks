@@ -1,40 +1,21 @@
-import { effectsOf } from './cardRules'
+import type Draft from '../draft'
+import type { GameObject, GameState, Plugin } from '../types'
 import {
   applyStaticBoardPump,
+  hasStaticBoardPump,
   removeStaticBoardPump,
 } from './continuousEffects'
-import type { CardEffect } from './effectDefinitions'
-import type { GameObject, Plugin } from '../types'
+import { pumpApplies, pumpSpecs } from './staticBoardPumpSpec'
 
-type PumpSpec = NonNullable<
-  Extract<CardEffect, { op: 'static' }>['staticBoardPump']
->
-
-const pumpSpecs = (source: GameObject) =>
-  effectsOf(source).flatMap((effect) =>
-    effect.op === 'static' && effect.staticBoardPump ? [effect.staticBoardPump] : [])
-
-const matchesPump = (
-  object: GameObject,
-  spec: PumpSpec,
-  controller: GameObject['controller'],
-) =>
-  object.zone === 'battlefield'
-  && object.controller === controller
-  && spec.requireTypes.every((type) => object.types.includes(type))
-  && object.power !== null
-  && object.toughness !== null
-
-export const syncStaticBoardPumps = (draft: {
-  zoneOf: (zone: 'battlefield', controller?: GameObject['controller']) => GameObject[]
-  object: (id: string) => GameObject | undefined
-  objects: Record<string, GameObject>
-}) => {
-  const sources = draft.zoneOf('battlefield').flatMap((source) => {
+const pumpSources = (battlefield: GameObject[]) =>
+  battlefield.flatMap((source) => {
     const specs = pumpSpecs(source)
     return specs.length > 0 ? [{ source, specs }] : []
   })
+
+const syncStaticBoardPumps = (draft: Draft) => {
   const battlefield = draft.zoneOf('battlefield')
+  const sources = pumpSources(battlefield)
   const sourceIds = new Set(sources.map(({ source }) => source.id))
 
   for (const object of battlefield) {
@@ -46,43 +27,29 @@ export const syncStaticBoardPumps = (draft: {
   }
 
   for (const { source, specs } of sources) {
-    for (const spec of specs) {
+    specs.forEach((spec, index) => {
       for (const object of battlefield) {
-        if (matchesPump(object, spec, source.controller)) {
-          applyStaticBoardPump(
-            object,
-            spec.power,
-            spec.toughness,
-            source.id,
-            spec.requireTypes,
-          )
+        if (pumpApplies(draft, source, spec, object)) {
+          applyStaticBoardPump(object, spec, source.id, index)
         } else {
-          removeStaticBoardPump(object, source.id)
+          removeStaticBoardPump(object, source.id, index)
         }
       }
-    }
+    })
   }
 }
 
-const objectHasPumpFrom = (object: GameObject, sourceId: string) =>
-  (object.continuousEffects ?? []).some(({ duration }) =>
-    duration.kind === 'staticBoardPump' && duration.sourceId === sourceId)
-
-const needsSync = (state: {
-  objects: Record<string, GameObject>
-}) => {
+const needsSync = (state: GameState) => {
   const battlefield = Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield')
-  const sources = battlefield.flatMap((source) => {
-    const specs = pumpSpecs(source)
-    return specs.length > 0 ? [{ source, specs }] : []
-  })
+  const sources = pumpSources(battlefield)
   for (const { source, specs } of sources) {
-    for (const spec of specs) {
+    for (const [index, spec] of specs.entries()) {
       for (const object of battlefield) {
-        const should = matchesPump(object, spec, source.controller)
-        const has = objectHasPumpFrom(object, source.id)
-        if (should !== has) return true
+        if (
+          pumpApplies(state, source, spec, object)
+          !== hasStaticBoardPump(object, source.id, index)
+        ) return true
       }
     }
   }
@@ -94,7 +61,11 @@ const needsSync = (state: {
 
 const SYNC = 'staticBoardPump.sync'
 
-/** Stamps +N/+N on matching controlled permanents while the source is on the battlefield. */
+/**
+ * Stamps +N/+N and keyword grants or suppressions on matching permanents while the source is on
+ * the battlefield and its condition holds. `hasKeyword` reads the stamps; the sba re-syncs
+ * whenever matching changes, e.g. when a commander arrives or leaves.
+ */
 export const staticBoardPump: Plugin = {
   id: 'staticBoardPump',
   apply: ({ draft }) => {
