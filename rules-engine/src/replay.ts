@@ -14,7 +14,7 @@ import type {
   TargetRef,
 } from './types'
 
-type ReplayCard = {
+export type ReplayCard = {
   name?: string
   type_line: string
   mana_cost: string
@@ -177,6 +177,9 @@ const cardTemplate = (name: string, card?: ReplayCard): CardTemplate => {
     ...(tapProduces ? { tapProduces } : {}),
   })
 }
+
+/** The template a replay or live game builds for a catalog card, so card tests can use the production path. */
+export const replayCardTemplate = cardTemplate
 
 const nameInZone = (state: GameState, seat: PlayerId, zone: GameObject['zone'], name: string) =>
   state.zoneOrder[seat][zone]
