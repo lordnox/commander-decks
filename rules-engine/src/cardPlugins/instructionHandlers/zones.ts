@@ -14,6 +14,7 @@ import {
   returnOwnedLands,
 } from '../effects'
 import { runRevealUntil } from '../revealUntil'
+import { instructionCount } from '../voteResult'
 import { returnAsEnchantmentOnly } from '../continuousEffects'
 import { matchesTargetFilter } from '../targetedResolve'
 import type { InstructionHandler, InstructionHandlers } from './types'
@@ -236,8 +237,11 @@ const sacrificeSelf: InstructionHandler<'sacrificeSelf'> = ({ draft, source }) =
   draft.enqueue({ type: 'sacrifice', objectId: source.id })
 }
 
-const revealUntil: InstructionHandler<'revealUntil'> = ({ draft, source }, instruction) => {
-  runRevealUntil(draft, source, instruction)
+const revealUntil: InstructionHandler<'revealUntil'> = ({ draft, source, item }, instruction) => {
+  const count = instruction.count === 'opponentCount'
+    ? instruction.count
+    : instructionCount(instruction.count, source.controller, item)
+  if (count !== 0) runRevealUntil(draft, source, { ...instruction, count })
 }
 
 const revealUntilBasicLand: InstructionHandler<'revealUntilBasicLand'> = ({ draft, source }) => {
@@ -471,17 +475,18 @@ const surveil: InstructionHandler<'surveil'> = ({ draft, source }, instruction) 
   })
 }
 
-const scry: InstructionHandler<'scry'> = ({ draft, source }, instruction) => {
-  const candidates = draft.zoneOrder[source.controller].library.slice(0, instruction.count)
+const scry: InstructionHandler<'scry'> = ({ draft, source, item }, instruction) => {
+  const count = instructionCount(instruction.count, source.controller, item)
+  const candidates = draft.zoneOrder[source.controller].library.slice(0, count)
   if (candidates.length === 0) return
   openCardSelection(draft, {
     seat: source.controller,
     kind: 'scry',
-    count: instruction.count,
+    count,
     candidates,
     sourceId: source.id,
     source: source.name,
-    prompt: `Scry ${instruction.count}.`,
+    prompt: `Scry ${count}.`,
     destinations: ['top', 'bottom'],
   })
 }

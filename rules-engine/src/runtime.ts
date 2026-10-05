@@ -15,6 +15,7 @@ import {
 } from './plugins/hiddenInformation'
 import type { GameEvent, GameState, PlayerId, Plugin } from './types'
 import { redactSecretCouncil } from './cardPlugins/secretCouncil'
+import { redactSecretVotes } from './cardPlugins/vote'
 import { CUMULATIVE_UPKEEP_PENDING } from './cardPlugins/cumulativeUpkeep'
 import {
   PENDING_SELECTION,
@@ -128,6 +129,7 @@ export const projectForViewer = (
     }
   }
   redactSecretCouncil(projected.players, viewer)
+  redactSecretVotes(projected.players, viewer)
 
   return projected
 }

@@ -1,10 +1,4 @@
 import {
-  currentVoter,
-  pendingVote,
-  votingSeat,
-  voteCandidates,
-} from '../../rules-engine/src/cardPlugins/vote'
-import {
   KEEP_STACK_TARGETS,
   stackCopyPending,
   stackCopyTargetCandidates,
@@ -13,34 +7,6 @@ import type { LobbyState } from './lobby'
 import { isSeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
 import { openTopdeck } from './kernelChoice'
-
-export const prepareVoteChoice = (kernel: KernelHandle, lobby: LobbyState) => {
-  const state = kernel.history.current()
-  const pending = pendingVote(state)
-  const voter = pending ? currentVoter(pending) : undefined
-  const seat = pending ? votingSeat(state, pending) : undefined
-  if (!pending || !voter || !seat || !isSeatId(seat)) return false
-  const cards = voteCandidates(state, pending, voter).map((object) => object.name)
-  return openTopdeck(
-    lobby,
-    {
-      seat,
-      kind: 'vote',
-      cards,
-      destinations: ['skip', 'target'],
-      requirements: { target: { min: 1, max: 1 } },
-      kernel: {
-        sourceId: pending.sourceId,
-        stage: 'vote',
-      },
-    },
-    {
-      waiting: `${lobby.occupants[seat]?.name ?? seat} is voting.`,
-      prompt: pending.effect.prompt,
-      judge: `Waiting for ${pending.source}'s public vote.`,
-    },
-  )
-}
 
 export const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()

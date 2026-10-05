@@ -10,7 +10,10 @@ import type {
   SpreeMode,
   SearchSpec,
   RevealUntilNonMatch,
+  InstructionCount,
   TargetFilter,
+  VoteOptions,
+  VoterGroup,
   GiftSpec,
   TokenSpec,
   SagaChapter,
@@ -244,7 +247,7 @@ export const extraLandPlays = (count: number): CardInstruction => ({
 
 export const surveil = (count: number): CardInstruction => ({ kind: 'surveil', count })
 
-export const scry = (count: number): CardInstruction => ({ kind: 'scry', count })
+export const scry = (count: InstructionCount): CardInstruction => ({ kind: 'scry', count })
 
 export const opponentPiles = (
   count: number,
@@ -408,14 +411,42 @@ export const combatDialogueUntilEot = (): CardInstruction => ({
   kind: 'combatDialogueUntilEot',
 })
 
-export const councilVote = (
+/** Every player votes, starting with the controller; `outcome` runs once the votes are in. */
+export const vote = (
   prompt: string,
-  filter: TargetFilter,
-): CardEffect => ({
-  op: 'vote',
-  prompt,
-  filter,
-  outcome: 'exile-most',
+  options: VoteOptions,
+  outcome: CardInstruction[],
+  secret = false,
+): CardInstruction => ({ kind: 'vote', prompt, options, secret, outcome })
+
+export const ifVoteLeads = (
+  option: string,
+  whenTrue: CardInstruction[],
+  whenFalse?: CardInstruction[],
+): CardInstruction => ({
+  kind: 'ifVoteLeads',
+  option,
+  whenTrue,
+  ...(whenFalse ? { whenFalse } : {}),
+})
+
+export const forEachVoter = (
+  who: VoterGroup,
+  ...instructions: CardInstruction[]
+): CardInstruction => ({ kind: 'forEachVoter', who, do: instructions })
+
+export const forEachVotedOption = (...instructions: CardInstruction[]): CardInstruction => ({
+  kind: 'forEachVotedOption',
+  do: instructions,
+})
+
+export const exileVoteWinners = (): CardInstruction => ({ kind: 'exileVoteWinners' })
+
+/** "Whenever players finish voting", for any vote at the table. */
+export const onVotesFinished = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'votesFinished',
+  do: instructions,
 })
 
 export const targetingRequirement = (
@@ -1055,7 +1086,7 @@ export const drawHandDifference = (): CardInstruction => ({ kind: 'drawHandDiffe
 
 export const winGame = (): CardInstruction => ({ kind: 'winGame' })
 
-export const addPlusCountersInstruction = (count: number): CardInstruction => ({
+export const addPlusCountersInstruction = (count: InstructionCount): CardInstruction => ({
   kind: 'addPlusCounters',
   count,
 })
@@ -1066,7 +1097,7 @@ export const pumpAllCreaturesByX = (multiplier = -1): CardInstruction => ({
 })
 
 export const revealUntil = (
-  count: number | 'opponentCount',
+  count: InstructionCount | 'opponentCount',
   match: TargetFilter,
   destination: 'hand' | 'battlefield',
   nonMatch: RevealUntilNonMatch,
@@ -1392,14 +1423,14 @@ export const exileUntilOpponentBecomesMonarch = (
   ...options,
 })
 
-export const putPermanentsFromHand = (max: number): CardInstruction => ({
+export const putPermanentsFromHand = (max: InstructionCount): CardInstruction => ({
   kind: 'putPermanentsFromHand',
   max,
 })
 
 export const putFromHand = (
   who: 'each' | 'active' | 'controller',
-  extra: { max?: number; types?: string[]; repeat?: boolean; optional?: boolean } = {},
+  extra: { max?: InstructionCount; types?: string[]; repeat?: boolean; optional?: boolean } = {},
 ): CardInstruction => ({
   kind: 'putFromHand',
   who,
@@ -1668,7 +1699,7 @@ export const optionalBasicLandEnters = (): SearchSpec => ({
 
 export const createTreasures = (
   count: number,
-  who: 'you' | 'targetController',
+  who: 'you' | 'targetController' | 'triggeringPlayer',
 ): CardInstruction => ({ kind: 'createTreasures', count, who })
 
 export const drawGreatestPower = (options: { nonHuman?: boolean } = {}): CardInstruction => ({

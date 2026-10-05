@@ -68,7 +68,6 @@ export type TopdeckDecision = {
       | 'select-cards'
       | 'select-players'
       | 'cumulative-upkeep'
-      | 'vote'
       | 'stack-copy'
       | 'option-selection'
       | 'ward-pay'

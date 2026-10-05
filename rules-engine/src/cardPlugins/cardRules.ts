@@ -216,7 +216,8 @@ import {
   removeTarget,
   combatDialogueUntilEot,
   copyTargetForEachOtherPlayer,
-  councilVote,
+  exileVoteWinners,
+  vote,
   playerAuraDeal,
   targetingRequirement,
   loseHalfLifeRoundedUp,
@@ -2126,10 +2127,14 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Rings of Brighthearth': [handler('stackCopy')],
   "Council's Judgment": [
-    councilVote(
+    onResolve(vote(
       'Vote for a nonland permanent you do not control.',
-      { zone: 'battlefield', nonland: true, controller: 'opponent' },
-    ),
+      {
+        kind: 'objects',
+        filter: { zone: 'battlefield', nonland: true, controller: 'opponent' },
+      },
+      [exileVoteWinners()],
+    )),
   ],
   'Fractured Identity': [
     targetOnResolve(

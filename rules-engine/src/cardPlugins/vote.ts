@@ -1,153 +1,218 @@
-import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import type Draft from '../draft'
-import { effectsOf } from './cardRules'
+import { INSTRUCTIONS_RESUME } from '../rules/selectCards'
+import {
+  openOptionSelection,
+  PENDING_OPTION_SELECTION,
+  pendingOptionSelection,
+} from '../rules/selectOptions'
+import type { GameObject, GameState, PlayerId, Plugin, StackItem } from '../types'
+import type { CardInstruction, VoteOptions } from './effectDefinitions'
+import type { InstructionHandler } from './instructionHandlers/types'
 import { CHOOSE_VOTES } from './secretCouncil'
-import { validTarget } from './targetedResolve'
+import { matchesTargetFilter } from './targetedResolve'
+import { tallyVotes } from './voteResult'
 
 export const PENDING_VOTE = 'kernel.pendingVote'
 
-type VoteEffect = Extract<ReturnType<typeof effectsOf>[number], { op: 'vote' }>
+/** Stands in for another seat's vote while a secret vote is still open. */
+const HIDDEN_VOTE = '*'
 
-export type PendingVote = {
+type VoteOption = { id: string; label: string }
+
+type PendingVote = {
+  id: string
   sourceId: string
   source: string
   owner: PlayerId
+  prompt: string
+  secret: boolean
+  options: VoteOption[]
+  /** Turn order starting with the controller. */
   voters: PlayerId[]
+  /** Option id per voter who has voted. */
   votes: Record<PlayerId, string>
-  effect: VoteEffect
+  /** Seat that decides every vote ("you choose how each player votes"). */
+  chooser?: PlayerId
+  outcome: CardInstruction[]
+  item?: StackItem
 }
 
 const isPendingVote = (value: unknown): value is PendingVote =>
   Boolean(value)
   && typeof value === 'object'
-  && typeof (value as PendingVote).sourceId === 'string'
+  && typeof (value as PendingVote).id === 'string'
   && Array.isArray((value as PendingVote).voters)
-  && Boolean((value as PendingVote).effect)
+  && Array.isArray((value as PendingVote).options)
 
-export const pendingVote = (state: GameState | Draft) => {
+export const pendingVote = (state: Pick<GameState, 'playerOrder' | 'players'>) => {
   for (const seat of state.playerOrder) {
     const value = state.players[seat].data[PENDING_VOTE]
     if (isPendingVote(value)) return value
   }
 }
 
-export const currentVoter = (pending: PendingVote) =>
+const currentVoter = (pending: PendingVote) =>
   pending.voters.find((seat) => pending.votes[seat] === undefined)
 
-export const votingSeat = (state: GameState | Draft, pending: PendingVote) =>
-  state.playerOrder.find((seat) =>
-    !state.players[seat].lost && state.players[seat].data[CHOOSE_VOTES] === true)
-  ?? currentVoter(pending)
-
-export const voteCandidates = (
-  state: GameState | Draft,
-  pending: PendingVote,
-  seat = currentVoter(pending),
-) => {
-  if (!seat) return []
-  return Object.values(state.objects).filter((object): object is GameObject =>
-    validTarget(state as GameState, object, pending.effect.filter, seat))
+const voteOptions = (
+  draft: Draft,
+  source: GameObject,
+  spec: VoteOptions,
+): VoteOption[] => {
+  if (spec.kind === 'named') return spec.options
+  if (spec.kind === 'players') {
+    return draft.playerOrder
+      .filter((seat) => !draft.players[seat].lost)
+      .map((seat) => ({ id: seat, label: seat }))
+  }
+  const options = Object.values(draft.objects)
+    .filter((object) =>
+      matchesTargetFilter(draft, object, spec.filter, source.controller, undefined, source.id))
+    .map((object) => ({ id: object.id, label: object.name }))
+  // The picker answers by label, so two permanents with one name must differ.
+  return options.map((option) =>
+    options.filter(({ label }) => label === option.label).length > 1
+      ? { ...option, label: `${option.label} [${option.id}]` }
+      : option)
 }
 
-const orderedFrom = (state: GameState, start: PlayerId) => {
-  const living = state.playerOrder.filter((seat) => !state.players[seat].lost)
+const orderedFrom = (draft: Draft, start: PlayerId) => {
+  const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
   const index = Math.max(0, living.indexOf(start))
   return [...living.slice(index), ...living.slice(0, index)]
 }
 
-const finishVote = (
-  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
-  pending: PendingVote,
-) => {
-  const tallies = new Map<string, number>()
-  for (const objectId of Object.values(pending.votes)) {
-    if (!objectId) continue
-    tallies.set(objectId, (tallies.get(objectId) ?? 0) + 1)
-  }
-  const most = Math.max(0, ...tallies.values())
-  if (pending.effect.outcome === 'exile-most' && most > 0) {
-    for (const [objectId, count] of tallies) {
-      if (count === most && draft.objects[objectId]?.zone === 'battlefield') {
-        draft.enqueue({ type: 'move', objectId, to: 'exile' })
-      }
-    }
-  }
+const finishVote = (draft: Draft, pending: PendingVote) => {
   delete draft.players[pending.owner].data[PENDING_VOTE]
-  draft.note(`${pending.source} resolves its vote`)
+  const result = tallyVotes(pending.votes, pending.options.map((option) => option.id))
+  const label = (id: string) => pending.options.find((option) => option.id === id)?.label ?? id
+  draft.note(`${pending.source} votes: ${
+    Object.entries(result.votes)
+      .map(([seat, id]) => `${seat} for ${label(id)}`)
+      .join(', ') || 'none'
+  }`)
+  if (pending.outcome.length > 0) {
+    const item: StackItem = pending.item ?? {
+      id: pending.id,
+      kind: 'ability',
+      objectId: pending.sourceId,
+      controller: pending.owner,
+      name: pending.source,
+      targets: [],
+    }
+    draft.enqueue({
+      type: 'custom',
+      name: INSTRUCTIONS_RESUME,
+      payload: {
+        sourceId: pending.sourceId,
+        remaining: pending.outcome,
+        item: { ...item, payload: { ...item.payload, vote: result } },
+      },
+    })
+  }
+  draft.enqueue({
+    type: 'votesFinished',
+    sourceId: pending.sourceId,
+    owner: pending.owner,
+    result,
+  })
+  draft.priority = draft.active
 }
 
-const skipUnableVoters = (
-  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
-  pending: PendingVote,
-) => {
-  let seat = currentVoter(pending)
-  while (seat && voteCandidates(draft, pending, seat).length === 0) {
-    pending.votes[seat] = ''
-    seat = currentVoter(pending)
+/** Ask whoever decides the next vote, or reveal the result once all are in. */
+const askNextVoter = (draft: Draft, pending: PendingVote) => {
+  const voter = currentVoter(pending)
+  if (!voter || pending.options.length === 0) {
+    finishVote(draft, pending)
+    return
   }
-  if (!seat) finishVote(draft, pending)
-  else draft.priority = seat
+  const seat = pending.chooser ?? voter
+  openOptionSelection(draft, {
+    seat,
+    sourceId: pending.sourceId,
+    source: pending.source,
+    prompt: seat === voter ? pending.prompt : `${pending.prompt} Vote for ${voter}.`,
+    options: pending.options,
+    action: { kind: 'vote', voteId: pending.id, voter },
+  })
+}
+
+export const voteInstruction: InstructionHandler<'vote'> = (
+  { draft, source, item },
+  instruction,
+) => {
+  const owner = source.controller
+  const pending: PendingVote = {
+    id: draft.allocId('vote'),
+    sourceId: source.id,
+    source: source.name,
+    owner,
+    prompt: instruction.prompt,
+    secret: instruction.secret === true,
+    options: voteOptions(draft, source, instruction.options),
+    voters: orderedFrom(draft, owner),
+    votes: {},
+    outcome: instruction.outcome,
+    ...(item ? { item } : {}),
+  }
+  const chooser = draft.playerOrder.find((seat) =>
+    !draft.players[seat].lost && draft.players[seat].data[CHOOSE_VOTES] === true)
+  if (chooser) pending.chooser = chooser
+  draft.players[owner].data[PENDING_VOTE] = pending
+  askNextVoter(draft, pending)
+}
+
+/** Drop the open vote question so the next voter can be asked afresh. */
+const clearVoteSelection = (draft: Draft, voteId: string) => {
+  for (const seat of draft.playerOrder) {
+    const selection = pendingOptionSelection(draft, seat)
+    if (selection?.action.kind === 'vote' && selection.action.voteId === voteId) {
+      delete draft.players[seat].data[PENDING_OPTION_SELECTION]
+    }
+  }
 }
 
 export const vote: Plugin = {
   id: 'vote',
-  legal: ({ state, event }) => {
-    const pending = pendingVote(state)
-    if (event.type === 'passPriority' && pending) {
-      return `${votingSeat(state, pending) ?? pending.owner} is voting for ${pending.source}`
-    }
-    if (event.type !== 'vote') return
-    if (!pending) return 'no vote is open'
-    const voter = currentVoter(pending)
-    if (
-      votingSeat(state, pending) !== event.seat
-      || pending.sourceId !== event.sourceId
-      || event.choice.kind !== 'object'
-    ) {
-      return 'that vote is not open'
-    }
-    const objectId = event.choice.objectId
-    if (!voter || !voteCandidates(state, pending, voter).some(
-      (object) => object.id === objectId,
-    )) {
-      return 'illegal vote'
-    }
-  },
   apply: ({ state, event, draft }) => {
     if (event.type === 'concede') {
       const pending = pendingVote(draft)
-      if (pending && currentVoter(pending) === event.seat) {
-        pending.votes[event.seat] = ''
-        skipUnableVoters(draft, pending)
-      }
+      if (!pending?.voters.includes(event.seat)) return
+      pending.voters = pending.voters.filter((seat) => seat !== event.seat)
+      delete pending.votes[event.seat]
+      if (pending.chooser === event.seat) delete pending.chooser
+      clearVoteSelection(draft, pending.id)
+      askNextVoter(draft, pending)
       return
     }
-    if (event.type === 'resolveTop') {
-      const item = state.stack[0]
-      const source = item ? state.objects[item.objectId] : undefined
-      const effect = source
-        ? effectsOf(source).find((candidate): candidate is VoteEffect => candidate.op === 'vote')
-        : undefined
-      if (!item || !source || !effect) return
-      const pending: PendingVote = {
-        sourceId: source.id,
-        source: source.name,
-        owner: item.controller,
-        voters: orderedFrom(state, item.controller),
-        votes: {},
-        effect,
-      }
-      draft.players[item.controller].data[PENDING_VOTE] = pending
-      skipUnableVoters(draft, pending)
-      return
-    }
-    if (event.type !== 'vote') return
+    if (event.type !== 'selectOption') return
+    const action = pendingOptionSelection(state, event.seat)?.action
     const pending = pendingVote(draft)
-    if (!pending || event.choice.kind !== 'object') return
-    const voter = currentVoter(pending)
-    if (!voter) return
-    pending.votes[voter] = event.choice.objectId
-    draft.players[pending.owner].data[PENDING_VOTE] = pending
-    skipUnableVoters(draft, pending)
+    if (action?.kind !== 'vote' || pending?.id !== action.voteId) return
+    pending.votes[action.voter] = event.optionId
+    askNextVoter(draft, pending)
   },
+}
+
+/**
+ * A secret vote is revealed only when it finishes. Until then a seat sees its
+ * own vote, plus every vote it casts as the chooser; a spectator sees none.
+ */
+export const redactSecretVotes = (
+  players: Record<PlayerId, { data: Record<string, unknown> }>,
+  viewer: PlayerId | null,
+) => {
+  for (const player of Object.values(players)) {
+    const pending = player.data[PENDING_VOTE]
+    if (!isPendingVote(pending) || !pending.secret) continue
+    player.data[PENDING_VOTE] = {
+      ...pending,
+      votes: Object.fromEntries(Object.entries(pending.votes).map(([voter, optionId]) => [
+        voter,
+        viewer !== null && (voter === viewer || pending.chooser === viewer)
+          ? optionId
+          : HIDDEN_VOTE,
+      ])),
+    }
+  }
 }

@@ -166,6 +166,17 @@ multiple triggers from one player by timestamp / card-rules order; later work
 may add player-chosen ordering (`orderTriggers` / `continueAction`) without
 changing the binding shape.
 
+Votes use one engine. A `vote` instruction opens `kernel.pendingVote` on the
+controller and asks each voter in turn order from the controller with a typed
+`selectOption` (the chooser of "you choose how each player votes" answers for
+everyone). Options are named ids, players, or permanents matching a
+`TargetFilter`; a secret vote is masked in every other seat's projection until
+the last vote is in. Finishing runs the instruction's `outcome` with the result
+on the stack item payload and emits `votesFinished` (revealed votes, per-option
+tallies, `winners`, `tied`), which `on: 'votesFinished'` triggers hear from any
+permanent. `ifVoteLeads`, `forEachVoter`, `forEachVotedOption`, and the
+`{ voters }` counts read that result.
+
 Still deferred: typed `continueAction` for remaining `selectCards` dialogs
 (scry, surveil, sacrifice, reveal-pick, put-from-hand); `knownTo` hands;
 Courser of Kruphix reveal-before-draw; fetchlands and secret council still on

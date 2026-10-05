@@ -392,6 +392,18 @@ export type BlockerDecl = { blockerId: string; attackerId: string }
 export type ManaPayment = { objectId: string; mana?: ManaId }
 
 /**
+ * A finished vote. `votes` is the revealed `{ voter: optionId }` map and
+ * `tallies` counts every offered option, zero included. `winners` share the
+ * highest nonzero tally; `tied` says several do.
+ */
+export type VoteResult = {
+  votes: Record<PlayerId, string>
+  tallies: Record<string, number>
+  winners: string[]
+  tied: boolean
+}
+
+/**
  * Optional predicate on a declarative trigger. `seat` compares the triggering
  * event's involved seat to the trigger source's controller.
  */
@@ -656,11 +668,15 @@ export type GameEvent =
       /** Choice payload (for example `{ objectIds: string[] }`). */
       payload: Record<string, unknown>
     }
+  /**
+   * Every vote just finished, whether public or secret: the revealed votes
+   * and per-option tallies. "Whenever players finish voting" triggers on this.
+   */
   | {
-      type: 'vote'
-      seat: PlayerId
+      type: 'votesFinished'
       sourceId: string
-      choice: TargetRef
+      owner: PlayerId
+      result: VoteResult
     }
   | {
       type: 'copyStackItem'
@@ -756,7 +772,7 @@ export type GameEvent =
     }
   /**
    * @deprecated Legacy escape hatch. New work must not add `custom` handlers.
-   * Use typed events (`continueAction`, `vote`, `searchLibrary`, …) instead.
+   * Use typed events (`continueAction`, `selectOption`, `searchLibrary`, …) instead.
    */
   | { type: 'custom'; name: string; seat?: PlayerId; payload?: Record<string, unknown> }
 

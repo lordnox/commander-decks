@@ -73,11 +73,12 @@ export const runInstructions = (
   const attachRemaining = (
     remaining: CardInstruction[],
     nestedSource: GameObject,
+    nestedItem: StackItem | undefined,
     opened?: PendingCardSelection,
     resumeEvent?: Extract<GameEvent, { type: 'custom' }>,
   ) => {
     if (opened) {
-      writeResume(opened, nestedSource.id, remaining, item)
+      writeResume(opened, nestedSource.id, remaining, nestedItem)
       return
     }
     if (!resumeEvent) return
@@ -85,15 +86,19 @@ export const runInstructions = (
     resumeEvent.payload = {
       sourceId: current?.sourceId ?? nestedSource.id,
       remaining: [...(current?.remaining ?? []), ...remaining],
-      ...(current?.item ?? item ? { item: current?.item ?? item } : {}),
+      ...(current?.item ?? nestedItem ? { item: current?.item ?? nestedItem } : {}),
     }
   }
 
-  const run = (nested: CardInstruction[], nestedSource = source): boolean => {
+  const run = (
+    nested: CardInstruction[],
+    nestedSource = source,
+    nestedItem = item,
+  ): boolean => {
     const ctx: InstructionContext = {
       draft,
       source: nestedSource,
-      item,
+      item: nestedItem,
       buffer,
       run,
       appendRemaining: (extra) => {
@@ -106,19 +111,19 @@ export const runInstructions = (
         }
         const queued = lastQueuedResume(draft, 0)
         if (queued) {
-          attachRemaining([extra], nestedSource, undefined, queued)
+          attachRemaining([extra], nestedSource, nestedItem, undefined, queued)
           return
         }
         const latest = draft.playerOrder
           .flatMap((seat) => pendingSelectionsFor(draft, seat))
           .at(-1)
-        if (latest) writeResume(latest, nestedSource.id, [extra], item)
+        if (latest) writeResume(latest, nestedSource.id, [extra], nestedItem)
       },
     }
     for (let index = 0; index < nested.length; index += 1) {
       const instruction = nested[index]
       if (buffer?.length && YIELD_AFTER_BUFFER.has(instruction.kind)) {
-        flushStackActions(draft, nestedSource, buffer, item)
+        flushStackActions(draft, nestedSource, buffer, nestedItem)
         buffer.length = 0
         draft.enqueue({
           type: 'custom',
@@ -126,7 +131,7 @@ export const runInstructions = (
           payload: {
             sourceId: nestedSource.id,
             remaining: nested.slice(index),
-            ...(item ? { item } : {}),
+            ...(nestedItem ? { item: nestedItem } : {}),
           },
         })
         return true
@@ -137,7 +142,7 @@ export const runInstructions = (
       const opened = newSelection(draft, beforeSelections)
       const resumeEvent = lastQueuedResume(draft, pendingBefore)
       if (!opened && !resumeEvent) continue
-      attachRemaining(nested.slice(index + 1), nestedSource, opened, resumeEvent)
+      attachRemaining(nested.slice(index + 1), nestedSource, nestedItem, opened, resumeEvent)
       return true
     }
     return false

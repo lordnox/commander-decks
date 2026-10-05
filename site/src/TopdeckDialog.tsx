@@ -366,7 +366,7 @@ export const TopdeckDialog = ({
         <ol className="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">
           {visibleChoices.map((choice) => {
             const details = game.catalog[choice.card]
-            const displayName = targetingPlayers
+            const displayName = targetingPlayers || voting
               ? game.seats?.find((seat) => seat.id === choice.card)?.name ?? choice.card
               : choice.card
             return (

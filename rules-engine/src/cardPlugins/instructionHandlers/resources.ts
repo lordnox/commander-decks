@@ -8,6 +8,7 @@ import { openCardSelection } from '../../rules/selectCards'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
+import { instructionCount } from '../voteResult'
 import {
   addTypes,
   animateUntilEndOfTurn,
@@ -269,7 +270,7 @@ const addPlusCounters: InstructionHandler<'addPlusCounters'> = (
   const object = target?.kind === 'object'
     ? draft.object(target.objectId)
     : draft.object(source.id)
-  if (object) applyPlusCounters(object, instruction.count)
+  if (object) applyPlusCounters(object, instructionCount(instruction.count, source.controller, item))
 }
 
 const putChargeCountersFromTimesKicked: InstructionHandler<'putChargeCountersFromTimesKicked'> = ({

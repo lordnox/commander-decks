@@ -2,6 +2,7 @@ import { DIALOG_CHOSEN, openSourceDialog, setPendingDialog } from '../../pending
 import { STEAL_CAST_DRAW } from '../stealCast'
 import { conditionHolds } from '../effects'
 import { hasKeyword } from '../../keywords'
+import { instructionCount } from '../voteResult'
 import type { InstructionHandler, InstructionHandlers } from './types'
 
 const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, instruction) => {
@@ -82,29 +83,33 @@ const teferiSunsetEmblem: InstructionHandler<'teferiSunsetEmblem'> = ({ draft, s
 }
 
 const putPermanentsFromHand: InstructionHandler<'putPermanentsFromHand'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
+  const max = instructionCount(instruction.max, source.controller, item)
+  if (max === 0) return
   setPendingDialog(draft, {
     sourceId: source.id,
     source: source.name,
     seat: source.controller,
     kind: 'put-permanents',
-    prompt: `You may put up to ${instruction.max} permanent cards from your hand onto the battlefield.`,
+    prompt: `You may put up to ${max} permanent cards from your hand onto the battlefield.`,
     waiting: 'is choosing permanent cards privately.',
     judge: 'Waiting for an optional permanent-card choice.',
     chosenEvent: DIALOG_CHOSEN,
     destinations: ['hand', 'battlefield'],
     permanent: true,
     optional: true,
-    requirements: { battlefield: { max: instruction.max } },
+    requirements: { battlefield: { max } },
   })
 }
 
 const putFromHand: InstructionHandler<'putFromHand'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
+  const max = instructionCount(instruction.max, source.controller, item)
+  if (max === 0) return
   const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
   const start = instruction.who === 'active' ? draft.active : source.controller
   const startIndex = Math.max(0, living.indexOf(start))
@@ -119,8 +124,8 @@ const putFromHand: InstructionHandler<'putFromHand'> = (
       seat,
       kind: 'put-permanents',
       prompt: types
-        ? `You may put up to ${instruction.max} ${types.join(', ').toLowerCase()} card(s) from your hand onto the battlefield.`
-        : `You may put up to ${instruction.max} permanent card(s) from your hand onto the battlefield.`,
+        ? `You may put up to ${max} ${types.join(', ').toLowerCase()} card(s) from your hand onto the battlefield.`
+        : `You may put up to ${max} permanent card(s) from your hand onto the battlefield.`,
       waiting: 'is choosing a card to put onto the battlefield.',
       judge: `Waiting for ${source.name} dump choices.`,
       chosenEvent: DIALOG_CHOSEN,
@@ -128,7 +133,7 @@ const putFromHand: InstructionHandler<'putFromHand'> = (
       ...(types ? { types } : { permanent: true }),
       optional: instruction.optional !== false,
       sequence: draft.allocTs(),
-      requirements: { battlefield: { max: instruction.max } },
+      requirements: { battlefield: { max } },
     })
   }
   if (instruction.repeat) {
@@ -136,7 +141,7 @@ const putFromHand: InstructionHandler<'putFromHand'> = (
       sourceId: source.id,
       source: source.name,
       types,
-      max: instruction.max,
+      max,
     }
   }
 }
