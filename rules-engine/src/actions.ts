@@ -1,7 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
-import { manaModes, manaRequiresTap, poolForChoice } from './plugins/mana'
+import { manaModes, manaRequiresTap, poolForChoice, sacrificesForMana } from './plugins/mana'
 import { giftSpecOf } from './cardPlugins/giftCast'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
@@ -403,6 +403,8 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
 type ManaPlay = {
   pool: Partial<ManaPool>
   cost?: string
+  /** The play sacrifices its source (Treasure, Spawn), so plans avoid it when a land would do. */
+  sacrifices?: true
   event: GameEvent
 }
 
@@ -423,13 +425,15 @@ const manaPlays = (
       return choice
         ? [{
             pool: mode,
+            ...(sacrificesForMana(source) ? { sacrifices: true as const } : {}),
             event: { type: 'tapForMana', seat, objectId: source.id, ...choice },
           }]
         : []
     }),
-    ...activatedManaOptions(state, source).map(({ abilityId, cost, pool, choice }): ManaPlay => ({
+    ...activatedManaOptions(state, source).map(({ abilityId, cost, pool, choice, sacrifices }): ManaPlay => ({
       pool,
       cost,
+      ...(sacrifices ? { sacrifices: true as const } : {}),
       event: {
         type: 'activateAbility',
         seat,
@@ -1859,6 +1863,12 @@ export const sameLegalAct = (
 
 const SIMPLE_PERMANENT = new Set<string>(PERMANENT_TYPES)
 
+type FundingPlan = { pool: ManaPool; events: GameEvent[]; sacrifices: number }
+
+/** A plan that sacrifices fewer sources wins, then the one with fewer events. */
+const better = (left: FundingPlan, right: FundingPlan) =>
+  left.sacrifices - right.sacrifices || left.events.length - right.events.length
+
 const fundingEvents = (
   state: GameState,
   seat: PlayerId,
@@ -1871,30 +1881,26 @@ const fundingEvents = (
   for (const mana of state.players[seat]?.restrictedMana ?? []) {
     if (canUseRestrictedMana(state, seat, spell, mana.creatureType)) available[mana.mana] += 1
   }
-  let plans = [{
-    pool: available,
-    events: [] as GameEvent[],
-  }]
+  let plans: FundingPlan[] = [{ pool: available, events: [], sacrifices: 0 }]
   for (const plays of manaSources(state, seat, spell, excluded)) {
-    const next = new Map<string, typeof plans[number]>()
+    const next = new Map<string, FundingPlan>()
     for (const plan of plans) {
-      const candidates = [
+      const candidates: FundingPlan[] = [
         plan,
-        ...plays.flatMap((play) => {
+        ...plays.flatMap((play): FundingPlan[] => {
           const paid = play.cost ? payCost(plan.pool, play.cost) : plan.pool
           if (!paid) return []
           return [{
             pool: addPool(paid, play.pool),
             events: [...plan.events, play.event],
+            sacrifices: plan.sacrifices + (play.sacrifices ? 1 : 0),
           }]
         }),
       ]
       for (const candidate of candidates) {
         const key = poolKey(candidate.pool, 20)
         const previous = next.get(key)
-        if (!previous || candidate.events.length < previous.events.length) {
-          next.set(key, candidate)
-        }
+        if (!previous || better(candidate, previous) < 0) next.set(key, candidate)
       }
     }
     plans = [...next.values()]
@@ -1904,7 +1910,7 @@ const fundingEvents = (
       creatures: (extras.creatures ?? []).map(convokeColors),
       phyrexianLife: extras.phyrexianLife ?? [],
     }))
-    .sort((left, right) => left.events.length - right.events.length)[0]
+    .sort(better)[0]
     ?.events ?? null
 }
 

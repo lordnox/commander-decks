@@ -61,6 +61,8 @@ export type ActivatedManaOption = {
   pool: Pool
   /** The `choices[0]` that selects this pool, for abilities that offer several. */
   choice?: string
+  /** The ability sacrifices its source as a cost. */
+  sacrifices: boolean
 }
 
 const addPools = (left: Pool, right: Pool) => {
@@ -96,12 +98,14 @@ export const activatedManaOptions = (
     if (choices.length > 1 || choices.length + fixed.length !== effect.do.length) return []
     const base = fixed.reduce((pool, instruction) => addPools(pool, instruction.mana), {} as Pool)
     const cost = reducedActivationMana(state, object, effect.costs.mana)
+    const sacrifices = Boolean(effect.costs.sacrifice)
     return choices.length === 0
-      ? [{ abilityId: effect.id, cost, pool: base }]
+      ? [{ abilityId: effect.id, cost, pool: base, sacrifices }]
       : choices[0].options.map((pool) => ({
           abilityId: effect.id,
           cost,
           pool: addPools(base, pool),
           choice: manaOptionId(pool),
+          sacrifices,
         }))
   })
