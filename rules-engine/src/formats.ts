@@ -39,7 +39,7 @@ import { saga } from './plugins/saga'
 import { adventure } from './plugins/adventure'
 import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
-import { grantControlledSubtypeTrigger } from './cardPlugins/grantControlledSubtypeTrigger'
+import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
 import { staticBoardPump } from './cardPlugins/staticBoardPump'
 import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
@@ -113,7 +113,7 @@ export const optionalPlugins = [
   extraSwampMana,
   enchantedManaBoost,
   starfieldOfNyx,
-  grantControlledSubtypeTrigger,
+  grantCreatureTrigger,
   staticBoardPump,
   exilePayoffs,
   extraUntap,
