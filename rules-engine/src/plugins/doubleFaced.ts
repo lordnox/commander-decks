@@ -26,9 +26,21 @@ export const isAdventureCard = (object: GameObject) =>
 const landFace = (object: GameObject) =>
   printedFaces(object).find((face) => face.types.includes('Land'))
 
+export type LandFaceChoice = 'front' | 'back'
+
+/** Every printed face that is a land, in printed order (a Pathway has two). */
+export const landFacesOf = (object: GameObject) =>
+  (['front', 'back'] as const).flatMap((choice) => {
+    const characteristics = choice === 'front' ? object.frontFace : object.backFace
+    return characteristics?.types.includes('Land') ? [{ choice, characteristics }] : []
+  })
+
 export const castFaceOf = (object: GameObject) => nonlandFace(object)
 
-export const landFaceOf = (object: GameObject) => landFace(object)
+export const landFaceOf = (object: GameObject, choice?: LandFaceChoice) =>
+  choice
+    ? landFacesOf(object).find((face) => face.choice === choice)?.characteristics
+    : landFace(object)
 
 export const applyFace = (object: GameObject, face: FaceCharacteristics) => {
   object.types = [...face.types]

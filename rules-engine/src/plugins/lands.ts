@@ -27,6 +27,9 @@ const legal: Plugin['legal'] = ({ state, event }) => {
     return `${object.name} is not in ${event.seat}'s hand`
   }
   if (!object.types.includes('Land') && !landFaceOf(object)) return `${object.name} is not a land`
+  if (event.face && !landFaceOf(object, event.face)) {
+    return `${object.name} has no ${event.face} land face`
+  }
   if (state.priority !== event.seat) return `${event.seat} does not have priority`
   if (state.active !== event.seat) return `it is not ${event.seat}'s turn`
   if (!MAIN_STEPS.includes(state.step)) return 'lands are played in a main phase'
@@ -40,7 +43,7 @@ const legal: Plugin['legal'] = ({ state, event }) => {
 const apply: Plugin['apply'] = ({ event, draft }) => {
   if (event.type !== 'playLand') return
   const pending = draft.object(event.objectId)
-  const face = pending ? landFaceOf(pending) : undefined
+  const face = pending ? landFaceOf(pending, event.face) : undefined
   if (pending && face) applyFace(pending, face)
   const object = draft.move(event.objectId, 'battlefield')
   if (!object) return

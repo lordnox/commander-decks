@@ -50,6 +50,7 @@ import {
   castFaceOf,
   isAdventureCard,
   landFaceOf,
+  landFacesOf,
   permanentFaceOf,
 } from './plugins/doubleFaced'
 import { resolveCastFace } from './plugins/adventure'
@@ -119,7 +120,14 @@ export type ActionTargetGroup = {
 }
 
 export type AvailableAction =
-  | { kind: 'playLand'; objectId: string; name: string }
+  | {
+      kind: 'playLand'
+      objectId: string
+      name: string
+      /** Which face of a card with two land faces (a Pathway) is played. */
+      face?: 'front' | 'back'
+      faceName?: string
+    }
   | {
       kind: 'castSpell'
       objectId: string
@@ -1274,7 +1282,19 @@ export const availableActions = (
     ]
     for (const id of playableLands) {
       const object = state.objects[id]
-      if (object && (object.types.includes('Land') || landFaceOf(object))) {
+      const landFaces = object ? landFacesOf(object) : []
+      if (object && landFaces.length > 1) {
+        const names = object.name.split(' // ')
+        for (const { choice } of landFaces) {
+          actions.push({
+            kind: 'playLand',
+            objectId: id,
+            name: object.name,
+            face: choice,
+            faceName: names[choice === 'front' ? 0 : 1] ?? object.name,
+          })
+        }
+      } else if (object && (object.types.includes('Land') || landFaceOf(object))) {
         actions.push({ kind: 'playLand', objectId: id, name: object.name })
       }
       if (object && canForetellFromHand(state, seat, object)) {
@@ -1917,6 +1937,7 @@ export const sameLegalAct = (
     phyrexianLife?: number[]
     alternativeCost?: 'withoutPayingMana'
     door?: RoomDoorId
+    face?: 'front' | 'back'
     adventureCast?: boolean
     stackId?: string
     selectionId?: string
@@ -1926,6 +1947,7 @@ export const sameLegalAct = (
   if (left.kind !== right.kind) return false
   if ('objectId' in left && left.objectId !== right.objectId) return false
   if (left.kind === 'tapForMana') return left.mana === right.mana
+  if (left.kind === 'playLand') return left.face === right.face
   if (left.kind === 'activateAbility') {
     const samePickedTargets = (left.targetGroups?.length ?? 0) > 0
       || JSON.stringify(left.targetObjectIds ?? []) === JSON.stringify(right.targetObjectIds ?? [])
@@ -2130,7 +2152,12 @@ export const eventsForAvailableAction = (
     ]
   }
   if (action.kind === 'playLand') {
-    return [{ type: 'playLand', seat, objectId: action.objectId }]
+    return [{
+      type: 'playLand',
+      seat,
+      objectId: action.objectId,
+      ...(action.face ? { face: action.face } : {}),
+    }]
   }
   if (action.kind === 'tapForMana') {
     return [{

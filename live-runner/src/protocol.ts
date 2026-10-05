@@ -92,6 +92,8 @@ type InboxPayload =
       alternativeCost?: 'withoutPayingMana'
       /** Which half of a Room is being cast or unlocked. */
       door?: RoomDoorId
+      /** Which land face of a double-faced land card is played. */
+      face?: 'front' | 'back'
       text?: string
       mana?: 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
       x?: number
@@ -160,6 +162,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     abilityId?: unknown
     castOption?: unknown
     door?: unknown
+    face?: unknown
     mana?: unknown
     attackers?: unknown
     x?: unknown
@@ -215,6 +218,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const phyrexianLife = message.phyrexianLife
       const alternativeCost = message.alternativeCost
       const door = message.door
+      const face = message.face
       const text = message.text
       const attackers = message.attackers
       const x = message.x
@@ -302,6 +306,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ) ? { phyrexianLife } : {}),
         ...(alternativeCost === 'withoutPayingMana' ? { alternativeCost } : {}),
         ...(door === 'left' || door === 'right' ? { door } : {}),
+        ...(face === 'front' || face === 'back' ? { face } : {}),
         ...(typeof text === 'string' ? { text } : {}),
         ...(typeof mana === 'string' && ['W', 'U', 'B', 'R', 'G', 'C'].includes(mana)
           ? { mana: mana as 'W' | 'U' | 'B' | 'R' | 'G' | 'C' }
