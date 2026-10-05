@@ -41,7 +41,14 @@ export const emptyAllManaPools = (draft: Draft) => {
   }
 }
 
+/**
+ * Permanent "no maximum hand size for the rest of the game". Kept apart from
+ * `maximumHandSize` (the static grant that `noMaxHand` refreshes and clears).
+ */
+export const NO_MAXIMUM_HAND_SIZE = 'noMaximumHandSize'
+
 export const maximumHandSize = (state: GameState, player: PlayerId) => {
+  if (state.players[player].data[NO_MAXIMUM_HAND_SIZE] === true) return null
   const configured = state.players[player].data.maximumHandSize
   if (configured === null) return null
   return typeof configured === 'number' && Number.isSafeInteger(configured)
