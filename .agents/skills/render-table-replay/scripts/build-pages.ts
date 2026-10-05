@@ -102,7 +102,7 @@ export const rankGames = <T extends { played_at?: string; slug?: string }>(games
   })
   return ranked
     .map((game, index) => ({ ...game, index: index + 1 }))
-    .reverse()
+    .toReversed()
 }
 
 export const publicGame = async (log: string): Promise<IndexGame> => {

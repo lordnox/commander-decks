@@ -463,7 +463,7 @@ const applyTopDeckChoices = (
   choices: CardSelectionChoice[],
   kind: 'scry' | 'surveil',
 ) => {
-  for (const choice of choices.filter(({ destination }) => destination === 'top').reverse()) {
+  for (const choice of choices.filter(({ destination }) => destination === 'top').toReversed()) {
     draft.enqueue({
       type: 'move',
       objectId: choice.objectId,

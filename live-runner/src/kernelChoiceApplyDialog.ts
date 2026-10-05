@@ -184,7 +184,7 @@ export const applyZoneChoice = (
     objectId: ids[index],
   }))
   if (decision.kernel.stage === 'surveil') {
-    for (const choice of ordered.filter(({ destination }) => destination === 'top').reverse()) {
+    for (const choice of ordered.filter(({ destination }) => destination === 'top').toReversed()) {
       if (!kernel.dispatch({ type: 'move', objectId: choice.objectId, to: 'library', position: 'top' }).ok) {
         throw new Error(`Could not keep ${choice.card} on top`)
       }

@@ -72,8 +72,8 @@ export const buildSeatPacket = (game: Json, actingSeat: string) => {
     .filter(Boolean)
   const plans = Object.fromEntries(
     ['game', 'turn', 'impact'].flatMap((scope) => {
-      const event = [...game.events]
-        .reverse()
+      const event = game.events
+        .toReversed()
         .find(
           (candidate: Json) =>
             candidate.seat === actingSeat && candidate.plan?.scope === scope,
