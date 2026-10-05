@@ -36,7 +36,7 @@ const PART36_INVENTORY = {
   'Appa, Loyal Sky Bison': 'gap',
   'Bronzebeak Foragers': 'gap',
   'Curious Colossus': 'registered',
-  'Darksteel Colossus': 'gap',
+  'Darksteel Colossus': 'registered',
   'Eagle of Deliverance': 'gap',
   'Githzerai Monk': 'registered',
   'Knight-Captain of Eos': 'gap',
@@ -95,9 +95,9 @@ describe('plug Dack part 36 creatures inventory', () => {
     }
   })
 
-  test('Darksteel Colossus is a GAP for the graveyard shuffle replacement, not kernel-only', () => {
-    expect(PART36_INVENTORY['Darksteel Colossus']).toBe('gap')
-    expect(effectsFor('Darksteel Colossus')).toEqual([])
+  test('Darksteel Colossus is registered for the graveyard shuffle replacement (see cirdanColossi.test.ts)', () => {
+    expect(PART36_INVENTORY['Darksteel Colossus']).toBe('registered')
+    expect(effectsFor('Darksteel Colossus')).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
     expect(oracleFor('Darksteel Colossus')).toContain('shuffle it into its owner\'s library')
   })
 

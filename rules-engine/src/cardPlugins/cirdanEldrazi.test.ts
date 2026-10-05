@@ -14,6 +14,41 @@ import { ability } from './effects'
 import { cardPluginEntry } from './index'
 import { ward } from './ward'
 
+const withValue = (name: string, manaValue: number, extra: Parameters<typeof fixtureCreature>[1] = {}) =>
+  fixtureCreature(name, { manaValue, ...extra })
+
+const spell = (name: string, manaCost: string, manaValue: number, types = ['Artifact']) =>
+  cardTemplate(name, { types, manaCost, manaValue })
+
+const winnowerCard = () => deckCard('Void Winnower')
+
+const sireCard = () => deckCard('Sire of Seven Deaths')
+
+const answer = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  optionId: string,
+) => server.rules(state, {
+  type: 'selectOption',
+  seat: 'p1',
+  selectionId: pendingOptionSelection(state, 'p1')!.id,
+  optionId,
+})
+
+const boltEvent = (state: GameState, target = 'Sire of Seven Deaths'): GameEvent => ({
+  type: 'castSpell',
+  seat: 'p1',
+  objectId: named(state, 'Lightning Bolt').id,
+  targets: [{ kind: 'object', objectId: named(state, target).id }],
+})
+
+const poker = () => cardTemplate('Fixture Poker', {
+  types: ['Creature'],
+  effects: [ability({ id: 'poker.poke', targets: 'creature' }, {}, { kind: 'gainLife', count: 1 })],
+})
+
+const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
+
 describe('Sire of Seven Deaths', () => {
   test('registers only the Ward-pay-7-life stamp the Oracle parser cannot read', () => {
     expect(effectsFor('Sire of Seven Deaths')).toEqual([
@@ -40,11 +75,6 @@ describe('Sire of Seven Deaths', () => {
   })
 
   describe('ward', () => {
-    const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
-    const poker = () => cardTemplate('Fixture Poker', {
-      types: ['Creature'],
-      effects: [ability({ id: 'poker.poke', targets: 'creature' }, {}, { kind: 'gainLife', count: 1 })],
-    })
 
     const wardGame = (life = 40) => {
       const server = createServerGame(commanderRules, {
@@ -61,23 +91,7 @@ describe('Sire of Seven Deaths', () => {
       return { server, ready }
     }
 
-    const boltEvent = (state: GameState, target = 'Sire of Seven Deaths'): GameEvent => ({
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Lightning Bolt').id,
-      targets: [{ kind: 'object', objectId: named(state, target).id }],
-    })
 
-    const answer = (
-      server: ReturnType<typeof createServerGame>,
-      state: GameState,
-      optionId: string,
-    ) => server.rules(state, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: pendingOptionSelection(state, 'p1')!.id,
-      optionId,
-    })
 
     test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {
       const { server, ready } = wardGame()
@@ -168,23 +182,22 @@ describe('Sire of Seven Deaths', () => {
   })
 
   describe('combat keywords', () => {
-    const sire = () => deckCard('Sire of Seven Deaths')
 
     test('vigilance: attacking does not tap it', () => {
-      const game = combatGame([sire()])
+      const game = combatGame([sireCard()])
       const state = game.attackWith(game.ready, 'Sire of Seven Deaths')
       expect(named(state, 'Sire of Seven Deaths').tapped).toBe(false)
     })
 
     test('lifelink: unblocked it gains its controller seven life', () => {
-      const game = combatGame([sire()])
+      const game = combatGame([sireCard()])
       const state = game.advance(game.advance(game.toBlockers('Sire of Seven Deaths')))
       expect(state.players.p2.life).toBe(33)
       expect(state.players.p1.life).toBe(47)
     })
 
     test('first strike: it kills two big blockers before they deal damage', () => {
-      const game = combatGame([sire()], [
+      const game = combatGame([sireCard()], [
         fixtureCreature('Brick A', { power: 20, toughness: 3 }),
         fixtureCreature('Brick B', { power: 20, toughness: 3 }),
       ])
@@ -203,7 +216,7 @@ describe('Sire of Seven Deaths', () => {
     })
 
     test('menace: a single blocker is rejected and two are accepted', () => {
-      const game = combatGame([sire()], [fixtureCreature('Bear A'), fixtureCreature('Bear B')])
+      const game = combatGame([sireCard()], [fixtureCreature('Bear A'), fixtureCreature('Bear B')])
       const state = game.toBlockers('Sire of Seven Deaths')
       expect(game.blockError(state, ['Bear A', 'Sire of Seven Deaths'])).toContain('menace')
       expect(game.blockError(
@@ -214,7 +227,7 @@ describe('Sire of Seven Deaths', () => {
     })
 
     test('trample: the excess over a chump blocker reaches the defending player', () => {
-      const game = combatGame([sire()], [
+      const game = combatGame([sireCard()], [
         fixtureCreature('Bear A'),
         fixtureCreature('Bear B'),
       ])
@@ -242,7 +255,6 @@ describe('Sire of Seven Deaths', () => {
 })
 
 describe('Void Winnower', () => {
-  const winnowerCard = () => deckCard('Void Winnower')
 
   test('registers one static cast and one static block restriction on even mana values', () => {
     expect(effectsFor('Void Winnower')).toEqual([
@@ -253,9 +265,6 @@ describe('Void Winnower', () => {
   })
 
   describe('casting', () => {
-    const spell = (name: string, manaCost: string, manaValue: number, types = ['Artifact']) =>
-      cardTemplate(name, { types, manaCost, manaValue })
-
     const castGame = (players: 2 | 3 | 4 = 3) => {
       const server = createServerGame(commanderRules, {
         players,
@@ -368,9 +377,6 @@ describe('Void Winnower', () => {
   })
 
   describe('blocking', () => {
-    const withValue = (name: string, manaValue: number, extra: Parameters<typeof fixtureCreature>[1] = {}) =>
-      fixtureCreature(name, { manaValue, ...extra })
-
     test('opponents cannot block with even-valued creatures, including zero and tokens', () => {
       const game = combatGame(
         [winnowerCard(), fixtureCreature('Runner')],

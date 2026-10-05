@@ -4,7 +4,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
-import type { GameEvent, GameState, Plugin } from '../types'
+import type { GameEvent, GameState, Plugin, PlayerId, ReduceResult } from '../types'
 
 type DeckCard = {
   name: string
@@ -62,6 +62,38 @@ export const named = (state: GameState, name: string) =>
 
 export const allNamed = (state: GameState, name: string) =>
   Object.values(state.objects).filter((object) => object.name === name)
+
+export const artifact = (name: string, extra: Partial<CardTemplate> = {}) =>
+  cardTemplate(name, { types: ['Artifact'], ...extra })
+
+/** A library of anonymous instants, long enough that draws never deck a player. */
+export const libraryOf = (seat: string, count = 6) =>
+  Array.from({ length: count }, (_, index) =>
+    cardTemplate(`${seat} card ${index}`, { types: ['Instant'] }))
+
+export const libraries = (seats: string[], count = 6) =>
+  Object.fromEntries(seats.map((seat) => [seat, libraryOf(seat, count)]))
+
+/** Moves a card onto the battlefield the way any entry does, so enter triggers fire. */
+export const enter = (
+  server: { rules: (state: GameState, event: GameEvent) => ReduceResult },
+  state: GameState,
+  name: string,
+) => ok(server.rules(state, { type: 'move', objectId: named(state, name).id, to: 'battlefield' }))
+
+/** The controller's answer to an open "choose" selection, by card name. */
+export const choose = (
+  state: GameState,
+  names: string[],
+  count = 1,
+  seat: PlayerId = 'p1',
+): GameEvent => ({
+  type: 'selectCards',
+  seat,
+  kind: 'choose',
+  count,
+  objectIds: names.map((name) => named(state, name).id),
+})
 
 /** p1 attacks p2 with every creature ready; helpers drive attack, block, and step changes. */
 export const combatGame = (

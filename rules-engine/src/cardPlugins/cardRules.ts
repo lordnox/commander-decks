@@ -2577,14 +2577,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     opponentsCantCast({ parity: 'even' }),
     opponentsCantBlock({ parity: 'even' }),
   ],
-  'Spearbreaker Behemoth': [
-    activate({
-      id: 'spearbreaker.indestructible',
-      costs: { mana: '{1}' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
-      do: [grantUntilEot('indestructible')],
-    }),
-  ],
   'Thunderfoot Baloth': [
     staticBoardPump(2, 2, ['Creature'], {
       if: { kind: 'controlsCommander' },
