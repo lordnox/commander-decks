@@ -35,7 +35,18 @@ const commanderIdentity = (state: Pick<GameState, 'objects'>, seat: PlayerId) =>
 }
 
 /**
- * The printed modes of a source's mana abilities. `Add {G}{U}` is one mode
+ * Oracle lines whose only costs are `{T}` and life, the abilities a bare
+ * `tapForMana` may use. A line with any other cost (`{1}, {T}: Add {G}{U}`,
+ * `{T}, Mill a card: Add {C}`) is an activated mana ability and is not a mode.
+ */
+const freeTapText = (oracleText: string) =>
+  oracleText
+    .split('\n')
+    .filter((line) => /^\(?\{T\}(?:, Pay 1 life)?:/i.test(line))
+    .join('\n')
+
+/**
+ * The printed modes of a source's free mana abilities. `Add {G}{U}` is one mode
  * worth two mana; `Add {W} or {U}` and `Add {B}, {G}, or {U}` are separate
  * one-mana modes. `Add {B} for each Swamp` is a paid ability, not a free tap.
  */
@@ -47,7 +58,8 @@ export const manaModes = (
   const nextVisited = new Set(visited)
   if (object.id) nextVisited.add(object.id)
   const modes: Partial<Record<ManaId, number>>[] = []
-  for (const match of object.oracleText.matchAll(
+  const freeText = freeTapText(object.oracleText)
+  for (const match of freeText.matchAll(
     /Add ((?:\{[WUBRGC]\}(?:,? or |, )?)+)(?! for each)/gi,
   )) {
     const clause = match[1]
@@ -61,12 +73,12 @@ export const manaModes = (
     for (const symbol of symbols) pool[symbol] = (pool[symbol] ?? 0) + 1
     if (symbols.length > 0) modes.push(pool)
   }
-  const identityMana = /commander's color identity/i.test(object.oracleText)
+  const identityMana = /commander's color identity/i.test(freeText)
   const hasDynamicCapability = object.effects?.some(
     (effect) => effect.op === 'manaCapability' || effect.op === 'restrictedMana',
   )
   if (
-    /one mana of any color/i.test(object.oracleText)
+    /one mana of any color/i.test(freeText)
     && !identityMana
     && !hasDynamicCapability
   ) {
@@ -77,7 +89,7 @@ export const manaModes = (
       modes.push({ [color]: 1 })
     }
   }
-  if (/any of the exiled cards' colors/i.test(object.oracleText) && state) {
+  if (/any of the exiled cards' colors/i.test(freeText) && state) {
     const colors = new Set(
       (object.exiledCards ?? [])
         .flatMap((objectId) => state.objects[objectId]?.colors ?? [])

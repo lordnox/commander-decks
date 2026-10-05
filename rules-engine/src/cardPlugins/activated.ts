@@ -11,6 +11,7 @@ import {
   payActivationCosts,
 } from './activationCosts'
 import { effectsOf } from './cardRules'
+import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -174,6 +175,11 @@ export const activated: Plugin = {
       if (!choice || !allowed.includes(choice as typeof allowed[number])) {
         return `${source.name} needs a mana color`
       }
+    }
+    const poolChoice = effect.do.find((instruction) => instruction.kind === 'addManaChoice')
+    const named = event.choices?.[0]
+    if (poolChoice && named && !manaChoicePools(poolChoice.options)[named]) {
+      return `${source.name} cannot add ${named}`
     }
   },
   apply: ({ event, draft }) => {

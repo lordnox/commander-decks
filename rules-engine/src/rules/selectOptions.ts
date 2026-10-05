@@ -1,5 +1,5 @@
 import type Draft from '../draft'
-import type { GameState, PlayerId, Plugin } from '../types'
+import type { GameState, ManaPool, PlayerId, Plugin } from '../types'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -28,6 +28,13 @@ export type PendingOptionSelection = {
     voteId: string
     /** Whose vote this answers; a vote chooser answers for each voter in turn. */
     voter: PlayerId
+  } | {
+    /** Pool to add for each offered option id. */
+    kind: 'mana-choice'
+    pools: Record<string, Partial<ManaPool>>
+  } | {
+    /** The color a permanent stores as it enters. */
+    kind: 'choose-color'
   }
 }
 

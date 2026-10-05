@@ -589,6 +589,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
       }
     }
     if (effect.op === 'replacement') ids.add('entersTapped')
+    if (effect.op === 'replacement' && effect.do === 'chooseColor') ids.add('chosenColor')
     if (effect.op === 'trigger' && effect.on === 'cast') {
       ids.add('castTriggers')
       if (effect.modal) ids.add('choiceEffects')
@@ -690,6 +691,7 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
     }
     if (hasKind(allListed, 'hiddenPileNegotiation')) ids.add('hiddenPiles')
     if (hasKind(allListed, 'vote')) ids.add('vote')
+    if (hasKind(allListed, 'addManaChoice')) ids.add('manaChoice')
     if (hasKind(allListed, 'blink', 'blinkReturn')) ids.add('blink')
     if (hasKind(allListed, 'encoreTokens')) ids.add('encore')
     if (hasKind(allListed, 'becomeCopyOfTarget')) ids.add('becomeCopyOfTarget')
