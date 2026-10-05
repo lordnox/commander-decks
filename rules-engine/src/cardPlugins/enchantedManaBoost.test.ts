@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { eventsForAvailableAction, legalActsFor } from '../actions'
+import { availableActions, eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { pendingOptionSelection } from '../rules/selectOptions'
@@ -107,6 +107,36 @@ describe('Aura casting through the action layer', () => {
     expect(castActs(land.state, 'Test Wild Growth')
       .map((act) => act.kind === 'castSpell' ? act.targetName : undefined))
       .toEqual(['Forest', 'Island'])
+  })
+
+  test.each(['Enchant player', 'Enchant opponent', 'Enchant artifact or creature'])(
+    '%s is not parsed, so the Aura stays castable',
+    (line) => {
+      const aura = cardTemplate('Test Curse', {
+        types: ['Enchantment'],
+        subtypes: ['Aura', 'Curse'],
+        manaCost: '{G}',
+        oracleText: line,
+      })
+      const server = game([aura], [])
+      server.state.players.p1.mana.G = 1
+      expect(availableActions(server.state, 'p1')).toContainEqual(
+        expect.objectContaining({ kind: 'castSpell', name: 'Test Curse' }),
+      )
+    },
+  )
+
+  test('Enchant creature Auras are offered per creature', () => {
+    const aura = cardTemplate('Test Pacifism', {
+      types: ['Enchantment'],
+      subtypes: ['Aura'],
+      manaCost: '{G}',
+      oracleText: 'Enchant creature',
+    })
+    const server = game([aura], [forest(), bears()])
+    expect(castActs(server.state, 'Test Pacifism')
+      .map((act) => act.kind === 'castSpell' ? act.targetName : undefined))
+      .toEqual(['Test Bears'])
   })
 
   test('an Aura with nothing to enchant is not offered', () => {

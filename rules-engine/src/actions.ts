@@ -1,7 +1,7 @@
 import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
-import { manaModes, poolForChoice } from './plugins/mana'
+import { manaModes, manaRequiresTap, poolForChoice } from './plugins/mana'
 import { giftSpecOf } from './cardPlugins/giftCast'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
@@ -387,11 +387,16 @@ const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
   object.zone === 'battlefield'
   && !object.phasedOut
   && object.controller === seat
-  && !object.tapped
   && (
-    !object.types.includes('Creature')
-    || !object.summoningSickness
-    || hasKeyword(object, 'haste', state)
+    !manaRequiresTap(object)
+    || (
+      !object.tapped
+      && (
+        !object.types.includes('Creature')
+        || !object.summoningSickness
+        || hasKeyword(object, 'haste', state)
+      )
+    )
   )
 
 /** One way a source can add mana: a bare tap, or an activated mana ability that costs mana first. */
