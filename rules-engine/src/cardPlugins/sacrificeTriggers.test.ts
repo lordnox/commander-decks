@@ -4,6 +4,7 @@ import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
+import { DIALOG_CHOSEN, pendingDialogLock } from '../pendingDialog'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
@@ -18,7 +19,10 @@ import {
   putTriggeringCardOntoBattlefield,
   shuffleIntoLibraryInstead as shuffleEffect,
 } from './effects'
+import { alternateCosts } from './alternateCosts'
+import { librarySearch } from './librarySearch'
 import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
+import { targetedResolve } from './targetedResolve'
 
 const eldrazi = (name = 'Test Betrayer') => cardTemplate(name, {
   types: ['Creature'],
@@ -347,5 +351,86 @@ describe('permanentSacrificed', () => {
       to: 'exile',
     }))
     expect(ok(server.rules(banished, { type: 'sacrifice', objectId: rock })).stack).toEqual([])
+  })
+})
+
+describe('permanentSacrificed from other sacrifice paths', () => {
+  const asP2 = (state: GameState) => {
+    const next = structuredClone(state)
+    next.active = 'p2'
+    next.priority = 'p2'
+    return next
+  }
+
+  test('a sacrifice paid as a spell cost triggers it for each permanent', () => {
+    const creature = (name: string) => cardTemplate(name, { types: ['Creature'] })
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        battlefield: {
+          p1: [eldrazi()],
+          p2: [creature('One'), creature('Two'), creature('Three')],
+        },
+        hands: {
+          p2: [
+            cardTemplate('Dread Return', { types: ['Sorcery'], manaCost: '{2}{B}{B}', zone: 'graveyard' }),
+            creature('Reanimation Target'),
+          ],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [alternateCosts, targetedResolve] },
+    )
+    const ready = asP2(server.state)
+    const target = named(ready, 'Reanimation Target')
+    ready.objects[target.id].zone = 'graveyard'
+    ready.zoneOrder.p2.hand = ready.zoneOrder.p2.hand.filter((id) => id !== target.id)
+    ready.zoneOrder.p2.graveyard.push(target.id)
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: named(ready, 'Dread Return').id,
+      castOption: 'flashback',
+      sacrifice: ['One', 'Two', 'Three'].map((name) => named(ready, name).id),
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    expect(cast.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(3)
+    const settled = resolveStack(server.rules, cast)
+    for (const name of ['One', 'Two', 'Three']) {
+      expect(named(settled, name)).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+    }
+  })
+
+  test('lands sacrificed while a search spell resolves trigger it', () => {
+    const forest = (name: string) => cardTemplate(name, {
+      types: ['Land'],
+      subtypes: ['Forest'],
+      supertypes: ['Basic'],
+      tapProduces: { G: 1 },
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        battlefield: { p1: [eldrazi()], p2: [forest('First Forest')] },
+        hands: { p2: [cardTemplate('Scapeshift', { types: ['Sorcery'], manaCost: '{2}{G}{G}' })] },
+      },
+      { random: () => 0.5, cardPlugins: [librarySearch, pendingDialogLock] },
+    )
+    const ready = asP2(server.state)
+    ready.players.p2.mana.G = 4
+    const cast = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p2',
+      objectId: named(ready, 'Scapeshift').id,
+    }))
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+    const sacrificed = ok(server.rules(choosing, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p2',
+      payload: { objectIds: [named(choosing, 'First Forest').id] },
+    }))
+    expect(sacrificed.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(1)
   })
 })

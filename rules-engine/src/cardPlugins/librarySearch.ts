@@ -283,7 +283,7 @@ const beginEnterSearch = (
     return
   }
   if (shouldSacrificeOnEnter(enteredSpec)) {
-    draft.enqueue({ type: 'move', objectId: entered.id, to: 'graveyard' })
+    draft.enqueue({ type: 'sacrifice', objectId: entered.id })
     if (enteredSpec.gainLife) {
       draft.enqueue({
         type: 'gainLife',
@@ -405,7 +405,7 @@ export const librarySearch: Plugin = {
             && land.types.includes('Land')
         })
         for (const objectId of sacrificed) {
-          draft.enqueue({ type: 'move', objectId, to: 'graveyard' })
+          draft.enqueue({ type: 'sacrifice', objectId })
         }
         clearPendingDialog(draft, event.seat)
         if (sacrificed.length === 0) {
