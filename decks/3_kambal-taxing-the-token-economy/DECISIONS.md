@@ -104,3 +104,60 @@ This log records why cards are included. The primer explains how to pilot the cu
 ### 2026-10-07 — Initial import
 
 The submitted list is preserved unchanged. Taxing the Token Economy is a working title. No bracket or identity rankings are assigned before the follow-up discussion.
+
+## Goals
+
+User-declared on 2026-10-07: **Token gifts**, **Token copying**, and **Aristocrats**. Score each independently; copying an opponent's token does not transfer their original token.
+
+## Rankings
+
+### 2026-10-07 — First rating
+
+- **Jankiness: 7/10** — Gifts are deliberately useful to opponents; Stairwell copies that survive the original tokens and tapped-token Fountain wins make the engine unusual. Efficient tutors and conventional death payoffs moderate the jank.
+- **Fun: 8/10** — Gift recipients, once-per-turn copy timing, sacrifice ordering, recursive creatures, draw triggers, combat, and tutors create different meaningful choices. Repeated triggers add bookkeeping.
+- **Oppressiveness: 6/10** — Awaken the Erstwhile strips everyone's hand and turns the aftermath into your resources. Massacre Wurm and drain payoffs can make opposing creature deaths costly. Wipes punish developed boards, but no sustained lock prevents casting spells or taking turns.
+- **Token gifts: 9/10** — Sixteen gift-role cards, including repeatable engines and token-granting removal, make handing out resources a recurring action.
+- **Token copying: 9/10** — Kambal is always accessible, with gifts to feed him; Mondrak scales his copies and Lecturer, Saw in Half, and Talent offer additional copy effects. Removing Kambal leaves substantially less copying, preventing a 10.
+- **Aristocrats: 9/10** — Multiple free outlets, ten drain-role cards, token material, and recursion make sacrifice a central finish rather than incidental value. Some finishers instead use combat or Fountain.
+
+## Primer
+
+### 2026-10-07 — Assessment
+
+Default official matchmaking assessment: **Bracket 3**, middle of Upgraded. Source: [BRACKET-DEFINITIONS.md](../../BRACKET-DEFINITIONS.md), cached Game Changers snapshot **2026-09-03**. **Zero listed Game Changers** match this manifest. **House-policy caveat:** [root DECISIONS.md](../../DECISIONS.md) places Sol Ring and other permanent fast mana at kitchen-table 4+. This submitted list has Sol Ring, so it does not meet the local Bracket 3 policy as written; no waiver or card change is assumed. Its normal pace and construction are nevertheless Upgraded rather than Optimized. The folder and assessment sentence record the official matchmaking rating with that explicit caveat.
+
+| Evidence | Finding |
+| --- | --- |
+| Commander | Three mana; normally turn three or four given the tapped lands. It copies once per turn, drains by entry event, and does not draw cards. |
+| Mana and consistency | 37 lands; nonland mean MV 2.94. Many tapped/fetch-to-tapped lands and conditional early Treasure sources limit acceleration. Double and triple black costs and Fountain's five white mana are real constraints. |
+| Fast mana | Sol Ring is permanent fast mana, outside the house Bracket 3 policy though absent from the official Game Changers snapshot. Culling the Weak is a one-shot ritual, requiring a creature. Ashnod's Altar converts existing bodies into immediate mana. Arcane Signet is ordinary ramp. |
+| Tutors | Four: Beseech the Mirror, Insatiable Avarice, Lively Dirge, Splinter's Technique. Dirge's reanimation is restricted; Beseech needs bargain and MV ≤4 for a free cast; Technique's cheap cost requires an unblocked attacker. |
+| Interaction | Seven removal-role cards, with Damn counted in both pinpoint and wipe roles. Three unrestricted creature sweeps (Damn, Kaya's Wrath, Toxic Deluge), plus Wurm's -2/-2 and the Saga's Warrior reset. Saw in Half is often your own engine tool. No counterspell package or general-purpose commander/board protection; self-protection on Mondrak and Yahenni is narrower. Awaken is proactive hand disruption. |
+| Draw and recovery | Eighteen card-draw-category slots, including slow/conditional creatures and land utility rather than eighteen cheap draw engines. Strong engines include Clamp, Talent, Innocence, and Connections. Dirge, Grave Venerations, and Awakening Hall rebuild at different mana costs. |
+| Win texture | Repeated token/death drain, Stairwell over multiple players' upkeeps, Wurm punishing donated tokens, wide combat, and Fountain. No verified self-restoring infinite loop in this 100; Altar and Soultrader consume finite creatures. No extra turns or mass land denial. |
+
+| Estimate | Win window | Setup and limitations |
+| --- | --- | --- |
+| Credible strong draw | Turns 6–7 | Kambal by turn three, then a draw/production engine on four and drain plus outlet on five/six. Large gift batches or a stocked Stairwell can then produce lethal over a turn cycle. This needs converging pieces and limited resistance. |
+| Normal goldfish | Turns 7–9 | Develop mana and draw first, then two death/token payoffs plus an outlet and recurring producer. For example four creatures in your own graveyard supply sixteen original Stairwell tokens over four upkeeps; two all-opponent death payoffs turn their deaths into 32 life loss, with earlier drains/combat or Mirkwood Bats closing the rest. No opposing graveyard material is assumed for this baseline. |
+| Interactive pod | Turns 9–12+, or fails to close | Answering Kambal or the first draw/production engine costs another deployment/rebuild. Exile or graveyard hate can stop the preferred engine; donated creatures can punish a slow rebuild. |
+
+These are construction-based estimates, **not measured goldfish or table-simulation results**. Stairwell requires graveyard setup; creatures dying before its next upkeep determine output. Beginning a value engine is not itself lethal.
+
+**Exceptional possible turn-five win:** opening four nonland pieces are Sol Ring, Halo Fountain, Alliance of Arms, and the commander (outside the 99). Three specific library cards plus five suitable lands are required; this is not the credible baseline. One legal mana trace:
+
+1. Turn one: Plains, Sol Ring (pay the Plains).
+2. Turn two: Caves of Koilos; cast Kambal using Plains for W, Caves for B, and one Ring mana for generic.
+3. Turn three: Command Tower; cast Halo Fountain using Ring for two generic and Plains for W.
+4. Turn four: Isolated Chapel enters untapped because Plains is present. Four lands plus Ring provide six mana. Cast Alliance of Arms for W and pay five into join forces yourself; opponents need not contribute. Each player creates five Soldiers simultaneously. Kambal copies the fifteen opposing Soldiers tapped.
+5. Turn five: Shattered Sanctum enters untapped with four other lands. All five lands can produce W. Pay W five times, tap Fountain, and untap fifteen of Kambal's copies: win.
+
+No combat or summoning-sickness exception is needed: the Fountain asks for untapping creatures, not for their own tap-symbol activation. Any commander removal, Fountain answer, missing land/color, or earlier tap-land delay breaks this trace. The line requires a particular package and favorable mana, and does not show consistent turn-five lethality.
+
+**Why not Core:** tutor-supported drain engines, instant wins from a big token conversion, and asymmetrical hand disruption go beyond the low-pressure incremental pattern. **Why not Optimized by normal construction:** tapped-land tempo, conditional ramp, several setup pieces, weak broad protection/stack interaction, and no compact repeatable infinite keep the ordinary game well away from reliable early kills. Sol Ring remains a separate local-policy exception, not evidence that the entire deck normally performs at Optimized speed.
+
+## Rules
+
+### 2026-10-07 — Stairwell and Fountain checks
+
+Stairwell's upkeep instruction makes all players' tokens in one simultaneous event; Kambal can copy all opposing tokens in that event when its once-per-turn ability is unused. The earlier primer's separate-batch explanation was incorrect and is corrected. Kambal's copies are not created by Stairwell and survive its original-token cleanup. Token creation occurs during Kambal's resolving trigger as a later entry event. Kambal drains once per nonempty entry event, while Bats counts tokens individually. Fountain can untap newly entered tapped copies as its activation cost and requires five white mana for the win ability. These readings follow the stored Oracle text; no infinite is asserted.
