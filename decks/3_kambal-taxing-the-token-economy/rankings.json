@@ -1,0 +1,18 @@
+{
+  "goals": [
+    "Token gifts",
+    "Token copying",
+    "Aristocrats"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 8,
+    "oppressiveness": 6,
+    "identity": {
+      "Token gifts": 9,
+      "Token copying": 9,
+      "Aristocrats": 9
+    }
+  },
+  "notes": "Gift effects and Kambal make unusual token conversions, with Stairwell and Fountain adding rules-heavy alternate paths (Jank 7). Choosing gift recipients, turn timing, sacrifice order, tutor roles, and combat pivots creates meaningful pilot decisions (Fun 8). Awaken the Erstwhile empties hands, while wipes and repeated drain punish boards; there is no sustained prison or stack lock (Mean 6). Sixteen gift-role cards strongly support Token gifts 9; a guaranteed command-zone copier plus Mondrak, Lecturer, Saw in Half, and Talent supports Token copying 9; numerous death payoffs and free sacrifice outlets support Aristocrats 9. Many individual gifts remain commander-dependent, and copying is not independently redundant enough for 10."
+}
