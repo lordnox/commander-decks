@@ -59,7 +59,8 @@ export const entersTapped: Plugin = {
       return
     }
     const shock = effectsOf(object).find((effect) =>
-      effect.op === 'replacement' && effect.do === 'tapUnlessPayLife')
+      effect.op === 'replacement' && effect.do === 'tapUnlessPayLife'
+      && conditionHolds(effect.if, state, object))
     if (shock) {
       const life = shock.op === 'replacement' ? shock.life ?? 2 : 2
       setPendingDialog(draft, {

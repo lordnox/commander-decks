@@ -2334,7 +2334,12 @@ export const eventsForAvailableAction = (
   const face = object
     ? resolveCastFace(object, { door: action.door, adventureCast: action.adventureCast })
     : undefined
-  const spellText = face?.oracleText ?? object?.oracleText ?? ''
+  const printedSpellText = face?.oracleText ?? object?.oracleText ?? ''
+  // A declared ETB target belongs to the triggered ability, not the creature spell.
+  const hasEntryTrigger = effects.some((effect) => effect.op === 'trigger' && effect.on === 'enters')
+  const spellText = hasEntryTrigger
+    ? printedSpellText.split('\n').filter((line) => !/^When (?:this .*?|.+?) enters(?: the battlefield)?,/i.test(line)).join('\n')
+    : printedSpellText
   const hasAlternateCast = object ? alternateCastEffects(object).length > 0 : false
   const hasBestowCast = object ? Boolean(bestowEffect(object)) : false
   const enchanting = Boolean(object && !action.castOption && enchantTargets(state, object))

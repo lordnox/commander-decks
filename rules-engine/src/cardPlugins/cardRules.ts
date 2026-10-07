@@ -465,6 +465,16 @@ const artifactWithManaAbility = (object: GameObject) =>
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
   Abundance: [replaceDrawByType()],
+  'Vault of Champions': [entersTapped(opponentsAtMost(1))],
+  'Concealed Courtyard': [entersTapped(otherLands({ min: 3 }))],
+  'Bojuka Bog': [
+    entersTapped(),
+    { op: 'trigger', on: 'enters', targets: 'player', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
+  ],
+  'Boggart Trawler // Boggart Bog': [
+    { op: 'replacement', on: 'enters', do: 'tapUnlessPayLife', life: 3, if: { kind: 'sourceType', type: 'Land' } },
+    { op: 'trigger', on: 'enters', targets: 'player', if: { kind: 'sourceType', type: 'Creature' }, do: [{ kind: 'exileTargetPlayerGraveyard' }] },
+  ],
   'Hostile Negotiations': [onResolve(hiddenPileNegotiation(3, 3))],
   'Bala Ged Recovery // Bala Ged Sanctuary': [
     entersTapped(),

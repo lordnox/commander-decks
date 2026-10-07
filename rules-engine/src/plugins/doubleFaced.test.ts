@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { eventsForAvailableAction, legalActsFor } from '../actions'
+import { availableActions, eventsForAvailableAction, legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -41,7 +41,8 @@ describe('modal double-faced cards', () => {
       },
     }
 
-    expect(legalActsFor(funded, 'p1').map((action) => action.kind))
+    // This fixture supplies no spell instruction; check face availability, not host automation.
+    expect(availableActions(funded, 'p1').map((action) => action.kind))
       .toEqual(expect.arrayContaining(['playLand', 'castSpell']))
 
     const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))

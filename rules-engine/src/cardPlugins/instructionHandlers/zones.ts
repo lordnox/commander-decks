@@ -21,6 +21,16 @@ import { hasKeyword } from '../../keywords'
 import type { TargetFilter } from '../effects'
 import type { InstructionContext, InstructionHandler, InstructionHandlers } from './types'
 
+/** CR 603.3d: the player is targeted when the ETB trigger is stacked.
+ * Exile the cards still in that player's graveyard when it resolves. */
+const exileTargetPlayerGraveyard: InstructionHandler<'exileTargetPlayerGraveyard'> = ({ draft, item }) => {
+  const target = item?.targets[0]
+  if (target?.kind !== 'player' || draft.players[target.player]?.lost) return
+  for (const objectId of draft.zoneOrder[target.player].graveyard) {
+    draft.enqueue({ type: 'move', objectId, to: 'exile' })
+  }
+}
+
 const devour: InstructionHandler<'devour'> = ({ draft, source, run }, instruction) => {
   const candidates = Object.values(draft.objects)
     .filter((object) =>
@@ -980,6 +990,7 @@ const returnCreatureManaValueX: InstructionHandler<'returnCreatureManaValueX'> =
 }
 
 export const zoneHandlers = {
+  exileTargetPlayerGraveyard,
   devour,
   addPlusCountersFromSacrifice,
   selfMill,
