@@ -1,0 +1,163 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "8cfd5a0f-8859-4272-a08f-13b788422f4c",
+      "name": "Kambal, Profiteering Mayor",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Advisor",
+      "uri": "https://api.scryfall.com/cards/8cfd5a0f-8859-4272-a08f-13b788422f4c"
+    },
+    {
+      "component": "token",
+      "id": "e85f57c5-923a-4824-969e-53feddd78c3b",
+      "name": "Copy",
+      "object": "related_card",
+      "type_line": "Token",
+      "uri": "https://api.scryfall.com/cards/e85f57c5-923a-4824-969e-53feddd78c3b"
+    }
+  ],
+  "arena_id": 90557,
+  "artist": "Andreas Zafiratos",
+  "artist_ids": [
+    "e2f13a9a-57c5-40de-81d4-3b0723899cdf"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764276,
+  "cmc": 3.0,
+  "collector_number": "211",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1176,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "d53a775d-5898-41a8-b404-9b7d4721c6ba",
+  "illustration_id": "9485b577-19cd-4d73-a471-5f20477d9316",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:03:13Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.webp?1783911793",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.jpg?1783911793",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.jpg?1783911793",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.webp?1783911793",
+    "display": "https://cards.scryfall.io/display/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.webp?1783911793",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.webp?1783911793",
+    "large": "https://cards.scryfall.io/large/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.jpg?1783911793",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.jpg?1783911793",
+    "png": "https://cards.scryfall.io/png/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.png?1783911793",
+    "small": "https://cards.scryfall.io/small/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.jpg?1783911793",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d53a775d-5898-41a8-b404-9b7d4721c6ba.webp?1783911793"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{B}",
+  "mtgo_id": 124333,
+  "multiverse_ids": [
+    655152
+  ],
+  "name": "Kambal, Profiteering Mayor",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "619e0686-e88c-4238-8364-75395e733533",
+  "oracle_text": "Whenever one or more tokens your opponents control enter, for each of them, create a tapped token that's a copy of it. This ability triggers only once each turn.\nWhenever one or more tokens you control enter, each opponent loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "penny_rank": 5883,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2024-03-28",
+    "source": "Yuuki Ichikawa",
+    "source_uri": "https://twitter.com/serra2020/status/1773336491843895492"
+  },
+  "prices": {
+    "eur": "5.06",
+    "eur_foil": "5.85",
+    "tix": "0.02",
+    "usd": "6.30",
+    "usd_etched": null,
+    "usd_foil": "6.18"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A619e0686-e88c-4238-8364-75395e733533&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124333?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764276&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F544486%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kambal%2C+Profiteering+Mayor",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=655152&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKambal%252C%2BProfiteering%2BMayor",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKambal%252C%2BProfiteering%2BMayor"
+  },
+  "released_at": "2024-04-19",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d53a775d-5898-41a8-b404-9b7d4721c6ba/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otj?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otj/211/kambal-profiteering-mayor?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otj",
+  "set_id": "55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "set_name": "Outlaws of Thunder Junction",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotj&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/55a85ebe-644e-4bef-8be8-5290408be3d1",
+  "story_spotlight": false,
+  "tcgplayer_id": 544486,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Human Advisor",
+  "uri": "https://api.scryfall.com/cards/d53a775d-5898-41a8-b404-9b7d4721c6ba",
+  "variation": false
+}

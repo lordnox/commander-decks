@@ -1,0 +1,137 @@
+{
+  "arena_id": 100537,
+  "artist": "Jo Cordisco",
+  "artist_ids": [
+    "f9452ff6-516a-489e-9271-ce8ee876275e"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 868304,
+  "cmc": 4.0,
+  "collector_number": "80",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5329,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Possess the right thinking. Only then can one receive the gifts of strength, knowledge, and peace.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "fd3a5465-074a-4688-b79b-68e232076581",
+  "illustration_id": "b53ba619-e5d0-4c90-971b-af4ff9c97978",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:55:00Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.webp?1783904100",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.jpg?1783904100",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.jpg?1783904100",
+    "crop": "https://cards.scryfall.io/crop/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.webp?1783904100",
+    "display": "https://cards.scryfall.io/display/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.webp?1783904100",
+    "grid": "https://cards.scryfall.io/grid/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.webp?1783904100",
+    "large": "https://cards.scryfall.io/large/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.jpg?1783904100",
+    "normal": "https://cards.scryfall.io/normal/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.jpg?1783904100",
+    "png": "https://cards.scryfall.io/png/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.png?1783904100",
+    "small": "https://cards.scryfall.io/small/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.jpg?1783904100",
+    "thumb": "https://cards.scryfall.io/thumb/front/f/d/fd3a5465-074a-4688-b79b-68e232076581.webp?1783904100"
+  },
+  "keywords": [
+    "Sneak"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 147783,
+  "multiverse_ids": [],
+  "name": "Splinter's Technique",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "532ee9c3-391c-44db-8ed5-a1d28fd7f876",
+  "oracle_text": "Sneak {1}{B} (You may cast this spell for {1}{B} if you also return an unblocked attacker you control to hand during the declare blockers step.)\nSearch your library for a card, put that card into your hand, then shuffle.",
+  "oversized": false,
+  "penny_rank": 8493,
+  "prices": {
+    "eur": "1.45",
+    "eur_foil": "1.69",
+    "tix": "0.02",
+    "usd": "1.77",
+    "usd_etched": null,
+    "usd_foil": "2.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A532ee9c3-391c-44db-8ed5-a1d28fd7f876&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/147783?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=868304&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F673619%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Splinter%27s+Technique",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSplinter%2527s%2BTechnique",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSplinter%2527s%2BTechnique"
+  },
+  "released_at": "2026-03-06",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "7DD5D779687C94996BE6D7D92355498671C8C6D36AE97241A4C688BD4E4F2ADC",
+  "rulings_uri": "https://api.scryfall.com/cards/fd3a5465-074a-4688-b79b-68e232076581/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tmt?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tmt/80/splinters-technique?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tmt",
+  "set_id": "03990f52-1d8a-4ce8-828a-c9bf633f0de6",
+  "set_name": "Teenage Mutant Ninja Turtles",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atmt&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/03990f52-1d8a-4ce8-828a-c9bf633f0de6",
+  "story_spotlight": false,
+  "tcgplayer_id": 673619,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/fd3a5465-074a-4688-b79b-68e232076581",
+  "variation": false
+}

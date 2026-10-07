@@ -1,0 +1,133 @@
+{
+  "artist": "Victor Adame Minguez",
+  "artist_ids": [
+    "bd8f7368-5b10-4554-b6b8-d052c6aca89f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 672242,
+  "cmc": 4.0,
+  "collector_number": "155",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [
+    "B",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4334,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "Teysa convened the meeting of the Obzedat. Kaya ended it.",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "20adee32-2144-44ad-a70c-ebfbda0900ec",
+  "illustration_id": "30d998cb-1ecb-4f3b-85e9-dde0712a610d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:43:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.webp?1783921411",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.jpg?1783921411",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.jpg?1783921411",
+    "crop": "https://cards.scryfall.io/crop/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.webp?1783921411",
+    "display": "https://cards.scryfall.io/display/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.webp?1783921411",
+    "grid": "https://cards.scryfall.io/grid/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.webp?1783921411",
+    "large": "https://cards.scryfall.io/large/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.jpg?1783921411",
+    "normal": "https://cards.scryfall.io/normal/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.jpg?1783921411",
+    "png": "https://cards.scryfall.io/png/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.png?1783921411",
+    "small": "https://cards.scryfall.io/small/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.jpg?1783921411",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/0/20adee32-2144-44ad-a70c-ebfbda0900ec.webp?1783921411"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}{W}{B}{B}",
+  "mtgo_id": 103196,
+  "multiverse_ids": [
+    578771
+  ],
+  "name": "Kaya's Wrath",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "bc8de6c7-c69d-4add-8f25-825d945874f9",
+  "oracle_text": "Destroy all creatures. You gain life equal to the number of creatures you controlled that were destroyed this way.",
+  "oversized": false,
+  "penny_rank": 4954,
+  "prices": {
+    "eur": "0.43",
+    "eur_foil": null,
+    "tix": "0.72",
+    "usd": "0.46",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abc8de6c7-c69d-4add-8f25-825d945874f9&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/103196?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=672242&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F282926%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Kaya%27s+Wrath",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=578771&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DKaya%2527s%2BWrath",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DKaya%2527s%2BWrath"
+  },
+  "released_at": "2022-09-09",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/20adee32-2144-44ad-a70c-ebfbda0900ec/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/dmc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/dmc/155/kayas-wrath?utm_source=api",
+  "security_stamp": "oval",
+  "set": "dmc",
+  "set_id": "78076b27-f888-4723-b27c-44074accd261",
+  "set_name": "Dominaria United Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Admc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/78076b27-f888-4723-b27c-44074accd261",
+  "story_spotlight": false,
+  "tcgplayer_id": 282926,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/20adee32-2144-44ad-a70c-ebfbda0900ec",
+  "variation": false
+}

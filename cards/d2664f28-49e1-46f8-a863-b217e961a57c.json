@@ -1,0 +1,167 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "cec5cc8b-bc15-415a-bde6-6c783f8d0b0b",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/cec5cc8b-bc15-415a-bde6-6c783f8d0b0b"
+    },
+    {
+      "component": "token",
+      "id": "b66aadb2-cbbb-4150-b4b4-bb0dc5327394",
+      "name": "Shapeshifter",
+      "object": "related_card",
+      "type_line": "Token Creature — Shapeshifter",
+      "uri": "https://api.scryfall.com/cards/b66aadb2-cbbb-4150-b4b4-bb0dc5327394"
+    },
+    {
+      "component": "combo_piece",
+      "id": "71880a6a-4fac-4d4b-9bc3-a11d31466352",
+      "name": "Black Market Connections",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/71880a6a-4fac-4d4b-9bc3-a11d31466352"
+    }
+  ],
+  "artist": "Xabi Gaztelua",
+  "artist_ids": [
+    "35b87e24-bfe0-43f4-83c3-2fa9574d6026"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 892403,
+  "cmc": 3.0,
+  "collector_number": "155",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 130,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9d9ca869-e68a-4f53-9f52-85c714dac6f3",
+  "illustration_id": "e7a22464-a5aa-4976-8736-6911a25d79b7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:40:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.webp?1783903238",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.jpg?1783903238",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.jpg?1783903238",
+    "crop": "https://cards.scryfall.io/crop/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.webp?1783903238",
+    "display": "https://cards.scryfall.io/display/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.webp?1783903238",
+    "grid": "https://cards.scryfall.io/grid/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.webp?1783903238",
+    "large": "https://cards.scryfall.io/large/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.jpg?1783903238",
+    "normal": "https://cards.scryfall.io/normal/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.jpg?1783903238",
+    "png": "https://cards.scryfall.io/png/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.png?1783903238",
+    "small": "https://cards.scryfall.io/small/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.jpg?1783903238",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/d/9d9ca869-e68a-4f53-9f52-85c714dac6f3.webp?1783903238"
+  },
+  "keywords": [
+    "Hire a Mercenary",
+    "Treasure",
+    "Sell Contraband",
+    "Buy Information"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 150779,
+  "multiverse_ids": [],
+  "name": "Black Market Connections",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d2664f28-49e1-46f8-a863-b217e961a57c",
+  "oracle_text": "At the beginning of your first main phase, choose one or more —\n• Sell Contraband — Create a Treasure token. You lose 1 life.\n• Buy Information — Draw a card. You lose 2 life.\n• Hire a Mercenary — Create a 3/2 colorless Shapeshifter creature token with changeling. You lose 3 life. (It is every creature type.)",
+  "oversized": false,
+  "penny_rank": 1202,
+  "prices": {
+    "eur": "10.92",
+    "eur_foil": null,
+    "tix": "0.22",
+    "usd": "10.35",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad2664f28-49e1-46f8-a863-b217e961a57c&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/150779?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=892403&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F698008%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Black+Market+Connections",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBlack%2BMarket%2BConnections",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBlack%2BMarket%2BConnections"
+  },
+  "released_at": "2026-06-26",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "D67966AE92850463F7A0285E6ECEEE1A91D8CE63C2B4B50C93452B76147DE074",
+  "rulings_uri": "https://api.scryfall.com/cards/9d9ca869-e68a-4f53-9f52-85c714dac6f3/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msc/155/black-market-connections?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msc",
+  "set_id": "9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "set_name": "Marvel Super Heroes Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/9d739461-c5ac-43a1-af41-3d5a585b5c8d",
+  "story_spotlight": false,
+  "tcgplayer_id": 698008,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/9d9ca869-e68a-4f53-9f52-85c714dac6f3",
+  "variation": false
+}

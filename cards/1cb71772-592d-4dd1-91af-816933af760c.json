@@ -1,0 +1,148 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "bd6c6906-7328-4b03-b8d3-11b80d3291ae",
+      "name": "Grave Venerations",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/bd6c6906-7328-4b03-b8d3-11b80d3291ae"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f629bba8-e2ef-4d1c-8f64-339879289a6d",
+      "name": "The Monarch",
+      "object": "related_card",
+      "type_line": "Card",
+      "uri": "https://api.scryfall.com/cards/f629bba8-e2ef-4d1c-8f64-339879289a6d"
+    }
+  ],
+  "artist": "Omar Rayyan",
+  "artist_ids": [
+    "256b61a2-b9af-4ff5-b485-47a61818f818"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 864964,
+  "cmc": 4.0,
+  "collector_number": "9",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 4145,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "ec52f819-038a-41c3-91ef-91b1975d094c",
+  "illustration_id": "52cd6202-27ee-4e88-b1fe-efe73ce7500d",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:03:27Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.webp?1783904607",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.jpg?1783904607",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.jpg?1783904607",
+    "crop": "https://cards.scryfall.io/crop/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.webp?1783904607",
+    "display": "https://cards.scryfall.io/display/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.webp?1783904607",
+    "grid": "https://cards.scryfall.io/grid/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.webp?1783904607",
+    "large": "https://cards.scryfall.io/large/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.jpg?1783904607",
+    "normal": "https://cards.scryfall.io/normal/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.jpg?1783904607",
+    "png": "https://cards.scryfall.io/png/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.png?1783904607",
+    "small": "https://cards.scryfall.io/small/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.jpg?1783904607",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/c/ec52f819-038a-41c3-91ef-91b1975d094c.webp?1783904607"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}",
+  "mtgo_id": 145991,
+  "multiverse_ids": [],
+  "name": "Grave Venerations",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1cb71772-592d-4dd1-91af-816933af760c",
+  "oracle_text": "When this enchantment enters, you become the monarch.\nAt the beginning of your end step, if you're the monarch, return up to one target creature card from your graveyard to your hand.\nWhenever a creature you control dies, each opponent loses 1 life and you gain 1 life.",
+  "oversized": false,
+  "prices": {
+    "eur": "1.08",
+    "eur_foil": null,
+    "tix": "3.27",
+    "usd": "0.52",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1cb71772-592d-4dd1-91af-816933af760c&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/145991?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=864964&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F671125%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Grave+Venerations",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGrave%2BVenerations",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGrave%2BVenerations"
+  },
+  "released_at": "2026-01-23",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "033AB1C18B3B28BD67BCBB3CF2AA5C3028FE85B2440FF01FEED59B7918AF9BED",
+  "rulings_uri": "https://api.scryfall.com/cards/ec52f819-038a-41c3-91ef-91b1975d094c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ecc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ecc/9/grave-venerations?utm_source=api",
+  "security_stamp": "oval",
+  "set": "ecc",
+  "set_id": "805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "set_name": "Lorwyn Eclipsed Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aecc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/805b5a0c-f8bb-4555-86ea-eb9ec36a011a",
+  "story_spotlight": false,
+  "tcgplayer_id": 671125,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/ec52f819-038a-41c3-91ef-91b1975d094c",
+  "variation": false
+}

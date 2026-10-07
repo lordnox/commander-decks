@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "7d60e0bc-1ce1-4b91-9952-16b394b5a348",
+      "name": "Get Lost",
+      "object": "related_card",
+      "type_line": "Instant",
+      "uri": "https://api.scryfall.com/cards/7d60e0bc-1ce1-4b91-9952-16b394b5a348"
+    },
+    {
+      "component": "token",
+      "id": "64839118-09d2-4645-9d3c-f80755ac781f",
+      "name": "Map",
+      "object": "related_card",
+      "type_line": "Token Artifact — Map",
+      "uri": "https://api.scryfall.com/cards/64839118-09d2-4645-9d3c-f80755ac781f"
+    }
+  ],
+  "arena_id": 87145,
+  "artist": "Eli Minaya",
+  "artist_ids": [
+    "fee369ac-08b5-4a69-8ef8-f2b42b81e807"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 742058,
+  "cmc": 2.0,
+  "collector_number": "14",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1815,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "522aa72b-2b8c-484c-872b-f082101cee35",
+  "illustration_id": "d989df9d-55a8-4a5e-adc1-3aabf540e891",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:52Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.webp?1783913812",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.jpg?1783913812",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.jpg?1783913812",
+    "crop": "https://cards.scryfall.io/crop/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.webp?1783913812",
+    "display": "https://cards.scryfall.io/display/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.webp?1783913812",
+    "grid": "https://cards.scryfall.io/grid/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.webp?1783913812",
+    "large": "https://cards.scryfall.io/large/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.jpg?1783913812",
+    "normal": "https://cards.scryfall.io/normal/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.jpg?1783913812",
+    "png": "https://cards.scryfall.io/png/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.png?1783913812",
+    "small": "https://cards.scryfall.io/small/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.jpg?1783913812",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/2/522aa72b-2b8c-484c-872b-f082101cee35.webp?1783913812"
+  },
+  "keywords": [
+    "Explore"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 117806,
+  "multiverse_ids": [
+    636705
+  ],
+  "name": "Get Lost",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "522dd417-364b-44ab-8ca9-fb55db5f26a6",
+  "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-10-26",
+    "source": "Cedric Phillips",
+    "source_uri": "https://twitter.com/CedricAPhillips/status/1717571789423800662"
+  },
+  "prices": {
+    "eur": "4.09",
+    "eur_foil": "5.13",
+    "tix": "0.50",
+    "usd": "3.22",
+    "usd_etched": null,
+    "usd_foil": "4.52"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A522dd417-364b-44ab-8ca9-fb55db5f26a6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117806?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=742058&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F524576%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Get+Lost",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636705&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGet%2BLost",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGet%2BLost"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/522aa72b-2b8c-484c-872b-f082101cee35/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/14/get-lost?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 524576,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/522aa72b-2b8c-484c-872b-f082101cee35",
+  "variation": false
+}

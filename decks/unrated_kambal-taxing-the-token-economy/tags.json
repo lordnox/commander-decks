@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Copy opposing tokens, then turn token entries and sacrificed bodies into life loss.",
+  "tags": [
+    {
+      "name": "aristocrats",
+      "score": 5,
+      "reason": "Sacrifice outlets and death drains convert the army into damage."
+    },
+    {
+      "name": "lifedrain",
+      "score": 5,
+      "reason": "Entry and death payoffs close games through life loss."
+    },
+    {
+      "name": "tokens",
+      "score": 5,
+      "reason": "Token creation and copying are the central resource engine."
+    },
+    {
+      "name": "clones",
+      "score": 4,
+      "reason": "Kambal repeatedly copies opposing tokens."
+    },
+    {
+      "name": "sacrifice",
+      "score": 4,
+      "reason": "Multiple repeatable outlets convert creatures and tokens."
+    },
+    {
+      "name": "draw",
+      "score": 3,
+      "reason": "Multiple draw engines sustain the token plan."
+    },
+    {
+      "name": "etb effects",
+      "score": 3,
+      "reason": "Entry abilities provide gifts, draw, and removal."
+    },
+    {
+      "name": "go-wide",
+      "score": 3,
+      "reason": "Token armies support combat finishers."
+    },
+    {
+      "name": "group hug",
+      "score": 3,
+      "reason": "Several engines give opponents tokens or other resources."
+    },
+    {
+      "name": "lifegain",
+      "score": 3,
+      "reason": "Drain and Kambal recover life spent on resources."
+    },
+    {
+      "name": "treasure",
+      "score": 3,
+      "reason": "Treasure production supports mana and artifact-death payoffs."
+    },
+    {
+      "name": "anthems",
+      "score": 2,
+      "reason": "Talent and Champions support combat."
+    },
+    {
+      "name": "attack triggers",
+      "score": 2,
+      "reason": "Rabbit, Duodrone, and Drover reward attacks."
+    },
+    {
+      "name": "boardwipes",
+      "score": 2,
+      "reason": "Several reset effects provide recovery time."
+    },
+    {
+      "name": "politics",
+      "score": 2,
+      "reason": "Several gifts choose an opponent or offer opponents choices."
+    },
+    {
+      "name": "reanimator",
+      "score": 2,
+      "reason": "Recursion supports rebuilding rather than the primary plan."
+    },
+    {
+      "name": "spell copy",
+      "score": 2,
+      "reason": "Lecturer demonstrates creature spells."
+    },
+    {
+      "name": "x spells",
+      "score": 2,
+      "reason": "Several token producers scale with available mana."
+    },
+    {
+      "name": "alternate wincon",
+      "score": 1,
+      "reason": "Halo Fountain provides a fifteen-creature victory."
+    },
+    {
+      "name": "discard",
+      "score": 1,
+      "reason": "Awaken the Erstwhile exchanges hands for tokens."
+    },
+    {
+      "name": "monarch",
+      "score": 1,
+      "reason": "Grave Venerations provides the monarch."
+    },
+    {
+      "name": "rooms",
+      "score": 1,
+      "reason": "Funeral Room supplies death drain and a mass-reanimation door."
+    },
+    {
+      "name": "surveil",
+      "score": 1,
+      "reason": "Umbral Collar Zealot and Forum offer selection."
+    },
+    {
+      "name": "tap/untap",
+      "score": 1,
+      "reason": "Halo Fountain turns tapped bodies into utility."
+    },
+    {
+      "name": "transform",
+      "score": 1,
+      "reason": "Sephiroth transforms after repeated death triggers."
+    }
+  ]
+}

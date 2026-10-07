@@ -1,0 +1,138 @@
+{
+  "arena_id": 91542,
+  "artist": "Lindsey Look",
+  "artist_ids": [
+    "95bc132d-37aa-4063-8ed8-04d489e826cd"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778525,
+  "cmc": 3.0,
+  "collector_number": "6",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 632,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ad5ea98a-e36e-4ab9-b4da-cc572f3777db",
+  "illustration_id": "ddaa7b7b-fa05-44a2-af84-2ebd7c12f657",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:47:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.webp?1783910865",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.jpg?1783910865",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.jpg?1783910865",
+    "crop": "https://cards.scryfall.io/crop/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.webp?1783910865",
+    "display": "https://cards.scryfall.io/display/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.webp?1783910865",
+    "grid": "https://cards.scryfall.io/grid/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.webp?1783910865",
+    "large": "https://cards.scryfall.io/large/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.jpg?1783910865",
+    "normal": "https://cards.scryfall.io/normal/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.jpg?1783910865",
+    "png": "https://cards.scryfall.io/png/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.png?1783910865",
+    "small": "https://cards.scryfall.io/small/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.jpg?1783910865",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/d/ad5ea98a-e36e-4ab9-b4da-cc572f3777db.webp?1783910865"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "class",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 129257,
+  "multiverse_ids": [
+    668920
+  ],
+  "name": "Caretaker's Talent",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "c97957a2-8310-4cff-8aad-871b7901d124",
+  "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever one or more tokens you control enter, draw a card. This ability triggers only once each turn.\n{W}: Level 2\nWhen this Class becomes level 2, create a token that's a copy of target token you control.\n{3}{W}: Level 3\nCreature tokens you control get +2/+2.",
+  "oversized": false,
+  "penny_rank": 3869,
+  "preview": {
+    "previewed_at": "2024-07-17",
+    "source": "IGN",
+    "source_uri": "https://es.ign.com/magic-the-gathering-6/205528/news/exclusiva-revelamos-cartas-de-bloomburrow-la-nueva-expansion-de-magic-the-gathering"
+  },
+  "prices": {
+    "eur": "8.61",
+    "eur_foil": "9.67",
+    "tix": "0.12",
+    "usd": "12.11",
+    "usd_etched": null,
+    "usd_foil": "13.65"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ac97957a2-8310-4cff-8aad-871b7901d124&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/129257?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778525&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559638%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Caretaker%27s+Talent",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=668920&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCaretaker%2527s%2BTalent",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCaretaker%2527s%2BTalent"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/ad5ea98a-e36e-4ab9-b4da-cc572f3777db/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blb/6/caretakers-talent?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blb",
+  "set_id": "a2f58272-bba6-439d-871e-7a46686ac018",
+  "set_name": "Bloomburrow",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablb&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a2f58272-bba6-439d-871e-7a46686ac018",
+  "story_spotlight": false,
+  "tcgplayer_id": 559638,
+  "textless": false,
+  "type_line": "Enchantment — Class",
+  "uri": "https://api.scryfall.com/cards/ad5ea98a-e36e-4ab9-b4da-cc572f3777db",
+  "variation": false
+}

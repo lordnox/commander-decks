@@ -1,0 +1,157 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "e732176f-faff-4b0e-9a4a-12d6b011be82",
+      "name": "Jacked Rabbit",
+      "object": "related_card",
+      "type_line": "Creature — Rabbit Warrior",
+      "uri": "https://api.scryfall.com/cards/e732176f-faff-4b0e-9a4a-12d6b011be82"
+    },
+    {
+      "component": "token",
+      "id": "81de52ef-7515-4958-abea-fb8ebdcef93c",
+      "name": "Rabbit",
+      "object": "related_card",
+      "type_line": "Token Creature — Rabbit",
+      "uri": "https://api.scryfall.com/cards/81de52ef-7515-4958-abea-fb8ebdcef93c"
+    }
+  ],
+  "artist": "Scott Murphy",
+  "artist_ids": [
+    "07c7ac65-dfa6-4273-9c66-ec9d8f3e2226"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 778942,
+  "cmc": 2.0,
+  "collector_number": "9",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 2179,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Squash. What it is and what it does.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "2c695df6-6bf2-4e6b-8500-e3116137ca27",
+  "illustration_id": "e19616c0-3810-45e4-a85f-28efeea19167",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T02:45:36Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.webp?1783910736",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.jpg?1783910736",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.jpg?1783910736",
+    "crop": "https://cards.scryfall.io/crop/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.webp?1783910736",
+    "display": "https://cards.scryfall.io/display/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.webp?1783910736",
+    "grid": "https://cards.scryfall.io/grid/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.webp?1783910736",
+    "large": "https://cards.scryfall.io/large/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.jpg?1783910736",
+    "normal": "https://cards.scryfall.io/normal/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.jpg?1783910736",
+    "png": "https://cards.scryfall.io/png/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.png?1783910736",
+    "small": "https://cards.scryfall.io/small/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.jpg?1783910736",
+    "thumb": "https://cards.scryfall.io/thumb/front/2/c/2c695df6-6bf2-4e6b-8500-e3116137ca27.webp?1783910736"
+  },
+  "keywords": [
+    "Ravenous"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{1}{W}",
+  "mtgo_id": 128917,
+  "multiverse_ids": [
+    671126
+  ],
+  "name": "Jacked Rabbit",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "5a343a5f-3f9b-43c3-8532-8391de7a5443",
+  "oracle_text": "Ravenous (This creature enters with X +1/+1 counters on it. If X is 5 or more, draw a card when it enters.)\nWhenever this creature attacks, create a number of 1/1 white Rabbit creature tokens equal to this creature's power.",
+  "oversized": false,
+  "power": "1",
+  "preview": {
+    "previewed_at": "2024-07-18",
+    "source": "TCGplayer",
+    "source_uri": "https://infinite.tcgplayer.com/article/Our-EXCLUSIVE-Bloomburrow-Commander-Precon-Preview-Family-Matters/db16627b-2ee4-45d3-9608-14924d166916"
+  },
+  "prices": {
+    "eur": "2.87",
+    "eur_foil": null,
+    "tix": "8.76",
+    "usd": "3.72",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5a343a5f-3f9b-43c3-8532-8391de7a5443&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/128917?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=778942&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F559729%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Jacked+Rabbit",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=671126&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DJacked%2BRabbit",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DJacked%2BRabbit"
+  },
+  "released_at": "2024-08-02",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/2c695df6-6bf2-4e6b-8500-e3116137ca27/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/blc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/blc/9/jacked-rabbit?utm_source=api",
+  "security_stamp": "oval",
+  "set": "blc",
+  "set_id": "c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "set_name": "Bloomburrow Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ablc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/c0f860b9-a2d0-4fd7-bfac-a49ac60c84f1",
+  "story_spotlight": false,
+  "tcgplayer_id": 559729,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Rabbit Warrior",
+  "uri": "https://api.scryfall.com/cards/2c695df6-6bf2-4e6b-8500-e3116137ca27",
+  "variation": false
+}

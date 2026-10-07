@@ -1,0 +1,136 @@
+{
+  "artist": "Sebastian Giacobino",
+  "artist_ids": [
+    "73a56d22-1628-49f3-8d4f-6cc3068bec02"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 586712,
+  "cmc": 3.0,
+  "collector_number": "88",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 582,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "The audience always loves it, but volunteers are divided.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "05e6a7bc-a35a-4e68-99a0-be264553b5de",
+  "illustration_id": "bdf00fd6-3033-44ba-b1bc-c05013954419",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:29:37Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.webp?1783920577",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.jpg?1783920577",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.jpg?1783920577",
+    "crop": "https://cards.scryfall.io/crop/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.webp?1783920577",
+    "display": "https://cards.scryfall.io/display/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.webp?1783920577",
+    "grid": "https://cards.scryfall.io/grid/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.webp?1783920577",
+    "large": "https://cards.scryfall.io/large/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.jpg?1783920577",
+    "normal": "https://cards.scryfall.io/normal/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.jpg?1783920577",
+    "png": "https://cards.scryfall.io/png/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.png?1783920577",
+    "small": "https://cards.scryfall.io/small/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.jpg?1783920577",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/5/05e6a7bc-a35a-4e68-99a0-be264553b5de.webp?1783920577"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{B}",
+  "mtgo_id": 115698,
+  "multiverse_ids": [
+    580658
+  ],
+  "name": "Saw in Half",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "eea18c55-8695-4ba1-9b38-3e7638692f5f",
+  "oracle_text": "Destroy target creature. If that creature dies this way, its controller creates two tokens that are copies of that creature, except their power is half that creature's power and their toughness is half that creature's toughness. Round up each time.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2021-11-29",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/articles/archive/making-magic/unfinity-and-beyond-2021-11-29"
+  },
+  "prices": {
+    "eur": "4.60",
+    "eur_foil": "6.93",
+    "tix": "0.11",
+    "usd": "5.72",
+    "usd_etched": null,
+    "usd_foil": "5.73"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aeea18c55-8695-4ba1-9b38-3e7638692f5f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115698?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=586712&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F257009%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Saw+in+Half",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=580658&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DSaw%2Bin%2BHalf",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DSaw%2Bin%2BHalf"
+  },
+  "released_at": "2022-10-07",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/05e6a7bc-a35a-4e68-99a0-be264553b5de/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/unf?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/unf/88/saw-in-half?utm_source=api",
+  "security_stamp": "oval",
+  "set": "unf",
+  "set_id": "b314f553-8f07-4ba9-96c8-16be7784eff3",
+  "set_name": "Unfinity",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aunf&unique=prints",
+  "set_type": "funny",
+  "set_uri": "https://api.scryfall.com/sets/b314f553-8f07-4ba9-96c8-16be7784eff3",
+  "story_spotlight": false,
+  "tcgplayer_id": 257009,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/05e6a7bc-a35a-4e68-99a0-be264553b5de",
+  "variation": false
+}
