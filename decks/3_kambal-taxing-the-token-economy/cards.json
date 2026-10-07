@@ -644,12 +644,36 @@
       "submitted_name": "Fetid Heath"
     },
     {
-      "cache": "cards/5554db95-9676-4c24-b82a-8173513d7927.json",
+      "cache": "cards/73864fcc-1bde-4bc0-831e-2b93e546e417.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {B}.",
+        "oracle_text": "({T}: Add {W} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+        "produced_mana": [
+          "B",
+          "W"
+        ],
+        "type_line": "Land \u2014 Plains Swamp"
+      },
+      "categories": [
+        "land"
+      ],
+      "category_source": "deck",
+      "name": "Godless Shrine",
+      "oracle_id": "73864fcc-1bde-4bc0-831e-2b93e546e417",
+      "quantity": 1,
+      "scryfall_uri": "https://scryfall.com/card/trk/285/godless-shrine?utm_source=api",
+      "submitted_categories": [],
+      "submitted_name": "Godless Shrine"
+    },
+    {
+      "cache": "cards/ebc5ac83-08d4-4d6b-b840-0c4ba71a38ab.json",
+      "card": {
+        "cmc": 0.0,
+        "keywords": [],
+        "mana_cost": "",
+        "oracle_text": "This land enters tapped unless you have two or more opponents.\n{T}: Add {W} or {B}.",
         "produced_mana": [
           "B",
           "W"
@@ -660,60 +684,50 @@
         "land"
       ],
       "category_source": "deck",
-      "name": "Fisk Tower",
-      "oracle_id": "5554db95-9676-4c24-b82a-8173513d7927",
+      "name": "Vault of Champions",
+      "oracle_id": "ebc5ac83-08d4-4d6b-b840-0c4ba71a38ab",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/msh/265/fisk-tower?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/cmm/436/vault-of-champions?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Fisk Tower"
+      "submitted_name": "Vault of Champions"
     },
     {
-      "cache": "cards/063dd25b-d4b4-4e09-acae-8c52dcb40803.json",
+      "cache": "cards/727f3201-1cfc-4ab2-9dfe-be4f7251f42f.json",
       "card": {
-        "cmc": 0.0,
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {B}.",
-        "produced_mana": [
-          "B",
-          "W"
+        "cmc": 3.0,
+        "faces": [
+          {
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "oracle_text": "When this creature enters, exile target player's graveyard.",
+            "power": "3",
+            "toughness": "1",
+            "type_line": "Creature \u2014 Goblin"
+          },
+          {
+            "mana_cost": "",
+            "name": "Boggart Bog",
+            "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {B}.",
+            "type_line": "Land"
+          }
         ],
-        "type_line": "Land"
+        "keywords": [],
+        "produced_mana": [
+          "B"
+        ],
+        "type_line": "Creature \u2014 Goblin // Land"
       },
       "categories": [
-        "land"
+        "land",
+        "graveyard-hate"
       ],
       "category_source": "deck",
-      "name": "Foot Headquarters",
-      "oracle_id": "063dd25b-d4b4-4e09-acae-8c52dcb40803",
+      "name": "Boggart Trawler // Boggart Bog",
+      "oracle_id": "727f3201-1cfc-4ab2-9dfe-be4f7251f42f",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tmt/185/foot-headquarters?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mh3/243/boggart-trawler-boggart-bog?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Foot Headquarters"
-    },
-    {
-      "cache": "cards/ebb3e2ff-2214-4e11-88fb-e0fa84288cf1.json",
-      "card": {
-        "cmc": 0.0,
-        "keywords": [],
-        "mana_cost": "",
-        "oracle_text": "This land enters tapped.\nWhen this land enters, it deals 1 damage to target opponent.\n{T}: Add {W} or {B}.",
-        "produced_mana": [
-          "B",
-          "W"
-        ],
-        "type_line": "Land \u2014 Desert"
-      },
-      "categories": [
-        "land"
-      ],
-      "category_source": "deck",
-      "name": "Forlorn Flats",
-      "oracle_id": "ebb3e2ff-2214-4e11-88fb-e0fa84288cf1",
-      "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/otj/258/forlorn-flats?utm_source=api",
-      "submitted_categories": [],
-      "submitted_name": "Forlorn Flats"
+      "submitted_name": "Boggart Trawler"
     },
     {
       "cache": "cards/349ea6c7-6b3e-417f-b082-b712e2b1635b.json",
@@ -1426,12 +1440,12 @@
       "submitted_name": "Saw in Half"
     },
     {
-      "cache": "cards/d37f858e-03c8-4594-9b92-cd03699a1591.json",
+      "cache": "cards/2d899466-b1eb-4901-b626-1f2fb09b786d.json",
       "card": {
         "cmc": 0.0,
         "keywords": [],
         "mana_cost": "",
-        "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {B}.",
+        "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {B}.",
         "produced_mana": [
           "B",
           "W"
@@ -1442,12 +1456,12 @@
         "land"
       ],
       "category_source": "deck",
-      "name": "Scoured Barrens",
-      "oracle_id": "d37f858e-03c8-4594-9b92-cd03699a1591",
+      "name": "Concealed Courtyard",
+      "oracle_id": "2d899466-b1eb-4901-b626-1f2fb09b786d",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/tdm/267/scoured-barrens?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/otj/268/concealed-courtyard?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Scoured Barrens"
+      "submitted_name": "Concealed Courtyard"
     },
     {
       "cache": "cards/70113003-be5e-406a-9aec-cb480468c36d.json",
@@ -1564,30 +1578,28 @@
       "submitted_name": "Shineshadow Snarl"
     },
     {
-      "cache": "cards/2b65eb80-6fb7-429f-81f2-2fe125eba634.json",
+      "cache": "cards/04b7362d-0490-4cb0-b5d7-2a7732f659ce.json",
       "card": {
         "cmc": 0.0,
-        "keywords": [
-          "Scry"
-        ],
+        "keywords": [],
         "mana_cost": "",
-        "oracle_text": "This land enters tapped.\n{T}: Add {W} or {B}.\n{4}, {T}: Scry 1. (Look at the top card of your library. You may put that card on the bottom.)",
+        "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}.",
         "produced_mana": [
-          "B",
-          "W"
+          "B"
         ],
         "type_line": "Land"
       },
       "categories": [
-        "land"
+        "land",
+        "graveyard-hate"
       ],
       "category_source": "deck",
-      "name": "Silverquill Campus",
-      "oracle_id": "2b65eb80-6fb7-429f-81f2-2fe125eba634",
+      "name": "Bojuka Bog",
+      "oracle_id": "04b7362d-0490-4cb0-b5d7-2a7732f659ce",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/soc/405/silverquill-campus?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/soc/363/bojuka-bog?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Silverquill Campus"
+      "submitted_name": "Bojuka Bog"
     },
     {
       "cache": "cards/ac230b68-f945-4a1a-bd89-33e6d62e3c36.json",
@@ -2226,7 +2238,7 @@
     }
   ],
   "categorized_cards": 92,
-  "generated_at": "2026-10-07T10:31:45.563254+00:00",
+  "generated_at": "2026-10-07T12:27:31.304223+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 92,

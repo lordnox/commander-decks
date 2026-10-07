@@ -898,7 +898,7 @@
       "categories": [
         "commander-top"
       ],
-      "name": "Bartolom\u00e9 del Presidio"
+      "name": "Bartolomé del Presidio"
     },
     "f73da5d8-fd15-4315-ad3c-c86c28087285": {
       "categories": [
@@ -11352,7 +11352,7 @@
       ]
     },
     "063e05b0-554f-4b55-9feb-e11f3927f3a6": {
-      "name": "C\u00edrdan the Shipwright",
+      "name": "Círdan the Shipwright",
       "categories": [
         "other"
       ]
@@ -12130,7 +12130,7 @@
       ]
     },
     "925cacdc-6d09-4fbd-9258-9f0539da180c": {
-      "name": "Thr\u00f3r's Map",
+      "name": "Thrór's Map",
       "categories": [
         "ramp",
         "card-draw",
@@ -12535,8 +12535,15 @@
         "token-production",
         "drain"
       ]
+    },
+    "2d899466-b1eb-4901-b626-1f2fb09b786d": {
+      "name": "Concealed Courtyard",
+      "categories": [
+        "land",
+        "ramp"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-10-07T10:31:03.359484+00:00"
+  "updated_at": "2026-10-07T12:27:31.304223+00:00"
 }

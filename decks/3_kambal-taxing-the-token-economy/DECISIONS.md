@@ -33,9 +33,6 @@ This log records why cards are included. The primer explains how to pilot the cu
 - **Evolving Wilds** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Fabled Passage** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Fetid Heath** — Provides mana and the printed fixing or utility needed to cast the engine.
-- **Fisk Tower** — Provides mana and the printed fixing or utility needed to cast the engine.
-- **Foot Headquarters** — Provides mana and the printed fixing or utility needed to cast the engine.
-- **Forlorn Flats** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Forum of Amity** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Funeral Room // Awakening Hall** — Converts the deck’s creature deaths or token activity into life loss.
 - **Generous Gift** — Answers a threatening permanent so the engines have time to operate. Gives opponents tokens that Kambal can copy into your own resources.
@@ -65,12 +62,10 @@ This log records why cards are included. The primer explains how to pilot the cu
 - **Plains** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Restless Fortress** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Saw in Half** — Answers a threatening permanent so the engines have time to operate. Supplies token material for entry payoffs, sacrifice engines, and combat.
-- **Scoured Barrens** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel** — Converts the deck’s creature deaths or token activity into life loss.
 - **Shadrix Silverquill** — Supplies token material for entry payoffs, sacrifice engines, and combat. Gives opponents tokens that Kambal can copy into your own resources.
 - **Shattered Sanctum** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Shineshadow Snarl** — Provides mana and the printed fixing or utility needed to cast the engine.
-- **Silverquill Campus** — Provides mana and the printed fixing or utility needed to cast the engine.
 - **Silverquill Lecturer** — Supplies token material for entry payoffs, sacrifice engines, and combat.
 - **Skullclamp** — Replenishes cards while the token and sacrifice engines operate.
 - **Slaughter Specialist** — Supplies token material for entry payoffs, sacrifice engines, and combat. Gives opponents tokens that Kambal can copy into your own resources.
@@ -98,6 +93,12 @@ This log records why cards are included. The primer explains how to pilot the cu
 - **Yahenni, Undying Partisan** — Lets you turn creatures into resources and deliberately trigger death payoffs.
 - **Zulaport Cutthroat** — Converts the deck’s creature deaths or token activity into life loss.
 - **Kambal, Profiteering Mayor** — Supplies token material for entry payoffs, sacrifice engines, and combat. Converts the deck’s creature deaths or token activity into life loss.
+
+- **Godless Shrine** — Provides both colors, optional untapped entry, and Plains/Swamp types for conditional fixing.
+- **Vault of Champions** — Provides both colors untapped while at least two opponents remain.
+- **Concealed Courtyard** — Provides both colors untapped during the first three land drops.
+- **Bojuka Bog** — Makes a black land drop while clearing one threatening graveyard; meaningful disruption justifies tapped entry.
+- **Boggart Trawler // Boggart Bog** — Offers an optionally untapped black land or a creature-based graveyard reset that can be copied, recurred, and sacrificed.
 
 ## Talks
 
@@ -161,3 +162,17 @@ No combat or summoning-sickness exception is needed: the Fountain asks for untap
 ### 2026-10-07 — Stairwell and Fountain checks
 
 Stairwell's upkeep instruction makes all players' tokens in one simultaneous event; Kambal can copy all opposing tokens in that event when its once-per-turn ability is unused. The earlier primer's separate-batch explanation was incorrect and is corrected. Kambal's copies are not created by Stairwell and survive its original-token cleanup. Token creation occurs during Kambal's resolving trigger as a later entry event. Kambal drains once per nonempty entry event, while Bats counts tokens individually. Fountain can untap newly entered tapped copies as its activation cost and requires five white mana for the win ability. These readings follow the stored Oracle text; no infinite is asserted.
+
+## Cards out
+
+### 2026-10-07 — Mana and graveyard interaction
+
+- **Fisk Tower → Godless Shrine** — Replace incidental life gain and mandatory tapped entry with typed dual fixing and optional untapped entry.
+- **Foot Headquarters → Vault of Champions** — Keep both colors while improving multiplayer early mana.
+- **Scoured Barrens → Concealed Courtyard** — Prioritize untapped setup in the first three land drops.
+- **Forlorn Flats → Boggart Trawler // Boggart Bog** — Exchange incidental damage and a tapped dual for flexible black mana or a reusable creature-based graveyard reset.
+- **Silverquill Campus → Bojuka Bog** — Exchange expensive scry utility for graveyard disruption attached to a land drop.
+
+### 2026-10-07 — Agreed scope
+
+Add Trawler and Bog first, retaining Ophiomancer and The Sentry. Withered Wretch and Soul-Guide Lantern remain discussed options rather than inclusions. Sol Ring's replacement was recommended but not approved in this land-swap step; its rating caveat remains. Land-capable slots stay at 37 (36 true lands plus Trawler), with two fewer white-producing land slots offset in tempo by the three dual upgrades. Trawler's land face does not exile a graveyard. Hate is optional and targeted, so preserve harmless opposing creature cards for Stairwell when safe. The bracket and identity scores remain unchanged: these exchanges add coverage and smoother setup without replacing the engines; win-turn estimates remain untested.
