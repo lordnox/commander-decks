@@ -94,7 +94,7 @@ describe('shared trigger matching', () => {
   })
 
   test('draws watches opponents and their second successful draw, once across draw-three', () => {
-    const server = game([draws({ player: 'opponent', nthThisTurn: 2 }, gainLife(1))], {
+    const server = game([draws({ player: { not: { relation: 'you' } }, nthThisTurn: 2 }, gainLife(1))], {
       libraries: { p1: [knight()], p2: [knight('A'), knight('B'), knight('C')] },
     })
     const own = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
@@ -118,7 +118,7 @@ describe('shared trigger matching', () => {
 
   test('a prevented draw never triggers', () => {
     const prevent: Plugin = { id: 'preventDraw', replace: ({ event }) => event.type === 'draw' ? null : undefined }
-    const server = game([draws({}, gainLife(1))], { libraries: { p1: [knight()] }, builtinRules: ['preventDraw'] }, [prevent])
+    const server = game([draws({}, gainLife(1))], { libraries: { p1: [knight()] }, builtinRules: [...commanderRules.rules, 'preventDraw'] }, [prevent])
     const state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
     expect(state.stack).toHaveLength(0)
     expect(state.zoneOrder.p1.hand).toHaveLength(0)

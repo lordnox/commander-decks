@@ -157,3 +157,29 @@ trigger without an origin restriction watches the resulting state; an unfiltered
 token creation, so resolving copies of permanent spells do not match it. Cast
 abilities queue above the spell and resolve separately; modal casts retain their
 existing mode picker and queue the selected instructions.
+
+## Parameterized player instructions
+
+Player groups are serializable selectors, evaluated when the instruction resolves.
+They use the same player predicates as trigger matching, including nested `all`,
+`any`, and `not`. A selector affects every matching living player without declaring
+targets; target choice remains a separate ability definition.
+
+```ts
+loseLife({ amount: 1, to: players('opponent') })
+gainLife({ amount: 2, to: players('you') })
+damage({ amount: 1, to: players({ not: { relation: 'you' } }) })
+draws({ player: { not: { relation: 'you' } } },
+  loseLife({ amount: 1, to: players('opponent') }))
+```
+
+`you` refers to the stack ability's controller, even if its source changes control or
+leaves. Damage is attributed to the ability's source and uses the ordinary damage
+pipeline (including prevention, lifelink, and infect). Life loss emits life-loss
+events directly. These configured overloads support fixed amounts and player groups;
+object recipients, participant references, and amount expressions are future slices
+in [RULE-DSL.md](RULE-DSL.md).
+
+Existing numeric `gainLife`, `loseLife(amount, who)`, `opponentsLoseLife`, and
+`eachPlayerLoseLife` calls remain valid. The group-specific builders produce the
+shared life-loss instruction; saved legacy instruction kinds also remain supported.

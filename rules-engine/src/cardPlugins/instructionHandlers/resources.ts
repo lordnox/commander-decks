@@ -1,3 +1,4 @@
+import { selectedPlayers } from '../playerSelectors'
 import type Draft from '../../draft'
 import type { PlayerId, StackItem } from '../../types'
 import { swampCount } from '../../plugins/swampOverlay'
@@ -132,12 +133,15 @@ const discardCards: InstructionHandler<'discardCards'> = (
 }
 
 const gainLife: InstructionHandler<'gainLife'> = ({ draft, source, item }, instruction) => {
-  draft.enqueue({
-    type: 'gainLife',
-    seat: source.controller,
-    amount: instructionAmount(instruction.count, item),
-    source: source.id,
-  })
+  const recipients = instruction.to
+    ? selectedPlayers(draft, instruction.to, item?.controller ?? source.controller)
+    : [item?.controller ?? source.controller]
+  for (const seat of recipients) {
+    draft.enqueue({
+      type: 'gainLife', seat,
+      amount: instructionAmount(instruction.count, item), source: source.id,
+    })
+  }
 }
 
 const cumulativeUpkeepOpponentLife: InstructionHandler<'cumulativeUpkeepOpponentLife'> = (
@@ -326,8 +330,14 @@ const doublePlusCounters: InstructionHandler<'doublePlusCounters'> = ({ draft, s
 }
 
 const loseLife: InstructionHandler<'loseLife'> = ({ draft, source, item }, instruction) => {
+  if (instruction.to) {
+    for (const seat of selectedPlayers(draft, instruction.to, item?.controller ?? source.controller)) {
+      draft.enqueue({ type: 'loseLife', seat, amount: instruction.amount, source: source.id })
+    }
+    return
+  }
   const seat = instruction.who === 'controller'
-    ? source.controller
+    ? item?.controller ?? source.controller
     : typeof item?.payload?.triggeringPlayer === 'string'
       ? item.payload.triggeringPlayer
       : source.controller
