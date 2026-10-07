@@ -1,0 +1,133 @@
+{
+  "artist": "Scott M. Fischer",
+  "artist_ids": [
+    "23b0cf43-3e43-44c6-8329-96446eca5bce"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 9283,
+  "cmc": 1.0,
+  "collector_number": "55",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 515,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"The blood of the weak shall be the ink with which we scribe great Yawgmoth's glorious name.\"\n—Stronghold architect, journal",
+  "foil": false,
+  "frame": "1997",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "50c33f18-0a5c-4e46-ab0d-6e450915594f",
+  "illustration_id": "7f26adb9-8a4a-4b9f-86b2-d3ce7091eabb",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T12:42:01Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.webp?1783946521",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.jpg?1783946521",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.jpg?1783946521",
+    "crop": "https://cards.scryfall.io/crop/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.webp?1783946521",
+    "display": "https://cards.scryfall.io/display/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.webp?1783946521",
+    "grid": "https://cards.scryfall.io/grid/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.webp?1783946521",
+    "large": "https://cards.scryfall.io/large/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.jpg?1783946521",
+    "normal": "https://cards.scryfall.io/normal/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.jpg?1783946521",
+    "png": "https://cards.scryfall.io/png/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.png?1783946521",
+    "small": "https://cards.scryfall.io/small/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.jpg?1783946521",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/0/50c33f18-0a5c-4e46-ab0d-6e450915594f.webp?1783946521"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{B}",
+  "mtgo_foil_id": 10720,
+  "mtgo_id": 10719,
+  "multiverse_ids": [
+    6085
+  ],
+  "name": "Culling the Weak",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "6385fd0d-256d-4400-9319-afa8170024db",
+  "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nAdd {B}{B}{B}{B}.",
+  "oversized": false,
+  "prices": {
+    "eur": "7.17",
+    "eur_foil": null,
+    "tix": "0.21",
+    "usd": "8.05",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A6385fd0d-256d-4400-9319-afa8170024db&unique=prints",
+  "produced_mana": [
+    "B"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/10719?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=9283&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F4307%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Culling+the+Weak",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=6085&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCulling%2Bthe%2BWeak",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCulling%2Bthe%2BWeak"
+  },
+  "released_at": "1998-06-15",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/50c33f18-0a5c-4e46-ab0d-6e450915594f/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/exo?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/exo/55/culling-the-weak?utm_source=api",
+  "set": "exo",
+  "set_id": "1401f7af-2e71-476d-9813-991084ed0bb9",
+  "set_name": "Exodus",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aexo&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/1401f7af-2e71-476d-9813-991084ed0bb9",
+  "story_spotlight": false,
+  "tcgplayer_id": 4307,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/50c33f18-0a5c-4e46-ab0d-6e450915594f",
+  "variation": false
+}

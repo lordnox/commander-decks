@@ -1,0 +1,144 @@
+{
+  "arena_id": 103371,
+  "artist": "Xabi Gaztelua",
+  "artist_ids": [
+    "35b87e24-bfe0-43f4-83c3-2fa9574d6026"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 899328,
+  "cmc": 2.0,
+  "collector_number": "4",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4505,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Once in a while, members of the Took clan would go and have adventures.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf",
+  "illustration_id": "30741889-979d-4e74-bf51-e776919634c7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-24T12:06:44Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.webp?1784894804",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.jpg?1784894804",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.jpg?1784894804",
+    "crop": "https://cards.scryfall.io/crop/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.webp?1784894804",
+    "display": "https://cards.scryfall.io/display/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.webp?1784894804",
+    "grid": "https://cards.scryfall.io/grid/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.webp?1784894804",
+    "large": "https://cards.scryfall.io/large/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.jpg?1784894804",
+    "normal": "https://cards.scryfall.io/normal/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.jpg?1784894804",
+    "png": "https://cards.scryfall.io/png/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.png?1784894804",
+    "small": "https://cards.scryfall.io/small/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.jpg?1784894804",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/8/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf.webp?1784894804"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}",
+  "mtgo_id": 153920,
+  "multiverse_ids": [],
+  "name": "Belladonna Took",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "011da9c5-aa8a-4fa0-b1f2-62b9f3760476",
+  "oracle_text": "Whenever a token you control enters, you gain 1 life if this is the first time this ability has resolved this turn. If it's the second time, draw a card. If it's the third time, put a +1/+1 counter on each creature you control.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2026-07-23",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.instagram.com/p/DbHIf3vCWdc/"
+  },
+  "prices": {
+    "eur": "3.08",
+    "eur_foil": "3.53",
+    "tix": "0.34",
+    "usd": "2.62",
+    "usd_etched": null,
+    "usd_foil": "3.46"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A011da9c5-aa8a-4fa0-b1f2-62b9f3760476&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/153920?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=899328&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F707728%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Belladonna+Took",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBelladonna%2BTook",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBelladonna%2BTook"
+  },
+  "released_at": "2026-08-14",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "007AF89E844906124959A40939DD57E667B03E6E197B5FF1CCD38D97BD068EE4",
+  "rulings_uri": "https://api.scryfall.com/cards/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hob?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hob/4/belladonna-took?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hob",
+  "set_id": "59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "set_name": "The Hobbit",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahob&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "story_spotlight": false,
+  "tcgplayer_id": 707728,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Halfling Citizen",
+  "uri": "https://api.scryfall.com/cards/88f0c189-c9ed-4ea3-ae62-3d8ac6c7fecf",
+  "variation": false
+}

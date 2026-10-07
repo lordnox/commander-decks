@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "0cfe592d-7733-4f26-a395-3042817cc831",
+      "name": "Clackbridge Troll",
+      "object": "related_card",
+      "type_line": "Creature — Troll",
+      "uri": "https://api.scryfall.com/cards/0cfe592d-7733-4f26-a395-3042817cc831"
+    },
+    {
+      "component": "token",
+      "id": "213be25c-88db-440b-83c3-973586a4f320",
+      "name": "Goat",
+      "object": "related_card",
+      "type_line": "Token Creature — Goat",
+      "uri": "https://api.scryfall.com/cards/213be25c-88db-440b-83c3-973586a4f320"
+    }
+  ],
+  "arena_id": 70231,
+  "artist": "Svetlin Velinov",
+  "artist_ids": [
+    "ffd063ae-c097-4f26-b2e6-b1e2137708bc"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 400074,
+  "cmc": 5.0,
+  "collector_number": "84",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 5395,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "arena",
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "85929131-4df6-415c-b592-aefb2943c477",
+  "illustration_id": "3dc02405-cb51-418e-a447-246dea00fa1c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T08:50:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/5/85929131-4df6-415c-b592-aefb2943c477.webp?1783932641",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/5/85929131-4df6-415c-b592-aefb2943c477.jpg?1783932641",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/5/85929131-4df6-415c-b592-aefb2943c477.jpg?1783932641",
+    "crop": "https://cards.scryfall.io/crop/front/8/5/85929131-4df6-415c-b592-aefb2943c477.webp?1783932641",
+    "display": "https://cards.scryfall.io/display/front/8/5/85929131-4df6-415c-b592-aefb2943c477.webp?1783932641",
+    "grid": "https://cards.scryfall.io/grid/front/8/5/85929131-4df6-415c-b592-aefb2943c477.webp?1783932641",
+    "large": "https://cards.scryfall.io/large/front/8/5/85929131-4df6-415c-b592-aefb2943c477.jpg?1783932641",
+    "normal": "https://cards.scryfall.io/normal/front/8/5/85929131-4df6-415c-b592-aefb2943c477.jpg?1783932641",
+    "png": "https://cards.scryfall.io/png/front/8/5/85929131-4df6-415c-b592-aefb2943c477.png?1783932641",
+    "small": "https://cards.scryfall.io/small/front/8/5/85929131-4df6-415c-b592-aefb2943c477.jpg?1783932641",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/5/85929131-4df6-415c-b592-aefb2943c477.webp?1783932641"
+  },
+  "keywords": [
+    "Haste",
+    "Trample"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{B}{B}",
+  "mtgo_id": 78280,
+  "multiverse_ids": [
+    473046
+  ],
+  "name": "Clackbridge Troll",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9c2f25af-0b16-488d-9249-026a84bdb27f",
+  "oracle_text": "Trample, haste\nWhen this creature enters, target opponent creates three 0/1 white Goat creature tokens.\nAt the beginning of combat on your turn, any opponent may sacrifice a creature of their choice. If a player does, tap this creature, you gain 3 life, and you draw a card.",
+  "oversized": false,
+  "penny_rank": 4141,
+  "power": "8",
+  "preview": {
+    "previewed_at": "2019-09-10",
+    "source": "Noxious",
+    "source_uri": "https://www.youtube.com/watch?v=VYL28w0hmwg"
+  },
+  "prices": {
+    "eur": "0.43",
+    "eur_foil": "0.68",
+    "tix": "0.02",
+    "usd": "0.67",
+    "usd_etched": null,
+    "usd_foil": "0.63"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9c2f25af-0b16-488d-9249-026a84bdb27f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/78280?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=400074&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F198782%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Clackbridge+Troll",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=473046&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DClackbridge%2BTroll",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DClackbridge%2BTroll"
+  },
+  "released_at": "2019-10-04",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/85929131-4df6-415c-b592-aefb2943c477/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/eld?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/eld/84/clackbridge-troll?utm_source=api",
+  "security_stamp": "oval",
+  "set": "eld",
+  "set_id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "set_name": "Throne of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aeld&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+  "story_spotlight": false,
+  "tcgplayer_id": 198782,
+  "textless": false,
+  "toughness": "8",
+  "type_line": "Creature — Troll",
+  "uri": "https://api.scryfall.com/cards/85929131-4df6-415c-b592-aefb2943c477",
+  "variation": false
+}

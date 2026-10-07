@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "5131b10f-f14f-40e1-969b-224fcce2ed18",
+      "name": "Halo Fountain",
+      "object": "related_card",
+      "type_line": "Artifact",
+      "uri": "https://api.scryfall.com/cards/5131b10f-f14f-40e1-969b-224fcce2ed18"
+    },
+    {
+      "component": "token",
+      "id": "3f03e9fe-cb71-498e-bf16-5af6af37a192",
+      "name": "Citizen",
+      "object": "related_card",
+      "type_line": "Token Creature — Citizen",
+      "uri": "https://api.scryfall.com/cards/3f03e9fe-cb71-498e-bf16-5af6af37a192"
+    }
+  ],
+  "arena_id": 80166,
+  "artist": "Anastasia Ovchinnikova",
+  "artist_ids": [
+    "3605d81f-5c97-4958-9dcc-d44a85e10305"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 651363,
+  "cmc": 3.0,
+  "collector_number": "15",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 1902,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "0ee79399-715c-4c46-9fa1-e76b1087f009",
+  "illustration_id": "d9f376ef-0c2b-4b1e-b116-25f00ee9fbed",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:12:38Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.webp?1783923158",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.jpg?1783923158",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.jpg?1783923158",
+    "crop": "https://cards.scryfall.io/crop/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.webp?1783923158",
+    "display": "https://cards.scryfall.io/display/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.webp?1783923158",
+    "grid": "https://cards.scryfall.io/grid/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.webp?1783923158",
+    "large": "https://cards.scryfall.io/large/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.jpg?1783923158",
+    "normal": "https://cards.scryfall.io/normal/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.jpg?1783923158",
+    "png": "https://cards.scryfall.io/png/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.png?1783923158",
+    "small": "https://cards.scryfall.io/small/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.jpg?1783923158",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/e/0ee79399-715c-4c46-9fa1-e76b1087f009.webp?1783923158"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}",
+  "mtgo_id": 98249,
+  "multiverse_ids": [
+    555216
+  ],
+  "name": "Halo Fountain",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "36a9de4c-8073-475d-8679-e50844eef09e",
+  "oracle_text": "{W}, {T}, Untap a tapped creature you control: Create a 1/1 green and white Citizen creature token.\n{W}{W}, {T}, Untap two tapped creatures you control: Draw a card.\n{W}{W}{W}{W}{W}, {T}, Untap fifteen tapped creatures you control: You win the game.",
+  "oversized": false,
+  "penny_rank": 5477,
+  "prices": {
+    "eur": "5.37",
+    "eur_foil": "5.86",
+    "tix": "0.02",
+    "usd": "7.30",
+    "usd_etched": null,
+    "usd_foil": "8.06"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A36a9de4c-8073-475d-8679-e50844eef09e&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/98249?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=651363&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F268356%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Halo+Fountain",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=555216&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DHalo%2BFountain",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DHalo%2BFountain"
+  },
+  "released_at": "2022-04-29",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0ee79399-715c-4c46-9fa1-e76b1087f009/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/snc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/snc/15/halo-fountain?utm_source=api",
+  "security_stamp": "oval",
+  "set": "snc",
+  "set_id": "df837242-8c15-42e4-b049-c933a02dc501",
+  "set_name": "Streets of New Capenna",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Asnc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/df837242-8c15-42e4-b049-c933a02dc501",
+  "story_spotlight": false,
+  "tcgplayer_id": 268356,
+  "textless": false,
+  "type_line": "Artifact",
+  "uri": "https://api.scryfall.com/cards/0ee79399-715c-4c46-9fa1-e76b1087f009",
+  "variation": false
+}

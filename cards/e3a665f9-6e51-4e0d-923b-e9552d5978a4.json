@@ -1,0 +1,164 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "d1892b78-7663-4cbd-a732-9a4b0b18d4c8",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/d1892b78-7663-4cbd-a732-9a4b0b18d4c8"
+    },
+    {
+      "component": "combo_piece",
+      "id": "11144267-15d1-47b4-8c26-d57328e11422",
+      "name": "The Sackville-Bagginses",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Halfling Citizen",
+      "uri": "https://api.scryfall.com/cards/11144267-15d1-47b4-8c26-d57328e11422"
+    }
+  ],
+  "arena_id": 103459,
+  "artist": "Denman Rooke",
+  "artist_ids": [
+    "5eedbc4b-34a3-4ca5-b3f5-9ac2f6b6adf7"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 899331,
+  "cmc": 2.0,
+  "collector_number": "83",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 8653,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "It took more than Bilbo showing up alive to convince some that he was not, in fact, \"presumed dead.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "ed87b471-79f9-45ec-9188-69e970f6121e",
+  "illustration_id": "ce8d76d2-b0f3-49aa-a387-f293b9867207",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-24T12:07:51Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.webp?1784894871",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.jpg?1784894871",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.jpg?1784894871",
+    "crop": "https://cards.scryfall.io/crop/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.webp?1784894871",
+    "display": "https://cards.scryfall.io/display/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.webp?1784894871",
+    "grid": "https://cards.scryfall.io/grid/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.webp?1784894871",
+    "large": "https://cards.scryfall.io/large/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.jpg?1784894871",
+    "normal": "https://cards.scryfall.io/normal/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.jpg?1784894871",
+    "png": "https://cards.scryfall.io/png/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.png?1784894871",
+    "small": "https://cards.scryfall.io/small/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.jpg?1784894871",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/d/ed87b471-79f9-45ec-9188-69e970f6121e.webp?1784894871"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{B}",
+  "mtgo_id": 154096,
+  "multiverse_ids": [],
+  "name": "The Sackville-Bagginses",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "e3a665f9-6e51-4e0d-923b-e9552d5978a4",
+  "oracle_text": "When The Sackville-Bagginses enter, you may sacrifice another creature or artifact. If you do, draw a card and create a Treasure token.\nWhenever you sacrifice a token, target opponent loses 1 life.",
+  "oversized": false,
+  "power": "2",
+  "preview": {
+    "previewed_at": "2026-07-23",
+    "source": "TCGplayer",
+    "source_uri": "https://bsky.app/profile/tcgplayer.com/post/3mrd7jltfri2u"
+  },
+  "prices": {
+    "eur": "0.94",
+    "eur_foil": "1.05",
+    "tix": "0.71",
+    "usd": "1.08",
+    "usd_etched": null,
+    "usd_foil": "1.33"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ae3a665f9-6e51-4e0d-923b-e9552d5978a4&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/154096?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=899331&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F707526%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Sackville-Bagginses",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BSackville-Bagginses",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BSackville-Bagginses"
+  },
+  "released_at": "2026-08-14",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "99B5A777C2B01A3BB8C885DB26AD61191BF05BDDEF6816A0B62A9C654A7A1410",
+  "rulings_uri": "https://api.scryfall.com/cards/ed87b471-79f9-45ec-9188-69e970f6121e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hob?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hob/83/the-sackville-bagginses?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hob",
+  "set_id": "59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "set_name": "The Hobbit",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahob&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "story_spotlight": false,
+  "tcgplayer_id": 707526,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Legendary Creature — Halfling Citizen",
+  "uri": "https://api.scryfall.com/cards/ed87b471-79f9-45ec-9188-69e970f6121e",
+  "variation": false
+}

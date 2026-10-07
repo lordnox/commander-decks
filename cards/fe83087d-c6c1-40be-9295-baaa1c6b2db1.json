@@ -1,0 +1,142 @@
+{
+  "arena_id": 83723,
+  "artist": "Jason A. Engle",
+  "artist_ids": [
+    "02e2b5de-4341-464c-8fdb-a1adbf873bc0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 692393,
+  "cmc": 4.0,
+  "collector_number": "23",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 429,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "8296a455-21d5-498e-9029-2bdf0da855a8",
+  "illustration_id": "70a69585-1614-4bd7-b225-1e5bd0cc036a",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:47:57Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.webp?1783918077",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.jpg?1783918077",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.jpg?1783918077",
+    "crop": "https://cards.scryfall.io/crop/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.webp?1783918077",
+    "display": "https://cards.scryfall.io/display/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.webp?1783918077",
+    "grid": "https://cards.scryfall.io/grid/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.webp?1783918077",
+    "large": "https://cards.scryfall.io/large/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.jpg?1783918077",
+    "normal": "https://cards.scryfall.io/normal/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.jpg?1783918077",
+    "png": "https://cards.scryfall.io/png/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.png?1783918077",
+    "small": "https://cards.scryfall.io/small/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.jpg?1783918077",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/2/8296a455-21d5-498e-9029-2bdf0da855a8.webp?1783918077"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{W}",
+  "mtgo_id": 106261,
+  "multiverse_ids": [
+    602553
+  ],
+  "name": "Mondrak, Glory Dominus",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "fe83087d-c6c1-40be-9295-baaa1c6b2db1",
+  "oracle_text": "If one or more tokens would be created under your control, twice that many of those tokens are created instead.\n{1}{W/P}{W/P}, Sacrifice two other artifacts and/or creatures: Put an indestructible counter on Mondrak. ({W/P} can be paid with either {W} or 2 life.)",
+  "oversized": false,
+  "power": "4",
+  "preview": {
+    "previewed_at": "2023-01-17",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://www.twitch.tv/videos/1710176714"
+  },
+  "prices": {
+    "eur": "30.70",
+    "eur_foil": "36.64",
+    "tix": "0.03",
+    "usd": "45.25",
+    "usd_etched": null,
+    "usd_foil": "47.45"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Afe83087d-c6c1-40be-9295-baaa1c6b2db1&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/106261?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=692393&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F478276%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mondrak%2C+Glory+Dominus",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=602553&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMondrak%252C%2BGlory%2BDominus",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMondrak%252C%2BGlory%2BDominus"
+  },
+  "released_at": "2023-02-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/8296a455-21d5-498e-9029-2bdf0da855a8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/one?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/one/23/mondrak-glory-dominus?utm_source=api",
+  "security_stamp": "oval",
+  "set": "one",
+  "set_id": "04bef644-343f-4230-95ee-255f29aa67a2",
+  "set_name": "Phyrexia: All Will Be One",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aone&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/04bef644-343f-4230-95ee-255f29aa67a2",
+  "story_spotlight": false,
+  "tcgplayer_id": 478276,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Phyrexian Horror",
+  "uri": "https://api.scryfall.com/cards/8296a455-21d5-498e-9029-2bdf0da855a8",
+  "variation": false
+}

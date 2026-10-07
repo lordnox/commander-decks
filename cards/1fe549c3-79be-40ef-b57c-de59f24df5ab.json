@@ -1,0 +1,167 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "d656b085-fb86-4d2f-a4fc-b65f6ed9f001",
+      "name": "The Void",
+      "object": "related_card",
+      "type_line": "Token Legendary Creature — Horror Villain",
+      "uri": "https://api.scryfall.com/cards/d656b085-fb86-4d2f-a4fc-b65f6ed9f001"
+    },
+    {
+      "component": "combo_piece",
+      "id": "6ba62e03-d8e6-4cd9-8997-0784c01ae8c6",
+      "name": "The Sentry, Golden Guardian",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Hero",
+      "uri": "https://api.scryfall.com/cards/6ba62e03-d8e6-4cd9-8997-0784c01ae8c6"
+    }
+  ],
+  "arena_id": 104928,
+  "artist": "Alexander Skripnikov",
+  "artist_ids": [
+    "fe9325bf-2698-430d-a3e8-7771fb80351f"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 886594,
+  "cmc": 4.0,
+  "collector_number": "35",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 10053,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"For all the kindness I spread, the Void only sows terror.\"",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a",
+  "illustration_id": "bef20f27-8c3d-492d-866a-b410f56317c4",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T00:36:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.webp?1783902966",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.jpg?1783902966",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.jpg?1783902966",
+    "crop": "https://cards.scryfall.io/crop/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.webp?1783902966",
+    "display": "https://cards.scryfall.io/display/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.webp?1783902966",
+    "grid": "https://cards.scryfall.io/grid/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.webp?1783902966",
+    "large": "https://cards.scryfall.io/large/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.jpg?1783902966",
+    "normal": "https://cards.scryfall.io/normal/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.jpg?1783902966",
+    "png": "https://cards.scryfall.io/png/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.png?1783902966",
+    "small": "https://cards.scryfall.io/small/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.jpg?1783902966",
+    "thumb": "https://cards.scryfall.io/thumb/front/3/f/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a.webp?1783902966"
+  },
+  "keywords": [
+    "Flying",
+    "Indestructible",
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 152253,
+  "multiverse_ids": [],
+  "name": "The Sentry, Golden Guardian",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "1fe549c3-79be-40ef-b57c-de59f24df5ab",
+  "oracle_text": "Flying, vigilance, indestructible\nWhen The Sentry enters, target opponent creates The Void, a legendary 5/5 black Horror Villain creature token with flying, indestructible, and \"The Void attacks each combat if able.\"",
+  "oversized": false,
+  "penny_rank": 5356,
+  "power": "5",
+  "preview": {
+    "previewed_at": "2025-12-09",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://magic.wizards.com/en/news/feature/marvel-super-heroes-preview-prologue"
+  },
+  "prices": {
+    "eur": "0.26",
+    "eur_foil": "0.46",
+    "tix": "0.02",
+    "usd": "0.36",
+    "usd_etched": null,
+    "usd_foil": "0.62"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A1fe549c3-79be-40ef-b57c-de59f24df5ab&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/152253?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=886594&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F668458%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Sentry%2C+Golden+Guardian",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BSentry%252C%2BGolden%2BGuardian",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BSentry%252C%2BGolden%2BGuardian"
+  },
+  "released_at": "2026-06-26",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "65D65DA68315B4035419CEB0DE69CDDB971CB72714A95C45DEC4012554CCD72D",
+  "rulings_uri": "https://api.scryfall.com/cards/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/msh?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/msh/35/the-sentry-golden-guardian?utm_source=api",
+  "security_stamp": "oval",
+  "set": "msh",
+  "set_id": "ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "set_name": "Marvel Super Heroes",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amsh&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/ba9bf625-681c-4a4e-ab48-399b2fecac6b",
+  "story_spotlight": false,
+  "tcgplayer_id": 668458,
+  "textless": false,
+  "toughness": "5",
+  "type_line": "Legendary Creature — Human Hero",
+  "uri": "https://api.scryfall.com/cards/3f56c0e7-5b07-48e3-b0ca-5d09ddc8de9a",
+  "variation": false
+}

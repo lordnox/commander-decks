@@ -1,0 +1,149 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6",
+      "name": "Alliance of Arms",
+      "object": "related_card",
+      "type_line": "Sorcery",
+      "uri": "https://api.scryfall.com/cards/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6"
+    },
+    {
+      "component": "token",
+      "id": "a58c2fc3-c07f-4f06-a9d5-1d0fe3dbde1f",
+      "name": "Soldier",
+      "object": "related_card",
+      "type_line": "Token Creature — Soldier",
+      "uri": "https://api.scryfall.com/cards/a58c2fc3-c07f-4f06-a9d5-1d0fe3dbde1f"
+    }
+  ],
+  "artist": "Johann Bodin",
+  "artist_ids": [
+    "d92e2dd9-9ef6-43f6-81f8-df87f9066983"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 247046,
+  "cmc": 1.0,
+  "collector_number": "4",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 11625,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6",
+  "illustration_id": "910f8665-a02e-48b5-8320-e766039eff36",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:14:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.webp?1783941258",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.jpg?1783941258",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.jpg?1783941258",
+    "crop": "https://cards.scryfall.io/crop/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.webp?1783941258",
+    "display": "https://cards.scryfall.io/display/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.webp?1783941258",
+    "grid": "https://cards.scryfall.io/grid/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.webp?1783941258",
+    "large": "https://cards.scryfall.io/large/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.jpg?1783941258",
+    "normal": "https://cards.scryfall.io/normal/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.jpg?1783941258",
+    "png": "https://cards.scryfall.io/png/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.png?1783941258",
+    "small": "https://cards.scryfall.io/small/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.jpg?1783941258",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/e/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6.webp?1783941258"
+  },
+  "keywords": [
+    "Join forces"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{W}",
+  "mtgo_foil_id": 40940,
+  "mtgo_id": 40620,
+  "multiverse_ids": [
+    228218
+  ],
+  "name": "Alliance of Arms",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "be2a4595-4378-4af8-8368-e3b2bb3cb5bb",
+  "oracle_text": "Join forces — Starting with you, each player may pay any amount of mana. Each player creates X 1/1 white Soldier creature tokens, where X is the total amount of mana paid this way.",
+  "oversized": false,
+  "prices": {
+    "eur": "3.53",
+    "eur_foil": null,
+    "tix": "0.61",
+    "usd": "13.78",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Abe2a4595-4378-4af8-8368-e3b2bb3cb5bb&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/40620?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=247046&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F46934%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Alliance+of+Arms",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=228218&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAlliance%2Bof%2BArms",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAlliance%2Bof%2BArms"
+  },
+  "released_at": "2011-06-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmd?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmd/4/alliance-of-arms?utm_source=api",
+  "set": "cmd",
+  "set_id": "84ff1a64-4e69-4ed2-8c08-26206e3b97a0",
+  "set_name": "Commander 2011",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmd&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/84ff1a64-4e69-4ed2-8c08-26206e3b97a0",
+  "story_spotlight": false,
+  "tcgplayer_id": 46934,
+  "textless": false,
+  "type_line": "Sorcery",
+  "uri": "https://api.scryfall.com/cards/eeb1f8ff-c32f-4d75-8c04-f97d05ba47d6",
+  "variation": false
+}

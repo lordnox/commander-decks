@@ -1,0 +1,152 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "2f2681b8-0728-47d4-b7f2-dae7fbf87319",
+      "name": "Ox Drover",
+      "object": "related_card",
+      "type_line": "Creature — Human Peasant",
+      "uri": "https://api.scryfall.com/cards/2f2681b8-0728-47d4-b7f2-dae7fbf87319"
+    },
+    {
+      "component": "token",
+      "id": "15e94825-98a8-40f1-8f61-83c79885fec0",
+      "name": "Ox",
+      "object": "related_card",
+      "type_line": "Token Creature — Ox",
+      "uri": "https://api.scryfall.com/cards/15e94825-98a8-40f1-8f61-83c79885fec0"
+    }
+  ],
+  "artist": "Filipe Pagliuso",
+  "artist_ids": [
+    "64c537b4-a864-4051-9a24-fbdd22cb40b4"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 730115,
+  "cmc": 4.0,
+  "collector_number": "6",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 12024,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Ho, Shaggyfoot! Lumpton, pick up those hooves! Edgewall by sundown or I'll sell the lot of you to a witch!\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b479be78-da22-41f0-937e-348dc0c7511e",
+  "illustration_id": "017aee12-59c2-4188-aa82-110695f54275",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:56:29Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.webp?1783914989",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.jpg?1783914989",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.jpg?1783914989",
+    "crop": "https://cards.scryfall.io/crop/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.webp?1783914989",
+    "display": "https://cards.scryfall.io/display/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.webp?1783914989",
+    "grid": "https://cards.scryfall.io/grid/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.webp?1783914989",
+    "large": "https://cards.scryfall.io/large/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.jpg?1783914989",
+    "normal": "https://cards.scryfall.io/normal/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.jpg?1783914989",
+    "png": "https://cards.scryfall.io/png/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.png?1783914989",
+    "small": "https://cards.scryfall.io/small/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.jpg?1783914989",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/4/b479be78-da22-41f0-937e-348dc0c7511e.webp?1783914989"
+  },
+  "keywords": [
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 117268,
+  "multiverse_ids": [
+    633174
+  ],
+  "name": "Ox Drover",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "70f26726-0373-4e50-a1de-37392ca94890",
+  "oracle_text": "Vigilance\nThis creature can't be blocked by Oxen.\nWhenever this creature enters or attacks, target opponent creates a 2/4 white Ox creature token and you draw a card.",
+  "oversized": false,
+  "power": "4",
+  "prices": {
+    "eur": "0.23",
+    "eur_foil": null,
+    "tix": "1.05",
+    "usd": "0.34",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A70f26726-0373-4e50-a1de-37392ca94890&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117268?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=730115&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F513637%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ox+Drover",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=633174&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOx%2BDrover",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOx%2BDrover"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b479be78-da22-41f0-937e-348dc0c7511e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woc/6/ox-drover?utm_source=api",
+  "security_stamp": "oval",
+  "set": "woc",
+  "set_id": "51c0814a-2db2-4182-9aac-77340e9a540d",
+  "set_name": "Wilds of Eldraine Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/51c0814a-2db2-4182-9aac-77340e9a540d",
+  "story_spotlight": false,
+  "tcgplayer_id": 513637,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Creature — Human Peasant",
+  "uri": "https://api.scryfall.com/cards/b479be78-da22-41f0-937e-348dc0c7511e",
+  "variation": false
+}

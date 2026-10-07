@@ -1,0 +1,141 @@
+{
+  "arena_id": 86991,
+  "artist": "Piotr Dura",
+  "artist_ids": [
+    "aff176e8-1d15-432e-ad1d-207a474decba"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 725335,
+  "cmc": 0.0,
+  "collector_number": "259",
+  "color_identity": [
+    "B",
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 4738,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "675213bb-28d7-460c-a4f3-950f5b9090af",
+  "illustration_id": "1bed1543-5fdb-4cfb-8c48-168191e8e96f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:57:35Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.webp?1783915055",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.jpg?1783915055",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.jpg?1783915055",
+    "crop": "https://cards.scryfall.io/crop/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.webp?1783915055",
+    "display": "https://cards.scryfall.io/display/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.webp?1783915055",
+    "grid": "https://cards.scryfall.io/grid/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.webp?1783915055",
+    "large": "https://cards.scryfall.io/large/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.jpg?1783915055",
+    "normal": "https://cards.scryfall.io/normal/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.jpg?1783915055",
+    "png": "https://cards.scryfall.io/png/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.png?1783915055",
+    "small": "https://cards.scryfall.io/small/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.jpg?1783915055",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/7/675213bb-28d7-460c-a4f3-950f5b9090af.webp?1783915055"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 116906,
+  "multiverse_ids": [
+    629760
+  ],
+  "name": "Restless Fortress",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8b3726f1-20b8-42ec-8f9b-b361515c3f05",
+  "oracle_text": "This land enters tapped.\n{T}: Add {W} or {B}.\n{2}{W}{B}: This land becomes a 1/4 white and black Nightmare creature until end of turn. It's still a land.\nWhenever this land attacks, defending player loses 2 life and you gain 2 life.",
+  "oversized": false,
+  "penny_rank": 1604,
+  "preview": {
+    "previewed_at": "2023-07-28",
+    "source": "Wizards of the Coast",
+    "source_uri": "https://twitter.com/wizards_magic/status/1684893195748933632"
+  },
+  "prices": {
+    "eur": "0.57",
+    "eur_foil": "0.78",
+    "tix": "0.02",
+    "usd": "0.51",
+    "usd_etched": null,
+    "usd_foil": "1.05"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8b3726f1-20b8-42ec-8f9b-b361515c3f05&unique=prints",
+  "produced_mana": [
+    "B",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/116906?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=725335&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F509483%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Restless+Fortress",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=629760&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRestless%2BFortress",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRestless%2BFortress"
+  },
+  "released_at": "2023-09-08",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/675213bb-28d7-460c-a4f3-950f5b9090af/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/woe?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/woe/259/restless-fortress?utm_source=api",
+  "security_stamp": "oval",
+  "set": "woe",
+  "set_id": "79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "set_name": "Wilds of Eldraine",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awoe&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/79139661-13ee-43c4-8bad-a8c069f1a1df",
+  "story_spotlight": false,
+  "tcgplayer_id": 509483,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/675213bb-28d7-460c-a4f3-950f5b9090af",
+  "variation": false
+}

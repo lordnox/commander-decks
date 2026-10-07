@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "1b566e0d-5680-4b06-8360-b722beedef2e",
+      "name": "Warrior",
+      "object": "related_card",
+      "type_line": "Token Creature — Warrior",
+      "uri": "https://api.scryfall.com/cards/1b566e0d-5680-4b06-8360-b722beedef2e"
+    },
+    {
+      "component": "combo_piece",
+      "id": "f20d978b-f854-4225-a420-b013889b0783",
+      "name": "The War Games",
+      "object": "related_card",
+      "type_line": "Enchantment — Saga",
+      "uri": "https://api.scryfall.com/cards/f20d978b-f854-4225-a420-b013889b0783"
+    }
+  ],
+  "artist": "Bartek Fedyczak",
+  "artist_ids": [
+    "70b1ba71-4ee1-4087-8a9e-ea919f20ebff"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 738528,
+  "cmc": 4.0,
+  "collector_number": "30",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 13822,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper"
+  ],
+  "highres_image": true,
+  "id": "0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21",
+  "illustration_id": "13a476a4-c54d-47c2-96eb-a18dc5b27e79",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:51:18Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.webp?1783914678",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.jpg?1783914678",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.jpg?1783914678",
+    "crop": "https://cards.scryfall.io/crop/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.webp?1783914678",
+    "display": "https://cards.scryfall.io/display/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.webp?1783914678",
+    "grid": "https://cards.scryfall.io/grid/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.webp?1783914678",
+    "large": "https://cards.scryfall.io/large/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.jpg?1783914678",
+    "normal": "https://cards.scryfall.io/normal/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.jpg?1783914678",
+    "png": "https://cards.scryfall.io/png/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.png?1783914678",
+    "small": "https://cards.scryfall.io/small/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.jpg?1783914678",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/6/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21.webp?1783914678"
+  },
+  "keywords": [
+    "Goad"
+  ],
+  "lang": "en",
+  "layout": "saga",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{W}{W}",
+  "multiverse_ids": [
+    634725
+  ],
+  "name": "The War Games",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d7cfe3a3-e8e6-446d-a855-46c845f657fa",
+  "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI — Each player creates three tapped 1/1 white Warrior creature tokens. The tokens are goaded for as long as this Saga remains on the battlefield.\nII, III — Put a +1/+1 counter on each Warrior creature.\nIV — You may exile a nontoken creature you control. When you do, exile all Warriors.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-10-03",
+    "source": "Wizards of the Coast",
+    "source_uri": ""
+  },
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": "0.43",
+    "tix": null,
+    "usd": "0.31",
+    "usd_etched": null,
+    "usd_foil": "0.48"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad7cfe3a3-e8e6-446d-a855-46c845f657fa&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=The+War+Games&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=738528&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F518884%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+War+Games",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=634725&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BWar%2BGames",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BWar%2BGames"
+  },
+  "released_at": "2023-10-13",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/who?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/who/30/the-war-games?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "who",
+  "set_id": "efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "set_name": "Doctor Who",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Awho&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/efdfdd99-cee7-4c11-a5e9-03d60f88bdd6",
+  "story_spotlight": false,
+  "tcgplayer_id": 518884,
+  "textless": false,
+  "type_line": "Enchantment — Saga",
+  "uri": "https://api.scryfall.com/cards/0662fee0-a6bc-4a1c-8a0f-6e7efc6b8a21",
+  "variation": false
+}

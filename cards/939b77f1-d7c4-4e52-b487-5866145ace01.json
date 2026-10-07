@@ -1,0 +1,155 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "770b988d-4f31-4746-8c23-4ed8d9a6b393",
+      "name": "Treasure",
+      "object": "related_card",
+      "type_line": "Token Artifact — Treasure",
+      "uri": "https://api.scryfall.com/cards/770b988d-4f31-4746-8c23-4ed8d9a6b393"
+    },
+    {
+      "component": "combo_piece",
+      "id": "5eec4350-cd61-4520-98a4-4a14fcbc226f",
+      "name": "Marching Duodrone",
+      "object": "related_card",
+      "type_line": "Artifact Creature — Construct",
+      "uri": "https://api.scryfall.com/cards/5eec4350-cd61-4520-98a4-4a14fcbc226f"
+    }
+  ],
+  "artist": "Sean Murray",
+  "artist_ids": [
+    "aa53c0ff-b486-4291-bef3-656343547811"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 660931,
+  "cmc": 2.0,
+  "collector_number": "321",
+  "color_identity": [],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 6953,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"One-two! One-two! One-two! One-two!\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "822e46fc-1ebc-4151-bfd3-333fa6b77816",
+  "illustration_id": "2ae50a8e-f2d5-401f-90c2-5369b3bac11c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:04:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.webp?1783922671",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.jpg?1783922671",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.jpg?1783922671",
+    "crop": "https://cards.scryfall.io/crop/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.webp?1783922671",
+    "display": "https://cards.scryfall.io/display/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.webp?1783922671",
+    "grid": "https://cards.scryfall.io/grid/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.webp?1783922671",
+    "large": "https://cards.scryfall.io/large/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.jpg?1783922671",
+    "normal": "https://cards.scryfall.io/normal/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.jpg?1783922671",
+    "png": "https://cards.scryfall.io/png/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.png?1783922671",
+    "small": "https://cards.scryfall.io/small/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.jpg?1783922671",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/2/822e46fc-1ebc-4151-bfd3-333fa6b77816.webp?1783922671"
+  },
+  "keywords": [
+    "Treasure"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}",
+  "mtgo_id": 100680,
+  "multiverse_ids": [
+    563204
+  ],
+  "name": "Marching Duodrone",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "939b77f1-d7c4-4e52-b487-5866145ace01",
+  "oracle_text": "Whenever this creature attacks, each player creates a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.09",
+    "eur_foil": "0.23",
+    "tix": "5.40",
+    "usd": "0.15",
+    "usd_etched": null,
+    "usd_foil": "0.20"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A939b77f1-d7c4-4e52-b487-5866145ace01&unique=prints",
+  "produced_mana": [
+    "B",
+    "G",
+    "R",
+    "U",
+    "W"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/100680?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=660931&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F273377%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Marching+Duodrone",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=563204&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMarching%2BDuodrone",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMarching%2BDuodrone"
+  },
+  "released_at": "2022-06-10",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/822e46fc-1ebc-4151-bfd3-333fa6b77816/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clb?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clb/321/marching-duodrone?utm_source=api",
+  "set": "clb",
+  "set_id": "5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "set_name": "Commander Legends: Battle for Baldur's Gate",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclb&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/5e4c3fe8-fd57-4b20-ad56-c03790a16cea",
+  "story_spotlight": false,
+  "tcgplayer_id": 273377,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Artifact Creature — Construct",
+  "uri": "https://api.scryfall.com/cards/822e46fc-1ebc-4151-bfd3-333fa6b77816",
+  "variation": false
+}

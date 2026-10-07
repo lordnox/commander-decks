@@ -1,0 +1,142 @@
+{
+  "arena_id": 97544,
+  "artist": "Dom Lay",
+  "artist_ids": [
+    "5bef0813-3d57-498e-9b88-16adb585f0e6"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 858230,
+  "cmc": 0.0,
+  "collector_number": "263",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 1149,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Aang once knew this place to be full of monks, lemurs, and bison.",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9c0433f9-8f1e-4a19-a83f-a41925f1b1a9",
+  "illustration_id": "40e2c851-9fa8-4c25-83db-17dcdca99840",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:08:34Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.webp?1783904914",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.jpg?1783904914",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.jpg?1783904914",
+    "crop": "https://cards.scryfall.io/crop/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.webp?1783904914",
+    "display": "https://cards.scryfall.io/display/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.webp?1783904914",
+    "grid": "https://cards.scryfall.io/grid/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.webp?1783904914",
+    "large": "https://cards.scryfall.io/large/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.jpg?1783904914",
+    "normal": "https://cards.scryfall.io/normal/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.jpg?1783904914",
+    "png": "https://cards.scryfall.io/png/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.png?1783904914",
+    "small": "https://cards.scryfall.io/small/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.jpg?1783904914",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/c/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9.webp?1783904914"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "",
+  "mtgo_id": 145018,
+  "multiverse_ids": [],
+  "name": "Abandoned Air Temple",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "9575d7ce-f26d-4b90-87a3-6329e9799572",
+  "oracle_text": "This land enters tapped unless you control a basic land.\n{T}: Add {W}.\n{3}{W}, {T}: Put a +1/+1 counter on each creature you control.",
+  "oversized": false,
+  "penny_rank": 91,
+  "preview": {
+    "previewed_at": "2025-11-05",
+    "source": "denfaminicogamer",
+    "source_uri": "https://news.denfaminicogamer.jp/kikakuthetower/251106o"
+  },
+  "prices": {
+    "eur": "7.61",
+    "eur_foil": "8.46",
+    "tix": "0.15",
+    "usd": "5.44",
+    "usd_etched": null,
+    "usd_foil": "6.31"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A9575d7ce-f26d-4b90-87a3-6329e9799572&unique=prints",
+  "produced_mana": [
+    "W"
+  ],
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/145018?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=858230&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F662801%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Abandoned+Air+Temple",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAbandoned%2BAir%2BTemple",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAbandoned%2BAir%2BTemple"
+  },
+  "released_at": "2025-11-21",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "7B9AEB9BC584F684310B49921FC3B9F6BD0486CF9E4174EB4A139CE49DA85E85",
+  "rulings_uri": "https://api.scryfall.com/cards/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tla?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tla/263/abandoned-air-temple?utm_source=api",
+  "security_stamp": "oval",
+  "set": "tla",
+  "set_id": "118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "set_name": "Avatar: The Last Airbender",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atla&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/118f7e64-5caa-4cb7-99a8-184f4d3a7422",
+  "story_spotlight": false,
+  "tcgplayer_id": 662801,
+  "textless": false,
+  "type_line": "Land",
+  "uri": "https://api.scryfall.com/cards/9c0433f9-8f1e-4a19-a83f-a41925f1b1a9",
+  "variation": false,
+  "watermark": "airnomads"
+}
