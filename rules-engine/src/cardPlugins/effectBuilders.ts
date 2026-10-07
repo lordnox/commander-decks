@@ -54,11 +54,33 @@ export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffe
   do: instructions,
 })
 
-export const enters = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'enters',
-  do: instructions,
-})
+export type EntersOptions = {
+  /** Watch any entering permanent matching this filter, including the source. */
+  filter: TargetFilter
+  if?: CardCondition
+  /** Require token creation, excluding ordinary entry such as permanent spell copies (CR 111.13). */
+  createdOnly?: boolean
+}
+
+/** Without options, trigger on the source's own entry; with a filter, watch matching permanents. */
+export function enters(...instructions: CardInstruction[]): CardEffect
+export function enters(options: EntersOptions, ...instructions: CardInstruction[]): CardEffect
+export function enters(
+  ...args: [EntersOptions, ...CardInstruction[]] | CardInstruction[]
+): CardEffect {
+  const first = args[0]
+  if (first && !('kind' in first)) {
+    const [options, ...instructions] = args as [EntersOptions, ...CardInstruction[]]
+    return {
+      op: 'trigger',
+      on: options.createdOnly ? 'tokenCreated' : 'permanentEnters',
+      watch: options.filter,
+      do: instructions,
+      ...(options.if ? { if: options.if } : {}),
+    }
+  }
+  return { op: 'trigger', on: 'enters', do: args as CardInstruction[] }
+}
 
 export const entersTargeting = (
   filter: TargetFilter,
@@ -838,21 +860,7 @@ export const annihilator = (count: number): CardEffect =>
 export const permanentEnters = (
   watch: TargetFilter,
   options: { if?: CardCondition; do: CardInstruction[] },
-): CardEffect => ({
-  op: 'trigger',
-  on: 'permanentEnters',
-  watch,
-  do: options.do,
-  ...(options.if ? { if: options.if } : {}),
-})
-
-/** Whenever you create a token; ordinary entry (including a permanent spell copy) is excluded. */
-export const tokenCreated = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'tokenCreated',
-  watch: { controller: 'you', token: true },
-  do: instructions,
-})
+): CardEffect => enters({ filter: watch, if: options.if }, ...options.do)
 
 /** Whenever a permanent matching `watch` is sacrificed; the player who sacrificed it is the triggering player. */
 export const permanentSacrificed = (
