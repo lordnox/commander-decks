@@ -2,6 +2,7 @@ import type { GameEvent, GameObject, GameState, TriggerBindingIf } from '../type
 import type { CardCondition, CardEffect } from './effectDefinitions'
 import { conditionHolds } from './effectRuntime'
 import { matchesTargetFilter } from './targetedResolve'
+import { matchesPlayerFilter } from './playerSelectors'
 import { cardsDrawnThisTurn } from '../rules/draw'
 
 type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
@@ -61,8 +62,10 @@ export const matchesTriggerEvent = (
     && (effect.castBy === 'opponent') === (player === source.controller)) return false
   if (effect.creatureOnly && !watched?.types.includes('Creature')) return false
   if (effect.noncreatureOnly && watched?.types.includes('Creature')) return false
-  if (effect.player && effect.player !== 'any'
-    && (!player || (effect.player === 'you') !== (player === source.controller))) return false
+  if (effect.player) {
+    const filter = typeof effect.player === 'string' ? { relation: effect.player } : effect.player
+    if (!player || !matchesPlayerFilter(player, source.controller, filter)) return false
+  }
   if (effect.from && (!watched
     || !(Array.isArray(effect.from) ? effect.from : [effect.from]).includes(fromZone ?? watched.zone))) return false
   if (effect.nthThisTurn !== undefined && (!player || effect.on !== 'draw'

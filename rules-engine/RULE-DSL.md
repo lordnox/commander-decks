@@ -1,8 +1,9 @@
 # Configurable rule model
 
-Status: proposed API specification. Examples below describe the intended API;
-only the shared trigger builders and object filters already exist. Player selectors,
-parameterized instruction overloads, and replacement builders are proposed.
+Status: API specification with an implemented first slice. Shared trigger builders,
+object filters, player predicates/selectors, and fixed-amount life-loss, life-gain,
+and player damage instructions exist. Participant references, object selectors,
+amount expressions, replacement builders, and static builders remain proposed.
 
 ## Composition rules
 

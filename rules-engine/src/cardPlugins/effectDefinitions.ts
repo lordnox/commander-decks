@@ -100,6 +100,17 @@ export type VoteOptions =
   | { kind: 'players' }
   | { kind: 'objects'; filter: TargetFilter }
 
+/** Player-only predicates; relations are relative to the resolving ability's controller. */
+export type PlayerFilter = {
+  relation?: 'you' | 'opponent' | 'any'
+  all?: PlayerFilter[]
+  any?: PlayerFilter[]
+  not?: PlayerFilter
+}
+
+/** A non-targeted group, evaluated when its instruction resolves. */
+export type PlayerSelector = { kind: 'players'; filter: PlayerFilter }
+
 export type CardInstruction =
   | { kind: 'exileTargetPlayerGraveyard' }
   | { kind: 'selfMill'; count: number }
@@ -154,7 +165,8 @@ export type CardInstruction =
       optional?: boolean
       then?: { filter: TargetFilter; do: CardInstruction[] }
     }
-  | { kind: 'gainLife'; count: number | 'triggerAmount' }
+  | { kind: 'gainLife'; count: number | 'triggerAmount'; to?: PlayerSelector }
+  | { kind: 'damage'; amount: number; to: PlayerSelector }
   | { kind: 'drainOpponentsX'; multiplier: number }
   | { kind: 'drawX' }
   /** Draw cards equal to the number of cards in your hand, plus `plus`. */
@@ -194,7 +206,9 @@ export type CardInstruction =
       kind: 'loseLife'
       amount: number | 'triggerAmount'
       who: 'triggeringPlayer' | 'controller'
+      to?: never
     }
+  | { kind: 'loseLife'; amount: number; to: PlayerSelector; who?: never }
   | { kind: 'loseLifeTargetPlayer'; amount: number }
   | { kind: 'loseLifeTargetManaValue' }
   | { kind: 'loseLifeTargetController'; amount: number }
@@ -720,7 +734,7 @@ export type CardEffect =
       /** Filter the event's involved object; departure triggers use its pre-move characteristics. */
       watch?: TargetFilter
       /** Involved player, relative to the source controller; zone moves use the departing controller. */
-      player?: 'you' | 'opponent' | 'any'
+      player?: 'you' | 'opponent' | 'any' | PlayerFilter
       /** Origin zone for zone-change triggers. */
       from?: ZoneId | ZoneId[]
       /** Match the nth successful draw by the involved player this turn. */

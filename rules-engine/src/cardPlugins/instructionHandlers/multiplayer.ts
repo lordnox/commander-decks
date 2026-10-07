@@ -1,3 +1,4 @@
+import { selectedPlayers } from '../playerSelectors'
 import { apnapSeats } from '../../turnOrder'
 import type { PlayerId } from '../../types'
 import { copyTokenTemplate, createToken } from '../effects'
@@ -66,10 +67,10 @@ const eachPlayerSacrifice: InstructionHandler<'eachPlayerSacrifice'> = (
 }
 
 const eachPlayerLoseLife: InstructionHandler<'eachPlayerLoseLife'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
-  for (const seat of apnapSeats(draft)) {
+  for (const seat of selectedPlayers(draft, { kind: 'players', filter: { relation: 'any' } }, item?.controller ?? source.controller)) {
     draft.enqueue({
       type: 'loseLife',
       seat,
@@ -80,11 +81,10 @@ const eachPlayerLoseLife: InstructionHandler<'eachPlayerLoseLife'> = (
 }
 
 const opponentsLoseLife: InstructionHandler<'opponentsLoseLife'> = (
-  { draft, source },
+  { draft, source, item },
   instruction,
 ) => {
-  for (const seat of apnapSeats(draft)) {
-    if (seat === source.controller || draft.players[seat].lost) continue
+  for (const seat of selectedPlayers(draft, { kind: 'players', filter: { relation: 'opponent' } }, item?.controller ?? source.controller)) {
     draft.enqueue({
       type: 'loseLife',
       seat,

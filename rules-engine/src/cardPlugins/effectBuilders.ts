@@ -13,6 +13,8 @@ import type {
   RevealUntilNonMatch,
   InstructionCount,
   TargetFilter,
+  PlayerFilter,
+  PlayerSelector,
   VoteOptions,
   VoterGroup,
   GiftSpec,
@@ -54,9 +56,18 @@ export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffe
   do: instructions,
 })
 
+/** Select all living players matching a predicate; this never declares targets. */
+export const players = (filter: PlayerFilter | NonNullable<PlayerFilter['relation']> = 'any'): PlayerSelector => ({
+  kind: 'players', filter: typeof filter === 'string' ? { relation: filter } : filter,
+})
+
+export const damage = (options: { amount: number; to: PlayerSelector }): CardInstruction => ({
+  kind: 'damage', ...options,
+})
+
 export type TriggerOptions = {
   filter?: TargetFilter
-  player?: 'you' | 'opponent' | 'any'
+  player?: 'you' | 'opponent' | 'any' | PlayerFilter
   from?: ZoneId | ZoneId[]
   nthThisTurn?: number
   if?: CardCondition | TriggerBindingIf
@@ -637,10 +648,8 @@ export const eachPlayerMayWheel = (count: number): CardInstruction => ({
   count,
 })
 
-export const eachPlayerLoseLife = (amount: number): CardInstruction => ({
-  kind: 'eachPlayerLoseLife',
-  amount,
-})
+export const eachPlayerLoseLife = (amount: number): CardInstruction =>
+  loseLife({ amount, to: players('any') })
 
 export const eachPlayerSacrifice = (type: string): CardInstruction => ({
   kind: 'eachPlayerSacrifice',
@@ -686,10 +695,8 @@ export const untapUpToLands = (count: number): CardInstruction => ({
   count,
 })
 
-export const opponentsLoseLife = (amount: number): CardInstruction => ({
-  kind: 'opponentsLoseLife',
-  amount,
-})
+export const opponentsLoseLife = (amount: number): CardInstruction =>
+  loseLife({ amount, to: players('opponent') })
 
 export const revealTopLandsTapped = (): CardInstruction => ({ kind: 'revealTopLandsTapped' })
 
@@ -1258,10 +1265,11 @@ export const getEnergy = (count: number): CardInstruction => ({ kind: 'getEnergy
 
 export const payEnergy = (count: number): CardInstruction => ({ kind: 'payEnergy', count })
 
-export const gainLife = (count: number | 'triggerAmount'): CardInstruction => ({
-  kind: 'gainLife',
-  count,
-})
+export const gainLife = (
+  value: number | 'triggerAmount' | { amount: number; to: PlayerSelector },
+): CardInstruction => typeof value === 'object'
+  ? { kind: 'gainLife', count: value.amount, to: value.to }
+  : { kind: 'gainLife', count: value }
 
 export const drainOpponentsX = (multiplier = 1): CardInstruction => ({
   kind: 'drainOpponentsX',
@@ -1532,10 +1540,16 @@ export const xMana = (color: 'generic' | 'black' = 'generic'): CardEffect => ({
   xMana: color,
 })
 
-export const loseLife = (
-  amount: number | 'triggerAmount',
-  who: 'triggeringPlayer' | 'controller',
-): CardInstruction => ({ kind: 'loseLife', amount, who })
+export function loseLife(options: { amount: number; to: PlayerSelector }): CardInstruction
+export function loseLife(amount: number | 'triggerAmount', who: 'triggeringPlayer' | 'controller'): CardInstruction
+export function loseLife(
+  value: number | 'triggerAmount' | { amount: number; to: PlayerSelector },
+  who: 'triggeringPlayer' | 'controller' = 'controller',
+): CardInstruction {
+  return typeof value === 'object'
+    ? { kind: 'loseLife', amount: value.amount, to: value.to }
+    : { kind: 'loseLife', amount: value, who }
+}
 
 export const loseLifeTargetPlayer = (amount: number): CardInstruction => ({
   kind: 'loseLifeTargetPlayer',

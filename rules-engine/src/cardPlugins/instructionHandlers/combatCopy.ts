@@ -1,3 +1,4 @@
+import { selectedPlayers } from '../playerSelectors'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { openCardSelection } from '../../rules/selectCards'
 import {
@@ -15,6 +16,15 @@ import {
 import { untapPermanent } from '../../rules/untap'
 import { openStackCopyChoice } from '../stackCopy'
 import type { InstructionHandler, InstructionHandlers } from './types'
+
+const damage: InstructionHandler<'damage'> = ({ draft, source, item }, instruction) => {
+  for (const player of selectedPlayers(draft, instruction.to, item?.controller ?? source.controller)) {
+    draft.enqueue({
+      type: 'dealDamage', sourceId: source.id,
+      target: { kind: 'player', player }, amount: instruction.amount,
+    })
+  }
+}
 
 const dealDamageTargetX: InstructionHandler<'dealDamageTargetX'> = (
   { draft, source, item },
@@ -337,6 +347,7 @@ const copyTargetSpell: InstructionHandler<'copyTargetSpell'> = (
 }
 
 export const combatCopyHandlers = {
+  damage,
   dealDamageTargetX,
   pumpAllCreaturesByX,
   teferiSunsetPlusOne,
