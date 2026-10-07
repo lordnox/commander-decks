@@ -1,4 +1,4 @@
-import { selectedPlayers } from '../playerSelectors'
+import { selectedPlayers } from '../selectors'
 import type Draft from '../../draft'
 import type { PlayerId, StackItem } from '../../types'
 import { swampCount } from '../../plugins/swampOverlay'

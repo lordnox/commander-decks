@@ -183,3 +183,25 @@ in [RULE-DSL.md](RULE-DSL.md).
 Existing numeric `gainLife`, `loseLife(amount, who)`, `opponentsLoseLife`, and
 `eachPlayerLoseLife` calls remain valid. The group-specific builders produce the
 shared life-loss instruction; saved legacy instruction kinds also remain supported.
+
+## API module layout
+
+Authoring APIs live in `src/cardPlugins/` modules named for their role:
+
+| Module | Responsibility |
+| --- | --- |
+| `triggers.ts` | Trigger builders and shared trigger options |
+| `triggers/matching.ts` | Match events against trigger definitions |
+| `instructions.ts` | Actions performed when an ability or spell resolves |
+| `selectors.ts`, `selectors/players.ts` | Selector builders and player matching |
+| `conditions.ts` | Reusable conditions and event predicates |
+| `replacements.ts` | Existing replacement builders |
+| `staticEffects.ts` | Continuous/static effect builders |
+| `abilities.ts` | Activated abilities, casting costs, and other ability declarations |
+| `effectDefinitions.ts` | Shared serialized types |
+
+`effects.ts` exposes these modules as the convenient public API. `effectBuilders.ts`,
+`triggerMatching.ts`, and `playerSelectors.ts` remain compatibility exports. The kernel
+collector remains in `src/rules/triggers.ts`; instruction execution remains in
+`src/cardPlugins/instructionHandlers/`. Proposed replacement/static extensions should
+be implemented in their corresponding modules rather than a general builder file.

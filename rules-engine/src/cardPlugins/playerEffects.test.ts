@@ -6,7 +6,7 @@ import { ok, resolveStack } from '../testHelpers'
 import type { Plugin } from '../types'
 import { activate, damage, gainLife, loseLife, opponentsLoseLife, players, type CardInstruction } from './effects'
 import { activated } from './activated'
-import { selectedPlayers } from './playerSelectors'
+import { selectedPlayers } from './selectors'
 
 const game = (instructions: CardInstruction[], plugins: Plugin[] = [], oracleText = '') =>
   createServerGame(commanderRules, {

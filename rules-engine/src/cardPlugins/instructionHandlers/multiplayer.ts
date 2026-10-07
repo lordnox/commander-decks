@@ -1,4 +1,4 @@
-import { selectedPlayers } from '../playerSelectors'
+import { selectedPlayers } from '../selectors'
 import { apnapSeats } from '../../turnOrder'
 import type { PlayerId } from '../../types'
 import { copyTokenTemplate, createToken } from '../effects'
