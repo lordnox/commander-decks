@@ -18,6 +18,7 @@ export const RANDOM_EXILE_COPY_FINISH = 'randomExileCopy.finish'
 export type LinkedExilePump = { power: number; toughness: number } | { fromLinked: true }
 
 export type CardCondition =
+  | { kind: 'sourceType'; type: string }
   | { kind: 'otherLands'; min?: number; max?: number; subtype?: string }
   | { kind: 'controlledLands'; min?: number; max?: number }
   | { kind: 'controlledBasicLands'; min?: number; max?: number }
@@ -100,6 +101,7 @@ export type VoteOptions =
   | { kind: 'objects'; filter: TargetFilter }
 
 export type CardInstruction =
+  | { kind: 'exileTargetPlayerGraveyard' }
   | { kind: 'selfMill'; count: number }
   | { kind: 'millTarget'; count: number }
   | { kind: 'bounceSelf' }

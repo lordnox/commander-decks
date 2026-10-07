@@ -216,6 +216,7 @@ export const conditionHolds = (
   triggering?: GameObject,
 ) => {
   if (!condition) return true
+  if (condition.kind === 'sourceType') return object.types.includes(condition.type)
   if (condition.kind === 'notActivePlayer') return state.active !== object.controller
   if (condition.kind === 'otherLands') {
     const lands = otherControlledLands(state, object).filter((land) =>

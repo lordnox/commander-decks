@@ -3,6 +3,7 @@ import { effectsFor } from './cardPlugins/cardRules'
 import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
 import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
+import { applyFace } from './plugins/doubleFaced'
 import { applyRoomCard, applyRoomDoors } from './plugins/rooms'
 import type { GameFormat } from './formats'
 import {
@@ -122,6 +123,10 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
       ])],
       effects,
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
+    }
+    // CR 712.8a: outside the battlefield and stack, use the front face.
+    if (objects[id].frontFace && !['battlefield', 'stack'].includes(objects[id].zone)) {
+      applyFace(objects[id], objects[id].frontFace!)
     }
     if (objects[id].roomDoors) {
       if (objects[id].zone === 'battlefield') {
