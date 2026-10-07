@@ -178,24 +178,6 @@
         "land"
       ]
     },
-    "5554db95-9676-4c24-b82a-8173513d7927": {
-      "name": "Fisk Tower",
-      "categories": [
-        "land"
-      ]
-    },
-    "063dd25b-d4b4-4e09-acae-8c52dcb40803": {
-      "name": "Foot Headquarters",
-      "categories": [
-        "land"
-      ]
-    },
-    "ebb3e2ff-2214-4e11-88fb-e0fa84288cf1": {
-      "name": "Forlorn Flats",
-      "categories": [
-        "land"
-      ]
-    },
     "349ea6c7-6b3e-417f-b082-b712e2b1635b": {
       "name": "Forum of Amity",
       "categories": [
@@ -392,12 +374,6 @@
         "token-production"
       ]
     },
-    "d37f858e-03c8-4594-9b92-cd03699a1591": {
-      "name": "Scoured Barrens",
-      "categories": [
-        "land"
-      ]
-    },
     "70113003-be5e-406a-9aec-cb480468c36d": {
       "name": "Sephiroth, Fabled SOLDIER // Sephiroth, One-Winged Angel",
       "categories": [
@@ -419,12 +395,6 @@
     },
     "c9fc13d6-bd10-47bc-b2b6-7f67a1f3371e": {
       "name": "Shineshadow Snarl",
-      "categories": [
-        "land"
-      ]
-    },
-    "2b65eb80-6fb7-429f-81f2-2fe125eba634": {
-      "name": "Silverquill Campus",
       "categories": [
         "land"
       ]
@@ -607,6 +577,38 @@
         "Commander{top}",
         "token-production",
         "drain"
+      ]
+    },
+    "73864fcc-1bde-4bc0-831e-2b93e546e417": {
+      "name": "Godless Shrine",
+      "categories": [
+        "land"
+      ]
+    },
+    "ebc5ac83-08d4-4d6b-b840-0c4ba71a38ab": {
+      "name": "Vault of Champions",
+      "categories": [
+        "land"
+      ]
+    },
+    "727f3201-1cfc-4ab2-9dfe-be4f7251f42f": {
+      "name": "Boggart Trawler // Boggart Bog",
+      "categories": [
+        "land",
+        "graveyard-hate"
+      ]
+    },
+    "2d899466-b1eb-4901-b626-1f2fb09b786d": {
+      "name": "Concealed Courtyard",
+      "categories": [
+        "land"
+      ]
+    },
+    "04b7362d-0490-4cb0-b5d7-2a7732f659ce": {
+      "name": "Bojuka Bog",
+      "categories": [
+        "land",
+        "graveyard-hate"
       ]
     }
   }

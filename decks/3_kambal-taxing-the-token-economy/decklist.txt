@@ -25,9 +25,9 @@
 1 Evolving Wilds
 1 Fabled Passage
 1 Fetid Heath
-1 Fisk Tower
-1 Foot Headquarters
-1 Forlorn Flats
+1 Godless Shrine
+1 Vault of Champions
+1 Boggart Trawler
 1 Forum of Amity
 1 Funeral Room/Awakening Hall
 1 Generous Gift
@@ -57,12 +57,12 @@
 5 Plains
 1 Restless Fortress
 1 Saw in Half
-1 Scoured Barrens
+1 Concealed Courtyard
 1 Sephiroth, Fabled SOLDIER
 1 Shadrix Silverquill
 1 Shattered Sanctum
 1 Shineshadow Snarl
-1 Silverquill Campus
+1 Bojuka Bog
 1 Silverquill Lecturer
 1 Skullclamp
 1 Slaughter Specialist
