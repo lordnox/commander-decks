@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { pendingDialogFor } from '../pendingDialog'
+import { DIALOG_CHOSEN, pendingDialogFor } from '../pendingDialog'
 import { createServerGame } from '../runtime'
-import { ok } from '../testHelpers'
+import { ok, resolveStack } from '../testHelpers'
 import type { CardTemplate } from '../newGame'
 import type { GameState, PlayerId } from '../types'
 import { castModal, casts, draw, gainLife, type CardEffect } from './effects'
@@ -56,18 +56,21 @@ describe('cast triggers with seat and spell-type filters', () => {
       op: 'trigger',
       on: 'cast',
       do: [draw(1), gainLife(2)],
-      castBy: 'opponent',
-      noncreatureOnly: true,
+      player: 'opponent',
+      watch: { noncreature: true },
     })
   })
 
   test('an opponent casting a noncreature spell draws the watcher controller a card', () => {
     const server = game([watcher('Nezahal Stand-in', OPPONENT_NONCREATURE)])
-    const afterP2 = cast(server, 'p2', 'P2 Trick')
+    const queued = cast(server, 'p2', 'P2 Trick')
+    expect(handNames(queued, 'p1')).not.toContain('Lib A')
+    expect(queued.stack[0].kind).toBe('ability')
+    const afterP2 = resolveStack(server.rules, queued)
     expect(handNames(afterP2, 'p1')).toContain('Lib A')
     expect(handNames(afterP2, 'p2')).not.toContain('Lib A')
 
-    const afterP3 = cast(server, 'p3', 'P3 Trick', afterP2)
+    const afterP3 = resolveStack(server.rules, cast(server, 'p3', 'P3 Trick', afterP2))
     expect(handNames(afterP3, 'p1')).toEqual(expect.arrayContaining(['Lib A', 'Lib B']))
   })
 
@@ -95,16 +98,29 @@ describe('cast triggers with seat and spell-type filters', () => {
 
   test('without a castBy filter only the controller casts fire, as before', () => {
     const server = game([watcher('Own Creature Watcher', casts(draw(1), { creatureOnly: true }))])
-    expect(handNames(cast(server, 'p1', 'P1 Bear'), 'p1')).toContain('Lib A')
-    expect(handNames(cast(server, 'p1', 'P1 Trick'), 'p1')).not.toContain('Lib A')
+    expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Bear')), 'p1')).toContain('Lib A')
+    expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Trick')), 'p1')).not.toContain('Lib A')
     expect(handNames(cast(server, 'p2', 'P2 Bear'), 'p1')).not.toContain('Lib A')
   })
 
   test('the noncreature filter also works on the controller\'s own casts', () => {
     const server = game([watcher('Own Spell Watcher', casts(draw(1), { noncreatureOnly: true }))])
-    expect(handNames(cast(server, 'p1', 'P1 Trick'), 'p1')).toContain('Lib A')
-    expect(handNames(cast(server, 'p1', 'P1 Bear'), 'p1')).not.toContain('Lib A')
+    expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Trick')), 'p1')).toContain('Lib A')
+    expect(handNames(resolveStack(server.rules, cast(server, 'p1', 'P1 Bear')), 'p1')).not.toContain('Lib A')
     expect(handNames(cast(server, 'p2', 'P2 Trick'), 'p1')).not.toContain('Lib A')
+  })
+
+  test('a selected modal cast ability resolves separately from choosing its mode', () => {
+    const server = game([watcher('Modal Watcher', castModal({
+      choose: 'one', modes: [{ id: 'life', label: 'Gain life.', do: [gainLife(2)] }],
+    }))])
+    const castState = cast(server, 'p1', 'P1 Trick')
+    const chosen = ok(server.rules(castState, {
+      type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { modes: ['Gain life.'] },
+    }))
+    expect(chosen.players.p1.life).toBe(40)
+    expect(chosen.stack.map((item) => item.kind)).toEqual(['ability', 'spell'])
+    expect(resolveStack(server.rules, chosen).players.p1.life).toBe(42)
   })
 
   test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {
@@ -119,7 +135,8 @@ describe('cast triggers with seat and spell-type filters', () => {
     ])
     const state = cast(server, 'p2', 'P2 Trick')
 
-    expect(handNames(state, 'p1')).toEqual(expect.arrayContaining(['Lib A', 'Lib B']))
+    expect(handNames(state, 'p1')).not.toContain('Lib A')
+    expect(state.stack.filter((item) => item.kind === 'ability')).toHaveLength(2)
     expect(pendingDialogFor(state, 'p1')).toMatchObject({ kind: 'choose-modes', seat: 'p1' })
     expect(pendingDialogFor(state, 'p2')).toBeUndefined()
   })

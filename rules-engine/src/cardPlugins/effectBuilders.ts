@@ -54,10 +54,39 @@ export const onBecomesMonstrous = (...instructions: CardInstruction[]): CardEffe
   do: instructions,
 })
 
-export type EntersOptions = {
+export type TriggerOptions = {
+  filter?: TargetFilter
+  player?: 'you' | 'opponent' | 'any'
+  from?: ZoneId | ZoneId[]
+  nthThisTurn?: number
+  if?: CardCondition | TriggerBindingIf
+  targets?: Extract<CardEffect, { op: 'trigger' }>['targets']
+  onceEachTurn?: boolean
+}
+
+/** Shared event binding; matching is separate from the instructions run on resolution. */
+export const trigger = (
+  on: Extract<CardEffect, { op: 'trigger' }>['on'],
+  options: TriggerOptions,
+  ...instructions: CardInstruction[]
+): Extract<CardEffect, { op: 'trigger' }> => ({
+  op: 'trigger',
+  on: options.filter && on === 'enters' ? 'permanentEnters'
+    : options.filter && on === 'dies' ? 'permanentDies'
+      : options.filter && on === 'leaves' ? 'permanentLeaves' : on,
+  do: instructions,
+  ...(options.filter ? { watch: options.filter } : {}),
+  ...(options.player ? { player: options.player } : {}),
+  ...(options.from ? { from: options.from } : {}),
+  ...(options.nthThisTurn !== undefined ? { nthThisTurn: options.nthThisTurn } : {}),
+  ...(options.if ? { if: options.if } : {}),
+  ...(options.targets ? { targets: options.targets } : {}),
+  ...(options.onceEachTurn ? { onceEachTurn: true } : {}),
+})
+
+export type EntersOptions = TriggerOptions & {
   /** Watch any entering permanent matching this filter, including the source. */
   filter: TargetFilter
-  if?: CardCondition
   /** Require token creation, excluding ordinary entry such as permanent spell copies (CR 111.13). */
   createdOnly?: boolean
 }
@@ -71,13 +100,7 @@ export function enters(
   const first = args[0]
   if (first && !('kind' in first)) {
     const [options, ...instructions] = args as [EntersOptions, ...CardInstruction[]]
-    return {
-      op: 'trigger',
-      on: options.createdOnly ? 'tokenCreated' : 'permanentEnters',
-      watch: options.filter,
-      do: instructions,
-      ...(options.if ? { if: options.if } : {}),
-    }
+    return trigger(options.createdOnly ? 'tokenCreated' : 'permanentEnters', options, ...instructions)
   }
   return { op: 'trigger', on: 'enters', do: args as CardInstruction[] }
 }
@@ -159,11 +182,15 @@ export const blinkSelf = (
   options: Pick<BlinkOptions, 'when' | 'tapped' | 'returnController'> = {},
 ): CardInstruction => blink({ ...options, self: true })
 
-export const dies = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'dies',
-  do: instructions,
-})
+export function dies(...instructions: CardInstruction[]): CardEffect
+export function dies(options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect
+export function dies(...args: Array<TriggerOptions | CardInstruction>): CardEffect {
+  const first = args[0]
+  if (first && !('kind' in first)) {
+    return trigger('permanentDies', { ...first, filter: first.filter ?? {} }, ...args.slice(1) as CardInstruction[])
+  }
+  return trigger('dies', {}, ...args as CardInstruction[])
+}
 
 /** When this dies as a creature, return under its owner's control as a noncreature enchantment. */
 export const diesReturnAsEnchantment = (): CardEffect => ({
@@ -185,11 +212,32 @@ export const persist = (): CardEffect => ({
   do: [{ kind: 'returnSelfWithCounter', counter: '-1/-1' }],
 })
 
-export const leaves = (...instructions: CardInstruction[]): CardEffect => ({
-  op: 'trigger',
-  on: 'leaves',
-  do: instructions,
-})
+export function leaves(...instructions: CardInstruction[]): CardEffect
+export function leaves(options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect
+export function leaves(...args: Array<TriggerOptions | CardInstruction>): CardEffect {
+  const first = args[0]
+  if (first && !('kind' in first)) {
+    return trigger('permanentLeaves', { ...first, filter: first.filter ?? {} }, ...args.slice(1) as CardInstruction[])
+  }
+  return trigger('leaves', {}, ...args as CardInstruction[])
+}
+
+/** Exile from any zone; options select watched objects, while no options watches the source itself. */
+export function exiled(...instructions: CardInstruction[]): CardEffect
+export function exiled(options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect
+export function exiled(...args: Array<TriggerOptions | CardInstruction>): CardEffect {
+  const first = args[0]
+  if (first && !('kind' in first)) {
+    return trigger('exiled', { ...first, filter: first.filter ?? {} }, ...args.slice(1) as CardInstruction[])
+  }
+  return trigger('exiled', {}, ...args as CardInstruction[])
+}
+
+export const draws = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
+  trigger('draw', { player: 'you', ...options }, ...instructions)
+
+export const discards = (options: TriggerOptions, ...instructions: CardInstruction[]): CardEffect =>
+  trigger('discard', { player: 'you', ...options }, ...instructions)
 
 export const landfall = (...instructions: CardInstruction[]): CardEffect => ({
   op: 'trigger',
@@ -866,12 +914,7 @@ export const permanentEnters = (
 export const permanentSacrificed = (
   watch: TargetFilter,
   ...instructions: CardInstruction[]
-): CardEffect => ({
-  op: 'trigger',
-  on: 'permanentSacrificed',
-  watch,
-  do: instructions,
-})
+): CardEffect => trigger('permanentSacrificed', { filter: watch }, ...instructions)
 
 export const putTriggeringCardOntoBattlefield = (): CardInstruction => ({
   kind: 'putTriggeringCardOntoBattlefield',
@@ -1508,18 +1551,8 @@ export const secondCardDrawn = (): TriggerBindingIf => ({
 /** Declarative trigger on a kernel event type (`discard`, `draw`, `end`, …). */
 export const triggerOn = (
   on: Extract<CardEffect, { op: 'trigger' }>['on'],
-  options: {
-    if?: TriggerBindingIf | CardCondition
-    do: CardInstruction[]
-    targets?: Extract<CardEffect, { op: 'trigger' }>['targets']
-  },
-): CardEffect => ({
-  op: 'trigger',
-  on,
-  do: options.do,
-  ...(options.if ? { if: options.if } : {}),
-  ...(options.targets ? { targets: options.targets } : {}),
-})
+  options: TriggerOptions & { do: CardInstruction[] },
+): CardEffect => trigger(on, options, ...options.do)
 
 export const loseLifeTargetManaValue = (): CardInstruction => ({
   kind: 'loseLifeTargetManaValue',
@@ -1965,41 +1998,35 @@ export const sagaChapters = (...chapters: SagaChapter[]): CardEffect => ({
   chapters,
 })
 
-type CastFilters = {
+type CastFilters = TriggerOptions & {
   creatureOnly?: boolean
   noncreatureOnly?: boolean
   castBy?: 'opponent'
 }
 
-const castFilters = (options: CastFilters = {}): CastFilters => ({
-  ...(options.creatureOnly ? { creatureOnly: true } : {}),
-  ...(options.noncreatureOnly ? { noncreatureOnly: true } : {}),
-  ...(options.castBy ? { castBy: options.castBy } : {}),
+const castFilters = (options: CastFilters = {}): TriggerOptions => ({
+  ...options,
+  player: options.player ?? (options.castBy === 'opponent' ? 'opponent' : 'you'),
+  filter: {
+    ...(options.creatureOnly ? { type: 'Creature' } : {}),
+    ...(options.noncreatureOnly ? { noncreature: true } : {}),
+    ...options.filter,
+  },
 })
 
-/** Instructions, then optionally the filters (an object without a `kind`) as the last argument. */
-export const casts = (
-  ...args: Array<CardInstruction | CastFilters>
-): CardEffect => {
+/** Accept options first, or the legacy options-last form. */
+export const casts = (...args: Array<CardInstruction | CastFilters>): CardEffect => {
+  const first = args[0]
   const last = args.at(-1)
-  const options = last && !('kind' in last) ? (args.pop() as CastFilters) : undefined
-  return {
-    op: 'trigger',
-    on: 'cast',
-    do: args as CardInstruction[],
-    ...castFilters(options),
-  }
+  const options = first && !('kind' in first)
+    ? args.shift() as CastFilters
+    : last && !('kind' in last) ? args.pop() as CastFilters : {}
+  return trigger('cast', castFilters(options), ...args as CardInstruction[])
 }
 
-export const castModal = (
-  modal: ModalSpec,
-  options: CastFilters = {},
-): CardEffect => ({
-  op: 'trigger',
-  on: 'cast',
-  do: [],
+export const castModal = (modal: ModalSpec, options: CastFilters = {}): CardEffect => ({
+  ...trigger('cast', castFilters(options)),
   modal,
-  ...castFilters(options),
 })
 
 export const loseHalfLifeRoundedUp = (): CardInstruction => ({ kind: 'loseHalfLifeRoundedUp' })
