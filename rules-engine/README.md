@@ -110,3 +110,50 @@ bun test rules-engine
    Handle activations with `whenAbility` / `activateAbility`.
 
 See `DESIGN.md`.
+
+## Shared trigger filters
+
+Trigger builders bind an event and matching options separately from the instructions
+run when the resulting ability resolves. Existing `enters(...)`, `dies(...)`, and
+`leaves(...)` calls still watch the source itself. Passing options watches matching
+objects, including the source unless `other: true` excludes it.
+
+```ts
+enters({ filter: { type: 'Creature', subtypes: ['Knight'], token: true,
+  colors: ['W'], controller: 'you' } }, gainLife(1))
+dies({ filter: { other: true, type: 'Creature', controller: 'you' } }, draw(1))
+leaves({ filter: { token: true, controller: 'you' } }, gainLife(1))
+exiled({ from: ['graveyard', 'library'], filter: { owner: 'you', type: 'Creature' } }, gainLife(1))
+draws({ player: 'opponent', nthThisTurn: 2 }, gainLife(1))
+discards({ player: 'opponent', filter: { type: 'Creature' } }, gainLife(1))
+casts({ player: 'you', filter: { noncreature: true, colors: ['W'] } }, draw(1))
+```
+
+The generic `trigger(event, options, ...instructions)` builder uses the same matching
+and stack path. `triggerOn(event, { ...options, do: [...] })` remains supported.
+`permanentEnters` and `permanentSacrificed` also reuse these filters. Legacy cast
+options (`creatureOnly`, `noncreatureOnly`, `castBy`) are translated into shared
+filters; options-last cast calls remain supported.
+
+Filter fields combine with AND. `all`, `any`, and `not` compose nested filters, e.g.
+`{ any: [{ subtypes: ['Knight'] }, { subtypes: ['Soldier'] }], not: { token: true } }`.
+`colors` requires every listed color but allows additional colors. `controller` and
+`owner` compare against the trigger source's controller; token status is separate
+from card types and subtypes. These predicates also work in target filters, where
+targeting restrictions are applied separately.
+
+`player` selects `you`, `opponent`, or `any`. Draw and discard helpers default to
+`you`; cast helpers retain their default of your casts. Zone-change events identify
+the involved object's previous controller, not the player who caused the move;
+use `filter.owner` when ownership matters. `onceEachTurn` limits each ability
+independently. `nthThisTurn` applies to successful draws and counts each card in a
+multi-card draw separately. Empty-library attempts and replaced draws do not fire
+draw triggers.
+
+Death requires a creature moving from the battlefield to a graveyard. Death,
+leaving, and explicit exile-from-zone triggers use pre-move information. An exile
+trigger without an origin restriction watches the resulting state; an unfiltered
+`exiled(...)` watches the source's own exile. Entry with `createdOnly: true` requires
+token creation, so resolving copies of permanent spells do not match it. Cast
+abilities queue above the spell and resolve separately; modal casts retain their
+existing mode picker and queue the selected instructions.

@@ -11,13 +11,12 @@ import {
   extraTriggerCount,
   runInstructions,
   triggerEffects,
-  type CardCondition,
   type CardEffect,
   type TargetFilter,
 } from '../cardPlugins/effects'
 import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
-import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'
+import { validTarget } from '../cardPlugins/targetedResolve'
 import { openCardSelection, targetDestinations } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
@@ -28,7 +27,6 @@ import type {
   PlayerId,
   Plugin,
   TargetRef,
-  TriggerBindingIf,
 } from '../types'
 import { asRoomDoor } from '../plugins/rooms'
 import {
@@ -37,6 +35,7 @@ import {
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
+import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggerMatching'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
@@ -58,47 +57,6 @@ type PendingTrigger = {
   triggeringPlayer?: PlayerId
   triggerAmount?: number
   payload?: Record<string, unknown>
-}
-
-const isTriggerBindingIf = (
-  condition: CardCondition | TriggerBindingIf,
-): condition is TriggerBindingIf =>
-  !('kind' in condition)
-
-const triggerIfPasses = (
-  state: GameState,
-  source: GameObject,
-  event: GameEvent,
-  condition?: CardCondition | TriggerBindingIf,
-) => {
-  if (!condition) return true
-  if (!isTriggerBindingIf(condition)) {
-    return conditionHolds(condition, state, source)
-  }
-  if (condition.fromSpell && event.type !== 'resolveTop') return false
-  if (condition.duringActiveTurn) {
-    if (!('seat' in event) || typeof event.seat !== 'string' || event.seat !== state.active) {
-      return false
-    }
-  }
-  if (condition.opponentControlsSameName) {
-    if (!('seat' in event) || typeof event.seat !== 'string' || event.seat === source.controller) {
-      return false
-    }
-    const named = Object.values(state.objects).some((candidate) =>
-      candidate.zone === 'battlefield'
-      && candidate.controller === event.seat
-      && candidate.name === source.name)
-    if (!named) return false
-  }
-  if (!('seat' in event) || typeof event.seat !== 'string') return true
-  if (condition.seat === 'opponent' && event.seat === source.controller) return false
-  if (condition.seat === 'controller' && event.seat !== source.controller) return false
-  if (typeof condition.cardsDrawnThisTurn === 'number') {
-    const drawer = state.players[event.seat]
-    if (!drawer || cardsDrawnThisTurn(drawer) !== condition.cardsDrawnThisTurn) return false
-  }
-  return true
 }
 
 /** Landfall listens to land drops and zone moves, not ability resolution. */
@@ -179,21 +137,20 @@ const collectEffects = (
   state: GameState,
   matches: PendingTrigger[],
   copies = 1,
-  meta: TriggerMeta & { watched?: GameObject } = {},
+  meta: TriggerMeta & { watched?: GameObject; fromZone?: GameObject['zone'] } = {},
   event?: GameEvent,
+  accepts: (effect: TriggerEffect) => boolean = () => true,
 ) => {
   if (source.phasedOut) return
-  const { watched, ...pending } = meta
+  const { watched, fromZone, ...pending } = meta
   const catalog = effectsOf(source)
   for (const effect of triggerEffects(catalog, on)) {
-    if (effect.sourceTypeAtTrigger && !source.types.includes(effect.sourceTypeAtTrigger)) continue
-    if (
-      effect.watch
-      && !matchesTargetFilter(state, watched, effect.watch, source.controller, undefined, source.id)
-    ) continue
-    if (effect.if && isTriggerBindingIf(effect.if)) {
-      if (!event || !triggerIfPasses(state, source, event, effect.if)) continue
-    } else if (effect.if && !conditionHolds(effect.if, state, source, undefined, watched)) continue
+    if (!accepts(effect)) continue
+    if (on === 'cast' && effect.modal) continue
+    if (on === 'exiled' && !effect.watch && source.id !== watched?.id) continue
+    if (!matchesTriggerEvent(state, source, effect, {
+      watched, player: meta.triggeringPlayer, fromZone, event,
+    })) continue
     if (!passesOnceEachTurn(source, effect, catalog, state.turn)) continue
     const stackCopies = effect.onceEachTurn ? 1 : copies
     pushCopies(matches, source, effect, stackCopies, {
@@ -290,7 +247,7 @@ const collectEnters = (
     event,
   )
   for (const watcher of draft.zoneOf('battlefield')) {
-    const meta = { triggeringObjectId: object.id, watched: object }
+    const meta = { triggeringObjectId: object.id, triggeringPlayer: object.controller, watched: object }
     collectEffects(watcher, 'permanentEnters', draft, matches, 1, meta)
     // CR 111.13: a resolving permanent spell copy enters as a token but is not created.
     if (event.type === 'custom' && event.name === 'cardPlugins.permanentEntered'
@@ -472,41 +429,90 @@ const collectMoveTriggers = (
     }
   }
 
-  if (before.zone === 'battlefield' && event.to !== 'battlefield') {
+  const after = draft.object(before.id)
+  if (!after || after.zone === before.zone) return
+  const meta = {
+    triggeringObjectId: before.id,
+    triggeringPlayer: before.controller,
+    watched: before,
+  }
+  const departed = before.zone === 'battlefield' && after.zone !== 'battlefield'
+  const died = departed && after.zone === 'graveyard' && before.types.includes('Creature')
+  // CR 603.10: departure watchers use the battlefield and characteristics before the move.
+  const watchers = departed ? Object.values(state.objects) : draft.zoneOf('battlefield')
+  for (const watcher of watchers) {
+    if (watcher.zone !== 'battlefield') continue
+    if (departed) collectEffects(watcher, 'permanentLeaves', state, matches, 1, meta, event)
+    if (died) collectEffects(watcher, 'permanentDies', state, matches, 1, meta, event)
+
+  }
+
+  if (after.zone === 'exile') {
+    // From-anywhere exile triggers use the resulting state; explicit departures look back (CR 603.10).
+    for (const source of Object.values(state.objects)) {
+      if (source.zone !== 'battlefield') continue
+      collectEffects(source, 'exiled', state, matches, 1, {
+        ...meta, fromZone: before.zone,
+      }, event, (effect) => !effect.watch || effect.from !== undefined)
+    }
+    for (const source of draft.zoneOf('battlefield')) {
+      collectEffects(source, 'exiled', draft, matches, 1, {
+        ...meta, watched: after, fromZone: before.zone,
+      }, event, (effect) => Boolean(effect.watch) && effect.from === undefined)
+    }
+  }
+
+  if (departed) {
     // The leaving object stops existing for the ledger, so the ability keeps what it knew.
     collectEffects(before, 'leaves', state, matches, 1, before.damageDealtBy
       ? { payload: { lastKnownDamage: before.damageDealtBy } }
       : {})
   }
 
-  if (before.zone === 'battlefield' && event.to === 'graveyard' && before.types.includes('Creature')) {
+  if (died) {
     collectEffects(before, 'dies', state, matches)
   }
 }
 
 const collectDiscardDraw = (
+  state: GameState,
   draft: Draft,
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
   if (!EVENT_TRIGGER_ON.has(event.type)) return
-
+  const player = 'seat' in event && typeof event.seat === 'string' ? event.seat : undefined
+  let watched: GameObject | undefined
+  if (event.type === 'draw') {
+    if (!player || cardsDrawnThisTurn(draft.players[player]) <= cardsDrawnThisTurn(state.players[player])) return
+    const drawnId = state.zoneOrder[player].library[0]
+    watched = drawnId ? state.objects[drawnId] : undefined
+  } else if (event.type === 'discard') {
+    watched = state.objects[event.objectId]
+    if (!watched || watched.zone !== 'hand' || watched.controller !== event.seat) return
+  }
   for (const source of draft.zoneOf('battlefield')) {
-    const live = draft.object(source.id)
-    if (!live || live.zone !== 'battlefield') continue
+    collectEffects(source, event.type as TriggerEffect['on'], draft, matches, 1, {
+      triggeringPlayer: player,
+      ...(watched ? { triggeringObjectId: watched.id, watched } : {}),
+      ...(event.type === 'gainLife' ? { triggerAmount: event.amount } : {}),
+    }, event)
+  }
+}
 
-    const catalog = effectsOf(live)
-    for (const effect of catalog) {
-      if (effect.op !== 'trigger' || effect.on !== event.type) continue
-      if (!EVENT_TRIGGER_ON.has(effect.on)) continue
-      if (!triggerIfPasses(draft, live, event, effect.if)) continue
-      if (!passesOnceEachTurn(live, effect, catalog, draft.turn)) continue
-      pushCopies(matches, live, effect, 1, {
-        triggerEffectKey: triggerEffectKey(catalog, effect),
-        triggeringPlayer: 'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
-        triggerAmount: event.type === 'gainLife' ? event.amount : undefined,
-      })
-    }
+const collectCasts = (
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  if (event.type !== 'castSpell') return
+  const spell = draft.object(event.objectId)
+  if (!spell || spell.zone !== 'stack') return
+  for (const source of draft.zoneOf('battlefield')) {
+    // Modal cast triggers retain their existing mode picker, which queues the chosen ability.
+    collectEffects(source, 'cast', draft, matches, 1, {
+      triggeringObjectId: spell.id, triggeringPlayer: event.seat, watched: spell,
+    }, event)
   }
 }
 
@@ -630,7 +636,8 @@ const collectEventTriggers = (
   for (const on of STEP_TRIGGERS) collectStep(on, state, draft, event, matches)
   collectCombatDamage(state, draft, event, matches)
   collectMoveTriggers(state, draft, event, matches)
-  collectDiscardDraw(draft, event, matches)
+  collectDiscardDraw(state, draft, event, matches)
+  collectCasts(draft, event, matches)
   collectDelayedTriggers(state, draft, event, matches)
   collectRoomUnlock(state, draft, event, matches)
   collectVotesFinished(state, draft, event, matches)

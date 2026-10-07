@@ -563,6 +563,12 @@ export type ActivateCost = {
 export type SearchDestination = 'hand' | 'battlefield' | 'graveyard'
 
 export type TargetFilter = {
+  /** Boolean composition; fields on the same filter also combine with AND. */
+  all?: TargetFilter[]
+  any?: TargetFilter[]
+  not?: TargetFilter
+  owner?: 'you' | 'opponent'
+
   zone?: ZoneId
   zones?: ZoneId[]
   /** Restrict a spell target by the zone it was cast from. */
@@ -680,6 +686,9 @@ export type CardEffect =
       op: 'trigger'
       on:
         | 'enters'
+        | 'permanentLeaves'
+        | 'permanentDies'
+        | 'exiled'
         | 'leaves'
         | 'dies'
         | 'landfall'
@@ -708,13 +717,14 @@ export type CardEffect =
         | 'permanentSacrificed'
         | 'votesFinished'
       do: CardInstruction[]
-      /**
-       * For `tokenCreated`, `permanentEnters`, and `permanentSacrificed`: the permanent that
-       * entered or was sacrificed, not necessarily the source, must match. The
-       * filter reads that permanent's characteristics as the event saw them,
-       * and `controller` is relative to this ability's controller.
-       */
+      /** Filter the event's involved object; departure triggers use its pre-move characteristics. */
       watch?: TargetFilter
+      /** Involved player, relative to the source controller; zone moves use the departing controller. */
+      player?: 'you' | 'opponent' | 'any'
+      /** Origin zone for zone-change triggers. */
+      from?: ZoneId | ZoneId[]
+      /** Match the nth successful draw by the involved player this turn. */
+      nthThisTurn?: number
       if?: CardCondition | TriggerBindingIf
       /** Active source type checked only when detecting the trigger, never on resolution. */
       sourceTypeAtTrigger?: string

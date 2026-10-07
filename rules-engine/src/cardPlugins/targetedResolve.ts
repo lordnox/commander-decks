@@ -59,6 +59,13 @@ export const matchesTargetFilter = (
   excludeSourceId?: string,
 ) => {
   if (!object) return false
+  const matches = (part: TargetFilter) =>
+    matchesTargetFilter(state, object, part, controller, castOption, excludeSourceId)
+  if (filter.all && !filter.all.every(matches)) return false
+  if (filter.any && !filter.any.some(matches)) return false
+  if (filter.not && matches(filter.not)) return false
+  if (filter.owner === 'you' && object.owner !== controller) return false
+  if (filter.owner === 'opponent' && object.owner === controller) return false
   if (filter.other && excludeSourceId && object.id === excludeSourceId) return false
   if (filter.excludeSubtypes?.some((subtype) => object.subtypes.includes(subtype))) {
     return false
