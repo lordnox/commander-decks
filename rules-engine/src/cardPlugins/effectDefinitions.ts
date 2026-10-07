@@ -592,6 +592,8 @@ export type TargetFilter = {
   stealIfTypes?: string[]
   /** Subtype, honoring land-type overlays (a Forest/Swamp overlay makes every land one). */
   subtype?: string
+  /** Required colors; every listed color must be present (additional colors are allowed). */
+  colors?: string[]
   token?: boolean
   nontoken?: boolean
   powerAtLeast?: number
