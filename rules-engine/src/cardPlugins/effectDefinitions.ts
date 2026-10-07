@@ -712,6 +712,8 @@ export type CardEffect =
        */
       watch?: TargetFilter
       if?: CardCondition | TriggerBindingIf
+      /** Active source type checked only when detecting the trigger, never on resolution. */
+      sourceTypeAtTrigger?: string
       creatureOnly?: boolean
       /** A `cast` trigger only fires for noncreature spells. */
       noncreatureOnly?: boolean

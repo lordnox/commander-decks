@@ -90,6 +90,18 @@ describe('Kambal added mana and graveyard cards', () => {
     expect(state.zoneOrder.p1.graveyard.length).toBe(1)
     expect(pendingDialogFor(state, 'p1')).toBeUndefined()
   })
+  test('Trawler exile still resolves after its source stops being a creature', () => {
+    const server = game('Boggart Trawler // Boggart Bog')
+    const id = server.state.zoneOrder.p1.hand[0]
+    let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield' }))
+    const choice = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: choice.id, players: ['p2'] }))
+    // Model a continuous effect removing Creature after the trigger is on the stack.
+    state = { ...state, objects: { ...state.objects, [id]: { ...state.objects[id], types: ['Enchantment'] } } }
+    state = resolveStack(server.rules, state)
+    expect(state.zoneOrder.p2.graveyard).toHaveLength(0)
+    expect(state.zoneOrder.p2.exile).toHaveLength(2)
+  })
   test('a token copy of Trawler carries its graveyard exile trigger', () => {
     const trawler = fixture('Boggart Trawler // Boggart Bog')
     const maker = cardTemplate('Copy maker', { types: ['Creature'], effects: [enters(createTokenInstruction({

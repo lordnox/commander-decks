@@ -186,6 +186,7 @@ const collectEffects = (
   const { watched, ...pending } = meta
   const catalog = effectsOf(source)
   for (const effect of triggerEffects(catalog, on)) {
+    if (effect.sourceTypeAtTrigger && !source.types.includes(effect.sourceTypeAtTrigger)) continue
     if (
       effect.watch
       && !matchesTargetFilter(state, watched, effect.watch, source.controller, undefined, source.id)
