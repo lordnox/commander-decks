@@ -115,7 +115,7 @@ export const createToken = (
       type: 'custom',
       name: 'cardPlugins.permanentEntered',
       seat: controller,
-      payload: { objectId: id },
+      payload: { objectId: id, createdToken: true },
     })
   }
   return token

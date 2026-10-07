@@ -88,6 +88,7 @@ export const matchesTargetFilter = (
     return false
   }
   if (filter.subtype && !hasSubtype(state, object, filter.subtype)) return false
+  if (filter.token && !object.token) return false
   if (filter.nontoken && object.token) return false
   if (filter.powerAtLeast !== undefined && (object.power ?? -Infinity) < filter.powerAtLeast) {
     return false

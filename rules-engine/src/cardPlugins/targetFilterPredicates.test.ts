@@ -72,6 +72,13 @@ const setup = (filter: TargetFilter, overlay?: 'forestOverlay') => {
 }
 
 describe('TargetFilter predicates', () => {
+  test('token offers only token permanents', () => {
+    const { legal, offered } = setup({ zone: 'battlefield', type: 'Creature', token: true })
+    expect(legal('Goblin Token')).toBe(true)
+    expect(legal('Wild Ox')).toBe(false)
+    expect(offered()).toEqual(['Goblin Token'])
+  })
+
   test('nontoken rejects tokens and offers only card permanents', () => {
     const { legal, offered } = setup({ zone: 'battlefield', type: 'Creature', nontoken: true })
     expect(legal('Wild Ox')).toBe(true)

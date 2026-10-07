@@ -116,7 +116,7 @@ export const randomExileCopy: Plugin = {
         type: 'custom',
         name: PERMANENT_ENTERED,
         seat: event.seat,
-        payload: { objectId },
+        payload: { objectId, createdToken: true },
       })
     }
   },

@@ -592,6 +592,7 @@ export type TargetFilter = {
   stealIfTypes?: string[]
   /** Subtype, honoring land-type overlays (a Forest/Swamp overlay makes every land one). */
   subtype?: string
+  token?: boolean
   nontoken?: boolean
   powerAtLeast?: number
   /** Mana value predicates; zero is even. */
@@ -700,12 +701,13 @@ export type CardEffect =
         | 'tapped'
         | 'gainLife'
         | 'playerAttacks'
+        | 'tokenCreated'
         | 'permanentEnters'
         | 'permanentSacrificed'
         | 'votesFinished'
       do: CardInstruction[]
       /**
-       * For `permanentEnters` and `permanentSacrificed`: the permanent that
+       * For `tokenCreated`, `permanentEnters`, and `permanentSacrificed`: the permanent that
        * entered or was sacrificed, not necessarily the source, must match. The
        * filter reads that permanent's characteristics as the event saw them,
        * and `controller` is relative to this ability's controller.

@@ -306,6 +306,7 @@ import {
   entersTargetingUpTo,
   entersTargeting,
   destroyThenTokenForController,
+  tokenCreated,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
   permanentEnters,
@@ -620,6 +621,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Colossification: [
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
     enters(tapAttached(), pumpAttached(20, 20)),
+  ],
+  'Mirkwood Bats': [
+    tokenCreated(opponentsLoseLife(1)),
+    permanentSacrificed({ controller: 'you', token: true }, opponentsLoseLife(1)),
   ],
   'Retreat to Hagra': [landfall(chooseModes('one', [
     {
