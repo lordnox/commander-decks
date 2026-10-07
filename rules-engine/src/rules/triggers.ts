@@ -169,7 +169,7 @@ type TriggerMeta = Pick<
 >
 
 /**
- * `watched` is the permanent a `permanentEnters` / `permanentSacrificed` trigger
+ * `watched` is the permanent a `tokenCreated` / `permanentEnters` / `permanentSacrificed` trigger
  * is about. Such an effect only triggers when `watched` matches its `watch`
  * filter, and its intervening if can read `watched` as well.
  */
@@ -290,10 +290,13 @@ const collectEnters = (
     event,
   )
   for (const watcher of draft.zoneOf('battlefield')) {
-    collectEffects(watcher, 'permanentEnters', draft, matches, 1, {
-      triggeringObjectId: object.id,
-      watched: object,
-    })
+    const meta = { triggeringObjectId: object.id, watched: object }
+    collectEffects(watcher, 'permanentEnters', draft, matches, 1, meta)
+    // CR 111.13: a resolving permanent spell copy enters as a token but is not created.
+    if (event.type === 'custom' && event.name === 'cardPlugins.permanentEntered'
+      && event.payload?.createdToken === true && object.token) {
+      collectEffects(watcher, 'tokenCreated', draft, matches, 1, meta)
+    }
   }
 }
 

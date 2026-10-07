@@ -846,6 +846,14 @@ export const permanentEnters = (
   ...(options.if ? { if: options.if } : {}),
 })
 
+/** Whenever you create a token; ordinary entry (including a permanent spell copy) is excluded. */
+export const tokenCreated = (...instructions: CardInstruction[]): CardEffect => ({
+  op: 'trigger',
+  on: 'tokenCreated',
+  watch: { controller: 'you', token: true },
+  do: instructions,
+})
+
 /** Whenever a permanent matching `watch` is sacrificed; the player who sacrificed it is the triggering player. */
 export const permanentSacrificed = (
   watch: TargetFilter,
