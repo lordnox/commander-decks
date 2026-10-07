@@ -1,4 +1,4 @@
-import { selectedPlayers } from '../playerSelectors'
+import { selectedPlayers } from '../selectors'
 import { DIALOG_CHOSEN, setPendingDialog } from '../../pendingDialog'
 import { openCardSelection } from '../../rules/selectCards'
 import {

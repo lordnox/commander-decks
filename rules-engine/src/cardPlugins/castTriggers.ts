@@ -2,7 +2,7 @@ import type { Plugin } from '../types'
 import { DIALOG_CHOSEN, pendingDialogFor, setPendingDialog } from '../pendingDialog'
 import { effectsOf } from './cardRules'
 import { triggerEffects } from './effects'
-import { isTriggerBindingIf, matchesTriggerEvent } from './triggerMatching'
+import { isTriggerBindingIf, matchesTriggerEvent } from './triggers/matching'
 import { markTriggeredOnceEachTurn, mayTriggerOnceEachTurn, triggerEffectByKey, triggerEffectKey } from './triggerFrequency'
 
 export const castTriggers: Plugin = {

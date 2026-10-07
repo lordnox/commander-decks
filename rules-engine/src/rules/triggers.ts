@@ -35,7 +35,7 @@ import {
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
-import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggerMatching'
+import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
