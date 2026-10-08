@@ -74,7 +74,9 @@ const capturedOccurrence = (
   const after = objectId ? draft.objects[objectId] : undefined
   const sourceId = 'sourceId' in event && typeof event.sourceId === 'string'
     ? event.sourceId
-    : undefined
+    : 'source' in event && typeof event.source === 'string'
+      ? event.source
+      : undefined
   const eventSource = sourceId
     ? state.objects[sourceId] ?? draft.objects[sourceId]
     : undefined
