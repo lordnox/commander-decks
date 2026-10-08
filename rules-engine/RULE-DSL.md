@@ -298,6 +298,8 @@ type Instruction =
   | { kind: 'destroy'; targets: Reference | ObjectSelector }
   | { kind: 'counter'; targets: Reference; bindResult?: string }
   | { kind: 'sequence'; instructions: Instruction[] }
+  | { kind: 'chooseInstructions'; chooser: Reference; count: { kind: 'constant'; value: 1 };
+      options: { instructions: Instruction[] }[]; whenInsufficient: 'chooseAvailable' }
   | { kind: 'if'; condition: Condition; then: Instruction[]; otherwise: Instruction[] }
   // Extend with separately specified action and choice node variants.
 ```
@@ -1164,7 +1166,7 @@ headless simulation answer the same decision contracts.
 
 ## 10. Worked examples
 
-Examples A–I use hypothetical Oracle-style wording. Examples J–Q use linked,
+Examples A–I use hypothetical Oracle-style wording. Examples J–R use linked,
 verified Oracle text. New builder syntax remains proposed, not implemented card
 support.
 
@@ -1797,6 +1799,51 @@ These are required conformance cases for the proposed engine, not a claim that
 the current replacement handler already supports this card. The example's power
 comes from reusable semantics with explicit outcomes and continuations.
 
+### R. Wall of Omens: fluent actions and a compact card declaration
+
+[Wall of Omens](https://scryfall.com/card/tdc/138/wall-of-omens) costs {1}{W} and
+is a 0/4 Creature — Wall. Its rules are Defender and "When this creature enters,
+draw a card." The keywords belong in the abilities list alongside the trigger;
+mana cost, types, and printed stats remain card metadata.
+
+**Proposed authoring DSL**, first using the explicit wrapper:
+
+```ts
+const wallOfOmens = cardRuleDefinition(1, {
+  abilities: [
+    keyword.defender,
+    whenever(self.enters, {
+      instructions: [actions.draw.self.one],
+    }),
+  ],
+})
+```
+
+The compact sugar expresses the same rules:
+
+```ts
+const wallOfOmens = card([
+  keyword.defender,
+  ability.whenever(self.enters, actions.draw.self.one),
+])
+
+cardRules.set('Wall of Omens', wallOfOmens)
+```
+
+`card` is a version-pinned wrapper for `cardRuleDefinition(1, { abilities })`.
+`ability.whenever` accepts instruction nodes and wraps them in an ordinary
+trigger configuration. `actions.draw.self.one` produces
+`draw({ count: 1, targets: ref('controller') })`. Here `self` is the player
+controlling this ability, while the standalone `self.enters` refers to its source
+object; the recipient domain is defined by the action vocabulary.
+
+The entry creates a normal untargeted trigger. Its captured controller draws when
+the ability resolves, even if the Wall has left or changed controller. Removing
+the Wall does not counter that trigger, and drawing still uses ordinary draw
+replacement rules. Defender's shared keyword semantics prohibit attacking unless
+another rule permits it. See [section 14](#14-authoring-sugar-and-canonical-data)
+for the fluent helpers, composition, and planned implementation folders.
+
 ## 11. Validation and development workflow
 
 For an ordinary supported card: declare timing/targets/costs, compose primitives,
@@ -1865,6 +1912,8 @@ implemented first slice. Preserve those public wrappers during migration.
    indices, source/incarnation references, and amount expressions. Compile legacy
    authoring helpers to the same data where their semantics are representable.
    Unsupported translations remain explicit, with a recorded migration gap.
+   Organize fluent helpers as specified in section 14 and verify that compact
+   authoring lowers to the same versioned nodes as explicit builder calls.
 2. **Authoritative execution driver:** introduce durable program frames, ordered
    event processing, pending-trigger collection, whole-item target legality, and
    explicit priority/SBA checkpoints. One driver owns each resolving item across
@@ -1889,10 +1938,11 @@ implemented first slice. Preserve those public wrappers during migration.
    Add step-scoped draw history, semantic discard outcomes, and replacement
    programs that suspend, branch, and produce further replaceable actions.
 6. **Representative card conformance:** implement end-to-end scenarios for Stony
-   Silence, Duskdale Wurm, Blood Artist, Aether Tide, Hex, Ashling's Command, and
-   Brokers Confluence, plus Chains of Mephistopheles as the replacement stress
-   case. Include its protected draw, empty hand, multiple copies, competing
-   replacements, replaced discard destinations, and reconnect during discard.
+   Silence, Duskdale Wurm, Wall of Omens, Blood Artist, Aether Tide, Hex, Ashling's
+   Command, and Brokers Confluence, plus Chains of Mephistopheles as the
+   replacement stress case. Include its protected draw, empty hand, multiple
+   copies, competing replacements, replaced discard destinations, and reconnect
+   during discard.
    Build these cases alongside the relevant milestones, then verify the combined
    server/client path. The examples are acceptance anchors; they do not by
    themselves cover every existing mechanic.
@@ -1983,6 +2033,7 @@ the rules references establish game behavior, not the particular API syntax.
 | Competing replacements and applicability | 616.1–2 |
 | Countering and paid costs | 701.6 |
 | Ward | 702.21a |
+| Defender | 702.3 |
 | State-based action timing | 704.3–4 |
 
 ## 14. Authoring sugar and canonical data
@@ -2092,6 +2143,225 @@ standalone patterns. Keep those compatibility exports; the new pattern builders
 need a separate DSL entry point or namespace such as `events.enters`/`events.dies`.
 Do not infer two different return types for the same legacy call shape. The
 short names above assume imports from the proposed DSL entry point.
+
+### Fluent action catalogue and compact abilities
+
+Common instructions can read as `actions.draw.self.one`. The path describes the
+action, recipient, and amount, and its terminal property returns an immutable
+instruction node. These are equivalent authoring expressions:
+
+| Fluent expression | Explicit builder |
+| --- | --- |
+| `actions.draw.self.one` | `draw({ count: 1, targets: ref('controller') })` |
+| `actions.draw.self.X` | `draw({ count: variable('X'), targets: ref('controller') })` |
+| `actions.draw.target.X` | `draw({ count: variable('X'), targets: target(0) })` |
+| `actions.draw.targetAt(1).one` | `draw({ count: 1, targets: target(1) })` |
+| `actions.draw.self.count(3)` | `draw({ count: 3, targets: ref('controller') })` |
+
+For player actions, `.self` is an alias for the executing ability's controller,
+including the captured controller of a trigger. It does not pass `ref('self')`
+as a player: that reference identifies the source object. `.target` abbreviates
+the first local target clause; `.targetAt(index)` makes other clauses explicit.
+Each action family must type its recipient domain rather than accepting every
+path for every action.
+
+`.X` produces a variable-expression node, not a number read while authoring.
+The execution scope must supply a defined X binding. A trigger does not inherit
+its source spell's X implicitly; cross-scope values need an explicit captured
+binding. A target path also needs a declared target clause of the correct domain.
+The compiler rejects unresolved variables/targets. Count factories support other
+literals and typed amount expressions without adding a property for every number.
+
+One possible implementation sketch uses valid JavaScript getter syntax:
+
+```ts
+function drawFor(targets: Reference | PlayerSelector) {
+  return Object.freeze({
+    get one() {
+      return draw({ count: 1, targets })
+    },
+    get X() {
+      return draw({ count: variable('X'), targets })
+    },
+    count(count: number | Amount) {
+      return draw({ count, targets })
+    },
+  })
+}
+
+const drawActions = Object.freeze({
+  get self() {
+    return drawFor(ref('controller'))
+  },
+  get target() {
+    return drawFor(target(0))
+  },
+  targetAt(index: number) {
+    return drawFor(target(index))
+  },
+})
+
+const actions = Object.freeze({
+  get draw() {
+    return drawActions
+  },
+})
+```
+
+Getters may return cached immutable templates or new immutable nodes; consumers
+must never mutate either. Functions on an intermediate catalogue object run
+during authoring and are not stored in the saved card definition. Runtime IDs,
+timestamps, choices, and instruction outcomes belong to execution frames.
+
+For small abilities, `ability.whenever` can wrap direct instruction arguments in
+`{ instructions: [...] }`. Keep the configuration overload for decisions,
+trigger conditions, scopes, modes, and other explicit options:
+
+```ts
+type WheneverSugar = {
+  (on: OccurrencePattern, instruction: Instruction, ...rest: Instruction[]): AbilityDefinition
+  (on: OccurrencePattern, configuration: WheneverConfiguration): AbilityDefinition
+}
+
+declare const ability: { readonly whenever: WheneverSugar }
+declare function card(abilities: readonly AbilityDefinition[]): CardRuleDefinition
+
+// Same canonical ability:
+ability.whenever(self.enters, actions.draw.self.one)
+whenever(self.enters, { instructions: [actions.draw.self.one] })
+
+// Same canonical card definition:
+card([keyword.defender, ability.whenever(self.enters, actions.draw.self.one)])
+cardRuleDefinition(1, {
+  abilities: [keyword.defender, whenever(self.enters, {
+    instructions: [actions.draw.self.one],
+  })],
+})
+```
+
+`card` from the version-1 DSL entry point always writes `schemaVersion: 1`.
+It must not silently change to a later schema when the library upgrades.
+`cardRuleDefinition(1, ...)` remains available for an explicitly versioned,
+expanded declaration. Namespace access and positional instructions are sugar;
+the engine sees the same ability data and defaults. The direct-instruction
+overload does not mix configuration objects with instruction arguments.
+
+### Combining actions: sequence, choice, and targeting
+
+Use distinct helpers for distinct procedures:
+
+| Helper | Meaning and timing |
+| --- | --- |
+| `and(a, b, ...)` | Execute every instruction in written order inside one resolution; lower to `sequence`. A later action does not require the earlier one to succeed. |
+| `or(a, b)` | Choose one action during resolution; shorthand for a choose-one `choose` with the execution controller as chooser. |
+| `choose({ chooser, count: 1, options })` | Explicit resolution-time choice among instruction programs, with a typed chooser and legal options. |
+| `withTargets(clauses, ...instructions)` | Return a configuration with `decisions.targets` and those instructions; targets are chosen during announcement or trigger placement. |
+| `chooseModes(...)` with `modes` | Announcement-time mode selection, including selected modes' own target clauses. |
+| `ifThen(condition, branches)` | Follow a condition/result automatically; it does not ask a player to choose a branch. |
+
+For example, this hypothetical entry ability draws and gains life:
+
+```ts
+ability.whenever(self.enters, and(
+  actions.draw.self.one,
+  gainLife({ amount: 2, targets: ref('controller') }),
+))
+```
+
+This one asks its controller to choose between those effects while resolving:
+
+```ts
+ability.whenever(self.enters, choose({
+  chooser: ref('controller'),
+  count: 1,
+  options: [
+    { instructions: [actions.draw.self.one] },
+    { instructions: [gainLife({ amount: 2, targets: ref('controller') })] },
+  ],
+}))
+
+// The same resolution-time choice, using the controller default:
+ability.whenever(self.enters, or(
+  actions.draw.self.one,
+  gainLife({ amount: 2, targets: ref('controller') }),
+))
+```
+
+The initial `choose` helper chooses exactly one instruction program. It lowers
+to a `kind: 'chooseInstructions'` node carrying `chooser`, constant `count: 1`,
+and its option programs. It defaults to `whenInsufficient: 'chooseAvailable'`:
+if no option can legally be chosen, choose none and continue as much as possible.
+Choice legality follows CR 608.2d; an empty library alone does not make drawing
+an impossible choice. Generated option identities, authorized offers, the
+selected option, and the continuation are owned by the server. This is one
+choice, not executing both branches. Other choice counts/repetition require an
+explicitly specified extension. No ordinary priority opens at the choice pause.
+
+For a targeted draw trigger, declare the target at the ability boundary:
+
+```ts
+ability.whenever(self.enters, withTargets([
+  select({ filter: players({ relation: 'any' }), count: 1 }),
+], actions.draw.target.one))
+```
+
+`withTargets` returns `{ decisions: { targets: clauses }, instructions }`.
+The target choice occurs before anyone can respond to this trigger. The draw
+uses the bound player when the trigger resolves. An instruction's `.target`
+path only reads that binding; it does not create a target requirement or a
+resolution-time picker. Use the full configuration overload when variables,
+distributions, or further requirements are needed.
+
+`and` does not mean all effects happen simultaneously. The ordered-resolution
+contract in section 7 still applies, with replacements at each relevant event
+and no intervening ordinary priority/SBA checkpoint. Modal card text must use
+announcement-time `modes`, not `or`, so opponents know the chosen modes and
+targets before responding. These composition helpers do not combine separate
+abilities or turn predicates into player choices.
+
+### Folder structure for implementation
+
+Implement this authoring layer in dedicated modules, with small files grouped
+by concept and action family. Use this proposed structure under
+`rules-engine/src/cardPlugins/dsl/` during the refactor:
+
+```text
+dsl/
+  v1/index.ts                 # Public exports pinned to schema version 1
+  schema/v1.ts               # Canonical serialized node types
+  builders/                  # Explicit node constructors, defaults, normalization
+  compiler/                  # Validation and compilation to authoritative data
+  sugar/
+    card.ts                  # card([...])
+    ability.ts               # ability.whenever overloads
+    self.ts                  # Symbolic occurrence shortcuts
+    keyword.ts               # Immutable catalogue and keyword factories
+    actions/
+      index.ts               # actions catalogue
+      draw/
+        index.ts             # draw family exports
+        recipients.ts        # self, target, targetAt
+        counts.ts            # one, X, count(amount)
+    composition/
+      and.ts                 # Ordered sequence
+      choose.ts              # choose and or
+      withTargets.ts         # Explicit target plan plus instructions
+      index.ts
+```
+
+Keep canonical types and constructors independent of the sugar layer. Sugar
+depends on those constructors, and the public entry point re-exports both.
+Instruction handlers consume canonical nodes rather than importing fluent
+catalogues. Share genuinely common count/recipient construction when adding
+other action families; do not create a separate implementation file for every
+property path or duplicate game semantics in this tree. Existing legacy helpers
+keep their exports and compile through adapters as described above.
+
+During implementation, verify equivalent lowering for Wall of Omens' explicit
+and compact forms, controller/target recipient domains, X bindings, sequence
+order, choice timing, and version pinning. Shared templates must create independent
+runtime instances. These folders and exports are an implementation requirement
+for the planned refactor, not files or runtime features created by this document.
 
 ### Selectors, bindings, replacement programs, and conditions
 
