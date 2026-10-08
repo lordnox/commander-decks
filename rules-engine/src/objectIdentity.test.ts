@@ -273,6 +273,53 @@ describe('rules object identity', () => {
     })
   })
 
+  test('a gain-life trigger serializes its amount and attributed source snapshot', () => {
+    const server = createServerGame(commanderRules, {
+      players: ['p1', 'p2'],
+      battlefield: {
+        p1: [
+          cardTemplate('Life Source', { types: ['Artifact'] }),
+          cardTemplate('Life Watcher', {
+            types: ['Creature'],
+            effects: [{
+              op: 'trigger',
+              on: 'gainLife',
+              do: [{ kind: 'gainLife', count: 1 }],
+            }],
+          }),
+        ],
+      },
+    })
+    const source = Object.values(server.state.objects)
+      .find((object) => object.name === 'Life Source')!
+    const state = ok(server.rules(server.state, {
+      type: 'gainLife',
+      seat: 'p1',
+      amount: 4,
+      source: source.id,
+    }))
+    const restored = JSON.parse(JSON.stringify(state)) as typeof state
+
+    expect(restored.stack[0].execution?.occurrence).toMatchObject({
+      eventType: 'gainLife',
+      player: 'p1',
+      amount: 4,
+      source: {
+        ref: {
+          objectId: source.id,
+          incarnation: 1,
+          zone: 'battlefield',
+        },
+        snapshot: {
+          id: source.id,
+          name: 'Life Source',
+          incarnation: 1,
+          zone: 'battlefield',
+        },
+      },
+    })
+  })
+
   test('card-target trigger context survives an open choice, journal restore, and source departure', () => {
     const sourceCard = cardTemplate('Choosing Source', {
       types: ['Creature'],
