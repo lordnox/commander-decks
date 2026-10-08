@@ -20,7 +20,7 @@ The work includes versioned definitions and builders, references and amounts,
 trigger collection, stack resolution, targeting, casting and activation costs,
 modes, reusable instructions, replacements, prevention, static effects, and
 browser/headless decision handling. It also includes migration of every currently
-supported card/mechanic and explicit saved-state, command, and replay compatibility.
+supported card/mechanic and deterministic persistence/replay for the new DSL.
 
 Keep existing combat, mana, hidden-information, and continuous-effect code wherever
 its behavior meets the contract. Add reusable semantics before registering a card.
@@ -29,9 +29,34 @@ dispatcher is needed. Broad support for previously unsupported Magic mechanics i
 outside this refactor unless required to preserve existing coverage or implement
 the document's conformance scenarios.
 
-Use an additive, versioned DSL entry point rather than changing legacy helper
-signatures in place. Legacy `enters(...)` returns an effect; new occurrence-pattern
-builders belong in `dsl/v1` or `events`. Legacy `to` recipients adapt to canonical
+### Non-production migration policy
+
+This product is not in production. There are no external legacy clients, saved
+games, commands, or replays that the completed refactor must continue to support.
+This policy supersedes backward-compatibility requirements elsewhere in this plan
+and the source contract for pre-DSL formats.
+
+Legacy adapters, helper wrappers, decoders, and execution routes are temporary
+migration scaffolding. Keep them only while unmigrated cards or development tools
+still need them; remove them during Part 16, including
+`src/cardPlugins/dsl/builders/legacy.ts`. The finished product has one canonical
+DSL representation and execution path, with no legacy compatibility layer.
+
+Old development command, saved-state, and replay formats may be replaced outright.
+Update their producers and consumers together; obsolete fixtures may be retired
+or rewritten against the new format. Unsupported old payloads must fail clearly
+rather than be silently reinterpreted. Do not build permanent upgrade adapters
+solely to preserve those development artifacts.
+
+Preserve supported gameplay behavior and its regression evidence throughout the
+migration, apart from explicit tested rules corrections. New DSL state still
+requires deterministic replay, private projection, durable continuation restore,
+and exact schema/content pins for active programs; dropping old-format support
+does not remove those requirements.
+
+Use an additive, versioned DSL entry point during migration rather than changing
+legacy helper signatures in place. Legacy `enters(...)` returns an effect; new
+occurrence-pattern builders belong in `dsl/v1` or `events`. Legacy `to` recipients adapt to canonical
 `targets`. Selectors and instruction recipient fields do not declare targeting;
 only `decisions.targets` does.
 
@@ -39,7 +64,7 @@ only `decisions.targets` does.
 
 | Area | Existing implementation | Required work |
 | --- | --- | --- |
-| Authoring | [effectDefinitions.ts](src/cardPlugins/effectDefinitions.ts), [effects.ts](src/cardPlugins/effects.ts), role-specific builder modules | Add versioned canonical definitions and validation; preserve helper exports through explicit adapters. |
+| Authoring | [effectDefinitions.ts](src/cardPlugins/effectDefinitions.ts), [effects.ts](src/cardPlugins/effects.ts), role-specific builder modules | Add versioned canonical definitions and validation; use temporary helper adapters during migration and remove them in Part 16. |
 | Player groups | [selectors/players.ts](src/cardPlugins/selectors/players.ts), [instructions.ts](src/cardPlugins/instructions.ts), [resources.ts](src/cardPlugins/instructionHandlers/resources.ts) | Retain fixed player effects; add object/stack domains, references, and typed amounts. |
 | Registry and discovery | [cardRules.ts](src/cardPlugins/cardRules.ts), [index.ts](src/cardPlugins/index.ts), [effectRuntime.ts](src/cardPlugins/effectRuntime.ts) | Store canonical definitions and derive capability/plugin requirements without card-name execution checks. Include token, copied, face, and granted definitions. |
 | Identity and context | [types.ts](src/types.ts), [draft.ts](src/draft.ts), [rules/actions.ts](src/rules/actions.ts) | Existing object targets contain only object IDs. Add incarnation, scoped targets, captured controller, source snapshots, and pinned definition versions. |
@@ -51,7 +76,7 @@ only `decisions.targets` does.
 | Modifiers | [replacements.ts](src/cardPlugins/replacements.ts), [staticEffects.ts](src/cardPlugins/staticEffects.ts), [continuousEffects.ts](src/cardPlugins/continuousEffects.ts) | Add player-selected replacement processing, lineage and shields; audit layer/dependency/timestamp machinery rather than assuming it is complete. |
 | Draw history | [rules/draw.ts](src/rules/draw.ts), [plugins/turnStructure.ts](src/plugins/turnStructure.ts) | Existing history is per turn; add step-instance history. Replace immediate empty-library loss marking with the required deferred failed-draw handling. |
 | Host and client | [kernelChoicePrepare.ts](../live-runner/src/kernelChoicePrepare.ts), [kernelChoiceApply.ts](../live-runner/src/kernelChoiceApply.ts), [protocol.ts](../live-runner/src/protocol.ts), [LivePage.tsx](../site/src/LivePage.tsx), [TopdeckDialog.tsx](../site/src/TopdeckDialog.tsx) | Adapt current specialized choice stages to declarative offers; stop inferring rules from labels or card-specific pending payloads. |
-| Persistence/projection | [journal.ts](src/journal.ts), [runtime.ts](src/runtime.ts), [kernelHost.ts](../live-runner/src/kernelHost.ts), [shared/liveTypes.ts](../shared/liveTypes.ts) | Version state and command adapters, persist execution contexts, redact requests/results/traces, and replay accepted decisions deterministically. |
+| Persistence/projection | [journal.ts](src/journal.ts), [runtime.ts](src/runtime.ts), [kernelHost.ts](../live-runner/src/kernelHost.ts), [shared/liveTypes.ts](../shared/liveTypes.ts) | Replace development state/command formats and update consumers together; persist execution contexts, redact requests/results/traces, and replay new DSL decisions deterministically. |
 
 The focused baseline run passed **53 tests across seven files**, with no failures:
 `playerEffects`, `generalizedTriggers`, `runInstructions`, `selectCards`,
@@ -229,8 +254,9 @@ invalidates requests or frames so a departed chooser cannot strand the driver.
 
 Keep card and player answers on existing typed events. Add validated stack/mixed
 target, options, ordering, and allocation contracts; do not trust client-supplied
-events or continuation payloads. Define adapter behavior for legacy commands and
-clients that cannot express new offers.
+events or continuation payloads. Update development commands and clients to the
+new offers. Add temporary adapters only when an unmigrated path needs them; old
+clients are not a final compatibility requirement.
 
 Integrate `kernelChoicePrepare*`/`kernelChoiceApply*`, host action gating,
 `protocol.ts`, `shared/liveTypes.ts`, wire codecs, the browser picker, and the
@@ -321,7 +347,8 @@ mode cardinality, distributions, local distinctness, and cross-clause constraint
 
 Preserve modes/X/bindings when copying spells; distinguish copying from casting.
 Implement explicit legal retargeting without silently refreshing invalid bindings.
-Adapt legacy mode IDs/labels without using labels as execution identity.
+Replace legacy mode IDs/labels with scoped identities; use temporary adapters
+only while unmigrated paths need them.
 
 **Exit:** Ashling's Command creates its copy before querying the later damage
 group. Brokers Confluence can repeat modes with independent or repeated recipients,
@@ -417,7 +444,7 @@ empty hand/library, one/two Chains with sufficient or one-card hands, competing
 replacements, replaced discard destinations, draws as costs, extra draw steps,
 and reconnect during mandatory discard. No card-specific Chains executor exists.
 
-### Part 15 — Combined conformance and compatibility gate
+### Part 15 — Combined conformance and persistence gate
 
 **Dependencies:** 09, 10, 12, 13, 14.
 
@@ -425,14 +452,15 @@ Run the scenarios in the matrix below through authoritative driver, host adapter
 browser offers, and headless answers. Verify outcomes and timing from observable
 state/events/requests, not only node snapshots or registration.
 
-Exercise old/new command versions, v0 journals, saved open legacy choices, new
-suspended frames, copies/tokens, and upgrades with active definition revisions.
-Assert projections and public traces never include private continuation values.
-Update live wire codecs and replay consumers together; document any explicit
-versioned migration rather than silently reinterpreting stored payloads.
+Exercise new DSL commands, journals, saved open choices, suspended frames,
+copies/tokens, and restore with exact active definition revisions. Preserve the
+behavioral assertions from Part 00 fixtures in new-format tests; old v0 payload
+support is not required. Assert projections and public traces never include
+private continuation values. Update live wire codecs and replay consumers
+together, and reject unsupported old formats clearly.
 
-**Exit:** all representative scenarios and compatibility fixtures pass. Classify
-each observed difference as a regression or an intentional tested rules correction.
+**Exit:** all representative scenarios and new-format persistence fixtures pass.
+Classify each observed difference as a regression or an intentional tested rules correction.
 All newly advertised DSL capabilities have end-to-end evidence.
 
 ### Part 16 — Existing-card migration and consolidation
@@ -446,21 +474,27 @@ and static/granted effects; then specialized mechanics from the ledger (votes,
 linked exile, alternate casting, faces/Rooms, Sagas, and other supported handlers).
 This family list is a starting order, not a coverage limit.
 
-Compile compatibility wrappers to canonical data whenever representable.
+Use temporary adapters to canonical data whenever representable during migration.
 For specialized handlers, first add reusable nodes and conformance; until then
 retain explicit legacy support and its recorded gap. Every stack item chooses
 one pinned program representation and is executed exactly once. Shared checkpoint,
 projection, and event rules apply across legacy/canonical cards in the same game;
 test mixed games rather than switching global semantics by card.
 
-Remove superseded resolution, custom resume, modal fallback, and host choice
-paths only after their coverage and persisted-state adapters are proven. Update
-engine/host documentation and keep useful compatibility authoring wrappers.
+After equivalent gameplay coverage and new-format persistence are proven, remove
+all temporary legacy adapters and superseded resolution, custom resume, modal
+fallback, host choice, old command/decoder, and old saved-state/replay paths.
+Remove `src/cardPlugins/dsl/builders/legacy.ts` and its migration-only tests once
+all consumers use canonical definitions. Rewrite useful behavioral assertions
+against the canonical API; retire obsolete format fixtures. Update engine/host
+documentation. Canonical authoring sugar may remain, but legacy API compatibility
+wrappers may not.
 
 **Exit:** every previously supported registration/mechanic has an accepted
 migration result; no newly introduced judge fallback hides a gap. One authoritative
-driver owns progression. Remaining wrappers do not maintain a competing executor.
-The full regression suites and compatibility gates pass after old paths are removed.
+driver and canonical representation own progression. No legacy compatibility
+layer, old-format decoder, or competing executor remains. The full regression
+suites and new-format persistence gate pass after the old paths are removed.
 
 ## Dependencies and delivery order
 
@@ -536,14 +570,16 @@ before enabling the new default path; current CI covers types, imports, and lint
 Do not use a whole-deck game as the only proof of a primitive's rules semantics.
 
 Completion requires the entire DSL milestone mapping, all representative cases,
-and a closed migration ledger. Preserve supported card coverage, existing command
-adapters and explicitly migrated saved state/replays, private projections, and
-pinned active programs. Unsupported mechanics remain explicit errors or documented
-existing legacy support until implemented, never silent approximations.
+and a closed migration ledger. Preserve supported card coverage, new-format
+command/state/replay correctness, private projections, and pinned active programs.
+Remove temporary legacy compatibility code by Part 16. Unsupported mechanics
+remain explicit errors; during migration only, documented existing legacy routes
+may remain until their canonical implementation is proven. They cannot remain in
+the completed product or become silent approximations.
 
 The highest-risk changes are checkpoint ownership, simultaneous before-state,
-replacement lineage, scoped targets/modes, and legacy persisted choices. Their
-tests must land before replacing their current execution paths. Estimate calendar
+replacement lineage, scoped targets/modes, and restoring suspended DSL choices.
+Their tests must land before replacing their current execution paths. Estimate calendar
 effort only after Part 00 identifies specialized coverage and migration volume;
 the dependency order and acceptance gates above are actionable without inventing
 a deadline.
