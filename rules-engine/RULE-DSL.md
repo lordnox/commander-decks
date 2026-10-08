@@ -59,8 +59,9 @@ Existing helpers become compatibility wrappers.
 | Filter | Typed predicate over one domain; it does not request a choice or imply targeting. |
 | Selector | A query returning the matching group at its defined evaluation time. |
 | Reference | A binding to a particular player, object incarnation, stack item, event participant, or earlier choice. |
-| Target clause | Named requirements for one occurrence of targeting, including domain and cardinality. |
+| Target clause | Indexed requirements for one occurrence of targeting in a program scope, including domain and cardinality. |
 | Target binding | The recipients actually chosen for a target clause when the item is announced. |
+| Mode | One selectable program block; selecting it repeatedly creates separate occurrences with separate bindings. |
 | Choice | A player decision; only choices explicitly declared as targets use targeting rules. |
 | Cost | Something paid while casting/activating, or an explicitly offered payment during resolution. |
 | Instruction | A typed action or structured control-flow node, interpreted by the server. |
@@ -87,21 +88,19 @@ type CardRuleDefinition = {
 }
 
 type AbilityDefinition = (
-  | {
+  | ({
       kind: 'spell'
       decisions: DecisionsSpec
       costs: Cost[] // Mandatory additions to the spell's metadata mana cost.
-      instructions: Instruction[]
-    }
-  | {
+    } & ResolutionProgram)
+  | ({
       kind: 'activated'
       availableFrom: Zone[]
       timing: ActivationTiming
       decisions: DecisionsSpec
       costs: Cost[]
-      instructions: Instruction[]
-    }
-  | {
+    } & ResolutionProgram)
+  | ({
       kind: 'triggered'
       activeIn: Zone[]
       on: OccurrencePattern
@@ -109,8 +108,7 @@ type AbilityDefinition = (
       interveningIf?: Condition
       frequency?: TriggerFrequency
       decisions: DecisionsSpec
-      instructions: Instruction[]
-    }
+    } & ResolutionProgram)
   | {
       kind: 'static'
       activeIn: Zone[]
@@ -127,6 +125,20 @@ type DecisionsSpec = {
   variables?: VariableSpec[]
   targets: TargetClause[]
   distributions?: DistributionSpec[]
+}
+
+type ResolutionProgram =
+  | { instructions: Instruction[]; modes?: never }
+  | { modes: ModeDefinition[]; instructions?: never }
+
+type ModeSpec = {
+  count: Amount
+  repeatable: boolean
+}
+
+type ModeDefinition = {
+  decisions: Omit<DecisionsSpec, 'modes'>
+  instructions: Instruction[]
 }
 
 type ContinuousEffectDefinition =
@@ -167,11 +179,11 @@ type TriggeredAbilityDefinition = Extract<AbilityDefinition, { kind: 'triggered'
 
 type WheneverConfiguration = Omit<
   TriggeredAbilityDefinition,
-  'kind' | 'on' | 'activeIn' | 'decisions'
+  'kind' | 'on' | 'activeIn' | 'decisions' | 'instructions' | 'modes'
 > & {
   activeIn?: Zone[] // Defaults to ['battlefield'].
   decisions?: DecisionsSpec // Defaults to { targets: [] }.
-}
+} & ResolutionProgram
 
 type Whenever = (
   on: OccurrencePattern,
@@ -191,6 +203,11 @@ The referenced types are separate closed unions, not arbitrary JSON or strings
 that the engine evaluates as code. Optional decision fields are absent when
 unused; `targets: []` explicitly means no targeting clauses. Authoring builders
 default omitted `decisions` to `{ targets: [] }` and omitted `costs` to `[]`.
+This also applies to a mode's omitted decisions. A program supplies either a
+plain `instructions` list or selectable `modes` blocks. `decisions.modes` controls
+how many blocks to choose and whether repetition is allowed; its options come
+from `modes`. The authoring helper `chooseModes({ count: 2 })` defaults
+`repeatable` to false and normalizes the numeric count to an `Amount` node.
 A spell's `costs` declares mandatory additional payments; its base mana cost comes
 from card metadata. An activated ability's `costs` declares its activation payment.
 Alternative/optional cost plans, cost increases/reductions, traits, and casting
@@ -223,7 +240,7 @@ type Selector =
 
 type Reference =
   | { kind: 'contextRef'; name: ContextBinding }
-  | { kind: 'targetRef'; clauseId: string }
+  | { kind: 'targetRef'; clauseIndex: number }
   | { kind: 'choiceRef'; choiceId: string }
   | { kind: 'resultRef'; resultId: string; field: ResultField }
 
@@ -236,7 +253,6 @@ type Amount =
       information: 'current' | 'currentOrLastKnown' }
 
 type TargetClause = {
-  id: string
   filter: Selector
   min: Amount
   max: Amount
@@ -251,8 +267,16 @@ type Cost =
   // Extend with typed tap, exile, counter-removal, and other payment variants.
 
 type TargetBinding = {
-  clauseId: string
+  scopeId: string // Engine-generated program or selected mode-occurrence identity.
+  clauseIndex: number
   recipients: BoundRecipient[]
+}
+
+type ModeOccurrence = {
+  scopeId: string
+  modeIndex: number
+  repetitionIndex: number
+  targets: TargetBinding[]
 }
 
 type BoundRecipient =
@@ -261,11 +285,12 @@ type BoundRecipient =
   | { kind: 'stackItem'; stackId: string }
 
 type Instruction =
-  | { kind: 'loseLife'; amount: Amount; to: Reference | PlayerSelector }
-  | { kind: 'draw'; count: Amount; for: Reference | PlayerSelector }
-  | { kind: 'destroy'; objects: Reference | ObjectSelector;
-      execution: 'simultaneous' }
-  | { kind: 'counter'; item: Reference; bindResult?: string }
+  | { kind: 'loseLife'; amount: Amount; targets: Reference | PlayerSelector }
+  | { kind: 'damage'; amount: Amount; targets: Reference | ObjectSelector | PlayerSelector;
+      source: Reference }
+  | { kind: 'draw'; count: Amount; targets: Reference | PlayerSelector }
+  | { kind: 'destroy'; targets: Reference | ObjectSelector }
+  | { kind: 'counter'; targets: Reference; bindResult?: string }
   | { kind: 'sequence'; instructions: Instruction[] }
   | { kind: 'if'; condition: Condition; then: Instruction[]; otherwise: Instruction[] }
   // Extend with separately specified action and choice node variants.
@@ -276,7 +301,7 @@ and `ObjectSelector` narrow `Selector` by domain. `ContextBinding` is an enumera
 validated binding vocabulary (controller, source, triggering/event participants);
 it is not an arbitrary property-access string. Arithmetic extensions need explicit
 nodes, rounding, and validation, not expression strings. Cross-clause target
-constraints and mode-dependent clauses need further typed variants.
+constraints need further typed variants; modal scopes are represented separately.
 
 The shared `filter` field describes eligibility for targets, object cost payments,
 and card choices. It takes a domain-tagged selector such as `objects(...)` or
@@ -284,9 +309,12 @@ and card choices. It takes a domain-tagged selector such as `objects(...)` or
 context this query only supplies eligible recipients, not a chosen binding. An
 instruction using `objects(...)` directly instead acts on the matching group.
 The field `kind` describes the cost action; discard and sacrifice are not selectors.
-`selectCards` names an actual selection request. An action's `cards` or `objects`
-field can instead contain an already chosen reference, such as
-`discard({ cards: choice('discarded') })`; that is not an eligibility filter.
+`selectCards` names an actual selection request. An instruction's `targets` field
+contains its recipients, expressed as a bound reference or a selector; it does not
+declare Magic targeting by itself. Only clauses in `decisions.targets` do that.
+For example, `discard({ targets: choice('discarded') })` acts on an already chosen,
+untargeted binding, while `damage({ targets: objects(...) })` affects a queried group.
+An action's destination, such as `move({ targets: ..., to: 'exile' })`, remains `to`.
 
 Authoring builders accept numeric literals as shorthand for constant `Amount`
 nodes. For an exact target or card-choice count, `count: 6` or
@@ -301,7 +329,7 @@ For example, the untargeted loss instruction serializes as:
 {
   "kind": "loseLife",
   "amount": { "kind": "constant", "value": 1 },
-  "to": { "kind": "players", "filter": { "relation": "opponent" } }
+  "targets": { "kind": "players", "filter": { "relation": "opponent" } }
 }
 ```
 
@@ -317,7 +345,8 @@ determine its lifetime/timestamp. The compiler gives every declaration an
 internal identity, for example a path within an immutable,
 versioned definition. A registry card name, a declaration identity, and a runtime
 instance identity serve different purposes; none substitutes for a timestamp.
-Target, choice, and result binding labels remain explicit where referenced.
+Target references use indices within their program scope; choice and result
+binding labels remain explicit where referenced.
 
 Each active effect or ability instance records its source/incarnation, controller,
 and a distinct runtime instance identity. This lets two copies coexist and lets
@@ -356,7 +385,7 @@ ref('source')
 ref('triggering.player')
 ref('triggering.object.before')
 ref('triggering.object.after')
-target('victim')
+target(0)
 choice('discarded')
 result('payment', 'paid')
 
@@ -494,12 +523,12 @@ pre-stack announcement procedure.
 Targeting belongs to `decisions`, separately from instructions:
 
 ```ts
-targetClause('victim', {
+select({
   filter: objects({ zone: 'battlefield', type: 'Creature' }),
   count: 1,
 })
 
-targetClause('recipients', {
+select({
   filter: objects({ zone: 'battlefield', type: 'Creature' }),
   min: 0,
   max: 2,
@@ -507,6 +536,13 @@ targetClause('recipients', {
 ```
 
 The first means "target creature"; the second means "up to two target creatures."
+The proposed `select(...)` builder supplies a clause without a handwritten ID.
+An instruction's `target(0)` references all chosen recipients of the first clause
+in its program scope; it does not mean only the first recipient. Reordering clauses
+requires updating their references. Validate index bounds and recipient domains
+when loading the definition. Inactive or empty slots are never compacted or
+renumbered when recipients become illegal.
+
 Each clause represents one occurrence of targeting in the rules text or keyword
 definition. Its recipients are distinct within that clause. Separate clauses
 may select the same recipient when the text allows it; explicit "another" or
@@ -526,6 +562,31 @@ Modes determine which target clauses exist. A variable number of targets is
 announced and remains fixed; an announcement-time distribution is stored with the
 chosen targets. Target-changing effects and copies have their own legal retarget
 procedures; instructions do not quietly choose replacements for missing targets.
+
+### Modes and repeated mode occurrences
+
+A modal program puts each mode's decisions and instructions together in `modes`.
+`decisions.modes` declares the choice count and whether repetitions are permitted.
+Choose modes first, then supply the targets required by each selected occurrence.
+Unselected modes contribute no targets or instructions (CR 601.2b–c, 700.2).
+
+Each selection of a mode creates a separate `ModeOccurrence` with its own generated
+scope and target bindings. `target(0)` inside that mode resolves its first local
+clause. Choosing the same mode twice can bind different recipients or the same
+recipient in those two scopes; within one clause, recipients remain distinct.
+Three repetitions require three executions, not one execution guarded by a boolean.
+
+Execute selected modes in printed order, with repetitions of a mode in sequence
+(CR 608.2c, 700.2d). Bindings remain attached to their occurrences regardless of
+selection order or missing recipients. No priority or ordinary SBA checkpoint
+appears between modes. Resolution choices, such as proliferate, are performed
+separately at each instruction's position; they are not extra casting targets.
+
+Perform the whole-spell target-legality gate once before starting the modal
+program, across every selected occurrence's targets. If targets existed and all
+are illegal, no mode runs, including untargeted modes. Choosing only untargeted
+modes creates no target failure gate. Later instructions still use current state
+where their primitive requires it; the mode scopes do not freeze the game state.
 
 ### Costs use the same eligibility vocabulary
 
@@ -669,15 +730,21 @@ Use one configurable primitive per game action rather than one helper per
 recipient combination:
 
 ```ts
-loseLife({ amount: 1, to: players({ relation: 'opponent' }) })
-gainLife({ amount: 2, to: players({ relation: 'you' }) })
-damage({ amount: 1, to: target('victim'), source: ref('source') })
-draw({ count: 1, for: ref('triggering.player') })
-move({ objects: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }), to: 'exile' })
-destroy({ objects: target('victim') })
-sacrifice({ objects: choice('offering'), by: ref('controller') })
-counter({ item: target('spell'), bindResult: 'counterResult' })
+loseLife({ amount: 1, targets: players({ relation: 'opponent' }) })
+gainLife({ amount: 2, targets: players({ relation: 'you' }) })
+damage({ amount: 1, targets: target(0), source: ref('source') })
+draw({ count: 1, targets: ref('triggering.player') })
+move({ targets: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }), to: 'exile' })
+destroy({ targets: target(0) })
+sacrifice({ targets: choice('offering'), by: ref('controller') })
+counter({ targets: target(0), bindResult: 'counterResult' })
 ```
+
+Proposed instruction recipients consistently use `targets`, including bound
+targets, untargeted choices, and group selectors. The presence of this property
+does not apply targeting rules; `decisions.targets` is the declaration that does.
+Legacy helpers retain their existing signatures, such as `loseLife({ to: ... })`;
+adapters translate to the proposed shape instead of silently changing current APIs.
 
 Instructions propose semantic actions, not direct state edits. Handlers enforce
 rules, expand actions into appropriate events, apply modifiers, commit state, and
@@ -685,10 +752,28 @@ produce occurrences. Damage keeps its source and uses prevention, lifelink,
 infect, protection, and format rules. Life loss does not dispatch a damage event.
 Destroy and sacrifice remain distinct from a plain move to the graveyard.
 
-Each instruction contract defines recipient timing, amount evaluation, result
-bindings, and **simultaneous versus sequential** behavior. Do not use an ordinary
-loop to approximate destroying all creatures simultaneously. Resolve preceding
-events before evaluating a later instruction that depends on their results.
+### Written order and simultaneity
+
+An `instructions` list executes in written order (CR 608.2c). The spell's resolution
+is uninterrupted by ordinary priority, but its instructions are not all one
+simultaneous event. For example, drawing and then discarding uses the hand after
+the draw. In Ashling's Command, copying an Elemental before dealing damage to your
+creatures means the new token is included in that later creature selection.
+
+Each primitive defines recipient timing, amount evaluation, result bindings,
+and event grouping. One instruction dealing damage to a group deals that damage
+simultaneously; one instruction destroying a group attempts those destructions
+simultaneously. Card definitions do not repeat `execution: 'simultaneous'`.
+Represent expressly sequential actions as separate instructions or a typed sequence.
+Do not use an ordinary object-by-object loop to approximate one simultaneous event.
+
+For each proposed action, evaluate recipients at the appropriate time, apply
+replacement/prevention rules, and commit the resulting events before continuing
+to the next instruction. Replacement effects can change an event or introduce
+additional actions; their CR 614–616 semantics determine those actions' order and
+grouping. They do not make the entire instruction list simultaneous. Rules that
+require simultaneous player actions use their specified choice/event grouping,
+including CR 608.2e.
 
 Drawing several cards has a parent draw instruction and individual draw events.
 Apply applicable count-level replacements before per-card processing (CR 121.2a,
@@ -709,6 +794,12 @@ temporarily at 0 toughness can survive if a later instruction raises its toughne
 before that checkpoint; lethal damage similarly does not cause an immediate SBA
 between sentences. Explicit instructions such as sacrifice still execute at their
 written position. A choice suspension is still inside the same resolution.
+
+After the whole spell finishes, run the priority checkpoint: repeat applicable
+SBAs, put waiting triggers on the stack in the required order, and repeat this
+process until stable; only then grant ordinary priority (CR 117.3b, 117.5, 704.4).
+Do not insert a response window or an ordinary SBA check after each instruction,
+mode, replacement decision, or client choice.
 
 Do not counter a partly resolving item through a new priority action. If it
 leaves the stack after beginning a legal resolution, it can still finish resolving
@@ -775,7 +866,7 @@ staticAbility(
     event: { kind: 'draw', player: 'you' }, // one proposed card draw
     optional: true,
   }, replaceWith([
-    mill({ count: 1, for: ref('event.player') }),
+    mill({ count: 1, targets: ref('event.player') }),
   ])),
 )
 
@@ -788,14 +879,14 @@ staticAbility(
 createEffect({
   duration: 'untilEndOfTurn',
   effect: prevention({
-    to: players({ relation: 'you' }),
+    targets: players({ relation: 'you' }),
     capacity: 2,
   }, preventDamage()),
 })
 
 staticAbility(
   modifyStats({
-    objects: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
+    targets: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
     power: 1,
     toughness: 1,
   }),
@@ -908,7 +999,7 @@ the host must honor pending-choice state first. The proposed protocol makes
    It does not publish a cast, spend mana, or give opponents a response opportunity.
 3. The client submits one complete `castSpell` / `activateAbility` proposal with
    bound decisions. Existing commands use target arrays; a future adapter maps
-   named clauses to those positions. Do not silently change wire formats.
+   scoped clauses to those positions. Do not silently change wire formats.
 4. The server validates timing, modes, candidates, cross-clause constraints,
    distributions, costs, and object incarnations against authoritative state.
    Reject stale/illegal proposals without partially applying them.
@@ -958,7 +1049,7 @@ For an entry trigger that targets an opponent, a proposed request might be:
   "cancellation": "mustAnswer",
   "selection": {
     "kind": "selectPlayers",
-    "bindingId": "opponent",
+    "bindingId": "scope-42:0",
     "candidates": ["p2", "p3", "p4"],
     "min": 1,
     "max": 1,
@@ -982,8 +1073,9 @@ else. Choosing p3 maps to the existing kernel event shape:
 The proposed transport wrapper supplies revision/authorization metadata; the
 existing `selectPlayers` event does not itself have a `revision` field. The host
 adapter validates that wrapper, then submits the typed event. The server binds p3
-to `opponent` and continues checkpoint processing. Clients enable counterspell
-responses only after receiving a subsequent `priority` outcome.
+to target slot 0 in the matching execution scope and continues checkpoint
+processing. Clients enable counterspell responses only after receiving a
+subsequent `priority` outcome.
 
 ### Visibility, replay, and agent parity
 
@@ -1001,7 +1093,7 @@ headless simulation answer the same decision contracts.
 
 ## 10. Worked examples
 
-Examples A–I use hypothetical Oracle-style wording. Examples J–M use linked,
+Examples A–I use hypothetical Oracle-style wording. Examples J–O use linked,
 verified Oracle text. New builder syntax remains proposed, not implemented card
 support.
 
@@ -1027,12 +1119,12 @@ does not prevent this life loss.
 ```ts
 whenever(self.enters, {
   decisions: {
-    targets: [targetClause('victim', {
+    targets: [select({
       filter: objects({ zone: 'battlefield', type: 'Creature' }),
       count: 1,
     })],
   },
-  instructions: [destroy({ objects: target('victim') })],
+  instructions: [destroy({ targets: target(0) })],
 })
 ```
 
@@ -1050,14 +1142,14 @@ the trigger. If its target later leaves, the trigger does not resolve.
 ```ts
 spell({
   decisions: {
-    targets: [targetClause('victims', {
+    targets: [select({
       filter: objects({ zone: 'battlefield', type: 'Creature' }),
       min: 0, max: 2,
     })],
   },
   instructions: [
-    destroy({ objects: target('victims'), execution: 'simultaneous' }),
-    draw({ count: 1, for: ref('controller') }),
+    destroy({ targets: target(0) }),
+    draw({ count: 1, targets: ref('controller') }),
   ],
 })
 ```
@@ -1075,14 +1167,14 @@ server never asks for replacement targets at resolution.
 ```ts
 spell({
   decisions: {
-    targets: [targetClause('spell', {
+    targets: [select({
       filter: stackItems({ kind: 'spell', other: true }),
       count: 1,
     })],
   },
   instructions: [
-    counter({ item: target('spell'), bindResult: 'counterResult' }),
-    draw({ count: 1, for: ref('controller') }),
+    counter({ targets: target(0), bindResult: 'counterResult' }),
+    draw({ count: 1, targets: ref('controller') }),
   ],
 })
 ```
@@ -1107,7 +1199,7 @@ effect can stop ward itself.
 
 ```ts
 sequence(
-  draw({ count: 1, for: ref('controller') }),
+  draw({ count: 1, targets: ref('controller') }),
   chooseCards({
     id: 'discarded',
     chooser: ref('controller'),
@@ -1115,7 +1207,7 @@ sequence(
     count: 1,
     whenInsufficient: 'chooseAvailable',
   }),
-  discard({ cards: choice('discarded'), by: ref('controller') }),
+  discard({ targets: choice('discarded'), by: ref('controller') }),
 )
 ```
 
@@ -1140,12 +1232,12 @@ optionalCost({
   }],
   whenPaid: reflexiveTrigger({
     decisions: {
-      targets: [targetClause('victim', {
+      targets: [select({
         filter: objects({ zone: 'battlefield', type: 'Creature' }),
         count: 1,
       })],
     },
-    instructions: [destroy({ objects: target('victim') })],
+    instructions: [destroy({ targets: target(0) })],
   }),
 })
 ```
@@ -1299,7 +1391,7 @@ const aetherTide = cardRuleDefinition(1, {
   abilities: [spell({
     decisions: {
       variables: [chooseX()],
-      targets: [targetClause('creatures', {
+      targets: [select({
         filter: objects({ zone: 'battlefield', type: 'Creature' }),
         count: variable('X'),
       })],
@@ -1310,9 +1402,8 @@ const aetherTide = cardRuleDefinition(1, {
       count: variable('X'),
     }],
     instructions: [move({
-      objects: target('creatures'),
+      targets: target(0),
       to: 'hand',
-      execution: 'simultaneous',
     })],
   })],
 })
@@ -1344,14 +1435,13 @@ creatures.
 const hex = cardRuleDefinition(1, {
   abilities: [spell({
     decisions: {
-      targets: [targetClause('creatures', {
+      targets: [select({
         filter: objects({ zone: 'battlefield', type: 'Creature' }),
         count: 6,
       })],
     },
     instructions: [destroy({
-      objects: target('creatures'),
-      execution: 'simultaneous',
+      targets: target(0),
     })],
   })],
 })
@@ -1363,6 +1453,134 @@ times. If some targets become illegal before resolution, destroy the remaining
 legal targets; no replacement target selection is offered. If all become illegal,
 the spell does not resolve. Indestructible targets are still legal targets;
 failure to destroy them does not make the spell fail its target-legality check.
+
+### N. Ashling's Command: local target slots in modal blocks
+
+[Ashling's Command](https://scryfall.com/card/ecl/205/ashlings-command) costs
+{3}{U}{R}. Choose two distinct modes: copy an Elemental you control, have a target
+player draw two cards, deal 2 damage to each creature a target player controls,
+or have a target player create two Treasure tokens.
+
+**Proposed authoring DSL:**
+
+```ts
+const ashlingsCommand = cardRuleDefinition(1, {
+  abilities: [spell({
+    decisions: {
+      modes: chooseModes({ count: 2 }),
+    },
+    modes: [
+      {
+        decisions: {
+          targets: [select({
+            filter: objects({
+              zone: 'battlefield',
+              subtypes: ['Elemental'],
+              controller: 'you',
+            }),
+            count: 1,
+          })],
+        },
+        instructions: [createTokenCopy({
+          of: target(0),
+          targets: ref('controller'),
+        })],
+      },
+      {
+        decisions: {
+          targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+        },
+        instructions: [draw({ count: 2, targets: target(0) })],
+      },
+      {
+        decisions: {
+          targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+        },
+        instructions: [damage({
+          amount: 2,
+          source: ref('source'),
+          targets: objects({
+            zone: 'battlefield',
+            type: 'Creature',
+            controller: target(0),
+          }),
+        })],
+      },
+      {
+        decisions: {
+          targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+        },
+        instructions: [createToken({ token: 'Treasure', count: 2, targets: target(0) })],
+      },
+    ],
+  })],
+})
+```
+
+Every `target(0)` is local to its selected mode occurrence. The first mode targets
+an Elemental permanent, which need not be a creature. The damage mode targets
+only a player; its `targets` selector evaluates that player's creatures during
+resolution. `ObjectFilter.controller` accepts a typed player reference in this
+proposed form, with domain/cardinality validation and the usual unavailable-target
+information rules. This selector does not give those creatures ward triggers or
+make shroud/hexproof exclude them from the damage.
+
+If copying and damage are selected, the token is created before the damage group
+is evaluated. A damage instruction affects its group simultaneously; the two mode
+instructions remain sequential within the same resolution. Counterspells cannot
+be cast between them, and ordinary SBAs are deferred until the spell finishes.
+
+### O. Brokers Confluence: repeating a mode with independent bindings
+
+[Brokers Confluence](https://scryfall.com/card/ncc/68/brokers-confluence) costs
+{2}{G}{W}{U}. Choose three modes with repetition allowed: proliferate, phase out
+a target creature, or counter a target activated or triggered ability.
+
+**Proposed authoring DSL:**
+
+```ts
+const brokersConfluence = cardRuleDefinition(1, {
+  abilities: [spell({
+    decisions: {
+      modes: chooseModes({ count: 3, repeatable: true }),
+    },
+    modes: [
+      {
+        instructions: [proliferate({ by: ref('controller') })],
+      },
+      {
+        decisions: {
+          targets: [select({
+            filter: objects({ zone: 'battlefield', type: 'Creature' }),
+            count: 1,
+          })],
+        },
+        instructions: [phaseOut({ targets: target(0) })],
+      },
+      {
+        decisions: {
+          targets: [select({ filter: stackItems({ kind: 'ability' }), count: 1 })],
+        },
+        instructions: [counter({ targets: target(0) })],
+      },
+    ],
+  })],
+})
+```
+
+Choosing the phasing mode twice creates two independent target bindings, each
+referenced locally as `target(0)`. The same creature can be chosen for both
+occurrences. Phasing changes status rather than moving zones; use a shared phasing
+primitive, not a move/exile instruction. A `kind: 'ability'` stack filter matches
+activated/triggered stack abilities; mana abilities do not enter the stack.
+
+Proliferate makes untargeted selections during resolution, using the resulting
+counters at each repetition. Three proliferates are three sequential instructions,
+with separate choices and replacement opportunities, inside one spell resolution.
+There is no ordinary priority/SBA checkpoint between them. If selected targeted
+modes have targets and all become illegal before resolution, the entire spell
+does not resolve, including proliferate. Selecting proliferate three times creates
+an untargeted spell and can resolve normally.
 
 ## 11. Validation and development workflow
 
@@ -1376,8 +1594,11 @@ Validate definitions at load time and validate player commands at runtime:
 - Reject unsupported schema versions, unknown node kinds, duplicate declaration
   labels/internal identities, unresolved bindings, and domain mismatches
   (e.g. destroying a player).
-- Check target bounds, mode-dependent clauses, distinctness, and distribution
-  requirements. Resolve named references only in contexts where they exist.
+- Check target bounds, mode counts/repetition, scoped indices, recipient domains,
+  distinctness, and distribution requirements. Validate each selected occurrence's
+  bindings and resolve named choice/result references only where they exist.
+- Require a modal program and its mode-choice specification together; reject
+  mixed root `instructions`/`modes` and nested mode choices in this initial shape.
 - Keep conditions and amount expressions typed, bounded, and deterministic.
   Runtime X/count values differ from fixed literal validation.
 - Validate cost and mana-ability semantics independently of resolution programs.
@@ -1401,7 +1622,7 @@ instructions or choice suspensions where the rules do not permit one.
    and player damage. Preserve existing wrappers and their behavior.
 2. **Execution/announcement contract:** formalize stack-item legality, checkpoint
    timing, pending triggers, and a distinct decision/priority outcome. Introduce
-   named target clauses through adapters to current commands. Test multi-clause
+   scoped target clauses through adapters to current commands. Test multi-clause
    whole-item failure and costs atomically committed.
 3. **References and expressions:** add incarnation-aware participant references,
    last-known information, amount nodes, and versioned serialization. Test replay
@@ -1463,7 +1684,9 @@ the rules references establish game behavior, not the particular API syntax.
 | Trigger collection, APNAP, target placement, intervening-if | 603.1–4 |
 | Zone changes, look-back information, reflexive triggers | 603.6, 603.10, 603.12 |
 | Mana abilities | 605.1, 605.3–4 |
-| Resolution legality, instructions, choices, information, completion | 608.2a–h, 608.2k, 608.2m–n |
+| Resolution legality, instruction order, simultaneous player actions, choices, completion | 608.2a–h, 608.2k, 608.2m–n |
+| Mode-dependent targets and repeated modes | 700.2a–d |
+| Proliferate and phasing | 701.34, 702.26 |
 | Layers and continuous effects | 611, 613 |
 | Static lifetimes, timestamps, dependencies, and game-rule effects | 611.3, 613.7–8, 613.11 |
 | Replacement events, identity, entry, self-replacement | 614.5–6, 614.12, 614.15 |
@@ -1523,12 +1746,12 @@ patterns; their `filter` can match an object predicate or a typed object referen
 ```ts
 whenever(enters({ filter: ref('self') }), {
   decisions: {
-    targets: [targetClause('victim', {
+    targets: [select({
       filter: objects({ zone: 'battlefield', type: 'Creature' }),
       count: 1,
     })],
   },
-  instructions: [destroy({ objects: target('victim') })],
+  instructions: [destroy({ targets: target(0) })],
 })
 ```
 
@@ -1551,11 +1774,11 @@ const self = Object.freeze({
 })
 
 whenever(self.enters, {
-  instructions: [draw({ count: 1, for: ref('controller') })],
+  instructions: [draw({ count: 1, targets: ref('controller') })],
 })
 
 whenever(self.dies, {
-  instructions: [draw({ count: 1, for: ref('controller') })],
+  instructions: [draw({ count: 1, targets: ref('controller') })],
 })
 ```
 
