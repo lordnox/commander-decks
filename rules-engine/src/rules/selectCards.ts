@@ -1,5 +1,14 @@
 import type Draft from '../draft'
-import type { GameEvent, GameState, PlayerId, Plugin, StackItem, ZoneId } from '../types'
+import type {
+  GameEvent,
+  GameState,
+  PlayerId,
+  Plugin,
+  StackExecutionContext,
+  StackItem,
+  ObjectIdentity,
+  ZoneId,
+} from '../types'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
@@ -9,6 +18,7 @@ import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
+import { targetObject } from '../objectIdentity'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -92,11 +102,14 @@ export type PendingCardSelection = {
   triggerAbilityId?: string
   triggerInstructions?: CardInstruction[]
   triggerPayload?: Record<string, unknown>
+  triggerExecution?: StackExecutionContext
   /** Exile chosen permanents linked to `sourceId` (see `linkedExile` plugin). */
   linkExile?: boolean
   /** Exile chosen permanents until an opponent becomes monarch. */
   exileUntilOpponentMonarch?: boolean
   targetFilter?: TargetFilter
+  /** Identity offered for a pre-stack target choice; prevents leave-and-return rebinding. */
+  targetIdentities?: Record<string, ObjectIdentity>
   triggerX?: number
   grantKeywordsUntilEot?: string[]
   piles?: { 'face-up': string[]; 'face-down': string[] }
@@ -265,6 +278,11 @@ export const liveSelectionCandidates = (
   return selection.candidates.filter((objectId) => {
     const object = state.objects[objectId]
     return Boolean(object)
+      && (!selection.targetIdentities
+        || Boolean(targetObject(state, {
+          kind: 'object',
+          ...selection.targetIdentities[objectId],
+        })))
       && (!selection.fromZone || object?.zone === selection.fromZone)
       && (!selection.fromSeat || object?.owner === selection.fromSeat)
       && (!selection.targetFilter
@@ -631,12 +649,15 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
     && (selection.triggerAbilityId || selection.triggerInstructions)
     && selection.sourceId
   ) {
-    const source = draft.object(selection.sourceId)
+    const source = selection.triggerExecution?.source.snapshot ?? draft.object(selection.sourceId)
     // A target choice names every chosen target; a sacrifice names only its first card.
     const targetIds = selection.kind === 'choose'
       ? event.objectIds ?? []
       : (event.objectIds ?? []).slice(0, 1)
-    const targets = targetIds.map((objectId) => ({ kind: 'object' as const, objectId }))
+    const targets = targetIds.map((objectId) => ({
+      kind: 'object' as const,
+      ...(selection.targetIdentities?.[objectId] ?? { objectId }),
+    }))
     const sacrificeCount = selection.kind === 'sacrifice'
       ? (event.objectIds?.length ?? 0)
       : undefined
@@ -654,6 +675,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           name: source.name,
           targets,
           payload,
+          ...(selection.triggerExecution ? { execution: selection.triggerExecution } : {}),
         })
       } else {
         draft.addTriggeredAbility(source, selection.triggerInstructions ?? [], {
@@ -663,6 +685,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           ...(selection.triggerX !== undefined ? { x: selection.triggerX } : {}),
           targets,
           payload,
+          ...(selection.triggerExecution ? { execution: selection.triggerExecution } : {}),
         })
       }
       draft.passedInRow = []

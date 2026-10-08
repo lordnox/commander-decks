@@ -153,7 +153,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const previous = object.zone
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
-      draft.move(event.objectId, event.to, event.position)
+      draft.move(event.objectId, event.to, event.position, event.sameZone)
       object.controller = event.to === 'battlefield'
         ? event.controller ?? object.controller
         : object.owner

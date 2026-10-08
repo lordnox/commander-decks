@@ -1,6 +1,7 @@
 import type { GameObject, GameState, TargetRef } from '../types'
 import { isForest } from './forestOverlay'
 import { isSwamp } from './swampOverlay'
+import { targetObject } from '../objectIdentity'
 
 /**
  * The `Enchant <word>` line of an Aura, for the words that name a battlefield
@@ -42,7 +43,7 @@ export const enchantTargetError = (
   const restriction = enchantRestriction(aura)
   if (!restriction) return
   const [target] = targets ?? []
-  const object = target?.kind === 'object' ? state.objects[target.objectId] : undefined
+  const object = target?.kind === 'object' ? targetObject(state, target) : undefined
   if (targets?.length !== 1 || !object || !matchesEnchant(state, object, restriction)) {
     return `${aura.name} must enchant a ${restriction}`
   }

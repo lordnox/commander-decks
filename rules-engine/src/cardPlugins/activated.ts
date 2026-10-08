@@ -15,6 +15,7 @@ import {
 import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
+import { targetObject } from '../objectIdentity'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
@@ -25,7 +26,7 @@ const legalActivateTarget = (
   seat: string,
 ) => {
   if (target?.kind !== 'object') return false
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   if (!object || object.zone !== 'battlefield') return false
   if (kind === 'room') {
     return Boolean(object.roomDoors && object.controller === seat)
@@ -38,7 +39,14 @@ const legalActivateTarget = (
 const activatedTargetFilter = (
   targets: Extract<CardEffect, { op: 'activate' }>['targets'],
 ): TargetFilter | undefined => {
-  if (!targets || typeof targets === 'string') return undefined
+  if (!targets) return undefined
+  if (typeof targets === 'string') {
+    if (targets === 'creature') return { zone: 'battlefield', type: 'Creature' }
+    if (targets === 'land') return { zone: 'battlefield', type: 'Land' }
+    if (targets === 'room') return { zone: 'battlefield', subtype: 'Room', controller: 'you' }
+    if (targets === 'legendary') return { zone: 'battlefield', supertype: 'Legendary' }
+    return undefined
+  }
   return 'filter' in targets ? targets.filter : targets
 }
 
@@ -159,7 +167,7 @@ export const activated: Plugin = {
       if (
         targets.length !== 1
         || target?.kind !== 'player'
-        || target.player === event.seat
+        || !state.opponents[event.seat].includes(target.player)
         || !state.players[target.player]
         || state.players[target.player].lost
       ) {
@@ -229,7 +237,11 @@ export const activated: Plugin = {
         targets: event.targets ?? [],
         abilityId: event.abilityId,
         // The ability outlives its source, which a token leaves behind when sacrificed to pay for it.
-        payload: { instructions: effect.do, ...(targetFilter ? { targetFilter } : {}) },
+        payload: {
+          instructions: effect.do,
+          abilityEffect: effect,
+          ...(targetFilter ? { targetFilter } : {}),
+        },
         ...(event.x !== undefined ? { x: event.x } : {}),
         ...(event.choices ? { choices: event.choices } : {}),
         ...(event.door ? { door: event.door } : {}),

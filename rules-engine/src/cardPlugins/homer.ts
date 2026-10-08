@@ -108,8 +108,7 @@ export const homer: Plugin = {
       if (playerTargetsFor(state, event.seat).length === 0) return
       const pending = takePlayerTargets(draft, event.seat)
       if (!pending) return
-      draft.stack.unshift({
-        id: draft.allocId('stack'),
+      draft.addToStack({
         kind: 'ability',
         objectId: pending.sourceId,
         controller: event.seat,

@@ -30,6 +30,18 @@ export type ServerDependencies = {
   cardPlugins?: Plugin[]
 }
 
+const stripAuthoritativeExecution = (value: unknown): void => {
+  if (!value || typeof value !== 'object') return
+  if (Array.isArray(value)) {
+    for (const entry of value) stripAuthoritativeExecution(entry)
+    return
+  }
+  const record = value as Record<string, unknown>
+  delete record.execution
+  delete record.triggerExecution
+  for (const child of Object.values(record)) stripAuthoritativeExecution(child)
+}
+
 const createRuntimeEngine = (
   format: GameFormat,
   hiddenInformation: ReturnType<typeof createAuthoritativeHiddenInformation>,
@@ -57,6 +69,10 @@ export const projectForViewer = (
 
   const projected = structuredClone(authoritative)
   projected.knowledge = { mode: 'replica', viewer }
+  stripAuthoritativeExecution(projected.stack)
+  for (const player of projected.playerOrder) {
+    stripAuthoritativeExecution(projected.players[player].data)
+  }
 
   const revealedTops = Object.fromEntries(
     projected.playerOrder.flatMap((player) => {

@@ -35,24 +35,57 @@ const stackSourceFallback = (item: StackItem): GameObject => ({
 
 export const resolveAbility = (draft: Draft, item: StackItem) => {
   const payloadInstructions = item.payload?.instructions
+  const capturedAbility = item.payload?.abilityEffect as
+    | ReturnType<typeof activateEffect>
+    | undefined
   let instructions: CardInstruction[] | undefined
 
   if (Array.isArray(payloadInstructions)) {
     instructions = payloadInstructions as CardInstruction[]
   } else if (item.abilityId) {
     const live = draft.object(item.objectId)
-    if (!live) return
-    instructions = activateEffect(effectsOf(live), item.abilityId)?.do
+    const sourceIdentity = item.execution?.source.ref
+    const source = live
+      && (!sourceIdentity
+        || (
+          live.incarnation === sourceIdentity.incarnation
+          && live.zone === sourceIdentity.zone
+        ))
+      ? live
+      : item.execution?.source.snapshot
+    if (!source) return
+    instructions = capturedAbility?.do ?? activateEffect(effectsOf(source), item.abilityId)?.do
   }
 
   if (!instructions) return
 
-  const source = draft.object(item.objectId) ?? stackSourceFallback(item)
+  const currentSource = draft.object(item.objectId)
+  const sourceIdentity = item.execution?.source.ref
+  const liveSource = currentSource
+    && (!sourceIdentity
+      || (
+        currentSource.incarnation === sourceIdentity.incarnation
+        && currentSource.zone === sourceIdentity.zone
+      ))
+    ? currentSource
+    : undefined
+  const sourceBase = liveSource ?? item.execution?.source.snapshot ?? stackSourceFallback(item)
+  // Keep the real live object when its captured controller is unchanged: many
+  // legacy instructions intentionally stamp state on their source. A controlled
+  // source is viewed through the ability's independently captured controller.
+  const source = sourceBase.controller === item.controller
+    ? sourceBase
+    : { ...sourceBase, controller: item.controller }
   const triggerEffectKey = item.payload?.triggerEffectKey as string | undefined
   if (triggerEffectKey) {
-    const effect = triggerEffectByKey(effectsOf(source), triggerEffectKey)
+    const effect = item.payload?.triggerEffect as ReturnType<typeof triggerEffectByKey>
+      ?? triggerEffectByKey(effectsOf(source), triggerEffectKey)
     if (effect?.whenResolvedNth) {
-      const resolveCount = bumpResolveCountThisTurn(source, triggerEffectKey, draft.turn)
+      const resolveCount = bumpResolveCountThisTurn(
+        liveSource ?? source,
+        triggerEffectKey,
+        draft.turn,
+      )
       instructions = resolveCount === effect.whenResolvedNth.nth
         ? effect.whenResolvedNth.do
         : effect.do
@@ -74,7 +107,7 @@ export const resolveAbility = (draft: Draft, item: StackItem) => {
   }
   runInstructions(draft, source, instructions, resolving)
   if (!item.abilityId) return
-  const effect = activateEffect(effectsOf(source), item.abilityId)
+  const effect = capturedAbility ?? activateEffect(effectsOf(source), item.abilityId)
   if (
     effect?.cycling
     && !effect.do.some((instruction) => instruction.kind === 'searchLibrary')

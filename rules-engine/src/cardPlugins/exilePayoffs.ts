@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import { openCardSelection } from '../rules/selectCards'
-import type { GameObject, GameState, Plugin } from '../types'
+import type { GameObject, GameState, Plugin, TargetRef } from '../types'
+import { targetObject } from '../objectIdentity'
 import {
   changeStatsUntilEndOfTurn,
   linkedExileCardIds,
@@ -35,16 +36,16 @@ const powerOf = (card: GameObject | undefined) =>
   card?.power ?? 0
 
 const pumpRecipient = (
-  ctx: { draft: Draft; source: GameObject; item?: { targets: { kind: string; objectId?: string }[] } },
+  ctx: { draft: Draft; source: GameObject; item?: { targets: TargetRef[] } },
   applyTo: 'self' | 'stackTarget',
 ) => {
   if (applyTo === 'self') return ctx.draft.object(ctx.source.id)
   const target = ctx.item?.targets.find((entry) => entry.kind === 'object')
-  return target?.objectId ? ctx.draft.object(target.objectId) : undefined
+  return target?.kind === 'object' ? targetObject(ctx.draft, target) : undefined
 }
 
 const applyPumpFromLinkedExile = (
-  ctx: { draft: Draft; source: GameObject; item?: { targets: { kind: string; objectId?: string }[] } },
+  ctx: { draft: Draft; source: GameObject; item?: { targets: TargetRef[] } },
   linkedExileId: string,
   applyTo: 'self' | 'stackTarget',
 ) => {

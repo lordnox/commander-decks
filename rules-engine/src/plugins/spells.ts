@@ -559,7 +559,9 @@ export const spells: Plugin = {
           source: object.name,
         })
       }
-      draft.stack.unshift({
+      const castFrom = object.zone
+      draft.move(object.id, 'stack')
+      draft.addToStack({
         id: draft.allocId('s'),
         kind: 'spell',
         objectId: object.id,
@@ -603,7 +605,7 @@ export const spells: Plugin = {
             ? { payload: { commanderCast: true } }
             : {}
         ),
-        castFrom: object.zone,
+        castFrom,
       })
       if (event.castOption === 'exiledWithLife') {
         const life = manaValueOf(object)
@@ -616,7 +618,6 @@ export const spells: Plugin = {
           })
         }
       }
-      draft.move(object.id, 'stack')
       for (const objectId of event.sacrifice ?? []) {
         draft.enqueue({ type: 'sacrifice', objectId })
       }

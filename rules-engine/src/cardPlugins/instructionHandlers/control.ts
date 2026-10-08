@@ -6,6 +6,7 @@ import { instructionAmount } from './helpers'
 import { counterStackSpell } from '../targetedResolve'
 import { instructionCount } from '../voteResult'
 import type { InstructionHandler, InstructionHandlers } from './types'
+import { targetObject as resolveTargetObject } from '../../objectIdentity'
 
 const conditional: InstructionHandler<'if'> = ({ draft, source, item, run }, instruction) => {
   const live = draft.object(source.id) ?? source
@@ -20,7 +21,7 @@ const ifTargetTypes: InstructionHandler<'ifTargetTypes'> = (
   instruction,
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const chosen = object && instruction.types.some((type) => object.types.includes(type))
     ? instruction.whenTrue
     : instruction.whenFalse ?? []
@@ -32,7 +33,7 @@ const removeTarget: InstructionHandler<'removeTarget'> = (
   instruction,
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!object || object.phasedOut) return
   if (instruction.action === 'destroy' && hasKeyword(object, 'indestructible', draft)) return
   draft.enqueue({
@@ -219,7 +220,7 @@ const counterTargetSpell: InstructionHandler<'counterTargetSpell'> = (
   if (instruction.chosen) {
     // Legality is checked now: a spell that left the stack since targeting is no longer there to counter.
     const target = item?.targets[0]
-    const spell = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+    const spell = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
     if (spell?.zone === 'stack') counterStackSpell(draft, source, spell)
     return
   }

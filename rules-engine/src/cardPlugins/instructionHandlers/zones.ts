@@ -16,6 +16,7 @@ import {
 import { resolveRevealUntilThen, runRevealUntil } from '../revealUntil'
 import { instructionCount } from '../voteResult'
 import { returnAsEnchantmentOnly } from '../continuousEffects'
+import { targetObject as resolveTargetObject } from '../../objectIdentity'
 import { matchesTargetFilter } from '../targetedResolve'
 import { hasKeyword } from '../../keywords'
 import type { TargetFilter } from '../effects'
@@ -235,7 +236,7 @@ const searchTargetControllerForBasicLandType: InstructionHandler<
   'searchTargetControllerForBasicLandType'
 > = ({ draft, source, item }) => {
   const target = item?.targets[0]
-  const targetObject = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const targetObject = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const seat = targetObject?.controller
   if (!seat) return
   const basicTypes = new Set(['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'])
@@ -324,7 +325,7 @@ const lockOrUnlockDoor: InstructionHandler<'lockOrUnlockDoor'> = ({ draft, sourc
   const target = item?.targets[0]
   const door = item?.door
   if (target?.kind !== 'object' || (door !== 'left' && door !== 'right')) return
-  const object = draft.object(target.objectId)
+  const object = resolveTargetObject(draft, target)
   if (!object?.roomDoors || object.controller !== source.controller) return
   if (object.unlockedDoors?.includes(door)) {
     draft.enqueue({
@@ -490,13 +491,16 @@ const returnOwnedGraveyardLands: InstructionHandler<'returnOwnedGraveyardLands'>
 const returnSelfAsEnchantment: InstructionHandler<'returnSelfAsEnchantment'> = (
   { draft, source },
 ) => {
-  if (source.zone !== 'graveyard') return
-  returnAsEnchantmentOnly(source)
+  // CR 400.7 permits this ability to find the new graveyard object without
+  // treating it as the old battlefield incarnation.
+  const graveyardCard = draft.object(source.id)
+  if (graveyardCard?.zone !== 'graveyard') return
+  returnAsEnchantmentOnly(graveyardCard)
   draft.enqueue({
     type: 'move',
-    objectId: source.id,
+    objectId: graveyardCard.id,
     to: 'battlefield',
-    controller: source.owner,
+    controller: graveyardCard.owner,
   })
 }
 

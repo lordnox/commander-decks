@@ -1,6 +1,7 @@
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import { isPhasedOut } from './phasing'
 import { activeUntilNextTurnRule, untilNextTurnStillHolds } from './untilNextTurn'
+import { targetObject } from '../objectIdentity'
 
 export const playerHasProtectionFromEverything = (state: GameState, seat: PlayerId) =>
   activeUntilNextTurnRule(state, 'protectionFromEverything', seat)
@@ -28,7 +29,7 @@ const protectedTarget = (
   if (target.kind === 'player') {
     return playerHasProtectionFromEverything(state, target.player)
   }
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   return hasProtectionFromEverything(state, object)
 }
 
@@ -41,7 +42,7 @@ export const protectionFromEverything: Plugin = {
           return `${target.player} has protection from everything`
         }
         if (target.kind === 'object') {
-          const object = state.objects[target.objectId]
+          const object = targetObject(state, target)
           if (isPhasedOut(object)) return `${object?.name ?? 'Permanent'} is phased out`
           if (hasProtectionFromEverything(state, object)) {
             return `${object?.name ?? 'Permanent'} has protection from everything`
@@ -75,7 +76,7 @@ export const protectionFromEverything: Plugin = {
       return null
     }
     if (event.type === 'dealDamage' && event.target.kind === 'object') {
-      const object = state.objects[event.target.objectId]
+      const object = targetObject(state, event.target)
       if (hasProtectionFromEverything(state, object)) return null
     }
   },

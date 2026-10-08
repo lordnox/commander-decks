@@ -1,6 +1,7 @@
 import { STUN_COUNTER } from './rules/untap'
 import type { CardInstruction } from './cardPlugins/effects'
 import { counterPtBonus } from './definitions'
+import { captureObject, pinTarget, refreshLastKnownSource, snapshotObject } from './objectIdentity'
 import type { GameEvent, GameObject, GameState, ManaPool, PlayerId, StackItem, ZoneId } from './types'
 
 export const emptyMana = (): ManaPool => ({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
@@ -63,6 +64,7 @@ export type Draft = GameState & {
     id: string,
     to: ZoneId,
     position?: 'top' | 'bottom',
+    sameZone?: 'reorder' | 'newObject',
   ) => GameObject | undefined
   /** List objects in a zone, optionally filtered by controller. */
   zoneOf: (zone: ZoneId, player?: PlayerId) => GameObject[]
@@ -105,22 +107,33 @@ export const makeDraft = (state: GameState): Draft => {
     draft.log.push(line)
   }
   draft.object = (id) => draft.objects[id]
-  draft.move = (id, to, position = 'bottom') => {
+  draft.move = (id, to, position = 'bottom', sameZone) => {
     const object = draft.objects[id]
     if (!object) return undefined
     const from = object.zone
+    const sameZoneCreatesObject = sameZone === 'newObject'
+      || (sameZone === undefined && (from === 'exile' || from === 'command'))
+    const becomesNewObject = from !== to || sameZoneCreatesObject
+    const before = becomesNewObject ? snapshotObject(object) : undefined
+    if (before) {
+      refreshLastKnownSource(draft.stack, before)
+      for (const player of draft.playerOrder) refreshLastKnownSource(draft.players[player].data, before)
+    }
     const zones = draft.zoneOrder[object.owner]
     zones[from] = zones[from].filter((objectId) => objectId !== id)
     if (!zones[to].includes(id)) {
       if (position === 'top') zones[to].unshift(id)
       else zones[to].push(id)
     }
-    draft.zoneCounts[object.owner][from] = Math.max(
-      0,
-      draft.zoneCounts[object.owner][from] - 1,
-    )
-    draft.zoneCounts[object.owner][to] += 1
+    if (from !== to) {
+      draft.zoneCounts[object.owner][from] = Math.max(
+        0,
+        draft.zoneCounts[object.owner][from] - 1,
+      )
+      draft.zoneCounts[object.owner][to] += 1
+    }
     object.zone = to
+    if (becomesNewObject) object.incarnation += 1
     if (from === 'battlefield' && to !== 'battlefield') {
       // CR 400.7: the object that arrives is new, so counters do not follow it.
       // Their contribution to P/T is stored eagerly and must come back out.
@@ -148,8 +161,29 @@ export const makeDraft = (state: GameState): Draft => {
       (object) => object.zone === zone && (!seat || object.controller === seat),
     )
   draft.addToStack = (item) => {
-    const id = item.id ?? draft.allocId('stack')
-    const stackItem: StackItem = { ...item, id }
+    const cloned = structuredClone(item)
+    const id = cloned.id ?? draft.allocId('stack')
+    const source = draft.object(cloned.objectId)
+    const existingExecution = cloned.execution
+    const capturedSource = existingExecution?.source.ref.objectId === item.objectId
+      ? existingExecution.source
+      : source
+        ? captureObject(source)
+        : undefined
+    const stackItem: StackItem = {
+      ...cloned,
+      id,
+      targets: cloned.targets.map((target) => pinTarget(draft, target)),
+      ...(capturedSource
+        ? {
+            execution: {
+              ...existingExecution,
+              controller: cloned.controller,
+              source: capturedSource,
+            },
+          }
+        : {}),
+    }
     draft.stack.unshift(stackItem)
     return stackItem
   }
@@ -158,9 +192,13 @@ export const makeDraft = (state: GameState): Draft => {
     return draft.addToStack({
       kind: 'ability',
       objectId: source.id,
-      controller: source.controller,
+      controller: meta.execution?.controller ?? source.controller,
       name: source.name,
       targets: [],
+      execution: meta.execution ?? {
+        controller: source.controller,
+        source: captureObject(source),
+      },
       ...rest,
       payload: {
         instructions,

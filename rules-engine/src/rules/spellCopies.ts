@@ -19,6 +19,7 @@ export const createSpellCopy = (
   const copy: GameObject = {
     ...structuredClone(original),
     id: draft.allocId('obj'),
+    incarnation: 1,
     owner: controller,
     controller,
     zone,

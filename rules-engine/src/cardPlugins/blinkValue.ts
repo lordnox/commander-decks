@@ -2,6 +2,7 @@ import { enteringObjectId } from './entersTapped'
 import { openCardSelection } from '../rules/selectCards'
 import { openPlayerSelection } from '../rules/selectPlayers'
 import type { GameObject, PlayerId, Plugin, StackItem } from '../types'
+import { targetObject } from '../objectIdentity'
 
 const SPELLS_CAST = 'blinkValue.spellsCast'
 const VANISH_RETURNS = 'blinkValue.vanishReturns'
@@ -271,7 +272,7 @@ export const blinkValue: Plugin = {
       }
       if (item.kind === 'ability' && item.abilityId === 'loran.destroy') {
         const target = item.targets[0]
-        const object = target?.kind === 'object' ? state.objects[target.objectId] : undefined
+        const object = target?.kind === 'object' ? targetObject(state, target) : undefined
         if (permanent(object, ['Artifact', 'Enchantment'])) {
           draft.enqueue({ type: 'move', objectId: object!.id, to: 'graveyard' })
         }
@@ -283,7 +284,7 @@ export const blinkValue: Plugin = {
       }
       if (item.kind === 'ability' && item.abilityId === 'vanish.return') {
         const target = item.targets[0]
-        const object = target?.kind === 'object' ? state.objects[target.objectId] : undefined
+        const object = target?.kind === 'object' ? targetObject(state, target) : undefined
         const seat = item.payload?.returnSeat
         const discardCount = item.payload?.discardCount
         if (

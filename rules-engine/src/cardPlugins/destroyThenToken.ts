@@ -3,6 +3,7 @@ import type { PlayerId } from '../types'
 import { INSTRUCTIONS_RESUME } from '../rules/selectCards'
 import { createToken, tokenFieldsFromSpec } from './effectRuntime'
 import type { InstructionHandler } from './instructionHandlers/types'
+import { targetObject } from '../objectIdentity'
 
 /**
  * Destroys each legal target, then gives its controller a token for every one
@@ -28,7 +29,7 @@ const destroyThenTokenForController: InstructionHandler<'destroyThenTokenForCont
   const destroyed: Array<{ objectId: string; controller: PlayerId }> = []
   for (const target of item?.targets ?? []) {
     if (target.kind !== 'object') continue
-    const object = draft.object(target.objectId)
+    const object = targetObject(draft, target)
     if (
       !object
       || object.zone !== 'battlefield'

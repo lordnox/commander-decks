@@ -22,6 +22,7 @@ import { openStackCopyChoice } from './stackCopy'
 import { finishedSpellZone } from './alternateCosts'
 import { openCardSelection } from '../rules/selectCards'
 import type { InstructionHandler } from './instructionHandlers/types'
+import { targetObject } from '../objectIdentity'
 
 const controlledPermanentTarget = (
   state: GameState,
@@ -29,7 +30,7 @@ const controlledPermanentTarget = (
   controller: PlayerId,
 ) => item.targets.some((target) => {
   if (target.kind !== 'object') return false
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   return object?.zone === 'battlefield' && object.controller === controller
 })
 
@@ -65,7 +66,10 @@ export const matchesTargetFilter = (
   if (filter.any && !filter.any.some(matches)) return false
   if (filter.not && matches(filter.not)) return false
   if (filter.owner === 'you' && object.owner !== controller) return false
-  if (filter.owner === 'opponent' && object.owner === controller) return false
+  if (
+    filter.owner === 'opponent'
+    && !state.opponents[controller].includes(object.owner)
+  ) return false
   if (filter.other && excludeSourceId && object.id === excludeSourceId) return false
   if (filter.excludeSubtypes?.some((subtype) => object.subtypes.includes(subtype))) {
     return false
@@ -84,7 +88,10 @@ export const matchesTargetFilter = (
   }
   if (filter.supertype && !object.supertypes.includes(filter.supertype)) return false
   if (filter.controller === 'you' && object.controller !== controller) return false
-  if (filter.controller === 'opponent' && object.controller === controller) return false
+  if (
+    filter.controller === 'opponent'
+    && !state.opponents[controller].includes(object.controller)
+  ) return false
   if (filter.controller === 'notController' && object.controller === controller) return false
   if (filter.nonland && object.types.includes('Land')) return false
   if (filter.noncreature && object.types.includes('Creature')) return false
@@ -154,7 +161,7 @@ export const validTargetRef = (
   return target?.kind === 'object'
     && validTarget(
       state,
-      state.objects[target.objectId],
+      targetObject(state, target),
       filter,
       controller,
       castOption,
@@ -259,12 +266,12 @@ const applyTargetedAction = (
   if (effect.action === 'select') {
     const targetName = target.kind === 'player'
       ? target.player
-      : state.objects[target.objectId]?.name ?? target.objectId
+      : targetObject(state, target)?.name ?? target.objectId
     draft.note(`${source.name} targets ${targetName}`)
     return
   }
   if (target.kind !== 'object') return
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   if (!object) return
   if (effect.action === 'counter') {
     const stealToBattlefield = Boolean(

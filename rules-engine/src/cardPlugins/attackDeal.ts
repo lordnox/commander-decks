@@ -1,5 +1,6 @@
 import type { GameObject, GameState, PlayerId, Plugin, TargetRef } from '../types'
 import { effectsOf } from './cardRules'
+import { targetObject } from '../objectIdentity'
 
 const DRAW_ABILITY = 'attackDeal.draw'
 const BREAK_ABILITY = 'attackDeal.break'
@@ -14,7 +15,7 @@ const defendingPlayer = (
   if (typeof target === 'string') return target
   return target.kind === 'player'
     ? target.player
-    : state.objects[target.objectId]?.controller
+    : targetObject(state, target)?.controller
 }
 
 const deals = (state: GameState) =>

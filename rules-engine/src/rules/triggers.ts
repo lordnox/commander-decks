@@ -36,6 +36,8 @@ import {
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
 import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
+import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
+import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
@@ -58,6 +60,53 @@ type PendingTrigger = {
   triggerAmount?: number
   payload?: Record<string, unknown>
 }
+
+const capturedOccurrence = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  triggeringObjectId?: string,
+  triggeringPlayer?: PlayerId,
+  amount?: number,
+): OccurrenceSnapshot => {
+  const objectId = triggeringObjectId ?? eventObjectId(event)
+  const before = objectId ? state.objects[objectId] : undefined
+  const after = objectId ? draft.objects[objectId] : undefined
+  const sourceId = 'sourceId' in event && typeof event.sourceId === 'string'
+    ? event.sourceId
+    : undefined
+  const eventSource = sourceId
+    ? state.objects[sourceId] ?? draft.objects[sourceId]
+    : undefined
+  return {
+    kind: 'event',
+    eventType: event.type === 'custom' ? event.name : event.type,
+    ...(triggeringPlayer ? { player: triggeringPlayer } : {}),
+    ...(amount !== undefined ? { amount } : {}),
+    ...(before || after
+      ? {
+          object: {
+            ...(before ? { before: snapshotObject(before) } : {}),
+            ...(after ? { after: snapshotObject(after) } : {}),
+          },
+        }
+      : {}),
+    ...(eventSource ? { source: captureObject(eventSource) } : {}),
+  }
+}
+
+const triggerExecution = (
+  source: GameObject,
+  occurrence: OccurrenceSnapshot,
+  state: GameState,
+): StackExecutionContext => ({
+  controller: source.controller,
+  source: captureObject(
+    source,
+    isSameObject(state.objects[source.id], objectIdentity(source)) ? 'current' : 'lastKnown',
+  ),
+  occurrence,
+})
 
 /** Landfall listens to land drops and zone moves, not ability resolution. */
 const landEnteringObjectId = (event: GameEvent, state: GameState) => {
@@ -112,11 +161,12 @@ const noteOnceEachTurnIfNeeded = (
 }
 
 const triggerPayloadExtras = (
-  effect: Pick<TriggerEffect, 'if'>,
+  effect: Pick<TriggerEffect, 'if' | 'do' | 'onceEachTurn' | 'whenResolvedNth'>,
   key?: string,
   extras: Record<string, unknown> = {},
 ) => ({
   ...(key ? { triggerEffectKey: key } : {}),
+  triggerEffect: effect,
   ...(effect.if && !isTriggerBindingIf(effect.if) ? { interveningIf: effect.if } : {}),
   ...extras,
 })
@@ -243,7 +293,7 @@ const collectEnters = (
     draft,
     matches,
     1 + extraTriggerCount(draft, object.controller, 'enters', object),
-    {},
+    { triggeringObjectId: object.id, triggeringPlayer: object.controller, watched: object },
     event,
   )
   for (const watcher of draft.zoneOf('battlefield')) {
@@ -470,7 +520,11 @@ const collectMoveTriggers = (
   }
 
   if (died) {
-    collectEffects(before, 'dies', state, matches)
+    collectEffects(before, 'dies', state, matches, 1, {
+      triggeringObjectId: before.id,
+      triggeringPlayer: before.controller,
+      watched: before,
+    })
   }
 }
 
@@ -665,6 +719,15 @@ export const triggers: Plugin = {
       triggerAmount,
       payload,
     } of ordered) {
+      const occurrence = capturedOccurrence(
+        state,
+        draft,
+        event,
+        triggeringObjectId,
+        matchedPlayer ?? triggeringPlayer,
+        triggerAmount,
+      )
+      const execution = triggerExecution(source, occurrence, draft)
       if (effect.targets && effect.targets !== 'opponent' && effect.targets !== 'player') {
         const targetSpec = effect.targets
         const candidates = Object.values(draft.objects)
@@ -687,6 +750,10 @@ export const triggers: Plugin = {
           count: maxTargets,
           min: minTargets,
           candidates,
+          targetIdentities: Object.fromEntries(candidates.map((objectId) => [
+            objectId,
+            objectIdentity(draft.objects[objectId]),
+          ])),
           sourceId: source.id,
           source: source.name,
           prompt: maxTargets === 1
@@ -701,6 +768,7 @@ export const triggers: Plugin = {
             ...(triggerAmount !== undefined ? { triggerAmount } : {}),
             ...payload,
           }),
+          triggerExecution: execution,
         })
         noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
         choosingSeat ??= source.controller
@@ -710,7 +778,10 @@ export const triggers: Plugin = {
         const candidates = draft.playerOrder.filter(
           (seat) =>
             !draft.players[seat].lost
-            && (effect.targets !== 'opponent' || seat !== source.controller),
+            && (
+              effect.targets !== 'opponent'
+              || draft.opponents[source.controller].includes(seat)
+            ),
         )
         if (candidates.length === 0) continue
         openPlayerSelection(draft, {
@@ -731,6 +802,7 @@ export const triggers: Plugin = {
             ...(effect.if && !isTriggerBindingIf(effect.if)
               ? { interveningIf: effect.if }
               : {}),
+            execution,
           },
         })
         noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
@@ -750,6 +822,7 @@ export const triggers: Plugin = {
         continue
       }
       draft.addTriggeredAbility(source, effect.do, {
+        execution,
         payload: {
           instructions: effect.do,
           triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
