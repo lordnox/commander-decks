@@ -102,6 +102,10 @@ are proposed destinations, not existing exports.
 
 **Dependencies:** none.
 
+**Status:** implementation complete; review pending. See the reproducible
+[Part 00 coverage baseline](migration/RULE-DSL-COVERAGE.md), generated migration
+ledger, and versioned compatibility fixtures.
+
 Inventory `CARD_RULES`, every `CardEffect`/`CardInstruction` variant, handler
 discovery, plugin hooks, specialized dialogs, and embedded token/copy/face rules.
 Create a migration ledger recording mechanic, current registrations, executable

@@ -1,0 +1,2311 @@
+{
+  "schema": "rule-dsl-compatibility-fixtures/v1",
+  "engineSchema": "rules-engine/v0",
+  "generatedFrom": "20f6da632c26633aae5eb660fa28d81c3c125f78",
+  "commands": {
+    "openCardChoiceAnswer": {
+      "type": "selectCards",
+      "seat": "p1",
+      "kind": "discard",
+      "count": 1,
+      "objectIds": [
+        "o2"
+      ]
+    },
+    "openPlayerChoiceAnswer": {
+      "type": "selectPlayers",
+      "selectionId": "player-selection2",
+      "seat": "p1",
+      "players": [
+        "p2"
+      ]
+    },
+    "legacyModeAnswer": {
+      "type": "custom",
+      "name": "kernel.pendingDialog.chosen",
+      "seat": "p1",
+      "payload": {
+        "modes": [
+          "Target creature you control fights target creature you don't control."
+        ]
+      }
+    },
+    "legacyModeJournalEvents": [
+      {
+        "type": "castSpell",
+        "seat": "p1",
+        "objectId": "o2"
+      },
+      {
+        "type": "resolveTop"
+      }
+    ]
+  },
+  "savedStates": {
+    "openCardChoice": {
+      "state": {
+        "format": "commander",
+        "knowledge": {
+          "mode": "authoritative",
+          "viewer": null
+        },
+        "playerOrder": [
+          "p1",
+          "p2"
+        ],
+        "castableZones": [
+          "hand",
+          "command"
+        ],
+        "players": {
+          "p1": {
+            "id": "p1",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {},
+              "hiddenInformation.randomState": 2147483648,
+              "kernel.pendingSelection": [
+                {
+                  "id": "selection3",
+                  "seat": "p1",
+                  "kind": "discard",
+                  "count": 1,
+                  "candidates": [
+                    "o1",
+                    "o2"
+                  ],
+                  "source": "Part 00 card choice",
+                  "destinations": [
+                    "graveyard"
+                  ]
+                }
+              ]
+            }
+          },
+          "p2": {
+            "id": "p2",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          }
+        },
+        "objects": {
+          "o1": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Instant"
+            ],
+            "subtypes": [],
+            "supertypes": [],
+            "manaCost": "",
+            "manaValue": 0,
+            "colors": [],
+            "power": null,
+            "toughness": null,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Fixture Alpha",
+            "id": "o1",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "hand",
+            "effects": []
+          },
+          "o2": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Instant"
+            ],
+            "subtypes": [],
+            "supertypes": [],
+            "manaCost": "",
+            "manaValue": 0,
+            "colors": [],
+            "power": null,
+            "toughness": null,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Fixture Beta",
+            "id": "o2",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "hand",
+            "effects": []
+          }
+        },
+        "zoneOrder": {
+          "p1": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [
+              "o1",
+              "o2"
+            ],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p2": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          }
+        },
+        "zoneCounts": {
+          "p1": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 2,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p2": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          }
+        },
+        "stack": [],
+        "delayedTriggers": [],
+        "active": "p1",
+        "priority": "p1",
+        "turn": 1,
+        "step": "precombatMain",
+        "passedInRow": [],
+        "extraTurns": [],
+        "rules": [
+          {
+            "instanceId": "builtin-turnStructure",
+            "pluginId": "turnStructure",
+            "sourceId": null,
+            "timestamp": 0,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-untilNextTurn",
+            "pluginId": "untilNextTurn",
+            "sourceId": null,
+            "timestamp": 1,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-phasing",
+            "pluginId": "phasing",
+            "sourceId": null,
+            "timestamp": 2,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-protectionFromEverything",
+            "pluginId": "protectionFromEverything",
+            "sourceId": null,
+            "timestamp": 3,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lifeTotalLock",
+            "pluginId": "lifeTotalLock",
+            "sourceId": null,
+            "timestamp": 4,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-recurringSpells",
+            "pluginId": "recurringSpells",
+            "sourceId": null,
+            "timestamp": 5,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-advancedCombatPrevention",
+            "pluginId": "advancedCombatPrevention",
+            "sourceId": null,
+            "timestamp": 6,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-continuousEffects",
+            "pluginId": "continuousEffects",
+            "sourceId": null,
+            "timestamp": 7,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-priority",
+            "pluginId": "priority",
+            "sourceId": null,
+            "timestamp": 8,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-abilities",
+            "pluginId": "abilities",
+            "sourceId": null,
+            "timestamp": 9,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-mana",
+            "pluginId": "mana",
+            "sourceId": null,
+            "timestamp": 10,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lands",
+            "pluginId": "lands",
+            "sourceId": null,
+            "timestamp": 11,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-spells",
+            "pluginId": "spells",
+            "sourceId": null,
+            "timestamp": 12,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-adventure",
+            "pluginId": "adventure",
+            "sourceId": null,
+            "timestamp": 13,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-foretell",
+            "pluginId": "foretell",
+            "sourceId": null,
+            "timestamp": 14,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rebound",
+            "pluginId": "rebound",
+            "sourceId": null,
+            "timestamp": 15,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-warp",
+            "pluginId": "warp",
+            "sourceId": null,
+            "timestamp": 16,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-saga",
+            "pluginId": "saga",
+            "sourceId": null,
+            "timestamp": 17,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rooms",
+            "pluginId": "rooms",
+            "sourceId": null,
+            "timestamp": 18,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-stateBased",
+            "pluginId": "stateBased",
+            "sourceId": null,
+            "timestamp": 19,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-combat",
+            "pluginId": "combat",
+            "sourceId": null,
+            "timestamp": 20,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-life",
+            "pluginId": "life",
+            "sourceId": null,
+            "timestamp": 21,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-monarch",
+            "pluginId": "monarch",
+            "sourceId": null,
+            "timestamp": 22,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-energy",
+            "pluginId": "energy",
+            "sourceId": null,
+            "timestamp": 23,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-cdaLifePt",
+            "pluginId": "cdaLifePt",
+            "sourceId": null,
+            "timestamp": 24,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-damage",
+            "pluginId": "damage",
+            "sourceId": null,
+            "timestamp": 25,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-battle",
+            "pluginId": "battle",
+            "sourceId": null,
+            "timestamp": 26,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-doubleFaced",
+            "pluginId": "doubleFaced",
+            "sourceId": null,
+            "timestamp": 27,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-discard",
+            "pluginId": "discard",
+            "sourceId": null,
+            "timestamp": 28,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-draw",
+            "pluginId": "draw",
+            "sourceId": null,
+            "timestamp": 29,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectCards",
+            "pluginId": "selectCards",
+            "sourceId": null,
+            "timestamp": 30,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectOptions",
+            "pluginId": "selectOptions",
+            "sourceId": null,
+            "timestamp": 31,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectPlayers",
+            "pluginId": "selectPlayers",
+            "sourceId": null,
+            "timestamp": 32,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-triggers",
+            "pluginId": "triggers",
+            "sourceId": null,
+            "timestamp": 33,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-instructionResume",
+            "pluginId": "instructionResume",
+            "sourceId": null,
+            "timestamp": 34,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-judgeFallback",
+            "pluginId": "judgeFallback",
+            "sourceId": null,
+            "timestamp": 35,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-hiddenInformation",
+            "pluginId": "hiddenInformation",
+            "sourceId": null,
+            "timestamp": 36,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-pendingDialog",
+            "pluginId": "pendingDialog",
+            "sourceId": null,
+            "timestamp": 37,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-commander",
+            "pluginId": "commander",
+            "sourceId": null,
+            "timestamp": 38,
+            "params": {}
+          }
+        ],
+        "nextId": 4,
+        "nextTimestamp": 39,
+        "ended": false,
+        "monarch": null,
+        "log": [],
+        "prevented": false
+      },
+      "pendingId": "selection3",
+      "answer": {
+        "type": "selectCards",
+        "seat": "p1",
+        "kind": "discard",
+        "count": 1,
+        "objectIds": [
+          "o2"
+        ]
+      },
+      "expected": {
+        "movedObjectId": "o2",
+        "destination": "graveyard"
+      }
+    },
+    "openPlayerChoice": {
+      "state": {
+        "format": "commander",
+        "knowledge": {
+          "mode": "authoritative",
+          "viewer": null
+        },
+        "playerOrder": [
+          "p1",
+          "p2"
+        ],
+        "castableZones": [
+          "hand",
+          "command"
+        ],
+        "players": {
+          "p1": {
+            "id": "p1",
+            "life": 31,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {},
+              "hiddenInformation.randomState": 2147483648,
+              "kernel.pendingPlayerSelection": [
+                {
+                  "id": "player-selection2",
+                  "seat": "p1",
+                  "sourceId": "o1",
+                  "source": "Part 00 player choice",
+                  "prompt": "Choose another player.",
+                  "min": 1,
+                  "max": 1,
+                  "candidates": [
+                    "p2"
+                  ],
+                  "action": {
+                    "kind": "exchangeLifeTotals"
+                  }
+                }
+              ]
+            }
+          },
+          "p2": {
+            "id": "p2",
+            "life": 17,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          }
+        },
+        "objects": {
+          "o1": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Creature"
+            ],
+            "subtypes": [],
+            "supertypes": [],
+            "manaCost": "",
+            "manaValue": 0,
+            "colors": [],
+            "power": 1,
+            "toughness": 1,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Part 00 source",
+            "id": "o1",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "battlefield",
+            "effects": []
+          }
+        },
+        "zoneOrder": {
+          "p1": {
+            "battlefield": [
+              "o1"
+            ],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p2": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          }
+        },
+        "zoneCounts": {
+          "p1": {
+            "battlefield": 1,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p2": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          }
+        },
+        "stack": [],
+        "delayedTriggers": [],
+        "active": "p1",
+        "priority": "p1",
+        "turn": 1,
+        "step": "precombatMain",
+        "passedInRow": [],
+        "extraTurns": [],
+        "rules": [
+          {
+            "instanceId": "builtin-turnStructure",
+            "pluginId": "turnStructure",
+            "sourceId": null,
+            "timestamp": 0,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-untilNextTurn",
+            "pluginId": "untilNextTurn",
+            "sourceId": null,
+            "timestamp": 1,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-phasing",
+            "pluginId": "phasing",
+            "sourceId": null,
+            "timestamp": 2,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-protectionFromEverything",
+            "pluginId": "protectionFromEverything",
+            "sourceId": null,
+            "timestamp": 3,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lifeTotalLock",
+            "pluginId": "lifeTotalLock",
+            "sourceId": null,
+            "timestamp": 4,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-recurringSpells",
+            "pluginId": "recurringSpells",
+            "sourceId": null,
+            "timestamp": 5,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-advancedCombatPrevention",
+            "pluginId": "advancedCombatPrevention",
+            "sourceId": null,
+            "timestamp": 6,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-continuousEffects",
+            "pluginId": "continuousEffects",
+            "sourceId": null,
+            "timestamp": 7,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-priority",
+            "pluginId": "priority",
+            "sourceId": null,
+            "timestamp": 8,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-abilities",
+            "pluginId": "abilities",
+            "sourceId": null,
+            "timestamp": 9,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-mana",
+            "pluginId": "mana",
+            "sourceId": null,
+            "timestamp": 10,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lands",
+            "pluginId": "lands",
+            "sourceId": null,
+            "timestamp": 11,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-spells",
+            "pluginId": "spells",
+            "sourceId": null,
+            "timestamp": 12,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-adventure",
+            "pluginId": "adventure",
+            "sourceId": null,
+            "timestamp": 13,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-foretell",
+            "pluginId": "foretell",
+            "sourceId": null,
+            "timestamp": 14,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rebound",
+            "pluginId": "rebound",
+            "sourceId": null,
+            "timestamp": 15,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-warp",
+            "pluginId": "warp",
+            "sourceId": null,
+            "timestamp": 16,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-saga",
+            "pluginId": "saga",
+            "sourceId": null,
+            "timestamp": 17,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rooms",
+            "pluginId": "rooms",
+            "sourceId": null,
+            "timestamp": 18,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-stateBased",
+            "pluginId": "stateBased",
+            "sourceId": null,
+            "timestamp": 19,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-combat",
+            "pluginId": "combat",
+            "sourceId": null,
+            "timestamp": 20,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-life",
+            "pluginId": "life",
+            "sourceId": null,
+            "timestamp": 21,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-monarch",
+            "pluginId": "monarch",
+            "sourceId": null,
+            "timestamp": 22,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-energy",
+            "pluginId": "energy",
+            "sourceId": null,
+            "timestamp": 23,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-cdaLifePt",
+            "pluginId": "cdaLifePt",
+            "sourceId": null,
+            "timestamp": 24,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-damage",
+            "pluginId": "damage",
+            "sourceId": null,
+            "timestamp": 25,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-battle",
+            "pluginId": "battle",
+            "sourceId": null,
+            "timestamp": 26,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-doubleFaced",
+            "pluginId": "doubleFaced",
+            "sourceId": null,
+            "timestamp": 27,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-discard",
+            "pluginId": "discard",
+            "sourceId": null,
+            "timestamp": 28,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-draw",
+            "pluginId": "draw",
+            "sourceId": null,
+            "timestamp": 29,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectCards",
+            "pluginId": "selectCards",
+            "sourceId": null,
+            "timestamp": 30,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectOptions",
+            "pluginId": "selectOptions",
+            "sourceId": null,
+            "timestamp": 31,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectPlayers",
+            "pluginId": "selectPlayers",
+            "sourceId": null,
+            "timestamp": 32,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-triggers",
+            "pluginId": "triggers",
+            "sourceId": null,
+            "timestamp": 33,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-instructionResume",
+            "pluginId": "instructionResume",
+            "sourceId": null,
+            "timestamp": 34,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-judgeFallback",
+            "pluginId": "judgeFallback",
+            "sourceId": null,
+            "timestamp": 35,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-hiddenInformation",
+            "pluginId": "hiddenInformation",
+            "sourceId": null,
+            "timestamp": 36,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-pendingDialog",
+            "pluginId": "pendingDialog",
+            "sourceId": null,
+            "timestamp": 37,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-commander",
+            "pluginId": "commander",
+            "sourceId": null,
+            "timestamp": 38,
+            "params": {}
+          }
+        ],
+        "nextId": 3,
+        "nextTimestamp": 39,
+        "ended": false,
+        "monarch": null,
+        "log": [],
+        "prevented": false
+      },
+      "pendingId": "player-selection2",
+      "answer": {
+        "type": "selectPlayers",
+        "selectionId": "player-selection2",
+        "seat": "p1",
+        "players": [
+          "p2"
+        ]
+      },
+      "expected": {
+        "p1Life": 17,
+        "p2Life": 31
+      }
+    },
+    "openLegacyModeChoice": {
+      "plugins": [
+        "modalSpell",
+        "onResolve",
+        "choiceEffects",
+        "pendingDialog",
+        "librarySearch"
+      ],
+      "state": {
+        "format": "commander",
+        "knowledge": {
+          "mode": "authoritative",
+          "viewer": null
+        },
+        "playerOrder": [
+          "p1",
+          "p2",
+          "p3",
+          "p4"
+        ],
+        "castableZones": [
+          "hand",
+          "command"
+        ],
+        "players": {
+          "p1": {
+            "id": "p1",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {},
+              "hiddenInformation.randomState": 2147483648,
+              "kernel.pendingDialog": [
+                {
+                  "sourceId": "o2",
+                  "source": "Bushwhack",
+                  "seat": "p1",
+                  "kind": "choose-modes",
+                  "options": [
+                    "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                    "Target creature you control fights target creature you don't control."
+                  ],
+                  "prompt": "Choose one — Bushwhack.",
+                  "waiting": "is choosing a mode.",
+                  "judge": "Waiting for Bushwhack mode choice.",
+                  "chosenEvent": "kernel.pendingDialog.chosen",
+                  "destinations": [
+                    "skip",
+                    "target"
+                  ],
+                  "requirements": {
+                    "target": {
+                      "min": 1,
+                      "max": 1
+                    }
+                  }
+                }
+              ],
+              "modalSpell.modeIds": [
+                "land",
+                "fight"
+              ]
+            },
+            "restrictedMana": []
+          },
+          "p2": {
+            "id": "p2",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          },
+          "p3": {
+            "id": "p3",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          },
+          "p4": {
+            "id": "p4",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          }
+        },
+        "objects": {
+          "o1": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Land"
+            ],
+            "subtypes": [
+              "Forest"
+            ],
+            "supertypes": [
+              "Basic"
+            ],
+            "manaCost": "",
+            "manaValue": 0,
+            "colors": [],
+            "power": null,
+            "toughness": null,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Fixture Forest",
+            "tapProduces": {
+              "G": 1
+            },
+            "id": "o1",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "library",
+            "effects": []
+          },
+          "o2": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Sorcery"
+            ],
+            "subtypes": [],
+            "supertypes": [],
+            "manaCost": "{G}",
+            "manaValue": 0,
+            "colors": [],
+            "power": null,
+            "toughness": null,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Bushwhack",
+            "id": "o2",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "stack",
+            "effects": [
+              {
+                "op": "modal",
+                "choose": "one",
+                "modes": [
+                  {
+                    "id": "land",
+                    "label": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                    "do": [
+                      {
+                        "kind": "searchLibrary",
+                        "spec": {
+                          "prompt": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                          "destination": "hand",
+                          "min": 1,
+                          "max": 1,
+                          "reveal": true
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "fight",
+                    "label": "Target creature you control fights target creature you don't control.",
+                    "do": [
+                      {
+                        "kind": "fightOwnedVsOpponent"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "zoneOrder": {
+          "p1": {
+            "battlefield": [],
+            "stack": [
+              "o2"
+            ],
+            "hand": [],
+            "library": [
+              "o1"
+            ],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p2": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p3": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p4": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          }
+        },
+        "zoneCounts": {
+          "p1": {
+            "battlefield": 0,
+            "stack": 1,
+            "hand": 0,
+            "library": 1,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p2": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p3": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p4": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          }
+        },
+        "stack": [
+          {
+            "id": "s3",
+            "kind": "spell",
+            "objectId": "o2",
+            "controller": "p1",
+            "name": "Bushwhack",
+            "targets": [],
+            "manaSpent": {
+              "G": 1
+            },
+            "castFrom": "hand"
+          }
+        ],
+        "delayedTriggers": [],
+        "active": "p1",
+        "priority": "p1",
+        "turn": 1,
+        "step": "precombatMain",
+        "passedInRow": [],
+        "extraTurns": [],
+        "rules": [
+          {
+            "instanceId": "builtin-turnStructure",
+            "pluginId": "turnStructure",
+            "sourceId": null,
+            "timestamp": 0,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-untilNextTurn",
+            "pluginId": "untilNextTurn",
+            "sourceId": null,
+            "timestamp": 1,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-phasing",
+            "pluginId": "phasing",
+            "sourceId": null,
+            "timestamp": 2,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-protectionFromEverything",
+            "pluginId": "protectionFromEverything",
+            "sourceId": null,
+            "timestamp": 3,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lifeTotalLock",
+            "pluginId": "lifeTotalLock",
+            "sourceId": null,
+            "timestamp": 4,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-recurringSpells",
+            "pluginId": "recurringSpells",
+            "sourceId": null,
+            "timestamp": 5,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-advancedCombatPrevention",
+            "pluginId": "advancedCombatPrevention",
+            "sourceId": null,
+            "timestamp": 6,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-continuousEffects",
+            "pluginId": "continuousEffects",
+            "sourceId": null,
+            "timestamp": 7,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-priority",
+            "pluginId": "priority",
+            "sourceId": null,
+            "timestamp": 8,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-abilities",
+            "pluginId": "abilities",
+            "sourceId": null,
+            "timestamp": 9,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-mana",
+            "pluginId": "mana",
+            "sourceId": null,
+            "timestamp": 10,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lands",
+            "pluginId": "lands",
+            "sourceId": null,
+            "timestamp": 11,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-spells",
+            "pluginId": "spells",
+            "sourceId": null,
+            "timestamp": 12,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-adventure",
+            "pluginId": "adventure",
+            "sourceId": null,
+            "timestamp": 13,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-foretell",
+            "pluginId": "foretell",
+            "sourceId": null,
+            "timestamp": 14,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rebound",
+            "pluginId": "rebound",
+            "sourceId": null,
+            "timestamp": 15,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-warp",
+            "pluginId": "warp",
+            "sourceId": null,
+            "timestamp": 16,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-saga",
+            "pluginId": "saga",
+            "sourceId": null,
+            "timestamp": 17,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rooms",
+            "pluginId": "rooms",
+            "sourceId": null,
+            "timestamp": 18,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-stateBased",
+            "pluginId": "stateBased",
+            "sourceId": null,
+            "timestamp": 19,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-combat",
+            "pluginId": "combat",
+            "sourceId": null,
+            "timestamp": 20,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-life",
+            "pluginId": "life",
+            "sourceId": null,
+            "timestamp": 21,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-monarch",
+            "pluginId": "monarch",
+            "sourceId": null,
+            "timestamp": 22,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-energy",
+            "pluginId": "energy",
+            "sourceId": null,
+            "timestamp": 23,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-cdaLifePt",
+            "pluginId": "cdaLifePt",
+            "sourceId": null,
+            "timestamp": 24,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-damage",
+            "pluginId": "damage",
+            "sourceId": null,
+            "timestamp": 25,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-battle",
+            "pluginId": "battle",
+            "sourceId": null,
+            "timestamp": 26,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-doubleFaced",
+            "pluginId": "doubleFaced",
+            "sourceId": null,
+            "timestamp": 27,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-discard",
+            "pluginId": "discard",
+            "sourceId": null,
+            "timestamp": 28,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-draw",
+            "pluginId": "draw",
+            "sourceId": null,
+            "timestamp": 29,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectCards",
+            "pluginId": "selectCards",
+            "sourceId": null,
+            "timestamp": 30,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectOptions",
+            "pluginId": "selectOptions",
+            "sourceId": null,
+            "timestamp": 31,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectPlayers",
+            "pluginId": "selectPlayers",
+            "sourceId": null,
+            "timestamp": 32,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-triggers",
+            "pluginId": "triggers",
+            "sourceId": null,
+            "timestamp": 33,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-instructionResume",
+            "pluginId": "instructionResume",
+            "sourceId": null,
+            "timestamp": 34,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-judgeFallback",
+            "pluginId": "judgeFallback",
+            "sourceId": null,
+            "timestamp": 35,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-hiddenInformation",
+            "pluginId": "hiddenInformation",
+            "sourceId": null,
+            "timestamp": 36,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-pendingDialog",
+            "pluginId": "pendingDialog",
+            "sourceId": null,
+            "timestamp": 37,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-commander",
+            "pluginId": "commander",
+            "sourceId": null,
+            "timestamp": 38,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-modalSpell",
+            "pluginId": "modalSpell",
+            "sourceId": null,
+            "timestamp": 39,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-onResolve",
+            "pluginId": "onResolve",
+            "sourceId": null,
+            "timestamp": 40,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-choiceEffects",
+            "pluginId": "choiceEffects",
+            "sourceId": null,
+            "timestamp": 41,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-pendingDialog",
+            "pluginId": "pendingDialog",
+            "sourceId": null,
+            "timestamp": 42,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-librarySearch",
+            "pluginId": "librarySearch",
+            "sourceId": null,
+            "timestamp": 43,
+            "params": {}
+          }
+        ],
+        "nextId": 4,
+        "nextTimestamp": 44,
+        "ended": false,
+        "monarch": null,
+        "log": [],
+        "prevented": false
+      },
+      "dialog": {
+        "kind": "choose-modes",
+        "sourceId": "o2",
+        "labels": [
+          "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+          "Target creature you control fights target creature you don't control."
+        ],
+        "chosenEvent": "kernel.pendingDialog.chosen"
+      },
+      "answer": {
+        "type": "custom",
+        "name": "kernel.pendingDialog.chosen",
+        "seat": "p1",
+        "payload": {
+          "modes": [
+            "Target creature you control fights target creature you don't control."
+          ]
+        }
+      },
+      "expected": {
+        "nextChoiceKind": "fight-own",
+        "source": "Bushwhack",
+        "duplicateGenericAnswer": "accepted-as-answer-to-next-dialog"
+      }
+    }
+  },
+  "journals": {
+    "openLegacyModeChoice": {
+      "schema": "rules-engine/v0",
+      "initial": {
+        "format": "commander",
+        "knowledge": {
+          "mode": "authoritative",
+          "viewer": null
+        },
+        "playerOrder": [
+          "p1",
+          "p2",
+          "p3",
+          "p4"
+        ],
+        "castableZones": [
+          "hand",
+          "command"
+        ],
+        "players": {
+          "p1": {
+            "id": "p1",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 1,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {},
+              "hiddenInformation.randomState": 2147483648
+            }
+          },
+          "p2": {
+            "id": "p2",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          },
+          "p3": {
+            "id": "p3",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          },
+          "p4": {
+            "id": "p4",
+            "life": 40,
+            "poison": 0,
+            "energy": 0,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "lost": false,
+            "landsPlayed": 0,
+            "landPlaysAllowed": 1,
+            "data": {
+              "commanderDamage": {},
+              "commanderTax": {}
+            }
+          }
+        },
+        "objects": {
+          "o1": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Land"
+            ],
+            "subtypes": [
+              "Forest"
+            ],
+            "supertypes": [
+              "Basic"
+            ],
+            "manaCost": "",
+            "manaValue": 0,
+            "colors": [],
+            "power": null,
+            "toughness": null,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Fixture Forest",
+            "tapProduces": {
+              "G": 1
+            },
+            "id": "o1",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "library",
+            "effects": []
+          },
+          "o2": {
+            "tapped": false,
+            "summoningSickness": false,
+            "damageMarked": 0,
+            "counters": {},
+            "types": [
+              "Sorcery"
+            ],
+            "subtypes": [],
+            "supertypes": [],
+            "manaCost": "{G}",
+            "manaValue": 0,
+            "colors": [],
+            "power": null,
+            "toughness": null,
+            "printedLoyalty": null,
+            "printedDefense": null,
+            "loyaltyActivatedTurn": null,
+            "oracleText": "",
+            "attachedTo": null,
+            "attacking": null,
+            "blocking": null,
+            "grantedRules": [],
+            "token": false,
+            "tags": [],
+            "name": "Bushwhack",
+            "id": "o2",
+            "owner": "p1",
+            "controller": "p1",
+            "zone": "hand",
+            "effects": [
+              {
+                "op": "modal",
+                "choose": "one",
+                "modes": [
+                  {
+                    "id": "land",
+                    "label": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                    "do": [
+                      {
+                        "kind": "searchLibrary",
+                        "spec": {
+                          "prompt": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                          "destination": "hand",
+                          "min": 1,
+                          "max": 1,
+                          "reveal": true
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "fight",
+                    "label": "Target creature you control fights target creature you don't control.",
+                    "do": [
+                      {
+                        "kind": "fightOwnedVsOpponent"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "zoneOrder": {
+          "p1": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [
+              "o2"
+            ],
+            "library": [
+              "o1"
+            ],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p2": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p3": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          },
+          "p4": {
+            "battlefield": [],
+            "stack": [],
+            "hand": [],
+            "library": [],
+            "graveyard": [],
+            "exile": [],
+            "command": []
+          }
+        },
+        "zoneCounts": {
+          "p1": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 1,
+            "library": 1,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p2": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p3": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          },
+          "p4": {
+            "battlefield": 0,
+            "stack": 0,
+            "hand": 0,
+            "library": 0,
+            "graveyard": 0,
+            "exile": 0,
+            "command": 0
+          }
+        },
+        "stack": [],
+        "delayedTriggers": [],
+        "active": "p1",
+        "priority": "p1",
+        "turn": 1,
+        "step": "precombatMain",
+        "passedInRow": [],
+        "extraTurns": [],
+        "rules": [
+          {
+            "instanceId": "builtin-turnStructure",
+            "pluginId": "turnStructure",
+            "sourceId": null,
+            "timestamp": 0,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-untilNextTurn",
+            "pluginId": "untilNextTurn",
+            "sourceId": null,
+            "timestamp": 1,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-phasing",
+            "pluginId": "phasing",
+            "sourceId": null,
+            "timestamp": 2,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-protectionFromEverything",
+            "pluginId": "protectionFromEverything",
+            "sourceId": null,
+            "timestamp": 3,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lifeTotalLock",
+            "pluginId": "lifeTotalLock",
+            "sourceId": null,
+            "timestamp": 4,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-recurringSpells",
+            "pluginId": "recurringSpells",
+            "sourceId": null,
+            "timestamp": 5,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-advancedCombatPrevention",
+            "pluginId": "advancedCombatPrevention",
+            "sourceId": null,
+            "timestamp": 6,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-continuousEffects",
+            "pluginId": "continuousEffects",
+            "sourceId": null,
+            "timestamp": 7,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-priority",
+            "pluginId": "priority",
+            "sourceId": null,
+            "timestamp": 8,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-abilities",
+            "pluginId": "abilities",
+            "sourceId": null,
+            "timestamp": 9,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-mana",
+            "pluginId": "mana",
+            "sourceId": null,
+            "timestamp": 10,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-lands",
+            "pluginId": "lands",
+            "sourceId": null,
+            "timestamp": 11,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-spells",
+            "pluginId": "spells",
+            "sourceId": null,
+            "timestamp": 12,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-adventure",
+            "pluginId": "adventure",
+            "sourceId": null,
+            "timestamp": 13,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-foretell",
+            "pluginId": "foretell",
+            "sourceId": null,
+            "timestamp": 14,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rebound",
+            "pluginId": "rebound",
+            "sourceId": null,
+            "timestamp": 15,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-warp",
+            "pluginId": "warp",
+            "sourceId": null,
+            "timestamp": 16,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-saga",
+            "pluginId": "saga",
+            "sourceId": null,
+            "timestamp": 17,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-rooms",
+            "pluginId": "rooms",
+            "sourceId": null,
+            "timestamp": 18,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-stateBased",
+            "pluginId": "stateBased",
+            "sourceId": null,
+            "timestamp": 19,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-combat",
+            "pluginId": "combat",
+            "sourceId": null,
+            "timestamp": 20,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-life",
+            "pluginId": "life",
+            "sourceId": null,
+            "timestamp": 21,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-monarch",
+            "pluginId": "monarch",
+            "sourceId": null,
+            "timestamp": 22,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-energy",
+            "pluginId": "energy",
+            "sourceId": null,
+            "timestamp": 23,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-cdaLifePt",
+            "pluginId": "cdaLifePt",
+            "sourceId": null,
+            "timestamp": 24,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-damage",
+            "pluginId": "damage",
+            "sourceId": null,
+            "timestamp": 25,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-battle",
+            "pluginId": "battle",
+            "sourceId": null,
+            "timestamp": 26,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-doubleFaced",
+            "pluginId": "doubleFaced",
+            "sourceId": null,
+            "timestamp": 27,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-discard",
+            "pluginId": "discard",
+            "sourceId": null,
+            "timestamp": 28,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-draw",
+            "pluginId": "draw",
+            "sourceId": null,
+            "timestamp": 29,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectCards",
+            "pluginId": "selectCards",
+            "sourceId": null,
+            "timestamp": 30,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectOptions",
+            "pluginId": "selectOptions",
+            "sourceId": null,
+            "timestamp": 31,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-selectPlayers",
+            "pluginId": "selectPlayers",
+            "sourceId": null,
+            "timestamp": 32,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-triggers",
+            "pluginId": "triggers",
+            "sourceId": null,
+            "timestamp": 33,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-instructionResume",
+            "pluginId": "instructionResume",
+            "sourceId": null,
+            "timestamp": 34,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-judgeFallback",
+            "pluginId": "judgeFallback",
+            "sourceId": null,
+            "timestamp": 35,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-hiddenInformation",
+            "pluginId": "hiddenInformation",
+            "sourceId": null,
+            "timestamp": 36,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-pendingDialog",
+            "pluginId": "pendingDialog",
+            "sourceId": null,
+            "timestamp": 37,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-commander",
+            "pluginId": "commander",
+            "sourceId": null,
+            "timestamp": 38,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-modalSpell",
+            "pluginId": "modalSpell",
+            "sourceId": null,
+            "timestamp": 39,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-onResolve",
+            "pluginId": "onResolve",
+            "sourceId": null,
+            "timestamp": 40,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-choiceEffects",
+            "pluginId": "choiceEffects",
+            "sourceId": null,
+            "timestamp": 41,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-pendingDialog",
+            "pluginId": "pendingDialog",
+            "sourceId": null,
+            "timestamp": 42,
+            "params": {}
+          },
+          {
+            "instanceId": "builtin-librarySearch",
+            "pluginId": "librarySearch",
+            "sourceId": null,
+            "timestamp": 43,
+            "params": {}
+          }
+        ],
+        "nextId": 3,
+        "nextTimestamp": 44,
+        "ended": false,
+        "monarch": null,
+        "log": [],
+        "prevented": false
+      },
+      "events": [
+        {
+          "type": "castSpell",
+          "seat": "p1",
+          "objectId": "o2"
+        },
+        {
+          "type": "resolveTop"
+        }
+      ]
+    }
+  }
+}

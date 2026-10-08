@@ -7,6 +7,8 @@
     "test:site": "bun test site/src/scryfallCache.test.ts site/src/liveCompact.test.ts site/src/cards.test.ts site/src/liveConduit.test.ts site/src/liveCodec.test.ts",
     "typecheck": "tsc --noEmit",
     "check:imports": "bun scripts/check-imports.ts",
+    "check:rule-dsl-coverage": "bun rules-engine/scripts/ruleDslCoverage.ts --check",
+    "test:rule-dsl-compatibility": "bun test rules-engine/src/ruleDslCompatibility.test.ts",
     "prepare": "git config core.hooksPath .githooks || true",
     "deck:tokens": "bun .agents/skills/simulate-table/scripts/fetch-deck-tokens.ts",
     "table:deal": "bun .agents/skills/simulate-table/scripts/deal-table.ts",
