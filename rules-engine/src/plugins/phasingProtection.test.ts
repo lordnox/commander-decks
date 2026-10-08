@@ -10,7 +10,8 @@ import { rules } from '../kernel'
 import { catalog } from '../index'
 import { cardTemplate } from '../newGame'
 import { bears, bolt, newGame } from '../testGame'
-import type { ReduceResult } from '../types'
+import { testObject } from '../testHelpers'
+import type { GameObject, ReduceResult } from '../types'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -31,7 +32,7 @@ const perchPackage = [
 
 const applyInstructions = (
   state: ReturnType<typeof newGame>,
-  source: ReturnType<typeof cardTemplate>,
+  source: GameObject,
   instructions: typeof perchPackage,
 ) => {
   const draft = makeDraft(state)
@@ -56,7 +57,9 @@ describe('phasing, protection from everything, and life lock', () => {
     const beast = Object.values(state.objects).find((o) => o.name === 'Sheltered Beast')!
     const shelteredAura = Object.values(state.objects).find((o) => o.name === 'Sheltered Aura')!
     shelteredAura.attachedTo = beast.id
-    const source = cardTemplate('Fictional Shelter', { controller: 'p1', owner: 'p1' })
+    const source = testObject(cardTemplate('Fictional Shelter'), {
+      id: 'perch-source', controller: 'p1', owner: 'p1', zone: 'stack',
+    })
     const next = applyInstructions(state, source, [phaseOutControlled()])
     expect(next.objects[beast.id].phasedOut).toBe(true)
     expect(next.objects[shelteredAura.id].phasedOut).toBe(true)
@@ -70,14 +73,23 @@ describe('phasing, protection from everything, and life lock', () => {
       battlefield: { p1: [creature] },
       hands: { p2: [boltSpell] },
     })
-    state.objects[boltSpell.id] = boltSpell
+    const spell = Object.values(state.objects).find((o) => o.name === boltSpell.name)!
+    const target = Object.values(state.objects).find((o) => o.name === creature.name)!
+    state.priority = 'p2'
+    state.players.p2.mana.R = 1
     const cast = rules(state, {
       type: 'castSpell',
       seat: 'p2',
-      objectId: boltSpell.id,
-      targets: [{ kind: 'object', objectId: creature.id }],
+      objectId: spell.id,
+      targets: [{ kind: 'object', objectId: target.id }],
     }, catalog)
     expect(cast.ok).toBe(false)
+    const unphased = structuredClone(state)
+    unphased.objects[target.id].phasedOut = false
+    expect(rules(unphased, {
+      type: 'castSpell', seat: 'p2', objectId: spell.id,
+      targets: [{ kind: 'object', objectId: target.id }],
+    }, catalog).ok).toBe(true)
   })
 
   test('phasing out an already phased permanent is a no-op', () => {
@@ -96,7 +108,9 @@ describe('phasing, protection from everything, and life lock', () => {
       players: 2,
       libraries: { p1: [filler, filler], p2: [filler, filler] },
     })
-    const source = cardTemplate('Fictional Perch', { controller: 'p1', owner: 'p1' })
+    const source = testObject(cardTemplate('Fictional Perch'), {
+      id: 'perch-source', controller: 'p1', owner: 'p1', zone: 'stack',
+    })
     state = applyInstructions(state, source, [
       grantProtectionFromEverything(),
       lifeTotalCannotChange(),
@@ -131,7 +145,9 @@ describe('phasing, protection from everything, and life lock', () => {
       libraries: { p1: [filler, filler], p2: [filler, filler] },
     })
     const guardian = Object.values(state.objects).find((o) => o.name === 'Vault Guardian')!
-    const source = cardTemplate('Fictional Perch', { controller: 'p1', owner: 'p1' })
+    const source = testObject(cardTemplate('Fictional Perch'), {
+      id: 'perch-source', controller: 'p1', owner: 'p1', zone: 'stack',
+    })
     state = applyInstructions(state, source, perchPackage)
     expect(state.objects[guardian.id].phasedOut).toBe(true)
     expect(state.rules.some((rule) => rule.pluginId === 'lifeTotalLock')).toBe(true)
@@ -164,15 +180,19 @@ describe('phasing, protection from everything, and life lock', () => {
 
   test('host restart preserves state without open choices', () => {
     const creature = fixtureCreature('Still Phased')
-    let state = newGame({ battlefield: { p1: [creature] } })
+    let state = newGame({ battlefield: { p1: [creature] }, hands: { p2: [bolt()] } })
     const stillPhased = Object.values(state.objects).find((o) => o.name === 'Still Phased')!
-    const source = cardTemplate('Fictional Perch', { controller: 'p1', owner: 'p1' })
+    const source = testObject(cardTemplate('Fictional Perch'), {
+      id: 'perch-source', controller: 'p1', owner: 'p1', zone: 'stack',
+    })
     state = applyInstructions(state, source, perchPackage)
     const restarted = structuredClone(state)
+    restarted.priority = 'p2'
+    restarted.players.p2.mana.R = 1
     const blocked = rules(restarted, {
       type: 'castSpell',
       seat: 'p2',
-      objectId: bolt().id,
+      objectId: restarted.zoneOrder.p2.hand[0],
       targets: [{ kind: 'object', objectId: stillPhased.id }],
     }, catalog)
     expect(blocked.ok).toBe(false)

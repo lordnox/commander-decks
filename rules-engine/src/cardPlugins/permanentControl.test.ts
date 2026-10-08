@@ -27,7 +27,7 @@ import { pendingPlayerSelectionFor, selectPlayers } from '../rules/selectPlayers
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { createServerGame } from '../runtime'
 import type { GameState } from '../types'
-import { ok } from '../testHelpers'
+import { ok, testObject } from '../testHelpers'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
   applyKernelChoice,
@@ -57,7 +57,7 @@ const handleFor = (
 }
 
 const fictional = (name: string, controller: string) =>
-  cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, controller })
+  ({ ...cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2 }), controller })
 
 const plugins = [continuousEffects, selectPlayers, permanentControl]
 
@@ -272,11 +272,9 @@ describe('permanent control change', () => {
       },
     }, { random: () => 0.5, cardPlugins: [permanentControl] })
     const ids = server.state.zoneOrder.p1.battlefield
-    const host = cardTemplate('Fictional Party', { types: ['Sorcery'] })
-    host.id = 'host-1'
-    host.owner = 'p1'
-    host.controller = 'p1'
-    host.zone = 'stack'
+    const host = testObject(cardTemplate('Fictional Party', { types: ['Sorcery'] }), {
+      id: 'host-1', owner: 'p1', controller: 'p1', zone: 'stack',
+    })
     server.state.objects[host.id] = host
 
     const draft = makeDraft(server.state)
@@ -322,11 +320,9 @@ describe('permanent control change', () => {
       },
     }, { random: () => 0.5, cardPlugins: [permanentControl] })
     const ids = server.state.zoneOrder.p1.battlefield
-    const host = cardTemplate('Fictional Party', { types: ['Sorcery'] })
-    host.id = 'host-2'
-    host.owner = 'p1'
-    host.controller = 'p1'
-    host.zone = 'stack'
+    const host = testObject(cardTemplate('Fictional Party', { types: ['Sorcery'] }), {
+      id: 'host-2', owner: 'p1', controller: 'p1', zone: 'stack',
+    })
     server.state.objects[host.id] = host
     const draft = makeDraft(server.state)
     runInstructions(
@@ -382,11 +378,9 @@ describe('permanent control change', () => {
     }, { random: () => 0.5, cardPlugins: plugins })
     const ids = server.state.zoneOrder.p1.battlefield
     const draft = makeDraft(server.state)
-    const host = cardTemplate('Fictional Party', { types: ['Sorcery'] })
-    host.id = 'host-3'
-    host.owner = 'p1'
-    host.controller = 'p1'
-    host.zone = 'stack'
+    const host = testObject(cardTemplate('Fictional Party', { types: ['Sorcery'] }), {
+      id: 'host-3', owner: 'p1', controller: 'p1', zone: 'stack',
+    })
     draft.objects[host.id] = host
     runInstructions(
       draft,
@@ -533,7 +527,6 @@ describe('gain control of a target permanent without a player target', () => {
         types: ['Creature'],
         power: 1,
         toughness: 1,
-        controller: 'p2',
         oracleText: 'Hexproof',
       }),
     ])

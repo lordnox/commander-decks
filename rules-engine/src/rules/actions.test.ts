@@ -11,7 +11,7 @@ import { resolveAbility } from './actions'
 describe('resolveAbility', () => {
   test('resolves payload instructions when the source object is gone', () => {
     const server = createServerGame(commanderRules, {
-      libraries: { p1: [cardTemplate('Drawn', ['Instant'])] },
+      libraries: { p1: [cardTemplate('Drawn', { types: ['Instant'] })] },
       players: 2,
     })
     const stacked = {

@@ -23,6 +23,7 @@ const passUntilStep = (server: ReturnType<typeof createServerGame>, state: GameS
       current = ok(server.rules(current, { type: 'resolveTop' }))
     }
     while (current.priority !== current.active) {
+      if (current.priority === null) throw new Error('Expected priority while passing to active player')
       current = ok(server.rules(current, { type: 'passPriority', seat: current.priority }))
     }
     current = ok(server.rules(current, { type: 'advanceStep' }))

@@ -75,7 +75,7 @@ const part34GapCards = [
 ] as const
 
 describe('Dack Fayden part 34 — assignment checklist (gaps)', () => {
-  test.each(part34GapCards)('%s is not registered until Pass 1 adds missing builders', (name) => {
+  test.each([...part34GapCards])('%s is not registered until Pass 1 adds missing builders', (name) => {
     expect(effectsFor(name)).toEqual([])
     expect(cardDefinition(name)).toBeUndefined()
   })
@@ -97,8 +97,8 @@ describe('Dack Fayden part 34 — assignment checklist (gaps)', () => {
   })
 
   test('Lumbering Battlement — GAP: TargetFilter has no nontoken; tokens wrongly appear as link-exile candidates', () => {
-    const battlement = fromPool('Lumbering Battlement', { controller: 'p1' })
-    const token = cardTemplate('Battlement Token', { types: ['Creature'], controller: 'p1', token: true })
+    const battlement = fromPool('Lumbering Battlement')
+    const token = cardTemplate('Battlement Token', { types: ['Creature'], token: true })
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [battlement] }, battlefield: { p1: [token] } },
@@ -125,8 +125,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Fiend Hunter exiles on ETB and returns the hostage when it dies', () => {
-    const hunter = fromPool('Fiend Hunter', { controller: 'p1' })
-    const prey = cardTemplate('Caged Prey', { types: ['Creature'], power: 3, toughness: 3, controller: 'p2' })
+    const hunter = fromPool('Fiend Hunter')
+    const prey = cardTemplate('Caged Prey', { types: ['Creature'], power: 3, toughness: 3 })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] } },
@@ -146,8 +146,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Fiend Hunter returns the hostage when blinked off the battlefield', () => {
-    const hunter = fromPool('Fiend Hunter', { controller: 'p1' })
-    const prey = cardTemplate('Blink Prey', { types: ['Creature'], controller: 'p2' })
+    const hunter = fromPool('Fiend Hunter')
+    const prey = cardTemplate('Blink Prey', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] } },
@@ -162,8 +162,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Banisher Priest cages on ETB and returns the creature when the Priest leaves', () => {
-    const priest = fromPool('Banisher Priest', { controller: 'p1' })
-    const foe = cardTemplate('Opponent Bear', { types: ['Creature'], controller: 'p2' })
+    const priest = fromPool('Banisher Priest')
+    const foe = cardTemplate('Opponent Bear', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [priest] }, battlefield: { p2: [foe] } },
@@ -180,8 +180,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Angel of Sanctions optional ETB may exile zero permanents', () => {
-    const angel = fromPool('Angel of Sanctions', { controller: 'p1' })
-    const relic = cardTemplate('Opponent Relic', { types: ['Artifact'], controller: 'p2' })
+    const angel = fromPool('Angel of Sanctions')
+    const relic = cardTemplate('Opponent Relic', { types: ['Artifact'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [angel] }, battlefield: { p2: [relic] } },
@@ -206,8 +206,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Angel of Sanctions cages on ETB and returns the permanent when it leaves', () => {
-    const angel = fromPool('Angel of Sanctions', { controller: 'p1' })
-    const relic = cardTemplate('Sanctions Relic', { types: ['Artifact'], controller: 'p2' })
+    const angel = fromPool('Angel of Sanctions')
+    const relic = cardTemplate('Sanctions Relic', { types: ['Artifact'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [angel] }, battlefield: { p2: [relic] } },
@@ -222,7 +222,7 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Angel of Sanctions embalms from the graveyard', () => {
-    const angel = fromPool('Angel of Sanctions', { controller: 'p1', colors: ['W'], manaCost: '{3}{W}{W}' })
+    const angel = fromPool('Angel of Sanctions', { colors: ['W'], manaCost: '{3}{W}{W}' })
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [angel] } },
@@ -250,14 +250,12 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
 
   test('Glorious Protector exiles your non-Angel creatures and returns them when it leaves', () => {
     const protector = fromPool('Glorious Protector', {
-      controller: 'p1',
       subtypes: ['Angel', 'Cleric'],
     })
-    const ally = cardTemplate('Protector Ally', { types: ['Creature'], controller: 'p1' })
+    const ally = cardTemplate('Protector Ally', { types: ['Creature'] })
     const angelBuddy = cardTemplate('Protector Angel Buddy', {
       types: ['Creature'],
       subtypes: ['Angel'],
-      controller: 'p1',
     })
     const server = createServerGame(
       commanderRules,
@@ -292,8 +290,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Palace Jailer becomes monarch and exiles until an opponent takes the crown', () => {
-    const jailer = fromPool('Palace Jailer', { controller: 'p1' })
-    const hostage = cardTemplate('Jail Hostage', { types: ['Creature'], controller: 'p2' })
+    const jailer = fromPool('Palace Jailer')
+    const hostage = cardTemplate('Jail Hostage', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { players: 3, hands: { p1: [jailer] }, battlefield: { p2: [hostage] } },
@@ -315,7 +313,6 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
 
   test('Bishop of Binding pumps a target at attack time from linked exile power', () => {
     const bishop = fromPool('Bishop of Binding', {
-      controller: 'p1',
       power: 1,
       toughness: 1,
       oracleText: 'Haste',
@@ -323,11 +320,10 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
     const vampire = cardTemplate('Vampire Recruit', {
       types: ['Creature'],
       subtypes: ['Vampire'],
-      controller: 'p1',
       power: 2,
       toughness: 2,
     })
-    const foe = cardTemplate('Tall Foe', { types: ['Creature'], power: 6, toughness: 6, controller: 'p2' })
+    const foe = cardTemplate('Tall Foe', { types: ['Creature'], power: 6, toughness: 6 })
     const server = createServerGame(
       commanderRules,
       {
@@ -365,8 +361,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Lumbering Battlement grows for nontoken linked exiles and releases them when it leaves', () => {
-    const battlement = fromPool('Lumbering Battlement', { controller: 'p1', power: 4, toughness: 5 })
-    const ally = cardTemplate('Battlement Ally', { types: ['Creature'], controller: 'p1' })
+    const battlement = fromPool('Lumbering Battlement', { power: 4, toughness: 5 })
+    const ally = cardTemplate('Battlement Ally', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { hands: { p1: [battlement] }, battlefield: { p1: [ally] } },
@@ -383,8 +379,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {
-    const fox = fromPool('Werefox Bodyguard', { controller: 'p1', subtypes: ['Fox', 'Elf', 'Knight'] })
-    const mark = cardTemplate('Werefox Mark', { types: ['Creature'], controller: 'p2' })
+    const fox = fromPool('Werefox Bodyguard', { subtypes: ['Fox', 'Elf', 'Knight'] })
+    const mark = cardTemplate('Werefox Mark', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [fox] }, battlefield: { p2: [mark] } },
@@ -409,8 +405,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('link-exile target selection is visible only to the choosing seat after projection', () => {
-    const hunter = fromPool('Fiend Hunter', { controller: 'p1' })
-    const prey = cardTemplate('Hidden Prey', { types: ['Creature'], controller: 'p2' })
+    const hunter = fromPool('Fiend Hunter')
+    const prey = cardTemplate('Hidden Prey', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] } },
@@ -430,8 +426,8 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
   })
 
   test('host restart preserves an open link-exile target choice', () => {
-    const hunter = fromPool('Fiend Hunter', { controller: 'p1' })
-    const prey = cardTemplate('Restart Prey', { types: ['Creature'], controller: 'p2' })
+    const hunter = fromPool('Fiend Hunter')
+    const prey = cardTemplate('Restart Prey', { types: ['Creature'] })
     const server = createServerGame(
       commanderRules,
       { players: 2, hands: { p1: [hunter] }, battlefield: { p2: [prey] } },

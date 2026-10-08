@@ -102,7 +102,7 @@ test('entering the combat damage step assigns damage without being asked', () =>
   if (!declared.ok) throw new Error(declared.error)
 
   let current = declared.state
-  for (const step of ['declareBlockers', 'combatDamage']) {
+  for (const step of ['declareBlockers', 'combatDamage'] as const) {
     const advanced = rules(current, { type: 'advanceStep' }, catalog)
     if (!advanced.ok) throw new Error(advanced.error)
     current = advanced.state

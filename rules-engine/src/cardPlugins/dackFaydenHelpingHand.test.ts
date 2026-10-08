@@ -47,6 +47,7 @@ const handleFor = (
     },
     history,
     rules,
+    save: () => {},
     dispatch: (event) => {
       const result = history.dispatch(event)
       if (result.ok) journal = recordAccepted(journal, event)

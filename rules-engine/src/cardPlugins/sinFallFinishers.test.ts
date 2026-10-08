@@ -242,7 +242,7 @@ describe('Sin Fall finisher cards', () => {
     })
     expect(milled.objects[valgavoth.id].exiledCards).toEqual([bolt.id])
 
-    const active = { ...milled, active: 'p1', step: 'precombatMain', priority: 'p1', stack: [] }
+    const active: GameState = { ...milled, active: 'p1', step: 'precombatMain', priority: 'p1', stack: [] }
 
     const cast = ok(server.rules(active, {
       type: 'castSpell',

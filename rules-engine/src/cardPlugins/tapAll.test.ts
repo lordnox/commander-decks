@@ -128,7 +128,7 @@ describe('tapAll', () => {
       }))],
     })
     const cloned = structuredClone(spell)
-    expect(cloned.effects[0]).toEqual({
+    expect(cloned.effects?.[0]).toEqual({
       op: 'trigger',
       on: 'resolve',
       do: [{

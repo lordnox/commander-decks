@@ -36,7 +36,7 @@ describe('table replay conversion', () => {
     expect(replay.events).toHaveLength(101)
     expect(run.events.filter((event) => event.type === 'playLand')).toHaveLength(8)
     expect(run.events.filter((event) => event.type === 'castSpell')).toHaveLength(3)
-    expect(replayComparableState(run.state)).toEqual(replayExpectedState(replay, 2))
+    expect<unknown>(replayComparableState(run.state)).toEqual(replayExpectedState(replay, 2))
   })
 
   test('a private live replay resumes from its exact latest frame', async () => {
@@ -53,7 +53,7 @@ describe('table replay conversion', () => {
     )
 
     const imported = importLiveReplayState(replay)
-    expect(replayComparableState(imported)).toEqual(
+    expect<unknown>(replayComparableState(imported)).toEqual(
       replayExpectedState(replay, latest.turn),
     )
   })

@@ -166,7 +166,7 @@ describe('delve', () => {
 
   test('legal acts offer a graveyard picker sized to what mana cannot cover', () => {
     const { server, state } = game()
-    const castOf = (current: GameState) => legalActsFor(current, 'p1').find((action) =>
+    const castOf = (current: GameState) => legalActsFor(current, 'p1').filter((action) => action.kind === 'castSpell').find((action) =>
       action.kind === 'castSpell' && action.objectId === named(current, 'Dig Deep').id)
 
     expect(castOf(state)).toMatchObject({

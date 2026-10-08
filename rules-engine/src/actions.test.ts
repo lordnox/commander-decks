@@ -378,12 +378,12 @@ describe('events for available actions', () => {
     expect(eventsForAvailableAction(
       state,
       'p1',
-      actions.find((action) => action.name === 'Lightning Bolt')!,
+      actions.find((action) => action.kind === 'castSpell' && action.name === 'Lightning Bolt')!,
     )).toBeNull()
     expect(eventsForAvailableAction(
       state,
       'p1',
-      actions.find((action) => action.name === 'Choice Creature')!,
+      actions.find((action) => action.kind === 'castSpell' && action.name === 'Choice Creature')!,
     )).toBeNull()
   })
 
@@ -414,7 +414,7 @@ describe('events for available actions', () => {
       targetName: 'Graveyard Creature',
       targetObjectId: objectNamed(state, 'Graveyard Creature').id,
     })
-    expect(eventsForAvailableAction(state, 'p1', action!).at(-1)).toEqual({
+    expect(eventsForAvailableAction(state, 'p1', action!)?.at(-1)).toEqual({
       type: 'castSpell',
       seat: 'p1',
       objectId: objectNamed(state, 'Reanimate').id,
@@ -442,7 +442,7 @@ describe('events for available actions', () => {
     )
 
     expect(action).toBeDefined()
-    expect(eventsForAvailableAction(state, 'p1', action!).at(-1)).toEqual({
+    expect(eventsForAvailableAction(state, 'p1', action!)?.at(-1)).toEqual({
       type: 'castSpell',
       seat: 'p1',
       objectId: objectNamed(state, 'Fact or Fiction').id,

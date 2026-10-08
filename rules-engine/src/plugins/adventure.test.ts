@@ -21,8 +21,8 @@ const fictionalAdventure = () => cardTemplate('Trail Scout // Scout Trail', {
     manaCost: '{1}{G}',
     manaValue: 2,
     colors: ['G'],
-    power: '2',
-    toughness: '2',
+    power: 2,
+    toughness: 2,
     oracleText: 'Vigilance',
   },
   backFace: {
@@ -52,11 +52,12 @@ describe('Adventure spells', () => {
     const server = createServerGame(commanderRules, { hands: { p1: [fictionalAdventure()] } })
     const objectId = server.state.zoneOrder.p1.hand[0]
     const actions = legalActsFor(funded(server.state), 'p1')
-      .filter((action) => action.kind === 'castSpell' && action.objectId === objectId)
+      .filter((action) => action.kind === 'castSpell')
+      .filter((action) => action.objectId === objectId)
     expect(actions.map((action) => action.adventureCast)).toEqual(
       expect.arrayContaining([undefined, true]),
     )
-    expect(actions.some((action) => action.castLabel === 'Scout Trail')).toBe(true)
+    expect(actions.some((action) => action.kind === 'castSpell' && action.castLabel === 'Scout Trail')).toBe(true)
   })
 
   test('adventure resolves to exile and can cast the permanent face', () => {
@@ -87,8 +88,9 @@ describe('Adventure spells', () => {
           mana: { W: 0, U: 0, B: 0, R: 0, G: 2, C: 0 },
         },
       },
-    }, 'p1').filter((action) => action.kind === 'castSpell' && action.objectId === objectId)
-    expect(exileCasts.some((action) => action.adventureCast)).toBe(false)
+    }, 'p1').filter((action) => action.kind === 'castSpell')
+      .filter((action) => action.objectId === objectId)
+    expect(exileCasts.some((action) => action.kind === 'castSpell' && action.adventureCast)).toBe(false)
     expect(exileCasts.length).toBeGreaterThan(0)
 
     const creature = ok(server.rules({

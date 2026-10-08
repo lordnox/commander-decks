@@ -96,7 +96,8 @@ const resolveLootAbility = (
       current = ok(server.rules(current, {
         type: 'selectCards',
         seat: 'p1',
-        selectionId: discardPending.id,
+        kind: discardPending.kind,
+        count: discardPending.count,
         objectIds: [fodderId],
       }))
       continue
@@ -250,7 +251,7 @@ describe('Dack Party pass-35 cardRules', () => {
       && action.abilityId === 'blitzball.goal')).toBe(false)
 
     const ready = structuredClone(server.state)
-    ready.step = 'main1'
+    ready.step = 'precombatMain'
     ready.active = 'p1'
     ready.priority = 'p1'
     ready.players.p2.data[LEGENDARY_COMBAT_DAMAGE_FROM] = { p1: true }

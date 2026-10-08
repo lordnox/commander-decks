@@ -100,7 +100,7 @@ describe('additionalLandPlay', () => {
   test('Summer Bloom grants three land plays on resolution', () => {
     const server = game({ hand: [card('Summer Bloom', ['Sorcery'], { manaCost: '{1}{G}' })] })
     const spell = server.state.zoneOrder.p1.hand[0]
-    const state = {
+    const state: GameState = {
       ...server.state,
       players: {
         ...server.state.players,
@@ -121,7 +121,7 @@ describe('additionalLandPlay', () => {
       library: [card('Drawn', ['Instant'])],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
-    const state = {
+    const state: GameState = {
       ...server.state,
       players: {
         ...server.state.players,
@@ -146,7 +146,7 @@ describe('additionalLandPlay', () => {
     }))
     expect(granted.players.p1.landPlaysAllowed).toBe(4)
 
-    let state = { ...granted, priority: null }
+    let state: GameState = { ...granted, priority: null }
     for (let guard = 0; guard < 24 && state.step !== 'untap'; guard += 1) {
       state = ok(server.rules(state, { type: 'advanceStep' }))
     }

@@ -162,8 +162,8 @@ describe('linkedExile', () => {
       linkedExileUntilLeaves(),
       enters(linkExile({ nonland: true }, { controlled: true, optional: true, max: 3 })),
     ]
-    const relic = cardTemplate('Vault Relic', { types: ['Artifact'], controller: 'p1' })
-    const token = cardTemplate('Vault Ally', { types: ['Creature'], controller: 'p1' })
+    const relic = cardTemplate('Vault Relic', { types: ['Artifact'] })
+    const token = cardTemplate('Vault Ally', { types: ['Creature'] })
     const server = game({ hands: { p1: [vault] }, battlefield: { p1: [relic, token] } })
     const vaultId = named(server.state, 'Mass Vault').id
     const relicId = named(server.state, 'Vault Relic').id

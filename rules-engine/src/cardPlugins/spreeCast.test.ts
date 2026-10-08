@@ -62,9 +62,9 @@ describe('spreeCast', () => {
       {
         libraries: {
           p1: [
-            cardTemplate('Library One', ['Instant']),
-            cardTemplate('Library Two', ['Instant']),
-            cardTemplate('Library Three', ['Instant']),
+            cardTemplate('Library One', { types: ['Instant'] }),
+            cardTemplate('Library Two', { types: ['Instant'] }),
+            cardTemplate('Library Three', { types: ['Instant'] }),
           ],
         },
         hands: { p1: [spreeFixture()] },
@@ -115,9 +115,9 @@ describe('spreeCast', () => {
       {
         libraries: {
           p1: [
-            cardTemplate('Library One', ['Instant']),
-            cardTemplate('Library Two', ['Instant']),
-            cardTemplate('Library Three', ['Instant']),
+            cardTemplate('Library One', { types: ['Instant'] }),
+            cardTemplate('Library Two', { types: ['Instant'] }),
+            cardTemplate('Library Three', { types: ['Instant'] }),
           ],
         },
         hands: { p1: [spreeFixture()] },
@@ -144,7 +144,7 @@ describe('spreeCast', () => {
       commanderRules,
       {
         libraries: {
-          p1: [cardTemplate('Fate Top', ['Instant']), cardTemplate('Fate Bottom', ['Land'])],
+          p1: [cardTemplate('Fate Top', { types: ['Instant'] }), cardTemplate('Fate Bottom', { types: ['Land'] })],
         },
         hands: { p1: [spreeChoiceFixture()] },
       },
@@ -179,7 +179,7 @@ describe('spreeCast', () => {
       commanderRules,
       {
         libraries: {
-          p1: [cardTemplate('Fate Top', ['Instant']), cardTemplate('Fate Bottom', ['Land'])],
+          p1: [cardTemplate('Fate Top', { types: ['Instant'] }), cardTemplate('Fate Bottom', { types: ['Land'] })],
         },
         hands: { p1: [spreeChoiceFixture()] },
       },

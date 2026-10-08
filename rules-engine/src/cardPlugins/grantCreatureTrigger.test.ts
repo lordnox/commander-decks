@@ -130,7 +130,7 @@ describe('grantCreatureTrigger to controlled subtype', () => {
       to: 'battlefield',
     }))
     const stamped = state.objects[lordId].effects?.filter((effect) => effect.op === 'trigger')
-    expect(stamped).toEqual([enters(draw(1))])
+    expect<unknown>(stamped).toEqual([enters(draw(1))])
     expect(() => structuredClone(state)).not.toThrow()
   })
 })

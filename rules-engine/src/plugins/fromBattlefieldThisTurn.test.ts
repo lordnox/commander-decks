@@ -1,3 +1,4 @@
+import type { TargetFilter } from '../cardPlugins/effectDefinitions'
 import { describe, expect, test } from 'bun:test'
 import { availableActions } from '../actions'
 import { createCatalog } from '../catalog'
@@ -21,7 +22,7 @@ const creature = (name: string) => cardTemplate(name, {
   toughness: 2,
 })
 
-const diedThisTurnFilter = {
+const diedThisTurnFilter: TargetFilter = {
   zone: 'graveyard',
   controller: 'you',
   permanent: true,
@@ -94,7 +95,7 @@ describe('fromBattlefieldThisTurn targeting', () => {
     const died = ok(rules(base, { type: 'move', objectId: fallenId, to: 'graveyard' }, catalog))
     expect(validTarget(died, died.objects[fallenId], diedThisTurnFilter, 'p1')).toBe(true)
 
-    let state = { ...died, step: 'cleanup' as const }
+    let state: GameState = { ...died, step: 'cleanup' as const }
     state = step(state)
     expect(state.turn).toBe(2)
     expect(validTarget(state, state.objects[fallenId], diedThisTurnFilter, 'p1')).toBe(false)

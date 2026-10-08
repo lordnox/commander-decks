@@ -294,8 +294,8 @@ describe('restricted chosen-color mana', () => {
       { random: () => 0.5, cardPlugins: plugins },
     )
     const objectId = named(server.state, 'Dual Color Rock').id
-    const actions = legalActsFor(server.state, 'p1').filter((action) =>
-      action.kind === 'activateAbility' && action.abilityId === 'dual.mana')
+    const actions = legalActsFor(server.state, 'p1').filter((action) => action.kind === 'activateAbility')
+      .filter((action) => action.abilityId === 'dual.mana')
     expect(actions.map((action) => action.mana).sort()).toEqual(['B', 'G'])
 
     expect(server.rules(server.state, {

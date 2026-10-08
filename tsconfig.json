@@ -27,7 +27,6 @@
   "exclude": [
     "site/src/**/*.test.ts",
     "site/src/**/*.test.tsx",
-    "rules-engine/src/**/*.test.ts",
     "live-runner/src/**/*.test.ts",
     ".agents/skills/render-table-replay/scripts/**/*.test.ts"
   ]

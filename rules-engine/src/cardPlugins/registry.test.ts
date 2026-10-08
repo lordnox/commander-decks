@@ -91,7 +91,7 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(surveilLands)).toEqual([])
     for (const land of surveilLands) {
-      expect(cardPluginEntry(land)?.handlerIds.toSorted())
+      expect(cardPluginEntry(land)?.handlerIds?.toSorted())
         .toEqual(['choiceEffects', 'entersTapped'])
     }
   })
@@ -319,15 +319,15 @@ describe('card plugin registry', () => {
       'Werefox Bodyguard',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Fiend Hunter')?.handlerIds.toSorted())
+    expect(cardPluginEntry('Fiend Hunter')?.handlerIds?.toSorted())
       .toEqual(['choiceEffects', 'linkedExile'])
-    expect(cardPluginEntry('Bishop of Binding')?.handlerIds.toSorted())
+    expect(cardPluginEntry('Bishop of Binding')?.handlerIds?.toSorted())
       .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
   })
 
   test('Niv-Mizzet, Ghost Counsel stays registered', () => {
     expect(missingCardPlugins(['Niv-Mizzet, Ghost Counsel'])).toEqual([])
-    expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')?.handlerIds.toSorted())
+    expect(cardPluginEntry('Niv-Mizzet, Ghost Counsel')?.handlerIds?.toSorted())
       .toEqual(['activated', 'choiceEffects'])
   })
 

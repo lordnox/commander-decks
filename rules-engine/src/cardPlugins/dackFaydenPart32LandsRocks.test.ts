@@ -327,7 +327,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     }))
     expect(opened.objects[mapId].zone).toBe('graveyard')
     expect(pendingSearch(opened, 'p1')).toBeDefined()
-    expect(projectForViewer(opened, 'p2').libraries?.p1).toBeUndefined()
+    expect(projectForViewer(opened, 'p2').zoneOrder.p1.library).toEqual([])
   })
 
   test('cardDefinition lists handlers for Endless Sands and Thespian\'s Stage', () => {
@@ -380,7 +380,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
     ])
     expect(finished.zoneOrder.p1.hand).toHaveLength(2)
-    expect(projectForViewer(finished, 'p2').libraries?.p1).toBeUndefined()
+    expect(projectForViewer(finished, 'p2').zoneOrder.p1.library).toEqual([])
   })
 
   test("Archaeomancer's Map offers a land drop when an ahead opponent plays a land", () => {

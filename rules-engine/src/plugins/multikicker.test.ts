@@ -104,7 +104,8 @@ describe('multikicker', () => {
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 2 }
     const spell = ready.zoneOrder.p1.hand[0]
     const counts = legalActsFor(ready, 'p1')
-      .filter((action) => action.kind === 'castSpell' && action.objectId === spell)
+      .filter((action) => action.kind === 'castSpell')
+      .filter((action) => action.objectId === spell)
       .map((action) => action.timesKicked)
       .sort((left, right) => (left ?? 0) - (right ?? 0))
     expect(counts).toEqual([0, 1, 2])

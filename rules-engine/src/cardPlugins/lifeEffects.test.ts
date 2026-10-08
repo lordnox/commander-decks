@@ -1,3 +1,4 @@
+import type { GameState } from '../types'
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
@@ -17,7 +18,7 @@ const card = (name: string, types: string[], manaCost = '') =>
 const plugins = [activated, castCosts, onResolve, targetedResolve]
 
 const withMana = (
-  state: ReturnType<typeof structuredClone>,
+  state: GameState,
   seat: string,
   mana: Partial<Record<'W' | 'U' | 'B' | 'R' | 'G' | 'C', number>>,
 ) => {
@@ -395,7 +396,8 @@ describe('Lady Evangela life-total and X cards', () => {
     const ready = structuredClone(main)
     ready.step = 'end'
     const xValues = legalActsFor(ready, 'p1')
-      .filter((action) => action.kind === 'castSpell' && action.objectId === spell)
+      .filter((action) => action.kind === 'castSpell')
+      .filter((action) => action.objectId === spell)
       .map((action) => action.x)
     expect(xValues).toContain(4)
     let state = ok(server.rules(ready, {
@@ -417,9 +419,8 @@ describe('Lady Evangela life-total and X cards', () => {
     )
     const ready = withMana(structuredClone(server.state), 'p1', { B: 1 })
     const celebrant = ready.zoneOrder.p1.battlefield[0]
-    const actions = legalActsFor(ready, 'p1').filter((action) =>
-      action.kind === 'activateAbility'
-      && action.abilityId === 'bloodCelebrant.mana')
+    const actions = legalActsFor(ready, 'p1').filter((action) => action.kind === 'activateAbility')
+      .filter((action) => action.abilityId === 'bloodCelebrant.mana')
     expect(actions.map((action) => action.mana).sort()).toEqual(['B', 'G', 'R', 'U', 'W'])
     const state = ok(server.rules(ready, {
       type: 'activateAbility',

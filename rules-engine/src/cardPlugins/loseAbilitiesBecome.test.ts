@@ -1,3 +1,4 @@
+import { testObject } from '../testHelpers'
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { activate, draw } from './effectBuilders'
@@ -160,10 +161,9 @@ describe('loseAbilitiesBecome', () => {
       toughness: 1,
     }))
 
-    const later = bears()
-    later.id = 'later-bear'
-    later.controller = 'p2'
-    later.owner = 'p2'
+    const later = testObject(bears(), {
+      id: 'later-bear', controller: 'p2', owner: 'p2', zone: 'battlefield',
+    })
     state.objects[later.id] = later
     state.zoneOrder.p2.battlefield.push(later.id)
 

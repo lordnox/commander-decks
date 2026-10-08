@@ -124,7 +124,7 @@ describe('embalm', () => {
     stolenCard.controller = 'p1'
     stolen.players.p1.mana.W = 5
     expect(legalActsFor(stolen, 'p1').some((action) =>
-      action.objectId === stolenCard.id && action.abilityId === EMBALM_ABILITY_ID)).toBe(false)
+      action.kind === 'activateAbility' && action.objectId === stolenCard.id && action.abilityId === EMBALM_ABILITY_ID)).toBe(false)
 
     const wrongTurn = structuredClone(server.state)
     moveToGraveyard(wrongTurn, 'Crypt Warden')

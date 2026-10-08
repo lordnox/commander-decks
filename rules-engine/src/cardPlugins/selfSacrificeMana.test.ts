@@ -36,7 +36,7 @@ const spawn = () => cardTemplate('Eldrazi Spawn', {
   types: ['Creature'],
   token: true,
   oracleText: 'Sacrifice this token: Add {C}.',
-  effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', sacrificeForMana: { C: 1 } }),
+  effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', types: ['Creature'], sacrificeForMana: { C: 1 } }),
 })
 
 const basic = (name: 'Forest' | 'Mountain'): CardTemplate => cardTemplate(name, {
@@ -204,7 +204,7 @@ describe('sacrifice-this mana abilities', () => {
       summoningSickness: true,
       token: true,
       oracleText: 'Sacrifice this token: Add {C}.',
-      effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', sacrificeForMana: { C: 1 } }),
+      effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', types: ['Creature'], sacrificeForMana: { C: 1 } }),
     })
     const server = game([sickSpawn], [spell('{1}')])
     const objectId = named(server.state, 'Planner Spell')[0].id
