@@ -8,14 +8,10 @@ import { whenever } from '../builders'
 
 type WheneverSugar = {
   (on: OccurrencePattern, instruction: Instruction, ...rest: readonly Instruction[]): TriggeredAbilityDefinition
-  (on: OccurrencePattern, configuration: WheneverConfiguration): TriggeredAbilityDefinition
+  (on: OccurrencePattern, configuration: WheneverConfiguration, ...rest: readonly never[]): TriggeredAbilityDefinition
 }
 
-const wheneverSugar: WheneverSugar = (
-  on: OccurrencePattern,
-  instructionOrConfiguration: Instruction | WheneverConfiguration,
-  ...rest: readonly Instruction[]
-): TriggeredAbilityDefinition => {
+const wheneverSugar: WheneverSugar = (on, instructionOrConfiguration, ...rest) => {
   if ('kind' in instructionOrConfiguration) {
     return whenever(on, { instructions: [instructionOrConfiguration, ...rest] })
   }
