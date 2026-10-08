@@ -180,6 +180,9 @@ The schema can load a minimal card without claiming unsupported mechanics execut
 
 **Dependencies:** 01.
 
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 02 implementation note](migration/RULE-DSL-PART-02.md).
+
 Extend `GameObject`, stack/context records, and creation/move/copy paths with
 rules object identity. Ordinary zone changes create new incarnations; model
 specified exceptions explicitly. Phasing changes status rather than incarnation.
@@ -194,9 +197,6 @@ because the server evaluated them.
 **Exit:** leave-and-return cannot rescue an old target; trigger/controller identity
 survives source departure or control change; amounts and snapshots survive
 serialization/replay. Typed name predicates work without name-based dispatch.
-
-Implementation details and remaining boundaries are recorded in
-[`migration/RULE-DSL-PART-02.md`](migration/RULE-DSL-PART-02.md).
 
 ### Part 03 — Durable driver and explicit execution checkpoints
 
