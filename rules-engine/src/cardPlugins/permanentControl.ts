@@ -7,6 +7,7 @@ import {
 } from '../rules/selectPlayers'
 import type { GameObject, GameState, PlayerId, Plugin } from '../types'
 import type { InstructionHandler } from './instructionHandlers/types'
+import { targetObject } from '../objectIdentity'
 
 export const PENDING_PERMANENT_DONATION = 'kernel.pendingPermanentDonation'
 
@@ -139,7 +140,7 @@ export const gainControlPermanentInstruction: InstructionHandler<'gainControlPer
   const objectRef = item?.targets.find((target) => target.kind === 'object')
   const playerRef = item?.targets.find((target) => target.kind === 'player')
   if (objectRef?.kind !== 'object') return
-  const object = draft.object(objectRef.objectId)
+  const object = targetObject(draft, objectRef)
   if (!object || object.zone !== 'battlefield') return
   changeControllerPermanent(
     object,

@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
-import type { GameEvent, GameState, PlayerId, Plugin } from '../types'
+import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } from '../types'
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
 import { openOpponentPilePartition } from './selectCards'
 
@@ -35,6 +35,7 @@ export type PendingPlayerSelection = {
         x?: number
         /** Extra stack payload, such as a Saga's `sagaChapter` and re-checked `targetFilter`. */
         payload?: Record<string, unknown>
+        execution?: StackExecutionContext
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -150,12 +151,13 @@ export const selectPlayers: Plugin = {
       }
     }
     if (selection.action.kind === 'putTriggeredAbility' && target) {
-      const source = draft.object(selection.sourceId)
+      const source = selection.action.execution?.source.snapshot ?? draft.object(selection.sourceId)
       if (source) {
         draft.addTriggeredAbility(source, selection.action.instructions, {
           ...(selection.action.abilityId ? { abilityId: selection.action.abilityId } : {}),
           ...(selection.action.x !== undefined ? { x: selection.action.x } : {}),
           targets: [{ kind: 'player', player: target }],
+          ...(selection.action.execution ? { execution: selection.action.execution } : {}),
           payload: {
             instructions: selection.action.instructions,
             triggeringPlayer: selection.action.triggeringPlayer,

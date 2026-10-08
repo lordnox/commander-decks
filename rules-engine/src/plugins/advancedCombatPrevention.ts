@@ -1,5 +1,6 @@
 import { createToken } from '../cardPlugins/effects'
 import type { GameState, Plugin, RuleInstance, TargetRef } from '../types'
+import { targetObject } from '../objectIdentity'
 
 const protectedPlayer = (
   state: GameState,
@@ -7,8 +8,8 @@ const protectedPlayer = (
   controller: string,
 ) => target.kind === 'player'
   ? target.player === controller
-  : state.objects[target.objectId]?.types.includes('Planeswalker') === true
-    && state.objects[target.objectId]?.controller === controller
+  : targetObject(state, target)?.types.includes('Planeswalker') === true
+    && targetObject(state, target)?.controller === controller
 
 const sourceController = (state: GameState, sourceId: string) =>
   state.objects[sourceId]?.controller

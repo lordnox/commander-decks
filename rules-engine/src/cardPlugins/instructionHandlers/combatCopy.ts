@@ -16,6 +16,7 @@ import {
 import { untapPermanent } from '../../rules/untap'
 import { openStackCopyChoice } from '../stackCopy'
 import type { InstructionHandler, InstructionHandlers } from './types'
+import { targetObject as resolveTargetObject } from '../../objectIdentity'
 
 const damage: InstructionHandler<'damage'> = ({ draft, source, item }, instruction) => {
   for (const player of selectedPlayers(draft, instruction.to, item?.controller ?? source.controller)) {
@@ -57,7 +58,7 @@ const teferiSunsetPlusOne: InstructionHandler<'teferiSunsetPlusOne'> = (
 ) => {
   for (const target of item?.targets ?? []) {
     if (target.kind !== 'object') continue
-    const object = draft.object(target.objectId)
+    const object = resolveTargetObject(draft, target)
     if (!object || object.zone !== 'battlefield') continue
     draft.enqueue({
       type: object.controller === source.controller ? 'untap' : 'tap',
@@ -220,7 +221,7 @@ const copyTargetCreature: InstructionHandler<'copyTargetCreature'> = (
 ) => {
   const target = item?.targets[0]
   if (target?.kind !== 'object') return
-  const copied = draft.object(target.objectId)
+  const copied = resolveTargetObject(draft, target)
   if (!copied) return
   createToken(draft, source.controller, copyTokenTemplate(copied, {
     notLegendary: instruction.notLegendary,
@@ -274,7 +275,7 @@ const copyAllCreaturesUntilEot: InstructionHandler<'copyAllCreaturesUntilEot'> =
   instruction,
 ) => {
   const target = item?.targets[0]
-  const copied = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const copied = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!copied) return
   for (const object of Object.values(draft.objects)) {
     if (object.zone !== 'battlefield' || !object.types.includes('Creature')) continue
@@ -333,7 +334,7 @@ const copyTargetSpell: InstructionHandler<'copyTargetSpell'> = (
   { draft, source, item },
 ) => {
   const target = item?.targets[0]
-  if (target?.kind !== 'object' || draft.object(target.objectId)?.zone !== 'stack') return
+  if (target?.kind !== 'object' || resolveTargetObject(draft, target)?.zone !== 'stack') return
   const stackItem = draft.stack.find((candidate) => candidate.objectId === target.objectId)
   if (!stackItem) return
   openStackCopyChoice(draft, {

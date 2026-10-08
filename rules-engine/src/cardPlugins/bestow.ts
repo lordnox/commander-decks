@@ -10,6 +10,7 @@ import type { InstructionHandler } from './instructionHandlers/types'
 import { effectsOf } from './cardRules'
 import type { CardInstruction, TokenSpec } from './effectDefinitions'
 import { copyTokenTemplate, createToken } from './effectRuntime'
+import { targetObject } from '../objectIdentity'
 
 const bestowEffect = (source: GameObject) =>
   effectsOf(source).find((effect) => effect.op === 'bestow')
@@ -91,7 +92,7 @@ export const bestow: Plugin = {
       if (!source || !bestowEffect(source)) return
       const target = event.targets?.[0]
       if (target?.kind !== 'object') return `${source.name} bestow requires a creature target`
-      const object = state.objects[target.objectId]
+      const object = targetObject(state, target)
       if (!object || object.zone !== 'battlefield' || !object.types.includes('Creature')) {
         return `illegal target for ${source.name}`
       }
@@ -120,7 +121,7 @@ export const bestow: Plugin = {
       if (item?.castOption !== 'bestow' || !source || !effect) return
       const targetRef = item.targets[0]
       const target = targetRef?.kind === 'object'
-        ? draft.object(targetRef.objectId)
+        ? targetObject(draft, targetRef)
         : undefined
       if (!target || target.zone !== 'battlefield' || !target.types.includes('Creature')) {
         // CR 702.102c: an illegally targeted bestowed Aura resolves as a creature.

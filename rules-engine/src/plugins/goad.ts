@@ -6,13 +6,14 @@ import type {
   PlayerId,
   TargetRef,
 } from '../types'
+import { targetObject } from '../objectIdentity'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
   typeof target === 'string' ? { kind: 'player', player: target } : target
 
 const defenderPlayer = (state: GameState, target: TargetRef): PlayerId | null => {
   if (target.kind === 'player') return target.player
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   if (!object) return null
   return object.types.includes('Battle') ? object.protector ?? null : object.controller
 }

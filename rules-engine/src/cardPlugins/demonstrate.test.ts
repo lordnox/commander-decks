@@ -149,17 +149,17 @@ describe('demonstrate', () => {
       {
         controller: 'p2',
         copy: true,
-        target: { kind: 'object', objectId: opponentTarget },
+        target: { kind: 'object', objectId: opponentTarget, incarnation: 1, zone: 'battlefield' },
       },
       {
         controller: 'p1',
         copy: true,
-        target: { kind: 'object', objectId: casterTarget },
+        target: { kind: 'object', objectId: casterTarget, incarnation: 1, zone: 'battlefield' },
       },
       {
         controller: 'p1',
         copy: false,
-        target: { kind: 'object', objectId: originalTarget },
+        target: { kind: 'object', objectId: originalTarget, incarnation: 1, zone: 'battlefield' },
       },
     ])
   })

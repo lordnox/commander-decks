@@ -8,6 +8,7 @@ import { openFreeCast } from '../../plugins/rebound'
 import { initiateDiscard } from '../../rules/discard'
 import { openCardSelection } from '../../rules/selectCards'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
+import { targetObject as resolveTargetObject } from '../../objectIdentity'
 import { openPlayerSelection } from '../../rules/selectPlayers'
 import { openCumulativeUpkeep } from '../cumulativeUpkeep'
 import { instructionCount } from '../voteResult'
@@ -303,7 +304,7 @@ const addPlusCounters: InstructionHandler<'addPlusCounters'> = (
 ) => {
   const target = item?.targets[0]
   const object = target?.kind === 'object'
-    ? draft.object(target.objectId)
+    ? resolveTargetObject(draft, target)
     : draft.object(source.id)
   if (object) applyPlusCounters(object, instructionCount(instruction.count, source.controller, item))
 }
@@ -388,7 +389,7 @@ const loseLifeTargetManaValue: InstructionHandler<'loseLifeTargetManaValue'> = (
 ) => {
   const target = item?.targets[0]
   if (target?.kind !== 'object') return
-  const object = draft.object(target.objectId)
+  const object = resolveTargetObject(draft, target)
   if (!object) return
   const amount = manaValueOf(object)
   if (amount > 0) {
@@ -407,7 +408,7 @@ const loseLifeTargetController: InstructionHandler<'loseLifeTargetController'> =
 ) => {
   const target = item?.targets[0]
   if (target?.kind !== 'object') return
-  const object = draft.object(target.objectId)
+  const object = resolveTargetObject(draft, target)
   if (!object) return
   draft.enqueue({
     type: 'loseLife',
@@ -419,7 +420,7 @@ const loseLifeTargetController: InstructionHandler<'loseLifeTargetController'> =
 
 const pump: InstructionHandler<'pump'> = ({ draft, item }, instruction) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!object || object.power === null || object.toughness === null) return
   changeStatsUntilEndOfTurn(object, instruction.power, instruction.toughness)
 }
@@ -432,7 +433,7 @@ const battlefieldCreatures = (
 
 const pumpTargetX: InstructionHandler<'pumpTargetX'> = ({ draft, source, item }, instruction) => {
   const target = item?.targets.find((candidate) => candidate.kind === 'object')
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const x = Math.max(0, item?.x ?? 0)
   if (!object || object.power === null || object.toughness === null) {
     const optionalCastChoseNone = item !== undefined
@@ -518,7 +519,7 @@ const addPlusCountersEqualToLands: InstructionHandler<'addPlusCountersEqualToLan
   { draft, source, item },
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const count = landCount(draft, source.controller)
   if (object && count > 0) applyPlusCounters(object, count)
 }
@@ -528,7 +529,7 @@ const pumpTargetEqualToLands: InstructionHandler<'pumpTargetEqualToLands'> = (
   instruction,
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const amount = landCount(draft, source.controller)
   if (!object || object.power === null || object.toughness === null) {
     const candidates = Object.values(draft.objects)
@@ -608,7 +609,7 @@ const grantUntilEot: InstructionHandler<'grantUntilEot'> = (
     return
   }
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!object) return
   for (const keyword of instruction.keywords) {
     grantOracleLineUntilEndOfTurn(object, keyword)
@@ -622,7 +623,7 @@ const goadTargets: InstructionHandler<'goadTargets'> = (
   const apply = instruction.untilEndOfTurn ? goadUntilEndOfTurn : goadPermanent
   for (const target of item?.targets ?? []) {
     if (target.kind !== 'object') continue
-    const object = draft.object(target.objectId)
+    const object = resolveTargetObject(draft, target)
     if (!object || !object.types.includes('Creature') || object.zone !== 'battlefield') continue
     apply(object, source.controller)
   }
@@ -686,7 +687,7 @@ const gainLifeTargetPower: InstructionHandler<'gainLifeTargetPower'> = (
   { draft, source, item },
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const amount = object?.power ?? 0
   if (amount > 0) {
     draft.enqueue({
@@ -702,7 +703,7 @@ const gainLifeTargetToughness: InstructionHandler<'gainLifeTargetToughness'> = (
   { draft, source, item },
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const amount = object?.toughness ?? 0
   if (amount > 0) {
     draft.enqueue({
@@ -733,7 +734,7 @@ const addManaAtNextMainFromTarget: InstructionHandler<'addManaAtNextMainFromTarg
   { draft, source, item },
 ) => {
   const target = item?.targets[0]
-  const object = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   const amount = object ? manaValueOf(object) : 0
   if (amount <= 0) return
   registerDelayedTrigger(

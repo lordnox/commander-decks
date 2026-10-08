@@ -5,6 +5,7 @@ import type { GameObject, Plugin } from '../types'
 import type { BlinkOptions } from './effectBuilders'
 import { validTarget } from './targetedResolve'
 import type { InstructionHandler } from './instructionHandlers/types'
+import { targetObject } from '../objectIdentity'
 
 export type BlinkSpec = Pick<
   BlinkOptions,
@@ -136,7 +137,7 @@ const blinkInstruction: InstructionHandler<'blink'> = (
   const self = draft.object(source.id)
   const target = instruction.self
     ? self?.zone === 'battlefield' ? self : undefined
-    : targetRef?.kind === 'object' ? draft.object(targetRef.objectId) : undefined
+    : targetRef?.kind === 'object' ? targetObject(draft, targetRef) : undefined
   if (!target) return
   performBlink(draft, source, target, spec)
 }

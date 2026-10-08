@@ -87,8 +87,7 @@ export const pitOfOfferings: Plugin = {
         : []
       const targets = ids.filter((id) => draft.object(id)?.zone === 'graveyard')
       clearPendingDialog(draft, event.seat)
-      draft.stack.unshift({
-        id: draft.allocId('stack'),
+      draft.addToStack({
         kind: 'ability',
         objectId: source.id,
         controller: event.seat,

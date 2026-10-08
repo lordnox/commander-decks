@@ -4,6 +4,7 @@ import type { PlayerId } from '../../types'
 import { copyTokenTemplate, createToken } from '../effects'
 import { askEachPlayerDiscard, askEachPlayerSacrifice } from './helpers'
 import type { InstructionHandler, InstructionHandlers } from './types'
+import { targetObject as resolveTargetObject } from '../../objectIdentity'
 
 const addManaToEachPlayer: InstructionHandler<'addManaToEachPlayer'> = (
   { draft },
@@ -118,7 +119,7 @@ const copyTargetForEachOtherPlayer: InstructionHandler<'copyTargetForEachOtherPl
   { draft, item },
 ) => {
   const target = item?.targets[0]
-  const copied = target?.kind === 'object' ? draft.object(target.objectId) : undefined
+  const copied = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!copied) return
   for (const seat of draft.playerOrder) {
     if (seat === copied.controller || draft.players[seat].lost) continue
@@ -136,7 +137,7 @@ const createTreasures: InstructionHandler<'createTreasures'> = (
     : instruction.who === 'triggeringPlayer'
       ? item?.payload?.triggeringPlayer
       : target?.kind === 'object'
-        ? draft.object(target.objectId)?.controller
+        ? resolveTargetObject(draft, target)?.controller
         : target?.kind === 'player'
           ? target.player
           : undefined

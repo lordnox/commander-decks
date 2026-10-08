@@ -164,6 +164,7 @@ describe('becomeCopyOfTarget', () => {
       name: 'Fictional Bear',
       power: 4,
       toughness: 4,
+      incarnation: chameleon.incarnation,
     })
   })
 

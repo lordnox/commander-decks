@@ -1,7 +1,8 @@
 import type { GameObject, Plugin, TargetRef } from '../types'
-import { activateEffect } from './effects'
+import { activateEffect, type TargetFilter } from './effects'
 import { effectsOf } from './cardRules'
 import { validTargetRef } from './targetedResolve'
+import { targetObject } from '../objectIdentity'
 
 const MAIN_PHASES = new Set(['precombatMain', 'postcombatMain'])
 
@@ -20,7 +21,7 @@ const legalAnyTarget = (
   if (target.kind === 'player') {
     return Boolean(state.players[target.player] && !state.players[target.player].lost)
   }
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   return Boolean(
     object
     && object.zone === 'battlefield'
@@ -38,7 +39,7 @@ const legalTeferiTargets = (
 ) => {
   if (targets.length > 3 || targets.some((target) => target.kind !== 'object')) return false
   const candidates = targets.map((target) =>
-    target.kind === 'object' ? state.objects[target.objectId] : undefined)
+    target.kind === 'object' ? targetObject(state, target) : undefined)
   if (candidates.some((object) => !object || object.zone !== 'battlefield')) return false
   const slots = ['Artifact', 'Creature', 'Land']
   const assign = (index: number, available: string[]): boolean => {
@@ -54,6 +55,16 @@ const loyaltyChange = (
   effect: NonNullable<ReturnType<typeof loyaltyEffect>>,
   x: number | undefined,
 ) => effect.costs.loyaltyX ? -(x ?? 0) : effect.costs.loyalty ?? 0
+
+const resolutionTargetFilter = (
+  targets: NonNullable<ReturnType<typeof loyaltyEffect>>['targets'],
+): TargetFilter | undefined => {
+  if (!targets) return undefined
+  if (targets === 'any') return { players: 'any' }
+  if (targets === 'teferiSunsetPlusOne') return { zone: 'battlefield' }
+  if (typeof targets === 'string') return undefined
+  return 'filter' in targets ? targets.filter : targets
+}
 
 export const planeswalker: Plugin = {
   id: 'planeswalker',
@@ -139,6 +150,7 @@ export const planeswalker: Plugin = {
       source.counters.loyalty = (source.counters.loyalty ?? 0)
         + loyaltyChange(effect, event.x)
       source.loyaltyActivatedTurn = state.turn
+      const targetFilter = resolutionTargetFilter(effect.targets)
       draft.addToStack({
         kind: 'ability',
         objectId: source.id,
@@ -146,6 +158,11 @@ export const planeswalker: Plugin = {
         name: `${source.name} — ${event.abilityId}`,
         targets: event.targets ?? [],
         abilityId: event.abilityId,
+        payload: {
+          instructions: effect.do,
+          abilityEffect: effect,
+          ...(targetFilter ? { targetFilter } : {}),
+        },
         ...(event.x !== undefined ? { x: event.x } : {}),
       })
       draft.passedInRow = []

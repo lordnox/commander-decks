@@ -4,6 +4,7 @@ import { openCardSelection } from '../rules/selectCards'
 import type Draft from '../draft'
 import type { GameObject, Plugin, StackItem } from '../types'
 import { basicLand } from './effects'
+import { targetObject } from '../objectIdentity'
 
 const supported = new Set([
   'Batwing Brume',
@@ -148,7 +149,7 @@ export const combatPreventionCards: Plugin = {
     if (source.name === 'Energy Arc') {
       const creatureIds = item.targets.flatMap((target) => {
         if (target.kind !== 'object') return []
-        const creature = draft.object(target.objectId)
+        const creature = targetObject(draft, target)
         if (
           !creature
           || creature.zone !== 'battlefield'

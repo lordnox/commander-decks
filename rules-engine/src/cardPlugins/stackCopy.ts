@@ -8,6 +8,7 @@ import { activateEffect } from './effects'
 import { effectsOf } from './cardRules'
 import { spellWasKicked } from '../plugins/kickCast'
 import { targetedEffectFilter, targetedEffectForIndex, validTarget, validTargetRef } from './targetedResolve'
+import { targetObject } from '../objectIdentity'
 
 export const PENDING_STACK_COPY = 'kernel.pendingStackCopy'
 export const STACK_COPY_TRIGGER = 'stackCopy.trigger'
@@ -137,7 +138,7 @@ const targetsError = (
       }
       continue
     }
-    const object = state.objects[target.objectId]
+    const object = targetObject(state, target)
     if (!object || !legalObjectTarget(state, item, object, index, controller)) {
       return 'the copy has an illegal object target'
     }
@@ -170,7 +171,10 @@ export const stackCopy: Plugin = {
     if (!payCost(state.players[event.seat].mana, pending.cost)) {
       return `not enough mana to pay ${pending.cost}`
     }
-    return targetsError(state, item, event.targets ?? item.targets, event.seat)
+    // Keeping the original targets copies their existing pins even when they
+    // have since become illegal. New targets are chosen and validated now.
+    if (!event.targets) return
+    return targetsError(state, item, event.targets, event.seat)
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'activateAbility' && !event.manaAbility) {
@@ -232,7 +236,7 @@ export const stackCopy: Plugin = {
     const item = draft.stack.find((candidate) => candidate.id === pending.stackId)
     if (!item) return
     draft.enqueue({ type: 'payMana', seat: event.seat, cost: pending.cost })
-    draft.stack.unshift({
+    draft.addToStack({
       ...structuredClone(item),
       id: draft.allocId('s'),
       controller: event.seat,
@@ -244,7 +248,9 @@ export const stackCopy: Plugin = {
     draft.note(`${pending.source} copies ${item.name}`)
     if (pending.chooseOpponentAfterCopy) {
       const candidates = draft.playerOrder.filter(
-        (seat) => seat !== event.seat && !draft.players[seat].lost,
+        (seat) =>
+          draft.opponents[event.seat].includes(seat)
+          && !draft.players[seat].lost,
       )
       if (candidates.length > 0) {
         openPlayerSelection(draft, {

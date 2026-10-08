@@ -108,7 +108,12 @@ describe('up-to-N triggered targets', () => {
     const { server, state } = setup({ p2: [artifact('Enemy Rock')], p3: [artifact('Spared Rock')] })
     const stacked = ok(server.rules(state, choose(state, ['Enemy Rock'])))
     expect(stacked.stack[0].targets).toEqual([
-      { kind: 'object', objectId: named(state, 'Enemy Rock').id },
+      {
+        kind: 'object',
+        objectId: named(state, 'Enemy Rock').id,
+        incarnation: 1,
+        zone: 'battlefield',
+      },
     ])
     const done = resolveStack(server.rules, stacked)
     expect(named(done, 'Enemy Rock').zone).toBe('graveyard')

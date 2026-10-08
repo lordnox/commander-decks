@@ -423,7 +423,9 @@ describe('Room doors', () => {
       count: 1,
       objectIds: [foyer.id],
     }))
-    expect(state.stack[0].targets).toEqual([{ kind: 'object', objectId: foyer.id }])
+    expect(state.stack[0].targets).toEqual([{
+      kind: 'object', objectId: foyer.id, incarnation: 2, zone: 'graveyard',
+    }])
 
     state = ok(server.rules(state, { type: 'resolveTop' }))
     state = ok(server.rules(state, {

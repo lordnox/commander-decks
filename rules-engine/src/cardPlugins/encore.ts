@@ -14,6 +14,7 @@ import {
 } from './continuousEffects'
 import { copyTokenTemplate, createToken } from './effects'
 import type { InstructionHandler } from './instructionHandlers/types'
+import { targetObject } from '../objectIdentity'
 
 const targetRef = (target: TargetRef | PlayerId): TargetRef =>
   typeof target === 'string' ? { kind: 'player', player: target } : target
@@ -26,9 +27,7 @@ export const encoreDefender = (object: GameObject): PlayerId | null => {
 }
 
 const opposingPlayers = (state: GameState, controller: PlayerId) =>
-  state.playerOrder.filter(
-    (seat) => seat !== controller && !state.players[seat]?.lost,
-  )
+  state.opponents[controller].filter((seat) => !state.players[seat]?.lost)
 
 const canAttackThisCombat = (
   state: GameState,
@@ -43,7 +42,7 @@ const canAttackThisCombat = (
 
 const defenderPlayer = (state: GameState, target: TargetRef): PlayerId | null => {
   if (target.kind === 'player') return target.player
-  const object = state.objects[target.objectId]
+  const object = targetObject(state, target)
   if (!object) return null
   return object.types.includes('Battle') ? object.protector ?? null : object.controller
 }

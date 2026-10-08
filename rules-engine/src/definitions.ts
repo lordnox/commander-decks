@@ -50,6 +50,7 @@ export const gameObjectFieldDefaults = (): Omit<
   GameObject,
   'id' | 'name' | 'owner' | 'controller' | 'zone'
 > => ({
+  incarnation: 1,
   tapped: false,
   summoningSickness: false,
   damageMarked: 0,

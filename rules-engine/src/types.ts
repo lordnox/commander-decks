@@ -5,6 +5,9 @@ import type { CardInstruction } from './cardPlugins/effects'
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
 
+/** Format-owned, serialized opponent relation used by rules queries. */
+export type OpponentRelations = Record<PlayerId, PlayerId[]>
+
 /** Zones an object can occupy. Command exists only in Commander-format games. */
 export const ZONE_IDS = [
   'battlefield',
@@ -167,9 +170,24 @@ export type ContinuousEffect = {
 }
 
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
+export type ObjectIdentity = {
+  objectId: string
+  incarnation: number
+  zone: ZoneId
+}
+
+export type ObjectTargetRef = {
+  kind: 'object'
+  objectId: string
+  /** Pinned when the target is put on the stack. Omitted only on legacy inputs. */
+  incarnation?: number
+  /** Zone in which this target was chosen. Omitted only on legacy inputs. */
+  zone?: ZoneId
+}
+
 export type TargetRef =
   | { kind: 'player'; player: PlayerId }
-  | { kind: 'object'; objectId: string }
+  | ObjectTargetRef
 
 /**
  * One card or token in the game. Identity is `id`; `name` is Oracle for fixtures.
@@ -179,6 +197,8 @@ export type TargetRef =
  */
 export type GameObject = {
   id: string
+  /** CR 400.7 identity generation. Increments whenever this card becomes a new object. */
+  incarnation: number
   name: string
   owner: PlayerId
   controller: PlayerId
@@ -328,6 +348,40 @@ export type StackItem = {
   copy?: boolean
   /** Object ids whose ward cost has been paid or declined for this item (CR 702.21). */
   wardSettled?: string[]
+  /**
+   * Authoritative serializable context. It is removed from every client projection.
+   * Source-backed stack items created through Draft.addToStack carry this context.
+   */
+  execution?: StackExecutionContext
+}
+
+export type ObjectSnapshot = GameObject
+
+export type CapturedObject = {
+  ref: ObjectIdentity
+  snapshot: ObjectSnapshot
+  information: 'current' | 'lastKnown'
+}
+
+export type OccurrenceSnapshot = {
+  kind: 'event'
+  eventType: string
+  player?: PlayerId
+  amount?: number
+  object?: {
+    before?: ObjectSnapshot
+    after?: ObjectSnapshot
+  }
+  source?: CapturedObject
+}
+
+export type StackExecutionContext = {
+  controller: PlayerId
+  source: CapturedObject
+  occurrence?: OccurrenceSnapshot
+  /** Exact canonical program pin; execution support remains disabled until Part 03. */
+  definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  declarationPath?: string
 }
 
 /**
@@ -371,6 +425,8 @@ export type PlayerState = {
  */
 export type GameState = {
   format: string
+  /** Opponent relationships are defined by the format, then stored for deterministic replay. */
+  opponents: OpponentRelations
   knowledge: {
     mode: 'authoritative' | 'replica'
     viewer: PlayerId | null
@@ -558,6 +614,8 @@ export type GameEvent =
       objectId: string
       to: ZoneId
       position?: 'top' | 'bottom'
+      /** Same-zone moves normally reorder; exile/command re-entry creates a new object. */
+      sameZone?: 'reorder' | 'newObject'
       controller?: PlayerId
       /** Starting lore count chosen as a Saga with read ahead enters. */
       sagaChapter?: number

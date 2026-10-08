@@ -395,6 +395,8 @@ describe('Starfield of Nyx', () => {
     expect(state.stack[0].targets).toEqual([{
       kind: 'object',
       objectId: named(state, 'Returned Enchantment').id,
+      incarnation: 2,
+      zone: 'graveyard',
     }])
 
     state = ok(withGraveyard.rules(state, { type: 'resolveTop' }))

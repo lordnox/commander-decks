@@ -68,6 +68,8 @@ export type GameFormat = {
     commander?: boolean
   }
   createPlayerData?: (player: PlayerId) => Record<string, unknown>
+  /** Defaults to free-for-all: every other living seat is an opponent. */
+  opponentsOf?: (players: readonly PlayerId[], player: PlayerId) => readonly PlayerId[]
 }
 
 export const corePlugins = [

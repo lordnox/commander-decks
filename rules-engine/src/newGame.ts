@@ -182,6 +182,10 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
   }
   return {
     format: format.id,
+    opponents: Object.fromEntries(players.map((playerId) => [
+      playerId,
+      [...(format.opponentsOf?.(players, playerId) ?? players.filter((seat) => seat !== playerId))],
+    ])),
     knowledge: { mode: 'authoritative', viewer: null },
     playerOrder: players,
     castableZones: format.castableZones ?? ['hand'],

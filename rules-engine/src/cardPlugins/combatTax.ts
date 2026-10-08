@@ -10,6 +10,7 @@ import type {
   Plugin,
   TargetRef,
 } from '../types'
+import { targetObject } from '../objectIdentity'
 
 const MANA_IDS: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
 
@@ -20,7 +21,7 @@ const defendingPlayer = (
   if (typeof target === 'string') return target
   return target.kind === 'player'
     ? target.player
-    : state.objects[target.objectId]?.controller
+    : targetObject(state, target)?.controller
 }
 
 const battlefieldStatics = (state: GameState) =>

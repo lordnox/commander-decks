@@ -64,7 +64,7 @@ export const matchesTriggerEvent = (
   if (effect.noncreatureOnly && watched?.types.includes('Creature')) return false
   if (effect.player) {
     const filter = typeof effect.player === 'string' ? { relation: effect.player } : effect.player
-    if (!player || !matchesPlayerFilter(player, source.controller, filter)) return false
+    if (!player || !matchesPlayerFilter(state, player, source.controller, filter)) return false
   }
   if (effect.from && (!watched
     || !(Array.isArray(effect.from) ? effect.from : [effect.from]).includes(fromZone ?? watched.zone))) return false
