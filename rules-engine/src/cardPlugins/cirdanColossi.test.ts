@@ -256,7 +256,7 @@ describe('Blightsteel Colossus combat keywords', () => {
   })
 
   test('blocked by a small creature it tramples over, infecting the blocker and the player', () => {
-    const { send, attacked } = attackGame([fixtureCreature('Chump Bear', { controller: 'p2' })])
+    const { send, attacked } = attackGame([fixtureCreature('Chump Bear')])
     const blocking = send(attacked, { type: 'advanceStep' })
     const blocked = send(blocking, {
       type: 'declareBlockers',
@@ -275,7 +275,7 @@ describe('Blightsteel Colossus combat keywords', () => {
 
   test('lethal damage from a huge blocker does not destroy it because it is indestructible', () => {
     const { send, attacked } = attackGame([
-      fixtureCreature('Huge Wall', { controller: 'p2', power: 20, toughness: 20 }),
+      fixtureCreature('Huge Wall', { power: 20, toughness: 20 }),
     ])
     const blocking = send(attacked, { type: 'advanceStep' })
     const blocked = send(blocking, {

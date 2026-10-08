@@ -154,7 +154,7 @@ describe('cda life power and toughness', () => {
     expect(ptEqualsLife({ who: 'controller' })).toEqual(
       (synced.objects[cloneId].effects ?? []).find(
         (effect) => effect.op === 'static' && effect.ptEqualsLife,
-      ),
+      )!,
     )
     expect([synced.objects[cloneId].power, synced.objects[cloneId].toughness]).toEqual([40, 40])
   })

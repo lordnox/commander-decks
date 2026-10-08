@@ -158,7 +158,7 @@ describe('priority', () => {
     expect(current.stack[0].waiting).toBe('choice')
 
     for (let round = 0; round < 3; round += 1) {
-      current = passRound(current)
+      current = passRound(current, current.playerOrder.length)
     }
 
     expect(current.stack).toHaveLength(1)

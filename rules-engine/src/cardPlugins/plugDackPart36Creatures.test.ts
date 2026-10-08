@@ -113,7 +113,7 @@ describe('plug Dack part 36 registered creatures', () => {
     expect(oracleFor('Alabaster Host Intercessor')).toContain('Plainscycling {2}')
 
     const intercessor = deckCreature('Alabaster Host Intercessor', { manaCost: '{5}{W}' })
-    const foe = fixtureCreature('Fixture Hostage', { controller: 'p2' })
+    const foe = fixtureCreature('Fixture Hostage')
     const server = createServerGame(
       commanderRules,
       {
@@ -180,7 +180,7 @@ describe('plug Dack part 36 registered creatures', () => {
   test('Curious Colossus chooses an opponent then shrinks their board', () => {
     expect(oracleFor('Curious Colossus')).toContain('Coward')
     const colossus = deckCreature('Curious Colossus', { manaCost: '{4}{W}' })
-    const bear = fixtureCreature('Fixture Curious Bear', { controller: 'p2', power: 4, toughness: 4 })
+    const bear = fixtureCreature('Fixture Curious Bear', { power: 4, toughness: 4 })
     const server = createServerGame(
       commanderRules,
       {
@@ -203,7 +203,7 @@ describe('plug Dack part 36 registered creatures', () => {
     const choice = pendingPlayerSelectionFor(state, 'p1')!
     const restarted = structuredClone(state)
     expect(pendingPlayerSelectionFor(restarted, 'p1')?.id).toBe(choice.id)
-    expect(projectForViewer(restarted, 'p2').pendingPlayerSelection).toBeUndefined()
+    expect(pendingPlayerSelectionFor(projectForViewer(restarted, 'p2'), 'p1')).toBeUndefined()
 
     state = ok(server.rules(state, {
       type: 'selectPlayers',
@@ -222,8 +222,8 @@ describe('plug Dack part 36 registered creatures', () => {
   test('Githzerai Monk taps every creature you do not control on ETB', () => {
     expect(oracleFor('Githzerai Monk')).toContain('tap all creatures you don\'t control')
     const monk = deckCreature('Githzerai Monk', { manaCost: '{2}{W}{U}' })
-    const ally = fixtureCreature('Fixture Ally', { controller: 'p1' })
-    const foe = fixtureCreature('Fixture Foe', { controller: 'p2' })
+    const ally = fixtureCreature('Fixture Ally')
+    const foe = fixtureCreature('Fixture Foe')
     const server = createServerGame(
       commanderRules,
       {
@@ -250,7 +250,6 @@ describe('plug Dack part 36 registered creatures', () => {
     const golem = deckCreature('Meteor Golem', { manaCost: '{8}' })
     const rock = cardTemplate('Fixture Rock', {
       types: ['Artifact'],
-      controller: 'p2',
     })
     const server = createServerGame(
       commanderRules,

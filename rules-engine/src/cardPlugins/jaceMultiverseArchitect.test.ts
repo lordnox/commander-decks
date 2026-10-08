@@ -1,3 +1,4 @@
+import type { GameState } from '../types'
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { legalActsFor } from '../actions'
@@ -34,7 +35,7 @@ const atOpponentBeginCombat = (
   runtime: ReturnType<typeof game>,
   state: ReturnType<typeof game>['state'],
 ) => {
-  let current = { ...state, active: 'p2' as const, step: 'precombatMain' as const }
+  let current: GameState = { ...state, active: 'p2' as const, step: 'precombatMain' as const }
   current = ok(runtime.rules(current, { type: 'advanceStep' }))
   expect(current.step).toBe('beginCombat')
   return current
@@ -130,7 +131,7 @@ describe('Jace, Multiverse Architect', () => {
       libraries: { p1: ['A', 'B', 'C'].map((name) => cardTemplate(name)) },
     })
     const id = jaceId(runtime.state)
-    let state = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
+    let state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
     state = ok(runtime.rules(state, {
       type: 'activateAbility',
       abilityId: 'jace.plus-one',
@@ -166,7 +167,7 @@ describe('Jace, Multiverse Architect', () => {
     const id = jaceId(runtime.state)
     const sacrificeId = Object.values(runtime.state.objects)
       .find((object) => object.name === 'Sacrifice Me')!.id
-    let state = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
+    let state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
     state = ok(runtime.rules(state, {
       type: 'activateAbility',
       abilityId: 'jace.minus-three',
@@ -184,7 +185,7 @@ describe('Jace, Multiverse Architect', () => {
   test('cannot target Jace himself with −3', () => {
     const runtime = game()
     const id = jaceId(runtime.state)
-    const state = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
+    const state: GameState = { ...runtime.state, active: 'p1', step: 'precombatMain' as const, priority: 'p1' }
     const activated = runtime.rules(state, {
       type: 'activateAbility',
       abilityId: 'jace.minus-three',

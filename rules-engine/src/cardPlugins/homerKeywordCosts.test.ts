@@ -50,7 +50,8 @@ describe('Homer keyword casting costs', () => {
     const relic = named(ready, 'Relic')
     const bear = named(ready, 'Bear')
     const actions = legalActsFor(ready, 'p1')
-      .filter((action) => action.kind === 'castSpell' && action.objectId === spell.id)
+      .filter((action) => action.kind === 'castSpell')
+      .filter((action) => action.objectId === spell.id)
 
     expect(actions.some((action) =>
       action.kind === 'castSpell'
@@ -121,7 +122,8 @@ describe('Homer keyword casting costs', () => {
     const legend = named(ready, 'Legend')
     const citizen = named(ready, 'Citizen')
     const actions = legalActsFor(ready, 'p1')
-      .filter((action) => action.kind === 'castSpell' && action.objectId === spell.id)
+      .filter((action) => action.kind === 'castSpell')
+      .filter((action) => action.objectId === spell.id)
 
     expect(actions.map((action) => action.targetObjectId)).toEqual([legend.id])
     const illegal = server.rules(ready, {

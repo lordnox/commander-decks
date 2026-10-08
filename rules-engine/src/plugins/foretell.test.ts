@@ -23,7 +23,7 @@ const game = () => createServerGame(
   { random: () => 0.5, cardPlugins: [foretell, alternateCosts, spells] },
 )
 
-const named = (state: { objects: Record<string, { name: string }> }, name: string) =>
+const named = (state: ReturnType<typeof game>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('foretell', () => {

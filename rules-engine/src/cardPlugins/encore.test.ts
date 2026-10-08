@@ -158,6 +158,7 @@ describe('encore', () => {
       objectId: drummerId,
       abilityId: 'encore',
     })
+    if (illegal.ok) throw new Error('Expected illegal activation to fail')
     expect(illegal.error).toMatch(/only as a sorcery/i)
   })
 
@@ -210,6 +211,7 @@ describe('encore', () => {
           : declaration.defender,
       })),
     })
+    if (wrongTarget.ok) throw new Error('Expected wrong target to fail')
     expect(wrongTarget.error).toMatch(/designated opponent/i)
 
     const legal = ok(server.rules(state, {

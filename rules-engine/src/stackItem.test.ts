@@ -66,7 +66,7 @@ describe('StackItem and draft stack helpers', () => {
     const state = newGame({ hands: { p1: [bears()] } })
     const source = Object.values(state.objects).find((o) => o.name === 'Grizzly Bears')!
     const draft = makeDraft(state)
-    const instructions = [{ kind: 'draw', count: 1 }]
+    const instructions: Parameters<typeof draft.addTriggeredAbility>[1] = [{ kind: 'draw', count: 1 }]
 
     const item = draft.addTriggeredAbility(source, instructions, { abilityId: 'draw-trigger' })
 

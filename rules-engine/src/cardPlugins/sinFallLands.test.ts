@@ -241,7 +241,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [forest(), forest('Island')] },
+        battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
         hands: {
           p1: [card('Zanarkand, Ancient Metropolis // Lasting Fayth', ['Land'], {
             frontFace: landFace,

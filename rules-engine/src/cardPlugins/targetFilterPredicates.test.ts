@@ -66,7 +66,7 @@ const setup = (filter: TargetFilter, overlay?: 'forestOverlay') => {
   const offered = () => {
     const acts = legalActsFor(ready, 'p1').filter((action) =>
       action.kind === 'castSpell' && action.name === 'Probe')
-    return acts.flatMap((action) => action.targetName ?? []).sort()
+    return acts.flatMap((action) => action.kind === 'castSpell' ? action.targetName ?? [] : []).sort()
   }
   return { legal, offered }
 }

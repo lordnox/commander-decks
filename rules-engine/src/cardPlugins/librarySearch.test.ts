@@ -802,7 +802,7 @@ describe('librarySearch', () => {
     expect(searched.delayedTriggers).toHaveLength(1)
     expect(searched.delayedTriggers[0].condition).toEqual({ kind: 'step', step: 'cleanup' })
 
-    let state = { ...searched, step: 'end' as const }
+    let state: GameState = { ...searched, step: 'end' as const }
     state = ok(server.rules(state, { type: 'advanceStep' }))
     expect(state.objects[sourceId].zone).toBe('battlefield')
     expect(state.stack[0]).toMatchObject({ kind: 'ability', name: 'Test Cleanup Fetch' })

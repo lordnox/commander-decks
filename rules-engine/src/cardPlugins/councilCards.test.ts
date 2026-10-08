@@ -107,7 +107,7 @@ const stampede = () => cardTemplate("Selvala's Stampede", {
 const portal = () => cardTemplate('Coercive Portal', { types: ['Artifact'], manaCost: '{4}', manaValue: 4 })
 
 const atUpkeep = (game: Server, active: PlayerId = 'p1') => {
-  let current = { ...structuredClone(game.state), step: 'untap' as const, active, priority: active }
+  let current: GameState = { ...structuredClone(game.state), step: 'untap' as const, active, priority: active }
   current = ok(game.rules(current, { type: 'advanceStep' }))
   expect(current.step).toBe('upkeep')
   return current

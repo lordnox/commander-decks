@@ -242,15 +242,14 @@ describe('Dack party blink pass 2', () => {
     const ready = structuredClone(server.state)
     const targetId = named(ready, 'Gift Target').id
     const spell = named(ready, 'Parting Gust')
-    const gifted = legalActsFor(ready, 'p1').find((action) =>
-      action.kind === 'castSpell'
-      && action.objectId === spell.id
+    const gifted = legalActsFor(ready, 'p1').filter((action) => action.kind === 'castSpell').find((action) =>
+      action.objectId === spell.id
       && action.giftPromised
       && action.giftRecipientId === 'p2')!
-    const cast = ok(server.rules(ready, {
-      ...eventsForAvailableAction(ready, 'p1', gifted)![0],
-      targets: [{ kind: 'object', objectId: targetId }],
-    }))
+    const castEvents = eventsForAvailableAction(ready, 'p1', {
+      ...gifted, targetObjectIds: [targetId],
+    })!
+    const cast = castEvents.reduce((state, event) => ok(server.rules(state, event)), ready)
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
     expect(resolved.objects[targetId].zone).toBe('exile')
     const fish = Object.values(resolved.objects).find((object) =>
@@ -402,11 +401,12 @@ describe('Dack party blink pass 2', () => {
 
   test('All-Fates Stalker cages a non-Assassin until it leaves', () => {
     const server = createServerGame(commanderRules, {
+      players: 3,
       hands: { p1: [cardTemplate('All-Fates Stalker')] },
       battlefield: {
         p2: [cardTemplate('Caged Bear', { types: ['Creature'], power: 3, toughness: 3 })],
       },
-    }, { random: () => 0.5, players: 3, cardPlugins: dackBlinkPlugins })
+    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
     const stalkerId = named(server.state, 'All-Fates Stalker').id
     const bearId = named(server.state, 'Caged Bear').id
     const entered = ok(server.rules(server.state, {

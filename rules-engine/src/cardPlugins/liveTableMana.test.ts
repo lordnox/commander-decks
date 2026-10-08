@@ -152,7 +152,7 @@ const SCENARIOS: Record<string, Scenario> = {
       token: true,
       summoningSickness: true,
       tapProduces: undefined,
-      effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', sacrificeForMana: { C: 1 } }),
+      effects: effectsFromTokenSpec({ name: 'Eldrazi Spawn', types: ['Creature'], sacrificeForMana: { C: 1 } }),
     },
   },
   // Mana that depends on the board.

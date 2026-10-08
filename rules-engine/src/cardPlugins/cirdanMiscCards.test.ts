@@ -352,7 +352,7 @@ describe('Kederekt Leviathan', () => {
       hands: { p1: [real('Kederekt Leviathan')] },
       battlefield: {
         ...board().battlefield,
-        p2: [...board().battlefield.p2!, creature('Borrowed Ox', { owner: 'p1' } as Partial<CardTemplate>)],
+        p2: [...board().battlefield!.p2!, creature('Borrowed Ox', { owner: 'p1' } as Partial<CardTemplate>)],
       },
     })
     let state = mainPhase(server.state)
@@ -1014,7 +1014,7 @@ describe('Phyrexian Ingester', () => {
     }))
   }
 
-  const choose = (state: GameState, ...picked: string[]): GameEvent => ({
+  const choose = (state: GameState, ...picked: string[]): Extract<GameEvent, { type: 'selectCards' }> => ({
     type: 'selectCards',
     seat: 'p1',
     kind: 'choose',
@@ -1231,7 +1231,7 @@ describe("Rishkar's Expertise", () => {
     return ok(server.rules(cast, { type: 'resolveTop' }))
   }
 
-  const castFree = (state: GameState, name: string): GameEvent => ({
+  const castFree = (state: GameState, name: string): Extract<GameEvent, { type: 'castSpell' }> => ({
     type: 'castSpell',
     seat: 'p1',
     objectId: named(state, name).id,
@@ -1425,7 +1425,7 @@ describe('Spearbreaker Behemoth', () => {
     return { server, ready }
   }
 
-  const activate = (state: GameState, targetName: string, seat = 'p1'): GameEvent => ({
+  const activate = (state: GameState, targetName: string, seat = 'p1'): Extract<GameEvent, { type: 'activateAbility' }> => ({
     type: 'activateAbility',
     abilityId: ABILITY,
     seat,

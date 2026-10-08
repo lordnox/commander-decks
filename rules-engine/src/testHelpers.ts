@@ -1,4 +1,6 @@
+import type { CardTemplate } from './newGame'
 import type {
+  GameObject,
   GameEvent,
   GameState,
   ReduceResult,
@@ -37,3 +39,9 @@ export const resolveStack = (
   }
   return current
 }
+
+/** Build an instance for tests that insert objects directly instead of using newGame. */
+export const testObject = (
+  template: CardTemplate,
+  identity: Pick<GameObject, 'id' | 'owner' | 'controller' | 'zone'>,
+): GameObject => ({ ...template, ...identity })
