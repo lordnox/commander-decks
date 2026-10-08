@@ -10,6 +10,8 @@ Start with the [vocabulary](#2-vocabulary) and [definition structure](#3-definit
 The [worked examples](#10-worked-examples) show card behavior; the
 [authoring catalogue](#14-authoring-sugar-and-canonical-data) shows shorter syntax.
 [Implementation milestones](#implementation-milestones) identify the migration work.
+The [implementation plan](RULE-DSL-IMPLEMENTATION-PLAN.md) maps those milestones
+to current modules, dependencies, migration steps, and acceptance gates.
 
 ## 1. Purpose and boundaries
 
