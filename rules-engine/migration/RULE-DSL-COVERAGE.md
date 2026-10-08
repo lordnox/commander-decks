@@ -13,6 +13,13 @@ mutation. Every migration row records its mechanic, registrations, executable
 test-file evidence, needed canonical node, compatibility route, owning plan part,
 and current status.
 
+Part 01 adds an isolated canonical authoring/compiler surface and its tests. The
+ledger is regenerated so lexical candidate counts remain reproducible, but no
+row is marked migrated and the Part 00 registrations, variants, disposition,
+baseline commit, and executable-evidence claims remain unchanged. Canonical-load
+tests are not runtime coverage evidence. See
+[`RULE-DSL-PART-01.md`](RULE-DSL-PART-01.md) for the version and replay decision.
+
 At this baseline the closed surfaces contain 394 card registrations, 21 effect
 variants, 194 instruction variants with 194 discovered handlers, 54 unique
 built-in plugin IDs, and exactly 28 `PendingDialog.kind` variants. The generated

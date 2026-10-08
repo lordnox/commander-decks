@@ -1134,7 +1134,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 454,
+        "matches": 457,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -2743,7 +2743,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 103,
+        "matches": 110,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -3540,7 +3540,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 60,
+        "matches": 63,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:2915 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -3838,7 +3838,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 30,
+        "matches": 33,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:100 — test('registered part-32 cards are in the card pool table', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:343 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
@@ -20808,7 +20808,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 46,
+        "matches": 50,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -20849,7 +20849,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 66,
+        "matches": 74,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -21243,7 +21243,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 36,
+        "matches": 37,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:299 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",

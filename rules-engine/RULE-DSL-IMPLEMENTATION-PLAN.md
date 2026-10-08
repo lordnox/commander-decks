@@ -126,6 +126,9 @@ the inventory being manually perfect.
 
 **Dependencies:** 00.
 
+**Status:** implementation complete; pending review. See the
+[Part 01 implementation note](migration/RULE-DSL-PART-01.md).
+
 Implement the required DSL folders, root/ability/program unions, typed domain
 filters, references, amounts, decisions, and scoped cost/condition vocabulary.
 Close the unions needed for the first runnable slices; introduce further variants
