@@ -126,7 +126,7 @@ the inventory being manually perfect.
 
 **Dependencies:** 00.
 
-**Status:** implementation complete; pending review. See the
+**Status:** implementation complete; reviewed and accepted. See the
 [Part 01 implementation note](migration/RULE-DSL-PART-01.md).
 
 Implement the required DSL folders, root/ability/program unions, typed domain
