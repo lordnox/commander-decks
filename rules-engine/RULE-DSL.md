@@ -152,6 +152,12 @@ ability normally executes instructions when it resolves. Replacement and
 prevention describe effect behavior, not additional top-level ability kinds.
 The engine may compile these declarations into separate internal execution lists.
 
+The proposed authoring helper for a triggered ability is `whenever(...)`. It
+produces the serialized `kind: 'triggered'` variant and can describe Oracle
+triggers written with "when," "whenever," or "at." This readable helper name
+does not change the trigger lifecycle or introduce a different engine ability
+kind. Existing implemented trigger helpers remain compatibility APIs.
+
 The registry associates a card name with its definition (and can resolve that
 name to its Scryfall Oracle ID). No redundant card-definition ID is required.
 Card characteristics such as mana cost, types, and printed power/toughness come
@@ -401,6 +407,32 @@ casting can open a nested casting procedure. Neither gives everyone priority
 during the parent resolution.
 
 ## 5. Targeting and other choices
+
+### Announcement decisions
+
+`announcement` declares decisions that must be bound while casting, activating,
+or putting a triggered ability on the stack. It is not an executable client
+command. The server validates supplied decisions and creates typed requests for
+any required decisions that remain missing; the client renders those requests.
+
+| Field | Decision |
+| --- | --- |
+| `modes` | Which modes of a modal spell or ability are selected. |
+| `variables` | Announcement-time values such as X, when the rules require a choice now. |
+| `targets` | The recipients chosen for each target clause. |
+| `distributions` | Amounts divided among targets, such as damage or counters. |
+
+Modes can change which targets are required, so process these decisions in rules
+order rather than opening independent pickers for every field. Casting/payment
+metadata separately supplies alternative/additional cost decisions. Decisions
+that belong during resolution, such as discarding a card or accepting a may
+payment, are instructions rather than announcement fields.
+
+For [Blood Artist](https://scryfall.com/card/soc/209/blood-artist), the announcement
+only needs one player target; its instructions
+then perform life loss and life gain. Instructions are the resolution program:
+game actions plus typed choices, conditions, and sequencing. They are not the
+pre-stack announcement procedure.
 
 ### Target clauses
 
@@ -893,7 +925,7 @@ does not prevent this life loss.
 **Proposed DSL:** "When this creature enters, destroy target creature."
 
 ```ts
-triggered({
+whenever({
   id: 'entry-removal',
   on: entersOccurrence({ object: ref('source') }),
   announcement: {
