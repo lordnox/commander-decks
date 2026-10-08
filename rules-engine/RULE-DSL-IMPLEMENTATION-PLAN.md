@@ -102,7 +102,7 @@ are proposed destinations, not existing exports.
 
 **Dependencies:** none.
 
-**Status:** implementation complete; review pending. See the reproducible
+**Status:** implementation complete; reviewed and accepted. See the reproducible
 [Part 00 coverage baseline](migration/RULE-DSL-COVERAGE.md), generated migration
 ledger, and versioned compatibility fixtures.
 
