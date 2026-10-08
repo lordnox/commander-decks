@@ -1,7 +1,7 @@
 # Configurable rule model and client/server contract
 
-Status: API specification with an implemented first slice. Shared trigger builders,
-object filters, player predicates/selectors, and fixed-amount life-loss, life-gain,
+Status: staged refactoring target with an implemented first slice. Shared trigger
+builders, object filters, player predicates/selectors, and fixed-amount life-loss, life-gain,
 and player damage instructions exist. General participant references, object
 selectors, amount expressions, unified target clauses, the interaction envelope,
 replacement transformations, and consolidated static builders below are proposed.
@@ -1616,27 +1616,92 @@ selection projection, reconnect/exactly-once continuation, and simultaneous
 events. Test that no priority/SBA checkpoint appears between resolution
 instructions or choice suspensions where the rules do not permit one.
 
-## 12. Implementation sequence and current-code boundaries
+## 12. Refactoring goal, implementation sequence, and current-code boundaries
 
-1. **Implemented first slice:** player selectors and fixed-amount life loss, gain,
-   and player damage. Preserve existing wrappers and their behavior.
-2. **Execution/announcement contract:** formalize stack-item legality, checkpoint
-   timing, pending triggers, and a distinct decision/priority outcome. Introduce
-   scoped target clauses through adapters to current commands. Test multi-clause
-   whole-item failure and costs atomically committed.
-3. **References and expressions:** add incarnation-aware participant references,
-   last-known information, amount nodes, and versioned serialization. Test replay
-   and hidden-information projection.
-4. **Remaining instructions and continuations:** standardize actions and typed
-   result/control-flow nodes without erasing destroy/sacrifice, action dependency,
-   or simultaneous/sequential distinctions. Unify typed choice suspension across
-   cards, players, options, stack targets, ordering, and allocation.
-5. **Replacement/prevention transformations:** implement player-selected CR 616
-   ordering and persistent event lineage before adding generic builders. Test
-   replaced events never triggering as if they occurred, optional/competing
-   replacements, descendants, and prevention exhaustion.
-6. **Static modifiers:** consolidate around existing layer machinery, including
-   dependency, duration, source lifetime, and prospective entry characteristics.
+### Implementation goal
+
+Refactor card definitions, rules execution, and client/headless decision handling
+around the contract in this file. Card definitions compile to versioned data;
+the authoritative driver interprets that data, validates decisions, and owns
+continuations; clients render authorized offers and submit answers. Both human
+and agent play use the same decision protocol and game semantics.
+
+The scope includes card registration/builders, casting and activation, triggers,
+target binding, instruction execution, modifiers, and the corresponding
+`live-runner`/client interactions. Reuse correct combat, mana, layer, projection,
+and action implementations. Preserve existing supported card behavior and track
+intentional rules corrections with explicit regression cases.
+
+This is the implementation target, with the Comprehensive Rules defining game
+behavior. It is not yet an exhaustive executable schema. Before implementing a
+slice, close its referenced unions, builder defaults, outcome types, serialization,
+and validation rules. In particular, complete filter/reference domains, alternative
+and optional cost plans, conditions, and offer/answer variants as their mechanics
+are introduced. Unsupported nodes fail explicitly; a shorter definition or a
+successful registration is not proof that its gameplay semantics are supported.
+
+Player selectors and fixed-amount life loss, gain, and player damage are the
+implemented first slice. Preserve those public wrappers during migration.
+
+### Implementation milestones
+
+1. **Canonical schema and compiler:** implement the supported node unions and
+   builders, load-time validation, generated declaration identity, scoped target
+   indices, source/incarnation references, and amount expressions. Compile legacy
+   authoring helpers to the same data where their semantics are representable.
+   Unsupported translations remain explicit, with a recorded migration gap.
+2. **Authoritative execution driver:** introduce durable program frames, ordered
+   event processing, pending-trigger collection, whole-item target legality, and
+   explicit priority/SBA checkpoints. One driver owns each resolving item across
+   instructions, modes, and suspended decisions. Verify illegal/partial/zero
+   targets, source departure, trigger look-back, and interruption boundaries.
+3. **Typed choices and client adapters:** unify choice suspension and continuations
+   across cards, players, stack items, options, ordering, and allocation. Keep card
+   pickers on `selectCards`; preserve authorized projections and existing command
+   adapters. Exercise both browser and headless drivers, stale answers, reconnect,
+   and exactly-once resumption before migrating specialized host choice paths.
+4. **Casting, costs, modes, and reusable instructions:** implement complete action
+   proposals, shared X bindings, full cost payment, announcement-time mode/target
+   selection, and repeated mode occurrences with independent scopes. Extend action
+   primitives with specified recipient domains, outcomes, and event grouping.
+   Test costs remaining paid, reflexive triggers, counterspells/ward, and separate
+   untargeted resolution choices.
+5. **Replacement/prevention and static effects:** implement player-selected CR 616
+   ordering, persistent event lineage, and consumable prevention before migrating
+   modifier declarations. Reuse layer machinery with correct timestamps,
+   dependencies, source lifetimes, and action-legality restrictions. Cover mana
+   activations, replaced occurrences, simultaneous actions, and hidden choices.
+6. **Representative card conformance:** implement end-to-end scenarios for Stony
+   Silence, Duskdale Wurm, Blood Artist, Aether Tide, Hex, Ashling's Command, and
+   Brokers Confluence. Build these cases alongside the relevant milestones, then
+   verify the combined server/client path. The examples are acceptance anchors;
+   they do not by themselves cover every existing mechanic.
+7. **Existing-card migration and consolidation:** inventory existing definitions
+   and specialized handlers, migrate by supported mechanic, and compare observable
+   behavior with regression fixtures. Add missing reusable semantics before
+   translating affected cards. Remove superseded execution/choice paths only after
+   their supported behavior is covered; compatibility authoring wrappers may stay
+   when they compile to the canonical model.
+
+### Completion criteria
+
+- Existing supported card/mechanic coverage is retained, with deliberate behavior
+  corrections documented and tested. No migration gap is silently counted as
+  complete support, and no supported card falls through to a judge fallback merely
+  because its legacy representation was removed.
+- The authoritative execution path owns legality, event/replacement processing,
+  continuations, and checkpoints. Client/headless paths consume typed offers rather
+  than recreating rules or inspecting card-specific pending payloads.
+- The representative scenarios and regression suites establish ordered resolution,
+  scoped targets/modes, cost semantics, modifier interaction, authorized visibility,
+  and reconnect/idempotency behavior. Run relevant rules-engine, live-runner, client,
+  type, import, and lint checks for each implementation slice.
+- Command, saved-state, and replay compatibility is preserved through explicit
+  adapters or versioned migrations. Active execution frames retain the definition
+  version they started with. Remaining legacy wrappers produce the same canonical
+  semantics rather than maintaining a competing resolution engine.
+
+### Current-code boundaries
 
 Current modules provide migration starting points:
 
@@ -1660,6 +1725,8 @@ audit against this contract, not the desired CR 616 ordering or permission to
 insert SBAs inside spell resolution. Existing per-effect target handlers must
 not stand in for the proposed whole-item legality gate. Existing internal
 `custom` continuation plumbing does not authorize a `custom` card-picker event.
+The legacy `modalSpell` resolution fallback and its label-based mode selection
+also need auditing against announcement-time decisions and repeated occurrences.
 
 Use focused integration tests at each implementation slice, then run the full
 rules-engine suite and relevant live-runner checks for runtime changes. This
