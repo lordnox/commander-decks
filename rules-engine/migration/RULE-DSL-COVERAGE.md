@@ -20,6 +20,10 @@ baseline commit, and executable-evidence claims remain unchanged. Canonical-load
 tests are not runtime coverage evidence. See
 [`RULE-DSL-PART-01.md`](RULE-DSL-PART-01.md) for the version and replay decision.
 
+Part 02 adds rules-object identity, captured execution/occurrence state, and pure
+runtime reference evaluation without enabling canonical runtime dispatch. See
+[`RULE-DSL-PART-02.md`](RULE-DSL-PART-02.md) for the identity and privacy boundary.
+
 At this baseline the closed surfaces contain 394 card registrations, 21 effect
 variants, 194 instruction variants with 194 discovered handlers, 54 unique
 built-in plugin IDs, and exactly 28 `PendingDialog.kind` variants. The generated
