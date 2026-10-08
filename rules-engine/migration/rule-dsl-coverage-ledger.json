@@ -20595,8 +20595,9 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
+        "matches": 2,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:615 — test('rejects accessors without evaluating them in compiler or root builders', () => {",
           "rules-engine/src/plugins/combatLegendaryDamage.test.ts:40"
         ]
       },
