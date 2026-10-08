@@ -286,9 +286,15 @@ type BoundRecipient =
 
 type Instruction =
   | { kind: 'loseLife'; amount: Amount; targets: Reference | PlayerSelector }
+  | { kind: 'gainLife'; amount: Amount; targets: Reference | PlayerSelector }
   | { kind: 'damage'; amount: Amount; targets: Reference | ObjectSelector | PlayerSelector;
       source: Reference }
   | { kind: 'draw'; count: Amount; targets: Reference | PlayerSelector }
+  | { kind: 'mill'; count: Amount; targets: Reference | PlayerSelector }
+  | { kind: 'discard'; targets: Reference | ObjectSelector; by: Reference;
+      count?: never; bindResult?: string } // already selected cards
+  | { kind: 'discard'; targets: Reference | PlayerSelector; count: Amount;
+      by?: never; bindResult?: string } // each player chooses their own cards
   | { kind: 'destroy'; targets: Reference | ObjectSelector }
   | { kind: 'counter'; targets: Reference; bindResult?: string }
   | { kind: 'sequence'; instructions: Instruction[] }
@@ -315,6 +321,27 @@ declare Magic targeting by itself. Only clauses in `decisions.targets` do that.
 For example, `discard({ targets: choice('discarded') })` acts on an already chosen,
 untargeted binding, while `damage({ targets: objects(...) })` affects a queried group.
 An action's destination, such as `move({ targets: ..., to: 'exile' })`, remains `to`.
+
+Discard has two typed input forms: selected cards with their discarding player,
+or player recipients with a count. The latter includes the normal untargeted
+card choice required by CR 701.9b; it is not a discard **cost** or a declaration
+of targets. The compiler checks the domain of references in either form.
+The builder may default `by` to the execution controller for selected cards.
+An insufficient hand discards as many cards as possible; an empty hand needs no
+picker. A result binding records the semantic outcome after replacements:
+
+```ts
+type DiscardOutcome = {
+  discarded: boolean // at least one card was discarded this way
+  discardedCount: number
+}
+```
+
+For a one-card discard, `result('discard', 'discarded')` is the Boolean result
+used by the Chains example. A replaced destination can still be a discard;
+neither the selected-card count nor arrivals in the graveyard determine this
+result. The action handler owns that distinction. With multiple player recipients,
+outcomes need per-player bindings; the Chains example binds exactly one player.
 
 Authoring builders accept numeric literals as shorthand for constant `Amount`
 nodes. For an exact target or card-choice count, `count: 6` or
@@ -893,6 +920,50 @@ staticAbility(
 )
 ```
 
+Replacement applicability can also use a typed `when` condition. Unlike a
+trigger's `interveningIf`, it is checked against the pending event and current
+state whenever that replacement's applicability is considered. For the Chains
+example, the proposed event/condition vocabulary includes:
+
+```ts
+type DrawEventPattern = {
+  kind: 'draw' // one pending card draw, not a completed draw occurrence
+  player: Reference | PlayerSelector
+}
+
+type ReplacementEffectDefinition = {
+  kind: 'replacement'
+  event: ReplacementEventPattern
+  when?: Condition
+  optional: boolean // the builder defaults this to false
+  transform: ReplacementTransform
+}
+
+type ReplacementTransform =
+  | { kind: 'replaceWith'; instructions: Instruction[] }
+  | { kind: 'modifyEvent'; changes: EventChanges }
+  // Add explicitly typed redirect/suppress and other transformation variants.
+
+type ReplacementCondition =
+  | { kind: 'firstDrawInOwnDrawStep'; player: Reference }
+  | { kind: 'not'; condition: ReplacementCondition }
+
+type BooleanResultCondition = {
+  kind: 'resultIsTrue'
+  value: Extract<Reference, { kind: 'resultRef' }>
+}
+```
+
+These are slices of the shared event/condition unions. Result conditions validate
+that the referenced field is Boolean and available in that execution scope.
+`firstDrawInOwnDrawStep` is true only in that player's own current draw step,
+before they have actually drawn a card in that step. It reads authoritative
+occurrence history keyed by the step instance, including extra draw steps;
+a draw replaced entirely by a non-draw does not consume that exception.
+This history must survive a suspension/reconnect and cannot live in a captured
+JavaScript counter. See [Chains](#q-chains-of-mephistopheles-a-branching-draw-replacement)
+and the [sugar catalogue](#14-authoring-sugar-and-canonical-data) for usage.
+
 The primitive's contract determines its rules category and, for characteristic
 changes, its layer/sublayer. For example, `modifyStats` adds a power/toughness
 modifier, while `prohibitActivation` supplies an action-legality restriction.
@@ -1093,7 +1164,7 @@ headless simulation answer the same decision contracts.
 
 ## 10. Worked examples
 
-Examples A–I use hypothetical Oracle-style wording. Examples J–O use linked,
+Examples A–I use hypothetical Oracle-style wording. Examples J–Q use linked,
 verified Oracle text. New builder syntax remains proposed, not implemented card
 support.
 
@@ -1582,6 +1653,150 @@ modes have targets and all become illegal before resolution, the entire spell
 does not resolve, including proliferate. Selecting proliferate three times creates
 an untargeted spell and can resolve normally.
 
+### P. Blood Artist: deaths, target selection, and life changes
+
+[Blood Artist](https://scryfall.com/card/soc/209/blood-artist) costs {1}{B} and is
+a 0/1 Creature — Vampire. Its ability watches its own death or another creature's
+death, makes a target player lose 1 life, and gains its controller 1 life.
+
+**Proposed authoring DSL**, using the helpers from the
+[sugar catalogue](#14-authoring-sugar-and-canonical-data):
+
+```ts
+const bloodArtist = cardRuleDefinition(1, {
+  abilities: [
+    whenever(dies({
+      filter: { any: [ref('self'), { type: 'Creature' }] },
+    }), {
+      decisions: {
+        targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+      },
+      instructions: [
+        loseLife({ amount: 1, targets: target(0) }),
+        gainLife({ amount: 1, targets: ref('controller') }),
+      ],
+    }),
+  ],
+})
+
+cardRules.set('Blood Artist', bloodArtist)
+```
+
+The occurrence filter's `any` is Boolean OR: a death matching both arms still
+creates only one instance of this ability. The source-reference arm expresses
+"this creature" even if the source has lost its creature type (CR 700.7);
+the creature arm also watches creatures controlled by other players and tokens.
+Occurrence filters can compose typed source references and object predicates.
+
+- Use the pre-death snapshot. If Blood Artist and two other creatures die
+  together, collect three triggers, even though its source is now in the graveyard.
+  A creature exiled instead of dying produces no matching death.
+- At the next checkpoint, its captured controller orders the triggers and chooses
+  one player target for each as it is put on the stack. `target(0)` is local to
+  that trigger instance. The same player can be chosen for several instances.
+- On resolution, lose life and then gain life in written order. This is life
+  loss, not damage; damage prevention does not stop it. If the sole player target
+  has become illegal, the entire ability does not resolve, including the life gain.
+- Removing Blood Artist or changing control of its source does not change the
+  controller of a trigger already captured. Life changes use their ordinary
+  replacement rules; pending triggers and SBAs wait for the resolution checkpoint.
+
+### Q. Chains of Mephistopheles: a branching draw replacement
+
+[Chains of Mephistopheles](https://scryfall.com/card/me1/63/chains-of-mephistopheles)
+costs {1}{B} and is an enchantment. It replaces a player's draw, except their first
+draw in each of their own draw steps, with discarding a card. Discarding this way
+leads to a draw; not discarding leads to milling one card instead.
+
+**Proposed authoring DSL:**
+
+```ts
+const chainsOfMephistopheles = cardRuleDefinition(1, {
+  abilities: [
+    staticAbility(
+      replacement({
+        event: wouldDraw({ filter: players({ relation: 'any' }) }),
+        when: not(firstDrawInOwnDrawStep(ref('event.player'))),
+      }, replaceWith([
+        discard({
+          count: 1,
+          targets: ref('event.player'),
+          bindResult: 'discard',
+        }),
+        ifThen(result('discard', 'discarded'), {
+          then: [draw({ count: 1, targets: ref('event.player') })],
+          otherwise: [mill({ count: 1, targets: ref('event.player') })],
+        }),
+      ])),
+    ),
+  ],
+})
+
+cardRules.set('Chains of Mephistopheles', chainsOfMephistopheles)
+```
+
+This composes a static ability, event/history predicates, a replacement program,
+a normal discard instruction, a typed result, and a conditional instruction.
+The helper meanings and their canonical forms live in
+[section 14](#14-authoring-sugar-and-canonical-data). There is no card-specific
+dispatcher, handwritten effect ID, or authored "skip my replacement" flag.
+
+**The client pause:** when an affected draw is reached, the server applies the
+replacement and runs its program. If the player can discard, the discard
+instruction requests their choice through typed `selectCards`, showing their
+hand only to authorized viewers. This is mandatory when possible, not a "may"
+prompt. The server stores the replacement frame, pending draw, used-replacement
+ledger, and remaining instructions. After a validated answer it completes the
+discard, binds its result, and takes the appropriate branch. An empty hand skips
+the picker and takes the mill branch. Nobody receives ordinary priority during
+this pause. These choices happen when the draw is processed, not when Chains is
+cast; `decisions.targets` is empty.
+
+**Why it does not loop:** the follow-up draw belongs to the event lineage already
+modified by this runtime Chains instance. CR 614.5 excludes that instance from
+applying again to the modified event. Other replacement instances remain eligible,
+including a second Chains. The engine carries that ledger into replacement-created
+actions and across suspensions. The next independent draw starts a fresh ledger.
+Do not disable all replacements on the follow-up draw or share a used flag across
+all copies of Chains.
+
+These traces assume no other modifiers, an available library, and a draw outside
+the protected first draw in the player's own draw step unless stated otherwise:
+
+| Situation | Result |
+| --- | --- |
+| First actual draw in that player's own draw step | Chains does not replace it, even with an empty hand. |
+| One Chains; at least one card in hand | Choose/discard one, then draw one. No second application of that Chains. |
+| One Chains; empty hand | Mill one; no draw occurs. |
+| One Chains; "draw three"; at least one card in hand | Three successive discard-then-draw procedures, each completed before the next draw. |
+| Two Chains; at least two cards in hand | Discard for the first, then discard for the second; finally draw one. |
+| Two Chains; exactly one card in hand | First discard succeeds; the other Chains replaces the follow-up draw with milling one. No draw occurs. |
+| Draw in someone else's draw step | Affected, even if this is the drawing player's first draw that turn. |
+
+If another draw replacement applies, the drawing player selects the applicable
+order under CR 616. Replacing the draw entirely with a non-draw removes Chains'
+opportunity on that event. Applying Chains first can still leave that other
+replacement applicable to its follow-up draw. Re-evaluate applicability after
+each transformation; timestamps do not determine this order.
+
+The discard result describes the semantic discard. Replacing the discarded card's
+graveyard destination can still yield `discarded: true`; do not branch on a raw
+zone-arrival count. Discard, mill, and draw have their own replacement entry points
+and generate only the occurrences that actually happen. Discard/draw triggers
+wait for the surrounding resolution/checkpoint; the replacement is not itself
+a triggered ability or a spell on the stack.
+
+This also works on draws performed as costs. Replacement still applies to a draw
+from an empty library (CR 121.6a); milling an empty library is not an attempted
+draw, while the draw branch with an empty library retains the ordinary failed-draw
+SBA. Complete each replaced draw before the next draw in a sequence (CR 121.6b).
+If another effect replaces the first proposed draw of a draw step with a non-draw,
+the player's next actual draw in that same step is still exempt from Chains.
+
+These are required conformance cases for the proposed engine, not a claim that
+the current replacement handler already supports this card. The example's power
+comes from reusable semantics with explicit outcomes and continuations.
+
 ## 11. Validation and development workflow
 
 For an ordinary supported card: declare timing/targets/costs, compose primitives,
@@ -1671,11 +1886,16 @@ implemented first slice. Preserve those public wrappers during migration.
    modifier declarations. Reuse layer machinery with correct timestamps,
    dependencies, source lifetimes, and action-legality restrictions. Cover mana
    activations, replaced occurrences, simultaneous actions, and hidden choices.
+   Add step-scoped draw history, semantic discard outcomes, and replacement
+   programs that suspend, branch, and produce further replaceable actions.
 6. **Representative card conformance:** implement end-to-end scenarios for Stony
    Silence, Duskdale Wurm, Blood Artist, Aether Tide, Hex, Ashling's Command, and
-   Brokers Confluence. Build these cases alongside the relevant milestones, then
-   verify the combined server/client path. The examples are acceptance anchors;
-   they do not by themselves cover every existing mechanic.
+   Brokers Confluence, plus Chains of Mephistopheles as the replacement stress
+   case. Include its protected draw, empty hand, multiple copies, competing
+   replacements, replaced discard destinations, and reconnect during discard.
+   Build these cases alongside the relevant milestones, then verify the combined
+   server/client path. The examples are acceptance anchors; they do not by
+   themselves cover every existing mechanic.
 7. **Existing-card migration and consolidation:** inventory existing definitions
    and specialized handlers, migrate by supported mechanic, and compare observable
    behavior with regression fixtures. Add missing reusable semantics before
@@ -1744,7 +1964,7 @@ the rules references establish game behavior, not the particular API syntax.
 | Ability independence and source information | 113.7a |
 | Targeting, optional zero targets, and retargeting | 115.1, 115.6–7, 115.10 |
 | Priority, choice pauses, passing, checkpoints | 117.2e, 117.3–5 |
-| Draw sequencing and count-level replacement | 121.2 |
+| Draw sequencing, failed draws, and replacement-generated draws | 121.2, 121.4–7 |
 | Object identity across zone changes | 400.7 |
 | Cost replacement and resolution payments | 118.11–12 |
 | Casting and activating | 601.2, 602.2 |
@@ -1753,6 +1973,8 @@ the rules references establish game behavior, not the particular API syntax.
 | Mana abilities | 605.1, 605.3–4 |
 | Resolution legality, instruction order, simultaneous player actions, choices, completion | 608.2a–h, 608.2k, 608.2m–n |
 | Mode-dependent targets and repeated modes | 700.2a–d |
+| Death and symbolic "this" references | 700.4, 700.7 |
+| Discard choices and replaced destinations | 701.9a–c |
 | Proliferate and phasing | 701.34, 702.26 |
 | Layers and continuous effects | 611, 613 |
 | Static lifetimes, timestamps, dependencies, and game-rule effects | 611.3, 613.7–8, 613.11 |
@@ -1763,7 +1985,14 @@ the rules references establish game behavior, not the particular API syntax.
 | Ward | 702.21a |
 | State-based action timing | 704.3–4 |
 
-## 14. Future authoring sugar
+## 14. Authoring sugar and canonical data
+
+This is the dedicated home for proposed authoring conveniences. Card examples
+can use these helpers; every helper must lower to typed, serializable nodes.
+The saved definition contains no functions, getters, or captured game state.
+Adding sugar does not add runtime support for its underlying mechanic.
+
+### Card wrappers and keyword catalogue
 
 A convenience wrapper can supply the schema version without repeating the object
 shape or a type annotation on each card:
@@ -1863,3 +2092,66 @@ standalone patterns. Keep those compatibility exports; the new pattern builders
 need a separate DSL entry point or namespace such as `events.enters`/`events.dies`.
 Do not infer two different return types for the same legacy call shape. The
 short names above assume imports from the proposed DSL entry point.
+
+### Selectors, bindings, replacement programs, and conditions
+
+The same helpers work in small and complex definitions. Blood Artist combines
+`whenever`, an occurrence filter, `select`, and numeric target references; Chains
+combines a pending-event matcher, history condition, instruction result, and
+branch. Keep the distinction between building data and executing it explicit:
+
+| Authoring expression | Canonical data / meaning |
+| --- | --- |
+| `cardRuleDefinition(1, config)` | `{ schemaVersion: 1, ...config }`; card identity stays in the name registry. |
+| `keyword.trample` | `{ kind: 'keyword', keyword: 'trample' }`; immutable shared definition. |
+| `whenever(pattern, config)` | A `kind: 'triggered'` ability with `on: pattern`; defaults include battlefield scope and empty decisions. |
+| `self.dies` | A death-occurrence pattern whose filter is the symbolic source reference. |
+| `dies({ filter: { any: [ref('self'), { type: 'Creature' }] } })` | A death-occurrence pattern with one OR filter; matching both arms never duplicates the occurrence. |
+| `players({ relation: 'any' })` | A player selector, evaluated in context; it does not choose a player. |
+| `select({ filter, count: 1 })` | A target-clause node with constant `min: 1`, `max: 1`, and `distinct: true`. |
+| `target(0)` | `{ kind: 'targetRef', clauseIndex: 0 }`; all recipients bound to the first clause in the current program scope. |
+| `staticAbility(effect)` | A static ability with `activeIn: ['battlefield']` and `effects: [effect]`. |
+| `wouldDraw({ filter })` | `{ kind: 'draw', player: filter }`, a pending-event pattern usable by a replacement. |
+| `firstDrawInOwnDrawStep(player)` | `{ kind: 'firstDrawInOwnDrawStep', player }`, evaluated from authoritative step history. |
+| `not(condition)` | `{ kind: 'not', condition }`; no executable predicate callback. |
+| `replacement({ event, when }, transform)` | `{ kind: 'replacement', event, when, optional: false, transform }`; applicability is pure, and the builder accepts an explicit optional override. |
+| `replaceWith(instructions)` | `{ kind: 'replaceWith', instructions }`, an ordered replacement program. |
+| `result('discard', 'discarded')` | A typed reference to a previously bound instruction outcome in this execution scope. |
+| `ifThen(condition, { then, otherwise })` | `{ kind: 'if', condition, then, otherwise }`; executes one branch. A Boolean result reference is normalized to a `resultIsTrue` condition. |
+
+For example, the final branch in Chains becomes the following canonical
+instruction; it carries no closure and does not evaluate the result while the
+card definition is being built:
+
+```json
+{
+  "kind": "if",
+  "condition": {
+    "kind": "resultIsTrue",
+    "value": { "kind": "resultRef", "resultId": "discard", "field": "discarded" }
+  },
+  "then": [{
+    "kind": "draw",
+    "count": { "kind": "constant", "value": 1 },
+    "targets": { "kind": "contextRef", "name": "event.player" }
+  }],
+  "otherwise": [{
+    "kind": "mill",
+    "count": { "kind": "constant", "value": 1 },
+    "targets": { "kind": "contextRef", "name": "event.player" }
+  }]
+}
+```
+
+Choice/result binding names are scoped program variables, unlike optional
+diagnostic ability IDs. `bindResult: 'discard'` is needed here because the next
+instruction reads that outcome; unreferenced instructions need no result label.
+Repeated applications get separate runtime frames and bindings. Inside a
+replacement program, `event.player` stays bound to the matched proposal's player
+while nested actions create their own event-processing contexts.
+
+The compiler must reject an unresolved result, a non-Boolean result used as a
+condition, an out-of-range target index, or a reference from the wrong domain.
+Sugar should remain a small catalogue over the canonical model: no separate
+client interpretation and no helper whose only implementation is a card-name
+exception.
