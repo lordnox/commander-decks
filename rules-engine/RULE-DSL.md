@@ -89,14 +89,15 @@ type CardRuleDefinition = {
 type AbilityDefinition = (
   | {
       kind: 'spell'
-      announcement: AnnouncementSpec
+      decisions: DecisionsSpec
+      costs: Cost[] // Mandatory additions to the spell's metadata mana cost.
       instructions: Instruction[]
     }
   | {
       kind: 'activated'
       availableFrom: Zone[]
       timing: ActivationTiming
-      announcement: AnnouncementSpec
+      decisions: DecisionsSpec
       costs: Cost[]
       instructions: Instruction[]
     }
@@ -107,7 +108,7 @@ type AbilityDefinition = (
       triggerOnlyIf?: Condition
       interveningIf?: Condition
       frequency?: TriggerFrequency
-      announcement: AnnouncementSpec
+      decisions: DecisionsSpec
       instructions: Instruction[]
     }
   | {
@@ -121,7 +122,7 @@ type AbilityDefinition = (
     }
 ) & { id?: string } // Optional author label; the compiler supplies internal identity.
 
-type AnnouncementSpec = {
+type DecisionsSpec = {
   modes?: ModeSpec
   variables?: VariableSpec[]
   targets: TargetClause[]
@@ -165,10 +166,14 @@ from the separate card metadata. Keyword declarations expand through a shared,
 typed keyword catalogue; parameterized keywords need explicit typed parameters.
 
 The referenced types are separate closed unions, not arbitrary JSON or strings
-that the engine evaluates as code. Optional announcement fields are absent when
-unused; `targets: []` explicitly means no targeting clauses. Spell casting costs,
-alternative/additional costs, traits, and casting permissions belong to casting
-metadata composed with the spell program; they are not resolution instructions.
+that the engine evaluates as code. Optional decision fields are absent when
+unused; `targets: []` explicitly means no targeting clauses. Authoring builders
+default omitted `decisions` to `{ targets: [] }` and omitted `costs` to `[]`.
+A spell's `costs` declares mandatory additional payments; its base mana cost comes
+from card metadata. An activated ability's `costs` declares its activation payment.
+Alternative/optional cost plans, cost increases/reductions, traits, and casting
+permissions compose with these declarations through the casting procedure;
+they are not resolution instructions or silently inferred alternatives.
 
 `kind: 'spell'` is a DSL carrier for spell instructions. It is not a Magic
 triggered ability called "when this resolves." Permanent spells normally use the
@@ -210,11 +215,18 @@ type Amount =
 
 type TargetClause = {
   id: string
-  candidates: Selector
-  min: number
-  max: number
+  filter: Selector
+  min: Amount
+  max: Amount
   distinct: true // within this clause
 }
+
+type Cost =
+  | { kind: 'discard'; filter: ObjectSelector; count: Amount }
+  | { kind: 'sacrifice'; filter: ObjectSelector; count: Amount }
+  | { kind: 'life'; amount: Amount }
+  | { kind: 'mana'; amount: ManaCost }
+  // Extend with typed tap, exile, counter-removal, and other payment variants.
 
 type TargetBinding = {
   clauseId: string
@@ -242,7 +254,24 @@ and `ObjectSelector` narrow `Selector` by domain. `ContextBinding` is an enumera
 validated binding vocabulary (controller, source, triggering/event participants);
 it is not an arbitrary property-access string. Arithmetic extensions need explicit
 nodes, rounding, and validation, not expression strings. Cross-clause target
-constraints and variable/mode-dependent bounds need further typed variants.
+constraints and mode-dependent clauses need further typed variants.
+
+The shared `filter` field describes eligibility for targets, object cost payments,
+and card choices. It takes a domain-tagged selector such as `objects(...)` or
+`players(...)`; that selector contains the domain's predicate. In a selection
+context this query only supplies eligible recipients, not a chosen binding. An
+instruction using `objects(...)` directly instead acts on the matching group.
+The field `kind` describes the cost action; discard and sacrifice are not selectors.
+`selectCards` names an actual selection request. An action's `cards` or `objects`
+field can instead contain an already chosen reference, such as
+`discard({ cards: choice('discarded') })`; that is not an eligibility filter.
+
+Authoring builders accept numeric literals as shorthand for constant `Amount`
+nodes. For an exact target or card-choice count, `count: 6` or
+`count: variable('X')` expands to
+equal `min`/`max` expressions. Use either `count` or a `min`/`max` pair, never both.
+Evaluate target bounds during announcement and store the chosen bindings;
+resolution rechecks their legality without requiring that many remain legal.
 
 For example, the untargeted loss instruction serializes as:
 
@@ -408,12 +437,14 @@ during the parent resolution.
 
 ## 5. Targeting and other choices
 
-### Announcement decisions
+### Decisions before execution
 
-`announcement` declares decisions that must be bound while casting, activating,
+`decisions` declares decisions that must be bound while casting, activating,
 or putting a triggered ability on the stack. It is not an executable client
 command. The server validates supplied decisions and creates typed requests for
 any required decisions that remain missing; the client renders those requests.
+"Announcement" remains the rules term for that procedure, rather than the name
+of the authored field.
 
 | Field | Decision |
 | --- | --- |
@@ -423,12 +454,12 @@ any required decisions that remain missing; the client renders those requests.
 | `distributions` | Amounts divided among targets, such as damage or counters. |
 
 Modes can change which targets are required, so process these decisions in rules
-order rather than opening independent pickers for every field. Casting/payment
-metadata separately supplies alternative/additional cost decisions. Decisions
-that belong during resolution, such as discarding a card or accepting a may
-payment, are instructions rather than announcement fields.
+order rather than opening independent pickers for every field. `costs` supplies
+payment requirements; explicit cost plans supply optional/alternative choices.
+Decisions that belong during resolution, such as discarding after drawing or
+accepting a may payment, are instructions rather than pre-execution fields.
 
-For [Blood Artist](https://scryfall.com/card/soc/209/blood-artist), the announcement
+For [Blood Artist](https://scryfall.com/card/soc/209/blood-artist), `decisions`
 only needs one player target; its instructions
 then perform life loss and life gain. Instructions are the resolution program:
 game actions plus typed choices, conditions, and sequencing. They are not the
@@ -436,17 +467,16 @@ pre-stack announcement procedure.
 
 ### Target clauses
 
-Targeting belongs to announcement metadata, separately from instructions:
+Targeting belongs to `decisions`, separately from instructions:
 
 ```ts
 targetClause('victim', {
-  candidates: objects({ zone: 'battlefield', type: 'Creature' }),
-  min: 1,
-  max: 1,
+  filter: objects({ zone: 'battlefield', type: 'Creature' }),
+  count: 1,
 })
 
 targetClause('recipients', {
-  candidates: objects({ zone: 'battlefield', type: 'Creature' }),
+  filter: objects({ zone: 'battlefield', type: 'Creature' }),
   min: 0,
   max: 2,
 })
@@ -472,6 +502,50 @@ Modes determine which target clauses exist. A variable number of targets is
 announced and remains fixed; an announcement-time distribution is stored with the
 chosen targets. Target-changing effects and copies have their own legal retarget
 procedures; instructions do not quietly choose replacements for missing targets.
+
+### Costs use the same eligibility vocabulary
+
+`costs` is a list of required payment components. Each `kind` selects a payment
+operation; object payments use `filter` and an exact `count`:
+
+```ts
+costs: [
+  {
+    kind: 'discard',
+    filter: objects({ zone: 'hand', type: 'Creature', owner: 'you' }),
+    count: variable('X'),
+  },
+  { kind: 'life', amount: 2 },
+  {
+    kind: 'sacrifice',
+    filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
+    count: 1,
+  },
+]
+```
+
+This hypothetical list requires **all three** payments. Alternatives such as
+"pay life or sacrifice" require an explicit cost-plan choice, not an ordinary
+array. `discardCost(...)` could remain optional sugar returning a `kind: 'discard'`
+node; it is not a separate cost model. A resolution `optionalCost` instruction
+also uses `costs: Cost[]` and explicitly names its payer.
+
+The action's controller is the payer for cast/activation costs. The server must
+check the payment operation's rules as well as the filter: discard from the
+payer's hand, sacrifice permanents they control, and have enough life to pay.
+Each discard/sacrifice payment chooses distinct objects; an object consumed by
+one payment cannot be used again to pay another component.
+These choices are untargeted; shroud, hexproof, and ward do not apply. The client
+uses typed `selectCards` for missing discard/sacrifice payment bindings, with
+`purpose: 'cost'`, and asks for X before dependent counts or mana are evaluated.
+The same chosen X supplies the mana cost, target count, and discard count for
+Aether Tide; these are not three independent variables.
+
+The list does not prescribe payment order. The server follows CR 601.2f–h,
+including cost determination, permitted mana abilities, the payer's legal payment
+order, and full payment. Payment actions enter the replacement pipeline; a replaced
+discard/sacrifice can still pay its cost (CR 118.11). Store payment records separately
+from target bindings and do not choose new payments when the item resolves.
 
 ### When does the client ask?
 
@@ -780,6 +854,8 @@ type DriverOutcome =
 ```
 
 These are proposed transport contracts, not current event type declarations.
+Here `candidates` contains the actual offered identities after the server evaluates
+the definition's `filter` and current legality; it is not another authoring field.
 `VisibleObjectRef` carries an authorized identity/incarnation and only information
 the chooser may see; hidden objects can use opaque handles where appropriate.
 The server-owned continuation is not an executable payload accepted from the
@@ -901,7 +977,7 @@ headless simulation answer the same decision contracts.
 
 ## 10. Worked examples
 
-Examples A–I use hypothetical Oracle-style wording. Examples J–K use linked,
+Examples A–I use hypothetical Oracle-style wording. Examples J–M use linked,
 verified Oracle text. New builder syntax remains proposed, not implemented card
 support.
 
@@ -928,10 +1004,10 @@ does not prevent this life loss.
 whenever({
   id: 'entry-removal',
   on: entersOccurrence({ object: ref('source') }),
-  announcement: {
+  decisions: {
     targets: [targetClause('victim', {
-      candidates: objects({ zone: 'battlefield', type: 'Creature' }),
-      min: 1, max: 1,
+      filter: objects({ zone: 'battlefield', type: 'Creature' }),
+      count: 1,
     })],
   },
   instructions: [destroy({ objects: target('victim') })],
@@ -952,9 +1028,9 @@ the trigger. If its target later leaves, the trigger does not resolve.
 ```ts
 spell({
   id: 'remove-and-draw',
-  announcement: {
+  decisions: {
     targets: [targetClause('victims', {
-      candidates: objects({ zone: 'battlefield', type: 'Creature' }),
+      filter: objects({ zone: 'battlefield', type: 'Creature' }),
       min: 0, max: 2,
     })],
   },
@@ -978,10 +1054,10 @@ server never asks for replacement targets at resolution.
 ```ts
 spell({
   id: 'counter-and-draw',
-  announcement: {
+  decisions: {
     targets: [targetClause('spell', {
-      candidates: stackItems({ kind: 'spell', other: true }),
-      min: 1, max: 1,
+      filter: stackItems({ kind: 'spell', other: true }),
+      count: 1,
     })],
   },
   instructions: [
@@ -1015,8 +1091,8 @@ sequence(
   chooseCards({
     id: 'discarded',
     chooser: ref('controller'),
-    from: objects({ zone: 'hand', owner: 'you' }),
-    min: 1, max: 1,
+    filter: objects({ zone: 'hand', owner: 'you' }),
+    count: 1,
     whenInsufficient: 'chooseAvailable',
   }),
   discard({ cards: choice('discarded'), by: ref('controller') }),
@@ -1038,13 +1114,17 @@ cards available, carry out as much as possible without an impossible picker.
 optionalCost({
   id: 'offering',
   payer: ref('controller'),
-  cost: sacrificeCost({ type: 'Creature', controller: 'you', count: 1 }),
+  costs: [{
+    kind: 'sacrifice',
+    filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
+    count: 1,
+  }],
   whenPaid: reflexiveTrigger({
     id: 'offering-removal',
-    announcement: {
+    decisions: {
       targets: [targetClause('victim', {
-        candidates: objects({ zone: 'battlefield', type: 'Creature' }),
-        min: 1, max: 1,
+        filter: objects({ zone: 'battlefield', type: 'Creature' }),
+        count: 1,
       })],
     },
     instructions: [destroy({ objects: target('victim') })],
@@ -1187,6 +1267,84 @@ The shared keyword implementation provides Trample's combat-damage assignment
 rules and any relevant client decisions. No card-specific targets, trigger, or
 resolution program is needed. Casting and resolving the creature use the normal
 permanent-spell procedure.
+
+### L. Aether Tide: one X for targets, mana, and discard
+
+[Aether Tide](https://scryfall.com/card/exo/27/aether-tide) costs {X}{U}. Casting
+requires discarding X creature cards; resolution returns X target creatures to
+their owners' hands.
+
+**Proposed authoring DSL:**
+
+```ts
+const aetherTide = cardRuleDefinition(1, {
+  abilities: [spell({
+    decisions: {
+      variables: [chooseX()],
+      targets: [targetClause('creatures', {
+        filter: objects({ zone: 'battlefield', type: 'Creature' }),
+        count: variable('X'),
+      })],
+    },
+    costs: [{
+      kind: 'discard',
+      filter: objects({ zone: 'hand', type: 'Creature', owner: 'you' }),
+      count: variable('X'),
+    }],
+    instructions: [move({
+      objects: target('creatures'),
+      to: 'hand',
+      execution: 'simultaneous',
+    })],
+  })],
+})
+```
+
+Choose a nonnegative X once, choose exactly X distinct legal creature targets,
+then determine and pay the total cost. The mana component is supplied by metadata;
+the `costs` entry adds the creature-card discard. The client uses target and cost
+pickers with different purposes; the discard does not target. A fully supplied
+proposal needs no additional picker, and the server validates payment in rules
+order. Without enough legal targets or payable discards, the cast cannot finish.
+
+When moving to a hand, the shared zone-change operation uses each object's owner,
+not necessarily this spell's controller. On resolution, return the remaining
+legal targets even if fewer than X remain. If X was positive and all targets are
+illegal, the spell does not resolve; if X was zero, it resolves with no targets.
+Countering the spell or losing its targets does not refund mana or discarded cards.
+A replacement that changes a discard's destination can still count as payment
+under CR 118.11; use actual resulting occurrences for any triggers.
+
+### M. Hex: exactly six targets when casting
+
+[Hex](https://scryfall.com/card/otc/136/hex) costs {4}{B}{B} and destroys six target
+creatures.
+
+**Proposed authoring DSL:**
+
+```ts
+const hex = cardRuleDefinition(1, {
+  abilities: [spell({
+    decisions: {
+      targets: [targetClause('creatures', {
+        filter: objects({ zone: 'battlefield', type: 'Creature' }),
+        count: 6,
+      })],
+    },
+    instructions: [destroy({
+      objects: target('creatures'),
+      execution: 'simultaneous',
+    })],
+  })],
+})
+```
+
+Casting needs six distinct legal creature targets, including your own creatures
+if desired. The server cannot accept fewer, and it cannot count one creature six
+times. If some targets become illegal before resolution, destroy the remaining
+legal targets; no replacement target selection is offered. If all become illegal,
+the spell does not resolve. Indestructible targets are still legal targets;
+failure to destroy them does not make the spell fail its target-legality check.
 
 ## 11. Validation and development workflow
 
