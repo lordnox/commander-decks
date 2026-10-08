@@ -869,7 +869,7 @@ headless simulation answer the same decision contracts.
 
 ## 10. Worked examples
 
-Examples A–I use hypothetical Oracle-style wording. Example J uses linked,
+Examples A–I use hypothetical Oracle-style wording. Examples J–K use linked,
 verified Oracle text. New builder syntax remains proposed, not implemented card
 support.
 
@@ -1131,6 +1131,31 @@ This is a continuous game-rule restriction, not a replacement/prevention of an
 activation event. Its shared primitive rejects prohibited actions rather than
 accepting an activation, spending costs, and then suppressing its result.
 
+### K. Duskdale Wurm: a keyword ability
+
+[Duskdale Wurm](https://scryfall.com/card/ima/161/duskdale-wurm) costs {5}{G}{G} and
+is a 7/7 Creature — Wurm with Trample. Mana cost, types, and printed stats come
+from card metadata; its rule definition declares the keyword.
+
+**Proposed authoring DSL:**
+
+```ts
+const duskdaleWurm: CardRuleDefinition = {
+  schemaVersion: 1,
+  abilities: [
+    keywordAbility('trample'),
+  ],
+}
+
+cardRules.set('Duskdale Wurm', duskdaleWurm)
+```
+
+`keywordAbility('trample')` produces `{ kind: 'keyword', keyword: 'trample' }`.
+The shared keyword implementation provides Trample's combat-damage assignment
+rules and any relevant client decisions. No card-specific targets, trigger, or
+resolution program is needed. Casting and resolving the creature use the normal
+permanent-spell procedure.
+
 ## 11. Validation and development workflow
 
 For an ordinary supported card: declare timing/targets/costs, compose primitives,
@@ -1239,3 +1264,44 @@ the rules references establish game behavior, not the particular API syntax.
 | Countering and paid costs | 701.6 |
 | Ward | 702.21a |
 | State-based action timing | 704.3–4 |
+
+## 14. Future authoring sugar
+
+A convenience wrapper can supply the schema version without repeating the object
+shape or a type annotation on each card:
+
+```ts
+const duskdaleWurm = cardRuleDefinition(1, {
+  abilities: [
+    keywordAbility('trample'),
+  ],
+})
+```
+
+For the current proposed schema, its typed signature could be:
+
+```ts
+declare function cardRuleDefinition(
+  schemaVersion: 1,
+  definition: Omit<CardRuleDefinition, 'schemaVersion'>,
+): CardRuleDefinition
+```
+
+The wrapper returns the same canonical `{ schemaVersion: 1, abilities: [...] }`
+data. Schema validation remains part of the compiler/load contract; the wrapper
+does not change game semantics or allocate live effect instances.
+
+A typed keyword catalogue can expose immutable definitions for parameterless
+keywords, making the same declaration shorter:
+
+```ts
+const duskdaleWurm = cardRuleDefinition(1, {
+  abilities: [keyword.trample],
+})
+```
+
+`keyword.trample` is equivalent to `keywordAbility('trample')`. Parameterized
+keywords use typed factory functions rather than constants. Shared keyword
+definitions contain no source references, runtime IDs, timestamps, or mutable
+game state; the engine creates independent runtime instances from them.
+These helpers are proposed authoring conveniences, not implemented exports.
