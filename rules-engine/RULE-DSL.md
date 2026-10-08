@@ -153,11 +153,33 @@ ability normally executes instructions when it resolves. Replacement and
 prevention describe effect behavior, not additional top-level ability kinds.
 The engine may compile these declarations into separate internal execution lists.
 
-The proposed authoring helper for a triggered ability is `whenever(...)`. It
-produces the serialized `kind: 'triggered'` variant and can describe Oracle
+The proposed authoring helper for a triggered ability is
+`whenever(on, configuration)`. Its first argument is an `OccurrencePattern`, a
+declaration of what to watch, not a live event that has already happened. The
+second supplies decisions, instructions, and optional trigger conditions/scope.
+It produces the serialized `kind: 'triggered'` variant and can describe Oracle
 triggers written with "when," "whenever," or "at." This readable helper name
 does not change the trigger lifecycle or introduce a different engine ability
 kind. Existing implemented trigger helpers remain compatibility APIs.
+
+```ts
+type TriggeredAbilityDefinition = Extract<AbilityDefinition, { kind: 'triggered' }>
+
+type WheneverConfiguration = Omit<
+  TriggeredAbilityDefinition,
+  'kind' | 'on' | 'activeIn' | 'decisions'
+> & {
+  activeIn?: Zone[] // Defaults to ['battlefield'].
+  decisions?: DecisionsSpec // Defaults to { targets: [] }.
+}
+
+type Whenever = (
+  on: OccurrencePattern,
+  configuration: WheneverConfiguration,
+) => TriggeredAbilityDefinition
+
+declare const whenever: Whenever
+```
 
 The registry associates a card name with its definition (and can resolve that
 name to its Scryfall Oracle ID). No redundant card-definition ID is required.
@@ -289,8 +311,10 @@ announced target binding is runtime data containing specific recipient identitie
 
 ### Stable identity and execution context
 
-Handwritten ability/effect IDs are optional author labels. The compiler gives
-every declaration an internal identity, for example a path within an immutable,
+Handwritten ability/effect IDs are optional labels for diagnostics and tracing.
+Ordinary card examples omit them; an ID does not make a trigger function or
+determine its lifetime/timestamp. The compiler gives every declaration an
+internal identity, for example a path within an immutable,
 versioned definition. A registry card name, a declaration identity, and a runtime
 instance identity serve different purposes; none substitutes for a timestamp.
 Target, choice, and result binding labels remain explicit where referenced.
@@ -1001,9 +1025,7 @@ does not prevent this life loss.
 **Proposed DSL:** "When this creature enters, destroy target creature."
 
 ```ts
-whenever({
-  id: 'entry-removal',
-  on: entersOccurrence({ object: ref('source') }),
+whenever(self.enters, {
   decisions: {
     targets: [targetClause('victim', {
       filter: objects({ zone: 'battlefield', type: 'Creature' }),
@@ -1027,7 +1049,6 @@ the trigger. If its target later leaves, the trigger does not resolve.
 
 ```ts
 spell({
-  id: 'remove-and-draw',
   decisions: {
     targets: [targetClause('victims', {
       filter: objects({ zone: 'battlefield', type: 'Creature' }),
@@ -1053,7 +1074,6 @@ server never asks for replacement targets at resolution.
 
 ```ts
 spell({
-  id: 'counter-and-draw',
   decisions: {
     targets: [targetClause('spell', {
       filter: stackItems({ kind: 'spell', other: true }),
@@ -1112,7 +1132,6 @@ cards available, carry out as much as possible without an impossible picker.
 
 ```ts
 optionalCost({
-  id: 'offering',
   payer: ref('controller'),
   costs: [{
     kind: 'sacrifice',
@@ -1120,7 +1139,6 @@ optionalCost({
     count: 1,
   }],
   whenPaid: reflexiveTrigger({
-    id: 'offering-removal',
     decisions: {
       targets: [targetClause('victim', {
         filter: objects({ zone: 'battlefield', type: 'Creature' }),
@@ -1495,3 +1513,63 @@ keywords use typed factory functions rather than constants. Shared keyword
 definitions contain no source references, runtime IDs, timestamps, or mutable
 game state; the engine creates independent runtime instances from them.
 These helpers are proposed authoring conveniences, not implemented exports.
+
+### Occurrence builders and source shortcuts
+
+The two-argument `whenever` helper separates the event pattern from what the
+ability asks and does. In the proposed DSL entry point, `enters` and `dies` build
+patterns; their `filter` can match an object predicate or a typed object reference:
+
+```ts
+whenever(enters({ filter: ref('self') }), {
+  decisions: {
+    targets: [targetClause('victim', {
+      filter: objects({ zone: 'battlefield', type: 'Creature' }),
+      count: 1,
+    })],
+  },
+  instructions: [destroy({ objects: target('victim') })],
+})
+```
+
+`ref('self')` is an authoring alias for the canonical `ref('source')` object
+binding. A reference in an occurrence filter means "this particular source,"
+not all objects sharing its card name. Predicate filters such as
+`dies({ filter: { type: 'Creature', controller: 'you' } })` can watch other
+matching objects. Filtering occurrences does not target anything.
+
+A shared shorthand can use ordinary TypeScript getters:
+
+```ts
+const self = Object.freeze({
+  get enters() {
+    return enters({ filter: ref('self') })
+  },
+  get dies() {
+    return dies({ filter: ref('self') })
+  },
+})
+
+whenever(self.enters, {
+  instructions: [draw({ count: 1, for: ref('controller') })],
+})
+
+whenever(self.dies, {
+  instructions: [draw({ count: 1, for: ref('controller') })],
+})
+```
+
+The getters run while building the definition and return immutable, serializable
+pattern nodes. They do not capture a live card, perform a query, or run when an
+event occurs. The engine binds the symbolic source separately for each ability
+instance; it uses the appropriate entry or pre-departure snapshot when matching
+zone-change occurrences (CR 603.6, 603.10). Match what actually happened after
+replacements: entering tapped still counts as entry, while exile instead of a
+death creates no death occurrence. Getter functions and the `self` helper object
+are not embedded in the saved definition.
+
+The existing `enters`/`dies` helpers build complete `CardEffect` values, not
+standalone patterns. Keep those compatibility exports; the new pattern builders
+need a separate DSL entry point or namespace such as `events.enters`/`events.dies`.
+Do not infer two different return types for the same legacy call shape. The
+short names above assume imports from the proposed DSL entry point.
