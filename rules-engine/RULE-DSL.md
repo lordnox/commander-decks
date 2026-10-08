@@ -1,18 +1,15 @@
 # Configurable rule model and client/server contract
 
-Status: staged refactoring target with an implemented first slice. Shared trigger
-builders, object filters, player predicates/selectors, and fixed-amount life-loss, life-gain,
-and player damage instructions exist. General participant references, object
-selectors, amount expressions, unified target clauses, the interaction envelope,
-replacement transformations, and consolidated static builders below are proposed.
-This document specifies desired behavior; it does not claim the current kernel
-already implements every lifecycle rule.
+Status: staged refactoring target. Shared trigger builders, object filters,
+player selectors, fixed-amount life changes, and player damage form the implemented
+first slice. Other schemas and examples are **proposed DSL**, not usable exports
+or a claim of current runtime support. Examples marked **current API** and
+existing-event examples retain their implemented shapes.
 
-Examples marked **current API** use existing builders; explicitly identified
-existing-event examples retain their current wire shape. Other schemas and
-examples are **proposed DSL**: illustrative authoring syntax for typed, serializable
-nodes, not imports that can be used today. Names are the intended vocabulary;
-implementation slices must define concrete discriminated unions and validation.
+Start with the [vocabulary](#2-vocabulary) and [definition structure](#3-definition-structure).
+The [worked examples](#10-worked-examples) show card behavior; the
+[authoring catalogue](#14-authoring-sugar-and-canonical-data) shows shorter syntax.
+[Implementation milestones](#implementation-milestones) identify the migration work.
 
 ## 1. Purpose and boundaries
 
@@ -26,14 +23,6 @@ However, it still needs the target **requirements** to validate those supplied
 targets and check them again at resolution. For a triggered ability or a decision
 encountered during resolution, the server can return a typed request and suspend.
 A headless driver answers the same requests as the browser.
-
-Keep four distinct concepts:
-
-- **Selector:** describes players or objects to inspect or affect.
-- **Instruction:** describes an action during resolution.
-- **Ability:** describes how a card's rules function, including static abilities.
-- **Modifier:** transforms a proposed event (replacement/prevention) or continuously
-  changes characteristics or rules (static effect).
 
 Definitions must be typed, versioned, serializable data. Builders produce that
 data; callbacks, captured runtime objects, arbitrary executable predicates, and
@@ -58,13 +47,14 @@ Existing helpers become compatibility wrappers.
 | Priority | Permission to take ordinary instant-speed actions, subject to their restrictions. |
 | Filter | Typed predicate over one domain; it does not request a choice or imply targeting. |
 | Selector | A query returning the matching group at its defined evaluation time. |
-| Reference | A binding to a particular player, object incarnation, stack item, event participant, or earlier choice. |
+| Reference | A binding to a particular player, object incarnation, stack item, event participant, or earlier choice/result. |
 | Target clause | Indexed requirements for one occurrence of targeting in a program scope, including domain and cardinality. |
 | Target binding | The recipients actually chosen for a target clause when the item is announced. |
 | Mode | One selectable program block; selecting it repeatedly creates separate occurrences with separate bindings. |
 | Choice | A player decision; only choices explicitly declared as targets use targeting rules. |
 | Cost | Something paid while casting/activating, or an explicitly offered payment during resolution. |
 | Instruction | A typed action or structured control-flow node, interpreted by the server. |
+| Modifier | An effect that changes characteristics/rules or transforms a proposed event, supplied by a static ability or created during resolution. |
 | Replacement | A transformation applied before an event occurs; the replaced event does not happen. |
 | Prevention | A damage-specific modifier, often with a duration and a consumable shield. |
 | Static effect | A continuously applicable modifier, using layers/dependencies and source lifetime. |
@@ -87,7 +77,7 @@ type CardRuleDefinition = {
   abilities: AbilityDefinition[]
 }
 
-type AbilityDefinition = (
+type AbilityDefinition =
   | ({
       kind: 'spell'
       decisions: DecisionsSpec
@@ -118,13 +108,16 @@ type AbilityDefinition = (
       kind: 'keyword'
       keyword: Keyword
     }
-) & { id?: string } // Optional author label; the compiler supplies internal identity.
 
 type DecisionsSpec = {
   modes?: ModeSpec
   variables?: VariableSpec[]
   targets: TargetClause[]
   distributions?: DistributionSpec[]
+}
+
+type DecisionsInput = Omit<DecisionsSpec, 'targets'> & {
+  targets?: TargetClause[] // Builders normalize omission to [].
 }
 
 type ResolutionProgram =
@@ -140,6 +133,15 @@ type ModeDefinition = {
   decisions: Omit<DecisionsSpec, 'modes'>
   instructions: Instruction[]
 }
+
+type ModeInput = {
+  decisions?: Omit<DecisionsInput, 'modes'>
+  instructions: Instruction[]
+}
+
+type ResolutionProgramInput =
+  | { instructions: Instruction[]; modes?: never }
+  | { modes: ModeInput[]; instructions?: never }
 
 type ContinuousEffectDefinition =
   | CharacteristicModifierDefinition
@@ -182,8 +184,8 @@ type WheneverConfiguration = Omit<
   'kind' | 'on' | 'activeIn' | 'decisions' | 'instructions' | 'modes'
 > & {
   activeIn?: Zone[] // Defaults to ['battlefield'].
-  decisions?: DecisionsSpec // Defaults to { targets: [] }.
-} & ResolutionProgram
+  decisions?: DecisionsInput // Defaults to { targets: [] }.
+} & ResolutionProgramInput
 
 type Whenever = (
   on: OccurrencePattern,
@@ -199,11 +201,14 @@ Card characteristics such as mana cost, types, and printed power/toughness come
 from the separate card metadata. Keyword declarations expand through a shared,
 typed keyword catalogue; parameterized keywords need explicit typed parameters.
 
-The referenced types are separate closed unions, not arbitrary JSON or strings
-that the engine evaluates as code. Optional decision fields are absent when
-unused; `targets: []` explicitly means no targeting clauses. Authoring builders
-default omitted `decisions` to `{ targets: [] }` and omitted `costs` to `[]`.
-This also applies to a mode's omitted decisions. A program supplies either a
+Schema snippets are vocabulary slices. Types not expanded here, such as
+`Condition`, `ObjectFilter`, and `SelectionOffer`'s component types, must be closed
+and validated in the [implementation slice](#implementation-milestones) that introduces them.
+They do not denote arbitrary JSON or executable strings.
+Optional decision fields are absent when unused; `targets: []` means no targeting.
+Builders default omitted `decisions` to `{ targets: [] }` and `costs` to `[]`.
+They accept `DecisionsInput`, including a mode's omitted decisions, then emit
+the required canonical `DecisionsSpec`. A program supplies either a
 plain `instructions` list or selectable `modes` blocks. `decisions.modes` controls
 how many blocks to choose and whether repetition is allowed; its options come
 from `modes`. The authoring helper `chooseModes({ count: 2 })` defaults
@@ -238,11 +243,17 @@ type Selector =
   | { kind: 'objects'; filter: ObjectFilter }
   | { kind: 'stackItems'; filter: StackItemFilter }
 
+type ContextBinding =
+  | 'source' | 'controller' | 'event.player' | 'triggering.player'
+  | 'triggering.object.before' | 'triggering.object.after'
+
+type ResultField = 'discarded' | 'discardedCount' | 'countered' | 'paid'
+
 type Reference =
   | { kind: 'contextRef'; name: ContextBinding }
   | { kind: 'targetRef'; clauseIndex: number }
-  | { kind: 'choiceRef'; choiceId: string }
-  | { kind: 'resultRef'; resultId: string; field: ResultField }
+  | { kind: 'choiceRef'; binding: string }
+  | { kind: 'resultRef'; binding: string; field: ResultField }
 
 type Amount =
   | { kind: 'constant'; value: number }
@@ -311,11 +322,11 @@ it is not an arbitrary property-access string. Arithmetic extensions need explic
 nodes, rounding, and validation, not expression strings. Cross-clause target
 constraints need further typed variants; modal scopes are represented separately.
 
-The shared `filter` field describes eligibility for targets, object cost payments,
-and card choices. It takes a domain-tagged selector such as `objects(...)` or
-`players(...)`; that selector contains the domain's predicate. In a selection
-context this query only supplies eligible recipients, not a chosen binding. An
-instruction using `objects(...)` directly instead acts on the matching group.
+`filter` always describes eligibility; its type follows its domain. Target,
+cost, and card-choice filters take a selector such as `objects(...)` or
+`players(...)`. Occurrence/event filters take that event's typed predicate or
+participant references. They produce neither a choice nor Magic targeting.
+An instruction using `objects(...)` directly acts on the matching group.
 The field `kind` describes the cost action; discard and sacrifice are not selectors.
 `selectCards` names an actual selection request. An instruction's `targets` field
 contains its recipients, expressed as a bound reference or a selector; it does not
@@ -366,22 +377,24 @@ That instruction contains neither selected seats nor game state. The server
 evaluates its selector later in the ability's execution context. By contrast, an
 announced target binding is runtime data containing specific recipient identities.
 
-### Stable identity and execution context
+### Identity, bindings, and execution context
 
-Handwritten ability/effect IDs are optional labels for diagnostics and tracing.
-Ordinary card examples omit them; an ID does not make a trigger function or
-determine its lifetime/timestamp. The compiler gives every declaration an
-internal identity, for example a path within an immutable,
-versioned definition. A registry card name, a declaration identity, and a runtime
-instance identity serve different purposes; none substitutes for a timestamp.
-Target references use indices within their program scope; choice and result
-binding labels remain explicit where referenced.
+Card authors supply no card, ability, effect, or target-clause IDs. Diagnostic
+labels belong in compiler source maps or tooling metadata, not execution identity.
+Use local binding names only when another instruction reads the choice or result.
 
-Each active effect or ability instance records its source/incarnation, controller,
-and a distinct runtime instance identity. This lets two copies coexist and lets
-source-bound effects be removed independently. Trigger instances also retain the
-originating occurrence. Frequency limits use the specified ability instance and
-rule, not every ability with the same display text.
+| Identity / reference | Who supplies it and why |
+| --- | --- |
+| Card registry name | Registration associates a definition with card metadata. No duplicate root `id`. |
+| Declaration identity | Compiler-generated path in a fixed definition version; traceability and instance creation. |
+| Runtime source/effect/stack identity | Engine-generated; distinguishes copies, source incarnations, lifetimes, and replacement instances. |
+| Program/mode scope and target index | Generated scope plus authored `target(index)`; keeps repeated modes' bindings separate. |
+| Choice/result binding name | Author supplies `bindChoice` / `bindResult` only when a later `choice(...)` / `result(...)` reads it; a scoped variable, not a global ID. |
+| Request/selection ID | Server-generated; correlates an answer with one suspended request and rejects stale/duplicate answers. |
+
+Trigger instances also retain their occurrence and captured controller. Frequency
+limits apply to the specified instance/rule, not every ability with matching text.
+Keep runtime state out of shared definition nodes.
 
 A printed static ability's effect inherits its source's rules timestamp
 (CR 613.7a), subject to the granted-ability rules there; effects created during
@@ -393,7 +406,7 @@ give it a fresh timestamp.
 
 A stack item's execution context retains:
 
-- The program/definition version and ability ID, source reference and snapshots.
+- The program/definition version and generated declaration identity, source and snapshots.
 - The controller captured when the ability triggered or was activated; putting a
   waiting trigger on the stack must not overwrite its earlier controller.
 - Selected modes, X, cost records, target bindings, and announcement distributions.
@@ -416,7 +429,7 @@ ref('triggering.object.before')
 ref('triggering.object.after')
 target(0)
 choice('discarded')
-result('payment', 'paid')
+result('discard', 'discarded')
 
 amount(2)
 variable('X')
@@ -428,6 +441,9 @@ characteristic(ref('source'), 'power', { information: 'currentOrLastKnown' })
 `you` is relative to the executing ability's controller. `opponent` uses the
 format's opponent relation; other seats are opponents in the current free-for-all
 formats. Lost players are excluded from ordinary affected player groups.
+
+These expressions illustrate the vocabulary, not one runnable program. Every
+reference used in a complete program must have a binding in its execution scope.
 
 Object and player predicates are separate domains. Fields combine with AND;
 `all`, `any`, and `not` compose predicates. A selector identifies **all matching
@@ -766,7 +782,7 @@ draw({ count: 1, targets: ref('triggering.player') })
 move({ targets: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }), to: 'exile' })
 destroy({ targets: target(0) })
 sacrifice({ targets: choice('offering'), by: ref('controller') })
-counter({ targets: target(0), bindResult: 'counterResult' })
+counter({ targets: target(0) })
 ```
 
 Proposed instruction recipients consistently use `targets`, including bound
@@ -892,7 +908,7 @@ resolution, with its own explicit duration. These examples are proposed builders
 ```ts
 staticAbility(
   replacement({
-    event: { kind: 'draw', player: 'you' }, // one proposed card draw
+    event: wouldDraw({ filter: { player: players({ relation: 'you' }) } }),
     optional: true,
   }, replaceWith([
     mill({ count: 1, targets: ref('event.player') }),
@@ -901,7 +917,7 @@ staticAbility(
 
 staticAbility(
   replacement({
-    event: { kind: 'enterBattlefield', object: ref('source') },
+    event: { kind: 'enterBattlefield', filter: { object: ref('source') } },
   }, modifyEvent({ tapped: true })),
 )
 
@@ -922,18 +938,26 @@ staticAbility(
 )
 ```
 
-Replacement applicability can also use a typed `when` condition. Unlike a
-trigger's `interveningIf`, it is checked against the pending event and current
-state whenever that replacement's applicability is considered. For the Chains
-example, the proposed event/condition vocabulary includes:
+Keep draw-event conditions in the event filter. The same shape is used by the
+explicit event node and the `wouldDraw` builder:
 
 ```ts
-type DrawEventPattern = {
-  kind: 'draw' // one pending card draw, not a completed draw occurrence
-  player: Reference | PlayerSelector
+type DrawEventFilter = {
+  player?: Reference | PlayerSelector // Defaults to any drawing player.
+  firstDrawInOwnDrawStep?: boolean // Omitted: either; false: exclude that draw.
 }
 
-type ReplacementEffectDefinition = {
+type DrawEventPattern = {
+  kind: 'draw' // one pending card draw, not a completed draw occurrence
+  filter: DrawEventFilter
+}
+
+type ReplacementEventPattern =
+  | DrawEventPattern
+  | { kind: 'enterBattlefield'; filter: { object: Reference | ObjectSelector } }
+  // Extend with the typed event domains needed by other replacement mechanics.
+
+type ReplacementDefinition = {
   kind: 'replacement'
   event: ReplacementEventPattern
   when?: Condition
@@ -946,25 +970,23 @@ type ReplacementTransform =
   | { kind: 'modifyEvent'; changes: EventChanges }
   // Add explicitly typed redirect/suppress and other transformation variants.
 
-type ReplacementCondition =
-  | { kind: 'firstDrawInOwnDrawStep'; player: Reference }
-  | { kind: 'not'; condition: ReplacementCondition }
-
 type BooleanResultCondition = {
   kind: 'resultIsTrue'
   value: Extract<Reference, { kind: 'resultRef' }>
 }
 ```
 
-These are slices of the shared event/condition unions. Result conditions validate
-that the referenced field is Boolean and available in that execution scope.
-`firstDrawInOwnDrawStep` is true only in that player's own current draw step,
-before they have actually drawn a card in that step. It reads authoritative
-occurrence history keyed by the step instance, including extra draw steps;
-a draw replaced entirely by a non-draw does not consume that exception.
-This history must survive a suspension/reconnect and cannot live in a captured
-JavaScript counter. See [Chains](#q-chains-of-mephistopheles-a-branching-draw-replacement)
-and the [sugar catalogue](#14-authoring-sugar-and-canonical-data) for usage.
+The filter combines its fields with AND. `firstDrawInOwnDrawStep: false` excludes
+the pending draw only when it is in the drawing player's own current draw step
+and that player has not actually drawn a card in that step. The engine keeps this
+history by step instance, including extra draw steps; a draw replaced entirely by
+a non-draw does not consume the exception. History survives suspension/reconnect.
+
+An optional replacement `when` is reserved for additional typed applicability
+conditions outside the event filter. Applicability is re-evaluated on the pending
+event/current state; it is not a trigger's intervening-if check. `replaceWith`
+holds instructions that produce events, not a precomputed list of events. Result
+conditions require an in-scope Boolean field. See [Chains](#q-chains-of-mephistopheles-a-branching-draw-replacement).
 
 The primitive's contract determines its rules category and, for characteristic
 changes, its layer/sublayer. For example, `modifyStats` adds a power/toughness
@@ -1014,7 +1036,7 @@ reason execution is waiting. Never infer hidden candidates from projected state.
 
 ```ts
 type InteractionRequest = {
-  id: string
+  requestId: string // Server-generated correlation identity.
   revision: number
   chooser: PlayerId
   source: PublicSourceLabel
@@ -1025,9 +1047,9 @@ type InteractionRequest = {
 }
 
 type SelectionOffer =
-  | { kind: 'selectCards'; bindingId: string; candidates: VisibleObjectRef[];
+  | { kind: 'selectCards'; candidates: VisibleObjectRef[];
       min: number; max: number; distinct: boolean }
-  | { kind: 'selectPlayers'; bindingId: string; candidates: PlayerId[];
+  | { kind: 'selectPlayers'; candidates: PlayerId[];
       min: number; max: number; distinct: boolean }
   | { kind: 'selectTargets'; clauses: TargetClauseOffer[];
       constraints: TargetConstraintOffer[] }
@@ -1047,7 +1069,9 @@ the definition's `filter` and current legality; it is not another authoring fiel
 `VisibleObjectRef` carries an authorized identity/incarnation and only information
 the chooser may see; hidden objects can use opaque handles where appropriate.
 The server-owned continuation is not an executable payload accepted from the
-client. Presentation labels can be localized; binding/option IDs are stable.
+client. A request ID identifies its stored continuation, so a single-selection
+offer needs no second binding ID. Multi-clause offers address generated scopes
+and clause indices; option identities are generated and stable within the request.
 
 `selectTargets` is a proposed heterogeneous envelope for players, objects, and
 stack items. Card picking must use typed `selectCards` events, and player picking
@@ -1113,7 +1137,7 @@ For an entry trigger that targets an opponent, a proposed request might be:
 
 ```json
 {
-  "id": "player-selection-42",
+  "requestId": "player-selection-42",
   "revision": 17,
   "chooser": "p1",
   "source": { "name": "Example entry ability" },
@@ -1122,7 +1146,6 @@ For an entry trigger that targets an opponent, a proposed request might be:
   "cancellation": "mustAnswer",
   "selection": {
     "kind": "selectPlayers",
-    "bindingId": "scope-42:0",
     "candidates": ["p2", "p3", "p4"],
     "min": 1,
     "max": 1,
@@ -1145,8 +1168,9 @@ else. Choosing p3 maps to the existing kernel event shape:
 
 The proposed transport wrapper supplies revision/authorization metadata; the
 existing `selectPlayers` event does not itself have a `revision` field. The host
-adapter validates that wrapper, then submits the typed event. The server binds p3
-to target slot 0 in the matching execution scope and continues checkpoint
+adapter validates that wrapper and maps `requestId` to the existing `selectionId`,
+then submits the typed event. The server binds p3 to target slot 0 in the matching
+execution scope and continues checkpoint
 processing. Clients enable counterspell responses only after receiving a
 subsequent `priority` outcome.
 
@@ -1246,7 +1270,7 @@ spell({
     })],
   },
   instructions: [
-    counter({ targets: target(0), bindResult: 'counterResult' }),
+    counter({ targets: target(0) }),
     draw({ count: 1, targets: ref('controller') }),
   ],
 })
@@ -1274,7 +1298,7 @@ effect can stop ward itself.
 sequence(
   draw({ count: 1, targets: ref('controller') }),
   chooseCards({
-    id: 'discarded',
+    bindChoice: 'discarded',
     chooser: ref('controller'),
     filter: objects({ zone: 'hand', owner: 'you' }),
     count: 1,
@@ -1717,8 +1741,12 @@ const chainsOfMephistopheles = cardRuleDefinition(1, {
   abilities: [
     staticAbility(
       replacement({
-        event: wouldDraw({ filter: players({ relation: 'any' }) }),
-        when: not(firstDrawInOwnDrawStep(ref('event.player'))),
+        event: wouldDraw({
+          filter: {
+            player: players({ relation: 'any' }),
+            firstDrawInOwnDrawStep: false,
+          },
+        }),
       }, replaceWith([
         discard({
           count: 1,
@@ -1853,12 +1881,13 @@ not evidence of complete rules coverage.
 
 Validate definitions at load time and validate player commands at runtime:
 
-- Reject unsupported schema versions, unknown node kinds, duplicate declaration
-  labels/internal identities, unresolved bindings, and domain mismatches
+- Reject unsupported schema versions, unknown node kinds, duplicate generated
+  identities or local binding declarations, unresolved bindings, and domain mismatches
   (e.g. destroying a player).
 - Check target bounds, mode counts/repetition, scoped indices, recipient domains,
   distinctness, and distribution requirements. Validate each selected occurrence's
-  bindings and resolve named choice/result references only where they exist.
+  bindings. A choice/result producer must execute before every path that reads
+  its binding; references cannot escape their program/mode/replacement scope.
 - Require a modal program and its mode-choice specification together; reject
   mixed root `instructions`/`modes` and nested mode choices in this initial shape.
 - Keep conditions and amount expressions typed, bounded, and deterministic.
@@ -1973,21 +2002,21 @@ implemented first slice. Preserve those public wrappers during migration.
 
 ### Current-code boundaries
 
-Current modules provide migration starting points:
+Paths below are relative to `rules-engine/`; host adapters live in `live-runner/`.
 
 | Module | Current role / boundary |
 | --- | --- |
-| `src/cardPlugins/effectDefinitions.ts` | Existing serialized `CardEffect` / `CardInstruction` unions; not the complete proposed schema. |
-| `src/cardPlugins/triggers.ts` and `triggers/matching.ts` | Shared trigger builders and event filters. |
-| `src/rules/triggers.ts` | Trigger collection and existing pre-stack target-selection paths. |
-| `src/cardPlugins/abilities.ts` and `targetedResolve.ts` | Existing announcement/target/effect metadata, with positional target binding. |
-| `src/cardPlugins/instructionHandlers/` | Instruction semantics and event production. |
-| `src/cardPlugins/runInstructions.ts` | Existing card-choice continuation support; general execution frames need further work. |
-| `src/rules/selectCards.ts` / `selectPlayers.ts` | Typed server-owned selections, bounds, IDs, and answer validation. |
-| `src/runtime.ts` | Authoritative versus projected state and hidden-information boundary. |
-| `src/kernel.ts` | Event reduction, replacement discovery, and SBA handling. |
-| `src/plugins/priority.ts` | Pass/resolve progression and existing waiting-stack handling. |
-| `../live-runner/src/kernelChoicePrepare*.ts` / `kernelChoiceApply*.ts` | Host adapters from pending kernel choices to UI offers and validated answers. |
+| [effectDefinitions.ts](src/cardPlugins/effectDefinitions.ts) | Existing `CardEffect` / `CardInstruction` unions; not the complete proposed schema. |
+| [triggers.ts](src/cardPlugins/triggers.ts), [matching.ts](src/cardPlugins/triggers/matching.ts) | Shared trigger builders and event filters. |
+| [rules/triggers.ts](src/rules/triggers.ts) | Trigger collection and pre-stack target selection. |
+| [abilities.ts](src/cardPlugins/abilities.ts), [targetedResolve.ts](src/cardPlugins/targetedResolve.ts) | Announcement/target/effect metadata and positional target binding. |
+| [instructionHandlers/](src/cardPlugins/instructionHandlers/) | Instruction semantics and event production. |
+| [runInstructions.ts](src/cardPlugins/runInstructions.ts) | Card-choice continuations; general execution frames need further work. |
+| [selectCards.ts](src/rules/selectCards.ts), [selectPlayers.ts](src/rules/selectPlayers.ts) | Typed server-owned selections and answer validation. |
+| [runtime.ts](src/runtime.ts) | Authoritative/projected state and hidden-information boundary. |
+| [kernel.ts](src/kernel.ts) | Event reduction, replacement discovery, and SBA handling. |
+| [priority.ts](src/plugins/priority.ts) | Pass/resolve progression and waiting-stack handling. |
+| [kernelChoicePrepare.ts](../live-runner/src/kernelChoicePrepare.ts), [kernelChoiceApply.ts](../live-runner/src/kernelChoiceApply.ts) | Host entry points for typed choice adapters; related card/player/stack modules share these prefixes. |
 
 In particular, the current kernel sorts replacement rules by timestamp and runs
 SBA handling through nested reductions; these are implementation constraints to
@@ -2045,104 +2074,52 @@ Adding sugar does not add runtime support for its underlying mechanic.
 
 ### Card wrappers and keyword catalogue
 
-A convenience wrapper can supply the schema version without repeating the object
-shape or a type annotation on each card:
-
-```ts
-const duskdaleWurm = cardRuleDefinition(1, {
-  abilities: [
-    keywordAbility('trample'),
-  ],
-})
-```
-
-For the current proposed schema, its typed signature could be:
+`cardRuleDefinition(1, config)` supplies the root version; `card(abilities)` from
+the version-1 entry point wraps `{ abilities }`. Both emit the same canonical data.
+The compact helper stays pinned to version 1 when later schemas are introduced.
 
 ```ts
 declare function cardRuleDefinition(
   schemaVersion: 1,
   definition: Omit<CardRuleDefinition, 'schemaVersion'>,
 ): CardRuleDefinition
+
+declare function card(abilities: readonly AbilityDefinition[]): CardRuleDefinition
+
+const duskdaleWurm = card([keyword.trample])
 ```
 
-The wrapper returns the same canonical `{ schemaVersion: 1, abilities: [...] }`
-data. Schema validation remains part of the compiler/load contract; the wrapper
-does not change game semantics or allocate live effect instances.
-
-A typed keyword catalogue can expose immutable definitions for parameterless
-keywords, making the same declaration shorter:
-
-```ts
-const duskdaleWurm = cardRuleDefinition(1, {
-  abilities: [keyword.trample],
-})
-```
-
-`keyword.trample` is equivalent to `keywordAbility('trample')`. Parameterized
-keywords use typed factory functions rather than constants. Shared keyword
-definitions contain no source references, runtime IDs, timestamps, or mutable
-game state; the engine creates independent runtime instances from them.
-These helpers are proposed authoring conveniences, not implemented exports.
+`keyword.trample` equals `keywordAbility('trample')`. Parameterless keywords are
+immutable definitions; parameterized keywords use typed factories. Runtime
+source bindings, IDs, timestamps, and mutable state belong to instances.
+[Wall of Omens](#r-wall-of-omens-fluent-actions-and-a-compact-card-declaration)
+shows the explicit and compact wrappers together.
 
 ### Occurrence builders and source shortcuts
 
-The two-argument `whenever` helper separates the event pattern from what the
-ability asks and does. In the proposed DSL entry point, `enters` and `dies` build
-patterns; their `filter` can match an object predicate or a typed object reference:
-
-```ts
-whenever(enters({ filter: ref('self') }), {
-  decisions: {
-    targets: [select({
-      filter: objects({ zone: 'battlefield', type: 'Creature' }),
-      count: 1,
-    })],
-  },
-  instructions: [destroy({ targets: target(0) })],
-})
-```
-
-`ref('self')` is an authoring alias for the canonical `ref('source')` object
-binding. A reference in an occurrence filter means "this particular source,"
-not all objects sharing its card name. Predicate filters such as
-`dies({ filter: { type: 'Creature', controller: 'you' } })` can watch other
-matching objects. Filtering occurrences does not target anything.
-
-A shared shorthand can use ordinary TypeScript getters:
+`whenever(pattern, configuration)` separates the occurrence to watch from its
+program. An occurrence filter can match an object predicate or a source reference;
+`ref('self')` normalizes to `ref('source')`. Predicate filters can watch other
+objects, for example `dies({ filter: { type: 'Creature', controller: 'you' } })`.
+They do not target those objects.
 
 ```ts
 const self = Object.freeze({
-  get enters() {
-    return enters({ filter: ref('self') })
-  },
-  get dies() {
-    return dies({ filter: ref('self') })
-  },
+  get enters() { return enters({ filter: ref('self') }) },
+  get dies() { return dies({ filter: ref('self') }) },
 })
 
-whenever(self.enters, {
-  instructions: [draw({ count: 1, targets: ref('controller') })],
-})
-
-whenever(self.dies, {
-  instructions: [draw({ count: 1, targets: ref('controller') })],
-})
+ability.whenever(self.enters, actions.draw.self.one)
+ability.whenever(self.dies, actions.draw.self.one)
 ```
 
-The getters run while building the definition and return immutable, serializable
-pattern nodes. They do not capture a live card, perform a query, or run when an
-event occurs. The engine binds the symbolic source separately for each ability
-instance; it uses the appropriate entry or pre-departure snapshot when matching
-zone-change occurrences (CR 603.6, 603.10). Match what actually happened after
-replacements: entering tapped still counts as entry, while exile instead of a
-death creates no death occurrence. Getter functions and the `self` helper object
-are not embedded in the saved definition.
+Getters build immutable patterns; they capture no live card and are not saved as
+functions. The engine binds the source and uses entry/pre-departure snapshots
+when matching actual occurrences after replacements (CR 603.6, 603.10).
 
-The existing `enters`/`dies` helpers build complete `CardEffect` values, not
-standalone patterns. Keep those compatibility exports; the new pattern builders
-need a separate DSL entry point or namespace such as `events.enters`/`events.dies`.
-Do not infer two different return types for the same legacy call shape. The
-short names above assume imports from the proposed DSL entry point.
+Existing `enters`/`dies` exports create complete `CardEffect` values. New pattern
+builders need a separate DSL entry point or namespace such as `events.enters`;
+keep the legacy call shapes compatible. Short names here assume the new entry point.
 
 ### Fluent action catalogue and compact abilities
 
@@ -2172,46 +2149,28 @@ binding. A target path also needs a declared target clause of the correct domain
 The compiler rejects unresolved variables/targets. Count factories support other
 literals and typed amount expressions without adding a property for every number.
 
-One possible implementation sketch uses valid JavaScript getter syntax:
+A compact implementation sketch keeps getters on authoring objects:
 
 ```ts
 function drawFor(targets: Reference | PlayerSelector) {
   return Object.freeze({
-    get one() {
-      return draw({ count: 1, targets })
-    },
-    get X() {
-      return draw({ count: variable('X'), targets })
-    },
-    count(count: number | Amount) {
-      return draw({ count, targets })
-    },
+    get one() { return draw({ count: 1, targets }) },
+    get X() { return draw({ count: variable('X'), targets }) },
+    count(count: number | Amount) { return draw({ count, targets }) },
   })
 }
 
 const drawActions = Object.freeze({
-  get self() {
-    return drawFor(ref('controller'))
-  },
-  get target() {
-    return drawFor(target(0))
-  },
-  targetAt(index: number) {
-    return drawFor(target(index))
-  },
+  get self() { return drawFor(ref('controller')) },
+  get target() { return drawFor(target(0)) },
+  targetAt(index: number) { return drawFor(target(index)) },
 })
-
-const actions = Object.freeze({
-  get draw() {
-    return drawActions
-  },
-})
+const actions = Object.freeze({ get draw() { return drawActions } })
 ```
 
-Getters may return cached immutable templates or new immutable nodes; consumers
-must never mutate either. Functions on an intermediate catalogue object run
-during authoring and are not stored in the saved card definition. Runtime IDs,
-timestamps, choices, and instruction outcomes belong to execution frames.
+Getters may return cached templates or new nodes; both must be immutable. Only
+terminal instruction data is saved. Runtime choices, results, IDs, and timestamps
+belong to execution frames, not catalogue objects.
 
 For small abilities, `ability.whenever` can wrap direct instruction arguments in
 `{ instructions: [...] }`. Keep the configuration overload for decisions,
@@ -2219,32 +2178,20 @@ trigger conditions, scopes, modes, and other explicit options:
 
 ```ts
 type WheneverSugar = {
-  (on: OccurrencePattern, instruction: Instruction, ...rest: Instruction[]): AbilityDefinition
-  (on: OccurrencePattern, configuration: WheneverConfiguration): AbilityDefinition
+  (on: OccurrencePattern, instruction: Instruction, ...rest: Instruction[]): TriggeredAbilityDefinition
+  (on: OccurrencePattern, configuration: WheneverConfiguration): TriggeredAbilityDefinition
 }
 
 declare const ability: { readonly whenever: WheneverSugar }
-declare function card(abilities: readonly AbilityDefinition[]): CardRuleDefinition
 
 // Same canonical ability:
 ability.whenever(self.enters, actions.draw.self.one)
 whenever(self.enters, { instructions: [actions.draw.self.one] })
-
-// Same canonical card definition:
-card([keyword.defender, ability.whenever(self.enters, actions.draw.self.one)])
-cardRuleDefinition(1, {
-  abilities: [keyword.defender, whenever(self.enters, {
-    instructions: [actions.draw.self.one],
-  })],
-})
 ```
 
-`card` from the version-1 DSL entry point always writes `schemaVersion: 1`.
-It must not silently change to a later schema when the library upgrades.
-`cardRuleDefinition(1, ...)` remains available for an explicitly versioned,
-expanded declaration. Namespace access and positional instructions are sugar;
-the engine sees the same ability data and defaults. The direct-instruction
-overload does not mix configuration objects with instruction arguments.
+The direct-instruction overload wraps its arguments in `instructions`; it does
+not mix configuration objects with instructions. Keep the full configuration
+form when decisions, conditions, scopes, or modes are needed.
 
 ### Combining actions: sequence, choice, and targeting
 
@@ -2279,12 +2226,6 @@ ability.whenever(self.enters, choose({
     { instructions: [gainLife({ amount: 2, targets: ref('controller') })] },
   ],
 }))
-
-// The same resolution-time choice, using the controller default:
-ability.whenever(self.enters, or(
-  actions.draw.self.one,
-  gainLife({ amount: 2, targets: ref('controller') }),
-))
 ```
 
 The initial `choose` helper chooses exactly one instruction program. It lowers
@@ -2381,9 +2322,7 @@ branch. Keep the distinction between building data and executing it explicit:
 | `select({ filter, count: 1 })` | A target-clause node with constant `min: 1`, `max: 1`, and `distinct: true`. |
 | `target(0)` | `{ kind: 'targetRef', clauseIndex: 0 }`; all recipients bound to the first clause in the current program scope. |
 | `staticAbility(effect)` | A static ability with `activeIn: ['battlefield']` and `effects: [effect]`. |
-| `wouldDraw({ filter })` | `{ kind: 'draw', player: filter }`, a pending-event pattern usable by a replacement. |
-| `firstDrawInOwnDrawStep(player)` | `{ kind: 'firstDrawInOwnDrawStep', player }`, evaluated from authoritative step history. |
-| `not(condition)` | `{ kind: 'not', condition }`; no executable predicate callback. |
+| `wouldDraw({ filter })` | `{ kind: 'draw', filter }`; matches a pending event using typed player/history predicates. |
 | `replacement({ event, when }, transform)` | `{ kind: 'replacement', event, when, optional: false, transform }`; applicability is pure, and the builder accepts an explicit optional override. |
 | `replaceWith(instructions)` | `{ kind: 'replaceWith', instructions }`, an ordered replacement program. |
 | `result('discard', 'discarded')` | A typed reference to a previously bound instruction outcome in this execution scope. |
@@ -2398,7 +2337,7 @@ card definition is being built:
   "kind": "if",
   "condition": {
     "kind": "resultIsTrue",
-    "value": { "kind": "resultRef", "resultId": "discard", "field": "discarded" }
+    "value": { "kind": "resultRef", "binding": "discard", "field": "discarded" }
   },
   "then": [{
     "kind": "draw",
@@ -2413,15 +2352,13 @@ card definition is being built:
 }
 ```
 
-Choice/result binding names are scoped program variables, unlike optional
-diagnostic ability IDs. `bindResult: 'discard'` is needed here because the next
-instruction reads that outcome; unreferenced instructions need no result label.
-Repeated applications get separate runtime frames and bindings. Inside a
-replacement program, `event.player` stays bound to the matched proposal's player
-while nested actions create their own event-processing contexts.
+`bindResult: 'discard'` names the outcome read by this branch. Recording an outcome
+does not otherwise require an authored label. Repeated applications have separate
+frames/bindings; `event.player` stays bound to the matched proposal's player while
+nested actions create their own event-processing contexts. A future
+`ifDiscarded(discardInstruction, branches)` helper can generate a private binding
+and lower to a discard-plus-condition sequence. It must execute the discard once,
+retain its result across suspension, and preserve the same semantic outcome checks.
 
-The compiler must reject an unresolved result, a non-Boolean result used as a
-condition, an out-of-range target index, or a reference from the wrong domain.
-Sugar should remain a small catalogue over the canonical model: no separate
-client interpretation and no helper whose only implementation is a card-name
-exception.
+Apply the [validation rules](#11-validation-and-development-workflow) equally to
+explicit and compact forms. All helpers lower to the same canonical model.
