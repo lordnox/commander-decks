@@ -31,7 +31,7 @@ Keep four distinct concepts:
 
 - **Selector:** describes players or objects to inspect or affect.
 - **Instruction:** describes an action during resolution.
-- **Ability:** determines when an instruction program may execute.
+- **Ability:** describes how a card's rules function, including static abilities.
 - **Modifier:** transforms a proposed event (replacement/prevention) or continuously
   changes characteristics or rules (static effect).
 
@@ -45,10 +45,10 @@ Existing helpers become compatibility wrappers.
 
 | Term | Meaning in this DSL |
 | --- | --- |
-| Card definition | Versioned declarations for one card, separate from its live instances and Oracle metadata. |
+| Card definition | Versioned ability declarations for one card, separate from its live instances and Oracle metadata. |
 | Source | The object from which an ability or modifier originates; retain identity and relevant last-known information. |
 | Owner / controller | Owner is the player who owns the object; controller can change. An ability has its own controller. |
-| Ability definition | Reusable declaration of timing, conditions, choices, costs, targets, and instructions. |
+| Ability definition | Reusable declaration of how a card rule functions and which effects it creates or instructions it executes. |
 | Spell program | Instructions of a resolving spell; part of that spell, not a new triggered ability. |
 | Proposed event | A game action that is about to happen and can still be replaced or prevented. |
 | Occurrence | What actually happened, with before/after information; used for trigger matching. |
@@ -83,21 +83,17 @@ The proposed serialized root is:
 ```ts
 type CardRuleDefinition = {
   schemaVersion: 1
-  id: string
   abilities: AbilityDefinition[]
-  modifiers: ModifierDefinition[]
 }
 
-type AbilityDefinition =
+type AbilityDefinition = (
   | {
       kind: 'spell'
-      id: string
       announcement: AnnouncementSpec
       instructions: Instruction[]
     }
   | {
       kind: 'activated'
-      id: string
       availableFrom: Zone[]
       timing: ActivationTiming
       announcement: AnnouncementSpec
@@ -106,7 +102,6 @@ type AbilityDefinition =
     }
   | {
       kind: 'triggered'
-      id: string
       activeIn: Zone[]
       on: OccurrencePattern
       triggerOnlyIf?: Condition
@@ -115,6 +110,16 @@ type AbilityDefinition =
       announcement: AnnouncementSpec
       instructions: Instruction[]
     }
+  | {
+      kind: 'static'
+      activeIn: Zone[]
+      effects: ContinuousEffectDefinition[]
+    }
+  | {
+      kind: 'keyword'
+      keyword: Keyword
+    }
+) & { id?: string } // Optional author label; the compiler supplies internal identity.
 
 type AnnouncementSpec = {
   modes?: ModeSpec
@@ -123,11 +128,35 @@ type AnnouncementSpec = {
   distributions?: DistributionSpec[]
 }
 
-type ModifierDefinition =
+type ContinuousEffectDefinition =
+  | CharacteristicModifierDefinition
+  | RuleRestrictionDefinition
   | ReplacementDefinition
   | PreventionDefinition
-  | StaticDefinition
+
+type ActivationFilter = {
+  abilitySource?: ObjectFilter
+  ability?: ActivatedAbilityFilter
+  activator?: PlayerFilter
+}
+
+type RuleRestrictionDefinition = {
+  kind: 'prohibitActivation'
+  filter: ActivationFilter
+}
 ```
+
+The authored definition has one abilities list: static abilities are abilities
+too. A static ability generates continuous effects; a triggered or activated
+ability normally executes instructions when it resolves. Replacement and
+prevention describe effect behavior, not additional top-level ability kinds.
+The engine may compile these declarations into separate internal execution lists.
+
+The registry associates a card name with its definition (and can resolve that
+name to its Scryfall Oracle ID). No redundant card-definition ID is required.
+Card characteristics such as mana cost, types, and printed power/toughness come
+from the separate card metadata. Keyword declarations expand through a shared,
+typed keyword catalogue; parameterized keywords need explicit typed parameters.
 
 The referenced types are separate closed unions, not arbitrary JSON or strings
 that the engine evaluates as code. Optional announcement fields are absent when
@@ -225,11 +254,25 @@ announced target binding is runtime data containing specific recipient identitie
 
 ### Stable identity and execution context
 
-Each declaration has a stable ability/modifier ID. An instance also records the
-source's zone-change identity, its controller, the originating occurrence, and
-a distinct activation/trigger instance ID. Frequency limits are scoped to the
-specified ability instance and rule, not to every ability with the same display
-text.
+Handwritten ability/effect IDs are optional author labels. The compiler gives
+every declaration an internal identity, for example a path within an immutable,
+versioned definition. A registry card name, a declaration identity, and a runtime
+instance identity serve different purposes; none substitutes for a timestamp.
+Target, choice, and result binding labels remain explicit where referenced.
+
+Each active effect or ability instance records its source/incarnation, controller,
+and a distinct runtime instance identity. This lets two copies coexist and lets
+source-bound effects be removed independently. Trigger instances also retain the
+originating occurrence. Frequency limits use the specified ability instance and
+rule, not every ability with the same display text.
+
+A printed static ability's effect inherits its source's rules timestamp
+(CR 613.7a), subject to the granted-ability rules there; effects created during
+resolution receive a timestamp when created (CR 613.7b). Use logical rules ordering
+rather than wall-clock time, preserve timestamps when recomputing effects, and
+apply the rules for new source timestamps, simultaneous timestamps, and
+dependencies (CR 613.7–8). Merely adding an effect back to a derived list must not
+give it a fresh timestamp.
 
 A stack item's execution context retains:
 
@@ -590,38 +633,63 @@ paid cost, while not being a death. Similarly, countering can succeed when the
 countered spell's destination is replaced with exile. Do not equate every parent
 action's success with whether its original component move occurred.
 
-### Proposed modifier forms
+### Proposed continuous-effect forms
+
+Static abilities declare effects that apply while the ability functions. A spell
+or activated/triggered ability can instead create a continuous effect during
+resolution, with its own explicit duration. These examples are proposed builders:
 
 ```ts
-replacement({
-  id: 'draw-becomes-mill',
-  activeIn: ['battlefield'],
-  event: { kind: 'draw', player: 'you' }, // one proposed card draw
-  optional: true,
-}, replaceWith([
-  mill({ count: 1, for: ref('event.player') }),
-]))
+staticAbility(
+  replacement({
+    event: { kind: 'draw', player: 'you' }, // one proposed card draw
+    optional: true,
+  }, replaceWith([
+    mill({ count: 1, for: ref('event.player') }),
+  ])),
+)
 
-replacement({
-  id: 'enters-tapped',
-  event: { kind: 'enterBattlefield', object: ref('source') },
-}, modifyEvent({ tapped: true }))
+staticAbility(
+  replacement({
+    event: { kind: 'enterBattlefield', object: ref('source') },
+  }, modifyEvent({ tapped: true })),
+)
 
-prevention({
-  id: 'next-two-damage',
-  to: players({ relation: 'you' }),
+createEffect({
   duration: 'untilEndOfTurn',
-  capacity: 2,
-}, preventDamage())
+  effect: prevention({
+    to: players({ relation: 'you' }),
+    capacity: 2,
+  }, preventDamage()),
+})
 
-staticEffect({
-  id: 'team-bonus',
-  activeIn: ['battlefield'],
-  objects: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
-  layer: 'powerToughness.modify',
-  duration: 'whileSourceActive',
-}, modifyStats({ power: 1, toughness: 1 }))
+staticAbility(
+  modifyStats({
+    objects: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }),
+    power: 1,
+    toughness: 1,
+  }),
+)
 ```
+
+The primitive's contract determines its rules category and, for characteristic
+changes, its layer/sublayer. For example, `modifyStats` adds a power/toughness
+modifier, while `prohibitActivation` supplies an action-legality restriction.
+Authors do not repeat a redundant `category` field. Operations with materially
+different semantics need distinct typed variants; the engine must not infer them
+from card names or prose.
+
+For a printed static ability, its effect lifetime follows the ability. The
+authoring builder defaults `activeIn` to `['battlefield']` and expands that default
+in serialized data. This is semantic scope, not an optimization; overrides are
+needed when a source ability functions in another zone. Self-entry replacements
+are also considered prospectively under CR 614.12, before entry is committed.
+
+For effects created during resolution, the proposed duration vocabulary begins
+with `untilEndOfTurn`, `untilSourceLeaves`, and `indefinite`, plus typed player/turn/
+step deadlines. Specify the exact expiration checkpoint and source incarnation;
+`indefinite` means no duration-based expiry, not persistence between games.
+Do not require `duration: 'whileSourceActive'` on every printed static ability.
 
 An "as this enters, choose a color" replacement asks before entry is committed,
 stores the choice, and lets the permanent enter with that information. It is not
@@ -801,8 +869,9 @@ headless simulation answer the same decision contracts.
 
 ## 10. Worked examples
 
-These examples use hypothetical Oracle-style wording to demonstrate semantics,
-not to assert support for particular named cards.
+Examples A–I use hypothetical Oracle-style wording. Example J uses linked,
+verified Oracle text. New builder syntax remains proposed, not implemented card
+support.
 
 ### A. Token entry causes untargeted life loss
 
@@ -995,6 +1064,73 @@ the draw trigger using the entering permanent's completed characteristics.
 Finish resolution/checkpoints and put that trigger on the stack. If another
 replacement prevents entry entirely, there is no entry trigger.
 
+### J. Stony Silence: a static activation restriction
+
+[Stony Silence](https://scryfall.com/card/mm3/25/stony-silence) is an enchantment
+costing {1}{W}. Its Oracle text is "Activated abilities of artifacts can't be
+activated."
+
+**Proposed authoring DSL:**
+
+```ts
+const stonySilence: CardRuleDefinition = {
+  schemaVersion: 1,
+  abilities: [
+    staticAbility(
+      prohibitActivation({
+        filter: {
+          abilitySource: {
+            zone: 'battlefield',
+            type: 'Artifact',
+          },
+        },
+      }),
+    ),
+  ],
+}
+
+cardRules.set('Stony Silence', stonySilence)
+```
+
+The registry supplies card identity; the definition does not duplicate it.
+`staticAbility` expands to `{ kind: 'static', activeIn: ['battlefield'], effects: [...] }`.
+`prohibitActivation` expands to a typed `{ kind: 'prohibitActivation', filter: ... }`
+effect. These are data-producing builders, not callbacks that execute card rules.
+
+Here `abilitySource` is the source of the **attempted activation**, not Stony
+Silence. The omitted ability/activator filters mean every activated ability of
+every matching permanent, including mana abilities and abilities of your own
+artifacts. Narrower restrictions can use `ability` and `activator` predicates
+within the same typed activation filter.
+
+This contains enough card-specific information when the shared engine contracts
+are implemented:
+
+- `staticAbility` functions on the battlefield by default. Its effects stop when
+  that source ability ceases to function, including source departure, phasing out,
+  or ability removal. A second copy can still supply its own restriction.
+- `prohibitActivation` checks legality **before an activation begins or costs are
+  paid**, using the ability source's current characteristics after the applicable
+  continuous effects. It does not remove the artifact's abilities.
+- All activation paths use that check, including activated mana abilities and
+  the current `tapForMana` shortcut. Mana planning cannot count prohibited
+  activations as available payment sources.
+- The engine supplies source/incarnation references, distinct runtime effect
+  identities, and rules timestamps. Recomputing the restriction does not create
+  a new timestamp.
+- The client's available actions use the same permission results. There is no
+  target picker or additional duration field for this card.
+
+Casting Stony Silence is an ordinary untargeted enchantment cast. Players can
+respond before it resolves, including activating artifacts while still allowed.
+Once it enters, the restriction applies without an entry trigger. Existing
+abilities on the stack continue; triggered/static artifact abilities and
+activations from other zones, such as cycling from hand, are unaffected.
+
+This is a continuous game-rule restriction, not a replacement/prevention of an
+activation event. Its shared primitive rejects prohibited actions rather than
+accepting an activation, spending costs, and then suppressing its result.
+
 ## 11. Validation and development workflow
 
 For an ordinary supported card: declare timing/targets/costs, compose primitives,
@@ -1005,7 +1141,8 @@ not evidence of complete rules coverage.
 Validate definitions at load time and validate player commands at runtime:
 
 - Reject unsupported schema versions, unknown node kinds, duplicate declaration
-  IDs, unresolved bindings, and domain mismatches (e.g. destroying a player).
+  labels/internal identities, unresolved bindings, and domain mismatches
+  (e.g. destroying a player).
 - Check target bounds, mode-dependent clauses, distinctness, and distribution
   requirements. Resolve named references only in contexts where they exist.
 - Keep conditions and amount expressions typed, bounded, and deterministic.
@@ -1095,6 +1232,7 @@ the rules references establish game behavior, not the particular API syntax.
 | Mana abilities | 605.1, 605.3–4 |
 | Resolution legality, instructions, choices, information, completion | 608.2a–h, 608.2k, 608.2m–n |
 | Layers and continuous effects | 611, 613 |
+| Static lifetimes, timestamps, dependencies, and game-rule effects | 611.3, 613.7–8, 613.11 |
 | Replacement events, identity, entry, self-replacement | 614.5–6, 614.12, 614.15 |
 | Prevention shields and unpreventable damage | 615.5–7, 615.12 |
 | Competing replacements and applicability | 616.1–2 |
