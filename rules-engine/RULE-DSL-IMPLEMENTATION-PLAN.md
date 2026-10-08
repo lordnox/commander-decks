@@ -195,6 +195,9 @@ because the server evaluated them.
 survives source departure or control change; amounts and snapshots survive
 serialization/replay. Typed name predicates work without name-based dispatch.
 
+Implementation details and remaining boundaries are recorded in
+[`migration/RULE-DSL-PART-02.md`](migration/RULE-DSL-PART-02.md).
+
 ### Part 03 — Durable driver and explicit execution checkpoints
 
 **Dependencies:** 02.
