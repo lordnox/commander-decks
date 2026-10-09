@@ -4,8 +4,8 @@ import { effectsOf } from '../../cardRules'
 import type { CardRuleDefinitionV1, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, PlayerId, StackItem, TargetRef } from '../../../types'
 import { captureObject, pinTarget, targetObject } from '../../../objectIdentity'
-import type { RuleDslRuntimeContext } from './runtime'
-import { evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
+import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
+import { evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
 import { evaluateTargetBounds } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
 
@@ -61,6 +61,7 @@ const contextFor = (
   controller,
   source: captureObject(source),
   ...(item ? { stackItemId: item.id } : {}),
+  ...(item?.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
   variables: (item?.x ?? x) === undefined ? undefined : { X: item?.x ?? x },
 })
 
@@ -76,6 +77,24 @@ const targetCounts = (
       : evaluateStackItemSelector(selector, context).length,
   characteristic: () => { throw new RuleDslEvaluationError('target bounds cannot read a characteristic') },
 }))
+
+const bindingContext = (
+  context: RuleDslRuntimeContext,
+  slots: readonly (readonly TargetRef[])[],
+  legality?: Readonly<Record<number, readonly boolean[]>>,
+) => ({
+  ...context,
+  targets: Object.fromEntries(slots.map((targets, clauseIndex) => [clauseIndex, targets.flatMap((target): BoundRecipient[] => {
+    switch (target.kind) {
+      case 'player': return [{ kind: 'player', playerId: target.player }]
+      case 'stackItem': return [{ kind: 'stackItem', stackId: target.stackId }]
+      case 'object': return target.incarnation === undefined || target.zone === undefined
+        ? []
+        : [{ kind: 'object', objectId: target.objectId, incarnation: target.incarnation, zone: target.zone }]
+    }
+  })])),
+  ...(legality ? { targetLegality: legality } : {}),
+})
 
 /**
  * Split the existing flat target command into generated clause slots. Backtracking
@@ -108,7 +127,7 @@ const partitionTargets = (
       const keys = new Set<string>()
       if (chosen.every((target) => {
         const key = identityKey(target)
-        if (keys.has(key) || !canonicalCandidate(state, target, clause, context, sourceId)) return false
+        if (keys.has(key) || !canonicalCandidate(state, target, clause, bindingContext(context, slots.slice(0, clauseIndex)), sourceId)) return false
         keys.add(key)
         return true
       })) {
@@ -137,7 +156,7 @@ const groupedTargets = (
     if (targets.length < bounds[index].min || targets.length > bounds[index].max) return undefined
     if (!targets.every((target) => {
       const key = identityKey(target)
-      if (keys.has(key) || !canonicalCandidate(state, target, clauses[index], context, sourceId)) return false
+      if (keys.has(key) || !canonicalCandidate(state, target, clauses[index], bindingContext(context, supplied.slice(0, index)), sourceId)) return false
       keys.add(key)
       return true
     })) return undefined
@@ -178,16 +197,25 @@ export const canonicalTargetBindings = (
   }
   const context = contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x)
   const sourceId = ability.kind === 'spell' ? source.id : undefined
+  const normalizedSupplied = supplied.map((target) => pinTarget(state, target))
+  const normalizedGrouped = grouped?.map((clause) => clause.map((target) => pinTarget(state, target)))
+  if (normalizedGrouped && normalizedSupplied.length > 0) {
+    const groupedFlat = normalizedGrouped.flat()
+    if (groupedFlat.length !== normalizedSupplied.length
+      || groupedFlat.some((target, index) => identityKey(target) !== identityKey(normalizedSupplied[index]))) {
+      throw new RuleDslEvaluationError('targets and targetClauses disagree')
+    }
+  }
   const slots = grouped
-    ? groupedTargets(state, sourceId, ability.decisions.targets, grouped, context)
-    : partitionTargets(state, sourceId ?? '', ability.decisions.targets, supplied, context)
+    ? groupedTargets(state, sourceId, ability.decisions.targets, normalizedGrouped!, context)
+    : partitionTargets(state, sourceId ?? '', ability.decisions.targets, normalizedSupplied, context)
   if (!slots || !satisfiesConstraints(ability.decisions.constraints, slots)) {
     throw new RuleDslEvaluationError('supplied canonical targets do not satisfy the declared clauses')
   }
   return slots.map((recipients, clauseIndex) => ({
     scopeId: canonicalScopeId(abilityIndex),
     clauseIndex,
-    recipients: recipients.map((target) => pinTarget(state, target)),
+    recipients,
   }))
 }
 
@@ -202,7 +230,10 @@ export const canonicalTargetLegality = (
 ) => {
   const clause = ability.decisions.targets[binding.clauseIndex]
   if (!clause) return []
-  const context = contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x)
+  const context = bindingContext(
+    contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x),
+    [binding.recipients],
+  )
   return binding.recipients.map((target) => canonicalCandidate(state, target, clause, context, ability.kind === 'spell' ? source.id : undefined))
 }
 
@@ -214,10 +245,51 @@ export const canonicalTargetLegalityForAbility = (
   item?: StackItem,
   controller?: PlayerId,
   x?: number,
-) => Object.fromEntries(bindings.map((binding) => [
-  binding.clauseIndex,
-  canonicalTargetLegality(state, source, ability, binding, item, controller, x),
-])) as Record<number, boolean[]>
+) => {
+  const legality: Record<number, boolean[]> = {}
+  for (const binding of bindings) {
+    const clause = ability.decisions.targets[binding.clauseIndex]
+    if (!clause) {
+      legality[binding.clauseIndex] = []
+      continue
+    }
+    const context = bindingContext(
+      contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x),
+      bindings.map((entry) => entry.recipients),
+      legality,
+    )
+    legality[binding.clauseIndex] = binding.recipients.map((target) => canonicalCandidate(
+      state,
+      target,
+      clause,
+      context,
+      ability.kind === 'spell' ? source.id : undefined,
+    ))
+  }
+  return legality
+}
+
+export const canonicalWholeItemGate = (
+  state: GameState,
+  source: GameObject,
+  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  bindings: readonly CanonicalTargetBinding[],
+  item?: StackItem,
+) => {
+  const context = contextFor(state, item?.controller ?? source.controller, source, item)
+  if ('interveningIf' in ability && ability.interveningIf && !evaluateCondition(ability.interveningIf, context)) {
+    return { outcome: 'didNotResolve:interveningIf' as const, targetLegality: {} }
+  }
+  const targetLegality = bindings.length > 0
+    ? canonicalTargetLegalityForAbility(state, source, ability, bindings, item)
+    : {}
+  const targetCount = bindings.reduce((total, binding) => total + binding.recipients.length, 0)
+  const legalCount = bindings.reduce((total, binding) =>
+    total + (targetLegality[binding.clauseIndex] ?? []).filter(Boolean).length, 0)
+  return targetCount > 0 && legalCount === 0
+    ? { outcome: 'didNotResolve:allTargetsIllegal' as const, targetLegality }
+    : { outcome: 'resolved' as const, targetLegality }
+}
 
 export const canonicalTargetError = (
   state: GameState,

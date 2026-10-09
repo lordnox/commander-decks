@@ -42,9 +42,26 @@ import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
 import { compileCardRuleDefinition } from '../cardPlugins/dsl/compiler'
+import { pinTarget } from '../objectIdentity'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
+
+const targetKey = (state: GameState, target: TargetRef) => {
+  const pinned = pinTarget(state, target)
+  switch (pinned.kind) {
+    case 'player': return `player:${pinned.player}`
+    case 'stackItem': return `stack:${pinned.stackId}`
+    case 'object': return `object:${pinned.objectId}:${pinned.incarnation ?? ''}:${pinned.zone ?? ''}`
+  }
+}
+
+const targetInputsAgree = (state: GameState, event: Extract<import('../types').GameEvent, { type: 'castSpell' }>) => {
+  if (!event.targets || !event.targetClauses) return true
+  const flat = event.targetClauses.flat()
+  return flat.length === event.targets.length
+    && flat.every((target, index) => targetKey(state, target) === targetKey(state, event.targets![index]))
+}
 
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
@@ -326,6 +343,7 @@ export const spells: Plugin = {
       const face = resolveCastFace(object, event)
       const spell = face ? { ...object, ...face } : object
       if (object.ruleDefinition && !event.copy) {
+        if (!targetInputsAgree(state, event)) return 'targets and targetClauses disagree'
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
         if (abilityIndex >= 0) {
@@ -691,6 +709,17 @@ export const spells: Plugin = {
       }
       if (!heldByDriver) draft.stack.shift()
       if (item.kind === 'ability') {
+        if (item.payload?.canonicalWard === true) {
+          draft.enqueue({
+            type: 'custom',
+            name: 'ward.canonical.begin',
+            seat: typeof item.payload.casterSeat === 'string' ? item.payload.casterSeat : item.controller,
+            payload: item.payload,
+          })
+          draft.passedInRow = []
+          draft.priority = state.active
+          return
+        }
         resolveAbility(draft, item)
         draft.passedInRow = []
         draft.priority = state.active

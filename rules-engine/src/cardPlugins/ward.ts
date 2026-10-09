@@ -7,7 +7,8 @@ import {
 import { wardGeneric } from '../keywords'
 import { openCardSelection } from '../rules/selectCards'
 import { openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
-import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
+import { captureObject, isSameObject, objectIdentity } from '../objectIdentity'
+import type { CapturedObject, GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
 import { effectsOf } from './cardRules'
 import { finishedSpellZone } from './alternateCosts'
 import type { CardEffect } from './effects'
@@ -22,7 +23,16 @@ type WardSpec = NonNullable<Extract<CardEffect, { op: 'static' }>['ward']>
 
 type PendingCast = {
   event: Extract<GameEvent, { type: 'castSpell' | 'activateAbility' }>
+  stackId?: string
+  spellRef?: CapturedObject['ref']
+  warded?: CapturedObject
+  ward?: WardSpec
 }
+
+const canonicalCast = (state: GameState, event: GameEvent) =>
+  event.type === 'castSpell'
+  && !event.copy
+  && Boolean(state.objects[event.objectId]?.ruleDefinition)
 
 const wardEffect = (object: GameObject): WardSpec | undefined => {
   const stamped = effectsOf(object).flatMap((effect) =>
@@ -82,9 +92,9 @@ const pendingCastFor = (state: GameState, seat: string): PendingCast | undefined
 const storePendingCast = (
   draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
   seat: string,
-  event: PendingCast['event'],
+  pending: PendingCast,
 ) => {
-  draft.players[seat].data[WARD_PENDING_CAST] = { event } satisfies PendingCast
+  draft.players[seat].data[WARD_PENDING_CAST] = structuredClone(pending) satisfies PendingCast
 }
 
 const clearPendingCast = (
@@ -115,7 +125,7 @@ const openWardChoice = (
       count: ward.mana,
       optional: true,
     })
-    storePendingCast(draft, seat, pending.event)
+    storePendingCast(draft, seat, pending)
     draft.priority = seat
     return
   }
@@ -135,7 +145,7 @@ const openWardChoice = (
       ],
       action: { kind: 'ward-life', life: ward.life },
     })
-    storePendingCast(draft, seat, pending.event)
+    storePendingCast(draft, seat, pending)
     return
   }
   if (ward.sacrifice) {
@@ -161,7 +171,7 @@ const openWardChoice = (
       destinations: ['sacrifice'],
     })
     draft.players[seat].data[WARD_AWAITING] = true
-    storePendingCast(draft, seat, pending.event)
+    storePendingCast(draft, seat, pending)
     draft.priority = seat
   }
 }
@@ -172,9 +182,14 @@ const counterPending = (
 ) => {
   if (pending.event.type === 'castSpell') {
     const object = draft.object(pending.event.objectId)
-    if (object?.zone === 'stack') {
-      const index = draft.stack.findIndex((item) => item.objectId === object.id)
+    if (object?.zone === 'stack' && (!pending.spellRef || isSameObject(object, pending.spellRef))) {
+      const index = draft.stack.findIndex((item) =>
+        pending.stackId ? item.id === pending.stackId : item.objectId === object.id)
       if (index >= 0) {
+        if (draft.stack[index].uncounterable) {
+          draft.note(`${object.name} cannot be countered by Ward`)
+          return
+        }
         const [countered] = draft.stack.splice(index, 1)
         draft.enqueue({
           type: 'move',
@@ -219,6 +234,7 @@ export const ward: Plugin = {
   },
   replace: ({ state, event }) => {
     if (event.type !== 'castSpell' && event.type !== 'activateAbility') return
+    if (canonicalCast(state, event)) return
     if (pendingCastFor(state, event.seat)) return null
     const warded = wardTargets(state, event.seat, castTargets(event), event.wardPaid)
     if (warded.length === 0) return
@@ -230,6 +246,50 @@ export const ward: Plugin = {
     }
   },
   apply: ({ state, event, draft }) => {
+    if (event.type === 'castSpell' && canonicalCast(state, event) && !event.wardPaid) {
+      const warded = wardTargets(state, event.seat, castTargets(event))
+      const spell = draft.stack.find((item) => item.objectId === event.objectId)
+      if (spell) {
+        for (const { object, ward } of warded) {
+          const capturedWarded = captureObject(object)
+          const spellObject = draft.object(event.objectId)
+          draft.addToStack({
+            kind: 'ability',
+            objectId: object.id,
+            controller: object.controller,
+            name: `${object.name}'s Ward`,
+            targets: [],
+            payload: {
+              canonicalWard: true,
+              spellStackId: spell.id,
+              cast: structuredClone(event),
+              casterSeat: event.seat,
+              wardedId: object.id,
+              warded: capturedWarded,
+              ward: structuredClone(ward),
+              ...(spellObject ? { spellRef: objectIdentity(spellObject) } : {}),
+            },
+          })
+        }
+      }
+      return
+    }
+    if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {
+      const cast = event.payload?.cast as PendingCast['event'] | undefined
+      const wardedId = typeof event.payload?.wardedId === 'string' ? event.payload.wardedId : undefined
+      const warded = event.payload?.warded as CapturedObject | undefined
+      const ward = event.payload?.ward as WardSpec | undefined
+      if (!cast || !wardedId || !warded || !ward) return
+      if (warded.ref.objectId !== wardedId) return
+      openWardChoice(draft, event.seat, warded.snapshot, ward, {
+        event: cast,
+        stackId: typeof event.payload?.spellStackId === 'string' ? event.payload.spellStackId : undefined,
+        spellRef: event.payload?.spellRef as CapturedObject['ref'] | undefined,
+        warded,
+        ward,
+      })
+      return
+    }
     if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {
       const cast = event.payload?.cast as PendingCast['event'] | undefined
       if (!cast || (cast.type !== 'castSpell' && cast.type !== 'activateAbility')) return
@@ -254,7 +314,9 @@ export const ward: Plugin = {
           cost: `{${dialog.count}}`,
         })
         clearPendingCast(draft, event.seat)
-        draft.enqueue({ ...pending.event, wardPaid: true })
+        if (!(pending.event.type === 'castSpell' && draft.stack.some((item) => item.objectId === pending.event.objectId))) {
+          draft.enqueue({ ...pending.event, wardPaid: true })
+        }
         draft.note(`${event.seat} pays Ward {${dialog.count}}`)
         return
       }
@@ -280,7 +342,9 @@ export const ward: Plugin = {
       })
       // Paying all of your life is legal, but then you lose before the spell could go on.
       if (draft.players[event.seat].life > selection.action.life) {
-        draft.enqueue({ ...pending.event, wardPaid: true })
+        if (!(pending.event.type === 'castSpell' && draft.stack.some((item) => item.objectId === pending.event.objectId))) {
+          draft.enqueue({ ...pending.event, wardPaid: true })
+        }
       }
       draft.note(`${event.seat} pays Ward—${selection.action.life} life`)
       return
@@ -292,13 +356,15 @@ export const ward: Plugin = {
       delete draft.players[event.seat].data[WARD_AWAITING]
       if (!pending) return
       const count = event.objectIds?.length ?? 0
-      const required = wardTargets(state, event.seat, pending.event.targets)[0]?.ward.sacrifice?.count ?? 0
+      const required = pending.ward?.sacrifice?.count ?? wardTargets(state, event.seat, pending.event.targets)[0]?.ward.sacrifice?.count ?? 0
       clearPendingCast(draft, event.seat)
       if (count < required) {
         counterPending(draft, pending)
         return
       }
-      draft.enqueue({ ...pending.event, wardPaid: true })
+      if (!(pending.event.type === 'castSpell' && draft.stack.some((item) => item.objectId === pending.event.objectId))) {
+        draft.enqueue({ ...pending.event, wardPaid: true })
+      }
       draft.note(`${event.seat} pays Ward`)
     }
   },

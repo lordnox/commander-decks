@@ -25,10 +25,16 @@ uncounterable legal spell, so later instructions continue and can branch on
 the result.
 
 The supported canonical capability set for this part is still deliberately
-narrow: spell abilities with fully supplied targets and `draw`, `gainLife`,
+narrow: directly supplied spell, activated, or triggered ability stack items
+with supplied execution context and targets, plus `draw`, `gainLife`,
 `loseLife`, `damage`, `destroy`, `counter`, and `sequence` instructions.
-Modes, payment choices, generalized triggered-ability placement, and the
-reusable action catalogue remain owned by later parts.
+Modes, payment choices, trigger collection/placement, and the reusable action
+catalogue remain owned by later parts. A directly supplied canonical ability
+stack item still applies its `interveningIf` gate before the same whole-item
+target gate; Part 06 owns collecting such triggers from occurrences. Ward is
+created as a trigger stack item with its controller, source, Ward specification,
+and target spell identity captured at cast time; payment continues that item
+without recasting the spell.
 
 The implementation follows CR 115 target legality and uniqueness, CR 608.2a
 intervening target checks and CR 608.2b whole-item resolution, plus CR 702.21

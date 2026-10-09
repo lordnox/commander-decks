@@ -397,9 +397,14 @@ export const validateDefinitionV1 = (root: unknown): {
     exactKeys(node, path, ['targets', 'constraints', 'modes', 'variables', 'distributions'], ['targets'])
     if (node.variables !== undefined) validateVariables(node.variables, childPath(path, 'variables'), env)
     const targetClauses = array(node.targets, childPath(path, 'targets'))
-    env.targets = targetClauses.map((clause, index) =>
-      validateTargetClause(clause, childPath(childPath(path, 'targets'), index), env))
-    env.targetSingleton = targetClauses.map(targetClauseIsSingleton)
+    const targetDomains: Array<Domain | undefined> = []
+    const targetSingletons: boolean[] = []
+    targetClauses.forEach((clause, index) => {
+      targetDomains.push(validateTargetClause(clause, childPath(childPath(path, 'targets'), index), env))
+      targetSingletons.push(targetClauseIsSingleton(clause))
+      env.targets = targetDomains
+      env.targetSingleton = targetSingletons
+    })
     if (node.constraints !== undefined) array(node.constraints, childPath(path, 'constraints')).forEach((entry, index) => {
       const entryPath = childPath(childPath(path, 'constraints'), index)
       const constraint = object(entry, entryPath)

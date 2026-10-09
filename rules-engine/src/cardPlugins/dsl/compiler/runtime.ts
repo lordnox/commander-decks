@@ -76,6 +76,11 @@ const recipients = (
   ? targetRecipients(reference, context)
   : choiceRecipients(reference, context)
 
+export const evaluateBoundRecipients = (
+  reference: TargetReference | ChoiceReference,
+  context: RuleDslRuntimeContext,
+) => recipients(reference, context)
+
 const unique = <Value>(values: readonly Value[]) => [...new Set(values)]
 
 const recipientsInDomain = <Recipient extends BoundRecipient>(

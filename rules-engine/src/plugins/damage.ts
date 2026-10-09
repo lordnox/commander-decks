@@ -18,6 +18,13 @@ const lifeGainFor = (event: Extract<GameEvent, { type: 'dealDamage' }>, source?:
   }
 }
 
+const sourceFor = (
+  event: Extract<GameEvent, { type: 'dealDamage' }>,
+  objects: Record<string, GameObject>,
+) => event.sourceSnapshot?.ref.objectId === event.sourceId
+  ? event.sourceSnapshot.snapshot
+  : objects[event.sourceId]
+
 /**
  * CR-shaped damage chain:
  * combatDamage → dealDamage → loseLife (players) or marked damage (objects).
@@ -33,6 +40,7 @@ export const damage: Plugin = {
         target: event.target,
         amount: event.amount,
         combat: true,
+        ...(event.sourceSnapshot ? { sourceSnapshot: event.sourceSnapshot } : {}),
       })
       return
     }
@@ -40,14 +48,14 @@ export const damage: Plugin = {
     if (event.type === 'dealDamage') {
       if (event.target.kind === 'player') {
         if (event.combat === true && event.amount > 0) {
-          const source = draft.objects[event.sourceId]
+          const source = sourceFor(event, draft.objects)
           const victim = draft.players[event.target.player]
           if (victim && isLegendaryCreature(source)) {
             noteLegendaryCombatDamageToPlayer(victim, source!.controller)
           }
         }
         const maximum = Math.max(0, draft.players[event.target.player]?.life ?? 0)
-        const source = draft.objects[event.sourceId]
+        const source = sourceFor(event, draft.objects)
         if (source && hasKeyword(source, 'infect')) {
           // CR 702.90b: infect damage to a player is poison counters, not life loss.
           draft.players[event.target.player].poison += event.amount
@@ -73,7 +81,7 @@ export const damage: Plugin = {
       if (event.target.kind !== 'object') return
       const object = targetObject(draft, event.target)
       if (!object || object.zone !== 'battlefield') return
-      const source = draft.objects[event.sourceId]
+      const source = sourceFor(event, draft.objects)
       recordDamageDealt(object, source, event.amount)
       const maximum = object.types.includes('Planeswalker')
         ? object.counters.loyalty ?? 0

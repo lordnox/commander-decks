@@ -96,7 +96,7 @@ describe('Rule DSL v1 canonical authoring', () => {
       canonicalLoad: true,
       serialization: true,
       runtimeExecution: {
-        abilityKinds: ['spell'],
+        abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
         instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
         decisions: 'fullySuppliedTargets',
       },
@@ -202,7 +202,7 @@ describe('Rule DSL v1 canonical authoring', () => {
       'keyword', 'activated', 'static', 'triggered',
     ])
     expect(compiled.capabilities.runtimeExecution).toEqual({
-      abilityKinds: ['spell'],
+      abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
       instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
       decisions: 'fullySuppliedTargets',
     })
@@ -688,7 +688,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
 
   test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {
     expect(RULE_DSL_V1_CAPABILITIES.runtimeExecution).toEqual({
-      abilityKinds: ['spell'],
+      abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
       instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
       decisions: 'fullySuppliedTargets',
     })
