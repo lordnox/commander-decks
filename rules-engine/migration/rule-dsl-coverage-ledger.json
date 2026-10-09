@@ -1134,7 +1134,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 460,
+        "matches": 461,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -3540,7 +3540,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 66,
+        "matches": 67,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:2915 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -22532,7 +22532,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:668",
+        "rules-engine/src/rules/triggers.ts:670",
         "rules-engine/src/types.ts:232",
         "rules-engine/src/types.ts:234",
         "rules-engine/src/types.ts:238"
@@ -22853,10 +22853,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          203
+          204
         ],
         "samples": [
-          "203: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "204: if (filter.name !== undefined && object.name !== filter.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23062,16 +23062,16 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          83,
-          303,
-          419,
-          603,
-          604
+          85,
+          305,
+          421,
+          605,
+          606
         ],
         "samples": [
-          "83: eventType: event.type === 'custom' ? event.name : event.type,",
-          "303: if (event.type === 'custom' && event.name === 'cardPlugins.permanentEntered'",
-          "419: if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== on) return"
+          "85: eventType: event.type === 'custom' ? event.name : event.type,",
+          "305: if (event.type === 'custom' && event.name === 'cardPlugins.permanentEntered'",
+          "421: if (event.type !== 'custom' || event.name !== 'advanceStep' || draft.step !== on) return"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -24287,21 +24287,21 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          158,
-          253,
-          287,
-          365,
-          430,
-          442,
-          482,
-          563,
-          626,
-          666
+          160,
+          255,
+          289,
+          367,
+          432,
+          444,
+          484,
+          565,
+          628,
+          668
         ],
         "samples": [
-          "158: const live = draft.object(source.id)",
-          "253: const land = draft.object(objectId)",
-          "287: const object = draft.object(objectId)"
+          "160: const live = draft.object(source.id)",
+          "255: const land = draft.object(objectId)",
+          "289: const object = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24839,12 +24839,12 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          205,
-          232
+          208,
+          235
         ],
         "samples": [
-          "205: const source = draft.object(event.objectId)",
-          "232: draft.addToStack({"
+          "208: const source = draft.object(event.objectId)",
+          "235: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

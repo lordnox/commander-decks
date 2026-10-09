@@ -41,11 +41,14 @@ const activatedTargetFilter = (
 ): TargetFilter | undefined => {
   if (!targets) return undefined
   if (typeof targets === 'string') {
-    if (targets === 'creature') return { zone: 'battlefield', type: 'Creature' }
-    if (targets === 'land') return { zone: 'battlefield', type: 'Land' }
-    if (targets === 'room') return { zone: 'battlefield', subtype: 'Room', controller: 'you' }
-    if (targets === 'legendary') return { zone: 'battlefield', supertype: 'Legendary' }
-    return undefined
+    switch (targets) {
+      case 'creature': return { zone: 'battlefield', type: 'Creature' }
+      case 'land': return { zone: 'battlefield', type: 'Land' }
+      // Marina Vendrell's shorthand means a Room you control. Room is a subtype.
+      case 'room': return { zone: 'battlefield', subtype: 'Room', controller: 'you' }
+      case 'legendary': return { zone: 'battlefield', supertype: 'Legendary' }
+      default: return undefined
+    }
   }
   return 'filter' in targets ? targets.filter : targets
 }
