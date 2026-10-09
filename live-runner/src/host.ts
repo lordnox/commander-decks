@@ -223,7 +223,11 @@ export const applyHostControl = (
 export const kernelOwnsChoice = (message: InboxMessage, state: LobbyState) =>
   message.type === 'topdeck'
   && (state.topdeck?.kernel !== undefined
-    || (message.requestId !== undefined && state.completedInteractions?.[message.requestId] !== undefined))
+    || (
+      message.requestId !== undefined
+      && message.revision !== undefined
+      && state.completedInteractions?.[message.requestId] !== undefined
+    ))
 
 export const actionsAfterJudgment = (options: {
   current: LobbyState['actions']
