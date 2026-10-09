@@ -5,7 +5,7 @@ import type { CardRuleDefinitionV1, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, PlayerId, StackItem, TargetRef } from '../../../types'
 import { captureObject, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
-import { evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
 import { evaluateTargetBounds } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
 
@@ -68,15 +68,7 @@ const contextFor = (
 const targetCounts = (
   clauses: readonly TargetClause[],
   context: RuleDslRuntimeContext,
-) => clauses.map((clause) => evaluateTargetBounds(clause, {
-  variables: context.variables,
-  count: (selector) => selector.kind === 'players'
-    ? evaluatePlayerSelector(selector, context).length
-    : selector.kind === 'objects'
-      ? evaluateObjectSelector(selector, context).length
-      : evaluateStackItemSelector(selector, context).length,
-  characteristic: () => { throw new RuleDslEvaluationError('target bounds cannot read a characteristic') },
-}))
+) => clauses.map((clause) => evaluateTargetBounds(clause, amountEvaluationContext(context)))
 
 const bindingContext = (
   context: RuleDslRuntimeContext,
@@ -84,15 +76,24 @@ const bindingContext = (
   legality?: Readonly<Record<number, readonly boolean[]>>,
 ) => ({
   ...context,
-  targets: Object.fromEntries(slots.map((targets, clauseIndex) => [clauseIndex, targets.flatMap((target): BoundRecipient[] => {
-    switch (target.kind) {
-      case 'player': return [{ kind: 'player', playerId: target.player }]
-      case 'stackItem': return [{ kind: 'stackItem', stackId: target.stackId }]
-      case 'object': return target.incarnation === undefined || target.zone === undefined
-        ? []
-        : [{ kind: 'object', objectId: target.objectId, incarnation: target.incarnation, zone: target.zone }]
-    }
-  })])),
+  targets: (() => {
+    const targetBindings: Record<number, BoundRecipient[]> = Object.fromEntries(slots.map((targets, clauseIndex) => {
+      const recipients: BoundRecipient[] = []
+      for (const target of targets) {
+        switch (target.kind) {
+          case 'player': recipients.push({ kind: 'player', playerId: target.player }); break
+          case 'stackItem': recipients.push({ kind: 'stackItem', stackId: target.stackId }); break
+          case 'object':
+            if (target.incarnation !== undefined && target.zone !== undefined) {
+              recipients.push({ kind: 'object', objectId: target.objectId, incarnation: target.incarnation, zone: target.zone })
+            }
+            break
+        }
+      }
+      return [clauseIndex, recipients] as const
+    }))
+    return targetBindings
+  })(),
   ...(legality ? { targetLegality: legality } : {}),
 })
 
@@ -219,24 +220,6 @@ export const canonicalTargetBindings = (
   }))
 }
 
-export const canonicalTargetLegality = (
-  state: GameState,
-  source: GameObject,
-  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
-  binding: CanonicalTargetBinding,
-  item?: StackItem,
-  controller?: PlayerId,
-  x?: number,
-) => {
-  const clause = ability.decisions.targets[binding.clauseIndex]
-  if (!clause) return []
-  const context = bindingContext(
-    contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x),
-    [binding.recipients],
-  )
-  return binding.recipients.map((target) => canonicalCandidate(state, target, clause, context, ability.kind === 'spell' ? source.id : undefined))
-}
-
 export const canonicalTargetLegalityForAbility = (
   state: GameState,
   source: GameObject,
@@ -329,22 +312,32 @@ export const canonicalFlagbearerError = (
   const targetingController = controller ?? source.controller
   const flagbearers = Object.values(state.objects).filter((object) =>
     object.zone === 'battlefield'
-    && object.controller !== targetingController
     && effectsOf(object).some((effect) => effect.op === 'targetingRequirement' && effect.kind === 'flagbearer'))
-  if (flagbearers.length === 0) return
+  const opposingFlagbearers = flagbearers.filter((object) => object.controller !== targetingController)
+  if (opposingFlagbearers.length === 0) return
   const ability = definition.abilities[abilityIndex]
   if (!ability || !('decisions' in ability)) return
   const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, undefined, grouped, controller, x)
   if (bindings.some((binding) => binding.recipients.some((target) =>
     target.kind === 'object' && flagbearers.some((candidate) => candidate.id === target.objectId)))) return
-  const context = contextFor(state, targetingController, source, undefined, x)
-  const able = ability.decisions.targets.some((clause) => {
-    if ((evaluateTargetBounds(clause, {
-      variables: context.variables,
-      count: (selector) => selector.kind === 'players' ? evaluatePlayerSelector(selector, context).length : selector.kind === 'objects' ? evaluateObjectSelector(selector, context).length : evaluateStackItemSelector(selector, context).length,
-      characteristic: () => 0,
-    }).min) === 0) return false
-    return flagbearers.some((flagbearer) => canonicalCandidate(state, { kind: 'object', objectId: flagbearer.id, incarnation: flagbearer.incarnation, zone: flagbearer.zone }, clause, context, ability.kind === 'spell' ? source.id : undefined))
+  const baseContext = contextFor(state, targetingController, source, undefined, x)
+  const able = ability.decisions.targets.some((clause, clauseIndex) => {
+    const binding = bindings[clauseIndex]
+    if (!binding || binding.recipients.length === 0) return false
+    const context = bindingContext(
+      baseContext,
+      bindings.slice(0, clauseIndex).map((entry) => entry.recipients),
+    )
+    return flagbearers.some((flagbearer) => {
+      const target = { kind: 'object' as const, objectId: flagbearer.id, incarnation: flagbearer.incarnation, zone: flagbearer.zone }
+      if (!canonicalCandidate(state, target, clause, context, ability.kind === 'spell' ? source.id : undefined)) return false
+      return binding.recipients.some((_, recipientIndex) => {
+        const prospective = bindings.map((entry, index) => index === clauseIndex
+          ? entry.recipients.map((recipient, indexInClause) => indexInClause === recipientIndex ? target : recipient)
+          : entry.recipients)
+        return satisfiesConstraints(ability.decisions.constraints, prospective)
+      })
+    })
   })
   return able ? 'an opponent choosing targets must target a Flagbearer if able' : undefined
 }

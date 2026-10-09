@@ -158,18 +158,26 @@ const runtimeContext = (
   source: frame.source,
   stackItemId: item.id,
   ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
-  targets: Object.fromEntries((frame.targetBindings ?? [])
-    .filter((binding) => binding.scopeId === (frame.scopeId ?? binding.scopeId))
-    .map((binding): [number, BoundRecipient[]] => [binding.clauseIndex, binding.recipients.flatMap((target): BoundRecipient[] => {
-      switch (target.kind) {
-        case 'player': return [{ kind: 'player' as const, playerId: target.player }]
-        case 'stackItem': return [{ kind: 'stackItem' as const, stackId: target.stackId }]
-        case 'object': {
-          if (target.incarnation === undefined || target.zone === undefined) return []
-          return [{ kind: 'object' as const, objectId: target.objectId, incarnation: target.incarnation, zone: target.zone }]
+  targets: (() => {
+    const targets: Record<number, BoundRecipient[]> = Object.fromEntries((frame.targetBindings ?? [])
+      .filter((binding) => binding.scopeId === (frame.scopeId ?? binding.scopeId))
+      .map((binding) => {
+        const recipients: BoundRecipient[] = []
+        for (const target of binding.recipients) {
+          switch (target.kind) {
+            case 'player': recipients.push({ kind: 'player', playerId: target.player }); break
+            case 'stackItem': recipients.push({ kind: 'stackItem', stackId: target.stackId }); break
+            case 'object':
+              if (target.incarnation !== undefined && target.zone !== undefined) {
+                recipients.push({ kind: 'object', objectId: target.objectId, incarnation: target.incarnation, zone: target.zone })
+              }
+              break
+          }
         }
-      }
-    })])),
+        return [binding.clauseIndex, recipients] as const
+      }))
+    return targets
+  })(),
   targetLegality: frame.targetLegality,
   results: frame.results,
   ...(item.x === undefined ? {} : { variables: { X: item.x } }),
@@ -192,28 +200,28 @@ const objectRecipients = (objects: readonly GameObject[]) => objects.map((object
 })) as DamageRecipient[]
 
 const boundDamageRecipients = (bound: BoundRecipient) => {
-  const recipients: DamageRecipient[] = []
+  const boundTargets: DamageRecipient[] = []
   switch (bound.kind) {
-    case 'player': recipients.push({ kind: 'player', player: bound.playerId }); break
-    case 'object': recipients.push({ kind: 'object', objectId: bound.objectId, incarnation: bound.incarnation, zone: bound.zone }); break
+    case 'player': boundTargets.push({ kind: 'player', player: bound.playerId }); break
+    case 'object': boundTargets.push({ kind: 'object', objectId: bound.objectId, incarnation: bound.incarnation, zone: bound.zone }); break
     case 'stackItem': break
   }
-  return recipients
+  return boundTargets
 }
 
 const mixedRecipients = (recipient: Extract<Instruction, { kind: 'damage' }>['targets'], context: RuleDslRuntimeContext) => {
-  const recipients: DamageRecipient[] = []
+  const damageTargets: DamageRecipient[] = []
   switch (recipient.kind) {
-    case 'players': recipients.push(...evaluatePlayerSelector(recipient, context).map((player) => ({ kind: 'player' as const, player }))); break
-    case 'objects': recipients.push(...objectRecipients(evaluateObjectSelector(recipient, context))); break
+    case 'players': damageTargets.push(...evaluatePlayerSelector(recipient, context).map((player) => ({ kind: 'player' as const, player }))); break
+    case 'objects': damageTargets.push(...objectRecipients(evaluateObjectSelector(recipient, context))); break
     case 'targetRef':
     case 'choiceRef':
-      recipients.push(...evaluateBoundRecipients(recipient, context).flatMap(boundDamageRecipients)); break
+      damageTargets.push(...evaluateBoundRecipients(recipient, context).flatMap(boundDamageRecipients)); break
     case 'contextRef':
-      if (recipient.name === 'source') recipients.push(...objectRecipients(evaluateObjectReference(recipient, context, 'currentOrLastKnown')))
-      else recipients.push(...evaluatePlayerReference(recipient, context).map((player) => ({ kind: 'player' as const, player })))
+      if (recipient.name === 'source') damageTargets.push(...objectRecipients(evaluateObjectReference(recipient, context, 'currentOrLastKnown')))
+      else damageTargets.push(...evaluatePlayerReference(recipient, context).map((player) => ({ kind: 'player' as const, player })))
   }
-  return recipients
+  return damageTargets
 }
 
 const capturedDamageSource = (source: GameObject, context: RuleDslRuntimeContext) => ({
@@ -232,8 +240,12 @@ const availableAmount = (expression: Parameters<typeof evaluateRuntimeAmount>[0]
       error instanceof RuleDslEvaluationError
       && expression.kind === 'characteristic'
       && expression.of.kind === 'targetRef'
-      && evaluateBoundRecipients(expression.of, context).length === 0
-    ) return undefined
+    ) {
+      const bound = evaluateBoundRecipients(expression.of, context)
+      if (bound.length === 0) return undefined
+      if (expression.information === 'current'
+        && evaluateObjectReference(expression.of, context, 'current').length === 0) return undefined
+    }
     throw error
   }
 }
@@ -264,13 +276,13 @@ const actionEvents = (
       }))
     }
     case 'damage': {
-      const recipients = mixedRecipients(instruction.targets, context)
+      const damageRecipients = mixedRecipients(instruction.targets, context)
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
       const sources = evaluateObjectReference(instruction.source, context, 'currentOrLastKnown')
       if (sources.length !== 1) return []
       const source = sources[0]
-      return recipients.map((target) => ({
+      return damageRecipients.map((target) => ({
         type: 'dealDamage' as const,
         sourceId: source.id,
         sourceSnapshot: capturedDamageSource(source, context),

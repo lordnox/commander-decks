@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, count, objects, ref } from './cardPlugins/dsl/builders'
+import { amount, count, objects, ref, select } from './cardPlugins/dsl/builders'
 import { card } from './cardPlugins/dsl/sugar/card'
 import { compileCardRuleDefinition, createDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import type { Instruction } from './cardPlugins/dsl/schema/v1'
@@ -255,6 +255,39 @@ describe('durable canonical resolution driver', () => {
     expect(resolved.players.p1.life).toBe(45)
     expect(resolved.resolution).toBeUndefined()
     expect(resolved.stack).toEqual([])
+  })
+
+  test('journal restore keeps canonical target bindings and mid-resolution legality private', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [{ kind: 'gainLife', amount: amount(1), targets: ref('controller') }],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Journal Target Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: { p2: [cardTemplate('Journal Target', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Journal Target Spell')!
+    const targetObject = Object.values(server.state.objects).find((object) => object.name === 'Journal Target')!
+    const castState = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spell.id,
+      targets: [{ kind: 'object', objectId: targetObject.id }],
+    }))
+    const draft = makeDraft(castState)
+    startCanonicalResolution(draft, draft.stack[0])
+    expect(prepareResolutionStep(draft)).toMatchObject({ kind: 'events' })
+    const suspended = freezeDraft(draft)
+    expect(suspended.resolution).toMatchObject({
+      kind: 'canonicalSpell',
+      targetBindings: [{ clauseIndex: 0, recipients: [{ kind: 'object', objectId: targetObject.id }] }],
+      targetLegality: { 0: [true] },
+    })
+    const restored = JSON.parse(JSON.stringify(suspended)) as GameState
+    const resolved = ok(server.rules(restored, { type: 'resumeResolution' }))
+    expect(resolved.players.p1.life).toBe(41)
+    expect(projectForViewer(suspended, 'p1').resolution).toBeUndefined()
   })
 
   test('keeps frames private and never disposes a later incarnation', () => {

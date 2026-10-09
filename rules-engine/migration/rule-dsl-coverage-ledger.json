@@ -3540,7 +3540,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 87,
+        "matches": 93,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:2919 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -21431,7 +21431,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/protocol.test.ts:113 — test('parses lobby and play types', () => {",
+          "live-runner/src/protocol.test.ts:119 — test('parses lobby and play types', () => {",
           "rules-engine/src/plugins/rebound.test.ts:68"
         ]
       },
@@ -23609,11 +23609,11 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           118,
-          359
+          371
         ],
         "samples": [
           "118: const liveSource = draft.object(source.ref.objectId)",
-          "359: const object = draft.object(item.objectId)"
+          "371: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

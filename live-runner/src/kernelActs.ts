@@ -135,6 +135,7 @@ export const applyKernelAct = (
   const groups = action.kind === 'activateAbility' ? activationGroups : castGroups
   const { choices, delve, targets: selectedTargets } =
     splitGroupSelection(groups, message.targetObjectIds ?? [])
+  const groupedTargets = message.targetClauses?.map((clause) => targetRefs(groups, clause))
   const otherGroups = groups.filter((group) => !group.delve)
   // A delve cast is funded by the kernel like any other planned cast, so only
   // the delve picks and the spell's own targets travel on the event.
@@ -162,7 +163,7 @@ export const applyKernelAct = (
             : undefined
           const hasTargetGroup = castGroups.some(({ purpose }) => purpose !== 'cost')
           const spellTargets = hasTargetGroup
-            ? targetRefs(castGroups, selectedTargets)
+            ? groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets)
             : action.targetObjectId
               ? [{ kind: 'object' as const, objectId: action.targetObjectId }]
               : action.targetPlayerId
@@ -180,6 +181,7 @@ export const applyKernelAct = (
             ...(alternative?.discard ? { discard: choices } : {}),
             ...(alternative?.sacrifice ? { sacrifice: choices } : {}),
             ...(hasTargetGroup || spellTargets.length > 0 ? { targets: spellTargets } : {}),
+            ...(groupedTargets ? { targetClauses: groupedTargets } : {}),
           }]
         })()
     : eventsForAvailableAction(state, seat, action)

@@ -21,8 +21,9 @@ slots while retaining their original clause indexes; no retargeting or
 last-known target characteristics are introduced. The source's departure is
 independent of target legality. Counter instructions report whether the target
 stack item was actually removed, including the failure to counter an
-uncounterable legal spell, so later instructions continue and can branch on
-the result.
+uncounterable legal spell, so later instructions continue. The typed result is
+recorded for the conditional-instruction support planned in Part 07; Part 04
+preflight rejects conditional instruction programs.
 
 The supported canonical capability set for this part is still deliberately
 narrow: directly supplied spell, activated, or triggered ability stack items
@@ -37,7 +38,7 @@ and target spell identity captured at cast time; payment continues that item
 without recasting the spell.
 
 The implementation follows CR 115 target legality and uniqueness, CR 608.2a
-intervening target checks and CR 608.2b whole-item resolution, plus CR 702.21
+intervening-if and CR 608.2b whole-item resolution, plus CR 702.21
 ward's triggered treatment. The target binding and resolution tests cover
 optional zero targets, ambiguous optional clauses, all-illegal and mixed
 legality, source departure, and an uncounterable counter target.

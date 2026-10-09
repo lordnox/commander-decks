@@ -1248,7 +1248,7 @@ describe('kernel host journal', () => {
       type: 'act',
       kind: 'castSpell',
       objectId: arc.id,
-      targetObjectIds: chosen,
+      targetClauses: [[chosen[0]], [chosen[1]]],
     })).toHaveLength(1)
     expect(kernel.history.current().stack[0]).toMatchObject({
       objectId: arc.id,
