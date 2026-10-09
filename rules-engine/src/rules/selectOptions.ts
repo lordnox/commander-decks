@@ -76,7 +76,7 @@ export const openOptionSelection = (
     id: draft.allocId('option'),
     ...selection,
   }
-  draft.priority = selection.seat
+  if (!draft.resolution) draft.priority = selection.seat
 }
 
 export const selectOptions: Plugin = {

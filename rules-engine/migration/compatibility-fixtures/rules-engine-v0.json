@@ -1451,7 +1451,7 @@
         ],
         "delayedTriggers": [],
         "active": "p1",
-        "priority": "p1",
+        "priority": null,
         "turn": 1,
         "step": "precombatMain",
         "passedInRow": [],
@@ -1771,7 +1771,104 @@
         "ended": false,
         "monarch": null,
         "log": [],
-        "prevented": false
+        "prevented": false,
+        "resolution": {
+          "version": 1,
+          "kind": "legacy",
+          "stackId": "s3",
+          "controller": "p1",
+          "intendedPriority": "p1",
+          "item": {
+            "id": "s3",
+            "kind": "spell",
+            "objectId": "o2",
+            "controller": "p1",
+            "name": "Bushwhack",
+            "targets": [],
+            "manaSpent": {
+              "G": 1
+            },
+            "castFrom": "hand",
+            "execution": {
+              "controller": "p1",
+              "source": {
+                "ref": {
+                  "objectId": "o2",
+                  "incarnation": 2,
+                  "zone": "stack"
+                },
+                "snapshot": {
+                  "incarnation": 2,
+                  "tapped": false,
+                  "summoningSickness": false,
+                  "damageMarked": 0,
+                  "counters": {},
+                  "types": [
+                    "Sorcery"
+                  ],
+                  "subtypes": [],
+                  "supertypes": [],
+                  "manaCost": "{G}",
+                  "manaValue": 0,
+                  "colors": [],
+                  "power": null,
+                  "toughness": null,
+                  "printedLoyalty": null,
+                  "printedDefense": null,
+                  "loyaltyActivatedTurn": null,
+                  "oracleText": "",
+                  "attachedTo": null,
+                  "attacking": null,
+                  "blocking": null,
+                  "grantedRules": [],
+                  "token": false,
+                  "tags": [],
+                  "name": "Bushwhack",
+                  "id": "o2",
+                  "owner": "p1",
+                  "controller": "p1",
+                  "zone": "stack",
+                  "effects": [
+                    {
+                      "op": "modal",
+                      "choose": "one",
+                      "modes": [
+                        {
+                          "id": "land",
+                          "label": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                          "do": [
+                            {
+                              "kind": "searchLibrary",
+                              "spec": {
+                                "prompt": "Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+                                "destination": "hand",
+                                "min": 1,
+                                "max": 1,
+                                "reveal": true
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "id": "fight",
+                          "label": "Target creature you control fights target creature you don't control.",
+                          "do": [
+                            {
+                              "kind": "fightOwnedVsOpponent"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "information": "current"
+              }
+            }
+          },
+          "phase": "waiting",
+          "pendingEvents": []
+        }
       },
       "dialog": {
         "kind": "choose-modes",

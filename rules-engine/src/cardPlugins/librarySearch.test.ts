@@ -152,7 +152,6 @@ describe('librarySearch', () => {
       { type: 'resolveTop' },
       { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { objectIds: [] } },
     ])
-
     expect(named(done, 'First Forest').zone).toBe('battlefield')
     expect(pendingSearch(done, 'p1')).toBeUndefined()
     expect(done.objects[spell.id].zone).toBe('graveyard')
@@ -195,13 +194,12 @@ describe('librarySearch', () => {
     expect(asking.objects[spell.id].zone).toBe('stack')
 
     const mountain = named(asking, 'Mountain').id
-    const resolved = run(server, asking, [
+    const resolved = ([
       { type: 'reveal', seat: 'p1', objectIds: [mountain], source: 'Riveteers Overlook' },
-      { type: 'move', objectId: mountain, to: 'hand' },
+      { type: 'move', objectId: mountain, to: 'battlefield' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-
+    ] as GameEvent[]).reduce((current, event) => ok(server.rules(current, event)), asking)
     expect(resolved.objects[spell.id].zone).toBe('graveyard')
     expect(pendingSearch(resolved, 'p1')).toBeUndefined()
   })

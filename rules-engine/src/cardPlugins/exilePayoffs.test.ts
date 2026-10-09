@@ -94,7 +94,7 @@ describe('exile payoffs', () => {
     const afterLife = ok(server.rules(synced, { type: 'gainLife', seat: 'p1', amount: 1 }))
     const syncLog = afterLife.log.slice(logBefore).filter((line) => line.includes('exilePayoffs.sync'))
     expect(syncLog).toEqual([])
-    expect(exilePayoffs.sba?.({ state: afterLife } as never)).toEqual([])
+    expect(exilePayoffs.recompute?.({ state: afterLife } as never)).toEqual([])
   })
 
   test('pumps itself until end of turn by the power of a linked exiled card', () => {

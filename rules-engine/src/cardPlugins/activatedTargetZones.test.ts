@@ -228,4 +228,16 @@ describe('Boseiju, Who Endures', () => {
     expect(pendingSelectionFor(resolved, 'p2')).toBeUndefined()
     expect(named(resolved, 'Basic Swamp').zone).toBe('library')
   })
+
+  test('a destroyed borrowed permanent makes its controller search', async () => {
+    const { server, state: readyState } = await setup()
+    const state = structuredClone(readyState)
+    const target = named(state, 'Utility Land')
+    target.owner = 'p1'
+    target.controller = 'p2'
+    const stacked = ok(server.rules(state, activate(state, 'channel.boseiju', 'Boseiju, Who Endures', target.name)))
+    const resolved = resolveStack(server.rules, stacked)
+    expect(pendingSelectionFor(resolved, 'p2')).toBeDefined()
+    expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
+  })
 })

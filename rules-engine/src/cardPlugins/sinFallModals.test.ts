@@ -57,7 +57,15 @@ describe('Sin-fall modal and saga behavior', () => {
     const spell = named(state, 'Frantic Search').id
     state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spell }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const discard = pendingSelectionFor(state, 'p1')!
+    const toDiscard = discard.candidates.slice(0, 2)
+    state = ok(server.rules(state, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'discard',
+      count: 2,
+      objectIds: toDiscard,
+    }))
     const selection = pendingSelectionFor(state, 'p1')!
     expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0, untapSelected: true })
     const toUntap = selection.candidates.slice(0, 2)
@@ -160,7 +168,6 @@ describe('Sin-fall modal and saga behavior', () => {
       selectionId: pickPlayer.id,
       players: ['p2'],
     }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',
@@ -168,6 +175,7 @@ describe('Sin-fall modal and saga behavior', () => {
       count: 1,
       objectIds: [bear.id],
     }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.players.p2.life).toBe(38)
     expect(state.objects[bear.id]).toMatchObject({ power: 1, toughness: 1 })
@@ -255,7 +263,6 @@ describe('Sin-fall modal and saga behavior', () => {
       selectionId: pickPlayer.id,
       players: ['p3'],
     }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
     const selection = pendingSelectionFor(state, 'p1')!
     expect(selection).toMatchObject({ kind: 'choose', count: 2, min: 0 })
     const one = named(state, 'One').id
@@ -268,6 +275,7 @@ describe('Sin-fall modal and saga behavior', () => {
       count: 2,
       objectIds: [one, two],
     }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.objects[one].oracleText.toLowerCase()).toContain('fear')
     expect(state.objects[two].oracleText.toLowerCase()).toContain('fear')
     expect(state.players.p3.life).toBe(38)

@@ -229,16 +229,15 @@ describe('Sin Fall remaining card support', () => {
     state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spell }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.zoneOrder.p1.hand).toHaveLength(4)
-    expect(state.stack[0]).toMatchObject({ actionId: 'discard' })
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(state.stack[0]?.waiting).toBe('choice')
+    expect(pendingSelectionFor(state, 'p1')).toMatchObject({ kind: 'discard', count: 2 })
     const dump = named(state, 'Dump').id
     const keep = named(state, 'Keep').id
     state = ok(server.rules(state, {
-      type: 'continueAction',
+      type: 'selectCards',
       seat: 'p1',
-      stackId: state.stack[0].id,
-      payload: { objectIds: [dump, keep] },
+      kind: 'discard',
+      count: 2,
+      objectIds: [dump, keep],
     }))
     expect([dump, keep].every((id) => state.objects[id].zone === 'graveyard')).toBe(true)
   })

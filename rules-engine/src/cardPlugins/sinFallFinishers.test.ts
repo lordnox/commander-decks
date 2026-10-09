@@ -98,8 +98,8 @@ describe('Sin Fall finisher cards', () => {
       seat: 'p1',
       objectId: spell.id,
     }))
-    const resolved = run(server, cast, [
-      { type: 'resolveTop' },
+    const opened = run(server, cast, [{ type: 'resolveTop' }])
+    const resolved = run(server, opened, [
       {
         type: 'selectCards',
         seat: 'p1',
@@ -171,7 +171,6 @@ describe('Sin Fall finisher cards', () => {
     const done = run(server, searching, [
       { type: 'move', objectId: petObject.id, to: 'battlefield' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
     ])
 
     expect(named(done, 'Graveyard Pet').zone).toBe('battlefield')
@@ -207,7 +206,6 @@ describe('Sin Fall finisher cards', () => {
       { type: 'move', objectId: pet.id, to: 'battlefield' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
     ])
 
     expect(named(done, 'Library Pet').zone).toBe('battlefield')

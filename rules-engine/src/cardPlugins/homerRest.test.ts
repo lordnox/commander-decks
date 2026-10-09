@@ -426,7 +426,22 @@ describe('Homer remaining card plugins', () => {
       seat: 'p1',
       objectId: named(server.state, 'Malevolent Rumble').id,
     }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(named(choosing, 'Eldrazi Spawn')).toBeUndefined()
+    const dialog = pendingDialog(choosing)!
+    const permanent = named(choosing, 'Permanent')
+    const otherIds = dialogCandidates(choosing, dialog)
+      .map((object) => object.id)
+      .filter((objectId) => objectId !== permanent.id)
+    let resolved = ok(server.rules(choosing, {
+      type: 'move', objectId: permanent.id, to: 'hand',
+    }))
+    for (const objectId of otherIds) {
+      resolved = ok(server.rules(resolved, { type: 'move', objectId, to: 'graveyard' }))
+    }
+    resolved = ok(server.rules(resolved, {
+      type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { objectIds: [permanent.id] },
+    }))
     const spawn = named(resolved, 'Eldrazi Spawn')
     expect(spawn).toMatchObject({
       types: ['Creature'],

@@ -219,6 +219,37 @@ describe('runInstructions', () => {
     expect(state.resolution).toBeUndefined()
   })
 
+  test('a suspended discard does not open an unrelated mana window', () => {
+    const spell = cardTemplate('Discard Gate', {
+      types: ['Sorcery'],
+      manaCost: '{0}',
+      effects: [onResolve(discardCards(1))],
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: { p1: [spell, cardTemplate('Discard Fodder')] },
+        battlefield: { p2: [cardTemplate('Mana Forest', { types: ['Land'], tapProduces: { G: 1 } })] },
+      },
+      { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+    )
+    let state = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: named(server.state, 'Discard Gate').id,
+    }))
+    state = resolveStack(server.rules, state)
+    const forest = named(state, 'Mana Forest')
+    expect(pendingSelectionFor(state, 'p1')).toBeDefined()
+    expect(server.rules(state, { type: 'addMana', seat: 'p1', mana: { G: 1 } }).ok).toBe(false)
+    expect(server.rules(state, {
+      type: 'tapForMana',
+      seat: 'p2',
+      objectId: forest.id,
+    }).ok).toBe(false)
+  })
+
   test.each([
     { label: 'left the battlefield', sacrifice: true },
     { label: 'changed controllers', sacrifice: false },

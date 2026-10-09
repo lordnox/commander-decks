@@ -117,6 +117,7 @@ export const makeDraft = (state: GameState): Draft => {
     const before = becomesNewObject ? snapshotObject(object) : undefined
     if (before) {
       refreshLastKnownSource(draft.stack, before)
+      refreshLastKnownSource(draft.resolution, before)
       for (const player of draft.playerOrder) refreshLastKnownSource(draft.players[player].data, before)
     }
     const zones = draft.zoneOrder[object.owner]

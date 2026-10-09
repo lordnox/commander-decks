@@ -15,6 +15,7 @@ import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { initiateDiscard } from './discard'
 import { cardsDrawnThisTurn, draw as drawPlugin, initiateDraw } from './draw'
+import { pendingSelectionFor } from './selectCards'
 
 const card = (name: string, types: string[] = ['Instant']) =>
   cardTemplate(name, { types })
@@ -65,7 +66,7 @@ describe('draw game rule', () => {
     const drawn = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
 
     expect(drawn.players.p1.lost).toBe(true)
-    expect(drawn.log.at(-1)).toBe('p1 draws from an empty library')
+    expect(drawn.log).toContain('p1 draws from an empty library')
   })
 
   test('draw action with remaining 1 resolves to one card and an empty stack', () => {
@@ -125,15 +126,28 @@ describe('draw game rule', () => {
     }))
     const resolvedSpell = passAll(server, cast)
 
-    expect(resolvedSpell.objects[spellId].zone).toBe('graveyard')
+    expect(resolvedSpell.objects[spellId].zone).toBe('stack')
     expect(resolvedSpell.zoneCounts.p1.hand).toBe(4)
     expect(resolvedSpell.players.p1.life).toBe(commanderRules.startingLife)
     expect(resolvedSpell.stack.some((item) => item.actionId === 'draw')).toBe(false)
-    expect(resolvedSpell.stack.filter((item) => item.name === 'Queza-like')).toHaveLength(3)
-    expect(resolvedSpell.stack.at(-1)).toMatchObject({ actionId: 'discard' })
-    expect(resolvedSpell.priority).toBe(priorityBefore)
+    expect(resolvedSpell.stack.filter((item) => item.name === 'Queza-like')).toHaveLength(0)
+    expect(resolvedSpell.pendingTriggers).toHaveLength(3)
+    const selection = pendingSelectionFor(resolvedSpell, 'p1')!
+    expect(selection.candidates).toContain(discardId)
 
-    const afterFirstQueza = ok(server.rules(resolvedSpell, { type: 'resolveTop' }))
+    const discarded = ok(server.rules(resolvedSpell, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'discard',
+      count: 1,
+      objectIds: [discardId],
+    }))
+    expect(discarded.objects[spellId].zone).toBe('graveyard')
+    expect(discarded.objects[discardId].zone).toBe('graveyard')
+    expect(discarded.stack.filter((item) => item.name === 'Queza-like')).toHaveLength(3)
+    expect(discarded.priority).toBe(priorityBefore)
+
+    const afterFirstQueza = ok(server.rules(discarded, { type: 'resolveTop' }))
     expect(afterFirstQueza.players.p1.life).toBe(commanderRules.startingLife - 1)
 
     let current = afterFirstQueza
@@ -142,22 +156,8 @@ describe('draw game rule', () => {
       expect(current.players.p1.life).toBe(commanderRules.startingLife - life)
     }
 
-    expect(current.stack).toHaveLength(1)
-    expect(current.stack[0]).toMatchObject({ actionId: 'discard' })
-
-    const waiting = ok(server.rules(current, { type: 'resolveTop' }))
-    expect(waiting.stack[0].waiting).toBe('choice')
-
-    const finished = ok(server.rules(waiting, {
-      type: 'continueAction',
-      stackId: waiting.stack[0].id,
-      seat: 'p1',
-      payload: { objectIds: [discardId] },
-    }))
-
-    expect(finished.stack).toHaveLength(0)
-    expect(finished.objects[discardId].zone).toBe('graveyard')
-    expect(finished.players.p1.life).toBe(commanderRules.startingLife - 3)
+    expect(current.stack).toHaveLength(0)
+    expect(current.players.p1.life).toBe(commanderRules.startingLife - 3)
   })
 
   test('manual stack assembly interleaves Queza between draw actions', () => {

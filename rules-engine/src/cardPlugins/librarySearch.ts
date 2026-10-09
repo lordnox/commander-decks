@@ -241,6 +241,11 @@ const closeSearch = (draft: Draft, seat: PlayerId) => {
   else draft.players[seat].data[SEARCH_PENDING] = remaining
 }
 
+const hasQueuedResolveTop = (draft: Draft) =>
+  draft.resolution?.pendingEvents?.some((event) => event.type === 'resolveTop')
+  || draft.resolution?.afterChoiceEvents?.some((event) => event.type === 'resolveTop')
+  || draft.pending.some((event) => event.type === 'resolveTop')
+
 const hasSearchAbility = (object: GameObject) => Boolean(abilityEffect(object))
 
 const shouldSacrificeOnEnter = (spec: SearchSpec) =>
@@ -502,12 +507,16 @@ export const librarySearch: Plugin = {
         const source = draft.object(pending.sourceId) ?? state.objects[pending.sourceId]
         if (source) runInstructions(draft, source, spec.after)
       }
+      if (pending?.via === 'spell') {
+        draft.players[event.seat].data[SEARCH_DONE] = true
+        if (!hasQueuedResolveTop(draft)) draft.enqueue({ type: 'resolveTop' })
+      }
       return
     }
 
     if (event.type === 'resolveTop') {
       const item = state.stack[0]
-      if (item && searchDone(state, item.controller)) {
+      if (item && searchDone(state, item.controller) && !pendingSearch(state, item.controller)) {
         delete draft.players[item.controller].data[SEARCH_DONE]
       }
     }

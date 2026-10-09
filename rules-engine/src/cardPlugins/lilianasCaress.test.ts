@@ -11,6 +11,7 @@ import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
 import { onResolve } from './onResolve'
+import { pendingSelectionFor } from '../rules/selectCards'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -84,19 +85,16 @@ test('Cry on stack, waiting discard, continueAction, then Caress drains', () => 
 
   const afterSpell = passAll(server, cast)
   expect(afterSpell.stack).toHaveLength(1)
-  expect(afterSpell.stack[0]).toMatchObject({ actionId: 'discard' })
+  expect(afterSpell.stack[0]).toMatchObject({ kind: 'spell', name: 'Cry of Contrition Test' })
+  expect(pendingSelectionFor(afterSpell, 'p2')).toMatchObject({ kind: 'discard', count: 1 })
+  expect(afterSpell.players.p2.life).toBe(commanderRules.startingLife)
 
-  const afterPasses = passAll(server, afterSpell)
-  expect(afterPasses.stack).toHaveLength(1)
-  expect(afterPasses.stack[0]).toMatchObject({ actionId: 'discard', waiting: 'choice' })
-  expect(afterPasses.players.p2.life).toBe(commanderRules.startingLife)
-  expect(afterPasses.priority).toBe('p2')
-
-  const continued = ok(server.rules(afterPasses, {
-    type: 'continueAction',
-    stackId: afterPasses.stack[0].id,
+  const continued = ok(server.rules(afterSpell, {
+    type: 'selectCards',
     seat: 'p2',
-    payload: { objectIds: [victimCard] },
+    kind: 'discard',
+    count: 1,
+    objectIds: [victimCard],
   }))
   expect(continued.objects[victimCard].zone).toBe('graveyard')
   expect(continued.players.p2.life).toBe(commanderRules.startingLife)

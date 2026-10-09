@@ -7,11 +7,12 @@ import { draw } from '../rules/draw'
 import { createAuthoritativeHiddenInformation } from './hiddenInformation'
 import { priority } from './priority'
 import { turnStructure } from './turnStructure'
+import { stateBased } from './stateBased'
 
 const hiddenInformation = createAuthoritativeHiddenInformation(() => 0.5)
-const catalog = createCatalog([turnStructure, priority, draw, hiddenInformation])
+const catalog = createCatalog([turnStructure, priority, draw, hiddenInformation, stateBased])
 
-const builtinRules = ['turnStructure', 'priority', 'draw', 'hiddenInformation']
+const builtinRules = ['turnStructure', 'priority', 'draw', 'hiddenInformation', 'stateBased']
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)

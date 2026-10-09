@@ -323,8 +323,7 @@ describe('Utopia Sprawl style chosen color', () => {
   test('tapping the enchanted Forest adds the chosen color, once chosen', () => {
     const { server, entered, land } = enterWithChoice()
     const pending = pendingOptionSelection(entered, 'p1')!
-    const before = ok(server.rules(entered, { type: 'tapForMana', seat: 'p1', objectId: land }))
-    expect(before.players.p1.mana).toMatchObject({ G: 1, U: 0 })
+    expect(server.rules(entered, { type: 'tapForMana', seat: 'p1', objectId: land }).ok).toBe(false)
 
     const chosen = ok(server.rules(entered, {
       type: 'selectOption',

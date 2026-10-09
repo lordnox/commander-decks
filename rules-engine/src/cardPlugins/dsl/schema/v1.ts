@@ -315,7 +315,7 @@ export type CompiledCardRuleDefinitionV1 = {
     serialization: true
     runtimeExecution: {
       abilityKinds: readonly ['spell']
-      instructionKinds: readonly ['draw', 'gainLife', 'loseLife']
+      instructionKinds: readonly ['draw', 'gainLife', 'loseLife', 'sequence']
       decisions: 'fullySuppliedUntargeted'
     }
   }

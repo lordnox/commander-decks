@@ -175,11 +175,12 @@ export const alternateCosts: Plugin = {
       return `${event.castOption} requires exiling ${selected.exileGraveyard.count} other card(s) from your graveyard`
     }
   },
-  apply: ({ event, draft }) => {
+  apply: ({ state, event, draft }) => {
     if (event.type !== 'castSpell' || !event.castOption) return
     const object = draft.object(event.objectId)
     const selected = object
       ? availableAlternateCastEffect(draft, event.seat, object, event.castOption)
+        ?? availableAlternateCastEffect(state, event.seat, state.objects[event.objectId], event.castOption)
       : undefined
     if (!selected) return
     if (selected.life) {

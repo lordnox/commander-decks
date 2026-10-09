@@ -65,7 +65,11 @@ export const stateBased: Plugin = {
       && (item.payload.instructions as { kind?: string }[]).some(
         (instruction) => instruction.kind === 'copyControlledCreature',
       ))
-    if (entryChoicePending || copyChoiceOnStack) return []
+    const copyChoicePendingPlacement = draft.pendingTriggers?.some((trigger) =>
+      trigger.instructions.some(
+        (instruction) => instruction.kind === 'copyControlledCreature',
+      ))
+    if (entryChoicePending || copyChoiceOnStack || copyChoicePendingPlacement) return []
 
     const events: GameEvent[] = []
 

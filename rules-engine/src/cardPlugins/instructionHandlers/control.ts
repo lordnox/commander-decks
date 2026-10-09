@@ -36,6 +36,18 @@ const removeTarget: InstructionHandler<'removeTarget'> = (
   const object = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
   if (!object || object.phasedOut) return
   if (instruction.action === 'destroy' && hasKeyword(object, 'indestructible', draft)) return
+  if (item) {
+    item.payload = {
+      ...item.payload,
+      removedTargetController: object.controller,
+    }
+    if (
+      draft.resolution?.kind === 'legacy'
+      && draft.resolution.item.id === item.id
+    ) {
+      draft.resolution.item.payload = item.payload
+    }
+  }
   draft.enqueue({
     type: 'move',
     objectId: object.id,

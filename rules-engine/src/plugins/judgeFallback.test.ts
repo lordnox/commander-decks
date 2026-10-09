@@ -43,7 +43,7 @@ describe('judge fallback', () => {
     }] }).ok).toBe(false)
   })
 
-  test('rolls back the whole fallback when a primitive effect is illegal', () => {
+  test('keeps committed primitive effects when a later fallback continuation is illegal', () => {
     const game = createServerGame(commanderRules, { first: 'p1' })
     const result = game.rules(game.state, {
       type: 'judgeFallback',
@@ -57,6 +57,7 @@ describe('judge fallback', () => {
     })
 
     expect(result.ok).toBe(false)
-    expect(result.state).toEqual(game.state)
+    expect(result.state.players.p2.life).toBe(38)
+    expect(result.state.log).toContain('p2 loses 2 life')
   })
 })

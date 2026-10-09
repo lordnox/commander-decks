@@ -24,7 +24,12 @@ const passToEmpty = (
   state: GameState,
 ) => {
   let current = state
-  while (current.stack.length > 0 && !current.stack[0].waiting && current.priority) {
+  while (
+    current.stack.length > 0
+    && !current.stack[0].waiting
+    && current.resolution?.phase !== 'waiting'
+    && current.priority
+  ) {
     current = ok(rules(current, { type: 'passPriority', seat: current.priority }))
   }
   return current

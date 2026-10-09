@@ -245,8 +245,12 @@ const searchTargetControllerForBasicLandType: InstructionHandler<
   'searchTargetControllerForBasicLandType'
 > = ({ draft, source, item }) => {
   const target = item?.targets[0]
-  const targetObject = target?.kind === 'object' ? resolveTargetObject(draft, target) : undefined
+  const targetObject = target?.kind === 'object'
+    ? resolveTargetObject(draft, target)
+    : undefined
+  const retainedController = item?.payload?.removedTargetController
   const seat = targetObject?.controller
+    ?? (typeof retainedController === 'string' ? retainedController : undefined)
   if (!seat) return
   const basicTypes = new Set(['Plains', 'Island', 'Swamp', 'Mountain', 'Forest'])
   const candidates = draft.zoneOrder[seat].library.filter((objectId) => {
