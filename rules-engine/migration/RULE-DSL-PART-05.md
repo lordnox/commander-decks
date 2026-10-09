@@ -27,15 +27,30 @@ finish without waiting for a departed seat.
 
 - [x] Add the immutable envelope and typed offer/answer contracts.
 - [x] Add validation for stack/mixed targets, options, ordering, and allocation.
-- [ ] Thread request metadata through the host's pending choice adapter.
-- [ ] Enforce freshness, authorization, and exactly-once answer consumption.
-- [ ] Add host-facing projection and waiting/ordinary-priority separation.
-- [ ] Add browser/headless adapter coverage and reconnect coverage.
+- [x] Thread request metadata through the host's pending choice adapter.
+- [x] Enforce freshness, authorization, and exactly-once answer consumption.
+- [x] Add host-facing projection and waiting/ordinary-priority separation.
+- [x] Add browser/headless adapter coverage and reconnect coverage.
 - [ ] Run focused host/protocol tests and full rules/host suites.
 
 ## Current verification and open concerns
 
-No Part 05 code has been changed yet. The known host baseline is the generated
-card-handler import failure recorded by the parent task; any additional failure
-will be treated as a regression. The legacy `custom` paths remain temporary
-adapters for unmigrated cards and are not used by the new typed contracts.
+The envelope and immutable `InteractionStore` are implemented in
+`shared/interaction.ts` and `rules-engine/src/interaction.ts`. The live host
+persists request IDs, revisions, private candidate identities, and consumed
+answer fingerprints in `LobbyState`; reconnect reuses the same pending request,
+while same-named or moved objects invalidate it. Card answers continue through
+typed `selectCards` (now carrying the pending selection identity) and player
+answers through typed `selectPlayers`; the public wire carries only opaque
+candidate handles and authorized request metadata. `needsInput` suppresses
+ordinary priority actions and publishes an awaiting seat. Concession clears the
+departed chooser's request and lets the kernel settle.
+
+Focused verification passes for the interaction store, protocol, wire codec,
+DSL compiler, reconnect, candidate identity, and live host choice paths. The
+full host suite has one known baseline failure: generated card-handler import
+fixture resolution (`loads generated card handlers from the current worktree`).
+The legacy `custom` paths remain temporary adapters for unmigrated cards and
+are not used by the new typed contracts. The remaining Part 05 concern is
+retiring those adapters as their owning parts migrate; this part does not claim
+future action-program families.

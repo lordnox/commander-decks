@@ -870,6 +870,8 @@ export type GameEvent =
       type: 'selectCards'
       /** Seat making the choice. */
       seat: PlayerId
+      /** Server-side pending selection identity; legacy callers may omit it during migration. */
+      selectionId?: string
       kind:
         | 'choose'
         | 'discard'

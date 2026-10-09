@@ -378,6 +378,9 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
 
   const selection = pendingSelectionFor(state, event.seat)
   if (!selection) return `${event.seat} has no open card selection`
+  if (event.selectionId !== undefined && event.selectionId !== selection.id) {
+    return 'card selection identity is stale'
+  }
   if (selection.kind !== event.kind) return `expected a ${selection.kind} selection`
   if (event.count !== selection.count) return `expected count ${selection.count}`
 

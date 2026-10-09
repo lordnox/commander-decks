@@ -37,7 +37,21 @@ export const applyKernelChoice = (
   message: TopdeckMessage,
 ) => {
   const decision = lobby.topdeck
-  if (!decision?.kernel || decision.seat !== seat) return false
+  if (!decision?.kernel) {
+    return Boolean(message.requestId && lobby.completedInteractions?.[message.requestId] !== undefined)
+  }
+  if (decision.seat !== seat) return false
+  const requestId = decision.requestId
+  const fingerprint = requestId
+    ? JSON.stringify({ seat, requestId, revision: message.revision, choices: message.choices })
+    : undefined
+  if (requestId && lobby.completedInteractions?.[requestId] !== undefined) return true
+  if (requestId && message.requestId !== undefined && message.requestId !== requestId) {
+    throw new Error('That interaction request is stale.')
+  }
+  if (decision.revision !== undefined && message.revision !== undefined && message.revision !== decision.revision) {
+    throw new Error('That interaction revision is stale.')
+  }
   const context: ChoiceContext = {
     kernel,
     lobby,
@@ -47,13 +61,21 @@ export const applyKernelChoice = (
     state: kernel.history.current(),
   }
   // Cumulative upkeep answers with opponent names, not with the offered cards.
-  if (decision.kernel.stage === 'cumulative-upkeep') return applyCumulativeUpkeep(context)
+  if (decision.kernel.stage === 'cumulative-upkeep') {
+    const applied = applyCumulativeUpkeep(context)
+    if (applied && requestId) lobby.completedInteractions = {
+      ...(lobby.completedInteractions ?? {}),
+      [requestId]: fingerprint ?? 'legacy',
+    }
+    return applied
+  }
   assertOfferedSlots(decision.cards, message.choices)
   if (message.choices.some(({ destination }) =>
     !decision.destinations.includes(destination))) {
     throw new Error(`Invalid ${decision.kind} destination.`)
   }
-  switch (decision.kernel.stage) {
+  const applied = (() => {
+    switch (decision.kernel.stage) {
     case 'extort-payment':
       return applyExtortPayment(context)
     case 'stack-copy':
@@ -95,9 +117,15 @@ export const applyKernelChoice = (
     case 'reveal-pick':
     case 'surveil':
       return applyZoneChoice(context)
-    default:
-      return OPTIONAL_DIALOGS.has(decision.kernel.stage)
+      default:
+        return OPTIONAL_DIALOGS.has(decision.kernel.stage)
         ? applyDialogChoice(context)
         : false
+    }
+  })()
+  if (applied && requestId) lobby.completedInteractions = {
+    ...(lobby.completedInteractions ?? {}),
+    [requestId]: fingerprint ?? 'legacy',
   }
+  return applied
 }

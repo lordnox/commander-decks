@@ -53,6 +53,7 @@ type InboxPayload =
   | { type: 'plan'; text: string }
   | { type: 'confirm'; text?: string }
   | { type: 'pass' }
+  | { type: 'concede' }
   | { type: 'replace'; text: string }
   | { type: 'join'; name: string; deck: string }
   | { type: 'ready' }
@@ -62,6 +63,8 @@ type InboxPayload =
   | { type: 'mulligan' }
   | {
       type: 'topdeck'
+      requestId?: string
+      revision?: number
       /**
        * `slot` is the card's position in the offered `cards`. Two offered cards
        * can share a name, so the kernel resolves a pick by position, never by
@@ -170,6 +173,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     attackers?: unknown
     x?: unknown
     blockers?: unknown
+    requestId?: unknown
+    revision?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -191,6 +196,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       })
     case 'pass':
       return parsed({ type: 'pass' })
+    case 'concede':
+      return parsed({ type: 'concede' })
     case 'join':
       return typeof message.name === 'string' && typeof message.deck === 'string'
         ? { type: 'join', name: message.name, deck: message.deck }
@@ -353,6 +360,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       }
       return parsed({
         type: 'topdeck',
+        ...(typeof message.requestId === 'string' && message.requestId ? { requestId: message.requestId } : {}),
+        ...(typeof message.revision === 'number' && Number.isSafeInteger(message.revision) && message.revision >= 0
+          ? { revision: message.revision }
+          : {}),
         choices: message.choices.map(({ card, slot, destination }) => ({
           card,
           ...(slot === undefined ? {} : { slot }),

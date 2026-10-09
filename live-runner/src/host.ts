@@ -221,7 +221,9 @@ export const applyHostControl = (
  * agent, which leaves the seat waiting on a choice nobody applies.
  */
 export const kernelOwnsChoice = (message: InboxMessage, state: LobbyState) =>
-  message.type === 'topdeck' && state.topdeck?.kernel !== undefined
+  message.type === 'topdeck'
+  && (state.topdeck?.kernel !== undefined
+    || (message.requestId !== undefined && state.completedInteractions?.[message.requestId] !== undefined))
 
 export const actionsAfterJudgment = (options: {
   current: LobbyState['actions']
@@ -445,6 +447,21 @@ export const runHost = async (options: {
     const beforeWaiting = state.waiting
     applyInbox(state, seat, message)
     await ensureKernel()
+    if (message.type === 'concede' && kernel) {
+      const abandonedRequestId = state.topdeck?.seat === seat ? state.topdeck.requestId : undefined
+      const result = kernel.dispatch({ type: 'concede', seat })
+      if (!result.ok) throw new Error(result.error)
+      if (state.topdeck?.seat === seat) state.topdeck = undefined
+      state.completedInteractions = Object.fromEntries(
+        Object.entries(state.completedInteractions ?? {}).filter(([requestId]) =>
+          requestId !== abandonedRequestId),
+      )
+      restoreKernelWindow(kernel, state)
+      session.lobby = state
+      saveSession(session, root)
+      await publish(slug, root, origin, bins, state, kernel)
+      return
+    }
     const proposedSimplePlan = (
       kernel
       && (message.type === 'plan' || message.type === 'replace')

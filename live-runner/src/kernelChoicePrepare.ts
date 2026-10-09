@@ -14,11 +14,11 @@ import { pendingPlayerTargets } from '../../rules-engine/src/cardPlugins/playerT
 import { pendingExtortFor } from '../../rules-engine/src/cardPlugins/extort'
 import { pendingCumulativeUpkeep } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
 import { stackCopyPending } from '../../rules-engine/src/cardPlugins/stackCopy'
-import { pendingDialogFor } from '../../rules-engine/src/pendingDialog'
+import { dialogCandidates, pendingDialogFor } from '../../rules-engine/src/pendingDialog'
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
-import { sameNames } from './kernelChoice'
+import { sameNames, selectCardsOffer } from './kernelChoice'
 import {
   prepareCastTransformedChoice,
   prepareLibrarySearchChoice,
@@ -34,6 +34,9 @@ import {
 } from './kernelChoicePreparePlayers'
 import { prepareStackCopyChoice } from './kernelChoicePrepareStack'
 import { preparePendingDialog } from './kernelChoicePrepareDialog'
+
+const sameIds = (left: readonly string[] | undefined, right: readonly string[]) =>
+  left === undefined || (left.length === right.length && left.every((id, index) => id === right[index]))
 
 /**
  * A stored dialog only survives while the kernel still owns the same choice.
@@ -52,17 +55,17 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const pending = pendingSearch(state, decision.seat)
       const spec = pending ? searchSpecForPending(state, pending) : undefined
       if (!pending || !spec) return true
-      return !sameNames(
-        searchCandidates(state, decision.seat, spec, pending.kicked)
-          .map((object) => object.name),
-        decision.cards,
-      )
+      const offered = searchCandidates(state, decision.seat, spec, pending.kicked)
+      return !sameNames(offered.map((object) => object.name), decision.cards)
+        || !sameIds(decision.candidateIds, offered.map((object) => object.id))
     }
     case 'player-targets':
       return pendingPlayerTargets(state)?.controller !== decision.seat
     case 'waiting-discard': {
       const waiting = waitingDiscard(state)
-      return !waiting || waiting.item.id !== decision.kernel.stackId
+      return !waiting
+        || waiting.item.id !== decision.kernel.stackId
+        || !sameIds(decision.candidateIds, waiting.handIds)
     }
     case 'battle-cast-transformed': {
       const waiting = waitingCastTransformed(state)
@@ -70,12 +73,18 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     }
     case 'select-cards': {
       const waiting = waitingSelectCards(state, decision.seat)
-      return !waiting || waiting.selection.id !== decision.kernel.selectionId
+      return !waiting
+        || waiting.selection.id !== decision.kernel.selectionId
+        || !sameIds(decision.candidateIds, selectCardsOffer(waiting).ids)
     }
     case 'option-selection':
       return pendingOptionSelection(state, decision.seat)?.id !== decision.kernel.selectionId
     case 'select-players':
       return pendingPlayerSelection(state, decision.seat)?.id !== decision.kernel.selectionId
+        || !sameIds(
+          decision.candidateIds,
+          pendingPlayerSelection(state, decision.seat)?.candidates ?? [],
+        )
     case 'extort-payment':
       return !pendingExtortFor(state, decision.seat)
     case 'cumulative-upkeep': {
@@ -90,7 +99,10 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     }
     default:
       if (!decision.kernel.chosenEvent) return false
-      return pendingDialogFor(state, decision.seat)?.kind !== decision.kernel.stage
+      const dialog = pendingDialogFor(state, decision.seat)
+      if (!dialog) return true
+      return dialog.kind !== decision.kernel.stage
+        || !sameIds(decision.candidateIds, dialogCandidates(state, dialog).map((object) => object.id))
   }
 }
 

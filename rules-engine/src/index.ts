@@ -103,6 +103,11 @@ export {
   pendingPlayerSelectionFor,
 } from './rules/selectPlayers'
 export { registerDelayedTrigger } from './rules/delayedTriggers'
+export {
+  InteractionStore,
+  type InteractionAnswerResult,
+  type StoredInteraction,
+} from './interaction'
 export type { GameFormat } from './formats'
 export type { History, HistoryEntry } from './history'
 export type { NewGameOptions } from './newGame'

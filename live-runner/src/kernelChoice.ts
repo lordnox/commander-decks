@@ -13,6 +13,12 @@ import { distinctCardLabels } from '../../shared/liveTypes'
 import type { LobbyState, TopdeckDecision } from './lobby'
 import type { InboxMessage, SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
+import type {
+  InteractionCancellation,
+  InteractionPhase,
+  InteractionPurpose,
+  InteractionRequest,
+} from '../../shared/interaction'
 
 type TopdeckChoice = Extract<InboxMessage, { type: 'topdeck' }>['choices'][number]
 
@@ -41,6 +47,18 @@ export const OPTIONAL_DIALOGS = new Set([
 
 export const sameNames = (left: string[], right: string[]) =>
   [...left].sort().join('\0') === [...right].sort().join('\0')
+
+export const sameIds = (left: readonly string[] | undefined, right: readonly string[]) =>
+  left === undefined || (left.length === right.length && left.every((id, index) => id === right[index]))
+
+const opaqueRequestSuffix = (value: string) => {
+  let hash = 2166136261
+  for (const character of value) {
+    hash ^= character.charCodeAt(0)
+    hash = Math.imul(hash, 16777619)
+  }
+  return (hash >>> 0).toString(36)
+}
 
 /**
  * Every offered card is answered once, by its position in the offered list.
@@ -197,8 +215,82 @@ export const openTopdeck = (
   decision: TopdeckDecision,
   prompts: { waiting: string; prompt: string | undefined; judge: string },
   offered: Array<GameObject | undefined> = [],
+  metadata: {
+    phase?: InteractionPhase
+    purpose?: InteractionPurpose
+    cancellation?: InteractionCancellation
+    candidateIds?: string[]
+  } = {},
 ) => {
+  const existing = lobby.topdeck
+  const candidateIds = metadata.candidateIds
+    ?? (offered.length > 0 ? offered.map((object) => object?.id ?? '') : decision.cards)
+  const requestBasis = `${decision.kernel?.stage ?? decision.kind}:${decision.kernel?.sourceId ?? decision.seat}:${decision.kernel?.selectionId ?? decision.kernel?.stackId ?? 'pending'}:${candidateIds.join(',')}`
+  const baseRequestId = `${decision.kernel?.stage ?? decision.kind}:${decision.seat}:${opaqueRequestSuffix(requestBasis)}`
+  const collisionCount = Object.keys(lobby.completedInteractions ?? {})
+    .filter((requestId) => requestId === baseRequestId || requestId.startsWith(`${baseRequestId}:`)).length
+  const requestId = existing?.requestId
+    ?? (collisionCount === 0 ? baseRequestId : `${baseRequestId}:${collisionCount + 1}`)
+  const revision = existing?.revision ?? collisionCount + 1
   lobby.topdeck = decision
+  lobby.topdeck.requestId = requestId
+  lobby.topdeck.revision = revision
+  lobby.topdeck.phase = metadata.phase ?? (decision.kernel?.stage === 'waiting-discard' ? 'resolution' : 'resolution')
+  lobby.topdeck.purpose = metadata.purpose
+    ?? (decision.kernel?.stage === 'select-players' || decision.kernel?.stage === 'player-targets' ? 'target' : 'choice')
+  lobby.topdeck.cancellation = metadata.cancellation ?? 'mustAnswer'
+  lobby.topdeck.candidateIds = candidateIds
+  const candidateRefs = lobby.topdeck.candidateIds.map((_id, index) => ({
+    // Public handles are deliberately opaque; the host keeps `candidateIds`
+    // private and maps the existing slotted card answer back to them.
+    id: `${requestId}:candidate:${index}`,
+    ...(offered[index]?.incarnation === undefined ? {} : { incarnation: offered[index]!.incarnation }),
+    ...(offered[index]?.zone === undefined ? {} : { zone: offered[index]!.zone }),
+    ...(decision.cards[index] === undefined ? {} : { name: decision.cards[index] }),
+  }))
+  const selection: InteractionRequest['selection'] = decision.kernel?.stage === 'select-players'
+    || decision.kernel?.stage === 'player-targets'
+    ? {
+        kind: 'selectPlayers',
+        candidates: decision.cards,
+        min: decision.requirements?.target?.min ?? 0,
+        max: decision.requirements?.target?.max ?? decision.cards.length,
+        distinct: true,
+      }
+    : decision.kernel?.stage === 'option-selection'
+      || decision.kernel?.stage === 'extort-payment'
+      || decision.kernel?.stage === 'choose-modes'
+      || decision.kernel?.stage === 'choose-creature-type'
+      || decision.kernel?.stage === 'secret-vote'
+      ? {
+          kind: 'selectOptions',
+          options: decision.cards.map((label, index) => ({ id: `${requestId}:option:${index}`, label })),
+          min: 1,
+          max: 1,
+          distinct: true,
+        }
+      : {
+        kind: 'selectCards',
+        candidates: candidateRefs,
+        min: (() => {
+          const mins = Object.values(decision.requirements ?? {})
+            .map((value) => value?.min)
+            .filter((value): value is number => value !== undefined)
+          return mins.length > 0 ? Math.min(...mins) : 0
+        })(),
+        max: decision.count ?? candidateRefs.length,
+        distinct: true,
+      }
+  lobby.topdeck.interaction = {
+    requestId,
+    revision,
+    chooser: decision.seat,
+    source: { name: decision.kind },
+    phase: lobby.topdeck.phase,
+    purpose: lobby.topdeck.purpose,
+    cancellation: lobby.topdeck.cancellation,
+    selection,
+  }
   lobby.actions = { [decision.seat]: ['topdeck'] }
   lobby.waiting = prompts.waiting
   lobby.privateWaiting = {
