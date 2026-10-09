@@ -191,6 +191,12 @@ describe('inbox', () => {
       type: 'topdeck',
       choices: [{ card: 'Forest', destination: 'sacrifice' }],
     })
+    expect(parseInbox('{"type":"topdeck","requestId":"req-7","revision":3,"choices":[{"card":"Forest","slot":0,"destination":"target"}]}')).toEqual({
+      type: 'topdeck',
+      requestId: 'req-7',
+      revision: 3,
+      choices: [{ card: 'Forest', slot: 0, destination: 'target' }],
+    })
   })
 })
 

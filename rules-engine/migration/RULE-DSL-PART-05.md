@@ -47,10 +47,14 @@ ordinary priority actions and publishes an awaiting seat. Concession clears the
 departed chooser's request and lets the kernel settle.
 
 Focused verification passes for the interaction store, protocol, wire codec,
-DSL compiler, reconnect, candidate identity, and live host choice paths. The
+browser request metadata, DSL compiler, reconnect, candidate identity, and
+live host choice paths. The
 full host suite has one known baseline failure: generated card-handler import
 fixture resolution (`loads generated card handlers from the current worktree`).
-The legacy `custom` paths remain temporary adapters for unmigrated cards and
-are not used by the new typed contracts. The remaining Part 05 concern is
-retiring those adapters as their owning parts migrate; this part does not claim
-future action-program families.
+The live host's persisted `LobbyState` is the authoritative continuation lookup
+for the current migration adapter; `InteractionStore` supplies the same
+immutable reservation/complete/reject semantics for headless callers and saved
+request records. The legacy `custom` paths remain temporary adapters for
+unmigrated card dialogs and are not used by the new typed contracts. The
+remaining Part 05 concern is retiring those adapters as their owning parts
+migrate; this part does not claim future action-program families.

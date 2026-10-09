@@ -51,6 +51,17 @@ export const sameNames = (left: string[], right: string[]) =>
 export const sameIds = (left: readonly string[] | undefined, right: readonly string[]) =>
   left === undefined || (left.length === right.length && left.every((id, index) => id === right[index]))
 
+export const samePins = (
+  left: readonly { id: string; incarnation?: number; zone?: string }[] | undefined,
+  right: readonly { id: string; incarnation?: number; zone?: string }[],
+) => left === undefined || (
+  left.length === right.length
+  && left.every((pin, index) =>
+    pin.id === right[index]?.id
+    && pin.incarnation === right[index]?.incarnation
+    && pin.zone === right[index]?.zone)
+)
+
 const opaqueRequestSuffix = (value: string) => {
   let hash = 2166136261
   for (const character of value) {
@@ -240,6 +251,13 @@ export const openTopdeck = (
     ?? (decision.kernel?.stage === 'select-players' || decision.kernel?.stage === 'player-targets' ? 'target' : 'choice')
   lobby.topdeck.cancellation = metadata.cancellation ?? 'mustAnswer'
   lobby.topdeck.candidateIds = candidateIds
+  lobby.topdeck.candidatePins = offered.length > 0
+    ? offered.map((object) => ({
+        id: object?.id ?? '',
+        ...(object?.incarnation === undefined ? {} : { incarnation: object.incarnation }),
+        ...(object?.zone === undefined ? {} : { zone: object.zone }),
+      }))
+    : undefined
   const candidateRefs = lobby.topdeck.candidateIds.map((_id, index) => ({
     // Public handles are deliberately opaque; the host keeps `candidateIds`
     // private and maps the existing slotted card answer back to them.

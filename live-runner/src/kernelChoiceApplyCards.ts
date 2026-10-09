@@ -15,6 +15,7 @@ import {
   searchOffer,
   selectCardsOffer,
   sameIds,
+  samePins,
   type ChoiceContext,
 } from './kernelChoice'
 import type { LobbyState } from './lobby'
@@ -33,7 +34,11 @@ export const applySelectCards = (
   if (!waiting || !selectionId || !cardKind || waiting.selection.id !== selectionId) {
     throw new Error('That card choice is no longer open.')
   }
-  if (!sameIds(decision.candidateIds, selectCardsOffer(waiting).ids)) {
+  if (
+    cardKind !== 'choosePile'
+    && (!sameIds(decision.candidateIds, selectCardsOffer(waiting).ids)
+      || !samePins(decision.candidatePins, selectCardsOffer(waiting).ids.map((id) => state.objects[id]).filter(Boolean)))
+  ) {
     throw new Error('That card choice changed. Refresh and choose again.')
   }
   if (
@@ -214,7 +219,10 @@ export const applyWaitingDiscard = (
   if (!waiting || waiting.item.id !== stackId) {
     throw new Error('That discard is no longer open.')
   }
-  if (!sameIds(decision.candidateIds, discardOffer(state, waiting).ids)) {
+  if (
+    !sameIds(decision.candidateIds, discardOffer(state, waiting).ids)
+    || !samePins(decision.candidatePins, discardOffer(state, waiting).ids.map((id) => state.objects[id]).filter(Boolean))
+  ) {
     throw new Error('That discard choice changed. Refresh and choose again.')
   }
   const objectIds = objectIdsForChoices(
@@ -270,7 +278,11 @@ export const applyLibrarySearch = (
   const pending = pendingSearch(state, seat)
   const spec = pending ? searchSpecForPending(state, pending) : undefined
   if (!pending || !spec) throw new Error('That library search is no longer open.')
-  if (!sameIds(decision.candidateIds, searchOffer(state, seat, spec, pending).ids)) {
+  const offered = searchOffer(state, seat, spec, pending)
+  if (
+    !sameIds(decision.candidateIds, offered.ids)
+    || !samePins(decision.candidatePins, offered.ids.map((id) => state.objects[id]).filter(Boolean))
+  ) {
     throw new Error('That library search changed. Refresh and choose again.')
   }
   const picked = message.choices.filter(({ destination }) => destination !== 'library')
