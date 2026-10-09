@@ -170,8 +170,8 @@ export const decisions = (input: DecisionsInput = {}): DecisionsSpec => immutabl
   ...(input.distributions ? { distributions: input.distributions } : {}),
 })
 
-export const differentTargets = (...clauseIndices: readonly number[]): TargetConstraint =>
-  immutableData({ kind: 'different', clauseIndices })
+export const differentTargets = (...clauseIndices: readonly number[]) =>
+  immutableData({ kind: 'different' as const, clauseIndices }) satisfies TargetConstraint
 
 const normalizeProgram = (program: ResolutionProgramInput): ResolutionProgram => {
   const hasInstructions = program.instructions !== undefined

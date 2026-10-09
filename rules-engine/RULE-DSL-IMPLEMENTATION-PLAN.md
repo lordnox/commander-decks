@@ -247,6 +247,8 @@ can be legal for one clause and illegal for another. Source removal is independe
 of target legality. No automatic retargeting occurs. Countering an uncounterable
 but legal spell fails while independent later instructions can still execute.
 
+**Status:** Reviewed and accepted. See the [Part 04 implementation note](migration/RULE-DSL-PART-04.md) and [PR #341](https://github.com/lordnox/commander-decks/pull/341).
+
 ### Part 05 — Typed requests, answer handling, projection, and adapters
 
 **Dependencies:** 03, 04.

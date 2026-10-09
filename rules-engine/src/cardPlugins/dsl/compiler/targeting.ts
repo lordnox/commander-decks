@@ -112,6 +112,7 @@ const partitionTargets = (
   const bounds = targetCounts(clauses, context)
   const slots: TargetRef[][] = clauses.map(() => [])
   const partitions: TargetRef[][][] = []
+  // Recursive clause partitioning needs an explicit void return to document its traversal contract.
   const visit = (clauseIndex: number, offset: number): void => {
     if (partitions.length > 1) return
     if (clauseIndex === clauses.length) {
