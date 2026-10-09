@@ -206,6 +206,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         && item.kind === 'spell'
         && !item.copy
         && object.zone === 'stack'
+        && (!event.objectRef || isSameObject(object, event.objectRef))
         && (!item.execution?.source || isSameObject(object, item.execution.source.ref))
       ) {
         draft.enqueue({

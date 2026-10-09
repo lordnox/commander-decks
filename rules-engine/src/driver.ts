@@ -1,17 +1,17 @@
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
-import { isSameObject } from './objectIdentity'
+import { isSameObject, objectIdentity } from './objectIdentity'
 import {
   evaluateObjectReference,
   evaluateObjectSelector,
+  evaluateBoundRecipients,
   evaluatePlayerReference,
   evaluatePlayerSelector,
   evaluateRuntimeAmount,
   evaluateStackItemSelector,
   type BoundRecipient,
-  evaluateStackItemReference,
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
-import { canonicalTargetLegalityForAbility, canonicalScopeId } from './cardPlugins/dsl/compiler/targeting'
+import { canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -24,7 +24,7 @@ import type {
   GameState,
   CanonicalResolutionFrame,
   StackItem,
-  TargetRef,
+  GameObject,
 } from './types'
 import { hasKeyword } from './keywords'
 
@@ -37,16 +37,22 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'loseLife',
 ] as const
 
-const spellAbility = (item: StackItem) => {
+const canonicalAbility = (item: StackItem) => {
   const snapshot = item.execution?.definitionSnapshot
   if (!snapshot) return
   const compiled = loadDefinitionSnapshot(snapshot)
-  const spells = compiled.definition.abilities.flatMap((ability, index) =>
-    ability.kind === 'spell' ? [{ ability, index }] : [])
-  if (spells.length !== 1) {
-    throw new Error(`canonical spell requires exactly one spell ability; found ${spells.length}`)
+  const abilityIndex = item.execution?.abilityIndex
+  if (abilityIndex !== undefined) {
+    const ability = compiled.definition.abilities[abilityIndex]
+    if (!ability || (ability.kind !== 'activated' && ability.kind !== 'spell' && ability.kind !== 'triggered')) {
+      throw new Error(`canonical ability index ${abilityIndex} is not executable`)
+    }
+    return { ability, index: abilityIndex }
   }
-  return spells[0]
+  const abilities = compiled.definition.abilities.flatMap((ability, index) =>
+    ability.kind === (item.kind === 'spell' ? 'spell' : 'triggered') ? [{ ability, index }] : [])
+  if (abilities.length !== 1) throw new Error(`canonical ${item.kind} requires exactly one executable ability; found ${abilities.length}`)
+  return abilities[0]
 }
 
 const preflightInstructions = (
@@ -78,15 +84,17 @@ const pathError = (frame: CanonicalResolutionFrame, path: string, message: strin
 
 export const canonicalResolutionCandidate = (state: GameState) => {
   const item = state.stack[0]
-  return item?.kind === 'spell' && item.execution?.definitionSnapshot ? item : undefined
+  if (!item?.execution?.definitionSnapshot) return
+  if (item.kind === 'spell') return item
+  if (item.kind === 'ability' && item.execution.abilityIndex !== undefined) return item
 }
 
 export const startCanonicalResolution = (
   draft: Draft,
   item: StackItem,
 ) => {
-  const selected = spellAbility(item)
-  if (!selected) throw new Error('canonical spell is missing its pinned definition')
+  const selected = canonicalAbility(item)
+  if (!selected) throw new Error('canonical stack item is missing its pinned definition')
   const { ability, index: abilityIndex } = selected
   const declarationPath = `$.abilities[${abilityIndex}]`
   if ('modes' in ability) {
@@ -111,13 +119,7 @@ export const startCanonicalResolution = (
   const sourceObject = liveSource && isSameObject(liveSource, source.ref)
     ? liveSource
     : source.snapshot
-  const targetLegality = targetBindings.length > 0
-    ? canonicalTargetLegalityForAbility(draft, sourceObject, ability, targetBindings, item)
-    : {}
-  const targetCount = targetBindings.reduce((total, binding) => total + binding.recipients.length, 0)
-  const legalCount = targetBindings.reduce((total, binding) =>
-    total + (targetLegality[binding.clauseIndex] ?? []).filter(Boolean).length, 0)
-  const allTargetsIllegal = targetCount > 0 && legalCount === 0
+  const gate = canonicalWholeItemGate(draft, sourceObject, ability, targetBindings, item)
   const frame: CanonicalResolutionFrame = {
     version: 1,
     kind: 'canonicalSpell',
@@ -129,8 +131,8 @@ export const startCanonicalResolution = (
     source: structuredClone(source),
     scopeId: canonicalScopeId(abilityIndex),
     targetBindings: structuredClone(targetBindings),
-    targetLegality: structuredClone(targetLegality),
-    ...(allTargetsIllegal ? { outcome: 'didNotResolve:allTargetsIllegal' as const } : {}),
+    targetLegality: structuredClone(gate.targetLegality),
+    ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
     scopes: [{
       path: '.instructions',
       instructions: structuredClone(ability.instructions),
@@ -138,7 +140,8 @@ export const startCanonicalResolution = (
     }],
     phase: 'running',
   }
-  if (allTargetsIllegal) frame.scopes = []
+  frame.targetLegality = structuredClone(gate.targetLegality)
+  if (gate.outcome !== 'resolved') frame.scopes = []
   draft.resolution = frame
   draft.priority = null
   draft.passedInRow = []
@@ -154,6 +157,7 @@ const runtimeContext = (
   controller: frame.controller,
   source: frame.source,
   stackItemId: item.id,
+  ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
   targets: Object.fromEntries((frame.targetBindings ?? [])
     .filter((binding) => binding.scopeId === (frame.scopeId ?? binding.scopeId))
     .map((binding): [number, BoundRecipient[]] => [binding.clauseIndex, binding.recipients.flatMap((target): BoundRecipient[] => {
@@ -178,11 +182,58 @@ const recipients = (
   ? evaluatePlayerSelector(recipient, context)
   : evaluatePlayerReference(recipient, context)
 
+type DamageRecipient = Extract<GameEvent, { type: 'dealDamage' }>['target']
+
+const objectRecipients = (objects: readonly GameObject[]) => objects.map((object) => ({
+  kind: 'object' as const,
+  objectId: object.id,
+  incarnation: object.incarnation,
+  zone: object.zone,
+})) as DamageRecipient[]
+
+const boundDamageRecipients = (bound: BoundRecipient) => {
+  const recipients: DamageRecipient[] = []
+  switch (bound.kind) {
+    case 'player': recipients.push({ kind: 'player', player: bound.playerId }); break
+    case 'object': recipients.push({ kind: 'object', objectId: bound.objectId, incarnation: bound.incarnation, zone: bound.zone }); break
+    case 'stackItem': break
+  }
+  return recipients
+}
+
+const mixedRecipients = (recipient: Extract<Instruction, { kind: 'damage' }>['targets'], context: RuleDslRuntimeContext) => {
+  const recipients: DamageRecipient[] = []
+  switch (recipient.kind) {
+    case 'players': recipients.push(...evaluatePlayerSelector(recipient, context).map((player) => ({ kind: 'player' as const, player }))); break
+    case 'objects': recipients.push(...objectRecipients(evaluateObjectSelector(recipient, context))); break
+    case 'targetRef':
+    case 'choiceRef':
+      recipients.push(...evaluateBoundRecipients(recipient, context).flatMap(boundDamageRecipients)); break
+    case 'contextRef':
+      if (recipient.name === 'source') recipients.push(...objectRecipients(evaluateObjectReference(recipient, context, 'currentOrLastKnown')))
+      else recipients.push(...evaluatePlayerReference(recipient, context).map((player) => ({ kind: 'player' as const, player })))
+  }
+  return recipients
+}
+
+const capturedDamageSource = (source: GameObject, context: RuleDslRuntimeContext) => ({
+  ref: source.id === context.source.ref.objectId && !isSameObject(context.state.objects[source.id], context.source.ref)
+    ? context.source.ref
+    : objectIdentity(source),
+  snapshot: structuredClone(source),
+  information: isSameObject(context.state.objects[source.id], objectIdentity(source)) ? 'current' as const : 'lastKnown' as const,
+})
+
 const availableAmount = (expression: Parameters<typeof evaluateRuntimeAmount>[0], context: RuleDslRuntimeContext) => {
   try {
     return evaluateRuntimeAmount(expression, context)
   } catch (error) {
-    if (error instanceof RuleDslEvaluationError) return undefined
+    if (
+      error instanceof RuleDslEvaluationError
+      && expression.kind === 'characteristic'
+      && expression.of.kind === 'targetRef'
+      && evaluateBoundRecipients(expression.of, context).length === 0
+    ) return undefined
     throw error
   }
 }
@@ -213,24 +264,19 @@ const actionEvents = (
       }))
     }
     case 'damage': {
-      const recipients: Array<{ kind: 'player'; player: string } | Extract<TargetRef, { kind: 'object' }>> = []
-      switch (instruction.targets.kind) {
-        case 'players': recipients.push(...evaluatePlayerSelector(instruction.targets, context).map((player) => ({ kind: 'player' as const, player }))); break
-        case 'objects': recipients.push(...evaluateObjectSelector(instruction.targets, context).map((object) => ({ kind: 'object' as const, objectId: object.id, incarnation: object.incarnation, zone: object.zone }))); break
-        case 'targetRef':
-          for (const target of context.targets?.[instruction.targets.clauseIndex] ?? []) {
-            if (target.kind === 'player') recipients.push({ kind: 'player', player: target.playerId })
-            if (target.kind === 'object') recipients.push({ kind: 'object', objectId: target.objectId, incarnation: target.incarnation, zone: target.zone })
-          }
-          break
-        case 'choiceRef':
-          for (const player of evaluatePlayerReference(instruction.targets, context)) recipients.push({ kind: 'player', player })
-          break
-      }
+      const recipients = mixedRecipients(instruction.targets, context)
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
-      const source = frame.source.ref.objectId
-      return recipients.map((target) => ({ type: 'dealDamage' as const, sourceId: source, target, amount }))
+      const sources = evaluateObjectReference(instruction.source, context, 'currentOrLastKnown')
+      if (sources.length !== 1) return []
+      const source = sources[0]
+      return recipients.map((target) => ({
+        type: 'dealDamage' as const,
+        sourceId: source.id,
+        sourceSnapshot: capturedDamageSource(source, context),
+        target,
+        amount,
+      }))
     }
     case 'destroy': {
       const targets = instruction.targets.kind === 'objects'
@@ -242,17 +288,27 @@ const actionEvents = (
     }
     case 'counter': {
       const targets = instruction.targets.kind === 'targetRef'
-        ? context.targets?.[instruction.targets.clauseIndex]?.filter((target) => target.kind === 'stackItem') ?? []
+        ? evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
         : instruction.targets.kind === 'stackItems'
           ? evaluateStackItemSelector(instruction.targets, context).map((item) => ({ kind: 'stackItem' as const, stackId: item.id }))
-          : evaluateStackItemReference(instruction.targets, context)
+          : evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = {
         binding: instruction.bindResult,
         kind: 'counter',
-        stackId: targets[0].kind === 'stackItem' ? targets[0].stackId : targets[0].id,
+          stackId: targets[0].stackId,
+      }
+      const counterEvent = (stackId: string) => {
+        const item = context.state.stack.find((candidate) => candidate.id === stackId)
+        const object = item ? context.state.objects[item.objectId] : undefined
+        return {
+          type: 'counterStackItem' as const,
+          stackId,
+          sourceId: frame.source.ref.objectId,
+          ...(object ? { objectRef: objectIdentity(object) } : {}),
+        }
       }
       return targets.flatMap((target) => target.kind === 'stackItem'
-        ? [{ type: 'counterStackItem' as const, stackId: target.stackId, sourceId: frame.source.ref.objectId }]
+        ? [counterEvent(target.stackId)]
         : [])
     }
     default:
@@ -301,7 +357,10 @@ export const prepareResolutionStep = (draft: Draft) => {
     }
   }
   const object = draft.object(item.objectId)
-  const event = !item.copy && object?.zone === 'stack' && isSameObject(object, frame.source.ref)
+  const event = item.kind === 'spell'
+    && !item.copy
+    && object?.zone === 'stack'
+    && isSameObject(object, frame.source.ref)
     ? {
         type: 'move' as const,
         objectId: object.id,

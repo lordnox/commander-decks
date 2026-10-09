@@ -393,6 +393,8 @@ export type StackExecutionContext = {
   definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
+  /** Definition-local ability index for canonical activated/triggered stack items. */
+  abilityIndex?: number
   declarationPath?: string
 }
 
@@ -423,7 +425,7 @@ export type CanonicalResolutionFrame = {
   targetLegality?: Record<number, boolean[]>
   results?: Record<string, boolean | number>
   pendingResult?: { binding: string; kind: 'counter'; stackId: string }
-  outcome?: 'resolved' | 'didNotResolve:allTargetsIllegal'
+  outcome?: 'resolved' | 'didNotResolve:interveningIf' | 'didNotResolve:allTargetsIllegal'
   scopes: ProgramScopeFrame[]
   phase: 'running' | 'committing' | 'waiting'
   /** Events for the current instruction, persisted before the cursor may continue. */
@@ -622,7 +624,7 @@ export type GameEvent =
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }
   /** Internal canonical instruction event; never offered as a player action. */
-  | { type: 'counterStackItem'; stackId: string; sourceId?: string }
+  | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
   | { type: 'advanceStep' }
@@ -800,6 +802,7 @@ export type GameEvent =
       sourceId: string
       target: TargetRef
       amount: number
+      sourceSnapshot?: CapturedObject
     }
   | {
       type: 'dealDamage'
@@ -808,6 +811,8 @@ export type GameEvent =
       amount: number
       combat?: boolean
       gainLife?: { seat: PlayerId; max?: number }
+      /** Captured characteristics used when the source has left or changed zones. */
+      sourceSnapshot?: CapturedObject
     }
   | {
       type: 'removeDefenseCounters'

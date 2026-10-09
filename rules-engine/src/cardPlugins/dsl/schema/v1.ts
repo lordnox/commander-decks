@@ -321,7 +321,7 @@ export type CompiledCardRuleDefinitionV1 = {
     canonicalLoad: true
     serialization: true
     runtimeExecution: {
-      abilityKinds: readonly ['spell']
+      abilitiesWithSuppliedContext: readonly ['activated', 'spell', 'triggered']
       instructionKinds: readonly ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence']
       decisions: 'fullySuppliedTargets'
     }
