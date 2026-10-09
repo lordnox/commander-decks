@@ -38,6 +38,7 @@ export type TopdeckDecision = {
   interaction?: InteractionRequest
   /** Authoritative candidate identities; names are presentation only. */
   candidateIds?: string[]
+  candidatePins?: Array<{ id: string; incarnation?: number; zone?: string }>
   /** CR 701.19a: searching means looking at every card, not only the matches. */
   library?: string[]
   destinations: TopdeckDestination[]
