@@ -3540,7 +3540,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 86,
+        "matches": 87,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:2919 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -23453,14 +23453,14 @@
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
           223,
-          279,
-          295,
-          305
+          282,
+          298,
+          308
         ],
         "samples": [
           "223: const allowed = event.type === 'custom'",
-          "279: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
-          "295: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
+          "282: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
+          "298: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -25425,18 +25425,18 @@
         "lines": [
           184,
           195,
-          257,
-          258,
-          313,
-          320,
-          339,
-          348,
-          368
+          260,
+          261,
+          316,
+          323,
+          342,
+          351,
+          371
         ],
         "samples": [
           "184: const object = draft.object(pending.event.objectId)",
           "195: draft.enqueue({",
-          "257: const spellObject = draft.object(event.objectId)"
+          "260: const spellObject = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

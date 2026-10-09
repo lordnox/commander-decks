@@ -252,7 +252,10 @@ export const ward: Plugin = {
       const warded = wardTargets(state, event.seat, castTargets(event))
       const spell = draft.stack.find((item) => item.objectId === event.objectId)
       if (spell) {
+        const seenWarded = new Set<string>()
         for (const { object, ward } of warded) {
+          if (seenWarded.has(object.id)) continue
+          seenWarded.add(object.id)
           const capturedWarded = captureObject(object)
           const spellObject = draft.object(event.objectId)
           draft.addToStack({

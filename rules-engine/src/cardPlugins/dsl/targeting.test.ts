@@ -187,6 +187,27 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(declined.objects[spellObject.id].zone).toBe('graveyard')
   })
 
+  test('canonical Ward creates one trigger for a target repeated across clauses', () => {
+    const snapshot = snapshotFor([
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], [targetCreature(), targetCreature()])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Repeated Ward Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: { p2: [cardTemplate('Repeated Ward Bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 2 })] })] },
+    }, { random: () => 0, cardPlugins: [wardPlugin] })
+    const spellObject = named(server.state, 'Repeated Ward Spell')
+    const targetObject = named(server.state, 'Repeated Ward Bear')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [
+        { kind: 'object', objectId: targetObject.id },
+        { kind: 'object', objectId: targetObject.id },
+      ],
+    }))
+    expect(cast.stack.filter((item) => item.payload?.canonicalWard === true)).toHaveLength(1)
+  })
+
   test('all illegal targets suppress every instruction and record a did-not-resolve outcome', () => {
     const server = canonicalServer(snapshotFor([
       destroy({ targets: target(0) }),
