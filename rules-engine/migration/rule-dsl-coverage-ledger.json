@@ -132,7 +132,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 221,
+        "matches": 222,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -4014,8 +4014,8 @@
         "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:11",
-          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:126 — test('taps to lock an unlocked door', () => {",
-          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:156 — test('rejects the tap except as a sorcery and rejects an opponent Room', () => {",
+          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:156 — test('taps to lock an unlocked door', () => {",
+          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:186 — test('rejects the tap except as a sorcery and rejects an opponent Room', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:37",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:39 — test('registers only the generic activated handler', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:82 — test('taps as a sorcery to unlock a door without paying its mana cost', () => {"
@@ -5733,8 +5733,8 @@
         "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:11",
-          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:126 — test('taps to lock an unlocked door', () => {",
-          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:156 — test('rejects the tap except as a sorcery and rejects an opponent Room', () => {",
+          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:156 — test('taps to lock an unlocked door', () => {",
+          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:186 — test('rejects the tap except as a sorcery and rejects an opponent Room', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:37",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:39 — test('registers only the generic activated handler', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:82 — test('taps as a sorcery to unlock a door without paying its mana cost', () => {"
@@ -13984,8 +13984,8 @@
         "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:11",
-          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:126 — test('taps to lock an unlocked door', () => {",
-          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:156 — test('rejects the tap except as a sorcery and rejects an opponent Room', () => {",
+          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:156 — test('taps to lock an unlocked door', () => {",
+          "rules-engine/src/cardPlugins/marinaVendrell.test.ts:186 — test('rejects the tap except as a sorcery and rejects an opponent Room', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:37",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:39 — test('registers only the generic activated handler', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:82 — test('taps as a sorcery to unlock a door without paying its mana cost', () => {"
@@ -22500,10 +22500,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1164",
-        "rules-engine/src/actions.ts:1334",
+        "rules-engine/src/actions.ts:1165",
+        "rules-engine/src/actions.ts:1336",
         "rules-engine/src/actions.ts:811",
-        "rules-engine/src/cardPlugins/activated.ts:32",
         "rules-engine/src/cardPlugins/effectRuntime.ts:208",
         "rules-engine/src/cardPlugins/effectRuntime.ts:339",
         "rules-engine/src/cardPlugins/effectRuntime.ts:343",
@@ -22696,17 +22695,17 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1552,
-          1561,
-          1579,
-          1580,
-          2401,
-          2404
+          1554,
+          1563,
+          1581,
+          1582,
+          2403,
+          2406
         ],
         "samples": [
-          "1552: if (source?.name === 'Settle the Wreckage') {",
-          "1561: if (source?.name === 'Energy Arc') {",
-          "1579: if (source?.name === 'Ghostly Flicker') return [action]"
+          "1554: if (source?.name === 'Settle the Wreckage') {",
+          "1563: if (source?.name === 'Energy Arc') {",
+          "1581: if (source?.name === 'Ghostly Flicker') return [action]"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -24839,12 +24838,12 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          209,
-          236
+          208,
+          235
         ],
         "samples": [
-          "209: const source = draft.object(event.objectId)",
-          "236: draft.addToStack({"
+          "208: const source = draft.object(event.objectId)",
+          "235: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

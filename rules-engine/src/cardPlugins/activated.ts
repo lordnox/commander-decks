@@ -23,13 +23,12 @@ const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
   target: TargetRef | undefined,
   kind: 'creature' | 'land' | 'room' | 'legendary',
-  seat: string,
 ) => {
   if (target?.kind !== 'object') return false
   const object = targetObject(state, target)
   if (!object || object.zone !== 'battlefield') return false
   switch (kind) {
-    case 'room': return Boolean(object.roomDoors && object.controller === seat)
+    case 'room': return object.subtypes.includes('Room')
     case 'legendary': return object.supertypes.includes('Legendary')
     case 'creature': return object.types.includes('Creature')
     case 'land': return object.types.includes('Land')
@@ -45,8 +44,7 @@ const activatedTargetFilter = (
     switch (targets) {
       case 'creature': return { zone: 'battlefield', type: 'Creature' } satisfies TargetFilter
       case 'land': return { zone: 'battlefield', type: 'Land' } satisfies TargetFilter
-      // Marina Vendrell's shorthand means a Room you control. Room is a subtype.
-      case 'room': return { zone: 'battlefield', subtype: 'Room', controller: 'you' } satisfies TargetFilter
+      case 'room': return { zone: 'battlefield', subtype: 'Room' } satisfies TargetFilter
       case 'legendary': return { zone: 'battlefield', supertype: 'Legendary' } satisfies TargetFilter
       default: return undefined
     }
@@ -158,11 +156,12 @@ export const activated: Plugin = {
       || effect.targets === 'legendary'
     ) {
       const targets = event.targets ?? []
-      if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets, event.seat)) {
+      if (targets.length !== 1 || !legalActivateTarget(state, targets[0], effect.targets)) {
         return `${source.name} needs one ${effect.targets} target`
       }
     }
-    if (effect.targets === 'room' && event.door !== 'left' && event.door !== 'right') {
+    if (effect.do.some((instruction) => instruction.kind === 'lockOrUnlockDoor')
+      && event.door !== 'left' && event.door !== 'right') {
       return `${source.name} needs a door to lock or unlock`
     }
     if (effect.targets === 'opponent') {
