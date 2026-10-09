@@ -70,7 +70,7 @@ const recipients = (
   ? targetRecipients(reference, context)
   : choiceRecipients(reference, context)
 
-const unique = <Value>(values: readonly Value[]): Value[] => [...new Set(values)]
+const unique = <Value>(values: readonly Value[]) => [...new Set(values)]
 
 const recipientsInDomain = <Recipient extends BoundRecipient>(
   reference: TargetReference | ChoiceReference,
@@ -88,21 +88,23 @@ const recipientsInDomain = <Recipient extends BoundRecipient>(
 const playerContextReference = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
-): PlayerId[] => {
-  if (reference.name === 'controller') return [context.controller]
-  if (reference.name === 'event.player' || reference.name === 'triggering.player') {
-    if (!context.occurrence?.player) {
-      throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
-    }
-    return [context.occurrence.player]
+) => {
+  switch (reference.name) {
+    case 'controller': return [context.controller]
+    case 'event.player':
+    case 'triggering.player':
+      if (!context.occurrence?.player) {
+        throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
+      }
+      return [context.occurrence.player]
+    default: throw new RuleDslEvaluationError(`${reference.name} is not a player reference`)
   }
-  throw new RuleDslEvaluationError(`${reference.name} is not a player reference`)
 }
 
 export const evaluatePlayerReference = (
   reference: PlayerReference,
   context: RuleDslRuntimeContext,
-): PlayerId[] => {
+) => {
   if (reference.kind === 'contextRef') return playerContextReference(reference, context)
   return unique(recipientsInDomain(reference, context, 'player', (recipient) => recipient.kind === 'player').map((recipient) =>
     recipient.playerId))
@@ -111,10 +113,12 @@ export const evaluatePlayerReference = (
 const capturedOccurrenceObject = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
-): GameObject | undefined => {
-  if (reference.name === 'triggering.object.before') return context.occurrence?.object?.before
-  if (reference.name === 'triggering.object.after') return context.occurrence?.object?.after
-  return undefined
+) => {
+  switch (reference.name) {
+    case 'triggering.object.before': return context.occurrence?.object?.before
+    case 'triggering.object.after': return context.occurrence?.object?.after
+    default: return undefined
+  }
 }
 
 const currentSource = (context: RuleDslRuntimeContext) => {
@@ -126,7 +130,7 @@ export const evaluateObjectReference = (
   reference: ObjectReference,
   context: RuleDslRuntimeContext,
   information: 'current' | 'currentOrLastKnown' = 'current',
-): GameObject[] => {
+) => {
   if (reference.kind === 'contextRef') {
     if (reference.name === 'source') {
       const current = currentSource(context)
@@ -148,11 +152,12 @@ export const evaluateObjectReference = (
 export const evaluateStackItemReference = (
   reference: StackItemReference,
   context: RuleDslRuntimeContext,
-): StackItem[] => recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
+) => recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
   const item = context.state.stack.find((candidate) => candidate.id === recipient.stackId)
   return item ? [item] : []
 })
 
+// Recursive filter composition requires an explicit return type.
 const matchesPlayerFilter = (
   player: PlayerId,
   filter: PlayerFilter,
@@ -172,13 +177,13 @@ const matchesPlayerFilter = (
 export const evaluatePlayerSelector = (
   selector: PlayerSelector,
   context: RuleDslRuntimeContext,
-): PlayerId[] => context.state.playerOrder.filter((player) =>
+) => context.state.playerOrder.filter((player) =>
   !context.state.players[player].lost && matchesPlayerFilter(player, selector.filter, context))
 
 const referencedPlayer = (
   value: 'you' | PlayerReference,
   context: RuleDslRuntimeContext,
-): PlayerId | undefined => {
+) => {
   if (value === 'you') return context.controller
   const players = evaluatePlayerReference(value, context)
   if (players.length > 1) {
@@ -187,6 +192,7 @@ const referencedPlayer = (
   return players[0]
 }
 
+// Recursive filter composition requires an explicit return type.
 const matchesObjectFilter = (
   object: GameObject,
   filter: ObjectFilter,
@@ -208,7 +214,7 @@ const matchesObjectFilter = (
 export const evaluateObjectSelector = (
   selector: ObjectSelector,
   context: RuleDslRuntimeContext,
-): GameObject[] => Object.values(context.state.objects).filter((object) =>
+) => Object.values(context.state.objects).filter((object) =>
   !object.phasedOut && matchesObjectFilter(object, selector.filter, context))
 
 const stackController = (
@@ -216,6 +222,7 @@ const stackController = (
   context: RuleDslRuntimeContext,
 ) => referencedPlayer(value, context)
 
+// Recursive filter composition requires an explicit return type.
 const matchesStackItemFilter = (
   item: StackItem,
   filter: StackItemFilter,
@@ -233,16 +240,18 @@ const matchesStackItemFilter = (
 export const evaluateStackItemSelector = (
   selector: StackItemSelector,
   context: RuleDslRuntimeContext,
-): StackItem[] => context.state.stack.filter((item) =>
+) => context.state.stack.filter((item) =>
   item.kind !== 'action' && matchesStackItemFilter(item, selector.filter, context))
 
 export function evaluateSelector(selector: PlayerSelector, context: RuleDslRuntimeContext): PlayerId[]
 export function evaluateSelector(selector: ObjectSelector, context: RuleDslRuntimeContext): GameObject[]
 export function evaluateSelector(selector: StackItemSelector, context: RuleDslRuntimeContext): StackItem[]
 export function evaluateSelector(selector: Selector, context: RuleDslRuntimeContext) {
-  if (selector.kind === 'players') return evaluatePlayerSelector(selector, context)
-  if (selector.kind === 'objects') return evaluateObjectSelector(selector, context)
-  return evaluateStackItemSelector(selector, context)
+  switch (selector.kind) {
+    case 'players': return evaluatePlayerSelector(selector, context)
+    case 'objects': return evaluateObjectSelector(selector, context)
+    case 'stackItems': return evaluateStackItemSelector(selector, context)
+  }
 }
 
 const oneReferenceValue = (
@@ -250,7 +259,7 @@ const oneReferenceValue = (
   context: RuleDslRuntimeContext,
   characteristic: NumericCharacteristic,
   information: 'current' | 'currentOrLastKnown',
-): number => {
+) => {
   if (characteristic === 'life') {
     const players = reference.kind === 'resultRef'
       ? []
@@ -272,19 +281,21 @@ const oneReferenceValue = (
 
 export const amountEvaluationContext = (
   context: RuleDslRuntimeContext,
-): AmountEvaluationContext => ({
+) => ({
   variables: context.variables,
   eventAmount: context.occurrence?.amount,
   count: (selector) => {
-    if (selector.kind === 'players') return evaluatePlayerSelector(selector, context).length
-    if (selector.kind === 'objects') return evaluateObjectSelector(selector, context).length
-    return evaluateStackItemSelector(selector, context).length
+    switch (selector.kind) {
+      case 'players': return evaluatePlayerSelector(selector, context).length
+      case 'objects': return evaluateObjectSelector(selector, context).length
+      case 'stackItems': return evaluateStackItemSelector(selector, context).length
+    }
   },
   characteristic: (reference, characteristic, information) =>
     oneReferenceValue(reference, context, characteristic, information),
-})
+} satisfies AmountEvaluationContext)
 
 export const evaluateRuntimeAmount = (
   expression: Amount,
   context: RuleDslRuntimeContext,
-): number => evaluateAmount(expression, amountEvaluationContext(context))
+) => evaluateAmount(expression, amountEvaluationContext(context))

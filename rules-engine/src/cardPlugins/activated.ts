@@ -28,25 +28,26 @@ const legalActivateTarget = (
   if (target?.kind !== 'object') return false
   const object = targetObject(state, target)
   if (!object || object.zone !== 'battlefield') return false
-  if (kind === 'room') {
-    return Boolean(object.roomDoors && object.controller === seat)
+  switch (kind) {
+    case 'room': return Boolean(object.roomDoors && object.controller === seat)
+    case 'legendary': return object.supertypes.includes('Legendary')
+    case 'creature': return object.types.includes('Creature')
+    case 'land': return object.types.includes('Land')
   }
-  if (kind === 'legendary') return object.supertypes.includes('Legendary')
-  return object.types.includes(kind === 'creature' ? 'Creature' : 'Land')
 }
 
 /** A filtered target is checked again on resolution (CR 608.2b), so the stack item keeps its filter. */
 const activatedTargetFilter = (
   targets: Extract<CardEffect, { op: 'activate' }>['targets'],
-): TargetFilter | undefined => {
+) => {
   if (!targets) return undefined
   if (typeof targets === 'string') {
     switch (targets) {
-      case 'creature': return { zone: 'battlefield', type: 'Creature' }
-      case 'land': return { zone: 'battlefield', type: 'Land' }
+      case 'creature': return { zone: 'battlefield', type: 'Creature' } satisfies TargetFilter
+      case 'land': return { zone: 'battlefield', type: 'Land' } satisfies TargetFilter
       // Marina Vendrell's shorthand means a Room you control. Room is a subtype.
-      case 'room': return { zone: 'battlefield', subtype: 'Room', controller: 'you' }
-      case 'legendary': return { zone: 'battlefield', supertype: 'Legendary' }
+      case 'room': return { zone: 'battlefield', subtype: 'Room', controller: 'you' } satisfies TargetFilter
+      case 'legendary': return { zone: 'battlefield', supertype: 'Legendary' } satisfies TargetFilter
       default: return undefined
     }
   }

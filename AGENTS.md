@@ -2,6 +2,12 @@
 
 This repository stores Commander deck workspaces and a shared Scryfall card cache.
 
+## TypeScript style
+
+Prefer inferred function return types. Add an explicit return type only when it is necessary, such as recursive inference, an overload contract, or a required type predicate. Do not add return annotations merely for documentation or to mask an inference problem; explain non-obvious exceptions.
+
+Use `switch` instead of an `if` / `else if` chain when comparing the same variable against multiple discrete values. Keep `if` for independent conditions, ranges, and compound predicates.
+
 ## Git workflow
 
 Never edit on `main`. Each agent session uses its own branch and git worktree:
