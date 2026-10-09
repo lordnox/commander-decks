@@ -751,7 +751,7 @@ describe('kernel host journal', () => {
     expect(pendingOptionSelection(restarted.history.current())).toBeUndefined()
   })
 
-  test('a host restart resumes an open Aura color choice and the boost uses the pick', () => {
+  test('a suspended frame offers only its answer after a host restart', () => {
     const server = createServerGame(
       commanderRules,
       {
@@ -793,6 +793,8 @@ describe('kernel host journal', () => {
     for (const event of events) {
       expect(kernel.dispatch(event).ok).toBe(true)
     }
+    expect(kernel.history.current().resolution).toBeDefined()
+    expect(kernelPriority(kernel.history.current())).toBeNull()
     const firstLobby = createLobby()
     expect(prepareKernelPendingChoice(kernel, firstLobby)).toBe(true)
 
@@ -803,6 +805,8 @@ describe('kernel host journal', () => {
     const restartedLobby = createLobby()
     expect(prepareKernelPendingChoice(restarted, restartedLobby)).toBe(true)
     expect(restartedLobby.topdeck).toEqual(firstLobby.topdeck)
+    expect(kernelPriority(restarted.history.current())).toBeNull()
+    expect(restarted.dispatch({ type: 'tapForMana', seat: 'p1', objectId: landId }).ok).toBe(false)
     expect(applyKernelChoice(restarted, restartedLobby, 'p1', slotted(restartedLobby, {
       type: 'topdeck',
       choices: [
@@ -1736,10 +1740,6 @@ describe('kernel host journal', () => {
       ],
     }))).toBe(true)
 
-    let state = kernel.history.current()
-    if (state.stack.length > 0) {
-      expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
-    }
     prepareKernelPendingChoice(kernel, lobby)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
@@ -1752,7 +1752,7 @@ describe('kernel host journal', () => {
       choices: [{ card: 'p2', destination: 'target' }],
     }))).toBe(true)
 
-    state = kernel.history.current()
+    const state = kernel.history.current()
     expect([state.players.p1.life, state.players.p2.life]).toEqual([10, 40])
     expect(state.zoneOrder.p1.hand).toHaveLength(30)
   })
@@ -2612,6 +2612,10 @@ describe('kernel host journal', () => {
           toughness: 4,
         })],
       },
+      libraries: {
+        p1: Array.from({ length: 7 }, forest),
+        p2: Array.from({ length: 7 }, forest),
+      },
     })
     const body = server.state.zoneOrder.p2.hand[0]
     let state = server.rules(server.state, {
@@ -3027,6 +3031,10 @@ describe('if-you-do resolution choices', () => {
         battlefield: {
           p2: [cardTemplate('Enemy Rock', { types: ['Artifact'] })],
         },
+        libraries: {
+          p1: Array.from({ length: 7 }, forest),
+          p2: Array.from({ length: 7 }, forest),
+        },
       },
       { random: () => 0.5 },
     )
@@ -3257,6 +3265,11 @@ describe('up-to-N trigger targets live choice', () => {
             cardTemplate('Spared Charm', { types: ['Enchantment'] }),
           ],
         },
+        libraries: {
+          p1: Array.from({ length: 7 }, forest),
+          p2: Array.from({ length: 7 }, forest),
+          p3: Array.from({ length: 7 }, forest),
+        },
       },
       { random: () => 0.5, cardPlugins: [] },
     )
@@ -3482,6 +3495,11 @@ describe('same-named candidates are picked by position', () => {
         p2: [forest()],
         p3: [forest(), cardTemplate('Treasure', { types: ['Artifact'] })],
       },
+      libraries: {
+        p1: Array.from({ length: 7 }, forest),
+        p2: Array.from({ length: 7 }, forest),
+        p3: Array.from({ length: 7 }, forest),
+      },
     })
     const [mine, theirs, third] = idsNamed(server.state, 'Forest', 'battlefield')
     const treasure = idsNamed(server.state, 'Treasure', 'battlefield')[0]
@@ -3608,6 +3626,7 @@ describe('same-named candidates are picked by position', () => {
   test('a stack discard of duplicate cards in hand discards the chosen copy after a restart', () => {
     const server = createServerGame(commanderRules, {
       hands: { p2: [forest(), forest()] },
+      libraries: { p1: Array.from({ length: 7 }, forest), p2: Array.from({ length: 7 }, forest) },
     })
     const [firstCopy, secondCopy] = server.state.zoneOrder.p2.hand
     server.state.stack = [{

@@ -10,7 +10,6 @@ import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import type {
   Instruction,
   PlayerRecipient,
-  SpellAbilityDefinition,
 } from './cardPlugins/dsl/schema/v1'
 import type Draft from './draft'
 import type {
@@ -26,7 +25,7 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'loseLife',
 ] as const
 
-const spellAbility = (item: StackItem): { ability: SpellAbilityDefinition; index: number } | undefined => {
+const spellAbility = (item: StackItem) => {
   const snapshot = item.execution?.definitionSnapshot
   if (!snapshot) return
   const compiled = loadDefinitionSnapshot(snapshot)
@@ -65,7 +64,7 @@ export const canonicalResolutionCandidate = (state: GameState) => {
 export const startCanonicalResolution = (
   draft: Draft,
   item: StackItem,
-): CanonicalResolutionFrame => {
+) => {
   const selected = spellAbility(item)
   if (!selected) throw new Error('canonical spell is missing its pinned definition')
   const { ability, index: abilityIndex } = selected
@@ -116,7 +115,7 @@ const runtimeContext = (
   state: GameState,
   frame: CanonicalResolutionFrame,
   item: StackItem,
-): RuleDslRuntimeContext => ({
+) => ({
   state,
   controller: frame.controller,
   source: frame.source,
@@ -136,32 +135,29 @@ const actionEvents = (
   context: RuleDslRuntimeContext,
   frame: CanonicalResolutionFrame,
   path: string,
-): GameEvent[] => {
-  if (instruction.kind === 'draw') {
-    const targets = recipients(instruction.targets, context)
-    const amount = evaluateRuntimeAmount(instruction.count, context)
-    if (amount === 0) return []
-    return targets.map((seat) => ({ type: 'draw' as const, seat, count: amount }))
+) => {
+  switch (instruction.kind) {
+    case 'draw': {
+      const targets = recipients(instruction.targets, context)
+      const amount = evaluateRuntimeAmount(instruction.count, context)
+      if (amount === 0) return []
+      return targets.map((seat) => ({ type: 'draw' as const, seat, count: amount }))
+    }
+    case 'gainLife':
+    case 'loseLife': {
+      const targets = recipients(instruction.targets, context)
+      const amount = evaluateRuntimeAmount(instruction.amount, context)
+      if (amount === 0) return []
+      return targets.map((seat) => ({
+        type: instruction.kind,
+        seat,
+        amount,
+        source: frame.source.ref.objectId,
+      }))
+    }
+    default:
+      throw pathError(frame, path, `${instruction.kind} is not executable in Part 03`)
   }
-  if (instruction.kind === 'gainLife' || instruction.kind === 'loseLife') {
-    const targets = recipients(instruction.targets, context)
-    const amount = evaluateRuntimeAmount(instruction.amount, context)
-    if (amount === 0) return []
-    return instruction.kind === 'gainLife'
-      ? targets.map((seat) => ({
-          type: 'gainLife' as const,
-          seat,
-          amount,
-          source: frame.source.ref.objectId,
-        }))
-      : targets.map((seat) => ({
-          type: 'loseLife' as const,
-          seat,
-          amount,
-          source: frame.source.ref.objectId,
-        }))
-  }
-  throw pathError(frame, path, `${instruction.kind} is not executable in Part 03`)
 }
 
 export type DriverStep =
@@ -172,7 +168,7 @@ export type DriverStep =
  * Advance data-only cursors until one semantic instruction is ready. The caller
  * commits the returned events before changing `phase` back to `running`.
  */
-export const prepareResolutionStep = (draft: Draft): DriverStep => {
+export const prepareResolutionStep = (draft: Draft) => {
   const frame = draft.resolution
   if (!frame) throw new Error('no resolution frame is active')
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')

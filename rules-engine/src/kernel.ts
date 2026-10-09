@@ -301,6 +301,34 @@ const collectRecompute = (
   return events
 }
 
+const recomputeOnly = (
+  state: GameState,
+  catalog: PluginCatalog,
+): ReduceResult => {
+  let current = state
+  const entries: EventTrace[] = []
+  for (let iteration = 0; iteration < CHECKPOINT_CAP; iteration += 1) {
+    const derivedDraft = makeDraft(current)
+    const derived = collectRecompute(current, derivedDraft, catalog)
+    if (derived.length === 0) return { ok: true, state: current, trace: entries }
+    for (const event of derived) {
+      const next = applyEventTree(current, event, catalog)
+      entries.push(...nested(next.trace, 1))
+      if (!next.ok) return { ...next, state: current, trace: entries }
+      current = next.state
+      if (current.resolution?.phase === 'waiting') {
+        return { ok: true, state: current, trace: entries }
+      }
+    }
+  }
+  return {
+    ok: false,
+    error: `resolution recompute did not converge after ${CHECKPOINT_CAP} iterations`,
+    state: current,
+    trace: entries,
+  }
+}
+
 const collectSba = (
   state: GameState,
   draft: ReturnType<typeof makeDraft>,
@@ -659,6 +687,13 @@ const driveResolution = (
         }
       }
       current = freezeDraft(committed)
+      if (current.resolution?.phase === 'waiting') {
+        return { ok: true, state: current, trace: entries }
+      }
+      const recomputed = recomputeOnly(current, catalog)
+      entries.push(...recomputed.trace)
+      if (!recomputed.ok) return recomputed
+      current = recomputed.state
       if (current.resolution?.phase === 'waiting') {
         return { ok: true, state: current, trace: entries }
       }

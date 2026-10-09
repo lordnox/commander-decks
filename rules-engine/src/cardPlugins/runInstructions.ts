@@ -18,7 +18,7 @@ import {
 const isResumeEvent = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>
   event.type === 'custom' && event.name === INSTRUCTIONS_RESUME
 
-const resumeFromPayload = (payload: Record<string, unknown> | undefined): InstructionResume | undefined => {
+const resumeFromPayload = (payload: Record<string, unknown> | undefined) => {
   if (!payload || typeof payload.sourceId !== 'string' || !Array.isArray(payload.remaining)) return
   return {
     sourceId: payload.sourceId,

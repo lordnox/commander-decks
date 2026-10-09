@@ -75,7 +75,6 @@ export const finishLibrarySearch = (
   const shouldShuffle = pending.shuffleIfSearched ? searchedLibrary : true
   if (shouldShuffle) events.push({ type: 'shuffleLibrary', seat })
   events.push({ type: 'custom', name: SEARCH_CHOSEN, seat })
-  if (pending.via === 'spell') events.push({ type: 'resolveTop' })
   for (const event of events) {
     const result = kernel.dispatch(event)
     if (!result.ok) throw new Error(result.error)

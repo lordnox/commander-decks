@@ -171,7 +171,7 @@
       "candidateEvidence": {
         "matches": 21,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
+          "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:18",
           "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
@@ -381,13 +381,13 @@
         "matches": 135,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1223 — test('a grouped multi-target cast sends every selected object as a target', () => {",
-          "live-runner/src/kernelHost.test.ts:1498 — test('Joint Exploration put-land dispatches a kernel move', () => {",
+          "live-runner/src/kernelHost.test.ts:1227 — test('a grouped multi-target cast sends every selected object as a target', () => {",
+          "live-runner/src/kernelHost.test.ts:1502 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:2113 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelHost.test.ts:2510 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "live-runner/src/kernelHost.test.ts:2657 — test('Settle publishes and restores its private basic-land search', () => {",
-          "live-runner/src/kernelHost.test.ts:2896 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
-          "live-runner/src/kernelHost.test.ts:2959 — test('publishes the persisted typed payment and applies the selected mana', () => {"
+          "live-runner/src/kernelHost.test.ts:2661 — test('Settle publishes and restores its private basic-land search', () => {",
+          "live-runner/src/kernelHost.test.ts:2900 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:2963 — test('publishes the persisted typed payment and applies the selected mana', () => {"
         ]
       },
       "neededCanonicalNode": "canonical capability-derived plugin requirement",
@@ -575,7 +575,7 @@
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:46",
           "live-runner/src/kernelFacts.test.ts:14",
-          "live-runner/src/kernelHost.test.ts:1505 — test('Joint Exploration put-land dispatches a kernel move', () => {",
+          "live-runner/src/kernelHost.test.ts:1509 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:1914 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:211 — test('the grant is the controller\\'s and ends at cleanup', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:226 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {"
@@ -703,7 +703,7 @@
         "matches": 64,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1331 — test('restores an interrupted Analyze the Pollen library search', async () => {",
+          "live-runner/src/kernelHost.test.ts:1335 — test('restores an interrupted Analyze the Pollen library search', async () => {",
           "live-runner/src/kernelHost.test.ts:1776 — test('Scapeshift sacrifices lands as it resolves, then opens its search', () => {",
           "live-runner/src/kernelHost.test.ts:1893 — test('Fabled Passage untaps its find once the fourth land enters', () => {",
           "live-runner/src/kernelHost.test.ts:1914 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
@@ -827,8 +827,8 @@
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2326 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "live-runner/src/kernelHost.test.ts:2516 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "live-runner/src/kernelHost.test.ts:2959 — test('publishes the persisted typed payment and applies the selected mana', () => {",
-          "live-runner/src/kernelHost.test.ts:3180 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:2963 — test('publishes the persisted typed payment and applies the selected mana', () => {",
+          "live-runner/src/kernelHost.test.ts:3188 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "live-runner/src/kernelHost.test.ts:452 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:246 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:38"
@@ -917,7 +917,7 @@
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
           "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
+          "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:444 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "live-runner/src/kernelHost.test.ts:677 — test('a host restart rebuilds an open dredge replacement choice', () => {",
           "rules-engine/src/actions.test.ts:275 — test('a counterspell is not an action while the stack is empty', () => {",
@@ -1142,8 +1142,8 @@
           "live-runner/src/decisions.test.ts:46",
           "live-runner/src/kernelFacts.test.ts:14",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "live-runner/src/kernelHost.test.ts:1498 — test('Joint Exploration put-land dispatches a kernel move', () => {",
-          "live-runner/src/kernelHost.test.ts:1702 — test('typed life-exchange player choices round-trip through the live host', () => {"
+          "live-runner/src/kernelHost.test.ts:1502 — test('Joint Exploration put-land dispatches a kernel move', () => {",
+          "live-runner/src/kernelHost.test.ts:1706 — test('typed life-exchange player choices round-trip through the live host', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -2743,11 +2743,11 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 112,
+        "matches": 113,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "live-runner/src/kernelHost.test.ts:1498 — test('Joint Exploration put-land dispatches a kernel move', () => {",
+          "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
+          "live-runner/src/kernelHost.test.ts:1502 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:2181 — test('sends submitted activation-cost cards as choices, not targets', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
@@ -3145,7 +3145,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1702 — test('typed life-exchange player choices round-trip through the live host', () => {",
+          "live-runner/src/kernelHost.test.ts:1706 — test('typed life-exchange player choices round-trip through the live host', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:59 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/lifeEffects.test.ts:187 — test('Mirror Universe enumerates opponents and exchanges during its controller upkeep', () => {",
           "rules-engine/src/cardPlugins/lifeEffects.test.ts:217 — test('Mister Negative uses typed optional player selection and draws life lost', () => {"
@@ -3540,10 +3540,10 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 75,
+        "matches": 76,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "live-runner/src/kernelHost.test.ts:2915 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
+          "live-runner/src/kernelHost.test.ts:2919 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:47",
@@ -3807,7 +3807,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:832 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
+          "live-runner/src/kernelHost.test.ts:836 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:188 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/sinFallReplacements.test.ts:145 — test('Hostile Negotiations reveals one pile without leaking the other and completes', () => {"
         ]
@@ -3870,7 +3870,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
+          "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:187 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/sinFallReplacements.test.ts:89 — test('Cling to Dust escape exiles exactly five other graveyard cards and resolves', () => {"
         ]
@@ -4238,7 +4238,7 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2916 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:2920 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/homerPass2.test.ts:250 — test('Zimone and Dina drain on the second draw', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:70 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:128 — test('Zimone and Dina sacrifice another creature as the activation cost', () => {",
@@ -6422,7 +6422,7 @@
       "candidateEvidence": {
         "matches": 34,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:907 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
+          "live-runner/src/kernelHost.test.ts:911 — test('a host restart keeps an open vote private, answerable, and revealed on completion', () => {",
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:51 — test(\"Council's Judgment validates public sequential votes and exiles every tied winner\", () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:101",
           "rules-engine/src/cardPlugins/councilCards.test.ts:107",
@@ -6803,7 +6803,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1331 — test('restores an interrupted Analyze the Pollen library search', async () => {",
+          "live-runner/src/kernelHost.test.ts:1335 — test('restores an interrupted Analyze the Pollen library search', async () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:257 — test('Analyze the Pollen uses the shared kicked search and reveal flow', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:295 — test('unkicked Analyze the Pollen only finds basic lands', () => {",
           "rules-engine/src/runtime.test.ts:71 — test('a reveal names the card to every seat without unhiding the zone', () => {"
@@ -8183,7 +8183,7 @@
         "matches": 10,
         "samples": [
           "live-runner/src/decisions.test.ts:252 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1505 — test('Joint Exploration put-land dispatches a kernel move', () => {",
+          "live-runner/src/kernelHost.test.ts:1509 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:211 — test('the grant is the controller\\'s and ends at cleanup', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:226 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:249 — test('the action layer offers one activation per Forest', () => {",
@@ -8794,7 +8794,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1048 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
+          "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:187 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/sinFallReplacements.test.ts:89 — test('Cling to Dust escape exiles exactly five other graveyard cards and resolves', () => {"
         ]
@@ -9324,7 +9324,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2959 — test('publishes the persisted typed payment and applies the selected mana', () => {",
+          "live-runner/src/kernelHost.test.ts:2963 — test('publishes the persisted typed payment and applies the selected mana', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:123 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:40 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:142 — test('the Lady Evangela mana and extort cards stay registered', () => {"
@@ -10423,7 +10423,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1223 — test('a grouped multi-target cast sends every selected object as a target', () => {",
+          "live-runner/src/kernelHost.test.ts:1227 — test('a grouped multi-target cast sends every selected object as a target', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:131 — test('Energy Arc validates, untaps, and prevents combat damage dealt by and to its targets', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:341 — test('live action enumeration exposes Settle player targets and Energy Arc multi-targets', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:49 — test('the Eva cards this pass covers stay registered', () => {"
@@ -12616,7 +12616,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:832 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
+          "live-runner/src/kernelHost.test.ts:836 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:188 — test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/sinFallReplacements.test.ts:145 — test('Hostile Negotiations reveals one pile without leaking the other and completes', () => {"
         ]
@@ -13017,7 +13017,7 @@
         "matches": 3,
         "samples": [
           "live-runner/src/decisions.test.ts:253 — test('does not draw twice for one turn', () => {",
-          "live-runner/src/kernelHost.test.ts:1498 — test('Joint Exploration put-land dispatches a kernel move', () => {",
+          "live-runner/src/kernelHost.test.ts:1502 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "rules-engine/src/cardPlugins/jointExploration.test.ts:19 — test('Joint Exploration completes scry, draw, and kicked land in the kernel', () => {"
         ]
       },
@@ -14370,7 +14370,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1702 — test('typed life-exchange player choices round-trip through the live host', () => {",
+          "live-runner/src/kernelHost.test.ts:1706 — test('typed life-exchange player choices round-trip through the live host', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:60 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/lifeEffects.test.ts:217 — test('Mister Negative uses typed optional player selection and draws life lost', () => {"
         ]
@@ -15819,7 +15819,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2896 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:2900 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:241 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:32 — test('all seven cards are registered through the reusable handler', () => {",
           "rules-engine/src/rules/selectPlayers.test.ts:11 — test('selectPlayers rejects stale and duplicate typed target submissions', () => {"
@@ -17011,7 +17011,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2657 — test('Settle publishes and restores its private basic-land search', () => {",
+          "live-runner/src/kernelHost.test.ts:2661 — test('Settle publishes and restores its private basic-land search', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:261 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:340 — test('live action enumeration exposes Settle player targets and Energy Arc multi-targets', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:68 — test('the Eva cards this pass covers stay registered', () => {"
@@ -20818,9 +20818,9 @@
           "live-runner/src/decisions.test.ts:304 — test('catches a turn that ended over the limit', () => {",
           "live-runner/src/decisions.test.ts:324 — test('discarding records the card and ends the turn', () => {",
           "live-runner/src/host.test.ts:175 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "live-runner/src/kernelHost.test.ts:2739 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
-          "live-runner/src/kernelHost.test.ts:2863 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
-          "live-runner/src/kernelHost.test.ts:3573 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
+          "live-runner/src/kernelHost.test.ts:2743 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
+          "live-runner/src/kernelHost.test.ts:2867 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3591 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20852,7 +20852,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 80,
+        "matches": 81,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -20957,7 +20957,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2959 — test('publishes the persisted typed payment and applies the selected mana', () => {",
+          "live-runner/src/kernelHost.test.ts:2963 — test('publishes the persisted typed payment and applies the selected mana', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:123 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:40 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:142 — test('the Lady Evangela mana and extort cards stay registered', () => {"
@@ -21519,7 +21519,7 @@
       "candidateEvidence": {
         "matches": 141,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3052 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3060 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:114 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:157 — test('stamped creature filter copies power and toughness', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:188 — test('rejects targets outside the stamped filter', () => {",
@@ -21558,7 +21558,7 @@
       "candidateEvidence": {
         "matches": 44,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2945 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:2949 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:248 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:764 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
           "rules-engine/src/cardPlugins/dackFaydenHelpingHand.test.ts:236 — test('donation choice survives a host restart during Dack resolution', () => {",
@@ -21894,7 +21894,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1606 — test('a resolved clone choice hands the seat its ordinary actions back', () => {"
+          "live-runner/src/kernelHost.test.ts:1610 — test('a resolved clone choice hands the seat its ordinary actions back', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -21972,7 +21972,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2758 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
+          "live-runner/src/kernelHost.test.ts:2762 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -21993,7 +21993,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3663 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
+          "live-runner/src/kernelHost.test.ts:3682 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -22075,7 +22075,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2832 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2836 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:162 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:85 — test('a token stamped with optional mill opens a may dialog when it attacks', () => {"
         ]
@@ -22230,7 +22230,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:1563 — test('a generic pending dialog can put several permanent cards from hand', () => {",
+          "live-runner/src/kernelHost.test.ts:1567 — test('a generic pending dialog can put several permanent cards from hand', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:371 — test('free votes let the CASTER put up to that many permanent cards from hand, never other types', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:419 — test('all free votes reveal nothing and offer up to four permanents; restart keeps the offer', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:601 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
@@ -22391,7 +22391,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3211 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:3219 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/homerPass2.test.ts:216 — test('Roaming Throne stamps Ward {2}', () => {"
         ]
       },
@@ -22550,7 +22550,7 @@
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2002 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
           "live-runner/src/kernelHost.test.ts:2051 — test('casts one Room half and later unlocks the other from structured acts', () => {",
-          "live-runner/src/kernelHost.test.ts:2785 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2789 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:80 — test('Scapeshift cannot find an MDFC whose front face is not a land', () => {",
           "rules-engine/src/cardPlugins/marinaVendrell.test.ts:21",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:247 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
@@ -22667,10 +22667,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          660
+          662
         ],
         "samples": [
-          "660: if (object.name === 'Timetwister') {"
+          "662: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23569,10 +23569,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          768
+          803
         ],
         "samples": [
-          "768: event.name === SEARCH_CHOSEN"
+          "803: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23607,10 +23607,10 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          207
+          203
         ],
         "samples": [
-          "207: const object = draft.object(item.objectId)"
+          "203: const object = draft.object(item.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -23889,27 +23889,27 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          500,
-          506,
-          535,
-          555,
+          502,
+          508,
+          537,
           557,
-          560,
-          568,
-          569,
-          618,
-          627,
-          651,
-          667,
+          559,
+          562,
+          570,
+          571,
+          620,
+          629,
+          653,
           669,
-          675,
-          687,
-          708
+          671,
+          677,
+          689,
+          710
         ],
         "samples": [
-          "500: const moved = draft.object(event.objectId)",
-          "506: const object = draft.object(event.objectId)",
-          "535: .map((objectId) => draft.object(objectId))"
+          "502: const moved = draft.object(event.objectId)",
+          "508: const object = draft.object(event.objectId)",
+          "537: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
