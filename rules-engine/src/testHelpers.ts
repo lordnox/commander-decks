@@ -34,7 +34,11 @@ export const resolveStack = (
   state: GameState,
 ) => {
   let current = state
-  while (current.stack.length > 0 && !current.stack[0].waiting) {
+  while (
+    current.stack.length > 0
+    && !current.stack[0].waiting
+    && current.resolution?.phase !== 'waiting'
+  ) {
     current = ok(rules(current, { type: 'resolveTop' }))
   }
   return current

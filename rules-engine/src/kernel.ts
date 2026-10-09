@@ -21,10 +21,25 @@ import {
   startCanonicalResolution,
 } from './driver'
 import { captureEventTriggers, placePendingTriggers } from './rules/triggers'
-import { pendingSelection } from './rules/selectCards'
-import { pendingPlayerSelection } from './rules/selectPlayers'
-import { pendingOptionSelection } from './rules/selectOptions'
-import { pendingDialog } from './pendingDialog'
+import {
+  INSTRUCTIONS_RESUME,
+  PENDING_SELECTION,
+  PENDING_STEAL_CAST,
+  pendingSelection,
+  pendingSelectionsFor,
+} from './rules/selectCards'
+import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/selectPlayers'
+import { PENDING_OPTION_SELECTION, pendingOptionSelection } from './rules/selectOptions'
+import { PENDING_DIALOG, pendingDialog } from './pendingDialog'
+import { finishedSpellZone } from './cardPlugins/alternateCosts'
+import {
+  SEARCH_CHOSEN,
+  SEARCH_PENDING,
+  pendingSearch,
+  searchingSeat,
+} from './cardPlugins/librarySearch'
+import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
+import { isSameObject } from './objectIdentity'
 
 const CHECKPOINT_CAP = 32
 
@@ -40,6 +55,26 @@ const attackedPlayer = (attacking: NonNullable<GameState['objects'][string]['att
  * CR 800.4 does not allow.
  */
 const leaveGame = (draft: Draft, seat: PlayerId) => {
+  const abandonedResumes = pendingSelectionsFor(draft, seat)
+    .flatMap((selection) => selection.resume ? [{
+      type: 'custom' as const,
+      name: INSTRUCTIONS_RESUME,
+      payload: {
+        sourceId: selection.resume.sourceId,
+        remaining: selection.resume.remaining,
+        ...(selection.resume.item ? { item: selection.resume.item } : {}),
+      },
+    }] : [])
+  for (const key of [
+    PENDING_SELECTION,
+    PENDING_PLAYER_SELECTION,
+    PENDING_OPTION_SELECTION,
+    PENDING_DIALOG,
+    SEARCH_PENDING,
+    PENDING_STEAL_CAST,
+  ]) {
+    delete draft.players[seat].data[key]
+  }
   for (const object of Object.values(draft.objects)) {
     if (object.owner === seat) {
       delete draft.objects[object.id]
@@ -57,6 +92,11 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
       : Boolean(draft.objects[item.objectId]))
   if (draft.resolution && draft.players[draft.resolution.controller]?.lost) {
     delete draft.resolution
+  } else if (draft.resolution && abandonedResumes.length > 0) {
+    draft.resolution.pendingEvents = [
+      ...(draft.resolution.pendingEvents ?? []),
+      ...abandonedResumes,
+    ]
   }
   draft.pendingTriggers = draft.pendingTriggers?.filter(
     (trigger) => !draft.players[trigger.execution.controller]?.lost,
@@ -386,18 +426,15 @@ const hasOpenChoice = (state: GameState) => Boolean(
   || pendingPlayerSelection(state)
   || pendingOptionSelection(state)
   || pendingDialog(state)
-  || state.stack.some((item) => item.kind === 'action' && item.waiting),
+  || searchingSeat(state)
+  || state.stack.some((item) => item.kind === 'action' && item.waiting)
+  || state.playerOrder.some((seat) => pendingFreeCastFor(state, seat)),
 )
 
-const suspendLegacyResolution = (
-  state: GameState,
-  item: NonNullable<GameState['stack'][number]>,
-  pendingEvents: GameEvent[],
-) => {
+const startLegacyResolution = (state: GameState) => {
+  const item = state.stack[0]
+  if (!item || item.kind === 'action') return state
   const draft = makeDraft(state)
-  const existing = draft.stack.find((candidate) => candidate.id === item.id)
-  if (existing) existing.waiting = 'choice'
-  else draft.stack.unshift({ ...structuredClone(item), waiting: 'choice' })
   draft.resolution = {
     version: 1,
     kind: 'legacy',
@@ -405,15 +442,15 @@ const suspendLegacyResolution = (
     controller: item.controller,
     intendedPriority: draft.active,
     item: structuredClone(item),
-    phase: 'waiting',
-    pendingEvents: structuredClone(pendingEvents),
+    phase: 'committing',
+    pendingEvents: [{ type: 'resolveTop' }],
   }
+  draft.priority = null
+  draft.passedInRow = []
   return freezeDraft(draft)
 }
 
-type EventTreeOptions = ReduceOptions & {
-  legacyItem?: GameState['stack'][number]
-}
+type EventTreeOptions = ReduceOptions
 
 function applyEventTree(
   state: GameState,
@@ -421,7 +458,7 @@ function applyEventTree(
   catalog: PluginCatalog,
   options: EventTreeOptions = {},
 ): ReduceResult {
-  if (event.type === 'resolveTop') {
+  if (event.type === 'resolveTop' && !state.resolution) {
     const item = canonicalResolutionCandidate(state)
     if (item) {
       const draft = makeDraft(state)
@@ -438,11 +475,15 @@ function applyEventTree(
       }
       return { ok: true, state: freezeDraft(draft), trace: [trace(event, 'applied')] }
     }
+    if (state.stack[0] && state.stack[0].kind !== 'action') {
+      return {
+        ok: true,
+        state: startLegacyResolution(state),
+        trace: [trace(event, 'applied')],
+      }
+    }
   }
 
-  const rootLegacyItem = options.legacyItem
-    ?? (event.type === 'resolveTop' ? state.stack[0] : undefined)
-  const choiceWasOpen = hasOpenChoice(state)
   const first = reduceOnce(state, event, catalog, options)
   if (!first.ok || first.prevented) return first
   let current = first.state
@@ -451,24 +492,38 @@ function applyEventTree(
     event: queued,
     depth: first.queuedDepth ?? 1,
   }))
-  if (
-    rootLegacyItem?.kind !== 'action'
-    && rootLegacyItem
-    && !choiceWasOpen
-    && hasOpenChoice(current)
-  ) {
-    return {
-      ok: true,
-      state: suspendLegacyResolution(current, rootLegacyItem, queue.map(({ event }) => event)),
-      trace: entries,
+  if (current.resolution && queue.length > 0) {
+    const suspended = makeDraft(current)
+    if (suspended.resolution) {
+      const waitsForChoice = hasOpenChoice(suspended)
+      const immediate = queue
+        .map(({ event: queued }) => queued)
+        .filter((queued) => !(
+          waitsForChoice
+          && queued.type === 'custom'
+          && queued.name === INSTRUCTIONS_RESUME
+        ))
+      const afterChoice = queue
+        .map(({ event: queued }) => queued)
+        .filter((queued) => (
+          waitsForChoice
+          && queued.type === 'custom'
+          && queued.name === INSTRUCTIONS_RESUME
+        ))
+      suspended.resolution.pendingEvents = [
+        ...immediate,
+        ...(suspended.resolution.pendingEvents ?? []),
+      ]
+      suspended.resolution.afterChoiceEvents = [
+        ...(suspended.resolution.afterChoiceEvents ?? []),
+        ...afterChoice,
+      ]
     }
+    return { ok: true, state: freezeDraft(suspended), trace: entries }
   }
   while (queue.length > 0) {
     const queued = queue.shift()!
-    const next = applyEventTree(current, queued.event, catalog, {
-      ...options,
-      ...(rootLegacyItem ? { legacyItem: rootLegacyItem } : {}),
-    })
+    const next = applyEventTree(current, queued.event, catalog, options)
     entries.push(...nested(next.trace, queued.depth))
     if (!next.ok) {
       // The parent event is already committed. Report the failed continuation
@@ -476,13 +531,6 @@ function applyEventTree(
       return { ...next, state: current, trace: entries }
     }
     current = next.state
-    if (current.resolution?.kind === 'legacy') {
-      const draft = makeDraft(current)
-      if (draft.resolution?.kind === 'legacy') {
-        draft.resolution.pendingEvents.push(...queue.map(({ event }) => event))
-      }
-      return { ok: true, state: freezeDraft(draft), trace: entries }
-    }
     if (current.resolution) return { ok: true, state: current, trace: entries }
   }
   return { ok: true, state: current, trace: entries }
@@ -541,14 +589,39 @@ const driveResolution = (
     if (!frame || frame.phase === 'waiting') {
       return { ok: true, state: current, trace: entries }
     }
-    if (frame.kind !== 'canonicalSpell') {
-      return { ok: true, state: current, trace: entries }
+    if (frame.kind === 'legacy' && frame.phase === 'completing') {
+      const item = frame.item
+      const object = current.objects[item.objectId]
+      const identity = item.execution?.source.ref
+      const sameSource = !identity || (object && isSameObject(object, identity))
+      if (item.kind === 'spell' && object?.zone === 'stack' && sameSource) {
+        const draft = makeDraft(current)
+        if (draft.resolution?.kind === 'legacy') {
+          draft.resolution.phase = 'committing'
+          draft.resolution.pendingEvents = [{
+            type: 'move',
+            objectId: object.id,
+            to: finishedSpellZone(
+              item,
+              item.adventureCast || reboundsOnResolution(object, item) ? 'exile' : 'graveyard',
+            ),
+          }]
+        }
+        current = freezeDraft(draft)
+        continue
+      }
+      const completed = makeDraft(current)
+      completed.stack = completed.stack.filter((candidate) => candidate.id !== frame.stackId)
+      completed.priority = frame.intendedPriority
+      completed.passedInRow = []
+      delete completed.resolution
+      return { ok: true, state: freezeDraft(completed), trace: entries }
     }
     if (frame.phase === 'committing') {
       const [event, ...remaining] = frame.pendingEvents ?? []
       if (event) {
         const before = makeDraft(current)
-        if (before.resolution?.kind === 'canonicalSpell') {
+        if (before.resolution) {
           before.resolution.pendingEvents = remaining
         }
         current = freezeDraft(before)
@@ -557,12 +630,22 @@ const driveResolution = (
         if (next.ok) current = next.state
       }
       const committed = makeDraft(current)
-      if (committed.resolution?.kind === 'canonicalSpell') {
-        if (hasOpenChoice(committed)) {
+      if (committed.resolution) {
+        if ((committed.resolution.pendingEvents?.length ?? 0) > 0) {
+          committed.resolution.phase = 'committing'
+        } else if (hasOpenChoice(committed)) {
           committed.resolution.phase = 'waiting'
-        } else if ((committed.resolution.pendingEvents?.length ?? 0) === 0) {
-          committed.resolution.phase = 'running'
-          delete committed.resolution.pendingEvents
+        } else if ((committed.resolution.afterChoiceEvents?.length ?? 0) > 0) {
+          committed.resolution.pendingEvents = committed.resolution.afterChoiceEvents ?? []
+          delete committed.resolution.afterChoiceEvents
+          committed.resolution.phase = 'committing'
+        } else {
+          if (committed.resolution.kind === 'canonicalSpell') {
+            committed.resolution.phase = 'running'
+            delete committed.resolution.pendingEvents
+          } else {
+            committed.resolution.phase = 'completing'
+          }
         }
       }
       current = freezeDraft(committed)
@@ -570,6 +653,10 @@ const driveResolution = (
         return { ok: true, state: current, trace: entries }
       }
       continue
+    }
+
+    if (frame.kind !== 'canonicalSpell') {
+      return { ok: true, state: current, trace: entries }
     }
 
     const draft = makeDraft(current)
@@ -613,23 +700,78 @@ const resumeCanonicalResolution = (
   if (!answered.ok) return answered
   const draft = makeDraft(answered.state)
   if (draft.resolution?.kind === 'canonicalSpell') {
-    draft.resolution.phase = hasOpenChoice(draft)
-      ? 'waiting'
-      : (draft.resolution.pendingEvents?.length ?? 0) > 0
+    draft.resolution.phase = (draft.resolution.pendingEvents?.length ?? 0) > 0
         ? 'committing'
-        : 'running'
+        : hasOpenChoice(draft)
+          ? 'waiting'
+          : (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
+            ? 'committing'
+            : 'running'
+    if (
+      draft.resolution.phase === 'committing'
+      && draft.resolution.pendingEvents?.length === 0
+      && (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
+    ) {
+      draft.resolution.pendingEvents = draft.resolution.afterChoiceEvents
+      delete draft.resolution.afterChoiceEvents
+    }
   }
   const resumed = driveResolution(freezeDraft(draft), catalog)
   return { ...resumed, trace: [...answered.trace, ...resumed.trace] }
 }
 
-const isResolutionAnswer = (event: GameEvent) =>
-  event.type === 'selectCards'
-  || event.type === 'selectPlayers'
-  || event.type === 'selectOption'
-  || event.type === 'continueAction'
-  || event.type === 'custom'
-  || event.type === 'concede'
+const isResolutionAnswer = (state: GameState, event: GameEvent) => {
+  const searchSeat = searchingSeat(state)
+  switch (event.type) {
+    case 'selectCards':
+    case 'selectPlayers':
+    case 'selectOption':
+    case 'continueAction':
+    case 'chooseParadigm':
+    case 'chooseEpicTargets':
+    case 'payOptionalMana':
+    case 'payExtort':
+    case 'concede':
+      return true
+    case 'custom': {
+      const dialog = pendingDialog(state)
+      return Boolean(
+        (
+          dialog
+          && event.name === dialog.chosenEvent
+          && (!event.seat || event.seat === dialog.seat)
+        )
+        || (
+          event.name === SEARCH_CHOSEN
+          && event.seat
+          && event.seat === searchSeat
+          && Boolean(pendingSearch(state, event.seat))
+        ),
+      )
+    }
+    case 'reveal':
+    case 'shuffleLibrary':
+      return event.seat === searchSeat
+    case 'move': {
+      if (!searchSeat) return false
+      const object = state.objects[event.objectId]
+      return object?.owner === searchSeat && object.zone === 'library'
+    }
+    case 'tap': {
+      if (!searchSeat) return false
+      const object = state.objects[event.objectId]
+      return object?.owner === searchSeat && object.zone === 'battlefield'
+    }
+    case 'castSpell':
+    case 'declineFreeCast':
+      return Boolean(
+        state.players[event.seat]?.data[PENDING_STEAL_CAST]
+        || pendingFreeCastFor(state, event.seat),
+      )
+    default:
+      return false
+  }
+}
 
 const resumeLegacyResolution = (
   state: GameState,
@@ -641,64 +783,28 @@ const resumeLegacyResolution = (
     const error = 'no legacy resolution is waiting'
     return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
   }
-  const working = makeDraft(state)
-  delete working.resolution
-  const retained = working.stack.find((item) => item.id === frame.stackId)
-  if (retained) retained.waiting = null
-  let current = freezeDraft(working)
-  const entries: EventTrace[] = []
-
-  const answered = applyEventTree(current, event, catalog, { legacyItem: frame.item })
-  entries.push(...answered.trace)
-  if (!answered.ok) return { ...answered, trace: entries }
-  current = answered.state
-  if (current.resolution?.kind === 'legacy') {
-    const draft = makeDraft(current)
-    if (draft.resolution?.kind === 'legacy') {
-      draft.resolution.pendingEvents.push(...frame.pendingEvents)
-    }
-    return { ok: true, state: freezeDraft(draft), trace: entries }
-  }
-  if (hasOpenChoice(current)) {
-    return {
-      ok: true,
-      state: suspendLegacyResolution(current, frame.item, frame.pendingEvents),
-      trace: entries,
+  const answered = applyEventTree(state, event, catalog)
+  if (!answered.ok) return answered
+  const draft = makeDraft(answered.state)
+  if (draft.resolution?.kind === 'legacy') {
+    draft.resolution.phase = draft.resolution.pendingEvents.length > 0
+        ? 'committing'
+        : hasOpenChoice(draft)
+          ? 'waiting'
+          : (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
+            ? 'committing'
+            : 'completing'
+    if (
+      draft.resolution.phase === 'committing'
+      && draft.resolution.pendingEvents.length === 0
+      && (draft.resolution.afterChoiceEvents?.length ?? 0) > 0
+    ) {
+      draft.resolution.pendingEvents = draft.resolution.afterChoiceEvents ?? []
+      delete draft.resolution.afterChoiceEvents
     }
   }
-
-  for (let index = 0; index < frame.pendingEvents.length; index += 1) {
-    const pending = frame.pendingEvents[index]
-    const next = applyEventTree(current, pending, catalog, { legacyItem: frame.item })
-    entries.push(...nested(next.trace, 1))
-    if (!next.ok) return { ...next, state: current, trace: entries }
-    current = next.state
-    if (current.resolution?.kind === 'legacy') {
-      const draft = makeDraft(current)
-      if (draft.resolution?.kind === 'legacy') {
-        draft.resolution.pendingEvents.push(...frame.pendingEvents.slice(index + 1))
-      }
-      return { ok: true, state: freezeDraft(draft), trace: entries }
-    }
-    if (!current.resolution && hasOpenChoice(current)) {
-      return {
-        ok: true,
-        state: suspendLegacyResolution(
-          current,
-          frame.item,
-          frame.pendingEvents.slice(index + 1),
-        ),
-        trace: entries,
-      }
-    }
-  }
-
-  const completed = makeDraft(current)
-  completed.stack = completed.stack.filter((item) => item.id !== frame.stackId)
-  completed.priority = frame.intendedPriority
-  completed.passedInRow = []
-  delete completed.resolution
-  return { ok: true, state: freezeDraft(completed), trace: entries }
+  const resumed = driveResolution(freezeDraft(draft), catalog)
+  return { ...resumed, trace: [...answered.trace, ...resumed.trace] }
 }
 
 const checkpoint = (
@@ -759,7 +865,7 @@ export const rules = (
   catalog: PluginCatalog,
 ): ReduceResult => {
   if (state.resolution?.kind === 'legacy') {
-    if (!isResolutionAnswer(event)) {
+    if (!isResolutionAnswer(state, event)) {
       const error = 'resolution is waiting for input'
       return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
     }
@@ -772,7 +878,7 @@ export const rules = (
     }
   }
   if (state.resolution?.phase === 'waiting') {
-    if (!isResolutionAnswer(event)) {
+    if (!isResolutionAnswer(state, event)) {
       const error = 'resolution is waiting for input'
       return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
     }
@@ -795,6 +901,13 @@ export const rules = (
     return checked.ok
       ? { ok: true, state: checked.state, trace: [...entries, ...checked.trace] }
       : { ...checked, trace: [...entries, ...checked.trace] }
+  }
+  if (
+    event.type === 'resolveTop'
+    && hasOpenChoice(state)
+  ) {
+    const error = 'a player choice must be completed before another stack item resolves'
+    return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
   }
   const applied = applyEventTree(state, event, catalog)
   if (!applied.ok) return applied

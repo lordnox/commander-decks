@@ -411,6 +411,8 @@ export type CanonicalResolutionFrame = {
   phase: 'running' | 'committing' | 'waiting'
   /** Events for the current instruction, persisted before the cursor may continue. */
   pendingEvents?: GameEvent[]
+  /** Instruction continuations blocked on a typed choice. */
+  afterChoiceEvents?: GameEvent[]
 }
 
 /** Temporary durable wrapper for legacy programs until their card is migrated. */
@@ -421,8 +423,10 @@ export type LegacyResolutionFrame = {
   controller: PlayerId
   intendedPriority: PlayerId
   item: StackItem
-  phase: 'waiting'
+  phase: 'running' | 'committing' | 'waiting' | 'completing'
   pendingEvents: GameEvent[]
+  /** Instruction continuations blocked on a typed choice. */
+  afterChoiceEvents?: GameEvent[]
 }
 
 export type ResolutionFrame = CanonicalResolutionFrame | LegacyResolutionFrame
