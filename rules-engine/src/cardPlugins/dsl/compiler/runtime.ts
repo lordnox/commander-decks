@@ -72,16 +72,17 @@ const recipients = (
 
 const unique = <Value>(values: readonly Value[]): Value[] => [...new Set(values)]
 
-const recipientsInDomain = <Kind extends BoundRecipient['kind']>(
+const recipientsInDomain = <Recipient extends BoundRecipient>(
   reference: TargetReference | ChoiceReference,
   context: RuleDslRuntimeContext,
-  kind: Kind,
-): Array<Extract<BoundRecipient, { kind: Kind }>> => {
+  kind: Recipient['kind'],
+  matches: (recipient: BoundRecipient) => recipient is Recipient,
+) => {
   const bound = recipients(reference, context)
-  if (bound.some((recipient) => recipient.kind !== kind)) {
+  if (!bound.every(matches)) {
     throw new RuleDslEvaluationError(`${reference.kind} is not bound to ${kind} recipients`)
   }
-  return bound as Array<Extract<BoundRecipient, { kind: Kind }>>
+  return bound
 }
 
 const playerContextReference = (
@@ -103,7 +104,7 @@ export const evaluatePlayerReference = (
   context: RuleDslRuntimeContext,
 ): PlayerId[] => {
   if (reference.kind === 'contextRef') return playerContextReference(reference, context)
-  return unique(recipientsInDomain(reference, context, 'player').map((recipient) =>
+  return unique(recipientsInDomain(reference, context, 'player', (recipient) => recipient.kind === 'player').map((recipient) =>
     recipient.playerId))
 }
 
@@ -138,7 +139,7 @@ export const evaluateObjectReference = (
     }
     throw new RuleDslEvaluationError(`${reference.name} is not an object reference`)
   }
-  return recipientsInDomain(reference, context, 'object').flatMap((recipient) => {
+  return recipientsInDomain(reference, context, 'object', (recipient) => recipient.kind === 'object').flatMap((recipient) => {
     const object = context.state.objects[recipient.objectId]
     return isSameObject(object, recipient) ? [object] : []
   })
@@ -147,7 +148,7 @@ export const evaluateObjectReference = (
 export const evaluateStackItemReference = (
   reference: StackItemReference,
   context: RuleDslRuntimeContext,
-): StackItem[] => recipientsInDomain(reference, context, 'stackItem').flatMap((recipient) => {
+): StackItem[] => recipientsInDomain(reference, context, 'stackItem', (recipient) => recipient.kind === 'stackItem').flatMap((recipient) => {
   const item = context.state.stack.find((candidate) => candidate.id === recipient.stackId)
   return item ? [item] : []
 })
