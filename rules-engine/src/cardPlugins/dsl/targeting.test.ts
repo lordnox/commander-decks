@@ -120,9 +120,19 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     ], [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), min: variable('X'), max: variable('X') })], {
       variables: [chooseX({ min: 1, max: 2 })],
     })
-    const server = canonicalServer(snapshot)
-    const spellObject = named(server.state, 'Canonical Target Spell')
-    const targetObject = named(server.state, 'Target Bear')
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('X Target Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: {
+        p2: [
+          cardTemplate('X Target One', { types: ['Creature'], power: 2, toughness: 2 }),
+          cardTemplate('X Target Two', { types: ['Creature'], power: 2, toughness: 2 }),
+          cardTemplate('X Target Three', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'X Target Spell')
+    const targetObject = named(server.state, 'X Target One')
     const valid = server.rules(server.state, {
       type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 1,
       targets: [{ kind: 'object', objectId: targetObject.id }],
@@ -130,9 +140,17 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(valid.ok).toBe(true)
     const invalid = server.rules(server.state, {
       type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 3,
-      targets: [{ kind: 'object', objectId: targetObject.id }],
+      targets: [
+        { kind: 'object', objectId: targetObject.id },
+        { kind: 'object', objectId: named(server.state, 'X Target Two').id },
+        { kind: 'object', objectId: named(server.state, 'X Target Three').id },
+      ],
     })
     expect(invalid.ok).toBe(false)
+    const belowMinimum = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 0, targets: [],
+    })
+    expect(belowMinimum.ok).toBe(false)
   })
 
   test('shared shroud and hexproof restrictions apply during canonical announcement', () => {

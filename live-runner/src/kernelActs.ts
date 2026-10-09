@@ -177,6 +177,7 @@ export const applyKernelAct = (
             ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
             ...(action.alternativeCost ? { alternativeCost: action.alternativeCost } : {}),
             ...(action.door ? { door: action.door } : {}),
+            ...(action.x !== undefined ? { x: action.x } : {}),
             ...(alternative?.exileGraveyard ? { exile: choices } : {}),
             ...(alternative?.discard ? { discard: choices } : {}),
             ...(alternative?.sacrifice ? { sacrifice: choices } : {}),

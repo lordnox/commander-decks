@@ -346,7 +346,15 @@ export const spells: Plugin = {
         if (!targetInputsAgree(state, event)) return 'targets and targetClauses disagree'
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
-        if (abilityIndex >= 0) {
+        const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
+        if (ability && 'decisions' in ability) {
+          const variables = ability.decisions.variables ?? []
+          for (const variable of variables) {
+            const x = event.x
+            if (x === undefined || !Number.isSafeInteger(x) || x < variable.min || x > variable.max) {
+              return `${variable.name} must be a safe integer from ${variable.min} to ${variable.max}`
+            }
+          }
           const targetError = canonicalTargetError(
             state,
             spell,

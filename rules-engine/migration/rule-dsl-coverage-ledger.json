@@ -22667,10 +22667,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          737
+          745
         ],
         "samples": [
-          "737: if (object.name === 'Timetwister') {"
+          "745: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23891,28 +23891,28 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          549,
-          555,
-          584,
-          604,
-          606,
-          609,
+          557,
+          563,
+          592,
+          612,
+          614,
           617,
-          618,
-          684,
-          693,
-          713,
-          728,
-          744,
-          746,
+          625,
+          626,
+          692,
+          701,
+          721,
+          736,
           752,
-          764,
-          785
+          754,
+          760,
+          772,
+          793
         ],
         "samples": [
-          "549: const moved = draft.object(event.objectId)",
-          "555: const object = draft.object(event.objectId)",
-          "584: .map((objectId) => draft.object(objectId))"
+          "557: const moved = draft.object(event.objectId)",
+          "563: const object = draft.object(event.objectId)",
+          "592: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
