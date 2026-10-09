@@ -1,0 +1,41 @@
+# Rule DSL Part 05 implementation note
+
+Status: implementation in progress on `agent/gpt56luna-rule-dsl-part05`.
+
+## Scope and architecture
+
+Part 05 closes the section-9 interaction contract around the existing kernel
+choice machinery. The server remains the only owner of pending continuations:
+the published request contains a generated request identity, monotonic revision,
+chooser, phase/purpose/cancellation, and an authorized typed offer; an answer
+contains only the request identity, revision, chooser, and typed selection data.
+The host adapts card and player answers to the existing `selectCards` and
+`selectPlayers` events, while new stack-target, mixed-target, option, order, and
+allocation contracts are validated as data before any kernel event is emitted.
+
+The existing `TopdeckDecision` is the temporary host adapter during migration.
+It will carry the same envelope metadata and private offer projection, while the
+kernel continues to own the real pending state. Rebuilding an offer after a
+restart uses the pending kernel marker and the same request ID; no continuation
+or executable payload is accepted from a client. Valid answers are consumed once
+by the host request ledger, invalid answers leave the request open, and duplicate
+answers are idempotent acknowledgements. Mandatory choices remain open when a UI
+dialog closes. Concession clears the chooser's pending request and lets the driver
+finish without waiting for a departed seat.
+
+## Checklist
+
+- [x] Add the immutable envelope and typed offer/answer contracts.
+- [x] Add validation for stack/mixed targets, options, ordering, and allocation.
+- [ ] Thread request metadata through the host's pending choice adapter.
+- [ ] Enforce freshness, authorization, and exactly-once answer consumption.
+- [ ] Add host-facing projection and waiting/ordinary-priority separation.
+- [ ] Add browser/headless adapter coverage and reconnect coverage.
+- [ ] Run focused host/protocol tests and full rules/host suites.
+
+## Current verification and open concerns
+
+No Part 05 code has been changed yet. The known host baseline is the generated
+card-handler import failure recorded by the parent task; any additional failure
+will be treated as a regression. The legacy `custom` paths remain temporary
+adapters for unmigrated cards and are not used by the new typed contracts.
