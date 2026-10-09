@@ -83,6 +83,11 @@ export const projectForViewer = (
   stripAuthoritativeExecution(projected.stack)
   for (const player of projected.playerOrder) {
     stripAuthoritativeExecution(projected.players[player].data)
+    // Ward's pending cast contains the captured target, spell event, and ward
+    // cost.  The chooser receives the separate public option/card selection;
+    // this authoritative continuation payload must never enter a replica.
+    delete projected.players[player].data['ward.pendingCast']
+    delete projected.players[player].data['ward.awaitingSacrifice']
   }
 
   const revealedTops = Object.fromEntries(

@@ -107,6 +107,12 @@ describe('inbox', () => {
       objectId: 'flicker',
       targetObjectIds: ['rock', 'land'],
     })
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"arc","targetClauses":[["guard"],["raider"]]}')).toEqual({
+      type: 'act',
+      kind: 'castSpell',
+      objectId: 'arc',
+      targetClauses: [['guard'], ['raider']],
+    })
     expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"rebound","alternativeCost":"withoutPayingMana"}')).toEqual({
       type: 'act',
       kind: 'castSpell',

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, card, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, objects, players, ref, select, spell, target, counter, stackItems, whenever } from './v1'
+import { amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame, projectForViewer } from '../../runtime'
@@ -9,6 +9,7 @@ import { freezeDraft, makeDraft } from '../../draft'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
+import { targetingRequirement } from '../abilities'
 import type { Instruction, TargetClause } from './schema/v1'
 import { canonicalTargetBindings } from './compiler/targeting'
 
@@ -17,9 +18,16 @@ const ok = (result: ReduceResult) => {
   return result.state
 }
 
-const snapshotFor = (instructions: readonly Instruction[], targets: readonly TargetClause[] = []) =>
+const snapshotFor = (
+  instructions: readonly Instruction[],
+  targets: readonly TargetClause[] = [],
+  options: {
+    constraints?: readonly ReturnType<typeof differentTargets>[]
+    variables?: readonly ReturnType<typeof chooseX>[]
+  } = {},
+) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
-    decisions: { targets },
+    decisions: { targets, ...options },
     instructions,
   })])))
 
@@ -61,7 +69,9 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(cast.stack[0].execution?.targetBindings).toEqual([{
       scopeId: '$.abilities[0]', clauseIndex: 0, recipients: [],
     }])
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    const restored = JSON.parse(JSON.stringify(cast)) as GameState
+    expect(restored.stack[0].execution?.targetBindings).toEqual(cast.stack[0].execution?.targetBindings)
+    const resolved = ok(server.rules(restored, { type: 'resolveTop' }))
     expect(resolved.players.p1.life).toBe(41)
   })
 
@@ -87,6 +97,44 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(grouped.stack[0].execution?.targetBindings).toHaveLength(2)
   })
 
+  test('different constraints reject a recipient repeated across generated clauses', () => {
+    const clauses = [
+      select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 }),
+      select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 }),
+    ]
+    const server = canonicalServer(snapshotFor([
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], clauses, { constraints: [differentTargets(0, 1)] }))
+    const spellObject = named(server.state, 'Canonical Target Spell')
+    const targetObject = named(server.state, 'Target Bear')
+    const result = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targetClauses: [[{ kind: 'object', objectId: targetObject.id }], [{ kind: 'object', objectId: targetObject.id }]],
+    })
+    expect(result.ok).toBe(false)
+  })
+
+  test('target bounds use the cast event X value and reject an out-of-range value', () => {
+    const snapshot = snapshotFor([
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), min: variable('X'), max: variable('X') })], {
+      variables: [chooseX({ min: 1, max: 2 })],
+    })
+    const server = canonicalServer(snapshot)
+    const spellObject = named(server.state, 'Canonical Target Spell')
+    const targetObject = named(server.state, 'Target Bear')
+    const valid = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 1,
+      targets: [{ kind: 'object', objectId: targetObject.id }],
+    })
+    expect(valid.ok).toBe(true)
+    const invalid = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 3,
+      targets: [{ kind: 'object', objectId: targetObject.id }],
+    })
+    expect(invalid.ok).toBe(false)
+  })
+
   test('shared shroud and hexproof restrictions apply during canonical announcement', () => {
     const server = canonicalServer(
       snapshotFor([{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }], [targetCreature()]),
@@ -99,6 +147,27 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
       targets: [{ kind: 'object', objectId: targetObject.id }],
     })
     expect(result.ok).toBe(false)
+  })
+
+  test('an opposing Flagbearer permits choosing an eligible caster-controlled Flagbearer', () => {
+    const snapshot = snapshotFor([
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], [targetCreature()])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Flagbearer Test Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: {
+        p1: [cardTemplate('Own Flagbearer', { types: ['Creature'], power: 1, toughness: 1, effects: [targetingRequirement('flagbearer')] })],
+        p2: [cardTemplate('Opposing Flagbearer', { types: ['Creature'], power: 1, toughness: 1, effects: [targetingRequirement('flagbearer')] })],
+      },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'Flagbearer Test Spell')
+    const own = named(server.state, 'Own Flagbearer')
+    const result = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: own.id }],
+    })
+    expect(result.ok).toBe(true)
   })
 
   test('canonical player targets are retained by clause and drive player instructions', () => {
@@ -157,12 +226,20 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const projected = projectForViewer(waiting, 'p1')
     expect(projected.stack[0]?.payload?.warded).toBeUndefined()
     expect(projected.stack[0]?.payload?.cast).toBeUndefined()
+    expect(projected.players.p1.data['ward.pendingCast']).toBeUndefined()
+    expect(projected.players.p2.data['ward.pendingCast']).toBeUndefined()
     const selection = pendingOptionSelection(waiting, 'p1')!
     expect(selection).toBeDefined()
+    expect(pendingOptionSelection(projected, 'p1')).toBeDefined()
+    expect(pendingOptionSelection(projectForViewer(waiting, 'p2'), 'p1')).toBeUndefined()
+    const restored = JSON.parse(JSON.stringify(waiting)) as GameState
     const declined = ok(server.rules(waiting, {
       type: 'selectOption', seat: 'p1', selectionId: selection.id, optionId: 'decline',
     }))
     expect(declined.stack.some((item) => item.kind === 'spell')).toBe(true)
+    expect(ok(server.rules(restored, {
+      type: 'selectOption', seat: 'p1', selectionId: selection.id, optionId: 'decline',
+    })).stack.some((item) => item.kind === 'spell')).toBe(true)
   })
 
   test('canonical Ward decline counters an ordinary spell by its pinned stack identity', () => {
@@ -264,6 +341,63 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(resolved.objects[targetObject.id].zone).toBe('graveyard')
   })
 
+  test('a current characteristic of a departed target skips only that dependent instruction', () => {
+    const server = canonicalServer(snapshotFor([
+      destroy({ targets: target(0) }),
+      {
+        kind: 'gainLife',
+        amount: characteristic(target(0), 'power', { information: 'current' }),
+        targets: { kind: 'contextRef', name: 'controller' },
+      },
+      { kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } },
+    ], [targetCreature()]))
+    const targetObject = named(server.state, 'Target Bear')
+    const spellObject = named(server.state, 'Canonical Target Spell')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: targetObject.id }],
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[targetObject.id].zone).toBe('graveyard')
+    expect(resolved.players.p1.life).toBe(41)
+  })
+
+  test('an illegal earlier target does not retarget while a later target remains legal', () => {
+    const snapshot = snapshotFor([
+      damage({ amount: amount(1), targets: target(0), source: ref('self') }),
+      destroy({ targets: target(1) }),
+    ], [
+      targetCreature(),
+      targetCreature(),
+    ])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('No Retarget Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: {
+        p2: [
+          cardTemplate('Departed Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+          cardTemplate('Stable Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'No Retarget Spell')
+    const departed = named(server.state, 'Departed Bear')
+    const stable = named(server.state, 'Stable Bear')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [
+        { kind: 'object', objectId: departed.id },
+        { kind: 'object', objectId: stable.id },
+      ],
+    }))
+    const moved = ok(server.rules(cast, { type: 'move', objectId: departed.id, to: 'graveyard' }))
+    const blinked = ok(server.rules(moved, { type: 'move', objectId: departed.id, to: 'battlefield' }))
+    const resolved = ok(server.rules(blinked, { type: 'resolveTop' }))
+    expect(resolved.objects[departed.id].damageMarked).toBe(0)
+    expect(resolved.objects[departed.id].zone).toBe('battlefield')
+    expect(resolved.objects[stable.id].zone).toBe('graveyard')
+  })
+
   test('damage keeps the captured source characteristics after the source departs', () => {
     const definition = compileCardRuleDefinition(card([whenever(
       { kind: 'draw', filter: {} },
@@ -337,6 +471,40 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.players.p1.life).toBe(43)
     expect(state.stack.some((item) => item.id === targetStackId)).toBe(true)
+  })
+
+  test('an illegal counter target does not block a legal player clause', () => {
+    const counterSnapshot = snapshotFor([
+      counter({ targets: target(0) }),
+      { kind: 'gainLife', amount: amount(2), targets: target(1) },
+    ], [
+      select({ filter: stackItems({ kind: 'spell' }), count: 1 }),
+      select({ filter: players(), count: 1 }),
+    ])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [
+          cardTemplate('Soon Gone Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0 }),
+          cardTemplate('Mixed Counter Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: counterSnapshot }),
+        ],
+      },
+    }, { random: () => 0 })
+    const targetSpell = named(server.state, 'Soon Gone Spell')
+    let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: targetSpell.id }))
+    const counterSpell = named(state, 'Mixed Counter Spell')
+    const targetStackId = state.stack.find((item) => item.objectId === targetSpell.id)!.id
+    state = ok(server.rules(state, {
+      type: 'castSpell', seat: 'p1', objectId: counterSpell.id,
+      targets: [
+        { kind: 'stackItem', stackId: targetStackId },
+        { kind: 'player', player: 'p2' },
+      ],
+    }))
+    state = ok(server.rules(state, { type: 'move', objectId: targetSpell.id, to: 'graveyard' }))
+    const resolved = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(resolved.players.p2.life).toBe(42)
+    expect(resolved.objects[targetSpell.id].zone).toBe('graveyard')
   })
 
   test('canonical triggered ability applies intervening-if before resolving independently of its source', () => {

@@ -86,6 +86,8 @@ type InboxPayload =
       targetObjectId?: string
       targetPlayerId?: string
       targetObjectIds?: string[]
+      /** Canonical target selections grouped by generated clause index. */
+      targetClauses?: string[][]
       abilityId?: string
       castOption?: string
       phyrexianLife?: number[]
@@ -159,6 +161,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     targetObjectId?: unknown
     targetPlayerId?: unknown
     targetObjectIds?: unknown
+    targetClauses?: unknown
     abilityId?: unknown
     castOption?: unknown
     door?: unknown
@@ -212,6 +215,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const targetObjectId = message.targetObjectId
       const targetPlayerId = message.targetPlayerId
       const targetObjectIds = message.targetObjectIds
+      const targetClauses = message.targetClauses
       const mana = message.mana
       const abilityId = message.abilityId
       const castOption = message.castOption
@@ -302,6 +306,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ...(Array.isArray(targetObjectIds) && targetObjectIds.every(
           (target): target is string => typeof target === 'string' && Boolean(target),
         ) ? { targetObjectIds } : {}),
+        ...(Array.isArray(targetClauses) && targetClauses.every(
+          (clause): clause is string[] => Array.isArray(clause)
+            && clause.every((target): target is string => typeof target === 'string' && Boolean(target)),
+        ) ? { targetClauses } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
         ...(typeof castOption === 'string' ? { castOption } : {}),
         ...(Array.isArray(phyrexianLife) && phyrexianLife.every(
