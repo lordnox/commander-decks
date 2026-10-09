@@ -117,6 +117,36 @@ describe('Marina Vendrell', () => {
     expect(resolved.players.p1.life).toBe(43)
   })
 
+  test("generic Room targets do not impose Marina's controller restriction", () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [cardTemplate('Room Observer', {
+          types: ['Artifact'],
+          effects: [{
+            op: 'activate',
+            id: 'observeRoom',
+            costs: {},
+            targets: 'room',
+            do: [gainLife(1)],
+          }],
+        })],
+        p2: [room(['left'])],
+      },
+    }, { random: () => 0.5, cardPlugins: [activated] })
+    const source = named(server.state, 'Room Observer')
+    const target = named(server.state, 'Funeral Room')
+    const state = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: source.id,
+      abilityId: 'observeRoom',
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    const resolved = resolveStack(server.rules, state)
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.objects[target.id].controller).toBe('p2')
+  })
+
   test('taps to lock an unlocked door', () => {
     const server = createServerGame(
       commanderRules,
@@ -177,7 +207,7 @@ describe('Marina Vendrell', () => {
       door: 'right',
     })).toMatchObject({
       ok: false,
-      error: 'Marina Vendrell needs one room target',
+      error: 'Marina Vendrell needs one legal target',
     })
   })
 })

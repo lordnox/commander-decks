@@ -1809,7 +1809,7 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     activate({
       id: 'marina.lockOrUnlock',
       costs: { tap: true },
-      targets: 'room',
+      targets: { zone: 'battlefield', subtype: 'Room', controller: 'you' },
       sorcery: true,
       do: [lockOrUnlockDoor()],
     }),

@@ -2,7 +2,7 @@ import { emptyMana, poolTotal } from './draft'
 import { isPhasedOut } from './plugins/phasing'
 import { PERMANENT_TYPES } from './definitions'
 import { manaModes, manaRequiresTap, poolForChoice, sacrificesForMana } from './plugins/mana'
-import type { CardEffect } from './cardPlugins/effects'
+import type { CardEffect, TargetFilter } from './cardPlugins/effects'
 import { giftSpecOf } from './cardPlugins/giftCast'
 import { activatedManaOptions } from './cardPlugins/manaChoice'
 import {
@@ -1157,11 +1157,13 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
       ) {
         return []
       }
-      if (effect.targets === 'room') {
+      if (effect.do.some((instruction) => instruction.kind === 'lockOrUnlockDoor')) {
+        const filter = effect.targets && typeof effect.targets === 'object'
+          ? ('filter' in effect.targets ? effect.targets.filter : effect.targets)
+          : { zone: 'battlefield', subtype: 'Room' } satisfies TargetFilter
         const rooms = Object.values(state.objects).filter((candidate) =>
-          candidate.zone === 'battlefield'
-          && candidate.controller === seat
-          && candidate.roomDoors)
+          candidate.roomDoors
+          && validTargetRef(state, { kind: 'object', objectId: candidate.id }, filter, seat, undefined, object.id))
         return rooms.flatMap((room) =>
           (['left', 'right'] as const).flatMap((door): AvailableAction[] => {
             const characteristics = roomDoor(room, door)
@@ -2241,7 +2243,7 @@ export const eventsForAvailableAction = (
       && action.targetObjectIds?.[0]
     ) {
       const targeted = activateEffect(effectsOf(object), action.abilityId)
-      if (targeted?.targets === 'room') {
+      if (targeted?.do.some((instruction) => instruction.kind === 'lockOrUnlockDoor')) {
         return [{
           type: 'activateAbility',
           abilityId: targeted.id,
