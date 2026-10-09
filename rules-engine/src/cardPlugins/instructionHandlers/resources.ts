@@ -5,7 +5,6 @@ import { swampCount } from '../../plugins/swampOverlay'
 import { NO_MAXIMUM_HAND_SIZE } from '../../plugins/turnStructure'
 import { lifeLostThisTurn } from '../../plugins/life'
 import { openFreeCast } from '../../plugins/rebound'
-import { initiateDiscard } from '../../rules/discard'
 import { openCardSelection } from '../../rules/selectCards'
 import { registerDelayedTrigger } from '../../rules/delayedTriggers'
 import { targetObject as resolveTargetObject } from '../../objectIdentity'
@@ -92,44 +91,30 @@ const draw: InstructionHandler<'draw'> = ({ draft, source, item, buffer }, instr
 }
 
 const discardCards: InstructionHandler<'discardCards'> = (
-  { draft, source, item, buffer },
+  { draft, source, item },
   instruction,
 ) => {
   const seat = discardSeatFor(source, item, instruction.who)
-  if (instruction.optional || instruction.then) {
-    const candidates = draft.zoneOrder[seat].hand
-    if (candidates.length === 0) return
-    openCardSelection(draft, {
-      seat,
-      kind: 'discard',
-      count: instruction.count,
-      min: instruction.optional ? 0 : Math.min(instruction.count, candidates.length),
-      candidates,
-      sourceId: source.id,
-      source: source.name,
-      prompt: instruction.optional
-        ? instruction.count === 1
-          ? 'You may discard a card.'
-          : `You may discard ${instruction.count} cards.`
-        : instruction.count === 1
-          ? `${source.name} makes you discard a card. Choose one.`
-          : `${source.name} makes you discard ${instruction.count} cards. Choose ${instruction.count}.`,
-      destinations: ['graveyard'],
-      fromSeat: seat,
-      ...(instruction.then ? { reflexive: instruction.then } : {}),
-    })
-    return
-  }
-  if (buffer) {
-    buffer.push({ kind: 'discard', count: instruction.count, who: instruction.who })
-    return
-  }
-  initiateDiscard(draft, {
+  const candidates = draft.zoneOrder[seat].hand
+  if (candidates.length === 0) return
+  openCardSelection(draft, {
     seat,
+    kind: 'discard',
     count: instruction.count,
-    chooser: seat,
+    min: instruction.optional ? 0 : Math.min(instruction.count, candidates.length),
+    candidates,
     sourceId: source.id,
-    name: source.name,
+    source: source.name,
+    prompt: instruction.optional
+      ? instruction.count === 1
+        ? 'You may discard a card.'
+        : `You may discard ${instruction.count} cards.`
+      : instruction.count === 1
+        ? `${source.name} makes you discard a card. Choose one.`
+        : `${source.name} makes you discard ${instruction.count} cards. Choose ${instruction.count}.`,
+    destinations: ['graveyard'],
+    fromSeat: seat,
+    ...(instruction.then ? { reflexive: instruction.then } : {}),
   })
 }
 

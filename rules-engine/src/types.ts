@@ -273,6 +273,8 @@ export type GameObject = {
   exiledUntilOpponentMonarch?: boolean
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: import('./cardPlugins/effects').CardEffect[]
+  /** Optional canonical rules pinned onto this object by the versioned registry. */
+  ruleDefinition?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
   /** Multikicker count stamped when this permanent entered from a resolving spell. */
@@ -385,6 +387,64 @@ export type StackExecutionContext = {
 }
 
 /**
+ * Serializable cursor for one nested instruction list. The outer program is
+ * scope 0; sequence instructions push a child scope instead of recursing on the
+ * JavaScript stack, so a saved game can resume at the exact instruction.
+ */
+export type ProgramScopeFrame = {
+  path: string
+  instructions: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
+  cursor: number
+}
+
+/** Authoritative, private state for the one resolution currently in progress. */
+export type CanonicalResolutionFrame = {
+  version: 1
+  kind: 'canonicalSpell'
+  stackId: string
+  controller: PlayerId
+  intendedPriority: PlayerId
+  definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  declarationPath: string
+  source: CapturedObject
+  scopes: ProgramScopeFrame[]
+  phase: 'running' | 'committing' | 'waiting'
+  /** Events for the current instruction, persisted before the cursor may continue. */
+  pendingEvents?: GameEvent[]
+}
+
+/** Temporary durable wrapper for legacy programs until their card is migrated. */
+export type LegacyResolutionFrame = {
+  version: 1
+  kind: 'legacy'
+  stackId: string
+  controller: PlayerId
+  intendedPriority: PlayerId
+  item: StackItem
+  phase: 'waiting'
+  pendingEvents: GameEvent[]
+}
+
+export type ResolutionFrame = CanonicalResolutionFrame | LegacyResolutionFrame
+
+/**
+ * Trigger instances are captured when their occurrence happens and placed only
+ * at the next explicit checkpoint. Part 06 replaces deterministic same-seat
+ * ordering with the full typed APNAP ordering request.
+ */
+export type PendingTrigger = {
+  source: GameObject
+  instructions: CardInstruction[]
+  effect: Pick<Extract<import('./cardPlugins/effects').CardEffect, { op: 'trigger' }>, 'do' | 'if' | 'targets' | 'onceEachTurn' | 'whenResolvedNth'>
+  execution: StackExecutionContext
+  triggerEffectKey?: string
+  triggeringObjectId?: string
+  triggeringPlayer: PlayerId
+  triggerAmount?: number
+  payload?: Record<string, unknown>
+}
+
+/**
  * A live plugin binding. Catalog entries are code; these instances are state.
  * `timestamp` orders replace/legal/apply. `sourceId` ties the instance to a
  * permanent so leaving the battlefield can remove it.
@@ -438,6 +498,10 @@ export type GameState = {
   zoneOrder: Record<PlayerId, Record<ZoneId, string[]>>
   zoneCounts: Record<PlayerId, Record<ZoneId, number>>
   stack: StackItem[]
+  /** Private durable resolution cursor; removed from every client projection. */
+  resolution?: ResolutionFrame
+  /** Captured triggers waiting for the next explicit checkpoint. */
+  pendingTriggers?: PendingTrigger[]
   delayedTriggers: DelayedTrigger[]
   active: PlayerId
   priority: PlayerId | null
@@ -536,6 +600,8 @@ export type GameEvent =
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }
+  /** Restore a persisted non-waiting execution cursor and continue its driver. */
+  | { type: 'resumeResolution' }
   | { type: 'advanceStep' }
   // — Zone & card motion —
   /** `face` picks a face of a double-faced land card; omitted, the first land face is played. */
@@ -908,5 +974,7 @@ export type Plugin = {
   legal?: (ctx: HookCtx) => string | void
   replace?: (ctx: HookCtx) => GameEvent | GameEvent[] | null | undefined
   apply?: (ctx: HookCtx) => void
+  /** Continuous-characteristic maintenance settled before ordinary SBAs. */
+  recompute?: (ctx: HookCtx) => GameEvent[]
   sba?: (ctx: HookCtx) => GameEvent[]
 }

@@ -6,6 +6,7 @@ import { everybodyLives } from './advancedCombatPrevention'
 import { hasKeyword } from '../keywords'
 import { isPhasedOut } from './phasing'
 import { ceaseToExist } from '../rules/spellCopies'
+import { FAILED_DRAW_SINCE_SBA } from '../rules/draw'
 import {
   BATTLE_DEFEATED_ABILITY,
   validBattleProtector,
@@ -66,18 +67,26 @@ export const stateBased: Plugin = {
       ))
     if (entryChoicePending || copyChoiceOnStack) return []
 
+    const events: GameEvent[] = []
+
     if (!everybodyLives(draft)) {
       for (const player of Object.values(draft.players)) {
-        if (!player.lost && player.life <= 0) return [{ type: 'concede', seat: player.id }]
-      }
-
-      for (const player of Object.values(draft.players)) {
-        if (!player.lost && player.poison >= 10) return [{ type: 'concede', seat: player.id }]
+        if (
+          !player.lost
+          && (
+            player.life <= 0
+            || player.poison >= 10
+            || player.data[FAILED_DRAW_SINCE_SBA] === true
+          )
+        ) events.push({ type: 'concede', seat: player.id })
       }
     }
 
     for (const object of Object.values(draft.objects)) {
-      if (strandedToken(object)) return [{ type: 'tokenCeases', objectId: object.id }]
+      if (strandedToken(object)) {
+        events.push({ type: 'tokenCeases', objectId: object.id })
+        continue
+      }
       if (isPhasedOut(object)) continue
       // CR 704.5m: an Aura not attached to a legal object or player dies.
       if (
@@ -92,14 +101,15 @@ export const stateBased: Plugin = {
           || draft.players[object.attachedTo]?.lost
         )
       ) {
-        return [moveToGraveyard(object.id)]
+        events.push(moveToGraveyard(object.id))
+        continue
       }
       if (
         object.zone === 'battlefield'
         && (object.counters['+1/+1'] ?? 0) > 0
         && (object.counters['-1/-1'] ?? 0) > 0
       ) {
-        return [{ type: 'annihilateCounters', objectId: object.id }]
+        events.push({ type: 'annihilateCounters', objectId: object.id })
       }
       if (
         object.zone === 'battlefield'
@@ -113,7 +123,10 @@ export const stateBased: Plugin = {
               && item.kind === 'ability'
               && item.abilityId === BATTLE_DEFEATED_ABILITY,
           )
-        if (!defeatTriggerPending) return [moveToGraveyard(object.id)]
+        if (!defeatTriggerPending) {
+          events.push(moveToGraveyard(object.id))
+          continue
+        }
       }
       if (
         object.zone === 'battlefield'
@@ -134,10 +147,10 @@ export const stateBased: Plugin = {
             && attacker.attacking.objectId === object.id,
         )
         if (object.protector !== undefined) {
-          return [{ type: 'clearBattleProtector', objectId: object.id }]
+          events.push({ type: 'clearBattleProtector', objectId: object.id })
         }
         if (!choicePending && !beingAttacked) {
-          return [{ type: 'chooseBattleProtector', objectId: object.id }]
+          events.push({ type: 'chooseBattleProtector', objectId: object.id })
         }
       }
       if (
@@ -145,7 +158,8 @@ export const stateBased: Plugin = {
         && object.types.includes('Planeswalker')
         && (object.counters.loyalty ?? 0) <= 0
       ) {
-        return [moveToGraveyard(object.id)]
+        events.push(moveToGraveyard(object.id))
+        continue
       }
       if (
         object.zone === 'battlefield'
@@ -166,7 +180,7 @@ export const stateBased: Plugin = {
           )
         )
       ) {
-        return [moveToGraveyard(object.id)]
+        events.push(moveToGraveyard(object.id))
       }
     }
 
@@ -184,17 +198,24 @@ export const stateBased: Plugin = {
           && (object.effects ?? []).some((effect) => effect.op === 'static' && effect.legendRuleOff))
         .map((object) => object.controller),
     )
+    const legendGroups = new Map<string, GameObject[]>()
     for (const object of legendary) {
       if (legendOff.has(object.controller)) continue
-      const duplicates = legendary.filter(
-        (other) => other.controller === object.controller && other.name === object.name,
-      )
-      if (duplicates.length >= 2) {
-        const toMove = duplicates.sort((a, b) => b.id.localeCompare(a.id))[0]
-        return [moveToGraveyard(toMove.id)]
-      }
+      const key = `${object.controller}\u0000${object.name}`
+      legendGroups.set(key, [...(legendGroups.get(key) ?? []), object])
+    }
+    for (const duplicates of legendGroups.values()) {
+      if (duplicates.length < 2) continue
+      const [, ...toMove] = [...duplicates].sort((a, b) => a.id.localeCompare(b.id))
+      for (const object of toMove) events.push(moveToGraveyard(object.id))
     }
 
-    return []
+    const seen = new Set<string>()
+    return events.filter((event) => {
+      const key = JSON.stringify(event)
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
   },
 }

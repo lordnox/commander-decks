@@ -244,17 +244,15 @@ export const saga: Plugin = {
   },
   sba: ({ state }) => {
     // CR 714.4: a final Saga waits while any of its chapter abilities is pending.
-    for (const source of Object.values(state.objects)) {
-      if (!isSaga(source) || source.zone !== 'battlefield') continue
+    return Object.values(state.objects).flatMap((source) => {
+      if (!isSaga(source) || source.zone !== 'battlefield') return []
       const last = finalChapter(source)
       if (
-        last > 0
-        && (source.counters.lore ?? 0) >= last
-        && !chapterPending(state, source.id)
-      ) {
-        return [{ type: 'sacrifice', objectId: source.id }]
-      }
-    }
-    return []
+        last === 0
+        || (source.counters.lore ?? 0) < last
+        || chapterPending(state, source.id)
+      ) return []
+      return [{ type: 'sacrifice' as const, objectId: source.id }]
+    })
   },
 }

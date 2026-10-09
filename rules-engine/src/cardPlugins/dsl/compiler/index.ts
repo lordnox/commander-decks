@@ -16,7 +16,11 @@ export type { RuleDslDiagnostic } from './errors'
 export const RULE_DSL_V1_CAPABILITIES = Object.freeze({
   canonicalLoad: true as const,
   serialization: true as const,
-  runtimeExecution: false as const,
+  runtimeExecution: Object.freeze({
+    abilityKinds: Object.freeze(['spell'] as const),
+    instructionKinds: Object.freeze(['draw', 'gainLife', 'loseLife'] as const),
+    decisions: 'fullySuppliedUntargeted' as const,
+  }),
 })
 
 export const compileCardRuleDefinition = (input: unknown): CompiledCardRuleDefinitionV1 => {

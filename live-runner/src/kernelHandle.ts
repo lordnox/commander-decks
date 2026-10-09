@@ -21,6 +21,7 @@ export type KernelHandle = {
 }
 
 export const kernelPriority = (state: GameState): SeatId | null => {
+  if (state.resolution) return null
   if (!state.priority) return null
   if (!isSeatId(state.priority)) {
     throw new Error(`live host cannot assign priority to ${state.priority}`)
@@ -29,6 +30,7 @@ export const kernelPriority = (state: GameState): SeatId | null => {
 }
 
 export const kernelActions = (state: GameState): SeatActions => {
+  if (state.resolution) return {}
   const priority = kernelPriority(state)
   if (!priority) return {}
   const actions: PlayAction[] = ['plan', 'pass', 'act']

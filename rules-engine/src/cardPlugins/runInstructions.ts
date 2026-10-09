@@ -19,6 +19,7 @@ const AFTER_QUEUED_EVENTS = new Set([
   'putLandFromHand',
   'putHandCardOnLibraryBottom',
   'mayCastFromHandWithoutPayingMana',
+  'discardCards',
 ])
 
 const isResumeEvent = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>

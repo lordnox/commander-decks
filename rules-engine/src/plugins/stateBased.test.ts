@@ -6,6 +6,8 @@ import type { Plugin } from '../types'
 import { damage } from './damage'
 import { life } from './life'
 import { stateBased } from './stateBased'
+import { dies, gainLife } from '../cardPlugins/effects'
+import { triggers } from '../rules/triggers'
 
 const manaStub: Plugin = { id: 'mana' }
 
@@ -124,4 +126,67 @@ test('state-based actions put a zero-loyalty planeswalker into the graveyard', (
   const result = rules(state, { type: 'addMana', seat: 'p1', mana: {} }, catalog)
   if (!result.ok) throw new Error(result.error)
   expect(result.state.objects[walker.id].zone).toBe('graveyard')
+})
+
+test('continuous recomputation settles before ordinary SBA collection', () => {
+  const rescue: Plugin = {
+    id: 'rescue',
+    recompute: ({ state }) => Object.values(state.objects).some(
+      (object) => object.zone === 'battlefield' && object.toughness === 0,
+    ) ? [{ type: 'custom', name: 'rescue' }] : [],
+    apply: ({ event, draft }) => {
+      if (event.type !== 'custom' || event.name !== 'rescue') return
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone === 'battlefield' && object.toughness === 0) object.toughness = 1
+      }
+    },
+  }
+  const catalog = createCatalog([manaStub, rescue, stateBased])
+  const state = newGame({
+    battlefield: { p1: [{ ...bears(), toughness: 0 }] },
+    builtinRules: ['mana', 'rescue', 'stateBased'],
+  })
+  const creature = Object.values(state.objects)[0]
+  const result = rules(state, { type: 'addMana', seat: 'p1', mana: {} }, catalog)
+  if (!result.ok) throw new Error(result.error)
+
+  expect(result.state.objects[creature.id].zone).toBe('battlefield')
+  expect(result.state.objects[creature.id].toughness).toBe(1)
+})
+
+test('one simultaneous SBA wave preserves departure lookback for every dying watcher', () => {
+  const catalog = createCatalog([manaStub, stateBased, triggers, life])
+  const state = newGame({
+    battlefield: {
+      p1: [
+        {
+          ...bears(),
+          name: 'Doomed Watcher',
+          effects: [dies({ filter: { type: 'Creature' } }, gainLife(1))],
+        },
+        { ...bears(), name: 'Doomed Friend' },
+      ],
+    },
+    builtinRules: ['mana', 'stateBased', 'triggers', 'life'],
+  })
+  for (const object of Object.values(state.objects)) object.damageMarked = 2
+  const result = rules(state, { type: 'addMana', seat: 'p1', mana: {} }, catalog)
+  if (!result.ok) throw new Error(result.error)
+
+  expect(Object.values(result.state.objects).every((object) => object.zone === 'graveyard')).toBe(true)
+  expect(result.state.stack).toHaveLength(2)
+  expect(result.state.stack.every((item) => item.name === 'Doomed Watcher')).toBe(true)
+})
+
+test('checkpoint non-convergence is reported instead of silently capped', () => {
+  const loop: Plugin = {
+    id: 'loop',
+    sba: () => [{ type: 'custom', name: 'still-looping' }],
+  }
+  const catalog = createCatalog([loop])
+  const state = newGame({ builtinRules: ['loop'] })
+  const result = rules(state, { type: 'custom', name: 'begin' }, catalog)
+
+  expect(result.ok).toBe(false)
+  if (!result.ok) expect(result.error).toContain('did not converge after 32')
 })

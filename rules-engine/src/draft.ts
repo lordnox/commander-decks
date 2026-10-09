@@ -180,6 +180,9 @@ export const makeDraft = (state: GameState): Draft => {
               ...existingExecution,
               controller: cloned.controller,
               source: capturedSource,
+              ...(cloned.kind === 'spell' && source?.ruleDefinition
+                ? { definitionSnapshot: source.ruleDefinition }
+                : {}),
             },
           }
         : {}),

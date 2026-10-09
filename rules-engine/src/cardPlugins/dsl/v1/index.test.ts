@@ -95,7 +95,11 @@ describe('Rule DSL v1 canonical authoring', () => {
     expect(compactCompiled.capabilities).toEqual({
       canonicalLoad: true,
       serialization: true,
-      runtimeExecution: false,
+      runtimeExecution: {
+        abilityKinds: ['spell'],
+        instructionKinds: ['draw', 'gainLife', 'loseLife'],
+        decisions: 'fullySuppliedUntargeted',
+      },
     })
     expect(compactCompiled.definition.abilities[1]).toEqual({
       kind: 'triggered',
@@ -197,7 +201,11 @@ describe('Rule DSL v1 canonical authoring', () => {
     expect(compiled.definition.abilities.map(({ kind }) => kind)).toEqual([
       'keyword', 'activated', 'static', 'triggered',
     ])
-    expect(compiled.capabilities.runtimeExecution).toBe(false)
+    expect(compiled.capabilities.runtimeExecution).toEqual({
+      abilityKinds: ['spell'],
+      instructionKinds: ['draw', 'gainLife', 'loseLife'],
+      decisions: 'fullySuppliedUntargeted',
+    })
   })
 
   test('pure legacy adapters translate only representable player effects and triggers', () => {
@@ -678,8 +686,13 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
     })).toThrow('minimum 2 exceeds maximum 1')
   })
 
-  test('exposes canonical capabilities without claiming runtime execution', () => {
-    expect(RULE_DSL_V1_CAPABILITIES.runtimeExecution).toBe(false)
-    expect(compileCardRuleDefinition(card([])).capabilities.runtimeExecution).toBe(false)
+  test('advertises only the canonical runtime slice implemented by Part 03', () => {
+    expect(RULE_DSL_V1_CAPABILITIES.runtimeExecution).toEqual({
+      abilityKinds: ['spell'],
+      instructionKinds: ['draw', 'gainLife', 'loseLife'],
+      decisions: 'fullySuppliedUntargeted',
+    })
+    expect(compileCardRuleDefinition(card([])).capabilities.runtimeExecution)
+      .toEqual(RULE_DSL_V1_CAPABILITIES.runtimeExecution)
   })
 })

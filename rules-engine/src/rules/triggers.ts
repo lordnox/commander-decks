@@ -25,6 +25,7 @@ import type {
   GameObject,
   GameState,
   PlayerId,
+  PendingTrigger as CapturedPendingTrigger,
   Plugin,
   TargetRef,
 } from '../types'
@@ -700,9 +701,11 @@ const collectEventTriggers = (
   return matches
 }
 
-export const triggers: Plugin = {
-  id: 'triggers',
-  apply: ({ state, event, draft }) => {
+export const captureEventTriggers = (
+  state: GameState,
+  event: GameEvent,
+  draft: Draft,
+) => {
     const matches = collectEventTriggers(state, draft, event)
     if (matches.length === 0) return
 
@@ -710,9 +713,7 @@ export const triggers: Plugin = {
     const triggeringPlayer = 'seat' in event && typeof event.seat === 'string'
       ? event.seat
       : undefined
-    let choosingSeat: PlayerId | undefined
-
-    for (const {
+    const captured: CapturedPendingTrigger[] = ordered.map(({
       source,
       effect,
       triggerEffectKey: effectKey,
@@ -720,7 +721,7 @@ export const triggers: Plugin = {
       triggeringPlayer: matchedPlayer,
       triggerAmount,
       payload,
-    } of ordered) {
+    }) => {
       const occurrence = capturedOccurrence(
         state,
         draft,
@@ -730,6 +731,47 @@ export const triggers: Plugin = {
         triggerAmount,
       )
       const execution = triggerExecution(source, occurrence, draft)
+      noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
+      return {
+        source: snapshotObject(source),
+        instructions: structuredClone(effect.do),
+        effect: structuredClone(effect),
+        execution,
+        triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
+        ...(effectKey ? { triggerEffectKey: effectKey } : {}),
+        ...(triggeringObjectId ? { triggeringObjectId } : {}),
+        ...(triggerAmount !== undefined ? { triggerAmount } : {}),
+        ...(payload ? { payload: structuredClone(payload) } : {}),
+      }
+    })
+    draft.pendingTriggers = [...(draft.pendingTriggers ?? []), ...captured]
+}
+
+export const triggers: Plugin = {
+  id: 'triggers',
+  apply: ({ state, event, draft }) => {
+    captureEventTriggers(state, event, draft)
+  },
+}
+
+/** Place every captured ordinary trigger at an explicit priority checkpoint. */
+export const placePendingTriggers = (draft: Draft) => {
+  const pending = draft.pendingTriggers ?? []
+  if (pending.length === 0) return false
+  delete draft.pendingTriggers
+  let openedChoice = false
+
+  for (const {
+    source,
+    instructions,
+    effect,
+    execution,
+    triggerEffectKey: effectKey,
+    triggeringObjectId,
+    triggeringPlayer,
+    triggerAmount,
+    payload,
+  } of pending) {
       if (effect.targets && effect.targets !== 'opponent' && effect.targets !== 'player') {
         const targetSpec = effect.targets
         const candidates = Object.values(draft.objects)
@@ -762,18 +804,17 @@ export const triggers: Plugin = {
             ? `Choose target for ${source.name}.`
             : `Choose up to ${maxTargets} targets for ${source.name}.`,
           destinations: targetDestinations(candidates.length, minTargets),
-          triggerInstructions: effect.do,
+          triggerInstructions: instructions,
           triggerPayload: triggerPayloadExtras(effect, effectKey, {
             targetFilter: targetSpec.filter,
-            triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
+            triggeringPlayer,
             ...(triggeringObjectId ? { triggeringObjectId } : {}),
             ...(triggerAmount !== undefined ? { triggerAmount } : {}),
             ...payload,
           }),
           triggerExecution: execution,
         })
-        noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
-        choosingSeat ??= source.controller
+        openedChoice = true
         continue
       }
       if (effect.targets === 'opponent' || effect.targets === 'player') {
@@ -798,8 +839,8 @@ export const triggers: Plugin = {
           candidates,
           action: {
             kind: 'putTriggeredAbility',
-            instructions: effect.do,
-            triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
+            instructions,
+            triggeringPlayer,
             ...(effectKey ? { triggerEffectKey: effectKey } : {}),
             ...(effect.if && !isTriggerBindingIf(effect.if)
               ? { interveningIf: effect.if }
@@ -807,12 +848,11 @@ export const triggers: Plugin = {
             execution,
           },
         })
-        noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
-        choosingSeat ??= source.controller
+        openedChoice = true
         continue
       }
-      if (effect.do.length === 1 && effect.do[0].kind === 'devour') {
-        runInstructions(draft, source, effect.do, {
+      if (instructions.length === 1 && instructions[0].kind === 'devour') {
+        runInstructions(draft, source, instructions, {
           id: 'devour-enter',
           kind: 'ability',
           objectId: source.id,
@@ -820,14 +860,14 @@ export const triggers: Plugin = {
           name: source.name,
           targets: [],
         })
-        choosingSeat ??= source.controller
+        openedChoice = true
         continue
       }
-      draft.addTriggeredAbility(source, effect.do, {
+      draft.addTriggeredAbility(source, instructions, {
         execution,
         payload: {
-          instructions: effect.do,
-          triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
+          instructions,
+          triggeringPlayer,
           ...triggerPayloadExtras(effect, effectKey, {
             ...(triggeringObjectId ? { triggeringObjectId } : {}),
             ...(triggerAmount !== undefined ? { triggerAmount } : {}),
@@ -836,10 +876,6 @@ export const triggers: Plugin = {
         },
         name: `${source.name}`,
       })
-      noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
-    }
-
-    draft.passedInRow = []
-    draft.priority = choosingSeat ?? draft.active
-  },
+  }
+  return openedChoice
 }

@@ -6,6 +6,7 @@ import type Draft from '../draft'
 import type { GameEvent, PlayerId, PlayerState, Plugin, StackItem } from '../types'
 
 export const CARDS_DRAWN_THIS_TURN = 'draw.cardsThisTurn'
+export const FAILED_DRAW_SINCE_SBA = 'draw.failedSinceSba'
 
 export const cardsDrawnThisTurn = (player: Pick<PlayerState, 'data'>) => {
   const value = player.data[CARDS_DRAWN_THIS_TURN]
@@ -88,7 +89,7 @@ const authoritativeApply = (draft: Draft, seat: PlayerId) => {
   revealBeforeDraw(draft, seat)
   const objectId = draft.zoneOrder[seat].library[0]
   if (!objectId) {
-    draft.players[seat].lost = true
+    draft.players[seat].data[FAILED_DRAW_SINCE_SBA] = true
     draft.note(`${seat} draws from an empty library`)
     return
   }
@@ -133,7 +134,7 @@ export const draw: Plugin = {
     if (event.type !== 'draw') return
     if (draft.knowledge.mode !== 'authoritative') return
     authoritativeApply(draft, event.seat)
-    if (event.remainingAfter && !draft.players[event.seat].lost) {
+    if (event.remainingAfter) {
       draft.enqueue({
         type: 'draw',
         seat: event.seat,

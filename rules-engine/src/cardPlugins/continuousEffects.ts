@@ -844,7 +844,7 @@ export const continuousEffects: Plugin = {
   },
   // Recheck after every reducer pass so a condition changed by a later plugin
   // expires before the game next reaches a stable priority window.
-  sba: ({ draft }) =>
+  recompute: ({ draft }) =>
     hasExpiredEffects(draft)
       ? [{ type: 'custom', name: EXPIRE_EFFECTS }]
       : [],
