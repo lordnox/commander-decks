@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, ref } from './cardPlugins/dsl/builders'
+import { amount, count, objects, ref } from './cardPlugins/dsl/builders'
 import { card } from './cardPlugins/dsl/sugar/card'
 import { compileCardRuleDefinition, createDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import type { Instruction } from './cardPlugins/dsl/schema/v1'
@@ -58,6 +58,24 @@ const drawChoiceReplacement: Plugin = {
       options: [{ id: 'continue', label: 'Continue' }],
       action: { kind: 'mana-choice', pools: { continue: {} } },
     })
+  },
+}
+
+const recomputeCreature: Plugin = {
+  id: 'test.recomputeCreature',
+  apply: ({ event, draft }) => {
+    if (event.type !== 'custom' || event.name !== 'test.recomputeCreature.sync') return
+    const permanent = Object.values(draft.objects).find((object) => object.name === 'Recompute Mark')
+    if (permanent && !permanent.types.includes('Creature')) permanent.types.push('Creature')
+  },
+  recompute: ({ state }) => {
+    const permanent = Object.values(state.objects).find((object) => object.name === 'Recompute Mark')
+    const result = permanent
+      && !permanent.types.includes('Creature')
+      && state.players.p1.life > 40
+      ? [{ type: 'custom' as const, name: 'test.recomputeCreature.sync' }]
+      : []
+    return result
   },
 }
 
@@ -126,6 +144,39 @@ describe('durable canonical resolution driver', () => {
     expect(resolved.players.p1.life).toBe(1)
     expect(resolved.players.p1.lost).toBe(false)
     expect(creature).toMatchObject({ zone: 'battlefield', power: 1, toughness: 1 })
+  })
+
+  test('recomputes derived state before the next instruction evaluates its amount', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Canonical Test', {
+          types: ['Instant'],
+          manaCost: '{0}',
+          manaValue: 0,
+          ruleDefinition: snapshotFor(
+            { kind: 'gainLife', amount: amount(1), targets: controller },
+            {
+              kind: 'draw',
+              count: count(objects({ zone: 'battlefield', type: 'Creature', controller: 'you' })),
+              targets: controller,
+            },
+          ),
+        })],
+      },
+      battlefield: {
+        p1: [cardTemplate('Recompute Mark', { types: ['Artifact'] })],
+      },
+      libraries: { p1: [cardTemplate('Drawn by Recompute')] },
+    }, { random: () => 0, cardPlugins: [recomputeCreature] })
+
+    const resolved = ok(server.rules(cast(server), { type: 'resolveTop' }))
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.zoneOrder.p1.hand).toHaveLength(1)
+    expect(resolved.zoneOrder.p1.hand.map((objectId) => resolved.objects[objectId].name))
+      .toEqual(['Drawn by Recompute'])
+    expect(Object.values(resolved.objects).find((object) => object.name === 'Recompute Mark'))
+      .toMatchObject({ types: ['Artifact', 'Creature'] })
   })
 
   test('all-pass resolves exactly one canonical top item and gives the active player priority', () => {
