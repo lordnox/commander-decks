@@ -202,6 +202,9 @@ serialization/replay. Typed name predicates work without name-based dispatch.
 
 **Dependencies:** 02.
 
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 03 implementation note](migration/RULE-DSL-PART-03.md).
+
 Introduce driver/frame modules alongside the kernel. Start with a fully supplied,
 untargeted spell using the existing life/draw handlers. Commit each instruction's
 events before executing the next; preserve child frames through suspension.

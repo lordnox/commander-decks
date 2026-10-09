@@ -62,5 +62,4 @@ and full legacy self-action identity migration remain deferred. The temporary
 legacy resolution frame is retained only as the compatibility route while those
 surfaces migrate; it is not a permanent old-format compatibility contract.
 
-This note records implementation status only. The Part 03 plan is accepted by
-the parent reviewer separately; no acceptance marker is added here.
+This note records the reviewed and accepted Part 03 implementation.
