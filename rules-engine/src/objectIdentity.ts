@@ -5,7 +5,6 @@ import type {
   ObjectIdentity,
   ObjectSnapshot,
   ObjectTargetRef,
-  StackExecutionContext,
   TargetRef,
 } from './types'
 
@@ -64,30 +63,49 @@ export const targetObject = (
   return object
 }
 
-const executionContext = (value: unknown): StackExecutionContext | undefined => {
-  if (!value || typeof value !== 'object') return undefined
-  const candidate = value as Partial<StackExecutionContext>
-  return candidate.source?.ref && candidate.source.snapshot && candidate.controller
-    ? candidate as StackExecutionContext
-    : undefined
+const capturedObject = (value: unknown): value is CapturedObject => {
+  if (!value || typeof value !== 'object') return false
+  const candidate = value as Partial<CapturedObject>
+  return Boolean(candidate.ref && candidate.snapshot && candidate.information)
 }
 
-/** Refresh private stack or continuation contexts with source LKI immediately before departure. */
-export const refreshLastKnownSource = (value: unknown, before: GameObject): void => {
+const refreshCapturedSource = (value: unknown, before: GameObject) => {
+  if (capturedObject(value) && isSameObject(before, value.ref)) {
+    value.snapshot = snapshotObject(before)
+    value.information = 'lastKnown'
+  }
+}
+
+const refreshExecutionSource = (value: unknown, before: GameObject) => {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return
+  const execution = value as Record<string, unknown>
+  refreshCapturedSource(execution.source, before)
+}
+
+/** Refresh execution source LKI without rewriting historical occurrence snapshots. */
+export const refreshLastKnownSource = (value: unknown, before: GameObject) => {
   if (!value || typeof value !== 'object') return
   if (Array.isArray(value)) {
     for (const entry of value) refreshLastKnownSource(entry, before)
     return
   }
+
   const record = value as Record<string, unknown>
-  for (const key of ['execution', 'triggerExecution']) {
-    const execution = executionContext(record[key])
-    if (!execution || !isSameObject(before, execution.source.ref)) continue
-    execution.source = {
-      ref: execution.source.ref,
-      snapshot: snapshotObject(before),
-      information: 'lastKnown',
+  if (record.kind === 'canonicalSpell') {
+    refreshCapturedSource(record.source, before)
+  }
+  if (record.kind === 'legacy') {
+    const item = record.item
+    if (item && typeof item === 'object') {
+      refreshExecutionSource((item as Record<string, unknown>).execution, before)
     }
   }
-  for (const child of Object.values(record)) refreshLastKnownSource(child, before)
+  for (const [key, child] of Object.entries(record)) {
+    if (key === 'occurrence' || key === 'source' || key === 'snapshot') continue
+    if (key === 'execution' || key === 'triggerExecution') {
+      refreshExecutionSource(child, before)
+      continue
+    }
+    refreshLastKnownSource(child, before)
+  }
 }

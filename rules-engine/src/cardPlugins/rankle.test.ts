@@ -181,15 +181,24 @@ test('the discard mode drains through Liliana\'s Caress', () => {
     objectIds: [island.id],
   }))
 
+  const swamp = Object.values(discarded.objects).find((object) => object.name === 'Swamp')!
+  const resolvedRankle = ok(server.rules(discarded, {
+    type: 'selectCards',
+    seat: 'p1',
+    kind: 'discard',
+    count: 1,
+    objectIds: [swamp.id],
+  }))
+
   expect(discarded.objects[island.id].zone).toBe('graveyard')
   // CR 603: Caress triggers on the stack; life loss waits for resolution after combat damage.
   expect(discarded.players.p2.life).toBe(commanderRules.startingLife - 3)
-  expect(discarded.stack[0]).toMatchObject({
+  expect(resolvedRankle.stack[0]).toMatchObject({
     kind: 'ability',
     name: "Liliana's Caress",
   })
 
-  const resolved = ok(server.rules(discarded, { type: 'resolveTop' }))
+  const resolved = ok(server.rules(resolvedRankle, { type: 'resolveTop' }))
   expect(resolved.players.p2.life).toBe(commanderRules.startingLife - 5)
 })
 

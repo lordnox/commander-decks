@@ -288,7 +288,7 @@ describe('Sail into the West', () => {
     expect(pendingOptionSelection(restarted, 'p1')?.id).toBe(pendingOptionSelection(voted.state, 'p1')!.id)
     const current = ok(answer(game, restarted, 'p1', 'keep'))
     expect(pendingOptionSelection(current, 'p2')).toBeDefined()
-    expect(on(current, 'Sail into the West')).toBe('graveyard')
+    expect(on(current, 'Sail into the West')).toBe('stack')
   })
 
   test('an open vote survives a host restart and still resolves', () => {
@@ -538,13 +538,20 @@ describe('Erestor of the Council', () => {
     const done = castVotes(game, voting, [
       ['p1', 'embark'], ['p2', 'embark'], ['p3', 'return'], ['p4', 'embark'],
     ])
-    // The trigger waits on the stack while the wheel question is open.
-    const trigger = done.state.stack.find((item) => item.name === 'Erestor of the Council')!
-    expect(trigger).toMatchObject({ controller: 'p2' })
-    expect(trigger.payload).toMatchObject({ vote: { tallies: { return: 1, embark: 3 } } })
-    const handBefore = done.state.zoneOrder.p2.hand.length
+    // The trigger is captured while Sail finishes its wheel questions, then is
+    // placed only after that resolving spell reaches its checkpoint.
+    expect(done.state.pendingTriggers?.[0]).toMatchObject({
+      source: { name: 'Erestor of the Council', controller: 'p2' },
+      payload: { vote: { tallies: { return: 1, embark: 3 } } },
+    })
+    let afterSail = done.state
+    for (const seat of afterSail.playerOrder) {
+      afterSail = ok(answer(game, afterSail, seat, 'keep'))
+    }
+    expect(afterSail.stack[0]).toMatchObject({ name: 'Erestor of the Council', controller: 'p2' })
+    const handBefore = afterSail.zoneOrder.p2.hand.length
 
-    const resolved = ok(game.rules(done.state, { type: 'resolveTop' }))
+    const resolved = ok(game.rules(afterSail, { type: 'resolveTop' }))
     expect(treasures(resolved, 'p1')).toHaveLength(1)
     expect(treasures(resolved, 'p4')).toHaveLength(1)
     expect(treasures(resolved, 'p3')).toHaveLength(0)
@@ -560,9 +567,7 @@ describe('Erestor of the Council', () => {
       choices: scry.candidates.map((objectId) => ({ objectId, destination: 'top' as const })),
     }))
     expect(scried.zoneOrder.p2.hand).toHaveLength(handBefore + 1)
-    // Sail's own wheel question is still the caster's to answer.
-    expect(pendingOptionSelection(scried, 'p1')?.options.map((option) => option.id))
-      .toEqual(['wheel', 'keep'])
+    expect(on(scried, 'Sail into the West')).toBe('graveyard')
   })
 
   test("Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw", () => {
@@ -586,9 +591,8 @@ describe('Erestor of the Council', () => {
       ['p1', 'p3'], ['p2', 'p3'], ['p3', 'p4'], ['p4', 'p3'],
     ])
     expect(afterVotes.players.p1.data[SECRET_COUNCIL]).toBeUndefined()
-    const trigger = afterVotes.stack.find((item) => item.name === 'Erestor of the Council')
-    expect(trigger).toMatchObject({
-      controller: 'p2',
+    expect(afterVotes.pendingTriggers?.[0]).toMatchObject({
+      source: { name: 'Erestor of the Council', controller: 'p2' },
       payload: { vote: { votes: { p1: 'p3', p2: 'p3', p3: 'p4', p4: 'p3' } } },
     })
     // Círdan's own dumps for p1 and p2 (no votes received) come first.
@@ -597,6 +601,7 @@ describe('Erestor of the Council', () => {
       expect(pendingDialog(current)).toMatchObject({ kind: 'put-permanents', seat })
       current = ok(game.rules(current, { type: 'custom', name: DIALOG_CHOSEN, seat }))
     }
+    expect(current.stack[0]).toMatchObject({ name: 'Erestor of the Council', controller: 'p2' })
     const handBefore = current.zoneOrder.p2.hand.length
     current = ok(game.rules(current, { type: 'resolveTop' }))
     // Voting for p3: p1 and p4 voted for p3 as well and each gets a Treasure.
@@ -653,7 +658,7 @@ describe('Erestor of the Council', () => {
       ['p1', 'return'], ['p2', 'embark'], ['p3', 'return'], ['p4', 'return'],
     ])
     let current = done.state
-    // Resolve the Erestor trigger on top of the wheel question.
+    // Return found no graveyard cards, so Sail finishes and places Erestor.
     current = ok(game.rules(current, { type: 'resolveTop' }))
     expect(Object.values(current.objects).some((object) => object.name === 'Treasure')).toBe(false)
     expect(pendingSelectionFor(current, 'p2')).toMatchObject({ kind: 'scry', count: 3 })

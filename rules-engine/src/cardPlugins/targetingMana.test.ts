@@ -120,8 +120,18 @@ describe('optional and up-to targeting', () => {
       },
       { type: 'resolveTop' },
     ])
-    expect(withTarget.objects[named(withTarget, 'Victim').id].zone).toBe('graveyard')
-    expect(pendingSelectionFor(withTarget, 'p1')).toMatchObject({ kind: 'choose', min: 0 })
+    const victimId = named(withTarget, 'Victim').id
+    expect(withTarget.objects[victimId]).toMatchObject({ zone: 'battlefield', toughness: -3 })
+    const returning = pendingSelectionFor(withTarget, 'p1')!
+    expect(returning).toMatchObject({ kind: 'choose', min: 0 })
+    const targetFinished = ok(server.rules(withTarget, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'choose',
+      count: returning.count,
+      objectIds: [],
+    }))
+    expect(targetFinished.objects[victimId].zone).toBe('graveyard')
 
     const zeroReady = bury(server, structuredClone(server.state), ['Returned'])
     zeroReady.players.p1.mana.B = 1
@@ -258,17 +268,16 @@ describe('targeted player draw then discard', () => {
     expect(afterAbility.zoneOrder.p1.library.length).toBe(p1Library)
     expect(afterAbility.zoneOrder.p1.hand.length).toBe(p1Hand)
     expect(afterAbility.zoneOrder.p2.hand.length).toBe(6)
-    expect(afterAbility.stack[0]).toMatchObject({ actionId: 'discard' })
-    const resolved = ok(server.rules(afterAbility, { type: 'resolveTop' }))
-    expect(resolved.stack[0]).toMatchObject({ actionId: 'discard', waiting: 'choice' })
-    expect(resolved.priority).toBe('p2')
+    const selection = pendingSelectionFor(afterAbility, 'p2')!
+    expect(selection).toMatchObject({ kind: 'discard', count: 3 })
 
-    const discarded = resolved.zoneOrder.p2.hand.slice(0, 3)
-    const finished = ok(server.rules(resolved, {
-      type: 'continueAction',
-      stackId: resolved.stack[0].id,
+    const discarded = afterAbility.zoneOrder.p2.hand.slice(0, 3)
+    const finished = ok(server.rules(afterAbility, {
+      type: 'selectCards',
       seat: 'p2',
-      payload: { objectIds: discarded },
+      kind: 'discard',
+      count: 3,
+      objectIds: discarded,
     }))
     expect(discarded.every((id) => finished.objects[id].zone === 'graveyard')).toBe(true)
     expect(finished.zoneOrder.p2.hand.length).toBe(3)

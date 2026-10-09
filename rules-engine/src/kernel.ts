@@ -30,16 +30,21 @@ import {
 } from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/selectPlayers'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from './rules/selectOptions'
-import { PENDING_DIALOG, pendingDialog } from './pendingDialog'
+import { PENDING_DIALOG, dialogCandidates, pendingDialog } from './pendingDialog'
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
 import {
   SEARCH_CHOSEN,
   SEARCH_PENDING,
   pendingSearch,
+  searchCandidates,
+  searchSpecForPending,
   searchingSeat,
 } from './cardPlugins/librarySearch'
 import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
 import { isSameObject } from './objectIdentity'
+import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
+import { pendingExtort } from './cardPlugins/extort'
+import { stackCopyPending } from './cardPlugins/stackCopy'
 
 const CHECKPOINT_CAP = 32
 
@@ -428,7 +433,10 @@ const hasOpenChoice = (state: GameState) => Boolean(
   || pendingDialog(state)
   || searchingSeat(state)
   || state.stack.some((item) => item.kind === 'action' && item.waiting)
-  || state.playerOrder.some((seat) => pendingFreeCastFor(state, seat)),
+  || state.playerOrder.some((seat) => pendingFreeCastFor(state, seat))
+  || pendingOptionalManaPay(state)
+  || pendingExtort(state)
+  || stackCopyPending(state)
 )
 
 const startLegacyResolution = (state: GameState) => {
@@ -507,8 +515,10 @@ function applyEventTree(
         .map(({ event: queued }) => queued)
         .filter((queued) => (
           waitsForChoice
-          && queued.type === 'custom'
-          && queued.name === INSTRUCTIONS_RESUME
+          && (
+            queued.type === 'resolveTop'
+            || (queued.type === 'custom' && queued.name === INSTRUCTIONS_RESUME)
+          )
         ))
       suspended.resolution.pendingEvents = [
         ...immediate,
@@ -594,7 +604,7 @@ const driveResolution = (
       const object = current.objects[item.objectId]
       const identity = item.execution?.source.ref
       const sameSource = !identity || (object && isSameObject(object, identity))
-      if (item.kind === 'spell' && object?.zone === 'stack' && sameSource) {
+      if (item.kind === 'spell' && !item.copy && object?.zone === 'stack' && sameSource) {
         const draft = makeDraft(current)
         if (draft.resolution?.kind === 'legacy') {
           draft.resolution.phase = 'committing'
@@ -722,6 +732,11 @@ const resumeCanonicalResolution = (
 
 const isResolutionAnswer = (state: GameState, event: GameEvent) => {
   const searchSeat = searchingSeat(state)
+  const dialog = pendingDialog(state)
+  const manaPaymentSeat = (
+    pendingOptionalManaPay(state)?.payer
+    ?? pendingExtort(state)?.seat
+  )
   switch (event.type) {
     case 'selectCards':
     case 'selectPlayers':
@@ -733,8 +748,16 @@ const isResolutionAnswer = (state: GameState, event: GameEvent) => {
     case 'payExtort':
     case 'concede':
       return true
+    case 'copyStackItem': {
+      const pending = stackCopyPending(state)
+      return Boolean(
+        pending
+        && pending.seat === event.seat
+        && pending.sourceId === event.sourceId
+        && pending.stackId === event.stackId,
+      )
+    }
     case 'custom': {
-      const dialog = pendingDialog(state)
       return Boolean(
         (
           dialog
@@ -750,18 +773,54 @@ const isResolutionAnswer = (state: GameState, event: GameEvent) => {
       )
     }
     case 'reveal':
+      return event.seat === searchSeat || Boolean(
+        dialog
+        && event.seat === dialog.seat
+        && event.objectIds.every((objectId) =>
+          dialogCandidates(state, dialog).some((object) => object.id === objectId)),
+      )
     case 'shuffleLibrary':
-      return event.seat === searchSeat
+      return event.seat === searchSeat || Boolean(dialog?.shuffleAfter && event.seat === dialog.seat)
     case 'move': {
-      if (!searchSeat) return false
-      const object = state.objects[event.objectId]
-      return object?.owner === searchSeat && object.zone === 'library'
+      if (searchSeat) {
+        const search = pendingSearch(state, searchSeat)
+        const spec = search && searchSpecForPending(state, search)
+        const candidate = spec && searchCandidates(
+          state,
+          searchSeat,
+          spec,
+          search?.kicked,
+          search?.x,
+        ).some(({ id }) => id === event.objectId)
+        const destinations = spec?.split
+          ? ['battlefield', 'hand']
+          : spec ? [spec.destination] : []
+        if (candidate && destinations.includes(event.to as typeof destinations[number])) return true
+      }
+      return Boolean(
+        dialog
+        && dialog.destinations.includes(event.to as typeof dialog.destinations[number])
+        && dialogCandidates(state, dialog).some((candidate) => candidate.id === event.objectId),
+      )
     }
     case 'tap': {
-      if (!searchSeat) return false
       const object = state.objects[event.objectId]
-      return object?.owner === searchSeat && object.zone === 'battlefield'
+      return Boolean(
+        (searchSeat && object?.owner === searchSeat && object.zone === 'battlefield')
+        || (
+          dialog?.destinations.includes('battlefield')
+          && object?.controller === dialog.seat
+          && object.zone === 'battlefield'
+        ),
+      )
     }
+    case 'tapForMana':
+      return Boolean(
+        pendingFreeCastFor(state, event.seat)
+        || manaPaymentSeat === event.seat,
+      )
+    case 'addMana':
+      return manaPaymentSeat === event.seat
     case 'castSpell':
     case 'declineFreeCast':
       return Boolean(

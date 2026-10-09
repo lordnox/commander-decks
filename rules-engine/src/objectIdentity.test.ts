@@ -320,6 +320,41 @@ describe('rules object identity', () => {
     })
   })
 
+  test('refreshing a departed execution source preserves the event source snapshot', () => {
+    const server = createServerGame(commanderRules, {
+      players: ['p1', 'p2'],
+      battlefield: {
+        p1: [cardTemplate('Life Source', {
+          types: ['Creature'],
+          power: 2,
+          toughness: 2,
+          effects: [{
+            op: 'trigger',
+            on: 'gainLife',
+            do: [{ kind: 'gainLife', count: 1 }],
+          }],
+        })],
+      },
+    })
+    const source = Object.values(server.state.objects)[0]
+    let state = ok(server.rules(server.state, {
+      type: 'gainLife',
+      seat: 'p1',
+      amount: 4,
+      source: source.id,
+    }))
+    state = structuredClone(state)
+    state.objects[source.id].power = 7
+    state = ok(server.rules(state, {
+      type: 'move',
+      objectId: source.id,
+      to: 'graveyard',
+    }))
+
+    expect(state.stack[0].execution?.source.snapshot.power).toBe(7)
+    expect(state.stack[0].execution?.occurrence?.source?.snapshot.power).toBe(2)
+  })
+
   test('card-target trigger context survives an open choice, journal restore, and source departure', () => {
     const sourceCard = cardTemplate('Choosing Source', {
       types: ['Creature'],

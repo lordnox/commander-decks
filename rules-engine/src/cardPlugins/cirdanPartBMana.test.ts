@@ -624,12 +624,12 @@ describe('Utopia Sprawl', () => {
 
   test('no extra mana before a color is chosen', () => {
     const { server, entered } = enter()
-    const tapped = ok(server.rules(entered, {
+    const tapped = server.rules(entered, {
       type: 'tapForMana',
       seat: 'p1',
       objectId: one(entered, 'Forest').id,
-    }))
-    expect(tapped.players.p1.mana).toEqual({ ...emptyMana(), G: 1 })
+    })
+    expect(tapped.ok).toBe(false)
   })
 })
 

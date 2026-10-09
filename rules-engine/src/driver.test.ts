@@ -4,6 +4,8 @@ import { card } from './cardPlugins/dsl/sugar/card'
 import { compileCardRuleDefinition, createDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import type { Instruction } from './cardPlugins/dsl/schema/v1'
 import { finishResolution, prepareResolutionStep, startCanonicalResolution } from './driver'
+import { ptEqualsLife } from './cardPlugins/effects'
+import { cdaLifePt } from './plugins/cdaLifePt'
 import { freezeDraft, makeDraft } from './draft'
 import { commanderRules } from './formats'
 import { cardTemplate } from './newGame'
@@ -96,6 +98,36 @@ describe('durable canonical resolution driver', () => {
     expect(resolved.log.some((line) => line.startsWith('p1 gains 3 life'))).toBe(true)
   })
 
+  test('recomputes a zero-toughness CDA between instructions before the final SBA', () => {
+    const vitality = cardTemplate('CDA Fixture', {
+      types: ['Creature'],
+      power: null,
+      toughness: null,
+      effects: [ptEqualsLife({ who: 'controller' })],
+    })
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Canonical Test', {
+          types: ['Instant'],
+          manaCost: '{0}',
+          manaValue: 0,
+          ruleDefinition: snapshotFor(
+            { kind: 'loseLife', amount: amount(40), targets: controller },
+            { kind: 'gainLife', amount: amount(1), targets: controller },
+          ),
+        })],
+      },
+      battlefield: { p1: [vitality] },
+    }, { random: () => 0, cardPlugins: [cdaLifePt] })
+
+    const resolved = ok(server.rules(cast(server), { type: 'resolveTop' }))
+    const creature = Object.values(resolved.objects).find((object) => object.name === 'CDA Fixture')!
+    expect(resolved.players.p1.life).toBe(1)
+    expect(resolved.players.p1.lost).toBe(false)
+    expect(creature).toMatchObject({ zone: 'battlefield', power: 1, toughness: 1 })
+  })
+
   test('all-pass resolves exactly one canonical top item and gives the active player priority', () => {
     const server = canonicalServer([
       { kind: 'gainLife', amount: amount(2), targets: controller },
@@ -125,6 +157,9 @@ describe('durable canonical resolution driver', () => {
     const pending = pendingOptionSelection(state, 'p1')
     expect(pending).toBeDefined()
     expect(state.resolution).toMatchObject({ kind: 'canonicalSpell', phase: 'waiting' })
+    expect(state.priority).toBeNull()
+    expect(pendingOptionSelection(projectForViewer(state, 'p1'), 'p1')).toBeDefined()
+    expect(pendingOptionSelection(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
     expect(state.stack).toHaveLength(1)
     expect(state.players.p1.life).toBe(-1)
     expect(state.players.p1.lost).toBe(false)
@@ -179,10 +214,18 @@ describe('durable canonical resolution driver', () => {
     const draft = makeDraft(castState)
     const frame = startCanonicalResolution(draft, draft.stack[0])
     const object = draft.object(frame.source.ref.objectId)!
+    object.power = 7
     draft.move(object.id, 'graveyard')
+    expect(draft.resolution?.kind).toBe('canonicalSpell')
+    if (draft.resolution?.kind !== 'canonicalSpell') throw new Error('missing frame')
+    expect(draft.resolution.controller).toBe('p1')
+    expect(draft.resolution.source).toMatchObject({
+      information: 'lastKnown',
+      ref: frame.source.ref,
+      snapshot: { power: 7 },
+    })
     draft.move(object.id, 'stack')
     const laterIncarnation = object.incarnation
-    if (draft.resolution?.kind !== 'canonicalSpell') throw new Error('missing frame')
     draft.resolution.scopes = []
     expect(prepareResolutionStep(draft)).toEqual({ kind: 'complete', event: undefined })
     finishResolution(draft)

@@ -13,6 +13,7 @@ import { replayComparableState } from './replay'
 import { createServerGame } from './runtime'
 import { ok } from './testHelpers'
 import type { GameState } from './types'
+import { pendingSelectionFor } from './rules/selectCards'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, ...extra })
@@ -65,7 +66,7 @@ test('a kernel journal restores accepted events without storing before/after tre
   expect(journal.initial.objects[land.id].zone).toBe('hand')
 })
 
-test('journal restores continueAction with stable stack id through waiting discard', () => {
+test('journal restores a typed discard and its durable source resolution', () => {
   const server = createServerGame(
     commanderRules,
     {
@@ -98,29 +99,23 @@ test('journal restores continueAction with stable stack id through waiting disca
     journal = recordAccepted(journal, { type: 'passPriority', seat })
   }
 
-  const discardId = state.stack[0].id
-  expect(state.stack[0]).toMatchObject({ actionId: 'discard' })
-
-  state = passAll(server, state)
-  for (const seat of state.playerOrder) {
-    journal = recordAccepted(journal, { type: 'passPriority', seat })
-  }
-
-  expect(state.stack[0].id).toBe(discardId)
-  expect(state.stack[0]).toMatchObject({ actionId: 'discard', waiting: 'choice' })
+  const selection = pendingSelectionFor(state, 'p2')!
+  expect(selection).toMatchObject({ kind: 'discard', count: 1 })
+  expect(state.stack[0]).toMatchObject({ kind: 'spell', name: 'Cry of Contrition Test' })
+  expect(state.resolution).toMatchObject({ kind: 'legacy', phase: 'waiting' })
   expect(replayComparableState(state).stack[0]).toEqual({
     name: 'Cry of Contrition Test',
-    kind: 'action',
-    controller: 'p2',
-    waiting: 'choice',
-    text: 'discard · waiting',
+    kind: 'spell',
+    controller: 'p1',
+    text: 'targeting p2',
   })
 
   const continueEvent = {
-    type: 'continueAction' as const,
-    stackId: discardId,
+    type: 'selectCards' as const,
     seat: 'p2' as const,
-    payload: { objectIds: [victimCard] },
+    kind: 'discard' as const,
+    count: 1,
+    objectIds: [victimCard],
   }
   state = ok(server.rules(state, continueEvent))
   journal = recordAccepted(journal, continueEvent)

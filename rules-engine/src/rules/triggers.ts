@@ -709,7 +709,27 @@ export const captureEventTriggers = (
     const matches = collectEventTriggers(state, draft, event)
     if (matches.length === 0) return
 
-    const ordered = apnapOrder(draft, matches)
+    // Devour is an enters-the-battlefield replacement choice (CR 702.82), even
+    // though the legacy card data stores it in an `enters` trigger-shaped node.
+    // Open that choice during the resolving permanent's frame so an otherwise
+    // 0/0 creature cannot be put into its owner's graveyard before it devours.
+    const replacements = matches.filter(({ effect }) =>
+      effect.do.length === 1 && effect.do[0].kind === 'devour')
+    for (const { source, effect } of replacements) {
+      runInstructions(draft, source, effect.do, {
+        id: 'devour-enter',
+        kind: 'ability',
+        objectId: source.id,
+        controller: source.controller,
+        name: source.name,
+        targets: [],
+      })
+    }
+    const ordinary = matches.filter(({ effect }) =>
+      effect.do.length !== 1 || effect.do[0].kind !== 'devour')
+    if (ordinary.length === 0) return
+
+    const ordered = apnapOrder(draft, ordinary)
     const triggeringPlayer = 'seat' in event && typeof event.seat === 'string'
       ? event.seat
       : undefined

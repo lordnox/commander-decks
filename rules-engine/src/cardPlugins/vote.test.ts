@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
+import { freezeDraft, makeDraft } from '../draft'
 import { cardTemplate } from '../newGame'
 import { pendingDialog } from '../pendingDialog'
 import { createServerGame, projectForViewer } from '../runtime'
@@ -451,7 +452,11 @@ describe('per-option effects on the voted object', () => {
     const bearId = named(state, 'Bear').id
     const boarId = named(state, 'Boar').id
     const voted = castAll(game, state, [['p1', bearId], ['p2', boarId], ['p3', bearId]]).state
-    const gone = ok(game.rules(voted, { type: 'move', objectId: bearId, to: 'graveyard' }))
+    // Model an external effect removing the voted object. Ordinary game actions
+    // cannot interleave with the resolution's open vote.
+    const draft = makeDraft(voted)
+    draft.move(bearId, 'graveyard')
+    const gone = freezeDraft(draft)
     const done = castAll(game, gone, [['p4', boarId]]).state
     expect(named(done, 'Bear')).toMatchObject({ zone: 'graveyard', counters: {}, tapped: false })
     expect(named(done, 'Boar')).toMatchObject({ counters: { stun: 2 }, tapped: true })

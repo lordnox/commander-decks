@@ -38,17 +38,6 @@ const run = (
   events: GameEvent[],
 ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
-const passAll = (server: ReturnType<typeof createServerGame>, state: GameState) => {
-  let current = state
-  for (let round = 0; round < 12; round += 1) {
-    if (current.stack.length === 0) break
-    const top = current.stack[0]
-    if (top.kind === 'action' && top.waiting === 'choice') break
-    current = ok(server.rules(current, { type: 'resolveTop' }))
-  }
-  return current
-}
-
 const forest = () =>
   cardTemplate('Forest', {
     types: ['Land'],
@@ -674,7 +663,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(named(withPlains, 'Plains').zone).toBe('hand')
   })
 
-  test("Thrór's Map loot draws then discards through continueAction", () => {
+  test("Thrór's Map loot draws then discards through a typed card choice", () => {
     const map = cardTemplate("Thrór's Map", {
       types: ['Artifact'],
       manaCost: '{2}',
@@ -703,16 +692,15 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       seat: 'p1',
       objectId: mapId,
     }))
-    const afterAbility = passAll(server, lootStart)
+    const afterAbility = ok(server.rules(lootStart, { type: 'resolveTop' }))
     expect(named(afterAbility, 'Loot Draw').zone).toBe('hand')
-    expect(afterAbility.stack[0]).toMatchObject({ actionId: 'discard' })
-    const waiting = ok(server.rules(afterAbility, { type: 'resolveTop' }))
-    expect(waiting.stack[0].waiting).toBe('choice')
-    const finished = ok(server.rules(waiting, {
-      type: 'continueAction',
-      stackId: waiting.stack[0].id,
+    expect(pendingSelectionFor(afterAbility, 'p1')).toMatchObject({ kind: 'discard', count: 1 })
+    const finished = ok(server.rules(afterAbility, {
+      type: 'selectCards',
       seat: 'p1',
-      payload: { objectIds: [discardId] },
+      kind: 'discard',
+      count: 1,
+      objectIds: [discardId],
     }))
     expect(finished.stack).toHaveLength(0)
     expect(finished.objects[discardId].zone).toBe('graveyard')

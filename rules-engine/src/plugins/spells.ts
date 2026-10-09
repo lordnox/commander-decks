@@ -512,6 +512,11 @@ export const spells: Plugin = {
         event.seat,
         object,
         event.castOption,
+      ) ?? availableAlternateCastEffect(
+        state,
+        event.seat,
+        state.objects[event.objectId],
+        event.castOption,
       )
       const cost = reduceGenericManaCost(spellCost(state, object, {
         additionalGeneric: event.additionalGeneric,

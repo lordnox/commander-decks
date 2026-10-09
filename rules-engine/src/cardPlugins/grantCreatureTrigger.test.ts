@@ -65,7 +65,12 @@ describe('grantCreatureTrigger to controlled subtype', () => {
       commanderRules,
       {
         hands: { p1: [lord(draw(1)), sliver('Fixture Sliver Recruit')] },
-        libraries: { p1: [cardTemplate('Fixture Top Card', { types: ['Instant'] })] },
+        libraries: {
+          p1: [
+            cardTemplate('Fixture Top Card', { types: ['Instant'] }),
+            cardTemplate('Fixture Second Card', { types: ['Instant'] }),
+          ],
+        },
         players: 2,
       },
       { random: () => 0.5, cardPlugins: [grantCreatureTrigger] },
@@ -85,7 +90,7 @@ describe('grantCreatureTrigger to controlled subtype', () => {
       to: 'battlefield',
     }))
     state = resolveStack(server.rules, state)
-    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
   })
 
   test('leaving the lord removes the grant before another sliver enters', () => {

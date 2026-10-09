@@ -54,7 +54,11 @@ describe('additionalLandPlay', () => {
   })
 
   test('Aesi on the battlefield allows a second land', () => {
-    const server = game({ hand: [forest('First'), forest('Second')], battlefield: [aesi()] })
+    const server = game({
+      hand: [forest('First'), forest('Second')],
+      battlefield: [aesi()],
+      library: [card('Aesi Draw', ['Instant'])],
+    })
     const first = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'playLand',
       seat: 'p1',

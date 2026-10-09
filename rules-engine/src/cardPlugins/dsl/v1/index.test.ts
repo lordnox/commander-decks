@@ -97,7 +97,7 @@ describe('Rule DSL v1 canonical authoring', () => {
       serialization: true,
       runtimeExecution: {
         abilityKinds: ['spell'],
-        instructionKinds: ['draw', 'gainLife', 'loseLife'],
+        instructionKinds: ['draw', 'gainLife', 'loseLife', 'sequence'],
         decisions: 'fullySuppliedUntargeted',
       },
     })
@@ -203,7 +203,7 @@ describe('Rule DSL v1 canonical authoring', () => {
     ])
     expect(compiled.capabilities.runtimeExecution).toEqual({
       abilityKinds: ['spell'],
-      instructionKinds: ['draw', 'gainLife', 'loseLife'],
+      instructionKinds: ['draw', 'gainLife', 'loseLife', 'sequence'],
       decisions: 'fullySuppliedUntargeted',
     })
   })
@@ -689,7 +689,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
   test('advertises only the canonical runtime slice implemented by Part 03', () => {
     expect(RULE_DSL_V1_CAPABILITIES.runtimeExecution).toEqual({
       abilityKinds: ['spell'],
-      instructionKinds: ['draw', 'gainLife', 'loseLife'],
+      instructionKinds: ['draw', 'gainLife', 'loseLife', 'sequence'],
       decisions: 'fullySuppliedUntargeted',
     })
     expect(compileCardRuleDefinition(card([])).capabilities.runtimeExecution)

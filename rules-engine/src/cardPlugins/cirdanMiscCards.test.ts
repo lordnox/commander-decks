@@ -108,7 +108,12 @@ const playLobby = () => {
 const passUntilResolved = (kernel: KernelHandle) => {
   for (let guard = 0; guard < 12; guard += 1) {
     const state = kernel.history.current()
-    if (state.stack.length === 0 || state.stack[0].waiting || !state.priority) return state
+    if (
+      state.stack.length === 0
+      || state.stack[0].waiting
+      || state.resolution?.phase === 'waiting'
+      || !state.priority
+    ) return state
     const result = kernel.dispatch({ type: 'passPriority', seat: state.priority })
     if (!result.ok) throw new Error(result.error)
   }
@@ -1254,7 +1259,7 @@ describe("Rishkar's Expertise", () => {
     const resolved = resolveExpertise(server, state)
     expect(handOf(resolved)).toEqual(['Held Bear', 'Lib 1', 'Lib 2', 'Lib 3', 'Lib 4', 'Lib 5'])
     expect(resolved.zoneOrder.p1.library).toHaveLength(7)
-    expect(named(resolved, "Rishkar's Expertise").zone).toBe('graveyard')
+    expect(named(resolved, "Rishkar's Expertise").zone).toBe('stack')
   })
 
   test('with no creature it draws nothing and still offers the free cast', async () => {

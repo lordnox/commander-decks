@@ -205,7 +205,7 @@ export const prepareResolutionStep = (draft: Draft): DriverStep => {
     }
   }
   const object = draft.object(item.objectId)
-  const event = object?.zone === 'stack' && isSameObject(object, frame.source.ref)
+  const event = !item.copy && object?.zone === 'stack' && isSameObject(object, frame.source.ref)
     ? {
         type: 'move' as const,
         objectId: object.id,

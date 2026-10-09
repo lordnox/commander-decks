@@ -20,7 +20,7 @@ import {
   shuffleIntoLibraryInstead as shuffleEffect,
 } from './effects'
 import { alternateCosts } from './alternateCosts'
-import { librarySearch } from './librarySearch'
+import { librarySearch, SEARCH_CHOSEN } from './librarySearch'
 import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 import { targetedResolve } from './targetedResolve'
 
@@ -101,6 +101,7 @@ const p2Board = () => ({
     p2: [artifact('P2 Rock'), land('P2 Swamp'), token('P2 Treasure')],
     p3: [artifact('P3 Rock')],
   },
+  libraries: { p2: [cardTemplate('P2 Draw')] },
 })
 
 describe('annihilator', () => {
@@ -427,11 +428,19 @@ describe('permanentSacrificed from other sacrifice paths', () => {
       objectId: named(ready, 'Scapeshift').id,
     }))
     const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-    const sacrificed = ok(server.rules(choosing, {
+    let sacrificed = ok(server.rules(choosing, {
       type: 'custom',
       name: DIALOG_CHOSEN,
       seat: 'p2',
       payload: { objectIds: [named(choosing, 'First Forest').id] },
+    }))
+    expect(sacrificed.pendingTriggers?.[0]).toMatchObject({
+      source: { name: 'Test Betrayer' },
+    })
+    sacrificed = ok(server.rules(sacrificed, {
+      type: 'custom',
+      name: SEARCH_CHOSEN,
+      seat: 'p2',
     }))
     expect(sacrificed.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(1)
   })

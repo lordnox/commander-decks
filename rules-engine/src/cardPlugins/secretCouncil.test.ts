@@ -120,6 +120,18 @@ describe('secret council', () => {
         tied: false,
       },
     })
+    expect(state.pendingTriggers?.[0]).toMatchObject({
+      source: { name: 'Watcher', controller: 'p3' },
+    })
+    for (const seat of ['p1', 'p3', 'p4'] as const) {
+      expect(pendingDialog(state)).toMatchObject({ kind: 'put-permanents', seat })
+      state = ok(server.rules(state, {
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat,
+        payload: { objectIds: [] },
+      }))
+    }
     expect(state.stack[0]).toMatchObject({ name: 'Watcher', controller: 'p3' })
   })
 

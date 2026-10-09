@@ -94,7 +94,6 @@ describe('targeted spell resolution', () => {
       { type: 'tap', objectId: basic },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
     ])
     expect(resolved.objects[bear].zone).toBe('graveyard')
     expect(resolved.objects[basic].zone).toBe('battlefield')
@@ -421,4 +420,3 @@ describe('sacrifice then return N targeted graveyard creatures tapped', () => {
     expect(named(resolved, 'Returned Elk').tapped).toBe(true)
   })
 })
-
