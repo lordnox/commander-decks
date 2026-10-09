@@ -187,7 +187,15 @@ export type ObjectTargetRef = {
 
 export type TargetRef =
   | { kind: 'player'; player: PlayerId }
+  | { kind: 'stackItem'; stackId: string }
   | ObjectTargetRef
+
+/** A canonical target binding retains its generated scope and clause slot. */
+export type CanonicalTargetBinding = {
+  scopeId: string
+  clauseIndex: number
+  recipients: TargetRef[]
+}
 
 /**
  * One card or token in the game. Identity is `id`; `name` is Oracle for fixtures.
@@ -383,6 +391,8 @@ export type StackExecutionContext = {
   occurrence?: OccurrenceSnapshot
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
   definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  /** Supplied canonical targets, grouped by generated scope and clause. */
+  targetBindings?: CanonicalTargetBinding[]
   declarationPath?: string
 }
 
@@ -407,6 +417,13 @@ export type CanonicalResolutionFrame = {
   definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
   declarationPath: string
   source: CapturedObject
+  scopeId?: string
+  targetBindings?: CanonicalTargetBinding[]
+  /** Current legality for each bound slot; missing/false slots are withheld. */
+  targetLegality?: Record<number, boolean[]>
+  results?: Record<string, boolean | number>
+  pendingResult?: { binding: string; kind: 'counter'; stackId: string }
+  outcome?: 'resolved' | 'didNotResolve:allTargetsIllegal'
   scopes: ProgramScopeFrame[]
   phase: 'running' | 'committing' | 'waiting'
   /** Events for the current instruction, persisted before the cursor may continue. */
@@ -604,6 +621,8 @@ export type GameEvent =
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }
+  /** Internal canonical instruction event; never offered as a player action. */
+  | { type: 'counterStackItem'; stackId: string; sourceId?: string }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
   | { type: 'advanceStep' }
@@ -615,6 +634,8 @@ export type GameEvent =
       seat: PlayerId
       objectId: string
       targets?: TargetRef[]
+      /** Canonical DSL targets grouped by generated clause index. */
+      targetClauses?: TargetRef[][]
       additionalGeneric?: number
       kicked?: boolean
       giftPromised?: boolean

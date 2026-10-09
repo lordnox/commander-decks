@@ -21,7 +21,7 @@ const defendingPlayer = (
   if (typeof target === 'string') return target
   return target.kind === 'player'
     ? target.player
-    : targetObject(state, target)?.controller
+    : target.kind === 'object' ? targetObject(state, target)?.controller : undefined
 }
 
 const battlefieldStatics = (state: GameState) =>

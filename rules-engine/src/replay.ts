@@ -520,6 +520,10 @@ const HIDDEN_ZONES = new Set<GameObject['zone']>(['hand', 'library'])
  */
 const targetLabel = (state: GameState, target: TargetRef) => {
   if (target.kind === 'player') return state.players[target.player] ? target.player : undefined
+  if (target.kind === 'stackItem') {
+    const item = state.stack.find((candidate) => candidate.id === target.stackId)
+    return item ? `${item.name} (${item.kind})` : undefined
+  }
   const object = state.objects[target.objectId]
   if (!object) return undefined
   if (HIDDEN_ZONES.has(object.zone)) return 'a face-down card'

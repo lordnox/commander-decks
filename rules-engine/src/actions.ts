@@ -1413,7 +1413,8 @@ export const availableActions = (
         if (object.zone !== 'battlefield' || object.phasedOut || !object.attacking) return false
         if (typeof object.attacking === 'string') return object.attacking === seat
         if (object.attacking.kind === 'player') return object.attacking.player === seat
-        return state.objects[object.attacking.objectId]?.controller === seat
+        return object.attacking.kind === 'object'
+          && state.objects[object.attacking.objectId]?.controller === seat
       })
     const untapped = Object.values(state.objects)
       .filter((object) =>

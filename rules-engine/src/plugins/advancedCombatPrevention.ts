@@ -8,7 +8,7 @@ const protectedPlayer = (
   controller: string,
 ) => target.kind === 'player'
   ? target.player === controller
-  : targetObject(state, target)?.types.includes('Planeswalker') === true
+  : target.kind === 'object' && targetObject(state, target)?.types.includes('Planeswalker') === true
     && targetObject(state, target)?.controller === controller
 
 const sourceController = (state: GameState, sourceId: string) =>

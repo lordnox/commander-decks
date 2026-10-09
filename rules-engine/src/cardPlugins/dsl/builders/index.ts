@@ -40,6 +40,7 @@ import type {
   StaticAbilityDefinition,
   TargetClause,
   TargetClauseInput,
+  TargetConstraint,
   TargetReference,
   TriggeredAbilityDefinition,
   VariableSpec,
@@ -163,10 +164,14 @@ export const prohibitActivation = (
 
 export const decisions = (input: DecisionsInput = {}): DecisionsSpec => immutableData({
   targets: input.targets ?? [],
+  ...(input.constraints ? { constraints: input.constraints } : {}),
   ...(input.modes ? { modes: input.modes } : {}),
   ...(input.variables ? { variables: input.variables } : {}),
   ...(input.distributions ? { distributions: input.distributions } : {}),
 })
+
+export const differentTargets = (...clauseIndices: readonly number[]): TargetConstraint =>
+  immutableData({ kind: 'different', clauseIndices })
 
 const normalizeProgram = (program: ResolutionProgramInput): ResolutionProgram => {
   const hasInstructions = program.instructions !== undefined

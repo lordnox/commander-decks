@@ -42,6 +42,7 @@ const canAttackThisCombat = (
 
 const defenderPlayer = (state: GameState, target: TargetRef): PlayerId | null => {
   if (target.kind === 'player') return target.player
+  if (target.kind !== 'object') return null
   const object = targetObject(state, target)
   if (!object) return null
   return object.types.includes('Battle') ? object.protector ?? null : object.controller

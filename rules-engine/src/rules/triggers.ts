@@ -337,6 +337,7 @@ const collectSacrifices = (
 const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
   if (typeof target === 'string') return target
   if (target.kind === 'player') return target.player
+  if (target.kind !== 'object') return undefined
   const attacked = state.objects[target.objectId]
   return attacked?.protector ?? attacked?.controller
 }
@@ -442,6 +443,7 @@ const collectCombatDamage = (
     }
     return
   }
+  if (event.target.kind !== 'object') return
   const recipient = draft.object(event.target.objectId) ?? state.objects[event.target.objectId]
   if (!recipient || recipient.zone !== 'battlefield') return
   collectEffects(recipient, 'dealtCombatDamage', state, matches, 1, meta)

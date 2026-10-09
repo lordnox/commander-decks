@@ -115,6 +115,12 @@ export type TargetClauseInput = {
   distinct?: true
 }
 
+/** A restriction that relates recipients chosen for more than one clause. */
+export type TargetConstraint = {
+  kind: 'different'
+  clauseIndices: readonly number[]
+}
+
 export type ModeSpec = {
   count: Amount
   repeatable: boolean
@@ -128,6 +134,7 @@ export type DistributionSpec = {
 
 export type DecisionsSpec = {
   targets: readonly TargetClause[]
+  constraints?: readonly TargetConstraint[]
   modes?: ModeSpec
   variables?: readonly VariableSpec[]
   distributions?: readonly DistributionSpec[]
@@ -315,8 +322,8 @@ export type CompiledCardRuleDefinitionV1 = {
     serialization: true
     runtimeExecution: {
       abilityKinds: readonly ['spell']
-      instructionKinds: readonly ['draw', 'gainLife', 'loseLife', 'sequence']
-      decisions: 'fullySuppliedUntargeted'
+      instructionKinds: readonly ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence']
+      decisions: 'fullySuppliedTargets'
     }
   }
 }

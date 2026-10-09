@@ -1,4 +1,5 @@
 import { hasKeyword } from '../keywords'
+import { targetObject } from '../objectIdentity'
 import type { GameEvent, GameObject, Plugin } from '../types'
 import {
   isLegendaryCreature,
@@ -69,7 +70,8 @@ export const damage: Plugin = {
         }
         return
       }
-      const object = draft.object(event.target.objectId)
+      if (event.target.kind !== 'object') return
+      const object = targetObject(draft, event.target)
       if (!object || object.zone !== 'battlefield') return
       const source = draft.objects[event.sourceId]
       recordDamageDealt(object, source, event.amount)

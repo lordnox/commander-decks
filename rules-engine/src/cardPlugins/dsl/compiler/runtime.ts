@@ -37,8 +37,10 @@ export type BoundRecipient =
 
 export type RuntimeBindings = {
   targets?: Readonly<Record<number, readonly BoundRecipient[]>>
+  targetLegality?: Readonly<Record<number, readonly boolean[]>>
   choices?: Readonly<Record<string, readonly BoundRecipient[]>>
   variables?: Readonly<Partial<Record<'X', number>>>
+  results?: Readonly<Record<string, boolean | number>>
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
@@ -53,7 +55,11 @@ const targetRecipients = (reference: TargetReference, context: RuleDslRuntimeCon
   if (!context.targets || !Object.hasOwn(context.targets, reference.clauseIndex)) {
     throw new RuleDslEvaluationError(`target clause ${reference.clauseIndex} is not bound`)
   }
-  return context.targets[reference.clauseIndex]!
+  const bound = context.targets[reference.clauseIndex]!
+  const legality = context.targetLegality?.[reference.clauseIndex]
+  return legality
+    ? bound.filter((_recipient, index) => legality[index] === true)
+    : bound
 }
 
 const choiceRecipients = (reference: ChoiceReference, context: RuleDslRuntimeContext) => {
@@ -299,3 +305,29 @@ export const evaluateRuntimeAmount = (
   expression: Amount,
   context: RuleDslRuntimeContext,
 ) => evaluateAmount(expression, amountEvaluationContext(context))
+
+export const evaluateCondition = (
+  condition: import('../schema/v1').Condition,
+  context: RuleDslRuntimeContext,
+): boolean => {
+  switch (condition.kind) {
+    case 'resultIsTrue': {
+      if (condition.value.kind !== 'resultRef') {
+        throw new RuleDslEvaluationError('resultIsTrue requires a result reference')
+      }
+      return context.results?.[condition.value.binding] === true
+    }
+    case 'compareAmount': {
+      const left = evaluateRuntimeAmount(condition.left, context)
+      const right = evaluateRuntimeAmount(condition.right, context)
+      switch (condition.operator) {
+        case 'eq': return left === right
+        case 'gte': return left >= right
+        case 'lte': return left <= right
+      }
+    }
+    case 'all': return condition.conditions.every((part) => evaluateCondition(part, context))
+    case 'any': return condition.conditions.some((part) => evaluateCondition(part, context))
+    case 'not': return !evaluateCondition(condition.condition, context)
+  }
+}

@@ -40,6 +40,8 @@ import { cantCastSpellWith } from './opponentRestrictions'
 import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
+import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
+import { compileCardRuleDefinition } from '../cardPlugins/dsl/compiler'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
 const MANA_SYMBOLS = new Set<ManaId>(MANA_ORDER)
@@ -323,6 +325,35 @@ export const spells: Plugin = {
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
       const face = resolveCastFace(object, event)
       const spell = face ? { ...object, ...face } : object
+      if (object.ruleDefinition && !event.copy) {
+        const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
+        const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
+        if (abilityIndex >= 0) {
+          const targetError = canonicalTargetError(
+            state,
+            spell,
+            compiled.definition,
+            abilityIndex,
+            event.targets ?? event.targetClauses?.flat() ?? [],
+            undefined,
+            event.targetClauses,
+            event.seat,
+            event.x,
+          )
+          if (targetError) return targetError
+          const flagbearerError = canonicalFlagbearerError(
+            state,
+            spell,
+            compiled.definition,
+            abilityIndex,
+            event.targets ?? event.targetClauses?.flat() ?? [],
+            event.targetClauses,
+            event.seat,
+            event.x,
+          )
+          if (flagbearerError) return flagbearerError
+        }
+      }
       const selected = availableAlternateCastEffect(
         state,
         event.seat,
@@ -566,13 +597,13 @@ export const spells: Plugin = {
       }
       const castFrom = object.zone
       draft.move(object.id, 'stack')
-      draft.addToStack({
+      const stacked = draft.addToStack({
         id: draft.allocId('s'),
         kind: 'spell',
         objectId: object.id,
         controller: event.seat,
         name: object.name,
-        targets: event.targets ?? [],
+        targets: event.targets ?? event.targetClauses?.flat() ?? [],
         manaSpent,
         ...(event.kicked ? { kicked: true } : {}),
         ...(event.giftPromised
@@ -612,6 +643,23 @@ export const spells: Plugin = {
         ),
         castFrom,
       })
+      if (object.ruleDefinition) {
+        const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
+        const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
+        if (abilityIndex >= 0 && stacked.execution) {
+          stacked.execution.targetBindings = canonicalTargetBindings(
+            state,
+            object,
+            compiled.definition,
+            abilityIndex,
+            event.targets ?? event.targetClauses?.flat() ?? [],
+            stacked,
+            event.targetClauses,
+            event.seat,
+            event.x,
+          )
+        }
+      }
       if (event.castOption === 'exiledWithLife') {
         const life = manaValueOf(object)
         if (life > 0) {

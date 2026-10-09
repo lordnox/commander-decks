@@ -149,7 +149,9 @@ const defenderName = (state: GameState, object: GameObject) => {
   if (typeof object.attacking === 'string') return object.attacking
   return object.attacking.kind === 'player'
     ? object.attacking.player
-    : state.objects[object.attacking.objectId]?.name ?? object.attacking.objectId
+    : object.attacking.kind === 'object'
+      ? state.objects[object.attacking.objectId]?.name ?? object.attacking.objectId
+      : object.attacking.stackId
 }
 
 const defendingSeat = (state: GameState, object: GameObject) => {
@@ -157,7 +159,9 @@ const defendingSeat = (state: GameState, object: GameObject) => {
   if (typeof object.attacking === 'string') return object.attacking
   return object.attacking.kind === 'player'
     ? object.attacking.player
-    : state.objects[object.attacking.objectId]?.controller ?? ''
+    : object.attacking.kind === 'object'
+      ? state.objects[object.attacking.objectId]?.controller ?? ''
+      : ''
 }
 
 const untappedCreatures = (battlefield: GameObject[], seat: PlayerId) =>
@@ -263,7 +267,7 @@ const combatLabels = (state: GameState, lobby: LobbyState, object?: GameObject) 
     }
     const defender = typeof object.attacking === 'string'
       ? object.attacking
-      : object.attacking.player
+      : object.attacking.kind === 'player' ? object.attacking.player : ''
     return { attacking: lobby.occupants[defender as SeatId]?.name || defender }
   }
   if (object.blocking) {
