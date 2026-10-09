@@ -156,16 +156,18 @@ export const validateInteractionAnswer = (
   switch (selection.kind) {
     case 'selectCards': {
       if (request.selection.kind !== 'selectCards') return { ok: false, error: 'card offer mismatch' }
-      const allowed = new Set(request.selection.candidates.map((candidate) => candidate.id))
+      const offer = request.selection
+      const allowed = new Set(offer.candidates.map((candidate) => candidate.id))
       if (!selection.ids.every((id) => allowed.has(id))) return { ok: false, error: 'card was not offered' }
-      return validateBounds(selection.ids.length, request.selection.min, request.selection.max, request.selection.distinct, selection.ids)
+      return validateBounds(selection.ids.length, offer.min, offer.max, offer.distinct, selection.ids)
         ? { ok: true }
         : { ok: false, error: 'invalid card selection' }
     }
     case 'selectPlayers': {
       if (request.selection.kind !== 'selectPlayers') return { ok: false, error: 'player offer mismatch' }
-      if (!selection.ids.every((id) => request.selection.candidates.includes(id))) return { ok: false, error: 'player was not offered' }
-      return validateBounds(selection.ids.length, request.selection.min, request.selection.max, request.selection.distinct, selection.ids)
+      const offer = request.selection
+      if (!selection.ids.every((id) => offer.candidates.includes(id))) return { ok: false, error: 'player was not offered' }
+      return validateBounds(selection.ids.length, offer.min, offer.max, offer.distinct, selection.ids)
         ? { ok: true }
         : { ok: false, error: 'invalid player selection' }
     }
@@ -204,8 +206,9 @@ export const validateInteractionAnswer = (
     }
     case 'selectOptions': {
       if (request.selection.kind !== 'selectOptions') return { ok: false, error: 'option offer mismatch' }
-      if (!selection.ids.every((id) => request.selection.options.some((option) => option.id === id))) return { ok: false, error: 'option was not offered' }
-      return validateBounds(selection.ids.length, request.selection.min, request.selection.max, request.selection.distinct, selection.ids)
+      const offer = request.selection
+      if (!selection.ids.every((id) => offer.options.some((option) => option.id === id))) return { ok: false, error: 'option was not offered' }
+      return validateBounds(selection.ids.length, offer.min, offer.max, offer.distinct, selection.ids)
         ? { ok: true }
         : { ok: false, error: 'invalid option selection' }
     }

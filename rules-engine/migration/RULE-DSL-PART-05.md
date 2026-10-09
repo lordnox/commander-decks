@@ -54,7 +54,9 @@ fixture resolution (`loads generated card handlers from the current worktree`).
 The live host's persisted `LobbyState` is the authoritative continuation lookup
 for the current migration adapter; `InteractionStore` supplies the same
 immutable reservation/complete/reject semantics for headless callers and saved
-request records. The legacy `custom` paths remain temporary adapters for
+request records. The browser now submits the request ID/revision, and the
+explicit legacy adapter accepts only an answer with both metadata fields absent;
+partially populated metadata is rejected. The legacy `custom` paths remain temporary adapters for
 unmigrated card dialogs and are not used by the new typed contracts. The
 remaining Part 05 concern is retiring those adapters as their owning parts
 migrate; this part does not claim future action-program families.
