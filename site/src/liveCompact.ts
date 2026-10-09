@@ -421,8 +421,8 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
             snapshot.topdeck.phase,
             snapshot.topdeck.purpose,
             snapshot.topdeck.cancellation,
-          ]),
-    ]
+      ]),
+    ] as unknown as NonNullable<LiveWireV2['l']>
     if (snapshot.topdeck.interaction) wire.ir = snapshot.topdeck.interaction
   }
   if (snapshot.alwaysStopOnPriority) wire.b = 1

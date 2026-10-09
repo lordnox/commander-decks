@@ -38,7 +38,14 @@ export const applyKernelChoice = (
 ) => {
   const decision = lobby.topdeck
   if (!decision?.kernel) {
-    return Boolean(message.requestId && lobby.completedInteractions?.[message.requestId] !== undefined)
+    if (!message.requestId || message.revision === undefined) return false
+    const fingerprint = JSON.stringify({
+      seat,
+      requestId: message.requestId,
+      revision: message.revision,
+      choices: message.choices,
+    })
+    return lobby.completedInteractions?.[message.requestId] === fingerprint
   }
   if (decision.seat !== seat) return false
   const requestId = decision.requestId
@@ -46,10 +53,14 @@ export const applyKernelChoice = (
     ? JSON.stringify({ seat, requestId, revision: message.revision, choices: message.choices })
     : undefined
   if (requestId && lobby.completedInteractions?.[requestId] !== undefined) return true
-  if (requestId && message.requestId !== undefined && message.requestId !== requestId) {
+  // Explicit migration adapter for pre-envelope development clients. A modern
+  // answer must carry both fields; partially populated metadata is never
+  // treated as an old client and therefore cannot bypass freshness checks.
+  const legacyAnswer = message.requestId === undefined && message.revision === undefined
+  if (!legacyAnswer && message.requestId !== requestId) {
     throw new Error('That interaction request is stale.')
   }
-  if (decision.revision !== undefined && message.revision !== undefined && message.revision !== decision.revision) {
+  if (!legacyAnswer && message.revision !== decision.revision) {
     throw new Error('That interaction revision is stale.')
   }
   const context: ChoiceContext = {
@@ -64,7 +75,7 @@ export const applyKernelChoice = (
   if (decision.kernel.stage === 'cumulative-upkeep') {
     const applied = applyCumulativeUpkeep(context)
     if (applied && requestId) lobby.completedInteractions = {
-      ...(lobby.completedInteractions ?? {}),
+      ...lobby.completedInteractions,
       [requestId]: fingerprint ?? 'legacy',
     }
     return applied
@@ -124,7 +135,7 @@ export const applyKernelChoice = (
     }
   })()
   if (applied && requestId) lobby.completedInteractions = {
-    ...(lobby.completedInteractions ?? {}),
+    ...lobby.completedInteractions,
     [requestId]: fingerprint ?? 'legacy',
   }
   return applied
