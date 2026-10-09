@@ -717,7 +717,7 @@ export const spells: Plugin = {
             payload: item.payload,
           })
           draft.passedInRow = []
-          draft.priority = state.active
+          draft.priority = null
           return
         }
         resolveAbility(draft, item)

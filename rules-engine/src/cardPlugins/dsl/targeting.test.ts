@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { amount, card, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, objects, players, ref, select, spell, target, counter, stackItems, whenever } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
-import { createServerGame } from '../../runtime'
+import { createServerGame, projectForViewer } from '../../runtime'
 import type { ReduceResult, GameState } from '../../types'
 import { captureObject } from '../../objectIdentity'
 import { freezeDraft, makeDraft } from '../../draft'
@@ -153,12 +153,38 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     const response = structuredClone(cast)
     response.objects[targetObject.id].controller = 'p1'
     const waiting = ok(server.rules(response, { type: 'resolveTop' }))
+    expect(waiting.priority).toBeNull()
+    const projected = projectForViewer(waiting, 'p1')
+    expect(projected.stack[0]?.payload?.warded).toBeUndefined()
+    expect(projected.stack[0]?.payload?.cast).toBeUndefined()
     const selection = pendingOptionSelection(waiting, 'p1')!
     expect(selection).toBeDefined()
     const declined = ok(server.rules(waiting, {
       type: 'selectOption', seat: 'p1', selectionId: selection.id, optionId: 'decline',
     }))
     expect(declined.stack.some((item) => item.kind === 'spell')).toBe(true)
+  })
+
+  test('canonical Ward decline counters an ordinary spell by its pinned stack identity', () => {
+    const snapshot = snapshotFor([{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }], [targetCreature()])
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Ordinary Ward Spell', { types: ['Instant'], manaCost: '{0}', manaValue: 0, ruleDefinition: snapshot })] },
+      battlefield: { p2: [cardTemplate('Ordinary Ward Bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 2 })] })] },
+    }, { random: () => 0, cardPlugins: [wardPlugin] })
+    const spellObject = named(server.state, 'Ordinary Ward Spell')
+    const targetObject = named(server.state, 'Ordinary Ward Bear')
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targets: [{ kind: 'object', objectId: targetObject.id }],
+    }))
+    const waiting = ok(server.rules(cast, { type: 'resolveTop' }))
+    const selection = pendingOptionSelection(waiting, 'p1')!
+    const declined = ok(server.rules(waiting, {
+      type: 'selectOption', seat: 'p1', selectionId: selection.id, optionId: 'decline',
+    }))
+    expect(declined.stack.some((item) => item.objectId === spellObject.id)).toBe(false)
+    expect(declined.objects[spellObject.id].zone).toBe('graveyard')
   })
 
   test('all illegal targets suppress every instruction and record a did-not-resolve outcome', () => {

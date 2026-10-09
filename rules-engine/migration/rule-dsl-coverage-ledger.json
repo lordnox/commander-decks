@@ -3540,7 +3540,7 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 85,
+        "matches": 86,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1052 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:2919 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
@@ -23452,15 +23452,15 @@
       {
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
-          221,
-          277,
-          293,
-          303
+          223,
+          279,
+          295,
+          305
         ],
         "samples": [
-          "221: const allowed = event.type === 'custom'",
-          "277: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
-          "293: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
+          "223: const allowed = event.type === 'custom'",
+          "279: if (event.type === 'custom' && event.name === 'ward.canonical.begin' && event.seat) {",
+          "295: if (event.type === 'custom' && event.name === 'ward.begin' && event.seat) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -25424,19 +25424,19 @@
         "path": "rules-engine/src/cardPlugins/ward.ts",
         "lines": [
           184,
-          194,
-          255,
-          256,
-          311,
-          318,
-          337,
-          346,
-          366
+          195,
+          257,
+          258,
+          313,
+          320,
+          339,
+          348,
+          368
         ],
         "samples": [
           "184: const object = draft.object(pending.event.objectId)",
-          "194: draft.enqueue({",
-          "255: const spellObject = draft.object(event.objectId)"
+          "195: draft.enqueue({",
+          "257: const spellObject = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
