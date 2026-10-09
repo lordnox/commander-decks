@@ -69,6 +69,8 @@ export const projectForViewer = (
 
   const projected = structuredClone(authoritative)
   projected.knowledge = { mode: 'replica', viewer }
+  delete projected.resolution
+  delete projected.pendingTriggers
   stripAuthoritativeExecution(projected.stack)
   for (const player of projected.playerOrder) {
     stripAuthoritativeExecution(projected.players[player].data)

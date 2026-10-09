@@ -17,6 +17,7 @@ import {
 import { choiceEffects } from './choiceEffects'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
+import { pendingSelectionFor } from '../rules/selectCards'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -148,11 +149,28 @@ describe('runInstructions', () => {
     const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
 
     expect(named(resolved, 'Nested Draw').zone).toBe('hand')
-    expect(resolved.stack.at(-1)).toMatchObject({ actionId: 'discard' })
+    const pending = pendingSelectionFor(resolved, 'p1')
+    expect(pending?.candidates).toContain(named(resolved, 'Nested Draw').id)
+    expect(resolved.stack[0]).toMatchObject({
+      name: 'Nested Buffer Test',
+      waiting: 'choice',
+    })
+    expect(resolved.resolution?.kind).toBe('legacy')
     const gainIndex = resolved.log.findIndex((line) => line.includes('gains 1 life'))
     const drawIndex = resolved.log.findIndex((line) => line === 'p1 draws a card')
     expect(gainIndex).toBeGreaterThanOrEqual(0)
     expect(drawIndex).toBeGreaterThan(gainIndex)
+
+    const finished = ok(server.rules(resolved, {
+      type: 'selectCards',
+      seat: 'p1',
+      kind: 'discard',
+      count: 1,
+      objectIds: [named(resolved, 'Nested Draw').id],
+    }))
+    expect(named(finished, 'Nested Draw').zone).toBe('graveyard')
+    expect(named(finished, 'Nested Buffer Test').zone).toBe('graveyard')
+    expect(finished.resolution).toBeUndefined()
   })
 
   test('drawAtNextUpkeep draws on the next upkeep, which is the next player\'s', () => {

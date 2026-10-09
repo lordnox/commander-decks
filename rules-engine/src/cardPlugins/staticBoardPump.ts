@@ -71,6 +71,6 @@ export const staticBoardPump: Plugin = {
   apply: ({ draft }) => {
     syncStaticBoardPumps(draft)
   },
-  sba: ({ draft }) =>
+  recompute: ({ draft }) =>
     needsSync(draft) ? [{ type: 'custom', name: SYNC }] : [],
 }

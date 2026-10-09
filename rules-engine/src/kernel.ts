@@ -14,8 +14,19 @@ import type {
 import { markPutIntoGraveyardFromBattlefieldThisTurn } from './plugins/fromBattlefieldThisTurn'
 import { untapPermanent } from './rules/untap'
 import { ZONE_IDS } from './types'
+import {
+  canonicalResolutionCandidate,
+  finishResolution,
+  prepareResolutionStep,
+  startCanonicalResolution,
+} from './driver'
+import { captureEventTriggers, placePendingTriggers } from './rules/triggers'
+import { pendingSelection } from './rules/selectCards'
+import { pendingPlayerSelection } from './rules/selectPlayers'
+import { pendingOptionSelection } from './rules/selectOptions'
+import { pendingDialog } from './pendingDialog'
 
-const SBA_CAP = 32
+const CHECKPOINT_CAP = 32
 
 const attackedPlayer = (attacking: NonNullable<GameState['objects'][string]['attacking']>) =>
   typeof attacking === 'string'
@@ -40,7 +51,16 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
     draft.zoneOrder[seat][zone] = []
     draft.zoneCounts[seat][zone] = 0
   }
-  draft.stack = draft.stack.filter((item) => draft.objects[item.objectId])
+  draft.stack = draft.stack.filter((item) =>
+    item.kind === 'ability'
+      ? !draft.players[item.controller]?.lost
+      : Boolean(draft.objects[item.objectId]))
+  if (draft.resolution && draft.players[draft.resolution.controller]?.lost) {
+    delete draft.resolution
+  }
+  draft.pendingTriggers = draft.pendingTriggers?.filter(
+    (trigger) => !draft.players[trigger.execution.controller]?.lost,
+  )
   draft.delayedTriggers = draft.delayedTriggers.filter((trigger) => trigger.controller !== seat)
   draft.rules = draft.rules.filter((rule) => !rule.sourceId || draft.objects[rule.sourceId])
   draft.passedInRow = draft.passedInRow.filter((player) => player !== seat)
@@ -66,8 +86,11 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
   draft.note(`${seat} leaves the game with everything they own`)
 }
 
-const sortedRules = (state: GameState) =>
-  [...state.rules].sort((a, b) => a.timestamp - b.timestamp)
+const sortedRules = (state: GameState) => {
+  const unique = new Map<string, RuleInstance>()
+  for (const rule of state.rules) unique.set(rule.instanceId, rule)
+  return [...unique.values()].sort((a, b) => a.timestamp - b.timestamp)
+}
 
 const ctxFor = (
   state: GameState,
@@ -209,10 +232,28 @@ const pluginApply = (
   event: GameEvent,
   draft: ReturnType<typeof makeDraft>,
   catalog: PluginCatalog,
+  options: { skipTriggerCapture?: boolean } = {},
 ) => {
   for (const rule of sortedRules(draft)) {
+    if (options.skipTriggerCapture && rule.pluginId === 'triggers') continue
     catalog.get(rule.pluginId)?.apply?.(ctxFor(state, event, draft, rule, catalog))
   }
+}
+
+const collectRecompute = (
+  state: GameState,
+  draft: ReturnType<typeof makeDraft>,
+  catalog: PluginCatalog,
+) => {
+  const events: GameEvent[] = []
+  const dummy: GameEvent = { type: 'custom', name: 'checkpoint.recompute' }
+  for (const rule of sortedRules(draft)) {
+    const extra = catalog.get(rule.pluginId)?.recompute?.(
+      ctxFor(state, dummy, draft, rule, catalog),
+    )
+    if (extra) events.push(...extra)
+  }
+  return events
 }
 
 const collectSba = (
@@ -262,6 +303,7 @@ export const reduceOnce = (
   state: GameState,
   event: GameEvent,
   catalog: PluginCatalog,
+  options: { skipTriggerCapture?: boolean; deferEndCheck?: boolean } = {},
 ): ReduceOnce => {
   if (
     state.ended
@@ -299,9 +341,9 @@ export const reduceOnce = (
     let current = state
     const entries = [trace(event, 'replaced', { pluginId: replacement.pluginId })]
     for (const inner of replaced) {
-      const next = rules(current, inner, catalog)
+      const next = applyEventTree(current, inner, catalog, options)
       entries.push(...nested(next.trace, 1))
-      if (!next.ok) return { ...next, state, trace: entries }
+      if (!next.ok) return { ...next, state: current, trace: entries }
       current = next.state
     }
     return { ok: true, state: current, trace: entries }
@@ -319,8 +361,8 @@ export const reduceOnce = (
   }
 
   coreApply(draft, replaced)
-  pluginApply(state, replaced, draft, catalog)
-  checkEnded(draft)
+  pluginApply(state, replaced, draft, catalog, options)
+  if (!options.deferEndCheck) checkEnded(draft)
   const queued = [...draft.pending]
   const wasReplaced = replaced !== event
   return {
@@ -337,41 +379,439 @@ export const reduceOnce = (
   }
 }
 
+type ReduceOptions = { skipTriggerCapture?: boolean; deferEndCheck?: boolean }
+
+const hasOpenChoice = (state: GameState) => Boolean(
+  pendingSelection(state)
+  || pendingPlayerSelection(state)
+  || pendingOptionSelection(state)
+  || pendingDialog(state)
+  || state.stack.some((item) => item.kind === 'action' && item.waiting),
+)
+
+const suspendLegacyResolution = (
+  state: GameState,
+  item: NonNullable<GameState['stack'][number]>,
+  pendingEvents: GameEvent[],
+) => {
+  const draft = makeDraft(state)
+  const existing = draft.stack.find((candidate) => candidate.id === item.id)
+  if (existing) existing.waiting = 'choice'
+  else draft.stack.unshift({ ...structuredClone(item), waiting: 'choice' })
+  draft.resolution = {
+    version: 1,
+    kind: 'legacy',
+    stackId: item.id,
+    controller: item.controller,
+    intendedPriority: draft.active,
+    item: structuredClone(item),
+    phase: 'waiting',
+    pendingEvents: structuredClone(pendingEvents),
+  }
+  return freezeDraft(draft)
+}
+
+type EventTreeOptions = ReduceOptions & {
+  legacyItem?: GameState['stack'][number]
+}
+
+function applyEventTree(
+  state: GameState,
+  event: GameEvent,
+  catalog: PluginCatalog,
+  options: EventTreeOptions = {},
+): ReduceResult {
+  if (event.type === 'resolveTop') {
+    const item = canonicalResolutionCandidate(state)
+    if (item) {
+      const draft = makeDraft(state)
+      try {
+        startCanonicalResolution(draft, item)
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        return {
+          ok: false,
+          error: message,
+          state,
+          trace: [trace(event, 'rejected', { error: message })],
+        }
+      }
+      return { ok: true, state: freezeDraft(draft), trace: [trace(event, 'applied')] }
+    }
+  }
+
+  const rootLegacyItem = options.legacyItem
+    ?? (event.type === 'resolveTop' ? state.stack[0] : undefined)
+  const choiceWasOpen = hasOpenChoice(state)
+  const first = reduceOnce(state, event, catalog, options)
+  if (!first.ok || first.prevented) return first
+  let current = first.state
+  const entries = [...first.trace]
+  const queue = (first.queued ?? []).map((queued) => ({
+    event: queued,
+    depth: first.queuedDepth ?? 1,
+  }))
+  if (
+    rootLegacyItem?.kind !== 'action'
+    && rootLegacyItem
+    && !choiceWasOpen
+    && hasOpenChoice(current)
+  ) {
+    return {
+      ok: true,
+      state: suspendLegacyResolution(current, rootLegacyItem, queue.map(({ event }) => event)),
+      trace: entries,
+    }
+  }
+  while (queue.length > 0) {
+    const queued = queue.shift()!
+    const next = applyEventTree(current, queued.event, catalog, {
+      ...options,
+      ...(rootLegacyItem ? { legacyItem: rootLegacyItem } : {}),
+    })
+    entries.push(...nested(next.trace, queued.depth))
+    if (!next.ok) {
+      // The parent event is already committed. Report the failed continuation
+      // from that committed state rather than rolling back paid costs.
+      return { ...next, state: current, trace: entries }
+    }
+    current = next.state
+    if (current.resolution?.kind === 'legacy') {
+      const draft = makeDraft(current)
+      if (draft.resolution?.kind === 'legacy') {
+        draft.resolution.pendingEvents.push(...queue.map(({ event }) => event))
+      }
+      return { ok: true, state: freezeDraft(draft), trace: entries }
+    }
+    if (current.resolution) return { ok: true, state: current, trace: entries }
+  }
+  return { ok: true, state: current, trace: entries }
+}
+
+const appliedEvent = (result: ReduceOnce, fallback: GameEvent) =>
+  [...result.trace].reverse().find((entry) => entry.outcome === 'applied')?.event ?? fallback
+
+/** Apply one precomputed SBA wave, then capture look-back triggers from its common pre-state. */
+const applySimultaneousSba = (
+  state: GameState,
+  events: GameEvent[],
+  catalog: PluginCatalog,
+): ReduceResult => {
+  let current = state
+  const entries: EventTrace[] = []
+  const occurrences: GameEvent[] = []
+  const queued: Array<{ event: GameEvent; depth: number }> = []
+  for (const event of events) {
+    const next = reduceOnce(current, event, catalog, {
+      skipTriggerCapture: true,
+      deferEndCheck: true,
+    })
+    entries.push(...next.trace)
+    if (!next.ok) return { ...next, state: current, trace: entries }
+    if (!next.prevented) occurrences.push(appliedEvent(next, event))
+    current = next.state
+    queued.push(...(next.queued ?? []).map((child) => ({
+      event: child,
+      depth: next.queuedDepth ?? 1,
+    })))
+  }
+  const simultaneous = makeDraft(current)
+  for (const occurrence of occurrences) {
+    captureEventTriggers(state, occurrence, simultaneous)
+  }
+  checkEnded(simultaneous)
+  current = freezeDraft(simultaneous)
+  for (const child of queued) {
+    const next = applyEventTree(current, child.event, catalog)
+    entries.push(...nested(next.trace, child.depth))
+    if (!next.ok) continue
+    current = next.state
+  }
+  return { ok: true, state: current, trace: entries }
+}
+
+const driveResolution = (
+  state: GameState,
+  catalog: PluginCatalog,
+): ReduceResult => {
+  let current = state
+  const entries: EventTrace[] = []
+  for (let guard = 0; guard < 100_000; guard += 1) {
+    const frame = current.resolution
+    if (!frame || frame.phase === 'waiting') {
+      return { ok: true, state: current, trace: entries }
+    }
+    if (frame.kind !== 'canonicalSpell') {
+      return { ok: true, state: current, trace: entries }
+    }
+    if (frame.phase === 'committing') {
+      const [event, ...remaining] = frame.pendingEvents ?? []
+      if (event) {
+        const before = makeDraft(current)
+        if (before.resolution?.kind === 'canonicalSpell') {
+          before.resolution.pendingEvents = remaining
+        }
+        current = freezeDraft(before)
+        const next = applyEventTree(current, event, catalog)
+        entries.push(...nested(next.trace, 1))
+        if (next.ok) current = next.state
+      }
+      const committed = makeDraft(current)
+      if (committed.resolution?.kind === 'canonicalSpell') {
+        if (hasOpenChoice(committed)) {
+          committed.resolution.phase = 'waiting'
+        } else if ((committed.resolution.pendingEvents?.length ?? 0) === 0) {
+          committed.resolution.phase = 'running'
+          delete committed.resolution.pendingEvents
+        }
+      }
+      current = freezeDraft(committed)
+      if (current.resolution?.phase === 'waiting') {
+        return { ok: true, state: current, trace: entries }
+      }
+      continue
+    }
+
+    const draft = makeDraft(current)
+    let step
+    try {
+      step = prepareResolutionStep(draft)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      return { ok: false, error: message, state: current, trace: entries }
+    }
+    current = freezeDraft(draft)
+    if (step.kind === 'events') continue
+    if (step.event) {
+      const next = applyEventTree(current, step.event, catalog)
+      entries.push(...nested(next.trace, 1))
+      if (next.ok) current = next.state
+    }
+    const completed = makeDraft(current)
+    finishResolution(completed)
+    return { ok: true, state: freezeDraft(completed), trace: entries }
+  }
+  return {
+    ok: false,
+    error: 'resolution driver did not converge after 100000 steps',
+    state: current,
+    trace: entries,
+  }
+}
+
+const resumeCanonicalResolution = (
+  state: GameState,
+  event: GameEvent,
+  catalog: PluginCatalog,
+): ReduceResult => {
+  const frame = state.resolution
+  if (frame?.kind !== 'canonicalSpell' || frame.phase !== 'waiting') {
+    const error = 'canonical resolution is not waiting for input'
+    return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
+  }
+  const answered = applyEventTree(state, event, catalog)
+  if (!answered.ok) return answered
+  const draft = makeDraft(answered.state)
+  if (draft.resolution?.kind === 'canonicalSpell') {
+    draft.resolution.phase = hasOpenChoice(draft)
+      ? 'waiting'
+      : (draft.resolution.pendingEvents?.length ?? 0) > 0
+        ? 'committing'
+        : 'running'
+  }
+  const resumed = driveResolution(freezeDraft(draft), catalog)
+  return { ...resumed, trace: [...answered.trace, ...resumed.trace] }
+}
+
+const isResolutionAnswer = (event: GameEvent) =>
+  event.type === 'selectCards'
+  || event.type === 'selectPlayers'
+  || event.type === 'selectOption'
+  || event.type === 'continueAction'
+  || event.type === 'custom'
+  || event.type === 'concede'
+
+const resumeLegacyResolution = (
+  state: GameState,
+  event: GameEvent,
+  catalog: PluginCatalog,
+): ReduceResult => {
+  const frame = state.resolution
+  if (frame?.kind !== 'legacy') {
+    const error = 'no legacy resolution is waiting'
+    return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
+  }
+  const working = makeDraft(state)
+  delete working.resolution
+  const retained = working.stack.find((item) => item.id === frame.stackId)
+  if (retained) retained.waiting = null
+  let current = freezeDraft(working)
+  const entries: EventTrace[] = []
+
+  const answered = applyEventTree(current, event, catalog, { legacyItem: frame.item })
+  entries.push(...answered.trace)
+  if (!answered.ok) return { ...answered, trace: entries }
+  current = answered.state
+  if (current.resolution?.kind === 'legacy') {
+    const draft = makeDraft(current)
+    if (draft.resolution?.kind === 'legacy') {
+      draft.resolution.pendingEvents.push(...frame.pendingEvents)
+    }
+    return { ok: true, state: freezeDraft(draft), trace: entries }
+  }
+  if (hasOpenChoice(current)) {
+    return {
+      ok: true,
+      state: suspendLegacyResolution(current, frame.item, frame.pendingEvents),
+      trace: entries,
+    }
+  }
+
+  for (let index = 0; index < frame.pendingEvents.length; index += 1) {
+    const pending = frame.pendingEvents[index]
+    const next = applyEventTree(current, pending, catalog, { legacyItem: frame.item })
+    entries.push(...nested(next.trace, 1))
+    if (!next.ok) return { ...next, state: current, trace: entries }
+    current = next.state
+    if (current.resolution?.kind === 'legacy') {
+      const draft = makeDraft(current)
+      if (draft.resolution?.kind === 'legacy') {
+        draft.resolution.pendingEvents.push(...frame.pendingEvents.slice(index + 1))
+      }
+      return { ok: true, state: freezeDraft(draft), trace: entries }
+    }
+    if (!current.resolution && hasOpenChoice(current)) {
+      return {
+        ok: true,
+        state: suspendLegacyResolution(
+          current,
+          frame.item,
+          frame.pendingEvents.slice(index + 1),
+        ),
+        trace: entries,
+      }
+    }
+  }
+
+  const completed = makeDraft(current)
+  completed.stack = completed.stack.filter((item) => item.id !== frame.stackId)
+  completed.priority = frame.intendedPriority
+  completed.passedInRow = []
+  delete completed.resolution
+  return { ok: true, state: freezeDraft(completed), trace: entries }
+}
+
+const checkpoint = (
+  state: GameState,
+  catalog: PluginCatalog,
+): ReduceResult => {
+  let current = state
+  const entries: EventTrace[] = []
+  const intendedPriority = current.priority
+  for (let iteration = 0; iteration < CHECKPOINT_CAP; iteration += 1) {
+    const derivedDraft = makeDraft(current)
+    const derived = collectRecompute(current, derivedDraft, catalog)
+    if (derived.length > 0) {
+      for (const event of derived) {
+        const next = applyEventTree(current, event, catalog)
+        entries.push(...nested(next.trace, 1))
+        if (!next.ok) return { ...next, state: current, trace: entries }
+        current = next.state
+      }
+      continue
+    }
+
+    const sbaDraft = makeDraft(current)
+    const pending = collectSba(current, sbaDraft, catalog)
+    if (pending.length > 0) {
+      const next = applySimultaneousSba(current, pending, catalog)
+      entries.push(...nested(next.trace, 1))
+      if (!next.ok) return { ...next, state: current, trace: entries }
+      current = next.state
+      continue
+    }
+
+    if ((current.pendingTriggers?.length ?? 0) > 0) {
+      const triggerDraft = makeDraft(current)
+      const openedChoice = placePendingTriggers(triggerDraft)
+      triggerDraft.passedInRow = []
+      triggerDraft.priority = intendedPriority
+      current = freezeDraft(triggerDraft)
+      if (openedChoice) return { ok: true, state: current, trace: entries }
+      continue
+    }
+
+    const stable = makeDraft(current)
+    checkEnded(stable)
+    return { ok: true, state: freezeDraft(stable), trace: entries }
+  }
+  return {
+    ok: false,
+    error: `execution checkpoint did not converge after ${CHECKPOINT_CAP} iterations`,
+    state: current,
+    trace: entries,
+  }
+}
+
 export const rules = (
   state: GameState,
   event: GameEvent,
   catalog: PluginCatalog,
 ): ReduceResult => {
-  const first = reduceOnce(state, event, catalog)
-  if (!first.ok || first.prevented) return first
-  let current = first.state
-  const entries = [...first.trace]
-  for (const queued of first.queued ?? []) {
-    const next = rules(current, queued, catalog)
-    entries.push(...nested(next.trace, first.queuedDepth ?? 1))
-    if (!next.ok) return { ...next, state, trace: entries }
-    current = next.state
-  }
-  for (let i = 0; i < SBA_CAP; i += 1) {
-    const draft = makeDraft(current)
-    const pending = collectSba(current, draft, catalog)
-    if (pending.length === 0) {
-      checkEnded(draft)
-      return { ok: true, state: freezeDraft(draft), trace: entries }
+  if (state.resolution?.kind === 'legacy') {
+    if (!isResolutionAnswer(event)) {
+      const error = 'resolution is waiting for input'
+      return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
     }
-    const next = reduceOnce(current, pending[0], catalog)
-    entries.push(...nested(next.trace, 1))
-    if (!next.ok) return { ...next, state, trace: entries }
-    if (next.prevented) break
-    current = next.state
-    for (const queued of next.queued ?? []) {
-      const child = rules(current, queued, catalog)
-      entries.push(...nested(child.trace, next.queuedDepth ?? 2))
-      if (!child.ok) return { ...child, state, trace: entries }
-      current = child.state
+    const resumed = resumeLegacyResolution(state, event, catalog)
+    if (!resumed.ok || resumed.state.resolution) return resumed
+    const checked = checkpoint(resumed.state, catalog)
+    return {
+      ...checked,
+      trace: [...resumed.trace, ...checked.trace],
     }
   }
-  return { ok: true, state: current, trace: entries }
+  if (state.resolution?.phase === 'waiting') {
+    if (!isResolutionAnswer(event)) {
+      const error = 'resolution is waiting for input'
+      return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
+    }
+    const resumed = resumeCanonicalResolution(state, event, catalog)
+    if (!resumed.ok || resumed.state.resolution) return resumed
+    const checked = checkpoint(resumed.state, catalog)
+    return checked.ok
+      ? { ok: true, state: checked.state, trace: [...resumed.trace, ...checked.trace] }
+      : { ...checked, trace: [...resumed.trace, ...checked.trace] }
+  }
+  if (event.type === 'resumeResolution') {
+    if (!state.resolution) {
+      const error = 'no resolution cursor to resume'
+      return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
+    }
+    const driven = driveResolution(state, catalog)
+    const entries = [trace(event, 'applied'), ...driven.trace]
+    if (!driven.ok || driven.state.resolution) return { ...driven, trace: entries }
+    const checked = checkpoint(driven.state, catalog)
+    return checked.ok
+      ? { ok: true, state: checked.state, trace: [...entries, ...checked.trace] }
+      : { ...checked, trace: [...entries, ...checked.trace] }
+  }
+  const applied = applyEventTree(state, event, catalog)
+  if (!applied.ok) return applied
+  let current = applied.state
+  const entries = [...applied.trace]
+  if (current.resolution) {
+    const driven = driveResolution(current, catalog)
+    entries.push(...driven.trace)
+    if (!driven.ok) return { ...driven, trace: entries }
+    current = driven.state
+    if (current.resolution) return { ok: true, state: current, trace: entries }
+  }
+  const checked = checkpoint(current, catalog)
+  entries.push(...checked.trace)
+  return checked.ok
+    ? { ok: true, state: checked.state, trace: entries }
+    : { ...checked, trace: entries }
 }
 
 export const isBattlefield = (zone: ZoneId) => zone === 'battlefield'

@@ -67,12 +67,10 @@ export const commander: Plugin = {
   },
   sba: ({ draft }) => {
     if (everybodyLives(draft)) return []
-    for (const player of Object.values(draft.players)) {
-      if (player.lost) continue
-      if (Object.values(commanderDamage(player.data)).some((amount) => amount >= 21)) {
-        return [{ type: 'concede', seat: player.id }]
-      }
-    }
-    return []
+    return Object.values(draft.players)
+      .filter((player) =>
+        !player.lost
+        && Object.values(commanderDamage(player.data)).some((amount) => amount >= 21))
+      .map((player) => ({ type: 'concede' as const, seat: player.id }))
   },
 }

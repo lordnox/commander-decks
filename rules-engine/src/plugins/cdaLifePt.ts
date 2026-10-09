@@ -80,6 +80,6 @@ export const cdaLifePt: Plugin = {
     if (!shouldRefresh(event, state)) return
     refreshAll(draft)
   },
-  sba: ({ state }) =>
+  recompute: ({ state }) =>
     needsSync(state) ? [{ type: 'custom', name: SYNC }] : [],
 }

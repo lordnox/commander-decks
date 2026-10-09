@@ -313,7 +313,11 @@ export type CompiledCardRuleDefinitionV1 = {
   capabilities: {
     canonicalLoad: true
     serialization: true
-    runtimeExecution: false
+    runtimeExecution: {
+      abilityKinds: readonly ['spell']
+      instructionKinds: readonly ['draw', 'gainLife', 'loseLife']
+      decisions: 'fullySuppliedUntargeted'
+    }
   }
 }
 
