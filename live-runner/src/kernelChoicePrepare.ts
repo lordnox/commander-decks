@@ -18,7 +18,7 @@ import { dialogCandidates, pendingDialogFor } from '../../rules-engine/src/pendi
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
-import { sameNames, selectCardsOffer } from './kernelChoice'
+import { sameNames, samePins, selectCardsOffer } from './kernelChoice'
 import {
   prepareCastTransformedChoice,
   prepareLibrarySearchChoice,
@@ -58,6 +58,7 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const offered = searchCandidates(state, decision.seat, spec, pending.kicked)
       return !sameNames(offered.map((object) => object.name), decision.cards)
         || !sameIds(decision.candidateIds, offered.map((object) => object.id))
+        || !samePins(decision.candidatePins, offered)
     }
     case 'player-targets':
       return pendingPlayerTargets(state)?.controller !== decision.seat
@@ -66,6 +67,7 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       return !waiting
         || waiting.item.id !== decision.kernel.stackId
         || !sameIds(decision.candidateIds, waiting.handIds)
+        || !samePins(decision.candidatePins, waiting.handIds.map((id) => state.objects[id]).filter(Boolean))
     }
     case 'battle-cast-transformed': {
       const waiting = waitingCastTransformed(state)
@@ -76,6 +78,7 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       return !waiting
         || waiting.selection.id !== decision.kernel.selectionId
         || !sameIds(decision.candidateIds, selectCardsOffer(waiting).ids)
+        || !samePins(decision.candidatePins, selectCardsOffer(waiting).ids.map((id) => state.objects[id]).filter(Boolean))
     }
     case 'option-selection':
       return pendingOptionSelection(state, decision.seat)?.id !== decision.kernel.selectionId

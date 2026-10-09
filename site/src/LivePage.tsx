@@ -535,6 +535,8 @@ export const LivePage = () => {
         slot?: number
         destination: TopdeckDestination
       }>
+      requestId?: string
+      revision?: number
       always?: boolean
       until?: 'my-turn' | 'off'
       kind?: AvailableAction['kind']
@@ -601,7 +603,13 @@ export const LivePage = () => {
           ...action,
         }
       } else if (type === 'topdeck') {
-        message = { type: 'topdeck', choices: extra.choices ?? [], ...action }
+        message = {
+          type: 'topdeck',
+          choices: extra.choices ?? [],
+          ...(extra.requestId ? { requestId: extra.requestId } : {}),
+          ...(extra.revision === undefined ? {} : { revision: extra.revision }),
+          ...action,
+        }
       } else if (type === 'advance') {
         message = { type: 'advance', ...action }
       } else if (type === 'act') {
@@ -1502,7 +1510,11 @@ export const LivePage = () => {
           decision={snapshot.topdeck}
           prompt={snapshot.waiting}
           pending={actionPending}
-          onResolve={(choices) => void sendInbox('topdeck', { choices })}
+          onResolve={(choices) => void sendInbox('topdeck', {
+            choices,
+            requestId: snapshot.topdeck?.requestId,
+            revision: snapshot.topdeck?.revision,
+          })}
         />
       )}
     </div>
