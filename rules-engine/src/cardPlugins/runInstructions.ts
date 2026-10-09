@@ -1,5 +1,6 @@
 import type Draft from '../draft'
 import type { GameEvent, GameObject, Plugin, StackItem } from '../types'
+import { isSameObject } from '../objectIdentity'
 import type { CardInstruction } from './effects'
 import {
   dispatchInstruction,
@@ -13,14 +14,6 @@ import {
   type InstructionResume,
   type PendingCardSelection,
 } from '../rules/selectCards'
-
-/** Instructions that read the hand, so earlier draws and other queued events must land first. */
-const AFTER_QUEUED_EVENTS = new Set([
-  'putLandFromHand',
-  'putHandCardOnLibraryBottom',
-  'mayCastFromHandWithoutPayingMana',
-  'discardCards',
-])
 
 const isResumeEvent = (event: GameEvent): event is Extract<GameEvent, { type: 'custom' }> =>
   event.type === 'custom' && event.name === INSTRUCTIONS_RESUME
@@ -128,30 +121,32 @@ export const runInstructions = (
     }
     for (let index = 0; index < nested.length; index += 1) {
       const instruction = nested[index]
-      if (AFTER_QUEUED_EVENTS.has(instruction.kind) && (buffer?.length || draft.pending.length > 0)) {
-        if (buffer?.length) {
-          flushStackActions(draft, nestedSource, buffer, nestedItem)
-          buffer.length = 0
-        }
+      const beforeSelections = selectionSnapshot(draft)
+      const pendingBefore = draft.pending.length
+      dispatchInstruction(ctx, instruction)
+      if (buffer?.length) {
+        flushStackActions(draft, nestedSource, buffer, nestedItem)
+        buffer.length = 0
+      }
+      const opened = newSelection(draft, beforeSelections)
+      const resumeEvent = lastQueuedResume(draft, pendingBefore)
+      const remaining = nested.slice(index + 1)
+      if (opened || resumeEvent) {
+        attachRemaining(remaining, nestedSource, nestedItem, opened, resumeEvent)
+        return true
+      }
+      if (remaining.length > 0 && nestedItem) {
         draft.enqueue({
           type: 'custom',
           name: INSTRUCTIONS_RESUME,
           payload: {
             sourceId: nestedSource.id,
-            remaining: nested.slice(index),
-            ...(nestedItem ? { item: nestedItem } : {}),
+            remaining,
+            item: nestedItem,
           },
         })
         return true
       }
-      const beforeSelections = selectionSnapshot(draft)
-      const pendingBefore = draft.pending.length
-      dispatchInstruction(ctx, instruction)
-      const opened = newSelection(draft, beforeSelections)
-      const resumeEvent = lastQueuedResume(draft, pendingBefore)
-      if (!opened && !resumeEvent) continue
-      attachRemaining(nested.slice(index + 1), nestedSource, nestedItem, opened, resumeEvent)
-      return true
     }
     return false
   }
@@ -167,8 +162,15 @@ export const instructionResume: Plugin = {
     if (!isResumeEvent(event)) return
     const resume = resumeFromPayload(event.payload)
     if (!resume || resume.remaining.length === 0) return
-    const source = draft.object(resume.sourceId)
-    if (!source) return
+    const live = draft.object(resume.sourceId)
+    const identity = resume.item?.execution?.source.ref
+    const sourceBase = live && (!identity || isSameObject(live, identity))
+      ? live
+      : resume.item?.execution?.source.snapshot
+    if (!sourceBase) return
+    const source = resume.item && sourceBase.controller !== resume.item.controller
+      ? { ...sourceBase, controller: resume.item.controller }
+      : sourceBase
     runInstructions(draft, source, resume.remaining, resume.item)
   },
 }

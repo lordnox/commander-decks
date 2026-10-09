@@ -630,11 +630,13 @@ export const spells: Plugin = {
     if (event.type === 'resolveTop') {
       const item = draft.stack[0]
       if (!item) return
+      const heldByDriver = state.resolution?.kind === 'legacy'
+        && state.resolution.stackId === item.id
       if (item.kind === 'action') {
         resolveAction(draft, item, state)
         return
       }
-      draft.stack.shift()
+      if (!heldByDriver) draft.stack.shift()
       if (item.kind === 'ability') {
         resolveAbility(draft, item)
         draft.passedInRow = []
@@ -697,14 +699,16 @@ export const spells: Plugin = {
         if (item.castOption === 'adventure' && item.exileAfterUse) {
           object.adventureReady = true
         }
-        draft.enqueue({
-          type: 'move',
-          objectId: object.id,
-          to: finishedSpellZone(
-            item,
-            (item.adventureCast || reboundsOnResolution(object, item)) ? 'exile' : 'graveyard',
-          ),
-        })
+        if (!heldByDriver) {
+          draft.enqueue({
+            type: 'move',
+            objectId: object.id,
+            to: finishedSpellZone(
+              item,
+              (item.adventureCast || reboundsOnResolution(object, item)) ? 'exile' : 'graveyard',
+            ),
+          })
+        }
       }
       draft.passedInRow = []
       draft.priority = state.active

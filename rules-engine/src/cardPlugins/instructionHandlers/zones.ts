@@ -186,6 +186,15 @@ const exileSelf: InstructionHandler<'exileSelf'> = ({ draft, source }) => {
 const exileThisSpell: InstructionHandler<'exileThisSpell'> = ({ draft, source }) => {
   const spell = draft.object(source.id)
   if (!spell || spell.spellCopy) return
+  if (
+    draft.resolution?.kind === 'legacy'
+    && draft.resolution.item.objectId === spell.id
+  ) {
+    draft.resolution.item.exileAfterUse = true
+    const retained = draft.stack.find((item) => item.id === draft.resolution?.stackId)
+    if (retained) retained.exileAfterUse = true
+    return
+  }
   const cleanup = draft.pending.find((event) =>
     event.type === 'move' && event.objectId === spell.id && event.to === 'graveyard')
   if (cleanup?.type === 'move') {

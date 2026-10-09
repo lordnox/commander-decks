@@ -192,11 +192,18 @@ describe('librarySearch', () => {
 
     expect(asking.players.p1.life).toBe(41)
     expect(pendingSearch(asking, 'p1')?.source).toBe('Riveteers Overlook')
+    expect(asking.objects[spell.id].zone).toBe('stack')
 
-    const resolved = ok(server.rules(asking, { type: 'resolveTop' }))
+    const mountain = named(asking, 'Mountain').id
+    const resolved = run(server, asking, [
+      { type: 'reveal', seat: 'p1', objectIds: [mountain], source: 'Riveteers Overlook' },
+      { type: 'move', objectId: mountain, to: 'hand' },
+      { type: 'shuffleLibrary', seat: 'p1' },
+      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+    ])
 
     expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    expect(pendingSearch(resolved, 'p1')?.source).toBe('Riveteers Overlook')
+    expect(pendingSearch(resolved, 'p1')).toBeUndefined()
   })
 
   test('a surveil land fetched by Scapeshift keeps its trigger', () => {
@@ -235,7 +242,6 @@ describe('librarySearch', () => {
         payload: { objectIds: [sacrificed.id] },
       },
       { type: 'move', objectId: sewers.id, to: 'battlefield' },
-      { type: 'resolveTop' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
       { type: 'resolveTop' },
@@ -279,7 +285,6 @@ describe('librarySearch', () => {
       { type: 'move', objectId: choice, to: 'hand' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
     ])
 
     expect(resolved.objects[choice].zone).toBe('hand')
@@ -332,7 +337,7 @@ describe('librarySearch', () => {
     ])
     const passed = server.rules(state, { type: 'passPriority', seat: 'p1' })
     expect(passed.ok).toBe(false)
-    expect(passed.ok === false && passed.error).toContain('searching their library')
+    expect(passed.ok === false && passed.error).toContain('resolution is waiting for input')
   })
 
   // A journal that already carries the finished search rebuilds the dialog the
@@ -372,8 +377,10 @@ describe('librarySearch', () => {
     const state = run(server, withMana(server.state), [
       { type: 'castSpell', seat: 'p1', objectId: spell },
       { type: 'resolveTop' },
-      { type: 'resolveTop' },
     ])
+    const repeated = server.rules(state, { type: 'resolveTop' })
+    expect(repeated.ok).toBe(false)
+    expect(repeated.state).toEqual(state)
     expect(state.stack).toHaveLength(1)
     expect(state.objects[spell].zone).toBe('stack')
     expect(searchingSeat(state)).toBe('p1')
@@ -394,7 +401,6 @@ describe('librarySearch', () => {
       { type: 'move', objectId: found, to: 'battlefield' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
     ])
 
     expect(state.objects[found].zone).toBe('battlefield')
@@ -698,7 +704,6 @@ describe('librarySearch', () => {
       { type: 'move', objectId: beta, to: 'hand' },
       { type: 'shuffleLibrary', seat: 'p1' },
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-      { type: 'resolveTop' },
     ])
     expect(resolved.objects[alpha].zone).toBe('battlefield')
     expect(resolved.objects[alpha].tapped).toBe(true)

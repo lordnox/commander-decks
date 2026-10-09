@@ -491,7 +491,6 @@ export const librarySearch: Plugin = {
       }
       closeSearch(draft, event.seat)
       if (pending?.via === 'spell') {
-        draft.players[event.seat].data[SEARCH_DONE] = true
         const source = pending?.sourceId ? draft.object(pending.sourceId) : undefined
         const item = state.stack[0]
         if (spec?.then && source && item?.kind === 'spell') {
