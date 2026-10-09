@@ -38,7 +38,7 @@ export const isSameObject = (
 
 /** Object-ID input targets are pinned once, when their stack item is created. */
 export const pinTarget = (state: Pick<GameState, 'objects'>, target: TargetRef): TargetRef => {
-  if (target.kind === 'player') return structuredClone(target)
+  if (target.kind === 'player' || target.kind === 'stackItem') return structuredClone(target)
   if ((target.incarnation === undefined) !== (target.zone === undefined)) {
     throw new Error(`object target ${target.objectId} has a partial identity pin`)
   }
@@ -62,6 +62,9 @@ export const targetObject = (
   if (target.zone !== undefined && target.zone !== object.zone) return undefined
   return object
 }
+
+export const isObjectTarget = (target: TargetRef): target is ObjectTargetRef =>
+  target.kind === 'object'
 
 const capturedObject = (value: unknown): value is CapturedObject => {
   if (!value || typeof value !== 'object') return false

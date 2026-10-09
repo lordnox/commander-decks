@@ -21,6 +21,7 @@ const legalAnyTarget = (
   if (target.kind === 'player') {
     return Boolean(state.players[target.player] && !state.players[target.player].lost)
   }
+  if (target.kind !== 'object') return false
   const object = targetObject(state, target)
   return Boolean(
     object

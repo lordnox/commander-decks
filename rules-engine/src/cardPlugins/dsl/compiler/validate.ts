@@ -394,12 +394,32 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return { env }
-    exactKeys(node, path, ['targets', 'modes', 'variables', 'distributions'], ['targets'])
+    exactKeys(node, path, ['targets', 'constraints', 'modes', 'variables', 'distributions'], ['targets'])
     if (node.variables !== undefined) validateVariables(node.variables, childPath(path, 'variables'), env)
     const targetClauses = array(node.targets, childPath(path, 'targets'))
     env.targets = targetClauses.map((clause, index) =>
       validateTargetClause(clause, childPath(childPath(path, 'targets'), index), env))
     env.targetSingleton = targetClauses.map(targetClauseIsSingleton)
+    if (node.constraints !== undefined) array(node.constraints, childPath(path, 'constraints')).forEach((entry, index) => {
+      const entryPath = childPath(childPath(path, 'constraints'), index)
+      const constraint = object(entry, entryPath)
+      if (!constraint) return
+      exactKeys(constraint, entryPath, ['kind', 'clauseIndices'], ['kind', 'clauseIndices'])
+      if (constraint.kind !== 'different') {
+        issue(childPath(entryPath, 'kind'), 'unsupported-kind', `unsupported target constraint: ${String(constraint.kind)}`)
+        return
+      }
+      const indices = array(constraint.clauseIndices, childPath(entryPath, 'clauseIndices'), { nonempty: true })
+      const seen = new Set<number>()
+      indices.forEach((value, clauseIndex) => {
+        const parsed = integer(value, childPath(childPath(entryPath, 'clauseIndices'), clauseIndex), { max: MAX_LIST_LENGTH - 1 })
+        if (parsed === undefined) return
+        if (seen.has(parsed)) issue(childPath(childPath(entryPath, 'clauseIndices'), clauseIndex), 'duplicate-index', `target clause ${parsed} is repeated in this constraint`)
+        seen.add(parsed)
+        if (parsed >= targetClauses.length) issue(childPath(childPath(entryPath, 'clauseIndices'), clauseIndex), 'target-index', `target clause ${parsed} is not declared`)
+      })
+      if (seen.size < 2) issue(childPath(entryPath, 'clauseIndices'), 'constraint-bounds', 'different constraints require at least two target clauses')
+    })
     let modeCount: number | undefined
     let repeatable: boolean | undefined
     if (node.modes !== undefined) {

@@ -59,7 +59,9 @@ export const targetingRequirements: Plugin = {
     if (event.type !== 'castSpell' && event.type !== 'activateAbility') return
     const source = eventSource(state, event)
     if (!source) return
-    const targets = event.targets ?? []
+    const targets: TargetRef[] = 'targetClauses' in event
+      ? event.targets ?? event.targetClauses?.flat() ?? []
+      : event.targets ?? []
     const objectIds = targetedObjectIds(targets)
 
     for (const objectId of objectIds) {

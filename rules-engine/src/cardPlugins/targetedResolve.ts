@@ -266,7 +266,7 @@ const applyTargetedAction = (
   if (effect.action === 'select') {
     const targetName = target.kind === 'player'
       ? target.player
-      : targetObject(state, target)?.name ?? target.objectId
+      : target.kind === 'object' ? targetObject(state, target)?.name ?? target.objectId : target.stackId
     draft.note(`${source.name} targets ${targetName}`)
     return
   }

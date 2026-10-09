@@ -97,8 +97,8 @@ describe('Rule DSL v1 canonical authoring', () => {
       serialization: true,
       runtimeExecution: {
         abilityKinds: ['spell'],
-        instructionKinds: ['draw', 'gainLife', 'loseLife', 'sequence'],
-        decisions: 'fullySuppliedUntargeted',
+        instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
+        decisions: 'fullySuppliedTargets',
       },
     })
     expect(compactCompiled.definition.abilities[1]).toEqual({
@@ -203,8 +203,8 @@ describe('Rule DSL v1 canonical authoring', () => {
     ])
     expect(compiled.capabilities.runtimeExecution).toEqual({
       abilityKinds: ['spell'],
-      instructionKinds: ['draw', 'gainLife', 'loseLife', 'sequence'],
-      decisions: 'fullySuppliedUntargeted',
+      instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
+      decisions: 'fullySuppliedTargets',
     })
   })
 
@@ -686,11 +686,11 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
     })).toThrow('minimum 2 exceeds maximum 1')
   })
 
-  test('advertises only the canonical runtime slice implemented by Part 03', () => {
+  test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {
     expect(RULE_DSL_V1_CAPABILITIES.runtimeExecution).toEqual({
       abilityKinds: ['spell'],
-      instructionKinds: ['draw', 'gainLife', 'loseLife', 'sequence'],
-      decisions: 'fullySuppliedUntargeted',
+      instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
+      decisions: 'fullySuppliedTargets',
     })
     expect(compileCardRuleDefinition(card([])).capabilities.runtimeExecution)
       .toEqual(RULE_DSL_V1_CAPABILITIES.runtimeExecution)

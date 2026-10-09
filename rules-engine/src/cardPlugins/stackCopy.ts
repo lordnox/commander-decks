@@ -138,6 +138,7 @@ const targetsError = (
       }
       continue
     }
+    if (target.kind !== 'object') return 'the copy has an illegal stack target'
     const object = targetObject(state, target)
     if (!object || !legalObjectTarget(state, item, object, index, controller)) {
       return 'the copy has an illegal object target'

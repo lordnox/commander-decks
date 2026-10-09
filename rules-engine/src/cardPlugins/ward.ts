@@ -41,6 +41,12 @@ const targetedObjectIds = (targets: TargetRef[] | undefined) =>
   (targets ?? []).flatMap((target) =>
     target.kind === 'object' ? [target.objectId] : [])
 
+const castTargets = (
+  event: Extract<GameEvent, { type: 'castSpell' }> | Extract<GameEvent, { type: 'activateAbility' }>,
+) => 'targetClauses' in event
+  ? event.targets ?? event.targetClauses?.flat()
+  : event.targets
+
 const wardTargets = (
   state: GameState,
   caster: string,
@@ -208,13 +214,13 @@ export const ward: Plugin = {
     }
     if (event.type !== 'castSpell' && event.type !== 'activateAbility') return
     if (pendingCastFor(state, event.seat)) return `${event.seat} is paying Ward`
-    const warded = wardTargets(state, event.seat, event.targets, event.wardPaid)
+    const warded = wardTargets(state, event.seat, castTargets(event), event.wardPaid)
     if (warded.length === 0) return
   },
   replace: ({ state, event }) => {
     if (event.type !== 'castSpell' && event.type !== 'activateAbility') return
     if (pendingCastFor(state, event.seat)) return null
-    const warded = wardTargets(state, event.seat, event.targets, event.wardPaid)
+    const warded = wardTargets(state, event.seat, castTargets(event), event.wardPaid)
     if (warded.length === 0) return
     return {
       type: 'custom',

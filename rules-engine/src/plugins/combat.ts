@@ -14,6 +14,7 @@ const targetRef = (target: TargetRef | PlayerId): TargetRef =>
 const defendingPlayer = (state: GameState, target: TargetRef | PlayerId) => {
   const defender = targetRef(target)
   if (defender.kind === 'player') return defender.player
+  if (defender.kind !== 'object') return undefined
   const object = state.objects[defender.objectId]
   return object?.types.includes('Battle') ? object.protector : object?.controller
 }

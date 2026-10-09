@@ -191,6 +191,32 @@ const legalError = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case 'counterStackItem': {
+      const index = draft.stack.findIndex((item) => item.id === event.stackId)
+      if (index < 0) return
+      const item = draft.stack[index]
+      if (item.uncounterable) {
+        draft.note(`${item.name} cannot be countered`)
+        return
+      }
+      draft.stack.splice(index, 1)
+      const object = draft.object(item.objectId)
+      if (
+        object
+        && item.kind === 'spell'
+        && !item.copy
+        && object.zone === 'stack'
+        && (!item.execution?.source || isSameObject(object, item.execution.source.ref))
+      ) {
+        draft.enqueue({
+          type: 'move',
+          objectId: object.id,
+          to: finishedSpellZone(item, 'graveyard'),
+        })
+      }
+      draft.note(`${item.name} was countered`)
+      return
+    }
     case 'addRule': {
       draft.rules.push({
         instanceId: draft.allocId('rule'),
@@ -616,6 +642,22 @@ const applySimultaneousSba = (
   return { ok: true, state: current, trace: entries }
 }
 
+const recordPendingCounterResult = (state: ReturnType<typeof freezeDraft>) => {
+  const pending = state.resolution?.kind === 'canonicalSpell'
+    ? state.resolution.pendingResult
+    : undefined
+  if (!pending) return state
+  const draft = makeDraft(state)
+  if (draft.resolution?.kind === 'canonicalSpell') {
+    draft.resolution.results = {
+      ...draft.resolution.results,
+      [pending.binding]: !draft.stack.some((item) => item.id === pending.stackId),
+    }
+    delete draft.resolution.pendingResult
+  }
+  return freezeDraft(draft)
+}
+
 const driveResolution = (
   state: GameState,
   catalog: PluginCatalog,
@@ -665,7 +707,7 @@ const driveResolution = (
         current = freezeDraft(before)
         const next = applyEventTree(current, event, catalog)
         entries.push(...nested(next.trace, 1))
-        if (next.ok) current = next.state
+        if (next.ok) current = recordPendingCounterResult(next.state)
       }
       const committed = makeDraft(current)
       if (committed.resolution) {
@@ -717,7 +759,7 @@ const driveResolution = (
     if (step.event) {
       const next = applyEventTree(current, step.event, catalog)
       entries.push(...nested(next.trace, 1))
-      if (next.ok) current = next.state
+      if (next.ok) current = recordPendingCounterResult(next.state)
     }
     const completed = makeDraft(current)
     finishResolution(completed)
