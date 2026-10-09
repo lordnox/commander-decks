@@ -1,6 +1,7 @@
 import type { BattlefieldCard, CardDetails, CombatAttacker, ReplayCombat } from './replayTypes'
 import type { LiveSeat, LiveSnapshot, LiveTopdeck } from './liveCodec'
 import type { GameState } from '../../rules-engine/src/types'
+import type { InteractionRequest } from '../../shared/interaction'
 
 export type DeckCard = {
   n: string
@@ -49,7 +50,13 @@ export type LiveWireV2 = {
     LiveTopdeck['requirements']?,
     unknown[]?,
     number?,
+    string?,
+    number?,
+    string?,
+    string?,
+    string?,
   ]
+  ir?: InteractionRequest
   b?: 1
   hd?: 1
 }
@@ -406,7 +413,17 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       snapshot.topdeck.requirements,
       snapshot.topdeck.library?.map((card) => table.cardRef(card, prefer)),
       snapshot.topdeck.count,
+      ...(snapshot.topdeck.requestId === undefined
+        ? []
+        : [
+            snapshot.topdeck.requestId,
+            snapshot.topdeck.revision,
+            snapshot.topdeck.phase,
+            snapshot.topdeck.purpose,
+            snapshot.topdeck.cancellation,
+          ]),
     ]
+    if (snapshot.topdeck.interaction) wire.ir = snapshot.topdeck.interaction
   }
   if (snapshot.alwaysStopOnPriority) wire.b = 1
   if (snapshot.holding) wire.hd = 1
@@ -624,6 +641,12 @@ export const expandLiveWire = (
             ? unpackCards(wire.l[4], lists, extras, tokens).map(String)
             : undefined,
           count: wire.l[5],
+          requestId: wire.l[6],
+          revision: wire.l[7],
+          phase: wire.l[8] as LiveTopdeck['phase'],
+          purpose: wire.l[9] as LiveTopdeck['purpose'],
+          cancellation: wire.l[10] as LiveTopdeck['cancellation'],
+          interaction: wire.ir,
         }
       : undefined,
     alwaysStopOnPriority: wire.b === 1 ? true : undefined,

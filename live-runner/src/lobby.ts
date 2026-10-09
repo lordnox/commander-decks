@@ -1,4 +1,10 @@
 import type { TopdeckDestination, TopdeckRequirements } from '../../shared/liveTypes'
+import type {
+  InteractionCancellation,
+  InteractionPhase,
+  InteractionPurpose,
+  InteractionRequest,
+} from '../../shared/interaction'
 import {
   SEAT_IDS,
   type InboxMessage,
@@ -23,6 +29,15 @@ export type TopdeckDecision = {
   seat: SeatId
   kind: string
   cards: string[]
+  /** Section-9 request metadata. These fields are persisted for reconnect. */
+  requestId?: string
+  revision?: number
+  phase?: InteractionPhase
+  purpose?: InteractionPurpose
+  cancellation?: InteractionCancellation
+  interaction?: InteractionRequest
+  /** Authoritative candidate identities; names are presentation only. */
+  candidateIds?: string[]
   /** CR 701.19a: searching means looking at every card, not only the matches. */
   library?: string[]
   destinations: TopdeckDestination[]
@@ -113,6 +128,8 @@ export type LobbyState = {
   /** Seats that asked to be passed for until their own turn comes around. */
   holds: Partial<Record<SeatId, boolean>>
   pendingKernelPlans: Partial<Record<SeatId, PendingKernelPlan>>
+  /** Completed request IDs are retained so duplicate answers cannot rerun effects. */
+  completedInteractions?: Record<string, string>
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -203,6 +220,7 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   alwaysStopOnPriority: {},
   holds: {},
   pendingKernelPlans: {},
+  completedInteractions: {},
 })
 
 export type LobbyParts = {
@@ -231,6 +249,7 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   alwaysStopOnPriority: {},
   holds: {},
   pendingKernelPlans: {},
+  completedInteractions: {},
 })
 
 export const restoreLobby = (

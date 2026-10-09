@@ -7,7 +7,7 @@ import { pendingPlayerTargets } from '../../rules-engine/src/cardPlugins/playerT
 import { pendingExtortFor } from '../../rules-engine/src/cardPlugins/extort'
 import { pendingCumulativeUpkeep } from '../../rules-engine/src/cardPlugins/cumulativeUpkeep'
 import type { SeatId } from './protocol'
-import type { ChoiceContext } from './kernelChoice'
+import { sameIds, type ChoiceContext } from './kernelChoice'
 import { closeKernelChoice } from './kernelSettle'
 
 export const applyCumulativeUpkeep = (
@@ -93,11 +93,15 @@ export const applySelectPlayers = (
 }
 
 export const applyPlayerTargets = (
-  { kernel, lobby, seat, message, state }: ChoiceContext,
+  { kernel, lobby, seat, message, state, decision }: ChoiceContext,
 ) => {
   const pending = pendingPlayerTargets(state)
   if (!pending || pending.controller !== seat) {
     throw new Error('That target choice is no longer open.')
+  }
+  const candidates = state.playerOrder.filter((target) => !state.players[target].lost)
+  if (!sameIds(decision.candidateIds, candidates)) {
+    throw new Error('That target choice changed. Refresh and choose again.')
   }
   const targets = message.choices
     .filter(({ destination }) => destination === 'target')

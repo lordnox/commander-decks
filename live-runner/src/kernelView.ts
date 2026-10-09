@@ -361,6 +361,7 @@ export const liveSnapshotFromState = (options: {
   const comparable = replayComparableState(state)
   const seats = liveSeatsFromState(state, lobby, viewer)
   const priority = state.priority
+  const pendingChooser = lobby.topdeck?.seat
   const combat = kernelCombat(state)
   return {
     v: 1,
@@ -375,17 +376,31 @@ export const liveSnapshotFromState = (options: {
       ? lobby.privateJudge[viewer]
       : lobby.judge,
     judgeHistory: viewer ? lobby.judgeHistory[viewer] : undefined,
-    youAct: Boolean(viewer && priority === viewer),
+    youAct: Boolean(viewer && !pendingChooser && priority === viewer),
     actions: viewer && lobby.actions[viewer]
       ? lobby.actions[viewer]
       : [],
     actionId: viewer ? lobby.actionIds[viewer] : undefined,
-    legalActs: viewer && priority === viewer
+    legalActs: viewer && !pendingChooser && priority === viewer
       ? legalActsFor(state, viewer)
       : undefined,
     topdeck: viewer && lobby.topdeck?.seat === viewer
-      ? lobby.topdeck
+      ? {
+          kind: lobby.topdeck.kind,
+          cards: lobby.topdeck.cards,
+          requestId: lobby.topdeck.requestId,
+          revision: lobby.topdeck.revision,
+          phase: lobby.topdeck.phase,
+          purpose: lobby.topdeck.purpose,
+          cancellation: lobby.topdeck.cancellation,
+          interaction: lobby.topdeck.interaction,
+          library: lobby.topdeck.library,
+          count: lobby.topdeck.count,
+          destinations: lobby.topdeck.destinations,
+          requirements: lobby.topdeck.requirements,
+        }
       : undefined,
+    awaiting: pendingChooser ?? null,
     alwaysStopOnPriority: viewer
       ? lobby.alwaysStopOnPriority[viewer]
       : undefined,

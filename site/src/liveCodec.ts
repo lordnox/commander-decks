@@ -6,6 +6,12 @@ import type {
   TopdeckRequirements,
 } from '../../shared/liveTypes'
 import type {
+  InteractionCancellation,
+  InteractionPhase,
+  InteractionPurpose,
+  InteractionRequest,
+} from '../../shared/interaction'
+import type {
   BattlefieldCard,
   CardDetails,
   ReplayCombat,
@@ -73,6 +79,12 @@ export type LiveOpening = {
 
 export type LiveTopdeck = {
   kind: string
+  requestId?: string
+  revision?: number
+  phase?: InteractionPhase
+  purpose?: InteractionPurpose
+  cancellation?: InteractionCancellation
+  interaction?: InteractionRequest
   cards: Array<string | number>
   count?: number
   library?: string[]
