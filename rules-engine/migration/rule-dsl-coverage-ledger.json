@@ -22853,10 +22853,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          204
+          210
         ],
         "samples": [
-          "204: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "210: if (filter.name !== undefined && object.name !== filter.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -24839,12 +24839,12 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          208,
-          235
+          209,
+          236
         ],
         "samples": [
-          "208: const source = draft.object(event.objectId)",
-          "235: draft.addToStack({"
+          "209: const source = draft.object(event.objectId)",
+          "236: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
