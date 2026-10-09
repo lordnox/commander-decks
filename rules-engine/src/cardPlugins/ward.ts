@@ -126,7 +126,7 @@ const openWardChoice = (
       optional: true,
     })
     storePendingCast(draft, seat, pending)
-    draft.priority = seat
+    if (!pending.stackId) draft.priority = seat
     return
   }
   if (ward.life !== undefined) {
@@ -156,7 +156,7 @@ const openWardChoice = (
         && (!ward.sacrifice?.nonland || !object.types.includes('Land')))
       .map((object) => object.id)
     if (candidates.length < ward.sacrifice.count) {
-      draft.note(`${warded.name}'s Ward was not paid`)
+      counterPending(draft, pending)
       return
     }
     openCardSelection(draft, {
@@ -172,7 +172,7 @@ const openWardChoice = (
     })
     draft.players[seat].data[WARD_AWAITING] = true
     storePendingCast(draft, seat, pending)
-    draft.priority = seat
+    if (!pending.stackId) draft.priority = seat
   }
 }
 
@@ -191,11 +191,13 @@ const counterPending = (
           return
         }
         const [countered] = draft.stack.splice(index, 1)
-        draft.enqueue({
-          type: 'move',
-          objectId: object.id,
-          to: finishedSpellZone(countered, 'graveyard'),
-        })
+        if (!countered.copy) {
+          draft.enqueue({
+            type: 'move',
+            objectId: object.id,
+            to: finishedSpellZone(countered, 'graveyard'),
+          })
+        }
       }
     }
     draft.note(`${object?.name ?? 'Spell'} was countered by Ward`)
@@ -314,7 +316,7 @@ export const ward: Plugin = {
           cost: `{${dialog.count}}`,
         })
         clearPendingCast(draft, event.seat)
-        if (!(pending.event.type === 'castSpell' && draft.stack.some((item) => item.objectId === pending.event.objectId))) {
+        if (!pending.stackId) {
           draft.enqueue({ ...pending.event, wardPaid: true })
         }
         draft.note(`${event.seat} pays Ward {${dialog.count}}`)
@@ -342,7 +344,7 @@ export const ward: Plugin = {
       })
       // Paying all of your life is legal, but then you lose before the spell could go on.
       if (draft.players[event.seat].life > selection.action.life) {
-        if (!(pending.event.type === 'castSpell' && draft.stack.some((item) => item.objectId === pending.event.objectId))) {
+        if (!pending.stackId) {
           draft.enqueue({ ...pending.event, wardPaid: true })
         }
       }
@@ -362,7 +364,7 @@ export const ward: Plugin = {
         counterPending(draft, pending)
         return
       }
-      if (!(pending.event.type === 'castSpell' && draft.stack.some((item) => item.objectId === pending.event.objectId))) {
+      if (!pending.stackId) {
         draft.enqueue({ ...pending.event, wardPaid: true })
       }
       draft.note(`${event.seat} pays Ward`)

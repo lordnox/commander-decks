@@ -39,6 +39,15 @@ const stripAuthoritativeExecution = (value: unknown): void => {
   const record = value as Record<string, unknown>
   delete record.execution
   delete record.triggerExecution
+  const payload = record.payload
+  if (payload && typeof payload === 'object' && !Array.isArray(payload)) {
+    const wardPayload = payload as Record<string, unknown>
+    if (wardPayload.canonicalWard === true) {
+      for (const key of ['cast', 'ward', 'warded', 'spellRef', 'spellStackId', 'casterSeat', 'wardedId']) {
+        delete wardPayload[key]
+      }
+    }
+  }
   for (const child of Object.values(record)) stripAuthoritativeExecution(child)
 }
 
