@@ -986,7 +986,7 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
       canonical.abilityIndex,
       targets,
       undefined,
-      [targets],
+      ability.decisions.targets.length === 0 ? [] : [targets],
       trigger.execution.controller,
     )
     draft.addToStack({
