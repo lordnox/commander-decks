@@ -686,7 +686,6 @@ export const validateDefinitionV1 = (root: unknown): {
       return
     }
     if (decisionsResult.modeCount === undefined) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'modal programs require decisions.modes')
-    if (decisionsResult.env.targets.length > 0) issue(childPath(path, 'decisions.targets'), 'modal-structure', 'modal target clauses belong to each mode occurrence')
     const modes = array(ability.modes, childPath(path, 'modes'), { nonempty: true })
     if (decisionsResult.modeCount !== undefined && !decisionsResult.repeatable && decisionsResult.modeCount > modes.length) {
       issue(childPath(path, 'decisions.modes.count'), 'modal-bounds', 'nonrepeatable mode count exceeds the number of modes')

@@ -11,6 +11,12 @@ import { RuleDslEvaluationError } from './errors'
 
 export const canonicalScopeId = (abilityIndex: number) => `$.abilities[${abilityIndex}]`
 
+export const canonicalModeScopeId = (
+  abilityIndex: number,
+  modeIndex: number,
+  occurrence: number,
+) => `${canonicalScopeId(abilityIndex)}.modes[${modeIndex}]#${occurrence}`
+
 const identityKey = (target: TargetRef) => {
   switch (target.kind) {
     case 'player': return `player:${target.player}`
@@ -193,6 +199,8 @@ export const canonicalTargetBindings = (
   controller?: PlayerId,
   x?: number,
   clausesOverride?: readonly TargetClause[],
+  scopeIdsOverride?: readonly string[],
+  modeIndicesOverride?: readonly (number | undefined)[],
 ) => {
   const ability = definition.abilities[abilityIndex]
   if (!ability || (ability.kind !== 'spell' && ability.kind !== 'activated' && ability.kind !== 'triggered')) {
@@ -213,14 +221,44 @@ export const canonicalTargetBindings = (
   const slots = grouped
     ? groupedTargets(state, sourceId, clauses, normalizedGrouped!, context)
     : partitionTargets(state, sourceId ?? '', clauses, normalizedSupplied, context)
-  if (!slots || !satisfiesConstraints(ability.decisions.constraints, slots)) {
+  if (!slots) {
     throw new RuleDslEvaluationError('supplied canonical targets do not satisfy the declared clauses')
   }
-  return slots.map((recipients, clauseIndex) => ({
-    scopeId: canonicalScopeId(abilityIndex),
-    clauseIndex,
+  const scopeSlots = new Map<string, TargetRef[][]>()
+  const scopeModes = new Map<string, number | undefined>()
+  const scopeIndices = new Map<string, number>()
+  slots.forEach((recipients, clauseIndex) => {
+    const scopeId = scopeIdsOverride?.[clauseIndex] ?? canonicalScopeId(abilityIndex)
+    const localIndex = scopeIndices.get(scopeId) ?? 0
+    scopeIndices.set(scopeId, localIndex + 1)
+    const scopeRecipients = scopeSlots.get(scopeId) ?? []
+    scopeRecipients[localIndex] = recipients
+    scopeSlots.set(scopeId, scopeRecipients)
+    scopeModes.set(scopeId, modeIndicesOverride?.[clauseIndex])
+  })
+  for (const [scopeId, scopeRecipients] of scopeSlots) {
+    const modeIndex = scopeModes.get(scopeId)
+    const constraints = modeIndex === undefined
+      ? ability.decisions.constraints
+      : ('modes' in ability ? ability.modes?.[modeIndex]?.decisions.constraints : undefined)
+    if (!satisfiesConstraints(constraints, scopeRecipients)) {
+      throw new RuleDslEvaluationError('supplied canonical targets do not satisfy the declared constraints')
+    }
+  }
+  const localClauseIndices = new Map<string, number>()
+  return slots.map((recipients, clauseIndex) => {
+    const scopeId = scopeIdsOverride?.[clauseIndex] ?? canonicalScopeId(abilityIndex)
+    const localClauseIndex = localClauseIndices.get(scopeId) ?? 0
+    localClauseIndices.set(scopeId, localClauseIndex + 1)
+    return {
+    scopeId,
+    clauseIndex: localClauseIndex,
     recipients,
-  }))
+    ...(modeIndicesOverride?.[clauseIndex] !== undefined
+      ? { modeIndex: modeIndicesOverride[clauseIndex] }
+      : {}),
+    }
+  })
 }
 
 /**
@@ -314,6 +352,50 @@ export const canonicalTargetLegalityForAbility = (
   return legality
 }
 
+/**
+ * Re-check each local target clause within its generated scope. Modal programs
+ * may select the same mode more than once, so each occurrence retains its own
+ * scope even when the mode declaration and local clause index repeat.
+ */
+export const canonicalTargetLegalityByScope = (
+  state: GameState,
+  source: GameObject,
+  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  bindings: readonly CanonicalTargetBinding[],
+  item?: StackItem,
+) => {
+  const legality: Record<string, Record<number, boolean[]>> = {}
+  for (const binding of bindings) {
+    const scope = legality[binding.scopeId] ?? {}
+    const clauses = binding.modeIndex === undefined
+      ? ability.decisions.targets
+      : ('modes' in ability ? ability.modes?.[binding.modeIndex]?.decisions.targets ?? [] : [])
+    const clause = clauses[binding.clauseIndex]
+    if (!clause) {
+      scope[binding.clauseIndex] = []
+      legality[binding.scopeId] = scope
+      continue
+    }
+    const context = bindingContext(
+      contextFor(state, item?.controller ?? source.controller, source, item),
+      bindings
+        .filter((entry) => entry.scopeId === binding.scopeId)
+        .sort((left, right) => left.clauseIndex - right.clauseIndex)
+        .map((entry) => entry.recipients),
+      scope,
+    )
+    scope[binding.clauseIndex] = binding.recipients.map((target) => canonicalCandidate(
+      state,
+      target,
+      clause,
+      context,
+      ability.kind === 'spell' ? source.id : undefined,
+    ))
+    legality[binding.scopeId] = scope
+  }
+  return legality
+}
+
 export const canonicalWholeItemGate = (
   state: GameState,
   source: GameObject,
@@ -325,15 +407,19 @@ export const canonicalWholeItemGate = (
   if ('interveningIf' in ability && ability.interveningIf && !evaluateCondition(ability.interveningIf, context)) {
     return { outcome: 'didNotResolve:interveningIf' as const, targetLegality: {} }
   }
-  const targetLegality = bindings.length > 0
-    ? canonicalTargetLegalityForAbility(state, source, ability, bindings, item)
+  const targetLegalityByScope = bindings.length > 0
+    ? canonicalTargetLegalityByScope(state, source, ability, bindings, item)
+    : {}
+  const scopeIds = new Set(bindings.map((binding) => binding.scopeId))
+  const targetLegality = scopeIds.size <= 1
+    ? Object.values(targetLegalityByScope)[0] ?? {}
     : {}
   const targetCount = bindings.reduce((total, binding) => total + binding.recipients.length, 0)
   const legalCount = bindings.reduce((total, binding) =>
-    total + (targetLegality[binding.clauseIndex] ?? []).filter(Boolean).length, 0)
+    total + (targetLegalityByScope[binding.scopeId]?.[binding.clauseIndex] ?? []).filter(Boolean).length, 0)
   return targetCount > 0 && legalCount === 0
-    ? { outcome: 'didNotResolve:allTargetsIllegal' as const, targetLegality }
-    : { outcome: 'resolved' as const, targetLegality }
+    ? { outcome: 'didNotResolve:allTargetsIllegal' as const, targetLegality, targetLegalityByScope }
+    : { outcome: 'resolved' as const, targetLegality, targetLegalityByScope }
 }
 
 export const canonicalTargetError = (

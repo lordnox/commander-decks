@@ -11,7 +11,7 @@ import {
   type BoundRecipient,
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
-import { canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
+import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -97,8 +97,9 @@ export const startCanonicalResolution = (
   if (!selected) throw new Error('canonical stack item is missing its pinned definition')
   const { ability, index: abilityIndex } = selected
   const declarationPath = `$.abilities[${abilityIndex}]`
+  const selectedModes = 'modes' in ability ? (item.execution?.modeIndices ?? []) : []
   const selectedInstructions = 'modes' in ability
-    ? (item.execution?.modeIndices ?? []).flatMap((index) => ability.modes?.[index]?.instructions ?? [])
+    ? selectedModes.flatMap((index) => ability.modes?.[index]?.instructions ?? [])
     : ability.instructions
   if ('modes' in ability && selectedInstructions.length === 0) {
     throw new Error(`${declarationPath}.modes: a mode must be selected before resolution`)
@@ -135,12 +136,25 @@ export const startCanonicalResolution = (
     scopeId: canonicalScopeId(abilityIndex),
     targetBindings: structuredClone(targetBindings),
     targetLegality: structuredClone(gate.targetLegality),
+    targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
-    scopes: [{
-      path: '.instructions',
-      instructions: structuredClone(selectedInstructions),
-      cursor: 0,
-    }],
+    scopes: 'modes' in ability
+      ? selectedModes.toReversed().map((modeIndex, reverseIndex) => {
+        const occurrence = selectedModes.length - reverseIndex - 1
+        return {
+          path: `.modes[${modeIndex}].instructions`,
+          scopeId: item.execution?.modeScopeIds?.[occurrence]
+            ?? canonicalModeScopeId(abilityIndex, modeIndex, occurrence),
+          instructions: structuredClone(ability.modes?.[modeIndex]?.instructions ?? []),
+          cursor: 0,
+        }
+      })
+      : [{
+        path: '.instructions',
+        scopeId: canonicalScopeId(abilityIndex),
+        instructions: structuredClone(selectedInstructions),
+        cursor: 0,
+      }],
     phase: 'running',
   }
   frame.targetLegality = structuredClone(gate.targetLegality)
@@ -155,6 +169,7 @@ const runtimeContext = (
   state: GameState,
   frame: CanonicalResolutionFrame,
   item: StackItem,
+  scopeId = frame.scopeId,
 ) => ({
   state,
   controller: frame.controller,
@@ -163,7 +178,7 @@ const runtimeContext = (
   ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
   targets: (() => {
     const targets: Record<number, BoundRecipient[]> = Object.fromEntries((frame.targetBindings ?? [])
-      .filter((binding) => binding.scopeId === (frame.scopeId ?? binding.scopeId))
+      .filter((binding) => binding.scopeId === scopeId)
       .map((binding) => {
         const recipients: BoundRecipient[] = []
         for (const target of binding.recipients) {
@@ -181,7 +196,7 @@ const runtimeContext = (
       }))
     return targets
   })(),
-  targetLegality: frame.targetLegality,
+  targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
   ...(item.x === undefined ? {} : { variables: { X: item.x } }),
 })
@@ -358,13 +373,14 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (instruction.kind === 'sequence') {
       frame.scopes.push({
         path: `${path}.instructions`,
+        scopeId: scope.scopeId,
         instructions: structuredClone(instruction.instructions),
         cursor: 0,
       })
       continue
     }
     frame.phase = 'committing'
-    const events = actionEvents(instruction, runtimeContext(draft, frame, item), frame, path)
+    const events = actionEvents(instruction, runtimeContext(draft, frame, item, scope.scopeId), frame, path)
     frame.pendingEvents = structuredClone(events)
     return {
       kind: 'events',

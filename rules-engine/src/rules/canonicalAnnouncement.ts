@@ -1,6 +1,6 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
+import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 import { evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
@@ -24,6 +24,9 @@ export type CanonicalAnnouncement = {
   clauseBounds: ClauseBounds[]
   clauseIndex: number
   selectedModes?: number[]
+  targetScopeIds?: readonly string[]
+  targetModeIndices?: readonly (number | undefined)[]
+  modeScopeIds?: readonly string[]
 }
 
 const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
@@ -38,7 +41,8 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return false
-  const targetBindings = announcement.targetBindings && announcement.targetBindings.length > 0
+  const targetBindings = announcement.selectedModes === undefined
+    && announcement.targetBindings && announcement.targetBindings.length > 0
     ? announcement.targetBindings
     : canonicalTargetBindings(
     draft,
@@ -51,6 +55,8 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
     announcement.execution.controller,
     undefined,
     announcement.targetClauses,
+    announcement.targetScopeIds,
+    announcement.targetModeIndices,
       )
   if ('modes' in ability && announcement.selectedModes === undefined) {
     const modes = ability.modes ?? []
@@ -94,6 +100,10 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
         selectedModes: [],
         modeClauses: legalModes.flatMap(({ mode }) => mode.decisions.targets),
         modeClausesByMode: modes.map((mode) => [...mode.decisions.targets]),
+        baseTargetClauses: [...announcement.targetClauses],
+        baseTargetScopeIds: announcement.targetScopeIds ? [...announcement.targetScopeIds] : undefined,
+        baseTargetModeIndices: announcement.targetModeIndices ? [...announcement.targetModeIndices] : undefined,
+        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       },
     })
     return true
@@ -109,6 +119,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
       definitionSnapshot: announcement.definitionSnapshot,
       abilityIndex: announcement.abilityIndex,
       ...(announcement.selectedModes ? { modeIndices: announcement.selectedModes } : {}),
+      ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       targetBindings,
     },
   })
@@ -163,6 +174,9 @@ export const continueCanonicalTargetSelection = (
         targetIndex: announcement.clauseIndex,
         selectedTargets: announcement.targets,
         selectedModes: announcement.selectedModes,
+        ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
+        ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
+        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       },
     })
     return true
@@ -190,6 +204,9 @@ export const continueCanonicalTargetSelection = (
         targetIndex: announcement.clauseIndex,
         selectedTargets: announcement.targets,
         selectedModes: announcement.selectedModes,
+        ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
+        ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
+        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       },
     })
     return true
@@ -220,6 +237,9 @@ export const continueCanonicalTargetSelection = (
         selectedTargets: announcement.targets,
         selectedStackTargets,
         selectedModes: announcement.selectedModes,
+        ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
+        ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
+        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       },
     })
     return true
@@ -229,13 +249,39 @@ export const continueCanonicalTargetSelection = (
 
 export const continueCanonicalModeTargets = (
   draft: Draft,
-  announcement: Omit<CanonicalAnnouncement, 'clauseBounds' | 'clauseIndex' | 'targetClauses'> & { clauses: readonly TargetClause[] },
-) => startCanonicalAnnouncement(draft, announcement)
+  announcement: Omit<CanonicalAnnouncement, 'clauseBounds' | 'clauseIndex' | 'targetClauses'> & {
+    clauses: readonly TargetClause[]
+    selectedModes: readonly number[]
+    initialClauseIndex?: number
+  },
+) => {
+  const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
+  const ability = definition.abilities[announcement.abilityIndex]
+  const modeEntries = ability && 'modes' in ability ? announcement.selectedModes.map((modeIndex, occurrence) => ({
+    modeIndex,
+    occurrence,
+    clauses: ability.modes?.[modeIndex]?.decisions.targets ?? [],
+  })) : []
+  const modeTargetScopeIds = modeEntries.flatMap(({ modeIndex, occurrence, clauses }) =>
+    clauses.map(() => canonicalModeScopeId(announcement.abilityIndex, modeIndex, occurrence)))
+  const modeTargetModeIndices = modeEntries.flatMap(({ modeIndex, clauses }) =>
+    clauses.map(() => modeIndex))
+  const modeScopeIds = modeEntries.map(({ modeIndex, occurrence }) =>
+    canonicalModeScopeId(announcement.abilityIndex, modeIndex, occurrence))
+  return startCanonicalAnnouncement(draft, {
+    ...announcement,
+    targetScopeIds: announcement.targetScopeIds ?? modeTargetScopeIds,
+    targetModeIndices: announcement.targetModeIndices ?? modeTargetModeIndices,
+    modeScopeIds,
+  })
+}
 
 export const startCanonicalAnnouncement = (
   draft: Draft,
   announcement: Omit<CanonicalAnnouncement, 'clauseIndex' | 'clauseBounds' | 'targets' | 'targetClauses'> & {
     clauses: readonly TargetClause[]
+    targets?: TargetRef[]
+    initialClauseIndex?: number
   },
 ) => {
   const bounds = announcement.clauses.map((clause) => evaluateTargetBounds(clause, amountEvaluationContext({
@@ -247,8 +293,10 @@ export const startCanonicalAnnouncement = (
   return continueCanonicalTargetSelection(draft, {
     ...announcement,
     targetClauses: announcement.clauses,
+    targetScopeIds: announcement.targetScopeIds ?? announcement.clauses.map(() => canonicalScopeId(announcement.abilityIndex)),
+    targetModeIndices: announcement.targetModeIndices ?? announcement.clauses.map(() => undefined),
     clauseBounds: bounds,
-    clauseIndex: 0,
-    targets: [],
+    clauseIndex: announcement.initialClauseIndex ?? 0,
+    targets: announcement.targets ?? [],
   })
 }

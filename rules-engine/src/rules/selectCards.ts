@@ -112,6 +112,9 @@ export type PendingCardSelection = {
     targetIndex?: number
     selectedTargets?: import('../types').TargetRef[]
     selectedModes?: number[]
+    targetScopeIds?: string[]
+    targetModeIndices?: Array<number | undefined>
+    modeScopeIds?: string[]
   }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
@@ -756,6 +759,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       targetClauses: selection.canonicalTrigger.targetClauseDefinitions ?? [],
       targets: selectedTargets,
       selectedModes: selection.canonicalTrigger.selectedModes,
+      targetScopeIds: selection.canonicalTrigger.targetScopeIds,
+      targetModeIndices: selection.canonicalTrigger.targetModeIndices,
+      modeScopeIds: selection.canonicalTrigger.modeScopeIds,
       clauseBounds: targetClauses,
       clauseIndex: (selection.canonicalTrigger.targetIndex ?? 0) + 1,
     })
