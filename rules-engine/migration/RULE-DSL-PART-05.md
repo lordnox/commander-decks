@@ -52,7 +52,7 @@ kernel settle.
 
 Focused verification passes for the interaction store, protocol, wire codec,
 browser request metadata, DSL compiler, reconnect, candidate identity, and live
-host choice paths. The full rules suite is green at 2,219 tests / 7,119
+host choice paths. The full rules suite is green at 2,220 tests / 7,125
 assertions. The full host suite is green except for one known baseline failure:
 generated card-handler import fixture resolution (`loads generated card handlers
 from the current worktree`). The headless runner uses the same host path as the
