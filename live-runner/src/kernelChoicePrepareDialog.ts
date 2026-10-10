@@ -43,5 +43,10 @@ export const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) =>
       judge: dialog.judge,
     },
     candidates,
+    {
+      phase: ['dredge', 'abundance'].includes(dialog.kind as string) ? 'replacement' : 'resolution',
+      purpose: dialog.destinations.includes('target') ? 'target' : 'choice',
+      cancellation: dialog.optional ? 'cancelProposal' : 'mustAnswer',
+    },
   )
 }

@@ -116,4 +116,32 @@ describe('InteractionStore', () => {
       },
     })).toEqual({ ok: true })
   })
+
+  test('target constraints use scope and clause identity plus server metadata', () => {
+    const request: InteractionRequest = {
+      requestId: 'scoped-targets', revision: 1, chooser: 'p1', source: { name: 'Spell' },
+      phase: 'resolution', purpose: 'target', cancellation: 'mustAnswer',
+      selection: {
+        kind: 'selectTargets',
+        clauses: [
+          { scopeId: 'first', clauseIndex: 0, candidates: [{ kind: 'object', ref: { id: 'o1', incarnation: 1, zone: 'battlefield', controller: 'p1' } }], min: 1, max: 1, distinct: true },
+          { scopeId: 'second', clauseIndex: 0, candidates: [{ kind: 'object', ref: { id: 'o2', incarnation: 1, zone: 'battlefield', controller: 'p1' } }], min: 1, max: 1, distinct: true },
+        ],
+        constraints: [{ kind: 'sameController', clauses: [
+          { scopeId: 'first', clauseIndex: 0 },
+          { scopeId: 'second', clauseIndex: 0 },
+        ] }],
+      },
+    }
+    expect(validateInteractionAnswer(request, {
+      requestId: 'scoped-targets', revision: 1, chooser: 'p1',
+      selection: {
+        kind: 'selectTargets',
+        clauses: [
+          { scopeId: 'first', clauseIndex: 0, targets: [{ kind: 'object', ref: { id: 'o1', incarnation: 1, zone: 'battlefield', controller: 'p2' } }] },
+          { scopeId: 'second', clauseIndex: 0, targets: [{ kind: 'object', ref: { id: 'o2', incarnation: 1, zone: 'battlefield', controller: 'p2' } }] },
+        ],
+      },
+    })).toEqual({ ok: true })
+  })
 })

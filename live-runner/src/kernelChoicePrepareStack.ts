@@ -52,5 +52,9 @@ export const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) 
     },
     // Slot 0 is the keep-targets option; object targets follow it.
     [undefined, ...candidates],
+    {
+      purpose: 'target',
+      cancellation: pending.optional ? 'cancelProposal' : 'mustAnswer',
+    },
   )
 }

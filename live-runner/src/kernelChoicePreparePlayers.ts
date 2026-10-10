@@ -39,6 +39,8 @@ export const prepareExtortChoice = (kernel: KernelHandle, lobby: LobbyState) => 
       prompt: `${pending.source}: you may pay {W/B}.`,
       judge: `Waiting for ${pending.source}'s extort payment.`,
     },
+    [],
+    { purpose: 'cost', cancellation: 'cancelProposal' },
   )
 }
 
@@ -65,6 +67,8 @@ export const prepareCumulativeUpkeepChoice = (kernel: KernelHandle, lobby: Lobby
       prompt: `Choose an opponent to gain 1 life for each of ${pending.count} age counter(s), or sacrifice ${pending.source}.`,
       judge: `Waiting for ${pending.source}'s cumulative upkeep.`,
     },
+    [],
+    { purpose: 'cost', cancellation: 'mustAnswer' },
   )
 }
 
@@ -93,6 +97,8 @@ export const prepareSelectPlayersChoice = (kernel: KernelHandle, lobby: LobbySta
       prompt: playerSelection.prompt,
       judge: `Waiting for ${playerSelection.source} player choice.`,
     },
+    [],
+    { purpose: 'target', cancellation: 'mustAnswer' },
   )
 }
 
@@ -119,5 +125,7 @@ export const preparePlayerTargetsChoice = (kernel: KernelHandle, lobby: LobbySta
       prompt: targetsPending.prompt,
       judge: `Waiting for ${targetsPending.source} targets.`,
     },
+    [],
+    { purpose: 'target', cancellation: 'mustAnswer' },
   )
 }

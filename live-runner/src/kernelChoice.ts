@@ -1,4 +1,5 @@
 import type { GameObject, GameState } from '../../rules-engine/src/types'
+import { InteractionStore } from '../../rules-engine/src/interaction'
 import {
   dialogCandidates,
   pendingDialogsFor,
@@ -238,17 +239,25 @@ export const openTopdeck = (
     ?? (offered.length > 0 ? offered.map((object) => object?.id ?? '') : decision.cards)
   const requestBasis = `${decision.kernel?.stage ?? decision.kind}:${decision.kernel?.sourceId ?? decision.seat}:${decision.kernel?.selectionId ?? decision.kernel?.stackId ?? 'pending'}:${candidateIds.join(',')}`
   const baseRequestId = `${decision.kernel?.stage ?? decision.kind}:${decision.seat}:${opaqueRequestSuffix(requestBasis)}`
-  const collisionCount = Object.keys(lobby.completedInteractions ?? {})
-    .filter((requestId) => requestId === baseRequestId || requestId.startsWith(`${baseRequestId}:`)).length
+  const nextRevision = (lobby.interactionRevision ?? 0) + 1
+  // The request basis is authoritative kernel state, so this seed lets a
+  // freshly reconstructed host reproduce the same revision before it has
+  // restored the serialized lobby counter. The lobby counter then keeps new
+  // requests monotonic for the remainder of the session.
+  const stableRevision = 0x100000000 + (Number.parseInt(opaqueRequestSuffix(baseRequestId), 36) || 1)
   const requestId = existing?.requestId
-    ?? (collisionCount === 0 ? baseRequestId : `${baseRequestId}:${collisionCount + 1}`)
-  const revision = existing?.revision ?? collisionCount + 1
+    ?? (Object.keys(lobby.completedInteractions ?? {}).includes(baseRequestId)
+      ? `${baseRequestId}:${nextRevision}`
+      : baseRequestId)
+  const revision = existing?.revision ?? stableRevision
+  if (!existing) lobby.interactionRevision = Math.max(lobby.interactionRevision ?? 0, revision)
   lobby.topdeck = decision
   lobby.topdeck.requestId = requestId
   lobby.topdeck.revision = revision
-  lobby.topdeck.phase = metadata.phase ?? (decision.kernel?.stage === 'waiting-discard' ? 'resolution' : 'resolution')
+  lobby.topdeck.phase = metadata.phase
+    ?? (decision.kernel?.stage === 'battle-cast-transformed' ? 'replacement' : 'resolution')
   lobby.topdeck.purpose = metadata.purpose
-    ?? (decision.kernel?.stage === 'select-players' || decision.kernel?.stage === 'player-targets' ? 'target' : 'choice')
+    ?? (decision.kernel?.stage === 'select-players' || decision.kernel?.stage === 'player-targets' || decision.kernel?.stage === 'stack-copy' ? 'target' : 'choice')
   lobby.topdeck.cancellation = metadata.cancellation ?? 'mustAnswer'
   lobby.topdeck.candidateIds = candidateIds
   lobby.topdeck.candidatePins = offered.length > 0
@@ -309,6 +318,10 @@ export const openTopdeck = (
     cancellation: lobby.topdeck.cancellation,
     selection,
   }
+  const interactions = new InteractionStore<TopdeckDecision, boolean>()
+  interactions.restore(lobby.interactionLedger ?? [])
+  interactions.open(lobby.topdeck.interaction, structuredClone(lobby.topdeck))
+  lobby.interactionLedger = interactions.snapshot()
   lobby.actions = { [decision.seat]: ['topdeck'] }
   lobby.waiting = prompts.waiting
   lobby.privateWaiting = {

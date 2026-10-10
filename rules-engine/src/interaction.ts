@@ -49,6 +49,11 @@ export class InteractionStore<TContinuation = unknown, TResult = unknown> {
     return record ? clone(record.request) : undefined
   }
 
+  record(requestId: string) {
+    const record = this.records.get(requestId)
+    return record ? clone(record) : undefined
+  }
+
   continuation(requestId: string) {
     const record = this.records.get(requestId)
     return record && record.status === 'open' ? clone(record.continuation) : undefined
@@ -93,7 +98,7 @@ export class InteractionStore<TContinuation = unknown, TResult = unknown> {
 
   invalidateForChooser(chooser: string) {
     for (const record of this.records.values()) {
-      if (record.request.chooser === chooser && record.status === 'open') record.status = 'invalidated'
+      if (record.request.chooser === chooser && (record.status === 'open' || record.status === 'reserved')) record.status = 'invalidated'
     }
   }
 
