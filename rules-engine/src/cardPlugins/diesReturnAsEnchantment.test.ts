@@ -3,6 +3,7 @@ import { hasKeyword } from '../keywords'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
 import type { GameState } from '../types'
 import { ok, resolveStack } from '../testHelpers'
 import {
@@ -26,6 +27,16 @@ const objectOnBattlefield = (state: GameState, name: string) =>
   Object.values(state.objects).find(
     (object) => object.zone === 'battlefield' && object.name === name,
   )
+
+const answerTriggerOrder = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+  const selection = pendingSelectionFor(state, 'p1')
+  return selection?.triggerOrder
+    ? ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose',
+      count: selection.count, objectIds: selection.candidates,
+    }))
+    : state
+}
 
 describe('diesReturnAsEnchantment', () => {
   test('builder is clone-safe', () => {
@@ -100,10 +111,8 @@ describe('diesReturnAsEnchantment', () => {
       },
     })
     const id = server.state.zoneOrder.p1.battlefield[0]
-    const firstDeath = resolveStack(
-      server.rules,
-      ok(server.rules(server.state, { type: 'sacrifice', objectId: id })),
-    )
+    const firstDeathUnordered = ok(server.rules(server.state, { type: 'sacrifice', objectId: id }))
+    const firstDeath = resolveStack(server.rules, answerTriggerOrder(server, firstDeathUnordered))
     expect(firstDeath.objects[id].types).toEqual(['Enchantment'])
     const handMid = firstDeath.zoneOrder.p1.hand.length
     const secondDeath = ok(server.rules(firstDeath, { type: 'sacrifice', objectId: id }))

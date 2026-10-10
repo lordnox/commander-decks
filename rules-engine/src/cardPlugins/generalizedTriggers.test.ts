@@ -1,7 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
+import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
 import { casts, dies, discards, draws, exiled, gainLife, leaves, trigger, type CardEffect } from './effects'
@@ -15,6 +17,16 @@ const game = (effects: CardEffect[], zones: Parameters<typeof createServerGame>[
   createServerGame(commanderRules, {
     players: 3, battlefield: { p1: [watcher(effects), knight()] }, ...zones,
   }, { random: () => 0.5, cardPlugins: plugins })
+
+const answerTriggerOrder = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+  const selection = pendingSelectionFor(state, 'p1')
+  return selection?.triggerOrder
+    ? ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose',
+      count: selection.count, objectIds: selection.candidates,
+    }))
+    : state
+}
 
 describe('shared trigger matching', () => {
   test('death watches another white Knight token using pre-death controller and characteristics', () => {
@@ -56,7 +68,7 @@ describe('shared trigger matching', () => {
     const other = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'graveyard' }))
     expect(other.stack).toHaveLength(0)
     const self = ok(server.rules(other, { type: 'move', objectId: named(other, 'Self').id, to: 'graveyard' }))
-    expect(resolveStack(server.rules, self).players.p1.life).toBe(43)
+    expect(resolveStack(server.rules, answerTriggerOrder(server, self)).players.p1.life).toBe(43)
   })
 
   test('exile filters origin zones, ownership, and types', () => {
@@ -86,11 +98,42 @@ describe('shared trigger matching', () => {
       exiled({ from: 'battlefield', filter: { type: 'Creature' }, onceEachTurn: true }, gainLife(1)),
       exiled({ from: 'battlefield', filter: { type: 'Creature' }, onceEachTurn: true }, gainLife(2)),
     ], { hands: { p1: [knight('Second')] } })
-    const first = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'exile' })))
+    const firstMove = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Knight').id, to: 'exile' }))
+    const first = resolveStack(server.rules, answerTriggerOrder(server, firstMove))
     expect(first.players.p1.life).toBe(43)
     const entered = ok(server.rules(first, { type: 'move', objectId: named(first, 'Second').id, to: 'battlefield' }))
     const second = ok(server.rules(entered, { type: 'move', objectId: named(entered, 'Second').id, to: 'exile' }))
     expect(second.stack).toHaveLength(0)
+  })
+
+  test('legacy trigger groups expose distinct ordering through reconnect', () => {
+    const first = dies({ filter: { type: 'Creature' } }, gainLife(1))
+    const second = dies({ filter: { type: 'Creature' } }, gainLife(2))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Legacy Order Watcher', {
+          types: ['Enchantment'],
+          effects: [first, second],
+        }), knight('Legacy Victim')],
+      },
+    }, { random: () => 0.5 })
+    const event = { type: 'move' as const, objectId: named(server.state, 'Legacy Victim').id, to: 'graveyard' as const }
+    const opened = ok(server.rules(server.state, event))
+    const selection = pendingSelectionFor(opened, 'p1')!
+    expect(selection.triggerOrder?.entries).toHaveLength(2)
+    expect(new Set(selection.triggerOrder?.entries?.map((entry) => entry.label)).size).toBe(2)
+
+    let journal = createJournal(server.state)
+    journal = recordAccepted(journal, event)
+    const restored = restoreJournal(journal, server.rules).current()
+    expect(pendingSelectionFor(restored, 'p1')).toEqual(selection)
+    const reversed = [...selection.candidates].reverse()
+    const ordered = ok(server.rules(restored, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id,
+      kind: 'choose', count: selection.count, objectIds: reversed,
+    }))
+    expect(resolveStack(server.rules, ordered).players.p1.life).toBe(43)
   })
 
   test('draws watches opponents and their second successful draw, once across draw-three', () => {

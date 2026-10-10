@@ -23,6 +23,16 @@ import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 
 const handSize = (state: GameState, seat: string) => state.zoneOrder[seat].hand.length
 
+const answerTriggerOrder = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+  const selection = pendingSelectionFor(state, 'p1')
+  return selection?.triggerOrder
+    ? ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose',
+      count: selection.count, objectIds: selection.candidates,
+    }))
+    : state
+}
+
 const enterId = (server: ReturnType<typeof createServerGame>, state: GameState, objectId: string) =>
   ok(server.rules(state, { type: 'move', objectId, to: 'battlefield' }))
 
@@ -448,7 +458,15 @@ describe('Guardian Project', () => {
       hands: { p1: [deckCard('Terastodon')] },
     })
     const opened = enter(server, start, 'Terastodon')
-    const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Own Rock'], 3))))
+    const order = pendingSelectionFor(opened, 'p1')!
+    const ordered = order.triggerOrder
+      ? ok(server.rules(opened, {
+        type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+        count: order.count, objectIds: order.candidates,
+      }))
+      : opened
+    const afterChoice = ok(server.rules(ordered, choose(ordered, ['Own Rock'], 3)))
+    const done = resolveStack(server.rules, answerTriggerOrder(server, afterChoice))
     expect(done.zoneOrder.p1.battlefield.map((id) => done.objects[id].name)).toContain('Elephant')
     // Terastodon drew one card; its Elephant did not.
     expect(handSize(done, 'p1')).toBe(1)

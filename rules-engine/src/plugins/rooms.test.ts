@@ -204,7 +204,12 @@ describe('Room doors', () => {
       objectId,
       door: 'left',
     }))
-    const entered = ok(server.rules(cast, { type: 'resolveTop' }))
+    const enteredUnordered = ok(server.rules(cast, { type: 'resolveTop' }))
+    const order = pendingSelectionFor(enteredUnordered, 'p1')!
+    const entered = ok(server.rules(enteredUnordered, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+      count: order.count, objectIds: order.candidates,
+    }))
 
     expect(entered.stack).toHaveLength(2)
     const first = ok(server.rules(entered, { type: 'resolveTop' }))
@@ -226,11 +231,16 @@ describe('Room doors', () => {
       doorName: 'Awakening Hall',
     }))
 
-    const unlocked = ok(server.rules(state, {
+    const unlockedUnordered = ok(server.rules(state, {
       type: 'unlockDoor',
       seat: 'p1',
       objectId,
       door: 'right',
+    }))
+    const order = pendingSelectionFor(unlockedUnordered, 'p1')!
+    const unlocked = ok(server.rules(unlockedUnordered, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+      count: order.count, objectIds: order.candidates,
     }))
     expect(unlocked.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
     expect(unlocked.objects[objectId]).toMatchObject({

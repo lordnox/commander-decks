@@ -997,6 +997,11 @@ const placementGroups = (
   })
 }
 
+const legacyTriggerSignature = (trigger: CapturedPendingTrigger) => JSON.stringify({
+  key: trigger.triggerEffectKey,
+  effect: trigger.effect,
+})
+
 const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) => {
   const canonical = trigger.canonical
   if (!canonical) return true
@@ -1045,7 +1050,12 @@ export const placePendingTriggers = (draft: Draft) => {
   let orderIds = frame.orderIds?.filter((id) => group.triggers.some((trigger) => trigger.id === id))
   if (!orderIds || orderIds.length !== group.triggers.length) {
     orderIds = group.triggers.map((trigger) => trigger.id)
-    if (orderIds.length > 1 && (group.triggers.some((trigger) => Boolean(trigger.canonical)) || groups.length > 1)) {
+    const legacyEntriesDiffer = new Set(group.triggers.map(legacyTriggerSignature)).size > 1
+    if (orderIds.length > 1 && (
+      group.triggers.some((trigger) => Boolean(trigger.canonical))
+      || groups.length > 1
+      || legacyEntriesDiffer
+    )) {
       const entries = group.triggers.map((trigger) => ({
         id: trigger.id,
         label: trigger.canonical

@@ -26,9 +26,10 @@ answer. No nested event application grants priority or places ordinary triggers.
 - [x] Match canonical DSL occurrence patterns and preserve look-back context
   for enters/dies/draw, including source LKI and occurrence snapshots.
 - [x] Implement two-pass APNAP placement and typed controller ordering for
-  canonical trigger groups, including distinguishable legacy entries when a
-  controller has multiple APNAP groups. Legacy one-controller ordering retains
-  its established automatic path pending the broader legacy interaction cleanup.
+  every controller group. Canonical and legacy entries use the same durable
+  ordering cursor; legacy entries carry distinguishable labels when a source
+  has different triggered abilities, while repeated equivalent instances keep
+  their deterministic order because there is no semantic distinction to show.
 - [x] Bind canonical trigger modes and target shapes before ordinary priority
   for modal programs, optional/impossible clauses, mixed player/object clauses,
   repeated same-object clauses, selected-mode-local clauses, and stack-item
@@ -39,13 +40,13 @@ answer. No nested event application grants priority or places ordinary triggers.
   offers, modal mode announcement/resolution, selected mode-local targets,
   false-at-capture intervening-if, canonical permanent-spell entry, resolving
   canonical draw-three, and host-facing trigger ordering.
-- [ ] Complete the remaining legacy one-controller ordering migration without
-  changing the established legacy test contract; this is isolated from the
-  canonical placement cursor and remains a review item.
-- [ ] Rerun full repository validation after the final review fixes. The focused
-  Part 06 and parent reproduction suites currently pass; the documented
-  generated-handler fixture remains the only accepted live-runner baseline
-  failure, and no new failure is treated as baseline without a fresh result.
+- [x] Complete the remaining legacy one-controller ordering path, including
+  distinct host-facing labels and journal/reconnect coverage. Existing repeated
+  equivalent legacy instances retain their deterministic order.
+- [x] Rerun full rules validation after the final review fixes: 2,230 tests and
+  7,156 assertions pass. The live/codec baseline remains 216 passing tests,
+  1,008 assertions, and the one documented generated-handler fixture failure;
+  no new failure is treated as baseline without a fresh result.
 
 ## Rules references
 

@@ -3,6 +3,7 @@ import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { alternateCosts } from './alternateCosts'
@@ -57,7 +58,12 @@ describe('Lady Evangela replacement gaps', () => {
       castOption: 'evoke',
     }))
     expect(cast.stack[0].castOption).toBe('evoke')
-    const entered = ok(server.rules(cast, { type: 'resolveTop' }))
+    const enteredUnordered = ok(server.rules(cast, { type: 'resolveTop' }))
+    const order = pendingSelectionFor(enteredUnordered, 'p1')!
+    const entered = ok(server.rules(enteredUnordered, {
+      type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+      count: order.count, objectIds: order.candidates,
+    }))
     expect(entered.objects[mulldrifter.id].zone).toBe('battlefield')
     expect(entered.stack.map((item) => item.name)).toEqual(['Mulldrifter', 'Mulldrifter'])
 
