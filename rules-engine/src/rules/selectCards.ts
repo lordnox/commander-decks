@@ -135,6 +135,11 @@ export type PendingCardSelection = {
   liveZone?: true
   /** Remaining instructions after this choice; applied once the selected cards have moved. */
   resume?: InstructionResume
+  /** Canonical Rule DSL card-choice continuation. */
+  canonicalChoice?: {
+    stackId: string
+    binding: string
+  }
   /** Pay this mana only if at least one card is chosen. */
   payMana?: string
   /** Pay this life only if at least one card is chosen. */
@@ -546,6 +551,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
   const fromSeat = selection.fromSeat ?? selection.seat
   const after = selection.after
   const resume = selection.resume
+  const canonicalChoice = selection.canonicalChoice
   clearPendingSelection(draft, event.seat)
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
@@ -558,6 +564,19 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         controller: event.seat,
         orderIds: [...ids],
       }
+    }
+    draft.priority = null
+    return
+  }
+
+  if (canonicalChoice && draft.resolution?.kind === 'canonicalSpell'
+    && draft.resolution.stackId === canonicalChoice.stackId) {
+    draft.resolution.choices = {
+      ...draft.resolution.choices,
+      [canonicalChoice.binding]: (event.objectIds ?? []).flatMap((objectId) => {
+        const object = draft.objects[objectId]
+        return object ? [{ kind: 'object' as const, objectId, incarnation: object.incarnation, zone: object.zone }] : []
+      }),
     }
     draft.priority = null
     return

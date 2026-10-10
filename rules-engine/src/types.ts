@@ -393,6 +393,7 @@ export type StackExecutionContext = {
   definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
+  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
@@ -425,8 +426,14 @@ export type CanonicalResolutionFrame = {
   targetBindings?: CanonicalTargetBinding[]
   /** Current legality for each bound slot; missing/false slots are withheld. */
   targetLegality?: Record<number, boolean[]>
+  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
   results?: Record<string, boolean | number>
-  pendingResult?: { binding: string; kind: 'counter'; stackId: string }
+  pendingResult?: {
+    binding: string
+    kind: 'counter' | 'action'
+    stackId?: string
+    value?: boolean | number
+  }
   outcome?: 'resolved' | 'didNotResolve:interveningIf' | 'didNotResolve:allTargetsIllegal'
   scopes: ProgramScopeFrame[]
   phase: 'running' | 'committing' | 'waiting'
@@ -646,6 +653,10 @@ export type GameEvent =
   | { type: 'resolveTop' }
   /** Internal canonical instruction event; never offered as a player action. */
   | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
+  /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
+  | { type: 'destroy'; objectId: string; sourceId?: string }
+  /** Canonical copy action; resolves from the source snapshot at commit time. */
+  | { type: 'copyPermanent'; objectId: string; controller: PlayerId; sourceId?: string }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
   | { type: 'advanceStep' }
@@ -768,6 +779,8 @@ export type GameEvent =
       remainingAfter?: number
     }
   | { type: 'discard'; seat: PlayerId; objectId: string }
+  /** Canonical mill keeps the action distinct from an arbitrary move. */
+  | { type: 'mill'; seat: PlayerId; objectId: string; sourceId?: string }
   | { type: 'cycle'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
@@ -857,7 +870,8 @@ export type GameEvent =
       source?: string
     }
   | { type: 'winGame'; seat: PlayerId; source?: string }
-  | { type: 'sacrifice'; objectId: string }
+  | { type: 'sacrifice'; objectId: string; sourceId?: string }
+  | { type: 'proliferate'; seat: PlayerId; sourceId?: string }
   | { type: 'fight'; leftId: string; rightId: string }
   // — Choices & continuations —
   | {
