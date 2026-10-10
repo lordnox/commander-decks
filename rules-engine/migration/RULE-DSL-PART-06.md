@@ -23,11 +23,19 @@ answer. No nested event application grants priority or places ordinary triggers.
 - [x] Rebased onto the documented Part 05 head `1b94378a`.
 - [x] Added private serializable trigger-placement state and canonical pending
   trigger metadata types.
-- [ ] Match canonical DSL occurrence patterns and preserve look-back context.
-- [ ] Implement two-pass APNAP placement and typed controller ordering.
-- [ ] Bind canonical trigger modes/targets before ordinary priority.
-- [ ] Add conformance tests for Blood Artist-style simultaneous deaths, OR
-  matching, draw-three collection, required/optional targets, and intervening-if.
+- [x] Match canonical DSL occurrence patterns and preserve look-back context
+  for enters/dies/draw, including source LKI and occurrence snapshots.
+- [x] Implement two-pass APNAP placement and typed controller ordering for
+  canonical trigger groups; legacy groups retain stable ordering while their
+  target semantics migrate.
+- [ ] Bind every canonical trigger mode/target shape before ordinary priority;
+  one-clause object and player targets are implemented, while modal,
+  multi-clause, and stack-item target offers remain for the later target/mode
+  slices.
+- [ ] Add the remaining conformance tests for OR matching, draw-three
+  collection, required/optional targets, and intervening-if; the current
+  suite covers three simultaneous canonical deaths, pinned source departure,
+  canonical player target offers, and the existing intervening-if gate tests.
 - [ ] Run focused/full validation, inspect the diff, push, and open the ready PR.
 
 ## Rules references
