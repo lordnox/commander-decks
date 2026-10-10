@@ -182,6 +182,7 @@ const canonicalFilterMatch = (
 
 const canonicalPatternMatches = (
   state: GameState,
+  beforeState: GameState,
   source: GameObject,
   ability: TriggeredAbilityDefinition,
   pattern: OccurrencePattern,
@@ -192,9 +193,9 @@ const canonicalPatternMatches = (
     if (event.type !== 'draw' || !occurrence.player) return false
     const player = occurrence.player
     if (pattern.filter.firstDrawInOwnDrawStep
-      && (state.step !== 'draw'
-        || state.active !== player
-        || cardsDrawnThisTurn(state.players[player]) !== 0)) return false
+      && (beforeState.step !== 'draw'
+        || beforeState.active !== player
+        || cardsDrawnThisTurn(beforeState.players[player]) !== 0)) return false
     if (!pattern.filter.player) return true
     if (pattern.filter.player.kind === 'players') {
       return evaluatePlayerSelector(pattern.filter.player, {
@@ -256,9 +257,10 @@ const canonicalTriggersForOccurrence = (
         'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
         event.type === 'gainLife' ? event.amount : undefined,
       )
-      if (!canonicalPatternMatches(state, source, candidate, candidate.on, occurrence, event)) return
+      const predicateState = candidate.on.kind === 'dies' ? state : draft
+      if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
       const context = {
-        state,
+        state: predicateState,
         controller: source.controller,
         source: captureObject(source),
         occurrence,
@@ -267,9 +269,10 @@ const canonicalTriggersForOccurrence = (
       if (seen.has(occurrenceKey)) return
       seen.add(occurrenceKey)
       const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
+      const frequencySource = draft.object(source.id) ?? source
       if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
-        if (!mayTriggerFirstMatchingEachTurn(source, frequencyKey, state.turn)) return
-        markFirstMatchingEachTurn(draft.object(source.id) ?? source, frequencyKey, state.turn)
+        if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
+        markFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)
       }
       if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
       // An intervening-if condition gates both trigger creation and resolution.
@@ -277,7 +280,7 @@ const canonicalTriggersForOccurrence = (
       // evaluates the same definition again when the ability resolves.
       if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
       if (candidate.frequency?.kind === 'onceEachTurn'
-        && !mayTriggerOnceEachTurn(source, frequencyKey, state.turn)) return
+        && !mayTriggerOnceEachTurn(frequencySource, frequencyKey, state.turn)) return
       matches.push({
         source,
         effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
@@ -293,7 +296,7 @@ const canonicalTriggersForOccurrence = (
         triggeredByAbility: false,
       })
       if (candidate.frequency?.kind === 'onceEachTurn') {
-        markTriggeredOnceEachTurn(draft.object(source.id) ?? source, frequencyKey, state.turn)
+        markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
       }
     })
   }
