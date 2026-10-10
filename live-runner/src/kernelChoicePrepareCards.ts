@@ -170,6 +170,7 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
       judge: 'Waiting for a discard choice on the stack.',
     },
     hand,
+    { purpose: 'cost', cancellation: 'mustAnswer' },
   )
 }
 
@@ -197,6 +198,8 @@ export const prepareCastTransformedChoice = (kernel: KernelHandle, lobby: LobbyS
       prompt: `Cast ${source?.name ?? 'the defeated Siege'} transformed without paying its mana cost?`,
       judge: 'Waiting for the defeated Siege casting choice.',
     },
+    [],
+    { phase: 'replacement', purpose: 'replacement', cancellation: 'cancelProposal' },
   )
 }
 
@@ -300,6 +303,11 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         : `Waiting for a choice from ${lobby.occupants[seat]?.name ?? seat}.`,
     },
     offer.ids.map((objectId) => state.objects[objectId]),
+    {
+      phase: selection.kind === 'scry' || selection.kind === 'surveil' ? 'replacement' : 'resolution',
+      purpose: selection.kind === 'discard' || selection.kind === 'sacrifice' ? 'cost' : 'choice',
+      cancellation: 'mustAnswer',
+    },
   )
 }
 

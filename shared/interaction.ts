@@ -44,10 +44,12 @@ export type TargetClauseOffer = {
   distinct: boolean
 }
 
+export type TargetClauseRef = { scopeId: string; clauseIndex: number }
+
 export type TargetConstraintOffer =
-  | { kind: 'different'; clauses: number[] }
-  | { kind: 'sameController'; clauses: number[] }
-  | { kind: 'differentZone'; clauses: number[] }
+  | { kind: 'different'; clauses: TargetClauseRef[] }
+  | { kind: 'sameController'; clauses: TargetClauseRef[] }
+  | { kind: 'differentZone'; clauses: TargetClauseRef[] }
 
 export type OptionOffer = { id: string; label: string }
 export type PublicEntryRef = { id: string; label?: string }
@@ -174,23 +176,27 @@ export const validateInteractionAnswer = (
     case 'selectTargets': {
       if (request.selection.kind !== 'selectTargets') return { ok: false, error: 'target offer mismatch' }
       if (selection.clauses.length !== request.selection.clauses.length) return { ok: false, error: 'every target clause must be answered' }
-      const clauses = new Map(request.selection.clauses.map((clause) => [clause.clauseIndex, clause]))
-      const seenClauses = new Set<number>()
-      const selectedByClause = new Map<number, TargetCandidate[]>()
+      const clauseKey = (scopeId: string, clauseIndex: number) => `${scopeId}:${clauseIndex}`
+      const clauses = new Map(request.selection.clauses.map((clause) => [clauseKey(clause.scopeId, clause.clauseIndex), clause]))
+      const seenClauses = new Set<string>()
+      const selectedByClause = new Map<string, TargetCandidate[]>()
       for (const selected of selection.clauses) {
-        const clause = clauses.get(selected.clauseIndex)
+        const selectedKey = clauseKey(selected.scopeId, selected.clauseIndex)
+        const clause = clauses.get(selectedKey)
         if (!clause) return { ok: false, error: 'target clause was not offered' }
-        if (seenClauses.has(selected.clauseIndex) || selected.scopeId !== clause.scopeId) return { ok: false, error: 'target clause was duplicated or used in the wrong scope' }
-        seenClauses.add(selected.clauseIndex)
-        const allowed = new Set(clause.candidates.map(candidateKeys))
+        if (seenClauses.has(selectedKey)) return { ok: false, error: 'target clause was duplicated or used in the wrong scope' }
+        seenClauses.add(selectedKey)
+        const allowed = new Map(clause.candidates.map((candidate) => [candidateKeys(candidate), candidate]))
         const keys = selected.targets.map(candidateKeys)
         if (!keys.every((key) => allowed.has(key))) return { ok: false, error: 'target was not offered' }
         if (!validateBounds(keys.length, clause.min, clause.max, clause.distinct, keys)) return { ok: false, error: 'invalid target selection' }
-        selectedByClause.set(selected.clauseIndex, selected.targets)
+        // Use the server's candidate metadata for constraints. A client may
+        // repeat an offered identity, but cannot forge its controller or zone.
+        selectedByClause.set(selectedKey, keys.map((key) => allowed.get(key)!))
       }
       if (seenClauses.size !== clauses.size) return { ok: false, error: 'every target clause must be answered exactly once' }
       for (const constraint of request.selection.constraints) {
-        const groups = constraint.clauses.map((clauseIndex) => selectedByClause.get(clauseIndex) ?? [])
+        const groups = constraint.clauses.map(({ scopeId, clauseIndex }) => selectedByClause.get(clauseKey(scopeId, clauseIndex)) ?? [])
         if (constraint.kind === 'different') {
           const keys = groups.flat().map(candidateKeys)
           if (!unique(keys)) return { ok: false, error: 'different target constraint was violated' }

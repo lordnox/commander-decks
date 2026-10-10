@@ -90,7 +90,7 @@ import { createLobby } from './lobby'
 import {
   applyKernelAct,
   applyKernelAdvance,
-  applyKernelChoice,
+  applyKernelChoice as applyKernelChoiceImpl,
   assertAgentKernelBoundary,
   kernelActions,
   kernelPath,
@@ -128,6 +128,8 @@ const slotted = (
   const taken = new Set<number>()
   return {
     ...message,
+    ...(lobby.topdeck?.requestId === undefined ? {} : { requestId: lobby.topdeck.requestId }),
+    ...(lobby.topdeck?.revision === undefined ? {} : { revision: lobby.topdeck.revision }),
     choices: message.choices.map((choice) => {
       const slot = offered.findIndex((card, index) => card === choice.card && !taken.has(index))
       taken.add(slot)
@@ -135,6 +137,23 @@ const slotted = (
     }),
   }
 }
+
+// Test callers that construct the wire payload inline still pass through the
+// same server-issued envelope fields as the browser and headless clients.
+const applyKernelChoice = (
+  kernel: KernelHandle,
+  lobby: ReturnType<typeof createLobby>,
+  seat: SeatId,
+  message: TopdeckMessage,
+) => applyKernelChoiceImpl(kernel, lobby, seat, {
+  ...message,
+  ...(message.requestId === undefined && lobby.topdeck?.requestId !== undefined
+    ? { requestId: lobby.topdeck.requestId }
+    : {}),
+  ...(message.revision === undefined && lobby.topdeck?.revision !== undefined
+    ? { revision: lobby.topdeck.revision }
+    : {}),
+})
 
 const mkdirGames = (root: string) => {
   writeFileSync(join(root, 'package.json'), '{}\n')

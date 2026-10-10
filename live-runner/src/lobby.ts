@@ -5,6 +5,7 @@ import type {
   InteractionPurpose,
   InteractionRequest,
 } from '../../shared/interaction'
+import type { StoredInteraction } from '../../rules-engine/src/interaction'
 import {
   SEAT_IDS,
   type InboxMessage,
@@ -131,6 +132,10 @@ export type LobbyState = {
   pendingKernelPlans: Partial<Record<SeatId, PendingKernelPlan>>
   /** Completed request IDs are retained so duplicate answers cannot rerun effects. */
   completedInteractions?: Record<string, string>
+  /** Persisted server-owned request records for reconnect and exactly-once answers. */
+  interactionLedger?: Array<StoredInteraction<TopdeckDecision, boolean>>
+  /** Monotonic server revision for newly opened interaction requests. */
+  interactionRevision?: number
 }
 
 const emptyActionIds = (): SeatActionIds => ({
@@ -222,6 +227,8 @@ export const createLobby = (headline = 'Live table'): LobbyState => ({
   holds: {},
   pendingKernelPlans: {},
   completedInteractions: {},
+  interactionRevision: 0,
+  interactionLedger: [],
 })
 
 export type LobbyParts = {
@@ -251,6 +258,8 @@ export const lobbyFromParts = (parts: LobbyParts): LobbyState => ({
   holds: {},
   pendingKernelPlans: {},
   completedInteractions: {},
+  interactionRevision: 0,
+  interactionLedger: [],
 })
 
 export const restoreLobby = (

@@ -113,6 +113,13 @@ export const prepareKernelPendingChoice = (
   kernel: KernelHandle,
   lobby: LobbyState,
 ) => {
+  // A host rebuilt from the authoritative journal must seed its session
+  // counter from that journal before opening the first prompt. This keeps a
+  // reconstructed request's revision identical to the request it replaces;
+  // subsequent prompts advance the persisted lobby counter.
+  if (!lobby.topdeck && (lobby.interactionRevision ?? 0) === 0) {
+    lobby.interactionRevision = kernel.journal.events.length
+  }
   if (lobby.topdeck) {
     if (!kernelDialogIsStale(kernel, lobby)) return false
     delete lobby.topdeck
