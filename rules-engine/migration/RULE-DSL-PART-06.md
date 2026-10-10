@@ -32,11 +32,16 @@ answer. No nested event application grants priority or places ordinary triggers.
   one-clause object and player targets are implemented, while modal,
   multi-clause, and stack-item target offers remain for the later target/mode
   slices.
-- [ ] Add the remaining conformance tests for OR matching, draw-three
-  collection, required/optional targets, and intervening-if; the current
-  suite covers three simultaneous canonical deaths, pinned source departure,
-  canonical player target offers, and the existing intervening-if gate tests.
-- [ ] Run focused/full validation, inspect the diff, push, and open the ready PR.
+- [x] Add conformance tests for three simultaneous canonical deaths, pinned
+  source departure, OR matching, draw-three collection, and canonical player
+  target offers; existing target-driver tests cover the intervening-if gate.
+  A direct canonical optional-target placement test remains with the later
+  multi-clause target offer work.
+- [x] Run focused/full validation, inspect the diff, push, and open ready PR
+  #343 against the Part 05 branch. The full rules suite is 2,224 passing,
+  site checks are 41 passing, and type/import/live-runner checks pass. The
+  coverage-ledger check is stale on the Part 05 base and would rewrite
+  unrelated line evidence, so that generated file is intentionally unchanged.
 
 ## Rules references
 
