@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { continueCanonicalModeTargets, continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import { canonicalModeScopeId } from '../cardPlugins/dsl/compiler/targeting'
 import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
@@ -59,6 +60,10 @@ export type PendingOptionSelection = {
     selectedModes: number[]
     modeClauses?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
     modeClausesByMode?: import('../cardPlugins/dsl/schema/v1').TargetClause[][]
+    baseTargetClauses?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
+    baseTargetScopeIds?: string[]
+    baseTargetModeIndices?: Array<number | undefined>
+    modeScopeIds?: string[]
   } | {
     kind: 'putCanonicalStackTarget'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
@@ -71,6 +76,9 @@ export type PendingOptionSelection = {
     selectedTargets: TargetRef[]
     selectedStackTargets: string[]
     selectedModes?: number[]
+    targetScopeIds?: string[]
+    targetModeIndices?: Array<number | undefined>
+    modeScopeIds?: string[]
   }
 }
 
@@ -152,6 +160,7 @@ export const selectOptions: Plugin = {
         ? selectedModes.flatMap((index) => modeClausesByMode[index] ?? [])
         : selection.action.modeClauses
       if (modeClauses && modeClauses.length > 0) {
+        const abilityIndex = selection.action.abilityIndex
         continueCanonicalModeTargets(draft, {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
@@ -160,7 +169,18 @@ export const selectOptions: Plugin = {
           sourceId: selection.action.sourceId,
           targets: selection.action.targets,
           selectedModes,
-          clauses: modeClauses,
+          clauses: [ ...(selection.action.baseTargetClauses ?? []), ...modeClauses ],
+          targetScopeIds: [
+            ...(selection.action.baseTargetScopeIds ?? []),
+            ...selectedModes.flatMap((selectedModeIndex, occurrence) =>
+              (modeClausesByMode?.[selectedModeIndex] ?? []).map(() =>
+                canonicalModeScopeId(abilityIndex, selectedModeIndex, occurrence))),
+          ],
+          targetModeIndices: [
+            ...(selection.action.baseTargetModeIndices ?? []),
+            ...selectedModes.flatMap((selectedModeIndex) => (modeClausesByMode?.[selectedModeIndex] ?? []).map(() => selectedModeIndex)),
+          ],
+          initialClauseIndex: selection.action.baseTargetClauses?.length ?? 0,
         })
         return
       }
@@ -180,6 +200,7 @@ export const selectOptions: Plugin = {
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
           modeIndices: selectedModes,
+          ...(selection.action.modeScopeIds ? { modeScopeIds: [...selection.action.modeScopeIds] } : {}),
           targetBindings: selection.action.targetBindings,
         },
       })
@@ -224,6 +245,9 @@ export const selectOptions: Plugin = {
         targetClauses: selection.action.targetClauseDefinitions,
         targets,
         selectedModes: selection.action.selectedModes,
+        targetScopeIds: selection.action.targetScopeIds,
+        targetModeIndices: selection.action.targetModeIndices,
+        modeScopeIds: selection.action.modeScopeIds,
         clauseBounds: bounds,
         clauseIndex: selection.action.targetIndex + 1,
       })

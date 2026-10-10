@@ -32,9 +32,11 @@ answer. No nested event application grants priority or places ordinary triggers.
   their deterministic order because there is no semantic distinction to show.
 - [x] Bind canonical trigger modes and target shapes before ordinary priority
   for modal programs, optional/impossible clauses, mixed player/object clauses,
-  repeated same-object clauses, selected-mode-local clauses, and stack-item
-  targets. Each clause keeps its own bounds and pinned identity; explicit
-  cross-clause constraints remain enforced by the canonical binder.
+  repeated same-object clauses, selected-mode-local clauses, base ability
+  targets, and stack-item targets. Each clause keeps its own bounds and pinned
+  identity. Each selected mode occurrence now has a distinct execution scope,
+  so repeated modes retain local `targetRef` indices and mode-local constraints
+  while base-program bindings remain in the base scope.
 - [x] Add conformance tests for three simultaneous canonical deaths, pinned
   source departure, OR matching, draw-three collection, canonical player target
   offers, modal mode announcement/resolution, selected mode-local targets,
@@ -43,8 +45,8 @@ answer. No nested event application grants priority or places ordinary triggers.
 - [x] Complete the remaining legacy one-controller ordering path, including
   distinct host-facing labels and journal/reconnect coverage. Existing repeated
   equivalent legacy instances retain their deterministic order.
-- [x] Rerun full rules validation after the final review fixes: 2,230 tests and
-  7,156 assertions pass. The live/codec baseline remains 216 passing tests,
+- [x] Rerun full rules validation after the final review fixes: 2,233 tests and
+  7,165 assertions pass. The live/codec baseline remains 216 passing tests,
   1,008 assertions, and the one documented generated-handler fixture failure;
   no new failure is treated as baseline without a fresh result.
 
