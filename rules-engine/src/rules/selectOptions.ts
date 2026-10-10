@@ -1,5 +1,6 @@
 import type Draft from '../draft'
-import type { GameState, ManaPool, PlayerId, Plugin } from '../types'
+import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -44,6 +45,14 @@ export type PendingOptionSelection = {
   } | {
     /** The color a permanent stores as it enters. */
     kind: 'choose-color'
+  } | {
+    kind: 'putCanonicalModeTriggeredAbility'
+    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    abilityIndex: number
+    execution: import('../types').StackExecutionContext
+    sourceId: string
+    targets: TargetRef[]
+    targetBindings: CanonicalTargetBinding[]
   }
 }
 
@@ -99,5 +108,28 @@ export const selectOptions: Plugin = {
     const selection = pendingOptionSelection(draft, event.seat)
     if (!selection || selection.id !== event.selectionId) return
     delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+    if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
+      const modeIndex = Number(event.optionId.replace('mode:', ''))
+      const source = draft.object(selection.action.sourceId) ?? selection.action.execution.source.snapshot
+      const definition = loadDefinitionSnapshot(selection.action.definitionSnapshot).definition
+      const ability = definition.abilities[selection.action.abilityIndex]
+      if (!source || !ability || ability.kind !== 'triggered' || !('modes' in ability) || !ability.modes?.[modeIndex]) return
+      draft.addToStack({
+        kind: 'ability',
+        objectId: source.id,
+        controller: selection.action.execution.controller,
+        name: source.name,
+        targets: selection.action.targets,
+        execution: {
+          ...selection.action.execution,
+          definitionSnapshot: selection.action.definitionSnapshot,
+          abilityIndex: selection.action.abilityIndex,
+          modeIndices: [modeIndex],
+          targetBindings: selection.action.targetBindings,
+        },
+      })
+      draft.passedInRow = []
+      draft.priority = null
+    }
   },
 }

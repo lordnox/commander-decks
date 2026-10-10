@@ -395,6 +395,8 @@ export type StackExecutionContext = {
   targetBindings?: CanonicalTargetBinding[]
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
+  /** Chosen modal branches, captured before priority is returned. */
+  modeIndices?: number[]
   declarationPath?: string
 }
 

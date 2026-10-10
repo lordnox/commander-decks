@@ -28,20 +28,23 @@ answer. No nested event application grants priority or places ordinary triggers.
 - [x] Implement two-pass APNAP placement and typed controller ordering for
   canonical trigger groups; legacy groups retain stable ordering while their
   target semantics migrate.
-- [ ] Bind every canonical trigger mode/target shape before ordinary priority;
-  one-clause object and player targets are implemented, while modal,
-  multi-clause, and stack-item target offers remain for the later target/mode
-  slices.
+- [x] Bind canonical trigger modes and target shapes before ordinary priority
+  for modal programs, optional/impossible one-clause targets, and homogeneous
+  multi-clause player/object targets. Stack-item target offers and mixed player/object
+  clauses remain explicitly unsupported by the current typed picker and are tracked
+  for the next target-surface slice.
 - [x] Add conformance tests for three simultaneous canonical deaths, pinned
-  source departure, OR matching, draw-three collection, and canonical player
-  target offers; existing target-driver tests cover the intervening-if gate.
-  A direct canonical optional-target placement test remains with the later
-  multi-clause target offer work.
-- [x] Run focused/full validation, inspect the diff, push, and open ready PR
-  #343 against the Part 05 branch. The full rules suite is 2,224 passing,
-  site checks are 41 passing, and type/import/live-runner checks pass. The
-  coverage-ledger check is stale on the Part 05 base and would rewrite
-  unrelated line evidence, so that generated file is intentionally unchanged.
+  source departure, OR matching, draw-three collection, canonical player target
+  offers, modal mode announcement/resolution, false-at-capture intervening-if,
+  and host-facing trigger ordering. Existing driver tests cover resolution-time
+  intervening-if and optional target binding; the established draw-resolution
+  regression covers multiple instructions without an intermediate priority window.
+- [ ] Rerun focused/full validation, inspect the diff, and update ready PR #343
+  against the Part 05 branch. The pre-review baseline was 2,224 rules tests /
+  7,137 assertions and 216 live+codec tests / 1 documented generated-handler
+  fixture failure / 1,008 assertions. The coverage-ledger check is stale on the
+  Part 05 base and would rewrite unrelated line evidence, so that generated file
+  remains intentionally unchanged.
 
 ## Rules references
 

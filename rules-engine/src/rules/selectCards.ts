@@ -101,13 +101,14 @@ export type PendingCardSelection = {
     remainingAfter?: number
   }
   /** CR 603.3b ordering answer for a controller's pending trigger group. */
-  triggerOrder?: { ids: string[]; pass: 1 | 2 }
+  triggerOrder?: { ids: string[]; pass: 1 | 2; entries?: Array<{ id: string; label: string }> }
   /** Canonical triggered ability target answer, retained until it is stacked. */
   canonicalTrigger?: {
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
     abilityIndex: number
     execution: StackExecutionContext
     sourceId: string
+    targetClauses?: Array<{ min: number; max: number }>
   }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
@@ -533,6 +534,23 @@ const applyTopDeckChoices = (
   }
 }
 
+const partitionCanonicalTargetClauses = (
+  supplied: readonly { kind: 'object'; objectId: string; incarnation?: number; zone?: import('../types').ZoneId }[],
+  bounds: readonly { min: number; max: number }[],
+) => {
+  const grouped: Array<typeof supplied[number][]> = []
+  let offset = 0
+  for (const [index, bound] of bounds.entries()) {
+    const remainingMinimum = bounds.slice(index + 1).reduce((sum, next) => sum + next.min, 0)
+    const count = Math.min(bound.max, supplied.length - offset - remainingMinimum)
+    if (count < bound.min) throw new Error('canonical target clauses cannot be partitioned')
+    grouped.push(supplied.slice(offset, offset + count))
+    offset += count
+  }
+  if (offset !== supplied.length) throw new Error('canonical target clauses left targets unbound')
+  return grouped
+}
+
 const applySelectCards = (draft: Draft, event: GameEvent) => {
   if (event.type !== 'selectCards') return
 
@@ -738,6 +756,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       kind: 'object' as const,
       ...(selection.targetIdentities?.[objectId] ?? { objectId }),
     }))
+    const grouped = selection.canonicalTrigger.targetClauses
+      ? partitionCanonicalTargetClauses(supplied, selection.canonicalTrigger.targetClauses)
+      : undefined
     const bindings = canonicalTargetBindings(
       draft,
       source,
@@ -745,7 +766,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       selection.canonicalTrigger.abilityIndex,
       supplied,
       undefined,
-      undefined,
+      grouped,
       selection.canonicalTrigger.execution.controller,
     )
     draft.addToStack({

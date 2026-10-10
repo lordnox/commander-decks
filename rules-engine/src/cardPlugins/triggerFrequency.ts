@@ -5,6 +5,8 @@ type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 export type TriggerFrequencySlot = {
   /** Turn this ability last triggered (stacked), for `onceEachTurn`. */
   triggeredTurn?: number
+  /** Turn the first matching occurrence was observed, for `firstMatchingEachTurn`. */
+  firstMatchingTurn?: number
   /** Turn we are counting resolutions on, for `whenResolvedNth`. */
   resolveCountTurn?: number
   /** Resolutions of this ability on `resolveCountTurn`. */
@@ -79,4 +81,18 @@ export const bumpResolveCountThisTurn = (
   }
   entry.resolveCount = (entry.resolveCount ?? 0) + 1
   return entry.resolveCount
+}
+
+export const mayTriggerFirstMatchingEachTurn = (
+  object: { triggerFrequency?: TriggerFrequencyState },
+  key: string,
+  turn: number,
+) => slot(object, key).firstMatchingTurn !== turn
+
+export const markFirstMatchingEachTurn = (
+  object: { triggerFrequency?: TriggerFrequencyState },
+  key: string,
+  turn: number,
+) => {
+  slot(object, key).firstMatchingTurn = turn
 }

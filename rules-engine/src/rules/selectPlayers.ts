@@ -45,6 +45,7 @@ export type PendingPlayerSelection = {
         abilityIndex: number
         execution: StackExecutionContext
         sourceId: string
+        targetClauses?: Array<{ min: number; max: number }>
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -106,6 +107,23 @@ const clearSelection = (draft: Draft, seat: PlayerId) => {
   } else {
     delete draft.players[seat].data[PENDING_PLAYER_SELECTION]
   }
+}
+
+const partitionTargetClauses = (
+  supplied: readonly Extract<Parameters<typeof canonicalTargetBindings>[4][number], { kind: 'player' }>[],
+  bounds: readonly { min: number; max: number }[],
+) => {
+  const grouped: Array<typeof supplied[number][]> = []
+  let offset = 0
+  for (const [index, bound] of bounds.entries()) {
+    const remainingMinimum = bounds.slice(index + 1).reduce((sum, next) => sum + next.min, 0)
+    const count = Math.min(bound.max, supplied.length - offset - remainingMinimum)
+    if (count < bound.min) throw new Error('canonical target clauses cannot be partitioned')
+    grouped.push(supplied.slice(offset, offset + count))
+    offset += count
+  }
+  if (offset !== supplied.length) throw new Error('canonical target clauses left targets unbound')
+  return grouped
 }
 
 export const selectPlayers: Plugin = {
@@ -185,6 +203,9 @@ export const selectPlayers: Plugin = {
       const source = draft.object(selection.action.sourceId) ?? selection.action.execution.source.snapshot
       const definition = loadDefinitionSnapshot(selection.action.definitionSnapshot).definition
       const supplied = event.players.map((player) => ({ kind: 'player' as const, player }))
+      const grouped = selection.action.targetClauses
+        ? partitionTargetClauses(supplied, selection.action.targetClauses)
+        : [supplied]
       const bindings = canonicalTargetBindings(
         draft,
         source,
@@ -192,7 +213,7 @@ export const selectPlayers: Plugin = {
         selection.action.abilityIndex,
         supplied,
         undefined,
-        [supplied],
+        grouped,
         selection.action.execution.controller,
       )
       draft.addToStack({

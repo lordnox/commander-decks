@@ -5,6 +5,7 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from './selectCards'
+import { pendingOptionSelection } from './selectOptions'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -85,6 +86,35 @@ describe('canonical triggered abilities', () => {
     }))
     expect(placed.pendingTriggers).toBeUndefined()
     expect(placed.stack).toHaveLength(3)
+  })
+
+  test('announces modal triggered modes before the ability receives priority', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'draw', filter: {} },
+        {
+          decisions: { modes: { count: amount(1), repeatable: false } },
+          modes: [
+            { instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }] },
+            { instructions: [{ kind: 'gainLife', amount: amount(2), targets: { kind: 'contextRef', name: 'controller' } }] },
+          ],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Modal Draw Artist', { types: ['Creature'], ruleDefinition: snapshot })] },
+      libraries: { p1: [cardTemplate('Draw One')] },
+    }, { random: () => 0 })
+    const waiting = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+    const choice = pendingOptionSelection(waiting, 'p1')!
+    expect(choice.options).toHaveLength(2)
+    const chosen = ok(server.rules(waiting, {
+      type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: 'mode:1',
+    }))
+    expect(chosen.stack).toHaveLength(1)
+    const resolved = resolveStack(server.rules, chosen)
+    expect(resolved.players.p1.life).toBe(42)
   })
 
   test('deduplicates one OR occurrence and collects draw-three triggers before placement', () => {
