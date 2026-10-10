@@ -80,6 +80,7 @@ export const projectForViewer = (
   projected.knowledge = { mode: 'replica', viewer }
   delete projected.resolution
   delete projected.pendingTriggers
+  delete projected.triggerPlacement
   stripAuthoritativeExecution(projected.stack)
   for (const player of projected.playerOrder) {
     stripAuthoritativeExecution(projected.players[player].data)

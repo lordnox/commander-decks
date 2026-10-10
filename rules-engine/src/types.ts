@@ -456,15 +456,32 @@ export type ResolutionFrame = CanonicalResolutionFrame | LegacyResolutionFrame
  * ordering with the full typed APNAP ordering request.
  */
 export type PendingTrigger = {
+  /** Stable identity for this occurrence/ability pair while it waits for a checkpoint. */
+  id: string
   source: GameObject
   instructions: CardInstruction[]
   effect: Pick<Extract<import('./cardPlugins/effects').CardEffect, { op: 'trigger' }>, 'do' | 'if' | 'targets' | 'onceEachTurn' | 'whenResolvedNth'>
   execution: StackExecutionContext
+  /** Canonical DSL triggered ability pinned at the occurrence. */
+  canonical?: {
+    definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    abilityIndex: number
+  }
+  /** CR 603.3b second-pass marker: this occurrence was caused by an ability triggering. */
+  triggeredByAbility?: boolean
   triggerEffectKey?: string
   triggeringObjectId?: string
   triggeringPlayer: PlayerId
   triggerAmount?: number
   payload?: Record<string, unknown>
+}
+
+/** Serializable cursor for the two APNAP placement passes in CR 603.3b. */
+export type TriggerPlacementFrame = {
+  version: 1
+  pass: 1 | 2
+  controller?: PlayerId
+  orderIds?: string[]
 }
 
 /**
@@ -525,6 +542,8 @@ export type GameState = {
   resolution?: ResolutionFrame
   /** Captured triggers waiting for the next explicit checkpoint. */
   pendingTriggers?: PendingTrigger[]
+  /** Private placement cursor; removed from client projections with pending triggers. */
+  triggerPlacement?: TriggerPlacementFrame
   delayedTriggers: DelayedTrigger[]
   active: PlayerId
   priority: PlayerId | null
