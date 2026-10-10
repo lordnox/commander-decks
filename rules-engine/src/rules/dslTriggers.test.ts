@@ -86,4 +86,34 @@ describe('canonical triggered abilities', () => {
     expect(placed.pendingTriggers).toBeUndefined()
     expect(placed.stack).toHaveLength(3)
   })
+
+  test('deduplicates one OR occurrence and collects draw-three triggers before placement', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'dies', filter: { any: [{ type: 'Creature' }, { name: 'Victim' }] } },
+        { instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }] },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('OR Artist', { types: ['Creature'], ruleDefinition: snapshot }), cardTemplate('Victim', { types: ['Creature'] })] },
+    }, { random: () => 0 })
+    const victim = named(server.state, 'Victim')
+    const died = ok(server.rules(server.state, { type: 'move', objectId: victim.id, to: 'graveyard' }))
+    expect(died.stack).toHaveLength(1)
+
+    const drawSnapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'draw', filter: {} },
+        { instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }] },
+      ),
+    ])))
+    const drawServer = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Draw Artist', { types: ['Creature'], ruleDefinition: drawSnapshot })] },
+      libraries: { p1: [cardTemplate('Draw One'), cardTemplate('Draw Two'), cardTemplate('Draw Three')] },
+    }, { random: () => 0 })
+    const drawn = ok(drawServer.rules(drawServer.state, { type: 'draw', seat: 'p1', count: 3 }))
+    expect(drawn.pendingTriggers).toHaveLength(3)
+  })
 })

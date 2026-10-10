@@ -210,8 +210,15 @@ const canonicalPatternMatches = (
     }).includes(player)
   }
   if (event.type !== 'move') return false
-  if (pattern.kind === 'enters' && event.to !== 'battlefield') return false
-  if (pattern.kind === 'dies' && (event.to !== 'graveyard' || occurrence.object?.before?.types.includes('Creature') !== true)) return false
+  if (pattern.kind === 'enters' && (
+    event.to !== 'battlefield'
+    || occurrence.object?.before?.zone === 'battlefield'
+  )) return false
+  if (pattern.kind === 'dies' && (
+    event.to !== 'graveyard'
+    || occurrence.object?.before?.zone !== 'battlefield'
+    || occurrence.object?.before?.types.includes('Creature') !== true
+  )) return false
   const object = pattern.kind === 'dies'
     ? occurrence.object?.before
     : occurrence.object?.after
@@ -225,8 +232,8 @@ const canonicalTriggersForOccurrence = (
   matches: PendingTrigger[],
 ) => {
   const sources = event.type === 'move' && state.objects[event.objectId]?.zone === 'battlefield'
-    ? Object.values(state.objects).filter((object) => object.zone === 'battlefield')
-    : draft.zoneOf('battlefield')
+    ? Object.values(state.objects)
+    : Object.values(draft.objects)
   const seen = new Set<string>()
   for (const source of sources) {
     const definitionSnapshot = source.ruleDefinition
