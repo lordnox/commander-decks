@@ -3,8 +3,8 @@ import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } from '../types'
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
 import { openOpponentPilePartition } from './selectCards'
-import { canonicalTargetBindings } from '../cardPlugins/dsl/compiler/targeting'
-import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import type { TargetRef } from '../types'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -46,6 +46,10 @@ export type PendingPlayerSelection = {
         execution: StackExecutionContext
         sourceId: string
         targetClauses?: Array<{ min: number; max: number }>
+        targetClauseDefinitions?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
+        targetIndex?: number
+        selectedTargets?: TargetRef[]
+        selectedModes?: number[]
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -107,23 +111,6 @@ const clearSelection = (draft: Draft, seat: PlayerId) => {
   } else {
     delete draft.players[seat].data[PENDING_PLAYER_SELECTION]
   }
-}
-
-const partitionTargetClauses = (
-  supplied: readonly Extract<Parameters<typeof canonicalTargetBindings>[4][number], { kind: 'player' }>[],
-  bounds: readonly { min: number; max: number }[],
-) => {
-  const grouped: Array<typeof supplied[number][]> = []
-  let offset = 0
-  for (const [index, bound] of bounds.entries()) {
-    const remainingMinimum = bounds.slice(index + 1).reduce((sum, next) => sum + next.min, 0)
-    const count = Math.min(bound.max, supplied.length - offset - remainingMinimum)
-    if (count < bound.min) throw new Error('canonical target clauses cannot be partitioned')
-    grouped.push(supplied.slice(offset, offset + count))
-    offset += count
-  }
-  if (offset !== supplied.length) throw new Error('canonical target clauses left targets unbound')
-  return grouped
 }
 
 export const selectPlayers: Plugin = {
@@ -200,37 +187,25 @@ export const selectPlayers: Plugin = {
       }
     }
     if (selection.action.kind === 'putCanonicalTriggeredAbility') {
-      const source = draft.object(selection.action.sourceId) ?? selection.action.execution.source.snapshot
-      const definition = loadDefinitionSnapshot(selection.action.definitionSnapshot).definition
-      const supplied = event.players.map((player) => ({ kind: 'player' as const, player }))
-      const grouped = selection.action.targetClauses
-        ? partitionTargetClauses(supplied, selection.action.targetClauses)
-        : [supplied]
-      const bindings = canonicalTargetBindings(
-        draft,
-        source,
-        definition,
-        selection.action.abilityIndex,
-        supplied,
-        undefined,
-        grouped,
-        selection.action.execution.controller,
-      )
-      draft.addToStack({
-        kind: 'ability',
-        objectId: selection.action.sourceId,
-        controller: selection.action.execution.controller,
-        name: source.name,
-        targets: supplied,
-        execution: {
-          ...selection.action.execution,
-          definitionSnapshot: selection.action.definitionSnapshot,
-          abilityIndex: selection.action.abilityIndex,
-          targetBindings: bindings,
-        },
-      })
-      draft.passedInRow = []
-      draft.priority = null
+      const selectedTargets = [
+        ...(selection.action.selectedTargets ?? []),
+        ...event.players.map((player) => ({ kind: 'player' as const, player })),
+      ]
+      const targetIndex = selection.action.targetIndex ?? 0
+      const targetClauses = selection.action.targetClauses ?? [{ min: event.players.length, max: event.players.length }]
+      const announcement = {
+        definitionSnapshot: selection.action.definitionSnapshot,
+        abilityIndex: selection.action.abilityIndex,
+        execution: selection.action.execution,
+        source: selection.action.execution.source.snapshot,
+        sourceId: selection.action.sourceId,
+        targetClauses: selection.action.targetClauseDefinitions ?? [],
+        targets: selectedTargets,
+        selectedModes: selection.action.selectedModes,
+        clauseBounds: targetClauses,
+        clauseIndex: targetIndex + 1,
+      }
+      continueCanonicalTargetSelection(draft, announcement)
       return
     }
     if (selection.action.kind === 'designateBattleProtector' && target) {

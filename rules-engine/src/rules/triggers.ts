@@ -19,7 +19,7 @@ import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import { validTarget } from '../cardPlugins/targetedResolve'
 import { openCardSelection, targetDestinations } from './selectCards'
-import { openOptionSelection } from './selectOptions'
+import { startCanonicalAnnouncement } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type {
@@ -43,9 +43,8 @@ import { cardsDrawnThisTurn } from './draw'
 import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
-import { evaluateTargetBounds, loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector } from '../cardPlugins/dsl/compiler/runtime'
-import { canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
+import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector } from '../cardPlugins/dsl/compiler/runtime'
 import type { ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
@@ -212,13 +211,17 @@ const canonicalPatternMatches = (
       occurrence,
     }).includes(player)
   }
-  if (event.type !== 'move') return false
+  const enteringId = permanentEnteringObjectId(event, state)
+  const createdToken = event.type === 'custom'
+    && event.name === 'cardPlugins.permanentEntered'
+    && event.payload?.createdToken === true
   if (pattern.kind === 'enters' && (
-    event.to !== 'battlefield'
-    || occurrence.object?.before?.zone === 'battlefield'
+    !enteringId
+    || (!createdToken && occurrence.object?.before?.zone === 'battlefield')
   )) return false
   if (pattern.kind === 'dies' && (
-    event.to !== 'graveyard'
+    event.type !== 'move'
+    || event.to !== 'graveyard'
     || occurrence.object?.before?.zone !== 'battlefield'
     || occurrence.object?.before?.types.includes('Creature') !== true
   )) return false
@@ -244,11 +247,12 @@ const canonicalTriggersForOccurrence = (
     const compiled = loadDefinitionSnapshot(definitionSnapshot)
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
       if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
+      const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
       const occurrence = capturedOccurrence(
         state,
         draft,
         event,
-        eventObjectId(event),
+        occurrenceObjectId,
         'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
         event.type === 'gainLife' ? event.amount : undefined,
       )
@@ -284,7 +288,7 @@ const canonicalTriggersForOccurrence = (
         execution: triggerExecution(source, occurrence, draft),
         triggerEffectKey: frequencyKey,
         triggeringPlayer: occurrence.player ?? source.controller,
-        triggeringObjectId: eventObjectId(event),
+        triggeringObjectId: occurrenceObjectId,
         triggerAmount: occurrence.amount,
         triggeredByAbility: false,
       })
@@ -759,8 +763,11 @@ const collectCasts = (
   }
 }
 
-const eventObjectId = (event: GameEvent) =>
-  'objectId' in event && typeof event.objectId === 'string' ? event.objectId : undefined
+const eventObjectId = (event: GameEvent) => {
+  if ('objectId' in event && typeof event.objectId === 'string') return event.objectId
+  if (event.type === 'custom' && typeof event.payload?.objectId === 'string') return event.payload.objectId
+  return undefined
+}
 
 const delayedTriggerMatches = (
   trigger: GameState['delayedTriggers'][number],
@@ -1000,187 +1007,14 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
   const definition = loadDefinitionSnapshot(canonical.definitionSnapshot).definition
   const ability = definition.abilities[canonical.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return true
-  const place = (targets: TargetRef[], grouped?: readonly (readonly TargetRef[])[]) => {
-    const targetBindings = canonicalTargetBindings(
-      draft,
-      source,
-      definition,
-      canonical.abilityIndex,
-      targets,
-      undefined,
-      grouped ?? (ability.decisions.targets.length === 0 ? [] : [targets]),
-      trigger.execution.controller,
-    )
-    if ('modes' in ability) {
-      openOptionSelection(draft, {
-        seat: trigger.execution.controller,
-        sourceId: source.id,
-        source: source.name,
-        prompt: `Choose a mode for ${source.name}.`,
-        options: (ability.modes ?? []).map((_, index) => ({
-          id: `mode:${index}`,
-          label: `Mode ${index + 1}`,
-        })),
-        action: {
-          kind: 'putCanonicalModeTriggeredAbility',
-          definitionSnapshot: canonical.definitionSnapshot,
-          abilityIndex: canonical.abilityIndex,
-          execution: trigger.execution,
-          sourceId: source.id,
-          targets,
-          targetBindings,
-        },
-      })
-      return
-    }
-    draft.addToStack({
-      kind: 'ability', objectId: source.id, controller: trigger.execution.controller,
-      name: source.name, targets,
-      execution: {
-        ...trigger.execution,
-        definitionSnapshot: canonical.definitionSnapshot,
-        abilityIndex: canonical.abilityIndex,
-        targetBindings,
-      },
-    })
-  }
-  if (ability.decisions.targets.length === 0) {
-    place([])
-    return true
-  }
-  const candidateGroups = canonicalTargetCandidates(
-    draft,
+  return startCanonicalAnnouncement(draft, {
+    definitionSnapshot: canonical.definitionSnapshot,
+    abilityIndex: canonical.abilityIndex,
+    execution: trigger.execution,
     source,
-    ability,
-    trigger.execution.controller,
-    trigger.execution.occurrence,
-  )
-  const bounds = ability.decisions.targets.map((clause) => evaluateTargetBounds(clause, {
-    ...amountEvaluationContext({
-      state: draft,
-      controller: trigger.execution.controller,
-      source: trigger.execution.source,
-      occurrence: trigger.execution.occurrence,
-    }),
-  }))
-  const allPlayers = candidateGroups.every((candidates) => candidates.every((candidate) => candidate.kind === 'player'))
-  const allObjects = candidateGroups.every((candidates) => candidates.every((candidate) => candidate.kind === 'object'))
-  const required = bounds.reduce((sum, bound) => sum + bound.min, 0)
-  const maximum = bounds.reduce((sum, bound) => sum + bound.max, 0)
-  const candidates = allPlayers
-    ? [...new Set(candidateGroups.flatMap((group) => group.flatMap((candidate) => candidate.kind === 'player' ? candidate.player : [])))]
-    : candidateGroups[0] ?? []
-  if (candidates.length < required) return true
-  if (maximum === 0 || candidates.length === 0) {
-    place([], ability.decisions.targets.map(() => []))
-    return true
-  }
-  if (ability.decisions.targets.length > 1 && allPlayers) {
-    openPlayerSelection(draft, {
-      seat: trigger.execution.controller,
-      sourceId: source.id,
-      source: source.name,
-      prompt: `Choose targets for ${source.name}.`,
-      min: required,
-      max: Math.min(maximum, candidates.length),
-      candidates: candidates as PlayerId[],
-      action: {
-        kind: 'putCanonicalTriggeredAbility',
-        definitionSnapshot: canonical.definitionSnapshot,
-        abilityIndex: canonical.abilityIndex,
-        execution: trigger.execution,
-        sourceId: source.id,
-        targetClauses: bounds,
-      },
-    })
-    return false
-  }
-  if (ability.decisions.targets.length > 1 && allObjects) {
-    const objectCandidates = [...new Map(
-      candidateGroups.flatMap((group) => group.flatMap((candidate) => candidate.kind === 'object'
-        ? [[candidate.objectId, candidate] as const]
-        : [])),
-    ).values()]
-    openCardSelection(draft, {
-      seat: trigger.execution.controller,
-      kind: 'choose',
-      count: Math.min(maximum, objectCandidates.length),
-      min: required,
-      candidates: objectCandidates.map((candidate) => candidate.objectId),
-      targetIdentities: Object.fromEntries(objectCandidates.map((candidate) => [
-        candidate.objectId, objectIdentity(draft.objects[candidate.objectId]),
-      ])),
-      sourceId: source.id,
-      source: source.name,
-      prompt: `Choose targets for ${source.name}.`,
-      destinations: targetDestinations(objectCandidates.length, required),
-      canonicalTrigger: {
-        definitionSnapshot: canonical.definitionSnapshot,
-        abilityIndex: canonical.abilityIndex,
-        execution: trigger.execution,
-        sourceId: source.id,
-        targetClauses: bounds,
-      },
-    })
-    return false
-  }
-  if (ability.decisions.targets.length !== 1) return true
-  const clause = ability.decisions.targets[0]
-  const singleClauseCandidates = candidateGroups[0] ?? []
-  const singleBounds = evaluateTargetBounds(clause, {
-    ...amountEvaluationContext({
-      state: draft,
-      controller: trigger.execution.controller,
-      source: trigger.execution.source,
-      occurrence: trigger.execution.occurrence,
-    }),
+    sourceId: source.id,
+    clauses: ability.decisions.targets,
   })
-  if (singleClauseCandidates.length < singleBounds.min) return true
-  if (singleBounds.max === 0 || singleClauseCandidates.length === 0) {
-    place([])
-    return true
-  }
-  if (singleClauseCandidates.every((candidate) => candidate.kind === 'player')) {
-    openPlayerSelection(draft, {
-      seat: trigger.execution.controller,
-      sourceId: source.id,
-      source: source.name,
-      prompt: singleBounds.max === 1 ? `Choose target player for ${source.name}.` : `Choose up to ${singleBounds.max} target players for ${source.name}.`,
-      min: singleBounds.min,
-      max: Math.min(singleBounds.max, candidates.length),
-      candidates: singleClauseCandidates.map((candidate) => candidate.player),
-      action: {
-        kind: 'putCanonicalTriggeredAbility',
-        definitionSnapshot: canonical.definitionSnapshot,
-        abilityIndex: canonical.abilityIndex,
-        execution: trigger.execution,
-        sourceId: source.id,
-      },
-    })
-    return false
-  }
-  if (singleClauseCandidates.some((candidate) => candidate.kind !== 'object')) return true
-  const objects = singleClauseCandidates as Array<Extract<TargetRef, { kind: 'object' }>>
-  const max = Math.min(singleBounds.max, objects.length)
-  openCardSelection(draft, {
-    seat: trigger.execution.controller,
-    kind: 'choose', count: max, min: singleBounds.min,
-    candidates: objects.map((candidate) => candidate.objectId),
-    targetIdentities: Object.fromEntries(objects.map((candidate) => [
-      candidate.objectId,
-      objectIdentity(draft.objects[candidate.objectId]),
-    ])),
-    sourceId: source.id, source: source.name,
-    prompt: max === 1 ? `Choose target for ${source.name}.` : `Choose up to ${max} targets for ${source.name}.`,
-    destinations: targetDestinations(objects.length, singleBounds.min),
-    canonicalTrigger: {
-        definitionSnapshot: canonical.definitionSnapshot,
-        abilityIndex: canonical.abilityIndex,
-      execution: trigger.execution,
-      sourceId: source.id,
-    },
-  })
-  return false
 }
 
 /** CR 603.3b: two APNAP passes with a durable ordering/target cursor. */
@@ -1211,10 +1045,12 @@ export const placePendingTriggers = (draft: Draft) => {
   let orderIds = frame.orderIds?.filter((id) => group.triggers.some((trigger) => trigger.id === id))
   if (!orderIds || orderIds.length !== group.triggers.length) {
     orderIds = group.triggers.map((trigger) => trigger.id)
-    if (orderIds.length > 1 && group.triggers.some((trigger) => Boolean(trigger.canonical))) {
+    if (orderIds.length > 1 && (group.triggers.some((trigger) => Boolean(trigger.canonical)) || groups.length > 1)) {
       const entries = group.triggers.map((trigger) => ({
         id: trigger.id,
-        label: `${trigger.source.name} triggered ability`,
+        label: trigger.canonical
+          ? `${trigger.source.name} ability ${trigger.canonical.abilityIndex + 1}`
+          : `${trigger.source.name} trigger ${trigger.triggerEffectKey ?? trigger.id}`,
       }))
       draft.triggerPlacement = { version: 1, pass: frame.pass, controller: group.seat, orderIds }
       openCardSelection(draft, {

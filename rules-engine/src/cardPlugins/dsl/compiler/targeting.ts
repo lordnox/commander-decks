@@ -192,12 +192,14 @@ export const canonicalTargetBindings = (
   grouped?: readonly (readonly TargetRef[])[],
   controller?: PlayerId,
   x?: number,
+  clausesOverride?: readonly TargetClause[],
 ) => {
   const ability = definition.abilities[abilityIndex]
   if (!ability || (ability.kind !== 'spell' && ability.kind !== 'activated' && ability.kind !== 'triggered')) {
     throw new RuleDslEvaluationError(`ability ${abilityIndex} does not declare target clauses`)
   }
   const context = contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x)
+  const clauses = clausesOverride ?? ability.decisions.targets
   const sourceId = ability.kind === 'spell' ? source.id : undefined
   const normalizedSupplied = supplied.map((target) => pinTarget(state, target))
   const normalizedGrouped = grouped?.map((clause) => clause.map((target) => pinTarget(state, target)))
@@ -209,8 +211,8 @@ export const canonicalTargetBindings = (
     }
   }
   const slots = grouped
-    ? groupedTargets(state, sourceId, ability.decisions.targets, normalizedGrouped!, context)
-    : partitionTargets(state, sourceId ?? '', ability.decisions.targets, normalizedSupplied, context)
+    ? groupedTargets(state, sourceId, clauses, normalizedGrouped!, context)
+    : partitionTargets(state, sourceId ?? '', clauses, normalizedSupplied, context)
   if (!slots || !satisfiesConstraints(ability.decisions.constraints, slots)) {
     throw new RuleDslEvaluationError('supplied canonical targets do not satisfy the declared clauses')
   }
@@ -233,6 +235,7 @@ export const canonicalTargetCandidates = (
   ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
   controller: PlayerId,
   occurrence?: import('../../../types').OccurrenceSnapshot,
+  clausesOverride?: readonly TargetClause[],
 ) => {
   const context = {
     state,
@@ -240,7 +243,7 @@ export const canonicalTargetCandidates = (
     source: captureObject(source),
     ...(occurrence ? { occurrence } : {}),
   }
-  return ability.decisions.targets.map((clause) => {
+  return (clausesOverride ?? ability.decisions.targets).map((clause) => {
     switch (clause.filter.kind) {
       case 'players':
         return state.playerOrder
@@ -286,8 +289,11 @@ export const canonicalTargetLegalityForAbility = (
   x?: number,
 ) => {
   const legality: Record<number, boolean[]> = {}
+  const clauses = 'modes' in ability && item?.execution?.modeIndices
+    ? item.execution.modeIndices.flatMap((index) => ability.modes?.[index]?.decisions.targets ?? [])
+    : ability.decisions.targets
   for (const binding of bindings) {
-    const clause = ability.decisions.targets[binding.clauseIndex]
+    const clause = clauses[binding.clauseIndex]
     if (!clause) {
       legality[binding.clauseIndex] = []
       continue

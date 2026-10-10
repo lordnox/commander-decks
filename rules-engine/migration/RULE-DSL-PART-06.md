@@ -26,25 +26,26 @@ answer. No nested event application grants priority or places ordinary triggers.
 - [x] Match canonical DSL occurrence patterns and preserve look-back context
   for enters/dies/draw, including source LKI and occurrence snapshots.
 - [x] Implement two-pass APNAP placement and typed controller ordering for
-  canonical trigger groups; legacy groups retain stable ordering while their
-  target semantics migrate.
+  canonical trigger groups, including distinguishable legacy entries when a
+  controller has multiple APNAP groups. Legacy one-controller ordering retains
+  its established automatic path pending the broader legacy interaction cleanup.
 - [x] Bind canonical trigger modes and target shapes before ordinary priority
-  for modal programs, optional/impossible one-clause targets, and homogeneous
-  multi-clause player/object targets. Stack-item target offers and mixed player/object
-  clauses remain explicitly unsupported by the current typed picker and are tracked
-  for the next target-surface slice.
+  for modal programs, optional/impossible clauses, mixed player/object clauses,
+  repeated same-object clauses, selected-mode-local clauses, and stack-item
+  targets. Each clause keeps its own bounds and pinned identity; explicit
+  cross-clause constraints remain enforced by the canonical binder.
 - [x] Add conformance tests for three simultaneous canonical deaths, pinned
   source departure, OR matching, draw-three collection, canonical player target
-  offers, modal mode announcement/resolution, false-at-capture intervening-if,
-  and host-facing trigger ordering. Existing driver tests cover resolution-time
-  intervening-if and optional target binding; the established draw-resolution
-  regression covers multiple instructions without an intermediate priority window.
-- [x] Reran focused/full validation and inspected the diff for ready PR #343
-  against the Part 05 branch: 2,225 rules tests / 7,140 assertions, 41 site
-  tests, and live-runner checks with the one documented generated-handler fixture
-  failure. Typecheck, import validation, and lint pass. The coverage-ledger check
-  is stale on the Part 05 base and would rewrite unrelated line evidence, so that
-  generated file remains intentionally unchanged.
+  offers, modal mode announcement/resolution, selected mode-local targets,
+  false-at-capture intervening-if, canonical permanent-spell entry, resolving
+  canonical draw-three, and host-facing trigger ordering.
+- [ ] Complete the remaining legacy one-controller ordering migration without
+  changing the established legacy test contract; this is isolated from the
+  canonical placement cursor and remains a review item.
+- [ ] Rerun full repository validation after the final review fixes. The focused
+  Part 06 and parent reproduction suites currently pass; the documented
+  generated-handler fixture remains the only accepted live-runner baseline
+  failure, and no new failure is treated as baseline without a fresh result.
 
 ## Rules references
 

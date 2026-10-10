@@ -20,8 +20,10 @@ export type CanonicalAnnouncement = {
   sourceId: string
   targets: TargetRef[]
   targetBindings?: CanonicalTargetBinding[]
+  targetClauses: readonly TargetClause[]
   clauseBounds: ClauseBounds[]
   clauseIndex: number
+  selectedModes?: number[]
 }
 
 const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
@@ -36,26 +38,49 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return false
-  const targetBindings = announcement.targetBindings ?? canonicalTargetBindings(
+  const targetBindings = announcement.targetBindings && announcement.targetBindings.length > 0
+    ? announcement.targetBindings
+    : canonicalTargetBindings(
     draft,
     source,
     definition,
     announcement.abilityIndex,
     announcement.targets,
     undefined,
-    ability.decisions.targets.length === 0 ? [] : undefined,
+    undefined,
     announcement.execution.controller,
-  )
-  if ('modes' in ability) {
+    undefined,
+    announcement.targetClauses,
+      )
+  if ('modes' in ability && announcement.selectedModes === undefined) {
     const modes = ability.modes ?? []
     const modeSpec = ability.decisions.modes
     const count = modeSpec ? Number(modeSpec.count.kind === 'constant' ? modeSpec.count.value : 1) : 1
+    const legalModes = modes.map((mode, index) => ({ mode, index })).filter(({ mode }) => {
+      const candidates = canonicalTargetCandidates(
+        draft,
+        source,
+        { ...ability, decisions: mode.decisions },
+        announcement.execution.controller,
+        announcement.execution.occurrence,
+      )
+      return mode.decisions.targets.every((clause, clauseIndex) => {
+        const bounds = evaluateTargetBounds(clause, amountEvaluationContext({
+          state: draft,
+          controller: announcement.execution.controller,
+          source: announcement.execution.source,
+          occurrence: announcement.execution.occurrence,
+        }))
+        return (candidates[clauseIndex]?.length ?? 0) >= bounds.min
+      })
+    })
+    if (legalModes.length === 0 || (!modeSpec?.repeatable && legalModes.length < count)) return false
     openOptionSelection(draft, {
       seat: announcement.execution.controller,
       sourceId: source.id,
       source: source.name,
       prompt: `Choose ${count} mode${count === 1 ? '' : 's'} for ${source.name}.`,
-      options: modes.map((_, index) => ({ id: `mode:${index}`, label: `Mode ${index + 1}` })),
+      options: legalModes.map(({ index }) => ({ id: `mode:${index}`, label: `Mode ${index + 1}` })),
       action: {
         kind: 'putCanonicalModeTriggeredAbility',
         definitionSnapshot: announcement.definitionSnapshot,
@@ -67,6 +92,8 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
         modeCount: count,
         repeatable: modeSpec?.repeatable ?? false,
         selectedModes: [],
+        modeClauses: legalModes.flatMap(({ mode }) => mode.decisions.targets),
+        modeClausesByMode: modes.map((mode) => [...mode.decisions.targets]),
       },
     })
     return true
@@ -81,6 +108,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
       ...announcement.execution,
       definitionSnapshot: announcement.definitionSnapshot,
       abilityIndex: announcement.abilityIndex,
+      ...(announcement.selectedModes ? { modeIndices: announcement.selectedModes } : {}),
       targetBindings,
     },
   })
@@ -91,7 +119,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
 export const continueCanonicalTargetSelection = (
   draft: Draft,
   announcement: CanonicalAnnouncement,
-) => {
+): boolean => {
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return false
@@ -105,6 +133,7 @@ export const continueCanonicalTargetSelection = (
     ability,
     announcement.execution.controller,
     announcement.execution.occurrence,
+    announcement.targetClauses,
   )[announcement.clauseIndex] ?? []
   const bounds = announcement.clauseBounds[announcement.clauseIndex]
   if (candidates.length < bounds.min) return false
@@ -130,8 +159,10 @@ export const continueCanonicalTargetSelection = (
         execution: announcement.execution,
         sourceId: source.id,
         targetClauses: announcement.clauseBounds,
+        targetClauseDefinitions: [...announcement.targetClauses],
         targetIndex: announcement.clauseIndex,
         selectedTargets: announcement.targets,
+        selectedModes: announcement.selectedModes,
       },
     })
     return true
@@ -155,8 +186,40 @@ export const continueCanonicalTargetSelection = (
         execution: announcement.execution,
         sourceId: source.id,
         targetClauses: announcement.clauseBounds,
+        targetClauseDefinitions: [...announcement.targetClauses],
         targetIndex: announcement.clauseIndex,
         selectedTargets: announcement.targets,
+        selectedModes: announcement.selectedModes,
+      },
+    })
+    return true
+  }
+  if (candidates.every((candidate) => candidate.kind === 'stackItem')) {
+    const stackItems = candidates.map((candidate) => candidate.stackId)
+    const selectedStackTargets: string[] = []
+    const options = stackItems.map((stackId) => ({
+      id: `stack:${stackId}`,
+      label: draft.stack.find((item) => item.id === stackId)?.name ?? stackId,
+    }))
+    if (bounds.min === 0) options.push({ id: 'done', label: 'Done' })
+    openOptionSelection(draft, {
+      seat: announcement.execution.controller,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Choose target for ${source.name}.`,
+      options,
+      action: {
+        kind: 'putCanonicalStackTarget',
+        definitionSnapshot: announcement.definitionSnapshot,
+        abilityIndex: announcement.abilityIndex,
+        execution: announcement.execution,
+        sourceId: source.id,
+        targetClauses: announcement.clauseBounds,
+        targetClauseDefinitions: [...announcement.targetClauses],
+        targetIndex: announcement.clauseIndex,
+        selectedTargets: announcement.targets,
+        selectedStackTargets,
+        selectedModes: announcement.selectedModes,
       },
     })
     return true
@@ -164,9 +227,14 @@ export const continueCanonicalTargetSelection = (
   return false
 }
 
+export const continueCanonicalModeTargets = (
+  draft: Draft,
+  announcement: Omit<CanonicalAnnouncement, 'clauseBounds' | 'clauseIndex' | 'targetClauses'> & { clauses: readonly TargetClause[] },
+) => startCanonicalAnnouncement(draft, announcement)
+
 export const startCanonicalAnnouncement = (
   draft: Draft,
-  announcement: Omit<CanonicalAnnouncement, 'clauseIndex' | 'clauseBounds' | 'targets'> & {
+  announcement: Omit<CanonicalAnnouncement, 'clauseIndex' | 'clauseBounds' | 'targets' | 'targetClauses'> & {
     clauses: readonly TargetClause[]
   },
 ) => {
@@ -178,6 +246,7 @@ export const startCanonicalAnnouncement = (
   })))
   return continueCanonicalTargetSelection(draft, {
     ...announcement,
+    targetClauses: announcement.clauses,
     clauseBounds: bounds,
     clauseIndex: 0,
     targets: [],
