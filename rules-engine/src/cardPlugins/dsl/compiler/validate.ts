@@ -182,12 +182,12 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'resultRef': {
         exactKeys(node, path, ['kind', 'binding', 'field'], ['kind', 'binding', 'field'])
         const name = bindingName(node.binding, childPath(path, 'binding'))
-        const field = enumeration(node.field, childPath(path, 'field'), new Set(['discarded', 'discardedCount', 'countered', 'paid']), 'result field') as ResultField | undefined
+        const field = enumeration(node.field, childPath(path, 'field'), new Set(['discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
         if (name && field) {
           const binding = env.locals.get(name)
           if (binding && binding.kind !== 'result') issue(childPath(path, 'binding'), 'binding-kind', `${name} is a choice binding, not a result binding`)
           else if (!binding?.fields?.has(field)) issue(childPath(path, 'field'), 'unresolved-binding', `result ${name}.${field} is not produced on every control-flow path`)
-          else domain = field === 'discardedCount' ? 'number' : 'boolean'
+          else domain = ['discardedCount', 'created'].includes(field) ? 'number' : 'boolean'
         }
         break
       }
@@ -509,8 +509,66 @@ export const validateDefinitionV1 = (root: unknown): {
         validateReference(node.source, childPath(path, 'source'), env, ['object'])
         return
       case 'destroy':
-        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        exactKeys(node, path, ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.bindResult !== undefined) {
+          const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
+          declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['destroyed']) }, childPath(path, 'bindResult'))
+        }
+        return
+      case 'sacrifice':
+      case 'move': {
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'bindResult'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
+        if (node.bindResult !== undefined) {
+          const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
+          declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>([node.kind === 'move' ? 'moved' : 'sacrificed']) }, childPath(path, 'bindResult'))
+        }
+        return
+      }
+      case 'phase':
+        exactKeys(node, path, ['kind', 'targets', 'out'], ['kind', 'targets', 'out'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (typeof node.out !== 'boolean') issue(childPath(path, 'out'), 'type', 'expected a boolean')
+        return
+      case 'proliferate':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      case 'createToken': {
+        exactKeys(node, path, ['kind', 'count', 'targets', 'token', 'bindResult'], ['kind', 'count', 'targets', 'token'])
+        validateAmount(node.count, childPath(path, 'count'), env)
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        const token = object(node.token, childPath(path, 'token'))
+        if (token) {
+          exactKeys(token, childPath(path, 'token'), ['name', 'types', 'subtypes', 'colors', 'power', 'toughness', 'oracleText'], ['name', 'types'])
+          if (typeof token.name !== 'string' || !Array.isArray(token.types)) issue(childPath(path, 'token'), 'type', 'token requires name and types')
+        }
+        if (node.bindResult !== undefined) {
+          const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
+          declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
+        }
+        return
+      }
+      case 'copy':
+        exactKeys(node, path, ['kind', 'targets', 'controller', 'bindResult'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.controller !== undefined) validateRecipient(node.controller, childPath(path, 'controller'), env, ['player'])
+        if (node.bindResult !== undefined) {
+          const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
+          declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
+        }
+        return
+      case 'putCounters':
+        exactKeys(node, path, ['kind', 'targets', 'counter', 'count', 'bindResult'], ['kind', 'targets', 'counter', 'count'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (typeof node.counter !== 'string') issue(childPath(path, 'counter'), 'type', 'expected a counter name')
+        validateAmount(node.count, childPath(path, 'count'), env)
+        if (node.bindResult !== undefined) {
+          const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
+          declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
+        }
         return
       case 'counter': {
         exactKeys(node, path, ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
