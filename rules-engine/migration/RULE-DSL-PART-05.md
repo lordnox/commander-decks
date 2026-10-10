@@ -56,15 +56,18 @@ kernel settle.
 
 Focused verification passes for the interaction store, protocol, wire codec,
 browser request metadata, DSL compiler, reconnect, candidate identity, stale
-occurrence, option bounds, cumulative-upkeep repetition, and live host choice
-paths. The full rules suite is green at 2,220 tests / 7,125
+occurrence, option bounds, cumulative-upkeep repetition, live host negative
+answers, exact semantic duplicates, private projection, concession cleanup,
+and browser-decoded/headless-equivalent answer paths. The full rules suite is
+green at 2,220 tests / 7,125
 assertions. The full host suite is green except for one known baseline failure:
 generated card-handler import fixture resolution (`loads generated card handlers
 from the current worktree`). The headless runner uses the same host path as the
 browser envelope adapter; `CONDUIT.md` documents the required request ID and
 revision on both clients. The wire codec test proves that the typed envelope,
 source identity, phase, purpose, and cancellation survive a browser round-trip
-for a reconnecting headless client. Legacy card dialog events remain temporary
+and the host test proves the decoded answer produces the same journal and state
+as the direct headless answer. Legacy card dialog events remain temporary
 adapters for unmigrated action families; this part does not claim future
 action-program families. Order is integrated for the existing Abundance
 ordering selection; allocation and other future action families remain

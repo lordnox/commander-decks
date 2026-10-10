@@ -320,48 +320,56 @@ export const openTopdeck = (
   }))
   const playerBounds = targetBounds(decision)
   const cardSelectionBounds = cardBounds(decision)
-  const selection: InteractionRequest['selection'] = decision.kernel?.stage === 'select-players'
-    || decision.kernel?.stage === 'player-targets'
-    ? {
+  let selection: InteractionRequest['selection']
+  switch (decision.kernel?.stage) {
+    case 'select-players':
+    case 'player-targets':
+      selection = {
         kind: 'selectPlayers',
         candidates: decision.cards,
         min: playerBounds.min,
         max: playerBounds.max,
         distinct: true,
       }
-    : decision.kernel?.stage === 'cumulative-upkeep'
-      ? {
-          kind: 'selectPlayers',
-          candidates: decision.cards,
-          min: 0,
-          max: decision.count ?? decision.cards.length,
-          distinct: false,
-        }
-    : decision.kernel?.stage === 'option-selection'
-      || decision.kernel?.stage === 'extort-payment'
-      || decision.kernel?.stage === 'choose-modes'
-      || decision.kernel?.stage === 'choose-creature-type'
-      || decision.kernel?.stage === 'secret-vote'
-      ? {
-          kind: 'selectOptions',
-          options: decision.cards.map((label, index) => ({ id: `${requestId}:option:${index}`, label })),
-          min: playerBounds.min,
-          max: playerBounds.max,
-          distinct: true,
-        }
-      : decision.purpose === 'order'
+      break
+    case 'cumulative-upkeep':
+      selection = {
+        kind: 'selectPlayers',
+        candidates: decision.cards,
+        min: 0,
+        max: decision.count ?? decision.cards.length,
+        distinct: false,
+      }
+      break
+    case 'option-selection':
+    case 'extort-payment':
+    case 'choose-modes':
+    case 'choose-creature-type':
+    case 'secret-vote':
+      selection = {
+        kind: 'selectOptions',
+        options: decision.cards.map((label, index) => ({ id: `${requestId}:option:${index}`, label })),
+        min: playerBounds.min,
+        max: playerBounds.max,
+        distinct: true,
+      }
+      break
+    default:
+      selection = decision.purpose === 'order'
         ? {
             kind: 'order',
             entries: candidateRefs.map(({ id, name }) => ({ id, ...(name ? { label: name } : {}) })),
             distinct: true,
           }
-      : {
-        kind: 'selectCards',
-        candidates: candidateRefs,
-        min: cardSelectionBounds.min,
-        max: cardSelectionBounds.max,
-        distinct: true,
-      }
+        : {
+            kind: 'selectCards',
+            candidates: candidateRefs,
+            min: cardSelectionBounds.min,
+            max: cardSelectionBounds.max,
+            distinct: true,
+          }
+      break
+  }
   lobby.topdeck.interaction = {
     requestId,
     revision,
