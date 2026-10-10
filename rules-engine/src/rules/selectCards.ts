@@ -9,8 +9,6 @@ import type {
   ObjectIdentity,
   ZoneId,
 } from '../types'
-import { canonicalTargetBindings } from '../cardPlugins/dsl/compiler/targeting'
-import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
@@ -21,6 +19,7 @@ import { addPlusCounters } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
 import { targetObject } from '../objectIdentity'
+import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -109,6 +108,10 @@ export type PendingCardSelection = {
     execution: StackExecutionContext
     sourceId: string
     targetClauses?: Array<{ min: number; max: number }>
+        targetClauseDefinitions?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
+    targetIndex?: number
+    selectedTargets?: import('../types').TargetRef[]
+    selectedModes?: number[]
   }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
@@ -534,23 +537,6 @@ const applyTopDeckChoices = (
   }
 }
 
-const partitionCanonicalTargetClauses = (
-  supplied: readonly { kind: 'object'; objectId: string; incarnation?: number; zone?: import('../types').ZoneId }[],
-  bounds: readonly { min: number; max: number }[],
-) => {
-  const grouped: Array<typeof supplied[number][]> = []
-  let offset = 0
-  for (const [index, bound] of bounds.entries()) {
-    const remainingMinimum = bounds.slice(index + 1).reduce((sum, next) => sum + next.min, 0)
-    const count = Math.min(bound.max, supplied.length - offset - remainingMinimum)
-    if (count < bound.min) throw new Error('canonical target clauses cannot be partitioned')
-    grouped.push(supplied.slice(offset, offset + count))
-    offset += count
-  }
-  if (offset !== supplied.length) throw new Error('canonical target clauses left targets unbound')
-  return grouped
-}
-
 const applySelectCards = (draft: Draft, event: GameEvent) => {
   if (event.type !== 'selectCards') return
 
@@ -750,40 +736,29 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
   }
 
   if (selection.canonicalTrigger && selection.sourceId) {
-    const source = draft.object(selection.sourceId) ?? selection.canonicalTrigger.execution.source.snapshot
-    const definition = loadDefinitionSnapshot(selection.canonicalTrigger.definitionSnapshot).definition
-    const supplied = (event.objectIds ?? []).map((objectId) => ({
-      kind: 'object' as const,
-      ...(selection.targetIdentities?.[objectId] ?? { objectId }),
-    }))
-    const grouped = selection.canonicalTrigger.targetClauses
-      ? partitionCanonicalTargetClauses(supplied, selection.canonicalTrigger.targetClauses)
-      : undefined
-    const bindings = canonicalTargetBindings(
-      draft,
-      source,
-      definition,
-      selection.canonicalTrigger.abilityIndex,
-      supplied,
-      undefined,
-      grouped,
-      selection.canonicalTrigger.execution.controller,
-    )
-    draft.addToStack({
-      kind: 'ability',
-      objectId: selection.sourceId,
-      controller: selection.canonicalTrigger.execution.controller,
-      name: source.name,
-      targets: supplied,
-      execution: {
-        ...selection.canonicalTrigger.execution,
-        definitionSnapshot: selection.canonicalTrigger.definitionSnapshot,
-        abilityIndex: selection.canonicalTrigger.abilityIndex,
-        targetBindings: bindings,
-      },
+    const selectedTargets = [
+      ...(selection.canonicalTrigger.selectedTargets ?? []),
+      ...(event.objectIds ?? []).map((objectId) => ({
+        kind: 'object' as const,
+        ...(selection.targetIdentities?.[objectId] ?? { objectId }),
+      })),
+    ]
+    const targetClauses = selection.canonicalTrigger.targetClauses ?? [{
+      min: event.objectIds?.length ?? 0,
+      max: event.objectIds?.length ?? 0,
+    }]
+    continueCanonicalTargetSelection(draft, {
+      definitionSnapshot: selection.canonicalTrigger.definitionSnapshot,
+      abilityIndex: selection.canonicalTrigger.abilityIndex,
+      execution: selection.canonicalTrigger.execution,
+      source: selection.canonicalTrigger.execution.source.snapshot,
+      sourceId: selection.sourceId,
+      targetClauses: selection.canonicalTrigger.targetClauseDefinitions ?? [],
+      targets: selectedTargets,
+      selectedModes: selection.canonicalTrigger.selectedModes,
+      clauseBounds: targetClauses,
+      clauseIndex: (selection.canonicalTrigger.targetIndex ?? 0) + 1,
     })
-    draft.passedInRow = []
-    draft.priority = null
     return
   }
 

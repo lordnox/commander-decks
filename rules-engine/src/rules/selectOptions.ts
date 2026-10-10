@@ -1,5 +1,6 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import { continueCanonicalModeTargets, continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
@@ -53,6 +54,23 @@ export type PendingOptionSelection = {
     sourceId: string
     targets: TargetRef[]
     targetBindings: CanonicalTargetBinding[]
+    modeCount: number
+    repeatable: boolean
+    selectedModes: number[]
+    modeClauses?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
+    modeClausesByMode?: import('../cardPlugins/dsl/schema/v1').TargetClause[][]
+  } | {
+    kind: 'putCanonicalStackTarget'
+    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    abilityIndex: number
+    execution: import('../types').StackExecutionContext
+    sourceId: string
+    targetClauses: Array<{ min: number; max: number }>
+    targetClauseDefinitions: import('../cardPlugins/dsl/schema/v1').TargetClause[]
+    targetIndex: number
+    selectedTargets: TargetRef[]
+    selectedStackTargets: string[]
+    selectedModes?: number[]
   }
 }
 
@@ -102,18 +120,55 @@ export const selectOptions: Plugin = {
     if (!selection.options.some((option) => option.id === event.optionId)) {
       return 'option was not offered for this selection'
     }
+    if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
+      const modeIndex = Number(event.optionId.replace('mode:', ''))
+      if (!Number.isInteger(modeIndex) || modeIndex < 0) return 'invalid mode choice'
+      if (!selection.action.repeatable && selection.action.selectedModes.includes(modeIndex)) {
+        return 'that mode cannot be selected again'
+      }
+    }
   },
   apply: ({ event, draft }) => {
     if (event.type !== 'selectOption') return
     const selection = pendingOptionSelection(draft, event.seat)
     if (!selection || selection.id !== event.selectionId) return
-    delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
       const modeIndex = Number(event.optionId.replace('mode:', ''))
+      const selectedModes = [...selection.action.selectedModes, modeIndex]
+      if (selectedModes.length < selection.action.modeCount) {
+        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
+          ...selection,
+          options: selection.action.repeatable
+            ? selection.options
+            : selection.options.filter((option) => option.id !== event.optionId),
+          action: { ...selection.action, selectedModes },
+        }
+        draft.priority = event.seat
+        return
+      }
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      const modeClausesByMode = selection.action.modeClausesByMode
+      const modeClauses = modeClausesByMode
+        ? selectedModes.flatMap((index) => modeClausesByMode[index] ?? [])
+        : selection.action.modeClauses
+      if (modeClauses && modeClauses.length > 0) {
+        continueCanonicalModeTargets(draft, {
+          definitionSnapshot: selection.action.definitionSnapshot,
+          abilityIndex: selection.action.abilityIndex,
+          execution: selection.action.execution,
+          source: selection.action.execution.source.snapshot,
+          sourceId: selection.action.sourceId,
+          targets: selection.action.targets,
+          selectedModes,
+          clauses: modeClauses,
+        })
+        return
+      }
       const source = draft.object(selection.action.sourceId) ?? selection.action.execution.source.snapshot
       const definition = loadDefinitionSnapshot(selection.action.definitionSnapshot).definition
       const ability = definition.abilities[selection.action.abilityIndex]
-      if (!source || !ability || ability.kind !== 'triggered' || !('modes' in ability) || !ability.modes?.[modeIndex]) return
+      if (!source || !ability || ability.kind !== 'triggered' || !('modes' in ability)
+        || selectedModes.some((index) => !ability.modes?.[index])) return
       draft.addToStack({
         kind: 'ability',
         objectId: source.id,
@@ -124,12 +179,56 @@ export const selectOptions: Plugin = {
           ...selection.action.execution,
           definitionSnapshot: selection.action.definitionSnapshot,
           abilityIndex: selection.action.abilityIndex,
-          modeIndices: [modeIndex],
+          modeIndices: selectedModes,
           targetBindings: selection.action.targetBindings,
         },
       })
       draft.passedInRow = []
       draft.priority = null
+      return
     }
+    if (selection.action.kind === 'putCanonicalStackTarget') {
+      const selectedStackTargets = [...selection.action.selectedStackTargets]
+      if (event.optionId === 'done') {
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      } else {
+        const stackId = event.optionId.replace('stack:', '')
+        selectedStackTargets.push(stackId)
+        if (selectedStackTargets.length < selection.action.targetClauses[selection.action.targetIndex].max) {
+          const options = selection.options
+            .filter((option) => option.id !== event.optionId && option.id !== 'done')
+          if (selectedStackTargets.length >= selection.action.targetClauses[selection.action.targetIndex].min) {
+            options.push({ id: 'done', label: 'Done' })
+          }
+          draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
+            ...selection,
+            options,
+            action: { ...selection.action, selectedStackTargets },
+          }
+          draft.priority = event.seat
+          return
+        }
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      }
+      const targets = [
+        ...selection.action.selectedTargets,
+        ...selectedStackTargets.map((stackId) => ({ kind: 'stackItem' as const, stackId })),
+      ]
+      const bounds = selection.action.targetClauses
+      continueCanonicalTargetSelection(draft, {
+        definitionSnapshot: selection.action.definitionSnapshot,
+        abilityIndex: selection.action.abilityIndex,
+        execution: selection.action.execution,
+        source: selection.action.execution.source.snapshot,
+        sourceId: selection.action.sourceId,
+        targetClauses: selection.action.targetClauseDefinitions,
+        targets,
+        selectedModes: selection.action.selectedModes,
+        clauseBounds: bounds,
+        clauseIndex: selection.action.targetIndex + 1,
+      })
+      return
+    }
+    delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
   },
 }
