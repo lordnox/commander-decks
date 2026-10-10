@@ -1,6 +1,8 @@
 # Rule DSL Part 06 implementation note
 
-Status: implementation in progress on `agent/gpt56luna-rule-dsl-part06`.
+Status: Part 06 implementation is complete on the follow-up branch
+`agent/gpt56luna-rule-dsl-part06-review-completion`; parent personal review and
+merge of the final review fixes are pending.
 
 ## Architecture
 
