@@ -244,7 +244,7 @@ export const canonicalTargetCandidates = (
     switch (clause.filter.kind) {
       case 'players':
         return state.playerOrder
-          .filter((player) => canonicalCandidate(
+          .filter((player) => !state.players[player]?.lost && canonicalCandidate(
             state,
             { kind: 'player', player },
             clause,
