@@ -1140,7 +1140,7 @@ export const placePendingTriggers = (draft: Draft) => {
       .map((object) => object.id)
     const required = targetSpec.min ?? 1
     if (candidates.length < required) return false
-    const maxTargets = Math.min(effect.targets.max ?? 1, candidates.length)
+    const maxTargets = effect.targets.max ?? 1
     openCardSelection(draft, {
       seat: source.controller, kind: 'choose', count: maxTargets, min: required, candidates,
       targetIdentities: Object.fromEntries(candidates.map((id) => [id, objectIdentity(draft.objects[id])])),
