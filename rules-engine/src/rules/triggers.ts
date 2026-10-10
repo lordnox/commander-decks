@@ -1,7 +1,8 @@
 /**
- * CR 603.1 — triggered abilities are put on the stack when their trigger event occurs.
+ * CR 603.1 — a matching actual occurrence creates a pending ability instance;
+ * placement waits for the next explicit priority checkpoint.
  * CR 603.2 — a trigger watches for a game event matching its `on` binding.
- * CR 603.3b — APNAP: active player first, then turn order; within a player, ETB order.
+ * CR 603.3b — APNAP placement has separate non-ability and ability-triggering passes.
  */
 import { effectsOf } from '../cardPlugins/cardRules'
 import { syncGrantCreatureTriggers } from '../cardPlugins/grantCreatureTrigger'
@@ -39,6 +40,10 @@ import { cardsDrawnThisTurn } from './draw'
 import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
+import { evaluateTargetBounds, loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import { amountEvaluationContext, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector } from '../cardPlugins/dsl/compiler/runtime'
+import { canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
+import type { ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
@@ -53,13 +58,20 @@ type TriggerEffect = Extract<CardEffect, { op: 'trigger' }>
 type PendingTriggerEffect = Pick<TriggerEffect, 'do' | 'if' | 'targets' | 'onceEachTurn'>
 
 type PendingTrigger = {
+  id?: string
   source: GameObject
   effect: PendingTriggerEffect
+  execution?: StackExecutionContext
   triggerEffectKey?: string
   triggeringObjectId?: string
   triggeringPlayer?: PlayerId
   triggerAmount?: number
   payload?: Record<string, unknown>
+  canonical?: {
+    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    abilityIndex: number
+  }
+  triggeredByAbility?: boolean
 }
 
 const capturedOccurrence = (
@@ -110,6 +122,159 @@ const triggerExecution = (
   ),
   occurrence,
 })
+
+const canonicalFilterMatch = (
+  state: GameState,
+  source: GameObject,
+  object: GameObject,
+  filter: ObjectOccurrenceFilter,
+  occurrence: OccurrenceSnapshot,
+) => {
+  if ('kind' in filter) {
+    if (filter.kind === 'contextRef') {
+      const referenced = evaluateObjectReference(filter, {
+        state,
+        controller: source.controller,
+        source: captureObject(source),
+        occurrence,
+      }, 'currentOrLastKnown')
+      return referenced.some((candidate) => candidate.id === object.id && candidate.incarnation === object.incarnation)
+    }
+    return false
+  }
+  if ('all' in filter && filter.all && !filter.all.every((part) =>
+    canonicalFilterMatch(state, source, object, part, occurrence))) return false
+  if ('any' in filter && filter.any && !filter.any.some((part) =>
+    canonicalFilterMatch(state, source, object, part, occurrence))) return false
+  if ('not' in filter && filter.not && canonicalFilterMatch(state, source, object, filter.not, occurrence)) return false
+  const plain = filter as ObjectFilter
+  if (plain.zone !== undefined && object.zone !== plain.zone) return false
+  if (plain.type !== undefined && !object.types.includes(plain.type)) return false
+  if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
+  if (plain.token !== undefined && object.token !== plain.token) return false
+  if (plain.name !== undefined && object.name !== plain.name) return false
+  if (plain.controller !== undefined) {
+    const controller = plain.controller === 'you'
+      ? source.controller
+      : evaluatePlayerReference(plain.controller, {
+        state,
+        controller: source.controller,
+        source: captureObject(source),
+        occurrence,
+      })[0]
+    if (controller !== undefined && object.controller !== controller) return false
+  }
+  if (plain.owner !== undefined) {
+    const owner = plain.owner === 'you'
+      ? source.controller
+      : evaluatePlayerReference(plain.owner, {
+        state,
+        controller: source.controller,
+        source: captureObject(source),
+        occurrence,
+      })[0]
+    if (owner !== undefined && object.owner !== owner) return false
+  }
+  return true
+}
+
+const canonicalPatternMatches = (
+  state: GameState,
+  source: GameObject,
+  ability: TriggeredAbilityDefinition,
+  pattern: OccurrencePattern,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+) => {
+  if (pattern.kind === 'draw') {
+    if (event.type !== 'draw' || !occurrence.player) return false
+    const player = occurrence.player
+    if (pattern.filter.firstDrawInOwnDrawStep
+      && (state.step !== 'draw'
+        || state.active !== player
+        || cardsDrawnThisTurn(state.players[player]) !== 0)) return false
+    if (!pattern.filter.player) return true
+    if (pattern.filter.player.kind === 'players') {
+      return evaluatePlayerSelector(pattern.filter.player, {
+        state,
+        controller: source.controller,
+        source: captureObject(source),
+        occurrence,
+      }).includes(player)
+    }
+    return evaluatePlayerReference(pattern.filter.player, {
+      state,
+      controller: source.controller,
+      source: captureObject(source),
+      occurrence,
+    }).includes(player)
+  }
+  if (event.type !== 'move') return false
+  if (pattern.kind === 'enters' && event.to !== 'battlefield') return false
+  if (pattern.kind === 'dies' && (event.to !== 'graveyard' || occurrence.object?.before?.types.includes('Creature') !== true)) return false
+  const object = pattern.kind === 'dies'
+    ? occurrence.object?.before
+    : occurrence.object?.after
+  return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
+}
+
+const canonicalTriggersForOccurrence = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  const sources = event.type === 'move' && state.objects[event.objectId]?.zone === 'battlefield'
+    ? Object.values(state.objects).filter((object) => object.zone === 'battlefield')
+    : draft.zoneOf('battlefield')
+  const seen = new Set<string>()
+  for (const source of sources) {
+    const definitionSnapshot = source.ruleDefinition
+    if (source.phasedOut || !definitionSnapshot) continue
+    const compiled = loadDefinitionSnapshot(definitionSnapshot)
+    compiled.definition.abilities.forEach((candidate, abilityIndex) => {
+      if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
+      const occurrence = capturedOccurrence(
+        state,
+        draft,
+        event,
+        eventObjectId(event),
+        'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+        event.type === 'gainLife' ? event.amount : undefined,
+      )
+      if (!canonicalPatternMatches(state, source, candidate, candidate.on, occurrence, event)) return
+      const context = {
+        state,
+        controller: source.controller,
+        source: captureObject(source),
+        occurrence,
+      }
+      if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
+      const key = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${eventObjectId(event) ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
+      if (seen.has(key)) return
+      seen.add(key)
+      const frequencyKey = `dsl@${abilityIndex}`
+      if (candidate.frequency && !mayTriggerOnceEachTurn(source, frequencyKey, state.turn)) return
+      matches.push({
+        source,
+        effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
+        canonical: {
+          definitionSnapshot: structuredClone(definitionSnapshot),
+          abilityIndex,
+        },
+        execution: triggerExecution(source, occurrence, draft),
+        triggerEffectKey: frequencyKey,
+        triggeringPlayer: occurrence.player ?? source.controller,
+        triggeringObjectId: eventObjectId(event),
+        triggerAmount: occurrence.amount,
+        triggeredByAbility: Boolean(state.resolution),
+      })
+      if (candidate.frequency) {
+        markTriggeredOnceEachTurn(draft.object(source.id) ?? source, frequencyKey, state.turn)
+      }
+    })
+  }
+}
 
 /** Landfall listens to land drops and zone moves, not ability resolution. */
 const landEnteringObjectId = (event: GameEvent, state: GameState) => {
@@ -700,6 +865,7 @@ const collectEventTriggers = (
   collectDelayedTriggers(state, draft, event, matches)
   collectRoomUnlock(state, draft, event, matches)
   collectVotesFinished(state, draft, event, matches)
+  canonicalTriggersForOccurrence(state, draft, event, matches)
   return matches
 }
 
@@ -736,8 +902,11 @@ export const captureEventTriggers = (
       ? event.seat
       : undefined
     const captured: CapturedPendingTrigger[] = ordered.map(({
+      id: pendingId,
       source,
       effect,
+      canonical,
+      triggeredByAbility,
       triggerEffectKey: effectKey,
       triggeringObjectId,
       triggeringPlayer: matchedPlayer,
@@ -755,10 +924,13 @@ export const captureEventTriggers = (
       const execution = triggerExecution(source, occurrence, draft)
       noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
       return {
+        id: pendingId ?? draft.allocId('trigger'),
         source: snapshotObject(source),
         instructions: structuredClone(effect.do),
         effect: structuredClone(effect),
         execution,
+        ...(canonical ? { canonical: structuredClone(canonical) } : {}),
+        ...(triggeredByAbility ? { triggeredByAbility: true } : {}),
         triggeringPlayer: matchedPlayer ?? triggeringPlayer ?? source.controller,
         ...(effectKey ? { triggerEffectKey: effectKey } : {}),
         ...(triggeringObjectId ? { triggeringObjectId } : {}),
@@ -776,128 +948,237 @@ export const triggers: Plugin = {
   },
 }
 
-/** Place every captured ordinary trigger at an explicit priority checkpoint. */
+const removePendingTrigger = (draft: Draft, id: string) => {
+  draft.pendingTriggers = (draft.pendingTriggers ?? []).filter((trigger) => trigger.id !== id)
+  if (draft.pendingTriggers.length === 0) delete draft.pendingTriggers
+}
+
+const placementGroups = (
+  draft: Draft,
+  pending: CapturedPendingTrigger[],
+  pass: 1 | 2,
+) => {
+  const buckets = new Map<PlayerId, CapturedPendingTrigger[]>()
+  for (const trigger of pending) {
+    if (Boolean(trigger.triggeredByAbility) !== (pass === 2)) continue
+    const bucket = buckets.get(trigger.execution.controller) ?? []
+    bucket.push(trigger)
+    buckets.set(trigger.execution.controller, bucket)
+  }
+  return apnapSeats(draft).flatMap((seat) => {
+    const groupTriggers = buckets.get(seat)
+    return groupTriggers && groupTriggers.length > 0 ? [{ seat, triggers: groupTriggers }] : []
+  })
+}
+
+const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) => {
+  const canonical = trigger.canonical
+  if (!canonical) return true
+  const source = draft.object(trigger.execution.source.ref.objectId) ?? trigger.source
+  const definition = loadDefinitionSnapshot(canonical.definitionSnapshot).definition
+  const ability = definition.abilities[canonical.abilityIndex]
+  if (!ability || ability.kind !== 'triggered') return true
+  const place = (targets: TargetRef[]) => {
+    const targetBindings = canonicalTargetBindings(
+      draft,
+      source,
+      definition,
+      canonical.abilityIndex,
+      targets,
+      undefined,
+      [targets],
+      trigger.execution.controller,
+    )
+    draft.addToStack({
+      kind: 'ability', objectId: source.id, controller: trigger.execution.controller,
+      name: source.name, targets,
+      execution: {
+        ...trigger.execution,
+        definitionSnapshot: canonical.definitionSnapshot,
+        abilityIndex: canonical.abilityIndex,
+        targetBindings,
+      },
+    })
+  }
+  if (ability.decisions.targets.length === 0) {
+    place([])
+    return true
+  }
+  // Target-clause grouping is introduced by the later target-offer slice. Keep
+  // the trigger pending when that contract is not representable by this picker.
+  if (ability.decisions.targets.length !== 1) return true
+  const clause = ability.decisions.targets[0]
+  const candidates = canonicalTargetCandidates(
+    draft,
+    source,
+    ability,
+    trigger.execution.controller,
+    trigger.execution.occurrence,
+  )[0] ?? []
+  const bounds = evaluateTargetBounds(clause, {
+    ...amountEvaluationContext({
+      state: draft,
+      controller: trigger.execution.controller,
+      source: trigger.execution.source,
+      occurrence: trigger.execution.occurrence,
+    }),
+  })
+  if (candidates.length < bounds.min) return true
+  if (bounds.max === 0 || candidates.length === 0) {
+    place([])
+    return true
+  }
+  if (candidates.every((candidate) => candidate.kind === 'player')) {
+    openPlayerSelection(draft, {
+      seat: trigger.execution.controller,
+      sourceId: source.id,
+      source: source.name,
+      prompt: bounds.max === 1 ? `Choose target player for ${source.name}.` : `Choose up to ${bounds.max} target players for ${source.name}.`,
+      min: bounds.min,
+      max: Math.min(bounds.max, candidates.length),
+      candidates: candidates.map((candidate) => candidate.player),
+      action: {
+        kind: 'putCanonicalTriggeredAbility',
+        definitionSnapshot: canonical.definitionSnapshot,
+        abilityIndex: canonical.abilityIndex,
+        execution: trigger.execution,
+        sourceId: source.id,
+      },
+    })
+    return false
+  }
+  if (candidates.some((candidate) => candidate.kind !== 'object')) return true
+  const objects = candidates as Array<Extract<TargetRef, { kind: 'object' }>>
+  const max = Math.min(bounds.max, objects.length)
+  openCardSelection(draft, {
+    seat: trigger.execution.controller,
+    kind: 'choose', count: max, min: bounds.min,
+    candidates: objects.map((candidate) => candidate.objectId),
+    targetIdentities: Object.fromEntries(objects.map((candidate) => [
+      candidate.objectId,
+      objectIdentity(draft.objects[candidate.objectId]),
+    ])),
+    sourceId: source.id, source: source.name,
+    prompt: max === 1 ? `Choose target for ${source.name}.` : `Choose up to ${max} targets for ${source.name}.`,
+    destinations: targetDestinations(objects.length, bounds.min),
+    canonicalTrigger: {
+        definitionSnapshot: canonical.definitionSnapshot,
+        abilityIndex: canonical.abilityIndex,
+      execution: trigger.execution,
+      sourceId: source.id,
+    },
+  })
+  return false
+}
+
+/** CR 603.3b: two APNAP passes with a durable ordering/target cursor. */
 export const placePendingTriggers = (draft: Draft) => {
   const pending = draft.pendingTriggers ?? []
-  if (pending.length === 0) return false
-  delete draft.pendingTriggers
-  let openedChoice = false
-
-  for (const {
-    source,
-    instructions,
-    effect,
-    execution,
-    triggerEffectKey: effectKey,
-    triggeringObjectId,
-    triggeringPlayer,
-    triggerAmount,
-    payload,
-  } of pending) {
-      if (effect.targets && effect.targets !== 'opponent' && effect.targets !== 'player') {
-        const targetSpec = effect.targets
-        const candidates = Object.values(draft.objects)
-          .filter((object) =>
-            validTarget(
-              draft,
-              object,
-              targetSpec.filter,
-              source.controller,
-              undefined,
-              source.id,
-            ))
-          .map((object) => object.id)
-        if (candidates.length === 0 && targetSpec.min !== 0) continue
-        const maxTargets = targetSpec.max ?? 1
-        const minTargets = Math.min(targetSpec.min ?? maxTargets, candidates.length)
-        openCardSelection(draft, {
-          seat: source.controller,
-          kind: 'choose',
-          count: maxTargets,
-          min: minTargets,
-          candidates,
-          targetIdentities: Object.fromEntries(candidates.map((objectId) => [
-            objectId,
-            objectIdentity(draft.objects[objectId]),
-          ])),
-          sourceId: source.id,
-          source: source.name,
-          prompt: maxTargets === 1
-            ? `Choose target for ${source.name}.`
-            : `Choose up to ${maxTargets} targets for ${source.name}.`,
-          destinations: targetDestinations(candidates.length, minTargets),
-          triggerInstructions: instructions,
-          triggerPayload: triggerPayloadExtras(effect, effectKey, {
-            targetFilter: targetSpec.filter,
-            triggeringPlayer,
-            ...(triggeringObjectId ? { triggeringObjectId } : {}),
-            ...(triggerAmount !== undefined ? { triggerAmount } : {}),
-            ...payload,
-          }),
-          triggerExecution: execution,
-        })
-        openedChoice = true
-        continue
-      }
-      if (effect.targets === 'opponent' || effect.targets === 'player') {
-        const candidates = draft.playerOrder.filter(
-          (seat) =>
-            !draft.players[seat].lost
-            && (
-              effect.targets !== 'opponent'
-              || draft.opponents[source.controller].includes(seat)
-            ),
-        )
-        if (candidates.length === 0) continue
-        openPlayerSelection(draft, {
-          seat: source.controller,
-          sourceId: source.id,
-          source: source.name,
-          prompt: effect.targets === 'player'
-            ? `Choose target player for ${source.name}.`
-            : `Choose target opponent for ${source.name}.`,
-          min: 1,
-          max: 1,
-          candidates,
-          action: {
-            kind: 'putTriggeredAbility',
-            instructions,
-            triggeringPlayer,
-            ...(effectKey ? { triggerEffectKey: effectKey } : {}),
-            ...(effect.if && !isTriggerBindingIf(effect.if)
-              ? { interveningIf: effect.if }
-              : {}),
-            execution,
-          },
-        })
-        openedChoice = true
-        continue
-      }
-      if (instructions.length === 1 && instructions[0].kind === 'devour') {
-        runInstructions(draft, source, instructions, {
-          id: 'devour-enter',
-          kind: 'ability',
-          objectId: source.id,
-          controller: source.controller,
-          name: source.name,
-          targets: [],
-        })
-        openedChoice = true
-        continue
-      }
-      draft.addTriggeredAbility(source, instructions, {
-        execution,
-        payload: {
-          instructions,
-          triggeringPlayer,
-          ...triggerPayloadExtras(effect, effectKey, {
-            ...(triggeringObjectId ? { triggeringObjectId } : {}),
-            ...(triggerAmount !== undefined ? { triggerAmount } : {}),
-            ...payload,
-          }),
-        },
-        name: `${source.name}`,
-      })
+  if (pending.length === 0) {
+    delete draft.triggerPlacement
+    return false
   }
-  return openedChoice
+  const frame = draft.triggerPlacement ?? { version: 1 as const, pass: 1 as const }
+  const groups = placementGroups(draft, pending, frame.pass)
+  if (groups.length === 0) {
+    if (frame.pass === 1) {
+      draft.triggerPlacement = { version: 1, pass: 2 }
+      return false
+    }
+    delete draft.pendingTriggers
+    delete draft.triggerPlacement
+    return false
+  }
+  const group = frame.controller
+    ? groups.find(({ seat }) => seat === frame.controller)
+    : groups[0]
+  if (!group) {
+    draft.triggerPlacement = { version: 1, pass: frame.pass }
+    return false
+  }
+  let orderIds = frame.orderIds?.filter((id) => group.triggers.some((trigger) => trigger.id === id))
+  if (!orderIds || orderIds.length !== group.triggers.length) {
+    orderIds = group.triggers.map((trigger) => trigger.id)
+    // Existing effect triggers have historically been emitted in the stable
+    // event order.  The typed ordering request is needed for canonical DSL
+    // abilities, whose placement is now governed by CR 603.3b.
+    if (orderIds.length > 1 && group.triggers.some((trigger) => Boolean(trigger.canonical))) {
+      draft.triggerPlacement = { version: 1, pass: frame.pass, controller: group.seat, orderIds }
+      openCardSelection(draft, {
+        seat: group.seat, kind: 'choose', count: orderIds.length, min: orderIds.length,
+        candidates: orderIds, triggerOrder: { ids: orderIds, pass: frame.pass },
+        source: 'Triggered abilities', prompt: 'Choose the order of your triggered abilities.',
+        destinations: ['target'],
+      })
+      return true
+    }
+  }
+  const [nextId, ...remaining] = orderIds
+  const trigger = group.triggers.find((candidate) => candidate.id === nextId)
+  if (!trigger) return false
+  draft.triggerPlacement = {
+    version: 1, pass: frame.pass, controller: group.seat,
+    ...(remaining.length > 0 ? { orderIds: remaining } : {}),
+  }
+  removePendingTrigger(draft, trigger.id)
+  if (trigger.canonical) return !placeCanonicalTrigger(draft, trigger)
+  // Legacy triggers retain their existing target semantics, but a missing
+  // mandatory candidate removes the trigger instead of lowering its minimum.
+  const source = draft.object(trigger.execution.source.ref.objectId) ?? trigger.source
+  const { effect, instructions, execution } = trigger
+  if (effect.targets && effect.targets !== 'opponent' && effect.targets !== 'player') {
+    const targetSpec = effect.targets
+    const candidates = Object.values(draft.objects)
+      .filter((object) => validTarget(draft, object, targetSpec.filter, source.controller, undefined, source.id))
+      .map((object) => object.id)
+    const required = targetSpec.min ?? 1
+    if (candidates.length < required) return false
+    const maxTargets = Math.min(effect.targets.max ?? 1, candidates.length)
+    openCardSelection(draft, {
+      seat: source.controller, kind: 'choose', count: maxTargets, min: required, candidates,
+      targetIdentities: Object.fromEntries(candidates.map((id) => [id, objectIdentity(draft.objects[id])])),
+      sourceId: source.id, source: source.name,
+      prompt: maxTargets === 1 ? `Choose target for ${source.name}.` : `Choose up to ${maxTargets} targets for ${source.name}.`,
+      destinations: targetDestinations(candidates.length, required),
+      triggerInstructions: instructions,
+      triggerPayload: triggerPayloadExtras(effect, trigger.triggerEffectKey, {
+        targetFilter: targetSpec.filter, triggeringPlayer: trigger.triggeringPlayer,
+        ...(trigger.triggeringObjectId ? { triggeringObjectId: trigger.triggeringObjectId } : {}),
+        ...(trigger.triggerAmount !== undefined ? { triggerAmount: trigger.triggerAmount } : {}), ...trigger.payload,
+      }),
+      triggerExecution: execution,
+    })
+    return true
+  }
+  if (effect.targets === 'opponent' || effect.targets === 'player') {
+    const candidates = draft.playerOrder.filter((seat) => !draft.players[seat].lost
+      && (effect.targets !== 'opponent' || draft.opponents[source.controller].includes(seat)))
+    if (candidates.length === 0) return false
+    openPlayerSelection(draft, {
+      seat: source.controller, sourceId: source.id, source: source.name,
+      prompt: effect.targets === 'player' ? `Choose target player for ${source.name}.` : `Choose target opponent for ${source.name}.`,
+      min: 1, max: 1, candidates,
+      action: { kind: 'putTriggeredAbility', instructions, triggeringPlayer: trigger.triggeringPlayer,
+        ...(trigger.triggerEffectKey ? { triggerEffectKey: trigger.triggerEffectKey } : {}),
+        ...(effect.if && !isTriggerBindingIf(effect.if) ? { interveningIf: effect.if } : {}), execution },
+    })
+    return true
+  }
+  if (instructions.length === 1 && instructions[0].kind === 'devour') {
+    runInstructions(draft, source, instructions, {
+      id: 'devour-enter', kind: 'ability', objectId: source.id,
+      controller: source.controller, name: source.name, targets: [],
+    })
+    return true
+  }
+  draft.addTriggeredAbility(source, instructions, {
+    execution,
+    payload: { instructions, triggeringPlayer: trigger.triggeringPlayer,
+      ...triggerPayloadExtras(effect, trigger.triggerEffectKey, {
+        ...(trigger.triggeringObjectId ? { triggeringObjectId: trigger.triggeringObjectId } : {}),
+        ...(trigger.triggerAmount !== undefined ? { triggerAmount: trigger.triggerAmount } : {}), ...trigger.payload,
+      }) },
+    name: source.name,
+  })
+  return false
 }

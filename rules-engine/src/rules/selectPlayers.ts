@@ -3,6 +3,8 @@ import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } from '../types'
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
 import { openOpponentPilePartition } from './selectCards'
+import { canonicalTargetBindings } from '../cardPlugins/dsl/compiler/targeting'
+import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -36,6 +38,13 @@ export type PendingPlayerSelection = {
         /** Extra stack payload, such as a Saga's `sagaChapter` and re-checked `targetFilter`. */
         payload?: Record<string, unknown>
         execution?: StackExecutionContext
+      }
+    | {
+        kind: 'putCanonicalTriggeredAbility'
+        definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+        abilityIndex: number
+        execution: StackExecutionContext
+        sourceId: string
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -171,6 +180,37 @@ export const selectPlayers: Plugin = {
           },
         })
       }
+    }
+    if (selection.action.kind === 'putCanonicalTriggeredAbility') {
+      const source = draft.object(selection.action.sourceId) ?? selection.action.execution.source.snapshot
+      const definition = loadDefinitionSnapshot(selection.action.definitionSnapshot).definition
+      const supplied = event.players.map((player) => ({ kind: 'player' as const, player }))
+      const bindings = canonicalTargetBindings(
+        draft,
+        source,
+        definition,
+        selection.action.abilityIndex,
+        supplied,
+        undefined,
+        [supplied],
+        selection.action.execution.controller,
+      )
+      draft.addToStack({
+        kind: 'ability',
+        objectId: selection.action.sourceId,
+        controller: selection.action.execution.controller,
+        name: source.name,
+        targets: supplied,
+        execution: {
+          ...selection.action.execution,
+          definitionSnapshot: selection.action.definitionSnapshot,
+          abilityIndex: selection.action.abilityIndex,
+          targetBindings: bindings,
+        },
+      })
+      draft.passedInRow = []
+      draft.priority = null
+      return
     }
     if (selection.action.kind === 'designateBattleProtector' && target) {
       const battle = draft.object(selection.sourceId)
