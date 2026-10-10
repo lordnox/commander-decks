@@ -139,6 +139,7 @@ export type PendingCardSelection = {
   canonicalChoice?: {
     stackId: string
     binding: string
+    action?: 'choose' | 'discard'
   }
   /** Pay this mana only if at least one card is chosen. */
   payMana?: string
@@ -577,6 +578,43 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         const object = draft.objects[objectId]
         return object ? [{ kind: 'object' as const, objectId, incarnation: object.incarnation, zone: object.zone }] : []
       }),
+    }
+    if (canonicalChoice.action === 'discard') {
+      const discarded = event.objectIds ?? []
+      const pendingDiscard = draft.resolution.pendingDiscard
+      if (pendingDiscard) {
+        pendingDiscard.selected.push(...discarded.map((objectId) => ({ seat: event.seat, objectId })))
+        pendingDiscard.index += 1
+        const nextSeat = pendingDiscard.seats.slice(pendingDiscard.index).find((seat) =>
+          (draft.zoneOrder[seat].hand ?? []).length > 0)
+        if (nextSeat) {
+          pendingDiscard.index = pendingDiscard.seats.indexOf(nextSeat)
+        } else {
+          draft.resolution.pendingEvents = pendingDiscard.selected.map((entry) => ({
+            type: 'discard' as const,
+            seat: entry.seat,
+            objectId: entry.objectId,
+          }))
+          if (draft.resolution.pendingEvents.length > 1) {
+            draft.resolution.pendingEvents = [{ type: 'actionGroup', events: draft.resolution.pendingEvents }]
+          }
+          draft.resolution.pendingResult = {
+            binding: pendingDiscard.binding ?? canonicalChoice.binding,
+            kind: 'action',
+            value: pendingDiscard.selected.length > 0,
+            eventType: 'discard',
+          }
+          delete draft.resolution.pendingDiscard
+        }
+      } else {
+        draft.resolution.pendingResult = {
+          binding: canonicalChoice.binding,
+          kind: 'action',
+          value: discarded.length > 0,
+          eventType: 'discard',
+        }
+        for (const objectId of discarded) draft.enqueue({ type: 'discard', seat: event.seat, objectId })
+      }
     }
     draft.priority = null
     return

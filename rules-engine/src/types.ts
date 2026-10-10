@@ -433,12 +433,15 @@ export type CanonicalResolutionFrame = {
     kind: 'counter' | 'action'
     stackId?: string
     value?: boolean | number
+    eventType?: GameEvent['type']
   }
   outcome?: 'resolved' | 'didNotResolve:interveningIf' | 'didNotResolve:allTargetsIllegal'
   scopes: ProgramScopeFrame[]
   phase: 'running' | 'committing' | 'waiting'
   /** Events for the current instruction, persisted before the cursor may continue. */
   pendingEvents?: GameEvent[]
+  /** Ordered private discard choices gathered before their action group commits. */
+  pendingDiscard?: { seats: PlayerId[]; index: number; amount: number; selected: Array<{ seat: PlayerId; objectId: string }>; binding?: string }
   /** Instruction continuations blocked on a typed choice. */
   afterChoiceEvents?: GameEvent[]
 }
@@ -653,10 +656,12 @@ export type GameEvent =
   | { type: 'resolveTop' }
   /** Internal canonical instruction event; never offered as a player action. */
   | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
+  /** Internal canonical instruction group; all members share one before-state. */
+  | { type: 'actionGroup'; events: GameEvent[] }
   /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
   | { type: 'destroy'; objectId: string; sourceId?: string }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
-  | { type: 'copyPermanent'; objectId: string; controller: PlayerId; sourceId?: string }
+  | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
   | { type: 'advanceStep' }
