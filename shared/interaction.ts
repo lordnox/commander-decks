@@ -143,7 +143,7 @@ const validateBounds = (count: number, min: number, max: number, distinct: boole
 export const validateInteractionAnswer = (
   request: InteractionRequest,
   answer: InteractionAnswer,
-): InteractionValidation => {
+) => {
   if (answer.requestId !== request.requestId) return { ok: false, error: 'stale interaction request' }
   if (answer.revision !== request.revision) return { ok: false, error: 'stale interaction revision' }
   if (answer.chooser !== request.chooser) return { ok: false, error: 'wrong interaction seat' }
