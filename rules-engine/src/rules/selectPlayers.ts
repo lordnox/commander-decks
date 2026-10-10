@@ -50,6 +50,9 @@ export type PendingPlayerSelection = {
         targetIndex?: number
         selectedTargets?: TargetRef[]
         selectedModes?: number[]
+        targetScopeIds?: string[]
+        targetModeIndices?: Array<number | undefined>
+        modeScopeIds?: string[]
       }
     | {
         kind: 'loseAbilitiesBecomeOpponent'
@@ -202,6 +205,9 @@ export const selectPlayers: Plugin = {
         targetClauses: selection.action.targetClauseDefinitions ?? [],
         targets: selectedTargets,
         selectedModes: selection.action.selectedModes,
+        targetScopeIds: selection.action.targetScopeIds,
+        targetModeIndices: selection.action.targetModeIndices,
+        modeScopeIds: selection.action.modeScopeIds,
         clauseBounds: targetClauses,
         clauseIndex: targetIndex + 1,
       }
