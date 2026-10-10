@@ -104,11 +104,14 @@ import {
   settleKernelPriority,
   type KernelHandle,
 } from './kernelHost'
+import { applyKernelConcession } from './host'
 import { liveSnapshotFromState } from './kernelView'
 import { openTopdeck, type TopdeckMessage } from './kernelChoice'
 import type { SeatId } from './protocol'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
+import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
+import { validateInteractionAnswer } from '../../shared/interaction'
 
 const RANKLE_MODES = {
   discard: 'Each player discards a card',
@@ -212,6 +215,34 @@ const handleFor = (
     },
     save: () => {},
   }
+}
+
+const interactionHostCase = () => {
+  const server = createServerGame(commanderRules, { players: 2 }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.life = 30
+  state.players.p2.life = 50
+  state.players.p1.data['kernel.pendingPlayerSelection'] = [{
+    id: 'choice-1',
+    seat: 'p1',
+    sourceId: 'review-source',
+    source: 'Review source',
+    prompt: 'Choose an opponent.',
+    min: 1,
+    max: 1,
+    candidates: ['p2'],
+    action: { kind: 'exchangeLifeTotals' },
+  }]
+  const kernel = handleFor(server.rules, state)
+  const lobby = createLobby()
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  const message: TopdeckMessage = {
+    type: 'topdeck',
+    requestId: lobby.topdeck!.requestId,
+    revision: lobby.topdeck!.revision,
+    choices: [{ card: 'p2', slot: 0, destination: 'target' }],
+  }
+  return { kernel, lobby, message }
 }
 
 const namedVoteBallot = (card: string) => ({
@@ -413,6 +444,103 @@ describe('kernel host journal', () => {
       cancellation: 'mustAnswer',
       selection: { kind: 'selectOptions', min: 0, max: 3, distinct: true },
     })
+    expect(validateInteractionAnswer(lobby.topdeck!.interaction!, {
+      requestId: lobby.topdeck!.requestId!,
+      revision: lobby.topdeck!.revision!,
+      chooser: 'p1',
+      cancel: true,
+    })).toEqual({ ok: false, error: 'mandatory interaction cannot be cancelled' })
+  })
+
+  test('keeps stale, wrong-seat, and invalid answers out of the continuation', () => {
+    const { kernel, lobby, message } = interactionHostCase()
+    expect(applyKernelChoiceImpl(kernel, lobby, 'p2', message)).toBe(false)
+    expect(() => applyKernelChoiceImpl(kernel, lobby, 'p1', {
+      ...message,
+      revision: message.revision! - 1,
+    })).toThrow('stale')
+    expect(() => applyKernelChoiceImpl(kernel, lobby, 'p1', {
+      ...message,
+      choices: [{ card: 'p2', slot: 0, destination: 'skip' }],
+    })).toThrow()
+    expect(lobby.topdeck).toBeDefined()
+    expect(kernel.history.current().players.p1.life).toBe(30)
+  })
+
+  test('restores one answer and rejects a semantic duplicate with different destination', () => {
+    const first = interactionHostCase()
+    const restoredLobby = structuredClone(first.lobby)
+    const restored = handleFor(
+      first.kernel.rules,
+      restoreJournal(first.kernel.journal, first.kernel.rules).current(),
+    )
+    expect(applyKernelChoiceImpl(restored, restoredLobby, 'p1', first.message)).toBe(true)
+    expect(restored.history.current().players.p1.life).toBe(50)
+    expect(applyKernelChoiceImpl(restored, restoredLobby, 'p1', first.message)).toBe(true)
+    expect(applyKernelChoiceImpl(restored, restoredLobby, 'p1', {
+      ...first.message,
+      choices: [{ card: 'p2', slot: 0, destination: 'skip' }],
+    })).toBe(false)
+    expect(restored.history.current().players.p1.life).toBe(50)
+  })
+
+  test('browser-decoded and direct headless answers produce the same journal', () => {
+    const browser = interactionHostCase()
+    const headless = interactionHostCase()
+    const snapshot = liveSnapshotFromState({
+      state: browser.kernel.history.current(),
+      lobby: browser.lobby,
+      viewer: 'p1',
+    })
+    const decoded = expandLiveWire(compactLiveWire(snapshot))
+    const browserMessage = {
+      ...browser.message,
+      requestId: decoded.topdeck?.requestId,
+      revision: decoded.topdeck?.revision,
+    }
+    expect(applyKernelChoiceImpl(browser.kernel, browser.lobby, 'p1', browserMessage)).toBe(true)
+    expect(applyKernelChoiceImpl(headless.kernel, headless.lobby, 'p1', headless.message)).toBe(true)
+    expect(browser.kernel.history.current()).toEqual(headless.kernel.history.current())
+    expect(browser.kernel.journal).toEqual(headless.kernel.journal)
+  })
+
+  test('projects the private offer only to its chooser', () => {
+    const { kernel, lobby } = interactionHostCase()
+    const continuation = lobby.interactionLedger![0].continuation as Record<string, unknown>
+    continuation.privateMarker = 'private-marker'
+    const chooser = liveSnapshotFromState({
+      state: kernel.history.current(),
+      lobby,
+      viewer: 'p1',
+    })
+    const opponent = liveSnapshotFromState({
+      state: kernel.history.current(),
+      lobby,
+      viewer: 'p2',
+    })
+    const spectator = liveSnapshotFromState({
+      state: kernel.history.current(),
+      lobby,
+      viewer: null,
+    })
+    expect(chooser.topdeck).toBeDefined()
+    expect(opponent.topdeck).toBeUndefined()
+    expect(spectator.topdeck).toBeUndefined()
+    expect(JSON.stringify(chooser)).not.toContain('private-marker')
+    expect(JSON.stringify(opponent)).not.toContain('private-marker')
+    expect(JSON.stringify(spectator)).not.toContain('private-marker')
+    expect(JSON.stringify(chooser)).not.toContain('candidateIds')
+  })
+
+  test('concession invalidates the pending continuation without touching another seat', () => {
+    const { kernel, lobby, message } = interactionHostCase()
+    const requestId = message.requestId!
+    expect(applyKernelConcession(kernel, lobby, 'p1')).toBe(true)
+    expect(lobby.topdeck).toBeUndefined()
+    expect(lobby.interactionLedger?.find((record) => record.request.requestId === requestId)?.status)
+      .toBe('invalidated')
+    expect(() => applyKernelChoiceImpl(kernel, lobby, 'p1', message)).not.toThrow()
+    expect(applyKernelChoiceImpl(kernel, lobby, 'p1', message)).toBe(false)
   })
 
   test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {

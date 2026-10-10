@@ -336,7 +336,7 @@ describe('live compact v2', () => {
     })
   })
 
-  test('browser wire preserves the typed request envelope for a headless reconnect', () => {
+  test('browser wire preserves the typed request envelope metadata', () => {
     const original = snapshot()
     original.actions = ['topdeck']
     original.topdeck = {

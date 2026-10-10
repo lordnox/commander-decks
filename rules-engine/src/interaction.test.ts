@@ -33,7 +33,7 @@ describe('InteractionStore', () => {
     }
     const accepted = store.answer(answer)
     expect(accepted).toEqual({ kind: 'accepted', continuation: { cursor: 3 } })
-    if (accepted.kind === 'accepted') accepted.continuation.cursor = 99
+    if (accepted.kind === 'accepted' && accepted.continuation) accepted.continuation.cursor = 99
     expect(store.answer(answer)).toEqual({ kind: 'duplicate' })
     expect(store.continuation('req-1')).toBeUndefined()
   })

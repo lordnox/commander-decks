@@ -17,7 +17,7 @@ export type InteractionAnswerResult<TContinuation, TResult> =
   | { kind: 'duplicate'; result?: TResult }
   | { kind: 'invalid'; error: string }
 
-const clone = <T>(value: T): T => structuredClone(value)
+const clone = <T>(value: T) => structuredClone(value)
 
 /**
  * Server-side request ledger. Continuations are immutable data; clients submit
@@ -59,25 +59,25 @@ export class InteractionStore<TContinuation = unknown, TResult = unknown> {
     return record && record.status === 'open' ? clone(record.continuation) : undefined
   }
 
-  answer(answer: InteractionAnswer): InteractionAnswerResult<TContinuation, TResult> {
+  answer(answer: InteractionAnswer) {
     const record = this.records.get(answer.requestId)
-    if (!record) return { kind: 'invalid', error: 'unknown interaction request' }
+    if (!record) return { kind: 'invalid' as const, error: 'unknown interaction request' }
     if (record.status === 'reserved' || record.status === 'consumed') {
-      if (answer.revision !== record.request.revision) return { kind: 'invalid', error: 'stale interaction revision' }
-      if (answer.chooser !== record.request.chooser) return { kind: 'invalid', error: 'wrong interaction seat' }
+      if (answer.revision !== record.request.revision) return { kind: 'invalid' as const, error: 'stale interaction revision' }
+      if (answer.chooser !== record.request.chooser) return { kind: 'invalid' as const, error: 'wrong interaction seat' }
       const checked = validateInteractionAnswer(record.request, answer)
-      if (!checked.ok) return { kind: 'invalid', error: checked.error }
+      if (!checked.ok) return { kind: 'invalid' as const, error: checked.error }
       const fingerprint = JSON.stringify(answer)
       return fingerprint === record.answerFingerprint
-        ? { kind: 'duplicate', ...(record.result === undefined ? {} : { result: clone(record.result) }) }
-        : { kind: 'invalid', error: 'interaction was already answered with a different selection' }
+        ? { kind: 'duplicate' as const, ...(record.result === undefined ? {} : { result: clone(record.result) }) }
+        : { kind: 'invalid' as const, error: 'interaction was already answered with a different selection' }
     }
-    if (record.status !== 'open') return { kind: 'invalid', error: 'interaction request is no longer open' }
+    if (record.status !== 'open') return { kind: 'invalid' as const, error: 'interaction request is no longer open' }
     const checked = validateInteractionAnswer(record.request, answer)
-    if (!checked.ok) return { kind: 'invalid', error: checked.error }
+    if (!checked.ok) return { kind: 'invalid' as const, error: checked.error }
     record.status = answer.cancel ? 'cancelled' : 'reserved'
     record.answerFingerprint = JSON.stringify(answer)
-    return { kind: 'accepted', continuation: clone(record.continuation) }
+    return { kind: 'accepted' as const, continuation: clone(record.continuation) }
   }
 
   complete(requestId: string, result: TResult) {
@@ -110,7 +110,7 @@ export class InteractionStore<TContinuation = unknown, TResult = unknown> {
     return true
   }
 
-  snapshot(): StoredInteraction<TContinuation, TResult>[] {
+  snapshot() {
     return [...this.records.values()].map(clone)
   }
 

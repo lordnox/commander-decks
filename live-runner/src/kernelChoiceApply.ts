@@ -1,6 +1,6 @@
 import type { LobbyState, TopdeckDecision } from './lobby'
 import { InteractionStore } from '../../rules-engine/src/interaction'
-import type { InteractionAnswer, InteractionSelection } from '../../shared/interaction'
+import type { InteractionSelection } from '../../shared/interaction'
 import type { SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
 import {
@@ -36,7 +36,7 @@ const interactionAnswerFor = (
   decision: TopdeckDecision,
   message: TopdeckMessage,
   seat: SeatId,
-): InteractionAnswer => {
+) => {
   if (!decision.interaction || decision.requestId === undefined || decision.revision === undefined) {
     throw new Error('This interaction is missing its server request metadata.')
   }
@@ -140,6 +140,7 @@ export const applyKernelChoice = (
   }
   if (accepted.kind === 'duplicate') return true
   const decision = accepted.continuation
+  if (!decision) throw new Error('This interaction continuation is missing.')
   if (!decision.kernel) throw new Error('This interaction continuation has no kernel choice.')
   lobby.interactionLedger = interactions.snapshot()
   const fingerprint = JSON.stringify({ seat, requestId, revision: decision.revision, choices: message.choices })

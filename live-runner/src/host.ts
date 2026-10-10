@@ -136,6 +136,31 @@ export const restoreKernelWindow = (
 }
 
 /**
+ * Apply a concession while a kernel interaction is open. The journal owns the
+ * game event; the interaction ledger owns the abandoned private continuation.
+ */
+export const applyKernelConcession = (
+  kernel: KernelHandle,
+  state: LobbyState,
+  seat: SeatId,
+) => {
+  const abandonedRequestId = state.topdeck?.seat === seat ? state.topdeck.requestId : undefined
+  const result = kernel.dispatch({ type: 'concede', seat })
+  if (!result.ok) throw new Error(result.error)
+  if (state.topdeck?.seat === seat) state.topdeck = undefined
+  const interactions = new InteractionStore<TopdeckDecision, boolean>()
+  interactions.restore(state.interactionLedger ?? [])
+  interactions.invalidateForChooser(seat)
+  state.interactionLedger = interactions.snapshot()
+  state.completedInteractions = Object.fromEntries(
+    Object.entries(state.completedInteractions ?? {}).filter(([requestId]) =>
+      requestId !== abandonedRequestId),
+  )
+  restoreKernelWindow(kernel, state)
+  return true
+}
+
+/**
  * Publish that a judge round is in flight. The seat's previous buttons are
  * returned so a failed round can hand them back: leaving them on screen would
  * offer a pass or a phase advance that races the judge's own events.
@@ -454,19 +479,7 @@ export const runHost = async (options: {
     applyInbox(state, seat, message)
     await ensureKernel()
     if (message.type === 'concede' && kernel) {
-      const abandonedRequestId = state.topdeck?.seat === seat ? state.topdeck.requestId : undefined
-      const result = kernel.dispatch({ type: 'concede', seat })
-      if (!result.ok) throw new Error(result.error)
-      if (state.topdeck?.seat === seat) state.topdeck = undefined
-      const interactions = new InteractionStore<TopdeckDecision, boolean>()
-      interactions.restore(state.interactionLedger ?? [])
-      interactions.invalidateForChooser(seat)
-      state.interactionLedger = interactions.snapshot()
-      state.completedInteractions = Object.fromEntries(
-        Object.entries(state.completedInteractions ?? {}).filter(([requestId]) =>
-          requestId !== abandonedRequestId),
-      )
-      restoreKernelWindow(kernel, state)
+      applyKernelConcession(kernel, state, seat)
       session.lobby = state
       saveSession(session, root)
       await publish(slug, root, origin, bins, state, kernel)
