@@ -9,6 +9,8 @@ import type {
   ObjectIdentity,
   ZoneId,
 } from '../types'
+import { canonicalTargetBindings } from '../cardPlugins/dsl/compiler/targeting'
+import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
 import { linkExileSelected } from '../cardPlugins/linkedExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
@@ -97,6 +99,15 @@ export type PendingCardSelection = {
   } | {
     kind: 'abundance-order'
     remainingAfter?: number
+  }
+  /** CR 603.3b ordering answer for a controller's pending trigger group. */
+  triggerOrder?: { ids: string[]; pass: 1 | 2 }
+  /** Canonical triggered ability target answer, retained until it is stacked. */
+  canonicalTrigger?: {
+    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    abilityIndex: number
+    execution: StackExecutionContext
+    sourceId: string
   }
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
@@ -385,6 +396,17 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   if (event.count !== selection.count) return `expected count ${selection.count}`
 
   const expected = expectedCount(state, selection)
+  if (selection.triggerOrder) {
+    const objectIds = event.objectIds
+    if (!Array.isArray(objectIds) || objectIds.length !== selection.triggerOrder.ids.length) {
+      return 'must order every pending trigger'
+    }
+    if (new Set(objectIds).size !== objectIds.length
+      || objectIds.some((id) => !selection.triggerOrder?.ids.includes(id))) {
+      return 'trigger order contains an unoffered or duplicate trigger'
+    }
+    return
+  }
   const allowed = new Set(liveCandidates(state, selection))
   const destinations = new Set(allowedDestinations(selection))
 
@@ -523,6 +545,19 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
   clearPendingSelection(draft, event.seat)
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
+
+  if (selection.triggerOrder) {
+    const ids = event.objectIds ?? []
+    if (draft.triggerPlacement) {
+      draft.triggerPlacement = {
+        ...draft.triggerPlacement,
+        controller: event.seat,
+        orderIds: [...ids],
+      }
+    }
+    draft.priority = null
+    return
+  }
 
   if (selection.kind === 'discard') {
     const discarded = event.objectIds ?? []
@@ -694,6 +729,41 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       draft.passedInRow = []
       draft.priority = draft.active
     }
+  }
+
+  if (selection.canonicalTrigger && selection.sourceId) {
+    const source = draft.object(selection.sourceId) ?? selection.canonicalTrigger.execution.source.snapshot
+    const definition = loadDefinitionSnapshot(selection.canonicalTrigger.definitionSnapshot).definition
+    const supplied = (event.objectIds ?? []).map((objectId) => ({
+      kind: 'object' as const,
+      ...(selection.targetIdentities?.[objectId] ?? { objectId }),
+    }))
+    const bindings = canonicalTargetBindings(
+      draft,
+      source,
+      definition,
+      selection.canonicalTrigger.abilityIndex,
+      supplied,
+      undefined,
+      undefined,
+      selection.canonicalTrigger.execution.controller,
+    )
+    draft.addToStack({
+      kind: 'ability',
+      objectId: selection.sourceId,
+      controller: selection.canonicalTrigger.execution.controller,
+      name: source.name,
+      targets: supplied,
+      execution: {
+        ...selection.canonicalTrigger.execution,
+        definitionSnapshot: selection.canonicalTrigger.definitionSnapshot,
+        abilityIndex: selection.canonicalTrigger.abilityIndex,
+        targetBindings: bindings,
+      },
+    })
+    draft.passedInRow = []
+    draft.priority = null
+    return
   }
 
   if (selection.kind === 'scry' || selection.kind === 'surveil') {

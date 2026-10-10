@@ -3,7 +3,7 @@ import { hasProtectionFromEverything } from '../../../plugins/protectionFromEver
 import { effectsOf } from '../../cardRules'
 import type { CardRuleDefinitionV1, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, PlayerId, StackItem, TargetRef } from '../../../types'
-import { captureObject, pinTarget, targetObject } from '../../../objectIdentity'
+import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
 import { evaluateTargetBounds } from './evaluate'
@@ -219,6 +219,61 @@ export const canonicalTargetBindings = (
     clauseIndex,
     recipients,
   }))
+}
+
+/**
+ * Return the public candidates for one canonical target clause while an ability
+ * is being put on the stack.  This intentionally does not choose or bind a
+ * target; the placement cursor owns that decision and pins the identities only
+ * after the chooser answers.
+ */
+export const canonicalTargetCandidates = (
+  state: GameState,
+  source: GameObject,
+  ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
+  controller: PlayerId,
+  occurrence?: import('../../../types').OccurrenceSnapshot,
+) => {
+  const context = {
+    state,
+    controller,
+    source: captureObject(source),
+    ...(occurrence ? { occurrence } : {}),
+  }
+  return ability.decisions.targets.map((clause) => {
+    switch (clause.filter.kind) {
+      case 'players':
+        return state.playerOrder
+          .filter((player) => canonicalCandidate(
+            state,
+            { kind: 'player', player },
+            clause,
+            context,
+            undefined,
+          ))
+          .map((player) => ({ kind: 'player' as const, player }))
+      case 'objects':
+        return Object.values(state.objects)
+          .filter((object) => object.zone !== 'stack' && canonicalCandidate(
+            state,
+            { kind: 'object', ...objectIdentity(object) },
+            clause,
+            context,
+            undefined,
+          ))
+          .map((object) => ({ kind: 'object' as const, ...objectIdentity(object) }))
+      case 'stackItems':
+        return state.stack
+          .filter((item) => canonicalCandidate(
+            state,
+            { kind: 'stackItem', stackId: item.id },
+            clause,
+            context,
+            undefined,
+          ))
+          .map((item) => ({ kind: 'stackItem' as const, stackId: item.id }))
+    }
+  })
 }
 
 export const canonicalTargetLegalityForAbility = (
