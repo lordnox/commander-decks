@@ -84,4 +84,3 @@ export type LiveSeatSnapshot<
   command: Array<CardRef>
   revealed_top?: Array<CardRef>
 }
-
