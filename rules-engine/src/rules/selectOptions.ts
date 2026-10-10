@@ -47,6 +47,11 @@ export type PendingOptionSelection = {
     /** The color a permanent stores as it enters. */
     kind: 'choose-color'
   } | {
+    /** A canonical resolution program choice; the frame remains private. */
+    kind: 'canonicalInstructionChoice'
+    stackId: string
+    options: readonly { id: string; instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[] }[]
+  } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
     abilityIndex: number
@@ -132,6 +137,20 @@ export const selectOptions: Plugin = {
     if (event.type !== 'selectOption') return
     const selection = pendingOptionSelection(draft, event.seat)
     if (!selection || selection.id !== event.selectionId) return
+    if (selection.action.kind === 'canonicalInstructionChoice') {
+      const option = selection.action.options.find((entry) => entry.id === event.optionId)
+      if (!option) return
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
+        draft.resolution.scopes.push({
+          path: `.choice.${event.optionId}`,
+          instructions: structuredClone(option.instructions),
+          cursor: 0,
+        })
+      }
+      draft.priority = null
+      return
+    }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
       const modeIndex = Number(event.optionId.replace('mode:', ''))
       const selectedModes = [...selection.action.selectedModes, modeIndex]

@@ -7,6 +7,7 @@ import {
   evaluatePlayerReference,
   evaluatePlayerSelector,
   evaluateRuntimeAmount,
+  evaluateCondition,
   evaluateStackItemSelector,
   type BoundRecipient,
   type RuleDslRuntimeContext,
@@ -27,12 +28,24 @@ import type {
   GameObject,
 } from './types'
 import { hasKeyword } from './keywords'
+import { openOptionSelection } from './rules/selectOptions'
+import { openCardSelection } from './rules/selectCards'
+import { copyCharacteristics } from './cardPlugins/effectRuntime'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'counter',
   'damage',
   'destroy',
+  'sacrifice',
+  'move',
+  'phase',
+  'proliferate',
+  'createToken',
+  'copy',
+  'putCounters',
   'draw',
+  'mill',
+  'discard',
   'gainLife',
   'loseLife',
 ] as const
@@ -71,10 +84,26 @@ const preflightInstructions = (
       case 'loseLife':
       case 'damage':
       case 'destroy':
+      case 'sacrifice':
+      case 'move':
+      case 'phase':
+      case 'proliferate':
+      case 'createToken':
+      case 'copy':
+      case 'putCounters':
       case 'counter':
+      case 'mill':
+      case 'discard':
+        return
+      case 'if':
+        preflightInstructions(instruction.then, `${instructionPath}.then`)
+        preflightInstructions(instruction.otherwise, `${instructionPath}.otherwise`)
+        return
+      case 'chooseInstructions':
+      case 'chooseCards':
         return
       default:
-        throw new Error(`${instructionPath}: ${instruction.kind} is not executable in Part 04`)
+        throw new Error(`${instructionPath}: unsupported canonical instruction`)
     }
   })
 }
@@ -181,6 +210,7 @@ const runtimeContext = (
       }))
     return targets
   })(),
+  choices: frame.choices,
   targetLegality: frame.targetLegality,
   results: frame.results,
   ...(item.x === undefined ? {} : { variables: { X: item.x } }),
@@ -201,6 +231,13 @@ const objectRecipients = (objects: readonly GameObject[]) => objects.map((object
   incarnation: object.incarnation,
   zone: object.zone,
 })) as DamageRecipient[]
+
+const objectActions = (
+  recipient: Extract<Instruction, { kind: 'destroy' | 'sacrifice' | 'move' | 'phase' | 'copy' | 'putCounters' }>['targets'],
+  context: RuleDslRuntimeContext,
+) => recipient.kind === 'objects'
+  ? evaluateObjectSelector(recipient, context)
+  : evaluateObjectReference(recipient, context)
 
 const boundDamageRecipients = (bound: BoundRecipient) => {
   const boundTargets: DamageRecipient[] = []
@@ -294,12 +331,99 @@ const actionEvents = (
       }))
     }
     case 'destroy': {
-      const targets = instruction.targets.kind === 'objects'
-        ? evaluateObjectSelector(instruction.targets, context)
-        : evaluateObjectReference(instruction.targets, context)
-      return targets.flatMap((object) => hasKeyword(object, 'indestructible', context.state)
+      const targets = objectActions(instruction.targets, context)
+      const legal = targets.filter((object) => !hasKeyword(object, 'indestructible', context.state))
+      if (instruction.bindResult && legal.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'destroy' }
+      return legal.flatMap((object) => hasKeyword(object, 'indestructible', context.state)
         ? []
-        : [{ type: 'move' as const, objectId: object.id, to: 'graveyard' as const }])
+        : [{ type: 'destroy' as const, objectId: object.id, sourceId: frame.source.ref.objectId }])
+    }
+    case 'sacrifice': {
+      const targets = objectActions(instruction.targets, context)
+      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'sacrifice' }
+      return targets.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
+    }
+    case 'move': {
+      const targets = objectActions(instruction.targets, context)
+      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'move' }
+      return targets.map((object) => ({ type: 'move' as const, objectId: object.id, to: instruction.to }))
+    }
+    case 'phase': {
+      const targets = objectActions(instruction.targets, context)
+      return targets.map((object) => ({ type: instruction.out ? 'phaseOut' as const : 'phaseIn' as const, objectId: object.id }))
+    }
+    case 'proliferate': {
+      return recipients(instruction.targets, context).map((seat) => ({ type: 'proliferate' as const, seat, sourceId: frame.source.ref.objectId }))
+    }
+    case 'createToken': {
+      const targets = recipients(instruction.targets, context)
+      const amount = availableAmount(instruction.count, context)
+      if (!amount || !targets.length) return []
+      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: amount, eventType: 'createToken' }
+      return targets.flatMap((seat) => Array.from({ length: amount }, () => ({
+        type: 'createToken' as const,
+        controller: seat,
+        token: {
+          ...instruction.token,
+          types: [...instruction.token.types],
+          ...(instruction.token.subtypes ? { subtypes: [...instruction.token.subtypes] } : {}),
+          ...(instruction.token.colors ? { colors: [...instruction.token.colors] } : {}),
+        },
+      })))
+    }
+    case 'copy': {
+      const targets = objectActions(instruction.targets, context)
+      const controllers = instruction.controller
+        ? (instruction.controller.kind === 'players'
+          ? evaluatePlayerSelector(instruction.controller, context)
+          : evaluatePlayerReference(instruction.controller, context))
+        : [context.controller]
+      if (instruction.bindResult && targets.length > 0 && controllers.length > 0) {
+        frame.pendingResult = {
+          binding: instruction.bindResult,
+          kind: 'action',
+          value: targets.length * controllers.length,
+          eventType: 'copyPermanent',
+        }
+      }
+      return targets.flatMap((object) => controllers.map((controller) => ({
+        type: 'copyPermanent' as const,
+        objectId: object.id,
+        controller,
+        token: copyCharacteristics(object),
+        sourceId: frame.source.ref.objectId,
+      })))
+    }
+    case 'putCounters': {
+      const targets = objectActions(instruction.targets, context)
+      const amount = availableAmount(instruction.count, context)
+      if (amount === undefined || amount === 0) return []
+      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: amount, eventType: 'putCounters' }
+      return targets.map((object) => ({ type: 'putCounters' as const, objectId: object.id, counter: instruction.counter, count: amount }))
+    }
+    case 'mill': {
+      const targets = recipients(instruction.targets, context)
+      const amount = availableAmount(instruction.count, context)
+      if (amount === undefined || amount === 0) return []
+      return targets.flatMap((seat) => (context.state.zoneOrder[seat].library ?? []).slice(0, amount)
+        .map((objectId) => ({ type: 'mill' as const, seat, objectId, sourceId: frame.source.ref.objectId })))
+    }
+    case 'discard': {
+      if (instruction.by !== undefined) {
+        const by = evaluatePlayerReference(instruction.by, context)[0]
+        const targets = instruction.targets.kind === 'objects'
+          ? evaluateObjectSelector(instruction.targets, context)
+          : evaluateObjectReference(instruction.targets, context)
+        if (instruction.bindResult && targets.length === 1) {
+          frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'discard' }
+        }
+        return targets.map((object) => ({ type: 'discard' as const, seat: by, objectId: object.id }))
+      }
+      const targets = recipients(instruction.targets, context)
+      const amount = availableAmount(instruction.count, context)
+      if (amount === undefined || amount === 0) return []
+      return targets.flatMap((seat) => (context.state.zoneOrder[seat].hand ?? []).slice(0, amount)
+        .map((objectId) => ({ type: 'discard' as const, seat, objectId })))
     }
     case 'counter': {
       const targets = instruction.targets.kind === 'targetRef'
@@ -345,6 +469,39 @@ export const prepareResolutionStep = (draft: Draft) => {
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
   const item = draft.stack.find((candidate) => candidate.id === frame.stackId)
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
+  if (frame.pendingDiscard) {
+    const pending = frame.pendingDiscard
+    while (pending.index < pending.seats.length) {
+      const seat = pending.seats[pending.index]!
+      const hand = (draft.zoneOrder[seat].hand ?? []).map((objectId) => draft.objects[objectId]).filter(Boolean)
+      const count = Math.min(pending.amount, hand.length)
+      if (count > 0) {
+        openCardSelection(draft, {
+          seat,
+          kind: 'discard',
+          count,
+          min: count,
+          candidates: hand.map((object) => object.id),
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose cards to discard.',
+          destinations: ['target'],
+          targetIdentities: Object.fromEntries(hand.map((object) => [object.id, objectIdentity(object)])),
+          canonicalChoice: {
+            stackId: frame.stackId,
+            binding: pending.binding ?? `__discard_${pending.index}`,
+            action: 'discard',
+          },
+        })
+        frame.phase = 'committing'
+        frame.pendingEvents = []
+        return { kind: 'events', events: [] }
+      }
+      pending.index += 1
+    }
+    if (pending.binding) frame.results = { ...frame.results, [pending.binding]: pending.selected.length > 0 }
+    delete frame.pendingDiscard
+  }
   while (frame.scopes.length > 0) {
     const scope = frame.scopes.at(-1)!
     if (scope.cursor >= scope.instructions.length) {
@@ -363,12 +520,95 @@ export const prepareResolutionStep = (draft: Draft) => {
       })
       continue
     }
+    if (instruction.kind === 'if') {
+      const context = runtimeContext(draft, frame, item)
+      const takeThen = evaluateCondition(instruction.condition, context)
+      const branch = takeThen ? instruction.then : instruction.otherwise
+      if (branch.length > 0) {
+        frame.scopes.push({
+          path: `${path}.${takeThen ? 'then' : 'otherwise'}`,
+          instructions: structuredClone(branch),
+          cursor: 0,
+        })
+      }
+      continue
+    }
+    if (instruction.kind === 'chooseInstructions') {
+      const context = runtimeContext(draft, frame, item)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      if (chooser && instruction.options.length > 0) {
+        openOptionSelection(draft, {
+          seat: chooser,
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose an instruction program.',
+          options: instruction.options.map((_option, optionIndex) => ({ id: `instruction:${optionIndex}`, label: `Option ${optionIndex + 1}` })),
+          action: {
+            kind: 'canonicalInstructionChoice',
+            stackId: frame.stackId,
+            options: instruction.options.map((option, optionIndex) => ({ id: `instruction:${optionIndex}`, instructions: [...option.instructions] })),
+          },
+        })
+      }
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'chooseCards') {
+      const context = runtimeContext(draft, frame, item)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const candidates = evaluateObjectSelector(instruction.filter, context)
+      const requestedMin = availableAmount(instruction.min, context) ?? 0
+      const requestedMax = availableAmount(instruction.max, context) ?? requestedMin
+      const min = instruction.whenInsufficient === 'chooseAvailable'
+        ? Math.min(requestedMin, candidates.length)
+        : requestedMin
+      const max = Math.min(requestedMax, candidates.length)
+      if (chooser && candidates.length > 0 && max > 0) {
+        openCardSelection(draft, {
+          seat: chooser,
+          kind: 'choose',
+          count: max,
+          min,
+          candidates: candidates.map((object) => object.id),
+          targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose cards for the Rule DSL program.',
+          destinations: ['target', 'skip'],
+          canonicalChoice: { stackId: frame.stackId, binding: instruction.bindChoice },
+        })
+      } else if (min === 0) {
+        frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
+      }
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'discard' && instruction.count !== undefined) {
+      const context = runtimeContext(draft, frame, item)
+      const seats = recipients(instruction.targets, context)
+      const amount = availableAmount(instruction.count, context) ?? 0
+      frame.pendingDiscard = {
+        seats: [...new Set(seats)],
+        index: 0,
+        amount,
+        selected: [],
+        ...(instruction.bindResult ? { binding: instruction.bindResult } : {}),
+      }
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
     frame.phase = 'committing'
     const events = actionEvents(instruction, runtimeContext(draft, frame, item), frame, path)
-    frame.pendingEvents = structuredClone(events)
+    const committed = events.length > 1
+      ? [{ type: 'actionGroup' as const, events }]
+      : events
+    frame.pendingEvents = structuredClone(committed)
     return {
       kind: 'events',
-      events,
+      events: committed,
     }
   }
   const object = draft.object(item.objectId)

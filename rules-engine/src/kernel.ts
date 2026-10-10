@@ -43,6 +43,8 @@ import {
 import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
 import { isSameObject } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
+import { hasKeyword } from './keywords'
+import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 
@@ -191,6 +193,22 @@ const legalError = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case 'destroy': {
+      const object = draft.object(event.objectId)
+      if (!object || object.zone !== 'battlefield' || hasKeyword(object, 'indestructible', draft)) return
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+      return
+    }
+    case 'copyPermanent': {
+      const source = draft.object(event.objectId)
+      if (!source || source.zone !== 'battlefield') return
+      draft.enqueue({
+        type: 'createToken',
+        controller: event.controller,
+        token: event.token ?? copyCharacteristics(source),
+      })
+      return
+    }
     case 'counterStackItem': {
       const index = draft.stack.findIndex((item) => item.id === event.stackId)
       if (index < 0) return
@@ -275,6 +293,23 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         }
         draft.note(`${object.name} enters battlefield`)
       }
+      return
+    }
+    case 'mill': {
+      const object = draft.object(event.objectId)
+      if (!object || object.zone !== 'library') return
+      draft.move(object.id, 'graveyard')
+      draft.note(`${object.name} is milled`)
+      return
+    }
+    case 'proliferate': {
+      for (const object of Object.values(draft.objects)) {
+        if (object.zone !== 'battlefield' || object.controller !== event.seat || object.phasedOut) continue
+        for (const counter of Object.keys(object.counters)) object.counters[counter] += 1
+      }
+      if (draft.players[event.seat].poison > 0) draft.players[event.seat].poison += 1
+      if (draft.players[event.seat].energy > 0) draft.players[event.seat].energy += 1
+      draft.note(`${event.seat} proliferates`)
       return
     }
     case 'tap': {
@@ -521,6 +556,9 @@ function applyEventTree(
   catalog: PluginCatalog,
   options: EventTreeOptions = {},
 ): ReduceResult {
+  if (event.type === 'actionGroup') {
+    return applySimultaneousActionGroup(state, event.events, catalog)
+  }
   if (event.type === 'resolveTop' && !state.resolution) {
     const item = canonicalResolutionCandidate(state)
     if (item) {
@@ -604,6 +642,43 @@ function applyEventTree(
 const appliedEvent = (result: ReduceOnce, fallback: GameEvent) =>
   [...result.trace].reverse().find((entry) => entry.outcome === 'applied')?.event ?? fallback
 
+/** Reduce one canonical action group against a shared occurrence before-state. */
+const applySimultaneousActionGroup = (
+  state: GameState,
+  events: GameEvent[],
+  catalog: PluginCatalog,
+): ReduceResult => {
+  let current = state
+  const entries: EventTrace[] = []
+  const occurrences: GameEvent[] = []
+  const queued: Array<{ event: GameEvent; depth: number }> = []
+  for (const event of events) {
+    const next = reduceOnce(current, event, catalog, {
+      skipTriggerCapture: true,
+      deferEndCheck: true,
+    })
+    entries.push(...next.trace)
+    if (!next.ok) return { ...next, state: current, trace: entries }
+    if (!next.prevented) occurrences.push(appliedEvent(next, event))
+    current = next.state
+    queued.push(...(next.queued ?? []).map((child) => ({
+      event: child,
+      depth: next.queuedDepth ?? 1,
+    })))
+  }
+  const grouped = makeDraft(current)
+  for (const occurrence of occurrences) captureEventTriggers(state, occurrence, grouped)
+  checkEnded(grouped)
+  current = freezeDraft(grouped)
+  for (const child of queued) {
+    const next = applyEventTree(current, child.event, catalog)
+    entries.push(...nested(next.trace, child.depth))
+    if (!next.ok) return { ...next, state: current, trace: entries }
+    current = next.state
+  }
+  return { ok: true, state: current, trace: entries }
+}
+
 /** Apply one precomputed SBA wave, then capture look-back triggers from its common pre-state. */
 const applySimultaneousSba = (
   state: GameState,
@@ -643,7 +718,10 @@ const applySimultaneousSba = (
   return { ok: true, state: current, trace: entries }
 }
 
-const recordPendingCounterResult = (state: ReturnType<typeof freezeDraft>) => {
+const recordPendingCounterResult = (
+  state: ReturnType<typeof freezeDraft>,
+  trace: EventTrace[] = [],
+) => {
   const pending = state.resolution?.kind === 'canonicalSpell'
     ? state.resolution.pendingResult
     : undefined
@@ -652,7 +730,13 @@ const recordPendingCounterResult = (state: ReturnType<typeof freezeDraft>) => {
   if (draft.resolution?.kind === 'canonicalSpell') {
     draft.resolution.results = {
       ...draft.resolution.results,
-      [pending.binding]: !draft.stack.some((item) => item.id === pending.stackId),
+      [pending.binding]: pending.kind === 'action'
+        ? pending.eventType
+          ? (pending.eventType === 'createToken' || pending.eventType === 'copyPermanent'
+            ? trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
+            : trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType))
+          : pending.value ?? true
+        : !draft.stack.some((item) => item.id === pending.stackId),
     }
     delete draft.resolution.pendingResult
   }
@@ -708,7 +792,7 @@ const driveResolution = (
         current = freezeDraft(before)
         const next = applyEventTree(current, event, catalog)
         entries.push(...nested(next.trace, 1))
-        if (next.ok) current = recordPendingCounterResult(next.state)
+        if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
       }
       const committed = makeDraft(current)
       if (committed.resolution) {
@@ -760,7 +844,7 @@ const driveResolution = (
     if (step.event) {
       const next = applyEventTree(current, step.event, catalog)
       entries.push(...nested(next.trace, 1))
-      if (next.ok) current = recordPendingCounterResult(next.state)
+      if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
     }
     const completed = makeDraft(current)
     finishResolution(completed)
