@@ -89,6 +89,30 @@ describe('canonical triggered abilities', () => {
     expect(placed.stack).toHaveLength(3)
   })
 
+  test('shares once-each-turn frequency history across simultaneous deaths', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'dies', filter: { type: 'Creature' } },
+        {
+          frequency: { kind: 'onceEachTurn' },
+          instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Once Watcher', { types: ['Creature'], power: 1, toughness: 0, ruleDefinition: snapshot }),
+          cardTemplate('Dying One', { types: ['Creature'], power: 1, toughness: 0 }),
+          cardTemplate('Dying Two', { types: ['Creature'], power: 1, toughness: 0 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const state = ok(server.rules(server.state, { type: 'passPriority', seat: 'p1' }))
+    expect((state.pendingTriggers?.length ?? 0) + state.stack.length).toBe(1)
+  })
+
   test('announces modal triggered modes before the ability receives priority', () => {
     const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
       whenever(
@@ -220,6 +244,60 @@ describe('canonical triggered abilities', () => {
     const playerMode = pendingOptionSelection(playerModeState, 'p1')!
     const selectedPlayerMode = ok(server.rules(playerModeState, { type: 'selectOption', seat: 'p1', selectionId: playerMode.id, optionId: 'mode:0' }))
     expect(pendingPlayerSelectionFor(selectedPlayerMode, 'p1')).toBeDefined()
+  })
+
+  test('evaluates enters intervening-if after the permanent enters', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'enters', filter: { type: 'Creature' } },
+        {
+          interveningIf: {
+            kind: 'compareAmount',
+            left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } },
+            operator: 'gte',
+            right: amount(1),
+          },
+          instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Post-Entry Gate', { types: ['Enchantment'], ruleDefinition: snapshot })] },
+      hands: { p1: [cardTemplate('First Creature', { types: ['Creature'] })] },
+    }, { random: () => 0 })
+    const entrant = named(server.state, 'First Creature')
+    const state = ok(server.rules(server.state, { type: 'move', objectId: entrant.id, to: 'battlefield' }))
+    expect(state.stack).toHaveLength(1)
+  })
+
+  test('keeps departure intervening-if on the before-event lookback state', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'dies', filter: { type: 'Creature' } },
+        {
+          interveningIf: {
+            kind: 'compareAmount',
+            left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } },
+            operator: 'gte',
+            right: amount(2),
+          },
+          instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Before-Death Gate', { types: ['Creature'], ruleDefinition: snapshot }),
+          cardTemplate('Death Target', { types: ['Creature'] }),
+        ],
+      },
+    }, { random: () => 0 })
+    const victim = named(server.state, 'Death Target')
+    const state = ok(server.rules(server.state, { type: 'move', objectId: victim.id, to: 'graveyard' }))
+    expect(state.stack).toHaveLength(1)
   })
 
   test('keeps repeated selected mode target scopes independent through resolution', () => {
