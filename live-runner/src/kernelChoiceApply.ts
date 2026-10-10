@@ -40,11 +40,11 @@ const interactionAnswerFor = (
   if (!decision.interaction || decision.requestId === undefined || decision.revision === undefined) {
     throw new Error('This interaction is missing its server request metadata.')
   }
-  const neutralDestination = decision.destinations.includes('skip')
-    ? 'skip'
-    : decision.destinations.length > 1
-      ? decision.destinations[0]
-      : undefined
+  const neutralDestination = (() => {
+    if (decision.destinations.includes('skip')) return 'skip'
+    if (decision.destinations.length > 1) return decision.destinations[0]
+    return undefined
+  })()
   const slots = message.choices.map((choice, index) => choice.slot ?? index)
   const selectedSlots = new Set(
     message.choices
@@ -54,14 +54,46 @@ const interactionAnswerFor = (
       .filter((slot): slot is number => slot !== undefined),
   )
   const selection = decision.interaction.selection
-  const typedSelection: InteractionSelection = selection.kind === 'selectPlayers'
-    ? { kind: 'selectPlayers', ids: message.choices.filter(({ destination }) => neutralDestination === undefined || destination !== neutralDestination).map(({ card }) => card) }
-    : selection.kind === 'selectOptions'
-      ? { kind: 'selectOptions', ids: [...selectedSlots].map((slot) => `${decision.requestId}:option:${slot}`) }
-      : selection.kind === 'selectCards'
-        ? { kind: 'selectCards', ids: [...selectedSlots].map((slot) => selection.candidates[slot]?.id ?? '') }
-        : { kind: 'selectCards', ids: [] }
-  return { requestId: decision.requestId, revision: decision.revision, chooser: seat, selection: typedSelection }
+  let typedSelection: InteractionSelection
+  switch (selection.kind) {
+    case 'selectPlayers':
+      typedSelection = {
+        kind: 'selectPlayers',
+        ids: message.choices
+          .filter(({ destination }) => decision.kernel?.stage === 'cumulative-upkeep'
+            ? destination === 'target'
+            : neutralDestination === undefined || destination !== neutralDestination)
+          .map(({ card }) => card),
+      }
+      break
+    case 'selectOptions':
+      typedSelection = {
+        kind: 'selectOptions',
+        ids: [...selectedSlots].map((slot) => `${decision.requestId}:option:${slot}`),
+      }
+      break
+    case 'selectCards':
+      typedSelection = {
+        kind: 'selectCards',
+        ids: [...selectedSlots].map((slot) => selection.candidates[slot]?.id ?? ''),
+      }
+      break
+    case 'order':
+      typedSelection = {
+        kind: 'order',
+        ids: slots.map((slot) => selection.entries[slot]?.id ?? ''),
+      }
+      break
+    default:
+      typedSelection = { kind: 'selectCards', ids: [] }
+      break
+  }
+  return {
+    requestId: message.requestId ?? decision.requestId,
+    revision: message.revision ?? decision.revision,
+    chooser: seat,
+    selection: typedSelection,
+  }
 }
 
 export const applyKernelChoice = (
@@ -73,12 +105,14 @@ export const applyKernelChoice = (
   const liveDecision = lobby.topdeck
   if (!liveDecision?.kernel) {
     if (!message.requestId || message.revision === undefined) return false
-    const interactions = new InteractionStore<TopdeckDecision, boolean>()
-    interactions.restore(lobby.interactionLedger ?? [])
-    const record = interactions.record(message.requestId)
-    if (!record) return false
-    const answer = interactions.answer(interactionAnswerFor(record.continuation, message, seat))
-    return answer.kind === 'duplicate'
+    const wireFingerprint = JSON.stringify({
+      seat,
+      requestId: message.requestId,
+      revision: message.revision,
+      choices: message.choices,
+    })
+    if (lobby.completedInteractions?.[message.requestId] !== wireFingerprint) return false
+    return true
   }
   if (liveDecision.seat !== seat) return false
   const requestId = liveDecision.requestId

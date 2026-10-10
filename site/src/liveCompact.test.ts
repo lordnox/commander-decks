@@ -336,6 +336,41 @@ describe('live compact v2', () => {
     })
   })
 
+  test('browser wire preserves the typed request envelope for a headless reconnect', () => {
+    const original = snapshot()
+    original.actions = ['topdeck']
+    original.topdeck = {
+      kind: 'choose',
+      cards: ['Forest'],
+      destinations: ['skip', 'target'],
+      requestId: 'select-cards:p1:stable:2',
+      revision: 17,
+      phase: 'resolution',
+      purpose: 'choice',
+      cancellation: 'mustAnswer',
+      interaction: {
+        requestId: 'select-cards:p1:stable:2',
+        revision: 17,
+        chooser: 'p1',
+        source: { name: 'Wall of Shards', objectId: 'wall-1' },
+        phase: 'resolution',
+        purpose: 'choice',
+        cancellation: 'mustAnswer',
+        selection: {
+          kind: 'selectCards',
+          candidates: [{ id: 'request:candidate:0', name: 'Forest', incarnation: 3, zone: 'hand' }],
+          min: 0,
+          max: 1,
+          distinct: true,
+        },
+      },
+    }
+    const expanded = expandLiveWire(compactLiveWire(original), original.deckIndexes)
+    expect(expanded.topdeck?.requestId).toBe('select-cards:p1:stable:2')
+    expect(expanded.topdeck?.revision).toBe(17)
+    expect(expanded.topdeck?.interaction).toEqual(original.topdeck.interaction)
+  })
+
   test('a search carries the whole readable library over the wire', () => {
     const original = snapshot()
     original.actions = ['topdeck']

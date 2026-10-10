@@ -61,7 +61,11 @@ recomputes `legalActs` and dispatches without a judge. `keep` may include `cards
 the bottom, in order) and `cheat: true` (keep seven anyway, for testing).
 `mulligan` shuffles the hand into the library and draws seven. Commander's first
 mulligan is free; later ones bottom `mulligans - 1` cards.
-`topdeck` sends ordered `{card,slot,destination}` choices for the private dialog;
+`topdeck` sends ordered `{requestId,revision,card,slot,destination}` choices for
+the private dialog. `requestId` and `revision` are copied verbatim from the
+server's private interaction envelope; they are required for browser and
+headless clients and are never synthesized from the current prompt. A client
+retains the envelope across reconnect and resubmits the same identifiers.
 `slot` is the card's position in the dialog's offered `cards`, because two offered
 cards can share a name (two Forests of different controllers). A kernel dialog
 answers every offered slot exactly once and rejects a choice whose slot is missing,
@@ -70,7 +74,9 @@ cards are plain names) and the cumulative-upkeep dialog (answered with opponent
 seats) omit `slot`. Candidates the chooser may read but whose order must stay
 hidden (a searched library, an opponent's hand) are offered sorted by name.
 The host validates the current hidden
-library and resolves it without an agent.
+library and resolves it without an agent. Browser and headless drivers use this
+same wire shape; the host validates the typed interaction envelope before
+translating it to the kernel continuation.
 A decision of kind `discard` carries the seat's hand instead of the library top,
 with `hand` and `graveyard` destinations and the excess as a requirement; the
 host records the discard and ends the turn.

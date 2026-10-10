@@ -20,8 +20,12 @@ to own the real pending state. Each open request is registered in the persisted
 The host converts the wire choice into a typed selection, looks up that stored
 continuation, and dispatches the existing typed kernel event; it completes the
 ledger only after dispatch succeeds. Rebuilding an offer after a restart uses
-the pending kernel marker and the same request ID and revision. Invalid answers
-leave the request open, and duplicate answers are idempotent acknowledgements.
+the pending kernel marker and the same request ID and revision. If a stale
+reconstruction collides with an already registered occurrence, the host
+allocates a fresh request occurrence and revision rather than rebinding an old
+answer. Invalid answers leave the request open, and duplicate answers are
+idempotent acknowledgements only when the submitted request, revision, seat,
+choices, destinations, and order match the completed wire answer.
 Mandatory choices remain open when a UI dialog closes. Concession clears the
 chooser's pending request and lets the driver finish without waiting for a
 departed seat.
@@ -51,11 +55,17 @@ awaiting seat. Concession clears the departed chooser's request and lets the
 kernel settle.
 
 Focused verification passes for the interaction store, protocol, wire codec,
-browser request metadata, DSL compiler, reconnect, candidate identity, and live
-host choice paths. The full rules suite is green at 2,220 tests / 7,125
+browser request metadata, DSL compiler, reconnect, candidate identity, stale
+occurrence, option bounds, cumulative-upkeep repetition, and live host choice
+paths. The full rules suite is green at 2,220 tests / 7,125
 assertions. The full host suite is green except for one known baseline failure:
 generated card-handler import fixture resolution (`loads generated card handlers
 from the current worktree`). The headless runner uses the same host path as the
-browser envelope adapter. Legacy card dialog events remain temporary adapters
-for unmigrated action families; this part does not claim future action-program
-families.
+browser envelope adapter; `CONDUIT.md` documents the required request ID and
+revision on both clients. The wire codec test proves that the typed envelope,
+source identity, phase, purpose, and cancellation survive a browser round-trip
+for a reconnecting headless client. Legacy card dialog events remain temporary
+adapters for unmigrated action families; this part does not claim future
+action-program families. Order is integrated for the existing Abundance
+ordering selection; allocation and other future action families remain
+contract-only until their kernel continuations exist.

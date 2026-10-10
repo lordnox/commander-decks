@@ -1,10 +1,8 @@
-import type { TopdeckDestination, TopdeckRequirements } from '../../shared/liveTypes'
 import type {
-  InteractionCancellation,
-  InteractionPhase,
-  InteractionPurpose,
-  InteractionRequest,
-} from '../../shared/interaction'
+  LiveInteractionMetadata,
+  TopdeckDestination,
+  TopdeckRequirements,
+} from '../../shared/liveTypes'
 import type { StoredInteraction } from '../../rules-engine/src/interaction'
 import {
   SEAT_IDS,
@@ -26,17 +24,11 @@ export type JudgeHistoryEntry = {
   summary: string
 }
 
-export type TopdeckDecision = {
+export type TopdeckDecision = LiveInteractionMetadata & {
   seat: SeatId
   kind: string
   cards: string[]
-  /** Section-9 request metadata. These fields are persisted for reconnect. */
-  requestId?: string
-  revision?: number
-  phase?: InteractionPhase
-  purpose?: InteractionPurpose
-  cancellation?: InteractionCancellation
-  interaction?: InteractionRequest
+  source?: string
   /** Authoritative candidate identities; names are presentation only. */
   candidateIds?: string[]
   candidatePins?: Array<{ id: string; incarnation?: number; zone?: string }>

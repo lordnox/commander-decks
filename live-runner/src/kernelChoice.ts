@@ -72,6 +72,37 @@ const opaqueRequestSuffix = (value: string) => {
   return (hash >>> 0).toString(36)
 }
 
+const targetBounds = (decision: TopdeckDecision) => {
+  const requirement = decision.requirements?.target
+  return {
+    min: requirement?.min ?? 0,
+    max: requirement?.max ?? decision.cards.length,
+  }
+}
+
+const cardBounds = (decision: TopdeckDecision) => {
+  const requirements = Object.values(decision.requirements ?? {})
+  const requirement = requirements.length === 1 ? requirements[0] : undefined
+  return {
+    min: requirement?.min ?? 0,
+    max: decision.count ?? decision.cards.length,
+  }
+}
+
+const defaultPurpose = (stage: NonNullable<TopdeckDecision['kernel']>['stage']) => {
+  switch (stage) {
+    case 'select-players':
+    case 'player-targets':
+    case 'stack-copy':
+    case 'fight-target':
+      return 'target' as const
+    case 'extort-payment':
+      return 'cost' as const
+    default:
+      return 'choice' as const
+  }
+}
+
 /**
  * Every offered card is answered once, by its position in the offered list.
  * Names may repeat (two Forests), positions never do, so a choice that cannot
@@ -245,19 +276,31 @@ export const openTopdeck = (
   // restored the serialized lobby counter. The lobby counter then keeps new
   // requests monotonic for the remainder of the session.
   const stableRevision = 0x100000000 + (Number.parseInt(opaqueRequestSuffix(baseRequestId), 36) || 1)
-  const requestId = existing?.requestId
-    ?? (Object.keys(lobby.completedInteractions ?? {}).includes(baseRequestId)
-      ? `${baseRequestId}:${nextRevision}`
-      : baseRequestId)
-  const revision = existing?.revision ?? stableRevision
+  const interactions = new InteractionStore<TopdeckDecision, boolean>()
+  interactions.restore(lobby.interactionLedger ?? [])
+  let requestId = existing?.requestId ?? baseRequestId
+  let revision = existing?.revision ?? stableRevision
+  if (!existing) {
+    let collisionRevision = nextRevision
+    while (
+      interactions.record(requestId)
+      || lobby.completedInteractions?.[requestId] !== undefined
+    ) {
+      const previous = interactions.record(requestId)
+      collisionRevision = Math.max(collisionRevision, (previous?.request.revision ?? 0) + 1)
+      requestId = `${baseRequestId}:${collisionRevision}`
+      revision = Math.max(stableRevision, collisionRevision)
+      collisionRevision += 1
+    }
+  }
   if (!existing) lobby.interactionRevision = Math.max(lobby.interactionRevision ?? 0, revision)
   lobby.topdeck = decision
   lobby.topdeck.requestId = requestId
   lobby.topdeck.revision = revision
   lobby.topdeck.phase = metadata.phase
-    ?? (decision.kernel?.stage === 'battle-cast-transformed' ? 'replacement' : 'resolution')
+    ?? 'resolution'
   lobby.topdeck.purpose = metadata.purpose
-    ?? (decision.kernel?.stage === 'select-players' || decision.kernel?.stage === 'player-targets' || decision.kernel?.stage === 'stack-copy' ? 'target' : 'choice')
+    ?? (decision.kernel ? defaultPurpose(decision.kernel.stage) : 'choice')
   lobby.topdeck.cancellation = metadata.cancellation ?? 'mustAnswer'
   lobby.topdeck.candidateIds = candidateIds
   lobby.topdeck.candidatePins = offered.length > 0
@@ -275,15 +318,25 @@ export const openTopdeck = (
     ...(offered[index]?.zone === undefined ? {} : { zone: offered[index]!.zone }),
     ...(decision.cards[index] === undefined ? {} : { name: decision.cards[index] }),
   }))
+  const playerBounds = targetBounds(decision)
+  const cardSelectionBounds = cardBounds(decision)
   const selection: InteractionRequest['selection'] = decision.kernel?.stage === 'select-players'
     || decision.kernel?.stage === 'player-targets'
     ? {
         kind: 'selectPlayers',
         candidates: decision.cards,
-        min: decision.requirements?.target?.min ?? 0,
-        max: decision.requirements?.target?.max ?? decision.cards.length,
+        min: playerBounds.min,
+        max: playerBounds.max,
         distinct: true,
       }
+    : decision.kernel?.stage === 'cumulative-upkeep'
+      ? {
+          kind: 'selectPlayers',
+          candidates: decision.cards,
+          min: 0,
+          max: decision.count ?? decision.cards.length,
+          distinct: false,
+        }
     : decision.kernel?.stage === 'option-selection'
       || decision.kernel?.stage === 'extort-payment'
       || decision.kernel?.stage === 'choose-modes'
@@ -292,34 +345,36 @@ export const openTopdeck = (
       ? {
           kind: 'selectOptions',
           options: decision.cards.map((label, index) => ({ id: `${requestId}:option:${index}`, label })),
-          min: 1,
-          max: 1,
+          min: playerBounds.min,
+          max: playerBounds.max,
           distinct: true,
         }
+      : decision.purpose === 'order'
+        ? {
+            kind: 'order',
+            entries: candidateRefs.map(({ id, name }) => ({ id, ...(name ? { label: name } : {}) })),
+            distinct: true,
+          }
       : {
         kind: 'selectCards',
         candidates: candidateRefs,
-        min: (() => {
-          const mins = Object.values(decision.requirements ?? {})
-            .map((value) => value?.min)
-            .filter((value): value is number => value !== undefined)
-          return mins.length > 0 ? Math.min(...mins) : 0
-        })(),
-        max: decision.count ?? candidateRefs.length,
+        min: cardSelectionBounds.min,
+        max: cardSelectionBounds.max,
         distinct: true,
       }
   lobby.topdeck.interaction = {
     requestId,
     revision,
     chooser: decision.seat,
-    source: { name: decision.kind },
+    source: {
+      name: decision.source ?? decision.kind,
+      ...(decision.kernel?.sourceId ? { objectId: decision.kernel.sourceId } : {}),
+    },
     phase: lobby.topdeck.phase,
     purpose: lobby.topdeck.purpose,
     cancellation: lobby.topdeck.cancellation,
     selection,
   }
-  const interactions = new InteractionStore<TopdeckDecision, boolean>()
-  interactions.restore(lobby.interactionLedger ?? [])
   interactions.open(lobby.topdeck.interaction, structuredClone(lobby.topdeck))
   lobby.interactionLedger = interactions.snapshot()
   lobby.actions = { [decision.seat]: ['topdeck'] }

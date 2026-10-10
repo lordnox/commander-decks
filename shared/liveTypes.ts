@@ -1,3 +1,10 @@
+import type {
+  InteractionCancellation,
+  InteractionPhase,
+  InteractionPurpose,
+  InteractionRequest,
+} from './interaction'
+
 /**
  * The parser checks incoming choices against this list, so a destination that
  * exists only in the type is dropped as an invalid message.
@@ -24,6 +31,16 @@ export type TopdeckRequirements = Partial<Record<
   TopdeckDestination,
   { min?: number; max?: number }
 >>
+
+/** Request identity and offer metadata shared by browser, headless, and host snapshots. */
+export type LiveInteractionMetadata = {
+  requestId?: string
+  revision?: number
+  phase?: InteractionPhase
+  purpose?: InteractionPurpose
+  cancellation?: InteractionCancellation
+  interaction?: InteractionRequest
+}
 
 /**
  * Offered cards may share a name (two Forests, one per controller). Each
@@ -67,3 +84,4 @@ export type LiveSeatSnapshot<
   command: Array<CardRef>
   revealed_top?: Array<CardRef>
 }
+

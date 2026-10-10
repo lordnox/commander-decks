@@ -111,6 +111,7 @@ export const prepareLibrarySearchChoice = (kernel: KernelHandle, lobby: LobbySta
     {
       seat,
       kind: 'search',
+      source: pending.source,
       cards,
       // Sorted, because the searcher may read the library but not its order.
       library: (state.zoneOrder[seat]?.library ?? [])
@@ -154,6 +155,7 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
     {
       seat: waiting.chooser,
       kind: 'discard-card',
+      source: state.objects[waiting.item.objectId]?.name,
       cards,
       // A seat with several cards in hand must be able to keep some of them.
       destinations: cards.length === 1 ? ['graveyard'] : ['hand', 'graveyard'],
@@ -170,7 +172,7 @@ export const prepareWaitingDiscardChoice = (kernel: KernelHandle, lobby: LobbySt
       judge: 'Waiting for a discard choice on the stack.',
     },
     hand,
-    { purpose: 'cost', cancellation: 'mustAnswer' },
+    { purpose: 'choice', cancellation: 'mustAnswer' },
   )
 }
 
@@ -184,6 +186,7 @@ export const prepareCastTransformedChoice = (kernel: KernelHandle, lobby: LobbyS
     {
       seat: waiting.chooser,
       kind: 'may',
+      source: source?.name,
       cards: ['Yes'],
       destinations: ['target', 'skip'],
       requirements: { target: { min: 0, max: 1 } },
@@ -199,7 +202,7 @@ export const prepareCastTransformedChoice = (kernel: KernelHandle, lobby: LobbyS
       judge: 'Waiting for the defeated Siege casting choice.',
     },
     [],
-    { phase: 'replacement', purpose: 'replacement', cancellation: 'cancelProposal' },
+    { phase: 'resolution', purpose: 'choice', cancellation: 'mustAnswer' },
   )
 }
 
@@ -223,6 +226,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       {
         seat,
         kind: 'choosePile',
+        source: selection.source,
         cards: pileCards,
         destinations: ['graveyard', 'hand'],
         requirements: { hand: { min: 1, max: 1 } },
@@ -285,6 +289,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
         : selection.handQuota !== undefined
           ? 'look-top'
           : selection.kind,
+      source: selection.source,
       cards: offer.names,
       destinations,
       ...(requirements ? { requirements } : {}),
@@ -304,8 +309,12 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
     },
     offer.ids.map((objectId) => state.objects[objectId]),
     {
-      phase: selection.kind === 'scry' || selection.kind === 'surveil' ? 'replacement' : 'resolution',
-      purpose: selection.kind === 'discard' || selection.kind === 'sacrifice' ? 'cost' : 'choice',
+      phase: selection.action?.kind === 'dredge' || selection.action?.kind === 'abundance-order'
+        ? 'replacement'
+        : 'resolution',
+      purpose: selection.action?.kind === 'abundance-order'
+        ? 'order'
+        : 'choice',
       cancellation: 'mustAnswer',
     },
   )
@@ -323,6 +332,7 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
     {
       seat: pending.seat,
       kind: open ? 'vote' : 'choose',
+      source: pending.source,
       cards: pending.options.map((option) => option.label),
       destinations: ['skip', 'target'],
       requirements: { target: { min: 1, max: 1 } },
