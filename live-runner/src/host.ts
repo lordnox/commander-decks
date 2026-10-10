@@ -40,7 +40,9 @@ import {
   restoreLobby,
   rollTurnOrder,
   type LobbyState,
+  type TopdeckDecision,
 } from './lobby'
+import { InteractionStore } from '../../rules-engine/src/interaction'
 import { logLine } from './log'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { applyOpeningMessage, isOpeningFrame } from './opening'
@@ -456,6 +458,10 @@ export const runHost = async (options: {
       const result = kernel.dispatch({ type: 'concede', seat })
       if (!result.ok) throw new Error(result.error)
       if (state.topdeck?.seat === seat) state.topdeck = undefined
+      const interactions = new InteractionStore<TopdeckDecision, boolean>()
+      interactions.restore(state.interactionLedger ?? [])
+      interactions.invalidateForChooser(seat)
+      state.interactionLedger = interactions.snapshot()
       state.completedInteractions = Object.fromEntries(
         Object.entries(state.completedInteractions ?? {}).filter(([requestId]) =>
           requestId !== abandonedRequestId),
