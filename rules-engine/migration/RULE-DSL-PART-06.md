@@ -39,12 +39,12 @@ answer. No nested event application grants priority or places ordinary triggers.
   and host-facing trigger ordering. Existing driver tests cover resolution-time
   intervening-if and optional target binding; the established draw-resolution
   regression covers multiple instructions without an intermediate priority window.
-- [ ] Rerun focused/full validation, inspect the diff, and update ready PR #343
-  against the Part 05 branch. The pre-review baseline was 2,224 rules tests /
-  7,137 assertions and 216 live+codec tests / 1 documented generated-handler
-  fixture failure / 1,008 assertions. The coverage-ledger check is stale on the
-  Part 05 base and would rewrite unrelated line evidence, so that generated file
-  remains intentionally unchanged.
+- [x] Reran focused/full validation and inspected the diff for ready PR #343
+  against the Part 05 branch: 2,225 rules tests / 7,140 assertions, 41 site
+  tests, and live-runner checks with the one documented generated-handler fixture
+  failure. Typecheck, import validation, and lint pass. The coverage-ledger check
+  is stale on the Part 05 base and would rewrite unrelated line evidence, so that
+  generated file remains intentionally unchanged.
 
 ## Rules references
 
