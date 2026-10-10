@@ -45,8 +45,13 @@ answer. No nested event application grants priority or places ordinary triggers.
 - [x] Complete the remaining legacy one-controller ordering path, including
   distinct host-facing labels and journal/reconnect coverage. Existing repeated
   equivalent legacy instances retain their deterministic order.
-- [x] Rerun full rules validation after the final review fixes: 2,233 tests and
-  7,165 assertions pass. The live/codec baseline remains 216 passing tests,
+- [x] Evaluate canonical enters and draw predicates against the relevant
+  post-event state while retaining the pre-event state for first-draw history
+  and designated departure lookback conditions. Canonical frequency history is
+  recorded on the mutable source object so simultaneous SBA captures share
+  once-each-turn state without sharing frozen pre-event objects.
+- [x] Rerun full rules validation after the final review fixes: 2,237 tests and
+  7,171 assertions pass. The live/codec baseline remains 216 passing tests,
   1,008 assertions, and the one documented generated-handler fixture failure;
   no new failure is treated as baseline without a fresh result.
 
