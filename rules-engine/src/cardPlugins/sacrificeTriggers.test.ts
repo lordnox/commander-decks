@@ -9,9 +9,24 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { createLobby } from '../../../live-runner/src/lobby'
 import {
-  applyKernelChoice,
+  applyKernelChoice as applyKernelChoiceImpl,
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
+
+const applyKernelChoice = (
+  kernel: Parameters<typeof applyKernelChoiceImpl>[0],
+  lobby: Parameters<typeof applyKernelChoiceImpl>[1],
+  seat: Parameters<typeof applyKernelChoiceImpl>[2],
+  message: Parameters<typeof applyKernelChoiceImpl>[3],
+) => applyKernelChoiceImpl(kernel, lobby, seat, {
+  ...message,
+  ...(message.requestId === undefined && lobby.topdeck?.requestId !== undefined
+    ? { requestId: lobby.topdeck.requestId }
+    : {}),
+  ...(message.revision === undefined && lobby.topdeck?.revision !== undefined
+    ? { revision: lobby.topdeck.revision }
+    : {}),
+})
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
 import {
   annihilator,

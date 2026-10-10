@@ -96,8 +96,12 @@ export const applyKernelChoice = (
   const answer = interactionAnswerFor(liveDecision, message, seat)
   const accepted = interactions.answer(answer)
   if (accepted.kind === 'invalid') {
+    const exactCount = Object.values(liveDecision.requirements ?? {})
+      .find((requirement) => requirement?.min !== undefined && requirement.min === requirement.max)?.min
     throw new Error(accepted.error === 'card was not offered'
       ? 'That choice changed. Refresh and choose again.'
+      : accepted.error === 'invalid card selection' && exactCount !== undefined
+        ? `Choose exactly ${exactCount} card(s).`
       : accepted.error)
   }
   if (accepted.kind === 'duplicate') return true
