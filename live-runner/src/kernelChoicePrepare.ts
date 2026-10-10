@@ -6,7 +6,6 @@ import {
 } from '../../rules-engine/src/index'
 import {
   pendingSearch,
-  searchCandidates,
   searchSpecForPending,
   searchingSeat,
 } from '../../rules-engine/src/cardPlugins/librarySearch'
@@ -18,7 +17,7 @@ import { dialogCandidates, pendingDialogFor } from '../../rules-engine/src/pendi
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
-import { sameNames, samePins, selectCardsOffer } from './kernelChoice'
+import { discardOffer, sameNames, samePins, searchOffer, selectCardsOffer } from './kernelChoice'
 import {
   prepareCastTransformedChoice,
   prepareLibrarySearchChoice,
@@ -55,19 +54,24 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const pending = pendingSearch(state, decision.seat)
       const spec = pending ? searchSpecForPending(state, pending) : undefined
       if (!pending || !spec) return true
-      const offered = searchCandidates(state, decision.seat, spec, pending.kicked)
-      return !sameNames(offered.map((object) => object.name), decision.cards)
-        || !sameIds(decision.candidateIds, offered.map((object) => object.id))
-        || !samePins(decision.candidatePins, offered)
+      const offered = searchOffer(state, decision.seat, spec, pending)
+      const offeredObjects = offered.ids
+        .map((id) => state.objects[id])
+        .filter((object): object is NonNullable<typeof object> => Boolean(object))
+      return !sameNames(offered.names, decision.cards)
+        || !sameIds(decision.candidateIds, offered.ids)
+        || !samePins(decision.candidatePins, offeredObjects)
     }
     case 'player-targets':
       return pendingPlayerTargets(state)?.controller !== decision.seat
     case 'waiting-discard': {
       const waiting = waitingDiscard(state)
+      const offered = waiting ? discardOffer(state, waiting) : undefined
       return !waiting
         || waiting.item.id !== decision.kernel.stackId
-        || !sameIds(decision.candidateIds, waiting.handIds)
-        || !samePins(decision.candidatePins, waiting.handIds.map((id) => state.objects[id]).filter(Boolean))
+        || !offered
+        || !sameIds(decision.candidateIds, offered.ids)
+        || !samePins(decision.candidatePins, offered.ids.map((id) => state.objects[id]).filter(Boolean))
     }
     case 'battle-cast-transformed': {
       const waiting = waitingCastTransformed(state)
@@ -105,7 +109,13 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
       const dialog = pendingDialogFor(state, decision.seat)
       if (!dialog) return true
       return dialog.kind !== decision.kernel.stage
+        || dialog.sourceId !== decision.kernel.sourceId
+        || dialog.chosenEvent !== decision.kernel.chosenEvent
         || !sameIds(decision.candidateIds, dialogCandidates(state, dialog).map((object) => object.id))
+        || !samePins(
+          decision.candidatePins,
+          dialogCandidates(state, dialog),
+        )
   }
 }
 

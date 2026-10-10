@@ -26,6 +26,7 @@ export const prepareExtortChoice = (kernel: KernelHandle, lobby: LobbyState) => 
     {
       seat: pending.seat,
       kind: 'extort-payment',
+      source: pending.source,
       cards: ['Decline', ...payments],
       destinations: ['skip', 'target'],
       requirements: { target: { min: 0, max: 1 } },
@@ -40,7 +41,7 @@ export const prepareExtortChoice = (kernel: KernelHandle, lobby: LobbyState) => 
       judge: `Waiting for ${pending.source}'s extort payment.`,
     },
     [],
-    { purpose: 'cost', cancellation: 'cancelProposal' },
+    { purpose: 'cost', cancellation: 'mustAnswer' },
   )
 }
 
@@ -53,6 +54,7 @@ export const prepareCumulativeUpkeepChoice = (kernel: KernelHandle, lobby: Lobby
     {
       seat: pending.seat,
       kind: 'cumulative-upkeep',
+      source: pending.source,
       cards: opponents,
       count: pending.count,
       destinations: ['target', 'sacrifice'],
@@ -76,11 +78,19 @@ export const prepareSelectPlayersChoice = (kernel: KernelHandle, lobby: LobbySta
   const playerSelection = pendingPlayerSelection(kernel.history.current())
   if (!playerSelection || !isSeatId(playerSelection.seat)) return false
   const seat = playerSelection.seat
+  const phase = (() => {
+    switch (playerSelection.action.kind) {
+      case 'finishGiftCast': return 'announcement' as const
+      case 'putTriggeredAbility': return 'triggerPlacement' as const
+      default: return 'resolution' as const
+    }
+  })()
   return openTopdeck(
     lobby,
     {
       seat,
       kind: 'target-players',
+      source: playerSelection.source,
       cards: playerSelection.candidates,
       destinations: ['skip', 'target'],
       requirements: {
@@ -98,7 +108,7 @@ export const prepareSelectPlayersChoice = (kernel: KernelHandle, lobby: LobbySta
       judge: `Waiting for ${playerSelection.source} player choice.`,
     },
     [],
-    { purpose: 'target', cancellation: 'mustAnswer' },
+    { phase, purpose: 'target', cancellation: 'mustAnswer' },
   )
 }
 
@@ -113,6 +123,7 @@ export const preparePlayerTargetsChoice = (kernel: KernelHandle, lobby: LobbySta
     {
       seat,
       kind: 'target-players',
+      source: targetsPending.source,
       cards,
       destinations: ['skip', 'target'],
       kernel: {

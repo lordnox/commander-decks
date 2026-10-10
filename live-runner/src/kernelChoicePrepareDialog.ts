@@ -27,6 +27,7 @@ export const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) =>
     {
       seat: dialog.seat,
       kind: dialog.kind,
+      source: dialog.source,
       cards,
       destinations: dialog.destinations,
       ...(dialog.requirements ? { requirements: dialog.requirements } : {}),
@@ -44,9 +45,9 @@ export const preparePendingDialog = (kernel: KernelHandle, lobby: LobbyState) =>
     },
     candidates,
     {
-      phase: ['dredge', 'abundance'].includes(dialog.kind as string) ? 'replacement' : 'resolution',
+      phase: 'resolution',
       purpose: dialog.destinations.includes('target') ? 'target' : 'choice',
-      cancellation: dialog.optional ? 'cancelProposal' : 'mustAnswer',
+      cancellation: 'mustAnswer',
     },
   )
 }

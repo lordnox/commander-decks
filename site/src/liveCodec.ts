@@ -2,15 +2,10 @@ import type { AvailableAction } from '../../rules-engine/src/actions'
 import type { GameState } from '../../rules-engine/src/types'
 import type {
   LiveSeatSnapshot,
+  LiveInteractionMetadata,
   TopdeckDestination,
   TopdeckRequirements,
 } from '../../shared/liveTypes'
-import type {
-  InteractionCancellation,
-  InteractionPhase,
-  InteractionPurpose,
-  InteractionRequest,
-} from '../../shared/interaction'
 import type {
   BattlefieldCard,
   CardDetails,
@@ -77,14 +72,8 @@ export type LiveOpening = {
   bottomRequired: number
 }
 
-export type LiveTopdeck = {
+export type LiveTopdeck = LiveInteractionMetadata & {
   kind: string
-  requestId?: string
-  revision?: number
-  phase?: InteractionPhase
-  purpose?: InteractionPurpose
-  cancellation?: InteractionCancellation
-  interaction?: InteractionRequest
   cards: Array<string | number>
   count?: number
   library?: string[]

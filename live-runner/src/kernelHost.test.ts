@@ -86,7 +86,7 @@ import {
   PENDING_PLAYER_SELECTION,
   type PendingPlayerSelection,
 } from '../../rules-engine/src/rules/selectPlayers'
-import { createLobby } from './lobby'
+import { createLobby, type TopdeckDecision } from './lobby'
 import {
   applyKernelAct,
   applyKernelAdvance,
@@ -105,7 +105,7 @@ import {
   type KernelHandle,
 } from './kernelHost'
 import { liveSnapshotFromState } from './kernelView'
-import type { TopdeckMessage } from './kernelChoice'
+import { openTopdeck, type TopdeckMessage } from './kernelChoice'
 import type { SeatId } from './protocol'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
@@ -375,6 +375,46 @@ const landFaceOf = (oracleText: string) => ({
 })
 
 describe('kernel host journal', () => {
+  test('a rebuilt stale prompt gets a fresh immutable request occurrence', () => {
+    const lobby = createLobby()
+    const decision: TopdeckDecision = {
+      seat: 'p1' as const,
+      kind: 'choose',
+      cards: ['A'],
+      destinations: ['skip', 'target'],
+      requirements: { target: { min: 0, max: 1 } },
+      kernel: { sourceId: 'source', stage: 'option-selection' as const, selectionId: 'selection' },
+    }
+    openTopdeck(lobby, decision, { waiting: 'Waiting.', prompt: 'Choose.', judge: 'Judge.' })
+    const first = lobby.topdeck!
+    const firstRequestId = first.requestId
+    const firstRevision = first.revision
+    lobby.topdeck = undefined
+    openTopdeck(lobby, decision, { waiting: 'Waiting.', prompt: 'Choose.', judge: 'Judge.' })
+    const second = lobby.topdeck as typeof first | undefined
+    expect(second?.requestId).not.toBe(firstRequestId)
+    expect(second?.revision).not.toBe(firstRevision)
+    expect(lobby.interactionLedger).toHaveLength(2)
+  })
+
+  test('publishes the server option bounds and actual source label', () => {
+    const lobby = createLobby()
+    expect(openTopdeck(lobby, {
+      seat: 'p1',
+      kind: 'choose-modes',
+      source: 'Spree Spell',
+      cards: ['Mode A', 'Mode B', 'Mode C'],
+      destinations: ['skip', 'target'],
+      requirements: { target: { min: 0, max: 3 } },
+      kernel: { stage: 'choose-modes', sourceId: 'spell-1' },
+    }, { waiting: 'Waiting.', prompt: 'Choose.', judge: 'Judge.' })).toBe(true)
+    expect(lobby.topdeck?.interaction).toMatchObject({
+      source: { name: 'Spree Spell', objectId: 'spell-1' },
+      cancellation: 'mustAnswer',
+      selection: { kind: 'selectOptions', min: 0, max: 3, distinct: true },
+    })
+  })
+
   test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {
     const server = createServerGame(
       commanderRules,
@@ -412,6 +452,10 @@ describe('kernel host journal', () => {
       kind: 'cumulative-upkeep',
       cards: ['p2', 'p3', 'p4'],
       count: 2,
+      interaction: {
+        selection: { kind: 'selectPlayers', min: 0, max: 2, distinct: false },
+        cancellation: 'mustAnswer',
+      },
     })
 
     const restartedLobby = createLobby()

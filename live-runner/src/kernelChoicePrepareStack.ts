@@ -31,6 +31,7 @@ export const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) 
     {
       seat: pending.seat,
       kind: 'stack-copy',
+      source: pending.source,
       cards,
       destinations: ['skip', 'target'],
       requirements: {
@@ -54,7 +55,7 @@ export const prepareStackCopyChoice = (kernel: KernelHandle, lobby: LobbyState) 
     [undefined, ...candidates],
     {
       purpose: 'target',
-      cancellation: pending.optional ? 'cancelProposal' : 'mustAnswer',
+      cancellation: 'mustAnswer',
     },
   )
 }
