@@ -43,6 +43,8 @@ import {
 import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
 import { isSameObject } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
+import { hasKeyword } from './keywords'
+import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 
@@ -191,6 +193,22 @@ const legalError = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case 'destroy': {
+      const object = draft.object(event.objectId)
+      if (!object || object.zone !== 'battlefield' || hasKeyword(object, 'indestructible', draft)) return
+      draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
+      return
+    }
+    case 'copyPermanent': {
+      const source = draft.object(event.objectId)
+      if (!source || source.zone !== 'battlefield') return
+      draft.enqueue({
+        type: 'createToken',
+        controller: event.controller,
+        token: copyCharacteristics(source),
+      })
+      return
+    }
     case 'counterStackItem': {
       const index = draft.stack.findIndex((item) => item.id === event.stackId)
       if (index < 0) return
@@ -275,6 +293,20 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         }
         draft.note(`${object.name} enters battlefield`)
       }
+      return
+    }
+    case 'mill': {
+      const object = draft.object(event.objectId)
+      if (!object || object.zone !== 'library') return
+      draft.move(object.id, 'graveyard')
+      draft.note(`${object.name} is milled`)
+      return
+    }
+    case 'proliferate': {
+      // A primitive event is kept distinct so replacement/trigger code can
+      // observe proliferate as an action. Choiceful counter selection is added
+      // by the action-offer layer; this core path only records the occurrence.
+      draft.note(`${event.seat} proliferates`)
       return
     }
     case 'tap': {
@@ -652,7 +684,9 @@ const recordPendingCounterResult = (state: ReturnType<typeof freezeDraft>) => {
   if (draft.resolution?.kind === 'canonicalSpell') {
     draft.resolution.results = {
       ...draft.resolution.results,
-      [pending.binding]: !draft.stack.some((item) => item.id === pending.stackId),
+      [pending.binding]: pending.kind === 'action'
+        ? pending.value ?? true
+        : !draft.stack.some((item) => item.id === pending.stackId),
     }
     delete draft.resolution.pendingResult
   }

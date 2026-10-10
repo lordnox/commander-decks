@@ -21,7 +21,7 @@ export type ContextBinding =
   | 'triggering.object.before'
   | 'triggering.object.after'
 
-export type ResultField = 'discarded' | 'discardedCount' | 'countered' | 'paid'
+export type ResultField = 'discarded' | 'discardedCount' | 'countered' | 'paid' | 'moved' | 'destroyed' | 'sacrificed' | 'created'
 
 export type ContextReference = { kind: 'contextRef'; name: ContextBinding }
 export type TargetReference = { kind: 'targetRef'; clauseIndex: number }
@@ -164,13 +164,30 @@ export type ObjectRecipient = ObjectReference | ObjectSelector
 export type StackItemRecipient = StackItemReference | StackItemSelector
 export type DamageRecipient = PlayerRecipient | ObjectRecipient
 
+export type TokenDefinition = {
+  name: string
+  types: string[]
+  subtypes?: string[]
+  colors?: string[]
+  power?: number | null
+  toughness?: number | null
+  oracleText?: string
+}
+
 export type Instruction =
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
   | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference }
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient }
-  | { kind: 'destroy'; targets: ObjectRecipient }
+  | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string }
+  | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
+  | { kind: 'move'; targets: ObjectRecipient; to: Zone; bindResult?: string }
+  | { kind: 'phase'; targets: ObjectRecipient; out: boolean }
+  | { kind: 'proliferate'; targets: PlayerRecipient }
+  | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string }
+  | { kind: 'copy'; targets: ObjectRecipient; controller?: PlayerRecipient; bindResult?: string }
+  | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
   | { kind: 'counter'; targets: StackItemRecipient; bindResult?: string }
   | {
       kind: 'discard'

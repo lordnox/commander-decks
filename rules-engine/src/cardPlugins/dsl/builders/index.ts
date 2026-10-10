@@ -42,6 +42,7 @@ import type {
   TargetClauseInput,
   TargetConstraint,
   TargetReference,
+  TokenDefinition,
   TriggeredAbilityDefinition,
   VariableSpec,
   WheneverConfiguration,
@@ -282,8 +283,80 @@ export const damage = (input: {
 export const mill = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'mill', count: toAmount(input.count), targets: input.targets })
 
-export const destroy = (input: { targets: Extract<Instruction, { kind: 'destroy' }>['targets'] }): Instruction =>
-  immutableData({ kind: 'destroy', targets: input.targets })
+export const destroy = (input: {
+  targets: Extract<Instruction, { kind: 'destroy' }>['targets']
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'destroy',
+  targets: input.targets,
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
+
+export const sacrifice = (input: {
+  targets: Extract<Instruction, { kind: 'sacrifice' }>['targets']
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'sacrifice',
+  targets: input.targets,
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
+
+export const move = (input: {
+  targets: Extract<Instruction, { kind: 'move' }>['targets']
+  to: Extract<Instruction, { kind: 'move' }>['to']
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'move',
+  targets: input.targets,
+  to: input.to,
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
+
+export const phase = (input: {
+  targets: Extract<Instruction, { kind: 'phase' }>['targets']
+  out: boolean
+}): Instruction => immutableData({ kind: 'phase', targets: input.targets, out: input.out })
+
+export const proliferate = (input: {
+  targets: Extract<Instruction, { kind: 'proliferate' }>['targets']
+}): Instruction => immutableData({ kind: 'proliferate', targets: input.targets })
+
+export const createToken = (input: {
+  count: AmountInput
+  targets: Extract<Instruction, { kind: 'createToken' }>['targets']
+  token: TokenDefinition
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'createToken',
+  count: toAmount(input.count),
+  targets: input.targets,
+  token: input.token,
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
+
+export const copy = (input: {
+  targets: Extract<Instruction, { kind: 'copy' }>['targets']
+  controller?: Extract<Instruction, { kind: 'copy' }>['controller']
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'copy',
+  targets: input.targets,
+  ...(input.controller !== undefined ? { controller: input.controller } : {}),
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
+
+export const putCounters = (input: {
+  targets: Extract<Instruction, { kind: 'putCounters' }>['targets']
+  counter: string
+  count: AmountInput
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'putCounters',
+  targets: input.targets,
+  counter: input.counter,
+  count: toAmount(input.count),
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
 
 export const counter = (input: {
   targets: Extract<Instruction, { kind: 'counter' }>['targets']
