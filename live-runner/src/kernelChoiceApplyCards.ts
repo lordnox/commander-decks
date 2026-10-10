@@ -41,6 +41,31 @@ export const applySelectCards = (
   ) {
     throw new Error('That card choice changed. Refresh and choose again.')
   }
+  if (waiting.selection.triggerOrder) {
+    const offer = selectCardsOffer(waiting)
+    const objectIds = message.choices.map(({ card, slot }) => {
+      if (slot === undefined || offer.names[slot] !== card) {
+        throw new Error('The trigger order changed. Refresh and choose again.')
+      }
+      return offer.ids[slot]
+    })
+    if (objectIds.length !== waiting.count) {
+      throw new Error(`Order exactly ${waiting.count} triggered abilities.`)
+    }
+    const continued = kernel.dispatch({
+      type: 'selectCards',
+      seat,
+      selectionId: waiting.selection.id,
+      kind: cardKind,
+      count: waiting.selection.count,
+      objectIds,
+    })
+    if (!continued.ok) throw new Error(continued.error)
+    return closeKernelChoice(kernel, lobby, seat, {
+      privateJudge: { [seat]: 'You ordered your triggered abilities.' },
+      judge: `${lobby.occupants[seat]?.name ?? seat} ordered triggered abilities.`,
+    })
+  }
   if (
     cardKind === 'choose'
     || cardKind === 'discard'

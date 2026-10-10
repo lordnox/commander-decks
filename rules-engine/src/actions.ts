@@ -322,24 +322,29 @@ export const waitingSelectCards = (
   const pending = seat ? pendingSelectionFor(state, seat) : pendingSelection(state)
   if (!pending || (seat && pending.seat !== seat)) return null
 
-  const objectIds = liveSelectionCandidates(state, pending)
+  const triggerEntries = pending.triggerOrder?.entries
+  const objectIds = triggerEntries
+    ? triggerEntries.map((entry) => entry.id)
+    : liveSelectionCandidates(state, pending)
 
   return {
     selection: pending,
     objectIds,
-    names: objectIds.map((objectId) => {
-      const object = state.objects[objectId]
-      if (!object) return ''
-      if (
-        pending.kind === 'choosePile'
+    names: triggerEntries
+      ? triggerEntries.map((entry) => entry.label)
+      : objectIds.map((objectId) => {
+        const object = state.objects[objectId]
+        if (!object) return ''
+        if (
+          pending.kind === 'choosePile'
         && object.zone === 'library'
-        && !isKnownTo(object, pending.seat, state.playerOrder)
-      ) {
-        return 'Face-down card'
-      }
-      return object.name
-    }),
-    count: Math.min(pending.count, objectIds.length),
+          && !isKnownTo(object, pending.seat, state.playerOrder)
+        ) {
+          return 'Face-down card'
+        }
+        return object.name
+      }),
+    count: pending.triggerOrder ? pending.count : Math.min(pending.count, objectIds.length),
   }
 }
 

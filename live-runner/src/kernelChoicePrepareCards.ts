@@ -312,7 +312,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       phase: selection.action?.kind === 'dredge' || selection.action?.kind === 'abundance-order'
         ? 'replacement'
         : 'resolution',
-      purpose: selection.action?.kind === 'abundance-order'
+      purpose: selection.triggerOrder || selection.action?.kind === 'abundance-order'
         ? 'order'
         : 'choice',
       cancellation: 'mustAnswer',

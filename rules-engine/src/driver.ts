@@ -97,10 +97,13 @@ export const startCanonicalResolution = (
   if (!selected) throw new Error('canonical stack item is missing its pinned definition')
   const { ability, index: abilityIndex } = selected
   const declarationPath = `$.abilities[${abilityIndex}]`
-  if ('modes' in ability) {
-    throw new Error(`${declarationPath}.modes: modal execution begins in Part 09`)
+  const selectedInstructions = 'modes' in ability
+    ? (item.execution?.modeIndices ?? []).flatMap((index) => ability.modes?.[index]?.instructions ?? [])
+    : ability.instructions
+  if ('modes' in ability && selectedInstructions.length === 0) {
+    throw new Error(`${declarationPath}.modes: a mode must be selected before resolution`)
   }
-  if (ability.decisions.modes || ability.decisions.distributions) {
+  if (ability.decisions.distributions) {
     throw new Error(`${declarationPath}.decisions: Part 03 executes only fully supplied plain programs`)
   }
   const source = item.execution?.source
@@ -113,7 +116,7 @@ export const startCanonicalResolution = (
       throw new Error(`${declarationPath}.decisions.variables: ${variable.name} is outside its declared bounds`)
     }
   }
-  preflightInstructions(ability.instructions, `${declarationPath}.instructions`)
+  preflightInstructions(selectedInstructions, `${declarationPath}.modes`)
   const targetBindings = item.execution?.targetBindings ?? []
   const liveSource = draft.object(source.ref.objectId)
   const sourceObject = liveSource && isSameObject(liveSource, source.ref)
@@ -135,7 +138,7 @@ export const startCanonicalResolution = (
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
     scopes: [{
       path: '.instructions',
-      instructions: structuredClone(ability.instructions),
+      instructions: structuredClone(selectedInstructions),
       cursor: 0,
     }],
     phase: 'running',

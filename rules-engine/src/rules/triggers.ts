@@ -19,6 +19,7 @@ import { gameObjectFieldDefaults } from '../definitions'
 import type Draft from '../draft'
 import { validTarget } from '../cardPlugins/targetedResolve'
 import { openCardSelection, targetDestinations } from './selectCards'
+import { openOptionSelection } from './selectOptions'
 import { openPlayerSelection } from './selectPlayers'
 import { apnapSeats } from '../turnOrder'
 import type {
@@ -32,7 +33,9 @@ import type {
 } from '../types'
 import { asRoomDoor } from '../plugins/rooms'
 import {
+  markFirstMatchingEachTurn,
   markTriggeredOnceEachTurn,
+  mayTriggerFirstMatchingEachTurn,
   mayTriggerOnceEachTurn,
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
@@ -256,12 +259,21 @@ const canonicalTriggersForOccurrence = (
         source: captureObject(source),
         occurrence,
       }
+      const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${eventObjectId(event) ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
+      if (seen.has(occurrenceKey)) return
+      seen.add(occurrenceKey)
+      const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
+      if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
+        if (!mayTriggerFirstMatchingEachTurn(source, frequencyKey, state.turn)) return
+        markFirstMatchingEachTurn(draft.object(source.id) ?? source, frequencyKey, state.turn)
+      }
       if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
-      const key = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${eventObjectId(event) ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
-      if (seen.has(key)) return
-      seen.add(key)
-      const frequencyKey = `dsl@${abilityIndex}`
-      if (candidate.frequency && !mayTriggerOnceEachTurn(source, frequencyKey, state.turn)) return
+      // An intervening-if condition gates both trigger creation and resolution.
+      // Capture evaluates it against the actual occurrence while the stack gate
+      // evaluates the same definition again when the ability resolves.
+      if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
+      if (candidate.frequency?.kind === 'onceEachTurn'
+        && !mayTriggerOnceEachTurn(source, frequencyKey, state.turn)) return
       matches.push({
         source,
         effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
@@ -274,9 +286,9 @@ const canonicalTriggersForOccurrence = (
         triggeringPlayer: occurrence.player ?? source.controller,
         triggeringObjectId: eventObjectId(event),
         triggerAmount: occurrence.amount,
-        triggeredByAbility: Boolean(state.resolution),
+        triggeredByAbility: false,
       })
-      if (candidate.frequency) {
+      if (candidate.frequency?.kind === 'onceEachTurn') {
         markTriggeredOnceEachTurn(draft.object(source.id) ?? source, frequencyKey, state.turn)
       }
     })
@@ -981,11 +993,14 @@ const placementGroups = (
 const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) => {
   const canonical = trigger.canonical
   if (!canonical) return true
-  const source = draft.object(trigger.execution.source.ref.objectId) ?? trigger.source
+  const liveSource = draft.object(trigger.execution.source.ref.objectId)
+  const source = liveSource && liveSource.incarnation === trigger.execution.source.ref.incarnation
+    ? liveSource
+    : trigger.source
   const definition = loadDefinitionSnapshot(canonical.definitionSnapshot).definition
   const ability = definition.abilities[canonical.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return true
-  const place = (targets: TargetRef[]) => {
+  const place = (targets: TargetRef[], grouped?: readonly (readonly TargetRef[])[]) => {
     const targetBindings = canonicalTargetBindings(
       draft,
       source,
@@ -993,9 +1008,31 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
       canonical.abilityIndex,
       targets,
       undefined,
-      ability.decisions.targets.length === 0 ? [] : [targets],
+      grouped ?? (ability.decisions.targets.length === 0 ? [] : [targets]),
       trigger.execution.controller,
     )
+    if ('modes' in ability) {
+      openOptionSelection(draft, {
+        seat: trigger.execution.controller,
+        sourceId: source.id,
+        source: source.name,
+        prompt: `Choose a mode for ${source.name}.`,
+        options: (ability.modes ?? []).map((_, index) => ({
+          id: `mode:${index}`,
+          label: `Mode ${index + 1}`,
+        })),
+        action: {
+          kind: 'putCanonicalModeTriggeredAbility',
+          definitionSnapshot: canonical.definitionSnapshot,
+          abilityIndex: canonical.abilityIndex,
+          execution: trigger.execution,
+          sourceId: source.id,
+          targets,
+          targetBindings,
+        },
+      })
+      return
+    }
     draft.addToStack({
       kind: 'ability', objectId: source.id, controller: trigger.execution.controller,
       name: source.name, targets,
@@ -1011,18 +1048,86 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
     place([])
     return true
   }
-  // Target-clause grouping is introduced by the later target-offer slice. Keep
-  // the trigger pending when that contract is not representable by this picker.
-  if (ability.decisions.targets.length !== 1) return true
-  const clause = ability.decisions.targets[0]
-  const candidates = canonicalTargetCandidates(
+  const candidateGroups = canonicalTargetCandidates(
     draft,
     source,
     ability,
     trigger.execution.controller,
     trigger.execution.occurrence,
-  )[0] ?? []
-  const bounds = evaluateTargetBounds(clause, {
+  )
+  const bounds = ability.decisions.targets.map((clause) => evaluateTargetBounds(clause, {
+    ...amountEvaluationContext({
+      state: draft,
+      controller: trigger.execution.controller,
+      source: trigger.execution.source,
+      occurrence: trigger.execution.occurrence,
+    }),
+  }))
+  const allPlayers = candidateGroups.every((candidates) => candidates.every((candidate) => candidate.kind === 'player'))
+  const allObjects = candidateGroups.every((candidates) => candidates.every((candidate) => candidate.kind === 'object'))
+  const required = bounds.reduce((sum, bound) => sum + bound.min, 0)
+  const maximum = bounds.reduce((sum, bound) => sum + bound.max, 0)
+  const candidates = allPlayers
+    ? [...new Set(candidateGroups.flatMap((group) => group.flatMap((candidate) => candidate.kind === 'player' ? candidate.player : [])))]
+    : candidateGroups[0] ?? []
+  if (candidates.length < required) return true
+  if (maximum === 0 || candidates.length === 0) {
+    place([], ability.decisions.targets.map(() => []))
+    return true
+  }
+  if (ability.decisions.targets.length > 1 && allPlayers) {
+    openPlayerSelection(draft, {
+      seat: trigger.execution.controller,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Choose targets for ${source.name}.`,
+      min: required,
+      max: Math.min(maximum, candidates.length),
+      candidates: candidates as PlayerId[],
+      action: {
+        kind: 'putCanonicalTriggeredAbility',
+        definitionSnapshot: canonical.definitionSnapshot,
+        abilityIndex: canonical.abilityIndex,
+        execution: trigger.execution,
+        sourceId: source.id,
+        targetClauses: bounds,
+      },
+    })
+    return false
+  }
+  if (ability.decisions.targets.length > 1 && allObjects) {
+    const objectCandidates = [...new Map(
+      candidateGroups.flatMap((group) => group.flatMap((candidate) => candidate.kind === 'object'
+        ? [[candidate.objectId, candidate] as const]
+        : [])),
+    ).values()]
+    openCardSelection(draft, {
+      seat: trigger.execution.controller,
+      kind: 'choose',
+      count: Math.min(maximum, objectCandidates.length),
+      min: required,
+      candidates: objectCandidates.map((candidate) => candidate.objectId),
+      targetIdentities: Object.fromEntries(objectCandidates.map((candidate) => [
+        candidate.objectId, objectIdentity(draft.objects[candidate.objectId]),
+      ])),
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Choose targets for ${source.name}.`,
+      destinations: targetDestinations(objectCandidates.length, required),
+      canonicalTrigger: {
+        definitionSnapshot: canonical.definitionSnapshot,
+        abilityIndex: canonical.abilityIndex,
+        execution: trigger.execution,
+        sourceId: source.id,
+        targetClauses: bounds,
+      },
+    })
+    return false
+  }
+  if (ability.decisions.targets.length !== 1) return true
+  const clause = ability.decisions.targets[0]
+  const singleClauseCandidates = candidateGroups[0] ?? []
+  const singleBounds = evaluateTargetBounds(clause, {
     ...amountEvaluationContext({
       state: draft,
       controller: trigger.execution.controller,
@@ -1030,20 +1135,20 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
       occurrence: trigger.execution.occurrence,
     }),
   })
-  if (candidates.length < bounds.min) return true
-  if (bounds.max === 0 || candidates.length === 0) {
+  if (singleClauseCandidates.length < singleBounds.min) return true
+  if (singleBounds.max === 0 || singleClauseCandidates.length === 0) {
     place([])
     return true
   }
-  if (candidates.every((candidate) => candidate.kind === 'player')) {
+  if (singleClauseCandidates.every((candidate) => candidate.kind === 'player')) {
     openPlayerSelection(draft, {
       seat: trigger.execution.controller,
       sourceId: source.id,
       source: source.name,
-      prompt: bounds.max === 1 ? `Choose target player for ${source.name}.` : `Choose up to ${bounds.max} target players for ${source.name}.`,
-      min: bounds.min,
-      max: Math.min(bounds.max, candidates.length),
-      candidates: candidates.map((candidate) => candidate.player),
+      prompt: singleBounds.max === 1 ? `Choose target player for ${source.name}.` : `Choose up to ${singleBounds.max} target players for ${source.name}.`,
+      min: singleBounds.min,
+      max: Math.min(singleBounds.max, candidates.length),
+      candidates: singleClauseCandidates.map((candidate) => candidate.player),
       action: {
         kind: 'putCanonicalTriggeredAbility',
         definitionSnapshot: canonical.definitionSnapshot,
@@ -1054,12 +1159,12 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
     })
     return false
   }
-  if (candidates.some((candidate) => candidate.kind !== 'object')) return true
-  const objects = candidates as Array<Extract<TargetRef, { kind: 'object' }>>
-  const max = Math.min(bounds.max, objects.length)
+  if (singleClauseCandidates.some((candidate) => candidate.kind !== 'object')) return true
+  const objects = singleClauseCandidates as Array<Extract<TargetRef, { kind: 'object' }>>
+  const max = Math.min(singleBounds.max, objects.length)
   openCardSelection(draft, {
     seat: trigger.execution.controller,
-    kind: 'choose', count: max, min: bounds.min,
+    kind: 'choose', count: max, min: singleBounds.min,
     candidates: objects.map((candidate) => candidate.objectId),
     targetIdentities: Object.fromEntries(objects.map((candidate) => [
       candidate.objectId,
@@ -1067,7 +1172,7 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
     ])),
     sourceId: source.id, source: source.name,
     prompt: max === 1 ? `Choose target for ${source.name}.` : `Choose up to ${max} targets for ${source.name}.`,
-    destinations: targetDestinations(objects.length, bounds.min),
+    destinations: targetDestinations(objects.length, singleBounds.min),
     canonicalTrigger: {
         definitionSnapshot: canonical.definitionSnapshot,
         abilityIndex: canonical.abilityIndex,
@@ -1106,14 +1211,16 @@ export const placePendingTriggers = (draft: Draft) => {
   let orderIds = frame.orderIds?.filter((id) => group.triggers.some((trigger) => trigger.id === id))
   if (!orderIds || orderIds.length !== group.triggers.length) {
     orderIds = group.triggers.map((trigger) => trigger.id)
-    // Existing effect triggers have historically been emitted in the stable
-    // event order.  The typed ordering request is needed for canonical DSL
-    // abilities, whose placement is now governed by CR 603.3b.
-    if (orderIds.length > 1 && group.triggers.some((trigger) => Boolean(trigger.canonical))) {
+    const distinctLegacyEffects = new Set(group.triggers.map((trigger) => JSON.stringify(trigger.effect))).size > 1
+    if (orderIds.length > 1 && (group.triggers.some((trigger) => Boolean(trigger.canonical)) || distinctLegacyEffects)) {
+      const entries = group.triggers.map((trigger) => ({
+        id: trigger.id,
+        label: `${trigger.source.name} triggered ability`,
+      }))
       draft.triggerPlacement = { version: 1, pass: frame.pass, controller: group.seat, orderIds }
       openCardSelection(draft, {
         seat: group.seat, kind: 'choose', count: orderIds.length, min: orderIds.length,
-        candidates: orderIds, triggerOrder: { ids: orderIds, pass: frame.pass },
+        candidates: orderIds, triggerOrder: { ids: orderIds, pass: frame.pass, entries },
         source: 'Triggered abilities', prompt: 'Choose the order of your triggered abilities.',
         destinations: ['target'],
       })
@@ -1131,7 +1238,10 @@ export const placePendingTriggers = (draft: Draft) => {
   if (trigger.canonical) return !placeCanonicalTrigger(draft, trigger)
   // Legacy triggers retain their existing target semantics, but a missing
   // mandatory candidate removes the trigger instead of lowering its minimum.
-  const source = draft.object(trigger.execution.source.ref.objectId) ?? trigger.source
+  const liveSource = draft.object(trigger.execution.source.ref.objectId)
+  const source = liveSource && liveSource.incarnation === trigger.execution.source.ref.incarnation
+    ? liveSource
+    : trigger.source
   const { effect, instructions, execution } = trigger
   if (effect.targets && effect.targets !== 'opponent' && effect.targets !== 'player') {
     const targetSpec = effect.targets
