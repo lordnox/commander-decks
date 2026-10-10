@@ -1,6 +1,9 @@
 # Rule DSL Part 05 implementation note
 
-Status: implementation complete pending parent review on `agent/gpt56luna-rule-dsl-part05`.
+Status: implementation complete and personally approved by the parent at
+`123ef610502fce9f33effc06bdc6548df1af0d63`; this follow-up changes
+documentation only. The known host fixture failure is recorded in
+[`KNOWN-TEST-FAILURES.md`](KNOWN-TEST-FAILURES.md).
 
 ## Scope and architecture
 
@@ -59,10 +62,11 @@ browser request metadata, DSL compiler, reconnect, candidate identity, stale
 occurrence, option bounds, cumulative-upkeep repetition, live host negative
 answers, exact semantic duplicates, private projection, concession cleanup,
 and browser-decoded/headless-equivalent answer paths. The full rules suite is
-green at 2,220 tests / 7,125
-assertions. The full host suite is green except for one known baseline failure:
-generated card-handler import fixture resolution (`loads generated card handlers
-from the current worktree`). The headless runner uses the same host path as the
+green at 2,220 tests / 7,125 assertions. The full host suite is green except
+for the known baseline failure documented in
+[`KNOWN-TEST-FAILURES.md`](KNOWN-TEST-FAILURES.md): generated card-handler
+import fixture resolution (`loads generated card handlers from the current
+worktree`). The headless runner uses the same host path as the
 browser envelope adapter; `CONDUIT.md` documents the required request ID and
 revision on both clients. The wire codec test proves that the typed envelope,
 source identity, phase, purpose, and cancellation survive a browser round-trip
