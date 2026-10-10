@@ -89,6 +89,30 @@ describe('canonical triggered abilities', () => {
     expect(placed.stack).toHaveLength(3)
   })
 
+  test('shares once-each-turn frequency history across simultaneous deaths', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'dies', filter: { type: 'Creature' } },
+        {
+          frequency: { kind: 'onceEachTurn' },
+          instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Once Watcher', { types: ['Creature'], power: 1, toughness: 0, ruleDefinition: snapshot }),
+          cardTemplate('Dying One', { types: ['Creature'], power: 1, toughness: 0 }),
+          cardTemplate('Dying Two', { types: ['Creature'], power: 1, toughness: 0 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const state = ok(server.rules(server.state, { type: 'passPriority', seat: 'p1' }))
+    expect((state.pendingTriggers?.length ?? 0) + state.stack.length).toBe(1)
+  })
+
   test('announces modal triggered modes before the ability receives priority', () => {
     const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
       whenever(
@@ -220,6 +244,172 @@ describe('canonical triggered abilities', () => {
     const playerMode = pendingOptionSelection(playerModeState, 'p1')!
     const selectedPlayerMode = ok(server.rules(playerModeState, { type: 'selectOption', seat: 'p1', selectionId: playerMode.id, optionId: 'mode:0' }))
     expect(pendingPlayerSelectionFor(selectedPlayerMode, 'p1')).toBeDefined()
+  })
+
+  test('evaluates enters intervening-if after the permanent enters', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'enters', filter: { type: 'Creature' } },
+        {
+          interveningIf: {
+            kind: 'compareAmount',
+            left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } },
+            operator: 'gte',
+            right: amount(1),
+          },
+          instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Post-Entry Gate', { types: ['Enchantment'], ruleDefinition: snapshot })] },
+      hands: { p1: [cardTemplate('First Creature', { types: ['Creature'] })] },
+    }, { random: () => 0 })
+    const entrant = named(server.state, 'First Creature')
+    const state = ok(server.rules(server.state, { type: 'move', objectId: entrant.id, to: 'battlefield' }))
+    expect(state.stack).toHaveLength(1)
+  })
+
+  test('keeps departure intervening-if on the before-event lookback state', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'dies', filter: { type: 'Creature' } },
+        {
+          interveningIf: {
+            kind: 'compareAmount',
+            left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } },
+            operator: 'gte',
+            right: amount(2),
+          },
+          instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Before-Death Gate', { types: ['Creature'], ruleDefinition: snapshot }),
+          cardTemplate('Death Target', { types: ['Creature'] }),
+        ],
+      },
+    }, { random: () => 0 })
+    const victim = named(server.state, 'Death Target')
+    const state = ok(server.rules(server.state, { type: 'move', objectId: victim.id, to: 'graveyard' }))
+    expect(state.stack).toHaveLength(1)
+  })
+
+  test('keeps repeated selected mode target scopes independent through resolution', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'draw', filter: {} },
+        {
+          decisions: { modes: { count: amount(2), repeatable: true } },
+          modes: [{
+            decisions: { targets: [select({ filter: players(), count: 1 })] },
+            instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'targetRef', clauseIndex: 0 } }],
+          }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Repeated Mode Watcher', { types: ['Creature'], ruleDefinition: snapshot })] },
+      libraries: { p1: [cardTemplate('Repeated Mode Draw')] },
+    }, { random: () => 0 })
+    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+    const firstMode = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: firstMode.id, optionId: 'mode:0' }))
+    const secondMode = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: secondMode.id, optionId: 'mode:0' }))
+    const firstTarget = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: firstTarget.id, players: ['p1'] }))
+    const secondTarget = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: secondTarget.id, players: ['p2'] }))
+    expect(state.stack[0].execution?.targetBindings?.map((binding) => binding.scopeId)).toEqual([
+      '$.abilities[0].modes[0]#0',
+      '$.abilities[0].modes[0]#1',
+    ])
+    const resolved = resolveStack(server.rules, state)
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.players.p2.life).toBe(41)
+  })
+
+  test('enforces distinctness within each selected mode scope', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'draw', filter: {} },
+        {
+          decisions: { modes: { count: amount(1), repeatable: false } },
+          modes: [{
+            decisions: {
+              targets: [
+                select({ filter: players(), count: 1 }),
+                select({ filter: players(), count: 1 }),
+              ],
+              constraints: [{ kind: 'different', clauseIndices: [0, 1] }],
+            },
+            instructions: [
+              { kind: 'gainLife', amount: amount(1), targets: { kind: 'targetRef', clauseIndex: 0 } },
+              { kind: 'gainLife', amount: amount(2), targets: { kind: 'targetRef', clauseIndex: 1 } },
+            ],
+          }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Scoped Constraint Watcher', { types: ['Creature'], ruleDefinition: snapshot })] },
+      libraries: { p1: [cardTemplate('Scoped Constraint Draw')] },
+    }, { random: () => 0 })
+    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+    const mode = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: mode.id, optionId: 'mode:0' }))
+    const firstTarget = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: firstTarget.id, players: ['p1'] }))
+    const secondTarget = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: secondTarget.id, players: ['p2'] }))
+    const resolved = resolveStack(server.rules, state)
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.players.p2.life).toBe(42)
+  })
+
+  test('preserves base ability targets beside selected mode targets', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'draw', filter: {} },
+        {
+          decisions: {
+            targets: [select({ filter: players(), count: 1 })],
+            modes: { count: amount(1), repeatable: false },
+          },
+          modes: [{
+            decisions: { targets: [select({ filter: players(), count: 1 })] },
+            instructions: [{ kind: 'gainLife', amount: amount(2), targets: { kind: 'targetRef', clauseIndex: 0 } }],
+          }],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Base and Mode Watcher', { types: ['Creature'], ruleDefinition: snapshot })] },
+      libraries: { p1: [cardTemplate('Base and Mode Draw')] },
+    }, { random: () => 0 })
+    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
+    const baseTarget = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: baseTarget.id, players: ['p1'] }))
+    const mode = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: mode.id, optionId: 'mode:0' }))
+    const modeTarget = pendingPlayerSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: modeTarget.id, players: ['p2'] }))
+    expect(state.stack[0].execution?.targetBindings?.map((binding) => [binding.scopeId, binding.clauseIndex])).toEqual([
+      ['$.abilities[0]', 0],
+      ['$.abilities[0].modes[0]#0', 0],
+    ])
+    const resolved = resolveStack(server.rules, state)
+    expect(resolved.players.p1.life).toBe(40)
+    expect(resolved.players.p2.life).toBe(42)
   })
 
   test('deduplicates one OR occurrence and collects draw-three triggers before placement', () => {

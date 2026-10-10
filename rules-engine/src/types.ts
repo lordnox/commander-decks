@@ -195,6 +195,8 @@ export type CanonicalTargetBinding = {
   scopeId: string
   clauseIndex: number
   recipients: TargetRef[]
+  /** Mode declaration that owns this local clause, when the program is modal. */
+  modeIndex?: number
 }
 
 /**
@@ -397,6 +399,8 @@ export type StackExecutionContext = {
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
   modeIndices?: number[]
+  /** Stable scope for each selected mode occurrence; repeated modes get distinct scopes. */
+  modeScopeIds?: string[]
   declarationPath?: string
 }
 
@@ -407,6 +411,8 @@ export type StackExecutionContext = {
  */
 export type ProgramScopeFrame = {
   path: string
+  /** Target binding scope used by instructions in this frame. */
+  scopeId?: string
   instructions: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
   cursor: number
 }
@@ -425,6 +431,8 @@ export type CanonicalResolutionFrame = {
   targetBindings?: CanonicalTargetBinding[]
   /** Current legality for each bound slot; missing/false slots are withheld. */
   targetLegality?: Record<number, boolean[]>
+  /** Target legality keyed by the local scope and clause index. */
+  targetLegalityByScope?: Record<string, Record<number, boolean[]>>
   results?: Record<string, boolean | number>
   pendingResult?: { binding: string; kind: 'counter'; stackId: string }
   outcome?: 'resolved' | 'didNotResolve:interveningIf' | 'didNotResolve:allTargetsIllegal'
