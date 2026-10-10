@@ -1211,8 +1211,7 @@ export const placePendingTriggers = (draft: Draft) => {
   let orderIds = frame.orderIds?.filter((id) => group.triggers.some((trigger) => trigger.id === id))
   if (!orderIds || orderIds.length !== group.triggers.length) {
     orderIds = group.triggers.map((trigger) => trigger.id)
-    const distinctLegacyEffects = new Set(group.triggers.map((trigger) => JSON.stringify(trigger.effect))).size > 1
-    if (orderIds.length > 1 && (group.triggers.some((trigger) => Boolean(trigger.canonical)) || distinctLegacyEffects)) {
+    if (orderIds.length > 1 && group.triggers.some((trigger) => Boolean(trigger.canonical))) {
       const entries = group.triggers.map((trigger) => ({
         id: trigger.id,
         label: `${trigger.source.name} triggered ability`,
