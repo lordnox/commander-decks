@@ -109,6 +109,7 @@ type InboxPayload =
       spreeModes?: string[]
       timesKicked?: number
       announcementId?: string
+      transactionId?: string
       manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
       attackers?: Array<{ objectId: string; defenderId: string }>
       blockers?: Array<{ blockerId: string; attackerId: string }>
@@ -179,6 +180,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     requestId?: unknown
     revision?: unknown
     announcementId?: unknown
+    transactionId?: unknown
     manaActivations?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
@@ -243,7 +245,21 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const giftRecipientId = message.giftRecipientId
       const blockers = message.blockers
       const announcementId = message.announcementId
+      const transactionId = message.transactionId
       const manaActivations = message.manaActivations
+      const validManaActivations = manaActivations === undefined
+        ? undefined
+        : Array.isArray(manaActivations) && manaActivations.every((plan) => {
+          if (!plan || typeof plan !== 'object') return false
+          const candidate = plan as Record<string, unknown>
+          return Object.keys(candidate).every((key) => ['objectId', 'abilityId', 'choices', 'x'].includes(key))
+            && typeof candidate.objectId === 'string' && Boolean(candidate.objectId)
+            && typeof candidate.abilityId === 'string' && Boolean(candidate.abilityId)
+            && (candidate.choices === undefined || (Array.isArray(candidate.choices) && candidate.choices.every((choice) => typeof choice === 'string' && Boolean(choice))))
+            && (candidate.x === undefined || (typeof candidate.x === 'number' && Number.isSafeInteger(candidate.x) && candidate.x >= 0))
+        })
+          ? manaActivations as Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
+          : null
       if (kind === 'declareAttackers') {
         if (
           !Array.isArray(attackers)
@@ -290,8 +306,11 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         })
       }
       if (kind === 'cancelAnnouncement') {
-        if (typeof announcementId !== 'string' || !announcementId) return null
-        return parsed({ type: 'act', kind, announcementId })
+        const id = typeof transactionId === 'string' && transactionId
+          ? transactionId
+          : typeof announcementId === 'string' && announcementId ? announcementId : undefined
+        if (!id) return null
+        return parsed({ type: 'act', kind, announcementId: id, transactionId: id })
       }
       if (
         ![
@@ -308,6 +327,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       ) {
         return null
       }
+      if (validManaActivations === null) return null
       return parsed({
         type: 'act',
         kind: kind as
@@ -330,7 +350,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
             && clause.every((target): target is string => typeof target === 'string' && Boolean(target)),
         ) ? { targetClauses } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
-        ...(Array.isArray(manaActivations) && manaActivations.every((plan) => plan && typeof plan === 'object' && typeof plan.objectId === 'string' && plan.objectId && typeof plan.abilityId === 'string' && plan.abilityId && (plan.choices === undefined || (Array.isArray(plan.choices) && plan.choices.every((choice): choice is string => typeof choice === 'string' && Boolean(choice)))) && (plan.x === undefined || (typeof plan.x === 'number' && Number.isSafeInteger(plan.x)))) ? { manaActivations } : {}),
+        ...(validManaActivations === undefined ? {} : { manaActivations: validManaActivations }),
         ...(typeof castOption === 'string' ? { castOption } : {}),
         ...(Array.isArray(phyrexianLife) && phyrexianLife.every(
           (index): index is number => Number.isSafeInteger(index) && Number(index) >= 0,

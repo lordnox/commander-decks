@@ -53,10 +53,11 @@ export const applyKernelAct = (
 ) => {
   const state = kernel.history.current()
   if (message.kind === 'cancelAnnouncement') {
-    if (!message.announcementId) throw new Error('announcementId is required')
-    const result = kernel.dispatch({ type: 'cancelAnnouncement', seat, announcementId: message.announcementId })
+    const announcementId = message.transactionId ?? message.announcementId
+    if (!announcementId) throw new Error('transactionId is required')
+    const result = kernel.dispatch({ type: 'cancelAnnouncement', seat, announcementId })
     if (!result.ok) throw new Error(result.error)
-    return
+    return []
   }
   if (message.kind === 'declareAttackers' || message.kind === 'declareBlockers') {
     const available = legalActsFor(state, seat).find(
@@ -133,6 +134,9 @@ export const applyKernelAct = (
   }
   const action = legalActsFor(state, seat).find((candidate) =>
     sameLegalAct(candidate, message))
+    ?? (message.kind === 'castSpell' && message.manaActivations
+      ? { kind: 'castSpell' as const, objectId: message.objectId!, name: state.objects[message.objectId!]?.name ?? 'planned spell' }
+      : undefined)
   if (!action) throw new Error('That action is not available now')
   const activationGroups = action.kind === 'activateAbility'
     ? action.targetGroups ?? []
@@ -161,7 +165,7 @@ export const applyKernelAct = (
         targets: targetRefs(activationGroups, selectedTargets),
         choices,
       }]
-    : action.kind === 'castSpell' && action.targetGroups
+    : action.kind === 'castSpell' && (action.targetGroups || message.manaActivations)
       ? (() => {
           const castObject = state.objects[action.objectId]
           const alternative = castObject

@@ -356,4 +356,25 @@ describe('persisted planned payment workflow', () => {
     expect(result.ok).toBe(false)
     expect(result.state.stack).toHaveLength(0)
   })
+
+  test('records the actual mana spent on the committed announcement', () => {
+    const { server, event } = fixture()
+    const result = server.rules(server.state, event)
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.state.stack[0]?.execution?.announcement?.payment).toEqual([{ sourceId: 'p1.pool.G', mana: 'G', amount: 1 }])
+  })
+
+  test('rejects a changed canonical definition while a payment choice is open', () => {
+    const { server, spell, source, event } = fixture(true)
+    const started = server.rules(server.state, event)
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const restored = JSON.parse(JSON.stringify(started.state))
+    restored.objects[spell.id].ruleDefinition = structuredClone(restored.objects[source.id].ruleDefinition)
+    const pending = pendingOptionSelection(restored, 'p1')
+    if (!pending) return
+    const result = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'instruction:0' })
+    expect(result.ok).toBe(false)
+    expect(result.state).toEqual(server.state)
+  })
 })

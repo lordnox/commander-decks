@@ -119,6 +119,14 @@ describe('inbox', () => {
       objectId: 'rebound',
       alternativeCost: 'withoutPayingMana',
     })
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"planned","manaActivations":[{"objectId":"source","abilityId":"$.abilities[0]","choices":["c"],"x":0}]}')).toEqual({
+      type: 'act', kind: 'castSpell', objectId: 'planned',
+      manaActivations: [{ objectId: 'source', abilityId: '$.abilities[0]', choices: ['c'], x: 0 }],
+    })
+    expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"planned","manaActivations":[{"objectId":"source","abilityId":"$.abilities[0]","x":-1}]}')).toBeNull()
+    expect(parseInbox('{"type":"act","kind":"cancelAnnouncement","transactionId":"announcement-1"}')).toEqual({
+      type: 'act', kind: 'cancelAnnouncement', announcementId: 'announcement-1', transactionId: 'announcement-1',
+    })
     expect(parseInbox('{"type":"act","kind":"declineFreeCast","objectId":"rebound"}')).toEqual({
       type: 'act',
       kind: 'declineFreeCast',
