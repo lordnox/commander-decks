@@ -20,6 +20,7 @@ import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
 import { targetObject } from '../objectIdentity'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import { openPlayerSelection } from './selectPlayers'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -587,6 +588,20 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         const object = draft.object(objectId)
         if (!object || object.zone !== 'battlefield' || object.phasedOut) continue
         for (const counter of Object.keys(object.counters)) object.counters[counter] = (object.counters[counter] ?? 0) + 1
+      }
+      const playerCandidates = draft.playerOrder.filter((seat) =>
+        !draft.players[seat].lost && (draft.players[seat].poison > 0 || (draft.players[seat].energy ?? 0) > 0))
+      if (playerCandidates.length > 0) {
+        openPlayerSelection(draft, {
+          seat: event.seat,
+          sourceId: selection.sourceId ?? '',
+          source: selection.source ?? 'proliferate',
+          prompt: 'Choose players with counters to proliferate.',
+          min: 0,
+          max: playerCandidates.length,
+          candidates: playerCandidates,
+          action: { kind: 'canonicalProliferatePlayers', stackId: canonicalChoice.stackId },
+        })
       }
     }
     if (canonicalChoice.action === 'discard') {

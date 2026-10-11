@@ -18,6 +18,7 @@ export type PendingPlayerSelection = {
   max: number
   candidates: PlayerId[]
   action:
+    | { kind: 'canonicalProliferatePlayers'; stackId: string }
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
     | { kind: 'drawHandDifference' }
     | { kind: 'copyStackItem'; stackId: string }
@@ -144,6 +145,13 @@ export const selectPlayers: Plugin = {
     if (!selection || selection.id !== event.selectionId) return
     clearSelection(draft, event.seat)
     const target = event.players[0]
+    if (selection.action.kind === 'canonicalProliferatePlayers') {
+      for (const seat of event.players) {
+        const player = draft.players[seat]
+        if (player.poison > 0) player.poison += 1
+        if ((player.energy ?? 0) > 0) player.energy = (player.energy ?? 0) + 1
+      }
+    }
     if (selection.action.kind === 'exchangeLifeTotals' && target) {
       const lifeLost = Math.max(
         0,
