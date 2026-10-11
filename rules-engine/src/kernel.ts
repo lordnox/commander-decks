@@ -76,6 +76,14 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       if (current.resolution) return { ok: true, state: current, trace: entries }
     }
   }
+  if (frame.source && frame.definitionSnapshot) {
+    const liveSource = current.objects[frame.source.ref.objectId]
+    if (!liveSource || !isSameObject(liveSource, frame.source.ref)
+      || JSON.stringify(liveSource.ruleDefinition?.definition) !== JSON.stringify(frame.definitionSnapshot.definition)) {
+      const error = 'planned announcement source or definition changed before payment completed'
+      return { ok: false, error, state: frame.baseline, trace: entries }
+    }
+  }
   let costIndex = 0
   for (const cost of frame.transaction.lockedCost.nonMana) {
     const amount = cost.kind === 'life' || cost.kind === 'discard' || cost.kind === 'sacrifice'
@@ -97,6 +105,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       current = paid.state
     }
   }
+  const beforeCast = current
   const cast = applyEventTree(current, {
     ...frame.continuation,
     canonicalTransaction: { ...frame.transaction, status: 'committed' as const },
@@ -104,8 +113,30 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   entries.push(...nested(cast.trace, 1))
   if (!cast.ok) return { ...cast, state: frame.baseline, trace: entries }
   const completed = makeDraft(cast.state)
+  const stacked = completed.stack.find((item) => item.objectId === frame.continuation.objectId)
+  const announcement = stacked?.execution?.announcement
+  if (announcement) announcement.payment = actualManaPayment(beforeCast, cast.state, frame.payer)
   delete completed.provisionalAnnouncement
   return { ok: true, state: freezeDraft(completed), trace: entries }
+}
+
+const actualManaPayment = (before: GameState, after: GameState, payer: PlayerId) => {
+  const spent: Array<{ sourceId: string; mana: import('./types').ManaId; amount: number; restricted?: boolean }> = []
+  for (const mana of ['C', 'W', 'U', 'B', 'R', 'G'] as const) {
+    const amount = Math.max(0, before.players[payer].mana[mana] - after.players[payer].mana[mana])
+    if (amount > 0) spent.push({ sourceId: `${payer}.pool.${mana}`, mana, amount })
+  }
+  const beforeRestricted = before.players[payer].restrictedMana ?? []
+  const afterRestricted = after.players[payer].restrictedMana ?? []
+  const remaining = new Map<string, number>()
+  for (const unit of afterRestricted) remaining.set(`${unit.sourceId}:${unit.mana}`, (remaining.get(`${unit.sourceId}:${unit.mana}`) ?? 0) + 1)
+  for (const unit of beforeRestricted) {
+    const key = `${unit.sourceId}:${unit.mana}`
+    const count = remaining.get(key) ?? 0
+    if (count > 0) remaining.set(key, count - 1)
+    else spent.push({ sourceId: `${unit.sourceId}#planned`, mana: unit.mana, amount: 1, restricted: true })
+  }
+  return spent
 }
 
 const startPlannedAnnouncement = (state: GameState, event: Extract<GameEvent, { type: 'castSpell' }>, catalog: PluginCatalog): ReduceResult | undefined => {
@@ -124,6 +155,8 @@ const startPlannedAnnouncement = (state: GameState, event: Extract<GameEvent, { 
     continuation: { ...prepared.continuation, canonicalTransaction: transaction },
     plannedManaActivations: prepared.activations,
     plannedManaCursor: 0,
+    source: prepared.source,
+    definitionSnapshot: prepared.definitionSnapshot,
   }
   const started = freezeDraft(draft)
   const driven = continuePlannedAnnouncement(started, catalog)

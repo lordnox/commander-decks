@@ -1,4 +1,5 @@
 import { isPermanentType } from '../definitions'
+import { captureObject } from '../objectIdentity'
 import { poolTotal, type Draft } from '../draft'
 import type {
   GameObject,
@@ -42,7 +43,7 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
+import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
@@ -122,6 +123,8 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
   return {
     ok: true as const,
     transaction: { ...locked.transaction, targetBindings },
+    source: captureObject(source),
+    definitionSnapshot: createDefinitionSnapshot(compiled),
     activations,
     continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings } } as Extract<GameEvent, { type: 'castSpell' }>,
   }
@@ -434,39 +437,7 @@ export const spells: Plugin = {
   replace: ({ state, event }) => {
     if (event.type !== 'castSpell' || event.canonicalTransaction || event.copy) return
     if (event.manaActivations && event.manaActivations.length > 0) {
-      const source = state.objects[event.objectId]
-      const compiled = source?.ruleDefinition
-        ? compileCardRuleDefinition(source.ruleDefinition.definition)
-        : undefined
-      const ability = compiled?.definition.abilities.find((candidate) => candidate.kind === 'spell')
-      if (!source || !compiled || !ability || ability.kind !== 'spell') return
-      const groupedTargets = ability.decisions.targets.length === 0
-        ? []
-        : event.targetClauses ?? (ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
-      if (!groupedTargets) return
-      const locked = beginSpellAnnouncement(
-        state,
-        source,
-        event.seat,
-        ability,
-        groupedTargets,
-        event.x,
-        [...(event.discard ?? []), ...(event.sacrifice ?? [])],
-        { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost, deferPayment: true },
-      )
-      if (!locked.ok) return
-      const transaction = locked.transaction
-      const activations = event.manaActivations.map((plan) => ({
-        type: 'activateAbility' as const,
-        seat: event.seat,
-        objectId: plan.objectId,
-        abilityId: plan.abilityId,
-        manaAbility: true,
-        ...(plan.choices ? { choices: plan.choices } : {}),
-        ...(plan.x !== undefined ? { x: plan.x } : {}),
-      }))
-      const { manaActivations: _plan, ...cast } = event
-      return [...activations, { ...cast, canonicalTransaction: transaction }]
+      return
     }
     const object = state.objects[event.objectId]
     if (!object?.ruleDefinition) return

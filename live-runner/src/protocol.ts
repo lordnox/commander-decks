@@ -79,6 +79,7 @@ type InboxPayload =
         | 'playLand'
         | 'tapForMana'
         | 'castSpell'
+        | 'cancelAnnouncement'
         | 'declineFreeCast'
         | 'activateAbility'
         | 'unlockDoor'
@@ -107,6 +108,8 @@ type InboxPayload =
       giftRecipientId?: string
       spreeModes?: string[]
       timesKicked?: number
+      announcementId?: string
+      manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
       attackers?: Array<{ objectId: string; defenderId: string }>
       blockers?: Array<{ blockerId: string; attackerId: string }>
     }
@@ -175,6 +178,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     blockers?: unknown
     requestId?: unknown
     revision?: unknown
+    announcementId?: unknown
+    manaActivations?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -237,6 +242,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const giftPromised = message.giftPromised
       const giftRecipientId = message.giftRecipientId
       const blockers = message.blockers
+      const announcementId = message.announcementId
+      const manaActivations = message.manaActivations
       if (kind === 'declareAttackers') {
         if (
           !Array.isArray(attackers)
@@ -282,6 +289,10 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           blockers: blockers.map(({ blockerId, attackerId }) => ({ blockerId, attackerId })),
         })
       }
+      if (kind === 'cancelAnnouncement') {
+        if (typeof announcementId !== 'string' || !announcementId) return null
+        return parsed({ type: 'act', kind, announcementId })
+      }
       if (
         ![
           'playLand',
@@ -303,6 +314,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           | 'playLand'
           | 'tapForMana'
           | 'castSpell'
+          | 'cancelAnnouncement'
           | 'declineFreeCast'
           | 'activateAbility'
           | 'unlockDoor'
@@ -318,6 +330,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
             && clause.every((target): target is string => typeof target === 'string' && Boolean(target)),
         ) ? { targetClauses } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
+        ...(Array.isArray(manaActivations) && manaActivations.every((plan) => plan && typeof plan === 'object' && typeof plan.objectId === 'string' && plan.objectId && typeof plan.abilityId === 'string' && plan.abilityId && (plan.choices === undefined || (Array.isArray(plan.choices) && plan.choices.every((choice): choice is string => typeof choice === 'string' && Boolean(choice)))) && (plan.x === undefined || (typeof plan.x === 'number' && Number.isSafeInteger(plan.x)))) ? { manaActivations } : {}),
         ...(typeof castOption === 'string' ? { castOption } : {}),
         ...(Array.isArray(phyrexianLife) && phyrexianLife.every(
           (index): index is number => Number.isSafeInteger(index) && Number(index) >= 0,

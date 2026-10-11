@@ -610,6 +610,8 @@ export type ProvisionalAnnouncementFrame = {
   continuation: Extract<GameEvent, { type: 'castSpell' }>
   plannedManaActivations?: Array<Extract<GameEvent, { type: 'activateAbility' }>>
   plannedManaCursor?: number
+  source?: CapturedObject
+  definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
 }
 
 export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }

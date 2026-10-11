@@ -52,6 +52,12 @@ export const applyKernelAct = (
   message: Extract<InboxMessage, { type: 'act' }>,
 ) => {
   const state = kernel.history.current()
+  if (message.kind === 'cancelAnnouncement') {
+    if (!message.announcementId) throw new Error('announcementId is required')
+    const result = kernel.dispatch({ type: 'cancelAnnouncement', seat, announcementId: message.announcementId })
+    if (!result.ok) throw new Error(result.error)
+    return
+  }
   if (message.kind === 'declareAttackers' || message.kind === 'declareBlockers') {
     const available = legalActsFor(state, seat).find(
       (candidate) => candidate.kind === message.kind,
@@ -183,6 +189,7 @@ export const applyKernelAct = (
             ...(alternative?.sacrifice ? { sacrifice: choices } : {}),
             ...(hasTargetGroup || spellTargets.length > 0 ? { targets: spellTargets } : {}),
             ...(groupedTargets ? { targetClauses: groupedTargets } : {}),
+            ...(message.manaActivations ? { manaActivations: message.manaActivations } : {}),
           }]
         })()
     : eventsForAvailableAction(state, seat, action)
