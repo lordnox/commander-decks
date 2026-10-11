@@ -20,7 +20,7 @@ import {
   prepareResolutionStep,
   startCanonicalResolution,
 } from './driver'
-import { captureEventTriggers, placePendingTriggers } from './rules/triggers'
+import { captureEventTriggers, placePendingManaTriggers, placePendingTriggers } from './rules/triggers'
 import {
   INSTRUCTIONS_RESUME,
   PENDING_SELECTION,
@@ -815,7 +815,16 @@ const driveResolution = (
         current = freezeDraft(before)
         const next = applyEventTree(current, event, catalog)
         entries.push(...nested(next.trace, 1))
-        if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
+        if (next.ok) {
+          current = recordPendingCounterResult(next.state, next.trace)
+          if (event.type === 'addMana' && (frame.kind !== 'canonicalSpell' || !frame.inlineItem)) {
+            const manaFrame = makeDraft(current)
+            if (placePendingManaTriggers(manaFrame)) {
+              current = freezeDraft(manaFrame)
+              continue
+            }
+          }
+        }
       }
       const committed = makeDraft(current)
       if (committed.resolution) {
@@ -873,7 +882,18 @@ const driveResolution = (
       if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
     }
     const completed = makeDraft(current)
+    const completedInline = completed.resolution?.kind === 'canonicalSpell'
+      && Boolean(completed.resolution.inlineItem)
     finishResolution(completed)
+    if (completedInline) {
+      // Mana-added triggers from an inline mana ability wait until that
+      // ability has finished its complete program. They then resolve before
+      // the suspended parent resumes its next instruction.
+      if (placePendingManaTriggers(completed)) {
+        current = freezeDraft(completed)
+        continue
+      }
+    }
     current = freezeDraft(completed)
     if (current.resolution) continue
     return { ok: true, state: current, trace: entries }
@@ -1093,6 +1113,13 @@ const checkpoint = (
       triggerDraft.priority = intendedPriority
       current = freezeDraft(triggerDraft)
       if (openedChoice) return { ok: true, state: current, trace: entries }
+      if (current.resolution) {
+        const driven = driveResolution(current, catalog)
+        entries.push(...driven.trace)
+        if (!driven.ok) return { ...driven, trace: entries }
+        current = driven.state
+        if (current.resolution?.phase === 'waiting') return { ok: true, state: current, trace: entries }
+      }
       continue
     }
 

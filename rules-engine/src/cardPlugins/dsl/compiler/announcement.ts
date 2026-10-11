@@ -95,7 +95,8 @@ export const classifyManaAbility = (input: {
   // CR 605 allows additional non-library/non-target instructions alongside
   // mana production; only targets, loyalty, and card movement disqualify it.
   const structurallyMana = addsMana
-    && !input.hasTargets && !input.hasLoyaltyCost && !input.movesCards
+    && !input.hasTargets && !input.hasLoyaltyCost
+    && (triggered || !input.movesCards)
   const isManaAbility = structurallyMana && (
     input.abilityKind === 'activated'
       || (triggered && input.triggeredManaEligible === true)
@@ -352,12 +353,6 @@ export const beginActivatedAnnouncement = (
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
-    .concat((state.players[payer].restrictedMana ?? []).map((mana, index) => ({
-      sourceId: `${mana.sourceId}#${index}`,
-      mana: mana.mana,
-      amount: 1,
-      restricted: true,
-    })))
   return beginAnnouncement(state, {
     payer,
     sourceId: source.id,

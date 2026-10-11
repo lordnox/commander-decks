@@ -34,6 +34,11 @@ cannot publish payments, targets, or cast occurrences.
   and preserve that transaction through typed cost continuations
 - [x] apply inline mana ability costs before canonical resolution and classify
   library movement by both source selector and destination
+- [x] execute eligible mana-added triggers through the canonical inline driver,
+  preserving JSON-resumable choices and ordering inline triggers after the
+  producing mana ability completes
+- [x] attach producer identities to legacy tap and mana-choice mana events so
+  canonical mana-added patterns observe only eligible source events
 
 ## Remaining work
 
@@ -41,8 +46,8 @@ Replacement-aware payment choice coverage belongs to Part 11, but this
 transaction frame remains the insertion point for those choices. Legacy card
 definitions continue to use their existing handlers while canonical definitions
 now have authoritative target, restricted-mana, activation, cost-plan, and cost
-ordering paths. Triggered mana, shared tap/planning permissions, and a persisted
-suspended payment transaction remain for the next Part 08 review slice.
+ordering paths. Shared tap/planning permissions and a persisted suspended
+payment transaction remain for the next Part 08 review slice.
 
 ## Validation
 
@@ -56,5 +61,8 @@ suspended payment transaction remain for the next Part 08 review slice.
 - `/Users/tobiaskopelke/projects/lordnox/commander-decks/node_modules/.bin/oxlint
   rules-engine live-runner site/src shared .agents/skills --quiet` — passed.
 - canonical cost-plan integration tests — 10 passed, 0 failed.
-- parent server review fixture — 25 passed, 0 failed after inline cost and
-  library-movement regressions.
+- parent server review fixture — 31 passed, 0 failed, including alternative
+  locked-cost continuations and both ordinary-spell and inline-mana trigger
+  timing boundaries.
+- `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 11 passed, 0 failed.
+- `bun test rules-engine/src/plugins/mana.test.ts` — 20 passed, 0 failed.

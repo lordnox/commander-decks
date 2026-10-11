@@ -420,6 +420,7 @@ export const spells: Plugin = {
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
       const face = resolveCastFace(object, event)
       const spell = face ? { ...object, ...face } : object
+      let canonicalLockedManaCost: string | undefined
       if (object.ruleDefinition && !event.copy) {
         if (!targetInputsAgree(state, event)) return 'targets and targetClauses disagree'
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
@@ -449,7 +450,9 @@ export const spells: Plugin = {
             ? event.targetClauses
               ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
             : undefined
-          if (ability.kind === 'spell' && groupedTargets !== undefined && !(event as InternalCastEvent)[canonicalCostsPaid]) {
+          const precommitted = (event as InternalCastEvent)[canonicalCostsPaid]
+          if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana
+          if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
             const announcement = beginSpellAnnouncement(
               state,
               object,
@@ -475,6 +478,7 @@ export const spells: Plugin = {
               },
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
+            canonicalLockedManaCost = announcement.transaction.lockedCost.mana
           }
           const flagbearerError = canonicalFlagbearerError(
             state,
@@ -591,7 +595,7 @@ export const spells: Plugin = {
       ) {
         return `${spell.name} requires a nonnegative integer multikicker count`
       }
-      const fullCost = spellCost(state, spell, {
+      const fullCost = canonicalLockedManaCost ?? spellCost(state, spell, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,

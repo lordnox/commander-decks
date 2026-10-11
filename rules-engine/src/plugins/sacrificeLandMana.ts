@@ -30,7 +30,7 @@ export const sacrificeLandMana: Plugin = {
   apply: ({ event, draft }) => {
     if (event.type !== 'activateAbility' || event.abilityId !== SACRIFICE_LAND_FOR_BLACK) return
     draft.enqueue({ type: 'sacrifice', objectId: event.objectId })
-    draft.enqueue({ type: 'addMana', seat: event.seat, mana: { B: 1 } })
+    draft.enqueue({ type: 'addMana', seat: event.seat, mana: { B: 1 }, sourceId: event.objectId })
     draft.note(`${event.seat} sacrifices a land for {B}`)
   },
 }

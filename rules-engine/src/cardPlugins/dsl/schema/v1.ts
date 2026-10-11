@@ -93,6 +93,7 @@ export type OccurrencePattern =
         firstDrawInOwnDrawStep?: boolean
       }
     }
+  | { kind: 'manaAdded' }
 
 export type VariableSpec = {
   name: 'X'
@@ -298,6 +299,7 @@ export type TriggeredAbilityDefinition = {
   triggerOnlyIf?: Condition
   interveningIf?: Condition
   frequency?: TriggerFrequency
+  manaAbility?: true
   decisions: DecisionsSpec
 } & ResolutionProgram
 
@@ -335,6 +337,7 @@ export type WheneverConfiguration = {
   triggerOnlyIf?: Condition
   interveningIf?: Condition
   frequency?: TriggerFrequency
+  manaAbility?: true
 } & ResolutionProgramInput
 
 export type DefinitionDeclaration = {

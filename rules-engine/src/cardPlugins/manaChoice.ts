@@ -26,7 +26,7 @@ export const addManaChoiceInstruction: InstructionHandler<'addManaChoice'> = (
   const pools = manaChoicePools(instruction.options)
   const named = item?.choices?.[0]
   if (named && pools[named]) {
-    draft.enqueue({ type: 'addMana', seat: source.controller, mana: pools[named] })
+    draft.enqueue({ type: 'addMana', seat: source.controller, mana: pools[named], sourceId: source.id })
     return
   }
   openOptionSelection(draft, {
@@ -49,6 +49,7 @@ export const manaChoice: Plugin = {
       type: 'addMana',
       seat: event.seat,
       mana: pending.action.pools[event.optionId],
+      sourceId: pending.sourceId,
     })
     draft.note(`${event.seat} adds ${event.optionId}`)
   },

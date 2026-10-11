@@ -327,7 +327,7 @@ const actionEvents = (
         const value = availableAmount(amount, context)
         return typeof value === 'number' && value > 0 ? [[symbol, value]] : []
       }))
-      return targets.map((seat) => ({ type: 'addMana' as const, seat, mana }))
+      return targets.map((seat) => ({ type: 'addMana' as const, seat, mana, sourceId: frame.source.ref.objectId }))
     }
     case 'draw': {
       const targets = recipients(instruction.targets, context)

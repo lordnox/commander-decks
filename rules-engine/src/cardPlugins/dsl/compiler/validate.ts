@@ -245,7 +245,7 @@ export const validateDefinitionV1 = (root: unknown): {
   const validateSelector = (value: unknown, path: string, env: Environment): Domain | undefined => {
     const node = object(value, path)
     if (!node) return undefined
-    exactKeys(node, path, ['kind', 'filter'], ['kind', 'filter'])
+    exactKeys(node, path, ['kind', 'filter'], ['kind'])
     switch (node.kind) {
       case 'players': validatePlayerFilter(node.filter, childPath(path, 'filter')); return 'player'
       case 'objects': validateObjectFilter(node.filter, childPath(path, 'filter'), env); return 'object'
@@ -709,18 +709,21 @@ export const validateDefinitionV1 = (root: unknown): {
     const env = cloneEnv(baseEnv)
     const node = object(value, path)
     if (!node) return env
-    exactKeys(node, path, ['kind', 'filter'], ['kind', 'filter'])
+    exactKeys(node, path, ['kind', 'filter'], ['kind'])
     declarations.push({ path, kind: `occurrence:${String(node.kind)}` })
     switch (node.kind) {
       case 'enters':
+        if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
       case 'dies':
+        if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.before', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
       case 'draw': {
+        if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.player', 'player']])
         env.eventAmount = true
         const filter = object(node.filter, childPath(path, 'filter'))
@@ -731,6 +734,8 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return env
       }
+      case 'manaAdded':
+        return env
       default:
         issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported occurrence kind: ${String(node.kind)}`)
         return env
@@ -820,7 +825,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'triggered': {
-        exactKeys(ability, path, ['kind', 'activeIn', 'on', 'triggerOnlyIf', 'interveningIf', 'frequency', 'decisions', 'instructions', 'modes'], ['kind', 'activeIn', 'on', 'decisions'])
+        exactKeys(ability, path, ['kind', 'activeIn', 'on', 'triggerOnlyIf', 'interveningIf', 'frequency', 'manaAbility', 'decisions', 'instructions', 'modes'], ['kind', 'activeIn', 'on', 'decisions'])
         array(ability.activeIn, childPath(path, 'activeIn'), { nonempty: true }).forEach((zone, index) =>
           enumeration(zone, childPath(childPath(path, 'activeIn'), index), ZONES, 'zone'))
         const occurrenceEnv = validateOccurrence(ability.on, childPath(path, 'on'), baseEnvironment())

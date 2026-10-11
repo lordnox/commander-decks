@@ -17,6 +17,8 @@ import {
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   ref,
+  manaAdded,
+  whenever,
 } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -237,5 +239,22 @@ describe('announcement transactions', () => {
     })
     expect(adjusted.ok).toBe(false)
     expect(adjusted.state.players.p1.mana.C).toBe(1)
+  })
+
+  test('eligible canonical mana-added triggers resolve immediately without a stack', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([whenever(manaAdded(), {
+      decisions: { targets: [] },
+      instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Mana trigger source', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const result = server.rules(server.state, { type: 'addMana', seat: 'p1', mana: { G: 1 }, sourceId: 'producer' })
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.state.stack).toHaveLength(0)
+      expect(result.state.players.p1.mana.G).toBe(2)
+    }
   })
 })
