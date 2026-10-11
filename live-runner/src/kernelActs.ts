@@ -168,6 +168,8 @@ export const applyKernelAct = (
         abilityId: action.abilityId ?? '',
         targets: targetRefs(activationGroups, selectedTargets),
         choices,
+        ...(message.modeIndices ? { modeIndices: message.modeIndices } : {}),
+        ...(message.distributionBindings ? { distributionBindings: message.distributionBindings } : {}),
       }]
     : action.kind === 'castSpell' && (action.targetGroups || message.manaActivations)
       ? (() => {
@@ -197,6 +199,8 @@ export const applyKernelAct = (
             ...(alternative?.sacrifice ? { sacrifice: choices } : {}),
             ...(hasTargetGroup || spellTargets.length > 0 ? { targets: spellTargets } : {}),
             ...(groupedTargets ? { targetClauses: groupedTargets } : {}),
+            ...(message.modeIndices ? { modeIndices: message.modeIndices } : {}),
+            ...(message.distributionBindings ? { distributionBindings: message.distributionBindings } : {}),
             ...(message.manaActivations ? { manaActivations: message.manaActivations } : {}),
           }]
         })()

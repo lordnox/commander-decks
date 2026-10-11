@@ -44,6 +44,7 @@ import {
   type TopdeckDestination,
 } from '../../shared/liveTypes'
 import type { RoomDoorId } from '../../rules-engine/src/index'
+import type { DistributionAllocation } from '../../rules-engine/src/cardPlugins/dsl/compiler/modes'
 
 export { TOPDECK_DESTINATIONS, type TopdeckDestination }
 export type SeatActions = Partial<Record<SeatId, PlayAction[]>>
@@ -92,6 +93,8 @@ type InboxPayload =
       targetObjectIds?: string[]
       /** Canonical target selections grouped by generated clause index. */
       targetClauses?: string[][]
+      modeIndices?: number[]
+      distributionBindings?: DistributionAllocation[]
       abilityId?: string
       castOption?: string
       phyrexianLife?: number[]
@@ -182,6 +185,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     announcementId?: unknown
     transactionId?: unknown
     manaActivations?: unknown
+    modeIndices?: unknown
+    distributionBindings?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -247,6 +252,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       const announcementId = message.announcementId
       const transactionId = message.transactionId
       const manaActivations = message.manaActivations
+      const modeIndices = message.modeIndices
+      const distributionBindings = message.distributionBindings
       const validManaActivations = manaActivations === undefined
         ? undefined
         : Array.isArray(manaActivations) && manaActivations.every((plan) => {
@@ -328,6 +335,25 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         return null
       }
       if (validManaActivations === null) return null
+      const validModeIndices = modeIndices === undefined
+        ? undefined
+        : Array.isArray(modeIndices) && modeIndices.every((index) => Number.isSafeInteger(index) && index >= 0)
+          ? modeIndices as number[]
+          : null
+      if (validModeIndices === null) return null
+      const validDistributionBindings = distributionBindings === undefined
+        ? undefined
+        : Array.isArray(distributionBindings) && distributionBindings.every((entry) => {
+            if (!entry || typeof entry !== 'object') return false
+            const candidate = entry as Record<string, unknown>
+            return typeof candidate.scopeId === 'string' && candidate.scopeId.length > 0
+              && Number.isSafeInteger(candidate.clauseIndex) && Number(candidate.clauseIndex) >= 0
+              && Array.isArray(candidate.amounts)
+              && candidate.amounts.every((amount) => Number.isSafeInteger(amount) && amount >= 0)
+          })
+          ? distributionBindings as DistributionAllocation[]
+          : null
+      if (validDistributionBindings === null) return null
       return parsed({
         type: 'act',
         kind: kind as
@@ -351,6 +377,8 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ) ? { targetClauses } : {}),
         ...(typeof abilityId === 'string' ? { abilityId } : {}),
         ...(validManaActivations === undefined ? {} : { manaActivations: validManaActivations }),
+        ...(validModeIndices === undefined ? {} : { modeIndices: validModeIndices }),
+        ...(validDistributionBindings === undefined ? {} : { distributionBindings: validDistributionBindings }),
         ...(typeof castOption === 'string' ? { castOption } : {}),
         ...(Array.isArray(phyrexianLife) && phyrexianLife.every(
           (index): index is number => Number.isSafeInteger(index) && Number(index) >= 0,
