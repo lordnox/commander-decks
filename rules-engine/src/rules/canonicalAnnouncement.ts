@@ -1,6 +1,7 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
+import { modeOccurrences } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 import { evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
@@ -266,8 +267,8 @@ export const continueCanonicalModeTargets = (
     clauses.map(() => canonicalModeScopeId(announcement.abilityIndex, modeIndex, occurrence)))
   const modeTargetModeIndices = modeEntries.flatMap(({ modeIndex, clauses }) =>
     clauses.map(() => modeIndex))
-  const modeScopeIds = modeEntries.map(({ modeIndex, occurrence }) =>
-    canonicalModeScopeId(announcement.abilityIndex, modeIndex, occurrence))
+  const modeScopeIds = modeOccurrences(announcement.abilityIndex, announcement.selectedModes)
+    .map(({ scopeId }) => scopeId)
   return startCanonicalAnnouncement(draft, {
     ...announcement,
     targetScopeIds: announcement.targetScopeIds ?? modeTargetScopeIds,

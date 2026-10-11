@@ -2,6 +2,7 @@ import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { continueCanonicalModeTargets, continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import { canonicalModeScopeId } from '../cardPlugins/dsl/compiler/targeting'
+import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
@@ -208,6 +209,12 @@ export const selectOptions: Plugin = {
         return
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      validateModeSelection(
+        { count: { kind: 'constant', value: selection.action.modeCount }, repeatable: selection.action.repeatable },
+        selection.action.modeClausesByMode?.length ?? selection.options.length,
+        selection.action.modeCount,
+        selectedModes,
+      )
       const modeClausesByMode = selection.action.modeClausesByMode
       const modeClauses = modeClausesByMode
         ? selectedModes.flatMap((index) => modeClausesByMode[index] ?? [])
