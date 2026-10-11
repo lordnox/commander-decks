@@ -15,6 +15,7 @@ import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { objects } from './v1'
 import { pendingOptionSelection } from '../../rules/selectOptions'
+import { pendingSelectionFor } from '../../rules/selectCards'
 
 const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, characteristic: () => 0 }
 
@@ -75,6 +76,42 @@ describe('Part09 scoped modes and distributions', () => {
     const activated = server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]', modeIndices: [0] } as any)
     expect(activated.ok).toBe(true)
     if (!activated.ok) return
+    const resolved = server.rules(activated.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
+  })
+
+  test('server pins modal cardinality before a sacrifice cost changes the board', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'activated',
+      availableFrom: ['battlefield'],
+      timing: 'anyTime',
+      costs: [{ kind: 'sacrifice', filter: objects({ zone: 'battlefield', type: 'Creature' }), count: amount(1) }],
+      decisions: { targets: [], modes: { count: { kind: 'count', of: objects({ zone: 'battlefield', type: 'Creature' }) }, repeatable: false } },
+      modes: [
+        { decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(1), targets: ref('controller') }] },
+        { decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(1), targets: ref('controller') }] },
+      ],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Sacrifice modal source', { types: ['Artifact'], ruleDefinition: definition }),
+          cardTemplate('Sacrifice modal creature one', { types: ['Creature'], power: 2, toughness: 2 }),
+          cardTemplate('Sacrifice modal creature two', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Sacrifice modal source')!
+    const sacrificed = Object.values(server.state.objects).find((object) => object.name === 'Sacrifice modal creature one')!
+    const activated = server.rules(server.state, {
+      type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]',
+      choices: [sacrificed.id], modeIndices: [0, 1],
+    } as any)
+    expect(activated.ok).toBe(true)
+    if (!activated.ok) return
+    expect(activated.state.objects[sacrificed.id]?.zone).toBe('graveyard')
     const resolved = server.rules(activated.state, { type: 'resolveTop' })
     expect(resolved.ok).toBe(true)
     if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
@@ -154,6 +191,94 @@ describe('Part09 scoped modes and distributions', () => {
     if (!resolved.ok) return
     expect(resolved.state.objects[creatures[0].objectId]?.damageMarked).toBe(1)
     expect(resolved.state.objects[creatures[1].objectId]?.damageMarked).toBe(2)
+  })
+
+  test('server keeps separate proliferate instruction choices and results', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [
+        { kind: 'proliferate', targets: ref('controller') },
+        { kind: 'proliferate', targets: ref('controller') },
+      ],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Two proliferations', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: {
+        p1: [
+          cardTemplate('First counter creature', { types: ['Creature'], power: 2, toughness: 2, counters: { '+1/+1': 1 } }),
+          cardTemplate('Second counter creature', { types: ['Creature'], power: 2, toughness: 2, counters: { '+1/+1': 1 } }),
+        ],
+      },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Two proliferations')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const started = server.rules(cast.state, { type: 'resolveTop' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const first = pendingSelectionFor(started.state, 'p1')
+    expect(first).toBeDefined()
+    if (!first) return
+    const firstTarget = Object.values(started.state.objects).find((object) => object.name === 'First counter creature')!
+    const secondTarget = Object.values(started.state.objects).find((object) => object.name === 'Second counter creature')!
+    const firstAnswer = server.rules(started.state, { type: 'selectCards', seat: 'p1', selectionId: first.id, kind: 'choose', count: first.count, objectIds: [firstTarget.id, secondTarget.id] })
+    expect(firstAnswer.ok).toBe(true)
+    if (!firstAnswer.ok) return
+    const second = pendingSelectionFor(firstAnswer.state, 'p1')
+    expect(second).toBeDefined()
+    if (!second) return
+    const completed = server.rules(firstAnswer.state, { type: 'selectCards', seat: 'p1', selectionId: second.id, kind: 'choose', count: second.count, objectIds: [firstTarget.id, secondTarget.id] })
+    expect(completed.ok).toBe(true)
+    if (completed.ok) {
+      expect(completed.state.objects[firstTarget.id]?.counters['+1/+1']).toBe(3)
+      expect(completed.state.objects[secondTarget.id]?.counters['+1/+1']).toBe(3)
+    }
+  })
+
+  test('modal resolution gates untargeted modes only when every target is illegal', () => {
+    const targetClause = { filter: { kind: 'objects' as const, filter: { zone: 'battlefield' as const, type: 'Creature' as const } }, min: amount(1), max: amount(1), distinct: true as const }
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [], modes: { count: amount(2), repeatable: false } },
+      modes: [
+        { decisions: { targets: [targetClause] }, instructions: [{ kind: 'damage', amount: amount(1), targets: { kind: 'targetRef', clauseIndex: 0 }, source: ref('source') }] },
+        { decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(2), targets: ref('controller') }] },
+      ],
+    }])))
+    const create = () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: { p1: [cardTemplate('Target gate modal', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+        battlefield: { p2: [cardTemplate('Target gate creature', { types: ['Creature'], power: 3, toughness: 3 })] },
+      }, { random: () => 0 })
+      const spell = Object.values(server.state.objects).find((object) => object.name === 'Target gate modal')!
+      const target = Object.values(server.state.objects).find((object) => object.name === 'Target gate creature')!
+      const cast = server.rules(server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0, 1],
+        targetClauses: [[{ kind: 'object', objectId: target.id }]],
+      })
+      expect(cast.ok).toBe(true)
+      return { server, target, cast }
+    }
+    const illegal = create()
+    if (illegal.cast.ok) {
+      const changed = structuredClone(illegal.cast.state)
+      changed.objects[illegal.target.id]!.phasedOut = true
+      const resolved = illegal.server.rules(changed, { type: 'resolveTop' })
+      expect(resolved.ok).toBe(true)
+      if (resolved.ok) expect(resolved.state.players.p1.life).toBe(40)
+    }
+    const legal = create()
+    if (legal.cast.ok) {
+      const resolved = legal.server.rules(legal.cast.state, { type: 'resolveTop' })
+      expect(resolved.ok).toBe(true)
+      if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
+    }
   })
   test('server resolves supplied modal spell occurrences in printed order', () => {
     const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([{
