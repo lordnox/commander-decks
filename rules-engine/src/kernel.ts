@@ -602,6 +602,7 @@ function applyEventTree(
   if (!first.ok || first.prevented) return first
   let current = first.state
   const entries = [...first.trace]
+  const replacedTree = first.trace.some((entry) => entry.outcome === 'replaced')
   const queue = (first.queued ?? []).map((queued) => ({
     event: queued,
     depth: first.queuedDepth ?? 1,
@@ -644,7 +645,7 @@ function applyEventTree(
     if (!next.ok) {
       // The parent event is already committed. Report the failed continuation
       // from that committed state rather than rolling back paid costs.
-      return { ...next, state: current, trace: entries }
+      return { ...next, state: replacedTree ? state : current, trace: entries }
     }
     current = next.state
     if (current.resolution) return { ok: true, state: current, trace: entries }
