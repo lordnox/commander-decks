@@ -10,6 +10,8 @@ import type {
   ContextBinding,
   ContextReference,
   Cost,
+  CostIncrease,
+  CostReduction,
   DecisionsInput,
   DecisionsSpec,
   DistributionSpec,
@@ -190,10 +192,18 @@ const normalizeProgram = (program: ResolutionProgramInput): ResolutionProgram =>
 export const spell = (input: {
   decisions?: DecisionsInput
   costs?: readonly Cost[]
+  optionalCosts?: readonly Cost[]
+  alternativeCosts?: readonly (readonly Cost[])[]
+  costIncreases?: readonly CostIncrease[]
+  costReductions?: readonly CostReduction[]
 } & ResolutionProgramInput): SpellAbilityDefinition => immutableData({
   kind: 'spell',
   decisions: decisions(input.decisions),
   costs: input.costs ?? [],
+  ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
+  ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
+  ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
+  ...(input.costReductions ? { costReductions: input.costReductions } : {}),
   ...normalizeProgram(input),
 }) as SpellAbilityDefinition
 
@@ -202,12 +212,20 @@ export const activated = (input: {
   timing?: ActivatedAbilityDefinition['timing']
   decisions?: DecisionsInput
   costs?: readonly Cost[]
+  optionalCosts?: readonly Cost[]
+  alternativeCosts?: readonly (readonly Cost[])[]
+  costIncreases?: readonly CostIncrease[]
+  costReductions?: readonly CostReduction[]
 } & ResolutionProgramInput): ActivatedAbilityDefinition => immutableData({
   kind: 'activated',
   availableFrom: input.availableFrom ?? ['battlefield'],
   timing: input.timing ?? 'anyTime',
   decisions: decisions(input.decisions),
   costs: input.costs ?? [],
+  ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
+  ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
+  ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
+  ...(input.costReductions ? { costReductions: input.costReductions } : {}),
   ...normalizeProgram(input),
 }) as ActivatedAbilityDefinition
 

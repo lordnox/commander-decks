@@ -174,4 +174,68 @@ describe('announcement transactions', () => {
       expect(answered.state.players.p1.mana.R).toBe(1)
     }
   })
+
+  test('canonical announcements lock server-owned optional, alternative, and adjusted costs', () => {
+    const optionalDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [manaCost('{1}')],
+      optionalCosts: [manaCost('{2}')],
+      decisions: { targets: [] },
+      instructions: [],
+    }])))
+    const optionalServer = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Optional canonical spell', { types: ['Sorcery'], manaCost: '{1}', ruleDefinition: optionalDefinition })] },
+    }, { random: () => 0 })
+    optionalServer.state.players.p1.mana.C = 3
+    const optionalSpell = Object.values(optionalServer.state.objects).find((object) => object.name === 'Optional canonical spell')!
+    const optionalCast = optionalServer.rules(optionalServer.state, {
+      type: 'castSpell', seat: 'p1', objectId: optionalSpell.id, selectedOptionalCosts: [0],
+    })
+    expect(optionalCast.ok).toBe(true)
+    if (optionalCast.ok) expect(optionalCast.state.players.p1.mana.C).toBe(0)
+
+    const alternativeDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [manaCost('{0}')],
+      alternativeCosts: [[manaCost('{1}')], [manaCost('{3}')]],
+      decisions: { targets: [] },
+      instructions: [],
+    }])))
+    const alternativeServer = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Alternative canonical spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: alternativeDefinition })] },
+    }, { random: () => 0 })
+    alternativeServer.state.players.p1.mana.C = 3
+    const alternativeSpell = Object.values(alternativeServer.state.objects).find((object) => object.name === 'Alternative canonical spell')!
+    const invalid = alternativeServer.rules(alternativeServer.state, {
+      type: 'castSpell', seat: 'p1', objectId: alternativeSpell.id, selectedAlternativeCost: 9,
+    })
+    expect(invalid.ok).toBe(false)
+    const valid = alternativeServer.rules(alternativeServer.state, {
+      type: 'castSpell', seat: 'p1', objectId: alternativeSpell.id, selectedAlternativeCost: 1,
+    })
+    expect(valid.ok).toBe(true)
+    if (valid.ok) expect(valid.state.players.p1.mana.C).toBe(0)
+
+    const adjustedDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [manaCost('{2}')],
+      costIncreases: [{ amount: '{1}' }],
+      costReductions: [{ generic: 1 }],
+      decisions: { targets: [] },
+      instructions: [],
+    }])))
+    const adjustedServer = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Adjusted canonical spell', { types: ['Sorcery'], manaCost: '{2}', ruleDefinition: adjustedDefinition })] },
+    }, { random: () => 0 })
+    adjustedServer.state.players.p1.mana.C = 1
+    const adjustedSpell = Object.values(adjustedServer.state.objects).find((object) => object.name === 'Adjusted canonical spell')!
+    const adjusted = adjustedServer.rules(adjustedServer.state, {
+      type: 'castSpell', seat: 'p1', objectId: adjustedSpell.id,
+    })
+    expect(adjusted.ok).toBe(false)
+    expect(adjusted.state.players.p1.mana.C).toBe(1)
+  })
 })

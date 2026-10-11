@@ -783,13 +783,27 @@ export const validateDefinitionV1 = (root: unknown): {
     const ability = object(value, path)
     if (!ability) return
     declarations.push({ path, kind: `ability:${String(ability.kind)}` })
-    const commonProgramKeys = ['kind', 'decisions', 'costs', 'instructions', 'modes']
+    const commonProgramKeys = ['kind', 'decisions', 'costs', 'optionalCosts', 'alternativeCosts', 'costIncreases', 'costReductions', 'instructions', 'modes']
+    const validateCostPlan = (node: Record<string, unknown>, nodePath: string, env: Environment) => {
+      if (node.optionalCosts !== undefined) array(node.optionalCosts, childPath(nodePath, 'optionalCosts')).forEach((cost, index) => validateCost(cost, `${nodePath}.optionalCosts[${index}]`, env))
+      if (node.alternativeCosts !== undefined) array(node.alternativeCosts, childPath(nodePath, 'alternativeCosts')).forEach((alternative, alternativeIndex) =>
+        array(alternative, `${nodePath}.alternativeCosts[${alternativeIndex}]`).forEach((cost, index) => validateCost(cost, `${nodePath}.alternativeCosts[${alternativeIndex}][${index}]`, env)))
+      if (node.costIncreases !== undefined) array(node.costIncreases, childPath(nodePath, 'costIncreases')).forEach((increase, index) => {
+        const entry = object(increase, `${nodePath}.costIncreases[${index}]`)
+        if (entry) exactKeys(entry, `${nodePath}.costIncreases[${index}]`, ['amount', 'reason'], ['amount'])
+      })
+      if (node.costReductions !== undefined) array(node.costReductions, childPath(nodePath, 'costReductions')).forEach((reduction, index) => {
+        const entry = object(reduction, `${nodePath}.costReductions[${index}]`)
+        if (entry) exactKeys(entry, `${nodePath}.costReductions[${index}]`, ['generic', 'reason'], ['generic'])
+      })
+    }
     switch (ability.kind) {
       case 'spell': {
         exactKeys(ability, path, commonProgramKeys, ['kind', 'decisions', 'costs'])
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))
+        validateCostPlan(ability, path, costEnv)
         validateProgram(ability, path, result)
         return
       }
@@ -801,6 +815,7 @@ export const validateDefinitionV1 = (root: unknown): {
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))
+        validateCostPlan(ability, path, costEnv)
         validateProgram(ability, path, result)
         return
       }

@@ -47,7 +47,7 @@ import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announ
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
 
 const canonicalCostsPaid = Symbol('canonicalCostsPaid')
-type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }> & { [canonicalCostsPaid]?: true }
+type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }> & { [canonicalCostsPaid]?: AnnouncementTransaction }
 
 const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boolean => {
   if (!object.ruleDefinition) return false
@@ -78,6 +78,11 @@ const targetInputsAgree = (state: GameState, event: Extract<import('../types').G
 
 const genericCost = (manaCost: string) =>
   [...manaCost.matchAll(/\{(\d+)\}/g)].reduce((total, match) => total + Number(match[1]), 0)
+
+const canonicalGenericAdjustment = (object: GameObject, adjustedMana: string, x = 0) => {
+  const base = object.manaCost.replaceAll('{X}', x > 0 ? `{${x}}` : '')
+  return genericCost(adjustedMana) - genericCost(base)
+}
 
 const xManaKind = (object: GameObject) =>
   effectsOf(object).flatMap((effect) =>
@@ -355,10 +360,40 @@ export const spells: Plugin = {
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
     const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
     if (!ability) return
+    const groupedTargets = ability.decisions.targets.length === 0
+      ? []
+      : event.targetClauses ?? (ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+    if (!groupedTargets) return
+    const announcement = beginSpellAnnouncement(
+      state,
+      object,
+      event.seat,
+      ability,
+      groupedTargets,
+      event.x,
+      [...(event.discard ?? []), ...(event.sacrifice ?? [])],
+      {
+        selectedOptional: event.selectedOptionalCosts,
+        selectedAlternative: event.selectedAlternativeCost,
+        genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
+          additionalGeneric: event.additionalGeneric,
+          x: event.x,
+          castOption: event.castOption,
+          kicked: event.kicked,
+          spreeModes: event.spreeModes,
+          timesKicked: event.timesKicked,
+          targets: event.targets,
+          seat: event.seat,
+          withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
+        }), event.x),
+      },
+    )
+    if (!announcement.ok) return
+    const committed = commitAnnouncement(announcement.transaction)
     const choices = [...(event.discard ?? []), ...(event.sacrifice ?? [])]
     let choiceIndex = 0
     const costs: GameEvent[] = []
-    for (const cost of ability.costs) {
+    for (const cost of committed.lockedCost.nonMana) {
       if (cost.kind === 'life') {
         const amount = evaluateAnnouncementCostAmount(cost.amount, event.x)
         costs.push({ type: 'payLife', seat: event.seat, amount, source: object.id })
@@ -373,7 +408,7 @@ export const spells: Plugin = {
     return costs.length > 0
       ? (() => {
         const { canonicalCostsPaid: _forged, ...publicEvent } = event as typeof event & { canonicalCostsPaid?: unknown }
-        return [...costs, { ...publicEvent, [canonicalCostsPaid]: true } as InternalCastEvent]
+        return [...costs, { ...publicEvent, [canonicalCostsPaid]: committed } as InternalCastEvent]
       })()
       : undefined
   },
@@ -423,6 +458,21 @@ export const spells: Plugin = {
               groupedTargets,
               event.x,
               [...(event.discard ?? []), ...(event.sacrifice ?? [])],
+              {
+                selectedOptional: event.selectedOptionalCosts,
+                selectedAlternative: event.selectedAlternativeCost,
+                genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
+                  additionalGeneric: event.additionalGeneric,
+                  x: event.x,
+                  castOption: event.castOption,
+                  kicked: event.kicked,
+                  spreeModes: event.spreeModes,
+                  timesKicked: event.timesKicked,
+                  targets: event.targets,
+                  seat: event.seat,
+                  withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
+                }), event.x),
+              },
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
           }
@@ -648,13 +698,34 @@ export const spells: Plugin = {
           ? event.targetClauses
             ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
-        if (ability?.kind === 'spell' && groupedTargets !== undefined && !(event as InternalCastEvent)[canonicalCostsPaid]) {
-          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])])
+        const precommitted = (event as InternalCastEvent)[canonicalCostsPaid]
+        if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
+          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
+            selectedOptional: event.selectedOptionalCosts,
+            selectedAlternative: event.selectedAlternativeCost,
+            genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
+              additionalGeneric: event.additionalGeneric,
+              x: event.x,
+              castOption: event.castOption,
+              kicked: event.kicked,
+              spreeModes: event.spreeModes,
+              timesKicked: event.timesKicked,
+              targets: event.targets,
+              seat: event.seat,
+              selected,
+              withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
+            }), event.x),
+          })
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
           canonicalTransaction = committed
           canonicalLockedCost = committed.lockedCost.mana
           canonicalNonManaCosts = committed.lockedCost.nonMana
+        }
+        if (precommitted) {
+          canonicalTransaction = precommitted
+          canonicalLockedCost = precommitted.lockedCost.mana
+          canonicalNonManaCosts = precommitted.lockedCost.nonMana
         }
       }
       const cost = reduceGenericManaCost(canonicalLockedCost ?? spellCost(state, object, {

@@ -724,6 +724,8 @@ export type GameEvent =
       copy?: boolean
       withoutPayingMana?: boolean
       wardPaid?: boolean
+      selectedOptionalCosts?: number[]
+      selectedAlternativeCost?: number
     }
   | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }
   | {
@@ -1015,6 +1017,8 @@ export type GameEvent =
       /** Host marks mana-ability timing. Kernel does not open that window. */
       manaAbility?: boolean
       wardPaid?: boolean
+      selectedOptionalCosts?: number[]
+      selectedAlternativeCost?: number
     }
   | { type: 'authoritativeSync'; snapshot: GameState }
   | {

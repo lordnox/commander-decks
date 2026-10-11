@@ -153,6 +153,9 @@ export type Cost =
   | { kind: 'life'; amount: Amount }
   | { kind: 'mana'; amount: ManaCost }
 
+export type CostIncrease = { amount: ManaCost; reason?: string }
+export type CostReduction = { generic: number; reason?: string }
+
 export type Condition =
   | { kind: 'resultIsTrue'; value: ResultReference }
   | { kind: 'compareAmount'; left: Amount; operator: 'eq' | 'gte' | 'lte'; right: Amount }
@@ -270,6 +273,10 @@ export type SpellAbilityDefinition = {
   kind: 'spell'
   decisions: DecisionsSpec
   costs: readonly Cost[]
+  optionalCosts?: readonly Cost[]
+  alternativeCosts?: readonly (readonly Cost[])[]
+  costIncreases?: readonly CostIncrease[]
+  costReductions?: readonly CostReduction[]
 } & ResolutionProgram
 
 export type ActivatedAbilityDefinition = {
@@ -278,6 +285,10 @@ export type ActivatedAbilityDefinition = {
   timing: ActivationTiming
   decisions: DecisionsSpec
   costs: readonly Cost[]
+  optionalCosts?: readonly Cost[]
+  alternativeCosts?: readonly (readonly Cost[])[]
+  costIncreases?: readonly CostIncrease[]
+  costReductions?: readonly CostReduction[]
 } & ResolutionProgram
 
 export type TriggeredAbilityDefinition = {
