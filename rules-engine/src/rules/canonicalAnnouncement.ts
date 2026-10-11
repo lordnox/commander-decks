@@ -1,9 +1,9 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
-import { modeOccurrences } from '../cardPlugins/dsl/compiler/modes'
+import { modeOccurrences, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
-import { evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
+import { evaluateAmount, evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
 import type { CardRuleDefinitionSnapshotV1, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import type { CanonicalTargetBinding, GameObject, StackExecutionContext, TargetRef } from '../types'
@@ -59,10 +59,35 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
     announcement.targetScopeIds,
     announcement.targetModeIndices,
       )
+  const distributionSpecs = selectedDistributionSpecs(ability, announcement.selectedModes)
+  if (distributionSpecs.length > 0) {
+    try {
+      validateScopedDistributions(
+        distributionSpecs,
+        announcement.execution.distributionBindings ?? [],
+        (scopeId, clauseIndex) => targetBindings?.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
+        amountEvaluationContext({
+          state: draft,
+          controller: announcement.execution.controller,
+          source: announcement.execution.source,
+          occurrence: announcement.execution.occurrence,
+        }),
+      )
+    } catch {
+      return false
+    }
+  }
   if ('modes' in ability && announcement.selectedModes === undefined) {
     const modes = ability.modes ?? []
     const modeSpec = ability.decisions.modes
-    const count = modeSpec ? Number(modeSpec.count.kind === 'constant' ? modeSpec.count.value : 1) : 1
+    const count = modeSpec
+      ? evaluateAmount(modeSpec.count, amountEvaluationContext({
+        state: draft,
+        controller: announcement.execution.controller,
+        source: announcement.execution.source,
+        occurrence: announcement.execution.occurrence,
+      }))
+      : 1
     const legalModes = modes.map((mode, index) => ({ mode, index })).filter(({ mode }) => {
       const candidates = canonicalTargetCandidates(
         draft,

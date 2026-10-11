@@ -153,6 +153,8 @@ export type AvailableAction =
       door?: RoomDoorId
       adventureCast?: boolean
       targetGroups?: ActionTargetGroup[]
+      modeIndices?: number[]
+      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
     }
   | { kind: 'declineFreeCast'; objectId: string; name: string }
   | {
@@ -171,6 +173,8 @@ export type AvailableAction =
       abilityId?: string
       targetObjectIds?: string[]
       targetGroups?: ActionTargetGroup[]
+      modeIndices?: number[]
+      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
       mana?: ManaId
       door?: RoomDoorId
     }
@@ -2286,6 +2290,8 @@ export const eventsForAvailableAction = (
           objectId: object.id,
           ...(effect.manaAbility ? { manaAbility: true } : {}),
           ...(action.mana ? { choices: [action.mana] } : {}),
+          ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}),
+          ...(action.distributionBindings ? { distributionBindings: action.distributionBindings } : {}),
         }]
       : null
   }
@@ -2502,6 +2508,8 @@ export const eventsForAvailableAction = (
         : {}),
       ...(targets.length > 0 ? { targets } : {}),
       ...(action.x !== undefined ? { x: action.x } : {}),
+          ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}),
+          ...(action.distributionBindings ? { distributionBindings: action.distributionBindings } : {}),
     },
   ]
 }
