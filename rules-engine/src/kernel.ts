@@ -86,18 +86,23 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   }
   let costIndex = 0
   for (const cost of frame.transaction.lockedCost.nonMana) {
-    const amount = cost.kind === 'life' || cost.kind === 'discard' || cost.kind === 'sacrifice'
-      ? evaluateAnnouncementCostAmount(cost.kind === 'life' ? cost.amount : cost.count, frame.transaction.lockedCost.x)
-      : 0
-    const events: GameEvent[] = cost.kind === 'life'
-      ? [{ type: 'payLife', seat: frame.payer, amount, source: frame.transaction.proposal.sourceId }]
-      : (cost.kind === 'discard' || cost.kind === 'sacrifice')
-        ? (frame.transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
-          cost.kind === 'discard'
-            ? { type: 'discard', seat: frame.payer, objectId }
-            : { type: 'sacrifice', objectId })
-        : []
-    if (cost.kind === 'discard' || cost.kind === 'sacrifice') costIndex += amount
+    let amount = 0
+    let events: GameEvent[] = []
+    switch (cost.kind) {
+      case 'life':
+        amount = evaluateAnnouncementCostAmount(cost.amount, frame.transaction.lockedCost.x)
+        events = [{ type: 'payLife', seat: frame.payer, amount, source: frame.transaction.proposal.sourceId }]
+        break
+      case 'discard':
+      case 'sacrifice':
+        amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
+        events = (frame.transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
+          cost.kind === 'discard' ? { type: 'discard', seat: frame.payer, objectId } : { type: 'sacrifice', objectId })
+        costIndex += amount
+        break
+      case 'mana':
+        break
+    }
     for (const paymentEvent of events) {
       const paid = applyEventTree(current, paymentEvent, catalog)
       entries.push(...nested(paid.trace, 1))
