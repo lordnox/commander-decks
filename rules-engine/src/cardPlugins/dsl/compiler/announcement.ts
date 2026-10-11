@@ -425,6 +425,19 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   if (!input.availableFrom && source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
   if (source.phasedOut) return `${source.name} is phased out`
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`
+  const prohibited = Object.values(input.state.objects).some((watcher) => {
+    const definition = watcher.ruleDefinition?.definition as import('../schema/v1').CardRuleDefinitionV1 | undefined
+    if (!definition || !watcher.zone || !watcher.controller) return false
+    return definition.abilities.some((ability) => ability.kind === 'static'
+      && ability.activeIn.includes(watcher.zone as import('../schema/v1').Zone)
+      && ability.effects.some((effect) => effect.kind === 'prohibitActivation'
+        && (effect.filter.abilitySource?.name === undefined || effect.filter.abilitySource.name === source.name)
+        && (effect.filter.activator?.relation === undefined
+          || effect.filter.activator.relation === 'any'
+          || (effect.filter.activator.relation === 'you' && watcher.controller === input.payer)
+          || (effect.filter.activator.relation === 'opponent' && watcher.controller !== input.payer))))
+  })
+  if (prohibited) return `${source.name} activation is prohibited`
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`
   if (input.sorcerySpeed && (
     input.state.active !== input.payer

@@ -195,6 +195,9 @@ const canonicalPatternMatches = (
   if (pattern.kind === 'manaAdded') {
     return event.type === 'addMana'
   }
+  if (pattern.kind === 'manaAbilityActivated' || pattern.kind === 'manaAbilityResolved') {
+    return event.type === 'activateAbility' && event.manaAbility === true
+  }
   if (pattern.kind === 'draw') {
     if (event.type !== 'draw' || !occurrence.player) return false
     const player = occurrence.player
@@ -232,6 +235,7 @@ const canonicalPatternMatches = (
     || occurrence.object?.before?.zone !== 'battlefield'
     || occurrence.object?.before?.types.includes('Creature') !== true
   )) return false
+  if (pattern.kind === 'manaAbilityActivated' || pattern.kind === 'manaAbilityResolved') return true
   const object = pattern.kind === 'dies'
     ? occurrence.object?.before
     : occurrence.object?.after

@@ -94,6 +94,8 @@ export type OccurrencePattern =
       }
     }
   | { kind: 'manaAdded' }
+  | { kind: 'manaAbilityActivated' }
+  | { kind: 'manaAbilityResolved' }
 
 export type VariableSpec = {
   name: 'X'

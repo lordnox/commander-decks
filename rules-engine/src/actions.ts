@@ -29,6 +29,8 @@ import {
   sacrificeCostCandidates,
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
+import { canonicalManaAbilityForTap } from './cardPlugins/activated'
+import { activationPermission } from './cardPlugins/dsl/compiler'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
   activateEffect,
@@ -414,6 +416,19 @@ const tapChoice = (
 
 const sourceCanTap = (object: GameObject, seat: PlayerId, state: GameState) =>
   object.zone === 'battlefield'
+  && activationPermission({ state, sourceId: object.id, payer: seat, action: 'tapForMana' }) === undefined
+  && (() => {
+    const canonical = canonicalManaAbilityForTap(object)
+    if (!canonical) return true
+    return activationPermission({
+      state,
+      sourceId: object.id,
+      payer: seat,
+      action: 'tapForMana',
+      sorcerySpeed: canonical.ability.timing === 'sorcery',
+      availableFrom: canonical.ability.availableFrom,
+    }) === undefined
+  })()
   && !object.phasedOut
   && object.controller === seat
   && (

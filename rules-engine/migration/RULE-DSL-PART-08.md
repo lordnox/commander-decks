@@ -39,6 +39,10 @@ cannot publish payments, targets, or cast occurrences.
   producing mana ability completes
 - [x] attach producer identities to legacy tap and mana-choice mana events so
   canonical mana-added patterns observe only eligible source events
+- [x] apply the shared activation permission gate to real tap-for-mana and
+  planner affordance callers, including active DSL activation prohibitions
+- [x] route canonical mana sources selected by tap-for-mana through the pinned
+  inline activation driver and add activation/resolution occurrence patterns
 
 ## Remaining work
 
@@ -46,8 +50,8 @@ Replacement-aware payment choice coverage belongs to Part 11, but this
 transaction frame remains the insertion point for those choices. Legacy card
 definitions continue to use their existing handlers while canonical definitions
 now have authoritative target, restricted-mana, activation, cost-plan, and cost
-ordering paths. Shared tap/planning permissions and a persisted suspended
-payment transaction remain for the next Part 08 review slice.
+ordering paths. Nested payment/planning continuation details and a persisted
+suspended payment transaction remain for the next Part 08 review slice.
 
 ## Validation
 
@@ -66,3 +70,5 @@ payment transaction remain for the next Part 08 review slice.
   timing boundaries.
 - `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 11 passed, 0 failed.
 - `bun test rules-engine/src/plugins/mana.test.ts` — 20 passed, 0 failed.
+- parent server review fixture — 32 passed, 0 failed, including shared
+  prohibition behavior for tap-for-mana and planner affordances.
