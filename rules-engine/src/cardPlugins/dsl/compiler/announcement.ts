@@ -182,9 +182,11 @@ const matchesCostFilter = (object: GameState['objects'][string], filter: Extract
 
 const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, sourceId: string, costs: readonly Cost[], x: number | undefined, choices: readonly string[] | undefined) => {
   let choiceIndex = 0
+  let lifeTotal = 0
+  const selectedObjects = new Set<string>()
   for (const cost of costs) {
     if (cost.kind === 'life') {
-      if (state.players[payer].life < costAmount(cost.amount, x)) throw new TypeError(`payer cannot pay ${costAmount(cost.amount, x)} life`)
+      lifeTotal += costAmount(cost.amount, x)
       continue
     }
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
@@ -195,8 +197,13 @@ const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, pay
     const selected = choices?.slice(choiceIndex, choiceIndex + count)
     if (!selected || selected.length !== count || new Set(selected).size !== count) throw new TypeError(`${cost.kind} cost needs ${count} distinct selected cards`)
     if (selected.some((id) => !candidates.some((candidate) => candidate.id === id))) throw new TypeError(`illegal ${cost.kind} cost selection`)
+    for (const id of selected) {
+      if (selectedObjects.has(id)) throw new TypeError(`cost object ${id} is selected more than once`)
+      selectedObjects.add(id)
+    }
     choiceIndex += count
   }
+  if (state.players[payer].life < lifeTotal) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
   if (choices && choiceIndex !== choices.length) throw new TypeError('unused nonmana cost selection')
 }
 
