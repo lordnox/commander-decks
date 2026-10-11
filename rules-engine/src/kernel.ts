@@ -97,7 +97,10 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       current = paid.state
     }
   }
-  const cast = applyEventTree(current, frame.continuation, catalog)
+  const cast = applyEventTree(current, {
+    ...frame.continuation,
+    canonicalTransaction: { ...frame.transaction, status: 'committed' as const },
+  }, catalog)
   entries.push(...nested(cast.trace, 1))
   if (!cast.ok) return { ...cast, state: frame.baseline, trace: entries }
   const completed = makeDraft(cast.state)
@@ -107,9 +110,11 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
 
 const startPlannedAnnouncement = (state: GameState, event: Extract<GameEvent, { type: 'castSpell' }>, catalog: PluginCatalog): ReduceResult | undefined => {
   if (!event.manaActivations?.length) return undefined
+  const permissionError = legalError(state, event, makeDraft(state), catalog)
+  if (permissionError) return { ok: false, error: permissionError, state, trace: [trace(event, 'rejected', { error: permissionError })] }
   const prepared = preparePlannedSpellAnnouncement(state, event)
   if (!prepared.ok) return { ok: false, error: prepared.error, state, trace: [trace(event, 'rejected', { error: prepared.error })] }
-  const transaction = { ...prepared.transaction, status: 'committed' as const }
+  const transaction = prepared.transaction
   const draft = makeDraft(state)
   draft.provisionalAnnouncement = {
     id: transaction.id,
@@ -122,7 +127,11 @@ const startPlannedAnnouncement = (state: GameState, event: Extract<GameEvent, { 
   }
   const started = freezeDraft(draft)
   const driven = continuePlannedAnnouncement(started, catalog)
-  return { ...driven, trace: [trace(event, driven.ok ? 'applied' : 'rejected', driven.ok ? undefined : { error: driven.error }), ...driven.trace] }
+  if (!driven.ok || driven.state.resolution) return { ...driven, trace: [trace(event, driven.ok ? 'applied' : 'rejected', driven.ok ? undefined : { error: driven.error }), ...driven.trace] }
+  const checked = checkpoint(driven.state, catalog)
+  return checked.ok
+    ? { ok: true, state: checked.state, trace: [trace(event, 'applied'), ...driven.trace, ...checked.trace] }
+    : { ...checked, trace: [trace(event, 'applied'), ...driven.trace, ...checked.trace] }
 }
 
 const attackedPlayer = (attacking: NonNullable<GameState['objects'][string]['attacking']>) =>
@@ -252,7 +261,7 @@ const replaceEvent = (
   return { value: current, pluginId }
 }
 
-const legalError = (
+export const legalError = (
   state: GameState,
   event: GameEvent,
   draft: ReturnType<typeof makeDraft>,
@@ -1236,10 +1245,6 @@ export const rules = (
   event: GameEvent,
   catalog: PluginCatalog,
 ): ReduceResult => {
-  if (event.type === 'castSpell' && event.manaActivations?.length && !state.provisionalAnnouncement) {
-    const planned = startPlannedAnnouncement(state, event, catalog)
-    if (planned) return planned
-  }
   if (event.type === 'cancelAnnouncement') {
     const frame = state.provisionalAnnouncement
     if (!frame || frame.id !== event.announcementId || frame.payer !== event.seat) {
@@ -1257,12 +1262,12 @@ export const rules = (
     }
     const resumed = resumeLegacyResolution(state, event, catalog)
     if (!resumed.ok || resumed.state.resolution) return resumed
-    const checked = checkpoint(resumed.state, catalog)
-    if (!checked.ok) return { ...checked, trace: [...resumed.trace, ...checked.trace] }
-    const continued = continuePlannedAnnouncement(checked.state, catalog)
-    return continued.ok
-      ? { ok: true, state: continued.state, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
-      : { ...continued, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
+    const continued = continuePlannedAnnouncement(resumed.state, catalog)
+    if (!continued.ok || continued.state.resolution) return { ...continued, trace: [...resumed.trace, ...continued.trace] }
+    const checked = checkpoint(continued.state, catalog)
+    return checked.ok
+      ? { ok: true, state: checked.state, trace: [...resumed.trace, ...continued.trace, ...checked.trace] }
+      : { ...checked, trace: [...resumed.trace, ...continued.trace, ...checked.trace] }
   }
   if (state.resolution?.phase === 'waiting') {
     if (!isResolutionAnswer(state, event)) {
@@ -1271,12 +1276,12 @@ export const rules = (
     }
     const resumed = resumeCanonicalResolution(state, event, catalog)
     if (!resumed.ok || resumed.state.resolution) return resumed
-    const checked = checkpoint(resumed.state, catalog)
-    if (!checked.ok) return { ...checked, trace: [...resumed.trace, ...checked.trace] }
-    const continued = continuePlannedAnnouncement(checked.state, catalog)
-    return continued.ok
-      ? { ok: true, state: continued.state, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
-      : { ...continued, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
+    const continued = continuePlannedAnnouncement(resumed.state, catalog)
+    if (!continued.ok || continued.state.resolution) return { ...continued, trace: [...resumed.trace, ...continued.trace] }
+    const checked = checkpoint(continued.state, catalog)
+    return checked.ok
+      ? { ok: true, state: checked.state, trace: [...resumed.trace, ...continued.trace, ...checked.trace] }
+      : { ...checked, trace: [...resumed.trace, ...continued.trace, ...checked.trace] }
   }
   if (event.type === 'resumeResolution') {
     if (!state.resolution) {
@@ -1301,6 +1306,10 @@ export const rules = (
   if (event.type === 'castSpell' && event.canonicalTransaction) {
     const error = 'canonical transaction state is server-private'
     return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
+  }
+  if (event.type === 'castSpell' && event.manaActivations?.length && !state.provisionalAnnouncement && !state.resolution) {
+    const planned = startPlannedAnnouncement(state, event, catalog)
+    if (planned) return planned
   }
   // Canonical transaction continuations are server-created queue events. A
   // public action cannot inject one by serializing the internal field.
