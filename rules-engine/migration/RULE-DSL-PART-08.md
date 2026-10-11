@@ -29,8 +29,8 @@ but this transaction frame must remain the insertion point for those choices.
 
 - `tsc --noEmit` — passed.
 - `bun test rules-engine/src/cardPlugins/dsl` — 69 passed, 0 failed.
-- `bun test rules-engine` — 2,254 passed, 0 failed after rebasing onto the
-  published Part07 head.
+- `bun test rules-engine` — 2,258 passed, 0 failed after canonical cast,
+  activation, and nonmana cost integration.
 - `check:imports` — passed.
 - `/Users/tobiaskopelke/projects/lordnox/commander-decks/node_modules/.bin/oxlint
   rules-engine live-runner site/src shared .agents/skills --quiet` — passed.
