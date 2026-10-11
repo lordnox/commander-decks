@@ -48,6 +48,11 @@ export type PendingOptionSelection = {
     /** The color a permanent stores as it enters. */
     kind: 'choose-color'
   } | {
+    /** Optional proliferate recipients selected during resolution. */
+    kind: 'canonicalProliferateChoice'
+    stackId: string
+    recipients: Array<{ id: string; kind: 'object' | 'player'; objectId?: string; seat?: PlayerId; counter: string }>
+  } | {
     /** A canonical resolution program choice; the frame remains private. */
     kind: 'canonicalInstructionChoice'
     stackId: string
@@ -145,6 +150,33 @@ export const selectOptions: Plugin = {
     if (event.type !== 'selectOption') return
     const selection = pendingOptionSelection(draft, event.seat)
     if (!selection || selection.id !== event.selectionId) return
+    if (selection.action.kind === 'canonicalProliferateChoice') {
+      if (event.optionId === 'done') {
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        draft.priority = null
+        return
+      }
+      const recipient = selection.action.recipients.find((entry) => entry.id === event.optionId)
+      if (!recipient) return
+      if (recipient.kind === 'object' && recipient.objectId) {
+        const object = draft.object(recipient.objectId)
+        if (object && object.zone === 'battlefield' && !object.phasedOut) {
+          object.counters[recipient.counter] = (object.counters[recipient.counter] ?? 0) + 1
+        }
+      } else if (recipient.kind === 'player' && recipient.seat) {
+        const player = draft.players[recipient.seat]
+        if (recipient.counter === 'poison') player.poison += 1
+        if (recipient.counter === 'energy') player.energy = (player.energy ?? 0) + 1
+      }
+      const remaining = selection.action.recipients.filter((entry) => entry.id !== event.optionId)
+      draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
+        ...selection,
+        options: [{ id: 'done', label: 'Done' }, ...remaining.map((entry) => ({ id: entry.id, label: `${entry.kind === 'object' ? 'Permanent' : 'Player'}: ${entry.counter}` }))],
+        action: { ...selection.action, recipients: remaining },
+      }
+      draft.priority = event.seat
+      return
+    }
     if (selection.action.kind === 'canonicalInstructionChoice') {
       const option = selection.action.options.find((entry) => entry.id === event.optionId)
       if (!option) return
