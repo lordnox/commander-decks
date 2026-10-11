@@ -381,6 +381,7 @@ const actionEvents = (
           types: [...instruction.token.types],
           ...(instruction.token.subtypes ? { subtypes: [...instruction.token.subtypes] } : {}),
           ...(instruction.token.colors ? { colors: [...instruction.token.colors] } : {}),
+          dsl: true as const,
         },
       })))
     }
