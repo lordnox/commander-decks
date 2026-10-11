@@ -406,6 +406,7 @@ export type StackExecutionContext = {
   modeScopeIds?: string[]
   /** Announcement-time allocations, keyed by each mode scope and local clause. */
   distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+  distributionBounds?: readonly { total: number; minEach: number }[]
   declarationPath?: string
   /** Server-authoritative announcement record captured before cost components commit. */
   announcement?: {

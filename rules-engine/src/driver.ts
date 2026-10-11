@@ -169,6 +169,7 @@ export const startCanonicalResolution = (
         .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       context,
       selectedDistributionScopeIds(abilityIndex, ability, selectedModes),
+      item.execution?.distributionBounds,
     )
   }
   const variables = ability.decisions.variables ?? []

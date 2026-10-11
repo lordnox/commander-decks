@@ -1,7 +1,7 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
-import { modeOccurrences, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { evaluateDistributionBounds, modeOccurrences, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 import { evaluateAmount, evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
@@ -28,6 +28,7 @@ export type CanonicalAnnouncement = {
   targetScopeIds?: readonly string[]
   targetModeIndices?: readonly (number | undefined)[]
   modeScopeIds?: readonly string[]
+  distributionBounds?: readonly { total: number; minEach: number }[]
 }
 
 const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
@@ -37,7 +38,7 @@ const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
     : announcement.source
 }
 
-const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
+export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
   const source = sourceFor(draft, announcement)
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]
@@ -60,6 +61,45 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
     announcement.targetModeIndices,
       )
   const distributionSpecs = selectedDistributionSpecs(ability, announcement.selectedModes)
+  if (distributionSpecs.length > 0 && !announcement.execution.distributionBindings) {
+    const context = amountEvaluationContext({
+      state: draft,
+      controller: announcement.execution.controller,
+      source: announcement.execution.source,
+      occurrence: announcement.execution.occurrence,
+    })
+    const bounds = announcement.distributionBounds ?? distributionSpecs.map((spec) => evaluateDistributionBounds(spec, context))
+    const scopeIds = selectedDistributionScopeIds(announcement.abilityIndex, ability, announcement.selectedModes)
+    const first = distributionSpecs[0]
+    const binding = targetBindings?.find((entry) => entry.scopeId === scopeIds[0] && entry.clauseIndex === first.targetClauseIndex)
+    const recipientCount = binding?.recipients.length ?? 0
+    const recipientCounts = distributionSpecs.map((spec, index) => targetBindings?.find((entry) => entry.scopeId === scopeIds[index] && entry.clauseIndex === spec.targetClauseIndex)?.recipients.length ?? 0)
+    const min = bounds[0]?.minEach ?? 0
+    const max = (bounds[0]?.total ?? 0) - min * Math.max(0, recipientCount - 1)
+    if (recipientCount === 0 && (bounds[0]?.total ?? 0) !== 0) return false
+    openOptionSelection(draft, {
+      seat: announcement.execution.controller,
+      sourceId: source.id,
+      source: source.name,
+      prompt: `Allocate ${bounds[0]?.total ?? 0} for ${source.name}.`,
+      options: Number.isSafeInteger(max) && max >= min
+        ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
+        : [],
+      action: {
+        kind: 'putCanonicalTriggeredAbilityAllocation',
+        announcement,
+        specs: distributionSpecs.map((spec) => structuredClone(spec)),
+        bounds: bounds.map((bound) => ({ ...bound })),
+        allocations: distributionSpecs.map((spec, index) => ({ scopeId: scopeIds[index], clauseIndex: spec.targetClauseIndex, amounts: [] })),
+        recipientCounts,
+        specIndex: 0,
+        recipientCount,
+        allocationIndex: 0,
+        amounts: [],
+      },
+    })
+    return true
+  }
   if (distributionSpecs.length > 0) {
     try {
       validateScopedDistributions(
@@ -73,6 +113,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
           occurrence: announcement.execution.occurrence,
         }),
         selectedDistributionScopeIds(announcement.abilityIndex, ability, announcement.selectedModes),
+        announcement.distributionBounds,
       )
     } catch {
       return false
@@ -131,6 +172,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
         baseTargetScopeIds: announcement.targetScopeIds ? [...announcement.targetScopeIds] : undefined,
         baseTargetModeIndices: announcement.targetModeIndices ? [...announcement.targetModeIndices] : undefined,
         ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
+        ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
       },
     })
     return true
@@ -147,6 +189,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
       abilityIndex: announcement.abilityIndex,
       ...(announcement.selectedModes ? { modeIndices: announcement.selectedModes } : {}),
       ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
+      ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
       targetBindings,
     },
   })
@@ -204,6 +247,7 @@ export const continueCanonicalTargetSelection = (
         ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
         ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
         ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
+        ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
       },
     })
     return true
@@ -234,6 +278,7 @@ export const continueCanonicalTargetSelection = (
         ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
         ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
         ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
+        ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
       },
     })
     return true
@@ -317,6 +362,16 @@ export const startCanonicalAnnouncement = (
     source: announcement.execution.source,
     occurrence: announcement.execution.occurrence,
   })))
+  const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
+  const ability = definition.abilities[announcement.abilityIndex]
+  const distributionBounds = announcement.distributionBounds ?? (ability && ability.kind === 'triggered'
+    ? selectedDistributionSpecs(ability, announcement.selectedModes).map((spec) => evaluateDistributionBounds(spec, amountEvaluationContext({
+      state: draft,
+      controller: announcement.execution.controller,
+      source: announcement.execution.source,
+      occurrence: announcement.execution.occurrence,
+    })))
+    : [])
   return continueCanonicalTargetSelection(draft, {
     ...announcement,
     targetClauses: announcement.clauses,
@@ -325,5 +380,6 @@ export const startCanonicalAnnouncement = (
     clauseBounds: bounds,
     clauseIndex: announcement.initialClauseIndex ?? 0,
     targets: announcement.targets ?? [],
+    distributionBounds,
   })
 }
