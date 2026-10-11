@@ -15,8 +15,8 @@ import {
 import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
-import { targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition } from './dsl/compiler'
+import { captureObject, targetObject } from '../objectIdentity'
+import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/compiler'
 import { payCost } from '../plugins/spells'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -92,18 +92,20 @@ export const activated: Plugin = {
     if (!source) return 'no such object'
     if (source.ruleDefinition) {
       const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
-      const canonical = compiled.definition.abilities.find((ability): ability is Extract<typeof ability, { kind: 'activated' }> => ability.kind === 'activated')
-      if (canonical) {
+      const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
+      const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
+      const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
+      if (activatedCanonical) {
         const permissionError = activationPermission({
           state,
           sourceId: source.id,
           payer: event.seat,
           action: event.manaAbility ? 'nestedPayment' : 'activate',
-          sorcerySpeed: canonical.timing === 'sorcery',
+          sorcerySpeed: activatedCanonical.timing === 'sorcery',
         })
         if (permissionError) return permissionError
-        if (canonical.decisions.targets.length === 0) {
-          const announcement = beginActivatedAnnouncement(state, source, event.seat, canonical, [], event.x)
+        if (activatedCanonical.decisions.targets.length === 0) {
+          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, [], event.x)
           if (!announcement.ok) return `announcement: ${announcement.error}`
         }
       }
@@ -229,7 +231,9 @@ export const activated: Plugin = {
     if (!source) return
     if (source.ruleDefinition) {
       const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
-      const canonical = compiled.definition.abilities.find((ability): ability is Extract<typeof ability, { kind: 'activated' }> => ability.kind === 'activated')
+      const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
+      const candidate = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
+      const canonical = candidate?.kind === 'activated' ? candidate : undefined
       if (canonical && !event.manaAbility) {
         const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, canonical.decisions.targets.length === 0 ? [] : undefined, event.x)
         if (!announcement.ok) return
@@ -252,6 +256,12 @@ export const activated: Plugin = {
           targets: event.targets ?? [],
           abilityId: event.abilityId,
           payload: { instructions: canonical.instructions },
+          execution: {
+            controller: event.seat,
+            source: captureObject(source),
+            definitionSnapshot: createDefinitionSnapshot(compiled),
+            abilityIndex: Number(abilityIndex),
+          },
           ...(event.x !== undefined ? { x: event.x } : {}),
         })
         draft.passedInRow = []

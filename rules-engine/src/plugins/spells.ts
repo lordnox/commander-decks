@@ -43,6 +43,13 @@ import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
 import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
+
+const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boolean => {
+  if (!object.ruleDefinition) return false
+  const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
+  const spell = compiled.definition.abilities.find((ability) => ability.kind === 'spell')
+  return spell?.costs.some((cost) => cost.kind === kind) ?? false
+}
 import { pinTarget } from '../objectIdentity'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
@@ -546,10 +553,14 @@ export const spells: Plugin = {
       })) return 'not enough mana'
       const search = searchEffect(effectsOf(object))
       const needed = search?.via === 'spell' ? search.spec.sacrificeLands : undefined
-      if ((event.discard?.length ?? 0) > 0 && !selected?.discard) {
+      const canonicalHasDiscard = Boolean(object.ruleDefinition && selected?.discard === undefined
+        && compiledCanonicalHasCost(object, 'discard'))
+      const canonicalHasSacrifice = Boolean(object.ruleDefinition && selected?.sacrifice === undefined
+        && compiledCanonicalHasCost(object, 'sacrifice'))
+      if ((event.discard?.length ?? 0) > 0 && !selected?.discard && !canonicalHasDiscard) {
         return `${object.name} has no discard cost`
       }
-      if ((event.sacrifice?.length ?? 0) > 0 && !selected?.sacrifice && !needed) {
+      if ((event.sacrifice?.length ?? 0) > 0 && !selected?.sacrifice && !needed && !canonicalHasSacrifice) {
         return `${object.name} has no sacrifice cost`
       }
       if (needed) {
@@ -755,8 +766,10 @@ export const spells: Plugin = {
           })
         }
       }
-      for (const objectId of event.sacrifice ?? []) {
-        draft.enqueue({ type: 'sacrifice', objectId })
+      if (canonicalNonManaCosts.length === 0) {
+        for (const objectId of event.sacrifice ?? []) {
+          draft.enqueue({ type: 'sacrifice', objectId })
+        }
       }
       draft.passedInRow = []
       draft.priority = event.seat
