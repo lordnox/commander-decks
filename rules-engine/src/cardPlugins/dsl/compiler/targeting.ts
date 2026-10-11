@@ -446,7 +446,7 @@ export const canonicalTargetError = (
   preservedPins?: ReadonlySet<string>,
 ) => {
   try {
-    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x, undefined, preservedPins)
+    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x, undefined, undefined, undefined, undefined, preservedPins)
     const ability = definition.abilities[abilityIndex]
     if (!ability || !('decisions' in ability)) return
     const bounds = targetCounts(ability.decisions.targets, contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x))

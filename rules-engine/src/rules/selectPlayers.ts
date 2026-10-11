@@ -20,7 +20,7 @@ export type PendingPlayerSelection = {
   candidates: PlayerId[]
   action:
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
-    | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; remaining?: { copyStackId: string; controller: PlayerId }[]; slotIndex?: number }
+    | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; slotIndex?: number }
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
     | { kind: 'drawHandDifference' }
     | { kind: 'copyStackItem'; stackId: string }
