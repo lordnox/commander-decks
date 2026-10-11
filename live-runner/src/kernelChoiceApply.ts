@@ -56,6 +56,9 @@ const interactionAnswerFor = (
   const selection = decision.interaction.selection
   let typedSelection: InteractionSelection
   switch (selection.kind) {
+    case 'allocate':
+      typedSelection = { kind: 'allocate', values: message.allocation ?? [] }
+      break
     case 'selectPlayers':
       typedSelection = {
         kind: 'selectPlayers',
@@ -161,6 +164,19 @@ export const applyKernelChoice = (
   }
   // Cumulative upkeep answers with opponent names, not with the offered cards.
   try {
+    if (decision.kernel.stage === 'allocation') {
+      const values = message.allocation ?? []
+      for (const value of values) {
+        const current = kernel.history.current().players[seat]?.data['kernel.pendingOptionSelection'] as { id?: string } | undefined
+        if (!current?.id) throw new Error('The allocation choice is no longer open.')
+        const event = kernel.dispatch({ type: 'selectOption', seat, selectionId: current.id, optionId: `allocation:${values.indexOf(value)}:${value.amount}` })
+        if (!event.ok) throw new Error(event.error)
+      }
+      persistOutcome(true)
+      lobby.completedInteractions = { ...lobby.completedInteractions, [requestId]: fingerprint }
+      delete lobby.topdeck
+      return true
+    }
     if (decision.kernel.stage === 'cumulative-upkeep') {
       const applied = applyCumulativeUpkeep(context)
       persistOutcome(applied)

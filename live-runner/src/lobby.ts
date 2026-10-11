@@ -78,6 +78,7 @@ export type TopdeckDecision = LiveInteractionMetadata & {
       | 'cumulative-upkeep'
       | 'stack-copy'
       | 'option-selection'
+      | 'allocation'
       | 'ward-pay'
     stackId?: string
     selectionId?: string
@@ -89,6 +90,8 @@ export type TopdeckDecision = LiveInteractionMetadata & {
     chosenEvent?: string
     after?: Array<'resolveTop'>
   }
+  allocationValues?: Array<{ id: string; amount: number }>
+  allocationOffer?: { entries: Array<{ id: string; label?: string; max?: number }>; total: number; minEach: number }
 }
 
 export type PendingKernelPlan = {
