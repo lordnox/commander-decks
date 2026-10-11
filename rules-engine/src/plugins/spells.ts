@@ -47,8 +47,25 @@ import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compi
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
+import { resolveModalInputs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
+
+const modalInputs = (state: GameState, source: GameObject, ability: Extract<import('../cardPlugins/dsl/schema/v1').AbilityDefinition, { kind: 'spell' }>, abilityIndex: number, event: InternalCastEvent) => {
+  if (!('modes' in ability)) return undefined
+  const layout = resolveModalInputs(ability, abilityIndex, event.modeIndices, {
+    state,
+    controller: event.seat,
+    source: captureObject(source),
+    variables: event.x === undefined ? undefined : { X: event.x },
+  })
+  return {
+    targetClauses: layout.map((entry) => entry.clause),
+    scopeIds: layout.map((entry) => entry.scopeId),
+    modeIndices: layout.map((entry) => entry.modeIndex),
+  }
+}
 
 /** Build the server-owned payment frame before any planned mana event runs. */
 export const preparePlannedSpellAnnouncement = (state: import('../types').GameState, event: InternalCastEvent) => {
@@ -58,9 +75,12 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
   const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
   const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
   if (!ability) return { ok: false as const, error: 'spell ability does not exist' }
-  const groupedTargets = ability.decisions.targets.length === 0
+  const abilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
+  const modal = modalInputs(state, source, ability, abilityIndex, event)
+  const targetClauses = modal?.targetClauses ?? ability.decisions.targets
+  const groupedTargets = targetClauses.length === 0
     ? []
-    : event.targetClauses ?? (ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+    : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
   if (!groupedTargets) return { ok: false as const, error: 'targets are required for the spell' }
   const locked = beginSpellAnnouncement(
     state,
@@ -74,6 +94,7 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
       selectedOptional: event.selectedOptionalCosts,
       selectedAlternative: event.selectedAlternativeCost,
       deferPayment: true,
+      targetClauses,
       genericAdjustment: canonicalGenericAdjustment(source, spellCost(state, source, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
@@ -88,7 +109,6 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
     },
   )
   if (!locked.ok) return locked
-  const abilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
   const targetBindings = canonicalTargetBindings(
     state,
     source,
@@ -96,10 +116,22 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
     abilityIndex,
     event.targets ?? event.targetClauses?.flat() ?? [],
     undefined,
-    event.targetClauses,
+    groupedTargets,
     event.seat,
     event.x,
+    modal?.targetClauses,
+    modal?.scopeIds,
+    modal?.modeIndices,
   )
+  let distributionBindings = event.distributionBindings
+  if (ability.decisions.distributions) {
+    distributionBindings = validateScopedDistributions(
+      ability.decisions.distributions,
+      event.distributionBindings ?? [],
+      (scopeId, clauseIndex) => targetBindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
+      amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),
+    )
+  }
   const activations: Array<Extract<GameEvent, { type: 'activateAbility' }>> = []
   for (const plan of event.manaActivations) {
     const paymentSource = state.objects[plan.objectId]
@@ -122,11 +154,11 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
   const { manaActivations: _plan, ...cast } = event
   return {
     ok: true as const,
-    transaction: { ...locked.transaction, targetBindings },
+    transaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}) },
     source: captureObject(source),
     definitionSnapshot: createDefinitionSnapshot(compiled),
     activations,
-    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings } } as Extract<GameEvent, { type: 'castSpell' }>,
+    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}) } } as Extract<GameEvent, { type: 'castSpell' }>,
   }
 }
 
@@ -535,6 +567,8 @@ export const spells: Plugin = {
         const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
         const precommitted = event.canonicalTransaction
         if (ability && 'decisions' in ability) {
+          const modal = ability.kind === 'spell' ? modalInputs(state, spell, ability, abilityIndex, event) : undefined
+          const targetClauses = modal?.targetClauses ?? ability.decisions.targets
           const variables = ability.decisions.variables ?? []
           for (const variable of variables) {
             const x = event.x
@@ -549,15 +583,35 @@ export const spells: Plugin = {
             abilityIndex,
             event.targets ?? event.targetClauses?.flat() ?? [],
             undefined,
-            event.targetClauses,
+            modal ? event.targetClauses : event.targetClauses,
             event.seat,
             event.x,
+            modal?.targetClauses,
+            modal?.scopeIds,
+            modal?.modeIndices,
           )
           if (targetError) return targetError
           const groupedTargets = ability.kind === 'spell'
             ? event.targetClauses
-              ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+              ?? (targetClauses.length === 0 ? [] : targetClauses.length === 1 ? [event.targets ?? []] : undefined)
             : undefined
+          if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted && ability.decisions.distributions) {
+            try {
+              const bindings = canonicalTargetBindings(
+                state, spell, compiled.definition, abilityIndex,
+                event.targets ?? event.targetClauses?.flat() ?? [], undefined, groupedTargets,
+                event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
+              )
+              validateScopedDistributions(
+                ability.decisions.distributions,
+                event.distributionBindings ?? [],
+                (scopeId, clauseIndex) => bindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
+                amountEvaluationContext({ state, controller: event.seat, source: captureObject(spell), variables: event.x === undefined ? undefined : { X: event.x } }),
+              )
+            } catch (error) {
+              return `announcement: ${error instanceof Error ? error.message : String(error)}`
+            }
+          }
           if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana
           if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
             const announcement = beginSpellAnnouncement(
@@ -572,6 +626,7 @@ export const spells: Plugin = {
                 selectedOptional: event.selectedOptionalCosts,
                 selectedAlternative: event.selectedAlternativeCost,
                 deferPayment: Boolean(event.manaActivations),
+                targetClauses,
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
                   additionalGeneric: event.additionalGeneric,
                   x: event.x,
@@ -806,9 +861,12 @@ export const spells: Plugin = {
       if (object.ruleDefinition && !event.copy) {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
+        const abilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
+        const modal = ability?.kind === 'spell' ? modalInputs(state, object, ability, abilityIndex, event) : undefined
+        const targetClauses = modal?.targetClauses ?? ability?.decisions.targets ?? []
         const groupedTargets = ability?.kind === 'spell'
           ? event.targetClauses
-            ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+            ?? (targetClauses.length === 0 ? [] : targetClauses.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
         const precommitted = event.canonicalTransaction
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
@@ -816,6 +874,7 @@ export const spells: Plugin = {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
             deferPayment: Boolean(event.manaActivations),
+            targetClauses,
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
               additionalGeneric: event.additionalGeneric,
               x: event.x,
@@ -962,6 +1021,11 @@ export const spells: Plugin = {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
         if (abilityIndex >= 0 && stacked.execution) {
+          const ability = compiled.definition.abilities[abilityIndex]
+          const modal = ability.kind === 'spell' ? modalInputs(state, object, ability, abilityIndex, event) : undefined
+          const groupedTargets = modal?.targetClauses
+            ? event.targetClauses ?? (modal.targetClauses.length === 1 ? [event.targets ?? []] : [])
+            : event.targetClauses
           stacked.execution.targetBindings = [...(canonicalTransaction?.targetBindings ?? canonicalTargetBindings(
             state,
             object,
@@ -969,14 +1033,16 @@ export const spells: Plugin = {
             abilityIndex,
             event.targets ?? event.targetClauses?.flat() ?? [],
             stacked,
-            event.targetClauses,
+            groupedTargets,
             event.seat,
             event.x,
-            undefined,
-            undefined,
-            undefined,
+            modal?.targetClauses,
+            modal?.scopeIds,
+            modal?.modeIndices,
             Boolean(canonicalTransaction),
           ))]
+          if (event.modeIndices) stacked.execution.modeIndices = [...event.modeIndices]
+          if (event.distributionBindings) stacked.execution.distributionBindings = structuredClone(event.distributionBindings)
           stacked.execution.announcement = canonicalTransaction
             ? {
                 id: canonicalTransaction.id,

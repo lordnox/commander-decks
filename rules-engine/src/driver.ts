@@ -265,11 +265,28 @@ const runtimeContext = (
       }))
     return targets
   })(),
+  scopeId,
+  ...(frame.distributionBindings ? { distributions: frame.distributionBindings } : {}),
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
   ...(item.x === undefined ? {} : { variables: { X: item.x } }),
 })
+
+const distributedAmount = (
+  target: Extract<Instruction, { kind: 'gainLife' | 'loseLife' | 'draw' | 'mill' | 'discard' }>['targets'],
+  recipient: string,
+  context: RuleDslRuntimeContext,
+  fallback: number,
+) => {
+  if (target.kind !== 'targetRef') return fallback
+  const allocation = context.distributions?.find((entry) =>
+    entry.scopeId === context.scopeId && entry.clauseIndex === target.clauseIndex)
+  if (!allocation) return fallback
+  const bound = context.targets?.[target.clauseIndex] ?? []
+  const index = bound.findIndex((entry) => entry.kind === 'player' && entry.playerId === recipient)
+  return index >= 0 ? allocation.amounts[index] ?? fallback : fallback
+}
 
 const recipients = (
   recipient: PlayerRecipient,
@@ -364,19 +381,23 @@ const actionEvents = (
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.count, context)
       if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({ type: 'draw' as const, seat, count: amount }))
+      return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
     }
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({
+      return targets.flatMap((seat) => {
+        const assigned = distributedAmount(instruction.targets, seat, context, amount)
+        if (assigned === 0) return []
+        return [{
         type: instruction.kind,
         seat,
-        amount,
+        amount: assigned,
         source: frame.source.ref.objectId,
-      }))
+        }]
+      })
     }
     case 'damage': {
       const damageRecipients = mixedRecipients(instruction.targets, context)
