@@ -19,6 +19,7 @@ export type PendingPlayerSelection = {
   candidates: PlayerId[]
   action:
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
+    | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId }
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
     | { kind: 'drawHandDifference' }
     | { kind: 'copyStackItem'; stackId: string }
@@ -160,6 +161,23 @@ export const selectPlayers: Plugin = {
       if (draft.resolution?.kind === 'canonicalSpell') {
         draft.resolution.pendingEvents = events.length > 1 ? [{ type: 'actionGroup', events }] : events
         delete draft.resolution.pendingProliferate
+      }
+    }
+    if (selection.action.kind === 'canonicalCopyTargets' && target) {
+      const action = selection.action
+      const original = draft.stack.find((item) => item.id === action.copyStackId)
+      if (original) {
+        let replaced = false
+        const targets = original.targets.map((candidate) => {
+          if (candidate.kind === 'player' && !replaced) {
+            replaced = true
+            return { kind: 'player' as const, player: target }
+          }
+          return candidate
+        })
+        if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
+          draft.resolution.afterChoiceEvents = [{ type: 'copySpell', stackId: original.id, controller: action.controller, targets, retarget: true, sourceId: draft.resolution.source.ref.objectId }]
+        }
       }
     }
     if (selection.action.kind === 'exchangeLifeTotals' && target) {

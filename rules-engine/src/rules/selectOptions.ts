@@ -4,6 +4,7 @@ import { continueCanonicalModeTargets, continueCanonicalTargetSelection } from '
 import { canonicalModeScopeId, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
 import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
+import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
@@ -226,6 +227,21 @@ export const selectOptions: Plugin = {
         .flat()
         .filter((candidate): candidate is Extract<typeof candidate, { kind: 'object' }> => candidate.kind === 'object')
       const count = original.targets.filter((target) => target.kind === 'object').length
+      const playerTargets = original.targets.filter((target) => target.kind === 'player')
+      if (count === 0 && playerTargets.length > 0) {
+        openPlayerSelection(draft, {
+          seat: selection.action.controller,
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose a new player target for the copied spell.',
+          min: 1,
+          max: 1,
+          candidates: draft.playerOrder.filter((seat) => !draft.players[seat].lost),
+          action: { kind: 'canonicalCopyTargets', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller },
+        })
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        return
+      }
       openCardSelection(draft, {
         seat: selection.action.controller,
         kind: 'choose', count, min: count,

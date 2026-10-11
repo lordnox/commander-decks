@@ -14,6 +14,7 @@ import type {
 import { markPutIntoGraveyardFromBattlefieldThisTurn } from './plugins/fromBattlefieldThisTurn'
 import { untapPermanent } from './rules/untap'
 import { ZONE_IDS } from './types'
+import { ceaseToExist } from './rules/spellCopies'
 import {
   canonicalResolutionCandidate,
   finishResolution,
@@ -361,6 +362,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         return
       }
       draft.stack.splice(index, 1)
+      if (item.copy) {
+        const copyObject = draft.object(item.objectId)
+        if (copyObject) ceaseToExist(draft, copyObject)
+      }
       const object = draft.object(item.objectId)
       if (
         object
