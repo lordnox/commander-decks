@@ -203,8 +203,13 @@ export const startCanonicalResolution = (
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
     scopes: 'modes' in ability
-      ? selectedModes.toReversed().map((modeIndex, reverseIndex) => {
-        const occurrence = selectedModes.length - reverseIndex - 1
+      ? selectedModes
+        .map((modeIndex, occurrence) => ({ modeIndex, occurrence }))
+        // Resolution walks the top scope first.  Push modes in reverse printed
+        // order so repeated occurrences retain their own scope while the
+        // resulting execution order follows the card's printed mode order.
+        .toSorted((left, right) => right.modeIndex - left.modeIndex || right.occurrence - left.occurrence)
+        .map(({ modeIndex, occurrence }) => {
         return {
           path: `.modes[${modeIndex}].instructions`,
           scopeId: item.execution?.modeScopeIds?.[occurrence]
@@ -212,7 +217,7 @@ export const startCanonicalResolution = (
           instructions: structuredClone(ability.modes?.[modeIndex]?.instructions ?? []),
           cursor: 0,
         }
-      })
+        })
       : [{
         path: '.instructions',
         scopeId: canonicalScopeId(abilityIndex),
