@@ -153,6 +153,14 @@ export const selectOptions: Plugin = {
     if (!selection) return `${event.seat} has no open option selection`
     if (event.selectionId !== selection.id) return 'option selection is no longer open'
     if (!selection.options.some((option) => option.id === event.optionId)) {
+      if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') {
+        const amount = Number(event.optionId.replace(`allocation:${selection.action.allocationIndex}:`, ''))
+        const bound = selection.action.bounds[selection.action.specIndex]
+        const remaining = selection.action.recipientCount - selection.action.allocationIndex - 1
+        const chosen = selection.action.amounts.reduce((sum, value) => sum + value, 0)
+        const max = bound.total - chosen - bound.minEach * remaining
+        if (Number.isSafeInteger(amount) && amount >= bound.minEach && amount <= max) return
+      }
       return 'option was not offered for this selection'
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
