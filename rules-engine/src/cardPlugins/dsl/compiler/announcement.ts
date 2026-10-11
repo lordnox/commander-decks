@@ -34,6 +34,8 @@ export type AnnouncementProposal = {
   selectedOptional?: readonly number[]
   selectedAlternative?: number
   excludeSourceFromCosts?: boolean
+  /** Server-computed generic adjustment from format and legacy cost modifiers. */
+  genericAdjustment?: number
 }
 
 export type LockedAnnouncementCost = {
@@ -126,7 +128,7 @@ const sumMana = (payments: readonly AnnouncementManaPayment[]): ManaPool => {
 const genericMana = (mana: string) => [...mana.matchAll(/\{(\d+)\}/g)]
   .reduce((total, match) => total + Number(match[1]), 0)
 
-const lockedManaCost = (plan: CostPlan, x = 0) => {
+const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => {
   const mana = [
     ...(plan.mandatory.filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount)),
     ...(plan.optional ?? []).filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount),
@@ -136,8 +138,8 @@ const lockedManaCost = (plan: CostPlan, x = 0) => {
     integer(reduction.generic, 'generic reduction')
     return total + reduction.generic
   }, 0)
-  if (genericReduction === 0) return mana
-  const generic = Math.max(0, genericMana(mana) - genericReduction)
+  const generic = Math.max(0, genericMana(mana) + genericAdjustment - genericReduction)
+  if (generic === genericMana(mana) && genericReduction === 0) return mana
   const nonGeneric = mana.replaceAll(/\{\d+\}/g, '')
   return `${generic > 0 ? `{${generic}}` : ''}${nonGeneric}`
 }
@@ -272,7 +274,7 @@ export const beginAnnouncement = (
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
     validateNonManaCosts(state, proposal.payer, proposal.excludeSourceFromCosts ? proposal.sourceId : '', costs, proposal.variables?.X, proposal.nonManaChoices)
-    const mana = lockedManaCost(plan, proposal.variables?.X ?? 0)
+    const mana = lockedManaCost(plan, proposal.variables?.X ?? 0, proposal.genericAdjustment)
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)
     const availableMana = state.players[proposal.payer].mana
@@ -306,6 +308,7 @@ export const beginSpellAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
+  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -322,10 +325,17 @@ export const beginSpellAnnouncement = (
     targetClauses: ability.decisions.targets,
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
-    costs: { mandatory: ability.costs },
+    costs: {
+      mandatory: ability.costs,
+      optional: ability.optionalCosts,
+      alternative: ability.alternativeCosts,
+      increases: ability.costIncreases,
+      reductions: ability.costReductions,
+    },
     excludeSourceFromCosts: true,
     payment,
     nonManaChoices,
+    ...options,
   }, `spell:${source.id}`)
 }
 
@@ -337,6 +347,7 @@ export const beginActivatedAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
+  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -353,9 +364,16 @@ export const beginActivatedAnnouncement = (
     targetClauses: ability.decisions.targets,
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
-    costs: { mandatory: ability.costs },
+    costs: {
+      mandatory: ability.costs,
+      optional: ability.optionalCosts,
+      alternative: ability.alternativeCosts,
+      increases: ability.costIncreases,
+      reductions: ability.costReductions,
+    },
     payment,
     nonManaChoices,
+    ...options,
   }, `activation:${source.id}`)
 }
 

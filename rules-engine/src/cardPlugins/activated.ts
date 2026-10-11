@@ -1,5 +1,5 @@
 import { hasUntaxedTapMana } from '../plugins/mana'
-import type { GameObject, Plugin, TargetRef } from '../types'
+import type { GameEvent, GameObject, Plugin, TargetRef } from '../types'
 import {
   activateEffect,
   conditionHolds,
@@ -30,7 +30,8 @@ const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean 
     case 'mill':
       return true
     case 'move':
-      return instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library'
+      return instruction.to === 'library'
+        || (instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library')
     case 'sequence':
       return instructionMovesLibrary(instruction.instructions)
     case 'if':
@@ -165,7 +166,10 @@ export const activated: Plugin = {
           : event.targetClauses
             ?? (activatedCanonical.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
         if (groupedTargets !== undefined) {
-          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices)
+          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
+            selectedOptional: event.selectedOptionalCosts,
+            selectedAlternative: event.selectedAlternativeCost,
+          })
           if (!announcement.ok) return `announcement: ${announcement.error}`
         }
       }
@@ -301,7 +305,10 @@ export const activated: Plugin = {
           : event.targetClauses
             ?? (canonical.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
         if (groupedTargets === undefined) return
-        const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices)
+        const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices, {
+          selectedOptional: event.selectedOptionalCosts,
+          selectedAlternative: event.selectedAlternativeCost,
+        })
         if (!announcement.ok) return
         const committed = announcement.transaction
         if (committed.lockedCost.mana) {
@@ -309,9 +316,10 @@ export const activated: Plugin = {
           if (!paid) return
           draft.players[event.seat].mana = paid
         }
+        const costEvents: GameEvent[] = []
         for (const costPart of committed.lockedCost.nonMana) {
           if (costPart.kind === 'life') {
-            draft.enqueue({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
+            costEvents.push({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
           }
         }
         let choiceIndex = 0
@@ -319,7 +327,7 @@ export const activated: Plugin = {
           if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
           const count = costPart.count.kind === 'constant' ? costPart.count.value : event.x ?? 0
           for (const objectId of (event.choices ?? []).slice(choiceIndex, choiceIndex + count)) {
-            draft.enqueue(costPart.kind === 'discard'
+            costEvents.push(costPart.kind === 'discard'
               ? { type: 'discard', seat: event.seat, objectId }
               : { type: 'sacrifice', objectId })
           }
@@ -365,9 +373,14 @@ export const activated: Plugin = {
             execution: canonicalExecution,
           }
           startCanonicalResolution(draft, inlineItem, { inline: true })
+          if (draft.resolution?.kind === 'canonicalSpell') {
+            draft.resolution.pendingEvents = costEvents
+            draft.resolution.phase = costEvents.length > 0 ? 'committing' : 'running'
+          }
           draft.priority = null
           return
         }
+        for (const costEvent of costEvents) draft.enqueue(costEvent)
         draft.addToStack({
           kind: 'ability',
           objectId: source.id,

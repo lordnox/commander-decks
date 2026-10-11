@@ -28,14 +28,21 @@ cannot publish payments, targets, or cast occurrences.
   path and include eligible restricted mana in authoritative payment plans
 - [x] apply canonical nonmana costs before publishing the completed cast so
   cost-zone changes and their triggers precede cast occurrences
+- [x] route canonical optional and alternative cost selections through the
+  server-owned announcement plan
+- [x] apply canonical cost increases and generic reductions to the locked total
+  and preserve that transaction through typed cost continuations
+- [x] apply inline mana ability costs before canonical resolution and classify
+  library movement by both source selector and destination
 
 ## Remaining work
 
 Replacement-aware payment choice coverage belongs to Part 11, but this
 transaction frame remains the insertion point for those choices. Legacy card
 definitions continue to use their existing handlers while canonical definitions
-now have authoritative target, restricted-mana, activation, and cost ordering
-paths.
+now have authoritative target, restricted-mana, activation, cost-plan, and cost
+ordering paths. Triggered mana, shared tap/planning permissions, and a persisted
+suspended payment transaction remain for the next Part 08 review slice.
 
 ## Validation
 
@@ -48,3 +55,6 @@ paths.
   canonical life payment, Aether Tide X=0 and X=2 cast paths).
 - `/Users/tobiaskopelke/projects/lordnox/commander-decks/node_modules/.bin/oxlint
   rules-engine live-runner site/src shared .agents/skills --quiet` — passed.
+- canonical cost-plan integration tests — 10 passed, 0 failed.
+- parent server review fixture — 25 passed, 0 failed after inline cost and
+  library-movement regressions.
