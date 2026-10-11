@@ -12,7 +12,15 @@ import {
   players,
   variable,
   discardCost,
+  activated,
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  ref,
 } from './v1'
+import { cardTemplate } from '../../newGame'
+import { commanderRules } from '../../formats'
+import { createServerGame } from '../../runtime'
 
 const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
 
@@ -109,5 +117,24 @@ describe('announcement transactions', () => {
       nonManaChoices: ['a', 'b', 'c'],
     })
     expect(result.ok).toBe(true)
+  })
+
+  test('canonical addMana activation executes through the server path', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Canonical mana source', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Canonical mana source')!
+    const result = server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]' })
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.state.stack).toHaveLength(0)
+      expect(result.state.players.p1.mana.G).toBe(1)
+    }
   })
 })
