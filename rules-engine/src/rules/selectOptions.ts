@@ -287,13 +287,22 @@ export const selectOptions: Plugin = {
       if (!source || !ability || !('decisions' in ability)) return
       const slotIndex = selection.action.slotIndex ?? 0
       const slotTarget = original.targets[slotIndex]
-      const candidates = (canonicalTargetCandidates(draft, source, ability, selection.action.controller)[slotIndex] ?? [])
+      let seenSlots = 0
+      const targetBinding = original.execution?.targetBindings?.find((binding) => {
+        if (seenSlots + binding.recipients.length <= slotIndex) {
+          seenSlots += binding.recipients.length
+          return false
+        }
+        return true
+      })
+      const clauseIndex = targetBinding?.clauseIndex ?? slotIndex
+      const scoped = canonicalTargetCandidates(draft, source, ability, selection.action.controller)
+      const candidates = (scoped[clauseIndex] ?? [])
         .filter((candidate): candidate is Extract<typeof candidate, { kind: 'object' }> => candidate.kind === 'object')
-      const scopedCandidates = canonicalTargetCandidates(draft, source, ability, selection.action.controller)[slotIndex] ?? []
+      const scopedCandidates = scoped[clauseIndex] ?? []
       const count = slotTarget?.kind === 'object' ? 1 : 0
-      const playerTargets = original.targets.filter((target) => target.kind === 'player')
-      const stackTargets = original.targets.filter((target) => target.kind === 'stackItem')
       if (slotTarget?.kind === 'stackItem') {
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
         openOptionSelection(draft, {
           seat: selection.action.controller,
           sourceId: frame.source.ref.objectId,
@@ -305,7 +314,6 @@ export const selectOptions: Plugin = {
             .map((item) => ({ id: `stack:${item.id}`, label: item.name })),
           action: { kind: 'canonical-copy-stack-target', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller, slotIndex },
         })
-        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
         return
       }
       if (slotTarget?.kind === 'player') {
