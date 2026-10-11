@@ -145,6 +145,7 @@ export type DecisionsInput = Omit<DecisionsSpec, 'targets'> & {
 }
 
 export type ManaCost = string
+export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
   | { kind: 'discard'; filter: ObjectSelector; count: Amount }
@@ -175,6 +176,7 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
+  | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
   | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference }
@@ -339,7 +341,7 @@ export type CompiledCardRuleDefinitionV1 = {
     serialization: true
     runtimeExecution: {
       abilitiesWithSuppliedContext: readonly ['activated', 'spell', 'triggered']
-      instructionKinds: readonly ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence']
+      instructionKinds: readonly string[]
       decisions: 'fullySuppliedTargets'
     }
   }
