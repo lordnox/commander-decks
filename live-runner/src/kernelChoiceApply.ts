@@ -113,6 +113,7 @@ export const applyKernelChoice = (
       requestId: message.requestId,
       revision: message.revision,
       choices: message.choices,
+      allocation: message.allocation,
     })
     if (lobby.completedInteractions?.[message.requestId] !== wireFingerprint) return false
     return true
@@ -146,7 +147,7 @@ export const applyKernelChoice = (
   if (!decision) throw new Error('This interaction continuation is missing.')
   if (!decision.kernel) throw new Error('This interaction continuation has no kernel choice.')
   lobby.interactionLedger = interactions.snapshot()
-  const fingerprint = JSON.stringify({ seat, requestId, revision: decision.revision, choices: message.choices })
+  const fingerprint = JSON.stringify({ seat, requestId, revision: decision.revision, choices: message.choices, allocation: message.allocation })
   const persistOutcome = (completed: boolean) => {
     const latest = new InteractionStore<TopdeckDecision, boolean>()
     latest.restore(lobby.interactionLedger ?? [])
@@ -166,10 +167,12 @@ export const applyKernelChoice = (
   try {
     if (decision.kernel.stage === 'allocation') {
       const values = message.allocation ?? []
-      for (const value of values) {
+      const offered = decision.interaction?.selection.kind === 'allocate' ? decision.interaction.selection.entries : []
+      const orderedValues = offered.map((entry) => values.find((value) => value.id === entry.id)).filter((value): value is NonNullable<typeof value> => Boolean(value))
+      for (const [index, value] of orderedValues.entries()) {
         const current = kernel.history.current().players[seat]?.data['kernel.pendingOptionSelection'] as { id?: string } | undefined
         if (!current?.id) throw new Error('The allocation choice is no longer open.')
-        const event = kernel.dispatch({ type: 'selectOption', seat, selectionId: current.id, optionId: `allocation:${values.indexOf(value)}:${value.amount}` })
+        const event = kernel.dispatch({ type: 'selectOption', seat, selectionId: current.id, optionId: `allocation:${index}:${value.amount}` })
         if (!event.ok) throw new Error(event.error)
       }
       persistOutcome(true)
