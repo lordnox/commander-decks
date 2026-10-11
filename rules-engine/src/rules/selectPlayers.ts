@@ -146,10 +146,20 @@ export const selectPlayers: Plugin = {
     clearSelection(draft, event.seat)
     const target = event.players[0]
     if (selection.action.kind === 'canonicalProliferatePlayers') {
+      const events: GameEvent[] = []
+      const pending = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution.pendingProliferate : undefined
+      for (const objectId of pending?.objectIds ?? []) {
+        const object = draft.object(objectId)
+        if (object) for (const counter of Object.keys(object.counters)) events.push({ type: 'proliferateCounter', recipient: { kind: 'object', objectId, counter } })
+      }
       for (const seat of event.players) {
         const player = draft.players[seat]
-        if (player.poison > 0) player.poison += 1
-        if ((player.energy ?? 0) > 0) player.energy = (player.energy ?? 0) + 1
+        if (player.poison > 0) events.push({ type: 'proliferateCounter', recipient: { kind: 'player', seat, counter: 'poison' } })
+        if ((player.energy ?? 0) > 0) events.push({ type: 'proliferateCounter', recipient: { kind: 'player', seat, counter: 'energy' } })
+      }
+      if (draft.resolution?.kind === 'canonicalSpell') {
+        draft.resolution.pendingEvents = events.length > 1 ? [{ type: 'actionGroup', events }] : events
+        delete draft.resolution.pendingProliferate
       }
     }
     if (selection.action.kind === 'exchangeLifeTotals' && target) {

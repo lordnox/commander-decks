@@ -56,6 +56,7 @@ export type PendingOptionSelection = {
     /** A canonical resolution program choice; the frame remains private. */
     kind: 'canonicalInstructionChoice'
     stackId: string
+    scopeId?: string
     options: readonly { id: string; instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[] }[]
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
@@ -184,6 +185,7 @@ export const selectOptions: Plugin = {
       if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
         draft.resolution.scopes.push({
           path: `.choice.${event.optionId}`,
+          scopeId: selection.action.scopeId,
           instructions: structuredClone(option.instructions),
           cursor: 0,
         })
