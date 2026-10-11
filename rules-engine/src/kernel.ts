@@ -47,8 +47,83 @@ import { hasKeyword } from './keywords'
 import { copyCharacteristics, createToken } from './cardPlugins/effectRuntime'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
+import { preparePlannedSpellAnnouncement } from './plugins/spells'
+import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 
 const CHECKPOINT_CAP = 32
+
+const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): ReduceResult => {
+  const frame = state.provisionalAnnouncement
+  if (!frame) return { ok: true, state, trace: [] }
+  let current = state
+  const entries: EventTrace[] = []
+  const planned = frame.plannedManaActivations ?? []
+  let cursor = frame.plannedManaCursor ?? 0
+  while (cursor < planned.length) {
+    const draft = makeDraft(current)
+    if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedManaCursor = cursor + 1
+    current = freezeDraft(draft)
+    const next = applyEventTree(current, planned[cursor]!, catalog)
+    entries.push(...nested(next.trace, 1))
+    if (!next.ok) return { ...next, state: frame.baseline, trace: entries }
+    current = next.state
+    cursor += 1
+    if (current.resolution) {
+      const driven = driveResolution(current, catalog)
+      entries.push(...nested(driven.trace, 1))
+      if (!driven.ok) return { ...driven, state: frame.baseline, trace: entries }
+      current = driven.state
+      if (current.resolution) return { ok: true, state: current, trace: entries }
+    }
+  }
+  let costIndex = 0
+  for (const cost of frame.transaction.lockedCost.nonMana) {
+    const amount = cost.kind === 'life' || cost.kind === 'discard' || cost.kind === 'sacrifice'
+      ? evaluateAnnouncementCostAmount(cost.kind === 'life' ? cost.amount : cost.count, frame.transaction.lockedCost.x)
+      : 0
+    const events: GameEvent[] = cost.kind === 'life'
+      ? [{ type: 'payLife', seat: frame.payer, amount, source: frame.transaction.proposal.sourceId }]
+      : (cost.kind === 'discard' || cost.kind === 'sacrifice')
+        ? (frame.transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
+          cost.kind === 'discard'
+            ? { type: 'discard', seat: frame.payer, objectId }
+            : { type: 'sacrifice', objectId })
+        : []
+    if (cost.kind === 'discard' || cost.kind === 'sacrifice') costIndex += amount
+    for (const paymentEvent of events) {
+      const paid = applyEventTree(current, paymentEvent, catalog)
+      entries.push(...nested(paid.trace, 1))
+      if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }
+      current = paid.state
+    }
+  }
+  const cast = applyEventTree(current, frame.continuation, catalog)
+  entries.push(...nested(cast.trace, 1))
+  if (!cast.ok) return { ...cast, state: frame.baseline, trace: entries }
+  const completed = makeDraft(cast.state)
+  delete completed.provisionalAnnouncement
+  return { ok: true, state: freezeDraft(completed), trace: entries }
+}
+
+const startPlannedAnnouncement = (state: GameState, event: Extract<GameEvent, { type: 'castSpell' }>, catalog: PluginCatalog): ReduceResult | undefined => {
+  if (!event.manaActivations?.length) return undefined
+  const prepared = preparePlannedSpellAnnouncement(state, event)
+  if (!prepared.ok) return { ok: false, error: prepared.error, state, trace: [trace(event, 'rejected', { error: prepared.error })] }
+  const transaction = { ...prepared.transaction, status: 'committed' as const }
+  const draft = makeDraft(state)
+  draft.provisionalAnnouncement = {
+    id: transaction.id,
+    payer: event.seat,
+    transaction,
+    baseline: structuredClone(state),
+    continuation: { ...prepared.continuation, canonicalTransaction: transaction },
+    plannedManaActivations: prepared.activations,
+    plannedManaCursor: 0,
+  }
+  const started = freezeDraft(draft)
+  const driven = continuePlannedAnnouncement(started, catalog)
+  return { ...driven, trace: [trace(event, driven.ok ? 'applied' : 'rejected', driven.ok ? undefined : { error: driven.error }), ...driven.trace] }
+}
 
 const attackedPlayer = (attacking: NonNullable<GameState['objects'][string]['attacking']>) =>
   typeof attacking === 'string'
@@ -1161,6 +1236,10 @@ export const rules = (
   event: GameEvent,
   catalog: PluginCatalog,
 ): ReduceResult => {
+  if (event.type === 'castSpell' && event.manaActivations?.length && !state.provisionalAnnouncement) {
+    const planned = startPlannedAnnouncement(state, event, catalog)
+    if (planned) return planned
+  }
   if (event.type === 'cancelAnnouncement') {
     const frame = state.provisionalAnnouncement
     if (!frame || frame.id !== event.announcementId || frame.payer !== event.seat) {
@@ -1179,10 +1258,11 @@ export const rules = (
     const resumed = resumeLegacyResolution(state, event, catalog)
     if (!resumed.ok || resumed.state.resolution) return resumed
     const checked = checkpoint(resumed.state, catalog)
-    return {
-      ...checked,
-      trace: [...resumed.trace, ...checked.trace],
-    }
+    if (!checked.ok) return { ...checked, trace: [...resumed.trace, ...checked.trace] }
+    const continued = continuePlannedAnnouncement(checked.state, catalog)
+    return continued.ok
+      ? { ok: true, state: continued.state, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
+      : { ...continued, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
   }
   if (state.resolution?.phase === 'waiting') {
     if (!isResolutionAnswer(state, event)) {
@@ -1192,9 +1272,11 @@ export const rules = (
     const resumed = resumeCanonicalResolution(state, event, catalog)
     if (!resumed.ok || resumed.state.resolution) return resumed
     const checked = checkpoint(resumed.state, catalog)
-    return checked.ok
-      ? { ok: true, state: checked.state, trace: [...resumed.trace, ...checked.trace] }
-      : { ...checked, trace: [...resumed.trace, ...checked.trace] }
+    if (!checked.ok) return { ...checked, trace: [...resumed.trace, ...checked.trace] }
+    const continued = continuePlannedAnnouncement(checked.state, catalog)
+    return continued.ok
+      ? { ok: true, state: continued.state, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
+      : { ...continued, trace: [...resumed.trace, ...checked.trace, ...continued.trace] }
   }
   if (event.type === 'resumeResolution') {
     if (!state.resolution) {

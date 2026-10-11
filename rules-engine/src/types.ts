@@ -607,7 +607,9 @@ export type ProvisionalAnnouncementFrame = {
   payer: PlayerId
   transaction: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
   baseline: GameState
-  continuation: { type: 'castSpell'; event: Extract<GameEvent, { type: 'castSpell' }> }
+  continuation: Extract<GameEvent, { type: 'castSpell' }>
+  plannedManaActivations?: Array<Extract<GameEvent, { type: 'activateAbility' }>>
+  plannedManaCursor?: number
 }
 
 export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }
