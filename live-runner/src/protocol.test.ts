@@ -219,3 +219,12 @@ test('a hold message carries only a known target', () => {
   })
   expect(parseInbox('{"type":"hold","until":"forever"}')).toBeNull()
 })
+
+test('parseInbox carries typed modal occurrences and allocations', () => {
+  expect(parseInbox(JSON.stringify({
+    type: 'act', kind: 'castSpell', objectId: 'spell', modeIndices: [1, 0],
+    distributionBindings: [{ scopeId: '$.abilities[0].modes[1]#0', clauseIndex: 0, amounts: [2, 1] }],
+  }))).toMatchObject({ type: 'act', modeIndices: [1, 0], distributionBindings: [{ clauseIndex: 0, amounts: [2, 1] }] })
+  expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","modeIndices":[-1]}')).toBeNull()
+  expect(parseInbox('{"type":"act","kind":"castSpell","objectId":"spell","distributionBindings":[{"scopeId":"x","clauseIndex":0,"amounts":[-1]}]}')).toBeNull()
+})
