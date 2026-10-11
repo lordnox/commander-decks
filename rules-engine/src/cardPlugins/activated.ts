@@ -24,7 +24,7 @@ import type { Instruction } from './dsl/schema/v1'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
-const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
+export const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
   switch (instruction.kind) {
     case 'draw':
     case 'mill':
@@ -53,7 +53,7 @@ export const instructionAddsMana = (instructions: readonly Instruction[]): boole
   }
 })
 
-const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileCardRuleDefinition>['definition']['abilities'][number], { kind: 'activated' }>) => {
+export const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileCardRuleDefinition>['definition']['abilities'][number], { kind: 'activated' }>) => {
   return classifyManaAbility({
     addsMana: instructionAddsMana(ability.instructions ?? []),
     abilityKind: 'activated',

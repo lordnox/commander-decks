@@ -48,7 +48,7 @@ import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, ev
 import type { ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
-import { instructionAddsMana } from '../cardPlugins/activated'
+import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/activated'
 
 const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
   if (event.type !== 'activateAbility') return false
@@ -57,12 +57,7 @@ const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
   if (!source?.ruleDefinition || index === undefined) return false
   const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
   const ability = definition.abilities[Number(index)]
-  return ability?.kind === 'activated' && classifyManaAbility({
-    addsMana: instructionAddsMana(ability.instructions ?? []),
-    abilityKind: 'activated',
-    hasTargets: ability.decisions.targets.length > 0,
-    movesCards: false,
-  }).isManaAbility
+  return ability?.kind === 'activated' && canonicalManaClassification(ability).isManaAbility
 }
 
 const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
@@ -73,12 +68,7 @@ const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
   if (typeof sourceId !== 'string' || typeof abilityIndex !== 'number' || !definitionSnapshot) return false
   const definition = loadDefinitionSnapshot(definitionSnapshot).definition
   const ability = definition.abilities[abilityIndex]
-  return ability?.kind === 'activated' && classifyManaAbility({
-    addsMana: instructionAddsMana(ability.instructions ?? []),
-    abilityKind: 'activated',
-    hasTargets: ability.decisions.targets.length > 0,
-    movesCards: false,
-  }).isManaAbility
+  return ability?.kind === 'activated' && canonicalManaClassification(ability).isManaAbility
 }
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
