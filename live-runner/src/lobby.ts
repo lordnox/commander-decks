@@ -90,7 +90,6 @@ export type TopdeckDecision = LiveInteractionMetadata & {
     chosenEvent?: string
     after?: Array<'resolveTop'>
   }
-  allocationValues?: Array<{ id: string; amount: number }>
   allocationOffer?: { entries: Array<{ id: string; label?: string; max?: number }>; total: number; minEach: number }
 }
 
