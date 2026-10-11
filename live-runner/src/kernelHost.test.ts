@@ -452,6 +452,33 @@ describe('kernel host journal', () => {
     })).toEqual({ ok: false, error: 'mandatory interaction cannot be cancelled' })
   })
 
+  test('publishes and validates a large typed allocation by entry identity', () => {
+    const lobby = createLobby()
+    expect(openTopdeck(lobby, {
+      seat: 'p1', kind: 'allocate', source: 'Trigger', cards: [], destinations: ['target'],
+      allocationOffer: {
+        entries: [{ id: 'target:0', label: 'Target 1' }, { id: 'target:1', label: 'Target 2' }],
+        total: 1000, minEach: 1,
+      },
+      kernel: { stage: 'allocation', sourceId: 'trigger-1' },
+    }, { waiting: 'Waiting.', prompt: 'Allocate.', judge: 'Judge.' })).toBe(true)
+    const request = lobby.topdeck!.interaction!
+    expect(request.selection).toEqual({
+      kind: 'allocate',
+      entries: [{ id: 'target:0', label: 'Target 1' }, { id: 'target:1', label: 'Target 2' }],
+      total: 1000,
+      minEach: 1,
+    })
+    expect(validateInteractionAnswer(request, {
+      requestId: request.requestId, revision: request.revision, chooser: 'p1',
+      selection: { kind: 'allocate', values: [{ id: 'target:1', amount: 600 }, { id: 'target:0', amount: 400 }] },
+    })).toEqual({ ok: true })
+    expect(validateInteractionAnswer(request, {
+      requestId: request.requestId, revision: request.revision, chooser: 'p1',
+      selection: { kind: 'allocate', values: [{ id: 'target:0', amount: 400 }, { id: 'target:1', amount: 599 }] },
+    })).toEqual({ ok: false, error: 'allocation must include every offered entry and match its total' })
+  })
+
   test('keeps stale, wrong-seat, and invalid answers out of the continuation', () => {
     const { kernel, lobby, message } = interactionHostCase()
     expect(applyKernelChoiceImpl(kernel, lobby, 'p2', message)).toBe(false)
