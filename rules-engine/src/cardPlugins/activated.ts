@@ -17,6 +17,7 @@ import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { targetObject } from '../objectIdentity'
 import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition } from './dsl/compiler'
+import { payCost } from '../plugins/spells'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
@@ -226,6 +227,39 @@ export const activated: Plugin = {
     if (event.type !== 'activateAbility') return
     const source = draft.object(event.objectId)
     if (!source) return
+    if (source.ruleDefinition) {
+      const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+      const canonical = compiled.definition.abilities.find((ability): ability is Extract<typeof ability, { kind: 'activated' }> => ability.kind === 'activated')
+      if (canonical && !event.manaAbility) {
+        const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, canonical.decisions.targets.length === 0 ? [] : undefined, event.x)
+        if (!announcement.ok) return
+        const committed = announcement.transaction
+        if (committed.lockedCost.mana) {
+          const paid = payCost(draft.players[event.seat].mana, committed.lockedCost.mana)
+          if (!paid) return
+          draft.players[event.seat].mana = paid
+        }
+        for (const costPart of committed.lockedCost.nonMana) {
+          if (costPart.kind === 'life') {
+            draft.enqueue({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
+          }
+        }
+        draft.addToStack({
+          kind: 'ability',
+          objectId: source.id,
+          controller: event.seat,
+          name: source.name,
+          targets: event.targets ?? [],
+          abilityId: event.abilityId,
+          payload: { instructions: canonical.instructions },
+          ...(event.x !== undefined ? { x: event.x } : {}),
+        })
+        draft.passedInRow = []
+        draft.priority = event.seat
+        draft.note(`${event.seat} activates ${source.name}`)
+        return
+      }
+    }
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return

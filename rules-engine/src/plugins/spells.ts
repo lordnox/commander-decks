@@ -380,6 +380,7 @@ export const spells: Plugin = {
               ability,
               groupedTargets,
               event.x,
+              [...(event.discard ?? []), ...(event.sacrifice ?? [])],
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
           }
@@ -601,7 +602,7 @@ export const spells: Plugin = {
             ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
         if (ability?.kind === 'spell' && groupedTargets !== undefined) {
-          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x)
+          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])])
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
           canonicalLockedCost = committed.lockedCost.mana
@@ -663,6 +664,20 @@ export const spells: Plugin = {
             source: object.name,
           })
         }
+      }
+      const selectedNonMana = object.ruleDefinition && !event.copy
+        ? (event.discard ?? []).concat(event.sacrifice ?? [])
+        : []
+      let selectedIndex = 0
+      for (const costPart of canonicalNonManaCosts) {
+        if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
+        const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
+        for (const objectId of selectedNonMana.slice(selectedIndex, selectedIndex + count)) {
+          draft.enqueue(costPart.kind === 'discard'
+            ? { type: 'discard', seat: event.seat, objectId }
+            : { type: 'sacrifice', objectId })
+        }
+        selectedIndex += count
       }
       const castFrom = object.zone
       draft.move(object.id, 'stack')

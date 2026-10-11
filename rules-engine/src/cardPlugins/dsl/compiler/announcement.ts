@@ -28,6 +28,7 @@ export type AnnouncementProposal = {
   variables?: Readonly<Partial<Record<'X', number>>>
   costs: CostPlan
   payment?: readonly AnnouncementManaPayment[]
+  nonManaChoices?: readonly string[]
   /** Sources already authorized by the active ability/permission check. */
   eligibleManaSources?: readonly string[]
   /** Optional client answer; the server still rechecks all candidates. */
@@ -89,7 +90,9 @@ export const classifyManaAbility = (input: {
   const triggered = input.triggered === true || input.abilityKind === 'triggered'
   // A trigger is a mana ability only when its trigger condition and effect meet
   // CR 605.1b; merely mentioning addMana in an unrelated program is insufficient.
-  const structurallyMana = addsMana && !input.hasOtherInstruction
+  // CR 605 allows additional non-library/non-target instructions alongside
+  // mana production; only targets, loyalty, and card movement disqualify it.
+  const structurallyMana = addsMana
     && !input.hasTargets && !input.hasLoyaltyCost && !input.movesCards
   const isManaAbility = structurallyMana && (
     input.abilityKind === 'activated'
@@ -186,7 +189,8 @@ const matchesCostFilter = (object: GameState['objects'][string], filter: Extract
   return true
 }
 
-const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, costs: readonly Cost[], x: number | undefined) => {
+const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, costs: readonly Cost[], x: number | undefined, choices: readonly string[] | undefined) => {
+  let choiceIndex = 0
   for (const cost of costs) {
     if (cost.kind === 'life') {
       if (state.players[payer].life < costAmount(cost.amount, x)) throw new TypeError(`payer cannot pay ${costAmount(cost.amount, x)} life`)
@@ -196,7 +200,13 @@ const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, pay
     const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
     const candidates = Object.values(state.objects).filter((object) => object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))
     if (candidates.length < costAmount(cost.count, x)) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
+    const count = costAmount(cost.count, x)
+    const selected = choices?.slice(choiceIndex, choiceIndex + count)
+    if (!selected || selected.length !== count || new Set(selected).size !== count) throw new TypeError(`${cost.kind} cost needs ${count} distinct selected cards`)
+    if (selected.some((id) => !candidates.some((candidate) => candidate.id === id))) throw new TypeError(`illegal ${cost.kind} cost selection`)
+    choiceIndex += count
   }
+  if (choices && choiceIndex !== choices.length) throw new TypeError('unused nonmana cost selection')
 }
 
 const targetIdentity = (target: TargetRef) => {
@@ -263,7 +273,7 @@ export const beginAnnouncement = (
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
-    validateNonManaCosts(state, proposal.payer, costs, proposal.variables?.X)
+    validateNonManaCosts(state, proposal.payer, costs, proposal.variables?.X, proposal.nonManaChoices)
     const mana = lockedManaCost(plan, proposal.variables?.X ?? 0)
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)
@@ -295,6 +305,7 @@ export const beginSpellAnnouncement = (
   ability: SpellAbilityDefinition,
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
+  nonManaChoices?: readonly string[],
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -307,6 +318,7 @@ export const beginSpellAnnouncement = (
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: { mandatory: ability.costs },
     payment,
+    nonManaChoices,
   }, `spell:${source.id}`)
 }
 
@@ -317,6 +329,7 @@ export const beginActivatedAnnouncement = (
   ability: ActivatedAbilityDefinition,
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
+  nonManaChoices?: readonly string[],
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -329,6 +342,7 @@ export const beginActivatedAnnouncement = (
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: { mandatory: ability.costs },
     payment,
+    nonManaChoices,
   }, `activation:${source.id}`)
 }
 
