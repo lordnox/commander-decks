@@ -355,18 +355,25 @@ export const selectOptions: Plugin = {
       if (!Number.isSafeInteger(amount) || amount < 0) return
       const nextAmounts = [...selection.action.amounts, amount]
       const nextIndex = selection.action.allocationIndex + 1
+      const currentAllocations = selection.action.allocations.map((entry, index) => index === selection.action.specIndex
+        ? { ...entry, amounts: nextAmounts }
+        : entry)
       if (nextIndex < selection.action.recipientCount) {
         const bound = selection.action.bounds[selection.action.specIndex]
         const remaining = selection.action.recipientCount - nextIndex - 1
         const chosenTotal = nextAmounts.reduce((sum, value) => sum + value, 0)
         const min = bound.minEach
         const max = bound.total - chosenTotal - min * remaining
-        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
-          ...selection,
-          options: Number.isSafeInteger(max) && max >= min
+        const options = nextIndex === selection.action.recipientCount - 1
+          ? [{ id: `allocation:${nextIndex}:${max}`, label: String(max) }]
+          : Number.isSafeInteger(max) && max - min <= 256
             ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:${nextIndex}:${min + index}`, label: String(min + index) }))
-            : [],
-          action: { ...selection.action, allocationIndex: nextIndex, amounts: nextAmounts },
+            : []
+        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
+          id: draft.allocId('option'),
+          ...selection,
+          options,
+          action: { ...selection.action, allocations: currentAllocations, allocationIndex: nextIndex, amounts: nextAmounts },
         }
         draft.priority = null
         return
@@ -377,23 +384,25 @@ export const selectOptions: Plugin = {
         const nextRecipientCount = selection.action.recipientCounts[nextSpecIndex]
         const min = bound.minEach
         const max = bound.total - min * Math.max(0, nextRecipientCount - 1)
-        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
-          ...selection,
-          options: Number.isSafeInteger(max) && max >= min
+        const options = nextRecipientCount === 1
+          ? [{ id: 'allocation:0:' + max, label: String(max) }]
+          : Number.isSafeInteger(max) && max - min <= 256
             ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
-            : [],
-          action: { ...selection.action, specIndex: nextSpecIndex, recipientCount: nextRecipientCount, allocationIndex: 0, amounts: [] },
+            : []
+        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
+          id: draft.allocId('option'),
+          ...selection,
+          options,
+          action: { ...selection.action, allocations: currentAllocations, specIndex: nextSpecIndex, recipientCount: nextRecipientCount, allocationIndex: 0, amounts: [] },
         }
         draft.priority = null
         return
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-      const allocation = selection.action.allocations.map((entry, index) => index === selection.action.specIndex
-        ? { ...entry, amounts: nextAmounts }
-        : entry)
+      const allocation = currentAllocations
       const announcement = {
         ...selection.action.announcement,
-        execution: { ...selection.action.announcement.execution, distributionBindings: allocation },
+        execution: { ...selection.action.announcement.execution, distributionBindings: allocation, distributionBounds: selection.action.bounds },
       }
       stackCanonical(draft, announcement)
       draft.priority = null

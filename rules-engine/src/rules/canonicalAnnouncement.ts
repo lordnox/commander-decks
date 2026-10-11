@@ -82,7 +82,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
       sourceId: source.id,
       source: source.name,
       prompt: `Allocate ${bounds[0]?.total ?? 0} for ${source.name}.`,
-      options: Number.isSafeInteger(max) && max >= min
+      options: Number.isSafeInteger(max) && max >= min && max - min <= 256
         ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
         : [],
       action: {
