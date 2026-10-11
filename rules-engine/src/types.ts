@@ -707,6 +707,8 @@ export type GameEvent =
       copy?: boolean
       withoutPayingMana?: boolean
       wardPaid?: boolean
+      /** Internal canonical announcement continuation; never supplied by clients. */
+      canonicalCostsPaid?: true
     }
   | { type: 'declineFreeCast'; seat: PlayerId; objectId: string }
   | {

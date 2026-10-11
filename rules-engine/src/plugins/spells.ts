@@ -3,6 +3,7 @@ import { poolTotal, type Draft } from '../draft'
 import type {
   GameObject,
   GameState,
+  GameEvent,
   ManaId,
   ManaPool,
   PlayerId,
@@ -343,6 +344,32 @@ const installGrantedRules = (draft: Draft, object: GameObject) => {
 
 export const spells: Plugin = {
   id: 'spells',
+  replace: ({ state, event }) => {
+    if (event.type !== 'castSpell' || event.canonicalCostsPaid || event.copy) return
+    const object = state.objects[event.objectId]
+    if (!object?.ruleDefinition) return
+    const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
+    const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
+    if (!ability) return
+    const choices = [...(event.discard ?? []), ...(event.sacrifice ?? [])]
+    let choiceIndex = 0
+    const costs: GameEvent[] = []
+    for (const cost of ability.costs) {
+      if (cost.kind === 'life') {
+        const amount = evaluateAnnouncementCostAmount(cost.amount, event.x)
+        costs.push({ type: 'payLife', seat: event.seat, amount, source: object.id })
+      } else if (cost.kind === 'discard' || cost.kind === 'sacrifice') {
+        const count = evaluateAnnouncementCostAmount(cost.count, event.x)
+        for (const objectId of choices.slice(choiceIndex, choiceIndex + count)) {
+          costs.push(cost.kind === 'discard' ? { type: 'discard', seat: event.seat, objectId } : { type: 'sacrifice', objectId })
+        }
+        choiceIndex += count
+      }
+    }
+    return costs.length > 0
+      ? [...costs, { ...event, canonicalCostsPaid: true }]
+      : undefined
+  },
   legal: ({ state, event }) => {
     if (event.type === 'castSpell') {
       const object = state.objects[event.objectId]
@@ -379,7 +406,7 @@ export const spells: Plugin = {
             ? event.targetClauses
               ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
             : undefined
-          if (ability.kind === 'spell' && groupedTargets !== undefined) {
+          if (ability.kind === 'spell' && groupedTargets !== undefined && !event.canonicalCostsPaid) {
             const announcement = beginSpellAnnouncement(
               state,
               object,
@@ -612,7 +639,7 @@ export const spells: Plugin = {
           ? event.targetClauses
             ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
-        if (ability?.kind === 'spell' && groupedTargets !== undefined) {
+        if (ability?.kind === 'spell' && groupedTargets !== undefined && !event.canonicalCostsPaid) {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])])
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
@@ -666,7 +693,7 @@ export const spells: Plugin = {
           source: object.name,
         })
       }
-      for (const costPart of canonicalNonManaCosts) {
+      for (const costPart of event.canonicalCostsPaid ? [] : canonicalNonManaCosts) {
         if (costPart.kind === 'life') {
           draft.enqueue({
             type: 'payLife',
@@ -680,7 +707,7 @@ export const spells: Plugin = {
         ? (event.discard ?? []).concat(event.sacrifice ?? [])
         : []
       let selectedIndex = 0
-      for (const costPart of canonicalNonManaCosts) {
+      for (const costPart of event.canonicalCostsPaid ? [] : canonicalNonManaCosts) {
         if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
         const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
         for (const objectId of selectedNonMana.slice(selectedIndex, selectedIndex + count)) {
@@ -765,7 +792,7 @@ export const spells: Plugin = {
           })
         }
       }
-      if (canonicalNonManaCosts.length === 0) {
+      if (canonicalNonManaCosts.length === 0 || event.canonicalCostsPaid) {
         for (const objectId of event.sacrifice ?? []) {
           draft.enqueue({ type: 'sacrifice', objectId })
         }
