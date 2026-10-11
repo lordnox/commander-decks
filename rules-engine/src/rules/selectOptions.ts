@@ -6,9 +6,44 @@ import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
-import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
+import type { CanonicalResolutionFrame, CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
+
+const openNextCopySlot = (draft: Draft, frame: CanonicalResolutionFrame) => {
+  const jobs = frame.pendingCopyTargets ?? []
+  const job = jobs[0]
+  if (!job) {
+    delete draft.players[frame.controller].data[PENDING_OPTION_SELECTION]
+    return
+  }
+  const original = draft.stack.find((item) => item.id === job.originalStackId)
+  if (!original) {
+    frame.pendingCopyTargets = jobs.slice(1)
+    return openNextCopySlot(draft, frame)
+  }
+  const slot = job.slotCursor ?? 0
+  if (slot >= job.targets.length) {
+    frame.afterChoiceEvents = [...(frame.afterChoiceEvents ?? []), {
+      type: 'copySpell', stackId: original.id, controller: job.controller,
+      targets: structuredClone(job.answers ?? job.targets), retarget: true,
+      sourceId: frame.source.ref.objectId,
+    }]
+    frame.pendingCopyTargets = jobs.slice(1)
+    return openNextCopySlot(draft, frame)
+  }
+  openOptionSelection(draft, {
+    seat: job.controller,
+    sourceId: frame.source.ref.objectId,
+    source: frame.source.snapshot.name,
+    prompt: `Keep target ${slot + 1} or choose a new target.`,
+    options: [
+      { id: 'keep', label: 'Keep the original target' },
+      { id: 'retarget', label: 'Choose a new target' },
+    ],
+    action: { kind: 'canonical-copy-retarget', stackId: frame.stackId, copyStackId: original.id, controller: job.controller, slotIndex: slot },
+  })
+}
 
 export type PendingOptionSelection = {
   id: string
@@ -68,6 +103,7 @@ export type PendingOptionSelection = {
     copyStackId: string
     controller: PlayerId
     remaining?: { copyStackId: string; controller: PlayerId }[]
+    slotIndex?: number
   } | {
     kind: 'canonical-copy-stack-target'
     stackId: string
@@ -217,6 +253,14 @@ export const selectOptions: Plugin = {
       const original = draft.stack.find((item) => item.id === action.copyStackId)
       if (!frame || !original) return
       if (event.optionId === 'keep') {
+        const job = frame.pendingCopyTargets?.[0]
+        if (job && selection.action.slotIndex !== undefined) {
+          job.answers = [...(job.answers ?? []), job.targets[selection.action.slotIndex]]
+          job.slotCursor = selection.action.slotIndex + 1
+          delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+          openNextCopySlot(draft, frame)
+          return
+        }
         const eventToQueue = { type: 'copySpell' as const, stackId: original.id, controller: selection.action.controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId }
         frame.afterChoiceEvents = [...(frame.afterChoiceEvents ?? []), eventToQueue]
         const next = selection.action.remaining?.[0]
