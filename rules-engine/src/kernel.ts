@@ -874,7 +874,9 @@ const driveResolution = (
     }
     const completed = makeDraft(current)
     finishResolution(completed)
-    return { ok: true, state: freezeDraft(completed), trace: entries }
+    current = freezeDraft(completed)
+    if (current.resolution) continue
+    return { ok: true, state: current, trace: entries }
   }
   return {
     ok: false,

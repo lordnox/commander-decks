@@ -21,6 +21,7 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 
 const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
 
@@ -135,6 +136,42 @@ describe('announcement transactions', () => {
     if (result.ok) {
       expect(result.state.stack).toHaveLength(0)
       expect(result.state.players.p1.mana.G).toBe(1)
+    }
+  })
+
+  test('canonical mana choices resume the remaining program after JSON restore', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [
+        {
+          kind: 'chooseInstructions',
+          chooser: ref('controller'),
+          count: { kind: 'constant', value: 1 },
+          whenInsufficient: 'chooseAvailable',
+          options: [{ instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }] }],
+        },
+        { kind: 'addMana', amount: { R: { kind: 'constant', value: 1 } }, targets: ref('controller') },
+      ],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Canonical choosing source', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Canonical choosing source')!
+    const started = server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const restored = JSON.parse(JSON.stringify(started.state))
+    const pending = pendingOptionSelection(restored, 'p1')
+    expect(pending).toBeDefined()
+    if (!pending) return
+    const answered = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'instruction:0' })
+    expect(answered.ok).toBe(true)
+    if (answered.ok) {
+      expect(answered.state.stack).toHaveLength(0)
+      expect(answered.state.players.p1.mana.G).toBe(1)
+      expect(answered.state.players.p1.mana.R).toBe(1)
     }
   })
 })

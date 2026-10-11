@@ -19,41 +19,48 @@ import { captureObject, targetObject } from '../objectIdentity'
 import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
-import { openOptionSelection } from '../rules/selectOptions'
+import { startCanonicalResolution } from '../driver'
+import type { Instruction } from './dsl/schema/v1'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
+const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
+  switch (instruction.kind) {
+    case 'draw':
+    case 'mill':
+      return true
+    case 'move':
+      return instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library'
+    case 'sequence':
+      return instructionMovesLibrary(instruction.instructions)
+    case 'if':
+      return instructionMovesLibrary(instruction.then) || instructionMovesLibrary(instruction.otherwise)
+    case 'chooseInstructions':
+      return instruction.options.some((option) => instructionMovesLibrary(option.instructions))
+    default:
+      return false
+  }
+})
+
+const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
+  switch (instruction.kind) {
+    case 'addMana': return true
+    case 'sequence': return instructionAddsMana(instruction.instructions)
+    case 'if': return instructionAddsMana(instruction.then) || instructionAddsMana(instruction.otherwise)
+    case 'chooseInstructions': return instruction.options.some((option) => instructionAddsMana(option.instructions))
+    default: return false
+  }
+})
+
 const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileCardRuleDefinition>['definition']['abilities'][number], { kind: 'activated' }>) => {
-  const movesLibrary = (ability.instructions ?? []).some((instruction) => {
-    if (instruction.kind === 'draw' || instruction.kind === 'mill') return true
-    return instruction.kind === 'move'
-      && instruction.targets.kind === 'objects'
-      && instruction.targets.filter.zone === 'library'
-  })
   return classifyManaAbility({
-    addsMana: (ability.instructions ?? []).some((instruction) => instruction.kind === 'addMana'),
+    addsMana: instructionAddsMana(ability.instructions ?? []),
     abilityKind: 'activated',
     hasTargets: ability.decisions.targets.length > 0,
     hasLoyaltyCost: false,
-    movesCards: movesLibrary,
+    movesCards: instructionMovesLibrary(ability.instructions ?? []),
   })
 }
-
-const immediateManaInstructions = (instructions: readonly import('./dsl/schema/v1').Instruction[]): readonly import('./dsl/schema/v1').Instruction[] =>
-  instructions.flatMap((instruction) => {
-    if (instruction.kind === 'sequence') return immediateManaInstructions(instruction.instructions)
-    if (instruction.kind === 'if'
-      && instruction.condition.kind === 'compareAmount'
-      && instruction.condition.left.kind === 'constant'
-      && instruction.condition.right.kind === 'constant') {
-      const left = instruction.condition.left.value
-      const right = instruction.condition.right.value
-      const holds = instruction.condition.operator === 'eq' ? left === right
-        : instruction.condition.operator === 'gte' ? left >= right : left <= right
-      return immediateManaInstructions(holds ? instruction.then : instruction.otherwise)
-    }
-    return [instruction]
-  })
 
 const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
@@ -318,48 +325,47 @@ export const activated: Plugin = {
           }
           choiceIndex += count
         }
+        const resolvedTargets = event.targets ?? event.targetClauses?.flat() ?? []
+        const canonicalExecution = {
+          controller: event.seat,
+          source: captureObject(source),
+          definitionSnapshot: createDefinitionSnapshot(compiled),
+          abilityIndex: Number(abilityIndex),
+          targetBindings: canonicalTargetBindings(
+            draft,
+            source,
+            compiled.definition,
+            Number(abilityIndex),
+            resolvedTargets,
+            undefined,
+            event.targetClauses,
+            event.seat,
+            event.x,
+          ),
+          announcement: {
+            id: committed.id,
+            sourceId: committed.proposal.sourceId,
+            phase: 'committed' as const,
+            lockedCost: committed.lockedCost,
+            payment: committed.payment,
+          },
+        }
         if (manaClassification.isManaAbility) {
-          for (const instruction of immediateManaInstructions(canonical.instructions ?? [])) {
-            if (instruction.kind === 'chooseInstructions') {
-              openOptionSelection(draft, {
-                seat: event.seat,
-                sourceId: source.id,
-                source: source.name,
-                prompt: 'Choose a mana program.',
-                options: instruction.options.map((_option, index) => ({ id: `instruction:${index}`, label: `Option ${index + 1}` })),
-                action: { kind: 'inlineManaInstructionChoice', options: instruction.options.map((option, index) => ({ id: `instruction:${index}`, instructions: option.instructions })) },
-              })
-              draft.priority = null
-              return
-            }
-            if (instruction.kind === 'move' && instruction.targets.kind === 'objects') {
-              for (const object of Object.values(draft.objects)) {
-                const filter = instruction.targets.filter
-                if (object.zone === filter.zone && (!filter.type || object.types.includes(filter.type))
-                  && object.controller === event.seat) draft.move(object.id, instruction.to)
-              }
-            }
-            if (instruction.kind === 'addMana') {
-              const targetSeats = instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
-                ? [event.seat]
-                : []
-              for (const seat of targetSeats) {
-                const manaPool = draft.players[seat].mana
-                for (const [symbol, amount] of Object.entries(instruction.amount)) {
-                  const manaKey = symbol as keyof typeof manaPool
-                  if (amount.kind === 'constant') manaPool[manaKey] += amount.value
-                  else if (amount.kind === 'variable' && event.x !== undefined) manaPool[manaKey] += event.x
-                }
-              }
-            }
+          const inlineItem = {
+            id: draft.allocId('inline'),
+            kind: 'ability' as const,
+            objectId: source.id,
+            controller: event.seat,
+            name: source.name,
+            targets: resolvedTargets,
+            abilityId: event.abilityId,
+            ...(event.x !== undefined ? { x: event.x } : {}),
+            ...(event.choices ? { choices: event.choices } : {}),
+            payload: { instructions: canonical.instructions ?? [] },
+            execution: canonicalExecution,
           }
-          for (const instruction of immediateManaInstructions(canonical.instructions ?? [])) {
-            if (instruction.kind !== 'gainLife' && instruction.kind !== 'loseLife') continue
-            if (instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
-              && instruction.amount.kind === 'constant') {
-              draft.enqueue({ type: instruction.kind, seat: event.seat, amount: instruction.amount.value, source: source.id })
-            }
-          }
+          startCanonicalResolution(draft, inlineItem, { inline: true })
+          draft.priority = null
           return
         }
         draft.addToStack({
@@ -367,33 +373,10 @@ export const activated: Plugin = {
           objectId: source.id,
           controller: event.seat,
           name: source.name,
-          targets: event.targets ?? event.targetClauses?.flat() ?? [],
+          targets: resolvedTargets,
           abilityId: event.abilityId,
           payload: { instructions: canonical.instructions ?? [] },
-          execution: {
-            controller: event.seat,
-            source: captureObject(source),
-            definitionSnapshot: createDefinitionSnapshot(compiled),
-            abilityIndex: Number(abilityIndex),
-            targetBindings: canonicalTargetBindings(
-              draft,
-              source,
-              compiled.definition,
-              Number(abilityIndex),
-              event.targets ?? event.targetClauses?.flat() ?? [],
-              undefined,
-              event.targetClauses,
-              event.seat,
-              event.x,
-            ),
-            announcement: {
-              id: committed.id,
-              sourceId: committed.proposal.sourceId,
-              phase: 'committed',
-              lockedCost: committed.lockedCost,
-              payment: committed.payment,
-            },
-          },
+          execution: canonicalExecution,
           ...(event.x !== undefined ? { x: event.x } : {}),
         })
         draft.passedInRow = []

@@ -310,8 +310,8 @@ export const beginSpellAnnouncement = (
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
-    .concat((state.players[payer].restrictedMana ?? []).map((mana) => ({
-      sourceId: mana.sourceId,
+    .concat((state.players[payer].restrictedMana ?? []).map((mana, index) => ({
+      sourceId: `${mana.sourceId}#${index}`,
       mana: mana.mana,
       amount: 1,
       restricted: true,
@@ -341,8 +341,8 @@ export const beginActivatedAnnouncement = (
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
-    .concat((state.players[payer].restrictedMana ?? []).map((mana) => ({
-      sourceId: mana.sourceId,
+    .concat((state.players[payer].restrictedMana ?? []).map((mana, index) => ({
+      sourceId: `${mana.sourceId}#${index}`,
       mana: mana.mana,
       amount: 1,
       restricted: true,
