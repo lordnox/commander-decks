@@ -66,17 +66,19 @@ const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
 }
 
 const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
-  if (event.type !== 'addMana' || !event.sourceId) return false
-  const source = state.objects[event.sourceId]
-  if (!source?.ruleDefinition) return false
-  const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
-  return definition.abilities.some((ability) => ability.kind === 'activated'
-    && classifyManaAbility({
-      addsMana: instructionAddsMana(ability.instructions ?? []),
-      abilityKind: 'activated',
-      hasTargets: ability.decisions.targets.length > 0,
-      movesCards: false,
-    }).isManaAbility)
+  if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false
+  const sourceId = event.payload?.sourceId
+  const definitionSnapshot = event.payload?.definitionSnapshot
+  const abilityIndex = event.payload?.abilityIndex
+  if (typeof sourceId !== 'string' || typeof abilityIndex !== 'number' || !definitionSnapshot) return false
+  const definition = loadDefinitionSnapshot(definitionSnapshot).definition
+  const ability = definition.abilities[abilityIndex]
+  return ability?.kind === 'activated' && classifyManaAbility({
+    addsMana: instructionAddsMana(ability.instructions ?? []),
+    abilityKind: 'activated',
+    hasTargets: ability.decisions.targets.length > 0,
+    movesCards: false,
+  }).isManaAbility
 }
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])

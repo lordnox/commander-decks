@@ -428,16 +428,32 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   const prohibited = Object.values(input.state.objects).some((watcher) => {
     const definition = watcher.ruleDefinition?.definition as import('../schema/v1').CardRuleDefinitionV1 | undefined
     if (!definition || !watcher.zone || !watcher.controller || watcher.phasedOut) return false
+    const objectMatches = (filter: import('../schema/v1').ObjectFilter): boolean => {
+      if (filter.all && !filter.all.every(objectMatches)) return false
+      if (filter.any && !filter.any.some(objectMatches)) return false
+      if (filter.not && objectMatches(filter.not)) return false
+      if (filter.name !== undefined && source.name !== filter.name) return false
+      if (filter.type !== undefined && !source.types.includes(filter.type)) return false
+      if (filter.zone !== undefined && source.zone !== filter.zone) return false
+      if (filter.subtypes && !filter.subtypes.every((type) => source.subtypes.includes(type))) return false
+      if (filter.token !== undefined && source.token !== filter.token) return false
+      if (filter.owner === 'you' && source.owner !== watcher.controller) return false
+      if (filter.controller === 'you' && source.controller !== watcher.controller) return false
+      return true
+    }
+    const playerMatches = (filter: import('../schema/v1').PlayerFilter): boolean => {
+      if (filter.all && !filter.all.every(playerMatches)) return false
+      if (filter.any && !filter.any.some(playerMatches)) return false
+      if (filter.not && playerMatches(filter.not)) return false
+      if (filter.relation === 'you' && input.payer !== watcher.controller) return false
+      if (filter.relation === 'opponent' && input.payer === watcher.controller) return false
+      return true
+    }
     return definition.abilities.some((ability) => ability.kind === 'static'
       && ability.activeIn.includes(watcher.zone as import('../schema/v1').Zone)
       && ability.effects.some((effect) => effect.kind === 'prohibitActivation'
-        && (effect.filter.abilitySource?.name === undefined || effect.filter.abilitySource.name === source.name)
-        && (effect.filter.abilitySource?.type === undefined || source.types.includes(effect.filter.abilitySource.type))
-        && (effect.filter.abilitySource?.subtypes === undefined || effect.filter.abilitySource.subtypes.every((type) => source.subtypes.includes(type)))
-        && (effect.filter.activator?.relation === undefined
-          || effect.filter.activator.relation === 'any'
-          || (effect.filter.activator.relation === 'you' && watcher.controller === input.payer)
-          || (effect.filter.activator.relation === 'opponent' && watcher.controller !== input.payer))))
+        && (!effect.filter.abilitySource || objectMatches(effect.filter.abilitySource))
+        && (!effect.filter.activator || playerMatches(effect.filter.activator))) )
   })
   if (prohibited) return `${source.name} activation is prohibited`
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`
