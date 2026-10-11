@@ -1,6 +1,7 @@
 import { pendingDialogLock } from './pendingDialog'
 import { continuousEffects } from './cardPlugins/continuousEffects'
 import { abilities } from './plugins/activateAbility'
+import { activated as canonicalActivated } from './cardPlugins/activated'
 import { advancedCombatPrevention } from './plugins/advancedCombatPrevention'
 import { battle } from './plugins/battle'
 import { combat } from './plugins/combat'
@@ -83,6 +84,7 @@ export const corePlugins = [
   continuousEffects,
   priority,
   abilities,
+  canonicalActivated,
   mana,
   lands,
   spells,

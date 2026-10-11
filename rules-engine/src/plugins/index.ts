@@ -49,6 +49,7 @@ import { stateBased } from './stateBased'
 import { discard, draw, instructionResume, selectCards, selectOptions, selectPlayers, triggers } from '../rules/main'
 import { turnStructure } from './turnStructure'
 import { warp } from './warp'
+import { activated as canonicalActivated } from '../cardPlugins/activated'
 
 /** Available implementations. A GameFormat decides which become live rules. */
 export const builtInPlugins = [
@@ -62,6 +63,7 @@ export const builtInPlugins = [
   continuousEffects,
   priority,
   abilities,
+  canonicalActivated,
   mana,
   lands,
   spells,
