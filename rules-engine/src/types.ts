@@ -477,6 +477,12 @@ export type CanonicalResolutionFrame = {
   pendingDiscard?: { scopeId?: string; seats: PlayerId[]; index: number; amount: number; selected: Array<{ seat: PlayerId; objectId: string }>; binding?: string }
   /** Instruction continuations blocked on a typed choice. */
   afterChoiceEvents?: GameEvent[]
+  /** Copies awaiting ordered keep/retarget answers before the parent resumes. */
+  pendingCopyTargets?: {
+    originalStackId: string
+    controller: PlayerId
+    targets: TargetRef[]
+  }[]
 }
 
 /** Temporary durable wrapper for legacy programs until their card is migrated. */

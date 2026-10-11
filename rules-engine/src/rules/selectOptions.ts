@@ -67,6 +67,7 @@ export type PendingOptionSelection = {
     stackId: string
     copyStackId: string
     controller: PlayerId
+    remaining?: { copyStackId: string; controller: PlayerId }[]
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
