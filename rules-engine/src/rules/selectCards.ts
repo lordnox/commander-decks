@@ -21,6 +21,7 @@ import { registerDelayedTrigger } from './delayedTriggers'
 import { objectIdentity, targetObject } from '../objectIdentity'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
+import { advanceCopySlot } from './selectOptions'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -148,6 +149,7 @@ export type PendingCardSelection = {
     action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets'
     copySpellStackId?: string
     copyController?: PlayerId
+    copySlotIndex?: number
     copyRemaining?: { copyStackId: string; controller: PlayerId }[]
   }
   /** Pay this mana only if at least one card is chosen. */
@@ -589,6 +591,14 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       }),
     }
     if (canonicalChoice.action === 'copySpellTargets') {
+      if (draft.resolution.pendingCopyTargets?.length) {
+        const objectId = event.objectIds?.[0]
+        const object = objectId ? draft.object(objectId) : undefined
+        if (object) {
+          advanceCopySlot(draft, draft.resolution, { kind: 'object', ...objectIdentity(object) })
+          return
+        }
+      }
       const original = draft.stack.find((item) => item.id === canonicalChoice.copySpellStackId)
       if (original) {
         const selected = (event.objectIds ?? []).flatMap((objectId) => {

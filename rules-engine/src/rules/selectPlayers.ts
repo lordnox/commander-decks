@@ -3,6 +3,7 @@ import type { CardCondition, CardInstruction } from '../cardPlugins/effects'
 import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } from '../types'
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
 import { openOpponentPilePartition } from './selectCards'
+import { advanceCopySlot } from './selectOptions'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { TargetRef } from '../types'
 
@@ -19,7 +20,7 @@ export type PendingPlayerSelection = {
   candidates: PlayerId[]
   action:
     | { kind: 'canonicalProliferatePlayers'; stackId: string }
-    | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; remaining?: { copyStackId: string; controller: PlayerId }[] }
+    | { kind: 'canonicalCopyTargets'; stackId: string; copyStackId: string; controller: PlayerId; remaining?: { copyStackId: string; controller: PlayerId }[]; slotIndex?: number }
     | { kind: 'exchangeLifeTotals'; drawLifeLost?: boolean }
     | { kind: 'drawHandDifference' }
     | { kind: 'copyStackItem'; stackId: string }
@@ -164,6 +165,10 @@ export const selectPlayers: Plugin = {
       }
     }
     if (selection.action.kind === 'canonicalCopyTargets' && target) {
+      if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.pendingCopyTargets?.length) {
+        advanceCopySlot(draft, draft.resolution, { kind: 'player', player: target })
+        return
+      }
       const action = selection.action
       const original = draft.stack.find((item) => item.id === action.copyStackId)
       if (original) {

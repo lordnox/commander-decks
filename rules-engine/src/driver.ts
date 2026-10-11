@@ -30,7 +30,7 @@ import type {
   GameObject,
 } from './types'
 import { hasKeyword } from './keywords'
-import { openOptionSelection } from './rules/selectOptions'
+import { openOptionSelection, openNextCopySlot } from './rules/selectOptions'
 import { openCardSelection } from './rules/selectCards'
 import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
@@ -478,35 +478,8 @@ const actionEvents = (
             return item ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
           })).filter((job): job is NonNullable<typeof job> => Boolean(job))
           frame.pendingCopyTargets = jobs
-          const first = jobs[0]
-          if (first) {
-          const abilitySnapshot = original.execution?.definitionSnapshot
-          const abilityIndex = original.execution?.abilityIndex
-          const copyDefinition = abilitySnapshot ? loadDefinitionSnapshot(abilitySnapshot).definition : undefined
-          const inferredAbilityIndex = abilityIndex ?? copyDefinition?.abilities.findIndex((ability) => ability.kind === 'spell')
-          const copyAbility = copyDefinition && inferredAbilityIndex !== undefined && inferredAbilityIndex >= 0
-            ? copyDefinition.abilities[inferredAbilityIndex]
-            : undefined
-          if (!copyAbility || !('decisions' in copyAbility)) {
-            throw pathError(frame, path, 'copySpell retargeting has no pinned canonical definition')
-          }
-          openOptionSelection(draft, {
-            seat: context.controller,
-            sourceId: frame.source.ref.objectId,
-            source: frame.source.snapshot.name,
-            prompt: 'Keep the copied spell targets or choose new targets.',
-            options: [
-              { id: 'keep', label: 'Keep the original targets' },
-              { id: 'retarget', label: 'Choose new targets' },
-            ],
-            action: {
-              kind: 'canonical-copy-retarget',
-              stackId: frame.stackId,
-              copyStackId: first.originalStackId,
-              controller: first.controller,
-              slotIndex: 0,
-            },
-          })
+          if (jobs.length > 0) {
+          openNextCopySlot(draft, frame)
           frame.phase = 'committing'
           frame.pendingEvents = []
           return []
