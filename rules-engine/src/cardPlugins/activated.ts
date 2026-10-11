@@ -16,6 +16,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { targetObject } from '../objectIdentity'
+import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition } from './dsl/compiler'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
@@ -88,6 +89,24 @@ export const activated: Plugin = {
     if (event.type !== 'activateAbility') return
     const source = state.objects[event.objectId]
     if (!source) return 'no such object'
+    if (source.ruleDefinition) {
+      const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+      const canonical = compiled.definition.abilities.find((ability): ability is Extract<typeof ability, { kind: 'activated' }> => ability.kind === 'activated')
+      if (canonical) {
+        const permissionError = activationPermission({
+          state,
+          sourceId: source.id,
+          payer: event.seat,
+          action: event.manaAbility ? 'nestedPayment' : 'activate',
+          sorcerySpeed: canonical.timing === 'sorcery',
+        })
+        if (permissionError) return permissionError
+        if (canonical.decisions.targets.length === 0) {
+          const announcement = beginActivatedAnnouncement(state, source, event.seat, canonical, [], event.x)
+          if (!announcement.ok) return `announcement: ${announcement.error}`
+        }
+      }
+    }
     const effect = activateEffect(effectsOf(source), event.abilityId)
     if (!effect) return
     if (effect.costs.loyalty !== undefined || effect.costs.loyaltyX) return

@@ -9,9 +9,10 @@ import {
   rollbackAnnouncement,
   select,
   objects,
+  players,
 } from './v1'
 
-const state = { players: { p1: {} } } as unknown as Parameters<typeof beginAnnouncement>[0]
+const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
 
 describe('announcement transactions', () => {
   test('locks the total cost and commits only after full payment', () => {
@@ -51,7 +52,7 @@ describe('announcement transactions', () => {
     const result = beginAnnouncement(state, {
       payer: 'p1', sourceId: 'spell', variables: { X: 0 },
       costs: { mandatory: [manaCost('{0}')] }, payment: [],
-      targetClauses: [select({ filter: objects({}), count: 1 })],
+      targetClauses: [select({ filter: players({}), count: 1 })],
       targets: [[{ kind: 'player', player: 'p1' }]],
     })
     expect(result.ok).toBe(true)
@@ -60,7 +61,7 @@ describe('announcement transactions', () => {
 
   test('mana classification requires a complete mana ability, including triggered mana', () => {
     expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated' }).isManaAbility).toBe(true)
-    expect(classifyManaAbility({ addsMana: true, abilityKind: 'triggered', triggered: true }).kind).toBe('triggeredMana')
+    expect(classifyManaAbility({ addsMana: true, abilityKind: 'triggered', triggered: true, triggeredManaEligible: true }).kind).toBe('triggeredMana')
     expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated', hasOtherInstruction: true }).isManaAbility).toBe(false)
   })
 

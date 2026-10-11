@@ -41,7 +41,7 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { compileCardRuleDefinition } from '../cardPlugins/dsl/compiler'
+import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition } from '../cardPlugins/dsl/compiler'
 import { pinTarget } from '../objectIdentity'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
@@ -367,6 +367,17 @@ export const spells: Plugin = {
             event.x,
           )
           if (targetError) return targetError
+          if (ability.kind === 'spell' && (event.targetClauses || ability.decisions.targets.length === 0)) {
+            const announcement = beginSpellAnnouncement(
+              state,
+              object,
+              event.seat,
+              ability,
+              event.targetClauses ?? [],
+              event.x,
+            )
+            if (!announcement.ok) return `announcement: ${announcement.error}`
+          }
           const flagbearerError = canonicalFlagbearerError(
             state,
             spell,
@@ -575,7 +586,17 @@ export const spells: Plugin = {
         state.objects[event.objectId],
         event.castOption,
       )
-      const cost = reduceGenericManaCost(spellCost(state, object, {
+      let canonicalLockedCost: string | undefined
+      if (object.ruleDefinition && !event.copy) {
+        const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
+        const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
+        if (ability?.kind === 'spell' && (event.targetClauses || ability.decisions.targets.length === 0)) {
+          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, event.targetClauses ?? [], event.x)
+          if (!announcement.ok) return
+          canonicalLockedCost = commitAnnouncement(announcement.transaction).lockedCost.mana
+        }
+      }
+      const cost = reduceGenericManaCost(canonicalLockedCost ?? spellCost(state, object, {
         additionalGeneric: event.additionalGeneric,
         x: event.x,
         castOption: event.castOption,
