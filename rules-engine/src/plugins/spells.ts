@@ -354,6 +354,19 @@ export const spells: Plugin = {
   id: 'spells',
   replace: ({ state, event }) => {
     if (event.type !== 'castSpell' || event.canonicalTransaction || event.copy) return
+    if (event.manaActivations && event.manaActivations.length > 0) {
+      const activations = event.manaActivations.map((plan) => ({
+        type: 'activateAbility' as const,
+        seat: event.seat,
+        objectId: plan.objectId,
+        abilityId: plan.abilityId,
+        manaAbility: true,
+        ...(plan.choices ? { choices: plan.choices } : {}),
+        ...(plan.x !== undefined ? { x: plan.x } : {}),
+      }))
+      const { manaActivations: _plan, ...cast } = event
+      return [...activations, cast]
+    }
     const object = state.objects[event.objectId]
     if (!object?.ruleDefinition) return
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
@@ -658,7 +671,7 @@ export const spells: Plugin = {
       if (phyrexianLife.length * 2 > state.players[event.seat].life) {
         return 'not enough life for Phyrexian mana'
       }
-      if (!paySpellCost(state, event.seat, spell, cost, {
+      if (!event.manaActivations && !paySpellCost(state, event.seat, spell, cost, {
         creatures: creatures.map(convokeColors),
         phyrexianLife,
       })) return 'not enough mana'

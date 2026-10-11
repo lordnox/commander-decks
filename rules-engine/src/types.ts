@@ -736,6 +736,8 @@ export type GameEvent =
       withoutPayingMana?: boolean
       /** Server-private serializable canonical announcement continuation. */
       canonicalTransaction?: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
+      /** Explicit server-validated mana activation plan used before payment. */
+      manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
       wardPaid?: boolean
       selectedOptionalCosts?: number[]
       selectedAlternativeCost?: number
