@@ -653,7 +653,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           action: { kind: 'canonicalProliferatePlayers', stackId: frame.stackId },
         })
       }
-    frame.phase = 'committing'
+      frame.phase = 'committing'
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
     }

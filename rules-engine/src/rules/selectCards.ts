@@ -604,10 +604,11 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           action: { kind: 'canonicalProliferatePlayers', stackId: canonicalChoice.stackId },
         })
       } else if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.pendingProliferate) {
-        draft.resolution.pendingEvents = draft.resolution.pendingProliferate.objectIds.flatMap((objectId) => {
+        const events = draft.resolution.pendingProliferate.objectIds.flatMap((objectId) => {
           const object = draft.object(objectId)
           return object ? Object.keys(object.counters).map((counter) => ({ type: 'proliferateCounter' as const, recipient: { kind: 'object' as const, objectId, counter } })) : []
         })
+        draft.resolution.pendingEvents = events.length > 1 ? [{ type: 'actionGroup', events }] : events
         delete draft.resolution.pendingProliferate
       }
     }
