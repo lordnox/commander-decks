@@ -11,6 +11,7 @@ type Choice = {
 }
 
 type Answer = { card: string; slot?: number; destination: TopdeckDestination }
+type AllocationAnswer = Array<{ id: string; amount: number }>
 
 /** The host tells same-named cards apart by position, so every answer carries it. */
 export const answerFor = (choices: Choice[]): Answer[] =>
@@ -58,7 +59,7 @@ export const TopdeckDialog = ({
   decision: LiveTopdeck
   prompt?: string
   pending: boolean
-  onResolve: (choices: Answer[]) => void
+  onResolve: (choices: Answer[], allocation?: AllocationAnswer) => void
 }) => {
   const discarding = decision.kind === 'discard'
   const puttingLand = decision.kind === 'put-land'
@@ -88,6 +89,8 @@ export const TopdeckDialog = ({
   const [hidden, setHidden] = useState(false)
   const [previewCard, setPreviewCard] = useState<string | null>(null)
   const [previewPinned, setPreviewPinned] = useState(false)
+  const allocation = decision.interaction?.selection.kind === 'allocate' ? decision.interaction.selection : undefined
+  const [allocationValues, setAllocationValues] = useState<Record<string, string>>({})
   const [query, setQuery] = useState('')
   const [upkeepRecipients, setUpkeepRecipients] = useState<string[]>(
     Array.from(
@@ -368,7 +371,17 @@ export const TopdeckDialog = ({
         )}
         </div>
 
-        <ol className="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">
+        {allocation ? (
+          <div className="mt-5 space-y-3">
+            <p className="text-sm text-stone-300">Allocate {allocation.total} total, at least {allocation.minEach} each.</p>
+            {allocation.entries.map((entry) => (
+              <label key={entry.id} className="flex items-center justify-between gap-3 text-sm text-stone-200">
+                <span>{entry.label ?? entry.id}</span>
+                <input aria-label={entry.label ?? entry.id} type="number" min={allocation.minEach} max={entry.max} value={allocationValues[entry.id] ?? ''} onChange={(event) => setAllocationValues((current) => ({ ...current, [entry.id]: event.target.value }))} className="w-28 rounded bg-white/10 px-2 py-1 text-right" />
+              </label>
+            ))}
+          </div>
+        ) : <ol className="-mx-1 mt-5 min-h-0 flex-1 space-y-3 overflow-y-auto px-1">
           {visibleChoices.map((choice) => {
             const details = game.catalog[choice.card]
             const displayName = targetingPlayers || voting
@@ -478,13 +491,13 @@ export const TopdeckDialog = ({
               </li>
             )
           })}
-        </ol>
+        </ol>}
 
         {(choices.length > 1 || searching) && (
           <button
             type="button"
-            onClick={() => onResolve(answerFor(choices))}
-            disabled={pending || !valid(choices)}
+            onClick={() => onResolve(answerFor(choices), allocation?.entries.map((entry) => ({ id: entry.id, amount: Number(allocationValues[entry.id]) })))}
+            disabled={pending || (allocation ? allocation.entries.some((entry) => !Number.isSafeInteger(Number(allocationValues[entry.id]))) || allocation.entries.reduce((sum, entry) => sum + Number(allocationValues[entry.id]), 0) !== allocation.total : !valid(choices))}
             className="mt-5 shrink-0 self-start rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 hover:bg-purple-100 disabled:opacity-40"
           >
             {pending

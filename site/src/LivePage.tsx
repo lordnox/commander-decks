@@ -1510,8 +1510,9 @@ export const LivePage = () => {
           decision={snapshot.topdeck}
           prompt={snapshot.waiting}
           pending={actionPending}
-          onResolve={(choices) => void sendInbox('topdeck', {
+          onResolve={(choices, allocation) => void sendInbox('topdeck', {
             choices,
+            ...(allocation ? { allocation } : {}),
             requestId: snapshot.topdeck?.requestId,
             revision: snapshot.topdeck?.revision,
           })}
