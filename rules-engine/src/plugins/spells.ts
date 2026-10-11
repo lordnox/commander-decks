@@ -373,10 +373,10 @@ export const spells: Plugin = {
         groupedTargets,
         event.x,
         [...(event.discard ?? []), ...(event.sacrifice ?? [])],
-        { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost },
+        { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost, deferPayment: true },
       )
       if (!locked.ok) return
-      const transaction = commitAnnouncement(locked.transaction)
+      const transaction = locked.transaction
       const activations = event.manaActivations.map((plan) => ({
         type: 'activateAbility' as const,
         seat: event.seat,
@@ -764,6 +764,7 @@ export const spells: Plugin = {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
+            deferPayment: Boolean(event.manaActivations),
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
               additionalGeneric: event.additionalGeneric,
               x: event.x,

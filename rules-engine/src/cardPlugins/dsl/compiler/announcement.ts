@@ -38,6 +38,8 @@ export type AnnouncementProposal = {
   excludeSourceFromCosts?: boolean
   /** Server-computed generic adjustment from format and legacy cost modifiers. */
   genericAdjustment?: number
+  /** Server-only planned payment may lock before mana activations run. */
+  deferPayment?: boolean
 }
 
 export type LockedAnnouncementCost = {
@@ -282,14 +284,14 @@ export const beginAnnouncement = (
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)
     const availableMana = state.players[proposal.payer].mana
-    if (availableMana) {
+    if (!proposal.deferPayment && availableMana) {
       for (const symbol of Object.keys(pool) as ManaId[]) {
         const unrestricted = payment.filter((entry) => !entry.restricted && entry.mana === symbol)
           .reduce((total, entry) => total + (entry.amount ?? 1), 0)
         if (unrestricted > availableMana[symbol]) return { ok: false, error: `payment spends more ${symbol} mana than the payer has` }
       }
     }
-    if (mana && !payCost(pool, mana)) return { ok: false, error: 'payment does not cover the locked total cost' }
+    if (!proposal.deferPayment && mana && !payCost(pool, mana)) return { ok: false, error: 'payment does not cover the locked total cost' }
     const transaction: AnnouncementTransaction = {
       id,
       proposal: structuredClone(proposal),
@@ -312,7 +314,7 @@ export const beginSpellAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number } = {},
+  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -340,6 +342,7 @@ export const beginSpellAnnouncement = (
     payment,
     nonManaChoices,
     ...options,
+    ...(options.deferPayment ? { deferPayment: true } : {}),
   }, `spell:${source.id}`)
 }
 
@@ -351,7 +354,7 @@ export const beginActivatedAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number } = {},
+  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
