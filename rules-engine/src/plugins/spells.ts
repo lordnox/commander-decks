@@ -1071,12 +1071,14 @@ export const spells: Plugin = {
           if (modal?.modeCount !== undefined) stacked.execution.modeCount = modal.modeCount
           if (event.distributionBindings) stacked.execution.distributionBindings = structuredClone(event.distributionBindings)
           const lockedDistributionBounds = canonicalTransaction?.distributionBounds
-            ?? selectedDistributionSpecs(ability, event.modeIndices).map((spec) => evaluateDistributionBounds(spec, amountEvaluationContext({
-              state,
-              controller: event.seat,
-              source: captureObject(object),
-              variables: event.x === undefined ? undefined : { X: event.x },
-            })))
+            ?? (ability.kind === 'spell'
+              ? selectedDistributionSpecs(ability, event.modeIndices).map((spec) => evaluateDistributionBounds(spec, amountEvaluationContext({
+                  state,
+                  controller: event.seat,
+                  source: captureObject(object),
+                  variables: event.x === undefined ? undefined : { X: event.x },
+                })))
+              : [])
           if (lockedDistributionBounds.length > 0) stacked.execution.distributionBounds = structuredClone(lockedDistributionBounds)
           stacked.execution.announcement = canonicalTransaction
             ? {

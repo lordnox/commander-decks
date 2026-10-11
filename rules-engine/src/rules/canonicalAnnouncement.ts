@@ -38,7 +38,7 @@ const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
     : announcement.source
 }
 
-export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
+export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement): boolean => {
   const source = sourceFor(draft, announcement)
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]

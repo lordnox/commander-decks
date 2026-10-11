@@ -10,7 +10,7 @@ import type { GameState } from '../../rules-engine/src/types'
 test('live host routes planned payment and cancellation through the kernel act protocol', () => {
   const sourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
     kind: 'activated', availableFrom: ['battlefield'], timing: 'anyTime', costs: [], decisions: { targets: [] },
-    instructions: [{ kind: 'chooseInstructions', chooser: ref('controller'), count: amount(1), whenInsufficient: 'chooseAvailable', options: [{ instructions: [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }] }] }],
+    instructions: [{ kind: 'chooseInstructions', chooser: ref('controller'), count: { kind: 'constant', value: 1 as const }, whenInsufficient: 'chooseAvailable', options: [{ instructions: [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }] }] }],
   }])))
   const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{G}')], decisions: { targets: [] }, instructions: [] }])))
   const server = createServerGame(commanderRules, { players: 2, battlefield: { p1: [cardTemplate('Host planned source', { types: ['Artifact'], ruleDefinition: sourceDefinition })] }, hands: { p1: [cardTemplate('Host planned spell', { types: ['Sorcery'], manaCost: '{G}', ruleDefinition: spellDefinition })] } }, { random: () => 0 })
