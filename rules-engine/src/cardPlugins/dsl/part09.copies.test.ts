@@ -8,12 +8,12 @@ import {
   spell,
   stackItems,
 } from './v1'
-import { copyTargets, openCanonicalCopyRetargeting, resolveCanonicalCopyTargets } from './copies'
-import { InteractionStore } from '../../interaction'
+import { copyTargets, resolveCanonicalCopyTargets } from './copies'
 import { createDefinitionSnapshot } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { pendingSelectionFor } from '../../rules/selectCards'
 
 describe('Rule DSL Part 09 spell copies', () => {
   test('copySpell is a stack action and keeps its explicit retargeting procedure', () => {
@@ -37,22 +37,6 @@ describe('Rule DSL Part 09 spell copies', () => {
     expect(resolveCanonicalCopyTargets({} as never, original, {} as never, { kind: 'keep' })).toMatchObject({ ok: true })
   })
 
-  test('retargeting offer survives store snapshot and rejects stale or forged answers', () => {
-    const store = new InteractionStore<{ stackId: string; sourceId: string; controller: string; definitionRevision: string; originalTargets: readonly never[] }>()
-    openCanonicalCopyRetargeting(store, {
-      requestId: 'copy-targets', revision: 3, chooser: 'p1',
-      source: { name: 'Copy spell', objectId: 'source' },
-    }, {
-      stackId: 'spell', sourceId: 'source', controller: 'p1', definitionRevision: 'rev-1', originalTargets: [],
-    })
-    const restored = new InteractionStore<typeof store extends InteractionStore<infer T> ? T : never>()
-    restored.restore(store.snapshot())
-    expect(restored.answer({ requestId: 'copy-targets', revision: 2, chooser: 'p1', selection: { kind: 'selectOptions', ids: ['keep'] } })).toMatchObject({ kind: 'invalid' })
-    expect(restored.answer({ requestId: 'copy-targets', revision: 3, chooser: 'p2', selection: { kind: 'selectOptions', ids: ['keep'] } })).toMatchObject({ kind: 'invalid' })
-    expect(restored.answer({ requestId: 'copy-targets', revision: 3, chooser: 'p1', selection: { kind: 'selectOptions', ids: ['forged'] } })).toMatchObject({ kind: 'invalid' })
-    expect(restored.answer({ requestId: 'copy-targets', revision: 3, chooser: 'p1', selection: { kind: 'selectOptions', ids: ['keep'] } })).toMatchObject({ kind: 'accepted' })
-  })
-
   test('runtime retarget answer persists the changed player binding and removes only the copy', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
       kind: 'spell', costs: [],
@@ -70,5 +54,50 @@ describe('Rule DSL Part 09 spell copies', () => {
     if (!resolved.ok) throw new Error(resolved.error)
     expect(resolved.state.players.p2.life).toBe(43)
     expect(resolved.state.stack).toHaveLength(1)
+  })
+
+  test('durable copy jobs answer both target slots for both controllers after JSON restart', () => {
+    const original = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [
+      { filter: { kind: 'players', filter: {} }, min: amount(1), max: amount(1), distinct: true },
+      { filter: { kind: 'players', filter: {} }, min: amount(1), max: amount(1), distinct: true },
+    ] }, instructions: [
+      { kind: 'gainLife', amount: amount(2), targets: { kind: 'targetRef', clauseIndex: 0 } },
+      { kind: 'gainLife', amount: amount(3), targets: { kind: 'targetRef', clauseIndex: 1 } },
+    ] }])))
+    const copying = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(1), max: amount(1), distinct: true }] }, instructions: [{ kind: 'copySpell', targets: { kind: 'targetRef', clauseIndex: 0 }, controller: { kind: 'players', filter: {} }, retarget: { kind: 'chooseNewTargets' } }] }])))
+    const server = createServerGame(commanderRules, { players: 2, hands: { p1: [cardTemplate('Original', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: original }), cardTemplate('Copier', { types: ['Instant'], manaCost: '{0}', ruleDefinition: copying })] } }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    const reduce = (state: typeof server.state, event: Parameters<typeof server.rules>[1]) => { const result = server.rules(state, event); if (!result.ok) throw new Error(result.error); return result.state }
+    let state = reduce(server.state, { type: 'castSpell', seat: 'p1', objectId: get('Original').id, targetClauses: [[{ kind: 'player', player: 'p1' }], [{ kind: 'player', player: 'p2' }]] } as never)
+    state = reduce(state, { type: 'castSpell', seat: 'p1', objectId: get('Copier').id, targets: [{ kind: 'stackItem', stackId: state.stack[0].id }] })
+    state = reduce(state, { type: 'resolveTop' })
+    for (const seat of ['p1', 'p1', 'p2', 'p2'] as const) {
+      state = JSON.parse(JSON.stringify(state))
+      const offer = state.players[seat].data['kernel.pendingOptionSelection'] as { id: string }
+      expect(offer).toBeDefined()
+      const wrong = server.rules(state, { type: 'selectOption', seat: seat === 'p1' ? 'p2' : 'p1', selectionId: offer.id, optionId: 'keep' })
+      expect(wrong.ok).toBe(false)
+      state = reduce(state, { type: 'selectOption', seat, selectionId: offer.id, optionId: 'keep' })
+    }
+    expect(state.resolution).toBeUndefined()
+    expect(state.stack.filter((item) => item.copy)).toHaveLength(2)
+  })
+
+  test('retargeting a stack slot keeps the next slot offer open', () => {
+    const original = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(2), max: amount(2), distinct: true }] }, instructions: [] }])))
+    const copier = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(1), max: amount(1), distinct: true }] }, instructions: [{ kind: 'copySpell', targets: { kind: 'targetRef', clauseIndex: 0 }, retarget: { kind: 'chooseNewTargets' } }] }])))
+    const simple = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [] }])))
+    const server = createServerGame(commanderRules, { players: 2, hands: { p1: [cardTemplate('Stack original', { types: ['Instant'], manaCost: '{0}', ruleDefinition: original }), cardTemplate('Stack copier', { types: ['Instant'], manaCost: '{0}', ruleDefinition: copier }), cardTemplate('Extra one', { types: ['Instant'], manaCost: '{0}', ruleDefinition: simple }), cardTemplate('Extra two', { types: ['Instant'], manaCost: '{0}', ruleDefinition: simple })] } }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    const reduce = (state: typeof server.state, event: Parameters<typeof server.rules>[1]) => { const result = server.rules(state, event); if (!result.ok) throw new Error(result.error); return result.state }
+    let state = reduce(server.state, { type: 'castSpell', seat: 'p1', objectId: get('Extra one').id })
+    state = reduce(state, { type: 'castSpell', seat: 'p1', objectId: get('Extra two').id })
+    state = reduce(state, { type: 'castSpell', seat: 'p1', objectId: get('Stack original').id, targets: [{ kind: 'stackItem', stackId: state.stack[0].id }, { kind: 'stackItem', stackId: state.stack[1].id }] })
+    state = reduce(state, { type: 'castSpell', seat: 'p1', objectId: get('Stack copier').id, targets: [{ kind: 'stackItem', stackId: state.stack[0].id }] })
+    state = reduce(state, { type: 'resolveTop' })
+    const offer = state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    expect(offer).toBeDefined()
+    state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'keep' })
+    expect(state.players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
   })
 })
