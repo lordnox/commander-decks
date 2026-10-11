@@ -21,7 +21,7 @@ import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/ta
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
 import type { Instruction } from './dsl/schema/v1'
-import { resolveModalInputs, validateScopedDistributions } from './dsl/compiler/modes'
+import { resolveModalInputs, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -217,7 +217,7 @@ export const activated: Plugin = {
           : event.targetClauses
             ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
         if (groupedTargets !== undefined) {
-          if (activatedCanonical.decisions.distributions) {
+          if (selectedDistributionSpecs(activatedCanonical, event.modeIndices).length > 0) {
             try {
               const bindings = canonicalTargetBindings(
                 state, source, compiled.definition, Number(abilityIndex),
@@ -225,7 +225,7 @@ export const activated: Plugin = {
                 event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
               )
               validateScopedDistributions(
-                activatedCanonical.decisions.distributions,
+                selectedDistributionSpecs(activatedCanonical, event.modeIndices),
                 event.distributionBindings ?? [],
                 (scopeId, clauseIndex) => bindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
                 amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),

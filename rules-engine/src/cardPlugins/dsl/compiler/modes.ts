@@ -72,6 +72,13 @@ export const resolveModalInputs = (
   return modalTargetLayout(ability, abilityIndex, selectedModes)
 }
 
+export const selectedDistributionSpecs = (
+  ability: { decisions: { distributions?: readonly DistributionSpec[] }; modes?: readonly ModeDefinition[] },
+  selectedModes?: readonly number[],
+) => selectedModes && ability.modes
+  ? selectedModes.flatMap((index) => ability.modes?.[index]?.decisions.distributions ?? [])
+  : ability.decisions.distributions ?? []
+
 /** Stable generated identities for selected occurrences. Selection order is retained. */
 export const modeOccurrences = (
   abilityIndex: number,
