@@ -169,7 +169,11 @@ export const startCanonicalResolution = (
         .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       context,
       selectedDistributionScopeIds(abilityIndex, ability, selectedModes),
-      item.execution?.distributionBounds,
+      allocations.map((allocation, index) => ({
+        total: allocation.amounts.reduce((sum, amount) => sum + amount, 0),
+        minEach: item.execution?.distributionBounds?.[index]?.minEach
+          ?? (allocation.amounts.length > 0 ? Math.min(...allocation.amounts) : 0),
+      })),
     )
   }
   const variables = ability.decisions.variables ?? []
