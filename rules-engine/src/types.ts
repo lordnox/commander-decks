@@ -990,6 +990,8 @@ export type GameEvent =
       seat: PlayerId
       objectId: string
       targets?: TargetRef[]
+      /** Canonical DSL targets grouped by declared clause. */
+      targetClauses?: TargetRef[][]
       x?: number
       choices?: string[]
       door?: RoomDoorId

@@ -684,9 +684,8 @@ export const spells: Plugin = {
         if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
         const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
         for (const objectId of selectedNonMana.slice(selectedIndex, selectedIndex + count)) {
-          draft.enqueue(costPart.kind === 'discard'
-            ? { type: 'discard', seat: event.seat, objectId }
-            : { type: 'sacrifice', objectId })
+          if (costPart.kind === 'discard') draft.move(objectId, 'graveyard')
+          else draft.move(objectId, 'graveyard')
         }
         selectedIndex += count
       }

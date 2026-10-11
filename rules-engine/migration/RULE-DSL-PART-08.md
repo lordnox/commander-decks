@@ -22,13 +22,20 @@ cannot publish payments, targets, or cast occurrences.
   definition for canonical resolution, and execute a server activation
 - [x] route canonical discard/sacrifice definitions through the real cast
   guards without duplicating legacy sacrifice events
+- [x] validate and bind all canonical activation target clauses and honor
+  declared available-from zones
+- [x] execute canonical `addMana` instructions through the CR 605 activation
+  path and include eligible restricted mana in authoritative payment plans
+- [x] apply canonical nonmana costs before publishing the completed cast so
+  cost-zone changes and their triggers precede cast occurrences
 
 ## Remaining work
 
 Replacement-aware payment choice coverage belongs to Part 11, but this
-transaction frame remains the insertion point for those choices. Mana-source
-restriction planning and the remaining legacy card migration still require
-follow-up slices.
+transaction frame remains the insertion point for those choices. Legacy card
+definitions continue to use their existing handlers while canonical definitions
+now have authoritative target, restricted-mana, activation, and cost ordering
+paths.
 
 ## Validation
 

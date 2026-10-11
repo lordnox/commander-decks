@@ -7,6 +7,7 @@ export type AnnouncementManaPayment = {
   sourceId: string
   mana: ManaId
   amount?: number
+  restricted?: boolean
 }
 
 export type CostPlan = {
@@ -269,7 +270,9 @@ export const beginAnnouncement = (
     const availableMana = state.players[proposal.payer].mana
     if (availableMana) {
       for (const symbol of Object.keys(pool) as ManaId[]) {
-        if (pool[symbol] > availableMana[symbol]) return { ok: false, error: `payment spends more ${symbol} mana than the payer has` }
+        const unrestricted = payment.filter((entry) => !entry.restricted && entry.mana === symbol)
+          .reduce((total, entry) => total + (entry.amount ?? 1), 0)
+        if (unrestricted > availableMana[symbol]) return { ok: false, error: `payment spends more ${symbol} mana than the payer has` }
       }
     }
     if (mana && !payCost(pool, mana)) return { ok: false, error: 'payment does not cover the locked total cost' }
@@ -299,6 +302,12 @@ export const beginSpellAnnouncement = (
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
+    .concat((state.players[payer].restrictedMana ?? []).map((mana) => ({
+      sourceId: mana.sourceId,
+      mana: mana.mana,
+      amount: 1,
+      restricted: true,
+    })))
   return beginAnnouncement(state, {
     payer,
     sourceId: source.id,
@@ -323,6 +332,12 @@ export const beginActivatedAnnouncement = (
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
     .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
+    .concat((state.players[payer].restrictedMana ?? []).map((mana) => ({
+      sourceId: mana.sourceId,
+      mana: mana.mana,
+      amount: 1,
+      restricted: true,
+    })))
   return beginAnnouncement(state, {
     payer,
     sourceId: source.id,
@@ -377,13 +392,15 @@ export type ActivationPermissionInput = {
   payer: PlayerId
   action: 'activate' | 'tapForMana' | 'nestedPayment' | 'manaPlanning'
   sorcerySpeed?: boolean
+  availableFrom?: readonly GameState['objects'][string]['zone'][]
 }
 
 /** Shared gate used before ordinary, mana, nested-payment, and planning activations. */
 export const activationPermission = (input: ActivationPermissionInput): string | undefined => {
   const source = input.state.objects[input.sourceId]
   if (!source) return 'activation source does not exist'
-  if (source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
+  if (input.availableFrom && !input.availableFrom.includes(source.zone)) return `${source.name} is not in an available zone`
+  if (!input.availableFrom && source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
   if (source.phasedOut) return `${source.name} is phased out`
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`

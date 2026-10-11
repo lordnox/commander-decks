@@ -498,6 +498,16 @@ export const validateDefinitionV1 = (root: unknown): {
       validateRecipient(node.targets, childPath(path, 'targets'), env, expected)
     }
     switch (node.kind) {
+      case 'addMana': {
+        exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
+        const amount = object(node.amount, childPath(path, 'amount'))
+        if (amount) for (const [symbol, value] of Object.entries(amount)) {
+          if (!['W', 'U', 'B', 'R', 'G', 'C'].includes(symbol)) issue(childPath(path, 'amount'), 'mana-symbol', `invalid mana symbol ${symbol}`)
+          validateAmount(value, childPath(childPath(path, 'amount'), symbol), env)
+        }
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      }
       case 'loseLife': amountInstruction('amount', ['player']); return
       case 'gainLife': amountInstruction('amount', ['player']); return
       case 'draw': amountInstruction('count', ['player']); return

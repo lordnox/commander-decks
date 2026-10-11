@@ -82,6 +82,7 @@ const preflightInstructions = (
     }
     switch (instruction.kind) {
       case 'draw':
+      case 'addMana':
       case 'gainLife':
       case 'loseLife':
       case 'damage':
@@ -314,6 +315,14 @@ const actionEvents = (
   path: string,
 ) => {
   switch (instruction.kind) {
+    case 'addMana': {
+      const targets = recipients(instruction.targets, context)
+      const mana = Object.fromEntries(Object.entries(instruction.amount).flatMap(([symbol, amount]) => {
+        const value = availableAmount(amount, context)
+        return typeof value === 'number' && value > 0 ? [[symbol, value]] : []
+      }))
+      return targets.map((seat) => ({ type: 'addMana' as const, seat, mana }))
+    }
     case 'draw': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.count, context)

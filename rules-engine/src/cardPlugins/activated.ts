@@ -16,7 +16,8 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/compiler'
+import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/compiler'
+import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -96,16 +97,41 @@ export const activated: Plugin = {
       const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
       if (activatedCanonical) {
+        const manaClassification = classifyManaAbility({
+          addsMana: (activatedCanonical.instructions ?? []).some((instruction) => instruction.kind === 'addMana'),
+          abilityKind: 'activated',
+          hasTargets: activatedCanonical.decisions.targets.length > 0,
+          hasLoyaltyCost: activatedCanonical.costs.some((cost) => cost.kind === 'life'),
+          movesCards: (activatedCanonical.instructions ?? []).some((instruction) => ['discard', 'sacrifice', 'move'].includes(instruction.kind)),
+        })
+        if (event.manaAbility && !manaClassification.isManaAbility) return `${source.name} is not a mana ability`
         const permissionError = activationPermission({
           state,
           sourceId: source.id,
           payer: event.seat,
           action: event.manaAbility ? 'nestedPayment' : 'activate',
           sorcerySpeed: activatedCanonical.timing === 'sorcery',
+          availableFrom: activatedCanonical.availableFrom,
         })
         if (permissionError) return permissionError
-        if (activatedCanonical.decisions.targets.length === 0) {
-          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, [], event.x)
+        const canonicalTargetErrorMessage = canonicalTargetError(
+          state,
+          source,
+          compiled.definition,
+          Number(abilityIndex),
+          event.targets ?? event.targetClauses?.flat() ?? [],
+          undefined,
+          event.targetClauses,
+          event.seat,
+          event.x,
+        )
+        if (canonicalTargetErrorMessage) return canonicalTargetErrorMessage
+        const groupedTargets = activatedCanonical.decisions.targets.length === 0
+          ? []
+          : event.targetClauses
+            ?? (activatedCanonical.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+        if (groupedTargets !== undefined) {
+          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices)
           if (!announcement.ok) return `announcement: ${announcement.error}`
         }
       }
@@ -234,8 +260,20 @@ export const activated: Plugin = {
       const abilityIndex = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
       const candidate = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const canonical = candidate?.kind === 'activated' ? candidate : undefined
-      if (canonical && !event.manaAbility) {
-        const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, canonical.decisions.targets.length === 0 ? [] : undefined, event.x)
+      if (canonical) {
+        const manaClassification = classifyManaAbility({
+          addsMana: (canonical.instructions ?? []).some((instruction) => instruction.kind === 'addMana'),
+          abilityKind: 'activated',
+          hasTargets: canonical.decisions.targets.length > 0,
+          hasLoyaltyCost: canonical.costs.some((cost) => cost.kind === 'life'),
+          movesCards: (canonical.instructions ?? []).some((instruction) => ['discard', 'sacrifice', 'move'].includes(instruction.kind)),
+        })
+        const groupedTargets = canonical.decisions.targets.length === 0
+          ? []
+          : event.targetClauses
+            ?? (canonical.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+        if (groupedTargets === undefined) return
+        const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices)
         if (!announcement.ok) return
         const committed = announcement.transaction
         if (committed.lockedCost.mana) {
@@ -248,19 +286,47 @@ export const activated: Plugin = {
             draft.enqueue({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
           }
         }
+        if (event.manaAbility) {
+          for (const instruction of canonical.instructions ?? []) {
+            if (instruction.kind !== 'addMana') continue
+            const targetSeats = instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
+              ? [event.seat]
+              : []
+            for (const seat of targetSeats) {
+              const manaPool = draft.players[seat].mana
+              for (const [symbol, amount] of Object.entries(instruction.amount)) {
+                const manaKey = symbol as keyof typeof manaPool
+                if (amount.kind === 'constant') manaPool[manaKey] += amount.value
+                else if (amount.kind === 'variable' && event.x !== undefined) manaPool[manaKey] += event.x
+              }
+            }
+          }
+          if (manaClassification.isManaAbility) return
+        }
         draft.addToStack({
           kind: 'ability',
           objectId: source.id,
           controller: event.seat,
           name: source.name,
-          targets: event.targets ?? [],
+          targets: event.targets ?? event.targetClauses?.flat() ?? [],
           abilityId: event.abilityId,
-          payload: { instructions: canonical.instructions },
+          payload: { instructions: canonical.instructions ?? [] },
           execution: {
             controller: event.seat,
             source: captureObject(source),
             definitionSnapshot: createDefinitionSnapshot(compiled),
             abilityIndex: Number(abilityIndex),
+            targetBindings: canonicalTargetBindings(
+              draft,
+              source,
+              compiled.definition,
+              Number(abilityIndex),
+              event.targets ?? event.targetClauses?.flat() ?? [],
+              undefined,
+              event.targetClauses,
+              event.seat,
+              event.x,
+            ),
           },
           ...(event.x !== undefined ? { x: event.x } : {}),
         })

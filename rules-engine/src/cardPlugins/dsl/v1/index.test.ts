@@ -203,7 +203,7 @@ describe('Rule DSL v1 canonical authoring', () => {
     ])
     expect(compiled.capabilities.runtimeExecution).toEqual({
       abilitiesWithSuppliedContext: ['activated', 'spell', 'triggered'],
-      instructionKinds: ['counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'],
+      instructionKinds: ['addMana', 'counter', 'damage', 'destroy', 'draw', 'gainLife', 'loseLife', 'sequence'] as readonly string[],
       decisions: 'fullySuppliedTargets',
     })
   })
