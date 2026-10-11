@@ -326,11 +326,23 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
   if (!pending || !isSeatId(pending.seat)) return false
   const name = lobby.occupants[pending.seat]?.name ?? pending.seat
   if (pending.action.kind === 'putCanonicalTriggeredAbilityAllocation') {
-    const bound = pending.action.bounds[pending.action.specIndex]
+    const allocation = pending.action
+    const bound = allocation.bounds[allocation.specIndex]
+    const remaining = allocation.recipientCount - allocation.allocationIndex
+    const allocated = allocation.amounts.reduce((sum, amount) => sum + amount, 0)
     return openTopdeck(lobby, {
       seat: pending.seat, kind: 'allocate', source: pending.source, cards: [], destinations: ['target'],
       kernel: { sourceId: pending.sourceId ?? '', stage: 'allocation', selectionId: pending.id },
-      allocationOffer: { entries: pending.action.recipientCount === 0 ? [] : Array.from({ length: pending.action.recipientCount }, (_v, index) => ({ id: `target:${index}`, label: `Target ${index + 1}` })), total: bound.total, minEach: bound.minEach },
+      allocationOffer: {
+        entries: remaining === 0
+          ? []
+          : Array.from({ length: remaining }, (_v, index) => ({
+              id: `target:${allocation.allocationIndex + index}`,
+              label: `Target ${allocation.allocationIndex + index + 1}`,
+            })),
+        total: bound.total - allocated,
+        minEach: bound.minEach,
+      },
     }, { waiting: `${name} is allocating.`, prompt: pending.prompt, judge: 'Waiting for a distribution allocation.' })
   }
   const open = pending.action.kind === 'vote' ? pendingVote(state) : undefined
