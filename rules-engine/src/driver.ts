@@ -478,6 +478,12 @@ const actionEvents = (
             return item ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
           })).filter((job): job is NonNullable<typeof job> => Boolean(job))
           frame.pendingCopyTargets = jobs
+          if (instruction.bindResult) frame.pendingResult = {
+            binding: instruction.bindResult,
+            kind: 'action',
+            value: jobs.length,
+            eventType: 'copySpell',
+          }
           if (jobs.length > 0) {
           openNextCopySlot(draft, frame)
           frame.phase = 'committing'
