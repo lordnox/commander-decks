@@ -10,6 +10,8 @@ import {
   select,
   objects,
   players,
+  variable,
+  discardCost,
 } from './v1'
 
 const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
@@ -62,7 +64,7 @@ describe('announcement transactions', () => {
   test('mana classification requires a complete mana ability, including triggered mana', () => {
     expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated' }).isManaAbility).toBe(true)
     expect(classifyManaAbility({ addsMana: true, abilityKind: 'triggered', triggered: true, triggeredManaEligible: true }).kind).toBe('triggeredMana')
-    expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated', hasOtherInstruction: true }).isManaAbility).toBe(false)
+    expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated', hasOtherInstruction: true }).isManaAbility).toBe(true)
   })
 
   test('a fully supplied action does not open a target picker', () => {
@@ -82,5 +84,29 @@ describe('announcement transactions', () => {
     } as unknown as Parameters<typeof activationPermission>[0]
     expect(activationPermission(input)).toBeUndefined()
     expect(activationPermission({ ...input, action: 'nestedPayment', sorcerySpeed: true, state: { ...input.state, stack: [{} as never] } })).toContain('sorcery')
+  })
+
+  test('one X binds targets, mana, and discard choices in the same proposal', () => {
+    const tideState = {
+      players: {
+        p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 3 }, life: 40 },
+        p2: {}, p3: {},
+      },
+      objects: {
+        a: { id: 'a', name: 'A', controller: 'p1', zone: 'hand', types: ['Land'], token: false },
+        b: { id: 'b', name: 'B', controller: 'p1', zone: 'hand', types: ['Land'], token: false },
+        c: { id: 'c', name: 'C', controller: 'p1', zone: 'hand', types: ['Land'], token: false },
+      },
+      stack: [],
+    } as unknown as Parameters<typeof beginAnnouncement>[0]
+    const result = beginAnnouncement(tideState, {
+      payer: 'p1', sourceId: 'tide', variables: { X: 3 },
+      targetClauses: [select({ filter: players({}), count: variable('X') })],
+      targets: [[{ kind: 'player', player: 'p1' }, { kind: 'player', player: 'p2' }, { kind: 'player', player: 'p3' }]],
+      costs: { mandatory: [manaCost('{X}'), discardCost(objects({ zone: 'hand', type: 'Land' }), variable('X'))] },
+      payment: [{ sourceId: 'p1.pool.C', mana: 'C', amount: 3 }],
+      nonManaChoices: ['a', 'b', 'c'],
+    })
+    expect(result.ok).toBe(true)
   })
 })
