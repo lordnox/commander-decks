@@ -187,6 +187,7 @@ export const startCanonicalResolution = (
     source: structuredClone(source),
     scopeId: canonicalScopeId(abilityIndex),
     targetBindings: structuredClone(targetBindings),
+    ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),

@@ -1,4 +1,5 @@
-import type { DistributionSpec, ModeSpec, TargetRef } from '../schema/v1'
+import type { DistributionSpec, ModeSpec } from '../schema/v1'
+import type { TargetRef } from '../../../types'
 import type { AmountEvaluationContext } from '../schema/v1'
 import { evaluateAmount } from './evaluate'
 import { RuleDslEvaluationError } from './errors'

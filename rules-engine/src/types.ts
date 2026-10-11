@@ -436,6 +436,8 @@ export type CanonicalResolutionFrame = {
   targetLegality?: Record<number, boolean[]>
   /** Target legality keyed by the local scope and clause index. */
   targetLegalityByScope?: Record<string, Record<number, boolean[]>>
+  /** Validated announcement-time allocations retained across resolution suspension. */
+  distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
   choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
   results?: Record<string, boolean | number>
   pendingResult?: {
