@@ -735,6 +735,8 @@ export const validateDefinitionV1 = (root: unknown): {
         return env
       }
       case 'manaAdded':
+      case 'manaAbilityActivated':
+      case 'manaAbilityResolved':
         return env
       default:
         issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported occurrence kind: ${String(node.kind)}`)

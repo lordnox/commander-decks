@@ -63,6 +63,15 @@ const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileC
   })
 }
 
+export const canonicalManaAbilityForTap = (source: GameObject) => {
+  if (!source.ruleDefinition) return undefined
+  const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+  return compiled.definition.abilities
+    .map((ability, index) => ({ ability, index }))
+    .find((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
+      entry.ability.kind === 'activated' && canonicalManaClassification(entry.ability).isManaAbility)
+}
+
 const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
   target: TargetRef | undefined,
@@ -109,6 +118,26 @@ export const activated: Plugin = {
     if (event.type === 'tapForMana') {
       const source = state.objects[event.objectId]
       if (!source) return
+      const canonicalMana = canonicalManaAbilityForTap(source)
+      if (canonicalMana) {
+        const permissionError = activationPermission({
+          state,
+          sourceId: source.id,
+          payer: event.seat,
+          action: 'tapForMana',
+          sorcerySpeed: canonicalMana.ability.timing === 'sorcery',
+          availableFrom: canonicalMana.ability.availableFrom,
+        })
+        if (permissionError) return permissionError
+        return
+      }
+      const permissionError = activationPermission({
+        state,
+        sourceId: source.id,
+        payer: event.seat,
+        action: 'tapForMana',
+      })
+      if (permissionError) return permissionError
       const manaEffect = effectsOf(source).find((effect) => effect.op === 'mana')
       if (manaEffect && !conditionHolds(manaEffect.if, state, source)) {
         return `${source.name} cannot be activated now`
@@ -290,6 +319,21 @@ export const activated: Plugin = {
     }
   },
   apply: ({ event, draft }) => {
+    if (event.type === 'tapForMana') {
+      const source = draft.object(event.objectId)
+      const canonicalMana = source && canonicalManaAbilityForTap(source)
+      if (source && canonicalMana) {
+        source.tapped = true
+        draft.enqueue({
+          type: 'activateAbility',
+          seat: event.seat,
+          objectId: source.id,
+          abilityId: `$.abilities[${canonicalMana.index}]`,
+          manaAbility: true,
+        })
+      }
+      return
+    }
     if (event.type !== 'activateAbility') return
     const source = draft.object(event.objectId)
     if (!source) return
