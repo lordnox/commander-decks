@@ -49,6 +49,7 @@ import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
+import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 
 const CHECKPOINT_CAP = 32
 
@@ -329,6 +330,21 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         controller: event.controller,
         token: { ...(event.token ?? copyCharacteristics(source)), dsl: true },
       })
+      return
+    }
+    case 'copySpell': {
+      const original = draft.stack.find((item) => item.id === event.stackId)
+      if (!original || original.kind !== 'spell') return
+      const source = draft.object(original.objectId)
+      if (!source) return
+      const resolved = resolveCanonicalCopyTargets(draft, original, source, event.retarget === false
+        ? { kind: 'keep' }
+        : { kind: 'chooseNewTargets', targets: event.targets })
+      if (!resolved.ok) {
+        draft.note(`copySpell rejected: ${resolved.error}`)
+        return
+      }
+      putCanonicalSpellCopyOnStack(draft, original, source, event.controller, resolved.targets)
       return
     }
     case 'createToken': {
