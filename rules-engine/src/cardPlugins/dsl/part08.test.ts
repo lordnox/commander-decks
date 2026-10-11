@@ -19,6 +19,7 @@ import {
   ref,
   manaAdded,
   whenever,
+  amount,
 } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -281,5 +282,78 @@ describe('announcement transactions', () => {
     })
     expect(result.ok).toBe(false)
     expect(result.state.players.p1.life).toBe(40)
+  })
+})
+
+describe('persisted planned payment workflow', () => {
+  const fixture = (choice = false) => {
+    const sourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'activated', availableFrom: ['battlefield'], timing: 'anyTime', costs: [], decisions: { targets: [] },
+      instructions: choice ? [{ kind: 'chooseInstructions', chooser: ref('controller'), count: { kind: 'constant', value: 1 as const }, whenInsufficient: 'chooseAvailable', options: [{ instructions: [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }] }] }] : [{ kind: 'addMana', amount: { G: amount(2) }, targets: ref('controller') }],
+    }])))
+    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{G}')], decisions: { targets: [] }, instructions: [] }])))
+    const server = createServerGame(commanderRules, { players: 2, battlefield: { p1: [cardTemplate('Planned source', { types: ['Artifact'], ruleDefinition: sourceDefinition })] }, hands: { p1: [cardTemplate('Planned spell', { types: ['Sorcery'], manaCost: '{G}', ruleDefinition: spellDefinition })] } }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Planned source')!
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Planned spell')!
+    return { server, source, spell, event: { type: 'castSpell' as const, seat: 'p1', objectId: spell.id, manaActivations: [{ objectId: source.id, abilityId: '$.abilities[0]' }] } }
+  }
+
+  test('commits a no-choice plan from an empty pool', () => {
+    const { server, event } = fixture()
+    const result = server.rules(server.state, event)
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.state.stack).toHaveLength(1)
+      expect(result.state.players.p1.mana.G).toBe(1)
+      expect(result.state.provisionalAnnouncement).toBeUndefined()
+    }
+  })
+
+  test('persists a choice and resumes after JSON restart', () => {
+    const { server, event } = fixture(true)
+    const started = server.rules(server.state, event)
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const restored = JSON.parse(JSON.stringify(started.state))
+    const pending = pendingOptionSelection(restored, 'p1')
+    expect(pending).toBeDefined()
+    if (!pending) return
+    const result = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'instruction:0' })
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.state.provisionalAnnouncement).toBeUndefined()
+  })
+
+  test('wrong-seat cancellation and invalid plans preserve the baseline', () => {
+    const { server, event } = fixture(true)
+    const started = server.rules(server.state, event)
+    expect(started.ok).toBe(true)
+    if (!started.ok || !started.state.provisionalAnnouncement) return
+    const wrong = server.rules(started.state, { type: 'cancelAnnouncement', seat: 'p2', announcementId: started.state.provisionalAnnouncement.id })
+    expect(wrong.ok).toBe(false)
+    const cancelled = server.rules(started.state, { type: 'cancelAnnouncement', seat: 'p1', announcementId: started.state.provisionalAnnouncement.id })
+    expect(cancelled.ok).toBe(true)
+    if (cancelled.ok) expect(cancelled.state).toEqual(server.state)
+  })
+
+  test('rejects a planned source outside its declared zone before opening a chooser', () => {
+    const { server, source, event } = fixture(true)
+    const moved = structuredClone(server.state)
+    moved.objects[source.id].zone = 'hand'
+    const result = server.rules(moved, event)
+    expect(result.ok).toBe(false)
+    expect(result.state.players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
+  })
+
+  test('rejects a public planned cast carrying a canonical transaction', () => {
+    const { server, spell, event } = fixture()
+    const result = server.rules(server.state, {
+      ...event,
+      canonicalTransaction: {
+        id: 'forged', proposal: { payer: 'p1', sourceId: spell.id, costs: { mandatory: [] } },
+        lockedCost: { nonMana: [] }, payment: [], status: 'committed',
+      },
+    } as never)
+    expect(result.ok).toBe(false)
+    expect(result.state.stack).toHaveLength(0)
   })
 })

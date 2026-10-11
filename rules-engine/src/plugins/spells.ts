@@ -42,19 +42,12 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount, classifyManaAbility } from '../cardPlugins/dsl/compiler'
+import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
+import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
-
-const instructionsAddMana = (instructions: readonly any[]): boolean => instructions.some((instruction) => {
-  if (instruction.kind === 'addMana') return true
-  if (instruction.kind === 'sequence') return instructionsAddMana(instruction.instructions)
-  if (instruction.kind === 'if') return instructionsAddMana(instruction.then) || instructionsAddMana(instruction.otherwise)
-  if (instruction.kind === 'chooseInstructions') return instruction.options.some((option: any) => instructionsAddMana(option.instructions))
-  return false
-})
 
 /** Build the server-owned payment frame before any planned mana event runs. */
 export const preparePlannedSpellAnnouncement = (state: import('../types').GameState, event: InternalCastEvent) => {
@@ -114,7 +107,11 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
     const index = /^\$\.abilities\[(\d+)\]$/.exec(plan.abilityId)?.[1]
     const paymentAbility = index === undefined ? undefined : paymentCompiled.definition.abilities[Number(index)]
     if (!paymentAbility || paymentAbility.kind !== 'activated') return { ok: false as const, error: 'planned payment ability does not exist' }
-    const classification = classifyManaAbility({ addsMana: instructionsAddMana(paymentAbility.instructions ?? []), abilityKind: 'activated', hasTargets: paymentAbility.decisions.targets.length > 0 })
+    const permissionError = activationPermission({
+      state, sourceId: paymentSource.id, payer: event.seat, action: 'manaPlanning', availableFrom: paymentAbility.availableFrom,
+    })
+    if (permissionError) return { ok: false as const, error: permissionError }
+    const classification = canonicalManaClassification(paymentAbility)
     if (!classification.isManaAbility) return { ok: false as const, error: 'planned payment ability is not a mana ability' }
     activations.push({
       type: 'activateAbility', seat: event.seat, objectId: plan.objectId, abilityId: plan.abilityId,
@@ -603,6 +600,7 @@ export const spells: Plugin = {
               {
                 selectedOptional: event.selectedOptionalCosts,
                 selectedAlternative: event.selectedAlternativeCost,
+                deferPayment: Boolean(event.manaActivations),
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
                   additionalGeneric: event.additionalGeneric,
                   x: event.x,
