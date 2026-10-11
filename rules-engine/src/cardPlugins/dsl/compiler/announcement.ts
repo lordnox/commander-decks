@@ -29,8 +29,6 @@ export type AnnouncementProposal = {
   costs: CostPlan
   payment?: readonly AnnouncementManaPayment[]
   nonManaChoices?: readonly string[]
-  /** Sources already authorized by the active ability/permission check. */
-  eligibleManaSources?: readonly string[]
   /** Optional client answer; the server still rechecks all candidates. */
   selectedOptional?: readonly number[]
   selectedAlternative?: number
@@ -47,7 +45,7 @@ export type AnnouncementTransaction = {
   readonly proposal: AnnouncementProposal
   readonly lockedCost: LockedAnnouncementCost
   readonly payment: readonly AnnouncementManaPayment[]
-  readonly status: 'provisional' | 'committed' | 'rolledBack'
+  status: 'provisional' | 'committed' | 'rolledBack'
   readonly waitingFor?: 'proposal' | 'targets' | 'payment' | 'replacement'
 }
 
@@ -121,14 +119,6 @@ const sumMana = (payments: readonly AnnouncementManaPayment[]): ManaPool => {
     pool[payment.mana] += amount
   }
   return pool
-}
-
-const validatePaymentSources = (proposal: AnnouncementProposal) => {
-  if (!proposal.eligibleManaSources) return
-  const eligible = new Set(proposal.eligibleManaSources)
-  for (const payment of proposal.payment ?? []) {
-    if (!eligible.has(payment.sourceId)) throw new TypeError(`mana source ${payment.sourceId} is not eligible for this payment`)
-  }
 }
 
 const genericMana = (mana: string) => [...mana.matchAll(/\{(\d+)\}/g)]
@@ -269,7 +259,6 @@ export const beginAnnouncement = (
   try {
     validateVariables(proposal.variables)
     validateTargets(state, proposal)
-    validatePaymentSources(proposal)
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
@@ -348,12 +337,14 @@ export const beginActivatedAnnouncement = (
 
 export const commitAnnouncement = (transaction: AnnouncementTransaction): AnnouncementTransaction => {
   if (transaction.status !== 'provisional') throw new Error('announcement transaction is no longer provisional')
-  return { ...transaction, status: 'committed' }
+  transaction.status = 'committed'
+  return transaction
 }
 
 export const rollbackAnnouncement = (transaction: AnnouncementTransaction): AnnouncementTransaction => {
   if (transaction.status !== 'provisional') throw new Error('announcement transaction is no longer provisional')
-  return { ...transaction, status: 'rolledBack' }
+  transaction.status = 'rolledBack'
+  return transaction
 }
 
 export const paymentFrame = (transaction: AnnouncementTransaction) => ({
