@@ -80,3 +80,13 @@ test('a conditional nested in a selected mode retains that mode target scope',()
  state=reduce(state,{type:'resolveTop'})
  expect(state.players.p2.life).toBe(42)
 })
+
+test('permanent-only proliferate commits one counter action group',()=>{
+ const {server,state}=run([{kind:'proliferate',targets:ref('controller')}])
+ const selection=pendingSelectionFor(state,'p1')!
+ const ids=selection.candidates.slice(0,2)
+ const answered=server.rules(state,{type:'selectCards',seat:'p1',selectionId:selection.id,kind:'choose',count:selection.count,objectIds:ids})
+ if(!answered.ok) throw Error(answered.error)
+ expect(answered.state.resolution?.pendingEvents ?? []).toHaveLength(0)
+ for (const id of ids) expect(answered.state.objects[id]?.counters['+1/+1']).toBe(2)
+})
