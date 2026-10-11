@@ -69,6 +69,11 @@ export type PendingOptionSelection = {
     controller: PlayerId
     remaining?: { copyStackId: string; controller: PlayerId }[]
   } | {
+    kind: 'canonical-copy-stack-target'
+    stackId: string
+    copyStackId: string
+    controller: PlayerId
+  } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
     abilityIndex: number
@@ -229,6 +234,19 @@ export const selectOptions: Plugin = {
         .filter((candidate): candidate is Extract<typeof candidate, { kind: 'object' }> => candidate.kind === 'object')
       const count = original.targets.filter((target) => target.kind === 'object').length
       const playerTargets = original.targets.filter((target) => target.kind === 'player')
+      const stackTargets = original.targets.filter((target) => target.kind === 'stackItem')
+      if (count === 0 && playerTargets.length === 0 && stackTargets.length > 0) {
+        openOptionSelection(draft, {
+          seat: selection.action.controller,
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose a new stack target for the copied spell.',
+          options: draft.stack.filter((item) => item.kind === 'spell').map((item) => ({ id: `stack:${item.id}`, label: item.name })),
+          action: { kind: 'canonical-copy-stack-target', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller },
+        })
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        return
+      }
       if (count === 0 && playerTargets.length > 0) {
         openPlayerSelection(draft, {
           seat: selection.action.controller,
@@ -252,6 +270,26 @@ export const selectOptions: Plugin = {
         prompt: 'Choose new targets for the copied spell.', destinations: ['target'],
         canonicalChoice: { stackId: frame.stackId, binding: `__copySpellTargets_${original.id}`, action: 'copySpellTargets', copySpellStackId: original.id, copyController: selection.action.controller },
       })
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      return
+    }
+    if (selection.action.kind === 'canonical-copy-stack-target') {
+      const action = selection.action
+      const original = draft.stack.find((item) => item.id === action.copyStackId)
+      const targetId = event.optionId.startsWith('stack:') ? event.optionId.slice('stack:'.length) : undefined
+      if (original && targetId) {
+        let replaced = false
+        const targets = original.targets.map((candidate) => {
+          if (candidate.kind === 'stackItem' && !replaced) {
+            replaced = true
+            return { kind: 'stackItem' as const, stackId: targetId }
+          }
+          return candidate
+        })
+        if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === action.stackId) {
+          draft.resolution.afterChoiceEvents = [{ type: 'copySpell', stackId: original.id, controller: action.controller, targets, retarget: true, sourceId: draft.resolution.source.ref.objectId }]
+        }
+      }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       return
     }

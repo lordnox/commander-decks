@@ -9,6 +9,10 @@ import {
 } from './v1'
 import { copyTargets, openCanonicalCopyRetargeting, resolveCanonicalCopyTargets } from './copies'
 import { InteractionStore } from '../../interaction'
+import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot } from './v1'
+import { cardTemplate } from '../../newGame'
+import { commanderRules } from '../../formats'
+import { createServerGame } from '../../runtime'
 
 describe('Rule DSL Part 09 spell copies', () => {
   test('copySpell is a stack action and keeps its explicit retargeting procedure', () => {
@@ -46,5 +50,24 @@ describe('Rule DSL Part 09 spell copies', () => {
     expect(restored.answer({ requestId: 'copy-targets', revision: 3, chooser: 'p2', selection: { kind: 'selectOptions', ids: ['keep'] } })).toMatchObject({ kind: 'invalid' })
     expect(restored.answer({ requestId: 'copy-targets', revision: 3, chooser: 'p1', selection: { kind: 'selectOptions', ids: ['forged'] } })).toMatchObject({ kind: 'invalid' })
     expect(restored.answer({ requestId: 'copy-targets', revision: 3, chooser: 'p1', selection: { kind: 'selectOptions', ids: ['keep'] } })).toMatchObject({ kind: 'accepted' })
+  })
+
+  test('runtime retarget answer persists the changed player binding and removes only the copy', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell', costs: [],
+      decisions: { targets: [{ filter: { kind: 'players', filter: {} }, min: amount(1), max: amount(1), distinct: true }] },
+      instructions: [{ kind: 'gainLife', amount: amount(3), targets: { kind: 'targetRef', clauseIndex: 0 } }],
+    }])))
+    const server = createServerGame(commanderRules, { players: 2, hands: { p1: [cardTemplate('Copyable', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] } }, { random: () => 0 })
+    const original = Object.values(server.state.objects).find((object) => object.name === 'Copyable')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: original.id, targets: [{ kind: 'player', player: 'p1' }] })
+    if (!cast.ok) throw new Error(cast.error)
+    const copied = server.rules(cast.state, { type: 'copySpell', stackId: cast.state.stack[0].id, controller: 'p1', targets: [{ kind: 'player', player: 'p2' }], retarget: true })
+    if (!copied.ok) throw new Error(copied.error)
+    expect(copied.state.stack).toHaveLength(2)
+    const resolved = server.rules(copied.state, { type: 'resolveTop' })
+    if (!resolved.ok) throw new Error(resolved.error)
+    expect(resolved.state.players.p2.life).toBe(43)
+    expect(resolved.state.stack).toHaveLength(1)
   })
 })
