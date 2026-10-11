@@ -14,7 +14,7 @@ import {
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
-import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
+import { validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -35,6 +35,7 @@ import { openCardSelection } from './rules/selectCards'
 import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
+import { ceaseToExist } from './cardPlugins/dsl/copies'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'counter',
@@ -138,8 +139,7 @@ export const startCanonicalResolution = (
   if ('modes' in ability) {
     const modeSpec = ability.decisions.modes
     if (!modeSpec) throw new Error(`${declarationPath}.decisions.modes: modal program is missing its mode specification`)
-    const modeTotal = item.execution?.modeCount
-      ?? (modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x)
+    const modeTotal = modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x
     if (modeTotal === undefined) throw new Error(`${declarationPath}.decisions.modes.count: mode count is not bound`)
     validateModeSelection(modeSpec, ability.modes?.length ?? 0, modeTotal, selectedModes)
   }
@@ -152,8 +152,7 @@ export const startCanonicalResolution = (
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
-  const distributionSpecs = selectedDistributionSpecs(ability, selectedModes)
-  if (distributionSpecs.length > 0) {
+  if (ability.decisions.distributions) {
     const allocations = item.execution?.distributionBindings
     if (!allocations) throw new Error(`${declarationPath}.decisions.distributions: announcement is missing allocations`)
     const context = amountEvaluationContext({
@@ -163,17 +162,11 @@ export const startCanonicalResolution = (
       variables: item.x === undefined ? undefined : { X: item.x },
     })
     validateScopedDistributions(
-      distributionSpecs,
+      ability.decisions.distributions,
       allocations,
       (scopeId, clauseIndex) => (item.execution?.targetBindings ?? [])
         .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       context,
-      selectedDistributionScopeIds(abilityIndex, ability, selectedModes),
-      allocations.map((allocation, index) => ({
-        total: allocation.amounts.reduce((sum, amount) => sum + amount, 0),
-        minEach: item.execution?.distributionBounds?.[index]?.minEach
-          ?? (allocation.amounts.length > 0 ? Math.min(...allocation.amounts) : 0),
-      })),
     )
   }
   const variables = ability.decisions.variables ?? []
@@ -213,19 +206,14 @@ export const startCanonicalResolution = (
     scopes: 'modes' in ability
       ? selectedModes
         .map((modeIndex, occurrence) => ({ modeIndex, occurrence }))
-        // Resolution walks the top scope first.  Push modes in reverse printed
-        // order so repeated occurrences retain their own scope while the
-        // resulting execution order follows the card's printed mode order.
         .toSorted((left, right) => right.modeIndex - left.modeIndex || right.occurrence - left.occurrence)
-        .map(({ modeIndex, occurrence }) => {
-        return {
+        .map(({ modeIndex, occurrence }) => ({
           path: `.modes[${modeIndex}].instructions`,
           scopeId: item.execution?.modeScopeIds?.[occurrence]
             ?? canonicalModeScopeId(abilityIndex, modeIndex, occurrence),
           instructions: structuredClone(ability.modes?.[modeIndex]?.instructions ?? []),
           cursor: 0,
-        }
-        })
+        }))
       : [{
         path: '.instructions',
         scopeId: canonicalScopeId(abilityIndex),
@@ -273,30 +261,11 @@ const runtimeContext = (
       }))
     return targets
   })(),
-  scopeId,
-  ...(frame.distributionBindings ? { distributions: frame.distributionBindings } : {}),
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
   ...(item.x === undefined ? {} : { variables: { X: item.x } }),
 })
-
-const distributedAmount = (
-  target: { kind: string; clauseIndex?: number },
-  recipient: string | { kind: 'object'; objectId: string },
-  context: RuleDslRuntimeContext,
-  fallback: number,
-) => {
-  if (target.kind !== 'targetRef' || target.clauseIndex === undefined) return fallback
-  const allocation = context.distributions?.find((entry) =>
-    entry.scopeId === context.scopeId && entry.clauseIndex === target.clauseIndex)
-  if (!allocation) return fallback
-  const bound = context.targets?.[target.clauseIndex] ?? []
-  const index = bound.findIndex((entry) => entry.kind === 'player'
-    ? typeof recipient === 'string' && entry.playerId === recipient
-    : typeof recipient !== 'string' && entry.kind === 'object' && entry.objectId === recipient.objectId)
-  return index >= 0 ? allocation.amounts[index] ?? fallback : fallback
-}
 
 const recipients = (
   recipient: PlayerRecipient,
@@ -375,6 +344,7 @@ const availableAmount = (expression: Parameters<typeof evaluateRuntimeAmount>[0]
 const actionEvents = (
   instruction: Instruction,
   context: RuleDslRuntimeContext,
+  draft: Draft,
   frame: CanonicalResolutionFrame,
   path: string,
 ) => {
@@ -391,23 +361,19 @@ const actionEvents = (
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.count, context)
       if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
+      return targets.map((seat) => ({ type: 'draw' as const, seat, count: amount }))
     }
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
-      return targets.flatMap((seat) => {
-        const assigned = distributedAmount(instruction.targets, seat, context, amount)
-        if (assigned === 0) return []
-        return [{
+      return targets.map((seat) => ({
         type: instruction.kind,
         seat,
-        amount: assigned,
+        amount,
         source: frame.source.ref.objectId,
-        }]
-      })
+      }))
     }
     case 'damage': {
       const damageRecipients = mixedRecipients(instruction.targets, context)
@@ -421,11 +387,7 @@ const actionEvents = (
         sourceId: source.id,
         sourceSnapshot: capturedDamageSource(source, context),
         target,
-        amount: target.kind === 'player'
-          ? distributedAmount(instruction.targets, target.player, context, amount)
-          : target.kind === 'object'
-            ? distributedAmount(instruction.targets, target, context, amount)
-            : amount,
+        amount,
       }))
     }
     case 'destroy': {
@@ -511,7 +473,35 @@ const actionEvents = (
         // answered through the durable typed offer API, never by refreshing
         // incarnations as a side effect of copying.
         if (instruction.retarget?.kind === 'chooseNewTargets') {
-          throw pathError(frame, path, 'copySpell retargeting requires a typed copySpellTargets continuation')
+          const abilitySnapshot = original.execution?.definitionSnapshot
+          const abilityIndex = original.execution?.abilityIndex
+          const copyDefinition = abilitySnapshot ? loadDefinitionSnapshot(abilitySnapshot).definition : undefined
+          const inferredAbilityIndex = abilityIndex ?? copyDefinition?.abilities.findIndex((ability) => ability.kind === 'spell')
+          const copyAbility = copyDefinition && inferredAbilityIndex !== undefined && inferredAbilityIndex >= 0
+            ? copyDefinition.abilities[inferredAbilityIndex]
+            : undefined
+          if (!copyAbility || !('decisions' in copyAbility)) {
+            throw pathError(frame, path, 'copySpell retargeting has no pinned canonical definition')
+          }
+          openOptionSelection(draft, {
+            seat: context.controller,
+            sourceId: frame.source.ref.objectId,
+            source: frame.source.snapshot.name,
+            prompt: 'Keep the copied spell targets or choose new targets.',
+            options: [
+              { id: 'keep', label: 'Keep the original targets' },
+              { id: 'retarget', label: 'Choose new targets' },
+            ],
+            action: {
+              kind: 'canonical-copy-retarget',
+              stackId: frame.stackId,
+              copyStackId: original.id,
+              controller: context.controller,
+            },
+          })
+          frame.phase = 'committing'
+          frame.pendingEvents = []
+          return []
         }
         for (const controller of controllers) {
           copies.push({ type: 'copySpell', stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
@@ -774,7 +764,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       return { kind: 'events', events: [] }
     }
     frame.phase = 'committing'
-    const events = actionEvents(instruction, runtimeContext(draft, frame, item, scope.scopeId), frame, path)
+    const events = actionEvents(instruction, runtimeContext(draft, frame, item, scope.scopeId), draft, frame, path)
     const committed = events.length > 1
       ? [{ type: 'actionGroup' as const, events }]
       : events
@@ -811,7 +801,12 @@ export const finishResolution = (draft: Draft) => {
     draft.resolution = frame.parentResolution
     draft.priority = frame.parentPriority === undefined ? frame.intendedPriority : frame.parentPriority
   } else {
+    const completedItem = draft.stack.find((item) => item.id === frame.stackId)
     draft.stack = draft.stack.filter((item) => item.id !== frame.stackId)
+    if (completedItem?.copy) {
+      const object = draft.object(completedItem.objectId)
+      if (object) ceaseToExist(draft, object)
+    }
     draft.priority = frame.intendedPriority
     delete draft.resolution
   }

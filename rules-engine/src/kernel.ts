@@ -339,7 +339,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!source) return
       const resolved = resolveCanonicalCopyTargets(draft, original, source, event.retarget === false
         ? { kind: 'keep' }
-        : { kind: 'chooseNewTargets', targets: event.targets })
+        : { kind: 'chooseNewTargets', targets: event.targets }, event.controller)
       if (!resolved.ok) {
         draft.note(`copySpell rejected: ${resolved.error}`)
         return
