@@ -42,11 +42,93 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
+import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount, classifyManaAbility } from '../cardPlugins/dsl/compiler'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
+
+const instructionsAddMana = (instructions: readonly any[]): boolean => instructions.some((instruction) => {
+  if (instruction.kind === 'addMana') return true
+  if (instruction.kind === 'sequence') return instructionsAddMana(instruction.instructions)
+  if (instruction.kind === 'if') return instructionsAddMana(instruction.then) || instructionsAddMana(instruction.otherwise)
+  if (instruction.kind === 'chooseInstructions') return instruction.options.some((option: any) => instructionsAddMana(option.instructions))
+  return false
+})
+
+/** Build the server-owned payment frame before any planned mana event runs. */
+export const preparePlannedSpellAnnouncement = (state: import('../types').GameState, event: InternalCastEvent) => {
+  if (!event.manaActivations?.length) return { ok: false as const, error: 'mana payment plan is empty' }
+  const source = state.objects[event.objectId]
+  if (!source?.ruleDefinition) return { ok: false as const, error: 'planned payment requires a canonical spell' }
+  const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+  const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
+  if (!ability) return { ok: false as const, error: 'spell ability does not exist' }
+  const groupedTargets = ability.decisions.targets.length === 0
+    ? []
+    : event.targetClauses ?? (ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+  if (!groupedTargets) return { ok: false as const, error: 'targets are required for the spell' }
+  const locked = beginSpellAnnouncement(
+    state,
+    source,
+    event.seat,
+    ability,
+    groupedTargets,
+    event.x,
+    [...(event.discard ?? []), ...(event.sacrifice ?? [])],
+    {
+      selectedOptional: event.selectedOptionalCosts,
+      selectedAlternative: event.selectedAlternativeCost,
+      deferPayment: true,
+      genericAdjustment: canonicalGenericAdjustment(source, spellCost(state, source, {
+        additionalGeneric: event.additionalGeneric,
+        x: event.x,
+        castOption: event.castOption,
+        kicked: event.kicked,
+        spreeModes: event.spreeModes,
+        timesKicked: event.timesKicked,
+        targets: event.targets,
+        seat: event.seat,
+        withoutPayingMana: event.alternativeCost === 'withoutPayingMana' || event.withoutPayingMana,
+      }), event.x),
+    },
+  )
+  if (!locked.ok) return locked
+  const abilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
+  const targetBindings = canonicalTargetBindings(
+    state,
+    source,
+    compiled.definition,
+    abilityIndex,
+    event.targets ?? event.targetClauses?.flat() ?? [],
+    undefined,
+    event.targetClauses,
+    event.seat,
+    event.x,
+  )
+  const activations: Array<Extract<GameEvent, { type: 'activateAbility' }>> = []
+  for (const plan of event.manaActivations) {
+    const paymentSource = state.objects[plan.objectId]
+    if (!paymentSource?.ruleDefinition) return { ok: false as const, error: 'planned payment source is not canonical' }
+    const paymentCompiled = compileCardRuleDefinition(paymentSource.ruleDefinition.definition)
+    const index = /^\$\.abilities\[(\d+)\]$/.exec(plan.abilityId)?.[1]
+    const paymentAbility = index === undefined ? undefined : paymentCompiled.definition.abilities[Number(index)]
+    if (!paymentAbility || paymentAbility.kind !== 'activated') return { ok: false as const, error: 'planned payment ability does not exist' }
+    const classification = classifyManaAbility({ addsMana: instructionsAddMana(paymentAbility.instructions ?? []), abilityKind: 'activated', hasTargets: paymentAbility.decisions.targets.length > 0 })
+    if (!classification.isManaAbility) return { ok: false as const, error: 'planned payment ability is not a mana ability' }
+    activations.push({
+      type: 'activateAbility', seat: event.seat, objectId: plan.objectId, abilityId: plan.abilityId,
+      manaAbility: true, ...(plan.choices ? { choices: plan.choices } : {}), ...(plan.x !== undefined ? { x: plan.x } : {}),
+    })
+  }
+  const { manaActivations: _plan, ...cast } = event
+  return {
+    ok: true as const,
+    transaction: { ...locked.transaction, targetBindings },
+    activations,
+    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings } } as Extract<GameEvent, { type: 'castSpell' }>,
+  }
+}
 
 const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boolean => {
   if (!object.ruleDefinition) return false
