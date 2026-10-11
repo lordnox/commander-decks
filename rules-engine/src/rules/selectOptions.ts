@@ -137,7 +137,8 @@ export const openOptionSelection = (
     id: draft.allocId('option'),
     ...selection,
   }
-  if (!draft.resolution && selection.action.kind !== 'putCanonicalTriggeredAbilityAllocation') draft.priority = selection.seat
+  if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') draft.priority = null
+  else if (!draft.resolution) draft.priority = selection.seat
 }
 
 export const selectOptions: Plugin = {
