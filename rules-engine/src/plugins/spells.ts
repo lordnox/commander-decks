@@ -47,7 +47,7 @@ import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compi
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
-import { evaluateModeCount, modalTargetLayout, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { evaluateDistributionBounds, evaluateModeCount, modalTargetLayout, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
@@ -133,6 +133,7 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
   )
   let distributionBindings = event.distributionBindings
   const distributionSpecs = selectedDistributionSpecs(ability, event.modeIndices)
+  const distributionBounds = distributionSpecs.map((spec) => evaluateDistributionBounds(spec, amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } })))
   if (distributionSpecs.length > 0) {
     distributionBindings = validateScopedDistributions(
       distributionSpecs,
@@ -140,6 +141,7 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
       (scopeId, clauseIndex) => targetBindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),
       selectedDistributionScopeIds(abilityIndex, ability, event.modeIndices),
+      distributionBounds,
     )
   }
   const activations: Array<Extract<GameEvent, { type: 'activateAbility' }>> = []
@@ -164,11 +166,11 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
   const { manaActivations: _plan, ...cast } = event
   return {
     ok: true as const,
-    transaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}), ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}) },
+    transaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}), ...(distributionBounds.length > 0 ? { distributionBounds } : {}), ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}) },
     source: captureObject(source),
     definitionSnapshot: createDefinitionSnapshot(compiled),
     activations,
-    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}), ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}) } } as Extract<GameEvent, { type: 'castSpell' }>,
+    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}), ...(distributionBounds.length > 0 ? { distributionBounds } : {}), ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}) } } as Extract<GameEvent, { type: 'castSpell' }>,
   }
 }
 
@@ -1068,6 +1070,7 @@ export const spells: Plugin = {
           if (event.modeIndices) stacked.execution.modeIndices = [...event.modeIndices]
           if (modal?.modeCount !== undefined) stacked.execution.modeCount = modal.modeCount
           if (event.distributionBindings) stacked.execution.distributionBindings = structuredClone(event.distributionBindings)
+          if (canonicalTransaction?.distributionBounds) stacked.execution.distributionBounds = structuredClone(canonicalTransaction.distributionBounds)
           stacked.execution.announcement = canonicalTransaction
             ? {
                 id: canonicalTransaction.id,

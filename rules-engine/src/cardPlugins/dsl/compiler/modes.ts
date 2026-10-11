@@ -116,9 +116,10 @@ export const validateDistributionAllocation = (
   allocation: readonly number[],
   recipientCount: number,
   context: AmountEvaluationContext,
+  pinnedBounds?: { total: number; minEach: number },
 ) => {
   integer(recipientCount, 'distribution recipient count')
-  const { total, minEach } = evaluateDistributionBounds(spec, context)
+  const { total, minEach } = pinnedBounds ?? evaluateDistributionBounds(spec, context)
   if (allocation.length !== recipientCount) throw new RuleDslEvaluationError('distribution must provide one amount per recipient')
   allocation.forEach((amount, index) => integer(amount, `distribution amount ${index}`))
   if (allocation.reduce((sum, amount) => sum + amount, 0) !== total) throw new RuleDslEvaluationError('distribution amounts must sum to the declared total')
@@ -134,6 +135,7 @@ export const validateScopedDistributions = (
   recipients: (scopeId: string, clauseIndex: number) => readonly TargetRef[],
   context: AmountEvaluationContext,
   expectedScopes?: readonly string[],
+  pinnedBounds?: readonly { total: number; minEach: number }[],
 ) => {
   if (allocations.length !== specs.length) throw new RuleDslEvaluationError('every distribution requirement needs exactly one allocation')
   return specs.map((spec, index) => {
@@ -144,7 +146,7 @@ export const validateScopedDistributions = (
     return {
       scopeId: allocation.scopeId,
       clauseIndex: allocation.clauseIndex,
-      amounts: validateDistributionAllocation(spec, allocation.amounts, targetCount, context),
+      amounts: validateDistributionAllocation(spec, allocation.amounts, targetCount, context, pinnedBounds?.[index]),
     }
   })
 }

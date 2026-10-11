@@ -56,6 +56,7 @@ export type AnnouncementTransaction = {
   readonly targetBindings?: readonly import('../../../types').CanonicalTargetBinding[]
   readonly distributionBindings?: readonly import('./modes').DistributionAllocation[]
   readonly modeCount?: number
+  readonly distributionBounds?: readonly { total: number; minEach: number }[]
   status: 'provisional' | 'committed' | 'rolledBack'
   readonly waitingFor?: 'proposal' | 'targets' | 'payment' | 'replacement'
 }
