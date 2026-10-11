@@ -21,7 +21,7 @@ import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/ta
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
 import type { Instruction } from './dsl/schema/v1'
-import { resolveModalInputs, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
+import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
@@ -38,6 +38,12 @@ const activatedModalInputs = (state: GameState, source: GameObject, ability: Ext
     targetClauses: layout.map((entry) => entry.clause),
     scopeIds: layout.map((entry) => entry.scopeId),
     modeIndices: layout.map((entry) => entry.modeIndex),
+    modeCount: evaluateModeCount(ability.decisions.modes!, {
+      state,
+      controller: event.seat,
+      source: captureObject(source),
+      variables: event.x === undefined ? undefined : { X: event.x },
+    }),
   }
 }
 
@@ -229,6 +235,7 @@ export const activated: Plugin = {
                 event.distributionBindings ?? [],
                 (scopeId, clauseIndex) => bindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
                 amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),
+                selectedDistributionScopeIds(Number(abilityIndex), activatedCanonical, event.modeIndices),
               )
             } catch (error) {
               return `announcement: ${error instanceof Error ? error.message : String(error)}`
@@ -448,6 +455,7 @@ export const activated: Plugin = {
             payment: committed.payment,
           },
           ...(event.modeIndices ? { modeIndices: [...event.modeIndices] } : {}),
+          ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}),
           ...(event.distributionBindings ? { distributionBindings: structuredClone(event.distributionBindings) } : {}),
         }
         if (manaClassification.isManaAbility) {

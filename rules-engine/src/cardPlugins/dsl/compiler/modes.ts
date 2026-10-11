@@ -72,12 +72,23 @@ export const resolveModalInputs = (
   return modalTargetLayout(ability, abilityIndex, selectedModes)
 }
 
+export const evaluateModeCount = (spec: ModeSpec, context: RuleDslRuntimeContext) =>
+  evaluateAmount(spec.count, amountEvaluationContext(context))
+
 export const selectedDistributionSpecs = (
   ability: { decisions: { distributions?: readonly DistributionSpec[] }; modes?: readonly ModeDefinition[] },
   selectedModes?: readonly number[],
 ) => selectedModes && ability.modes
   ? selectedModes.flatMap((index) => ability.modes?.[index]?.decisions.distributions ?? [])
   : ability.decisions.distributions ?? []
+
+export const selectedDistributionScopeIds = (
+  abilityIndex: number,
+  ability: { decisions: { distributions?: readonly DistributionSpec[] }; modes?: readonly ModeDefinition[] },
+  selectedModes?: readonly number[],
+) => selectedModes && ability.modes
+  ? selectedModes.flatMap((modeIndex, occurrence) => (ability.modes?.[modeIndex]?.decisions.distributions ?? []).map(() => `$.abilities[${abilityIndex}].modes[${modeIndex}]#${occurrence}`))
+  : (ability.decisions.distributions ?? []).map(() => `$.abilities[${abilityIndex}]`)
 
 /** Stable generated identities for selected occurrences. Selection order is retained. */
 export const modeOccurrences = (
@@ -122,10 +133,12 @@ export const validateScopedDistributions = (
   allocations: readonly DistributionAllocation[],
   recipients: (scopeId: string, clauseIndex: number) => readonly TargetRef[],
   context: AmountEvaluationContext,
+  expectedScopes?: readonly string[],
 ) => {
   if (allocations.length !== specs.length) throw new RuleDslEvaluationError('every distribution requirement needs exactly one allocation')
   return specs.map((spec, index) => {
     const allocation = allocations[index]
+    if (expectedScopes && allocation.scopeId !== expectedScopes[index]) throw new RuleDslEvaluationError(`distribution ${index} has the wrong mode scope`)
     if (allocation.clauseIndex !== spec.targetClauseIndex) throw new RuleDslEvaluationError(`distribution ${index} targets clause ${spec.targetClauseIndex}`)
     const targetCount = recipients(allocation.scopeId, allocation.clauseIndex).length
     return {

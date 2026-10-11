@@ -400,6 +400,8 @@ export type StackExecutionContext = {
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
   modeIndices?: number[]
+  /** Mode cardinality evaluated and locked during announcement. */
+  modeCount?: number
   /** Stable scope for each selected mode occurrence; repeated modes get distinct scopes. */
   modeScopeIds?: string[]
   /** Announcement-time allocations, keyed by each mode scope and local clause. */

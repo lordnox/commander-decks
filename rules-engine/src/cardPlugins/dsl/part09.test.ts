@@ -17,6 +17,48 @@ import { objects } from './v1'
 const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, characteristic: () => 0 }
 
 describe('Part09 scoped modes and distributions', () => {
+  const modalSpellFixture = (modes: any[], count: any) => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [], modes: { count, repeatable: true } }, modes }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Modal supplied spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Modal count creature', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    return { server, spell: Object.values(server.state.objects).find((object) => object.name === 'Modal supplied spell')! }
+  }
+
+  test('server keeps repeated modal target occurrences in separate scopes', () => {
+    const clause = { filter: { kind: 'players' as const, filter: {} }, min: amount(1), max: amount(1), distinct: true as const }
+    const { server, spell } = modalSpellFixture([{ decisions: { targets: [clause] }, instructions: [{ kind: 'gainLife', amount: amount(2), targets: { kind: 'targetRef', clauseIndex: 0 } }] }], amount(2))
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0, 0], targetClauses: [[{ kind: 'player', player: 'p1' }], [{ kind: 'player', player: 'p2' }]] })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    expect(resolved.state.players.p1.life).toBe(42)
+    expect(resolved.state.players.p2.life).toBe(42)
+  })
+
+  test('server locks general Amount modal cardinality at announcement', () => {
+    const { server, spell } = modalSpellFixture([{ decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(2), targets: ref('controller') }] }], { kind: 'count', of: objects({ zone: 'battlefield', type: 'Creature' }) })
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0] })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    expect(resolved.state.players.p1.life).toBe(42)
+  })
+
+  test('server rejects a distribution bound to a different modal occurrence', () => {
+    const clause = { filter: { kind: 'players' as const, filter: {} }, min: amount(1), max: amount(1), distinct: true as const }
+    const mode = (total: number) => ({ decisions: { targets: [clause], distributions: [{ targetClauseIndex: 0, total: amount(total), minEach: amount(1) }] }, instructions: [{ kind: 'gainLife', amount: amount(total), targets: { kind: 'targetRef', clauseIndex: 0 } }] })
+    const { server, spell } = modalSpellFixture([mode(3), mode(1)], amount(2))
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0, 1], targetClauses: [[{ kind: 'player', player: 'p1' }], [{ kind: 'player', player: 'p2' }]], distributionBindings: [{ scopeId: '$.abilities[0].modes[1]#1', clauseIndex: 0, amounts: [3] }, { scopeId: '$.abilities[0].modes[0]#0', clauseIndex: 0, amounts: [1] }] } as any)
+    expect(cast.ok).toBe(false)
+    expect(cast.state).toEqual(server.state)
+  })
   test('server resolves supplied modal spell occurrences in printed order', () => {
     const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([{
       kind: 'spell',

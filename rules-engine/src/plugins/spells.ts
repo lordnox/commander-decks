@@ -47,7 +47,7 @@ import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compi
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
-import { resolveModalInputs, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
@@ -64,6 +64,12 @@ const modalInputs = (state: GameState, source: GameObject, ability: Extract<impo
     targetClauses: layout.map((entry) => entry.clause),
     scopeIds: layout.map((entry) => entry.scopeId),
     modeIndices: layout.map((entry) => entry.modeIndex),
+    modeCount: evaluateModeCount(ability.decisions.modes!, {
+      state,
+      controller: event.seat,
+      source: captureObject(source),
+      variables: event.x === undefined ? undefined : { X: event.x },
+    }),
   }
 }
 
@@ -131,6 +137,7 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
       event.distributionBindings ?? [],
       (scopeId, clauseIndex) => targetBindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),
+      selectedDistributionScopeIds(abilityIndex, ability, event.modeIndices),
     )
   }
   const activations: Array<Extract<GameEvent, { type: 'activateAbility' }>> = []
@@ -477,9 +484,12 @@ export const spells: Plugin = {
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
     const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
     if (!ability) return
-    const groupedTargets = ability.decisions.targets.length === 0
+    const canonicalAbilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
+    const modal = modalInputs(state, object, ability, canonicalAbilityIndex, event)
+    const targetClauses = modal?.targetClauses ?? ability.decisions.targets
+    const groupedTargets = targetClauses.length === 0
       ? []
-      : event.targetClauses ?? (ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+      : event.targetClauses ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
     if (!groupedTargets) return
     const announcement = beginSpellAnnouncement(
       state,
@@ -492,6 +502,7 @@ export const spells: Plugin = {
       {
         selectedOptional: event.selectedOptionalCosts,
         selectedAlternative: event.selectedAlternativeCost,
+        targetClauses,
         genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
           additionalGeneric: event.additionalGeneric,
           x: event.x,
@@ -507,7 +518,6 @@ export const spells: Plugin = {
     )
     if (!announcement.ok) return
     const committedBase = commitAnnouncement(announcement.transaction)
-    const canonicalAbilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
     const committed = canonicalAbilityIndex >= 0 && ability.kind === 'spell'
       ? {
         ...committedBase,
@@ -518,9 +528,12 @@ export const spells: Plugin = {
         canonicalAbilityIndex,
         event.targets ?? event.targetClauses?.flat() ?? [],
         undefined,
-        event.targetClauses,
+        groupedTargets,
         event.seat,
         event.x,
+        modal?.targetClauses,
+        modal?.scopeIds,
+        modal?.modeIndices,
         ),
       }
       : committedBase
@@ -608,6 +621,7 @@ export const spells: Plugin = {
                 event.distributionBindings ?? [],
                 (scopeId, clauseIndex) => bindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
                 amountEvaluationContext({ state, controller: event.seat, source: captureObject(spell), variables: event.x === undefined ? undefined : { X: event.x } }),
+                selectedDistributionScopeIds(abilityIndex, ability, event.modeIndices),
               )
             } catch (error) {
               return `announcement: ${error instanceof Error ? error.message : String(error)}`
@@ -1043,6 +1057,7 @@ export const spells: Plugin = {
             Boolean(canonicalTransaction),
           ))]
           if (event.modeIndices) stacked.execution.modeIndices = [...event.modeIndices]
+          if (modal?.modeCount !== undefined) stacked.execution.modeCount = modal.modeCount
           if (event.distributionBindings) stacked.execution.distributionBindings = structuredClone(event.distributionBindings)
           stacked.execution.announcement = canonicalTransaction
             ? {
