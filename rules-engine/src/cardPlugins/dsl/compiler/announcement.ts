@@ -180,7 +180,7 @@ const matchesCostFilter = (object: GameState['objects'][string], filter: Extract
   return true
 }
 
-const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, costs: readonly Cost[], x: number | undefined, choices: readonly string[] | undefined) => {
+const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, sourceId: string, costs: readonly Cost[], x: number | undefined, choices: readonly string[] | undefined) => {
   let choiceIndex = 0
   for (const cost of costs) {
     if (cost.kind === 'life') {
@@ -189,7 +189,7 @@ const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, pay
     }
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
     const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
-    const candidates = Object.values(state.objects).filter((object) => object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))
+    const candidates = Object.values(state.objects).filter((object) => object.id !== sourceId && object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))
     if (candidates.length < costAmount(cost.count, x)) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
     const count = costAmount(cost.count, x)
     const selected = choices?.slice(choiceIndex, choiceIndex + count)
@@ -263,7 +263,7 @@ export const beginAnnouncement = (
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
-    validateNonManaCosts(state, proposal.payer, costs, proposal.variables?.X, proposal.nonManaChoices)
+    validateNonManaCosts(state, proposal.payer, proposal.sourceId, costs, proposal.variables?.X, proposal.nonManaChoices)
     const mana = lockedManaCost(plan, proposal.variables?.X ?? 0)
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)

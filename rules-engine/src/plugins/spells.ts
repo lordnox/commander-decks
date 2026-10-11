@@ -370,11 +370,15 @@ export const spells: Plugin = {
       }
     }
     return costs.length > 0
-      ? [...costs, { ...event, [canonicalCostsPaid]: true } as InternalCastEvent]
+      ? (() => {
+        const { canonicalCostsPaid: _forged, ...publicEvent } = event as typeof event & { canonicalCostsPaid?: unknown }
+        return [...costs, { ...publicEvent, [canonicalCostsPaid]: true } as InternalCastEvent]
+      })()
       : undefined
   },
   legal: ({ state, event }) => {
     if (event.type === 'castSpell') {
+      if (Object.hasOwn(event, 'canonicalCostsPaid')) return 'canonical transaction state is server-private'
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
