@@ -14,7 +14,7 @@ import {
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
-import { validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
+import { selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -151,7 +151,8 @@ export const startCanonicalResolution = (
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
-  if (ability.decisions.distributions) {
+  const distributionSpecs = selectedDistributionSpecs(ability, selectedModes)
+  if (distributionSpecs.length > 0) {
     const allocations = item.execution?.distributionBindings
     if (!allocations) throw new Error(`${declarationPath}.decisions.distributions: announcement is missing allocations`)
     const context = amountEvaluationContext({
@@ -161,7 +162,7 @@ export const startCanonicalResolution = (
       variables: item.x === undefined ? undefined : { X: item.x },
     })
     validateScopedDistributions(
-      ability.decisions.distributions,
+      distributionSpecs,
       allocations,
       (scopeId, clauseIndex) => (item.execution?.targetBindings ?? [])
         .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
@@ -274,17 +275,19 @@ const runtimeContext = (
 })
 
 const distributedAmount = (
-  target: Extract<Instruction, { kind: 'gainLife' | 'loseLife' | 'draw' | 'mill' | 'discard' }>['targets'],
-  recipient: string,
+  target: { kind: string; clauseIndex?: number },
+  recipient: string | { kind: 'object'; objectId: string },
   context: RuleDslRuntimeContext,
   fallback: number,
 ) => {
-  if (target.kind !== 'targetRef') return fallback
+  if (target.kind !== 'targetRef' || target.clauseIndex === undefined) return fallback
   const allocation = context.distributions?.find((entry) =>
     entry.scopeId === context.scopeId && entry.clauseIndex === target.clauseIndex)
   if (!allocation) return fallback
   const bound = context.targets?.[target.clauseIndex] ?? []
-  const index = bound.findIndex((entry) => entry.kind === 'player' && entry.playerId === recipient)
+  const index = bound.findIndex((entry) => entry.kind === 'player'
+    ? typeof recipient === 'string' && entry.playerId === recipient
+    : typeof recipient !== 'string' && entry.kind === 'object' && entry.objectId === recipient.objectId)
   return index >= 0 ? allocation.amounts[index] ?? fallback : fallback
 }
 
@@ -411,7 +414,11 @@ const actionEvents = (
         sourceId: source.id,
         sourceSnapshot: capturedDamageSource(source, context),
         target,
-        amount,
+        amount: target.kind === 'player'
+          ? distributedAmount(instruction.targets, target.player, context, amount)
+          : target.kind === 'object'
+            ? distributedAmount(instruction.targets, target, context, amount)
+            : amount,
       }))
     }
     case 'destroy': {

@@ -47,7 +47,7 @@ import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compi
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
-import { resolveModalInputs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { resolveModalInputs, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
@@ -124,9 +124,10 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
     modal?.modeIndices,
   )
   let distributionBindings = event.distributionBindings
-  if (ability.decisions.distributions) {
+  const distributionSpecs = selectedDistributionSpecs(ability, event.modeIndices)
+  if (distributionSpecs.length > 0) {
     distributionBindings = validateScopedDistributions(
-      ability.decisions.distributions,
+      distributionSpecs,
       event.distributionBindings ?? [],
       (scopeId, clauseIndex) => targetBindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),
@@ -595,7 +596,7 @@ export const spells: Plugin = {
             ? event.targetClauses
               ?? (targetClauses.length === 0 ? [] : targetClauses.length === 1 ? [event.targets ?? []] : undefined)
             : undefined
-          if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted && ability.decisions.distributions) {
+          if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted && selectedDistributionSpecs(ability, event.modeIndices).length > 0) {
             try {
               const bindings = canonicalTargetBindings(
                 state, spell, compiled.definition, abilityIndex,
@@ -603,7 +604,7 @@ export const spells: Plugin = {
                 event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
               )
               validateScopedDistributions(
-                ability.decisions.distributions,
+                selectedDistributionSpecs(ability, event.modeIndices),
                 event.distributionBindings ?? [],
                 (scopeId, clauseIndex) => bindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
                 amountEvaluationContext({ state, controller: event.seat, source: captureObject(spell), variables: event.x === undefined ? undefined : { X: event.x } }),
