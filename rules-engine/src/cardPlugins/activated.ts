@@ -19,6 +19,7 @@ import { captureObject, targetObject } from '../objectIdentity'
 import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
+import { openOptionSelection } from '../rules/selectOptions'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
@@ -39,9 +40,20 @@ const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileC
 }
 
 const immediateManaInstructions = (instructions: readonly import('./dsl/schema/v1').Instruction[]): readonly import('./dsl/schema/v1').Instruction[] =>
-  instructions.flatMap((instruction) => instruction.kind === 'sequence'
-    ? immediateManaInstructions(instruction.instructions)
-    : [instruction])
+  instructions.flatMap((instruction) => {
+    if (instruction.kind === 'sequence') return immediateManaInstructions(instruction.instructions)
+    if (instruction.kind === 'if'
+      && instruction.condition.kind === 'compareAmount'
+      && instruction.condition.left.kind === 'constant'
+      && instruction.condition.right.kind === 'constant') {
+      const left = instruction.condition.left.value
+      const right = instruction.condition.right.value
+      const holds = instruction.condition.operator === 'eq' ? left === right
+        : instruction.condition.operator === 'gte' ? left >= right : left <= right
+      return immediateManaInstructions(holds ? instruction.then : instruction.otherwise)
+    }
+    return [instruction]
+  })
 
 const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
@@ -308,6 +320,18 @@ export const activated: Plugin = {
         }
         if (manaClassification.isManaAbility) {
           for (const instruction of immediateManaInstructions(canonical.instructions ?? [])) {
+            if (instruction.kind === 'chooseInstructions') {
+              openOptionSelection(draft, {
+                seat: event.seat,
+                sourceId: source.id,
+                source: source.name,
+                prompt: 'Choose a mana program.',
+                options: instruction.options.map((_option, index) => ({ id: `instruction:${index}`, label: `Option ${index + 1}` })),
+                action: { kind: 'inlineManaInstructionChoice', options: instruction.options.map((option, index) => ({ id: `instruction:${index}`, instructions: option.instructions })) },
+              })
+              draft.priority = null
+              return
+            }
             if (instruction.kind === 'move' && instruction.targets.kind === 'objects') {
               for (const object of Object.values(draft.objects)) {
                 const filter = instruction.targets.filter

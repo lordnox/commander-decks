@@ -59,6 +59,9 @@ export type PendingOptionSelection = {
     scopeId?: string
     options: readonly { id: string; instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[] }[]
   } | {
+    kind: 'inlineManaInstructionChoice'
+    options: readonly { id: string; instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[] }[]
+  } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
     abilityIndex: number
@@ -191,6 +194,20 @@ export const selectOptions: Plugin = {
         })
       }
       draft.priority = null
+      return
+    }
+    if (selection.action.kind === 'inlineManaInstructionChoice') {
+      const option = selection.action.options.find((entry) => entry.id === event.optionId)
+      if (!option) return
+      const manaPool = draft.players[event.seat].mana
+      for (const instruction of option.instructions) {
+        if (instruction.kind !== 'addMana' || instruction.targets.kind !== 'contextRef' || instruction.targets.name !== 'controller') continue
+        for (const [symbol, amount] of Object.entries(instruction.amount)) {
+          if (amount.kind === 'constant') manaPool[symbol as keyof typeof manaPool] += amount.value
+        }
+      }
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      draft.priority = event.seat
       return
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
