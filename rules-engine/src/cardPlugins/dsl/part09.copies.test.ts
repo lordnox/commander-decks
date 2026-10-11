@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  amount,
   compileCardRuleDefinition,
   copySpell,
   select,
@@ -9,7 +10,7 @@ import {
 } from './v1'
 import { copyTargets, openCanonicalCopyRetargeting, resolveCanonicalCopyTargets } from './copies'
 import { InteractionStore } from '../../interaction'
-import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot } from './v1'
+import { createDefinitionSnapshot } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
