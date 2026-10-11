@@ -482,6 +482,9 @@ export type CanonicalResolutionFrame = {
     originalStackId: string
     controller: PlayerId
     targets: TargetRef[]
+    slotCursor?: number
+    changedIndices?: number[]
+    answers?: TargetRef[]
   }[]
 }
 

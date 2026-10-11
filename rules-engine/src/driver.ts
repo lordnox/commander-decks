@@ -464,7 +464,6 @@ const actionEvents = (
           : evaluatePlayerReference(instruction.controller, context))
         : [context.controller]
       const copies: GameEvent[] = []
-      const copyJobs: Array<{ copyStackId: string; controller: import('./types').PlayerId }> = []
       for (const target of targets) {
         const original = context.state.stack.find((candidate) => candidate.id === target.stackId)
         if (!original) continue
@@ -474,8 +473,13 @@ const actionEvents = (
         // answered through the durable typed offer API, never by refreshing
         // incarnations as a side effect of copying.
         if (instruction.retarget?.kind === 'chooseNewTargets') {
-          for (const controller of controllers) copyJobs.push({ copyStackId: original.id, controller })
-          if (copyJobs.length > 0 && copyJobs[0].copyStackId === original.id) {
+          const jobs = targets.flatMap((candidate) => controllers.map((controller) => {
+            const item = context.state.stack.find((entry) => entry.id === candidate.stackId)
+            return item ? { originalStackId: item.id, controller, targets: structuredClone(item.targets), slotCursor: 0, changedIndices: [], answers: [] } : undefined
+          })).filter((job): job is NonNullable<typeof job> => Boolean(job))
+          frame.pendingCopyTargets = jobs
+          const first = jobs[0]
+          if (first) {
           const abilitySnapshot = original.execution?.definitionSnapshot
           const abilityIndex = original.execution?.abilityIndex
           const copyDefinition = abilitySnapshot ? loadDefinitionSnapshot(abilitySnapshot).definition : undefined
@@ -498,9 +502,9 @@ const actionEvents = (
             action: {
               kind: 'canonical-copy-retarget',
               stackId: frame.stackId,
-              copyStackId: copyJobs[0].copyStackId,
-              controller: copyJobs[0].controller,
-              remaining: copyJobs.slice(1),
+              copyStackId: first.originalStackId,
+              controller: first.controller,
+              slotIndex: 0,
             },
           })
           frame.phase = 'committing'
