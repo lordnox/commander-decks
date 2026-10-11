@@ -205,11 +205,12 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       draft.enqueue({
         type: 'createToken',
         controller: event.controller,
-        token: event.token ?? copyCharacteristics(source),
+        token: { ...(event.token ?? copyCharacteristics(source)), dsl: true },
       })
       return
     }
     case 'createToken': {
+      if (!event.token.dsl) return
       createToken(draft, event.controller, event.token)
       return
     }

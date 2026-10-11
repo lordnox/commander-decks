@@ -741,6 +741,7 @@ export type GameEvent =
         oracleText?: string
         ruleDefinition?: GameObject['ruleDefinition']
         effects?: GameObject['effects']
+        dsl?: true
       }
     }
   | {
