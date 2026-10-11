@@ -582,7 +582,19 @@ export const spells: Plugin = {
         const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
         const precommitted = event.canonicalTransaction
         if (ability && 'decisions' in ability) {
-          const modal = ability.kind === 'spell' ? modalInputs(state, spell, ability, abilityIndex, event) : undefined
+          const modal = ability.kind === 'spell'
+            ? precommitted?.modeCount !== undefined && event.modeIndices
+              ? (() => {
+                  const layout = modalTargetLayout(ability, abilityIndex, event.modeIndices)
+                  return {
+                    targetClauses: layout.map((entry) => entry.clause),
+                    scopeIds: layout.map((entry) => entry.scopeId),
+                    modeIndices: layout.map((entry) => entry.modeIndex),
+                    modeCount: precommitted.modeCount,
+                  }
+                })()
+              : modalInputs(state, spell, ability, abilityIndex, event)
+            : undefined
           const targetClauses = modal?.targetClauses ?? ability.decisions.targets
           const variables = ability.decisions.variables ?? []
           for (const variable of variables) {
@@ -1050,7 +1062,19 @@ export const spells: Plugin = {
         const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
         if (abilityIndex >= 0 && stacked.execution) {
           const ability = compiled.definition.abilities[abilityIndex]
-          const modal = ability.kind === 'spell' ? modalInputs(state, object, ability, abilityIndex, event) : undefined
+          const modal = ability.kind === 'spell'
+            ? canonicalTransaction?.modeCount !== undefined && event.modeIndices
+              ? (() => {
+                  const layout = modalTargetLayout(ability, abilityIndex, event.modeIndices)
+                  return {
+                    targetClauses: layout.map((entry) => entry.clause),
+                    scopeIds: layout.map((entry) => entry.scopeId),
+                    modeIndices: layout.map((entry) => entry.modeIndex),
+                    modeCount: canonicalTransaction.modeCount,
+                  }
+                })()
+              : modalInputs(state, object, ability, abilityIndex, event)
+            : undefined
           const groupedTargets = modal?.targetClauses
             ? event.targetClauses ?? (modal.targetClauses.length === 1 ? [event.targets ?? []] : [])
             : event.targetClauses

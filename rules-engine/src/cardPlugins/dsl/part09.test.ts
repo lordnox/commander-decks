@@ -117,6 +117,39 @@ describe('Part09 scoped modes and distributions', () => {
     if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
   })
 
+  test('spell sacrifice costs retain announced modal cardinality through resolution', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [{ kind: 'sacrifice', filter: objects({ zone: 'battlefield', type: 'Creature' }), count: amount(1) }],
+      decisions: { targets: [], modes: { count: { kind: 'count', of: objects({ zone: 'battlefield', type: 'Creature' }) }, repeatable: false } },
+      modes: [
+        { decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(1), targets: ref('controller') }] },
+        { decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(1), targets: ref('controller') }] },
+      ],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Sacrifice modal spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: {
+        p1: [
+          cardTemplate('Spell sacrifice creature one', { types: ['Creature'], power: 2, toughness: 2 }),
+          cardTemplate('Spell sacrifice creature two', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Sacrifice modal spell')!
+    const sacrificed = Object.values(server.state.objects).find((object) => object.name === 'Spell sacrifice creature one')!
+    const cast = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0, 1], sacrifice: [sacrificed.id],
+    } as any)
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    expect(cast.state.objects[sacrificed.id]?.zone).toBe('graveyard')
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
+  })
+
   test('server captures general Amount modal cardinality for triggered abilities', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
       whenever(
@@ -231,6 +264,7 @@ describe('Part09 scoped modes and distributions', () => {
     const second = pendingSelectionFor(firstAnswer.state, 'p1')
     expect(second).toBeDefined()
     if (!second) return
+    expect(second.id).not.toBe(first.id)
     const completed = server.rules(firstAnswer.state, { type: 'selectCards', seat: 'p1', selectionId: second.id, kind: 'choose', count: second.count, objectIds: [firstTarget.id, secondTarget.id] })
     expect(completed.ok).toBe(true)
     if (completed.ok) {
