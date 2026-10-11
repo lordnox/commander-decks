@@ -10,8 +10,9 @@ import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalResolutionFrame, CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
-import type { CardRuleDefinitionSnapshotV1, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, Cost, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import { allocationOptions } from './canonicalAllocation'
+import { payCost } from '../plugins/spells'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -129,6 +130,15 @@ export type PendingOptionSelection = {
     copyStackId: string
     controller: PlayerId
     slotIndex?: number
+  } | {
+    /** A resolution-time payment is answered by its payer while its parent frame remains active. */
+    kind: 'canonicalResolutionPayment'
+    stackId: string
+    cost: Cost
+    bindResult: string
+    ifPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+    ifDeclined: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+    whenPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1
@@ -512,6 +522,31 @@ export const selectOptions: Plugin = {
         }
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      return
+    }
+    if (selection.action.kind === 'canonicalResolutionPayment') {
+      if (event.optionId !== 'pay' && event.optionId !== 'decline') return
+      const cost = selection.action.cost
+      const paid = event.optionId === 'pay'
+        && cost.kind === 'mana'
+        && Boolean(payCost(draft.players[event.seat].mana, cost.amount))
+      if (paid) {
+        const nextMana = payCost(draft.players[event.seat].mana, cost.amount)
+        if (!nextMana) return
+        draft.players[event.seat].mana = nextMana
+      }
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
+        draft.resolution.results = { ...draft.resolution.results, [selection.action.bindResult]: paid }
+        const branch = paid ? selection.action.ifPaid : selection.action.ifDeclined
+        if (branch.length > 0) draft.resolution.scopes.push({ path: '.payOptional', instructions: structuredClone(branch), cursor: 0 })
+        // `whenPaid` is deliberately retained as a separate pending trigger by
+        // the host checkpoint; it is never folded into the if-paid branch.
+        if (paid && selection.action.whenPaid.length > 0) {
+          draft.note(`resolution payment paid; reflexive program ${selection.action.bindResult} is queued`)
+        }
+        draft.resolution.phase = 'running'
+      }
       return
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {

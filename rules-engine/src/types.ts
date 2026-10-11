@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { CardRuleDefinitionSnapshotV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, Cost, EffectDuration, GeneratedAbility, Instruction } from './cardPlugins/dsl/schema/v1'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
@@ -286,6 +286,13 @@ export type GameObject = {
   exiledUntilOpponentMonarch?: boolean
   /** Stamped from the name-keyed card-rule table when the object is created. */
   effects?: CardEffect[]
+  /** Version-pinned abilities granted by a canonical temporary effect. */
+  canonicalGrantedAbilities?: Array<{
+    ability: GeneratedAbility
+    sourceId: string
+    definitionRevision: string
+    duration: EffectDuration
+  }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
   ruleDefinition?: CardRuleDefinitionSnapshotV1
   /** Alternative casting option used for the current battlefield entry. */
@@ -723,6 +730,15 @@ export type GameEvent =
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
   /** Canonical spell-copy action; unlike castSpell it creates no cast occurrence. */
   | { type: 'copySpell'; stackId: string; controller: PlayerId; targets: TargetRef[]; retarget?: boolean; sourceId?: string }
+  /** Canonical temporary effect; the event carries evaluated recipients and pinned source data. */
+  | {
+      type: 'canonicalEffect'
+      objectId: string
+      effect: import('./cardPlugins/dsl/schema/v1').CreatedEffect
+      duration: import('./cardPlugins/dsl/schema/v1').EffectDuration
+      sourceId?: string
+      sourceRevision?: string
+    }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
   | { type: 'cancelAnnouncement'; seat: PlayerId; announcementId: string }

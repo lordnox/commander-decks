@@ -100,6 +100,9 @@ const preflightInstructions = (
       case 'copySpell':
       case 'putCounters':
       case 'counter':
+      case 'createEffect':
+      case 'payOptional':
+      case 'createDelayed':
       case 'mill':
       case 'discard':
         return
@@ -601,6 +604,24 @@ const actionEvents = (
         ? [counterEvent(target.stackId)]
         : [])
     }
+    case 'createEffect': {
+      const targets = objectActions(instruction.targets, context)
+      const effect = instruction.effect.kind === 'pump'
+        ? {
+            kind: 'pump' as const,
+            power: { kind: 'constant' as const, value: availableAmount(instruction.effect.power, context) ?? 0 },
+            toughness: { kind: 'constant' as const, value: availableAmount(instruction.effect.toughness, context) ?? 0 },
+          }
+        : structuredClone(instruction.effect)
+      return targets.map((object) => ({
+        type: 'canonicalEffect' as const,
+        objectId: object.id,
+        effect,
+        duration: structuredClone(instruction.duration),
+        sourceId: frame.source.ref.objectId,
+        sourceRevision: frame.definitionSnapshot.definitionRevision,
+      }))
+    }
     default:
       throw pathError(frame, path, `${instruction.kind} is not executable in Part 04`)
   }
@@ -736,6 +757,30 @@ export const prepareResolutionStep = (draft: Draft) => {
       } else if (min === 0) {
         frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
       }
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'payOptional') {
+      const context = runtimeContext(draft, frame, item)
+      const payer = evaluatePlayerReference(instruction.payer, context)[0]
+      if (!payer) throw pathError(frame, path, 'resolution payment payer is not available')
+      openOptionSelection(draft, {
+        seat: payer,
+        sourceId: frame.source.ref.objectId,
+        source: frame.source.snapshot.name,
+        prompt: `Pay ${instruction.cost.kind === 'mana' ? instruction.cost.amount : instruction.cost.kind}.`,
+        options: [{ id: 'pay', label: 'Pay' }, { id: 'decline', label: 'Decline' }],
+        action: {
+          kind: 'canonicalResolutionPayment',
+          stackId: frame.stackId,
+          cost: instruction.cost,
+          bindResult: instruction.bindResult,
+          ifPaid: instruction.ifPaid ?? [],
+          ifDeclined: instruction.ifDeclined ?? [],
+          whenPaid: instruction.whenPaid ?? [],
+        },
+      })
       frame.phase = 'committing'
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
