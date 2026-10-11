@@ -68,7 +68,7 @@ ordering, and planned-payment continuation paths.
 - `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 26 passed, 0 failed, including locked adjusted-cost preservation, JSON restart, and full-baseline cancellation.
 - `bun test live-runner/src/kernelActs.part08.test.ts` — 1 passed, 0 failed, covering the live host cast/cancel route through `applyKernelAct`.
 - `bun test rules-engine/src/plugins/mana.test.ts` — 20 passed, 0 failed.
-- `bun test rules-engine` — 2,276 passed, 0 failed.
+- `bun test rules-engine` — 2,277 passed, 0 failed.
 - TypeScript `--noEmit` — passed.
 - `bun scripts/check-imports.ts` — passed.
 - Parent payment review fixture — 53 checks passed.
