@@ -1206,7 +1206,19 @@ export const rules = (
     const error = 'a player choice must be completed before another stack item resolves'
     return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
   }
-  const applied = applyEventTree(state, event, catalog)
+  if (event.type === 'castSpell' && event.canonicalTransaction) {
+    const error = 'canonical transaction state is server-private'
+    return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
+  }
+  // Canonical transaction continuations are server-created queue events. A
+  // public action cannot inject one by serializing the internal field.
+  const publicEvent = event.type === 'castSpell' && event.canonicalTransaction
+    ? (() => {
+      const { canonicalTransaction: _private, ...untrusted } = event
+      return untrusted as GameEvent
+    })()
+    : event
+  const applied = applyEventTree(state, publicEvent, catalog)
   if (!applied.ok) return applied
   let current = applied.state
   const entries = [...applied.trace]

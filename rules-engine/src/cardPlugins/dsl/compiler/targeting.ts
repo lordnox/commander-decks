@@ -201,6 +201,7 @@ export const canonicalTargetBindings = (
   clausesOverride?: readonly TargetClause[],
   scopeIdsOverride?: readonly string[],
   modeIndicesOverride?: readonly (number | undefined)[],
+  preserveSupplied?: boolean,
 ) => {
   const ability = definition.abilities[abilityIndex]
   if (!ability || (ability.kind !== 'spell' && ability.kind !== 'activated' && ability.kind !== 'triggered')) {
@@ -218,7 +219,9 @@ export const canonicalTargetBindings = (
       throw new RuleDslEvaluationError('targets and targetClauses disagree')
     }
   }
-  const slots = grouped
+  const slots = preserveSupplied
+    ? (normalizedGrouped ?? [normalizedSupplied])
+    : grouped
     ? groupedTargets(state, sourceId, clauses, normalizedGrouped!, context)
     : partitionTargets(state, sourceId ?? '', clauses, normalizedSupplied, context)
   if (!slots) {

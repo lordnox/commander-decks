@@ -49,6 +49,9 @@ cannot publish payments, targets, or cast occurrences.
   rather than treating each individual mana instruction as a resolution
 - [x] honor prohibition object/player filter composition and inactive watcher
   state in the shared activation gate
+- [x] replace the non-serializable canonical cost symbol with a server-created
+  serializable transaction continuation, preserving locked costs and target
+  identities through typed cost events and JSON restart
 
 ## Remaining work
 
@@ -82,3 +85,5 @@ suspended payment transaction remain for the next Part 08 review slice.
   activation/resolution triggers without client mana flags.
 - parent server review fixture — 36 passed, 0 failed, including one completion
   occurrence for multi-instruction mana programs and controller-filtered bans.
+- parent server review fixture — 39 passed, 0 failed, including serializable
+  canonical continuations and pinned targets sacrificed as costs.

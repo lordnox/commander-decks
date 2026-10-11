@@ -46,8 +46,7 @@ import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, 
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
 
-const canonicalCostsPaid = Symbol('canonicalCostsPaid')
-type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }> & { [canonicalCostsPaid]?: AnnouncementTransaction }
+type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
 
 const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boolean => {
   if (!object.ruleDefinition) return false
@@ -354,7 +353,7 @@ const installGrantedRules = (draft: Draft, object: GameObject) => {
 export const spells: Plugin = {
   id: 'spells',
   replace: ({ state, event }) => {
-    if (event.type !== 'castSpell' || (event as InternalCastEvent)[canonicalCostsPaid] || event.copy) return
+    if (event.type !== 'castSpell' || event.canonicalTransaction || event.copy) return
     const object = state.objects[event.objectId]
     if (!object?.ruleDefinition) return
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
@@ -407,14 +406,20 @@ export const spells: Plugin = {
     }
     return costs.length > 0
       ? (() => {
-        const { canonicalCostsPaid: _forged, ...publicEvent } = event as typeof event & { canonicalCostsPaid?: unknown }
-        return [...costs, { ...publicEvent, [canonicalCostsPaid]: committed } as InternalCastEvent]
+        return [...costs, { ...event, canonicalTransaction: committed } as InternalCastEvent]
       })()
       : undefined
   },
   legal: ({ state, event }) => {
     if (event.type === 'castSpell') {
       if (Object.hasOwn(event, 'canonicalCostsPaid')) return 'canonical transaction state is server-private'
+      if (event.canonicalTransaction !== undefined
+        && (typeof event.canonicalTransaction !== 'object' || event.canonicalTransaction === null
+          || typeof event.canonicalTransaction.id !== 'string'
+          || !event.canonicalTransaction.lockedCost
+          || !event.canonicalTransaction.payment)) {
+        return 'canonical transaction state is server-private'
+      }
       const object = state.objects[event.objectId]
       if (!object) return 'spell object does not exist'
       if (event.copy && !object.spellCopy) return 'spell copy object does not exist'
@@ -426,6 +431,7 @@ export const spells: Plugin = {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
         const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
+        const precommitted = event.canonicalTransaction
         if (ability && 'decisions' in ability) {
           const variables = ability.decisions.variables ?? []
           for (const variable of variables) {
@@ -434,7 +440,7 @@ export const spells: Plugin = {
               return `${variable.name} must be a safe integer from ${variable.min} to ${variable.max}`
             }
           }
-          const targetError = canonicalTargetError(
+          const targetError = precommitted ? undefined : canonicalTargetError(
             state,
             spell,
             compiled.definition,
@@ -450,7 +456,6 @@ export const spells: Plugin = {
             ? event.targetClauses
               ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
             : undefined
-          const precommitted = (event as InternalCastEvent)[canonicalCostsPaid]
           if (precommitted) canonicalLockedManaCost = precommitted.lockedCost.mana
           if (ability.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
             const announcement = beginSpellAnnouncement(
@@ -702,7 +707,7 @@ export const spells: Plugin = {
           ? event.targetClauses
             ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
-        const precommitted = (event as InternalCastEvent)[canonicalCostsPaid]
+        const precommitted = event.canonicalTransaction
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
             selectedOptional: event.selectedOptionalCosts,
@@ -778,7 +783,7 @@ export const spells: Plugin = {
           source: object.name,
         })
       }
-      for (const costPart of (event as InternalCastEvent)[canonicalCostsPaid] ? [] : canonicalNonManaCosts) {
+      for (const costPart of event.canonicalTransaction ? [] : canonicalNonManaCosts) {
         if (costPart.kind === 'life') {
           draft.enqueue({
             type: 'payLife',
@@ -792,7 +797,7 @@ export const spells: Plugin = {
         ? (event.discard ?? []).concat(event.sacrifice ?? [])
         : []
       let selectedIndex = 0
-      for (const costPart of (event as InternalCastEvent)[canonicalCostsPaid] ? [] : canonicalNonManaCosts) {
+      for (const costPart of event.canonicalTransaction ? [] : canonicalNonManaCosts) {
         if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
         const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
         for (const objectId of selectedNonMana.slice(selectedIndex, selectedIndex + count)) {
@@ -863,6 +868,10 @@ export const spells: Plugin = {
             event.targetClauses,
             event.seat,
             event.x,
+            undefined,
+            undefined,
+            undefined,
+            Boolean(canonicalTransaction),
           )
           stacked.execution.announcement = canonicalTransaction
             ? {
@@ -886,7 +895,7 @@ export const spells: Plugin = {
           })
         }
       }
-      if (canonicalNonManaCosts.length === 0 && !(event as InternalCastEvent)[canonicalCostsPaid]) {
+      if (canonicalNonManaCosts.length === 0 && !event.canonicalTransaction) {
         for (const objectId of event.sacrifice ?? []) {
           draft.enqueue({ type: 'sacrifice', objectId })
         }

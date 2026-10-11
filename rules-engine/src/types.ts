@@ -723,6 +723,8 @@ export type GameEvent =
       discard?: string[]
       copy?: boolean
       withoutPayingMana?: boolean
+      /** Server-private serializable canonical announcement continuation. */
+      canonicalTransaction?: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
       wardPaid?: boolean
       selectedOptionalCosts?: number[]
       selectedAlternativeCost?: number

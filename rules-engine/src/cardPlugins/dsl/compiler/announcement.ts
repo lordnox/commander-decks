@@ -1,6 +1,8 @@
 import { payCost } from '../../../plugins/spells'
 import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
+import { captureObject } from '../../../objectIdentity'
+import { evaluateObjectSelector, evaluatePlayerSelector } from './runtime'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
 export type AnnouncementManaPayment = {
@@ -409,7 +411,7 @@ export const prepareAction = (
 })
 
 export type ActivationPermissionInput = {
-  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step'>
+  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players'>
   sourceId: string
   payer: PlayerId
   action: 'activate' | 'tapForMana' | 'nestedPayment' | 'manaPlanning'
@@ -428,32 +430,12 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   const prohibited = Object.values(input.state.objects).some((watcher) => {
     const definition = watcher.ruleDefinition?.definition as import('../schema/v1').CardRuleDefinitionV1 | undefined
     if (!definition || !watcher.zone || !watcher.controller || watcher.phasedOut) return false
-    const objectMatches = (filter: import('../schema/v1').ObjectFilter): boolean => {
-      if (filter.all && !filter.all.every(objectMatches)) return false
-      if (filter.any && !filter.any.some(objectMatches)) return false
-      if (filter.not && objectMatches(filter.not)) return false
-      if (filter.name !== undefined && source.name !== filter.name) return false
-      if (filter.type !== undefined && !source.types.includes(filter.type)) return false
-      if (filter.zone !== undefined && source.zone !== filter.zone) return false
-      if (filter.subtypes && !filter.subtypes.every((type) => source.subtypes.includes(type))) return false
-      if (filter.token !== undefined && source.token !== filter.token) return false
-      if (filter.owner === 'you' && source.owner !== watcher.controller) return false
-      if (filter.controller === 'you' && source.controller !== watcher.controller) return false
-      return true
-    }
-    const playerMatches = (filter: import('../schema/v1').PlayerFilter): boolean => {
-      if (filter.all && !filter.all.every(playerMatches)) return false
-      if (filter.any && !filter.any.some(playerMatches)) return false
-      if (filter.not && playerMatches(filter.not)) return false
-      if (filter.relation === 'you' && input.payer !== watcher.controller) return false
-      if (filter.relation === 'opponent' && input.payer === watcher.controller) return false
-      return true
-    }
+    const runtime = { state: input.state as GameState, controller: watcher.controller, source: captureObject(watcher) }
     return definition.abilities.some((ability) => ability.kind === 'static'
       && ability.activeIn.includes(watcher.zone as import('../schema/v1').Zone)
       && ability.effects.some((effect) => effect.kind === 'prohibitActivation'
-        && (!effect.filter.abilitySource || objectMatches(effect.filter.abilitySource))
-        && (!effect.filter.activator || playerMatches(effect.filter.activator))) )
+        && (!effect.filter.abilitySource || evaluateObjectSelector({ kind: 'objects', filter: effect.filter.abilitySource }, runtime).some((object) => object.id === source.id))
+        && (!effect.filter.activator || evaluatePlayerSelector({ kind: 'players', filter: effect.filter.activator }, runtime).includes(input.payer))) )
   })
   if (prohibited) return `${source.name} activation is prohibited`
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`
