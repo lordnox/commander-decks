@@ -435,6 +435,11 @@ export type CanonicalResolutionFrame = {
   version: 1
   kind: 'canonicalSpell'
   stackId: string
+  /** A canonical ability resolving inline (for example a mana ability) has no public stack item. */
+  inlineItem?: StackItem
+  /** The resolution and priority that must resume after an inline frame completes. */
+  parentResolution?: ResolutionFrame
+  parentPriority?: PlayerId | null
   controller: PlayerId
   intendedPriority: PlayerId
   definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1

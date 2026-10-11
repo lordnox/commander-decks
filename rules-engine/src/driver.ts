@@ -124,6 +124,7 @@ export const canonicalResolutionCandidate = (state: GameState) => {
 export const startCanonicalResolution = (
   draft: Draft,
   item: StackItem,
+  options: { inline?: boolean } = {},
 ) => {
   const selected = canonicalAbility(item)
   if (!selected) throw new Error('canonical stack item is missing its pinned definition')
@@ -160,6 +161,11 @@ export const startCanonicalResolution = (
     version: 1,
     kind: 'canonicalSpell',
     stackId: item.id,
+    ...(options.inline ? {
+      inlineItem: structuredClone(item),
+      parentResolution: structuredClone(draft.resolution),
+      parentPriority: draft.priority,
+    } : {}),
     controller: item.controller,
     intendedPriority: draft.active,
     definitionSnapshot: structuredClone(definitionSnapshot),
@@ -493,7 +499,7 @@ export const prepareResolutionStep = (draft: Draft) => {
   const frame = draft.resolution
   if (!frame) throw new Error('no resolution frame is active')
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
-  const item = draft.stack.find((candidate) => candidate.id === frame.stackId)
+  const item = draft.stack.find((candidate) => candidate.id === frame.stackId) ?? frame.inlineItem
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
   if (frame.pendingDiscard) {
     const pending = frame.pendingDiscard
@@ -697,12 +703,16 @@ export const prepareResolutionStep = (draft: Draft) => {
 export const finishResolution = (draft: Draft) => {
   const frame = draft.resolution
   if (!frame) return
-  if (frame.kind === 'canonicalSpell') {
-    const outcome = frame.outcome ?? 'resolved'
-    draft.note(`${frame.kind} ${frame.stackId} ${outcome}`)
+  if (frame.kind !== 'canonicalSpell') return
+  const outcome = frame.outcome ?? 'resolved'
+  draft.note(`${frame.kind} ${frame.stackId} ${outcome}`)
+  if (frame.inlineItem) {
+    draft.resolution = frame.parentResolution
+    draft.priority = frame.parentPriority === undefined ? frame.intendedPriority : frame.parentPriority
+  } else {
+    draft.stack = draft.stack.filter((item) => item.id !== frame.stackId)
+    draft.priority = frame.intendedPriority
+    delete draft.resolution
   }
-  draft.stack = draft.stack.filter((item) => item.id !== frame.stackId)
-  draft.priority = frame.intendedPriority
   draft.passedInRow = []
-  delete draft.resolution
 }
