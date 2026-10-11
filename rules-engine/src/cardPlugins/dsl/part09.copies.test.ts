@@ -64,7 +64,7 @@ describe('Rule DSL Part 09 spell copies', () => {
       { kind: 'gainLife', amount: amount(2), targets: { kind: 'targetRef', clauseIndex: 0 } },
       { kind: 'gainLife', amount: amount(3), targets: { kind: 'targetRef', clauseIndex: 1 } },
     ] }])))
-    const copying = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(1), max: amount(1), distinct: true }] }, instructions: [{ kind: 'copySpell', targets: { kind: 'targetRef', clauseIndex: 0 }, controller: { kind: 'players', filter: {} }, retarget: { kind: 'chooseNewTargets' } }] }])))
+    const copying = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(1), max: amount(1), distinct: true }] }, instructions: [{ kind: 'copySpell', targets: { kind: 'targetRef', clauseIndex: 0 }, controller: { kind: 'players', filter: {} }, retarget: { kind: 'chooseNewTargets' }, bindResult: 'copies' }] }])))
     const server = createServerGame(commanderRules, { players: 2, hands: { p1: [cardTemplate('Original', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: original }), cardTemplate('Copier', { types: ['Instant'], manaCost: '{0}', ruleDefinition: copying })] } }, { random: () => 0 })
     const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
     const reduce = (state: typeof server.state, event: Parameters<typeof server.rules>[1]) => { const result = server.rules(state, event); if (!result.ok) throw new Error(result.error); return result.state }
