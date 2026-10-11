@@ -606,7 +606,7 @@ export type ProvisionalAnnouncementFrame = {
   id: string
   payer: PlayerId
   transaction: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
-  baseline: Pick<GameState, 'players' | 'objects' | 'zoneOrder' | 'zoneCounts' | 'stack' | 'pendingTriggers' | 'priority' | 'passedInRow' | 'log'>
+  baseline: GameState
   continuation: { type: 'castSpell'; event: Extract<GameEvent, { type: 'castSpell' }> }
 }
 
