@@ -142,6 +142,7 @@ export type PendingCardSelection = {
   /** Canonical Rule DSL card-choice continuation. */
   canonicalChoice?: {
     stackId: string
+    scopeId?: string
     binding: string
     action?: 'choose' | 'discard' | 'proliferate'
   }
@@ -584,11 +585,11 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       }),
     }
     if (canonicalChoice.action === 'proliferate') {
-      for (const objectId of event.objectIds ?? []) {
+      const selected = (event.objectIds ?? []).filter((objectId) => {
         const object = draft.object(objectId)
-        if (!object || object.zone !== 'battlefield' || object.phasedOut) continue
-        for (const counter of Object.keys(object.counters)) object.counters[counter] = (object.counters[counter] ?? 0) + 1
-      }
+        return Boolean(object && object.zone === 'battlefield' && !object.phasedOut)
+      })
+      if (draft.resolution?.kind === 'canonicalSpell') draft.resolution.pendingProliferate = { objectIds: selected }
       const playerCandidates = draft.playerOrder.filter((seat) =>
         !draft.players[seat].lost && (draft.players[seat].poison > 0 || (draft.players[seat].energy ?? 0) > 0))
       if (playerCandidates.length > 0) {
@@ -602,6 +603,12 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           candidates: playerCandidates,
           action: { kind: 'canonicalProliferatePlayers', stackId: canonicalChoice.stackId },
         })
+      } else if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.pendingProliferate) {
+        draft.resolution.pendingEvents = draft.resolution.pendingProliferate.objectIds.flatMap((objectId) => {
+          const object = draft.object(objectId)
+          return object ? Object.keys(object.counters).map((counter) => ({ type: 'proliferateCounter' as const, recipient: { kind: 'object' as const, objectId, counter } })) : []
+        })
+        delete draft.resolution.pendingProliferate
       }
     }
     if (canonicalChoice.action === 'discard') {

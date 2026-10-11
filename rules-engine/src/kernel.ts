@@ -307,6 +307,14 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       draft.note(`${object.name} is milled`)
       return
     }
+    case 'proliferateCounter': {
+      if (event.recipient.kind === 'object') {
+        const object = draft.object(event.recipient.objectId)
+        if (object && object.zone === 'battlefield' && !object.phasedOut) object.counters[event.recipient.counter] = (object.counters[event.recipient.counter] ?? 0) + 1
+      } else if (event.recipient.counter === 'poison') draft.players[event.recipient.seat].poison += 1
+      else draft.players[event.recipient.seat].energy += 1
+      return
+    }
     case 'proliferate': {
       for (const object of Object.values(draft.objects)) {
         if (object.zone !== 'battlefield' || object.controller !== event.seat || object.phasedOut) continue

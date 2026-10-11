@@ -30,7 +30,9 @@ import type {
 import { hasKeyword } from './keywords'
 import { openOptionSelection } from './rules/selectOptions'
 import { openCardSelection } from './rules/selectCards'
+import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
+import { apnapSeats } from './turnOrder'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'counter',
@@ -353,8 +355,9 @@ const actionEvents = (
     }
     case 'sacrifice': {
       const targets = objectActions(instruction.targets, context)
-      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'sacrifice' }
-      return targets.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
+      const legal = targets.filter((object) => object.zone === 'battlefield')
+      if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'sacrifice' }
+      return legal.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'move': {
       const targets = objectActions(instruction.targets, context)
@@ -503,6 +506,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           targetIdentities: Object.fromEntries(hand.map((object) => [object.id, objectIdentity(object)])),
           canonicalChoice: {
             stackId: frame.stackId,
+            scopeId: pending.scopeId,
             binding: pending.binding ?? `__discard_${pending.index}`,
             action: 'discard',
           },
@@ -536,12 +540,13 @@ export const prepareResolutionStep = (draft: Draft) => {
       continue
     }
     if (instruction.kind === 'if') {
-      const context = runtimeContext(draft, frame, item)
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
       const takeThen = evaluateCondition(instruction.condition, context)
       const branch = takeThen ? instruction.then : instruction.otherwise
       if (branch.length > 0) {
         frame.scopes.push({
           path: `${path}.${takeThen ? 'then' : 'otherwise'}`,
+          scopeId: scope.scopeId,
           instructions: structuredClone(branch),
           cursor: 0,
         })
@@ -549,7 +554,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       continue
     }
     if (instruction.kind === 'chooseInstructions') {
-      const context = runtimeContext(draft, frame, item)
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
       if (chooser && instruction.options.length > 0) {
         openOptionSelection(draft, {
@@ -561,6 +566,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           action: {
             kind: 'canonicalInstructionChoice',
             stackId: frame.stackId,
+            scopeId: scope.scopeId,
             options: instruction.options.map((option, optionIndex) => ({ id: `instruction:${optionIndex}`, instructions: [...option.instructions] })),
           },
         })
@@ -570,7 +576,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       return { kind: 'events', events: [] }
     }
     if (instruction.kind === 'chooseCards') {
-      const context = runtimeContext(draft, frame, item)
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
       const candidates = evaluateObjectSelector(instruction.filter, context)
       const requestedMin = availableAmount(instruction.min, context) ?? 0
@@ -591,7 +597,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           source: frame.source.snapshot.name,
           prompt: 'Choose cards for the Rule DSL program.',
           destinations: ['target', 'skip'],
-          canonicalChoice: { stackId: frame.stackId, binding: instruction.bindChoice },
+          canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChoice },
         })
       } else if (min === 0) {
         frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
@@ -601,11 +607,12 @@ export const prepareResolutionStep = (draft: Draft) => {
       return { kind: 'events', events: [] }
     }
     if (instruction.kind === 'discard' && instruction.count !== undefined) {
-      const context = runtimeContext(draft, frame, item)
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
       const seats = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.count, context) ?? 0
       frame.pendingDiscard = {
-        seats: [...new Set(seats)],
+        scopeId: scope.scopeId,
+        seats: apnapSeats(draft).filter((candidate) => new Set(seats).has(candidate)),
         index: 0,
         amount,
         selected: [],
@@ -618,19 +625,34 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (instruction.kind === 'proliferate') {
       const candidates = Object.values(draft.objects).filter((object) =>
         object.zone === 'battlefield' && !object.phasedOut && Object.keys(object.counters).length > 0)
-      openCardSelection(draft, {
-        seat: frame.controller,
-        kind: 'choose',
-        count: candidates.length,
-        min: 0,
-        candidates: candidates.map((object) => object.id),
-        targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
-        sourceId: frame.source.ref.objectId,
-        source: frame.source.snapshot.name,
-        prompt: 'Choose any number of permanents to proliferate.',
-        destinations: ['target', 'skip'],
-        canonicalChoice: { stackId: frame.stackId, binding: `__proliferate_${path}`, action: 'proliferate' },
-      })
+      const playerCandidates = apnapSeats(draft).filter((seat) =>
+        draft.players[seat].poison > 0 || (draft.players[seat].energy ?? 0) > 0)
+      if (candidates.length > 0) {
+        openCardSelection(draft, {
+          seat: frame.controller,
+          kind: 'choose',
+          count: candidates.length,
+          min: 0,
+          candidates: candidates.map((object) => object.id),
+          targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose any number of permanents to proliferate.',
+          destinations: ['target', 'skip'],
+          canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: `__proliferate_${path}`, action: 'proliferate' },
+        })
+      } else if (playerCandidates.length > 0) {
+        openPlayerSelection(draft, {
+          seat: frame.controller,
+          sourceId: frame.source.ref.objectId,
+          source: frame.source.snapshot.name,
+          prompt: 'Choose players with counters to proliferate.',
+          min: 0,
+          max: playerCandidates.length,
+          candidates: playerCandidates,
+          action: { kind: 'canonicalProliferatePlayers', stackId: frame.stackId },
+        })
+      }
     frame.phase = 'committing'
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
