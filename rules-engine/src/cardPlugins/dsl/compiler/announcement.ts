@@ -265,4 +265,3 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   )) return `${source.name} can be activated only as a sorcery`
   return undefined
 }
-
