@@ -602,7 +602,9 @@ function applyEventTree(
   if (!first.ok || first.prevented) return first
   let current = first.state
   const entries = [...first.trace]
-  const replacedTree = first.trace.some((entry) => entry.outcome === 'replaced')
+  const replacedTree = event.type === 'castSpell'
+    && Boolean(state.objects[event.objectId]?.ruleDefinition)
+    && first.trace.some((entry) => entry.outcome === 'replaced')
   const queue = (first.queued ?? []).map((queued) => ({
     event: queued,
     depth: first.queuedDepth ?? 1,
