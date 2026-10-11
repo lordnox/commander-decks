@@ -357,6 +357,13 @@ export const activated: Plugin = {
               event.seat,
               event.x,
             ),
+            announcement: {
+              id: committed.id,
+              sourceId: committed.proposal.sourceId,
+              phase: 'committed',
+              lockedCost: committed.lockedCost,
+              payment: committed.payment,
+            },
           },
           ...(event.x !== undefined ? { x: event.x } : {}),
         })

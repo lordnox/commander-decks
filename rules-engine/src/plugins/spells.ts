@@ -43,6 +43,7 @@ import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
 import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
+import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
 
 const canonicalCostsPaid = Symbol('canonicalCostsPaid')
@@ -639,6 +640,7 @@ export const spells: Plugin = {
       )
       let canonicalLockedCost: string | undefined
       let canonicalNonManaCosts: readonly Cost[] = []
+      let canonicalTransaction: AnnouncementTransaction | undefined
       if (object.ruleDefinition && !event.copy) {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
@@ -650,6 +652,7 @@ export const spells: Plugin = {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])])
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
+          canonicalTransaction = committed
           canonicalLockedCost = committed.lockedCost.mana
           canonicalNonManaCosts = committed.lockedCost.nonMana
         }
@@ -786,6 +789,15 @@ export const spells: Plugin = {
             event.seat,
             event.x,
           )
+          stacked.execution.announcement = canonicalTransaction
+            ? {
+                id: canonicalTransaction.id,
+                sourceId: canonicalTransaction.proposal.sourceId,
+                phase: 'committed',
+                lockedCost: canonicalTransaction.lockedCost,
+                payment: canonicalTransaction.payment,
+              }
+            : undefined
         }
       }
       if (event.castOption === 'exiledWithLife') {

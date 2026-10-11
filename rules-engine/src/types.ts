@@ -403,6 +403,18 @@ export type StackExecutionContext = {
   /** Stable scope for each selected mode occurrence; repeated modes get distinct scopes. */
   modeScopeIds?: string[]
   declarationPath?: string
+  /** Server-authoritative announcement record captured before cost components commit. */
+  announcement?: {
+    id: string
+    sourceId: string
+    phase: 'committed'
+    lockedCost: {
+      mana?: string
+      nonMana: readonly import('./cardPlugins/dsl/schema/v1').Cost[]
+      x?: number
+    }
+    payment: readonly { sourceId: string; mana: ManaId; amount?: number; restricted?: boolean }[]
+  }
 }
 
 /**
