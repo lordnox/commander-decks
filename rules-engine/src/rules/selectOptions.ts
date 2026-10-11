@@ -1,7 +1,9 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
-import { canonicalModeScopeId } from '../cardPlugins/dsl/compiler/targeting'
+import { continueCanonicalModeTargets, continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import { canonicalModeScopeId, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
+import { objectIdentity } from '../objectIdentity'
+import { openCardSelection } from './selectCards'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
 
@@ -60,6 +62,11 @@ export type PendingOptionSelection = {
     scopeId?: string
     options: readonly { id: string; instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[] }[]
   } | {
+    kind: 'canonical-copy-retarget'
+    stackId: string
+    copyStackId: string
+    controller: PlayerId
+  } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
     abilityIndex: number
@@ -76,7 +83,6 @@ export type PendingOptionSelection = {
     baseTargetScopeIds?: string[]
     baseTargetModeIndices?: Array<number | undefined>
     modeScopeIds?: string[]
-    distributionBounds?: Array<{ total: number; minEach: number }>
   } | {
     kind: 'putCanonicalStackTarget'
     definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
@@ -92,19 +98,6 @@ export type PendingOptionSelection = {
     targetScopeIds?: string[]
     targetModeIndices?: Array<number | undefined>
     modeScopeIds?: string[]
-    distributionBounds?: Array<{ total: number; minEach: number }>
-  } | {
-    /** Announcement-time trigger allocation, one original target slot at a time. */
-    kind: 'putCanonicalTriggeredAbilityAllocation'
-    announcement: import('./canonicalAnnouncement').CanonicalAnnouncement
-    specs: import('../cardPlugins/dsl/schema/v1').DistributionSpec[]
-    bounds: Array<{ total: number; minEach: number }>
-    allocations: import('../cardPlugins/dsl/compiler/modes').DistributionAllocation[]
-    recipientCounts: number[]
-    specIndex: number
-    recipientCount: number
-    allocationIndex: number
-    amounts: number[]
   }
 }
 
@@ -137,8 +130,7 @@ export const openOptionSelection = (
     id: draft.allocId('option'),
     ...selection,
   }
-  if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') draft.priority = null
-  else if (!draft.resolution) draft.priority = selection.seat
+  if (!draft.resolution) draft.priority = selection.seat
 }
 
 export const selectOptions: Plugin = {
@@ -153,16 +145,6 @@ export const selectOptions: Plugin = {
     if (!selection) return `${event.seat} has no open option selection`
     if (event.selectionId !== selection.id) return 'option selection is no longer open'
     if (!selection.options.some((option) => option.id === event.optionId)) {
-      if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') {
-        const amountMatch = new RegExp(`^allocation:${selection.action.allocationIndex}:(\\d+)$`).exec(event.optionId)
-        const amount = amountMatch ? Number(amountMatch[1]) : Number.NaN
-        const bound = selection.action.bounds[selection.action.specIndex]
-        const remaining = selection.action.recipientCount - selection.action.allocationIndex - 1
-        const chosen = selection.action.amounts.reduce((sum, value) => sum + value, 0)
-        const max = bound.total - chosen - bound.minEach * remaining
-        if (Number.isSafeInteger(amount) && amount >= bound.minEach && amount <= max
-          && (selection.action.allocationIndex < selection.action.recipientCount - 1 || amount === max)) return
-      }
       return 'option was not offered for this selection'
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
@@ -217,6 +199,43 @@ export const selectOptions: Plugin = {
         })
       }
       draft.priority = null
+      return
+    }
+    if (selection.action.kind === 'canonical-copy-retarget') {
+      const action = selection.action
+      const frame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId
+        ? draft.resolution
+        : undefined
+      const original = draft.stack.find((item) => item.id === action.copyStackId)
+      if (!frame || !original) return
+      if (event.optionId === 'keep') {
+        frame.afterChoiceEvents = [{ type: 'copySpell', stackId: original.id, controller: selection.action.controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId }]
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        return
+      }
+      const source = draft.object(original.objectId)
+      const snapshot = original.execution?.definitionSnapshot
+      const abilityIndex = original.execution?.abilityIndex
+      const definition = snapshot ? loadDefinitionSnapshot(snapshot).definition : undefined
+      const inferredAbilityIndex = abilityIndex ?? definition?.abilities.findIndex((entry) => entry.kind === 'spell')
+      const ability = definition && inferredAbilityIndex !== undefined && inferredAbilityIndex >= 0
+        ? definition.abilities[inferredAbilityIndex]
+        : undefined
+      if (!source || !ability || !('decisions' in ability)) return
+      const candidates = canonicalTargetCandidates(draft, source, ability, selection.action.controller)
+        .flat()
+        .filter((candidate): candidate is Extract<typeof candidate, { kind: 'object' }> => candidate.kind === 'object')
+      const count = original.targets.filter((target) => target.kind === 'object').length
+      openCardSelection(draft, {
+        seat: selection.action.controller,
+        kind: 'choose', count, min: count,
+        candidates: [...new Set(candidates.map((candidate) => candidate.objectId))],
+        targetIdentities: Object.fromEntries(candidates.map((candidate) => [candidate.objectId, objectIdentity(draft.object(candidate.objectId)!)])),
+        sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+        prompt: 'Choose new targets for the copied spell.', destinations: ['target'],
+        canonicalChoice: { stackId: frame.stackId, binding: `__copySpellTargets_${original.id}`, action: 'copySpellTargets', copySpellStackId: original.id, copyController: selection.action.controller },
+      })
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       return
     }
     if (selection.action.kind === 'putCanonicalModeTriggeredAbility') {
@@ -274,28 +293,6 @@ export const selectOptions: Plugin = {
       const ability = definition.abilities[selection.action.abilityIndex]
       if (!source || !ability || ability.kind !== 'triggered' || !('modes' in ability)
         || selectedModes.some((index) => !ability.modes?.[index])) return
-      if ((ability.modes?.some((mode) => mode.decisions.distributions?.length) ?? false)
-        || ability.decisions.distributions?.length) {
-        stackCanonical(draft, {
-          definitionSnapshot: selection.action.definitionSnapshot,
-          abilityIndex: selection.action.abilityIndex,
-          execution: selection.action.execution,
-          source,
-          sourceId: source.id,
-          targets: selection.action.targets,
-          targetBindings: selection.action.targetBindings,
-          targetClauses: selection.action.baseTargetClauses ?? [],
-          clauseBounds: (selection.action.baseTargetClauses ?? []).map(() => ({ min: 0, max: 0 })),
-          clauseIndex: 0,
-          selectedModes,
-          targetScopeIds: selection.action.baseTargetScopeIds,
-          targetModeIndices: selection.action.baseTargetModeIndices,
-          modeScopeIds: selection.action.modeScopeIds,
-          distributionBounds: selection.action.distributionBounds,
-        })
-        draft.priority = null
-        return
-      }
       draft.addToStack({
         kind: 'ability',
         objectId: source.id,
@@ -355,96 +352,9 @@ export const selectOptions: Plugin = {
         targetScopeIds: selection.action.targetScopeIds,
         targetModeIndices: selection.action.targetModeIndices,
         modeScopeIds: selection.action.modeScopeIds,
-        distributionBounds: selection.action.distributionBounds,
         clauseBounds: bounds,
         clauseIndex: selection.action.targetIndex + 1,
       })
-      return
-    }
-    if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') {
-      const allocation = selection.action
-      const amountMatch = new RegExp(`^allocation:${allocation.allocationIndex}:(\\d+)$`).exec(event.optionId)
-      const amount = amountMatch ? Number(amountMatch[1]) : Number.NaN
-      if (!Number.isSafeInteger(amount) || amount < 0) return
-      const nextAmounts = [...allocation.amounts, amount]
-      const nextIndex = allocation.allocationIndex + 1
-      const currentAllocations = allocation.allocations.map((entry, index) => index === allocation.specIndex
-        ? { ...entry, amounts: nextAmounts }
-        : entry)
-      if (nextIndex < allocation.recipientCount) {
-        const bound = allocation.bounds[allocation.specIndex]
-        const remaining = allocation.recipientCount - nextIndex - 1
-        const chosenTotal = nextAmounts.reduce((sum, value) => sum + value, 0)
-        const min = bound.minEach
-        const max = bound.total - chosenTotal - min * remaining
-        const options = nextIndex === allocation.recipientCount - 1
-          ? [{ id: `allocation:${nextIndex}:${max}`, label: String(max) }]
-          : Number.isSafeInteger(max) && max - min <= 256
-            ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:${nextIndex}:${min + index}`, label: String(min + index) }))
-            : []
-        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
-          ...selection,
-          id: draft.allocId('option'),
-          options,
-          action: { ...allocation, allocations: currentAllocations, allocationIndex: nextIndex, amounts: nextAmounts },
-        }
-        draft.priority = null
-        return
-      }
-      if (allocation.specIndex + 1 < allocation.specs.length) {
-        let nextSpecIndex = allocation.specIndex + 1
-        let nextAllocations = currentAllocations
-        while (nextSpecIndex < allocation.specs.length) {
-          const nextBound = allocation.bounds[nextSpecIndex]
-          const nextRecipientCount = allocation.recipientCounts[nextSpecIndex]
-          if (nextRecipientCount !== 0 || nextBound.total !== 0) break
-          nextAllocations = nextAllocations.map((entry, index) => index === nextSpecIndex
-            ? { ...entry, amounts: [] }
-            : entry)
-          nextSpecIndex += 1
-        }
-        if (nextSpecIndex >= allocation.specs.length) {
-          const announcement = {
-            ...allocation.announcement,
-            distributionBounds: allocation.bounds,
-            execution: {
-              ...allocation.announcement.execution,
-              distributionBindings: nextAllocations,
-              distributionBounds: allocation.bounds,
-            },
-          }
-          delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-          stackCanonical(draft, announcement)
-          draft.priority = null
-          return
-        }
-        const bound = allocation.bounds[nextSpecIndex]
-        const nextRecipientCount = allocation.recipientCounts[nextSpecIndex]
-        const min = bound.minEach
-        const max = bound.total - min * Math.max(0, nextRecipientCount - 1)
-        const options = nextRecipientCount === 1
-          ? [{ id: 'allocation:0:' + max, label: String(max) }]
-          : Number.isSafeInteger(max) && max - min <= 256
-            ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
-            : []
-        draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
-          ...selection,
-          id: draft.allocId('option'),
-          options,
-          action: { ...allocation, allocations: nextAllocations, specIndex: nextSpecIndex, recipientCount: nextRecipientCount, allocationIndex: 0, amounts: [] },
-        }
-        draft.priority = null
-        return
-      }
-      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-      const completedAllocations = currentAllocations
-      const announcement = {
-        ...selection.action.announcement,
-        distributionBounds: selection.action.bounds,
-        execution: { ...selection.action.announcement.execution, distributionBindings: completedAllocations, distributionBounds: selection.action.bounds },
-      }
-      stackCanonical(draft, announcement)
-      draft.priority = null
       return
     }
     delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]

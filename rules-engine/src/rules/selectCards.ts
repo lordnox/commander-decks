@@ -18,7 +18,7 @@ import { grantOracleLineUntilEndOfTurn } from '../cardPlugins/continuousEffects'
 import { addPlusCounters } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
-import { targetObject } from '../objectIdentity'
+import { objectIdentity, targetObject } from '../objectIdentity'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
 
@@ -145,7 +145,9 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate'
+    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets'
+    copySpellStackId?: string
+    copyController?: PlayerId
   }
   /** Pay this mana only if at least one card is chosen. */
   payMana?: string
@@ -584,6 +586,29 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         const object = draft.objects[objectId]
         return object ? [{ kind: 'object' as const, objectId, incarnation: object.incarnation, zone: object.zone }] : []
       }),
+    }
+    if (canonicalChoice.action === 'copySpellTargets') {
+      const original = draft.stack.find((item) => item.id === canonicalChoice.copySpellStackId)
+      if (original) {
+        const selected = (event.objectIds ?? []).flatMap((objectId) => {
+          const object = draft.object(objectId)
+          return object ? [{ kind: 'object' as const, ...objectIdentity(object) }] : []
+        })
+        let selectedIndex = 0
+        const targets = original.targets.map((target) => {
+          if (target.kind !== 'object') return target
+          const replacement = selected[selectedIndex++]
+          return replacement ?? target
+        })
+        draft.resolution.afterChoiceEvents = [{
+          type: 'copySpell',
+          stackId: original.id,
+          controller: canonicalChoice.copyController ?? draft.resolution.controller,
+          targets,
+          retarget: true,
+          sourceId: draft.resolution.source.ref.objectId,
+        }]
+      }
     }
     if (canonicalChoice.action === 'proliferate') {
       const selected = (event.objectIds ?? []).filter((objectId) => {

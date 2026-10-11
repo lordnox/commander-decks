@@ -1,6 +1,6 @@
 import { loadDefinitionSnapshot } from './compiler'
 import { canonicalTargetError } from './compiler/targeting'
-import { putSpellCopyOnStack } from '../../rules/spellCopies'
+import { ceaseToExist, putSpellCopyOnStack } from '../../rules/spellCopies'
 import type { Draft } from '../../draft'
 import type { GameObject, StackItem, TargetRef, PlayerId } from '../../types'
 import type { InteractionRequest } from '../../../../shared/interaction'
@@ -61,11 +61,14 @@ export const validateCanonicalCopyTargets = (
   original: StackItem,
   source: GameObject,
   targets: readonly TargetRef[],
+  controller = original.controller,
 ) => {
   const snapshot = original.execution?.definitionSnapshot
-  const abilityIndex = original.execution?.abilityIndex
-  if (!snapshot || abilityIndex === undefined) return 'the copied spell has no pinned canonical definition'
+  if (!snapshot) return 'the copied spell has no pinned canonical definition'
   const definition = loadDefinitionSnapshot(snapshot).definition
+  const abilityIndex = original.execution?.abilityIndex
+    ?? definition.abilities.findIndex((ability) => ability.kind === 'spell')
+  if (abilityIndex < 0) return 'the copied spell has no pinned canonical definition'
   return canonicalTargetError(
     state,
     source,
@@ -74,7 +77,7 @@ export const validateCanonicalCopyTargets = (
     targets,
     original,
     undefined,
-    original.controller,
+    controller,
     original.x,
   )
 }
@@ -88,9 +91,10 @@ export const resolveCanonicalCopyTargets = (
   original: StackItem,
   source: GameObject,
   answer: CanonicalCopyTargetAnswer,
+  controller = original.controller,
 ) => {
   if (answer.kind === 'keep') return { ok: true as const, targets: copyTargets(original) }
-  const error = validateCanonicalCopyTargets(state, original, source, answer.targets)
+  const error = validateCanonicalCopyTargets(state, original, source, answer.targets, controller)
   return error
     ? { ok: false as const, error }
     : { ok: true as const, targets: copyTargets(original, answer.targets) }
@@ -120,8 +124,31 @@ export const putCanonicalSpellCopyOnStack = (
   const created = draft.stack.find((item) => item.id === copy.id)
   if (!created) throw new Error('spell copy was not placed on the stack')
   created.execution = original.execution ? structuredClone(original.execution) : undefined
+  if (created.execution?.targetBindings && targets) {
+    let targetIndex = 0
+    created.execution.targetBindings = created.execution.targetBindings.map((binding) => ({
+      ...binding,
+      recipients: binding.recipients.map((recipient) => {
+        const replacement = targets[targetIndex++]
+        if (!replacement) return recipient
+        const unchanged = recipient.kind === replacement.kind && (
+          recipient.kind === 'player' && replacement.kind === 'player'
+            ? recipient.player === replacement.player
+            : recipient.kind === 'stackItem' && replacement.kind === 'stackItem'
+              ? recipient.stackId === replacement.stackId
+              : recipient.kind === 'object' && replacement.kind === 'object'
+                ? recipient.objectId === replacement.objectId
+                : false
+        )
+        if (unchanged) return recipient
+        return structuredClone(replacement)
+      }),
+    }))
+  }
   created.x = original.x
   created.abilityId = original.abilityId
   created.uncounterable = original.uncounterable
   return created
 }
+
+export { ceaseToExist }
