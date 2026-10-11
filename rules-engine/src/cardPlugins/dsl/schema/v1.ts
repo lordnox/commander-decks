@@ -159,6 +159,26 @@ export type Cost =
 export type CostIncrease = { amount: ManaCost; reason?: string }
 export type CostReduction = { generic: number; reason?: string }
 
+/** A duration is data, so a temporary effect survives persistence/resume. */
+export type EffectDuration =
+  | { kind: 'untilCleanup' }
+  | { kind: 'permanent' }
+  | { kind: 'untilStep'; step: string; active?: PlayerReference }
+  | { kind: 'forTurns'; count: Amount }
+  | { kind: 'whileSourceOnBattlefield' }
+
+export type GeneratedAbility = {
+  kind: 'triggered'
+  on: OccurrencePattern | DelayedPattern
+  decisions?: DecisionsInput
+  instructions: readonly Instruction[]
+}
+
+export type CreatedEffect =
+  | { kind: 'pump'; power: Amount; toughness: Amount }
+  | { kind: 'grantKeyword'; keyword: Keyword }
+  | { kind: 'grantAbility'; ability: GeneratedAbility }
+
 export type Condition =
   | { kind: 'resultIsTrue'; value: ResultReference }
   | { kind: 'compareAmount'; left: Amount; operator: 'eq' | 'gte' | 'lte'; right: Amount }
@@ -200,6 +220,26 @@ export type Instruction =
   | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
   | { kind: 'counter'; targets: StackItemRecipient; bindResult?: string }
   | {
+      kind: 'createEffect'
+      targets: ObjectRecipient
+      effect: CreatedEffect
+      duration: EffectDuration
+    }
+  | {
+      kind: 'payOptional'
+      payer: PlayerReference
+      cost: Cost
+      bindResult: string
+      ifPaid?: readonly Instruction[]
+      ifDeclined?: readonly Instruction[]
+      whenPaid?: readonly Instruction[]
+    }
+  | {
+      kind: 'createDelayed'
+      condition: DelayedPattern
+      instructions: readonly Instruction[]
+    }
+  | {
       kind: 'discard'
       targets: ObjectRecipient
       by: PlayerReference
@@ -237,6 +277,10 @@ export type Instruction =
       then: readonly Instruction[]
       otherwise: readonly Instruction[]
     }
+
+export type DelayedPattern =
+  | { kind: 'event'; type: string; objectId?: ObjectReference; from?: Zone; to?: Zone }
+  | { kind: 'step'; step: string; active?: PlayerReference }
 
 export type ResolutionProgram =
   | { instructions: readonly Instruction[]; modes?: never }

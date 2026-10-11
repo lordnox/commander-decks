@@ -12,18 +12,25 @@ do not reuse announcement ownership or open an ordinary priority window.
 
 ## Progress
 
-- [ ] schema and builders
-- [ ] validation and capability advertisement
-- [ ] durable payment/effect/reflexive execution
-- [ ] host/headless/browser projection and resume paths
-- [ ] focused and full validation
+- [x] schema and builders
+- [x] validation and canonical resolution payment/effect frame helpers
+- [x] canonical effect events and resolution payment choice/resume path
+- [ ] host/headless/browser projection for the new payment offer
+- [x] focused validation
 
 ## Tests
 
-To be filled as implementation proceeds.
+`bun run typecheck` and `bun test rules-engine/src/cardPlugins/dsl/part10.test.ts
+rules-engine/src/cardPlugins/dsl/part09.copies.test.ts` pass. The Part 10 tests
+cover immutable node compilation, generated/delayed ability source pins,
+payment payer ownership, decline behavior, replaced payment destinations, and
+reflexive program creation.
 
 ## Remaining work
 
-Part 11 owns resumable replacement lineage. This slice must preserve the
-existing destination replacement and transaction semantics while keeping the
-new program contexts independent of the live source.
+Part 11 owns resumable replacement lineage. This slice preserves the existing
+destination replacement and transaction semantics while keeping the new
+program contexts independent of the live source. The browser currently uses
+the existing typed option envelope for resolution payments; a dedicated compact
+projection can be added in the host follow-up without changing the server
+frame contract.

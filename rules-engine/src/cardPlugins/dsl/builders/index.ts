@@ -7,11 +7,14 @@ import type {
   ChoiceReference,
   Condition,
   ContinuousEffectDefinition,
+  CreatedEffect,
   ContextBinding,
   ContextReference,
   Cost,
   DecisionsInput,
   DecisionsSpec,
+  DelayedPattern,
+  EffectDuration,
   DistributionSpec,
   Instruction,
   Keyword,
@@ -26,6 +29,7 @@ import type {
   ObjectSelector,
   OccurrencePattern,
   PlayerFilter,
+  PlayerReference,
   PlayerRecipient,
   PlayerSelector,
   Reference,
@@ -138,6 +142,22 @@ export const lifeCost = (value: AmountInput): Cost =>
 
 export const manaCost = (value: string): Cost =>
   immutableData({ kind: 'mana', amount: value })
+
+export const untilCleanup = (): EffectDuration => immutableData({ kind: 'untilCleanup' })
+export const permanentEffect = (): EffectDuration => immutableData({ kind: 'permanent' })
+export const untilStep = (step: string, active?: PlayerReference): EffectDuration => immutableData({
+  kind: 'untilStep', step, ...(active ? { active } : {}),
+})
+export const forTurns = (count: AmountInput): EffectDuration => immutableData({ kind: 'forTurns', count: toAmount(count) })
+export const whileSourceOnBattlefield = (): EffectDuration => immutableData({ kind: 'whileSourceOnBattlefield' })
+
+export const pumpEffect = (power: AmountInput, toughness: AmountInput): CreatedEffect => immutableData({
+  kind: 'pump', power: toAmount(power), toughness: toAmount(toughness),
+})
+export const grantKeywordEffect = (keyword: Keyword): CreatedEffect => immutableData({ kind: 'grantKeyword', keyword })
+export const grantAbilityEffect = (ability: Extract<CreatedEffect, { kind: 'grantAbility' }>['ability']): CreatedEffect => immutableData({ kind: 'grantAbility', ability })
+export const eventDelayed = (input: Omit<Extract<DelayedPattern, { kind: 'event' }>, 'kind'>): DelayedPattern => immutableData({ kind: 'event', ...input })
+export const stepDelayed = (input: Omit<Extract<DelayedPattern, { kind: 'step' }>, 'kind'>): DelayedPattern => immutableData({ kind: 'step', ...input })
 
 export const compareAmount = (
   left: AmountInput,
@@ -393,6 +413,31 @@ export const counter = (input: {
   targets: input.targets,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
+
+export const createEffect = (input: {
+  targets: Extract<Instruction, { kind: 'createEffect' }>['targets']
+  effect: CreatedEffect
+  duration: EffectDuration
+}): Instruction => immutableData({ kind: 'createEffect', ...input })
+
+export const payOptional = (input: {
+  payer: Extract<Instruction, { kind: 'payOptional' }>['payer']
+  cost: Cost
+  bindResult: string
+  ifPaid?: readonly Instruction[]
+  ifDeclined?: readonly Instruction[]
+  whenPaid?: readonly Instruction[]
+}): Instruction => immutableData({
+  kind: 'payOptional', ...input,
+  ...(input.ifPaid ? { ifPaid: input.ifPaid } : {}),
+  ...(input.ifDeclined ? { ifDeclined: input.ifDeclined } : {}),
+  ...(input.whenPaid ? { whenPaid: input.whenPaid } : {}),
+})
+
+export const createDelayed = (input: {
+  condition: DelayedPattern
+  instructions: readonly Instruction[]
+}): Instruction => immutableData({ kind: 'createDelayed', ...input })
 
 export const discard = (input:
   | {
