@@ -43,6 +43,8 @@ cannot publish payments, targets, or cast occurrences.
   planner affordance callers, including active DSL activation prohibitions
 - [x] route canonical mana sources selected by tap-for-mana through the pinned
   inline activation driver and add activation/resolution occurrence patterns
+- [x] derive activation and resolution mana triggers from canonical source
+  programs instead of client-supplied mana flags
 
 ## Remaining work
 
@@ -72,3 +74,5 @@ suspended payment transaction remain for the next Part 08 review slice.
 - `bun test rules-engine/src/plugins/mana.test.ts` — 20 passed, 0 failed.
 - parent server review fixture — 32 passed, 0 failed, including shared
   prohibition behavior for tap-for-mana and planner affordances.
+- parent server review fixture — 34 passed, 0 failed, including semantic
+  activation/resolution triggers without client mana flags.
