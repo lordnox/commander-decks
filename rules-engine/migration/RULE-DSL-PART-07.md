@@ -1,6 +1,6 @@
 # Rule DSL Part 07 implementation note
 
-Status: ready for parent review on `agent/gpt56luna-rule-dsl-part07`.
+Status: ready for parent review on rebased Part06 review-completion base.
 
 ## Scope delivered
 
@@ -22,8 +22,10 @@ into one instruction event group with common trigger before-state.
 ## Choice boundary
 
 Instruction programs open the existing server-owned `selectOption` envelope,
-and card choices open typed `selectCards` offers. Answers bind selected object
-incarnations into the private frame before the next nested scope resumes;
+and card choices open typed `selectCards` offers. Proliferate offers an optional
+zero-or-more card selection over eligible counter-bearing permanents; selected
+object incarnations are pinned before the frame resumes. Answers bind selected
+object incarnations into the private frame before the next nested scope resumes;
 selected-card discard remains distinct from player/count discard. Empty optional
 groups bind an empty choice without opening an impossible picker. No canonical
 choice routes through `custom` or trusts client labels.
@@ -31,8 +33,9 @@ choice routes through `custom` or trusts client labels.
 ## Evidence so far
 
 - `./node_modules/.bin/tsc --noEmit` — passed.
-- `bun test /private/tmp/rule-dsl-part07-parent-review.test.ts` — 4 passed, 0 failed.
-- `bun test rules-engine` — 2,234 passed, 0 failed.
+- `bun test /private/tmp/rule-dsl-part07-parent-review.test.ts` — 8 passed, 0 failed.
+- `bun test rules-engine/src/cardPlugins/dsl/part07.review.test.ts` — 8 passed, 0 failed.
+- `bun test rules-engine` — 2,248 passed, 0 failed.
 - `bun run check:imports` and `bun run typecheck:live-runner` — passed previously
   on the same stack; rerun if the parent changes Part 06.
 - `bun test live-runner/src/kernelHost.test.ts` — 87 passed; 1 failure remains
