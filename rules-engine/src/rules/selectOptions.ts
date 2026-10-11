@@ -296,7 +296,17 @@ export const selectOptions: Plugin = {
         return true
       })
       const clauseIndex = targetBinding?.clauseIndex ?? slotIndex
-      const scoped = canonicalTargetCandidates(draft, source, ability, selection.action.controller)
+      const modeClauses = targetBinding?.modeIndex !== undefined && 'modes' in ability
+        ? ability.modes?.[targetBinding.modeIndex]?.decisions.targets
+        : undefined
+      const scoped = canonicalTargetCandidates(
+        draft,
+        source,
+        ability,
+        selection.action.controller,
+        original.execution?.occurrence,
+        modeClauses,
+      )
       const candidates = (scoped[clauseIndex] ?? [])
         .filter((candidate): candidate is Extract<typeof candidate, { kind: 'object' }> => candidate.kind === 'object')
       const scopedCandidates = scoped[clauseIndex] ?? []
