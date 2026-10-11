@@ -355,6 +355,28 @@ export const spells: Plugin = {
   replace: ({ state, event }) => {
     if (event.type !== 'castSpell' || event.canonicalTransaction || event.copy) return
     if (event.manaActivations && event.manaActivations.length > 0) {
+      const source = state.objects[event.objectId]
+      const compiled = source?.ruleDefinition
+        ? compileCardRuleDefinition(source.ruleDefinition.definition)
+        : undefined
+      const ability = compiled?.definition.abilities.find((candidate) => candidate.kind === 'spell')
+      if (!source || !compiled || !ability || ability.kind !== 'spell') return
+      const groupedTargets = ability.decisions.targets.length === 0
+        ? []
+        : event.targetClauses ?? (ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+      if (!groupedTargets) return
+      const locked = beginSpellAnnouncement(
+        state,
+        source,
+        event.seat,
+        ability,
+        groupedTargets,
+        event.x,
+        [...(event.discard ?? []), ...(event.sacrifice ?? [])],
+        { selectedOptional: event.selectedOptionalCosts, selectedAlternative: event.selectedAlternativeCost },
+      )
+      if (!locked.ok) return
+      const transaction = commitAnnouncement(locked.transaction)
       const activations = event.manaActivations.map((plan) => ({
         type: 'activateAbility' as const,
         seat: event.seat,
@@ -365,7 +387,7 @@ export const spells: Plugin = {
         ...(plan.x !== undefined ? { x: plan.x } : {}),
       }))
       const { manaActivations: _plan, ...cast } = event
-      return [...activations, cast]
+      return [...activations, { ...cast, canonicalTransaction: transaction }]
     }
     const object = state.objects[event.objectId]
     if (!object?.ruleDefinition) return
