@@ -334,6 +334,17 @@ describe('persisted planned payment workflow', () => {
     if (result.ok) expect(result.state.provisionalAnnouncement).toBeUndefined()
   })
 
+  test('a host restart preserves a planned payment frame before cancellation', () => {
+    const { server, event } = fixture(true)
+    const started = server.rules(server.state, event)
+    expect(started.ok).toBe(true)
+    if (!started.ok || !started.state.provisionalAnnouncement) return
+    const restarted = JSON.parse(JSON.stringify(started.state))
+    const cancelled = server.rules(restarted, { type: 'cancelAnnouncement', seat: 'p1', announcementId: restarted.provisionalAnnouncement.id })
+    expect(cancelled.ok).toBe(true)
+    if (cancelled.ok) expect(cancelled.state).toEqual(server.state)
+  })
+
   test('wrong-seat cancellation and invalid plans preserve the baseline', () => {
     const { server, event } = fixture(true)
     const started = server.rules(server.state, event)
@@ -396,14 +407,27 @@ describe('persisted planned payment workflow', () => {
     if (result.ok) expect(result.state.stack.filter((item) => item.kind === 'ability')).toHaveLength(1)
   })
 
-  test('a planned mana sacrifice cannot change the locked spell cost', () => {
-    const { server, event } = deathFixture()
-    const result = server.rules(server.state, event)
+  test('a planned mana sacrifice cannot change the spell total locked before payment', () => {
+    const sourceDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'activated', availableFrom: ['battlefield'], timing: 'anyTime',
+      costs: [{ kind: 'sacrifice', filter: objects({ zone: 'battlefield', type: 'Creature' }), count: amount(1) }],
+      decisions: { targets: [] }, instructions: [{ kind: 'addMana', amount: { C: amount(2) }, targets: ref('controller') }],
+    }])))
+    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [manaCost('{2}')], decisions: { targets: [] }, instructions: [] }])))
+    const server = createServerGame(commanderRules, { players: 2, battlefield: { p1: [
+      cardTemplate('Cost-changing mana source', { types: ['Artifact'], ruleDefinition: sourceDefinition }),
+      cardTemplate('Cost-reducing creature', { types: ['Creature'], power: 2, toughness: 2 }),
+    ] }, hands: { p1: [cardTemplate('Reduced locked spell', { types: ['Sorcery'], manaCost: '{2}', ruleDefinition: spellDefinition, effects: [{ op: 'castCost', reduceGeneric: { amount: 1, if: { kind: 'controlledCreaturePower', min: 1 } } }] })] } }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Cost-changing mana source')!
+    const creature = Object.values(server.state.objects).find((object) => object.name === 'Cost-reducing creature')!
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Reduced locked spell')!
+    const result = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, manaActivations: [{ objectId: source.id, abilityId: '$.abilities[0]', choices: [creature.id] }] })
     expect(result.ok).toBe(true)
-    if (!result.ok) return
-    expect(result.state.stack).toHaveLength(2)
-    expect(result.state.stack.some((item) => item.kind === 'spell')).toBe(true)
-    expect(result.state.players.p1.mana.G).toBe(1)
+    if (result.ok) {
+      expect(result.state.players.p1.mana.C).toBe(1)
+      expect(result.state.objects[creature.id].zone).toBe('graveyard')
+      expect(result.state.stack).toHaveLength(1)
+    }
   })
 
   test('defers death triggers across a restarted planned choice', () => {

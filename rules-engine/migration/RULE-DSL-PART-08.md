@@ -65,29 +65,10 @@ ordering, and planned-payment continuation paths.
 
 ## Validation
 
-- `tsc --noEmit` — passed.
-- `bun test rules-engine/src/cardPlugins/dsl` — 69 passed, 0 failed.
-- `bun test rules-engine` — 2,258 passed, 0 failed after canonical cast,
-  activation, and nonmana cost integration.
-- `check:imports` — passed.
-- parent server review fixture — 9 passed, 0 failed (canonical activation,
-  canonical life payment, Aether Tide X=0 and X=2 cast paths).
-- `/Users/tobiaskopelke/projects/lordnox/commander-decks/node_modules/.bin/oxlint
-  rules-engine live-runner site/src shared .agents/skills --quiet` — passed.
-- canonical cost-plan integration tests — 10 passed, 0 failed.
-- parent server review fixture — 31 passed, 0 failed, including alternative
-  locked-cost continuations and both ordinary-spell and inline-mana trigger
-  timing boundaries.
-- `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 11 passed, 0 failed.
+- `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 26 passed, 0 failed, including locked adjusted-cost preservation, JSON restart, and full-baseline cancellation.
 - `bun test rules-engine/src/plugins/mana.test.ts` — 20 passed, 0 failed.
-- parent server review fixture — 32 passed, 0 failed, including shared
-  prohibition behavior for tap-for-mana and planner affordances.
-- parent server review fixture — 34 passed, 0 failed, including semantic
-  activation/resolution triggers without client mana flags.
-- parent server review fixture — 36 passed, 0 failed, including one completion
-  occurrence for multi-instruction mana programs and controller-filtered bans.
-- parent server review fixture — 39 passed, 0 failed, including serializable
-  canonical continuations and pinned targets sacrificed as costs.
-- `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 25 passed, 0 failed,
-  including persisted no-choice/choice/cancel payment plans and locked-cost
-  preservation across a planned mana sacrifice.
+- `bun test rules-engine` — 2,276 passed, 0 failed.
+- TypeScript `--noEmit` — passed.
+- `bun scripts/check-imports.ts` — passed.
+- Parent payment review fixture — 53 checks passed.
+- The known generated-host reload fixture remains outside this DSL slice.
