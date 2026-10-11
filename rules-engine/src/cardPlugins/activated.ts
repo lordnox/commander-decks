@@ -38,6 +38,11 @@ const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileC
   })
 }
 
+const immediateManaInstructions = (instructions: readonly import('./dsl/schema/v1').Instruction[]): readonly import('./dsl/schema/v1').Instruction[] =>
+  instructions.flatMap((instruction) => instruction.kind === 'sequence'
+    ? immediateManaInstructions(instruction.instructions)
+    : [instruction])
+
 const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
   target: TargetRef | undefined,
@@ -302,7 +307,7 @@ export const activated: Plugin = {
           choiceIndex += count
         }
         if (manaClassification.isManaAbility) {
-          for (const instruction of canonical.instructions ?? []) {
+          for (const instruction of immediateManaInstructions(canonical.instructions ?? [])) {
             if (instruction.kind === 'move' && instruction.targets.kind === 'objects') {
               for (const object of Object.values(draft.objects)) {
                 const filter = instruction.targets.filter
@@ -324,7 +329,7 @@ export const activated: Plugin = {
               }
             }
           }
-          for (const instruction of canonical.instructions ?? []) {
+          for (const instruction of immediateManaInstructions(canonical.instructions ?? [])) {
             if (instruction.kind !== 'gainLife' && instruction.kind !== 'loseLife') continue
             if (instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
               && instruction.amount.kind === 'constant') {
