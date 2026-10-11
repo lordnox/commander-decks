@@ -214,7 +214,7 @@ const canonicalPatternMatches = (
   event: GameEvent,
 ) => {
   if (pattern.kind === 'manaAdded') {
-    return event.type === 'addMana'
+    return event.type === 'addMana' && event.sourceId !== source.id
   }
   if (pattern.kind === 'manaAbilityActivated' || pattern.kind === 'manaAbilityResolved') {
     if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)

@@ -257,4 +257,29 @@ describe('announcement transactions', () => {
       expect(result.state.players.p1.mana.G).toBe(2)
     }
   })
+
+  test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [{ kind: 'life', amount: { kind: 'constant', value: 3 } }],
+      decisions: { targets: [] },
+      instructions: [],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Serializable payment spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Serializable payment spell')!
+    const result = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spell.id,
+      canonicalTransaction: {
+        id: 'forged',
+        proposal: { payer: 'p1', sourceId: spell.id, costs: { mandatory: [] } },
+        lockedCost: { mana: '', nonMana: [] },
+        payment: [], status: 'committed',
+      },
+    })
+    expect(result.ok).toBe(false)
+    expect(result.state.players.p1.life).toBe(40)
+  })
 })
