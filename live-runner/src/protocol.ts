@@ -72,6 +72,7 @@ type InboxPayload =
        * name. Only the legacy replay flow, whose cards are plain names, omits it.
        */
       choices: Array<{ card: string; slot?: number; destination: TopdeckDestination }>
+      allocation?: Array<{ id: string; amount: number }>
     }
   | { type: 'advance' }
   | {
@@ -187,6 +188,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
     manaActivations?: unknown
     modeIndices?: unknown
     distributionBindings?: unknown
+    allocation?: unknown
   }
   const actionId = typeof message.actionId === 'number' && Number.isSafeInteger(message.actionId)
     ? message.actionId
@@ -419,6 +421,12 @@ export const parseInbox = (raw: string): InboxMessage | null => {
       ) {
         return null
       }
+      const allocation = message.allocation === undefined
+        ? undefined
+        : Array.isArray(message.allocation) && message.allocation.every((entry) => Boolean(entry) && typeof entry === 'object' && typeof (entry as { id?: unknown }).id === 'string' && Number.isSafeInteger((entry as { amount?: unknown }).amount) && (entry as { amount: number }).amount >= 0)
+          ? message.allocation as Array<{ id: string; amount: number }>
+          : null
+      if (allocation === null) return null
       return parsed({
         type: 'topdeck',
         ...(typeof message.requestId === 'string' && message.requestId ? { requestId: message.requestId } : {}),
@@ -430,6 +438,7 @@ export const parseInbox = (raw: string): InboxMessage | null => {
           ...(slot === undefined ? {} : { slot }),
           destination,
         })),
+        ...(allocation ? { allocation } : {}),
       })
     }
     case 'keep': {

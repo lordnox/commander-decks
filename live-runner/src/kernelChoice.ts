@@ -322,6 +322,11 @@ export const openTopdeck = (
   const cardSelectionBounds = cardBounds(decision)
   let selection: InteractionRequest['selection']
   switch (decision.kernel?.stage) {
+    case 'allocation':
+      selection = decision.allocationOffer
+        ? { kind: 'allocate', entries: decision.allocationOffer.entries, total: decision.allocationOffer.total, minEach: decision.allocationOffer.minEach }
+        : { kind: 'selectOptions', options: [], min: 1, max: 1, distinct: true }
+      break
     case 'select-players':
     case 'player-targets':
       selection = {
