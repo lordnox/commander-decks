@@ -23,8 +23,9 @@ into one instruction event group with common trigger before-state.
 
 Instruction programs open the existing server-owned `selectOption` envelope,
 and card choices open typed `selectCards` offers. Proliferate offers an optional
-zero-or-more card selection over eligible counter-bearing permanents; selected
-object incarnations are pinned before the frame resumes. Answers bind selected
+zero-or-more card/player selections over eligible counter-bearing permanents
+and players; selected object incarnations are pinned before the frame resumes.
+Both selections commit typed counter events as one action group. Answers bind selected
 object incarnations into the private frame before the next nested scope resumes;
 selected-card discard remains distinct from player/count discard. Empty optional
 groups bind an empty choice without opening an impossible picker. No canonical
@@ -33,8 +34,8 @@ choice routes through `custom` or trusts client labels.
 ## Evidence so far
 
 - `./node_modules/.bin/tsc --noEmit` — passed.
-- `bun test /private/tmp/rule-dsl-part07-parent-review.test.ts` — 8 passed, 0 failed.
-- `bun test rules-engine/src/cardPlugins/dsl/part07.review.test.ts` — 8 passed, 0 failed.
+- `bun test /private/tmp/rule-dsl-part07-parent-review.test.ts` — 10 passed, 0 failed.
+- `bun test rules-engine/src/cardPlugins/dsl/part07.review.test.ts` — 10 passed, 0 failed.
 - `bun test rules-engine` — 2,248 passed, 0 failed.
 - `bun run check:imports` and `bun run typecheck:live-runner` — passed previously
   on the same stack; rerun if the parent changes Part 06.
