@@ -55,6 +55,7 @@ export type AnnouncementTransaction = {
   readonly payment: readonly AnnouncementManaPayment[]
   readonly targetBindings?: readonly import('../../../types').CanonicalTargetBinding[]
   readonly distributionBindings?: readonly import('./modes').DistributionAllocation[]
+  readonly modeCount?: number
   status: 'provisional' | 'committed' | 'rolledBack'
   readonly waitingFor?: 'proposal' | 'targets' | 'payment' | 'replacement'
 }

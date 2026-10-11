@@ -47,7 +47,7 @@ import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compi
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
-import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { evaluateModeCount, modalTargetLayout, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
@@ -162,11 +162,11 @@ export const preparePlannedSpellAnnouncement = (state: import('../types').GameSt
   const { manaActivations: _plan, ...cast } = event
   return {
     ok: true as const,
-    transaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}) },
+    transaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}), ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}) },
     source: captureObject(source),
     definitionSnapshot: createDefinitionSnapshot(compiled),
     activations,
-    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}) } } as Extract<GameEvent, { type: 'castSpell' }>,
+    continuation: { ...cast, canonicalTransaction: { ...locked.transaction, targetBindings, ...(distributionBindings ? { distributionBindings } : {}), ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}) } } as Extract<GameEvent, { type: 'castSpell' }>,
   }
 }
 
@@ -521,6 +521,7 @@ export const spells: Plugin = {
     const committed = canonicalAbilityIndex >= 0 && ability.kind === 'spell'
       ? {
         ...committedBase,
+        ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}),
         targetBindings: canonicalTargetBindings(
         state,
         object,
@@ -877,13 +878,25 @@ export const spells: Plugin = {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
         const abilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
-        const modal = ability?.kind === 'spell' ? modalInputs(state, object, ability, abilityIndex, event) : undefined
+        const precommitted = event.canonicalTransaction
+        const modal = ability?.kind === 'spell'
+          ? precommitted?.modeCount !== undefined && event.modeIndices
+            ? (() => {
+                const layout = modalTargetLayout(ability, abilityIndex, event.modeIndices)
+                return {
+                  targetClauses: layout.map((entry) => entry.clause),
+                  scopeIds: layout.map((entry) => entry.scopeId),
+                  modeIndices: layout.map((entry) => entry.modeIndex),
+                  modeCount: precommitted.modeCount,
+                }
+              })()
+            : modalInputs(state, object, ability, abilityIndex, event)
+          : undefined
         const targetClauses = modal?.targetClauses ?? ability?.decisions.targets ?? []
         const groupedTargets = ability?.kind === 'spell'
           ? event.targetClauses
             ?? (targetClauses.length === 0 ? [] : targetClauses.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
-        const precommitted = event.canonicalTransaction
         if (ability?.kind === 'spell' && groupedTargets !== undefined && !precommitted) {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
             selectedOptional: event.selectedOptionalCosts,

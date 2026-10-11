@@ -7,12 +7,14 @@ import {
   validateDistributionAllocation,
   validateModeSelection,
   validateScopedDistributions,
+  whenever,
 } from './v1'
 import { card, compileCardRuleDefinition, createDefinitionSnapshot } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { objects } from './v1'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 
 const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, characteristic: () => 0 }
 
@@ -49,6 +51,77 @@ describe('Part09 scoped modes and distributions', () => {
     expect(resolved.ok).toBe(true)
     if (!resolved.ok) return
     expect(resolved.state.players.p1.life).toBe(42)
+  })
+
+  test('server applies general Amount modal cardinality to activated abilities', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'activated',
+      availableFrom: ['battlefield'],
+      timing: 'anyTime',
+      costs: [],
+      decisions: { targets: [], modes: { count: { kind: 'count', of: objects({ zone: 'battlefield', type: 'Creature' }) }, repeatable: false } },
+      modes: [{ decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: amount(2), targets: ref('controller') }] }],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Modal activated source', { types: ['Artifact'], ruleDefinition: definition }),
+          cardTemplate('Modal activated creature', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Modal activated source')!
+    const activated = server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]', modeIndices: [0] } as any)
+    expect(activated.ok).toBe(true)
+    if (!activated.ok) return
+    const resolved = server.rules(activated.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
+  })
+
+  test('server captures general Amount modal cardinality for triggered abilities', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'draw', filter: {} },
+        {
+          decisions: { modes: { count: { kind: 'count', of: objects({ zone: 'battlefield', type: 'Creature' }) }, repeatable: false } },
+          modes: [
+            { instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }] },
+            { instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }] },
+          ],
+        },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Modal trigger watcher', { types: ['Creature'], ruleDefinition: definition }),
+          cardTemplate('Modal trigger creature', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+      libraries: { p1: [cardTemplate('Modal trigger draw')] },
+    }, { random: () => 0 })
+    const drawn = server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 })
+    expect(drawn.ok).toBe(true)
+    if (!drawn.ok) return
+    const first = pendingOptionSelection(drawn.state, 'p1')
+    expect(first).toBeDefined()
+    if (!first) return
+    const selected = server.rules(drawn.state, { type: 'selectOption', seat: 'p1', selectionId: first.id, optionId: 'mode:0' })
+    expect(selected.ok).toBe(true)
+    if (!selected.ok) return
+    const second = pendingOptionSelection(selected.state, 'p1')
+    expect(second).toBeDefined()
+    if (!second) return
+    const completed = server.rules(selected.state, { type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'mode:1' })
+    expect(completed.ok).toBe(true)
+    if (!completed.ok) return
+    expect(completed.state.stack).toHaveLength(1)
+    const resolved = server.rules(completed.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
   })
 
   test('server rejects a distribution bound to a different modal occurrence', () => {
