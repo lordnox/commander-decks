@@ -370,8 +370,8 @@ export const selectOptions: Plugin = {
             ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:${nextIndex}:${min + index}`, label: String(min + index) }))
             : []
         draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
-          id: draft.allocId('option'),
           ...selection,
+          id: draft.allocId('option'),
           options,
           action: { ...selection.action, allocations: currentAllocations, allocationIndex: nextIndex, amounts: nextAmounts },
         }
@@ -390,8 +390,8 @@ export const selectOptions: Plugin = {
             ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
             : []
         draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
-          id: draft.allocId('option'),
           ...selection,
+          id: draft.allocId('option'),
           options,
           action: { ...selection.action, allocations: currentAllocations, specIndex: nextSpecIndex, recipientCount: nextRecipientCount, allocationIndex: 0, amounts: [] },
         }
@@ -402,6 +402,7 @@ export const selectOptions: Plugin = {
       const allocation = currentAllocations
       const announcement = {
         ...selection.action.announcement,
+        distributionBounds: selection.action.bounds,
         execution: { ...selection.action.announcement.execution, distributionBindings: allocation, distributionBounds: selection.action.bounds },
       }
       stackCanonical(draft, announcement)

@@ -77,12 +77,22 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
     const min = bounds[0]?.minEach ?? 0
     const max = (bounds[0]?.total ?? 0) - min * Math.max(0, recipientCount - 1)
     if (recipientCount === 0 && (bounds[0]?.total ?? 0) !== 0) return false
+    if (recipientCount === 0) {
+      const allocation = distributionSpecs.map((spec, index) => ({ scopeId: scopeIds[index], clauseIndex: spec.targetClauseIndex, amounts: [] }))
+      return stackCanonical(draft, {
+        ...announcement,
+        distributionBounds: bounds,
+        execution: { ...announcement.execution, distributionBindings: allocation, distributionBounds: bounds },
+      })
+    }
     openOptionSelection(draft, {
       seat: announcement.execution.controller,
       sourceId: source.id,
       source: source.name,
       prompt: `Allocate ${bounds[0]?.total ?? 0} for ${source.name}.`,
-      options: Number.isSafeInteger(max) && max >= min && max - min <= 256
+      options: recipientCount === 1
+        ? [{ id: `allocation:0:${max}`, label: String(max) }]
+        : Number.isSafeInteger(max) && max >= min && max - min <= 256
         ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
         : [],
       action: {
