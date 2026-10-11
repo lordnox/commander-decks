@@ -458,6 +458,9 @@ export const activated: Plugin = {
           ...(modal?.modeCount !== undefined ? { modeCount: modal.modeCount } : {}),
           ...(event.distributionBindings ? { distributionBindings: structuredClone(event.distributionBindings) } : {}),
         }
+        const canonicalInstructions = canonical?.kind === 'activated' && canonical.modes
+          ? (modal?.modeIndices ?? []).flatMap((modeIndex) => canonical.modes?.[modeIndex]?.instructions ?? [])
+          : canonical?.kind === 'activated' ? canonical.instructions ?? [] : []
         if (manaClassification.isManaAbility) {
           const inlineItem = {
             id: draft.allocId('inline'),
@@ -469,7 +472,7 @@ export const activated: Plugin = {
             abilityId: event.abilityId,
             ...(event.x !== undefined ? { x: event.x } : {}),
             ...(event.choices ? { choices: event.choices } : {}),
-            payload: { instructions: canonical.instructions ?? [] },
+            payload: { instructions: canonicalInstructions },
             execution: canonicalExecution,
           }
           startCanonicalResolution(draft, inlineItem, { inline: true })
@@ -488,7 +491,7 @@ export const activated: Plugin = {
           name: source.name,
           targets: resolvedTargets,
           abilityId: event.abilityId,
-          payload: { instructions: canonical.instructions ?? [] },
+          payload: { instructions: canonicalInstructions },
           execution: canonicalExecution,
           ...(event.x !== undefined ? { x: event.x } : {}),
         })

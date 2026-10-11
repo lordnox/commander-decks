@@ -118,7 +118,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
         kind: 'putCanonicalModeTriggeredAbility',
         definitionSnapshot: announcement.definitionSnapshot,
         abilityIndex: announcement.abilityIndex,
-        execution: announcement.execution,
+        execution: { ...announcement.execution, modeCount: count },
         sourceId: source.id,
         targets: announcement.targets,
         targetBindings,
