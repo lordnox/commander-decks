@@ -51,6 +51,7 @@ export type AnnouncementTransaction = {
   readonly proposal: AnnouncementProposal
   readonly lockedCost: LockedAnnouncementCost
   readonly payment: readonly AnnouncementManaPayment[]
+  readonly targetBindings?: readonly import('../../../types').CanonicalTargetBinding[]
   status: 'provisional' | 'committed' | 'rolledBack'
   readonly waitingFor?: 'proposal' | 'targets' | 'payment' | 'replacement'
 }

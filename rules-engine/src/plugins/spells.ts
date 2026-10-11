@@ -388,7 +388,24 @@ export const spells: Plugin = {
       },
     )
     if (!announcement.ok) return
-    const committed = commitAnnouncement(announcement.transaction)
+    const committedBase = commitAnnouncement(announcement.transaction)
+    const canonicalAbilityIndex = compiled.definition.abilities.findIndex((candidate) => candidate.kind === 'spell')
+    const committed = canonicalAbilityIndex >= 0 && ability.kind === 'spell'
+      ? {
+        ...committedBase,
+        targetBindings: canonicalTargetBindings(
+        state,
+        object,
+        compiled.definition,
+        canonicalAbilityIndex,
+        event.targets ?? event.targetClauses?.flat() ?? [],
+        undefined,
+        event.targetClauses,
+        event.seat,
+        event.x,
+        ),
+      }
+      : committedBase
     const choices = [...(event.discard ?? []), ...(event.sacrifice ?? [])]
     let choiceIndex = 0
     const costs: GameEvent[] = []
@@ -858,7 +875,7 @@ export const spells: Plugin = {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const abilityIndex = compiled.definition.abilities.findIndex((ability) => ability.kind === 'spell')
         if (abilityIndex >= 0 && stacked.execution) {
-          stacked.execution.targetBindings = canonicalTargetBindings(
+          stacked.execution.targetBindings = [...(canonicalTransaction?.targetBindings ?? canonicalTargetBindings(
             state,
             object,
             compiled.definition,
@@ -872,7 +889,7 @@ export const spells: Plugin = {
             undefined,
             undefined,
             Boolean(canonicalTransaction),
-          )
+          ))]
           stacked.execution.announcement = canonicalTransaction
             ? {
                 id: canonicalTransaction.id,
