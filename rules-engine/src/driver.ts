@@ -204,16 +204,16 @@ export const startCanonicalResolution = (
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
     scopes: 'modes' in ability
-      ? selectedModes
-        .map((modeIndex, occurrence) => ({ modeIndex, occurrence }))
-        .toSorted((left, right) => right.modeIndex - left.modeIndex || right.occurrence - left.occurrence)
-        .map(({ modeIndex, occurrence }) => ({
+      ? selectedModes.toReversed().map((modeIndex, reverseIndex) => {
+        const occurrence = selectedModes.length - reverseIndex - 1
+        return {
           path: `.modes[${modeIndex}].instructions`,
           scopeId: item.execution?.modeScopeIds?.[occurrence]
             ?? canonicalModeScopeId(abilityIndex, modeIndex, occurrence),
           instructions: structuredClone(ability.modes?.[modeIndex]?.instructions ?? []),
           cursor: 0,
-        }))
+        }
+      })
       : [{
         path: '.instructions',
         scopeId: canonicalScopeId(abilityIndex),

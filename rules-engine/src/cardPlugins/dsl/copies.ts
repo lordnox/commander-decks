@@ -137,7 +137,9 @@ export const putCanonicalSpellCopyOnStack = (
             : recipient.kind === 'stackItem' && replacement.kind === 'stackItem'
               ? recipient.stackId === replacement.stackId
               : recipient.kind === 'object' && replacement.kind === 'object'
-                ? recipient.objectId === replacement.objectId
+              ? recipient.objectId === replacement.objectId
+                && recipient.incarnation === replacement.incarnation
+                && recipient.zone === replacement.zone
                 : false
         )
         if (unchanged) return recipient
