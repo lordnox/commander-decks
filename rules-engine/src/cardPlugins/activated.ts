@@ -22,6 +22,22 @@ import { payCost } from '../plugins/spells'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
+const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileCardRuleDefinition>['definition']['abilities'][number], { kind: 'activated' }>) => {
+  const movesLibrary = (ability.instructions ?? []).some((instruction) => {
+    if (instruction.kind === 'draw' || instruction.kind === 'mill') return true
+    return instruction.kind === 'move'
+      && instruction.targets.kind === 'objects'
+      && instruction.targets.filter.zone === 'library'
+  })
+  return classifyManaAbility({
+    addsMana: (ability.instructions ?? []).some((instruction) => instruction.kind === 'addMana'),
+    abilityKind: 'activated',
+    hasTargets: ability.decisions.targets.length > 0,
+    hasLoyaltyCost: false,
+    movesCards: movesLibrary,
+  })
+}
+
 const legalActivateTarget = (
   state: { objects: Record<string, GameObject | undefined> },
   target: TargetRef | undefined,
@@ -97,13 +113,7 @@ export const activated: Plugin = {
       const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
       if (activatedCanonical) {
-        const manaClassification = classifyManaAbility({
-          addsMana: (activatedCanonical.instructions ?? []).some((instruction) => instruction.kind === 'addMana'),
-          abilityKind: 'activated',
-          hasTargets: activatedCanonical.decisions.targets.length > 0,
-          hasLoyaltyCost: activatedCanonical.costs.some((cost) => cost.kind === 'life'),
-          movesCards: (activatedCanonical.instructions ?? []).some((instruction) => ['discard', 'sacrifice', 'move'].includes(instruction.kind)),
-        })
+        const manaClassification = canonicalManaClassification(activatedCanonical)
         if (event.manaAbility && !manaClassification.isManaAbility) return `${source.name} is not a mana ability`
         const permissionError = activationPermission({
           state,
@@ -261,13 +271,7 @@ export const activated: Plugin = {
       const candidate = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const canonical = candidate?.kind === 'activated' ? candidate : undefined
       if (canonical) {
-        const manaClassification = classifyManaAbility({
-          addsMana: (canonical.instructions ?? []).some((instruction) => instruction.kind === 'addMana'),
-          abilityKind: 'activated',
-          hasTargets: canonical.decisions.targets.length > 0,
-          hasLoyaltyCost: canonical.costs.some((cost) => cost.kind === 'life'),
-          movesCards: (canonical.instructions ?? []).some((instruction) => ['discard', 'sacrifice', 'move'].includes(instruction.kind)),
-        })
+        const manaClassification = canonicalManaClassification(canonical)
         const groupedTargets = canonical.decisions.targets.length === 0
           ? []
           : event.targetClauses
@@ -286,7 +290,7 @@ export const activated: Plugin = {
             draft.enqueue({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
           }
         }
-        if (event.manaAbility) {
+        if (manaClassification.isManaAbility) {
           for (const instruction of canonical.instructions ?? []) {
             if (instruction.kind !== 'addMana') continue
             const targetSeats = instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
@@ -301,7 +305,14 @@ export const activated: Plugin = {
               }
             }
           }
-          if (manaClassification.isManaAbility) return
+          for (const instruction of canonical.instructions ?? []) {
+            if (instruction.kind !== 'gainLife' && instruction.kind !== 'loseLife') continue
+            if (instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
+              && instruction.amount.kind === 'constant') {
+              draft.enqueue({ type: instruction.kind, seat: event.seat, amount: instruction.amount.value, source: source.id })
+            }
+          }
+          return
         }
         draft.addToStack({
           kind: 'ability',
