@@ -44,7 +44,7 @@ import { pendingFreeCastFor, reboundsOnResolution } from './plugins/rebound'
 import { isSameObject } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
 import { hasKeyword } from './keywords'
-import { copyCharacteristics } from './cardPlugins/effectRuntime'
+import { copyCharacteristics, createToken } from './cardPlugins/effectRuntime'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 
@@ -207,6 +207,10 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         controller: event.controller,
         token: event.token ?? copyCharacteristics(source),
       })
+      return
+    }
+    case 'createToken': {
+      createToken(draft, event.controller, event.token)
       return
     }
     case 'counterStackItem': {
@@ -670,11 +674,18 @@ const applySimultaneousActionGroup = (
   for (const occurrence of occurrences) captureEventTriggers(state, occurrence, grouped)
   checkEnded(grouped)
   current = freezeDraft(grouped)
-  for (const child of queued) {
-    const next = applyEventTree(current, child.event, catalog)
-    entries.push(...nested(next.trace, child.depth))
-    if (!next.ok) return { ...next, state: current, trace: entries }
-    current = next.state
+  if (queued.length > 1 && queued.every(({ event }) => event.type === 'move' || event.type === 'destroy' || event.type === 'sacrifice')) {
+    const grouped = applySimultaneousActionGroup(current, queued.map(({ event }) => event), catalog)
+    entries.push(...nested(grouped.trace, 1))
+    if (!grouped.ok) return { ...grouped, state: current, trace: entries }
+    current = grouped.state
+  } else {
+    for (const child of queued) {
+      const next = applyEventTree(current, child.event, catalog)
+      entries.push(...nested(next.trace, child.depth))
+      if (!next.ok) return { ...next, state: current, trace: entries }
+      current = next.state
+    }
   }
   return { ok: true, state: current, trace: entries }
 }
@@ -840,7 +851,10 @@ const driveResolution = (
       return { ok: false, error: message, state: current, trace: entries }
     }
     current = freezeDraft(draft)
-    if (step.kind === 'events') continue
+    if (step.kind === 'events') {
+      if ((step.events?.length ?? 0) === 0) current = recordPendingCounterResult(current, [])
+      continue
+    }
     if (step.event) {
       const next = applyEventTree(current, step.event, catalog)
       entries.push(...nested(next.trace, 1))

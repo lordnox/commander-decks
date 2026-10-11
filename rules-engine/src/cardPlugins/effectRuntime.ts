@@ -156,6 +156,7 @@ export const copyCharacteristics = (
   grantedRules: [...copied.grantedRules],
   tapProduces: copied.tapProduces ? { ...copied.tapProduces } : undefined,
   effects: copied.effects ? [...copied.effects] : [],
+  ...(copied.ruleDefinition ? { ruleDefinition: structuredClone(copied.ruleDefinition) } : {}),
 })
 
 export const copyTokenTemplate = (

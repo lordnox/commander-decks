@@ -347,11 +347,9 @@ const actionEvents = (
     }
     case 'destroy': {
       const targets = objectActions(instruction.targets, context)
-      const legal = targets.filter((object) => !hasKeyword(object, 'indestructible', context.state))
-      if (instruction.bindResult && legal.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'destroy' }
-      return legal.flatMap((object) => hasKeyword(object, 'indestructible', context.state)
-        ? []
-        : [{ type: 'destroy' as const, objectId: object.id, sourceId: frame.source.ref.objectId }])
+      const legal = targets.filter((object) => object.zone === 'battlefield' && !hasKeyword(object, 'indestructible', context.state))
+      if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'destroy' }
+      return legal.map((object) => ({ type: 'destroy' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'sacrifice': {
       const targets = objectActions(instruction.targets, context)
@@ -616,17 +614,32 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
     }
+    if (instruction.kind === 'proliferate') {
+      const candidates = Object.values(draft.objects).filter((object) =>
+        object.zone === 'battlefield' && !object.phasedOut && Object.keys(object.counters).length > 0)
+      openCardSelection(draft, {
+        seat: frame.controller,
+        kind: 'choose',
+        count: candidates.length,
+        min: 0,
+        candidates: candidates.map((object) => object.id),
+        targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
+        sourceId: frame.source.ref.objectId,
+        source: frame.source.snapshot.name,
+        prompt: 'Choose any number of permanents to proliferate.',
+        destinations: ['target', 'skip'],
+        canonicalChoice: { stackId: frame.stackId, binding: `__proliferate_${path}`, action: 'proliferate' },
+      })
     frame.phase = 'committing'
-<<<<<<< HEAD
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    frame.phase = 'committing'
     const events = actionEvents(instruction, runtimeContext(draft, frame, item, scope.scopeId), frame, path)
-    frame.pendingEvents = structuredClone(events)
-=======
-    const events = actionEvents(instruction, runtimeContext(draft, frame, item), frame, path)
     const committed = events.length > 1
       ? [{ type: 'actionGroup' as const, events }]
       : events
     frame.pendingEvents = structuredClone(committed)
->>>>>>> b619b142 (Complete durable Part07 action results and choices)
     return {
       kind: 'events',
       events: committed,
