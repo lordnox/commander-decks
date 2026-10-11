@@ -15,7 +15,7 @@ export const extraSwampMana: Plugin = {
     const each = rule.params.each === true
     if (!each && source && land.controller !== source.controller) return
     if (!each && !source && land.controller !== event.seat) return
-    draft.enqueue({ type: 'addMana', seat: land.controller, mana: { B: 1 } })
+    draft.enqueue({ type: 'addMana', seat: land.controller, mana: { B: 1 }, sourceId: land.id })
     draft.note(`${land.controller} adds {B} from extra swamp mana`)
   },
 }

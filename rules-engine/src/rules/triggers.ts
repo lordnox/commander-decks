@@ -46,6 +46,9 @@ import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector } from '../cardPlugins/dsl/compiler/runtime'
 import type { ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
+import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
+import { startCanonicalResolution } from '../driver'
+import { instructionAddsMana } from '../cardPlugins/activated'
 
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
@@ -189,6 +192,9 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'manaAdded') {
+    return event.type === 'addMana'
+  }
   if (pattern.kind === 'draw') {
     if (event.type !== 'draw' || !occurrence.player) return false
     const player = occurrence.player
@@ -982,6 +988,25 @@ const removePendingTrigger = (draft: Draft, id: string) => {
   if (draft.pendingTriggers.length === 0) delete draft.pendingTriggers
 }
 
+const canonicalManaTrigger = (trigger: CapturedPendingTrigger) => {
+  if (!trigger.canonical) return false
+  const definition = loadDefinitionSnapshot(trigger.canonical.definitionSnapshot).definition
+  const ability = definition.abilities[trigger.canonical.abilityIndex]
+  if (!ability || ability.kind !== 'triggered' || ability.on.kind !== 'manaAdded') return false
+  const instructions = 'instructions' in ability
+    ? ability.instructions ?? []
+    : ability.modes.flatMap((mode) => mode.instructions)
+  return classifyManaAbility({ addsMana: instructionAddsMana(instructions), abilityKind: 'triggered', triggered: true, triggeredManaEligible: true, hasTargets: ability.decisions.targets.length > 0 }).isManaAbility
+}
+
+/** CR 605.4a: resolve mana triggers immediately after the producing mana event. */
+export const placePendingManaTriggers = (draft: Draft) => {
+  const trigger = (draft.pendingTriggers ?? []).find(canonicalManaTrigger)
+  if (!trigger) return false
+  removePendingTrigger(draft, trigger.id)
+  return placeCanonicalTrigger(draft, trigger)
+}
+
 const placementGroups = (
   draft: Draft,
   pending: CapturedPendingTrigger[],
@@ -1015,6 +1040,34 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
   const definition = loadDefinitionSnapshot(canonical.definitionSnapshot).definition
   const ability = definition.abilities[canonical.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return true
+  const manaInstructions = 'instructions' in ability
+    ? ability.instructions ?? []
+    : ability.modes.flatMap((mode) => mode.instructions)
+  const isMana = ability.on.kind === 'manaAdded' && classifyManaAbility({
+    addsMana: instructionAddsMana(manaInstructions),
+    abilityKind: 'triggered',
+    triggered: true,
+    triggeredManaEligible: true,
+    hasTargets: ability.decisions.targets.length > 0,
+  }).isManaAbility
+  if (isMana) {
+    const item = {
+      id: draft.allocId('inline'),
+      kind: 'ability' as const,
+      objectId: source.id,
+      controller: trigger.execution.controller,
+      name: source.name,
+      targets: [],
+      payload: { instructions: manaInstructions },
+      execution: {
+        ...trigger.execution,
+        definitionSnapshot: canonical.definitionSnapshot,
+        abilityIndex: canonical.abilityIndex,
+      },
+    }
+    startCanonicalResolution(draft, item, { inline: true })
+    return true
+  }
   return startCanonicalAnnouncement(draft, {
     definitionSnapshot: canonical.definitionSnapshot,
     abilityIndex: canonical.abilityIndex,

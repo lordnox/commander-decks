@@ -240,6 +240,7 @@ export const whenever = (
   ...(configuration.triggerOnlyIf ? { triggerOnlyIf: configuration.triggerOnlyIf } : {}),
   ...(configuration.interveningIf ? { interveningIf: configuration.interveningIf } : {}),
   ...(configuration.frequency ? { frequency: configuration.frequency } : {}),
+  ...(configuration.manaAbility ? { manaAbility: true as const } : {}),
   ...normalizeProgram(configuration),
 }) as TriggeredAbilityDefinition
 
@@ -277,6 +278,8 @@ export const dies = (input: { filter: ObjectOccurrenceFilter }): OccurrencePatte
 
 export const draws = (input: Extract<OccurrencePattern, { kind: 'draw' }>['filter'] = {}): OccurrencePattern =>
   immutableData({ kind: 'draw', filter: input })
+
+export const manaAdded = (): OccurrencePattern => immutableData({ kind: 'manaAdded' })
 
 export const draw = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'draw', count: toAmount(input.count), targets: input.targets })

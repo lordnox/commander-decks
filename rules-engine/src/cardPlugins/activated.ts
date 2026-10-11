@@ -43,7 +43,7 @@ const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean 
   }
 })
 
-const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
+export const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
   switch (instruction.kind) {
     case 'addMana': return true
     case 'sequence': return instructionAddsMana(instruction.instructions)

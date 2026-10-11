@@ -282,7 +282,7 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
         },
       ]
     } else {
-      player.mana = addPools(player.mana, pool)
+      draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })
     }
     draft.note(`${event.seat} taps ${object.name} for mana`)
     if (
