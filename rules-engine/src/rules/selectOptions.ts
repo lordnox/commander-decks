@@ -362,21 +362,22 @@ export const selectOptions: Plugin = {
       return
     }
     if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') {
-      const amountMatch = new RegExp(`^allocation:${selection.action.allocationIndex}:(\\d+)$`).exec(event.optionId)
+      const allocation = selection.action
+      const amountMatch = new RegExp(`^allocation:${allocation.allocationIndex}:(\\d+)$`).exec(event.optionId)
       const amount = amountMatch ? Number(amountMatch[1]) : Number.NaN
       if (!Number.isSafeInteger(amount) || amount < 0) return
-      const nextAmounts = [...selection.action.amounts, amount]
-      const nextIndex = selection.action.allocationIndex + 1
-      const currentAllocations = selection.action.allocations.map((entry, index) => index === selection.action.specIndex
+      const nextAmounts = [...allocation.amounts, amount]
+      const nextIndex = allocation.allocationIndex + 1
+      const currentAllocations = allocation.allocations.map((entry, index) => index === allocation.specIndex
         ? { ...entry, amounts: nextAmounts }
         : entry)
-      if (nextIndex < selection.action.recipientCount) {
-        const bound = selection.action.bounds[selection.action.specIndex]
-        const remaining = selection.action.recipientCount - nextIndex - 1
+      if (nextIndex < allocation.recipientCount) {
+        const bound = allocation.bounds[allocation.specIndex]
+        const remaining = allocation.recipientCount - nextIndex - 1
         const chosenTotal = nextAmounts.reduce((sum, value) => sum + value, 0)
         const min = bound.minEach
         const max = bound.total - chosenTotal - min * remaining
-        const options = nextIndex === selection.action.recipientCount - 1
+        const options = nextIndex === allocation.recipientCount - 1
           ? [{ id: `allocation:${nextIndex}:${max}`, label: String(max) }]
           : Number.isSafeInteger(max) && max - min <= 256
             ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:${nextIndex}:${min + index}`, label: String(min + index) }))
@@ -385,15 +386,40 @@ export const selectOptions: Plugin = {
           ...selection,
           id: draft.allocId('option'),
           options,
-          action: { ...selection.action, allocations: currentAllocations, allocationIndex: nextIndex, amounts: nextAmounts },
+          action: { ...allocation, allocations: currentAllocations, allocationIndex: nextIndex, amounts: nextAmounts },
         }
         draft.priority = null
         return
       }
-      if (selection.action.specIndex + 1 < selection.action.specs.length) {
-        const nextSpecIndex = selection.action.specIndex + 1
-        const bound = selection.action.bounds[nextSpecIndex]
-        const nextRecipientCount = selection.action.recipientCounts[nextSpecIndex]
+      if (allocation.specIndex + 1 < allocation.specs.length) {
+        let nextSpecIndex = allocation.specIndex + 1
+        let nextAllocations = currentAllocations
+        while (nextSpecIndex < allocation.specs.length) {
+          const nextBound = allocation.bounds[nextSpecIndex]
+          const nextRecipientCount = allocation.recipientCounts[nextSpecIndex]
+          if (nextRecipientCount !== 0 || nextBound.total !== 0) break
+          nextAllocations = nextAllocations.map((entry, index) => index === nextSpecIndex
+            ? { ...entry, amounts: [] }
+            : entry)
+          nextSpecIndex += 1
+        }
+        if (nextSpecIndex >= allocation.specs.length) {
+          const announcement = {
+            ...allocation.announcement,
+            distributionBounds: allocation.bounds,
+            execution: {
+              ...allocation.announcement.execution,
+              distributionBindings: nextAllocations,
+              distributionBounds: allocation.bounds,
+            },
+          }
+          delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+          stackCanonical(draft, announcement)
+          draft.priority = null
+          return
+        }
+        const bound = allocation.bounds[nextSpecIndex]
+        const nextRecipientCount = allocation.recipientCounts[nextSpecIndex]
         const min = bound.minEach
         const max = bound.total - min * Math.max(0, nextRecipientCount - 1)
         const options = nextRecipientCount === 1
@@ -405,17 +431,17 @@ export const selectOptions: Plugin = {
           ...selection,
           id: draft.allocId('option'),
           options,
-          action: { ...selection.action, allocations: currentAllocations, specIndex: nextSpecIndex, recipientCount: nextRecipientCount, allocationIndex: 0, amounts: [] },
+          action: { ...allocation, allocations: nextAllocations, specIndex: nextSpecIndex, recipientCount: nextRecipientCount, allocationIndex: 0, amounts: [] },
         }
         draft.priority = null
         return
       }
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-      const allocation = currentAllocations
+      const completedAllocations = currentAllocations
       const announcement = {
         ...selection.action.announcement,
         distributionBounds: selection.action.bounds,
-        execution: { ...selection.action.announcement.execution, distributionBindings: allocation, distributionBounds: selection.action.bounds },
+        execution: { ...selection.action.announcement.execution, distributionBindings: completedAllocations, distributionBounds: selection.action.bounds },
       }
       stackCanonical(draft, announcement)
       draft.priority = null

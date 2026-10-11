@@ -169,9 +169,11 @@ export const applyKernelChoice = (
       const values = message.allocation ?? []
       const offered = decision.interaction?.selection.kind === 'allocate' ? decision.interaction.selection.entries : []
       const orderedValues = offered.map((entry) => values.find((value) => value.id === entry.id)).filter((value): value is NonNullable<typeof value> => Boolean(value))
-      for (const [index, value] of orderedValues.entries()) {
-        const current = kernel.history.current().players[seat]?.data['kernel.pendingOptionSelection'] as { id?: string } | undefined
+      for (const value of orderedValues) {
+        const current = kernel.history.current().players[seat]?.data['kernel.pendingOptionSelection'] as { id?: string; action?: { allocationIndex?: number } } | undefined
         if (!current?.id) throw new Error('The allocation choice is no longer open.')
+        const index = current.action?.allocationIndex
+        if (!Number.isSafeInteger(index)) throw new Error('The allocation choice is missing its current target.')
         const event = kernel.dispatch({ type: 'selectOption', seat, selectionId: current.id, optionId: `allocation:${index}:${value.amount}` })
         if (!event.ok) throw new Error(event.error)
       }

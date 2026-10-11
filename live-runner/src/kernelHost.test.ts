@@ -110,6 +110,14 @@ import { openTopdeck, type TopdeckMessage } from './kernelChoice'
 import type { SeatId } from './protocol'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
+import {
+  amount,
+  card as dslCard,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  objects,
+  ref,
+} from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { compactLiveWire, expandLiveWire } from '../../site/src/liveCompact'
 import { validateInteractionAnswer } from '../../shared/interaction'
 
@@ -477,6 +485,171 @@ describe('kernel host journal', () => {
       requestId: request.requestId, revision: request.revision, chooser: 'p1',
       selection: { kind: 'allocate', values: [{ id: 'target:0', amount: 400 }, { id: 'target:1', amount: 599 }] },
     })).toEqual({ ok: false, error: 'allocation must include every offered entry and match its total' })
+  })
+
+  const actualAllocationHostCase = (includeEmptySpec = false) => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([{
+      kind: 'triggered',
+      activeIn: ['battlefield'],
+      on: { kind: 'draw', filter: {} },
+      decisions: {
+        targets: [
+          {
+            filter: objects({ zone: 'battlefield', type: 'Creature' }),
+            min: amount(2),
+            max: amount(2),
+            distinct: true,
+          },
+          ...(includeEmptySpec
+            ? [{
+                filter: objects({ zone: 'battlefield', type: 'Creature', name: 'Missing target' }),
+                min: amount(0),
+                max: amount(0),
+                distinct: true as const,
+              }]
+            : []),
+        ],
+        distributions: [
+          { targetClauseIndex: 0, total: amount(1000), minEach: amount(1) },
+          ...(includeEmptySpec ? [{ targetClauseIndex: 1, total: amount(0), minEach: amount(0) }] : []),
+        ],
+      },
+      instructions: [{
+        kind: 'damage',
+        source: ref('source'),
+        targets: { kind: 'targetRef', clauseIndex: 0 },
+        amount: amount(1000),
+      }],
+    }])))
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        battlefield: {
+          p1: [
+            cardTemplate('Allocation watcher', { types: ['Enchantment'], ruleDefinition: definition }),
+            cardTemplate('Allocation target A', { types: ['Creature'], power: 2, toughness: 1200 }),
+            cardTemplate('Allocation target B', { types: ['Creature'], power: 2, toughness: 1200 }),
+          ],
+        },
+        libraries: { p1: [cardTemplate('Allocation draw')] },
+      },
+      { random: () => 0 },
+    )
+    const kernel = handleFor(server.rules, server.state)
+    expect(kernel.dispatch({ type: 'draw', seat: 'p1', count: 1 }).ok).toBe(true)
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    const targetA = objectNamed(kernel, 'Allocation target A')
+    const targetB = objectNamed(kernel, 'Allocation target B')
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: targetA.name, destination: 'target' },
+        { card: targetB.name, destination: 'target' },
+      ],
+    }))).toBe(true)
+    expect(lobby.topdeck?.kind).toBe('allocate')
+    expect(lobby.topdeck?.allocationOffer).toEqual({
+      entries: [
+        { id: 'target:0', label: 'Target 1' },
+        { id: 'target:1', label: 'Target 2' },
+      ],
+      total: 1000,
+      minEach: 1,
+    })
+    return { server, kernel, lobby, targetA, targetB }
+  }
+
+  test('runs a triggered allocation through the host, restart, and resolution', () => {
+    const first = actualAllocationHostCase()
+    const restoredLobby = JSON.parse(JSON.stringify(first.lobby)) as ReturnType<typeof createLobby>
+    const restoredJournal = JSON.parse(JSON.stringify(first.kernel.journal))
+    const restoredKernel = handleFor(
+      first.kernel.rules,
+      restoreJournal(restoredJournal, first.kernel.rules).current(),
+    )
+    const allocation = {
+      type: 'topdeck' as const,
+      requestId: restoredLobby.topdeck!.requestId,
+      revision: restoredLobby.topdeck!.revision,
+      choices: [],
+      allocation: [
+        { id: 'target:1', amount: 600 },
+        { id: 'target:0', amount: 400 },
+      ],
+    }
+    const beforeInvalid = structuredClone(restoredKernel.journal)
+    expect(applyKernelChoiceImpl(restoredKernel, restoredLobby, 'p2', allocation)).toBe(false)
+    expect(restoredKernel.journal).toEqual(beforeInvalid)
+    expect(() => applyKernelChoiceImpl(restoredKernel, restoredLobby, 'p1', {
+      ...allocation,
+      revision: allocation.revision! - 1,
+    })).toThrow('stale')
+    expect(restoredKernel.journal).toEqual(beforeInvalid)
+    expect(() => applyKernelChoiceImpl(restoredKernel, restoredLobby, 'p1', {
+      ...allocation,
+      allocation: [
+        { id: 'target:0', amount: 400 },
+        { id: 'target:1', amount: 599 },
+      ],
+    })).toThrow('allocation must include every offered entry and match its total')
+    expect(restoredKernel.journal).toEqual(beforeInvalid)
+    expect(applyKernelChoiceImpl(restoredKernel, restoredLobby, 'p1', allocation)).toBe(true)
+    expect(restoredLobby.topdeck).toBeUndefined()
+    expect(restoredKernel.history.current().stack).toHaveLength(1)
+    expect(applyKernelChoiceImpl(restoredKernel, restoredLobby, 'p1', {
+      ...allocation,
+      allocation: [{ id: 'target:0', amount: 401 }, { id: 'target:1', amount: 599 }],
+    })).toBe(false)
+    const resolved = restoredKernel.dispatch({ type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    expect(restoredKernel.history.current().objects[first.targetA.id]?.damageMarked).toBe(400)
+    expect(restoredKernel.history.current().objects[first.targetB.id]?.damageMarked).toBe(600)
+  })
+
+  test('rebuilds a resumed allocation with the remaining target and total', () => {
+    const first = actualAllocationHostCase()
+    const pending = pendingOptionSelection(first.kernel.history.current(), 'p1')!
+    expect(first.kernel.dispatch({
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending.id,
+      optionId: 'allocation:0:400',
+    }).ok).toBe(true)
+    const resumedLobby = createLobby()
+    resumedLobby.phase = 'play'
+    expect(prepareKernelPendingChoice(first.kernel, resumedLobby)).toBe(true)
+    expect(resumedLobby.topdeck?.allocationOffer).toEqual({
+      entries: [{ id: 'target:1', label: 'Target 2' }],
+      total: 600,
+      minEach: 1,
+    })
+    expect(applyKernelChoice(first.kernel, resumedLobby, 'p1', {
+      type: 'topdeck',
+      choices: [],
+      allocation: [{ id: 'target:1', amount: 600 }],
+    })).toBe(true)
+    expect(first.kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    expect(first.kernel.history.current().objects[first.targetA.id]?.damageMarked).toBe(400)
+    expect(first.kernel.history.current().objects[first.targetB.id]?.damageMarked).toBe(600)
+  })
+
+  test('skips a later zero-recipient zero-total distribution', () => {
+    const first = actualAllocationHostCase(true)
+    expect(applyKernelChoice(first.kernel, first.lobby, 'p1', {
+      type: 'topdeck',
+      choices: [],
+      allocation: [
+        { id: 'target:1', amount: 600 },
+        { id: 'target:0', amount: 400 },
+      ],
+    })).toBe(true)
+    expect(first.kernel.history.current().stack).toHaveLength(1)
+    expect(first.kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    expect(first.kernel.history.current().objects[first.targetA.id]?.damageMarked).toBe(400)
+    expect(first.kernel.history.current().objects[first.targetB.id]?.damageMarked).toBe(600)
   })
 
   test('keeps stale, wrong-seat, and invalid answers out of the continuation', () => {
