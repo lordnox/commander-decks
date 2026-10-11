@@ -1,5 +1,5 @@
 import { payCost } from '../../../plugins/spells'
-import type { Cost, TargetClause } from '../schema/v1'
+import type { ActivatedAbilityDefinition, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
@@ -12,7 +12,7 @@ export type AnnouncementManaPayment = {
 export type CostPlan = {
   mandatory: readonly Cost[]
   optional?: readonly Cost[]
-  alternative?: readonly Cost[]
+  alternative?: readonly (readonly Cost[])[]
   increases?: readonly ManaCostIncrease[]
   reductions?: readonly ManaCostReduction[]
 }
@@ -80,13 +80,21 @@ export const classifyManaAbility = (input: {
   triggered?: boolean
   abilityKind?: 'activated' | 'triggered' | 'static'
   hasOtherInstruction?: boolean
+  hasTargets?: boolean
+  hasLoyaltyCost?: boolean
+  movesCards?: boolean
+  triggeredManaEligible?: boolean
 }): ManaAbilityClassification => {
   const addsMana = input.addsMana === true
   const triggered = input.triggered === true || input.abilityKind === 'triggered'
   // A trigger is a mana ability only when its trigger condition and effect meet
   // CR 605.1b; merely mentioning addMana in an unrelated program is insufficient.
-  const isManaAbility = addsMana && !input.hasOtherInstruction
-    && (input.abilityKind === 'activated' || triggered)
+  const structurallyMana = addsMana && !input.hasOtherInstruction
+    && !input.hasTargets && !input.hasLoyaltyCost && !input.movesCards
+  const isManaAbility = structurallyMana && (
+    input.abilityKind === 'activated'
+      || (triggered && input.triggeredManaEligible === true)
+  )
   return {
     kind: isManaAbility ? (triggered ? 'triggeredMana' : 'mana') : 'nonMana',
     isManaAbility,
@@ -123,12 +131,12 @@ const validatePaymentSources = (proposal: AnnouncementProposal) => {
 const genericMana = (mana: string) => [...mana.matchAll(/\{(\d+)\}/g)]
   .reduce((total, match) => total + Number(match[1]), 0)
 
-const lockedManaCost = (plan: CostPlan) => {
+const lockedManaCost = (plan: CostPlan, x = 0) => {
   const mana = [
     ...(plan.mandatory.filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount)),
     ...(plan.optional ?? []).filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount),
     ...(plan.increases ?? []).map((increase) => increase.amount),
-  ].join('')
+  ].join('').replaceAll('{X}', `{${x}}`)
   const genericReduction = (plan.reductions ?? []).reduce((total, reduction) => {
     integer(reduction.generic, 'generic reduction')
     return total + reduction.generic
@@ -140,12 +148,15 @@ const lockedManaCost = (plan: CostPlan) => {
 }
 
 const selectedCosts = (proposal: AnnouncementProposal) => {
+  if ((proposal.selectedOptional ?? []).length !== new Set(proposal.selectedOptional ?? []).size) {
+    throw new TypeError('optional cost selection contains a duplicate')
+  }
   const optional = (proposal.selectedOptional ?? []).map((index) => proposal.costs.optional?.[index])
   if (optional.some((cost) => !cost)) throw new TypeError('optional cost selection is out of range')
   const alternative = proposal.selectedAlternative === undefined
     ? proposal.costs.mandatory
-    : proposal.costs.alternative?.length
-      ? proposal.costs.alternative
+    : proposal.costs.alternative?.[proposal.selectedAlternative]
+      ? proposal.costs.alternative[proposal.selectedAlternative]
       : undefined
   if (!alternative) throw new TypeError('alternative cost selection is unavailable')
   return [...alternative, ...(optional as Cost[])]
@@ -164,36 +175,71 @@ const targetIdentity = (target: TargetRef) => {
   }
 }
 
-const validateTargets = (proposal: AnnouncementProposal) => {
+const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'>, proposal: AnnouncementProposal) => {
   if (!proposal.targetClauses) return
   const targets = proposal.targets ?? []
   if (targets.length !== proposal.targetClauses.length) throw new TypeError('target clauses must be supplied in declaration order')
   targets.forEach((clauseTargets, index) => {
     const clause = proposal.targetClauses![index]
-    const min = clause.min.kind === 'constant' ? clause.min.value : undefined
-    const max = clause.max.kind === 'constant' ? clause.max.value : undefined
+    const bound = (amount: TargetClause['min']) => {
+      if (amount.kind === 'constant') return amount.value
+      if (amount.kind === 'variable') return proposal.variables?.[amount.name]
+      return undefined
+    }
+    const min = bound(clause.min)
+    const max = bound(clause.max)
+    if (min === undefined || max === undefined) throw new TypeError(`target clause ${index} has an unbound cardinality`)
     if (min !== undefined && clauseTargets.length < min) throw new TypeError(`target clause ${index} has too few targets`)
     if (max !== undefined && clauseTargets.length > max) throw new TypeError(`target clause ${index} has too many targets`)
     if (new Set(clauseTargets.map(targetIdentity)).size !== clauseTargets.length) throw new TypeError(`target clause ${index} contains a duplicate target`)
+    for (const target of clauseTargets) {
+      if (clause.filter.kind === 'players' && target.kind !== 'player') throw new TypeError(`target clause ${index} requires players`)
+      if (clause.filter.kind === 'objects' && target.kind !== 'object') throw new TypeError(`target clause ${index} requires objects`)
+      if (clause.filter.kind === 'stackItems' && target.kind !== 'stackItem') throw new TypeError(`target clause ${index} requires stack items`)
+      switch (target.kind) {
+        case 'player':
+          if (!state.players[target.player]) throw new TypeError(`target player ${target.player} does not exist`)
+          break
+        case 'object': {
+          const object = state.objects[target.objectId]
+          if (!object || (target.incarnation !== undefined && object.incarnation !== target.incarnation)
+            || (target.zone !== undefined && object.zone !== target.zone)) throw new TypeError(`target object ${target.objectId} is stale or missing`)
+          const filter = clause.filter.kind === 'objects' ? clause.filter.filter : undefined
+          if (filter && filter.zone && object.zone !== filter.zone) throw new TypeError(`target object ${target.objectId} does not satisfy its zone filter`)
+          if (filter && filter.type && !object.types.includes(filter.type)) throw new TypeError(`target object ${target.objectId} does not satisfy its type filter`)
+          if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)
+          break
+        }
+        case 'stackItem':
+          if (!state.stack.some((item) => item.id === target.stackId)) throw new TypeError(`target stack item ${target.stackId} is missing`)
+          break
+      }
+    }
   })
 }
 
 /** Validate and lock an announcement without changing the supplied GameState. */
 export const beginAnnouncement = (
-  state: Pick<GameState, 'players'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
   proposal: AnnouncementProposal,
   id = 'announcement',
 ): AnnouncementValidation => {
   try {
     validateVariables(proposal.variables)
-    validateTargets(proposal)
+    validateTargets(state, proposal)
     validatePaymentSources(proposal)
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
-    const mana = lockedManaCost(plan)
+    const mana = lockedManaCost(plan, proposal.variables?.X ?? 0)
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)
+    const availableMana = state.players[proposal.payer].mana
+    if (availableMana) {
+      for (const symbol of Object.keys(pool) as ManaId[]) {
+        if (pool[symbol] > availableMana[symbol]) return { ok: false, error: `payment spends more ${symbol} mana than the payer has` }
+      }
+    }
     if (mana && !payCost(pool, mana)) return { ok: false, error: 'payment does not cover the locked total cost' }
     const transaction: AnnouncementTransaction = {
       id,
@@ -206,6 +252,51 @@ export const beginAnnouncement = (
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) }
   }
+}
+
+/** Build the authoritative proposal used by the canonical spell legal/apply paths. */
+export const beginSpellAnnouncement = (
+  state: GameState,
+  source: { id: string },
+  payer: PlayerId,
+  ability: SpellAbilityDefinition,
+  targets: readonly (readonly TargetRef[])[] | undefined,
+  x: number | undefined,
+) => {
+  const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
+    .filter(([, amount]) => amount > 0)
+    .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
+  return beginAnnouncement(state, {
+    payer,
+    sourceId: source.id,
+    targetClauses: ability.decisions.targets,
+    targets,
+    ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
+    costs: { mandatory: ability.costs },
+    payment,
+  }, `spell:${source.id}`)
+}
+
+export const beginActivatedAnnouncement = (
+  state: GameState,
+  source: { id: string },
+  payer: PlayerId,
+  ability: ActivatedAbilityDefinition,
+  targets: readonly (readonly TargetRef[])[] | undefined,
+  x: number | undefined,
+) => {
+  const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
+    .filter(([, amount]) => amount > 0)
+    .map(([mana, amount]) => ({ sourceId: `${payer}.pool.${mana}`, mana, amount }))
+  return beginAnnouncement(state, {
+    payer,
+    sourceId: source.id,
+    targetClauses: ability.decisions.targets,
+    targets,
+    ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
+    costs: { mandatory: ability.costs },
+    payment,
+  }, `activation:${source.id}`)
 }
 
 export const commitAnnouncement = (transaction: AnnouncementTransaction): AnnouncementTransaction => {
@@ -227,7 +318,7 @@ export const paymentFrame = (transaction: AnnouncementTransaction) => ({
 })
 
 export const prepareAction = (
-  state: Pick<GameState, 'players'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
   input: Omit<PrepareActionOffer, 'kind' | 'requiresInput'> & { proposal?: AnnouncementProposal },
 ): PrepareActionOffer => ({
   kind: 'prepareAction',
