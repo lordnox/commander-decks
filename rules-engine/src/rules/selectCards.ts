@@ -150,7 +150,6 @@ export type PendingCardSelection = {
     copySpellStackId?: string
     copyController?: PlayerId
     copySlotIndex?: number
-    copyRemaining?: { copyStackId: string; controller: PlayerId }[]
   }
   /** Pay this mana only if at least one card is chosen. */
   payMana?: string
