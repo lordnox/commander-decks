@@ -45,6 +45,9 @@ import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError
 import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
 import type { Cost } from '../cardPlugins/dsl/schema/v1'
 
+const canonicalCostsPaid = Symbol('canonicalCostsPaid')
+type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }> & { [canonicalCostsPaid]?: true }
+
 const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boolean => {
   if (!object.ruleDefinition) return false
   const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
@@ -345,7 +348,7 @@ const installGrantedRules = (draft: Draft, object: GameObject) => {
 export const spells: Plugin = {
   id: 'spells',
   replace: ({ state, event }) => {
-    if (event.type !== 'castSpell' || event.canonicalCostsPaid || event.copy) return
+    if (event.type !== 'castSpell' || (event as InternalCastEvent)[canonicalCostsPaid] || event.copy) return
     const object = state.objects[event.objectId]
     if (!object?.ruleDefinition) return
     const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
@@ -367,7 +370,7 @@ export const spells: Plugin = {
       }
     }
     return costs.length > 0
-      ? [...costs, { ...event, canonicalCostsPaid: true }]
+      ? [...costs, { ...event, [canonicalCostsPaid]: true } as InternalCastEvent]
       : undefined
   },
   legal: ({ state, event }) => {
@@ -406,7 +409,7 @@ export const spells: Plugin = {
             ? event.targetClauses
               ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
             : undefined
-          if (ability.kind === 'spell' && groupedTargets !== undefined && !event.canonicalCostsPaid) {
+          if (ability.kind === 'spell' && groupedTargets !== undefined && !(event as InternalCastEvent)[canonicalCostsPaid]) {
             const announcement = beginSpellAnnouncement(
               state,
               object,
@@ -639,7 +642,7 @@ export const spells: Plugin = {
           ? event.targetClauses
             ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
           : undefined
-        if (ability?.kind === 'spell' && groupedTargets !== undefined && !event.canonicalCostsPaid) {
+        if (ability?.kind === 'spell' && groupedTargets !== undefined && !(event as InternalCastEvent)[canonicalCostsPaid]) {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])])
           if (!announcement.ok) return
           const committed = commitAnnouncement(announcement.transaction)
@@ -693,7 +696,7 @@ export const spells: Plugin = {
           source: object.name,
         })
       }
-      for (const costPart of event.canonicalCostsPaid ? [] : canonicalNonManaCosts) {
+      for (const costPart of (event as InternalCastEvent)[canonicalCostsPaid] ? [] : canonicalNonManaCosts) {
         if (costPart.kind === 'life') {
           draft.enqueue({
             type: 'payLife',
@@ -707,7 +710,7 @@ export const spells: Plugin = {
         ? (event.discard ?? []).concat(event.sacrifice ?? [])
         : []
       let selectedIndex = 0
-      for (const costPart of event.canonicalCostsPaid ? [] : canonicalNonManaCosts) {
+      for (const costPart of (event as InternalCastEvent)[canonicalCostsPaid] ? [] : canonicalNonManaCosts) {
         if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
         const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
         for (const objectId of selectedNonMana.slice(selectedIndex, selectedIndex + count)) {
@@ -792,7 +795,7 @@ export const spells: Plugin = {
           })
         }
       }
-      if (canonicalNonManaCosts.length === 0 || event.canonicalCostsPaid) {
+      if (canonicalNonManaCosts.length === 0 && !(event as InternalCastEvent)[canonicalCostsPaid]) {
         for (const objectId of event.sacrifice ?? []) {
           draft.enqueue({ type: 'sacrifice', objectId })
         }
