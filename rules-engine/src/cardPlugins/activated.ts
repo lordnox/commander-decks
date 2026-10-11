@@ -290,18 +290,37 @@ export const activated: Plugin = {
             draft.enqueue({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
           }
         }
+        let choiceIndex = 0
+        for (const costPart of committed.lockedCost.nonMana) {
+          if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
+          const count = costPart.count.kind === 'constant' ? costPart.count.value : event.x ?? 0
+          for (const objectId of (event.choices ?? []).slice(choiceIndex, choiceIndex + count)) {
+            draft.enqueue(costPart.kind === 'discard'
+              ? { type: 'discard', seat: event.seat, objectId }
+              : { type: 'sacrifice', objectId })
+          }
+          choiceIndex += count
+        }
         if (manaClassification.isManaAbility) {
           for (const instruction of canonical.instructions ?? []) {
-            if (instruction.kind !== 'addMana') continue
-            const targetSeats = instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
-              ? [event.seat]
-              : []
-            for (const seat of targetSeats) {
-              const manaPool = draft.players[seat].mana
-              for (const [symbol, amount] of Object.entries(instruction.amount)) {
-                const manaKey = symbol as keyof typeof manaPool
-                if (amount.kind === 'constant') manaPool[manaKey] += amount.value
-                else if (amount.kind === 'variable' && event.x !== undefined) manaPool[manaKey] += event.x
+            if (instruction.kind === 'move' && instruction.targets.kind === 'objects') {
+              for (const object of Object.values(draft.objects)) {
+                const filter = instruction.targets.filter
+                if (object.zone === filter.zone && (!filter.type || object.types.includes(filter.type))
+                  && object.controller === event.seat) draft.move(object.id, instruction.to)
+              }
+            }
+            if (instruction.kind === 'addMana') {
+              const targetSeats = instruction.targets.kind === 'contextRef' && instruction.targets.name === 'controller'
+                ? [event.seat]
+                : []
+              for (const seat of targetSeats) {
+                const manaPool = draft.players[seat].mana
+                for (const [symbol, amount] of Object.entries(instruction.amount)) {
+                  const manaKey = symbol as keyof typeof manaPool
+                  if (amount.kind === 'constant') manaPool[manaKey] += amount.value
+                  else if (amount.kind === 'variable' && event.x !== undefined) manaPool[manaKey] += event.x
+                }
               }
             }
           }
