@@ -424,11 +424,13 @@ export const payOptional = (input: {
   payer: Extract<Instruction, { kind: 'payOptional' }>['payer']
   cost: Cost
   bindResult: string
+  whenPaidDecisions?: DecisionsInput
   ifPaid?: readonly Instruction[]
   ifDeclined?: readonly Instruction[]
   whenPaid?: readonly Instruction[]
 }): Instruction => immutableData({
   kind: 'payOptional', ...input,
+  ...(input.whenPaidDecisions ? { whenPaidDecisions: decisions(input.whenPaidDecisions) } : {}),
   ...(input.ifPaid ? { ifPaid: input.ifPaid } : {}),
   ...(input.ifDeclined ? { ifDeclined: input.ifDeclined } : {}),
   ...(input.whenPaid ? { whenPaid: input.whenPaid } : {}),

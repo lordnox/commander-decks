@@ -230,6 +230,7 @@ export type Instruction =
       payer: PlayerReference
       cost: Cost
       bindResult: string
+      whenPaidDecisions?: DecisionsInput
       ifPaid?: readonly Instruction[]
       ifDeclined?: readonly Instruction[]
       whenPaid?: readonly Instruction[]
