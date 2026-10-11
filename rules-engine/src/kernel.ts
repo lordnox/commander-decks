@@ -1167,16 +1167,7 @@ export const rules = (
       const error = 'no cancellable announcement for this player'
       return { ok: false, error, state, trace: [trace(event, 'rejected', { error })] }
     }
-    const restored = structuredClone(state)
-    restored.players = structuredClone(frame.baseline.players)
-    restored.objects = structuredClone(frame.baseline.objects)
-    restored.zoneOrder = structuredClone(frame.baseline.zoneOrder)
-    restored.zoneCounts = structuredClone(frame.baseline.zoneCounts)
-    restored.stack = structuredClone(frame.baseline.stack)
-    restored.pendingTriggers = structuredClone(frame.baseline.pendingTriggers)
-    restored.priority = frame.baseline.priority
-    restored.passedInRow = structuredClone(frame.baseline.passedInRow)
-    restored.log = structuredClone(frame.baseline.log)
+    const restored = structuredClone(frame.baseline)
     delete restored.provisionalAnnouncement
     return { ok: true, state: restored, trace: [trace(event, 'applied')] }
   }
