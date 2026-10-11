@@ -52,15 +52,16 @@ cannot publish payments, targets, or cast occurrences.
 - [x] replace the non-serializable canonical cost symbol with a server-created
   serializable transaction continuation, preserving locked costs and target
   identities through typed cost events and JSON restart
+- [x] persist explicit planned mana payment frames across JSON restart, choice
+  continuation, cancellation, invalid plans, and full-baseline rollback
 
 ## Remaining work
 
 Replacement-aware payment choice coverage belongs to Part 11, but this
 transaction frame remains the insertion point for those choices. Legacy card
 definitions continue to use their existing handlers while canonical definitions
-now have authoritative target, restricted-mana, activation, cost-plan, and cost
-ordering paths. Nested payment/planning continuation details and a persisted
-suspended payment transaction remain for the next Part 08 review slice.
+now have authoritative target, restricted-mana, activation, cost-plan, cost
+ordering, and planned-payment continuation paths.
 
 ## Validation
 
@@ -87,3 +88,6 @@ suspended payment transaction remain for the next Part 08 review slice.
   occurrence for multi-instruction mana programs and controller-filtered bans.
 - parent server review fixture — 39 passed, 0 failed, including serializable
   canonical continuations and pinned targets sacrificed as costs.
+- `bun test rules-engine/src/cardPlugins/dsl/part08.test.ts` — 25 passed, 0 failed,
+  including persisted no-choice/choice/cancel payment plans and locked-cost
+  preservation across a planned mana sacrifice.
