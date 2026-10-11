@@ -10,7 +10,7 @@ import type { CanonicalResolutionFrame, CanonicalTargetBinding, GameState, ManaP
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
-const openNextCopySlot = (draft: Draft, frame: CanonicalResolutionFrame) => {
+export const openNextCopySlot = (draft: Draft, frame: CanonicalResolutionFrame) => {
   const jobs = frame.pendingCopyTargets ?? []
   const job = jobs[0]
   if (!job) {
@@ -26,7 +26,7 @@ const openNextCopySlot = (draft: Draft, frame: CanonicalResolutionFrame) => {
   if (slot >= job.targets.length) {
     frame.afterChoiceEvents = [...(frame.afterChoiceEvents ?? []), {
       type: 'copySpell', stackId: original.id, controller: job.controller,
-      targets: structuredClone(job.answers ?? job.targets), retarget: true,
+      targets: structuredClone(job.answers ?? job.targets), retarget: (job.changedIndices?.length ?? 0) > 0,
       sourceId: frame.source.ref.objectId,
     }]
     frame.pendingCopyTargets = jobs.slice(1)
@@ -43,6 +43,21 @@ const openNextCopySlot = (draft: Draft, frame: CanonicalResolutionFrame) => {
     ],
     action: { kind: 'canonical-copy-retarget', stackId: frame.stackId, copyStackId: original.id, controller: job.controller, slotIndex: slot },
   })
+}
+
+export const advanceCopySlot = (draft: Draft, frame: CanonicalResolutionFrame, replacement?: TargetRef) => {
+  const job = frame.pendingCopyTargets?.[0]
+  if (!job) return openNextCopySlot(draft, frame)
+  const slot = job.slotCursor ?? 0
+  const answer = replacement ?? job.targets[slot]
+  if (answer) {
+    job.answers = [...(job.answers ?? []), answer]
+    if (JSON.stringify(answer) !== JSON.stringify(job.targets[slot])) {
+      job.changedIndices = [...(job.changedIndices ?? []), slot]
+    }
+  }
+  job.slotCursor = slot + 1
+  openNextCopySlot(draft, frame)
 }
 
 export type PendingOptionSelection = {
@@ -103,6 +118,7 @@ export type PendingOptionSelection = {
     copyStackId: string
     controller: PlayerId
     remaining?: { copyStackId: string; controller: PlayerId }[]
+    slotIndex?: number
     slotIndex?: number
   } | {
     kind: 'canonical-copy-stack-target'
@@ -255,10 +271,8 @@ export const selectOptions: Plugin = {
       if (event.optionId === 'keep') {
         const job = frame.pendingCopyTargets?.[0]
         if (job && selection.action.slotIndex !== undefined) {
-          job.answers = [...(job.answers ?? []), job.targets[selection.action.slotIndex]]
-          job.slotCursor = selection.action.slotIndex + 1
           delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-          openNextCopySlot(draft, frame)
+          advanceCopySlot(draft, frame)
           return
         }
         const eventToQueue = { type: 'copySpell' as const, stackId: original.id, controller: selection.action.controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId }
@@ -294,25 +308,26 @@ export const selectOptions: Plugin = {
         ? definition.abilities[inferredAbilityIndex]
         : undefined
       if (!source || !ability || !('decisions' in ability)) return
-      const candidates = canonicalTargetCandidates(draft, source, ability, selection.action.controller)
-        .flat()
+      const slotIndex = selection.action.slotIndex ?? 0
+      const slotTarget = original.targets[slotIndex]
+      const candidates = (canonicalTargetCandidates(draft, source, ability, selection.action.controller)[slotIndex] ?? [])
         .filter((candidate): candidate is Extract<typeof candidate, { kind: 'object' }> => candidate.kind === 'object')
-      const count = original.targets.filter((target) => target.kind === 'object').length
+      const count = slotTarget?.kind === 'object' ? 1 : 0
       const playerTargets = original.targets.filter((target) => target.kind === 'player')
       const stackTargets = original.targets.filter((target) => target.kind === 'stackItem')
-      if (count === 0 && playerTargets.length === 0 && stackTargets.length > 0) {
+      if (slotTarget?.kind === 'stackItem') {
         openOptionSelection(draft, {
           seat: selection.action.controller,
           sourceId: frame.source.ref.objectId,
           source: frame.source.snapshot.name,
           prompt: 'Choose a new stack target for the copied spell.',
           options: draft.stack.filter((item) => item.kind === 'spell').map((item) => ({ id: `stack:${item.id}`, label: item.name })),
-          action: { kind: 'canonical-copy-stack-target', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller, remaining: selection.action.remaining },
+          action: { kind: 'canonical-copy-stack-target', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller, remaining: selection.action.remaining, slotIndex },
         })
         delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
         return
       }
-      if (count === 0 && playerTargets.length > 0) {
+      if (slotTarget?.kind === 'player') {
         openPlayerSelection(draft, {
           seat: selection.action.controller,
           sourceId: frame.source.ref.objectId,
@@ -321,7 +336,7 @@ export const selectOptions: Plugin = {
           min: 1,
           max: 1,
           candidates: draft.playerOrder.filter((seat) => !draft.players[seat].lost),
-          action: { kind: 'canonicalCopyTargets', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller, remaining: selection.action.remaining },
+          action: { kind: 'canonicalCopyTargets', stackId: frame.stackId, copyStackId: original.id, controller: selection.action.controller, remaining: selection.action.remaining, slotIndex },
         })
         delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
         return
@@ -333,15 +348,23 @@ export const selectOptions: Plugin = {
         targetIdentities: Object.fromEntries(candidates.map((candidate) => [candidate.objectId, objectIdentity(draft.object(candidate.objectId)!)])),
         sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
         prompt: 'Choose new targets for the copied spell.', destinations: ['target'],
-        canonicalChoice: { stackId: frame.stackId, binding: `__copySpellTargets_${original.id}`, action: 'copySpellTargets', copySpellStackId: original.id, copyController: selection.action.controller, copyRemaining: selection.action.remaining },
+        canonicalChoice: { stackId: frame.stackId, binding: `__copySpellTargets_${original.id}`, action: 'copySpellTargets', copySpellStackId: original.id, copyController: selection.action.controller, copySlotIndex: slotIndex, copyRemaining: selection.action.remaining },
       })
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       return
     }
     if (selection.action.kind === 'canonical-copy-stack-target') {
       const action = selection.action
+      const frame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === action.stackId
+        ? draft.resolution
+        : undefined
       const original = draft.stack.find((item) => item.id === action.copyStackId)
       const targetId = event.optionId.startsWith('stack:') ? event.optionId.slice('stack:'.length) : undefined
+      if (targetId && frame?.pendingCopyTargets?.length) {
+        advanceCopySlot(draft, frame, { kind: 'stackItem', stackId: targetId })
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        return
+      }
       if (original && targetId) {
         let replaced = false
         const targets = original.targets.map((candidate) => {
