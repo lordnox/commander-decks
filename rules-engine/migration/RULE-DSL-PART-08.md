@@ -45,6 +45,10 @@ cannot publish payments, targets, or cast occurrences.
   inline activation driver and add activation/resolution occurrence patterns
 - [x] derive activation and resolution mana triggers from canonical source
   programs instead of client-supplied mana flags
+- [x] emit one pinned completion occurrence after the full inline mana program,
+  rather than treating each individual mana instruction as a resolution
+- [x] honor prohibition object/player filter composition and inactive watcher
+  state in the shared activation gate
 
 ## Remaining work
 
@@ -76,3 +80,5 @@ suspended payment transaction remain for the next Part 08 review slice.
   prohibition behavior for tap-for-mana and planner affordances.
 - parent server review fixture — 34 passed, 0 failed, including semantic
   activation/resolution triggers without client mana flags.
+- parent server review fixture — 36 passed, 0 failed, including one completion
+  occurrence for multi-instruction mana programs and controller-filtered bans.

@@ -884,17 +884,38 @@ const driveResolution = (
     const completed = makeDraft(current)
     const completedInline = completed.resolution?.kind === 'canonicalSpell'
       && Boolean(completed.resolution.inlineItem)
+    const completedInlineItem = completedInline && completed.resolution?.kind === 'canonicalSpell'
+      ? completed.resolution.inlineItem
+      : undefined
     finishResolution(completed)
+    let completedState = freezeDraft(completed)
     if (completedInline) {
+      if (completedInlineItem?.execution?.abilityIndex !== undefined) {
+        const completion = applyEventTree(completedState, {
+          type: 'custom',
+          name: 'cardPlugins.manaAbilityResolved',
+          seat: completedInlineItem.controller,
+          payload: {
+            sourceId: completedInlineItem.objectId,
+            abilityIndex: completedInlineItem.execution.abilityIndex,
+            definitionSnapshot: completedInlineItem.execution.definitionSnapshot,
+          },
+        }, catalog)
+        if (completion.ok) {
+          entries.push(...nested(completion.trace, 1))
+          completedState = completion.state
+        }
+      }
       // Mana-added triggers from an inline mana ability wait until that
       // ability has finished its complete program. They then resolve before
       // the suspended parent resumes its next instruction.
-      if (placePendingManaTriggers(completed)) {
-        current = freezeDraft(completed)
+      const manaTriggers = makeDraft(completedState)
+      if (placePendingManaTriggers(manaTriggers)) {
+        current = freezeDraft(manaTriggers)
         continue
       }
     }
-    current = freezeDraft(completed)
+    current = completedState
     if (current.resolution) continue
     return { ok: true, state: current, trace: entries }
   }
