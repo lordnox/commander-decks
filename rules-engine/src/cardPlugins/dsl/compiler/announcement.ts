@@ -427,11 +427,13 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`
   const prohibited = Object.values(input.state.objects).some((watcher) => {
     const definition = watcher.ruleDefinition?.definition as import('../schema/v1').CardRuleDefinitionV1 | undefined
-    if (!definition || !watcher.zone || !watcher.controller) return false
+    if (!definition || !watcher.zone || !watcher.controller || watcher.phasedOut) return false
     return definition.abilities.some((ability) => ability.kind === 'static'
       && ability.activeIn.includes(watcher.zone as import('../schema/v1').Zone)
       && ability.effects.some((effect) => effect.kind === 'prohibitActivation'
         && (effect.filter.abilitySource?.name === undefined || effect.filter.abilitySource.name === source.name)
+        && (effect.filter.abilitySource?.type === undefined || source.types.includes(effect.filter.abilitySource.type))
+        && (effect.filter.abilitySource?.subtypes === undefined || effect.filter.abilitySource.subtypes.every((type) => source.subtypes.includes(type)))
         && (effect.filter.activator?.relation === undefined
           || effect.filter.activator.relation === 'any'
           || (effect.filter.activator.relation === 'you' && watcher.controller === input.payer)

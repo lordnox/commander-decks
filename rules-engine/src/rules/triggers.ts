@@ -50,6 +50,35 @@ import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { instructionAddsMana } from '../cardPlugins/activated'
 
+const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
+  if (event.type !== 'activateAbility') return false
+  const source = state.objects[event.objectId]
+  const index = /^\$\.abilities\[(\d+)\]$/.exec(event.abilityId)?.[1]
+  if (!source?.ruleDefinition || index === undefined) return false
+  const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
+  const ability = definition.abilities[Number(index)]
+  return ability?.kind === 'activated' && classifyManaAbility({
+    addsMana: instructionAddsMana(ability.instructions ?? []),
+    abilityKind: 'activated',
+    hasTargets: ability.decisions.targets.length > 0,
+    movesCards: false,
+  }).isManaAbility
+}
+
+const canonicalManaSourceEvent = (state: GameState, event: GameEvent) => {
+  if (event.type !== 'addMana' || !event.sourceId) return false
+  const source = state.objects[event.sourceId]
+  if (!source?.ruleDefinition) return false
+  const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
+  return definition.abilities.some((ability) => ability.kind === 'activated'
+    && classifyManaAbility({
+      addsMana: instructionAddsMana(ability.instructions ?? []),
+      abilityKind: 'activated',
+      hasTargets: ability.decisions.targets.length > 0,
+      movesCards: false,
+    }).isManaAbility)
+}
+
 const EVENT_TRIGGER_ON = new Set(['discard', 'cycle', 'draw', 'playLand', 'gainLife'])
 
 /**
@@ -196,7 +225,8 @@ const canonicalPatternMatches = (
     return event.type === 'addMana'
   }
   if (pattern.kind === 'manaAbilityActivated' || pattern.kind === 'manaAbilityResolved') {
-    return event.type === 'activateAbility' && event.manaAbility === true
+    if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)
+    return canonicalManaSourceEvent(state, event)
   }
   if (pattern.kind === 'draw') {
     if (event.type !== 'draw' || !occurrence.player) return false
@@ -235,7 +265,6 @@ const canonicalPatternMatches = (
     || occurrence.object?.before?.zone !== 'battlefield'
     || occurrence.object?.before?.types.includes('Creature') !== true
   )) return false
-  if (pattern.kind === 'manaAbilityActivated' || pattern.kind === 'manaAbilityResolved') return true
   const object = pattern.kind === 'dies'
     ? occurrence.object?.before
     : occurrence.object?.after
@@ -996,7 +1025,8 @@ const canonicalManaTrigger = (trigger: CapturedPendingTrigger) => {
   if (!trigger.canonical) return false
   const definition = loadDefinitionSnapshot(trigger.canonical.definitionSnapshot).definition
   const ability = definition.abilities[trigger.canonical.abilityIndex]
-  if (!ability || ability.kind !== 'triggered' || ability.on.kind !== 'manaAdded') return false
+  if (!ability || ability.kind !== 'triggered'
+    || !['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)) return false
   const instructions = 'instructions' in ability
     ? ability.instructions ?? []
     : ability.modes.flatMap((mode) => mode.instructions)
@@ -1047,7 +1077,8 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
   const manaInstructions = 'instructions' in ability
     ? ability.instructions ?? []
     : ability.modes.flatMap((mode) => mode.instructions)
-  const isMana = ability.on.kind === 'manaAdded' && classifyManaAbility({
+  const isMana = ['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind)
+    && classifyManaAbility({
     addsMana: instructionAddsMana(manaInstructions),
     abilityKind: 'triggered',
     triggered: true,
