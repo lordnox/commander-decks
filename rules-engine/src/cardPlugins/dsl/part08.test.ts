@@ -396,6 +396,16 @@ describe('persisted planned payment workflow', () => {
     if (result.ok) expect(result.state.stack.filter((item) => item.kind === 'ability')).toHaveLength(1)
   })
 
+  test('a planned mana sacrifice cannot change the locked spell cost', () => {
+    const { server, event } = deathFixture()
+    const result = server.rules(server.state, event)
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.stack).toHaveLength(2)
+    expect(result.state.stack.some((item) => item.kind === 'spell')).toBe(true)
+    expect(result.state.players.p1.mana.G).toBe(1)
+  })
+
   test('defers death triggers across a restarted planned choice', () => {
     const { server, event } = deathFixture(true)
     const started = server.rules(server.state, event)
