@@ -54,6 +54,7 @@ export type AnnouncementTransaction = {
   readonly lockedCost: LockedAnnouncementCost
   readonly payment: readonly AnnouncementManaPayment[]
   readonly targetBindings?: readonly import('../../../types').CanonicalTargetBinding[]
+  readonly distributionBindings?: readonly import('./modes').DistributionAllocation[]
   status: 'provisional' | 'committed' | 'rolledBack'
   readonly waitingFor?: 'proposal' | 'targets' | 'payment' | 'replacement'
 }
@@ -314,7 +315,7 @@ export const beginSpellAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean } = {},
+  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -328,7 +329,7 @@ export const beginSpellAnnouncement = (
   return beginAnnouncement(state, {
     payer,
     sourceId: source.id,
-    targetClauses: ability.decisions.targets,
+    targetClauses: options.targetClauses ?? ability.decisions.targets,
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
@@ -354,7 +355,7 @@ export const beginActivatedAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean } = {},
+  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -362,7 +363,7 @@ export const beginActivatedAnnouncement = (
   return beginAnnouncement(state, {
     payer,
     sourceId: source.id,
-    targetClauses: ability.decisions.targets,
+    targetClauses: options.targetClauses ?? ability.decisions.targets,
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {

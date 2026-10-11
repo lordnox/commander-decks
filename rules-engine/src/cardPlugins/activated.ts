@@ -1,5 +1,5 @@
 import { hasUntaxedTapMana } from '../plugins/mana'
-import type { GameEvent, GameObject, Plugin, TargetRef } from '../types'
+import type { GameEvent, GameObject, GameState, Plugin, TargetRef } from '../types'
 import {
   activateEffect,
   conditionHolds,
@@ -21,8 +21,25 @@ import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/ta
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
 import type { Instruction } from './dsl/schema/v1'
+import { resolveModalInputs, validateScopedDistributions } from './dsl/compiler/modes'
+import { amountEvaluationContext } from './dsl/compiler/runtime'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
+
+const activatedModalInputs = (state: GameState, source: GameObject, ability: Extract<import('./dsl/schema/v1').AbilityDefinition, { kind: 'activated' }>, abilityIndex: number, event: Extract<GameEvent, { type: 'activateAbility' }>) => {
+  if (!('modes' in ability)) return undefined
+  const layout = resolveModalInputs(ability, abilityIndex, event.modeIndices, {
+    state,
+    controller: event.seat,
+    source: captureObject(source),
+    variables: event.x === undefined ? undefined : { X: event.x },
+  })
+  return {
+    targetClauses: layout.map((entry) => entry.clause),
+    scopeIds: layout.map((entry) => entry.scopeId),
+    modeIndices: layout.map((entry) => entry.modeIndex),
+  }
+}
 
 export const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
   switch (instruction.kind) {
@@ -167,6 +184,8 @@ export const activated: Plugin = {
       const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
       if (activatedCanonical) {
+        const modal = activatedModalInputs(state, source, activatedCanonical, Number(abilityIndex), event)
+        const targetClauses = modal?.targetClauses ?? activatedCanonical.decisions.targets
         const manaClassification = canonicalManaClassification(activatedCanonical)
         if (event.manaAbility && !manaClassification.isManaAbility) return `${source.name} is not a mana ability`
         const permissionError = activationPermission({
@@ -188,16 +207,37 @@ export const activated: Plugin = {
           event.targetClauses,
           event.seat,
           event.x,
+          modal?.targetClauses,
+          modal?.scopeIds,
+          modal?.modeIndices,
         )
         if (canonicalTargetErrorMessage) return canonicalTargetErrorMessage
-        const groupedTargets = activatedCanonical.decisions.targets.length === 0
+        const groupedTargets = targetClauses.length === 0
           ? []
           : event.targetClauses
-            ?? (activatedCanonical.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+            ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
         if (groupedTargets !== undefined) {
+          if (activatedCanonical.decisions.distributions) {
+            try {
+              const bindings = canonicalTargetBindings(
+                state, source, compiled.definition, Number(abilityIndex),
+                event.targets ?? event.targetClauses?.flat() ?? [], undefined, groupedTargets,
+                event.seat, event.x, modal?.targetClauses, modal?.scopeIds, modal?.modeIndices,
+              )
+              validateScopedDistributions(
+                activatedCanonical.decisions.distributions,
+                event.distributionBindings ?? [],
+                (scopeId, clauseIndex) => bindings.find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
+                amountEvaluationContext({ state, controller: event.seat, source: captureObject(source), variables: event.x === undefined ? undefined : { X: event.x } }),
+              )
+            } catch (error) {
+              return `announcement: ${error instanceof Error ? error.message : String(error)}`
+            }
+          }
           const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
+            targetClauses,
           })
           if (!announcement.ok) return `announcement: ${announcement.error}`
         }
@@ -344,14 +384,17 @@ export const activated: Plugin = {
       const canonical = candidate?.kind === 'activated' ? candidate : undefined
       if (canonical) {
         const manaClassification = canonicalManaClassification(canonical)
-        const groupedTargets = canonical.decisions.targets.length === 0
+        const modal = activatedModalInputs(draft, source, canonical, Number(abilityIndex), event)
+        const targetClauses = modal?.targetClauses ?? canonical.decisions.targets
+        const groupedTargets = targetClauses.length === 0
           ? []
           : event.targetClauses
-            ?? (canonical.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+            ?? (targetClauses.length === 1 ? [event.targets ?? []] : undefined)
         if (groupedTargets === undefined) return
         const announcement = beginActivatedAnnouncement(draft, source, event.seat, canonical, groupedTargets, event.x, event.choices, {
           selectedOptional: event.selectedOptionalCosts,
           selectedAlternative: event.selectedAlternativeCost,
+          targetClauses,
         })
         if (!announcement.ok) return
         const committed = announcement.transaction
@@ -390,9 +433,12 @@ export const activated: Plugin = {
             Number(abilityIndex),
             resolvedTargets,
             undefined,
-            event.targetClauses,
+            groupedTargets,
             event.seat,
             event.x,
+            modal?.targetClauses,
+            modal?.scopeIds,
+            modal?.modeIndices,
           ),
           announcement: {
             id: committed.id,
@@ -401,6 +447,8 @@ export const activated: Plugin = {
             lockedCost: committed.lockedCost,
             payment: committed.payment,
           },
+          ...(event.modeIndices ? { modeIndices: [...event.modeIndices] } : {}),
+          ...(event.distributionBindings ? { distributionBindings: structuredClone(event.distributionBindings) } : {}),
         }
         if (manaClassification.isManaAbility) {
           const inlineItem = {

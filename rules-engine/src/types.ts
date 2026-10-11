@@ -722,6 +722,10 @@ export type GameEvent =
       targets?: TargetRef[]
       /** Canonical DSL targets grouped by generated clause index. */
       targetClauses?: TargetRef[][]
+      /** Announcement-time selected modal occurrences, in answer order. */
+      modeIndices?: number[]
+      /** Announcement-time distribution allocations keyed by modal scope. */
+      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
       additionalGeneric?: number
       kicked?: boolean
       giftPromised?: boolean
@@ -1036,6 +1040,8 @@ export type GameEvent =
       targets?: TargetRef[]
       /** Canonical DSL targets grouped by declared clause. */
       targetClauses?: TargetRef[][]
+      modeIndices?: number[]
+      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
       x?: number
       choices?: string[]
       door?: RoomDoorId

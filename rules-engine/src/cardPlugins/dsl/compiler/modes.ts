@@ -1,8 +1,10 @@
-import type { DistributionSpec, ModeSpec } from '../schema/v1'
+import type { DistributionSpec, ModeSpec, TargetClause, ModeDefinition } from '../schema/v1'
 import type { TargetRef } from '../../../types'
 import type { AmountEvaluationContext } from '../schema/v1'
 import { evaluateAmount } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
+import type { RuleDslRuntimeContext } from './runtime'
+import { amountEvaluationContext } from './runtime'
 
 export type ModeOccurrence = {
   modeIndex: number
@@ -42,6 +44,32 @@ export const validateModeSelection = (
     seen.add(modeIndex)
   })
   return selectedModes.map((modeIndex, occurrence) => ({ modeIndex, occurrence }))
+}
+
+export const modalTargetLayout = (
+  ability: { modes?: readonly ModeDefinition[] },
+  abilityIndex: number,
+  selectedModes: readonly number[],
+) => selectedModes.flatMap((modeIndex, occurrence) => {
+  const mode = ability.modes?.[modeIndex]
+  if (!mode) throw new RuleDslEvaluationError(`mode ${modeIndex} is not declared`)
+  const scopeId = `$.abilities[${abilityIndex}].modes[${modeIndex}]#${occurrence}`
+  return mode.decisions.targets.map((clause: TargetClause) => ({ clause, scopeId, modeIndex }))
+})
+
+export const resolveModalInputs = (
+  ability: { modes?: readonly ModeDefinition[]; decisions: { modes?: ModeSpec } },
+  abilityIndex: number,
+  selectedModes: readonly number[] | undefined,
+  context: RuleDslRuntimeContext,
+) => {
+  if (!selectedModes) throw new RuleDslEvaluationError('modal mode selection is required before announcement')
+  const modeSpec = ability.decisions.modes
+  if (!modeSpec) throw new RuleDslEvaluationError('modal program is missing its mode specification')
+  if (!ability.modes) throw new RuleDslEvaluationError('modal program is missing its modes')
+  const expected = evaluateAmount(modeSpec.count, amountEvaluationContext(context))
+  validateModeSelection(modeSpec, ability.modes.length, expected, selectedModes)
+  return modalTargetLayout(ability, abilityIndex, selectedModes)
 }
 
 /** Stable generated identities for selected occurrences. Selection order is retained. */

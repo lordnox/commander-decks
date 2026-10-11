@@ -385,7 +385,7 @@ export const validateDefinitionV1 = (root: unknown): {
     path: string,
     baseEnv: Environment,
     allowModes: boolean,
-  ): { env: Environment; modeCount?: number; repeatable?: boolean } => {
+  ): { env: Environment; modeCount?: number; repeatable?: boolean; modeDeclared?: boolean } => {
     const env: Environment = {
       ...cloneEnv(baseEnv),
       variables: new Set(baseEnv.variables),
@@ -427,14 +427,15 @@ export const validateDefinitionV1 = (root: unknown): {
     })
     let modeCount: number | undefined
     let repeatable: boolean | undefined
+    let modeDeclared = false
     if (node.modes !== undefined) {
+      modeDeclared = true
       if (!allowModes) issue(childPath(path, 'modes'), 'modal-structure', 'nested mode decisions are not supported in Rule DSL v1')
       const modes = object(node.modes, childPath(path, 'modes'))
       if (modes) {
         exactKeys(modes, childPath(path, 'modes'), ['count', 'repeatable'], ['count', 'repeatable'])
         validateAmount(modes.count, childPath(childPath(path, 'modes'), 'count'), env)
         if (isData(modes.count) && modes.count.kind === 'constant') modeCount = integer(modes.count.value, childPath(childPath(childPath(path, 'modes'), 'count'), 'value'), { min: 1, max: MAX_LIST_LENGTH })
-        else issue(childPath(childPath(path, 'modes'), 'count'), 'modal-structure', 'Rule DSL v1 mode count must be a constant amount')
         if (typeof modes.repeatable !== 'boolean') issue(childPath(childPath(path, 'modes'), 'repeatable'), 'type', 'expected a boolean')
         else repeatable = modes.repeatable
       }
@@ -449,7 +450,7 @@ export const validateDefinitionV1 = (root: unknown): {
       validateAmount(distribution.total, childPath(entryPath, 'total'), env)
       validateAmount(distribution.minEach, childPath(entryPath, 'minEach'), env)
     })
-    return { env, modeCount, repeatable }
+    return { env, modeCount, repeatable, modeDeclared }
   }
 
   const validateCost = (value: unknown, path: string, env: Environment): void => {
@@ -774,11 +775,11 @@ export const validateDefinitionV1 = (root: unknown): {
       return
     }
     if (hasInstructions) {
-      if (decisionsResult.modeCount !== undefined) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'mode decisions require a modal program')
+      if (decisionsResult.modeDeclared) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'mode decisions require a modal program')
       validateInstructionList(ability.instructions, childPath(path, 'instructions'), decisionsResult.env)
       return
     }
-    if (decisionsResult.modeCount === undefined) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'modal programs require decisions.modes')
+    if (!decisionsResult.modeDeclared) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'modal programs require decisions.modes')
     const modes = array(ability.modes, childPath(path, 'modes'), { nonempty: true })
     if (decisionsResult.modeCount !== undefined && !decisionsResult.repeatable && decisionsResult.modeCount > modes.length) {
       issue(childPath(path, 'decisions.modes.count'), 'modal-bounds', 'nonrepeatable mode count exceeds the number of modes')

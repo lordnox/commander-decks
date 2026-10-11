@@ -435,12 +435,15 @@ export const canonicalTargetError = (
   grouped?: readonly (readonly TargetRef[])[],
   controller?: PlayerId,
   x?: number,
+  clausesOverride?: readonly TargetClause[],
+  scopeIdsOverride?: readonly string[],
+  modeIndicesOverride?: readonly (number | undefined)[],
 ) => {
   try {
-    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x)
+    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x, clausesOverride, scopeIdsOverride, modeIndicesOverride)
     const ability = definition.abilities[abilityIndex]
     if (!ability || !('decisions' in ability)) return
-    const bounds = targetCounts(ability.decisions.targets, contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x))
+    const bounds = targetCounts(clausesOverride ?? ability.decisions.targets, contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x))
     for (const [index, bound] of bounds.entries()) {
       const count = bindings[index]?.recipients.length ?? 0
       if (count < bound.min || count > bound.max) return `canonical target clause ${index} requires ${bound.min} to ${bound.max} recipients`

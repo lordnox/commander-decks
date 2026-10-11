@@ -41,6 +41,8 @@ export type RuntimeBindings = {
   choices?: Readonly<Record<string, readonly BoundRecipient[]>>
   variables?: Readonly<Partial<Record<'X', number>>>
   results?: Readonly<Record<string, boolean | number>>
+  distributions?: readonly import('./modes').DistributionAllocation[]
+  scopeId?: string
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
