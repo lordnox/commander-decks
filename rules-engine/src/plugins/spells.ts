@@ -41,7 +41,8 @@ import { enchantTargetError } from './enchant'
 import { applyRoomDoors } from './rooms'
 import { mayCastAsThoughFlash } from './flashGrant'
 import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError } from '../cardPlugins/dsl/compiler/targeting'
-import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition } from '../cardPlugins/dsl/compiler'
+import { beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
+import type { Cost } from '../cardPlugins/dsl/schema/v1'
 import { pinTarget } from '../objectIdentity'
 
 const MANA_ORDER: ManaId[] = ['C', 'W', 'U', 'B', 'R', 'G']
@@ -367,13 +368,17 @@ export const spells: Plugin = {
             event.x,
           )
           if (targetError) return targetError
-          if (ability.kind === 'spell' && (event.targetClauses || ability.decisions.targets.length === 0)) {
+          const groupedTargets = ability.kind === 'spell'
+            ? event.targetClauses
+              ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+            : undefined
+          if (ability.kind === 'spell' && groupedTargets !== undefined) {
             const announcement = beginSpellAnnouncement(
               state,
               object,
               event.seat,
               ability,
-              event.targetClauses ?? [],
+              groupedTargets,
               event.x,
             )
             if (!announcement.ok) return `announcement: ${announcement.error}`
@@ -587,13 +592,20 @@ export const spells: Plugin = {
         event.castOption,
       )
       let canonicalLockedCost: string | undefined
+      let canonicalNonManaCosts: readonly Cost[] = []
       if (object.ruleDefinition && !event.copy) {
         const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
         const ability = compiled.definition.abilities.find((candidate) => candidate.kind === 'spell')
-        if (ability?.kind === 'spell' && (event.targetClauses || ability.decisions.targets.length === 0)) {
-          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, event.targetClauses ?? [], event.x)
+        const groupedTargets = ability?.kind === 'spell'
+          ? event.targetClauses
+            ?? (ability.decisions.targets.length === 0 ? [] : ability.decisions.targets.length === 1 ? [event.targets ?? []] : undefined)
+          : undefined
+        if (ability?.kind === 'spell' && groupedTargets !== undefined) {
+          const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x)
           if (!announcement.ok) return
-          canonicalLockedCost = commitAnnouncement(announcement.transaction).lockedCost.mana
+          const committed = commitAnnouncement(announcement.transaction)
+          canonicalLockedCost = committed.lockedCost.mana
+          canonicalNonManaCosts = committed.lockedCost.nonMana
         }
       }
       const cost = reduceGenericManaCost(canonicalLockedCost ?? spellCost(state, object, {
@@ -641,6 +653,16 @@ export const spells: Plugin = {
           amount: phyrexianLife.length * 2,
           source: object.name,
         })
+      }
+      for (const costPart of canonicalNonManaCosts) {
+        if (costPart.kind === 'life') {
+          draft.enqueue({
+            type: 'payLife',
+            seat: event.seat,
+            amount: evaluateAnnouncementCostAmount(costPart.amount, event.x),
+            source: object.name,
+          })
+        }
       }
       const castFrom = object.zone
       draft.move(object.id, 'stack')

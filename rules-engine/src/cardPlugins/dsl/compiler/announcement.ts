@@ -1,5 +1,5 @@
 import { payCost } from '../../../plugins/spells'
-import type { ActivatedAbilityDefinition, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
+import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
@@ -167,6 +167,38 @@ const validateVariables = (variables: AnnouncementProposal['variables']) => {
   if (x !== undefined) integer(x, 'X')
 }
 
+const costAmount = (amount: Amount, x: number | undefined) => {
+  if (amount.kind === 'constant') return amount.value
+  if (amount.kind === 'variable') {
+    if (x === undefined) throw new TypeError(`amount variable ${amount.name} is not bound`)
+    return x
+  }
+  throw new TypeError('cost amount must be a constant or X variable')
+}
+
+export const evaluateAnnouncementCostAmount = (amount: Amount, x: number | undefined) => costAmount(amount, x)
+
+const matchesCostFilter = (object: GameState['objects'][string], filter: Extract<Cost, { kind: 'discard' | 'sacrifice' }>['filter']['filter']) => {
+  if (filter.zone && object.zone !== filter.zone) return false
+  if (filter.type && !object.types.includes(filter.type)) return false
+  if (filter.name && object.name !== filter.name) return false
+  if (filter.token !== undefined && object.token !== filter.token) return false
+  return true
+}
+
+const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, costs: readonly Cost[], x: number | undefined) => {
+  for (const cost of costs) {
+    if (cost.kind === 'life') {
+      if (state.players[payer].life < costAmount(cost.amount, x)) throw new TypeError(`payer cannot pay ${costAmount(cost.amount, x)} life`)
+      continue
+    }
+    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
+    const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
+    const candidates = Object.values(state.objects).filter((object) => object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))
+    if (candidates.length < costAmount(cost.count, x)) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
+  }
+}
+
 const targetIdentity = (target: TargetRef) => {
   switch (target.kind) {
     case 'player': return `player:${target.player}`
@@ -231,6 +263,7 @@ export const beginAnnouncement = (
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
+    validateNonManaCosts(state, proposal.payer, costs, proposal.variables?.X)
     const mana = lockedManaCost(plan, proposal.variables?.X ?? 0)
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)
