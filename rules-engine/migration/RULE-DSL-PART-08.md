@@ -29,8 +29,8 @@ but this transaction frame must remain the insertion point for those choices.
 
 - `tsc --noEmit` — passed.
 - `bun test rules-engine/src/cardPlugins/dsl` — 69 passed, 0 failed.
-- `bun test rules-engine` — 2,253 passed, 1 pre-existing failure in
-  `combatPreventionCards.test.ts` (Inkshield creates six Inklings instead of
-  three); this is outside Part08 and reproduces when run in isolation.
-- `check:imports` — passed through the commit hook; the hook's lint step could
-  not run because `oxlint` is unavailable in the isolated worktree.
+- `bun test rules-engine` — 2,254 passed, 0 failed after rebasing onto the
+  published Part07 head.
+- `check:imports` — passed.
+- `/Users/tobiaskopelke/projects/lordnox/commander-decks/node_modules/.bin/oxlint
+  rules-engine live-runner site/src shared .agents/skills --quiet` — passed.
