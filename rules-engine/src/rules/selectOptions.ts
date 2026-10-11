@@ -9,10 +9,11 @@ import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
-import type { CanonicalResolutionFrame, CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
-import type { CardRuleDefinitionSnapshotV1, Cost, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, GameState, ManaPool, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
+import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import { allocationOptions } from './canonicalAllocation'
 import { payCost } from '../plugins/spells'
+import { cardRuleDefinition } from '../cardPlugins/dsl/builders'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -135,10 +136,13 @@ export type PendingOptionSelection = {
     kind: 'canonicalResolutionPayment'
     stackId: string
     cost: Cost
+    source: CapturedObject
+    controller: PlayerId
     bindResult: string
-    ifPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
-    ifDeclined: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
-    whenPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+    whenPaidDecisions?: DecisionsInput
+    ifPaid: readonly Instruction[]
+    ifDeclined: readonly Instruction[]
+    whenPaid: readonly Instruction[]
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1
@@ -540,10 +544,46 @@ export const selectOptions: Plugin = {
         draft.resolution.results = { ...draft.resolution.results, [selection.action.bindResult]: paid }
         const branch = paid ? selection.action.ifPaid : selection.action.ifDeclined
         if (branch.length > 0) draft.resolution.scopes.push({ path: '.payOptional', instructions: structuredClone(branch), cursor: 0 })
-        // `whenPaid` is deliberately retained as a separate pending trigger by
-        // the host checkpoint; it is never folded into the if-paid branch.
         if (paid && selection.action.whenPaid.length > 0) {
-          draft.note(`resolution payment paid; reflexive program ${selection.action.bindResult} is queued`)
+          const definition = cardRuleDefinition(1, { abilities: [{
+            kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
+            decisions: {
+              targets: selection.action.whenPaidDecisions?.targets ?? [],
+              ...(selection.action.whenPaidDecisions?.constraints ? { constraints: selection.action.whenPaidDecisions.constraints } : {}),
+              ...(selection.action.whenPaidDecisions?.variables ? { variables: selection.action.whenPaidDecisions.variables } : {}),
+              ...(selection.action.whenPaidDecisions?.distributions ? { distributions: selection.action.whenPaidDecisions.distributions } : {}),
+            },
+            instructions: selection.action.whenPaid,
+          }] })
+          const occurrence = { kind: 'event' as const, eventType: 'resolutionPayment', player: event.seat }
+          draft.pendingTriggers = [...(draft.pendingTriggers ?? []), {
+            id: draft.allocId('reflexive'),
+            source: structuredClone(selection.action.source.snapshot),
+            instructions: [],
+            effect: { do: [] },
+            execution: {
+              controller: selection.action.controller,
+              source: structuredClone(selection.action.source),
+              occurrence,
+              definitionSnapshot: {
+                schemaVersion: definition.schemaVersion,
+                definitionRevision: definition.definitionRevision,
+                definition,
+              },
+              abilityIndex: 0,
+            },
+            canonical: {
+              definitionSnapshot: {
+                schemaVersion: definition.schemaVersion,
+                definitionRevision: definition.definitionRevision,
+                definition,
+              },
+              abilityIndex: 0,
+            },
+            triggeredByAbility: true,
+            triggeringPlayer: event.seat,
+          }]
+          draft.note(`resolution payment paid; reflexive program ${selection.action.bindResult} queued for checkpoint`)
         }
         draft.resolution.phase = 'running'
       }

@@ -15,7 +15,7 @@ do not reuse announcement ownership or open an ordinary priority window.
 - [x] schema and builders
 - [x] validation and canonical resolution payment/effect frame helpers
 - [x] canonical effect events and resolution payment choice/resume path
-- [ ] host/headless/browser projection for the new payment offer
+- [x] host/headless/browser projection for the new payment offer
 - [x] focused validation
 
 ## Tests
@@ -30,7 +30,10 @@ reflexive program creation.
 
 Part 11 owns resumable replacement lineage. This slice preserves the existing
 destination replacement and transaction semantics while keeping the new
-program contexts independent of the live source. The browser currently uses
-the existing typed option envelope for resolution payments; a dedicated compact
-projection can be added in the host follow-up without changing the server
-frame contract.
+program contexts independent of the live source. The existing typed option
+envelope projects resolution payments to headless and browser clients, and the
+journal rebuilds the offer from the private kernel selection. A paid `whenPaid`
+program is captured as a canonical pending trigger; the next checkpoint
+performs its APNAP placement and starts the normal target announcement
+procedure, so it can open a fresh target decision without granting priority
+inside the parent resolution.

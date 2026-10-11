@@ -654,11 +654,12 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'payOptional': {
-        exactKeys(node, path, ['kind', 'payer', 'cost', 'bindResult', 'ifPaid', 'ifDeclined', 'whenPaid'], ['kind', 'payer', 'cost', 'bindResult'])
+        exactKeys(node, path, ['kind', 'payer', 'cost', 'bindResult', 'whenPaidDecisions', 'ifPaid', 'ifDeclined', 'whenPaid'], ['kind', 'payer', 'cost', 'bindResult'])
         validateReference(node.payer, childPath(path, 'payer'), env, ['player'])
         validateCost(node.cost, childPath(path, 'cost'), env)
         const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
         declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['paid']) }, childPath(path, 'bindResult'))
+        if (node.whenPaidDecisions !== undefined) validateDecisions(node.whenPaidDecisions, childPath(path, 'whenPaidDecisions'), env, true)
         if (node.ifPaid !== undefined) validateInstructionList(node.ifPaid, childPath(path, 'ifPaid'), env, depth + 1)
         if (node.ifDeclined !== undefined) validateInstructionList(node.ifDeclined, childPath(path, 'ifDeclined'), env, depth + 1)
         if (node.whenPaid !== undefined) validateInstructionList(node.whenPaid, childPath(path, 'whenPaid'), env, depth + 1)
