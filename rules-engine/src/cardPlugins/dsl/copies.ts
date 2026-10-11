@@ -69,7 +69,7 @@ export const validateCanonicalCopyTargets = (
   const abilityIndex = original.execution?.abilityIndex
     ?? definition.abilities.findIndex((ability) => ability.kind === 'spell')
   if (abilityIndex < 0) return 'the copied spell has no pinned canonical definition'
-  return canonicalTargetError(
+  const error = canonicalTargetError(
     state,
     source,
     definition,
@@ -80,6 +80,18 @@ export const validateCanonicalCopyTargets = (
     controller,
     original.x,
   )
+  if (!error) return
+  const originalTargets = original.targets
+  const changed = targets.filter((target, index) => JSON.stringify(target) !== JSON.stringify(originalTargets[index]))
+  if (changed.length === 0) return error
+  const changedCurrent = changed.every((target) => {
+    if (target.kind === 'player') return Boolean(state.players[target.player] && !state.players[target.player].lost)
+    if (target.kind === 'stackItem') return state.stack.some((item) => item.id === target.stackId)
+    const object = state.objects[target.objectId]
+    return Boolean(object && (target.incarnation === undefined || object.incarnation === target.incarnation)
+      && (target.zone === undefined || object.zone === target.zone))
+  })
+  return changedCurrent ? undefined : error
 }
 
 export type CanonicalCopyTargetAnswer =
