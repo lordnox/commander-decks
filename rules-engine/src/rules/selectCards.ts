@@ -142,7 +142,7 @@ export type PendingCardSelection = {
   canonicalChoice?: {
     stackId: string
     binding: string
-    action?: 'choose' | 'discard'
+    action?: 'choose' | 'discard' | 'proliferate'
   }
   /** Pay this mana only if at least one card is chosen. */
   payMana?: string
@@ -581,6 +581,13 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         const object = draft.objects[objectId]
         return object ? [{ kind: 'object' as const, objectId, incarnation: object.incarnation, zone: object.zone }] : []
       }),
+    }
+    if (canonicalChoice.action === 'proliferate') {
+      for (const objectId of event.objectIds ?? []) {
+        const object = draft.object(objectId)
+        if (!object || object.zone !== 'battlefield' || object.phasedOut) continue
+        for (const counter of Object.keys(object.counters)) object.counters[counter] = (object.counters[counter] ?? 0) + 1
+      }
     }
     if (canonicalChoice.action === 'discard') {
       const discarded = event.objectIds ?? []

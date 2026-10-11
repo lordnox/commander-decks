@@ -739,6 +739,8 @@ export type GameEvent =
         power?: number | null
         toughness?: number | null
         oracleText?: string
+        ruleDefinition?: GameObject['ruleDefinition']
+        effects?: GameObject['effects']
       }
     }
   | {
