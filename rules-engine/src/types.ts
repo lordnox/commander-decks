@@ -706,6 +706,8 @@ export type GameEvent =
   | { type: 'destroy'; objectId: string; sourceId?: string }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
+  /** Canonical spell-copy action; unlike castSpell it creates no cast occurrence. */
+  | { type: 'copySpell'; stackId: string; controller: PlayerId; targets: TargetRef[]; retarget?: boolean; sourceId?: string }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
   | { type: 'cancelAnnouncement'; seat: PlayerId; announcementId: string }

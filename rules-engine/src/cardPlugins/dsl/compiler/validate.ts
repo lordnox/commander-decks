@@ -570,6 +570,24 @@ export const validateDefinitionV1 = (root: unknown): {
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
         }
         return
+      case 'copySpell':
+        exactKeys(node, path, ['kind', 'targets', 'controller', 'retarget', 'bindResult'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['stack'])
+        if (node.controller !== undefined) validateRecipient(node.controller, childPath(path, 'controller'), env, ['player'])
+        if (node.retarget !== undefined) {
+          const retarget = object(node.retarget, childPath(path, 'retarget'))
+          if (retarget) {
+            exactKeys(retarget, childPath(path, 'retarget'), ['kind'], ['kind'])
+            if (retarget.kind !== 'keep' && retarget.kind !== 'chooseNewTargets') {
+              issue(childPath(childPath(path, 'retarget'), 'kind'), 'enum', `unsupported copy retargeting procedure: ${String(retarget.kind)}`)
+            }
+          }
+        }
+        if (node.bindResult !== undefined) {
+          const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
+          declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
+        }
+        return
       case 'putCounters':
         exactKeys(node, path, ['kind', 'targets', 'counter', 'count', 'bindResult'], ['kind', 'targets', 'counter', 'count'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])

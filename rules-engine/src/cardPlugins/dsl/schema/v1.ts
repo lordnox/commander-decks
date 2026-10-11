@@ -195,6 +195,8 @@ export type Instruction =
   | { kind: 'proliferate'; targets: PlayerRecipient }
   | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string }
   | { kind: 'copy'; targets: ObjectRecipient; controller?: PlayerRecipient; bindResult?: string }
+  /** Copy a spell already on the stack. This is distinct from casting a card. */
+  | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
   | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
   | { kind: 'counter'; targets: StackItemRecipient; bindResult?: string }
   | {
@@ -253,6 +255,11 @@ export type ModeInput = {
   decisions?: Omit<DecisionsInput, 'modes'>
   instructions: readonly Instruction[]
 }
+
+/** Retargeting is an explicit procedure; `keep` preserves even now-illegal pins. */
+export type CopySpellRetargeting =
+  | { kind: 'keep' }
+  | { kind: 'chooseNewTargets' }
 
 export type ActivationTiming = 'anyTime' | 'sorcery'
 

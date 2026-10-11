@@ -359,6 +359,19 @@ export const copy = (input: {
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
 
+export const copySpell = (input: {
+  targets: Extract<Instruction, { kind: 'copySpell' }>['targets']
+  controller?: Extract<Instruction, { kind: 'copySpell' }>['controller']
+  retarget?: Extract<Instruction, { kind: 'copySpell' }>['retarget']
+  bindResult?: string
+}): Instruction => immutableData({
+  kind: 'copySpell',
+  targets: input.targets,
+  ...(input.controller !== undefined ? { controller: input.controller } : {}),
+  ...(input.retarget !== undefined ? { retarget: input.retarget } : {}),
+  ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+})
+
 export const putCounters = (input: {
   targets: Extract<Instruction, { kind: 'putCounters' }>['targets']
   counter: string

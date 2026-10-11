@@ -46,6 +46,7 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'proliferate',
   'createToken',
   'copy',
+  'copySpell',
   'putCounters',
   'draw',
   'mill',
@@ -95,6 +96,7 @@ const preflightInstructions = (
       case 'proliferate':
       case 'createToken':
       case 'copy':
+      case 'copySpell':
       case 'putCounters':
       case 'counter':
       case 'mill':
@@ -449,6 +451,41 @@ const actionEvents = (
         token: copyCharacteristics(object),
         sourceId: frame.source.ref.objectId,
       })))
+    }
+    case 'copySpell': {
+      const targets = instruction.targets.kind === 'stackItems'
+        ? evaluateStackItemSelector(instruction.targets, context).map((candidate) => ({ kind: 'stackItem' as const, stackId: candidate.id }))
+        : evaluateBoundRecipients(instruction.targets, context).filter((target) => target.kind === 'stackItem')
+      const controllers = instruction.controller
+        ? (instruction.controller.kind === 'players'
+          ? evaluatePlayerSelector(instruction.controller, context)
+          : evaluatePlayerReference(instruction.controller, context))
+        : [context.controller]
+      const copies: GameEvent[] = []
+      for (const target of targets) {
+        const original = context.state.stack.find((candidate) => candidate.id === target.stackId)
+        if (!original) continue
+        const source = context.state.objects[original.objectId]
+        if (!source || original.kind !== 'spell') continue
+        // `keep` preserves the original target pins. Explicit retargeting is
+        // answered through the durable typed offer API, never by refreshing
+        // incarnations as a side effect of copying.
+        if (instruction.retarget?.kind === 'chooseNewTargets') {
+          throw pathError(frame, path, 'copySpell retargeting requires a typed copySpellTargets continuation')
+        }
+        for (const controller of controllers) {
+          copies.push({ type: 'copySpell', stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
+        }
+      }
+      if (instruction.bindResult) frame.pendingResult = {
+        binding: instruction.bindResult,
+        kind: 'action',
+        value: copies.length,
+        eventType: 'copySpell',
+      }
+      // Copy placement is itself the committed action; the stack mutation is
+      // complete before the next written instruction is considered.
+      return copies
     }
     case 'putCounters': {
       const targets = objectActions(instruction.targets, context)
