@@ -3,14 +3,44 @@ import {
   amount,
   distribution,
   modeOccurrences,
+  ref,
   validateDistributionAllocation,
   validateModeSelection,
   validateScopedDistributions,
 } from './v1'
+import { card, compileCardRuleDefinition, createDefinitionSnapshot } from './v1'
+import { cardTemplate } from '../../newGame'
+import { commanderRules } from '../../formats'
+import { createServerGame } from '../../runtime'
+import { objects } from './v1'
 
 const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, characteristic: () => 0 }
 
 describe('Part09 scoped modes and distributions', () => {
+  test('server resolves supplied modal spell occurrences in printed order', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [], modes: { count: amount(2), repeatable: false } },
+      modes: [
+        { decisions: { targets: [] }, instructions: [{ kind: 'move', targets: objects({ zone: 'battlefield', type: 'Creature' }), to: 'exile' }] },
+        { decisions: { targets: [] }, instructions: [{ kind: 'gainLife', amount: { kind: 'count', of: objects({ zone: 'battlefield', type: 'Creature' }) }, targets: ref('controller') }] },
+      ],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Printed modal', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: snapshot })] },
+      battlefield: { p1: [cardTemplate('Creature', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Printed modal')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [1, 0] })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    expect(resolved.state.players.p1.life).toBe(40)
+  })
   test('repeated modes receive independent generated scopes and retain selection order', () => {
     expect(modeOccurrences(2, [1, 1, 0])).toEqual([
       { modeIndex: 1, occurrence: 0, scopeId: '$.abilities[2].modes[1]#0' },
