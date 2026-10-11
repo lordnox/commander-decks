@@ -31,7 +31,12 @@ const canonicalCandidate = (
   clause: TargetClause,
   context: RuleDslRuntimeContext,
   sourceId?: string,
+  preservedPins?: ReadonlySet<string>,
 ) => {
+  // A spell copy may retain an announced target which has since become
+  // illegal.  Those pins are exempt from the live candidate checks; any
+  // replacement still has to pass the printed clause below.
+  if (preservedPins?.has(identityKey(target))) return true
   switch (clause.filter.kind) {
     case 'players': {
       if (target.kind !== 'player') return false
@@ -114,6 +119,7 @@ const partitionTargets = (
   clauses: readonly TargetClause[],
   supplied: readonly TargetRef[],
   context: RuleDslRuntimeContext,
+  preservedPins?: ReadonlySet<string>,
 ) => {
   const bounds = targetCounts(clauses, context)
   const slots: TargetRef[][] = clauses.map(() => [])
@@ -135,7 +141,7 @@ const partitionTargets = (
       const keys = new Set<string>()
       if (chosen.every((target) => {
         const key = identityKey(target)
-        if (keys.has(key) || !canonicalCandidate(state, target, clause, bindingContext(context, slots.slice(0, clauseIndex)), sourceId)) return false
+        if (keys.has(key) || !canonicalCandidate(state, target, clause, bindingContext(context, slots.slice(0, clauseIndex)), sourceId, preservedPins)) return false
         keys.add(key)
         return true
       })) {
@@ -156,6 +162,7 @@ const groupedTargets = (
   clauses: readonly TargetClause[],
   supplied: readonly (readonly TargetRef[])[],
   context: RuleDslRuntimeContext,
+  preservedPins?: ReadonlySet<string>,
 ) => {
   if (supplied.length !== clauses.length) return undefined
   const bounds = targetCounts(clauses, context)
@@ -164,7 +171,7 @@ const groupedTargets = (
     if (targets.length < bounds[index].min || targets.length > bounds[index].max) return undefined
     if (!targets.every((target) => {
       const key = identityKey(target)
-      if (keys.has(key) || !canonicalCandidate(state, target, clauses[index], bindingContext(context, supplied.slice(0, index)), sourceId)) return false
+      if (keys.has(key) || !canonicalCandidate(state, target, clauses[index], bindingContext(context, supplied.slice(0, index)), sourceId, preservedPins)) return false
       keys.add(key)
       return true
     })) return undefined
@@ -202,6 +209,7 @@ export const canonicalTargetBindings = (
   scopeIdsOverride?: readonly string[],
   modeIndicesOverride?: readonly (number | undefined)[],
   preserveSupplied?: boolean,
+  preservedPins?: ReadonlySet<string>,
 ) => {
   const ability = definition.abilities[abilityIndex]
   if (!ability || (ability.kind !== 'spell' && ability.kind !== 'activated' && ability.kind !== 'triggered')) {
@@ -222,8 +230,8 @@ export const canonicalTargetBindings = (
   const slots = preserveSupplied
     ? (normalizedGrouped ?? [normalizedSupplied])
     : grouped
-    ? groupedTargets(state, sourceId, clauses, normalizedGrouped!, context)
-    : partitionTargets(state, sourceId ?? '', clauses, normalizedSupplied, context)
+    ? groupedTargets(state, sourceId, clauses, normalizedGrouped!, context, preservedPins)
+    : partitionTargets(state, sourceId ?? '', clauses, normalizedSupplied, context, preservedPins)
   if (!slots) {
     throw new RuleDslEvaluationError('supplied canonical targets do not satisfy the declared clauses')
   }
@@ -237,8 +245,7 @@ export const canonicalTargetBindings = (
     const scopeRecipients = scopeSlots.get(scopeId) ?? []
     scopeRecipients[localIndex] = recipients
     scopeSlots.set(scopeId, scopeRecipients)
-    const suppliedModeIndex = modeIndicesOverride?.[clauseIndex]
-    scopeModes.set(scopeId, typeof suppliedModeIndex === 'number' ? suppliedModeIndex : undefined)
+    scopeModes.set(scopeId, modeIndicesOverride?.[clauseIndex])
   })
   for (const [scopeId, scopeRecipients] of scopeSlots) {
     const modeIndex = scopeModes.get(scopeId)
@@ -258,7 +265,7 @@ export const canonicalTargetBindings = (
     scopeId,
     clauseIndex: localClauseIndex,
     recipients,
-    ...(typeof modeIndicesOverride?.[clauseIndex] === 'number'
+    ...(modeIndicesOverride?.[clauseIndex] !== undefined
       ? { modeIndex: modeIndicesOverride[clauseIndex] }
       : {}),
     }
@@ -436,15 +443,13 @@ export const canonicalTargetError = (
   grouped?: readonly (readonly TargetRef[])[],
   controller?: PlayerId,
   x?: number,
-  clausesOverride?: readonly TargetClause[],
-  scopeIdsOverride?: readonly string[],
-  modeIndicesOverride?: readonly (number | undefined)[],
+  preservedPins?: ReadonlySet<string>,
 ) => {
   try {
-    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x, clausesOverride, scopeIdsOverride, modeIndicesOverride)
+    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x, undefined, preservedPins)
     const ability = definition.abilities[abilityIndex]
     if (!ability || !('decisions' in ability)) return
-    const bounds = targetCounts(clausesOverride ?? ability.decisions.targets, contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x))
+    const bounds = targetCounts(ability.decisions.targets, contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x))
     for (const [index, bound] of bounds.entries()) {
       const count = bindings[index]?.recipients.length ?? 0
       if (count < bound.min || count > bound.max) return `canonical target clause ${index} requires ${bound.min} to ${bound.max} recipients`

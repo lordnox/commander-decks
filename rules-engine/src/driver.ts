@@ -35,7 +35,7 @@ import { openCardSelection } from './rules/selectCards'
 import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
-import { ceaseToExist } from './cardPlugins/dsl/copies'
+import { ceaseToExist } from './rules/spellCopies'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'counter',
@@ -464,6 +464,7 @@ const actionEvents = (
           : evaluatePlayerReference(instruction.controller, context))
         : [context.controller]
       const copies: GameEvent[] = []
+      const copyJobs: Array<{ copyStackId: string; controller: import('./types').PlayerId }> = []
       for (const target of targets) {
         const original = context.state.stack.find((candidate) => candidate.id === target.stackId)
         if (!original) continue
@@ -473,6 +474,8 @@ const actionEvents = (
         // answered through the durable typed offer API, never by refreshing
         // incarnations as a side effect of copying.
         if (instruction.retarget?.kind === 'chooseNewTargets') {
+          for (const controller of controllers) copyJobs.push({ copyStackId: original.id, controller })
+          if (copyJobs.length > 0 && copyJobs[0].copyStackId === original.id) {
           const abilitySnapshot = original.execution?.definitionSnapshot
           const abilityIndex = original.execution?.abilityIndex
           const copyDefinition = abilitySnapshot ? loadDefinitionSnapshot(abilitySnapshot).definition : undefined
@@ -495,13 +498,15 @@ const actionEvents = (
             action: {
               kind: 'canonical-copy-retarget',
               stackId: frame.stackId,
-              copyStackId: original.id,
-              controller: context.controller,
+              copyStackId: copyJobs[0].copyStackId,
+              controller: copyJobs[0].controller,
+              remaining: copyJobs.slice(1),
             },
           })
           frame.phase = 'committing'
           frame.pendingEvents = []
           return []
+          }
         }
         for (const controller of controllers) {
           copies.push({ type: 'copySpell', stackId: original.id, controller, targets: structuredClone(original.targets), retarget: false, sourceId: frame.source.ref.objectId })
