@@ -274,7 +274,7 @@ export const selectOptions: Plugin = {
       const ability = definition.abilities[selection.action.abilityIndex]
       if (!source || !ability || ability.kind !== 'triggered' || !('modes' in ability)
         || selectedModes.some((index) => !ability.modes?.[index])) return
-      if (ability.modes.some((mode) => mode.decisions.distributions?.length)
+      if ((ability.modes?.some((mode) => mode.decisions.distributions?.length) ?? false)
         || ability.decisions.distributions?.length) {
         stackCanonical(draft, {
           definitionSnapshot: selection.action.definitionSnapshot,
