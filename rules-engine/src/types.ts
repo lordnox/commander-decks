@@ -578,6 +578,8 @@ export type GameState = {
   stack: StackItem[]
   /** Private durable resolution cursor; removed from every client projection. */
   resolution?: ResolutionFrame
+  /** Server-owned provisional announcement isolated from public priority. */
+  provisionalAnnouncement?: ProvisionalAnnouncementFrame
   /** Captured triggers waiting for the next explicit checkpoint. */
   pendingTriggers?: PendingTrigger[]
   /** Private placement cursor; removed from client projections with pending triggers. */
@@ -598,6 +600,14 @@ export type GameState = {
   /** At most one monarch; `null` when the crown is vacant. */
   monarch: PlayerId | null
   log: string[]
+}
+
+export type ProvisionalAnnouncementFrame = {
+  id: string
+  payer: PlayerId
+  transaction: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
+  baseline: Pick<GameState, 'players' | 'objects' | 'zoneOrder' | 'zoneCounts' | 'stack' | 'pendingTriggers' | 'priority' | 'passedInRow' | 'log'>
+  continuation: { type: 'castSpell'; event: Extract<GameEvent, { type: 'castSpell' }> }
 }
 
 export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }
@@ -690,6 +700,7 @@ export type GameEvent =
   | { type: 'copyPermanent'; objectId: string; controller: PlayerId; token?: Extract<GameEvent, { type: 'createToken' }>['token']; sourceId?: string }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }
+  | { type: 'cancelAnnouncement'; seat: PlayerId; announcementId: string }
   | { type: 'advanceStep' }
   // — Zone & card motion —
   /** `face` picks a face of a double-faced land card; omitted, the first land face is played. */
