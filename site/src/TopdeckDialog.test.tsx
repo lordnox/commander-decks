@@ -2,7 +2,16 @@ import { expect, test } from 'bun:test'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
-import { TopdeckDialog, answerFor } from './TopdeckDialog'
+import { TopdeckDialog, allocationAnswerFor, answerFor, validAllocation } from './TopdeckDialog'
+
+const allocationOffer = {
+  entries: [
+    { id: 'target:0', label: 'Target 1', max: 700 },
+    { id: 'target:1', label: 'Target 2', max: 700 },
+  ],
+  total: 1000,
+  minEach: 1,
+}
 
 test('topdeck dialog offers card previews and a board-view escape', () => {
   const game = {
@@ -386,4 +395,44 @@ test('each answer names the offered position of its card, not just its name', ()
     { id: 1, card: 'Island', destination: 'top' },
     { id: 0, card: 'Island', destination: 'bottom' },
   ]).map(({ slot }) => slot)).toEqual([1, 0])
+})
+
+test('allocation input enables the answer at the exact total and preserves entry ids', () => {
+  const values = { 'target:0': '400', 'target:1': '600' }
+  expect(validAllocation(allocationOffer, values)).toBe(true)
+  expect(allocationAnswerFor(allocationOffer, values)).toEqual([
+    { id: 'target:0', amount: 400 },
+    { id: 'target:1', amount: 600 },
+  ])
+  expect(validAllocation(allocationOffer, { 'target:0': '-1', 'target:1': '1001' })).toBe(false)
+  expect(validAllocation(allocationOffer, { 'target:0': '0', 'target:1': '1000' })).toBe(false)
+  expect(validAllocation(allocationOffer, { 'target:0': '701', 'target:1': '299' })).toBe(false)
+  expect(validAllocation(allocationOffer, { 'target:0': '', 'target:1': '1000' })).toBe(false)
+})
+
+test('an empty zero-total allocation still renders its submit button', () => {
+  const html = renderToStaticMarkup(
+    <TopdeckDialog
+      game={{ catalog: {} } as unknown as ReplayGame}
+      decision={{
+        seat: 'p1',
+        kind: 'allocate',
+        cards: [],
+        destinations: ['target'],
+        interaction: {
+          requestId: 'allocation-request',
+          revision: 1,
+          chooser: 'p1',
+          source: { name: 'Trigger', objectId: 'trigger' },
+          phase: 'resolution',
+          purpose: 'choice',
+          cancellation: 'mustAnswer',
+          selection: { kind: 'allocate', entries: [], total: 0, minEach: 0 },
+        },
+      } as LiveTopdeck}
+      pending={false}
+      onResolve={() => {}}
+    />,
+  )
+  expect(html).toContain('>Resolve allocate</button>')
 })

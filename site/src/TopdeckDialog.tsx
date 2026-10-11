@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { AllocationEntry } from '../../shared/interaction'
 import { distinctCardLabels, type TopdeckDestination } from '../../shared/liveTypes'
 import type { LiveTopdeck } from './liveCodec'
 import type { ReplayGame } from './replayTypes'
@@ -12,6 +13,31 @@ type Choice = {
 
 type Answer = { card: string; slot?: number; destination: TopdeckDestination }
 type AllocationAnswer = Array<{ id: string; amount: number }>
+type AllocationOffer = { entries: AllocationEntry[]; total: number; minEach: number }
+
+export const allocationAnswerFor = (
+  allocation: AllocationOffer,
+  values: Record<string, string>,
+): AllocationAnswer => allocation.entries.map((entry) => ({
+  id: entry.id,
+  amount: Number(values[entry.id]),
+}))
+
+export const validAllocation = (
+  allocation: AllocationOffer,
+  values: Record<string, string>,
+) => {
+  if (!allocation.entries.every((entry) => {
+    const raw = values[entry.id]
+    if (raw === undefined || raw.trim() === '') return false
+    const amount = Number(raw)
+    return Number.isSafeInteger(amount)
+      && amount >= allocation.minEach
+      && (entry.max === undefined || amount <= entry.max)
+  })) return false
+  return allocationAnswerFor(allocation, values)
+    .reduce((sum, entry) => sum + entry.amount, 0) === allocation.total
+}
 
 /** The host tells same-named cards apart by position, so every answer carries it. */
 export const answerFor = (choices: Choice[]): Answer[] =>
@@ -493,11 +519,11 @@ export const TopdeckDialog = ({
           })}
         </ol>}
 
-        {(choices.length > 1 || searching) && (
+        {(choices.length > 1 || searching || allocation) && (
           <button
             type="button"
-            onClick={() => onResolve(answerFor(choices), allocation?.entries.map((entry) => ({ id: entry.id, amount: Number(allocationValues[entry.id]) })))}
-            disabled={pending || (allocation ? allocation.entries.some((entry) => !Number.isSafeInteger(Number(allocationValues[entry.id]))) || allocation.entries.reduce((sum, entry) => sum + Number(allocationValues[entry.id]), 0) !== allocation.total : !valid(choices))}
+            onClick={() => onResolve(answerFor(choices), allocation ? allocationAnswerFor(allocation, allocationValues) : undefined)}
+            disabled={pending || (allocation ? !validAllocation(allocation, allocationValues) : !valid(choices))}
             className="mt-5 shrink-0 self-start rounded-xl bg-purple-200 px-4 py-2 text-sm font-black text-ink-950 hover:bg-purple-100 disabled:opacity-40"
           >
             {pending
