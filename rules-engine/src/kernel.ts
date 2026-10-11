@@ -52,6 +52,7 @@ import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
+import type { EffectDuration as DslEffectDuration } from './cardPlugins/dsl/schema/v1'
 
 const CHECKPOINT_CAP = 32
 
@@ -318,6 +319,38 @@ export const legalError = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case 'canonicalEffect': {
+      const object = draft.object(event.objectId)
+      if (!object || object.zone !== 'battlefield') return
+      const duration = event.duration.kind === 'untilCleanup'
+        ? { kind: 'untilCleanup' as const }
+        : event.duration.kind === 'permanent'
+          ? { kind: 'permanent' as const }
+          : event.duration.kind === 'whileSourceOnBattlefield'
+            ? { kind: 'whileSourceOnBattlefield' as const, sourceId: event.sourceId ?? '' }
+            : { kind: 'untilCleanup' as const }
+      if (event.effect.kind === 'pump') {
+        const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
+        const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
+        if (object.power !== null) object.power += power
+        if (object.toughness !== null) object.toughness += toughness
+        object.continuousEffects = [...(object.continuousEffects ?? []), {
+          effect: { kind: 'pump', power, toughness }, duration,
+        }]
+      } else if (event.effect.kind === 'grantKeyword') {
+        object.continuousEffects = [...(object.continuousEffects ?? []), {
+          effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [] }, duration,
+        }]
+      } else {
+        object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
+          ability: structuredClone(event.effect.ability),
+          sourceId: event.sourceId ?? object.id,
+          definitionRevision: event.sourceRevision ?? 'unknown',
+          duration: structuredClone(event.duration) as DslEffectDuration,
+        }]
+      }
+      return
+    }
     case 'destroy': {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'battlefield' || hasKeyword(object, 'indestructible', draft)) return
