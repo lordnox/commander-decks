@@ -11,6 +11,7 @@ import { asDefinitionV1, validateDefinitionV1 } from './validate'
 export { evaluateAmount, evaluateTargetBounds, MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
 export * from './runtime'
 export * from './announcement'
+export * from './modes'
 export { RuleDslEvaluationError, RuleDslValidationError } from './errors'
 export type { RuleDslDiagnostic } from './errors'
 

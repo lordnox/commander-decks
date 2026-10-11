@@ -402,6 +402,8 @@ export type StackExecutionContext = {
   modeIndices?: number[]
   /** Stable scope for each selected mode occurrence; repeated modes get distinct scopes. */
   modeScopeIds?: string[]
+  /** Announcement-time allocations, keyed by each mode scope and local clause. */
+  distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
   declarationPath?: string
 }
 

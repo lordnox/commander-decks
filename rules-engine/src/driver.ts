@@ -7,12 +7,14 @@ import {
   evaluatePlayerReference,
   evaluatePlayerSelector,
   evaluateRuntimeAmount,
+  amountEvaluationContext,
   evaluateCondition,
   evaluateStackItemSelector,
   type BoundRecipient,
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
+import { validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -127,18 +129,39 @@ export const startCanonicalResolution = (
   const { ability, index: abilityIndex } = selected
   const declarationPath = `$.abilities[${abilityIndex}]`
   const selectedModes = 'modes' in ability ? (item.execution?.modeIndices ?? []) : []
+  if ('modes' in ability) {
+    const modeSpec = ability.decisions.modes
+    if (!modeSpec) throw new Error(`${declarationPath}.decisions.modes: modal program is missing its mode specification`)
+    const modeTotal = modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x
+    if (modeTotal === undefined) throw new Error(`${declarationPath}.decisions.modes.count: mode count is not bound`)
+    validateModeSelection(modeSpec, ability.modes?.length ?? 0, modeTotal, selectedModes)
+  }
   const selectedInstructions = 'modes' in ability
     ? selectedModes.flatMap((index) => ability.modes?.[index]?.instructions ?? [])
     : ability.instructions
   if ('modes' in ability && selectedInstructions.length === 0) {
     throw new Error(`${declarationPath}.modes: a mode must be selected before resolution`)
   }
-  if (ability.decisions.distributions) {
-    throw new Error(`${declarationPath}.decisions: Part 03 executes only fully supplied plain programs`)
-  }
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
+  if (ability.decisions.distributions) {
+    const allocations = item.execution?.distributionBindings
+    if (!allocations) throw new Error(`${declarationPath}.decisions.distributions: announcement is missing allocations`)
+    const context = amountEvaluationContext({
+      state: draft,
+      controller: item.controller,
+      source,
+      variables: item.x === undefined ? undefined : { X: item.x },
+    })
+    validateScopedDistributions(
+      ability.decisions.distributions,
+      allocations,
+      (scopeId, clauseIndex) => (item.execution?.targetBindings ?? [])
+        .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
+      context,
+    )
+  }
   const variables = ability.decisions.variables ?? []
   for (const variable of variables) {
     const value = item.x
