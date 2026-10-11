@@ -14,7 +14,7 @@ import {
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
-import { selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
+import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -138,7 +138,8 @@ export const startCanonicalResolution = (
   if ('modes' in ability) {
     const modeSpec = ability.decisions.modes
     if (!modeSpec) throw new Error(`${declarationPath}.decisions.modes: modal program is missing its mode specification`)
-    const modeTotal = modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x
+    const modeTotal = item.execution?.modeCount
+      ?? (modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x)
     if (modeTotal === undefined) throw new Error(`${declarationPath}.decisions.modes.count: mode count is not bound`)
     validateModeSelection(modeSpec, ability.modes?.length ?? 0, modeTotal, selectedModes)
   }
@@ -167,6 +168,7 @@ export const startCanonicalResolution = (
       (scopeId, clauseIndex) => (item.execution?.targetBindings ?? [])
         .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       context,
+      selectedDistributionScopeIds(abilityIndex, ability, selectedModes),
     )
   }
   const variables = ability.decisions.variables ?? []

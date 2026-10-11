@@ -1,7 +1,7 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalModeScopeId, canonicalScopeId, canonicalTargetBindings, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
-import { modeOccurrences, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
+import { modeOccurrences, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 import { evaluateAmount, evaluateTargetBounds } from '../cardPlugins/dsl/compiler'
 import { objectIdentity } from '../objectIdentity'
@@ -72,6 +72,7 @@ const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement) => {
           source: announcement.execution.source,
           occurrence: announcement.execution.occurrence,
         }),
+        selectedDistributionScopeIds(announcement.abilityIndex, ability, announcement.selectedModes),
       )
     } catch {
       return false
