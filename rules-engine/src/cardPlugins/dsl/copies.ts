@@ -25,6 +25,14 @@ export const validateCanonicalCopyTargets = (
   const abilityIndex = original.execution?.abilityIndex
     ?? definition.abilities.findIndex((ability) => ability.kind === 'spell')
   if (abilityIndex < 0) return 'the copied spell has no pinned canonical definition'
+  const ability = definition.abilities[abilityIndex]
+  const clausesOverride = original.execution?.targetBindings?.map((binding) =>
+    ability && 'decisions' in ability
+      ? (binding.modeIndex !== undefined && 'modes' in ability
+        ? ability.modes?.[binding.modeIndex]?.decisions.targets[binding.clauseIndex]
+        : ability.decisions.targets[binding.clauseIndex])
+      : undefined,
+  ).filter((clause): clause is NonNullable<typeof clause> => Boolean(clause))
   const error = canonicalTargetError(
     state,
     source,
@@ -44,6 +52,7 @@ export const validateCanonicalCopyTargets = (
           case 'object': return `object:${target.objectId}:${target.incarnation ?? ''}:${target.zone ?? ''}`
         }
       })),
+    clausesOverride,
   )
   return error
 }
