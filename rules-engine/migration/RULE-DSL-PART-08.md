@@ -12,15 +12,25 @@ cannot publish payments, targets, or cast occurrences.
 
 ## Checkpoints
 
-- [ ] define typed cost plans and transaction frames
-- [ ] validate target/payment uniqueness and full payment
-- [ ] expose read-only `prepareAction` offers without claiming execution support
-- [ ] cover mana-ability classification and activation permission checks
-- [ ] add rollback, atomic commit, and payment-frame tests
-- [ ] run rules/type/import checks and record remaining limitations
+- [x] define typed cost plans and transaction frames
+- [x] validate target/payment uniqueness and full payment
+- [x] expose read-only `prepareAction` offers without claiming execution support
+- [x] cover mana-ability classification and activation permission checks
+- [x] add rollback, atomic commit, and payment-frame tests
+- [x] run rules/type/import checks and record remaining limitations
 
 ## Remaining work
 
 Integration with every legacy cast and activation route remains a later
 migration concern. Replacement-aware payment choice coverage belongs to Part 11,
 but this transaction frame must remain the insertion point for those choices.
+
+## Validation
+
+- `tsc --noEmit` — passed.
+- `bun test rules-engine/src/cardPlugins/dsl` — 69 passed, 0 failed.
+- `bun test rules-engine` — 2,253 passed, 1 pre-existing failure in
+  `combatPreventionCards.test.ts` (Inkshield creates six Inklings instead of
+  three); this is outside Part08 and reproduces when run in isolation.
+- `check:imports` — passed through the commit hook; the hook's lint step could
+  not run because `oxlint` is unavailable in the isolated worktree.
