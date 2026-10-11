@@ -30,6 +30,7 @@ describe('announcement transactions', () => {
     expect(result.transaction.status).toBe('provisional')
     expect(result.transaction.lockedCost.mana).toBe('{2}{G}')
     expect(commitAnnouncement(result.transaction).status).toBe('committed')
+    expect(() => commitAnnouncement(result.transaction)).toThrow('no longer provisional')
   })
 
   test('duplicate sources, incomplete payment, and cancellation leave no committed transaction', () => {
