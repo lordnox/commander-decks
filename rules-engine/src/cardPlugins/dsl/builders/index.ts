@@ -10,8 +10,6 @@ import type {
   ContextBinding,
   ContextReference,
   Cost,
-  CostIncrease,
-  CostReduction,
   DecisionsInput,
   DecisionsSpec,
   DistributionSpec,
@@ -189,45 +187,40 @@ const normalizeProgram = (program: ResolutionProgramInput): ResolutionProgram =>
   })
 }
 
-export const spell = (input: {
-  decisions?: DecisionsInput
-  costs?: readonly Cost[]
-  optionalCosts?: readonly Cost[]
-  alternativeCosts?: readonly (readonly Cost[])[]
-  costIncreases?: readonly CostIncrease[]
-  costReductions?: readonly CostReduction[]
-} & ResolutionProgramInput): SpellAbilityDefinition => immutableData({
-  kind: 'spell',
-  decisions: decisions(input.decisions),
+type CostFieldsInput = Partial<Pick<
+  SpellAbilityDefinition,
+  'costs' | 'optionalCosts' | 'alternativeCosts' | 'costIncreases' | 'costReductions'
+>>
+
+const normalizeCostFields = (input: CostFieldsInput) => ({
   costs: input.costs ?? [],
   ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
   ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
   ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
   ...(input.costReductions ? { costReductions: input.costReductions } : {}),
+})
+
+export const spell = (input: {
+  decisions?: DecisionsInput
+} & CostFieldsInput & ResolutionProgramInput) => immutableData({
+  kind: 'spell' as const,
+  decisions: decisions(input.decisions),
+  ...normalizeCostFields(input),
   ...normalizeProgram(input),
-}) as SpellAbilityDefinition
+}) satisfies SpellAbilityDefinition
 
 export const activated = (input: {
   availableFrom?: readonly Zone[]
   timing?: ActivatedAbilityDefinition['timing']
   decisions?: DecisionsInput
-  costs?: readonly Cost[]
-  optionalCosts?: readonly Cost[]
-  alternativeCosts?: readonly (readonly Cost[])[]
-  costIncreases?: readonly CostIncrease[]
-  costReductions?: readonly CostReduction[]
-} & ResolutionProgramInput): ActivatedAbilityDefinition => immutableData({
-  kind: 'activated',
+} & CostFieldsInput & ResolutionProgramInput) => immutableData({
+  kind: 'activated' as const,
   availableFrom: input.availableFrom ?? ['battlefield'],
   timing: input.timing ?? 'anyTime',
   decisions: decisions(input.decisions),
-  costs: input.costs ?? [],
-  ...(input.optionalCosts ? { optionalCosts: input.optionalCosts } : {}),
-  ...(input.alternativeCosts ? { alternativeCosts: input.alternativeCosts } : {}),
-  ...(input.costIncreases ? { costIncreases: input.costIncreases } : {}),
-  ...(input.costReductions ? { costReductions: input.costReductions } : {}),
+  ...normalizeCostFields(input),
   ...normalizeProgram(input),
-}) as ActivatedAbilityDefinition
+}) satisfies ActivatedAbilityDefinition
 
 export const whenever = (
   on: OccurrencePattern,
