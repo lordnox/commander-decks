@@ -41,5 +41,6 @@ The live host receives the keep/retarget offer and typed picker request from the
 same private resolution frame. Invalid revision, seat, candidate, duplicate,
 cross-clause, and stale-identity answers are rejected before the parent
 resolution resumes. The repository-wide typecheck still reports the unrelated
-pre-existing live-runner handler-union errors; the Part 09 copy tests and
-focused compiler/rules checks pass.
+pre-existing allocation-choice union errors in `canonicalAnnouncement.ts` and
+the live-runner handler preparation; the Part 09 copy tests and focused
+compiler/rules checks pass.
