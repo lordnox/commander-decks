@@ -1,8 +1,8 @@
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { effectsOf } from '../../cardRules'
-import type { CardRuleDefinitionV1, TargetClause } from '../schema/v1'
-import type { CanonicalTargetBinding, GameObject, GameState, PlayerId, StackItem, TargetRef } from '../../../types'
+import type { CardRuleDefinitionV1, TargetClause, TargetConstraint } from '../schema/v1'
+import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackItem, TargetRef } from '../../../types'
 import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
@@ -182,7 +182,7 @@ const groupedTargets = (
 }
 
 const satisfiesConstraints = (
-  constraints: readonly import('../schema/v1').TargetConstraint[] | undefined,
+  constraints: readonly TargetConstraint[] | undefined,
   slots: readonly (readonly TargetRef[])[],
 ) => (constraints ?? []).every((constraint) => {
   const seen = new Set<string>()
@@ -285,7 +285,7 @@ export const canonicalTargetCandidates = (
   source: GameObject,
   ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
   controller: PlayerId,
-  occurrence?: import('../../../types').OccurrenceSnapshot,
+  occurrence?: OccurrenceSnapshot,
   clausesOverride?: readonly TargetClause[],
   x?: number,
 ) => {

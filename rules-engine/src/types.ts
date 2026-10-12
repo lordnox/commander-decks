@@ -1,6 +1,9 @@
 import type PluginCatalog from './catalog'
 import type Draft from './draft'
-import type { CardInstruction } from './cardPlugins/effects'
+import type { CardEffect, CardInstruction } from './cardPlugins/effects'
+import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
+import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
+import type { CardRuleDefinitionSnapshotV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
@@ -73,7 +76,7 @@ export type RoomDoorCharacteristics = FaceCharacteristics & {
   name: string
   oracleText: string
   grantedRules?: string[]
-  effects?: import('./cardPlugins/effects').CardEffect[]
+  effects?: CardEffect[]
 }
 
 export type CopySnapshot = {
@@ -132,7 +135,7 @@ export type ReversibleEffect =
       kind: 'triggerGrant'
       sourceId: string
       grantId: string
-      trigger: import('./cardPlugins/effects').CardEffect
+      trigger: CardEffect
     }
   | {
       kind: 'loseAbilitiesBecome'
@@ -282,9 +285,9 @@ export type GameObject = {
   /** Exiled until an opponent becomes the monarch (Palace Jailer shape). */
   exiledUntilOpponentMonarch?: boolean
   /** Stamped from the name-keyed card-rule table when the object is created. */
-  effects?: import('./cardPlugins/effects').CardEffect[]
+  effects?: CardEffect[]
   /** Optional canonical rules pinned onto this object by the versioned registry. */
-  ruleDefinition?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  ruleDefinition?: CardRuleDefinitionSnapshotV1
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
   /** Multikicker count stamped when this permanent entered from a resolving spell. */
@@ -392,7 +395,7 @@ export type StackExecutionContext = {
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
-  definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  definitionSnapshot?: CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
   choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
@@ -405,7 +408,7 @@ export type StackExecutionContext = {
   /** Stable scope for each selected mode occurrence; repeated modes get distinct scopes. */
   modeScopeIds?: string[]
   /** Announcement-time allocations, keyed by each mode scope and local clause. */
-  distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+  distributionBindings?: DistributionAllocation[]
   distributionBounds?: readonly { total: number; minEach: number }[]
   declarationPath?: string
   /** Server-authoritative announcement record captured before cost components commit. */
@@ -415,7 +418,7 @@ export type StackExecutionContext = {
     phase: 'committed'
     lockedCost: {
       mana?: string
-      nonMana: readonly import('./cardPlugins/dsl/schema/v1').Cost[]
+      nonMana: readonly Cost[]
       x?: number
     }
     payment: readonly { sourceId: string; mana: ManaId; amount?: number; restricted?: boolean }[]
@@ -431,7 +434,7 @@ export type ProgramScopeFrame = {
   path: string
   /** Target binding scope used by instructions in this frame. */
   scopeId?: string
-  instructions: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
+  instructions: readonly Instruction[]
   cursor: number
 }
 
@@ -447,7 +450,7 @@ export type CanonicalResolutionFrame = {
   parentPriority?: PlayerId | null
   controller: PlayerId
   intendedPriority: PlayerId
-  definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  definitionSnapshot: CardRuleDefinitionSnapshotV1
   declarationPath: string
   source: CapturedObject
   scopeId?: string
@@ -457,7 +460,7 @@ export type CanonicalResolutionFrame = {
   /** Target legality keyed by the local scope and clause index. */
   targetLegalityByScope?: Record<string, Record<number, boolean[]>>
   /** Validated announcement-time allocations retained across resolution suspension. */
-  distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+  distributionBindings?: DistributionAllocation[]
   choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
   results?: Record<string, boolean | number>
   pendingResult?: {
@@ -514,11 +517,11 @@ export type PendingTrigger = {
   id: string
   source: GameObject
   instructions: CardInstruction[]
-  effect: Pick<Extract<import('./cardPlugins/effects').CardEffect, { op: 'trigger' }>, 'do' | 'if' | 'targets' | 'onceEachTurn' | 'whenResolvedNth'>
+  effect: Pick<Extract<CardEffect, { op: 'trigger' }>, 'do' | 'if' | 'targets' | 'onceEachTurn' | 'whenResolvedNth'>
   execution: StackExecutionContext
   /** Canonical DSL triggered ability pinned at the occurrence. */
   canonical?: {
-    definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV1
     abilityIndex: number
   }
   /** CR 603.3b second-pass marker: this occurrence was caused by an ability triggering. */
@@ -621,13 +624,13 @@ export type GameState = {
 export type ProvisionalAnnouncementFrame = {
   id: string
   payer: PlayerId
-  transaction: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
+  transaction: AnnouncementTransaction
   baseline: GameState
   continuation: Extract<GameEvent, { type: 'castSpell' }>
   plannedManaActivations?: Array<Extract<GameEvent, { type: 'activateAbility' }>>
   plannedManaCursor?: number
   source?: CapturedObject
-  definitionSnapshot?: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+  definitionSnapshot?: CardRuleDefinitionSnapshotV1
 }
 
 export type AttackerDecl = { objectId: string; defender: TargetRef | PlayerId }
@@ -737,7 +740,7 @@ export type GameEvent =
       /** Announcement-time selected modal occurrences, in answer order. */
       modeIndices?: number[]
       /** Announcement-time distribution allocations keyed by modal scope. */
-      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+      distributionBindings?: DistributionAllocation[]
       additionalGeneric?: number
       kicked?: boolean
       giftPromised?: boolean
@@ -761,7 +764,7 @@ export type GameEvent =
       copy?: boolean
       withoutPayingMana?: boolean
       /** Server-private serializable canonical announcement continuation. */
-      canonicalTransaction?: import('./cardPlugins/dsl/compiler/announcement').AnnouncementTransaction
+      canonicalTransaction?: AnnouncementTransaction
       /** Explicit server-validated mana activation plan used before payment. */
       manaActivations?: Array<{ objectId: string; abilityId: string; choices?: string[]; x?: number }>
       wardPaid?: boolean
@@ -1053,7 +1056,7 @@ export type GameEvent =
       /** Canonical DSL targets grouped by declared clause. */
       targetClauses?: TargetRef[][]
       modeIndices?: number[]
-      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+      distributionBindings?: DistributionAllocation[]
       x?: number
       choices?: string[]
       door?: RoomDoorId

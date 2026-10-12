@@ -1,6 +1,7 @@
 import { payCost } from '../../../plugins/spells'
-import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
-import type { GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
+import type { ActivatedAbilityDefinition, Amount, CardRuleDefinitionV1, Cost, SpellAbilityDefinition, TargetClause, Zone } from '../schema/v1'
+import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
+import type { DistributionAllocation } from './modes'
 import { captureObject } from '../../../objectIdentity'
 import { evaluateObjectSelector, evaluatePlayerSelector } from './runtime'
 
@@ -53,8 +54,8 @@ export type AnnouncementTransaction = {
   readonly proposal: AnnouncementProposal
   readonly lockedCost: LockedAnnouncementCost
   readonly payment: readonly AnnouncementManaPayment[]
-  readonly targetBindings?: readonly import('../../../types').CanonicalTargetBinding[]
-  readonly distributionBindings?: readonly import('./modes').DistributionAllocation[]
+  readonly targetBindings?: readonly CanonicalTargetBinding[]
+  readonly distributionBindings?: readonly DistributionAllocation[]
   readonly modeCount?: number
   readonly distributionBounds?: readonly { total: number; minEach: number }[]
   status: 'provisional' | 'committed' | 'rolledBack'
@@ -435,11 +436,11 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   if (source.phasedOut) return `${source.name} is phased out`
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`
   const prohibited = Object.values(input.state.objects).some((watcher) => {
-    const definition = watcher.ruleDefinition?.definition as import('../schema/v1').CardRuleDefinitionV1 | undefined
+    const definition = watcher.ruleDefinition?.definition as CardRuleDefinitionV1 | undefined
     if (!definition || !watcher.zone || !watcher.controller || watcher.phasedOut) return false
     const runtime = { state: input.state as GameState, controller: watcher.controller, source: captureObject(watcher) }
     return definition.abilities.some((ability) => ability.kind === 'static'
-      && ability.activeIn.includes(watcher.zone as import('../schema/v1').Zone)
+      && ability.activeIn.includes(watcher.zone as Zone)
       && ability.effects.some((effect) => effect.kind === 'prohibitActivation'
         && (!effect.filter.abilitySource || evaluateObjectSelector({ kind: 'objects', filter: effect.filter.abilitySource }, runtime).some((object) => object.id === source.id))
         && (!effect.filter.activator || evaluatePlayerSelector({ kind: 'players', filter: effect.filter.activator }, runtime).includes(input.payer))) )

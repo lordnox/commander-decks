@@ -46,13 +46,13 @@ import { canonicalFlagbearerError, canonicalTargetBindings, canonicalTargetError
 import { activationPermission, beginSpellAnnouncement, commitAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount } from '../cardPlugins/dsl/compiler'
 import { canonicalManaClassification } from '../cardPlugins/activated'
 import type { AnnouncementTransaction } from '../cardPlugins/dsl/compiler/announcement'
-import type { Cost } from '../cardPlugins/dsl/schema/v1'
+import type { AbilityDefinition, Cost } from '../cardPlugins/dsl/schema/v1'
 import { evaluateDistributionBounds, evaluateModeCount, modalTargetLayout, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from '../cardPlugins/dsl/compiler/modes'
 import { amountEvaluationContext } from '../cardPlugins/dsl/compiler/runtime'
 
 type InternalCastEvent = Extract<GameEvent, { type: 'castSpell' }>
 
-const modalInputs = (state: GameState, source: GameObject, ability: Extract<import('../cardPlugins/dsl/schema/v1').AbilityDefinition, { kind: 'spell' }>, abilityIndex: number, event: InternalCastEvent, pinnedModeCount?: number) => {
+const modalInputs = (state: GameState, source: GameObject, ability: Extract<AbilityDefinition, { kind: 'spell' }>, abilityIndex: number, event: InternalCastEvent, pinnedModeCount?: number) => {
   if (!('modes' in ability)) return undefined
   const layout = pinnedModeCount !== undefined && event.modeIndices
     ? modalTargetLayout(ability, abilityIndex, event.modeIndices)
@@ -76,7 +76,7 @@ const modalInputs = (state: GameState, source: GameObject, ability: Extract<impo
 }
 
 /** Build the server-owned payment frame before any planned mana event runs. */
-export const preparePlannedSpellAnnouncement = (state: import('../types').GameState, event: InternalCastEvent) => {
+export const preparePlannedSpellAnnouncement = (state: GameState, event: InternalCastEvent) => {
   if (!event.manaActivations?.length) return { ok: false as const, error: 'mana payment plan is empty' }
   const source = state.objects[event.objectId]
   if (!source?.ruleDefinition) return { ok: false as const, error: 'planned payment requires a canonical spell' }
@@ -194,7 +194,7 @@ const targetKey = (state: GameState, target: TargetRef) => {
   }
 }
 
-const targetInputsAgree = (state: GameState, event: Extract<import('../types').GameEvent, { type: 'castSpell' }>) => {
+const targetInputsAgree = (state: GameState, event: Extract<GameEvent, { type: 'castSpell' }>) => {
   if (!event.targets || !event.targetClauses) return true
   const flat = event.targetClauses.flat()
   return flat.length === event.targets.length
