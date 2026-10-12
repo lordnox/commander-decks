@@ -338,6 +338,46 @@ describe('Part09 scoped modes and distributions', () => {
     if (!resolved.ok) return
     expect(resolved.state.players.p1.life).toBe(40)
   })
+
+  test('command pattern copies an Elemental before the later damage query', () => {
+    const elementalClause = { filter: { kind: 'objects' as const, filter: { zone: 'battlefield' as const, subtypes: ['Elemental'] } }, min: amount(1), max: amount(1), distinct: true as const }
+    const playerClause = { filter: { kind: 'players' as const, filter: {} }, min: amount(1), max: amount(1), distinct: true as const }
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [], modes: { count: amount(2), repeatable: false } },
+      modes: [
+        {
+          decisions: { targets: [elementalClause] },
+          instructions: [{ kind: 'copy', targets: { kind: 'targetRef', clauseIndex: 0 }, controller: ref('controller') }],
+        },
+        {
+          decisions: { targets: [playerClause] },
+          instructions: [{ kind: 'damage', amount: amount(2), source: ref('source'), targets: objects({ zone: 'battlefield', type: 'Creature', controller: { kind: 'targetRef', clauseIndex: 0 } }) }],
+        },
+      ],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Command pattern spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Command Elemental', { types: ['Creature'], subtypes: ['Elemental'], power: 3, toughness: 3 })] },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Command pattern spell')!
+    const elemental = Object.values(server.state.objects).find((object) => object.name === 'Command Elemental')!
+    const cast = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0, 1],
+      targetClauses: [[{ kind: 'object', objectId: elemental.id }], [{ kind: 'player', player: 'p1' }]],
+    } as any)
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    const copies = Object.values(resolved.state.objects).filter((object) => object.token && object.name === 'Command Elemental')
+    expect(copies.length).toBeGreaterThan(0)
+    expect(resolved.state.objects[elemental.id]?.damageMarked).toBe(2)
+    expect(copies.every((copy) => copy.damageMarked === 2)).toBe(true)
+  })
   test('repeated modes receive independent generated scopes and retain selection order', () => {
     expect(modeOccurrences(2, [1, 1, 0])).toEqual([
       { modeIndex: 1, occurrence: 0, scopeId: '$.abilities[2].modes[1]#0' },
