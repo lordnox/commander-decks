@@ -361,7 +361,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           sourceId: event.sourceId ?? object.id,
           sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
           definitionRevision: event.sourceRevision ?? 'unknown',
-          duration: structuredClone(duration),
+          duration: structuredClone(event.duration),
           createdTurn: event.createdTurn ?? draft.turn,
           ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
           ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
