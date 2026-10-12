@@ -2,7 +2,7 @@ import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { effectsOf } from '../../cardRules'
 import type { CardRuleDefinitionV1, TargetClause, TargetConstraint } from '../schema/v1'
-import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackItem, TargetRef } from '../../../types'
+import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackExecutionContext, StackItem, TargetRef } from '../../../types'
 import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
@@ -67,13 +67,42 @@ const contextFor = (
   source: GameObject,
   item?: StackItem,
   x?: number,
+  execution?: StackExecutionContext,
 ) => ({
+  ...(execution?.choices ?? item?.execution?.choices
+    ? {
+        choices: {
+          ...(execution?.choices ?? item?.execution?.choices),
+          ...Object.fromEntries(Object.entries(execution?.capturedChoiceAliases ?? item?.execution?.capturedChoiceAliases ?? {}).flatMap(([original, alias]) => {
+            const value = (execution?.choices ?? item?.execution?.choices)?.[original]
+            return value === undefined ? [] : [[alias, value]]
+          })),
+        },
+      }
+    : {}),
+  ...(execution?.results ?? item?.execution?.results
+    ? {
+        results: {
+          ...(execution?.results ?? item?.execution?.results),
+          ...Object.fromEntries(Object.entries(execution?.capturedResultAliases ?? item?.execution?.capturedResultAliases ?? {}).flatMap(([original, alias]) => {
+            const value = (execution?.results ?? item?.execution?.results)?.[original]
+            return value === undefined ? [] : [[alias, value]]
+          })),
+        },
+      }
+    : {}),
   state,
   controller,
   source: captureObject(source),
   ...(item ? { stackItemId: item.id } : {}),
-  ...(item?.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
-  variables: (item?.x ?? x) === undefined ? undefined : { X: item?.x ?? x },
+  ...((execution?.occurrence ?? item?.execution?.occurrence) ? { occurrence: execution?.occurrence ?? item?.execution?.occurrence } : {}),
+  ...((execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence) ? { capturedOccurrence: execution?.capturedOccurrence ?? item?.execution?.capturedOccurrence } : {}),
+  ...((execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings) ? { capturedOccurrenceBindings: execution?.capturedOccurrenceBindings ?? item?.execution?.capturedOccurrenceBindings } : {}),
+  variables: item?.x !== undefined
+    ? { X: item.x }
+    : x !== undefined
+      ? { X: x }
+      : execution?.variables ?? item?.execution?.variables,
 })
 
 const targetCounts = (
@@ -211,12 +240,13 @@ export const canonicalTargetBindings = (
   modeIndicesOverride?: readonly (number | undefined)[],
   preserveSupplied?: boolean,
   preservedPins?: ReadonlySet<number>,
+  execution?: StackExecutionContext,
 ) => {
   const ability = definition.abilities[abilityIndex]
   if (!ability || (ability.kind !== 'spell' && ability.kind !== 'activated' && ability.kind !== 'triggered')) {
     throw new RuleDslEvaluationError(`ability ${abilityIndex} does not declare target clauses`)
   }
-  const context = contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x)
+  const context = contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x, execution)
   const clauses = clausesOverride ?? ability.decisions.targets
   const sourceId = ability.kind === 'spell' ? source.id : undefined
   const normalizedSupplied = supplied.map((target) => pinTarget(state, target))
