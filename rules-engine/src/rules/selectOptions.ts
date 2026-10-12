@@ -198,6 +198,26 @@ export const openOptionSelection = (
   else if (!draft.resolution) draft.priority = selection.seat
 }
 
+const finishCanonicalAllocation = (
+  draft: Draft,
+  seat: PlayerId,
+  announcement: CanonicalAnnouncement,
+  bounds: Array<{ total: number; minEach: number }>,
+  allocations: DistributionAllocation[],
+) => {
+  delete draft.players[seat].data[PENDING_OPTION_SELECTION]
+  stackCanonical(draft, {
+    ...announcement,
+    distributionBounds: bounds,
+    execution: {
+      ...announcement.execution,
+      distributionBindings: allocations,
+      distributionBounds: bounds,
+    },
+  })
+  draft.priority = null
+}
+
 export const selectOptions: Plugin = {
   id: 'selectOptions',
   legal: ({ state, event }) => {
@@ -343,18 +363,7 @@ export const selectOptions: Plugin = {
           nextSpecIndex += 1
         }
         if (nextSpecIndex >= allocation.specs.length) {
-          const announcement = {
-            ...allocation.announcement,
-            distributionBounds: allocation.bounds,
-            execution: {
-              ...allocation.announcement.execution,
-              distributionBindings: nextAllocations,
-              distributionBounds: allocation.bounds,
-            },
-          }
-          delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-          stackCanonical(draft, announcement)
-          draft.priority = null
+          finishCanonicalAllocation(draft, event.seat, allocation.announcement, allocation.bounds, nextAllocations)
           return
         }
         const bound = allocation.bounds[nextSpecIndex]
@@ -369,15 +378,7 @@ export const selectOptions: Plugin = {
         draft.priority = null
         return
       }
-      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
-      const completedAllocations = currentAllocations
-      const announcement = {
-        ...selection.action.announcement,
-        distributionBounds: selection.action.bounds,
-        execution: { ...selection.action.announcement.execution, distributionBindings: completedAllocations, distributionBounds: selection.action.bounds },
-      }
-      stackCanonical(draft, announcement)
-      draft.priority = null
+      finishCanonicalAllocation(draft, event.seat, selection.action.announcement, selection.action.bounds, currentAllocations)
       return
     }
     if (selection.action.kind === 'canonical-copy-retarget') {
