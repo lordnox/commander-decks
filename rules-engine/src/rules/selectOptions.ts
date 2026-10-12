@@ -325,9 +325,10 @@ export const selectOptions: Plugin = {
       )
       const job = frame.pendingCopyTargets?.[0]
       const priorAnswers = job?.answers ?? []
+      const copyController = selection.action.controller
       const legalReplacement = (candidate: TargetRef) => {
         const targets = copyTargetsWithReplacement(original, slotIndex, candidate, priorAnswers)
-        return !validateCanonicalCopyTargets(draft, original, source, targets, selection.action.controller)
+        return !validateCanonicalCopyTargets(draft, original, source, targets, copyController)
       }
       const candidates = (scoped[clauseIndex] ?? [])
         .filter(legalReplacement)
