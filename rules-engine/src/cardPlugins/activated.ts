@@ -20,13 +20,13 @@ import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, 
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
-import type { Instruction } from './dsl/schema/v1'
+import type { AbilityDefinition, Instruction } from './dsl/schema/v1'
 import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
-const activatedModalInputs = (state: GameState, source: GameObject, ability: Extract<import('./dsl/schema/v1').AbilityDefinition, { kind: 'activated' }>, abilityIndex: number, event: Extract<GameEvent, { type: 'activateAbility' }>) => {
+const activatedModalInputs = (state: GameState, source: GameObject, ability: Extract<AbilityDefinition, { kind: 'activated' }>, abilityIndex: number, event: Extract<GameEvent, { type: 'activateAbility' }>) => {
   if (!('modes' in ability)) return undefined
   const layout = resolveModalInputs(ability, abilityIndex, event.modeIndices, {
     state,

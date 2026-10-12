@@ -14,5 +14,29 @@
     "unicorn/no-array-sort": "off",
     "unicorn/no-thenable": "off",
     "no-underscore-dangle": ["warn", { "allow": ["_libraries"] }]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "rules-engine/src/actions.ts",
+        "rules-engine/src/kernel.ts",
+        "rules-engine/src/types.ts",
+        "rules-engine/src/cardPlugins/activated.ts",
+        "rules-engine/src/cardPlugins/dsl/compiler/*.ts",
+        "rules-engine/src/plugins/spells.ts",
+        "rules-engine/src/rules/canonicalAnnouncement.ts",
+        "rules-engine/src/rules/select*.ts"
+      ],
+      "rules": {
+        "typescript/consistent-type-imports": [
+          "error",
+          {
+            "disallowTypeAnnotations": true,
+            "prefer": "type-imports",
+            "fixStyle": "separate-type-imports"
+          }
+        ]
+      }
+    }
+  ]
 }

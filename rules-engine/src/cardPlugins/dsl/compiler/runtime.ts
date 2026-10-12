@@ -12,6 +12,7 @@ import type {
   Amount,
   AmountEvaluationContext,
   ChoiceReference,
+  Condition,
   ContextReference,
   NumericCharacteristic,
   ObjectFilter,
@@ -27,6 +28,7 @@ import type {
   StackItemSelector,
   TargetReference,
 } from '../schema/v1'
+import type { DistributionAllocation } from './modes'
 import { evaluateAmount } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
 
@@ -41,7 +43,7 @@ export type RuntimeBindings = {
   choices?: Readonly<Record<string, readonly BoundRecipient[]>>
   variables?: Readonly<Partial<Record<'X', number>>>
   results?: Readonly<Record<string, boolean | number>>
-  distributions?: readonly import('./modes').DistributionAllocation[]
+  distributions?: readonly DistributionAllocation[]
   scopeId?: string
 }
 
@@ -314,7 +316,7 @@ export const evaluateRuntimeAmount = (
 ) => evaluateAmount(expression, amountEvaluationContext(context))
 
 export const evaluateCondition = (
-  condition: import('../schema/v1').Condition,
+  condition: Condition,
   context: RuleDslRuntimeContext,
 ): boolean => {
   switch (condition.kind) {

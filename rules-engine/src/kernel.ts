@@ -6,6 +6,7 @@ import type {
   GameState,
   HookCtx,
   EventTrace,
+  ManaId,
   PlayerId,
   ReduceResult,
   RuleInstance,
@@ -128,7 +129,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
 }
 
 const actualManaPayment = (before: GameState, after: GameState, payer: PlayerId) => {
-  const spent: Array<{ sourceId: string; mana: import('./types').ManaId; amount: number; restricted?: boolean }> = []
+  const spent: Array<{ sourceId: string; mana: ManaId; amount: number; restricted?: boolean }> = []
   for (const mana of ['C', 'W', 'U', 'B', 'R', 'G'] as const) {
     const amount = Math.max(0, before.players[payer].mana[mana] - after.players[payer].mana[mana])
     if (amount > 0) spent.push({ sourceId: `${payer}.pool.${mana}`, mana, amount })

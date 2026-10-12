@@ -31,6 +31,7 @@ import {
 import { effectsOf } from './cardPlugins/cardRules'
 import { canonicalManaAbilityForTap } from './cardPlugins/activated'
 import { activationPermission } from './cardPlugins/dsl/compiler'
+import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
   activateEffect,
@@ -154,7 +155,7 @@ export type AvailableAction =
       adventureCast?: boolean
       targetGroups?: ActionTargetGroup[]
       modeIndices?: number[]
-      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+      distributionBindings?: DistributionAllocation[]
     }
   | { kind: 'declineFreeCast'; objectId: string; name: string }
   | {
@@ -174,7 +175,7 @@ export type AvailableAction =
       targetObjectIds?: string[]
       targetGroups?: ActionTargetGroup[]
       modeIndices?: number[]
-      distributionBindings?: import('./cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+      distributionBindings?: DistributionAllocation[]
       mana?: ManaId
       door?: RoomDoorId
     }
