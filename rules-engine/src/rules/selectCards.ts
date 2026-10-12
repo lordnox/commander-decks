@@ -19,7 +19,8 @@ import { addPlusCounters } from '../cardPlugins/effectRuntime'
 import { payCost } from '../plugins/spells'
 import { registerDelayedTrigger } from './delayedTriggers'
 import { objectIdentity, targetObject } from '../objectIdentity'
-import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
 import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
@@ -105,21 +106,7 @@ export type PendingCardSelection = {
   /** CR 603.3b ordering answer for a controller's pending trigger group. */
   triggerOrder?: { ids: string[]; pass: 1 | 2; entries?: Array<{ id: string; label: string }> }
   /** Canonical triggered ability target answer, retained until it is stacked. */
-  canonicalTrigger?: {
-    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
-    abilityIndex: number
-    execution: StackExecutionContext
-    sourceId: string
-    targetClauses?: Array<{ min: number; max: number }>
-        targetClauseDefinitions?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
-    targetIndex?: number
-    selectedTargets?: import('../types').TargetRef[]
-    selectedModes?: number[]
-    targetScopeIds?: string[]
-    targetModeIndices?: Array<number | undefined>
-    modeScopeIds?: string[]
-    distributionBounds?: Array<{ total: number; minEach: number }>
-  }
+  canonicalTrigger?: CanonicalChoicePayload
   /** Put a targeted triggered ability on the stack after this pre-stack target choice. */
   triggerAbilityId?: string
   triggerInstructions?: CardInstruction[]
@@ -885,22 +872,14 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       min: event.objectIds?.length ?? 0,
       max: event.objectIds?.length ?? 0,
     }]
-    continueCanonicalTargetSelection(draft, {
-      definitionSnapshot: selection.canonicalTrigger.definitionSnapshot,
-      abilityIndex: selection.canonicalTrigger.abilityIndex,
-      execution: selection.canonicalTrigger.execution,
+    continueCanonicalTargetSelection(draft, canonicalChoiceAnnouncement(selection.canonicalTrigger, {
       source: selection.canonicalTrigger.execution.source.snapshot,
       sourceId: selection.sourceId,
       targetClauses: selection.canonicalTrigger.targetClauseDefinitions ?? [],
       targets: selectedTargets,
-      selectedModes: selection.canonicalTrigger.selectedModes,
-      targetScopeIds: selection.canonicalTrigger.targetScopeIds,
-      targetModeIndices: selection.canonicalTrigger.targetModeIndices,
-      modeScopeIds: selection.canonicalTrigger.modeScopeIds,
-      distributionBounds: selection.canonicalTrigger.distributionBounds,
       clauseBounds: targetClauses,
       clauseIndex: (selection.canonicalTrigger.targetIndex ?? 0) + 1,
-    })
+    }))
     return
   }
 

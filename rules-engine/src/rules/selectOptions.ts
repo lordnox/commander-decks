@@ -1,13 +1,17 @@
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
+import { canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
+import type { CanonicalAnnouncement, CanonicalChoicePayload } from './canonicalAnnouncement'
 import { canonicalModeScopeId, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
+import type { DistributionAllocation } from '../cardPlugins/dsl/compiler/modes'
 import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
-import type { CanonicalResolutionFrame, CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, TargetRef } from '../types'
+import type { CanonicalResolutionFrame, CanonicalTargetBinding, GameState, ManaPool, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
+import type { CardRuleDefinitionSnapshotV1, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
+import { allocationOptions } from './canonicalAllocation'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -112,7 +116,7 @@ export type PendingOptionSelection = {
     kind: 'canonicalInstructionChoice'
     stackId: string
     scopeId?: string
-    options: readonly { id: string; instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[] }[]
+    options: readonly { id: string; instructions: readonly Instruction[] }[]
   } | {
     kind: 'canonical-copy-retarget'
     stackId: string
@@ -127,45 +131,32 @@ export type PendingOptionSelection = {
     slotIndex?: number
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
-    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV1
     abilityIndex: number
-    execution: import('../types').StackExecutionContext
+    execution: StackExecutionContext
     sourceId: string
     targets: TargetRef[]
     targetBindings: CanonicalTargetBinding[]
     modeCount: number
     repeatable: boolean
     selectedModes: number[]
-    modeClauses?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
-    modeClausesByMode?: import('../cardPlugins/dsl/schema/v1').TargetClause[][]
-    baseTargetClauses?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
+    modeClauses?: TargetClause[]
+    modeClausesByMode?: TargetClause[][]
+    baseTargetClauses?: TargetClause[]
     baseTargetScopeIds?: string[]
     baseTargetModeIndices?: Array<number | undefined>
     modeScopeIds?: string[]
     distributionBounds?: Array<{ total: number; minEach: number }>
-  } | {
+  } | ({
     kind: 'putCanonicalStackTarget'
-    definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
-    abilityIndex: number
-    execution: import('../types').StackExecutionContext
-    sourceId: string
-    targetClauses: Array<{ min: number; max: number }>
-    targetClauseDefinitions: import('../cardPlugins/dsl/schema/v1').TargetClause[]
-    targetIndex: number
-    selectedTargets: TargetRef[]
     selectedStackTargets: string[]
-    selectedModes?: number[]
-    targetScopeIds?: string[]
-    targetModeIndices?: Array<number | undefined>
-    modeScopeIds?: string[]
-    distributionBounds?: Array<{ total: number; minEach: number }>
-  } | {
+  } & CanonicalChoicePayload) | {
     /** Announcement-time trigger allocation, one original target slot at a time. */
     kind: 'putCanonicalTriggeredAbilityAllocation'
-    announcement: import('./canonicalAnnouncement').CanonicalAnnouncement
-    specs: import('../cardPlugins/dsl/schema/v1').DistributionSpec[]
+    announcement: CanonicalAnnouncement
+    specs: DistributionSpec[]
     bounds: Array<{ total: number; minEach: number }>
-    allocations: import('../cardPlugins/dsl/compiler/modes').DistributionAllocation[]
+    allocations: DistributionAllocation[]
     recipientCounts: number[]
     specIndex: number
     recipientCount: number
@@ -328,15 +319,8 @@ export const selectOptions: Plugin = {
         : entry)
       if (nextIndex < allocation.recipientCount) {
         const bound = allocation.bounds[allocation.specIndex]
-        const remaining = allocation.recipientCount - nextIndex - 1
         const chosenTotal = nextAmounts.reduce((sum, value) => sum + value, 0)
-        const min = bound.minEach
-        const max = bound.total - chosenTotal - min * remaining
-        const options = nextIndex === allocation.recipientCount - 1
-          ? [{ id: `allocation:${nextIndex}:${max}`, label: String(max) }]
-          : Number.isSafeInteger(max) && max - min <= 256
-            ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:${nextIndex}:${min + index}`, label: String(min + index) }))
-            : []
+        const options = allocationOptions(nextIndex, allocation.recipientCount, bound, chosenTotal)
         draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
           ...selection,
           id: draft.allocId('option'),
@@ -375,13 +359,7 @@ export const selectOptions: Plugin = {
         }
         const bound = allocation.bounds[nextSpecIndex]
         const nextRecipientCount = allocation.recipientCounts[nextSpecIndex]
-        const min = bound.minEach
-        const max = bound.total - min * Math.max(0, nextRecipientCount - 1)
-        const options = nextRecipientCount === 1
-          ? [{ id: 'allocation:0:' + max, label: String(max) }]
-          : Number.isSafeInteger(max) && max - min <= 256
-            ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
-            : []
+        const options = allocationOptions(0, nextRecipientCount, bound)
         draft.players[event.seat].data[PENDING_OPTION_SELECTION] = {
           ...selection,
           id: draft.allocId('option'),
@@ -659,22 +637,14 @@ export const selectOptions: Plugin = {
         ...selectedStackTargets.map((stackId) => ({ kind: 'stackItem' as const, stackId })),
       ]
       const bounds = selection.action.targetClauses
-      continueCanonicalTargetSelection(draft, {
-        definitionSnapshot: selection.action.definitionSnapshot,
-        abilityIndex: selection.action.abilityIndex,
-        execution: selection.action.execution,
+      continueCanonicalTargetSelection(draft, canonicalChoiceAnnouncement(selection.action, {
         source: selection.action.execution.source.snapshot,
         sourceId: selection.action.sourceId,
-        targetClauses: selection.action.targetClauseDefinitions,
+        targetClauses: selection.action.targetClauseDefinitions ?? [],
         targets,
-        selectedModes: selection.action.selectedModes,
-        targetScopeIds: selection.action.targetScopeIds,
-        targetModeIndices: selection.action.targetModeIndices,
-        modeScopeIds: selection.action.modeScopeIds,
-        distributionBounds: selection.action.distributionBounds,
         clauseBounds: bounds,
         clauseIndex: selection.action.targetIndex + 1,
-      })
+      }))
       return
     }
     delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
