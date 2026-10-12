@@ -242,7 +242,7 @@ export type Instruction =
       effect: CreatedEffect
       duration: EffectDuration
     }
-  /** Ask the payer for an optional cost; run ifPaid or ifDeclined immediately, then pause for whenPaidDecisions before the later whenPaid branch. */
+  /** Offer an optional cost; run ifPaid or ifDeclined after the decision, and queue whenPaid as a separate reflexive trigger on successful payment. */
   | {
       kind: 'payOptional'
       payer: PlayerReference
