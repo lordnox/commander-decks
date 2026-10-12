@@ -413,6 +413,8 @@ export type StackExecutionContext = {
   occurrence?: OccurrenceSnapshot
   /** Parent occurrence context captured by a generated callback. */
   capturedOccurrence?: OccurrenceSnapshot
+  /** Which occurrence fields belong to the captured parent lexical scope. */
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
   /** Captured bindings inherited by a delayed/reflexive program. */
   variables?: Readonly<Partial<Record<'X', number>>>
   results?: Record<string, boolean | number>

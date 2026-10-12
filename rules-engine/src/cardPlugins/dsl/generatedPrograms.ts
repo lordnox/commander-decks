@@ -64,6 +64,16 @@ type RewrittenInstructions = {
 
 type CapturedOccurrenceBinding = 'player' | 'object.before' | 'object.after'
 
+export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: unknown }): CapturedOccurrenceBinding[] => {
+  switch (pattern.kind) {
+    case 'draw': return ['player']
+    case 'enters': return ['object.after']
+    case 'dies': return ['object.before']
+    case 'step': return pattern.active === undefined ? [] : ['player']
+    default: return []
+  }
+}
+
 const bindingAlias = (kind: 'choice' | 'result', binding: string, used: Set<string>) => {
   const safe = binding.replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 40) || 'binding'
   let candidate = `captured${kind === 'choice' ? 'Choice' : 'Result'}_${safe}`
@@ -86,14 +96,22 @@ const inspectBindings = (
   }
   if (!value || typeof value !== 'object') return
   const node = value as Record<string, unknown>
-  if (node.kind === 'choiceRef' && typeof node.binding === 'string') choices.add(node.binding)
-  if (node.kind === 'resultRef' && typeof node.binding === 'string') {
-    const fields = results.get(node.binding) ?? new Set<string>()
-    if (typeof node.field === 'string') fields.add(node.field)
-    results.set(node.binding, fields)
-  }
-  if (node.kind === 'contextRef' && (node.name === 'triggering.player' || node.name === 'triggering.object.before' || node.name === 'triggering.object.after')) {
-    occurrences.add(node.name === 'triggering.player' ? 'player' : node.name.slice('triggering.'.length) as CapturedOccurrenceBinding)
+  switch (node.kind) {
+    case 'choiceRef':
+      if (typeof node.binding === 'string') choices.add(node.binding)
+      break
+    case 'resultRef': {
+      if (typeof node.binding !== 'string') break
+      const fields = results.get(node.binding) ?? new Set<string>()
+      if (typeof node.field === 'string') fields.add(node.field)
+      results.set(node.binding, fields)
+      break
+    }
+    case 'contextRef':
+      if (node.name === 'triggering.player') occurrences.add('player')
+      if (node.name === 'triggering.object.before') occurrences.add('object.before')
+      if (node.name === 'triggering.object.after') occurrences.add('object.after')
+      break
   }
   if (typeof node.bindChoice === 'string') used.add(node.bindChoice)
   if (typeof node.bindResult === 'string') used.add(node.bindResult)
@@ -122,28 +140,30 @@ const rewriteInstructions = (
     return Object.fromEntries(Object.entries(node).map(([key, child]) => [key, rewriteValue(child)]))
   }
   const rewritten = instructions.map((instruction) => {
-    if (instruction.kind === 'sequence') {
-      const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
-      nested.shadowed.forEach((name) => shadowed.add(name))
-      return { ...instruction, instructions: nested.instructions }
-    }
-    if (instruction.kind === 'if') {
-      return {
-        ...instruction,
-        condition: rewriteValue(instruction.condition) as typeof instruction.condition,
-        then: rewriteInstructions(instruction.then, choiceAliases, resultAliases, new Set(shadowed)).instructions,
-        otherwise: rewriteInstructions(instruction.otherwise, choiceAliases, resultAliases, new Set(shadowed)).instructions,
+    switch (instruction.kind) {
+      case 'sequence': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        nested.shadowed.forEach((name) => shadowed.add(name))
+        return { ...instruction, instructions: nested.instructions }
       }
-    }
-    if (instruction.kind === 'chooseInstructions') {
-      return {
-        ...instruction,
-        chooser: rewriteValue(instruction.chooser) as typeof instruction.chooser,
-        options: instruction.options.map((option) => ({
-          ...option,
-          instructions: rewriteInstructions(option.instructions, choiceAliases, resultAliases, new Set(shadowed)).instructions,
-        })),
-      }
+      case 'if':
+        return {
+          ...instruction,
+          condition: rewriteValue(instruction.condition) as typeof instruction.condition,
+          then: rewriteInstructions(instruction.then, choiceAliases, resultAliases, new Set(shadowed)).instructions,
+          otherwise: rewriteInstructions(instruction.otherwise, choiceAliases, resultAliases, new Set(shadowed)).instructions,
+        }
+      case 'chooseInstructions':
+        return {
+          ...instruction,
+          chooser: rewriteValue(instruction.chooser) as typeof instruction.chooser,
+          options: instruction.options.map((option) => ({
+            ...option,
+            instructions: rewriteInstructions(option.instructions, choiceAliases, resultAliases, new Set(shadowed)).instructions,
+          })),
+        }
+      default:
+        break
     }
     const rewrittenInstruction = rewriteValue(instruction) as Instruction
     if ('bindChoice' in instruction && typeof instruction.bindChoice === 'string') shadowed.add(instruction.bindChoice)
@@ -185,6 +205,7 @@ export const captureLexicalBindings = (
   choices: Readonly<Record<string, CapturedChoice>> = {},
   results: Readonly<Record<string, boolean | number>> = {},
   additionalValues: readonly unknown[] = [],
+  localOccurrenceBindings: readonly CapturedOccurrenceBinding[] = [],
 ) => {
   const referencedChoices = new Set<string>()
   const referencedResults = new Map<string, Set<string>>()
@@ -192,6 +213,7 @@ export const captureLexicalBindings = (
   const usedBindings = new Set<string>([...Object.keys(choices), ...Object.keys(results)])
   inspectBindings(instructions, referencedChoices, referencedResults, referencedOccurrences, usedBindings)
   additionalValues.forEach((value) => inspectBindings(value, referencedChoices, referencedResults, referencedOccurrences, usedBindings))
+  localOccurrenceBindings.forEach((binding) => referencedOccurrences.delete(binding))
   const choiceAliases: Record<string, string> = {}
   const resultAliases: Record<string, string> = {}
   referencedChoices.forEach((binding) => {

@@ -289,11 +289,13 @@ export const canonicalTargetCandidates = (
   clausesOverride?: readonly TargetClause[],
   x?: number,
   capturedOccurrence?: import('../../../types').OccurrenceSnapshot,
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[],
 ) => {
   const context = {
     ...contextFor(state, controller, source, undefined, x),
     ...(occurrence ? { occurrence } : {}),
     ...(capturedOccurrence ? { capturedOccurrence } : {}),
+    ...(capturedOccurrenceBindings ? { capturedOccurrenceBindings } : {}),
   }
   return (clausesOverride ?? ability.decisions.targets).map((clause) => {
     switch (clause.filter.kind) {
