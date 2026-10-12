@@ -102,19 +102,23 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
   const targetBindings = announcement.selectedModes === undefined
     && announcement.targetBindings && announcement.targetBindings.length > 0
     ? announcement.targetBindings
-    : canonicalTargetBindings(
-    draft,
-    source,
-    definition,
-    announcement.abilityIndex,
-    announcement.targets,
-    undefined,
-    undefined,
-    announcement.execution.controller,
-    undefined,
-    announcement.targetClauses,
-    announcement.targetScopeIds,
-    announcement.targetModeIndices,
+    : announcement.targetClauses.length === 0
+      && announcement.targets.length === 0
+      && announcement.execution.targetBindings
+      ? announcement.execution.targetBindings
+      : canonicalTargetBindings(
+        draft,
+        source,
+        definition,
+        announcement.abilityIndex,
+        announcement.targets,
+        undefined,
+        undefined,
+        announcement.execution.controller,
+        undefined,
+        announcement.targetClauses,
+        announcement.targetScopeIds,
+        announcement.targetModeIndices,
       )
   const distributionSpecs = selectedDistributionSpecs(ability, announcement.selectedModes)
   if (distributionSpecs.length > 0 && !announcement.execution.distributionBindings) {
@@ -248,6 +252,9 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
       definitionSnapshot: announcement.definitionSnapshot,
       abilityIndex: announcement.abilityIndex,
       ...(announcement.selectedModes ? { modeIndices: announcement.selectedModes } : {}),
+      ...(announcement.execution.variables ? { variables: structuredClone(announcement.execution.variables) } : {}),
+      ...(announcement.execution.results ? { results: structuredClone(announcement.execution.results) } : {}),
+      ...(announcement.execution.scopeId ? { scopeId: announcement.execution.scopeId } : {}),
       ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
       targetBindings,

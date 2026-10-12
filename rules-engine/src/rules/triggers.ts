@@ -49,6 +49,8 @@ import type { ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, Triggered
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
 import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/activated'
+import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
+import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v1'
 
 const canonicalManaActivationEvent = (state: GameState, event: GameEvent) => {
   if (event.type !== 'activateAbility') return false
@@ -263,6 +265,98 @@ const canonicalPatternMatches = (
   return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
 }
 
+const generatedPatternMatches = (
+  state: GameState,
+  beforeState: GameState,
+  source: GameObject,
+  pattern: GeneratedAbility['on'],
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+) => {
+  switch (pattern.kind) {
+    case 'draw': {
+      if (event.type !== 'draw' || !occurrence.player) return false
+      if (pattern.filter.firstDrawInOwnDrawStep
+        && (beforeState.step !== 'draw'
+          || beforeState.active !== occurrence.player
+          || cardsDrawnThisTurn(beforeState.players[occurrence.player]) !== 0)) return false
+      if (!pattern.filter.player) return true
+      return pattern.filter.player.kind === 'players'
+        ? evaluatePlayerSelector(pattern.filter.player, {
+          state,
+          controller: source.controller,
+          source: captureObject(source),
+          occurrence,
+        }).includes(occurrence.player)
+        : evaluatePlayerReference(pattern.filter.player, {
+          state,
+          controller: source.controller,
+          source: captureObject(source),
+          occurrence,
+        }).includes(occurrence.player)
+    }
+    case 'manaAdded': return event.type === 'addMana' && event.sourceId !== source.id
+    case 'manaAbilityActivated': return canonicalManaActivationEvent(state, event)
+    case 'manaAbilityResolved': return canonicalManaSourceEvent(state, event)
+    case 'enters':
+    case 'dies': {
+      const enteringId = permanentEnteringObjectId(event, state)
+      if (pattern.kind === 'enters' && (
+        !enteringId || occurrence.object?.before?.zone === 'battlefield')) return false
+      if (pattern.kind === 'dies' && (
+        event.type !== 'move'
+        || event.to !== 'graveyard'
+        || occurrence.object?.before?.zone !== 'battlefield'
+        || occurrence.object?.before?.types.includes('Creature') !== true
+      )) return false
+      const object = pattern.kind === 'dies'
+        ? occurrence.object?.before
+        : occurrence.object?.after
+      return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
+    }
+    case 'event':
+    case 'step':
+      return false
+  }
+}
+
+const canonicalGrantedTriggersForOccurrence = (
+  state: GameState,
+  draft: Draft,
+  event: GameEvent,
+  matches: PendingTrigger[],
+) => {
+  const sources = Object.values(draft.objects).filter((object) =>
+    object.zone === 'battlefield' && !object.phasedOut && (object.canonicalGrantedAbilities?.length ?? 0) > 0)
+  for (const source of sources) {
+    source.canonicalGrantedAbilities?.forEach((grant, grantIndex) => {
+      const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
+      const occurrence = capturedOccurrence(
+        state,
+        draft,
+        event,
+        occurrenceObjectId,
+        'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+        event.type === 'gainLife' ? event.amount : undefined,
+      )
+      if (!generatedPatternMatches(state, state, source, grant.ability.on, occurrence, event)) return
+      matches.push({
+        source,
+        effect: { do: [] },
+        canonical: {
+          definitionSnapshot: generatedAbilitySnapshot(grant.ability),
+          abilityIndex: 0,
+        },
+        execution: triggerExecution(source, occurrence, draft),
+        triggeringPlayer: occurrence.player ?? source.controller,
+        triggeringObjectId: occurrenceObjectId,
+        triggerAmount: occurrence.amount,
+        payload: { grantIndex, sourceId: grant.sourceId, sourceIncarnation: grant.sourceIncarnation },
+      })
+    })
+  }
+}
+
 const canonicalTriggersForOccurrence = (
   state: GameState,
   draft: Draft,
@@ -331,6 +425,7 @@ const canonicalTriggersForOccurrence = (
       }
     })
   }
+  canonicalGrantedTriggersForOccurrence(state, draft, event, matches)
 }
 
 /** Landfall listens to land drops and zone moves, not ability resolution. */
@@ -817,6 +912,10 @@ const delayedTriggerMatches = (
     ) {
       return false
     }
+    if (trigger.objectRef) {
+      const object = state.objects[trigger.objectRef.objectId] ?? draft.objects[trigger.objectRef.objectId]
+      if (!object || object.incarnation !== trigger.objectRef.incarnation) return false
+    }
     if (trigger.condition.to !== undefined) {
       if (event.type !== 'move' || event.to !== trigger.condition.to) return false
     }
@@ -854,16 +953,33 @@ const collectDelayedTriggers = (
     }
     if (delayed.recurring) remaining.push(delayed)
     const live = draft.object(delayed.sourceId)
+    const sameSource = live && (delayed.sourceIncarnation === undefined || live.incarnation === delayed.sourceIncarnation)
     const source: GameObject = live
+      && sameSource
       ? { ...live, controller: delayed.controller }
       : {
-        ...gameObjectFieldDefaults(),
+        ...(delayed.execution?.source.snapshot ?? gameObjectFieldDefaults()),
         id: delayed.sourceId,
         name: delayed.sourceName,
         owner: delayed.controller,
         controller: delayed.controller,
         zone: 'graveyard',
       }
+    if (delayed.canonical && delayed.execution) {
+      matches.push({
+        source,
+        effect: { do: [] },
+        canonical: structuredClone(delayed.canonical),
+        execution: {
+          ...structuredClone(delayed.execution),
+          occurrence: capturedOccurrence(state, draft, event, eventObjectId(event),
+            'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+            event.type === 'gainLife' ? event.amount : undefined),
+        },
+        triggeringPlayer: delayed.controller,
+      })
+      continue
+    }
     const filter = delayed.payload?.targetFilter
     pushCopies(matches, source, {
       do: delayed.instructions,
@@ -972,6 +1088,7 @@ export const captureEventTriggers = (
       triggeringPlayer: matchedPlayer,
       triggerAmount,
       payload,
+      execution: matchedExecution,
     }) => {
       const occurrence = capturedOccurrence(
         state,
@@ -981,7 +1098,7 @@ export const captureEventTriggers = (
         matchedPlayer ?? triggeringPlayer,
         triggerAmount,
       )
-      const execution = triggerExecution(source, occurrence, draft)
+      const execution = matchedExecution ?? triggerExecution(source, occurrence, draft)
       noteOnceEachTurnIfNeeded(draft, source, effect, effectKey)
       return {
         id: pendingId ?? draft.allocId('trigger'),
@@ -1101,7 +1218,7 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
     execution: trigger.execution,
     source,
     sourceId: source.id,
-    clauses: ability.decisions.targets,
+    clauses: canonical.inheritedTargets ? [] : ability.decisions.targets,
   })
 }
 

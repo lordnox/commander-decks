@@ -36,6 +36,8 @@ import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
+import { generatedAbilitySnapshot } from './cardPlugins/dsl/generatedPrograms'
+import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'counter',
@@ -208,8 +210,11 @@ export const startCanonicalResolution = (
     definitionSnapshot: structuredClone(definitionSnapshot),
     declarationPath,
     source: structuredClone(source),
-    scopeId: canonicalScopeId(abilityIndex),
+    scopeId: item.execution?.scopeId ?? canonicalScopeId(abilityIndex),
     targetBindings: structuredClone(targetBindings),
+    ...(item.execution?.variables ? { variables: structuredClone(item.execution.variables) } : {}),
+    ...(item.execution?.choices ? { choices: structuredClone(item.execution.choices) } : {}),
+    ...(item.execution?.results ? { results: structuredClone(item.execution.results) } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
@@ -232,7 +237,7 @@ export const startCanonicalResolution = (
         })
       : [{
         path: '.instructions',
-        scopeId: canonicalScopeId(abilityIndex),
+        scopeId: item.execution?.scopeId ?? canonicalScopeId(abilityIndex),
         instructions: structuredClone(selectedInstructions),
         cursor: 0,
       }],
@@ -282,7 +287,7 @@ const runtimeContext = (
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
-  ...(item.x === undefined ? {} : { variables: { X: item.x } }),
+  variables: item.x === undefined ? frame.variables : { ...(frame.variables ?? {}), X: item.x },
 })
 
 const distributedAmount = (
@@ -348,6 +353,116 @@ const mixedRecipients = (recipient: Extract<Instruction, { kind: 'damage' }>['ta
       else damageTargets.push(...evaluatePlayerReference(recipient, context).map((player) => ({ kind: 'player' as const, player })))
   }
   return damageTargets
+}
+
+const stepIndex = (step: string) => [
+  'untap', 'upkeep', 'draw', 'precombatMain', 'beginCombat', 'declareAttackers',
+  'declareBlockers', 'firstStrikeDamage', 'combatDamage', 'endCombat',
+  'postcombatMain', 'end', 'cleanup',
+].indexOf(step)
+
+const durationMetadata = (
+  duration: import('./cardPlugins/dsl/schema/v1').EffectDuration,
+  context: RuleDslRuntimeContext,
+  draft: Draft,
+) => {
+  if (duration.kind === 'forTurns') {
+    const count = Math.max(0, availableAmount(duration.count, context) ?? 0)
+    return { durationUntilTurn: draft.turn + count }
+  }
+  if (duration.kind === 'untilStep') {
+    const active = duration.active
+      ? evaluatePlayerReference(duration.active, context)[0]
+      : draft.active
+    const targetIndex = stepIndex(duration.step)
+    const currentIndex = stepIndex(draft.step)
+    const order = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
+    const activeIndex = Math.max(0, order.indexOf(draft.active))
+    const targetPlayerIndex = active ? order.indexOf(active) : activeIndex
+    const round = order.length || 1
+    const playerDelta = targetPlayerIndex >= activeIndex
+      ? targetPlayerIndex - activeIndex
+      : round - activeIndex + Math.max(0, targetPlayerIndex)
+    let turn = draft.turn + playerDelta
+    if (playerDelta === 0 && currentIndex >= targetIndex) turn += round
+    return {
+      durationUntilStepTurn: turn,
+      ...(active ? { durationUntilStepActive: active } : {}),
+    }
+  }
+  return {}
+}
+
+const registerCanonicalDelayed = (
+  draft: Draft,
+  condition: DelayedPattern,
+  instructions: readonly Instruction[],
+  frame: CanonicalResolutionFrame,
+  context: RuleDslRuntimeContext,
+) => {
+  const eventCondition = condition.kind === 'event'
+    ? (() => {
+        const referenced = condition.objectId
+          ? evaluateObjectReference(condition.objectId, context, 'currentOrLastKnown')[0]
+          : undefined
+        return {
+          kind: 'event' as const,
+          type: condition.type as GameEvent['type'],
+          ...(referenced ? { objectId: referenced.id } : {}),
+          ...(referenced ? { objectRef: objectIdentity(referenced) } : {}),
+          ...(condition.from ? { from: condition.from as import('./types').ZoneId } : {}),
+          ...(condition.to ? { to: condition.to as import('./types').ZoneId } : {}),
+        }
+      })()
+    : {
+        kind: 'step' as const,
+        step: condition.step as import('./types').StepId,
+        ...(condition.active
+          ? { active: evaluatePlayerReference(condition.active, context)[0] }
+          : {}),
+      }
+  const generated = {
+    kind: 'triggered' as const,
+    on: condition,
+    instructions: structuredClone(instructions),
+  }
+  const parentAbilityIndex = Number(/\[(\d+)\]/.exec(frame.declarationPath)?.[1] ?? -1)
+  const parentAbility = parentAbilityIndex >= 0
+    ? frame.definitionSnapshot.definition.abilities[parentAbilityIndex]
+    : undefined
+  const modeIndex = context.scopeId?.match(/\.modes\[(\d+)\]/)?.[1]
+  const inheritedDecisions = parentAbility && modeIndex !== undefined && 'modes' in parentAbility
+    ? parentAbility.modes?.[Number(modeIndex)]?.decisions
+    : parentAbility && 'decisions' in parentAbility
+      ? parentAbility.decisions
+      : undefined
+  const inheritedTargets = Boolean(inheritedDecisions?.targets?.length)
+  draft.delayedTriggers.push({
+    id: draft.allocId('delayed'),
+    sourceId: frame.source.ref.objectId,
+    sourceName: frame.source.snapshot.name,
+    controller: frame.controller,
+    sourceIncarnation: frame.source.ref.incarnation,
+    sourceDefinitionRevision: frame.definitionSnapshot.definitionRevision,
+    condition: eventCondition,
+    instructions: [],
+    timestamp: draft.allocTs(),
+    objectRef: eventCondition.kind === 'event' ? eventCondition.objectRef : undefined,
+    execution: {
+      controller: frame.controller,
+      source: structuredClone(frame.source),
+      ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
+      ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
+      ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+      ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),
+      ...(context.scopeId ?? frame.scopeId ? { scopeId: context.scopeId ?? frame.scopeId } : {}),
+    },
+    canonical: {
+      definitionSnapshot: generatedAbilitySnapshot(generated, inheritedDecisions),
+      abilityIndex: 0,
+      ...(inheritedTargets ? { inheritedTargets: true } : {}),
+    },
+  })
 }
 
 const capturedDamageSource = (source: GameObject, context: RuleDslRuntimeContext) => ({
@@ -619,8 +734,15 @@ const actionEvents = (
         effect,
         duration: structuredClone(instruction.duration),
         sourceId: frame.source.ref.objectId,
+        sourceRef: structuredClone(frame.source.ref),
         sourceRevision: frame.definitionSnapshot.definitionRevision,
+        createdTurn: draft.turn,
+        ...durationMetadata(instruction.duration, context, draft),
       }))
+    }
+    case 'createDelayed': {
+      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context)
+      return []
     }
     default:
       throw pathError(frame, path, `${instruction.kind} is not executable in Part 04`)
