@@ -326,9 +326,21 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         ? { kind: 'untilCleanup' as const }
         : event.duration.kind === 'permanent'
           ? { kind: 'permanent' as const }
-          : event.duration.kind === 'whileSourceOnBattlefield'
-            ? { kind: 'whileSourceOnBattlefield' as const, sourceId: event.sourceId ?? '' }
-            : { kind: 'untilCleanup' as const }
+          : event.duration.kind === 'untilStep'
+            ? {
+                kind: 'untilStep' as const,
+                step: event.duration.step as import('./types').StepId,
+                turn: event.durationUntilStepTurn ?? event.createdTurn ?? draft.turn,
+                ...(event.durationUntilStepActive !== undefined
+                  ? { active: event.durationUntilStepActive } : {}),
+              }
+            : event.duration.kind === 'forTurns'
+              ? { kind: 'forTurns' as const, untilTurn: event.durationUntilTurn ?? draft.turn + 1 }
+              : {
+                  kind: 'whileSourceOnBattlefield' as const,
+                  sourceId: event.sourceId ?? '',
+                  ...(event.sourceRef ? { sourceIncarnation: event.sourceRef.incarnation } : {}),
+                }
       if (event.effect.kind === 'pump') {
         const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
         const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
@@ -345,8 +357,13 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
           ability: structuredClone(event.effect.ability),
           sourceId: event.sourceId ?? object.id,
+          sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
           definitionRevision: event.sourceRevision ?? 'unknown',
           duration: structuredClone(event.duration) as DslEffectDuration,
+          createdTurn: event.createdTurn ?? draft.turn,
+          ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
+          ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
+          ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
         }]
       }
       return

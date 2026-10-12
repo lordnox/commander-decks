@@ -16,24 +16,22 @@ do not reuse announcement ownership or open an ordinary priority window.
 - [x] validation and canonical resolution payment/effect frame helpers
 - [x] canonical effect events and resolution payment choice/resume path
 - [x] host/headless/browser projection for the new payment offer
-- [x] focused validation
+- [x] durable delayed programs, including source/version pins and captured parent bindings
+- [x] generated granted abilities with recipient-source triggering and typed targets
+- [x] declared effect/grant deadlines, including source incarnations and turn/step expiry
+- [x] focused validation for this effects/delayed scope
 
 ## Tests
 
-`bun run typecheck` and `bun test rules-engine/src/cardPlugins/dsl/part10.test.ts
-rules-engine/src/cardPlugins/dsl/part09.copies.test.ts` pass. The Part 10 tests
-cover immutable node compilation, generated/delayed ability source pins,
-payment payer ownership, decline behavior, replaced payment destinations, and
-reflexive program creation.
+`bun run typecheck` and the focused Part 10, Part 09 copy, delayed-trigger, and
+compiler capability tests pass on this scope. The Part 10 tests cover immutable
+node compilation, delayed execution after source departure and JSON restart,
+captured parent target bindings, generated ability triggering with fresh typed
+targets, source-incarnation expiry, and declared step/turn deadlines.
 
 ## Remaining work
 
-Part 11 owns resumable replacement lineage. This slice preserves the existing
-destination replacement and transaction semantics while keeping the new
-program contexts independent of the live source. The existing typed option
-envelope projects resolution payments to headless and browser clients, and the
-journal rebuilds the offer from the private kernel selection. A paid `whenPaid`
-program is captured as a canonical pending trigger; the next checkpoint
-performs its APNAP placement and starts the normal target announcement
-procedure, so it can open a fresh target decision without granting priority
-inside the parent resolution.
+The remaining Part 10 integration includes the final resolution-payment path
+and its host projections. Part 11 owns resumable replacement lineage. The
+delayed and granted programs implemented here stay independent of a live source
+frame and resume from their persisted snapshots and bindings.

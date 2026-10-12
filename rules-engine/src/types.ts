@@ -160,7 +160,9 @@ export type ReversibleEffect =
 export type EffectDuration =
   | { kind: 'untilCleanup' }
   | { kind: 'permanent' }
-  | { kind: 'whileSourceOnBattlefield'; sourceId: string }
+  | { kind: 'untilStep'; step: StepId; active?: PlayerId; turn: number }
+  | { kind: 'forTurns'; untilTurn: number }
+  | { kind: 'whileSourceOnBattlefield'; sourceId: string; sourceIncarnation?: number }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
   | { kind: 'cdaLifePt' }
   | { kind: 'pumpPerLinkedExile' }
@@ -289,9 +291,15 @@ export type GameObject = {
   /** Version-pinned abilities granted by a canonical temporary effect. */
   canonicalGrantedAbilities?: Array<{
     ability: GeneratedAbility
+    /** The recipient is the ability's source; these identify the grant effect. */
     sourceId: string
+    sourceIncarnation: number
     definitionRevision: string
     duration: EffectDuration
+    createdTurn: number
+    untilTurn?: number
+    untilStepTurn?: number
+    untilStepActive?: PlayerId
   }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
   ruleDefinition?: CardRuleDefinitionSnapshotV1
@@ -401,6 +409,10 @@ export type StackExecutionContext = {
   controller: PlayerId
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
+  /** Captured bindings inherited by a delayed/reflexive program. */
+  variables?: Readonly<Partial<Record<'X', number>>>
+  results?: Record<string, boolean | number>
+  scopeId?: string
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
@@ -462,6 +474,7 @@ export type CanonicalResolutionFrame = {
   source: CapturedObject
   scopeId?: string
   targetBindings?: CanonicalTargetBinding[]
+  variables?: Readonly<Partial<Record<'X', number>>>
   /** Current legality for each bound slot; missing/false slots are withheld. */
   targetLegality?: Record<number, boolean[]>
   /** Target legality keyed by the local scope and clause index. */
@@ -530,6 +543,8 @@ export type PendingTrigger = {
   canonical?: {
     definitionSnapshot: CardRuleDefinitionSnapshotV1
     abilityIndex: number
+    /** The delayed program reuses bindings captured by its parent resolution. */
+    inheritedTargets?: boolean
   }
   /** CR 603.3b second-pass marker: this occurrence was caused by an ability triggering. */
   triggeredByAbility?: boolean
@@ -699,6 +714,16 @@ export type DelayedTrigger = {
   sourceId: string
   sourceName: string
   controller: PlayerId
+  sourceIncarnation?: number
+  sourceDefinitionRevision?: string
+  objectRef?: ObjectIdentity
+  execution?: StackExecutionContext
+  canonical?: {
+    definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    abilityIndex: number
+    /** The delayed program reuses bindings captured by its parent resolution. */
+    inheritedTargets?: boolean
+  }
   condition: DelayedTriggerCondition
   instructions: CardInstruction[]
   timestamp: number
@@ -737,7 +762,12 @@ export type GameEvent =
       effect: import('./cardPlugins/dsl/schema/v1').CreatedEffect
       duration: import('./cardPlugins/dsl/schema/v1').EffectDuration
       sourceId?: string
+      sourceRef?: ObjectIdentity
       sourceRevision?: string
+      createdTurn?: number
+      durationUntilTurn?: number
+      durationUntilStepTurn?: number
+      durationUntilStepActive?: PlayerId
     }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */
   | { type: 'resumeResolution' }

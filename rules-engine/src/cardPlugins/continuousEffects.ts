@@ -423,10 +423,22 @@ const durationHolds = (
   if (object.zone !== 'battlefield') return false
   if (duration.kind === 'untilCleanup') return !endTurnEffects
   if (duration.kind === 'permanent') return true
-  const source = state.objects[duration.sourceId]
   if (duration.kind === 'whileSourceOnBattlefield') {
-    return source?.zone === 'battlefield'
+    const source = state.objects[duration.sourceId]
+    return Boolean(source
+      && source.zone === 'battlefield'
+      && (duration.sourceIncarnation === undefined || source.incarnation === duration.sourceIncarnation))
   }
+  if (duration.kind === 'forTurns') {
+    return state.turn < duration.untilTurn
+  }
+  if (duration.kind === 'untilStep') {
+    if (state.turn < duration.turn) return true
+    if (state.turn > duration.turn) return false
+    return !(state.step === duration.step
+      && (duration.active === undefined || duration.active === state.active))
+  }
+  const source = state.objects[duration.sourceId]
   return Boolean(
     source
     && source.zone === 'battlefield'
@@ -435,6 +447,47 @@ const durationHolds = (
     && source.power !== null
     && object.power <= source.power,
   )
+}
+
+const canonicalGrantHolds = (
+  state: GameState,
+  object: GameObject,
+  grant: NonNullable<GameObject['canonicalGrantedAbilities']>[number],
+  endTurnEffects: boolean,
+) => {
+  if (object.zone !== 'battlefield') return false
+  switch (grant.duration.kind) {
+    case 'permanent': return true
+    case 'untilCleanup': return !endTurnEffects
+    case 'forTurns': return state.turn < (grant.untilTurn ?? grant.createdTurn + 1)
+    case 'untilStep': {
+      const deadlineTurn = grant.untilStepTurn ?? grant.createdTurn
+      if (state.turn < deadlineTurn) return true
+      if (state.turn > deadlineTurn) return false
+      return !(state.step === grant.duration.step
+        && (grant.untilStepActive === undefined || grant.untilStepActive === state.active))
+    }
+    case 'whileSourceOnBattlefield': {
+      const source = state.objects[grant.sourceId]
+      return Boolean(source
+        && source.zone === 'battlefield'
+        && source.incarnation === grant.sourceIncarnation)
+    }
+  }
+}
+
+const expireCanonicalGrants = (
+  state: GameState,
+  object: GameObject,
+  endTurnEffects: boolean,
+) => {
+  const grants = object.canonicalGrantedAbilities
+  if (!grants) return false
+  const remaining = grants.filter((grant) => canonicalGrantHolds(state, object, grant, endTurnEffects))
+  if (remaining.length === grants.length) return false
+  if (remaining.length > 0) object.canonicalGrantedAbilities = remaining
+  else delete object.canonicalGrantedAbilities
+  return true
 }
 
 const effectHolds = (
@@ -840,12 +893,15 @@ export const continuousEffects: Plugin = {
     }
     for (const object of Object.values(draft.objects)) {
       expireEffects(draft, object, endTurnEffects)
+      expireCanonicalGrants(draft, object, endTurnEffects)
     }
   },
   // Recheck after every reducer pass so a condition changed by a later plugin
   // expires before the game next reaches a stable priority window.
   recompute: ({ draft }) =>
     hasExpiredEffects(draft)
+      || Object.values(draft.objects).some((object) =>
+        (object.canonicalGrantedAbilities ?? []).some((grant) => !canonicalGrantHolds(draft, object, grant, false)))
       ? [{ type: 'custom', name: EXPIRE_EFFECTS }]
       : [],
 }
