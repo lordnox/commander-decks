@@ -14,6 +14,7 @@ import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSp
 import { allocationOptions } from './canonicalAllocation'
 import { payCost } from '../plugins/spells'
 import { cardRuleDefinition } from '../cardPlugins/dsl/builders'
+import { canPayResolutionMana, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -135,6 +136,7 @@ export type PendingOptionSelection = {
     /** A resolution-time payment is answered by its payer while its parent frame remains active. */
     kind: 'canonicalResolutionPayment'
     stackId: string
+    scopeId?: string
     cost: Cost
     source: CapturedObject
     controller: PlayerId
@@ -143,6 +145,7 @@ export type PendingOptionSelection = {
     ifPaid: readonly Instruction[]
     ifDeclined: readonly Instruction[]
     whenPaid: readonly Instruction[]
+    paymentAmount: number
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1
@@ -232,6 +235,62 @@ const finishCanonicalAllocation = (
   draft.priority = null
 }
 
+export const queuePaidReflexive = (
+  draft: Draft,
+  action: Extract<PendingOptionSelection['action'], { kind: 'canonicalResolutionPayment' }>,
+  payer: PlayerId,
+) => {
+  if (action.whenPaid.length === 0) return
+  const definition = cardRuleDefinition(1, { abilities: [{
+    kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
+    decisions: {
+      targets: action.whenPaidDecisions?.targets ?? [],
+      ...(action.whenPaidDecisions?.constraints ? { constraints: action.whenPaidDecisions.constraints } : {}),
+      ...(action.whenPaidDecisions?.variables ? { variables: action.whenPaidDecisions.variables } : {}),
+      ...(action.whenPaidDecisions?.distributions ? { distributions: action.whenPaidDecisions.distributions } : {}),
+    },
+    instructions: action.whenPaid,
+  }] })
+  const occurrence = { kind: 'event' as const, eventType: 'resolutionPayment', player: payer }
+  const parentFrame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === action.stackId
+    ? draft.resolution
+    : undefined
+  const parentItem = draft.stack.find((item) => item.id === action.stackId)
+  draft.pendingTriggers = [...(draft.pendingTriggers ?? []), {
+    id: draft.allocId('reflexive'),
+    source: structuredClone(action.source.snapshot),
+    instructions: [],
+    effect: { do: [] },
+    execution: {
+      controller: action.controller,
+      source: structuredClone(action.source),
+      occurrence,
+      ...(parentFrame?.choices ? { choices: structuredClone(parentFrame.choices) } : {}),
+      ...(parentFrame?.results ? { results: structuredClone(parentFrame.results) } : {}),
+      ...(parentItem?.x !== undefined ? { variables: { X: parentItem.x } } : {}),
+      ...(parentItem?.execution?.modeIndices ? { modeIndices: structuredClone(parentItem.execution.modeIndices) } : {}),
+      ...(parentItem?.execution?.modeScopeIds ? { modeScopeIds: structuredClone(parentItem.execution.modeScopeIds) } : {}),
+      definitionSnapshot: {
+        schemaVersion: definition.schemaVersion,
+        definitionRevision: definition.definitionRevision,
+        definition,
+      },
+      abilityIndex: 0,
+    },
+    canonical: {
+      definitionSnapshot: {
+        schemaVersion: definition.schemaVersion,
+        definitionRevision: definition.definitionRevision,
+        definition,
+      },
+      abilityIndex: 0,
+    },
+    triggeredByAbility: true,
+    triggeringPlayer: payer,
+  }]
+  draft.note(`resolution payment paid; reflexive program ${action.bindResult} queued for checkpoint`)
+}
+
 export const selectOptions: Plugin = {
   id: 'selectOptions',
   legal: ({ state, event }) => {
@@ -293,6 +352,15 @@ export const selectOptions: Plugin = {
         action.controller,
       )
       if (error) return error
+    }
+    if (selection.action.kind === 'canonicalResolutionPayment' && event.optionId === 'pay') {
+      const cost = selection.action.cost
+      const payable = cost.kind === 'mana'
+        ? canPayResolutionMana(state, event.seat, cost, selection.action.source)
+        : cost.kind === 'life'
+          ? state.players[event.seat].life >= selection.action.paymentAmount
+          : resolutionPaymentCandidates(state, event.seat, cost, selection.action.source).length >= selection.action.paymentAmount
+      if (!payable) return `${event.seat} cannot pay this resolution cost`
     }
   },
   apply: ({ event, draft }) => {
@@ -532,60 +600,71 @@ export const selectOptions: Plugin = {
       if (event.optionId !== 'pay' && event.optionId !== 'decline') return
       const cost = selection.action.cost
       const paid = event.optionId === 'pay'
-        && cost.kind === 'mana'
-        && Boolean(payCost(draft.players[event.seat].mana, cost.amount))
-      if (paid) {
-        const nextMana = payCost(draft.players[event.seat].mana, cost.amount)
-        if (!nextMana) return
-        draft.players[event.seat].mana = nextMana
-      }
+        && (cost.kind === 'mana'
+          ? canPayResolutionMana(draft, event.seat, cost, selection.action.source)
+          : cost.kind === 'life'
+            ? draft.players[event.seat].life >= selection.action.paymentAmount
+            : resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source).length >= selection.action.paymentAmount)
+      if (event.optionId === 'pay' && !paid) return
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
-        draft.resolution.results = { ...draft.resolution.results, [selection.action.bindResult]: paid }
+        const frame = draft.resolution
         const branch = paid ? selection.action.ifPaid : selection.action.ifDeclined
-        if (branch.length > 0) draft.resolution.scopes.push({ path: '.payOptional', instructions: structuredClone(branch), cursor: 0 })
-        if (paid && selection.action.whenPaid.length > 0) {
-          const definition = cardRuleDefinition(1, { abilities: [{
-            kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
-            decisions: {
-              targets: selection.action.whenPaidDecisions?.targets ?? [],
-              ...(selection.action.whenPaidDecisions?.constraints ? { constraints: selection.action.whenPaidDecisions.constraints } : {}),
-              ...(selection.action.whenPaidDecisions?.variables ? { variables: selection.action.whenPaidDecisions.variables } : {}),
-              ...(selection.action.whenPaidDecisions?.distributions ? { distributions: selection.action.whenPaidDecisions.distributions } : {}),
-            },
-            instructions: selection.action.whenPaid,
-          }] })
-          const occurrence = { kind: 'event' as const, eventType: 'resolutionPayment', player: event.seat }
-          draft.pendingTriggers = [...(draft.pendingTriggers ?? []), {
-            id: draft.allocId('reflexive'),
-            source: structuredClone(selection.action.source.snapshot),
-            instructions: [],
-            effect: { do: [] },
-            execution: {
-              controller: selection.action.controller,
-              source: structuredClone(selection.action.source),
-              occurrence,
-              definitionSnapshot: {
-                schemaVersion: definition.schemaVersion,
-                definitionRevision: definition.definitionRevision,
-                definition,
+        if (cost.kind === 'mana') {
+          const nextMana = payResolutionMana(draft, event.seat, cost, selection.action.source)
+          if (!nextMana) return
+          draft.players[event.seat].mana = nextMana.pool
+          draft.players[event.seat].restrictedMana = nextMana.restrictedMana
+        } else if (cost.kind === 'life') {
+          draft.enqueue({ type: 'payLife', seat: event.seat, amount: selection.action.paymentAmount, source: selection.action.source.ref.objectId })
+        } else {
+          frame.pendingResolutionPayment = {
+            scopeId: selection.action.scopeId,
+            payer: event.seat,
+            amount: selection.action.paymentAmount,
+            cost,
+            resultBinding: selection.action.bindResult,
+            source: structuredClone(selection.action.source),
+          }
+          openCardSelection(draft, {
+            seat: event.seat,
+            kind: cost.kind,
+            count: selection.action.paymentAmount,
+            min: selection.action.paymentAmount,
+            candidates: resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source).map((object) => object.id),
+            targetIdentities: Object.fromEntries(resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source).map((object) => [object.id, objectIdentity(object)])),
+            sourceId: selection.action.source.ref.objectId,
+            source: selection.action.source.snapshot.name,
+            prompt: `Choose cards to ${cost.kind} as the optional cost.`,
+            destinations: ['target'],
+            canonicalChoice: {
+              stackId: selection.action.stackId,
+              scopeId: selection.action.scopeId,
+              binding: selection.action.bindResult,
+              action: 'resolutionPayment',
+              payment: {
+                cost,
+                amount: selection.action.paymentAmount,
+                payer: event.seat,
+                bindResult: selection.action.bindResult,
+                scopeId: selection.action.scopeId,
+                source: structuredClone(selection.action.source),
+                controller: selection.action.controller,
+                ...(selection.action.whenPaidDecisions ? { whenPaidDecisions: structuredClone(selection.action.whenPaidDecisions) } : {}),
+                ifPaid: structuredClone(selection.action.ifPaid),
+                ifDeclined: structuredClone(selection.action.ifDeclined),
+                whenPaid: structuredClone(selection.action.whenPaid),
               },
-              abilityIndex: 0,
             },
-            canonical: {
-              definitionSnapshot: {
-                schemaVersion: definition.schemaVersion,
-                definitionRevision: definition.definitionRevision,
-                definition,
-              },
-              abilityIndex: 0,
-            },
-            triggeredByAbility: true,
-            triggeringPlayer: event.seat,
-          }]
-          draft.note(`resolution payment paid; reflexive program ${selection.action.bindResult} queued for checkpoint`)
+          })
+          frame.phase = 'committing'
+          frame.pendingEvents = []
+          return
         }
-        draft.resolution.phase = 'running'
+        frame.results = { ...frame.results, [selection.action.bindResult]: paid }
+        if (branch.length > 0) frame.scopes.push({ path: `${selection.action.scopeId ?? ''}.payOptional`, scopeId: selection.action.scopeId, instructions: structuredClone(branch), cursor: 0 })
+        if (paid) queuePaidReflexive(draft, selection.action, event.seat)
+        frame.phase = 'running'
       }
       return
     }

@@ -13,6 +13,9 @@ import {
   permanentEffect,
   pumpEffect,
   ref,
+  reflexiveFromPayment,
+  settleResolutionPayment,
+  sacrificeCost,
   spell,
   untilCleanup,
   untilStep,
@@ -26,6 +29,49 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelection } from '../../rules/selectPlayers'
 
 describe('Rule DSL Part 10 programs', () => {
+  test('runtime payment persists its typed sacrifice cursor and commits the paid branch', () => {
+    const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: { targets: [] },
+      instructions: [payOptional({
+        payer: ref('controller'),
+        cost: sacrificeCost(objects({ zone: 'battlefield', type: 'Creature' }), 1),
+        bindResult: 'paid',
+        ifPaid: [gainLife({ amount: 3, targets: ref('controller') })],
+        ifDeclined: [],
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Payment spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: snapshot })] },
+      battlefield: { p1: [cardTemplate('Payment creature', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Payment spell')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const started = server.rules(cast.state, { type: 'resolveTop' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const offer = started.state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    const paid = server.rules(started.state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+    expect(paid.ok).toBe(true)
+    if (!paid.ok) return
+    expect(paid.state.resolution?.kind).toBe('canonicalSpell')
+    expect(paid.state.resolution?.kind === 'canonicalSpell'
+      ? paid.state.resolution.pendingResolutionPayment?.resultBinding
+      : undefined).toBe('paid')
+    const selection = pendingSelectionFor(paid.state, 'p1')!
+    const chosen = selection.candidates[0]!
+    const completed = server.rules(paid.state, {
+      type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'sacrifice', count: 1, objectIds: [chosen],
+    })
+    expect(completed.ok).toBe(true)
+    if (!completed.ok) return
+    expect(completed.state.players.p1.life).toBe(43)
+    expect(completed.state.objects[chosen]?.zone).toBe('graveyard')
+    expect(completed.state.resolution).toBeUndefined()
+  })
+
   test('validates temporary effects, generated abilities, delayed programs, and paid outcomes', () => {
     const compiled = compileCardRuleDefinition(card([spell({
       decisions: { targets: [] },

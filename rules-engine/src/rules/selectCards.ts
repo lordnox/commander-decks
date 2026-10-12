@@ -23,7 +23,7 @@ import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from '.
 import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
 import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
-import { advanceCopySlot } from './selectOptions'
+import { advanceCopySlot, queuePaidReflexive } from './selectOptions'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -134,7 +134,20 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets'
+    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment'
+    payment?: {
+      cost: import('../cardPlugins/dsl/schema/v1').Cost
+      amount: number
+      payer: PlayerId
+      bindResult: string
+      scopeId?: string
+      source: import('../types').CapturedObject
+      controller: PlayerId
+      whenPaidDecisions?: import('../cardPlugins/dsl/schema/v1').DecisionsInput
+      ifPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+      ifDeclined: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+      whenPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+    }
     copySpellStackId?: string
     copyController?: PlayerId
     copySlotIndex?: number
@@ -238,7 +251,7 @@ export const openCardSelection = (
     selection,
   ]
   const active = pendingSelection(draft)
-  if (active) draft.priority = active.seat
+  if (active && !draft.resolution) draft.priority = active.seat
 }
 
 const clearPendingSelection = (draft: Draft, seat: PlayerId) => {
@@ -584,6 +597,44 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
 
   if (canonicalChoice && draft.resolution?.kind === 'canonicalSpell'
     && draft.resolution.stackId === canonicalChoice.stackId) {
+    if (canonicalChoice.action === 'resolutionPayment' && canonicalChoice.payment) {
+      const payment = canonicalChoice.payment
+      const frame = draft.resolution
+      const pending = frame.pendingResolutionPayment
+      const selected = event.objectIds ?? []
+      if (!pending || pending.resultBinding !== payment.bindResult || pending.payer !== payment.payer
+        || pending.amount !== payment.amount || selected.length !== payment.amount) return
+      delete frame.pendingResolutionPayment
+      frame.results = { ...frame.results, [payment.bindResult]: true }
+      frame.pendingEvents = selected.map((objectId) => payment.cost.kind === 'discard'
+        ? { type: 'discard' as const, seat: payment.payer, objectId }
+        : { type: 'sacrifice' as const, objectId })
+      if (frame.pendingEvents.length > 1) frame.pendingEvents = [{ type: 'actionGroup', events: frame.pendingEvents }]
+      if (payment.ifPaid.length > 0) {
+        frame.scopes.push({
+          path: `${payment.scopeId ?? ''}.payOptional`,
+          scopeId: payment.scopeId,
+          instructions: structuredClone(payment.ifPaid),
+          cursor: 0,
+        })
+      }
+      queuePaidReflexive(draft, {
+        kind: 'canonicalResolutionPayment',
+        stackId: canonicalChoice.stackId,
+        ...(payment.scopeId ? { scopeId: payment.scopeId } : {}),
+        cost: payment.cost,
+        source: payment.source,
+        controller: payment.controller,
+        bindResult: payment.bindResult,
+        ...(payment.whenPaidDecisions ? { whenPaidDecisions: payment.whenPaidDecisions } : {}),
+        ifPaid: payment.ifPaid,
+        ifDeclined: payment.ifDeclined,
+        whenPaid: payment.whenPaid,
+        paymentAmount: payment.amount,
+      }, payment.payer)
+      frame.phase = 'committing'
+      return
+    }
     draft.resolution.choices = {
       ...draft.resolution.choices,
       [canonicalChoice.binding]: (event.objectIds ?? []).flatMap((objectId) => {
