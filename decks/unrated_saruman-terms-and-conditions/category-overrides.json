@@ -31,13 +31,6 @@
         "second-spell"
       ]
     },
-    "65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91": {
-      "name": "Monk Class",
-      "categories": [
-        "cost-reduction",
-        "second-spell"
-      ]
-    },
     "cf5f4860-e805-46a3-9352-a2c583e33403": {
       "name": "Storm of Saruman",
       "categories": [
@@ -134,13 +127,6 @@
         "board-wipe"
       ]
     },
-    "48369aec-a991-4bef-8554-01c84302b063": {
-      "name": "Aetherspouts",
-      "categories": [
-        "combat-trick",
-        "board-wipe"
-      ]
-    },
     "96381388-1e82-411c-8290-1f3e909d3b5f": {
       "name": "Reins of Power",
       "categories": [
@@ -181,13 +167,6 @@
       "name": "Misdirection",
       "categories": [
         "protection",
-        "alternative-cost"
-      ]
-    },
-    "d412b175-2365-4b2c-a8f5-3e4e9d06280d": {
-      "name": "Archive Trap",
-      "categories": [
-        "mill",
         "alternative-cost"
       ]
     },
@@ -401,6 +380,29 @@
       "categories": [
         "ramp",
         "card-draw"
+      ]
+    },
+    "0f264e5b-264e-4e97-9a8d-8ae1d6a286ce": {
+      "name": "Drown in the Loch",
+      "categories": [
+        "counterspell",
+        "removal"
+      ]
+    },
+    "d3cec4b5-bc93-44a2-a29d-3478f0a5dac6": {
+      "name": "Drown in Dreams",
+      "categories": [
+        "card-draw",
+        "mill"
+      ]
+    },
+    "da93264e-4e04-401a-9809-e4e1056cf604": {
+      "name": "Inkshield",
+      "categories": [
+        "combat-trick",
+        "protection",
+        "token-production",
+        "win-condition"
       ]
     }
   }

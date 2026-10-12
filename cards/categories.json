@@ -12594,13 +12594,6 @@
         "card-draw"
       ]
     },
-    "65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91": {
-      "name": "Monk Class",
-      "categories": [
-        "cost-reduction",
-        "card-selection"
-      ]
-    },
     "f8d2a94f-7be1-4b17-8556-398dde531360": {
       "name": "The Water Crystal",
       "categories": [
@@ -12673,12 +12666,6 @@
         "protection"
       ]
     },
-    "48369aec-a991-4bef-8554-01c84302b063": {
-      "name": "Aetherspouts",
-      "categories": [
-        "board-wipe"
-      ]
-    },
     "99427ebe-c00d-4206-84ca-9764f6e952c6": {
       "name": "Submerge",
       "categories": [
@@ -12697,12 +12684,6 @@
       "categories": [
         "protection",
         "redirection"
-      ]
-    },
-    "d412b175-2365-4b2c-a8f5-3e4e9d06280d": {
-      "name": "Archive Trap",
-      "categories": [
-        "mill"
       ]
     },
     "d6d7faa8-ecc9-408b-9c46-a0f62c74f567": {
@@ -12818,8 +12799,22 @@
         "card-draw",
         "equipment"
       ]
+    },
+    "d3cec4b5-bc93-44a2-a29d-3478f0a5dac6": {
+      "name": "Drown in Dreams",
+      "categories": [
+        "card-draw",
+        "mill"
+      ]
+    },
+    "0f264e5b-264e-4e97-9a8d-8ae1d6a286ce": {
+      "name": "Drown in the Loch",
+      "categories": [
+        "counterspell",
+        "removal"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-10-12T23:17:08.523919+00:00"
+  "updated_at": "2026-10-12T23:28:23.859450+00:00"
 }

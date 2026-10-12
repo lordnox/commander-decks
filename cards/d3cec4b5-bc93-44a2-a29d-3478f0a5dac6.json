@@ -1,0 +1,132 @@
+{
+  "artist": "Olena Richards",
+  "artist_ids": [
+    "fad4282c-49d1-4b5b-be1d-713369fc8bc8"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 575379,
+  "cmc": 3.0,
+  "collector_number": "13",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2118,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Within our minds are limitless depths. Dive down, but don't forget to surface.\"\n—Teferi",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "af4d5acb-12d6-46d7-aaf9-3ace1520825a",
+  "illustration_id": "207f52c0-6509-41ad-803e-9874f05dcc49",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:49:39Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.webp?1783925379",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.jpg?1783925379",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.jpg?1783925379",
+    "crop": "https://cards.scryfall.io/crop/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.webp?1783925379",
+    "display": "https://cards.scryfall.io/display/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.webp?1783925379",
+    "grid": "https://cards.scryfall.io/grid/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.webp?1783925379",
+    "large": "https://cards.scryfall.io/large/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.jpg?1783925379",
+    "normal": "https://cards.scryfall.io/normal/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.jpg?1783925379",
+    "png": "https://cards.scryfall.io/png/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.png?1783925379",
+    "small": "https://cards.scryfall.io/small/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.jpg?1783925379",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/f/af4d5acb-12d6-46d7-aaf9-3ace1520825a.webp?1783925379"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{X}{2}{U}",
+  "mtgo_id": 93808,
+  "multiverse_ids": [
+    540456
+  ],
+  "name": "Drown in Dreams",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d3cec4b5-bc93-44a2-a29d-3478f0a5dac6",
+  "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Target player draws X cards.\n• Target player mills twice X cards.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.63",
+    "eur_foil": null,
+    "tix": "0.45",
+    "usd": "1.33",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad3cec4b5-bc93-44a2-a29d-3478f0a5dac6&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93808?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=575379&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248761%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Drown+in+Dreams",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=540456&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDrown%2Bin%2BDreams",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDrown%2Bin%2BDreams"
+  },
+  "released_at": "2021-09-24",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/af4d5acb-12d6-46d7-aaf9-3ace1520825a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mic?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mic/13/drown-in-dreams?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mic",
+  "set_id": "7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "set_name": "Midnight Hunt Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amic&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "story_spotlight": false,
+  "tcgplayer_id": 248761,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/af4d5acb-12d6-46d7-aaf9-3ace1520825a",
+  "variation": false
+}

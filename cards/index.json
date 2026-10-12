@@ -2036,7 +2036,6 @@
     "wavebreak hippocamp": "3405c8a9-a8d6-4b45-9b64-94141076603b",
     "archmage emeritus": "8305d576-21d8-4ce7-8eda-a7cd9793aca5",
     "lavinia, foil to conspiracy": "b5b26cea-9be3-46f7-9603-a6eee0dd107e",
-    "monk class": "65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91",
     "the water crystal": "f8d2a94f-7be1-4b17-8556-398dde531360",
     "storm of saruman": "cf5f4860-e805-46a3-9352-a2c583e33403",
     "professor onyx": "9df2e909-ed13-456a-9636-7398732009a9",
@@ -2048,11 +2047,9 @@
     "into the story": "f290c2e4-ab52-44d4-bdeb-31aeb835b18d",
     "shelter": "c1909d70-d8f4-4c54-8587-0a910f123238",
     "sudden spoiling": "dce202c7-fe8e-462a-858e-7a5a69bd5b6b",
-    "aetherspouts": "48369aec-a991-4bef-8554-01c84302b063",
     "submerge": "99427ebe-c00d-4206-84ca-9764f6e952c6",
     "commandeer": "ad7d854b-d303-40eb-acd6-03a8023e05e7",
     "misdirection": "c39e5fb0-6de3-4105-ad3c-0ecb8951a1d5",
-    "archive trap": "d412b175-2365-4b2c-a8f5-3e4e9d06280d",
     "abolish": "d6d7faa8-ecc9-408b-9c46-a0f62c74f567",
     "curtains' call": "cfb1b64b-bf78-4015-ac29-cdcdf2adaa02",
     "soul partition": "2cfd5c18-47d0-4549-aacc-2428db21df2f",
@@ -2071,8 +2068,10 @@
     "wizard's staff": "30c3c700-46f4-4a77-8c45-5c7e3a21bd62",
     "glamdring, foe-hammer": "2802069f-201e-43a7-b5d3-43a95951a2ec",
     "glamdring, foe-hammer // gleam of death": "2802069f-201e-43a7-b5d3-43a95951a2ec",
-    "gleam of death": "2802069f-201e-43a7-b5d3-43a95951a2ec"
+    "gleam of death": "2802069f-201e-43a7-b5d3-43a95951a2ec",
+    "drown in dreams": "d3cec4b5-bc93-44a2-a29d-3478f0a5dac6",
+    "drown in the loch": "0f264e5b-264e-4e97-9a8d-8ae1d6a286ce"
   },
   "schema_version": 1,
-  "updated_at": "2026-10-12T23:17:08.523919+00:00"
+  "updated_at": "2026-10-12T23:28:23.859450+00:00"
 }
