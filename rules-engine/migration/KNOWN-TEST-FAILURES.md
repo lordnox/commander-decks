@@ -54,3 +54,16 @@ does not establish whether the cause is temporary-module naming, cleanup,
 resolution, or another fixture/runtime interaction; no root cause is asserted
 here. This record is not permission to ignore any new failure in the same or
 other tests.
+
+The Part 09 host-filtered run also reproduced the same temporary-module failure
+class in the related test `loads only handlers the table cards need`:
+
+```text
+error: Cannot find module '/private/var/folders/r3/c0x3yhvx6_n8zc7npz0f_d540000gn/T/kernel-plugins-filter-KkJhFZ/rules-engine/src/cardPlugins/.live-cardRules-1330-2.ts' from ''
+(fail) kernel host journal > loads only handlers the table cards need [27.41ms]
+```
+
+This observation was recorded during the Part 09 filtered host run on
+2026-10-11. It is another generated-handler fixture failure, rather than a new
+Rule DSL failure; the surrounding filtered tests passed. The full captured
+output is retained at `/private/tmp/rule-dsl-part09-host-filtered.log`.
