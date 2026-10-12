@@ -34,7 +34,7 @@ after their result is recorded.
 
 ## Validation
 
-- `bun test rules-engine/src/cardPlugins/dsl/part09.copies.test.ts` — 10 tests, 0 failures.
+- `bun test rules-engine/src/cardPlugins/dsl/part09.copies.test.ts` — 11 tests, 0 failures.
 - `bun test rules-engine/src/cardPlugins/dsl/part09.test.ts` — 14 tests, 0 failures.
 - `bun run typecheck` — passed.
 - `bun run check:imports` — passed.

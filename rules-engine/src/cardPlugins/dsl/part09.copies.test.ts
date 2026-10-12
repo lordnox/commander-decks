@@ -57,6 +57,24 @@ describe('Rule DSL Part 09 spell copies', () => {
     expect(resolved.state.stack).toHaveLength(1)
   })
 
+  test('copied lifelink damage uses the copied source and controller', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: {
+      targets: [{ filter: { kind: 'players', filter: {} }, min: amount(1), max: amount(1), distinct: true }],
+    }, instructions: [{ kind: 'damage', source: ref('source'), targets: { kind: 'targetRef', clauseIndex: 0 }, amount: amount(3) }] }])))
+    const server = createServerGame(commanderRules, { players: 2, hands: { p1: [cardTemplate('Copied lifelink', { types: ['Instant'], manaCost: '{0}', oracleText: 'Lifelink', ruleDefinition: definition })] } }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Copied lifelink')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, targets: [{ kind: 'player', player: 'p1' }] })
+    if (!cast.ok) throw new Error(cast.error)
+    const copied = server.rules(cast.state, { type: 'copySpell', stackId: cast.state.stack[0].id, controller: 'p2', targets: cast.state.stack[0].targets, retarget: false })
+    if (!copied.ok) throw new Error(copied.error)
+    const copyId = copied.state.stack[0].objectId
+    expect(copied.state.stack[0].execution?.source.ref.objectId).toBe(copyId)
+    const resolved = server.rules(copied.state, { type: 'resolveTop' })
+    if (!resolved.ok) throw new Error(resolved.error)
+    expect(resolved.state.players.p2.life).toBe(43)
+    expect(resolved.state.players.p1.life).toBe(37)
+  })
+
   test('durable copy jobs answer both target slots for both controllers after JSON restart', () => {
     const original = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [
       { filter: { kind: 'players', filter: {} }, min: amount(1), max: amount(1), distinct: true },
@@ -102,8 +120,19 @@ describe('Rule DSL Part 09 spell copies', () => {
     state = reduce(state, { type: 'resolveTop' })
     const offer = state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
     expect(offer).toBeDefined()
-    state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'keep' })
-    expect(state.players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
+    const firstTarget = state.stack.find((item) => item.objectId === get('Extra one').id)!
+    const secondTarget = state.stack.find((item) => item.objectId === get('Extra two').id)!
+    state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'retarget' })
+    const firstTargetOffer = state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    expect(firstTargetOffer).toBeDefined()
+    state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: firstTargetOffer.id, optionId: `stack:${firstTarget.id}` })
+    const secondTargetOffer = state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    expect(secondTargetOffer).toBeDefined()
+    state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: secondTargetOffer.id, optionId: 'retarget' })
+    const secondTargetPick = state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    expect(secondTargetPick).toBeDefined()
+    state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: secondTargetPick.id, optionId: `stack:${secondTarget.id}` })
+    expect(state.stack.filter((item) => item.copy)).toHaveLength(1)
   })
 
   test('modal copies retarget every selected mode scope before they resolve', () => {

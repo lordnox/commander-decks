@@ -2,7 +2,7 @@ import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
 import { canonicalModeScopeId, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
-import { copyTargetsWithReplacement, validateCanonicalCopyTarget, validateCanonicalCopyTargets } from '../cardPlugins/dsl/copies'
+import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
@@ -258,8 +258,15 @@ export const selectOptions: Plugin = {
       const source = original ? state.objects[original.objectId] : undefined
       const job = frame?.pendingCopyTargets?.[0]
       if (!targetId || !frame || !original || !source || !job) return 'stack target choice is no longer valid'
-      const targets = copyTargetsWithReplacement(original, action.slotIndex ?? 0, { kind: 'stackItem', stackId: targetId }, job.answers)
-      const error = validateCanonicalCopyTargets(state, original, source, targets, action.controller)
+      const error = validateCanonicalCopyTarget(
+        state,
+        original,
+        source,
+        action.slotIndex ?? 0,
+        { kind: 'stackItem', stackId: targetId },
+        job.answers,
+        action.controller,
+      )
       if (error) return error
     }
   },
