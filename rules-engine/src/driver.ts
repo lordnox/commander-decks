@@ -278,7 +278,7 @@ export const startCanonicalResolution = (
     scopeId: item.execution?.scopeId ?? canonicalScopeId(abilityIndex),
     targetBindings: structuredClone(targetBindings),
     ...(item.x !== undefined || item.execution?.variables
-      ? { variables: { ...(item.execution?.variables ?? {}), ...(item.x !== undefined ? { X: item.x } : {}) } }
+      ? { variables: { ...item.execution?.variables, ...(item.x !== undefined ? { X: item.x } : {}) } }
       : {}),
     ...(capturedChoices ? { choices: capturedChoices } : {}),
     ...(capturedResults ? { results: capturedResults } : {}),
@@ -356,7 +356,7 @@ const runtimeContext = (
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
-  variables: item.x === undefined ? frame.variables : { ...(frame.variables ?? {}), X: item.x },
+  variables: item.x === undefined ? frame.variables : { ...frame.variables, X: item.x },
 })
 
 const distributedAmount = (
@@ -828,9 +828,7 @@ const actionEvents = (
                 ? { variables: parentVariables(frame, context.scopeId) } : {}),
             }
           : frame.variables
-            ? {
-                ...(frame.variables ? { variables: parentVariables(frame, context.scopeId) } : {}),
-              }
+            ? { variables: parentVariables(frame, context.scopeId) }
             : undefined
         : undefined
       const grantEffect = grant && grantChoices

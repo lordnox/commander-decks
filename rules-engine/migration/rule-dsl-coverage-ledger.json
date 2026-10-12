@@ -23760,13 +23760,13 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           241,
-          1162,
-          1192
+          1160,
+          1190
         ],
         "samples": [
           "241: const liveSource = draft.object(source.ref.objectId)",
-          "1162: const object = draft.object(item.objectId)",
-          "1192: const object = draft.object(completedItem.objectId)"
+          "1160: const object = draft.object(item.objectId)",
+          "1190: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
