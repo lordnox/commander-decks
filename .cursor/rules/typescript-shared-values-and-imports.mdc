@@ -1,0 +1,14 @@
+---
+description: Use named shared constants, top-level type imports, and small shared continuation payload builders
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Shared values, type imports, and continuation payloads
+
+Follow the TypeScript style rules in `AGENTS.md`:
+
+- Put shared outcomes, diagnostic codes/messages, protocol identifiers, and repeated semantic strings in named `as const` constants owned by their subsystem. Reuse them in producers, consumers, and tests, and derive literal unions where practical. Preserve serialized values. Avoid a global catch-all constants file; ordinary one-off prose and type-only discriminants do not need extraction. Keep diagnostic codes separate from messages and use message builders for contextual values.
+- Declare all type dependencies using top-level `import type` statements, never inline `import('module').Type` annotations. Combine imports from the same module where practical. Type-only imports address runtime dependency cycles without hiding dependencies inline.
+- Extract repeated continuation/pending-choice payload construction into a small typed helper in its owning layer. Share canonical announcement metadata across card, player, and stack target choices; keep variant-specific fields at the call sites. Preserve scope identities, optional-field presence, and defensive array/object copies. Follow the existing rule of three; do not create a framework for one helper.
+- Apply these rules to new or changed code. The existing Part06 review violations remain deferred implementation cleanup; the rules alone do not resolve them.

@@ -8,6 +8,16 @@ Prefer inferred function return types. Add an explicit return type only when it 
 
 Use `switch` instead of an `if` / `else if` chain when comparing the same variable against multiple discrete values. Keep `if` for independent conditions, ranges, and compound predicates.
 
+### Constants, type imports, and shared payloads
+
+Use named `as const` constants for shared runtime outcomes, diagnostic codes/messages, protocol identifiers, and other repeated semantic strings. Keep them in a constants module owned by the relevant subsystem, and derive literal unions from those constants where practical. Reuse the same constants in producers, consumers, and tests; preserve serialized values when extracting them. Do not collect unrelated subsystems into one global constants file or extract ordinary one-off prose and TypeScript-only discriminants merely because they are strings. Keep diagnostic codes separate from human-readable messages, and use message builders when diagnostics need contextual values.
+
+Declare type dependencies with top-level `import type` statements. Do not use inline `import('module').Type` annotations in types, signatures, or implementation bodies. Combine imports from the same module where practical; if a dependency cycle is a concern, use type-only imports rather than hiding the dependency inline.
+
+Extract repeated continuation/pending-choice payload construction into a small typed helper in the layer that owns it. In particular, share the canonical announcement fields used by card, player, and stack target choices, while keeping variant-specific fields at their call sites. Preserve scope identities, optional-field presence, and array/object copying when extracting; never accidentally share mutable continuation data. Follow the existing rule of three, and do not introduce a general framework for a single payload builder.
+
+Apply these rules to new or changed code. Existing violations identified in the Part06 review are deferred to a later implementation cleanup; adding these rules does not claim those violations have been fixed.
+
 ## Git workflow
 
 Never edit on `main`. Each agent session uses its own branch and git worktree:
