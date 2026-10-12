@@ -14,6 +14,7 @@ import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSp
 import { allocationOptions } from './canonicalAllocation'
 import { payCost } from '../plugins/spells'
 import { cardRuleDefinition } from '../cardPlugins/dsl/builders'
+import { captureLexicalBindings, generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
@@ -244,21 +245,40 @@ export const queuePaidReflexive = (
   payer: PlayerId,
 ) => {
   if (action.whenPaid.length === 0) return
-  const definition = cardRuleDefinition(1, { abilities: [{
-    kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
-    decisions: {
-      targets: action.whenPaidDecisions?.targets ?? [],
-      ...(action.whenPaidDecisions?.constraints ? { constraints: action.whenPaidDecisions.constraints } : {}),
-      ...(action.whenPaidDecisions?.variables ? { variables: action.whenPaidDecisions.variables } : {}),
-      ...(action.whenPaidDecisions?.distributions ? { distributions: action.whenPaidDecisions.distributions } : {}),
-    },
-    instructions: action.whenPaid,
-  }] })
   const occurrence = { kind: 'event' as const, eventType: 'resolutionPayment', player: payer }
   const parentFrame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === action.stackId
     ? draft.resolution
     : undefined
   const parentItem = draft.stack.find((item) => item.id === action.stackId)
+  const parentAbilityIndex = parentFrame ? Number.parseInt(parentFrame.declarationPath.match(/abilities\[(\d+)\]/)?.[1] ?? '', 10) : Number.NaN
+  const parentAbility = Number.isInteger(parentAbilityIndex)
+    ? parentFrame?.definitionSnapshot.definition.abilities[parentAbilityIndex]
+    : undefined
+  const inheritedVariables = parentAbility && 'decisions' in parentAbility
+    ? parentAbility.decisions.variables
+    : undefined
+  const captured = captureLexicalBindings(
+    action.whenPaid,
+    parentFrame?.choices,
+    parentFrame?.results,
+    action.whenPaidDecisions ? [action.whenPaidDecisions] : [],
+  )
+  const whenPaidDecisions = action.whenPaidDecisions
+    ? captured.rewrittenAdditionalValues[0] as typeof action.whenPaidDecisions
+    : undefined
+  const generatedDecisions = {
+    targets: whenPaidDecisions?.targets ?? [],
+    ...(whenPaidDecisions?.constraints ? { constraints: whenPaidDecisions.constraints } : {}),
+    ...(whenPaidDecisions?.variables ? { variables: whenPaidDecisions.variables } : inheritedVariables ? { variables: inheritedVariables } : {}),
+    ...(whenPaidDecisions?.distributions ? { distributions: whenPaidDecisions.distributions } : {}),
+  }
+  const definitionSnapshot = generatedAbilitySnapshot({
+    kind: 'triggered',
+    on: { kind: 'draw', filter: {} },
+    decisions: generatedDecisions,
+    capturedBindings: captured.capturedBindings,
+    instructions: captured.instructions,
+  }, generatedDecisions, captured.capturedBindings)
   draft.pendingTriggers = [...(draft.pendingTriggers ?? []), {
     id: draft.allocId('reflexive'),
     source: structuredClone(action.source.snapshot),
@@ -270,24 +290,18 @@ export const queuePaidReflexive = (
       occurrence,
       ...(parentFrame?.choices ? { choices: structuredClone(parentFrame.choices) } : {}),
       ...(parentFrame?.results ? { results: structuredClone(parentFrame.results) } : {}),
+      ...(Object.keys(captured.choiceAliases).length > 0 ? { capturedChoiceAliases: captured.choiceAliases } : {}),
+      ...(Object.keys(captured.resultAliases).length > 0 ? { capturedResultAliases: captured.resultAliases } : {}),
       ...(parentItem?.x !== undefined ? { variables: { X: parentItem.x } } : {}),
       ...(parentItem?.execution?.modeIndices ? { modeIndices: structuredClone(parentItem.execution.modeIndices) } : {}),
       ...(parentItem?.execution?.modeCount !== undefined ? { modeCount: parentItem.execution.modeCount } : {}),
       ...(parentItem?.execution?.modeScopeIds ? { modeScopeIds: structuredClone(parentItem.execution.modeScopeIds) } : {}),
       ...(parentItem?.execution?.distributionBindings ? { distributionBindings: structuredClone(parentItem.execution.distributionBindings) } : {}),
-      definitionSnapshot: {
-        schemaVersion: definition.schemaVersion,
-        definitionRevision: definition.definitionRevision,
-        definition,
-      },
+      definitionSnapshot,
       abilityIndex: 0,
     },
     canonical: {
-      definitionSnapshot: {
-        schemaVersion: definition.schemaVersion,
-        definitionRevision: definition.definitionRevision,
-        definition,
-      },
+      definitionSnapshot,
       abilityIndex: 0,
     },
     triggeredByAbility: true,

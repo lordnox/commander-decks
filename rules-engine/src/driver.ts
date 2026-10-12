@@ -262,8 +262,6 @@ export const startCanonicalResolution = (
     ...(capturedChoices ? { choices: capturedChoices } : {}),
     ...(capturedResults ? { results: capturedResults } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
-    ...(item.execution?.choices ? { choices: structuredClone(item.execution.choices) } : {}),
-    ...(item.execution?.results ? { results: structuredClone(item.execution.results) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
