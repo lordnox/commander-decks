@@ -32,7 +32,6 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Wavebreak Hippocamp** — Draws on the first cast of each opponent’s turn, supporting the cantrip-plus-answer sequence before the commander arrives.
 - **Archmage Emeritus** — Draws on instant/sorcery casts and spell copies, sustaining the reaction chain even when Saruman is taxed.
 - **Lavinia, Foil to Conspiracy** — Produces two colorless mana on opposing turns and converts second casts into Clues, combining reactive mana and delayed draw.
-- **Monk Class** — Discounts the second spell regardless of whose turn it is, with bounce and exile access as later mana sinks.
 - **The Water Crystal** — Blue discounts make holding answers easier; adding four to small mill events gives repeated draw and second-spell triggers finishing relevance.
 - **Storm of Saruman** — Copies the second spell each turn, and its nonlegendary exception can duplicate the commander as he is cast.
 - **Irenicus's Vile Duplication** — Creates a lasting nonlegendary copy of Saruman or a draw/finishing creature; the spell also feeds cast payoffs.
@@ -58,13 +57,11 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Mirrorweave** — Signature tricky interaction can shrink a creature board or turn an established token board into copies of a nonlegendary engine; only nonlegendary targets are legal.
 - **Sudden Spoiling** — Signature split-second disruption removes one player’s creature abilities and shrinks their base bodies; it buys a window for blocks or removal rather than being a standalone wipe.
 - **Aetherize** — Signature instant answer punishes an attacking board while preserving our own creatures and open-mana play pattern.
-- **Aetherspouts** — Mana-value-five combat reset sends attackers to libraries and forces awkward redraws while supporting Saruman’s theft ceiling.
 - **Reins of Power** — A reactive creature exchange can remove an opponent’s attackers from combat or borrow a board for a finishing attack; the temporary loss of our engines is an explicit cost.
 - **Snuff Out** — Mana-value-four removal can cost life rather than mana, letting a cheap first spell leave mana for further reactions; the mana base supports a Swamp.
 - **Submerge** — Conditional free mana-value-five creature answer; its library placement can also set up Saruman’s later mill when timing permits.
 - **Commandeer** — Mana-value-seven spell theft changes the stack’s ownership while setting a large Saruman ceiling. Exiling two blue cards is a genuine resource cost.
 - **Misdirection** — Mana-value-five target redirection protects engines or turns opposing single-target spells around without reserving mana.
-- **Archive Trap** — Conditional free mana-value-five mill burst simultaneously stocks theft choices and supplies Guildmage’s targeted finishing burst.
 - **Abolish** — Free artifact/enchantment removal uses a Plains card as its alternative cost; typed duals and basics support it without a generic best-rate removal slot.
 - **Curtains' Call** — Undaunted makes mana-value-six removal cost three at a four-player table and destroys two creatures; cost rises as opponents leave.
 - **Arcane Denial** — Broad two-mana stack interaction replaces itself at the next upkeep; giving the opponent cards is an acknowledged table/resource cost.
@@ -115,6 +112,10 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Wizard's Staff** — User-selected additional creature triggers and cheap Wizard equip multiply Saruman or independent draw; prowess also increases equipment-based discounts.
 - **Glamdring, Foe-hammer // Gleam of Death** — User-selected power-based instant/sorcery discount preserves high mana value, while its adventure refills spells and supports a later cast outside the hand.
 - **Gleaming Splendor** — User-selected reactive Treasure engine and repeatable draw outlet use spare mana across the rotation; granting an opponent cards is a deliberate cost.
+
+- **Drown in the Loch** — User-approved cheap counterspell/creature-removal flexibility uses the graveyards we are already filling, restoring a fourth true counterspell.
+- **Drown in Dreams** — User-approved instant refill and mill burst combines with Foe-hammer's generic discount while retaining X in its on-stack mana value.
+- **Inkshield** — User-approved sixth finisher doubles as combat protection, converting damage prevented into an evasive token board for a later attack.
 
 ## Cards out
 
@@ -193,3 +194,9 @@ Apply the user's proposed Evacuation → Illusionist's Gambit; Force of Will and
 The equipment increases the engine ceiling and mana efficiency but does not replace broad stack protection. Arcane Denial, Keep Safe, and Mystic Confluence are the three true counterspells; Commandeer and Misdirection retain narrower stack interaction. Gambit redirects attacking creatures and is not a general nonattacking-board reset. Splendor's activation is not a spell and has two distinct player targets; on an opponent's turn their normal draw plus the granted card can make Treasure. Staff doubles triggered abilities, not replacement effects. Foe-hammer still requires colored pips and does not grant flash. Initial-build setup traces are retained as historical evidence only and marked with their tested commit.
 
 The four removed cards are intentional cuts: Forces surrender free broad coverage; Evacuation surrenders the instant global reset; Corrosion surrenders draw-driven mill. Read this entry before reintroducing them.
+
+### 2026-10-13 — Approved swaps 1, 3, and 4
+
+User approved Archive Trap → Drown in the Loch, Monk Class → Drown in Dreams, and Aetherspouts → Inkshield. Spelltwine remains; Press the Enemy is not added. The deck has six finishing cards again, with Inkshield's token conversion counted as the sixth. Four true counterspells remain, one conditional on opposing graveyard size. The less flexible pure mill burst becomes interaction; the late Class-level mana investment becomes instant draw/mill; the combat library reset becomes a token-producing prevention spell.
+
+Drown in Dreams has mana value X+3 on the stack. A five-power Foe-hammer discount makes X=5 cost two generic plus blue, without changing that mana value of eight. Stack copies retain X, but free casts of copied cards set X to zero. With Bruvac, the X=5 mill mode is twenty cards: a charged Ascension can cause forty life loss; two Guildmage activations can also cause forty at a six-mana activation cost. No old Archive Trap kill line is retained as current play advice. Inkshield prevents combat damage to us only and does not reset the board.

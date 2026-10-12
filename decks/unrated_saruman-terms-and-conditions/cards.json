@@ -387,25 +387,27 @@
       "submitted_name": "Lavinia, Foil to Conspiracy"
     },
     {
-      "cache": "cards/65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91.json",
+      "cache": "cards/d3cec4b5-bc93-44a2-a29d-3478f0a5dac6.json",
       "card": {
-        "cmc": 2.0,
-        "keywords": [],
-        "mana_cost": "{W}{U}",
-        "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nThe second spell you cast each turn costs {1} less to cast.\n{W}{U}: Level 2\nWhen this Class becomes level 2, return up to one target nonland permanent to its owner's hand.\n{1}{W}{U}: Level 3\nAt the beginning of your upkeep, exile the top card of your library. For as long as it remains exiled, it has \"You may cast this card from exile as long as you've cast another spell this turn.\"",
-        "type_line": "Enchantment — Class"
+        "cmc": 3.0,
+        "keywords": [
+          "Mill"
+        ],
+        "mana_cost": "{X}{2}{U}",
+        "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Target player draws X cards.\n• Target player mills twice X cards.",
+        "type_line": "Instant"
       },
       "categories": [
-        "cost-reduction",
-        "second-spell"
+        "card-draw",
+        "mill"
       ],
       "category_source": "deck",
-      "name": "Monk Class",
-      "oracle_id": "65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91",
+      "name": "Drown in Dreams",
+      "oracle_id": "d3cec4b5-bc93-44a2-a29d-3478f0a5dac6",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/afr/228/monk-class?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/mic/13/drown-in-dreams?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Monk Class"
+      "submitted_name": "Drown in Dreams"
     },
     {
       "cache": "cards/f8d2a94f-7be1-4b17-8556-398dde531360.json",
@@ -1034,25 +1036,27 @@
       "submitted_name": "Aetherize"
     },
     {
-      "cache": "cards/48369aec-a991-4bef-8554-01c84302b063.json",
+      "cache": "cards/da93264e-4e04-401a-9809-e4e1056cf604.json",
       "card": {
         "cmc": 5.0,
         "keywords": [],
-        "mana_cost": "{3}{U}{U}",
-        "oracle_text": "For each attacking creature, its owner puts it on their choice of the top or bottom of their library.",
+        "mana_cost": "{3}{W}{B}",
+        "oracle_text": "Prevent all combat damage that would be dealt to you this turn. For each 1 damage prevented this way, create a 2/1 white and black Inkling creature token with flying.",
         "type_line": "Instant"
       },
       "categories": [
         "combat-trick",
-        "board-wipe"
+        "protection",
+        "token-production",
+        "win-condition"
       ],
       "category_source": "deck",
-      "name": "Aetherspouts",
-      "oracle_id": "48369aec-a991-4bef-8554-01c84302b063",
+      "name": "Inkshield",
+      "oracle_id": "da93264e-4e04-401a-9809-e4e1056cf604",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/mic/97/aetherspouts?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/soc/316/inkshield?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Aetherspouts"
+      "submitted_name": "Inkshield"
     },
     {
       "cache": "cards/96381388-1e82-411c-8290-1f3e909d3b5f.json",
@@ -1203,27 +1207,25 @@
       "submitted_name": "Misdirection"
     },
     {
-      "cache": "cards/d412b175-2365-4b2c-a8f5-3e4e9d06280d.json",
+      "cache": "cards/0f264e5b-264e-4e97-9a8d-8ae1d6a286ce.json",
       "card": {
-        "cmc": 5.0,
-        "keywords": [
-          "Mill"
-        ],
-        "mana_cost": "{3}{U}{U}",
-        "oracle_text": "If an opponent searched their library this turn, you may pay {0} rather than pay this spell's mana cost.\nTarget opponent mills thirteen cards.",
-        "type_line": "Instant — Trap"
+        "cmc": 2.0,
+        "keywords": [],
+        "mana_cost": "{U}{B}",
+        "oracle_text": "Choose one —\n• Counter target spell with mana value less than or equal to the number of cards in its controller's graveyard.\n• Destroy target creature with mana value less than or equal to the number of cards in its controller's graveyard.",
+        "type_line": "Instant"
       },
       "categories": [
-        "mill",
-        "alternative-cost"
+        "counterspell",
+        "removal"
       ],
       "category_source": "deck",
-      "name": "Archive Trap",
-      "oracle_id": "d412b175-2365-4b2c-a8f5-3e4e9d06280d",
+      "name": "Drown in the Loch",
+      "oracle_id": "0f264e5b-264e-4e97-9a8d-8ae1d6a286ce",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/zen/41/archive-trap?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/clb/842/drown-in-the-loch?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Archive Trap"
+      "submitted_name": "Drown in the Loch"
     },
     {
       "cache": "cards/d6d7faa8-ecc9-408b-9c46-a0f62c74f567.json",
@@ -2227,7 +2229,7 @@
     }
   ],
   "categorized_cards": 96,
-  "generated_at": "2026-10-12T23:18:51.810007+00:00",
+  "generated_at": "2026-10-12T23:29:22.983934+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 96,

@@ -16,7 +16,7 @@
     {
       "name": "draw",
       "score": 4,
-      "reason": "Independent draw engines, instant refills, and Splendor sustain reactive turns."
+      "reason": "Independent draw engines, instant refills including Dreams, and Splendor sustain reactive turns."
     },
     {
       "name": "spell copy",
@@ -39,6 +39,11 @@
       "reason": "Three dedicated clones multiply Saruman, draw engines, or finishers."
     },
     {
+      "name": "counterspells",
+      "score": 3,
+      "reason": "Four true counterspells provide broad, graveyard-conditional, targeted-protection, and mana-payment coverage."
+    },
+    {
       "name": "equipment",
       "score": 3,
       "reason": "Staff multiplies creature triggers and Foe-hammer converts creature power into instant/sorcery discounts."
@@ -56,12 +61,12 @@
     {
       "name": "mill",
       "score": 3,
-      "reason": "Saruman and Tidecaller stock graveyards; Guildmage and Ascension convert mill bursts into life loss."
+      "reason": "Saruman and Tidecaller stock graveyards; Dreams adds a flexible burst for Guildmage and Ascension."
     },
     {
       "name": "tokens",
       "score": 3,
-      "reason": "Aligned Heart and Shark Typhoon are dedicated combat finishes; Rammas supplies blockers."
+      "reason": "Heart, Typhoon, and Inkshield are combat finishes; Rammas supplies blockers."
     },
     {
       "name": "activated abilities",
@@ -87,11 +92,6 @@
       "name": "combo",
       "score": 2,
       "reason": "Guildmage and charged Ascension convert finite mill bursts into lethal life loss."
-    },
-    {
-      "name": "counterspells",
-      "score": 2,
-      "reason": "Three true counterspells remain beside spell theft and target redirection."
     },
     {
       "name": "enchantments",
@@ -132,6 +132,11 @@
       "name": "treasure",
       "score": 2,
       "reason": "Lotho generates mana from second spells around the table."
+    },
+    {
+      "name": "x spells",
+      "score": 2,
+      "reason": "Drown in Dreams scales draw and mill with generic discounts; Typhoon has scalable cycling."
     },
     {
       "name": "artifacts",
