@@ -21,6 +21,7 @@ import { registerDelayedTrigger } from './delayedTriggers'
 import { objectIdentity, targetObject } from '../objectIdentity'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
+import { copyTargetsWithReplacement, validateCanonicalCopyTargets } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
@@ -481,6 +482,26 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
         return 'card is no longer a valid choice'
       }
     }
+    if (selection.canonicalChoice?.action === 'copySpellTargets' && objectIds.length > 0) {
+      const action = selection.canonicalChoice
+      const frame = state.resolution?.kind === 'canonicalSpell' && state.resolution.stackId === action.stackId
+        ? state.resolution
+        : undefined
+      const original = state.stack.find((item) => item.id === action.copySpellStackId)
+      const source = original ? state.objects[original.objectId] : undefined
+      const job = frame?.pendingCopyTargets?.[0]
+      const object = state.objects[objectIds[0]!]
+      if (frame && job && original && source && object) {
+        const error = validateCanonicalCopyTargets(
+          state,
+          original,
+          source,
+          copyTargetsWithReplacement(original, action.copySlotIndex ?? 0, { kind: 'object', ...objectIdentity(object) }, job.answers),
+          action.copyController ?? frame.controller,
+        )
+        if (error) return error
+      }
+    }
     if (objectIds.length > 0) {
       if (selection.payMana && !payCost(state.players[event.seat].mana, selection.payMana)) {
         return `${event.seat} cannot pay ${selection.payMana}`
@@ -604,12 +625,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
           const object = draft.object(objectId)
           return object ? [{ kind: 'object' as const, ...objectIdentity(object) }] : []
         })
-        let selectedIndex = 0
-        const targets = original.targets.map((target) => {
-          if (target.kind !== 'object') return target
-          const replacement = selected[selectedIndex++]
-          return replacement ?? target
-        })
+        const targets = selected.length > 0
+          ? copyTargetsWithReplacement(original, canonicalChoice.copySlotIndex ?? 0, selected[0]!)
+          : original.targets
         draft.resolution.afterChoiceEvents = [{
           type: 'copySpell',
           stackId: original.id,

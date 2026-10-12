@@ -31,12 +31,12 @@ const canonicalCandidate = (
   clause: TargetClause,
   context: RuleDslRuntimeContext,
   sourceId?: string,
-  preservedPins?: ReadonlySet<string>,
+  preservedPin = false,
 ) => {
   // A spell copy may retain an announced target which has since become
   // illegal.  Those pins are exempt from the live candidate checks; any
   // replacement still has to pass the printed clause below.
-  if (preservedPins?.has(identityKey(target))) return true
+  if (preservedPin) return true
   switch (clause.filter.kind) {
     case 'players': {
       if (target.kind !== 'player') return false
@@ -119,7 +119,7 @@ const partitionTargets = (
   clauses: readonly TargetClause[],
   supplied: readonly TargetRef[],
   context: RuleDslRuntimeContext,
-  preservedPins?: ReadonlySet<string>,
+  preservedPins?: ReadonlySet<number>,
 ) => {
   const bounds = targetCounts(clauses, context)
   const slots: TargetRef[][] = clauses.map(() => [])
@@ -139,9 +139,9 @@ const partitionTargets = (
     for (let count = min; count <= upper; count += 1) {
       const chosen = supplied.slice(offset, offset + count)
       const keys = new Set<string>()
-      if (chosen.every((target) => {
+      if (chosen.every((target, recipientIndex) => {
         const key = identityKey(target)
-        if (keys.has(key) || !canonicalCandidate(state, target, clause, bindingContext(context, slots.slice(0, clauseIndex)), sourceId, preservedPins)) return false
+        if (keys.has(key) || !canonicalCandidate(state, target, clause, bindingContext(context, slots.slice(0, clauseIndex)), sourceId, preservedPins?.has(offset + recipientIndex))) return false
         keys.add(key)
         return true
       })) {
@@ -162,16 +162,17 @@ const groupedTargets = (
   clauses: readonly TargetClause[],
   supplied: readonly (readonly TargetRef[])[],
   context: RuleDslRuntimeContext,
-  preservedPins?: ReadonlySet<string>,
+  preservedPins?: ReadonlySet<number>,
 ) => {
   if (supplied.length !== clauses.length) return undefined
   const bounds = targetCounts(clauses, context)
   const slots = supplied.map((targets, index) => {
     const keys = new Set<string>()
     if (targets.length < bounds[index].min || targets.length > bounds[index].max) return undefined
-    if (!targets.every((target) => {
+    const offset = supplied.slice(0, index).reduce((total, slot) => total + slot.length, 0)
+    if (!targets.every((target, recipientIndex) => {
       const key = identityKey(target)
-      if (keys.has(key) || !canonicalCandidate(state, target, clauses[index], bindingContext(context, supplied.slice(0, index)), sourceId, preservedPins)) return false
+      if (keys.has(key) || !canonicalCandidate(state, target, clauses[index], bindingContext(context, supplied.slice(0, index)), sourceId, preservedPins?.has(offset + recipientIndex))) return false
       keys.add(key)
       return true
     })) return undefined
@@ -209,7 +210,7 @@ export const canonicalTargetBindings = (
   scopeIdsOverride?: readonly string[],
   modeIndicesOverride?: readonly (number | undefined)[],
   preserveSupplied?: boolean,
-  preservedPins?: ReadonlySet<string>,
+  preservedPins?: ReadonlySet<number>,
 ) => {
   const ability = definition.abilities[abilityIndex]
   if (!ability || (ability.kind !== 'spell' && ability.kind !== 'activated' && ability.kind !== 'triggered')) {
@@ -285,11 +286,10 @@ export const canonicalTargetCandidates = (
   controller: PlayerId,
   occurrence?: import('../../../types').OccurrenceSnapshot,
   clausesOverride?: readonly TargetClause[],
+  x?: number,
 ) => {
   const context = {
-    state,
-    controller,
-    source: captureObject(source),
+    ...contextFor(state, controller, source, undefined, x),
     ...(occurrence ? { occurrence } : {}),
   }
   return (clausesOverride ?? ability.decisions.targets).map((clause) => {
@@ -443,11 +443,28 @@ export const canonicalTargetError = (
   grouped?: readonly (readonly TargetRef[])[],
   controller?: PlayerId,
   x?: number,
-  preservedPins?: ReadonlySet<string>,
   clausesOverride?: readonly TargetClause[],
+  scopeIdsOverride?: readonly string[],
+  modeIndicesOverride?: readonly (number | undefined)[],
+  preservedPins?: ReadonlySet<number>,
 ) => {
   try {
-    const bindings = canonicalTargetBindings(state, source, definition, abilityIndex, supplied, item, grouped, controller, x, clausesOverride, undefined, undefined, undefined, preservedPins)
+    const bindings = canonicalTargetBindings(
+      state,
+      source,
+      definition,
+      abilityIndex,
+      supplied,
+      item,
+      grouped,
+      controller,
+      x,
+      clausesOverride,
+      scopeIdsOverride,
+      modeIndicesOverride,
+      undefined,
+      preservedPins,
+    )
     const ability = definition.abilities[abilityIndex]
     if (!ability || !('decisions' in ability)) return
     const bounds = targetCounts(clausesOverride ?? ability.decisions.targets, contextFor(state, controller ?? item?.controller ?? source.controller, source, item, x))

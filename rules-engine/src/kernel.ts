@@ -898,7 +898,7 @@ const recordPendingCounterResult = (
       ...draft.resolution.results,
       [pending.binding]: pending.kind === 'action'
         ? pending.eventType
-          ? (pending.eventType === 'createToken' || pending.eventType === 'copyPermanent'
+          ? (pending.eventType === 'createToken' || pending.eventType === 'copyPermanent' || pending.eventType === 'copySpell'
             ? trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
             : trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType))
           : pending.value ?? true
