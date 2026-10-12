@@ -423,8 +423,6 @@ const canonicalGrantedTriggersForOccurrence = (
         canonical: {
           definitionSnapshot: generatedAbilitySnapshot(grant.ability, grant.ability.decisions, grant.ability.capturedBindings),
           abilityIndex: 0,
-          ...(grant.execution?.capturedTargetStart !== undefined
-            ? { announcedTargetCount: grant.execution.capturedTargetStart } : {}),
         },
         execution: {
           ...triggerExecution(source, occurrence, draft),
@@ -437,8 +435,6 @@ const canonicalGrantedTriggersForOccurrence = (
           ...(grant.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: structuredClone(grant.execution.capturedOccurrenceBindings) } : {}),
           ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
           ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
-          ...(grant.execution?.capturedTargetStart !== undefined
-            ? { capturedTargetStart: grant.execution.capturedTargetStart } : {}),
         },
         triggeringPlayer: occurrence.player ?? source.controller,
         triggeringObjectId: occurrenceObjectId,
@@ -1310,11 +1306,7 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
     execution: trigger.execution,
     source,
     sourceId: source.id,
-    clauses: canonical.inheritedTargets
-      ? []
-      : canonical.announcedTargetCount === undefined
-        ? ability.decisions.targets
-        : ability.decisions.targets.slice(0, canonical.announcedTargetCount),
+    clauses: canonical.inheritedTargets ? [] : ability.decisions.targets,
   })
 }
 

@@ -1032,6 +1032,8 @@ export const prepareResolutionStep = (draft: Draft) => {
         ...(context.results ? { results: structuredClone(context.results) } : {}),
         ...(context.variables ? { variables: structuredClone(context.variables) } : {}),
         ...(context.occurrence ? { occurrence: structuredClone(context.occurrence) } : {}),
+        ...(context.capturedOccurrence ? { capturedOccurrence: structuredClone(context.capturedOccurrence) } : {}),
+        ...(context.capturedOccurrenceBindings ? { capturedOccurrenceBindings: [...context.capturedOccurrenceBindings] } : {}),
         ...(scope.scopeId ? { scopeId: scope.scopeId } : {}),
       }
       const manaActivations = instruction.cost.kind === 'mana' && !canPayResolutionMana(draft, payer, instruction.cost, frame.source, bindings)

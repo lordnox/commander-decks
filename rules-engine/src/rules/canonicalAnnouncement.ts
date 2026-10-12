@@ -99,16 +99,11 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]
   if (!ability || ability.kind !== 'triggered') return false
-  const capturedTargetBindings = announcement.execution.capturedTargetStart === undefined
-    ? []
-    : (announcement.execution.targetBindings ?? []).filter((binding) =>
-      binding.clauseIndex >= announcement.execution.capturedTargetStart!)
   const selectedTargetBindings = announcement.selectedModes === undefined
     && announcement.targetBindings && announcement.targetBindings.length > 0
     ? announcement.targetBindings
     : announcement.targetClauses.length === 0
       && announcement.targets.length === 0
-      && capturedTargetBindings.length === 0
       && announcement.execution.targetBindings
       ? announcement.execution.targetBindings
       : canonicalTargetBindings(
@@ -125,7 +120,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
         announcement.targetScopeIds,
         announcement.targetModeIndices,
       )
-  const targetBindings = [...capturedTargetBindings, ...selectedTargetBindings]
+  const targetBindings = selectedTargetBindings
   const distributionSpecs = selectedDistributionSpecs(ability, announcement.selectedModes)
   if (distributionSpecs.length > 0 && !announcement.execution.distributionBindings) {
     const context = amountEvaluationContext({

@@ -275,7 +275,9 @@ export const queuePaidReflexive = (
   const generatedOn = parentAbility?.kind === 'triggered'
     ? parentAbility.on
     : { kind: 'draw' as const, filter: {} }
-  const callbackOccurrence = action.bindings?.occurrence
+  const capturedOccurrence = action.bindings?.capturedOccurrence
+    ?? action.bindings?.occurrence
+    ?? parentItem?.execution?.capturedOccurrence
     ?? parentItem?.execution?.occurrence
     ?? occurrence
   const definitionSnapshot = generatedAbilitySnapshot({
@@ -293,7 +295,13 @@ export const queuePaidReflexive = (
     execution: {
       controller: action.controller,
       source: structuredClone(action.source),
-      occurrence: callbackOccurrence,
+      occurrence,
+      ...(captured.capturedBindings.occurrence
+        ? {
+            capturedOccurrence: structuredClone(capturedOccurrence),
+            capturedOccurrenceBindings: captured.capturedBindings.occurrence,
+          }
+        : {}),
       ...(parentFrame?.choices ? { choices: structuredClone(parentFrame.choices) } : {}),
       ...(parentFrame?.results ? { results: structuredClone(parentFrame.results) } : {}),
       ...(Object.keys(captured.choiceAliases).length > 0 ? { capturedChoiceAliases: captured.choiceAliases } : {}),

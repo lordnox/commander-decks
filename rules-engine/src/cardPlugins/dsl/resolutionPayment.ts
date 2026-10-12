@@ -6,7 +6,7 @@ import { evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
 import { manaModes, tapForManaError } from '../../plugins/mana'
 import { payCost } from '../../plugins/spells'
 
-export type ResolutionPaymentBindings = Pick<RuleDslRuntimeContext, 'targets' | 'targetLegality' | 'choices' | 'results' | 'variables' | 'scopeId' | 'occurrence'>
+export type ResolutionPaymentBindings = Pick<RuleDslRuntimeContext, 'targets' | 'targetLegality' | 'choices' | 'results' | 'variables' | 'scopeId' | 'occurrence' | 'capturedOccurrence' | 'capturedOccurrenceBindings'>
 
 export type ResolutionManaActivation =
   | {
@@ -71,7 +71,7 @@ export const canPayResolutionMana = (
 export const eligibleResolutionManaAbilities = (
   state: GameState,
   payer: PlayerId,
-) => Object.values(state.objects).flatMap((object): ResolutionManaActivation[] => {
+) => Object.values(state.objects).flatMap<ResolutionManaActivation>((object) => {
   if (object.controller !== payer || object.phasedOut) return []
   const canonicalMana = canonicalManaAbilityForTap(object)
   if (canonicalMana && object.ruleDefinition) {
