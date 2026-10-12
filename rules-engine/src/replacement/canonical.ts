@@ -63,8 +63,8 @@ const eventMatchesPattern = (event: GameEvent, effect: ReplacementEffectDefiniti
       if (!object) return false
       if (effect.event.filter.object) {
         const filter = effect.event.filter.object
-        if (typeof filter === 'object' && 'kind' in filter && filter.kind !== 'objects') {
-          return evaluateObjectReference(filter as Extract<typeof filter, { kind: 'contextRef' | 'targetRef' | 'choiceRef' }>, runtime)
+        if (typeof filter === 'object' && 'kind' in filter) {
+          return evaluateObjectReference(filter, runtime)
             .some((candidate) => candidate.id === object.id)
         }
         const matches = evaluateObjectSelector({ kind: 'objects', filter }, runtime)

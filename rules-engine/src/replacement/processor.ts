@@ -121,8 +121,9 @@ export const settleReplaceableEvent = (
       && proposal.type === 'draw'
       && (proposal.count ?? 1) > 1)
     if (structural.length === 1) {
-      const applied = applyCandidate(proposal, structural[0]!, lineage)
-      pluginId = structural[0]!.pluginId
+      const structuralCandidate = structural[0]!
+      const applied = applyCandidate(proposal, structuralCandidate, lineage)
+      pluginId = structuralCandidate.kind === 'legacy' ? structuralCandidate.pluginId : structuralCandidate.sourceName
       if (applied.kind === 'prevented') return { kind: 'prevented', pluginId }
       if (applied.kind === 'fork') return { kind: 'fork', events: applied.events, pluginId }
       proposal = applied.event
