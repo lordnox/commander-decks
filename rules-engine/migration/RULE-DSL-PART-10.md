@@ -37,6 +37,10 @@ destinations, atomic multi-card rollback, life-loss settlement, captured-X mana,
 JSON restart, fresh callback targets and allocations, parent allocation isolation,
 and parent enter-occurrence capture. The focused Part 10 file has 31 passing
 tests; the full rules-engine suite has 2,334 passing tests.
+The integrated host checks have 88 passing tests with 4 filtered known-class
+generated-handler failures, the wire UI checks have 23 passing tests, and the
+parent regression set has 24 passing cases across 55 assertions. The filtered
+host cases are tracked as known test failures and are outside this DSL slice.
 
 ## Remaining work
 
