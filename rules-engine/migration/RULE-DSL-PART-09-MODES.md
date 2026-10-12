@@ -1,8 +1,10 @@
 # Rule DSL Part 09: scoped modes and distributions
 
-Status: implementation slice complete; review pending.
+Status: implementation slice complete; integrated review candidate.
 
-This slice starts from the reviewed Part08 head `b87508d881c467a3602b08c5ee78a1f74fa355b6`.
+This slice is integrated on the approved Part08 base and carries the reviewed
+mode, distribution, host transport, and resolution behavior through the live
+runtime.
 
 The canonical compiler now exposes pure helpers for announcement-time mode
 cardinality, repeated mode occurrence scopes, and distributed allocations. Each
@@ -20,13 +22,17 @@ covered by the Part06/Part08 regression suite.
 
 ## Validation
 
-- `bun test rules-engine/src/cardPlugins/dsl rules-engine/src/rules/dslTriggers.test.ts` — 90 passed, 0 failed.
-- `bun run check:imports` — passed.
-- `bun run typecheck` — unavailable in this worktree because `tsc` is not on PATH (the Part08 base recorded a passing typecheck).
-- `bun run check:rule-dsl-coverage` — reports the pre-existing generated ledger is stale; no ledger was regenerated in this focused slice.
+- The Part09 durable runtime suite covers repeated scoped modes, printed order,
+  activated and triggered cardinality, pinned sacrifice-cost counts,
+  distributions, separate proliferate choices, and whole-item target gates.
+- Host protocol and kernel action paths carry typed mode and distribution
+  bindings; their checks run with the repository's full host validation.
+- The full rules and type/import checks are recorded by the integrating review
+  checkpoint.
 
-## Remaining work
+## Scope note
 
-Announcement UI/host wiring for spell and activation mode offers, copy and
-retargeting preservation, and typed distribution pickers remain for the
-follow-on Part09 copies/retargeting slice and later host integration.
+Copy and retargeting preservation remains covered by the companion Part09
+copies slice. This modes slice includes the Ashling's Command runtime ordering
+exit: an Elemental copy is created before the later mode queries and damages
+the controller's creatures, including the new token.
