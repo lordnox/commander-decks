@@ -384,6 +384,24 @@ const stepIndex = (step: string) => [
   'postcombatMain', 'end', 'cleanup',
 ].indexOf(step)
 
+const nextExplicitStepTurn = (draft: Draft, active: string, targetIndex: number, currentIndex: number) => {
+  const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
+  const nextNormal = (seat: string) => {
+    const index = living.indexOf(seat)
+    return living[(index + 1 + living.length) % (living.length || 1)] ?? seat
+  }
+  if (draft.active === active && currentIndex < targetIndex) return draft.turn
+  let candidate = draft.active
+  let turn = draft.turn
+  const queued = [...(draft.extraTurns ?? [])]
+  for (let count = 0; count <= living.length + queued.length + 1; count += 1) {
+    candidate = queued.shift() ?? nextNormal(candidate)
+    turn += 1
+    if (candidate === active) return turn
+  }
+  return turn
+}
+
 const durationMetadata = (
   duration: import('./cardPlugins/dsl/schema/v1').EffectDuration,
   context: RuleDslRuntimeContext,
@@ -402,17 +420,10 @@ const durationMetadata = (
         durationUntilStepTurn: draft.turn + (currentIndex < targetIndex ? 0 : 1),
       }
     }
-    const order = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
-    const activeIndex = Math.max(0, order.indexOf(draft.active))
-    const targetPlayerIndex = active ? order.indexOf(active) : activeIndex
-    const round = order.length || 1
-    const playerDelta = targetPlayerIndex >= activeIndex
-      ? targetPlayerIndex - activeIndex
-      : round - activeIndex + Math.max(0, targetPlayerIndex)
-    let turn = draft.turn + playerDelta
-    if (playerDelta === 0 && currentIndex >= targetIndex) turn += round
+    const turn = nextExplicitStepTurn(draft, active, targetIndex, currentIndex)
     return {
       durationUntilStepTurn: turn,
+      durationUntilStepNotBeforeTurn: draft.turn + (currentIndex < targetIndex ? 0 : 1),
       ...(active ? { durationUntilStepActive: active } : {}),
     }
   }
