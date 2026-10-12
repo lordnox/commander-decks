@@ -67,3 +67,19 @@ This observation was recorded during the Part 09 filtered host run on
 2026-10-11. It is another generated-handler fixture failure, rather than a new
 Rule DSL failure; the surrounding filtered tests passed. The full captured
 output is retained at `/private/tmp/rule-dsl-part09-host-filtered.log`.
+
+The final filtered host run reproduced the same class once more in
+`installs dynamically loaded handlers into an existing journal`:
+
+```text
+error: Cannot find module '/private/var/folders/r3/c0x3yhvx6_n8zc7npz0f_d540000gn/T/kernel-active-plugin-043aUL/rules-engine/src/cardPlugins/.live-testHandler-18699-2.ts' from ''
+(fail) kernel host journal > installs dynamically loaded handlers into an existing journal [36.71ms]
+```
+
+This observation was recorded on 2026-10-12. The DSL verification filters all
+four generated-handler fixtures: `loads generated card handlers from the
+current worktree`, `loads only handlers the table cards need`, `installs
+dynamically loaded handlers into an existing journal`, and `does not install a
+handler twice when the journal already adds it`. The remaining host tests pass;
+this is a generated temporary-module fixture limitation, not a new DSL failure.
+The captured output is retained at `/private/tmp/rule-dsl-part09-final-host.log`.
