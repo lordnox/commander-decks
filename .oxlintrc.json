@@ -22,9 +22,9 @@
         "rules-engine/src/kernel.ts",
         "rules-engine/src/types.ts",
         "rules-engine/src/cardPlugins/activated.ts",
-        "rules-engine/src/cardPlugins/dsl/compiler/*.ts",
+        "rules-engine/src/cardPlugins/dsl/**/*.ts",
         "rules-engine/src/plugins/spells.ts",
-        "rules-engine/src/rules/canonicalAnnouncement.ts",
+        "rules-engine/src/rules/canonical*.ts",
         "rules-engine/src/rules/select*.ts"
       ],
       "rules": {

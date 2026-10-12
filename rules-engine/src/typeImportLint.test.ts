@@ -1,9 +1,14 @@
-import { rmSync, writeFileSync } from 'node:fs'
+import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, test } from 'bun:test'
 
-const runOxlint = async (file: string) => {
-  const process = Bun.spawn(['bunx', 'oxlint', '--config', '.oxlintrc.json', '--quiet', file], {
+const oxlint = join(import.meta.dir, '../../node_modules/.bin/oxlint')
+const fixturePath = 'rules-engine/src/cardPlugins/dsl/compiler/fixture.ts'
+
+const runOxlint = async (root: string) => {
+  const process = Bun.spawn([oxlint, '--config', '.oxlintrc.json', '--quiet', fixturePath], {
+    cwd: root,
     stdout: 'pipe',
     stderr: 'pipe',
   })
@@ -14,21 +19,25 @@ const runOxlint = async (file: string) => {
   return { code: await process.exited, output: `${stdout}${stderr}` }
 }
 
-const withFixture = async (source: string, check: (file: string) => Promise<void>) => {
-  const file = join('rules-engine/src/cardPlugins/dsl/compiler', `type-import-lint-fixture-${crypto.randomUUID()}.ts`)
+const withFixture = async (source: string, check: (root: string) => Promise<void>) => {
+  const root = mkdtempSync(join(tmpdir(), 'type-import-lint-'))
+  const compilerDirectory = join(root, 'rules-engine/src/cardPlugins/dsl/compiler')
+  const file = join(compilerDirectory, 'fixture.ts')
+  mkdirSync(compilerDirectory, { recursive: true })
+  cpSync(join(import.meta.dir, '../../.oxlintrc.json'), join(root, '.oxlintrc.json'))
   writeFileSync(file, source)
   try {
-    await check(file)
+    await check(root)
   } finally {
-    rmSync(file, { force: true })
+    rmSync(root, { recursive: true, force: true })
   }
 }
 
 test('rejects inline type imports in the checked DSL compiler scope', async () => {
   await withFixture(
     "type Mana = import('../../../types').ManaId\nconst mana: Mana = 'C'\nvoid mana\n",
-    async (file) => {
-      const result = await runOxlint(file)
+    async (root) => {
+      const result = await runOxlint(root)
       expect(result.code).not.toBe(0)
       expect(result.output).toContain('typescript(consistent-type-imports)')
     },
@@ -38,8 +47,8 @@ test('rejects inline type imports in the checked DSL compiler scope', async () =
 test('allows runtime dynamic imports alongside top-level type imports', async () => {
   await withFixture(
     "import type { ManaId } from '../../../types'\nconst mana: ManaId = 'C'\nconst loadTypes = () => import('../../../types')\nvoid mana\nvoid loadTypes\n",
-    async (file) => {
-      const result = await runOxlint(file)
+    async (root) => {
+      const result = await runOxlint(root)
       expect(result.code).toBe(0)
     },
   )
