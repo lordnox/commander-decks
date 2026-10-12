@@ -20,6 +20,21 @@ const targetIdentity = (target: TargetRef) => {
 
 const sameTarget = (left: TargetRef, right: TargetRef) => targetIdentity(left) === targetIdentity(right)
 
+const recipientAndReplacementUnchanged = (recipient: TargetRef, replacement: TargetRef) => {
+  if (recipient.kind !== replacement.kind) return false
+  switch (recipient.kind) {
+    case 'player':
+      return replacement.kind === 'player' && recipient.player === replacement.player
+    case 'stackItem':
+      return replacement.kind === 'stackItem' && recipient.stackId === replacement.stackId
+    case 'object':
+      return replacement.kind === 'object'
+        && recipient.objectId === replacement.objectId
+        && recipient.incarnation === replacement.incarnation
+        && recipient.zone === replacement.zone
+  }
+}
+
 const copyTargetLayout = (
   original: StackItem,
   ability: Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>,
@@ -223,18 +238,7 @@ export const putCanonicalSpellCopyOnStack = (
       recipients: binding.recipients.map((recipient) => {
         const replacement = targets[targetIndex++]
         if (!replacement) return recipient
-        const unchanged = recipient.kind === replacement.kind && (
-          recipient.kind === 'player' && replacement.kind === 'player'
-            ? recipient.player === replacement.player
-            : recipient.kind === 'stackItem' && replacement.kind === 'stackItem'
-              ? recipient.stackId === replacement.stackId
-              : recipient.kind === 'object' && replacement.kind === 'object'
-              ? recipient.objectId === replacement.objectId
-                && recipient.incarnation === replacement.incarnation
-                && recipient.zone === replacement.zone
-                : false
-        )
-        if (unchanged) return recipient
+        if (recipientAndReplacementUnchanged(recipient, replacement)) return recipient
         return structuredClone(replacement)
       }),
     }))

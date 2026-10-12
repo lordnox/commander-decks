@@ -22688,8 +22688,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:160",
         "rules-engine/src/cardPlugins/continuousEffects.ts:169",
         "rules-engine/src/cardPlugins/continuousEffects.ts:43",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:538",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:586",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:542",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:590",
         "rules-engine/src/cardPlugins/continuousEffects.ts:61",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:681",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:865",
@@ -22709,7 +22709,7 @@
         "rules-engine/src/formats.ts:120",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:488",
+        "rules-engine/src/kernel.ts:503",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:118",
         "rules-engine/src/newGame.ts:119",
@@ -23428,14 +23428,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          895,
-          896,
-          898
+          899,
+          900,
+          902
         ],
         "samples": [
-          "895: const endTurnEffects = event.type === 'custom'",
-          "896: && event.name === 'advanceStep'",
-          "898: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "899: const endTurnEffects = event.type === 'custom'",
+          "900: && event.name === 'advanceStep'",
+          "902: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23721,10 +23721,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1220
+          1235
         ],
         "samples": [
-          "1220: event.name === SEARCH_CHOSEN"
+          "1235: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -26034,10 +26034,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/copies.ts",
         "lines": [
-          216
+          231
         ],
         "samples": [
-          "216: source: captureObject(draft.object(created.objectId) ?? source),"
+          "231: source: captureObject(draft.object(created.objectId) ?? source),"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -26131,27 +26131,27 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          323,
-          376,
-          378,
-          382,
-          384,
-          394,
-          421,
-          424,
-          433,
-          467,
-          472,
-          502,
-          504,
-          510,
-          527,
-          532
+          353,
+          391,
+          393,
+          397,
+          399,
+          409,
+          436,
+          439,
+          448,
+          482,
+          487,
+          517,
+          519,
+          525,
+          542,
+          547
         ],
         "samples": [
-          "323: const object = draft.object(event.objectId)",
-          "376: const object = draft.object(event.objectId)",
-          "378: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "353: const object = draft.object(event.objectId)",
+          "391: const object = draft.object(event.objectId)",
+          "393: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
