@@ -768,7 +768,7 @@ function applyEventTree(
   options: EventTreeOptions = {},
 ): ReduceResult {
   if (event.type === 'actionGroup') {
-    return applySimultaneousActionGroup(state, event.events, catalog)
+    return applySimultaneousActionGroup(state, event.events, catalog, event.atomic)
   }
   if (event.type === 'resolveTop' && !state.resolution) {
     const item = canonicalResolutionCandidate(state)
@@ -861,6 +861,7 @@ const applySimultaneousActionGroup = (
   state: GameState,
   events: GameEvent[],
   catalog: PluginCatalog,
+  atomic = false,
 ): ReduceResult => {
   let current = state
   const entries: EventTrace[] = []
@@ -872,20 +873,24 @@ const applySimultaneousActionGroup = (
       deferEndCheck: true,
     })
     entries.push(...next.trace)
-    if (!next.ok) return { ...next, state: current, trace: entries }
-    if (!next.prevented) occurrences.push(appliedEvent(next, event))
+    if (!next.ok) return { ...next, state: atomic ? state : current, trace: entries }
+    const occurrence = next.prevented || !next.trace.some((entry) => entry.outcome === 'applied')
+      ? undefined
+      : appliedEvent(next, event)
+    if (occurrence) occurrences.push(occurrence)
     current = next.state
     queued.push(...(next.queued ?? []).map((child) => ({
       event: child,
       depth: next.queuedDepth ?? 1,
     })))
+    if (atomic && !occurrence) return { ok: true, state, trace: entries }
   }
   const grouped = makeDraft(current)
   for (const occurrence of occurrences) captureEventTriggers(state, occurrence, grouped)
   checkEnded(grouped)
   current = freezeDraft(grouped)
   if (queued.length > 1 && queued.every(({ event }) => event.type === 'move' || event.type === 'destroy' || event.type === 'sacrifice')) {
-    const grouped = applySimultaneousActionGroup(current, queued.map(({ event }) => event), catalog)
+    const grouped = applySimultaneousActionGroup(current, queued.map(({ event }) => event), catalog, atomic)
     entries.push(...nested(grouped.trace, 1))
     if (!grouped.ok) return { ...grouped, state: current, trace: entries }
     current = grouped.state
@@ -1041,8 +1046,8 @@ const driveResolution = (
       if (committed.resolution) {
         if (committed.resolution.kind === 'canonicalSpell'
           && (committed.resolution.pendingEvents?.length ?? 0) === 0
-          && committed.resolution.pendingResolutionPayment?.selected) {
-          settleResolutionPayment(committed)
+          && committed.resolution.pendingResolutionPayment?.paymentEvents) {
+          settleResolutionPayment(committed, entries)
         }
         if ((committed.resolution.pendingEvents?.length ?? 0) > 0) {
           committed.resolution.phase = 'committing'

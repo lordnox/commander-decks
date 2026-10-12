@@ -1,17 +1,26 @@
-import type { CapturedObject, GameState, PlayerId } from '../../types'
+import type { CapturedObject, GameState, ManaId, PlayerId } from '../../types'
 import type { Cost } from './schema/v1'
 import { activationPermission, beginActivatedAnnouncement } from './compiler/announcement'
-import { canonicalManaClassification } from '../activated'
-import { compileCardRuleDefinition, evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
+import { canonicalManaAbilityForTap } from '../activated'
+import { evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
+import { manaModes, tapForManaError } from '../../plugins/mana'
 import { payCost } from '../../plugins/spells'
 
 export type ResolutionPaymentBindings = Pick<RuleDslRuntimeContext, 'targets' | 'targetLegality' | 'choices' | 'results' | 'variables' | 'scopeId' | 'occurrence'>
 
-export type ResolutionManaActivation = {
-  objectId: string
-  abilityId: string
-  label: string
-}
+export type ResolutionManaActivation =
+  | {
+    kind: 'activateAbility'
+    objectId: string
+    abilityId: string
+    label: string
+  }
+  | {
+    kind: 'tapForMana'
+    objectId: string
+    mana?: ManaId
+    label: string
+  }
 
 export const resolutionPaymentCandidates = (
   state: GameState,
@@ -59,11 +68,11 @@ export const canPayResolutionMana = (
 export const eligibleResolutionManaAbilities = (
   state: GameState,
   payer: PlayerId,
-) => Object.values(state.objects).flatMap((object) => {
-  if (object.controller !== payer || object.zone !== 'battlefield' || object.phasedOut || !object.ruleDefinition) return []
-  const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
-  return compiled.definition.abilities.flatMap((ability, index) => {
-    if (ability.kind !== 'activated' || !canonicalManaClassification(ability).isManaAbility) return []
+) => Object.values(state.objects).flatMap((object): ResolutionManaActivation[] => {
+  if (object.controller !== payer || object.phasedOut) return []
+  const canonicalMana = canonicalManaAbilityForTap(object)
+  if (canonicalMana && object.ruleDefinition) {
+    const ability = canonicalMana.ability
     const error = activationPermission({
       state,
       sourceId: object.id,
@@ -75,6 +84,20 @@ export const eligibleResolutionManaAbilities = (
     if (error) return []
     const announcement = beginActivatedAnnouncement(state, object, payer, ability, [], undefined, undefined, { targetClauses: [] })
     if (!announcement.ok) return []
-    return [{ objectId: object.id, abilityId: `$.abilities[${index}]`, label: `Activate ${object.name}` }]
+    return [{ kind: 'activateAbility' as const, objectId: object.id, abilityId: `$.abilities[${canonicalMana.index}]`, label: `Activate ${object.name}` }]
+  }
+  if (object.zone !== 'battlefield') return []
+  const permissionError = activationPermission({ state, sourceId: object.id, payer, action: 'tapForMana' })
+  if (permissionError) return []
+  const modes = manaModes(object, state)
+  return modes.flatMap((mode) => {
+    const mana = Object.keys(mode)[0] as ManaId | undefined
+    if (!mana || tapForManaError(state, payer, object.id, modes.length === 1 ? undefined : mana)) return []
+    return [{
+      kind: 'tapForMana' as const,
+      objectId: object.id,
+      ...(modes.length === 1 ? {} : { mana }),
+      label: `Tap ${object.name} for ${mana}`,
+    }]
   })
 })

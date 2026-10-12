@@ -539,6 +539,7 @@ export type CanonicalResolutionFrame = {
     whenPaidDecisions?: import('./cardPlugins/dsl/schema/v1').DecisionsInput
     bindings?: import('./cardPlugins/dsl/resolutionPayment').ResolutionPaymentBindings
     selected?: ObjectIdentity[]
+    paymentEvents?: GameEvent[]
   }
 }
 
@@ -781,7 +782,7 @@ export type GameEvent =
   /** Internal canonical instruction event; never offered as a player action. */
   | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
   /** Internal canonical instruction group; all members share one before-state. */
-  | { type: 'actionGroup'; events: GameEvent[] }
+  | { type: 'actionGroup'; events: GameEvent[]; atomic?: boolean }
   /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
   | { type: 'destroy'; objectId: string; sourceId?: string }
   /** Canonical copy action; resolves from the source snapshot at commit time. */

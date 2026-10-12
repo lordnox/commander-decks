@@ -1042,7 +1042,12 @@ export const prepareResolutionStep = (draft: Draft) => {
       const options = [
         { id: 'pay', label: 'Pay' },
         { id: 'decline', label: 'Decline' },
-        ...manaActivations.map((activation) => ({ id: `activate:${activation.objectId}:${activation.abilityId}`, label: activation.label })),
+        ...manaActivations.map((activation) => ({
+          id: activation.kind === 'tapForMana'
+            ? `tap:${activation.objectId}:${activation.mana ?? ''}`
+            : `activate:${activation.objectId}:${activation.abilityId}`,
+          label: activation.label,
+        })),
       ]
       openOptionSelection(draft, {
         seat: payer,
