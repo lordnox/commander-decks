@@ -1,0 +1,183 @@
+{
+  "arena_id": 87208,
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_faces": [
+    {
+      "artist": "Chris Rahn",
+      "artist_id": "7742047e-0f80-4c0f-a530-d07460165e86",
+      "colors": [
+        "U"
+      ],
+      "illustration_id": "20691ab0-5c16-49e3-9e01-d52112bfa722",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "crop": "https://cards.scryfall.io/crop/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "display": "https://cards.scryfall.io/display/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "grid": "https://cards.scryfall.io/grid/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "large": "https://cards.scryfall.io/large/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "normal": "https://cards.scryfall.io/normal/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "png": "https://cards.scryfall.io/png/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.png?1783913797",
+        "small": "https://cards.scryfall.io/small/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797"
+      },
+      "mana_cost": "{2}{U}{U}",
+      "name": "Ojer Pakpatiq, Deepest Epoch",
+      "object": "card_face",
+      "oracle_text": "Flying\nWhenever you cast an instant spell from your hand, it gains rebound. (Exile it as it resolves. At the beginning of your next upkeep, you may cast it from exile without paying its mana cost.)\nWhen Ojer Pakpatiq dies, return it to the battlefield tapped and transformed under its owner's control with three time counters on it.",
+      "power": "4",
+      "toughness": "3",
+      "type_line": "Legendary Creature — God"
+    },
+    {
+      "artist": "Chris Rahn",
+      "artist_id": "7742047e-0f80-4c0f-a530-d07460165e86",
+      "colors": [],
+      "flavor_text": "Chimil gave the Oltec time. Ojer Pakpatiq gave them the tools to learn its lessons.",
+      "illustration_id": "30c9ae41-a955-4601-a8d3-8c0a83e8bea2",
+      "image_uris": {
+        "art": "https://cards.scryfall.io/art/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "art_crop": "https://cards.scryfall.io/art_crop/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "border_crop": "https://cards.scryfall.io/border_crop/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "crop": "https://cards.scryfall.io/crop/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "display": "https://cards.scryfall.io/display/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "grid": "https://cards.scryfall.io/grid/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797",
+        "large": "https://cards.scryfall.io/large/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "normal": "https://cards.scryfall.io/normal/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "png": "https://cards.scryfall.io/png/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.png?1783913797",
+        "small": "https://cards.scryfall.io/small/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.jpg?1783913797",
+        "thumb": "https://cards.scryfall.io/thumb/back/a/9/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e.webp?1783913797"
+      },
+      "mana_cost": "",
+      "name": "Temple of Cyclical Time",
+      "object": "card_face",
+      "oracle_text": "(Transforms from Ojer Pakpatiq, Deepest Epoch.)\n{T}: Add {U}. Remove a time counter from this land.\n{2}{U}, {T}: Transform this land. Activate only if it has no time counters on it and only as a sorcery.",
+      "type_line": "Land"
+    }
+  ],
+  "cardmarket_id": 743016,
+  "cmc": 4.0,
+  "collector_number": "67",
+  "color_identity": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3330,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a9d71007-bc04-4dff-ad3f-e2c0b5b4400e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:36:37Z",
+  "keywords": [
+    "Flying",
+    "Transform"
+  ],
+  "lang": "en",
+  "layout": "transform",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mtgo_id": 117932,
+  "multiverse_ids": [
+    636768,
+    636769
+  ],
+  "name": "Ojer Pakpatiq, Deepest Epoch // Temple of Cyclical Time",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "34ef174e-1b3d-43d5-9f72-3d35befbdd7f",
+  "oversized": false,
+  "penny_rank": 10097,
+  "preview": {
+    "previewed_at": "2023-10-27",
+    "source": "Polygon",
+    "source_uri": "https://www.polygon.com/23930381/mtg-magic-the-gathering-lost-caverns-of-ixalan-art-reveal"
+  },
+  "prices": {
+    "eur": "2.94",
+    "eur_foil": "4.45",
+    "tix": "0.23",
+    "usd": "3.99",
+    "usd_etched": null,
+    "usd_foil": "4.99"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A34ef174e-1b3d-43d5-9f72-3d35befbdd7f&unique=prints",
+  "produced_mana": [
+    "U"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/117932?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=743016&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F525147%3Fpage%3D1"
+  },
+  "rarity": "mythic",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Ojer+Pakpatiq%2C+Deepest+Epoch",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636768&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOjer%2BPakpatiq%252C%2BDeepest%2BEpoch%2B%252F%252F%2BTemple%2Bof%2BCyclical%2BTime",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOjer%2BPakpatiq%252C%2BDeepest%2BEpoch%2B%252F%252F%2BTemple%2Bof%2BCyclical%2BTime"
+  },
+  "released_at": "2023-11-17",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/lci?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/lci/67/ojer-pakpatiq-deepest-epoch-temple-of-cyclical-time?utm_source=api",
+  "security_stamp": "oval",
+  "set": "lci",
+  "set_id": "70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "set_name": "The Lost Caverns of Ixalan",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Alci&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/70169a6e-89d1-4a3a-aef7-3152958d55ac",
+  "story_spotlight": false,
+  "tcgplayer_id": 525147,
+  "textless": false,
+  "type_line": "Legendary Creature — God // Land",
+  "uri": "https://api.scryfall.com/cards/a9d71007-bc04-4dff-ad3f-e2c0b5b4400e",
+  "variation": false
+}

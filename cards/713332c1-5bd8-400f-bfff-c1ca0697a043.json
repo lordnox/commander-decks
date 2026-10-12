@@ -1,0 +1,132 @@
+{
+  "artist": "Craig J Spearing",
+  "artist_ids": [
+    "b0f15e74-0dd6-4156-959e-c5e30c5cdc52"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 818770,
+  "cmc": 1.0,
+  "collector_number": "158",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 216,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"It's easy to anticipate Captain Storm's orders: take the more dangerous route.\"",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": false,
+  "id": "bbc99a51-1501-4525-a3cc-f48249b64bed",
+  "illustration_id": "a2173995-d387-4bfb-b43f-458a7943c50e",
+  "image_status": "lowres",
+  "image_updated_at": "2026-07-13T01:45:02Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.webp?1783907102",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.jpg?1783907102",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.jpg?1783907102",
+    "crop": "https://cards.scryfall.io/crop/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.webp?1783907102",
+    "display": "https://cards.scryfall.io/display/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.webp?1783907102",
+    "grid": "https://cards.scryfall.io/grid/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.webp?1783907102",
+    "large": "https://cards.scryfall.io/large/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.jpg?1783907102",
+    "normal": "https://cards.scryfall.io/normal/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.jpg?1783907102",
+    "png": "https://cards.scryfall.io/png/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.png?1783907102",
+    "small": "https://cards.scryfall.io/small/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.jpg?1783907102",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/b/bbc99a51-1501-4525-a3cc-f48249b64bed.webp?1783907102"
+  },
+  "keywords": [
+    "Scry"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "legal",
+    "paupercommander": "legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}",
+  "mtgo_id": 138253,
+  "multiverse_ids": [
+    696314
+  ],
+  "name": "Opt",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "713332c1-5bd8-400f-bfff-c1ca0697a043",
+  "oracle_text": "Scry 1. (Look at the top card of your library. You may put that card on the bottom.)\nDraw a card.",
+  "oversized": false,
+  "penny_rank": 64,
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": null,
+    "tix": "0.63",
+    "usd": "0.57",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A713332c1-5bd8-400f-bfff-c1ca0697a043&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/138253?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=818770&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F624167%3Fpage%3D1"
+  },
+  "rarity": "common",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Opt",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=696314&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DOpt",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DOpt"
+  },
+  "released_at": "2025-04-11",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/bbc99a51-1501-4525-a3cc-f48249b64bed/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/tdc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/tdc/158/opt?utm_source=api",
+  "set": "tdc",
+  "set_id": "bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "set_name": "Tarkir: Dragonstorm Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Atdc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/bca9779c-0a0b-4ac1-8794-f3fc25549cf4",
+  "story_spotlight": false,
+  "tcgplayer_id": 624167,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/bbc99a51-1501-4525-a3cc-f48249b64bed",
+  "variation": false
+}

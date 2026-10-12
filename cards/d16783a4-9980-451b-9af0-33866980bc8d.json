@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "de9e594c-fe46-4c24-8e64-a5929472453d",
+      "name": "Alisaie Leveilleur",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Elf Wizard",
+      "uri": "https://api.scryfall.com/cards/de9e594c-fe46-4c24-8e64-a5929472453d"
+    },
+    {
+      "component": "combo_piece",
+      "id": "37e4ab61-bf18-4f9f-ba78-3e08a21aaf4d",
+      "name": "Alphinaud Leveilleur",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Elf Wizard",
+      "uri": "https://api.scryfall.com/cards/37e4ab61-bf18-4f9f-ba78-3e08a21aaf4d"
+    }
+  ],
+  "artist": "Justyna Dura",
+  "artist_ids": [
+    "d2340aef-8ca9-4e0d-864c-6a4e8d5e350a"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 824552,
+  "cmc": 4.0,
+  "collector_number": "33",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 4091,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "65331e86-1ff3-45e4-b789-7afec4ca9bd5",
+  "illustration_id": "75f4d091-1b2c-46a6-a305-370e1ba491d7",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:32:43Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.webp?1783906363",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.jpg?1783906363",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.jpg?1783906363",
+    "crop": "https://cards.scryfall.io/crop/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.webp?1783906363",
+    "display": "https://cards.scryfall.io/display/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.webp?1783906363",
+    "grid": "https://cards.scryfall.io/grid/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.webp?1783906363",
+    "large": "https://cards.scryfall.io/large/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.jpg?1783906363",
+    "normal": "https://cards.scryfall.io/normal/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.jpg?1783906363",
+    "png": "https://cards.scryfall.io/png/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.png?1783906363",
+    "small": "https://cards.scryfall.io/small/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.jpg?1783906363",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/5/65331e86-1ff3-45e4-b789-7afec4ca9bd5.webp?1783906363"
+  },
+  "keywords": [
+    "Partner with",
+    "Vigilance",
+    "Eukrasia",
+    "Partner"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}",
+  "mtgo_id": 140057,
+  "multiverse_ids": [],
+  "name": "Alphinaud Leveilleur",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d16783a4-9980-451b-9af0-33866980bc8d",
+  "oracle_text": "Partner with Alisaie Leveilleur (When this creature enters, target player may put Alisaie Leveilleur into their hand from their library, then shuffle.)\nVigilance\nEukrasia — Whenever you cast your second spell each turn, draw a card.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "0.40",
+    "eur_foil": null,
+    "tix": "1.16",
+    "usd": "0.28",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad16783a4-9980-451b-9af0-33866980bc8d&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "ffxiv",
+    "surgefoil",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/140057?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=824552&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F631140%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Alphinaud+Leveilleur",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAlphinaud%2BLeveilleur",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAlphinaud%2BLeveilleur"
+  },
+  "released_at": "2025-06-13",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "8ED5BFC2E24578C275464C74C6D39D730857B6FAF8992BDB2DC1859B71F967C9",
+  "rulings_uri": "https://api.scryfall.com/cards/65331e86-1ff3-45e4-b789-7afec4ca9bd5/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fic?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fic/33/alphinaud-leveilleur?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "fic",
+  "set_id": "30659956-4558-4cbf-a65f-34cd00c89579",
+  "set_name": "Final Fantasy Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afic&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/30659956-4558-4cbf-a65f-34cd00c89579",
+  "story_spotlight": false,
+  "tcgplayer_id": 631140,
+  "textless": false,
+  "toughness": "4",
+  "type_line": "Legendary Creature — Elf Wizard",
+  "uri": "https://api.scryfall.com/cards/65331e86-1ff3-45e4-b789-7afec4ca9bd5",
+  "variation": false
+}

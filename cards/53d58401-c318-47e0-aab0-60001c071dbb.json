@@ -1,0 +1,156 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "e8ae8c31-70cb-44e1-a105-f4d29f1f9356",
+      "name": "Wall",
+      "object": "related_card",
+      "type_line": "Token Creature — Wall",
+      "uri": "https://api.scryfall.com/cards/e8ae8c31-70cb-44e1-a105-f4d29f1f9356"
+    },
+    {
+      "component": "combo_piece",
+      "id": "24ca1567-2a12-4c31-adb9-3c71f1cfd51b",
+      "name": "Rammas Echor, Ancient Shield",
+      "object": "related_card",
+      "type_line": "Legendary Artifact",
+      "uri": "https://api.scryfall.com/cards/24ca1567-2a12-4c31-adb9-3c71f1cfd51b"
+    }
+  ],
+  "artist": "Matt Stewart",
+  "artist_ids": [
+    "20871267-2d8a-41d5-b03a-be3d557c5734"
+  ],
+  "booster": false,
+  "border_color": "borderless",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 736550,
+  "cmc": 4.0,
+  "collector_number": "505",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 4374,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary",
+    "inverted"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "558c1fcc-cb01-4031-ada5-4e39d65aee27",
+  "illustration_id": "de2e2132-0c04-43e2-b9a6-1fcc09c17a4e",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:43:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.webp?1783914195",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.jpg?1783914195",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.jpg?1783914195",
+    "crop": "https://cards.scryfall.io/crop/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.webp?1783914195",
+    "display": "https://cards.scryfall.io/display/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.webp?1783914195",
+    "grid": "https://cards.scryfall.io/grid/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.webp?1783914195",
+    "large": "https://cards.scryfall.io/large/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.jpg?1783914195",
+    "normal": "https://cards.scryfall.io/normal/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.jpg?1783914195",
+    "png": "https://cards.scryfall.io/png/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.png?1783914195",
+    "small": "https://cards.scryfall.io/small/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.jpg?1783914195",
+    "thumb": "https://cards.scryfall.io/thumb/front/5/5/558c1fcc-cb01-4031-ada5-4e39d65aee27.webp?1783914195"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{W}",
+  "mtgo_id": 120100,
+  "multiverse_ids": [
+    636349
+  ],
+  "name": "Rammas Echor, Ancient Shield",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "53d58401-c318-47e0-aab0-60001c071dbb",
+  "oracle_text": "Whenever you cast your second spell each turn, draw a card, then create a 0/3 white Wall creature token with defender.\nAt the beginning of combat on your turn, creatures you control with defender gain exalted until end of turn. (Whenever a creature you control attacks alone, it gets +1/+1 until end of turn for each instance of exalted among permanents you control.)",
+  "oversized": false,
+  "prices": {
+    "eur": "8.21",
+    "eur_foil": "8.26",
+    "tix": "1.53",
+    "usd": "8.56",
+    "usd_etched": null,
+    "usd_foil": "6.61"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A53d58401-c318-47e0-aab0-60001c071dbb&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond",
+    "boosterfun"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/120100?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=736550&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F517249%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Rammas+Echor%2C+Ancient+Shield",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=636349&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DRammas%2BEchor%252C%2BAncient%2BShield",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DRammas%2BEchor%252C%2BAncient%2BShield"
+  },
+  "released_at": "2023-11-03",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/558c1fcc-cb01-4031-ada5-4e39d65aee27/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltc/505/rammas-echor-ancient-shield?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltc",
+  "set_id": "e567c19c-0fe4-446e-a7bf-fce8a150cd2e",
+  "set_name": "Tales of Middle-earth Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/e567c19c-0fe4-446e-a7bf-fce8a150cd2e",
+  "story_spotlight": false,
+  "tcgplayer_id": 517249,
+  "textless": false,
+  "type_line": "Legendary Artifact",
+  "uri": "https://api.scryfall.com/cards/558c1fcc-cb01-4031-ada5-4e39d65aee27",
+  "variation": false
+}

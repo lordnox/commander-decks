@@ -1,0 +1,22 @@
+{
+  "goals": [
+    "Draw-Go",
+    "Second Spell",
+    "Discounted Spells",
+    "Mill",
+    "Clones"
+  ],
+  "scores": {
+    "jankiness": 7,
+    "fun": 9,
+    "oppressiveness": 6,
+    "identity": {
+      "Draw-Go": 9,
+      "Second Spell": 9,
+      "Discounted Spells": 8,
+      "Mill": 7,
+      "Clones": 7
+    }
+  },
+  "notes": "Instant draw, reactive combat tricks, pitch spells, and flash-enabling cantrips preserve draw-go while independent second-spell engines operate before Saruman. Three clones multiply theft or finishers; mill is both fuel and a secondary finish. Countermagic and graveyard theft can constrain opponents, but no hard lock, extra-turn chain, or tutor-driven deterministic loop is included."
+}

@@ -1,0 +1,131 @@
+{
+  "artist": "Dan Murayama Scott",
+  "artist_ids": [
+    "f852fa13-137e-40f2-bbc1-0f01df09c0e0"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 575383,
+  "cmc": 5.0,
+  "collector_number": "97",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 2788,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"Don't worry, there's plenty for everyone.\"\n—Vickon, Eleventh Company battlemage",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c",
+  "illustration_id": "d4cfc545-b517-46d0-9ea9-3fa4ba875418",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T06:49:07Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.webp?1783925347",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.jpg?1783925347",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.jpg?1783925347",
+    "crop": "https://cards.scryfall.io/crop/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.webp?1783925347",
+    "display": "https://cards.scryfall.io/display/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.webp?1783925347",
+    "grid": "https://cards.scryfall.io/grid/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.webp?1783925347",
+    "large": "https://cards.scryfall.io/large/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.jpg?1783925347",
+    "normal": "https://cards.scryfall.io/normal/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.jpg?1783925347",
+    "png": "https://cards.scryfall.io/png/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.png?1783925347",
+    "small": "https://cards.scryfall.io/small/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.jpg?1783925347",
+    "thumb": "https://cards.scryfall.io/thumb/front/b/5/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c.webp?1783925347"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 93610,
+  "multiverse_ids": [
+    539358
+  ],
+  "name": "Aetherspouts",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "48369aec-a991-4bef-8554-01c84302b063",
+  "oracle_text": "For each attacking creature, its owner puts it on their choice of the top or bottom of their library.",
+  "oversized": false,
+  "penny_rank": 1518,
+  "prices": {
+    "eur": "0.67",
+    "eur_foil": null,
+    "tix": null,
+    "usd": "0.77",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A48369aec-a991-4bef-8554-01c84302b063&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/93610?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=575383&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F248777%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Aetherspouts",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=539358&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAetherspouts",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAetherspouts"
+  },
+  "released_at": "2021-09-24",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/mic?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/mic/97/aetherspouts?utm_source=api",
+  "security_stamp": "oval",
+  "set": "mic",
+  "set_id": "7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "set_name": "Midnight Hunt Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Amic&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/7f9a4deb-715e-47d2-afac-3843ef92f39b",
+  "story_spotlight": false,
+  "tcgplayer_id": 248777,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/b5cb6da6-d43b-4ad1-bb77-9eeb6d15240c",
+  "variation": false
+}

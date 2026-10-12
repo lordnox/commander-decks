@@ -1,0 +1,161 @@
+{
+  "all_parts": [
+    {
+      "component": "token",
+      "id": "ef607895-d6d2-44ab-a6b4-84af55fce593",
+      "name": "Clue",
+      "object": "related_card",
+      "type_line": "Token Artifact — Clue",
+      "uri": "https://api.scryfall.com/cards/ef607895-d6d2-44ab-a6b4-84af55fce593"
+    },
+    {
+      "component": "combo_piece",
+      "id": "1f1b47ed-e935-44a4-b654-a32c0bf5dd19",
+      "name": "Lavinia, Foil to Conspiracy",
+      "object": "related_card",
+      "type_line": "Legendary Creature — Human Detective",
+      "uri": "https://api.scryfall.com/cards/1f1b47ed-e935-44a4-b654-a32c0bf5dd19"
+    }
+  ],
+  "artist": "Chris Rahn",
+  "artist_ids": [
+    "7742047e-0f80-4c0f-a530-d07460165e86"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 751057,
+  "cmc": 3.0,
+  "collector_number": "36",
+  "color_identity": [
+    "U",
+    "W"
+  ],
+  "colors": [
+    "U",
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 10258,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "d5435866-d48b-496a-ba07-438163b71ae8",
+  "illustration_id": "a8a4a854-01bd-4c2e-9220-a02e31b7f0f1",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:16:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.webp?1783912574",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.jpg?1783912574",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.jpg?1783912574",
+    "crop": "https://cards.scryfall.io/crop/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.webp?1783912574",
+    "display": "https://cards.scryfall.io/display/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.webp?1783912574",
+    "grid": "https://cards.scryfall.io/grid/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.webp?1783912574",
+    "large": "https://cards.scryfall.io/large/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.jpg?1783912574",
+    "normal": "https://cards.scryfall.io/normal/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.jpg?1783912574",
+    "png": "https://cards.scryfall.io/png/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.png?1783912574",
+    "small": "https://cards.scryfall.io/small/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.jpg?1783912574",
+    "thumb": "https://cards.scryfall.io/thumb/front/d/5/d5435866-d48b-496a-ba07-438163b71ae8.webp?1783912574"
+  },
+  "keywords": [
+    "Investigate",
+    "Vigilance"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W/U}{W/U}",
+  "mtgo_id": 123380,
+  "multiverse_ids": [
+    651771
+  ],
+  "name": "Lavinia, Foil to Conspiracy",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "b5b26cea-9be3-46f7-9603-a6eee0dd107e",
+  "oracle_text": "Vigilance\nWhenever you cast your second spell each turn, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\n{T}: Add {C}{C}. Activate only during an opponent's turn.",
+  "oversized": false,
+  "power": "2",
+  "prices": {
+    "eur": "1.12",
+    "eur_foil": null,
+    "tix": "0.55",
+    "usd": "1.45",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ab5b26cea-9be3-46f7-9603-a6eee0dd107e&unique=prints",
+  "produced_mana": [
+    "C"
+  ],
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/123380?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=751057&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F532965%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Lavinia%2C+Foil+to+Conspiracy",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=651771&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DLavinia%252C%2BFoil%2Bto%2BConspiracy",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DLavinia%252C%2BFoil%2Bto%2BConspiracy"
+  },
+  "released_at": "2024-02-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/d5435866-d48b-496a-ba07-438163b71ae8/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/clu?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/clu/36/lavinia-foil-to-conspiracy?utm_source=api",
+  "security_stamp": "oval",
+  "set": "clu",
+  "set_id": "d4bfabcf-a859-43a4-9d8a-665533c8b174",
+  "set_name": "Ravnica: Clue Edition",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aclu&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/d4bfabcf-a859-43a4-9d8a-665533c8b174",
+  "story_spotlight": false,
+  "tcgplayer_id": 532965,
+  "textless": false,
+  "toughness": "3",
+  "type_line": "Legendary Creature — Human Detective",
+  "uri": "https://api.scryfall.com/cards/d5435866-d48b-496a-ba07-438163b71ae8",
+  "variation": false,
+  "watermark": "azorius"
+}

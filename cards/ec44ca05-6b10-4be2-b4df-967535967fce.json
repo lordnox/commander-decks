@@ -1,0 +1,138 @@
+{
+  "artist": "Slawomir Maniak",
+  "artist_ids": [
+    "d887bc66-2779-416c-a1ff-d8720242063e"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 259851,
+  "cmc": 2.0,
+  "collector_number": "158",
+  "color_identity": [
+    "B",
+    "U"
+  ],
+  "colors": [
+    "B",
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 6211,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9a1509ff-387e-4ccd-bda0-86e8738a98fb",
+  "illustration_id": "a3174ac0-8186-4a2b-9f2b-066a9ef5e11b",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T10:55:09Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.webp?1783940109",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.jpg?1783940109",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.jpg?1783940109",
+    "crop": "https://cards.scryfall.io/crop/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.webp?1783940109",
+    "display": "https://cards.scryfall.io/display/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.webp?1783940109",
+    "grid": "https://cards.scryfall.io/grid/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.webp?1783940109",
+    "large": "https://cards.scryfall.io/large/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.jpg?1783940109",
+    "normal": "https://cards.scryfall.io/normal/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.jpg?1783940109",
+    "png": "https://cards.scryfall.io/png/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.png?1783940109",
+    "small": "https://cards.scryfall.io/small/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.jpg?1783940109",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/a/9a1509ff-387e-4ccd-bda0-86e8738a98fb.webp?1783940109"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{U}{B}",
+  "mtgo_foil_id": 47462,
+  "mtgo_id": 47461,
+  "multiverse_ids": [
+    366328
+  ],
+  "name": "Duskmantle Guildmage",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ec44ca05-6b10-4be2-b4df-967535967fce",
+  "oracle_text": "{1}{U}{B}: Whenever a card is put into an opponent's graveyard from anywhere this turn, that player loses 1 life.\n{2}{U}{B}: Target player mills two cards.",
+  "oversized": false,
+  "penny_rank": 1707,
+  "power": "2",
+  "prices": {
+    "eur": "0.99",
+    "eur_foil": "5.98",
+    "tix": "0.03",
+    "usd": "0.76",
+    "usd_etched": null,
+    "usd_foil": "10.09"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aec44ca05-6b10-4be2-b4df-967535967fce&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/47461?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=259851&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F67379%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Duskmantle+Guildmage",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=366328&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DDuskmantle%2BGuildmage",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DDuskmantle%2BGuildmage"
+  },
+  "released_at": "2013-02-01",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9a1509ff-387e-4ccd-bda0-86e8738a98fb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/gtc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/gtc/158/duskmantle-guildmage?utm_source=api",
+  "set": "gtc",
+  "set_id": "035a05f7-e020-4f50-a141-ed16ba704bd2",
+  "set_name": "Gatecrash",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Agtc&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/035a05f7-e020-4f50-a141-ed16ba704bd2",
+  "story_spotlight": false,
+  "tcgplayer_id": 67379,
+  "textless": false,
+  "toughness": "2",
+  "type_line": "Creature — Human Wizard",
+  "uri": "https://api.scryfall.com/cards/9a1509ff-387e-4ccd-bda0-86e8738a98fb",
+  "variation": false,
+  "watermark": "dimir"
+}

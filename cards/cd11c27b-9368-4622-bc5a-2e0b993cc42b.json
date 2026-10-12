@@ -1,0 +1,135 @@
+{
+  "artist": "Kieran Yanner",
+  "artist_ids": [
+    "aa7e89ed-d294-4633-9057-ce04dacfcfa4"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 721870,
+  "cmc": 5.0,
+  "collector_number": "108",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1472,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "62e5d409-c0b6-4123-802d-eb32f223bd1a",
+  "illustration_id": "570652d9-2c09-4702-acc2-85d160bec8a0",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:08:15Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.webp?1783915695",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.jpg?1783915695",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.jpg?1783915695",
+    "crop": "https://cards.scryfall.io/crop/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.webp?1783915695",
+    "display": "https://cards.scryfall.io/display/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.webp?1783915695",
+    "grid": "https://cards.scryfall.io/grid/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.webp?1783915695",
+    "large": "https://cards.scryfall.io/large/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.jpg?1783915695",
+    "normal": "https://cards.scryfall.io/normal/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.jpg?1783915695",
+    "png": "https://cards.scryfall.io/png/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.png?1783915695",
+    "small": "https://cards.scryfall.io/small/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.jpg?1783915695",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/2/62e5d409-c0b6-4123-802d-eb32f223bd1a.webp?1783915695"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{3}{U}{U}",
+  "mtgo_id": 115315,
+  "multiverse_ids": [
+    622716
+  ],
+  "name": "Mystic Confluence",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
+  "oracle_text": "Choose three. You may choose the same mode more than once.\n• Counter target spell unless its controller pays {3}.\n• Return target creature to its owner's hand.\n• Draw a card.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2023-07-12",
+    "source": "AliasV",
+    "source_uri": "https://twitter.com/aliasvedh/status/1679158678061215746"
+  },
+  "prices": {
+    "eur": "0.69",
+    "eur_foil": "2.04",
+    "tix": "0.29",
+    "usd": "1.01",
+    "usd_etched": null,
+    "usd_foil": "2.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acd11c27b-9368-4622-bc5a-2e0b993cc42b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/115315?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=721870&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F503575%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Mystic+Confluence",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=622716&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DMystic%2BConfluence",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DMystic%2BConfluence"
+  },
+  "released_at": "2023-08-04",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/62e5d409-c0b6-4123-802d-eb32f223bd1a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/cmm?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/cmm/108/mystic-confluence?utm_source=api",
+  "security_stamp": "oval",
+  "set": "cmm",
+  "set_id": "cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "set_name": "Commander Masters",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Acmm&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/cd05036f-2698-43e6-a48e-5c8d82f0a551",
+  "story_spotlight": false,
+  "tcgplayer_id": 503575,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/62e5d409-c0b6-4123-802d-eb32f223bd1a",
+  "variation": false
+}
