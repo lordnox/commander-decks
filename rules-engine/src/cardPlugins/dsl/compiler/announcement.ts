@@ -138,7 +138,7 @@ const sumMana = (payments: readonly AnnouncementManaPayment[]): ManaPool => {
 const genericMana = (mana: string) => [...mana.matchAll(/\{(\d+)\}/g)]
   .reduce((total, match) => total + Number(match[1]), 0)
 
-const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => {
+export const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => {
   const mana = [
     ...(plan.mandatory.filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount)),
     ...(plan.optional ?? []).filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount),

@@ -95,7 +95,9 @@ describe('Rule DSL Part 10 programs', () => {
     const offer = pendingOptionSelection(started.state, 'p1')!
     const tap = offer.options.find((option) => option.id.startsWith(`tap:${forest.id}:`))!
     expect(tap).toBeDefined()
-    const tapped = server.rules(started.state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: tap.id })
+    const restored = JSON.parse(JSON.stringify(started.state))
+    const restoredOffer = pendingOptionSelection(restored, 'p1')!
+    const tapped = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: restoredOffer.id, optionId: tap.id })
     expect(tapped.ok).toBe(true)
     if (!tapped.ok) return
     expect(tapped.state.objects[forest.id]?.tapped).toBe(true)
@@ -105,6 +107,68 @@ describe('Rule DSL Part 10 programs', () => {
     const paid = server.rules(tapped.state, { type: 'selectOption', seat: 'p1', selectionId: resumed.id, optionId: 'pay' })
     expect(paid.ok).toBe(true)
     if (paid.ok) expect(paid.state.resolution).toBeUndefined()
+  })
+
+  test('resolution mana payment expands its captured X across insufficient, paid, and zero cases', () => {
+    const paymentSpell = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: { targets: [], variables: [{ name: 'X', min: 0, max: 10 }] },
+      instructions: [payOptional({
+        payer: ref('controller'),
+        cost: manaCost('{X}'),
+        bindResult: 'paid',
+        ifPaid: [gainLife({ amount: 3, targets: ref('controller') })],
+        ifDeclined: [],
+      })],
+    })])))
+    const makeServer = (pool: number, x: number) => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: { p1: [cardTemplate(`X${x} payment spell`, { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: paymentSpell })] },
+      }, { random: () => 0 })
+      server.state.players.p1.mana.C = pool
+      const spellObject = Object.values(server.state.objects).find((object) => object.name === `X${x} payment spell`)!
+      const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id, x })
+      expect(cast.ok).toBe(true)
+      if (!cast.ok) throw new Error(cast.error)
+      const started = server.rules(cast.state, { type: 'resolveTop' })
+      expect(started.ok).toBe(true)
+      if (!started.ok) throw new Error(started.error)
+      return { server, state: started.state }
+    }
+
+    const insufficient = makeServer(2, 3)
+    const insufficientOffer = pendingOptionSelection(insufficient.state, 'p1')!
+    const rejected = insufficient.server.rules(
+      JSON.parse(JSON.stringify(insufficient.state)),
+      { type: 'selectOption', seat: 'p1', selectionId: insufficientOffer.id, optionId: 'pay' },
+    )
+    expect(rejected.ok).toBe(false)
+    expect(rejected.state).toEqual(JSON.parse(JSON.stringify(insufficient.state)))
+
+    const paid = makeServer(3, 3)
+    const paidOffer = pendingOptionSelection(paid.state, 'p1')!
+    const paidResult = paid.server.rules(
+      JSON.parse(JSON.stringify(paid.state)),
+      { type: 'selectOption', seat: 'p1', selectionId: paidOffer.id, optionId: 'pay' },
+    )
+    expect(paidResult.ok).toBe(true)
+    if (paidResult.ok) {
+      expect(paidResult.state.players.p1.mana.C).toBe(0)
+      expect(paidResult.state.players.p1.life).toBe(43)
+      expect(paidResult.state.resolution).toBeUndefined()
+    }
+
+    const zero = makeServer(0, 0)
+    const zeroOffer = pendingOptionSelection(zero.state, 'p1')!
+    const zeroResult = zero.server.rules(
+      JSON.parse(JSON.stringify(zero.state)),
+      { type: 'selectOption', seat: 'p1', selectionId: zeroOffer.id, optionId: 'pay' },
+    )
+    expect(zeroResult.ok).toBe(true)
+    if (zeroResult.ok) {
+      expect(zeroResult.state.players.p1.mana.C).toBe(0)
+      expect(zeroResult.state.resolution).toBeUndefined()
+    }
   })
 
   test('resolution payments do not spend cast-only restricted mana', () => {
