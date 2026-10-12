@@ -972,9 +972,11 @@ export const validateDefinitionV1 = (root: unknown): {
             }
             if (captured.occurrence !== undefined) array(captured.occurrence, `${path}.capturedBindings.occurrence`).forEach((entry, index) => {
               enumeration(entry, `${path}.capturedBindings.occurrence[${index}]`, new Set(['player', 'object.before', 'object.after']), 'captured occurrence binding')
-              if (entry === 'player') occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.player', 'player']])
-              if (entry === 'object.before') occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.object.before', 'object']])
-              if (entry === 'object.after') occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.object.after', 'object']])
+              switch (entry) {
+                case 'player': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.player', 'player']]); break
+                case 'object.before': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.object.before', 'object']]); break
+                case 'object.after': occurrenceBase.context = new Map([...occurrenceBase.context, ['triggering.object.after', 'object']]); break
+              }
             })
           }
         }

@@ -36,7 +36,7 @@ import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
-import { captureLexicalBindings, generatedAbilitySnapshot } from './cardPlugins/dsl/generatedPrograms'
+import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
@@ -307,6 +307,7 @@ const runtimeContext = (
   stackItemId: item.id,
   ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
   ...(item.execution?.capturedOccurrence ? { capturedOccurrence: item.execution.capturedOccurrence } : {}),
+  ...(item.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: item.execution.capturedOccurrenceBindings } : {}),
   targets: (() => {
     const targets: Record<number, BoundRecipient[]> = Object.fromEntries((frame.targetBindings ?? [])
       .filter((binding) => binding.scopeId === scopeId)
@@ -509,6 +510,7 @@ const registerCanonicalDelayed = (
       controller: frame.controller,
       source: structuredClone(frame.source),
       ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
+      ...(captured.capturedBindings.occurrence ? { capturedOccurrenceBindings: captured.capturedBindings.occurrence } : {}),
       ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
       ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
       ...(frame.results ? { results: structuredClone(frame.results) } : {}),
@@ -792,6 +794,7 @@ const actionEvents = (
           frame.choices,
           frame.results,
           [grant.on],
+          occurrenceBindingsForPattern(grant.on),
         )
         : undefined
       const grantDecisions = grant && grantChoices
@@ -843,6 +846,7 @@ const actionEvents = (
             controller: frame.controller,
             source: structuredClone(frame.source),
             ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
+            ...(grantChoices.capturedBindings.occurrence ? { capturedOccurrenceBindings: grantChoices.capturedBindings.occurrence } : {}),
             ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
             ...(frame.results ? { results: structuredClone(frame.results) } : {}),
             ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),

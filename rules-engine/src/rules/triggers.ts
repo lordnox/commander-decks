@@ -173,6 +173,7 @@ const canonicalFilterMatch = (
     ...(execution?.results ? { results: execution.results } : {}),
     ...(execution?.variables ? { variables: execution.variables } : {}),
     ...(execution?.capturedOccurrence ? { capturedOccurrence: execution.capturedOccurrence } : {}),
+    ...(execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: execution.capturedOccurrenceBindings } : {}),
   }
   if ('kind' in filter) {
     const referenced = evaluateObjectReference(filter, {
@@ -426,6 +427,7 @@ const canonicalGrantedTriggersForOccurrence = (
           ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
           ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
           ...(grant.execution?.capturedOccurrence ? { capturedOccurrence: structuredClone(grant.execution.capturedOccurrence) } : {}),
+          ...(grant.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: structuredClone(grant.execution.capturedOccurrenceBindings) } : {}),
           ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
           ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
           ...(grant.execution?.capturedTargetStart !== undefined

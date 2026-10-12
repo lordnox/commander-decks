@@ -46,6 +46,7 @@ export type RuntimeBindings = {
   distributions?: readonly DistributionAllocation[]
   scopeId?: string
   capturedOccurrence?: OccurrenceSnapshot
+  capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
@@ -105,11 +106,17 @@ const playerContextReference = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
 ) => {
-  const occurrence = context.capturedOccurrence ?? context.occurrence
   switch (reference.name) {
     case 'controller': return [context.controller]
     case 'event.player':
+      if (!context.occurrence?.player) {
+        throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
+      }
+      return [context.occurrence.player]
     case 'triggering.player':
+      const occurrence = context.capturedOccurrenceBindings?.includes('player')
+        ? context.capturedOccurrence
+        : context.occurrence
       if (!occurrence?.player) {
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
@@ -131,7 +138,10 @@ const capturedOccurrenceObject = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
 ) => {
-  const occurrence = context.capturedOccurrence ?? context.occurrence
+  const binding = reference.name === 'triggering.object.before' ? 'object.before' : 'object.after'
+  const occurrence = context.capturedOccurrenceBindings?.includes(binding)
+    ? context.capturedOccurrence
+    : context.occurrence
   switch (reference.name) {
     case 'triggering.object.before': return occurrence?.object?.before
     case 'triggering.object.after': return occurrence?.object?.after
