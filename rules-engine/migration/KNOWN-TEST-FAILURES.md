@@ -82,4 +82,4 @@ current worktree`, `loads only handlers the table cards need`, `installs
 dynamically loaded handlers into an existing journal`, and `does not install a
 handler twice when the journal already adds it`. The remaining host tests pass;
 this is a generated temporary-module fixture limitation, not a new DSL failure.
-The captured output is retained at `/private/tmp/rule-dsl-part09-final-host.log`.
+The error excerpt above records the observed failure; the final DSL host verification log excludes the generated-handler fixtures.
