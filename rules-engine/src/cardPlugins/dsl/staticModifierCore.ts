@@ -1,7 +1,25 @@
 import { captureObject, isSameObject } from '../../objectIdentity'
 import type { GameObject, GameState, PlayerId, PrintedStaticModifier, ZoneId } from '../../types'
 import { compileCardRuleDefinition } from './compiler'
-import type { AbilityDefinition, Zone } from './schema/v1'
+import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, Zone } from './schema/v1'
+
+export type ActiveKeywordStatic = {
+  abilityIndex: number
+  effectIndex: 0
+  keyword: Keyword
+}
+
+export type ActiveEffectStatic = {
+  abilityIndex: number
+  effectIndex: number
+  effect: ContinuousEffectDefinition
+}
+
+export type ActivePrintedStatic = ActiveKeywordStatic | ActiveEffectStatic
+
+export const isActiveKeywordStatic = (
+  entry: ActivePrintedStatic,
+): entry is ActiveKeywordStatic => 'keyword' in entry
 import { evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 
 export const sourceStaticAbilitiesActive = (source: GameObject) =>
@@ -82,7 +100,7 @@ export const activationRestrictionMessage = (
 export const activePrintedStaticModifiers = (state: GameState, source: GameObject) => {
   if (!source.ruleDefinition) return [] as const
   const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
-  return compiled.definition.abilities.flatMap((ability, abilityIndex) => {
+  return compiled.definition.abilities.flatMap((ability, abilityIndex): ActivePrintedStatic[] => {
     if (!printedStaticAbilityActive(state, source, abilityIndex)) return []
     if (ability.kind === 'keyword') {
       return [{ abilityIndex, effectIndex: 0, keyword: ability.keyword }]

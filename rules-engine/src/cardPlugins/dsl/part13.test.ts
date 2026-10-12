@@ -57,6 +57,7 @@ describe('Rule DSL Part 13 static modifiers', () => {
       type: 'activateAbility', seat: 'p1', objectId: rock.id, abilityId: '$.abilities[0]',
     })
     expect(blocked.ok).toBe(false)
+    if (blocked.ok) return
     expect(blocked.error).toContain('prohibited')
     const tapBlocked = server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: rock.id })
     expect(tapBlocked.ok).toBe(false)
