@@ -1,11 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  amount,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createDelayed,
   createEffect,
   chooseCards,
+  distribution,
   eventDelayed,
   gainLife,
   activated,
@@ -559,6 +561,107 @@ describe('Rule DSL Part 10 programs', () => {
     const resumed = server.rules(restarted, { type: 'resolveTop' })
     expect(resumed.ok).toBe(true)
     if (resumed.ok) expect(resumed.state.objects[targetObject.id]?.counters['+1/+1']).toBe(2)
+  })
+
+  test('paid callback does not reuse the parent allocation for its fresh target', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: {
+        targets: [select({ filter: players({}), count: 1 })],
+        distributions: [distribution({ targetClauseIndex: 0, total: 5, minEach: 1 })],
+      },
+      instructions: [payOptional({
+        payer: ref('controller'),
+        cost: { kind: 'life', amount: amount(1) },
+        bindResult: 'paid', ifPaid: [], ifDeclined: [],
+        whenPaidDecisions: { targets: [select({ filter: players({}), count: 1 })] },
+        whenPaid: [gainLife({ amount: 3, targets: target(0) })],
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Fresh allocation callback', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Fresh allocation callback')!
+    const cast = server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+      targetClauses: [[{ kind: 'player', player: 'p2' }]],
+      distributionBindings: [{ scopeId: '$.abilities[0]', clauseIndex: 0, amounts: [5] }],
+    } as any)
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const started = server.rules(cast.state, { type: 'resolveTop' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const offer = pendingOptionSelection(started.state, 'p1')!
+    const paid = server.rules(started.state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+    expect(paid.ok).toBe(true)
+    if (!paid.ok) return
+    const targetOffer = pendingPlayerSelectionFor(paid.state, 'p1')!
+    const completed = server.rules(paid.state, {
+      type: 'selectPlayers', seat: 'p1', selectionId: targetOffer.id, players: ['p2'],
+    })
+    expect(completed.ok).toBe(true)
+    if (completed.ok) {
+      const resolved = server.rules(completed.state, { type: 'resolveTop' })
+      expect(resolved.ok).toBe(true)
+      if (resolved.ok) expect(resolved.state.players.p2.life).toBe(43)
+    }
+  })
+
+  test('paid callback announces and consumes its own fresh distribution', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: { targets: [] },
+      instructions: [payOptional({
+        payer: ref('controller'),
+        cost: { kind: 'life', amount: amount(1) },
+        bindResult: 'paid', ifPaid: [], ifDeclined: [],
+        whenPaidDecisions: {
+          targets: [select({ filter: players({}), count: 2 })],
+          distributions: [distribution({ targetClauseIndex: 0, total: 3, minEach: 1 })],
+        },
+        whenPaid: [gainLife({ amount: 3, targets: target(0) })],
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Fresh callback distribution', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Fresh callback distribution')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const started = server.rules(cast.state, { type: 'resolveTop' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const offer = pendingOptionSelection(started.state, 'p1')!
+    const paid = server.rules(started.state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+    expect(paid.ok).toBe(true)
+    if (!paid.ok) return
+    const targetOffer = pendingPlayerSelectionFor(paid.state, 'p1')!
+    const selected = server.rules(paid.state, {
+      type: 'selectPlayers', seat: 'p1', selectionId: targetOffer.id, players: ['p1', 'p2'],
+    })
+    expect(selected.ok).toBe(true)
+    if (!selected.ok) return
+    const allocation = pendingOptionSelection(selected.state, 'p1')!
+    const first = server.rules(selected.state, {
+      type: 'selectOption', seat: 'p1', selectionId: allocation.id, optionId: 'allocation:0:1',
+    })
+    expect(first.ok).toBe(true)
+    if (!first.ok) return
+    const second = pendingOptionSelection(first.state, 'p1')!
+    const completed = server.rules(first.state, {
+      type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'allocation:1:2',
+    })
+    expect(completed.ok).toBe(true)
+    if (completed.ok) {
+      const resolved = server.rules(completed.state, { type: 'resolveTop' })
+      expect(resolved.ok).toBe(true)
+      if (resolved.ok) {
+        expect(resolved.state.players.p1.life).toBe(40)
+        expect(resolved.state.players.p2.life).toBe(42)
+      }
+    }
   })
 
   test('runtime payment persists its typed sacrifice cursor and commits the paid branch', () => {
