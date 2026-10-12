@@ -608,6 +608,9 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
       frame.pendingResolutionPayment = {
         ...pending,
         selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),
+        paymentEvents: selected.map((objectId) => payment.cost.kind === 'discard'
+          ? { type: 'discard' as const, seat: payment.payer, objectId }
+          : { type: 'sacrifice' as const, objectId }),
       }
       const paymentEvents = selected.flatMap((objectId) => {
         switch (payment.cost.kind) {
@@ -617,7 +620,7 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
         }
       })
       frame.pendingEvents = paymentEvents
-      if (paymentEvents.length > 1) frame.pendingEvents = [{ type: 'actionGroup', events: paymentEvents }]
+      if (paymentEvents.length > 1) frame.pendingEvents = [{ type: 'actionGroup', events: paymentEvents, atomic: true }]
       frame.phase = 'committing'
       return
     }

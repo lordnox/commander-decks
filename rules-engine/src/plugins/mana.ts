@@ -223,18 +223,22 @@ export const poolForChoice = (
 const poolHasColor = (pool: Partial<Record<ManaId, number>>) =>
   COLORS.some((color) => (pool[color] ?? 0) > 0)
 
-const legal: Plugin['legal'] = ({ state, event }) => {
-  if (event.type !== 'tapForMana') return
-  const object = state.objects[event.objectId]
+export const tapForManaError = (
+  state: GameState,
+  seat: PlayerId,
+  objectId: string,
+  mana?: ManaId,
+) => {
+  const object = state.objects[objectId]
   if (!object) return 'no such object'
   if (object.zone !== 'battlefield') return `${object.name} is not on the battlefield`
   if (object.phasedOut) return `${object.name} is phased out`
-  if (object.controller !== event.seat) return `${event.seat} does not control ${object.name}`
+  if (object.controller !== seat) return `${seat} does not control ${object.name}`
   const requiresTap = manaRequiresTap(object)
   if (requiresTap && object.tapped) return `${object.name} is already tapped`
-  if (!poolForChoice(object, event.mana, state)) {
-    if (event.mana && MANA_IDS.includes(event.mana)) {
-      return `${object.name} cannot produce ${event.mana}`
+  if (!poolForChoice(object, mana, state)) {
+    if (mana && MANA_IDS.includes(mana)) {
+      return `${object.name} cannot produce ${mana}`
     }
     if (/commander's color identity/i.test(object.oracleText)) {
       return `${object.name} needs a mana color in your commander's identity`
@@ -251,10 +255,13 @@ const legal: Plugin['legal'] = ({ state, event }) => {
   ) {
     return `${object.name} has summoning sickness`
   }
-  if (/\{T\}, Pay 1 life:/i.test(object.oracleText) && state.players[event.seat].life < 1) {
-    return `${event.seat} cannot pay 1 life`
+  if (/\{T\}, Pay 1 life:/i.test(object.oracleText) && state.players[seat].life < 1) {
+    return `${seat} cannot pay 1 life`
   }
 }
+
+const legal: Plugin['legal'] = ({ state, event }) =>
+  event.type === 'tapForMana' ? tapForManaError(state, event.seat, event.objectId, event.mana) : undefined
 
 const apply: Plugin['apply'] = ({ state, event, draft }) => {
   if (event.type === 'tapForMana') {

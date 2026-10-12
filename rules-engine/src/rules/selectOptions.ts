@@ -9,12 +9,13 @@ import { objectIdentity } from '../objectIdentity'
 import { openCardSelection } from './selectCards'
 import { openPlayerSelection } from './selectPlayers'
 import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
-import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, GameState, ManaPool, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
+import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, EventTrace, GameEvent, GameState, ManaPool, ObjectIdentity, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
 import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import { allocationOptions } from './canonicalAllocation'
 import { payCost } from '../plugins/spells'
 import { cardRuleDefinition } from '../cardPlugins/dsl/builders'
-import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates, type ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
+import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
+import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -296,14 +297,36 @@ export const queuePaidReflexive = (
 }
 
 /** Commit a card payment only after every discard/sacrifice event has settled. */
-export const settleResolutionPayment = (draft: Draft) => {
+const samePaymentEvent = (left: GameEvent, right: GameEvent) => JSON.stringify(left) === JSON.stringify(right)
+
+export const settleResolutionPayment = (draft: Draft, trace: readonly EventTrace[] = []) => {
   const frame = draft.resolution
   const pending = frame?.kind === 'canonicalSpell' ? frame.pendingResolutionPayment : undefined
-  if (!frame || frame.kind !== 'canonicalSpell' || !pending?.selected) return
-  const paid = pending.selected.every((identity) => {
+  if (!frame || frame.kind !== 'canonicalSpell' || !pending?.paymentEvents) return
+  const eventWasApplied = (event: GameEvent) => trace.some((entry) =>
+    samePaymentEvent(entry.event, event) && entry.outcome === 'applied')
+  const eventWasReplaced = (event: GameEvent) => trace.some((entry) =>
+    samePaymentEvent(entry.event, event) && entry.outcome === 'replaced')
+  const objectSettled = (identity: ObjectIdentity) => {
     const object = draft.object(identity.objectId)
     return !object || object.incarnation !== identity.incarnation || object.zone !== identity.zone
-  })
+  }
+  const cardsSettled = pending.selected?.every(objectSettled) ?? false
+  const cardsHaveOutcome = pending.paymentEvents.every((event, index) =>
+    eventWasApplied(event)
+    || (eventWasReplaced(event) && pending.selected?.[index] !== undefined && objectSettled(pending.selected[index]!)))
+  const lifeEvent = pending.cost.kind === 'life' ? pending.paymentEvents[0] : undefined
+  const lifeSettled = lifeEvent
+    ? eventWasApplied(lifeEvent)
+      && trace.some((entry) => entry.event.type === 'loseLife'
+        && entry.event.seat === pending.payer
+        && entry.event.amount === pending.amount
+        && entry.event.source === pending.source.ref.objectId
+        && entry.outcome === 'applied')
+    : false
+  const paid = pending.cost.kind === 'life'
+    ? lifeSettled
+    : cardsSettled && cardsHaveOutcome
   delete frame.pendingResolutionPayment
   if (!paid) {
     const scopeIndex = frame.scopes.findLastIndex((scope) => scope.scopeId === pending.scopeId)
@@ -419,10 +442,22 @@ export const selectOptions: Plugin = {
     }
     if (selection.action.kind === 'canonicalResolutionPayment' && event.optionId.startsWith('activate:')) {
       const activation = selection.action.manaActivations?.find((candidate) =>
-        `activate:${candidate.objectId}:${candidate.abilityId}` === event.optionId)
-      if (!activation || !eligibleResolutionManaAbilities(state, event.seat).some((candidate) =>
-        candidate.objectId === activation.objectId && candidate.abilityId === activation.abilityId)) {
+        candidate.kind === 'activateAbility'
+        && `activate:${candidate.objectId}:${candidate.abilityId}` === event.optionId)
+      if (!activation || activation.kind !== 'activateAbility' || !eligibleResolutionManaAbilities(state, event.seat).some((candidate) =>
+        candidate.kind === 'activateAbility'
+        && candidate.objectId === activation.objectId && candidate.abilityId === activation.abilityId)) {
         return 'mana activation choice is no longer available'
+      }
+    }
+    if (selection.action.kind === 'canonicalResolutionPayment' && event.optionId.startsWith('tap:')) {
+      const activation = selection.action.manaActivations?.find((candidate) =>
+        candidate.kind === 'tapForMana'
+        && `tap:${candidate.objectId}:${candidate.mana ?? ''}` === event.optionId)
+      if (!activation || activation.kind !== 'tapForMana' || !eligibleResolutionManaAbilities(state, event.seat).some((candidate) =>
+        candidate.kind === 'tapForMana'
+        && candidate.objectId === activation.objectId && candidate.mana === activation.mana)) {
+        return 'mana source choice is no longer available'
       }
     }
   },
@@ -662,11 +697,12 @@ export const selectOptions: Plugin = {
     if (selection.action.kind === 'canonicalResolutionPayment') {
       if (event.optionId.startsWith('activate:')) {
         const activation = selection.action.manaActivations?.find((candidate) =>
-          `activate:${candidate.objectId}:${candidate.abilityId}` === event.optionId)
+          candidate.kind === 'activateAbility'
+          && `activate:${candidate.objectId}:${candidate.abilityId}` === event.optionId)
         const frame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId
           ? draft.resolution
           : undefined
-        if (!activation || !frame) return
+        if (!activation || activation.kind !== 'activateAbility' || !frame) return
         const scope = frame.scopes.at(-1)
         if (scope && scope.scopeId === selection.action.scopeId && scope.cursor > 0) scope.cursor -= 1
         delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
@@ -678,6 +714,27 @@ export const selectOptions: Plugin = {
           objectId: activation.objectId,
           abilityId: activation.abilityId,
           manaAbility: true,
+        })
+        return
+      }
+      if (event.optionId.startsWith('tap:')) {
+        const activation = selection.action.manaActivations?.find((candidate) =>
+          candidate.kind === 'tapForMana'
+          && `tap:${candidate.objectId}:${candidate.mana ?? ''}` === event.optionId)
+        const frame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId
+          ? draft.resolution
+          : undefined
+        if (!activation || activation.kind !== 'tapForMana' || !frame) return
+        const scope = frame.scopes.at(-1)
+        if (scope && scope.scopeId === selection.action.scopeId && scope.cursor > 0) scope.cursor -= 1
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        frame.pendingEvents = []
+        frame.phase = 'committing'
+        draft.enqueue({
+          type: 'tapForMana',
+          seat: event.seat,
+          objectId: activation.objectId,
+          ...(activation.mana ? { mana: activation.mana } : {}),
         })
         return
       }
@@ -703,9 +760,32 @@ export const selectOptions: Plugin = {
             draft.players[event.seat].restrictedMana = nextMana.restrictedMana
             break
           }
-          case 'life':
-            draft.enqueue({ type: 'payLife', seat: event.seat, amount: selection.action.paymentAmount, source: selection.action.source.ref.objectId })
-            break
+          case 'life': {
+            const paymentEvent: GameEvent = {
+              type: 'payLife',
+              seat: event.seat,
+              amount: selection.action.paymentAmount,
+              source: selection.action.source.ref.objectId,
+            }
+            frame.pendingResolutionPayment = {
+              scopeId: selection.action.scopeId,
+              payer: event.seat,
+              amount: selection.action.paymentAmount,
+              cost,
+              resultBinding: selection.action.bindResult,
+              source: structuredClone(selection.action.source),
+              controller: selection.action.controller,
+              ifPaid: structuredClone(selection.action.ifPaid),
+              ifDeclined: structuredClone(selection.action.ifDeclined),
+              whenPaid: structuredClone(selection.action.whenPaid),
+              paymentEvents: [paymentEvent],
+              ...(selection.action.whenPaidDecisions ? { whenPaidDecisions: structuredClone(selection.action.whenPaidDecisions) } : {}),
+              ...(selection.action.bindings ? { bindings: structuredClone(selection.action.bindings) } : {}),
+            }
+            draft.enqueue(paymentEvent)
+            frame.phase = 'committing'
+            return
+          }
           case 'discard':
           case 'sacrifice': {
           frame.pendingResolutionPayment = {
