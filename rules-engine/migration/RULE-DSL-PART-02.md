@@ -1,9 +1,13 @@
 # Rule DSL Part 02 implementation note
 
+Status: merged to `main`. Reviewed and accepted in
+[PR #338](https://github.com/lordnox/commander-decks/pull/338). Later parts
+enabled runtime dispatch; this note records Part 02's original identity
+boundary.
+
 Part 02 adds rules-object incarnations, private execution contexts, captured
-occurrences, and pure reference/selector/amount evaluation. The canonical DSL is
-still not dispatched by the runtime; the capability descriptor continues to
-report `runtimeExecution: false`.
+occurrences, and pure reference/selector/amount evaluation. At merge the
+canonical DSL was not yet dispatched by the runtime.
 
 ## Object identity
 

@@ -1,13 +1,18 @@
 # Rule DSL Part 03 implementation note
 
+Status: merged to `main`. Reviewed and accepted in
+[PR #340](https://github.com/lordnox/commander-decks/pull/340). Later parts
+extended executable instructions, targeting, and modes; this note records
+Part 03's original driver slice.
+
 Part 03 of [`RULE-DSL-IMPLEMENTATION-PLAN.md`](../RULE-DSL-IMPLEMENTATION-PLAN.md)
 adds the first durable runtime execution slice for the canonical Rule
 DSL and repairs the legacy instruction driver so a resolving spell can suspend,
-survive a restart, and resume from the exact instruction cursor. The capability
-descriptor advertises only untargeted plain spell programs whose executable
-instructions are `draw`, `gainLife`, `loseLife`, and structural `sequence`.
-Targets, modes, distributions, payment choices, and whole-item legality remain
-outside this slice.
+survive a restart, and resume from the exact instruction cursor. At merge the
+capability descriptor advertised only untargeted plain spell programs whose
+executable instructions were `draw`, `gainLife`, `loseLife`, and structural
+`sequence`. Targets, modes, distributions, payment choices, and whole-item
+legality were outside this slice.
 
 ## Durable resolution mechanics
 

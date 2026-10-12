@@ -1,5 +1,8 @@
 # Rule DSL Part 04 implementation note
 
+Status: merged to `main`. Reviewed and accepted in
+[PR #341](https://github.com/lordnox/commander-decks/pull/341).
+
 Part 04 adds canonical target clauses and whole-item target legality to the
 durable Rule DSL spell driver. Target selections are bound before a spell is
 put on the stack, under a generated scope ID (`$.abilities[n]`) and an

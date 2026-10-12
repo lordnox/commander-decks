@@ -1,8 +1,8 @@
 # Rule DSL Part 05 implementation note
 
-Status: implementation complete and personally approved by the parent at
-`123ef610502fce9f33effc06bdc6548df1af0d63`; this follow-up changes
-documentation only. The known host fixture failure is recorded in
+Status: merged to `main`. Reviewed and accepted in
+[PR #342](https://github.com/lordnox/commander-decks/pull/342).
+The known host fixture failure is recorded in
 [`KNOWN-TEST-FAILURES.md`](KNOWN-TEST-FAILURES.md).
 
 ## Scope and architecture

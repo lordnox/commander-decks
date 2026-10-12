@@ -1,6 +1,7 @@
 # Rule DSL Part 09 copies and legal retargeting
 
-Status: implementation complete on the Part 09 copies review branch.
+Status: merged to `main`. Reviewed and accepted in
+[PR #348](https://github.com/lordnox/commander-decks/pull/348).
 
 ## Scope and base
 

@@ -24,6 +24,10 @@ Part 02 adds rules-object identity, captured execution/occurrence state, and pur
 runtime reference evaluation without enabling canonical runtime dispatch. See
 [`RULE-DSL-PART-02.md`](RULE-DSL-PART-02.md) for the identity and privacy boundary.
 
+Later parts 03–10 on `main` added canonical runtime dispatch for tests via
+`ruleDefinition`. Ledger rows are still not marked migrated; stored decks still
+use `CARD_RULES`. See the implementation plan's current-state section.
+
 At this baseline the closed surfaces contain 394 card registrations, 21 effect
 variants, 194 instruction variants with 194 discovered handlers, 54 unique
 built-in plugin IDs, and exactly 28 `PendingDialog.kind` variants. The generated

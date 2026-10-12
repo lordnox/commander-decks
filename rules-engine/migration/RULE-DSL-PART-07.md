@@ -1,6 +1,7 @@
 # Rule DSL Part 07 implementation note
 
-Status: ready for parent review on rebased Part06 review-completion base.
+Status: merged to `main`. Reviewed and accepted in
+[PR #344](https://github.com/lordnox/commander-decks/pull/344).
 
 ## Scope delivered
 

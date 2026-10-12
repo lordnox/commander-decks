@@ -1,9 +1,14 @@
 # Rule DSL Part 01 implementation note
 
+Status: merged to `main`. Reviewed and accepted in
+[PR #336](https://github.com/lordnox/commander-decks/pull/336). Later parts
+enabled runtime execution; this note records Part 01's original authoring
+boundary.
+
 Part 01 adds the version-1 canonical schema, compiler, explicit builders, fluent
 authoring helpers, and pure legacy adapters under
-`rules-engine/src/cardPlugins/dsl/`. It is additive: no card registration or
-runtime instruction handler consumes these definitions yet.
+`rules-engine/src/cardPlugins/dsl/`. It was additive at merge: no card
+registration or runtime instruction handler consumed these definitions yet.
 
 ## Version and replay decision
 
@@ -19,9 +24,9 @@ runtime frames can store this snapshot or a durable reference to equivalent
 persisted snapshot storage; schema version alone is never treated as a content
 revision.
 
-The exported capability descriptor intentionally says `runtimeExecution: false`.
-Part 01 proves loading, validation, immutable compilation, and serialization; the
-authoritative execution driver begins in later parts.
+The exported capability descriptor originally said `runtimeExecution: false`.
+Part 01 proved loading, validation, immutable compilation, and serialization;
+later parts added the authoritative execution driver.
 
 ## Closed first slice
 

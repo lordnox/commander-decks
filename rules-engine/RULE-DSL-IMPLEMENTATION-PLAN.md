@@ -1,11 +1,44 @@
 # Rule DSL implementation plan
 
-Status: proposed implementation backlog; this document does not change runtime behavior.
+Status: parts 00–10 are merged to `main`; remaining work is parts 11–16.
+This document does not change runtime behavior.
 
 Source contract: [RULE-DSL.md](RULE-DSL.md), especially sections 11–14.
-Baseline: `origin/main` at `f3edccb17143004e423141013ad6d8fed8a2c15a`.
-Re-inventory against the implementation branch before starting.
-Prepared: 2026-10-08.
+Baseline: `origin/main` at `c82cb7a363b1503593105323d9dd1a8dd51cfa17`.
+Prepared: 2026-10-08. Status refreshed: 2026-10-12.
+
+## Current state on main
+
+Parts **00–10** are on `main`. Canonical schema, compiler, durable driver,
+typed choices, checkpoint triggers, action primitives, announcement/costs,
+scoped modes, spell copies, temporary effects, optional resolution payments,
+and delayed/granted programs execute in tests through `ruleDefinition`.
+
+Stored decks still register through legacy `CARD_RULES`. No production card
+carries a canonical `ruleDefinition`. Legacy adapters in
+`src/cardPlugins/dsl/builders/legacy.ts` remain until Part 16.
+
+The generated card-handler reload fixtures in `live-runner` remain a known
+non-DSL failure; see [KNOWN-TEST-FAILURES.md](migration/KNOWN-TEST-FAILURES.md).
+
+### Next parallel tracks
+
+These may start from this plan without waiting on each other. They rebase
+onto one another if they both edit schema, compiler, or kernel files.
+
+| Track | Scope | Must not do |
+| --- | --- | --- |
+| **Part 11** | Resumable CR 616 replacement discovery, event frames, lineage, replacement programs | Prevention shields (12), static layers (13), card migration (16) |
+| **Part 13 minus replacement** | Static modifiers, layers/timestamps, keyword statics, activation restrictions such as Stony Silence | Replacement/prevention nodes; wait for 11 before static replacement integration |
+| **Part 15 partial tests** | End-to-end evidence for already-owned scenarios A–E and M–P | Engine/schema changes; do not close Part 15 |
+
+Do not start **12** (needs 11), **14** (needs 11 and 13), **15 close** (needs 12–14),
+or **16 consolidation** (needs 15). Incremental Part 16 family migrations of
+already-owned mechanics may wait until 11/13 land so mixed-game tests stay
+reviewable.
+
+Part notes 05–10 were written on feature branches; their “in progress” /
+“review pending” lines are stale. The Status lines below are authoritative.
 
 Implement the DSL as a staged refactor of the existing authoritative engine, host,
 and client. Preserve supported mechanics, move decision handling to server-owned
@@ -276,6 +309,10 @@ host; reconnect republishes the same authorized request. Browser and headless
 answers produce equivalent state. Hidden hands/library choices, frame snapshots,
 results, and traces remain private. Closing a mandatory dialog cannot cancel it.
 
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 05 implementation note](migration/RULE-DSL-PART-05.md) and
+[PR #342](https://github.com/lordnox/commander-decks/pull/342).
+
 ### Part 06 — Pending triggers and checkpoint placement
 
 **Dependencies:** 02, 03, 05.
@@ -294,6 +331,11 @@ queue for delayed/reflexive abilities and ability grants as their nodes arrive.
 instances with captured control, including its own death. OR matching never
 duplicates one occurrence. Draw-three collects triggers without intermediate
 response windows. Required/optional targets and intervening-if are covered.
+
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 06 implementation note](migration/RULE-DSL-PART-06.md) and
+[PR #343](https://github.com/lordnox/commander-decks/pull/343) /
+[PR #345](https://github.com/lordnox/commander-decks/pull/345).
 
 ### Part 07 — Reusable action primitives and structured programs
 
@@ -317,6 +359,10 @@ rules; damage attribution/prevention/lifelink/infect stay intact. Simultaneous
 removal sees shared before-state; sequential instructions see earlier results.
 Empty groups/hands do not create impossible pickers. `and`, `or`, and conditional
 branches have different observable behavior and resume once.
+
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 07 implementation note](migration/RULE-DSL-PART-07.md) and
+[PR #344](https://github.com/lordnox/commander-decks/pull/344).
 
 ### Part 08 — Announcement transactions, costs, and mana abilities
 
@@ -344,6 +390,10 @@ roll back. Completed costs stay paid after countering/target failure.
 Untargeted costs ignore targeting restrictions. Replacement-aware payment tests
 are completed with Part 11; eligible mana abilities use no stack or priority pause.
 
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 08 implementation note](migration/RULE-DSL-PART-08.md) and
+[PR #346](https://github.com/lordnox/commander-decks/pull/346).
+
 ### Part 09 — Scoped modes, distributions, copies, and retargeting
 
 **Dependencies:** 08.
@@ -364,6 +414,11 @@ and proliferate choices happen separately during resolution. All-illegal targets
 suppress every selected mode; three untargeted modes do not fail that gate.
 Copies do not fire cast triggers; allowed retargeting follows its own procedure.
 
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 09 modes note](migration/RULE-DSL-PART-09-MODES.md),
+[Part 09 copies note](migration/RULE-DSL-PART-09-COPIES.md), and
+[PR #348](https://github.com/lordnox/commander-decks/pull/348).
+
 ### Part 10 — Temporary effects, optional payments, and reflexive programs
 
 **Dependencies:** 06, 07, 08.
@@ -378,9 +433,17 @@ for a later checkpoint with a new target decision. A replaced destination can
 still satisfy payment. Nested casting/payment resumes its parent without ordinary
 priority. Effects and delayed programs retain independent source/version context.
 
+**Status:** implementation complete; reviewed and accepted. See the
+[Part 10 implementation note](migration/RULE-DSL-PART-10.md) and
+[PR #349](https://github.com/lordnox/commander-decks/pull/349).
+
 ### Part 11 — Resumable replacement processing and lineage
 
 **Dependencies:** 05, 07, 08, 10.
+
+**Status:** not started. Next parallel track; this is the critical path for
+Parts 12 and replacement-aware payment. Do not implement prevention (12) or
+static layers (13) in this slice.
 
 Replace the kernel's timestamp-first loop with pure applicability discovery and a
 persisted event frame. Implement CR 616 precedence categories, appropriate chooser,
@@ -404,6 +467,8 @@ Reconnect during a replacement resumes the same event and program.
 
 **Dependencies:** 11.
 
+**Status:** not started. Blocked on Part 11.
+
 Implement prevention instances with remaining capacity, lifetime/deadline, source
 identity, allocation for simultaneous sources, and typed additional effects.
 Reuse shared damage handling with settled damage amounts and attribution.
@@ -417,6 +482,9 @@ Life loss remains outside damage prevention.
 ### Part 13 — Static modifiers, layers, and action restrictions
 
 **Dependencies:** 02, 07, 08, 10; static replacement integration uses 11.
+
+**Status:** not started. May proceed in parallel with Part 11 except for static
+replacement integration, which waits for 11.
 
 Compile static abilities into runtime modifier instances with explicit active
 zones and source incarnations. Audit/reuse continuous effects, keyword lookup,
@@ -438,6 +506,8 @@ temporary-effect lifetimes have observable regression tests.
 
 **Dependencies:** 06, 07, 11, 13.
 
+**Status:** not started. Blocked on Parts 11 and 13.
+
 Add step-instance identity/history for actual draws, including extra draw steps
 and draws during costs. Implement `wouldDraw` and `firstDrawInOwnDrawStep`.
 Apply count-level replacements before individual draw events where required.
@@ -455,6 +525,9 @@ and reconnect during mandatory discard. No card-specific Chains executor exists.
 ### Part 15 — Combined conformance and persistence gate
 
 **Dependencies:** 09, 10, 12, 13, 14.
+
+**Status:** not started as a close-out. Scenarios A–E and M–P may gain tests
+now; do not mark Part 15 complete until 12–14 exist.
 
 Run the scenarios in the matrix below through authoritative driver, host adapters,
 browser offers, and headless answers. Verify outcomes and timing from observable
@@ -475,6 +548,8 @@ All newly advertised DSL capabilities have end-to-end evidence.
 
 **Dependencies:** 00 ledger; migrate each family after its owning parts pass.
 Final consolidation requires 15.
+
+**Status:** not started. Do not remove legacy adapters until Part 15 closes.
 
 Migrate in mechanic families: simple keywords/player effects; ordinary spells and
 triggers; targeting/activation/costs; modes/copies; hidden-zone choices; replacements
@@ -506,13 +581,17 @@ suites and new-format persistence gate pass after the old paths are removed.
 
 ## Dependencies and delivery order
 
-`00 → 01 → 02 → 03 → 04 → 05` establishes the common foundation.
-Then `06` and `07` can proceed on that foundation, integrating before `08`.
-After `08`, mode work `09` and effect/payment work `10` can proceed independently.
+`00 → 01 → 02 → 03 → 04 → 05` established the common foundation and is merged.
+`06` and `07` followed on that foundation, then `08`, then independent `09` and
+`10`. Those parts are on `main`.
+
 `10 → 11 → 12` supplies replacement/prevention semantics.
 `13` can develop alongside `11`, with its replacement integration waiting for
 `11`; `14` needs both. `15` joins the conformance work; `16` migrates incrementally
 by family and removes old paths only after that gate.
+
+The live parallel split from this baseline is **11**, **13 minus replacement**,
+and **15 partial tests** for already-owned scenarios. See [Current state on main](#current-state-on-main).
 
 | DSL milestone | Plan parts | Delivery gate |
 | --- | --- | --- |
