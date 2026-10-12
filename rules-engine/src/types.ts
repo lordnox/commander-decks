@@ -421,6 +421,10 @@ export type StackExecutionContext = {
   /** Supplied canonical targets, grouped by generated scope and clause. */
   targetBindings?: CanonicalTargetBinding[]
   choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
+  /** Generated-program aliases for parent lexical choice bindings. */
+  capturedChoiceAliases?: Record<string, string>
+  /** Generated-program aliases for parent lexical result bindings. */
+  capturedResultAliases?: Record<string, string>
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */

@@ -157,24 +157,37 @@ const canonicalFilterMatch = (
   object: GameObject,
   filter: ObjectOccurrenceFilter,
   occurrence: OccurrenceSnapshot,
+  execution?: StackExecutionContext,
 ) => {
+  const lexicalChoices = execution?.choices
+    ? {
+        ...execution.choices,
+        ...Object.fromEntries(Object.entries(execution.capturedChoiceAliases ?? {}).flatMap(([original, alias]) => {
+          const value = execution.choices?.[original]
+          return value === undefined ? [] : [[alias, value]]
+        })),
+      }
+    : undefined
+  const lexicalContext = {
+    ...(lexicalChoices ? { choices: lexicalChoices } : {}),
+    ...(execution?.results ? { results: execution.results } : {}),
+    ...(execution?.variables ? { variables: execution.variables } : {}),
+  }
   if ('kind' in filter) {
-    if (filter.kind === 'contextRef') {
-      const referenced = evaluateObjectReference(filter, {
-        state,
-        controller: source.controller,
-        source: captureObject(source),
-        occurrence,
-      }, 'currentOrLastKnown')
-      return referenced.some((candidate) => candidate.id === object.id && candidate.incarnation === object.incarnation)
-    }
-    return false
+    const referenced = evaluateObjectReference(filter, {
+      state,
+      controller: source.controller,
+      source: captureObject(source),
+      occurrence,
+      ...lexicalContext,
+    }, 'currentOrLastKnown')
+    return referenced.some((candidate) => candidate.id === object.id && candidate.incarnation === object.incarnation)
   }
   if ('all' in filter && filter.all && !filter.all.every((part) =>
-    canonicalFilterMatch(state, source, object, part, occurrence))) return false
+    canonicalFilterMatch(state, source, object, part, occurrence, execution))) return false
   if ('any' in filter && filter.any && !filter.any.some((part) =>
-    canonicalFilterMatch(state, source, object, part, occurrence))) return false
-  if ('not' in filter && filter.not && canonicalFilterMatch(state, source, object, filter.not, occurrence)) return false
+    canonicalFilterMatch(state, source, object, part, occurrence, execution))) return false
+  if ('not' in filter && filter.not && canonicalFilterMatch(state, source, object, filter.not, occurrence, execution)) return false
   const plain = filter as ObjectFilter
   if (plain.zone !== undefined && object.zone !== plain.zone) return false
   if (plain.type !== undefined && !object.types.includes(plain.type)) return false
@@ -189,6 +202,7 @@ const canonicalFilterMatch = (
         controller: source.controller,
         source: captureObject(source),
         occurrence,
+        ...lexicalContext,
       })[0]
     if (controller !== undefined && object.controller !== controller) return false
   }
@@ -200,6 +214,7 @@ const canonicalFilterMatch = (
         controller: source.controller,
         source: captureObject(source),
         occurrence,
+        ...lexicalContext,
       })[0]
     if (owner !== undefined && object.owner !== owner) return false
   }
@@ -273,7 +288,22 @@ const generatedPatternMatches = (
   pattern: GeneratedAbility['on'],
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
+  execution?: StackExecutionContext,
 ) => {
+  const lexicalChoices = execution?.choices
+    ? {
+        ...execution.choices,
+        ...Object.fromEntries(Object.entries(execution.capturedChoiceAliases ?? {}).flatMap(([original, alias]) => {
+          const value = execution.choices?.[original]
+          return value === undefined ? [] : [[alias, value]]
+        })),
+      }
+    : undefined
+  const lexicalContext = {
+    ...(lexicalChoices ? { choices: lexicalChoices } : {}),
+    ...(execution?.results ? { results: execution.results } : {}),
+    ...(execution?.variables ? { variables: execution.variables } : {}),
+  }
   switch (pattern.kind) {
     case 'draw': {
       if (event.type !== 'draw' || !occurrence.player) return false
@@ -288,12 +318,14 @@ const generatedPatternMatches = (
           controller: source.controller,
           source: captureObject(source),
           occurrence,
+          ...lexicalContext,
         }).includes(occurrence.player)
         : evaluatePlayerReference(pattern.filter.player, {
           state,
           controller: source.controller,
           source: captureObject(source),
           occurrence,
+          ...lexicalContext,
         }).includes(occurrence.player)
     }
     case 'manaAdded': return event.type === 'addMana' && event.sourceId !== source.id
@@ -313,7 +345,7 @@ const generatedPatternMatches = (
       const object = pattern.kind === 'dies'
         ? occurrence.object?.before
         : occurrence.object?.after
-      return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
+      return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
     }
     case 'event': {
       if (event.type !== pattern.type) return false
@@ -325,6 +357,7 @@ const generatedPatternMatches = (
           controller: source.controller,
           source: captureObject(source),
           occurrence,
+          ...lexicalContext,
         }, 'currentOrLastKnown')
         return expected.some((object) => object.id === eventObjectId(event))
       }
@@ -338,6 +371,7 @@ const generatedPatternMatches = (
         controller: source.controller,
         source: captureObject(source),
         occurrence,
+        ...lexicalContext,
       }).includes(afterState.active)
     }
   }
@@ -373,12 +407,12 @@ const canonicalGrantedTriggersForOccurrence = (
         'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
         event.type === 'gainLife' ? event.amount : undefined,
       )
-      if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event)) return
+      if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
       matches.push({
         source,
         effect: { do: [] },
         canonical: {
-          definitionSnapshot: generatedAbilitySnapshot(grant.ability),
+          definitionSnapshot: generatedAbilitySnapshot(grant.ability, grant.ability.decisions, grant.ability.capturedBindings),
           abilityIndex: 0,
           ...(grant.execution?.capturedTargetStart !== undefined
             ? { announcedTargetCount: grant.execution.capturedTargetStart } : {}),
@@ -388,6 +422,8 @@ const canonicalGrantedTriggersForOccurrence = (
           ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
           ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
           ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
+          ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
+          ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
           ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
           ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
           ...(grant.execution?.capturedTargetStart !== undefined

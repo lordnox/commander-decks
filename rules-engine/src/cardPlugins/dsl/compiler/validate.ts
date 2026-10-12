@@ -481,15 +481,15 @@ export const validateDefinitionV1 = (root: unknown): {
     }
   }
 
-  const validateInstructionList = (value: unknown, path: string, env: Environment, depth = 0): void => {
+  const validateInstructionList = (value: unknown, path: string, env: Environment, depth = 0, allowCaptured = false): void => {
     if (depth > MAX_TREE_DEPTH) {
       issue(path, 'depth-limit', `program nesting is limited to ${MAX_TREE_DEPTH}`)
       return
     }
-    array(value, path).forEach((entry, index) => validateInstruction(entry, childPath(path, index), env, depth))
+    array(value, path).forEach((entry, index) => validateInstruction(entry, childPath(path, index), env, depth, allowCaptured))
   }
 
-  const validateInstruction = (value: unknown, path: string, env: Environment, depth: number): void => {
+  const validateInstruction = (value: unknown, path: string, env: Environment, depth: number, allowCaptured = false): void => {
     const node = object(value, path)
     if (!node) return
     declarations.push({ path, kind: `instruction:${String(node.kind)}` })
@@ -499,6 +499,30 @@ export const validateDefinitionV1 = (root: unknown): {
       validateRecipient(node.targets, childPath(path, 'targets'), env, expected)
     }
     switch (node.kind) {
+      case 'captureChoice':
+        if (!allowCaptured) {
+          issue(childPath(path, 'kind'), 'unsupported-kind', 'captured binding declarations are reserved for generated programs')
+          return
+        }
+        exactKeys(node, path, ['kind', 'binding'], ['kind', 'binding'])
+        const choiceName = bindingName(node.binding, childPath(path, 'binding'))
+        if (choiceName && !env.declared.has(choiceName)) declareBinding(env, choiceName, { kind: 'choice', domain: 'object' }, childPath(path, 'binding'))
+        return
+      case 'captureResult': {
+        if (!allowCaptured) {
+          issue(childPath(path, 'kind'), 'unsupported-kind', 'captured binding declarations are reserved for generated programs')
+          return
+        }
+        exactKeys(node, path, ['kind', 'binding', 'field'], ['kind', 'binding', 'field'])
+        const field = enumeration(node.field, childPath(path, 'field'), new Set(['discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
+        const name = bindingName(node.binding, childPath(path, 'binding'))
+        if (name && !env.declared.has(name)) declareBinding(env, name, {
+            kind: 'result',
+            domain: field === 'discardedCount' || field === 'created' ? 'number' : 'boolean',
+            ...(field ? { fields: new Set<ResultField>([field]) } : {}),
+          }, childPath(path, 'binding'))
+        return
+      }
       case 'addMana': {
         exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
         const amount = object(node.amount, childPath(path, 'amount'))
@@ -872,7 +896,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     if (hasInstructions) {
       if (decisionsResult.modeDeclared) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'mode decisions require a modal program')
-      validateInstructionList(ability.instructions, childPath(path, 'instructions'), decisionsResult.env)
+      validateInstructionList(ability.instructions, childPath(path, 'instructions'), decisionsResult.env, 0, ability.generated === true)
       return
     }
     if (!decisionsResult.modeDeclared) issue(childPath(path, 'decisions.modes'), 'modal-structure', 'modal programs require decisions.modes')
@@ -942,10 +966,35 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'triggered': {
-        exactKeys(ability, path, ['kind', 'activeIn', 'on', 'triggerOnlyIf', 'interveningIf', 'frequency', 'manaAbility', 'decisions', 'instructions', 'modes'], ['kind', 'activeIn', 'on', 'decisions'])
+        exactKeys(ability, path, ['kind', 'generated', 'capturedBindings', 'activeIn', 'on', 'triggerOnlyIf', 'interveningIf', 'frequency', 'manaAbility', 'decisions', 'instructions', 'modes'], ['kind', 'activeIn', 'on', 'decisions'])
         array(ability.activeIn, childPath(path, 'activeIn'), { nonempty: true }).forEach((zone, index) =>
           enumeration(zone, childPath(childPath(path, 'activeIn'), index), ZONES, 'zone'))
-        const occurrenceEnv = validateOccurrence(ability.on, childPath(path, 'on'), baseEnvironment())
+        const occurrenceBase = baseEnvironment()
+        if (ability.capturedBindings !== undefined) {
+          const captured = object(ability.capturedBindings, childPath(path, 'capturedBindings'))
+          if (captured) {
+            exactKeys(captured, childPath(path, 'capturedBindings'), ['choices', 'results'])
+            if (captured.choices !== undefined) array(captured.choices, childPath(childPath(path, 'capturedBindings'), 'choices')).forEach((entry, index) => {
+              const name = bindingName(entry, `${path}.capturedBindings.choices[${index}]`)
+              if (name) declareBinding(occurrenceBase, name, { kind: 'choice', domain: 'object' }, `${path}.capturedBindings.choices[${index}]`)
+            })
+            const capturedResults = captured.results === undefined
+              ? undefined
+              : object(captured.results, childPath(childPath(path, 'capturedBindings'), 'results'))
+            if (capturedResults) for (const [name, fields] of Object.entries(capturedResults)) {
+              const resultName = bindingName(name, `${path}.capturedBindings.results.${name}`)
+              const fieldList = array(fields, `${path}.capturedBindings.results.${name}`)
+                .map((field, index) => enumeration(field, `${path}.capturedBindings.results.${name}[${index}]`, new Set(['discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined)
+                .filter((field): field is ResultField => field !== undefined)
+              if (resultName) declareBinding(occurrenceBase, resultName, {
+                kind: 'result',
+                domain: fieldList.some((field) => field === 'discardedCount' || field === 'created') ? 'number' : 'boolean',
+                fields: new Set(fieldList),
+              }, `${path}.capturedBindings.results.${name}`)
+            }
+          }
+        }
+        const occurrenceEnv = validateOccurrence(ability.on, childPath(path, 'on'), occurrenceBase)
         if (ability.triggerOnlyIf !== undefined) validateCondition(ability.triggerOnlyIf, childPath(path, 'triggerOnlyIf'), occurrenceEnv)
         if (ability.interveningIf !== undefined) validateCondition(ability.interveningIf, childPath(path, 'interveningIf'), occurrenceEnv)
         if (ability.frequency !== undefined) {
