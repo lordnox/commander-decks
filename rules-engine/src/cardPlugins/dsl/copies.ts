@@ -244,4 +244,3 @@ export const putCanonicalSpellCopyOnStack = (
   created.uncounterable = original.uncounterable
   return created
 }
-
