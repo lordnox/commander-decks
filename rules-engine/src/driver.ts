@@ -36,7 +36,7 @@ import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
-import { generatedAbilitySnapshot, lowerCapturedBindings } from './cardPlugins/dsl/generatedPrograms'
+import { captureLexicalBindings, generatedAbilitySnapshot } from './cardPlugins/dsl/generatedPrograms'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
@@ -87,6 +87,9 @@ const preflightInstructions = (
       return
     }
     switch (instruction.kind) {
+      case 'captureChoice':
+      case 'captureResult':
+        return
       case 'draw':
       case 'addMana':
       case 'gainLife':
@@ -196,6 +199,24 @@ export const startCanonicalResolution = (
     ? liveSource
     : source.snapshot
   const gate = canonicalWholeItemGate(draft, sourceObject, ability, targetBindings, item)
+  const capturedChoices = item.execution?.choices
+    ? {
+        ...structuredClone(item.execution.choices),
+        ...Object.fromEntries(Object.entries(item.execution.capturedChoiceAliases ?? {}).flatMap(([original, alias]) => {
+          const value = item.execution?.choices?.[original]
+          return value === undefined ? [] : [[alias, structuredClone(value)]]
+        })),
+      }
+    : undefined
+  const capturedResults = item.execution?.results
+    ? {
+        ...structuredClone(item.execution.results),
+        ...Object.fromEntries(Object.entries(item.execution.capturedResultAliases ?? {}).flatMap(([original, alias]) => {
+          const value = item.execution?.results?.[original]
+          return value === undefined ? [] : [[alias, value]]
+        })),
+      }
+    : undefined
   const frame: CanonicalResolutionFrame = {
     version: 1,
     kind: 'canonicalSpell',
@@ -215,8 +236,8 @@ export const startCanonicalResolution = (
     ...(item.x !== undefined || item.execution?.variables
       ? { variables: { ...(item.execution?.variables ?? {}), ...(item.x !== undefined ? { X: item.x } : {}) } }
       : {}),
-    ...(item.execution?.choices ? { choices: structuredClone(item.execution.choices) } : {}),
-    ...(item.execution?.results ? { results: structuredClone(item.execution.results) } : {}),
+    ...(capturedChoices ? { choices: capturedChoices } : {}),
+    ...(capturedResults ? { results: capturedResults } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
@@ -451,15 +472,13 @@ const registerCanonicalDelayed = (
     : parentAbility && 'decisions' in parentAbility
       ? parentAbility.decisions
       : undefined
-  const captured = lowerCapturedBindings(
+  const captured = captureLexicalBindings(
     generated.instructions,
-    inheritedDecisions?.targets?.length ?? 0,
     frame.choices,
     frame.results,
+    [eventCondition],
   )
   const loweredDecisions = inheritedDecisions
-    ? { ...inheritedDecisions, targets: [...inheritedDecisions.targets, ...captured.clauses] }
-    : captured.clauses.length > 0 ? { targets: captured.clauses } : undefined
   const inheritedTargets = Boolean(loweredDecisions?.targets?.length)
   const capturedScopeId = context.scopeId ?? frame.scopeId
   draft.delayedTriggers.push({
@@ -476,23 +495,19 @@ const registerCanonicalDelayed = (
     execution: {
       controller: frame.controller,
       source: structuredClone(frame.source),
-      ...(frame.targetBindings || captured.targetBindings.length > 0
-        ? {
-            targetBindings: [
-              ...structuredClone(frame.targetBindings ?? []),
-              ...captured.targetBindings.map((binding) => ({ ...binding, scopeId: capturedScopeId ?? '' })),
-            ],
-          }
-        : {}),
+      ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
       ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
       ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+      ...(Object.keys(captured.choiceAliases).length > 0 ? { capturedChoiceAliases: captured.choiceAliases } : {}),
+      ...(Object.keys(captured.resultAliases).length > 0 ? { capturedResultAliases: captured.resultAliases } : {}),
       ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),
       ...(capturedScopeId ? { scopeId: capturedScopeId } : {}),
     },
     canonical: {
       definitionSnapshot: generatedAbilitySnapshot(
-        { ...generated, instructions: captured.instructions },
+        { ...generated, on: captured.rewrittenAdditionalValues[0] as typeof generated.on, instructions: captured.instructions },
         loweredDecisions,
+        captured.capturedBindings,
       ),
       abilityIndex: 0,
       ...(inheritedTargets ? { inheritedTargets: true } : {}),
@@ -758,24 +773,22 @@ const actionEvents = (
       const targets = objectActions(instruction.targets, context)
       const grant = instruction.effect.kind === 'grantAbility' ? instruction.effect.ability : undefined
       const grantChoices = grant
-        ? lowerCapturedBindings(
+        ? captureLexicalBindings(
           grant.instructions,
-          grant.decisions?.targets?.length ?? 0,
           frame.choices,
           frame.results,
+          [grant.on],
         )
         : undefined
       const grantDecisions = grant && grantChoices
         ? grant.decisions
           ? {
               ...grant.decisions,
-              targets: [...grant.decisions.targets ?? [], ...grantChoices.clauses],
               ...(!grant.decisions.variables && frame.variables
                 ? { variables: parentVariables(frame, context.scopeId) } : {}),
             }
-          : grantChoices.clauses.length > 0 || frame.variables
+          : frame.variables
             ? {
-                ...(grantChoices.clauses.length > 0 ? { targets: grantChoices.clauses } : {}),
                 ...(frame.variables ? { variables: parentVariables(frame, context.scopeId) } : {}),
               }
             : undefined
@@ -785,6 +798,10 @@ const actionEvents = (
             kind: 'grantAbility' as const,
             ability: {
               ...grant,
+              on: grantChoices.rewrittenAdditionalValues[0] as typeof grant.on,
+              ...(Object.keys(grantChoices.capturedBindings.choices ?? {}).length > 0 || Object.keys(grantChoices.capturedBindings.results ?? {}).length > 0
+                ? { capturedBindings: grantChoices.capturedBindings }
+                : {}),
               ...(grantDecisions ? { decisions: grantDecisions } : {}),
               instructions: grantChoices.instructions,
             },
@@ -798,22 +815,22 @@ const actionEvents = (
           }
         : structuredClone(grantEffect ?? instruction.effect)
       const grantExecution = grant && grantChoices && (
-        grantChoices.targetBindings.length > 0
-        || frame.choices !== undefined
+        frame.choices !== undefined
         || frame.results !== undefined
         || frame.variables !== undefined
+        || Object.keys(grantChoices.choiceAliases).length > 0
+        || Object.keys(grantChoices.resultAliases).length > 0
       )
         ? {
             controller: frame.controller,
             source: structuredClone(frame.source),
-            targetBindings: [
-              ...grantChoices.targetBindings.map((binding) => ({ ...binding, scopeId: context.scopeId ?? frame.scopeId ?? '' })),
-            ],
+            ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
             ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
             ...(frame.results ? { results: structuredClone(frame.results) } : {}),
             ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),
+            ...(Object.keys(grantChoices.choiceAliases).length > 0 ? { capturedChoiceAliases: grantChoices.choiceAliases } : {}),
+            ...(Object.keys(grantChoices.resultAliases).length > 0 ? { capturedResultAliases: grantChoices.resultAliases } : {}),
             ...(context.scopeId ?? frame.scopeId ? { scopeId: context.scopeId ?? frame.scopeId } : {}),
-            capturedTargetStart: grant.decisions?.targets?.length ?? 0,
           }
         : undefined
       return targets.map((object) => ({
@@ -941,6 +958,7 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
     }
+    if (instruction.kind === 'captureChoice' || instruction.kind === 'captureResult') continue
     if (instruction.kind === 'chooseCards') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]

@@ -170,6 +170,7 @@ export type EffectDuration =
 export type GeneratedAbility = {
   kind: 'triggered'
   on: OccurrencePattern | DelayedPattern
+  capturedBindings?: TriggeredAbilityDefinition['capturedBindings']
   decisions?: DecisionsInput
   instructions: readonly Instruction[]
 }
@@ -202,6 +203,10 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
+  /** Internal generated-program declaration for a captured lexical choice. */
+  | { kind: 'captureChoice'; binding: string }
+  /** Internal generated-program declaration for a captured lexical result. */
+  | { kind: 'captureResult'; binding: string; field: ResultField }
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
@@ -348,6 +353,13 @@ export type ActivatedAbilityDefinition = {
 
 export type TriggeredAbilityDefinition = {
   kind: 'triggered'
+  /** Internal marker used only by canonical generated-program snapshots. */
+  generated?: true
+  /** Lexical declarations captured by a generated snapshot before its occurrence is matched. */
+  capturedBindings?: {
+    choices?: readonly string[]
+    results?: Readonly<Record<string, readonly ResultField[]>>
+  }
   activeIn: readonly Zone[]
   on: OccurrencePattern
   triggerOnlyIf?: Condition
