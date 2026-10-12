@@ -419,8 +419,6 @@ export type StackExecutionContext = {
   variables?: Readonly<Partial<Record<'X', number>>>
   results?: Record<string, boolean | number>
   scopeId?: string
-  /** Number of generated target clauses supplied by a captured parent scope. */
-  capturedTargetStart?: number
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
   /** Supplied canonical targets, grouped by generated scope and clause. */
@@ -574,7 +572,6 @@ export type PendingTrigger = {
     abilityIndex: number
     /** The delayed program reuses bindings captured by its parent resolution. */
     inheritedTargets?: boolean
-    announcedTargetCount?: number
   }
   /** CR 603.3b second-pass marker: this occurrence was caused by an ability triggering. */
   triggeredByAbility?: boolean
@@ -753,7 +750,6 @@ export type DelayedTrigger = {
     abilityIndex: number
     /** The delayed program reuses bindings captured by its parent resolution. */
     inheritedTargets?: boolean
-    announcedTargetCount?: number
   }
   condition: DelayedTriggerCondition
   instructions: CardInstruction[]

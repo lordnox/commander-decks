@@ -664,6 +664,41 @@ describe('Rule DSL Part 10 programs', () => {
     }
   })
 
+  test('paid callback keeps an entering parent occurrence through JSON restart', () => {
+    const triggeredAbility = {
+      kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'enters', filter: { type: 'Creature' } },
+      decisions: { targets: [] }, instructions: [payOptional({
+        payer: ref('controller'),
+        cost: { kind: 'life', amount: amount(1) },
+        bindResult: 'paid', ifPaid: [], ifDeclined: [],
+        whenPaid: [putCounters({
+          targets: ref('triggering.object.after'), counter: '+1/+1', count: amount(1),
+        })],
+      })],
+    } as never
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([triggeredAbility])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Paid occurrence source', { types: ['Enchantment'], ruleDefinition: definition })] },
+      hands: { p1: [cardTemplate('Paid occurrence creature', { types: ['Creature'], power: 2, toughness: 3 })] },
+    }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    const moved = server.rules(server.state, { type: 'move', objectId: get('Paid occurrence creature').id, to: 'battlefield' })
+    expect(moved.ok).toBe(true)
+    if (!moved.ok) return
+    const started = server.rules(moved.state, { type: 'resolveTop' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const offer = pendingOptionSelection(started.state, 'p1')!
+    const paid = server.rules(started.state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+    expect(paid.ok).toBe(true)
+    if (!paid.ok) return
+    const restarted = JSON.parse(JSON.stringify(paid.state))
+    const resolved = server.rules(restarted, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.objects[get('Paid occurrence creature').id]?.counters['+1/+1']).toBe(1)
+  })
+
   test('runtime payment persists its typed sacrifice cursor and commits the paid branch', () => {
     const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
       decisions: { targets: [] },
