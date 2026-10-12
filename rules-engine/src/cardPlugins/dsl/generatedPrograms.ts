@@ -1,5 +1,7 @@
 import { definitionRevisionFor } from './builders/revision'
-import { RULE_DSL_SCHEMA_VERSION, type GeneratedAbility, type Instruction, type TriggeredAbilityDefinition } from './schema/v1'
+import { RULE_DSL_SCHEMA_VERSION } from './schema/v1'
+import type { GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v1'
+import type { ZoneId } from '../../types'
 
 /**
  * Generated abilities are stored outside a card definition because their
@@ -55,7 +57,7 @@ export const generatedAbilitySnapshot = (
   }
 }
 
-type CapturedChoice = readonly ({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: import('../../types').ZoneId })[]
+type CapturedChoice = readonly ({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: ZoneId })[]
 
 type RewrittenInstructions = {
   instructions: Instruction[]
@@ -235,7 +237,7 @@ export const captureLexicalBindings = (
         ? {
             results: Object.fromEntries(Object.entries(resultAliases).map(([original, alias]) => [
               alias,
-              [...(referencedResults.get(original) ?? new Set<string>())] as import('./schema/v1').ResultField[],
+              [...(referencedResults.get(original) ?? new Set<string>())] as ResultField[],
             ])),
           }
         : {}),

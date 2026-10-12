@@ -318,7 +318,7 @@ export const canonicalTargetCandidates = (
   occurrence?: OccurrenceSnapshot,
   clausesOverride?: readonly TargetClause[],
   x?: number,
-  capturedOccurrence?: import('../../../types').OccurrenceSnapshot,
+  capturedOccurrence?: OccurrenceSnapshot,
   capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[],
 ) => {
   const context = {

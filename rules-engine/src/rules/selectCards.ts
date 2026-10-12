@@ -2,6 +2,7 @@ import type Draft from '../draft'
 import type {
   GameEvent,
   GameState,
+  CapturedObject,
   PlayerId,
   Plugin,
   StackExecutionContext,
@@ -24,6 +25,8 @@ import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
 import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
+import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
+import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -136,18 +139,18 @@ export type PendingCardSelection = {
     binding: string
     action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment'
     payment?: {
-      cost: import('../cardPlugins/dsl/schema/v1').Cost
+      cost: Cost
       amount: number
       payer: PlayerId
       bindResult: string
       scopeId?: string
-      source: import('../types').CapturedObject
+      source: CapturedObject
       controller: PlayerId
-      whenPaidDecisions?: import('../cardPlugins/dsl/schema/v1').DecisionsInput
-      ifPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
-      ifDeclined: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
-      whenPaid: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
-      bindings?: import('../cardPlugins/dsl/resolutionPayment').ResolutionPaymentBindings
+      whenPaidDecisions?: DecisionsInput
+      ifPaid: readonly Instruction[]
+      ifDeclined: readonly Instruction[]
+      whenPaid: readonly Instruction[]
+      bindings?: ResolutionPaymentBindings
     }
     copySpellStackId?: string
     copyController?: PlayerId

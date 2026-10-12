@@ -18,6 +18,7 @@ import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSe
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
+  EffectDuration,
   Instruction,
   PlayerRecipient,
 } from './cardPlugins/dsl/schema/v1'
@@ -28,6 +29,8 @@ import type {
   CanonicalResolutionFrame,
   StackItem,
   GameObject,
+  StepId,
+  ZoneId,
 } from './types'
 import { hasKeyword } from './keywords'
 import { openOptionSelection, openNextCopySlot } from './rules/selectOptions'
@@ -431,7 +434,7 @@ const stepIndex = (step: string) => [
 ].indexOf(step)
 
 const durationMetadata = (
-  duration: import('./cardPlugins/dsl/schema/v1').EffectDuration,
+  duration: EffectDuration,
   context: RuleDslRuntimeContext,
   draft: Draft,
 ) => {
@@ -483,13 +486,13 @@ const registerCanonicalDelayed = (
           type: condition.type as GameEvent['type'],
           ...(referenced ? { objectId: referenced.id } : {}),
           ...(referenced ? { objectRef: objectIdentity(referenced) } : {}),
-          ...(condition.from ? { from: condition.from as import('./types').ZoneId } : {}),
-          ...(condition.to ? { to: condition.to as import('./types').ZoneId } : {}),
+          ...(condition.from ? { from: condition.from as ZoneId } : {}),
+          ...(condition.to ? { to: condition.to as ZoneId } : {}),
         }
       })()
     : {
         kind: 'step' as const,
-        step: condition.step as import('./types').StepId,
+        step: condition.step as StepId,
         ...(condition.active
           ? { active: evaluatePlayerReference(condition.active, context)[0] }
           : {}),

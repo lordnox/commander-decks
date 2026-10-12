@@ -12,11 +12,9 @@ import { validateModeSelection } from '../cardPlugins/dsl/compiler/modes'
 import type { CanonicalResolutionFrame, CanonicalTargetBinding, CapturedObject, EventTrace, GameEvent, GameState, ManaPool, ObjectIdentity, PlayerId, Plugin, StackExecutionContext, TargetRef } from '../types'
 import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSpec, Instruction, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import { allocationOptions } from './canonicalAllocation'
-import { payCost } from '../plugins/spells'
-import { cardRuleDefinition } from '../cardPlugins/dsl/builders'
 import { captureLexicalBindings, generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
-import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
+import type { ResolutionManaActivation, ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -149,7 +147,7 @@ export type PendingOptionSelection = {
     whenPaid: readonly Instruction[]
     paymentAmount: number
     bindings?: ResolutionPaymentBindings
-    manaActivations?: readonly import('../cardPlugins/dsl/resolutionPayment').ResolutionManaActivation[]
+    manaActivations?: readonly ResolutionManaActivation[]
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1

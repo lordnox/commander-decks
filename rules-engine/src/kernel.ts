@@ -10,6 +10,7 @@ import type {
   PlayerId,
   ReduceResult,
   RuleInstance,
+  StepId,
   ZoneId,
 } from './types'
 import { markPutIntoGraveyardFromBattlefieldThisTurn } from './plugins/fromBattlefieldThisTurn'
@@ -52,7 +53,6 @@ import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
-import type { EffectDuration as DslEffectDuration } from './cardPlugins/dsl/schema/v1'
 
 const CHECKPOINT_CAP = 32
 
@@ -329,7 +329,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           : event.duration.kind === 'untilStep'
             ? {
                 kind: 'untilStep' as const,
-                step: event.duration.step as import('./types').StepId,
+                step: event.duration.step as StepId,
                 turn: event.durationUntilStepTurn ?? event.createdTurn ?? draft.turn,
                 ...(event.durationUntilStepNotBeforeTurn !== undefined
                   ? { notBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
@@ -361,7 +361,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           sourceId: event.sourceId ?? object.id,
           sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
           definitionRevision: event.sourceRevision ?? 'unknown',
-          duration: structuredClone(event.duration) as DslEffectDuration,
+          duration: structuredClone(duration),
           createdTurn: event.createdTurn ?? draft.turn,
           ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
           ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
