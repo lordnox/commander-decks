@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction } from './cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -591,6 +591,33 @@ export type TriggerPlacementFrame = {
   orderIds?: string[]
 }
 
+/** Lineage for one replaceable event opportunity and its modified descendants. */
+export type ReplacementLineage = {
+  id: string
+  usedInstanceIds: string[]
+  settledOptionalDeclines?: string[]
+  /** Legacy plugin ids already applied; mirrors used instances for unmigrated hooks. */
+  legacyPluginIdsUsed?: string[]
+  simultaneityGroupId?: string
+  parentActionId?: string
+}
+
+/** Private durable replacement cursor; removed from client projections. */
+export type EventProcessingFrame = {
+  version: 1
+  id: string
+  originalEvent: GameEvent
+  pendingEvent: GameEvent
+  lineage: ReplacementLineage
+  awaitingCandidateIds: readonly string[]
+  announcementTransactionId?: string
+  program?: {
+    instructions: readonly ReplacementProgramInstruction[]
+    index: number
+    bindings: Record<string, unknown>
+  }
+}
+
 /**
  * A live plugin binding. Catalog entries are code; these instances are state.
  * `timestamp` orders replace/legal/apply. `sourceId` ties the instance to a
@@ -653,6 +680,8 @@ export type GameState = {
   pendingTriggers?: PendingTrigger[]
   /** Private placement cursor; removed from client projections with pending triggers. */
   triggerPlacement?: TriggerPlacementFrame
+  /** Private replacement processing cursor while a modifier choice or program is open. */
+  eventProcessing?: EventProcessingFrame
   delayedTriggers: DelayedTrigger[]
   active: PlayerId
   priority: PlayerId | null
@@ -902,6 +931,8 @@ export type GameEvent =
       sagaChapter?: number
       /** Rule instances whose replacement already rewrote this move. */
       replacedBy?: string[]
+      replacementLineage?: ReplacementLineage
+      tapped?: boolean
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }
@@ -921,6 +952,7 @@ export type GameEvent =
       count?: number
       replacedBy?: string[]
       remainingAfter?: number
+      replacementLineage?: ReplacementLineage
     }
   | {
       type: 'beginDredgeChoice'

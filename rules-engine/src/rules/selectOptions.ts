@@ -133,6 +133,10 @@ export type PendingOptionSelection = {
     controller: PlayerId
     slotIndex?: number
   } | {
+    kind: 'replacementModifier'
+    frameId: string
+    candidateIds: readonly string[]
+  } | {
     /** A resolution-time payment is answered by its payer while its parent frame remains active. */
     kind: 'canonicalResolutionPayment'
     stackId: string

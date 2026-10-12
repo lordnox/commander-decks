@@ -342,10 +342,44 @@ export type ActivationFilter = {
   activator?: PlayerFilter
 }
 
-export type ContinuousEffectDefinition = {
-  kind: 'prohibitActivation'
-  filter: ActivationFilter
+export type DrawReplacementFilter = {
+  player?: PlayerReference | PlayerSelector
+  firstDrawInOwnDrawStep?: boolean
 }
+
+export type ReplacementEventPattern =
+  | { kind: 'draw'; filter: DrawReplacementFilter }
+  | { kind: 'enterBattlefield'; filter: { object: ObjectFilter | ObjectReference } }
+  | { kind: 'move'; filter: { object?: ObjectFilter | ObjectReference; to?: Zone } }
+
+export type EventFieldChanges = {
+  to?: Zone
+  tapped?: boolean
+}
+
+export type ReplacementTransform =
+  | { kind: 'replaceWith'; instructions: readonly Instruction[] }
+  | { kind: 'modifyEvent'; changes: EventFieldChanges }
+  | { kind: 'redirect'; to: Zone }
+  | { kind: 'suppress' }
+
+export type ReplacementProgramInstruction =
+  | { kind: 'choose'; bindChoice: string; options: readonly { id: string; label: string }[] }
+  | { kind: 'branch'; condition: Condition; then: readonly ReplacementProgramInstruction[]; otherwise?: readonly ReplacementProgramInstruction[] }
+  | { kind: 'emit'; instructions: readonly Instruction[] }
+
+export type ReplacementEffectDefinition = {
+  kind: 'replacement'
+  event: ReplacementEventPattern
+  when?: Condition
+  optional?: boolean
+  transform: ReplacementTransform
+  program?: readonly ReplacementProgramInstruction[]
+}
+
+export type ContinuousEffectDefinition =
+  | { kind: 'prohibitActivation'; filter: ActivationFilter }
+  | ReplacementEffectDefinition
 
 export type Keyword = 'defender' | 'trample'
 

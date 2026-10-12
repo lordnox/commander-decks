@@ -7,6 +7,8 @@ import type {
   ChoiceReference,
   Condition,
   ContinuousEffectDefinition,
+  DrawReplacementFilter,
+  EventFieldChanges,
   CreatedEffect,
   ContextBinding,
   ContextReference,
@@ -182,6 +184,31 @@ export const notCondition = (condition: Condition): Condition =>
 export const prohibitActivation = (
   filter: Extract<ContinuousEffectDefinition, { kind: 'prohibitActivation' }>['filter'],
 ): ContinuousEffectDefinition => immutableData({ kind: 'prohibitActivation', filter })
+
+export const replacement = (
+  event: Extract<ContinuousEffectDefinition, { kind: 'replacement' }>['event'],
+  transform: Extract<ContinuousEffectDefinition, { kind: 'replacement' }>['transform'],
+  options: { when?: Condition; optional?: boolean; program?: Extract<ContinuousEffectDefinition, { kind: 'replacement' }>['program'] } = {},
+): ContinuousEffectDefinition => immutableData({
+  kind: 'replacement',
+  event,
+  transform,
+  optional: options.optional ?? false,
+  ...(options.when ? { when: options.when } : {}),
+  ...(options.program ? { program: options.program } : {}),
+})
+
+export const modifyEvent = (changes: EventFieldChanges) =>
+  immutableData({ kind: 'modifyEvent' as const, changes })
+
+export const replaceWith = (...instructions: Instruction[]) =>
+  immutableData({ kind: 'replaceWith' as const, instructions })
+
+export const suppressEvent = () => immutableData({ kind: 'suppress' as const })
+
+export const redirectEvent = (to: Zone) => immutableData({ kind: 'redirect' as const, to })
+
+export const wouldDraw = (filter: DrawReplacementFilter = {}) => immutableData({ kind: 'draw' as const, filter })
 
 export const decisions = (input: DecisionsInput = {}): DecisionsSpec => immutableData({
   targets: input.targets ?? [],
