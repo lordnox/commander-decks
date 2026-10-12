@@ -7,6 +7,7 @@ import { evaluateAmount, evaluateTargetBounds } from '../cardPlugins/dsl/compile
 import { objectIdentity } from '../objectIdentity'
 import type { CardRuleDefinitionSnapshotV1, TargetClause } from '../cardPlugins/dsl/schema/v1'
 import type { CanonicalTargetBinding, GameObject, StackExecutionContext, TargetRef } from '../types'
+import { allocationOptions } from './canonicalAllocation'
 import { openCardSelection, targetDestinations } from './selectCards'
 import { openOptionSelection } from './selectOptions'
 import { openPlayerSelection } from './selectPlayers'
@@ -30,6 +31,61 @@ export type CanonicalAnnouncement = {
   modeScopeIds?: readonly string[]
   distributionBounds?: readonly { total: number; minEach: number }[]
 }
+
+export type CanonicalChoicePayload = {
+  definitionSnapshot: CardRuleDefinitionSnapshotV1
+  abilityIndex: number
+  execution: StackExecutionContext
+  sourceId: string
+  targetClauses: ClauseBounds[]
+  targetClauseDefinitions: TargetClause[]
+  targetIndex: number
+  selectedTargets: TargetRef[]
+  selectedModes?: number[]
+  targetScopeIds?: string[]
+  targetModeIndices?: Array<number | undefined>
+  modeScopeIds?: string[]
+  distributionBounds?: Array<{ total: number; minEach: number }>
+}
+
+export const canonicalChoicePayload = (
+  announcement: CanonicalAnnouncement,
+  sourceId = announcement.sourceId,
+): CanonicalChoicePayload => ({
+  definitionSnapshot: announcement.definitionSnapshot,
+  abilityIndex: announcement.abilityIndex,
+  execution: announcement.execution,
+  sourceId,
+  targetClauses: [...announcement.clauseBounds],
+  targetClauseDefinitions: [...announcement.targetClauses],
+  targetIndex: announcement.clauseIndex,
+  selectedTargets: [...announcement.targets],
+  selectedModes: announcement.selectedModes ? [...announcement.selectedModes] : undefined,
+  ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
+  ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
+  ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
+  ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
+})
+
+export const canonicalChoiceAnnouncement = (
+  payload: CanonicalChoicePayload,
+  continuation: Pick<CanonicalAnnouncement, 'source' | 'sourceId' | 'targets' | 'targetClauses' | 'clauseBounds' | 'clauseIndex'>,
+): CanonicalAnnouncement => ({
+  definitionSnapshot: payload.definitionSnapshot,
+  abilityIndex: payload.abilityIndex,
+  execution: payload.execution,
+  source: continuation.source,
+  sourceId: continuation.sourceId,
+  targetClauses: continuation.targetClauses,
+  clauseBounds: continuation.clauseBounds,
+  clauseIndex: continuation.clauseIndex,
+  targets: continuation.targets,
+  selectedModes: payload.selectedModes,
+  targetScopeIds: payload.targetScopeIds,
+  targetModeIndices: payload.targetModeIndices,
+  modeScopeIds: payload.modeScopeIds,
+  distributionBounds: payload.distributionBounds,
+})
 
 const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
   const live = draft.object(announcement.execution.source.ref.objectId)
@@ -74,8 +130,6 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
     const binding = targetBindings?.find((entry) => entry.scopeId === scopeIds[0] && entry.clauseIndex === first.targetClauseIndex)
     const recipientCount = binding?.recipients.length ?? 0
     const recipientCounts = distributionSpecs.map((spec, index) => targetBindings?.find((entry) => entry.scopeId === scopeIds[index] && entry.clauseIndex === spec.targetClauseIndex)?.recipients.length ?? 0)
-    const min = bounds[0]?.minEach ?? 0
-    const max = (bounds[0]?.total ?? 0) - min * Math.max(0, recipientCount - 1)
     if (recipientCount === 0 && (bounds[0]?.total ?? 0) !== 0) return false
     if (recipientCount === 0) {
       const allocation = distributionSpecs.map((spec, index) => ({ scopeId: scopeIds[index], clauseIndex: spec.targetClauseIndex, amounts: [] }))
@@ -90,11 +144,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
       sourceId: source.id,
       source: source.name,
       prompt: `Allocate ${bounds[0]?.total ?? 0} for ${source.name}.`,
-      options: recipientCount === 1
-        ? [{ id: `allocation:0:${max}`, label: String(max) }]
-        : Number.isSafeInteger(max) && max >= min && max - min <= 256
-        ? Array.from({ length: max - min + 1 }, (_value, index) => ({ id: `allocation:0:${min + index}`, label: String(min + index) }))
-        : [],
+      options: allocationOptions(0, recipientCount, bounds[0] ?? { total: 0, minEach: 0 }),
       action: {
         kind: 'putCanonicalTriggeredAbilityAllocation',
         announcement,
@@ -243,22 +293,7 @@ export const continueCanonicalTargetSelection = (
       min: bounds.min,
       max: Math.min(bounds.max, candidates.length),
       candidates: candidates.map((candidate) => candidate.player),
-      action: {
-        kind: 'putCanonicalTriggeredAbility',
-        definitionSnapshot: announcement.definitionSnapshot,
-        abilityIndex: announcement.abilityIndex,
-        execution: announcement.execution,
-        sourceId: source.id,
-        targetClauses: announcement.clauseBounds,
-        targetClauseDefinitions: [...announcement.targetClauses],
-        targetIndex: announcement.clauseIndex,
-        selectedTargets: announcement.targets,
-        selectedModes: announcement.selectedModes,
-        ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
-        ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
-        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
-        ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
-      },
+      action: { kind: 'putCanonicalTriggeredAbility', ...canonicalChoicePayload(announcement, source.id) },
     })
     return true
   }
@@ -275,21 +310,7 @@ export const continueCanonicalTargetSelection = (
       source: source.name,
       prompt: `Choose target${bounds.max === 1 ? '' : 's'} for ${source.name}.`,
       destinations: targetDestinations(objects.length, bounds.min),
-      canonicalTrigger: {
-        definitionSnapshot: announcement.definitionSnapshot,
-        abilityIndex: announcement.abilityIndex,
-        execution: announcement.execution,
-        sourceId: source.id,
-        targetClauses: announcement.clauseBounds,
-        targetClauseDefinitions: [...announcement.targetClauses],
-        targetIndex: announcement.clauseIndex,
-        selectedTargets: announcement.targets,
-        selectedModes: announcement.selectedModes,
-        ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
-        ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
-        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
-        ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
-      },
+      canonicalTrigger: canonicalChoicePayload(announcement, source.id),
     })
     return true
   }
@@ -309,19 +330,8 @@ export const continueCanonicalTargetSelection = (
       options,
       action: {
         kind: 'putCanonicalStackTarget',
-        definitionSnapshot: announcement.definitionSnapshot,
-        abilityIndex: announcement.abilityIndex,
-        execution: announcement.execution,
-        sourceId: source.id,
-        targetClauses: announcement.clauseBounds,
-        targetClauseDefinitions: [...announcement.targetClauses],
-        targetIndex: announcement.clauseIndex,
-        selectedTargets: announcement.targets,
+        ...canonicalChoicePayload(announcement, source.id),
         selectedStackTargets,
-        selectedModes: announcement.selectedModes,
-        ...(announcement.targetScopeIds ? { targetScopeIds: [...announcement.targetScopeIds] } : {}),
-        ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
-        ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
       },
     })
     return true

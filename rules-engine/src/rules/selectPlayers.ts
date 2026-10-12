@@ -4,8 +4,8 @@ import type { GameEvent, GameState, PlayerId, Plugin, StackExecutionContext } fr
 import { stampLoseAbilitiesBecomeOnOpponentCreatures } from '../cardPlugins/loseAbilitiesStamp'
 import { openOpponentPilePartition } from './selectCards'
 import { advanceCopySlot } from './selectOptions'
-import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
-import type { TargetRef } from '../types'
+import { canonicalChoiceAnnouncement, continueCanonicalTargetSelection } from './canonicalAnnouncement'
+import type { CanonicalChoicePayload } from './canonicalAnnouncement'
 import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
@@ -43,21 +43,7 @@ export type PendingPlayerSelection = {
         payload?: Record<string, unknown>
         execution?: StackExecutionContext
       }
-    | {
-        kind: 'putCanonicalTriggeredAbility'
-        definitionSnapshot: import('../cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
-        abilityIndex: number
-        execution: StackExecutionContext
-        sourceId: string
-        targetClauses?: Array<{ min: number; max: number }>
-        targetClauseDefinitions?: import('../cardPlugins/dsl/schema/v1').TargetClause[]
-        targetIndex?: number
-        selectedTargets?: TargetRef[]
-        selectedModes?: number[]
-        targetScopeIds?: string[]
-        targetModeIndices?: Array<number | undefined>
-        modeScopeIds?: string[]
-      }
+    | ({ kind: 'putCanonicalTriggeredAbility' } & CanonicalChoicePayload)
     | {
         kind: 'loseAbilitiesBecomeOpponent'
         extraSubtype: string
@@ -244,21 +230,14 @@ export const selectPlayers: Plugin = {
       ]
       const targetIndex = selection.action.targetIndex ?? 0
       const targetClauses = selection.action.targetClauses ?? [{ min: event.players.length, max: event.players.length }]
-      const announcement = {
-        definitionSnapshot: selection.action.definitionSnapshot,
-        abilityIndex: selection.action.abilityIndex,
-        execution: selection.action.execution,
+      const announcement = canonicalChoiceAnnouncement(selection.action, {
         source: selection.action.execution.source.snapshot,
         sourceId: selection.action.sourceId,
         targetClauses: selection.action.targetClauseDefinitions ?? [],
         targets: selectedTargets,
-        selectedModes: selection.action.selectedModes,
-        targetScopeIds: selection.action.targetScopeIds,
-        targetModeIndices: selection.action.targetModeIndices,
-        modeScopeIds: selection.action.modeScopeIds,
         clauseBounds: targetClauses,
         clauseIndex: targetIndex + 1,
-      }
+      })
       continueCanonicalTargetSelection(draft, announcement)
       return
     }
