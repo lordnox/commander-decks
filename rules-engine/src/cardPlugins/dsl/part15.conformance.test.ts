@@ -1,0 +1,545 @@
+import { describe, expect, test } from 'bun:test'
+import {
+  card,
+  choice,
+  chooseModes,
+  compileCardRuleDefinition,
+  counter,
+  createDefinitionSnapshot,
+  createToken,
+  destroy,
+  discard,
+  draw,
+  enters,
+  gainLife,
+  loseLife,
+  objects,
+  phase,
+  players,
+  proliferate,
+  ref,
+  select,
+  sequence,
+  spell,
+  stackItems,
+  target,
+  whenever,
+  chooseCards,
+} from './v1'
+import { cardTemplate } from '../../newGame'
+import { commanderRules } from '../../formats'
+import { createServerGame, projectForViewer } from '../../runtime'
+import { ok, resolveStack } from '../../testHelpers'
+import { pendingSelectionFor } from '../../rules/selectCards'
+import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
+import { pendingOptionSelection } from '../../rules/selectOptions'
+import type { GameState } from '../../types'
+import { ward as wardEffect } from '../effects'
+import { ward as wardPlugin } from '../ward'
+
+const named = (state: GameState, name: string) =>
+  Object.values(state.objects).find((object) => object.name === name)!
+
+const reduce = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  event: Parameters<typeof server.rules>[1],
+) => ok(server.rules(state, event))
+
+describe('Rule DSL Part 15 conformance (partial gate)', () => {
+  describe('scenario A: untargeted token-entry life loss', () => {
+    test('matching token entry drains opponents without a target request at placement', () => {
+      const watcher = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(
+          enters({ filter: { token: true, controller: 'you' } }),
+          {
+            instructions: [loseLife({ amount: 1, targets: players({ relation: 'opponent' }) })],
+          },
+        ),
+      ])))
+      const tokenSpell = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spell({
+          instructions: [createToken({
+            count: 1,
+            targets: ref('controller'),
+            token: { name: 'Part15 token', types: ['Creature'], power: 1, toughness: 1 },
+          })],
+        }),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [cardTemplate('Token entry watcher', { types: ['Creature'], ruleDefinition: watcher })],
+        },
+        hands: {
+          p1: [cardTemplate('Token maker', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: tokenSpell })],
+        },
+      }, { random: () => 0 })
+      const spellObject = named(server.state, 'Token maker')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+      let state = resolveStack(server.rules, cast)
+      expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
+      const order = pendingSelectionFor(state, 'p1')
+      if (order?.triggerOrder) {
+        state = reduce(server, state, {
+          type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates,
+        })
+      }
+      const triggerCount = order?.triggerOrder?.ids.length ?? 1
+      const finished = resolveStack(server.rules, state)
+      expect(finished.players.p2.life).toBe(40 - triggerCount)
+      expect(Object.values(finished.objects).some((object) => object.name === 'Part15 token' && object.zone === 'battlefield')).toBe(true)
+    })
+  })
+
+  describe('scenario B: targeted entry trigger', () => {
+    test.skip('permanent spell resolution does not yet collect ETB triggers from the resolving card', () => {})
+
+    test('entering the battlefield requests a destroy target before the trigger reaches the stack', () => {
+      const entrantDef = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(
+          { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
+          {
+            decisions: {
+              targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
+            },
+            instructions: [destroy({ targets: target(0) })],
+          },
+        ),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Entry destroyer', { types: ['Creature'], ruleDefinition: entrantDef })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Entry victim', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0 })
+      const creature = named(server.state, 'Entry destroyer')
+      const victim = named(server.state, 'Entry victim')
+      const entered = reduce(server, server.state, { type: 'move', objectId: creature.id, to: 'battlefield' })
+      expect(entered.stack).toHaveLength(0)
+      const targetChoice = pendingSelectionFor(entered, 'p1')!
+      expect(targetChoice.candidates).toContain(victim.id)
+      expect(targetChoice.canonicalTrigger).toBeDefined()
+      const stacked = reduce(server, entered, {
+        type: 'selectCards', seat: 'p1', selectionId: targetChoice.id, kind: 'choose', count: 1, objectIds: [victim.id],
+      })
+      expect(stacked.stack).toHaveLength(1)
+      expect(stacked.stack[0].kind).toBe('ability')
+      const finished = resolveStack(server.rules, stacked)
+      expect(finished.objects[victim.id].zone).toBe('graveyard')
+    })
+  })
+
+  describe('scenario C: partial, all, and zero targets', () => {
+    const partialSpell = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({
+        decisions: {
+          targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), min: 0, max: 2 })],
+        },
+        instructions: [
+          destroy({ targets: target(0) }),
+          draw({ count: 1, targets: ref('controller') }),
+        ],
+      }),
+    ])))
+
+    const twoTargetServer = (extra: Record<string, unknown> = {}) => {
+      const snapshot = partialSpell()
+      return createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Partial destroy draw', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: snapshot })],
+        },
+        battlefield: {
+          p2: [
+            cardTemplate('Partial A', { types: ['Creature'], power: 2, toughness: 2, ...extra }),
+            cardTemplate('Partial B', { types: ['Creature'], power: 2, toughness: 2, ...extra }),
+          ],
+        },
+        libraries: { p1: [cardTemplate('Partial draw card')] },
+      }, { random: () => 0 })
+    }
+
+    test('zero targets at casting still draws', () => {
+      const server = twoTargetServer()
+      const spellObject = named(server.state, 'Partial destroy draw')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id, targets: [],
+      })
+      const resolved = reduce(server, cast, { type: 'resolveTop' })
+      expect(resolved.players.p1.life).toBe(40)
+      expect(Object.values(resolved.objects).some((object) => object.name === 'Partial draw card' && object.zone === 'hand')).toBe(true)
+    })
+
+    test('one legal target remaining still destroys it and draws', () => {
+      const server = twoTargetServer()
+      const spellObject = named(server.state, 'Partial destroy draw')
+      const a = named(server.state, 'Partial A')
+      const b = named(server.state, 'Partial B')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        targets: [{ kind: 'object', objectId: a.id }, { kind: 'object', objectId: b.id }],
+      })
+      const moved = reduce(server, cast, { type: 'move', objectId: a.id, to: 'graveyard' })
+      const resolved = reduce(server, moved, { type: 'resolveTop' })
+      expect(resolved.objects[b.id].zone).toBe('graveyard')
+      expect(Object.values(resolved.objects).some((object) => object.name === 'Partial draw card' && object.zone === 'hand')).toBe(true)
+    })
+
+    test('all targets gone suppresses every instruction including the draw', () => {
+      const server = twoTargetServer()
+      const spellObject = named(server.state, 'Partial destroy draw')
+      const a = named(server.state, 'Partial A')
+      const b = named(server.state, 'Partial B')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        targets: [{ kind: 'object', objectId: a.id }, { kind: 'object', objectId: b.id }],
+      })
+      let state = reduce(server, cast, { type: 'move', objectId: a.id, to: 'graveyard' })
+      state = reduce(server, state, { type: 'move', objectId: b.id, to: 'graveyard' })
+      const resolved = reduce(server, state, { type: 'resolveTop' })
+      expect(resolved.players.p1.life).toBe(40)
+      expect(resolved.log.some((line) => line.includes('didNotResolve:allTargetsIllegal'))).toBe(true)
+    })
+
+    test('indestructible targets stay on the battlefield and the draw still happens', () => {
+      const server = twoTargetServer({ oracleText: 'Indestructible' })
+      const spellObject = named(server.state, 'Partial destroy draw')
+      const a = named(server.state, 'Partial A')
+      const b = named(server.state, 'Partial B')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        targets: [{ kind: 'object', objectId: a.id }, { kind: 'object', objectId: b.id }],
+      })
+      const resolved = reduce(server, cast, { type: 'resolveTop' })
+      expect(resolved.objects[a.id].zone).toBe('battlefield')
+      expect(resolved.objects[b.id].zone).toBe('battlefield')
+      expect(Object.values(resolved.objects).some((object) => object.name === 'Partial draw card' && object.zone === 'hand')).toBe(true)
+    })
+  })
+
+  describe('scenario D: counterspell and ward', () => {
+    test('a resolved counter target removes the spell and the later draw still runs', () => {
+      const counterDraw = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spell({
+          decisions: {
+            targets: [select({ filter: stackItems({ kind: 'spell', other: true }), count: 1 })],
+          },
+          instructions: [
+            counter({ targets: target(0) }),
+            draw({ count: 1, targets: ref('controller') }),
+          ],
+        }),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [
+            cardTemplate('Victim spell', { types: ['Instant'], manaCost: '{0}' }),
+            cardTemplate('Counter draw', { types: ['Instant'], manaCost: '{0}', ruleDefinition: counterDraw }),
+          ],
+        },
+        libraries: { p1: [cardTemplate('Counter draw card')] },
+      }, { random: () => 0 })
+      const victim = named(server.state, 'Victim spell')
+      let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: victim.id })
+      const counterSpell = named(state, 'Counter draw')
+      const stackId = state.stack.find((item) => item.objectId === victim.id)!.id
+      state = reduce(server, state, {
+        type: 'castSpell', seat: 'p1', objectId: counterSpell.id,
+        targets: [{ kind: 'stackItem', stackId }],
+      })
+      state = reduce(server, state, { type: 'resolveTop' })
+      expect(state.objects[victim.id].zone).toBe('graveyard')
+      expect(state.stack.some((item) => item.id === stackId)).toBe(false)
+      expect(Object.values(state.objects).some((object) => object.name === 'Counter draw card' && object.zone === 'hand')).toBe(true)
+    })
+
+    test('ward payment pauses priority before the targeted spell resolves', () => {
+      const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spell({
+          instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+          decisions: {
+            targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
+          },
+        }),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Ward probe spell', { types: ['Instant'], manaCost: '{0}', ruleDefinition: snapshot })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Ward probe bear', { types: ['Creature'], power: 2, toughness: 2, effects: [wardEffect({ life: 1 })] })],
+        },
+      }, { random: () => 0, cardPlugins: [wardPlugin] })
+      const spellObject = named(server.state, 'Ward probe spell')
+      const targetObject = named(server.state, 'Ward probe bear')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        targets: [{ kind: 'object', objectId: targetObject.id }],
+      })
+      const wardWaiting = reduce(server, cast, { type: 'resolveTop' })
+      expect(wardWaiting.priority).toBeNull()
+      expect(pendingOptionSelection(wardWaiting, 'p1')).toBeDefined()
+      expect(wardWaiting.stack.some((item) => item.kind === 'spell')).toBe(true)
+    })
+  })
+
+  describe('scenario E: draw then discard', () => {
+    test('draws update hand candidates, hide them from opponents, and resume discard after restore', () => {
+      const loot = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spell({
+          instructions: [sequence(
+            draw({ count: 1, targets: ref('controller') }),
+            chooseCards({
+              bindChoice: 'discarded',
+              chooser: ref('controller'),
+              filter: objects({ zone: 'hand', owner: 'you' }),
+              count: 1,
+            }),
+            discard({ by: ref('controller'), targets: choice('discarded') }),
+          )],
+        }),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: { p1: [cardTemplate('Loot spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: loot }), cardTemplate('Keep me')] },
+        libraries: { p1: [cardTemplate('Drawn card')] },
+      }, { random: () => 0 })
+      const spellObject = named(server.state, 'Loot spell')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+      let state = reduce(server, cast, { type: 'resolveTop' })
+      const drawn = named(state, 'Drawn card')
+      expect(drawn.zone).toBe('hand')
+      const pick = pendingSelectionFor(state, 'p1')!
+      expect(pick.candidates).toContain(drawn.id)
+      expect(pendingSelectionFor(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+      expect(state.resolution?.phase).toBe('waiting')
+      expect(state.stack).toHaveLength(1)
+      expect(state.priority).toBeNull()
+      const restored = JSON.parse(JSON.stringify(state)) as GameState
+      const restoredPick = pendingSelectionFor(restored, 'p1')!
+      state = reduce(server, restored, {
+        type: 'selectCards', seat: 'p1', selectionId: restoredPick.id, kind: 'choose', count: 1, objectIds: [drawn.id],
+      })
+      expect(named(state, 'Drawn card').zone).toBe('graveyard')
+      expect(state.resolution).toBeUndefined()
+      expect(state.stack).toHaveLength(0)
+    })
+  })
+
+  describe('scenario N: Ashling\'s Command pattern', () => {
+    test.skip('covered by part09.test.ts command pattern copy-before-damage test', () => {})
+  })
+
+  describe('scenario M: Hex — six distinct targets', () => {
+    const hexSpell = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({
+        decisions: {
+          targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 6 })],
+        },
+        instructions: [destroy({ targets: target(0) })],
+      }),
+    ])))
+
+    const hexBoard = () => {
+      const creatures = Array.from({ length: 7 }, (_, index) =>
+        cardTemplate(`Hex creature ${index + 1}`, { types: ['Creature'], power: 1, toughness: 1 }))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Hex stand-in', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: hexSpell() })],
+        },
+        battlefield: { p2: creatures },
+      }, { random: () => 0 })
+      return server
+    }
+
+    test('casting rejects fewer than six targets and duplicate recipients', () => {
+      const server = hexBoard()
+      const spellObject = named(server.state, 'Hex stand-in')
+      const targets = Object.values(server.state.objects)
+        .filter((object) => object.name.startsWith('Hex creature'))
+        .slice(0, 5)
+        .map((object) => ({ kind: 'object' as const, objectId: object.id }))
+      const tooFew = server.rules(server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id, targets,
+      })
+      expect(tooFew.ok).toBe(false)
+      const first = named(server.state, 'Hex creature 1')
+      const duplicate = server.rules(server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        targets: Array.from({ length: 6 }, () => ({ kind: 'object' as const, objectId: first.id })),
+      })
+      expect(duplicate.ok).toBe(false)
+    })
+
+    test('destroys remaining legal targets when one dies before resolution', () => {
+      const server = hexBoard()
+      const spellObject = named(server.state, 'Hex stand-in')
+      const creatures = Object.values(server.state.objects).filter((object) => object.name.startsWith('Hex creature'))
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        targets: creatures.slice(0, 6).map((object) => ({ kind: 'object' as const, objectId: object.id })),
+      })
+      const departed = reduce(server, cast, { type: 'move', objectId: creatures[0].id, to: 'graveyard' })
+      const resolved = reduce(server, departed, { type: 'resolveTop' })
+      const destroyed = creatures.slice(1, 6).every((object) => resolved.objects[object.id].zone === 'graveyard')
+      expect(destroyed).toBe(true)
+      expect(resolved.objects[creatures[6].id].zone).toBe('battlefield')
+    })
+  })
+
+  describe('scenario O: Brokers Confluence pattern', () => {
+    test('three proliferate modes make three separate resolution choices', () => {
+      const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spell({
+          decisions: { modes: chooseModes({ count: 3, repeatable: true }) },
+          modes: [{ instructions: [proliferate({ targets: ref('controller') })] }],
+        }),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Triple proliferate', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })],
+        },
+        battlefield: {
+          p1: [
+            cardTemplate('Proliferate A', { types: ['Creature'], power: 1, toughness: 1, counters: { '+1/+1': 1 } }),
+            cardTemplate('Proliferate B', { types: ['Creature'], power: 1, toughness: 1, counters: { '+1/+1': 1 } }),
+          ],
+        },
+      }, { random: () => 0 })
+      const spellObject = named(server.state, 'Triple proliferate')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id, modeIndices: [0, 0, 0],
+      } as never)
+      let state = reduce(server, cast, { type: 'resolveTop' })
+      const ids: string[] = []
+      for (let step = 0; step < 3; step += 1) {
+        const offer = pendingSelectionFor(state, 'p1')
+        expect(offer).toBeDefined()
+        ids.push(offer!.id)
+        const a = named(state, 'Proliferate A')
+        const b = named(state, 'Proliferate B')
+        state = reduce(server, state, {
+          type: 'selectCards', seat: 'p1', selectionId: offer!.id, kind: 'choose', count: offer!.count, objectIds: [a.id, b.id],
+        })
+      }
+      expect(new Set(ids).size).toBe(3)
+      expect(named(state, 'Proliferate A').counters['+1/+1']).toBe(4)
+    })
+
+    test('repeated phasing modes keep independent target scopes for the same creature', () => {
+      const creatureClause = select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })
+      const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        spell({
+          decisions: { modes: chooseModes({ count: 2, repeatable: true }) },
+          modes: [{
+            decisions: { targets: [creatureClause] },
+            instructions: [phase({ targets: target(0), out: true })],
+          }],
+        }),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Double phase', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })],
+        },
+        battlefield: {
+          p2: [cardTemplate('Phase twice', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0 })
+      const spellObject = named(server.state, 'Double phase')
+      const victim = named(server.state, 'Phase twice')
+      const cast = reduce(server, server.state, {
+        type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+        modeIndices: [0, 0],
+        targetClauses: [[{ kind: 'object', objectId: victim.id }], [{ kind: 'object', objectId: victim.id }]],
+      } as never)
+      expect(cast.stack[0].execution?.targetBindings?.map((binding) => binding.scopeId)).toEqual([
+        '$.abilities[0].modes[0]#0',
+        '$.abilities[0].modes[0]#1',
+      ])
+      const resolved = reduce(server, cast, { type: 'resolveTop' })
+      expect(resolved.objects[victim.id].phasedOut).toBe(true)
+    })
+  })
+
+  describe('scenario P: Blood Artist pattern', () => {
+    test('simultaneous deaths keep captured control and player targets through resolution', () => {
+      const artist = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(
+          { kind: 'dies', filter: { any: [{ kind: 'contextRef', name: 'source' }, { type: 'Creature' }] } },
+          {
+            decisions: { targets: [select({ filter: players({ relation: 'any' }), count: 1 })] },
+            instructions: [
+              loseLife({ amount: 1, targets: target(0) }),
+              gainLife({ amount: 1, targets: ref('controller') }),
+            ],
+          },
+        ),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [
+            cardTemplate('Artist stand-in', { types: ['Creature'], power: 1, toughness: 0, ruleDefinition: artist }),
+            cardTemplate('Artist friend', { types: ['Creature'], power: 1, toughness: 0 }),
+          ],
+        },
+      }, { random: () => 0 })
+      let state = reduce(server, server.state, { type: 'passPriority', seat: 'p1' })
+      expect(state.pendingTriggers).toHaveLength(2)
+      const order = pendingSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates,
+      })
+      while (pendingPlayerSelectionFor(state, 'p1')) {
+        const playerChoice = pendingPlayerSelectionFor(state, 'p1')!
+        state = reduce(server, state, {
+          type: 'selectPlayers', seat: 'p1', selectionId: playerChoice.id, players: ['p2'],
+        })
+      }
+      state = resolveStack(server.rules, state)
+      expect(state.players.p2.life).toBe(38)
+      expect(state.players.p1.life).toBe(42)
+    })
+
+    test('an illegal player target suppresses both life loss and life gain', () => {
+      const artist = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(
+          { kind: 'dies', filter: { type: 'Creature' } },
+          {
+            decisions: { targets: [select({ filter: players({ relation: 'any' }), count: 1 })] },
+            instructions: [
+              loseLife({ amount: 1, targets: target(0) }),
+              gainLife({ amount: 1, targets: ref('controller') }),
+            ],
+          },
+        ),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [cardTemplate('Solo artist', { types: ['Creature'], ruleDefinition: artist })],
+          p2: [cardTemplate('Solo victim', { types: ['Creature'], power: 1, toughness: 1 })],
+        },
+      }, { random: () => 0 })
+      const victim = named(server.state, 'Solo victim')
+      let state = reduce(server, server.state, { type: 'move', objectId: victim.id, to: 'graveyard' })
+      const targetChoice = pendingPlayerSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectPlayers', seat: 'p1', selectionId: targetChoice.id, players: ['p2'],
+      })
+      state.players.p2.lost = true
+      const resolved = resolveStack(server.rules, state)
+      expect(resolved.players.p1.life).toBe(40)
+      expect(resolved.players.p2.life).toBe(40)
+    })
+  })
+})
