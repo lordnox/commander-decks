@@ -268,6 +268,7 @@ const canonicalPatternMatches = (
 const generatedPatternMatches = (
   state: GameState,
   beforeState: GameState,
+  afterState: GameState,
   source: GameObject,
   pattern: GeneratedAbility['on'],
   occurrence: OccurrenceSnapshot,
@@ -314,9 +315,31 @@ const generatedPatternMatches = (
         : occurrence.object?.after
       return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
     }
-    case 'event':
-    case 'step':
-      return false
+    case 'event': {
+      if (event.type !== pattern.type) return false
+      if (pattern.from !== undefined && (event.type !== 'move' || beforeState.objects[event.objectId]?.zone !== pattern.from)) return false
+      if (pattern.to !== undefined && (event.type !== 'move' || event.to !== pattern.to)) return false
+      if (pattern.objectId) {
+        const expected = evaluateObjectReference(pattern.objectId, {
+          state: beforeState,
+          controller: source.controller,
+          source: captureObject(source),
+          occurrence,
+        }, 'currentOrLastKnown')
+        return expected.some((object) => object.id === eventObjectId(event))
+      }
+      return true
+    }
+    case 'step': {
+      if (event.type !== 'custom' || event.name !== 'advanceStep' || afterState.step !== pattern.step) return false
+      if (!pattern.active) return true
+      return evaluatePlayerReference(pattern.active, {
+        state: beforeState,
+        controller: source.controller,
+        source: captureObject(source),
+        occurrence,
+      }).includes(afterState.active)
+    }
   }
 }
 
@@ -326,8 +349,19 @@ const canonicalGrantedTriggersForOccurrence = (
   event: GameEvent,
   matches: PendingTrigger[],
 ) => {
-  const sources = Object.values(draft.objects).filter((object) =>
-    object.zone === 'battlefield' && !object.phasedOut && (object.canonicalGrantedAbilities?.length ?? 0) > 0)
+  const sourcesById = new Map<string, GameObject>()
+  for (const object of Object.values(draft.objects)) {
+    if (object.zone === 'battlefield' && !object.phasedOut && (object.canonicalGrantedAbilities?.length ?? 0) > 0) {
+      sourcesById.set(object.id, object)
+    }
+  }
+  if (event.type === 'move') {
+    const before = state.objects[event.objectId]
+    if (before?.zone === 'battlefield' && (before.canonicalGrantedAbilities?.length ?? 0) > 0) {
+      sourcesById.set(before.id, before)
+    }
+  }
+  const sources = [...sourcesById.values()]
   for (const source of sources) {
     source.canonicalGrantedAbilities?.forEach((grant, grantIndex) => {
       const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
@@ -339,15 +373,26 @@ const canonicalGrantedTriggersForOccurrence = (
         'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
         event.type === 'gainLife' ? event.amount : undefined,
       )
-      if (!generatedPatternMatches(state, state, source, grant.ability.on, occurrence, event)) return
+      if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event)) return
       matches.push({
         source,
         effect: { do: [] },
         canonical: {
           definitionSnapshot: generatedAbilitySnapshot(grant.ability),
           abilityIndex: 0,
+          ...(grant.execution?.capturedTargetStart !== undefined
+            ? { announcedTargetCount: grant.execution.capturedTargetStart } : {}),
         },
-        execution: triggerExecution(source, occurrence, draft),
+        execution: {
+          ...triggerExecution(source, occurrence, draft),
+          ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
+          ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
+          ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
+          ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
+          ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
+          ...(grant.execution?.capturedTargetStart !== undefined
+            ? { capturedTargetStart: grant.execution.capturedTargetStart } : {}),
+        },
         triggeringPlayer: occurrence.player ?? source.controller,
         triggeringObjectId: occurrenceObjectId,
         triggerAmount: occurrence.amount,
@@ -1218,7 +1263,11 @@ const placeCanonicalTrigger = (draft: Draft, trigger: CapturedPendingTrigger) =>
     execution: trigger.execution,
     source,
     sourceId: source.id,
-    clauses: canonical.inheritedTargets ? [] : ability.decisions.targets,
+    clauses: canonical.inheritedTargets
+      ? []
+      : canonical.announcedTargetCount === undefined
+        ? ability.decisions.targets
+        : ability.decisions.targets.slice(0, canonical.announcedTargetCount),
   })
 }
 

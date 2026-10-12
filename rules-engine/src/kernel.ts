@@ -361,6 +361,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           definitionRevision: event.sourceRevision ?? 'unknown',
           duration: structuredClone(event.duration) as DslEffectDuration,
           createdTurn: event.createdTurn ?? draft.turn,
+          ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
           ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
           ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
           ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
