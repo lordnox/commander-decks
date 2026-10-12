@@ -296,7 +296,7 @@ export type GameObject = {
     sourceId: string
     sourceIncarnation: number
     definitionRevision: string
-    duration: EffectDuration
+    duration: DslEffectDuration
     createdTurn: number
     execution?: StackExecutionContext
     untilTurn?: number
