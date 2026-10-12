@@ -190,18 +190,21 @@ describe('Rule DSL Part 09 spell copies', () => {
     if (!retarget.ok) throw new Error(retarget.error)
     const pick = pendingPlayerSelectionFor(retarget.state, 'p1')!
     expect(pick).toBeDefined()
-    expect(pick.candidates).toEqual(['p1'])
-    const first = server.rules(retarget.state, { type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: ['p1'] })
+    expect(pick.candidates).toEqual(['p1', 'p2'])
+    const first = server.rules(retarget.state, { type: 'selectPlayers', seat: 'p1', selectionId: pick.id, players: ['p2'] })
     if (!first.ok) throw new Error(first.error)
     const nextOffer = first.state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
     const nextRetarget = server.rules(first.state, { type: 'selectOption', seat: 'p1', selectionId: nextOffer.id, optionId: 'retarget' })
     if (!nextRetarget.ok) throw new Error(nextRetarget.error)
     const next = pendingPlayerSelectionFor(nextRetarget.state, 'p1')!
-    expect(next.candidates).toEqual(['p2'])
+    expect(next.candidates).toEqual(['p1'])
     const before = JSON.stringify(nextRetarget.state)
-    const forged = server.rules(nextRetarget.state, { type: 'selectPlayers', seat: 'p1', selectionId: next.id, players: ['p1'] })
+    const forged = server.rules(nextRetarget.state, { type: 'selectPlayers', seat: 'p1', selectionId: next.id, players: ['p2'] })
     expect(forged.ok).toBe(false)
     if (!forged.ok) expect(JSON.stringify(forged.state)).toBe(before)
+    const completed = server.rules(nextRetarget.state, { type: 'selectPlayers', seat: 'p1', selectionId: next.id, players: ['p1'] })
+    expect(completed.ok).toBe(true)
+    if (completed.ok) expect(completed.state.stack.filter((item) => item.copy)).toHaveLength(1)
   })
 
   test('an unchanged illegal pin is scoped to its original slot', () => {
@@ -221,6 +224,34 @@ describe('Rule DSL Part 09 spell copies', () => {
     const copied = server.rules(cast.state, { type: 'copySpell', stackId: cast.state.stack[0].id, controller: 'p1', targets: [pinnedA, pinnedA], retarget: true })
     expect(copied.ok).toBe(true)
     if (copied.ok) expect(copied.state.stack).toHaveLength(1)
+  })
+
+  test('a final KEEP that would violate distinctness is rejected without closing the offer', () => {
+    const clause = { filter: { kind: 'players' as const, filter: {} }, min: amount(2), max: amount(2), distinct: true as const }
+    const original = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [clause] }, instructions: [] }])))
+    const copying = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(1), max: amount(1), distinct: true }] }, instructions: [{ kind: 'copySpell', targets: { kind: 'targetRef', clauseIndex: 0 }, retarget: { kind: 'chooseNewTargets' } }] }])))
+    const server = createServerGame(commanderRules, { players: 2, hands: { p1: [cardTemplate('Keep original', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: original }), cardTemplate('Keep copier', { types: ['Instant'], manaCost: '{0}', ruleDefinition: copying })] } }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    let state = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: get('Keep original').id, targetClauses: [[{ kind: 'player', player: 'p1' }, { kind: 'player', player: 'p2' }]] } as never)
+    if (!state.ok) throw new Error(state.error)
+    state = server.rules(state.state, { type: 'castSpell', seat: 'p1', objectId: get('Keep copier').id, targets: [{ kind: 'stackItem', stackId: state.state.stack[0].id }] })
+    if (!state.ok) throw new Error(state.error)
+    state = server.rules(state.state, { type: 'resolveTop' })
+    if (!state.ok) throw new Error(state.error)
+    const firstOffer = state.state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    state = server.rules(state.state, { type: 'selectOption', seat: 'p1', selectionId: firstOffer.id, optionId: 'retarget' })
+    if (!state.ok) throw new Error(state.error)
+    const firstPick = pendingPlayerSelectionFor(state.state, 'p1')!
+    state = server.rules(state.state, { type: 'selectPlayers', seat: 'p1', selectionId: firstPick.id, players: ['p2'] })
+    if (!state.ok) throw new Error(state.error)
+    const finalOffer = state.state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }
+    const before = JSON.stringify(state.state)
+    const rejected = server.rules(state.state, { type: 'selectOption', seat: 'p1', selectionId: finalOffer.id, optionId: 'keep' })
+    expect(rejected.ok).toBe(false)
+    if (!rejected.ok) {
+      expect(JSON.stringify(rejected.state)).toBe(before)
+      expect((rejected.state.players.p1.data['kernel.pendingOptionSelection'] as { id: string }).id).toBe(finalOffer.id)
+    }
   })
 
 })

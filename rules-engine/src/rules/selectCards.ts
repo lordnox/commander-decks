@@ -21,7 +21,7 @@ import { registerDelayedTrigger } from './delayedTriggers'
 import { objectIdentity, targetObject } from '../objectIdentity'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import { openPlayerSelection } from './selectPlayers'
-import { copyTargetsWithReplacement, validateCanonicalCopyTargets } from '../cardPlugins/dsl/copies'
+import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 import { advanceCopySlot } from './selectOptions'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
@@ -492,13 +492,7 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
       const job = frame?.pendingCopyTargets?.[0]
       const object = state.objects[objectIds[0]!]
       if (frame && job && original && source && object) {
-        const error = validateCanonicalCopyTargets(
-          state,
-          original,
-          source,
-          copyTargetsWithReplacement(original, action.copySlotIndex ?? 0, { kind: 'object', ...objectIdentity(object) }, job.answers),
-          action.copyController ?? frame.controller,
-        )
+        const error = validateCanonicalCopyTarget(state, original, source, action.copySlotIndex ?? 0, { kind: 'object', ...objectIdentity(object) }, job.answers, action.copyController ?? frame.controller)
         if (error) return error
       }
     }
