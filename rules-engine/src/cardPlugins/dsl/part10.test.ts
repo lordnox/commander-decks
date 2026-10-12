@@ -535,5 +535,36 @@ describe('Rule DSL Part 10 programs', () => {
     expect(resolved.ok).toBe(true)
     if (resolved.ok) expect(resolved.state.objects[get('Grant occurrence creature').id]?.counters['+1/+1']).toBe(1)
   })
+
+  test('a granted step callback binds the active triggering player', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [], decisions: { targets: [] }, instructions: [createEffect({
+        targets: objects({ zone: 'battlefield', type: 'Creature' }), duration: permanentEffect(), effect: grantAbilityEffect({
+          kind: 'triggered', on: { kind: 'step', step: 'beginCombat', active: ref('controller') },
+          instructions: [gainLife({ amount: 1, targets: ref('triggering.player') })],
+        }),
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Step grant source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Step grant recipient', { types: ['Creature'], power: 2, toughness: 2 })] },
+      libraries: { p1: [cardTemplate('Step grant draw')] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Step grant source')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    const advanced = server.rules(resolved.state, { type: 'advanceStep' })
+    expect(advanced.ok).toBe(true)
+    if (!advanced.ok) return
+    expect(advanced.state.stack.filter((item) => item.kind === 'ability')).toHaveLength(1)
+    const callback = server.rules(advanced.state, { type: 'resolveTop' })
+    expect(callback.ok).toBe(true)
+    if (callback.ok) expect(callback.state.players.p1.life).toBe(41)
+  })
 })
 

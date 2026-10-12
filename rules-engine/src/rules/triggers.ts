@@ -138,6 +138,13 @@ const capturedOccurrence = (
   }
 }
 
+const occurrencePlayerForEvent = (event: GameEvent, draft: Draft) =>
+  'seat' in event && typeof event.seat === 'string'
+    ? event.seat
+    : event.type === 'custom' && event.name === 'advanceStep'
+      ? draft.active
+      : undefined
+
 const triggerExecution = (
   source: GameObject,
   occurrence: OccurrenceSnapshot,
@@ -406,7 +413,7 @@ const canonicalGrantedTriggersForOccurrence = (
         draft,
         event,
         occurrenceObjectId,
-        'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+        occurrencePlayerForEvent(event, draft),
         event.type === 'gainLife' ? event.amount : undefined,
       )
       if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
@@ -464,7 +471,7 @@ const canonicalTriggersForOccurrence = (
         draft,
         event,
         occurrenceObjectId,
-        'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+        occurrencePlayerForEvent(event, draft),
         event.type === 'gainLife' ? event.amount : undefined,
       )
       const predicateState = candidate.on.kind === 'dies' ? state : draft
@@ -1058,7 +1065,7 @@ const collectDelayedTriggers = (
         execution: {
           ...structuredClone(delayed.execution),
           occurrence: capturedOccurrence(state, draft, event, eventObjectId(event),
-            'seat' in event && typeof event.seat === 'string' ? event.seat : undefined,
+            occurrencePlayerForEvent(event, draft),
             event.type === 'gainLife' ? event.amount : undefined),
         },
         triggeringPlayer: delayed.controller,
@@ -1180,7 +1187,7 @@ export const captureEventTriggers = (
         draft,
         event,
         triggeringObjectId,
-        matchedPlayer ?? triggeringPlayer,
+        matchedPlayer ?? triggeringPlayer ?? occurrencePlayerForEvent(event, draft),
         triggerAmount,
       )
       const execution = matchedExecution ?? triggerExecution(source, occurrence, draft)
