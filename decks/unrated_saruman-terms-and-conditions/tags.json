@@ -16,12 +16,7 @@
     {
       "name": "draw",
       "score": 4,
-      "reason": "Repeatable draw and instant refills sustain spells across the table rotation."
-    },
-    {
-      "name": "mill",
-      "score": 4,
-      "reason": "Mill stocks opposing graveyards and feeds three dedicated finishing cards."
+      "reason": "Independent draw engines, instant refills, and Splendor sustain reactive turns."
     },
     {
       "name": "spell copy",
@@ -44,9 +39,9 @@
       "reason": "Three dedicated clones multiply Saruman, draw engines, or finishers."
     },
     {
-      "name": "counterspells",
+      "name": "equipment",
       "score": 3,
-      "reason": "Stack answers and target redirection preserve the engine and interrupt wins."
+      "reason": "Staff multiplies creature triggers and Foe-hammer converts creature power into instant/sorcery discounts."
     },
     {
       "name": "flash",
@@ -57,6 +52,11 @@
       "name": "lifedrain",
       "score": 3,
       "reason": "Onyx, Guildmage, and charged Bloodchief Ascension turn spells or graveyard entries into life loss."
+    },
+    {
+      "name": "mill",
+      "score": 3,
+      "reason": "Saruman and Tidecaller stock graveyards; Guildmage and Ascension convert mill bursts into life loss."
     },
     {
       "name": "tokens",
@@ -89,6 +89,11 @@
       "reason": "Guildmage and charged Ascension convert finite mill bursts into lethal life loss."
     },
     {
+      "name": "counterspells",
+      "score": 2,
+      "reason": "Three true counterspells remain beside spell theft and target redirection."
+    },
+    {
       "name": "enchantments",
       "score": 2,
       "reason": "Heart, Corrosion, Storm, Rammas, and Monk Class provide persistent payoffs."
@@ -116,7 +121,7 @@
     {
       "name": "ramp",
       "score": 2,
-      "reason": "Seven rocks and two creatures support six-mana engines."
+      "reason": "Seven rocks, two creatures, and Splendor support expensive engines and repeated spells."
     },
     {
       "name": "suspend",

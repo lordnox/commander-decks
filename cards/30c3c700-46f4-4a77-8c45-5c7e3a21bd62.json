@@ -1,0 +1,135 @@
+{
+  "arena_id": 103433,
+  "artist": "Gaboleps",
+  "artist_ids": [
+    "0c37cdfe-5651-4ae6-a3c8-e7153509f970"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 899781,
+  "cmc": 2.0,
+  "collector_number": "59",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 3509,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "0de529a7-bdc5-4581-a169-1ad123bc099a",
+  "illustration_id": "4c33ce9a-046b-4250-86e3-df0728e6014c",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-27T11:40:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.webp?1785152406",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.jpg?1785152406",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.jpg?1785152406",
+    "crop": "https://cards.scryfall.io/crop/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.webp?1785152406",
+    "display": "https://cards.scryfall.io/display/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.webp?1785152406",
+    "grid": "https://cards.scryfall.io/grid/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.webp?1785152406",
+    "large": "https://cards.scryfall.io/large/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.jpg?1785152406",
+    "normal": "https://cards.scryfall.io/normal/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.jpg?1785152406",
+    "png": "https://cards.scryfall.io/png/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.png?1785152406",
+    "small": "https://cards.scryfall.io/small/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.jpg?1785152406",
+    "thumb": "https://cards.scryfall.io/thumb/front/0/d/0de529a7-bdc5-4581-a169-1ad123bc099a.webp?1785152406"
+  },
+  "keywords": [
+    "Equip"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 154044,
+  "multiverse_ids": [],
+  "name": "Wizard's Staff",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "30c3c700-46f4-4a77-8c45-5c7e3a21bd62",
+  "oracle_text": "Equipped creature has prowess. (Whenever its controller casts a noncreature spell, that creature gets +1/+1 until end of turn.)\nIf a triggered ability of equipped creature triggers, that ability triggers an additional time.\nEquip Wizard {1}\nEquip {3}",
+  "oversized": false,
+  "prices": {
+    "eur": "3.83",
+    "eur_foil": "4.06",
+    "tix": "0.06",
+    "usd": "3.82",
+    "usd_etched": null,
+    "usd_foil": "3.81"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A30c3c700-46f4-4a77-8c45-5c7e3a21bd62&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/154044?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=899781&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F708454%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Wizard%27s+Staff",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DWizard%2527s%2BStaff",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DWizard%2527s%2BStaff"
+  },
+  "released_at": "2026-08-14",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "160A27EEBD3EB7B2D3D136874BC12003733EC36183AA6BC9B95E374BF413A76C",
+  "rulings_uri": "https://api.scryfall.com/cards/0de529a7-bdc5-4581-a169-1ad123bc099a/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hob?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hob/59/wizards-staff?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hob",
+  "set_id": "59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "set_name": "The Hobbit",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahob&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "story_spotlight": false,
+  "tcgplayer_id": 708454,
+  "textless": false,
+  "type_line": "Artifact — Equipment",
+  "uri": "https://api.scryfall.com/cards/0de529a7-bdc5-4581-a169-1ad123bc099a",
+  "variation": false
+}

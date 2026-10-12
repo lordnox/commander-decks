@@ -2041,7 +2041,6 @@
     "storm of saruman": "cf5f4860-e805-46a3-9352-a2c583e33403",
     "professor onyx": "9df2e909-ed13-456a-9636-7398732009a9",
     "duskmantle guildmage": "ec44ca05-6b10-4be2-b4df-967535967fce",
-    "psychic corrosion": "328b42f1-d679-4f9c-80e3-38fe3b965d10",
     "bruvac the grandiloquent": "274b999f-f193-48fd-9a4a-0fdaf535e6c3",
     "exhibition tidecaller": "d32c9439-4c97-412b-83cc-6d9acb48be3c",
     "torrential gearhulk": "a6395447-677d-4c39-8eda-2d57e527c94e",
@@ -2067,10 +2066,13 @@
     "scout's warning": "f65cba6a-3ef4-4841-b2c1-578b2a2c3300",
     "borne upon a wind": "ce19962d-94f9-4b2b-b668-963c0acce308",
     "mystic confluence": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
-    "force of negation": "ac2173f9-f223-440a-9231-fd98762bdc6f",
     "spelltwine": "307e68e0-5095-474c-af02-bfcb2e463763",
-    "shark typhoon": "8c0520fa-276b-4d21-b4a9-dce1fce59f6b"
+    "shark typhoon": "8c0520fa-276b-4d21-b4a9-dce1fce59f6b",
+    "wizard's staff": "30c3c700-46f4-4a77-8c45-5c7e3a21bd62",
+    "glamdring, foe-hammer": "2802069f-201e-43a7-b5d3-43a95951a2ec",
+    "glamdring, foe-hammer // gleam of death": "2802069f-201e-43a7-b5d3-43a95951a2ec",
+    "gleam of death": "2802069f-201e-43a7-b5d3-43a95951a2ec"
   },
   "schema_version": 1,
-  "updated_at": "2026-10-12T22:43:59.602286+00:00"
+  "updated_at": "2026-10-12T23:17:08.523919+00:00"
 }

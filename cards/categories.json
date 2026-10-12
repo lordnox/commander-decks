@@ -12629,12 +12629,6 @@
         "mill-payoff"
       ]
     },
-    "328b42f1-d679-4f9c-80e3-38fe3b965d10": {
-      "name": "Psychic Corrosion",
-      "categories": [
-        "mill"
-      ]
-    },
     "274b999f-f193-48fd-9a4a-0fdaf535e6c3": {
       "name": "Bruvac the Grandiloquent",
       "categories": [
@@ -12795,12 +12789,6 @@
         "card-draw"
       ]
     },
-    "ac2173f9-f223-440a-9231-fd98762bdc6f": {
-      "name": "Force of Negation",
-      "categories": [
-        "counterspell"
-      ]
-    },
     "307e68e0-5095-474c-af02-bfcb2e463763": {
       "name": "Spelltwine",
       "categories": [
@@ -12815,8 +12803,23 @@
         "token-production",
         "discard"
       ]
+    },
+    "30c3c700-46f4-4a77-8c45-5c7e3a21bd62": {
+      "name": "Wizard's Staff",
+      "categories": [
+        "trigger-copy",
+        "equipment"
+      ]
+    },
+    "2802069f-201e-43a7-b5d3-43a95951a2ec": {
+      "name": "Glamdring, Foe-hammer // Gleam of Death",
+      "categories": [
+        "cost-reduction",
+        "card-draw",
+        "equipment"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-10-12T22:43:59.602286+00:00"
+  "updated_at": "2026-10-12T23:17:08.523919+00:00"
 }

@@ -614,27 +614,27 @@
       "submitted_name": "Duskmantle Guildmage"
     },
     {
-      "cache": "cards/328b42f1-d679-4f9c-80e3-38fe3b965d10.json",
+      "cache": "cards/c01aeaa5-1d3b-4493-9575-30175dcd780d.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 2.0,
         "keywords": [
-          "Mill"
+          "Treasure"
         ],
-        "mana_cost": "{2}{U}",
-        "oracle_text": "Whenever you draw a card, each opponent mills two cards.",
+        "mana_cost": "{1}{W}",
+        "oracle_text": "Whenever an opponent draws their second card each turn, you create a Treasure token.\n{2}{W}: Two target players each draw a card.",
         "type_line": "Enchantment"
       },
       "categories": [
-        "win-condition",
-        "mill"
+        "ramp",
+        "card-draw"
       ],
       "category_source": "deck",
-      "name": "Psychic Corrosion",
-      "oracle_id": "328b42f1-d679-4f9c-80e3-38fe3b965d10",
+      "name": "Gleaming Splendor",
+      "oracle_id": "c01aeaa5-1d3b-4493-9575-30175dcd780d",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/m19/68/psychic-corrosion?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/hob/15/gleaming-splendor?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Psychic Corrosion"
+      "submitted_name": "Gleaming Splendor"
     },
     {
       "cache": "cards/8c0520fa-276b-4d21-b4a9-dce1fce59f6b.json",
@@ -1076,25 +1076,25 @@
       "submitted_name": "Reins of Power"
     },
     {
-      "cache": "cards/fdd94383-b573-439a-8e1c-925af887c5a6.json",
+      "cache": "cards/333745d9-e930-439b-94d6-3aeea2877f69.json",
       "card": {
-        "cmc": 5.0,
+        "cmc": 4.0,
         "keywords": [],
-        "mana_cost": "{3}{U}{U}",
-        "oracle_text": "Return all creatures to their owners' hands.",
+        "mana_cost": "{2}{U}{U}",
+        "oracle_text": "Cast this spell only during the declare blockers step on an opponent's turn.\nRemove all attacking creatures from combat and untap them. After this phase, there is an additional combat phase. Each of those creatures attacks that combat if able. They can't attack you or planeswalkers you control that combat.",
         "type_line": "Instant"
       },
       "categories": [
-        "board-wipe",
+        "combat-trick",
         "protection"
       ],
       "category_source": "deck",
-      "name": "Evacuation",
-      "oracle_id": "fdd94383-b573-439a-8e1c-925af887c5a6",
+      "name": "Illusionist's Gambit",
+      "oracle_id": "333745d9-e930-439b-94d6-3aeea2877f69",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/lcc/156/evacuation?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/c13/47/illusionists-gambit?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Evacuation"
+      "submitted_name": "Illusionist's Gambit"
     },
     {
       "cache": "cards/324824cb-f938-401c-b9b5-d8908b431ef0.json",
@@ -1313,25 +1313,27 @@
       "submitted_name": "Keep Safe"
     },
     {
-      "cache": "cards/956381ba-6d37-4a8a-846c-bad79222dbee.json",
+      "cache": "cards/30c3c700-46f4-4a77-8c45-5c7e3a21bd62.json",
       "card": {
-        "cmc": 5.0,
-        "keywords": [],
-        "mana_cost": "{3}{U}{U}",
-        "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell.",
-        "type_line": "Instant"
+        "cmc": 2.0,
+        "keywords": [
+          "Equip"
+        ],
+        "mana_cost": "{1}{U}",
+        "oracle_text": "Equipped creature has prowess. (Whenever its controller casts a noncreature spell, that creature gets +1/+1 until end of turn.)\nIf a triggered ability of equipped creature triggers, that ability triggers an additional time.\nEquip Wizard {1}\nEquip {3}",
+        "type_line": "Artifact — Equipment"
       },
       "categories": [
-        "counterspell",
-        "alternative-cost"
+        "trigger-copy",
+        "equipment"
       ],
       "category_source": "deck",
-      "name": "Force of Will",
-      "oracle_id": "956381ba-6d37-4a8a-846c-bad79222dbee",
+      "name": "Wizard's Staff",
+      "oracle_id": "30c3c700-46f4-4a77-8c45-5c7e3a21bd62",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dmr/50/force-of-will?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/hob/59/wizards-staff?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Force of Will"
+      "submitted_name": "Wizard's Staff"
     },
     {
       "cache": "cards/cd11c27b-9368-4622-bc5a-2e0b993cc42b.json",
@@ -1356,25 +1358,42 @@
       "submitted_name": "Mystic Confluence"
     },
     {
-      "cache": "cards/ac2173f9-f223-440a-9231-fd98762bdc6f.json",
+      "cache": "cards/2802069f-201e-43a7-b5d3-43a95951a2ec.json",
       "card": {
-        "cmc": 3.0,
-        "keywords": [],
-        "mana_cost": "{1}{U}{U}",
-        "oracle_text": "If it's not your turn, you may exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target noncreature spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.",
-        "type_line": "Instant"
+        "cmc": 2.0,
+        "faces": [
+          {
+            "mana_cost": "{2}",
+            "name": "Glamdring, Foe-hammer",
+            "oracle_text": "Instant and sorcery spells you cast cost {X} less to cast, where X is equipped creature's power.\nEquip {2}",
+            "type_line": "Legendary Artifact — Equipment"
+          },
+          {
+            "mana_cost": "{3}{U}",
+            "name": "Gleam of Death",
+            "oracle_text": "Mill six cards, then put all instant and sorcery cards from among them into your hand. (Then exile this card. You may cast the artifact later from exile.)",
+            "type_line": "Sorcery — Adventure"
+          }
+        ],
+        "keywords": [
+          "Equip",
+          "Mill"
+        ],
+        "mana_cost": "{2} // {3}{U}",
+        "type_line": "Legendary Artifact — Equipment // Sorcery — Adventure"
       },
       "categories": [
-        "counterspell",
-        "alternative-cost"
+        "cost-reduction",
+        "card-draw",
+        "equipment"
       ],
       "category_source": "deck",
-      "name": "Force of Negation",
-      "oracle_id": "ac2173f9-f223-440a-9231-fd98762bdc6f",
+      "name": "Glamdring, Foe-hammer // Gleam of Death",
+      "oracle_id": "2802069f-201e-43a7-b5d3-43a95951a2ec",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/2x2/50/force-of-negation?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/hob/174/glamdring-foe-hammer-gleam-of-death?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Force of Negation"
+      "submitted_name": "Glamdring, Foe-hammer"
     },
     {
       "cache": "cards/2cfd5c18-47d0-4549-aacc-2428db21df2f.json",
@@ -2208,7 +2227,7 @@
     }
   ],
   "categorized_cards": 96,
-  "generated_at": "2026-10-12T22:53:42.988765+00:00",
+  "generated_at": "2026-10-12T23:18:51.810007+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 96,
