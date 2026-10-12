@@ -1,8 +1,8 @@
 # Rule DSL Part 06 implementation note
 
-Status: Part 06 implementation is complete on the follow-up branch
-`agent/gpt56luna-rule-dsl-part06-review-completion`; parent personal review and
-merge of the final review fixes are pending.
+Status: merged to `main`. Reviewed and accepted in
+[PR #343](https://github.com/lordnox/commander-decks/pull/343) and
+[PR #345](https://github.com/lordnox/commander-decks/pull/345).
 
 ## Architecture
 

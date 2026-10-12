@@ -1,6 +1,7 @@
 # Rule DSL Part 09: scoped modes and distributions
 
-Status: implementation slice complete; integrated review candidate.
+Status: merged to `main`. Reviewed and accepted in
+[PR #348](https://github.com/lordnox/commander-decks/pull/348).
 
 This slice is integrated on the approved Part08 base and carries the reviewed
 mode, distribution, host transport, and resolution behavior through the live

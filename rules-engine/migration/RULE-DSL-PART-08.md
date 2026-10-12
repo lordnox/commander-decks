@@ -1,6 +1,7 @@
 # Rule DSL Part 08 implementation note
 
-Status: implementation in progress on `agent/gpt56luna-rule-dsl-part08`.
+Status: merged to `main`. Reviewed and accepted in
+[PR #346](https://github.com/lordnox/commander-decks/pull/346).
 
 ## Scope and base
 

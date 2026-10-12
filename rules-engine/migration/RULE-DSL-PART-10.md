@@ -1,5 +1,8 @@
 # Rule DSL Part 10: temporary effects, resolution payments, and reflexive programs
 
+Status: merged to `main`. Reviewed and accepted in
+[PR #349](https://github.com/lordnox/commander-decks/pull/349).
+
 ## Base and scope
 
 This slice is based on `ab68bae7` (`agent/gpt56luna-rule-dsl-part09-copies`). It
@@ -44,7 +47,6 @@ host cases are tracked as known test failures and are outside this DSL slice.
 
 ## Remaining work
 
-Part 10 implementation is complete on this scope. Part 11 owns resumable
-replacement lineage. The delayed and granted programs implemented here stay
-independent of a live source frame and resume from their persisted snapshots and
-bindings.
+Part 10 is complete on `main`. Part 11 owns resumable replacement lineage.
+The delayed and granted programs implemented here stay independent of a live
+source frame and resume from their persisted snapshots and bindings.
