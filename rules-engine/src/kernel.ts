@@ -317,58 +317,73 @@ export const legalError = (
   return undefined
 }
 
+const canonicalEffectDuration = (
+  event: Extract<GameEvent, { type: 'canonicalEffect' }>,
+  draft: ReturnType<typeof makeDraft>,
+) => {
+  switch (event.duration.kind) {
+    case 'untilCleanup':
+      return { kind: 'untilCleanup' as const }
+    case 'permanent':
+      return { kind: 'permanent' as const }
+    case 'untilStep':
+      return {
+        kind: 'untilStep' as const,
+        step: event.duration.step as StepId,
+        turn: event.durationUntilStepTurn ?? event.createdTurn ?? draft.turn,
+        ...(event.durationUntilStepNotBeforeTurn !== undefined
+          ? { notBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
+        ...(event.durationUntilStepActive !== undefined
+          ? { active: event.durationUntilStepActive } : {}),
+      }
+    case 'forTurns':
+      return { kind: 'forTurns' as const, untilTurn: event.durationUntilTurn ?? draft.turn + 1 }
+    case 'whileSourceOnBattlefield':
+      return {
+        kind: 'whileSourceOnBattlefield' as const,
+        sourceId: event.sourceId ?? '',
+        ...(event.sourceRef ? { sourceIncarnation: event.sourceRef.incarnation } : {}),
+      }
+  }
+}
+
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
       if (!object || object.zone !== 'battlefield') return
-      const duration = event.duration.kind === 'untilCleanup'
-        ? { kind: 'untilCleanup' as const }
-        : event.duration.kind === 'permanent'
-          ? { kind: 'permanent' as const }
-          : event.duration.kind === 'untilStep'
-            ? {
-                kind: 'untilStep' as const,
-                step: event.duration.step as StepId,
-                turn: event.durationUntilStepTurn ?? event.createdTurn ?? draft.turn,
-                ...(event.durationUntilStepNotBeforeTurn !== undefined
-                  ? { notBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
-                ...(event.durationUntilStepActive !== undefined
-                  ? { active: event.durationUntilStepActive } : {}),
-              }
-            : event.duration.kind === 'forTurns'
-              ? { kind: 'forTurns' as const, untilTurn: event.durationUntilTurn ?? draft.turn + 1 }
-              : {
-                  kind: 'whileSourceOnBattlefield' as const,
-                  sourceId: event.sourceId ?? '',
-                  ...(event.sourceRef ? { sourceIncarnation: event.sourceRef.incarnation } : {}),
-                }
-      if (event.effect.kind === 'pump') {
-        const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
-        const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
-        if (object.power !== null) object.power += power
-        if (object.toughness !== null) object.toughness += toughness
-        object.continuousEffects = [...(object.continuousEffects ?? []), {
-          effect: { kind: 'pump', power, toughness }, duration,
-        }]
-      } else if (event.effect.kind === 'grantKeyword') {
-        object.continuousEffects = [...(object.continuousEffects ?? []), {
-          effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [] }, duration,
-        }]
-      } else {
-        object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
-          ability: structuredClone(event.effect.ability),
-          sourceId: event.sourceId ?? object.id,
-          sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
-          definitionRevision: event.sourceRevision ?? 'unknown',
-          duration: structuredClone(event.duration),
-          createdTurn: event.createdTurn ?? draft.turn,
-          ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
-          ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
-          ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
-          ...(event.durationUntilStepNotBeforeTurn !== undefined ? { untilStepNotBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
-          ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
-        }]
+      const duration = canonicalEffectDuration(event, draft)
+      switch (event.effect.kind) {
+        case 'pump': {
+          const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
+          const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
+          if (object.power !== null) object.power += power
+          if (object.toughness !== null) object.toughness += toughness
+          object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'pump', power, toughness }, duration,
+          }]
+          break
+        }
+        case 'grantKeyword':
+          object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [] }, duration,
+          }]
+          break
+        case 'grantAbility':
+          object.canonicalGrantedAbilities = [...(object.canonicalGrantedAbilities ?? []), {
+            ability: structuredClone(event.effect.ability),
+            sourceId: event.sourceId ?? object.id,
+            sourceIncarnation: event.sourceRef?.incarnation ?? draft.objects[event.sourceId ?? '']?.incarnation ?? 0,
+            definitionRevision: event.sourceRevision ?? 'unknown',
+            duration: structuredClone(event.duration),
+            createdTurn: event.createdTurn ?? draft.turn,
+            ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
+            ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
+            ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
+            ...(event.durationUntilStepNotBeforeTurn !== undefined ? { untilStepNotBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
+            ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
+          }]
+          break
       }
       return
     }

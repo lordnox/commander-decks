@@ -203,29 +203,46 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
+  /** Add the specified mana to each resolved player recipient's pool immediately. */
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
+  /** Queue life loss for each resolved player recipient at this point in resolution. */
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
+  /** Queue life gain for each resolved player recipient at this point in resolution. */
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
+  /** Deal damage from the referenced source, allowing the normal damage pipeline to apply. */
   | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference }
+  /** Have each resolved player recipient draw the evaluated number of cards. */
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
+  /** Put the evaluated number of cards from each recipient's library into its graveyard. */
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient }
+  /** Destroy each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string }
+  /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
+  /** Move each resolved object recipient to the requested zone and optionally bind the result. */
   | { kind: 'move'; targets: ObjectRecipient; to: Zone; bindResult?: string }
+  /** Phase each resolved object out or in according to `out` during this resolution. */
   | { kind: 'phase'; targets: ObjectRecipient; out: boolean }
+  /** Proliferate each resolved player recipient's permanents and players immediately. */
   | { kind: 'proliferate'; targets: PlayerRecipient }
+  /** Create the evaluated number of token objects under each resolved player recipient. */
   | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string }
+  /** Copy each resolved object, optionally choosing a controller for the copy. */
   | { kind: 'copy'; targets: ObjectRecipient; controller?: PlayerRecipient; bindResult?: string }
-  /** Copy a spell already on the stack. This is distinct from casting a card. */
+  /** Copy a spell already on the stack; this creates a copy without casting a card. */
   | { kind: 'copySpell'; targets: StackItemRecipient; controller?: PlayerRecipient; retarget?: CopySpellRetargeting; bindResult?: string }
+  /** Put the evaluated number of the named counter on each resolved object recipient. */
   | { kind: 'putCounters'; targets: ObjectRecipient; counter: string; count: Amount; bindResult?: string }
+  /** Counter each resolved stack item before it can resolve. */
   | { kind: 'counter'; targets: StackItemRecipient; bindResult?: string }
+  /** Apply the created effect to each resolved object for the supplied duration. */
   | {
       kind: 'createEffect'
       targets: ObjectRecipient
       effect: CreatedEffect
       duration: EffectDuration
     }
+  /** Ask the payer for an optional cost, then run the selected branch after that decision. */
   | {
       kind: 'payOptional'
       payer: PlayerReference
@@ -236,11 +253,13 @@ export type Instruction =
       ifDeclined?: readonly Instruction[]
       whenPaid?: readonly Instruction[]
     }
+  /** Register instructions to run later when the delayed condition occurs. */
   | {
       kind: 'createDelayed'
       condition: DelayedPattern
       instructions: readonly Instruction[]
     }
+  /** Discard the explicitly resolved object recipient on behalf of the named player. */
   | {
       kind: 'discard'
       targets: ObjectRecipient
@@ -248,6 +267,7 @@ export type Instruction =
       count?: never
       bindResult?: string
     }
+  /** Prompt each resolved player recipient to choose the evaluated number of cards to discard. */
   | {
       kind: 'discard'
       targets: PlayerRecipient
@@ -255,6 +275,7 @@ export type Instruction =
       by?: never
       bindResult?: string
     }
+  /** Open a card choice for the chooser, binding the selected objects for later instructions. */
   | {
       kind: 'chooseCards'
       bindChoice: string
@@ -265,7 +286,9 @@ export type Instruction =
       distinct: true
       whenInsufficient: 'chooseAvailable'
     }
+  /** Run nested instructions in order, resuming after any player choice pauses resolution. */
   | { kind: 'sequence'; instructions: readonly Instruction[] }
+  /** Let the chooser select at most one option; no option may be selected when unavailable. */
   | {
       kind: 'chooseInstructions'
       chooser: PlayerReference
@@ -273,6 +296,7 @@ export type Instruction =
       options: readonly { instructions: readonly Instruction[] }[]
       whenInsufficient: 'chooseAvailable'
     }
+  /** Evaluate one branch immediately and continue with its resulting instruction sequence. */
   | {
       kind: 'if'
       condition: Condition

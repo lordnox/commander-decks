@@ -409,49 +409,53 @@ const durationHolds = (
   duration: EffectDuration,
   endTurnEffects: boolean,
 ) => {
-  if (duration.kind === 'cdaLifePt') {
-    return objectSupportsCdaLifePt(object)
-  }
-  if (duration.kind === 'staticBoardPump') {
-    const source = state.objects[duration.sourceId]
-    const spec = source && pumpSpecs(source)[duration.index]
-    return Boolean(spec && pumpApplies(state, source, spec, object))
-  }
-  if (duration.kind === 'pumpPerLinkedExile') {
-    return objectSupportsPumpPerLinkedExile(object)
+  switch (duration.kind) {
+    case 'cdaLifePt':
+      return objectSupportsCdaLifePt(object)
+    case 'staticBoardPump': {
+      const source = state.objects[duration.sourceId]
+      const spec = source && pumpSpecs(source)[duration.index]
+      return Boolean(spec && pumpApplies(state, source, spec, object))
+    }
+    case 'pumpPerLinkedExile':
+      return objectSupportsPumpPerLinkedExile(object)
+    default: break
   }
   if (object.zone !== 'battlefield') return false
-  if (duration.kind === 'untilCleanup') return !endTurnEffects
-  if (duration.kind === 'permanent') return true
-  if (duration.kind === 'whileSourceOnBattlefield') {
-    const source = state.objects[duration.sourceId]
-    return Boolean(source
-      && source.zone === 'battlefield'
-      && (duration.sourceIncarnation === undefined || source.incarnation === duration.sourceIncarnation))
-  }
-  if (duration.kind === 'forTurns') {
-    return state.turn < duration.untilTurn
-  }
-  if (duration.kind === 'untilStep') {
-    if (duration.notBeforeTurn !== undefined) {
-      if (state.turn < duration.notBeforeTurn) return true
+  switch (duration.kind) {
+    case 'untilCleanup': return !endTurnEffects
+    case 'permanent': return true
+    case 'whileSourceOnBattlefield': {
+      const source = state.objects[duration.sourceId]
+      return Boolean(source
+        && source.zone === 'battlefield'
+        && (duration.sourceIncarnation === undefined || source.incarnation === duration.sourceIncarnation))
+    }
+    case 'forTurns':
+      return state.turn < duration.untilTurn
+    case 'untilStep': {
+      if (duration.notBeforeTurn !== undefined) {
+        if (state.turn < duration.notBeforeTurn) return true
+        return !(state.step === duration.step
+          && (duration.active === undefined || duration.active === state.active))
+      }
+      if (state.turn < duration.turn) return true
+      if (state.turn > duration.turn) return false
       return !(state.step === duration.step
         && (duration.active === undefined || duration.active === state.active))
     }
-    if (state.turn < duration.turn) return true
-    if (state.turn > duration.turn) return false
-    return !(state.step === duration.step
-      && (duration.active === undefined || duration.active === state.active))
+    case 'whileSourceTappedAndPowerAtMost': {
+      const source = state.objects[duration.sourceId]
+      return Boolean(
+        source
+        && source.zone === 'battlefield'
+        && source.tapped
+        && object.power !== null
+        && source.power !== null
+        && object.power <= source.power,
+      )
+    }
   }
-  const source = state.objects[duration.sourceId]
-  return Boolean(
-    source
-    && source.zone === 'battlefield'
-    && source.tapped
-    && object.power !== null
-    && source.power !== null
-    && object.power <= source.power,
-  )
 }
 
 const canonicalGrantHolds = (
