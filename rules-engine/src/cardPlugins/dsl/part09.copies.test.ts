@@ -154,7 +154,7 @@ describe('Rule DSL Part 09 spell copies', () => {
     expect(state.players.p2.life).toBe(46)
   })
 
-  test('copy retargeting keeps the original target count when dynamic bounds shrink', () => {
+  test('copy retargeting keeps the original target count when the live board changes', () => {
     const clause = { filter: { kind: 'objects' as const, filter: { zone: 'battlefield' as const, type: 'Creature' } }, min: amount(2), max: amount(2), distinct: true as const }
     const original = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [clause] }, instructions: [] }])))
     const copying = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } }, min: amount(1), max: amount(1), distinct: true }] }, instructions: [{ kind: 'copySpell', targets: { kind: 'targetRef', clauseIndex: 0 }, retarget: { kind: 'chooseNewTargets' } }] }])))
