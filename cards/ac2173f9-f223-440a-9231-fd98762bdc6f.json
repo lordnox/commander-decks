@@ -1,0 +1,136 @@
+{
+  "artist": "Paul Scott Canavan",
+  "artist_ids": [
+    "c19bfb77-5099-4f7c-8585-6eaf367712c9"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 664857,
+  "cmc": 3.0,
+  "collector_number": "50",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 272,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Try, if you must.\"",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "1825a719-1b2a-4af9-9cd2-7cb497cd0317",
+  "illustration_id": "ac811f1c-0e04-4eb5-a666-9bacc7c30d2f",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T05:51:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.webp?1783921916",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1783921916",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1783921916",
+    "crop": "https://cards.scryfall.io/crop/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.webp?1783921916",
+    "display": "https://cards.scryfall.io/display/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.webp?1783921916",
+    "grid": "https://cards.scryfall.io/grid/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.webp?1783921916",
+    "large": "https://cards.scryfall.io/large/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1783921916",
+    "normal": "https://cards.scryfall.io/normal/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1783921916",
+    "png": "https://cards.scryfall.io/png/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.png?1783921916",
+    "small": "https://cards.scryfall.io/small/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.jpg?1783921916",
+    "thumb": "https://cards.scryfall.io/thumb/front/1/8/1825a719-1b2a-4af9-9cd2-7cb497cd0317.webp?1783921916"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}{U}",
+  "mtgo_id": 101584,
+  "multiverse_ids": [
+    571383
+  ],
+  "name": "Force of Negation",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ac2173f9-f223-440a-9231-fd98762bdc6f",
+  "oracle_text": "If it's not your turn, you may exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target noncreature spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2022-06-21",
+    "source": "Good Luck High Five",
+    "source_uri": "https://www.youtube.com/watch?v=Tlw7qsCEIL0"
+  },
+  "prices": {
+    "eur": "51.14",
+    "eur_foil": "62.71",
+    "tix": "13.78",
+    "usd": "48.61",
+    "usd_etched": null,
+    "usd_foil": "58.71"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aac2173f9-f223-440a-9231-fd98762bdc6f&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/101584?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=664857&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F276686%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Force+of+Negation",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=571383&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DForce%2Bof%2BNegation",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DForce%2Bof%2BNegation"
+  },
+  "released_at": "2022-07-08",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/1825a719-1b2a-4af9-9cd2-7cb497cd0317/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/2x2?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/2x2/50/force-of-negation?utm_source=api",
+  "security_stamp": "oval",
+  "set": "2x2",
+  "set_id": "5a645837-b050-449f-ac90-1e7ccbf45031",
+  "set_name": "Double Masters 2022",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3A2x2&unique=prints",
+  "set_type": "masters",
+  "set_uri": "https://api.scryfall.com/sets/5a645837-b050-449f-ac90-1e7ccbf45031",
+  "story_spotlight": false,
+  "tcgplayer_id": 276686,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/1825a719-1b2a-4af9-9cd2-7cb497cd0317",
+  "variation": false
+}

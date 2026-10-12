@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-09-08",
+  "updated": "2026-10-13",
   "order": [
     "twelfth-doctor-borrowed-time",
     "bartolome-graveyard-shift",
@@ -28,6 +28,7 @@
     "ludevic-tevesh-jekyll-hyde",
     "cirdan-show-me-what-you-got",
     "dack-faydens-party",
-    "kambal-taxing-the-token-economy"
+    "kambal-taxing-the-token-economy",
+    "saruman-terms-and-conditions"
   ]
 }

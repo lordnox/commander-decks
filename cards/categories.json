@@ -12542,8 +12542,280 @@
         "land",
         "ramp"
       ]
+    },
+    "c2d04138-cc17-4dd0-9a4c-9c87df72ed01": {
+      "name": "Saruman of Many Colors",
+      "categories": [
+        "removal",
+        "discard"
+      ]
+    },
+    "e018773f-95b3-49a3-9674-6f04ddef2092": {
+      "name": "Azorius Signet",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "d16783a4-9980-451b-9af0-33866980bc8d": {
+      "name": "Alphinaud Leveilleur",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "53d58401-c318-47e0-aab0-60001c071dbb": {
+      "name": "Rammas Echor, Ancient Shield",
+      "categories": [
+        "card-draw",
+        "token-production"
+      ]
+    },
+    "95e66851-7aff-4559-91b4-6b8a95c6e1f8": {
+      "name": "Vega, the Watcher",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "3405c8a9-a8d6-4b45-9b64-94141076603b": {
+      "name": "Wavebreak Hippocamp",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "8305d576-21d8-4ce7-8eda-a7cd9793aca5": {
+      "name": "Archmage Emeritus",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "b5b26cea-9be3-46f7-9603-a6eee0dd107e": {
+      "name": "Lavinia, Foil to Conspiracy",
+      "categories": [
+        "ramp",
+        "card-draw",
+        "token-production",
+        "sacrifice"
+      ]
+    },
+    "65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91": {
+      "name": "Monk Class",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "f8d2a94f-7be1-4b17-8556-398dde531360": {
+      "name": "The Water Crystal",
+      "categories": [
+        "other"
+      ]
+    },
+    "cf5f4860-e805-46a3-9352-a2c583e33403": {
+      "name": "Storm of Saruman",
+      "categories": [
+        "other"
+      ]
+    },
+    "34ef174e-1b3d-43d5-9f72-3d35befbdd7f": {
+      "name": "Ojer Pakpatiq, Deepest Epoch // Temple of Cyclical Time",
+      "categories": [
+        "ramp"
+      ]
+    },
+    "9df2e909-ed13-456a-9636-7398732009a9": {
+      "name": "Professor Onyx",
+      "categories": [
+        "sacrifice",
+        "discard"
+      ]
+    },
+    "ec44ca05-6b10-4be2-b4df-967535967fce": {
+      "name": "Duskmantle Guildmage",
+      "categories": [
+        "other"
+      ]
+    },
+    "328b42f1-d679-4f9c-80e3-38fe3b965d10": {
+      "name": "Psychic Corrosion",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "2e3ec514-fc9e-4964-a493-2a6cc9e63630": {
+      "name": "The Mindskinner",
+      "categories": [
+        "other"
+      ]
+    },
+    "274b999f-f193-48fd-9a4a-0fdaf535e6c3": {
+      "name": "Bruvac the Grandiloquent",
+      "categories": [
+        "other"
+      ]
+    },
+    "d32c9439-4c97-412b-83cc-6d9acb48be3c": {
+      "name": "Exhibition Tidecaller",
+      "categories": [
+        "other"
+      ]
+    },
+    "a6395447-677d-4c39-8eda-2d57e527c94e": {
+      "name": "Torrential Gearhulk",
+      "categories": [
+        "other"
+      ]
+    },
+    "713332c1-5bd8-400f-bfff-c1ca0697a043": {
+      "name": "Opt",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "f290c2e4-ab52-44d4-bdeb-31aeb835b18d": {
+      "name": "Into the Story",
+      "categories": [
+        "other"
+      ]
+    },
+    "c1909d70-d8f4-4c54-8587-0a910f123238": {
+      "name": "Shelter",
+      "categories": [
+        "card-draw",
+        "protection"
+      ]
+    },
+    "dce202c7-fe8e-462a-858e-7a5a69bd5b6b": {
+      "name": "Sudden Spoiling",
+      "categories": [
+        "other"
+      ]
+    },
+    "48369aec-a991-4bef-8554-01c84302b063": {
+      "name": "Aetherspouts",
+      "categories": [
+        "other"
+      ]
+    },
+    "69eeee95-cc69-41d1-833b-8895ef72df82": {
+      "name": "Spinning Darkness",
+      "categories": [
+        "other"
+      ]
+    },
+    "99427ebe-c00d-4206-84ca-9764f6e952c6": {
+      "name": "Submerge",
+      "categories": [
+        "other"
+      ]
+    },
+    "ad7d854b-d303-40eb-acd6-03a8023e05e7": {
+      "name": "Commandeer",
+      "categories": [
+        "other"
+      ]
+    },
+    "c39e5fb0-6de3-4105-ad3c-0ecb8951a1d5": {
+      "name": "Misdirection",
+      "categories": [
+        "other"
+      ]
+    },
+    "d412b175-2365-4b2c-a8f5-3e4e9d06280d": {
+      "name": "Archive Trap",
+      "categories": [
+        "other"
+      ]
+    },
+    "d6d7faa8-ecc9-408b-9c46-a0f62c74f567": {
+      "name": "Abolish",
+      "categories": [
+        "removal",
+        "discard"
+      ]
+    },
+    "cfb1b64b-bf78-4015-ac29-cdcdf2adaa02": {
+      "name": "Curtains' Call",
+      "categories": [
+        "other"
+      ]
+    },
+    "2cfd5c18-47d0-4549-aacc-2428db21df2f": {
+      "name": "Soul Partition",
+      "categories": [
+        "removal"
+      ]
+    },
+    "ac914d98-221e-426c-8a50-342896b15f9e": {
+      "name": "Snap",
+      "categories": [
+        "other"
+      ]
+    },
+    "02418479-9455-417f-a6a1-004356faff37": {
+      "name": "Tundra",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "c8d95ca8-7d12-4072-aeaf-e20f248c7e39": {
+      "name": "Scrubland",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "29737a60-3ebd-40d9-b935-c4f54b90d45d": {
+      "name": "Windswept Heath",
+      "categories": [
+        "land",
+        "sacrifice"
+      ]
+    },
+    "c5acf2a5-40f4-433d-a74d-1cb56c521464": {
+      "name": "Arid Mesa",
+      "categories": [
+        "land",
+        "sacrifice"
+      ]
+    },
+    "672e190d-8ea0-4a2e-b74f-5d35304631e4": {
+      "name": "Sea of Clouds",
+      "categories": [
+        "land",
+        "ramp"
+      ]
+    },
+    "49f2cbc3-bd03-48e6-b1c4-d7f315b8579d": {
+      "name": "Taigam, Master Opportunist",
+      "categories": [
+        "other"
+      ]
+    },
+    "f65cba6a-3ef4-4841-b2c1-578b2a2c3300": {
+      "name": "Scout's Warning",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "ce19962d-94f9-4b2b-b668-963c0acce308": {
+      "name": "Borne Upon a Wind",
+      "categories": [
+        "card-draw"
+      ]
+    },
+    "cd11c27b-9368-4622-bc5a-2e0b993cc42b": {
+      "name": "Mystic Confluence",
+      "categories": [
+        "card-draw",
+        "counterspell"
+      ]
+    },
+    "ac2173f9-f223-440a-9231-fd98762bdc6f": {
+      "name": "Force of Negation",
+      "categories": [
+        "other"
+      ]
     }
   },
   "schema_version": 1,
-  "updated_at": "2026-10-07T12:27:31.304223+00:00"
+  "updated_at": "2026-10-12T22:36:08.098666+00:00"
 }

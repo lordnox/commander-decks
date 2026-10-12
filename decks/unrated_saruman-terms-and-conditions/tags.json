@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "cutoff": 3,
+  "summary": "Esper draw-go control pairs cheap setup instants with discounted high-value spells, clones Saruman for graveyard theft, and converts second casts, draws, and mill into finite finishes.",
+  "tags": [
+    {
+      "name": "control",
+      "score": 5,
+      "reason": "The primary play pattern is holding up interaction and drawing at instant speed."
+    },
+    {
+      "name": "spellslinger",
+      "score": 5,
+      "reason": "Cantrips, alternative-cost instants, and cast triggers are the operating engine."
+    },
+    {
+      "name": "draw",
+      "score": 4,
+      "reason": "Repeatable draw and instant refills sustain spells across the table rotation."
+    },
+    {
+      "name": "mill",
+      "score": 4,
+      "reason": "Mill stocks opposing graveyards and feeds three dedicated finishing cards."
+    },
+    {
+      "name": "spell copy",
+      "score": 4,
+      "reason": "Saruman casts copied cards while Storm and Taigam copy spells."
+    },
+    {
+      "name": "theft",
+      "score": 4,
+      "reason": "Multiple Sarumans repeatedly use opposing graveyards; Commandeer and Reins provide reactive theft."
+    },
+    {
+      "name": "cantrips",
+      "score": 3,
+      "reason": "Cheap draw and flash-enabling draw spells set up the second cast."
+    },
+    {
+      "name": "clones",
+      "score": 3,
+      "reason": "Three dedicated clones multiply Saruman, draw engines, or finishers."
+    },
+    {
+      "name": "counterspells",
+      "score": 3,
+      "reason": "Stack answers and target redirection preserve the engine and interrupt wins."
+    },
+    {
+      "name": "flash",
+      "score": 3,
+      "reason": "Draw-go instants, Gearhulk, and flash-enabling cantrips develop at reactive timing."
+    },
+    {
+      "name": "tokens",
+      "score": 3,
+      "reason": "Aligned Heart is a dedicated token finish and Rammas supplies blockers."
+    },
+    {
+      "name": "activated abilities",
+      "score": 2,
+      "reason": "Guildmage and Water Crystal supply mill mana sinks."
+    },
+    {
+      "name": "aikido",
+      "score": 2,
+      "reason": "Mirrorweave, Sudden Spoiling, and Reins turn combat plans against their owners."
+    },
+    {
+      "name": "boardwipes",
+      "score": 2,
+      "reason": "Instant combat resets and Evacuation protect against creature boards."
+    },
+    {
+      "name": "bounce",
+      "score": 2,
+      "reason": "Combat resets and flexible bounce preserve reactive timing."
+    },
+    {
+      "name": "combo",
+      "score": 2,
+      "reason": "Guildmage mill bursts and cloned Mindskinner plus Mirrorweave are finite finishing packages."
+    },
+    {
+      "name": "enchantments",
+      "score": 2,
+      "reason": "Heart, Corrosion, Storm, Rammas, and Monk Class provide persistent payoffs."
+    },
+    {
+      "name": "exile",
+      "score": 2,
+      "reason": "Saruman and rebound/suspend provide meaningful casting outside the hand."
+    },
+    {
+      "name": "graveyard",
+      "score": 2,
+      "reason": "Theft and Gearhulk depend on stocked graveyards."
+    },
+    {
+      "name": "lifedrain",
+      "score": 2,
+      "reason": "Onyx and Guildmage convert spell and mill events into life loss."
+    },
+    {
+      "name": "prowess",
+      "score": 2,
+      "reason": "Heart tokens convert noncreature spell chains into combat damage."
+    },
+    {
+      "name": "ramp",
+      "score": 2,
+      "reason": "Seven rocks and two creatures support six-mana engines."
+    },
+    {
+      "name": "suspend",
+      "score": 2,
+      "reason": "Taigam stores second spells for later recasts."
+    },
+    {
+      "name": "treasure",
+      "score": 2,
+      "reason": "Lotho generates mana from second spells around the table."
+    },
+    {
+      "name": "artifacts",
+      "score": 1,
+      "reason": "Rocks and Water Crystal are infrastructure and an engine."
+    },
+    {
+      "name": "clues",
+      "score": 1,
+      "reason": "Lavinia provides delayed card draw."
+    },
+    {
+      "name": "cycling",
+      "score": 1,
+      "reason": "Raffine\u2019s Tower offers flood insurance."
+    },
+    {
+      "name": "discard",
+      "score": 1,
+      "reason": "Pitch/discard costs and Frantic Search fuel the graveyard."
+    },
+    {
+      "name": "flying",
+      "score": 1,
+      "reason": "Some engines and cloned creatures have flying."
+    },
+    {
+      "name": "hand size",
+      "score": 1,
+      "reason": "Water Crystal scales its activation to the hand."
+    },
+    {
+      "name": "monks",
+      "score": 1,
+      "reason": "Aligned Heart produces Monk tokens."
+    },
+    {
+      "name": "scry",
+      "score": 1,
+      "reason": "Opt provides cheap selection."
+    },
+    {
+      "name": "self-mill",
+      "score": 1,
+      "reason": "Consider and Tidecaller can stock our graveyard."
+    },
+    {
+      "name": "surveil",
+      "score": 1,
+      "reason": "Consider supports selection and graveyard fuel."
+    },
+    {
+      "name": "tap/untap",
+      "score": 1,
+      "reason": "Frantic Search and Snap reuse lands."
+    },
+    {
+      "name": "topdeck",
+      "score": 1,
+      "reason": "Brainstorm, Mystic Sanctuary, and Submerge manipulate library tops."
+    },
+    {
+      "name": "transform",
+      "score": 1,
+      "reason": "Ojer can recover through its land face."
+    },
+    {
+      "name": "unblockable",
+      "score": 1,
+      "reason": "Mindskinner is an unblockable finisher."
+    },
+    {
+      "name": "wizards",
+      "score": 1,
+      "reason": "Several unrelated engine creatures are Wizards."
+    }
+  ]
+}

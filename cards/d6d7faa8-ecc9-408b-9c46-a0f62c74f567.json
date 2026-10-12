@@ -1,0 +1,130 @@
+{
+  "artist": "Kev Walker",
+  "artist_ids": [
+    "f366a0ee-a0cd-466d-ba6a-90058c7a31a6"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 242455,
+  "cmc": 3.0,
+  "collector_number": "29",
+  "color_identity": [
+    "W"
+  ],
+  "colors": [
+    "W"
+  ],
+  "digital": false,
+  "edhrec_rank": 12629,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "As war raged on, the young mages became more direct in their tactics, often at great cost.",
+  "foil": false,
+  "frame": "2003",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "842e7e6a-c89a-463d-a6e8-743a953c827c",
+  "illustration_id": "dfe8fbd2-b255-46ec-87af-fb3a370e4533",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T11:22:45Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.webp?1783941765",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.jpg?1783941765",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.jpg?1783941765",
+    "crop": "https://cards.scryfall.io/crop/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.webp?1783941765",
+    "display": "https://cards.scryfall.io/display/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.webp?1783941765",
+    "grid": "https://cards.scryfall.io/grid/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.webp?1783941765",
+    "large": "https://cards.scryfall.io/large/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.jpg?1783941765",
+    "normal": "https://cards.scryfall.io/normal/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.jpg?1783941765",
+    "png": "https://cards.scryfall.io/png/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.png?1783941765",
+    "small": "https://cards.scryfall.io/small/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.jpg?1783941765",
+    "thumb": "https://cards.scryfall.io/thumb/front/8/4/842e7e6a-c89a-463d-a6e8-743a953c827c.webp?1783941765"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "legal",
+    "premodern": "legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{W}{W}",
+  "mtgo_foil_id": 37768,
+  "mtgo_id": 37684,
+  "multiverse_ids": [
+    222765
+  ],
+  "name": "Abolish",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "d6d7faa8-ecc9-408b-9c46-a0f62c74f567",
+  "oracle_text": "You may discard a Plains card rather than pay this spell's mana cost.\nDestroy target artifact or enchantment.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.28",
+    "eur_foil": null,
+    "tix": "1.67",
+    "usd": "1.45",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ad6d7faa8-ecc9-408b-9c46-a0f62c74f567&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/37684?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=242455&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F36915%3Fpage%3D1"
+  },
+  "rarity": "uncommon",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Abolish",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=222765&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DAbolish",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DAbolish"
+  },
+  "released_at": "2010-09-03",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/842e7e6a-c89a-463d-a6e8-743a953c827c/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ddf?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ddf/29/abolish?utm_source=api",
+  "set": "ddf",
+  "set_id": "2a5a88d5-e2ac-4252-bc4e-62654b1f9a46",
+  "set_name": "Duel Decks: Elspeth vs. Tezzeret",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Addf&unique=prints",
+  "set_type": "duel_deck",
+  "set_uri": "https://api.scryfall.com/sets/2a5a88d5-e2ac-4252-bc4e-62654b1f9a46",
+  "story_spotlight": false,
+  "tcgplayer_id": 36915,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/842e7e6a-c89a-463d-a6e8-743a953c827c",
+  "variation": false
+}

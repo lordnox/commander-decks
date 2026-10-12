@@ -1,0 +1,146 @@
+{
+  "arena_id": 95943,
+  "artist": "Pablo Mendoza",
+  "artist_ids": [
+    "57f8d135-42e9-46e2-bb00-eff941b3152b"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 826602,
+  "cmc": 4.0,
+  "collector_number": "85",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1492,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"Crystal of water, may you regain your light.\"\n—Aria Benett",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "arena",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "e0af8436-797b-4e1f-b21a-d8e93701c3c9",
+  "illustration_id": "bb48618c-6058-4986-9b19-ae1effcb88f8",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T01:37:06Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.webp?1783906626",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.jpg?1783906626",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.jpg?1783906626",
+    "crop": "https://cards.scryfall.io/crop/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.webp?1783906626",
+    "display": "https://cards.scryfall.io/display/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.webp?1783906626",
+    "grid": "https://cards.scryfall.io/grid/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.webp?1783906626",
+    "large": "https://cards.scryfall.io/large/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.jpg?1783906626",
+    "normal": "https://cards.scryfall.io/normal/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.jpg?1783906626",
+    "png": "https://cards.scryfall.io/png/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.png?1783906626",
+    "small": "https://cards.scryfall.io/small/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.jpg?1783906626",
+    "thumb": "https://cards.scryfall.io/thumb/front/e/0/e0af8436-797b-4e1f-b21a-d8e93701c3c9.webp?1783906626"
+  },
+  "keywords": [
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2}{U}{U}",
+  "mtgo_id": 141099,
+  "multiverse_ids": [],
+  "name": "The Water Crystal",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "f8d2a94f-7be1-4b17-8556-398dde531360",
+  "oracle_text": "Blue spells you cast cost {1} less to cast.\nIf an opponent would mill one or more cards, they mill that many cards plus four instead.\n{4}{U}{U}, {T}: Each opponent mills cards equal to the number of cards in your hand.",
+  "oversized": false,
+  "penny_rank": 3187,
+  "preview": {
+    "previewed_at": "2025-05-20",
+    "source": "Collider",
+    "source_uri": "https://collider.com/magic-the-gathering-final-fantasy-crystal-card-images/"
+  },
+  "prices": {
+    "eur": "2.42",
+    "eur_foil": "3.17",
+    "tix": "0.02",
+    "usd": "3.99",
+    "usd_etched": null,
+    "usd_foil": "4.90"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Af8d2a94f-7be1-4b17-8556-398dde531360&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "ffiii",
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/141099?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=826602&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F633123%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=The+Water+Crystal",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DThe%2BWater%2BCrystal",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DThe%2BWater%2BCrystal"
+  },
+  "released_at": "2025-06-13",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "2D646A0FBC9768723709C815507ECB8630A69B38558CB7D8A2DA2ED159B211A1",
+  "rulings_uri": "https://api.scryfall.com/cards/e0af8436-797b-4e1f-b21a-d8e93701c3c9/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/fin?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/fin/85/the-water-crystal?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "fin",
+  "set_id": "d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "set_name": "Final Fantasy",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afin&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/d7beb4b7-e1ff-4d35-ab07-5700f17ea1ea",
+  "story_spotlight": false,
+  "tcgplayer_id": 633123,
+  "textless": false,
+  "type_line": "Legendary Artifact",
+  "uri": "https://api.scryfall.com/cards/e0af8436-797b-4e1f-b21a-d8e93701c3c9",
+  "variation": false
+}

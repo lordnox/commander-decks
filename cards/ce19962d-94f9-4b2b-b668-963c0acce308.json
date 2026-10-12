@@ -1,0 +1,137 @@
+{
+  "arena_id": 84736,
+  "artist": "Alexander Mokhov",
+  "artist_ids": [
+    "3a6a9d37-e62c-44bd-90f2-f5126324e3f0"
+  ],
+  "booster": true,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 716136,
+  "cmc": 2.0,
+  "collector_number": "44",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 645,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "\"I looked on Aragorn and thought how great and terrible a Lord he might have become, had he taken the Ring for himself. Not for naught does Mordor fear him.\"\n—Legolas",
+  "foil": true,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a9379675-1a32-4e2b-8aaf-5f908c595f31",
+  "illustration_id": "8c8349e6-a83e-4d8c-aece-9a793ff755cd",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T04:18:41Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.webp?1783916321",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.jpg?1783916321",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.jpg?1783916321",
+    "crop": "https://cards.scryfall.io/crop/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.webp?1783916321",
+    "display": "https://cards.scryfall.io/display/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.webp?1783916321",
+    "grid": "https://cards.scryfall.io/grid/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.webp?1783916321",
+    "large": "https://cards.scryfall.io/large/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.jpg?1783916321",
+    "normal": "https://cards.scryfall.io/normal/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.jpg?1783916321",
+    "png": "https://cards.scryfall.io/png/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.png?1783916321",
+    "small": "https://cards.scryfall.io/small/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.jpg?1783916321",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/9/a9379675-1a32-4e2b-8aaf-5f908c595f31.webp?1783916321"
+  },
+  "keywords": [],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{1}{U}",
+  "mtgo_id": 111998,
+  "multiverse_ids": [
+    616874
+  ],
+  "name": "Borne Upon a Wind",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "ce19962d-94f9-4b2b-b668-963c0acce308",
+  "oracle_text": "You may cast spells this turn as though they had flash.\nDraw a card.",
+  "oversized": false,
+  "penny_rank": 4065,
+  "prices": {
+    "eur": "2.21",
+    "eur_foil": "4.44",
+    "tix": "0.03",
+    "usd": "3.14",
+    "usd_etched": null,
+    "usd_foil": "4.96"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Ace19962d-94f9-4b2b-b668-963c0acce308&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/111998?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=716136&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F498680%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Borne+Upon+a+Wind",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=616874&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DBorne%2BUpon%2Ba%2BWind",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DBorne%2BUpon%2Ba%2BWind"
+  },
+  "released_at": "2023-06-23",
+  "reprint": false,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/a9379675-1a32-4e2b-8aaf-5f908c595f31/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/ltr?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/ltr/44/borne-upon-a-wind?utm_source=api",
+  "security_stamp": "triangle",
+  "set": "ltr",
+  "set_id": "08078706-ac5d-439b-8f01-894d38751367",
+  "set_name": "The Lord of the Rings: Tales of Middle-earth",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Altr&unique=prints",
+  "set_type": "draft_innovation",
+  "set_uri": "https://api.scryfall.com/sets/08078706-ac5d-439b-8f01-894d38751367",
+  "story_spotlight": false,
+  "tcgplayer_id": 498680,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/a9379675-1a32-4e2b-8aaf-5f908c595f31",
+  "variation": false
+}

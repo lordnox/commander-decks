@@ -1,0 +1,96 @@
+1 Saruman of Many Colors [Commander{top}]
+1 Arcane Signet
+1 Fellwar Stone
+1 Talisman of Progress
+1 Talisman of Dominance
+1 Talisman of Hierarchy
+1 Azorius Signet
+1 Dimir Signet
+1 Lotho, Corrupt Shirriff
+1 Alphinaud Leveilleur
+1 Rammas Echor, Ancient Shield
+1 Vega, the Watcher
+1 Wavebreak Hippocamp
+1 Archmage Emeritus
+1 Lavinia, Foil to Conspiracy
+1 Monk Class
+1 The Water Crystal
+1 Storm of Saruman
+1 Ojer Pakpatiq, Deepest Epoch
+1 Irenicus's Vile Duplication
+1 Spark Double
+1 Sakashima of a Thousand Faces
+1 Aligned Heart
+1 Professor Onyx
+1 Duskmantle Guildmage
+1 Psychic Corrosion
+1 The Mindskinner
+1 Bruvac the Grandiloquent
+1 Exhibition Tidecaller
+1 Torrential Gearhulk
+1 Taigam, Master Opportunist
+1 Opt
+1 Consider
+1 Brainstorm
+1 Scout's Warning
+1 Borne Upon a Wind
+1 Into the Story
+1 Dig Through Time
+1 Fact or Fiction
+1 Frantic Search
+1 Shelter
+1 Mirrorweave
+1 Sudden Spoiling
+1 Aetherize
+1 Aetherspouts
+1 Reins of Power
+1 Evacuation
+1 Snuff Out
+1 Spinning Darkness
+1 Submerge
+1 Commandeer
+1 Misdirection
+1 Archive Trap
+1 Abolish
+1 Curtains' Call
+1 Arcane Denial
+1 Keep Safe
+1 Force of Will
+1 Mystic Confluence
+1 Force of Negation
+1 Soul Partition
+1 Snap
+1 Command Tower
+1 Exotic Orchard
+1 Tundra
+1 Underground Sea
+1 Scrubland
+1 Hallowed Fountain
+1 Watery Grave
+1 Godless Shrine
+1 Flooded Strand
+1 Polluted Delta
+1 Marsh Flats
+1 Misty Rainforest
+1 Scalding Tarn
+1 Windswept Heath
+1 Bloodstained Mire
+1 Arid Mesa
+1 Verdant Catacombs
+1 Prismatic Vista
+1 Adarkar Wastes
+1 Underground River
+1 Caves of Koilos
+1 Sea of Clouds
+1 Morphic Pool
+1 Vault of Champions
+1 Glacial Fortress
+1 Drowned Catacomb
+1 Isolated Chapel
+1 Raffine's Tower
+1 Mystic Sanctuary
+1 Otawara, Soaring City
+1 Bojuka Bog
+4 Island
+2 Plains
+1 Swamp

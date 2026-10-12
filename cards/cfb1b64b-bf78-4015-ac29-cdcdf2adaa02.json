@@ -1,0 +1,132 @@
+{
+  "artist": "James Ryman",
+  "artist_ids": [
+    "3852bbc9-11c0-4fe3-8722-a06ad7e2bcc5"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 764745,
+  "cmc": 6.0,
+  "collector_number": "130",
+  "color_identity": [
+    "B"
+  ],
+  "colors": [
+    "B"
+  ],
+  "digital": false,
+  "edhrec_rank": 3588,
+  "finishes": [
+    "nonfoil"
+  ],
+  "flavor_text": "\"We give the audience what they want.\"\n—Juri, proprietor of the Juri Revue",
+  "foil": false,
+  "frame": "2015",
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "9899d9c7-7c68-4d10-8249-5d1193f77030",
+  "illustration_id": "ed69435a-eca2-4503-83c7-c07c4e9603e9",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-13T03:05:31Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.webp?1783911931",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.jpg?1783911931",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.jpg?1783911931",
+    "crop": "https://cards.scryfall.io/crop/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.webp?1783911931",
+    "display": "https://cards.scryfall.io/display/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.webp?1783911931",
+    "grid": "https://cards.scryfall.io/grid/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.webp?1783911931",
+    "large": "https://cards.scryfall.io/large/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.jpg?1783911931",
+    "normal": "https://cards.scryfall.io/normal/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.jpg?1783911931",
+    "png": "https://cards.scryfall.io/png/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.png?1783911931",
+    "small": "https://cards.scryfall.io/small/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.jpg?1783911931",
+    "thumb": "https://cards.scryfall.io/thumb/front/9/8/9899d9c7-7c68-4d10-8249-5d1193f77030.webp?1783911931"
+  },
+  "keywords": [
+    "Undaunted"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "not_legal",
+    "commander": "legal",
+    "competitivebrawl": "not_legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "not_legal",
+    "historic": "not_legal",
+    "legacy": "legal",
+    "modern": "not_legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "not_legal",
+    "pioneer": "not_legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "not_legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{B}",
+  "mtgo_id": 124719,
+  "multiverse_ids": [
+    658574
+  ],
+  "name": "Curtains' Call",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "cfb1b64b-bf78-4015-ac29-cdcdf2adaa02",
+  "oracle_text": "Undaunted (This spell costs {1} less to cast for each opponent.)\nDestroy two target creatures.",
+  "oversized": false,
+  "prices": {
+    "eur": "0.52",
+    "eur_foil": null,
+    "tix": "2.06",
+    "usd": "0.58",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Acfb1b64b-bf78-4015-ac29-cdcdf2adaa02&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/124719?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=764745&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F545438%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Curtains%27+Call",
+    "gatherer": "https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=658574&printed=false",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DCurtains%2527%2BCall",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DCurtains%2527%2BCall"
+  },
+  "released_at": "2024-04-19",
+  "reprint": true,
+  "reserved": false,
+  "rulings_uri": "https://api.scryfall.com/cards/9899d9c7-7c68-4d10-8249-5d1193f77030/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/otc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/otc/130/curtains-call?utm_source=api",
+  "security_stamp": "oval",
+  "set": "otc",
+  "set_id": "d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "set_name": "Outlaws of Thunder Junction Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Aotc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/d6548798-0c10-4509-b71a-2d8b1d14665a",
+  "story_spotlight": false,
+  "tcgplayer_id": 545438,
+  "textless": false,
+  "type_line": "Instant",
+  "uri": "https://api.scryfall.com/cards/9899d9c7-7c68-4d10-8249-5d1193f77030",
+  "variation": false
+}
