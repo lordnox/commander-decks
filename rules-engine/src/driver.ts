@@ -195,8 +195,24 @@ export const startCanonicalResolution = (
       capturedOccurrence: item.execution?.capturedOccurrence,
       capturedOccurrenceBindings: item.execution?.capturedOccurrenceBindings,
       variables: item.x === undefined ? item.execution?.variables : { X: item.x },
-      choices: item.execution?.choices,
-      results: item.execution?.results,
+      choices: item.execution?.choices
+        ? {
+            ...item.execution.choices,
+            ...Object.fromEntries(Object.entries(item.execution.capturedChoiceAliases ?? {}).flatMap(([original, alias]) => {
+              const value = item.execution?.choices?.[original]
+              return value === undefined ? [] : [[alias, value]]
+            })),
+          }
+        : undefined,
+      results: item.execution?.results
+        ? {
+            ...item.execution.results,
+            ...Object.fromEntries(Object.entries(item.execution.capturedResultAliases ?? {}).flatMap(([original, alias]) => {
+              const value = item.execution?.results?.[original]
+              return value === undefined ? [] : [[alias, value]]
+            })),
+          }
+        : undefined,
     })
     validateScopedDistributions(
       distributionSpecs,
