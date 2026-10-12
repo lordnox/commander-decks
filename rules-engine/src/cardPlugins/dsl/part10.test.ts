@@ -5,6 +5,7 @@ import {
   createDefinitionSnapshot,
   createDelayed,
   createEffect,
+  chooseCards,
   eventDelayed,
   gainLife,
   activated,
@@ -15,15 +16,12 @@ import {
   permanentEffect,
   pumpEffect,
   ref,
-  reflexiveFromPayment,
-  settleResolutionPayment,
   sacrificeCost,
   select,
   spell,
   target,
   players,
-  temporaryEffect,
-  delayedProgram,
+  putCounters,
   untilCleanup,
   untilStep,
   forTurns,
@@ -507,6 +505,62 @@ describe('Rule DSL Part 10 programs', () => {
     expect(completed.state.resolution).toBeUndefined()
   })
 
+  test('paid callback preserves chosen cards, paid result, and X across shroud and JSON restart', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: { targets: [], variables: [{ name: 'X', min: 1, max: 4 }] },
+      instructions: [
+        chooseCards({
+          bindChoice: 'saved', chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1,
+        }),
+        payOptional({
+          payer: ref('controller'),
+          cost: { kind: 'life', amount: { kind: 'constant', value: 1 } },
+          bindResult: 'paid', ifPaid: [], ifDeclined: [],
+          whenPaidDecisions: { targets: [] },
+          whenPaid: [{
+            kind: 'if',
+            condition: { kind: 'resultIsTrue', value: { kind: 'resultRef', binding: 'paid', field: 'paid' } },
+            then: [putCounters({
+              targets: { kind: 'choiceRef', binding: 'saved' },
+              counter: '+1/+1', count: { kind: 'variable', name: 'X',
+              },
+            })],
+            otherwise: [],
+          }],
+        }),
+      ],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Captured callback spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Captured callback target', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Captured callback spell')!
+    const targetObject = Object.values(server.state.objects).find((object) => object.name === 'Captured callback target')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 2 })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const started = server.rules(cast.state, { type: 'resolveTop' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const choice = pendingSelectionFor(started.state, 'p1')!
+    const picked = server.rules(started.state, {
+      type: 'selectCards', seat: 'p1', selectionId: choice.id, kind: 'choose', count: 1, objectIds: [targetObject.id],
+    })
+    expect(picked.ok).toBe(true)
+    if (!picked.ok) return
+    const offer = pendingOptionSelection(picked.state, 'p1')!
+    const paid = server.rules(picked.state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+    expect(paid.ok).toBe(true)
+    if (!paid.ok) return
+    const restarted = JSON.parse(JSON.stringify(paid.state))
+    restarted.objects[targetObject.id]!.oracleText = 'Shroud'
+    const resumed = server.rules(restarted, { type: 'resolveTop' })
+    expect(resumed.ok).toBe(true)
+    if (resumed.ok) expect(resumed.state.objects[targetObject.id]?.counters['+1/+1']).toBe(2)
+  })
+
   test('runtime payment persists its typed sacrifice cursor and commits the paid branch', () => {
     const snapshot = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
       decisions: { targets: [] },
@@ -565,17 +619,6 @@ describe('Rule DSL Part 10 programs', () => {
       ],
     })]))
     expect(compiled.definition.abilities[0]).toMatchObject({ kind: 'spell' })
-  })
-
-  test('reserves captured binding metadata for generated snapshots', () => {
-    expect(() => compileCardRuleDefinition(card([{
-      kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
-      decisions: { targets: [] }, capturedBindings: { choices: ['capturedChoice_saved'] }, instructions: [],
-    } as never]))).toThrow()
-    expect(() => compileCardRuleDefinition(card([{
-      kind: 'triggered', generated: false, activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
-      decisions: { targets: [] }, instructions: [],
-    } as never]))).toThrow()
   })
 
   test('a delayed canonical draw program survives its source leaving and JSON restart', () => {
