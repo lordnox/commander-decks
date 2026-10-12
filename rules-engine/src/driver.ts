@@ -87,9 +87,6 @@ const preflightInstructions = (
       return
     }
     switch (instruction.kind) {
-      case 'captureChoice':
-      case 'captureResult':
-        return
       case 'draw':
       case 'addMana':
       case 'gainLife':
@@ -161,6 +158,30 @@ export const startCanonicalResolution = (
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
+  const capturedBindings = ability.kind === 'triggered' && ability.generated ? ability.capturedBindings : undefined
+  const choiceAliases = Object.entries(item.execution?.capturedChoiceAliases ?? {})
+  const resultAliases = Object.entries(item.execution?.capturedResultAliases ?? {})
+  for (const alias of capturedBindings?.choices ?? []) {
+    const original = choiceAliases.find(([, candidate]) => candidate === alias)?.[0]
+    if (!original || item.execution?.choices?.[original] === undefined) {
+      throw new Error(`${declarationPath}.capturedBindings.choices: captured choice ${alias} is unavailable`)
+    }
+  }
+  for (const alias of Object.keys(capturedBindings?.results ?? {})) {
+    const original = resultAliases.find(([, candidate]) => candidate === alias)?.[0]
+    if (!original || item.execution?.results?.[original] === undefined) {
+      throw new Error(`${declarationPath}.capturedBindings.results: captured result ${alias} is unavailable`)
+    }
+  }
+  const capturedOccurrence = item.execution?.capturedOccurrence
+  for (const binding of capturedBindings?.occurrence ?? []) {
+    const available = binding === 'player'
+      ? capturedOccurrence?.player !== undefined
+      : binding === 'object.before'
+        ? capturedOccurrence?.object?.before !== undefined
+        : capturedOccurrence?.object?.after !== undefined
+    if (!available) throw new Error(`${declarationPath}.capturedBindings.occurrence: captured ${binding} is unavailable`)
+  }
   const distributionSpecs = selectedDistributionSpecs(ability, selectedModes)
   if (distributionSpecs.length > 0) {
     const allocations = item.execution?.distributionBindings
@@ -285,6 +306,7 @@ const runtimeContext = (
   source: frame.source,
   stackItemId: item.id,
   ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
+  ...(item.execution?.capturedOccurrence ? { capturedOccurrence: item.execution.capturedOccurrence } : {}),
   targets: (() => {
     const targets: Record<number, BoundRecipient[]> = Object.fromEntries((frame.targetBindings ?? [])
       .filter((binding) => binding.scopeId === scopeId)
@@ -384,24 +406,6 @@ const stepIndex = (step: string) => [
   'postcombatMain', 'end', 'cleanup',
 ].indexOf(step)
 
-const nextExplicitStepTurn = (draft: Draft, active: string, targetIndex: number, currentIndex: number) => {
-  const living = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
-  const nextNormal = (seat: string) => {
-    const index = living.indexOf(seat)
-    return living[(index + 1 + living.length) % (living.length || 1)] ?? seat
-  }
-  if (draft.active === active && currentIndex < targetIndex) return draft.turn
-  let candidate = draft.active
-  let turn = draft.turn
-  const queued = [...(draft.extraTurns ?? [])]
-  for (let count = 0; count <= living.length + queued.length + 1; count += 1) {
-    candidate = queued.shift() ?? nextNormal(candidate)
-    turn += 1
-    if (candidate === active) return turn
-  }
-  return turn
-}
-
 const durationMetadata = (
   duration: import('./cardPlugins/dsl/schema/v1').EffectDuration,
   context: RuleDslRuntimeContext,
@@ -420,9 +424,7 @@ const durationMetadata = (
         durationUntilStepTurn: draft.turn + (currentIndex < targetIndex ? 0 : 1),
       }
     }
-    const turn = nextExplicitStepTurn(draft, active, targetIndex, currentIndex)
     return {
-      durationUntilStepTurn: turn,
       durationUntilStepNotBeforeTurn: draft.turn + (currentIndex < targetIndex ? 0 : 1),
       ...(active ? { durationUntilStepActive: active } : {}),
     }
@@ -506,6 +508,7 @@ const registerCanonicalDelayed = (
     execution: {
       controller: frame.controller,
       source: structuredClone(frame.source),
+      ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
       ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
       ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
       ...(frame.results ? { results: structuredClone(frame.results) } : {}),
@@ -810,7 +813,9 @@ const actionEvents = (
             ability: {
               ...grant,
               on: grantChoices.rewrittenAdditionalValues[0] as typeof grant.on,
-              ...(Object.keys(grantChoices.capturedBindings.choices ?? {}).length > 0 || Object.keys(grantChoices.capturedBindings.results ?? {}).length > 0
+              ...(Object.keys(grantChoices.capturedBindings.choices ?? {}).length > 0
+                || Object.keys(grantChoices.capturedBindings.results ?? {}).length > 0
+                || (grantChoices.capturedBindings.occurrence?.length ?? 0) > 0
                 ? { capturedBindings: grantChoices.capturedBindings }
                 : {}),
               ...(grantDecisions ? { decisions: grantDecisions } : {}),
@@ -829,13 +834,15 @@ const actionEvents = (
         frame.choices !== undefined
         || frame.results !== undefined
         || frame.variables !== undefined
+        || context.capturedOccurrence !== undefined
+        || context.occurrence !== undefined
         || Object.keys(grantChoices.choiceAliases).length > 0
         || Object.keys(grantChoices.resultAliases).length > 0
       )
         ? {
             controller: frame.controller,
             source: structuredClone(frame.source),
-            ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
+            ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
             ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
             ...(frame.results ? { results: structuredClone(frame.results) } : {}),
             ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),
@@ -969,7 +976,6 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
     }
-    if (instruction.kind === 'captureChoice' || instruction.kind === 'captureResult') continue
     if (instruction.kind === 'chooseCards') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]

@@ -133,6 +133,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
       controller: announcement.execution.controller,
       source: announcement.execution.source,
       occurrence: announcement.execution.occurrence,
+      capturedOccurrence: announcement.execution.capturedOccurrence,
     })
     const bounds = announcement.distributionBounds ?? distributionSpecs.map((spec) => evaluateDistributionBounds(spec, context))
     const scopeIds = selectedDistributionScopeIds(announcement.abilityIndex, ability, announcement.selectedModes)
@@ -181,6 +182,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
           controller: announcement.execution.controller,
           source: announcement.execution.source,
           occurrence: announcement.execution.occurrence,
+          capturedOccurrence: announcement.execution.capturedOccurrence,
         }),
         selectedDistributionScopeIds(announcement.abilityIndex, ability, announcement.selectedModes),
         announcement.distributionBounds,
@@ -198,6 +200,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
         controller: announcement.execution.controller,
         source: announcement.execution.source,
         occurrence: announcement.execution.occurrence,
+        capturedOccurrence: announcement.execution.capturedOccurrence,
       }))
       : 1
     const legalModes = modes.map((mode, index) => ({ mode, index })).filter(({ mode }) => {
@@ -207,6 +210,9 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
         { ...ability, decisions: mode.decisions },
         announcement.execution.controller,
         announcement.execution.occurrence,
+        undefined,
+        undefined,
+        announcement.execution.capturedOccurrence,
       )
       return mode.decisions.targets.every((clause, clauseIndex) => {
         const bounds = evaluateTargetBounds(clause, amountEvaluationContext({
@@ -214,6 +220,7 @@ export const stackCanonical = (draft: Draft, announcement: CanonicalAnnouncement
           controller: announcement.execution.controller,
           source: announcement.execution.source,
           occurrence: announcement.execution.occurrence,
+          capturedOccurrence: announcement.execution.capturedOccurrence,
         }))
         return (candidates[clauseIndex]?.length ?? 0) >= bounds.min
       })
@@ -288,6 +295,8 @@ export const continueCanonicalTargetSelection = (
     announcement.execution.controller,
     announcement.execution.occurrence,
     announcement.targetClauses,
+    undefined,
+    announcement.execution.capturedOccurrence,
   )[announcement.clauseIndex] ?? []
   const bounds = announcement.clauseBounds[announcement.clauseIndex]
   if (candidates.length < bounds.min) return false
@@ -394,6 +403,7 @@ export const startCanonicalAnnouncement = (
     controller: announcement.execution.controller,
     source: announcement.execution.source,
     occurrence: announcement.execution.occurrence,
+    capturedOccurrence: announcement.execution.capturedOccurrence,
   })))
   const definition = loadDefinitionSnapshot(announcement.definitionSnapshot).definition
   const ability = definition.abilities[announcement.abilityIndex]
@@ -403,6 +413,7 @@ export const startCanonicalAnnouncement = (
       controller: announcement.execution.controller,
       source: announcement.execution.source,
       occurrence: announcement.execution.occurrence,
+      capturedOccurrence: announcement.execution.capturedOccurrence,
     })))
     : [])
   return continueCanonicalTargetSelection(draft, {

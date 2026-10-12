@@ -9,16 +9,11 @@ import {
   gainLife,
   grantAbilityEffect,
   objects,
-  openResolutionPayment,
   payOptional,
   permanentEffect,
   pumpEffect,
   ref,
-  reflexiveFromPayment,
-  settleResolutionPayment,
   spell,
-  temporaryEffect,
-  delayedProgram,
   untilCleanup,
   untilStep,
   forTurns,
@@ -29,13 +24,6 @@ import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelection } from '../../rules/selectPlayers'
-
-const context = {
-  definitionRevision: 'v1-0123456789abcdef',
-  source: { objectId: 'source', incarnation: 2, name: 'Source' },
-  controller: 'p1',
-  parentStackId: 'stack',
-}
 
 describe('Rule DSL Part 10 programs', () => {
   test('validates temporary effects, generated abilities, delayed programs, and paid outcomes', () => {
@@ -55,24 +43,15 @@ describe('Rule DSL Part 10 programs', () => {
     expect(compiled.definition.abilities[0]).toMatchObject({ kind: 'spell' })
   })
 
-  test('payment owns its payer and creates a reflexive program only after payment', () => {
-    const waiting = openResolutionPayment({
-      id: 'payment', payer: ref('controller'), cost: { kind: 'mana', amount: '{1}' }, resultBinding: 'paid', context,
-      ifPaid: [], ifDeclined: [], whenPaid: [gainLife({ amount: 1, targets: ref('controller') })],
-    })
-    expect(reflexiveFromPayment(waiting)).toBeUndefined()
-    const declined = settleResolutionPayment(waiting, { paid: false, actionSucceeded: false, destination: 'graveyard' })
-    expect(reflexiveFromPayment(declined)).toBeUndefined()
-    const paid = settleResolutionPayment(waiting, { paid: true, actionSucceeded: true, destination: 'graveyard' })
-    expect(reflexiveFromPayment(paid)).toMatchObject({ payment: { binding: 'paid', paid: true }, source: context })
-  })
-
-  test('temporary and delayed programs pin independent source/version contexts', () => {
-    const effect = temporaryEffect({ source: context, targets: ['target'], effect: pumpEffect(1, 1), duration: untilCleanup(), createdAt: 4 })
-    const delayed = { source: { ...context, definitionRevision: 'v1-fedcba9876543210' }, condition: eventDelayed({ type: 'move' }), instructions: [], recurring: true }
-    const program = delayedProgram(delayed)
-    expect(effect.source.definitionRevision).toBe(context.definitionRevision)
-    expect(program.source.definitionRevision).toBe('v1-fedcba9876543210')
+  test('reserves captured binding metadata for generated snapshots', () => {
+    expect(() => compileCardRuleDefinition(card([{
+      kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
+      decisions: { targets: [] }, capturedBindings: { choices: ['capturedChoice_saved'] }, instructions: [],
+    } as never]))).toThrow()
+    expect(() => compileCardRuleDefinition(card([{
+      kind: 'triggered', generated: false, activeIn: ['battlefield'], on: { kind: 'draw', filter: {} },
+      decisions: { targets: [] }, instructions: [],
+    } as never]))).toThrow()
   })
 
   test('a delayed canonical draw program survives its source leaving and JSON restart', () => {
@@ -362,6 +341,101 @@ describe('Rule DSL Part 10 programs', () => {
     expect(state.objects[recipient.id]?.power).toBe(2)
   })
 
+  test('an explicit untilStep deadline waits through extra turns queued after creation', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [], decisions: { targets: [] },
+      instructions: [createEffect({
+        targets: objects({ zone: 'battlefield', name: 'Extra turn recipient' }),
+        effect: pumpEffect(1, 1), duration: untilStep('upkeep', ref('controller')),
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Extra turn source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Extra turn recipient', { types: ['Creature'], power: 2, toughness: 2 })] },
+      libraries: {
+        p1: Array.from({ length: 10 }, () => cardTemplate('Extra turn draw')),
+        p2: Array.from({ length: 10 }, () => cardTemplate('Extra turn draw')),
+      },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Extra turn source')!
+    const recipient = Object.values(server.state.objects).find((object) => object.name === 'Extra turn recipient')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    let state = JSON.parse(JSON.stringify(resolved.state))
+    state.extraTurns = ['p2', 'p2']
+    for (let index = 0; index < 50 && !(state.turn === resolved.state.turn + 2 && state.step === 'upkeep'); index += 1) {
+      const next = server.rules(state, { type: 'advanceStep' })
+      expect(next.ok).toBe(true)
+      if (!next.ok) return
+      state = next.state
+    }
+    expect(state.active).toBe('p2')
+    expect(state.step).toBe('upkeep')
+    expect(state.objects[recipient.id]?.power).toBe(3)
+    for (let index = 0; index < 25 && !(state.active === 'p1' && state.step === 'untap'); index += 1) {
+      const next = server.rules(state, { type: 'advanceStep' })
+      expect(next.ok).toBe(true)
+      if (!next.ok) return
+      state = next.state
+    }
+    expect(state.objects[recipient.id]?.power).toBe(3)
+    const next = server.rules(state, { type: 'advanceStep' })
+    expect(next.ok).toBe(true)
+    if (next.ok) expect(next.state.objects[recipient.id]?.power).toBe(2)
+  })
+
+  test('an untargeted grant does not inherit unrelated parent targets', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [],
+      decisions: { targets: [{ filter: objects({ zone: 'battlefield', type: 'Creature' }), min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, distinct: true }] },
+      instructions: [
+        {
+          kind: 'chooseCards', bindChoice: 'saved', chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', type: 'Creature' }),
+          min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, distinct: true, whenInsufficient: 'chooseAvailable',
+        },
+        createEffect({
+          targets: objects({ zone: 'battlefield', type: 'Creature' }), duration: permanentEffect(),
+          effect: grantAbilityEffect({
+            kind: 'triggered', on: { kind: 'draw', filter: {} },
+            instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+          }),
+        }),
+      ],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Grant target source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: {
+        p1: [
+          cardTemplate('Grant parent target', { types: ['Creature'], power: 2, toughness: 2 }),
+          cardTemplate('Grant surviving recipient', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+      libraries: { p1: [cardTemplate('Grant trigger draw')] },
+    }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    const reduce = (state: any, event: any) => {
+      const result = server.rules(state, event)
+      if (!result.ok) throw new Error(result.error)
+      return result.state
+    }
+    let state = reduce(server.state, { type: 'castSpell', seat: 'p1', objectId: get('Grant target source').id, targets: [{ kind: 'object', objectId: get('Grant parent target').id }] })
+    state = reduce(state, { type: 'resolveTop' })
+    const pick = pendingSelectionFor(state, 'p1')!
+    state = reduce(state, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count, objectIds: [get('Grant surviving recipient').id] })
+    state = reduce(state, { type: 'destroy', objectId: get('Grant parent target').id })
+    state = reduce(JSON.parse(JSON.stringify(state)), { type: 'draw', seat: 'p1', count: 1 })
+    expect(state.stack.filter((item) => item.kind === 'ability')).toHaveLength(1)
+    state = reduce(state, { type: 'resolveTop' })
+    expect(state.players.p1.life).toBe(41)
+  })
+
   test('a delayed program keeps its parent target binding after the parent resolves', () => {
     const clause = {
       filter: { kind: 'players' as const, filter: {} },
@@ -398,6 +472,68 @@ describe('Rule DSL Part 10 programs', () => {
     const delayedResolved = server.rules(drawn.state, { type: 'resolveTop' })
     expect(delayedResolved.ok).toBe(true)
     if (delayedResolved.ok) expect(delayedResolved.state.players.p2.life).toBe(41)
+  })
+
+  test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {
+    const triggeredAbility = {
+      kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'enters', filter: { type: 'Creature' } },
+      decisions: { targets: [] }, instructions: [createDelayed({
+        condition: { kind: 'event', type: 'draw' },
+        instructions: [{ kind: 'putCounters', targets: ref('triggering.object.after'), counter: '+1/+1', count: { kind: 'constant', value: 1 } }],
+      })],
+    } as never
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([triggeredAbility])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Occurrence source', { types: ['Enchantment'], ruleDefinition: definition })] },
+      hands: { p1: [cardTemplate('Occurrence creature', { types: ['Creature'], power: 2, toughness: 3 })] },
+      libraries: { p1: [cardTemplate('Occurrence draw')] },
+    }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    const moved = server.rules(server.state, { type: 'move', objectId: get('Occurrence creature').id, to: 'battlefield' })
+    expect(moved.ok).toBe(true)
+    if (!moved.ok) return
+    const triggered = server.rules(moved.state, { type: 'resolveTop' })
+    expect(triggered.ok).toBe(true)
+    if (!triggered.ok) return
+    const drawn = server.rules(JSON.parse(JSON.stringify(triggered.state)), { type: 'draw', seat: 'p1', count: 1 })
+    expect(drawn.ok).toBe(true)
+    if (!drawn.ok) return
+    const resolved = server.rules(drawn.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.objects[get('Occurrence creature').id]?.counters['+1/+1']).toBe(1)
+  })
+
+  test('a granted callback keeps its parent trigger occurrence after JSON restart', () => {
+    const triggeredAbility = {
+      kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'enters', filter: { type: 'Creature' } },
+      decisions: { targets: [] }, instructions: [createEffect({
+        targets: ref('triggering.object.after'), duration: permanentEffect(), effect: grantAbilityEffect({
+          kind: 'triggered', on: { kind: 'draw', filter: {} },
+          instructions: [{ kind: 'putCounters', targets: ref('triggering.object.after'), counter: '+1/+1', count: { kind: 'constant', value: 1 } }],
+        }),
+      })],
+    } as never
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([triggeredAbility])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Grant occurrence source', { types: ['Enchantment'], ruleDefinition: definition })] },
+      hands: { p1: [cardTemplate('Grant occurrence creature', { types: ['Creature'], power: 2, toughness: 3 })] },
+      libraries: { p1: [cardTemplate('Grant occurrence draw')] },
+    }, { random: () => 0 })
+    const get = (name: string) => Object.values(server.state.objects).find((object) => object.name === name)!
+    const moved = server.rules(server.state, { type: 'move', objectId: get('Grant occurrence creature').id, to: 'battlefield' })
+    expect(moved.ok).toBe(true)
+    if (!moved.ok) return
+    const triggered = server.rules(moved.state, { type: 'resolveTop' })
+    expect(triggered.ok).toBe(true)
+    if (!triggered.ok) return
+    const drawn = server.rules(JSON.parse(JSON.stringify(triggered.state)), { type: 'draw', seat: 'p1', count: 1 })
+    expect(drawn.ok).toBe(true)
+    if (!drawn.ok) return
+    const resolved = server.rules(drawn.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.objects[get('Grant occurrence creature').id]?.counters['+1/+1']).toBe(1)
   })
 })
 

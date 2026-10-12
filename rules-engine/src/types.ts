@@ -411,6 +411,8 @@ export type StackExecutionContext = {
   controller: PlayerId
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
+  /** Parent occurrence context captured by a generated callback. */
+  capturedOccurrence?: OccurrenceSnapshot
   /** Captured bindings inherited by a delayed/reflexive program. */
   variables?: Readonly<Partial<Record<'X', number>>>
   results?: Record<string, boolean | number>
