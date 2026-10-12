@@ -264,7 +264,9 @@ describe('Rule DSL Part 10 programs', () => {
     })
     expect(chosen.ok).toBe(true)
     if (!chosen.ok) return
-    const drawn = server.rules(JSON.parse(JSON.stringify(chosen.state)), { type: 'draw', seat: 'p1', count: 1 })
+    const restarted = JSON.parse(JSON.stringify(chosen.state))
+    restarted.objects[target]!.oracleText = 'Shroud'
+    const drawn = server.rules(restarted, { type: 'draw', seat: 'p1', count: 1 })
     expect(drawn.ok).toBe(true)
     if (!drawn.ok) return
     const resolved = server.rules(drawn.state, { type: 'resolveTop' })
