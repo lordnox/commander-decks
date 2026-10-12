@@ -288,10 +288,12 @@ export const canonicalTargetCandidates = (
   occurrence?: OccurrenceSnapshot,
   clausesOverride?: readonly TargetClause[],
   x?: number,
+  capturedOccurrence?: import('../../../types').OccurrenceSnapshot,
 ) => {
   const context = {
     ...contextFor(state, controller, source, undefined, x),
     ...(occurrence ? { occurrence } : {}),
+    ...(capturedOccurrence ? { capturedOccurrence } : {}),
   }
   return (clausesOverride ?? ability.decisions.targets).map((clause) => {
     switch (clause.filter.kind) {

@@ -172,6 +172,7 @@ const canonicalFilterMatch = (
     ...(lexicalChoices ? { choices: lexicalChoices } : {}),
     ...(execution?.results ? { results: execution.results } : {}),
     ...(execution?.variables ? { variables: execution.variables } : {}),
+    ...(execution?.capturedOccurrence ? { capturedOccurrence: execution.capturedOccurrence } : {}),
   }
   if ('kind' in filter) {
     const referenced = evaluateObjectReference(filter, {
@@ -424,6 +425,7 @@ const canonicalGrantedTriggersForOccurrence = (
           ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
           ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
           ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
+          ...(grant.execution?.capturedOccurrence ? { capturedOccurrence: structuredClone(grant.execution.capturedOccurrence) } : {}),
           ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
           ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
           ...(grant.execution?.capturedTargetStart !== undefined

@@ -45,6 +45,7 @@ export type RuntimeBindings = {
   results?: Readonly<Record<string, boolean | number>>
   distributions?: readonly DistributionAllocation[]
   scopeId?: string
+  capturedOccurrence?: OccurrenceSnapshot
 }
 
 export type RuleDslRuntimeContext = RuntimeBindings & {
@@ -104,14 +105,15 @@ const playerContextReference = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
 ) => {
+  const occurrence = context.capturedOccurrence ?? context.occurrence
   switch (reference.name) {
     case 'controller': return [context.controller]
     case 'event.player':
     case 'triggering.player':
-      if (!context.occurrence?.player) {
+      if (!occurrence?.player) {
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
-      return [context.occurrence.player]
+      return [occurrence.player]
     default: throw new RuleDslEvaluationError(`${reference.name} is not a player reference`)
   }
 }
@@ -129,9 +131,10 @@ const capturedOccurrenceObject = (
   reference: ContextReference,
   context: RuleDslRuntimeContext,
 ) => {
+  const occurrence = context.capturedOccurrence ?? context.occurrence
   switch (reference.name) {
-    case 'triggering.object.before': return context.occurrence?.object?.before
-    case 'triggering.object.after': return context.occurrence?.object?.after
+    case 'triggering.object.before': return occurrence?.object?.before
+    case 'triggering.object.after': return occurrence?.object?.after
     default: return undefined
   }
 }

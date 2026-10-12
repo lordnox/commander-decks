@@ -203,10 +203,6 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
-  /** Internal generated-program declaration for a captured lexical choice. */
-  | { kind: 'captureChoice'; binding: string }
-  /** Internal generated-program declaration for a captured lexical result. */
-  | { kind: 'captureResult'; binding: string; field: ResultField }
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
@@ -359,6 +355,7 @@ export type TriggeredAbilityDefinition = {
   capturedBindings?: {
     choices?: readonly string[]
     results?: Readonly<Record<string, readonly ResultField[]>>
+    occurrence?: readonly ('player' | 'object.before' | 'object.after')[]
   }
   activeIn: readonly Zone[]
   on: OccurrencePattern

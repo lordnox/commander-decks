@@ -11,10 +11,7 @@ import { RULE_DSL_SCHEMA_VERSION, type GeneratedAbility, type Instruction, type 
 export const generatedAbilitySnapshot = (
   ability: GeneratedAbility,
   inheritedDecisions: GeneratedAbility['decisions'] = ability.decisions,
-  capturedBindings?: {
-    choices?: readonly string[]
-    results?: Readonly<Record<string, readonly import('./schema/v1').ResultField[]>>
-  },
+  capturedBindings?: TriggeredAbilityDefinition['capturedBindings'],
 ) => {
   let on: TriggeredAbilityDefinition['on']
   switch (ability.on.kind) {
@@ -60,15 +57,12 @@ export const generatedAbilitySnapshot = (
 
 type CapturedChoice = readonly ({ kind: 'object' } & { objectId: string; incarnation?: number; zone?: import('../../types').ZoneId })[]
 
-type CapturedBindingAliases = {
-  choiceAliases: Record<string, string>
-  resultAliases: Record<string, string>
-}
-
 type RewrittenInstructions = {
   instructions: Instruction[]
   shadowed: Set<string>
 }
+
+type CapturedOccurrenceBinding = 'player' | 'object.before' | 'object.after'
 
 const bindingAlias = (kind: 'choice' | 'result', binding: string, used: Set<string>) => {
   const safe = binding.replace(/[^A-Za-z0-9_-]/g, '_').slice(0, 40) || 'binding'
@@ -79,9 +73,15 @@ const bindingAlias = (kind: 'choice' | 'result', binding: string, used: Set<stri
   return candidate
 }
 
-const inspectBindings = (value: unknown, choices: Set<string>, results: Map<string, Set<string>>, used: Set<string>) => {
+const inspectBindings = (
+  value: unknown,
+  choices: Set<string>,
+  results: Map<string, Set<string>>,
+  occurrences: Set<CapturedOccurrenceBinding>,
+  used: Set<string>,
+) => {
   if (Array.isArray(value)) {
-    value.forEach((part) => inspectBindings(part, choices, results, used))
+    value.forEach((part) => inspectBindings(part, choices, results, occurrences, used))
     return
   }
   if (!value || typeof value !== 'object') return
@@ -92,9 +92,12 @@ const inspectBindings = (value: unknown, choices: Set<string>, results: Map<stri
     if (typeof node.field === 'string') fields.add(node.field)
     results.set(node.binding, fields)
   }
+  if (node.kind === 'contextRef' && (node.name === 'triggering.player' || node.name === 'triggering.object.before' || node.name === 'triggering.object.after')) {
+    occurrences.add(node.name === 'triggering.player' ? 'player' : node.name.slice('triggering.'.length) as CapturedOccurrenceBinding)
+  }
   if (typeof node.bindChoice === 'string') used.add(node.bindChoice)
   if (typeof node.bindResult === 'string') used.add(node.bindResult)
-  Object.values(node).forEach((part) => inspectBindings(part, choices, results, used))
+  Object.values(node).forEach((part) => inspectBindings(part, choices, results, occurrences, used))
 }
 
 const rewriteInstructions = (
@@ -173,9 +176,9 @@ export const rewriteCapturedReferences = (
 /** Capture parent lexical bindings as ordinary generated-program locals.
  *
  * Choices remain choice references throughout compilation and resolution.  The
- * declarations are internal generated instructions which validate their type
- * and leave the captured frame value untouched at runtime.  Aliases isolate
- * parent locals from bindings declared by the generated program itself.
+ * generated snapshot metadata declares the aliases to the compiler, while
+ * resolution supplies their captured frame values. Aliases isolate parent
+ * locals from bindings declared by the generated program itself.
  */
 export const captureLexicalBindings = (
   instructions: readonly Instruction[],
@@ -185,9 +188,10 @@ export const captureLexicalBindings = (
 ) => {
   const referencedChoices = new Set<string>()
   const referencedResults = new Map<string, Set<string>>()
+  const referencedOccurrences = new Set<CapturedOccurrenceBinding>()
   const usedBindings = new Set<string>([...Object.keys(choices), ...Object.keys(results)])
-  inspectBindings(instructions, referencedChoices, referencedResults, usedBindings)
-  additionalValues.forEach((value) => inspectBindings(value, referencedChoices, referencedResults, usedBindings))
+  inspectBindings(instructions, referencedChoices, referencedResults, referencedOccurrences, usedBindings)
+  additionalValues.forEach((value) => inspectBindings(value, referencedChoices, referencedResults, referencedOccurrences, usedBindings))
   const choiceAliases: Record<string, string> = {}
   const resultAliases: Record<string, string> = {}
   referencedChoices.forEach((binding) => {
@@ -198,16 +202,8 @@ export const captureLexicalBindings = (
   })
   const rewritten = rewriteInstructions(instructions, choiceAliases, resultAliases)
   const rewrittenAdditionalValues = additionalValues.map((value) => rewriteCapturedReferences(value, choiceAliases, resultAliases))
-  const declarations: Instruction[] = [
-    ...Object.values(choiceAliases).map((binding) => ({ kind: 'captureChoice' as const, binding })),
-    ...Object.entries(resultAliases).flatMap(([original, binding]) => {
-      const fields = referencedResults.get(original)
-      const field = fields?.values().next().value as import('./schema/v1').ResultField | undefined
-      return [{ kind: 'captureResult' as const, binding, field: field ?? 'paid' }]
-    }),
-  ]
   return {
-    instructions: [...declarations, ...rewritten.instructions],
+    instructions: rewritten.instructions,
     choiceAliases,
     resultAliases,
     rewrittenAdditionalValues,
@@ -221,6 +217,7 @@ export const captureLexicalBindings = (
             ])),
           }
         : {}),
+      ...(referencedOccurrences.size > 0 ? { occurrence: [...referencedOccurrences] } : {}),
     },
   }
 }

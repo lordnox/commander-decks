@@ -433,9 +433,11 @@ const durationHolds = (
     return state.turn < duration.untilTurn
   }
   if (duration.kind === 'untilStep') {
-    if (duration.notBeforeTurn !== undefined && state.turn < duration.notBeforeTurn) return true
-    if (duration.notBeforeTurn !== undefined && state.step === duration.step
-      && (duration.active === undefined || duration.active === state.active)) return false
+    if (duration.notBeforeTurn !== undefined) {
+      if (state.turn < duration.notBeforeTurn) return true
+      return !(state.step === duration.step
+        && (duration.active === undefined || duration.active === state.active))
+    }
     if (state.turn < duration.turn) return true
     if (state.turn > duration.turn) return false
     return !(state.step === duration.step
@@ -465,9 +467,11 @@ const canonicalGrantHolds = (
     case 'forTurns': return state.turn < (grant.untilTurn ?? grant.createdTurn + 1)
     case 'untilStep': {
       const deadlineTurn = grant.untilStepTurn ?? grant.createdTurn
-      if (grant.untilStepNotBeforeTurn !== undefined && state.turn < grant.untilStepNotBeforeTurn) return true
-      if (grant.untilStepNotBeforeTurn !== undefined && state.step === grant.duration.step
-        && (grant.untilStepActive === undefined || grant.untilStepActive === state.active)) return false
+      if (grant.untilStepNotBeforeTurn !== undefined) {
+        if (state.turn < grant.untilStepNotBeforeTurn) return true
+        return !(state.step === grant.duration.step
+          && (grant.untilStepActive === undefined || grant.untilStepActive === state.active))
+      }
       if (state.turn < deadlineTurn) return true
       if (state.turn > deadlineTurn) return false
       return !(state.step === grant.duration.step
