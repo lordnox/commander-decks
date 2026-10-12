@@ -1,5 +1,5 @@
 import { definitionRevisionFor } from './builders/revision'
-import { RULE_DSL_SCHEMA_VERSION, type CardRuleDefinitionSnapshotV1, type GeneratedAbility, type Instruction, type TargetClause, type TriggeredAbilityDefinition } from './schema/v1'
+import { RULE_DSL_SCHEMA_VERSION, type GeneratedAbility, type Instruction, type TargetClause, type TriggeredAbilityDefinition } from './schema/v1'
 
 /**
  * Generated abilities are stored outside a card definition because their
