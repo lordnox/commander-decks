@@ -192,6 +192,39 @@ describe('Rule DSL Part 10 programs', () => {
     if (nextTurn.ok) expect(nextTurn.state.objects[turns.recipient.id]?.power).toBe(3)
   })
 
+  test('generated ability grants expire at their captured turn deadline', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [createEffect({
+        targets: objects({ zone: 'battlefield', name: 'Expiring recipient' }),
+        effect: grantAbilityEffect({
+          kind: 'triggered',
+          on: { kind: 'draw', filter: {} },
+          instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+        }),
+        duration: forTurns(1),
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Expiring source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Expiring recipient', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Expiring source')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    const recipient = Object.values(resolved.state.objects).find((object) => object.name === 'Expiring recipient')!
+    expect(recipient.canonicalGrantedAbilities).toHaveLength(1)
+    const advanced = server.rules({ ...resolved.state, step: 'cleanup', priority: 'p1', passedInRow: [] }, { type: 'advanceStep' })
+    expect(advanced.ok).toBe(true)
+    if (advanced.ok) expect(advanced.state.objects[recipient.id]?.canonicalGrantedAbilities).toBeUndefined()
+  })
+
   test('a delayed program keeps its parent target binding after the parent resolves', () => {
     const clause = {
       filter: { kind: 'players' as const, filter: {} },

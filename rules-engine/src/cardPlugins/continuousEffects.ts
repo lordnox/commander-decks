@@ -888,6 +888,7 @@ export const continuousEffects: Plugin = {
     if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {
       for (const object of Object.values(draft.objects)) {
         expireEffects(draft, object, false)
+        expireCanonicalGrants(draft, object, false)
       }
       return
     }
