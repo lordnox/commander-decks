@@ -6,7 +6,7 @@ import { openOpponentPilePartition } from './selectCards'
 import { advanceCopySlot } from './selectOptions'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { TargetRef } from '../types'
-import { copyTargetsWithReplacement, validateCanonicalCopyTargets } from '../cardPlugins/dsl/copies'
+import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../cardPlugins/dsl/copies'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -150,13 +150,7 @@ export const selectPlayers: Plugin = {
       const source = original ? state.objects[original.objectId] : undefined
       const job = frame?.pendingCopyTargets?.[0]
       if (frame && job && original && source) {
-        const error = validateCanonicalCopyTargets(
-          state,
-          original,
-          source,
-          copyTargetsWithReplacement(original, action.slotIndex ?? 0, { kind: 'player', player: event.players[0]! }, job.answers),
-          action.controller,
-        )
+        const error = validateCanonicalCopyTarget(state, original, source, action.slotIndex ?? 0, { kind: 'player', player: event.players[0]! }, job.answers, action.controller)
         if (error) return error
       }
     }

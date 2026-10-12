@@ -26,7 +26,11 @@ const copyTargetLayout = (
   targets: readonly TargetRef[],
 ) => {
   const bindings = original.execution?.targetBindings ?? []
-  if (bindings.length === 0) return
+  if (bindings.length === 0) {
+    return original.targets.length === 0
+      ? { clauses: [], grouped: [], scopeIds: [], modeIndices: [] }
+      : undefined
+  }
   const clauses: TargetClause[] = []
   const grouped: TargetRef[][] = []
   const scopeIds: string[] = []
@@ -104,6 +108,76 @@ export const validateCanonicalCopyTargets = (
     preservedPins,
   )
   return error
+}
+
+/** Validate one answer against only the slots already fixed in this job. */
+export const validateCanonicalCopyTarget = (
+  state: Parameters<typeof canonicalTargetError>[0],
+  original: StackItem,
+  source: GameObject,
+  slotIndex: number,
+  replacement: TargetRef,
+  answers: readonly TargetRef[] = [],
+  controller = original.controller,
+) => {
+  const snapshot = original.execution?.definitionSnapshot
+  if (!snapshot) return 'the copied spell has no pinned canonical definition'
+  const definition = loadDefinitionSnapshot(snapshot).definition
+  const abilityIndex = original.execution?.abilityIndex
+    ?? definition.abilities.findIndex((ability) => ability.kind === 'spell')
+  const ability = abilityIndex >= 0 ? definition.abilities[abilityIndex] : undefined
+  if (!ability || !('decisions' in ability)) return 'the copied spell has no target clauses'
+  const layout = copyTargetLayout(original, ability, original.targets)
+  if (!layout) return 'the copied spell has inconsistent target bindings'
+  let bindingIndex = -1
+  let bindingOffset = 0
+  for (const [index, binding] of (original.execution?.targetBindings ?? []).entries()) {
+    if (slotIndex < bindingOffset + binding.recipients.length) {
+      bindingIndex = index
+      break
+    }
+    bindingOffset += binding.recipients.length
+  }
+  if (bindingIndex < 0) return 'the copied spell has an invalid target slot'
+  if (slotIndex === original.targets.length - 1) {
+    return validateCanonicalCopyTargets(
+      state,
+      original,
+      source,
+      copyTargetsWithReplacement(original, slotIndex, replacement, answers),
+      controller,
+    )
+  }
+  const grouped = layout.grouped.slice(0, bindingIndex + 1).map((group, index) => {
+    const start = layout.grouped.slice(0, index).reduce((total, entry) => total + entry.length, 0)
+    const end = index === bindingIndex ? slotIndex + 1 : start + group.length
+    return group.map((_target, offset) => answers[start + offset] ?? original.targets[start + offset]).slice(0, end - start)
+  })
+  grouped[bindingIndex] = [...grouped[bindingIndex]!.slice(0, slotIndex - bindingOffset), replacement]
+  const clauses = layout.clauses.slice(0, bindingIndex + 1).map((clause, index) => index === bindingIndex
+    ? { ...clause, min: { kind: 'constant' as const, value: grouped[index]!.length }, max: { kind: 'constant' as const, value: grouped[index]!.length } }
+    : clause)
+  const targets = grouped.flat()
+  const preservedPins = new Set<number>()
+  for (let index = 0; index <= slotIndex; index += 1) {
+    const target = index === slotIndex ? replacement : answers[index] ?? original.targets[index]
+    if (sameTarget(original.targets[index]!, target!)) preservedPins.add(index)
+  }
+  return canonicalTargetError(
+    state,
+    source,
+    definition,
+    abilityIndex,
+    targets,
+    original,
+    grouped,
+    controller,
+    original.x,
+    clauses,
+    layout.scopeIds.slice(0, bindingIndex + 1),
+    layout.modeIndices.slice(0, bindingIndex + 1),
+    preservedPins,
+  )
 }
 
 export type CanonicalCopyTargetAnswer =

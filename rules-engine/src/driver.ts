@@ -14,7 +14,7 @@ import {
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
-import { validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
+import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
@@ -139,7 +139,8 @@ export const startCanonicalResolution = (
   if ('modes' in ability) {
     const modeSpec = ability.decisions.modes
     if (!modeSpec) throw new Error(`${declarationPath}.decisions.modes: modal program is missing its mode specification`)
-    const modeTotal = modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x
+    const modeTotal = item.execution?.modeCount
+      ?? (modeSpec.count.kind === 'constant' ? modeSpec.count.value : item.x)
     if (modeTotal === undefined) throw new Error(`${declarationPath}.decisions.modes.count: mode count is not bound`)
     validateModeSelection(modeSpec, ability.modes?.length ?? 0, modeTotal, selectedModes)
   }
@@ -152,7 +153,8 @@ export const startCanonicalResolution = (
   const source = item.execution?.source
   const definitionSnapshot = item.execution?.definitionSnapshot
   if (!source || !definitionSnapshot) throw new Error('canonical spell is missing execution context')
-  if (ability.decisions.distributions) {
+  const distributionSpecs = selectedDistributionSpecs(ability, selectedModes)
+  if (distributionSpecs.length > 0) {
     const allocations = item.execution?.distributionBindings
     if (!allocations) throw new Error(`${declarationPath}.decisions.distributions: announcement is missing allocations`)
     const context = amountEvaluationContext({
@@ -162,11 +164,17 @@ export const startCanonicalResolution = (
       variables: item.x === undefined ? undefined : { X: item.x },
     })
     validateScopedDistributions(
-      ability.decisions.distributions,
+      distributionSpecs,
       allocations,
       (scopeId, clauseIndex) => (item.execution?.targetBindings ?? [])
         .find((binding) => binding.scopeId === scopeId && binding.clauseIndex === clauseIndex)?.recipients ?? [],
       context,
+      selectedDistributionScopeIds(abilityIndex, ability, selectedModes),
+      allocations.map((allocation, index) => ({
+        total: allocation.amounts.reduce((sum, amount) => sum + amount, 0),
+        minEach: item.execution?.distributionBounds?.[index]?.minEach
+          ?? (allocation.amounts.length > 0 ? Math.min(...allocation.amounts) : 0),
+      })),
     )
   }
   const variables = ability.decisions.variables ?? []
@@ -204,8 +212,13 @@ export const startCanonicalResolution = (
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
     scopes: 'modes' in ability
-      ? selectedModes.toReversed().map((modeIndex, reverseIndex) => {
-        const occurrence = selectedModes.length - reverseIndex - 1
+      ? selectedModes
+        .map((modeIndex, occurrence) => ({ modeIndex, occurrence }))
+        // Resolution walks the top scope first.  Push modes in reverse printed
+        // order so repeated occurrences retain their own scope while the
+        // resulting execution order follows the card's printed mode order.
+        .toSorted((left, right) => right.modeIndex - left.modeIndex || right.occurrence - left.occurrence)
+        .map(({ modeIndex, occurrence }) => {
         return {
           path: `.modes[${modeIndex}].instructions`,
           scopeId: item.execution?.modeScopeIds?.[occurrence]
@@ -213,7 +226,7 @@ export const startCanonicalResolution = (
           instructions: structuredClone(ability.modes?.[modeIndex]?.instructions ?? []),
           cursor: 0,
         }
-      })
+        })
       : [{
         path: '.instructions',
         scopeId: canonicalScopeId(abilityIndex),
@@ -261,11 +274,30 @@ const runtimeContext = (
       }))
     return targets
   })(),
+  scopeId,
+  ...(frame.distributionBindings ? { distributions: frame.distributionBindings } : {}),
   choices: frame.choices,
   targetLegality: frame.targetLegalityByScope?.[scopeId ?? ''] ?? frame.targetLegality,
   results: frame.results,
   ...(item.x === undefined ? {} : { variables: { X: item.x } }),
 })
+
+const distributedAmount = (
+  target: { kind: string; clauseIndex?: number },
+  recipient: string | { kind: 'object'; objectId: string },
+  context: RuleDslRuntimeContext,
+  fallback: number,
+) => {
+  if (target.kind !== 'targetRef' || target.clauseIndex === undefined) return fallback
+  const allocation = context.distributions?.find((entry) =>
+    entry.scopeId === context.scopeId && entry.clauseIndex === target.clauseIndex)
+  if (!allocation) return fallback
+  const bound = context.targets?.[target.clauseIndex] ?? []
+  const index = bound.findIndex((entry) => entry.kind === 'player'
+    ? typeof recipient === 'string' && entry.playerId === recipient
+    : typeof recipient !== 'string' && entry.kind === 'object' && entry.objectId === recipient.objectId)
+  return index >= 0 ? allocation.amounts[index] ?? fallback : fallback
+}
 
 const recipients = (
   recipient: PlayerRecipient,
@@ -361,19 +393,23 @@ const actionEvents = (
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.count, context)
       if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({ type: 'draw' as const, seat, count: amount }))
+      return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
     }
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({
+      return targets.flatMap((seat) => {
+        const assigned = distributedAmount(instruction.targets, seat, context, amount)
+        if (assigned === 0) return []
+        return [{
         type: instruction.kind,
         seat,
-        amount,
+        amount: assigned,
         source: frame.source.ref.objectId,
-      }))
+        }]
+      })
     }
     case 'damage': {
       const damageRecipients = mixedRecipients(instruction.targets, context)
@@ -387,7 +423,11 @@ const actionEvents = (
         sourceId: source.id,
         sourceSnapshot: capturedDamageSource(source, context),
         target,
-        amount,
+        amount: target.kind === 'player'
+          ? distributedAmount(instruction.targets, target.player, context, amount)
+          : target.kind === 'object'
+            ? distributedAmount(instruction.targets, target, context, amount)
+            : amount,
       }))
     }
     case 'destroy': {
@@ -485,10 +525,10 @@ const actionEvents = (
             eventType: 'copySpell',
           }
           if (jobs.length > 0) {
-          openNextCopySlot(draft, frame)
-          frame.phase = 'committing'
-          frame.pendingEvents = []
-          return []
+            openNextCopySlot(draft, frame)
+            frame.phase = 'committing'
+            frame.pendingEvents = []
+            return []
           }
         }
         for (const controller of controllers) {

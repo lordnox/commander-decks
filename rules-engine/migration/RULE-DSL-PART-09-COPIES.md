@@ -34,13 +34,16 @@ after their result is recorded.
 
 ## Validation
 
-- `bun test rules-engine/src/cardPlugins/dsl/part09.copies.test.ts` — 9 tests, 0 failures.
+- `bun test rules-engine/src/cardPlugins/dsl/part09.copies.test.ts` — 10 tests, 0 failures.
+- `bun test rules-engine/src/cardPlugins/dsl/part09.test.ts` — 14 tests, 0 failures.
+- `bun run typecheck` — passed.
+- `bun run check:imports` — passed.
+- `bun run test:rules` — passed (all rules-engine tests).
 - `git diff --check` — passed.
 
 The live host receives the keep/retarget offer and typed picker request from the
 same private resolution frame. Invalid revision, seat, candidate, duplicate,
 cross-clause, and stale-identity answers are rejected before the parent
-resolution resumes. The repository-wide typecheck still reports the unrelated
-pre-existing allocation-choice union errors in `canonicalAnnouncement.ts` and
-the live-runner handler preparation; the Part 09 copy tests and focused
-compiler/rules checks pass.
+resolution resumes. Restarted per-slot jobs retain their original cardinality,
+scope, and mode bindings, while completed copy jobs are consumed before later
+instructions continue.

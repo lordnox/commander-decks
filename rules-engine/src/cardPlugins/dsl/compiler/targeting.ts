@@ -246,7 +246,8 @@ export const canonicalTargetBindings = (
     const scopeRecipients = scopeSlots.get(scopeId) ?? []
     scopeRecipients[localIndex] = recipients
     scopeSlots.set(scopeId, scopeRecipients)
-    scopeModes.set(scopeId, modeIndicesOverride?.[clauseIndex])
+    const suppliedModeIndex = modeIndicesOverride?.[clauseIndex]
+    scopeModes.set(scopeId, typeof suppliedModeIndex === 'number' ? suppliedModeIndex : undefined)
   })
   for (const [scopeId, scopeRecipients] of scopeSlots) {
     const modeIndex = scopeModes.get(scopeId)
@@ -266,7 +267,7 @@ export const canonicalTargetBindings = (
     scopeId,
     clauseIndex: localClauseIndex,
     recipients,
-    ...(modeIndicesOverride?.[clauseIndex] !== undefined
+    ...(typeof modeIndicesOverride?.[clauseIndex] === 'number'
       ? { modeIndex: modeIndicesOverride[clauseIndex] }
       : {}),
     }

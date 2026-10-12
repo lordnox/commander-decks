@@ -894,15 +894,28 @@ const recordPendingCounterResult = (
   if (!pending) return state
   const draft = makeDraft(state)
   if (draft.resolution?.kind === 'canonicalSpell') {
+    let result: boolean | number
+    if (pending.kind === 'action') {
+      if (!pending.eventType) {
+        result = pending.value ?? true
+      } else {
+        switch (pending.eventType) {
+          case 'createToken':
+          case 'copyPermanent':
+          case 'copySpell':
+            result = trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
+            break
+          default:
+            result = trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType)
+            break
+        }
+      }
+    } else {
+      result = !draft.stack.some((item) => item.id === pending.stackId)
+    }
     draft.resolution.results = {
       ...draft.resolution.results,
-      [pending.binding]: pending.kind === 'action'
-        ? pending.eventType
-          ? (pending.eventType === 'createToken' || pending.eventType === 'copyPermanent' || pending.eventType === 'copySpell'
-            ? trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
-            : trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType))
-          : pending.value ?? true
-        : !draft.stack.some((item) => item.id === pending.stackId),
+      [pending.binding]: result,
     }
     delete draft.resolution.pendingResult
   }
