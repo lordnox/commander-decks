@@ -430,9 +430,6 @@ export type StackExecutionContext = {
   capturedChoiceAliases?: Record<string, string>
   /** Generated-program aliases for parent lexical result bindings. */
   capturedResultAliases?: Record<string, string>
-  /** Parent resolution bindings captured by a separately queued reflexive program. */
-  results?: Record<string, boolean | number>
-  variables?: Partial<Record<'X', number>>
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
