@@ -31,7 +31,7 @@ import {
   pendingSelectionsFor,
 } from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/selectPlayers'
-import { PENDING_OPTION_SELECTION, pendingOptionSelection } from './rules/selectOptions'
+import { PENDING_OPTION_SELECTION, pendingOptionSelection, settleResolutionPayment } from './rules/selectOptions'
 import { PENDING_DIALOG, dialogCandidates, pendingDialog } from './pendingDialog'
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
 import {
@@ -1039,6 +1039,11 @@ const driveResolution = (
       }
       const committed = makeDraft(current)
       if (committed.resolution) {
+        if (committed.resolution.kind === 'canonicalSpell'
+          && (committed.resolution.pendingEvents?.length ?? 0) === 0
+          && committed.resolution.pendingResolutionPayment?.selected) {
+          settleResolutionPayment(committed)
+        }
         if ((committed.resolution.pendingEvents?.length ?? 0) > 0) {
           committed.resolution.phase = 'committing'
         } else if (hasOpenChoice(committed)) {

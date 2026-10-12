@@ -14,7 +14,7 @@ import type { CardRuleDefinitionSnapshotV1, Cost, DecisionsInput, DistributionSp
 import { allocationOptions } from './canonicalAllocation'
 import { payCost } from '../plugins/spells'
 import { cardRuleDefinition } from '../cardPlugins/dsl/builders'
-import { canPayResolutionMana, payResolutionMana, resolutionPaymentCandidates } from '../cardPlugins/dsl/resolutionPayment'
+import { canPayResolutionMana, eligibleResolutionManaAbilities, payResolutionMana, resolutionPaymentCandidates, type ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 
 export const PENDING_OPTION_SELECTION = 'kernel.pendingOptionSelection'
 
@@ -146,6 +146,8 @@ export type PendingOptionSelection = {
     ifDeclined: readonly Instruction[]
     whenPaid: readonly Instruction[]
     paymentAmount: number
+    bindings?: ResolutionPaymentBindings
+    manaActivations?: readonly import('../cardPlugins/dsl/resolutionPayment').ResolutionManaActivation[]
   } | {
     kind: 'putCanonicalModeTriggeredAbility'
     definitionSnapshot: CardRuleDefinitionSnapshotV1
@@ -269,7 +271,9 @@ export const queuePaidReflexive = (
       ...(parentFrame?.results ? { results: structuredClone(parentFrame.results) } : {}),
       ...(parentItem?.x !== undefined ? { variables: { X: parentItem.x } } : {}),
       ...(parentItem?.execution?.modeIndices ? { modeIndices: structuredClone(parentItem.execution.modeIndices) } : {}),
+      ...(parentItem?.execution?.modeCount !== undefined ? { modeCount: parentItem.execution.modeCount } : {}),
       ...(parentItem?.execution?.modeScopeIds ? { modeScopeIds: structuredClone(parentItem.execution.modeScopeIds) } : {}),
+      ...(parentItem?.execution?.distributionBindings ? { distributionBindings: structuredClone(parentItem.execution.distributionBindings) } : {}),
       definitionSnapshot: {
         schemaVersion: definition.schemaVersion,
         definitionRevision: definition.definitionRevision,
@@ -289,6 +293,63 @@ export const queuePaidReflexive = (
     triggeringPlayer: payer,
   }]
   draft.note(`resolution payment paid; reflexive program ${action.bindResult} queued for checkpoint`)
+}
+
+/** Commit a card payment only after every discard/sacrifice event has settled. */
+export const settleResolutionPayment = (draft: Draft) => {
+  const frame = draft.resolution
+  const pending = frame?.kind === 'canonicalSpell' ? frame.pendingResolutionPayment : undefined
+  if (!frame || frame.kind !== 'canonicalSpell' || !pending?.selected) return
+  const paid = pending.selected.every((identity) => {
+    const object = draft.object(identity.objectId)
+    return !object || object.incarnation !== identity.incarnation || object.zone !== identity.zone
+  })
+  delete frame.pendingResolutionPayment
+  if (!paid) {
+    const scopeIndex = frame.scopes.findLastIndex((scope) => scope.scopeId === pending.scopeId)
+    if (scopeIndex >= 0 && frame.scopes[scopeIndex]!.cursor > 0) frame.scopes[scopeIndex]!.cursor -= 1
+    frame.phase = 'running'
+    draft.note('resolution payment did not settle; reopening the payment choice')
+    return
+  }
+  frame.results = { ...frame.results, [pending.resultBinding]: true }
+  if (pending.ifPaid.length > 0) {
+    frame.scopes.push({
+      path: `${pending.scopeId ?? ''}.payOptional`,
+      scopeId: pending.scopeId,
+      instructions: structuredClone(pending.ifPaid),
+      cursor: 0,
+    })
+  }
+  queuePaidReflexive(draft, {
+    kind: 'canonicalResolutionPayment',
+    stackId: frame.stackId,
+    ...(pending.scopeId ? { scopeId: pending.scopeId } : {}),
+    cost: pending.cost,
+    source: pending.source,
+    controller: pending.controller,
+    bindResult: pending.resultBinding,
+    ...(pending.whenPaidDecisions ? { whenPaidDecisions: pending.whenPaidDecisions } : {}),
+    ifPaid: pending.ifPaid,
+    ifDeclined: pending.ifDeclined,
+    whenPaid: pending.whenPaid,
+    paymentAmount: pending.amount,
+    ...(pending.bindings ? { bindings: pending.bindings } : {}),
+  }, pending.payer)
+  frame.phase = 'running'
+}
+
+const resolutionPaymentPayable = (
+  state: GameState,
+  seat: PlayerId,
+  action: Extract<PendingOptionSelection['action'], { kind: 'canonicalResolutionPayment' }>,
+) => {
+  switch (action.cost.kind) {
+    case 'mana': return canPayResolutionMana(state, seat, action.cost, action.source)
+    case 'life': return state.players[seat].life >= action.paymentAmount
+    case 'discard':
+    case 'sacrifice': return resolutionPaymentCandidates(state, seat, action.cost, action.source, action.bindings).length >= action.paymentAmount
+  }
 }
 
 export const selectOptions: Plugin = {
@@ -354,13 +415,15 @@ export const selectOptions: Plugin = {
       if (error) return error
     }
     if (selection.action.kind === 'canonicalResolutionPayment' && event.optionId === 'pay') {
-      const cost = selection.action.cost
-      const payable = cost.kind === 'mana'
-        ? canPayResolutionMana(state, event.seat, cost, selection.action.source)
-        : cost.kind === 'life'
-          ? state.players[event.seat].life >= selection.action.paymentAmount
-          : resolutionPaymentCandidates(state, event.seat, cost, selection.action.source).length >= selection.action.paymentAmount
-      if (!payable) return `${event.seat} cannot pay this resolution cost`
+      if (!resolutionPaymentPayable(state, event.seat, selection.action)) return `${event.seat} cannot pay this resolution cost`
+    }
+    if (selection.action.kind === 'canonicalResolutionPayment' && event.optionId.startsWith('activate:')) {
+      const activation = selection.action.manaActivations?.find((candidate) =>
+        `activate:${candidate.objectId}:${candidate.abilityId}` === event.optionId)
+      if (!activation || !eligibleResolutionManaAbilities(state, event.seat).some((candidate) =>
+        candidate.objectId === activation.objectId && candidate.abilityId === activation.abilityId)) {
+        return 'mana activation choice is no longer available'
+      }
     }
   },
   apply: ({ event, draft }) => {
@@ -597,27 +660,54 @@ export const selectOptions: Plugin = {
       return
     }
     if (selection.action.kind === 'canonicalResolutionPayment') {
+      if (event.optionId.startsWith('activate:')) {
+        const activation = selection.action.manaActivations?.find((candidate) =>
+          `activate:${candidate.objectId}:${candidate.abilityId}` === event.optionId)
+        const frame = draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId
+          ? draft.resolution
+          : undefined
+        if (!activation || !frame) return
+        const scope = frame.scopes.at(-1)
+        if (scope && scope.scopeId === selection.action.scopeId && scope.cursor > 0) scope.cursor -= 1
+        delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+        frame.pendingEvents = []
+        frame.phase = 'committing'
+        draft.enqueue({
+          type: 'activateAbility',
+          seat: event.seat,
+          objectId: activation.objectId,
+          abilityId: activation.abilityId,
+          manaAbility: true,
+        })
+        return
+      }
       if (event.optionId !== 'pay' && event.optionId !== 'decline') return
       const cost = selection.action.cost
-      const paid = event.optionId === 'pay'
-        && (cost.kind === 'mana'
-          ? canPayResolutionMana(draft, event.seat, cost, selection.action.source)
-          : cost.kind === 'life'
-            ? draft.players[event.seat].life >= selection.action.paymentAmount
-            : resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source).length >= selection.action.paymentAmount)
+      const paid = event.optionId === 'pay' && resolutionPaymentPayable(draft, event.seat, selection.action)
       if (event.optionId === 'pay' && !paid) return
       delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
       if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
         const frame = draft.resolution
         const branch = paid ? selection.action.ifPaid : selection.action.ifDeclined
-        if (cost.kind === 'mana') {
-          const nextMana = payResolutionMana(draft, event.seat, cost, selection.action.source)
-          if (!nextMana) return
-          draft.players[event.seat].mana = nextMana.pool
-          draft.players[event.seat].restrictedMana = nextMana.restrictedMana
-        } else if (cost.kind === 'life') {
-          draft.enqueue({ type: 'payLife', seat: event.seat, amount: selection.action.paymentAmount, source: selection.action.source.ref.objectId })
-        } else {
+        if (!paid) {
+          frame.results = { ...frame.results, [selection.action.bindResult]: false }
+          if (branch.length > 0) frame.scopes.push({ path: `${selection.action.scopeId ?? ''}.payOptional`, scopeId: selection.action.scopeId, instructions: structuredClone(branch), cursor: 0 })
+          frame.phase = 'running'
+          return
+        }
+        switch (cost.kind) {
+          case 'mana': {
+            const nextMana = payResolutionMana(draft, event.seat, cost, selection.action.source)
+            if (!nextMana) return
+            draft.players[event.seat].mana = nextMana.pool
+            draft.players[event.seat].restrictedMana = nextMana.restrictedMana
+            break
+          }
+          case 'life':
+            draft.enqueue({ type: 'payLife', seat: event.seat, amount: selection.action.paymentAmount, source: selection.action.source.ref.objectId })
+            break
+          case 'discard':
+          case 'sacrifice': {
           frame.pendingResolutionPayment = {
             scopeId: selection.action.scopeId,
             payer: event.seat,
@@ -625,14 +715,21 @@ export const selectOptions: Plugin = {
             cost,
             resultBinding: selection.action.bindResult,
             source: structuredClone(selection.action.source),
+            controller: selection.action.controller,
+            ifPaid: structuredClone(selection.action.ifPaid),
+            ifDeclined: structuredClone(selection.action.ifDeclined),
+            whenPaid: structuredClone(selection.action.whenPaid),
+            ...(selection.action.whenPaidDecisions ? { whenPaidDecisions: structuredClone(selection.action.whenPaidDecisions) } : {}),
+            ...(selection.action.bindings ? { bindings: structuredClone(selection.action.bindings) } : {}),
           }
+          const candidates = resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source, selection.action.bindings)
           openCardSelection(draft, {
             seat: event.seat,
             kind: cost.kind,
             count: selection.action.paymentAmount,
             min: selection.action.paymentAmount,
-            candidates: resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source).map((object) => object.id),
-            targetIdentities: Object.fromEntries(resolutionPaymentCandidates(draft, event.seat, cost, selection.action.source).map((object) => [object.id, objectIdentity(object)])),
+            candidates: candidates.map((object) => object.id),
+            targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
             sourceId: selection.action.source.ref.objectId,
             source: selection.action.source.snapshot.name,
             prompt: `Choose cards to ${cost.kind} as the optional cost.`,
@@ -651,6 +748,7 @@ export const selectOptions: Plugin = {
                 source: structuredClone(selection.action.source),
                 controller: selection.action.controller,
                 ...(selection.action.whenPaidDecisions ? { whenPaidDecisions: structuredClone(selection.action.whenPaidDecisions) } : {}),
+                ...(selection.action.bindings ? { bindings: structuredClone(selection.action.bindings) } : {}),
                 ifPaid: structuredClone(selection.action.ifPaid),
                 ifDeclined: structuredClone(selection.action.ifDeclined),
                 whenPaid: structuredClone(selection.action.whenPaid),
@@ -660,6 +758,7 @@ export const selectOptions: Plugin = {
           frame.phase = 'committing'
           frame.pendingEvents = []
           return
+          }
         }
         frame.results = { ...frame.results, [selection.action.bindResult]: paid }
         if (branch.length > 0) frame.scopes.push({ path: `${selection.action.scopeId ?? ''}.payOptional`, scopeId: selection.action.scopeId, instructions: structuredClone(branch), cursor: 0 })

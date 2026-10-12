@@ -16,8 +16,8 @@ do not reuse announcement ownership or open an ordinary priority window.
 - [x] validation and canonical resolution payment/effect frame helpers
 - [x] canonical effect events and resolution payment choice/resume path
 - [x] durable discard/sacrifice/life/mana payment cursor with typed card choices,
-  payer checks, restricted-mana eligibility, scoped branches, and later reflexive
-  checkpoint queuing
+  payer checks, cast-only restricted-mana filtering, eligible inline mana
+  activation, scoped branches, and later reflexive checkpoint queuing
 - [x] host/headless/browser projection for the new payment offer
 - [x] durable delayed programs, including source/version pins and captured parent bindings
 - [x] generated granted abilities with recipient-source triggering and typed targets
@@ -35,6 +35,11 @@ The payment path also covers payer ownership, decline behavior, replaced payment
 destinations, captured-X mana, and a typed sacrifice selection with its paid
 branch. Full Part 10 effect, delayed, and generated-ability coverage remains
 with their owning slices.
+The payment path also covers empty-pool inline mana activation, cast-only
+restricted mana filtering, independent payers, modal scopes, prevented and
+replaced sacrifice destinations, captured-X mana, JSON restart, and fresh
+reflexive target announcements. Full Part 10 effect, delayed, and
+generated-ability coverage remains with their owning slices.
 
 ## Remaining work
 

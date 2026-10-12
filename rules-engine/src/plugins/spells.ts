@@ -458,13 +458,6 @@ const paySpellCost = (
   }
 }
 
-export const paySpellCostForResolution = (
-  state: GameState,
-  seat: PlayerId,
-  object: GameObject,
-  cost: string,
-) => paySpellCost(state, seat, object, cost)
-
 export const hasConvoke = (object: GameObject) =>
   effectsOf(object).some((effect) => effect.op === 'castCost' && effect.convoke)
 

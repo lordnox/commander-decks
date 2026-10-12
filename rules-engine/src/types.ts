@@ -532,6 +532,13 @@ export type CanonicalResolutionFrame = {
     cost: import('./cardPlugins/dsl/schema/v1').Cost
     resultBinding: string
     source: CapturedObject
+    controller: PlayerId
+    ifPaid: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
+    ifDeclined: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
+    whenPaid: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
+    whenPaidDecisions?: import('./cardPlugins/dsl/schema/v1').DecisionsInput
+    bindings?: import('./cardPlugins/dsl/resolutionPayment').ResolutionPaymentBindings
+    selected?: ObjectIdentity[]
   }
 }
 
