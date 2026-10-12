@@ -53,6 +53,7 @@ import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
+import { replaceEvent as settleReplaceableEvent } from './replacement'
 
 const CHECKPOINT_CAP = 32
 
@@ -272,36 +273,6 @@ const ctxFor = (
   rule: RuleInstance,
   catalog: PluginCatalog,
 ): HookCtx => ({ state, event, draft, rule, catalog })
-
-const replaceEvent = (
-  state: GameState,
-  event: GameEvent,
-  catalog: PluginCatalog,
-): { value: GameEvent | GameEvent[] | null; pluginId?: string } => {
-  let current: GameEvent = event
-  const used = new Set<string>()
-  let pluginId: string | undefined
-  let guard = 0
-  while (guard < 64) {
-    guard += 1
-    let hit = false
-    for (const rule of sortedRules(state)) {
-      if (used.has(rule.instanceId)) continue
-      const plugin = catalog.get(rule.pluginId)
-      const next = plugin?.replace?.(ctxFor(state, current, makeDraft(state), rule, catalog))
-      if (next === undefined) continue
-      pluginId = rule.pluginId
-      if (next === null) return { value: null, pluginId }
-      used.add(rule.instanceId)
-      if (Array.isArray(next)) return { value: next, pluginId }
-      current = next
-      hit = true
-      break
-    }
-    if (!hit) return { value: current, pluginId }
-  }
-  return { value: current, pluginId }
-}
 
 export const legalError = (
   state: GameState,
@@ -688,7 +659,17 @@ export const reduceOnce = (
     }
   }
 
-  const replacement = replaceEvent(state, event, catalog)
+  const announcementTransactionId = state.provisionalAnnouncement?.transaction.id
+  const replacement = settleReplaceableEvent(state, event, catalog, announcementTransactionId
+    ? { announcementTransactionId }
+    : {})
+  if (replacement.waiting) {
+    return {
+      ok: true,
+      state: replacement.waiting,
+      trace: [trace(event, 'replaced', { pluginId: replacement.pluginId })],
+    }
+  }
   const replaced = replacement.value
   if (replaced === null) {
     return {

@@ -5,6 +5,7 @@ import { selectCards } from './selectCards'
 import { selectPlayers } from './selectPlayers'
 import { selectOptions } from './selectOptions'
 import { triggers } from './triggers'
+import { replacementProcessing } from '../replacement/plugin'
 
 export { discard, initiateDiscard } from './discard'
 export { draw, initiateDraw } from './draw'
@@ -38,4 +39,4 @@ export { resolveAbility, resolveAction } from './actions'
 export { instructionResume } from '../cardPlugins/runInstructions'
 
 /** CR 701 / 121 / 603 — always-on game rules for the stack pipeline. */
-export const gameRules = [discard, draw, selectCards, selectOptions, selectPlayers, triggers, instructionResume]
+export const gameRules = [discard, draw, selectCards, selectOptions, selectPlayers, triggers, instructionResume, replacementProcessing]

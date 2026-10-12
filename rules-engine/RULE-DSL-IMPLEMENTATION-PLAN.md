@@ -28,7 +28,7 @@ onto one another if they both edit schema, compiler, or kernel files.
 
 | Track | Scope | Must not do |
 | --- | --- | --- |
-| **Part 11** | Resumable CR 616 replacement discovery, event frames, lineage, replacement programs | Prevention shields (12), static layers (13), card migration (16) |
+| **Part 11** | Ready for review — resumable CR 616 replacement discovery, event frames, lineage | Prevention shields (12), static layers (13), card migration (16) |
 | **Part 13 minus replacement** | Static modifiers, layers/timestamps, keyword statics, activation restrictions such as Stony Silence | Replacement/prevention nodes; wait for 11 before static replacement integration |
 | **Part 15 partial tests** | End-to-end evidence for already-owned scenarios A–E and M–P | Engine/schema changes; do not close Part 15 |
 
@@ -441,9 +441,8 @@ priority. Effects and delayed programs retain independent source/version context
 
 **Dependencies:** 05, 07, 08, 10.
 
-**Status:** not started. Next parallel track; this is the critical path for
-Parts 12 and replacement-aware payment. Do not implement prevention (12) or
-static layers (13) in this slice.
+**Status:** implementation complete; ready for review. See
+[migration/RULE-DSL-PART-11.md](migration/RULE-DSL-PART-11.md).
 
 Replace the kernel's timestamp-first loop with pure applicability discovery and a
 persisted event frame. Implement CR 616 precedence categories, appropriate chooser,

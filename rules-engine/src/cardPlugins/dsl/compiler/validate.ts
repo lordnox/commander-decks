@@ -1005,16 +1005,21 @@ export const validateDefinitionV1 = (root: unknown): {
           const node = object(effect, effectPath)
           if (!node) return
           declarations.push({ path: effectPath, kind: `effect:${String(node.kind)}` })
-          if (node.kind !== 'prohibitActivation') {
-            issue(childPath(effectPath, 'kind'), 'unsupported-kind', `unsupported continuous effect kind: ${String(node.kind)}`)
+          if (node.kind === 'prohibitActivation') {
+            exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
+            const filter = object(node.filter, childPath(effectPath, 'filter'))
+            if (!filter) return
+            exactKeys(filter, childPath(effectPath, 'filter'), ['abilitySource', 'activator'])
+            if (filter.abilitySource !== undefined) validateObjectFilter(filter.abilitySource, childPath(childPath(effectPath, 'filter'), 'abilitySource'), baseEnvironment())
+            if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'))
             return
           }
-          exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
-          const filter = object(node.filter, childPath(effectPath, 'filter'))
-          if (!filter) return
-          exactKeys(filter, childPath(effectPath, 'filter'), ['abilitySource', 'activator'])
-          if (filter.abilitySource !== undefined) validateObjectFilter(filter.abilitySource, childPath(childPath(effectPath, 'filter'), 'abilitySource'), baseEnvironment())
-          if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'))
+          if (node.kind === 'replacement') {
+            exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
+            if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
+            return
+          }
+          issue(childPath(effectPath, 'kind'), 'unsupported-kind', `unsupported continuous effect kind: ${String(node.kind)}`)
         })
         return
       }
