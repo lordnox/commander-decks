@@ -28,4 +28,3 @@ export const canPayResolutionMana = (
   cost: Extract<Cost, { kind: 'mana' }>,
   source: CapturedObject,
 ) => Boolean(payResolutionMana(state, payer, cost, source))
-
