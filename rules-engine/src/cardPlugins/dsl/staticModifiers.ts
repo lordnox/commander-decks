@@ -11,6 +11,7 @@ import { amountEvaluationContext, evaluateObjectSelector } from './compiler/runt
 import {
   activePrintedStaticModifiers,
   ensureStaticRulesTimestamp,
+  isActiveKeywordStatic,
   modifierKey,
   printedStaticAbilityActive,
   printedStaticDuration,
@@ -71,13 +72,11 @@ const syncKeywordAbility = (
   const duration = printedStaticDuration(source, abilityIndex, 0, timestamp)
   const existing = existingPrintedStamp(source, source.id, abilityIndex, 0)
   if (existing) {
-    if (
-      existing.effect.kind === 'staticKeywords'
-      && !existing.effect.grant.includes(keyword)
-    ) {
+    const stamped = existing.effect
+    if (stamped.kind === 'staticKeywords' && !stamped.grant.includes(keyword)) {
       reviseContinuousEffects(source, (entry) =>
         entry === existing
-          ? { ...entry, effect: { ...existing.effect, grant: [...existing.effect.grant, keyword] } }
+          ? { ...entry, effect: { ...stamped, grant: [...stamped.grant, keyword] } }
           : entry)
     }
     return
@@ -175,7 +174,7 @@ const syncSource = (draft: Draft, source: GameObject) => {
   const nextModifiers = [] as NonNullable<GameObject['printedStaticModifiers']>
 
   for (const entry of activePrintedStaticModifiers(draft, source)) {
-    if ('keyword' in entry) {
+    if (isActiveKeywordStatic(entry)) {
       syncKeywordAbility(draft, source, entry.abilityIndex, entry.keyword)
       continue
     }
@@ -218,10 +217,10 @@ const modifiersOutOfSync = (state: GameState) => {
       continue
     }
     const active = activePrintedStaticModifiers(state, source)
-    const prohibit = active.filter((entry) => 'effect' in entry && entry.effect.kind === 'prohibitActivation')
+    const prohibit = active.filter((entry) => !isActiveKeywordStatic(entry) && entry.effect.kind === 'prohibitActivation')
     if ((source.printedStaticModifiers?.length ?? 0) !== prohibit.length) return true
     for (const entry of active) {
-      if ('keyword' in entry) {
+      if (isActiveKeywordStatic(entry)) {
         if (printedStaticAbilityActive(state, source, entry.abilityIndex)
           && !existingPrintedStamp(source, source.id, entry.abilityIndex, 0)) return true
         continue
