@@ -51,7 +51,7 @@ export type CanonicalChoicePayload = {
 export const canonicalChoicePayload = (
   announcement: CanonicalAnnouncement,
   sourceId = announcement.sourceId,
-): CanonicalChoicePayload => ({
+) => ({
   definitionSnapshot: announcement.definitionSnapshot,
   abilityIndex: announcement.abilityIndex,
   execution: announcement.execution,
@@ -65,12 +65,12 @@ export const canonicalChoicePayload = (
   ...(announcement.targetModeIndices ? { targetModeIndices: [...announcement.targetModeIndices] } : {}),
   ...(announcement.modeScopeIds ? { modeScopeIds: [...announcement.modeScopeIds] } : {}),
   ...(announcement.distributionBounds ? { distributionBounds: [...announcement.distributionBounds] } : {}),
-})
+}) satisfies CanonicalChoicePayload
 
 export const canonicalChoiceAnnouncement = (
   payload: CanonicalChoicePayload,
   continuation: Pick<CanonicalAnnouncement, 'source' | 'sourceId' | 'targets' | 'targetClauses' | 'clauseBounds' | 'clauseIndex'>,
-): CanonicalAnnouncement => ({
+) => ({
   definitionSnapshot: payload.definitionSnapshot,
   abilityIndex: payload.abilityIndex,
   execution: payload.execution,
@@ -85,7 +85,7 @@ export const canonicalChoiceAnnouncement = (
   targetModeIndices: payload.targetModeIndices,
   modeScopeIds: payload.modeScopeIds,
   distributionBounds: payload.distributionBounds,
-})
+}) satisfies CanonicalAnnouncement
 
 const sourceFor = (draft: Draft, announcement: CanonicalAnnouncement) => {
   const live = draft.object(announcement.execution.source.ref.objectId)
