@@ -6,6 +6,7 @@ import { openOpponentPilePartition } from './selectCards'
 import { advanceCopySlot } from './selectOptions'
 import { continueCanonicalTargetSelection } from './canonicalAnnouncement'
 import type { TargetRef } from '../types'
+import { copyTargetsWithReplacement, validateCanonicalCopyTargets } from '../cardPlugins/dsl/copies'
 
 export const PENDING_PLAYER_SELECTION = 'kernel.pendingPlayerSelection'
 
@@ -140,6 +141,25 @@ export const selectPlayers: Plugin = {
       !selection.candidates.includes(seat) || state.players[seat]?.lost)) {
       return 'illegal player choice'
     }
+    if (selection.action.kind === 'canonicalCopyTargets') {
+      const action = selection.action
+      const frame = state.resolution?.kind === 'canonicalSpell' && state.resolution.stackId === action.stackId
+        ? state.resolution
+        : undefined
+      const original = state.stack.find((item) => item.id === action.copyStackId)
+      const source = original ? state.objects[original.objectId] : undefined
+      const job = frame?.pendingCopyTargets?.[0]
+      if (frame && job && original && source) {
+        const error = validateCanonicalCopyTargets(
+          state,
+          original,
+          source,
+          copyTargetsWithReplacement(original, action.slotIndex ?? 0, { kind: 'player', player: event.players[0]! }, job.answers),
+          action.controller,
+        )
+        if (error) return error
+      }
+    }
   },
   apply: ({ event, draft }) => {
     if (event.type !== 'selectPlayers') return
@@ -172,14 +192,7 @@ export const selectPlayers: Plugin = {
       const action = selection.action
       const original = draft.stack.find((item) => item.id === action.copyStackId)
       if (original) {
-        let replaced = false
-        const targets = original.targets.map((candidate) => {
-          if (candidate.kind === 'player' && !replaced) {
-            replaced = true
-            return { kind: 'player' as const, player: target }
-          }
-          return candidate
-        })
+        const targets = copyTargetsWithReplacement(original, action.slotIndex ?? 0, { kind: 'player', player: target })
         if (draft.resolution?.kind === 'canonicalSpell' && draft.resolution.stackId === selection.action.stackId) {
           draft.resolution.afterChoiceEvents = [{ type: 'copySpell', stackId: original.id, controller: action.controller, targets, retarget: true, sourceId: draft.resolution.source.ref.objectId }]
         }
