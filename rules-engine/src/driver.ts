@@ -36,7 +36,7 @@ import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
-import { generatedAbilitySnapshot } from './cardPlugins/dsl/generatedPrograms'
+import { generatedAbilitySnapshot, lowerCapturedBindings } from './cardPlugins/dsl/generatedPrograms'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
@@ -184,7 +184,7 @@ export const startCanonicalResolution = (
   }
   const variables = ability.decisions.variables ?? []
   for (const variable of variables) {
-    const value = item.x
+    const value = item.x ?? item.execution?.variables?.[variable.name]
     if (value === undefined || value < variable.min || value > variable.max) {
       throw new Error(`${declarationPath}.decisions.variables: ${variable.name} is outside its declared bounds`)
     }
@@ -212,7 +212,9 @@ export const startCanonicalResolution = (
     source: structuredClone(source),
     scopeId: item.execution?.scopeId ?? canonicalScopeId(abilityIndex),
     targetBindings: structuredClone(targetBindings),
-    ...(item.execution?.variables ? { variables: structuredClone(item.execution.variables) } : {}),
+    ...(item.x !== undefined || item.execution?.variables
+      ? { variables: { ...(item.execution?.variables ?? {}), ...(item.x !== undefined ? { X: item.x } : {}) } }
+      : {}),
     ...(item.execution?.choices ? { choices: structuredClone(item.execution.choices) } : {}),
     ...(item.execution?.results ? { results: structuredClone(item.execution.results) } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
@@ -371,11 +373,14 @@ const durationMetadata = (
     return { durationUntilTurn: draft.turn + count }
   }
   if (duration.kind === 'untilStep') {
-    const active = duration.active
-      ? evaluatePlayerReference(duration.active, context)[0]
-      : draft.active
+    const active = duration.active ? evaluatePlayerReference(duration.active, context)[0] : undefined
     const targetIndex = stepIndex(duration.step)
     const currentIndex = stepIndex(draft.step)
+    if (!active) {
+      return {
+        durationUntilStepTurn: draft.turn + (currentIndex < targetIndex ? 0 : 1),
+      }
+    }
     const order = draft.playerOrder.filter((seat) => !draft.players[seat].lost)
     const activeIndex = Math.max(0, order.indexOf(draft.active))
     const targetPlayerIndex = active ? order.indexOf(active) : activeIndex
@@ -391,6 +396,16 @@ const durationMetadata = (
     }
   }
   return {}
+}
+
+const parentVariables = (frame: CanonicalResolutionFrame, scopeId = frame.scopeId) => {
+  const abilityIndex = Number(/\[(\d+)\]/.exec(frame.declarationPath)?.[1] ?? -1)
+  const ability = abilityIndex >= 0 ? frame.definitionSnapshot.definition.abilities[abilityIndex] : undefined
+  const modeIndex = scopeId?.match(/\.modes\[(\d+)\]/)?.[1]
+  if (ability && modeIndex !== undefined && 'modes' in ability) {
+    return ability.modes?.[Number(modeIndex)]?.decisions.variables
+  }
+  return ability && 'decisions' in ability ? ability.decisions.variables : undefined
 }
 
 const registerCanonicalDelayed = (
@@ -436,7 +451,17 @@ const registerCanonicalDelayed = (
     : parentAbility && 'decisions' in parentAbility
       ? parentAbility.decisions
       : undefined
-  const inheritedTargets = Boolean(inheritedDecisions?.targets?.length)
+  const captured = lowerCapturedBindings(
+    generated.instructions,
+    inheritedDecisions?.targets?.length ?? 0,
+    frame.choices,
+    frame.results,
+  )
+  const loweredDecisions = inheritedDecisions
+    ? { ...inheritedDecisions, targets: [...inheritedDecisions.targets, ...captured.clauses] }
+    : captured.clauses.length > 0 ? { targets: captured.clauses } : undefined
+  const inheritedTargets = Boolean(loweredDecisions?.targets?.length)
+  const capturedScopeId = context.scopeId ?? frame.scopeId
   draft.delayedTriggers.push({
     id: draft.allocId('delayed'),
     sourceId: frame.source.ref.objectId,
@@ -451,14 +476,24 @@ const registerCanonicalDelayed = (
     execution: {
       controller: frame.controller,
       source: structuredClone(frame.source),
-      ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
+      ...(frame.targetBindings || captured.targetBindings.length > 0
+        ? {
+            targetBindings: [
+              ...structuredClone(frame.targetBindings ?? []),
+              ...captured.targetBindings.map((binding) => ({ ...binding, scopeId: capturedScopeId ?? '' })),
+            ],
+          }
+        : {}),
       ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
       ...(frame.results ? { results: structuredClone(frame.results) } : {}),
       ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),
-      ...(context.scopeId ?? frame.scopeId ? { scopeId: context.scopeId ?? frame.scopeId } : {}),
+      ...(capturedScopeId ? { scopeId: capturedScopeId } : {}),
     },
     canonical: {
-      definitionSnapshot: generatedAbilitySnapshot(generated, inheritedDecisions),
+      definitionSnapshot: generatedAbilitySnapshot(
+        { ...generated, instructions: captured.instructions },
+        loweredDecisions,
+      ),
       abilityIndex: 0,
       ...(inheritedTargets ? { inheritedTargets: true } : {}),
     },
@@ -721,13 +756,66 @@ const actionEvents = (
     }
     case 'createEffect': {
       const targets = objectActions(instruction.targets, context)
+      const grant = instruction.effect.kind === 'grantAbility' ? instruction.effect.ability : undefined
+      const grantChoices = grant
+        ? lowerCapturedBindings(
+          grant.instructions,
+          grant.decisions?.targets?.length ?? 0,
+          frame.choices,
+          frame.results,
+        )
+        : undefined
+      const grantDecisions = grant && grantChoices
+        ? grant.decisions
+          ? {
+              ...grant.decisions,
+              targets: [...grant.decisions.targets ?? [], ...grantChoices.clauses],
+              ...(!grant.decisions.variables && frame.variables
+                ? { variables: parentVariables(frame, context.scopeId) } : {}),
+            }
+          : grantChoices.clauses.length > 0 || frame.variables
+            ? {
+                ...(grantChoices.clauses.length > 0 ? { targets: grantChoices.clauses } : {}),
+                ...(frame.variables ? { variables: parentVariables(frame, context.scopeId) } : {}),
+              }
+            : undefined
+        : undefined
+      const grantEffect = grant && grantChoices
+        ? {
+            kind: 'grantAbility' as const,
+            ability: {
+              ...grant,
+              ...(grantDecisions ? { decisions: grantDecisions } : {}),
+              instructions: grantChoices.instructions,
+            },
+          }
+        : undefined
       const effect = instruction.effect.kind === 'pump'
         ? {
             kind: 'pump' as const,
             power: { kind: 'constant' as const, value: availableAmount(instruction.effect.power, context) ?? 0 },
             toughness: { kind: 'constant' as const, value: availableAmount(instruction.effect.toughness, context) ?? 0 },
           }
-        : structuredClone(instruction.effect)
+        : structuredClone(grantEffect ?? instruction.effect)
+      const grantExecution = grant && grantChoices && (
+        grantChoices.targetBindings.length > 0
+        || frame.choices !== undefined
+        || frame.results !== undefined
+        || frame.variables !== undefined
+      )
+        ? {
+            controller: frame.controller,
+            source: structuredClone(frame.source),
+            targetBindings: [
+              ...grantChoices.targetBindings.map((binding) => ({ ...binding, scopeId: context.scopeId ?? frame.scopeId ?? '' })),
+            ],
+            ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
+            ...(frame.results ? { results: structuredClone(frame.results) } : {}),
+            ...(frame.variables ? { variables: structuredClone(frame.variables) } : {}),
+            ...(context.scopeId ?? frame.scopeId ? { scopeId: context.scopeId ?? frame.scopeId } : {}),
+            capturedTargetStart: grant.decisions?.targets?.length ?? 0,
+          }
+        : undefined
       return targets.map((object) => ({
         type: 'canonicalEffect' as const,
         objectId: object.id,
@@ -736,6 +824,7 @@ const actionEvents = (
         sourceId: frame.source.ref.objectId,
         sourceRef: structuredClone(frame.source.ref),
         sourceRevision: frame.definitionSnapshot.definitionRevision,
+        ...(grantExecution ? { execution: grantExecution } : {}),
         createdTurn: draft.turn,
         ...durationMetadata(instruction.duration, context, draft),
       }))

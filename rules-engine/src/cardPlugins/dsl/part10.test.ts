@@ -27,6 +27,7 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelection } from '../../rules/selectPlayers'
 
 const context = {
@@ -223,6 +224,140 @@ describe('Rule DSL Part 10 programs', () => {
     const advanced = server.rules({ ...resolved.state, step: 'cleanup', priority: 'p1', passedInRow: [] }, { type: 'advanceStep' })
     expect(advanced.ok).toBe(true)
     if (advanced.ok) expect(advanced.state.objects[recipient.id]?.canonicalGrantedAbilities).toBeUndefined()
+  })
+
+  test('a delayed program retains a parent card choice after JSON restart', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [
+        {
+          kind: 'chooseCards',
+          bindChoice: 'saved', chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', type: 'Creature' }),
+          min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, distinct: true, whenInsufficient: 'chooseAvailable',
+        },
+        createDelayed({
+          condition: eventDelayed({ type: 'draw' }),
+          instructions: [{ kind: 'putCounters', targets: { kind: 'choiceRef', binding: 'saved' }, counter: '+1/+1', count: { kind: 'constant', value: 1 } }],
+        }),
+      ],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Choice delayed source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Choice delayed target', { types: ['Creature'], power: 2, toughness: 2 })] },
+      libraries: { p1: [cardTemplate('Choice delayed draw')] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Choice delayed source')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const announced = server.rules(cast.state, { type: 'resolveTop' })
+    expect(announced.ok).toBe(true)
+    if (!announced.ok) return
+    const pick = pendingSelectionFor(announced.state, 'p1')!
+    const target = pick.candidates[0]!
+    const chosen = server.rules(announced.state, {
+      type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose',
+      count: pick.count, objectIds: [target],
+    })
+    expect(chosen.ok).toBe(true)
+    if (!chosen.ok) return
+    const drawn = server.rules(JSON.parse(JSON.stringify(chosen.state)), { type: 'draw', seat: 'p1', count: 1 })
+    expect(drawn.ok).toBe(true)
+    if (!drawn.ok) return
+    const resolved = server.rules(drawn.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.objects[target]?.counters['+1/+1']).toBe(1)
+  })
+
+  test('a granted program captures a parent card choice as a durable target binding', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [], decisions: { targets: [] },
+      instructions: [
+        {
+          kind: 'chooseCards', bindChoice: 'saved', chooser: ref('controller'),
+          filter: objects({ zone: 'battlefield', name: 'Lexical chosen' }),
+          min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 },
+          distinct: true, whenInsufficient: 'chooseAvailable',
+        },
+        createEffect({
+          targets: objects({ zone: 'battlefield', name: 'Lexical recipient' }),
+          effect: grantAbilityEffect({
+            kind: 'triggered', on: { kind: 'draw', filter: {} },
+            instructions: [{
+              kind: 'putCounters', targets: { kind: 'choiceRef', binding: 'saved' },
+              counter: '+1/+1', count: { kind: 'constant', value: 1 },
+            }],
+          }),
+          duration: permanentEffect(),
+        }),
+      ],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Lexical grant source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [
+        cardTemplate('Lexical chosen', { types: ['Creature'], power: 2, toughness: 2 }),
+        cardTemplate('Lexical recipient', { types: ['Creature'], power: 2, toughness: 2 }),
+      ] },
+      libraries: { p1: [cardTemplate('Lexical grant draw')] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Lexical grant source')!
+    const chosenObject = Object.values(server.state.objects).find((object) => object.name === 'Lexical chosen')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const announced = server.rules(cast.state, { type: 'resolveTop' })
+    expect(announced.ok).toBe(true)
+    if (!announced.ok) return
+    const pick = pendingSelectionFor(announced.state, 'p1')!
+    const chosen = server.rules(announced.state, {
+      type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose',
+      count: pick.count, objectIds: [chosenObject.id],
+    })
+    expect(chosen.ok).toBe(true)
+    if (!chosen.ok) return
+    const drawn = server.rules(JSON.parse(JSON.stringify(chosen.state)), { type: 'draw', seat: 'p1', count: 1 })
+    expect(drawn.ok).toBe(true)
+    if (!drawn.ok) return
+    const resolved = server.rules(drawn.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (resolved.ok) expect(resolved.state.objects[chosenObject.id]?.counters['+1/+1']).toBe(1)
+  })
+
+  test('an omitted untilStep active seat waits for the next matching step', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [], decisions: { targets: [] },
+      instructions: [createEffect({
+        targets: objects({ zone: 'battlefield', name: 'Next upkeep recipient' }),
+        effect: pumpEffect(1, 1), duration: untilStep('upkeep'),
+      })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Next upkeep source', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
+      battlefield: { p1: [cardTemplate('Next upkeep recipient', { types: ['Creature'], power: 2, toughness: 2 })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Next upkeep source')!
+    const recipient = Object.values(server.state.objects).find((object) => object.name === 'Next upkeep recipient')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    expect(resolved.ok).toBe(true)
+    if (!resolved.ok) return
+    let state = resolved.state
+    for (let index = 0; index < 20 && !(state.active === 'p2' && state.step === 'upkeep'); index += 1) {
+      const next = server.rules(state, { type: 'advanceStep' })
+      expect(next.ok).toBe(true)
+      if (!next.ok) return
+      state = next.state
+    }
+    expect(state.active).toBe('p2')
+    expect(state.step).toBe('upkeep')
+    expect(state.objects[recipient.id]?.power).toBe(2)
   })
 
   test('a delayed program keeps its parent target binding after the parent resolves', () => {
