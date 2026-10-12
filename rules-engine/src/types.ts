@@ -3,7 +3,8 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { CardRuleDefinitionSnapshotV1, Cost, EffectDuration, GeneratedAbility, Instruction } from './cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction } from './cardPlugins/dsl/schema/v1'
+import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
 export type PlayerId = string
@@ -524,15 +525,15 @@ export type CanonicalResolutionFrame = {
     scopeId?: string
     payer: PlayerId
     amount: number
-    cost: import('./cardPlugins/dsl/schema/v1').Cost
+    cost: Cost
     resultBinding: string
     source: CapturedObject
     controller: PlayerId
-    ifPaid: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
-    ifDeclined: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
-    whenPaid: readonly import('./cardPlugins/dsl/schema/v1').Instruction[]
-    whenPaidDecisions?: import('./cardPlugins/dsl/schema/v1').DecisionsInput
-    bindings?: import('./cardPlugins/dsl/resolutionPayment').ResolutionPaymentBindings
+    ifPaid: readonly Instruction[]
+    ifDeclined: readonly Instruction[]
+    whenPaid: readonly Instruction[]
+    whenPaidDecisions?: DecisionsInput
+    bindings?: ResolutionPaymentBindings
     selected?: ObjectIdentity[]
     paymentEvents?: GameEvent[]
   }
@@ -746,7 +747,7 @@ export type DelayedTrigger = {
   objectRef?: ObjectIdentity
   execution?: StackExecutionContext
   canonical?: {
-    definitionSnapshot: import('./cardPlugins/dsl/schema/v1').CardRuleDefinitionSnapshotV1
+    definitionSnapshot: CardRuleDefinitionSnapshotV1
     abilityIndex: number
     /** The delayed program reuses bindings captured by its parent resolution. */
     inheritedTargets?: boolean
@@ -786,8 +787,8 @@ export type GameEvent =
   | {
       type: 'canonicalEffect'
       objectId: string
-      effect: import('./cardPlugins/dsl/schema/v1').CreatedEffect
-      duration: import('./cardPlugins/dsl/schema/v1').EffectDuration
+      effect: CreatedEffect
+      duration: DslEffectDuration
       sourceId?: string
       sourceRef?: ObjectIdentity
       sourceRevision?: string

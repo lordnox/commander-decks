@@ -22584,7 +22584,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1050"
+        "rules-engine/src/types.ts:1054"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -22617,9 +22617,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1189",
-        "rules-engine/src/actions.ts:1360",
-        "rules-engine/src/actions.ts:835",
+        "rules-engine/src/actions.ts:1190",
+        "rules-engine/src/actions.ts:1361",
+        "rules-engine/src/actions.ts:836",
         "rules-engine/src/cardPlugins/effectRuntime.ts:209",
         "rules-engine/src/cardPlugins/effectRuntime.ts:340",
         "rules-engine/src/cardPlugins/effectRuntime.ts:344",
@@ -22649,9 +22649,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1102",
-        "rules-engine/src/types.ts:244",
-        "rules-engine/src/types.ts:246",
-        "rules-engine/src/types.ts:250"
+        "rules-engine/src/types.ts:248",
+        "rules-engine/src/types.ts:250",
+        "rules-engine/src/types.ts:254"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -22709,7 +22709,7 @@
         "rules-engine/src/formats.ts:120",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:487",
+        "rules-engine/src/kernel.ts:488",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:118",
         "rules-engine/src/newGame.ts:119",
@@ -22727,11 +22727,11 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
-        "rules-engine/src/types.ts:141",
-        "rules-engine/src/types.ts:207",
-        "rules-engine/src/types.ts:268",
-        "rules-engine/src/types.ts:75",
-        "rules-engine/src/types.ts:92"
+        "rules-engine/src/types.ts:145",
+        "rules-engine/src/types.ts:211",
+        "rules-engine/src/types.ts:272",
+        "rules-engine/src/types.ts:79",
+        "rules-engine/src/types.ts:96"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -22812,17 +22812,17 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1579,
-          1588,
-          1606,
+          1580,
+          1589,
           1607,
-          2430,
-          2433
+          1608,
+          2431,
+          2434
         ],
         "samples": [
-          "1579: if (source?.name === 'Settle the Wreckage') {",
-          "1588: if (source?.name === 'Energy Arc') {",
-          "1606: if (source?.name === 'Ghostly Flicker') return [action]"
+          "1580: if (source?.name === 'Settle the Wreckage') {",
+          "1589: if (source?.name === 'Energy Arc') {",
+          "1607: if (source?.name === 'Ghostly Flicker') return [action]"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -22984,12 +22984,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          190,
-          262
+          191,
+          263
         ],
         "samples": [
-          "190: if (filter.name && object.name !== filter.name) return false",
-          "262: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "191: if (filter.name && object.name !== filter.name) return false",
+          "263: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23001,10 +23001,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          236
+          238
         ],
         "samples": [
-          "236: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "238: if (filter.name !== undefined && object.name !== filter.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23721,10 +23721,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1219
+          1220
         ],
         "samples": [
-          "1219: event.name === SEARCH_CHOSEN"
+          "1220: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23759,14 +23759,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          241,
-          1160,
-          1190
+          244,
+          1163,
+          1193
         ],
         "samples": [
-          "241: const liveSource = draft.object(source.ref.objectId)",
-          "1160: const object = draft.object(item.objectId)",
-          "1190: const object = draft.object(completedItem.objectId)"
+          "244: const liveSource = draft.object(source.ref.objectId)",
+          "1163: const object = draft.object(item.objectId)",
+          "1193: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24348,47 +24348,47 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          375,
-          559,
-          567,
-          571,
-          580,
-          623,
-          650,
-          659,
-          677,
-          696,
+          365,
+          549,
+          557,
+          561,
+          570,
+          613,
+          640,
+          649,
+          667,
+          686,
+          727,
           737,
-          747,
-          756,
-          769,
-          771,
-          783,
-          794,
-          798,
-          803,
-          806,
-          815,
-          821,
-          833,
-          837,
-          850,
-          857,
-          872,
-          1012,
-          1015,
-          1035,
-          1039,
-          1048,
-          1054,
-          1062,
-          1064,
-          1069
+          746,
+          759,
+          761,
+          773,
+          784,
+          788,
+          793,
+          796,
+          805,
+          811,
+          823,
+          827,
+          840,
+          847,
+          862,
+          994,
+          997,
+          1017,
+          1021,
+          1030,
+          1036,
+          1044,
+          1046,
+          1051
         ],
         "samples": [
-          "375: draft.enqueue({",
-          "559: draft.enqueue({",
-          "567: draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })"
+          "365: draft.enqueue({",
+          "549: draft.enqueue({",
+          "557: draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24402,17 +24402,17 @@
       {
         "path": "rules-engine/src/rules/selectPlayers.ts",
         "lines": [
-          168,
-          200,
-          207,
-          215,
-          219,
-          266
+          154,
+          186,
+          193,
+          201,
+          205,
+          245
         ],
         "samples": [
-          "168: const object = draft.object(objectId)",
-          "200: draft.enqueue({",
-          "207: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
+          "154: const object = draft.object(objectId)",
+          "186: draft.enqueue({",
+          "193: draft.enqueue({ type: 'draw', seat: event.seat, count: lifeLost })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24448,12 +24448,12 @@
       {
         "path": "rules-engine/src/rules/canonicalAnnouncement.ts",
         "lines": [
-          35,
-          215
+          91,
+          265
         ],
         "samples": [
-          "35: const live = draft.object(announcement.execution.source.ref.objectId)",
-          "215: draft.addToStack({"
+          "91: const live = draft.object(announcement.execution.source.ref.objectId)",
+          "265: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24510,22 +24510,22 @@
       {
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
-          321,
-          487,
-          616,
-          625,
-          706,
-          723,
-          753,
-          775,
-          827,
-          942,
-          969
+          333,
+          499,
+          596,
+          605,
+          686,
+          703,
+          733,
+          755,
+          807,
+          922,
+          949
         ],
         "samples": [
-          "321: const object = draft.object(identity.objectId)",
-          "487: const object = draft.object(recipient.objectId)",
-          "616: const source = draft.object(original.objectId)"
+          "333: const object = draft.object(identity.objectId)",
+          "499: const object = draft.object(recipient.objectId)",
+          "596: const source = draft.object(original.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -26131,27 +26131,27 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          322,
-          375,
-          377,
-          381,
-          383,
-          393,
-          420,
-          423,
-          432,
-          466,
-          471,
-          501,
-          503,
-          509,
-          526,
-          531
+          323,
+          376,
+          378,
+          382,
+          384,
+          394,
+          421,
+          424,
+          433,
+          467,
+          472,
+          502,
+          504,
+          510,
+          527,
+          532
         ],
         "samples": [
-          "322: const object = draft.object(event.objectId)",
-          "375: const object = draft.object(event.objectId)",
-          "377: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "323: const object = draft.object(event.objectId)",
+          "376: const object = draft.object(event.objectId)",
+          "378: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
