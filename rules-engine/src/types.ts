@@ -430,6 +430,9 @@ export type StackExecutionContext = {
   capturedChoiceAliases?: Record<string, string>
   /** Generated-program aliases for parent lexical result bindings. */
   capturedResultAliases?: Record<string, string>
+  /** Parent resolution bindings captured by a separately queued reflexive program. */
+  results?: Record<string, boolean | number>
+  variables?: Partial<Record<'X', number>>
   /** Definition-local ability index for canonical activated/triggered stack items. */
   abilityIndex?: number
   /** Chosen modal branches, captured before priority is returned. */
@@ -521,6 +524,15 @@ export type CanonicalResolutionFrame = {
     changedIndices?: number[]
     answers?: TargetRef[]
   }[]
+  /** Resolution-time optional cost cursor, retained while a payer chooses cards. */
+  pendingResolutionPayment?: {
+    scopeId?: string
+    payer: PlayerId
+    amount: number
+    cost: import('./cardPlugins/dsl/schema/v1').Cost
+    resultBinding: string
+    source: CapturedObject
+  }
 }
 
 /** Temporary durable wrapper for legacy programs until their card is migrated. */

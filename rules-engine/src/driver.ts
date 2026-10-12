@@ -207,8 +207,9 @@ export const startCanonicalResolution = (
     )
   }
   const variables = ability.decisions.variables ?? []
+  const boundVariables = item.x === undefined ? item.execution?.variables : { X: item.x }
   for (const variable of variables) {
-    const value = item.x ?? item.execution?.variables?.[variable.name]
+    const value = boundVariables?.[variable.name]
     if (value === undefined || value < variable.min || value > variable.max) {
       throw new Error(`${declarationPath}.decisions.variables: ${variable.name} is outside its declared bounds`)
     }
@@ -260,6 +261,8 @@ export const startCanonicalResolution = (
     ...(capturedChoices ? { choices: capturedChoices } : {}),
     ...(capturedResults ? { results: capturedResults } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
+    ...(item.execution?.choices ? { choices: structuredClone(item.execution.choices) } : {}),
+    ...(item.execution?.results ? { results: structuredClone(item.execution.results) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
     targetLegalityByScope: structuredClone(gate.targetLegalityByScope),
     ...(gate.outcome === 'resolved' ? {} : { outcome: gate.outcome }),
@@ -1015,6 +1018,10 @@ export const prepareResolutionStep = (draft: Draft) => {
       const context = runtimeContext(draft, frame, item)
       const payer = evaluatePlayerReference(instruction.payer, context)[0]
       if (!payer) throw pathError(frame, path, 'resolution payment payer is not available')
+      const paymentAmount = instruction.cost.kind === 'mana'
+        ? 0
+        : availableAmount(instruction.cost.kind === 'life' ? instruction.cost.amount : instruction.cost.count, context)
+      if (paymentAmount === undefined) throw pathError(frame, path, 'resolution payment amount is not available')
       openOptionSelection(draft, {
         seat: payer,
         sourceId: frame.source.ref.objectId,
@@ -1024,6 +1031,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         action: {
           kind: 'canonicalResolutionPayment',
           stackId: frame.stackId,
+          scopeId: scope.scopeId,
           cost: instruction.cost,
           source: structuredClone(frame.source),
           controller: frame.controller,
@@ -1032,6 +1040,7 @@ export const prepareResolutionStep = (draft: Draft) => {
           ifPaid: instruction.ifPaid ?? [],
           ifDeclined: instruction.ifDeclined ?? [],
           whenPaid: instruction.whenPaid ?? [],
+          paymentAmount,
         },
       })
       frame.phase = 'committing'

@@ -15,6 +15,9 @@ do not reuse announcement ownership or open an ordinary priority window.
 - [x] schema and builders
 - [x] validation and canonical resolution payment/effect frame helpers
 - [x] canonical effect events and resolution payment choice/resume path
+- [x] durable discard/sacrifice/life/mana payment cursor with typed card choices,
+  payer checks, restricted-mana eligibility, scoped branches, and later reflexive
+  checkpoint queuing
 - [x] host/headless/browser projection for the new payment offer
 - [x] durable delayed programs, including source/version pins and captured parent bindings
 - [x] generated granted abilities with recipient-source triggering and typed targets
@@ -28,6 +31,10 @@ compiler capability tests pass on this scope. The Part 10 tests cover immutable
 node compilation, delayed execution after source departure and JSON restart,
 captured parent target bindings, generated ability triggering with fresh typed
 targets, source-incarnation expiry, and declared step/turn deadlines.
+The payment path also covers payer ownership, decline behavior, replaced payment
+destinations, captured-X mana, and a typed sacrifice selection with its paid
+branch. Full Part 10 effect, delayed, and generated-ability coverage remains
+with their owning slices.
 
 ## Remaining work
 
