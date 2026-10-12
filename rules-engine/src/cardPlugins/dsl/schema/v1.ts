@@ -203,7 +203,7 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
-  /** Add the specified mana to each resolved player recipient's pool immediately. */
+  /** Add the specified mana to each resolved player recipient's pool. */
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
@@ -223,7 +223,7 @@ export type Instruction =
   | { kind: 'move'; targets: ObjectRecipient; to: Zone; bindResult?: string }
   /** Phase each resolved object out or in according to `out` during this resolution. */
   | { kind: 'phase'; targets: ObjectRecipient; out: boolean }
-  /** Proliferate each resolved player recipient's permanents and players immediately. */
+  /** Have each resolved player recipient choose permanents and players with counters to proliferate. */
   | { kind: 'proliferate'; targets: PlayerRecipient }
   /** Create the evaluated number of token objects under each resolved player recipient. */
   | { kind: 'createToken'; count: Amount; targets: PlayerRecipient; token: TokenDefinition; bindResult?: string }
@@ -242,7 +242,7 @@ export type Instruction =
       effect: CreatedEffect
       duration: EffectDuration
     }
-  /** Ask the payer for an optional cost, then run the selected branch after that decision. */
+  /** Ask the payer for an optional cost; run ifPaid or ifDeclined immediately, then pause for whenPaidDecisions before the later whenPaid branch. */
   | {
       kind: 'payOptional'
       payer: PlayerReference
@@ -288,7 +288,7 @@ export type Instruction =
     }
   /** Run nested instructions in order, resuming after any player choice pauses resolution. */
   | { kind: 'sequence'; instructions: readonly Instruction[] }
-  /** Let the chooser select at most one option; no option may be selected when unavailable. */
+  /** Let the chooser select one available option; continue without an option when none is available. */
   | {
       kind: 'chooseInstructions'
       chooser: PlayerReference
