@@ -2,7 +2,7 @@
 
 ## Base and scope
 
-This slice is based on `de4f708` (`agent/gpt56luna-rule-dsl-part09-copies`). It
+This slice is based on `ab68bae7` (`agent/gpt56luna-rule-dsl-part09-copies`). It
 adds versioned canonical nodes for temporary effects, optional payments during
 resolution, delayed and reflexive programs, and generated/granted abilities.
 The nodes are validated, immutable, serialized with their parent definition
@@ -33,24 +33,14 @@ node compilation, delayed execution after source departure and JSON restart,
 captured parent target bindings, generated ability triggering with fresh typed
 targets, source-incarnation expiry, and declared step/turn deadlines.
 The payment path also covers payer ownership, decline behavior, replaced payment
-destinations, captured-X mana, and a typed sacrifice selection with its paid
-branch. Full Part 10 effect, delayed, and generated-ability coverage remains
-with their owning slices.
-The payment path also covers empty-pool inline mana activation, cast-only
-restricted mana filtering, independent payers, modal scopes, prevented and
-replaced sacrifice destinations, captured-X mana, JSON restart, and fresh
-reflexive target announcements. Full Part 10 effect, delayed, and
-generated-ability coverage remains with their owning slices.
-The payment path also covers empty-pool inline mana activation, cast-only
-restricted mana filtering, independent payers, modal scopes, prevented and
-replaced sacrifice destinations, atomic multi-card rollback, life-loss
-settlement, captured-X mana, JSON restart, and fresh reflexive target
-announcements. Full Part 10 effect, delayed, and generated-ability coverage
-remains with their owning slices.
+destinations, atomic multi-card rollback, life-loss settlement, captured-X mana,
+JSON restart, fresh callback targets and allocations, parent allocation isolation,
+and parent enter-occurrence capture. The focused Part 10 file has 31 passing
+tests; the full rules-engine suite has 2,334 passing tests.
 
 ## Remaining work
 
-The remaining Part 10 integration includes the final resolution-payment path
-and its host projections. Part 11 owns resumable replacement lineage. The
-delayed and granted programs implemented here stay independent of a live source
-frame and resume from their persisted snapshots and bindings.
+Part 10 implementation is complete on this scope. Part 11 owns resumable
+replacement lineage. The delayed and granted programs implemented here stay
+independent of a live source frame and resume from their persisted snapshots and
+bindings.
