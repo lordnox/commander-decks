@@ -422,7 +422,7 @@
         "cost-reduction",
         "mill"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "The Water Crystal",
       "oracle_id": "f8d2a94f-7be1-4b17-8556-398dde531360",
       "quantity": 1,
@@ -454,44 +454,25 @@
       "submitted_name": "Storm of Saruman"
     },
     {
-      "cache": "cards/34ef174e-1b3d-43d5-9f72-3d35befbdd7f.json",
+      "cache": "cards/307e68e0-5095-474c-af02-bfcb2e463763.json",
       "card": {
-        "cmc": 4.0,
-        "faces": [
-          {
-            "mana_cost": "{2}{U}{U}",
-            "name": "Ojer Pakpatiq, Deepest Epoch",
-            "oracle_text": "Flying\nWhenever you cast an instant spell from your hand, it gains rebound. (Exile it as it resolves. At the beginning of your next upkeep, you may cast it from exile without paying its mana cost.)\nWhen Ojer Pakpatiq dies, return it to the battlefield tapped and transformed under its owner's control with three time counters on it.",
-            "power": "4",
-            "toughness": "3",
-            "type_line": "Legendary Creature — God"
-          },
-          {
-            "mana_cost": "",
-            "name": "Temple of Cyclical Time",
-            "oracle_text": "(Transforms from Ojer Pakpatiq, Deepest Epoch.)\n{T}: Add {U}. Remove a time counter from this land.\n{2}{U}, {T}: Transform this land. Activate only if it has no time counters on it and only as a sorcery.",
-            "type_line": "Land"
-          }
-        ],
-        "keywords": [
-          "Flying",
-          "Transform"
-        ],
-        "produced_mana": [
-          "U"
-        ],
-        "type_line": "Legendary Creature — God // Land"
+        "cmc": 6.0,
+        "keywords": [],
+        "mana_cost": "{5}{U}",
+        "oracle_text": "Exile target instant or sorcery card from your graveyard and target instant or sorcery card from an opponent's graveyard. Copy those cards. Cast the copies if able without paying their mana costs. Exile Spelltwine.",
+        "type_line": "Sorcery"
       },
       "categories": [
-        "recursion"
+        "recursion",
+        "theft"
       ],
-      "category_source": "deck",
-      "name": "Ojer Pakpatiq, Deepest Epoch // Temple of Cyclical Time",
-      "oracle_id": "34ef174e-1b3d-43d5-9f72-3d35befbdd7f",
+      "category_source": "universal",
+      "name": "Spelltwine",
+      "oracle_id": "307e68e0-5095-474c-af02-bfcb2e463763",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/lci/67/ojer-pakpatiq-deepest-epoch-temple-of-cyclical-time?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/c17/94/spelltwine?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Ojer Pakpatiq, Deepest Epoch"
+      "submitted_name": "Spelltwine"
     },
     {
       "cache": "cards/a3faf698-1dac-45ef-9c43-c8cead489ffc.json",
@@ -656,29 +637,27 @@
       "submitted_name": "Psychic Corrosion"
     },
     {
-      "cache": "cards/2e3ec514-fc9e-4964-a493-2a6cc9e63630.json",
+      "cache": "cards/8c0520fa-276b-4d21-b4a9-dce1fce59f6b.json",
       "card": {
-        "cmc": 3.0,
+        "cmc": 6.0,
         "keywords": [
-          "Mill"
+          "Cycling"
         ],
-        "mana_cost": "{U}{U}{U}",
-        "oracle_text": "The Mindskinner can't be blocked.\nIf a source you control would deal damage to an opponent, prevent that damage and each opponent mills that many cards.",
-        "power": "10",
-        "toughness": "1",
-        "type_line": "Legendary Enchantment Creature — Nightmare"
+        "mana_cost": "{5}{U}",
+        "oracle_text": "Whenever you cast a noncreature spell, create an X/X blue Shark creature token with flying, where X is that spell's mana value.\nCycling {X}{1}{U} ({X}{1}{U}, Discard this card: Draw a card.)\nWhen you cycle this card, create an X/X blue Shark creature token with flying.",
+        "type_line": "Enchantment"
       },
       "categories": [
         "win-condition",
-        "mill"
+        "token-production"
       ],
       "category_source": "deck",
-      "name": "The Mindskinner",
-      "oracle_id": "2e3ec514-fc9e-4964-a493-2a6cc9e63630",
+      "name": "Shark Typhoon",
+      "oracle_id": "8c0520fa-276b-4d21-b4a9-dce1fce59f6b",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/dsk/66/the-mindskinner?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/frc/44/shark-typhoon?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "The Mindskinner"
+      "submitted_name": "Shark Typhoon"
     },
     {
       "cache": "cards/274b999f-f193-48fd-9a4a-0fdaf535e6c3.json",
@@ -696,7 +675,7 @@
       "categories": [
         "mill"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Bruvac the Grandiloquent",
       "oracle_id": "274b999f-f193-48fd-9a4a-0fdaf535e6c3",
       "quantity": 1,
@@ -721,7 +700,7 @@
       "categories": [
         "mill"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Exhibition Tidecaller",
       "oracle_id": "d32c9439-4c97-412b-83cc-6d9acb48be3c",
       "quantity": 1,
@@ -745,7 +724,7 @@
       "categories": [
         "recursion"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Torrential Gearhulk",
       "oracle_id": "a6395447-677d-4c39-8eda-2d57e527c94e",
       "quantity": 1,
@@ -855,7 +834,7 @@
         "card-draw",
         "flash-support"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Scout's Warning",
       "oracle_id": "f65cba6a-3ef4-4841-b2c1-578b2a2c3300",
       "quantity": 1,
@@ -876,7 +855,7 @@
         "card-draw",
         "flash-support"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Borne Upon a Wind",
       "oracle_id": "ce19962d-94f9-4b2b-b668-963c0acce308",
       "quantity": 1,
@@ -896,7 +875,7 @@
       "categories": [
         "card-draw"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Into the Story",
       "oracle_id": "f290c2e4-ab52-44d4-bdeb-31aeb835b18d",
       "quantity": 1,
@@ -1023,9 +1002,9 @@
       },
       "categories": [
         "combat-trick",
-        "removal"
+        "protection"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Sudden Spoiling",
       "oracle_id": "dce202c7-fe8e-462a-858e-7a5a69bd5b6b",
       "quantity": 1,
@@ -1139,25 +1118,25 @@
       "submitted_name": "Snuff Out"
     },
     {
-      "cache": "cards/69eeee95-cc69-41d1-833b-8895ef72df82.json",
+      "cache": "cards/d5ea905b-4bb6-48d0-9082-c472703db550.json",
       "card": {
-        "cmc": 6.0,
+        "cmc": 1.0,
         "keywords": [],
-        "mana_cost": "{4}{B}{B}",
-        "oracle_text": "You may exile the top three black cards of your graveyard rather than pay this spell's mana cost.\nSpinning Darkness deals 3 damage to target nonblack creature. You gain 3 life.",
-        "type_line": "Instant"
+        "mana_cost": "{B}",
+        "oracle_text": "At the beginning of each end step, if an opponent lost 2 or more life this turn, you may put a quest counter on this enchantment. (Damage causes loss of life.)\nWhenever a card is put into an opponent's graveyard from anywhere, if this enchantment has three or more quest counters on it, you may have that player lose 2 life. If you do, you gain 2 life.",
+        "type_line": "Enchantment"
       },
       "categories": [
-        "removal",
-        "alternative-cost"
+        "win-condition",
+        "mill-payoff"
       ],
       "category_source": "deck",
-      "name": "Spinning Darkness",
-      "oracle_id": "69eeee95-cc69-41d1-833b-8895ef72df82",
+      "name": "Bloodchief Ascension",
+      "oracle_id": "d5ea905b-4bb6-48d0-9082-c472703db550",
       "quantity": 1,
-      "scryfall_uri": "https://scryfall.com/card/wth/81/spinning-darkness?utm_source=api",
+      "scryfall_uri": "https://scryfall.com/card/cmm/139/bloodchief-ascension?utm_source=api",
       "submitted_categories": [],
-      "submitted_name": "Spinning Darkness"
+      "submitted_name": "Bloodchief Ascension"
     },
     {
       "cache": "cards/99427ebe-c00d-4206-84ca-9764f6e952c6.json",
@@ -1368,7 +1347,7 @@
         "removal",
         "card-draw"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Mystic Confluence",
       "oracle_id": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
       "quantity": 1,
@@ -1410,7 +1389,7 @@
         "removal",
         "protection"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Soul Partition",
       "oracle_id": "2cfd5c18-47d0-4549-aacc-2428db21df2f",
       "quantity": 1,
@@ -1431,7 +1410,7 @@
         "removal",
         "protection"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Snap",
       "oracle_id": "ac914d98-221e-426c-8a50-342896b15f9e",
       "quantity": 1,
@@ -1509,7 +1488,7 @@
       "categories": [
         "land"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Tundra",
       "oracle_id": "02418479-9455-417f-a6a1-004356faff37",
       "quantity": 1,
@@ -1557,7 +1536,7 @@
       "categories": [
         "land"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Scrubland",
       "oracle_id": "c8d95ca8-7d12-4072-aeaf-e20f248c7e39",
       "quantity": 1,
@@ -1749,7 +1728,7 @@
       "categories": [
         "land"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Windswept Heath",
       "oracle_id": "29737a60-3ebd-40d9-b935-c4f54b90d45d",
       "quantity": 1,
@@ -1789,7 +1768,7 @@
       "categories": [
         "land"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Arid Mesa",
       "oracle_id": "c5acf2a5-40f4-433d-a74d-1cb56c521464",
       "quantity": 1,
@@ -1928,7 +1907,7 @@
       "categories": [
         "land"
       ],
-      "category_source": "deck",
+      "category_source": "universal",
       "name": "Sea of Clouds",
       "oracle_id": "672e190d-8ea0-4a2e-b74f-5d35304631e4",
       "quantity": 1,
@@ -2229,7 +2208,7 @@
     }
   ],
   "categorized_cards": 96,
-  "generated_at": "2026-10-12T22:37:07.927718+00:00",
+  "generated_at": "2026-10-12T22:53:42.988765+00:00",
   "maybeboard_cards": 0,
   "maybeboard_unique_cards": 0,
   "resolved_unique_cards": 96,

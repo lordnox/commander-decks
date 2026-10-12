@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "cutoff": 3,
-  "summary": "Esper draw-go control pairs cheap setup instants with discounted high-value spells, clones Saruman for graveyard theft, and converts second casts, draws, and mill into finite finishes.",
+  "summary": "Esper draw-go control pairs cheap setup instants with discounted high-value spells, clones Saruman for graveyard theft, and converts second casts, draws, and mill into finite combat, drain, and mill finishes.",
   "tags": [
     {
       "name": "control",
@@ -54,9 +54,14 @@
       "reason": "Draw-go instants, Gearhulk, and flash-enabling cantrips develop at reactive timing."
     },
     {
+      "name": "lifedrain",
+      "score": 3,
+      "reason": "Onyx, Guildmage, and charged Bloodchief Ascension turn spells or graveyard entries into life loss."
+    },
+    {
       "name": "tokens",
       "score": 3,
-      "reason": "Aligned Heart is a dedicated token finish and Rammas supplies blockers."
+      "reason": "Aligned Heart and Shark Typhoon are dedicated combat finishes; Rammas supplies blockers."
     },
     {
       "name": "activated abilities",
@@ -81,7 +86,7 @@
     {
       "name": "combo",
       "score": 2,
-      "reason": "Guildmage mill bursts and cloned Mindskinner plus Mirrorweave are finite finishing packages."
+      "reason": "Guildmage and charged Ascension convert finite mill bursts into lethal life loss."
     },
     {
       "name": "enchantments",
@@ -91,17 +96,17 @@
     {
       "name": "exile",
       "score": 2,
-      "reason": "Saruman and rebound/suspend provide meaningful casting outside the hand."
+      "reason": "Saruman, Spelltwine, and suspend provide meaningful casting outside the hand."
+    },
+    {
+      "name": "flying",
+      "score": 2,
+      "reason": "Shark Typhoon supplies scalable flying threats as a dedicated finish."
     },
     {
       "name": "graveyard",
       "score": 2,
-      "reason": "Theft and Gearhulk depend on stocked graveyards."
-    },
-    {
-      "name": "lifedrain",
-      "score": 2,
-      "reason": "Onyx and Guildmage convert spell and mill events into life loss."
+      "reason": "Saruman, Spelltwine, and Gearhulk exploit stocked graveyards."
     },
     {
       "name": "prowess",
@@ -144,11 +149,6 @@
       "reason": "Pitch/discard costs and Frantic Search fuel the graveyard."
     },
     {
-      "name": "flying",
-      "score": 1,
-      "reason": "Some engines and cloned creatures have flying."
-    },
-    {
       "name": "hand size",
       "score": 1,
       "reason": "Water Crystal scales its activation to the hand."
@@ -182,16 +182,6 @@
       "name": "topdeck",
       "score": 1,
       "reason": "Brainstorm, Mystic Sanctuary, and Submerge manipulate library tops."
-    },
-    {
-      "name": "transform",
-      "score": 1,
-      "reason": "Ojer can recover through its land face."
-    },
-    {
-      "name": "unblockable",
-      "score": 1,
-      "reason": "Mindskinner is an unblockable finisher."
     },
     {
       "name": "wizards",

@@ -28,22 +28,20 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Lotho, Corrupt Shirriff** — Second spells by any player generate Treasure across the rotation; this turns the declared subtheme into reactive mana without needing Saruman.
 - **Alphinaud Leveilleur** — Draws on the exact second-spell event the deck is built to repeat, including during opponents’ turns.
 - **Rammas Echor, Ancient Shield** — Second-spell draw is paired with blockers so the control deck can spend turns holding mana rather than racing.
-- **Vega, the Watcher** — Replaces Saruman’s cast copies and also rewards Gearhulk, rebound, and suspend casts outside the hand.
+- **Vega, the Watcher** — Replaces Saruman’s cast copies and also rewards Gearhulk, Spelltwine, and suspend casts outside the hand.
 - **Wavebreak Hippocamp** — Draws on the first cast of each opponent’s turn, supporting the cantrip-plus-answer sequence before the commander arrives.
 - **Archmage Emeritus** — Draws on instant/sorcery casts and spell copies, sustaining the reaction chain even when Saruman is taxed.
 - **Lavinia, Foil to Conspiracy** — Produces two colorless mana on opposing turns and converts second casts into Clues, combining reactive mana and delayed draw.
 - **Monk Class** — Discounts the second spell regardless of whose turn it is, with bounce and exile access as later mana sinks.
 - **The Water Crystal** — Blue discounts make holding answers easier; adding four to small mill events gives repeated draw and second-spell triggers finishing relevance.
 - **Storm of Saruman** — Copies the second spell each turn, and its nonlegendary exception can duplicate the commander as he is cast.
-- **Ojer Pakpatiq, Deepest Epoch // Temple of Cyclical Time** — Rebound recasts hand-cast instants, particularly draw and mill, without spending more cards; its land recovery gives an engine a second life.
 - **Irenicus's Vile Duplication** — Creates a lasting nonlegendary copy of Saruman or a draw/finishing creature; the spell also feeds cast payoffs.
-- **Spark Double** — Makes a nonlegendary Saruman, creature draw engine, Mindskinner, or Onyx; that flexibility matters more than cloning only the commander.
+- **Spark Double** — Makes a nonlegendary Saruman, creature draw engine, or Onyx; that flexibility matters more than cloning only the commander.
 - **Sakashima of a Thousand Faces** — Copies an engine and removes the legend rule for our permanents, enabling multiple Sarumans or other legendary payoffs.
 - **Aligned Heart** — Dedicated second-spell finisher whose increasing token production happens while we hold up interaction, with prowess converting later spells into damage.
 - **Professor Onyx** — Dedicated noncombat finish that drains all opponents for instant/sorcery casts and stack copies; also selects cards and answers a large creature.
 - **Duskmantle Guildmage** — Dedicated mill-to-life-loss finisher; multiple first-ability activations scale existing mill bursts instead of needing a separate infinite combo.
 - **Psychic Corrosion** — Dedicated draw-to-mill finisher that converts the draw-go engine into pressure on every opponent’s library.
-- **The Mindskinner** — Dedicated table-wide mill finisher with unblockable combat; a nonlegendary clone makes Mirrorweave a scalable finishing trick.
 - **Bruvac the Grandiloquent** — Doubles opposing mill for Saruman’s theft choices and the mill finishers; does not affect exile or self-mill.
 - **Exhibition Tidecaller** — One-mana mill engine tied to instant/sorcery casts, including stolen spells; can target ourselves when graveyard fuel matters.
 - **Torrential Gearhulk** — Flash body plus a free graveyard instant is a natural draw-go first-spell/second-spell package and a recovery tool.
@@ -58,14 +56,13 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Fact or Fiction** — Instant card advantage and graveyard stocking let unused interaction mana become resources at end step.
 - **Frantic Search** — Draw/discard selection untaps lands, feeds graveyard costs, and advances the spell count with little net mana expenditure.
 - **Shelter** — Protection plus draw keeps a creature engine alive without reducing the hand’s spell density.
-- **Mirrorweave** — Signature tricky interaction can shrink a creature board or turn an established token board into copies of a nonlegendary Mindskinner; only nonlegendary targets are legal.
+- **Mirrorweave** — Signature tricky interaction can shrink a creature board or turn an established token board into copies of a nonlegendary engine; only nonlegendary targets are legal.
 - **Sudden Spoiling** — Signature split-second disruption removes one player’s creature abilities and shrinks their base bodies; it buys a window for blocks or removal rather than being a standalone wipe.
 - **Aetherize** — Signature instant answer punishes an attacking board while preserving our own creatures and open-mana play pattern.
 - **Aetherspouts** — Mana-value-five combat reset sends attackers to libraries and forces awkward redraws while supporting Saruman’s theft ceiling.
 - **Reins of Power** — A reactive creature exchange can remove an opponent’s attackers from combat or borrow a board for a finishing attack; the temporary loss of our engines is an explicit cost.
 - **Evacuation** — Instant global creature reset handles boards before they attack and can preserve/reuse nontoken engines and Gearhulk.
 - **Snuff Out** — Mana-value-four removal can cost life rather than mana, letting a cheap first spell leave mana for further reactions; the mana base supports a Swamp.
-- **Spinning Darkness** — Original theme example: mana value six retained at a black-graveyard alternative cost. Low black density means its free mode is expected late, not guaranteed early.
 - **Submerge** — Conditional free mana-value-five creature answer; its library placement can also set up Saruman’s later mill when timing permits.
 - **Commandeer** — Mana-value-seven spell theft changes the stack’s ownership while setting a large Saruman ceiling. Exiling two blue cards is a genuine resource cost.
 - **Misdirection** — Mana-value-five target redirection protects engines or turns opposing single-target spells around without reserving mana.
@@ -114,6 +111,10 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Plains** — Two basics support white cantrips, creature engines, and Abolish’s discard option while providing basic fetch targets.
 - **Swamp** — Basic black source and Vista target that can enable Snuff Out without paying shockland life.
 
+- **Shark Typhoon** — Dedicated evasive combat finish that rewards printed mana value even when the noncreature spell costs little or zero; cycling also fits draw-go as a blocker plus draw.
+- **Bloodchief Ascension** — Sixth dedicated finish: once three end-step counters are earned, existing mill becomes life loss and life gain without an activation payment.
+- **Spelltwine** — Six-mana spell recovers one of our instants/sorceries and one opponent’s, casting both copies to feed Vega, magecraft, Tidecaller, and finishing engines.
+
 ## Cards out
 
 - **Pact of Negation**, **Slaughter Pact**, **Intervention Pact** — rejected in the conversation. Their mana value zero is a poor second-spell ceiling and the deferred payments consume future reactive mana.
@@ -128,19 +129,19 @@ All cards discussed in chat were candidates, not mandatory slots. Included candi
 
 - **Shadow Kin** — flash and repeated mill fit, but its upkeep clone is dependent on the next small set of milled creatures and has no nonlegendary exception. Taigam occupies the engine slot for deterministic second-spell copies.
 - **The Council of Four** — draws and makes Knights from players acting on their own turns. Our own reactive second spells on another player's turn do not make Knights, and five mana competes with engines more directly tied to our plan.
-- **Cruel Somnophage** — adventure supplies cheap mill and a later Vega cast, but a large ground body needs another slot for evasion and counts only creature cards. Five dedicated finishers already cover combat, drain, and mill.
+- **Cruel Somnophage** — adventure supplies cheap mill and a later Vega cast, but a large ground body needs another slot for evasion and counts only creature cards. Six dedicated finishers already cover combat, drain, and mill.
 - **Gríma, Saruman's Footman** — thematic and can make a stolen spell the second cast after a precombat setup. Combat dependency and lack of mill synergy make it less essential than reactive engines.
 - **Alisaie Leveilleur** — discount and finding Alphinaud are attractive; Monk Class and Water Crystal provide discounts without adding another creature engine. Revisit if mana is repeatedly the limiter.
 - **Uthros Psionicist** — second-spell discount is excellent, but adds another fragile three-mana permanent to deploy; compare against existing mana/discount slots after table testing.
 - **Breach the Multiverse** — large theft payoff, but paying seven at sorcery speed pulls away from the main draw-go play pattern.
-- **Syr Konrad, the Grim** — mill/damage synergy, including a Mindskinner chain, is real. The creature-density dependence adds another finishing package to a list that already has five closers.
+- **Syr Konrad, the Grim** — mill/damage synergy, including a Mindskinner chain, is real. The creature-density dependence adds another finishing package to a list that already has six closers.
 
 ## Rules
 
 - Second-spell abilities see only that cast, not every spell afterward. A Saruman copy cast during resolution normally becomes spell three or later.
 - Saruman copies a card in exile and permits casting it. Vega sees the cast outside the hand. Magecraft sees casting the instant/sorcery spell, not the initial copied card. Storm and Taigam copy actual spells and therefore trigger magecraft without counting as additional casts.
 - Sudden Spoiling has split second. If it is our second spell, Saruman triggers before Spoiling resolves but cannot cast the stolen copy while Spoiling remains on the stack. The mill and exile still occur. Use it first when a later theft cast matters.
-- Mirrorweave targets only a nonlegendary creature and affects every other creature, including opponents'. A nonlegendary clone of Mindskinner is the intended finishing target. It does not retroactively unblock creatures.
+- Mirrorweave targets only a nonlegendary creature and affects every other creature, including opponents'. A nonlegendary clone of Saruman is a possible engine target. It does not retroactively unblock creatures.
 - Mindskinner prevents damage to opponents; that event does not also cause combat life loss or commander damage. Multiple copies do not repeatedly multiply the same prevented damage event: once prevented, there is no remaining damage event for another Mindskinner to replace.
 - Multiple Bruvacs do multiply mill. With Bruvac and Water Crystal, the affected opponent chooses replacement order: a two-card mill becomes eight or twelve. Do not base lethal on the more favorable order.
 - Guildmage first-ability activations stack, but only cards that actually enter an opponent's graveyard cause life-loss triggers. Graveyard replacement effects can invalidate a kill.
@@ -160,7 +161,7 @@ The user chose Saruman of Many Colors after looking for high printed mana values
 
 38 actual lands support a six-mana commander and repeated spell payments. Seven two-mana rocks plus Lotho and Lavinia are true nonland mana engines; Monk Class and Water Crystal are discounts rather than unconditional ramp. Lands are categorized separately from ramp in this deck, even where shared defaults mechanically infer ramp from tap-for-mana text. The fetch-heavy, typed mana base protects blue, Island/Swamp/Plains dependencies, and draw-go timing. Original duals are permitted infrastructure with no declared budget. Raffine's Tower, Mystic Sanctuary, and Bojuka Bog pay tempo for specific functions; check lands remain conditional as well.
 
-Five finishing slots: Aligned Heart, Professor Onyx, Duskmantle Guildmage, Psychic Corrosion, The Mindskinner. Clones and general value creatures are not counted as separate finishers. Three dedicated clones plus Storm's nonlegendary spell-copy effect can multiply Saruman or a draw/finishing engine. No Pacts, extra turns, hard-lock package, unrestricted tutor chain, or Sol Ring-class permanent fast mana.
+Six finishing slots: Aligned Heart, Professor Onyx, Duskmantle Guildmage, Psychic Corrosion, Shark Typhoon, Bloodchief Ascension. Clones and general value creatures are not counted as separate finishers. Three dedicated clones plus Storm's nonlegendary spell-copy effect can multiply Saruman or a draw/finishing engine. No Pacts, extra turns, hard-lock package, unrestricted tutor chain, or Sol Ring-class permanent fast mana.
 
 Force of Will is the one intentional cached Game Changer (2026-09-03 snapshot): it supplies a free mana-value-five second spell and broad stack coverage in a deck explicitly built around high-value alternative costs. It is included for that named interaction, not merely because blue can run free protection. The user's powerful-build instruction justifies reliable on-theme alternatives without turning the deck into cEDH. Formal bracket classification remains unset until assessed.
 
@@ -171,3 +172,13 @@ Force of Will is the one intentional cached Game Changer (2026-09-03 snapshot): 
 ## Primer
 
 The primer separates first/second/third spells, cast-card copies from stack copies, and finite finishing arithmetic from loops. Setup testing must not be represented as proof of a win turn or a multiplayer result.
+
+### 2026-10-13 — Latest candidate pass
+
+The user supplied Spelltwine, Mnemonic Deluge, Talent of the Telepath, Palantír of Orthanc, Rammas Echor, Bloodchief Ascension, As Foretold, Mind's Dilation, and Shark Typhoon as candidates. Rammas was already included. Shark Typhoon becomes the scalable combat finish in the former Mindskinner slot; it directly rewards discounted high-value noncreature spells without requiring a clone plus Mirrorweave. Bloodchief Ascension occupies the Spinning Darkness slot as the sixth finish: black-card density made Darkness's free mode unreliable and its three-damage restriction was low impact in the powerful shell. Spelltwine occupies Ojer's engine slot; it casts two chosen copies now instead of relying on delayed rebound windows with legal targets.
+
+Remaining maybes: Mnemonic Deluge has a strong triple-copy ceiling but costs nine including three blue; Mind's Dilation is a seven-mana random theft engine. Neither should crowd a six-mana commander, Storm, Onyx, and Gearhulk. Talent of the Telepath casts revealed original cards, not copies, and depends on the selected opponent's instant/sorcery density; its reveal-and-put-in-graveyard instruction is not technically mill and is not increased by Bruvac or Water Crystal. Palantír of Orthanc's scry plus draw-or-self-mill is attractive, but the opponent controls whether it actually draws and it triggers only on our end step. As Foretold offers a free cast once each turn but needs time counters and does not grant flash; retain as a candidate rather than assume it can freely cast high-value cards immediately. Ojer, Mindskinner, and Spinning Darkness remain discussed maybes with their above reasons for leaving this first build. No Mindcrank loop is included with Ascension.
+
+### 2026-10-13 — Setup checks
+
+Four legal turn-five traces use final-list seeds 1729 and 2718, with deterministic fetch shuffles and additional draws applied rather than copying the helper's original draw list. Three meet the declared mana/card-access/answer milestone; one has mana but delayed draw. All four have a legal answer to a turn-five Citadel, but some consume the whole reactive budget. Creature protection works in the hands with Shelter/Keep Safe; an artifact/enchantment wipe is a genuine weak branch. Commander tax twice cannot be paid immediately from the known resources. Twelve initial situations were screened; eleven have a keep by one paid mulligan, but only four have complete turn traces. See SETUP-CHECKS.md for the model and limitations. No bracket or win-turn claim is inferred from these setup checks.

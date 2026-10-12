@@ -16,7 +16,7 @@
 1 Monk Class
 1 The Water Crystal
 1 Storm of Saruman
-1 Ojer Pakpatiq, Deepest Epoch
+1 Spelltwine
 1 Irenicus's Vile Duplication
 1 Spark Double
 1 Sakashima of a Thousand Faces
@@ -24,7 +24,7 @@
 1 Professor Onyx
 1 Duskmantle Guildmage
 1 Psychic Corrosion
-1 The Mindskinner
+1 Shark Typhoon
 1 Bruvac the Grandiloquent
 1 Exhibition Tidecaller
 1 Torrential Gearhulk
@@ -46,7 +46,7 @@
 1 Reins of Power
 1 Evacuation
 1 Snuff Out
-1 Spinning Darkness
+1 Bloodchief Ascension
 1 Submerge
 1 Commandeer
 1 Misdirection

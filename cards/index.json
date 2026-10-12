@@ -2039,13 +2039,9 @@
     "monk class": "65b28ec7-1099-4f9d-8d57-2ffd8a5b0e91",
     "the water crystal": "f8d2a94f-7be1-4b17-8556-398dde531360",
     "storm of saruman": "cf5f4860-e805-46a3-9352-a2c583e33403",
-    "ojer pakpatiq, deepest epoch": "34ef174e-1b3d-43d5-9f72-3d35befbdd7f",
-    "ojer pakpatiq, deepest epoch // temple of cyclical time": "34ef174e-1b3d-43d5-9f72-3d35befbdd7f",
-    "temple of cyclical time": "34ef174e-1b3d-43d5-9f72-3d35befbdd7f",
     "professor onyx": "9df2e909-ed13-456a-9636-7398732009a9",
     "duskmantle guildmage": "ec44ca05-6b10-4be2-b4df-967535967fce",
     "psychic corrosion": "328b42f1-d679-4f9c-80e3-38fe3b965d10",
-    "the mindskinner": "2e3ec514-fc9e-4964-a493-2a6cc9e63630",
     "bruvac the grandiloquent": "274b999f-f193-48fd-9a4a-0fdaf535e6c3",
     "exhibition tidecaller": "d32c9439-4c97-412b-83cc-6d9acb48be3c",
     "torrential gearhulk": "a6395447-677d-4c39-8eda-2d57e527c94e",
@@ -2054,7 +2050,6 @@
     "shelter": "c1909d70-d8f4-4c54-8587-0a910f123238",
     "sudden spoiling": "dce202c7-fe8e-462a-858e-7a5a69bd5b6b",
     "aetherspouts": "48369aec-a991-4bef-8554-01c84302b063",
-    "spinning darkness": "69eeee95-cc69-41d1-833b-8895ef72df82",
     "submerge": "99427ebe-c00d-4206-84ca-9764f6e952c6",
     "commandeer": "ad7d854b-d303-40eb-acd6-03a8023e05e7",
     "misdirection": "c39e5fb0-6de3-4105-ad3c-0ecb8951a1d5",
@@ -2072,8 +2067,10 @@
     "scout's warning": "f65cba6a-3ef4-4841-b2c1-578b2a2c3300",
     "borne upon a wind": "ce19962d-94f9-4b2b-b668-963c0acce308",
     "mystic confluence": "cd11c27b-9368-4622-bc5a-2e0b993cc42b",
-    "force of negation": "ac2173f9-f223-440a-9231-fd98762bdc6f"
+    "force of negation": "ac2173f9-f223-440a-9231-fd98762bdc6f",
+    "spelltwine": "307e68e0-5095-474c-af02-bfcb2e463763",
+    "shark typhoon": "8c0520fa-276b-4d21-b4a9-dce1fce59f6b"
   },
   "schema_version": 1,
-  "updated_at": "2026-10-12T22:36:08.098666+00:00"
+  "updated_at": "2026-10-12T22:43:59.602286+00:00"
 }

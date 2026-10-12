@@ -38,24 +38,11 @@
         "second-spell"
       ]
     },
-    "f8d2a94f-7be1-4b17-8556-398dde531360": {
-      "name": "The Water Crystal",
-      "categories": [
-        "cost-reduction",
-        "mill"
-      ]
-    },
     "cf5f4860-e805-46a3-9352-a2c583e33403": {
       "name": "Storm of Saruman",
       "categories": [
         "spell-copy",
         "second-spell"
-      ]
-    },
-    "34ef174e-1b3d-43d5-9f72-3d35befbdd7f": {
-      "name": "Ojer Pakpatiq, Deepest Epoch // Temple of Cyclical Time",
-      "categories": [
-        "recursion"
       ]
     },
     "a3faf698-1dac-45ef-9c43-c8cead489ffc": {
@@ -105,29 +92,11 @@
         "mill"
       ]
     },
-    "2e3ec514-fc9e-4964-a493-2a6cc9e63630": {
-      "name": "The Mindskinner",
+    "8c0520fa-276b-4d21-b4a9-dce1fce59f6b": {
+      "name": "Shark Typhoon",
       "categories": [
         "win-condition",
-        "mill"
-      ]
-    },
-    "274b999f-f193-48fd-9a4a-0fdaf535e6c3": {
-      "name": "Bruvac the Grandiloquent",
-      "categories": [
-        "mill"
-      ]
-    },
-    "d32c9439-4c97-412b-83cc-6d9acb48be3c": {
-      "name": "Exhibition Tidecaller",
-      "categories": [
-        "mill"
-      ]
-    },
-    "a6395447-677d-4c39-8eda-2d57e527c94e": {
-      "name": "Torrential Gearhulk",
-      "categories": [
-        "recursion"
+        "token-production"
       ]
     },
     "49f2cbc3-bd03-48e6-b1c4-d7f315b8579d": {
@@ -135,26 +104,6 @@
       "categories": [
         "spell-copy",
         "second-spell"
-      ]
-    },
-    "f65cba6a-3ef4-4841-b2c1-578b2a2c3300": {
-      "name": "Scout's Warning",
-      "categories": [
-        "card-draw",
-        "flash-support"
-      ]
-    },
-    "ce19962d-94f9-4b2b-b668-963c0acce308": {
-      "name": "Borne Upon a Wind",
-      "categories": [
-        "card-draw",
-        "flash-support"
-      ]
-    },
-    "f290c2e4-ab52-44d4-bdeb-31aeb835b18d": {
-      "name": "Into the Story",
-      "categories": [
-        "card-draw"
       ]
     },
     "f8b17b89-26ce-4208-874a-9e1d66514640": {
@@ -183,13 +132,6 @@
       "categories": [
         "combat-trick",
         "protection"
-      ]
-    },
-    "dce202c7-fe8e-462a-858e-7a5a69bd5b6b": {
-      "name": "Sudden Spoiling",
-      "categories": [
-        "combat-trick",
-        "removal"
       ]
     },
     "7c779721-cd1b-4696-9ae9-68ccc284ed2a": {
@@ -227,11 +169,11 @@
         "alternative-cost"
       ]
     },
-    "69eeee95-cc69-41d1-833b-8895ef72df82": {
-      "name": "Spinning Darkness",
+    "d5ea905b-4bb6-48d0-9082-c472703db550": {
+      "name": "Bloodchief Ascension",
       "categories": [
-        "removal",
-        "alternative-cost"
+        "win-condition",
+        "mill-payoff"
       ]
     },
     "99427ebe-c00d-4206-84ca-9764f6e952c6": {
@@ -299,14 +241,6 @@
         "alternative-cost"
       ]
     },
-    "cd11c27b-9368-4622-bc5a-2e0b993cc42b": {
-      "name": "Mystic Confluence",
-      "categories": [
-        "counterspell",
-        "removal",
-        "card-draw"
-      ]
-    },
     "ac2173f9-f223-440a-9231-fd98762bdc6f": {
       "name": "Force of Negation",
       "categories": [
@@ -314,34 +248,8 @@
         "alternative-cost"
       ]
     },
-    "2cfd5c18-47d0-4549-aacc-2428db21df2f": {
-      "name": "Soul Partition",
-      "categories": [
-        "removal",
-        "protection"
-      ]
-    },
-    "ac914d98-221e-426c-8a50-342896b15f9e": {
-      "name": "Snap",
-      "categories": [
-        "removal",
-        "protection"
-      ]
-    },
-    "02418479-9455-417f-a6a1-004356faff37": {
-      "name": "Tundra",
-      "categories": [
-        "land"
-      ]
-    },
     "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b": {
       "name": "Underground Sea",
-      "categories": [
-        "land"
-      ]
-    },
-    "c8d95ca8-7d12-4072-aeaf-e20f248c7e39": {
-      "name": "Scrubland",
       "categories": [
         "land"
       ]
@@ -394,20 +302,8 @@
         "land"
       ]
     },
-    "29737a60-3ebd-40d9-b935-c4f54b90d45d": {
-      "name": "Windswept Heath",
-      "categories": [
-        "land"
-      ]
-    },
     "fc0707c7-d504-4ccf-a0d2-3eb6e26e7a57": {
       "name": "Bloodstained Mire",
-      "categories": [
-        "land"
-      ]
-    },
-    "c5acf2a5-40f4-433d-a74d-1cb56c521464": {
-      "name": "Arid Mesa",
       "categories": [
         "land"
       ]
@@ -438,12 +334,6 @@
     },
     "33de01e9-ce5a-42d4-afcb-343cd54a6d80": {
       "name": "Caves of Koilos",
-      "categories": [
-        "land"
-      ]
-    },
-    "672e190d-8ea0-4a2e-b74f-5d35304631e4": {
-      "name": "Sea of Clouds",
       "categories": [
         "land"
       ]
