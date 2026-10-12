@@ -191,7 +191,12 @@ export const startCanonicalResolution = (
       state: draft,
       controller: item.controller,
       source,
-      variables: item.x === undefined ? undefined : { X: item.x },
+      occurrence: item.execution?.occurrence,
+      capturedOccurrence: item.execution?.capturedOccurrence,
+      capturedOccurrenceBindings: item.execution?.capturedOccurrenceBindings,
+      variables: item.x === undefined ? item.execution?.variables : { X: item.x },
+      choices: item.execution?.choices,
+      results: item.execution?.results,
     })
     validateScopedDistributions(
       distributionSpecs,

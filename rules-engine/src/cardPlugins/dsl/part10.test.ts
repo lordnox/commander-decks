@@ -610,16 +610,16 @@ describe('Rule DSL Part 10 programs', () => {
 
   test('paid callback announces and consumes its own fresh distribution', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
-      decisions: { targets: [] },
+      decisions: { targets: [], variables: [{ name: 'X', min: 1, max: 2 }] },
       instructions: [payOptional({
         payer: ref('controller'),
         cost: { kind: 'life', amount: amount(1) },
         bindResult: 'paid', ifPaid: [], ifDeclined: [],
         whenPaidDecisions: {
-          targets: [select({ filter: players({}), count: 2 })],
-          distributions: [distribution({ targetClauseIndex: 0, total: 3, minEach: 1 })],
+          targets: [select({ filter: players({}), count: { kind: 'variable', name: 'X' } })],
+          distributions: [distribution({ targetClauseIndex: 0, total: { kind: 'variable', name: 'X' }, minEach: 1 })],
         },
-        whenPaid: [gainLife({ amount: 3, targets: target(0) })],
+        whenPaid: [gainLife({ amount: { kind: 'variable', name: 'X' }, targets: target(0) })],
       })],
     })])))
     const server = createServerGame(commanderRules, {
@@ -627,7 +627,7 @@ describe('Rule DSL Part 10 programs', () => {
       hands: { p1: [cardTemplate('Fresh callback distribution', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
     }, { random: () => 0 })
     const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Fresh callback distribution')!
-    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id, x: 2 })
     expect(cast.ok).toBe(true)
     if (!cast.ok) return
     const started = server.rules(cast.state, { type: 'resolveTop' })
@@ -651,7 +651,7 @@ describe('Rule DSL Part 10 programs', () => {
     if (!first.ok) return
     const second = pendingOptionSelection(first.state, 'p1')!
     const completed = server.rules(first.state, {
-      type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'allocation:1:2',
+      type: 'selectOption', seat: 'p1', selectionId: second.id, optionId: 'allocation:1:1',
     })
     expect(completed.ok).toBe(true)
     if (completed.ok) {
@@ -659,7 +659,7 @@ describe('Rule DSL Part 10 programs', () => {
       expect(resolved.ok).toBe(true)
       if (resolved.ok) {
         expect(resolved.state.players.p1.life).toBe(40)
-        expect(resolved.state.players.p2.life).toBe(42)
+        expect(resolved.state.players.p2.life).toBe(41)
       }
     }
   })
