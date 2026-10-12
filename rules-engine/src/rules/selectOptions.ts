@@ -368,7 +368,7 @@ const resolutionPaymentPayable = (
   action: Extract<PendingOptionSelection['action'], { kind: 'canonicalResolutionPayment' }>,
 ) => {
   switch (action.cost.kind) {
-    case 'mana': return canPayResolutionMana(state, seat, action.cost, action.source)
+    case 'mana': return canPayResolutionMana(state, seat, action.cost, action.source, action.bindings)
     case 'life': return state.players[seat].life >= action.paymentAmount
     case 'discard':
     case 'sacrifice': return resolutionPaymentCandidates(state, seat, action.cost, action.source, action.bindings).length >= action.paymentAmount
@@ -754,7 +754,7 @@ export const selectOptions: Plugin = {
         }
         switch (cost.kind) {
           case 'mana': {
-            const nextMana = payResolutionMana(draft, event.seat, cost, selection.action.source)
+            const nextMana = payResolutionMana(draft, event.seat, cost, selection.action.source, selection.action.bindings)
             if (!nextMana) return
             draft.players[event.seat].mana = nextMana.pool
             draft.players[event.seat].restrictedMana = nextMana.restrictedMana

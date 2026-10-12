@@ -1,6 +1,6 @@
 import type { CapturedObject, GameState, ManaId, PlayerId } from '../../types'
 import type { Cost } from './schema/v1'
-import { activationPermission, beginActivatedAnnouncement } from './compiler/announcement'
+import { activationPermission, beginActivatedAnnouncement, lockedManaCost } from './compiler/announcement'
 import { canonicalManaAbilityForTap } from '../activated'
 import { evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
 import { manaModes, tapForManaError } from '../../plugins/mana'
@@ -49,12 +49,14 @@ export const payResolutionMana = (
   payer: PlayerId,
   cost: Extract<Cost, { kind: 'mana' }>,
   _source: CapturedObject,
+  bindings: ResolutionPaymentBindings = {},
 ) => {
   // Resolution payments are not spell casts.  Restricted mana whose effect
   // says it may be spent only to cast a qualifying spell therefore cannot be
   // consumed merely because the parent source happens to be a spell.
   const pool = state.players[payer]?.mana
-  const paid = pool ? payCost(pool, cost.amount) : null
+  const amount = lockedManaCost({ mandatory: [cost] }, bindings.variables?.X ?? 0)
+  const paid = pool ? payCost(pool, amount) : null
   return paid ? { pool: paid, restrictedMana: state.players[payer].restrictedMana ?? [] } : null
 }
 
@@ -63,7 +65,8 @@ export const canPayResolutionMana = (
   payer: PlayerId,
   cost: Extract<Cost, { kind: 'mana' }>,
   source: CapturedObject,
-) => Boolean(payResolutionMana(state, payer, cost, source))
+  bindings: ResolutionPaymentBindings = {},
+) => Boolean(payResolutionMana(state, payer, cost, source, bindings))
 
 export const eligibleResolutionManaAbilities = (
   state: GameState,

@@ -1036,7 +1036,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         ...(context.occurrence ? { occurrence: structuredClone(context.occurrence) } : {}),
         ...(scope.scopeId ? { scopeId: scope.scopeId } : {}),
       }
-      const manaActivations = instruction.cost.kind === 'mana' && !canPayResolutionMana(draft, payer, instruction.cost, frame.source)
+      const manaActivations = instruction.cost.kind === 'mana' && !canPayResolutionMana(draft, payer, instruction.cost, frame.source, bindings)
         ? eligibleResolutionManaAbilities(draft, payer)
         : []
       const options = [
