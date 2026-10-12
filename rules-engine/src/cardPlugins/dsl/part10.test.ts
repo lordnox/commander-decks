@@ -1272,4 +1272,3 @@ describe('Rule DSL Part 10 programs', () => {
     if (callback.ok) expect(callback.state.players.p1.life).toBe(41)
   })
 })
-
