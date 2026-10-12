@@ -88,7 +88,9 @@ Resolve conflicts in this integration worktree. Do not amend published
 commits. Do not force-push part branches.
 
 Then inspect the full combined diff, drop unrelated cache/registry
-noise, push, and open one ready-for-review PR (`draft: false`):
+noise, push, and open one ready-for-review PR (`draft: false`). Title it
+`<area>: <imperative summary>` from [`.github/PULL_REQUESTS.md`](../../../.github/PULL_REQUESTS.md);
+numbered Rule DSL work is `dsl: Part N …`.
 
 ```bash
 git push -u origin HEAD
