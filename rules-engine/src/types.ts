@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
+import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -169,10 +169,31 @@ export type EffectDuration =
   | { kind: 'pumpPerLinkedExile' }
   /** `index` is the spec's position among the source's `staticBoardPump` effects. */
   | { kind: 'staticBoardPump'; sourceId: string; index: number }
+  /** Printed static ability from a canonical `ruleDefinition`; timestamp is fixed at first compile. */
+  | {
+      kind: 'printedStatic'
+      sourceId: string
+      sourceIncarnation: number
+      abilityIndex: number
+      effectIndex: number
+      timestamp: number
+    }
 
 export type ContinuousEffect = {
   effect: ReversibleEffect
   duration: EffectDuration
+}
+
+/** Runtime instance of a printed static restriction compiled from canonical data. */
+export type PrintedStaticModifier = {
+  abilityIndex: number
+  effectIndex: number
+  /** CR 613.7a timestamp; preserved when the modifier is recomputed. */
+  timestamp: number
+  sourceRef: ObjectIdentity
+  activeIn: readonly ZoneId[]
+  kind: 'prohibitActivation'
+  filter: ActivationFilter
 }
 
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
@@ -306,6 +327,10 @@ export type GameObject = {
   }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
   ruleDefinition?: CardRuleDefinitionSnapshotV1
+  /** CR 613.7a rules timestamp for printed static abilities on this object. */
+  staticRulesTimestamp?: number
+  /** Active printed static restrictions emitted by this object (for example Stony Silence). */
+  printedStaticModifiers?: PrintedStaticModifier[]
   /** Alternative casting option used for the current battlefield entry. */
   enteredWithCastOption?: string
   /** Multikicker count stamped when this permanent entered from a resolving spell. */

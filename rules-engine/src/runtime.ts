@@ -1,4 +1,5 @@
 import { syncRevealedLibraryTop } from './cardPlugins/libraryTopKnowledge'
+import { syncCanonicalStaticModifiers } from './cardPlugins/dsl/staticModifiers'
 import { createCatalog } from './catalog'
 import type { GameFormat } from './formats'
 import { freezeDraft, makeDraft } from './draft'
@@ -189,6 +190,7 @@ export const createServerGame = (
   initializeRandomState(initialState, dependencies.random)
   const boot = makeDraft(initialState)
   syncRevealedLibraryTop(boot)
+  syncCanonicalStaticModifiers(boot)
   const state = freezeDraft(boot)
   return {
     ...engine,

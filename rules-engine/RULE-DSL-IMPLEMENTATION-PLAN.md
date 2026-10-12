@@ -482,8 +482,8 @@ Life loss remains outside damage prevention.
 
 **Dependencies:** 02, 07, 08, 10; static replacement integration uses 11.
 
-**Status:** not started. May proceed in parallel with Part 11 except for static
-replacement integration, which waits for 11.
+**Status:** implementation complete minus static replacement integration (Part 11).
+See [Part 13 implementation note](migration/RULE-DSL-PART-13.md).
 
 Compile static abilities into runtime modifier instances with explicit active
 zones and source incarnations. Audit/reuse continuous effects, keyword lookup,

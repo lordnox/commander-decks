@@ -210,6 +210,10 @@ export const redirectEvent = (to: Zone) => immutableData({ kind: 'redirect' as c
 
 export const wouldDraw = (filter: DrawReplacementFilter = {}) => immutableData({ kind: 'draw' as const, filter })
 
+export const modifyStats = (
+  input: Omit<Extract<ContinuousEffectDefinition, { kind: 'modifyStats' }>, 'kind'>,
+): ContinuousEffectDefinition => immutableData({ kind: 'modifyStats', ...input })
+
 export const decisions = (input: DecisionsInput = {}): DecisionsSpec => immutableData({
   targets: input.targets ?? [],
   ...(input.constraints ? { constraints: input.constraints } : {}),

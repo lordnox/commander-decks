@@ -13,6 +13,7 @@ import { counterPtBonus } from '../definitions'
 import { effectsFor } from './cardRules'
 import type { CardEffect, LinkedExilePump, StaticBoardPumpSpec } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
+import { printedStaticAbilityActive } from './dsl/staticModifierCore'
 import { pumpApplies, pumpSpecs } from './staticBoardPumpSpec'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
@@ -416,6 +417,13 @@ const durationHolds = (
       const source = state.objects[duration.sourceId]
       const spec = source && pumpSpecs(source)[duration.index]
       return Boolean(spec && pumpApplies(state, source, spec, object))
+    }
+    case 'printedStatic': {
+      const source = state.objects[duration.sourceId]
+      return Boolean(source
+        && !source.phasedOut
+        && source.incarnation === duration.sourceIncarnation
+        && printedStaticAbilityActive(state, source, duration.abilityIndex))
     }
     case 'pumpPerLinkedExile':
       return objectSupportsPumpPerLinkedExile(object)
