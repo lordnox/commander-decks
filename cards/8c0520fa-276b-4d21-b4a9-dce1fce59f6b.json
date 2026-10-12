@@ -1,0 +1,151 @@
+{
+  "all_parts": [
+    {
+      "component": "combo_piece",
+      "id": "605ca3c0-7c9a-4bc1-9795-82aeb6f552ee",
+      "name": "Shark Typhoon",
+      "object": "related_card",
+      "type_line": "Enchantment",
+      "uri": "https://api.scryfall.com/cards/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee"
+    },
+    {
+      "component": "token",
+      "id": "21a614b0-2e65-4ea0-94c3-9c9afa0bc03c",
+      "name": "Shark",
+      "object": "related_card",
+      "type_line": "Token Creature — Shark",
+      "uri": "https://api.scryfall.com/cards/21a614b0-2e65-4ea0-94c3-9c9afa0bc03c"
+    }
+  ],
+  "artist": "Caio Monteiro",
+  "artist_ids": [
+    "d5053eb6-af72-47a0-b6e8-023cc3b9aefb"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "cardmarket_id": 909837,
+  "cmc": 6.0,
+  "collector_number": "44",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [
+    "U"
+  ],
+  "digital": false,
+  "edhrec_rank": 1241,
+  "finishes": [
+    "nonfoil"
+  ],
+  "foil": false,
+  "frame": "2015",
+  "frame_effects": [
+    "enchantment"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo"
+  ],
+  "highres_image": true,
+  "id": "605ca3c0-7c9a-4bc1-9795-82aeb6f552ee",
+  "illustration_id": "6ea9e1b7-0172-454f-9ab8-70ac63db87fc",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-09-16T23:03:56Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.webp?1789599836",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.jpg?1789599836",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.jpg?1789599836",
+    "crop": "https://cards.scryfall.io/crop/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.webp?1789599836",
+    "display": "https://cards.scryfall.io/display/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.webp?1789599836",
+    "grid": "https://cards.scryfall.io/grid/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.webp?1789599836",
+    "large": "https://cards.scryfall.io/large/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.jpg?1789599836",
+    "normal": "https://cards.scryfall.io/normal/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.jpg?1789599836",
+    "png": "https://cards.scryfall.io/png/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.png?1789599836",
+    "small": "https://cards.scryfall.io/small/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.jpg?1789599836",
+    "thumb": "https://cards.scryfall.io/thumb/front/6/0/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee.webp?1789599836"
+  },
+  "keywords": [
+    "Cycling"
+  ],
+  "lang": "en",
+  "layout": "normal",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "not_legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "not_legal",
+    "standardbrawl": "not_legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{5}{U}",
+  "mtgo_id": 156484,
+  "multiverse_ids": [],
+  "name": "Shark Typhoon",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "8c0520fa-276b-4d21-b4a9-dce1fce59f6b",
+  "oracle_text": "Whenever you cast a noncreature spell, create an X/X blue Shark creature token with flying, where X is that spell's mana value.\nCycling {X}{1}{U} ({X}{1}{U}, Discard this card: Draw a card.)\nWhen you cycle this card, create an X/X blue Shark creature token with flying.",
+  "oversized": false,
+  "penny_rank": 78,
+  "prices": {
+    "eur": "0.20",
+    "eur_foil": null,
+    "tix": "0.10",
+    "usd": "0.30",
+    "usd_etched": null,
+    "usd_foil": null
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A8c0520fa-276b-4d21-b4a9-dce1fce59f6b&unique=prints",
+  "promo": false,
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/156484?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=909837&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F717763%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Shark+Typhoon",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DShark%2BTyphoon",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DShark%2BTyphoon"
+  },
+  "released_at": "2026-10-02",
+  "reprint": true,
+  "reserved": false,
+  "resource_id": "6149DFA5C84DD6E2D0EBC86C189FEECA805F09A38F36D071A56958B04103EFCE",
+  "rulings_uri": "https://api.scryfall.com/cards/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/frc?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/frc/44/shark-typhoon?utm_source=api",
+  "security_stamp": "oval",
+  "set": "frc",
+  "set_id": "cfd10490-7397-4143-bda7-d388b877636f",
+  "set_name": "Reality Fracture Commander",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Afrc&unique=prints",
+  "set_type": "commander",
+  "set_uri": "https://api.scryfall.com/sets/cfd10490-7397-4143-bda7-d388b877636f",
+  "story_spotlight": false,
+  "tcgplayer_id": 717763,
+  "textless": false,
+  "type_line": "Enchantment",
+  "uri": "https://api.scryfall.com/cards/605ca3c0-7c9a-4bc1-9795-82aeb6f552ee",
+  "variation": false
+}
