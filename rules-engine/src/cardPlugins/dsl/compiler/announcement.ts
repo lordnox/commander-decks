@@ -1,9 +1,8 @@
 import { payCost } from '../../../plugins/spells'
-import type { ActivatedAbilityDefinition, Amount, CardRuleDefinitionV1, Cost, SpellAbilityDefinition, TargetClause, Zone } from '../schema/v1'
+import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
-import { captureObject } from '../../../objectIdentity'
-import { evaluateObjectSelector, evaluatePlayerSelector } from './runtime'
+import { activationRestrictionMessage } from '../staticModifierCore'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
 export type AnnouncementManaPayment = {
@@ -435,17 +434,8 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   if (!input.availableFrom && source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
   if (source.phasedOut) return `${source.name} is phased out`
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`
-  const prohibited = Object.values(input.state.objects).some((watcher) => {
-    const definition = watcher.ruleDefinition?.definition as CardRuleDefinitionV1 | undefined
-    if (!definition || !watcher.zone || !watcher.controller || watcher.phasedOut) return false
-    const runtime = { state: input.state as GameState, controller: watcher.controller, source: captureObject(watcher) }
-    return definition.abilities.some((ability) => ability.kind === 'static'
-      && ability.activeIn.includes(watcher.zone as Zone)
-      && ability.effects.some((effect) => effect.kind === 'prohibitActivation'
-        && (!effect.filter.abilitySource || evaluateObjectSelector({ kind: 'objects', filter: effect.filter.abilitySource }, runtime).some((object) => object.id === source.id))
-        && (!effect.filter.activator || evaluatePlayerSelector({ kind: 'players', filter: effect.filter.activator }, runtime).includes(input.payer))) )
-  })
-  if (prohibited) return `${source.name} activation is prohibited`
+  const prohibited = activationRestrictionMessage(input)
+  if (prohibited) return prohibited
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`
   if (input.sorcerySpeed && (
     input.state.active !== input.payer

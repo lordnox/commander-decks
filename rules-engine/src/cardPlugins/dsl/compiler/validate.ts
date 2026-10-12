@@ -1005,21 +1005,33 @@ export const validateDefinitionV1 = (root: unknown): {
           const node = object(effect, effectPath)
           if (!node) return
           declarations.push({ path: effectPath, kind: `effect:${String(node.kind)}` })
-          if (node.kind === 'prohibitActivation') {
-            exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
-            const filter = object(node.filter, childPath(effectPath, 'filter'))
-            if (!filter) return
-            exactKeys(filter, childPath(effectPath, 'filter'), ['abilitySource', 'activator'])
-            if (filter.abilitySource !== undefined) validateObjectFilter(filter.abilitySource, childPath(childPath(effectPath, 'filter'), 'abilitySource'), baseEnvironment())
-            if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'))
-            return
+          switch (node.kind) {
+            case 'prohibitActivation': {
+              exactKeys(node, effectPath, ['kind', 'filter'], ['kind', 'filter'])
+              const filter = object(node.filter, childPath(effectPath, 'filter'))
+              if (!filter) return
+              exactKeys(filter, childPath(effectPath, 'filter'), ['abilitySource', 'activator'])
+              if (filter.abilitySource !== undefined) validateObjectFilter(filter.abilitySource, childPath(childPath(effectPath, 'filter'), 'abilitySource'), baseEnvironment())
+              if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'))
+              return
+            }
+            case 'modifyStats': {
+              exactKeys(node, effectPath, ['kind', 'targets', 'power', 'toughness', 'set'], ['kind', 'targets', 'power', 'toughness'])
+              if (validateSelector(node.targets, childPath(effectPath, 'targets'), baseEnvironment()) !== 'object') {
+                issue(childPath(effectPath, 'targets'), 'domain', 'modifyStats targets require an object selector')
+              }
+              validateAmount(node.power, childPath(effectPath, 'power'), baseEnvironment())
+              validateAmount(node.toughness, childPath(effectPath, 'toughness'), baseEnvironment())
+              return
+            }
+            case 'replacement': {
+              exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
+              if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
+              return
+            }
+            default:
+              issue(childPath(effectPath, 'kind'), 'unsupported-kind', `unsupported continuous effect kind: ${String(node.kind)}`)
           }
-          if (node.kind === 'replacement') {
-            exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
-            if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
-            return
-          }
-          issue(childPath(effectPath, 'kind'), 'unsupported-kind', `unsupported continuous effect kind: ${String(node.kind)}`)
         })
         return
       }

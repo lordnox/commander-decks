@@ -42,6 +42,7 @@ import { spells } from './plugins/spells'
 import { rooms } from './plugins/rooms'
 import { grantCreatureTrigger } from './cardPlugins/grantCreatureTrigger'
 import { staticBoardPump } from './cardPlugins/staticBoardPump'
+import { dslStaticModifiers } from './cardPlugins/dsl/staticModifiers'
 import { exilePayoffs } from './cardPlugins/exilePayoffs'
 import { starfieldOfNyx } from './plugins/starfieldOfNyx'
 import { stateBased } from './plugins/stateBased'
@@ -82,6 +83,7 @@ export const corePlugins = [
   recurringSpells,
   advancedCombatPrevention,
   continuousEffects,
+  dslStaticModifiers,
   priority,
   abilities,
   canonicalActivated,

@@ -379,6 +379,14 @@ export type ReplacementEffectDefinition = {
 
 export type ContinuousEffectDefinition =
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
+  | {
+      kind: 'modifyStats'
+      targets: ObjectSelector
+      power: Amount
+      toughness: Amount
+      /** Layer 7b set-P/T when true; otherwise layer 7c +N/+N. */
+      set?: true
+    }
   | ReplacementEffectDefinition
 
 export type Keyword = 'defender' | 'trample'
