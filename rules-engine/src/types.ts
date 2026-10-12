@@ -160,7 +160,7 @@ export type ReversibleEffect =
 export type EffectDuration =
   | { kind: 'untilCleanup' }
   | { kind: 'permanent' }
-  | { kind: 'untilStep'; step: StepId; active?: PlayerId; turn: number }
+  | { kind: 'untilStep'; step: StepId; active?: PlayerId; turn: number; notBeforeTurn?: number }
   | { kind: 'forTurns'; untilTurn: number }
   | { kind: 'whileSourceOnBattlefield'; sourceId: string; sourceIncarnation?: number }
   | { kind: 'whileSourceTappedAndPowerAtMost'; sourceId: string }
@@ -300,6 +300,7 @@ export type GameObject = {
     execution?: StackExecutionContext
     untilTurn?: number
     untilStepTurn?: number
+    untilStepNotBeforeTurn?: number
     untilStepActive?: PlayerId
   }>
   /** Optional canonical rules pinned onto this object by the versioned registry. */
@@ -777,6 +778,7 @@ export type GameEvent =
       createdTurn?: number
       durationUntilTurn?: number
       durationUntilStepTurn?: number
+  durationUntilStepNotBeforeTurn?: number
       durationUntilStepActive?: PlayerId
     }
   /** Restore a persisted non-waiting execution cursor and continue its driver. */

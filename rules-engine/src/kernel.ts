@@ -331,6 +331,8 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
                 kind: 'untilStep' as const,
                 step: event.duration.step as import('./types').StepId,
                 turn: event.durationUntilStepTurn ?? event.createdTurn ?? draft.turn,
+                ...(event.durationUntilStepNotBeforeTurn !== undefined
+                  ? { notBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
                 ...(event.durationUntilStepActive !== undefined
                   ? { active: event.durationUntilStepActive } : {}),
               }
@@ -364,6 +366,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           ...(event.execution ? { execution: structuredClone(event.execution) } : {}),
           ...(event.durationUntilTurn !== undefined ? { untilTurn: event.durationUntilTurn } : {}),
           ...(event.durationUntilStepTurn !== undefined ? { untilStepTurn: event.durationUntilStepTurn } : {}),
+          ...(event.durationUntilStepNotBeforeTurn !== undefined ? { untilStepNotBeforeTurn: event.durationUntilStepNotBeforeTurn } : {}),
           ...(event.durationUntilStepActive !== undefined ? { untilStepActive: event.durationUntilStepActive } : {}),
         }]
       }
