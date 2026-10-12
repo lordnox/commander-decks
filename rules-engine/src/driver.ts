@@ -38,6 +38,7 @@ import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
+import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'counter',
@@ -1015,19 +1016,40 @@ export const prepareResolutionStep = (draft: Draft) => {
       return { kind: 'events', events: [] }
     }
     if (instruction.kind === 'payOptional') {
-      const context = runtimeContext(draft, frame, item)
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
       const payer = evaluatePlayerReference(instruction.payer, context)[0]
       if (!payer) throw pathError(frame, path, 'resolution payment payer is not available')
-      const paymentAmount = instruction.cost.kind === 'mana'
-        ? 0
-        : availableAmount(instruction.cost.kind === 'life' ? instruction.cost.amount : instruction.cost.count, context)
+      let paymentAmount: number | undefined
+      switch (instruction.cost.kind) {
+        case 'mana': paymentAmount = 0; break
+        case 'life': paymentAmount = availableAmount(instruction.cost.amount, context); break
+        case 'discard':
+        case 'sacrifice': paymentAmount = availableAmount(instruction.cost.count, context); break
+      }
       if (paymentAmount === undefined) throw pathError(frame, path, 'resolution payment amount is not available')
+      const bindings = {
+        ...(context.targets ? { targets: structuredClone(context.targets) } : {}),
+        ...(context.targetLegality ? { targetLegality: structuredClone(context.targetLegality) } : {}),
+        ...(context.choices ? { choices: structuredClone(context.choices) } : {}),
+        ...(context.results ? { results: structuredClone(context.results) } : {}),
+        ...(context.variables ? { variables: structuredClone(context.variables) } : {}),
+        ...(context.occurrence ? { occurrence: structuredClone(context.occurrence) } : {}),
+        ...(scope.scopeId ? { scopeId: scope.scopeId } : {}),
+      }
+      const manaActivations = instruction.cost.kind === 'mana' && !canPayResolutionMana(draft, payer, instruction.cost, frame.source)
+        ? eligibleResolutionManaAbilities(draft, payer)
+        : []
+      const options = [
+        { id: 'pay', label: 'Pay' },
+        { id: 'decline', label: 'Decline' },
+        ...manaActivations.map((activation) => ({ id: `activate:${activation.objectId}:${activation.abilityId}`, label: activation.label })),
+      ]
       openOptionSelection(draft, {
         seat: payer,
         sourceId: frame.source.ref.objectId,
         source: frame.source.snapshot.name,
         prompt: `Pay ${instruction.cost.kind === 'mana' ? instruction.cost.amount : instruction.cost.kind}.`,
-        options: [{ id: 'pay', label: 'Pay' }, { id: 'decline', label: 'Decline' }],
+        options,
         action: {
           kind: 'canonicalResolutionPayment',
           stackId: frame.stackId,
@@ -1041,6 +1063,8 @@ export const prepareResolutionStep = (draft: Draft) => {
           ifDeclined: instruction.ifDeclined ?? [],
           whenPaid: instruction.whenPaid ?? [],
           paymentAmount,
+          bindings,
+          ...(manaActivations.length > 0 ? { manaActivations } : {}),
         },
       })
       frame.phase = 'committing'

@@ -659,10 +659,12 @@ export const validateDefinitionV1 = (root: unknown): {
         validateCost(node.cost, childPath(path, 'cost'), env)
         const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
         declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['paid']) }, childPath(path, 'bindResult'))
-        if (node.whenPaidDecisions !== undefined) validateDecisions(node.whenPaidDecisions, childPath(path, 'whenPaidDecisions'), env, true)
+        const whenPaidEnv = node.whenPaidDecisions === undefined
+          ? env
+          : validateDecisions(node.whenPaidDecisions, childPath(path, 'whenPaidDecisions'), env, true).env
         if (node.ifPaid !== undefined) validateInstructionList(node.ifPaid, childPath(path, 'ifPaid'), env, depth + 1)
         if (node.ifDeclined !== undefined) validateInstructionList(node.ifDeclined, childPath(path, 'ifDeclined'), env, depth + 1)
-        if (node.whenPaid !== undefined) validateInstructionList(node.whenPaid, childPath(path, 'whenPaid'), env, depth + 1)
+        if (node.whenPaid !== undefined) validateInstructionList(node.whenPaid, childPath(path, 'whenPaid'), whenPaidEnv, depth + 1)
         return
       }
       case 'createDelayed': {
