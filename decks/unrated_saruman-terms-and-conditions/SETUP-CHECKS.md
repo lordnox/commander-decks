@@ -1,4 +1,6 @@
-# Setup checks — Terms and Conditions
+# Setup checks — initial Terms and Conditions build
+
+> Historical test of commit `8695c582`. The equipment/reactive-mana revision removes the Forces, Evacuation, and Psychic Corrosion referenced below. These traces are not claims about the current list.
 
 ## Model and limits
 

@@ -13,10 +13,10 @@
     "identity": {
       "Draw-Go": 9,
       "Second Spell": 9,
-      "Discounted Spells": 8,
-      "Mill": 7,
+      "Discounted Spells": 9,
+      "Mill": 6,
       "Clones": 7
     }
   },
-  "notes": "Instant draw, reactive combat tricks, pitch spells, and flash-enabling cantrips preserve draw-go while independent second-spell engines operate before Saruman. Three clones multiply theft or finishers; mill is both fuel and a secondary finish. Countermagic and graveyard theft can constrain opponents, but no hard lock, extra-turn chain, or tutor-driven deterministic loop is included."
+  "notes": "Instant draw and combat redirection preserve draw-go; Staff and Foe-hammer increase second-spell engine output and discounts. Three true counters make stack defense narrower than the initial build. Five finite finishes remain, while Corrosion\u2019s draw-to-mill axis is absent."
 }

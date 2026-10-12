@@ -41,7 +41,6 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Aligned Heart** — Dedicated second-spell finisher whose increasing token production happens while we hold up interaction, with prowess converting later spells into damage.
 - **Professor Onyx** — Dedicated noncombat finish that drains all opponents for instant/sorcery casts and stack copies; also selects cards and answers a large creature.
 - **Duskmantle Guildmage** — Dedicated mill-to-life-loss finisher; multiple first-ability activations scale existing mill bursts instead of needing a separate infinite combo.
-- **Psychic Corrosion** — Dedicated draw-to-mill finisher that converts the draw-go engine into pressure on every opponent’s library.
 - **Bruvac the Grandiloquent** — Doubles opposing mill for Saruman’s theft choices and the mill finishers; does not affect exile or self-mill.
 - **Exhibition Tidecaller** — One-mana mill engine tied to instant/sorcery casts, including stolen spells; can target ourselves when graveyard fuel matters.
 - **Torrential Gearhulk** — Flash body plus a free graveyard instant is a natural draw-go first-spell/second-spell package and a recovery tool.
@@ -61,7 +60,6 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Aetherize** — Signature instant answer punishes an attacking board while preserving our own creatures and open-mana play pattern.
 - **Aetherspouts** — Mana-value-five combat reset sends attackers to libraries and forces awkward redraws while supporting Saruman’s theft ceiling.
 - **Reins of Power** — A reactive creature exchange can remove an opponent’s attackers from combat or borrow a board for a finishing attack; the temporary loss of our engines is an explicit cost.
-- **Evacuation** — Instant global creature reset handles boards before they attack and can preserve/reuse nontoken engines and Gearhulk.
 - **Snuff Out** — Mana-value-four removal can cost life rather than mana, letting a cheap first spell leave mana for further reactions; the mana base supports a Swamp.
 - **Submerge** — Conditional free mana-value-five creature answer; its library placement can also set up Saruman’s later mill when timing permits.
 - **Commandeer** — Mana-value-seven spell theft changes the stack’s ownership while setting a large Saruman ceiling. Exiling two blue cards is a genuine resource cost.
@@ -71,9 +69,7 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Curtains' Call** — Undaunted makes mana-value-six removal cost three at a four-player table and destroys two creatures; cost rises as opponents leave.
 - **Arcane Denial** — Broad two-mana stack interaction replaces itself at the next upkeep; giving the opponent cards is an acknowledged table/resource cost.
 - **Keep Safe** — Counters a spell targeting our permanent and draws, joining protection with the first/second-spell draw-go sequence.
-- **Force of Will** — The one intentional Game Changer: a free mana-value-five second spell that stops any spell. Its high-value alternative-cost role directly serves the deck, rather than generic free protection alone.
 - **Mystic Confluence** — Mana-value-five instant combines stack interaction, creature bounce, and card draw so holding mana always has a meaningful fallback.
-- **Force of Negation** — Alternative-cost stack answer is available specifically during opponents’ turns, matching the draw-go shell and retaining mana value three.
 - **Soul Partition** — Instant temporary exile handles any nonland permanent or rescues our own engine; opponents pay extra to replay theirs.
 - **Snap** — Creature bounce untaps two lands, providing both a reactive answer and an engine rescue without consuming the whole turn’s mana.
 - **Command Tower** — Untapped unconditional Esper fixing for engines and holding multi-color answers.
@@ -114,6 +110,11 @@ Draw-Go; Second Spell; Discounted Spells; Mill; Clones. Draw-go is the main shel
 - **Shark Typhoon** — Dedicated evasive combat finish that rewards printed mana value even when the noncreature spell costs little or zero; cycling also fits draw-go as a blocker plus draw.
 - **Bloodchief Ascension** — Sixth dedicated finish: once three end-step counters are earned, existing mill becomes life loss and life gain without an activation payment.
 - **Spelltwine** — Six-mana spell recovers one of our instants/sorceries and one opponent’s, casting both copies to feed Vega, magecraft, Tidecaller, and finishing engines.
+
+- **Illusionist's Gambit** — User-selected combat redirection protects us while turning an attacking board toward other players; its narrow timing is an intentional tradeoff.
+- **Wizard's Staff** — User-selected additional creature triggers and cheap Wizard equip multiply Saruman or independent draw; prowess also increases equipment-based discounts.
+- **Glamdring, Foe-hammer // Gleam of Death** — User-selected power-based instant/sorcery discount preserves high mana value, while its adventure refills spells and supports a later cast outside the hand.
+- **Gleaming Splendor** — User-selected reactive Treasure engine and repeatable draw outlet use spare mana across the rotation; granting an opponent cards is a deliberate cost.
 
 ## Cards out
 
@@ -167,6 +168,8 @@ Force of Will is the one intentional cached Game Changer (2026-09-03 snapshot): 
 
 ## Rankings
 
+2026-10-13 equipment revision: Jank 7; Fun 9; Mean 6. Draw-Go 9; Second Spell 9; Discounted Spells 9; Mill 6; Clones 7. The equipment strengthens discount/value engines while the removed Corrosion reduces the mill axis.
+
 2026-10-13: Jank 7; Fun 9; Mean 6. Draw-Go 9; Second Spell 9; Discounted Spells 8; Mill 7; Clones 7. Many timing choices, finite theft/copy packages, and varied opposing graveyards provide replayability. Reactive answers and theft can constrain opponents, but there are no hard locks, extra-turn chains, or tutor-driven instant wins. Three clones are substantial support rather than the main 99.
 
 ## Primer
@@ -182,3 +185,11 @@ Remaining maybes: Mnemonic Deluge has a strong triple-copy ceiling but costs nin
 ### 2026-10-13 — Setup checks
 
 Four legal turn-five traces use final-list seeds 1729 and 2718, with deterministic fetch shuffles and additional draws applied rather than copying the helper's original draw list. Three meet the declared mana/card-access/answer milestone; one has mana but delayed draw. All four have a legal answer to a turn-five Citadel, but some consume the whole reactive budget. Creature protection works in the hands with Shelter/Keep Safe; an artifact/enchantment wipe is a genuine weak branch. Commander tax twice cannot be paid immediately from the known resources. Twelve initial situations were screened; eleven have a keep by one paid mulligan, but only four have complete turn traces. See SETUP-CHECKS.md for the model and limitations. No bracket or win-turn claim is inferred from these setup checks.
+
+### 2026-10-13 — User equipment and reactive-mana revision
+
+Apply the user's proposed Evacuation → Illusionist's Gambit; Force of Will and Force of Negation → Wizard's Staff and Glamdring, Foe-hammer; Psychic Corrosion → Gleaming Splendor. The user then explicitly requested the Corrosion swap “as well,” confirming the combined revision. Five dedicated finishers remain: Heart, Onyx, Guildmage, Typhoon, and Ascension. The reduced mill emphasis is intentional. No extra replacement counterspell is inserted without a slot instruction.
+
+The equipment increases the engine ceiling and mana efficiency but does not replace broad stack protection. Arcane Denial, Keep Safe, and Mystic Confluence are the three true counterspells; Commandeer and Misdirection retain narrower stack interaction. Gambit redirects attacking creatures and is not a general nonattacking-board reset. Splendor's activation is not a spell and has two distinct player targets; on an opponent's turn their normal draw plus the granted card can make Treasure. Staff doubles triggered abilities, not replacement effects. Foe-hammer still requires colored pips and does not grant flash. Initial-build setup traces are retained as historical evidence only and marked with their tested commit.
+
+The four removed cards are intentional cuts: Forces surrender free broad coverage; Evacuation surrenders the instant global reset; Corrosion surrenders draw-driven mill. Read this entry before reintroducing them.

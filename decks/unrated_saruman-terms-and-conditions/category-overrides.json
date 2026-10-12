@@ -85,13 +85,6 @@
         "mill"
       ]
     },
-    "328b42f1-d679-4f9c-80e3-38fe3b965d10": {
-      "name": "Psychic Corrosion",
-      "categories": [
-        "win-condition",
-        "mill"
-      ]
-    },
     "8c0520fa-276b-4d21-b4a9-dce1fce59f6b": {
       "name": "Shark Typhoon",
       "categories": [
@@ -153,13 +146,6 @@
       "categories": [
         "combat-trick",
         "theft"
-      ]
-    },
-    "fdd94383-b573-439a-8e1c-925af887c5a6": {
-      "name": "Evacuation",
-      "categories": [
-        "board-wipe",
-        "protection"
       ]
     },
     "324824cb-f938-401c-b9b5-d8908b431ef0": {
@@ -232,20 +218,6 @@
         "counterspell",
         "protection",
         "card-draw"
-      ]
-    },
-    "956381ba-6d37-4a8a-846c-bad79222dbee": {
-      "name": "Force of Will",
-      "categories": [
-        "counterspell",
-        "alternative-cost"
-      ]
-    },
-    "ac2173f9-f223-440a-9231-fd98762bdc6f": {
-      "name": "Force of Negation",
-      "categories": [
-        "counterspell",
-        "alternative-cost"
       ]
     },
     "4b22be3a-8ce1-47d1-b82e-6c3ccfb0548b": {
@@ -400,6 +372,35 @@
       "name": "Island",
       "categories": [
         "land"
+      ]
+    },
+    "333745d9-e930-439b-94d6-3aeea2877f69": {
+      "name": "Illusionist's Gambit",
+      "categories": [
+        "combat-trick",
+        "protection"
+      ]
+    },
+    "30c3c700-46f4-4a77-8c45-5c7e3a21bd62": {
+      "name": "Wizard's Staff",
+      "categories": [
+        "trigger-copy",
+        "equipment"
+      ]
+    },
+    "2802069f-201e-43a7-b5d3-43a95951a2ec": {
+      "name": "Glamdring, Foe-hammer // Gleam of Death",
+      "categories": [
+        "cost-reduction",
+        "card-draw",
+        "equipment"
+      ]
+    },
+    "c01aeaa5-1d3b-4493-9575-30175dcd780d": {
+      "name": "Gleaming Splendor",
+      "categories": [
+        "ramp",
+        "card-draw"
       ]
     }
   }

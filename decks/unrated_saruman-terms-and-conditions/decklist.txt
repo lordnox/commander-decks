@@ -23,7 +23,7 @@
 1 Aligned Heart
 1 Professor Onyx
 1 Duskmantle Guildmage
-1 Psychic Corrosion
+1 Gleaming Splendor
 1 Shark Typhoon
 1 Bruvac the Grandiloquent
 1 Exhibition Tidecaller
@@ -44,7 +44,7 @@
 1 Aetherize
 1 Aetherspouts
 1 Reins of Power
-1 Evacuation
+1 Illusionist's Gambit
 1 Snuff Out
 1 Bloodchief Ascension
 1 Submerge
@@ -55,9 +55,9 @@
 1 Curtains' Call
 1 Arcane Denial
 1 Keep Safe
-1 Force of Will
+1 Wizard's Staff
 1 Mystic Confluence
-1 Force of Negation
+1 Glamdring, Foe-hammer
 1 Soul Partition
 1 Snap
 1 Command Tower

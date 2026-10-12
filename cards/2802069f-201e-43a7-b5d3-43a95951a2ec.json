@@ -1,0 +1,164 @@
+{
+  "arena_id": 103556,
+  "artist": "Chris Cold",
+  "artist_ids": [
+    "2622d22b-3fd8-4831-9b2b-adc5fac01b85"
+  ],
+  "booster": false,
+  "border_color": "black",
+  "card_back_id": "0aeebaf5-8c7d-4636-9e82-8c27447861f7",
+  "card_faces": [
+    {
+      "artist": "Chris Cold",
+      "artist_id": "2622d22b-3fd8-4831-9b2b-adc5fac01b85",
+      "flavor_text": "Suddenly a sword flashed in its own light.",
+      "illustration_id": "407d54a9-c52a-41d2-b7f1-7f589d092b61",
+      "mana_cost": "{2}",
+      "name": "Glamdring, Foe-hammer",
+      "object": "card_face",
+      "oracle_text": "Instant and sorcery spells you cast cost {X} less to cast, where X is equipped creature's power.\nEquip {2}",
+      "type_line": "Legendary Artifact — Equipment"
+    },
+    {
+      "artist": "Chris Cold",
+      "artist_id": "2622d22b-3fd8-4831-9b2b-adc5fac01b85",
+      "mana_cost": "{3}{U}",
+      "name": "Gleam of Death",
+      "object": "card_face",
+      "oracle_text": "Mill six cards, then put all instant and sorcery cards from among them into your hand. (Then exile this card. You may cast the artifact later from exile.)",
+      "type_line": "Sorcery — Adventure"
+    }
+  ],
+  "cardmarket_id": 900654,
+  "cmc": 2.0,
+  "collector_number": "174",
+  "color_identity": [
+    "U"
+  ],
+  "colors": [],
+  "digital": false,
+  "edhrec_rank": 8921,
+  "finishes": [
+    "nonfoil",
+    "foil"
+  ],
+  "flavor_text": "Suddenly a sword flashed in its own light.",
+  "foil": true,
+  "frame": "2015",
+  "frame_effects": [
+    "legendary"
+  ],
+  "full_art": false,
+  "game_changer": false,
+  "games": [
+    "paper",
+    "mtgo",
+    "arena"
+  ],
+  "highres_image": true,
+  "id": "a5cfbfde-783e-46ca-b3cf-11f16209d6cb",
+  "illustration_id": "407d54a9-c52a-41d2-b7f1-7f589d092b61",
+  "image_status": "highres_scan",
+  "image_updated_at": "2026-07-31T11:13:14Z",
+  "image_uris": {
+    "art": "https://cards.scryfall.io/art/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.webp?1785496394",
+    "art_crop": "https://cards.scryfall.io/art_crop/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.jpg?1785496394",
+    "border_crop": "https://cards.scryfall.io/border_crop/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.jpg?1785496394",
+    "crop": "https://cards.scryfall.io/crop/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.webp?1785496394",
+    "display": "https://cards.scryfall.io/display/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.webp?1785496394",
+    "grid": "https://cards.scryfall.io/grid/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.webp?1785496394",
+    "large": "https://cards.scryfall.io/large/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.jpg?1785496394",
+    "normal": "https://cards.scryfall.io/normal/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.jpg?1785496394",
+    "png": "https://cards.scryfall.io/png/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.png?1785496394",
+    "small": "https://cards.scryfall.io/small/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.jpg?1785496394",
+    "thumb": "https://cards.scryfall.io/thumb/front/a/5/a5cfbfde-783e-46ca-b3cf-11f16209d6cb.webp?1785496394"
+  },
+  "keywords": [
+    "Equip",
+    "Mill"
+  ],
+  "lang": "en",
+  "layout": "adventure",
+  "legalities": {
+    "alchemy": "not_legal",
+    "brawl": "legal",
+    "commander": "legal",
+    "competitivebrawl": "legal",
+    "duel": "legal",
+    "future": "legal",
+    "gladiator": "legal",
+    "historic": "legal",
+    "legacy": "legal",
+    "modern": "legal",
+    "oathbreaker": "legal",
+    "oldschool": "not_legal",
+    "pauper": "not_legal",
+    "paupercommander": "not_legal",
+    "penny": "legal",
+    "pioneer": "legal",
+    "predh": "not_legal",
+    "premodern": "not_legal",
+    "standard": "legal",
+    "standardbrawl": "legal",
+    "timeless": "legal",
+    "tlr": "not_legal",
+    "vintage": "legal"
+  },
+  "mana_cost": "{2} // {3}{U}",
+  "mtgo_id": 154290,
+  "multiverse_ids": [],
+  "name": "Glamdring, Foe-hammer // Gleam of Death",
+  "nonfoil": true,
+  "object": "card",
+  "oracle_id": "2802069f-201e-43a7-b5d3-43a95951a2ec",
+  "oversized": false,
+  "preview": {
+    "previewed_at": "2026-07-29",
+    "source": "Yamina Amane",
+    "source_uri": "https://www.instagram.com/p/DbZiw0XBIpn/"
+  },
+  "prices": {
+    "eur": "0.57",
+    "eur_foil": "0.67",
+    "tix": "0.02",
+    "usd": "0.73",
+    "usd_etched": null,
+    "usd_foil": "1.04"
+  },
+  "prints_search_uri": "https://api.scryfall.com/cards/search?order=released&q=oracleid%3A2802069f-201e-43a7-b5d3-43a95951a2ec&unique=prints",
+  "promo": false,
+  "promo_types": [
+    "universesbeyond"
+  ],
+  "purchase_uris": {
+    "cardhoarder": "https://www.cardhoarder.com/cards/154290?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+    "cardmarket": "https://www.cardmarket.com/en/Magic/Products?idProduct=900654&referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall",
+    "tcgplayer": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F709521%3Fpage%3D1"
+  },
+  "rarity": "rare",
+  "related_uris": {
+    "edhrec": "https://edhrec.com/route/?cc=Glamdring%2C+Foe-hammer",
+    "tcgplayer_infinite_articles": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Farticles&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Farticles%3FproductLineName%3Dmagic%26q%3DGlamdring%252C%2BFoe-hammer%2B%252F%252F%2BGleam%2Bof%2BDeath",
+    "tcgplayer_infinite_decks": "https://partner.tcgplayer.com/c/4931599/1830156/21018?subId1=api&trafcat=tcgplayer.com%2Fsearch%2Fdecks&u=https%3A%2F%2Fwww.tcgplayer.com%2Fsearch%2Fdecks%3FproductLineName%3Dmagic%26q%3DGlamdring%252C%2BFoe-hammer%2B%252F%252F%2BGleam%2Bof%2BDeath"
+  },
+  "released_at": "2026-08-14",
+  "reprint": false,
+  "reserved": false,
+  "resource_id": "597DF15B0A7B8EB4CE0F041D79FCC65920098AC042C3D38CADE7CEB01E4241B6",
+  "rulings_uri": "https://api.scryfall.com/cards/a5cfbfde-783e-46ca-b3cf-11f16209d6cb/rulings",
+  "scryfall_set_uri": "https://scryfall.com/sets/hob?utm_source=api",
+  "scryfall_uri": "https://scryfall.com/card/hob/174/glamdring-foe-hammer-gleam-of-death?utm_source=api",
+  "security_stamp": "oval",
+  "set": "hob",
+  "set_id": "59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "set_name": "The Hobbit",
+  "set_search_uri": "https://api.scryfall.com/cards/search?order=set&q=e%3Ahob&unique=prints",
+  "set_type": "expansion",
+  "set_uri": "https://api.scryfall.com/sets/59218c23-cb7a-4fde-9cff-3f2f71af1308",
+  "story_spotlight": false,
+  "tcgplayer_id": 709521,
+  "textless": false,
+  "type_line": "Legendary Artifact — Equipment // Sorcery — Adventure",
+  "uri": "https://api.scryfall.com/cards/a5cfbfde-783e-46ca-b3cf-11f16209d6cb",
+  "variation": false
+}
