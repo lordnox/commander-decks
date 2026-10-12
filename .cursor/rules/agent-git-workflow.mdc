@@ -29,6 +29,8 @@ When the task is done:
 2. `git push -u origin HEAD`
 3. Open a ready-for-review PR (`draft: false`) summarizing what changed
 
+Title the PR as `<area>: <imperative summary>` from [`.github/PULL_REQUESTS.md`](../../../.github/PULL_REQUESTS.md). Numbered Rule DSL work is `dsl: Part N …`. The **PR title** workflow rejects other shapes.
+
 Create the PR with `gh pr create --base main --head <branch>` and confirm it is not a draft. If `gh` is missing or unauthenticated, say so and return `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1` instead.
 
 Return the PR URL.
