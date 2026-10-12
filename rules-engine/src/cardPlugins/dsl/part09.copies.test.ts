@@ -100,4 +100,5 @@ describe('Rule DSL Part 09 spell copies', () => {
     state = reduce(state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'keep' })
     expect(state.players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
   })
+
 })
