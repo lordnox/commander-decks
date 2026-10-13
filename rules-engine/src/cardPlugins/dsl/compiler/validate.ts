@@ -1039,17 +1039,17 @@ export const validateDefinitionV1 = (root: unknown): {
               return
             }
             case 'prevention': {
-            exactKeys(node, effectPath, ['kind', 'filter', 'capacity', 'transform', 'additionalEffects'], ['kind', 'filter', 'capacity', 'transform'])
-            validateAmount(node.capacity, childPath(effectPath, 'capacity'), baseEnvironment())
-            const transform = object(node.transform, childPath(effectPath, 'transform'))
-            if (transform && transform.kind !== 'preventDamage') {
-              issue(childPath(effectPath, 'transform'), 'unsupported-kind', 'prevention requires preventDamage transform')
+              exactKeys(node, effectPath, ['kind', 'filter', 'capacity', 'transform', 'additionalEffects'], ['kind', 'filter', 'capacity', 'transform'])
+              validateAmount(node.capacity, childPath(effectPath, 'capacity'), baseEnvironment())
+              const transform = object(node.transform, childPath(effectPath, 'transform'))
+              if (transform && transform.kind !== 'preventDamage') {
+                issue(childPath(effectPath, 'transform'), 'unsupported-kind', 'prevention requires preventDamage transform')
+              }
+              if (node.additionalEffects !== undefined) {
+                validateInstructionList(node.additionalEffects, childPath(effectPath, 'additionalEffects'), baseEnvironment())
+              }
+              return
             }
-            if (node.additionalEffects !== undefined) {
-              validateInstructionList(node.additionalEffects, childPath(effectPath, 'additionalEffects'), baseEnvironment())
-            }
-            return
-          }
             default:
               issue(childPath(effectPath, 'kind'), 'unsupported-kind', `unsupported continuous effect kind: ${String(node.kind)}`)
           }
