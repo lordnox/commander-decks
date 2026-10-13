@@ -700,6 +700,8 @@ export type ReplacementInstructionProgramState = {
     amount: number
     selected: Array<{ seat: PlayerId; objectId: string }>
     binding?: string
+    settling?: boolean
+    identities?: ObjectIdentity[]
   }
   sourceId: string
   controller: PlayerId

@@ -1,7 +1,7 @@
 import type { Plugin } from '../types'
 import { freezeDraft } from '../draft'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../rules/selectOptions'
-import { enqueueReplacementSettlement, resumeReplacementChoice } from './processor'
+import { enqueueReplacementSettlement, REPLACEMENT_DISCARD_RESUME, resumeReplacementChoice } from './processor'
 
 export const REPLACEMENT_DECLINE_OPTION = '__decline__'
 
@@ -24,5 +24,13 @@ export const replacementProcessing: Plugin = {
     )
     if (result.kind === 'invalid') return
     enqueueReplacementSettlement(draft, result)
+    if (result.kind === 'waiting') return
+    const frame = draft.eventProcessing
+    if (!frame?.program?.pendingDiscard?.settling) return
+    draft.enqueue({
+      type: 'custom',
+      name: REPLACEMENT_DISCARD_RESUME,
+      payload: { frameId: frame.id },
+    })
   },
 }

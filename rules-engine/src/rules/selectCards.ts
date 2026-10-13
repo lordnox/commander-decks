@@ -29,7 +29,14 @@ import { advanceCopySlot } from './selectOptions'
 import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 import { completeReplacementDiscard } from '../replacement/instructionProgram'
-import { drawRemainderFollowUp, enqueueReplacementSettlement, settleReplaceableEvent } from '../replacement/processor'
+import type { ProgramStep } from '../replacement/instructionProgram'
+
+import {
+  drawRemainderFollowUp,
+  enqueueReplacementSettlement,
+  REPLACEMENT_DISCARD_RESUME,
+  replaceEvent,
+} from '../replacement/processor'
 import type { PluginCatalog } from '../catalog'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
@@ -577,6 +584,39 @@ const applyTopDeckChoices = (
   }
 }
 
+const objectLeftZone = (state: GameState, identity: ObjectIdentity) => {
+  const object = state.objects[identity.objectId]
+  return !object || object.incarnation !== identity.incarnation || object.zone !== identity.zone
+}
+
+const markPendingDiscardSettling = (state: GameState, identities: ObjectIdentity[]) => {
+  for (const frame of [state.eventProcessing, ...(state.deferredEventProcessing ?? [])]) {
+    if (!frame?.program?.pendingDiscard) continue
+    frame.program.pendingDiscard = {
+      ...frame.program.pendingDiscard,
+      settling: true,
+      identities: identities.map((identity) => ({ ...identity })),
+    }
+  }
+}
+
+const finishReplacementDiscardProgram = (draft: Draft, stepped: ProgramStep) => {
+  if (stepped.kind === 'waiting') {
+    if (stepped.state.eventProcessing) draft.eventProcessing = stepped.state.eventProcessing
+    draft.priority = null
+    return
+  }
+  const remainder = draft.eventProcessing
+    ? drawRemainderFollowUp(draft.eventProcessing.pendingEvent)
+    : []
+  enqueueReplacementSettlement(draft, {
+    kind: 'prevented',
+    followUp: [...stepped.followUp, ...remainder],
+    ...(stepped.kind === 'complete' ? { state: stepped.state } : {}),
+  })
+  draft.priority = null
+}
+
 const settledReplacementDiscard = (
   state: GameState,
   seat: PlayerId | undefined,
@@ -584,16 +624,56 @@ const settledReplacementDiscard = (
   catalog: PluginCatalog,
 ) => {
   if (!seat) return { discarded: false, objectIds: [] as string[] }
+  const identities = objectIds.flatMap((objectId) => {
+    const object = state.objects[objectId]
+    return object ? [objectIdentity(object)] : []
+  })
   const kept: string[] = []
+  let current = state
   for (const objectId of objectIds) {
-    const settlement = settleReplaceableEvent(state, { type: 'discard', seat, objectId }, catalog)
-    if (settlement.kind === 'prevented') continue
+    const discardedEvent = replaceEvent(current, { type: 'discard', seat, objectId }, catalog)
+    if (discardedEvent.waiting) {
+      markPendingDiscardSettling(discardedEvent.waiting, identities)
+      return { waiting: discardedEvent.waiting, discarded: false, objectIds: [] as string[] }
+    }
+    if (discardedEvent.value === null) continue
+    current = discardedEvent.state ?? current
+    const moved = replaceEvent(current, { type: 'move', objectId, to: 'graveyard' }, catalog)
+    if (moved.waiting) {
+      markPendingDiscardSettling(moved.waiting, identities)
+      return { waiting: moved.waiting, discarded: false, objectIds: [] as string[] }
+    }
+    if (moved.value === null) continue
+    current = moved.state ?? current
     kept.push(objectId)
   }
   return { discarded: kept.length > 0, objectIds: kept }
 }
 
+const resumeReplacementDiscard = (draft: Draft, event: GameEvent, catalog: PluginCatalog) => {
+  if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return
+  const frameId = event.payload?.frameId
+  const pending = draft.eventProcessing?.program?.pendingDiscard
+  if (typeof frameId !== 'string' || !pending?.settling) return
+  const identities = pending.identities ?? []
+  const discarded = identities.length > 0
+    && identities.every((identity) => objectLeftZone(draft, identity))
+  const stepped = completeReplacementDiscard(
+    freezeDraft(draft),
+    frameId,
+    pending.binding ?? '',
+    discarded,
+    [],
+    catalog,
+  )
+  finishReplacementDiscardProgram(draft, stepped)
+}
+
 const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog) => {
+  if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {
+    resumeReplacementDiscard(draft, event, catalog)
+    return
+  }
   if (event.type !== 'selectCards') return
 
   const selection = pendingSelectionFor(draft, event.seat)
@@ -615,6 +695,11 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       event.objectIds ?? [],
       catalog,
     )
+    if (settled.waiting) {
+      enqueueReplacementSettlement(draft, { kind: 'waiting', state: settled.waiting })
+      draft.priority = null
+      return
+    }
     const stepped = completeReplacementDiscard(
       freezeDraft(draft),
       canonicalChoice.replacementFrameId,
@@ -623,20 +708,7 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       settled.objectIds,
       catalog,
     )
-    if (stepped.kind === 'waiting') {
-      if (stepped.state.eventProcessing) draft.eventProcessing = stepped.state.eventProcessing
-      draft.priority = null
-      return
-    }
-    const remainder = draft.eventProcessing
-      ? drawRemainderFollowUp(draft.eventProcessing.pendingEvent)
-      : []
-    enqueueReplacementSettlement(draft, {
-      kind: 'prevented',
-      followUp: [...stepped.followUp, ...remainder],
-      ...(stepped.kind === 'complete' ? { state: stepped.state } : {}),
-    })
-    draft.priority = null
+    finishReplacementDiscardProgram(draft, stepped)
     return
   }
 
