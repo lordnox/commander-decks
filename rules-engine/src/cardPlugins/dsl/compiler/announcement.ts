@@ -201,6 +201,7 @@ const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, pay
       lifeTotal += costAmount(cost.amount, x)
       continue
     }
+    if (cost.kind === 'draw') continue
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
     const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
     const candidates = Object.values(state.objects).filter((object) => (sourceId === '' || object.id !== sourceId) && object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))

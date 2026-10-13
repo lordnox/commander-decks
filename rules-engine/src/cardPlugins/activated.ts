@@ -418,6 +418,13 @@ export const activated: Plugin = {
         }
         let choiceIndex = 0
         for (const costPart of committed.lockedCost.nonMana) {
+          if (costPart.kind === 'draw') {
+            const count = costPart.count.kind === 'constant' ? costPart.count.value : event.x ?? 0
+            for (let i = 0; i < count; i += 1) {
+              costEvents.push({ type: 'draw', seat: event.seat, count: 1 })
+            }
+            continue
+          }
           if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
           const count = costPart.count.kind === 'constant' ? costPart.count.value : event.x ?? 0
           for (const objectId of (event.choices ?? []).slice(choiceIndex, choiceIndex + count)) {

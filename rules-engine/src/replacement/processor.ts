@@ -4,6 +4,7 @@ import { freezeDraft, makeDraft } from '../draft'
 import { startCanonicalResolution } from '../driver'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { captureObject } from '../objectIdentity'
+import { PENDING_SELECTION } from '../rules/selectCards'
 import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
 import type { Instruction } from '../cardPlugins/dsl/schema/v1'
@@ -663,9 +664,12 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
       draft.nextId = waiting.nextId
       draft.priority = waiting.priority
       for (const seat of waiting.playerOrder) {
-        const pending = waiting.players[seat]?.data[PENDING_OPTION_SELECTION]
-        if (pending) draft.players[seat].data[PENDING_OPTION_SELECTION] = structuredClone(pending)
+        const pendingOption = waiting.players[seat]?.data[PENDING_OPTION_SELECTION]
+        if (pendingOption) draft.players[seat].data[PENDING_OPTION_SELECTION] = structuredClone(pendingOption)
         else delete draft.players[seat].data[PENDING_OPTION_SELECTION]
+        const pendingCards = waiting.players[seat]?.data[PENDING_SELECTION]
+        if (pendingCards) draft.players[seat].data[PENDING_SELECTION] = structuredClone(pendingCards)
+        else delete draft.players[seat].data[PENDING_SELECTION]
       }
       return
     }

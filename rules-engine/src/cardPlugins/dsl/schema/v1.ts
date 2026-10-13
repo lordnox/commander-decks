@@ -153,6 +153,7 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 export type Cost =
   | { kind: 'discard'; filter: ObjectSelector; count: Amount }
   | { kind: 'sacrifice'; filter: ObjectSelector; count: Amount }
+  | { kind: 'draw'; count: Amount }
   | { kind: 'life'; amount: Amount }
   | { kind: 'mana'; amount: ManaCost }
 
