@@ -1,6 +1,7 @@
 import { freezeDraft, makeDraft } from '../draft'
 import {
   CHOSEN_COLOR_BINDING,
+  type Instruction,
   type ReplacementProgramInstruction,
   type ReplacementTransform,
 } from '../cardPlugins/dsl/schema/v1'
@@ -10,7 +11,6 @@ import type {
   GameEvent,
   GameState,
   ManaId,
-  ReplacementProgramCursor,
 } from '../types'
 import { applyReplacementTransform } from './program'
 
@@ -28,18 +28,22 @@ export const initApplicationProgram = (
   instructions: readonly ReplacementProgramInstruction[],
   transform: ReplacementTransform,
   sourceId: string,
-): ReplacementProgramCursor => ({
+  controller: string,
+) => ({
   instructions,
   index: 0,
   bindings: {},
   transform,
   sourceId,
+  controller,
 })
 
 export type ApplicationProgramStep =
   | { kind: 'waiting'; state: GameState }
   | { kind: 'complete'; event: GameEvent; state: GameState }
   | { kind: 'prevented'; state: GameState }
+  | { kind: 'fork'; events: GameEvent[]; state: GameState }
+  | { kind: 'program'; instructions: readonly Instruction[]; event: GameEvent; state: GameState }
 
 const openChoice = (
   draft: ReturnType<typeof makeDraft>,
@@ -66,26 +70,38 @@ const openChoice = (
 export const advanceApplicationProgram = (
   state: GameState,
   frame: EventProcessingFrame,
-): ApplicationProgramStep => {
+) => {
   const draft = makeDraft(state)
   const working = draft.eventProcessing ?? structuredClone(frame)
   draft.eventProcessing = working
   const program = working.applicationProgram
-  if (!program) return { kind: 'complete', event: working.pendingEvent, state }
+  if (!program) return { kind: 'complete' as const, event: working.pendingEvent, state }
   while (program.index < program.instructions.length) {
     const instruction = program.instructions[program.index]!
     if (instruction.kind === 'choose') {
       openChoice(draft, working, instruction)
-      return { kind: 'waiting', state: freezeDraft(draft) }
+      return { kind: 'waiting' as const, state: freezeDraft(draft) }
     }
     program.index += 1
   }
   const transformed = applyReplacementTransform(working.pendingEvent, program.transform, working.lineage)
   delete draft.eventProcessing
   const frozen = freezeDraft(draft)
-  if (transformed.kind === 'prevented') return { kind: 'prevented', state: frozen }
-  if (transformed.kind === 'continue') return { kind: 'complete', event: transformed.event, state: frozen }
-  return { kind: 'complete', event: working.pendingEvent, state: frozen }
+  switch (transformed.kind) {
+    case 'prevented':
+      return { kind: 'prevented' as const, state: frozen }
+    case 'continue':
+      return { kind: 'complete' as const, event: transformed.event, state: frozen }
+    case 'fork':
+      return { kind: 'fork' as const, events: transformed.events, state: frozen }
+    case 'program':
+      return {
+        kind: 'program' as const,
+        instructions: transformed.instructions,
+        event: working.pendingEvent,
+        state: frozen,
+      }
+  }
 }
 
 export const rememberApplicationChoice = (
@@ -93,16 +109,16 @@ export const rememberApplicationChoice = (
   frameId: string,
   bindChoice: string,
   optionId: string,
-): ApplicationProgramStep | { kind: 'invalid'; error: string } => {
+) => {
   const draft = makeDraft(state)
   const frame = draft.eventProcessing
   const program = frame?.applicationProgram
   if (!frame || frame.id !== frameId || !program) {
-    return { kind: 'invalid', error: 'replacement program choice is not active' }
+    return { kind: 'invalid' as const, error: 'replacement program choice is not active' }
   }
   const instruction = program.instructions[program.index]
   if (!instruction || instruction.kind !== 'choose' || instruction.bindChoice !== bindChoice) {
-    return { kind: 'invalid', error: 'replacement program choice is not authorized' }
+    return { kind: 'invalid' as const, error: 'replacement program choice is not authorized' }
   }
   const chooser = frame.chooser
   if (chooser) delete draft.players[chooser].data[PENDING_OPTION_SELECTION]

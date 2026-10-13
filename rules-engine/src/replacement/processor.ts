@@ -12,6 +12,7 @@ import {
   advanceApplicationProgram,
   initApplicationProgram,
   rememberApplicationChoice,
+  type ApplicationProgramStep,
 } from './applicationProgram'
 import type {
   EventProcessingFrame,
@@ -157,6 +158,7 @@ type ApplyResult =
     transform: ReplacementTransform
     sourceId: string
     controller: string
+    chooser: string
     followUp?: GameEvent[]
     followUpPrograms?: PreventionFollowUpProgram[]
   }
@@ -311,13 +313,18 @@ const applyCandidate = (
   markInstanceUsed(lineage, candidate.instanceId)
   if (candidate.effect.program?.length) {
     const source = state.objects[candidate.sourceId]
+    const selfEntry = candidate.category === 'self'
+    const sourceController = selfEntry && proposal.type === 'move'
+      ? (proposal.controller ?? source?.controller ?? candidate.chooser)
+      : (source?.controller ?? candidate.chooser)
     return {
       result: {
         kind: 'applicationProgram',
         instructions: candidate.effect.program,
         transform: candidate.effect.transform,
         sourceId: candidate.sourceId,
-        controller: source?.controller ?? candidate.chooser,
+        controller: sourceController,
+        chooser: selfEntry ? sourceController : candidate.chooser,
       },
       state,
     }
@@ -420,6 +427,61 @@ const settleReplacementProgram = (
   }
 }
 
+const settleApplicationStep = (
+  stepped: ApplicationProgramStep,
+  proposal: GameEvent,
+  lineage: ReplacementLineage,
+  sourceId: string,
+  controller: string,
+  chooser: string | undefined,
+  catalog: PluginCatalog,
+  options: { announcementTransactionId?: string },
+  followUp: GameEvent[],
+  followUpPrograms: PreventionFollowUpProgram[],
+): ReplacementSettlement => {
+  switch (stepped.kind) {
+    case 'waiting':
+      return { kind: 'waiting', state: stepped.state }
+    case 'prevented':
+      return {
+        kind: 'prevented',
+        state: stepped.state,
+        ...followUpFields([...followUp, ...drawRemainderFollowUp(proposal)], followUpPrograms),
+      }
+    case 'fork':
+      return {
+        kind: 'fork',
+        events: stepped.events,
+        state: stepped.state,
+        ...followUpFields([...followUp, ...drawRemainderFollowUp(proposal)], followUpPrograms),
+      }
+    case 'program':
+      return settleReplacementProgram(
+        { ...stepped.state, eventProcessing: undefined },
+        stepped.event,
+        lineage,
+        {
+          kind: 'program',
+          instructions: stepped.instructions,
+          sourceId,
+          controller,
+          occurrencePlayer: stepped.event.type === 'draw' ? stepped.event.seat : (chooser ?? controller),
+        },
+        catalog,
+        options,
+        followUp,
+        followUpPrograms,
+      )
+    case 'complete':
+      return settleReplaceableEvent(
+        { ...stepped.state, eventProcessing: undefined },
+        stepped.event,
+        catalog,
+        options,
+      )
+  }
+}
+
 const settleApplicationProgram = (
   workingState: GameState,
   proposal: GameEvent,
@@ -437,24 +499,31 @@ const settleApplicationProgram = (
     pendingEvent: structuredClone(proposal),
     lineage: structuredClone(lineage),
     awaitingCandidateIds: [],
-    chooser: applied.controller,
-    applicationProgram: initApplicationProgram(applied.instructions, applied.transform, applied.sourceId),
+    chooser: applied.chooser,
+    applicationProgram: initApplicationProgram(
+      applied.instructions,
+      applied.transform,
+      applied.sourceId,
+      applied.controller,
+    ),
     ...(options.announcementTransactionId ? { announcementTransactionId: options.announcementTransactionId } : {}),
     ...followUpFields(structuredClone(followUp), structuredClone(followUpPrograms)),
   }
-  const stepped = advanceApplicationProgram(
-    { ...workingState, nextId: workingState.nextId + 1, eventProcessing: frame },
-    frame,
+  return settleApplicationStep(
+    advanceApplicationProgram(
+      { ...workingState, nextId: workingState.nextId + 1, eventProcessing: frame },
+      frame,
+    ),
+    proposal,
+    lineage,
+    applied.sourceId,
+    applied.controller,
+    applied.chooser,
+    catalog,
+    options,
+    followUp,
+    followUpPrograms,
   )
-  if (stepped.kind === 'waiting') return { kind: 'waiting', state: stepped.state }
-  if (stepped.kind === 'prevented') {
-    return {
-      kind: 'prevented',
-      state: stepped.state,
-      ...followUpFields([...followUp, ...drawRemainderFollowUp(proposal)], followUpPrograms),
-    }
-  }
-  return settleReplaceableEvent(stepped.state, stepped.event, catalog, options)
 }
 
 const suspendForChoice = (
@@ -762,24 +831,21 @@ export const resumeReplacementProgramChoice = (
   const finish = (settlement: ReplacementSettlement) =>
     reattachProcessing(settlement, state, frameId, resumeState)
   if (advanced.kind === 'invalid') return advanced
-  if (advanced.kind === 'waiting') return finish({ kind: 'waiting', state: advanced.state })
-  if (advanced.kind === 'prevented') {
-    return finish({
-      kind: 'prevented',
-      state: advanced.state,
-      ...followUpFields(pendingEvents, pendingPrograms),
-    })
-  }
-  const cleared = {
-    ...advanced.state,
-    eventProcessing: undefined,
-    deferredEventProcessing: undefined,
-  }
-  return finish(attachFollowUps(
-    settleReplaceableEvent(cleared, advanced.event, catalog, announcementOptions(frame.announcementTransactionId)),
+  const program = frame.applicationProgram
+  const settled = settleApplicationStep(
+    advanced,
+    frame.pendingEvent,
+    frame.lineage,
+    program.sourceId,
+    program.controller,
+    frame.chooser,
+    catalog,
+    announcementOptions(frame.announcementTransactionId),
     pendingEvents,
     pendingPrograms,
-  ))
+  )
+  if (settled.kind === 'waiting') return finish(settled)
+  return finish(attachFollowUps(settled, pendingEvents, pendingPrograms))
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {

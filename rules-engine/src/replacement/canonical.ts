@@ -145,6 +145,10 @@ const chooserFor = (state: GameState, event: GameEvent, controller: string) => {
       }
       return controller
     case 'move':
+      return event.controller
+        ?? state.objects[event.objectId]?.controller
+        ?? state.objects[event.objectId]?.owner
+        ?? controller
     case 'destroy':
     case 'sacrifice': {
       const object = state.objects[event.objectId]
@@ -176,12 +180,13 @@ const discoverProspectiveSelfEntry = (
   if (event.type !== 'move' || event.to !== 'battlefield') return
   const host = state.objects[event.objectId]
   if (!host) return
-  const runtime = runtimeFor(state, host.id, host.controller)
+  const prospectiveController = event.controller ?? host.controller
+  const runtime = runtimeFor(state, host.id, prospectiveController)
   for (const entry of prospectiveBattlefieldStaticReplacements(host)) {
     const instanceId = printedStaticEffectKey(host.id, entry.abilityIndex, entry.effectIndex)
     if (usedInstanceIds.includes(instanceId) || settledOptionalDeclines.includes(instanceId)) continue
     if (entry.effect.when && !evaluateCondition(entry.effect.when, runtime)) continue
-    if (!eventMatchesPattern(event, entry.effect, runtime, state, host.id, host.controller)) continue
+    if (!eventMatchesPattern(event, entry.effect, runtime, state, host.id, prospectiveController)) continue
     if (categoryFor(entry.effect, event, host.id) !== 'self') continue
     pushCandidate(candidates, seen, {
       kind: 'canonical',
@@ -194,7 +199,7 @@ const discoverProspectiveSelfEntry = (
       effect: entry.effect,
       label: host.name,
       optional: entry.effect.optional ?? false,
-      chooser: chooserFor(state, event, host.controller),
+      chooser: chooserFor(state, event, prospectiveController),
       rulesTimestamp: host.staticRulesTimestamp ?? 0,
     })
   }

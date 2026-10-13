@@ -24,7 +24,6 @@ import type {
   ModeDefinition,
   ModeInput,
   ReplacementEventPattern,
-  ReplacementProgramInstruction,
   ModeSpec,
   NumericCharacteristic,
   ObjectFilter,
@@ -261,9 +260,9 @@ export const COLOR_CHOICE_OPTIONS = [
   { id: 'G', label: 'Green' },
 ] as const
 
-export const chooseColor = (bindChoice = CHOSEN_COLOR_BINDING): ReplacementProgramInstruction =>
+export const chooseColor = (bindChoice = CHOSEN_COLOR_BINDING) =>
   immutableData({
-    kind: 'choose',
+    kind: 'choose' as const,
     bindChoice,
     options: COLOR_CHOICE_OPTIONS.map((option) => ({ id: option.id, label: option.label })),
   })
