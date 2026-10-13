@@ -1,0 +1,13 @@
+---
+description: Check known GitHub issues, separate PR findings from baseline defects, and write reproducible focused reports
+alwaysApply: true
+---
+
+# Code defect reporting
+
+Whenever you find or investigate a possible code defect, check the repository's
+GitHub Issues for matching reports before classifying or reporting it.
+
+Follow the shared [defect reporting rule](../../.github/ISSUES.md) for routing,
+focused issue titles, deduplication, base-branch verification, and reproduction
+evidence. Keep PR-specific findings in the PR's review comments.

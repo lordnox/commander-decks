@@ -18,6 +18,14 @@ Extract repeated continuation/pending-choice payload construction into a small t
 
 Apply these rules to new or changed code. Existing violations identified in the Part06 review are deferred to a later implementation cleanup; adding these rules does not claim those violations have been fixed.
 
+## Code defects and review findings
+
+Whenever you find or investigate a possible code defect, check the repository's
+GitHub Issues first for matching reports. Follow [the defect reporting rule](.github/ISSUES.md):
+keep PR-specific findings in PR review comments, use focused issues for existing
+defects, and include exact reproduction steps. Issue titles must not contain "and"
+or combine unrelated problems.
+
 ## Git workflow
 
 Never edit on `main`. Each agent session uses its own branch and git worktree:
