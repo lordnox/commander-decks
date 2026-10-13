@@ -16,7 +16,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot } from './dsl/compiler'
+import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
@@ -365,7 +365,7 @@ export const activated: Plugin = {
       return `${source.name} cannot add ${named}`
     }
   },
-  apply: ({ event, draft }) => {
+  apply: ({ event, draft, state }) => {
     if (event.type === 'tapForMana') {
       const source = draft.object(event.objectId)
       const canonicalMana = source && canonicalManaAbilityForTap(source)
@@ -413,20 +413,25 @@ export const activated: Plugin = {
         const costEvents: GameEvent[] = []
         for (const costPart of committed.lockedCost.nonMana) {
           if (costPart.kind === 'life') {
-            costEvents.push({ type: 'payLife', seat: event.seat, amount: costPart.amount.kind === 'constant' ? costPart.amount.value : event.x ?? 0, source: source.name })
+            costEvents.push({
+              type: 'payLife',
+              seat: event.seat,
+              amount: evaluateAnnouncementCostAmount(costPart.amount, event.x),
+              source: source.name,
+            })
           }
         }
         let choiceIndex = 0
         for (const costPart of committed.lockedCost.nonMana) {
           if (costPart.kind === 'draw') {
-            const count = costPart.count.kind === 'constant' ? costPart.count.value : event.x ?? 0
+            const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
             for (let i = 0; i < count; i += 1) {
               costEvents.push({ type: 'draw', seat: event.seat, count: 1 })
             }
             continue
           }
           if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
-          const count = costPart.count.kind === 'constant' ? costPart.count.value : event.x ?? 0
+          const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
           for (const objectId of (event.choices ?? []).slice(choiceIndex, choiceIndex + count)) {
             costEvents.push(costPart.kind === 'discard'
               ? { type: 'discard', seat: event.seat, objectId }
@@ -468,19 +473,22 @@ export const activated: Plugin = {
         const canonicalInstructions = canonical?.kind === 'activated' && canonical.modes
           ? (modal?.modeIndices ?? []).flatMap((modeIndex) => canonical.modes?.[modeIndex]?.instructions ?? [])
           : canonical?.kind === 'activated' ? canonical.instructions ?? [] : []
+        const activationItem = {
+          kind: 'ability' as const,
+          objectId: source.id,
+          controller: event.seat,
+          name: source.name,
+          targets: resolvedTargets,
+          abilityId: event.abilityId,
+          payload: { instructions: canonicalInstructions },
+          execution: canonicalExecution,
+          ...(event.x !== undefined ? { x: event.x } : {}),
+        }
         if (manaClassification.isManaAbility) {
           const inlineItem = {
             id: draft.allocId('inline'),
-            kind: 'ability' as const,
-            objectId: source.id,
-            controller: event.seat,
-            name: source.name,
-            targets: resolvedTargets,
-            abilityId: event.abilityId,
-            ...(event.x !== undefined ? { x: event.x } : {}),
+            ...activationItem,
             ...(event.choices ? { choices: event.choices } : {}),
-            payload: { instructions: canonicalInstructions },
-            execution: canonicalExecution,
           }
           startCanonicalResolution(draft, inlineItem, { inline: true })
           if (draft.resolution?.kind === 'canonicalSpell') {
@@ -490,18 +498,21 @@ export const activated: Plugin = {
           draft.priority = null
           return
         }
-        for (const costEvent of costEvents) draft.enqueue(costEvent)
-        draft.addToStack({
-          kind: 'ability',
-          objectId: source.id,
-          controller: event.seat,
-          name: source.name,
-          targets: resolvedTargets,
-          abilityId: event.abilityId,
-          payload: { instructions: canonicalInstructions },
-          execution: canonicalExecution,
-          ...(event.x !== undefined ? { x: event.x } : {}),
-        })
+        if (costEvents.length > 0) {
+          draft.provisionalAnnouncement = {
+            id: committed.id,
+            payer: event.seat,
+            transaction: committed,
+            baseline: structuredClone(state),
+            pendingActivation: activationItem,
+            plannedPaymentCursor: 0,
+            source: captureObject(source),
+            definitionSnapshot: createDefinitionSnapshot(compiled),
+          }
+          draft.priority = null
+          return
+        }
+        draft.addToStack(activationItem)
         draft.passedInRow = []
         draft.priority = event.seat
         draft.note(`${event.seat} activates ${source.name}`)

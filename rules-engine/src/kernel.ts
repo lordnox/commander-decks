@@ -81,6 +81,9 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       current = driven.state
       if (current.resolution) return { ok: true, state: current, trace: entries }
     }
+    if (hasOpenChoice(current) || current.eventProcessing) {
+      return { ok: true, state: current, trace: entries }
+    }
   }
   if (frame.source && frame.definitionSnapshot) {
     const liveSource = current.objects[frame.source.ref.objectId]
@@ -90,35 +93,69 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       return { ok: false, error, state: frame.baseline, trace: entries }
     }
   }
+  const paymentEvents: GameEvent[] = []
   let costIndex = 0
   for (const cost of frame.transaction.lockedCost.nonMana) {
-    let amount = 0
-    let events: GameEvent[] = []
     switch (cost.kind) {
       case 'life':
-        amount = evaluateAnnouncementCostAmount(cost.amount, frame.transaction.lockedCost.x)
-        events = [{ type: 'payLife', seat: frame.payer, amount, source: frame.transaction.proposal.sourceId }]
+        paymentEvents.push({
+          type: 'payLife',
+          seat: frame.payer,
+          amount: evaluateAnnouncementCostAmount(cost.amount, frame.transaction.lockedCost.x),
+          source: frame.transaction.proposal.sourceId,
+        })
         break
       case 'discard':
-      case 'sacrifice':
-        amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
-        events = (frame.transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
-          cost.kind === 'discard' ? { type: 'discard', seat: frame.payer, objectId } : { type: 'sacrifice', objectId })
+      case 'sacrifice': {
+        const amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
+        paymentEvents.push(...(frame.transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
+          cost.kind === 'discard' ? { type: 'discard' as const, seat: frame.payer, objectId } : { type: 'sacrifice' as const, objectId }))
         costIndex += amount
         break
-      case 'draw':
-        amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
-        events = Array.from({ length: amount }, () => ({ type: 'draw' as const, seat: frame.payer, count: 1 }))
+      }
+      case 'draw': {
+        const amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
+        paymentEvents.push(...Array.from({ length: amount }, () => ({ type: 'draw' as const, seat: frame.payer, count: 1 })))
         break
+      }
       case 'mana':
         break
     }
-    for (const paymentEvent of events) {
-      const paid = applyEventTree(current, paymentEvent, catalog)
-      entries.push(...nested(paid.trace, 1))
-      if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }
-      current = paid.state
+  }
+  let paymentCursor = frame.plannedPaymentCursor ?? 0
+  while (paymentCursor < paymentEvents.length) {
+    const draft = makeDraft(current)
+    if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedPaymentCursor = paymentCursor + 1
+    current = freezeDraft(draft)
+    const paid = applyEventTree(current, paymentEvents[paymentCursor]!, catalog)
+    entries.push(...nested(paid.trace, 1))
+    if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }
+    current = paid.state
+    paymentCursor += 1
+    if (current.resolution) {
+      const driven = driveResolution(current, catalog)
+      entries.push(...nested(driven.trace, 1))
+      if (!driven.ok) return { ...driven, state: frame.baseline, trace: entries }
+      current = driven.state
+      if (current.resolution) return { ok: true, state: current, trace: entries }
     }
+    if (hasOpenChoice(current) || current.eventProcessing) {
+      return { ok: true, state: current, trace: entries }
+    }
+  }
+  if (frame.pendingActivation) {
+    const completed = makeDraft(current)
+    completed.addToStack(frame.pendingActivation)
+    completed.passedInRow = []
+    completed.priority = frame.payer
+    completed.note(`${frame.payer} activates ${frame.pendingActivation.name}`)
+    delete completed.provisionalAnnouncement
+    return { ok: true, state: freezeDraft(completed), trace: entries }
+  }
+  if (!frame.continuation) {
+    const completed = makeDraft(current)
+    delete completed.provisionalAnnouncement
+    return { ok: true, state: freezeDraft(completed), trace: entries }
   }
   const beforeCast = current
   const cast = applyEventTree(current, {
@@ -128,7 +165,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   entries.push(...nested(cast.trace, 1))
   if (!cast.ok) return { ...cast, state: frame.baseline, trace: entries }
   const completed = makeDraft(cast.state)
-  const stacked = completed.stack.find((item) => item.objectId === frame.continuation.objectId)
+  const stacked = completed.stack.find((item) => item.objectId === frame.continuation?.objectId)
   const announcement = stacked?.execution?.announcement
   if (announcement) announcement.payment = actualManaPayment(beforeCast, cast.state, frame.payer)
   delete completed.provisionalAnnouncement
@@ -1520,9 +1557,23 @@ export const rules = (
   }
   const checked = checkpoint(current, catalog)
   entries.push(...checked.trace)
-  return checked.ok
-    ? { ok: true, state: checked.state, trace: entries }
-    : { ...checked, trace: entries }
+  if (!checked.ok) return { ...checked, trace: entries }
+  current = checked.state
+  if (current.provisionalAnnouncement && !hasOpenChoice(current) && !current.eventProcessing) {
+    const continued = continuePlannedAnnouncement(current, catalog)
+    entries.push(...continued.trace)
+    if (!continued.ok || continued.state.resolution) return { ...continued, trace: entries }
+    current = continued.state
+    if (current.provisionalAnnouncement && (hasOpenChoice(current) || current.eventProcessing)) {
+      return { ok: true, state: current, trace: entries }
+    }
+    const after = checkpoint(current, catalog)
+    entries.push(...after.trace)
+    return after.ok
+      ? { ok: true, state: after.state, trace: entries }
+      : { ...after, trace: entries }
+  }
+  return { ok: true, state: current, trace: entries }
 }
 
 export const isBattlefield = (zone: ZoneId) => zone === 'battlefield'

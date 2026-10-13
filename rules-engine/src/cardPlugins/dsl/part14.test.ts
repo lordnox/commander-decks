@@ -4,6 +4,7 @@ import {
   amount,
   card,
   compileCardRuleDefinition,
+  count,
   createDefinitionSnapshot,
   discard,
   draw,
@@ -17,6 +18,7 @@ import {
   replacement,
   result,
   staticAbility,
+  variable,
   wouldDraw,
 } from './v1'
 import { commanderRules } from '../../formats'
@@ -571,6 +573,106 @@ describe('Rule DSL Part 14 draw history and Chains replacement', () => {
     expect(state.stack).toHaveLength(1)
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(state.players.p1.life).toBe(41)
+  })
+
+  test('a dynamic draw cost locks the player count and draws that many cards', () => {
+    const payDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [drawCost(count(players({ relation: 'any' })))],
+        decisions: { targets: [] },
+        instructions: [gainLife({ amount: amount(1), targets: ref('controller') })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Census Rock', { types: ['Artifact'], ruleDefinition: payDraw() })] },
+      libraries: { p1: [cardTemplate('A'), cardTemplate('B')] },
+    }, { random: () => 0 })
+    const rock = Object.values(server.state.objects).find((object) => object.name === 'Census Rock')!
+    const draft = makeDraft(server.state)
+    draft.step = 'precombatMain'
+    draft.active = 'p1'
+    let state = freezeDraft(draft)
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: rock.id,
+      abilityId: '$.abilities[0]',
+    }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(state.stack).toHaveLength(1)
+  })
+
+  test('an unbound X draw cost is rejected', () => {
+    const payDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [drawCost(variable('X'))],
+        decisions: { targets: [], variables: [{ name: 'X', min: 0, max: 10 }] },
+        instructions: [gainLife({ amount: amount(1), targets: ref('controller') })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('X Rock', { types: ['Artifact'], ruleDefinition: payDraw() })] },
+      libraries: { p1: [cardTemplate('A'), cardTemplate('B')] },
+    }, { random: () => 0 })
+    const rock = Object.values(server.state.objects).find((object) => object.name === 'X Rock')!
+    const draft = makeDraft(server.state)
+    draft.step = 'precombatMain'
+    draft.active = 'p1'
+    const state = freezeDraft(draft)
+    const result = server.rules(state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: rock.id,
+      abilityId: '$.abilities[0]',
+    })
+    expect(result.ok).toBe(false)
+    expect(state.zoneOrder.p1.hand).toHaveLength(0)
+    expect(state.stack).toHaveLength(0)
+  })
+
+  test('a two-draw cost under Chains finishes both replacement procedures through restore', () => {
+    const payDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [drawCost(2)],
+        decisions: { targets: [] },
+        instructions: [gainLife({ amount: amount(1), targets: ref('controller') })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() }),
+          cardTemplate('Tax Rock', { types: ['Artifact'], ruleDefinition: payDraw() }),
+        ],
+      },
+      hands: { p1: [cardTemplate('H1'), cardTemplate('H2')] },
+      libraries: { p1: [cardTemplate('L1'), cardTemplate('L2')] },
+    }, { random: () => 0 })
+    const rock = Object.values(server.state.objects).find((object) => object.name === 'Tax Rock')!
+    const draft = makeDraft(server.state)
+    draft.step = 'precombatMain'
+    draft.active = 'p1'
+    let state = freezeDraft(draft)
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: rock.id,
+      abilityId: '$.abilities[0]',
+    }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    expect(state.stack).toHaveLength(0)
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    expect(state.stack).toHaveLength(0)
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+    expect(state.zoneOrder.p1.library).toHaveLength(0)
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(state.stack).toHaveLength(1)
   })
 
   test('extra draw step starts a fresh exemption', () => {
