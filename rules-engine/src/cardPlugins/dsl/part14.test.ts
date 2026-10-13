@@ -675,6 +675,51 @@ describe('Rule DSL Part 14 draw history and Chains replacement', () => {
     expect(state.stack).toHaveLength(1)
   })
 
+  test('a two-draw mana-ability cost under Chains finishes both procedures through restore', () => {
+    const payDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [drawCost(2)],
+        decisions: { targets: [] },
+        instructions: [{ kind: 'addMana', amount: { G: amount(1) }, targets: ref('controller') }],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() }),
+          cardTemplate('Tax Rock', { types: ['Artifact'], ruleDefinition: payDraw() }),
+        ],
+      },
+      hands: { p1: [cardTemplate('H1'), cardTemplate('H2')] },
+      libraries: { p1: [cardTemplate('L1'), cardTemplate('L2')] },
+    }, { random: () => 0 })
+    const rock = Object.values(server.state.objects).find((object) => object.name === 'Tax Rock')!
+    const draft = makeDraft(server.state)
+    draft.step = 'precombatMain'
+    draft.active = 'p1'
+    let state = freezeDraft(draft)
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: rock.id,
+      abilityId: '$.abilities[0]',
+    }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    expect(state.stack).toHaveLength(0)
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    expect(state.stack).toHaveLength(0)
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.eventProcessing).toBeUndefined()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+    expect(state.zoneOrder.p1.library).toHaveLength(0)
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(state.stack).toHaveLength(0)
+    expect(state.players.p1.mana.G).toBe(1)
+  })
+
   test('extra draw step starts a fresh exemption', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

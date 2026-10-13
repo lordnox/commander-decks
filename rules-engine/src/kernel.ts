@@ -145,10 +145,22 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   }
   if (frame.pendingActivation) {
     const completed = makeDraft(current)
-    completed.addToStack(frame.pendingActivation)
-    completed.passedInRow = []
-    completed.priority = frame.payer
-    completed.note(`${frame.payer} activates ${frame.pendingActivation.name}`)
+    if (frame.inlineManaAbility) {
+      startCanonicalResolution(completed, {
+        id: completed.allocId('inline'),
+        ...frame.pendingActivation,
+      }, { inline: true })
+      if (completed.resolution?.kind === 'canonicalSpell') {
+        completed.resolution.phase = 'running'
+        delete completed.resolution.pendingEvents
+      }
+      completed.priority = null
+    } else {
+      completed.addToStack(frame.pendingActivation)
+      completed.passedInRow = []
+      completed.priority = frame.payer
+      completed.note(`${frame.payer} activates ${frame.pendingActivation.name}`)
+    }
     delete completed.provisionalAnnouncement
     return { ok: true, state: freezeDraft(completed), trace: entries }
   }
@@ -1562,8 +1574,15 @@ export const rules = (
   if (current.provisionalAnnouncement && !hasOpenChoice(current) && !current.eventProcessing) {
     const continued = continuePlannedAnnouncement(current, catalog)
     entries.push(...continued.trace)
-    if (!continued.ok || continued.state.resolution) return { ...continued, trace: entries }
+    if (!continued.ok) return { ...continued, trace: entries }
     current = continued.state
+    if (current.resolution) {
+      const driven = driveResolution(current, catalog)
+      entries.push(...driven.trace)
+      if (!driven.ok) return { ...driven, trace: entries }
+      current = driven.state
+      if (current.resolution) return { ok: true, state: current, trace: entries }
+    }
     if (current.provisionalAnnouncement && (hasOpenChoice(current) || current.eventProcessing)) {
       return { ok: true, state: current, trace: entries }
     }
