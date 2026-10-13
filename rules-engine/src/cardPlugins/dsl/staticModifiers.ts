@@ -9,10 +9,13 @@ import {
 } from '../continuousEffects'
 import { evaluateAmount } from './compiler/evaluate'
 import { amountEvaluationContext, evaluateObjectSelector } from './compiler/runtime'
+import { syncStaticPreventionInstances } from '../../replacement/prevention'
 import {
   activePrintedStaticModifiers,
   ensureStaticRulesTimestamp,
   isActiveKeywordStatic,
+  isRuntimePrintedStaticEffect,
+  type RuntimePrintedStaticEffect,
   modifierKey,
   printedStaticAbilityActive,
   printedStaticDuration,
@@ -136,11 +139,11 @@ const syncModifyStats = (
   }
 }
 
-const syncProhibitActivation = (
+const syncRuntimePrintedModifier = (
   source: GameObject,
   abilityIndex: number,
   effectIndex: number,
-  effect: Extract<ContinuousEffectDefinition, { kind: 'prohibitActivation' }>,
+  effect: RuntimePrintedStaticEffect,
   timestamp: number,
 ) => ({
   abilityIndex,
@@ -148,8 +151,11 @@ const syncProhibitActivation = (
   timestamp,
   sourceRef: captureObject(source).ref,
   activeIn: sourceActiveZones(source, abilityIndex),
-  kind: 'prohibitActivation' as const,
-  filter: effect.filter,
+  ...(effect.kind === 'prohibitActivation'
+    ? { kind: 'prohibitActivation' as const, filter: effect.filter }
+    : effect.kind === 'replacement'
+      ? { kind: 'replacement' as const, effect }
+      : { kind: 'prevention' as const, effect }),
 })
 
 const syncSource = (draft: Draft, source: GameObject) => {
@@ -180,12 +186,13 @@ const syncSource = (draft: Draft, source: GameObject) => {
       syncKeywordAbility(draft, source, entry.abilityIndex, entry.keyword)
       continue
     }
-    const { abilityIndex, effectIndex, effect } = entry
+    const { abilityIndex, effectIndex } = entry
     const effectTimestamp = preservedTimestamps.get(modifierKey(abilityIndex, effectIndex)) ?? timestamp
-    if (effect.kind === 'prohibitActivation') {
-      nextModifiers.push(syncProhibitActivation(source, abilityIndex, effectIndex, effect, effectTimestamp))
+    if (isRuntimePrintedStaticEffect(entry)) {
+      nextModifiers.push(syncRuntimePrintedModifier(source, abilityIndex, effectIndex, entry.effect, effectTimestamp))
       continue
     }
+    const { effect } = entry
     if (effect.kind === 'modifyStats') {
       syncModifyStats(draft, source, abilityIndex, effectIndex, effect, effectTimestamp)
     }
@@ -240,6 +247,9 @@ const applyLayer7Order = (object: GameObject) => {
 export const syncCanonicalStaticModifiers = (draft: Draft) => {
   for (const source of Object.values(draft.objects)) syncSource(draft, source)
   for (const object of Object.values(draft.objects)) applyLayer7Order(object)
+  const synced = syncStaticPreventionInstances(draft)
+  if (synced.preventionInstances) draft.preventionInstances = synced.preventionInstances
+  else delete draft.preventionInstances
 }
 
 const syncAll = (draft: Draft) => {
@@ -253,8 +263,9 @@ const modifiersOutOfSync = (state: GameState) => {
       continue
     }
     const active = activePrintedStaticModifiers(state, source)
-    const prohibit = active.filter((entry) => !isActiveKeywordStatic(entry) && entry.effect.kind === 'prohibitActivation')
-    if ((source.printedStaticModifiers?.length ?? 0) !== prohibit.length) return true
+    const runtimePrinted = active.filter((entry) =>
+      !isActiveKeywordStatic(entry) && isRuntimePrintedStaticEffect(entry))
+    if ((source.printedStaticModifiers?.length ?? 0) !== runtimePrinted.length) return true
     for (const entry of active) {
       if (isActiveKeywordStatic(entry)) {
         if (printedStaticAbilityActive(state, source, entry.abilityIndex)

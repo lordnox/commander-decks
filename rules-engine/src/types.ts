@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionFilter, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
+import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -193,17 +193,29 @@ export type ContinuousEffect = {
   duration: EffectDuration
 }
 
-/** Runtime instance of a printed static restriction compiled from canonical data. */
-export type PrintedStaticModifier = {
+type PrintedStaticModifierBase = {
   abilityIndex: number
   effectIndex: number
   /** CR 613.7a timestamp; preserved when the modifier is recomputed. */
   timestamp: number
   sourceRef: ObjectIdentity
   activeIn: readonly ZoneId[]
-  kind: 'prohibitActivation'
-  filter: ActivationFilter
 }
+
+/** Runtime instance of a printed static compiled from canonical data. */
+export type PrintedStaticModifier =
+  | (PrintedStaticModifierBase & {
+    kind: 'prohibitActivation'
+    filter: ActivationFilter
+  })
+  | (PrintedStaticModifierBase & {
+    kind: 'replacement'
+    effect: ReplacementEffectDefinition
+  })
+  | (PrintedStaticModifierBase & {
+    kind: 'prevention'
+    effect: PreventionEffectDefinition
+  })
 
 /** Consumable damage-prevention shield tracked outside replacement lineage. */
 export type PreventionInstance = {

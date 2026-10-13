@@ -1,4 +1,3 @@
-import { compileCardRuleDefinition } from '../cardPlugins/dsl/compiler'
 import {
   evaluateCondition,
   evaluateObjectReference,
@@ -6,8 +5,12 @@ import {
   evaluatePlayerSelector,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
-import { captureObject } from '../objectIdentity'
-import type { CardRuleDefinitionV1, DamageReplacementFilter, ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
+import {
+  printedStaticAbilityActive,
+  printedStaticEffectKey,
+} from '../cardPlugins/dsl/staticModifierCore'
+import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
+import { captureObject, isSameObject } from '../objectIdentity'
 import { damageMatchesPreventionFilter } from './prevention'
 import type { GameEvent, GameState } from '../types'
 import type { ReplacementCategory } from './types'
@@ -24,11 +27,12 @@ export type CanonicalReplacementCandidate = {
   label: string
   optional: boolean
   chooser: string
+  rulesTimestamp: number
 }
 
 const damageMatchesFilter = (
   event: Extract<GameEvent, { type: 'dealDamage' }>,
-  filter: DamageReplacementFilter,
+  filter: NonNullable<Extract<ReplacementEffectDefinition['event'], { kind: 'damage' }>['filter']>,
   runtime: RuleDslRuntimeContext,
 ) => damageMatchesPreventionFilter(
   runtime.state,
@@ -123,41 +127,6 @@ const chooserFor = (state: GameState, event: GameEvent, controller: string) => {
   }
 }
 
-const modifiersFromDefinition = (
-  state: GameState,
-  sourceId: string,
-  definition: CardRuleDefinitionV1,
-): CanonicalReplacementCandidate[] => {
-  const source = state.objects[sourceId]
-  if (!source?.controller) return []
-  const runtime = runtimeFor(state, sourceId, source.controller)
-  const results: CanonicalReplacementCandidate[] = []
-  definition.abilities.forEach((ability, abilityIndex) => {
-    if (ability.kind !== 'static') return
-    if (!ability.activeIn.includes(source.zone as typeof ability.activeIn[number])) return
-    ability.effects.forEach((effect, effectIndex) => {
-      if (effect.kind !== 'replacement') return
-      results.push({
-        kind: 'canonical',
-        category: 'general',
-        instanceId: `${sourceId}:${abilityIndex}:${effectIndex}`,
-        sourceId,
-        sourceName: source.name,
-        abilityIndex,
-        effectIndex,
-        effect,
-        label: source.name,
-        optional: effect.optional ?? false,
-        chooser: source.controller,
-      })
-    })
-  })
-  return results.filter((candidate) => {
-    if (candidate.effect.when && !evaluateCondition(candidate.effect.when, runtime)) return false
-    return true
-  })
-}
-
 export const discoverCanonicalModifiers = (
   state: GameState,
   event: GameEvent,
@@ -165,20 +134,34 @@ export const discoverCanonicalModifiers = (
   settledOptionalDeclines: readonly string[],
 ): CanonicalReplacementCandidate[] => {
   const candidates: CanonicalReplacementCandidate[] = []
-  for (const object of Object.values(state.objects)) {
-    if (!object.ruleDefinition || object.zone !== 'battlefield' || object.phasedOut) continue
-    const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
-    for (const candidate of modifiersFromDefinition(state, object.id, compiled.definition)) {
-      if (usedInstanceIds.includes(candidate.instanceId)) continue
-      if (settledOptionalDeclines.includes(candidate.instanceId)) continue
-      const runtime = runtimeFor(state, object.id, object.controller)
-      if (!eventMatchesPattern(event, candidate.effect, runtime)) continue
+  for (const source of Object.values(state.objects)) {
+    for (const modifier of source.printedStaticModifiers ?? []) {
+      if (modifier.kind !== 'replacement') continue
+      const host = state.objects[modifier.sourceRef.objectId]
+      if (!host || !isSameObject(host, modifier.sourceRef)) continue
+      if (!printedStaticAbilityActive(state, host, modifier.abilityIndex)) continue
+      const instanceId = printedStaticEffectKey(host.id, modifier.abilityIndex, modifier.effectIndex)
+      if (usedInstanceIds.includes(instanceId)) continue
+      if (settledOptionalDeclines.includes(instanceId)) continue
+      const runtime = runtimeFor(state, host.id, host.controller)
+      const effect = modifier.effect
+      if (effect.when && !evaluateCondition(effect.when, runtime)) continue
+      if (!eventMatchesPattern(event, effect, runtime)) continue
       candidates.push({
-        ...candidate,
-        category: categoryFor(candidate.effect, event, object.id),
-        chooser: chooserFor(state, event, object.controller),
+        kind: 'canonical',
+        category: categoryFor(effect, event, host.id),
+        instanceId,
+        sourceId: host.id,
+        sourceName: host.name,
+        abilityIndex: modifier.abilityIndex,
+        effectIndex: modifier.effectIndex,
+        effect,
+        label: host.name,
+        optional: effect.optional ?? false,
+        chooser: chooserFor(state, event, host.controller),
+        rulesTimestamp: modifier.timestamp,
       })
     }
   }
-  return candidates
+  return candidates.sort((left, right) => left.rulesTimestamp - right.rulesTimestamp)
 }

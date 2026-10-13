@@ -8,7 +8,6 @@ import {
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
 import type {
-  CardRuleDefinitionV1,
   EffectDuration as DslEffectDuration,
   Instruction,
   PlayerRecipient,
@@ -27,7 +26,7 @@ import type {
   StepId,
   TargetRef,
 } from '../types'
-import { printedStaticAbilityActive } from '../cardPlugins/dsl/staticModifierCore'
+import { printedStaticAbilityActive, printedStaticEffectKey } from '../cardPlugins/dsl/staticModifierCore'
 import type { ReplacementCategory } from './types'
 
 export type PreventionCandidate = {
@@ -264,36 +263,30 @@ export const applyRegisterPrevention = (state: GameState, event: Extract<GameEve
   })
 }
 
-const staticPreventionFromDefinition = (
-  state: GameState,
-  sourceId: string,
-  definition: CardRuleDefinitionV1,
-): GameState => {
+const staticPreventionFromPrintedModifiers = (state: GameState, sourceId: string): GameState => {
   const source = state.objects[sourceId]
-  if (!source?.controller) return state
+  if (!source?.controller || source.zone !== 'battlefield' || source.phasedOut) return state
   let next = state
-  definition.abilities.forEach((ability, abilityIndex) => {
-    if (ability.kind !== 'static') return
-    if (!printedStaticAbilityActive(state, source, abilityIndex)) return
-    ability.effects.forEach((effect, effectIndex) => {
-      if (effect.kind !== 'prevention') return
-      const key = `${sourceId}:${abilityIndex}:${effectIndex}`
-      const capacity = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
-      if (capacity <= 0) return
-      next = registerInstance(next, {
-        remaining: capacity,
-        capacity,
-        duration: { kind: 'whileSourceOnBattlefield', sourceId, sourceIncarnation: source.incarnation },
-        hostSourceId: sourceId,
-        hostSourceIncarnation: source.incarnation,
-        controller: source.controller,
-        filter: structuredClone(effect.filter),
-        staticKey: key,
-        ...(effect.additionalEffects ? { additionalEffects: structuredClone(effect.additionalEffects) } : {}),
-        createdTurn: state.turn,
-      })
+  for (const modifier of source.printedStaticModifiers ?? []) {
+    if (modifier.kind !== 'prevention') continue
+    if (!printedStaticAbilityActive(state, source, modifier.abilityIndex)) continue
+    const key = printedStaticEffectKey(sourceId, modifier.abilityIndex, modifier.effectIndex)
+    const effect = modifier.effect
+    const capacity = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
+    if (capacity <= 0) continue
+    next = registerInstance(next, {
+      remaining: capacity,
+      capacity,
+      duration: { kind: 'whileSourceOnBattlefield', sourceId, sourceIncarnation: source.incarnation },
+      hostSourceId: sourceId,
+      hostSourceIncarnation: source.incarnation,
+      controller: source.controller,
+      filter: structuredClone(effect.filter),
+      staticKey: key,
+      ...(effect.additionalEffects ? { additionalEffects: structuredClone(effect.additionalEffects) } : {}),
+      createdTurn: state.turn,
     })
-  })
+  }
   return next
 }
 
@@ -301,8 +294,7 @@ export const syncStaticPreventionInstances = (state: GameState): GameState => {
   let next: GameState = { ...state, preventionInstances: state.preventionInstances ? [...state.preventionInstances] : undefined }
   for (const object of Object.values(state.objects)) {
     if (!object.ruleDefinition || object.zone !== 'battlefield' || object.phasedOut) continue
-    const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
-    next = staticPreventionFromDefinition(next, object.id, compiled.definition)
+    next = staticPreventionFromPrintedModifiers(next, object.id)
   }
   const staticKeys = new Set(
     (next.preventionInstances ?? [])
@@ -315,7 +307,9 @@ export const syncStaticPreventionInstances = (state: GameState): GameState => {
     compiled.definition.abilities.forEach((ability, abilityIndex) => {
       if (ability.kind !== 'static') return
       ability.effects.forEach((effect, effectIndex) => {
-        if (effect.kind === 'prevention') staticKeys.add(`${object.id}:${abilityIndex}:${effectIndex}`)
+        if (effect.kind === 'prevention') {
+          staticKeys.add(printedStaticEffectKey(object.id, abilityIndex, effectIndex))
+        }
       })
     })
   }

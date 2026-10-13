@@ -1,5 +1,6 @@
 import { captureObject, isSameObject } from '../../objectIdentity'
 import type { GameObject, GameState, PlayerId, PrintedStaticModifier, ZoneId } from '../../types'
+import { evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 import { compileCardRuleDefinition } from './compiler'
 import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, Zone } from './schema/v1'
 
@@ -17,10 +18,30 @@ export type ActiveEffectStatic = {
 
 export type ActivePrintedStatic = ActiveKeywordStatic | ActiveEffectStatic
 
+export type RuntimePrintedStaticEffect = Extract<
+  ContinuousEffectDefinition,
+  { kind: 'prohibitActivation' | 'replacement' | 'prevention' }
+>
+
+export const isRuntimePrintedStaticEffect = (
+  entry: ActiveEffectStatic,
+): entry is ActiveEffectStatic & { effect: RuntimePrintedStaticEffect } => {
+  switch (entry.effect.kind) {
+    case 'prohibitActivation':
+    case 'replacement':
+    case 'prevention':
+      return true
+    default:
+      return false
+  }
+}
+
+export const printedStaticEffectKey = (sourceId: string, abilityIndex: number, effectIndex: number) =>
+  `${sourceId}:${abilityIndex}:${effectIndex}`
+
 export const isActiveKeywordStatic = (
   entry: ActivePrintedStatic,
 ): entry is ActiveKeywordStatic => 'keyword' in entry
-import { evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 
 export const sourceStaticAbilitiesActive = (source: GameObject) =>
   !source.phasedOut
@@ -58,7 +79,7 @@ export type ActivationRestrictionInput = {
 }
 
 const matchesProhibitActivation = (
-  modifier: PrintedStaticModifier,
+  modifier: Extract<PrintedStaticModifier, { kind: 'prohibitActivation' }>,
   input: ActivationRestrictionInput,
 ) => {
   const source = input.state.objects[input.sourceId]
