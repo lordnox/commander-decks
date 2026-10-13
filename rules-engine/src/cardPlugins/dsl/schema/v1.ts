@@ -1,5 +1,8 @@
 export const RULE_DSL_SCHEMA_VERSION = 1 as const
 
+/** Binding stored on the entering object as `chosenColor` (CR 614.12). */
+export const CHOSEN_COLOR_BINDING = 'chosenColor' as const
+
 export type RuleDslSchemaVersion = typeof RULE_DSL_SCHEMA_VERSION
 
 export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 'stack' | 'command'

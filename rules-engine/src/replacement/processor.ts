@@ -7,7 +7,12 @@ import { captureObject } from '../objectIdentity'
 import { PENDING_SELECTION } from '../rules/selectCards'
 import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
-import type { Instruction } from '../cardPlugins/dsl/schema/v1'
+import type { Instruction, ReplacementProgramInstruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
+import {
+  advanceApplicationProgram,
+  initApplicationProgram,
+  rememberApplicationChoice,
+} from './applicationProgram'
 import type {
   EventProcessingFrame,
   GameEvent,
@@ -143,6 +148,15 @@ type ApplyResult =
     sourceId: string
     controller: string
     occurrencePlayer: string
+    followUp?: GameEvent[]
+    followUpPrograms?: PreventionFollowUpProgram[]
+  }
+  | {
+    kind: 'applicationProgram'
+    instructions: readonly ReplacementProgramInstruction[]
+    transform: ReplacementTransform
+    sourceId: string
+    controller: string
     followUp?: GameEvent[]
     followUpPrograms?: PreventionFollowUpProgram[]
   }
@@ -295,6 +309,19 @@ const applyCandidate = (
     }
   }
   markInstanceUsed(lineage, candidate.instanceId)
+  if (candidate.effect.program?.length) {
+    const source = state.objects[candidate.sourceId]
+    return {
+      result: {
+        kind: 'applicationProgram',
+        instructions: candidate.effect.program,
+        transform: candidate.effect.transform,
+        sourceId: candidate.sourceId,
+        controller: source?.controller ?? candidate.chooser,
+      },
+      state,
+    }
+  }
   const transformed = applyCanonicalTransform(proposal, candidate, lineage)
   if (transformed.kind === 'prevented') return { result: { kind: 'prevented' }, state }
   if (transformed.kind === 'program') {
@@ -393,6 +420,43 @@ const settleReplacementProgram = (
   }
 }
 
+const settleApplicationProgram = (
+  workingState: GameState,
+  proposal: GameEvent,
+  lineage: ReplacementLineage,
+  applied: Extract<ApplyResult, { kind: 'applicationProgram' }>,
+  catalog: PluginCatalog,
+  options: { announcementTransactionId?: string },
+  followUp: GameEvent[],
+  followUpPrograms: PreventionFollowUpProgram[],
+): ReplacementSettlement => {
+  const frame: EventProcessingFrame = {
+    version: 1,
+    id: `event-${workingState.nextId}`,
+    originalEvent: structuredClone(proposal),
+    pendingEvent: structuredClone(proposal),
+    lineage: structuredClone(lineage),
+    awaitingCandidateIds: [],
+    chooser: applied.controller,
+    applicationProgram: initApplicationProgram(applied.instructions, applied.transform, applied.sourceId),
+    ...(options.announcementTransactionId ? { announcementTransactionId: options.announcementTransactionId } : {}),
+    ...followUpFields(structuredClone(followUp), structuredClone(followUpPrograms)),
+  }
+  const stepped = advanceApplicationProgram(
+    { ...workingState, nextId: workingState.nextId + 1, eventProcessing: frame },
+    frame,
+  )
+  if (stepped.kind === 'waiting') return { kind: 'waiting', state: stepped.state }
+  if (stepped.kind === 'prevented') {
+    return {
+      kind: 'prevented',
+      state: stepped.state,
+      ...followUpFields([...followUp, ...drawRemainderFollowUp(proposal)], followUpPrograms),
+    }
+  }
+  return settleReplaceableEvent(stepped.state, stepped.event, catalog, options)
+}
+
 const suspendForChoice = (
   state: GameState,
   frame: EventProcessingFrame,
@@ -467,6 +531,18 @@ export const settleReplaceableEvent = (
           followUpPrograms,
         )
       }
+      if (applied.result.kind === 'applicationProgram') {
+        return settleApplicationProgram(
+          workingState,
+          proposal,
+          lineage,
+          applied.result,
+          catalog,
+          options,
+          followUp,
+          followUpPrograms,
+        )
+      }
       proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
       continue
@@ -501,6 +577,18 @@ export const settleReplaceableEvent = (
       }
       if (applied.result.kind === 'program') {
         return settleReplacementProgram(
+          workingState,
+          proposal,
+          lineage,
+          applied.result,
+          catalog,
+          options,
+          followUp,
+          followUpPrograms,
+        )
+      }
+      if (applied.result.kind === 'applicationProgram') {
+        return settleApplicationProgram(
           workingState,
           proposal,
           lineage,
@@ -623,6 +711,27 @@ export const resumeReplacementChoice = (
       pendingPrograms,
     ))
   }
+  if (applied.result.kind === 'applicationProgram') {
+    const cleared = mergeState({
+      ...resumeState,
+      eventProcessing: undefined,
+      deferredEventProcessing: undefined,
+    }, applied.state)
+    return finish(attachFollowUps(
+      settleApplicationProgram(
+        cleared,
+        proposal,
+        lineage,
+        applied.result,
+        catalog,
+        announcementOptions(frame.announcementTransactionId),
+        pendingEvents,
+        pendingPrograms,
+      ),
+      pendingEvents,
+      pendingPrograms,
+    ))
+  }
   const cleared = mergeState({
     ...resumeState,
     eventProcessing: undefined,
@@ -630,6 +739,47 @@ export const resumeReplacementChoice = (
   }, applied.state)
   const continued = settleReplaceableEvent(cleared, applied.result.event, catalog, announcementOptions(frame.announcementTransactionId))
   return finish(attachFollowUps(continued, pendingEvents, pendingPrograms))
+}
+
+export const resumeReplacementProgramChoice = (
+  state: GameState,
+  frameId: string,
+  bindChoice: string,
+  optionId: string,
+  catalog: PluginCatalog,
+): ReplacementSettlement | { kind: 'invalid'; error: string } => {
+  const frame = processingFrames(state).find((entry) => entry.id === frameId)
+  if (!frame?.applicationProgram) return { kind: 'invalid', error: 'replacement program frame is not active' }
+  const pendingEvents = [...(frame.followUp ?? [])]
+  const pendingPrograms = [...(frame.followUpPrograms ?? [])]
+  const isolated = processingStore([frame])
+  const resumeState = freezeDraft(makeDraft({
+    ...state,
+    eventProcessing: isolated.eventProcessing,
+    deferredEventProcessing: isolated.deferredEventProcessing,
+  }))
+  const advanced = rememberApplicationChoice(resumeState, frameId, bindChoice, optionId)
+  const finish = (settlement: ReplacementSettlement) =>
+    reattachProcessing(settlement, state, frameId, resumeState)
+  if (advanced.kind === 'invalid') return advanced
+  if (advanced.kind === 'waiting') return finish({ kind: 'waiting', state: advanced.state })
+  if (advanced.kind === 'prevented') {
+    return finish({
+      kind: 'prevented',
+      state: advanced.state,
+      ...followUpFields(pendingEvents, pendingPrograms),
+    })
+  }
+  const cleared = {
+    ...advanced.state,
+    eventProcessing: undefined,
+    deferredEventProcessing: undefined,
+  }
+  return finish(attachFollowUps(
+    settleReplaceableEvent(cleared, advanced.event, catalog, announcementOptions(frame.announcementTransactionId)),
+    pendingEvents,
+    pendingPrograms,
+  ))
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {

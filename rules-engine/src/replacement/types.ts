@@ -5,8 +5,4 @@ export type ReplacementCategory =
   | 'backFaceEntry'
   | 'general'
 
-export type ReplacementProgramCursor = {
-  instructions: readonly import('../cardPlugins/dsl/schema/v1').ReplacementProgramInstruction[]
-  index: number
-  bindings: Record<string, unknown>
-}
+export type { ReplacementProgramCursor } from '../types'

@@ -24,6 +24,7 @@ import type {
   ModeDefinition,
   ModeInput,
   ReplacementEventPattern,
+  ReplacementProgramInstruction,
   ModeSpec,
   NumericCharacteristic,
   ObjectFilter,
@@ -55,7 +56,7 @@ import type {
   WheneverConfiguration,
   Zone,
 } from '../schema/v1'
-import { RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { CHOSEN_COLOR_BINDING, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
 
@@ -247,6 +248,29 @@ export const multiplyDamage = (factor: AmountInput) =>
   modifyEvent({ amount: { kind: 'multiply', factor: toAmount(factor) } })
 
 export const wouldDraw = (filter: DrawReplacementFilter = {}) => immutableData({ kind: 'draw' as const, filter })
+
+export const wouldEnter = (
+  filter: Extract<ReplacementEventPattern, { kind: 'enterBattlefield' }>['filter'] = { object: ref('source') },
+) => immutableData({ kind: 'enterBattlefield' as const, filter })
+
+export const COLOR_CHOICE_OPTIONS = [
+  { id: 'W', label: 'White' },
+  { id: 'U', label: 'Blue' },
+  { id: 'B', label: 'Black' },
+  { id: 'R', label: 'Red' },
+  { id: 'G', label: 'Green' },
+] as const
+
+export const chooseColor = (bindChoice = CHOSEN_COLOR_BINDING): ReplacementProgramInstruction =>
+  immutableData({
+    kind: 'choose',
+    bindChoice,
+    options: COLOR_CHOICE_OPTIONS.map((option) => ({ id: option.id, label: option.label })),
+  })
+
+/** "As this enters, choose a color." Self-entry replacement; the object still enters. */
+export const asThisEntersChooseColor = () =>
+  replacement(wouldEnter(), modifyEvent({}), { program: [chooseColor()] })
 
 export const modifyStats = (
   input: Omit<Extract<ContinuousEffectDefinition, { kind: 'modifyStats' }>, 'kind'>,

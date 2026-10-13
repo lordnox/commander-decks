@@ -1,4 +1,5 @@
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
+import { isPermanentType } from './definitions'
 import { isSameObject, objectIdentity } from './objectIdentity'
 import {
   evaluateObjectReference,
@@ -1188,10 +1189,12 @@ export const prepareResolutionStep = (draft: Draft) => {
     ? {
         type: 'move' as const,
         objectId: object.id,
-        to: finishedSpellZone(
-          item,
-          (item.adventureCast ? 'exile' : 'graveyard'),
-        ),
+        to: isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure'
+          ? 'battlefield' as const
+          : finishedSpellZone(
+            item,
+            (item.adventureCast ? 'exile' : 'graveyard'),
+          ),
       }
     : undefined
   return { kind: 'complete', event }

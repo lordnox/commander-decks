@@ -622,6 +622,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         }
         draft.note(`${object.name} leaves battlefield`)
       }
+      if (event.chosenColor) object.chosenColor = event.chosenColor
       if (entered) {
         // CR 302.6 tracks continuous control of the permanent, not how long it
         // has been a creature. This matters if a noncreature is animated later.
@@ -1296,6 +1297,11 @@ const driveResolution = (
       const next = applyEventTree(current, step.event, catalog)
       entries.push(...nested(next.trace, 1))
       if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
+      if (next.ok && (hasOpenChoice(current) || current.eventProcessing)) {
+        const paused = makeDraft(current)
+        if (paused.resolution?.kind === 'canonicalSpell') paused.resolution.phase = 'waiting'
+        return { ok: true, state: freezeDraft(paused), trace: entries }
+      }
     }
     const completed = makeDraft(current)
     const completedInline = completed.resolution?.kind === 'canonicalSpell'
