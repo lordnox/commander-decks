@@ -17,7 +17,7 @@ import type { LobbyState, TopdeckDecision } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
 import { discardOffer, openTopdeck, searchOffer, selectCardsOffer } from './kernelChoice'
-import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
+import { pendingOptionSelection, type PendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
 const pileLabel = (
@@ -320,6 +320,21 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
   )
 }
 
+const optionSelectionMetadata = (pending: PendingOptionSelection) => {
+  switch (pending.action.kind) {
+    case 'replacementProgramChoice':
+    case 'replacementModifier':
+    case 'choose-color':
+      return {
+        phase: 'replacement' as const,
+        purpose: 'replacement' as const,
+        cancellation: 'mustAnswer' as const,
+      }
+    default:
+      return undefined
+  }
+}
+
 export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyState) => {
   const state = kernel.history.current()
   const pending = pendingOptionSelection(state)
@@ -373,5 +388,7 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
           ? `Waiting for a choice for ${pending.source}.`
           : 'Waiting for a private choice.',
     },
+    [],
+    optionSelectionMetadata(pending),
   )
 }
