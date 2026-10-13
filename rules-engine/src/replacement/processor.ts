@@ -44,6 +44,8 @@ export type ReplacementSettlement =
   | { kind: 'fork'; events: GameEvent[]; pluginId?: string; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
   | { kind: 'waiting'; state: GameState }
 
+export const REPLACEMENT_DISCARD_RESUME = 'replacement.discardResume'
+
 const MAX_REPLACEMENT_STEPS = 64
 
 const isLegacyPrevent = (candidate: ReplacementCandidate) =>
