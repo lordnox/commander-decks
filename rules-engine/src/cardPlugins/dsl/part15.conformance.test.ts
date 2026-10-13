@@ -155,29 +155,38 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
   })
 
   describe('scenario B: targeted entry trigger', () => {
-    test.skip('permanent spell resolution does not yet collect ETB triggers from the resolving card', () => {})
+    const entryDestroyerDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(self.enters, {
+        decisions: {
+          targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
+        },
+        instructions: [destroy({ targets: target(0) })],
+      }),
+    ])))
+    const counterSpellDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({
+        decisions: {
+          targets: [select({ filter: stackItems({ kind: 'spell', other: true }), count: 1 })],
+        },
+        instructions: [counter({ targets: target(0) })],
+      }),
+    ])))
+    const entryDestroyerBoard = () => createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Entry destroyer', {
+          types: ['Creature'],
+          manaCost: '{0}',
+          ruleDefinition: entryDestroyerDefinition(),
+        })],
+      },
+      battlefield: {
+        p2: [cardTemplate('Entry victim', { types: ['Creature'], power: 2, toughness: 2 })],
+      },
+    }, { random: () => 0 })
 
     test('entering the battlefield requests a destroy target before the trigger reaches the stack', () => {
-      const entrantDef = createDefinitionSnapshot(compileCardRuleDefinition(card([
-        whenever(
-          { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
-          {
-            decisions: {
-              targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
-            },
-            instructions: [destroy({ targets: target(0) })],
-          },
-        ),
-      ])))
-      const server = createServerGame(commanderRules, {
-        players: 2,
-        hands: {
-          p1: [cardTemplate('Entry destroyer', { types: ['Creature'], ruleDefinition: entrantDef })],
-        },
-        battlefield: {
-          p2: [cardTemplate('Entry victim', { types: ['Creature'], power: 2, toughness: 2 })],
-        },
-      }, { random: () => 0 })
+      const server = entryDestroyerBoard()
       const creature = named(server.state, 'Entry destroyer')
       const victim = named(server.state, 'Entry victim')
       const entered = reduce(server, server.state, { type: 'move', objectId: creature.id, to: 'battlefield' })
@@ -192,6 +201,86 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       expect(stacked.stack[0].kind).toBe('ability')
       const finished = resolveStack(server.rules, stacked)
       expect(finished.objects[victim.id].zone).toBe('graveyard')
+    })
+
+    test('permanent spell resolution collects ETB from the resolving card before the trigger stacks', () => {
+      const server = entryDestroyerBoard()
+      const creature = named(server.state, 'Entry destroyer')
+      const victim = named(server.state, 'Entry victim')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: creature.id })
+      expect(cast.stack).toHaveLength(1)
+      expect(cast.stack[0].kind).toBe('spell')
+      expect(pendingSelectionFor(cast, 'p1')).toBeUndefined()
+      const entered = reduce(server, cast, { type: 'resolveTop' })
+      expect(entered.objects[creature.id].zone).toBe('battlefield')
+      expect(entered.stack).toHaveLength(0)
+      const targetChoice = pendingSelectionFor(entered, 'p1')!
+      expect(targetChoice.candidates).toContain(victim.id)
+      expect(targetChoice.canonicalTrigger).toBeDefined()
+      const stacked = reduce(server, entered, {
+        type: 'selectCards', seat: 'p1', selectionId: targetChoice.id, kind: 'choose', count: 1, objectIds: [victim.id],
+      })
+      expect(stacked.stack).toHaveLength(1)
+      expect(stacked.stack[0].kind).toBe('ability')
+      expect(stacked.priority).toBe('p1')
+      const finished = resolveStack(server.rules, stacked)
+      expect(finished.objects[victim.id].zone).toBe('graveyard')
+    })
+
+    test('a later illegal target does not resolve the captured entry trigger', () => {
+      const server = entryDestroyerBoard()
+      const creature = named(server.state, 'Entry destroyer')
+      const victim = named(server.state, 'Entry victim')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: creature.id })
+      const entered = reduce(server, cast, { type: 'resolveTop' })
+      const targetChoice = pendingSelectionFor(entered, 'p1')!
+      const stacked = reduce(server, entered, {
+        type: 'selectCards', seat: 'p1', selectionId: targetChoice.id, kind: 'choose', count: 1, objectIds: [victim.id],
+      })
+      const departed = reduce(server, stacked, { type: 'move', objectId: victim.id, to: 'graveyard' })
+      const resolved = reduce(server, departed, { type: 'resolveTop' })
+      expect(resolved.objects[victim.id].zone).toBe('graveyard')
+      expect(resolved.objects[creature.id].zone).toBe('battlefield')
+      expect(resolved.log.some((line) => line.includes('didNotResolve:allTargetsIllegal'))).toBe(true)
+      expect(resolved.stack).toHaveLength(0)
+    })
+
+    test('countering the creature spell before entry prevents the trigger', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [
+            cardTemplate('Entry destroyer', {
+              types: ['Creature'],
+              manaCost: '{0}',
+              ruleDefinition: entryDestroyerDefinition(),
+            }),
+            cardTemplate('Counter probe', {
+              types: ['Instant'],
+              manaCost: '{0}',
+              ruleDefinition: counterSpellDefinition(),
+            }),
+          ],
+        },
+        battlefield: {
+          p2: [cardTemplate('Entry victim', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0 })
+      const creature = named(server.state, 'Entry destroyer')
+      const victim = named(server.state, 'Entry victim')
+      let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: creature.id })
+      const stackId = state.stack.find((item) => item.objectId === creature.id)!.id
+      const counterObject = named(state, 'Counter probe')
+      state = reduce(server, state, {
+        type: 'castSpell', seat: 'p1', objectId: counterObject.id,
+        targets: [{ kind: 'stackItem', stackId }],
+      })
+      state = reduce(server, state, { type: 'resolveTop' })
+      expect(state.objects[creature.id].zone).toBe('graveyard')
+      expect(state.objects[victim.id].zone).toBe('battlefield')
+      expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+      expect(state.pendingTriggers ?? []).toHaveLength(0)
+      expect(state.stack.some((item) => item.kind === 'ability')).toBe(false)
     })
   })
 

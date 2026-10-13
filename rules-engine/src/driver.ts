@@ -1,4 +1,4 @@
-import { finishedSpellZone } from './cardPlugins/alternateCosts'
+import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { isPermanentType } from './definitions'
 import { isSameObject, objectIdentity } from './objectIdentity'
 import {
@@ -63,6 +63,16 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'loseLife',
 ] as const
 
+const PERMANENT_RESOLUTION_INDEX = -1
+const PERMANENT_RESOLUTION_PATH = '$.permanentResolution'
+
+const emptyPermanentSpell = () => ({
+  kind: 'spell' as const,
+  costs: [] as const,
+  decisions: { targets: [] as const },
+  instructions: [] as const,
+})
+
 const canonicalAbility = (item: StackItem) => {
   const snapshot = item.execution?.definitionSnapshot
   if (!snapshot) return
@@ -77,9 +87,21 @@ const canonicalAbility = (item: StackItem) => {
   }
   const abilities = compiled.definition.abilities.flatMap((ability, index) =>
     ability.kind === (item.kind === 'spell' ? 'spell' : 'triggered') ? [{ ability, index }] : [])
-  if (abilities.length !== 1) throw new Error(`canonical ${item.kind} requires exactly one executable ability; found ${abilities.length}`)
-  return abilities[0]
+  if (abilities.length === 1) return abilities[0]
+  if (
+    item.kind === 'spell'
+    && abilities.length === 0
+    && isPermanentType(item.execution?.source.snapshot.types ?? [])
+  ) {
+    return { ability: emptyPermanentSpell(), index: PERMANENT_RESOLUTION_INDEX }
+  }
+  throw new Error(`canonical ${item.kind} requires exactly one executable ability; found ${abilities.length}`)
 }
+
+const resolutionDeclarationPath = (abilityIndex: number) =>
+  abilityIndex === PERMANENT_RESOLUTION_INDEX
+    ? PERMANENT_RESOLUTION_PATH
+    : canonicalScopeId(abilityIndex)
 
 const preflightInstructions = (
   instructions: readonly Instruction[],
@@ -144,7 +166,7 @@ export const startCanonicalResolution = (
   const selected = canonicalAbility(item)
   if (!selected) throw new Error('canonical stack item is missing its pinned definition')
   const { ability, index: abilityIndex } = selected
-  const declarationPath = `$.abilities[${abilityIndex}]`
+  const declarationPath = resolutionDeclarationPath(abilityIndex)
   const selectedModes = 'modes' in ability ? (item.execution?.modeIndices ?? []) : []
   if ('modes' in ability) {
     const modeSpec = ability.decisions.modes
@@ -279,7 +301,7 @@ export const startCanonicalResolution = (
     definitionSnapshot: structuredClone(definitionSnapshot),
     declarationPath,
     source: structuredClone(source),
-    scopeId: item.execution?.scopeId ?? canonicalScopeId(abilityIndex),
+    scopeId: item.execution?.scopeId ?? resolutionDeclarationPath(abilityIndex),
     targetBindings: structuredClone(targetBindings),
     ...(item.x !== undefined || item.execution?.variables
       ? { variables: { ...item.execution?.variables, ...(item.x !== undefined ? { X: item.x } : {}) } }
@@ -308,7 +330,7 @@ export const startCanonicalResolution = (
         })
       : [{
         path: '.instructions',
-        scopeId: item.execution?.scopeId ?? canonicalScopeId(abilityIndex),
+        scopeId: item.execution?.scopeId ?? resolutionDeclarationPath(abilityIndex),
         instructions: structuredClone(selectedInstructions),
         cursor: 0,
       }],
@@ -1189,12 +1211,7 @@ export const prepareResolutionStep = (draft: Draft) => {
     ? {
         type: 'move' as const,
         objectId: object.id,
-        to: isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure'
-          ? 'battlefield' as const
-          : finishedSpellZone(
-            item,
-            (item.adventureCast ? 'exile' : 'graveyard'),
-          ),
+        to: resolvedSpellDestination(item, object),
       }
     : undefined
   return { kind: 'complete', event }
