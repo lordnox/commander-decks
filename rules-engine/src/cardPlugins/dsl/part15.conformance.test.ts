@@ -28,11 +28,9 @@ import {
   proliferate,
   prohibitActivation,
   ref,
-  ifThen,
   mill,
   replacement,
   replaceWith,
-  result,
   sacrificeCost,
   select,
   sequence,
@@ -62,10 +60,13 @@ import { availableActions } from '../../actions'
 import { hasKeyword } from '../../keywords'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
-import { beginDrawStepInstance } from '../../rules/drawStepHistory'
 import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
-import { makeDraft, freezeDraft } from '../../draft'
-import { pickReplacement } from './dslTestSupport'
+import {
+  answerDiscard,
+  chainsDefinition,
+  ownDrawStep,
+  pickReplacement,
+} from './dslTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -76,30 +77,6 @@ const reduce = (
   event: Parameters<typeof server.rules>[1],
 ) => ok(server.rules(state, event))
 
-const ownDrawStep = (state: GameState, seat: 'p1' | 'p2') => {
-  const draft = makeDraft(state)
-  draft.step = 'draw'
-  draft.active = seat
-  beginDrawStepInstance(draft, seat)
-  return freezeDraft(draft)
-}
-
-const chainsDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
-  staticAbility(replacement(
-    wouldDraw({
-      player: players({ relation: 'any' }),
-      firstDrawInOwnDrawStep: false,
-    }),
-    replaceWith(
-      discard({ count: amount(1), targets: ref('event.player'), bindResult: 'discard' }),
-      ifThen(result('discard', 'discarded'), {
-        then: [draw({ count: amount(1), targets: ref('event.player') })],
-        otherwise: [mill({ count: amount(1), targets: ref('event.player') })],
-      }),
-    ),
-  )),
-])))
-
 const optionalDrawToMill = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
   staticAbility(replacement(
     wouldDraw({ player: players({ relation: 'you' }) }),
@@ -107,24 +84,6 @@ const optionalDrawToMill = () => createDefinitionSnapshot(compileCardRuleDefinit
     { optional: true },
   )),
 ])))
-
-const answerChainsDiscard = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  restore = false,
-) => {
-  const working = restore ? JSON.parse(JSON.stringify(state)) as GameState : state
-  const pending = pendingSelectionFor(working, 'p1')!
-  const handId = working.zoneOrder.p1.hand[0]!
-  return reduce(server, working, {
-    type: 'selectCards',
-    seat: 'p1',
-    selectionId: pending.id,
-    kind: 'discard',
-    count: 1,
-    objectIds: [handId],
-  })
-}
 
 const chooseReplacement = (
   server: ReturnType<typeof createServerGame>,
@@ -1220,11 +1179,11 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       state = reduce(server, state, { type: 'draw', seat: 'p1', count: 3 })
       expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
       expect(state.eventProcessing?.pendingEvent).toMatchObject({ type: 'draw', count: 1, remainingAfter: 2 })
-      state = answerChainsDiscard(server, state, true)
+      state = answerDiscard(server, state, true)
       expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
-      state = answerChainsDiscard(server, state, true)
+      state = answerDiscard(server, state, true)
       expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
-      state = answerChainsDiscard(server, state, true)
+      state = answerDiscard(server, state, true)
       expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
       expect(state.eventProcessing).toBeUndefined()
       expect(state.zoneOrder.p1.hand).toHaveLength(3)
@@ -1258,7 +1217,7 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       let state = ownDrawStep(server.state, 'p1')
       state.drawStepTracking!.actualDraws = { p1: 1 }
       state = reduce(server, state, { type: 'draw', seat: 'p1' })
-      state = answerChainsDiscard(server, state, true)
+      state = answerDiscard(server, state, true)
       expect(named(state, 'Exiled').zone).toBe('exile')
       expect(named(state, 'Drawn').zone).toBe('hand')
       expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
@@ -1278,8 +1237,8 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       state.drawStepTracking!.actualDraws = { p1: 1 }
       state = reduce(server, state, { type: 'draw', seat: 'p1' })
       state = pickReplacement(server, state)
-      state = answerChainsDiscard(server, state)
-      state = answerChainsDiscard(server, state)
+      state = answerDiscard(server, state)
+      state = answerDiscard(server, state)
       expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
       expect(state.zoneOrder.p1.hand).toHaveLength(1)
       expect(state.objects[state.zoneOrder.p1.hand[0]!].name).toBe('L1')
@@ -1297,7 +1256,7 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       let state = ownDrawStep(server.state, 'p1')
       state.drawStepTracking!.actualDraws = { p1: 1 }
       state = reduce(server, state, { type: 'draw', seat: 'p1' })
-      state = answerChainsDiscard(server, state)
+      state = answerDiscard(server, state)
       expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBe(true)
       expect(state.zoneOrder.p1.hand).toHaveLength(0)
     })
