@@ -85,10 +85,10 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
           type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates,
         })
       }
-      const triggerCount = order?.triggerOrder?.ids.length ?? 1
       const finished = resolveStack(server.rules, state)
-      expect(finished.players.p2.life).toBe(40 - triggerCount)
-      expect(Object.values(finished.objects).some((object) => object.name === 'Part15 token' && object.zone === 'battlefield')).toBe(true)
+      expect(order?.triggerOrder?.ids.length ?? 1).toBe(1)
+      expect(finished.players.p2.life).toBe(39)
+      expect(Object.values(finished.objects).filter((object) => object.name === 'Part15 token' && object.zone === 'battlefield')).toHaveLength(1)
     })
   })
 
@@ -203,6 +203,8 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       const resolved = reduce(server, state, { type: 'resolveTop' })
       expect(resolved.players.p1.life).toBe(40)
       expect(resolved.log.some((line) => line.includes('didNotResolve:allTargetsIllegal'))).toBe(true)
+      expect(named(resolved, 'Partial draw card').zone).toBe('library')
+      expect(Object.values(resolved.objects).some((object) => object.name === 'Partial draw card' && object.zone === 'hand')).toBe(false)
     })
 
     test('indestructible targets stay on the battlefield and the draw still happens', () => {

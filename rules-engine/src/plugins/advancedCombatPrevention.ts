@@ -99,7 +99,7 @@ export const advancedCombatPrevention: Plugin = {
     }
   },
   apply: ({ event, draft, rule }) => {
-    if (event.type !== 'createToken' || rule.params.mode) return
+    if (event.type !== 'createToken' || rule.params.mode || event.token.dsl) return
     createToken(draft, event.controller, {
       name: event.token.name,
       types: event.token.types,
