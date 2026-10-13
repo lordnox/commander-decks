@@ -44,6 +44,13 @@ export type ReplacementSettlement =
 
 const MAX_REPLACEMENT_STEPS = 64
 
+const isLegacyPrevent = (candidate: ReplacementCandidate) =>
+  candidate.kind === 'legacy' && candidate.preview === null
+
+const allMandatoryPrevent = (candidates: readonly ReplacementCandidate[]) =>
+  candidates.length > 0
+  && candidates.every((candidate) => !candidate.optional && isLegacyPrevent(candidate))
+
 const announcementOptions = (transactionId?: string) =>
   transactionId ? { announcementTransactionId: transactionId } : {}
 
@@ -321,6 +328,17 @@ export const settleReplaceableEvent = (
     const optional = pool.filter((candidate) => candidate.optional)
     const choosable = mandatory.length > 1 ? mandatory : optional.length > 0 ? optional : mandatory
 
+    if (allMandatoryPrevent(mandatory)) {
+      for (const candidate of mandatory) {
+        markInstanceUsed(lineage, candidate.instanceId, candidate.kind === 'legacy' ? candidate.pluginId : undefined)
+      }
+      const first = mandatory[0]!
+      return {
+        kind: 'prevented',
+        pluginId: first.kind === 'legacy' ? first.pluginId : first.sourceName,
+      }
+    }
+
     if (choosable.length === 1 && !choosable[0]!.optional) {
       const applied = applyCandidate(proposal, choosable[0]!, lineage, workingState)
       pluginId = candidateLabel(choosable[0]!)
@@ -463,9 +481,6 @@ export const replaceEvent = (
   catalog: PluginCatalog,
   options: { announcementTransactionId?: string } = {},
 ): { value: GameEvent | GameEvent[] | null; pluginId?: string; waiting?: GameState; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] } => {
-  if (state.eventProcessing) {
-    return { value: event, pluginId: undefined }
-  }
   const settlement = settleReplaceableEvent(state, event, catalog, options)
   switch (settlement.kind) {
     case 'prevented':
