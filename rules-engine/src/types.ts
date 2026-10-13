@@ -687,11 +687,24 @@ export type EventProcessingFrame = {
   announcementTransactionId?: string
   followUp?: GameEvent[]
   followUpPrograms?: PreventionFollowUpProgram[]
-  program?: {
-    instructions: readonly ReplacementProgramInstruction[]
+  program?: ReplacementInstructionProgramState
+}
+
+export type ReplacementInstructionProgramState = {
+  instructions: readonly Instruction[]
+  scopes: Array<{ path: string; instructions: readonly Instruction[]; cursor: number }>
+  results?: Record<string, boolean | number>
+  pendingDiscard?: {
+    seats: PlayerId[]
     index: number
-    bindings: Record<string, unknown>
+    amount: number
+    selected: Array<{ seat: PlayerId; objectId: string }>
+    binding?: string
   }
+  sourceId: string
+  controller: PlayerId
+  occurrencePlayer: PlayerId
+  emittedEvents: GameEvent[]
 }
 
 /**
@@ -771,6 +784,12 @@ export type GameState = {
   rules: RuleInstance[]
   /** Active prevention shields with remaining capacity. */
   preventionInstances?: PreventionInstance[]
+  /** Per draw-step instance: actual cards drawn for first-draw replacement history. */
+  drawStepTracking?: {
+    instanceId: number
+    stepPlayer: PlayerId
+    actualDraws: Partial<Record<PlayerId, number>>
+  }
   nextId: number
   nextTimestamp: number
   ended: boolean

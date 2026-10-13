@@ -8,6 +8,7 @@ import { LIFE_GAINED_THIS_TURN, LIFE_LOST_THIS_TURN } from './life'
 import { phaseInControlledBeforeUntap } from './phasing'
 import { clearAttackBans } from '../cardPlugins/attackBan'
 import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
+import { beginDrawStepInstance } from '../rules/drawStepHistory'
 import { untapStepUntaps } from '../rules/untap'
 
 export const STEPS: StepId[] = [
@@ -88,6 +89,7 @@ const onUntap = (draft: Draft) => {
 }
 
 const onDraw = (draft: Draft) => {
+  beginDrawStepInstance(draft, draft.active)
   draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })
 }
 

@@ -28,12 +28,9 @@ onto one another if they both edit schema, compiler, or kernel files.
 
 | Track | Scope | Must not do |
 | --- | --- | --- |
-| **Part 11** | Ready for review — resumable CR 616 replacement discovery, event frames, lineage | Static layers (13), card migration (16) |
-| **Part 12** | Ready for review — consumable prevention instances, damage CR 616 ordering, settled amounts | Static layers (13), card migration (16) |
-| **Part 13** | Static modifiers, layers/timestamps, keyword statics, activation restrictions, static replacement/prevention lifecycle | CARD_RULES migration (16) |
 | **Part 15 partial tests** | End-to-end evidence for A–E, F/H/J/K/L/R, and M–P (I skipped until entry-choice DSL exists) | Engine/schema changes; do not close Part 15 |
 
-Do not start **12** (needs 11), **14** (needs 11 and 13), **15 close** (needs 12–14),
+Do not start **15 close** (needs 12–14),
 or **16 consolidation** (needs 15). Incremental Part 16 family migrations of
 already-owned mechanics may wait until 11/13 land so mixed-game tests stay
 reviewable.
@@ -506,7 +503,8 @@ temporary-effect lifetimes have observable regression tests.
 
 **Dependencies:** 06, 07, 11, 13.
 
-**Status:** not started. Blocked on Parts 11 and 13.
+**Status:** implementation complete; ready for review. See
+[migration/RULE-DSL-PART-14.md](migration/RULE-DSL-PART-14.md).
 
 Add step-instance identity/history for actual draws, including extra draw steps
 and draws during costs. Implement `wouldDraw` and `firstDrawInOwnDrawStep`.
@@ -591,8 +589,9 @@ suites and new-format persistence gate pass after the old paths are removed.
 `11`; `14` needs both. `15` joins the conformance work; `16` migrates incrementally
 by family and removes old paths only after that gate.
 
-The live parallel split from this baseline is **11**, **13 minus replacement**,
-and **15 partial tests** for already-owned scenarios. See [Current state on main](#current-state-on-main).
+Parts **11–14** are implemented on feature branches merging toward `main`.
+Part **15** partial tests and **16** migration remain open. See
+[Current state on main](#current-state-on-main).
 
 | DSL milestone | Plan parts | Delivery gate |
 | --- | --- | --- |

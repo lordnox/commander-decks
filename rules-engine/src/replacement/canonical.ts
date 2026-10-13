@@ -2,6 +2,7 @@ import {
   evaluateCondition,
   evaluateObjectReference,
   evaluateObjectSelector,
+  evaluatePlayerReference,
   evaluatePlayerSelector,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
@@ -12,6 +13,7 @@ import {
 import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
 import { captureObject, isSameObject } from '../objectIdentity'
 import { damageMatchesPreventionFilter } from './prevention'
+import { isProtectedFirstDrawInOwnDrawStep } from '../rules/drawStepHistory'
 import type { GameEvent, GameState } from '../types'
 import type { ReplacementCategory } from './types'
 
@@ -48,14 +50,39 @@ const runtimeFor = (state: GameState, sourceId: string, controller: string): Rul
   return { state, controller, source: captureObject(source) }
 }
 
-const eventMatchesPattern = (event: GameEvent, effect: ReplacementEffectDefinition, runtime: RuleDslRuntimeContext) => {
+const drawRuntime = (state: GameState, sourceId: string, controller: string, event: Extract<GameEvent, { type: 'draw' }>) => {
+  const runtime = runtimeFor(state, sourceId, controller)
+  return {
+    ...runtime,
+    occurrence: { kind: 'event' as const, eventType: 'draw', player: event.seat },
+  }
+}
+
+const eventMatchesPattern = (
+  event: GameEvent,
+  effect: ReplacementEffectDefinition,
+  runtime: RuleDslRuntimeContext,
+  state: GameState,
+  sourceId: string,
+  controller: string,
+) => {
   switch (effect.event.kind) {
     case 'draw': {
       if (event.type !== 'draw') return false
       const filter = effect.event.filter
-      if (filter.player && typeof filter.player === 'object' && 'kind' in filter.player && filter.player.kind === 'players') {
-        const seats = evaluatePlayerSelector(filter.player, runtime)
-        if (!seats.includes(event.seat)) return false
+      const drawContext = drawRuntime(state, sourceId, controller, event)
+      if (filter.firstDrawInOwnDrawStep === false
+        && isProtectedFirstDrawInOwnDrawStep(state, event.seat)) return false
+      if (filter.firstDrawInOwnDrawStep === true
+        && !isProtectedFirstDrawInOwnDrawStep(state, event.seat)) return false
+      if (filter.player) {
+        if (typeof filter.player === 'object' && 'kind' in filter.player && filter.player.kind === 'players') {
+          const seats = evaluatePlayerSelector(filter.player, drawContext)
+          if (!seats.includes(event.seat)) return false
+        } else {
+          const seats = evaluatePlayerReference(filter.player, drawContext)
+          if (!seats.includes(event.seat)) return false
+        }
       }
       return true
     }
@@ -146,7 +173,7 @@ export const discoverCanonicalModifiers = (
       const runtime = runtimeFor(state, host.id, host.controller)
       const effect = modifier.effect
       if (effect.when && !evaluateCondition(effect.when, runtime)) continue
-      if (!eventMatchesPattern(event, effect, runtime)) continue
+      if (!eventMatchesPattern(event, effect, runtime, state, host.id, host.controller)) continue
       candidates.push({
         kind: 'canonical',
         category: categoryFor(effect, event, host.id),

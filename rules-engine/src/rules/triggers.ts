@@ -40,6 +40,7 @@ import {
   triggerEffectKey,
 } from '../cardPlugins/triggerFrequency'
 import { cardsDrawnThisTurn } from './draw'
+import { isProtectedFirstDrawInOwnDrawStep } from './drawStepHistory'
 import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers/matching'
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
@@ -249,10 +250,10 @@ const canonicalPatternMatches = (
   if (pattern.kind === 'draw') {
     if (event.type !== 'draw' || !occurrence.player) return false
     const player = occurrence.player
-    if (pattern.filter.firstDrawInOwnDrawStep
-      && (beforeState.step !== 'draw'
-        || beforeState.active !== player
-        || cardsDrawnThisTurn(beforeState.players[player]) !== 0)) return false
+    if (pattern.filter.firstDrawInOwnDrawStep === true
+      && !isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
+    if (pattern.filter.firstDrawInOwnDrawStep === false
+      && isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
     if (!pattern.filter.player) return true
     if (pattern.filter.player.kind === 'players') {
       return evaluatePlayerSelector(pattern.filter.player, {
@@ -316,10 +317,10 @@ const generatedPatternMatches = (
   switch (pattern.kind) {
     case 'draw': {
       if (event.type !== 'draw' || !occurrence.player) return false
-      if (pattern.filter.firstDrawInOwnDrawStep
-        && (beforeState.step !== 'draw'
-          || beforeState.active !== occurrence.player
-          || cardsDrawnThisTurn(beforeState.players[occurrence.player]) !== 0)) return false
+      if (pattern.filter.firstDrawInOwnDrawStep === true
+        && !isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
+      if (pattern.filter.firstDrawInOwnDrawStep === false
+        && isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
       if (!pattern.filter.player) return true
       return pattern.filter.player.kind === 'players'
         ? evaluatePlayerSelector(pattern.filter.player, {
