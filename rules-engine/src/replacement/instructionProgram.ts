@@ -7,8 +7,7 @@ import {
   evaluateRuntimeAmount,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
-import { captureObject } from '../objectIdentity'
-import { objectIdentity } from '../objectIdentity'
+import { captureObject, objectIdentity } from '../objectIdentity'
 import { openCardSelection } from '../rules/selectCards'
 import type { Instruction, PlayerRecipient } from '../cardPlugins/dsl/schema/v1'
 import type {
@@ -28,14 +27,21 @@ const recipients = (
   ? evaluatePlayerSelector(recipient, context)
   : evaluatePlayerReference(recipient, context)
 
-const availableAmount = (amount: Instruction & { count?: unknown; amount?: unknown }, context: RuleDslRuntimeContext) => {
-  const expression = 'count' in amount && amount.count
-    ? amount.count as import('../cardPlugins/dsl/schema/v1').Amount
-    : 'amount' in amount && amount.amount
-      ? amount.amount as import('../cardPlugins/dsl/schema/v1').Amount
-      : undefined
-  if (!expression) return undefined
-  return evaluateRuntimeAmount(expression, context)
+const availableAmount = (instruction: Instruction, context: RuleDslRuntimeContext) => {
+  switch (instruction.kind) {
+    case 'draw':
+    case 'mill':
+      return evaluateRuntimeAmount(instruction.count, context)
+    case 'discard':
+      return instruction.count === undefined
+        ? undefined
+        : evaluateRuntimeAmount(instruction.count, context)
+    case 'gainLife':
+    case 'loseLife':
+      return evaluateRuntimeAmount(instruction.amount, context)
+    default:
+      return undefined
+  }
 }
 
 const runtimeForProgram = (
@@ -259,7 +265,7 @@ export const completeReplacementDiscard = (
   if (!pending) return { kind: 'complete', followUp: [], state }
   const draft = makeDraft(state)
   const seat = pending.seats[pending.index]
-  if (seat && objectIds.length > 0) {
+  if (seat && discarded && objectIds.length > 0) {
     pending.selected.push(...objectIds.map((objectId) => ({ seat, objectId })))
     const lineage = lineageForFrame(frame)
     for (const objectId of objectIds) {

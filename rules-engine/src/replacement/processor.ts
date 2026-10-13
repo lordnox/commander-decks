@@ -6,6 +6,7 @@ import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { captureObject } from '../objectIdentity'
 import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
+import type { Instruction } from '../cardPlugins/dsl/schema/v1'
 import type {
   EventProcessingFrame,
   GameEvent,
@@ -135,7 +136,7 @@ type ApplyResult =
   | { kind: 'fork'; events: GameEvent[]; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
   | {
     kind: 'program'
-    instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+    instructions: readonly Instruction[]
     sourceId: string
     controller: string
     occurrencePlayer: string
@@ -351,8 +352,6 @@ export const drawRemainderFollowUp = (event: GameEvent): GameEvent[] => {
     type: 'draw',
     seat: event.seat,
     count: event.remainingAfter,
-    ...(event.replacementLineage ? { replacementLineage: structuredClone(event.replacementLineage) } : {}),
-    ...(event.replacedBy ? { replacedBy: [...event.replacedBy] } : {}),
   }]
 }
 
@@ -387,7 +386,7 @@ const settleReplacementProgram = (
   return {
     kind: 'prevented',
     state: stepped.state,
-    ...followUpFields([...followUp, ...drawRemainderFollowUp(proposal), ...stepped.followUp], followUpPrograms),
+    ...followUpFields([...followUp, ...stepped.followUp, ...drawRemainderFollowUp(proposal)], followUpPrograms),
   }
 }
 

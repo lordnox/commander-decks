@@ -12,17 +12,18 @@ Status: ready for review on `agent/rule-dsl-part14-draw-history`.
 - `replaceWith` runs through `replacement/instructionProgram.ts` (discard with
   `selectCards`, `if`, draw, mill, gainLife/loseLife) on `eventProcessing.program`.
 - Lineage and used-instance ledgers from Part 11 carry into program-emitted events.
-- `remainingAfter` on multi-card draw proposals is preserved when a replacement
-  program prevents the current slice.
+- `remainingAfter` on multi-card draw proposals is a fresh sibling draw: original
+  remainder slices do not inherit the used-instance ledger. Only replacement-
+  generated follow-up draws keep that lineage.
+- Discard results are bound from replacement settlement of the discard event
+  (prevented vs actually discarded), not from whether the answer listed object IDs.
 
 ## Gaps (deferred)
 
-- Two Chains / empty-library failed-draw SBA / discard-destination replacement
-  scenarios from RULE-DSL.md Q are not fully table-tested here.
+- Two Chains / empty-library failed-draw SBA scenarios from RULE-DSL.md Q are
+  not fully table-tested here.
 - `replaceWith` programs beyond the Chains instruction mix (e.g. chooseInstructions)
   are untested in replacement frames.
-- Draw-three multi-pause sequencing relies on remainder follow-ups; a dedicated
-  three-discard integration test is still thin.
 
 ## Verification
 
