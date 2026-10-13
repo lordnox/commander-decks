@@ -10,6 +10,7 @@ import {
   draw,
   drawCost,
   gainLife,
+  manaCost,
   ifThen,
   mill,
   players,
@@ -29,7 +30,7 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { beginDrawStepInstance, enterAdditionalDrawStep } from '../../rules/drawStepHistory'
 import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
 import { makeDraft, freezeDraft } from '../../draft'
-import { gainLife, triggerOn } from '../effects'
+import { gainLife as effectGainLife, triggerOn } from '../effects'
 import type { GameState, Plugin, ReduceResult } from '../../types'
 
 const ok = (result: ReduceResult) => {
@@ -386,7 +387,7 @@ describe('Rule DSL Part 14 draw history and Chains replacement', () => {
           cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() }),
           cardTemplate('Discard Watcher', {
             types: ['Enchantment'],
-            effects: [triggerOn('discard', { do: [gainLife(3)] })],
+            effects: [triggerOn('discard', { do: [effectGainLife(3)] })],
           }),
         ],
       },
@@ -718,6 +719,66 @@ describe('Rule DSL Part 14 draw history and Chains replacement', () => {
     expect(state.zoneOrder.p1.hand).toHaveLength(2)
     expect(state.stack).toHaveLength(0)
     expect(state.players.p1.mana.G).toBe(1)
+  })
+
+  test('a two-draw mana-ability cost during a planned cast finishes both procedures through restore', () => {
+    const payDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [drawCost(2)],
+        decisions: { targets: [] },
+        instructions: [{ kind: 'addMana', amount: { G: amount(1) }, targets: ref('controller') }],
+      }),
+    ])))
+    const spellDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [manaCost('{G}')],
+      decisions: { targets: [] },
+      instructions: [],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() }),
+          cardTemplate('Tax Rock', { types: ['Artifact'], ruleDefinition: payDraw() }),
+        ],
+      },
+      hands: {
+        p1: [
+          cardTemplate('H1'),
+          cardTemplate('H2'),
+          cardTemplate('Green Spell', { types: ['Sorcery'], manaCost: '{G}', ruleDefinition: spellDefinition }),
+        ],
+      },
+      libraries: { p1: [cardTemplate('L1'), cardTemplate('L2')] },
+    }, { random: () => 0 })
+    const rock = Object.values(server.state.objects).find((object) => object.name === 'Tax Rock')!
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Green Spell')!
+    const draft = makeDraft(server.state)
+    draft.step = 'precombatMain'
+    draft.active = 'p1'
+    let state = freezeDraft(draft)
+    state = ok(server.rules(state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spell.id,
+      manaActivations: [{ objectId: rock.id, abilityId: '$.abilities[0]' }],
+    }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    expect(state.stack).toHaveLength(0)
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    expect(state.stack).toHaveLength(0)
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.eventProcessing).toBeUndefined()
+    expect(state.provisionalAnnouncement).toBeUndefined()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+    expect(state.zoneOrder.p1.library).toHaveLength(0)
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+    expect(state.stack).toHaveLength(1)
+    expect(state.stack[0]?.name).toBe('Green Spell')
+    expect(state.players.p1.mana.G).toBe(0)
   })
 
   test('extra draw step starts a fresh exemption', () => {

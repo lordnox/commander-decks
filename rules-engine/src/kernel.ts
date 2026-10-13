@@ -52,19 +52,140 @@ import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
+import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
 import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms } from './replacement'
 
 const CHECKPOINT_CAP = 32
 
+const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransaction) => {
+  const paymentEvents: GameEvent[] = []
+  let costIndex = 0
+  for (const cost of transaction.lockedCost.nonMana) {
+    switch (cost.kind) {
+      case 'life':
+        paymentEvents.push({
+          type: 'payLife',
+          seat: payer,
+          amount: evaluateAnnouncementCostAmount(cost.amount, transaction.lockedCost.x),
+          source: transaction.proposal.sourceId,
+        })
+        break
+      case 'discard':
+      case 'sacrifice': {
+        const amount = evaluateAnnouncementCostAmount(cost.count, transaction.lockedCost.x)
+        paymentEvents.push(...(transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
+          cost.kind === 'discard' ? { type: 'discard' as const, seat: payer, objectId } : { type: 'sacrifice' as const, objectId }))
+        costIndex += amount
+        break
+      }
+      case 'draw': {
+        const amount = evaluateAnnouncementCostAmount(cost.count, transaction.lockedCost.x)
+        paymentEvents.push(...Array.from({ length: amount }, () => ({ type: 'draw' as const, seat: payer, count: 1 })))
+        break
+      }
+      case 'mana':
+        break
+    }
+  }
+  return paymentEvents
+}
+
+const applyCostSequence = (
+  state: GameState,
+  catalog: PluginCatalog,
+  events: GameEvent[],
+  startCursor: number,
+  writeCursor: (draft: Draft, cursor: number) => void,
+  baseline: GameState,
+): ReduceResult => {
+  let current = state
+  const entries: EventTrace[] = []
+  let cursor = startCursor
+  while (cursor < events.length) {
+    const draft = makeDraft(current)
+    writeCursor(draft, cursor + 1)
+    current = freezeDraft(draft)
+    const paid = applyEventTree(current, events[cursor]!, catalog)
+    entries.push(...nested(paid.trace, 1))
+    if (!paid.ok) return { ...paid, state: baseline, trace: entries }
+    current = paid.state
+    cursor += 1
+    if (current.resolution) {
+      const driven = driveResolution(current, catalog)
+      entries.push(...nested(driven.trace, 1))
+      if (!driven.ok) return { ...driven, state: baseline, trace: entries }
+      current = driven.state
+      if (current.resolution) return { ok: true, state: current, trace: entries }
+    }
+    if (hasOpenChoice(current) || current.eventProcessing) {
+      return { ok: true, state: current, trace: entries }
+    }
+  }
+  return { ok: true, state: current, trace: entries }
+}
+
+const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, baseline: GameState): ReduceResult => {
+  const nested = state.provisionalAnnouncement?.nestedManaPayment
+  const payer = state.provisionalAnnouncement?.payer
+  if (!nested || !payer) return { ok: true, state, trace: [] }
+  const paid = applyCostSequence(
+    state,
+    catalog,
+    announcementCostEvents(payer, nested.transaction),
+    nested.plannedPaymentCursor,
+    (draft, cursor) => {
+      if (draft.provisionalAnnouncement?.nestedManaPayment) {
+        draft.provisionalAnnouncement.nestedManaPayment.plannedPaymentCursor = cursor
+      }
+    },
+    baseline,
+  )
+  if (!paid.ok || hasOpenChoice(paid.state) || paid.state.eventProcessing || paid.state.resolution) {
+    return paid
+  }
+  const remaining = paid.state.provisionalAnnouncement?.nestedManaPayment
+  if (!remaining) return paid
+  const completed = makeDraft(paid.state)
+  if (completed.priority === null) completed.priority = payer
+  startCanonicalResolution(completed, {
+    id: completed.allocId('inline'),
+    ...remaining.pendingActivation,
+  }, { inline: true })
+  if (completed.resolution?.kind === 'canonicalSpell') {
+    completed.resolution.phase = 'running'
+    delete completed.resolution.pendingEvents
+  }
+  completed.priority = null
+  if (completed.provisionalAnnouncement) delete completed.provisionalAnnouncement.nestedManaPayment
+  const resolved = freezeDraft(completed)
+  if (!resolved.resolution) return { ok: true, state: resolved, trace: paid.trace }
+  const driven = driveResolution(resolved, catalog)
+  return { ...driven, trace: [...paid.trace, ...driven.trace] }
+}
+
 const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): ReduceResult => {
   const frame = state.provisionalAnnouncement
   if (!frame) return { ok: true, state, trace: [] }
   let current = state
   const entries: EventTrace[] = []
-  const planned = frame.plannedManaActivations ?? []
-  let cursor = frame.plannedManaCursor ?? 0
+  const nestedStart = continueNestedManaPayment(current, catalog, frame.baseline)
+  entries.push(...nestedStart.trace)
+  if (!nestedStart.ok) return { ...nestedStart, state: frame.baseline, trace: entries }
+  current = nestedStart.state
+  if (current.resolution) {
+    const driven = driveResolution(current, catalog)
+    entries.push(...nested(driven.trace, 1))
+    if (!driven.ok) return { ...driven, state: frame.baseline, trace: entries }
+    current = driven.state
+    if (current.resolution) return { ok: true, state: current, trace: entries }
+  }
+  if (hasOpenChoice(current) || current.eventProcessing) {
+    return { ok: true, state: current, trace: entries }
+  }
+  const planned = current.provisionalAnnouncement?.plannedManaActivations ?? frame.plannedManaActivations ?? []
+  let cursor = current.provisionalAnnouncement?.plannedManaCursor ?? frame.plannedManaCursor ?? 0
   while (cursor < planned.length) {
     const draft = makeDraft(current)
     if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedManaCursor = cursor + 1
@@ -74,6 +195,10 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
     if (!next.ok) return { ...next, state: frame.baseline, trace: entries }
     current = next.state
     cursor += 1
+    const nestedPaid = continueNestedManaPayment(current, catalog, frame.baseline)
+    entries.push(...nestedPaid.trace)
+    if (!nestedPaid.ok) return { ...nestedPaid, state: frame.baseline, trace: entries }
+    current = nestedPaid.state
     if (current.resolution) {
       const driven = driveResolution(current, catalog)
       entries.push(...nested(driven.trace, 1))
@@ -85,63 +210,30 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
       return { ok: true, state: current, trace: entries }
     }
   }
-  if (frame.source && frame.definitionSnapshot) {
-    const liveSource = current.objects[frame.source.ref.objectId]
-    if (!liveSource || !isSameObject(liveSource, frame.source.ref)
-      || JSON.stringify(liveSource.ruleDefinition?.definition) !== JSON.stringify(frame.definitionSnapshot.definition)) {
+  const parent = current.provisionalAnnouncement ?? frame
+  if (parent.source && parent.definitionSnapshot) {
+    const liveSource = current.objects[parent.source.ref.objectId]
+    if (!liveSource || !isSameObject(liveSource, parent.source.ref)
+      || JSON.stringify(liveSource.ruleDefinition?.definition) !== JSON.stringify(parent.definitionSnapshot.definition)) {
       const error = 'planned announcement source or definition changed before payment completed'
       return { ok: false, error, state: frame.baseline, trace: entries }
     }
   }
-  const paymentEvents: GameEvent[] = []
-  let costIndex = 0
-  for (const cost of frame.transaction.lockedCost.nonMana) {
-    switch (cost.kind) {
-      case 'life':
-        paymentEvents.push({
-          type: 'payLife',
-          seat: frame.payer,
-          amount: evaluateAnnouncementCostAmount(cost.amount, frame.transaction.lockedCost.x),
-          source: frame.transaction.proposal.sourceId,
-        })
-        break
-      case 'discard':
-      case 'sacrifice': {
-        const amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
-        paymentEvents.push(...(frame.transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
-          cost.kind === 'discard' ? { type: 'discard' as const, seat: frame.payer, objectId } : { type: 'sacrifice' as const, objectId }))
-        costIndex += amount
-        break
-      }
-      case 'draw': {
-        const amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
-        paymentEvents.push(...Array.from({ length: amount }, () => ({ type: 'draw' as const, seat: frame.payer, count: 1 })))
-        break
-      }
-      case 'mana':
-        break
-    }
-  }
-  let paymentCursor = frame.plannedPaymentCursor ?? 0
-  while (paymentCursor < paymentEvents.length) {
-    const draft = makeDraft(current)
-    if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedPaymentCursor = paymentCursor + 1
-    current = freezeDraft(draft)
-    const paid = applyEventTree(current, paymentEvents[paymentCursor]!, catalog)
-    entries.push(...nested(paid.trace, 1))
-    if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }
-    current = paid.state
-    paymentCursor += 1
-    if (current.resolution) {
-      const driven = driveResolution(current, catalog)
-      entries.push(...nested(driven.trace, 1))
-      if (!driven.ok) return { ...driven, state: frame.baseline, trace: entries }
-      current = driven.state
-      if (current.resolution) return { ok: true, state: current, trace: entries }
-    }
-    if (hasOpenChoice(current) || current.eventProcessing) {
-      return { ok: true, state: current, trace: entries }
-    }
+  const paid = applyCostSequence(
+    current,
+    catalog,
+    announcementCostEvents(parent.payer, parent.transaction),
+    parent.plannedPaymentCursor ?? 0,
+    (draft, nextCursor) => {
+      if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedPaymentCursor = nextCursor
+    },
+    frame.baseline,
+  )
+  entries.push(...paid.trace)
+  if (!paid.ok) return { ...paid, state: frame.baseline, trace: entries }
+  current = paid.state
+  if (hasOpenChoice(current) || current.eventProcessing || current.resolution) {
+    return { ok: true, state: current, trace: entries }
   }
   if (frame.pendingActivation) {
     const completed = makeDraft(current)

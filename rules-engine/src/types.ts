@@ -801,6 +801,14 @@ export type GameState = {
   log: string[]
 }
 
+export type NestedManaPaymentFrame = {
+  transaction: AnnouncementTransaction
+  pendingActivation: Omit<StackItem, 'id'> & { id?: string }
+  plannedPaymentCursor: number
+  source?: CapturedObject
+  definitionSnapshot?: CardRuleDefinitionSnapshotV1
+}
+
 export type ProvisionalAnnouncementFrame = {
   id: string
   payer: PlayerId
@@ -812,6 +820,7 @@ export type ProvisionalAnnouncementFrame = {
   plannedPaymentCursor?: number
   pendingActivation?: Omit<StackItem, 'id'> & { id?: string }
   inlineManaAbility?: boolean
+  nestedManaPayment?: NestedManaPaymentFrame
   source?: CapturedObject
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
 }

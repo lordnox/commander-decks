@@ -484,22 +484,35 @@ export const activated: Plugin = {
           execution: canonicalExecution,
           ...(event.x !== undefined ? { x: event.x } : {}),
         }
-        if (costEvents.length > 0 && !state.provisionalAnnouncement) {
-          draft.provisionalAnnouncement = {
-            id: committed.id,
-            payer: event.seat,
-            transaction: committed,
-            baseline: structuredClone(state),
-            pendingActivation: manaClassification.isManaAbility
-              ? { ...activationItem, ...(event.choices ? { choices: event.choices } : {}) }
-              : activationItem,
-            plannedPaymentCursor: 0,
-            source: captureObject(source),
-            definitionSnapshot: createDefinitionSnapshot(compiled),
-            ...(manaClassification.isManaAbility ? { inlineManaAbility: true } : {}),
+        if (costEvents.length > 0) {
+          const pendingActivation = manaClassification.isManaAbility
+            ? { ...activationItem, ...(event.choices ? { choices: event.choices } : {}) }
+            : activationItem
+          if (draft.provisionalAnnouncement && manaClassification.isManaAbility) {
+            draft.provisionalAnnouncement.nestedManaPayment = {
+              transaction: committed,
+              pendingActivation,
+              plannedPaymentCursor: 0,
+              source: captureObject(source),
+              definitionSnapshot: createDefinitionSnapshot(compiled),
+            }
+            return
           }
-          draft.priority = null
-          return
+          if (!state.provisionalAnnouncement) {
+            draft.provisionalAnnouncement = {
+              id: committed.id,
+              payer: event.seat,
+              transaction: committed,
+              baseline: structuredClone(state),
+              pendingActivation,
+              plannedPaymentCursor: 0,
+              source: captureObject(source),
+              definitionSnapshot: createDefinitionSnapshot(compiled),
+              ...(manaClassification.isManaAbility ? { inlineManaAbility: true } : {}),
+            }
+            draft.priority = null
+            return
+          }
         }
         if (manaClassification.isManaAbility) {
           const inlineItem = {
