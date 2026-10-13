@@ -1,4 +1,5 @@
 import type Draft from '../draft'
+import { freezeDraft } from '../draft'
 import type {
   GameEvent,
   GameState,
@@ -27,6 +28,9 @@ import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../card
 import { advanceCopySlot } from './selectOptions'
 import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
+import { completeReplacementDiscard } from '../replacement/instructionProgram'
+import { drawRemainderFollowUp, enqueueReplacementSettlement } from '../replacement/processor'
+import type { PluginCatalog } from '../catalog'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
 export const PENDING_STEAL_CAST = 'stealCast.pending'
@@ -137,7 +141,8 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment'
+    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard'
+    replacementFrameId?: string
     payment?: {
       cost: Cost
       amount: number
@@ -572,7 +577,7 @@ const applyTopDeckChoices = (
   }
 }
 
-const applySelectCards = (draft: Draft, event: GameEvent) => {
+const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog) => {
   if (event.type !== 'selectCards') return
 
   const selection = pendingSelectionFor(draft, event.seat)
@@ -585,6 +590,33 @@ const applySelectCards = (draft: Draft, event: GameEvent) => {
   clearPendingSelection(draft, event.seat)
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
+
+  if (canonicalChoice?.action === 'replacementDiscard' && canonicalChoice.replacementFrameId) {
+    const objectIds = event.objectIds ?? []
+    const stepped = completeReplacementDiscard(
+      freezeDraft(draft),
+      canonicalChoice.replacementFrameId,
+      canonicalChoice.binding,
+      objectIds.length > 0,
+      objectIds,
+      catalog,
+    )
+    if (stepped.kind === 'waiting') {
+      if (stepped.state.eventProcessing) draft.eventProcessing = stepped.state.eventProcessing
+      draft.priority = null
+      return
+    }
+    const remainder = draft.eventProcessing
+      ? drawRemainderFollowUp(draft.eventProcessing.pendingEvent)
+      : []
+    enqueueReplacementSettlement(draft, {
+      kind: 'prevented',
+      followUp: [...remainder, ...stepped.followUp],
+      ...(stepped.kind === 'complete' ? { state: stepped.state } : {}),
+    })
+    draft.priority = null
+    return
+  }
 
   if (selection.triggerOrder) {
     const ids = event.objectIds ?? []
@@ -1075,7 +1107,7 @@ export const selectCards: Plugin = {
     }
     return legalSelectCards(state, event)
   },
-  apply: ({ event, draft }) => {
-    applySelectCards(draft, event)
+  apply: ({ event, draft, catalog }) => {
+    applySelectCards(draft, event, catalog)
   },
 }

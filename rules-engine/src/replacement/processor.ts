@@ -19,6 +19,7 @@ import {
   lowestCategory,
   type ReplacementCandidate,
 } from './discovery'
+import { advanceReplacementProgram, initReplacementProgram } from './instructionProgram'
 import { applyCanonicalTransform } from './program'
 import {
   applyPreventionToDamage,
@@ -132,6 +133,15 @@ type ApplyResult =
   | { kind: 'prevented'; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
   | { kind: 'continue'; event: GameEvent; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
   | { kind: 'fork'; events: GameEvent[]; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
+  | {
+    kind: 'program'
+    instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[]
+    sourceId: string
+    controller: string
+    occurrencePlayer: string
+    followUp?: GameEvent[]
+    followUpPrograms?: PreventionFollowUpProgram[]
+  }
 
 type FollowUpExtras = {
   followUp?: GameEvent[]
@@ -283,6 +293,19 @@ const applyCandidate = (
   markInstanceUsed(lineage, candidate.instanceId)
   const transformed = applyCanonicalTransform(proposal, candidate, lineage)
   if (transformed.kind === 'prevented') return { result: { kind: 'prevented' }, state }
+  if (transformed.kind === 'program') {
+    const source = state.objects[candidate.sourceId]
+    return {
+      result: {
+        kind: 'program',
+        instructions: transformed.instructions,
+        sourceId: candidate.sourceId,
+        controller: source?.controller ?? candidate.chooser,
+        occurrencePlayer: proposal.type === 'draw' ? proposal.seat : candidate.chooser,
+      },
+      state,
+    }
+  }
   if (transformed.kind === 'fork') return { result: transformed, state }
   if (proposal.type === 'dealDamage' && transformed.event.type === 'dealDamage' && transformed.event.amount <= 0) {
     return { result: { kind: 'prevented' }, state }
@@ -320,6 +343,52 @@ const openModifierChoice = (
       candidateIds: candidates.map((candidate) => candidate.instanceId),
     },
   })
+}
+
+export const drawRemainderFollowUp = (event: GameEvent): GameEvent[] => {
+  if (event.type !== 'draw' || !event.remainingAfter || event.remainingAfter < 1) return []
+  return [{
+    type: 'draw',
+    seat: event.seat,
+    count: event.remainingAfter,
+    ...(event.replacementLineage ? { replacementLineage: structuredClone(event.replacementLineage) } : {}),
+    ...(event.replacedBy ? { replacedBy: [...event.replacedBy] } : {}),
+  }]
+}
+
+const settleReplacementProgram = (
+  workingState: GameState,
+  proposal: GameEvent,
+  lineage: ReplacementLineage,
+  applied: Extract<ApplyResult, { kind: 'program' }>,
+  catalog: PluginCatalog,
+  options: { announcementTransactionId?: string },
+  followUp: GameEvent[],
+  followUpPrograms: PreventionFollowUpProgram[],
+): ReplacementSettlement => {
+  const program = initReplacementProgram(applied.instructions, {
+    sourceId: applied.sourceId,
+    controller: applied.controller,
+    occurrencePlayer: applied.occurrencePlayer,
+  })
+  const frame: EventProcessingFrame = {
+    version: 1,
+    id: `event-${workingState.nextId}`,
+    originalEvent: structuredClone(proposal),
+    pendingEvent: structuredClone(proposal),
+    lineage: structuredClone(lineage),
+    awaitingCandidateIds: [],
+    program,
+    ...(options.announcementTransactionId ? { announcementTransactionId: options.announcementTransactionId } : {}),
+    ...followUpFields(structuredClone(followUp), structuredClone(followUpPrograms)),
+  }
+  const stepped = advanceReplacementProgram({ ...workingState, nextId: workingState.nextId + 1, eventProcessing: frame }, frame, catalog)
+  if (stepped.kind === 'waiting') return { kind: 'waiting', state: stepped.state }
+  return {
+    kind: 'prevented',
+    state: stepped.state,
+    ...followUpFields([...followUp, ...drawRemainderFollowUp(proposal), ...stepped.followUp], followUpPrograms),
+  }
 }
 
 const suspendForChoice = (
@@ -384,6 +453,18 @@ export const settleReplaceableEvent = (
       if (applied.result.kind === 'fork') {
         return { kind: 'fork', events: applied.result.events, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
       }
+      if (applied.result.kind === 'program') {
+        return settleReplacementProgram(
+          workingState,
+          proposal,
+          lineage,
+          applied.result,
+          catalog,
+          options,
+          followUp,
+          followUpPrograms,
+        )
+      }
       proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
       continue
@@ -415,6 +496,18 @@ export const settleReplaceableEvent = (
       }
       if (applied.result.kind === 'fork') {
         return { kind: 'fork', events: applied.result.events, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
+      }
+      if (applied.result.kind === 'program') {
+        return settleReplacementProgram(
+          workingState,
+          proposal,
+          lineage,
+          applied.result,
+          catalog,
+          options,
+          followUp,
+          followUpPrograms,
+        )
       }
       proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
@@ -506,6 +599,27 @@ export const resumeReplacementChoice = (
       state: applied.state,
       ...followUpFields(pendingEvents, pendingPrograms),
     })
+  }
+  if (applied.result.kind === 'program') {
+    const cleared = mergeState({
+      ...resumeState,
+      eventProcessing: undefined,
+      deferredEventProcessing: undefined,
+    }, applied.state)
+    return finish(attachFollowUps(
+      settleReplacementProgram(
+        cleared,
+        proposal,
+        lineage,
+        applied.result,
+        catalog,
+        announcementOptions(frame.announcementTransactionId),
+        pendingEvents,
+        pendingPrograms,
+      ),
+      pendingEvents,
+      pendingPrograms,
+    ))
   }
   const cleared = mergeState({
     ...resumeState,

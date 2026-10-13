@@ -4,6 +4,7 @@ import {
 } from '../cardPlugins/libraryTopKnowledge'
 import type Draft from '../draft'
 import type { GameEvent, PlayerId, PlayerState, Plugin, StackItem } from '../types'
+import { recordActualDrawInStep } from './drawStepHistory'
 
 export const CARDS_DRAWN_THIS_TURN = 'draw.cardsThisTurn'
 export const FAILED_DRAW_SINCE_SBA = 'draw.failedSinceSba'
@@ -97,6 +98,7 @@ const authoritativeApply = (draft: Draft, seat: PlayerId) => {
   if (object) {
     const player = draft.players[seat]
     player.data[CARDS_DRAWN_THIS_TURN] = cardsDrawnThisTurn(player) + 1
+    recordActualDrawInStep(draft, seat)
     draft.note(`${seat} draws a card`)
   }
   syncRevealedLibraryTop(draft, [seat])

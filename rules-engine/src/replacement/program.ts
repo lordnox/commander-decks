@@ -1,3 +1,4 @@
+import type { Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { GameEvent, ReplacementLineage } from '../types'
 import type { CanonicalReplacementCandidate } from './canonical'
 import { descendantLineage, withLineage } from './lineage'
@@ -9,7 +10,8 @@ export const applyCanonicalTransform = (
 ):
   | { kind: 'prevented' }
   | { kind: 'continue'; event: GameEvent }
-  | { kind: 'fork'; events: GameEvent[] } => {
+  | { kind: 'fork'; events: GameEvent[] }
+  | { kind: 'program'; instructions: readonly Instruction[] } => {
   const transform = candidate.effect.transform
   switch (transform.kind) {
     case 'suppress':
@@ -42,35 +44,8 @@ export const applyCanonicalTransform = (
         event: withLineage({ ...proposal, to: transform.to }, descendantLineage(lineage)),
       }
     }
-    case 'replaceWith': {
-      const events: GameEvent[] = []
-      for (const instruction of transform.instructions) {
-        if (instruction.kind === 'mill' && proposal.type === 'draw') {
-          events.push({
-            type: 'mill',
-            seat: proposal.seat,
-            objectId: '',
-          })
-        }
-        if (instruction.kind === 'draw') {
-          events.push({
-            type: 'draw',
-            seat: candidate.chooser,
-            count: instruction.count.kind === 'constant' ? instruction.count.value : 1,
-          })
-        }
-        if (instruction.kind === 'gainLife') {
-          events.push({
-            type: 'gainLife',
-            seat: candidate.chooser,
-            amount: instruction.amount.kind === 'constant' ? instruction.amount.value : 0,
-          })
-        }
-      }
-      if (events.length === 0) return { kind: 'prevented' }
-      if (events.length === 1) return { kind: 'continue', event: withLineage(events[0]!, descendantLineage(lineage)) }
-      return { kind: 'fork', events: events.map((entry) => withLineage(entry, descendantLineage(lineage))) }
-    }
+    case 'replaceWith':
+      return { kind: 'program', instructions: transform.instructions }
     default:
       return { kind: 'continue', event: withLineage(proposal, descendantLineage(lineage)) }
   }
