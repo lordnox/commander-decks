@@ -83,6 +83,7 @@ export const projectForViewer = (
   delete projected.pendingTriggers
   delete projected.triggerPlacement
   delete projected.eventProcessing
+  delete projected.deferredEventProcessing
   stripAuthoritativeExecution(projected.stack)
   for (const player of projected.playerOrder) {
     stripAuthoritativeExecution(projected.players[player].data)

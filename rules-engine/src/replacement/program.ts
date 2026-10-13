@@ -59,6 +59,13 @@ export const applyCanonicalTransform = (
             count: instruction.count.kind === 'constant' ? instruction.count.value : 1,
           })
         }
+        if (instruction.kind === 'gainLife') {
+          events.push({
+            type: 'gainLife',
+            seat: candidate.chooser,
+            amount: instruction.amount.kind === 'constant' ? instruction.amount.value : 0,
+          })
+        }
       }
       if (events.length === 0) return { kind: 'prevented' }
       if (events.length === 1) return { kind: 'continue', event: withLineage(events[0]!, descendantLineage(lineage)) }

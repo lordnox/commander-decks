@@ -671,6 +671,7 @@ export type EventProcessingFrame = {
   pendingEvent: GameEvent
   lineage: ReplacementLineage
   awaitingCandidateIds: readonly string[]
+  chooser?: PlayerId
   announcementTransactionId?: string
   followUp?: GameEvent[]
   followUpPrograms?: PreventionFollowUpProgram[]
@@ -745,6 +746,8 @@ export type GameState = {
   triggerPlacement?: TriggerPlacementFrame
   /** Private replacement processing cursor while a modifier choice or program is open. */
   eventProcessing?: EventProcessingFrame
+  /** Additional suspended replacement frames; independent of the active cursor. */
+  deferredEventProcessing?: EventProcessingFrame[]
   delayedTriggers: DelayedTrigger[]
   active: PlayerId
   priority: PlayerId | null

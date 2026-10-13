@@ -6,6 +6,7 @@ import {
   gainLife,
   payOptional,
   ref,
+  replaceWith,
   replacement,
   sacrificeCost,
   spell,
@@ -207,5 +208,80 @@ describe('Rule DSL Part 11 replacement processing', () => {
     }, { random: () => 0 })
     const state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
     expect(state.zoneOrder.p1.hand).toHaveLength(0)
+  })
+
+  test('optional replacement stays choosable next to a mandatory prevent', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(replacement(
+        wouldDraw(),
+        replaceWith(gainLife({ amount: amount(1), targets: ref('controller') })),
+        { optional: true },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Optional life', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+      libraries: { p1: [cardTemplate('Library Card')] },
+    }, { random: () => 0, cardPlugins: [preventDraw] })
+    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+    const pending = pendingOptionSelection(state, 'p1')
+    expect(pending).toBeDefined()
+    const lifeOption = pending!.options.find((option) => option.label === 'Optional life')
+    expect(lifeOption).toBeDefined()
+    state = ok(server.rules(state, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending!.id,
+      optionId: lifeOption!.id,
+    }))
+    expect(state.players.p1.life).toBe(41)
+    expect(state.zoneOrder.p1.hand).toHaveLength(0)
+  })
+
+  test('a second waiting replacement defers without overwriting the first frame', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      libraries: {
+        p1: [cardTemplate('P1 Card')],
+        p2: [cardTemplate('P2 Card')],
+      },
+    }, { random: () => 0, cardPlugins: [millTop, preventDraw] })
+    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+    const firstId = state.eventProcessing!.id
+    const firstSelection = pendingOptionSelection(state, 'p1')!
+    state = ok(server.rules(state, { type: 'draw', seat: 'p2' }))
+    expect(state.eventProcessing?.id).toBe(firstId)
+    expect(state.deferredEventProcessing).toHaveLength(1)
+    expect(pendingOptionSelection(state, 'p1')?.id).toBe(firstSelection.id)
+    expect(pendingOptionSelection(state, 'p2')).toBeDefined()
+
+    const chooseMill = (active: GameState, seat: 'p1' | 'p2') => {
+      const pending = pendingOptionSelection(active, seat)!
+      const mill = pending.options.find((option) => option.label === 'test.millTop')!
+      return ok(server.rules(active, {
+        type: 'selectOption',
+        seat,
+        selectionId: pending.id,
+        optionId: mill.id,
+      }))
+    }
+
+    const p1First = chooseMill(JSON.parse(JSON.stringify(state)) as GameState, 'p1')
+    expect(p1First.zoneOrder.p1.graveyard).toHaveLength(1)
+    expect(p1First.eventProcessing?.id).toBe(state.deferredEventProcessing![0]!.id)
+    expect(pendingOptionSelection(p1First, 'p2')).toBeDefined()
+    const p1ThenP2 = chooseMill(p1First, 'p2')
+    expect(p1ThenP2.eventProcessing).toBeUndefined()
+    expect(p1ThenP2.zoneOrder.p2.graveyard).toHaveLength(1)
+
+    const p2First = chooseMill(JSON.parse(JSON.stringify(state)) as GameState, 'p2')
+    expect(p2First.zoneOrder.p2.graveyard).toHaveLength(1)
+    expect(p2First.eventProcessing?.id).toBe(firstId)
+    expect(pendingOptionSelection(p2First, 'p1')?.id).toBe(firstSelection.id)
+    const p2ThenP1 = chooseMill(p2First, 'p1')
+    expect(p2ThenP1.eventProcessing).toBeUndefined()
+    expect(p2ThenP1.zoneOrder.p1.graveyard).toHaveLength(1)
   })
 })
