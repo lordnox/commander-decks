@@ -20,8 +20,6 @@ Status: ready for review on `agent/rule-dsl-part14-draw-history`.
 
 ## Gaps (deferred)
 
-- Two Chains / empty-library failed-draw SBA scenarios from RULE-DSL.md Q are
-  not fully table-tested here.
 - `replaceWith` programs beyond the Chains instruction mix (e.g. chooseInstructions)
   are untested in replacement frames.
 
