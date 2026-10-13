@@ -1,11 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  activated,
   amount,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   discard,
   draw,
+  drawCost,
+  gainLife,
   ifThen,
   mill,
   players,
@@ -22,6 +25,7 @@ import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { beginDrawStepInstance, enterAdditionalDrawStep } from '../../rules/drawStepHistory'
+import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
 import { makeDraft, freezeDraft } from '../../draft'
 import { gainLife, triggerOn } from '../effects'
 import type { GameState, Plugin, ReduceResult } from '../../types'
@@ -93,6 +97,25 @@ const moveDiscardToLibrary: Plugin = {
       ? { ...event, to: 'library' as const }
       : undefined
   ),
+}
+
+const pickReplacement = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+  label?: string,
+) => {
+  const offer = pendingOptionSelection(state, 'p1')
+  if (!offer) return state
+  const option = label
+    ? offer.options.find((entry) => entry.label === label)
+    : offer.options[0]
+  if (!option) throw new Error('replacement option missing')
+  return ok(server.rules(state, {
+    type: 'selectOption',
+    seat: 'p1',
+    selectionId: offer.id,
+    optionId: option.id,
+  }))
 }
 
 const answerDiscard = (
@@ -435,6 +458,119 @@ describe('Rule DSL Part 14 draw history and Chains replacement', () => {
     expect(namedZone(state, 'Drawn')).toBe('hand')
     expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
+  })
+
+  test('two Chains with two cards in hand discard twice then draw once', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [
+        cardTemplate('Chains A', { types: ['Enchantment'], ruleDefinition: chains() }),
+        cardTemplate('Chains B', { types: ['Enchantment'], ruleDefinition: chains() }),
+      ] },
+      hands: { p1: [cardTemplate('H1'), cardTemplate('H2')] },
+      libraries: { p1: [cardTemplate('L1')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    state = pickReplacement(server, state)
+    state = answerDiscard(server, state)
+    state = answerDiscard(server, state)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.objects[state.zoneOrder.p1.hand[0]!].name).toBe('L1')
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+    expect(state.zoneOrder.p1.library).toHaveLength(0)
+  })
+
+  test('two Chains with one card in hand mills the follow-up draw', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [
+        cardTemplate('Chains A', { types: ['Enchantment'], ruleDefinition: chains() }),
+        cardTemplate('Chains B', { types: ['Enchantment'], ruleDefinition: chains() }),
+      ] },
+      hands: { p1: [cardTemplate('Only Hand')] },
+      libraries: { p1: [cardTemplate('Mill Me'), cardTemplate('Stay')] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    state = pickReplacement(server, state)
+    state = answerDiscard(server, state)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(state.zoneOrder.p1.hand).toHaveLength(0)
+    expect(state.zoneOrder.p1.graveyard.map((id) => state.objects[id].name)).toEqual(['Only Hand', 'Mill Me'])
+    expect(state.zoneOrder.p1.library).toHaveLength(1)
+    expect(state.objects[state.zoneOrder.p1.library[0]!].name).toBe('Stay')
+  })
+
+  test('empty library on the draw branch sets failed-draw SBA after a successful discard', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() })] },
+      hands: { p1: [cardTemplate('Pay')] },
+      libraries: { p1: [] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    state = answerDiscard(server, state)
+    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBe(true)
+    expect(state.zoneOrder.p1.hand).toHaveLength(0)
+  })
+
+  test('milling an empty library is not an attempted draw', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() })] },
+      libraries: { p1: [] },
+    }, { random: () => 0 })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBeUndefined()
+    expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+  })
+
+  test('draw performed as a cost is still replaced by Chains', () => {
+    const payDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      activated({
+        costs: [drawCost(1)],
+        decisions: { targets: [] },
+        instructions: [gainLife({ amount: amount(1), targets: ref('controller') })],
+      }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() }),
+          cardTemplate('Tax Rock', { types: ['Artifact'], ruleDefinition: payDraw() }),
+        ],
+      },
+      hands: { p1: [cardTemplate('Hand Tax')] },
+      libraries: { p1: [cardTemplate('Would Draw')] },
+    }, { random: () => 0 })
+    const rock = Object.values(server.state.objects).find((object) => object.name === 'Tax Rock')!
+    let state = server.state
+    const draft = makeDraft(state)
+    draft.step = 'precombatMain'
+    draft.active = 'p1'
+    state = freezeDraft(draft)
+    state = ok(server.rules(state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: rock.id,
+      abilityId: '$.abilities[0]',
+    }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    state = answerDiscard(server, state)
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.objects[state.zoneOrder.p1.hand[0]!].name).toBe('Would Draw')
+    expect(state.stack).toHaveLength(1)
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.players.p1.life).toBe(41)
   })
 
   test('extra draw step starts a fresh exemption', () => {
