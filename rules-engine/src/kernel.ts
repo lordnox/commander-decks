@@ -99,7 +99,7 @@ const applyCostSequence = (
   startCursor: number,
   writeCursor: (draft: Draft, cursor: number) => void,
   baseline: GameState,
-): ReduceResult => {
+) => {
   let current = state
   const entries: EventTrace[] = []
   let cursor = startCursor
@@ -109,27 +109,27 @@ const applyCostSequence = (
     current = freezeDraft(draft)
     const paid = applyEventTree(current, events[cursor]!, catalog)
     entries.push(...nested(paid.trace, 1))
-    if (!paid.ok) return { ...paid, state: baseline, trace: entries }
+    if (!paid.ok) return { ok: false as const, error: paid.error, state: baseline, trace: entries }
     current = paid.state
     cursor += 1
     if (current.resolution) {
       const driven = driveResolution(current, catalog)
       entries.push(...nested(driven.trace, 1))
-      if (!driven.ok) return { ...driven, state: baseline, trace: entries }
+      if (!driven.ok) return { ok: false as const, error: driven.error, state: baseline, trace: entries }
       current = driven.state
-      if (current.resolution) return { ok: true, state: current, trace: entries }
+      if (current.resolution) return { ok: true as const, state: current, trace: entries }
     }
     if (hasOpenChoice(current) || current.eventProcessing) {
-      return { ok: true, state: current, trace: entries }
+      return { ok: true as const, state: current, trace: entries }
     }
   }
-  return { ok: true, state: current, trace: entries }
+  return { ok: true as const, state: current, trace: entries }
 }
 
-const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, baseline: GameState): ReduceResult => {
+const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, baseline: GameState) => {
   const nested = state.provisionalAnnouncement?.nestedManaPayment
   const payer = state.provisionalAnnouncement?.payer
-  if (!nested || !payer) return { ok: true, state, trace: [] }
+  if (!nested || !payer) return { ok: true as const, state, trace: [] }
   const paid = applyCostSequence(
     state,
     catalog,
@@ -142,7 +142,8 @@ const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, bas
     },
     baseline,
   )
-  if (!paid.ok || hasOpenChoice(paid.state) || paid.state.eventProcessing || paid.state.resolution) {
+  if (!paid.ok) return paid
+  if (hasOpenChoice(paid.state) || paid.state.eventProcessing || paid.state.resolution) {
     return paid
   }
   const remaining = paid.state.provisionalAnnouncement?.nestedManaPayment
@@ -160,9 +161,11 @@ const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, bas
   completed.priority = null
   if (completed.provisionalAnnouncement) delete completed.provisionalAnnouncement.nestedManaPayment
   const resolved = freezeDraft(completed)
-  if (!resolved.resolution) return { ok: true, state: resolved, trace: paid.trace }
+  const nestedTrace = [...paid.trace]
+  if (!resolved.resolution) return { ok: true as const, state: resolved, trace: nestedTrace }
   const driven = driveResolution(resolved, catalog)
-  return { ...driven, trace: [...paid.trace, ...driven.trace] }
+  if (!driven.ok) return { ok: false as const, error: driven.error, state: driven.state, trace: [...nestedTrace, ...driven.trace] }
+  return { ok: true as const, state: driven.state, trace: [...nestedTrace, ...driven.trace] }
 }
 
 const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): ReduceResult => {
