@@ -35,7 +35,6 @@ import {
   drawRemainderFollowUp,
   enqueueReplacementSettlement,
   REPLACEMENT_DISCARD_RESUME,
-  replaceEvent,
 } from '../replacement/processor'
 import type { PluginCatalog } from '../catalog'
 
@@ -589,6 +588,50 @@ const objectLeftZone = (state: GameState, identity: ObjectIdentity) => {
   return !object || object.incarnation !== identity.incarnation || object.zone !== identity.zone
 }
 
+const replacementWaiting = (state: GameState) =>
+  [state.eventProcessing, ...(state.deferredEventProcessing ?? [])]
+    .some((frame) => Boolean(frame?.awaitingCandidateIds?.length))
+
+const adoptAppliedState = (draft: Draft, applied: GameState) => {
+  draft.objects = applied.objects
+  draft.zoneOrder = applied.zoneOrder
+  draft.players = applied.players
+  draft.log = applied.log
+  draft.nextId = applied.nextId
+  draft.nextTimestamp = applied.nextTimestamp
+  draft.priority = applied.priority
+  draft.stack = applied.stack
+  draft.rules = applied.rules
+  if (applied.eventProcessing) draft.eventProcessing = applied.eventProcessing
+  else delete draft.eventProcessing
+  if (applied.deferredEventProcessing?.length) draft.deferredEventProcessing = applied.deferredEventProcessing
+  else delete draft.deferredEventProcessing
+  if (applied.preventionInstances !== undefined) draft.preventionInstances = applied.preventionInstances
+  else delete draft.preventionInstances
+  if (applied.drawStepTracking) draft.drawStepTracking = applied.drawStepTracking
+}
+
+const applyReplaceableTree = (
+  state: GameState,
+  event: GameEvent,
+  catalog: PluginCatalog,
+): { ok: true, state: GameState, waiting?: boolean } | { ok: false, state: GameState } => {
+  const { reduceOnce } = require('../kernel')
+  const first = reduceOnce(state, event, catalog)
+  if (!first.ok) return { ok: false, state: first.state }
+  if (first.prevented || replacementWaiting(first.state)) {
+    return { ok: true, state: first.state, waiting: replacementWaiting(first.state) }
+  }
+  let current = first.state
+  for (const queued of first.queued ?? []) {
+    const next = applyReplaceableTree(current, queued, catalog)
+    if (!next.ok) return next
+    current = next.state
+    if (next.waiting) return { ok: true, state: current, waiting: true }
+  }
+  return { ok: true, state: current }
+}
+
 const markPendingDiscardSettling = (state: GameState, identities: ObjectIdentity[]) => {
   for (const frame of [state.eventProcessing, ...(state.deferredEventProcessing ?? [])]) {
     if (!frame?.program?.pendingDiscard) continue
@@ -623,31 +666,23 @@ const settledReplacementDiscard = (
   objectIds: readonly string[],
   catalog: PluginCatalog,
 ) => {
-  if (!seat) return { discarded: false, objectIds: [] as string[] }
+  if (!seat) return { discarded: false, objectIds: [] as string[], state }
   const identities = objectIds.flatMap((objectId) => {
     const object = state.objects[objectId]
     return object ? [objectIdentity(object)] : []
   })
-  const kept: string[] = []
   let current = state
   for (const objectId of objectIds) {
-    const discardedEvent = replaceEvent(current, { type: 'discard', seat, objectId }, catalog)
-    if (discardedEvent.waiting) {
-      markPendingDiscardSettling(discardedEvent.waiting, identities)
-      return { waiting: discardedEvent.waiting, discarded: false, objectIds: [] as string[] }
+    const applied = applyReplaceableTree(current, { type: 'discard', seat, objectId }, catalog)
+    if (!applied.ok) continue
+    current = applied.state
+    if (applied.waiting) {
+      markPendingDiscardSettling(current, identities)
+      return { waiting: current, discarded: false, objectIds: [] as string[], state: current }
     }
-    if (discardedEvent.value === null) continue
-    current = discardedEvent.state ?? current
-    const moved = replaceEvent(current, { type: 'move', objectId, to: 'graveyard' }, catalog)
-    if (moved.waiting) {
-      markPendingDiscardSettling(moved.waiting, identities)
-      return { waiting: moved.waiting, discarded: false, objectIds: [] as string[] }
-    }
-    if (moved.value === null) continue
-    current = moved.state ?? current
-    kept.push(objectId)
   }
-  return { discarded: kept.length > 0, objectIds: kept }
+  const discarded = identities.length > 0 && identities.every((identity) => objectLeftZone(current, identity))
+  return { discarded, objectIds: [] as string[], state: current }
 }
 
 const resumeReplacementDiscard = (draft: Draft, event: GameEvent, catalog: PluginCatalog) => {
@@ -695,6 +730,7 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       event.objectIds ?? [],
       catalog,
     )
+    adoptAppliedState(draft, settled.state)
     if (settled.waiting) {
       enqueueReplacementSettlement(draft, { kind: 'waiting', state: settled.waiting })
       draft.priority = null

@@ -62,6 +62,15 @@ const preventDiscard: Plugin = {
   replace: ({ event }) => (event.type === 'discard' ? null : undefined),
 }
 
+const discardToGainLife: Plugin = {
+  id: 'test.discardToGainLife',
+  replace: ({ event }) => (
+    event.type === 'discard'
+      ? { type: 'gainLife' as const, seat: event.seat, amount: 1 }
+      : undefined
+  ),
+}
+
 const exileDiscardDestination: Plugin = {
   id: 'test.exileDiscardDestination',
   replace: ({ event }) => (
@@ -302,6 +311,26 @@ describe('Rule DSL Part 14 draw history and Chains replacement', () => {
     expect(namedZone(state, 'Mill Me')).toBe('graveyard')
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
     expect(state.zoneOrder.p1.library).toHaveLength(1)
+  })
+
+  test('a discard replaced with another action binds failure and mills instead of drawing', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chains() })] },
+      hands: { p1: [cardTemplate('H')] },
+      libraries: { p1: [cardTemplate('L')] },
+    }, { random: () => 0, cardPlugins: [discardToGainLife] })
+    let state = ownDrawStep(server.state, 'p1')
+    state.drawStepTracking!.actualDraws = { p1: 1 }
+    state = ok(server.rules(state, { type: 'draw', seat: 'p1' }))
+    expect(pendingSelectionFor(state, 'p1')?.kind).toBe('discard')
+    const life = state.players.p1.life
+    state = answerDiscard(server, state, true)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    expect(namedZone(state, 'H')).toBe('hand')
+    expect(namedZone(state, 'L')).toBe('graveyard')
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.players.p1.life).toBe(life + 1)
   })
 
   test('a prevented discard destination binds failure and mills instead of drawing', () => {
