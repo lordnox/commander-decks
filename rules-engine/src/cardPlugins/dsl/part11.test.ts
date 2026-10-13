@@ -15,6 +15,7 @@ import {
   wouldDraw,
   wouldEnter,
   asThisEntersChooseColor,
+  chooseColor,
   objects,
   amount,
   redirectEvent,
@@ -336,5 +337,67 @@ describe('Rule DSL Part 11 replacement processing', () => {
     }))
     expect(finished.objects[creature.id].zone).toBe('exile')
     expect(finished.objects[creature.id].chosenColor).toBe('W')
+  })
+
+  test('post-choice replaceWith instructions run instead of the original event', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(replacement(
+        wouldEnter(),
+        replaceWith(gainLife({ amount: amount(3), targets: ref('controller') })),
+        { program: [chooseColor()] },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Color chooser', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const artifact = Object.values(server.state.objects).find((object) => object.name === 'Color chooser')!
+    const paused = ok(server.rules(server.state, { type: 'move', objectId: artifact.id, to: 'battlefield' }))
+    expect(paused.objects[artifact.id].zone).toBe('hand')
+    const restored = JSON.parse(JSON.stringify(paused)) as GameState
+    const pending = pendingOptionSelection(restored, 'p1')!
+    expect(pending.action.kind).toBe('replacementProgramChoice')
+    const finished = ok(server.rules(restored, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending.id,
+      optionId: 'G',
+    }))
+    expect(finished.players.p1.life).toBe(43)
+    expect(finished.objects[artifact.id].zone).toBe('hand')
+    expect(finished.eventProcessing).toBeUndefined()
+  })
+
+  test('self-entry color choice is offered to the prospective controller', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(asThisEntersChooseColor()),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Color chooser', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const artifact = Object.values(server.state.objects).find((object) => object.name === 'Color chooser')!
+    const paused = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: artifact.id,
+      to: 'battlefield',
+      controller: 'p2',
+    }))
+    expect(pendingOptionSelection(paused, 'p1')).toBeUndefined()
+    expect(paused.objects[artifact.id].zone).toBe('hand')
+    const restored = JSON.parse(JSON.stringify(paused)) as GameState
+    const pending = pendingOptionSelection(restored, 'p2')!
+    expect(pending.action.kind).toBe('replacementProgramChoice')
+    const entered = ok(server.rules(restored, {
+      type: 'selectOption',
+      seat: 'p2',
+      selectionId: pending.id,
+      optionId: 'U',
+    }))
+    expect(entered.objects[artifact.id]).toMatchObject({
+      zone: 'battlefield',
+      controller: 'p2',
+      chosenColor: 'U',
+    })
   })
 })

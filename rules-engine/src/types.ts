@@ -699,6 +699,7 @@ export type ReplacementProgramCursor = {
   bindings: Record<string, string>
   transform: ReplacementTransform
   sourceId: string
+  controller: PlayerId
 }
 
 export type ReplacementInstructionProgramState = {
