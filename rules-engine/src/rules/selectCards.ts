@@ -592,23 +592,28 @@ const replacementWaiting = (state: GameState) =>
   [state.eventProcessing, ...(state.deferredEventProcessing ?? [])]
     .some((frame) => Boolean(frame?.awaitingCandidateIds?.length))
 
+const DRAFT_HELPERS = [
+  'pending',
+  'allocId',
+  'allocTs',
+  'enqueue',
+  'note',
+  'object',
+  'move',
+  'zoneOf',
+  'addToStack',
+  'addTriggeredAbility',
+] as const
+
 const adoptAppliedState = (draft: Draft, applied: GameState) => {
-  draft.objects = applied.objects
-  draft.zoneOrder = applied.zoneOrder
-  draft.players = applied.players
-  draft.log = applied.log
-  draft.nextId = applied.nextId
-  draft.nextTimestamp = applied.nextTimestamp
-  draft.priority = applied.priority
-  draft.stack = applied.stack
-  draft.rules = applied.rules
-  if (applied.eventProcessing) draft.eventProcessing = applied.eventProcessing
-  else delete draft.eventProcessing
-  if (applied.deferredEventProcessing?.length) draft.deferredEventProcessing = applied.deferredEventProcessing
-  else delete draft.deferredEventProcessing
-  if (applied.preventionInstances !== undefined) draft.preventionInstances = applied.preventionInstances
-  else delete draft.preventionInstances
-  if (applied.drawStepTracking) draft.drawStepTracking = applied.drawStepTracking
+  const helpers = Object.fromEntries(DRAFT_HELPERS.map((key) => [key, draft[key]]))
+  const prevented = draft.prevented
+  for (const key of Object.keys(draft)) {
+    if ((DRAFT_HELPERS as readonly string[]).includes(key)) continue
+    if (!(key in applied)) delete (draft as Record<string, unknown>)[key]
+  }
+  Object.assign(draft, applied, helpers)
+  draft.prevented = prevented
 }
 
 const applyReplaceableTree = (
