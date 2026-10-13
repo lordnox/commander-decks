@@ -180,7 +180,7 @@ const announcementRuntime = (
   payer: PlayerId,
   sourceId: string,
   x: number | undefined,
-): RuleDslRuntimeContext | undefined => {
+) => {
   const source = state.objects[sourceId]
   if (!source) return
   const playerOrder = 'playerOrder' in state && Array.isArray((state as GameState).playerOrder)
@@ -211,7 +211,7 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
   }
 }
 
-const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeContext | undefined): Cost => {
+const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeContext | undefined) => {
   switch (cost.kind) {
     case 'draw':
     case 'discard':

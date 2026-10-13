@@ -484,6 +484,23 @@ export const activated: Plugin = {
           execution: canonicalExecution,
           ...(event.x !== undefined ? { x: event.x } : {}),
         }
+        if (costEvents.length > 0 && !state.provisionalAnnouncement) {
+          draft.provisionalAnnouncement = {
+            id: committed.id,
+            payer: event.seat,
+            transaction: committed,
+            baseline: structuredClone(state),
+            pendingActivation: manaClassification.isManaAbility
+              ? { ...activationItem, ...(event.choices ? { choices: event.choices } : {}) }
+              : activationItem,
+            plannedPaymentCursor: 0,
+            source: captureObject(source),
+            definitionSnapshot: createDefinitionSnapshot(compiled),
+            ...(manaClassification.isManaAbility ? { inlineManaAbility: true } : {}),
+          }
+          draft.priority = null
+          return
+        }
         if (manaClassification.isManaAbility) {
           const inlineItem = {
             id: draft.allocId('inline'),
@@ -494,20 +511,6 @@ export const activated: Plugin = {
           if (draft.resolution?.kind === 'canonicalSpell') {
             draft.resolution.pendingEvents = costEvents
             draft.resolution.phase = costEvents.length > 0 ? 'committing' : 'running'
-          }
-          draft.priority = null
-          return
-        }
-        if (costEvents.length > 0) {
-          draft.provisionalAnnouncement = {
-            id: committed.id,
-            payer: event.seat,
-            transaction: committed,
-            baseline: structuredClone(state),
-            pendingActivation: activationItem,
-            plannedPaymentCursor: 0,
-            source: captureObject(source),
-            definitionSnapshot: createDefinitionSnapshot(compiled),
           }
           draft.priority = null
           return

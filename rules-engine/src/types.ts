@@ -811,6 +811,7 @@ export type ProvisionalAnnouncementFrame = {
   plannedManaCursor?: number
   plannedPaymentCursor?: number
   pendingActivation?: Omit<StackItem, 'id'> & { id?: string }
+  inlineManaAbility?: boolean
   source?: CapturedObject
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
 }
