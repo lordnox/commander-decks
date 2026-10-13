@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 45,
     "customEventDispatchSites": 81,
-    "directMutationSites": 602,
+    "directMutationSites": 603,
     "instructionRegistrationOnlyGaps": 3,
     "instructionUnobservedGaps": 14,
     "cardRegistrationOnlyGaps": 31,
@@ -20922,7 +20922,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 56,
+        "matches": 67,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -20963,7 +20963,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 118,
+        "matches": 131,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -21643,7 +21643,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 178,
+        "matches": 182,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3451 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:114 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
@@ -22599,7 +22599,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1185"
+        "rules-engine/src/types.ts:1204"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -22665,7 +22665,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1102",
+        "rules-engine/src/rules/triggers.ts:1103",
         "rules-engine/src/types.ts:310",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:316"
@@ -22851,10 +22851,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          205
+          206
         ],
         "samples": [
-          "205: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "206: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23159,10 +23159,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          165
+          167
         ],
         "samples": [
-          "165: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "167: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23227,22 +23227,22 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          66,
-          126,
-          144,
-          273,
+          67,
+          127,
+          145,
           274,
-          376,
-          711,
-          828,
-          985,
-          1020,
-          1021
+          275,
+          377,
+          712,
+          829,
+          986,
+          1021,
+          1022
         ],
         "samples": [
-          "66: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
-          "126: eventType: event.type === 'custom' ? event.name : event.type,",
-          "144: : event.type === 'custom' && event.name === 'advanceStep'"
+          "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
+          "127: eventType: event.type === 'custom' ? event.name : event.type,",
+          "145: : event.type === 'custom' && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -24230,12 +24230,12 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          91,
-          102
+          93,
+          104
         ],
         "samples": [
-          "91: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
-          "102: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
+          "93: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
+          "104: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24365,17 +24365,17 @@
       {
         "path": "rules-engine/src/replacement/processor.ts",
         "lines": [
-          215,
-          526,
-          531,
-          533,
-          540,
-          542
+          226,
+          639,
+          644,
+          646,
+          653,
+          655
         ],
         "samples": [
-          "215: const host = draft.object(program.hostSourceId)",
-          "526: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
-          "531: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
+          "226: const host = draft.object(program.hostSourceId)",
+          "639: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
+          "644: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24389,47 +24389,47 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          365,
-          549,
-          557,
-          561,
-          570,
-          613,
-          640,
-          649,
+          370,
+          554,
+          562,
+          566,
+          575,
           667,
-          686,
-          727,
-          737,
-          746,
-          759,
-          761,
-          773,
-          784,
-          788,
-          793,
-          796,
-          805,
-          811,
-          823,
+          694,
+          703,
+          721,
+          740,
+          781,
+          791,
+          800,
+          813,
+          815,
           827,
-          840,
+          838,
+          842,
           847,
-          862,
-          994,
-          997,
-          1017,
-          1021,
-          1030,
-          1036,
-          1044,
-          1046,
-          1051
+          850,
+          859,
+          865,
+          877,
+          881,
+          894,
+          901,
+          916,
+          1048,
+          1051,
+          1071,
+          1075,
+          1084,
+          1090,
+          1098,
+          1100,
+          1105
         ],
         "samples": [
-          "365: draft.enqueue({",
-          "549: draft.enqueue({",
-          "557: draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })"
+          "370: draft.enqueue({",
+          "554: draft.enqueue({",
+          "562: draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24467,15 +24467,15 @@
       {
         "path": "rules-engine/src/rules/draw.ts",
         "lines": [
-          46,
-          73,
-          96,
-          138
+          47,
+          74,
+          97,
+          140
         ],
         "samples": [
-          "46: draft.addToStack({",
-          "73: draft.enqueue({ type: 'draw', seat, count: 1 })",
-          "96: const object = draft.move(objectId, 'hand')"
+          "47: draft.addToStack({",
+          "74: draft.enqueue({ type: 'draw', seat, count: 1 })",
+          "97: const object = draft.move(objectId, 'hand')"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24549,6 +24549,23 @@
         "status": "legacy-route"
       },
       {
+        "path": "rules-engine/src/rules/drawStepHistory.ts",
+        "lines": [
+          37
+        ],
+        "samples": [
+          "37: draft.enqueue({ type: 'draw', seat: stepPlayer, count: 1 })"
+        ],
+        "mechanic": "direct draft mutation or low-level event scheduling",
+        "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
+        "compatibilityRoute": "Keep the current mutation path behind its legacy handler until the owning action primitive preserves replacements, grouping, and replay.",
+        "ownerPart": "07",
+        "dependencyParts": [
+          "16"
+        ],
+        "status": "legacy-route"
+      },
+      {
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
           337,
@@ -24580,24 +24597,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          485,
-          566,
-          661,
-          695,
-          774,
-          839,
-          852,
-          892,
-          973,
-          1043,
-          1100,
-          1267,
-          1374
+          486,
+          567,
+          662,
+          696,
+          775,
+          840,
+          853,
+          893,
+          974,
+          1044,
+          1101,
+          1268,
+          1375
         ],
         "samples": [
-          "485: const frequencySource = draft.object(source.id) ?? source",
-          "566: const live = draft.object(source.id)",
-          "661: const land = draft.object(objectId)"
+          "486: const frequencySource = draft.object(source.id) ?? source",
+          "567: const live = draft.object(source.id)",
+          "662: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

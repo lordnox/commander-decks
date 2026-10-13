@@ -29,7 +29,7 @@ import { advanceCopySlot } from './selectOptions'
 import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
 import { completeReplacementDiscard } from '../replacement/instructionProgram'
-import { drawRemainderFollowUp, enqueueReplacementSettlement } from '../replacement/processor'
+import { drawRemainderFollowUp, enqueueReplacementSettlement, settleReplaceableEvent } from '../replacement/processor'
 import type { PluginCatalog } from '../catalog'
 
 export const PENDING_SELECTION = 'kernel.pendingSelection'
@@ -577,6 +577,22 @@ const applyTopDeckChoices = (
   }
 }
 
+const settledReplacementDiscard = (
+  state: GameState,
+  seat: PlayerId | undefined,
+  objectIds: readonly string[],
+  catalog: PluginCatalog,
+) => {
+  if (!seat) return { discarded: false, objectIds: [] as string[] }
+  const kept: string[] = []
+  for (const objectId of objectIds) {
+    const settlement = settleReplaceableEvent(state, { type: 'discard', seat, objectId }, catalog)
+    if (settlement.kind === 'prevented') continue
+    kept.push(objectId)
+  }
+  return { discarded: kept.length > 0, objectIds: kept }
+}
+
 const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog) => {
   if (event.type !== 'selectCards') return
 
@@ -592,13 +608,19 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
   if (next) draft.priority = next.seat
 
   if (canonicalChoice?.action === 'replacementDiscard' && canonicalChoice.replacementFrameId) {
-    const objectIds = event.objectIds ?? []
+    const pending = draft.eventProcessing?.program?.pendingDiscard
+    const settled = settledReplacementDiscard(
+      freezeDraft(draft),
+      pending?.seats[pending.index],
+      event.objectIds ?? [],
+      catalog,
+    )
     const stepped = completeReplacementDiscard(
       freezeDraft(draft),
       canonicalChoice.replacementFrameId,
       canonicalChoice.binding,
-      objectIds.length > 0,
-      objectIds,
+      settled.discarded,
+      settled.objectIds,
       catalog,
     )
     if (stepped.kind === 'waiting') {
@@ -611,7 +633,7 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
       : []
     enqueueReplacementSettlement(draft, {
       kind: 'prevented',
-      followUp: [...remainder, ...stepped.followUp],
+      followUp: [...stepped.followUp, ...remainder],
       ...(stepped.kind === 'complete' ? { state: stepped.state } : {}),
     })
     draft.priority = null
