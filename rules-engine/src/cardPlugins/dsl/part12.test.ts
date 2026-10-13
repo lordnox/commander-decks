@@ -30,6 +30,7 @@ import { createServerGame } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, ReduceResult } from '../../types'
+import { loseAbilitiesBecome, permanent, reviseContinuousEffects } from '../continuousEffects'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -314,6 +315,63 @@ describe('Rule DSL Part 12 prevention and damage', () => {
     }))
     expect(state.players.p1.life).toBe(38)
     expect(state.preventionInstances?.[0]?.remaining).toBe(1)
+    state = ok(server.rules(state, { type: 'phaseIn', objectId: shield.id }))
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: shield.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(37)
+    expect(state.preventionInstances?.[0]?.remaining).toBe(0)
+  })
+
+  test('static prevention stops with ability loss and resumes when the ability returns', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: shieldDefinition(2) })],
+      },
+    }, { random: () => 0 })
+    let state = structuredClone(server.state)
+    const shield = Object.values(state.objects).find((object) => object.name === 'Shield')!
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: shield.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 1,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.preventionInstances?.[0]?.remaining).toBe(1)
+
+    const disabled = structuredClone(state)
+    const disabledShield = disabled.objects[shield.id]!
+    permanent(disabledShield, loseAbilitiesBecome(disabledShield, {
+      extraSubtype: 'Coward',
+      power: 0,
+      toughness: 0,
+    }))
+    state = ok(server.rules(disabled, {
+      type: 'dealDamage',
+      sourceId: shield.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(38)
+    expect(state.preventionInstances?.[0]?.remaining).toBe(1)
+
+    const restored = structuredClone(state)
+    const restoredShield = restored.objects[shield.id]!
+    reviseContinuousEffects(restoredShield, (entry) =>
+      entry.effect.kind === 'loseAbilitiesBecome' ? undefined : entry)
+    state = ok(server.rules(restored, {
+      type: 'dealDamage',
+      sourceId: shield.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(37)
+    expect(state.preventionInstances?.[0]?.remaining).toBe(0)
   })
 
   test('unpreventable damage still runs prevention additional effects', () => {
@@ -440,6 +498,70 @@ describe('Rule DSL Part 12 prevention and damage', () => {
     }))
     expect(state.zoneOrder.p1.hand).toHaveLength(1)
     expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+  })
+
+  test('prevention additional sequence evaluates amount after drawing', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { recipient: players({ relation: 'you' }) },
+        preventDamage(),
+        {
+          capacity: amount(2),
+          additionalEffects: [sequence(
+            draw({ count: amount(1), targets: ref('controller') }),
+            gainLife({ amount: count(objects({ zone: 'hand', owner: 'you' })), targets: ref('controller') }),
+          )],
+        },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      libraries: { p1: [cardTemplate('Drawn')] },
+      battlefield: {
+        p1: [cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Shield')!
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage',
+      sourceId: source.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 1,
+    }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.players.p1.life).toBe(41)
+  })
+
+  test('prevention additional list evaluates amount after earlier instruction', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { recipient: players({ relation: 'you' }) },
+        preventDamage(),
+        {
+          capacity: amount(2),
+          additionalEffects: [
+            draw({ count: amount(1), targets: ref('controller') }),
+            gainLife({ amount: count(objects({ zone: 'hand', owner: 'you' })), targets: ref('controller') }),
+          ],
+        },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      libraries: { p1: [cardTemplate('Drawn')] },
+      battlefield: {
+        p1: [cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Shield')!
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage',
+      sourceId: source.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 1,
+    }))
+    expect(state.zoneOrder.p1.hand).toHaveLength(1)
+    expect(state.players.p1.life).toBe(41)
   })
 
   test('prevention additionalEffects reject unknown instructions at compile time', () => {

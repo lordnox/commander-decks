@@ -73,7 +73,7 @@ const sideEffectsForPrevention = (
   const host = state.objects[(state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)?.hostSourceId ?? '']
   const extra = preventionAdditionalEffects(state, candidate.preventionId)
   if (!extra?.length || !host) return {}
-  if (extra.every(isImmediatePreventionAdditional)) {
+  if (extra.length === 1 && extra.every(isImmediatePreventionAdditional)) {
     const followUp = eventsFromPreventionAdditional(state, host.id, host.controller, extra)
     return followUp.length > 0 ? { followUp } : {}
   }
