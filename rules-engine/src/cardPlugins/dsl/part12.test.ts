@@ -3,10 +3,12 @@ import {
   amount,
   card,
   compileCardRuleDefinition,
+  count,
   createDefinitionSnapshot,
   createEffect,
   chooseCards,
   draw,
+  forTurns,
   gainLife,
   multiplyDamage,
   objects,
@@ -451,5 +453,73 @@ describe('Rule DSL Part 12 prevention and damage', () => {
         },
       )),
     ]))).toThrow()
+  })
+
+  test('dynamic additional gainLife and draw evaluate at application time', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { recipient: players({ relation: 'you' }) },
+        preventDamage(),
+        {
+          capacity: amount(2),
+          additionalEffects: [
+            gainLife({ amount: count(players({ relation: 'any' })), targets: ref('controller') }),
+            draw({ count: count(players({ relation: 'any' })), targets: ref('controller') }),
+          ],
+        },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      libraries: { p1: [cardTemplate('Drawn A'), cardTemplate('Drawn B')] },
+      battlefield: {
+        p1: [cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage',
+      sourceId: Object.values(server.state.objects)[0]!.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 2,
+    }))
+    expect(state.players.p1.life).toBe(42)
+    expect(state.zoneOrder.p1.hand).toHaveLength(2)
+  })
+
+  test('createEffect forTurns uses the evaluated durationUntilTurn deadline', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [createEffect({
+        targets: objects({ zone: 'battlefield', name: 'Host' }),
+        duration: forTurns(count(players({ relation: 'any' }))),
+        effect: preventionCreatedEffect({ recipient: players({ relation: 'you' }) }, amount(2)),
+      })],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Shield spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })],
+      },
+      battlefield: { p1: [cardTemplate('Host', { types: ['Creature'] })] },
+    }, { random: () => 0 })
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Shield spell')!
+    let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const instance = state.preventionInstances?.[0]
+    expect(instance?.duration.kind).toBe('forTurns')
+    expect(instance?.untilTurn).toBe(state.turn + 2)
+    if (instance?.duration.kind === 'forTurns') {
+      expect(instance.duration.untilTurn).toBe(state.turn + 2)
+    }
+    const host = Object.values(state.objects).find((object) => object.name === 'Host')!
+    state = ok(server.rules(state, {
+      type: 'dealDamage',
+      sourceId: host.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 1,
+    }))
+    expect(state.players.p1.life).toBe(40)
   })
 })

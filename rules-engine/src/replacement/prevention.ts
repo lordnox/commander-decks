@@ -4,10 +4,10 @@ import {
   evaluateObjectSelector,
   evaluatePlayerReference,
   evaluatePlayerSelector,
+  evaluateRuntimeAmount,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
 import type {
-  Amount,
   CardRuleDefinitionV1,
   EffectDuration as DslEffectDuration,
   Instruction,
@@ -38,8 +38,6 @@ export type PreventionCandidate = {
   optional: false
   chooser: string
 }
-
-const constantAmount = (amount: Amount) => (amount.kind === 'constant' ? amount.value : 0)
 
 const runtimeFor = (state: GameState, sourceId: string, controller: string): RuleDslRuntimeContext => {
   const source = state.objects[sourceId]
@@ -153,8 +151,11 @@ const preventionDurationFromDsl = (
         ...(active ? { active } : {}),
       }
     }
-    case 'forTurns':
-      return { kind: 'forTurns', untilTurn: createdTurn + constantAmount(duration.count) }
+    case 'forTurns': {
+      const untilTurn = event.durationUntilTurn
+        ?? createdTurn + evaluateRuntimeAmount(duration.count, runtimeFor(state, host.id, host.controller))
+      return { kind: 'forTurns', untilTurn }
+    }
     case 'whileSourceOnBattlefield':
       return { kind: 'whileSourceOnBattlefield', sourceId: host.id, sourceIncarnation: host.incarnation }
   }
@@ -172,7 +173,7 @@ export const preventionInstanceHolds = (
     case 'permanent':
       return true
     case 'forTurns':
-      return state.turn < instance.duration.untilTurn
+      return state.turn < (instance.untilTurn ?? instance.duration.untilTurn)
     case 'whileSourceOnBattlefield':
       return Boolean(
         host
@@ -254,7 +255,7 @@ const staticPreventionFromDefinition = (
     ability.effects.forEach((effect, effectIndex) => {
       if (effect.kind !== 'prevention') return
       const key = `${sourceId}:${abilityIndex}:${effectIndex}`
-      const capacity = constantAmount(effect.capacity)
+      const capacity = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
       if (capacity <= 0) return
       next = registerInstance(next, {
         remaining: capacity,
@@ -413,7 +414,7 @@ export const eventsFromPreventionAdditional = (
         continue
       }
       if (instruction.kind === 'gainLife' || instruction.kind === 'loseLife') {
-        const amount = constantAmount(instruction.amount)
+        const amount = evaluateRuntimeAmount(instruction.amount, runtime)
         if (amount <= 0) continue
         for (const seat of seatsFor(instruction.targets, runtime)) {
           events.push({
@@ -426,7 +427,7 @@ export const eventsFromPreventionAdditional = (
         continue
       }
       if (instruction.kind === 'draw') {
-        const count = constantAmount(instruction.count)
+        const count = evaluateRuntimeAmount(instruction.count, runtime)
         if (count <= 0) continue
         for (const seat of seatsFor(instruction.targets, runtime)) {
           events.push({ type: 'draw', seat, count })
