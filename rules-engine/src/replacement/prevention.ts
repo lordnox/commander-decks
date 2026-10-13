@@ -9,6 +9,10 @@ import {
 import type {
   Amount,
   CardRuleDefinitionV1,
+  EffectDuration as DslEffectDuration,
+  Instruction,
+  PlayerRecipient,
+  PlayerReference,
   PreventionEffectDefinition,
   PreventionFilter,
 } from '../cardPlugins/dsl/schema/v1'
@@ -107,26 +111,48 @@ export const damageMatchesPreventionFilter = (
   return true
 }
 
+const untilStepHolds = (
+  state: GameState,
+  step: StepId,
+  turn: number,
+  notBeforeTurn?: number,
+  active?: PlayerId,
+) => {
+  if (notBeforeTurn !== undefined) {
+    if (state.turn < notBeforeTurn) return true
+    return !(state.step === step && (active === undefined || active === state.active))
+  }
+  if (state.turn < turn) return true
+  if (state.turn > turn) return false
+  return !(state.step === step && (active === undefined || active === state.active))
+}
+
 const preventionDurationFromDsl = (
-  duration: import('../cardPlugins/dsl/schema/v1').EffectDuration,
+  duration: DslEffectDuration,
   state: GameState,
   host: GameObject,
-  createdTurn: number,
+  event: Extract<GameEvent, { type: 'registerPrevention' }>,
 ): EffectDuration => {
+  const createdTurn = event.createdTurn ?? state.turn
   switch (duration.kind) {
     case 'untilCleanup':
       return { kind: 'untilCleanup' }
     case 'permanent':
       return { kind: 'permanent' }
-    case 'untilStep':
+    case 'untilStep': {
+      const active = duration.active
+        ? evaluatePlayerReference(duration.active, runtimeFor(state, host.id, host.controller))[0]
+        : event.durationUntilStepActive
       return {
         kind: 'untilStep',
         step: duration.step as StepId,
-        turn: createdTurn,
-        ...(duration.active
-          ? { active: evaluatePlayerReference(duration.active, runtimeFor(state, host.id, host.controller))[0] }
+        turn: event.durationUntilStepTurn ?? createdTurn,
+        ...(event.durationUntilStepNotBeforeTurn !== undefined
+          ? { notBeforeTurn: event.durationUntilStepNotBeforeTurn }
           : {}),
+        ...(active ? { active } : {}),
       }
+    }
     case 'forTurns':
       return { kind: 'forTurns', untilTurn: createdTurn + constantAmount(duration.count) }
     case 'whileSourceOnBattlefield':
@@ -154,10 +180,13 @@ export const preventionInstanceHolds = (
         && host.incarnation === instance.duration.sourceIncarnation,
       )
     case 'untilStep':
-      if (endTurnEffects && instance.duration.kind === 'untilStep') {
-        return state.turn < (instance.untilStepTurn ?? instance.duration.turn)
-      }
-      return true
+      return untilStepHolds(
+        state,
+        instance.duration.step,
+        instance.untilStepTurn ?? instance.duration.turn,
+        instance.untilStepNotBeforeTurn ?? instance.duration.notBeforeTurn,
+        instance.untilStepActive ?? instance.duration.active,
+      )
     default:
       return true
   }
@@ -191,7 +220,7 @@ export const applyRegisterPrevention = (state: GameState, event: Extract<GameEve
   const host = state.objects[event.hostObjectId]
   if (!host) return state
   const createdTurn = event.createdTurn ?? state.turn
-  const duration = preventionDurationFromDsl(event.duration, state, host, createdTurn)
+  const duration = preventionDurationFromDsl(event.duration, state, host, event)
   return registerInstance(state, {
     remaining: event.capacity,
     capacity: event.capacity,
@@ -285,15 +314,16 @@ export const discoverPreventionCandidates = (
   usedInstanceIds: readonly string[],
 ): PreventionCandidate[] => {
   if (event.type !== 'dealDamage') return []
-  if (event.unpreventable) return []
   const candidates: PreventionCandidate[] = []
   for (const instance of state.preventionInstances ?? []) {
     if (instance.remaining <= 0) continue
     if (usedInstanceIds.includes(instance.id)) continue
+    if (!preventionInstanceHolds(state, instance, false)) continue
+    const host = state.objects[instance.hostSourceId]
+    if (!host || host.phasedOut) continue
     if (!damageMatchesPreventionFilter(state, event, instance.filter, instance.hostSourceId, instance.controller)) {
       continue
     }
-    const host = state.objects[instance.hostSourceId]
     candidates.push({
       kind: 'prevention',
       category: 'general',
@@ -352,31 +382,58 @@ export const preventionAdditionalEffects = (
 ): PreventionEffectDefinition['additionalEffects'] | undefined =>
   (state.preventionInstances ?? []).find((instance) => instance.id === preventionId)?.additionalEffects
 
+export const isImmediatePreventionAdditional = (instruction: Instruction): boolean => {
+  if (instruction.kind === 'sequence') return instruction.instructions.every(isImmediatePreventionAdditional)
+  return instruction.kind === 'gainLife' || instruction.kind === 'loseLife' || instruction.kind === 'draw'
+}
+
+const seatsFor = (
+  targets: PlayerRecipient,
+  runtime: RuleDslRuntimeContext,
+) => {
+  if (typeof targets === 'object' && targets && 'kind' in targets && targets.kind === 'players') {
+    return evaluatePlayerSelector(targets, runtime)
+  }
+  return evaluatePlayerReference(targets as PlayerReference, runtime)
+}
+
 /** Minimal CR 615.12 follow-ups for prevention side effects in tests and DSL shields. */
 export const eventsFromPreventionAdditional = (
   state: GameState,
   hostSourceId: string,
   controller: PlayerId,
-  instructions: readonly import('../cardPlugins/dsl/schema/v1').Instruction[],
+  instructions: readonly Instruction[],
 ): GameEvent[] => {
   const events: GameEvent[] = []
-  for (const instruction of instructions) {
-    if (instruction.kind === 'gainLife' || instruction.kind === 'loseLife') {
-      const amount = constantAmount(instruction.amount)
-      if (amount <= 0) continue
-      const targets = instruction.targets
-      const seats = typeof targets === 'object' && 'kind' in targets && targets.kind === 'players'
-        ? evaluatePlayerSelector(targets, runtimeFor(state, hostSourceId, controller))
-        : evaluatePlayerReference(targets as import('../cardPlugins/dsl/schema/v1').PlayerReference, runtimeFor(state, hostSourceId, controller))
-      for (const seat of seats) {
-        events.push({
-          type: instruction.kind,
-          seat,
-          amount,
-          source: hostSourceId,
-        })
+  const runtime = runtimeFor(state, hostSourceId, controller)
+  const walk = (nodes: readonly Instruction[]) => {
+    for (const instruction of nodes) {
+      if (instruction.kind === 'sequence') {
+        walk(instruction.instructions)
+        continue
+      }
+      if (instruction.kind === 'gainLife' || instruction.kind === 'loseLife') {
+        const amount = constantAmount(instruction.amount)
+        if (amount <= 0) continue
+        for (const seat of seatsFor(instruction.targets, runtime)) {
+          events.push({
+            type: instruction.kind,
+            seat,
+            amount,
+            source: hostSourceId,
+          })
+        }
+        continue
+      }
+      if (instruction.kind === 'draw') {
+        const count = constantAmount(instruction.count)
+        if (count <= 0) continue
+        for (const seat of seatsFor(instruction.targets, runtime)) {
+          events.push({ type: 'draw', seat, count })
+        }
       }
     }
   }
+  walk(instructions)
   return events
 }
