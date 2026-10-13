@@ -6,18 +6,14 @@ import {
   compileCardRuleDefinition,
   count,
   createDefinitionSnapshot,
-  discard,
-  draw,
   drawCost,
   gainLife,
   manaCost,
-  ifThen,
   mill,
   players,
   ref,
   replaceWith,
   replacement,
-  result,
   staticAbility,
   variable,
   wouldDraw,
@@ -27,43 +23,25 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { pendingSelectionFor } from '../../rules/selectCards'
-import { beginDrawStepInstance, enterAdditionalDrawStep } from '../../rules/drawStepHistory'
+import { enterAdditionalDrawStep } from '../../rules/drawStepHistory'
 import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
 import { makeDraft, freezeDraft } from '../../draft'
 import { gainLife as effectGainLife, triggerOn } from '../effects'
 import type { GameState, Plugin, ReduceResult } from '../../types'
+import {
+  answerDiscard,
+  chainsDefinition as chains,
+  ownDrawStep,
+  pickReplacement,
+} from './dslTestSupport'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
 }
 
-const chains = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
-  staticAbility(replacement(
-    wouldDraw({
-      player: players({ relation: 'any' }),
-      firstDrawInOwnDrawStep: false,
-    }),
-    replaceWith(
-      discard({ count: amount(1), targets: ref('event.player'), bindResult: 'discard' }),
-      ifThen(result('discard', 'discarded'), {
-        then: [draw({ count: amount(1), targets: ref('event.player') })],
-        otherwise: [mill({ count: amount(1), targets: ref('event.player') })],
-      }),
-    ),
-  )),
-])))
-
 const namedZone = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)?.zone
-
-const ownDrawStep = (state: GameState, seat: 'p1' | 'p2') => {
-  const draft = makeDraft(state)
-  draft.step = 'draw'
-  draft.active = seat
-  beginDrawStepInstance(draft, seat)
-  return freezeDraft(draft)
-}
 
 const preventDiscard: Plugin = {
   id: 'test.preventDiscard',
@@ -100,43 +78,6 @@ const moveDiscardToLibrary: Plugin = {
       ? { ...event, to: 'library' as const }
       : undefined
   ),
-}
-
-const pickReplacement = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  label?: string,
-) => {
-  const offer = pendingOptionSelection(state, 'p1')
-  if (!offer) return state
-  const option = label
-    ? offer.options.find((entry) => entry.label === label)
-    : offer.options[0]
-  if (!option) throw new Error('replacement option missing')
-  return ok(server.rules(state, {
-    type: 'selectOption',
-    seat: 'p1',
-    selectionId: offer.id,
-    optionId: option.id,
-  }))
-}
-
-const answerDiscard = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  restore = false,
-) => {
-  const working = restore ? JSON.parse(JSON.stringify(state)) as GameState : state
-  const pending = pendingSelectionFor(working, 'p1')!
-  const handId = working.zoneOrder.p1.hand[0]!
-  return ok(server.rules(working, {
-    type: 'selectCards',
-    seat: 'p1',
-    selectionId: pending.id,
-    kind: 'discard',
-    count: 1,
-    objectIds: [handId],
-  }))
 }
 
 describe('Rule DSL Part 14 draw history and Chains replacement', () => {
