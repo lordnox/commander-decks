@@ -4,7 +4,7 @@ import { freezeDraft, makeDraft } from '../draft'
 import { startCanonicalResolution } from '../driver'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import { captureObject } from '../objectIdentity'
-import { PENDING_OPTION_SELECTION, openOptionSelection } from '../rules/selectOptions'
+import { PENDING_OPTION_SELECTION, openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
 import type {
   EventProcessingFrame,
@@ -53,6 +53,71 @@ const allMandatoryPrevent = (candidates: readonly ReplacementCandidate[]) =>
 
 const announcementOptions = (transactionId?: string) =>
   transactionId ? { announcementTransactionId: transactionId } : {}
+
+const processingFrames = (state: Pick<GameState, 'eventProcessing' | 'deferredEventProcessing'>) =>
+  [state.eventProcessing, ...(state.deferredEventProcessing ?? [])].filter(
+    (frame): frame is EventProcessingFrame => frame !== undefined,
+  )
+
+const processingStore = (frames: readonly EventProcessingFrame[]) => ({
+  eventProcessing: frames[0],
+  deferredEventProcessing: frames.length > 1 ? frames.slice(1) : undefined,
+})
+
+const applyProcessingStore = (draft: Draft, source: GameState) => {
+  if (source.eventProcessing) draft.eventProcessing = source.eventProcessing
+  else delete draft.eventProcessing
+  if (source.deferredEventProcessing?.length) {
+    draft.deferredEventProcessing = source.deferredEventProcessing
+  } else {
+    delete draft.deferredEventProcessing
+  }
+}
+
+const deferWaiting = (current: GameState, incoming: GameState) => {
+  const incomingFrame = incoming.eventProcessing
+  if (!incomingFrame) return incoming
+  const chooser = incomingFrame.chooser
+  const existingChoice = chooser ? pendingOptionSelection(current, chooser) : undefined
+  const keepExistingChoice = existingChoice?.action.kind === 'replacementModifier'
+    && existingChoice.action.frameId !== incomingFrame.id
+  const players = keepExistingChoice && chooser
+    ? {
+        ...incoming.players,
+        [chooser]: {
+          ...incoming.players[chooser]!,
+          data: {
+            ...incoming.players[chooser]!.data,
+            [PENDING_OPTION_SELECTION]: structuredClone(current.players[chooser]!.data[PENDING_OPTION_SELECTION]),
+          },
+        },
+      }
+    : incoming.players
+  return {
+    ...incoming,
+    players,
+    ...processingStore([...processingFrames(current), incomingFrame]),
+  }
+}
+
+const reattachProcessing = (
+  settlement: ReplacementSettlement,
+  original: GameState,
+  completedId: string,
+  fallback: GameState,
+): ReplacementSettlement => {
+  const completedWasPrimary = original.eventProcessing?.id === completedId
+  const remaining = processingFrames(original).filter((frame) => frame.id !== completedId)
+  if (settlement.kind === 'waiting') {
+    const continuation = settlement.state.eventProcessing
+    const frames = continuation
+      ? (completedWasPrimary ? [continuation, ...remaining] : [...remaining, continuation])
+      : remaining
+    return { ...settlement, state: { ...settlement.state, ...processingStore(frames) } }
+  }
+  const base = settlement.state ?? fallback
+  return { ...settlement, state: { ...base, ...processingStore(remaining) } }
+}
 
 const lineageForProposal = (state: GameState, event: GameEvent) =>
   lineageFromEvent(event) ?? beginLineage(state)
@@ -328,14 +393,15 @@ export const settleReplaceableEvent = (
     const optional = pool.filter((candidate) => candidate.optional)
     const choosable = mandatory.length > 1 ? mandatory : optional.length > 0 ? optional : mandatory
 
-    if (allMandatoryPrevent(mandatory)) {
+    if (allMandatoryPrevent(mandatory) && optional.length === 0) {
       for (const candidate of mandatory) {
         markInstanceUsed(lineage, candidate.instanceId, candidate.kind === 'legacy' ? candidate.pluginId : undefined)
       }
-      const first = mandatory[0]!
       return {
         kind: 'prevented',
-        pluginId: first.kind === 'legacy' ? first.pluginId : first.sourceName,
+        pluginId: candidateLabel(mandatory[0]!),
+        state: workingState,
+        ...followUpFields(followUp, followUpPrograms),
       }
     }
 
@@ -359,6 +425,7 @@ export const settleReplaceableEvent = (
       return { kind: 'settled', event: proposal, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
     }
 
+    const chooser = choosable[0]?.chooser ?? workingState.playerOrder[0]
     const frame: EventProcessingFrame = {
       version: 1,
       id: `event-${workingState.nextId}`,
@@ -366,10 +433,11 @@ export const settleReplaceableEvent = (
       pendingEvent: structuredClone(proposal),
       lineage: structuredClone(lineage),
       awaitingCandidateIds: choosable.map((candidate) => candidate.instanceId),
+      chooser,
       ...(options.announcementTransactionId ? { announcementTransactionId: options.announcementTransactionId } : {}),
       ...followUpFields(structuredClone(followUp), structuredClone(followUpPrograms)),
     }
-    const draft = makeDraft(workingState)
+    const draft = makeDraft({ ...workingState, nextId: workingState.nextId + 1 })
     return suspendForChoice(workingState, frame, draft, choosable)
   }
   return { kind: 'settled', event: proposal, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
@@ -382,8 +450,8 @@ export const resumeReplacementChoice = (
   catalog: PluginCatalog,
   decline = false,
 ): ReplacementSettlement | { kind: 'invalid'; error: string } => {
-  const frame = state.eventProcessing
-  if (!frame || frame.id !== frameId) return { kind: 'invalid', error: 'replacement frame is not active' }
+  const frame = processingFrames(state).find((entry) => entry.id === frameId)
+  if (!frame) return { kind: 'invalid', error: 'replacement frame is not active' }
   if (!frame.awaitingCandidateIds.includes(candidateId)) {
     return { kind: 'invalid', error: 'replacement choice is not authorized' }
   }
@@ -394,14 +462,21 @@ export const resumeReplacementChoice = (
     markOptionalDeclined(lineage, candidateId)
   }
   const proposal = withLineage(structuredClone(frame.pendingEvent), lineage)
-  const resumeState = freezeDraft(makeDraft({ ...state, eventProcessing: frame }))
+  const isolated = processingStore([frame])
+  const resumeState = freezeDraft(makeDraft({
+    ...state,
+    eventProcessing: isolated.eventProcessing,
+    deferredEventProcessing: isolated.deferredEventProcessing,
+  }))
+  const finish = (settlement: ReplacementSettlement) =>
+    reattachProcessing(settlement, state, frameId, resumeState)
   if (decline) {
     for (const id of frame.awaitingCandidateIds) markOptionalDeclined(lineage, id)
-    return attachFollowUps(
-      settleReplaceableEvent({ ...resumeState, eventProcessing: undefined }, withLineage(proposal, lineage), catalog, announcementOptions(frame.announcementTransactionId)),
+    return finish(attachFollowUps(
+      settleReplaceableEvent({ ...resumeState, eventProcessing: undefined, deferredEventProcessing: undefined }, withLineage(proposal, lineage), catalog, announcementOptions(frame.announcementTransactionId)),
       pendingEvents,
       pendingPrograms,
-    )
+    ))
   }
   const candidates = discoverReplacementCandidates(
     resumeState,
@@ -416,30 +491,35 @@ export const resumeReplacementChoice = (
   const pluginId = candidateLabel(chosen)
   mergeFollowUpLists(pendingEvents, pendingPrograms, applied.result)
   if (applied.result.kind === 'prevented') {
-    return {
+    return finish({
       kind: 'prevented',
       pluginId,
       state: applied.state,
       ...followUpFields(pendingEvents, pendingPrograms),
-    }
+    })
   }
   if (applied.result.kind === 'fork') {
-    return {
+    return finish({
       kind: 'fork',
       events: applied.result.events,
       pluginId,
       state: applied.state,
       ...followUpFields(pendingEvents, pendingPrograms),
-    }
+    })
   }
-  const cleared = mergeState({ ...resumeState, eventProcessing: undefined }, applied.state)
+  const cleared = mergeState({
+    ...resumeState,
+    eventProcessing: undefined,
+    deferredEventProcessing: undefined,
+  }, applied.state)
   const continued = settleReplaceableEvent(cleared, applied.result.event, catalog, announcementOptions(frame.announcementTransactionId))
-  return attachFollowUps(continued, pendingEvents, pendingPrograms)
+  return finish(attachFollowUps(continued, pendingEvents, pendingPrograms))
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {
   switch (settlement.kind) {
     case 'prevented':
+      if (settlement.state) applyProcessingStore(draft, settlement.state)
       if (settlement.state?.preventionInstances !== undefined) {
         draft.preventionInstances = settlement.state.preventionInstances
       }
@@ -447,11 +527,13 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
       startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       return
     case 'fork':
+      if (settlement.state) applyProcessingStore(draft, settlement.state)
       settlement.followUp?.forEach((entry) => draft.enqueue(entry))
       startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       settlement.events.forEach((entry) => draft.enqueue(entry))
       return
     case 'settled':
+      if (settlement.state) applyProcessingStore(draft, settlement.state)
       if (settlement.state?.preventionInstances !== undefined) {
         draft.preventionInstances = settlement.state.preventionInstances
       }
@@ -461,7 +543,7 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
       return
     case 'waiting': {
       const waiting = settlement.state
-      draft.eventProcessing = waiting.eventProcessing
+      applyProcessingStore(draft, waiting)
       if (waiting.preventionInstances) draft.preventionInstances = waiting.preventionInstances
       draft.nextId = waiting.nextId
       draft.priority = waiting.priority
@@ -482,6 +564,12 @@ export const replaceEvent = (
   options: { announcementTransactionId?: string } = {},
 ): { value: GameEvent | GameEvent[] | null; pluginId?: string; waiting?: GameState; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] } => {
   const settlement = settleReplaceableEvent(state, event, catalog, options)
+  if (settlement.kind === 'waiting' && state.eventProcessing) {
+    return {
+      value: settlement.state.eventProcessing?.pendingEvent ?? event,
+      waiting: deferWaiting(state, settlement.state),
+    }
+  }
   switch (settlement.kind) {
     case 'prevented':
       return {

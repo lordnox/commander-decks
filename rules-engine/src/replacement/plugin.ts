@@ -23,7 +23,6 @@ export const replacementProcessing: Plugin = {
       decline,
     )
     if (result.kind === 'invalid') return
-    delete draft.eventProcessing
     enqueueReplacementSettlement(draft, result)
   },
 }
