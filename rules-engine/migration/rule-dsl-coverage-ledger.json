@@ -20963,7 +20963,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 113,
+        "matches": 117,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -22599,7 +22599,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1170"
+        "rules-engine/src/types.ts:1185"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -22666,9 +22666,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1102",
-        "rules-engine/src/types.ts:298",
-        "rules-engine/src/types.ts:300",
-        "rules-engine/src/types.ts:304"
+        "rules-engine/src/types.ts:310",
+        "rules-engine/src/types.ts:312",
+        "rules-engine/src/types.ts:316"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -22745,8 +22745,8 @@
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
         "rules-engine/src/types.ts:154",
-        "rules-engine/src/types.ts:261",
-        "rules-engine/src/types.ts:322",
+        "rules-engine/src/types.ts:273",
+        "rules-engine/src/types.ts:334",
         "rules-engine/src/types.ts:79",
         "rules-engine/src/types.ts:96"
       ],
@@ -24365,17 +24365,17 @@
       {
         "path": "rules-engine/src/replacement/processor.ts",
         "lines": [
-          143,
-          428,
-          432,
-          434,
-          440,
-          442
+          215,
+          526,
+          531,
+          533,
+          540,
+          542
         ],
         "samples": [
-          "143: const host = draft.object(program.hostSourceId)",
-          "428: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
-          "432: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
+          "215: const host = draft.object(program.hostSourceId)",
+          "526: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
+          "531: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -145,18 +145,23 @@ const syncRuntimePrintedModifier = (
   effectIndex: number,
   effect: RuntimePrintedStaticEffect,
   timestamp: number,
-) => ({
-  abilityIndex,
-  effectIndex,
-  timestamp,
-  sourceRef: captureObject(source).ref,
-  activeIn: sourceActiveZones(source, abilityIndex),
-  ...(effect.kind === 'prohibitActivation'
-    ? { kind: 'prohibitActivation' as const, filter: effect.filter }
-    : effect.kind === 'replacement'
-      ? { kind: 'replacement' as const, effect }
-      : { kind: 'prevention' as const, effect }),
-})
+) => {
+  const base = {
+    abilityIndex,
+    effectIndex,
+    timestamp,
+    sourceRef: captureObject(source).ref,
+    activeIn: sourceActiveZones(source, abilityIndex),
+  }
+  switch (effect.kind) {
+    case 'prohibitActivation':
+      return { ...base, kind: 'prohibitActivation' as const, filter: effect.filter }
+    case 'replacement':
+      return { ...base, kind: 'replacement' as const, effect }
+    case 'prevention':
+      return { ...base, kind: 'prevention' as const, effect }
+  }
+}
 
 const syncSource = (draft: Draft, source: GameObject) => {
   if (!source.ruleDefinition) {
