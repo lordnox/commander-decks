@@ -41,6 +41,7 @@ import {
   whenever,
   withTargets,
   prohibitActivation,
+  modifyStats,
   type CardRuleDefinitionV1,
   type Instruction,
 } from './index'
@@ -367,6 +368,25 @@ describe('Rule DSL v1 structural and domain validation', () => {
       instructions: [{ kind: 'destroy', targets: ref('triggering.object.before') }],
     })])
     expect(diagnosticCodes(() => compileCardRuleDefinition(wrongTriggerObject))).toContain('unresolved-binding')
+  })
+
+  test('rejects nonboolean modifyStats.set on a revisioned definition', () => {
+    const valid = card([staticAbility(modifyStats({
+      targets: objects({ zone: 'battlefield', type: 'Creature' }),
+      power: { kind: 'constant', value: 1 },
+      toughness: { kind: 'constant', value: 1 },
+      set: true,
+    }))])
+    const malformed = structuredClone(valid) as typeof valid & {
+      abilities: Array<{ effects?: Array<Record<string, unknown>> }>
+    }
+    malformed.abilities[0].effects![0].set = 'false'
+    malformed.definitionRevision = definitionRevisionFor({
+      schemaVersion: valid.schemaVersion,
+      abilities: malformed.abilities,
+    })
+    expect(diagnosticCodes(() => compileCardRuleDefinition(malformed))).toContain('type')
+    expect(diagnosticPaths(() => compileCardRuleDefinition(malformed))).toContain('$.abilities[0].effects[0].set')
   })
 
   test('rejects malformed modal structure and mode-local target scope leaks', () => {

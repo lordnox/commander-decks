@@ -132,6 +132,15 @@ export type ReversibleEffect =
       before: { power: number | null; toughness: number | null }
       after: { power: number; toughness: number }
     }
+  /**
+   * Layer 7b set-P/T: `after` holds independent power and toughness
+   * (CR 613.4b). Counters still apply on top (CR 613.4c).
+   */
+  | {
+      kind: 'setPt'
+      before: { power: number | null; toughness: number | null }
+      after: { power: number; toughness: number }
+    }
   | {
       kind: 'triggerGrant'
       sourceId: string

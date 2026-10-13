@@ -134,7 +134,11 @@ export const makeDraft = (state: GameState): Draft => {
       draft.zoneCounts[object.owner][to] += 1
     }
     object.zone = to
-    if (becomesNewObject) object.incarnation += 1
+    if (becomesNewObject) {
+      object.incarnation += 1
+      // CR 613.7d: a new zone entry receives a new timestamp.
+      delete object.staticRulesTimestamp
+    }
     if (from === 'battlefield' && to !== 'battlefield') {
       // CR 400.7: the object that arrives is new, so counters do not follow it.
       // Their contribution to P/T is stored eagerly and must come back out.

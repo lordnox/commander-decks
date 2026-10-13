@@ -535,7 +535,7 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.before.types]
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
-  } else if (effect.kind === 'cdaLifePt') {
+  } else if (effect.kind === 'cdaLifePt' || effect.kind === 'setPt') {
     object.power = withCounters(object, effect.before.power)
     object.toughness = withCounters(object, effect.before.toughness)
   } else if (effect.kind === 'pumpPerLinkedExile') {
@@ -579,7 +579,7 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
     object.types = [...effect.after.types]
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
-  } else if (effect.kind === 'cdaLifePt') {
+  } else if (effect.kind === 'cdaLifePt' || effect.kind === 'setPt') {
     object.power = withCounters(object, effect.after.power)
     object.toughness = withCounters(object, effect.after.toughness)
   } else if (effect.kind === 'pumpPerLinkedExile') {
@@ -666,6 +666,35 @@ export const reviseContinuousEffects = (
 
   if (revised.length > 0) object.continuousEffects = revised
   else delete object.continuousEffects
+}
+
+/** Drop or rewrite stored-effect order, then reapply so later stamps still sit on top. */
+export const reorderContinuousEffects = (
+  object: GameObject,
+  order: (effects: readonly ContinuousEffect[]) => ContinuousEffect[],
+) => {
+  const effects = object.continuousEffects ?? []
+  const next = order(effects)
+  if (next.length === effects.length && next.every((entry, index) => entry === effects[index])) return
+  resetEffects(object, effects)
+  for (const entry of next) applyStoredEffect(object, entry.effect)
+  if (next.length > 0) object.continuousEffects = next
+  else delete object.continuousEffects
+}
+
+/** Layer 7b set-P/T with independent power and toughness (CR 613.4b). */
+export const setStats = (
+  object: GameObject,
+  power: number,
+  toughness: number,
+) => {
+  const before = {
+    power: withoutCounters(object, object.power),
+    toughness: withoutCounters(object, object.toughness),
+  }
+  object.power = withCounters(object, power)
+  object.toughness = withCounters(object, toughness)
+  return { kind: 'setPt' as const, before, after: { power, toughness } }
 }
 
 const expireEffects = (
