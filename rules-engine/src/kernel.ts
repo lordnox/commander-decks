@@ -54,7 +54,7 @@ import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
 import { applyRegisterPrevention } from './replacement/prevention'
-import { replaceEvent as settleReplaceableEvent } from './replacement'
+import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalPrograms } from './replacement'
 
 const CHECKPOINT_CAP = 32
 
@@ -681,14 +681,26 @@ export const reduceOnce = (
       : base
   )
   const applyFollowUp = (base: GameState) => {
-    if (!replacement.followUp?.length) return { ok: true as const, state: base, trace: [] as EventTrace[] }
+    if (!replacement.followUp?.length && !replacement.followUpPrograms?.length) {
+      return { ok: true as const, state: base, trace: [] as EventTrace[] }
+    }
     let current = base
     const entries: EventTrace[] = []
-    for (const inner of replacement.followUp) {
+    for (const inner of replacement.followUp ?? []) {
       const next = applyEventTree(current, inner, catalog, options)
       entries.push(...nested(next.trace, 1))
       if (!next.ok) return { ...next, state: current, trace: entries }
       current = next.state
+    }
+    if (replacement.followUpPrograms?.length) {
+      const draft = makeDraft(current)
+      try {
+        startPreventionAdditionalPrograms(draft, replacement.followUpPrograms)
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        return { ok: false as const, error: message, state: current, trace: entries }
+      }
+      current = freezeDraft(draft)
     }
     return { ok: true as const, state: current, trace: entries }
   }
@@ -714,8 +726,10 @@ export const reduceOnce = (
     }
   }
   if (Array.isArray(replaced)) {
-    let current = mergePreventionState(state)
-    const entries = [trace(event, 'replaced', { pluginId: replacement.pluginId })]
+    const afterFollowUp = applyFollowUp(mergePreventionState(state))
+    if (!afterFollowUp.ok) return afterFollowUp
+    let current = afterFollowUp.state
+    const entries = [trace(event, 'replaced', { pluginId: replacement.pluginId }), ...afterFollowUp.trace]
     for (const inner of replaced) {
       const next = applyEventTree(current, inner, catalog, options)
       entries.push(...nested(next.trace, 1))

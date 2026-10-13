@@ -650,6 +650,9 @@ export const validateDefinitionV1 = (root: unknown): {
             }
             case 'prevention':
               validateAmount(effect.capacity, childPath(childPath(path, 'effect'), 'capacity'), env)
+              if (effect.additionalEffects !== undefined) {
+                validateInstructionList(effect.additionalEffects, childPath(childPath(path, 'effect'), 'additionalEffects'), env, depth + 1)
+              }
               break
             default: issue(childPath(childPath(path, 'effect'), 'kind'), 'unsupported-kind', `unsupported created effect: ${String(effect.kind)}`)
           }
@@ -1041,6 +1044,9 @@ export const validateDefinitionV1 = (root: unknown): {
             const transform = object(node.transform, childPath(effectPath, 'transform'))
             if (transform && transform.kind !== 'preventDamage') {
               issue(childPath(effectPath, 'transform'), 'unsupported-kind', 'prevention requires preventDamage transform')
+            }
+            if (node.additionalEffects !== undefined) {
+              validateInstructionList(node.additionalEffects, childPath(effectPath, 'additionalEffects'), baseEnvironment())
             }
             return
           }

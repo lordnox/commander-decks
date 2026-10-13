@@ -656,6 +656,13 @@ export type ReplacementLineage = {
   parentActionId?: string
 }
 
+/** Additional prevention program pinned to its host until the replacement chain settles. */
+export type PreventionFollowUpProgram = {
+  hostSourceId: string
+  controller: PlayerId
+  instructions: readonly Instruction[]
+}
+
 /** Private durable replacement cursor; removed from client projections. */
 export type EventProcessingFrame = {
   version: 1
@@ -665,6 +672,8 @@ export type EventProcessingFrame = {
   lineage: ReplacementLineage
   awaitingCandidateIds: readonly string[]
   announcementTransactionId?: string
+  followUp?: GameEvent[]
+  followUpPrograms?: PreventionFollowUpProgram[]
   program?: {
     instructions: readonly ReplacementProgramInstruction[]
     index: number

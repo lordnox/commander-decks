@@ -1,9 +1,18 @@
 import type { PluginCatalog } from '../catalog'
 import type Draft from '../draft'
 import { freezeDraft, makeDraft } from '../draft'
-import { openOptionSelection } from '../rules/selectOptions'
+import { startCanonicalResolution } from '../driver'
+import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
+import { captureObject } from '../objectIdentity'
+import { PENDING_OPTION_SELECTION, openOptionSelection } from '../rules/selectOptions'
 import { REPLACEMENT_DECLINE_OPTION } from './plugin'
-import type { EventProcessingFrame, GameEvent, GameState, ReplacementLineage } from '../types'
+import type {
+  EventProcessingFrame,
+  GameEvent,
+  GameState,
+  PreventionFollowUpProgram,
+  ReplacementLineage,
+} from '../types'
 import {
   candidatesInCategory,
   discoverReplacementCandidates,
@@ -14,6 +23,7 @@ import { applyCanonicalTransform } from './program'
 import {
   applyPreventionToDamage,
   eventsFromPreventionAdditional,
+  isImmediatePreventionAdditional,
   preventionAdditionalEffects,
   syncStaticPreventionInstances,
 } from './prevention'
@@ -27,9 +37,9 @@ import {
 } from './lineage'
 
 export type ReplacementSettlement =
-  | { kind: 'settled'; event: GameEvent; pluginId?: string; state?: GameState; followUp?: GameEvent[] }
-  | { kind: 'prevented'; pluginId?: string; state?: GameState; followUp?: GameEvent[] }
-  | { kind: 'fork'; events: GameEvent[]; pluginId?: string; state?: GameState }
+  | { kind: 'settled'; event: GameEvent; pluginId?: string; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
+  | { kind: 'prevented'; pluginId?: string; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
+  | { kind: 'fork'; events: GameEvent[]; pluginId?: string; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
   | { kind: 'waiting'; state: GameState }
 
 const MAX_REPLACEMENT_STEPS = 64
@@ -47,18 +57,113 @@ const candidateLabel = (candidate: ReplacementCandidate) => {
 }
 
 type ApplyResult =
-  | { kind: 'prevented'; followUp?: GameEvent[] }
-  | { kind: 'continue'; event: GameEvent; followUp?: GameEvent[] }
-  | { kind: 'fork'; events: GameEvent[]; followUp?: GameEvent[] }
+  | { kind: 'prevented'; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
+  | { kind: 'continue'; event: GameEvent; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
+  | { kind: 'fork'; events: GameEvent[]; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] }
+
+type FollowUpExtras = {
+  followUp?: GameEvent[]
+  followUpPrograms?: PreventionFollowUpProgram[]
+}
 
 const sideEffectsForPrevention = (
   state: GameState,
   candidate: Extract<ReplacementCandidate, { kind: 'prevention' }>,
-) => {
+): FollowUpExtras => {
   const host = state.objects[(state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)?.hostSourceId ?? '']
   const extra = preventionAdditionalEffects(state, candidate.preventionId)
-  if (!extra?.length || !host) return []
-  return eventsFromPreventionAdditional(state, host.id, host.controller, extra)
+  if (!extra?.length || !host) return {}
+  if (extra.every(isImmediatePreventionAdditional)) {
+    const followUp = eventsFromPreventionAdditional(state, host.id, host.controller, extra)
+    return followUp.length > 0 ? { followUp } : {}
+  }
+  return {
+    followUpPrograms: [{
+      hostSourceId: host.id,
+      controller: host.controller,
+      instructions: structuredClone(extra),
+    }],
+  }
+}
+
+const mergeFollowUpLists = (
+  events: GameEvent[],
+  programs: PreventionFollowUpProgram[],
+  extras?: FollowUpExtras,
+) => {
+  if (extras?.followUp) events.push(...extras.followUp)
+  if (extras?.followUpPrograms) programs.push(...extras.followUpPrograms)
+}
+
+const followUpFields = (events: GameEvent[], programs: PreventionFollowUpProgram[]): FollowUpExtras => ({
+  ...(events.length > 0 ? { followUp: events } : {}),
+  ...(programs.length > 0 ? { followUpPrograms: programs } : {}),
+})
+
+const attachFollowUps = (
+  settlement: ReplacementSettlement,
+  events: GameEvent[],
+  programs: PreventionFollowUpProgram[],
+): ReplacementSettlement => {
+  if (events.length === 0 && programs.length === 0) return settlement
+  if (settlement.kind === 'waiting') {
+    const frame = settlement.state.eventProcessing
+    if (!frame) return settlement
+    return {
+      ...settlement,
+      state: {
+        ...settlement.state,
+        eventProcessing: {
+          ...frame,
+          ...followUpFields(
+            [...(frame.followUp ?? []), ...events],
+            [...(frame.followUpPrograms ?? []), ...programs],
+          ),
+        },
+      },
+    }
+  }
+  if (settlement.kind === 'settled' || settlement.kind === 'prevented' || settlement.kind === 'fork') {
+    return {
+      ...settlement,
+      ...followUpFields(
+        [...events, ...(settlement.followUp ?? [])],
+        [...programs, ...(settlement.followUpPrograms ?? [])],
+      ),
+    }
+  }
+  return settlement
+}
+
+export const startPreventionAdditionalPrograms = (
+  draft: Draft,
+  programs: readonly PreventionFollowUpProgram[],
+) => {
+  for (const program of programs) {
+    const host = draft.object(program.hostSourceId)
+    if (!host) continue
+    const generated = {
+      kind: 'triggered' as const,
+      on: { kind: 'draw' as const, filter: {} },
+      instructions: structuredClone(program.instructions),
+    }
+    const definitionSnapshot = generatedAbilitySnapshot(generated)
+    startCanonicalResolution(draft, {
+      id: draft.allocId('inline'),
+      kind: 'ability',
+      objectId: host.id,
+      controller: program.controller,
+      name: host.name,
+      targets: [],
+      payload: { instructions: structuredClone(program.instructions) },
+      execution: {
+        controller: program.controller,
+        source: captureObject(host),
+        definitionSnapshot,
+        abilityIndex: 0,
+      },
+    }, { inline: true })
+  }
 }
 
 const applyCandidate = (
@@ -69,19 +174,19 @@ const applyCandidate = (
 ): { result: ApplyResult; state: GameState } => {
   if (candidate.kind === 'prevention') {
     markInstanceUsed(lineage, candidate.instanceId)
-    const followUp = sideEffectsForPrevention(state, candidate)
+    const extras = sideEffectsForPrevention(state, candidate)
     if (proposal.type !== 'dealDamage') {
-      return { result: { kind: 'continue', event: proposal, followUp }, state }
+      return { result: { kind: 'continue', event: proposal, ...extras }, state }
     }
     const applied = applyPreventionToDamage(state, proposal, candidate.preventionId)
     if (applied.event.amount <= 0) {
-      return { result: { kind: 'prevented', followUp }, state: applied.state }
+      return { result: { kind: 'prevented', ...extras }, state: applied.state }
     }
     return {
       result: {
         kind: 'continue',
         event: withLineage(applied.event, descendantLineage(lineage)),
-        followUp,
+        ...extras,
       },
       state: applied.state,
     }
@@ -169,7 +274,8 @@ export const settleReplaceableEvent = (
   let proposal = withLineage(event, lineageForProposal(state, event))
   let lineage = lineageFromEvent(proposal)!
   let pluginId: string | undefined
-  let followUp: GameEvent[] = []
+  const followUp: GameEvent[] = []
+  const followUpPrograms: PreventionFollowUpProgram[] = []
   let guard = 0
   while (guard < MAX_REPLACEMENT_STEPS) {
     guard += 1
@@ -181,12 +287,12 @@ export const settleReplaceableEvent = (
       lineage.settledOptionalDeclines ?? [],
     )
     if (candidates.length === 0) {
-      return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+      return { kind: 'settled', event: proposal, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
     }
     const category = lowestCategory(candidates)
     const pool = candidatesInCategory(candidates, category)
     if (pool.length === 0) {
-      return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+      return { kind: 'settled', event: proposal, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
     }
 
     const structural = pool.filter((candidate) =>
@@ -199,12 +305,12 @@ export const settleReplaceableEvent = (
       const applied = applyCandidate(proposal, structuralCandidate, lineage, workingState)
       pluginId = candidateLabel(structuralCandidate)
       workingState = applied.state
-      if (applied.result.followUp) followUp.push(...applied.result.followUp)
+      mergeFollowUpLists(followUp, followUpPrograms, applied.result)
       if (applied.result.kind === 'prevented') {
-        return { kind: 'prevented', pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+        return { kind: 'prevented', pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
       }
       if (applied.result.kind === 'fork') {
-        return { kind: 'fork', events: applied.result.events, pluginId, state: workingState }
+        return { kind: 'fork', events: applied.result.events, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
       }
       proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
@@ -219,12 +325,12 @@ export const settleReplaceableEvent = (
       const applied = applyCandidate(proposal, choosable[0]!, lineage, workingState)
       pluginId = candidateLabel(choosable[0]!)
       workingState = applied.state
-      if (applied.result.followUp) followUp.push(...applied.result.followUp)
+      mergeFollowUpLists(followUp, followUpPrograms, applied.result)
       if (applied.result.kind === 'prevented') {
-        return { kind: 'prevented', pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+        return { kind: 'prevented', pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
       }
       if (applied.result.kind === 'fork') {
-        return { kind: 'fork', events: applied.result.events, pluginId, state: workingState }
+        return { kind: 'fork', events: applied.result.events, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
       }
       proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
@@ -232,7 +338,7 @@ export const settleReplaceableEvent = (
     }
 
     if (choosable.length === 0) {
-      return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+      return { kind: 'settled', event: proposal, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
     }
 
     const frame: EventProcessingFrame = {
@@ -243,11 +349,12 @@ export const settleReplaceableEvent = (
       lineage: structuredClone(lineage),
       awaitingCandidateIds: choosable.map((candidate) => candidate.instanceId),
       ...(options.announcementTransactionId ? { announcementTransactionId: options.announcementTransactionId } : {}),
+      ...followUpFields(structuredClone(followUp), structuredClone(followUpPrograms)),
     }
     const draft = makeDraft(workingState)
     return suspendForChoice(workingState, frame, draft, choosable)
   }
-  return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+  return { kind: 'settled', event: proposal, pluginId, state: workingState, ...followUpFields(followUp, followUpPrograms) }
 }
 
 export const resumeReplacementChoice = (
@@ -263,6 +370,8 @@ export const resumeReplacementChoice = (
     return { kind: 'invalid', error: 'replacement choice is not authorized' }
   }
   const lineage = structuredClone(frame.lineage)
+  const pendingEvents = [...(frame.followUp ?? [])]
+  const pendingPrograms = [...(frame.followUpPrograms ?? [])]
   if (decline) {
     markOptionalDeclined(lineage, candidateId)
   }
@@ -270,7 +379,11 @@ export const resumeReplacementChoice = (
   const resumeState = freezeDraft(makeDraft({ ...state, eventProcessing: frame }))
   if (decline) {
     for (const id of frame.awaitingCandidateIds) markOptionalDeclined(lineage, id)
-    return settleReplaceableEvent({ ...resumeState, eventProcessing: undefined }, withLineage(proposal, lineage), catalog, announcementOptions(frame.announcementTransactionId))
+    return attachFollowUps(
+      settleReplaceableEvent({ ...resumeState, eventProcessing: undefined }, withLineage(proposal, lineage), catalog, announcementOptions(frame.announcementTransactionId)),
+      pendingEvents,
+      pendingPrograms,
+    )
   }
   const candidates = discoverReplacementCandidates(
     resumeState,
@@ -283,30 +396,27 @@ export const resumeReplacementChoice = (
   if (!chosen) return { kind: 'invalid', error: 'replacement modifier is no longer applicable' }
   const applied = applyCandidate(proposal, chosen, lineage, resumeState)
   const pluginId = candidateLabel(chosen)
+  mergeFollowUpLists(pendingEvents, pendingPrograms, applied.result)
   if (applied.result.kind === 'prevented') {
     return {
       kind: 'prevented',
       pluginId,
       state: applied.state,
-      followUp: applied.result.followUp,
+      ...followUpFields(pendingEvents, pendingPrograms),
     }
   }
   if (applied.result.kind === 'fork') {
-    return { kind: 'fork', events: applied.result.events, pluginId, state: applied.state }
+    return {
+      kind: 'fork',
+      events: applied.result.events,
+      pluginId,
+      state: applied.state,
+      ...followUpFields(pendingEvents, pendingPrograms),
+    }
   }
   const cleared = mergeState({ ...resumeState, eventProcessing: undefined }, applied.state)
   const continued = settleReplaceableEvent(cleared, applied.result.event, catalog, announcementOptions(frame.announcementTransactionId))
-  if (continued.kind === 'settled' || continued.kind === 'prevented') {
-    const mergedFollowUp = [
-      ...(applied.result.followUp ?? []),
-      ...(continued.followUp ?? []),
-    ]
-    return {
-      ...continued,
-      followUp: mergedFollowUp.length > 0 ? mergedFollowUp : undefined,
-    }
-  }
-  return continued
+  return attachFollowUps(continued, pendingEvents, pendingPrograms)
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {
@@ -316,8 +426,11 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
         draft.preventionInstances = settlement.state.preventionInstances
       }
       settlement.followUp?.forEach((entry) => draft.enqueue(entry))
+      startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       return
     case 'fork':
+      settlement.followUp?.forEach((entry) => draft.enqueue(entry))
+      startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       settlement.events.forEach((entry) => draft.enqueue(entry))
       return
     case 'settled':
@@ -325,14 +438,22 @@ export const enqueueReplacementSettlement = (draft: Draft, settlement: Replaceme
         draft.preventionInstances = settlement.state.preventionInstances
       }
       settlement.followUp?.forEach((entry) => draft.enqueue(entry))
+      startPreventionAdditionalPrograms(draft, settlement.followUpPrograms ?? [])
       draft.enqueue(settlement.event)
       return
-    case 'waiting':
-      draft.eventProcessing = settlement.state.eventProcessing
-      if (settlement.state.preventionInstances) {
-        draft.preventionInstances = settlement.state.preventionInstances
+    case 'waiting': {
+      const waiting = settlement.state
+      draft.eventProcessing = waiting.eventProcessing
+      if (waiting.preventionInstances) draft.preventionInstances = waiting.preventionInstances
+      draft.nextId = waiting.nextId
+      draft.priority = waiting.priority
+      for (const seat of waiting.playerOrder) {
+        const pending = waiting.players[seat]?.data[PENDING_OPTION_SELECTION]
+        if (pending) draft.players[seat].data[PENDING_OPTION_SELECTION] = structuredClone(pending)
+        else delete draft.players[seat].data[PENDING_OPTION_SELECTION]
       }
       return
+    }
   }
 }
 
@@ -341,7 +462,7 @@ export const replaceEvent = (
   event: GameEvent,
   catalog: PluginCatalog,
   options: { announcementTransactionId?: string } = {},
-): { value: GameEvent | GameEvent[] | null; pluginId?: string; waiting?: GameState; state?: GameState; followUp?: GameEvent[] } => {
+): { value: GameEvent | GameEvent[] | null; pluginId?: string; waiting?: GameState; state?: GameState; followUp?: GameEvent[]; followUpPrograms?: PreventionFollowUpProgram[] } => {
   if (state.eventProcessing) {
     return { value: event, pluginId: undefined }
   }
@@ -353,9 +474,16 @@ export const replaceEvent = (
         pluginId: settlement.pluginId,
         state: settlement.state,
         followUp: settlement.followUp,
+        followUpPrograms: settlement.followUpPrograms,
       }
     case 'fork':
-      return { value: settlement.events, pluginId: settlement.pluginId, state: settlement.state }
+      return {
+        value: settlement.events,
+        pluginId: settlement.pluginId,
+        state: settlement.state,
+        followUp: settlement.followUp,
+        followUpPrograms: settlement.followUpPrograms,
+      }
     case 'waiting':
       return { value: settlement.state.eventProcessing?.pendingEvent ?? event, waiting: settlement.state }
     case 'settled':
@@ -364,6 +492,7 @@ export const replaceEvent = (
         pluginId: settlement.pluginId,
         state: settlement.state,
         followUp: settlement.followUp,
+        followUpPrograms: settlement.followUpPrograms,
       }
   }
 }
