@@ -1,5 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  activated,
+  amount,
   card,
   choice,
   chooseModes,
@@ -9,22 +11,39 @@ import {
   createToken,
   destroy,
   discard,
+  discardCost,
   draw,
   enters,
   gainLife,
   loseLife,
+  manaCost,
+  move,
+  multiplyDamage,
   objects,
+  payOptional,
   phase,
   players,
+  prevention,
+  preventDamage,
   proliferate,
+  prohibitActivation,
   ref,
+  replacement,
+  sacrificeCost,
   select,
   sequence,
   spell,
   stackItems,
+  staticAbility,
   target,
+  variable,
   whenever,
   chooseCards,
+  wouldDealDamage,
+  ability,
+  actions,
+  keyword,
+  self,
 } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -33,7 +52,9 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import type { GameState } from '../../types'
+import type { GameState, Plugin } from '../../types'
+import { availableActions } from '../../actions'
+import { hasKeyword } from '../../keywords'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 
@@ -288,6 +309,418 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       expect(wardWaiting.priority).toBeNull()
       expect(pendingOptionSelection(wardWaiting, 'p1')).toBeDefined()
       expect(wardWaiting.stack.some((item) => item.kind === 'spell')).toBe(true)
+    })
+  })
+
+  describe('scenario F: reflexive sacrifice', () => {
+    const reflexiveDestroySpell = () => createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      decisions: { targets: [] },
+      instructions: [payOptional({
+        payer: ref('controller'),
+        cost: sacrificeCost(objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }), 1),
+        bindResult: 'paid',
+        ifPaid: [],
+        ifDeclined: [],
+        whenPaidDecisions: {
+          targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
+        },
+        whenPaid: [destroy({ targets: target(0) })],
+      })],
+    })])))
+
+    test('declining the sacrifice does not queue a reflexive destroy target', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Sacrifice probe', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: reflexiveDestroySpell() })],
+        },
+        battlefield: {
+          p1: [cardTemplate('Sacrifice fodder', { types: ['Creature'], power: 2, toughness: 2 })],
+          p2: [cardTemplate('Sacrifice victim', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0 })
+      const spellObject = named(server.state, 'Sacrifice probe')
+      let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+      state = reduce(server, state, { type: 'resolveTop' })
+      const offer = pendingOptionSelection(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'decline',
+      })
+      state = resolveStack(server.rules, state)
+      expect(named(state, 'Sacrifice fodder').zone).toBe('battlefield')
+      expect(named(state, 'Sacrifice victim').zone).toBe('battlefield')
+      expect(state.stack).toHaveLength(0)
+    })
+
+    test('paying sacrifices, announces a destroy target after the parent, and resolves independently', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Sacrifice probe', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: reflexiveDestroySpell() })],
+        },
+        battlefield: {
+          p1: [cardTemplate('Sacrifice fodder', { types: ['Creature'], power: 2, toughness: 2 })],
+          p2: [cardTemplate('Sacrifice victim', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0 })
+      const spellObject = named(server.state, 'Sacrifice probe')
+      const fodder = named(server.state, 'Sacrifice fodder')
+      const victim = named(server.state, 'Sacrifice victim')
+      let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+      expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+      state = reduce(server, state, { type: 'resolveTop' })
+      const offer = pendingOptionSelection(state, 'p1')!
+      state = reduce(server, state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+      const sacrificePick = pendingSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectCards', seat: 'p1', selectionId: sacrificePick.id, kind: 'sacrifice', count: 1, objectIds: [fodder.id],
+      })
+      expect(state.objects[fodder.id].zone).toBe('graveyard')
+      expect(state.stack).toHaveLength(0)
+      const destroyPick = pendingSelectionFor(state, 'p1')!
+      expect(destroyPick.candidates).toContain(victim.id)
+      state = reduce(server, state, {
+        type: 'selectCards', seat: 'p1', selectionId: destroyPick.id, kind: 'choose', count: 1, objectIds: [victim.id],
+      })
+      expect(state.stack).toHaveLength(1)
+      expect(state.stack[0].kind).toBe('ability')
+      state = resolveStack(server.rules, state)
+      expect(state.objects[victim.id].zone).toBe('graveyard')
+    })
+
+    test('a sacrifice replacement to exile still pays and the reflexive destroy still changes zones', () => {
+      const sacrificeToExile: Plugin = {
+        id: 'test.sacrificeToExile',
+        replace: ({ event, rule }) => (
+          event.type === 'move' && event.to === 'graveyard'
+            ? { ...event, to: 'exile' as const, replacedBy: [rule.instanceId] }
+            : undefined
+        ),
+      }
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Sacrifice probe', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: reflexiveDestroySpell() })],
+        },
+        battlefield: {
+          p1: [cardTemplate('Sacrifice fodder', { types: ['Creature'], power: 2, toughness: 2 })],
+          p2: [cardTemplate('Sacrifice victim', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0, cardPlugins: [sacrificeToExile] })
+      const spellObject = named(server.state, 'Sacrifice probe')
+      const fodder = named(server.state, 'Sacrifice fodder')
+      const victim = named(server.state, 'Sacrifice victim')
+      let state = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: spellObject.id })
+      state = reduce(server, state, { type: 'resolveTop' })
+      const offer = pendingOptionSelection(state, 'p1')!
+      state = reduce(server, state, { type: 'selectOption', seat: 'p1', selectionId: offer.id, optionId: 'pay' })
+      const sacrificePick = pendingSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectCards', seat: 'p1', selectionId: sacrificePick.id, kind: 'sacrifice', count: 1, objectIds: [fodder.id],
+      })
+      expect(state.objects[fodder.id].zone).toBe('exile')
+      const destroyPick = pendingSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectCards', seat: 'p1', selectionId: destroyPick.id, kind: 'choose', count: 1, objectIds: [victim.id],
+      })
+      state = resolveStack(server.rules, state)
+      expect(state.objects[victim.id].zone).toBe('exile')
+    })
+  })
+
+  describe('scenario H: competing damage modifiers', () => {
+    const shieldDefinition = (capacity: number) => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { recipient: players({ relation: 'you' }) },
+        preventDamage(),
+        { capacity: amount(capacity) },
+      )),
+    ])))
+    const doublerDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(replacement(
+        wouldDealDamage({ recipient: players({ relation: 'you' }) }),
+        multiplyDamage(2),
+      )),
+    ])))
+
+    const chooseModifier = (
+      server: ReturnType<typeof createServerGame>,
+      state: GameState,
+      label: string,
+    ) => {
+      const pending = pendingOptionSelection(state, 'p1')!
+      const option = pending.options.find((entry) => entry.label.includes(label))!
+      return reduce(server, state, {
+        type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: option.id,
+      })
+    }
+
+    const dealThreeToP1 = (
+      server: ReturnType<typeof createServerGame>,
+      state: GameState,
+    ) => reduce(server, state, {
+      type: 'dealDamage',
+      sourceId: Object.values(state.objects)[0]!.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    })
+
+    test('player ordering settles to 4 life lost when doubling precedes a 2-point shield', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [
+            cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: shieldDefinition(2) }),
+            cardTemplate('Doubler', { types: ['Enchantment'], ruleDefinition: doublerDefinition }),
+          ],
+        },
+      }, { random: () => 0 })
+      let state = dealThreeToP1(server, server.state)
+      expect(state.eventProcessing).toBeDefined()
+      state = chooseModifier(server, state, 'Doubler')
+      if (state.eventProcessing) state = chooseModifier(server, state, 'Shield')
+      expect(state.players.p1.life).toBe(36)
+      expect(state.preventionInstances?.[0]?.remaining).toBe(0)
+    })
+
+    test('player ordering settles to 2 life lost when prevention precedes doubling', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [
+            cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: shieldDefinition(2) }),
+            cardTemplate('Doubler', { types: ['Enchantment'], ruleDefinition: doublerDefinition }),
+          ],
+        },
+      }, { random: () => 0 })
+      let state = dealThreeToP1(server, server.state)
+      state = chooseModifier(server, state, 'Shield')
+      if (state.eventProcessing) state = chooseModifier(server, state, 'Doubler')
+      expect(state.players.p1.life).toBe(38)
+      expect(state.preventionInstances?.[0]?.remaining).toBe(0)
+    })
+  })
+
+  describe('scenario I: entry choice before trigger', () => {
+    test.skip('no DSL entry-choice primitive yet; legacy chooseColorOnEnter is not on the canonical driver path', () => {})
+  })
+
+  describe('scenario J: Stony Silence', () => {
+    const stonySilence = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prohibitActivation({ abilitySource: { zone: 'battlefield', type: 'Artifact' } })),
+    ])))
+    const artifactMana = () => createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }],
+    })])))
+
+    test('artifact activations and mana shortcuts are rejected while the restriction is active', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [
+            cardTemplate('Silent Law', { types: ['Enchantment'], ruleDefinition: stonySilence() }),
+            cardTemplate('Mana Rock', { types: ['Artifact'], ruleDefinition: artifactMana() }),
+          ],
+        },
+      }, { random: () => 0 })
+      const rock = named(server.state, 'Mana Rock')
+      const blocked = server.rules(server.state, {
+        type: 'activateAbility', seat: 'p1', objectId: rock.id, abilityId: '$.abilities[0]',
+      })
+      expect(blocked.ok).toBe(false)
+      const tapBlocked = server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: rock.id })
+      expect(tapBlocked.ok).toBe(false)
+      expect(availableActions(server.state, 'p1').some((action) => action.kind === 'tapForMana' && action.objectId === rock.id)).toBe(false)
+    })
+
+    test('an activation already on the stack still resolves after Stony Silence enters', () => {
+      const artifactDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+        costs: [],
+        decisions: { targets: [] },
+        instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 }, targets: ref('controller') }],
+      })])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [cardTemplate('Mana Rock', { types: ['Artifact'], ruleDefinition: artifactDraw() })],
+        },
+        libraries: { p1: [cardTemplate('Library Card')] },
+      }, { random: () => 0 })
+      const rock = named(server.state, 'Mana Rock')
+      const handBefore = server.state.zoneCounts.p1.hand
+      let state = reduce(server, server.state, {
+        type: 'activateAbility', seat: 'p1', objectId: rock.id, abilityId: '$.abilities[0]',
+      })
+      expect(state.stack).toHaveLength(1)
+      const silenceId = `obj${state.nextId}`
+      state = {
+        ...state,
+        nextId: state.nextId + 1,
+        objects: {
+          ...state.objects,
+          [silenceId]: {
+            ...cardTemplate('Silent Law', { types: ['Enchantment'], ruleDefinition: stonySilence() }),
+            id: silenceId,
+            zone: 'battlefield',
+            controller: 'p1',
+            owner: 'p1',
+            incarnation: 0,
+          },
+        },
+        zoneOrder: {
+          ...state.zoneOrder,
+          p1: {
+            ...state.zoneOrder.p1,
+            battlefield: [...state.zoneOrder.p1.battlefield, silenceId],
+          },
+        },
+      }
+      state = reduce(server, state, { type: 'custom', name: 'dslStaticModifiers.sync' })
+      const blocked = server.rules(state, {
+        type: 'activateAbility', seat: 'p1', objectId: rock.id, abilityId: '$.abilities[0]',
+      })
+      expect(blocked.ok).toBe(false)
+      state = resolveStack(server.rules, state)
+      expect(state.zoneCounts.p1.hand).toBe(handBefore + 1)
+    })
+  })
+
+  describe('scenario K: Duskdale Wurm trample', () => {
+    test('typed trample keyword assigns excess combat damage through a blocker', () => {
+      const wurmDef = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.trample])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [cardTemplate('Duskdale Wurm', { types: ['Creature'], power: 7, toughness: 7, ruleDefinition: wurmDef })],
+          p2: [cardTemplate('Blocker', { types: ['Creature'], power: 2, toughness: 2 })],
+        },
+      }, { random: () => 0 })
+      const wurm = named(server.state, 'Duskdale Wurm')
+      const blocker = named(server.state, 'Blocker')
+      expect(hasKeyword(wurm, 'trample', server.state)).toBe(true)
+      let state: GameState = structuredClone(server.state)
+      state.step = 'declareAttackers'
+      state.active = 'p1'
+      state.priority = 'p1'
+      state.objects[wurm.id].summoningSickness = false
+      state = reduce(server, state, {
+        type: 'declareAttackers', seat: 'p1', attackers: [{ objectId: wurm.id, defender: 'p2' }],
+      })
+      state.step = 'declareBlockers'
+      state.priority = 'p2'
+      state = reduce(server, state, {
+        type: 'declareBlockers', seat: 'p2', blockers: [{ attackerId: wurm.id, blockerId: blocker.id }],
+      })
+      state.step = 'combatDamage'
+      state = reduce(server, state, { type: 'assignCombatDamage' })
+      expect(state.players.p2.life).toBe(35)
+      expect(state.objects[blocker.id].zone).toBe('graveyard')
+    })
+  })
+
+  describe('scenario L: Aether Tide', () => {
+    const tideSpell = () => createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [manaCost('{X}{U}'), discardCost(objects({ zone: 'hand', type: 'Creature' }), variable('X'))],
+      decisions: {
+        variables: [{ name: 'X', min: 0, max: 4 }],
+        targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: variable('X') })],
+      },
+      instructions: [move({ targets: target(0), to: 'hand' })],
+    }])))
+
+    const tideBoard = () => {
+      const definition = tideSpell()
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [
+            cardTemplate('Aether Tide', { types: ['Sorcery'], manaCost: '{X}{U}', ruleDefinition: definition }),
+            cardTemplate('Tide discard A', { types: ['Creature'] }),
+            cardTemplate('Tide discard B', { types: ['Creature'] }),
+          ],
+        },
+        battlefield: {
+          p2: [
+            cardTemplate('Tide target A', { types: ['Creature'], power: 2, toughness: 2 }),
+            cardTemplate('Tide target B', { types: ['Creature'], power: 2, toughness: 2 }),
+          ],
+        },
+      }, { random: () => 0 })
+      const state = structuredClone(server.state)
+      state.players.p1.mana.U = 1
+      state.players.p1.mana.C = 2
+      return { server, state }
+    }
+
+    test('one X returns each target to its owner hand after paying discards', () => {
+      const { server, state } = tideBoard()
+      const spell = named(state, 'Aether Tide')
+      const discards = [named(state, 'Tide discard A'), named(state, 'Tide discard B')].map((object) => object.id)
+      const targets = [named(state, 'Tide target A'), named(state, 'Tide target B')].map((object) => ({
+        kind: 'object' as const,
+        objectId: object.id,
+      }))
+      let next = reduce(server, state, {
+        type: 'castSpell', seat: 'p1', objectId: spell.id, x: 2, targets, discard: discards,
+      })
+      next = reduce(server, next, { type: 'resolveTop' })
+      expect(discards.every((id) => next.objects[id].zone === 'graveyard')).toBe(true)
+      expect(next.objects[targets[0].objectId].zone).toBe('hand')
+      expect(next.objects[targets[1].objectId].zone).toBe('hand')
+      expect(next.zoneOrder.p2.hand).toContain(targets[0].objectId)
+      expect(next.zoneOrder.p2.hand).toContain(targets[1].objectId)
+    })
+
+    test('paid mana and discards are not refunded when every target is illegal at resolution', () => {
+      const { server, state } = tideBoard()
+      const spell = named(state, 'Aether Tide')
+      const discards = [named(state, 'Tide discard A'), named(state, 'Tide discard B')].map((object) => object.id)
+      const targets = [named(state, 'Tide target A'), named(state, 'Tide target B')].map((object) => ({
+        kind: 'object' as const,
+        objectId: object.id,
+      }))
+      let next = reduce(server, state, {
+        type: 'castSpell', seat: 'p1', objectId: spell.id, x: 2, targets, discard: discards,
+      })
+      next = reduce(server, next, { type: 'move', objectId: targets[0].objectId, to: 'graveyard' })
+      next = reduce(server, next, { type: 'move', objectId: targets[1].objectId, to: 'graveyard' })
+      next = reduce(server, next, { type: 'resolveTop' })
+      expect(discards.every((id) => next.objects[id].zone === 'graveyard')).toBe(true)
+      expect(next.players.p1.mana.U).toBe(0)
+      expect(next.players.p1.mana.C).toBe(0)
+      expect(next.log.some((line) => line.includes('didNotResolve:allTargetsIllegal'))).toBe(true)
+    })
+  })
+
+  describe('scenario R: Wall of Omens', () => {
+    const wallDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      keyword.defender,
+      ability.whenever(self.enters, actions.draw.self.one),
+    ])))
+
+    test('the ETB draw trigger resolves even after the Wall leaves the battlefield', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        libraries: { p1: [cardTemplate('Omens draw')] },
+        hands: {
+          p1: [cardTemplate('Wall of Omens', { types: ['Creature'], power: 0, toughness: 4, ruleDefinition: wallDefinition() })],
+        },
+      }, { random: () => 0 })
+      const wall = named(server.state, 'Wall of Omens')
+      let state = reduce(server, server.state, { type: 'move', objectId: wall.id, to: 'battlefield' })
+      expect(hasKeyword(named(state, 'Wall of Omens'), 'defender', state)).toBe(true)
+      const order = pendingSelectionFor(state, 'p1')
+      if (order?.triggerOrder) {
+        state = reduce(server, state, {
+          type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates,
+        })
+      }
+      state = reduce(server, state, { type: 'move', objectId: wall.id, to: 'graveyard' })
+      state = resolveStack(server.rules, state)
+      expect(Object.values(state.objects).some((object) => object.name === 'Omens draw' && object.zone === 'hand')).toBe(true)
     })
   })
 
