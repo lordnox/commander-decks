@@ -30,7 +30,7 @@ onto one another if they both edit schema, compiler, or kernel files.
 | --- | --- | --- |
 | **Part 11** | Ready for review — resumable CR 616 replacement discovery, event frames, lineage | Static layers (13), card migration (16) |
 | **Part 12** | Ready for review — consumable prevention instances, damage CR 616 ordering, settled amounts | Static layers (13), card migration (16) |
-| **Part 13 minus replacement** | Static modifiers, layers/timestamps, keyword statics, activation restrictions such as Stony Silence | Replacement/prevention nodes; wait for 11 before static replacement integration |
+| **Part 13** | Static modifiers, layers/timestamps, keyword statics, activation restrictions, static replacement/prevention lifecycle | CARD_RULES migration (16) |
 | **Part 15 partial tests** | End-to-end evidence for already-owned scenarios A–E and M–P | Engine/schema changes; do not close Part 15 |
 
 Do not start **12** (needs 11), **14** (needs 11 and 13), **15 close** (needs 12–14),
@@ -483,7 +483,7 @@ Life loss remains outside damage prevention.
 
 **Dependencies:** 02, 07, 08, 10; static replacement integration uses 11.
 
-**Status:** implementation complete minus static replacement integration (Part 11).
+**Status:** implemented (static replacement/prevention integrated with Part 11/12).
 See [Part 13 implementation note](migration/RULE-DSL-PART-13.md).
 
 Compile static abilities into runtime modifier instances with explicit active
