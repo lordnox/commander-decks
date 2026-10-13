@@ -1,8 +1,10 @@
 import { payCost } from '../../../plugins/spells'
+import { captureObject } from '../../../objectIdentity'
 import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage } from '../staticModifierCore'
+import { evaluateRuntimeAmount, type RuleDslRuntimeContext } from './runtime'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
 export type AnnouncementManaPayment = {
@@ -173,14 +175,57 @@ const validateVariables = (variables: AnnouncementProposal['variables']) => {
   if (x !== undefined) integer(x, 'X')
 }
 
-const costAmount = (amount: Amount, x: number | undefined) => {
-  if (amount.kind === 'constant') return amount.value
-  if (amount.kind === 'variable') {
-    if (x === undefined) throw new TypeError(`amount variable ${amount.name} is not bound`)
-    return x
+const announcementRuntime = (
+  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  payer: PlayerId,
+  sourceId: string,
+  x: number | undefined,
+): RuleDslRuntimeContext | undefined => {
+  const source = state.objects[sourceId]
+  if (!source) return
+  const playerOrder = 'playerOrder' in state && Array.isArray((state as GameState).playerOrder)
+    ? (state as GameState).playerOrder
+    : Object.keys(state.players)
+  return {
+    state: { ...state, playerOrder } as GameState,
+    controller: payer,
+    source: captureObject(source),
+    ...(x === undefined ? {} : { variables: { X: x } }),
   }
-  throw new TypeError('cost amount must be a constant or X variable')
 }
+
+const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRuntimeContext | undefined) => {
+  switch (amount.kind) {
+    case 'constant':
+      return amount
+    case 'variable': {
+      if (x === undefined) throw new TypeError(`amount variable ${amount.name} is not bound`)
+      return { kind: 'constant' as const, value: x }
+    }
+    case 'count': {
+      if (!runtime) throw new TypeError('cost amount count requires an announcement source')
+      return { kind: 'constant' as const, value: evaluateRuntimeAmount(amount, runtime) }
+    }
+    default:
+      throw new TypeError('cost amount must be a constant, X variable, or count')
+  }
+}
+
+const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeContext | undefined): Cost => {
+  switch (cost.kind) {
+    case 'draw':
+    case 'discard':
+    case 'sacrifice':
+      return { ...cost, count: lockAmount(cost.count, x, runtime) }
+    case 'life':
+      return { ...cost, amount: lockAmount(cost.amount, x, runtime) }
+    default:
+      return cost
+  }
+}
+
+const costAmount = (amount: Amount, x: number | undefined, runtime?: RuleDslRuntimeContext) =>
+  lockAmount(amount, x, runtime).value
 
 export const evaluateAnnouncementCostAmount = (amount: Amount, x: number | undefined) => costAmount(amount, x)
 
@@ -192,21 +237,33 @@ const matchesCostFilter = (object: GameState['objects'][string], filter: Extract
   return true
 }
 
-const validateNonManaCosts = (state: Pick<GameState, 'players' | 'objects'>, payer: PlayerId, sourceId: string, costs: readonly Cost[], x: number | undefined, choices: readonly string[] | undefined) => {
+const validateNonManaCosts = (
+  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  payer: PlayerId,
+  sourceId: string,
+  costs: readonly Cost[],
+  x: number | undefined,
+  choices: readonly string[] | undefined,
+  runtimeSourceId: string,
+) => {
+  const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
   let choiceIndex = 0
   let lifeTotal = 0
   const selectedObjects = new Set<string>()
   for (const cost of costs) {
     if (cost.kind === 'life') {
-      lifeTotal += costAmount(cost.amount, x)
+      lifeTotal += costAmount(cost.amount, x, runtime)
       continue
     }
-    if (cost.kind === 'draw') continue
+    if (cost.kind === 'draw') {
+      costAmount(cost.count, x, runtime)
+      continue
+    }
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
     const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
     const candidates = Object.values(state.objects).filter((object) => (sourceId === '' || object.id !== sourceId) && object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))
-    if (candidates.length < costAmount(cost.count, x)) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
-    const count = costAmount(cost.count, x)
+    if (candidates.length < costAmount(cost.count, x, runtime)) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
+    const count = costAmount(cost.count, x, runtime)
     const selected = choices?.slice(choiceIndex, choiceIndex + count)
     if (!selected || selected.length !== count || new Set(selected).size !== count) throw new TypeError(`${cost.kind} cost needs ${count} distinct selected cards`)
     if (selected.some((id) => !candidates.some((candidate) => candidate.id === id))) throw new TypeError(`illegal ${cost.kind} cost selection`)
@@ -283,7 +340,15 @@ export const beginAnnouncement = (
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
     const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
-    validateNonManaCosts(state, proposal.payer, proposal.excludeSourceFromCosts ? proposal.sourceId : '', costs, proposal.variables?.X, proposal.nonManaChoices)
+    validateNonManaCosts(
+      state,
+      proposal.payer,
+      proposal.excludeSourceFromCosts ? proposal.sourceId : '',
+      costs,
+      proposal.variables?.X,
+      proposal.nonManaChoices,
+      proposal.sourceId,
+    )
     const mana = lockedManaCost(plan, proposal.variables?.X ?? 0, proposal.genericAdjustment)
     const payment = proposal.payment ?? []
     const pool = sumMana(payment)
@@ -299,7 +364,12 @@ export const beginAnnouncement = (
     const transaction: AnnouncementTransaction = {
       id,
       proposal: structuredClone(proposal),
-      lockedCost: { ...(mana ? { mana } : {}), nonMana: costs.filter((cost) => cost.kind !== 'mana'), ...(proposal.variables?.X !== undefined ? { x: proposal.variables.X } : {}) },
+      lockedCost: {
+        ...(mana ? { mana } : {}),
+        nonMana: costs.filter((cost) => cost.kind !== 'mana').map((cost) =>
+          lockCost(cost, proposal.variables?.X, announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X))),
+        ...(proposal.variables?.X !== undefined ? { x: proposal.variables.X } : {}),
+      },
       payment: structuredClone(payment),
       status: 'provisional',
     }

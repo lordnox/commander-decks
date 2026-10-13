@@ -806,9 +806,11 @@ export type ProvisionalAnnouncementFrame = {
   payer: PlayerId
   transaction: AnnouncementTransaction
   baseline: GameState
-  continuation: Extract<GameEvent, { type: 'castSpell' }>
+  continuation?: Extract<GameEvent, { type: 'castSpell' }>
   plannedManaActivations?: Array<Extract<GameEvent, { type: 'activateAbility' }>>
   plannedManaCursor?: number
+  plannedPaymentCursor?: number
+  pendingActivation?: Omit<StackItem, 'id'> & { id?: string }
   source?: CapturedObject
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
 }
