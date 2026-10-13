@@ -1022,6 +1022,9 @@ export const validateDefinitionV1 = (root: unknown): {
               }
               validateAmount(node.power, childPath(effectPath, 'power'), baseEnvironment())
               validateAmount(node.toughness, childPath(effectPath, 'toughness'), baseEnvironment())
+              if (node.set !== undefined && typeof node.set !== 'boolean') {
+                issue(childPath(effectPath, 'set'), 'type', 'expected a boolean')
+              }
               return
             }
             case 'replacement': {

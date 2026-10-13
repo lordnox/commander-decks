@@ -3,8 +3,9 @@ import { captureObject } from '../../objectIdentity'
 import type { ContinuousEffect, GameObject, GameState, Plugin, ReversibleEffect } from '../../types'
 import {
   changeStats,
-  refreshCdaSetPt,
+  reorderContinuousEffects,
   reviseContinuousEffects,
+  setStats,
 } from '../continuousEffects'
 import { evaluateAmount } from './compiler/evaluate'
 import { amountEvaluationContext, evaluateObjectSelector } from './compiler/runtime'
@@ -114,13 +115,14 @@ const syncModifyStats = (
       continue
     }
     if (effect.set) {
-      refreshCdaSetPt(draft, object, power)
-      const entry = (object.continuousEffects ?? []).find(({ duration: entryDuration }) =>
-        entryDuration.kind === 'cdaLifePt')
-      if (entry && entry.duration.kind === 'cdaLifePt') {
-        reviseContinuousEffects(object, (candidate) =>
-          candidate === entry ? { ...candidate, duration } : candidate)
-      }
+      if (
+        existing
+        && existing.effect.kind === 'setPt'
+        && existing.effect.after.power === power
+        && existing.effect.after.toughness === toughness
+      ) continue
+      if (existing) removePrintedStaticStamp(object, source.id, abilityIndex, effectIndex)
+      stampEffect(object, setStats(object, power, toughness), duration)
       continue
     }
     if (
@@ -202,8 +204,42 @@ const syncSource = (draft: Draft, source: GameObject) => {
   }
 }
 
+const printedStaticTimestamp = (entry: ContinuousEffect, fallback: number) =>
+  entry.duration.kind === 'printedStatic' ? entry.duration.timestamp : fallback
+
+const powerToughnessSublayer = (entry: ContinuousEffect) => {
+  switch (entry.effect.kind) {
+    case 'cdaLifePt': return 0
+    case 'setPt': return 1
+    case 'pump':
+    case 'pumpPerLinkedExile': return 2
+    default: return undefined
+  }
+}
+
+/** CR 613.4b-c: apply all 7b setters before 7c modifiers, then timestamp within a sublayer. */
+const applyLayer7Order = (object: GameObject) => {
+  reorderContinuousEffects(object, (effects) => {
+    const ranked = effects.map((entry, index) => ({
+      entry,
+      index,
+      sublayer: powerToughnessSublayer(entry),
+    }))
+    const pt = ranked.filter((item) => item.sublayer !== undefined)
+    if (pt.length < 2) return [...effects]
+    const sortedPt = [...pt].sort((left, right) =>
+      (left.sublayer ?? 0) - (right.sublayer ?? 0)
+      || printedStaticTimestamp(left.entry, left.index) - printedStaticTimestamp(right.entry, right.index)
+      || left.index - right.index)
+    let nextPt = 0
+    return ranked.map((item) =>
+      item.sublayer === undefined ? item.entry : sortedPt[nextPt++].entry)
+  })
+}
+
 export const syncCanonicalStaticModifiers = (draft: Draft) => {
   for (const source of Object.values(draft.objects)) syncSource(draft, source)
+  for (const object of Object.values(draft.objects)) applyLayer7Order(object)
 }
 
 const syncAll = (draft: Draft) => {

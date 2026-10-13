@@ -143,6 +143,28 @@ describe('Rule DSL Part 13 static modifiers', () => {
     expect(again).toBe(first)
   })
 
+  test('bouncing a static source assigns a new rules timestamp on return', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Silent Law', { types: ['Enchantment'], ruleDefinition: stonySilence() })],
+      },
+    }, { random: () => 0 })
+    const silence = Object.values(server.state.objects).find((object) => object.name === 'Silent Law')!
+    const first = silence.staticRulesTimestamp
+    const printed = silence.printedStaticModifiers?.[0]?.timestamp
+    expect(first).toBeDefined()
+    const bounced = server.rules(server.state, { type: 'move', objectId: silence.id, to: 'hand' })
+    expect(bounced.ok).toBe(true)
+    if (!bounced.ok) return
+    const returned = server.rules(bounced.state, { type: 'move', objectId: silence.id, to: 'battlefield' })
+    expect(returned.ok).toBe(true)
+    if (!returned.ok) return
+    const again = returned.state.objects[silence.id]
+    expect(again.staticRulesTimestamp).not.toBe(first)
+    expect(again.printedStaticModifiers?.[0]?.timestamp).not.toBe(printed)
+  })
+
   test('Duskdale Wurm and Wall of Omens share defender and trample keyword semantics', () => {
     const wurm = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.trample])))
     const wall = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.defender])))
@@ -161,6 +183,28 @@ describe('Rule DSL Part 13 static modifiers', () => {
     expect(hasKeyword(wallObject, 'defender', server.state)).toBe(true)
     expect(hasKeyword(wallObject, 'trample', server.state)).toBe(false)
   })
+
+  const setCreatures = (power: number, toughness: number, set?: true) =>
+    createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(modifyStats({
+        targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+        power: { kind: 'constant', value: power },
+        toughness: { kind: 'constant', value: toughness },
+        ...(set ? { set } : {}),
+      })),
+    ])))
+
+  const twoSourceLayerBoard = (order: 'pump-first' | 'set-first') => {
+    const pump = cardTemplate('Pump Source', { types: ['Enchantment'], ruleDefinition: setCreatures(2, 2) })
+    const setter = cardTemplate('Set Source', { types: ['Enchantment'], ruleDefinition: setCreatures(1, 1, true) })
+    const bear = cardTemplate('Bear', { types: ['Creature'], power: 5, toughness: 5 })
+    return createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: order === 'pump-first' ? [pump, setter, bear] : [setter, pump, bear],
+      },
+    }, { random: () => 0 })
+  }
 
   test('layer 7b set-P/T applies before layer 7c pumps from independent static timestamps', () => {
     const layered = createDefinitionSnapshot(compileCardRuleDefinition(card([
@@ -187,6 +231,35 @@ describe('Rule DSL Part 13 static modifiers', () => {
         ],
       },
     }, { random: () => 0 })
+    const bear = Object.values(server.state.objects).find((object) => object.name === 'Bear')!
+    expect(bear.power).toBe(3)
+    expect(bear.toughness).toBe(3)
+  })
+
+  test('asymmetric set-P/T keeps independent power and toughness', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [
+          cardTemplate('Set Source', { types: ['Enchantment'], ruleDefinition: setCreatures(1, 3, true) }),
+          cardTemplate('Bear', { types: ['Creature'], power: 5, toughness: 5 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const bear = Object.values(server.state.objects).find((object) => object.name === 'Bear')!
+    expect(bear.power).toBe(1)
+    expect(bear.toughness).toBe(3)
+  })
+
+  test('layer 7b setters beat 7c pumps when the pump source is iterated first', () => {
+    const server = twoSourceLayerBoard('pump-first')
+    const bear = Object.values(server.state.objects).find((object) => object.name === 'Bear')!
+    expect(bear.power).toBe(3)
+    expect(bear.toughness).toBe(3)
+  })
+
+  test('layer 7b setters beat 7c pumps when the setter source is iterated first', () => {
+    const server = twoSourceLayerBoard('set-first')
     const bear = Object.values(server.state.objects).find((object) => object.name === 'Bear')!
     expect(bear.power).toBe(3)
     expect(bear.toughness).toBe(3)
