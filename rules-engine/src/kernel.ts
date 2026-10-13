@@ -106,6 +106,10 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
           cost.kind === 'discard' ? { type: 'discard', seat: frame.payer, objectId } : { type: 'sacrifice', objectId })
         costIndex += amount
         break
+      case 'draw':
+        amount = evaluateAnnouncementCostAmount(cost.count, frame.transaction.lockedCost.x)
+        events = Array.from({ length: amount }, () => ({ type: 'draw' as const, seat: frame.payer, count: 1 }))
+        break
       case 'mana':
         break
     }

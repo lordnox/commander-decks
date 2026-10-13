@@ -140,6 +140,9 @@ export const discardCost = (filter: ObjectSelector, count: AmountInput): Cost =>
 export const sacrificeCost = (filter: ObjectSelector, count: AmountInput): Cost =>
   immutableData({ kind: 'sacrifice', filter, count: toAmount(count) })
 
+export const drawCost = (count: AmountInput): Cost =>
+  immutableData({ kind: 'draw', count: toAmount(count) })
+
 export const lifeCost = (value: AmountInput): Cost =>
   immutableData({ kind: 'life', amount: toAmount(value) })
 

@@ -555,6 +555,11 @@ export const spells: Plugin = {
           costs.push(cost.kind === 'discard' ? { type: 'discard', seat: event.seat, objectId } : { type: 'sacrifice', objectId })
         }
         choiceIndex += count
+      } else if (cost.kind === 'draw') {
+        const count = evaluateAnnouncementCostAmount(cost.count, event.x)
+        for (let i = 0; i < count; i += 1) {
+          costs.push({ type: 'draw', seat: event.seat, count: 1 })
+        }
       }
     }
     return costs.length > 0
