@@ -63,7 +63,9 @@ import { hasKeyword } from '../../keywords'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { beginDrawStepInstance } from '../../rules/drawStepHistory'
+import { FAILED_DRAW_SINCE_SBA } from '../../rules/draw'
 import { makeDraft, freezeDraft } from '../../draft'
+import { pickReplacement } from './dslTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -1262,8 +1264,42 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
     })
 
-    test.skip('two Chains with two cards in hand — Part 14 remaining gap (rules-engine/migration/RULE-DSL-PART-14.md)', () => {})
+    test('two Chains with two cards in hand discard twice then draw once', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: { p1: [
+          cardTemplate('Chains A', { types: ['Enchantment'], ruleDefinition: chainsDefinition() }),
+          cardTemplate('Chains B', { types: ['Enchantment'], ruleDefinition: chainsDefinition() }),
+        ] },
+        hands: { p1: [cardTemplate('H1'), cardTemplate('H2')] },
+        libraries: { p1: [cardTemplate('L1')] },
+      }, { random: () => 0 })
+      let state = ownDrawStep(server.state, 'p1')
+      state.drawStepTracking!.actualDraws = { p1: 1 }
+      state = reduce(server, state, { type: 'draw', seat: 'p1' })
+      state = pickReplacement(server, state)
+      state = answerChainsDiscard(server, state)
+      state = answerChainsDiscard(server, state)
+      expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+      expect(state.zoneOrder.p1.hand).toHaveLength(1)
+      expect(state.objects[state.zoneOrder.p1.hand[0]!].name).toBe('L1')
+      expect(state.zoneOrder.p1.graveyard).toHaveLength(2)
+      expect(state.zoneOrder.p1.library).toHaveLength(0)
+    })
 
-    test.skip('empty library failed-draw SBA on the Chains draw branch — Part 14 remaining gap (rules-engine/migration/RULE-DSL-PART-14.md)', () => {})
+    test('empty library on the draw branch sets failed-draw SBA', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: { p1: [cardTemplate('Chains', { types: ['Enchantment'], ruleDefinition: chainsDefinition() })] },
+        hands: { p1: [cardTemplate('Pay')] },
+        libraries: { p1: [] },
+      }, { random: () => 0 })
+      let state = ownDrawStep(server.state, 'p1')
+      state.drawStepTracking!.actualDraws = { p1: 1 }
+      state = reduce(server, state, { type: 'draw', seat: 'p1' })
+      state = answerChainsDiscard(server, state)
+      expect(state.players.p1.data[FAILED_DRAW_SINCE_SBA]).toBe(true)
+      expect(state.zoneOrder.p1.hand).toHaveLength(0)
+    })
   })
 })
