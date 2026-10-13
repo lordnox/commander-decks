@@ -525,8 +525,8 @@ and reconnect during mandatory discard. No card-specific Chains executor exists.
 **Dependencies:** 09, 10, 12, 13, 14.
 
 **Status:** not started as a close-out. Driver tests now cover A–E, F/H/J/K/L/R,
-and M–P (scenario I skipped pending entry-choice authoring). Do not mark Part 15
-complete until 12–14 exist and persistence/browser fixtures pass.
+G and Q (on the Part 14 stack), and M–P (scenario I skipped pending entry-choice
+authoring). Do not mark Part 15 complete until persistence/browser fixtures pass.
 
 Run the scenarios in the matrix below through authoritative driver, host adapters,
 browser offers, and headless answers. Verify outcomes and timing from observable
