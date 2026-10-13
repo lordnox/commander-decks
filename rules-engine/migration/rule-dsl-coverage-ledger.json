@@ -23,7 +23,7 @@
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
-    "builtInPlugins": 55,
+    "builtInPlugins": 56,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 45,
@@ -1211,7 +1211,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 28,
         "samples": [
           "live-runner/src/kernelActs.part08.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
@@ -2750,7 +2750,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 131,
+        "matches": 132,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -20610,7 +20610,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:623 — test('rejects accessors without evaluating them in compiler or root builders', () => {",
+          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:643 — test('rejects accessors without evaluating them in compiler or root builders', () => {",
           "rules-engine/src/plugins/combatLegendaryDamage.test.ts:40"
         ]
       },
@@ -20903,9 +20903,9 @@
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:210 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:283 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:356 — test('command pattern copies an Elemental before the later damage query', () => {",
-          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:100 — test('explicit and compact Wall of Omens lower to identical canonical data and paths', () => {",
-          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:206 — test('loads the first-slice ability union without advertising execution support', () => {",
-          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:692 — test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {"
+          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:101 — test('explicit and compact Wall of Omens lower to identical canonical data and paths', () => {",
+          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:207 — test('loads the first-slice ability union without advertising execution support', () => {",
+          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:712 — test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20963,7 +20963,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 112,
+        "matches": 113,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -20980,6 +20980,21 @@
       "ownerPart": "16",
       "dependencyParts": [],
       "status": "candidate-test-reference"
+    },
+    {
+      "variant": "dslStaticModifiers",
+      "mechanic": "runtime plugin hook",
+      "currentRegistrations": [],
+      "executableCoverageEvidence": [],
+      "candidateEvidence": {
+        "matches": 0,
+        "samples": []
+      },
+      "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
+      "compatibilityRoute": "Retain the plugin in the catalogue and derive installation from compiled capabilities before removing name registrations.",
+      "ownerPart": "16",
+      "dependencyParts": [],
+      "status": "unobserved"
     },
     {
       "variant": "enchantedManaBoost",
@@ -21628,7 +21643,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 170,
+        "matches": 175,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3451 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:114 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
@@ -21669,7 +21684,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 56,
+        "matches": 58,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3340 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:784 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -22584,7 +22599,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1136"
+        "rules-engine/src/types.ts:1170"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -22651,9 +22666,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1102",
-        "rules-engine/src/types.ts:268",
-        "rules-engine/src/types.ts:270",
-        "rules-engine/src/types.ts:274"
+        "rules-engine/src/types.ts:298",
+        "rules-engine/src/types.ts:300",
+        "rules-engine/src/types.ts:304"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -22687,12 +22702,12 @@
       "currentRegistrations": [
         "rules-engine/src/cardPlugins/cardRules.ts:2772",
         "rules-engine/src/cardPlugins/cardRules.ts:302",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:161",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:170",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:44",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:543",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:591",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:62",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:162",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:171",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:45",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:551",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:599",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:63",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:681",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:865",
         "rules-engine/src/cardPlugins/effectRuntime.ts:103",
@@ -22708,7 +22723,7 @@
         "rules-engine/src/cardPlugins/staticEffects.ts:21",
         "rules-engine/src/cardPlugins/staticEffects.ts:27",
         "rules-engine/src/definitions.ts:73",
-        "rules-engine/src/formats.ts:120",
+        "rules-engine/src/formats.ts:122",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
         "rules-engine/src/kernel.ts:482",
@@ -22719,7 +22734,7 @@
         "rules-engine/src/newGame.ts:121",
         "rules-engine/src/newGame.ts:171",
         "rules-engine/src/newGame.ts:276",
-        "rules-engine/src/plugins/index.ts:103",
+        "rules-engine/src/plugins/index.ts:105",
         "rules-engine/src/plugins/index.ts:44",
         "rules-engine/src/plugins/rooms.ts:51",
         "rules-engine/src/plugins/rooms.ts:68",
@@ -22729,9 +22744,9 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
-        "rules-engine/src/types.ts:145",
-        "rules-engine/src/types.ts:231",
-        "rules-engine/src/types.ts:292",
+        "rules-engine/src/types.ts:154",
+        "rules-engine/src/types.ts:261",
+        "rules-engine/src/types.ts:322",
         "rules-engine/src/types.ts:79",
         "rules-engine/src/types.ts:96"
       ],
@@ -22986,12 +23001,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          191,
-          263
+          190,
+          262
         ],
         "samples": [
-          "191: if (filter.name && object.name !== filter.name) return false",
-          "263: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "190: if (filter.name && object.name !== filter.name) return false",
+          "262: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23430,14 +23445,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          900,
-          901,
-          903
+          937,
+          938,
+          940
         ],
         "samples": [
-          "900: const endTurnEffects = event.type === 'custom'",
-          "901: && event.name === 'advanceStep'",
-          "903: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "937: const endTurnEffects = event.type === 'custom'",
+          "938: && event.name === 'advanceStep'",
+          "940: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23742,12 +23757,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          167,
-          196
+          171,
+          200
         ],
         "samples": [
-          "167: const source = draft.object(cloned.objectId)",
-          "196: return draft.addToStack({"
+          "171: const source = draft.object(cloned.objectId)",
+          "200: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -27,6 +27,7 @@ import type {
   StepId,
   TargetRef,
 } from '../types'
+import { printedStaticAbilityActive } from '../cardPlugins/dsl/staticModifierCore'
 import type { ReplacementCategory } from './types'
 
 export type PreventionCandidate = {
@@ -43,6 +44,28 @@ const runtimeFor = (state: GameState, sourceId: string, controller: string): Rul
   const source = state.objects[sourceId]
   if (!source) throw new Error('prevention source is missing')
   return { state, controller, source: captureObject(source) }
+}
+
+const staticPreventionAbilityIndex = (instance: PreventionInstance) => {
+  if (!instance.staticKey) return undefined
+  const prefix = `${instance.hostSourceId}:`
+  if (!instance.staticKey.startsWith(prefix)) return undefined
+  const remainder = instance.staticKey.slice(prefix.length)
+  const separator = remainder.indexOf(':')
+  if (separator < 0) return undefined
+  const abilityIndex = Number(remainder.slice(0, separator))
+  return Number.isInteger(abilityIndex) && abilityIndex >= 0 ? abilityIndex : undefined
+}
+
+const staticPreventionActive = (state: GameState, instance: PreventionInstance) => {
+  if (!instance.staticKey) return true
+  const host = state.objects[instance.hostSourceId]
+  const abilityIndex = staticPreventionAbilityIndex(instance)
+  return Boolean(
+    host
+    && abilityIndex !== undefined
+    && printedStaticAbilityActive(state, host, abilityIndex),
+  )
 }
 
 const matchesPlayerRecipient = (
@@ -251,7 +274,7 @@ const staticPreventionFromDefinition = (
   let next = state
   definition.abilities.forEach((ability, abilityIndex) => {
     if (ability.kind !== 'static') return
-    if (!ability.activeIn.includes(source.zone as typeof ability.activeIn[number])) return
+    if (!printedStaticAbilityActive(state, source, abilityIndex)) return
     ability.effects.forEach((effect, effectIndex) => {
       if (effect.kind !== 'prevention') return
       const key = `${sourceId}:${abilityIndex}:${effectIndex}`
@@ -322,6 +345,7 @@ export const discoverPreventionCandidates = (
     if (!preventionInstanceHolds(state, instance, false)) continue
     const host = state.objects[instance.hostSourceId]
     if (!host || host.phasedOut) continue
+    if (!staticPreventionActive(state, instance)) continue
     if (!damageMatchesPreventionFilter(state, event, instance.filter, instance.hostSourceId, instance.controller)) {
       continue
     }
@@ -383,8 +407,7 @@ export const preventionAdditionalEffects = (
 ): PreventionEffectDefinition['additionalEffects'] | undefined =>
   (state.preventionInstances ?? []).find((instance) => instance.id === preventionId)?.additionalEffects
 
-export const isImmediatePreventionAdditional = (instruction: Instruction): boolean => {
-  if (instruction.kind === 'sequence') return instruction.instructions.every(isImmediatePreventionAdditional)
+export const isImmediatePreventionAdditional = (instruction: Instruction) => {
   return instruction.kind === 'gainLife' || instruction.kind === 'loseLife' || instruction.kind === 'draw'
 }
 
