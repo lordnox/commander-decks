@@ -53,6 +53,7 @@ import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
 import { evaluateAnnouncementCostAmount } from './cardPlugins/dsl/compiler'
 import { putCanonicalSpellCopyOnStack, resolveCanonicalCopyTargets } from './cardPlugins/dsl/copies'
+import { applyRegisterPrevention } from './replacement/prevention'
 import { replaceEvent as settleReplaceableEvent } from './replacement'
 
 const CHECKPOINT_CAP = 32
@@ -356,6 +357,13 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           }]
           break
       }
+      return
+    }
+    case 'registerPrevention': {
+      const frozen = freezeDraft(draft)
+      const next = applyRegisterPrevention(frozen, event)
+      draft.preventionInstances = next.preventionInstances
+      draft.nextId = next.nextId
       return
     }
     case 'destroy': {
@@ -663,6 +671,27 @@ export const reduceOnce = (
   const replacement = settleReplaceableEvent(state, event, catalog, announcementTransactionId
     ? { announcementTransactionId }
     : {})
+  const mergePreventionState = (base: GameState) => (
+    replacement.state
+      ? {
+          ...base,
+          preventionInstances: replacement.state.preventionInstances,
+          nextId: replacement.state.nextId,
+        }
+      : base
+  )
+  const applyFollowUp = (base: GameState) => {
+    if (!replacement.followUp?.length) return { ok: true as const, state: base, trace: [] as EventTrace[] }
+    let current = base
+    const entries: EventTrace[] = []
+    for (const inner of replacement.followUp) {
+      const next = applyEventTree(current, inner, catalog, options)
+      entries.push(...nested(next.trace, 1))
+      if (!next.ok) return { ...next, state: current, trace: entries }
+      current = next.state
+    }
+    return { ok: true as const, state: current, trace: entries }
+  }
   if (replacement.waiting) {
     return {
       ok: true,
@@ -672,15 +701,20 @@ export const reduceOnce = (
   }
   const replaced = replacement.value
   if (replaced === null) {
+    const afterFollowUp = applyFollowUp(mergePreventionState({ ...state, prevented: true }))
+    if (!afterFollowUp.ok) return afterFollowUp
     return {
       ok: true,
-      state: { ...state, prevented: true },
-      trace: [trace(event, 'prevented', { pluginId: replacement.pluginId })],
+      state: afterFollowUp.state,
+      trace: [
+        trace(event, 'prevented', { pluginId: replacement.pluginId }),
+        ...afterFollowUp.trace,
+      ],
       prevented: true,
     }
   }
   if (Array.isArray(replaced)) {
-    let current = state
+    let current = mergePreventionState(state)
     const entries = [trace(event, 'replaced', { pluginId: replacement.pluginId })]
     for (const inner of replaced) {
       const next = applyEventTree(current, inner, catalog, options)
@@ -691,7 +725,9 @@ export const reduceOnce = (
     return { ok: true, state: current, trace: entries }
   }
 
-  const draft = makeDraft(state)
+  const afterFollowUp = applyFollowUp(mergePreventionState(state))
+  if (!afterFollowUp.ok) return afterFollowUp
+  const draft = makeDraft(afterFollowUp.state)
   const error = legalError(state, replaced, draft, catalog)
   if (error) {
     return {
@@ -715,9 +751,10 @@ export const reduceOnce = (
     trace: wasReplaced
       ? [
           trace(event, 'replaced', { pluginId: replacement.pluginId }),
+          ...afterFollowUp.trace,
           trace(replaced, 'applied', { depth: 1 }),
         ]
-      : [trace(event, 'applied')],
+      : [...afterFollowUp.trace, trace(event, 'applied')],
   }
 }
 

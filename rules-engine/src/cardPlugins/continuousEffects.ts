@@ -9,6 +9,7 @@ import type {
   ReversibleEffect,
   ZoneId,
 } from '../types'
+import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
 import { effectsFor } from './cardRules'
 import type { CardEffect, LinkedExilePump, StaticBoardPumpSpec } from './effectDefinitions'
@@ -937,12 +938,16 @@ export const continuousEffects: Plugin = {
       && event.name === 'advanceStep'
       && draft.step === 'cleanup'
     if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {
+      const expired = expirePreventionInstances(draft, false)
+      draft.preventionInstances = expired.preventionInstances
       for (const object of Object.values(draft.objects)) {
         expireEffects(draft, object, false)
         expireCanonicalGrants(draft, object, false)
       }
       return
     }
+    const expired = expirePreventionInstances(draft, endTurnEffects)
+    draft.preventionInstances = expired.preventionInstances
     for (const object of Object.values(draft.objects)) {
       expireEffects(draft, object, endTurnEffects)
       expireCanonicalGrants(draft, object, endTurnEffects)

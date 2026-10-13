@@ -2,6 +2,7 @@ import type { PluginCatalog } from '../catalog'
 import { makeDraft } from '../draft'
 import type { GameEvent, GameState, HookCtx, RuleInstance } from '../types'
 import { discoverCanonicalModifiers } from './canonical'
+import { discoverPreventionCandidates, type PreventionCandidate } from './prevention'
 import type { ReplacementCategory } from './types'
 
 export type LegacyReplacementCandidate = {
@@ -18,7 +19,7 @@ export type LegacyReplacementCandidate = {
 
 export type CanonicalReplacementCandidate = ReturnType<typeof discoverCanonicalModifiers>[number]
 
-export type ReplacementCandidate = LegacyReplacementCandidate | CanonicalReplacementCandidate
+export type ReplacementCandidate = LegacyReplacementCandidate | CanonicalReplacementCandidate | PreventionCandidate
 
 const sortedRules = (state: GameState) => {
   const unique = new Map<string, RuleInstance>()
@@ -46,6 +47,12 @@ const chooserFor = (state: GameState, event: GameEvent, rule: RuleInstance) => {
   switch (event.type) {
     case 'draw':
       return event.seat
+    case 'dealDamage':
+      if (event.target.kind === 'player') return event.target.player
+      if (event.target.kind === 'object') {
+        return state.objects[event.target.objectId]?.controller ?? state.playerOrder[0]
+      }
+      return state.playerOrder[0]
     case 'move':
     case 'destroy':
     case 'sacrifice': {
@@ -85,7 +92,8 @@ export const discoverReplacementCandidates = (
     })
   }
   const canonical = discoverCanonicalModifiers(state, event, usedInstanceIds, settledOptionalDeclines)
-  return [...legacy, ...canonical]
+  const prevention = discoverPreventionCandidates(state, event, usedInstanceIds)
+  return [...legacy, ...canonical, ...prevention]
 }
 
 export const lowestCategory = (candidates: readonly ReplacementCandidate[]): ReplacementCategory => {

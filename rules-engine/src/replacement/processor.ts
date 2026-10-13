@@ -12,6 +12,12 @@ import {
 } from './discovery'
 import { applyCanonicalTransform } from './program'
 import {
+  applyPreventionToDamage,
+  eventsFromPreventionAdditional,
+  preventionAdditionalEffects,
+  syncStaticPreventionInstances,
+} from './prevention'
+import {
   beginLineage,
   descendantLineage,
   lineageFromEvent,
@@ -21,9 +27,9 @@ import {
 } from './lineage'
 
 export type ReplacementSettlement =
-  | { kind: 'settled'; event: GameEvent; pluginId?: string }
-  | { kind: 'prevented'; pluginId?: string }
-  | { kind: 'fork'; events: GameEvent[]; pluginId?: string }
+  | { kind: 'settled'; event: GameEvent; pluginId?: string; state?: GameState; followUp?: GameEvent[] }
+  | { kind: 'prevented'; pluginId?: string; state?: GameState; followUp?: GameEvent[] }
+  | { kind: 'fork'; events: GameEvent[]; pluginId?: string; state?: GameState }
   | { kind: 'waiting'; state: GameState }
 
 const MAX_REPLACEMENT_STEPS = 64
@@ -34,22 +40,84 @@ const announcementOptions = (transactionId?: string) =>
 const lineageForProposal = (state: GameState, event: GameEvent) =>
   lineageFromEvent(event) ?? beginLineage(state)
 
+const candidateLabel = (candidate: ReplacementCandidate) => {
+  if (candidate.kind === 'legacy') return candidate.pluginId
+  if (candidate.kind === 'canonical') return candidate.sourceName
+  return candidate.label
+}
+
+type ApplyResult =
+  | { kind: 'prevented'; followUp?: GameEvent[] }
+  | { kind: 'continue'; event: GameEvent; followUp?: GameEvent[] }
+  | { kind: 'fork'; events: GameEvent[]; followUp?: GameEvent[] }
+
+const sideEffectsForPrevention = (
+  state: GameState,
+  candidate: Extract<ReplacementCandidate, { kind: 'prevention' }>,
+) => {
+  const host = state.objects[(state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)?.hostSourceId ?? '']
+  const extra = preventionAdditionalEffects(state, candidate.preventionId)
+  if (!extra?.length || !host) return []
+  return eventsFromPreventionAdditional(state, host.id, host.controller, extra)
+}
+
 const applyCandidate = (
   proposal: GameEvent,
   candidate: ReplacementCandidate,
   lineage: ReplacementLineage,
-): { kind: 'prevented' } | { kind: 'continue'; event: GameEvent } | { kind: 'fork'; events: GameEvent[] } => {
+  state: GameState,
+): { result: ApplyResult; state: GameState } => {
+  if (candidate.kind === 'prevention') {
+    markInstanceUsed(lineage, candidate.instanceId)
+    const followUp = sideEffectsForPrevention(state, candidate)
+    if (proposal.type !== 'dealDamage') {
+      return { result: { kind: 'continue', event: proposal, followUp }, state }
+    }
+    const applied = applyPreventionToDamage(state, proposal, candidate.preventionId)
+    if (applied.event.amount <= 0) {
+      return { result: { kind: 'prevented', followUp }, state: applied.state }
+    }
+    return {
+      result: {
+        kind: 'continue',
+        event: withLineage(applied.event, descendantLineage(lineage)),
+        followUp,
+      },
+      state: applied.state,
+    }
+  }
   if (candidate.kind === 'legacy') {
     markInstanceUsed(lineage, candidate.instanceId, candidate.pluginId)
-    if (candidate.preview === null) return { kind: 'prevented' }
+    if (candidate.preview === null) return { result: { kind: 'prevented' }, state }
     if (Array.isArray(candidate.preview)) {
-      return { kind: 'fork', events: candidate.preview.map((entry) => withLineage(entry, descendantLineage(lineage))) }
+      return {
+        result: {
+          kind: 'fork',
+          events: candidate.preview.map((entry) => withLineage(entry, descendantLineage(lineage))),
+        },
+        state,
+      }
     }
-    return { kind: 'continue', event: withLineage(candidate.preview, descendantLineage(lineage)) }
+    return {
+      result: { kind: 'continue', event: withLineage(candidate.preview, descendantLineage(lineage)) },
+      state,
+    }
   }
   markInstanceUsed(lineage, candidate.instanceId)
-  return applyCanonicalTransform(proposal, candidate, lineage)
+  const transformed = applyCanonicalTransform(proposal, candidate, lineage)
+  if (transformed.kind === 'prevented') return { result: { kind: 'prevented' }, state }
+  if (transformed.kind === 'fork') return { result: transformed, state }
+  if (proposal.type === 'dealDamage' && transformed.event.type === 'dealDamage' && transformed.event.amount <= 0) {
+    return { result: { kind: 'prevented' }, state }
+  }
+  return { result: transformed, state }
 }
+
+const mergeState = (base: GameState, update: GameState) => ({
+  ...base,
+  preventionInstances: update.preventionInstances,
+  nextId: update.nextId,
+})
 
 const openModifierChoice = (
   draft: Draft,
@@ -95,25 +163,31 @@ export const settleReplaceableEvent = (
   catalog: PluginCatalog,
   options: { announcementTransactionId?: string } = {},
 ): ReplacementSettlement => {
+  let workingState = event.type === 'dealDamage' || event.type === 'combatDamage'
+    ? syncStaticPreventionInstances(state)
+    : state
   let proposal = withLineage(event, lineageForProposal(state, event))
   let lineage = lineageFromEvent(proposal)!
   let pluginId: string | undefined
+  let followUp: GameEvent[] = []
   let guard = 0
   while (guard < MAX_REPLACEMENT_STEPS) {
     guard += 1
     const candidates = discoverReplacementCandidates(
-      state,
+      workingState,
       proposal,
       catalog,
       lineage.usedInstanceIds,
       lineage.settledOptionalDeclines ?? [],
     )
     if (candidates.length === 0) {
-      return { kind: 'settled', event: proposal, pluginId }
+      return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
     }
     const category = lowestCategory(candidates)
     const pool = candidatesInCategory(candidates, category)
-    if (pool.length === 0) return { kind: 'settled', event: proposal, pluginId }
+    if (pool.length === 0) {
+      return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+    }
 
     const structural = pool.filter((candidate) =>
       candidate.kind === 'legacy'
@@ -122,11 +196,17 @@ export const settleReplaceableEvent = (
       && (proposal.count ?? 1) > 1)
     if (structural.length === 1) {
       const structuralCandidate = structural[0]!
-      const applied = applyCandidate(proposal, structuralCandidate, lineage)
-      pluginId = structuralCandidate.kind === 'legacy' ? structuralCandidate.pluginId : structuralCandidate.sourceName
-      if (applied.kind === 'prevented') return { kind: 'prevented', pluginId }
-      if (applied.kind === 'fork') return { kind: 'fork', events: applied.events, pluginId }
-      proposal = applied.event
+      const applied = applyCandidate(proposal, structuralCandidate, lineage, workingState)
+      pluginId = candidateLabel(structuralCandidate)
+      workingState = applied.state
+      if (applied.result.followUp) followUp.push(...applied.result.followUp)
+      if (applied.result.kind === 'prevented') {
+        return { kind: 'prevented', pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+      }
+      if (applied.result.kind === 'fork') {
+        return { kind: 'fork', events: applied.result.events, pluginId, state: workingState }
+      }
+      proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
       continue
     }
@@ -136,30 +216,38 @@ export const settleReplaceableEvent = (
     const choosable = mandatory.length > 1 ? mandatory : optional.length > 0 ? optional : mandatory
 
     if (choosable.length === 1 && !choosable[0]!.optional) {
-      const applied = applyCandidate(proposal, choosable[0]!, lineage)
-      pluginId = choosable[0]!.kind === 'legacy' ? choosable[0]!.pluginId : choosable[0]!.sourceName
-      if (applied.kind === 'prevented') return { kind: 'prevented', pluginId }
-      if (applied.kind === 'fork') return { kind: 'fork', events: applied.events, pluginId }
-      proposal = applied.event
+      const applied = applyCandidate(proposal, choosable[0]!, lineage, workingState)
+      pluginId = candidateLabel(choosable[0]!)
+      workingState = applied.state
+      if (applied.result.followUp) followUp.push(...applied.result.followUp)
+      if (applied.result.kind === 'prevented') {
+        return { kind: 'prevented', pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+      }
+      if (applied.result.kind === 'fork') {
+        return { kind: 'fork', events: applied.result.events, pluginId, state: workingState }
+      }
+      proposal = applied.result.event
       lineage = lineageFromEvent(proposal)!
       continue
     }
 
-    if (choosable.length === 0) return { kind: 'settled', event: proposal, pluginId }
+    if (choosable.length === 0) {
+      return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
+    }
 
     const frame: EventProcessingFrame = {
       version: 1,
-      id: `event-${state.nextId}`,
+      id: `event-${workingState.nextId}`,
       originalEvent: structuredClone(event),
       pendingEvent: structuredClone(proposal),
       lineage: structuredClone(lineage),
       awaitingCandidateIds: choosable.map((candidate) => candidate.instanceId),
       ...(options.announcementTransactionId ? { announcementTransactionId: options.announcementTransactionId } : {}),
     }
-    const draft = makeDraft(state)
-    return suspendForChoice(state, frame, draft, choosable)
+    const draft = makeDraft(workingState)
+    return suspendForChoice(workingState, frame, draft, choosable)
   }
-  return { kind: 'settled', event: proposal, pluginId }
+  return { kind: 'settled', event: proposal, pluginId, state: workingState, followUp: followUp.length > 0 ? followUp : undefined }
 }
 
 export const resumeReplacementChoice = (
@@ -193,26 +281,57 @@ export const resumeReplacementChoice = (
   ).filter((candidate) => candidate.instanceId === candidateId)
   const chosen = candidates[0]
   if (!chosen) return { kind: 'invalid', error: 'replacement modifier is no longer applicable' }
-  const applied = applyCandidate(proposal, chosen, lineage)
-  const pluginId = chosen.kind === 'legacy' ? chosen.pluginId : chosen.sourceName
-  if (applied.kind === 'prevented') return { kind: 'prevented', pluginId }
-  if (applied.kind === 'fork') return { kind: 'fork', events: applied.events, pluginId }
-  const cleared = { ...resumeState, eventProcessing: undefined }
-  return settleReplaceableEvent(cleared, applied.event, catalog, announcementOptions(frame.announcementTransactionId))
+  const applied = applyCandidate(proposal, chosen, lineage, resumeState)
+  const pluginId = candidateLabel(chosen)
+  if (applied.result.kind === 'prevented') {
+    return {
+      kind: 'prevented',
+      pluginId,
+      state: applied.state,
+      followUp: applied.result.followUp,
+    }
+  }
+  if (applied.result.kind === 'fork') {
+    return { kind: 'fork', events: applied.result.events, pluginId, state: applied.state }
+  }
+  const cleared = mergeState({ ...resumeState, eventProcessing: undefined }, applied.state)
+  const continued = settleReplaceableEvent(cleared, applied.result.event, catalog, announcementOptions(frame.announcementTransactionId))
+  if (continued.kind === 'settled' || continued.kind === 'prevented') {
+    const mergedFollowUp = [
+      ...(applied.result.followUp ?? []),
+      ...(continued.followUp ?? []),
+    ]
+    return {
+      ...continued,
+      followUp: mergedFollowUp.length > 0 ? mergedFollowUp : undefined,
+    }
+  }
+  return continued
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {
   switch (settlement.kind) {
     case 'prevented':
+      if (settlement.state?.preventionInstances !== undefined) {
+        draft.preventionInstances = settlement.state.preventionInstances
+      }
+      settlement.followUp?.forEach((entry) => draft.enqueue(entry))
       return
     case 'fork':
       settlement.events.forEach((entry) => draft.enqueue(entry))
       return
     case 'settled':
+      if (settlement.state?.preventionInstances !== undefined) {
+        draft.preventionInstances = settlement.state.preventionInstances
+      }
+      settlement.followUp?.forEach((entry) => draft.enqueue(entry))
       draft.enqueue(settlement.event)
       return
     case 'waiting':
       draft.eventProcessing = settlement.state.eventProcessing
+      if (settlement.state.preventionInstances) {
+        draft.preventionInstances = settlement.state.preventionInstances
+      }
       return
   }
 }
@@ -222,19 +341,29 @@ export const replaceEvent = (
   event: GameEvent,
   catalog: PluginCatalog,
   options: { announcementTransactionId?: string } = {},
-): { value: GameEvent | GameEvent[] | null; pluginId?: string; waiting?: GameState } => {
+): { value: GameEvent | GameEvent[] | null; pluginId?: string; waiting?: GameState; state?: GameState; followUp?: GameEvent[] } => {
   if (state.eventProcessing) {
     return { value: event, pluginId: undefined }
   }
   const settlement = settleReplaceableEvent(state, event, catalog, options)
   switch (settlement.kind) {
     case 'prevented':
-      return { value: null, pluginId: settlement.pluginId }
+      return {
+        value: null,
+        pluginId: settlement.pluginId,
+        state: settlement.state,
+        followUp: settlement.followUp,
+      }
     case 'fork':
-      return { value: settlement.events, pluginId: settlement.pluginId }
+      return { value: settlement.events, pluginId: settlement.pluginId, state: settlement.state }
     case 'waiting':
       return { value: settlement.state.eventProcessing?.pendingEvent ?? event, waiting: settlement.state }
     case 'settled':
-      return { value: settlement.event, pluginId: settlement.pluginId }
+      return {
+        value: settlement.event,
+        pluginId: settlement.pluginId,
+        state: settlement.state,
+        followUp: settlement.followUp,
+      }
   }
 }

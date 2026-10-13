@@ -624,7 +624,7 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         const effect = object(node.effect, childPath(path, 'effect'))
         if (effect) {
-          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability'], ['kind'])
+          exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects'], ['kind'])
           switch (effect.kind) {
             case 'pump':
               validateAmount(effect.power, childPath(childPath(path, 'effect'), 'power'), env)
@@ -648,6 +648,9 @@ export const validateDefinitionV1 = (root: unknown): {
               }
               break
             }
+            case 'prevention':
+              validateAmount(effect.capacity, childPath(childPath(path, 'effect'), 'capacity'), env)
+              break
             default: issue(childPath(childPath(path, 'effect'), 'kind'), 'unsupported-kind', `unsupported created effect: ${String(effect.kind)}`)
           }
         }
@@ -1032,6 +1035,15 @@ export const validateDefinitionV1 = (root: unknown): {
               if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
               return
             }
+            case 'prevention': {
+            exactKeys(node, effectPath, ['kind', 'filter', 'capacity', 'transform', 'additionalEffects'], ['kind', 'filter', 'capacity', 'transform'])
+            validateAmount(node.capacity, childPath(effectPath, 'capacity'), baseEnvironment())
+            const transform = object(node.transform, childPath(effectPath, 'transform'))
+            if (transform && transform.kind !== 'preventDamage') {
+              issue(childPath(effectPath, 'transform'), 'unsupported-kind', 'prevention requires preventDamage transform')
+            }
+            return
+          }
             default:
               issue(childPath(effectPath, 'kind'), 'unsupported-kind', `unsupported continuous effect kind: ${String(node.kind)}`)
           }
