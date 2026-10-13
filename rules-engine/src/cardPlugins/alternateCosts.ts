@@ -133,6 +133,16 @@ export const finishedSpellZone = (
   otherwise: ZoneId,
 ): ZoneId => item?.exileAfterUse ? 'exile' : otherwise
 
+/** CR 608.3: a resolving non-copy permanent spell enters the battlefield. */
+export const resolvedSpellDestination = (
+  item: StackItem,
+  object: { types: readonly string[] },
+): ZoneId => (
+  isPermanentType(object.types) && !item.exileAfterUse && item.castOption !== 'adventure'
+    ? 'battlefield'
+    : finishedSpellZone(item, item.adventureCast ? 'exile' : 'graveyard')
+)
+
 export const alternateCosts: Plugin = {
   id: 'alternateCosts',
   legal: ({ state, event }) => {
