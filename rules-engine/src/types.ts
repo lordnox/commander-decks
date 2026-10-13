@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
+import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionFilter, ReplacementProgramInstruction } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -203,6 +203,26 @@ export type PrintedStaticModifier = {
   activeIn: readonly ZoneId[]
   kind: 'prohibitActivation'
   filter: ActivationFilter
+}
+
+/** Consumable damage-prevention shield tracked outside replacement lineage. */
+export type PreventionInstance = {
+  id: string
+  remaining: number
+  capacity: number
+  duration: EffectDuration
+  hostSourceId: string
+  hostSourceIncarnation: number
+  controller: PlayerId
+  filter: PreventionFilter
+  /** Stable key for static abilities: `${sourceId}:${abilityIndex}:${effectIndex}`. */
+  staticKey?: string
+  additionalEffects?: readonly Instruction[]
+  createdTurn: number
+  untilTurn?: number
+  untilStepTurn?: number
+  untilStepNotBeforeTurn?: number
+  untilStepActive?: PlayerId
 }
 
 /** Spell or ability target. Player targets use seat ids; object targets use object ids. */
@@ -725,6 +745,8 @@ export type GameState = {
   /** Extra turns queued to begin after the current turn ends (FIFO). */
   extraTurns?: PlayerId[]
   rules: RuleInstance[]
+  /** Active prevention shields with remaining capacity. */
+  preventionInstances?: PreventionInstance[]
   nextId: number
   nextTimestamp: number
   ended: boolean
@@ -1067,9 +1089,28 @@ export type GameEvent =
       target: TargetRef
       amount: number
       combat?: boolean
+      /** CR 615.6: prevention cannot reduce this damage; shields are not consumed. */
+      unpreventable?: boolean
       gainLife?: { seat: PlayerId; max?: number }
       /** Captured characteristics used when the source has left or changed zones. */
       sourceSnapshot?: CapturedObject
+    }
+  | {
+      type: 'registerPrevention'
+      hostObjectId: string
+      filter: PreventionFilter
+      capacity: number
+      duration: DslEffectDuration
+      sourceId?: string
+      sourceRef?: ObjectIdentity
+      sourceRevision?: string
+      additionalEffects?: readonly Instruction[]
+      createdTurn?: number
+      durationUntilTurn?: number
+      durationUntilStepTurn?: number
+      durationUntilStepNotBeforeTurn?: number
+      durationUntilStepActive?: PlayerId
+      staticKey?: string
     }
   | {
       type: 'removeDefenseCounters'

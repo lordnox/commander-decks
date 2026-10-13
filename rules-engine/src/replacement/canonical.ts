@@ -7,7 +7,8 @@ import {
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
 import { captureObject } from '../objectIdentity'
-import type { CardRuleDefinitionV1, ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionV1, DamageReplacementFilter, ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
+import { damageMatchesPreventionFilter } from './prevention'
 import type { GameEvent, GameState } from '../types'
 import type { ReplacementCategory } from './types'
 
@@ -24,6 +25,18 @@ export type CanonicalReplacementCandidate = {
   optional: boolean
   chooser: string
 }
+
+const damageMatchesFilter = (
+  event: Extract<GameEvent, { type: 'dealDamage' }>,
+  filter: DamageReplacementFilter,
+  runtime: RuleDslRuntimeContext,
+) => damageMatchesPreventionFilter(
+  runtime.state,
+  event,
+  filter,
+  runtime.source.ref.objectId,
+  runtime.controller,
+)
 
 const runtimeFor = (state: GameState, sourceId: string, controller: string): RuleDslRuntimeContext => {
   const source = state.objects[sourceId]
@@ -56,6 +69,12 @@ const eventMatchesPattern = (event: GameEvent, effect: ReplacementEffectDefiniti
       const matches = evaluateObjectSelector({ kind: 'objects', filter }, runtime)
       return matches.some((candidate) => candidate.id === object.id)
     }
+    case 'damage': {
+      if (event.type !== 'dealDamage') return false
+      const filter = effect.event.filter
+      if (!filter) return true
+      return damageMatchesFilter(event, filter, runtime)
+    }
     case 'move': {
       if (event.type !== 'move') return false
       if (effect.event.filter.to && event.to !== effect.event.filter.to) return false
@@ -87,6 +106,12 @@ const chooserFor = (state: GameState, event: GameEvent, controller: string) => {
   switch (event.type) {
     case 'draw':
       return event.seat
+    case 'dealDamage':
+      if (event.target.kind === 'player') return event.target.player
+      if (event.target.kind === 'object') {
+        return state.objects[event.target.objectId]?.controller ?? controller
+      }
+      return controller
     case 'move':
     case 'destroy':
     case 'sacrifice': {

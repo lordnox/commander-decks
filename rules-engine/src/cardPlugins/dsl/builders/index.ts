@@ -23,6 +23,7 @@ import type {
   KeywordAbilityDefinition,
   ModeDefinition,
   ModeInput,
+  ReplacementEventPattern,
   ModeSpec,
   NumericCharacteristic,
   ObjectFilter,
@@ -207,6 +208,40 @@ export const replaceWith = (...instructions: Instruction[]) =>
 export const suppressEvent = () => immutableData({ kind: 'suppress' as const })
 
 export const redirectEvent = (to: Zone) => immutableData({ kind: 'redirect' as const, to })
+
+export const preventDamage = () => immutableData({ kind: 'preventDamage' as const })
+
+export const prevention = (
+  filter: Extract<ContinuousEffectDefinition, { kind: 'prevention' }>['filter'],
+  transform: Extract<ContinuousEffectDefinition, { kind: 'prevention' }>['transform'],
+  options: {
+    capacity: AmountInput
+    additionalEffects?: readonly Instruction[]
+  },
+): Extract<ContinuousEffectDefinition, { kind: 'prevention' }> => immutableData({
+  kind: 'prevention',
+  filter,
+  transform,
+  capacity: toAmount(options.capacity),
+  ...(options.additionalEffects ? { additionalEffects: options.additionalEffects } : {}),
+})
+
+export const preventionCreatedEffect = (
+  filter: Extract<CreatedEffect, { kind: 'prevention' }>['filter'],
+  capacity: AmountInput,
+  additionalEffects?: readonly Instruction[],
+): Extract<CreatedEffect, { kind: 'prevention' }> => immutableData({
+  kind: 'prevention',
+  filter,
+  capacity: toAmount(capacity),
+  ...(additionalEffects ? { additionalEffects } : {}),
+})
+
+export const wouldDealDamage = (filter: Extract<ReplacementEventPattern, { kind: 'damage' }>['filter'] = {}) =>
+  immutableData({ kind: 'damage' as const, filter })
+
+export const multiplyDamage = (factor: AmountInput) =>
+  modifyEvent({ amount: { kind: 'multiply', factor: toAmount(factor) } })
 
 export const wouldDraw = (filter: DrawReplacementFilter = {}) => immutableData({ kind: 'draw' as const, filter })
 

@@ -175,10 +175,31 @@ export type GeneratedAbility = {
   instructions: readonly Instruction[]
 }
 
+export type PreventionFilter = {
+  recipient?: PlayerReference | PlayerSelector | ObjectReference | ObjectSelector
+  source?: ObjectReference | ObjectSelector
+}
+
+export type PreventDamageTransform = { kind: 'preventDamage' }
+
+export type PreventionEffectDefinition = {
+  kind: 'prevention'
+  filter: PreventionFilter
+  capacity: Amount
+  additionalEffects?: readonly Instruction[]
+  transform: PreventDamageTransform
+}
+
 export type CreatedEffect =
   | { kind: 'pump'; power: Amount; toughness: Amount }
   | { kind: 'grantKeyword'; keyword: Keyword }
   | { kind: 'grantAbility'; ability: GeneratedAbility }
+  | {
+      kind: 'prevention'
+      filter: PreventionFilter
+      capacity: Amount
+      additionalEffects?: readonly Instruction[]
+    }
 
 export type Condition =
   | { kind: 'resultIsTrue'; value: ResultReference }
@@ -347,14 +368,25 @@ export type DrawReplacementFilter = {
   firstDrawInOwnDrawStep?: boolean
 }
 
+export type DamageReplacementFilter = {
+  recipient?: PlayerReference | PlayerSelector | ObjectReference | ObjectSelector
+  source?: ObjectReference | ObjectSelector
+}
+
 export type ReplacementEventPattern =
   | { kind: 'draw'; filter: DrawReplacementFilter }
   | { kind: 'enterBattlefield'; filter: { object: ObjectFilter | ObjectReference } }
   | { kind: 'move'; filter: { object?: ObjectFilter | ObjectReference; to?: Zone } }
+  | { kind: 'damage'; filter?: DamageReplacementFilter }
+
+export type AmountFieldChange =
+  | { kind: 'multiply'; factor: Amount }
+  | { kind: 'add'; delta: Amount }
 
 export type EventFieldChanges = {
   to?: Zone
   tapped?: boolean
+  amount?: AmountFieldChange
 }
 
 export type ReplacementTransform =
@@ -388,6 +420,7 @@ export type ContinuousEffectDefinition =
       set?: true
     }
   | ReplacementEffectDefinition
+  | PreventionEffectDefinition
 
 export type Keyword = 'defender' | 'trample'
 

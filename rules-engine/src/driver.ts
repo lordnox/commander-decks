@@ -813,6 +813,26 @@ const actionEvents = (
     }
     case 'createEffect': {
       const targets = objectActions(instruction.targets, context)
+      if (instruction.effect.kind === 'prevention') {
+        const preventionEffect = instruction.effect
+        const capacity = availableAmount(preventionEffect.capacity, context) ?? 0
+        if (capacity <= 0 || targets.length === 0) return []
+        return targets.map((object) => ({
+          type: 'registerPrevention' as const,
+          hostObjectId: object.id,
+          filter: structuredClone(preventionEffect.filter),
+          capacity,
+          duration: structuredClone(instruction.duration),
+          sourceId: frame.source.ref.objectId,
+          sourceRef: structuredClone(frame.source.ref),
+          sourceRevision: frame.definitionSnapshot.definitionRevision,
+          ...(preventionEffect.additionalEffects
+            ? { additionalEffects: structuredClone(preventionEffect.additionalEffects) }
+            : {}),
+          createdTurn: draft.turn,
+          ...durationMetadata(instruction.duration, context, draft),
+        }))
+      }
       const grant = instruction.effect.kind === 'grantAbility' ? instruction.effect.ability : undefined
       const grantChoices = grant
         ? captureLexicalBindings(
