@@ -1,18 +1,17 @@
-import type { Instruction } from '../cardPlugins/dsl/schema/v1'
+import type { Instruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
 import type { GameEvent, ReplacementLineage } from '../types'
 import type { CanonicalReplacementCandidate } from './canonical'
 import { descendantLineage, withLineage } from './lineage'
 
-export const applyCanonicalTransform = (
+export const applyReplacementTransform = (
   proposal: GameEvent,
-  candidate: CanonicalReplacementCandidate,
+  transform: ReplacementTransform,
   lineage: ReplacementLineage,
 ):
   | { kind: 'prevented' }
   | { kind: 'continue'; event: GameEvent }
   | { kind: 'fork'; events: GameEvent[] }
   | { kind: 'program'; instructions: readonly Instruction[] } => {
-  const transform = candidate.effect.transform
   switch (transform.kind) {
     case 'suppress':
       return { kind: 'prevented' }
@@ -50,3 +49,9 @@ export const applyCanonicalTransform = (
       return { kind: 'continue', event: withLineage(proposal, descendantLineage(lineage)) }
   }
 }
+
+export const applyCanonicalTransform = (
+  proposal: GameEvent,
+  candidate: CanonicalReplacementCandidate,
+  lineage: ReplacementLineage,
+) => applyReplacementTransform(proposal, candidate.effect.transform, lineage)

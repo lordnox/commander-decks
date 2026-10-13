@@ -69,6 +69,19 @@ export const printedStaticAbilityActive = (
   return abilityActiveIn(ability).includes(source.zone as Zone)
 }
 
+/** CR 614.12: self-entry replacements apply as the object would exist on the battlefield. */
+export const prospectiveBattlefieldStaticReplacements = (source: GameObject) => {
+  if (!source.ruleDefinition || !sourceStaticAbilitiesActive(source)) return [] as const
+  const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
+  return compiled.definition.abilities.flatMap((ability, abilityIndex) => {
+    if (ability.kind !== 'static' || !ability.activeIn.includes('battlefield')) return []
+    return ability.effects.flatMap((effect, effectIndex) =>
+      effect.kind === 'replacement'
+        ? [{ abilityIndex, effectIndex, effect }]
+        : [])
+  })
+}
+
 export const modifierKey = (abilityIndex: number, effectIndex: number) =>
   `${abilityIndex}:${effectIndex}`
 

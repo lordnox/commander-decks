@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition } from './cardPlugins/dsl/schema/v1'
+import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -688,6 +688,17 @@ export type EventProcessingFrame = {
   followUp?: GameEvent[]
   followUpPrograms?: PreventionFollowUpProgram[]
   program?: ReplacementInstructionProgramState
+  /** Choose/branch application procedure for a canonical replacement (not replaceWith). */
+  applicationProgram?: ReplacementProgramCursor
+}
+
+/** Durable cursor for a replacement's application procedure (`choose` / later branch). */
+export type ReplacementProgramCursor = {
+  instructions: readonly ReplacementProgramInstruction[]
+  index: number
+  bindings: Record<string, string>
+  transform: ReplacementTransform
+  sourceId: string
 }
 
 export type ReplacementInstructionProgramState = {
@@ -1046,6 +1057,8 @@ export type GameEvent =
       replacedBy?: string[]
       replacementLineage?: ReplacementLineage
       tapped?: boolean
+      /** Color chosen as this object enters (CR 614.12). */
+      chosenColor?: ManaId
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }

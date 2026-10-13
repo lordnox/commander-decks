@@ -9,6 +9,7 @@ import {
 import {
   printedStaticAbilityActive,
   printedStaticEffectKey,
+  prospectiveBattlefieldStaticReplacements,
 } from '../cardPlugins/dsl/staticModifierCore'
 import type { ReplacementEffectDefinition } from '../cardPlugins/dsl/schema/v1'
 import { captureObject, isSameObject } from '../objectIdentity'
@@ -154,6 +155,51 @@ const chooserFor = (state: GameState, event: GameEvent, controller: string) => {
   }
 }
 
+const pushCandidate = (
+  candidates: CanonicalReplacementCandidate[],
+  seen: Set<string>,
+  candidate: CanonicalReplacementCandidate,
+) => {
+  if (seen.has(candidate.instanceId)) return
+  seen.add(candidate.instanceId)
+  candidates.push(candidate)
+}
+
+const discoverProspectiveSelfEntry = (
+  state: GameState,
+  event: GameEvent,
+  usedInstanceIds: readonly string[],
+  settledOptionalDeclines: readonly string[],
+  seen: Set<string>,
+  candidates: CanonicalReplacementCandidate[],
+) => {
+  if (event.type !== 'move' || event.to !== 'battlefield') return
+  const host = state.objects[event.objectId]
+  if (!host) return
+  const runtime = runtimeFor(state, host.id, host.controller)
+  for (const entry of prospectiveBattlefieldStaticReplacements(host)) {
+    const instanceId = printedStaticEffectKey(host.id, entry.abilityIndex, entry.effectIndex)
+    if (usedInstanceIds.includes(instanceId) || settledOptionalDeclines.includes(instanceId)) continue
+    if (entry.effect.when && !evaluateCondition(entry.effect.when, runtime)) continue
+    if (!eventMatchesPattern(event, entry.effect, runtime, state, host.id, host.controller)) continue
+    if (categoryFor(entry.effect, event, host.id) !== 'self') continue
+    pushCandidate(candidates, seen, {
+      kind: 'canonical',
+      category: 'self',
+      instanceId,
+      sourceId: host.id,
+      sourceName: host.name,
+      abilityIndex: entry.abilityIndex,
+      effectIndex: entry.effectIndex,
+      effect: entry.effect,
+      label: host.name,
+      optional: entry.effect.optional ?? false,
+      chooser: chooserFor(state, event, host.controller),
+      rulesTimestamp: host.staticRulesTimestamp ?? 0,
+    })
+  }
+}
+
 export const discoverCanonicalModifiers = (
   state: GameState,
   event: GameEvent,
@@ -161,6 +207,7 @@ export const discoverCanonicalModifiers = (
   settledOptionalDeclines: readonly string[],
 ): CanonicalReplacementCandidate[] => {
   const candidates: CanonicalReplacementCandidate[] = []
+  const seen = new Set<string>()
   for (const source of Object.values(state.objects)) {
     for (const modifier of source.printedStaticModifiers ?? []) {
       if (modifier.kind !== 'replacement') continue
@@ -174,7 +221,7 @@ export const discoverCanonicalModifiers = (
       const effect = modifier.effect
       if (effect.when && !evaluateCondition(effect.when, runtime)) continue
       if (!eventMatchesPattern(event, effect, runtime, state, host.id, host.controller)) continue
-      candidates.push({
+      pushCandidate(candidates, seen, {
         kind: 'canonical',
         category: categoryFor(effect, event, host.id),
         instanceId,
@@ -190,5 +237,6 @@ export const discoverCanonicalModifiers = (
       })
     }
   }
+  discoverProspectiveSelfEntry(state, event, usedInstanceIds, settledOptionalDeclines, seen, candidates)
   return candidates.sort((left, right) => left.rulesTimestamp - right.rulesTimestamp)
 }

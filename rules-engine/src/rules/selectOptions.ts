@@ -137,6 +137,11 @@ export type PendingOptionSelection = {
     frameId: string
     candidateIds: readonly string[]
   } | {
+    /** A replacement application procedure is waiting for a bound option (e.g. chosen color). */
+    kind: 'replacementProgramChoice'
+    frameId: string
+    bindChoice: string
+  } | {
     /** A resolution-time payment is answered by its payer while its parent frame remains active. */
     kind: 'canonicalResolutionPayment'
     stackId: string
@@ -217,8 +222,16 @@ export const openOptionSelection = (
     id: draft.allocId('option'),
     ...selection,
   }
-  if (selection.action.kind === 'putCanonicalTriggeredAbilityAllocation') draft.priority = null
-  else if (!draft.resolution) draft.priority = selection.seat
+  switch (selection.action.kind) {
+    case 'putCanonicalTriggeredAbilityAllocation':
+    case 'replacementModifier':
+    case 'replacementProgramChoice':
+    case 'choose-color':
+      draft.priority = null
+      break
+    default:
+      if (!draft.resolution) draft.priority = selection.seat
+  }
 }
 
 const finishCanonicalAllocation = (
