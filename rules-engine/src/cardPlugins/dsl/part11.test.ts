@@ -13,8 +13,11 @@ import {
   staticAbility,
   suppressEvent,
   wouldDraw,
+  wouldEnter,
+  asThisEntersChooseColor,
   objects,
   amount,
+  redirectEvent,
 } from './v1'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
@@ -283,5 +286,55 @@ describe('Rule DSL Part 11 replacement processing', () => {
     const p2ThenP1 = chooseMill(p2First, 'p1')
     expect(p2ThenP1.eventProcessing).toBeUndefined()
     expect(p2ThenP1.zoneOrder.p1.graveyard).toHaveLength(1)
+  })
+
+  test('self-entry color choice applies prospectively before the battlefield move commits', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(asThisEntersChooseColor()),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Color chooser', { types: ['Creature'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const creature = Object.values(server.state.objects).find((object) => object.name === 'Color chooser')!
+    const paused = ok(server.rules(server.state, { type: 'move', objectId: creature.id, to: 'battlefield' }))
+    expect(paused.objects[creature.id].zone).not.toBe('battlefield')
+    expect(paused.priority).toBeNull()
+    const pending = pendingOptionSelection(paused, 'p1')!
+    expect(pending.action.kind).toBe('replacementProgramChoice')
+    const entered = ok(server.rules(paused, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending.id,
+      optionId: 'R',
+    }))
+    expect(entered.objects[creature.id].zone).toBe('battlefield')
+    expect(entered.objects[creature.id].chosenColor).toBe('R')
+    expect(entered.eventProcessing).toBeUndefined()
+  })
+
+  test('a later entry replacement can still prevent the committed object', () => {
+    const chooser = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(asThisEntersChooseColor()),
+    ])))
+    const exile = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(replacement(wouldEnter({ object: { type: 'Creature' } }), redirectEvent('exile'))),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('No creatures', { types: ['Enchantment'], ruleDefinition: exile })] },
+      hands: { p1: [cardTemplate('Color chooser', { types: ['Creature'], ruleDefinition: chooser })] },
+    }, { random: () => 0 })
+    const creature = Object.values(server.state.objects).find((object) => object.name === 'Color chooser')!
+    const paused = ok(server.rules(server.state, { type: 'move', objectId: creature.id, to: 'battlefield' }))
+    const pending = pendingOptionSelection(paused, 'p1')!
+    const finished = ok(server.rules(paused, {
+      type: 'selectOption',
+      seat: 'p1',
+      selectionId: pending.id,
+      optionId: 'W',
+    }))
+    expect(finished.objects[creature.id].zone).toBe('exile')
+    expect(finished.objects[creature.id].chosenColor).toBe('W')
   })
 })

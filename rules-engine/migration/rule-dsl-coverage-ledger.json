@@ -22599,7 +22599,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1218"
+        "rules-engine/src/types.ts:1231"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -22726,7 +22726,7 @@
         "rules-engine/src/formats.ts:122",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:630",
+        "rules-engine/src/kernel.ts:631",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:118",
         "rules-engine/src/newGame.ts:119",
@@ -23757,10 +23757,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1415
+          1421
         ],
         "samples": [
-          "1415: event.name === SEARCH_CHOSEN"
+          "1421: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23795,14 +23795,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          244,
-          1183,
-          1213
+          245,
+          1184,
+          1216
         ],
         "samples": [
-          "244: const liveSource = draft.object(source.ref.objectId)",
-          "1183: const object = draft.object(item.objectId)",
-          "1213: const object = draft.object(completedItem.objectId)"
+          "245: const liveSource = draft.object(source.ref.objectId)",
+          "1184: const object = draft.object(item.objectId)",
+          "1216: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24384,10 +24384,10 @@
       {
         "path": "rules-engine/src/replacement/plugin.ts",
         "lines": [
-          30
+          43
         ],
         "samples": [
-          "30: draft.enqueue({"
+          "43: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24401,17 +24401,17 @@
       {
         "path": "rules-engine/src/replacement/processor.ts",
         "lines": [
-          229,
-          642,
-          647,
-          649,
-          656,
-          658
+          243,
+          792,
+          797,
+          799,
+          806,
+          808
         ],
         "samples": [
-          "229: const host = draft.object(program.hostSourceId)",
-          "642: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
-          "647: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
+          "243: const host = draft.object(program.hostSourceId)",
+          "792: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
+          "797: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24604,22 +24604,22 @@
       {
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
-          337,
-          503,
-          600,
-          609,
-          690,
-          707,
-          737,
-          759,
-          811,
-          926,
-          953
+          350,
+          516,
+          613,
+          622,
+          703,
+          720,
+          750,
+          772,
+          824,
+          939,
+          966
         ],
         "samples": [
-          "337: const object = draft.object(identity.objectId)",
-          "503: const object = draft.object(recipient.objectId)",
-          "600: const source = draft.object(original.objectId)"
+          "350: const object = draft.object(identity.objectId)",
+          "516: const object = draft.object(recipient.objectId)",
+          "613: const source = draft.object(original.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -26235,11 +26235,11 @@
           575,
           609,
           614,
-          644,
-          646,
-          652,
-          669,
-          674
+          645,
+          647,
+          653,
+          670,
+          675
         ],
         "samples": [
           "473: const object = draft.object(event.objectId)",
