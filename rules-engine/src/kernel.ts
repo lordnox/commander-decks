@@ -756,7 +756,7 @@ export const reduceOnce = (
   pluginApply(state, replaced, draft, catalog, options)
   if (!options.deferEndCheck) checkEnded(draft)
   const queued = [...draft.pending]
-  const wasReplaced = replaced !== event
+  const wasReplaced = replacement.pluginId !== undefined
   return {
     ok: true,
     state: freezeDraft(draft),
