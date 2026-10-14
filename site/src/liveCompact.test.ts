@@ -435,6 +435,21 @@ describe('live compact v2', () => {
     expect(expandLiveWire(wire, original.deckIndexes).headline).toBe(original.headline)
   })
 
+  test('a missing snapshot version is rejected before compaction', () => {
+    const { v: _v, ...rest } = snapshot()
+    expect(() => compactLiveWire(rest as LiveSnapshot)).toThrow(
+      'Unsupported live snapshot version: undefined',
+    )
+  })
+
+  test('v0 and other unsupported snapshot versions are rejected before compaction', () => {
+    for (const version of [0, 2, 3, 'nope'] as const) {
+      expect(() => compactLiveWire({ ...snapshot(), v: version } as LiveSnapshot)).toThrow(
+        `Unsupported live snapshot version: ${version}`,
+      )
+    }
+  })
+
   test('a missing wire version is rejected', () => {
     const { v: _v, ...rest } = compactLiveWire(snapshot())
     expect(() => expandLiveWire(rest as LiveWireV2)).toThrow(

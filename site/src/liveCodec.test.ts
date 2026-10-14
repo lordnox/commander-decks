@@ -209,8 +209,8 @@ const payloadFor = (body: object, prefix: string) => {
   return `${prefix}${toBase64Url(compressed)}`
 }
 
-const codecSnapshot = (): LiveSnapshot => ({
-  v: 1,
+const codecSnapshot = () => ({
+  v: 1 as const,
   headline: 'Test',
   turn: 1,
   phase: 'main1',
@@ -220,7 +220,7 @@ const codecSnapshot = (): LiveSnapshot => ({
   catalog: {},
 })
 
-const replayGame = (schema = 2): ReplayGame => ({
+const replayGame = (schema = 2) => ({
   schema,
   seed: 1,
   starting_life: 40,
@@ -264,6 +264,22 @@ describe('live payload versions', () => {
     const opened = await openLivePayload(payload, '/')
     expect(opened.headline).toBe('Test')
     expect(opened.v).toBe(1)
+  })
+
+  test('private and public encoders reject missing, v0, and unknown snapshot versions', async () => {
+    const { v: _v, ...missing } = codecSnapshot()
+    const unsupported = [
+      missing,
+      { ...codecSnapshot(), v: 0 },
+      { ...codecSnapshot(), v: 2 },
+      { ...codecSnapshot(), v: 3 },
+    ] as LiveSnapshot[]
+    for (const snapshot of unsupported) {
+      await expect(encodeLivePayload(snapshot))
+        .rejects.toThrow(`Unsupported live snapshot version: ${String(snapshot.v)}`)
+      await expect(encodePublicLivePayload(snapshot))
+        .rejects.toThrow(`Unsupported live snapshot version: ${String(snapshot.v)}`)
+    }
   })
 
   test('an expanded v1 snapshot payload is still accepted', async () => {
