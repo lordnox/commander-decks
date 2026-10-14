@@ -1206,14 +1206,16 @@ export const prepareResolutionStep = (draft: Draft) => {
     }
   }
   const object = draft.object(item.objectId)
+  const destination = object ? resolvedSpellDestination(item, object) : undefined
   const event = item.kind === 'spell'
-    && !item.copy
     && object?.zone === 'stack'
     && isSameObject(object, frame.source.ref)
+    && destination !== undefined
+    && (!item.copy || destination === 'battlefield')
     ? {
         type: 'move' as const,
         objectId: object.id,
-        to: resolvedSpellDestination(item, object),
+        to: destination,
       }
     : undefined
   return { kind: 'complete', event }
@@ -1233,7 +1235,7 @@ export const finishResolution = (draft: Draft) => {
     draft.stack = draft.stack.filter((item) => item.id !== frame.stackId)
     if (completedItem?.copy) {
       const object = draft.object(completedItem.objectId)
-      if (object) ceaseToExist(draft, object)
+      if (object?.spellCopy) ceaseToExist(draft, object)
     }
     draft.priority = frame.intendedPriority
     delete draft.resolution

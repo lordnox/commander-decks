@@ -1,3 +1,4 @@
+import { isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import type { GameObject, PlayerId, TargetRef, ZoneId } from '../types'
 
@@ -37,6 +38,13 @@ export const createSpellCopy = (
   draft.zoneOrder[controller][zone].push(copy.id)
   draft.zoneCounts[controller][zone] += 1
   return copy
+}
+
+/** CR 608.3f: a copy of a permanent spell becomes a token as it enters; it is not created. */
+export const enterResolvingCopyAsToken = (object: GameObject) => {
+  if (!object.spellCopy || !isPermanentType(object.types)) return
+  object.token = true
+  delete object.spellCopy
 }
 
 /** Removes a spell copy or token from the game entirely (CR 704.5d, CR 707.10a). */
