@@ -157,6 +157,7 @@ const describeHostEnvelope = <T extends HostEnvelopeCase>(
     afterAnswer: (ctx: T) => void
     stillPending?: (ctx: T) => void
     otherAnswer: (message: TopdeckMessage) => TopdeckMessage
+    expectFollowUp?: boolean
   },
 ) => {
   const chooserOf = (ctx: T) => ctx.chooser ?? 'p1'
@@ -273,7 +274,8 @@ const describeHostEnvelope = <T extends HostEnvelopeCase>(
       expect(applyKernelChoiceImpl(kernel, lobby, chooser, message)).toBe(true)
       spec.afterAnswer(ctx)
       const after = structuredClone(kernel.journal)
-      const followUp = lobby.topdeck && lobby.topdeck.requestId !== message.requestId
+      const followUp = Boolean(lobby.topdeck && lobby.topdeck.requestId !== message.requestId)
+      if (spec.expectFollowUp) expect(followUp).toBe(true)
       if (followUp) {
         expect(() => applyKernelChoiceImpl(kernel, lobby, chooser, message)).toThrow('stale')
         expect(() => applyKernelChoiceImpl(kernel, lobby, chooser, spec.otherAnswer(message))).toThrow('stale')
@@ -394,7 +396,7 @@ describeHostEnvelope(
     interaction: {
       phase: 'resolution',
       purpose: 'choice',
-      selection: { kind: 'selectCards', min: 1, max: 2 },
+      selection: { kind: 'selectCards', min: 1, max: 1 },
     },
     stillPending: ({ kernel, victimId }) => {
       expect(kernel.history.current().objects[victimId].zone).toBe('battlefield')
@@ -602,11 +604,28 @@ describeHostEnvelope(
       expect(kernel.history.current().objects[aId].counters['+1/+1']).toBe(1)
       expect(kernel.history.current().objects[bId].counters['+1/+1']).toBe(1)
     },
-    afterAnswer: ({ kernel, aId, bId }) => {
+    afterAnswer: ({ kernel, lobby, message, aId, bId }) => {
       expect(kernel.history.current().objects[aId].counters['+1/+1']).toBe(2)
       expect(kernel.history.current().objects[bId].counters['+1/+1']).toBe(2)
+      const followUp = lobby.topdeck
+      expect(followUp?.requestId).toBeDefined()
+      expect(followUp?.requestId).not.toBe(message.requestId)
+      expect(followUp?.seat).toBe('p1')
+      expect(followUp?.phase).toBe('resolution')
+      expect(followUp?.purpose).toBe('choice')
+      expect(followUp?.kind).toBe('choose')
+      expect(followUp!.interaction).toMatchObject({
+        requestId: followUp!.requestId,
+        revision: followUp!.revision,
+        chooser: 'p1',
+        cancellation: 'mustAnswer',
+        phase: 'resolution',
+        purpose: 'choice',
+        selection: { kind: 'selectCards', min: 0, max: 2 },
+      })
     },
     otherAnswer: (message) => retarget(message, 'Proliferate A'),
+    expectFollowUp: true,
   },
 )
 
@@ -665,7 +684,7 @@ describeHostEnvelope(
     interaction: {
       phase: 'resolution',
       purpose: 'choice',
-      selection: { kind: 'selectCards', min: 1, max: 2 },
+      selection: { kind: 'selectCards', min: 1, max: 1 },
     },
     stillPending: ({ kernel, drawnId, keptId }) => {
       expect(kernel.history.current().objects[drawnId].zone).toBe('hand')

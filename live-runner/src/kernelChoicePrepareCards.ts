@@ -292,6 +292,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       source: selection.source,
       cards: offer.names,
       destinations,
+      count,
       ...(requirements ? { requirements } : {}),
       kernel: {
         sourceId: selection.sourceId ?? '',
