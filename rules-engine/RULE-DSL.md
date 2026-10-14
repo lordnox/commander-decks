@@ -1,13 +1,16 @@
 # Configurable rule model and client/server contract
 
-Status: staged refactoring. Parts 00–10 of the
+Status: staged refactoring. Parts 00–15 of the
 [implementation plan](RULE-DSL-IMPLEMENTATION-PLAN.md) are on `main`: canonical
 schema, compiler, durable driver, typed choices, triggers, action primitives,
-announcement/costs, modes, copies, temporary effects, and resolution payments.
-Replacement, prevention, static layers, draw history, combined conformance, and
-`CARD_RULES` migration remain. Stored decks still use legacy registrations.
-Schemas and examples owned by later parts are **proposed DSL**, not a claim of
-runtime support. Examples marked **current API** retain their implemented shapes.
+announcement/costs, modes, copies, temporary effects, resolution payments,
+replacement, prevention, static layers, draw history, and combined conformance.
+Part 16 family 1 stamps a name-keyed `ruleDefinition` catalog (Duskdale Wurm,
+Wall of Omens, Night's Whisper) at object creation. Unmigrated stored-deck
+cards still use legacy `CARD_RULES`. Legacy adapters remain until Part 16
+consolidation. Remaining family migrations are **not** a claim that every
+Magic card is covered. Examples marked **current API** retain their implemented
+shapes.
 
 Start with the [vocabulary](#2-vocabulary) and [definition structure](#3-definition-structure).
 The [worked examples](#10-worked-examples) show card behavior; the
