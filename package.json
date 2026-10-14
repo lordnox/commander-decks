@@ -25,6 +25,7 @@
     "table:run": "bun live-runner/src/cli.ts",
     "table:run:bg": "bun live-runner/src/cli.ts",
     "test:live-runner": "bun test live-runner",
+    "test:live-runner:ci": "bun test live-runner --test-name-pattern '^(?!.*(loads generated card handlers from the current worktree|loads only handlers the table cards need|installs dynamically loaded handlers into an existing journal|does not install a handler twice when the journal already adds it))'",
     "test:rules": "bun test rules-engine",
     "dup:check": "jscpd",
     "lint": "oxlint rules-engine live-runner site/src shared .agents/skills",
