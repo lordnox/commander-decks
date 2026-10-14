@@ -2,19 +2,33 @@ import { describe, expect, test } from 'bun:test'
 import {
   ability,
   actions,
+  amount,
   card,
   chooseCards,
+  chooseModes,
   compileCardRuleDefinition,
+  copy,
   createDefinitionSnapshot,
+  damage,
+  destroy,
   discard,
   draw,
   gainLife,
   keyword,
+  mill,
   objects,
+  players,
   ref,
+  replaceWith,
+  replacement,
+  select,
   self,
   sequence,
   spell,
+  staticAbility,
+  target,
+  whenever,
+  wouldDraw,
 } from './v1'
 import { commanderRules } from '../../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../../journal'
@@ -23,7 +37,7 @@ import { createServerGame, projectForViewer } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
-import type { GameEvent, GameState, Plugin } from '../../types'
+import type { EventTrace, GameEvent, GameState, Plugin } from '../../types'
 import {
   answerDiscard,
   chainsDefinition,
@@ -103,6 +117,93 @@ const lifeSpellDefinition = () => createDefinitionSnapshot(compileCardRuleDefini
     instructions: [gainLife({ amount: 1, targets: ref('controller') })],
   }),
 ])))
+
+const PRIVATE_CONTINUATION = ['pendingTriggers', 'applicationProgram', 'candidateIds'] as const
+
+const roundTrip = (state: GameState) => JSON.parse(JSON.stringify(state)) as GameState
+
+const assertPublicOmitsPrivateContinuation = (
+  state: GameState,
+  traces: readonly EventTrace[] = [],
+) => {
+  const traceText = JSON.stringify(traces)
+  for (const viewer of ['p1', 'p2', null] as const) {
+    const replica = projectForViewer(state, viewer)
+    expect('pendingTriggers' in replica).toBe(false)
+    expect('eventProcessing' in replica).toBe(false)
+    expect('resolution' in replica).toBe(false)
+    const text = `${JSON.stringify(replica)}\n${traceText}`
+    for (const secret of PRIVATE_CONTINUATION) {
+      expect(text).not.toContain(secret)
+    }
+  }
+  expect(pendingSelectionFor(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+  expect(pendingOptionSelection(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+}
+
+const entryDestroyerDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(self.enters, {
+    decisions: {
+      targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
+    },
+    instructions: [destroy({ targets: target(0) })],
+  }),
+])))
+
+const optionalDrawToMill = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  staticAbility(replacement(
+    wouldDraw({ player: players({ relation: 'you' }) }),
+    replaceWith(mill({ count: amount(1), targets: ref('event.player') })),
+    { optional: true },
+  )),
+])))
+
+const drawTwoSpell = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  spell({
+    instructions: [draw({ count: 2, targets: ref('controller') })],
+  }),
+])))
+
+const commandPattern = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  spell({
+    decisions: { modes: chooseModes({ count: 2 }) },
+    modes: [
+      {
+        decisions: {
+          targets: [select({
+            filter: objects({
+              zone: 'battlefield',
+              subtypes: ['Elemental'],
+              controller: 'you',
+            }),
+            count: 1,
+          })],
+        },
+        instructions: [copy({
+          targets: target(0),
+          controller: ref('controller'),
+        })],
+      },
+      {
+        decisions: {
+          targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+        },
+        instructions: [damage({
+          amount: 2,
+          source: ref('source'),
+          targets: objects({
+            zone: 'battlefield',
+            type: 'Creature',
+            controller: target(0),
+          }),
+        })],
+      },
+    ],
+  }),
+])))
+
+const elementalCopies = (state: GameState) =>
+  Object.values(state.objects).filter((object) => object.token && object.name === 'Command Elemental')
 
 describe('Rule DSL Part 15 persistence (new-format evidence)', () => {
   test('journal restore of an untargeted ruleDefinition spell matches live zones, life, and stack', () => {
@@ -300,5 +401,183 @@ describe('Rule DSL Part 15 persistence (new-format evidence)', () => {
     expect(named(finished, 'Drawn card').zone).toBe('graveyard')
     expect(finished.resolution).toBeUndefined()
     expect(finished.stack).toHaveLength(0)
+  })
+
+  test('JSON and journal restore of a scenario B ETB selectCards resume the same destroy target', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Entry destroyer', {
+          types: ['Creature'],
+          manaCost: '{0}',
+          ruleDefinition: entryDestroyerDefinition(),
+        })],
+      },
+      battlefield: {
+        p2: [cardTemplate('Entry victim', { types: ['Creature'], power: 2, toughness: 2 })],
+      },
+    }, { random: () => 0 })
+    const creature = named(server.state, 'Entry destroyer')
+    const victim = named(server.state, 'Entry victim')
+    const journal = createJournal(server.state)
+    const cast = applyAndRecord(server, server.state, journal, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: creature.id,
+    })
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    const entered = ok(resolved)
+    const pausedJournal = recordAccepted(cast.journal, { type: 'resolveTop' })
+    expect(entered.objects[creature.id].zone).toBe('battlefield')
+    expect(entered.stack).toHaveLength(0)
+    const targetChoice = pendingSelectionFor(entered, 'p1')!
+    expect(targetChoice.canonicalTrigger).toBeDefined()
+    expect(targetChoice.candidates).toContain(victim.id)
+    assertPublicOmitsPrivateContinuation(entered, resolved.trace)
+
+    const restoredJson = roundTrip(entered)
+    const jsonChoice = pendingSelectionFor(restoredJson, 'p1')!
+    expect(jsonChoice.id).toBe(targetChoice.id)
+    expect(jsonChoice.candidates).toEqual(targetChoice.candidates)
+
+    const restoredJournal = restoreJournal(pausedJournal, server.rules).current()
+    const journalChoice = pendingSelectionFor(restoredJournal, 'p1')!
+    expect(journalChoice.id).toBe(targetChoice.id)
+    expect(journalChoice.candidates).toEqual(targetChoice.candidates)
+
+    const answer: GameEvent = {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: jsonChoice.id,
+      kind: 'choose',
+      count: 1,
+      objectIds: [victim.id],
+    }
+    let live = ok(server.rules(entered, answer))
+    let fromJson = ok(server.rules(restoredJson, answer))
+    let fromJournal = ok(server.rules(restoredJournal, { ...answer, selectionId: journalChoice.id }))
+    live = ok(server.rules(live, { type: 'resolveTop' }))
+    fromJson = ok(server.rules(fromJson, { type: 'resolveTop' }))
+    fromJournal = ok(server.rules(fromJournal, { type: 'resolveTop' }))
+    expect(publicBoard(fromJson)).toEqual(publicBoard(live))
+    expect(publicBoard(fromJournal)).toEqual(publicBoard(live))
+    expect(named(fromJson, 'Entry victim').zone).toBe('graveyard')
+    expect(named(fromJournal, 'Entry victim').zone).toBe('graveyard')
+  })
+
+  test('JSON and journal restore of a scenario G mill/draw frame continue the same mid-spell draws', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [cardTemplate('Draw-to-mill', { types: ['Enchantment'], ruleDefinition: optionalDrawToMill() })],
+      },
+      hands: {
+        p1: [cardTemplate('Draw two spell', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: drawTwoSpell() })],
+      },
+      libraries: { p1: [cardTemplate('Milled card'), cardTemplate('Drawn card')] },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'Draw two spell')
+    const journal = createJournal(server.state)
+    const cast = applyAndRecord(server, server.state, journal, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spellObject.id,
+    })
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    const paused = ok(resolved)
+    const pausedJournal = recordAccepted(cast.journal, { type: 'resolveTop' })
+    expect(paused.stack).toHaveLength(1)
+    expect(paused.priority).toBeNull()
+    expect(paused.eventProcessing).toBeDefined()
+    expect(pendingOptionSelection(paused, 'p1')).toBeDefined()
+    expect(paused.pendingTriggers ?? []).toHaveLength(0)
+    assertPublicOmitsPrivateContinuation(paused, resolved.trace)
+
+    const finishDrawTwo = (state: GameState) => {
+      let current = pickReplacement(server, state, 'Draw-to-mill')
+      expect(named(current, 'Milled card').zone).toBe('graveyard')
+      current = pickReplacement(server, current, 'Decline')
+      if (current.objects[spellObject.id].zone === 'stack') {
+        current = ok(server.rules(current, { type: 'resolveTop' }))
+      }
+      return current
+    }
+
+    const live = finishDrawTwo(paused)
+    const fromJson = finishDrawTwo(roundTrip(paused))
+    const fromJournal = finishDrawTwo(restoreJournal(pausedJournal, server.rules).current())
+    expect(publicBoard(fromJson)).toEqual(publicBoard(live))
+    expect(publicBoard(fromJournal)).toEqual(publicBoard(live))
+    expect(named(fromJson, 'Milled card').zone).toBe('graveyard')
+    expect(named(fromJson, 'Drawn card').zone).toBe('hand')
+    expect(named(fromJournal, 'Drawn card').zone).toBe('hand')
+    expect(fromJson.stack).toHaveLength(0)
+  })
+
+  test('journal restore of scenario N keeps the copied Elemental and its marked damage', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Ashling command', {
+          types: ['Sorcery'],
+          manaCost: '{0}',
+          ruleDefinition: commandPattern(),
+        })],
+      },
+      battlefield: {
+        p1: [
+          cardTemplate('Command Elemental', {
+            types: ['Creature'],
+            subtypes: ['Elemental'],
+            power: 3,
+            toughness: 3,
+          }),
+          cardTemplate('Command Bear', { types: ['Creature'], power: 2, toughness: 4 }),
+        ],
+        p2: [
+          cardTemplate('Opposing Elemental', {
+            types: ['Creature'],
+            subtypes: ['Elemental'],
+            power: 3,
+            toughness: 3,
+          }),
+        ],
+      },
+    }, { random: () => 0 })
+    const spellObject = named(server.state, 'Ashling command')
+    const elemental = named(server.state, 'Command Elemental')
+    const journal = createJournal(server.state)
+    const cast = applyAndRecord(server, server.state, journal, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spellObject.id,
+      modeIndices: [0, 1],
+      targetClauses: [[{ kind: 'object', objectId: elemental.id }], [{ kind: 'player', player: 'p1' }]],
+    })
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    const finished = ok(resolved)
+    const finishedJournal = recordAccepted(cast.journal, { type: 'resolveTop' })
+    const liveCopies = elementalCopies(finished)
+    expect(liveCopies).toHaveLength(1)
+    expect(liveCopies[0].damageMarked).toBe(2)
+    expect(finished.objects[elemental.id].damageMarked).toBe(2)
+    assertPublicOmitsPrivateContinuation(finished, resolved.trace)
+
+    const fromJson = roundTrip(finished)
+    const jsonCopies = elementalCopies(fromJson)
+    expect(jsonCopies).toHaveLength(1)
+    expect(jsonCopies[0].token).toBe(true)
+    expect(jsonCopies[0].damageMarked).toBe(2)
+    expect(fromJson.objects[elemental.id].damageMarked).toBe(2)
+    expect(named(fromJson, 'Command Bear').damageMarked).toBe(2)
+    expect(named(fromJson, 'Opposing Elemental').damageMarked ?? 0).toBe(0)
+
+    const fromJournal = restoreJournal(finishedJournal, server.rules).current()
+    const journalCopies = elementalCopies(fromJournal)
+    expect(publicBoard(fromJournal)).toEqual(publicBoard(finished))
+    expect(journalCopies).toHaveLength(1)
+    expect(journalCopies[0].token).toBe(true)
+    expect(journalCopies[0].damageMarked).toBe(2)
+    expect(fromJournal.objects[elemental.id].damageMarked).toBe(2)
   })
 })
