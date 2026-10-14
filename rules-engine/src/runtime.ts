@@ -40,6 +40,9 @@ const stripAuthoritativeExecution = (value: unknown): void => {
   const record = value as Record<string, unknown>
   delete record.execution
   delete record.triggerExecution
+  delete record.pendingTriggers
+  delete record.applicationProgram
+  delete record.candidateIds
   const payload = record.payload
   if (payload && typeof payload === 'object' && !Array.isArray(payload)) {
     const wardPayload = payload as Record<string, unknown>
