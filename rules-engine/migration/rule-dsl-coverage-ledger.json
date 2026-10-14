@@ -21643,7 +21643,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 185,
+        "matches": 187,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3451 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:114 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
@@ -21667,8 +21667,9 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
+        "matches": 2,
         "samples": [
+          "live-runner/src/kernelHost.part15.test.ts:144 — test('host publishes an authorized replacement selectOption request', () => {",
           "live-runner/src/kernelHost.test.ts:453 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
@@ -22599,7 +22600,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1231"
+        "rules-engine/src/types.ts:1232"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -23795,14 +23796,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          245,
-          1184,
-          1216
+          267,
+          1206,
+          1233
         ],
         "samples": [
-          "245: const liveSource = draft.object(source.ref.objectId)",
-          "1184: const object = draft.object(item.objectId)",
-          "1216: const object = draft.object(completedItem.objectId)"
+          "267: const liveSource = draft.object(source.ref.objectId)",
+          "1206: const object = draft.object(item.objectId)",
+          "1233: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24401,17 +24402,17 @@
       {
         "path": "rules-engine/src/replacement/processor.ts",
         "lines": [
-          243,
-          792,
-          797,
-          799,
-          806,
-          808
+          245,
+          858,
+          863,
+          865,
+          872,
+          874
         ],
         "samples": [
-          "243: const host = draft.object(program.hostSourceId)",
-          "792: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
-          "797: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
+          "245: const host = draft.object(program.hostSourceId)",
+          "858: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
+          "863: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24993,15 +24994,15 @@
       {
         "path": "rules-engine/src/cardPlugins/alternateCosts.ts",
         "lines": [
-          180,
-          187,
-          195,
-          198
+          190,
+          197,
+          205,
+          208
         ],
         "samples": [
-          "180: const object = draft.object(event.objectId)",
-          "187: draft.enqueue({",
-          "195: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
+          "190: const object = draft.object(event.objectId)",
+          "197: draft.enqueue({",
+          "205: draft.enqueue({ type: 'discard', seat: event.seat, objectId })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
