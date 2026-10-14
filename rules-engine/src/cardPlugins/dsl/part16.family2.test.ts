@@ -117,7 +117,17 @@ describe('Rule DSL Part 16 family 2 catalog', () => {
     expect(afterDeath.objects[thragtusk.id].zone).toBe('graveyard')
   })
 
-  test('Fate Unraveler drains the opponent who draws and ignores the controller drawing', () => {
+  test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {
+    const snapshot = cardRuleDefinitionSnapshotFor('Fate Unraveler')!
+    const triggered = snapshot.definition.abilities[0]
+    expect(triggered).toMatchObject({
+      kind: 'triggered',
+      instructions: [{
+        kind: 'damage',
+        source: { kind: 'contextRef', name: 'source' },
+        targets: { kind: 'contextRef', name: 'triggering.player' },
+      }],
+    })
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: {
@@ -129,7 +139,7 @@ describe('Rule DSL Part 16 family 2 catalog', () => {
       },
     }, { random: () => 0 })
     const unraveler = named(server.state, 'Fate Unraveler')
-    expect(unraveler.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Fate Unraveler'))
+    expect(unraveler.ruleDefinition).toEqual(snapshot)
     expect(unraveler.effects).toEqual([])
     expect(effectsFor('Fate Unraveler')).toEqual([])
 

@@ -10,7 +10,6 @@ import {
   draws,
   gainLife,
   keyword,
-  loseLife,
   players,
   ref,
   self,
@@ -71,7 +70,11 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
   ]),
   'Fate Unraveler': snapshotFor([
     whenever(draws({ player: players({ relation: 'opponent' }) }), {
-      instructions: [loseLife({ amount: 1, targets: ref('triggering.player') })],
+      instructions: [damage({
+        amount: 1,
+        targets: ref('triggering.player'),
+        source: ref('source'),
+      })],
     }),
   ]),
 })
