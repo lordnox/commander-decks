@@ -19,6 +19,7 @@ import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSe
 import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
+  DecisionsSpec,
   EffectDuration,
   Instruction,
   PlayerRecipient,
@@ -66,10 +67,11 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
 const PERMANENT_RESOLUTION_INDEX = -1
 const PERMANENT_RESOLUTION_PATH = '$.permanentResolution'
 
+const emptyPermanentDecisions: DecisionsSpec = { targets: [] }
 const emptyPermanentSpell = () => ({
   kind: 'spell' as const,
   costs: [] as const,
-  decisions: { targets: [] as const },
+  decisions: emptyPermanentDecisions,
   instructions: [] as const,
 })
 
