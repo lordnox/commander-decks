@@ -156,6 +156,20 @@ const game = (schema = 2, osgirTapped = true): Json => ({
   ],
 })
 
+describe('replay schema versions', () => {
+  test('the current schema is accepted', () => {
+    expect(publicGame(game()).schema).toBe(2)
+  })
+
+  test('missing, v0, and unknown schemas are rejected', () => {
+    const missing = game()
+    delete missing.schema
+    expect(() => publicGame(missing)).toThrow('Unsupported replay schema version: undefined')
+    expect(() => publicGame(game(0))).toThrow('Unsupported replay schema version: 0')
+    expect(() => publicGame(game(3))).toThrow('Unsupported replay schema version: 3')
+  })
+})
+
 describe('combat records', () => {
   test('recorded combat passes', () => {
     expect(publicGame(game()).schema).toBe(2)

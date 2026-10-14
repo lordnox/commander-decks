@@ -1,4 +1,9 @@
 import { deflateSync } from 'node:zlib'
+import {
+  LIVE_WIRE_PREFIX,
+  LIVE_WIRE_VERSION,
+  assertLiveWireVersion,
+} from '../../site/src/liveCompact'
 import { SEAT_IDS, type SeatId } from './protocol'
 import type { LobbyState } from './lobby'
 
@@ -32,9 +37,10 @@ const emptyPackedSeat = () => [
 const toBase64Url = (bytes: Buffer) =>
   bytes.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
 
-export const encodeWire = (wire: object) => {
+export const encodeWire = (wire: { v?: unknown }) => {
+  assertLiveWireVersion(wire)
   const compressed = deflateSync(Buffer.from(JSON.stringify(wire)))
-  return `v2.${toBase64Url(compressed)}`
+  return `${LIVE_WIRE_PREFIX}${toBase64Url(compressed)}`
 }
 
 export const lobbyWire = (state: LobbyState, you?: SeatId) => {
@@ -42,7 +48,7 @@ export const lobbyWire = (state: LobbyState, you?: SeatId) => {
     (seat, index) => state.occupants[seat]?.name || `Seat ${index + 1}`,
   )
   const wire: Record<string, unknown> = {
-    v: 2,
+    v: LIVE_WIRE_VERSION,
     h: names.join(' / ') || 'Live table',
     w: state.waiting,
     k: state.talk,

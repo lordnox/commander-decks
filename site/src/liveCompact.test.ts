@@ -3,9 +3,11 @@ import {
   compactLiveWire,
   expandLiveWire,
   fetchDeckIndex,
+  LIVE_WIRE_VERSION,
   loadDeckIndexes,
   STRIDE,
   type DeckIndex,
+  type LiveWireV2,
 } from './liveCompact'
 import type { LiveSnapshot } from './liveCodec'
 
@@ -424,5 +426,28 @@ describe('live compact v2', () => {
     expect(
       expandLiveWire(wire, original.deckIndexes).alwaysStopOnPriority,
     ).toBe(true)
+  })
+
+  test('the current compact wire version expands', () => {
+    const original = snapshot()
+    const wire = compactLiveWire(original)
+    expect(wire.v).toBe(LIVE_WIRE_VERSION)
+    expect(expandLiveWire(wire, original.deckIndexes).headline).toBe(original.headline)
+  })
+
+  test('a missing wire version is rejected', () => {
+    const { v: _v, ...rest } = compactLiveWire(snapshot())
+    expect(() => expandLiveWire(rest as LiveWireV2)).toThrow(
+      'Unsupported live wire version: undefined',
+    )
+  })
+
+  test('v0 and other unsupported wire versions are rejected', () => {
+    const wire = compactLiveWire(snapshot())
+    for (const version of [0, 1, 3, 'nope'] as const) {
+      expect(() => expandLiveWire({ ...wire, v: version } as LiveWireV2)).toThrow(
+        `Unsupported live wire version: ${version}`,
+      )
+    }
   })
 })

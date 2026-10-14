@@ -15,12 +15,18 @@ import type {
 import { compactLiveSnapshot } from './scryfallCache'
 import {
   DEFAULT_WAITING,
+  LIVE_SNAPSHOT_PREFIX,
+  LIVE_SNAPSHOT_VERSION,
+  LIVE_WIRE_PREFIX,
+  LIVE_WIRE_VERSION,
   compactLiveWire,
   expandLiveWire,
   loadDeckIndexes,
+  unsupportedLiveSnapshotVersion,
   type DeckIndex,
   type LiveWireV2,
 } from './liveCompact'
+import { assertReplaySchema } from './replaySchema'
 import { DEFAULT_CONDUIT_ORIGIN, conduitOrigin } from './liveConduit'
 
 export type LiveSeat = {
@@ -82,7 +88,7 @@ export type LiveTopdeck = LiveInteractionMetadata & {
 }
 
 export type LiveSnapshot = {
-  v: 1
+  v: typeof LIVE_SNAPSHOT_VERSION
   you?: string | null
   headline: string
   waiting?: string
@@ -194,7 +200,7 @@ export const readLivePayload = (location: Pick<Location, 'search' | 'hash'> = wi
   const hash = location.hash.replace(/^#/, '')
   if (!hash) return null
   if (hash.startsWith('s=')) return decodeURIComponent(hash.slice(2))
-  if (hash.startsWith('v1.') || hash.startsWith('v2.')) return hash
+  if (hash.startsWith(LIVE_SNAPSHOT_PREFIX) || hash.startsWith(LIVE_WIRE_PREFIX)) return hash
   return null
 }
 
@@ -312,6 +318,7 @@ export const replayToLiveSnapshot = (
     waiting?: string
   } = {},
 ) => {
+  assertReplaySchema(replay.schema)
   if (!Array.isArray(replay.events) || replay.events.length === 0) {
     throw new Error('This replay has no events')
   }
@@ -360,7 +367,7 @@ export const replayToLiveSnapshot = (
     combat?: ReplayCombat
   }
   const snapshot: LiveSnapshot = {
-    v: 1,
+    v: LIVE_SNAPSHOT_VERSION,
     you: options.you ?? null,
     headline: replay.headline,
     waiting: options.waiting ?? DEFAULT_WAITING,
@@ -388,7 +395,11 @@ export const isLivePath = (pathname = window.location.pathname) => {
 }
 
 export const decodeLivePayload = async (payload: string) => {
-  const prefix = payload.startsWith('v2.') ? 'v2.' : payload.startsWith('v1.') ? 'v1.' : null
+  const prefix = payload.startsWith(LIVE_WIRE_PREFIX)
+    ? LIVE_WIRE_PREFIX
+    : payload.startsWith(LIVE_SNAPSHOT_PREFIX)
+      ? LIVE_SNAPSHOT_PREFIX
+      : null
   if (!prefix) {
     throw new Error('Unknown live snapshot version')
   }
@@ -397,31 +408,50 @@ export const decodeLivePayload = async (payload: string) => {
 
   const inflated = await inflate(base64UrlToBytes(encoded))
   const json = new TextDecoder().decode(inflated)
-  const snapshot = JSON.parse(json) as LiveSnapshot | LiveWireV2
-  if (snapshot.v !== 1 && snapshot.v !== 2) {
-    throw new Error('Unsupported live snapshot version')
+  const parsed = JSON.parse(json) as { v?: unknown }
+  switch (parsed.v) {
+    case LIVE_SNAPSHOT_VERSION: {
+      if (prefix !== LIVE_SNAPSHOT_PREFIX) {
+        throw new Error(unsupportedLiveSnapshotVersion(parsed.v))
+      }
+      const snapshot = parsed as LiveSnapshot
+      if (!snapshot.headline || !snapshot.catalog) {
+        throw new Error('Live snapshot is missing required fields')
+      }
+      return snapshot
+    }
+    case LIVE_WIRE_VERSION: {
+      if (prefix !== LIVE_WIRE_PREFIX) {
+        throw new Error(unsupportedLiveSnapshotVersion(parsed.v))
+      }
+      const wire = parsed as LiveWireV2
+      if (!wire.h) {
+        throw new Error('Live snapshot is missing required fields')
+      }
+      return wire
+    }
+    default:
+      throw new Error(unsupportedLiveSnapshotVersion(parsed.v))
   }
-  if (snapshot.v === 1 && (!snapshot.headline || !snapshot.catalog)) {
-    throw new Error('Live snapshot is missing required fields')
-  }
-  if (snapshot.v === 2 && !snapshot.h) {
-    throw new Error('Live snapshot is missing required fields')
-  }
-  return snapshot
 }
 
 export const openLivePayload = async (payload: string, base: string) => {
   const decoded = await decodeLivePayload(payload)
-  if (decoded.v === 1) return decoded
-  const indexes = await loadDeckIndexes(decoded.d ?? [], base)
-  return expandLiveWire(decoded, indexes)
+  switch (decoded.v) {
+    case LIVE_SNAPSHOT_VERSION:
+      return decoded
+    case LIVE_WIRE_VERSION: {
+      const indexes = await loadDeckIndexes(decoded.d ?? [], base)
+      return expandLiveWire(decoded, indexes)
+    }
+  }
 }
 
 export const encodeLivePayload = async (snapshot: LiveSnapshot) => {
   const wire = compactLiveWire(compactLiveSnapshot(snapshot))
   const json = JSON.stringify(wire)
   const compressed = await deflate(new TextEncoder().encode(json))
-  return `v2.${bytesToBase64Url(compressed)}`
+  return `${LIVE_WIRE_PREFIX}${bytesToBase64Url(compressed)}`
 }
 
 /** Public encode: drop every hand array and clear `you`. Keep hand_count. */
