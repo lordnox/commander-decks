@@ -1,44 +1,42 @@
 # Rule DSL implementation plan
 
-Status: parts 00–10 are merged to `main`; remaining work is parts 11–16.
+Status: parts 00–15 are merged to `main`; remaining work is Part 16 (families + consolidation).
 This document does not change runtime behavior.
 
 Source contract: [RULE-DSL.md](RULE-DSL.md), especially sections 11–14.
 Baseline: `origin/main` at `c82cb7a363b1503593105323d9dd1a8dd51cfa17`.
-Prepared: 2026-10-08. Status refreshed: 2026-10-12.
+Prepared: 2026-10-08. Status refreshed: 2026-10-14.
 
 ## Current state on main
 
-Parts **00–10** are on `main`. Canonical schema, compiler, durable driver,
+Parts **00–15** are on `main`. Canonical schema, compiler, durable driver,
 typed choices, checkpoint triggers, action primitives, announcement/costs,
 scoped modes, spell copies, temporary effects, optional resolution payments,
-and delayed/granted programs execute in tests through `ruleDefinition`.
+delayed/granted programs, replacement, prevention, static layers, draw history,
+and the combined conformance/persistence gate execute in tests through
+`ruleDefinition`.
 
-Stored decks still register through legacy `CARD_RULES`. Part 16 family 1 is in
-progress: a name-keyed catalog stamps canonical `ruleDefinition` at object
-creation for a small keyword/player-effect set. Unmigrated names still use
-`CARD_RULES`. Legacy adapters in
-`src/cardPlugins/dsl/builders/legacy.ts` remain until Part 16 consolidation.
+Parts **11–15** are on `main`. Part 16 family 1 is in progress: a name-keyed
+catalog stamps canonical `ruleDefinition` at object creation for Duskdale Wurm,
+Wall of Omens, and Night's Whisper. Unmigrated names still use `CARD_RULES`.
+Legacy adapters in `src/cardPlugins/dsl/builders/legacy.ts` remain until
+Part 16 consolidation.
 
 The generated card-handler reload fixtures in `live-runner` remain a known
 non-DSL failure; see [KNOWN-TEST-FAILURES.md](migration/KNOWN-TEST-FAILURES.md).
 
-### Next parallel tracks
+### Remaining work
 
-These may start from this plan without waiting on each other. They rebase
-onto one another if they both edit schema, compiler, or kernel files.
+Part **16** family migrations continue. Consolidation (remove `legacy.ts` and
+competing executors) still waits.
 
 | Track | Scope | Must not do |
 | --- | --- | --- |
-| **Part 15 partial tests** | End-to-end evidence for A–E, F/H/J/K/L/R, and M–P (I skipped until entry-choice DSL exists) | Engine/schema changes; do not close Part 15 |
+| **Part 16 families** | Incremental mechanic-family migrations onto the name-keyed catalog | Remove `legacy.ts`; mark Part 16 complete |
+| **Part 16 consolidation** | After equivalent coverage: remove legacy adapters and competing executors | Start while remaining families are still unmigrated |
 
-Do not start **15 close** (needs 12–14),
-or **16 consolidation** (needs 15). Incremental Part 16 family migrations of
-already-owned mechanics may wait until 11/13 land so mixed-game tests stay
-reviewable.
-
-Part notes 05–10 were written on feature branches; their “in progress” /
-“review pending” lines are stale. The Status lines below are authoritative.
+Part notes 11–14 may still say “ready for review” on feature branches; the
+Status lines below are authoritative.
 
 Implement the DSL as a staged refactor of the existing authoritative engine, host,
 and client. Preserve supported mechanics, move decision handling to server-owned
@@ -441,8 +439,9 @@ priority. Effects and delayed programs retain independent source/version context
 
 **Dependencies:** 05, 07, 08, 10.
 
-**Status:** implementation complete; ready for review. See
-[migration/RULE-DSL-PART-11.md](migration/RULE-DSL-PART-11.md).
+**Status:** implementation complete; reviewed and accepted. See
+[migration/RULE-DSL-PART-11.md](migration/RULE-DSL-PART-11.md) and
+[PR #353](https://github.com/lordnox/commander-decks/pull/353).
 
 Replace the kernel's timestamp-first loop with pure applicability discovery and a
 persisted event frame. Implement CR 616 precedence categories, appropriate chooser,
@@ -466,7 +465,9 @@ Reconnect during a replacement resumes the same event and program.
 
 **Dependencies:** 11.
 
-**Status:** not started. Blocked on Part 11.
+**Status:** implementation complete; reviewed and accepted. See
+[migration/RULE-DSL-PART-12.md](migration/RULE-DSL-PART-12.md) and
+[PR #356](https://github.com/lordnox/commander-decks/pull/356).
 
 Implement prevention instances with remaining capacity, lifetime/deadline, source
 identity, allocation for simultaneous sources, and typed additional effects.
@@ -482,8 +483,10 @@ Life loss remains outside damage prevention.
 
 **Dependencies:** 02, 07, 08, 10; static replacement integration uses 11.
 
-**Status:** implemented (static replacement/prevention integrated with Part 11/12).
-See [Part 13 implementation note](migration/RULE-DSL-PART-13.md).
+**Status:** implementation complete; reviewed and accepted. See
+[Part 13 implementation note](migration/RULE-DSL-PART-13.md),
+[PR #352](https://github.com/lordnox/commander-decks/pull/352), and
+[PR #360](https://github.com/lordnox/commander-decks/pull/360).
 
 Compile static abilities into runtime modifier instances with explicit active
 zones and source incarnations. Audit/reuse continuous effects, keyword lookup,
@@ -505,8 +508,10 @@ temporary-effect lifetimes have observable regression tests.
 
 **Dependencies:** 06, 07, 11, 13.
 
-**Status:** implementation complete; ready for review. See
-[migration/RULE-DSL-PART-14.md](migration/RULE-DSL-PART-14.md).
+**Status:** implementation complete; reviewed and accepted. See
+[migration/RULE-DSL-PART-14.md](migration/RULE-DSL-PART-14.md),
+[PR #362](https://github.com/lordnox/commander-decks/pull/362), and
+[PR #364](https://github.com/lordnox/commander-decks/pull/364).
 
 Add step-instance identity/history for actual draws, including extra draw steps
 and draws during costs. Implement `wouldDraw` and `firstDrawInOwnDrawStep`.
@@ -526,9 +531,13 @@ and reconnect during mandatory discard. No card-specific Chains executor exists.
 
 **Dependencies:** 09, 10, 12, 13, 14.
 
-**Status:** not started as a close-out. Driver tests now cover A–E, F/H/J/K/L/R,
-G and Q (on the Part 14 stack), and M–P (scenario I skipped pending entry-choice
-authoring). Do not mark Part 15 complete until persistence/browser fixtures pass.
+**Status:** complete / merged to `main`. Combined gate landed in
+[PR #351](https://github.com/lordnox/commander-decks/pull/351),
+[PR #361](https://github.com/lordnox/commander-decks/pull/361)–[PR #368](https://github.com/lordnox/commander-decks/pull/368),
+[PR #371](https://github.com/lordnox/commander-decks/pull/371), and
+[PR #372](https://github.com/lordnox/commander-decks/pull/372). This is not a
+claim that every Magic card is covered. See
+[Part 15 implementation note](migration/RULE-DSL-PART-15.md).
 
 Run the scenarios in the matrix below through authoritative driver, host adapters,
 browser offers, and headless answers. Verify outcomes and timing from observable
@@ -550,7 +559,9 @@ All newly advertised DSL capabilities have end-to-end evidence.
 **Dependencies:** 00 ledger; migrate each family after its owning parts pass.
 Final consolidation requires 15.
 
-**Status:** family 1 (simple keywords / player effects) in progress. Do not remove legacy adapters until Part 15 closes. Final consolidation is not this slice.
+**Status:** family 1 (simple keywords / player effects) in progress. Family
+migrations continue. Consolidation still waits; do not remove legacy adapters.
+See [Part 16 implementation note](migration/RULE-DSL-PART-16.md).
 
 Migrate in mechanic families: simple keywords/player effects; ordinary spells and
 triggers; targeting/activation/costs; modes/copies; hidden-zone choices; replacements
@@ -587,13 +598,12 @@ suites and new-format persistence gate pass after the old paths are removed.
 `10`. Those parts are on `main`.
 
 `10 → 11 → 12` supplies replacement/prevention semantics.
-`13` can develop alongside `11`, with its replacement integration waiting for
-`11`; `14` needs both. `15` joins the conformance work; `16` migrates incrementally
+`13` developed alongside `11`; `14` needed both. `15` is the combined
+conformance and persistence gate and is on `main`. `16` migrates incrementally
 by family and removes old paths only after that gate.
 
-Parts **11–14** are implemented on feature branches merging toward `main`.
-Part **15** partial tests and **16** migration remain open. See
-[Current state on main](#current-state-on-main).
+Parts **00–15** are on `main`. Remaining work is Part **16** (families +
+consolidation). See [Current state on main](#current-state-on-main).
 
 | DSL milestone | Plan parts | Delivery gate |
 | --- | --- | --- |
@@ -646,6 +656,7 @@ The existing repository commands are:
 ```bash
 bun run test:rules
 bun run test:live-runner
+bun run test:live-runner:ci
 bun run test:site
 bun run typecheck
 bun run check:imports
@@ -654,8 +665,10 @@ bun run lint --quiet
 
 `test:site` currently lists a limited set of files. Run new and existing browser
 component tests explicitly when their paths change, and include new conformance
-tests in the relevant scripts. Add executable rules/host regression commands to CI
-before enabling the new default path; current CI covers types, imports, and lint.
+tests in the relevant scripts. CI runs `test:rules`, `test:live-runner:ci`, and
+`test:site` alongside types, imports, and lint
+([PR #372](https://github.com/lordnox/commander-decks/pull/372)).
+`test:live-runner:ci` excludes the documented generated-handler fixtures.
 Do not use a whole-deck game as the only proof of a primitive's rules semantics.
 
 Completion requires the entire DSL milestone mapping, all representative cases,
