@@ -13,8 +13,28 @@ export type DeckIndex = {
   cards: DeckCard[]
 }
 
+export const LIVE_SNAPSHOT_VERSION = 1 as const
+export const LIVE_WIRE_VERSION = 2 as const
+export const LIVE_SNAPSHOT_PREFIX = `v${LIVE_SNAPSHOT_VERSION}.` as const
+export const LIVE_WIRE_PREFIX = `v${LIVE_WIRE_VERSION}.` as const
+
+export const unsupportedLiveWireVersion = (version: unknown) =>
+  `Unsupported live wire version: ${String(version)}`
+
+export const unsupportedLiveSnapshotVersion = (version: unknown) =>
+  `Unsupported live snapshot version: ${String(version)}`
+
+export const assertLiveWireVersion = (wire: { v?: unknown }) => {
+  switch (wire.v) {
+    case LIVE_WIRE_VERSION:
+      return
+    default:
+      throw new Error(unsupportedLiveWireVersion(wire.v))
+  }
+}
+
 export type LiveWireV2 = {
-  v: 2
+  v: typeof LIVE_WIRE_VERSION
   y?: number
   h: string
   w?: string
@@ -371,7 +391,7 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
 
   const you = snapshot.you ? SEAT_IDS.indexOf(snapshot.you as (typeof SEAT_IDS)[number]) : -1
   const wire: LiveWireV2 = {
-    v: 2,
+    v: LIVE_WIRE_VERSION,
     h: snapshot.headline,
     t: snapshot.turn,
     p: Math.max(0, PHASES.indexOf(snapshot.phase as (typeof PHASES)[number])),
@@ -565,6 +585,7 @@ export const expandLiveWire = (
   wire: LiveWireV2,
   indexes: Record<string, DeckIndex> = {},
 ): LiveSnapshot => {
+  assertLiveWireVersion(wire)
   const slugs = [...(wire.d ?? ['', '', '', ''])]
   while (slugs.length < 4) slugs.push('')
   const lists = slugs.slice(0, 4).map((slug) => indexes[slug]?.cards ?? [])
@@ -612,7 +633,7 @@ export const expandLiveWire = (
   })
 
   const snapshot: LiveSnapshot = {
-    v: 1,
+    v: LIVE_SNAPSHOT_VERSION,
     you: typeof wire.y === 'number' ? SEAT_IDS[wire.y] : null,
     headline: wire.h,
     waiting: wire.w || DEFAULT_WAITING,

@@ -8,6 +8,7 @@ import type {
   CardFace,
   ReplayGame,
 } from '../../../../site/src/replayTypes'
+import { assertReplaySchema } from '../../../../site/src/replaySchema'
 
 type Json = Record<string, any>
 
@@ -24,7 +25,6 @@ const sidecarSuffixes = [
 ]
 const ptPattern = /^[^/\s]+\/[^/\s]+$/
 const turnSummaryPattern = /^\s*Turn\s+(\d+)\b/i
-const schemas = new Set([1, 2])
 const combatSteps = new Set([
   'attackers',
   'blockers',
@@ -1051,9 +1051,7 @@ const validateTopLevelShape = (
   catalog: Record<string, CardDetails>
 } => {
   if (!isJson(value)) throw new Error('replay JSON must be an object')
-  if (!schemas.has(value.schema)) {
-    throw new Error('replay JSON must set schema to 1 or 2')
-  }
+  assertReplaySchema(value.schema)
   if (!Array.isArray(value.seats) || value.seats.length !== 4) {
     throw new Error('replay JSON needs exactly four seats')
   }

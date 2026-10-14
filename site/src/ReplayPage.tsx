@@ -12,6 +12,7 @@ import type {
   ReplayGame,
   ReplayPlan,
 } from './replayTypes'
+import { assertReplaySchema } from './replaySchema'
 import {
   CardPreview,
   HoverCard,
@@ -220,6 +221,7 @@ export const ReplayPage = ({ slug }: { slug: string }) => {
         return response.json() as Promise<ReplayGame>
       })
       .then((replay) => {
+        assertReplaySchema(replay.schema)
         setGame(replay)
         setIndex((current) => Math.min(Math.max(current, 0), replay.events.length - 1))
       })
