@@ -33,6 +33,15 @@ export const assertLiveWireVersion = (wire: { v?: unknown }) => {
   }
 }
 
+export const assertLiveSnapshotVersion = (snapshot: { v?: unknown }) => {
+  switch (snapshot.v) {
+    case LIVE_SNAPSHOT_VERSION:
+      return
+    default:
+      throw new Error(unsupportedLiveSnapshotVersion(snapshot.v))
+  }
+}
+
 export type LiveWireV2 = {
   v: typeof LIVE_WIRE_VERSION
   y?: number
@@ -357,6 +366,7 @@ const packExileNotes = (cards: LiveSeat['exile']) => {
 }
 
 export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
+  assertLiveSnapshotVersion(snapshot)
   const seats = seatsOf(snapshot)
   const slugs = slugsFromSnapshot(snapshot)
   const table = createTable(slugs, snapshot.deckIndexes ?? {})
