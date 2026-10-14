@@ -11,7 +11,7 @@ import type {
 } from '../types'
 import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
-import { effectsFor } from './cardRules'
+import { effectsOf } from './cardRules'
 import type { CardEffect, LinkedExilePump, StaticBoardPumpSpec } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
@@ -186,8 +186,7 @@ export const copyObject = (
   return { kind: 'copy', before, after: snapshotCopy(object) }
 }
 
-const baseEffects = (object: GameObject) =>
-  object.effects && object.effects.length > 0 ? object.effects : effectsFor(object.name)
+const baseEffects = (object: GameObject) => effectsOf(object)
 
 const triggersMatch = (left: CardEffect, right: CardEffect) =>
   JSON.stringify(left) === JSON.stringify(right)
