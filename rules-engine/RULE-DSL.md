@@ -2325,6 +2325,7 @@ branch. Keep the distinction between building data and executing it explicit:
 | `keyword.trample` | `{ kind: 'keyword', keyword: 'trample' }`; immutable shared definition. |
 | `whenever(pattern, config)` | A `kind: 'triggered'` ability with `on: pattern`; defaults include battlefield scope and empty decisions. |
 | `self.dies` | A death-occurrence pattern whose filter is the symbolic source reference. |
+| `self.leaves` | A leaves-the-battlefield occurrence pattern whose filter is the symbolic source reference. |
 | `dies({ filter: { any: [ref('self'), { type: 'Creature' }] } })` | A death-occurrence pattern with one OR filter; matching both arms never duplicates the occurrence. |
 | `players({ relation: 'any' })` | A player selector, evaluated in context; it does not choose a player. |
 | `select({ filter, count: 1 })` | A target-clause node with constant `min: 1`, `max: 1`, and `distinct: true`. |
