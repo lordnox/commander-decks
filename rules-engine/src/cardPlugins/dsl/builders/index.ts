@@ -412,6 +412,9 @@ export const damage = (input: {
 export const mill = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'mill', count: toAmount(input.count), targets: input.targets })
 
+export const shuffle = (input: { targets: PlayerRecipient }): Instruction =>
+  immutableData({ kind: 'shuffle', targets: input.targets })
+
 export const destroy = (input: {
   targets: Extract<Instruction, { kind: 'destroy' }>['targets']
   bindResult?: string
@@ -591,6 +594,26 @@ export const chooseCards = (input: {
 
 export const sequence = (...instructions: readonly Instruction[]): Instruction =>
   immutableData({ kind: 'sequence', instructions })
+
+/** Hidden-zone library search: typed `selectCards`, move the found cards, then shuffle. */
+export const searchLibrary = (input: {
+  bindChoice: string
+  chooser: PlayerReference
+  filter?: ObjectSelector
+  count?: AmountInput
+  min?: AmountInput
+  max?: AmountInput
+  to: Zone
+}): Instruction => sequence(
+  chooseCards({
+    bindChoice: input.bindChoice,
+    chooser: input.chooser,
+    filter: input.filter ?? objects({ zone: 'library', owner: 'you' }),
+    ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
+  }),
+  move({ targets: choice(input.bindChoice), to: input.to }),
+  shuffle({ targets: input.chooser }),
+)
 
 export const chooseInstructions = (input: {
   chooser: Extract<Instruction, { kind: 'chooseInstructions' }>['chooser']

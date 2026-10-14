@@ -16,12 +16,13 @@ delayed/granted programs, replacement, prevention, static layers, draw history,
 and the combined conformance/persistence gate execute in tests through
 `ruleDefinition`.
 
-Parts **11–15** are on `main`. Part 16 families 1–3 are in progress: a name-keyed
+Parts **11–15** are on `main`. Part 16 families 1–5 are in progress: a name-keyed
 catalog stamps canonical `ruleDefinition` at object creation for Duskdale Wurm,
 Wall of Omens, Night's Whisper, Flame Rift, Thragtusk, Fate Unraveler, Murder,
-Sign in Blood, and Vampire Hounds. Unmigrated names still use `CARD_RULES`.
-Legacy adapters in `src/cardPlugins/dsl/builders/legacy.ts` remain until
-Part 16 consolidation.
+Sign in Blood, Vampire Hounds, Esper Charm, Reverberate, and Diabolic Tutor.
+Families 4+5 (modes/copies and hidden-zone choices) are this slice. Unmigrated
+names still use `CARD_RULES`. Legacy adapters in
+`src/cardPlugins/dsl/builders/legacy.ts` remain until Part 16 consolidation.
 
 The generated card-handler reload fixtures in `live-runner` remain a known
 non-DSL failure; see [KNOWN-TEST-FAILURES.md](migration/KNOWN-TEST-FAILURES.md).
@@ -562,9 +563,9 @@ All newly advertised DSL capabilities have end-to-end evidence.
 **Dependencies:** 00 ledger; migrate each family after its owning parts pass.
 Final consolidation requires 15.
 
-**Status:** family 1 (simple keywords / player effects), family 2 (ordinary spells and triggers), and family 3 (targeting / activation / costs) in progress. Family
-migrations continue. Consolidation still waits; do not remove legacy adapters.
-See [Part 16 implementation note](migration/RULE-DSL-PART-16.md).
+**Status:** families 1–5 in progress (4+5 this slice: modes/copies and hidden-zone
+choices). Family migrations continue. Consolidation still waits; do not remove
+legacy adapters. See [Part 16 implementation note](migration/RULE-DSL-PART-16.md).
 
 Migrate in mechanic families: simple keywords/player effects; ordinary spells and
 triggers; targeting/activation/costs; modes/copies; hidden-zone choices; replacements

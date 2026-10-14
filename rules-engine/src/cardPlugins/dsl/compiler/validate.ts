@@ -231,8 +231,9 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['kind', 'other', 'controller', 'all', 'any', 'not'])
+    exactKeys(node, path, ['kind', 'type', 'other', 'controller', 'all', 'any', 'not'])
     if (node.kind !== undefined) enumeration(node.kind, childPath(path, 'kind'), new Set(['spell', 'ability']), 'stack-item kind')
+    if (node.type !== undefined && typeof node.type !== 'string') issue(childPath(path, 'type'), 'type', 'expected a string')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.controller !== undefined && node.controller !== 'you') validateReference(node.controller, childPath(path, 'controller'), env, ['player'])
     for (const key of ['all', 'any'] as const) if (node[key] !== undefined) {
@@ -548,6 +549,10 @@ export const validateDefinitionV1 = (root: unknown): {
         if (typeof node.out !== 'boolean') issue(childPath(path, 'out'), 'type', 'expected a boolean')
         return
       case 'proliferate':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      case 'shuffle':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return

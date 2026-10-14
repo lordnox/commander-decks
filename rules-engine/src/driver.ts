@@ -62,6 +62,7 @@ export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'discard',
   'gainLife',
   'loseLife',
+  'shuffle',
 ] as const
 
 const PERMANENT_RESOLUTION_INDEX = -1
@@ -136,6 +137,7 @@ const preflightInstructions = (
       case 'createDelayed':
       case 'mill':
       case 'discard':
+      case 'shuffle':
         return
       case 'if':
         preflightInstructions(instruction.then, `${instructionPath}.then`)
@@ -794,6 +796,12 @@ const actionEvents = (
       return targets.flatMap((seat) => (context.state.zoneOrder[seat].library ?? []).slice(0, amount)
         .map((objectId) => ({ type: 'mill' as const, seat, objectId, sourceId: frame.source.ref.objectId })))
     }
+    case 'shuffle': {
+      return recipients(instruction.targets, context).map((seat) => ({
+        type: 'shuffleLibrary' as const,
+        seat,
+      }))
+    }
     case 'discard': {
       if (instruction.by !== undefined) {
         const by = evaluatePlayerReference(instruction.by, context)[0]
@@ -1059,6 +1067,7 @@ export const prepareResolutionStep = (draft: Draft) => {
         ? Math.min(requestedMin, candidates.length)
         : requestedMin
       const max = Math.min(requestedMax, candidates.length)
+      const fromZone = instruction.filter.filter.zone
       if (chooser && candidates.length > 0 && max > 0) {
         openCardSelection(draft, {
           seat: chooser,
@@ -1069,9 +1078,15 @@ export const prepareResolutionStep = (draft: Draft) => {
           targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
           sourceId: frame.source.ref.objectId,
           source: frame.source.snapshot.name,
-          prompt: 'Choose cards for the Rule DSL program.',
+          prompt: fromZone === 'library'
+            ? 'Search your library.'
+            : 'Choose cards for the Rule DSL program.',
           destinations: ['target', 'skip'],
           canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChoice },
+          ...(fromZone ? {
+            fromZone,
+            fromSeat: candidates[0]?.owner ?? chooser,
+          } : {}),
         })
       } else if (min === 0) {
         frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }

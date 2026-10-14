@@ -169,7 +169,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 26,
+        "matches": 28,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
@@ -461,16 +461,16 @@
         "rules-engine/src/cardPlugins/modalSpell.test.ts — modalSpell > Bushwhack opens a mode choice before its instructions run"
       ],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 11,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:53 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:79 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:370 — test('Cryptic Command chooses two modes and taps then draws', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:69 — test('the remaining Eva cards stay registered', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:48 — test('Bushwhack opens a mode choice before its instructions run', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:71 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:217 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:352 — test('the Lady Evangela remaining group stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "scoped announcement modes",
@@ -912,7 +912,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 112,
+        "matches": 114,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1134,7 +1134,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 469,
+        "matches": 471,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -1782,8 +1782,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 5,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:53 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:79 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:370 — test('Cryptic Command chooses two modes and taps then draws', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:69 — test('the remaining Eva cards stay registered', () => {",
@@ -2091,16 +2092,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 12,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:53 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:79 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:370 — test('Cryptic Command chooses two modes and taps then draws', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:69 — test('the remaining Eva cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:352 — test('the Lady Evangela remaining group stays registered', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:103",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:109",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:111 — test('is registered with targeting, vote and stack-copy handlers', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:130 — test('only an instant or sorcery spell is a legal target', () => {"
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:111 — test('is registered with targeting, vote and stack-copy handlers', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2751,7 +2752,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 139,
+        "matches": 141,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -5940,7 +5941,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 17,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:107",
           "rules-engine/src/cardPlugins/councilCards.test.ts:146 — test('each council card is registered with the vote engine handlers it needs', () => {",
@@ -6267,8 +6268,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 5,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:53 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:79 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:370 — test('Cryptic Command chooses two modes and taps then draws', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:69 — test('the remaining Eva cards stay registered', () => {",
@@ -9369,8 +9371,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 5,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:53 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:79 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:370 — test('Cryptic Command chooses two modes and taps then draws', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:69 — test('the remaining Eva cards stay registered', () => {",
@@ -14621,16 +14624,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 11,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:132 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:228 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:56 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family3.test.ts:187 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family3.test.ts:32 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangela.test.ts:61 — test('the Eva cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:154 — test('the Lady Evangela alternate and replacement cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:289 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:54 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangela.test.ts:61 — test('the Eva cards this pass covers stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, trigger] and instructions [draw, sacrificeSelf]",
@@ -19024,9 +19027,11 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/copyPolitics.test.ts:284 — test('spell copies use the same typed stack-copy path without moving the original card', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:191 — test('Reverberate copies an instant once, keeps targets, and rejects a creature spell', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:52 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:227 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
         ]
       },
@@ -20927,7 +20932,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 77,
+        "matches": 78,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -21648,7 +21653,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 190,
+        "matches": 193,
         "samples": [
           "live-runner/src/kernelHost.part15.test.ts:399 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3451 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
@@ -23801,14 +23806,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          269,
-          1208,
-          1237
+          271,
+          1223,
+          1252
         ],
         "samples": [
-          "269: const liveSource = draft.object(source.ref.objectId)",
-          "1208: const object = draft.object(item.objectId)",
-          "1237: const object = draft.object(completedItem.objectId)"
+          "271: const liveSource = draft.object(source.ref.objectId)",
+          "1223: const object = draft.object(item.objectId)",
+          "1252: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
