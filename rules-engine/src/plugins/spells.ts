@@ -178,7 +178,10 @@ const compiledCanonicalHasCost = (object: GameObject, kind: Cost['kind']): boole
   if (!object.ruleDefinition) return false
   const compiled = compileCardRuleDefinition(object.ruleDefinition.definition)
   const spell = compiled.definition.abilities.find((ability) => ability.kind === 'spell')
-  return spell?.costs.some((cost) => cost.kind === kind) ?? false
+  if (!spell) return false
+  if (spell.costs.some((cost) => cost.kind === kind)) return true
+  if (spell.optionalCosts?.some((cost) => cost.kind === kind)) return true
+  return spell.alternativeCosts?.some((alternative) => alternative.some((cost) => cost.kind === kind)) ?? false
 }
 import { pinTarget } from '../objectIdentity'
 

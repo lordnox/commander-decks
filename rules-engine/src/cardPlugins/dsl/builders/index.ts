@@ -252,6 +252,10 @@ export const wouldEnter = (
   filter: Extract<ReplacementEventPattern, { kind: 'enterBattlefield' }>['filter'] = { object: ref('source') },
 ) => immutableData({ kind: 'enterBattlefield' as const, filter })
 
+export const wouldMove = (
+  filter: Extract<ReplacementEventPattern, { kind: 'move' }>['filter'] = {},
+) => immutableData({ kind: 'move' as const, filter })
+
 export const COLOR_CHOICE_OPTIONS = [
   { id: 'W', label: 'White' },
   { id: 'U', label: 'Blue' },

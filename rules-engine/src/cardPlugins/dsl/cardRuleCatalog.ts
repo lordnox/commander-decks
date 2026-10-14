@@ -1,12 +1,14 @@
 import type { AbilityDefinition, CardRuleDefinitionSnapshotV1 } from './schema/v1'
 import {
+  activated,
   adaptLegacyPlayerInstruction,
   adaptLegacyTrigger,
-  activated,
+  amount,
   card,
   chooseModes,
   compileCardRuleDefinition,
   copySpell,
+  counter,
   createDefinitionSnapshot,
   createEffect,
   createToken,
@@ -19,25 +21,31 @@ import {
   gainLife,
   keyword,
   loseLife,
+  manaCost,
+  modifyStats,
   objects,
   players,
   pumpEffect,
+  redirectEvent,
   ref,
+  replacement,
   searchLibrary,
   select,
   self,
   spell,
   stackItems,
+  staticAbility,
   target,
   untilCleanup,
   whenever,
+  wouldMove,
 } from './v1'
 
 const snapshotFor = (abilities: readonly AbilityDefinition[]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
 /**
- * Name-keyed canonical snapshots for Part 16 families 1–5. Compiled once at
+ * Name-keyed canonical snapshots for Part 16 families 1–7. Compiled once at
  * module load. Lookup is exact card name; this is not a kernel dispatcher.
  */
 const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSnapshotV1>> = Object.freeze({
@@ -173,6 +181,29 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
         count: 1,
         to: 'hand',
       })],
+    }),
+  ]),
+  'Glorious Anthem': snapshotFor([
+    staticAbility(modifyStats({
+      targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+      power: amount(1),
+      toughness: amount(1),
+    })),
+  ]),
+  'Rest in Peace': snapshotFor([
+    staticAbility(replacement(wouldMove({ to: 'graveyard' }), redirectEvent('exile'))),
+  ]),
+  'Foil': snapshotFor([
+    spell({
+      costs: [manaCost('{2}{U}{U}')],
+      alternativeCosts: [[
+        discardCost(objects({ zone: 'hand', subtypes: ['Island'] }), 1),
+        discardCost(objects({ zone: 'hand' }), 1),
+      ]],
+      decisions: {
+        targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })],
+      },
+      instructions: [counter({ targets: target(0) })],
     }),
   ]),
 })
