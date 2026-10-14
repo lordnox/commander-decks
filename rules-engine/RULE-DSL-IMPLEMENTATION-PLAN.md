@@ -533,7 +533,9 @@ and reconnect during mandatory discard. No card-specific Chains executor exists.
 
 **Status:** complete / merged to `main`. Combined gate landed in
 [PR #351](https://github.com/lordnox/commander-decks/pull/351),
-[PR #361](https://github.com/lordnox/commander-decks/pull/361)–[PR #368](https://github.com/lordnox/commander-decks/pull/368),
+[PR #361](https://github.com/lordnox/commander-decks/pull/361),
+[PR #363](https://github.com/lordnox/commander-decks/pull/363),
+[PR #365](https://github.com/lordnox/commander-decks/pull/365)–[PR #368](https://github.com/lordnox/commander-decks/pull/368),
 [PR #371](https://github.com/lordnox/commander-decks/pull/371), and
 [PR #372](https://github.com/lordnox/commander-decks/pull/372). This is not a
 claim that every Magic card is covered. See

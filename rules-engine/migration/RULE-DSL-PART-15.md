@@ -1,6 +1,6 @@
 # Rule DSL Part 15 — combined conformance and persistence gate
 
-**Status:** complete / merged to `main`. Landing PRs: [#351](https://github.com/lordnox/commander-decks/pull/351), [#361](https://github.com/lordnox/commander-decks/pull/361)–[#368](https://github.com/lordnox/commander-decks/pull/368), [#371](https://github.com/lordnox/commander-decks/pull/371), [#372](https://github.com/lordnox/commander-decks/pull/372). This is the combined evidence gate, not a claim that every Magic card is covered.
+**Status:** complete / merged to `main`. Landing PRs: [#351](https://github.com/lordnox/commander-decks/pull/351), [#361](https://github.com/lordnox/commander-decks/pull/361), [#363](https://github.com/lordnox/commander-decks/pull/363), [#365](https://github.com/lordnox/commander-decks/pull/365)–[#368](https://github.com/lordnox/commander-decks/pull/368), [#371](https://github.com/lordnox/commander-decks/pull/371), [#372](https://github.com/lordnox/commander-decks/pull/372). This is the combined evidence gate, not a claim that every Magic card is covered.
 
 ## Delivered
 

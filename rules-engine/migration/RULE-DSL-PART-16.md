@@ -1,6 +1,6 @@
 # Rule DSL Part 16 — existing-card migration (family 1 in progress)
 
-**Status:** family 1 (simple keywords / player effects) in progress. Not complete. Do not remove `legacy.ts` or close Part 15 / Part 16.
+**Status:** family 1 (simple keywords / player effects) in progress. Not complete. Do not remove `legacy.ts` or close Part 16.
 
 ## This slice
 
