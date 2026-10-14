@@ -63,7 +63,7 @@ const handleFor = (
     },
     history,
     rules,
-    dispatch: (event) => {
+    dispatch: (event: Parameters<KernelHandle['dispatch']>[0]) => {
       const result = history.dispatch(event)
       if (result.ok) journal = recordAccepted(journal, event)
       return result
