@@ -247,6 +247,69 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
       expect(resolved.stack).toHaveLength(0)
     })
 
+    test('a copied no-program permanent becomes a token instead of vanishing', () => {
+      const wallDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.defender])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: {
+          p1: [cardTemplate('Wall', {
+            types: ['Creature'],
+            manaCost: '{0}',
+            power: 0,
+            toughness: 4,
+            ruleDefinition: wallDefinition,
+          })],
+        },
+      }, { random: () => 0 })
+      const wall = named(server.state, 'Wall')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: wall.id })
+      const original = cast.stack[0]
+      const copied = reduce(server, cast, {
+        type: 'copySpell', stackId: original.id, controller: 'p1', targets: [], retarget: false,
+      })
+      expect(copied.stack[0].copy).toBe(true)
+      const resolved = reduce(server, copied, { type: 'resolveTop' })
+      const token = Object.values(resolved.objects).find((object) => object.token && object.name === 'Wall')
+      expect(token).toMatchObject({ zone: 'battlefield', token: true, power: 0, toughness: 4 })
+      expect(token?.spellCopy).toBeUndefined()
+      expect(hasKeyword(token!, 'defender', resolved)).toBe(true)
+      expect(resolved.objects[wall.id].zone).toBe('stack')
+      expect(resolved.stack).toHaveLength(1)
+      expect(resolved.stack[0].id).toBe(original.id)
+      expect(resolved.stack[0].copy).toBeFalsy()
+      expect(Object.values(resolved.objects).filter((object) => object.zone === 'battlefield')).toHaveLength(1)
+    })
+
+    test('copied permanent resolution still collects the card\'s own ETB', () => {
+      const server = entryDestroyerBoard()
+      const creature = named(server.state, 'Entry destroyer')
+      const victim = named(server.state, 'Entry victim')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: creature.id })
+      const original = cast.stack[0]
+      const copied = reduce(server, cast, {
+        type: 'copySpell', stackId: original.id, controller: 'p1', targets: [], retarget: false,
+      })
+      const entered = reduce(server, copied, { type: 'resolveTop' })
+      const token = Object.values(entered.objects).find((object) => object.token && object.name === 'Entry destroyer')
+      expect(token).toMatchObject({ zone: 'battlefield', token: true })
+      expect(entered.objects[creature.id].zone).toBe('stack')
+      expect(entered.stack).toHaveLength(1)
+      expect(entered.stack[0].id).toBe(original.id)
+      const targetChoice = pendingSelectionFor(entered, 'p1')!
+      expect(targetChoice.candidates).toContain(victim.id)
+      expect(targetChoice.canonicalTrigger).toBeDefined()
+      const stacked = reduce(server, entered, {
+        type: 'selectCards', seat: 'p1', selectionId: targetChoice.id, kind: 'choose', count: 1, objectIds: [victim.id],
+      })
+      expect(stacked.stack).toHaveLength(2)
+      expect(stacked.stack[0].kind).toBe('ability')
+      const afterTrigger = reduce(server, stacked, { type: 'resolveTop' })
+      expect(afterTrigger.objects[victim.id].zone).toBe('graveyard')
+      expect(afterTrigger.objects[creature.id].zone).toBe('stack')
+      expect(afterTrigger.stack).toHaveLength(1)
+      expect(afterTrigger.stack[0].id).toBe(original.id)
+    })
+
     test('countering the creature spell before entry prevents the trigger', () => {
       const server = createServerGame(commanderRules, {
         players: 2,
@@ -756,6 +819,43 @@ describe('Rule DSL Part 15 conformance (partial gate)', () => {
         optionId: color,
       })
     }
+
+    test('a copied permanent still pauses for as-this-enters color before its ETB', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        libraries: { p1: [cardTemplate('Drawn card')] },
+        hands: {
+          p1: [cardTemplate('Color chooser', {
+            types: ['Creature'],
+            manaCost: '{0}',
+            ruleDefinition: entryChoiceDefinition(),
+          })],
+        },
+      }, { random: () => 0 })
+      const creature = named(server.state, 'Color chooser')
+      const cast = reduce(server, server.state, { type: 'castSpell', seat: 'p1', objectId: creature.id })
+      const original = cast.stack[0]
+      const copied = reduce(server, cast, {
+        type: 'copySpell', stackId: original.id, controller: 'p1', targets: [], retarget: false,
+      })
+      const copyId = copied.stack[0].objectId
+      const paused = reduce(server, copied, { type: 'resolveTop' })
+      expect(paused.eventProcessing).toBeDefined()
+      expect(paused.objects[copyId].zone).toBe('stack')
+      expect(paused.objects[creature.id].zone).toBe('stack')
+      expect(paused.resolution?.phase).toBe('waiting')
+      expect(triggerCount(paused)).toBe(0)
+      const entered = chooseEntryColor(server, paused)
+      expect(entered.objects[copyId]).toMatchObject({ zone: 'battlefield', token: true, chosenColor: 'U' })
+      expect(entered.objects[copyId].spellCopy).toBeUndefined()
+      expect(entered.objects[creature.id].zone).toBe('stack')
+      expect(entered.stack.some((item) => item.id === original.id)).toBe(true)
+      expect(triggerCount(entered)).toBe(1)
+      const drawn = resolveStack(server.rules, entered)
+      expect(Object.values(drawn.objects).some((object) => object.name === 'Drawn card' && object.zone === 'hand')).toBe(true)
+      expect(drawn.objects[copyId]).toMatchObject({ zone: 'battlefield', token: true, chosenColor: 'U' })
+      expect(drawn.objects[creature.id].zone).toBe('stack')
+    })
 
     test('as-this-enters color choice completes before the entry trigger is captured', () => {
       const server = createServerGame(commanderRules, {

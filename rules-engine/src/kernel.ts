@@ -16,7 +16,7 @@ import type {
 import { markPutIntoGraveyardFromBattlefieldThisTurn } from './plugins/fromBattlefieldThisTurn'
 import { untapPermanent } from './rules/untap'
 import { ZONE_IDS } from './types'
-import { ceaseToExist } from './rules/spellCopies'
+import { ceaseToExist, enterResolvingCopyAsToken } from './rules/spellCopies'
 import {
   canonicalResolutionCandidate,
   finishResolution,
@@ -624,6 +624,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       }
       if (event.chosenColor) object.chosenColor = event.chosenColor
       if (entered) {
+        enterResolvingCopyAsToken(object)
         // CR 302.6 tracks continuous control of the permanent, not how long it
         // has been a creature. This matters if a noncreature is animated later.
         object.enteredBattlefieldTurn = draft.turn

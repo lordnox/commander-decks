@@ -36,7 +36,7 @@ import type { SeatId } from './protocol'
 const slotted = (
   lobby: ReturnType<typeof createLobby>,
   message: TopdeckMessage,
-): TopdeckMessage => {
+) => {
   const offered = lobby.topdeck?.cards.map(String) ?? []
   const taken = new Set<number>()
   return {
@@ -54,7 +54,7 @@ const slotted = (
 const handleFor = (
   rules: (state: GameState, event: Parameters<KernelHandle['dispatch']>[0]) => ReturnType<KernelHandle['dispatch']>,
   initial: GameState,
-): KernelHandle => {
+) => {
   let journal = createJournal(initial)
   const history = restoreJournal(journal, rules)
   return {

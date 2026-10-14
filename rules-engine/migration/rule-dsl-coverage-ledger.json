@@ -21643,7 +21643,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 187,
+        "matches": 188,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3451 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:114 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
@@ -22727,7 +22727,7 @@
         "rules-engine/src/formats.ts:122",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:631",
+        "rules-engine/src/kernel.ts:632",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:118",
         "rules-engine/src/newGame.ts:119",
@@ -23758,10 +23758,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1421
+          1422
         ],
         "samples": [
-          "1421: event.name === SEARCH_CHOSEN"
+          "1422: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -23796,14 +23796,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          267,
-          1206,
-          1233
+          269,
+          1208,
+          1237
         ],
         "samples": [
-          "267: const liveSource = draft.object(source.ref.objectId)",
-          "1206: const object = draft.object(item.objectId)",
-          "1233: const object = draft.object(completedItem.objectId)"
+          "269: const liveSource = draft.object(source.ref.objectId)",
+          "1208: const object = draft.object(item.objectId)",
+          "1237: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24665,10 +24665,10 @@
       {
         "path": "rules-engine/src/rules/spellCopies.ts",
         "lines": [
-          61
+          69
         ],
         "samples": [
-          "61: return draft.addToStack({"
+          "69: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -26236,11 +26236,11 @@
           575,
           609,
           614,
-          645,
-          647,
-          653,
-          670,
-          675
+          646,
+          648,
+          654,
+          671,
+          676
         ],
         "samples": [
           "473: const object = draft.object(event.objectId)",
