@@ -232,6 +232,7 @@ export const evaluateAnnouncementCostAmount = (amount: Amount, x: number | undef
 const matchesCostFilter = (object: GameState['objects'][string], filter: Extract<Cost, { kind: 'discard' | 'sacrifice' }>['filter']['filter']) => {
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
+  if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
   if (filter.name && object.name !== filter.name) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
   return true
@@ -365,7 +366,7 @@ export const beginAnnouncement = (
       id,
       proposal: structuredClone(proposal),
       lockedCost: {
-        ...(mana ? { mana } : {}),
+        mana,
         nonMana: costs.filter((cost) => cost.kind !== 'mana').map((cost) =>
           lockCost(cost, proposal.variables?.X, announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X))),
         ...(proposal.variables?.X !== undefined ? { x: proposal.variables.X } : {}),
