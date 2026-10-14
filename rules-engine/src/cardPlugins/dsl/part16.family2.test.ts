@@ -18,6 +18,31 @@ const battlefieldNamed = (state: GameState, name: string) =>
 const handCount = (state: GameState, seat: 'p1' | 'p2' = 'p1') =>
   state.zoneOrder[seat].hand.length
 
+const thragtuskCard = () => cardTemplate('Thragtusk', { types: ['Creature'], power: 5, toughness: 3 })
+
+const expectBeast = (state: GameState, controller: 'p1' | 'p2' = 'p1') => {
+  const beasts = battlefieldNamed(state, 'Beast')
+  expect(beasts).toHaveLength(1)
+  expect(beasts[0]?.token).toBe(true)
+  expect(beasts[0]?.power).toBe(3)
+  expect(beasts[0]?.toughness).toBe(3)
+  expect(beasts[0]?.controller).toBe(controller)
+}
+
+const leaveThragtusk = (to: 'graveyard' | 'hand' | 'exile') => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [thragtuskCard()] },
+  }, { random: () => 0 })
+  const left = ok(server.rules(server.state, {
+    type: 'move',
+    objectId: named(server.state, 'Thragtusk').id,
+    to,
+  }))
+  expect(left.stack).toHaveLength(1)
+  return resolveStack(server.rules, left)
+}
+
 describe('Rule DSL Part 16 family 2 catalog', () => {
   test('lookup is exact card name and pins a compiled snapshot at module load', () => {
     const rift = cardRuleDefinitionSnapshotFor('Flame Rift')
@@ -41,7 +66,7 @@ describe('Rule DSL Part 16 family 2 catalog', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
       battlefield: {
-        p1: [cardTemplate('Thragtusk', { types: ['Creature'], power: 5, toughness: 3 })],
+        p1: [thragtuskCard()],
       },
     }, { random: () => 0 })
     const thragtusk = named(server.state, 'Thragtusk')
@@ -86,10 +111,22 @@ describe('Rule DSL Part 16 family 2 catalog', () => {
     expect(resolved.objects[rift.id].zone).toBe('graveyard')
   })
 
-  test('Thragtusk gains five life on entry and makes one Beast when it dies', () => {
+  test('Thragtusk catalog watches leaves rather than dies', () => {
+    const snapshot = cardRuleDefinitionSnapshotFor('Thragtusk')!
+    expect(snapshot.definition.abilities[1]).toMatchObject({
+      kind: 'triggered',
+      on: { kind: 'leaves' },
+      instructions: [{
+        kind: 'createToken',
+        targets: { kind: 'contextRef', name: 'controller' },
+      }],
+    })
+  })
+
+  test('Thragtusk gains five life on entry and makes one Beast when it goes to the graveyard', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
-      hands: { p1: [cardTemplate('Thragtusk', { types: ['Creature'], power: 5, toughness: 3 })] },
+      hands: { p1: [thragtuskCard()] },
     }, { random: () => 0 })
     const thragtusk = named(server.state, 'Thragtusk')
     expect(thragtusk.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Thragtusk'))
@@ -100,21 +137,47 @@ describe('Rule DSL Part 16 family 2 catalog', () => {
     expect(afterEntry.players.p1.life).toBe(45)
     expect(battlefieldNamed(afterEntry, 'Beast')).toHaveLength(0)
 
-    const died = ok(server.rules(afterEntry, {
+    const left = ok(server.rules(afterEntry, {
       type: 'move',
       objectId: named(afterEntry, 'Thragtusk').id,
       to: 'graveyard',
     }))
-    expect(died.stack).toHaveLength(1)
-    const afterDeath = resolveStack(server.rules, died)
-    expect(afterDeath.players.p1.life).toBe(45)
-    const beasts = battlefieldNamed(afterDeath, 'Beast')
-    expect(beasts).toHaveLength(1)
-    expect(beasts[0]?.token).toBe(true)
-    expect(beasts[0]?.power).toBe(3)
-    expect(beasts[0]?.toughness).toBe(3)
-    expect(beasts[0]?.controller).toBe('p1')
-    expect(afterDeath.objects[thragtusk.id].zone).toBe('graveyard')
+    expect(left.stack).toHaveLength(1)
+    const afterLeave = resolveStack(server.rules, left)
+    expect(afterLeave.players.p1.life).toBe(45)
+    expectBeast(afterLeave)
+    expect(named(afterLeave, 'Thragtusk').zone).toBe('graveyard')
+  })
+
+  test('Thragtusk makes one Beast when it is bounced to hand', () => {
+    const afterBounce = leaveThragtusk('hand')
+    expectBeast(afterBounce)
+    expect(named(afterBounce, 'Thragtusk').zone).toBe('hand')
+  })
+
+  test('Thragtusk makes one Beast when it is exiled', () => {
+    const afterExile = leaveThragtusk('exile')
+    expectBeast(afterExile)
+    expect(named(afterExile, 'Thragtusk').zone).toBe('exile')
+  })
+
+  test('journal restore of a pending Thragtusk leave still makes a Beast for the captured controller', () => {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: {
+        p1: [thragtuskCard()],
+      },
+    }, { random: () => 0 })
+    const thragtusk = named(server.state, 'Thragtusk')
+    const left = ok(server.rules(server.state, { type: 'move', objectId: thragtusk.id, to: 'exile' }))
+    expect(left.stack).toHaveLength(1)
+    expect(battlefieldNamed(left, 'Beast')).toHaveLength(0)
+    const restored = restoreJournal(createJournal(left), server.rules).current()
+    expect(restored.stack).toHaveLength(1)
+    expect(battlefieldNamed(restored, 'Beast')).toHaveLength(0)
+    const finished = resolveStack(server.rules, restored)
+    expectBeast(finished)
+    expect(named(finished, 'Thragtusk').zone).toBe('exile')
   })
 
   test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {
@@ -161,7 +224,7 @@ describe('Rule DSL Part 16 family 2 catalog', () => {
       players: 2,
       hands: {
         p1: [
-          cardTemplate('Thragtusk', { types: ['Creature'], power: 5, toughness: 3 }),
+          thragtuskCard(),
           cardTemplate('Mulldrifter', { types: ['Creature'], power: 2, toughness: 2 }),
         ],
       },

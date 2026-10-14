@@ -830,6 +830,7 @@ export const validateDefinitionV1 = (root: unknown): {
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
       case 'dies':
+      case 'leaves':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.before', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)

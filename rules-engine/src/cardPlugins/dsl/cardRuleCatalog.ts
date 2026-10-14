@@ -53,7 +53,7 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
     whenever(self.enters, {
       instructions: [gainLife({ amount: 5, targets: ref('controller') })],
     }),
-    whenever(self.dies, {
+    whenever(self.leaves, {
       instructions: [createToken({
         count: 1,
         targets: ref('controller'),

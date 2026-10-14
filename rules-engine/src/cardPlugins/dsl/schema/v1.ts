@@ -89,6 +89,7 @@ export type ObjectOccurrenceFilter =
 export type OccurrencePattern =
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
+  | { kind: 'leaves'; filter: ObjectOccurrenceFilter }
   | {
       kind: 'draw'
       filter: {

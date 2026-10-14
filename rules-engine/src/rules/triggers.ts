@@ -284,7 +284,12 @@ const canonicalPatternMatches = (
     || occurrence.object?.before?.zone !== 'battlefield'
     || occurrence.object?.before?.types.includes('Creature') !== true
   )) return false
-  const object = pattern.kind === 'dies'
+  if (pattern.kind === 'leaves' && (
+    event.type !== 'move'
+    || event.to === 'battlefield'
+    || occurrence.object?.before?.zone !== 'battlefield'
+  )) return false
+  const object = pattern.kind === 'dies' || pattern.kind === 'leaves'
     ? occurrence.object?.before
     : occurrence.object?.after
   return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence))
@@ -342,7 +347,8 @@ const generatedPatternMatches = (
     case 'manaAbilityActivated': return canonicalManaActivationEvent(state, event)
     case 'manaAbilityResolved': return canonicalManaSourceEvent(state, event)
     case 'enters':
-    case 'dies': {
+    case 'dies':
+    case 'leaves': {
       const enteringId = permanentEnteringObjectId(event, state)
       if (pattern.kind === 'enters' && (
         !enteringId || occurrence.object?.before?.zone === 'battlefield')) return false
@@ -352,7 +358,12 @@ const generatedPatternMatches = (
         || occurrence.object?.before?.zone !== 'battlefield'
         || occurrence.object?.before?.types.includes('Creature') !== true
       )) return false
-      const object = pattern.kind === 'dies'
+      if (pattern.kind === 'leaves' && (
+        event.type !== 'move'
+        || event.to === 'battlefield'
+        || occurrence.object?.before?.zone !== 'battlefield'
+      )) return false
+      const object = pattern.kind === 'dies' || pattern.kind === 'leaves'
         ? occurrence.object?.before
         : occurrence.object?.after
       return Boolean(object && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
@@ -471,7 +482,7 @@ const canonicalTriggersForOccurrence = (
         occurrencePlayerForEvent(event, draft),
         event.type === 'gainLife' ? event.amount : undefined,
       )
-      const predicateState = candidate.on.kind === 'dies' ? state : draft
+      const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' ? state : draft
       if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
       const context = {
         state: predicateState,

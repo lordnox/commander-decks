@@ -169,7 +169,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 21,
+        "matches": 24,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
@@ -177,8 +177,8 @@
           "rules-engine/src/cardPlugins/cleave.test.ts:54 — test('uncleaved Wash Away cannot target a spell cast from hand', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:69 — test('legal acts offer printed and cleave modes for an eligible spell', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:89 — test('cleaved Wash Away counters a spell cast from hand and pays its cleave cost', () => {",
-          "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
-          "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:132 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:228 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {"
         ]
       },
       "neededCanonicalNode": "typed casting permission and alternative cost",
@@ -822,7 +822,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 197,
+        "matches": 198,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2717 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -1134,7 +1134,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 463,
+        "matches": 467,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -2179,7 +2179,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 35,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:486 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:524 — test('is registered as a saga with its three chapters', () => {",
@@ -2314,13 +2314,14 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 6,
         "samples": [
           "live-runner/src/kernelHost.test.ts:518 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.copies.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:210 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:283 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
-          "rules-engine/src/cardPlugins/dsl/part09.test.ts:356 — test('command pattern copies an Elemental before the later damage query', () => {"
+          "rules-engine/src/cardPlugins/dsl/part09.test.ts:356 — test('command pattern copies an Elemental before the later damage query', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:189 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2366,7 +2367,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 28,
+        "matches": 30,
         "samples": [
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
@@ -2375,7 +2376,7 @@
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:121 — test('declining counters the spell and costs no life', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:41",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:50",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:516 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2750,7 +2751,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 134,
+        "matches": 137,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -5939,7 +5940,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 13,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:107",
           "rules-engine/src/cardPlugins/councilCards.test.ts:146 — test('each council card is registered with the vote engine handlers it needs', () => {",
@@ -5947,8 +5948,8 @@
           "rules-engine/src/cardPlugins/councilCards.test.ts:459 — test('triggers only at its controller upkeep and asks a public carnage/homage vote', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:482 — test('homage winning draws a card for the controller and keeps every permanent', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:501 — test('carnage winning sacrifices the Portal and destroys every nonland permanent', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangela.test.ts:61 — test('the Eva cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:132 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:228 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -13505,16 +13506,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 19,
+        "matches": 21,
         "samples": [
           "rules-engine/src/actions.test.ts:381 — test('instants and permanents with entry choices stay with the judge', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:112 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:121 — test('declining counters the spell and costs no life', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:41",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:50",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:516 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {",
-          "rules-engine/src/cardPlugins/lilianasCaress.test.ts:199 — test('players can respond to the Caress trigger before life loss', () => {",
-          "rules-engine/src/cardPlugins/sinFallFinishers.test.ts:259 — test('Valgavoth Ward sacrifices three nonlands or counters the spell', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:516 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [dealDamageToChosenTarget]",
@@ -14620,8 +14621,11 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 7,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:132 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:228 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:56 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:61 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:154 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
@@ -18829,7 +18833,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanStatics.test.ts:269 — test('an activated ability of an opponent cannot target a hexproof creature either', () => {",
           "rules-engine/src/cardPlugins/cirdanStatics.test.ts:271 — test('registers two commander-conditioned layer effects and no handler', () => {",
@@ -20896,16 +20900,16 @@
         "rules-engine/src/plugins/damage.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 35,
         "samples": [
           "live-runner/src/kernelHost.test.ts:518 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.copies.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:210 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:283 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
           "rules-engine/src/cardPlugins/dsl/part09.test.ts:356 — test('command pattern copies an Elemental before the later damage query', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:189 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:101 — test('explicit and compact Wall of Omens lower to identical canonical data and paths', () => {",
-          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:207 — test('loads the first-slice ability union without advertising execution support', () => {",
-          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:712 — test('advertises the canonical target-aware runtime slice implemented by Part 04', () => {"
+          "rules-engine/src/cardPlugins/dsl/v1/index.test.ts:207 — test('loads the first-slice ability union without advertising execution support', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20963,7 +20967,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 149,
+        "matches": 150,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -21796,7 +21800,7 @@
         "rules-engine/src/cardPlugins/staticBoardPump.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 21,
+        "matches": 22,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanStatics.test.ts:139 — test('entering gives your creatures (itself too) hexproof and takes printed hexproof from opponents', () => {",
           "rules-engine/src/cardPlugins/cirdanStatics.test.ts:155 — test('opponents cannot target your creatures with spells, but you and your noncreature permanents are open', () => {",
@@ -22642,9 +22646,9 @@
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:258",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:342",
         "rules-engine/src/cardPlugins/librarySearch.ts:192",
-        "rules-engine/src/newGame.ts:128",
-        "rules-engine/src/newGame.ts:129",
-        "rules-engine/src/newGame.ts:131",
+        "rules-engine/src/newGame.ts:133",
+        "rules-engine/src/newGame.ts:134",
+        "rules-engine/src/newGame.ts:136",
         "rules-engine/src/plugins/battle.ts:173",
         "rules-engine/src/plugins/battle.ts:180",
         "rules-engine/src/plugins/doubleFaced.ts:34",
@@ -22666,7 +22670,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1103",
+        "rules-engine/src/rules/triggers.ts:1114",
         "rules-engine/src/types.ts:310",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:316"
@@ -22706,8 +22710,8 @@
         "rules-engine/src/cardPlugins/continuousEffects.ts:162",
         "rules-engine/src/cardPlugins/continuousEffects.ts:171",
         "rules-engine/src/cardPlugins/continuousEffects.ts:45",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:551",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:599",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:550",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:598",
         "rules-engine/src/cardPlugins/continuousEffects.ts:63",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:681",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:865",
@@ -22729,12 +22733,12 @@
         "rules-engine/src/index.ts:71",
         "rules-engine/src/kernel.ts:632",
         "rules-engine/src/newGame.ts:1",
-        "rules-engine/src/newGame.ts:118",
-        "rules-engine/src/newGame.ts:119",
-        "rules-engine/src/newGame.ts:120",
-        "rules-engine/src/newGame.ts:121",
-        "rules-engine/src/newGame.ts:171",
-        "rules-engine/src/newGame.ts:276",
+        "rules-engine/src/newGame.ts:122",
+        "rules-engine/src/newGame.ts:123",
+        "rules-engine/src/newGame.ts:124",
+        "rules-engine/src/newGame.ts:125",
+        "rules-engine/src/newGame.ts:176",
+        "rules-engine/src/newGame.ts:281",
         "rules-engine/src/plugins/index.ts:105",
         "rules-engine/src/plugins/index.ts:44",
         "rules-engine/src/plugins/rooms.ts:51",
@@ -23252,12 +23256,12 @@
           145,
           274,
           275,
-          377,
-          712,
-          829,
-          986,
-          1021,
-          1022
+          388,
+          723,
+          840,
+          997,
+          1032,
+          1033
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -23465,14 +23469,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
+          936,
           937,
-          938,
-          940
+          939
         ],
         "samples": [
-          "937: const endTurnEffects = event.type === 'custom'",
-          "938: && event.name === 'advanceStep'",
-          "940: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "936: const endTurnEffects = event.type === 'custom'",
+          "937: && event.name === 'advanceStep'",
+          "939: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -24634,24 +24638,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          486,
-          567,
-          662,
-          696,
-          775,
-          840,
-          853,
-          893,
-          974,
-          1044,
-          1101,
-          1268,
-          1375
+          497,
+          578,
+          673,
+          707,
+          786,
+          851,
+          864,
+          904,
+          985,
+          1055,
+          1112,
+          1279,
+          1386
         ],
         "samples": [
-          "486: const frequencySource = draft.object(source.id) ?? source",
-          "567: const live = draft.object(source.id)",
-          "662: const land = draft.object(objectId)"
+          "497: const frequencySource = draft.object(source.id) ?? source",
+          "578: const live = draft.object(source.id)",
+          "673: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

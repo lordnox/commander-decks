@@ -19,6 +19,7 @@ export const generatedAbilitySnapshot = (
   switch (ability.on.kind) {
     case 'enters':
     case 'dies':
+    case 'leaves':
     case 'draw':
     case 'manaAdded':
     case 'manaAbilityActivated':
@@ -70,7 +71,8 @@ export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: u
   switch (pattern.kind) {
     case 'draw': return ['player']
     case 'enters': return ['object.after']
-    case 'dies': return ['object.before']
+    case 'dies':
+    case 'leaves': return ['object.before']
     case 'step': return pattern.active === undefined ? [] : ['player']
     default: return []
   }

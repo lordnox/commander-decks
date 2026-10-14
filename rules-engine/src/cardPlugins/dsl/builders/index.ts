@@ -381,6 +381,9 @@ export const enters = (input: { filter: ObjectOccurrenceFilter }): OccurrencePat
 export const dies = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'dies', filter: input.filter })
 
+export const leaves = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
+  immutableData({ kind: 'leaves', filter: input.filter })
+
 export const draws = (input: Extract<OccurrencePattern, { kind: 'draw' }>['filter'] = {}): OccurrencePattern =>
   immutableData({ kind: 'draw', filter: input })
 
