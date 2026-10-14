@@ -1955,7 +1955,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:51 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/replay.test.ts:283 — test('a clone reports the card it is printed as alongside the face it wears', () => {",
           "rules-engine/src/replay.test.ts:332 — test('a spell on the stack announces what it targets', () => {",
-          "site/src/liveCompact.test.ts:274 — test('the card a clone is printed as survives the wire', () => {",
+          "site/src/liveCompact.test.ts:276 — test('the card a clone is printed as survives the wire', () => {",
           "site/src/TableBoard.test.tsx:239 — test('hovering a clone shows the copied face beside the card it is printed as', () => {"
         ]
       },
@@ -2296,7 +2296,7 @@
           "live-runner/src/kernelHost.test.ts:751 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:225 — test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "site/src/liveCompact.test.ts:355 — test('browser wire preserves the typed request envelope metadata', () => {"
+          "site/src/liveCompact.test.ts:357 — test('browser wire preserves the typed request envelope metadata', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4330,8 +4330,8 @@
           "rules-engine/src/cardPlugins/sygg.test.ts:111 — test('an opponent who died to that life loss still counts', () => {",
           "rules-engine/src/cardPlugins/sygg.test.ts:13",
           "rules-engine/src/cardPlugins/sygg.test.ts:62 — test('an opponent bleeding three life puts Sygg on the stack before the draw choice', () => {",
-          "site/src/liveCompact.test.ts:121",
-          "site/src/liveCompact.test.ts:51"
+          "site/src/liveCompact.test.ts:123",
+          "site/src/liveCompact.test.ts:53"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -9200,7 +9200,7 @@
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:60 — test('the remaining Eva cards stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:81 — test('Counterspell counters the targeted spell', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:343 — test('the Lady Evangela remaining group stays registered', () => {",
-          "site/src/liveCompact.test.ts:121"
+          "site/src/liveCompact.test.ts:123"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
@@ -9412,9 +9412,9 @@
         "samples": [
           "rules-engine/src/cardPlugins/librarySearch.test.ts:680 — test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:218 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "site/src/liveCompact.test.ts:122",
-          "site/src/liveCompact.test.ts:187 — test('expand restores names from the four 99s', () => {",
-          "site/src/liveCompact.test.ts:75"
+          "site/src/liveCompact.test.ts:124",
+          "site/src/liveCompact.test.ts:189 — test('expand restores names from the four 99s', () => {",
+          "site/src/liveCompact.test.ts:77"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
@@ -12562,7 +12562,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:44 — test('the Homer commander is registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:50 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/plugins/combat.test.ts:162 — test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {",
-          "site/src/liveCompact.test.ts:104"
+          "site/src/liveCompact.test.ts:106"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
@@ -16753,8 +16753,8 @@
           "live-runner/src/kernelView.test.ts:93 — test('declared blocks replace the possible blockers', () => {",
           "site/src/CombatOverlay.test.tsx:84 — test('calls out damage aimed at the viewer', () => {",
           "site/src/CombatOverlay.test.tsx:98 — test('shows who blocked and who got through', () => {",
-          "site/src/liveCompact.test.ts:239 — test('attack and block labels survive the wire', () => {",
-          "site/src/liveCompact.test.ts:259 — test('summoning sickness survives the wire', () => {"
+          "site/src/liveCompact.test.ts:241 — test('attack and block labels survive the wire', () => {",
+          "site/src/liveCompact.test.ts:261 — test('summoning sickness survives the wire', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [revealPick]",
@@ -17643,7 +17643,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:52 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/replay.test.ts:283 — test('a clone reports the card it is printed as alongside the face it wears', () => {",
           "rules-engine/src/replay.test.ts:332 — test('a spell on the stack announces what it targets', () => {",
-          "site/src/liveCompact.test.ts:274 — test('the card a clone is printed as survives the wire', () => {",
+          "site/src/liveCompact.test.ts:276 — test('the card a clone is printed as survives the wire', () => {",
           "site/src/TableBoard.test.tsx:239 — test('hovering a clone shows the copied face beside the card it is printed as', () => {"
         ]
       },
@@ -18203,8 +18203,8 @@
           "rules-engine/src/cardPlugins/sygg.test.ts:111 — test('an opponent who died to that life loss still counts', () => {",
           "rules-engine/src/cardPlugins/sygg.test.ts:13",
           "rules-engine/src/cardPlugins/sygg.test.ts:62 — test('an opponent bleeding three life puts Sygg on the stack before the draw choice', () => {",
-          "site/src/liveCompact.test.ts:121",
-          "site/src/liveCompact.test.ts:51"
+          "site/src/liveCompact.test.ts:123",
+          "site/src/liveCompact.test.ts:53"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [mayDraw]",
@@ -19691,7 +19691,7 @@
           "live-runner/src/kernelHost.test.ts:751 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:225 — test('Wall of Shards adds age counters, validates each opponent payment, and sacrifices', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:157 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "site/src/liveCompact.test.ts:355 — test('browser wire preserves the typed request envelope metadata', () => {"
+          "site/src/liveCompact.test.ts:357 — test('browser wire preserves the typed request envelope metadata', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [cumulativeUpkeepOpponentLife]",
@@ -21643,16 +21643,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 188,
+        "matches": 190,
         "samples": [
+          "live-runner/src/kernelHost.part15.test.ts:399 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:3451 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:114 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:157 — test('stamped creature filter copies power and toughness', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:188 — test('rejects targets outside the stamped filter', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:238 — test('host restart preserves an open copy target selection', () => {",
           "rules-engine/src/cardPlugins/blink.test.ts:129 — test('optional blink returns under controller (Restoration-Angel shape)', () => {",
-          "rules-engine/src/cardPlugins/blink.test.ts:167 — test('delayed blink returns at the next end step (Flickerwisp shape)', () => {",
-          "rules-engine/src/cardPlugins/blink.test.ts:302 — test('optional blink selectCards path can be declined', () => {"
+          "rules-engine/src/cardPlugins/blink.test.ts:167 — test('delayed blink returns at the next end step (Flickerwisp shape)', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -21669,7 +21669,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.part15.test.ts:144 — test('host publishes an authorized replacement selectOption request', () => {",
+          "live-runner/src/kernelHost.part15.test.ts:330 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:453 — test('publishes the server option bounds and actual source label', () => {"
         ]
       },
