@@ -169,7 +169,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 24,
+        "matches": 26,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
@@ -1134,7 +1134,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 467,
+        "matches": 469,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -2367,7 +2367,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 30,
+        "matches": 31,
         "samples": [
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
@@ -2751,7 +2751,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 137,
+        "matches": 139,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -5940,7 +5940,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 15,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:107",
           "rules-engine/src/cardPlugins/councilCards.test.ts:146 — test('each council card is registered with the vote engine handlers it needs', () => {",
@@ -13506,7 +13506,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 21,
+        "matches": 22,
         "samples": [
           "rules-engine/src/actions.test.ts:381 — test('instants and permanents with entry choices stay with the judge', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:112 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
@@ -13515,7 +13515,7 @@
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:50",
           "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:516 — test('Kuroki counters when the opponent declines the draw, and steal-casts when they accept', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family3.test.ts:31 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [dealDamageToChosenTarget]",
@@ -14621,15 +14621,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 9,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:132 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:228 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:56 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family3.test.ts:187 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
+          "rules-engine/src/cardPlugins/dsl/part16.family3.test.ts:32 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/ladyEvangela.test.ts:61 — test('the Eva cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:26 — test('Mulldrifter offers and pays evoke, draws two, then sacrifices from its trigger', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:154 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
-          "site/src/TableBoard.test.tsx:43 — test('alternate casting actions use their live cost label', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:154 — test('the Lady Evangela alternate and replacement cards stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, trigger] and instructions [draw, sacrificeSelf]",
