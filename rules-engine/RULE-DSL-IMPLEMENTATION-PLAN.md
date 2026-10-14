@@ -561,7 +561,7 @@ All newly advertised DSL capabilities have end-to-end evidence.
 **Dependencies:** 00 ledger; migrate each family after its owning parts pass.
 Final consolidation requires 15.
 
-**Status:** family 1 (simple keywords / player effects) in progress. Family
+**Status:** family 1 (simple keywords / player effects) and family 2 (ordinary spells and triggers) in progress. Family
 migrations continue. Consolidation still waits; do not remove legacy adapters.
 See [Part 16 implementation note](migration/RULE-DSL-PART-16.md).
 
