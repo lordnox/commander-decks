@@ -4,12 +4,15 @@ import {
   adaptLegacyTrigger,
   activated,
   card,
+  chooseModes,
   compileCardRuleDefinition,
+  copySpell,
   createDefinitionSnapshot,
   createEffect,
   createToken,
   damage,
   destroy,
+  discard,
   discardCost,
   draw,
   draws,
@@ -20,9 +23,11 @@ import {
   players,
   pumpEffect,
   ref,
+  searchLibrary,
   select,
   self,
   spell,
+  stackItems,
   target,
   untilCleanup,
   whenever,
@@ -32,7 +37,7 @@ const snapshotFor = (abilities: readonly AbilityDefinition[]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
 /**
- * Name-keyed canonical snapshots for Part 16 families 1–3. Compiled once at
+ * Name-keyed canonical snapshots for Part 16 families 1–5. Compiled once at
  * module load. Lookup is exact card name; this is not a kernel dispatcher.
  */
 const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSnapshotV1>> = Object.freeze({
@@ -114,6 +119,59 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
         targets: ref('source'),
         effect: pumpEffect(2, 2),
         duration: untilCleanup(),
+      })],
+    }),
+  ]),
+  'Esper Charm': snapshotFor([
+    spell({
+      decisions: { modes: chooseModes({ count: 1 }) },
+      modes: [
+        {
+          decisions: {
+            targets: [select({
+              filter: objects({ zone: 'battlefield', type: 'Enchantment' }),
+              count: 1,
+            })],
+          },
+          instructions: [destroy({ targets: target(0) })],
+        },
+        {
+          instructions: [draw({ count: 2, targets: ref('controller') })],
+        },
+        {
+          decisions: {
+            targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+          },
+          instructions: [discard({ count: 2, targets: target(0) })],
+        },
+      ],
+    }),
+  ]),
+  'Reverberate': snapshotFor([
+    spell({
+      decisions: {
+        targets: [select({
+          filter: stackItems({
+            kind: 'spell',
+            any: [{ type: 'Instant' }, { type: 'Sorcery' }],
+          }),
+          count: 1,
+        })],
+      },
+      instructions: [copySpell({
+        targets: target(0),
+        retarget: { kind: 'chooseNewTargets' },
+      })],
+    }),
+  ]),
+  'Diabolic Tutor': snapshotFor([
+    spell({
+      instructions: [searchLibrary({
+        bindChoice: 'found',
+        chooser: ref('controller'),
+        filter: objects({ zone: 'library', owner: 'you' }),
+        count: 1,
+        to: 'hand',
       })],
     }),
   ]),

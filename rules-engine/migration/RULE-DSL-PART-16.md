@@ -1,6 +1,6 @@
-# Rule DSL Part 16 — existing-card migration (family 1+2+3 in progress)
+# Rule DSL Part 16 — existing-card migration (families 1–5 in progress)
 
-**Status:** family 1 (simple keywords / player effects), family 2 (ordinary spells and triggers), and family 3 (targeting / activation / costs) in progress. Not complete. Do not remove `legacy.ts` or close Part 16.
+**Status:** families 1–5 in progress (4+5 this slice: modes/copies and hidden-zone choices). Not complete. Do not remove `legacy.ts` or close Part 16.
 
 ## This slice
 
@@ -9,6 +9,8 @@
 - Family 1 names in this slice: **Duskdale Wurm** (trample), **Wall of Omens** (defender + ETB draw), **Night's Whisper** (draw 2, lose 2 life). `CARD_RULES` had no fully representable family-1 card (every registered name has at least one non-adapter effect). Keyword-only / stored-deck names fill that gap. Thunderfoot Baloth is not this family.
 - Family 2 names in this slice: **Flame Rift** (4 damage to each player), **Thragtusk** (self ETB gain 5, self leaves-the-battlefield 3/3 Beast), **Fate Unraveler** (whenever an opponent draws, this creature deals 1 damage to that player). `CARD_RULES` still has no fully representable family-2 card (every registered name has targeting, an activation, search, a replacement, modes, a handler, or another non-adapter effect). Stored-deck / real names fill that gap. Do not redo Duskdale Wurm, Wall of Omens, or Night's Whisper.
 - Family 3 names in this slice: **Murder** (destroy target creature), **Sign in Blood** (target player draws 2 and loses 2 life), **Vampire Hounds** (discard a creature card: +2/+2 until end of turn). `CARD_RULES` Lightning Bolt is targeting-only, but Oracle is any target and `Selector` has no player-or-permanent union; do not encode it as creature-only. Remaining CARD_RULES activations still mix tap, flying, specialized ledgers, or Eva `missingCardPlugins` ability ids. Real Oracle names whose filters and Cost kinds already exist fill that gap. Do not redo Duskdale Wurm, Wall of Omens, Night's Whisper, Flame Rift, Thragtusk, or Fate Unraveler.
+- Family 4 names in this slice: **Esper Charm** (choose one: destroy target enchantment / draw two / target player discards two) and **Reverberate** (copy target instant or sorcery; may choose new targets). CARD_RULES Charms/Commands still mix fight, tap-all, X, or search-in-mode. Twincast stays on `CARD_RULES` so the legacy object-on-stack `stackCopy` path keeps its evidence; Reverberate is the same Oracle on the canonical `copySpell` + `StackItemFilter.type` stack. Do not redo Duskdale Wurm, Wall of Omens, Night's Whisper, Flame Rift, Thragtusk, Fate Unraveler, Murder, Sign in Blood, or Vampire Hounds.
+- Family 5 names in this slice: **Diabolic Tutor** (search library for a card, put it into your hand, then shuffle). Cultivate / Kodama's Reach remain CARD_RULES because split battlefield-tapped + hand destinations are not a reusable search node. Added reusable `shuffle` plus `searchLibrary` sugar over typed `selectCards` (`chooseCards` + `move` + `shuffle`). Player picks are `selectCards`, never `custom`.
 
 ## Evidence
 
@@ -18,6 +20,8 @@
 
 `rules-engine/src/cardPlugins/dsl/part16.family3.test.ts` — catalog pin, empty effects, Murder creature targeting, Sign in Blood player targeting, Vampire Hounds discard-cost activation without double-fire, mixed catalog Murder + CARD_RULES Mulldrifter, journal/JSON `definitionRevision`.
 
+`rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts` — catalog pin, empty effects, Esper Charm mode pick (destroy / draw / discard), Reverberate copy with keep-targets and creature-spell rejection, Diabolic Tutor hidden-zone `selectCards` plus shuffle, mixed catalog Diabolic Tutor + CARD_RULES Mulldrifter, no double-fire, journal/JSON `definitionRevision`.
+
 ## Not this slice
 
-Final consolidation, deleting `legacy.ts` / `CARD_RULES`, modes, copies, hidden-zone search, replacements, static board pumps, CI, live wire codecs.
+Final consolidation, deleting `legacy.ts` / `CARD_RULES`, replacements, static board pumps, specialized ledger, CI, live wire codecs.

@@ -51,6 +51,8 @@ export type ObjectFilter = {
 
 export type StackItemFilter = {
   kind?: 'spell' | 'ability'
+  /** Card type of the stack object, for "instant or sorcery spell" and similar. */
+  type?: string
   other?: boolean
   controller?: 'you' | PlayerReference
   all?: readonly StackItemFilter[]
@@ -241,6 +243,8 @@ export type Instruction =
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient }
+  /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */
+  | { kind: 'shuffle'; targets: PlayerRecipient }
   /** Destroy each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'destroy'; targets: ObjectRecipient; bindResult?: string }
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */

@@ -260,6 +260,10 @@ const matchesStackItemFilter = (
   if (filter.any && !filter.any.some((part) => matchesStackItemFilter(item, part, context))) return false
   if (filter.not && matchesStackItemFilter(item, filter.not, context)) return false
   if (filter.kind && item.kind !== filter.kind) return false
+  if (filter.type) {
+    const source = context.state.objects[item.objectId]
+    if (!source?.types.includes(filter.type)) return false
+  }
   if (filter.other && item.id === context.stackItemId) return false
   if (filter.controller && item.controller !== stackController(filter.controller, context)) return false
   return true
