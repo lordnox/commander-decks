@@ -14,9 +14,11 @@ typed choices, checkpoint triggers, action primitives, announcement/costs,
 scoped modes, spell copies, temporary effects, optional resolution payments,
 and delayed/granted programs execute in tests through `ruleDefinition`.
 
-Stored decks still register through legacy `CARD_RULES`. No production card
-carries a canonical `ruleDefinition`. Legacy adapters in
-`src/cardPlugins/dsl/builders/legacy.ts` remain until Part 16.
+Stored decks still register through legacy `CARD_RULES`. Part 16 family 1 is in
+progress: a name-keyed catalog stamps canonical `ruleDefinition` at object
+creation for a small keyword/player-effect set. Unmigrated names still use
+`CARD_RULES`. Legacy adapters in
+`src/cardPlugins/dsl/builders/legacy.ts` remain until Part 16 consolidation.
 
 The generated card-handler reload fixtures in `live-runner` remain a known
 non-DSL failure; see [KNOWN-TEST-FAILURES.md](migration/KNOWN-TEST-FAILURES.md).
@@ -548,7 +550,7 @@ All newly advertised DSL capabilities have end-to-end evidence.
 **Dependencies:** 00 ledger; migrate each family after its owning parts pass.
 Final consolidation requires 15.
 
-**Status:** not started. Do not remove legacy adapters until Part 15 closes.
+**Status:** family 1 (simple keywords / player effects) in progress. Do not remove legacy adapters until Part 15 closes. Final consolidation is not this slice.
 
 Migrate in mechanic families: simple keywords/player effects; ordinary spells and
 triggers; targeting/activation/costs; modes/copies; hidden-zone choices; replacements

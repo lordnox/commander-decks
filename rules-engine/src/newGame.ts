@@ -1,5 +1,6 @@
 import { grantedRulesFor } from './cardPlugins'
 import { effectsFor } from './cardPlugins/cardRules'
+import { cardRuleDefinitionSnapshotFor } from './cardPlugins/dsl/cardRuleCatalog'
 import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
 import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
@@ -107,7 +108,10 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
   const put = (playerId: PlayerId, zone: GameObject['zone'], template: CardTemplate) => {
     const id = `o${nextId}`
     nextId += 1
-    const effects = serializableEffects(template.effects ?? effectsFor(template.name))
+    const ruleDefinition = template.ruleDefinition ?? cardRuleDefinitionSnapshotFor(template.name)
+    const effects = serializableEffects(
+      template.effects ?? (ruleDefinition ? [] : effectsFor(template.name)),
+    )
     objects[id] = {
       ...defaultObject(),
       ...template,
@@ -122,6 +126,7 @@ export const newGame = (format: GameFormat, opts?: NewGameOptions): GameState =>
         ...pluginIdsFromEffects(effects),
       ])],
       effects,
+      ...(ruleDefinition ? { ruleDefinition } : {}),
       tags: [...new Set([...template.tags, ...(format.tagsForZone?.(zone) ?? [])])],
     }
     // CR 712.8a: outside the battlefield and stack, use the front face.

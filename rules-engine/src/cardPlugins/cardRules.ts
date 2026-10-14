@@ -2804,8 +2804,12 @@ export const allHandlerIds = () =>
 export const handlerIdsForNames = (names: string[]) =>
   [...new Set(names.flatMap((name) => handlerIdsFromEffects(effectsFor(name))))].sort()
 
-export const effectsOf = (object: { name: string; effects?: CardEffect[] }) =>
-  object.effects && object.effects.length > 0 ? object.effects : effectsFor(object.name)
+export const effectsOf = (
+  object: Pick<GameObject, 'name'> & Partial<Pick<GameObject, 'effects' | 'ruleDefinition'>>,
+) => {
+  if (object.ruleDefinition && !(object.effects && object.effects.length > 0)) return []
+  return object.effects && object.effects.length > 0 ? object.effects : effectsFor(object.name)
+}
 
 export const cardDefinition = (name: string) => {
   const effects = CARD_RULES[name]
