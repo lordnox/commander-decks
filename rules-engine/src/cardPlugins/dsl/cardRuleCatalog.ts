@@ -2,18 +2,29 @@ import type { AbilityDefinition, CardRuleDefinitionSnapshotV1 } from './schema/v
 import {
   adaptLegacyPlayerInstruction,
   adaptLegacyTrigger,
+  activated,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
+  createEffect,
   createToken,
   damage,
+  destroy,
+  discardCost,
+  draw,
   draws,
   gainLife,
   keyword,
+  loseLife,
+  objects,
   players,
+  pumpEffect,
   ref,
+  select,
   self,
   spell,
+  target,
+  untilCleanup,
   whenever,
 } from './v1'
 
@@ -21,8 +32,8 @@ const snapshotFor = (abilities: readonly AbilityDefinition[]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
 /**
- * Name-keyed canonical snapshots for Part 16 family 1 and family 2. Compiled
- * once at module load. Lookup is exact card name; this is not a kernel dispatcher.
+ * Name-keyed canonical snapshots for Part 16 families 1–3. Compiled once at
+ * module load. Lookup is exact card name; this is not a kernel dispatcher.
  */
 const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSnapshotV1>> = Object.freeze({
   'Duskdale Wurm': snapshotFor([keyword.trample]),
@@ -74,6 +85,35 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
         amount: 1,
         targets: ref('triggering.player'),
         source: ref('source'),
+      })],
+    }),
+  ]),
+  'Murder': snapshotFor([
+    spell({
+      decisions: {
+        targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })],
+      },
+      instructions: [destroy({ targets: target(0) })],
+    }),
+  ]),
+  'Sign in Blood': snapshotFor([
+    spell({
+      decisions: {
+        targets: [select({ filter: players({ relation: 'any' }), count: 1 })],
+      },
+      instructions: [
+        draw({ count: 2, targets: target(0) }),
+        loseLife({ amount: 2, targets: target(0) }),
+      ],
+    }),
+  ]),
+  'Vampire Hounds': snapshotFor([
+    activated({
+      costs: [discardCost(objects({ zone: 'hand', type: 'Creature' }), 1)],
+      instructions: [createEffect({
+        targets: ref('source'),
+        effect: pumpEffect(2, 2),
+        duration: untilCleanup(),
       })],
     }),
   ]),
