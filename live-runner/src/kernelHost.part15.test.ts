@@ -118,13 +118,13 @@ const pickMessage = (
   })
 }
 
-const retarget = (message: TopdeckMessage, picked: string | readonly string[]): TopdeckMessage => {
+const retarget = (message: TopdeckMessage, picked: string | readonly string[]) => {
   const names = typeof picked === 'string' ? [picked] : picked
   return {
     ...message,
     choices: message.choices.map((entry) => ({
       ...entry,
-      destination: names.includes(entry.card) ? 'target' : 'skip',
+      destination: names.includes(entry.card) ? 'target' as const : 'skip' as const,
     })),
   }
 }
