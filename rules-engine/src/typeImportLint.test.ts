@@ -5,6 +5,8 @@ import { expect, test } from 'bun:test'
 
 const oxlint = join(import.meta.dir, '../../node_modules/.bin/oxlint')
 const fixturePath = 'rules-engine/src/cardPlugins/dsl/compiler/fixture.ts'
+// Include Node and native oxlint startup time on slower CI runners.
+const OXLINT_TEST_TIMEOUT_MS = 30_000
 
 const runOxlint = async (root: string) => {
   const process = Bun.spawn([oxlint, '--config', '.oxlintrc.json', '--quiet', fixturePath], {
@@ -42,7 +44,7 @@ test('rejects inline type imports in the checked DSL compiler scope', async () =
       expect(result.output).toContain('typescript(consistent-type-imports)')
     },
   )
-})
+}, OXLINT_TEST_TIMEOUT_MS)
 
 test('allows runtime dynamic imports alongside top-level type imports', async () => {
   await withFixture(
@@ -52,4 +54,4 @@ test('allows runtime dynamic imports alongside top-level type imports', async ()
       expect(result.code).toBe(0)
     },
   )
-})
+}, OXLINT_TEST_TIMEOUT_MS)
