@@ -448,10 +448,6 @@
   {"path":"rules-engine/src/cardPlugins/randomExileCopy.ts","code":"custom-picker-event","digest":"7052646c09b8064893f1778a7f11f1d22c46feae8e49f79bb20a4630f0d67505"},
   {"path":"rules-engine/src/cardPlugins/reinsOfPower.ts","code":"literal-name-dispatch","digest":"5822d7285f3fc5c7597e88e01698b85a42fb8376805cf781fcd5caa33eefe8d5"},
   {"path":"rules-engine/src/cardPlugins/reinsOfPower.ts","code":"literal-name-dispatch","digest":"2b49d8083c2a9b2accbac5245091e41144284ee39774e46b4fc90cb4e17f7c40"},
-  {"path":"rules-engine/src/driver.ts","code":"literal-name-dispatch","digest":"c3a3a6bba25e051efb586bc8ed3e086a490437ed3052cf7a366189d8652c45b0"},
-  {"path":"rules-engine/src/driver.ts","code":"literal-name-dispatch","digest":"bef8091adef3b91157f3a84483a82eeb10531cc5c054797d5a0b1b8afc2ce866"},
   {"path":"rules-engine/src/plugins/spells.ts","code":"literal-name-dispatch","digest":"a18e0d966877b3ccdabbb8a51931a957645d9a6b9b5d1c92ec21d0c54c100e15"},
-  {"path":"rules-engine/src/plugins/spells.ts","code":"literal-name-dispatch","digest":"f32e07ae0819a6312b1b8a8fd7a51b0649926acc4ca3db22091b6a92e2039c9b"},
-  {"path":"rules-engine/src/replacement/canonical.ts","code":"literal-name-dispatch","digest":"9ed00de024bbbba6c512d036d09fb95609ce21706092abb808f12315eb2cc866"},
-  {"path":"rules-engine/src/replacement/canonical.ts","code":"literal-name-dispatch","digest":"e32f595c6e57257c527d002165615408077364674c724f200945450bcb2242b8"}
+  {"path":"rules-engine/src/plugins/spells.ts","code":"literal-name-dispatch","digest":"f32e07ae0819a6312b1b8a8fd7a51b0649926acc4ca3db22091b6a92e2039c9b"}
 ]
