@@ -57,6 +57,10 @@ Commit after each coherent step without waiting to be asked. Use a 1–2 sentenc
 
 When the task is done, inspect the full diff, exclude unrelated shared-cache or registry changes, push the branch, and open a ready-for-review pull request (`draft: false`) summarizing what changed. Title it `<area>: <imperative summary>` as in [`.github/PULL_REQUESTS.md`](.github/PULL_REQUESTS.md); numbered Rule DSL work is `dsl: Part N …`. Use `gh pr create --base main --head <branch>`; if `gh` is unavailable, return the `compare/main...<branch>?expand=1` URL instead. Return the PR URL.
 
+### PR title rule
+
+Before creating or renaming a PR, read [`.github/PULL_REQUESTS.md`](.github/PULL_REQUESTS.md) and use an allowed lowercase area followed by `: ` and an imperative summary matching the final change. Use `dsl: Part N …` for numbered Rule DSL work, omit a trailing period, and update the title when the PR scope changes.
+
 ### Hosted CI before completion
 
 After creating or updating a PR, inspect every check reported for its latest head
