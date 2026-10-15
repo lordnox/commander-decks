@@ -461,135 +461,110 @@ const artifactWithManaAbility = (object: GameObject) =>
       effect.op === 'activate' && effect.manaAbility)
   )
 
+// Keep leftover registrations sorted by Unicode card name until this object is removed.
 export const CARD_RULES: Record<string, CardEffect[]> = {
-  'Vault of Champions': [entersTapped(opponentsAtMost(1))],
-  'Concealed Courtyard': [entersTapped(otherLands({ min: 3 }))],
-  'Bojuka Bog': [
-    entersTapped(),
-    { op: 'trigger', on: 'enters', targets: 'player', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
+  'Alabaster Host Intercessor': [
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
+    typecycleHand('plainscycling.alabasterHostIntercessor', '{2}', 'Plains'),
   ],
-  'Boggart Trawler // Boggart Bog': [
-    { op: 'replacement', on: 'enters', do: 'tapUnlessPayLife', life: 3, if: { kind: 'sourceType', type: 'Land' } },
-    { op: 'trigger', on: 'enters', targets: 'player', sourceTypeAtTrigger: 'Creature', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
-  ],
-  'Hostile Negotiations': [onResolve(hiddenPileNegotiation(3, 3))],
-  'Bala Ged Recovery // Bala Ged Sanctuary': [
-    entersTapped(),
-    targetOnResolve('bounce', { zone: 'graveyard' }),
-  ],
-  'Bridgeworks Battle // Tanglespan Bridgeworks': [tapUnlessPayLife(3)],
-  'Broken Bond': [
-    targetOnResolve(
-      'destroy',
-      { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
-      putLandFromHand(),
-    ),
-  ],
-  Burgeoning: [
-    triggerOn('playLand', {
-      if: { seat: 'opponent' },
-      do: [putLandFromHand()],
+  'Alchemist\'s Refuge': [
+    activate({
+      id: 'alchemistsRefuge.flash',
+      costs: { mana: '{G}{U}', tap: true },
+      do: [addUntilCleanupRule('flashGrant')],
     }),
   ],
-  'Crop Rotation': [
+  'All-Fates Stalker': [
+    ...warp('{1}{W}'),
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    {
+      op: 'trigger',
+      on: 'enters',
+      targets: { filter: { type: 'Creature', excludeSubtypes: ['Assassin'] } },
+      do: [linkExile(
+        { type: 'Creature', excludeSubtypes: ['Assassin'] },
+        { optional: true, max: 1 },
+      )],
+    },
+  ],
+  "An Offer You Can't Refuse": [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack', noncreature: true },
+      createTreasures(2, 'targetController'),
+    ),
+  ],
+  'Analyze the Pollen': [
     searchSpell({
-      prompt: 'Search your library for a land card and put it onto the battlefield.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'battlefield',
+      prompt: 'Choose one basic land card for Analyze the Pollen.',
+      kickedPrompt: 'Choose one creature or land card for Analyze the Pollen.',
+      match: basicLand,
+      kickedMatch: (object) =>
+        object.types.includes('Creature') || object.types.includes('Land'),
+      destination: 'hand',
       min: 1,
       max: 1,
-      sacrificeLands: 1,
+      reveal: true,
     }),
   ],
-  Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
-  'Debt to the Deathless': [xMana(), onResolve(drainOpponentsX(2))],
-  'Drain Life': [
-    xMana('black'),
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', types: ['Creature', 'Planeswalker'], players: 'any' },
-      dealDamageTargetX(),
-    ),
+  'Ancient Greenwarden': [playLandsFromGraveyard(), extraLandfall(1)],
+  'Angel of Sanctions': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
+    enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
   ],
-  'Repay in Kind': [onResolve(setAllLifeToLowest())],
-  Necrologia: [payLifeX({ timing: 'yourEndStep' }), onResolve(drawX())],
-  'Test of Endurance': [
-    yourUpkeepIf(controllerLife(50), winGame()),
-  ],
-  'Starfield of Nyx': [
-    staticGrant('starfieldOfNyx'),
-    yourUpkeepTarget(
-      { zone: 'graveyard', type: 'Enchantment', controller: 'you' },
-      [returnTargetFromGraveyard('battlefield', false, true)],
-    ),
-  ],
-  'Mister Negative': [
-    entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
-  ],
-  'Mirror Universe': [
-    ability({
-      id: 'mirrorUniverse.exchange',
-      targets: 'opponent',
-      if: { kind: 'controllerUpkeep' },
-    }, { tap: true, sacrifice: 'self' }, exchangeLifeWithOpponent()),
-  ],
-  'Wall of Blood': [
-    ability({ id: 'wallOfBlood.pump' }, { life: 1 }, pumpSelf(1, 1)),
-  ],
-  'Selenia, Dark Angel': [
-    ability({ id: 'selenia.return' }, { life: 2 }, bounceSelf()),
-  ],
-  'Children of Korlis': [
-    ability(
-      { id: 'childrenOfKorlis.recover' },
-      { sacrifice: 'self' },
-      gainLifeLostThisTurn(),
-    ),
-  ],
-  'Tainted Sigil': [
-    ability(
-      { id: 'taintedSigil.recover' },
-      { tap: true, sacrifice: 'self' },
-      gainLifeLostThisTurn('all'),
-    ),
-  ],
-  'Blood Celebrant': [
-    ability(
-      { id: 'bloodCelebrant.mana', manaAbility: true },
-      { mana: '{B}', life: 1 },
-      { kind: 'addChosenColorMana' },
-    ),
-  ],
-  'Fell the Profane // Fell Mire': [
-    tapUnlessPayLife(3),
-    targetOnResolve(
-      'destroy',
-      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
-    ),
-  ],
-  'Hagra Mauling // Hagra Broodpit': [
-    entersTapped(),
-    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
-  ],
-  'Hermit Druid': [
-    activate({
-      id: 'hermitDruid.reveal',
-      costs: { mana: '{G}', tap: true },
-      do: [revealUntilBasicLand()],
-    }),
-  ],
-  'Hedron Crab': [landfallTargeting('player', millTarget(3))],
-  'Cling to Dust': [
-    escape('{3}{B}', 5),
-    targetOnResolve(
-      'exile',
-      { zone: 'graveyard' },
-      ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
-    ),
-  ],
-  'Frantic Search': [onResolve(draw(2), discardCards(2), untapUpToLands(3))],
-  'Planar Genesis': [onResolve(lookTopPutLand(4, { orHand: true }))],
   "Animist's Awakening": [xMana(), onResolve(revealTopLandsTapped())],
+  'Apex Altisaur': [enters(fightUpToOne())],
+  'Arbor Elf': [
+    activate({
+      id: 'arborElf.untap',
+      costs: { tap: true },
+      targets: { filter: { zone: 'battlefield', type: 'Land', subtype: 'Forest' } },
+      do: [untapTarget()],
+    }),
+  ],
+  'Arcane Denial': [
+    targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
+  ],
+  'Arcanis the Omnipotent': [
+    activate({
+      id: 'arcanis.draw',
+      costs: { tap: true },
+      do: [draw(3)],
+    }),
+    activate({
+      id: 'arcanis.bounce',
+      costs: { mana: '{2}{U}{U}' },
+      do: [bounceSelf()],
+    }),
+  ],
+  "Archaeomancer's Map": [
+    {
+      op: 'search',
+      via: 'enters',
+      spec: {
+        prompt: 'Search your library for up to two basic Plains cards, reveal them, put them into your hand, then shuffle.',
+        match: (object) => basicLand(object) && hasSubtype('Plains')(object),
+        destination: 'hand',
+        min: 0,
+        max: 2,
+        reveal: true,
+      },
+    },
+    triggerOn('playLand', {
+      if: { seat: 'opponent' },
+      do: [
+        branch(opponentHasMore('lands'), [putLandFromHand()], []),
+      ],
+    }),
+  ],
+  'Archangel of Tithes': [
+    attackTax(1, { whileUntapped: true }),
+    blockTax(1, { whileAttacking: true }),
+  ],
   "Archdruid's Charm": [modalChooseOne(
     {
       id: 'search',
@@ -614,209 +589,191 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [{ kind: 'destroyTargetPermanent', types: ['Artifact', 'Enchantment'] }],
     },
   )],
-  Colossification: [
-    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
-    enters(tapAttached(), pumpAttached(20, 20)),
+  'Archetype of Endurance': [
+    staticBoardPump(0, 0, ['Creature'], { grantKeywords: ['hexproof'] }),
+    staticBoardPump(0, 0, ['Creature'], {
+      controller: 'opponent',
+      suppressKeywords: ['hexproof'],
+    }),
   ],
-  'Mirkwood Bats': [
-    enters({ filter: { controller: 'you', token: true }, createdOnly: true }, opponentsLoseLife(1)),
-    permanentSacrificed({ controller: 'you', token: true }, opponentsLoseLife(1)),
+  'Astral Drift': [
+    triggerOn('cycle', { do: [astralDriftCycleBlink] }),
+    cycleHand('cycling.astralDrift', '{2}{W}'),
   ],
-  'Retreat to Hagra': [landfall(chooseModes('one', [
+  'Awaken the Honored Dead': [
+    sagaChapters(
+      {
+        numbers: [1],
+        targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
+        do: [destroyTargetPermanent()],
+      },
+      { numbers: [2], do: [selfMill(3)] },
+      {
+        numbers: [3],
+        do: [mayDiscard(1, {
+          filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
+          do: [returnTargetFromGraveyard('hand')],
+        })],
+      },
+    ),
+  ],
+  'Awaken the Woods': [onResolve(createXTokens({
+    name: 'Forest Dryad',
+    types: ['Land', 'Creature'],
+    subtypes: ['Forest', 'Dryad'],
+    power: 1,
+    toughness: 1,
+  }))],
+  'Baird, Steward of Argive': [attackTax(1)],
+  'Bala Ged Recovery': [
+    targetOnResolve('bounce', { zone: 'graveyard' }),
+  ],
+  'Bala Ged Recovery // Bala Ged Sanctuary': [
+    entersTapped(),
+    targetOnResolve('bounce', { zone: 'graveyard' }),
+  ],
+  'Bala Ged Sanctuary': [entersTapped()],
+  'Banisher Priest': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
+  ],
+  'Batwing Brume': [handler('combatPreventionCards')],
+  'Beast Whisperer': [casts(draw(1), { creatureOnly: true })],
+  Belonging: [
+    enters(
+      changelingShapeshifter(),
+      changelingShapeshifter(),
+      changelingShapeshifter(),
+    ),
+    allCreatureTypes(),
+    encore('{6}{W}{W}'),
+  ],
+  'Bender\'s Waterskin': [staticGrant('extraUntap')],
+  'Beza, the Bounding Spring': [
+    enters(
+      branch(opponentHasMore('lands'), [createTreasures(1, 'you')]),
+      branch(opponentHasMore('life'), [gainLife(4)]),
+      branch(opponentHasMore('creatures'), [fish, fish]),
+      branch(opponentHasMore('cardsInHand'), [draw(1)]),
+    ),
+  ],
+  'Bishop of Binding': [
+    handler('linkedExile'),
+    handler('exilePayoffs'),
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
     {
-      id: 'pump',
-      label: 'Target creature gets +1/+0 and gains deathtouch until end of turn.',
-      do: [pump(1, 0), grantUntilEot('deathtouch')],
+      op: 'trigger',
+      on: 'attacks',
+      targets: { filter: { type: 'Creature' } },
+      do: [pumpFromLinkedExilePower('stackTarget')],
     },
-    {
-      id: 'drain',
-      label: 'Each opponent loses 1 life and you gain 1 life.',
-      do: [opponentsLoseLife(1), gainLife(1)],
-    },
-  ]))],
-  'Singularity Rupture': [
-    onResolve(destroyAllCreatures(), millHalfTargetPlayers()),
-    targetOnResolve('select', { players: 'any' }),
   ],
-  'Profane Command': [
+  'Black Sun\'s Twilight': [
     xMana(),
-    modalChooseTwo(
-      {
-        id: 'drain',
-        label: 'Target player loses X life.',
-        do: [{ kind: 'loseLifeTargetPlayer', amount: 0 }],
-      },
-      {
-        id: 'reanimate',
-        label: 'Return a creature card with mana value X or less from your graveyard.',
-        do: [returnCreatureManaValueX()],
-      },
-      {
-        id: 'shrink',
-        label: 'Target creature gets -X/-X until end of turn.',
-        do: [pumpTargetX(-1)],
-      },
-      {
-        id: 'fear',
-        label: 'Up to X target creatures gain fear until end of turn.',
-        do: [{ kind: 'grantUntilEot', keywords: ['fear'], maxFromX: true }],
-      },
-    ),
-  ],
-  'Will of the Sultai': [modalCommanderChooseBoth(
-    {
-      id: 'lands',
-      label: 'Target player mills three cards. Return all land cards from your graveyard tapped.',
-      do: [millTarget(3), returnOwnedGraveyardLands()],
-    },
-    {
-      id: 'pump',
-      label: 'Put X +1/+1 counters on target creature, where X is the number of lands you control. It gains trample.',
-      do: [addPlusCountersEqualToLands(), pumpTargetEqualToLands(true)],
-    },
-  )],
-  'Summon: Leviathan': [sagaChapters(
-    {
-      numbers: [1],
-      do: [bounceCreaturesExcept('Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent')],
-    },
-    {
-      numbers: [2, 3],
-      do: [addUntilCleanupRule('attackSubtypeDraw', {
-        subtypes: ['Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent'],
-      })],
-    },
-  )],
-  'Summon: Titan': [sagaChapters(
-    { numbers: [1], do: [selfMill(5)] },
-    { numbers: [2], do: [returnOwnedGraveyardLands()] },
-    { numbers: [3], do: [pumpTargetEqualToLands(true)] },
-  )],
-  'Kiora Bests the Sea God': [sagaChapters(
-    {
-      numbers: [1],
-      do: [createTokenInstruction({
-        name: 'Kraken',
-        types: ['Creature'],
-        subtypes: ['Kraken'],
-        colors: ['U'],
-        power: 8,
-        toughness: 8,
-        oracleText: 'Hexproof',
-      })],
-    },
-    {
-      numbers: [2],
-      targets: { filter: { players: 'opponent' } },
-      do: [tapAll(
-        { zone: 'battlefield', nonland: true },
-        { ofTargetPlayer: true, skipNextUntap: true },
-      )],
-    },
-    {
-      numbers: [3],
-      targets: { filter: { zone: 'battlefield', permanent: true, controller: 'opponent' } },
-      do: [gainControlPermanent(true)],
-    },
-  )],
-  "Rishkar's Expertise": [
-    onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
-  ],
-  'Spearbreaker Behemoth': [
-    activate({
-      id: 'spearbreaker.indestructible',
-      costs: { mana: '{1}' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
-      do: [grantUntilEot('indestructible')],
-    }),
-  ],
-  'Horizon of Progress': [
-    activate({
-      id: 'horizon.putLand',
-      costs: { mana: '{3}', tap: true },
-      do: [putLandFromHand(true)],
-    }),
-    manaFrom('controlledLands'),
-    activate({
-      id: 'horizon.draw',
-      costs: { mana: '{1}', tap: true, sacrifice: 'self' },
-      do: [draw(1)],
-    }),
-  ],
-  'Khalni Ambush // Khalni Territory': [
-    entersTapped(),
-    targetOnResolveAt(0, 'select', {
-      zone: 'battlefield',
-      type: 'Creature',
-      controller: 'you',
-    }),
-    targetOnResolveAt(
-      1,
-      'select',
-      { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
-      fight('two-targets'),
-    ),
-  ],
-  'Malakir Rebirth // Malakir Mire': [entersTapped()],
-  'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
-  'Portal to Phyrexia': [
-    enters(opponentsSacrifice('Creature', 3)),
-    upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
-  ],
-  Reprocess: [
-    onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
-  ],
-  'Rain of Filth': [
-    onResolve(addUntilCleanupRule('sacrificeLandMana')),
-  ],
-  'Revitalizing Repast // Old-Growth Grove': [
-    entersTapped(),
-    targetOnResolve(
+    optionalTargetOnResolve(
       'select',
       { zone: 'battlefield', type: 'Creature' },
-      addPlusCountersInstruction(1),
-      grantUntilEot('indestructible'),
+      pumpTargetX(-1),
+      returnCreatureManaValueX(5, true),
     ),
   ],
-  'Sink into Stupor // Soporific Springs': [
-    tapUnlessPayLife(3),
-    targetOnResolve(
-      'bounce',
-      { zones: ['stack', 'battlefield'], nonland: true, controller: 'opponent' },
-    ),
-  ],
-  'Toxic Deluge': [payLifeX(), onResolve(pumpAllCreaturesByX())],
-  'Waterlogged Teachings // Inundated Archive': [
-    entersTapped(),
-    searchSpell({
-      prompt: 'Search your library for an instant card or a card with flash.',
-      match: (object) =>
-        object.types.includes('Instant') || /\bflash\b/i.test(object.oracleText),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
+  'Blanket of Night': [staticGrant('swampOverlay')],
+  'Blighted Woodland': [
+    fetchBasic('Search your library for up to two basic land cards. They enter tapped.', {
+      tapped: true,
+      min: 0,
+      max: 2,
+      manaCost: '{3}{G}',
     }),
   ],
-  'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
-  'Zanarkand, Ancient Metropolis // Lasting Fayth': [
-    entersTapped(),
-    alternateCast('adventure', 'Lasting Fayth — {4}{G}{G}', '{4}{G}{G}', {
-      fromZone: 'hand',
-      exileAfterUse: true,
-    }),
-    onResolveIfCastOption('adventure', createHeroWithLandCounters()),
-  ],
-  "An Offer You Can't Refuse": [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', noncreature: true },
-      createTreasures(2, 'targetController'),
+  'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
+  Blitzball: [
+    ability(
+      { id: 'blitzball.goal' },
+      {
+        tap: true,
+        sacrifice: 'self',
+        if: opponentDealtCombatDamageByLegendaryThisTurn(),
+      },
+      draw(2),
     ),
   ],
-  'Apex Altisaur': [enters(fightUpToOne())],
-  'Beast Whisperer': [casts(draw(1), { creatureOnly: true })],
+  'Blood Celebrant': [
+    ability(
+      { id: 'bloodCelebrant.mana', manaAbility: true },
+      { mana: '{B}', life: 1 },
+      { kind: 'addChosenColorMana' },
+    ),
+  ],
+  'Blossoming Tortoise': [
+    enters(selfMill(3), returnChosenLandFromGraveyard()),
+    attacks(selfMill(3), returnChosenLandFromGraveyard()),
+    reduceActivationCost(1),
+    staticBoardPump(1, 1, ['Land']),
+  ],
+  'Boggart Trawler // Boggart Bog': [
+    { op: 'replacement', on: 'enters', do: 'tapUnlessPayLife', life: 3, if: { kind: 'sourceType', type: 'Land' } },
+    { op: 'trigger', on: 'enters', targets: 'player', sourceTypeAtTrigger: 'Creature', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
+  ],
+  'Bojuka Bog': [
+    entersTapped(),
+    { op: 'trigger', on: 'enters', targets: 'player', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
+  ],
+  'Boseiju, Who Endures': [
+    activate({
+      id: 'channel.boseiju',
+      zone: 'hand',
+      costs: {
+        mana: '{1}{G}',
+        discard: 'self',
+        reducePerLegendaryCreature: 1,
+      },
+      targets: {
+        zone: 'battlefield',
+        types: ['Artifact', 'Enchantment', 'Land'],
+        controller: 'opponent',
+        nonbasic: true,
+      },
+      do: [
+        removeTarget('destroy'),
+        searchTargetControllerForBasicLandType(),
+      ],
+    }),
+  ],
   'Botanical Sanctum': [entersTapped(otherLands({ min: 3 }))],
+  'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
+  'Breeding Pool': [tapUnlessPayLife(2)],
+  'Breena, the Demagogue': [
+    triggerOn('playerAttacks', {
+      do: [
+        { kind: 'draw', count: 1, who: 'triggeringPlayer' },
+        addPlusCountersToControlled(2),
+      ],
+    }),
+  ],
+  'Bridgeworks Battle // Tanglespan Bridgeworks': [tapUnlessPayLife(3)],
+  'Broken Bond': [
+    targetOnResolve(
+      'destroy',
+      { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
+      putLandFromHand(),
+    ),
+  ],
+  'Brokers Hideout': [
+    fetchHideout(
+      'Search your library for a basic Forest, Plains, or Island card. It enters tapped.',
+      ['Forest', 'Plains', 'Island'],
+    ),
+  ],
+  'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
+  Burgeoning: [
+    triggerOn('playLand', {
+      if: { seat: 'opponent' },
+      do: [putLandFromHand()],
+    }),
+  ],
   'Bushwhack': [modalChooseOne(
     {
       id: 'land',
@@ -836,31 +793,48 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [fightOwnedVsOpponent()],
     },
   )],
-  'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
+  'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
+  'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
   'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
   ],
-  'Delighted Halfling': [restrictedLegendaryMana()],
+  'Cephalid Coliseum': [
+    activate({
+      id: 'pain.cephalid',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [{ kind: 'addMana', mana: { U: 1 } }, { kind: 'dealDamageToSelf', amount: 1 }],
+    }),
+    activate({
+      id: 'threshold.cephalid',
+      costs: { mana: '{U}', tap: true, sacrifice: 'self' },
+      if: graveyardCards(7),
+      targets: { filter: { players: 'any' } },
+      do: [draw(3, 'target'), discardCards(3, 'target')],
+    }),
+  ],
   'Charcoal Diamond': [entersTapped()],
-  "Commander's Sphere": [
+  'Children of Korlis': [
     ability(
-      { id: 'commandersSphere.draw' },
+      { id: 'childrenOfKorlis.recover' },
       { sacrifice: 'self' },
-      draw(1),
+      gainLifeLostThisTurn(),
     ),
   ],
   'Choked Estuary': [tapUnlessRevealSubtype('Island', 'Swamp')],
-  'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
-  'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
-  'Courser of Kruphix': [
-    staticRevealLibraryTop(),
-    staticPlayLandsFromLibraryTop(),
-    handler('courserOfKruphix'),
-    landfall(gainLife(1)),
+  'City of Brass': [
+    triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
   ],
-  'Cultivate': [searchSpell(splitBasicLandSearch())],
+  'Cling to Dust': [
+    escape('{3}{B}', 5),
+    targetOnResolve(
+      'exile',
+      { zone: 'graveyard' },
+      ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
+    ),
+  ],
   Cloudshift: [
     targetOnResolve(
       'select',
@@ -868,6 +842,126 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       blink({ returnController: 'controller' }),
     ),
   ],
+  'Coercive Portal': [yourUpkeep(vote(
+    'Vote for carnage or homage.',
+    {
+      kind: 'named',
+      options: [{ id: 'carnage', label: 'Carnage' }, { id: 'homage', label: 'Homage' }],
+    },
+    [ifVoteLeads(
+      'carnage',
+      [{ kind: 'sacrificeSelf' }, destroyAll({ nonland: true })],
+      [draw(1)],
+    )],
+  ))],
+  'Collector\'s Vault': [lootAndTreasure('collectorsVault.loot')],
+  Colossification: [
+    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
+    enters(tapAttached(), pumpAttached(20, 20)),
+  ],
+  Comeuppance: [handler('combatPreventionCards')],
+  "Commander's Sphere": [
+    ability(
+      { id: 'commandersSphere.draw' },
+      { sacrifice: 'self' },
+      draw(1),
+    ),
+  ],
+  'Concealed Courtyard': [entersTapped(otherLands({ min: 3 }))],
+  'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
+  Condemn: [
+    targetOnResolve(
+      'libraryBottom',
+      { zone: 'battlefield', type: 'Creature', attacking: true },
+      gainLifeTargetToughness(),
+    ),
+  ],
+  "Council's Judgment": [
+    onResolve(vote(
+      'Vote for a nonland permanent you do not control.',
+      {
+        kind: 'objects',
+        filter: { zone: 'battlefield', nonland: true, controller: 'opponent' },
+      },
+      [exileVoteWinners()],
+    )),
+  ],
+  'Courser of Kruphix': [
+    staticRevealLibraryTop(),
+    staticPlayLandsFromLibraryTop(),
+    handler('courserOfKruphix'),
+    landfall(gainLife(1)),
+  ],
+  'Crawling Sensation': [
+    yourUpkeep(optionalMill(2)),
+    landToGraveyardOnce(insect),
+  ],
+  'Crop Rotation': [
+    searchSpell({
+      prompt: 'Search your library for a land card and put it onto the battlefield.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'battlefield',
+      min: 1,
+      max: 1,
+      sacrificeLands: 1,
+    }),
+  ],
+  'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
+  'Cryptic Command': [modalChooseTwo(
+    {
+      id: 'counter',
+      label: 'Counter target spell',
+      do: [counterTargetSpell()],
+    },
+    {
+      id: 'bounce',
+      label: "Return target permanent to its owner's hand",
+      do: [bounceTargetPermanent()],
+    },
+    {
+      id: 'tap',
+      label: 'Tap all creatures your opponents control',
+      do: [tapOpponentsCreatures()],
+    },
+    {
+      id: 'draw',
+      label: 'Draw a card',
+      do: [draw(1)],
+    },
+  )],
+  'Cultivate': [searchSpell(splitBasicLandSearch())],
+  'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
+  'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
+  'Dack Fayden, Helping Hand': [
+    enters(
+      revealUntil(
+        'opponentCount',
+        { type: 'Creature' },
+        'battlefield',
+        'shuffle',
+        goadRevealUntilMatches(),
+        pairDonateRevealUntilMatches(),
+      ),
+    ),
+  ],
+  'Daily Bugle Newspaper': [lootAndTreasure('dailyBugle.loot')],
+  'Dakmor Salvage': [dredge(2), entersTapped()],
+  'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
+  'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
+  Darkness: [onResolve(preventCombatDamage())],
+  'Darksteel Colossus': [shuffleIntoLibraryInstead()],
+  Deathsprout: [
+    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
+    searchSpell({
+      prompt: 'Search your library for a basic land card. It enters tapped.',
+      match: basicLand,
+      destination: 'battlefield',
+      tapped: true,
+      min: 0,
+      max: 1,
+    }),
+  ],
+  'Debt to the Deathless': [xMana(), onResolve(drainOpponentsX(2))],
   'Decisive Denial': [modalChooseOne(
     {
       id: 'fight',
@@ -880,13 +974,139 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [counterUnlessPay(3)],
     },
   )],
+  'Delighted Halfling': [restrictedLegendaryMana()],
+  'Deserted Temple': [
+    activate({
+      id: 'desertedTemple.untap',
+      costs: { mana: '{1}', tap: true },
+      targets: 'land',
+      do: [untapTarget()],
+    }),
+  ],
+  Desertion: [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack', stealIfTypes: ['Artifact', 'Creature'] },
+    ),
+  ],
+  'Dig Through Time': [delve(), onResolve(lookTopPick(7, 2))],
+  'Dimir Aqueduct': [entersTapped(), enters(bounceChosenLand())],
+  'Dimir Signet': [signet('signet.dimir', { U: 1, B: 1 })],
+  "Dovin's Veto": [
+    uncounterable(),
+    targetOnResolve('counter', { zone: 'stack', noncreature: true }),
+  ],
+  'Drag to the Roots': [
+    reduceGenericIf(2, graveyardCardTypes(4)),
+    targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
+  ],
+  'Drain Life': [
+    xMana('black'),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', types: ['Creature', 'Planeswalker'], players: 'any' },
+      dealDamageTargetX(),
+    ),
+  ],
+  'Dread Return': [
+    flashback('Flashback—Sacrifice three creatures.', '', {
+      sacrifice: { type: 'Creature', count: 3 },
+    }),
+    targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
+  ],
+  'Dreamscape Artist': [
+    searchAbility({
+      prompt: 'Search your library for up to two basic land cards.',
+      match: basicLand,
+      destination: 'battlefield',
+      min: 0,
+      max: 2,
+    }, { mana: '{2}{U}', tap: true, discard: 'any', sacrificeTarget: 'land' }),
+  ],
+  'Drowned Catacomb': [entersTapped(lacksControlledSubtype('Island', 'Swamp'))],
+  'Eclipsed Steppe': [entersTapped(controlledBasicLands({ max: 1 }))],
   'End-Raze Forerunners': [
     enters(
       pumpControlled(2, 2, { trample: true, other: true }),
       { kind: 'grantControlled', keywords: ['Vigilance', 'Trample'], other: true },
     ),
   ],
+  'Endless Sands': [
+    handler('linkedExile'),
+    ability(
+      {
+        id: 'endlessSands.exile',
+        targets: { filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } },
+      },
+      { mana: '{2}', tap: true },
+      linkExile({ type: 'Creature', controller: 'you' }, {}),
+    ),
+    ability(
+      { id: 'endlessSands.return' },
+      { mana: '{4}', tap: true, sacrifice: 'self' },
+      returnLinkedExile(),
+    ),
+  ],
+  'Energy Arc': [handler('combatPreventionCards')],
+  'Entish Restoration': [
+    searchSpell({
+      prompt: 'Search your library for basic land cards. They enter tapped.',
+      match: basicLand,
+      destination: 'battlefield',
+      tapped: true,
+      min: 0,
+      max: 2,
+      sacrificeLands: 1,
+      empoweredMax: 3,
+      empoweredIf: controlledCreaturePower(4),
+    }),
+  ],
+  Ephemerate: [handler('blinkValue')],
+  'Erestor of the Council': [onVotesFinished(
+    forEachVoter('opponentsAgreeing', createTreasures(1, 'triggeringPlayer')),
+    scry({ voters: 'opponentsDisagreeing' }),
+    draw(1),
+  )],
+  'Esper Panorama': [
+    searchAbility({
+      prompt: 'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
+      match: (object) =>
+        basicLand(object) && hasSubtype('Plains', 'Island', 'Swamp')(object),
+      destination: 'battlefield',
+      tapped: true,
+      min: 0,
+      max: 1,
+    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
+  ],
   'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
+  'Everflowing Chalice': [
+    multikicker('{2}'),
+    enters(putChargeCountersFromTimesKicked()),
+  ],
+  'Everybody Lives!': [handler('combatPreventionCards')],
+  'Evolving Wilds': [
+    fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
+  ],
+  'Exotic Orchard': [manaFrom('opponentsLands')],
+  'Expedition Map': [
+    searchAbility({
+      prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }, { mana: '{2}', tap: true, sacrifice: 'self' }),
+  ],
+  Explore: [onResolve(extraLandPlays(1), draw(1))],
+  Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
+  'Fabled Passage': [
+    fetchBasic(
+      'Search your library for a basic land card. It enters tapped, then untaps if you control four or more lands.',
+      { tapped: true, untapWithFourLands: true },
+    ),
+  ],
+  'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
   'Famished Worldsire': [
     ward({ mana: 3 }),
     handler('ward'),
@@ -898,6 +1118,70 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         shuffleAfter: true,
       })),
     ),
+  ],
+  'Farhaven Elf': [{
+    op: 'search',
+    via: 'enters',
+    spec: optionalBasicLandEnters(),
+  }],
+  Farseek: [
+    searchSpell({
+      prompt: 'Search your library for a Plains, Island, Swamp, or Mountain card. It enters tapped.',
+      match: hasSubtype('Plains', 'Island', 'Swamp', 'Mountain'),
+      destination: 'battlefield',
+      tapped: true,
+      min: 1,
+      max: 1,
+    }),
+  ],
+  'Felidar Guardian': [
+    enters(
+      blink({
+        optional: true,
+        filter: {
+          controller: 'you',
+          other: true,
+          permanent: true,
+        },
+        returnController: 'owner',
+        prompt: 'You may exile another target permanent you control, then return it under its owner\'s control.',
+      }),
+    ),
+  ],
+  'Fell Mire': [entersTapped()],
+  'Fell the Profane': [
+    targetOnResolve(
+      'destroy',
+      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
+      loseLifeTargetController(2),
+    ),
+  ],
+  'Fell the Profane // Fell Mire': [
+    tapUnlessPayLife(3),
+    targetOnResolve(
+      'destroy',
+      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
+    ),
+  ],
+  'Fellwar Stone': [manaFrom('opponentsLands')],
+  'Field of the Dead': [
+    entersTapped(),
+    landfall({
+      kind: 'if',
+      if: uniqueLandNames(7),
+      whenTrue: [createTokenInstruction({
+        name: 'Zombie',
+        types: ['Creature'],
+        subtypes: ['Zombie'],
+        power: 2,
+        toughness: 2,
+      })],
+    }),
+  ],
+  'Fiend Hunter': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile({ type: 'Creature', other: true }, { optional: true })),
   ],
   'Finale of Devastation': [
     xMana(),
@@ -918,247 +1202,57 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  'Farhaven Elf': [{
-    op: 'search',
-    via: 'enters',
-    spec: optionalBasicLandEnters(),
-  }],
-  'Hinterland Harbor': [entersTapped(lacksControlledSubtype('Forest', 'Island'))],
-  'Hypergenesis': [onResolve(putFromHand('each', {
-    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
-    repeat: true,
-  }))],
-  'Illusion of Choice': [onResolve(chooseVotesThisTurn(), draw(1))],
-  "Kodama's Reach": [searchSpell(splitBasicLandSearch())],
-  'Kogla, the Titan Ape': [enters(fightUpToOne())],
-  'Overwhelming Stampede': [
-    onResolve(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
-  ],
-  'Pathbreaker Ibex': [
-    attacks(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
-  ],
-  'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
-  'Return of the Wildspeaker': [modalChooseOne(
-    {
-      id: 'draw',
-      label: 'Draw cards equal to the greatest power among non-Human creatures you control.',
-      do: [drawGreatestPower({ nonHuman: true })],
-    },
-    {
-      id: 'pump',
-      label: 'Non-Human creatures you control get +3/+3 until end of turn.',
-      do: [pumpControlledNonHuman(3, 3)],
-    },
-  )],
-  'Rejuvenating Springs': [entersTapped(opponentsAtMost(1))],
-  'Reliquary Tower': [staticGrant('noMaxHand'), handler('noMaxHand')],
-  'Sakura-Tribe Elder': [
-    searchAbility({
-      prompt: 'Search your library for a basic land card. It enters tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-    }, { sacrifice: 'self' }),
-  ],
-  'Silverback Elder': [castModal({
-    choose: 'one',
-    modes: [
-      {
-        id: 'destroy',
-        label: 'Destroy target artifact or enchantment.',
-        do: [{ kind: 'destroyTargetPermanent', types: ['Artifact', 'Enchantment'] }],
-      },
-      {
-        id: 'land',
-        label: 'Look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped.',
-        do: [{ kind: 'lookTopPutLand', count: 5 }],
-      },
-      {
-        id: 'life',
-        label: 'You gain 4 life.',
-        do: [gainLife(4)],
-      },
-    ],
-  }, { creatureOnly: true })],
-  'Show and Tell': [onResolve(putFromHand('each', {
-    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
-  }))],
-  'Thorn Mammoth': [enters(fightUpToOne())],
-  'Twincast': [
-    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
-  ],
-  'Triangle of War': [
+  'Firdoch Core': [
+    allCreatureTypes(),
     activate({
-      id: 'fight.triangle',
-      costs: { mana: '{2}', sacrifice: 'self' },
-      do: [fight('two-targets')],
+      id: 'firdoch.mana',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [addChosenColorMana()],
     }),
-  ],
-  'Ulvenwald Tracker': [
     activate({
-      id: 'fight.tracker',
-      costs: { mana: '{1}{G}', tap: true },
-      do: [fight('two-targets')],
+      id: 'animate.firdochCore',
+      costs: { mana: '{4}' },
+      do: [animateUntilEot(4, 4)],
     }),
   ],
-  'Astral Drift': [
-    triggerOn('cycle', { do: [astralDriftCycleBlink] }),
-    cycleHand('cycling.astralDrift', '{2}{W}'),
-  ],
-  'Analyze the Pollen': [
-    searchSpell({
-      prompt: 'Choose one basic land card for Analyze the Pollen.',
-      kickedPrompt: 'Choose one creature or land card for Analyze the Pollen.',
-      match: basicLand,
-      kickedMatch: (object) =>
-        object.types.includes('Creature') || object.types.includes('Land'),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }),
-  ],
-  'All-Fates Stalker': [
-    ...warp('{1}{W}'),
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    {
-      op: 'trigger',
-      on: 'enters',
-      targets: { filter: { type: 'Creature', excludeSubtypes: ['Assassin'] } },
-      do: [linkExile(
-        { type: 'Creature', excludeSubtypes: ['Assassin'] },
-        { optional: true, max: 1 },
-      )],
-    },
-  ],
-  "Archaeomancer's Map": [
-    {
-      op: 'search',
-      via: 'enters',
-      spec: {
-        prompt: 'Search your library for up to two basic Plains cards, reveal them, put them into your hand, then shuffle.',
-        match: (object) => basicLand(object) && hasSubtype('Plains')(object),
-        destination: 'hand',
-        min: 0,
-        max: 2,
-        reveal: true,
-      },
-    },
-    triggerOn('playLand', {
-      if: { seat: 'opponent' },
-      do: [
-        branch(opponentHasMore('lands'), [putLandFromHand()], []),
-      ],
-    }),
-  ],
-  'Blighted Woodland': [
-    fetchBasic('Search your library for up to two basic land cards. They enter tapped.', {
-      tapped: true,
-      min: 0,
-      max: 2,
-      manaCost: '{3}{G}',
-    }),
-  ],
-  'Brokers Hideout': [
-    fetchHideout(
-      'Search your library for a basic Forest, Plains, or Island card. It enters tapped.',
-      ['Forest', 'Plains', 'Island'],
+  'Flicker of Fate': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', types: ['Creature', 'Enchantment'] },
+      blink({ returnController: 'owner' }),
     ),
   ],
-  'Dakmor Salvage': [dredge(2), entersTapped()],
-  'Dimir Aqueduct': [entersTapped(), enters(bounceChosenLand())],
-  'Drowned Catacomb': [entersTapped(lacksControlledSubtype('Island', 'Swamp'))],
-  Deathsprout: [
-    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
-    searchSpell({
-      prompt: 'Search your library for a basic land card. It enters tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 1,
-    }),
-  ],
-  'Evolving Wilds': [
-    fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
-  ],
-  Explore: [onResolve(extraLandPlays(1), draw(1))],
-  Farseek: [
-    searchSpell({
-      prompt: 'Search your library for a Plains, Island, Swamp, or Mountain card. It enters tapped.',
-      match: hasSubtype('Plains', 'Island', 'Swamp', 'Mountain'),
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-    }),
-  ],
-  'Fabled Passage': [
-    fetchBasic(
-      'Search your library for a basic land card. It enters tapped, then untaps if you control four or more lands.',
-      { tapped: true, untapWithFourLands: true },
+  Flickerwisp: [
+    entersTarget(
+      { zone: 'battlefield', other: true },
+      blink({ when: 'nextEndStep', returnController: 'owner' }),
     ),
   ],
-  'Field of the Dead': [
-    entersTapped(),
-    landfall({
-      kind: 'if',
-      if: uniqueLandNames(7),
-      whenTrue: [createTokenInstruction({
-        name: 'Zombie',
-        types: ['Creature'],
-        subtypes: ['Zombie'],
-        power: 2,
-        toughness: 2,
-      })],
-    }),
-  ],
-  'Eclipsed Steppe': [entersTapped(controlledBasicLands({ max: 1 }))],
-  'Glacial Fortress': [entersTapped(lacksControlledSubtype('Plains', 'Island'))],
-  'Godless Shrine': [tapUnlessPayLife(2)],
-  'Ghost Town': [
+  'Flooded Grove': [
     activate({
-      id: 'selfBounceLand.ghostTown',
-      costs: {},
-      if: { kind: 'notActivePlayer' },
-      do: [bounceSelf()],
+      id: 'floodedGrove.filter',
+      manaAbility: true,
+      costs: { mana: '{G/U}', tap: true },
+      do: [addManaChoice({ G: 2 }, { G: 1, U: 1 }, { U: 2 })],
     }),
   ],
-  'Golgari Rot Farm': [entersTapped(), enters(bounceChosenLand())],
-  'Hall of Storm Giants': [
-    entersTapped(otherLands({ min: 2 })),
-    activate({
-      id: 'hall.animate',
-      costs: { mana: '{6}{U}' },
-      if: graveyardCards(7),
-      do: [animateUntilEot(7, 7)],
-    }),
-  ],
-  'Hedge Maze': [entersTapped(), enters(surveil(1))],
-  'Hallowed Fountain': [tapUnlessPayLife(2)],
-  'Endless Sands': [
-    handler('linkedExile'),
-    ability(
-      {
-        id: 'endlessSands.exile',
-        targets: { filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } },
-      },
-      { mana: '{2}', tap: true },
-      linkExile({ type: 'Creature', controller: 'you' }, {}),
-    ),
-    ability(
-      { id: 'endlessSands.return' },
-      { mana: '{4}', tap: true, sacrifice: 'self' },
-      returnLinkedExile(),
+  'Forgotten Cellar': [onUnlock()],
+  "Fortune's Favor": [
+    targetOnResolve(
+      'select',
+      { players: 'opponent' },
+      opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
     ),
   ],
-  'Everflowing Chalice': [
-    multikicker('{2}'),
-    enters(putChargeCountersFromTimesKicked()),
+  'Fractured Identity': [
+    targetOnResolve(
+      'exile',
+      { zone: 'battlefield', nonland: true },
+      copyTargetForEachOtherPlayer(),
+    ),
   ],
+  'Frantic Search': [onResolve(draw(2), discardCards(2), untapUpToLands(3))],
   'Geier Reach Sanitarium': [
     ability(
       { id: 'geierReach.tableLoot' },
@@ -1167,6 +1261,32 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       eachPlayerDiscard(1),
     ),
   ],
+  'Getaway Glamer': [
+    spree([
+      spreeMode(
+        'blink',
+        '+ {1} — Exile target nontoken creature. Return it to the battlefield under its owner\'s control at the beginning of the next end step.',
+        '{1}',
+        [blink({ when: 'nextEndStep', returnController: 'owner', targetIndex: 0 })],
+      ),
+      spreeMode(
+        'kill',
+        '+ {2} — Destroy target creature if no other creature has greater power.',
+        '{2}',
+        [dealDamageToChosenTarget(9999)],
+      ),
+    ]),
+    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
+  ],
+  'Ghost Town': [
+    activate({
+      id: 'selfBounceLand.ghostTown',
+      costs: {},
+      if: { kind: 'notActivePlayer' },
+      do: [bounceSelf()],
+    }),
+  ],
+  'Ghostly Flicker': [handler('blinkValue')],
   'Gilded Lotus': [
     activate({
       id: 'gildedLotus.mana',
@@ -1179,12 +1299,87 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
+  'Githzerai Monk': [
+    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'notController' })),
+  ],
+  'Glacial Fortress': [entersTapped(lacksControlledSubtype('Plains', 'Island'))],
+  'Glorious Protector': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile(
+      { type: 'Creature', other: true, excludeSubtypes: ['Angel'] },
+      { controlled: true, optional: true },
+    )),
+  ],
+  'Godless Shrine': [tapUnlessPayLife(2)],
+  'Golgari Rot Farm': [entersTapped(), enters(bounceChosenLand())],
+  'Grothama, All-Devouring': [
+    grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
+    leaves(eachPlayerDrawDamageDealtToSource()),
+  ],
+  'Guardian Project': [
+    permanentEnters(
+      { type: 'Creature', controller: 'you', nontoken: true },
+      { if: triggeringCreatureNameUnique(), do: [draw(1)] },
+    ),
+  ],
+  'Guardian of Ghirapur': [
+    enters(
+      blink({
+        optional: true,
+        filter: {
+          controller: 'you',
+          types: ['Creature', 'Artifact'],
+          other: true,
+        },
+        when: 'nextEndStep',
+        returnController: 'owner',
+        prompt: 'You may exile another target creature or artifact you control, then return it at the next end step.',
+      }),
+    ),
+  ],
+  'Hagra Mauling // Hagra Broodpit': [
+    entersTapped(),
+    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
+  ],
+  'Hall of Storm Giants': [
+    entersTapped(otherLands({ min: 2 })),
+    activate({
+      id: 'hall.animate',
+      costs: { mana: '{6}{U}' },
+      if: graveyardCards(7),
+      do: [animateUntilEot(7, 7)],
+    }),
+  ],
+  'Hallowed Fountain': [tapUnlessPayLife(2)],
+  Hatred: [
+    payLifeX(),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      pumpTargetX(1, 0),
+    ),
+  ],
+  'Hedge Maze': [entersTapped(), enters(surveil(1))],
+  'Hedge Shredder': [
+    attacks(optionalMill(2)),
+    landToGraveyard(putMilledLandTapped()),
+    crew(1),
+  ],
   'Hedron Archive': [
     ability(
       { id: 'hedronArchive.draw' },
       { mana: '{2}', tap: true, sacrifice: 'self' },
       draw(2),
     ),
+  ],
+  'Hedron Crab': [landfallTargeting('player', millTarget(3))],
+  'Hermit Druid': [
+    activate({
+      id: 'hermitDruid.reveal',
+      costs: { mana: '{G}', tap: true },
+      do: [revealUntilBasicLand()],
+    }),
   ],
   'High Market': [
     ability(
@@ -1193,11 +1388,51 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       gainLife(1),
     ),
   ],
+  'Hinterland Harbor': [entersTapped(lacksControlledSubtype('Forest', 'Island'))],
   'Homer, the Hermit': [handler('homer')],
+  'Horizon of Progress': [
+    activate({
+      id: 'horizon.putLand',
+      costs: { mana: '{3}', tap: true },
+      do: [putLandFromHand(true)],
+    }),
+    manaFrom('controlledLands'),
+    activate({
+      id: 'horizon.draw',
+      costs: { mana: '{1}', tap: true, sacrifice: 'self' },
+      do: [draw(1)],
+    }),
+  ],
+  'Hostile Negotiations': [onResolve(hiddenPileNegotiation(3, 3))],
+  'Hypergenesis': [onResolve(putFromHand('each', {
+    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
+    repeat: true,
+  }))],
   'Icetill Explorer': [
     staticExtraLandPlays(1),
     playLandsFromGraveyard(),
     landfall(selfMill(1)),
+  ],
+  'Illusion of Choice': [onResolve(chooseVotesThisTurn(), draw(1))],
+  'Incarnation Technique': [
+    onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
+    handler('demonstrate'),
+  ],
+  'Infernal Contract': [onResolve(draw(4), loseHalfLifeRoundedUp())],
+  Inkshield: [handler('combatPreventionCards')],
+  "Irenicus's Vile Duplication": [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature', controller: 'you' },
+      copyTargetCreature({ notLegendary: true, flying: true }),
+    ),
+  ],
+  'It That Betrays': [
+    annihilator(2),
+    permanentSacrificed(
+      { controller: 'opponent', nontoken: true },
+      putTriggeringCardOntoBattlefield(),
+    ),
   ],
   'Jace, Multiverse Architect': [
     triggerOn('beginCombat', {
@@ -1232,13 +1467,84 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
     handler('optionalManaPay'),
   ],
+  'Join the Dead': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      branch(graveyardPermanentCards(4), [pump(-10, -10)], [pump(-5, -5)]),
+    ),
+  ],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
+  'Kami of False Hope': [
+    activate({
+      id: 'kami.fog',
+      costs: { sacrifice: 'self' },
+      do: [preventCombatDamage()],
+    }),
+  ],
+  'Kederekt Leviathan': [
+    enters(bounceAll({ nonland: true, other: true })),
+    unearth('{6}{U}'),
+  ],
   'Keep Safe': [
     targetOnResolve(
       'counter',
       { zone: 'stack', spellTargetsControlledPermanent: true },
       draw(1),
     ),
+  ],
+  'Khalni Ambush // Khalni Territory': [
+    entersTapped(),
+    targetOnResolveAt(0, 'select', {
+      zone: 'battlefield',
+      type: 'Creature',
+      controller: 'you',
+    }),
+    targetOnResolveAt(
+      1,
+      'select',
+      { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
+      fight('two-targets'),
+    ),
+  ],
+  'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
+  'Kiora Bests the Sea God': [sagaChapters(
+    {
+      numbers: [1],
+      do: [createTokenInstruction({
+        name: 'Kraken',
+        types: ['Creature'],
+        subtypes: ['Kraken'],
+        colors: ['U'],
+        power: 8,
+        toughness: 8,
+        oracleText: 'Hexproof',
+      })],
+    },
+    {
+      numbers: [2],
+      targets: { filter: { players: 'opponent' } },
+      do: [tapAll(
+        { zone: 'battlefield', nonland: true },
+        { ofTargetPlayer: true, skipNextUntap: true },
+      )],
+    },
+    {
+      numbers: [3],
+      targets: { filter: { zone: 'battlefield', permanent: true, controller: 'opponent' } },
+      do: [gainControlPermanent(true)],
+    },
+  )],
+  "Kodama's Reach": [searchSpell(splitBasicLandSearch())],
+  'Kogla, the Titan Ape': [enters(fightUpToOne())],
+  'Kuroki, Thief of Talents': [
+    yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
+  ],
+  'Lady Evangela': [
+    ability({
+      id: 'ladyEvangela.fog',
+      targets: 'creature',
+    }, { mana: '{W}{B}', tap: true }, preventCombatDamage({ from: 'target' })),
   ],
   'Lair of the Hydra': [
     entersTapped(otherLands({ min: 2 })),
@@ -1248,7 +1554,26 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [animateUntilEot(0, 0, { fromX: true })],
     }),
   ],
+  'Life from the Loam': [
+    dredge(3),
+    upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
+  ],
   'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
+  "Liliana's Caress": [
+    triggerOn('discard', {
+      if: { seat: 'opponent' },
+      do: [loseLife(2, 'triggeringPlayer')],
+    }),
+  ],
+  'Long Road Home': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
+    ),
+  ],
+  'Loran of the Third Path': [handler('blinkValue')],
+  'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Lotus Field': [
     entersTapped(),
     enters(sacrificeControlled(2, ['Land'])),
@@ -1263,473 +1588,21 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  Millikin: [
-    activate({
-      id: 'selfMill.millikin',
-      manaAbility: true,
-      costs: { tap: true, mill: 1 },
-      do: [{ kind: 'addMana', mana: { C: 1 } }],
-    }),
-  ],
-  'Misty Rainforest': [
-    fetchTypes('Search your library for a Forest or Island card and put it onto the battlefield.', [
-      'Forest',
-      'Island',
-    ]),
-  ],
-  'Mind Stone': [
-    ability(
-      { id: 'mindStone.draw' },
-      { mana: '{1}', tap: true, sacrifice: 'self' },
-      draw(1),
-    ),
-  ],
-  'Moonsilver Key': [
-    searchAbility({
-      prompt: 'Search your library for an artifact card with a mana ability or a basic land card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => basicLand(object) || artifactWithManaAbility(object),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
-  ],
-  'Mole Man, Moloid Master': [
-    playLandsFromGraveyard(),
-    landfall(createTokenInstruction({
-      name: 'Moloid',
-      types: ['Creature'],
-      subtypes: ['Minion'],
-      power: 1,
-      toughness: 1,
-      oracleText: 'Whenever this token attacks, you may mill a card.',
-      effects: [attacks(optionalMill(1))],
-    })),
-  ],
-  'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
-  'Mystic Sanctuary': [
-    entersTapped(otherLands({ max: 2, subtype: 'Island' })),
-    {
-      op: 'trigger',
-      on: 'enters',
-      if: otherLands({ min: 3, subtype: 'Island' }),
-      targets: { filter: { zone: 'graveyard', types: ['Instant', 'Sorcery'], controller: 'you' } },
-      do: [putTargetOnLibraryTop()],
-    },
-  ],
-  'Myriad Landscape': [
-    entersTapped(),
-    fetchBasic(
-      'Search your library for up to two basic land cards that share a land type. They enter tapped.',
-      {
-        tapped: true,
-        min: 0,
-        max: 2,
-        manaCost: '{2}',
-        validateSelection: sharedBasicLandType,
-      },
-    ),
-  ],
-  'Mistvault Bridge': [entersTapped()],
-  'Morphic Pool': [entersTapped(opponentsAtMost(1))],
-  'Orzhov Basilica': [entersTapped(), enters(bounceChosenLand())],
-  'Obscura Storefront': [
-    fetchHideout(
-      'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
-      ['Plains', 'Island', 'Swamp'],
-    ),
-  ],
-  'Oboro, Palace in the Clouds': [
-    activate({
-      id: 'selfBounceLand.oboro',
-      costs: { mana: '{1}' },
-      do: [bounceSelf()],
-    }),
-  ],
-  'Otawara, Soaring City': [
-    activate({
-      id: 'channel.otawara',
-      zone: 'hand',
-      costs: {
-        mana: '{3}{U}',
-        discard: 'self',
-        reducePerLegendaryCreature: 1,
-      },
-      targets: {
-        zone: 'battlefield',
-        types: ['Artifact', 'Creature', 'Enchantment', 'Planeswalker'],
-      },
-      do: [removeTarget('bounce')],
-    }),
-  ],
-  'Boseiju, Who Endures': [
-    activate({
-      id: 'channel.boseiju',
-      zone: 'hand',
-      costs: {
-        mana: '{1}{G}',
-        discard: 'self',
-        reducePerLegendaryCreature: 1,
-      },
-      targets: {
-        zone: 'battlefield',
-        types: ['Artifact', 'Enchantment', 'Land'],
-        controller: 'opponent',
-        nonbasic: true,
-      },
-      do: [
-        removeTarget('destroy'),
-        searchTargetControllerForBasicLandType(),
-      ],
-    }),
-  ],
-  'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
-  'Polluted Delta': [
-    fetchTypes('Search your library for an Island or Swamp card and put it onto the battlefield.', [
-      'Island',
-      'Swamp',
-    ]),
-  ],
-  'Prismatic Vista': [
-    fetchBasic('Search your library for a basic land card and put it onto the battlefield.', {
-      life: 1,
-    }),
-  ],
-  'Riveteers Overlook': [
-    fetchHideout(
-      'Search your library for a basic Swamp, Mountain, or Forest card. It enters tapped.',
-      ['Swamp', 'Mountain', 'Forest'],
-    ),
-  ],
-  'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
-  'Scute Swarm': [
-    landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
-  ],
-  'Secluded Steppe': [
-    entersTapped(),
-    typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
-  ],
-  'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
-  'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
-  'Sky Diamond': [entersTapped()],
-  "Sin, Spira's Punishment": [
-    enters(specificSinSpiraPunishmentTriggeredAbility()),
-    attacks(specificSinSpiraPunishmentTriggeredAbility()),
-  ],
-  'Soul of Eternity': [
-    ptEqualsLife({ who: 'controller' }),
-    encore('{7}{W}{W}'),
-  ],
-  'Souls of the Faultless': [
-    triggerOn('dealtCombatDamage', {
-      do: [
-        gainLife('triggerAmount'),
-        loseLife('triggerAmount', 'triggeringPlayer'),
-      ],
-    }),
-  ],
-  'Subjugator Angel': [
-    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'opponent' })),
-  ],
-  'Skull Prophet': [
-    activate({
-      id: 'skullProphet.mana',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [addChosenColorMana(['B', 'G'])],
-    }),
-    activate({
-      id: 'selfMill.skullProphet',
-      costs: { tap: true, mill: 2 },
-      do: [],
-    }),
-  ],
-  'Splendid Reclamation': [onResolve(returnOwnedGraveyardLands())],
-  "Stitcher's Supplier": [enters(selfMill(3)), dies(selfMill(3))],
-  'Summer Bloom': [onResolve(extraLandPlays(3))],
-  'Terramorphic Expanse': [
-    fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
-  ],
-  'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
-  'Temple of Deceit': [entersTapped(), enters(scry(1))],
-  'Thespian\'s Stage': [
-    ability(
-      { id: 'thespiansStage.copy', sorcery: true },
-      { mana: '{2}', tap: true },
-      becomeCopyOfTarget({
-        filter: { zone: 'battlefield', type: 'Land' },
-        keepAbility: true,
-      }),
-    ),
-  ],
-  'Talon Gates of Madara': [
-    entersTargetingUpToOne(
-      { zone: 'battlefield', type: 'Creature' },
-      phaseOutTarget(),
-    ),
-    activate({
-      id: 'talon.any-mana',
-      manaAbility: true,
-      costs: { mana: '{1}', tap: true },
-      do: [{ kind: 'addChosenColorMana' }],
-    }),
-    activate({
-      id: 'talon.put',
-      zone: 'hand',
-      costs: { mana: '{4}' },
-      do: [putSelfOntoBattlefield()],
-    }),
-  ],
-  'Thawing Glaciers': [
-    entersTapped(),
-    searchAbility({
-      prompt: 'Search your library for a basic land card. It enters tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-      after: [delay({ kind: 'step', step: 'cleanup' }, bounceSelf())],
-    }, { tap: true, mana: '{1}' }),
-  ],
-  'Teferi, Who Slows the Sunset': [
-    ability({
-      id: 'teferi.plus-one',
-      targets: 'teferiSunsetPlusOne',
-    }, loyalty(1), teferiSunsetPlusOne()),
-    ability({
-      id: 'teferi.minus-two',
-    }, loyalty(-2), lookTopPick(3, 1)),
-    ability({
-      id: 'teferi.minus-seven',
-    }, loyalty(-7), teferiSunsetEmblem()),
-    handler('teferiSunset'),
-  ],
-  "Thalia's Lancers": [
-    enters(searchLibrary({
-      prompt: 'Search your library for a legendary card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => object.supertypes.includes('Legendary'),
-      destination: 'hand',
-      min: 0,
-      max: 1,
-      reveal: true,
-    })),
-  ],
-  'Undercity Sewers': [entersTapped(), enters(surveil(1))],
-  'Underground Mortuary': [entersTapped(), enters(surveil(1))],
-  'Sunken Hollow': [entersTapped(controlledBasicLands({ max: 1 }))],
-  'Ugin, the Spirit Dragon': [
-    ability({
-      id: 'ugin.plus-two',
-      targets: 'any',
-    }, loyalty(2), dealDamageToChosenTarget(3)),
-    ability({
-      id: 'ugin.minus-x',
-    }, loyaltyX(), exileColoredPermanentsAtMostX()),
-    ability({
-      id: 'ugin.minus-ten',
-    }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
-  ],
-  'Unmarked Grave': [
-    searchSpell({
-      prompt: 'Search your library for a nonlegendary card and put it into your graveyard.',
-      match: (object) => !object.supertypes.includes('Legendary'),
-      destination: 'graveyard',
-      min: 1,
-      max: 1,
-    }),
-  ],
-  'Verdant Catacombs': [
-    fetchTypes('Search your library for a Swamp or Forest card and put it onto the battlefield.', [
-      'Swamp',
-      'Forest',
-    ]),
-  ],
-  Windfall: [onResolve(discardHandsThenDrawGreatest())],
-  'Ancient Greenwarden': [playLandsFromGraveyard(), extraLandfall(1)],
-  'Arcane Denial': [
-    targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
-  ],
-  'Awaken the Honored Dead': [
-    sagaChapters(
-      {
-        numbers: [1],
-        targets: { filter: { zone: 'battlefield', nonland: true, permanent: true } },
-        do: [destroyTargetPermanent()],
-      },
-      { numbers: [2], do: [selfMill(3)] },
-      {
-        numbers: [3],
-        do: [mayDiscard(1, {
-          filter: { zone: 'graveyard', types: ['Creature', 'Land'] },
-          do: [returnTargetFromGraveyard('hand')],
-        })],
-      },
-    ),
-  ],
-  'Awaken the Woods': [onResolve(createXTokens({
-    name: 'Forest Dryad',
-    types: ['Land', 'Creature'],
-    subtypes: ['Forest', 'Dryad'],
-    power: 1,
-    toughness: 1,
-  }))],
-  'Bala Ged Recovery': [
-    targetOnResolve('bounce', { zone: 'graveyard' }),
-  ],
-  'Bala Ged Sanctuary': [entersTapped()],
-  'Black Sun\'s Twilight': [
-    xMana(),
-    optionalTargetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      pumpTargetX(-1),
-      returnCreatureManaValueX(5, true),
-    ),
-  ],
-  'Blossoming Tortoise': [
-    enters(selfMill(3), returnChosenLandFromGraveyard()),
-    attacks(selfMill(3), returnChosenLandFromGraveyard()),
-    reduceActivationCost(1),
-    staticBoardPump(1, 1, ['Land']),
-  ],
-  'Breeding Pool': [tapUnlessPayLife(2)],
-  'Cephalid Coliseum': [
-    activate({
-      id: 'pain.cephalid',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [{ kind: 'addMana', mana: { U: 1 } }, { kind: 'dealDamageToSelf', amount: 1 }],
-    }),
-    activate({
-      id: 'threshold.cephalid',
-      costs: { mana: '{U}', tap: true, sacrifice: 'self' },
-      if: graveyardCards(7),
-      targets: { filter: { players: 'any' } },
-      do: [draw(3, 'target'), discardCards(3, 'target')],
-    }),
-  ],
-  'Crawling Sensation': [
-    yourUpkeep(optionalMill(2)),
-    landToGraveyardOnce(insect),
-  ],
-  'Drag to the Roots': [
-    reduceGenericIf(2, graveyardCardTypes(4)),
-    targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
-  ],
-  'Dread Return': [
-    flashback('Flashback—Sacrifice three creatures.', '', {
-      sacrifice: { type: 'Creature', count: 3 },
-    }),
-    targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
-  ],
-  'Dreamscape Artist': [
-    searchAbility({
-      prompt: 'Search your library for up to two basic land cards.',
-      match: basicLand,
-      destination: 'battlefield',
-      min: 0,
-      max: 2,
-    }, { mana: '{2}{U}', tap: true, discard: 'any', sacrificeTarget: 'land' }),
-  ],
-  'Entish Restoration': [
-    searchSpell({
-      prompt: 'Search your library for basic land cards. They enter tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 2,
-      sacrificeLands: 1,
-      empoweredMax: 3,
-      empoweredIf: controlledCreaturePower(4),
-    }),
-  ],
-  'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
-  'Fell Mire': [entersTapped()],
-  'Felidar Guardian': [
-    enters(
-      blink({
-        optional: true,
-        filter: {
-          controller: 'you',
-          other: true,
-          permanent: true,
-        },
-        returnController: 'owner',
-        prompt: 'You may exile another target permanent you control, then return it under its owner\'s control.',
-      }),
-    ),
-  ],
-  'Flicker of Fate': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', types: ['Creature', 'Enchantment'] },
-      blink({ returnController: 'owner' }),
-    ),
-  ],
-  Flickerwisp: [
-    entersTarget(
-      { zone: 'battlefield', other: true },
-      blink({ when: 'nextEndStep', returnController: 'owner' }),
-    ),
-  ],
-  'Fell the Profane': [
-    targetOnResolve(
-      'destroy',
-      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
-      loseLifeTargetController(2),
-    ),
-  ],
-  'Firdoch Core': [
-    allCreatureTypes(),
-    activate({
-      id: 'firdoch.mana',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [addChosenColorMana()],
-    }),
-    activate({
-      id: 'animate.firdochCore',
-      costs: { mana: '{4}' },
-      do: [animateUntilEot(4, 4)],
-    }),
-  ],
-  "Fortune's Favor": [
-    targetOnResolve(
-      'select',
-      { players: 'opponent' },
-      opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
-    ),
-  ],
-  'Hedge Shredder': [
-    attacks(optionalMill(2)),
-    landToGraveyard(putMilledLandTapped()),
-    crew(1),
-  ],
-  "Irenicus's Vile Duplication": [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature', controller: 'you' },
-      copyTargetCreature({ notLegendary: true, flying: true }),
-    ),
-  ],
-  'Join the Dead': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      branch(graveyardPermanentCards(4), [pump(-10, -10)], [pump(-5, -5)]),
-    ),
-  ],
-  'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
-  'Life from the Loam': [
-    dredge(3),
-    upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
+  'Lumbering Battlement': [
+    handler('linkedExile'),
+    handler('exilePayoffs'),
+    linkedExileUntilLeaves(),
+    pumpPerLinkedExile(2, 2),
+    enters(linkExile(
+      { type: 'Creature', other: true },
+      { controlled: true, optional: true },
+    )),
   ],
   'Lumra, Bellow of the Woods': [
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
   ],
+  'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
   'Malakir Mire': [entersTapped()],
   'Malakir Rebirth': [
     targetOnResolve(
@@ -1739,7 +1612,15 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       returnIfDiesThisTurn(),
     ),
   ],
+  'Malakir Rebirth // Malakir Mire': [entersTapped()],
   'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), eldraziSpawn)],
+  'Mana Drain': [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack' },
+      addManaAtNextMainFromTarget(),
+    ),
+  ],
   'Marina Vendrell': [
     enters(revealMatchingToHand(7, 'Enchantment')),
     activate({
@@ -1749,6 +1630,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       sorcery: true,
       do: [lockOrUnlockDoor()],
     }),
+  ],
+  'Marsh Flats': [
+    fetchTypes('Search your library for a Plains or Swamp card and put it onto the battlefield.', [
+      'Plains',
+      'Swamp',
+    ]),
   ],
   'Masked Vandal': [
     allCreatureTypes(),
@@ -1772,6 +1659,112 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       })],
     }),
   ],
+  'Meteor Golem': [
+    targetOnResolve('destroy', { zone: 'battlefield', nonland: true, controller: 'opponent' }),
+  ],
+  Millikin: [
+    activate({
+      id: 'selfMill.millikin',
+      manaAbility: true,
+      costs: { tap: true, mill: 1 },
+      do: [{ kind: 'addMana', mana: { C: 1 } }],
+    }),
+  ],
+  "Minamo, School at Water's Edge": [
+    activate({
+      id: 'minamo.untap',
+      costs: { mana: '{U}', tap: true },
+      targets: 'legendary',
+      do: [untapTarget()],
+    }),
+  ],
+  'Mind Stone': [
+    ability(
+      { id: 'mindStone.draw' },
+      { mana: '{1}', tap: true, sacrifice: 'self' },
+      draw(1),
+    ),
+  ],
+  'Mirkwood Bats': [
+    enters({ filter: { controller: 'you', token: true }, createdOnly: true }, opponentsLoseLife(1)),
+    permanentSacrificed({ controller: 'you', token: true }, opponentsLoseLife(1)),
+  ],
+  'Mirror Universe': [
+    ability({
+      id: 'mirrorUniverse.exchange',
+      targets: 'opponent',
+      if: { kind: 'controllerUpkeep' },
+    }, { tap: true, sacrifice: 'self' }, exchangeLifeWithOpponent()),
+  ],
+  Mirrorweave: [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature', nonlegendary: true },
+      copyAllCreaturesUntilEot(false),
+    ),
+  ],
+  'Mister Negative': [
+    entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
+  ],
+  'Mistvault Bridge': [entersTapped()],
+  'Misty Rainforest': [
+    fetchTypes('Search your library for a Forest or Island card and put it onto the battlefield.', [
+      'Forest',
+      'Island',
+    ]),
+  ],
+  'Mole Man, Moloid Master': [
+    playLandsFromGraveyard(),
+    landfall(createTokenInstruction({
+      name: 'Moloid',
+      types: ['Creature'],
+      subtypes: ['Minion'],
+      power: 1,
+      toughness: 1,
+      oracleText: 'Whenever this token attacks, you may mill a card.',
+      effects: [attacks(optionalMill(1))],
+    })),
+  ],
+  'Moonsilver Key': [
+    searchAbility({
+      prompt: 'Search your library for an artifact card with a mana ability or a basic land card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => basicLand(object) || artifactWithManaAbility(object),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
+  ],
+  'Morphic Pool': [entersTapped(opponentsAtMost(1))],
+  'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
+  Mulldrifter: [
+    alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
+    entersIfCastOption('evoke', { kind: 'sacrificeSelf' }),
+    enters(draw(2)),
+  ],
+  'Myriad Landscape': [
+    entersTapped(),
+    fetchBasic(
+      'Search your library for up to two basic land cards that share a land type. They enter tapped.',
+      {
+        tapped: true,
+        min: 0,
+        max: 2,
+        manaCost: '{2}',
+        validateSelection: sharedBasicLandType,
+      },
+    ),
+  ],
+  'Mystic Sanctuary': [
+    entersTapped(otherLands({ max: 2, subtype: 'Island' })),
+    {
+      op: 'trigger',
+      on: 'enters',
+      if: otherLands({ min: 3, subtype: 'Island' }),
+      targets: { filter: { zone: 'graveyard', types: ['Instant', 'Sorcery'], controller: 'you' } },
+      do: [putTargetOnLibraryTop()],
+    },
+  ],
   'Nanogene Conversion': [
     targetOnResolve(
       'select',
@@ -1779,10 +1772,81 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyAllCreaturesUntilEot(),
     ),
   ],
+  Necrologia: [payLifeX({ timing: 'yourEndStep' }), onResolve(drawX())],
+  'Nezahal, Primal Tide': [
+    uncounterable(),
+    staticGrant('noMaxHand'),
+    handler('noMaxHand'),
+    casts(draw(1), { castBy: 'opponent', noncreatureOnly: true }),
+    ability(
+      { id: 'nezahal.reset' },
+      { discard: 'any', discardCount: 3 },
+      blinkSelf({ when: 'nextEndStep', tapped: true }),
+    ),
+  ],
+  'Nirkana Revenant': [
+    staticGrant('extraSwampMana'),
+    activate({
+      id: 'nirkanaRevenant.pump',
+      costs: { mana: '{B}' },
+      do: [pumpSelf(1, 1)],
+    }),
+  ],
+  'Niv-Mizzet, Ghost Counsel': [
+    triggerOn('gainLife', { if: { seat: 'controller' }, do: [mayPayLifeDraw()] }),
+    activate({
+      id: 'nivMizzetGhostCounsel.drain',
+      costs: { tap: true },
+      do: [opponentsLoseLife(1), gainLife(1)],
+    }),
+  ],
+  'Oboro, Palace in the Clouds': [
+    activate({
+      id: 'selfBounceLand.oboro',
+      costs: { mana: '{1}' },
+      do: [bounceSelf()],
+    }),
+  ],
+  'Obscura Storefront': [
+    fetchHideout(
+      'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
+      ['Plains', 'Island', 'Swamp'],
+    ),
+  ],
+  'Orzhov Basilica': [entersTapped(), enters(bounceChosenLand())],
+  'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
+  'Otawara, Soaring City': [
+    activate({
+      id: 'channel.otawara',
+      zone: 'hand',
+      costs: {
+        mana: '{3}{U}',
+        discard: 'self',
+        reducePerLegendaryCreature: 1,
+      },
+      targets: {
+        zone: 'battlefield',
+        types: ['Artifact', 'Creature', 'Enchantment', 'Planeswalker'],
+      },
+      do: [removeTarget('bounce')],
+    }),
+  ],
+  'Otherworldly Journey': [
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
+    ),
+  ],
   'Overgrown Tomb': [tapUnlessPayLife(2)],
-  'Pile On': [
-    convoke(),
-    targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
+  'Overwhelming Stampede': [
+    onResolve(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
+  ],
+  'Palace Jailer': [
+    enters(
+      becomeMonarch(),
+      exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' }),
+    ),
   ],
   'Parting Gust': [
     gift({
@@ -1807,12 +1871,83 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       })),
     ),
   ],
+  'Pathbreaker Ibex': [
+    attacks(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
+  ],
+  'Perch Protection': [
+    gift({ label: 'Gift an extra turn', extraTurn: true }),
+    onResolve(
+      ...perchBirds(),
+      ifGiftPromised(
+        phaseOutControlled(),
+        grantProtectionFromEverything(),
+        lifeTotalCannotChange(),
+      ),
+    ),
+  ],
+  'Phial of Galadriel': [staticGrant('phialReplacement')],
+  'Phyrexian Ingester': [
+    pumpFromLinkedExileStats(),
+    {
+      op: 'trigger',
+      on: 'enters',
+      targets: { filter: { type: 'Creature', nontoken: true }, min: 0 },
+      do: [linkExile({ type: 'Creature', nontoken: true }, { optional: true, max: 1 })],
+    },
+  ],
+  'Pile On': [
+    convoke(),
+    targetOnResolve('destroy', { zone: 'battlefield', types: ['Creature', 'Planeswalker'] }, surveil(2)),
+  ],
+  'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
+  'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
+  'Planar Genesis': [onResolve(lookTopPutLand(4, { orHand: true }))],
+  'Polluted Delta': [
+    fetchTypes('Search your library for an Island or Swamp card and put it onto the battlefield.', [
+      'Island',
+      'Swamp',
+    ]),
+  ],
+  'Portal to Phyrexia': [
+    enters(opponentsSacrifice('Creature', 3)),
+    upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
+  ],
   'Price of Fame': [
     reduceGenericIf(2, {
       kind: 'target',
       filter: { zone: 'battlefield', type: 'Creature', supertype: 'Legendary' },
     }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }, surveil(2)),
+  ],
+  'Prismatic Vista': [
+    fetchBasic('Search your library for a basic land card and put it onto the battlefield.', {
+      life: 1,
+    }),
+  ],
+  'Profane Command': [
+    xMana(),
+    modalChooseTwo(
+      {
+        id: 'drain',
+        label: 'Target player loses X life.',
+        do: [{ kind: 'loseLifeTargetPlayer', amount: 0 }],
+      },
+      {
+        id: 'reanimate',
+        label: 'Return a creature card with mana value X or less from your graveyard.',
+        do: [returnCreatureManaValueX()],
+      },
+      {
+        id: 'shrink',
+        label: 'Target creature gets -X/-X until end of turn.',
+        do: [pumpTargetX(-1)],
+      },
+      {
+        id: 'fear',
+        label: 'Up to X target creatures gain fear until end of turn.',
+        do: [{ kind: 'grantUntilEot', keywords: ['fear'], maxFromX: true }],
+      },
+    ),
   ],
   'Quantum Misalignment': [
     targetOnResolve(
@@ -1821,69 +1956,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true }),
     ),
   ],
+  'Queza, Augur of Agonies': [handler('blinkValue')],
+  "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
+  'Rain of Filth': [
+    onResolve(addUntilCleanupRule('sacrificeLandMana')),
+  ],
   'Raise the Palisade': [onResolve(chooseCreatureType('bounceOthers'))],
-  'Reanimate': [
-    targetOnResolve(
-      'reanimate',
-      { zone: 'graveyard', type: 'Creature' },
-      loseLifeTargetManaValue(),
-    ),
-  ],
-  'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
-  'Roaming Throne': [
-    ward({ mana: 2 }),
-    handler('ward'),
-    enters(chooseCreatureType('addToSource')),
-  ],
-  'Sakashima of a Thousand Faces': [
-    legendRuleOff(),
-    enters(copyControlledCreature({ keepName: true })),
-  ],
-  'Sakura-Tribe Scout': [
-    activate({
-      id: 'putLand.sakura',
-      costs: { tap: true },
-      do: [putLandFromHand()],
-    }),
-  ],
-  'Satyr Wayfinder': [enters(revealPick(4, { type: 'Land' }))],
-  Scapeshift: [
-    searchSpell({
-      prompt: 'Search your library for that many land cards. They enter tapped.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 99,
-      sacrificeOnResolve: 'any',
-    }),
-  ],
-  Six: [
-    attacks(selfMill(3), revealPick(3, { type: 'Land' })),
-    grantRetrace(),
-  ],
-  'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
-  'Springheart Nantuko': [
-    bestow('{1}{G}', { power: 1, toughness: 1 }),
-    landfall(attachedCopyOrToken('{1}{G}', insectToken)),
-  ],
-  'Stitch Together': [
-    targetOnResolve(
-      'select',
-      { zone: 'graveyard', type: 'Creature' },
-      branch(
-        graveyardCards(7),
-        [returnTargetFromGraveyard('battlefield')],
-        [returnTargetFromGraveyard('hand')],
-      ),
-    ),
-  ],
-  "Liliana's Caress": [
-    triggerOn('discard', {
-      if: { seat: 'opponent' },
-      do: [loseLife(2, 'triggeringPlayer')],
-    }),
-  ],
   'Rankle, Master of Pranks': [
     triggerOn('combatDamage', {
       do: [chooseModes('any', [
@@ -1905,10 +1983,362 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ])],
     }),
   ],
+  'Reanimate': [
+    targetOnResolve(
+      'reanimate',
+      { zone: 'graveyard', type: 'Creature' },
+      loseLifeTargetManaValue(),
+    ),
+  ],
+  'Reflecting Pool': [manaFrom('controlledLands')],
+  'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
+  'Rejuvenating Springs': [entersTapped(opponentsAtMost(1))],
+  'Reliquary Tower': [staticGrant('noMaxHand'), handler('noMaxHand')],
+  'Repay in Kind': [onResolve(setAllLifeToLowest())],
+  Reprocess: [
+    onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
+  ],
+  'Restoration Angel': [
+    enters(
+      blink({
+        optional: true,
+        filter: {
+          controller: 'you',
+          type: 'Creature',
+          excludeSubtypes: ['Angel'],
+        },
+        returnController: 'controller',
+        prompt: 'You may exile target non-Angel creature you control, then return it under your control.',
+      }),
+    ),
+  ],
+  'Retreat to Hagra': [landfall(chooseModes('one', [
+    {
+      id: 'pump',
+      label: 'Target creature gets +1/+0 and gains deathtouch until end of turn.',
+      do: [pump(1, 0), grantUntilEot('deathtouch')],
+    },
+    {
+      id: 'drain',
+      label: 'Each opponent loses 1 life and you gain 1 life.',
+      do: [opponentsLoseLife(1), gainLife(1)],
+    },
+  ]))],
+  'Return of the Wildspeaker': [modalChooseOne(
+    {
+      id: 'draw',
+      label: 'Draw cards equal to the greatest power among non-Human creatures you control.',
+      do: [drawGreatestPower({ nonHuman: true })],
+    },
+    {
+      id: 'pump',
+      label: 'Non-Human creatures you control get +3/+3 until end of turn.',
+      do: [pumpControlledNonHuman(3, 3)],
+    },
+  )],
+  'Revitalizing Repast // Old-Growth Grove': [
+    entersTapped(),
+    targetOnResolve(
+      'select',
+      { zone: 'battlefield', type: 'Creature' },
+      addPlusCountersInstruction(1),
+      grantUntilEot('indestructible'),
+    ),
+  ],
+  'Rings of Brighthearth': [handler('stackCopy')],
+  'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
+  "Rishkar's Expertise": [
+    onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
+  ],
+  'Riveteers Overlook': [
+    fetchHideout(
+      'Search your library for a basic Swamp, Mountain, or Forest card. It enters tapped.',
+      ['Swamp', 'Mountain', 'Forest'],
+    ),
+  ],
+  'Roaming Throne': [
+    ward({ mana: 2 }),
+    handler('ward'),
+    enters(chooseCreatureType('addToSource')),
+  ],
+  'Sail into the West': [
+    onResolve(vote(
+      'Vote for return or embark.',
+      {
+        kind: 'named',
+        options: [{ id: 'return', label: 'Return' }, { id: 'embark', label: 'Embark' }],
+      },
+      [ifVoteLeads(
+        'return',
+        [eachPlayerReturn(2), exileThisSpell()],
+        [eachPlayerMayWheel(7)],
+      )],
+    )),
+  ],
+  'Sakashima of a Thousand Faces': [
+    legendRuleOff(),
+    enters(copyControlledCreature({ keepName: true })),
+  ],
+  'Sakura-Tribe Elder': [
+    searchAbility({
+      prompt: 'Search your library for a basic land card. It enters tapped.',
+      match: basicLand,
+      destination: 'battlefield',
+      tapped: true,
+      min: 1,
+      max: 1,
+    }, { sacrifice: 'self' }),
+  ],
+  'Sakura-Tribe Scout': [
+    activate({
+      id: 'putLand.sakura',
+      costs: { tap: true },
+      do: [putLandFromHand()],
+    }),
+  ],
+  'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
+  'Satyr Wayfinder': [enters(revealPick(4, { type: 'Land' }))],
+  Scapeshift: [
+    searchSpell({
+      prompt: 'Search your library for that many land cards. They enter tapped.',
+      match: (object) => object.types.includes('Land'),
+      destination: 'battlefield',
+      tapped: true,
+      min: 0,
+      max: 99,
+      sacrificeOnResolve: 'any',
+    }),
+  ],
+  'Scute Swarm': [
+    landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
+  ],
+  'Sea Gate Restoration // Sea Gate, Reborn': [
+    tapUnlessPayLife(3),
+    onResolve(drawHandSize(1), noMaximumHandSize()),
+  ],
+  'Secluded Steppe': [
+    entersTapped(),
+    typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
+  ],
+  'Selenia, Dark Angel': [
+    ability({ id: 'selenia.return' }, { life: 2 }, bounceSelf()),
+  ],
+  "Selvala's Stampede": [
+    onResolve(vote(
+      'Vote for wild or free.',
+      {
+        kind: 'named',
+        options: [{ id: 'wild', label: 'Wild' }, { id: 'free', label: 'Free' }],
+      },
+      [
+        revealUntil({ voters: { votedFor: 'wild' } }, { type: 'Creature' }, 'battlefield', 'shuffle'),
+        putPermanentsFromHand({ voters: { votedFor: 'free' } }),
+      ],
+    )),
+  ],
+  'Settle the Wreckage': [handler('combatPreventionCards')],
+  'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
+  'Show and Tell': [onResolve(putFromHand('each', {
+    types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
+  }))],
+  'Silverback Elder': [castModal({
+    choose: 'one',
+    modes: [
+      {
+        id: 'destroy',
+        label: 'Destroy target artifact or enchantment.',
+        do: [{ kind: 'destroyTargetPermanent', types: ['Artifact', 'Enchantment'] }],
+      },
+      {
+        id: 'land',
+        label: 'Look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped.',
+        do: [{ kind: 'lookTopPutLand', count: 5 }],
+      },
+      {
+        id: 'life',
+        label: 'You gain 4 life.',
+        do: [gainLife(4)],
+      },
+    ],
+  }, { creatureOnly: true })],
+  'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
+  'Simic Signet': [signet('signet.simic', { G: 1, U: 1 })],
+  "Sin, Spira's Punishment": [
+    enters(specificSinSpiraPunishmentTriggeredAbility()),
+    attacks(specificSinSpiraPunishmentTriggeredAbility()),
+  ],
+  'Singularity Rupture': [
+    onResolve(destroyAllCreatures(), millHalfTargetPlayers()),
+    targetOnResolve('select', { players: 'any' }),
+  ],
+  'Sink into Stupor // Soporific Springs': [
+    tapUnlessPayLife(3),
+    targetOnResolve(
+      'bounce',
+      { zones: ['stack', 'battlefield'], nonland: true, controller: 'opponent' },
+    ),
+  ],
+  'Sire of Seven Deaths': [ward({ life: 7 })],
+  Six: [
+    attacks(selfMill(3), revealPick(3, { type: 'Land' })),
+    grantRetrace(),
+  ],
+  'Skull Prophet': [
+    activate({
+      id: 'skullProphet.mana',
+      manaAbility: true,
+      costs: { tap: true },
+      do: [addChosenColorMana(['B', 'G'])],
+    }),
+    activate({
+      id: 'selfMill.skullProphet',
+      costs: { tap: true, mill: 2 },
+      do: [],
+    }),
+  ],
+  'Sky Diamond': [entersTapped()],
+  'Snuff Out': [
+    alternateCast('pay-4-life', 'Pay 4 life', '', {
+      life: 4,
+      controlledSubtype: 'Swamp',
+    }),
+    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
+  ],
+  'Sokrates, Athenian Teacher': [
+    targetingRequirement('hexproof-while-untapped'),
+    activate({
+      id: 'sokrates.dialogue',
+      costs: { tap: true },
+      targets: 'creature',
+      do: [combatDialogueUntilEot()],
+    }),
+    handler('combatDialogue'),
+  ],
+  'Soul of Eternity': [
+    ptEqualsLife({ who: 'controller' }),
+    encore('{7}{W}{W}'),
+  ],
+  'Souls of the Faultless': [
+    triggerOn('dealtCombatDamage', {
+      do: [
+        gainLife('triggerAmount'),
+        loseLife('triggerAmount', 'triggeringPlayer'),
+      ],
+    }),
+  ],
+  'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
+  'Spearbreaker Behemoth': [
+    activate({
+      id: 'spearbreaker.indestructible',
+      costs: { mana: '{1}' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
+      do: [grantUntilEot('indestructible')],
+    }),
+  ],
+  'Splendid Reclamation': [onResolve(returnOwnedGraveyardLands())],
+  'Split Decision': [
+    targetOnResolve(
+      'select',
+      { zone: 'stack', types: ['Instant', 'Sorcery'] },
+      vote(
+        'Vote for denial or duplication.',
+        {
+          kind: 'named',
+          options: [{ id: 'denial', label: 'Denial' }, { id: 'duplication', label: 'Duplication' }],
+        },
+        [ifVoteLeads('denial', [counterTargetSpell(true)], [copyTargetSpell()])],
+      ),
+    ),
+  ],
+  'Springheart Nantuko': [
+    bestow('{1}{G}', { power: 1, toughness: 1 }),
+    landfall(attachedCopyOrToken('{1}{G}', insectToken)),
+  ],
+  'Standard Bearer': [targetingRequirement('flagbearer')],
+  'Starfield of Nyx': [
+    staticGrant('starfieldOfNyx'),
+    yourUpkeepTarget(
+      { zone: 'graveyard', type: 'Enchantment', controller: 'you' },
+      [returnTargetFromGraveyard('battlefield', false, true)],
+    ),
+  ],
+  'Stitch Together': [
+    targetOnResolve(
+      'select',
+      { zone: 'graveyard', type: 'Creature' },
+      branch(
+        graveyardCards(7),
+        [returnTargetFromGraveyard('battlefield')],
+        [returnTargetFromGraveyard('hand')],
+      ),
+    ),
+  ],
+  "Stitcher's Supplier": [enters(selfMill(3)), dies(selfMill(3))],
+  'Subjugator Angel': [
+    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'opponent' })),
+  ],
+  'Summer Bloom': [onResolve(extraLandPlays(3))],
+  'Summon: Leviathan': [sagaChapters(
+    {
+      numbers: [1],
+      do: [bounceCreaturesExcept('Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent')],
+    },
+    {
+      numbers: [2, 3],
+      do: [addUntilCleanupRule('attackSubtypeDraw', {
+        subtypes: ['Kraken', 'Leviathan', 'Merfolk', 'Octopus', 'Serpent'],
+      })],
+    },
+  )],
+  'Summon: Titan': [sagaChapters(
+    { numbers: [1], do: [selfMill(5)] },
+    { numbers: [2], do: [returnOwnedGraveyardLands()] },
+    { numbers: [3], do: [pumpTargetEqualToLands(true)] },
+  )],
+  'Sunken Hollow': [entersTapped(controlledBasicLands({ max: 1 }))],
+  'Swan Song': [
+    targetOnResolve(
+      'counter',
+      { zone: 'stack', types: ['Enchantment', 'Instant', 'Sorcery'] },
+      bird,
+    ),
+  ],
+  'Swords to Plowshares': [
+    targetOnResolve(
+      'exile',
+      { zone: 'battlefield', type: 'Creature' },
+      gainLifeTargetPower(),
+    ),
+  ],
   'Sygg, River Cutthroat': [
     triggerOn('end', {
       if: opponentLostLifeThisTurn(3),
       do: [mayDraw(1)],
+    }),
+  ],
+  'Tainted Sigil': [
+    ability(
+      { id: 'taintedSigil.recover' },
+      { tap: true, sacrifice: 'self' },
+      gainLifeLostThisTurn('all'),
+    ),
+  ],
+  'Talon Gates of Madara': [
+    entersTargetingUpToOne(
+      { zone: 'battlefield', type: 'Creature' },
+      phaseOutTarget(),
+    ),
+    activate({
+      id: 'talon.any-mana',
+      manaAbility: true,
+      costs: { mana: '{1}', tap: true },
+      do: [{ kind: 'addChosenColorMana' }],
+    }),
+    activate({
+      id: 'talon.put',
+      zone: 'hand',
+      costs: { mana: '{4}' },
+      do: [putSelfOntoBattlefield()],
     }),
   ],
   "Tamiyo's Safekeeping": [
@@ -1927,30 +2357,75 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { zone: 'battlefield', nonland: true },
     ),
   ],
-  'Trade Routes': [
-    activate({
-      id: 'tradeRoutes.bounce',
-      costs: { mana: '{1}' },
-      do: [bounceChosenLand()],
-    }),
-    activate({
-      id: 'tradeRoutes.draw',
-      costs: { mana: '{1}', discard: 'land' },
-      do: [draw(1)],
-    }),
+  'Teferi, Who Slows the Sunset': [
+    ability({
+      id: 'teferi.plus-one',
+      targets: 'teferiSunsetPlusOne',
+    }, loyalty(1), teferiSunsetPlusOne()),
+    ability({
+      id: 'teferi.minus-two',
+    }, loyalty(-2), lookTopPick(3, 1)),
+    ability({
+      id: 'teferi.minus-seven',
+    }, loyalty(-7), teferiSunsetEmblem()),
+    handler('teferiSunset'),
   ],
-  'Victimize': [
-    targetsOnResolve(
-      'reanimate',
-      { zone: 'graveyard', type: 'Creature', controller: 'you' },
-      { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
+  'Temple of Deceit': [entersTapped(), enters(scry(1))],
+  'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
+  'Tenuous Truce': [playerAuraDeal()],
+  Terastodon: [
+    entersTargetingUpTo(
+      3,
+      { zone: 'battlefield', permanent: true, noncreature: true },
+      destroyThenTokenForController({
+        name: 'Elephant',
+        types: ['Creature'],
+        subtypes: ['Elephant'],
+        colors: ['G'],
+        power: 3,
+        toughness: 3,
+      }),
     ),
   ],
-  'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
-  'Vantress Visions': [
-    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
+  'Terramorphic Expanse': [
+    fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
   ],
-  'Walk-In Closet': [playLandsFromGraveyard()],
+  'Test of Endurance': [
+    yourUpkeepIf(controllerLife(50), winGame()),
+  ],
+  "Thalia's Lancers": [
+    enters(searchLibrary({
+      prompt: 'Search your library for a legendary card, reveal it, put it into your hand, then shuffle.',
+      match: (object) => object.supertypes.includes('Legendary'),
+      destination: 'hand',
+      min: 0,
+      max: 1,
+      reveal: true,
+    })),
+  ],
+  'Thawing Glaciers': [
+    entersTapped(),
+    searchAbility({
+      prompt: 'Search your library for a basic land card. It enters tapped.',
+      match: basicLand,
+      destination: 'battlefield',
+      tapped: true,
+      min: 1,
+      max: 1,
+      after: [delay({ kind: 'step', step: 'cleanup' }, bounceSelf())],
+    }, { tap: true, mana: '{1}' }),
+  ],
+  'Thespian\'s Stage': [
+    ability(
+      { id: 'thespiansStage.copy', sorcery: true },
+      { mana: '{2}', tap: true },
+      becomeCopyOfTarget({
+        filter: { zone: 'battlefield', type: 'Land' },
+        keepAbility: true,
+      }),
+    ),
+  ],
+  'Thorn Mammoth': [enters(fightUpToOne())],
   "Thrór's Map": [
     {
       op: 'search',
@@ -1971,6 +2446,85 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       discardCards(1),
     ),
   ],
+  'Thunderfoot Baloth': [
+    staticBoardPump(2, 2, ['Creature'], {
+      if: { kind: 'controlsCommander' },
+      affects: 'self',
+    }),
+    staticBoardPump(2, 2, ['Creature'], {
+      if: { kind: 'controlsCommander' },
+      affects: 'others',
+      grantKeywords: ['trample'],
+    }),
+  ],
+  'Toxic Deluge': [payLifeX(), onResolve(pumpAllCreaturesByX())],
+  'Trade Routes': [
+    activate({
+      id: 'tradeRoutes.bounce',
+      costs: { mana: '{1}' },
+      do: [bounceChosenLand()],
+    }),
+    activate({
+      id: 'tradeRoutes.draw',
+      costs: { mana: '{1}', discard: 'land' },
+      do: [draw(1)],
+    }),
+  ],
+  'Trap the Trespassers': [
+    onResolve(vote(
+      'Secretly vote for a creature the caster does not control.',
+      {
+        kind: 'objects',
+        filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
+      },
+      [forEachVotedOption(
+        putCountersOnTriggeringObject('stun', 'triggerAmount'),
+        tapTriggeringObject(),
+      )],
+      true,
+    )),
+  ],
+  'Triangle of War': [
+    activate({
+      id: 'fight.triangle',
+      costs: { mana: '{2}', sacrifice: 'self' },
+      do: [fight('two-targets')],
+    }),
+  ],
+  'Twincast': [
+    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
+  ],
+  'Ugin, the Spirit Dragon': [
+    ability({
+      id: 'ugin.plus-two',
+      targets: 'any',
+    }, loyalty(2), dealDamageToChosenTarget(3)),
+    ability({
+      id: 'ugin.minus-x',
+    }, loyaltyX(), exileColoredPermanentsAtMostX()),
+    ability({
+      id: 'ugin.minus-ten',
+    }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
+  ],
+  'Ulvenwald Tracker': [
+    activate({
+      id: 'fight.tracker',
+      costs: { mana: '{1}{G}', tap: true },
+      do: [fight('two-targets')],
+    }),
+  ],
+  'Undercity Sewers': [entersTapped(), enters(surveil(1))],
+  'Underground Mortuary': [entersTapped(), enters(surveil(1))],
+  'Unmarked Grave': [
+    searchSpell({
+      prompt: 'Search your library for a nonlegendary card and put it into your graveyard.',
+      match: (object) => !object.supertypes.includes('Legendary'),
+      destination: 'graveyard',
+      min: 1,
+      max: 1,
+    }),
+  ],
+  'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   "Urza's Cave": [
     searchAbility({
       prompt: 'Search your library for a land card, put it onto the battlefield tapped, then shuffle.',
@@ -1980,6 +2534,127 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       min: 1,
       max: 1,
     }, { mana: '{3}', tap: true, sacrifice: 'self' }),
+  ],
+  'Utopia Sprawl': [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
+  'Valgavoth, Terror Eater': [
+    ward({ sacrifice: { count: 3, nonland: true } }),
+    staticGrant('exiledWith'),
+    exileOpponentGraveyard(),
+    playExiledWithLife(),
+    handler('ward'),
+    handler('exiledWith'),
+  ],
+  'Vanish into Memory': [handler('blinkValue')],
+  'Vantress Visions': [
+    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
+  ],
+  'Vault of Champions': [entersTapped(opponentsAtMost(1))],
+  'Verdant Catacombs': [
+    fetchTypes('Search your library for a Swamp or Forest card and put it onto the battlefield.', [
+      'Swamp',
+      'Forest',
+    ]),
+  ],
+  'Victimize': [
+    targetsOnResolve(
+      'reanimate',
+      { zone: 'graveyard', type: 'Creature', controller: 'you' },
+      { count: 2, tapped: true, sacrificeThen: { type: 'Creature' } },
+    ),
+  ],
+  'Virtue of Knowledge': [extraEnters(1), extraLandfall(1)],
+  'Void Winnower': [
+    opponentsCantCast({ parity: 'even' }),
+    opponentsCantBlock({ parity: 'even' }),
+  ],
+  'Voyager Staff': [
+    activate({
+      id: 'voyagerStaff.blink',
+      costs: { mana: '{2}', sacrifice: 'self' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
+      do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
+    }),
+  ],
+  'Walk-In Closet': [playLandsFromGraveyard()],
+  'Wall of Blood': [
+    ability({ id: 'wallOfBlood.pump' }, { life: 1 }, pumpSelf(1, 1)),
+  ],
+  'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
+  'Wash Away': [
+    cleave('{1}{U}{U}'),
+    targetOnResolve('counter', {
+      zone: 'stack',
+      bracketed: { castFromNot: 'hand' },
+    }),
+  ],
+  'Waterlogged Grove': [
+    ability(
+      { id: 'waterloggedGrove.draw' },
+      { mana: '{1}', tap: true, sacrifice: 'self' },
+      draw(1),
+    ),
+  ],
+  'Waterlogged Teachings // Inundated Archive': [
+    entersTapped(),
+    searchSpell({
+      prompt: 'Search your library for an instant card or a card with flash.',
+      match: (object) =>
+        object.types.includes('Instant') || /\bflash\b/i.test(object.oracleText),
+      destination: 'hand',
+      min: 1,
+      max: 1,
+      reveal: true,
+    }),
+  ],
+  'Watery Grave': [tapUnlessPayLife(2)],
+  'Wedding Ring': [
+    triggerOn('enters', {
+      if: { fromSpell: true },
+      targets: 'opponent',
+      do: [copySelf({ for: 'targetPlayer' })],
+    }),
+    triggerOn('draw', {
+      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
+      do: [draw(1)],
+    }),
+    triggerOn('gainLife', {
+      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
+      do: [gainLife('triggerAmount')],
+    }),
+  ],
+  'Werefox Bodyguard': [
+    handler('linkedExile'),
+    linkedExileUntilLeaves(),
+    enters(linkExile(
+      { type: 'Creature', other: true, excludeSubtypes: ['Fox'] },
+      { optional: true, max: 1 },
+    )),
+    ability(
+      { id: 'werefoxBodyguard.gain' },
+      { mana: '{W}', sacrifice: 'self' },
+      gainLife(2),
+    ),
+  ],
+  'Wild Growth': [enchantedManaBoost({ mana: 'G' })],
+  'Will of the Sultai': [modalCommanderChooseBoth(
+    {
+      id: 'lands',
+      label: 'Target player mills three cards. Return all land cards from your graveyard tapped.',
+      do: [millTarget(3), returnOwnedGraveyardLands()],
+    },
+    {
+      id: 'pump',
+      label: 'Put X +1/+1 counters on target creature, where X is the number of lands you control. It gains trample.',
+      do: [addPlusCountersEqualToLands(), pumpTargetEqualToLands(true)],
+    },
+  )],
+  Windfall: [onResolve(discardHandsThenDrawGreatest())],
+  'Woodfall Primus': [
+    entersTargeting(
+      { zone: 'battlefield', permanent: true, noncreature: true },
+      destroyTargetPermanent(),
+    ),
+    persist(),
   ],
   'World Map': [
     searchAbility({
@@ -1999,21 +2674,34 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     }, { mana: '{3}', tap: true, sacrifice: 'self' }),
   ],
-  'Worn Powerstone': [entersTapped()],
-  'Forgotten Cellar': [onUnlock()],
-  'Wash Away': [
-    cleave('{1}{U}{U}'),
-    targetOnResolve('counter', {
-      zone: 'stack',
-      bracketed: { castFromNot: 'hand' },
-    }),
-  ],
-  'Watery Grave': [tapUnlessPayLife(2)],
   'World Shaper': [
     attacks(optionalMill(3)),
     dies(returnOwnedGraveyardLands()),
   ],
+  'Worn Powerstone': [entersTapped()],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
+  'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
+  'Yurlok of Scorch Thrash': [
+    staticGrant('manaBurn'),
+    activate({
+      id: 'yurlok.mana-rain',
+      manaAbility: true,
+      costs: { tap: true, mana: '{1}' },
+      do: [{ kind: 'addManaToEachPlayer', mana: { B: 1, R: 1, G: 1 } }],
+    }),
+  ],
+  'Zagoth Triome': [
+    entersTapped(),
+    cycleFromHand('cycling.zagothTriome'),
+  ],
+  'Zanarkand, Ancient Metropolis // Lasting Fayth': [
+    entersTapped(),
+    alternateCast('adventure', 'Lasting Fayth — {4}{G}{G}', '{4}{G}{G}', {
+      fromZone: 'hand',
+      exileAfterUse: true,
+    }),
+    onResolveIfCastOption('adventure', createHeroWithLandCounters()),
+  ],
   'Zimone and Dina': [
     triggerOn('draw', {
       if: secondCardDrawn(),
@@ -2029,693 +2717,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         repeatIf(controlledLands({ min: 8 }), draw(1), putLandFromHand(true)),
       ],
     }),
-  ],
-  'Incarnation Technique': [
-    onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
-    handler('demonstrate'),
-  ],
-  'Yurlok of Scorch Thrash': [
-    staticGrant('manaBurn'),
-    activate({
-      id: 'yurlok.mana-rain',
-      manaAbility: true,
-      costs: { tap: true, mana: '{1}' },
-      do: [{ kind: 'addManaToEachPlayer', mana: { B: 1, R: 1, G: 1 } }],
-    }),
-  ],
-  'Zagoth Triome': [
-    entersTapped(),
-    cycleFromHand('cycling.zagothTriome'),
-  ],
-  'Archangel of Tithes': [
-    attackTax(1, { whileUntapped: true }),
-    blockTax(1, { whileAttacking: true }),
-  ],
-  'Batwing Brume': [handler('combatPreventionCards')],
-  Belonging: [
-    enters(
-      changelingShapeshifter(),
-      changelingShapeshifter(),
-      changelingShapeshifter(),
-    ),
-    allCreatureTypes(),
-    encore('{6}{W}{W}'),
-  ],
-  'Beza, the Bounding Spring': [
-    enters(
-      branch(opponentHasMore('lands'), [createTreasures(1, 'you')]),
-      branch(opponentHasMore('life'), [gainLife(4)]),
-      branch(opponentHasMore('creatures'), [fish, fish]),
-      branch(opponentHasMore('cardsInHand'), [draw(1)]),
-    ),
-  ],
-  Blitzball: [
-    ability(
-      { id: 'blitzball.goal' },
-      {
-        tap: true,
-        sacrifice: 'self',
-        if: opponentDealtCombatDamageByLegendaryThisTurn(),
-      },
-      draw(2),
-    ),
-  ],
-  'Collector\'s Vault': [lootAndTreasure('collectorsVault.loot')],
-  'Dack Fayden, Helping Hand': [
-    enters(
-      revealUntil(
-        'opponentCount',
-        { type: 'Creature' },
-        'battlefield',
-        'shuffle',
-        goadRevealUntilMatches(),
-        pairDonateRevealUntilMatches(),
-      ),
-    ),
-  ],
-  'Daily Bugle Newspaper': [lootAndTreasure('dailyBugle.loot')],
-  'Perch Protection': [
-    gift({ label: 'Gift an extra turn', extraTurn: true }),
-    onResolve(
-      ...perchBirds(),
-      ifGiftPromised(
-        phaseOutControlled(),
-        grantProtectionFromEverything(),
-        lifeTotalCannotChange(),
-      ),
-    ),
-  ],
-  'Bender\'s Waterskin': [staticGrant('extraUntap')],
-  'Baird, Steward of Argive': [attackTax(1)],
-  'Blanket of Night': [staticGrant('swampOverlay')],
-  'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
-  'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
-  'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
-  'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
-  Comeuppance: [handler('combatPreventionCards')],
-  Darkness: [onResolve(preventCombatDamage())],
-  'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
-  'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
-  Ephemerate: [handler('blinkValue')],
-  'Deserted Temple': [
-    activate({
-      id: 'desertedTemple.untap',
-      costs: { mana: '{1}', tap: true },
-      targets: 'land',
-      do: [untapTarget()],
-    }),
-  ],
-  'Dimir Signet': [signet('signet.dimir', { U: 1, B: 1 })],
-  'Alchemist\'s Refuge': [
-    activate({
-      id: 'alchemistsRefuge.flash',
-      costs: { mana: '{G}{U}', tap: true },
-      do: [addUntilCleanupRule('flashGrant')],
-    }),
-  ],
-  'Arbor Elf': [
-    activate({
-      id: 'arborElf.untap',
-      costs: { tap: true },
-      targets: { filter: { zone: 'battlefield', type: 'Land', subtype: 'Forest' } },
-      do: [untapTarget()],
-    }),
-  ],
-  'Flooded Grove': [
-    activate({
-      id: 'floodedGrove.filter',
-      manaAbility: true,
-      costs: { mana: '{G/U}', tap: true },
-      do: [addManaChoice({ G: 2 }, { G: 1, U: 1 }, { U: 2 })],
-    }),
-  ],
-  'Sea Gate Restoration // Sea Gate, Reborn': [
-    tapUnlessPayLife(3),
-    onResolve(drawHandSize(1), noMaximumHandSize()),
-  ],
-  'Simic Signet': [signet('signet.simic', { G: 1, U: 1 })],
-  'Utopia Sprawl': [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
-  'Waterlogged Grove': [
-    ability(
-      { id: 'waterloggedGrove.draw' },
-      { mana: '{1}', tap: true, sacrifice: 'self' },
-      draw(1),
-    ),
-  ],
-  'Wild Growth': [enchantedManaBoost({ mana: 'G' })],
-  "Dovin's Veto": [
-    uncounterable(),
-    targetOnResolve('counter', { zone: 'stack', noncreature: true }),
-  ],
-  'Esper Panorama': [
-    searchAbility({
-      prompt: 'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
-      match: (object) =>
-        basicLand(object) && hasSubtype('Plains', 'Island', 'Swamp')(object),
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 1,
-    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
-  ],
-  'Exotic Orchard': [manaFrom('opponentsLands')],
-  'Fellwar Stone': [manaFrom('opponentsLands')],
-  'Energy Arc': [handler('combatPreventionCards')],
-  'Everybody Lives!': [handler('combatPreventionCards')],
-  'Expedition Map': [
-    searchAbility({
-      prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }, { mana: '{2}', tap: true, sacrifice: 'self' }),
-  ],
-  'Ghostly Flicker': [handler('blinkValue')],
-  'Getaway Glamer': [
-    spree([
-      spreeMode(
-        'blink',
-        '+ {1} — Exile target nontoken creature. Return it to the battlefield under its owner\'s control at the beginning of the next end step.',
-        '{1}',
-        [blink({ when: 'nextEndStep', returnController: 'owner', targetIndex: 0 })],
-      ),
-      spreeMode(
-        'kill',
-        '+ {2} — Destroy target creature if no other creature has greater power.',
-        '{2}',
-        [dealDamageToChosenTarget(9999)],
-      ),
-    ]),
-    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
-  ],
-  'Guardian of Ghirapur': [
-    enters(
-      blink({
-        optional: true,
-        filter: {
-          controller: 'you',
-          types: ['Creature', 'Artifact'],
-          other: true,
-        },
-        when: 'nextEndStep',
-        returnController: 'owner',
-        prompt: 'You may exile another target creature or artifact you control, then return it at the next end step.',
-      }),
-    ),
-  ],
-  'Kami of False Hope': [
-    activate({
-      id: 'kami.fog',
-      costs: { sacrifice: 'self' },
-      do: [preventCombatDamage()],
-    }),
-  ],
-  Inkshield: [handler('combatPreventionCards')],
-  'Lady Evangela': [
-    ability({
-      id: 'ladyEvangela.fog',
-      targets: 'creature',
-    }, { mana: '{W}{B}', tap: true }, preventCombatDamage({ from: 'target' })),
-  ],
-  'Long Road Home': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
-    ),
-  ],
-  'Loran of the Third Path': [handler('blinkValue')],
-  'Lotho, Corrupt Shirriff': [handler('blinkValue')],
-  'Rings of Brighthearth': [handler('stackCopy')],
-  'Erestor of the Council': [onVotesFinished(
-    forEachVoter('opponentsAgreeing', createTreasures(1, 'triggeringPlayer')),
-    scry({ voters: 'opponentsDisagreeing' }),
-    draw(1),
-  )],
-  'Sail into the West': [
-    onResolve(vote(
-      'Vote for return or embark.',
-      {
-        kind: 'named',
-        options: [{ id: 'return', label: 'Return' }, { id: 'embark', label: 'Embark' }],
-      },
-      [ifVoteLeads(
-        'return',
-        [eachPlayerReturn(2), exileThisSpell()],
-        [eachPlayerMayWheel(7)],
-      )],
-    )),
-  ],
-  "Selvala's Stampede": [
-    onResolve(vote(
-      'Vote for wild or free.',
-      {
-        kind: 'named',
-        options: [{ id: 'wild', label: 'Wild' }, { id: 'free', label: 'Free' }],
-      },
-      [
-        revealUntil({ voters: { votedFor: 'wild' } }, { type: 'Creature' }, 'battlefield', 'shuffle'),
-        putPermanentsFromHand({ voters: { votedFor: 'free' } }),
-      ],
-    )),
-  ],
-  'Coercive Portal': [yourUpkeep(vote(
-    'Vote for carnage or homage.',
-    {
-      kind: 'named',
-      options: [{ id: 'carnage', label: 'Carnage' }, { id: 'homage', label: 'Homage' }],
-    },
-    [ifVoteLeads(
-      'carnage',
-      [{ kind: 'sacrificeSelf' }, destroyAll({ nonland: true })],
-      [draw(1)],
-    )],
-  ))],
-  "Council's Judgment": [
-    onResolve(vote(
-      'Vote for a nonland permanent you do not control.',
-      {
-        kind: 'objects',
-        filter: { zone: 'battlefield', nonland: true, controller: 'opponent' },
-      },
-      [exileVoteWinners()],
-    )),
-  ],
-  'Split Decision': [
-    targetOnResolve(
-      'select',
-      { zone: 'stack', types: ['Instant', 'Sorcery'] },
-      vote(
-        'Vote for denial or duplication.',
-        {
-          kind: 'named',
-          options: [{ id: 'denial', label: 'Denial' }, { id: 'duplication', label: 'Duplication' }],
-        },
-        [ifVoteLeads('denial', [counterTargetSpell(true)], [copyTargetSpell()])],
-      ),
-    ),
-  ],
-  'Trap the Trespassers': [
-    onResolve(vote(
-      'Secretly vote for a creature the caster does not control.',
-      {
-        kind: 'objects',
-        filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
-      },
-      [forEachVotedOption(
-        putCountersOnTriggeringObject('stun', 'triggerAmount'),
-        tapTriggeringObject(),
-      )],
-      true,
-    )),
-  ],
-  'Fractured Identity': [
-    targetOnResolve(
-      'exile',
-      { zone: 'battlefield', nonland: true },
-      copyTargetForEachOtherPlayer(),
-    ),
-  ],
-  Mirrorweave: [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature', nonlegendary: true },
-      copyAllCreaturesUntilEot(false),
-    ),
-  ],
-  'Standard Bearer': [targetingRequirement('flagbearer')],
-  'Sokrates, Athenian Teacher': [
-    targetingRequirement('hexproof-while-untapped'),
-    activate({
-      id: 'sokrates.dialogue',
-      costs: { tap: true },
-      targets: 'creature',
-      do: [combatDialogueUntilEot()],
-    }),
-    handler('combatDialogue'),
-  ],
-  'Tenuous Truce': [playerAuraDeal()],
-  'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
-  'Marsh Flats': [
-    fetchTypes('Search your library for a Plains or Swamp card and put it onto the battlefield.', [
-      'Plains',
-      'Swamp',
-    ]),
-  ],
-  Mulldrifter: [
-    alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
-    entersIfCastOption('evoke', { kind: 'sacrificeSelf' }),
-    enters(draw(2)),
-  ],
-  'Nirkana Revenant': [
-    staticGrant('extraSwampMana'),
-    activate({
-      id: 'nirkanaRevenant.pump',
-      costs: { mana: '{B}' },
-      do: [pumpSelf(1, 1)],
-    }),
-  ],
-  'Niv-Mizzet, Ghost Counsel': [
-    triggerOn('gainLife', { if: { seat: 'controller' }, do: [mayPayLifeDraw()] }),
-    activate({
-      id: 'nivMizzetGhostCounsel.drain',
-      costs: { tap: true },
-      do: [opponentsLoseLife(1), gainLife(1)],
-    }),
-  ],
-  'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
-  'Queza, Augur of Agonies': [handler('blinkValue')],
-  'Otherworldly Journey': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
-    ),
-  ],
-  'Reflecting Pool': [manaFrom('controlledLands')],
-  'Restoration Angel': [
-    enters(
-      blink({
-        optional: true,
-        filter: {
-          controller: 'you',
-          type: 'Creature',
-          excludeSubtypes: ['Angel'],
-        },
-        returnController: 'controller',
-        prompt: 'You may exile target non-Angel creature you control, then return it under your control.',
-      }),
-    ),
-  ],
-  "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
-  'Snuff Out': [
-    alternateCast('pay-4-life', 'Pay 4 life', '', {
-      life: 4,
-      controlledSubtype: 'Swamp',
-    }),
-    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
-  ],
-  'Phial of Galadriel': [staticGrant('phialReplacement')],
-  'Swan Song': [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', types: ['Enchantment', 'Instant', 'Sorcery'] },
-      bird,
-    ),
-  ],
-  'Swords to Plowshares': [
-    targetOnResolve(
-      'exile',
-      { zone: 'battlefield', type: 'Creature' },
-      gainLifeTargetPower(),
-    ),
-  ],
-  'Settle the Wreckage': [handler('combatPreventionCards')],
-  'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
-  'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
-  'Valgavoth, Terror Eater': [
-    ward({ sacrifice: { count: 3, nonland: true } }),
-    staticGrant('exiledWith'),
-    exileOpponentGraveyard(),
-    playExiledWithLife(),
-    handler('ward'),
-    handler('exiledWith'),
-  ],
-  'Vanish into Memory': [handler('blinkValue')],
-  'Voyager Staff': [
-    activate({
-      id: 'voyagerStaff.blink',
-      costs: { mana: '{2}', sacrifice: 'self' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
-      do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
-    }),
-  ],
-  'Angel of Sanctions': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
-    enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
-  ],
-  'Banisher Priest': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-  ],
-  'Bishop of Binding': [
-    handler('linkedExile'),
-    handler('exilePayoffs'),
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-    {
-      op: 'trigger',
-      on: 'attacks',
-      targets: { filter: { type: 'Creature' } },
-      do: [pumpFromLinkedExilePower('stackTarget')],
-    },
-  ],
-  'Fiend Hunter': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', other: true }, { optional: true })),
-  ],
-  'Glorious Protector': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile(
-      { type: 'Creature', other: true, excludeSubtypes: ['Angel'] },
-      { controlled: true, optional: true },
-    )),
-  ],
-  'Lumbering Battlement': [
-    handler('linkedExile'),
-    handler('exilePayoffs'),
-    linkedExileUntilLeaves(),
-    pumpPerLinkedExile(2, 2),
-    enters(linkExile(
-      { type: 'Creature', other: true },
-      { controlled: true, optional: true },
-    )),
-  ],
-  'Palace Jailer': [
-    enters(
-      becomeMonarch(),
-      exileUntilOpponentBecomesMonarch({ type: 'Creature', controller: 'opponent' }),
-    ),
-  ],
-  'Werefox Bodyguard': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile(
-      { type: 'Creature', other: true, excludeSubtypes: ['Fox'] },
-      { optional: true, max: 1 },
-    )),
-    ability(
-      { id: 'werefoxBodyguard.gain' },
-      { mana: '{W}', sacrifice: 'self' },
-      gainLife(2),
-    ),
-  ],
-  'Alabaster Host Intercessor': [
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-    typecycleHand('plainscycling.alabasterHostIntercessor', '{2}', 'Plains'),
-  ],
-  'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
-  'Githzerai Monk': [
-    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'notController' })),
-  ],
-  'Meteor Golem': [
-    targetOnResolve('destroy', { zone: 'battlefield', nonland: true, controller: 'opponent' }),
-  ],
-  'Arcanis the Omnipotent': [
-    activate({
-      id: 'arcanis.draw',
-      costs: { tap: true },
-      do: [draw(3)],
-    }),
-    activate({
-      id: 'arcanis.bounce',
-      costs: { mana: '{2}{U}{U}' },
-      do: [bounceSelf()],
-    }),
-  ],
-  "Minamo, School at Water's Edge": [
-    activate({
-      id: 'minamo.untap',
-      costs: { mana: '{U}', tap: true },
-      targets: 'legendary',
-      do: [untapTarget()],
-    }),
-  ],
-  Condemn: [
-    targetOnResolve(
-      'libraryBottom',
-      { zone: 'battlefield', type: 'Creature', attacking: true },
-      gainLifeTargetToughness(),
-    ),
-  ],
-  Hatred: [
-    payLifeX(),
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      pumpTargetX(1, 0),
-    ),
-  ],
-  'Infernal Contract': [onResolve(draw(4), loseHalfLifeRoundedUp())],
-  'Mana Drain': [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack' },
-      addManaAtNextMainFromTarget(),
-    ),
-  ],
-  Desertion: [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', stealIfTypes: ['Artifact', 'Creature'] },
-    ),
-  ],
-  'City of Brass': [
-    triggerOn('tapped', { do: [{ kind: 'dealDamageToSelf', amount: 1 }] }),
-  ],
-  'Cryptic Command': [modalChooseTwo(
-    {
-      id: 'counter',
-      label: 'Counter target spell',
-      do: [counterTargetSpell()],
-    },
-    {
-      id: 'bounce',
-      label: "Return target permanent to its owner's hand",
-      do: [bounceTargetPermanent()],
-    },
-    {
-      id: 'tap',
-      label: 'Tap all creatures your opponents control',
-      do: [tapOpponentsCreatures()],
-    },
-    {
-      id: 'draw',
-      label: 'Draw a card',
-      do: [draw(1)],
-    },
-  )],
-  'Wedding Ring': [
-    triggerOn('enters', {
-      if: { fromSpell: true },
-      targets: 'opponent',
-      do: [copySelf({ for: 'targetPlayer' })],
-    }),
-    triggerOn('draw', {
-      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
-      do: [draw(1)],
-    }),
-    triggerOn('gainLife', {
-      if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
-      do: [gainLife('triggerAmount')],
-    }),
-  ],
-  'Breena, the Demagogue': [
-    triggerOn('playerAttacks', {
-      do: [
-        { kind: 'draw', count: 1, who: 'triggeringPlayer' },
-        addPlusCountersToControlled(2),
-      ],
-    }),
-  ],
-  'Kuroki, Thief of Talents': [
-    yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
-  ],
-  'Dig Through Time': [delve(), onResolve(lookTopPick(7, 2))],
-  'Kederekt Leviathan': [
-    enters(bounceAll({ nonland: true, other: true })),
-    unearth('{6}{U}'),
-  ],
-  'Nezahal, Primal Tide': [
-    uncounterable(),
-    staticGrant('noMaxHand'),
-    handler('noMaxHand'),
-    casts(draw(1), { castBy: 'opponent', noncreatureOnly: true }),
-    ability(
-      { id: 'nezahal.reset' },
-      { discard: 'any', discardCount: 3 },
-      blinkSelf({ when: 'nextEndStep', tapped: true }),
-    ),
-  ],
-  'Phyrexian Ingester': [
-    pumpFromLinkedExileStats(),
-    {
-      op: 'trigger',
-      on: 'enters',
-      targets: { filter: { type: 'Creature', nontoken: true }, min: 0 },
-      do: [linkExile({ type: 'Creature', nontoken: true }, { optional: true, max: 1 })],
-    },
-  ],
-  'Archetype of Endurance': [
-    staticBoardPump(0, 0, ['Creature'], { grantKeywords: ['hexproof'] }),
-    staticBoardPump(0, 0, ['Creature'], {
-      controller: 'opponent',
-      suppressKeywords: ['hexproof'],
-    }),
-  ],
-  'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
-  'Darksteel Colossus': [shuffleIntoLibraryInstead()],
-  'Sire of Seven Deaths': [ward({ life: 7 })],
-  'Void Winnower': [
-    opponentsCantCast({ parity: 'even' }),
-    opponentsCantBlock({ parity: 'even' }),
-  ],
-  'Thunderfoot Baloth': [
-    staticBoardPump(2, 2, ['Creature'], {
-      if: { kind: 'controlsCommander' },
-      affects: 'self',
-    }),
-    staticBoardPump(2, 2, ['Creature'], {
-      if: { kind: 'controlsCommander' },
-      affects: 'others',
-      grantKeywords: ['trample'],
-    }),
-  ],
-  'Woodfall Primus': [
-    entersTargeting(
-      { zone: 'battlefield', permanent: true, noncreature: true },
-      destroyTargetPermanent(),
-    ),
-    persist(),
-  ],
-  'It That Betrays': [
-    annihilator(2),
-    permanentSacrificed(
-      { controller: 'opponent', nontoken: true },
-      putTriggeringCardOntoBattlefield(),
-    ),
-  ],
-  'Grothama, All-Devouring': [
-    grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
-    leaves(eachPlayerDrawDamageDealtToSource()),
-  ],
-  Terastodon: [
-    entersTargetingUpTo(
-      3,
-      { zone: 'battlefield', permanent: true, noncreature: true },
-      destroyThenTokenForController({
-        name: 'Elephant',
-        types: ['Creature'],
-        subtypes: ['Elephant'],
-        colors: ['G'],
-        power: 3,
-        toughness: 3,
-      }),
-    ),
-  ],
-  'Guardian Project': [
-    permanentEnters(
-      { type: 'Creature', controller: 'you', nontoken: true },
-      { if: triggeringCreatureNameUnique(), do: [draw(1)] },
-    ),
   ],
 }
 
