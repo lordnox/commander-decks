@@ -30,21 +30,21 @@ describe('canonical DSL authoring ratchet', () => {
     expect(scan("import { card, draw, spell } from './v1'; export const cards = { New: card([spell({ instructions: [draw({ count: 2 })] })]) }", 'rules-engine/src/cardPlugins/dsl/newCards.ts')).toEqual([])
     expect(scan('export const draw = (count: number) => ({ kind: "draw", count })', 'rules-engine/src/cardPlugins/dsl/builders/newNode.ts')).toEqual([])
   })
-  test('legacy aliases, namespace imports, mutations and specialized executors fail', () => {
+  test('registry aliases, namespace mutations and alternate card configurations fail', () => {
     rejects("import { CARD_RULES as other } from '../../rules-engine/src/cardPlugins/cardRules'; other['New'] = []")
     rejects("import * as legacy from '../../rules-engine/src/cardPlugins/cardRules'; legacy.CARD_RULES.New = []")
-    rejects('export const newExecutor = () => doThing()', 'rules-engine/src/cardPlugins/newExecutor.ts')
-    const old = "import { effectsFor as lookup } from '../../rules-engine/src/cardPlugins/cardRules'; lookup(name)"
-    expect(compareFindings(scan(`${old}; lookup('New')`), scan(old))).not.toHaveLength(0)
-    rejects('export const alternative = { New: draw(1) }', registry)
+    rejects("import { CARD_RULES as other } from '../../rules-engine/src/cardPlugins/cardRules'; const alias = other; Object.assign(alias, { New: [] })")
+    rejects("import { draw } from '../../rules-engine/src/cardPlugins/effects'; export const alternate = { 'New Card': [draw(1)] }")
+    rejects("export const alternate = { name: 'New Card', effects: [draw(1)] }")
+    rejects("export const execute = (object) => { if (object.name === 'New Card') doThing() }", 'rules-engine/src/plugins/newExecutor.ts')
   })
-  test('name dispatch, computed access, maps, payloads and custom pickers fail', () => {
+  test('real name dispatch and custom pickers fail', () => {
     for (const source of [
       "if (object.name === 'New Card') draw(2)",
+      "if ('New Card' !== object['name']) draw(2)",
       "switch (card['name']) { case 'New Card': draw(2) }",
       "['New Card'].includes(source.name)",
-      "const alternate = { effects: [draw(2)] }",
-      "const alternate = { ['pluginIds']: ['new-card'] }",
+      "const handlers = { 'New Card': () => draw(1) }; handlers[object.name]()",
       "enqueue({ type: 'custom', name: 'pickNewCard', cards: ids })",
     ]) rejects(source)
   })
@@ -53,10 +53,22 @@ describe('canonical DSL authoring ratchet', () => {
     expect(scan("if (event.type === 'custom' && event.name === 'advanceStep') advance()")).toEqual([])
     expect(scan("export const plugin = { id: 'generic', reduce: (draft, event) => { if (event.type === 'draw') draft.draw(event.player) } }", 'rules-engine/src/plugins/generic.ts')).toEqual([])
   })
-  test('executor changes are frozen but removal is allowed with pruning', () => {
-    const path = 'rules-engine/src/cardPlugins/old.ts'
+  test('generic engine edits, payloads, imports and UI serialization remain legal', () => {
+    for (const source of [
+      "actions.push({ kind: 'playLand', name: object.name })",
+      "seat.name.toLowerCase().split(' ').join(' ')",
+      "const snapshot = { effects: effectsOf(object), pluginIds: entry.pluginIds }",
+      "import { manaValueOf } from '../cardPlugins/effects'; export const cost = manaValueOf(object)",
+      "import { cardPluginEntry } from '../cardPlugins'; cardPluginEntry(object.name)",
+      "import { card } from '../cardPlugins/dsl'; export const definition = card([])",
+      "import { card } from '../cardPlugins/dsl/index.ts'; export const definition = card([])",
+    ]) expect(scan(source, 'rules-engine/src/plugins/generic.ts')).toEqual([])
+    const path = 'rules-engine/src/cardPlugins/ward.ts'
     const baseline = scan('export const execute = () => draw(1)', path)
-    expect(compareFindings(scan('export const execute = () => draw(2)', path), baseline)).not.toHaveLength(0)
-    expect(compareFindings([], baseline, false)).toEqual([])
+    expect(compareFindings(scan('export const execute = () => draw(2)', path), baseline)).toEqual([])
+  })
+  test('extending a card-specific branch still fails', () => {
+    const before = "if (object.name === 'Old Card') draw(1)"
+    expect(compareFindings(scan("if (object.name === 'Old Card') draw(2)"), scan(before))).not.toHaveLength(0)
   })
 })

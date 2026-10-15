@@ -12,12 +12,11 @@ export const checkRepository = (root: string, base?: string) => {
       if (result.exitCode !== 0) throw new Error(result.stderr.toString())
       return result.stdout.toString()
     }
-    const exists = Bun.spawnSync(['git', 'cat-file', '-e', `${base}:${BASELINE_PATH}`], { cwd: root }).exitCode === 0
-    // Bootstrap against actual base source, never against an author-supplied baseline.
-    const trusted: Finding[] = exists ? JSON.parse(git('show', `${base}:${BASELINE_PATH}`)) :
-      git('ls-tree', '-r', '--name-only', base, 'rules-engine/src', 'live-runner/src', 'site/src', 'shared', '.agents')
-        .trim().split('\n').filter((path) => /\.tsx?$/.test(path) && !/\.(test|spec)\.tsx?$/.test(path))
-        .flatMap((path) => inspectSource(path, git('show', `${base}:${path}`)))
+    // Always apply today's detector to the trusted source tree. This lets a
+    // detector correction add allowances for old source, never for new behavior.
+    const trusted = git('ls-tree', '-r', '--name-only', base, 'rules-engine/src', 'live-runner/src', 'site/src', 'shared', '.agents')
+      .trim().split('\n').filter((path) => /\.tsx?$/.test(path) && !/\.(test|spec)\.tsx?$/.test(path))
+      .flatMap((path) => inspectSource(path, git('show', `${base}:${path}`)))
     errors.push(...compareFindings(baseline, trusted, false).map((error) => `Baseline growth: ${error}`))
   }
   return { errors, allowances: baseline.length }

@@ -20,6 +20,7 @@ test('trusted git baseline rejects self-authorized growth and permits migration 
     git('config', 'user.email', 'test@example.invalid')
     git('config', 'user.name', 'Test')
     write(registry, 'export const CARD_RULES = { Old: [draw(1)] }')
+    write('rules-engine/src/cardPlugins/ward.ts', 'export const payWard = (amount) => genericPayment(amount)')
     git('add', '.')
     git('-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'Initial compatibility source')
     baseline()
@@ -32,10 +33,19 @@ test('trusted git baseline rejects self-authorized growth and permits migration 
     baseline()
     git('add', '.')
     git('-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'Install baseline')
-    // Subsequent installations trust the previous baseline, and fail on enlargement.
+    write('rules-engine/src/cardPlugins/ward.ts', 'export const payWard = (amount) => correctedGenericPayment(amount)')
+    expect(checkRepository(root, 'HEAD').errors).toEqual([])
+    // Subsequent installations also scan trusted source and fail on new behavior.
     write(registry, 'export const CARD_RULES = { Old: [draw(1)], New: [draw(2)] }')
     baseline()
     expect(checkRepository(root, 'HEAD').errors.some((error) => error.startsWith('Baseline growth:'))).toBe(true)
+    // Simulate a tightened detector finding old source absent from the old JSON.
+    write(registry, 'export const CARD_RULES = { Old: [draw(1)] }')
+    write(BASELINE_PATH, '[]')
+    git('add', '.')
+    git('-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'Old detector omitted an existing registration')
+    baseline()
+    expect(checkRepository(root, 'HEAD').errors).toEqual([])
     write(registry, 'export const CARD_RULES = {}')
     write('rules-engine/src/cardPlugins/dsl/new.ts', 'export const definition = card([spell({ instructions: [draw({ count: 1 })] })])')
     baseline()
