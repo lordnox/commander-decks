@@ -471,9 +471,17 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
-      if (!object || object.zone !== 'battlefield') return
+      if (!object || (object.zone !== 'battlefield' && event.effect.kind !== 'setColors')) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'setColors': {
+          const before = [...object.colors]
+          object.colors = [...new Set(event.effect.colors)]
+          object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'colorChange', before, after: [...object.colors], incarnation: object.incarnation }, duration,
+          }]
+          break
+        }
         case 'pump': {
           const power = event.effect.power.kind === 'constant' ? event.effect.power.value : 0
           const toughness = event.effect.toughness.kind === 'constant' ? event.effect.toughness.value : 0
@@ -639,6 +647,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
           })
         }
         draft.note(`${object.name} enters battlefield`)
+        if (event.tapped) object.tapped = true
       }
       return
     }

@@ -27,7 +27,6 @@ describe('card plugin registry', () => {
       'Field of the Dead',
       'Icetill Explorer',
       'Misty Rainforest',
-      "Nature's Lore",
       'Riveteers Overlook',
       'Scute Swarm',
       "Sin, Spira's Punishment",
@@ -183,11 +182,10 @@ describe('card plugin registry', () => {
 
   test('the Sin Fall replacement and hidden-pile cards load their handlers', () => {
     expect(missingCardPlugins([
-      'Abundance',
       'Cling to Dust',
       'Hostile Negotiations',
     ])).toEqual([])
-    expect(handlerIdsForNames(['Abundance'])).toEqual(['abundance'])
+    expect(handlerIdsForNames(['Abundance'])).toEqual([])
     expect(handlerIdsForNames(['Hostile Negotiations']).toSorted())
       .toEqual(['hiddenPiles', 'onResolve'])
     expect(handlerIdsForNames(['Cling to Dust']).toSorted())

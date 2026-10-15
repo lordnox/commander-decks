@@ -1,7 +1,14 @@
 import type { Plugin } from '../types'
 import { freezeDraft } from '../draft'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../rules/selectOptions'
-import { enqueueReplacementSettlement, REPLACEMENT_DISCARD_RESUME, resumeReplacementChoice, resumeReplacementProgramChoice } from './processor'
+import { resumeReplacementInstructionChoice } from './instructionProgram'
+import {
+  drawRemainderFollowUp,
+  enqueueReplacementSettlement,
+  REPLACEMENT_DISCARD_RESUME,
+  resumeReplacementChoice,
+  resumeReplacementProgramChoice,
+} from './processor'
 
 export const REPLACEMENT_DECLINE_OPTION = '__decline__'
 
@@ -22,6 +29,35 @@ export const replacementProcessing: Plugin = {
       )
       if (result.kind === 'invalid') return
       enqueueReplacementSettlement(draft, result)
+      return
+    }
+    if (selection.action.kind === 'replacementInstructionChoice') {
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      const stepped = resumeReplacementInstructionChoice(
+        freezeDraft(draft),
+        selection.action.frameId,
+        event.optionId,
+        selection.action.options,
+        catalog,
+      )
+      if (stepped.kind === 'waiting') {
+        draft.objects = stepped.state.objects
+        draft.zoneOrder = stepped.state.zoneOrder
+        draft.log = stepped.state.log
+        enqueueReplacementSettlement(draft, { kind: 'waiting', state: stepped.state })
+        return
+      }
+      draft.objects = stepped.state.objects
+      draft.zoneOrder = stepped.state.zoneOrder
+      draft.log = stepped.state.log
+      const remainder = stepped.kind === 'complete' && stepped.pendingDraw
+        ? drawRemainderFollowUp(stepped.pendingDraw)
+        : []
+      enqueueReplacementSettlement(draft, {
+        kind: 'prevented',
+        state: stepped.state,
+        followUp: [...stepped.followUp, ...remainder],
+      })
       return
     }
     if (selection.action.kind !== 'replacementModifier') return

@@ -12,6 +12,7 @@ import {
   cardRuleDefinition,
   choice,
   chooseCards,
+  chooseInstructions,
   choose,
   chooseModes,
   compileCardRuleDefinition,
@@ -258,6 +259,29 @@ describe('Rule DSL v1 structural and domain validation', () => {
     expect(diagnosticPaths(() => compileCardRuleDefinition(missingTarget))).toContain('$.abilities[0].instructions[0].targets.clauseIndex')
   })
 
+  test('limits full-library visibility to library card choices', () => {
+    const fullLibraryChoice = card([spell({
+      instructions: [chooseCards({
+        bindChoice: 'found',
+        chooser: ref('controller'),
+        filter: objects({ zone: 'library', owner: 'you' }),
+        count: 1,
+        viewLibrary: true,
+      })],
+    })])
+    expect(compileCardRuleDefinition(fullLibraryChoice).definition).toEqual(fullLibraryChoice)
+
+    const wrongZone = structuredClone(fullLibraryChoice) as unknown as Record<string, unknown>
+    const firstInstruction = (definition: Record<string, unknown>) =>
+      ((definition.abilities as Array<Record<string, unknown>>)[0].instructions as Array<Record<string, unknown>>)[0]
+    ;((firstInstruction(wrongZone).filter as Record<string, unknown>).filter as Record<string, unknown>).zone = 'hand'
+    expect(diagnosticPaths(() => compileCardRuleDefinition(revise(wrongZone as unknown as CardRuleDefinitionV1)))).toContain('$.abilities[0].instructions[0].viewLibrary')
+
+    const invalidFlag = structuredClone(fullLibraryChoice) as unknown as Record<string, unknown>
+    firstInstruction(invalidFlag).viewLibrary = false
+    expect(diagnosticCodes(() => compileCardRuleDefinition(revise(invalidFlag as unknown as CardRuleDefinitionV1)))).toContain('constant')
+  })
+
   test('rejects unresolved X and bounds while accepting explicitly declared X', () => {
     const unresolved = card([spell({ instructions: [actions.draw.self.X] })])
     expect(diagnosticCodes(() => compileCardRuleDefinition(unresolved))).toContain('unresolved-binding')
@@ -342,6 +366,29 @@ describe('Rule DSL v1 structural and domain validation', () => {
     expect(diagnosticCodes(() => compileCardRuleDefinition(localLeak))).toContain('target-index')
   })
 
+  test('preserves labeled instruction choices and validates prompt and label text', () => {
+    const valid = card([spell({
+      instructions: [chooseInstructions({
+        chooser: ref('controller'),
+        prompt: 'Return the target card?',
+        options: [
+          { label: 'Return it', instructions: [] },
+          { label: 'Decline', instructions: [] },
+        ],
+      })],
+    })])
+    const compiled = compileCardRuleDefinition(valid)
+    expect(compiled.definition).toEqual(valid)
+
+    const invalidLabel = card([spell({
+      instructions: [{
+        kind: 'chooseInstructions', chooser: ref('controller'), count: { kind: 'constant', value: 1 },
+        whenInsufficient: 'chooseAvailable', options: [{ label: '', instructions: [] }],
+      } as never],
+    })])
+    expect(diagnosticPaths(() => compileCardRuleDefinition(invalidLabel))).toContain('$.abilities[0].instructions[0].options[0].label')
+  })
+
   test('validates distribution target indices and nonrepeatable mode cardinality', () => {
     const badDistribution = card([spell({
       decisions: {
@@ -380,6 +427,18 @@ describe('Rule DSL v1 structural and domain validation', () => {
       instructions: [],
     })])
     expect(diagnosticCodes(() => compileCardRuleDefinition(invalidMana))).toContain('mana-cost')
+
+    const phyrexianMana = card([spell({
+      costs: [{ kind: 'mana', amount: '{1}{B/P}{B/P}' }],
+      instructions: [],
+    })])
+    expect(() => compileCardRuleDefinition(phyrexianMana)).not.toThrow()
+
+    const hybridMana = card([spell({
+      costs: [{ kind: 'mana', amount: '{W/U}' }],
+      instructions: [],
+    })])
+    expect(diagnosticCodes(() => compileCardRuleDefinition(hybridMana))).toContain('mana-cost')
 
     const unresolvedManaX = card([spell({
       costs: [{ kind: 'mana', amount: '{X}{U}' }],

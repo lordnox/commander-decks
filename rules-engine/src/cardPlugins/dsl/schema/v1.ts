@@ -7,6 +7,9 @@ export type RuleDslSchemaVersion = typeof RULE_DSL_SCHEMA_VERSION
 
 export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 'stack' | 'command'
 
+export const CARD_COLORS = ['W', 'U', 'B', 'R', 'G'] as const
+export type CardColor = typeof CARD_COLORS[number]
+
 export type PlayerRelation = 'you' | 'opponent' | 'any'
 
 export type PlayerFilter = {
@@ -40,10 +43,12 @@ export type ObjectFilter = {
   zone?: Zone
   type?: string
   subtypes?: readonly string[]
+  supertypes?: readonly string[]
   controller?: 'you' | PlayerReference
   owner?: 'you' | PlayerReference
   token?: boolean
   name?: string
+  attacking?: boolean
   all?: readonly ObjectFilter[]
   any?: readonly ObjectFilter[]
   not?: ObjectFilter
@@ -53,6 +58,7 @@ export type StackItemFilter = {
   kind?: 'spell' | 'ability'
   /** Card type of the stack object, for "instant or sorcery spell" and similar. */
   type?: string
+  color?: CardColor
   other?: boolean
   controller?: 'you' | PlayerReference
   all?: readonly StackItemFilter[]
@@ -158,7 +164,7 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
   | { kind: 'discard'; filter: ObjectSelector; count: Amount }
-  | { kind: 'sacrifice'; filter: ObjectSelector; count: Amount }
+  | { kind: 'sacrifice'; filter: ObjectRecipient; count: Amount }
   | { kind: 'draw'; count: Amount }
   | { kind: 'life'; amount: Amount }
   | { kind: 'mana'; amount: ManaCost }
@@ -198,6 +204,7 @@ export type PreventionEffectDefinition = {
 }
 
 export type CreatedEffect =
+  | { kind: 'setColors'; colors: readonly CardColor[] }
   | { kind: 'pump'; power: Amount; toughness: Amount }
   | { kind: 'grantKeyword'; keyword: Keyword }
   | { kind: 'grantAbility'; ability: GeneratedAbility }
@@ -250,7 +257,7 @@ export type Instruction =
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
-  | { kind: 'move'; targets: ObjectRecipient; to: Zone; bindResult?: string }
+  | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; bindResult?: string }
   /** Phase each resolved object out or in according to `out` during this resolution. */
   | { kind: 'phase'; targets: ObjectRecipient; out: boolean }
   /** Have each resolved player recipient choose permanents and players with counters to proliferate. */
@@ -311,10 +318,23 @@ export type Instruction =
       bindChoice: string
       chooser: PlayerReference
       filter: ObjectSelector
+      /** Let the chooser inspect the full library while selecting matching cards. */
+      viewLibrary?: true
       min: Amount
       max: Amount
       distinct: true
       whenInsufficient: 'chooseAvailable'
+    }
+  /** Reveal from the top of each recipient's library until a match is found. */
+  | {
+      kind: 'revealUntil'
+      targets: PlayerRecipient
+      match: ObjectSelector
+      count?: Amount
+      bindFound?: string
+      bindRest?: string
+      foundTo: Zone
+      rest: 'orderBottom'
     }
   /** Run nested instructions in order, resuming after any player choice pauses resolution. */
   | { kind: 'sequence'; instructions: readonly Instruction[] }
@@ -322,8 +342,9 @@ export type Instruction =
   | {
       kind: 'chooseInstructions'
       chooser: PlayerReference
+      prompt?: string
       count: { kind: 'constant'; value: 1 }
-      options: readonly { instructions: readonly Instruction[] }[]
+      options: readonly { label?: string; instructions: readonly Instruction[] }[]
       whenInsufficient: 'chooseAvailable'
     }
   /** Evaluate one branch immediately and continue with its resulting instruction sequence. */
@@ -420,6 +441,7 @@ export type ReplacementEffectDefinition = {
 
 export type ContinuousEffectDefinition =
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
+  | { kind: 'extraLandPlays'; count: number }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector

@@ -78,7 +78,7 @@ describe('Lady Evangela remaining coverage', () => {
       commanderRules,
       {
         hands: {
-          p1: [cardTemplate('Counterspell', { types: ['Instant'], manaCost: '{U}{U}' })],
+          p1: [cardTemplate('Counterspell')],
           p2: [cardTemplate('Threat', { types: ['Instant'], manaCost: '{1}' })],
         },
       },
@@ -97,7 +97,7 @@ describe('Lady Evangela remaining coverage', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Counterspell').id,
-      targets: [{ kind: 'object', objectId: named(state, 'Threat').id }],
+      targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === named(state, 'Threat').id)!.id }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(named(state, 'Threat').zone).toBe('graveyard')

@@ -76,10 +76,6 @@ export type PendingOptionSelection = {
   prompt: string
   options: Array<{ id: string; label: string }>
   action: {
-    kind: 'abundance'
-    replacedBy: string[]
-    remainingAfter?: number
-  } | {
     /** Pay this much life or the warded spell or ability is countered. */
     kind: 'ward-life'
     life: number
@@ -141,6 +137,10 @@ export type PendingOptionSelection = {
     kind: 'replacementProgramChoice'
     frameId: string
     bindChoice: string
+  } | {
+    kind: 'replacementInstructionChoice'
+    frameId: string
+    options: readonly { id: string; instructions: readonly Instruction[] }[]
   } | {
     /** A resolution-time payment is answered by its payer while its parent frame remains active. */
     kind: 'canonicalResolutionPayment'
@@ -226,6 +226,7 @@ export const openOptionSelection = (
     case 'putCanonicalTriggeredAbilityAllocation':
     case 'replacementModifier':
     case 'replacementProgramChoice':
+    case 'replacementInstructionChoice':
     case 'choose-color':
       draft.priority = null
       break
@@ -1018,6 +1019,13 @@ export const selectOptions: Plugin = {
         clauseBounds: bounds,
         clauseIndex: selection.action.targetIndex + 1,
       }))
+      return
+    }
+    if (
+      selection.action.kind === 'replacementModifier'
+      || selection.action.kind === 'replacementProgramChoice'
+      || selection.action.kind === 'replacementInstructionChoice'
+    ) {
       return
     }
     delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]

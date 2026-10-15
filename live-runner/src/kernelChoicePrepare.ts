@@ -79,10 +79,21 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     }
     case 'select-cards': {
       const waiting = waitingSelectCards(state, decision.seat)
+      const offer = waiting ? selectCardsOffer(waiting) : undefined
+      const library = waiting?.selection.viewLibrary
+        ? (state.zoneOrder[waiting.selection.fromSeat ?? decision.seat]?.library ?? [])
+          .map((objectId) => state.objects[objectId]?.name ?? '')
+          .filter(Boolean)
+          .sort((left, right) => left.localeCompare(right))
+        : undefined
       return !waiting
         || waiting.selection.id !== decision.kernel.selectionId
-        || !sameIds(decision.candidateIds, selectCardsOffer(waiting).ids)
-        || !samePins(decision.candidatePins, selectCardsOffer(waiting).ids.map((id) => state.objects[id]).filter(Boolean))
+        || !offer
+        || !sameNames(decision.cards, offer.names)
+        || (library !== undefined && !sameNames(decision.library ?? [], library))
+        || (library === undefined && decision.library !== undefined)
+        || !sameIds(decision.candidateIds, offer.ids)
+        || !samePins(decision.candidatePins, offer.ids.map((id) => state.objects[id]).filter(Boolean))
     }
     case 'option-selection':
       return pendingOptionSelection(state, decision.seat)?.id !== decision.kernel.selectionId

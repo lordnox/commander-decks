@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'bun:test'
+import { afterAll, beforeAll, describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -11,6 +11,7 @@ import {
 } from '../pendingDialog'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
+import { CARD_RULES } from './cardRules'
 import { entersTapped } from './entersTapped'
 import {
   SEARCH_CHOSEN,
@@ -19,13 +20,16 @@ import {
   pendingSearch,
   searchCandidates,
   searchSpecFor,
+  searchSpecForPending,
   searchingSeat,
 } from './librarySearch'
 import {
   basicLand,
   bounceSelf,
   delay,
+  hasSubtype,
   searchAbility,
+  searchSpell,
 } from './effects'
 
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
@@ -36,6 +40,30 @@ const forest = (name = 'Forest') =>
 
 const island = () =>
   card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'], tapProduces: { U: 1 } })
+
+const legacyForestSearchSpell = () => card('Legacy search fixture', ['Sorcery'], {
+  manaCost: '{1}{G}',
+})
+
+const LEGACY_SEARCH_FIXTURE = 'Legacy search fixture'
+const LEGACY_SEARCH_SPEC = {
+  prompt: 'Search your library for a Forest card and put it onto the battlefield.',
+  match: hasSubtype('Forest'),
+  destination: 'battlefield' as const,
+  min: 1,
+  max: 1,
+}
+let previousLegacyFixtureRules: typeof CARD_RULES[string] | undefined
+
+beforeAll(() => {
+  previousLegacyFixtureRules = CARD_RULES[LEGACY_SEARCH_FIXTURE]
+  CARD_RULES[LEGACY_SEARCH_FIXTURE] = [searchSpell(LEGACY_SEARCH_SPEC)]
+})
+
+afterAll(() => {
+  if (previousLegacyFixtureRules) CARD_RULES[LEGACY_SEARCH_FIXTURE] = previousLegacyFixtureRules
+  else delete CARD_RULES[LEGACY_SEARCH_FIXTURE]
+})
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -305,9 +333,9 @@ describe('librarySearch', () => {
       .toEqual(['Forest'])
   })
 
-  test("Nature's Lore stops resolution and records whose choice is open", () => {
+  test('a legacy search spell stops resolution and records whose choice is open', () => {
     const server = game({
-      hand: [card("Nature's Lore", ['Sorcery'], { manaCost: '{1}{G}' })],
+      hand: [legacyForestSearchSpell()],
       library: [forest('Wooded Foothills'), card('Not a land', ['Instant'])],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -318,14 +346,15 @@ describe('librarySearch', () => {
 
     expect(state.stack).toHaveLength(1)
     expect(searchingSeat(state)).toBe('p1')
-    expect(pendingSearch(state, 'p1')?.source).toBe("Nature's Lore")
-    expect(searchCandidates(state, 'p1', searchSpecFor("Nature's Lore")!).map((o) => o.name))
+    const pending = pendingSearch(state, 'p1')!
+    expect(pending.source).toBe(LEGACY_SEARCH_FIXTURE)
+    expect(searchCandidates(state, 'p1', searchSpecForPending(state, pending)!).map((o) => o.name))
       .toEqual(['Wooded Foothills'])
   })
 
   test('nobody may pass priority while a search is open', () => {
     const server = game({
-      hand: [card("Nature's Lore", ['Sorcery'], { manaCost: '{1}{G}' })],
+      hand: [legacyForestSearchSpell()],
       library: [forest()],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -368,7 +397,7 @@ describe('librarySearch', () => {
 
   test('a repeated resolveTop cannot skip the open choice', () => {
     const server = game({
-      hand: [card("Nature's Lore", ['Sorcery'], { manaCost: '{1}{G}' })],
+      hand: [legacyForestSearchSpell()],
       library: [forest()],
     })
     const spell = server.state.zoneOrder.p1.hand[0]
@@ -386,7 +415,7 @@ describe('librarySearch', () => {
 
   test('the chosen card resolves the whole spell and clears the marker', () => {
     const server = game({
-      hand: [card("Nature's Lore", ['Sorcery'], { manaCost: '{1}{G}' })],
+      hand: [legacyForestSearchSpell()],
       library: [forest('Wooded Foothills'), island()],
     })
     const spell = server.state.zoneOrder.p1.hand[0]

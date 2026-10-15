@@ -2369,3 +2369,20 @@ retain its result across suspension, and preserve the same semantic outcome chec
 
 Apply the [validation rules](#11-validation-and-development-workflow) equally to
 explicit and compact forms. All helpers lower to the same canonical model.
+
+
+### Current spell colors and color-changing effects
+
+`stackItems({ kind: 'spell', type: 'Instant', color: 'U' })` restricts targets to
+blue instant spells. `color` is one of `W`, `U`, `B`, `R`, or `G`; combine it with
+`all`, `any`, and `not` for multicolor or colorless conditions. Announcement and
+resolution both evaluate current characteristics (CR 601.2c, 608.2b).
+
+`createEffect({ targets: target(0), effect: setColorsEffect(['B']), duration: untilCleanup() })`
+replaces the recipient object's colors with black (an empty array makes it
+colorless). An object selector such as `objects({ zone: 'stack', type: 'Instant' })`
+can target the card object of an instant spell for this instruction. Colors are
+independent of mana cost. The stored effect follows a permanent spell as it
+resolves (CR 400.7a), expires at its declared duration, and otherwise ends when
+the recipient becomes a new object. Surviving color effects retain timestamp
+order as older effects expire (CR 613.1e, 613.3).

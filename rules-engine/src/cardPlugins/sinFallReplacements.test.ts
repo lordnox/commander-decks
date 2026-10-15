@@ -3,11 +3,9 @@ import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
-import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameState } from '../types'
-import { abundance } from './abundance'
 import { alternateCosts } from './alternateCosts'
 import { hiddenPiles } from './hiddenPiles'
 import { onResolve } from './onResolve'
@@ -20,64 +18,6 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
 describe('Sin Fall replacement and hidden-information cards', () => {
-  test('Abundance replaces each draw, orders the rest, and keeps choices private', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        players: 2,
-        battlefield: { p1: [card('Abundance', ['Enchantment'])] },
-        libraries: {
-          p1: [
-            card('First Spell', ['Instant']),
-            card('Wanted Land', ['Land']),
-            card('Next Spell', ['Sorcery']),
-          ],
-        },
-      },
-      { random: () => 0.5, cardPlugins: [abundance] },
-    )
-    let state = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 2 }))
-    const choice = pendingOptionSelection(state, 'p1')!
-    expect(choice.options.map(({ id }) => id)).toEqual(['draw', 'land', 'nonland'])
-    expect(server.project(state, 'p1').players.p1.data['kernel.pendingOptionSelection'])
-      .toBeDefined()
-    expect(server.project(state, 'p2').players.p1.data['kernel.pendingOptionSelection'])
-      .toBeUndefined()
-    expect(server.rules(state, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: choice.id,
-      optionId: 'creature',
-    }).ok).toBe(false)
-
-    state = ok(server.rules(state, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: choice.id,
-      optionId: 'land',
-    }))
-    expect(named(state, 'Wanted Land').zone).toBe('hand')
-    const order = pendingSelectionFor(state, 'p1')!
-    expect(order.candidates.map((id) => state.objects[id].name)).toEqual(['First Spell'])
-    state = ok(server.rules(state, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'scry',
-      count: 1,
-      choices: [{ objectId: order.candidates[0], destination: 'bottom' }],
-    }))
-    const second = pendingOptionSelection(state, 'p1')!
-    state = ok(server.rules(state, {
-      type: 'selectOption',
-      seat: 'p1',
-      selectionId: second.id,
-      optionId: 'draw',
-    }))
-    expect(named(state, 'Next Spell').zone).toBe('hand')
-    expect(named(state, 'First Spell').zone).toBe('library')
-    expect(pendingOptionSelection(state)).toBeUndefined()
-  })
-
   test('Cling to Dust escape exiles exactly five other graveyard cards and resolves', () => {
     const fillers = Array.from({ length: 5 }, (_, index) => card(`Filler ${index}`, ['Sorcery']))
     const server = createServerGame(
