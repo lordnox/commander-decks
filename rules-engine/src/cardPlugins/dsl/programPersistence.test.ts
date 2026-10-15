@@ -38,12 +38,7 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
 import type { EventTrace, GameEvent, GameState, Plugin } from '../../types'
-import {
-  answerDiscard,
-  chainsDefinition,
-  ownDrawStep,
-  pickReplacement,
-} from './dslTestSupport'
+import { answerDiscard, chainsDefinition, ownDrawStep, pickReplacement } from './dslTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -205,7 +200,7 @@ const commandPattern = () => createDefinitionSnapshot(compileCardRuleDefinition(
 const elementalCopies = (state: GameState) =>
   Object.values(state.objects).filter((object) => object.token && object.name === 'Command Elemental')
 
-describe('Rule DSL Part 15 persistence (new-format evidence)', () => {
+describe('programPersistence', () => {
   test('journal restore of an untargeted ruleDefinition spell matches live zones, life, and stack', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

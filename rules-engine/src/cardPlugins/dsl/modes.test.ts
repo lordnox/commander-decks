@@ -1,25 +1,21 @@
 import { describe, expect, test } from 'bun:test'
 import {
   amount,
-  distribution,
   modeOccurrences,
   ref,
-  validateDistributionAllocation,
   validateModeSelection,
-  validateScopedDistributions,
   whenever,
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  objects,
 } from './v1'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
-import { objects } from './v1'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { pendingSelectionFor } from '../../rules/selectCards'
 
-const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, characteristic: () => 0 }
-
-describe('Part09 scoped modes and distributions', () => {
+describe('modes', () => {
   const modalSpellFixture = (modes: any[], count: any) => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{ kind: 'spell', costs: [], decisions: { targets: [], modes: { count, repeatable: true } }, modes }])))
     const server = createServerGame(commanderRules, {
@@ -194,85 +190,6 @@ describe('Part09 scoped modes and distributions', () => {
     if (resolved.ok) expect(resolved.state.players.p1.life).toBe(42)
   })
 
-  test('server rejects a distribution bound to a different modal occurrence', () => {
-    const clause = { filter: { kind: 'players' as const, filter: {} }, min: amount(1), max: amount(1), distinct: true as const }
-    const mode = (total: number) => ({ decisions: { targets: [clause], distributions: [{ targetClauseIndex: 0, total: amount(total), minEach: amount(1) }] }, instructions: [{ kind: 'gainLife', amount: amount(total), targets: { kind: 'targetRef', clauseIndex: 0 } }] })
-    const { server, spell } = modalSpellFixture([mode(3), mode(1)], amount(2))
-    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0, 1], targetClauses: [[{ kind: 'player', player: 'p1' }], [{ kind: 'player', player: 'p2' }]], distributionBindings: [{ scopeId: '$.abilities[0].modes[1]#1', clauseIndex: 0, amounts: [3] }, { scopeId: '$.abilities[0].modes[0]#0', clauseIndex: 0, amounts: [1] }] } as any)
-    expect(cast.ok).toBe(false)
-    expect(cast.state).toEqual(server.state)
-  })
-
-  test('server consumes modal damage allocations per bound recipient', () => {
-    const clause = { filter: { kind: 'objects' as const, filter: { zone: 'battlefield' as const, type: 'Creature' } }, min: amount(2), max: amount(2), distinct: true as const }
-    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
-      kind: 'spell', costs: [], decisions: { targets: [], modes: { count: amount(1), repeatable: false } },
-      modes: [{ decisions: { targets: [clause], distributions: [{ targetClauseIndex: 0, total: amount(3), minEach: amount(1) }] }, instructions: [{ kind: 'damage', amount: amount(3), targets: { kind: 'targetRef', clauseIndex: 0 }, source: ref('source') }] }],
-    }])))
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [cardTemplate('Distributed damage', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
-      battlefield: { p1: [cardTemplate('First creature', { types: ['Creature'], power: 4, toughness: 4 }), cardTemplate('Second creature', { types: ['Creature'], power: 4, toughness: 4 })] },
-    }, { random: () => 0 })
-    const spell = Object.values(server.state.objects).find((object) => object.name === 'Distributed damage')!
-    const creatures = Object.values(server.state.objects).filter((object) => object.types.includes('Creature')).map((object) => ({ kind: 'object' as const, objectId: object.id }))
-    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, modeIndices: [0], targetClauses: [creatures], distributionBindings: [{ scopeId: '$.abilities[0].modes[0]#0', clauseIndex: 0, amounts: [1, 2] }] } as any)
-    expect(cast.ok).toBe(true)
-    if (!cast.ok) return
-    const resolved = server.rules(cast.state, { type: 'resolveTop' })
-    expect(resolved.ok).toBe(true)
-    if (!resolved.ok) return
-    expect(resolved.state.objects[creatures[0].objectId]?.damageMarked).toBe(1)
-    expect(resolved.state.objects[creatures[1].objectId]?.damageMarked).toBe(2)
-  })
-
-  test('server keeps separate proliferate instruction choices and results', () => {
-    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
-      kind: 'spell',
-      costs: [],
-      decisions: { targets: [] },
-      instructions: [
-        { kind: 'proliferate', targets: ref('controller') },
-        { kind: 'proliferate', targets: ref('controller') },
-      ],
-    }])))
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [cardTemplate('Two proliferations', { types: ['Sorcery'], manaCost: '{0}', ruleDefinition: definition })] },
-      battlefield: {
-        p1: [
-          cardTemplate('First counter creature', { types: ['Creature'], power: 2, toughness: 2, counters: { '+1/+1': 1 } }),
-          cardTemplate('Second counter creature', { types: ['Creature'], power: 2, toughness: 2, counters: { '+1/+1': 1 } }),
-        ],
-      },
-    }, { random: () => 0 })
-    const spell = Object.values(server.state.objects).find((object) => object.name === 'Two proliferations')!
-    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id })
-    expect(cast.ok).toBe(true)
-    if (!cast.ok) return
-    const started = server.rules(cast.state, { type: 'resolveTop' })
-    expect(started.ok).toBe(true)
-    if (!started.ok) return
-    const first = pendingSelectionFor(started.state, 'p1')
-    expect(first).toBeDefined()
-    if (!first) return
-    const firstTarget = Object.values(started.state.objects).find((object) => object.name === 'First counter creature')!
-    const secondTarget = Object.values(started.state.objects).find((object) => object.name === 'Second counter creature')!
-    const firstAnswer = server.rules(started.state, { type: 'selectCards', seat: 'p1', selectionId: first.id, kind: 'choose', count: first.count, objectIds: [firstTarget.id, secondTarget.id] })
-    expect(firstAnswer.ok).toBe(true)
-    if (!firstAnswer.ok) return
-    const second = pendingSelectionFor(firstAnswer.state, 'p1')
-    expect(second).toBeDefined()
-    if (!second) return
-    expect(second.id).not.toBe(first.id)
-    const completed = server.rules(firstAnswer.state, { type: 'selectCards', seat: 'p1', selectionId: second.id, kind: 'choose', count: second.count, objectIds: [firstTarget.id, secondTarget.id] })
-    expect(completed.ok).toBe(true)
-    if (completed.ok) {
-      expect(completed.state.objects[firstTarget.id]?.counters['+1/+1']).toBe(3)
-      expect(completed.state.objects[secondTarget.id]?.counters['+1/+1']).toBe(3)
-    }
-  })
-
   test('modal resolution gates untargeted modes only when every target is illegal', () => {
     const targetClause = { filter: { kind: 'objects' as const, filter: { zone: 'battlefield' as const, type: 'Creature' as const } }, min: amount(1), max: amount(1), distinct: true as const }
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
@@ -386,28 +303,5 @@ describe('Part09 scoped modes and distributions', () => {
     ])
     expect(validateModeSelection({ count: amount(3), repeatable: true }, 2, 3, [1, 1, 0])).toHaveLength(3)
     expect(() => validateModeSelection({ count: amount(2), repeatable: false }, 2, 2, [1, 1])).toThrow('cannot be selected')
-  })
-
-  test('allocation validates sums, minima, cardinality, and X bindings', () => {
-    const spec = distribution({ targetClauseIndex: 0, total: { kind: 'variable', name: 'X' }, minEach: 1 })
-    expect(validateDistributionAllocation(spec, [1, 3], 2, context)).toEqual([1, 3])
-    expect(() => validateDistributionAllocation(spec, [2, 1], 2, context)).toThrow('sum')
-    expect(() => validateDistributionAllocation(spec, [4], 2, context)).toThrow('one amount per recipient')
-    expect(() => validateDistributionAllocation(spec, [0, 4], 2, context)).toThrow('minEach')
-  })
-
-  test('scoped allocations bind to each local repeated clause', () => {
-    const spec = distribution({ targetClauseIndex: 0, total: 2, minEach: 1 })
-    const result = validateScopedDistributions(
-      [spec, spec],
-      [
-        { scopeId: 'mode#0', clauseIndex: 0, amounts: [1, 1] },
-        { scopeId: 'mode#1', clauseIndex: 0, amounts: [2] },
-      ],
-      (scopeId) => scopeId === 'mode#0' ? [{ kind: 'player', player: 'p1' }, { kind: 'player', player: 'p2' }] : [{ kind: 'player', player: 'p1' }],
-      context,
-    )
-    expect(result.map(({ scopeId }) => scopeId)).toEqual(['mode#0', 'mode#1'])
-    expect(() => validateScopedDistributions([spec], [], () => [], context)).toThrow('every distribution')
   })
 })

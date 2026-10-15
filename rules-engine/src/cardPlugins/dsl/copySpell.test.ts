@@ -8,15 +8,15 @@ import {
   select,
   spell,
   stackItems,
+  createDefinitionSnapshot,
 } from './v1'
 import { copyTargets, resolveCanonicalCopyTargets } from './copies'
-import { createDefinitionSnapshot } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 
-describe('Rule DSL Part 09 spell copies', () => {
+describe('copySpell', () => {
   test('copySpell is a stack action and keeps its explicit retargeting procedure', () => {
     const compiled = compileCardRuleDefinition(card([spell({
       decisions: { targets: [select({ filter: stackItems({ kind: 'spell' }), count: 1 })] },

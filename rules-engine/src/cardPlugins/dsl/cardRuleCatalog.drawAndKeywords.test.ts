@@ -16,7 +16,7 @@ const named = (state: GameState, name: string) =>
 const handCount = (state: GameState, seat: 'p1' | 'p2' = 'p1') =>
   state.zoneOrder[seat].hand.length
 
-describe('Rule DSL Part 16 family 1 catalog', () => {
+describe('cardRuleCatalog — drawAndKeywords', () => {
   test('lookup is exact card name and pins a compiled snapshot at module load', () => {
     const wall = cardRuleDefinitionSnapshotFor('Wall of Omens')
     const wurm = cardRuleDefinitionSnapshotFor('Duskdale Wurm')
