@@ -43,14 +43,22 @@ When the task is done, inspect the full diff, exclude unrelated shared-cache or 
 
 ### Hosted CI before completion
 
-After creating or updating a PR, inspect all applicable hosted checks for the
-latest head commit and current PR metadata (for example, with
-`gh pr checks <pr-number>`). Repeat this after every subsequent push and metadata change,
-including PR title edits; a passing run for an older commit or title is not
-verification of the current PR. Confirm that applicable workflows have reported
-checks, and verify the resulting rerun after a correction.
+After creating or updating a PR, inspect every check reported for its latest head
+commit and current PR metadata, including the current title and the **PR title**
+workflow. Use `gh pr checks <pr-number> --watch` or explicitly poll until all
+checks finish. Repeat verification after every subsequent push and metadata
+change, including PR title edits; a passing run for an older commit or title is
+not verification of the current PR. Confirm that both the **CI** and **PR title**
+workflows have reported checks, and verify the resulting rerun after a correction.
+The **GitHub Pages** deployment runs on `main` or manual dispatch, so it is not
+expected for a PR branch; if it does report a check on the PR, inspect it too.
 
-Wait for applicable checks to finish before claiming CI passed or the task is
+If `gh` is unavailable or unauthenticated, use the GitHub PR checks page through
+another available tool or browser and poll there. If no authenticated access is
+available, report hosted CI as blocked with the PR checks URL (or the compare URL
+when no PR could be created); do not treat missing access as passing CI.
+
+Wait for every reported check to finish before claiming CI passed or the task is
 fully validated. Diagnose and correct failures introduced by the work, including
 metadata-only failures. For failures whose origin is uncertain or which reproduce
 on the base branch, follow [the defect reporting rule](.github/ISSUES.md); do not
