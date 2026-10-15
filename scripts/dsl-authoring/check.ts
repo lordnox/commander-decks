@@ -50,6 +50,16 @@ export const inspectSource = (path: string, source: string) => {
   const constructorNamespaces = new Set<string>()
   const literalObjects = new Map<string, Ast>()
   const registryProperties = new Set<Ast>()
+  const topLevelProperties = new Set<Ast>()
+  for (const statement of ast.program.body) {
+    const declaration = statement.type === 'ExportNamedDeclaration' ? statement.declaration : statement
+    if (declaration?.type !== 'VariableDeclaration') continue
+    for (const variable of declaration.declarations) {
+      if (variable.init?.type === 'ObjectExpression') {
+        children(variable.init as unknown as Ast).forEach((property) => topLevelProperties.add(property))
+      }
+    }
+  }
   for (const statement of ast.program.body) {
     if (statement.type !== 'ImportDeclaration' || statement.importKind === 'type') continue
     const target = modulePath(path, statement.source.value)
@@ -83,7 +93,11 @@ export const inspectSource = (path: string, source: string) => {
     })
     return found
   }
-  const add = (code: FindingCode, node: Ast, card?: string) => findings.push({ path, code, digest: digest(node), ...(card === undefined ? {} : { card }) })
+  const add = (code: FindingCode, node: Ast, card?: string) => {
+    // Canonical compiler names identify bindings and variables, not card dispatch.
+    if (code === FINDING_CODE.LITERAL_NAME_DISPATCH && inModule(path, canonicalRoot)) return
+    findings.push({ path, code, digest: digest(node), ...(card === undefined ? {} : { card }) })
+  }
   const program = ast.program as unknown as Ast
   walk(program, (node) => {
     if (node.type !== 'VariableDeclarator' || !isAst(node.init)) return
@@ -123,7 +137,8 @@ export const inspectSource = (path: string, source: string) => {
       if (table) add(FINDING_CODE.LITERAL_NAME_DISPATCH, table)
     }
     // Literal card-keyed legacy configurations, including alternate registries.
-    if (node.type === 'ObjectProperty' && !registryProperties.has(node) && isString(node.key) && isAst(node.value)
+    if (node.type === 'ObjectProperty' && topLevelProperties.has(node) && !registryProperties.has(node) && isAst(node.key)
+      && (isString(node.key) || (node.key.type === 'Identifier' && !node.computed)) && isAst(node.value)
       && ['ArrayExpression', 'ObjectExpression'].includes(node.value.type) && usesConstructor(node.value)) add(FINDING_CODE.LEGACY_BEHAVIOR_PAYLOAD, node)
     if (node.type === 'ObjectExpression') {
       const properties = children(node)
