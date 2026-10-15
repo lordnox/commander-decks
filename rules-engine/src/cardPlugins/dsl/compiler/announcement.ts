@@ -366,7 +366,7 @@ export const beginAnnouncement = (
       id,
       proposal: structuredClone(proposal),
       lockedCost: {
-        mana,
+        ...(mana ? { mana } : {}),
         nonMana: costs.filter((cost) => cost.kind !== 'mana').map((cost) =>
           lockCost(cost, proposal.variables?.X, announcementRuntime(state, proposal.payer, proposal.sourceId, proposal.variables?.X))),
         ...(proposal.variables?.X !== undefined ? { x: proposal.variables.X } : {}),

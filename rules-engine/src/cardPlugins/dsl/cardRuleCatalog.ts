@@ -23,6 +23,7 @@ import {
   loseLife,
   manaCost,
   modifyStats,
+  move,
   objects,
   players,
   pumpEffect,
@@ -191,12 +192,16 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
     })),
   ]),
   'Rest in Peace': snapshotFor([
+    whenever(self.enters, {
+      instructions: [move({ targets: objects({ zone: 'graveyard' }), to: 'exile' })],
+    }),
     staticAbility(replacement(wouldMove({ to: 'graveyard' }), redirectEvent('exile'))),
   ]),
   'Foil': snapshotFor([
     spell({
       costs: [manaCost('{2}{U}{U}')],
       alternativeCosts: [[
+        manaCost('{0}'),
         discardCost(objects({ zone: 'hand', subtypes: ['Island'] }), 1),
         discardCost(objects({ zone: 'hand' }), 1),
       ]],
