@@ -100,7 +100,23 @@ gh pr create --base main --head agent/<task>
 If `gh` is missing, return
 `https://github.com/<owner>/<repo>/compare/main...agent/<task>?expand=1`.
 
-Register the PR with `link_pull_request` (full URL). Return that URL.
+Register the PR with `link_pull_request` (full URL). Before returning that URL,
+follow [Hosted CI before completion](../../../AGENTS.md#hosted-ci-before-completion):
+use `gh pr checks <pr-number> --watch` or explicit polling for every reported
+check on the latest head and current PR metadata, including **PR title**. Confirm
+both **CI** and **PR title** workflows have reported checks. Repeat after every
+push or metadata edit, fix introduced failures, and verify correction reruns.
+**GitHub Pages** runs on `main` or manual dispatch and is not expected on PR
+branches; inspect it too if reported. Follow
+[the defect reporting rule](../../../.github/ISSUES.md) for uncertain or
+reproduced baseline failures rather than assuming they are pre-existing.
+
+If `gh` is unavailable or unauthenticated, poll the PR checks page with another
+available tool or browser. Without authenticated access, report hosted CI as
+blocked with the checks URL (or compare URL if no PR exists). Wait for every
+reported check before claiming CI passed or full validation. The final report
+must distinguish local validation from hosted CI and link each unresolved
+pending, blocked, or failing check.
 
 A PR that changes an existing `decks/<deck>/decklist.txt` must include
 `## Cards in / Cards out` from

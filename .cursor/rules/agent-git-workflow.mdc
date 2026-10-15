@@ -28,12 +28,25 @@ When the task is done:
 1. Inspect the full diff; drop unrelated cache or registry files
 2. `git push -u origin HEAD`
 3. Open a ready-for-review PR (`draft: false`) summarizing what changed
+4. Follow [Hosted CI before completion](../../AGENTS.md#hosted-ci-before-completion):
+   run `gh pr checks <pr-number> --watch` (or explicitly poll) for every check on
+   the latest head and current PR metadata, including **PR title**. Confirm both
+   **CI** and **PR title** have reported checks. Repeat after every push or
+   metadata edit and verify correction reruns. **GitHub Pages** runs on `main` or
+   manual dispatch and is not expected on PR branches; inspect it if reported.
+5. Fix introduced failures; follow [the defect reporting rule](../../.github/ISSUES.md)
+   for uncertain or reproduced baseline failures. Never assume they are pre-existing.
+6. Return the PR URL with separate local-validation and hosted-CI results. Wait
+   for every reported check before claiming CI passed or full validation; link
+   each unresolved pending, blocked, or failing check.
 
 Title the PR as `<area>: <imperative summary>` from [`.github/PULL_REQUESTS.md`](../../../.github/PULL_REQUESTS.md). Numbered Rule DSL work is `dsl: Part N …`. The **PR title** workflow rejects other shapes.
 
 Create the PR with `gh pr create --base main --head <branch>` and confirm it is not a draft. If `gh` is missing or unauthenticated, say so and return `https://github.com/<owner>/<repo>/compare/main...<branch>?expand=1` instead.
 
-Return the PR URL.
+If `gh` cannot inspect checks, poll the GitHub PR checks page with another tool
+or browser. Without authenticated access, report hosted CI as blocked and link
+the checks page (or compare URL if no PR exists); missing access is not a pass.
 
 ## Deck modification PRs
 
