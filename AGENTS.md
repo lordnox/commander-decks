@@ -41,6 +41,26 @@ Commit after each coherent step without waiting to be asked. Use a 1–2 sentenc
 
 When the task is done, inspect the full diff, exclude unrelated shared-cache or registry changes, push the branch, and open a ready-for-review pull request (`draft: false`) summarizing what changed. Title it `<area>: <imperative summary>` as in [`.github/PULL_REQUESTS.md`](.github/PULL_REQUESTS.md); numbered Rule DSL work is `dsl: Part N …`. Use `gh pr create --base main --head <branch>`; if `gh` is unavailable, return the `compare/main...<branch>?expand=1` URL instead. Return the PR URL.
 
+### Hosted CI before completion
+
+After creating or updating a PR, inspect all applicable hosted checks for the
+latest head commit and current PR metadata (for example, with
+`gh pr checks <pr-number>`). Repeat this after every subsequent push and metadata change,
+including PR title edits; a passing run for an older commit or title is not
+verification of the current PR. Confirm that applicable workflows have reported
+checks, and verify the resulting rerun after a correction.
+
+Wait for applicable checks to finish before claiming CI passed or the task is
+fully validated. Diagnose and correct failures introduced by the work, including
+metadata-only failures. For failures whose origin is uncertain or which reproduce
+on the base branch, follow [the defect reporting rule](.github/ISSUES.md); do not
+dismiss a failure as pre-existing without reproduction evidence.
+
+In the final report, distinguish local validation results from hosted CI results.
+If checks cannot finish or require external action, explicitly identify each
+unresolved check as pending, blocked, or failing and link to its run or the PR
+checks page. Report that limitation instead of implying completion with green CI.
+
 A pull request that changes an existing deck list must include a `## Cards in / Cards out` table with every card linked to Scryfall, generated with:
 
 ```bash
