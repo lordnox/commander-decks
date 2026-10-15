@@ -80,7 +80,7 @@ const moveDiscardToLibrary: Plugin = {
   ),
 }
 
-describe('Rule DSL Part 14 draw history and Chains replacement', () => {
+describe('chainsOfMephistopheles', () => {
   test('first actual draw in own draw step is exempt from Chains', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

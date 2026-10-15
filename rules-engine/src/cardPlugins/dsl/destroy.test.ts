@@ -1,0 +1,35 @@
+import { test, expect } from 'bun:test'
+import {
+  amount,
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  ref,
+  objects,
+} from './v1'
+import { cardTemplate } from '../../newGame'
+import { commanderRules } from '../../formats'
+import { createServerGame } from '../../runtime'
+
+const run=(instructions:any[])=>{
+ const snapshot=createDefinitionSnapshot(compileCardRuleDefinition(card([{kind:'spell',costs:[],decisions:{targets:[]},instructions}])))
+ const server=createServerGame(commanderRules,{players:2,hands:{p1:[cardTemplate('Test spell',{types:['Sorcery'],manaCost:'{0}',ruleDefinition:snapshot}),cardTemplate('Keep'),cardTemplate('Discard')]},battlefield:{p1:[cardTemplate('Countered creature',{types:['Creature'],power:2,toughness:2,counters:{'+1/+1':1}})]}},{random:()=>0})
+ const spell=Object.values(server.state.objects).find(o=>o.name==='Test spell')!
+ const cast=server.rules(server.state,{type:'castSpell',seat:'p1',objectId:spell.id});if(!cast.ok)throw Error(cast.error)
+ const answer=server.rules(cast.state,{type:'resolveTop'});if(!answer.ok)throw Error(answer.error)
+ return {server,state:answer.state}
+}
+test('grouped destroy retains common lookback for a dying watcher',()=>{
+ const watcher=createDefinitionSnapshot(compileCardRuleDefinition(card([{kind:'triggered',activeIn:['battlefield'],on:{kind:'dies',filter:{type:'Creature'}},decisions:{targets:[]},instructions:[{kind:'gainLife',amount:amount(1),targets:ref('controller')}]}])))
+ const spellDef=createDefinitionSnapshot(compileCardRuleDefinition(card([{kind:'spell',costs:[],decisions:{targets:[]},instructions:[{kind:'destroy',targets:objects({zone:'battlefield',type:'Creature'})}]}])))
+ const server=createServerGame(commanderRules,{players:2,battlefield:{p1:[cardTemplate('Dying watcher',{types:['Creature'],power:1,toughness:1,ruleDefinition:watcher}),cardTemplate('Victim 1',{types:['Creature'],power:1,toughness:1}),cardTemplate('Victim 2',{types:['Creature'],power:1,toughness:1})]},hands:{p1:[cardTemplate('Destroy all',{types:['Sorcery'],manaCost:'{0}',ruleDefinition:spellDef})]}},{random:()=>0})
+ const spell=Object.values(server.state.objects).find(o=>o.name==='Destroy all')!
+ const cast=server.rules(server.state,{type:'castSpell',seat:'p1',objectId:spell.id});if(!cast.ok)throw Error(cast.error)
+ const answer=server.rules(cast.state,{type:'resolveTop'});if(!answer.ok)throw Error(answer.error)
+ expect((answer.state.pendingTriggers?.length??0)+answer.state.stack.filter(i=>i.kind==='ability').length).toBe(3)
+})
+test('destroying a hand card cannot report successful destruction',()=>{
+ const {state}=run([{kind:'destroy',targets:objects({zone:'hand',name:'Discard'}),bindResult:'d'},{kind:'if',condition:{kind:'resultIsTrue',value:{kind:'resultRef',binding:'d',field:'destroyed'}},then:[{kind:'gainLife',amount:amount(3),targets:ref('controller')}],otherwise:[]}])
+ expect(Object.values(state.objects).find(o=>o.name==='Discard')!.zone).toBe('hand')
+ expect(state.players.p1.life).toBe(40)
+})

@@ -42,7 +42,7 @@ const run = (instructions: Instruction[]) => {
   return ok(server.rules(ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id })), { type: 'resolveTop' }))
 }
 
-describe('Rule DSL Part 07 action primitives', () => {
+describe('actionPrimitives', () => {
   test('keeps destruction, milling, and token creation as semantic events', () => {
     const state = run([
       destroy({ targets: objects({ zone: 'battlefield', name: 'Part07 victim' }) }),

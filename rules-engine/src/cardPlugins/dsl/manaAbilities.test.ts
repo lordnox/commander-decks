@@ -1,0 +1,108 @@
+import { describe, expect, test } from 'bun:test'
+import {
+  classifyManaAbility,
+  activationPermission,
+  activated,
+  card,
+  compileCardRuleDefinition,
+  createDefinitionSnapshot,
+  ref,
+  manaAdded,
+  whenever,
+} from './v1'
+import { cardTemplate } from '../../newGame'
+import { commanderRules } from '../../formats'
+import { createServerGame } from '../../runtime'
+import { pendingOptionSelection } from '../../rules/selectOptions'
+
+describe('announcement transactions', () => {
+
+  test('mana classification requires a complete mana ability, including triggered mana', () => {
+    expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated' }).isManaAbility).toBe(true)
+    expect(classifyManaAbility({ addsMana: true, abilityKind: 'triggered', triggered: true, triggeredManaEligible: true }).kind).toBe('triggeredMana')
+    expect(classifyManaAbility({ addsMana: true, abilityKind: 'activated', hasOtherInstruction: true }).isManaAbility).toBe(true)
+  })
+
+  test('the permission gate is shared by mana and nested payment activations', () => {
+    const input = {
+      state: {
+        objects: { source: { id: 'source', name: 'Source', zone: 'battlefield', controller: 'p1', phasedOut: false, tapped: false } },
+        stack: [], active: 'p1', step: 'precombatMain',
+      }, sourceId: 'source', payer: 'p1', action: 'tapForMana' as const,
+    } as unknown as Parameters<typeof activationPermission>[0]
+    expect(activationPermission(input)).toBeUndefined()
+    expect(activationPermission({ ...input, action: 'nestedPayment', sorcerySpeed: true, state: { ...input.state, stack: [{} as never] } })).toContain('sorcery')
+  })
+
+  test('canonical addMana activation executes through the server path', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Canonical mana source', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Canonical mana source')!
+    const result = server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]' })
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.state.stack).toHaveLength(0)
+      expect(result.state.players.p1.mana.G).toBe(1)
+    }
+  })
+
+  test('canonical mana choices resume the remaining program after JSON restore', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [
+        {
+          kind: 'chooseInstructions',
+          chooser: ref('controller'),
+          count: { kind: 'constant', value: 1 },
+          whenInsufficient: 'chooseAvailable',
+          options: [{ instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }] }],
+        },
+        { kind: 'addMana', amount: { R: { kind: 'constant', value: 1 } }, targets: ref('controller') },
+      ],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Canonical choosing source', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Canonical choosing source')!
+    const started = server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]' })
+    expect(started.ok).toBe(true)
+    if (!started.ok) return
+    const restored = JSON.parse(JSON.stringify(started.state))
+    const pending = pendingOptionSelection(restored, 'p1')
+    expect(pending).toBeDefined()
+    if (!pending) return
+    const answered = server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'instruction:0' })
+    expect(answered.ok).toBe(true)
+    if (answered.ok) {
+      expect(answered.state.stack).toHaveLength(0)
+      expect(answered.state.players.p1.mana.G).toBe(1)
+      expect(answered.state.players.p1.mana.R).toBe(1)
+    }
+  })
+
+  test('eligible canonical mana-added triggers resolve immediately without a stack', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([whenever(manaAdded(), {
+      decisions: { targets: [] },
+      instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } }, targets: ref('controller') }],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Mana trigger source', { types: ['Artifact'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const result = server.rules(server.state, { type: 'addMana', seat: 'p1', mana: { G: 1 }, sourceId: 'producer' })
+    expect(result.ok).toBe(true)
+    if (result.ok) {
+      expect(result.state.stack).toHaveLength(0)
+      expect(result.state.players.p1.mana.G).toBe(2)
+    }
+  })
+})

@@ -38,7 +38,7 @@ const shieldDefinition = (capacity: number) => createDefinitionSnapshot(compileC
   )),
 ])))
 
-describe('Rule DSL Part 13 static replacement and prevention lifecycle', () => {
+describe('staticReplacementLifecycle', () => {
   test('compiled replacements register printed static modifiers with stable timestamps', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

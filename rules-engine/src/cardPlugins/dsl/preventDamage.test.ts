@@ -64,7 +64,7 @@ const dealThree = (state: GameState, server: ReturnType<typeof createServerGame>
     amount: 3,
   }))
 
-describe('Rule DSL Part 12 prevention and damage', () => {
+describe('preventDamage', () => {
   test('a 2-point shield against 3 damage leaves 1 and later hits use remaining capacity', () => {
     const server = createServerGame(commanderRules, {
       players: 2,

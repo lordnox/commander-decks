@@ -40,7 +40,7 @@ const copyableBolt = () => createDefinitionSnapshot(compileCardRuleDefinition(ca
   }),
 ])))
 
-describe('Rule DSL Part 16 families 4+5 catalog', () => {
+describe('cardRuleCatalog — modesCopiesAndSearch', () => {
   test('lookup is exact card name and pins a compiled snapshot at module load', () => {
     const charm = cardRuleDefinitionSnapshotFor('Esper Charm')
     const reverberate = cardRuleDefinitionSnapshotFor('Reverberate')

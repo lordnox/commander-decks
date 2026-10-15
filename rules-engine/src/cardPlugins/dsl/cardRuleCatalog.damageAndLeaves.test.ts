@@ -43,7 +43,7 @@ const leaveThragtusk = (to: 'graveyard' | 'hand' | 'exile') => {
   return resolveStack(server.rules, left)
 }
 
-describe('Rule DSL Part 16 family 2 catalog', () => {
+describe('cardRuleCatalog — damageAndLeaves', () => {
   test('lookup is exact card name and pins a compiled snapshot at module load', () => {
     const rift = cardRuleDefinitionSnapshotFor('Flame Rift')
     const thragtusk = cardRuleDefinitionSnapshotFor('Thragtusk')

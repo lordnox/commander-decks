@@ -20,7 +20,7 @@ const restCard = () => cardTemplate('Rest in Peace', { types: ['Enchantment'] })
 const foilCard = () => cardTemplate('Foil', { types: ['Instant'], manaCost: '{2}{U}{U}' })
 const islandCard = () => cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] })
 
-describe('Rule DSL Part 16 family 6+7 catalog', () => {
+describe('cardRuleCatalog — staticsAndAlternativeCosts', () => {
   test('lookup is exact card name and pins a compiled snapshot at module load', () => {
     const anthem = cardRuleDefinitionSnapshotFor('Glorious Anthem')
     const rest = cardRuleDefinitionSnapshotFor('Rest in Peace')

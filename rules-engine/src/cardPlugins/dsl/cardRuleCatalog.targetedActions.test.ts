@@ -19,7 +19,7 @@ const murderCard = () => cardTemplate('Murder', { types: ['Instant'], manaCost: 
 const signCard = () => cardTemplate('Sign in Blood', { types: ['Sorcery'], manaCost: '{0}' })
 const houndsCard = () => cardTemplate('Vampire Hounds', { types: ['Creature'], power: 2, toughness: 2 })
 
-describe('Rule DSL Part 16 family 3 catalog', () => {
+describe('cardRuleCatalog — targetedActions', () => {
   test('lookup is exact card name and pins a compiled snapshot at module load', () => {
     const murder = cardRuleDefinitionSnapshotFor('Murder')
     const sign = cardRuleDefinitionSnapshotFor('Sign in Blood')
