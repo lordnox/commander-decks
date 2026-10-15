@@ -1,22 +1,20 @@
 # Configurable rule model and client/server contract
 
-Status: staged refactoring. Parts 00–15 of the
-[implementation plan](RULE-DSL-IMPLEMENTATION-PLAN.md) are on `main`: canonical
-schema, compiler, durable driver, typed choices, triggers, action primitives,
-announcement/costs, modes, copies, temporary effects, resolution payments,
-replacement, prevention, static layers, draw history, and combined conformance.
-Part 16 families 1–7 stamp a name-keyed `ruleDefinition` catalog at object
-creation. Unmigrated stored-deck cards still use legacy `CARD_RULES`. Temporary
-canonical adapters (`builders/legacy.ts`) are gone; `CARD_RULES` remains for
-unmigrated names. Part 16 is **not** complete. Examples marked **current API**
+Status: canonical schema, compiler, durable driver, typed choices, triggers,
+action primitives, announcement/costs, modes, copies, temporary effects,
+resolution payments, replacement, prevention, static layers, draw history, and
+combined conformance are on `main`. A name-keyed catalog stamps `ruleDefinition`
+for a representative set of cards. Unmigrated names still use `CARD_RULES`; do
+not delete `CARD_RULES` or the `effectsFor` executor. Remaining work is those
+names (Mulldrifter, Lightning Bolt, votes, linked exile, Rooms, Sagas, and other
+specialized handlers that still need nodes). Examples marked **current API**
 retain their implemented shapes.
 
 Start with the [vocabulary](#2-vocabulary) and [definition structure](#3-definition-structure).
 The [worked examples](#10-worked-examples) show card behavior; the
 [authoring catalogue](#14-authoring-sugar-and-canonical-data) shows shorter syntax.
-[Implementation milestones](#implementation-milestones) identify the migration work.
-The [implementation plan](RULE-DSL-IMPLEMENTATION-PLAN.md) maps those milestones
-to current modules, dependencies, migration steps, and acceptance gates.
+[Implementation milestones](#implementation-milestones) 1–6 are on `main`;
+milestone 7 is the remaining CARD_RULES migration.
 
 ## 1. Purpose and boundaries
 
@@ -1983,12 +1981,11 @@ implemented first slice. Preserve those public wrappers during migration.
    Build these cases alongside the relevant milestones, then verify the combined
    server/client path. The examples are acceptance anchors; they do not by
    themselves cover every existing mechanic.
-7. **Existing-card migration and consolidation:** inventory existing definitions
-   and specialized handlers, migrate by supported mechanic, and compare observable
-   behavior with regression fixtures. Add missing reusable semantics before
-   translating affected cards. Remove superseded execution/choice paths only after
-   their supported behavior is covered; compatibility authoring wrappers may stay
-   when they compile to the canonical model.
+7. **Existing-card migration:** inventory remaining `CARD_RULES` names and
+   specialized handlers, migrate by supported mechanic, and compare observable
+   behavior with regression fixtures. Add missing reusable nodes before
+   translating affected cards. Do not delete `CARD_RULES` while unmigrated names
+   still need it.
 
 ### Completion criteria
 

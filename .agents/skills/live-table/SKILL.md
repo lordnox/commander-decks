@@ -311,9 +311,8 @@ never discard the only copy of a bad client message.
 ## Long-running host/seat (no poll)
 
 A Cursor chat must not poll conduit. The Bun **live-runner**
-(`live-runner/PLAN.md`, `live-runner/IMPLEMENTATION.md`) holds WebSockets and
-session files. Chat starts it in the background (pid + log) and exits. Human
-`/live` still uses Pages + this skill.
+(`live-runner/README.md`) holds WebSockets and session files. Chat starts it in
+the background (pid + log) and exits. Human `/live` still uses Pages + this skill.
 
 ## After the game
 

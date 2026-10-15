@@ -36,7 +36,7 @@ Invites are `seatRead|inboxWrite`. Spectator is the host read key. Pages:
 `/live/?k=<token>`.
 
 Lobby: gather joins → seating/swap → d20 → pregame in turn order → four ready
-→ play. See `PLAN.md` and `.agents/skills/live-table/CONDUIT.md`.
+→ play. Protocol: `.agents/skills/live-table/CONDUIT.md`.
 
 ## Agent host
 
