@@ -412,8 +412,8 @@ export const damage = (input: {
 export const mill = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'mill', count: toAmount(input.count), targets: input.targets })
 
-export const shuffle = (input: { targets: PlayerRecipient }): Instruction =>
-  immutableData({ kind: 'shuffle', targets: input.targets })
+export const shuffle = (input: { targets: PlayerRecipient }) =>
+  immutableData({ kind: 'shuffle' as const, targets: input.targets })
 
 export const destroy = (input: {
   targets: Extract<Instruction, { kind: 'destroy' }>['targets']
@@ -604,7 +604,7 @@ export const searchLibrary = (input: {
   min?: AmountInput
   max?: AmountInput
   to: Zone
-}): Instruction => sequence(
+}) => sequence(
   chooseCards({
     bindChoice: input.bindChoice,
     chooser: input.chooser,
