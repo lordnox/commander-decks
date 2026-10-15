@@ -1,6 +1,5 @@
 export * from '../schema/v1'
 export * from '../builders'
-export * from '../builders/legacy'
 export * from '../compiler'
 export * from '../copies'
 export { card } from '../sugar/card'

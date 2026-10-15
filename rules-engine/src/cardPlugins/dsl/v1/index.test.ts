@@ -6,8 +6,6 @@ import {
   ability,
   actions,
   activated,
-  adaptLegacyPlayerInstruction,
-  adaptLegacyTrigger,
   and as allActions,
   amount,
   card,
@@ -19,9 +17,11 @@ import {
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   discard,
+  draw,
   draws,
   evaluateAmount,
   evaluateTargetBounds,
+  gainLife,
   ifThen,
   keyword,
   lifeCost,
@@ -209,94 +209,28 @@ describe('Rule DSL v1 canonical authoring', () => {
     })
   })
 
-  test('pure legacy adapters translate only representable player effects and triggers', () => {
-    expect(adaptLegacyPlayerInstruction({ kind: 'gainLife', count: 2 })).toEqual({
+  test('canonical player-effect builders match compact sugar for ETB draw and controller gainLife', () => {
+    expect(gainLife({ amount: 2, targets: ref('controller') })).toEqual({
       kind: 'gainLife',
       amount: { kind: 'constant', value: 2 },
       targets: { kind: 'contextRef', name: 'controller' },
     })
-    const canonical = adaptLegacyTrigger({
-      op: 'trigger',
-      on: 'enters',
-      do: [{ kind: 'draw', count: 1 }],
-    })
-    expect(canonical).toEqual(ability.whenever(self.enters, actions.draw.self.one))
-    expect(diagnosticPaths(() => adaptLegacyTrigger({
-      op: 'trigger',
-      on: 'upkeep',
-      do: [{ kind: 'draw', count: 1 }],
-    }))).toContain('$legacyTrigger.on')
+    expect(whenever(self.enters, {
+      instructions: [draw({ count: 1, targets: ref('controller') })],
+    })).toEqual(ability.whenever(self.enters, actions.draw.self.one))
   })
 
-  test('legacy draw-trigger adapters preserve omitted and explicit player filters', () => {
-    const adaptDraw = (player?: 'you' | 'opponent' | 'any') => adaptLegacyTrigger({
-      op: 'trigger',
-      on: 'draw',
-      ...(player ? { player } : {}),
-      do: [{ kind: 'gainLife', count: 1 }],
-    })
-    const relation = (player?: 'you' | 'opponent' | 'any') => {
-      const adapted = adaptDraw(player)
-      if (adapted.on.kind !== 'draw') throw new Error('expected a draw pattern')
-      const selector = adapted.on.filter.player
+  test('draw occurrence player filters keep you, opponent, and any relations', () => {
+    const relation = (player: 'you' | 'opponent' | 'any') => {
+      const pattern = draws({ player: players({ relation: player }) })
+      if (pattern.kind !== 'draw') throw new Error('expected a draw pattern')
+      const selector = pattern.filter.player
       if (!selector || selector.kind !== 'players') throw new Error('expected a player selector')
       return selector.filter.relation
     }
-    expect(relation()).toBe('any')
     expect(relation('any')).toBe('any')
     expect(relation('you')).toBe('you')
     expect(relation('opponent')).toBe('opponent')
-  })
-
-  test('legacy adapters reject every trigger option they cannot preserve', () => {
-    const unsupportedOptions: Record<string, unknown> = {
-      watch: {},
-      from: 'graveyard',
-      nthThisTurn: 2,
-      if: { kind: 'controllerIsActive' },
-      sourceTypeAtTrigger: 'Creature',
-      creatureOnly: true,
-      noncreatureOnly: true,
-      castBy: 'opponent',
-      modal: { choose: 1, options: [] },
-      targets: 'player',
-      firstTimeEachTurn: true,
-      onceEachTurn: true,
-      whenResolvedNth: { nth: 2, do: [] },
-    }
-    for (const [field, value] of Object.entries(unsupportedOptions)) {
-      const effect = {
-        op: 'trigger',
-        on: 'draw',
-        do: [{ kind: 'draw', count: 1 }],
-        [field]: value,
-      }
-      expect(diagnosticPaths(() => adaptLegacyTrigger(effect as never))).toContain(`$legacyTrigger.${field}`)
-    }
-    expect(diagnosticPaths(() => adaptLegacyTrigger({
-      op: 'trigger',
-      on: 'enters',
-      player: 'opponent',
-      do: [{ kind: 'draw', count: 1 }],
-    }))).toContain('$legacyTrigger.player')
-    expect(diagnosticPaths(() => adaptLegacyTrigger({
-      op: 'trigger',
-      on: 'enters',
-      do: [{ kind: 'draw', count: 1, who: 'triggeringPlayer' }],
-    }))).toContain('$legacyTrigger.do')
-  })
-
-  test('legacy instruction adapters reject unknown data and inspect accessors without evaluating them', () => {
-    expect(diagnosticPaths(() => adaptLegacyPlayerInstruction({
-      kind: 'draw', count: 1, optional: true,
-    } as never))).toContain('$legacyInstruction.optional')
-    let reads = 0
-    const hostile = Object.defineProperty({}, 'kind', {
-      enumerable: true,
-      get() { reads += 1; return 'draw' },
-    })
-    expect(diagnosticCodes(() => adaptLegacyPlayerInstruction(hostile as never))).toContain('accessor')
-    expect(reads).toBe(0)
   })
 })
 

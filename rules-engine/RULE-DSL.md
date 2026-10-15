@@ -5,12 +5,11 @@ Status: staged refactoring. Parts 00–15 of the
 schema, compiler, durable driver, typed choices, triggers, action primitives,
 announcement/costs, modes, copies, temporary effects, resolution payments,
 replacement, prevention, static layers, draw history, and combined conformance.
-Part 16 family 1 stamps a name-keyed `ruleDefinition` catalog (Duskdale Wurm,
-Wall of Omens, Night's Whisper) at object creation. Unmigrated stored-deck
-cards still use legacy `CARD_RULES`. Legacy adapters remain until Part 16
-consolidation. Remaining family migrations are **not** a claim that every
-Magic card is covered. Examples marked **current API** retain their implemented
-shapes.
+Part 16 families 1–7 stamp a name-keyed `ruleDefinition` catalog at object
+creation. Unmigrated stored-deck cards still use legacy `CARD_RULES`. Temporary
+canonical adapters (`builders/legacy.ts`) are gone; `CARD_RULES` remains for
+unmigrated names. Part 16 is **not** complete. Examples marked **current API**
+retain their implemented shapes.
 
 Start with the [vocabulary](#2-vocabulary) and [definition structure](#3-definition-structure).
 The [worked examples](#10-worked-examples) show card behavior; the
@@ -796,8 +795,9 @@ counter({ targets: target(0) })
 Proposed instruction recipients consistently use `targets`, including bound
 targets, untargeted choices, and group selectors. The presence of this property
 does not apply targeting rules; `decisions.targets` is the declaration that does.
-Legacy helpers retain their existing signatures, such as `loseLife({ to: ... })`;
-adapters translate to the proposed shape instead of silently changing current APIs.
+Canonical catalog cards use those `targets`. Unmigrated `CARD_RULES` instructions
+keep their existing `to` / `who` fields on the legacy executor; there is no
+adapter translating those into canonical nodes.
 
 Instructions propose semantic actions, not direct state edits. Handlers enforce
 rules, expand actions into appropriate events, apply modifiers, commit state, and
@@ -2303,8 +2303,9 @@ depends on those constructors, and the public entry point re-exports both.
 Instruction handlers consume canonical nodes rather than importing fluent
 catalogues. Share genuinely common count/recipient construction when adding
 other action families; do not create a separate implementation file for every
-property path or duplicate game semantics in this tree. Existing legacy helpers
-keep their exports and compile through adapters as described above.
+property path or duplicate game semantics in this tree. Canonical authoring
+sugar remains. Unmigrated names still register through `CARD_RULES`; there is
+no legacy-to-canonical adapter layer.
 
 During implementation, verify equivalent lowering for Wall of Omens' explicit
 and compact forms, controller/target recipient domains, X bindings, sequence

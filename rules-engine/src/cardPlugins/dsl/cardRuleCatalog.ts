@@ -1,8 +1,6 @@
 import type { AbilityDefinition, CardRuleDefinitionSnapshotV1 } from './schema/v1'
 import {
   activated,
-  adaptLegacyPlayerInstruction,
-  adaptLegacyTrigger,
   amount,
   card,
   chooseModes,
@@ -53,17 +51,15 @@ const CARD_RULE_DEFINITION_CATALOG: Readonly<Record<string, CardRuleDefinitionSn
   'Duskdale Wurm': snapshotFor([keyword.trample]),
   'Wall of Omens': snapshotFor([
     keyword.defender,
-    adaptLegacyTrigger({
-      op: 'trigger',
-      on: 'enters',
-      do: [{ kind: 'draw', count: 1 }],
+    whenever(self.enters, {
+      instructions: [draw({ count: 1, targets: ref('controller') })],
     }),
   ]),
   "Night's Whisper": snapshotFor([
     spell({
       instructions: [
-        adaptLegacyPlayerInstruction({ kind: 'draw', count: 2 }),
-        adaptLegacyPlayerInstruction({ kind: 'loseLife', amount: 2, who: 'controller' }),
+        draw({ count: 2, targets: ref('controller') }),
+        loseLife({ amount: 2, targets: ref('controller') }),
       ],
     }),
   ]),

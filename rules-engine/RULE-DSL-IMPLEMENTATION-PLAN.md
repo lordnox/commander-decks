@@ -1,11 +1,11 @@
 # Rule DSL implementation plan
 
-Status: parts 00–15 are merged to `main`; remaining work is Part 16 (families + consolidation).
+Status: parts 00–15 are merged to `main`; Part 16 families 1–7 representative catalog landed and `legacy.ts` adapters removed; remaining work is unmigrated `CARD_RULES` names.
 This document does not change runtime behavior.
 
 Source contract: [RULE-DSL.md](RULE-DSL.md), especially sections 11–14.
 Baseline: `origin/main` at `c82cb7a363b1503593105323d9dd1a8dd51cfa17`.
-Prepared: 2026-10-08. Status refreshed: 2026-10-14.
+Prepared: 2026-10-08. Status refreshed: 2026-10-15.
 
 ## Current state on main
 
@@ -16,26 +16,28 @@ delayed/granted programs, replacement, prevention, static layers, draw history,
 and the combined conformance/persistence gate execute in tests through
 `ruleDefinition`.
 
-Parts **11–15** are on `main`. Part 16 families 1–7 are in progress: a
-name-keyed catalog stamps canonical `ruleDefinition` at object creation for
-Duskdale Wurm, Wall of Omens, Night's Whisper, Flame Rift, Thragtusk, Fate
-Unraveler, Murder, Sign in Blood, Vampire Hounds, Esper Charm, Reverberate,
-Diabolic Tutor, Glorious Anthem, Rest in Peace, and Foil. Family migrations
-are not complete. Unmigrated names still use `CARD_RULES`. Legacy adapters in
-`src/cardPlugins/dsl/builders/legacy.ts` remain until Part 16 consolidation.
+Parts **11–15** are on `main`. Part 16 families 1–7 are a representative
+catalog on `main`: a name-keyed catalog stamps canonical `ruleDefinition` at
+object creation for Duskdale Wurm, Wall of Omens, Night's Whisper, Flame Rift,
+Thragtusk, Fate Unraveler, Murder, Sign in Blood, Vampire Hounds, Esper Charm,
+Reverberate, Diabolic Tutor, Glorious Anthem, Rest in Peace, and Foil.
+Unmigrated names still use `CARD_RULES`. Temporary canonical adapters in
+`src/cardPlugins/dsl/builders/legacy.ts` are removed. Part 16 is **not**
+complete.
 
 The generated card-handler reload fixtures in `live-runner` remain a known
 non-DSL failure; see [KNOWN-TEST-FAILURES.md](migration/KNOWN-TEST-FAILURES.md).
 
 ### Remaining work
 
-Part **16** family migrations continue. Consolidation (remove `legacy.ts` and
-competing executors) still waits.
+Part **16** remaining work is unmigrated `CARD_RULES` names (Mulldrifter,
+Lightning Bolt, votes, linked exile, Rooms, Sagas, and other specialized
+handlers that still need nodes). Adapter consolidation (`legacy.ts`) is done.
+Do not mark Part 16 complete.
 
 | Track | Scope | Must not do |
 | --- | --- | --- |
-| **Part 16 families** | Incremental mechanic-family migrations onto the name-keyed catalog | Remove `legacy.ts`; mark Part 16 complete |
-| **Part 16 consolidation** | After equivalent coverage: remove legacy adapters and competing executors | Start while remaining families are still unmigrated |
+| **Part 16 remaining names** | Unmigrated `CARD_RULES` names, including specialized handlers that still need reusable nodes | Delete `CARD_RULES` / the `effectsFor` executor; mark Part 16 complete |
 
 Part notes 11–14 may still say “ready for review” on feature branches; the
 Status lines below are authoritative.
@@ -563,11 +565,10 @@ All newly advertised DSL capabilities have end-to-end evidence.
 **Dependencies:** 00 ledger; migrate each family after its owning parts pass.
 Final consolidation requires 15.
 
-**Status:** families 1–7 in progress: simple keywords / player effects,
-ordinary spells and triggers, targeting / activation / costs, modes / copies,
-hidden-zone choices, replacements / statics, and specialized ledger. Remaining
-specialized names stay unmigrated. Consolidation still waits; do not remove
-legacy adapters. See [Part 16 implementation note](migration/RULE-DSL-PART-16.md).
+**Status:** families 1–7 representative catalog landed. Temporary adapters
+(`legacy.ts`) removed. Remaining work is unmigrated `CARD_RULES` names
+(including specialized handlers that still need nodes). Part 16 is **not**
+complete. See [Part 16 implementation note](migration/RULE-DSL-PART-16.md).
 
 Migrate in mechanic families: simple keywords/player effects; ordinary spells and
 triggers; targeting/activation/costs; modes/copies; hidden-zone choices; replacements
@@ -575,21 +576,20 @@ and static/granted effects; then specialized mechanics from the ledger (votes,
 linked exile, alternate casting, faces/Rooms, Sagas, and other supported handlers).
 This family list is a starting order, not a coverage limit.
 
-Use temporary adapters to canonical data whenever representable during migration.
-For specialized handlers, first add reusable nodes and conformance; until then
-retain explicit legacy support and its recorded gap. Every stack item chooses
-one pinned program representation and is executed exactly once. Shared checkpoint,
+Catalog cards author canonical builders directly. For specialized handlers,
+first add reusable nodes and conformance; until then retain explicit
+`CARD_RULES` support and its recorded gap. Every stack item chooses one pinned
+program representation and is executed exactly once. Shared checkpoint,
 projection, and event rules apply across legacy/canonical cards in the same game;
 test mixed games rather than switching global semantics by card.
 
-After equivalent gameplay coverage and new-format persistence are proven, remove
-all temporary legacy adapters and superseded resolution, custom resume, modal
-fallback, host choice, old command/decoder, and old saved-state/replay paths.
-Remove `src/cardPlugins/dsl/builders/legacy.ts` and its migration-only tests once
-all consumers use canonical definitions. Rewrite useful behavioral assertions
-against the canonical API; retire obsolete format fixtures. Update engine/host
-documentation. Canonical authoring sugar may remain, but legacy API compatibility
-wrappers may not.
+Temporary canonical adapters (`src/cardPlugins/dsl/builders/legacy.ts`) and
+their migration-only tests are removed. Remaining competing paths are
+unmigrated `CARD_RULES` registrations and their executor. After equivalent
+gameplay coverage is proven for those names, remove superseded resolution,
+custom resume, modal fallback, host choice, old command/decoder, and old
+saved-state/replay paths. Canonical authoring sugar may remain, but legacy API
+compatibility wrappers may not.
 
 **Exit:** every previously supported registration/mechanic has an accepted
 migration result; no newly introduced judge fallback hides a gap. One authoritative
@@ -608,8 +608,9 @@ suites and new-format persistence gate pass after the old paths are removed.
 conformance and persistence gate and is on `main`. `16` migrates incrementally
 by family and removes old paths only after that gate.
 
-Parts **00–15** are on `main`. Remaining work is Part **16** (families +
-consolidation). See [Current state on main](#current-state-on-main).
+Parts **00–15** are on `main`. Part 16 families 1–7 representative catalog
+landed and `legacy.ts` is gone. Remaining work is unmigrated `CARD_RULES`
+names. See [Current state on main](#current-state-on-main).
 
 | DSL milestone | Plan parts | Delivery gate |
 | --- | --- | --- |
