@@ -18,6 +18,9 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run typecheck
       - run: bun run check:imports
+      - run: git fetch origin "${{ github.base_ref || 'main' }}"
+      - run: bun run check:dsl-authoring --base FETCH_HEAD
+      - run: bun run test:dsl-authoring
       - run: bun run lint --quiet
 
   test-rules:
