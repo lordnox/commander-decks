@@ -169,7 +169,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 28,
+        "matches": 30,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "rules-engine/src/cardPlugins/cleave.test.ts:113 — test('cleave does not make nonspell targets legal', () => {",
@@ -1134,7 +1134,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 471,
+        "matches": 473,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -2368,7 +2368,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 31,
+        "matches": 32,
         "samples": [
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
@@ -2752,7 +2752,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 141,
+        "matches": 143,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -5941,7 +5941,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 17,
+        "matches": 19,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:107",
           "rules-engine/src/cardPlugins/councilCards.test.ts:146 — test('each council card is registered with the vote engine handlers it needs', () => {",
@@ -13509,7 +13509,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 22,
+        "matches": 23,
         "samples": [
           "rules-engine/src/actions.test.ts:381 — test('instants and permanents with entry choices stay with the judge', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:112 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
@@ -14624,7 +14624,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 13,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/part16.family1.test.ts:132 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family2.test.ts:228 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
@@ -14633,7 +14633,7 @@
           "rules-engine/src/cardPlugins/dsl/part16.family3.test.ts:32 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:289 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {",
           "rules-engine/src/cardPlugins/dsl/part16.family4and5.test.ts:54 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangela.test.ts:61 — test('the Eva cards this pass covers stay registered', () => {"
+          "rules-engine/src/cardPlugins/dsl/part16.family6and7.test.ts:211 — test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, trigger] and instructions [draw, sacrificeSelf]",
@@ -22751,7 +22751,7 @@
         "rules-engine/src/plugins/rooms.ts:68",
         "rules-engine/src/plugins/rooms.ts:85",
         "rules-engine/src/plugins/rooms.ts:89",
-        "rules-engine/src/plugins/spells.ts:468",
+        "rules-engine/src/plugins/spells.ts:471",
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
@@ -22808,10 +22808,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1157
+          1160
         ],
         "samples": [
-          "1157: if (object.name === 'Timetwister') {"
+          "1160: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -23012,12 +23012,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          235,
-          320
+          236,
+          321
         ],
         "samples": [
-          "235: if (filter.name && object.name !== filter.name) return false",
-          "320: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "236: if (filter.name && object.name !== filter.name) return false",
+          "321: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -24092,31 +24092,31 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          864,
-          870,
-          946,
-          966,
-          968,
+          867,
+          873,
+          949,
+          969,
           971,
-          980,
-          996,
-          997,
-          1002,
-          1003,
-          1102,
-          1112,
-          1133,
-          1148,
-          1164,
-          1166,
-          1172,
-          1184,
-          1205
+          974,
+          983,
+          999,
+          1000,
+          1005,
+          1006,
+          1105,
+          1115,
+          1136,
+          1151,
+          1167,
+          1169,
+          1175,
+          1187,
+          1208
         ],
         "samples": [
-          "864: const moved = draft.object(event.objectId)",
-          "870: const object = draft.object(event.objectId)",
-          "946: .map((objectId) => draft.object(objectId))"
+          "867: const moved = draft.object(event.objectId)",
+          "873: const object = draft.object(event.objectId)",
+          "949: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
