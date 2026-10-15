@@ -314,7 +314,7 @@ type Instruction =
   | { kind: 'destroy'; targets: Reference | ObjectSelector }
   | { kind: 'counter'; targets: Reference; bindResult?: string }
   | { kind: 'sequence'; instructions: Instruction[] }
-  | { kind: 'chooseInstructions'; chooser: Reference; count: { kind: 'constant'; value: 1 };
+  | { kind: 'chooseInstructions'; optional?: true; chooser: Reference; count: { kind: 'constant'; value: 1 };
       options: { instructions: Instruction[] }[]; whenInsufficient: 'chooseAvailable' }
   | { kind: 'if'; condition: Condition; then: Instruction[]; otherwise: Instruction[] }
   // Extend with separately specified action and choice node variants.
@@ -2205,13 +2205,15 @@ Use distinct helpers for distinct procedures:
 | Helper | Meaning and timing |
 | --- | --- |
 | `and(a, b, ...)` | Execute every instruction in written order inside one resolution; lower to `sequence`. A later action does not require the earlier one to succeed. |
-| `may(instruction, chooser?)` | Offer Accept or Decline during resolution; default chooser is the controller. Lowers to `chooseInstructions` with an empty decline branch. `may(draw(1))` draws one card for the controller; `may(sequence(a, b))` makes the whole group optional. |
+| `may(instruction, chooser?)` | Offer Accept or Decline during resolution; default chooser is the controller. Lowers to `chooseInstructions` with an explicit `optional: true` marker, an accept program, and an empty decline branch. The DSL and engine preserve optional identity for any action. `may(draw(1))` draws one card for the controller; `may(sequence(a, b))` makes the whole group optional. |
 | `or(a, b)` | Choose one action during resolution; shorthand for a choose-one `choose` with the execution controller as chooser. |
 | `choose({ chooser, count: 1, options })` | Explicit resolution-time choice among instruction programs, with a typed chooser and legal options. |
 | `withTargets(clauses, ...instructions)` | Return a configuration with `decisions.targets` and those instructions; targets are chosen during announcement or trigger placement. |
 | `chooseModes(...)` with `modes` | Announcement-time mode selection, including selected modes' own target clauses. |
 | `ifThen(condition, branches)` | Follow a condition/result automatically; it does not ask a player to choose a branch. |
 
+The DSL and resolution driver expose generic optional-action metadata; neither
+classifies actions as draws. Draw-automation eligibility is a live-host policy.
 The live UI offers **Ask**, **Always accept**, and **Always decline** for a
 standalone optional draw. Preferences belong to a seat and a specific source
 incarnation/ability, last for that game, and survive host restart. Set them in

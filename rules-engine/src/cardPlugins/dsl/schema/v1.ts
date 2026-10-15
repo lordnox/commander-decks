@@ -341,6 +341,8 @@ export type Instruction =
   /** Let the chooser select one available option; continue without an option when none is available. */
   | {
       kind: 'chooseInstructions'
+      /** Explicit optional action: option 0 accepts the program; option 1 declines with no instructions. */
+      optional?: true
       chooser: PlayerReference
       prompt?: string
       count: { kind: 'constant'; value: 1 }

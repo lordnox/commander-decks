@@ -636,17 +636,19 @@ export const searchLibrary = (input: {
 )
 
 export const chooseInstructions = (input: {
+  optional?: true
   chooser: Extract<Instruction, { kind: 'chooseInstructions' }>['chooser']
   prompt?: string
   options: Extract<Instruction, { kind: 'chooseInstructions' }>['options']
-}): Instruction => immutableData({
-  kind: 'chooseInstructions',
+}) => immutableData({
+  kind: 'chooseInstructions' as const,
+  ...(input.optional !== undefined ? { optional: input.optional } : {}),
   chooser: input.chooser,
   ...(input.prompt !== undefined ? { prompt: input.prompt } : {}),
-  count: amount(1),
+  count: { kind: 'constant' as const, value: 1 as const },
   options: input.options,
-  whenInsufficient: 'chooseAvailable',
-}) as Instruction
+  whenInsufficient: 'chooseAvailable' as const,
+})
 
 export const resultIsTrue = (value: ResultReference): Condition =>
   immutableData({ kind: 'resultIsTrue', value })

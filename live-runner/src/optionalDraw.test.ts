@@ -1,3 +1,4 @@
+import type { Instruction } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { expect, test } from 'bun:test'
 import { OPTIONAL_DRAW_MODE, OPTIONAL_DRAW_MODE_MESSAGE } from '../../shared/optionalDraw'
 import { createJournal, recordAccepted, restoreJournal } from '../../rules-engine/src/journal'
@@ -5,7 +6,7 @@ import { commanderRules } from '../../rules-engine/src/formats'
 import { cardTemplate } from '../../rules-engine/src/newGame'
 import { createServerGame } from '../../rules-engine/src/runtime'
 import { ok, resolveStack } from '../../rules-engine/src/testHelpers'
-import { card, compileCardRuleDefinition, createDefinitionSnapshot, draw, enters, may, whenever } from '../../rules-engine/src/cardPlugins/dsl/v1'
+import { card, chooseInstructions, compileCardRuleDefinition, createDefinitionSnapshot, draw, enters, gainLife, may, ref, sequence, whenever } from '../../rules-engine/src/cardPlugins/dsl/v1'
 import { applyHostControl, restoreKernelWindow } from './host'
 import { applyKernelChoice } from './kernelChoiceApply'
 import type { KernelHandle } from './kernelHandle'
@@ -30,9 +31,9 @@ const handleFor = (rules: KernelHandle['rules'], initial: Parameters<KernelHandl
   }
 }
 
-const setup = () => {
+const setup = (instructions: readonly Instruction[] = [may(draw(1))]) => {
   const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
-    whenever(enters({ filter: { type: 'Land', controller: 'you' } }), { instructions: [may(draw(1))] }),
+    whenever(enters({ filter: { type: 'Land', controller: 'you' } }), { instructions }),
   ])))
   const server = createServerGame(commanderRules, {
     players: 2,
@@ -135,3 +136,19 @@ test('repeated triggers reuse a preference, while a source returning to the batt
   settleKernelPriority(kernel, lobby)
   expect(lobby.topdeck?.optionalDraw).toBeDefined()
 })
+
+for (const { label, instructions } of [
+  { label: 'non-draw action', instructions: [may(gainLife({ amount: 1, targets: ref('controller') }))] },
+  { label: 'mixed action group', instructions: [may(sequence(draw(1), gainLife({ amount: 1, targets: ref('controller') })))] },
+  { label: 'following consequence', instructions: [may(draw(1)), gainLife({ amount: 1, targets: ref('controller') })] },
+  { label: 'ordinary choice with draw and empty options', instructions: [chooseInstructions({ chooser: ref('controller'), options: [{ instructions: [draw(1)] }, { instructions: [] }] })] },
+]) {
+  test(`host draw policy leaves ${label} manual`, () => {
+    const { kernel, lobby } = setup(instructions)
+    expect(lobby.topdeck).toBeDefined()
+    expect(lobby.topdeck?.optionalDraw).toBeUndefined()
+    settleKernelPriority(kernel, lobby)
+    expect(lobby.topdeck).toBeDefined()
+    expect(kernel.history.current().zoneOrder.p1.library).toHaveLength(2)
+  })
+}
