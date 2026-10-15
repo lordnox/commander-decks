@@ -1556,7 +1556,7 @@ export const LivePage = () => {
 
       {snapshot.topdeck && snapshot.actions?.includes('topdeck') && (
         <TopdeckDialog
-          key={snapshot.actionId}
+          key={snapshot.topdeck.requestId ?? snapshot.actionId}
           game={game}
           decision={snapshot.topdeck}
           prompt={snapshot.waiting}

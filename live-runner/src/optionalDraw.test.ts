@@ -58,7 +58,7 @@ for (const mode of Object.values(OPTIONAL_DRAW_MODE)) {
     applyHostControl(lobby, 'p2', { type: OPTIONAL_DRAW_MODE_MESSAGE, key: offer.key, mode })
     expect(lobby.optionalDrawPreferences?.p2).toBeUndefined()
     applyHostControl(lobby, 'p1', { type: OPTIONAL_DRAW_MODE_MESSAGE, key: offer.key, mode })
-    const restoredLobby = restoreLobby(JSON.parse(JSON.stringify(lobby)))
+    const restoredLobby = restoreLobby(JSON.parse(JSON.stringify(lobby)), 'Resumed table')
     const restored = handleFor(kernel.rules, restoreJournal(kernel.journal, kernel.rules).current())
     restoreKernelWindow(restored, restoredLobby)
     if (mode === OPTIONAL_DRAW_MODE.ASK) {

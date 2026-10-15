@@ -871,6 +871,9 @@ export const runHost = async (options: {
           controlQueue = controlQueue
             .then(async () => {
               if (kernel) settleKernelPriority(kernel, state)
+              // Automation may complete choices and open a new persisted continuation.
+              session.lobby = state
+              saveSession(session, root)
               await publish(slug, root, origin, bins, state, kernel)
             })
             .catch((reason) => {
