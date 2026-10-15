@@ -35,6 +35,8 @@ describe('canonical DSL authoring ratchet', () => {
     rejects("import * as legacy from '../../rules-engine/src/cardPlugins/cardRules'; legacy.CARD_RULES.New = []")
     rejects("import { CARD_RULES as other } from '../../rules-engine/src/cardPlugins/cardRules'; const alias = other; Object.assign(alias, { New: [] })")
     rejects("import { draw } from '../../rules-engine/src/cardPlugins/effects'; export const alternate = { 'New Card': [draw(1)] }")
+    rejects("import { draw } from '../../rules-engine/src/cardPlugins/effects'; export const alternate = { New: [draw(1)] }")
+    rejects("import * as effects from '../../rules-engine/src/cardPlugins/effects'; export const alternate = { New: [effects.draw(1)] }")
     rejects("export const alternate = { name: 'New Card', effects: [draw(1)] }")
     rejects("export const execute = (object) => { if (object.name === 'New Card') doThing() }", 'rules-engine/src/plugins/newExecutor.ts')
   })
@@ -55,6 +57,7 @@ describe('canonical DSL authoring ratchet', () => {
   })
   test('generic engine edits, payloads, imports and UI serialization remain legal', () => {
     for (const source of [
+      "import { basicLand } from '../cardPlugins/effects'; export const search = () => ({ spec: { filter: basicLand() } })",
       "actions.push({ kind: 'playLand', name: object.name })",
       "seat.name.toLowerCase().split(' ').join(' ')",
       "const snapshot = { effects: effectsOf(object), pluginIds: entry.pluginIds }",
@@ -66,6 +69,14 @@ describe('canonical DSL authoring ratchet', () => {
     const path = 'rules-engine/src/cardPlugins/ward.ts'
     const baseline = scan('export const execute = () => draw(1)', path)
     expect(compareFindings(scan('export const execute = () => draw(2)', path), baseline)).toEqual([])
+  })
+  test('canonical compiler binding names remain editable while plugin card names fail', () => {
+    const source = "if (reference.name === 'that') resolveBinding(); if (node.name !== 'X') readVariable(); switch (reference.name) { case 'source': resolveSource() }"
+    for (const path of ['rules-engine/src/cardPlugins/dsl/compiler/runtime.ts', 'rules-engine/src/cardPlugins/dsl/generatedPrograms.ts']) {
+      expect(scan(source, path)).toEqual([])
+    }
+    rejects("if (object.name === 'New Card') draw(2)", 'rules-engine/src/plugins/example.ts')
+    rejects("if (object.name === 'New Card') draw(2)", 'rules-engine/src/actions.ts')
   })
   test('extending a card-specific branch still fails', () => {
     const before = "if (object.name === 'Old Card') draw(1)"
