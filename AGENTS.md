@@ -38,6 +38,10 @@ The explicit fingerprint baseline in `rules-engine/migration/dsl-authoring-basel
 
 Generic engine infrastructure, internal events, and runtime plugins are not card authoring exceptions: they may evolve without adding card-specific behavior outside the DSL. Card registrations and card-name dispatch are ratcheted; generic compatibility helpers, imports, and runtime payload plumbing remain editable. Implement new card semantics in the canonical subsystem. See [the enforcement notes](scripts/dsl-authoring/README.md) for scope and limitations. Once #383 removes the legacy paths, delete the baseline and this temporary exception, retaining DSL-only authoring and its checks.
 
+## Card registration order
+
+When adding cards to `CARD_RULES` in `rules-engine/src/cardPlugins/cardRules.ts`, insert each registration in alphabetical order by its exact Unicode card-name key. Keep card-specific comments with their registration. Preserve this order until the object is removed; this rule does not apply to `cardRuleCatalog.ts`, whose entries stay grouped with their inlined templates.
+
 ## Git workflow
 
 Never edit on `main`. Each agent session uses its own branch and git worktree:
