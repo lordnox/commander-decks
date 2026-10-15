@@ -374,6 +374,7 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
     {
       seat: pending.seat,
       kind: open ? 'vote' : 'choose',
+      ...(pending.optionalDraw ? { optionalDraw: structuredClone(pending.optionalDraw) } : {}),
       source: pending.source,
       cards: pending.options.map((option) => option.label),
       destinations: ['skip', 'target'],

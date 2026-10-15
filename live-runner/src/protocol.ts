@@ -1,3 +1,5 @@
+import { OPTIONAL_DRAW_MODE_MESSAGE, isOptionalDrawMode } from '../../shared/optionalDraw'
+import type { OptionalDrawMode } from '../../shared/optionalDraw'
 export const BIN_LABELS = [
   'host',
   'p1',
@@ -118,6 +120,7 @@ type InboxPayload =
       attackers?: Array<{ objectId: string; defenderId: string }>
       blockers?: Array<{ blockerId: string; attackerId: string }>
     }
+  | { type: typeof OPTIONAL_DRAW_MODE_MESSAGE; key: string; mode: OptionalDrawMode }
   | { type: 'priority-mode'; always: boolean }
   | { type: 'hold'; until: 'my-turn' | 'off' }
   | { type: 'rules'; text: string }
@@ -398,6 +401,9 @@ export const parseInbox = (raw: string): InboxMessage | null => {
         ...(typeof giftRecipientId === 'string' ? { giftRecipientId } : {}),
       })
     }
+    case OPTIONAL_DRAW_MODE_MESSAGE:
+      return typeof message.key === 'string' && message.key.length > 0 && message.key.length <= 1024 && isOptionalDrawMode(message.mode)
+        ? { type: OPTIONAL_DRAW_MODE_MESSAGE, key: message.key, mode: message.mode } : null
     case 'priority-mode':
       return typeof message.always === 'boolean'
         ? { type: 'priority-mode', always: message.always }

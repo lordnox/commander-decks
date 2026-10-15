@@ -400,8 +400,12 @@ export const draws = (input: Extract<OccurrencePattern, { kind: 'draw' }>['filte
 
 export const manaAdded = (): OccurrencePattern => immutableData({ kind: 'manaAdded' })
 
-export const draw = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
-  immutableData({ kind: 'draw', count: toAmount(input.count), targets: input.targets })
+export const draw = (input: number | { count: AmountInput; targets: PlayerRecipient }) => {
+  const { count, targets } = typeof input === 'number'
+    ? { count: input, targets: ref('controller') }
+    : input
+  return immutableData({ kind: 'draw' as const, count: toAmount(count), targets })
+}
 
 export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'loseLife', amount: toAmount(input.amount), targets: input.targets })

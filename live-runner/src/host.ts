@@ -1,3 +1,4 @@
+import { OPTIONAL_DRAW_MODE_MESSAGE } from '../../shared/optionalDraw'
 import {
   appendSnapshot,
   apiKeyFromEnv,
@@ -122,6 +123,7 @@ export const restoreKernelWindow = (
     return true
   }
   prepareKernelPendingChoice(kernel, state)
+  settleKernelPriority(kernel, state)
   if (restoreChoice()) return
   state.actions = kernelActions(kernel.history.current())
   settleKernelPriority(kernel, state)
@@ -212,13 +214,13 @@ export const needsJudgment = (message: InboxMessage) =>
 
 type HostControlMessage = Extract<
   InboxMessage,
-  { type: 'hold' | 'priority-mode' }
+  { type: 'hold' | 'priority-mode' | typeof OPTIONAL_DRAW_MODE_MESSAGE }
 >
 
 export const isHostControlMessage = (
   message: InboxMessage,
 ): message is HostControlMessage =>
-  message.type === 'hold' || message.type === 'priority-mode'
+  message.type === 'hold' || message.type === 'priority-mode' || message.type === OPTIONAL_DRAW_MODE_MESSAGE
 
 /**
  * Host controls are preferences, not game actions. Apply them immediately so
@@ -229,16 +231,23 @@ export const applyHostControl = (
   seat: SeatId,
   message: HostControlMessage,
 ) => {
-  if (message.type === 'hold') {
-    state.holds = {
-      ...state.holds,
-      [seat]: message.until === 'my-turn',
+  switch (message.type) {
+    case OPTIONAL_DRAW_MODE_MESSAGE: {
+      const existing = state.optionalDrawPreferences?.[seat] ?? {}
+      const offer = state.topdeck?.seat === seat ? state.topdeck.optionalDraw : undefined
+      const label = offer?.key === message.key ? offer.label : existing[message.key]?.label
+      if (!label) return
+      state.optionalDrawPreferences = {
+        ...state.optionalDrawPreferences,
+        [seat]: { ...existing, [message.key]: { label, mode: message.mode } },
+      }
+      return
     }
-    return
-  }
-  state.alwaysStopOnPriority = {
-    ...state.alwaysStopOnPriority,
-    [seat]: message.always,
+    case 'hold':
+      state.holds = { ...state.holds, [seat]: message.until === 'my-turn' }
+      return
+    case 'priority-mode':
+      state.alwaysStopOnPriority = { ...state.alwaysStopOnPriority, [seat]: message.always }
   }
 }
 
@@ -855,7 +864,9 @@ export const runHost = async (options: {
             logFile,
             message.type === 'hold'
               ? `${seat} hold ${message.until}`
-              : `${seat} priority mode ${message.always ? 'always' : 'smart'}`,
+              : message.type === OPTIONAL_DRAW_MODE_MESSAGE
+                ? `${seat} optional draw mode ${message.mode}`
+                : `${seat} priority mode ${message.always ? 'always' : 'smart'}`,
           )
           controlQueue = controlQueue
             .then(async () => {

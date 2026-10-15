@@ -85,6 +85,8 @@ export type LiveWireV2 = {
     string?,
     string?,
   ]
+  od?: LiveTopdeck['optionalDraw']
+  op?: LiveSnapshot['optionalDrawPreferences']
   ir?: InteractionRequest
   b?: 1
   hd?: 1
@@ -454,7 +456,9 @@ export const compactLiveWire = (snapshot: LiveSnapshot): LiveWireV2 => {
       ]),
     ] as unknown as NonNullable<LiveWireV2['l']>
     if (snapshot.topdeck.interaction) wire.ir = snapshot.topdeck.interaction
+    if (snapshot.topdeck.optionalDraw) wire.od = snapshot.topdeck.optionalDraw
   }
+  if (snapshot.optionalDrawPreferences) wire.op = snapshot.optionalDrawPreferences
   if (snapshot.alwaysStopOnPriority) wire.b = 1
   if (snapshot.holding) wire.hd = 1
   if (snapshot.events?.length) {
@@ -665,6 +669,7 @@ export const expandLiveWire = (
     topdeck: Array.isArray(wire.l)
       ? {
           kind: wire.l[0],
+          optionalDraw: wire.od,
           cards: unpackCards(wire.l[1], lists, extras, tokens),
           destinations: wire.l[2],
           requirements: wire.l[3],
@@ -680,6 +685,7 @@ export const expandLiveWire = (
           interaction: wire.ir,
         }
       : undefined,
+    optionalDrawPreferences: wire.op,
     alwaysStopOnPriority: wire.b === 1 ? true : undefined,
     holding: wire.hd === 1 ? true : undefined,
     events: (wire.e ?? []).map((event) => ({

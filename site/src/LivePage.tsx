@@ -1,3 +1,6 @@
+import { OPTIONAL_DRAW_MODE, OPTIONAL_DRAW_MODE_MESSAGE } from '../../shared/optionalDraw'
+import type { OptionalDrawMode } from '../../shared/optionalDraw'
+import { OptionalDrawControl } from './OptionalDrawControl'
 import {
   useEffect,
   useMemo,
@@ -70,6 +73,7 @@ type InboxType =
   | 'topdeck'
   | 'advance'
   | 'act'
+  | typeof OPTIONAL_DRAW_MODE_MESSAGE
   | 'priority-mode'
   | 'hold'
 
@@ -537,6 +541,8 @@ export const LivePage = () => {
       }>
       requestId?: string
       revision?: number
+      optionalDrawKey?: string
+      optionalDrawMode?: OptionalDrawMode
       always?: boolean
       until?: 'my-turn' | 'off'
       kind?: AvailableAction['kind']
@@ -587,70 +593,102 @@ export const LivePage = () => {
     try {
       let message: object
       const action = playAction ? { actionId: snapshot?.actionId } : {}
-      if (type === 'ready') {
-        message = { type: 'ready' }
-      } else if (type === 'pass') {
-        message = { type: 'pass', ...action }
-      } else if (type === 'confirm') {
-        message = { type: 'confirm', text: plan.trim() || undefined, ...action }
-      } else if (type === 'mulligan') {
-        message = { type: 'mulligan', ...action }
-      } else if (type === 'keep') {
-        message = {
-          type: 'keep',
-          ...(extra.cards ? { cards: extra.cards } : {}),
-          ...(extra.cheat ? { cheat: true } : {}),
-          ...action,
+      switch (type) {
+        case 'ready': {
+          message = { type: 'ready' }
+          break
         }
-      } else if (type === 'topdeck') {
-        message = {
-          type: 'topdeck',
-          choices: extra.choices ?? [],
-          ...(extra.requestId ? { requestId: extra.requestId } : {}),
-          ...(extra.revision === undefined ? {} : { revision: extra.revision }),
-          ...action,
+        case 'pass': {
+          message = { type: 'pass', ...action }
+          break
         }
-      } else if (type === 'advance') {
-        message = { type: 'advance', ...action }
-      } else if (type === 'act') {
-        message = {
-          type: 'act',
-          kind: extra.kind,
-          objectId: extra.objectId,
-          ...(extra.targetObjectId ? { targetObjectId: extra.targetObjectId } : {}),
-          ...(extra.targetPlayerId ? { targetPlayerId: extra.targetPlayerId } : {}),
-          ...(extra.targetObjectIds ? { targetObjectIds: extra.targetObjectIds } : {}),
-          ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
-          ...(extra.castOption ? { castOption: extra.castOption } : {}),
-          ...(extra.phyrexianLife ? { phyrexianLife: extra.phyrexianLife } : {}),
-          ...(extra.door ? { door: extra.door } : {}),
-          ...(extra.face ? { face: extra.face } : {}),
-          ...(extra.text ? { text: extra.text } : {}),
-          ...(extra.mana ? { mana: extra.mana } : {}),
-          ...(extra.x !== undefined ? { x: extra.x } : {}),
-          ...(extra.attackers ? { attackers: extra.attackers } : {}),
-          ...(extra.blockers ? { blockers: extra.blockers } : {}),
-          ...action,
+        case 'confirm': {
+          message = { type: 'confirm', text: plan.trim() || undefined, ...action }
+          break
         }
-      } else if (type === 'priority-mode') {
-        message = priorityModeMessage(extra.always === true)
-      } else if (type === 'hold') {
-        message = holdMessage(extra.until ?? 'off')
-      } else if (type === 'join') {
-        const separator = plan.includes('|') ? '|' : '\n'
-        const split = plan.indexOf(separator)
-        const name = split < 0 ? plan.trim() : plan.slice(0, split).trim()
-        const deck = split < 0 ? '' : plan.slice(split + 1).trim()
-        message = { type: 'join', name, deck }
-      } else if (type === 'swap') {
-        message = { type: 'swap', with: plan.trim() }
-      } else if (type === 'pregame') {
-        message = {
-          type: 'pregame',
-          cards: plan.split(',').map((card) => card.trim()).filter(Boolean),
+        case 'mulligan': {
+          message = { type: 'mulligan', ...action }
+          break
         }
-      } else {
-        message = { type, text: plan, ...action }
+        case 'keep': {
+          message = {
+            type: 'keep',
+            ...(extra.cards ? { cards: extra.cards } : {}),
+            ...(extra.cheat ? { cheat: true } : {}),
+            ...action,
+          }
+          break
+        }
+        case 'topdeck': {
+          message = {
+            type: 'topdeck',
+            choices: extra.choices ?? [],
+            ...(extra.requestId ? { requestId: extra.requestId } : {}),
+            ...(extra.revision === undefined ? {} : { revision: extra.revision }),
+            ...action,
+          }
+          break
+        }
+        case 'advance': {
+          message = { type: 'advance', ...action }
+          break
+        }
+        case 'act': {
+          message = {
+            type: 'act',
+            kind: extra.kind,
+            objectId: extra.objectId,
+            ...(extra.targetObjectId ? { targetObjectId: extra.targetObjectId } : {}),
+            ...(extra.targetPlayerId ? { targetPlayerId: extra.targetPlayerId } : {}),
+            ...(extra.targetObjectIds ? { targetObjectIds: extra.targetObjectIds } : {}),
+            ...(extra.abilityId ? { abilityId: extra.abilityId } : {}),
+            ...(extra.castOption ? { castOption: extra.castOption } : {}),
+            ...(extra.phyrexianLife ? { phyrexianLife: extra.phyrexianLife } : {}),
+            ...(extra.door ? { door: extra.door } : {}),
+            ...(extra.face ? { face: extra.face } : {}),
+            ...(extra.text ? { text: extra.text } : {}),
+            ...(extra.mana ? { mana: extra.mana } : {}),
+            ...(extra.x !== undefined ? { x: extra.x } : {}),
+            ...(extra.attackers ? { attackers: extra.attackers } : {}),
+            ...(extra.blockers ? { blockers: extra.blockers } : {}),
+            ...action,
+          }
+          break
+        }
+        case OPTIONAL_DRAW_MODE_MESSAGE: {
+          message = { type, key: extra.optionalDrawKey, mode: extra.optionalDrawMode }
+          break
+        }
+        case 'priority-mode': {
+          message = priorityModeMessage(extra.always === true)
+          break
+        }
+        case 'hold': {
+          message = holdMessage(extra.until ?? 'off')
+          break
+        }
+        case 'join': {
+          const separator = plan.includes('|') ? '|' : '\n'
+          const split = plan.indexOf(separator)
+          const name = split < 0 ? plan.trim() : plan.slice(0, split).trim()
+          const deck = split < 0 ? '' : plan.slice(split + 1).trim()
+          message = { type: 'join', name, deck }
+          break
+        }
+        case 'swap': {
+          message = { type: 'swap', with: plan.trim() }
+          break
+        }
+        case 'pregame': {
+          message = {
+            type: 'pregame',
+            cards: plan.split(',').map((card) => card.trim()).filter(Boolean),
+          }
+          break
+        }
+        default: {
+          message = { type, text: plan, ...action }
+        }
       }
       await appendSnapshot(
         request.origin,
@@ -952,6 +990,19 @@ export const LivePage = () => {
           />
         </div>
       </header>
+
+      {snapshot.you && Object.keys(snapshot.optionalDrawPreferences ?? {}).length > 0 && (
+        <details className="mx-3 my-2 rounded-xl border border-white/10 p-3">
+          <summary className="cursor-pointer text-sm text-stone-300">Optional draws</summary>
+          <div className="mt-3 space-y-3">
+            {Object.entries(snapshot.optionalDrawPreferences ?? {}).map(([key, preference]) => (
+              <OptionalDrawControl key={key} label={preference.label} mode={preference.mode}
+                disabled={!canSend}
+                onChange={(mode) => void sendInbox(OPTIONAL_DRAW_MODE_MESSAGE, { optionalDrawKey: key, optionalDrawMode: mode })} />
+            ))}
+          </div>
+        </details>
+      )}
 
       {logOpen && snapshot.events && snapshot.events.length > 0 && (
         <div
@@ -1510,6 +1561,12 @@ export const LivePage = () => {
           decision={snapshot.topdeck}
           prompt={snapshot.waiting}
           pending={actionPending}
+          optionalDrawMode={snapshot.topdeck.optionalDraw
+            ? snapshot.optionalDrawPreferences?.[snapshot.topdeck.optionalDraw.key]?.mode ?? OPTIONAL_DRAW_MODE.ASK
+            : undefined}
+          onOptionalDrawModeChange={(mode) => void sendInbox(OPTIONAL_DRAW_MODE_MESSAGE, {
+            optionalDrawKey: snapshot.topdeck?.optionalDraw?.key, optionalDrawMode: mode,
+          })}
           onResolve={(choices, allocation) => void sendInbox('topdeck', {
             choices,
             ...(allocation ? { allocation } : {}),

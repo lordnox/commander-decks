@@ -208,7 +208,7 @@ const voteJudge = (
 }
 
 export const applyOptionSelection = (
-  { kernel, lobby, seat, message, decision, state }: ChoiceContext,
+  { kernel, lobby, seat, message, decision, state, deferSettlement }: ChoiceContext,
 ) => {
   const pending = pendingOptionSelection(state, seat)
   if (!pending || pending.id !== decision.kernel.selectionId) {
@@ -229,6 +229,7 @@ export const applyOptionSelection = (
   if (!result.ok) throw new Error(result.error)
   const name = lobby.occupants[seat]?.name ?? seat
   return closeKernelChoice(kernel, lobby, seat, {
+    deferSettlement,
     privateJudge: { [seat]: `You chose ${option.label}.` },
     judge: open && pending.action.kind === 'vote'
       ? voteJudge(lobby, open, pending.action.voter, option, !pendingVote(kernel.history.current()))

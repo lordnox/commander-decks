@@ -1,8 +1,12 @@
+import { OPTIONAL_DRAW_MODE } from '../../shared/optionalDraw'
+import { applyKernelChoice } from './kernelChoiceApply'
 import { availableActions } from '../../rules-engine/src/index'
 import type { LobbyState } from './lobby'
 import type { SeatId } from './protocol'
 import { kernelActions, kernelPriority, type KernelHandle } from './kernelHandle'
 import { prepareKernelPendingChoice } from './kernelChoicePrepare'
+
+const MAX_SETTLEMENT_STEPS = 64
 
 /**
  * Settle priority without involving a judge when the seat has no meaningful
@@ -15,9 +19,25 @@ export const settleKernelPriority = (kernel: KernelHandle, lobby: LobbyState) =>
   let passed = false
   let prepared = false
   let seenEvents = kernel.journal.events.length
-  for (let guard = 0; guard < 64; guard += 1) {
-    if (!lobby.topdeck && prepareKernelPendingChoice(kernel, lobby)) {
-      prepared = true
+  for (let guard = 0; guard < MAX_SETTLEMENT_STEPS; guard += 1) {
+    const opened = !lobby.topdeck && prepareKernelPendingChoice(kernel, lobby)
+    const decision = lobby.topdeck
+    const offer = decision?.optionalDraw
+    const mode = decision && offer
+      ? lobby.optionalDrawPreferences?.[decision.seat]?.[offer.key]?.mode : undefined
+    // Leave the final iteration answerable if a large chain exhausts the settlement budget.
+    if (decision && offer && mode && mode !== OPTIONAL_DRAW_MODE.ASK && guard < MAX_SETTLEMENT_STEPS - 1) {
+      const selected = mode === OPTIONAL_DRAW_MODE.ACCEPT ? offer.acceptSlot : offer.declineSlot
+      applyKernelChoice(kernel, lobby, decision.seat, {
+        type: 'topdeck', requestId: decision.requestId, revision: decision.revision,
+        choices: decision.cards.map((card, slot) => ({ card, slot, destination: slot === selected ? 'target' : 'skip' })),
+      }, { deferSettlement: true })
+      passed = true
+      current = kernel.history.current()
+      continue
+    }
+    if (lobby.topdeck) {
+      prepared = Boolean(opened)
       break
     }
     if (kernel.journal.events.length !== seenEvents) {
@@ -66,6 +86,7 @@ export const closeKernelChoice = (
   extra: {
     privateJudge?: LobbyState['privateJudge']
     judge?: string
+    deferSettlement?: boolean
   } = {},
 ) => {
   lobby.topdeck = undefined
@@ -76,6 +97,6 @@ export const closeKernelChoice = (
   lobby.waiting =
     `${lobby.occupants[kernelPriority(state) ?? seat]?.name ?? seat}: act, pass, or advance.`
   if (extra.judge) lobby.judge = extra.judge
-  settleKernelPriority(kernel, lobby)
+  if (!extra.deferSettlement) settleKernelPriority(kernel, lobby)
   return true
 }

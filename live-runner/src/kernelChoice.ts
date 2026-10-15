@@ -33,6 +33,7 @@ export type ChoiceContext = {
   message: TopdeckMessage
   decision: TopdeckDecision & { kernel: NonNullable<TopdeckDecision['kernel']> }
   state: GameState
+  deferSettlement?: boolean
 }
 
 /** Dialogs that are a plain yes or no, so the seat picks no cards. */

@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
@@ -149,11 +150,15 @@ describe('Homer remaining card plugins', () => {
         },
       },
     )
-    const next = resolveStack(server.rules, ok(server.rules(server.state, {
+    let next = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'playLand',
       seat: 'p1',
       objectId: named(server.state, 'Forest').id,
     })))
+    for (let index = 0; index < 2; index += 1) {
+      const choice = pendingOptionSelection(next, 'p1')!
+      next = resolveStack(server.rules, ok(server.rules(next, { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[0].id })))
+    }
     expect(next.zoneOrder.p1.hand.map((id) => next.objects[id].name)).toEqual(['First', 'Second'])
   })
 

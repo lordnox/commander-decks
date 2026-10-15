@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -51,7 +52,9 @@ describe('landfall', () => {
       battlefield: [card('Aesi, Tyrant of Gyre Strait', ['Creature'])],
       library: [card('Drawn', ['Instant'])],
     })
-    const next = playTopLand(server)
+    const waiting = playTopLand(server)
+    const choice = pendingOptionSelection(waiting, 'p1')!
+    const next = ok(server.rules(waiting, { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[0].id }))
     expect(next.zoneOrder.p1.hand.map((id) => next.objects[id].name)).toEqual(['Drawn'])
   })
 
