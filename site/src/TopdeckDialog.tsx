@@ -1,3 +1,6 @@
+import type { OptionalDrawMode } from '../../shared/optionalDraw'
+import { OPTIONAL_DRAW_MODE } from '../../shared/optionalDraw'
+import { OptionalDrawControl } from './OptionalDrawControl'
 import { useState } from 'react'
 import type { AllocationEntry } from '../../shared/interaction'
 import { distinctCardLabels, type TopdeckDestination } from '../../shared/liveTypes'
@@ -80,11 +83,15 @@ export const TopdeckDialog = ({
   prompt,
   pending,
   onResolve,
+  optionalDrawMode,
+  onOptionalDrawModeChange,
 }: {
   game: ReplayGame
   decision: LiveTopdeck
   prompt?: string
   pending: boolean
+  optionalDrawMode?: OptionalDrawMode
+  onOptionalDrawModeChange?: (mode: OptionalDrawMode) => void
   onResolve: (choices: Answer[], allocation?: AllocationAnswer) => void
 }) => {
   const discarding = decision.kind === 'discard'
@@ -94,7 +101,7 @@ export const TopdeckDialog = ({
   const targetingPlayers = decision.kind === 'target-players' || decision.kind === 'secret-vote'
   const sacrificingLands = decision.kind === 'sacrifice-lands'
   const sacrificing = decision.kind === 'sacrifice'
-  const optionalDraw = decision.kind === 'may-draw'
+  const optionalDraw = decision.kind === 'may-draw' || Boolean(decision.optionalDraw)
   const revealing = decision.kind === 'reveal'
   const cumulativeUpkeep = decision.kind === 'cumulative-upkeep'
   const voting = decision.kind === 'vote'
@@ -347,9 +354,17 @@ export const TopdeckDialog = ({
           {orderMatters && choices.length > 1
             ? ' The displayed order is the final order.'
             : ''}
-          {' Hover over or tap card art for a readable preview.'}
+          {!decision.optionalDraw && ' Hover over or tap card art for a readable preview.'}
         </p>
-        {decision.requirements && !searching && (
+        {decision.optionalDraw && onOptionalDrawModeChange && (
+          <div className="mt-3 space-y-2">
+            <OptionalDrawControl label={decision.optionalDraw.label}
+              mode={optionalDrawMode ?? OPTIONAL_DRAW_MODE.ASK} disabled={pending}
+              onChange={onOptionalDrawModeChange} />
+            <p className="text-xs text-stone-400">Applies to this ability for you in this game, including this choice. Change it later under Optional draws.</p>
+          </div>
+        )}
+        {decision.requirements && !searching && !decision.optionalDraw && (
           <p className="mt-2 text-xs text-gold-200">
             Required: {Object.entries(decision.requirements)
               .map(([destination, limits]) => {
@@ -397,7 +412,20 @@ export const TopdeckDialog = ({
         )}
         </div>
 
-        {allocation ? (
+        {decision.optionalDraw ? (
+          <div className="mt-5 flex flex-wrap gap-3">
+            {[decision.optionalDraw.acceptSlot, decision.optionalDraw.declineSlot].map((selected) => (
+              <button key={selected} type="button" disabled={pending}
+                className="rounded-xl bg-purple-200 px-4 py-2 font-bold text-ink-950 disabled:opacity-40"
+                onClick={() => onResolve(choices.map((choice) => ({
+                  card: choice.card, slot: choice.id,
+                  destination: choice.id === selected ? 'target' : 'skip',
+                })))}>
+                {decision.cards[selected]}
+              </button>
+            ))}
+          </div>
+        ) : allocation ? (
           <div className="mt-5 space-y-3">
             <p className="text-sm text-stone-300">Allocate {allocation.total} total, at least {allocation.minEach} each.</p>
             {allocation.entries.map((entry) => (
@@ -519,7 +547,7 @@ export const TopdeckDialog = ({
           })}
         </ol>}
 
-        {(choices.length > 1 || searching || allocation) && (
+        {!decision.optionalDraw && (choices.length > 1 || searching || allocation) && (
           <button
             type="button"
             onClick={() => onResolve(answerFor(choices), allocation ? allocationAnswerFor(allocation, allocationValues) : undefined)}

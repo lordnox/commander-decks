@@ -1,3 +1,4 @@
+import type { OptionalDrawOffer, OptionalDrawPreference } from '../../shared/optionalDraw'
 import type {
   LiveInteractionMetadata,
   TopdeckDestination,
@@ -29,6 +30,7 @@ export type TopdeckDecision = LiveInteractionMetadata & {
   kind: string
   cards: string[]
   source?: string
+  optionalDraw?: OptionalDrawOffer
   /** Authoritative candidate identities; names are presentation only. */
   candidateIds?: string[]
   candidatePins?: Array<{ id: string; incarnation?: number; zone?: string }>
@@ -118,6 +120,7 @@ export type LobbyState = {
   actions: SeatActions
   actionIds: SeatActionIds
   opening?: { seat: SeatId }
+  optionalDrawPreferences?: Partial<Record<SeatId, Record<string, OptionalDrawPreference>>>
   topdeck?: TopdeckDecision
   human?: SeatId
   alwaysStopOnPriority: Partial<Record<SeatId, boolean>>
@@ -293,6 +296,7 @@ export const restoreLobby = (
     actions: actionMigrated ? {} : saved.actions,
     actionIds: actionMigrated ? emptyActionIds() : saved.actionIds,
     alwaysStopOnPriority: saved.alwaysStopOnPriority ?? {},
+    optionalDrawPreferences: saved.optionalDrawPreferences ?? {},
     holds: saved.holds ?? {},
     pendingKernelPlans: saved.pendingKernelPlans ?? {},
   }

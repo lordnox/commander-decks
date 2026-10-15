@@ -388,6 +388,7 @@ export const liveSnapshotFromState = (options: {
       ? {
           kind: lobby.topdeck.kind,
           cards: lobby.topdeck.cards,
+          optionalDraw: lobby.topdeck.optionalDraw,
           requestId: lobby.topdeck.requestId,
           revision: lobby.topdeck.revision,
           phase: lobby.topdeck.phase,
@@ -404,6 +405,7 @@ export const liveSnapshotFromState = (options: {
     alwaysStopOnPriority: viewer
       ? lobby.alwaysStopOnPriority[viewer]
       : undefined,
+    optionalDrawPreferences: viewer ? lobby.optionalDrawPreferences?.[viewer] : undefined,
     holding: viewer ? lobby.holds[viewer] : undefined,
     events: options.events ?? [],
     turn: comparable.turn,

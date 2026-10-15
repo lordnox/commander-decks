@@ -1,3 +1,4 @@
+import type { OptionalDrawOffer, OptionalDrawPreference } from '../../shared/optionalDraw'
 import type { AvailableAction } from '../../rules-engine/src/actions'
 import type { GameState } from '../../rules-engine/src/types'
 import type {
@@ -79,6 +80,7 @@ export type LiveOpening = {
 }
 
 export type LiveTopdeck = LiveInteractionMetadata & {
+  optionalDraw?: OptionalDrawOffer
   kind: string
   cards: Array<string | number>
   count?: number
@@ -101,6 +103,7 @@ export type LiveSnapshot = {
   legalActs?: AvailableAction[]
   opening?: LiveOpening
   topdeck?: LiveTopdeck
+  optionalDrawPreferences?: Record<string, OptionalDrawPreference>
   alwaysStopOnPriority?: boolean
   /** The viewer asked to be passed for until their own turn. */
   holding?: boolean
@@ -460,6 +463,7 @@ export const encodePublicLivePayload = async (snapshot: LiveSnapshot) => {
   const {
     opening: _opening,
     topdeck: _topdeck,
+    optionalDrawPreferences: _optionalDrawPreferences,
     alwaysStopOnPriority: _alwaysStopOnPriority,
     holding: _holding,
     actions: _actions,

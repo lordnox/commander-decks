@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
@@ -64,7 +65,9 @@ describe('additionalLandPlay', () => {
       objectId: server.state.zoneOrder.p1.hand[0],
     })))
     expect(first.players.p1.landPlaysAllowed).toBe(2)
-    const second = ok(server.rules(first, {
+    const choice = pendingOptionSelection(first, 'p1')!
+    const declined = ok(server.rules(first, { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[1].id }))
+    const second = ok(server.rules(declined, {
       type: 'playLand',
       seat: 'p1',
       objectId: first.zoneOrder.p1.hand[0],

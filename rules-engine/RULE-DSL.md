@@ -2205,11 +2205,22 @@ Use distinct helpers for distinct procedures:
 | Helper | Meaning and timing |
 | --- | --- |
 | `and(a, b, ...)` | Execute every instruction in written order inside one resolution; lower to `sequence`. A later action does not require the earlier one to succeed. |
+| `may(instruction, chooser?)` | Offer Accept or Decline during resolution; default chooser is the controller. Lowers to `chooseInstructions` with an empty decline branch. `may(draw(1))` draws one card for the controller; `may(sequence(a, b))` makes the whole group optional. |
 | `or(a, b)` | Choose one action during resolution; shorthand for a choose-one `choose` with the execution controller as chooser. |
 | `choose({ chooser, count: 1, options })` | Explicit resolution-time choice among instruction programs, with a typed chooser and legal options. |
 | `withTargets(clauses, ...instructions)` | Return a configuration with `decisions.targets` and those instructions; targets are chosen during announcement or trigger placement. |
 | `chooseModes(...)` with `modes` | Announcement-time mode selection, including selected modes' own target clauses. |
 | `ifThen(condition, branches)` | Follow a condition/result automatically; it does not ask a player to choose a branch. |
+
+The live UI offers **Ask**, **Always accept**, and **Always decline** for a
+standalone optional draw. Preferences belong to a seat and a specific source
+incarnation/ability, last for that game, and survive host restart. Set them in
+the draw dialog; change them later under **Optional draws**. The host submits
+normal journaled choice answers, including when the browser is disconnected.
+Only a whole, single-instruction program choosing between controller draws and
+an empty branch qualifies. Mixed programs, payments, other drawers, modal
+programs, and choices with subsequent effects keep asking. Existing legacy
+`mayDraw` dialogs are not automatically classified by their name or prompt.
 
 For example, this hypothetical entry ability draws and gains life:
 

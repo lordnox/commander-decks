@@ -1,3 +1,4 @@
+import type { OptionalDrawOffer } from '../../../shared/optionalDraw'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
@@ -69,6 +70,7 @@ export const advanceCopySlot = (draft: Draft, frame: CanonicalResolutionFrame, r
 }
 
 export type PendingOptionSelection = {
+  optionalDraw?: OptionalDrawOffer
   id: string
   seat: PlayerId
   sourceId?: string

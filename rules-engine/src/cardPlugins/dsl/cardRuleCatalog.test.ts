@@ -233,7 +233,10 @@ test('catalog Aesi composes extra land plays and a land-enter draw without legac
   expect(definition.definition.abilities[1]).toMatchObject({
     kind: 'triggered',
     on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } },
-    instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }],
+    instructions: [{ kind: 'chooseInstructions', options: [
+      { instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+      { instructions: [] },
+    ] }],
   })
   expect(cardTemplateDefaultsFor('Aesi, Tyrant of Gyre Strait')).toMatchObject({
     types: ['Creature'],

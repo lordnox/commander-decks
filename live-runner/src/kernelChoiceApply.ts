@@ -104,6 +104,7 @@ export const applyKernelChoice = (
   lobby: LobbyState,
   seat: SeatId,
   message: TopdeckMessage,
+  options: { deferSettlement?: boolean } = {},
 ) => {
   const liveDecision = lobby.topdeck
   if (!liveDecision?.kernel) {
@@ -162,6 +163,7 @@ export const applyKernelChoice = (
     message,
     decision: { ...decision, kernel: decision.kernel },
     state: kernel.history.current(),
+    deferSettlement: options.deferSettlement,
   }
   // Cumulative upkeep answers with opponent names, not with the offered cards.
   try {
