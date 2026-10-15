@@ -158,10 +158,14 @@ export const discardOffer = (state: GameState, waiting: WaitingDiscard): Offer =
 export const selectCardsOffer = (waiting: WaitingSelectCards): Offer => {
   const { selection } = waiting
   const zone = selection.fromZone ?? (selection.kind === 'choose' ? undefined : 'hand')
-  const unseenOrder = selection.fromSeat !== undefined
+  const librarySearch = zone === 'library'
+    && (selection.viewLibrary === true
+      || (selection.kind === 'choose' && selection.canonicalChoice !== undefined))
+  const opponentHiddenZone = selection.fromSeat !== undefined
     && selection.fromSeat !== selection.seat
     && (zone === 'hand' || zone === 'library')
     && (selection.kind === 'choose' || selection.kind === 'discard' || selection.kind === 'reveal')
+  const unseenOrder = librarySearch || opponentHiddenZone
   const offer = { ids: waiting.objectIds, names: waiting.names }
   return unseenOrder ? sortedByName(offer) : offer
 }
@@ -388,7 +392,10 @@ export const openTopdeck = (
     cancellation: lobby.topdeck.cancellation,
     selection,
   }
-  interactions.open(lobby.topdeck.interaction, structuredClone(lobby.topdeck))
+  const continuation = structuredClone(lobby.topdeck)
+  // Full-library names are a temporary chooser view, not answer state to retain.
+  delete continuation.library
+  interactions.open(lobby.topdeck.interaction, continuation)
   lobby.interactionLedger = interactions.snapshot()
   lobby.actions = { [decision.seat]: ['topdeck'] }
   lobby.waiting = prompts.waiting

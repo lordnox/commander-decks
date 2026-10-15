@@ -7,7 +7,7 @@ import {
   reviseContinuousEffects,
   setStats,
 } from '../continuousEffects'
-import { evaluateAmount } from './compiler/evaluate'
+import { evaluateStatDelta } from './compiler/evaluate'
 import { amountEvaluationContext, evaluateObjectSelector } from './compiler/runtime'
 import { syncStaticPreventionInstances } from '../../replacement/prevention'
 import {
@@ -102,8 +102,8 @@ const syncModifyStats = (
     source: captureObject(source),
   }
   const amountContext = amountEvaluationContext(context)
-  const power = evaluateAmount(effect.power, amountContext)
-  const toughness = evaluateAmount(effect.toughness, amountContext)
+  const power = evaluateStatDelta(effect.power, amountContext)
+  const toughness = evaluateStatDelta(effect.toughness, amountContext)
   const targetIds = new Set(
     evaluateObjectSelector(effect.targets, context)
       .filter((object) => object.zone === 'battlefield')

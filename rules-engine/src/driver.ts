@@ -8,6 +8,7 @@ import {
   evaluatePlayerReference,
   evaluatePlayerSelector,
   evaluateRuntimeAmount,
+  evaluateRuntimeStatDelta,
   amountEvaluationContext,
   evaluateCondition,
   evaluateStackItemSelector,
@@ -42,6 +43,7 @@ import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
 import { ceaseToExist } from './rules/spellCopies'
 import { captureLexicalBindings, generatedAbilitySnapshot, occurrenceBindingsForPattern } from './cardPlugins/dsl/generatedPrograms'
+import { runRevealUntil, storeRevealUntilBindings } from './cardPlugins/dsl/revealUntilExecution'
 import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
 
@@ -145,6 +147,7 @@ const preflightInstructions = (
         return
       case 'chooseInstructions':
       case 'chooseCards':
+      case 'revealUntil':
         return
       default:
         throw new Error(`${instructionPath}: unsupported canonical instruction`)
@@ -682,7 +685,12 @@ const actionEvents = (
     case 'move': {
       const targets = objectActions(instruction.targets, context)
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'move' }
-      return targets.map((object) => ({ type: 'move' as const, objectId: object.id, to: instruction.to }))
+      return targets.map((object) => ({
+        type: 'move' as const,
+        objectId: object.id,
+        to: instruction.to,
+        ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
+      }))
     }
     case 'phase': {
       const targets = objectActions(instruction.targets, context)
@@ -906,8 +914,8 @@ const actionEvents = (
       const effect = instruction.effect.kind === 'pump'
         ? {
             kind: 'pump' as const,
-            power: { kind: 'constant' as const, value: availableAmount(instruction.effect.power, context) ?? 0 },
-            toughness: { kind: 'constant' as const, value: availableAmount(instruction.effect.toughness, context) ?? 0 },
+            power: { kind: 'constant' as const, value: evaluateRuntimeStatDelta(instruction.effect.power, context) },
+            toughness: { kind: 'constant' as const, value: evaluateRuntimeStatDelta(instruction.effect.toughness, context) },
           }
         : structuredClone(grantEffect ?? instruction.effect)
       const grantExecution = grant && grantChoices && (
@@ -1043,8 +1051,11 @@ export const prepareResolutionStep = (draft: Draft) => {
           seat: chooser,
           sourceId: frame.source.ref.objectId,
           source: frame.source.snapshot.name,
-          prompt: 'Choose an instruction program.',
-          options: instruction.options.map((_option, optionIndex) => ({ id: `instruction:${optionIndex}`, label: `Option ${optionIndex + 1}` })),
+          prompt: instruction.prompt ?? 'Choose an instruction program.',
+          options: instruction.options.map((option, optionIndex) => ({
+            id: `instruction:${optionIndex}`,
+            label: option.label ?? `Option ${optionIndex + 1}`,
+          })),
           action: {
             kind: 'canonicalInstructionChoice',
             stackId: frame.stackId,
@@ -1083,6 +1094,7 @@ export const prepareResolutionStep = (draft: Draft) => {
             : 'Choose cards for the Rule DSL program.',
           destinations: ['target', 'skip'],
           canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: instruction.bindChoice },
+          ...(instruction.viewLibrary ? { viewLibrary: true as const } : {}),
           ...(fromZone ? {
             fromZone,
             fromSeat: candidates[0]?.owner ?? chooser,
@@ -1094,6 +1106,22 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.phase = 'committing'
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'revealUntil') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const stepped = runRevealUntil(
+        draft,
+        context,
+        instruction,
+        { id: frame.source.ref.objectId, name: frame.source.snapshot.name },
+      )
+      frame.choices = storeRevealUntilBindings(frame.choices, stepped.bindings, instruction)
+      if (('waiting' in stepped) || stepped.events.length > 0) {
+        frame.phase = 'committing'
+        frame.pendingEvents = structuredClone(stepped.events)
+        return { kind: 'events', events: stepped.events }
+      }
+      continue
     }
     if (instruction.kind === 'payOptional') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)

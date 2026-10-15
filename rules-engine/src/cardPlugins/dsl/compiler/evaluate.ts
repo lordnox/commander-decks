@@ -12,6 +12,13 @@ const runtimeAmount = (value: number, source: string): number => {
   return value
 }
 
+const runtimeStatDelta = (value: number, source: string): number => {
+  if (!Number.isSafeInteger(value) || value < -MAX_RUNTIME_AMOUNT || value > MAX_RUNTIME_AMOUNT) {
+    throw new RuleDslEvaluationError(`${source} produced ${String(value)}; stat deltas must be safe integers from -${MAX_RUNTIME_AMOUNT} to ${MAX_RUNTIME_AMOUNT}`)
+  }
+  return value
+}
+
 export const evaluateAmount = (
   expression: Amount,
   context: AmountEvaluationContext,
@@ -36,6 +43,13 @@ export const evaluateAmount = (
     )
   }
 }
+
+export const evaluateStatDelta = (
+  expression: Amount,
+  context: AmountEvaluationContext,
+): number => expression.kind === 'constant'
+  ? runtimeStatDelta(expression.value, 'stat delta')
+  : evaluateAmount(expression, context)
 
 export const evaluateTargetBounds = (
   clause: TargetClause,

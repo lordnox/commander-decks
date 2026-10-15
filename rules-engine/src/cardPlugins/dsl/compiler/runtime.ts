@@ -29,7 +29,7 @@ import type {
   TargetReference,
 } from '../schema/v1'
 import type { DistributionAllocation } from './modes'
-import { evaluateAmount } from './evaluate'
+import { evaluateAmount, evaluateStatDelta } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
 
 export type BoundRecipient =
@@ -232,10 +232,12 @@ const matchesObjectFilter = (
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
+  if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
   if (filter.controller && object.controller !== referencedPlayer(filter.controller, context)) return false
   if (filter.owner && object.owner !== referencedPlayer(filter.owner, context)) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
+  if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
   return true
 }
 
@@ -264,6 +266,7 @@ const matchesStackItemFilter = (
     const source = context.state.objects[item.objectId]
     if (!source?.types.includes(filter.type)) return false
   }
+  if (filter.color && !context.state.objects[item.objectId]?.colors.includes(filter.color)) return false
   if (filter.other && item.id === context.stackItemId) return false
   if (filter.controller && item.controller !== stackController(filter.controller, context)) return false
   return true
@@ -332,6 +335,11 @@ export const evaluateRuntimeAmount = (
   context: RuleDslRuntimeContext,
 ) => evaluateAmount(expression, amountEvaluationContext(context))
 
+export const evaluateRuntimeStatDelta = (
+  expression: Amount,
+  context: RuleDslRuntimeContext,
+) => evaluateStatDelta(expression, amountEvaluationContext(context))
+
 export const evaluateCondition = (
   condition: Condition,
   context: RuleDslRuntimeContext,
@@ -357,3 +365,9 @@ export const evaluateCondition = (
     case 'not': return !evaluateCondition(condition.condition, context)
   }
 }
+
+export const objectMatchesSelector = (
+  object: GameObject,
+  selector: ObjectSelector,
+  context: RuleDslRuntimeContext,
+) => !object.phasedOut && matchesObjectFilter(object, selector.filter, context)

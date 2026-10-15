@@ -154,7 +154,7 @@ for (const colossusName of COLOSSI) {
       const server = game({
         hands: {
           p1: [deckCard(colossusName)],
-          p2: [cardTemplate('Counterspell', { types: ['Instant'], manaCost: '{U}{U}' })],
+          p2: [cardTemplate('Counterspell')],
         },
       })
       let state = structuredClone(server.state)
@@ -170,7 +170,7 @@ for (const colossusName of COLOSSI) {
         type: 'castSpell',
         seat: 'p2',
         objectId: named(state, 'Counterspell').id,
-        targets: [{ kind: 'object', objectId: named(state, colossusName).id }],
+        targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === named(state, colossusName).id)!.id }],
       }))
       state = ok(server.rules(state, { type: 'resolveTop' }))
       expectInLibrary(state)

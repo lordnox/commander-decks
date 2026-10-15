@@ -16,6 +16,7 @@ import {
   projectForViewer,
   recordAccepted,
   restoreJournal,
+  waitingSelectCards,
   type GameEvent,
   type GameState,
 } from '../../rules-engine/src/index'
@@ -29,7 +30,6 @@ import { HOMER_NAME, homer } from '../../rules-engine/src/cardPlugins/homer'
 import { activated as activatedPlugin } from '../../rules-engine/src/cardPlugins/activated'
 import { choiceEffects } from '../../rules-engine/src/cardPlugins/choiceEffects'
 import { dredge } from '../../rules-engine/src/cardPlugins/dredge'
-import { abundance } from '../../rules-engine/src/cardPlugins/abundance'
 import { chosenColor } from '../../rules-engine/src/cardPlugins/chosenColor'
 import { chooseColorOnEnter, enchantedManaBoost } from '../../rules-engine/src/cardPlugins/effects'
 import { hiddenPiles } from '../../rules-engine/src/cardPlugins/hiddenPiles'
@@ -106,7 +106,7 @@ import {
 } from './kernelHost'
 import { applyKernelConcession } from './host'
 import { liveSnapshotFromState } from './kernelView'
-import { openTopdeck, type TopdeckMessage } from './kernelChoice'
+import { openTopdeck, selectCardsOffer, type TopdeckMessage } from './kernelChoice'
 import type { SeatId } from './protocol'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
@@ -1116,7 +1116,7 @@ describe('kernel host journal', () => {
           p1: [cardTemplate('Drawn Card', { types: ['Sorcery'] })],
         },
       },
-      { random: () => 0.5, cardPlugins: [abundance] },
+      { random: () => 0.5 },
     )
     const kernel = handleFor(server.rules, server.state)
     expect(kernel.dispatch({ type: 'draw', seat: 'p1' }).ok).toBe(true)
@@ -1858,23 +1858,23 @@ describe('kernel host journal', () => {
     expect(historyForViewer(kernel, lobby, 'p1')).toHaveLength(32)
   })
 
-  test('every library search shares one private dialog and finishes the spell', () => {
+  test('a canonical library search opens one private choice and finishes the spell', () => {
     const { kernel, lobby, spellId } = searchGame()
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck).toMatchObject({
       seat: 'p1',
-      kind: 'search',
-      destinations: ['library', 'battlefield'],
-      requirements: { battlefield: { min: 1, max: 1 } },
+      kind: 'choose',
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 0, max: 1 } },
     })
     expect(lobby.topdeck?.cards).toEqual(['Forest', 'Taiga'])
 
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: 'Taiga', destination: 'battlefield' },
-        { card: 'Forest', destination: 'library' },
+        { card: 'Taiga', destination: 'target' },
+        { card: 'Forest', destination: 'skip' },
       ],
     }))).toBe(true)
 
@@ -1885,6 +1885,8 @@ describe('kernel host journal', () => {
     expect(state.stack).toHaveLength(0)
     expect(searchingSeat(state)).toBeUndefined()
     expect(lobby.topdeck).toBeUndefined()
+    expect(projectForViewer(state, 'p1').zoneOrder.p1.library).toEqual([])
+    expect(projectForViewer(state, 'p2').zoneOrder.p1.library).toEqual([])
   })
 
   test('Joint Exploration put-land dispatches a kernel move', () => {
@@ -2152,7 +2154,7 @@ describe('kernel host journal', () => {
     const { kernel, lobby } = searchGame()
     prepareKernelPendingChoice(kernel, lobby)
 
-    // What an older host published before basics carried their Basic supertype.
+    // Simulate a saved host prompt with an empty candidate presentation.
     lobby.topdeck = { ...lobby.topdeck!, cards: [] }
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(lobby.topdeck?.cards).toEqual(['Forest', 'Taiga'])
@@ -2223,6 +2225,11 @@ describe('kernel host journal', () => {
     // Only Taiga has a Forest type, but looking at the library is free.
     expect(lobby.topdeck?.cards).toEqual(['Taiga'])
     expect(lobby.topdeck?.library).toEqual(['Mountain', 'Taiga'])
+    expect(lobby.topdeck?.interaction?.selection).toMatchObject({
+      kind: 'selectCards',
+      candidates: [{ name: 'Taiga' }],
+    })
+    expect(JSON.stringify(lobby.interactionLedger)).not.toContain('Mountain')
   })
 
   test('the searching seat is the only viewer who sees the candidates', () => {
@@ -2240,6 +2247,7 @@ describe('kernel host journal', () => {
     expect(snapshotFor('p2').topdeck).toBeUndefined()
     expect(JSON.stringify(snapshotFor('p2'))).not.toContain('Taiga')
     expect(snapshotFor('p1').topdeck?.cards).toEqual(['Forest', 'Taiga'])
+    expect(snapshotFor('p1').topdeck?.library).toEqual(['Forest', 'Taiga'])
   })
 
   test('a restarted host rebuilds the open search instead of resolving past it', () => {
@@ -2251,7 +2259,7 @@ describe('kernel host journal', () => {
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(settleKernelPriority(kernel, restarted)).toBe(true)
-    expect(restarted.topdeck).toMatchObject({ seat: 'p1', kind: 'search' })
+    expect(restarted.topdeck).toMatchObject({ seat: 'p1', kind: 'choose', kernel: { stage: 'select-cards' } })
     expect(kernel.journal.events.length).toBe(events)
   })
 
@@ -2272,11 +2280,11 @@ describe('kernel host journal', () => {
     expect(() => applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
       choices: [
-        { card: 'Taiga', destination: 'battlefield' },
-        { card: 'Forest', destination: 'battlefield' },
+        { card: 'Taiga', destination: 'target' },
+        { card: 'Forest', destination: 'target' },
       ],
-    }))).toThrow('Choose 1 card(s)')
-    expect(searchingSeat(kernel.history.current())).toBe('p1')
+    }))).toThrow('invalid card selection')
+    expect(waitingSelectCards(kernel.history.current(), 'p1')).toBeDefined()
   })
 
   test('Fabled Passage untaps its find once the fourth land enters', () => {
@@ -3879,6 +3887,24 @@ describe('each-player and cost live choices', () => {
 })
 
 describe('same-named candidates are picked by position', () => {
+  test('a top-of-library choice preserves its revealed order', () => {
+    const waiting = {
+      selection: {
+        id: 'scry-1',
+        seat: 'p1',
+        kind: 'scry' as const,
+        count: 2,
+        candidates: ['taiga', 'forest'],
+        fromZone: 'library' as const,
+      },
+      objectIds: ['taiga', 'forest'],
+      names: ['Taiga', 'Forest'],
+      count: 2,
+    }
+
+    expect(selectCardsOffer(waiting).names).toEqual(['Taiga', 'Forest'])
+  })
+
   test('a battlefield pick exiles the chosen controller\'s Forest, not the first one', () => {
     const server = createServerGame(commanderRules, {
       battlefield: {
@@ -4117,8 +4143,8 @@ describe('same-named candidates are picked by position', () => {
     expect(applyKernelChoice(kernel, lobby, 'p1', {
       type: 'topdeck',
       choices: [
-        { card: 'Forest', slot: 0, destination: 'library' },
-        { card: 'Forest', slot: 1, destination: 'battlefield' },
+        { card: 'Forest', slot: 0, destination: 'skip' },
+        { card: 'Forest', slot: 1, destination: 'target' },
       ],
     })).toBe(true)
 
@@ -4195,20 +4221,22 @@ describe('same-named candidates are picked by position', () => {
       kernel.history.current().zoneOrder.p1.library
 
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
-    // Name-sorted; namesakes keep their library order, which shows nothing new.
+    // Candidate names are sorted; the separate library view is also name-sorted.
     expect(lobby.topdeck?.cards).toEqual(['Forest', 'Forest', 'Taiga', 'Taiga'])
+    expect(lobby.topdeck?.library).toEqual(['Forest', 'Forest', 'Taiga', 'Taiga'])
     const restarted = createLobby()
     restarted.phase = 'play'
     expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
     expect(restarted.topdeck?.cards).toEqual(lobby.topdeck?.cards)
+    expect(restarted.topdeck?.library).toEqual(lobby.topdeck?.library)
 
     expect(applyKernelChoice(kernel, restarted, 'p1', {
       type: 'topdeck',
       choices: [
-        { card: 'Forest', slot: 0, destination: 'library' },
-        { card: 'Forest', slot: 1, destination: 'library' },
-        { card: 'Taiga', slot: 2, destination: 'library' },
-        { card: 'Taiga', slot: 3, destination: 'battlefield' },
+        { card: 'Forest', slot: 0, destination: 'skip' },
+        { card: 'Forest', slot: 1, destination: 'skip' },
+        { card: 'Taiga', slot: 2, destination: 'skip' },
+        { card: 'Taiga', slot: 3, destination: 'target' },
       ],
     })).toBe(true)
 

@@ -99,12 +99,46 @@ describe('staticModifierLifecycle', () => {
     expect(cast.ok).toBe(true)
     if (!cast.ok) return
     const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    if (!resolved.ok) throw new Error(resolved.error)
     expect(resolved.ok).toBe(true)
-    if (!resolved.ok) return
     expect(resolved.state.objects[bear.id].power).toBe(6)
     const bounced = server.rules(resolved.state, { type: 'move', objectId: lord.id, to: 'hand' })
     expect(bounced.ok).toBe(true)
     if (!bounced.ok) return
     expect(bounced.state.objects[bear.id].power).toBe(5)
+  })
+
+  test('a negative temporary pump applies through the turn and expires at cleanup', () => {
+    const reduction = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [] },
+      instructions: [createEffect({
+        targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
+        effect: pumpEffect(-5, -5),
+        duration: untilCleanup(),
+      })],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Creature fixture', { types: ['Creature'], power: 6, toughness: 6 })] },
+      hands: { p1: [cardTemplate('Temporary effect fixture', {
+        types: ['Instant'], manaCost: '{0}', ruleDefinition: reduction,
+      })] },
+    }, { random: () => 0 })
+    const creature = Object.values(server.state.objects).find((object) => object.name === 'Creature fixture')!
+    const spell = Object.values(server.state.objects).find((object) => object.name === 'Temporary effect fixture')!
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id })
+    expect(cast.ok).toBe(true)
+    if (!cast.ok) return
+    const resolved = server.rules(cast.state, { type: 'resolveTop' })
+    if (!resolved.ok) throw new Error(resolved.error)
+    expect(resolved.state.objects[creature.id]).toMatchObject({ power: 1, toughness: 1 })
+
+    const cleanup = server.rules({ ...resolved.state, step: 'end', priority: 'p1', passedInRow: [] }, { type: 'advanceStep' })
+    expect(cleanup.ok).toBe(true)
+    if (!cleanup.ok) return
+    expect(cleanup.state.step).toBe('cleanup')
+    expect(cleanup.state.objects[creature.id]).toMatchObject({ power: 6, toughness: 6 })
   })
 })

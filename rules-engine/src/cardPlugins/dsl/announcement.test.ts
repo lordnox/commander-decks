@@ -9,11 +9,18 @@ import {
   objects,
   players,
   variable,
+  activated,
   discardCost,
+  draw,
+  lifeCost,
+  ref,
+  sacrificeCost,
+  spell,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
 } from './v1'
+import { beginActivatedAnnouncement } from './compiler/announcement'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
@@ -162,6 +169,86 @@ describe('announcement transactions', () => {
     expect(adjusted.state.players.p1.mana.C).toBe(1)
   })
 
+  test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [manaCost('{1}{B/P}{B/P}')],
+      decisions: { targets: [] },
+      instructions: [],
+    })])))
+    const phyrexianCases = [
+      { black: 2, phyrexianLife: undefined, ok: true, expectedLife: 40, expectedBlack: 0 },
+      { black: 1, phyrexianLife: [0], ok: true, expectedLife: 38, expectedBlack: 0 },
+      { black: 0, phyrexianLife: [0, 1], ok: true, expectedLife: 36, expectedBlack: 0 },
+      { black: 0, phyrexianLife: undefined, ok: false, expectedLife: 40, expectedBlack: 0 },
+      { black: 0, phyrexianLife: [0, 0], ok: false, expectedLife: 40, expectedBlack: 0 },
+      { black: 0, phyrexianLife: [0, 1], life: 3, ok: false, expectedLife: 3, expectedBlack: 0 },
+    ] as const
+
+    for (const entry of phyrexianCases) {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: { p1: [cardTemplate('Phyrexian fixture spell', {
+          types: ['Instant'], manaCost: '{1}{B/P}{B/P}', ruleDefinition: definition,
+        })] },
+      }, { random: () => 0 })
+      server.state.players.p1.mana.C = 1
+      server.state.players.p1.mana.B = entry.black
+      if ('life' in entry) server.state.players.p1.life = entry.life
+      const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Phyrexian fixture spell')!
+      const cast = server.rules(server.state, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: spellObject.id,
+        ...(entry.phyrexianLife !== undefined ? { phyrexianLife: [...entry.phyrexianLife] } : {}),
+      })
+      expect(cast.ok).toBe(entry.ok)
+      if (!cast.ok) continue
+      expect(cast.state.players.p1.life).toBe(entry.expectedLife)
+      expect(cast.state.players.p1.mana.B).toBe(entry.expectedBlack)
+      expect(cast.state.players.p1.mana.C).toBe(0)
+    }
+  })
+
+  test('alternative costs can mix mana and life while charging the selected amounts', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([spell({
+      costs: [manaCost('{1}{B}{B}')],
+      alternativeCosts: [
+        [manaCost('{1}{B}'), lifeCost(2)],
+        [manaCost('{1}'), lifeCost(4)],
+      ],
+      decisions: { targets: [] },
+      instructions: [],
+    })])))
+    const cases = [
+      { alternative: undefined, black: 2, expectedLife: 40, expectedBlack: 0 },
+      { alternative: 0, black: 1, expectedLife: 38, expectedBlack: 0 },
+      { alternative: 1, black: 0, expectedLife: 36, expectedBlack: 0 },
+    ] as const
+
+    for (const entry of cases) {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        hands: { p1: [cardTemplate('Mixed-cost fixture spell', {
+          types: ['Instant'], manaCost: '{1}{B}{B}', ruleDefinition: definition,
+        })] },
+      }, { random: () => 0 })
+      server.state.players.p1.mana.C = 1
+      server.state.players.p1.mana.B = entry.black
+      const spellObject = Object.values(server.state.objects).find((object) => object.name === 'Mixed-cost fixture spell')!
+      const cast = server.rules(server.state, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: spellObject.id,
+        ...(entry.alternative !== undefined ? { selectedAlternativeCost: entry.alternative } : {}),
+      })
+      expect(cast.ok).toBe(true)
+      if (!cast.ok) continue
+      expect(cast.state.players.p1.life).toBe(entry.expectedLife)
+      expect(cast.state.players.p1.mana.B).toBe(entry.expectedBlack)
+      expect(cast.state.players.p1.mana.C).toBe(0)
+    }
+  })
+
   test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
       kind: 'spell',
@@ -185,5 +272,71 @@ describe('announcement transactions', () => {
     })
     expect(result.ok).toBe(false)
     expect(result.state.players.p1.life).toBe(40)
+  })
+
+  test('activated sacrifice of the source needs no explicit cost choice', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [manaCost('{3}{G}'), sacrificeCost(ref('source'), 1)],
+      instructions: [draw({ count: 1, targets: ref('controller') })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Sac source', { types: ['Creature'], ruleDefinition: definition })] },
+      libraries: { p1: [cardTemplate('Top card')] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Sac source')!
+    const ready = structuredClone(server.state)
+    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
+    const activatedState = server.rules(ready, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: source.id,
+      abilityId: '$.abilities[0]',
+    })
+    expect(activatedState.ok).toBe(true)
+    if (!activatedState.ok) return
+    expect(activatedState.state.objects[source.id].zone).toBe('graveyard')
+    expect(activatedState.state.stack).toHaveLength(1)
+  })
+
+  test('activated sacrifice of the source fails without enough mana', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [manaCost('{3}{G}'), sacrificeCost(ref('source'), 1)],
+      instructions: [draw({ count: 1, targets: ref('controller') })],
+    })])))
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [cardTemplate('Sac source broke', { types: ['Creature'], ruleDefinition: definition })] },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Sac source broke')!
+    const result = server.rules(server.state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: source.id,
+      abilityId: '$.abilities[0]',
+    })
+    expect(result.ok).toBe(false)
+    if (result.ok) return
+    expect(result.error).toMatch(/not enough mana|payment does not cover/)
+  })
+
+  test('activated sacrifice of the source rejects another creature as the cost choice', () => {
+    const ability = compileCardRuleDefinition(card([activated({
+      costs: [sacrificeCost(ref('source'), 1)],
+      instructions: [draw({ count: 1, targets: ref('controller') })],
+    })])).definition.abilities[0]!
+    expect(ability.kind).toBe('activated')
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [
+          cardTemplate('Sac source only', { types: ['Creature'] }),
+          cardTemplate('Other creature', { types: ['Creature'], power: 1, toughness: 1 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Sac source only')!
+    const other = Object.values(server.state.objects).find((object) => object.name === 'Other creature')!
+    if (ability.kind !== 'activated') throw new Error('expected activated ability')
+    expect(beginActivatedAnnouncement(server.state, source, 'p1', ability, [], undefined, [other.id]).ok).toBe(false)
+    expect(beginActivatedAnnouncement(server.state, source, 'p1', ability, [], undefined, undefined).ok).toBe(true)
   })
 })

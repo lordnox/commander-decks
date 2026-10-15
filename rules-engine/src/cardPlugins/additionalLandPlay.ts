@@ -1,19 +1,24 @@
 import type Draft from '../draft'
-import type { GameState, PlayerId, Plugin } from '../types'
+import type { GameObject, GameState, PlayerId, Plugin } from '../types'
+import { activePrintedStaticModifiers } from './dsl/staticModifierCore'
 import { effectsOf } from './cardRules'
 
 export const EXTRA_LAND_PLAYS = 'additionalLandPlay.extra'
 export const GRANT_EXTRA_LAND_PLAY = 'additionalLandPlay.grant'
 
+const legacyStaticExtraLandPlays = (object: GameObject) =>
+  effectsOf(object).reduce((sum, effect) =>
+    sum + (effect.op === 'static' ? effect.extraLandPlays ?? 0 : 0), 0)
+
+const dslStaticExtraLandPlays = (state: GameState | Draft, object: GameObject) =>
+  activePrintedStaticModifiers(state as GameState, object).reduce((sum, entry) =>
+    sum + ('effect' in entry && entry.effect.kind === 'extraLandPlays' ? entry.effect.count : 0), 0)
+
 const staticCount = (state: GameState | Draft, seat: PlayerId) =>
   Object.values(state.objects).filter((object) =>
-    object.zone === 'battlefield'
-    && object.controller === seat
-    && effectsOf(object).some((effect) =>
-      effect.op === 'static' && (effect.extraLandPlays ?? 0) > 0)).reduce(
+    object.zone === 'battlefield' && object.controller === seat).reduce(
     (total, object) =>
-      total + effectsOf(object).reduce((sum, effect) =>
-        sum + (effect.op === 'static' ? effect.extraLandPlays ?? 0 : 0), 0),
+      total + legacyStaticExtraLandPlays(object) + dslStaticExtraLandPlays(state, object),
     0,
   )
 

@@ -99,6 +99,7 @@ export type CopySnapshot = {
 }
 
 export type ReversibleEffect =
+  | { kind: 'colorChange'; before: string[]; after: string[]; incarnation: number }
   | { kind: 'pump'; power: number; toughness: number }
   /**
    * `after` is the layer 7b base set and `before` the pre-animation values.
@@ -706,6 +707,7 @@ export type ReplacementInstructionProgramState = {
   instructions: readonly Instruction[]
   scopes: Array<{ path: string; instructions: readonly Instruction[]; cursor: number }>
   results?: Record<string, boolean | number>
+  choices?: Record<string, readonly { kind: 'object'; objectId: string }[]>
   pendingDiscard?: {
     seats: PlayerId[]
     index: number
@@ -1084,13 +1086,6 @@ export type GameEvent =
   | {
       type: 'beginDredgeChoice'
       seat: PlayerId
-      replacedBy: string[]
-      remainingAfter?: number
-    }
-  | {
-      type: 'beginAbundanceChoice'
-      seat: PlayerId
-      sourceId: string
       replacedBy: string[]
       remainingAfter?: number
     }

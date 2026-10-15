@@ -7,8 +7,10 @@ import {
   evaluateRuntimeAmount,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
+import { runRevealUntil, storeRevealUntilBindings } from '../cardPlugins/dsl/revealUntilExecution'
 import { captureObject, objectIdentity } from '../objectIdentity'
 import { openCardSelection } from '../rules/selectCards'
+import { openOptionSelection } from '../rules/selectOptions'
 import type { Instruction, PlayerRecipient } from '../cardPlugins/dsl/schema/v1'
 import type {
   EventProcessingFrame,
@@ -56,6 +58,7 @@ const runtimeForProgram = (
     source: captureObject(source),
     occurrence: { kind: 'event' as const, eventType: 'draw', player: program.occurrencePlayer },
     results: program.results,
+    choices: program.choices as RuleDslRuntimeContext['choices'],
   }
 }
 
@@ -139,7 +142,7 @@ const emitInstruction = (
 
 export type ProgramStep =
   | { kind: 'waiting'; state: GameState }
-  | { kind: 'complete'; followUp: GameEvent[]; state: GameState }
+  | { kind: 'complete'; followUp: GameEvent[]; state: GameState; pendingDraw?: Extract<GameEvent, { type: 'draw' }> }
 
 export const advanceReplacementProgram = (
   state: GameState,
@@ -147,7 +150,14 @@ export const advanceReplacementProgram = (
   _catalog: PluginCatalog,
 ): ProgramStep => {
   const program = frame.program
-  if (!program) return { kind: 'complete', followUp: frame.followUp ?? [], state }
+  if (!program) {
+    return {
+      kind: 'complete',
+      followUp: frame.followUp ?? [],
+      state,
+      ...(frame.pendingEvent.type === 'draw' ? { pendingDraw: frame.pendingEvent } : {}),
+    }
+  }
 
   const draft = makeDraft(state)
   const lineage = lineageForFrame(frame)
@@ -184,6 +194,50 @@ export const advanceReplacementProgram = (
           instructions: [...branch],
           cursor: 0,
         })
+      }
+      continue
+    }
+    if (instruction.kind === 'chooseInstructions') {
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      if (chooser && instruction.options.length > 0) {
+        openOptionSelection(draft, {
+          seat: chooser,
+          sourceId: program.sourceId,
+          source: draft.objects[program.sourceId]?.name ?? 'Replacement',
+          prompt: instruction.prompt ?? 'Choose an instruction program.',
+          options: instruction.options.map((option, optionIndex) => ({
+            id: `instruction:${optionIndex}`,
+            label: option.label ?? `Option ${optionIndex + 1}`,
+          })),
+          action: {
+            kind: 'replacementInstructionChoice',
+            frameId: frame.id,
+            options: instruction.options.map((option, optionIndex) => ({
+              id: `instruction:${optionIndex}`,
+              instructions: [...option.instructions],
+            })),
+          },
+        })
+      }
+      draft.eventProcessing = { ...frame, program }
+      return { kind: 'waiting', state: freezeDraft(draft) }
+    }
+    if (instruction.kind === 'revealUntil') {
+      const source = draft.objects[program.sourceId]
+      const stepped = runRevealUntil(
+        draft,
+        context,
+        instruction,
+        { id: program.sourceId, name: source?.name ?? 'Replacement' },
+        { resume: { replacementFrameId: frame.id }, applyImmediately: true },
+      )
+      program.choices = storeRevealUntilBindings(program.choices, stepped.bindings, instruction)
+      for (const emitted of stepped.events) {
+        recordEmitted(emitted, lineage, program)
+      }
+      if ('waiting' in stepped) {
+        draft.eventProcessing = { ...frame, program }
+        return { kind: 'waiting', state: freezeDraft(draft) }
       }
       continue
     }
@@ -244,8 +298,46 @@ export const advanceReplacementProgram = (
   }
 
   const followUp = [...(frame.followUp ?? []), ...program.emittedEvents]
+  const pendingDraw = frame.pendingEvent.type === 'draw' ? frame.pendingEvent : undefined
   delete draft.eventProcessing
-  return { kind: 'complete', followUp, state: freezeDraft(draft) }
+  return { kind: 'complete', followUp, state: freezeDraft(draft), pendingDraw }
+}
+
+const processingFrame = (state: GameState, frameId: string) =>
+  [state.eventProcessing, ...(state.deferredEventProcessing ?? [])]
+    .find((entry): entry is EventProcessingFrame => Boolean(entry && entry.id === frameId))
+
+export const resumeReplacementInstructionChoice = (
+  state: GameState,
+  frameId: string,
+  optionId: string,
+  options: readonly { id: string; instructions: readonly Instruction[] }[],
+  catalog: PluginCatalog,
+): ProgramStep => {
+  const frame = processingFrame(state, frameId)
+  if (!frame?.program) {
+    return { kind: 'complete', followUp: [], state }
+  }
+  const program = frame.program
+  const option = options.find((entry) => entry.id === optionId)
+  if (!option) return { kind: 'complete', followUp: [], state }
+  program.scopes.push({
+    path: `.choice.${optionId}`,
+    instructions: [...option.instructions],
+    cursor: 0,
+  })
+  const draft = makeDraft({ ...state, eventProcessing: frame })
+  draft.eventProcessing = { ...frame, program }
+  return advanceReplacementProgram(freezeDraft(draft), draft.eventProcessing!, catalog)
+}
+
+export const continueReplacementProgram = (
+  state: GameState,
+  catalog: PluginCatalog,
+): ProgramStep => {
+  const frame = state.eventProcessing
+  if (!frame?.program) return { kind: 'complete', followUp: [], state }
+  return advanceReplacementProgram(state, frame, catalog)
 }
 
 export const completeReplacementDiscard = (
@@ -254,7 +346,7 @@ export const completeReplacementDiscard = (
   binding: string,
   discarded: boolean,
   objectIds: readonly string[],
-  _catalog: PluginCatalog,
+  catalog: PluginCatalog,
 ): ProgramStep => {
   const frame = state.eventProcessing
   if (!frame || frame.id !== frameId || !frame.program?.pendingDiscard) {
@@ -280,5 +372,5 @@ export const completeReplacementDiscard = (
   }
   delete program.pendingDiscard
   draft.eventProcessing = { ...frame, program }
-  return advanceReplacementProgram(freezeDraft(draft), draft.eventProcessing!, _catalog)
+  return advanceReplacementProgram(freezeDraft(draft), draft.eventProcessing!, catalog)
 }

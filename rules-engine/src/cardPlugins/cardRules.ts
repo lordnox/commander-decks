@@ -185,7 +185,6 @@ import {
   targetOnResolveAt,
   uniqueLandNames,
   upkeep,
-  bounceAttacking,
   chooseModes,
   chooseCreatureType,
   chooseVotesThisTurn,
@@ -269,7 +268,6 @@ import {
   addPlusCountersEqualToLands,
   escape,
   hiddenPileNegotiation,
-  replaceDrawByType,
   opponentPiles,
   millThenRecover,
   yourFirstMain,
@@ -464,7 +462,6 @@ const artifactWithManaAbility = (object: GameObject) =>
   )
 
 export const CARD_RULES: Record<string, CardEffect[]> = {
-  Abundance: [replaceDrawByType()],
   'Vault of Champions': [entersTapped(opponentsAtMost(1))],
   'Concealed Courtyard': [entersTapped(otherLands({ min: 3 }))],
   'Bojuka Bog': [
@@ -810,7 +807,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
     onResolveIfCastOption('adventure', createHeroWithLandCounters()),
   ],
-  'Aetherize': [onResolve(bounceAttacking())],
   "An Offer You Can't Refuse": [
     targetOnResolve(
       'counter',
@@ -890,7 +886,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { kind: 'grantControlled', keywords: ['Vigilance', 'Trample'], other: true },
     ),
   ],
-  'Eternal Witness': [targetOnResolve('bounce', { zone: 'graveyard' })],
   'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
   'Famished Worldsire': [
     ward({ mana: 3 }),
@@ -1008,19 +1003,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [fight('two-targets')],
     }),
   ],
-  'Aftermath Analyst': [
-    enters(selfMill(3)),
-    activate({
-      id: 'graveyardLands.aftermath',
-      costs: { mana: '{3}{G}', sacrifice: 'self' },
-      do: [returnOwnedGraveyardLands()],
-    }),
-  ],
   'Astral Drift': [
     triggerOn('cycle', { do: [astralDriftCycleBlink] }),
     cycleHand('cycling.astralDrift', '{2}{W}'),
   ],
-  'Aesi, Tyrant of Gyre Strait': [staticExtraLandPlays(1), landfall(draw(1))],
   'Analyze the Pollen': [
     searchSpell({
       prompt: 'Choose one basic land card for Analyze the Pollen.',
@@ -1068,15 +1054,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  'Buried Alive': [
-    searchSpell({
-      prompt: 'Search your library for up to three creature cards and put them into your graveyard.',
-      match: (object) => object.types.includes('Creature'),
-      destination: 'graveyard',
-      min: 0,
-      max: 3,
-    }),
-  ],
   'Blighted Woodland': [
     fetchBasic('Search your library for up to two basic land cards. They enter tapped.', {
       tapped: true,
@@ -1102,15 +1079,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       destination: 'battlefield',
       tapped: true,
       min: 0,
-      max: 1,
-    }),
-  ],
-  Entomb: [
-    searchSpell({
-      prompt: 'Search your library for a card and put it into your graveyard.',
-      match: () => true,
-      destination: 'graveyard',
-      min: 1,
       max: 1,
     }),
   ],
@@ -1365,15 +1333,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Mistvault Bridge': [entersTapped()],
   'Morphic Pool': [entersTapped(opponentsAtMost(1))],
   'Orzhov Basilica': [entersTapped(), enters(bounceChosenLand())],
-  "Nature's Lore": [
-    searchSpell({
-      prompt: 'Search your library for a Forest card and put it onto the battlefield.',
-      match: hasSubtype('Forest'),
-      destination: 'battlefield',
-      min: 1,
-      max: 1,
-    }),
-  ],
   'Obscura Storefront': [
     fetchHideout(
       'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
@@ -1556,15 +1515,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     })),
   ],
-  'Three Visits': [
-    searchSpell({
-      prompt: 'Search your library for a Forest card and put it onto the battlefield.',
-      match: hasSubtype('Forest'),
-      destination: 'battlefield',
-      min: 1,
-      max: 1,
-    }),
-  ],
   'Undercity Sewers': [entersTapped(), enters(surveil(1))],
   'Underground Mortuary': [entersTapped(), enters(surveil(1))],
   'Sunken Hollow': [entersTapped(controlledBasicLands({ max: 1 }))],
@@ -1663,9 +1613,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     yourUpkeep(optionalMill(2)),
     landToGraveyardOnce(insect),
   ],
-  'Dismember': [
-    targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }, pump(-5, -5)),
-  ],
   'Drag to the Roots': [
     reduceGenericIf(2, graveyardCardTypes(4)),
     targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
@@ -1754,17 +1701,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { players: 'opponent' },
       opponentPiles(4, { reveal: 'look', piles: 'facedown-faceup' }),
     ),
-  ],
-  'Growth Spiral': [onResolve(draw(1), putLandFromHand())],
-  Harrow: [
-    searchSpell({
-      prompt: 'Search your library for up to two basic land cards.',
-      match: basicLand,
-      destination: 'battlefield',
-      min: 0,
-      max: 2,
-      sacrificeLands: 1,
-    }),
   ],
   'Hedge Shredder': [
     attacks(optionalMill(2)),
@@ -2111,21 +2047,11 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     entersTapped(),
     cycleFromHand('cycling.zagothTriome'),
   ],
-  Absorb: [
-    targetOnResolve('counter', { zone: 'stack' }, gainLife(3)),
-  ],
   'Archangel of Tithes': [
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),
   ],
   'Batwing Brume': [handler('combatPreventionCards')],
-  'Anguished Unmaking': [
-    targetOnResolve(
-      'exile',
-      { zone: 'battlefield', nonland: true },
-      loseLife(3, 'controller'),
-    ),
-  ],
   Belonging: [
     enters(
       changelingShapeshifter(),
@@ -2603,7 +2529,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Meteor Golem': [
     targetOnResolve('destroy', { zone: 'battlefield', nonland: true, controller: 'opponent' }),
   ],
-  Counterspell: [targetOnResolve('counter', { zone: 'stack' })],
   'Arcanis the Omnipotent': [
     activate({
       id: 'arcanis.draw',

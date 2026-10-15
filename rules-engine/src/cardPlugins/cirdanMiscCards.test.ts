@@ -836,7 +836,7 @@ describe('Nezahal, Primal Tide', () => {
         p2: [
           costed('Opp Trick', ['Instant'], 0),
           costed('Opp Bear', ['Creature'], 0),
-          cardTemplate('Counterspell', { types: ['Instant'], manaCost: '{U}{U}', manaValue: 2 }),
+          cardTemplate('Counterspell'),
         ],
         p3: [costed('P3 Trick', ['Instant'], 0)],
       },
@@ -887,7 +887,7 @@ describe('Nezahal, Primal Tide', () => {
     expect(current.stack[0]).toMatchObject({ kind: 'spell', name: 'Nezahal, Primal Tide', uncounterable: true })
     pool(current, { U: 2 }, 'p2')
     current = castBy(server, current, 'p2', 'Counterspell', {
-      targets: [{ kind: 'object', objectId: named(current, 'Nezahal, Primal Tide').id }],
+      targets: [{ kind: 'stackItem', stackId: current.stack.find(item => item.objectId === named(current, 'Nezahal, Primal Tide').id)!.id }],
     })
     current = resolveStack(server.rules, current)
     expect(named(current, 'Nezahal, Primal Tide')).toMatchObject({ zone: 'battlefield', controller: 'p1' })

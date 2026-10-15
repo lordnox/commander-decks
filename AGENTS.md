@@ -26,6 +26,10 @@ keep PR-specific findings in PR review comments, use focused issues for existing
 defects, and include exact reproduction steps. Issue titles must not contain "and"
 or combine unrelated problems.
 
+## Rules DSL test ownership
+
+For new or changed DSL tests, test reusable instruction/function semantics in mechanic suites such as `counter.test.ts` and `searchLibrary.test.ts`. Use minimal instruction programs with exchangeable fixtures; do not create one gameplay suite per card or migration. Keep named-card catalog checks structural (registration, selectors, instruction composition, and parameters). Reuse catalog card templates in integration fixtures instead of copying their definitions. Put announcement costs, targeting, continuation, and restore assertions in their owning mechanic suites, and reuse existing coverage instead of repeating those assertions for every card. Existing unrelated legacy tests may remain until their own cleanup.
+
 ## Canonical card behavior authoring
 
 All new or changed card configurations and reusable card mechanics must use the canonical Rule DSL (`rules-engine/src/cardPlugins/dsl/v1`). Add card definitions to the canonical catalog. When a semantic operation is missing, implement a reusable typed DSL node, its compiler/runtime semantics, and behavior tests before authoring the card. Do not bypass the DSL with new `CARD_RULES` entries, alternate legacy registries/import aliases, card-name dispatch, custom picker events, or one-off specialized executors. Use typed `selectCards` requests for card picks.

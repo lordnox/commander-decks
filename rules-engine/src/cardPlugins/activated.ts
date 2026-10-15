@@ -16,7 +16,7 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount } from './dsl/compiler'
+import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
@@ -132,7 +132,6 @@ export const SKULL_PROPHET_MILL = 'selfMill.skullProphet'
 export const MILLIKIN_MANA = 'selfMill.millikin'
 export const GHOST_TOWN_RETURN = 'selfBounceLand.ghostTown'
 export const OBORO_RETURN = 'selfBounceLand.oboro'
-export const AFTERMATH_RECLAIM = 'graveyardLands.aftermath'
 export const YURLOK_MANA_RAIN = 'yurlok.mana-rain'
 
 export const activated: Plugin = {
@@ -404,7 +403,7 @@ export const activated: Plugin = {
           targetClauses,
         })
         if (!announcement.ok) return
-        const committed = announcement.transaction
+        let committed = announcement.transaction
         if (committed.lockedCost.mana) {
           const paid = payCost(draft.players[event.seat].mana, committed.lockedCost.mana)
           if (!paid) return
@@ -421,6 +420,24 @@ export const activated: Plugin = {
             })
           }
         }
+        const costObjectIds = resolveNonManaCostObjectChoices(
+          draft,
+          event.seat,
+          committed.proposal.excludeSourceFromCosts ? committed.proposal.sourceId : '',
+          committed.lockedCost.nonMana,
+          committed.lockedCost.x,
+          event.choices,
+          committed.proposal.sourceId,
+        )
+        if (costObjectIds.length > 0) {
+          committed = {
+            ...committed,
+            proposal: {
+              ...committed.proposal,
+              nonManaChoices: costObjectIds,
+            },
+          }
+        }
         let choiceIndex = 0
         for (const costPart of committed.lockedCost.nonMana) {
           if (costPart.kind === 'draw') {
@@ -432,7 +449,7 @@ export const activated: Plugin = {
           }
           if (costPart.kind !== 'discard' && costPart.kind !== 'sacrifice') continue
           const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
-          for (const objectId of (event.choices ?? []).slice(choiceIndex, choiceIndex + count)) {
+          for (const objectId of costObjectIds.slice(choiceIndex, choiceIndex + count)) {
             costEvents.push(costPart.kind === 'discard'
               ? { type: 'discard', seat: event.seat, objectId }
               : { type: 'sacrifice', objectId })

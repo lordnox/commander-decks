@@ -1,3 +1,4 @@
+import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { gameObjectFieldDefaults, isPermanentType } from '../definitions'
 import type Draft from '../draft'
 import { hasKeyword } from '../keywords'
@@ -144,7 +145,7 @@ export const copyCharacteristics = (
     : [...copied.supertypes],
   manaCost: copied.manaCost,
   manaValue: manaValueOf(copied),
-  colors: [...copied.colors],
+  colors: copiableColors(copied),
   power: copied.power,
   toughness: copied.toughness,
   printedLoyalty: copied.printedLoyalty,
@@ -427,6 +428,7 @@ export function applyCopy (
   object.manaCost = characteristics.manaCost
   object.manaValue = characteristics.manaValue
   object.colors = characteristics.colors
+  reapplyColorChanges(object)
   object.power = characteristics.power
   object.toughness = characteristics.toughness
   object.printedLoyalty = characteristics.printedLoyalty
@@ -539,7 +541,6 @@ export const handlerIdsFromEffects = (effects: CardEffect[]) => {
   const ids = new Set<string>()
   for (const effect of effects) {
     if (effect.op === 'dredge') ids.add('dredge')
-    if (effect.op === 'drawReplacementByType') ids.add('abundance')
     if (effect.op === 'saga') {
       const listed = flattenInstructions(effect.chapters.flatMap((chapter) => chapter.do))
       if (listed.some((instruction) => CHOICE_KINDS.has(instruction.kind))) {

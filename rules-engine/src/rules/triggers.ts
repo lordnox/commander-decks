@@ -457,6 +457,18 @@ const canonicalGrantedTriggersForOccurrence = (
   }
 }
 
+const canonicalLandfallCopies = (
+  draft: Draft,
+  source: GameObject,
+  candidate: TriggeredAbilityDefinition,
+  occurrence: OccurrenceSnapshot,
+) => {
+  if (candidate.on.kind !== 'enters' || candidate.frequency?.kind === 'onceEachTurn') return 1
+  const object = occurrence.object?.after
+  if (!object?.types.includes('Land') || object.controller !== source.controller) return 1
+  return 1 + extraTriggerCount(draft, source.controller, 'landfall', source)
+}
+
 const canonicalTriggersForOccurrence = (
   state: GameState,
   draft: Draft,
@@ -506,7 +518,7 @@ const canonicalTriggersForOccurrence = (
       if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
       if (candidate.frequency?.kind === 'onceEachTurn'
         && !mayTriggerOnceEachTurn(frequencySource, frequencyKey, state.turn)) return
-      matches.push({
+      const pendingTrigger = {
         source,
         effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
         canonical: {
@@ -519,7 +531,9 @@ const canonicalTriggersForOccurrence = (
         triggeringObjectId: occurrenceObjectId,
         triggerAmount: occurrence.amount,
         triggeredByAbility: false,
-      })
+      }
+      const copies = canonicalLandfallCopies(draft, source, candidate, occurrence)
+      for (let index = 0; index < copies; index += 1) matches.push(pendingTrigger)
       if (candidate.frequency?.kind === 'onceEachTurn') {
         markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
       }
@@ -1351,8 +1365,12 @@ export const placePendingTriggers = (draft: Draft) => {
   if (!orderIds || orderIds.length !== group.triggers.length) {
     orderIds = group.triggers.map((trigger) => trigger.id)
     const legacyEntriesDiffer = new Set(group.triggers.map(legacyTriggerSignature)).size > 1
+    const skipCanonicalOrdering = group.triggers.length > 1
+      && group.triggers.every((trigger) => Boolean(trigger.canonical))
+      && group.triggers.every((trigger) => trigger.triggeringObjectId !== undefined)
+      && new Set(group.triggers.map((trigger) => trigger.triggeringObjectId)).size === 1
     if (orderIds.length > 1 && (
-      group.triggers.some((trigger) => Boolean(trigger.canonical))
+      (group.triggers.some((trigger) => Boolean(trigger.canonical)) && !skipCanonicalOrdering)
       || groups.length > 1
       || legacyEntriesDiffer
     )) {

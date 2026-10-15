@@ -291,6 +291,12 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
           : selection.kind,
       source: selection.source,
       cards: offer.names,
+      ...(selection.viewLibrary ? {
+        library: (state.zoneOrder[selection.fromSeat ?? seat]?.library ?? [])
+          .map((objectId) => state.objects[objectId]?.name ?? '')
+          .filter(Boolean)
+          .sort((left, right) => left.localeCompare(right)),
+      } : {}),
       destinations,
       count,
       ...(requirements ? { requirements } : {}),
@@ -310,10 +316,10 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
     },
     offer.ids.map((objectId) => state.objects[objectId]),
     {
-      phase: selection.action?.kind === 'dredge' || selection.action?.kind === 'abundance-order'
+      phase: selection.action?.kind === 'dredge' || selection.canonicalChoice?.action === 'replacementProgram'
         ? 'replacement'
         : 'resolution',
-      purpose: selection.triggerOrder || selection.action?.kind === 'abundance-order'
+      purpose: selection.triggerOrder || selection.canonicalChoice?.action === 'replacementProgram'
         ? 'order'
         : 'choice',
       cancellation: 'mustAnswer',

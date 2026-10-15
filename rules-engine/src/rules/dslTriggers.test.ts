@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, card, compileCardRuleDefinition, createDefinitionSnapshot, players, select, spell, whenever } from '../cardPlugins/dsl/v1'
+import { createJournal, restoreJournal } from '../journal'
+import { amount, card, chooseInstructions, compileCardRuleDefinition, createDefinitionSnapshot, draw, move, objects, players, ref, select, spell, target, whenever } from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
+import { createServerGame, projectForViewer } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from './selectCards'
 import { pendingPlayerSelectionFor } from './selectPlayers'
@@ -16,6 +17,23 @@ const canonicalDeathGain = () => createDefinitionSnapshot(compileCardRuleDefinit
     { kind: 'dies', filter: { type: 'Creature' } },
     {
       instructions: [{ kind: 'gainLife', amount: amount(1), targets: { kind: 'contextRef', name: 'controller' } }],
+    },
+  ),
+])))
+
+const canonicalGraveyardReturn = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  whenever(
+    { kind: 'enters', filter: { type: 'Creature' } },
+    {
+      decisions: { targets: [select({ filter: objects({ zone: 'graveyard', owner: 'you', token: false }), count: 1 })] },
+      instructions: [chooseInstructions({
+        chooser: ref('controller'),
+        prompt: 'Return the target card?',
+        options: [
+          { label: 'Return it to your hand', instructions: [move({ targets: target(0), to: 'hand' })] },
+          { label: 'Decline', instructions: [] },
+        ],
+      })],
     },
   ),
 ])))
@@ -63,6 +81,48 @@ describe('canonical triggered abilities', () => {
     const pending = state.players.p1.data['kernel.pendingPlayerSelection'] as { candidates: string[] }[]
     expect(pending[0].candidates).toEqual(['p1', 'p2'])
     expect(state.stack).toHaveLength(0)
+  })
+
+  test.each([
+    ['returns the selected card to its owner’s hand', 'instruction:0', 'hand'],
+    ['lets its controller decline the return', 'instruction:1', 'graveyard'],
+  ] as const)('targeted graveyard ETB trigger %s', (_description, optionId, finalZone) => {
+    const snapshot = canonicalGraveyardReturn()
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate('Graveyard Return Watcher', { types: ['Enchantment'], ruleDefinition: snapshot })] },
+      libraries: {
+        p1: [cardTemplate('Owned Graveyard Card', { zone: 'graveyard' })],
+        p2: [cardTemplate('Opponent Graveyard Card', { zone: 'graveyard' })],
+      },
+      hands: { p1: [cardTemplate('Entering Creature', { types: ['Creature'] })] },
+    }, { random: () => 0 })
+    const ownCard = named(server.state, 'Owned Graveyard Card')
+    const opponentCard = named(server.state, 'Opponent Graveyard Card')
+    const entrant = named(server.state, 'Entering Creature')
+
+    let state = ok(server.rules(server.state, { type: 'move', objectId: entrant.id, to: 'battlefield' }))
+    const targets = pendingSelectionFor(state, 'p1')!
+    expect(targets.candidates).toEqual([ownCard.id])
+    state = ok(server.rules(state, {
+      type: 'selectCards', seat: 'p1', selectionId: targets.id,
+      kind: 'choose', count: 1, objectIds: [ownCard.id],
+    }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.stack[0]?.execution?.targetBindings).toHaveLength(1)
+
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    const pending = pendingOptionSelection(state, 'p1')!
+    expect(pending.prompt).toBe('Return the target card?')
+    expect(pending.options.map((option) => option.label)).toEqual(['Return it to your hand', 'Decline'])
+    expect(pendingOptionSelection(projectForViewer(state, 'p2'), 'p1')).toBeUndefined()
+    state = restoreJournal(createJournal(state), server.rules).current()
+    const choice = pendingOptionSelection(state, 'p1')!
+    expect(choice.options.map((option) => option.label)).toEqual(['Return it to your hand', 'Decline'])
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId }))
+    expect(state.objects[ownCard.id]?.zone).toBe(finalZone)
+    expect(state.objects[opponentCard.id]?.zone).toBe('graveyard')
+    expect(state.zoneOrder.p1.hand.includes(ownCard.id)).toBe(finalZone === 'hand')
   })
 
   test('captures a simultaneous three-creature death as three independent instances', () => {
@@ -470,6 +530,55 @@ describe('canonical triggered abilities', () => {
     expect(resolved.pendingTriggers).toHaveLength(3)
     expect(resolved.objects[spellObject.id].zone).toBe('graveyard')
     expect(resolved.players.p1.life).toBe(40)
+  })
+
+  test('draws when your land enters and ignores opponent lands and nonlands', () => {
+    const landfallDraw = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      whenever(
+        { kind: 'enters', filter: { type: 'Land', controller: 'you' } },
+        { instructions: [draw({ count: 1, targets: { kind: 'contextRef', name: 'controller' } })] },
+      ),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Forest', { types: ['Land'], subtypes: ['Forest'] })], p2: [cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] })] },
+      battlefield: {
+        p1: [cardTemplate('Landfall watcher', { types: ['Creature'], ruleDefinition: landfallDraw() })],
+        p2: [cardTemplate('Scute Swarm', { types: ['Creature'], power: 1, toughness: 1 })],
+      },
+      libraries: {
+        p1: [cardTemplate('Drawn', { types: ['Instant'] })],
+      },
+    }, { random: () => 0 })
+    const ownLand = Object.values(server.state.objects).find((object) => object.name === 'Forest')!
+    const drawn = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'playLand',
+      seat: 'p1',
+      objectId: ownLand.id,
+    })))
+    expect(drawn.zoneOrder.p1.hand.map((id) => drawn.objects[id].name)).toEqual(['Drawn'])
+
+    const opponentLand = Object.values(server.state.objects).find((object) => object.name === 'Island')!
+    const opponentState = { ...drawn, active: 'p2' as const, priority: 'p2' as const }
+    const opponentPlayed = ok(server.rules(opponentState, {
+      type: 'playLand',
+      seat: 'p2',
+      objectId: opponentLand.id,
+    }))
+    expect(opponentPlayed.zoneOrder.p1.hand.map((id) => opponentPlayed.objects[id].name)).toEqual(['Drawn'])
+
+    const serverWithCreature = createServerGame(commanderRules, {
+      hands: { p1: [cardTemplate('Grizzly Bears', { types: ['Creature'], power: 2, toughness: 2 })] },
+      battlefield: { p1: [cardTemplate('Landfall watcher', { types: ['Creature'], ruleDefinition: landfallDraw() })] },
+      libraries: { p1: [cardTemplate('Should stay', { types: ['Instant'] })] },
+    }, { random: () => 0 })
+    const creature = Object.values(serverWithCreature.state.objects).find((object) => object.name === 'Grizzly Bears')!
+    const creatureEntered = ok(serverWithCreature.rules(serverWithCreature.state, {
+      type: 'move',
+      objectId: creature.id,
+      to: 'battlefield',
+    }))
+    expect(creatureEntered.zoneOrder.p1.hand).toHaveLength(0)
   })
 
   test('captures a canonical enters trigger from permanent spell resolution', () => {

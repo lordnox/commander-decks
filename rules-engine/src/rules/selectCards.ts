@@ -28,7 +28,7 @@ import { copyTargetsWithReplacement, validateCanonicalCopyTarget } from '../card
 import { advanceCopySlot } from './selectOptions'
 import type { Cost, DecisionsInput, Instruction } from '../cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from '../cardPlugins/dsl/resolutionPayment'
-import { completeReplacementDiscard } from '../replacement/instructionProgram'
+import { completeReplacementDiscard, continueReplacementProgram } from '../replacement/instructionProgram'
 import type { ProgramStep } from '../replacement/instructionProgram'
 
 import {
@@ -97,6 +97,8 @@ export type PendingCardSelection = {
   /** Whose zone the cards come from (defaults to `seat`). */
   fromSeat?: PlayerId
   fromZone?: ZoneId
+  /** The chooser may inspect the whole library while selecting matching candidates. */
+  viewLibrary?: true
   sequence?: number
   after?: Array<'resolveTop' | 'shuffleLibrary'>
   drawPerSelected?: number
@@ -111,9 +113,6 @@ export type PendingCardSelection = {
   action?: {
     kind: 'dredge'
     replacedBy: string[]
-    remainingAfter?: number
-  } | {
-    kind: 'abundance-order'
     remainingAfter?: number
   }
   /** CR 603.3b ordering answer for a controller's pending trigger group. */
@@ -147,7 +146,7 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard'
+    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram'
     replacementFrameId?: string
     payment?: {
       cost: Cost
@@ -654,9 +653,12 @@ const finishReplacementDiscardProgram = (draft: Draft, stepped: ProgramStep) => 
     draft.priority = null
     return
   }
-  const remainder = draft.eventProcessing
-    ? drawRemainderFollowUp(draft.eventProcessing.pendingEvent)
-    : []
+  const pendingDraw = stepped.kind === 'complete'
+    ? stepped.pendingDraw
+    : draft.eventProcessing?.pendingEvent.type === 'draw'
+      ? draft.eventProcessing.pendingEvent
+      : undefined
+  const remainder = pendingDraw ? drawRemainderFollowUp(pendingDraw) : []
   enqueueReplacementSettlement(draft, {
     kind: 'prevented',
     followUp: [...stepped.followUp, ...remainder],
@@ -1107,6 +1109,11 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
         selection.source ? ` for ${selection.source}` : ''
       }${binned ? `, putting ${binned} into the graveyard` : ''}`,
     )
+    if (canonicalChoice?.action === 'replacementProgram' && canonicalChoice.replacementFrameId) {
+      const stepped = continueReplacementProgram(freezeDraft(draft), catalog)
+      finishReplacementDiscardProgram(draft, stepped)
+      return
+    }
   } else if (selection.kind === 'partition') {
     const choices = parseChoices(event)
     if (!choices || !selection.pileController) return

@@ -29,6 +29,7 @@ import type {
   ObjectFilter,
   ObjectOccurrenceFilter,
   ObjectReference,
+  ObjectRecipient,
   ObjectSelector,
   OccurrencePattern,
   PlayerFilter,
@@ -137,7 +138,7 @@ export const distribution = (input: {
 export const discardCost = (filter: ObjectSelector, count: AmountInput): Cost =>
   immutableData({ kind: 'discard', filter, count: toAmount(count) })
 
-export const sacrificeCost = (filter: ObjectSelector, count: AmountInput): Cost =>
+export const sacrificeCost = (filter: ObjectRecipient, count: AmountInput): Cost =>
   immutableData({ kind: 'sacrifice', filter, count: toAmount(count) })
 
 export const drawCost = (count: AmountInput): Cost =>
@@ -160,6 +161,9 @@ export const whileSourceOnBattlefield = (): EffectDuration => immutableData({ ki
 export const pumpEffect = (power: AmountInput, toughness: AmountInput): CreatedEffect => immutableData({
   kind: 'pump', power: toAmount(power), toughness: toAmount(toughness),
 })
+export const setColorsEffect = (colors: Extract<CreatedEffect, { kind: 'setColors' }>['colors']): CreatedEffect =>
+  immutableData({ kind: 'setColors', colors })
+
 export const grantKeywordEffect = (keyword: Keyword): CreatedEffect => immutableData({ kind: 'grantKeyword', keyword })
 export const grantAbilityEffect = (ability: Extract<CreatedEffect, { kind: 'grantAbility' }>['ability']): CreatedEffect => immutableData({ kind: 'grantAbility', ability })
 export const eventDelayed = (input: Omit<Extract<DelayedPattern, { kind: 'event' }>, 'kind'>): DelayedPattern => immutableData({ kind: 'event', ...input })
@@ -188,6 +192,9 @@ export const notCondition = (condition: Condition): Condition =>
 export const prohibitActivation = (
   filter: Extract<ContinuousEffectDefinition, { kind: 'prohibitActivation' }>['filter'],
 ): ContinuousEffectDefinition => immutableData({ kind: 'prohibitActivation', filter })
+
+export const extraLandPlays = (count: number): ContinuousEffectDefinition =>
+  immutableData({ kind: 'extraLandPlays', count })
 
 export const replacement = (
   event: Extract<ContinuousEffectDefinition, { kind: 'replacement' }>['event'],
@@ -440,11 +447,13 @@ export const sacrifice = (input: {
 export const move = (input: {
   targets: Extract<Instruction, { kind: 'move' }>['targets']
   to: Extract<Instruction, { kind: 'move' }>['to']
+  tapped?: boolean
   bindResult?: string
 }): Instruction => immutableData({
   kind: 'move',
   targets: input.targets,
   to: input.to,
+  ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
 
@@ -572,6 +581,7 @@ export const chooseCards = (input: {
   bindChoice: string
   chooser: Extract<Instruction, { kind: 'chooseCards' }>['chooser']
   filter: ObjectSelector
+  viewLibrary?: true
   count?: AmountInput
   min?: AmountInput
   max?: AmountInput
@@ -589,6 +599,7 @@ export const chooseCards = (input: {
     bindChoice: input.bindChoice,
     chooser: input.chooser,
     filter: input.filter,
+    ...(input.viewLibrary ? { viewLibrary: true as const } : {}),
     min: clause.min,
     max: clause.max,
     distinct: true,
@@ -613,6 +624,7 @@ export const searchLibrary = (input: {
     bindChoice: input.bindChoice,
     chooser: input.chooser,
     filter: input.filter ?? objects({ zone: 'library', owner: 'you' }),
+    viewLibrary: true,
     ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
   }),
   move({ targets: choice(input.bindChoice), to: input.to }),
@@ -621,10 +633,12 @@ export const searchLibrary = (input: {
 
 export const chooseInstructions = (input: {
   chooser: Extract<Instruction, { kind: 'chooseInstructions' }>['chooser']
+  prompt?: string
   options: Extract<Instruction, { kind: 'chooseInstructions' }>['options']
 }): Instruction => immutableData({
   kind: 'chooseInstructions',
   chooser: input.chooser,
+  ...(input.prompt !== undefined ? { prompt: input.prompt } : {}),
   count: amount(1),
   options: input.options,
   whenInsufficient: 'chooseAvailable',
@@ -641,6 +655,25 @@ export const ifThen = (
   condition: condition.kind === 'resultRef' ? resultIsTrue(condition) : condition,
   then: branches.then,
   otherwise: branches.otherwise ?? [],
+})
+
+export const revealUntil = (input: {
+  targets: PlayerRecipient
+  match: ObjectSelector
+  count?: AmountInput
+  bindFound?: string
+  bindRest?: string
+  foundTo: Zone
+  rest: 'orderBottom'
+}): Instruction => immutableData({
+  kind: 'revealUntil',
+  targets: input.targets,
+  match: input.match,
+  ...(input.count !== undefined ? { count: toAmount(input.count) } : {}),
+  ...(input.bindFound !== undefined ? { bindFound: input.bindFound } : {}),
+  ...(input.bindRest !== undefined ? { bindRest: input.bindRest } : {}),
+  foundTo: input.foundTo,
+  rest: input.rest,
 })
 
 export type { ModeInput }

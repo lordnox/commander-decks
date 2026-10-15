@@ -2,7 +2,7 @@ import type { CapturedObject, GameState, ManaId, PlayerId } from '../../types'
 import type { Cost } from './schema/v1'
 import { activationPermission, beginActivatedAnnouncement, lockedManaCost } from './compiler/announcement'
 import { canonicalManaAbilityForTap } from '../activated'
-import { evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
+import { evaluateObjectReference, evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
 import { manaModes, tapForManaError } from '../../plugins/mana'
 import { payCost } from '../../plugins/spells'
 
@@ -29,12 +29,15 @@ export const resolutionPaymentCandidates = (
   source: CapturedObject,
   bindings: ResolutionPaymentBindings = {},
 ) => {
-  const candidates = evaluateObjectSelector(cost.filter, {
+  const runtime = {
     state,
     controller: payer,
     source,
     ...bindings,
-  })
+  }
+  const candidates = cost.kind === 'sacrifice' && cost.filter.kind !== 'objects'
+    ? evaluateObjectReference(cost.filter, runtime)
+    : evaluateObjectSelector(cost.filter as Extract<typeof cost.filter, { kind: 'objects' }>, runtime)
   let zone: 'hand' | 'battlefield'
   switch (cost.kind) {
     case 'discard': zone = 'hand'; break

@@ -1,6 +1,6 @@
 import { grantedRulesFor } from './cardPlugins'
 import { effectsFor } from './cardPlugins/cardRules'
-import { cardRuleDefinitionSnapshotFor } from './cardPlugins/dsl/cardRuleCatalog'
+import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardPlugins/dsl/cardRuleCatalog'
 import { pluginIdsFromEffects, serializableEffects } from './cardPlugins/effectRuntime'
 import { gameObjectFieldDefaults } from './definitions'
 import { emptyMana } from './draft'
@@ -30,11 +30,12 @@ export const cardTemplate = (
   name: string,
   overrides: Partial<CardTemplate> = {},
 ): CardTemplate => {
-  const types = overrides.types ?? []
+  const catalogDefaults = cardTemplateDefaultsFor(name)
+  const types = overrides.types ?? catalogDefaults?.types ?? []
   const creatureStats = types.includes('Creature')
     ? { power: 1, toughness: 1 }
     : {}
-  return { ...defaultObject(), name, ...creatureStats, ...overrides }
+  return { ...defaultObject(), name, ...catalogDefaults, ...creatureStats, ...overrides }
 }
 
 const player = (format: GameFormat, id: PlayerId): PlayerState => ({

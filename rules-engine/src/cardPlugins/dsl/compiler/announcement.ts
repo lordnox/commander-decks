@@ -1,10 +1,11 @@
-import { payCost } from '../../../plugins/spells'
+import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { captureObject } from '../../../objectIdentity'
 import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage } from '../staticModifierCore'
-import { evaluateRuntimeAmount, type RuleDslRuntimeContext } from './runtime'
+import { evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount, type RuleDslRuntimeContext } from './runtime'
+import type { ObjectRecipient } from '../schema/v1'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
 export type AnnouncementManaPayment = {
@@ -42,6 +43,8 @@ export type AnnouncementProposal = {
   genericAdjustment?: number
   /** Server-only planned payment may lock before mana activations run. */
   deferPayment?: boolean
+  /** Indexes of Phyrexian mana symbols paid with 2 life each. */
+  phyrexianLife?: number[]
 }
 
 export type LockedAnnouncementCost = {
@@ -229,13 +232,78 @@ const costAmount = (amount: Amount, x: number | undefined, runtime?: RuleDslRunt
 
 export const evaluateAnnouncementCostAmount = (amount: Amount, x: number | undefined) => costAmount(amount, x)
 
-const matchesCostFilter = (object: GameState['objects'][string], filter: Extract<Cost, { kind: 'discard' | 'sacrifice' }>['filter']['filter']) => {
+const matchesCostFilter = (object: GameState['objects'][string], filter: Extract<Cost, { kind: 'discard' }>['filter']['filter']) => {
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
   if (filter.name && object.name !== filter.name) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
   return true
+}
+
+const isSourceCostRecipient = (filter: ObjectRecipient) =>
+  filter.kind === 'contextRef' && filter.name === 'source'
+
+const sacrificeCostCandidates = (
+  cost: Extract<Cost, { kind: 'sacrifice' }>,
+  runtime: RuleDslRuntimeContext,
+  payer: PlayerId,
+  excludedSourceId: string,
+) => {
+  const resolved = cost.filter.kind === 'objects'
+    ? evaluateObjectSelector(cost.filter, runtime)
+    : evaluateObjectReference(cost.filter, runtime)
+  return resolved.filter((object) =>
+    object.controller === payer
+    && object.zone === 'battlefield'
+    && (!excludedSourceId || object.id !== excludedSourceId || isSourceCostRecipient(cost.filter)))
+}
+
+export const resolveNonManaCostObjectChoices = (
+  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  payer: PlayerId,
+  excludedSourceId: string,
+  costs: readonly Cost[],
+  x: number | undefined,
+  choices: readonly string[] | undefined,
+  runtimeSourceId: string,
+) => {
+  const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
+  const resolved: string[] = []
+  let choiceIndex = 0
+  for (const cost of costs) {
+    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
+    const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
+    const candidates = cost.kind === 'discard'
+      ? Object.values(state.objects).filter((object) =>
+        (excludedSourceId === '' || object.id !== excludedSourceId)
+        && object.controller === payer
+        && object.zone === requiredZone
+        && matchesCostFilter(object, cost.filter.filter))
+      : (() => {
+        if (!runtime) throw new TypeError('sacrifice costs require an announcement source')
+        return sacrificeCostCandidates(cost, runtime, payer, excludedSourceId)
+      })()
+    const count = costAmount(cost.count, x, runtime)
+    if (candidates.length < count) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
+    let selected = choices?.slice(choiceIndex, choiceIndex + count)
+    if ((!selected || selected.length !== count)
+      && cost.kind === 'sacrifice'
+      && isSourceCostRecipient(cost.filter)
+      && count === 1
+      && candidates.length === 1) {
+      selected = [candidates[0]!.id]
+    }
+    if (!selected || selected.length !== count || new Set(selected).size !== count) {
+      throw new TypeError(`${cost.kind} cost needs ${count} distinct selected cards`)
+    }
+    if (selected.some((id) => !candidates.some((candidate) => candidate.id === id))) {
+      throw new TypeError(`illegal ${cost.kind} cost selection`)
+    }
+    resolved.push(...selected)
+    choiceIndex += count
+  }
+  return resolved
 }
 
 const validateNonManaCosts = (
@@ -248,7 +316,6 @@ const validateNonManaCosts = (
   runtimeSourceId: string,
 ) => {
   const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
-  let choiceIndex = 0
   let lifeTotal = 0
   const selectedObjects = new Set<string>()
   for (const cost of costs) {
@@ -260,22 +327,29 @@ const validateNonManaCosts = (
       costAmount(cost.count, x, runtime)
       continue
     }
-    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
-    const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
-    const candidates = Object.values(state.objects).filter((object) => (sourceId === '' || object.id !== sourceId) && object.controller === payer && object.zone === requiredZone && matchesCostFilter(object, cost.filter.filter))
-    if (candidates.length < costAmount(cost.count, x, runtime)) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
-    const count = costAmount(cost.count, x, runtime)
-    const selected = choices?.slice(choiceIndex, choiceIndex + count)
-    if (!selected || selected.length !== count || new Set(selected).size !== count) throw new TypeError(`${cost.kind} cost needs ${count} distinct selected cards`)
-    if (selected.some((id) => !candidates.some((candidate) => candidate.id === id))) throw new TypeError(`illegal ${cost.kind} cost selection`)
-    for (const id of selected) {
+  }
+  const explicitObjectCosts = costs.filter((cost) => cost.kind === 'discard' || cost.kind === 'sacrifice')
+  if (explicitObjectCosts.length > 0) {
+    const objectChoices = resolveNonManaCostObjectChoices(
+      state,
+      payer,
+      sourceId,
+      costs,
+      x,
+      choices,
+      runtimeSourceId,
+    )
+    for (const id of objectChoices) {
       if (selectedObjects.has(id)) throw new TypeError(`cost object ${id} is selected more than once`)
       selectedObjects.add(id)
     }
-    choiceIndex += count
+    const explicitChoiceCount = explicitObjectCosts.reduce(
+      (total, cost) => total + costAmount(cost.count, x, runtime),
+      0,
+    )
+    if (choices && choices.length !== explicitChoiceCount) throw new TypeError('unused nonmana cost selection')
   }
   if (state.players[payer].life < lifeTotal) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
-  if (choices && choiceIndex !== choices.length) throw new TypeError('unused nonmana cost selection')
 }
 
 const targetIdentity = (target: TargetRef) => {
@@ -361,7 +435,18 @@ export const beginAnnouncement = (
         if (unrestricted > availableMana[symbol]) return { ok: false, error: `payment spends more ${symbol} mana than the payer has` }
       }
     }
-    if (!proposal.deferPayment && mana && !payCost(pool, mana)) return { ok: false, error: 'payment does not cover the locked total cost' }
+    const phyrexianLife = proposal.phyrexianLife ?? []
+    if (mana) {
+      if (!validPhyrexianLifePayment(mana, phyrexianLife)) {
+        return { ok: false, error: 'invalid Phyrexian mana payment' }
+      }
+      if (phyrexianLife.length * 2 > state.players[proposal.payer].life) {
+        return { ok: false, error: 'not enough life for Phyrexian mana' }
+      }
+    }
+    if (!proposal.deferPayment && mana && !payCost(pool, mana, phyrexianLife)) {
+      return { ok: false, error: 'payment does not cover the locked total cost' }
+    }
     const transaction: AnnouncementTransaction = {
       id,
       proposal: structuredClone(proposal),
@@ -389,7 +474,14 @@ export const beginSpellAnnouncement = (
   targets: readonly (readonly TargetRef[])[] | undefined,
   x: number | undefined,
   nonManaChoices?: readonly string[],
-  options: { selectedOptional?: readonly number[]; selectedAlternative?: number; genericAdjustment?: number; deferPayment?: boolean; targetClauses?: readonly TargetClause[] } = {},
+  options: {
+    selectedOptional?: readonly number[]
+    selectedAlternative?: number
+    genericAdjustment?: number
+    deferPayment?: boolean
+    targetClauses?: readonly TargetClause[]
+    phyrexianLife?: number[]
+  } = {},
 ) => {
   const payment = (Object.entries(state.players[payer].mana) as [ManaId, number][])
     .filter(([, amount]) => amount > 0)
@@ -447,6 +539,7 @@ export const beginActivatedAnnouncement = (
       increases: ability.costIncreases,
       reductions: ability.costReductions,
     },
+    excludeSourceFromCosts: true,
     payment,
     nonManaChoices,
     ...options,

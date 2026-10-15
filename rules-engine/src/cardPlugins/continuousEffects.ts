@@ -9,6 +9,7 @@ import type {
   ReversibleEffect,
   ZoneId,
 } from '../types'
+import { copiableColors, reapplyColorChanges } from './colorEffects'
 import { expirePreventionInstances } from '../replacement/prevention'
 import { counterPtBonus } from '../definitions'
 import { effectsOf } from './cardRules'
@@ -37,7 +38,7 @@ export const snapshotCopy = (object: GameObject): CopySnapshot => ({
   supertypes: [...object.supertypes],
   manaCost: object.manaCost,
   manaValue: object.manaValue,
-  colors: [...object.colors],
+  colors: copiableColors(object),
   power: object.power,
   toughness: object.toughness,
   printedLoyalty: object.printedLoyalty,
@@ -409,6 +410,7 @@ const durationHolds = (
   object: GameObject,
   duration: EffectDuration,
   endTurnEffects: boolean,
+  anyZone = false,
 ) => {
   switch (duration.kind) {
     case 'cdaLifePt':
@@ -429,7 +431,7 @@ const durationHolds = (
       return objectSupportsPumpPerLinkedExile(object)
     default: break
   }
-  if (object.zone !== 'battlefield') return false
+  if (!anyZone && object.zone !== 'battlefield') return false
   switch (duration.kind) {
     case 'untilCleanup': return !endTurnEffects
     case 'permanent': return true
@@ -518,7 +520,8 @@ const effectHolds = (
   entry: NonNullable<GameObject['continuousEffects']>[number],
   endTurnEffects: boolean,
 ) =>
-  durationHolds(state, object, entry.duration, endTurnEffects)
+  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange')
+  && (entry.effect.kind !== 'colorChange' || entry.effect.incarnation === object.incarnation)
   && (
     entry.effect.kind !== 'controller'
     || (
@@ -528,6 +531,12 @@ const effectHolds = (
   )
 
 const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
+  switch (effect.kind) {
+    case 'colorChange':
+      object.colors = [...effect.before]
+      return
+    default: break
+  }
   if (effect.kind === 'pump') {
     if (object.power !== null) object.power -= effect.power
     if (object.toughness !== null) object.toughness -= effect.toughness
@@ -572,6 +581,14 @@ const revertEffect = (object: GameObject, effect: ReversibleEffect) => {
 }
 
 const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
+  switch (effect.kind) {
+    case 'colorChange':
+      // Rebase survivors after an earlier color effect expires.
+      effect.before = [...object.colors]
+      object.colors = [...effect.after]
+      return
+    default: break
+  }
   if (effect.kind === 'pump') {
     if (object.power !== null) object.power += effect.power
     if (object.toughness !== null) object.toughness += effect.toughness
@@ -618,6 +635,15 @@ const applyStoredEffect = (object: GameObject, effect: ReversibleEffect) => {
   }
 }
 
+const applyStoredEffects = (object: GameObject, entries: readonly ContinuousEffect[]) => {
+  for (const entry of entries) {
+    if (entry.effect.kind !== 'colorChange') applyStoredEffect(object, entry.effect)
+  }
+  for (const entry of entries) {
+    if (entry.effect.kind === 'colorChange') applyStoredEffect(object, entry.effect)
+  }
+}
+
 const lastControlEffect = (effects: GameObject['continuousEffects']) => {
   for (let index = (effects?.length ?? 0) - 1; index >= 0; index -= 1) {
     const effect = effects?.[index].effect
@@ -627,6 +653,7 @@ const lastControlEffect = (effects: GameObject['continuousEffects']) => {
 
 const revertUnregisteredEffect = (object: GameObject, effect: ReversibleEffect) => {
   revertEffect(object, effect)
+  if (effect.kind === 'copy') reapplyColorChanges(object)
   if (effect.kind !== 'controller' || object.zone !== 'battlefield') return
   const activeControl = lastControlEffect(object.continuousEffects)
   object.controller = activeControl?.controller ?? effect.base
@@ -636,8 +663,12 @@ const resetEffects = (
   object: GameObject,
   effects: NonNullable<GameObject['continuousEffects']>,
 ) => {
+  // Undo layer 5 before layer 1, independently of creation order.
   for (let index = effects.length - 1; index >= 0; index -= 1) {
-    revertEffect(object, effects[index].effect)
+    if (effects[index].effect.kind === 'colorChange') revertEffect(object, effects[index].effect)
+  }
+  for (let index = effects.length - 1; index >= 0; index -= 1) {
+    if (effects[index].effect.kind !== 'colorChange') revertEffect(object, effects[index].effect)
   }
   const control = effects.find(({ effect }) => effect.kind === 'controller')
   if (control?.effect.kind === 'controller' && object.zone === 'battlefield') {
@@ -662,7 +693,7 @@ export const reviseContinuousEffects = (
   ) return
 
   resetEffects(object, effects)
-  for (const entry of revised) applyStoredEffect(object, entry.effect)
+  applyStoredEffects(object, revised)
 
   if (revised.length > 0) object.continuousEffects = revised
   else delete object.continuousEffects
@@ -677,7 +708,7 @@ export const reorderContinuousEffects = (
   const next = order(effects)
   if (next.length === effects.length && next.every((entry, index) => entry === effects[index])) return
   resetEffects(object, effects)
-  for (const entry of next) applyStoredEffect(object, entry.effect)
+  applyStoredEffects(object, next)
   if (next.length > 0) object.continuousEffects = next
   else delete object.continuousEffects
 }
@@ -710,7 +741,7 @@ const expireEffects = (
   if (remaining.length === effects.length) return false
 
   resetEffects(object, effects)
-  for (const entry of remaining) applyStoredEffect(object, entry.effect)
+  applyStoredEffects(object, remaining)
 
   if (remaining.length > 0) object.continuousEffects = remaining
   else delete object.continuousEffects

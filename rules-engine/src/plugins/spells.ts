@@ -101,6 +101,7 @@ export const preparePlannedSpellAnnouncement = (state: GameState, event: Interna
     {
       selectedOptional: event.selectedOptionalCosts,
       selectedAlternative: event.selectedAlternativeCost,
+      phyrexianLife: event.phyrexianLife,
       deferPayment: true,
       targetClauses,
       genericAdjustment: canonicalGenericAdjustment(source, spellCost(state, source, {
@@ -319,11 +320,13 @@ export const phyrexianSymbols = (manaCost: string) =>
 export const phyrexianSymbolCount = (manaCost: string) =>
   phyrexianSymbols(manaCost).length
 
-const validPhyrexianLife = (manaCost: string, paidWithLife: number[]) => {
+export const validPhyrexianLifePayment = (manaCost: string, paidWithLife: number[]) => {
   const count = phyrexianSymbolCount(manaCost)
   return new Set(paidWithLife).size === paidWithLife.length
     && paidWithLife.every((index) => Number.isSafeInteger(index) && index >= 0 && index < count)
 }
+
+const validPhyrexianLife = validPhyrexianLifePayment
 
 export const convokeColors = (object: GameObject) =>
   object.colors.filter((color): color is ManaId =>
@@ -509,6 +512,7 @@ export const spells: Plugin = {
       {
         selectedOptional: event.selectedOptionalCosts,
         selectedAlternative: event.selectedAlternativeCost,
+        phyrexianLife: event.phyrexianLife,
         targetClauses,
         genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
           additionalGeneric: event.additionalGeneric,
@@ -655,6 +659,7 @@ export const spells: Plugin = {
               {
                 selectedOptional: event.selectedOptionalCosts,
                 selectedAlternative: event.selectedAlternativeCost,
+                phyrexianLife: event.phyrexianLife,
                 deferPayment: Boolean(event.manaActivations),
                 targetClauses,
                 genericAdjustment: canonicalGenericAdjustment(spell, spellCost(state, spell, {
@@ -905,6 +910,7 @@ export const spells: Plugin = {
           const announcement = beginSpellAnnouncement(state, object, event.seat, ability, groupedTargets, event.x, [...(event.discard ?? []), ...(event.sacrifice ?? [])], {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
+            phyrexianLife: event.phyrexianLife,
             deferPayment: Boolean(event.manaActivations),
             targetClauses,
             genericAdjustment: canonicalGenericAdjustment(object, spellCost(state, object, {
