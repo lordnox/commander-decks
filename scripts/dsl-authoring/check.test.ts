@@ -72,7 +72,12 @@ describe('canonical DSL authoring ratchet', () => {
   })
   test('canonical compiler binding names remain editable while plugin card names fail', () => {
     const source = "if (reference.name === 'that') resolveBinding(); if (node.name !== 'X') readVariable(); switch (reference.name) { case 'source': resolveSource() }"
-    for (const path of ['rules-engine/src/cardPlugins/dsl/compiler/runtime.ts', 'rules-engine/src/cardPlugins/dsl/generatedPrograms.ts']) {
+    for (const path of [
+      'rules-engine/src/cardPlugins/dsl/compiler/runtime.ts',
+      'rules-engine/src/cardPlugins/dsl/generatedPrograms.ts',
+      'rules-engine/src/driver.ts',
+      'rules-engine/src/replacement/canonical.ts',
+    ]) {
       expect(scan(source, path)).toEqual([])
     }
     rejects("if (object.name === 'New Card') draw(2)", 'rules-engine/src/plugins/example.ts')

@@ -40,6 +40,11 @@ const modulePath = (path: string, imported: string) =>
 const inModule = (path: string, root: string) => path === root || path.startsWith(`${root}/`)
 const legacyRoot = LEGACY_ROOT.slice(0, -1)
 const canonicalRoot = CANONICAL_ROOT.slice(0, -1)
+const CANONICAL_RUNTIME = new Set([
+  'rules-engine/src/driver.ts',
+  'rules-engine/src/replacement/canonical.ts',
+])
+const skipsNameDispatch = (file: string) => inModule(file, canonicalRoot) || CANONICAL_RUNTIME.has(file)
 
 export const inspectSource = (path: string, source: string) => {
   const ast = parse(source, { sourceType: 'module', plugins: path.endsWith('.tsx') ? ['typescript', 'jsx'] : ['typescript'] })
@@ -94,8 +99,8 @@ export const inspectSource = (path: string, source: string) => {
     return found
   }
   const add = (code: FindingCode, node: Ast, card?: string) => {
-    // Canonical compiler names identify bindings and variables, not card dispatch.
-    if (code === FINDING_CODE.LITERAL_NAME_DISPATCH && inModule(path, canonicalRoot)) return
+    // Canonical compiler/runtime names identify bindings and variables, not card dispatch.
+    if (code === FINDING_CODE.LITERAL_NAME_DISPATCH && skipsNameDispatch(path)) return
     findings.push({ path, code, digest: digest(node), ...(card === undefined ? {} : { card }) })
   }
   const program = ast.program as unknown as Ast
