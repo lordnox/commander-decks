@@ -1,3 +1,4 @@
+import { OPTIONAL_ACTION_DIAGNOSTIC_CODE, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE } from './constants'
 import type {
   CardRuleDefinitionV1,
   ContextBinding,
@@ -779,11 +780,20 @@ export const validateDefinitionV1 = (root: unknown): {
         validateInstructionList(node.instructions, childPath(path, 'instructions'), env, depth + 1)
         return
       case 'chooseInstructions': {
-        exactKeys(node, path, ['kind', 'chooser', 'count', 'options', 'whenInsufficient', 'prompt'], ['kind', 'chooser', 'count', 'options', 'whenInsufficient'])
+        exactKeys(node, path, ['kind', 'chooser', 'count', 'options', 'whenInsufficient', 'prompt', 'optional'], ['kind', 'chooser', 'count', 'options', 'whenInsufficient'])
         validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
         if (node.prompt !== undefined
           && (typeof node.prompt !== 'string' || node.prompt.length === 0 || node.prompt.length > 256)) {
           issue(childPath(path, 'prompt'), 'type', 'instruction choice prompt must be a nonempty string of at most 256 characters')
+        }
+        if (node.optional !== undefined) {
+          if (node.optional !== true) issue(childPath(path, 'optional'), OPTIONAL_ACTION_DIAGNOSTIC_CODE.MARKER, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE.MARKER)
+          const options = Array.isArray(node.options) ? node.options : []
+          if (options.length !== 2 || !Array.isArray(options[0]?.instructions)
+            || options[0].instructions.length === 0 || !Array.isArray(options[1]?.instructions)
+            || options[1].instructions.length !== 0) {
+            issue(childPath(path, 'options'), OPTIONAL_ACTION_DIAGNOSTIC_CODE.OPTIONS, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE.OPTIONS)
+          }
         }
         const choiceCount = object(node.count, childPath(path, 'count'))
         if (choiceCount) {

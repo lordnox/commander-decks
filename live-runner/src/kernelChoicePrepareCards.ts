@@ -1,3 +1,4 @@
+import { optionalDrawOffer } from './optionalDrawPolicy'
 import {
   waitingCastTransformed,
   waitingDiscard,
@@ -369,12 +370,13 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
   }
   const open = pending.action.kind === 'vote' ? pendingVote(state) : undefined
   const secret = open?.secret ? 'secret ' : 'public '
+  const drawOffer = optionalDrawOffer(state, pending)
   return openTopdeck(
     lobby,
     {
       seat: pending.seat,
       kind: open ? 'vote' : 'choose',
-      ...(pending.optionalDraw ? { optionalDraw: structuredClone(pending.optionalDraw) } : {}),
+      ...(drawOffer ? { optionalDraw: drawOffer } : {}),
       source: pending.source,
       cards: pending.options.map((option) => option.label),
       destinations: ['skip', 'target'],
@@ -389,7 +391,7 @@ export const prepareOptionSelectionChoice = (kernel: KernelHandle, lobby: LobbyS
       waiting: open
         ? `${name} is voting${open.secret ? ' in secret' : ''}.`
         : `${name} is choosing privately.`,
-      prompt: pending.prompt,
+      prompt: drawOffer ? 'You may draw. Accept or decline?' : pending.prompt,
       judge: open
         ? `Waiting for ${open.source}'s ${secret}vote.`
         : pending.source

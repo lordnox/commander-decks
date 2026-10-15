@@ -1,4 +1,3 @@
-import type { OptionalDrawOffer } from '../../../shared/optionalDraw'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import { canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
@@ -70,7 +69,8 @@ export const advanceCopySlot = (draft: Draft, frame: CanonicalResolutionFrame, r
 }
 
 export type PendingOptionSelection = {
-  optionalDraw?: OptionalDrawOffer
+  /** Generic optional-action identity, independent of the wrapped program and client policy. */
+  optionalAction?: { key: string; acceptSlot: number; declineSlot: number }
   id: string
   seat: PlayerId
   sourceId?: string

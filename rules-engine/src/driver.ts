@@ -1,4 +1,3 @@
-import { optionalDrawSlots } from './cardPlugins/dsl/optionalDraw'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { isPermanentType } from './definitions'
 import { isSameObject, objectIdentity } from './objectIdentity'
@@ -1047,20 +1046,15 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (instruction.kind === 'chooseInstructions') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
-      const drawSlots = chooser === frame.controller
-        && frame.scopes.length === 1 && scope.path === '.instructions'
-        && scope.instructions.length === 1
-        ? optionalDrawSlots(instruction) : undefined
       if (chooser && instruction.options.length > 0) {
         openOptionSelection(draft, {
           seat: chooser,
           sourceId: frame.source.ref.objectId,
           source: frame.source.snapshot.name,
-          prompt: drawSlots ? 'You may draw. Accept or decline?' : instruction.prompt ?? 'Choose an instruction program.',
-          ...(drawSlots ? { optionalDraw: {
+          prompt: instruction.prompt ?? 'Choose an instruction program.',
+          ...(instruction.optional ? { optionalAction: {
             key: JSON.stringify([frame.source.ref, frame.declarationPath, path]),
-            label: `${frame.source.snapshot.name} — optional draw`,
-            ...drawSlots,
+            acceptSlot: 0, declineSlot: 1,
           } } : {}),
           options: instruction.options.map((option, optionIndex) => ({
             id: `instruction:${optionIndex}`,
