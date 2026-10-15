@@ -22,7 +22,9 @@
     "rules-engine/src",
     "live-runner/src",
     "shared",
-    ".agents/skills/render-table-replay/scripts"
+    ".agents/skills/render-table-replay/scripts",
+    "scripts/dsl-authoring",
+    "scripts/check-dsl-authoring.ts"
   ],
   "exclude": [
     "site/src/**/*.test.ts",

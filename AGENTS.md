@@ -26,6 +26,14 @@ keep PR-specific findings in PR review comments, use focused issues for existing
 defects, and include exact reproduction steps. Issue titles must not contain "and"
 or combine unrelated problems.
 
+## Canonical card behavior authoring
+
+All new or changed card configurations and reusable card mechanics must use the canonical Rule DSL (`rules-engine/src/cardPlugins/dsl/v1`). Add card definitions to the canonical catalog. When a semantic operation is missing, implement a reusable typed DSL node, its compiler/runtime semantics, and behavior tests before authoring the card. Do not bypass the DSL with new `CARD_RULES` entries, alternate legacy registries/import aliases, card-name dispatch, custom picker events, or one-off specialized executors. Use typed `selectCards` requests for card picks.
+
+The explicit fingerprint baseline in `rules-engine/migration/dsl-authoring-baseline.json` temporarily preserves existing unmigrated registrations and compatibility execution paths for #383. It permits unchanged existing behavior only: never add or broaden an allowance. When migrating a card or removing a legacy path, remove its now-stale baseline entries. Run `bun run check:dsl-authoring --base origin/main` and `bun run test:dsl-authoring`; CI also checks baseline growth against its trusted base commit. Formatting and comments do not change semantic fingerprints.
+
+Generic engine infrastructure, internal events, and runtime plugins are not card authoring exceptions: they may evolve without adding card-specific behavior outside the DSL. Existing compatibility executors in `cardPlugins/` are frozen; implement new semantics in the canonical subsystem. See [the enforcement notes](scripts/dsl-authoring/README.md) for scope and limitations. Once #383 removes the legacy paths, delete the baseline and this temporary exception, retaining DSL-only authoring and its checks.
+
 ## Git workflow
 
 Never edit on `main`. Each agent session uses its own branch and git worktree:
