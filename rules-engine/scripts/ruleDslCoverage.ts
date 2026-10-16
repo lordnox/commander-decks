@@ -343,6 +343,10 @@ const instructionRows = makeVariantRows(
 )
 const effectRows = makeVariantRows(effectVariants, 'op', uses.effects, effectDisposition)
 
+const pluginTestAliases: Record<string, string[]> = {
+  starfieldOfNyx: ['enchantmentAnimation'],
+}
+
 const pluginRows: VariantDisposition[] = sorted(builtInPlugins.map((plugin) => plugin.id)).map((variant) => {
   const currentRegistrations = sorted(Object.keys(CARD_RULES).flatMap((card) => {
     const definition = cardDefinition(card)
@@ -356,8 +360,14 @@ const pluginRows: VariantDisposition[] = sorted(builtInPlugins.map((plugin) => p
     ...currentRegistrations.map((card) => `'${card}'`),
   ]))
   const directPluginTests = testFiles
-    .filter((path) => repoPath(path) === `rules-engine/src/plugins/${variant}.test.ts`
-      || repoPath(path) === `rules-engine/src/cardPlugins/${variant}.test.ts`)
+    .filter((path) => {
+      const repo = repoPath(path)
+      return repo === `rules-engine/src/plugins/${variant}.test.ts`
+        || repo === `rules-engine/src/cardPlugins/${variant}.test.ts`
+        || (pluginTestAliases[variant] ?? []).some((alias) =>
+          repo === `rules-engine/src/plugins/${alias}.test.ts`
+          || repo === `rules-engine/src/cardPlugins/${alias}.test.ts`)
+    })
     .map((path) => `${repoPath(path)} — dedicated plugin/mechanic suite`)
   const ownerPart = /replacement|phial/.test(variant)
     ? '11'

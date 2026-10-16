@@ -7,6 +7,7 @@ import { ok, resolveStack } from '../testHelpers'
 import {
   drawHandDifference,
   enters,
+  entersTargetingOpponent,
 } from './effects'
 
 const handCard = (name: string) => cardTemplate(name, { types: ['Instant'] })
@@ -140,6 +141,44 @@ describe('drawHandDifference', () => {
       players: ['p2'],
     }))
     expect(resolveStack(server.rules, finished).zoneOrder.p1.hand).toHaveLength(3)
+  })
+
+  test('entersTargetingOpponent wraps drawHandDifference into a player choice', () => {
+    const oracle = cardTemplate('Tally Sphinx', {
+      types: ['Artifact', 'Creature'],
+      effects: [entersTargetingOpponent(drawHandDifference())],
+    })
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: {
+          p1: [oracle],
+          p2: [handCard('P2a'), handCard('P2b'), handCard('P2c')],
+          p3: [handCard('P3a')],
+        },
+        libraries: {
+          p1: [handCard('D1'), handCard('D2'), handCard('D3'), handCard('D4')],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    let state = enterBattlefield(server, server.state, 'Tally Sphinx')
+    const choice = pendingPlayerSelectionFor(state, 'p1')!
+    expect(choice.prompt).toContain('opponent')
+    expect(choice.action).toMatchObject({
+      kind: 'putTriggeredAbility',
+      instructions: [{ kind: 'drawHandDifference' }],
+    })
+    state = ok(server.rules(state, {
+      type: 'selectPlayers',
+      seat: 'p1',
+      selectionId: choice.id,
+      players: ['p2'],
+    }))
+    state = resolveStack(server.rules, state)
+    expect(state.zoneOrder.p1.hand).toHaveLength(3)
+    expect(state.zoneOrder.p2.hand).toHaveLength(3)
   })
 })
 

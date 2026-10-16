@@ -23,6 +23,8 @@ import {
   permanentControl,
   pendingPermanentDonation,
 } from './permanentControl'
+import { reinsOfPower } from './reinsOfPower'
+import { onResolve as onResolvePlugin } from './onResolve'
 import { pendingPlayerSelectionFor, selectPlayers } from '../rules/selectPlayers'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { createServerGame } from '../runtime'
@@ -546,5 +548,59 @@ describe('gain control of a target permanent without a player target', () => {
       }),
     ])
     expect(cast('Fixture Shrouded').ok).toBe(false)
+  })
+})
+
+const hasteText = (object: { oracleText: string }) => /haste/i.test(object.oracleText)
+
+describe('creature control swap until cleanup', () => {
+  test('swaps creature control until cleanup', () => {
+    const spell = cardTemplate('Reins of Power', {
+      types: ['Instant'],
+      manaCost: '{2}{U}{U}',
+      manaValue: 4,
+    })
+    const ours = cardTemplate('Llanowar Elves', { types: ['Creature'], power: 1, toughness: 1 })
+    const hasty = cardTemplate('Raging Goblin', {
+      types: ['Creature'],
+      power: 1,
+      toughness: 1,
+      oracleText: 'Haste',
+    })
+    const theirs = cardTemplate('Pathbreaker Ibex', { types: ['Creature'], power: 3, toughness: 3 })
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [spell] },
+        battlefield: { p1: [ours, hasty], p2: [theirs] },
+      },
+      { random: () => 0.5, cardPlugins: [onResolvePlugin, reinsOfPower] },
+    )
+    const withMana = {
+      ...server.state,
+      players: {
+        ...server.state.players,
+        p1: { ...server.state.players.p1, mana: { W: 0, U: 2, B: 0, R: 0, G: 0, C: 2 } },
+      },
+    }
+    const cast = ok(server.rules(withMana, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: find(withMana, 'Reins of Power').id,
+      targets: [{ kind: 'player', player: 'p2' }],
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[find(resolved, 'Pathbreaker Ibex').id].controller).toBe('p1')
+    expect(resolved.objects[find(resolved, 'Llanowar Elves').id].controller).toBe('p2')
+    expect(hasteText(resolved.objects[find(resolved, 'Pathbreaker Ibex').id])).toBe(true)
+
+    let state = resolved
+    while (state.step !== 'cleanup') {
+      state = ok(server.rules(state, { type: 'advanceStep' }))
+    }
+    expect(state.objects[find(state, 'Pathbreaker Ibex').id].controller).toBe('p2')
+    expect(state.objects[find(state, 'Llanowar Elves').id].controller).toBe('p1')
+    expect(hasteText(state.objects[find(state, 'Pathbreaker Ibex').id])).toBe(false)
+    expect(hasteText(state.objects[find(state, 'Raging Goblin').id])).toBe(true)
   })
 })

@@ -1,7 +1,9 @@
 import { describe, expect, test } from 'bun:test'
+import { activated, YURLOK_MANA_RAIN } from '../cardPlugins/activated'
 import { createCatalog } from '../catalog'
+import { commanderRules } from '../formats'
 import { rules } from '../kernel'
-import { forest, newGame, yarokFixture } from '../testGame'
+import { forest, newGame, yarokFixture, yurlokFixture } from '../testGame'
 import type { GameState, ReduceResult } from '../types'
 import { damage } from './damage'
 import { life } from './life'
@@ -106,5 +108,82 @@ describe('manaBurn', () => {
     const state = withBurn(base())
     const next = ok(rules(state, { type: 'loseLife', seat: 'p4', amount: 5 }, catalog))
     expect(next.players.p4.life).toBe(35)
+  })
+})
+
+const yurlokCatalog = createCatalog([...commanderRules.plugins, activated])
+
+const yurlokOnBoard = () => {
+  const state = newGame({
+    players: 2,
+    battlefield: { p1: [yurlokFixture()] },
+    builtinRules: [...commanderRules.rules, 'activated'],
+  })
+  const yurlokId = Object.values(state.objects).find((object) => object.name.includes('Yurlok'))!.id
+  state.objects[yurlokId].summoningSickness = false
+  state.players.p1.mana.C = 1
+  return { state, yurlokId }
+}
+
+describe('mana rain overlay', () => {
+  test('activating the mana ability rains {B}{R}{G}, then leftover mana burns', () => {
+    const { state, yurlokId } = yurlokOnBoard()
+    const result = rules(
+      state,
+      {
+        type: 'activateAbility',
+        abilityId: YURLOK_MANA_RAIN,
+        seat: 'p1',
+        objectId: yurlokId,
+        manaAbility: true,
+      },
+      yurlokCatalog,
+    )
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.state.objects[yurlokId].tapped).toBe(true)
+    expect(result.state.players.p1.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
+    expect(result.state.players.p2.mana).toEqual({ W: 0, U: 0, B: 1, R: 1, G: 1, C: 0 })
+    expect(result.trace.map(({ depth, event }) => [depth, event.type])).toEqual([
+      [0, 'activateAbility'],
+      [1, 'payMana'],
+      [1, 'tap'],
+      [1, 'addMana'],
+      [1, 'addMana'],
+    ])
+
+    const burned = rules(result.state, { type: 'emptyManaPools' }, yurlokCatalog)
+    expect(burned.ok).toBe(true)
+    if (!burned.ok) return
+    expect(burned.state.players.p1.life).toBe(37)
+    expect(burned.state.players.p2.life).toBe(37)
+    expect(burned.state.players.p1.mana.B).toBe(0)
+    expect(burned.trace.map(({ depth, event, pluginId }) => [
+      depth,
+      event.type === 'custom' ? event.name : event.type,
+      pluginId,
+    ])).toEqual([
+      [0, 'emptyManaPools', 'manaBurn'],
+      [1, 'loseLife', undefined],
+      [1, 'loseLife', undefined],
+      [1, 'clearMana', undefined],
+    ])
+  })
+
+  test('the rain cannot be activated as a stack ability', () => {
+    const { state, yurlokId } = yurlokOnBoard()
+    const result = rules(
+      state,
+      {
+        type: 'activateAbility',
+        abilityId: YURLOK_MANA_RAIN,
+        seat: 'p1',
+        objectId: yurlokId,
+      },
+      yurlokCatalog,
+    )
+    expect(result.ok).toBe(false)
+    if (result.ok) return
+    expect(result.error).toContain('mana ability')
   })
 })
