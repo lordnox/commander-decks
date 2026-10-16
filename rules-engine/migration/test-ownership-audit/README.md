@@ -4,15 +4,15 @@ Audited `origin/main` **`486f73779424dc94fdaaa2712337462994ebe2e6`**, 2026-10-15
 
 ## Scope and results
 
-[scope.md](scope.md) lists **271 rules-engine suites / 2089 test callback declarations**. The detailed inventory covers **210 suites**, every legacy and canonical `cardPlugins` suite plus the named Starfield plugin suite, with **5732 distinct literal assertion sites**. The other 61 suites already have kernel, mechanic, compiler, or protocol ownership and are retained. Counts are source declarations, not expanded Bun test counts: loops and `test.each` parameterizations remain attached to their group.
+[scope.md](scope.md) lists **271 rules-engine suites / 2089 test callback declarations**. The detailed inventory covers **74 suites**, every deck/card-grouped dump plus mixed mechanic suites that also have structural #401 rows, with **2594 distinct literal assertion sites**. The other 197 suites already have kernel, mechanic, compiler, or protocol ownership and are retained without a per-assertion inventory. Counts are source declarations, not expanded Bun test counts: loops and `test.each` parameterizations remain attached to their group.
 
-There are **1647 ownership groups** after splitting mixed configuration/gameplay tests and accounting for assertion-bearing helpers. The initial 28 filename candidates were not complete: Kambal, individual-card suites, deck-oriented groups hidden under mechanic filenames, named canonical integrations, and gameplay inside catalog suites also need ownership decisions.
+There are **750 ownership groups** after splitting mixed configuration/gameplay tests and accounting for assertion-bearing helpers. The initial 28 filename candidates were not complete: Kambal, individual-card suites, deck-oriented groups hidden under mechanic filenames, named canonical integrations, and gameplay inside catalog suites also need ownership decisions.
 
 | Disposition | Groups | Meaning |
 | --- | ---: | --- |
-| `keep-owned` | 926 | Already has a reusable mechanic owner; retain that coverage. No move or deletion is required merely because this inventory includes it. |
-| `structural` | 123 | Retain or consolidate registration, Oracle, selector, cost, instruction, and template/snapshot contract checks in #401. |
-| `move-preserve` | 595 | Preserve the full assertion group in its destination before removing its source. Equivalent coverage has **not** been established. |
+| `keep-owned` | 29 | Already has a reusable mechanic owner; retain that coverage. No move or deletion is required merely because this inventory includes it. |
+| `structural` | 126 | Retain or consolidate registration, Oracle, selector, cost, instruction, and template/snapshot contract checks in #401. |
+| `move-preserve` | 592 | Preserve the full assertion group in its destination before removing its source. Equivalent coverage has **not** been established. |
 | `duplicate` | 3 | Source assertions are covered by the cited same-path tests. #401 may remove the source behavior only after preserving its card composition structurally. |
 
 ## Read the inventory
@@ -27,9 +27,11 @@ There are **1647 ownership groups** after splitting mixed configuration/gameplay
 | [mixed-card](mixed-card.md) | 5 | 62 |
 | [canonical-card](canonical-card.md) | 11 | 53 |
 | [mixed-catalog](mixed-catalog.md) | 6 | 76 |
-| [existing-owner](existing-owner.md) | 141 | 951 |
+| [existing-owner](existing-owner.md) | 5 | 54 |
 
 Each row links the exact source revision and a destination. Test title and enclosing groups describe the scenario; the bounded assertion preview is navigation only. **[inventory.json](inventory.json) is the complete assertion record**, including full matcher text and source spans, parameterization headers, directly referenced local helpers, inherited helper assertions, imported runtime modules, fixture registration revisions/handler IDs, observed event types, disposition, implementation issue, and uncertainty flags. A mixed source test can have a separate `:composition` row for #401 and a behavior row for #402/#403. Shared helpers have their own rows and consumer lists; helper assertions can also appear with their callers, so group assertion counts are intentionally not additive.
+
+Mixed dump suites are owned by mechanic, not by source filename. Do not destine gameplay into another suite this audit empties. Restart/reconnect titles belong to #403. Pure existing mechanic owners stay in [scope.md](scope.md) as retained files; only mixed existing-owner suites remain in [existing-owner.md](existing-owner.md). Pinned source remains `486f73779424dc94fdaaa2712337462994ebe2e6`.
 
 Source spans and file SHA-256 hashes refer to the audited commit, not to later edits. Use the pinned source links when a line moves. Validate the inventory with:
 
@@ -37,7 +39,7 @@ Source spans and file SHA-256 hashes refer to the audited commit, not to later e
 python3 rules-engine/migration/test-ownership-audit/validate.py
 ```
 
-The validator checks the complete suite census, pinned hashes, declaration accounting, distinct assertion-site accounting, exact matcher text, destination existence, issue assignments, and duplicate references. It does not decide behavioral equivalence or replace the audit.
+The validator checks the complete suite census, pinned hashes, declaration accounting, distinct assertion-site accounting, exact matcher text, destination existence, issue assignments, duplicate references, circular destinations into dump suites, restart titles assigned to #403, and that every remaining group id appears in its section markdown. It does not decide behavioral equivalence or replace the audit.
 
 ## Runtime ownership is part of the evidence
 
@@ -83,6 +85,6 @@ Everything without proved equivalent evidence remains live coverage. There is no
 
 ## Validation
 
-The inventory validator passes: 271 suites, 1,647 groups, and 5,732 distinct assertion sites. Local rules tests pass (2,592), live-runner CI tests pass (232), site tests pass (53), and TypeScript, imports, lint, DSL authoring, and authoring tests pass.
+The inventory validator passes: 271 suites, 750 groups, and 2,594 distinct assertion sites. Local rules tests pass (2,592), live-runner CI tests pass (232), site tests pass (53), and TypeScript, imports, lint, DSL authoring, and authoring tests pass.
 
 `bun run check:rule-dsl-coverage` fails with “rule-dsl coverage ledger is stale” at `ruleDslCoverage.ts:649`. The identical command fails in a clean `git archive` export of the audited commit using Bun 1.3.14 and the same installed dependencies. Historical issue [#369](https://github.com/lordnox/commander-decks/issues/369) is closed; this is a recurrence on the pinned base, not an audit-file change. This PR leaves the unrelated ledger untouched.

@@ -22,6 +22,7 @@ jobs:
       - run: bun run check:dsl-authoring --base FETCH_HEAD
       - run: bun run test:dsl-authoring
       - run: bun run lint --quiet
+      - run: python3 rules-engine/migration/test-ownership-audit/validate.py
 
   test-rules:
     runs-on: ubuntu-latest
