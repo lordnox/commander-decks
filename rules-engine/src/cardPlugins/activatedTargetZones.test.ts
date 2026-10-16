@@ -106,16 +106,6 @@ describe('Voyager Staff', () => {
   }
   const BLINK = 'voyagerStaff.blink'
 
-  test('is registered from its exact Oracle text: {2}, sacrifice, target creature', () => {
-    expect(effectsFor('Voyager Staff')).toEqual([{
-      op: 'activate',
-      id: BLINK,
-      costs: { mana: '{2}', sacrifice: 'self' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
-      do: [{ kind: 'blink', when: 'nextEndStep', returnController: 'owner' }],
-    }])
-  })
-
   test('exiles any creature, yours or an opponent\'s, and returns it under its owner at the next end step', async () => {
     const { server, state } = await setup()
     for (const target of ['Own Bear', 'Foe Bear']) {

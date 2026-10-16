@@ -171,7 +171,6 @@ describe('cardRuleCatalog — staticsAndAlternativeCosts', () => {
     const targetSpell = named(server.state, 'Target Spell')
     expect(foil.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Foil'))
     expect(foil.effects).toEqual([])
-    expect(effectsFor('Foil')).toEqual([])
     const stacked = ok(server.rules(server.state, {
       type: 'castSpell',
       seat: 'p1',

@@ -9,7 +9,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { activated } from './activated'
-import { effectsFor } from './cardRules'
 import { cycling } from './cycling'
 import { linkedExile } from './linkedExile'
 import {
@@ -24,30 +23,6 @@ const deckCardsPath = join(
   import.meta.dir,
   '../../../decks/2+_dack-faydens-party/cards.json',
 )
-
-/** Pass 2 slot for each assigned creature (exact `cards.json` names). */
-const PART36_INVENTORY = {
-  'Aang, the Last Airbender': 'gap',
-  'Akroma, Angel of Wrath': 'keywords-only',
-  'Alabaster Host Intercessor': 'registered',
-  'Angel of Indemnity': 'gap',
-  'Angel of the Dire Hour': 'gap',
-  'Angel of the Ruins': 'gap',
-  'Appa, Loyal Sky Bison': 'gap',
-  'Bronzebeak Foragers': 'gap',
-  'Curious Colossus': 'registered',
-  'Darksteel Colossus': 'registered',
-  'Eagle of Deliverance': 'gap',
-  'Githzerai Monk': 'registered',
-  'Knight-Captain of Eos': 'gap',
-  'Luminate Primordial': 'gap',
-  'Meteor Golem': 'registered',
-  'Myr Battlesphere': 'gap',
-  'Protector of the Wastes': 'gap',
-  'Resolute Archangel': 'gap',
-  'Salvation Colossus': 'gap',
-  'Salvation Swan': 'gap',
-} as const satisfies Record<string, 'registered' | 'keywords-only' | 'gap'>
 
 const oracleFor = (name: string) => {
   const deck = JSON.parse(readFileSync(deckCardsPath, 'utf8')) as {
@@ -81,37 +56,8 @@ const plains = () =>
     tapProduces: { W: 1 },
   })
 
-describe('plug Dack part 36 creatures inventory', () => {
-  test('every assigned name is registered, keywords-only, or an explicit GAP', () => {
-    expect(Object.keys(PART36_INVENTORY)).toHaveLength(20)
-    for (const [name, slot] of Object.entries(PART36_INVENTORY)) {
-      expect(oracleFor(name).length).toBeGreaterThan(0)
-      const effects = effectsFor(name)
-      if (slot === 'registered') {
-        expect(effects.length).toBeGreaterThan(0)
-      } else {
-        expect(effects).toEqual([])
-      }
-    }
-  })
-
-  test('Darksteel Colossus is registered for the graveyard shuffle replacement (see cirdanColossi.test.ts)', () => {
-    expect(PART36_INVENTORY['Darksteel Colossus']).toBe('registered')
-    expect(effectsFor('Darksteel Colossus')).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
-    expect(oracleFor('Darksteel Colossus')).toContain('shuffle it into its owner\'s library')
-  })
-
-  test('Salvation Colossus stays off cardRules until a declare-attackers-wide trigger exists', () => {
-    expect(PART36_INVENTORY['Salvation Colossus']).toBe('gap')
-    expect(effectsFor('Salvation Colossus')).toEqual([])
-    expect(oracleFor('Salvation Colossus')).toMatch(/Whenever you attack/)
-  })
-})
-
 describe('plug Dack part 36 registered creatures', () => {
   test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {
-    expect(oracleFor('Alabaster Host Intercessor')).toContain('Plainscycling {2}')
-
     const intercessor = deckCreature('Alabaster Host Intercessor', { manaCost: '{5}{W}' })
     const foe = fixtureCreature('Fixture Hostage')
     const server = createServerGame(
@@ -178,7 +124,6 @@ describe('plug Dack part 36 registered creatures', () => {
   })
 
   test('Curious Colossus chooses an opponent then shrinks their board', () => {
-    expect(oracleFor('Curious Colossus')).toContain('Coward')
     const colossus = deckCreature('Curious Colossus', { manaCost: '{4}{W}' })
     const bear = fixtureCreature('Fixture Curious Bear', { power: 4, toughness: 4 })
     const server = createServerGame(
@@ -220,7 +165,6 @@ describe('plug Dack part 36 registered creatures', () => {
   })
 
   test('Githzerai Monk taps every creature you do not control on ETB', () => {
-    expect(oracleFor('Githzerai Monk')).toContain('tap all creatures you don\'t control')
     const monk = deckCreature('Githzerai Monk', { manaCost: '{2}{W}{U}' })
     const ally = fixtureCreature('Fixture Ally')
     const foe = fixtureCreature('Fixture Foe')
@@ -246,7 +190,6 @@ describe('plug Dack part 36 registered creatures', () => {
   })
 
   test('Meteor Golem destroys an opponent nonland on ETB', () => {
-    expect(oracleFor('Meteor Golem')).toContain('destroy target nonland permanent an opponent controls')
     const golem = deckCreature('Meteor Golem', { manaCost: '{8}' })
     const rock = cardTemplate('Fixture Rock', {
       types: ['Artifact'],

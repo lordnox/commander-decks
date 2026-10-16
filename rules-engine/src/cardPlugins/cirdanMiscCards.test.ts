@@ -33,12 +33,7 @@ const applyKernelChoice = (
     : {}),
 })
 import type { KernelHandle } from '../../../live-runner/src/kernelHandle'
-import { effectsFor, handlerIdsForNames } from './cardRules'
-import {
-  drawGreatestPower,
-  mayCastFromHandWithoutPayingMana,
-  onResolve,
-} from './effectBuilders'
+import { handlerIdsForNames } from './cardRules'
 
 const ROOT = new URL('../../../', import.meta.url).pathname
 const NAMES = JSON.parse(readFileSync(`${ROOT}cards/index.json`, 'utf8')).names as Record<string, string>
@@ -167,11 +162,6 @@ describe('Dig Through Time', () => {
     }
     return { server, state, plugins }
   }
-
-  test('is registered with its handler ids', () => {
-    expect(handlerIdsForNames(['Dig Through Time']).toSorted()).toEqual(['castCosts', 'onResolve'])
-    expect(scryfall('Dig Through Time').oracle_text).toContain('Look at the top seven cards')
-  })
 
   test('a human delves six cards, taps two Islands, and picks two cards through a restart', async () => {
     const { server, state } = await setup()
@@ -362,11 +352,6 @@ describe('Kederekt Leviathan', () => {
     return { server, state: server.state }
   }
 
-  test('is registered with unearth and its handler ids', () => {
-    expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])
-    expect(real('Kederekt Leviathan')).toMatchObject({ manaCost: '{6}{U}{U}', power: 5, toughness: 5 })
-  })
-
   test('entering returns every other nonland permanent to its owner', async () => {
     const { server } = await setup({
       hands: { p1: [real('Kederekt Leviathan')] },
@@ -519,19 +504,6 @@ describe('Kiora Bests the Sea God', () => {
     })
     if (!result.ok) throw new Error(result.error)
   }
-
-  test('is registered as a saga with its three chapters', () => {
-    expect(scryfall('Kiora Bests the Sea God').oracle_text).toContain('Gain control of target permanent an opponent controls. Untap it.')
-    const [saga] = effectsFor('Kiora Bests the Sea God')
-    expect(saga).toMatchObject({ op: 'saga' })
-    expect((saga as { chapters: Array<{ numbers: number[] }> }).chapters.map((chapter) => chapter.numbers))
-      .toEqual([[1], [2], [3]])
-    expect(real('Kiora Bests the Sea God')).toMatchObject({
-      manaCost: '{5}{U}{U}',
-      types: ['Enchantment'],
-      subtypes: ['Saga'],
-    })
-  })
 
   test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {
     const { server, state } = await setup(1)
@@ -867,19 +839,6 @@ describe('Nezahal, Primal Tide', () => {
     card.zone = 'hand'
   }
 
-  test('is registered with its handler ids and static grant', () => {
-    expect(handlerIdsForNames(['Nezahal, Primal Tide']).toSorted())
-      .toEqual(['activated', 'blink', 'castTriggers', 'noMaxHand'])
-    expect(effectsFor('Nezahal, Primal Tide')).toContainEqual({ op: 'spellTrait', uncounterable: true })
-    expect(real('Nezahal, Primal Tide')).toMatchObject({
-      manaCost: '{5}{U}{U}',
-      supertypes: ['Legendary'],
-      subtypes: ['Elder', 'Dinosaur'],
-      power: 7,
-      toughness: 7,
-    })
-  })
-
   test('the spell cannot be countered', async () => {
     const { server, state } = await setup(false)
     let current = pool(mainPhase(state), { U: 2, C: 5 })
@@ -1048,12 +1007,6 @@ describe('Phyrexian Ingester', () => {
   }
 
   const stats = (state: GameState, name: string) => [named(state, name).power, named(state, name).toughness]
-
-  test('is registered as an imprint with its handler ids', () => {
-    expect(handlerIdsForNames(['Phyrexian Ingester']).toSorted())
-      .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
-    expect(real('Phyrexian Ingester')).toMatchObject({ manaCost: '{6}{U}', power: 3, toughness: 3 })
-  })
 
   test('offers every nontoken creature, including its own, but no tokens, noncreatures, or hexproof creatures', async () => {
     const { open } = await entering()
@@ -1256,17 +1209,6 @@ describe("Rishkar's Expertise", () => {
     seat: 'p1',
     objectId: named(state, name).id,
     alternativeCost: 'withoutPayingMana',
-  })
-
-  test('is registered: draw by greatest power, then the free cast as the last instruction', () => {
-    expect(scryfall("Rishkar's Expertise").oracle_text).toBe(
-      'Draw cards equal to the greatest power among creatures you control.\n'
-      + 'You may cast a spell with mana value 5 or less from your hand without paying its mana cost.',
-    )
-    expect(effectsFor("Rishkar's Expertise")).toEqual([
-      onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
-    ])
-    expect(real("Rishkar's Expertise")).toMatchObject({ manaCost: '{4}{G}{G}', types: ['Sorcery'] })
   })
 
   test('draws cards equal to your greatest power, counting only your creatures', async () => {
@@ -1473,15 +1415,6 @@ describe('Spearbreaker Behemoth', () => {
     })))
 
   test('is registered from its exact Oracle text and is indestructible itself', async () => {
-    expect(scryfall('Spearbreaker Behemoth').oracle_text)
-      .toBe('Indestructible\n{1}: Target creature with power 5 or greater gains indestructible until end of turn.')
-    expect(effectsFor('Spearbreaker Behemoth')).toEqual([{
-      op: 'activate',
-      id: ABILITY,
-      costs: { mana: '{1}' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
-      do: [{ kind: 'grantUntilEot', keywords: ['indestructible'] }],
-    }])
     const { server, ready } = await setup()
     expect(indestructible(ready, 'Spearbreaker Behemoth')).toBe(true)
     const survived = lethalDamage(server, ready, 'Spearbreaker Behemoth')

@@ -102,7 +102,6 @@ describe('cardRuleCatalog — damageAndLeaves', () => {
     const rift = named(server.state, 'Flame Rift')
     expect(rift.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Flame Rift'))
     expect(rift.effects).toEqual([])
-    expect(effectsFor('Flame Rift')).toEqual([])
     const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: rift.id }))
     expect(cast.stack).toHaveLength(1)
     const resolved = resolveStack(server.rules, cast)
@@ -204,7 +203,6 @@ describe('cardRuleCatalog — damageAndLeaves', () => {
     const unraveler = named(server.state, 'Fate Unraveler')
     expect(unraveler.ruleDefinition).toEqual(snapshot)
     expect(unraveler.effects).toEqual([])
-    expect(effectsFor('Fate Unraveler')).toEqual([])
 
     const controllerDraw = ok(server.rules(server.state, { type: 'draw', seat: 'p1', count: 1 }))
     expect(controllerDraw.stack).toHaveLength(0)

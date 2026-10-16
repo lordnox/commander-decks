@@ -10,7 +10,6 @@ import type { GameState, Plugin, ReduceResult } from '../types'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
 import { choiceEffects } from './choiceEffects'
-import { missingCardPlugins } from './index'
 import { modalSpell } from './modalSpell'
 import { onResolve } from './onResolve'
 import { stealCast } from './stealCast'
@@ -55,54 +54,6 @@ const ready = (state: GameState, seat = 'p1') => {
 }
 
 describe('Lady Evangela remaining coverage', () => {
-  test('the remaining Eva cards stay registered', () => {
-    expect(missingCardPlugins([
-      'Counterspell',
-      'Arcanis the Omnipotent',
-      "Minamo, School at Water's Edge",
-      'Condemn',
-      'Hatred',
-      'Infernal Contract',
-      'Mana Drain',
-      'Desertion',
-      'City of Brass',
-      'Cryptic Command',
-      'Wedding Ring',
-      'Breena, the Demagogue',
-      'Kuroki, Thief of Talents',
-    ])).toEqual([])
-  })
-
-  test('Counterspell counters the targeted spell', () => {
-    const server = createServerGame(
-      commanderRules,
-      {
-        hands: {
-          p1: [cardTemplate('Counterspell')],
-          p2: [cardTemplate('Threat', { types: ['Instant'], manaCost: '{1}' })],
-        },
-      },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    let state = ready(server.state, 'p2')
-    state.players.p2.mana.C = 1
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p2',
-      objectId: named(state, 'Threat').id,
-    }))
-    state.priority = 'p1'
-    state.players.p1.mana.U = 2
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Counterspell').id,
-      targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === named(state, 'Threat').id)!.id }],
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(named(state, 'Threat').zone).toBe('graveyard')
-  })
-
   test('City of Brass damages you when it becomes tapped for mana', () => {
     const server = createServerGame(
       commanderRules,

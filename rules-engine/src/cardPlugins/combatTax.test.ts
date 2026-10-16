@@ -5,7 +5,6 @@ import { rules } from '../kernel'
 import { bears, cardTemplate, forest, newGame, planeswalker } from '../newGame'
 import { combat } from '../plugins/combat'
 import { mana } from '../plugins/mana'
-import { handlerIdsForNames } from './cardRules'
 import { combatTax } from './combatTax'
 
 const catalog = createCatalog([combat, mana, combatTax])
@@ -23,13 +22,6 @@ const ready = <T extends ReturnType<typeof newGame>>(state: T, name: string) => 
 }
 
 describe('combat taxes', () => {
-  test('Archangel and Baird register the reusable combat-tax handler', () => {
-    expect(handlerIdsForNames([
-      'Archangel of Tithes',
-      'Baird, Steward of Argive',
-    ])).toEqual(['combatTax'])
-  })
-
   test('Baird taxes each creature attacking its controller or their planeswalker', () => {
     const state = newGame(commanderRules, {
       battlefield: {

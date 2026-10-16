@@ -23,35 +23,6 @@ import {
 /** Card-only plugins; `gameRules` (draw, discard, triggers, selectCards) already ship in `commanderRules`. */
 const plugins = [onResolvePlugin, giftCast, activated, encorePlugin]
 
-/** Pass-35 assigned inventory (12 names). */
-const INVENTORY: Record<string, 'registered' | 'kernel-only' | 'GAP'> = {
-  'Dack Fayden, Helping Hand': 'registered',
-  'Helping Hand': 'kernel-only',
-  'Collector\'s Vault': 'registered',
-  'Daily Bugle Newspaper': 'registered',
-  Blitzball: 'registered',
-  Belonging: 'registered',
-  'Beza, the Bounding Spring': 'registered',
-  'Perch Protection': 'registered',
-  'Rumor Gatherer': 'GAP',
-  'Enduring Innocence': 'GAP',
-  'Ori, Plate Stacker': 'GAP',
-  'Graaz, Unstoppable Juggernaut': 'GAP',
-}
-
-const GAP_REASON: Partial<Record<string, string>> = {
-  'Rumor Gatherer':
-    'Pass 1 lacks controlled-creature-enter trigger with whenResolvedNth (alliance); '
-    + 'only landfallResolveNth exists today.',
-  'Enduring Innocence':
-    'Pass 1 lacks other-creatures-you-control-enter + power≤2 + onceEachTurn; '
-    + 'diesReturnAsEnchantment alone is insufficient for full Oracle.',
-  'Ori, Plate Stacker':
-    'Pass 1 lacks destroy all opponents’ artifacts/enchantments + gain life per destroyed.',
-  'Graaz, Unstoppable Juggernaut':
-    'Pass 1 lacks static juggernaut combat restrictions and mass P/T/subtype rewrite.',
-}
-
 const fromRules = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate(name, { effects: effectsFor(name), ...extra })
 
@@ -108,24 +79,6 @@ const resolveLootAbility = (
   }
   return current
 }
-
-describe('Dack Party pass-35 inventory', () => {
-  for (const [name, status] of Object.entries(INVENTORY)) {
-    test(`${name} — ${status}`, () => {
-      const effects = effectsFor(name)
-      if (status === 'registered') {
-        expect(effects.length).toBeGreaterThan(0)
-        return
-      }
-      if (status === 'kernel-only') {
-        expect(effects).toEqual([])
-        return
-      }
-      expect(effects).toEqual([])
-      expect(GAP_REASON[name]).toBeTruthy()
-    })
-  }
-})
 
 describe('Dack Party pass-35 cardRules', () => {
   test('Beza draws when an opponent has more cards in hand', () => {

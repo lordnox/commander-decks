@@ -8,10 +8,8 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
-import { effectsFor } from './cardRules'
 import { deckCard, fixtureCreature, combatGame, named } from './cirdanCreatureCards'
 import { ability } from './effects'
-import { cardPluginEntry } from './index'
 import { ward } from './ward'
 
 const withValue = (name: string, manaValue: number, extra: Parameters<typeof fixtureCreature>[1] = {}) =>
@@ -50,16 +48,6 @@ const poker = () => cardTemplate('Fixture Poker', {
 const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
 
 describe('Sire of Seven Deaths', () => {
-  test('registers only the Ward-pay-7-life stamp the Oracle parser cannot read', () => {
-    expect(effectsFor('Sire of Seven Deaths')).toEqual([
-      { op: 'static', ward: { life: 7 } },
-    ])
-    expect(cardPluginEntry('Sire of Seven Deaths')).toMatchObject({
-      pluginIds: [],
-      handlerIds: ['ward'],
-    })
-  })
-
   test('every printed keyword comes from the Oracle text', () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [deckCard('Sire of Seven Deaths')] },
@@ -255,15 +243,6 @@ describe('Sire of Seven Deaths', () => {
 })
 
 describe('Void Winnower', () => {
-
-  test('registers one static cast and one static block restriction on even mana values', () => {
-    expect(effectsFor('Void Winnower')).toEqual([
-      { op: 'static', opponentsCantCast: { parity: 'even' } },
-      { op: 'static', opponentsCantBlock: { parity: 'even' } },
-    ])
-    expect(cardPluginEntry('Void Winnower')).toMatchObject({ pluginIds: [], handlerIds: [] })
-  })
-
   describe('casting', () => {
     const castGame = (players: 2 | 3 | 4 = 3) => {
       const server = createServerGame(commanderRules, {

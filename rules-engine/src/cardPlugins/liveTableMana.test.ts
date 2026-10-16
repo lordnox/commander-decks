@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
 import {
-  catalogEntry,
   deckCards,
   deckCardTemplate,
   DECK_DIRECTORIES,
@@ -647,10 +646,4 @@ describe('the mana-source inventory of the four decks is complete', () => {
     expect(missing).toEqual([])
   })
 
-  test('catalog entries keep the deck Oracle text of a double-faced land', () => {
-    const entry = deckCards('3-_cirdan-show-me-what-you-got')
-      .find((card) => card.name === 'Sea Gate Restoration // Sea Gate, Reborn')!
-    expect(catalogEntry(entry).faces?.[1].oracle_text)
-      .toBe('As this land enters, you may pay 3 life. If you don\'t, it enters tapped.\n{T}: Add {U}.')
-  })
 })

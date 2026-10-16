@@ -6,7 +6,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, PlayerId, ReduceResult } from '../types'
-import { cardDefinition, handlerIdsForNames } from './cardRules'
 import { targetOnResolve } from './effectBuilders'
 import { onResolve } from './onResolve'
 import { stackCopy, stackCopyPending, stackCopyTargetCandidates } from './stackCopy'
@@ -107,12 +106,6 @@ const splitVote = () => {
 }
 
 describe('Split Decision', () => {
-  test('is registered with targeting, vote and stack-copy handlers', () => {
-    expect(handlerIdsForNames(['Split Decision'])).toEqual(
-      expect.arrayContaining(['stackCopy', 'targetedResolve', 'vote']),
-    )
-  })
-
   test('only an instant or sorcery spell is a legal target', () => {
     const game = server({
       hands: {
@@ -292,13 +285,6 @@ describe('Trap the Trespassers', () => {
     }))
     return { game, state: ok(game.rules(cast, { type: 'resolveTop' })) }
   }
-
-  test('is registered as a vote resolved from the spell', () => {
-    expect(handlerIdsForNames(['Trap the Trespassers'])).toEqual(
-      expect.arrayContaining(['onResolve', 'vote']),
-    )
-    expect(cardDefinition('Trap the Trespassers')?.effects).toBeDefined()
-  })
 
   test('the options are only creatures the caster does not control, voting starts with the caster', () => {
     const { game, state } = open()

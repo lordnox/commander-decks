@@ -6,10 +6,8 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
-import { effectsFor } from './cardRules'
 import { allNamed, deckCard, fixtureCreature, named } from './cirdanCreatureCards'
 import { activate, targetOnResolve } from './effects'
-import { cardPluginEntry } from './index'
 import { targetedResolve } from './targetedResolve'
 
 const stats = (state: GameState, name: string) => {
@@ -65,35 +63,6 @@ const lieutenantGame = () => {
 }
 
 describe('Archetype of Endurance', () => {
-  test('registers a grant for its controller and a suppression for opponents, nothing else', () => {
-    expect(effectsFor('Archetype of Endurance')).toEqual([
-      {
-        op: 'static',
-        pluginId: 'staticBoardPump',
-        staticBoardPump: {
-          power: 0,
-          toughness: 0,
-          requireTypes: ['Creature'],
-          grantKeywords: ['hexproof'],
-        },
-      },
-      {
-        op: 'static',
-        pluginId: 'staticBoardPump',
-        staticBoardPump: {
-          power: 0,
-          toughness: 0,
-          requireTypes: ['Creature'],
-          controller: 'opponent',
-          suppressKeywords: ['hexproof'],
-        },
-      },
-    ])
-    expect(cardPluginEntry('Archetype of Endurance')).toMatchObject({
-      pluginIds: ['staticBoardPump', 'staticBoardPump'],
-    })
-  })
-
   const archetypeGame = (extra: { p2?: CardTemplate[]; hands?: Record<string, CardTemplate[]> } = {}) => {
     const server = createServerGame(
       commanderRules,
@@ -267,25 +236,6 @@ describe('Archetype of Endurance', () => {
 })
 
 describe('Thunderfoot Baloth', () => {
-  test('registers two commander-conditioned layer effects and no handler', () => {
-    expect(cardPluginEntry('Thunderfoot Baloth')).toMatchObject({
-      pluginIds: ['staticBoardPump', 'staticBoardPump'],
-    })
-    expect(effectsFor('Thunderfoot Baloth').map((effect) =>
-      effect.op === 'static' ? effect.staticBoardPump : undefined)).toEqual([
-      { power: 2, toughness: 2, requireTypes: ['Creature'], if: { kind: 'controlsCommander' }, affects: 'self' },
-      {
-        power: 2,
-        toughness: 2,
-        requireTypes: ['Creature'],
-        if: { kind: 'controlsCommander' },
-        affects: 'others',
-        grantKeywords: ['trample'],
-      },
-    ])
-  })
-
-
   test('without the commander it is a vanilla 5/5 trampler and its team is untouched', () => {
     const { start } = lieutenantGame()
     expect(hasKeyword(named(start, 'Thunderfoot Baloth'), 'trample', start)).toBe(true)

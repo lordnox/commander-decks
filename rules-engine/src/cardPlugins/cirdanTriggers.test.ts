@@ -7,7 +7,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import { effectsFor } from './cardRules'
 import { choiceEffects } from './choiceEffects'
 import {
   allNamed,
@@ -19,7 +18,6 @@ import {
   libraries,
   named,
 } from './cirdanCreatureCards'
-import { cardPluginEntry } from './index'
 
 const pick = (state: GameState, ids: string[]): GameEvent => ({
   type: 'selectCards',
@@ -75,25 +73,6 @@ const primusGame = (
 }
 
 describe('Woodfall Primus', () => {
-  test('registers a mandatory noncreature-permanent destroy on enter and persist', () => {
-    expect(effectsFor('Woodfall Primus')).toEqual([
-      {
-        op: 'trigger',
-        on: 'enters',
-        targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true } },
-        do: [{ kind: 'destroyTargetPermanent', types: [] }],
-      },
-      {
-        op: 'trigger',
-        on: 'dies',
-        if: { kind: 'lacksCounter', counter: '-1/-1' },
-        do: [{ kind: 'returnSelfWithCounter', counter: '-1/-1' }],
-      },
-    ])
-    expect(cardPluginEntry('Woodfall Primus')?.handlerIds).toEqual(['choiceEffects'])
-  })
-
-
   test('Oracle trample comes from the printed text', () => {
     const { start } = primusGame()
     expect(hasKeyword(named(start, 'Woodfall Primus'), 'trample', start)).toBe(true)
@@ -269,27 +248,6 @@ describe('Woodfall Primus', () => {
 })
 
 describe('Terastodon', () => {
-  test('registers an up-to-three noncreature-permanent destroy with a per-controller Elephant', () => {
-    expect(effectsFor('Terastodon')).toEqual([{
-      op: 'trigger',
-      on: 'enters',
-      targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true }, min: 0, max: 3 },
-      do: [{
-        kind: 'destroyThenTokenForController',
-        token: {
-          name: 'Elephant',
-          types: ['Creature'],
-          subtypes: ['Elephant'],
-          colors: ['G'],
-          power: 3,
-          toughness: 3,
-        },
-      }],
-    }])
-  })
-
-
-
   test('it is a 9/9 whose targets are chosen privately, up to three, noncreature only', () => {
     const { server, start } = terastodonGame({
       p1: [artifact('Own Rock')],

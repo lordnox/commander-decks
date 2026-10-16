@@ -79,7 +79,6 @@ describe('cardRuleCatalog — targetedActions', () => {
     const bear = named(server.state, 'Target Bear')
     expect(murder.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Murder'))
     expect(murder.effects).toEqual([])
-    expect(effectsFor('Murder')).toEqual([])
     expect(server.rules(server.state, {
       type: 'castSpell',
       seat: 'p1',
@@ -109,7 +108,6 @@ describe('cardRuleCatalog — targetedActions', () => {
     const sign = named(server.state, 'Sign in Blood')
     expect(sign.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Sign in Blood'))
     expect(sign.effects).toEqual([])
-    expect(effectsFor('Sign in Blood')).toEqual([])
     expect(server.rules(server.state, {
       type: 'castSpell',
       seat: 'p1',
@@ -148,7 +146,6 @@ describe('cardRuleCatalog — targetedActions', () => {
     const instant = named(server.state, 'Not a Creature')
     expect(hounds.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Vampire Hounds'))
     expect(hounds.effects).toEqual([])
-    expect(effectsFor('Vampire Hounds')).toEqual([])
     expect(server.rules(server.state, {
       type: 'activateAbility',
       seat: 'p1',

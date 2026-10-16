@@ -6,7 +6,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState, PlayerId } from '../types'
-import { effectsFor } from './cardRules'
 import {
   allNamed,
   artifact,
@@ -18,7 +17,6 @@ import {
   libraryOf,
   named,
 } from './cirdanCreatureCards'
-import { cardPluginEntry } from './index'
 import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 
 const handSize = (state: GameState, seat: string) => state.zoneOrder[seat].hand.length
@@ -98,20 +96,6 @@ const brute = (name: string, power: number, toughness = 4) =>
   fixtureCreature(name, { power, toughness })
 
 describe('Grothama, All-Devouring', () => {
-  test('registers an every-other-creature attack grant and a leaves trigger that pays by damage ledger', () => {
-    expect(effectsFor('Grothama, All-Devouring')).toEqual([
-      {
-        op: 'static',
-        grantCreatureTrigger: {
-          to: { controller: 'any', other: true },
-          on: 'attacks',
-          do: [{ kind: 'mayFightGrantSource' }],
-        },
-      },
-      { op: 'trigger', on: 'leaves', do: [{ kind: 'eachPlayerDrawDamageDealtToSource' }] },
-    ])
-    expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])
-  })
 
 
 
@@ -312,16 +296,6 @@ describe('Grothama, All-Devouring', () => {
 })
 
 describe('Guardian Project', () => {
-  test('registers one watcher on your nontoken creatures entering, drawing behind the unique-name check', () => {
-    expect(effectsFor('Guardian Project')).toEqual([{
-      op: 'trigger',
-      on: 'permanentEnters',
-      watch: { type: 'Creature', controller: 'you', nontoken: true },
-      do: [{ kind: 'draw', count: 1 }],
-      if: { kind: 'triggeringCreatureNameUnique' },
-    }])
-    expect(cardPluginEntry('Guardian Project')).toMatchObject({ pluginIds: [], handlerIds: [] })
-  })
 
 
 

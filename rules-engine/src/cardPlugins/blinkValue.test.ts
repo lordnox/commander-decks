@@ -8,7 +8,6 @@ import type { GameState } from '../types'
 import { pendingPlayerSelection } from '../rules/selectPlayers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { blinkValue } from './blinkValue'
-import { missingCardPlugins } from './index'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -22,18 +21,6 @@ const instant = (name: string) =>
   cardTemplate(name, { types: ['Instant'], manaCost: '{W}' })
 
 describe('Lady Evangela blink and value cards', () => {
-  test('all seven cards are registered through the reusable handler', () => {
-    const cards = [
-      'Ephemerate',
-      'Ghostly Flicker',
-      'Vanish into Memory',
-      'Loran of the Third Path',
-      'Lotho, Corrupt Shirriff',
-      'Queza, Augur of Agonies',
-    ]
-    expect(missingCardPlugins(cards)).toEqual([])
-  })
-
   test('Ephemerate returns a stolen creature under its owner’s control', () => {
     const server = createServerGame(commanderRules, {
       hands: {

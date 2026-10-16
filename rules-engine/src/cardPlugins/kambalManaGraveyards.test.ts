@@ -9,7 +9,6 @@ import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { pendingDialogFor, DIALOG_CHOSEN } from '../pendingDialog'
 import { legalActsFor } from '../actions'
 import { enters, createTokenInstruction } from './effects'
-import { missingCardPlugins } from './index'
 
 const names = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
 const plugins = await loadCardPlugins(names)
@@ -27,7 +26,6 @@ const game = (name: string, landCount = 0) => createServerGame(commanderRules, {
 }, { random: () => 0.5, cardPlugins: plugins })
 
 describe('Kambal added mana and graveyard cards', () => {
-  test('all five cards register through loadable handlers', () => expect(missingCardPlugins(names)).toEqual([]))
   test.each([0, 1, 2, 3, 4])('Courtyard checks other lands at %i', (count) => {
     const server = game('Concealed Courtyard', count)
     const id = server.state.zoneOrder.p1.hand[0]

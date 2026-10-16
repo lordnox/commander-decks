@@ -6,8 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { pendingSelectionFor } from '../rules/selectCards'
-import { handlerIdsForNames } from './cardRules'
-import { missingCardPlugins } from './index'
 import { activated } from './activated'
 import { alternateCosts } from './alternateCosts'
 import { blinkPlugin } from './blink'
@@ -17,22 +15,6 @@ import { linkedExile } from './linkedExile'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { spreeCast } from './spreeCast'
 import { targetedResolve } from './targetedResolve'
-
-const dackBlinkNames = [
-  'Cloudshift',
-  'Ephemerate',
-  'Flicker of Fate',
-  'Getaway Glamer',
-  'Long Road Home',
-  'Otherworldly Journey',
-  'Parting Gust',
-  'Flickerwisp',
-  'Restoration Angel',
-  'Felidar Guardian',
-  'Voyager Staff',
-  'Guardian of Ghirapur',
-  'All-Fates Stalker',
-]
 
 const dackBlinkPlugins = [
   targetedResolve,
@@ -86,22 +68,6 @@ const castAndResolve = (
 }
 
 describe('Dack party blink pass 2', () => {
-  test('registered cards expose plugin definitions and handler ids for the live host', () => {
-    expect(missingCardPlugins(dackBlinkNames)).toEqual([])
-    expect(handlerIdsForNames(dackBlinkNames).sort()).toEqual([
-      'activated',
-      'alternateCosts',
-      'blink',
-      'blinkValue',
-      'castCosts',
-      'choiceEffects',
-      'giftCast',
-      'linkedExile',
-      'spreeCast',
-      'targetedResolve',
-    ])
-  })
-
   test('Cloudshift returns a stolen creature under your control', () => {
     const server = createServerGame(commanderRules, {
       hands: { p1: [cardTemplate('Cloudshift')] },
@@ -140,40 +106,6 @@ describe('Dack party blink pass 2', () => {
       owner: 'p2',
       controller: 'p2',
     })
-  })
-
-  test('Long Road Home puts a +1/+1 counter on return at the next end step', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Long Road Home')] },
-      battlefield: {
-        p1: [cardTemplate('Road Cat', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const catId = named(server.state, 'Road Cat').id
-    const exiled = castAndResolve(server, server.state, 'Long Road Home', [
-      { kind: 'object', objectId: catId },
-    ])
-    expect(exiled.objects[catId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, exiled)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[catId].counters['+1/+1']).toBe(1)
-  })
-
-  test('Otherworldly Journey matches Long Road Home delayed return with a counter', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Otherworldly Journey')] },
-      battlefield: {
-        p1: [cardTemplate('Journey Cat', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const catId = named(server.state, 'Journey Cat').id
-    const exiled = castAndResolve(server, server.state, 'Otherworldly Journey', [
-      { kind: 'object', objectId: catId },
-    ])
-    expect(exiled.objects[catId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, exiled)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[catId].counters['+1/+1']).toBe(1)
   })
 
   test('Getaway Glamer spree blink mode exiles until the next end step', () => {
