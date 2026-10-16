@@ -657,7 +657,7 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
       const server = createServerGame(
         commanderRules,
         {
-          battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
+          battlefield: { p1: [forest('Forest'), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
           hands: { p1: [card('Lotus Field', ['Land'])] },
         },
       )

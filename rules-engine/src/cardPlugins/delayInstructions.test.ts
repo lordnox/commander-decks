@@ -132,7 +132,7 @@ describe('relocated from homerPass2.test.ts → delayInstructions.test.ts', () =
   const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
     cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
 
-  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+  const plugins = [onResolvePlugin, targetedResolve, activated, choiceEffects, librarySearch, ward]
 
   test('Malakir Rebirth returns the target if it dies this turn', () => {
       const server = createServerGame(

@@ -167,7 +167,7 @@ describe('relocated from homerPass2.test.ts → millThenRecover.test.ts', () => 
     Object.values(state.objects).find((object) => object.name === name)!
 
 
-  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+  const plugins = [onResolvePlugin, targetedResolve, activated, choiceEffects, librarySearch, ward]
 
   test('Ripples of Undeath mills on first main then offers recover', () => {
       const server = createServerGame(
