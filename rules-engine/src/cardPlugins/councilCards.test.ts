@@ -11,7 +11,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, PlayerId, ReduceResult } from '../types'
-import { cardDefinition, handlerIdsForNames } from './cardRules'
 import { choiceEffects } from './choiceEffects'
 import { eachPlayerWheel } from './eachPlayerWheel'
 import { onResolve } from './onResolve'
@@ -137,17 +136,6 @@ const secretVoteFrom = (game: Server, state: GameState, votes: Array<[PlayerId, 
   }
   return current
 }
-
-describe('card table entries', () => {
-  test('each council card is registered with the vote engine handlers it needs', () => {
-    expect(handlerIdsForNames(['Sail into the West']).toSorted())
-      .toEqual(['choiceEffects', 'eachPlayerWheel', 'onResolve', 'vote'])
-    expect(handlerIdsForNames(["Selvala's Stampede"]).toSorted()).toEqual(['onResolve', 'vote'])
-    expect(handlerIdsForNames(['Coercive Portal'])).toEqual(['vote'])
-    expect(cardDefinition('Erestor of the Council')?.effects)
-      .toMatchObject([{ op: 'trigger', on: 'votesFinished' }])
-  })
-})
 
 describe('Sail into the West', () => {
   const sailGame = () => {

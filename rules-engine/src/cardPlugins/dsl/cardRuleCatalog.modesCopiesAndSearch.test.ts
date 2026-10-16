@@ -113,7 +113,6 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     const aura = named(server.state, 'Target Aura')
     expect(destroyCharm.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Esper Charm'))
     expect(destroyCharm.effects).toEqual([])
-    expect(effectsFor('Esper Charm')).toEqual([])
 
     expect(server.rules(server.state, {
       type: 'castSpell',
@@ -187,8 +186,6 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     expect(reverberate.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Reverberate'))
     expect(reverberate.effects).toEqual([])
     expect(effectsOf(reverberate)).toEqual([])
-    expect(effectsFor('Reverberate')).toEqual([])
-    expect(effectsFor('Twincast').length).toBeGreaterThan(0)
 
     const creatureOnStack = ok(server.rules(server.state, {
       type: 'castSpell',
@@ -242,7 +239,6 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     const tutor = named(server.state, 'Diabolic Tutor')
     expect(tutor.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Diabolic Tutor'))
     expect(tutor.effects).toEqual([])
-    expect(effectsFor('Diabolic Tutor')).toEqual([])
     const searching = resolveStack(server.rules, ok(server.rules(server.state, {
       type: 'castSpell',
       seat: 'p1',

@@ -3,7 +3,6 @@ import { createCatalog } from '../catalog'
 import { commanderRules } from '../formats'
 import { rules } from '../kernel'
 import { newGame, yurlokFixture } from '../testGame'
-import { grantedRulesFor, missingCardPlugins } from './index'
 import { activated, YURLOK_MANA_RAIN } from './activated'
 
 const catalog = createCatalog([...commanderRules.plugins, activated])
@@ -22,8 +21,6 @@ const yurlokOnBoard = () => {
 
 describe('Yurlok of Scorch Thrash', () => {
   test('the overlay grants manaBurn while Yurlok is on the battlefield', () => {
-    expect(grantedRulesFor('Yurlok of Scorch Thrash')).toEqual(['manaBurn'])
-    expect(missingCardPlugins(['Sol Ring', 'Yurlok of Scorch Thrash'])).toEqual(['Sol Ring'])
     const { state, yurlokId } = yurlokOnBoard()
     expect(state.objects[yurlokId].grantedRules).toEqual(['manaBurn'])
     expect(state.rules.some((rule) => rule.pluginId === 'manaBurn' && rule.sourceId === yurlokId))

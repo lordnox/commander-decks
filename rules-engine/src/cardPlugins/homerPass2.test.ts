@@ -27,9 +27,6 @@ const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySe
 
 describe('Homer remaining card wiring', () => {
   test('Fact or Fiction uses a public opponent pile split', () => {
-    expect(cardDefinition('Fact or Fiction')?.effects).toMatchObject([
-      { op: 'trigger', do: [{ kind: 'opponentPiles', count: 5, reveal: 'public' }] },
-    ])
     const server = createServerGame(
       commanderRules,
       {
@@ -54,12 +51,6 @@ describe('Homer remaining card wiring', () => {
       candidates: ['p2', 'p3', 'p4'],
       action: { kind: 'opponentPiles', count: 5 },
     })
-  })
-
-  test("Fortune's Favor looks privately and splits face-down and face-up", () => {
-    expect(cardDefinition("Fortune's Favor")?.effects).toMatchObject([
-      { op: 'targetedResolve', filter: { players: 'opponent' } },
-    ])
   })
 
   test('Ripples of Undeath mills on first main then offers recover', () => {
@@ -191,7 +182,6 @@ describe('Homer remaining card wiring', () => {
   })
 
   test('Roaming Throne stamps Ward {2}', () => {
-    expect(cardDefinition('Roaming Throne')?.handlerIds).toContain('ward')
     const server = createServerGame(
       commanderRules,
       {
@@ -291,13 +281,6 @@ describe('Homer remaining card wiring', () => {
     expect(returned.objects[watched].zone).toBe('battlefield')
   })
 
-  test('Life from the Loam targets up to three lands in the graveyard', () => {
-    expect(cardDefinition('Life from the Loam')?.effects).toMatchObject([
-      { op: 'dredge' },
-      { op: 'targetedResolve', min: 0, max: 3, optional: true },
-    ])
-  })
-
   test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {
     const effects = cardDefinition('Mole Man, Moloid Master')?.effects ?? []
     expect(effects.some((effect) => effect.op === 'static' && effect.playLandsFromGraveyard)).toBe(true)
@@ -310,12 +293,4 @@ describe('Homer remaining card wiring', () => {
     ])
   })
 
-  test('Forgotten Cellar is the unlock door, not a second Walk-In Closet', () => {
-    expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([
-      { op: 'static', playLandsFromGraveyard: true },
-    ])
-    expect(cardDefinition('Forgotten Cellar')?.effects).toMatchObject([
-      { op: 'trigger', on: 'unlock' },
-    ])
-  })
 })

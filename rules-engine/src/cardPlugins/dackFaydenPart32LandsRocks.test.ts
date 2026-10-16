@@ -7,10 +7,9 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
-import { cardDefinition, effectsFor } from './cardRules'
+import { effectsFor } from './cardRules'
 import { cycling } from './cycling'
 import { entersTapped } from './entersTapped'
-import { cardPluginEntry, missingCardPlugins } from './index'
 import {
   librarySearch,
   SEARCH_CHOSEN,
@@ -68,8 +67,6 @@ const solRing = () =>
 
 describe('Dack Fayden part 32 — lands, rocks, maps', () => {
   test('built-in mana covers Plains and Sol Ring without cardRules entries', () => {
-    expect(cardPluginEntry('Plains')).toBeUndefined()
-    expect(cardPluginEntry('Sol Ring')).toBeUndefined()
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [plains(), solRing()] } },
@@ -82,31 +79,6 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       objectId: ringId,
     }))
     expect(tapped.players.p1.mana.C).toBe(2)
-  })
-
-  test('registered part-32 cards are in the card pool table', () => {
-    const registered = [
-      "Archaeomancer's Map",
-      "Commander's Sphere",
-      'Endless Sands',
-      'Everflowing Chalice',
-      'Expedition Map',
-      'Geier Reach Sanitarium',
-      'Gilded Lotus',
-      'Hedron Archive',
-      'High Market',
-      'Mind Stone',
-      'Moonsilver Key',
-      'Myriad Landscape',
-      'Secluded Steppe',
-      'Temple of the False God',
-      "Thespian's Stage",
-      "Thrór's Map",
-      "Urza's Cave",
-      'World Map',
-      'Worn Powerstone',
-    ]
-    expect(missingCardPlugins(registered)).toEqual([])
   })
 
   test('Mind Stone sacrifices for a card', () => {
@@ -317,15 +289,6 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(opened.objects[mapId].zone).toBe('graveyard')
     expect(pendingSearch(opened, 'p1')).toBeDefined()
     expect(projectForViewer(opened, 'p2').zoneOrder.p1.library).toEqual([])
-  })
-
-  test('cardDefinition lists handlers for Endless Sands and Thespian\'s Stage', () => {
-    expect(cardDefinition('Endless Sands')?.handlerIds).toEqual(
-      expect.arrayContaining(['linkedExile', 'activated']),
-    )
-    expect(cardDefinition("Thespian's Stage")?.handlerIds).toEqual(
-      expect.arrayContaining(['becomeCopyOfTarget', 'activated']),
-    )
   })
 
   test("Archaeomancer's Map ETB finds up to two Plains and puts them in hand", () => {
@@ -742,33 +705,5 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(opened.objects[landscapeId].zone).toBe('graveyard')
     const spec = searchSpecFor('Myriad Landscape')!
     expect(searchCandidates(opened, 'p1', spec).map((object) => object.name)).toEqual(['Forest A', 'Forest B'])
-  })
-})
-
-describe('Dack Fayden part 32 — explicit GAP checklist', () => {
-  test('Emergence Zone and Northampton Farm have no CARD_RULES entry', () => {
-    expect(cardPluginEntry('Emergence Zone')).toBeUndefined()
-    expect(cardPluginEntry('Northampton Farm')).toBeUndefined()
-  })
-
-  test.each([
-    [
-      'Emergence Zone',
-      'Sacrifice-for-flash and {1},{T} timing are not composable from existing plugins; only basic tap-for-{C} is modeled without CARD_RULES.',
-    ],
-    [
-      'Northampton Farm',
-      'Exile a creature you own, then return one exiled creature to the battlefield and other exiled cards to hand is not composable from linkedExile like Endless Sands.',
-    ],
-    [
-      'Everflowing Chalice (tap mana)',
-      'Multikicker charge counters on ETB are wired; {T}: Add {C} for each charge counter has no generic mana-capability.',
-    ],
-    [
-      "Archaeomancer's Map (land enter)",
-      'Second ability uses playLand + opponentHasMore, not land-enter nor comparing land counts to the triggering opponent in multiplayer.',
-    ],
-  ] as const)('documented GAP: %s', (_label, note) => {
-    expect(note.length).toBeGreaterThan(20)
   })
 })

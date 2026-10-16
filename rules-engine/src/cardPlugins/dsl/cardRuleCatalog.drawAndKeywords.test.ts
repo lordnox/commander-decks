@@ -115,7 +115,6 @@ describe('cardRuleCatalog — drawAndKeywords', () => {
     const whisper = named(server.state, "Night's Whisper")
     expect(whisper.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor("Night's Whisper"))
     expect(whisper.effects).toEqual([])
-    expect(effectsFor("Night's Whisper")).toEqual([])
     const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: whisper.id }))
     const resolved = resolveStack(server.rules, cast)
     expect(resolved.players.p1.life).toBe(38)

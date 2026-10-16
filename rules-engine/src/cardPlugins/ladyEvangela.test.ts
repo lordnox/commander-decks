@@ -5,7 +5,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, ReduceResult } from '../types'
 import { activated } from './activated'
-import { missingCardPlugins } from './index'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 
@@ -26,63 +25,6 @@ const passToEmpty = (
 }
 
 describe('Lady Evangela foggy blood transfusion coverage', () => {
-  test('the Eva cards this pass covers stay registered', () => {
-    expect(missingCardPlugins([
-      'Absorb',
-      'Anguished Unmaking',
-      'Batwing Brume',
-      'Blanket of Night',
-      'Blood Celebrant',
-      'Bubbling Muck',
-      'Cabal Coffers',
-      'Cabal Stronghold',
-      'Comeuppance',
-      'Crypt Ghast',
-      'Dark Confidant',
-      'Dark Tutelage',
-      'Darkness',
-      'Debt to the Deathless',
-      'Deserted Temple',
-      'Dimir Signet',
-      'Drain Life',
-      "Dovin's Veto",
-      'Energy Arc',
-      'Everybody Lives!',
-      'Esper Panorama',
-      'Expedition Map',
-      'Exsanguinate',
-      'Inkshield',
-      'Kami of False Hope',
-      'Lady Evangela',
-      'Magus of the Coffers',
-      'Marsh Flats',
-      'Mirror Universe',
-      'Mister Negative',
-      'Mulldrifter',
-      'Necrologia',
-      'Nirkana Revenant',
-      'Orzhov Signet',
-      "Raffine's Tower",
-      'Repay in Kind',
-      'Selenia, Dark Angel',
-      'Settle the Wreckage',
-      'Snuff Out',
-      'Swan Song',
-      'Swords to Plowshares',
-      'Tainted Sigil',
-      'Test of Endurance',
-      'Urborg, Tomb of Yawgmoth',
-      'Wall of Blood',
-      'Children of Korlis',
-      'Counterspell',
-      'Arcanis the Omnipotent',
-      'Cryptic Command',
-      'Wedding Ring',
-      'Breena, the Demagogue',
-      'Kuroki, Thief of Talents',
-    ])).toEqual([])
-  })
-
   test('Urborg lets a Forest tap for {B}', () => {
     const server = createServerGame(
       commanderRules,

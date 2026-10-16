@@ -10,8 +10,6 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import { cardPluginEntry } from './index'
-
 /**
  * Círdan part B (mana): Alchemist's Refuge, Arbor Elf, Flooded Grove,
  * Waterlogged Grove, Simic Signet, Wild Growth, Utopia Sprawl and
@@ -110,13 +108,6 @@ const opponentsCombat = (state: GameState): GameState => ({
 
 const held = (count: number) =>
   Array.from({ length: count }, (_, index) => cardTemplate(`Held ${index}`))
-
-describe('registration', () => {
-  test.each(NAMES)('%s is table-driven and builds from its deck Oracle text', (name) => {
-    expect(deckCardTemplate(name).oracleText.length).toBeGreaterThan(0)
-    expect(cardPluginEntry(name)).toBeDefined()
-  })
-})
 
 describe("Alchemist's Refuge", () => {
   const activateEvent = (state: GameState): GameEvent => ({

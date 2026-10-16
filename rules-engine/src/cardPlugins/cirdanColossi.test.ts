@@ -6,8 +6,6 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
-import { cardPluginEntry } from './index'
-import { effectsFor } from './cardRules'
 import { enters, gainLife, selfMill, triggerOn } from './effects'
 import { allNamed, deckCard, fixtureCreature, named } from './cirdanCreatureCards'
 import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
@@ -48,16 +46,6 @@ const attack = (server: ReturnType<typeof game>, state: GameState) => {
 const betrayer = () => deckCard('It That Betrays')
 
 describe('Blightsteel and Darksteel Colossus registration', () => {
-  test('both load only the shuffle replacement handler', () => {
-    for (const name of COLOSSI) {
-      expect(effectsFor(name)).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
-      expect(cardPluginEntry(name)).toMatchObject({
-        pluginIds: [],
-        handlerIds: ['shuffleIntoLibraryInstead'],
-      })
-    }
-  })
-
   test('Oracle keywords come from the printed text, and only Blightsteel has infect', () => {
     const server = game({
       battlefield: { p1: [deckCard('Blightsteel Colossus'), deckCard('Darksteel Colossus')] },

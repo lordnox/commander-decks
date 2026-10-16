@@ -6,7 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack, roomDoor } from '../testHelpers'
 import { activated } from './activated'
 import { gainLife } from './effects'
-import { cardPluginEntry } from './index'
 
 const marina = () => cardTemplate('Marina Vendrell', {
   types: ['Creature'],
@@ -35,10 +34,6 @@ const named = (state: ReturnType<typeof createServerGame>['state'], name: string
   Object.values(state.objects).find((object) => object.name.includes(name))!
 
 describe('Marina Vendrell', () => {
-  test('registers only the generic activated handler', () => {
-    expect(cardPluginEntry('Marina Vendrell')?.handlerIds).toEqual(['activated'])
-  })
-
   test('enters by revealing seven, putting enchantments into hand, and the rest on the bottom at random', () => {
     const library = [
       cardTemplate('Aura', { types: ['Enchantment'] }),

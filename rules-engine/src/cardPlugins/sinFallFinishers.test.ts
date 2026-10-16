@@ -11,7 +11,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { choiceEffects } from './choiceEffects'
-import { handlerIdsForNames } from './cardRules'
 import { exiledWith } from './exiledWith'
 import {
   SEARCH_CHOSEN,
@@ -54,21 +53,6 @@ const finisherPlugins = [
 ]
 
 describe('Sin Fall finisher cards', () => {
-  test('registers handler ids for the three finishers', () => {
-    expect(handlerIdsForNames(['Famished Worldsire']).toSorted()).toEqual([
-      'choiceEffects',
-      'ward',
-    ])
-    expect(handlerIdsForNames(['Finale of Devastation']).toSorted()).toEqual([
-      'castCosts',
-      'librarySearch',
-    ])
-    expect(handlerIdsForNames(['Valgavoth, Terror Eater']).toSorted()).toEqual([
-      'exiledWith',
-      'ward',
-    ])
-  })
-
   test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {
     const server = createServerGame(
       commanderRules,

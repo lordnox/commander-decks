@@ -15,6 +15,13 @@ test.each([
   ["Nature's Lore", ['sequence']],
   ['Entomb', ['sequence']],
   ['Buried Alive', ['sequence']],
+  ['Flame Rift', ['damage']],
+  ["Night's Whisper", ['draw', 'loseLife']],
+  ['Reverberate', ['copySpell']],
+  ['Diabolic Tutor', ['sequence']],
+  ['Foil', ['counter']],
+  ['Murder', ['destroy']],
+  ['Sign in Blood', ['draw', 'loseLife']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -251,4 +258,40 @@ test.each(['Counterspell', 'Absorb'])('catalog %s binds counter to its announced
     instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } },
       ...(name === 'Absorb' ? [expect.anything()] : [])],
   })
+})
+
+test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {
+  const definition = cardRuleDefinitionSnapshotFor('Fate Unraveler')!
+  expect(effectsFor('Fate Unraveler')).toEqual([])
+  const ability = definition.definition.abilities[0]!
+  expect(ability.kind).toBe('triggered')
+  if (ability.kind !== 'triggered') throw new Error('expected triggered configuration')
+  expect(ability.instructions!.map(instruction => instruction.kind)).toEqual(['damage'])
+})
+
+test('catalog Esper Charm composes modal destroy, draw, or discard without legacy effects', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Esper Charm')!.definition.abilities[0]!
+  expect(effectsFor('Esper Charm')).toEqual([])
+  expect(ability.kind).toBe('spell')
+  if (ability.kind !== 'spell') throw new Error('expected spell configuration')
+  expect(ability.modes!.map(mode => mode.instructions!.map(instruction => instruction.kind))).toEqual([
+    ['destroy'],
+    ['draw'],
+    ['discard'],
+  ])
+})
+
+test('catalog Vampire Hounds composes a discard-cost pump without legacy effects', () => {
+  const definition = cardRuleDefinitionSnapshotFor('Vampire Hounds')!
+  expect(effectsFor('Vampire Hounds')).toEqual([])
+  const ability = definition.definition.abilities[0]!
+  expect(ability.kind).toBe('activated')
+  if (ability.kind !== 'activated') throw new Error('expected activated configuration')
+  expect(ability.instructions!.map(instruction => instruction.kind)).toEqual(['createEffect'])
+})
+
+test('unmigrated Mulldrifter keeps CARD_RULES effects instead of a catalog snapshot', () => {
+  expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
+  expect(cardTemplateDefaultsFor('Mulldrifter')).toBeUndefined()
+  expect(effectsFor('Mulldrifter').length).toBeGreaterThan(0)
 })

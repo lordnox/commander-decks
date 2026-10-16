@@ -8,10 +8,9 @@ import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { EMBALM_ABILITY_ID } from './embalm.test'
 import { activated } from './activated'
-import { cardDefinition, effectsFor } from './cardRules'
+import { effectsFor } from './cardRules'
 import { exilePayoffs } from './exilePayoffs'
 import { linkedExile } from './linkedExile'
-import { missingCardPlugins } from './index'
 
 const plugins = [activated, exilePayoffs, linkedExile]
 
@@ -56,46 +55,7 @@ const enterAndLinkExile = (
   return state
 }
 
-const part34Registered = [
-  'Angel of Sanctions',
-  'Banisher Priest',
-  'Bishop of Binding',
-  'Fiend Hunter',
-  'Glorious Protector',
-  'Lumbering Battlement',
-  'Palace Jailer',
-  'Werefox Bodyguard',
-]
-
-const part34GapCards = [
-  'Abdel Adrian, Gorion\'s Ward',
-  'Angel of Serenity',
-  'Constricting Sliver',
-  'Driftgloom Coyote',
-] as const
-
 describe('Dack Fayden part 34 — assignment checklist (gaps)', () => {
-  test.each([...part34GapCards])('%s is not registered until Pass 1 adds missing builders', (name) => {
-    expect(effectsFor(name)).toEqual([])
-    expect(cardDefinition(name)).toBeUndefined()
-  })
-
-  test('Constricting Sliver — GAP: granted enters triggers do not stamp linkedExileUntilLeaves on Slivers', () => {
-    expect(effectsFor('Constricting Sliver')).toEqual([])
-  })
-
-  test('Abdel Adrian, Gorion\'s Ward — GAP: no createToken-per-linked-exile-count instruction', () => {
-    expect(effectsFor('Abdel Adrian, Gorion\'s Ward')).toEqual([])
-  })
-
-  test('Angel of Serenity — GAP: linkExile is battlefield-only; Oracle needs graveyard zones and hand return', () => {
-    expect(effectsFor('Angel of Serenity')).toEqual([])
-  })
-
-  test('Driftgloom Coyote — GAP: no +1/+1 when exiled creature power ≤ 2', () => {
-    expect(effectsFor('Driftgloom Coyote')).toEqual([])
-  })
-
   test('Lumbering Battlement — GAP: TargetFilter has no nontoken; tokens wrongly appear as link-exile candidates', () => {
     const battlement = fromPool('Lumbering Battlement')
     const token = cardTemplate('Battlement Token', { types: ['Creature'], token: true })
@@ -117,13 +77,6 @@ describe('Dack Fayden part 34 — assignment checklist (gaps)', () => {
 })
 
 describe('Dack Fayden part 34 — linked exile cages', () => {
-  test('registered part-34 cards are in the card pool table', () => {
-    expect(missingCardPlugins(part34Registered)).toEqual([])
-    for (const name of part34Registered) {
-      expect(cardDefinition(name)?.effects.length).toBeGreaterThan(0)
-    }
-  })
-
   test('Fiend Hunter exiles on ETB and returns the hostage when it dies', () => {
     const hunter = fromPool('Fiend Hunter')
     const prey = cardTemplate('Caged Prey', { types: ['Creature'], power: 3, toughness: 3 })

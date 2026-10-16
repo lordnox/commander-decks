@@ -1,9 +1,17 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
-import { allHandlerIds, handlerIdsForNames } from './cardRules'
+import { catalogEntry, deckCards } from '../deckCardFixtures'
+import { allHandlerIds, cardDefinition, effectsFor, handlerIdsForNames } from './cardRules'
+import {
+  drawGreatestPower,
+  mayCastFromHandWithoutPayingMana,
+  onResolve,
+} from './effectBuilders'
+import { ptEqualsLife } from './effects'
 import {
   cardPluginEntry,
+  grantedRulesFor,
   missingCardPlugins,
 } from './index'
 
@@ -354,5 +362,610 @@ describe('card plugin registry', () => {
     ])).toEqual([])
     expect(cardPluginEntry('Kuroki, Thief of Talents')?.handlerIds).toContain('stealCast')
     expect(cardPluginEntry('Cryptic Command')?.handlerIds).toContain('modalSpell')
+  })
+
+  test('the Lady Evangela foggy-blood pass stays registered', () => {
+    expect(missingCardPlugins([
+      'Absorb',
+      'Anguished Unmaking',
+      'Batwing Brume',
+      'Blanket of Night',
+      'Blood Celebrant',
+      'Bubbling Muck',
+      'Cabal Coffers',
+      'Cabal Stronghold',
+      'Comeuppance',
+      'Crypt Ghast',
+      'Dark Confidant',
+      'Dark Tutelage',
+      'Darkness',
+      'Debt to the Deathless',
+      'Deserted Temple',
+      'Dimir Signet',
+      'Drain Life',
+      "Dovin's Veto",
+      'Energy Arc',
+      'Everybody Lives!',
+      'Esper Panorama',
+      'Expedition Map',
+      'Exsanguinate',
+      'Inkshield',
+      'Kami of False Hope',
+      'Lady Evangela',
+      'Magus of the Coffers',
+      'Marsh Flats',
+      'Mirror Universe',
+      'Mister Negative',
+      'Mulldrifter',
+      'Necrologia',
+      'Nirkana Revenant',
+      'Orzhov Signet',
+      "Raffine's Tower",
+      'Repay in Kind',
+      'Selenia, Dark Angel',
+      'Settle the Wreckage',
+      'Snuff Out',
+      'Swan Song',
+      'Swords to Plowshares',
+      'Tainted Sigil',
+      'Test of Endurance',
+      'Urborg, Tomb of Yawgmoth',
+      'Wall of Blood',
+      'Children of Korlis',
+      'Counterspell',
+      'Arcanis the Omnipotent',
+      'Cryptic Command',
+      'Wedding Ring',
+      'Breena, the Demagogue',
+      'Kuroki, Thief of Talents',
+    ])).toEqual([])
+  })
+
+  test('Lady Evangela blink-value cards stay registered', () => {
+    expect(missingCardPlugins([
+      'Ephemerate',
+      'Ghostly Flicker',
+      'Vanish into Memory',
+      'Loran of the Third Path',
+      'Lotho, Corrupt Shirriff',
+      'Queza, Augur of Agonies',
+    ])).toEqual([])
+  })
+
+  test('Círdan part-B mana cards stay registered', () => {
+    expect(missingCardPlugins([
+      "Alchemist's Refuge",
+      'Arbor Elf',
+      'Flooded Grove',
+      'Waterlogged Grove',
+      'Simic Signet',
+      'Wild Growth',
+      'Utopia Sprawl',
+      'Sea Gate Restoration // Sea Gate, Reborn',
+    ])).toEqual([])
+  })
+
+  test('Kambal added mana and graveyard cards stay registered', () => {
+    expect(missingCardPlugins([
+      'Godless Shrine',
+      'Vault of Champions',
+      'Concealed Courtyard',
+      'Bojuka Bog',
+      'Boggart Trawler // Boggart Bog',
+    ])).toEqual([])
+  })
+
+  test('Archangel and Baird register the reusable combat-tax handler', () => {
+    expect(handlerIdsForNames([
+      'Archangel of Tithes',
+      'Baird, Steward of Argive',
+    ])).toEqual(['combatTax'])
+  })
+
+  test('Marina Vendrell registers only the generic activated handler', () => {
+    expect(cardPluginEntry('Marina Vendrell')?.handlerIds).toEqual(['activated'])
+  })
+
+  test('Yurlok grants the manaBurn overlay rule', () => {
+    expect(grantedRulesFor('Yurlok of Scorch Thrash')).toEqual(['manaBurn'])
+    expect(missingCardPlugins(['Sol Ring', 'Yurlok of Scorch Thrash'])).toEqual(['Sol Ring'])
+  })
+
+  test('Twincast keeps a legacy CARD_RULES copy program', () => {
+    expect(effectsFor('Twincast').length).toBeGreaterThan(0)
+    expect(effectsFor('Reverberate')).toEqual([])
+  })
+
+  test('Voyager Staff is registered from its exact Oracle text', () => {
+    expect(effectsFor('Voyager Staff')).toEqual([{
+      op: 'activate',
+      id: 'voyagerStaff.blink',
+      costs: { mana: '{2}', sacrifice: 'self' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
+      do: [{ kind: 'blink', when: 'nextEndStep', returnController: 'owner' }],
+    }])
+  })
+
+  test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {
+    for (const name of ['Blightsteel Colossus', 'Darksteel Colossus']) {
+      expect(effectsFor(name)).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
+      expect(cardPluginEntry(name)).toMatchObject({
+        pluginIds: [],
+        handlerIds: ['shuffleIntoLibraryInstead'],
+      })
+    }
+  })
+
+  test('Sire of Seven Deaths registers only the Ward-pay-7-life stamp', () => {
+    expect(effectsFor('Sire of Seven Deaths')).toEqual([
+      { op: 'static', ward: { life: 7 } },
+    ])
+    expect(cardPluginEntry('Sire of Seven Deaths')).toMatchObject({
+      pluginIds: [],
+      handlerIds: ['ward'],
+    })
+  })
+
+  test('Void Winnower registers even-parity cast and block restrictions', () => {
+    expect(effectsFor('Void Winnower')).toEqual([
+      { op: 'static', opponentsCantCast: { parity: 'even' } },
+      { op: 'static', opponentsCantBlock: { parity: 'even' } },
+    ])
+    expect(cardPluginEntry('Void Winnower')).toMatchObject({ pluginIds: [], handlerIds: [] })
+  })
+
+  test('Grothama registers an attack grant and a leaves-draw trigger', () => {
+    expect(effectsFor('Grothama, All-Devouring')).toEqual([
+      {
+        op: 'static',
+        grantCreatureTrigger: {
+          to: { controller: 'any', other: true },
+          on: 'attacks',
+          do: [{ kind: 'mayFightGrantSource' }],
+        },
+      },
+      { op: 'trigger', on: 'leaves', do: [{ kind: 'eachPlayerDrawDamageDealtToSource' }] },
+    ])
+    expect(cardPluginEntry('Grothama, All-Devouring')?.handlerIds).toEqual(['grantCreatureTrigger'])
+  })
+
+  test('Guardian Project registers a unique-name enter watcher', () => {
+    expect(effectsFor('Guardian Project')).toEqual([{
+      op: 'trigger',
+      on: 'permanentEnters',
+      watch: { type: 'Creature', controller: 'you', nontoken: true },
+      do: [{ kind: 'draw', count: 1 }],
+      if: { kind: 'triggeringCreatureNameUnique' },
+    }])
+    expect(cardPluginEntry('Guardian Project')).toMatchObject({ pluginIds: [], handlerIds: [] })
+  })
+
+  test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {
+    expect(effectsFor('Archetype of Endurance')).toEqual([
+      {
+        op: 'static',
+        pluginId: 'staticBoardPump',
+        staticBoardPump: {
+          power: 0,
+          toughness: 0,
+          requireTypes: ['Creature'],
+          grantKeywords: ['hexproof'],
+        },
+      },
+      {
+        op: 'static',
+        pluginId: 'staticBoardPump',
+        staticBoardPump: {
+          power: 0,
+          toughness: 0,
+          requireTypes: ['Creature'],
+          controller: 'opponent',
+          suppressKeywords: ['hexproof'],
+        },
+      },
+    ])
+    expect(cardPluginEntry('Archetype of Endurance')).toMatchObject({
+      pluginIds: ['staticBoardPump', 'staticBoardPump'],
+    })
+  })
+
+  test('Thunderfoot Baloth registers two commander-conditioned layer effects', () => {
+    expect(cardPluginEntry('Thunderfoot Baloth')).toMatchObject({
+      pluginIds: ['staticBoardPump', 'staticBoardPump'],
+    })
+    expect(effectsFor('Thunderfoot Baloth').map((effect) =>
+      effect.op === 'static' ? effect.staticBoardPump : undefined)).toEqual([
+      { power: 2, toughness: 2, requireTypes: ['Creature'], if: { kind: 'controlsCommander' }, affects: 'self' },
+      {
+        power: 2,
+        toughness: 2,
+        requireTypes: ['Creature'],
+        if: { kind: 'controlsCommander' },
+        affects: 'others',
+        grantKeywords: ['trample'],
+      },
+    ])
+  })
+
+  test('Woodfall Primus registers persist and a mandatory noncreature destroy', () => {
+    expect(effectsFor('Woodfall Primus')).toEqual([
+      {
+        op: 'trigger',
+        on: 'enters',
+        targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true } },
+        do: [{ kind: 'destroyTargetPermanent', types: [] }],
+      },
+      {
+        op: 'trigger',
+        on: 'dies',
+        if: { kind: 'lacksCounter', counter: '-1/-1' },
+        do: [{ kind: 'returnSelfWithCounter', counter: '-1/-1' }],
+      },
+    ])
+    expect(cardPluginEntry('Woodfall Primus')?.handlerIds).toEqual(['choiceEffects'])
+  })
+
+  test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {
+    expect(effectsFor('Terastodon')).toEqual([{
+      op: 'trigger',
+      on: 'enters',
+      targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true }, min: 0, max: 3 },
+      do: [{
+        kind: 'destroyThenTokenForController',
+        token: {
+          name: 'Elephant',
+          types: ['Creature'],
+          subtypes: ['Elephant'],
+          colors: ['G'],
+          power: 3,
+          toughness: 3,
+        },
+      }],
+    }])
+  })
+
+  test('council cards register the vote engine handlers they need', () => {
+    expect(handlerIdsForNames(['Sail into the West']).toSorted())
+      .toEqual(['choiceEffects', 'eachPlayerWheel', 'onResolve', 'vote'])
+    expect(handlerIdsForNames(["Selvala's Stampede"]).toSorted()).toEqual(['onResolve', 'vote'])
+    expect(handlerIdsForNames(['Coercive Portal'])).toEqual(['vote'])
+    expect(cardDefinition('Erestor of the Council')?.effects)
+      .toMatchObject([{ op: 'trigger', on: 'votesFinished' }])
+  })
+
+  test('Split Decision and Trap the Trespassers register vote handlers', () => {
+    expect(handlerIdsForNames(['Split Decision'])).toEqual(
+      expect.arrayContaining(['stackCopy', 'targetedResolve', 'vote']),
+    )
+    expect(handlerIdsForNames(['Trap the Trespassers'])).toEqual(
+      expect.arrayContaining(['onResolve', 'vote']),
+    )
+    expect(cardDefinition('Trap the Trespassers')?.effects).toBeDefined()
+  })
+
+  test('Incarnation Technique loads both the trigger and the copy handler', () => {
+    expect(cardPluginEntry('Incarnation Technique')?.handlerIds)
+      .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))
+    expect(handlerIdsForNames(['Incarnation Technique']))
+      .toEqual(expect.arrayContaining(['demonstrate', 'stackCopy']))
+  })
+
+  test('Círdan misc cards keep their handler composition', () => {
+    expect(handlerIdsForNames(['Dig Through Time']).toSorted()).toEqual(['castCosts', 'onResolve'])
+    expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])
+    expect(handlerIdsForNames(['Nezahal, Primal Tide']).toSorted())
+      .toEqual(['activated', 'blink', 'castTriggers', 'noMaxHand'])
+    expect(effectsFor('Nezahal, Primal Tide')).toContainEqual({ op: 'spellTrait', uncounterable: true })
+    expect(handlerIdsForNames(['Phyrexian Ingester']).toSorted())
+      .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
+    const [saga] = effectsFor('Kiora Bests the Sea God')
+    expect(saga).toMatchObject({ op: 'saga' })
+    expect((saga as { chapters: Array<{ numbers: number[] }> }).chapters.map((chapter) => chapter.numbers))
+      .toEqual([[1], [2], [3]])
+    expect(effectsFor("Rishkar's Expertise")).toEqual([
+      onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
+    ])
+    expect(effectsFor('Spearbreaker Behemoth')).toEqual([{
+      op: 'activate',
+      id: 'spearbreaker.indestructible',
+      costs: { mana: '{1}' },
+      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
+      do: [{ kind: 'grantUntilEot', keywords: ['indestructible'] }],
+    }])
+  })
+
+  test('Homer remaining cards keep their resolve composition', () => {
+    expect(cardDefinition('Fact or Fiction')?.effects).toMatchObject([
+      { op: 'trigger', do: [{ kind: 'opponentPiles', count: 5, reveal: 'public' }] },
+    ])
+    expect(cardDefinition("Fortune's Favor")?.effects).toMatchObject([
+      { op: 'targetedResolve', filter: { players: 'opponent' } },
+    ])
+    expect(cardDefinition('Roaming Throne')?.handlerIds).toContain('ward')
+    expect(cardDefinition('Life from the Loam')?.effects).toMatchObject([
+      { op: 'dredge' },
+      { op: 'targetedResolve', min: 0, max: 3, optional: true },
+    ])
+    expect(cardDefinition('Walk-In Closet')?.effects).toMatchObject([
+      { op: 'static', playLandsFromGraveyard: true },
+    ])
+    expect(cardDefinition('Forgotten Cellar')?.effects).toMatchObject([
+      { op: 'trigger', on: 'unlock' },
+    ])
+  })
+
+  test("Endless Sands and Thespian's Stage list their handlers", () => {
+    expect(cardDefinition('Endless Sands')?.handlerIds).toEqual(
+      expect.arrayContaining(['linkedExile', 'activated']),
+    )
+    expect(cardDefinition("Thespian's Stage")?.handlerIds).toEqual(
+      expect.arrayContaining(['becomeCopyOfTarget', 'activated']),
+    )
+  })
+
+  test.each([
+    [
+      'Emergence Zone',
+      'Sacrifice-for-flash and {1},{T} timing are not composable from existing plugins; only basic tap-for-{C} is modeled without CARD_RULES.',
+    ],
+    [
+      'Northampton Farm',
+      'Exile a creature you own, then return one exiled creature to the battlefield and other exiled cards to hand is not composable from linkedExile like Endless Sands.',
+    ],
+    [
+      'Everflowing Chalice (tap mana)',
+      'Multikicker charge counters on ETB are wired; {T}: Add {C} for each charge counter has no generic mana-capability.',
+    ],
+    [
+      "Archaeomancer's Map (land enter)",
+      'Second ability uses playLand + opponentHasMore, not land-enter nor comparing land counts to the triggering opponent in multiplayer.',
+    ],
+  ] as const)('Dack part-32 documented GAP: %s', (_label, note) => {
+    expect(note.length).toBeGreaterThan(20)
+  })
+
+  test.each([
+    "Abdel Adrian, Gorion's Ward",
+    'Angel of Serenity',
+    'Constricting Sliver',
+    'Driftgloom Coyote',
+  ] as const)('%s is not registered until Pass 1 adds missing builders', (name) => {
+    expect(effectsFor(name)).toEqual([])
+    expect(cardDefinition(name)).toBeUndefined()
+  })
+
+  test('Dack party blink cards expose plugin definitions and handler ids', () => {
+    const names = [
+      'Cloudshift',
+      'Ephemerate',
+      'Flicker of Fate',
+      'Getaway Glamer',
+      'Long Road Home',
+      'Otherworldly Journey',
+      'Parting Gust',
+      'Flickerwisp',
+      'Restoration Angel',
+      'Felidar Guardian',
+      'Voyager Staff',
+      'Guardian of Ghirapur',
+      'All-Fates Stalker',
+    ]
+    expect(missingCardPlugins(names)).toEqual([])
+    expect(handlerIdsForNames(names)).toEqual([
+      'activated',
+      'alternateCosts',
+      'blink',
+      'blinkValue',
+      'castCosts',
+      'choiceEffects',
+      'giftCast',
+      'linkedExile',
+      'spreeCast',
+      'targetedResolve',
+    ])
+  })
+
+  test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {
+    const inventory: Record<string, 'registered' | 'kernel-only' | 'GAP'> = {
+      'Dack Fayden, Helping Hand': 'registered',
+      'Helping Hand': 'kernel-only',
+      "Collector's Vault": 'registered',
+      'Daily Bugle Newspaper': 'registered',
+      Blitzball: 'registered',
+      Belonging: 'registered',
+      'Beza, the Bounding Spring': 'registered',
+      'Perch Protection': 'registered',
+      'Rumor Gatherer': 'GAP',
+      'Enduring Innocence': 'GAP',
+      'Ori, Plate Stacker': 'GAP',
+      'Graaz, Unstoppable Juggernaut': 'GAP',
+    }
+    const gapReason: Partial<Record<string, string>> = {
+      'Rumor Gatherer':
+        'Pass 1 lacks controlled-creature-enter trigger with whenResolvedNth (alliance); '
+        + 'only landfallResolveNth exists today.',
+      'Enduring Innocence':
+        'Pass 1 lacks other-creatures-you-control-enter + power≤2 + onceEachTurn; '
+        + 'diesReturnAsEnchantment alone is insufficient for full Oracle.',
+      'Ori, Plate Stacker':
+        'Pass 1 lacks destroy all opponents’ artifacts/enchantments + gain life per destroyed.',
+      'Graaz, Unstoppable Juggernaut':
+        'Pass 1 lacks static juggernaut combat restrictions and mass P/T/subtype rewrite.',
+    }
+    for (const [name, status] of Object.entries(inventory)) {
+      const effects = effectsFor(name)
+      if (status === 'registered') {
+        expect(effects.length).toBeGreaterThan(0)
+        continue
+      }
+      expect(effects).toEqual([])
+      if (status === 'GAP') expect(gapReason[name]).toBeTruthy()
+    }
+  })
+
+  test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {
+    const inventory = {
+      'Aang, the Last Airbender': 'gap',
+      'Akroma, Angel of Wrath': 'keywords-only',
+      'Alabaster Host Intercessor': 'registered',
+      'Angel of Indemnity': 'gap',
+      'Angel of the Dire Hour': 'gap',
+      'Angel of the Ruins': 'gap',
+      'Appa, Loyal Sky Bison': 'gap',
+      'Bronzebeak Foragers': 'gap',
+      'Curious Colossus': 'registered',
+      'Darksteel Colossus': 'registered',
+      'Eagle of Deliverance': 'gap',
+      'Githzerai Monk': 'registered',
+      'Knight-Captain of Eos': 'gap',
+      'Luminate Primordial': 'gap',
+      'Meteor Golem': 'registered',
+      'Myr Battlesphere': 'gap',
+      'Protector of the Wastes': 'gap',
+      'Resolute Archangel': 'gap',
+      'Salvation Colossus': 'gap',
+      'Salvation Swan': 'gap',
+    } as const
+    expect(Object.keys(inventory)).toHaveLength(20)
+    for (const [name, slot] of Object.entries(inventory)) {
+      const effects = effectsFor(name)
+      if (slot === 'registered') expect(effects.length).toBeGreaterThan(0)
+      else expect(effects).toEqual([])
+    }
+    expect(effectsFor('Darksteel Colossus')).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
+    expect(effectsFor('Salvation Colossus')).toEqual([])
+  })
+
+  test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {
+    const assigned = [
+      'Act of Vengeance',
+      'Astral Drift',
+      'Ondu Inversion // Ondu Skyruins',
+      'Rally the Ancestors',
+      'Realm-Cloaked Giant // Cast Off',
+      'Sandstone Oracle',
+      'Serra Avatar',
+      'Soul of Eternity',
+      'Spawning Pit',
+      'Steel Hellkite',
+      'Storm of Souls',
+      'Subjugator Angel',
+      'Sudden Salvation',
+      "Thalia's Lancers",
+      'The Eagles Are Coming!',
+      'The Restoration of Eiganjo // Architect of Restoration',
+      'Timeless Dragon',
+      'Tri-Sentinel, Act of Vengeance',
+      'Twins of Discord',
+      "Wakening Sun's Avatar",
+      'Zetalpa, Primal Dawn',
+    ] as const
+    const status: Record<typeof assigned[number], 'registered' | 'kernel-only' | 'gap'> = {
+      'Act of Vengeance': 'gap',
+      'Astral Drift': 'registered',
+      'Ondu Inversion // Ondu Skyruins': 'gap',
+      'Rally the Ancestors': 'gap',
+      'Realm-Cloaked Giant // Cast Off': 'gap',
+      'Sandstone Oracle': 'registered',
+      'Serra Avatar': 'gap',
+      'Soul of Eternity': 'registered',
+      'Spawning Pit': 'gap',
+      'Steel Hellkite': 'gap',
+      'Storm of Souls': 'gap',
+      'Subjugator Angel': 'registered',
+      'Sudden Salvation': 'gap',
+      "Thalia's Lancers": 'registered',
+      'The Eagles Are Coming!': 'gap',
+      'The Restoration of Eiganjo // Architect of Restoration': 'gap',
+      'Timeless Dragon': 'gap',
+      'Tri-Sentinel, Act of Vengeance': 'gap',
+      'Twins of Discord': 'gap',
+      "Wakening Sun's Avatar": 'gap',
+      'Zetalpa, Primal Dawn': 'kernel-only',
+    }
+    const gapReasons: Partial<Record<typeof assigned[number], string>> = {
+      'Act of Vengeance':
+        'Not a separate card in this deck; ETB damage is on Tri-Sentinel, Act of Vengeance — no per-opponent targeted damage builder',
+      'Ondu Inversion // Ondu Skyruins':
+        'MDFC spell half destroys all nonland permanents; land face alone is not sufficient registration',
+      'Rally the Ancestors':
+        'Return each creature card with mana value X or less from your graveyard, then exile those creatures at the beginning of your next upkeep',
+      'Realm-Cloaked Giant // Cast Off':
+        'Adventure Cast Off destroys all non-Giant creatures; no mass-destroy-by-subtype-exclusion builder',
+      'Serra Avatar':
+        'Power/toughness equal life plus shuffle into library from graveyard anywhere — no shuffle-self-from-graveyard builder',
+      'Spawning Pit':
+        'Sacrifice a creature to add charge counters; pay mana and remove two counters to create a 2/2 Spawn token',
+      'Steel Hellkite':
+        '{2} pump and {X} destroy each nonland permanent with mana value X whose controller was dealt combat damage by this creature this turn',
+      'Storm of Souls':
+        'Return all creature cards from your graveyard, each becomes a 1/1 Spirit with flying in addition to its types, then exile the spell',
+      'Sudden Salvation':
+        'Return up to three battlefield-this-turn permanents from graveyards tapped; draw for each opponent who controls one',
+      'The Eagles Are Coming!':
+        'Kicker returns any number of creatures you own; next upkeep creates 4/4 Bird Soldier tokens per creature returned',
+      'The Restoration of Eiganjo // Architect of Restoration':
+        'Saga chapters (search, discard-to-reanimate MV≤2, exile then return transformed) and Architect attack/block Spirit tokens',
+      'Timeless Dragon':
+        'Plainscycling and eternalize exile-from-graveyard token copy — no eternalize builder',
+      'Tri-Sentinel, Act of Vengeance':
+        'ETB: for each opponent, deal 3 damage to up to one target creature that player controls; unearth {7} not registered without full ETB',
+      'Twins of Discord':
+        'Attack: choose odd or even mana value creatures that cannot block; grant bloodthirst 2 to other colorless creatures you control',
+      "Wakening Sun's Avatar":
+        'When cast from hand, destroy all non-Dinosaur creatures — no cast-from-hand conditional mass destroy builder',
+    }
+    expect(assigned).toHaveLength(21)
+    const gaps = assigned.filter((name) => status[name] === 'gap')
+    expect(gaps).toEqual([
+      'Act of Vengeance',
+      'Ondu Inversion // Ondu Skyruins',
+      'Rally the Ancestors',
+      'Realm-Cloaked Giant // Cast Off',
+      'Serra Avatar',
+      'Spawning Pit',
+      'Steel Hellkite',
+      'Storm of Souls',
+      'Sudden Salvation',
+      'The Eagles Are Coming!',
+      'The Restoration of Eiganjo // Architect of Restoration',
+      'Timeless Dragon',
+      'Tri-Sentinel, Act of Vengeance',
+      'Twins of Discord',
+      "Wakening Sun's Avatar",
+    ])
+    for (const name of assigned) {
+      const slot = status[name]
+      if (slot === 'registered') {
+        expect(effectsFor(name).length).toBeGreaterThan(0)
+        expect(gapReasons[name]).toBeUndefined()
+      } else if (slot === 'kernel-only') {
+        expect(effectsFor(name)).toEqual([])
+        expect(gapReasons[name]).toBeUndefined()
+      } else {
+        expect(effectsFor(name)).toEqual([])
+        expect(gapReasons[name]).toMatch(/./)
+      }
+    }
+    expect(gapReasons['Rally the Ancestors']).toContain('next upkeep')
+    expect(gapReasons['Storm of Souls']).toContain('1/1 Spirit')
+    expect(gapReasons['The Restoration of Eiganjo // Architect of Restoration']).toContain('Saga')
+    expect(gapReasons['Realm-Cloaked Giant // Cast Off']).toContain('Adventure')
+    expect(gapReasons['Ondu Inversion // Ondu Skyruins']).toContain('nonland')
+    expect(cardDefinition('Soul of Eternity')?.effects).toMatchObject([
+      ptEqualsLife({ who: 'controller' }),
+      { op: 'activate', id: 'encore' },
+    ])
+    expect(cardDefinition('Astral Drift')?.effects).toMatchObject([
+      { op: 'trigger', on: 'cycle' },
+      { op: 'activate', id: 'cycling.astralDrift', cycling: true },
+    ])
+  })
+
+  test('catalog entries keep the deck Oracle text of a double-faced land', () => {
+    const entry = deckCards('3-_cirdan-show-me-what-you-got')
+      .find((card) => card.name === 'Sea Gate Restoration // Sea Gate, Reborn')!
+    expect(catalogEntry(entry).faces?.[1].oracle_text)
+      .toBe('As this land enters, you may pay 3 life. If you don\'t, it enters tapped.\n{T}: Add {U}.')
   })
 })

@@ -51,7 +51,7 @@ A canonical mechanic test is not evidence that an unmigrated legacy executor is 
 
 ## Implementation handoff
 
-- **#401:** consolidate `structural` groups, preserving exact parameters; remove only the three proven behavior duplicates below. Existing structural owners may simply retain their groups. For mixed tests, move only their `:composition` assertion subset.
+- **#401:** consolidate `structural` groups, preserving exact parameters; remove only the three proven behavior duplicates below. Existing structural owners may simply retain their groups. For mixed tests, move only their `:composition` assertion subset. Completed rows are listed in [401-progress.json](401-progress.json); the pinned inventory snapshot is unchanged.
 - **#402:** move `move-preserve` core groups to their indicated mechanic owner; retain `keep-owned` rows as existing evidence. When the destination already exists, the requirement is to add the source group's missing assertions there, not to assume its name proves equivalence.
 - **#403:** move privacy, typed choice, rejection, host transport, continuation, journal/JSON restore, and reconnect groups. Core assertions inside these integration groups remain part of the group unless explicitly split with an owner. Reconcile [helper gates](helpers.md) and the full inventory before removing obsolete suites.
 
