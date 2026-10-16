@@ -8,6 +8,11 @@ import type { GameState, ReduceResult } from '../types'
 import { choiceEffects } from './choiceEffects'
 import { entersTapped } from './entersTapped'
 
+import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {replayCardTemplate} from '../replay'
+import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
+import {pendingDialogFor, DIALOG_CHOSEN} from '../pendingDialog'
+
 const land = (name: string, subtypes: string[] = []) =>
   cardTemplate(name, { types: ['Land'], subtypes })
 
@@ -325,4 +330,61 @@ describe('entersTapped', () => {
     const next = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
     expect(next.objects[objectId].tapped).toBe(false)
   })
+})
+
+const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
+const kambalPlugins = await loadCardPlugins(kambalNames)
+const kambalFixture = (name: string) => {
+  const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
+  const catalog = catalogEntry(entry)
+  if (name.startsWith('Boggart')) catalog.faces![0].stats = '3/1'
+  return replayCardTemplate(name, catalog)
+}
+const kambalLand = () => cardTemplate('Swamp', { types: ['Land'], subtypes: ['Swamp'] })
+const kambalGame = (name: string, landCount = 0) => createServerGame(commanderRules, {
+  hands: { p1: [kambalFixture(name)] },
+  battlefield: { p1: Array.from({ length: landCount }, kambalLand) },
+  libraries: { p1: [cardTemplate('Own card', { zone: 'graveyard' })], p2: [cardTemplate('Enemy card', { zone: 'graveyard' }), cardTemplate('Enemy card two', { zone: 'graveyard' })] },
+}, { random: () => 0.5, cardPlugins: kambalPlugins })
+
+describe('relocated from kambalManaGraveyards.test.ts → entersTapped.test.ts', () => {
+  test.each([0, 1, 2, 3, 4])('Courtyard checks other lands at %i', (count) => {
+      const server = kambalGame('Concealed Courtyard', count)
+      const id = server.state.zoneOrder.p1.hand[0]
+      const state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
+      expect(state.objects[id].tapped).toBe(count >= 3)
+    })
+
+  test.each([false, true])('Vault checks living opponents (%s)', (duel) => {
+      const server = kambalGame('Vault of Champions')
+      if (duel) { server.state.players.p3.lost = true; server.state.players.p4.lost = true }
+      const id = server.state.zoneOrder.p1.hand[0]
+      expect(ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id })).objects[id].tapped).toBe(duel)
+    })
+
+  test.each(['Godless Shrine', 'Boggart Trawler // Boggart Bog'])('%s life choice applies only to its land', (name) => {
+      for (const accepted of [true, false]) {
+        const server = kambalGame(name)
+        const id = server.state.zoneOrder.p1.hand[0]
+        let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
+        const dialog = pendingDialogFor(state, 'p1')!
+        const amount = name === 'Godless Shrine' ? 2 : 3
+        expect(dialog.count).toBe(amount)
+        expect(pendingPlayerSelectionFor(state, 'p1')).toBeUndefined()
+        state = ok(server.rules(state, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted } }))
+        expect(state.players.p1.life).toBe(40 - (accepted ? amount : 0))
+        expect(state.objects[id].tapped).toBe(!accepted)
+      }
+    })
+
+  test('Boggart Bog cannot pay three life at two life', () => {
+      const server = kambalGame('Boggart Trawler // Boggart Bog')
+      server.state.players.p1.life = 2
+      const id = server.state.zoneOrder.p1.hand[0]
+      let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
+      state = ok(server.rules(state, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted: true } }))
+      expect(state.players.p1.life).toBe(2)
+      expect(state.objects[id].tapped).toBe(true)
+    })
+
 })

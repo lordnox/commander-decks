@@ -11,6 +11,14 @@ import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { ability, becomeCopyOfTarget as becomeCopyInstruction } from './effectBuilders'
 import { serializableEffects } from './effectRuntime'
 
+import {createServerGame as createRuntimeGame} from '../runtime'
+import {resolveStack} from '../testHelpers'
+import {DIALOG_CHOSEN, dialogCandidates, pendingDialog} from '../pendingDialog'
+import {choiceEffects} from './choiceEffects'
+import {entersTapped} from './entersTapped'
+import {librarySearch} from './librarySearch'
+import {onResolve} from './onResolve'
+import {targetedResolve} from './targetedResolve'
 const plugins = [activated, becomeCopyOfTarget]
 
 const mana = (extra: Partial<ManaPool>): ManaPool => ({
@@ -243,4 +251,104 @@ describe('becomeCopyOfTarget', () => {
     }))
     expect(finished.objects[selection.sourceId!].tapProduces).toEqual({ G: 1 })
   })
+})
+
+describe('relocated from homerRest.test.ts → becomeCopyOfTarget.test.ts', () => {
+  const createServerGame: typeof createRuntimeGame = (format, options) =>
+    createRuntimeGame(format, options, {
+      random: () => 0.5,
+      cardPlugins: [
+        choiceEffects,
+        entersTapped,
+        librarySearch,
+        onResolve,
+        targetedResolve,
+        activated,
+      ],
+    })
+
+  const named = (state: import('../types').GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Sakashima copies another creature and turns off the legend rule', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [
+              cardTemplate('Homer, the Hermit', {
+                types: ['Creature'],
+                subtypes: ['Crab'],
+                supertypes: ['Legendary'],
+              }),
+            ],
+          },
+          hands: {
+            p1: [
+              cardTemplate('Sakashima of a Thousand Faces', {
+                types: ['Creature'],
+                subtypes: ['Human', 'Rogue'],
+                supertypes: ['Legendary'],
+              }),
+            ],
+          },
+        },
+      )
+      const moved = resolveStack(server.rules, ok(server.rules(server.state, {
+        type: 'move',
+        objectId: named(server.state, 'Sakashima of a Thousand Faces').id,
+        to: 'battlefield',
+      })))
+      const sakashima = named(moved, 'Sakashima of a Thousand Faces')
+      expect(pendingDialog(moved)?.kind).toBe('copy-creature')
+      const copied = ok(server.rules(moved, {
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat: 'p1',
+        payload: { objectIds: [named(moved, 'Homer, the Hermit').id] },
+      }))
+      const clone = copied.objects[sakashima.id]
+      expect(clone.name).toBe('Sakashima of a Thousand Faces')
+      expect(clone.subtypes).toContain('Crab')
+      expect(copied.zoneOrder.p1.battlefield).toHaveLength(2)
+    })
+
+  test('an opponent-owned clone entering under your control copies your creature', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Sygg, River Cutthroat', { types: ['Creature'] })],
+            p2: [cardTemplate('Homer, the Hermit', { types: ['Creature'] })],
+          },
+          hands: {
+            p2: [cardTemplate('Spark Double', {
+              types: ['Creature'],
+              power: 0,
+              toughness: 0,
+            })],
+          },
+        },
+      )
+      const spark = named(server.state, 'Spark Double')
+      const buried = ok(server.rules(server.state, {
+        type: 'move',
+        objectId: spark.id,
+        to: 'graveyard',
+      }))
+      const entered = resolveStack(server.rules, ok(server.rules(buried, {
+        type: 'move',
+        objectId: spark.id,
+        to: 'battlefield',
+        controller: 'p1',
+      })))
+      const dialog = pendingDialog(entered)
+      expect(entered.objects[spark.id].controller).toBe('p1')
+      expect(entered.objects[spark.id].zone).toBe('battlefield')
+      expect(dialog?.seat).toBe('p1')
+      expect(dialogCandidates(entered, dialog!).map((object) => object.name)).toEqual([
+        'Sygg, River Cutthroat',
+      ])
+    })
+
 })

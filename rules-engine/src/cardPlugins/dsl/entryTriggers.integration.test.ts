@@ -23,6 +23,15 @@ import type { GameState } from '../../types'
 import { hasKeyword } from '../../keywords'
 import { mossbornHydra } from '../mossborn-hydra'
 
+
+
+import { activated } from '../activated'
+
+import { choiceEffects } from '../choiceEffects'
+import {librarySearch} from '../librarySearch'
+import {onResolve} from '../onResolve'
+import {targetedResolve} from '../targetedResolve'
+import {ward} from '../ward'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -266,4 +275,42 @@ describe('legacy enters-with-counter plugin', () => {
     expect(resolved.counters['+1/+1']).toBe(1)
     expect([resolved.power, resolved.toughness]).toEqual([1, 1])
   })
+})
+
+describe('relocated from homerPass2.test.ts → entryTriggers.integration.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+
+  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+
+  test('Aftermath Analyst mills three on enter', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: {
+            p1: [creature('Aftermath Analyst', { manaCost: '{1}{G}' })],
+          },
+          libraries: {
+            p1: ['One', 'Two', 'Three', 'Four'].map((name) =>
+              cardTemplate(name, { types: ['Instant'] })),
+          },
+        },
+        { random: () => 0.5, cardPlugins: plugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 1 }
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(ready, 'Aftermath Analyst').id,
+      }))
+      const entered = resolveStack(server.rules, ok(server.rules(cast, { type: 'resolveTop' })))
+      expect(named(entered, 'One').zone).toBe('graveyard')
+      expect(named(entered, 'Two').zone).toBe('graveyard')
+      expect(named(entered, 'Three').zone).toBe('graveyard')
+    })
+
 })

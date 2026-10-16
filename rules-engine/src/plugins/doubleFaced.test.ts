@@ -5,6 +5,11 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 
+import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {replayCardTemplate} from '../replay'
+import {resolveStack} from '../testHelpers'
+import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
+import {pendingDialogFor, DIALOG_CHOSEN} from '../pendingDialog'
 const bridgeworks = () => cardTemplate('Bridgeworks Battle // Tanglespan Bridgeworks', {
   types: ['Sorcery', 'Land'],
   manaCost: '{2}{G}',
@@ -114,4 +119,40 @@ describe('modal double-faced cards', () => {
       objectId: funded.zoneOrder.p1.hand[0],
     })
   })
+})
+
+const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
+const kambalPlugins = await loadCardPlugins(kambalNames)
+const kambalFixture = (name: string) => {
+  const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
+  const catalog = catalogEntry(entry)
+  if (name.startsWith('Boggart')) catalog.faces![0].stats = '3/1'
+  return replayCardTemplate(name, catalog)
+}
+const kambalLand = () => cardTemplate('Swamp', { types: ['Land'], subtypes: ['Swamp'] })
+const kambalGame = (name: string, landCount = 0) => createServerGame(commanderRules, {
+  hands: { p1: [kambalFixture(name)] },
+  battlefield: { p1: Array.from({ length: landCount }, kambalLand) },
+  libraries: { p1: [cardTemplate('Own card', { zone: 'graveyard' })], p2: [cardTemplate('Enemy card', { zone: 'graveyard' }), cardTemplate('Enemy card two', { zone: 'graveyard' })] },
+}, { random: () => 0.5, cardPlugins: kambalPlugins })
+
+describe('relocated from kambalManaGraveyards.test.ts → doubleFaced.test.ts', () => {
+  test('Trawler casts its front face, triggers, and resets after the land face leaves', () => {
+      const server = kambalGame('Boggart Trawler // Boggart Bog')
+      const id = server.state.zoneOrder.p1.hand[0]
+      server.state.players.p1.mana = { W: 0, U: 0, B: 1, R: 0, G: 0, C: 2 }
+      expect(legalActsFor(server.state, 'p1').map((act) => act.kind)).toEqual(expect.arrayContaining(['castSpell', 'playLand']))
+      let state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: id }))
+      state = resolveStack(server.rules, state)
+      expect(state.objects[id].types).toContain('Creature')
+      expect(pendingPlayerSelectionFor(state, 'p1')).toBeDefined()
+      expect(pendingDialogFor(state, 'p1')).toBeUndefined()
+      const fresh = kambalGame('Boggart Trawler // Boggart Bog')
+      const landId = fresh.state.zoneOrder.p1.hand[0]
+      let played = ok(fresh.rules(fresh.state, { type: 'playLand', seat: 'p1', objectId: landId }))
+      played = ok(fresh.rules(played, { type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { accepted: true } }))
+      played = ok(fresh.rules(played, { type: 'move', objectId: landId, to: 'hand' }))
+      expect(played.objects[landId].types).toContain('Creature')
+    })
+
 })

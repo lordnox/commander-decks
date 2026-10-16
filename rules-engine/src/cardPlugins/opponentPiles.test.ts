@@ -13,6 +13,12 @@ import {
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
 
+
+import { activated } from './activated'
+
+import { choiceEffects } from './choiceEffects'
+import {librarySearch} from './librarySearch'
+import {ward} from './ward'
 const applyKernelChoice = (
   kernel: Parameters<typeof applyKernelChoiceImpl>[0],
   lobby: Parameters<typeof applyKernelChoiceImpl>[1],
@@ -399,4 +405,40 @@ describe('opponentPiles', () => {
     expect(named(finished, 'Look C').zone).toBe('graveyard')
     expect(named(finished, 'Look D').zone).toBe('graveyard')
   })
+})
+
+describe('relocated from homerPass2.test.ts → opponentPiles.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+
+  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+
+  test('Fact or Fiction uses a public opponent pile split', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          players: 4,
+          hands: { p1: [cardTemplate('Fact or Fiction', { types: ['Instant'], manaCost: '{3}{U}' })] },
+          libraries: {
+            p1: ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Rest'].map((name) =>
+              cardTemplate(name, { types: ['Instant'] })),
+          },
+        },
+        { random: () => 0.5, cardPlugins: plugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 3 }
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(ready, 'Fact or Fiction').id,
+      }))
+      const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+      expect(pendingPlayerSelectionFor(resolved, 'p1')).toMatchObject({
+        candidates: ['p2', 'p3', 'p4'],
+        action: { kind: 'opponentPiles', count: 5 },
+      })
+    })
+
 })
