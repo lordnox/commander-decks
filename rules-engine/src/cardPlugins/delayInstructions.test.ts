@@ -7,6 +7,16 @@ import type { GameState } from '../types'
 import { grantUntilEot, onResolve, returnIfDiesThisTurn } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
 
+
+
+
+import { resolveStack } from '../testHelpers'
+import {activated} from './activated'
+
+import { choiceEffects } from './choiceEffects'
+import {librarySearch} from './librarySearch'
+import {targetedResolve} from './targetedResolve'
+import {ward} from './ward'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -113,4 +123,41 @@ describe('return if dies this turn', () => {
     expect(died.objects[watched].zone).toBe('graveyard')
     expect(died.stack).toHaveLength(0)
   })
+})
+
+describe('relocated from homerPass2.test.ts → delayInstructions.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+
+  const plugins = [onResolvePlugin, targetedResolve, activated, choiceEffects, librarySearch, ward]
+
+  test('Malakir Rebirth returns the target if it dies this turn', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Malakir Rebirth', { types: ['Instant'], manaCost: '{B}' })] },
+          battlefield: { p1: [creature('Watched Bear')] },
+        },
+        { random: () => 0.5, cardPlugins: plugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.B = 1
+      const watched = named(ready, 'Watched Bear').id
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(ready, 'Malakir Rebirth').id,
+        targets: [{ kind: 'object', objectId: watched }],
+      }))
+      const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+      expect(resolved.players.p1.life).toBe(commanderRules.startingLife - 2)
+      expect(resolved.delayedTriggers).toHaveLength(1)
+      const died = ok(server.rules(resolved, { type: 'move', objectId: watched, to: 'graveyard' }))
+      const returned = resolveStack(server.rules, died)
+      expect(returned.objects[watched].zone).toBe('battlefield')
+    })
+
 })

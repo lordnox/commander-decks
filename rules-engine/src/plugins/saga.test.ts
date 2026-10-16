@@ -12,6 +12,17 @@ import { saga } from './saga'
 import { spells } from './spells'
 import { turnStructure } from './turnStructure'
 
+import {commanderRules} from '../formats'
+import {createServerGame} from '../runtime'
+
+
+
+
+
+
+
+
+
 const catalog = createCatalog([turnStructure, spells, saga, damage, life])
 const builtinRules = ['turnStructure', 'spells', 'saga', 'damage', 'life']
 
@@ -242,4 +253,49 @@ describe('Sagas', () => {
     }, catalog))
     expect(checked.objects[source.id].zone).toBe('graveyard')
   })
+})
+
+describe('relocated from sinFallGaps.test.ts → saga.test.ts', () => {
+  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types, ...extra })
+
+  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test("Summon: Titan mills then returns lands on chapter II", () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [card('Summon: Titan', ['Enchantment', 'Creature'], {
+            subtypes: ['Saga', 'Giant'],
+            manaCost: '{3}{G}{G}',
+            oracleText: 'I — Mill five cards.\nII — Return all land cards from your graveyard to the battlefield tapped.\nIII — Until end of turn, another target creature you control gains trample and gets +X/+X, where X is the number of lands you control.',
+          })] },
+          libraries: {
+            p1: [
+              card('A', ['Instant']),
+              card('B', ['Instant']),
+              card('C', ['Instant']),
+              card('D', ['Instant']),
+              card('Buried Forest', ['Land']),
+            ],
+          },
+        },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 3 }
+      const titan = named(ready, 'Summon: Titan').id
+      let state = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: titan }))
+      state = ok(server.rules(state, { type: 'resolveTop' }))
+      expect(state.objects[titan].counters.lore).toBe(1)
+      state = ok(server.rules(state, { type: 'resolveTop' }))
+      expect(state.zoneOrder.p1.graveyard).toHaveLength(5)
+      state = { ...state, step: 'draw', active: 'p1', priority: 'p1' }
+      state = ok(server.rules(state, { type: 'advanceStep' }))
+      expect(state.objects[titan].counters.lore).toBe(2)
+      state = ok(server.rules(state, { type: 'resolveTop' }))
+      expect(named(state, 'Buried Forest').zone).toBe('battlefield')
+      expect(named(state, 'Buried Forest').tapped).toBe(true)
+    })
+
 })

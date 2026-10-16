@@ -4,6 +4,9 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { onResolve } from './onResolve'
+import { pendingSelectionFor } from '../rules/selectCards'
+import {cardDefinition} from './cardRules'
+import {targetedResolve} from './targetedResolve'
 
 const card = (
   name: string,
@@ -57,5 +60,123 @@ describe('graveyard lands', () => {
       (id) => resolved.objects[id].tapped,
     )).toBe(true)
   })
+
+})
+
+describe('relocated from homerPass2.test.ts → graveyardLands.test.ts', () => {
+  test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {
+      const effects = cardDefinition('Mole Man, Moloid Master')?.effects ?? []
+      expect(effects.some((effect) => effect.op === 'static' && effect.playLandsFromGraveyard)).toBe(true)
+      const token = effects.flatMap((effect) =>
+        effect.op === 'trigger' && effect.on === 'landfall'
+          ? effect.do.filter((step) => step.kind === 'createToken')
+          : [])[0]
+      expect(token?.kind === 'createToken' && token.token.effects).toMatchObject([
+        { op: 'trigger', on: 'attacks' },
+      ])
+    })
+
+})
+
+describe('relocated from sinFallGaps.test.ts → graveyardLands.test.ts', () => {
+  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types, ...extra })
+
+  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Life from the Loam returns up to three lands to hand', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: {
+            p1: [
+              card('Life from the Loam', ['Sorcery'], { manaCost: '{1}{G}' }),
+              card('First Land', ['Land']),
+              card('Second Land', ['Land']),
+              card('Third Land', ['Land']),
+            ],
+          },
+        },
+        { random: () => 0.5, cardPlugins: [onResolve, targetedResolve] },
+      )
+      let ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 1 }
+      for (const name of ['First Land', 'Second Land', 'Third Land']) {
+        ready = ok(server.rules(ready, {
+          type: 'move',
+          objectId: named(ready, name).id,
+          to: 'graveyard',
+        }))
+      }
+      const spell = named(ready, 'Life from the Loam').id
+      const first = named(ready, 'First Land').id
+      const second = named(ready, 'Second Land').id
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: spell,
+        targets: [
+          { kind: 'object', objectId: first },
+          { kind: 'object', objectId: second },
+        ],
+      }))
+      const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+      expect(resolved.objects[first].zone).toBe('hand')
+      expect(resolved.objects[second].zone).toBe('hand')
+      expect(named(resolved, 'Third Land').zone).toBe('graveyard')
+    })
+
+  test('Mystic Sanctuary with three other Islands returns an instant to the top', () => {
+      const islands = [1, 2, 3].map((index) =>
+        card(`Island ${index}`, ['Land'], { subtypes: ['Island'] }))
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: islands },
+          hands: { p1: [card('Mystic Sanctuary', ['Land'], { subtypes: ['Island'] })] },
+          libraries: {
+            p1: [card('Brainstorm', ['Instant'], { zone: 'graveyard' })],
+          },
+        },
+      )
+      const sanctuary = named(server.state, 'Mystic Sanctuary').id
+      const instant = named(server.state, 'Brainstorm').id
+      const entered = ok(server.rules(server.state, {
+        type: 'playLand',
+        seat: 'p1',
+        objectId: sanctuary,
+      }))
+      const selection = pendingSelectionFor(entered, 'p1')!
+      expect(selection.candidates).toContain(instant)
+      const stacked = ok(server.rules(entered, {
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'choose',
+        count: 1,
+        objectIds: [instant],
+      }))
+      const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+      expect(resolved.zoneOrder.p1.library[0]).toBe(instant)
+    })
+
+  test('Icetill Explorer can play a land from the graveyard', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: [card('Icetill Explorer', ['Creature'], { power: 2, toughness: 3 })] },
+          libraries: {
+            p1: [card('Yard Land', ['Land'], { zone: 'graveyard' })],
+          },
+        },
+      )
+      const land = named(server.state, 'Yard Land').id
+      const played = ok(server.rules(server.state, {
+        type: 'playLand',
+        seat: 'p1',
+        objectId: land,
+      }))
+      expect(played.objects[land].zone).toBe('battlefield')
+    })
 
 })

@@ -32,6 +32,10 @@ import {
   searchSpell,
 } from './effects'
 
+import {exiledWith} from './exiledWith'
+import {onResolve} from './onResolve'
+import {castCosts} from './castCosts'
+import {ward} from './ward'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -842,4 +846,120 @@ describe('librarySearch', () => {
     expect(state.objects[sourceId].zone).toBe('hand')
     expect(state.objects[found].zone).toBe('battlefield')
   })
+})
+
+describe('relocated from sinFallFinishers.test.ts → librarySearch.test.ts', () => {
+  const creature = (name: string, manaCost = '{2}{G}', extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], manaCost, power: 2, toughness: 2, ...extra })
+
+  const forest = (name = 'Forest') =>
+    cardTemplate(name, {
+      types: ['Land'],
+      subtypes: ['Forest'],
+      supertypes: ['Basic'],
+      tapProduces: { G: 1 },
+    })
+
+  const run = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    events: GameEvent[],
+  ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
+
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const finisherPlugins = [
+    onResolve,
+    choiceEffects,
+    librarySearch,
+    castCosts,
+    ward,
+    exiledWith,
+    pendingDialogLock,
+  ]
+
+  test('Finale of Devastation finds a graveyard creature without shuffling', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Finale of Devastation', { types: ['Sorcery'], manaCost: '{X}{G}{G}' })] },
+          libraries: { p1: [forest()] },
+        },
+        { random: () => 0.5, cardPlugins: finisherPlugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 5, C: 0 }
+      const pet = creature('Graveyard Pet', '{1}{G}')
+      const petId = server.state.nextId
+      ready.objects[`o${petId}`] = {
+        ...pet,
+        id: `o${petId}`,
+        owner: 'p1',
+        controller: 'p1',
+        zone: 'graveyard',
+      }
+      ready.zoneOrder.p1.graveyard.push(`o${petId}`)
+      ready.zoneCounts.p1.graveyard += 1
+      ready.nextId = petId + 1
+      const libraryBefore = [...ready.zoneOrder.p1.library]
+      const spell = named(ready, 'Finale of Devastation')
+
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: spell.id,
+        x: 3,
+      }))
+      const searching = run(server, cast, [{ type: 'resolveTop' }])
+
+      expect(searchingSeat(searching)).toBe('p1')
+      expect(pendingSearch(searching, 'p1')?.x).toBe(3)
+
+      const petObject = named(searching, 'Graveyard Pet')
+      const done = run(server, searching, [
+        { type: 'move', objectId: petObject.id, to: 'battlefield' },
+        { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      ])
+
+      expect(named(done, 'Graveyard Pet').zone).toBe('battlefield')
+      expect(done.zoneOrder.p1.library).toEqual(libraryBefore)
+      expect(done.objects[spell.id].zone).toBe('graveyard')
+    })
+
+  test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Finale of Devastation', { types: ['Sorcery'], manaCost: '{X}{G}{G}' })] },
+          battlefield: { p1: [creature('Team Mate', '{2}{G}')] },
+          libraries: { p1: [creature('Library Pet', '{2}{G}')] },
+        },
+        { random: () => 0.5, cardPlugins: finisherPlugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 12, C: 0 }
+      ready.step = 'precombatMain'
+      const spell = named(ready, 'Finale of Devastation')
+      const pet = named(ready, 'Library Pet')
+      const mate = named(ready, 'Team Mate')
+
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: spell.id,
+        x: 10,
+      }))
+      const searching = run(server, cast, [{ type: 'resolveTop' }])
+      const done = run(server, searching, [
+        { type: 'move', objectId: pet.id, to: 'battlefield' },
+        { type: 'shuffleLibrary', seat: 'p1' },
+        { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
+      ])
+
+      expect(named(done, 'Library Pet').zone).toBe('battlefield')
+      expect(done.objects[mate.id]).toMatchObject({ power: 12, toughness: 12 })
+      expect(done.objects[mate.id].oracleText.toLowerCase()).toContain('haste')
+    })
+
 })

@@ -19,6 +19,11 @@ import {
 } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
 
+
+
+
+
+
 type Server = ReturnType<typeof createServerGame>
 
 const named = (state: GameState, name: string) =>
@@ -247,4 +252,47 @@ describe('eachPlayerMayWheel', () => {
     expect(pendingOptionSelection(state)).toBeUndefined()
     expect(state.zoneOrder.p1.hand).toHaveLength(2)
   })
+})
+
+describe('relocated from sinFallGaps.test.ts → eachPlayerChoices.test.ts', () => {
+  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types, ...extra })
+
+  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Frantic Search draws two then discards two', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: {
+            p1: [
+              card('Frantic Search', ['Instant'], { manaCost: '{2}{U}' }),
+              card('Keep', ['Instant']),
+              card('Dump', ['Instant']),
+            ],
+          },
+          libraries: { p1: [card('Drawn One', ['Instant']), card('Drawn Two', ['Instant'])] },
+        },
+        { random: () => 0.5, cardPlugins: [onResolvePlugin] },
+      )
+      let state = structuredClone(server.state)
+      state.players.p1.mana = { W: 0, U: 1, B: 0, R: 0, G: 0, C: 2 }
+      const spell = named(state, 'Frantic Search').id
+      state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: spell }))
+      state = ok(server.rules(state, { type: 'resolveTop' }))
+      expect(state.zoneOrder.p1.hand).toHaveLength(4)
+      expect(pendingSelectionFor(state, 'p1')).toMatchObject({ kind: 'discard', count: 2 })
+      const dump = named(state, 'Dump').id
+      const keep = named(state, 'Keep').id
+      state = ok(server.rules(state, {
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'discard',
+        count: 2,
+        objectIds: [dump, keep],
+      }))
+      expect([dump, keep].every((id) => state.objects[id].zone === 'graveyard')).toBe(true)
+    })
+
 })

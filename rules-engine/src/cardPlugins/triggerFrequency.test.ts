@@ -11,6 +11,16 @@ import {
   landfallResolveNth,
 } from './effectBuilders'
 
+
+
+import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
+import {activated} from './activated'
+
+import { choiceEffects } from './choiceEffects'
+import {librarySearch} from './librarySearch'
+import {onResolve} from './onResolve'
+import {targetedResolve} from './targetedResolve'
+import {ward} from './ward'
 const land = (name: string) => cardTemplate(name, { types: ['Land'] })
 const fillerLibrary = () => [
   cardTemplate('Filler A', { types: ['Instant'] }),
@@ -192,4 +202,34 @@ describe('trigger frequency flags', () => {
     }))
     expect(reentered.stack).toHaveLength(0)
   })
+})
+
+describe('relocated from homerPass2.test.ts → triggerFrequency.test.ts', () => {
+  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+
+  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+
+  test('Zimone and Dina drain on the second draw', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: [creature('Zimone and Dina')] },
+          libraries: {
+            p1: ['One', 'Two'].map((name) => cardTemplate(name, { types: ['Instant'] })),
+          },
+          players: 2,
+        },
+        { random: () => 0.5, cardPlugins: plugins },
+      )
+      const first = ok(server.rules(server.state, { type: 'draw', seat: 'p1' }))
+      expect(first.stack).toHaveLength(0)
+      const second = ok(server.rules(first, { type: 'draw', seat: 'p1' }))
+      expect(pendingPlayerSelectionFor(second, 'p1')).toMatchObject({
+        min: 1,
+        max: 1,
+        candidates: ['p2'],
+      })
+    })
+
 })

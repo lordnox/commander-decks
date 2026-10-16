@@ -5,8 +5,7 @@ import { ptEqualsCount, ptEqualsLife } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
-import type { ReduceResult } from '../types'
-
+import type { GameState, ReduceResult } from '../types'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -225,4 +224,36 @@ describe('cda counted power and toughness', () => {
     const stamped = [ptEqualsCount(['Land'])]
     expect(structuredClone(stamped)).toEqual(stamped)
   })
+})
+
+describe('relocated from homerPass2.test.ts → cdaLifePt.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const land = (name: string) => cardTemplate(name, { types: ['Land'] })
+
+
+  test('Lumra CDA equals controlled lands', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [
+              cardTemplate('Lumra, Bellow of the Woods', {
+                types: ['Creature'],
+                power: null,
+                toughness: null,
+              }),
+              land('Forest A'),
+              land('Forest B'),
+            ],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const id = named(server.state, 'Lumra, Bellow of the Woods').id
+      const synced = ok(server.rules(server.state, { type: 'custom', name: 'cdaLifePt.sync' }))
+      expect([synced.objects[id].power, synced.objects[id].toughness]).toEqual([2, 2])
+    })
+
 })

@@ -16,6 +16,11 @@ import { PERMANENT_ENTERED } from './entersTapped'
 import { HOMER_CHOSEN, HOMER_NAME, homer } from './homer'
 import { pendingPlayerTargets } from './playerTargets'
 
+import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {replayCardTemplate} from '../replay'
+import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
+import { pendingDialogFor } from '../pendingDialog'
+
 const NONCREATURE_PERMANENT = { zone: 'battlefield', permanent: true, noncreature: true } as const
 
 const elephant = {
@@ -515,4 +520,64 @@ describe('landfall player-target mill', () => {
       expect(server.rules(triggered, event).ok).toBe(false)
     }
   })
+})
+
+const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
+const kambalPlugins = await loadCardPlugins(kambalNames)
+const kambalFixture = (name: string) => {
+  const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
+  const catalog = catalogEntry(entry)
+  if (name.startsWith('Boggart')) catalog.faces![0].stats = '3/1'
+  return replayCardTemplate(name, catalog)
+}
+const kambalLand = () => cardTemplate('Swamp', { types: ['Land'], subtypes: ['Swamp'] })
+const kambalGame = (name: string, landCount = 0) => createServerGame(commanderRules, {
+  hands: { p1: [kambalFixture(name)] },
+  battlefield: { p1: Array.from({ length: landCount }, kambalLand) },
+  libraries: { p1: [cardTemplate('Own card', { zone: 'graveyard' })], p2: [cardTemplate('Enemy card', { zone: 'graveyard' }), cardTemplate('Enemy card two', { zone: 'graveyard' })] },
+}, { random: () => 0.5, cardPlugins: kambalPlugins })
+
+describe('relocated from kambalManaGraveyards.test.ts → multiTargetTriggers.test.ts', () => {
+  test('Bojuka Bog triggers on a land drop and can exile its controller graveyard', () => {
+      const server = kambalGame('Bojuka Bog')
+      const id = server.state.zoneOrder.p1.hand[0]
+      let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: id }))
+      expect(state.objects[id].tapped).toBe(true)
+      const selection = pendingPlayerSelectionFor(state, 'p1')!
+      state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: selection.id, players: ['p1'] }))
+      state = resolveStack(server.rules, state)
+      expect(state.zoneOrder.p1.graveyard).toHaveLength(0)
+      expect(state.zoneOrder.p1.exile).toHaveLength(1)
+      expect(state.zoneOrder.p2.graveyard).toHaveLength(2)
+    })
+
+  test.each(['Bojuka Bog', 'Boggart Trawler // Boggart Bog'])('%s targets a player then exiles at resolution on a move entry', (name) => {
+      const server = kambalGame(name)
+      const id = server.state.zoneOrder.p1.hand[0]
+      let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield' }))
+      const choice = pendingPlayerSelectionFor(state, 'p1')!
+      expect(choice.candidates).toContain('p1')
+      expect(state.zoneOrder.p2.graveyard.length).toBe(2)
+      state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: choice.id, players: ['p2'] }))
+      expect(state.zoneOrder.p2.graveyard.length).toBe(2)
+      state = resolveStack(server.rules, state)
+      expect(state.zoneOrder.p2.graveyard.length).toBe(0)
+      expect(state.zoneOrder.p2.exile.length).toBe(2)
+      expect(state.zoneOrder.p1.graveyard.length).toBe(1)
+      expect(pendingDialogFor(state, 'p1')).toBeUndefined()
+    })
+
+  test('Trawler exile still resolves after its source stops being a creature', () => {
+      const server = kambalGame('Boggart Trawler // Boggart Bog')
+      const id = server.state.zoneOrder.p1.hand[0]
+      let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield' }))
+      const choice = pendingPlayerSelectionFor(state, 'p1')!
+      state = ok(server.rules(state, { type: 'selectPlayers', seat: 'p1', selectionId: choice.id, players: ['p2'] }))
+      // Model a continuous effect removing Creature after the trigger is on the stack.
+      state = { ...state, objects: { ...state.objects, [id]: { ...state.objects[id], types: ['Enchantment'] } } }
+      state = resolveStack(server.rules, state)
+      expect(state.zoneOrder.p2.graveyard).toHaveLength(0)
+      expect(state.zoneOrder.p2.exile).toHaveLength(2)
+    })
+
 })

@@ -13,6 +13,10 @@ import {
   optionalMill,
 } from './effects'
 
+import {catalogEntry, deckCards, loadCardPlugins} from '../deckCardFixtures'
+import {replayCardTemplate} from '../replay'
+import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
+import {pendingDialogFor} from '../pendingDialog'
 const millToken = {
   name: 'Mill Scout',
   types: ['Creature'],
@@ -171,4 +175,29 @@ describe('token-carried triggered abilities', () => {
     }))
     expect(named(milled, 'Milled One').zone).toBe('graveyard')
   })
+})
+
+const kambalNames = ['Godless Shrine', 'Vault of Champions', 'Concealed Courtyard', 'Bojuka Bog', 'Boggart Trawler // Boggart Bog']
+const kambalPlugins = await loadCardPlugins(kambalNames)
+const kambalFixture = (name: string) => {
+  const entry = deckCards('3_kambal-taxing-the-token-economy').find((card) => card.name === name)!
+  const catalog = catalogEntry(entry)
+  if (name.startsWith('Boggart')) catalog.faces![0].stats = '3/1'
+  return replayCardTemplate(name, catalog)
+}
+
+describe('relocated from kambalManaGraveyards.test.ts → tokenCarriedTriggers.test.ts', () => {
+  test('a token copy of Trawler carries its graveyard exile trigger', () => {
+      const trawler = kambalFixture('Boggart Trawler // Boggart Bog')
+      const maker = cardTemplate('Copy maker', { types: ['Creature'], effects: [enters(createTokenInstruction({
+        name: trawler.name, types: ['Creature'], subtypes: ['Goblin'], power: 3, toughness: 1,
+        effects: trawler.effects,
+      }))] })
+      const server = createServerGame(commanderRules, { hands: { p1: [maker] } }, { random: () => 0.5, cardPlugins: kambalPlugins })
+      const id = server.state.zoneOrder.p1.hand[0]
+      const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield' })))
+      expect(pendingPlayerSelectionFor(state, 'p1')).toBeDefined()
+      expect(pendingDialogFor(state, 'p1')).toBeUndefined()
+    })
+
 })

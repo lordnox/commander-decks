@@ -10,6 +10,15 @@ import { activated } from './activated'
 import { ability, handlerIdsFromEffects, ward } from './effects'
 import { ward as wardPlugin } from './ward'
 
+import {type CardTemplate} from '../newGame'
+import {DIALOG_CHOSEN, pendingDialog, pendingDialogLock} from '../pendingDialog'
+import {pendingSelectionFor} from '../rules/selectCards'
+import type {GameEvent} from '../types'
+import {choiceEffects} from './choiceEffects'
+import {exiledWith} from './exiledWith'
+import { librarySearch } from './librarySearch'
+import {onResolve} from './onResolve'
+import {castCosts} from './castCosts'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -158,4 +167,110 @@ describe('Ward with a life payment', () => {
     expect(paid.players.p1.life).toBe(13)
     expect(paid.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'poker.poke' })
   })
+})
+
+describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
+  const creature = (name: string, manaCost = '{2}{G}', extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], manaCost, power: 2, toughness: 2, ...extra })
+
+
+  const run = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    events: GameEvent[],
+  ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
+
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const finisherPlugins = [
+    onResolve,
+    choiceEffects,
+    librarySearch,
+    castCosts,
+    wardPlugin,
+    exiledWith,
+    pendingDialogLock,
+  ]
+
+  test('Valgavoth Ward sacrifices three nonlands or counters the spell', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+          battlefield: {
+            p1: [
+              creature('Sac 1', '{1}'),
+              creature('Sac 2', '{1}'),
+              creature('Sac 3', '{1}'),
+            ],
+            p2: [creature('Valgavoth, Terror Eater', '{6}{B}{B}')],
+          },
+        },
+        { random: () => 0.5, cardPlugins: finisherPlugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.R = 1
+      ready.priority = 'p1'
+      const bolt = named(ready, 'Lightning Bolt')
+      const valgavoth = named(ready, 'Valgavoth, Terror Eater')
+
+      const warded = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: bolt.id,
+        targets: [{ kind: 'object', objectId: valgavoth.id }],
+      }))
+      expect(pendingSelectionFor(warded, 'p1')).toMatchObject({ kind: 'sacrifice', min: 3 })
+
+      const paid = run(server, warded, [{
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'sacrifice',
+        count: 3,
+        objectIds: [
+          named(warded, 'Sac 1').id,
+          named(warded, 'Sac 2').id,
+          named(warded, 'Sac 3').id,
+        ],
+      }])
+
+      expect(paid.stack.some((item) => item.objectId === bolt.id)).toBe(true)
+      expect(named(paid, 'Sac 1').zone).toBe('exile')
+    })
+
+  test('Famished Worldsire Ward {3} can be paid with mana', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+          battlefield: { p2: [creature('Famished Worldsire', '{8}{G}', { power: 0, toughness: 0 })] },
+        },
+        { random: () => 0.5, cardPlugins: finisherPlugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 1, G: 0, C: 3 }
+      ready.priority = 'p1'
+      const bolt = named(ready, 'Lightning Bolt')
+      const worldsire = named(ready, 'Famished Worldsire')
+
+      const warded = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: bolt.id,
+        targets: [{ kind: 'object', objectId: worldsire.id }],
+      }))
+      expect(pendingDialog(warded)?.kind).toBe('ward-pay')
+
+      const paid = run(server, warded, [{
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat: 'p1',
+        payload: { accepted: true },
+      }])
+
+      expect(paid.players.p1.mana.C).toBe(0)
+      expect(paid.stack.some((item) => item.objectId === bolt.id)).toBe(true)
+    })
+
 })

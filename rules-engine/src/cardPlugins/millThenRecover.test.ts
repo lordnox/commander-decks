@@ -7,6 +7,20 @@ import { millThenRecover, onResolve } from './effects'
 import { onResolve as onResolvePlugin } from './onResolve'
 import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
 
+
+
+
+import type { GameState } from '../types'
+import {activated} from './activated'
+
+import { choiceEffects } from './choiceEffects'
+import {librarySearch} from './librarySearch'
+import {targetedResolve} from './targetedResolve'
+import {ward} from './ward'
+
+import { createServerGame as createRuntimeGame } from '../runtime'
+
+import { entersTapped } from './entersTapped'
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -146,4 +160,96 @@ describe('millThenRecover', () => {
     expect(opponent.objects[rest.id]).toBeUndefined()
     expect(opponent.objects[named(resolved, 'Milled One').id]?.zone).toBe('graveyard')
   })
+})
+
+describe('relocated from homerPass2.test.ts → millThenRecover.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+
+  const plugins = [onResolvePlugin, targetedResolve, activated, choiceEffects, librarySearch, ward]
+
+  test('Ripples of Undeath mills on first main then offers recover', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Ripples of Undeath', { types: ['Enchantment'] })],
+          },
+          libraries: {
+            p1: ['Milled One', 'Milled Two', 'Milled Three', 'Rest'].map((name) =>
+              cardTemplate(name, { types: ['Instant'] })),
+          },
+          players: 2,
+        },
+        { random: () => 0.5, cardPlugins: plugins },
+      )
+      const atDraw = { ...server.state, step: 'draw' as const }
+      const entered = ok(server.rules(atDraw, { type: 'advanceStep' }))
+      expect(entered.stack[0]?.name).toBe('Ripples of Undeath')
+      const funded = structuredClone(entered)
+      funded.players.p1.mana.C = 1
+      const resolved = ok(server.rules(funded, { type: 'resolveTop' }))
+      expect(named(resolved, 'Milled One').zone).toBe('graveyard')
+      const recover = pendingSelectionFor(resolved, 'p1')
+      expect(recover?.candidates).toEqual([
+        named(resolved, 'Milled One').id,
+        named(resolved, 'Milled Two').id,
+        named(resolved, 'Milled Three').id,
+      ])
+    })
+
+})
+
+describe('relocated from homerRest.test.ts → millThenRecover.test.ts', () => {
+  const createServerGame: typeof createRuntimeGame = (format, options) =>
+    createRuntimeGame(format, options, {
+      random: () => 0.5,
+      cardPlugins: [
+        choiceEffects,
+        entersTapped,
+        librarySearch,
+        onResolvePlugin,
+        targetedResolve,
+        activated,
+      ],
+    })
+
+  const named = (state: import('../types').GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Incarnation Technique reanimates a creature rather than a land', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Incarnation Technique', { types: ['Sorcery'] })] },
+          libraries: {
+            p1: [
+              cardTemplate('Body', { types: ['Creature'], zone: 'graveyard' }),
+              cardTemplate('Land', { types: ['Land'], zone: 'graveyard' }),
+              ...Array.from({ length: 5 }, (_, index) =>
+                cardTemplate(`Milled ${index}`, { types: ['Instant'] })),
+            ],
+          },
+        },
+      )
+      const cast = ok(server.rules(server.state, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(server.state, 'Incarnation Technique').id,
+      }))
+      const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+      const selection = pendingSelectionFor(choosing, 'p1')!
+      expect(selection.candidates).toEqual([named(choosing, 'Body').id])
+      const resolved = ok(server.rules(choosing, {
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'choose',
+        count: 1,
+        objectIds: selection.candidates,
+      }))
+      expect(named(resolved, 'Body').zone).toBe('battlefield')
+      expect(named(resolved, 'Land').zone).toBe('graveyard')
+    })
+
 })
