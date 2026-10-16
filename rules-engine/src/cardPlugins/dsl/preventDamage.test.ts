@@ -32,6 +32,10 @@ import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, ReduceResult } from '../../types'
 import { loseAbilitiesBecome, permanent, reviseContinuousEffects } from '../continuousEffects'
 
+
+import { activated } from '../activated'
+import {onResolve} from '../onResolve'
+
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -644,4 +648,118 @@ describe('preventDamage', () => {
     }))
     expect(state.players.p1.life).toBe(40)
   })
+})
+
+describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const passToEmpty = (
+    rules: (state: GameState, event: { type: 'passPriority'; seat: string }) => ReduceResult,
+    state: GameState,
+  ) => {
+    let current = state
+    while (current.stack.length > 0 && !current.stack[0].waiting) {
+      for (const seat of current.playerOrder) {
+        current = ok(rules(current, { type: 'passPriority', seat }))
+      }
+    }
+    return current
+  }
+
+  test('Darkness prevents combat damage until cleanup', () => {
+      const attacker = cardTemplate('Grizzly Bears', {
+        types: ['Creature'],
+        power: 2,
+        toughness: 2,
+      })
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Darkness', { types: ['Instant'], manaCost: '{B}' })] },
+          battlefield: { p2: [attacker] },
+        },
+        { random: () => 0.5, cardPlugins: [onResolve] },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.B = 1
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(ready, 'Darkness').id,
+      }))
+      const fogged = ok(server.rules(cast, { type: 'resolveTop' }))
+      expect(fogged.rules.some((rule) => rule.pluginId === 'fog' && rule.params.untilCleanup)).toBe(true)
+
+      let combat = structuredClone(fogged)
+      combat.active = 'p2'
+      combat.priority = 'p2'
+      combat.step = 'declareAttackers'
+      combat.objects[named(combat, 'Grizzly Bears').id].summoningSickness = false
+      combat = ok(server.rules(combat, {
+        type: 'declareAttackers',
+        seat: 'p2',
+        attackers: [{ objectId: named(combat, 'Grizzly Bears').id, defender: 'p1' }],
+      }))
+      combat.step = 'combatDamage'
+      combat = ok(server.rules(combat, { type: 'assignCombatDamage' }))
+      expect(combat.players.p1.life).toBe(40)
+
+      let cleaned = fogged
+      while (cleaned.step !== 'cleanup') {
+        cleaned = ok(server.rules(cleaned, { type: 'advanceStep' }))
+      }
+      expect(cleaned.rules.some((rule) => rule.pluginId === 'fog' && rule.params.untilCleanup))
+        .toBe(false)
+    })
+
+  test('Lady Evangela fogs only the targeted creature', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [cardTemplate('Lady Evangela', { types: ['Creature'] })],
+            p2: [
+              cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
+              cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+            ],
+          },
+        },
+        { random: () => 0.5, cardPlugins: [activated] },
+      )
+      const eva = named(server.state, 'Lady Evangela').id
+      server.state.objects[eva].summoningSickness = false
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 1, U: 0, B: 1, R: 0, G: 0, C: 0 }
+      const angry = named(ready, 'Angry Bear').id
+      const activatedAbility = ok(server.rules(ready, {
+        type: 'activateAbility',
+        abilityId: 'ladyEvangela.fog',
+        seat: 'p1',
+        objectId: eva,
+        targets: [{ kind: 'object', objectId: angry }],
+      }))
+      const resolved = passToEmpty(server.rules, activatedAbility)
+      expect(resolved.rules.some((rule) =>
+        rule.pluginId === 'fog' && rule.params.sourceId === angry)).toBe(true)
+
+      let combat = structuredClone(resolved)
+      combat.active = 'p2'
+      combat.priority = 'p2'
+      combat.step = 'declareAttackers'
+      combat.objects[angry].summoningSickness = false
+      combat.objects[named(combat, 'Quiet Bear').id].summoningSickness = false
+      combat = ok(server.rules(combat, {
+        type: 'declareAttackers',
+        seat: 'p2',
+        attackers: [
+          { objectId: angry, defender: 'p1' },
+          { objectId: named(combat, 'Quiet Bear').id, defender: 'p1' },
+        ],
+      }))
+      combat.step = 'combatDamage'
+      combat = ok(server.rules(combat, { type: 'assignCombatDamage' }))
+      expect(combat.players.p1.life).toBe(38)
+    })
+
 })

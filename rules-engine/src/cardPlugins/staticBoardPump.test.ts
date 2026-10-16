@@ -9,6 +9,15 @@ import { pluginIdsFromEffects } from './effectRuntime'
 import { staticBoardPump as pumpEffect } from './effects'
 import { staticBoardPump } from './staticBoardPump'
 
+import {resolveStack} from '../testHelpers'
+
+
+
+
+
+
+
+import { targetedResolve } from './targetedResolve'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -189,4 +198,47 @@ describe('Thunderfoot Baloth', () => {
     expect(hasKeyword(named(gone, 'Ally Bear'), 'trample', gone)).toBe(false)
     expect(stats(gone, 'Our General')).toEqual([3, 3])
   })
+})
+
+describe('relocated from sinFallGaps.test.ts → staticBoardPump.test.ts', () => {
+  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types, ...extra })
+
+  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Colossification attaches, taps, and pumps the creature', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [card('Bear', ['Creature'], { power: 2, toughness: 2 })],
+          },
+          hands: {
+            p1: [card('Colossification', ['Enchantment'], {
+              subtypes: ['Aura'],
+              manaCost: '{5}{G}{G}',
+            })],
+          },
+        },
+        { random: () => 0.5, cardPlugins: [targetedResolve] },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 2, C: 5 }
+      const aura = named(ready, 'Colossification').id
+      const bear = named(ready, 'Bear').id
+      const entered = resolveStack(server.rules, ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: aura,
+        targets: [{ kind: 'object', objectId: bear }],
+      })))
+      expect(entered.objects[aura].attachedTo).toBe(bear)
+      expect(entered.objects[bear]).toMatchObject({
+        tapped: true,
+        power: 22,
+        toughness: 22,
+      })
+    })
+
 })

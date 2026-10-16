@@ -5,6 +5,16 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
+import {createServerGame as createRuntimeGame} from '../runtime'
+import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
+import {choiceEffects} from './choiceEffects'
+import {entersTapped} from './entersTapped'
+import {librarySearch} from './librarySearch'
+import {onResolve} from './onResolve'
+import {targetedResolve} from './targetedResolve'
+import {activated} from './activated'
+import {pendingPlayerSelection} from '../rules/selectPlayers'
+import {modalSpell} from './modalSpell'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -208,4 +218,116 @@ describe('landfall', () => {
     expect(next.stack).toHaveLength(0)
     expect(battlefieldNames(next)).not.toContain('Insect')
   })
+})
+
+describe('relocated from homerRest.test.ts → landfall.test.ts', () => {
+  const createServerGame: typeof createRuntimeGame = (format, options) =>
+    createRuntimeGame(format, options, {
+      random: () => 0.5,
+      cardPlugins: [
+        choiceEffects,
+        entersTapped,
+        librarySearch,
+        onResolve,
+        targetedResolve,
+        activated,
+      ],
+    })
+
+  const named = (state: import('../types').GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Yarok makes landfall happen an extra time for Aesi', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Forest', { types: ['Land'] })] },
+          battlefield: {
+            p1: [
+              cardTemplate('Aesi, Tyrant of Gyre Strait', { types: ['Creature'] }),
+              cardTemplate('Yarok, the Desecrated', { types: ['Creature'] }),
+            ],
+          },
+          libraries: {
+            p1: [
+              cardTemplate('First', { types: ['Instant'] }),
+              cardTemplate('Second', { types: ['Instant'] }),
+            ],
+          },
+        },
+      )
+      let next = resolveStack(server.rules, ok(server.rules(server.state, {
+        type: 'playLand',
+        seat: 'p1',
+        objectId: named(server.state, 'Forest').id,
+      })))
+      for (let index = 0; index < 2; index += 1) {
+        const choice = pendingOptionSelection(next, 'p1')!
+        next = resolveStack(server.rules, ok(server.rules(next, { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[0].id })))
+      }
+      expect(next.zoneOrder.p1.hand.map((id) => next.objects[id].name)).toEqual(['First', 'Second'])
+    })
+
+})
+
+describe('relocated from sinFallGaps.test.ts → landfall.test.ts', () => {
+  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types, ...extra })
+
+  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Hedron Crab mills a chosen player on landfall', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: [card('Hedron Crab', ['Creature'])] },
+          hands: { p1: [forest()] },
+          libraries: {
+            p2: [card('A', ['Instant']), card('B', ['Instant']), card('C', ['Instant'])],
+          },
+        },
+      )
+      const played = ok(server.rules(server.state, {
+        type: 'playLand',
+        seat: 'p1',
+        objectId: named(server.state, 'Forest').id,
+      }))
+      const pending = pendingPlayerSelection(played)!
+      const chosen = ok(server.rules(played, {
+        type: 'selectPlayers',
+        seat: 'p1',
+        selectionId: pending.id,
+        players: ['p2'],
+      }))
+      const milled = ok(server.rules(chosen, { type: 'resolveTop' }))
+      expect(milled.zoneOrder.p2.graveyard).toHaveLength(3)
+    })
+
+  test('Retreat to Hagra can drain the table on landfall', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: [card('Retreat to Hagra', ['Enchantment'])] },
+          hands: { p1: [forest()] },
+        },
+        { random: () => 0.5, cardPlugins: [choiceEffects, modalSpell] },
+      )
+      let state = ok(server.rules(server.state, {
+        type: 'playLand',
+        seat: 'p1',
+        objectId: named(server.state, 'Forest').id,
+      }))
+      state = ok(server.rules(state, { type: 'resolveTop' }))
+      expect(pendingDialog(state)?.kind).toBe('choose-modes')
+      state = ok(server.rules(state, {
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat: 'p1',
+        payload: { modes: ['Each opponent loses 1 life and you gain 1 life.'] },
+      }))
+      expect(state.players.p1.life).toBe(41)
+      expect(state.playerOrder.slice(1).every((seat) => state.players[seat].life === 39)).toBe(true)
+    })
+
 })

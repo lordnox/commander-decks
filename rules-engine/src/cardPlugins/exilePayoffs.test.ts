@@ -3,7 +3,7 @@ import { createCatalog } from '../catalog'
 import { gameObjectFieldDefaults } from '../definitions'
 import { commanderRules } from '../formats'
 import { rules } from '../kernel'
-import { cardTemplate, newGame } from '../newGame'
+import { cardTemplate, newGame, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN, dialogCandidates, pendingDialog, pendingDialogLock } from '../pendingDialog'
 import { lands } from '../plugins/lands'
 import { mana } from '../plugins/mana'
@@ -20,7 +20,12 @@ import {
 } from './effects'
 import { exilePayoffs } from './exilePayoffs'
 import { PENDING_SELECTION } from '../rules/selectCards'
-
+import {choiceEffects} from './choiceEffects'
+import {exiledWith} from './exiledWith'
+import { librarySearch } from './librarySearch'
+import { onResolve } from './onResolve'
+import {castCosts} from './castCosts'
+import {ward} from './ward'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -373,4 +378,64 @@ describe('linked graveyard exile mana', () => {
       mana: 'U',
     }, pitCatalog)).players.p1.mana.U).toBe(1)
   })
+})
+
+describe('relocated from sinFallFinishers.test.ts → exilePayoffs.test.ts', () => {
+  const creature = (name: string, manaCost = '{2}{G}', extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], manaCost, power: 2, toughness: 2, ...extra })
+
+
+
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const finisherPlugins = [
+    onResolve,
+    choiceEffects,
+    librarySearch,
+    castCosts,
+    ward,
+    exiledWith,
+    pendingDialogLock,
+  ]
+
+  test('Valgavoth exiles opposing graveyard cards and casts them for life', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: [creature('Valgavoth, Terror Eater', '{6}{B}{B}', { power: 6, toughness: 6 })] },
+          hands: { p2: [cardTemplate('Exiled Bolt', { types: ['Instant'], manaCost: '{R}' })] },
+        },
+        { random: () => 0.5, cardPlugins: finisherPlugins },
+      )
+      const valgavoth = named(server.state, 'Valgavoth, Terror Eater')
+      const bolt = named(server.state, 'Exiled Bolt')
+      const toGrave = structuredClone(server.state)
+      toGrave.zoneOrder.p2.hand = []
+      toGrave.zoneOrder.p2.graveyard.push(bolt.id)
+      toGrave.objects[bolt.id].zone = 'graveyard'
+      const milled = ok(server.rules(toGrave, {
+        type: 'move',
+        objectId: bolt.id,
+        to: 'graveyard',
+      }))
+
+      expect(milled.objects[bolt.id]).toMatchObject({
+        zone: 'exile',
+        exiledWith: valgavoth.id,
+      })
+      expect(milled.objects[valgavoth.id].exiledCards).toEqual([bolt.id])
+
+      const active: GameState = { ...milled, active: 'p1', step: 'precombatMain', priority: 'p1', stack: [] }
+
+      const cast = ok(server.rules(active, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: bolt.id,
+        castOption: 'exiledWithLife',
+      }))
+      expect(cast.players.p1.life).toBe(39)
+      expect(cast.objects[bolt.id].zone).toBe('stack')
+    })
+
 })

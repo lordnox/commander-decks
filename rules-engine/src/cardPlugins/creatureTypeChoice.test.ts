@@ -7,6 +7,15 @@ import { ok, resolveStack } from '../testHelpers'
 import { creatureTypeChoice } from './creatureTypeChoice'
 import { onResolve } from './onResolve'
 
+
+
+import type { GameState } from '../types'
+import {activated} from './activated'
+
+import { choiceEffects } from './choiceEffects'
+import {librarySearch} from './librarySearch'
+import {targetedResolve} from './targetedResolve'
+import {ward} from './ward'
 const named = (state: import('../types').GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -138,4 +147,40 @@ describe('creature-type choices', () => {
     expect(named(resolved, 'Crab').zone).toBe('battlefield')
     expect(named(resolved, 'Bear').zone).toBe('hand')
   })
+})
+
+describe('relocated from homerPass2.test.ts → creatureTypeChoice.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, ...extra })
+
+  const plugins = [onResolve, targetedResolve, activated, choiceEffects, librarySearch, ward]
+
+  test('Roaming Throne stamps Ward {2}', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [creature('Roaming Throne')],
+          },
+          hands: {
+            p2: [cardTemplate('Test Hex', { types: ['Instant'], manaCost: '{C}' })],
+          },
+        },
+        { random: () => 0.5, cardPlugins: plugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.priority = 'p2'
+      ready.players.p2.mana.C = 3
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p2',
+        objectId: named(ready, 'Test Hex').id,
+        targets: [{ kind: 'object', objectId: named(ready, 'Roaming Throne').id }],
+      }))
+      expect(pendingDialog(cast)).toMatchObject({ kind: 'ward-pay', count: 2 })
+    })
+
 })

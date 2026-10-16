@@ -8,12 +8,13 @@ import {
 } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
-import { cardTemplate, type CardTemplate } from '../newGame'
+import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, ManaId, ManaPool } from '../types'
 import { effectsFromTokenSpec } from './effects'
+import {activated} from './activated'
 
 /**
  * Every mana source of the four decks planned for the live table (Homer,
@@ -645,5 +646,94 @@ describe('the mana-source inventory of the four decks is complete', () => {
     ].filter((name) => !played.has(name))
     expect(missing).toEqual([])
   })
+
+})
+
+describe('relocated from ladyEvangela.test.ts → liveTableMana.test.ts', () => {
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+
+  test('Urborg lets a Forest tap for {B}', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [
+              forest(),
+              cardTemplate('Urborg, Tomb of Yawgmoth', { types: ['Land'] }),
+            ],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const forestId = named(server.state, 'Forest').id
+      const black = ok(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: forestId,
+        mana: 'B',
+      }))
+      expect(black.players.p1.mana.B).toBe(1)
+    })
+
+  test('Crypt Ghast adds {B} when you tap a Swamp', () => {
+      const swamp = cardTemplate('Swamp', {
+        types: ['Land'],
+        subtypes: ['Swamp'],
+        supertypes: ['Basic'],
+        oracleText: '{T}: Add {B}.',
+        tapProduces: { B: 1 },
+      })
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [
+              swamp,
+              cardTemplate('Crypt Ghast', { types: ['Creature'] }),
+            ],
+          },
+        },
+        { random: () => 0.5 },
+      )
+      const swampId = named(server.state, 'Swamp').id
+      const tapped = ok(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: swampId,
+      }))
+      expect(tapped.players.p1.mana.B).toBe(2)
+    })
+
+  test('Cabal Coffers adds {B} for each Swamp including Urborg', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: {
+            p1: [
+              forest(),
+              forest(),
+              cardTemplate('Urborg, Tomb of Yawgmoth', { types: ['Land'] }),
+              cardTemplate('Cabal Coffers', { types: ['Land'] }),
+            ],
+          },
+        },
+        { random: () => 0.5, cardPlugins: [activated] },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.C = 2
+      const coffersId = named(ready, 'Cabal Coffers').id
+      const activatedMana = ok(server.rules(ready, {
+        type: 'activateAbility',
+        abilityId: 'coffers.cabal',
+        seat: 'p1',
+        objectId: coffersId,
+        manaAbility: true,
+      }))
+      expect(activatedMana.objects[coffersId].tapped).toBe(true)
+      expect(activatedMana.players.p1.mana.B).toBe(4)
+      expect(activatedMana.players.p1.mana.C).toBe(0)
+    })
 
 })

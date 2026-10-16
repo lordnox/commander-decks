@@ -8,6 +8,14 @@ import type { GameState } from '../types'
 import { activated } from './activated'
 import { activate, createTreasures, effectsFromTokenSpec } from './effects'
 
+import {createServerGame as createRuntimeGame} from '../runtime'
+import {DIALOG_CHOSEN, dialogCandidates, pendingDialog} from '../pendingDialog'
+
+import { choiceEffects } from './choiceEffects'
+import {entersTapped} from './entersTapped'
+import {librarySearch} from './librarySearch'
+import {onResolve} from './onResolve'
+import {targetedResolve} from './targetedResolve'
 const TREASURE_TEXT = '{T}, Sacrifice this token: Add one mana of any color.'
 
 const treasure = (): CardTemplate => cardTemplate('Treasure', {
@@ -220,4 +228,78 @@ describe('sacrifice-this mana abilities', () => {
     expect(named(next, 'Eldrazi Spawn').filter((object) => object.zone === 'battlefield'))
       .toHaveLength(0)
   })
+})
+
+describe('relocated from homerRest.test.ts → selfSacrificeMana.test.ts', () => {
+  const createServerGame: typeof createRuntimeGame = (format, options) =>
+    createRuntimeGame(format, options, {
+      random: () => 0.5,
+      cardPlugins: [
+        choiceEffects,
+        entersTapped,
+        librarySearch,
+        onResolve,
+        targetedResolve,
+        activated,
+      ],
+    })
+
+  const named = (state: import('../types').GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Malevolent Rumble creates a functional Eldrazi Spawn', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [cardTemplate('Malevolent Rumble', { types: ['Sorcery'] })] },
+          libraries: {
+            p1: [
+              cardTemplate('Permanent', { types: ['Artifact'] }),
+              cardTemplate('One', { types: ['Instant'] }),
+              cardTemplate('Two', { types: ['Instant'] }),
+              cardTemplate('Three', { types: ['Instant'] }),
+            ],
+          },
+        },
+      )
+      const cast = ok(server.rules(server.state, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: named(server.state, 'Malevolent Rumble').id,
+      }))
+      const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
+      expect(named(choosing, 'Eldrazi Spawn')).toBeUndefined()
+      const dialog = pendingDialog(choosing)!
+      const permanent = named(choosing, 'Permanent')
+      const otherIds = dialogCandidates(choosing, dialog)
+        .map((object) => object.id)
+        .filter((objectId) => objectId !== permanent.id)
+      let resolved = ok(server.rules(choosing, {
+        type: 'move', objectId: permanent.id, to: 'hand',
+      }))
+      for (const objectId of otherIds) {
+        resolved = ok(server.rules(resolved, { type: 'move', objectId, to: 'graveyard' }))
+      }
+      resolved = ok(server.rules(resolved, {
+        type: 'custom', name: DIALOG_CHOSEN, seat: 'p1', payload: { objectIds: [permanent.id] },
+      }))
+      const spawn = named(resolved, 'Eldrazi Spawn')
+      expect(spawn).toMatchObject({
+        types: ['Creature'],
+        subtypes: ['Eldrazi', 'Spawn'],
+        power: 0,
+        toughness: 1,
+      })
+      const sacrificed = ok(server.rules(resolved, {
+        type: 'activateAbility',
+        abilityId: 'token.sacrifice-for-mana',
+        seat: 'p1',
+        objectId: spawn.id,
+        manaAbility: true,
+      }))
+      // CR 704.5d: the sacrificed token ceases to exist, but its mana was already made.
+      expect(sacrificed.objects[spawn.id]).toBeUndefined()
+      expect(sacrificed.players.p1.mana.C).toBe(1)
+    })
+
 })

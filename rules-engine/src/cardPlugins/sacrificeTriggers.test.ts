@@ -13,6 +13,18 @@ import {
   prepareKernelPendingChoice,
 } from '../../../live-runner/src/kernelHost'
 
+import { createTreasures, enters } from './effects'
+import {type CardTemplate} from '../newGame'
+import {pendingDialog} from '../pendingDialog'
+import type {GameEvent} from '../types'
+import {choiceEffects} from './choiceEffects'
+import {exiledWith} from './exiledWith'
+import {onResolve} from './onResolve'
+import {castCosts} from './castCosts'
+import {ward} from './ward'
+
+
+
 const applyKernelChoice = (
   kernel: Parameters<typeof applyKernelChoiceImpl>[0],
   lobby: Parameters<typeof applyKernelChoiceImpl>[1],
@@ -459,4 +471,213 @@ describe('permanentSacrificed from other sacrifice paths', () => {
     }))
     expect(sacrificed.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(1)
   })
+})
+
+describe('relocated from mirkwoodBats.test.ts → sacrificeTriggers.test.ts', () => {
+  const bats = () => cardTemplate('Mirkwood Bats', {
+    types: ['Creature'], subtypes: ['Bat'], power: 2, toughness: 3,
+    oracleText: 'Flying\nWhenever you create or sacrifice a token, each opponent loses 1 life.',
+  })
+  const treasure = () => cardTemplate('Treasure', { types: ['Artifact'], token: true })
+  const maker = (count = 1) => cardTemplate('Token Maker', {
+    types: ['Creature'], effects: [enters(createTreasures(count, 'you'))],
+  })
+  const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
+    createServerGame(commanderRules, {
+      players: 4, battlefield: { p1: [bats()] }, ...zones,
+    }, { random: () => 0.5 })
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+  const life = (state: GameState) => state.playerOrder.map((seat) => state.players[seat].life)
+  const makeTokens = (server: ReturnType<typeof game>) => {
+    const entered = ok(server.rules(server.state, {
+      type: 'move', objectId: named(server.state, 'Token Maker').id, to: 'battlefield',
+    }))
+    return ok(server.rules(entered, { type: 'resolveTop' }))
+  }
+
+  test('sacrificing your token triggers even after the token ceases to exist', () => {
+      const server = game({ battlefield: { p1: [bats(), treasure()] } })
+      const tokenId = named(server.state, 'Treasure').id
+      const sacrificed = ok(server.rules(server.state, { type: 'sacrifice', objectId: tokenId }))
+      expect(sacrificed.stack).toHaveLength(1)
+      expect(sacrificed.objects[tokenId]).toBeUndefined()
+      expect(life(resolveStack(server.rules, sacrificed))).toEqual([40, 39, 39, 39])
+    })
+
+  test('uses the sacrificed token controller rather than its owner', () => {
+      const server = game({ battlefield: { p1: [bats()], p2: [treasure()] } })
+      const state = structuredClone(server.state)
+      const token = named(state, 'Treasure')
+      token.controller = 'p1'
+      const sacrificed = ok(server.rules(state, { type: 'sacrifice', objectId: token.id }))
+      expect(sacrificed.stack).toHaveLength(1)
+      expect(life(resolveStack(server.rules, sacrificed))).toEqual([40, 39, 39, 39])
+    })
+
+  test('opponent tokens and your nontoken permanents do not trigger on sacrifice', () => {
+      const server = game({ battlefield: {
+        p1: [bats(), cardTemplate('Artifact', { types: ['Artifact'] })], p2: [treasure()],
+      } })
+      for (const name of ['Artifact', 'Treasure']) {
+        const state = ok(server.rules(server.state, {
+          type: 'sacrifice', objectId: named(server.state, name).id,
+        }))
+        expect(state.stack).toHaveLength(0)
+      }
+    })
+
+  test('token destruction, exile, and bounce are not sacrifices', () => {
+      const server = game({ battlefield: { p1: [bats(), treasure()] } })
+      for (const to of ['graveyard', 'exile', 'hand'] as const) {
+        const moved = ok(server.rules(server.state, {
+          type: 'move', objectId: named(server.state, 'Treasure').id, to,
+        }))
+        expect(moved.stack).toHaveLength(0)
+        expect(life(moved)).toEqual([40, 40, 40, 40])
+      }
+    })
+
+  test('sacrificing a created Treasure for mana queues the trigger without draining immediately', () => {
+      const server = game({ hands: { p1: [maker()] } })
+      const created = resolveStack(server.rules, makeTokens(server))
+      const spent = ok(server.rules(created, {
+        type: 'tapForMana', seat: 'p1', objectId: named(created, 'Treasure').id, mana: 'B',
+      }))
+      expect(spent.players.p1.mana.B).toBe(1)
+      expect(spent.stack).toHaveLength(1)
+      expect(life(spent)).toEqual([40, 39, 39, 39])
+      expect(life(resolveStack(server.rules, spent))).toEqual([40, 38, 38, 38])
+    })
+
+})
+
+describe('relocated from sinFallFinishers.test.ts → sacrificeTriggers.test.ts', () => {
+  const creature = (name: string, manaCost = '{2}{G}', extra: Partial<CardTemplate> = {}) =>
+    cardTemplate(name, { types: ['Creature'], manaCost, power: 2, toughness: 2, ...extra })
+
+  const forest = (name = 'Forest') =>
+    cardTemplate(name, {
+      types: ['Land'],
+      subtypes: ['Forest'],
+      supertypes: ['Basic'],
+      tapProduces: { G: 1 },
+    })
+
+  const run = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    events: GameEvent[],
+  ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
+
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  const finisherPlugins = [
+    onResolve,
+    choiceEffects,
+    librarySearch,
+    castCosts,
+    ward,
+    exiledWith,
+    pendingDialogLock,
+  ]
+
+  test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          hands: { p1: [creature('Famished Worldsire', '{8}{G}', { power: 0, toughness: 0 })] },
+          battlefield: {
+            p1: [forest('Land A'), forest('Land B')],
+          },
+          libraries: {
+            p1: [
+              forest('Top Land 1'),
+              forest('Top Land 2'),
+              cardTemplate('Spell', { types: ['Instant'] }),
+            ],
+          },
+        },
+        { random: () => 0.5, cardPlugins: finisherPlugins },
+      )
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 8 }
+      const spell = named(ready, 'Famished Worldsire')
+      const landA = named(ready, 'Land A')
+      const landB = named(ready, 'Land B')
+
+      const cast = ok(server.rules(ready, {
+        type: 'castSpell',
+        seat: 'p1',
+        objectId: spell.id,
+      }))
+      const opened = run(server, cast, [{ type: 'resolveTop' }])
+      const resolved = run(server, opened, [
+        {
+          type: 'selectCards',
+          seat: 'p1',
+          kind: 'sacrifice',
+          count: 2,
+          objectIds: [landA.id, landB.id],
+        },
+      ])
+
+      const worldsire = named(resolved, 'Famished Worldsire')
+      expect(worldsire.zone).toBe('battlefield')
+      expect(worldsire.counters['+1/+1']).toBe(6)
+      expect(worldsire.power).toBe(6)
+
+      const dialog = pendingDialog(resolved)
+      expect(dialog?.kind).toBe('look-top-land')
+      expect(dialog?.count).toBe(6)
+
+      const topLand = named(resolved, 'Top Land 1')
+      const finished = run(server, resolved, [{
+        type: 'custom',
+        name: DIALOG_CHOSEN,
+        seat: 'p1',
+        payload: { objectIds: [topLand.id] },
+      }])
+
+      expect(named(finished, 'Top Land 1')).toMatchObject({ zone: 'battlefield', tapped: true })
+      expect(pendingDialog(finished)).toBeUndefined()
+    })
+
+})
+
+describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () => {
+  const card = (name: string, types: string[], extra: Parameters<typeof cardTemplate>[1] = {}) =>
+    cardTemplate(name, { types, ...extra })
+
+  const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+    Object.values(state.objects).find((object) => object.name === name)!
+
+  test('Lotus Field asks to sacrifice two lands on entry', () => {
+      const server = createServerGame(
+        commanderRules,
+        {
+          battlefield: { p1: [forest(), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
+          hands: { p1: [card('Lotus Field', ['Land'])] },
+        },
+      )
+      const lotus = named(server.state, 'Lotus Field').id
+      const entered = ok(server.rules(server.state, {
+        type: 'playLand',
+        seat: 'p1',
+        objectId: lotus,
+      }))
+      const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
+      const selection = pendingSelectionFor(choosing, 'p1')!
+      expect(selection).toMatchObject({ kind: 'sacrifice', count: 2 })
+      const resolved = ok(server.rules(choosing, {
+        type: 'selectCards',
+        seat: 'p1',
+        kind: 'sacrifice',
+        count: 2,
+        objectIds: selection.candidates.slice(0, 2),
+      }))
+      expect(resolved.zoneOrder.p1.battlefield).toHaveLength(1)
+    })
+
 })
