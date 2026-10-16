@@ -1,12 +1,29 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
-import { cardTemplate } from '../newGame'
+import { bolt, cardTemplate } from '../newGame'
+import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { createServerGame } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
-import { casts, dies, discards, draws, exiled, gainLife, leaves, trigger, type CardEffect } from './effects'
+import { choiceEffects } from './choiceEffects'
+import {
+  casts,
+  dies,
+  discardCards,
+  discards,
+  draws,
+  exiled,
+  gainLife,
+  leaves,
+  loseLife,
+  onResolve as onResolveEffect,
+  trigger,
+  triggerOn,
+  type CardEffect,
+} from './effects'
+import { onResolve } from './onResolve'
 
 const knight = (name = 'Knight', token = false) => cardTemplate(name, {
   types: ['Creature'], subtypes: ['Knight'], colors: ['W'], power: 2, toughness: 2, token,
@@ -218,5 +235,340 @@ describe('shared trigger matching', () => {
       state = resolveStack(server.rules, ok(server.rules(state, { type: 'discard', seat: 'p1', objectId: named(state, name).id })))
     }
     expect(state.players.p1.life).toBe(41)
+  })
+})
+
+const endStepDraw = () => cardTemplate('Sygg, River Cutthroat', {
+  types: ['Creature'],
+  subtypes: ['Merfolk', 'Rogue'],
+  supertypes: ['Legendary'],
+  power: 1,
+  toughness: 3,
+  oracleText:
+    'At the beginning of each end step, if an opponent lost 3 or more life this turn, '
+    + 'you may draw a card.',
+})
+
+const toEndStep = (
+  server: ReturnType<typeof createServerGame>,
+  state: GameState,
+) => {
+  let current = state
+  while (current.step !== 'end') {
+    current = ok(server.rules(current, { type: 'advanceStep' }))
+  }
+  return current
+}
+
+const endStepDrawGame = () => createServerGame(
+  commanderRules,
+  {
+    battlefield: { p3: [endStepDraw()] },
+    libraries: { p3: [cardTemplate('Island', { types: ['Land'] }), cardTemplate('Swamp', { types: ['Land'] })] },
+  },
+  { random: () => 0.5, cardPlugins: [choiceEffects] },
+)
+
+describe('end-step opponent life-loss draw', () => {
+  test('an opponent bleeding three life puts the trigger on the stack before the draw choice', () => {
+    const server = endStepDrawGame()
+    const bled = ok(server.rules(server.state, {
+      type: 'loseLife',
+      seat: 'p1',
+      amount: 3,
+    }))
+    const ending = toEndStep(server, bled)
+    expect(pendingDialog(ending)).toBeUndefined()
+    expect(ending.stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Sygg, River Cutthroat',
+      controller: 'p3',
+    })
+    const offered = resolveStack(server.rules, ending)
+    expect(pendingDialog(offered)).toMatchObject({
+      kind: 'may-draw',
+      seat: 'p3',
+      source: 'Sygg, River Cutthroat',
+    })
+  })
+
+  test('accepting the trigger draws a card and declining does not', () => {
+    const server = endStepDrawGame()
+    const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 5 }))
+    const ending = resolveStack(server.rules, toEndStep(server, bled))
+    const before = ending.zoneCounts.p3.hand
+    const drawn = ok(server.rules(ending, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p3',
+      payload: { accepted: true },
+    }))
+    const declined = ok(server.rules(ending, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p3',
+      payload: { accepted: false },
+    }))
+    expect(drawn.zoneCounts.p3.hand).toBe(before + 1)
+    expect(pendingDialog(drawn)).toBeUndefined()
+    expect(declined.zoneCounts.p3.hand).toBe(before)
+    expect(pendingDialog(declined)).toBeUndefined()
+  })
+
+  test('an opponent who died to that life loss still counts', () => {
+    const server = endStepDrawGame()
+    let current = ok(server.rules(server.state, {
+      type: 'loseLife',
+      seat: 'p1',
+      amount: 60,
+    }))
+    current = ok(server.rules(current, { type: 'concede', seat: 'p1' }))
+    const ending = toEndStep(server, current)
+    expect(ending.players.p1.lost).toBe(true)
+    expect(ending.stack[0]).toMatchObject({ kind: 'ability', name: 'Sygg, River Cutthroat' })
+    expect(pendingDialog(resolveStack(server.rules, ending))).toMatchObject({
+      kind: 'may-draw',
+      seat: 'p3',
+    })
+  })
+
+  test('two life lost by an opponent is not enough', () => {
+    const server = endStepDrawGame()
+    const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 2 }))
+    const ending = toEndStep(server, bled)
+    expect(ending.stack).toHaveLength(0)
+    expect(pendingDialog(ending)).toBeUndefined()
+  })
+
+  test("the watcher's own life loss does not trigger it", () => {
+    const server = endStepDrawGame()
+    const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p3', amount: 9 }))
+    const ending = toEndStep(server, bled)
+    expect(ending.stack).toHaveLength(0)
+    expect(pendingDialog(ending)).toBeUndefined()
+  })
+
+  test('life lost on an earlier turn does not carry over', () => {
+    const server = endStepDrawGame()
+    const bled = ok(server.rules(server.state, { type: 'loseLife', seat: 'p1', amount: 6 }))
+    let current = resolveStack(server.rules, toEndStep(server, bled))
+    current = ok(server.rules(current, {
+      type: 'custom',
+      name: DIALOG_CHOSEN,
+      seat: 'p3',
+      payload: { accepted: false },
+    }))
+    while (current.step !== 'end' || current.turn === bled.turn) {
+      current = ok(server.rules(current, { type: 'advanceStep' }))
+    }
+    expect(current.turn).toBeGreaterThan(bled.turn)
+    expect(current.stack).toHaveLength(0)
+    expect(pendingDialog(current)).toBeUndefined()
+  })
+})
+
+const discardDrain = () => cardTemplate('Discard Drain', {
+  types: ['Enchantment'],
+  manaCost: '{1}{B}',
+  oracleText: 'Whenever an opponent discards a card, that player loses 2 life.',
+  effects: [
+    triggerOn('discard', {
+      if: { seat: 'opponent' },
+      do: [loseLife(2, 'triggeringPlayer')],
+    }),
+  ],
+})
+
+const discardSpell = () => cardTemplate('Forced Discard', {
+  types: ['Sorcery'],
+  manaCost: '',
+  effects: [onResolveEffect(discardCards(1, 'target'))],
+})
+
+const passAll = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+  let current = state
+  for (const seat of current.playerOrder) {
+    current = ok(server.rules(current, { type: 'passPriority', seat }))
+  }
+  return current
+}
+
+const discardDrainGame = () => createServerGame(
+  commanderRules,
+  {
+    battlefield: { p3: [discardDrain()] },
+    hands: {
+      p1: [cardTemplate('Island', { types: ['Land'] }), cardTemplate('Swamp', { types: ['Land'] })],
+      p3: [cardTemplate('Forest', { types: ['Land'] })],
+    },
+  },
+  { random: () => 0.5, cardPlugins: [onResolve] },
+)
+
+const discardEvent = (state: GameState, seat: string, objectId: string) => ({
+  type: 'discard' as const,
+  seat,
+  objectId,
+})
+
+describe('opponent discard life loss', () => {
+  test('a discard spell waits, then the drain trigger stacks after the chosen discard', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: { p3: [discardDrain()] },
+        hands: {
+          p1: [discardSpell()],
+          p2: [cardTemplate('Victim Card', { types: ['Instant'] })],
+        },
+        players: 4,
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const spellId = server.state.zoneOrder.p1.hand[0]
+    const victimCard = server.state.zoneOrder.p2.hand[0]
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: spellId,
+      targets: [{ kind: 'player', player: 'p2' }],
+    }))
+    expect(cast.stack).toHaveLength(1)
+    expect(cast.stack[0].name).toBe('Forced Discard')
+    const afterSpell = passAll(server, cast)
+    expect(afterSpell.stack).toHaveLength(1)
+    expect(afterSpell.stack[0]).toMatchObject({ kind: 'spell', name: 'Forced Discard' })
+    expect(pendingSelectionFor(afterSpell, 'p2')).toMatchObject({ kind: 'discard', count: 1 })
+    expect(afterSpell.players.p2.life).toBe(commanderRules.startingLife)
+    const continued = ok(server.rules(afterSpell, {
+      type: 'selectCards',
+      seat: 'p2',
+      kind: 'discard',
+      count: 1,
+      objectIds: [victimCard],
+    }))
+    expect(continued.objects[victimCard].zone).toBe('graveyard')
+    expect(continued.players.p2.life).toBe(commanderRules.startingLife)
+    expect(continued.stack).toHaveLength(1)
+    expect(continued.stack[0]).toMatchObject({
+      kind: 'ability',
+      controller: 'p3',
+      name: 'Discard Drain',
+    })
+    const drained = ok(server.rules(continued, { type: 'resolveTop' }))
+    expect(drained.players.p2.life).toBe(commanderRules.startingLife - 2)
+    expect(drained.stack).toHaveLength(0)
+  })
+
+  test('an opponent discarding puts the drain on the stack before life loss', () => {
+    const server = discardDrainGame()
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const afterDiscard = ok(server.rules(server.state, discardEvent(server.state, 'p1', objectId)))
+    expect(afterDiscard.players.p1.life).toBe(commanderRules.startingLife)
+    expect(afterDiscard.stack).toHaveLength(1)
+    expect(afterDiscard.stack[0]).toMatchObject({
+      kind: 'ability',
+      controller: 'p3',
+      name: 'Discard Drain',
+    })
+    expect(afterDiscard.objects[objectId].zone).toBe('graveyard')
+    const resolved = ok(server.rules(afterDiscard, { type: 'resolveTop' }))
+    expect(resolved.players.p1.life).toBe(commanderRules.startingLife - 2)
+    expect(resolved.stack).toHaveLength(0)
+  })
+
+  test('each discarded card triggers separately', () => {
+    const server = discardDrainGame()
+    let current = server.state
+    for (const objectId of server.state.zoneOrder.p1.hand) {
+      current = ok(server.rules(current, discardEvent(current, 'p1', objectId)))
+      expect(current.stack.length).toBeGreaterThan(0)
+      current = ok(server.rules(current, { type: 'resolveTop' }))
+    }
+    expect(current.players.p1.life).toBe(commanderRules.startingLife - 4)
+  })
+
+  test('the controller discarding is not an opponent', () => {
+    const server = discardDrainGame()
+    const objectId = server.state.zoneOrder.p3.hand[0]
+    const discarded = ok(server.rules(server.state, discardEvent(server.state, 'p3', objectId)))
+    expect(discarded.stack).toHaveLength(0)
+    expect(discarded.players.p3.life).toBe(commanderRules.startingLife)
+  })
+
+  test('a drain source that has left the battlefield drains nobody', () => {
+    const server = discardDrainGame()
+    const source = Object.values(server.state.objects)
+      .find((object) => object.name === 'Discard Drain')!
+    const gone = ok(server.rules(server.state, {
+      type: 'move',
+      objectId: source.id,
+      to: 'graveyard',
+    }))
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const discarded = ok(server.rules(gone, discardEvent(gone, 'p1', objectId)))
+    expect(discarded.stack).toHaveLength(0)
+    expect(discarded.players.p1.life).toBe(commanderRules.startingLife)
+  })
+
+  test('players can respond to the drain trigger before life loss', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: { p3: [discardDrain()] },
+        hands: {
+          p1: [cardTemplate('Island', { types: ['Land'] })],
+          p3: [bolt()],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const discardedId = server.state.zoneOrder.p1.hand[0]
+    const boltId = server.state.zoneOrder.p3.hand[0]
+    const afterDiscard = ok(server.rules(server.state, discardEvent(server.state, 'p1', discardedId)))
+    expect(afterDiscard.players.p1.life).toBe(commanderRules.startingLife)
+    expect(afterDiscard.stack).toHaveLength(1)
+    const ready = structuredClone(afterDiscard)
+    ready.priority = 'p3'
+    ready.players.p3.mana.R = 1
+    const bolted = ok(server.rules(ready, {
+      type: 'castSpell',
+      seat: 'p3',
+      objectId: boltId,
+      targets: [{ kind: 'player', player: 'p1' }],
+    }))
+    expect(bolted.stack).toHaveLength(2)
+    expect(bolted.stack[0].name).toBe('Lightning Bolt')
+    expect(bolted.players.p1.life).toBe(commanderRules.startingLife)
+    const afterBolt = ok(server.rules(bolted, { type: 'resolveTop' }))
+    expect(afterBolt.players.p1.life).toBe(commanderRules.startingLife - 3)
+    expect(afterBolt.stack).toHaveLength(1)
+    const afterDrain = ok(server.rules(afterBolt, { type: 'resolveTop' }))
+    expect(afterDrain.players.p1.life).toBe(commanderRules.startingLife - 5)
+  })
+
+  test('two drain sources trigger in APNAP order', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p2: [discardDrain()],
+          p3: [discardDrain()],
+        },
+        hands: {
+          p1: [cardTemplate('Island', { types: ['Land'] })],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [onResolve] },
+    )
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const afterDiscard = ok(server.rules(server.state, discardEvent(server.state, 'p1', objectId)))
+    expect(afterDiscard.stack).toHaveLength(2)
+    expect(afterDiscard.stack[0].controller).toBe('p3')
+    expect(afterDiscard.stack[1].controller).toBe('p2')
+    const once = ok(server.rules(afterDiscard, { type: 'resolveTop' }))
+    expect(once.players.p1.life).toBe(commanderRules.startingLife - 2)
+    const twice = ok(server.rules(once, { type: 'resolveTop' }))
+    expect(twice.players.p1.life).toBe(commanderRules.startingLife - 4)
   })
 })

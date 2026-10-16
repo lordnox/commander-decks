@@ -9,6 +9,7 @@ import { ok } from '../testHelpers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
+import { gainLife, loseLife, triggerOn } from './effects'
 import { onResolve } from './onResolve'
 import { targetedResolve } from './targetedResolve'
 
@@ -433,5 +434,131 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(state.players.p1.life).toBe(39)
     expect(state.players.p1.mana.U).toBe(1)
     expect(state.players.p1.mana.B).toBe(0)
+  })
+})
+
+describe('combat damage life swap', () => {
+  test('combat damage to a watcher gains that much life and the attacker loses it', () => {
+    const watcher = cardTemplate('Faultless Watcher', {
+      types: ['Creature'],
+      power: 0,
+      toughness: 4,
+      effects: [triggerOn('dealtCombatDamage', {
+        do: [
+          gainLife('triggerAmount'),
+          loseLife('triggerAmount', 'triggeringPlayer'),
+        ],
+      })],
+    })
+    const attacker = cardTemplate('Hill Giant', {
+      types: ['Creature'],
+      power: 3,
+      toughness: 3,
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [watcher], p2: [attacker] },
+    })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Hill Giant')!
+    const recipient = Object.values(server.state.objects)
+      .find((object) => object.name === 'Faultless Watcher')!
+    const triggered = ok(server.rules(server.state, {
+      type: 'combatDamage',
+      sourceId: source.id,
+      target: { kind: 'object', objectId: recipient.id },
+      amount: 3,
+    }))
+
+    expect(triggered.stack[0]).toMatchObject({
+      kind: 'ability',
+      name: 'Faultless Watcher',
+      controller: 'p1',
+      payload: {
+        triggeringPlayer: 'p2',
+        triggerAmount: 3,
+      },
+    })
+    expect(triggered.objects[recipient.id].damageMarked).toBe(3)
+    expect(triggered.players.p1.life).toBe(40)
+    expect(triggered.players.p2.life).toBe(40)
+
+    const resolved = ok(server.rules(triggered, { type: 'resolveTop' }))
+    expect(resolved.players.p1.life).toBe(43)
+    expect(resolved.players.p2.life).toBe(37)
+  })
+
+  test('the combat-damage life swap still resolves after lethal damage', () => {
+    const watcher = cardTemplate('Faultless Watcher', {
+      types: ['Creature'],
+      power: 0,
+      toughness: 4,
+      effects: [triggerOn('dealtCombatDamage', {
+        do: [
+          gainLife('triggerAmount'),
+          loseLife('triggerAmount', 'triggeringPlayer'),
+        ],
+      })],
+    })
+    const attacker = cardTemplate('Hill Giant', {
+      types: ['Creature'],
+      power: 3,
+      toughness: 3,
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [watcher], p2: [attacker] },
+    })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Hill Giant')!
+    const recipient = Object.values(server.state.objects)
+      .find((object) => object.name === 'Faultless Watcher')!
+    const triggered = ok(server.rules(server.state, {
+      type: 'combatDamage',
+      sourceId: source.id,
+      target: { kind: 'object', objectId: recipient.id },
+      amount: 4,
+    }))
+
+    expect(triggered.objects[recipient.id].zone).toBe('graveyard')
+    const resolved = ok(server.rules(triggered, { type: 'resolveTop' }))
+    expect(resolved.players.p1.life).toBe(44)
+    expect(resolved.players.p2.life).toBe(36)
+  })
+
+  test('noncombat damage and damage the watcher deals do not trigger the swap', () => {
+    const watcher = cardTemplate('Faultless Watcher', {
+      types: ['Creature'],
+      power: 0,
+      toughness: 4,
+      effects: [triggerOn('dealtCombatDamage', {
+        do: [
+          gainLife('triggerAmount'),
+          loseLife('triggerAmount', 'triggeringPlayer'),
+        ],
+      })],
+    })
+    const attacker = cardTemplate('Hill Giant', {
+      types: ['Creature'],
+      power: 3,
+      toughness: 3,
+    })
+    const server = createServerGame(commanderRules, {
+      battlefield: { p1: [watcher], p2: [attacker] },
+    })
+    const source = Object.values(server.state.objects).find((object) => object.name === 'Hill Giant')!
+    const recipient = Object.values(server.state.objects)
+      .find((object) => object.name === 'Faultless Watcher')!
+    const noncombat = ok(server.rules(server.state, {
+      type: 'dealDamage',
+      sourceId: source.id,
+      target: { kind: 'object', objectId: recipient.id },
+      amount: 1,
+    }))
+    expect(noncombat.stack).toHaveLength(0)
+
+    const dealt = ok(server.rules(noncombat, {
+      type: 'combatDamage',
+      sourceId: recipient.id,
+      target: { kind: 'player', player: 'p2' },
+      amount: 1,
+    }))
+    expect(dealt.stack).toHaveLength(0)
   })
 })

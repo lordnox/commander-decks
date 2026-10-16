@@ -118,6 +118,35 @@ describe('tapAll', () => {
     expect(named(resolved, 'Fixture Remote Creature').tapped).toBe(true)
   })
 
+  test('enters tapAll with opponent filter leaves controlled creatures untapped', () => {
+    const tapper = {
+      ...fixtureCreature('Fixture Subjugating Angel'),
+      effects: [enters(tapAll({
+        zone: 'battlefield',
+        type: 'Creature',
+        controller: 'opponent',
+      }))],
+    }
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [tapper] },
+        battlefield: {
+          p1: [fixtureCreature('Fixture Ally On Board')],
+          p2: [fixtureCreature('Fixture Remote Creature')],
+        },
+      },
+      { random: () => 0.5 },
+    )
+    const entered = resolveStack(server.rules, okState(server.rules(server.state, {
+      type: 'move',
+      objectId: server.state.zoneOrder.p1.hand[0],
+      to: 'battlefield',
+    })))
+    expect(named(entered, 'Fixture Ally On Board').tapped).toBe(false)
+    expect(named(entered, 'Fixture Remote Creature').tapped).toBe(true)
+  })
+
   test('stamped filter survives structuredClone on the card template', () => {
     const spell = cardTemplate('Fixture Clone Safe Tap', {
       types: ['Instant'],

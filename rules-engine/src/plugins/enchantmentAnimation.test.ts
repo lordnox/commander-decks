@@ -109,7 +109,7 @@ const advanceToUpkeep = (
   return current
 }
 
-describe('Starfield of Nyx', () => {
+describe('enchantment animation', () => {
   test('turns animation on at five enchantments and uses mana value for base stats', () => {
     const server = createServerGame(commanderRules, {
       battlefield: {

@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
-import { gainLife } from '../cardPlugins/effects'
-import type { CardEffect } from '../cardPlugins/effects'
+import { activated } from '../cardPlugins/activated'
+import { gainLife, type CardEffect } from '../cardPlugins/effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { createServerGame } from '../runtime'
-import { ok, roomDoor } from '../testHelpers'
+import { ok, resolveStack, roomDoor } from '../testHelpers'
 import type { GameState, ManaPool, Plugin, RoomDoorId } from '../types'
 
 const roomFace = (
@@ -456,5 +456,205 @@ describe('Room doors', () => {
     })
     expect(state.objects[foyer.id].types).not.toContain('Creature')
     expect(state.objects[foyer.id].unlockedDoors).toBeUndefined()
+  })
+})
+
+const marina = () => cardTemplate('Marina Vendrell', {
+  types: ['Creature'],
+  subtypes: ['Human', 'Warlock'],
+  supertypes: ['Legendary'],
+  power: 3,
+  toughness: 5,
+})
+
+const marinaRoom = (unlockedDoors?: Array<'left' | 'right'>) =>
+  cardTemplate('Funeral Room // Awakening Hall', {
+    roomDoors: [
+      roomDoor('Funeral Room', '{2}{B}', {
+        oracleText: 'When this Room enters and whenever you unlock this door, gain 1 life.',
+        effects: [{ op: 'trigger', on: 'unlock', do: [gainLife(1)] }],
+      }),
+      roomDoor('Awakening Hall', '{6}{B}{B}', {
+        oracleText: 'When you unlock this door, gain 3 life.',
+        effects: [{ op: 'trigger', on: 'unlock', do: [gainLife(3)] }],
+      }),
+    ],
+    ...(unlockedDoors ? { unlockedDoors } : {}),
+  })
+
+const namedIncludes = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
+  Object.values(state.objects).find((object) => object.name.includes(name))!
+
+describe('Room lock or unlock activations', () => {
+  test('enters by revealing seven, putting enchantments into hand, and the rest on the bottom at random', () => {
+    const library = [
+      cardTemplate('Aura', { types: ['Enchantment'] }),
+      cardTemplate('Bolt', { types: ['Instant'] }),
+      cardTemplate('Room Card', { types: ['Enchantment'], subtypes: ['Room'] }),
+      cardTemplate('Bear', { types: ['Creature'] }),
+      cardTemplate('Forest', { types: ['Land'] }),
+      cardTemplate('Seal', { types: ['Enchantment'] }),
+      cardTemplate('Counter', { types: ['Instant'] }),
+      cardTemplate('Kept', { types: ['Sorcery'] }),
+    ]
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [marina()] },
+        libraries: { p1: library },
+      },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const objectId = server.state.zoneOrder.p1.hand[0]
+    const entered = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'move',
+      objectId,
+      to: 'battlefield',
+    })))
+
+    const handNames = entered.zoneOrder.p1.hand.map((id) => entered.objects[id].name)
+    const libraryNames = entered.zoneOrder.p1.library.map((id) => entered.objects[id].name)
+    expect(handNames.sort()).toEqual(['Aura', 'Room Card', 'Seal'])
+    expect(libraryNames).toHaveLength(5)
+    expect(libraryNames.slice(0, 1)).toEqual(['Kept'])
+    expect(new Set(libraryNames.slice(1))).toEqual(new Set(['Bolt', 'Bear', 'Forest', 'Counter']))
+  })
+
+  test('taps as a sorcery to unlock a door without paying its mana cost', () => {
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [marina(), marinaRoom(['left'])] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const marinaId = namedIncludes(server.state, 'Marina Vendrell').id
+    const roomId = server.state.zoneOrder.p1.battlefield.find((id) => id !== marinaId)!
+    server.state.objects[marinaId].summoningSickness = false
+    const mana = { ...server.state.players.p1.mana }
+
+    const actions = legalActsFor(server.state, 'p1').filter(
+      (action) => action.kind === 'activateAbility' && action.abilityId === 'marina.lockOrUnlock',
+    )
+    expect(actions).toContainEqual(expect.objectContaining({
+      door: 'right',
+      targetObjectIds: [roomId],
+    }))
+    const unlock = actions.find((action) => action.kind === 'activateAbility' && action.door === 'right')
+    expect(eventsForAvailableAction(server.state, 'p1', unlock!)).toEqual([{
+      type: 'activateAbility',
+      abilityId: 'marina.lockOrUnlock',
+      seat: 'p1',
+      objectId: marinaId,
+      targets: [{ kind: 'object', objectId: roomId }],
+      door: 'right',
+    }])
+
+    const activatedState = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'marina.lockOrUnlock',
+      seat: 'p1',
+      objectId: marinaId,
+      targets: [{ kind: 'object', objectId: roomId }],
+      door: 'right',
+    }))
+    const resolved = resolveStack(server.rules, activatedState)
+
+    expect(resolved.objects[marinaId].tapped).toBe(true)
+    expect(resolved.players.p1.mana).toEqual(mana)
+    expect(resolved.objects[roomId].unlockedDoors).toEqual(['left', 'right'])
+    expect(resolved.players.p1.life).toBe(43)
+  })
+
+  test("generic Room targets do not impose a controller restriction", () => {
+    const server = createServerGame(commanderRules, {
+      battlefield: {
+        p1: [cardTemplate('Room Observer', {
+          types: ['Artifact'],
+          effects: [{
+            op: 'activate',
+            id: 'observeRoom',
+            costs: {},
+            targets: 'room',
+            do: [gainLife(1)],
+          }],
+        })],
+        p2: [marinaRoom(['left'])],
+      },
+    }, { random: () => 0.5, cardPlugins: [activated] })
+    const source = namedIncludes(server.state, 'Room Observer')
+    const target = namedIncludes(server.state, 'Funeral Room')
+    const state = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: source.id,
+      abilityId: 'observeRoom',
+      targets: [{ kind: 'object', objectId: target.id }],
+    }))
+    const resolved = resolveStack(server.rules, state)
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.objects[target.id].controller).toBe('p2')
+  })
+
+  test('taps to lock an unlocked door', () => {
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [marina(), marinaRoom(['left'])] } },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const marinaId = namedIncludes(server.state, 'Marina Vendrell').id
+    const roomId = server.state.zoneOrder.p1.battlefield.find((id) => id !== marinaId)!
+    server.state.objects[marinaId].summoningSickness = false
+
+    const activatedState = ok(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'marina.lockOrUnlock',
+      seat: 'p1',
+      objectId: marinaId,
+      targets: [{ kind: 'object', objectId: roomId }],
+      door: 'left',
+    }))
+    const resolved = resolveStack(server.rules, activatedState)
+
+    expect(resolved.objects[roomId].unlockedDoors).toEqual([])
+    expect(resolved.objects[roomId].oracleText).toBe('')
+    expect(resolved.players.p1.life).toBe(40)
+  })
+
+  test('rejects the tap except as a sorcery and rejects an opponent Room', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        battlefield: {
+          p1: [marina()],
+          p2: [marinaRoom(['left'])],
+        },
+      },
+      { random: () => 0.5, cardPlugins: [activated] },
+    )
+    const marinaId = namedIncludes(server.state, 'Marina Vendrell').id
+    const roomId = namedIncludes(server.state, 'Funeral Room').id
+    server.state.objects[marinaId].summoningSickness = false
+
+    expect(server.rules({ ...server.state, step: 'upkeep' }, {
+      type: 'activateAbility',
+      abilityId: 'marina.lockOrUnlock',
+      seat: 'p1',
+      objectId: marinaId,
+      targets: [{ kind: 'object', objectId: roomId }],
+      door: 'right',
+    })).toMatchObject({
+      ok: false,
+      error: 'Marina Vendrell can be activated only as a sorcery',
+    })
+    expect(server.rules(server.state, {
+      type: 'activateAbility',
+      abilityId: 'marina.lockOrUnlock',
+      seat: 'p1',
+      objectId: marinaId,
+      targets: [{ kind: 'object', objectId: roomId }],
+      door: 'right',
+    })).toMatchObject({
+      ok: false,
+      error: 'Marina Vendrell needs one legal target',
+    })
   })
 })

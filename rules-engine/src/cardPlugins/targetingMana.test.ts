@@ -1,5 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from '../actions'
+import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
@@ -570,5 +572,90 @@ describe('saga chapter builders', () => {
     const returned = ok(server.rules(stacked, { type: 'resolveTop' }))
     expect(returned.objects[landId].zone).toBe('hand')
     expect(returned.objects[named(returned, 'Discarded Bear').id].zone).toBe('graveyard')
+  })
+})
+
+const RESTRICTED_MANA_PLUGINS = await loadCardPlugins(['Delighted Halfling'])
+
+const restrictedManaGame = () =>
+  createServerGame(
+    commanderRules,
+    {
+      players: 2,
+      battlefield: { p1: [deckCardTemplate('Delighted Halfling')] },
+      hands: {
+        p1: [
+          cardTemplate('Legend', {
+            types: ['Creature'],
+            supertypes: ['Legendary'],
+            manaCost: '{G}',
+            manaValue: 1,
+          }),
+          cardTemplate('Commoner', { types: ['Creature'], manaCost: '{G}', manaValue: 1 }),
+          cardTemplate('Colorless Commoner', { types: ['Creature'], manaCost: '{1}', manaValue: 1 }),
+        ],
+      },
+    },
+    { random: () => 0.5, cardPlugins: RESTRICTED_MANA_PLUGINS },
+  )
+
+const tapRestricted = (state: GameState, mana?: 'C' | 'G') => {
+  const server = restrictedManaGame()
+  return ok(server.rules(state, {
+    type: 'tapForMana',
+    seat: 'p1',
+    objectId: named(state, 'Delighted Halfling').id,
+    ...(mana ? { mana } : {}),
+  }))
+}
+
+const castRestricted = (state: GameState, name: string) =>
+  restrictedManaGame().rules(state, { type: 'castSpell', seat: 'p1', objectId: named(state, name).id })
+
+describe('restricted legendary mana', () => {
+  test('{T}: Add {C} is unrestricted and pays for anything', () => {
+    const tapped = tapRestricted(restrictedManaGame().state, 'C')
+    expect(tapped.players.p1.mana).toEqual({ ...emptyMana(), C: 1 })
+    expect(tapped.players.p1.restrictedMana ?? []).toEqual([])
+    const bare = tapRestricted(restrictedManaGame().state)
+    expect(bare.players.p1.mana).toEqual({ ...emptyMana(), C: 1 })
+    const spell = ok(castRestricted(tapped, 'Colorless Commoner'))
+    expect(spell.stack[0].uncounterable).toBeUndefined()
+  })
+
+  test('the colored mana is kept apart and pays only for a legendary spell, which becomes uncounterable', () => {
+    const tapped = tapRestricted(restrictedManaGame().state, 'G')
+    expect(tapped.players.p1.mana).toEqual(emptyMana())
+    expect(tapped.players.p1.restrictedMana).toMatchObject([
+      { mana: 'G', legendary: true, uncounterable: true },
+    ])
+    expect(castRestricted(tapped, 'Commoner').ok).toBe(false)
+    const legend = ok(castRestricted(tapped, 'Legend'))
+    expect(legend.stack[0]).toMatchObject({ name: 'Legend', uncounterable: true })
+    expect(legend.players.p1.restrictedMana).toEqual([])
+  })
+
+  test('the restricted mana is lost when the step ends', () => {
+    const tapped = tapRestricted(restrictedManaGame().state, 'G')
+    const next = ok(restrictedManaGame().rules({ ...tapped, step: 'precombatMain' }, { type: 'advanceStep' }))
+    expect(next.players.p1.restrictedMana ?? []).toEqual([])
+  })
+
+  test('a summoning-sick source cannot tap, and a tapped one cannot tap again', () => {
+    const sick = structuredClone(restrictedManaGame().state)
+    sick.objects[named(sick, 'Delighted Halfling').id].summoningSickness = true
+    expect(restrictedManaGame().rules(sick, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: named(sick, 'Delighted Halfling').id,
+      mana: 'G',
+    }).ok).toBe(false)
+    const tapped = tapRestricted(restrictedManaGame().state, 'G')
+    expect(restrictedManaGame().rules(tapped, {
+      type: 'tapForMana',
+      seat: 'p1',
+      objectId: named(tapped, 'Delighted Halfling').id,
+      mana: 'G',
+    }).ok).toBe(false)
   })
 })
