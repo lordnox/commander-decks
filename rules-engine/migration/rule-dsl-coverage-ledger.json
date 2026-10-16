@@ -805,7 +805,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 183,
+        "matches": 182,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2725 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -1157,8 +1157,8 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:209 — test('a land put onto the battlefield without being played still enters tapped', () => {",
           "rules-engine/src/cardPlugins/firdochCore.test.ts:10",
           "rules-engine/src/cardPlugins/firdochCore.test.ts:22",
-          "rules-engine/src/cardPlugins/homer.test.ts:134 — test('changeling counts a noncreature permanent as a Crab', () => {",
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:418 — test('Blood Celebrant naturally exposes five live mana choices and pays life', () => {"
+          "rules-engine/src/cardPlugins/lifeEffects.test.ts:418 — test('Blood Celebrant naturally exposes five live mana choices and pays life', () => {",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:143 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -1185,7 +1185,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 32,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
@@ -1456,8 +1456,8 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:319 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:64 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
           "rules-engine/src/cardPlugins/firdochCore.test.ts:10",
-          "rules-engine/src/cardPlugins/homer.test.ts:134 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:130 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:432 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:84 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallGaps.test.ts:128 — test('Hall of Storm Giants animates when the graveyard is deep enough', () => {",
           "rules-engine/src/cardPlugins/sinFallGaps.test.ts:157 — test('Lair of the Hydra pays X and becomes an X/X', () => {"
@@ -2288,8 +2288,8 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:200 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:273 — test('command pattern copies an Elemental before the later damage query', () => {"
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:221 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:294 — test('command pattern copies an Elemental before the later damage query', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2716,7 +2716,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 136,
+        "matches": 135,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -3515,9 +3515,9 @@
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:45",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:143 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:38",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:103 — test('stops revealing the library top when Courser leaves', () => {"
+          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:103 — test('stops revealing the library top when Courser leaves', () => {",
+          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:25",
+          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:30 — test('reveals the library top while Courser is on the battlefield', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3746,10 +3746,10 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1419 — test('is registered from its exact Oracle text and is indestructible itself', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1428 — test('a legal target, even an opponent creature, survives lethal damage and destroy effects until end of turn', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1508 — test('the protection wears off at cleanup, and the ability needs its {1}', async () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:143 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:668 — test('Círdan misc cards keep their handler composition', () => {",
-          "rules-engine/src/cardPlugins/sinFallGaps.test.ts:249 — test('Retreat to Hagra can drain the table on landfall', () => {"
+          "rules-engine/src/cardPlugins/sinFallGaps.test.ts:249 — test('Retreat to Hagra can drain the table on landfall', () => {",
+          "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -6970,16 +6970,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 13,
+        "matches": 12,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:108 — test('entering gives your creatures (itself too) hexproof and takes printed hexproof from opponents', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:124 — test('opponents cannot target your creatures with spells, but you and your noncreature permanents are open', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:133 — test('you can target an opposing creature that printed hexproof, and opponents among themselves still can', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:148 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:166 — test('the grant ends when the Archetype leaves, and opponents can target again', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:175 — test('a creature entering later is covered by the same layer', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:186 — test('your creature that changes controller loses your hexproof and gains none from the new side', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:200 — test(\"two Archetypes: each one's suppression beats the other's grant, so no creature has hexproof\", () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:246 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:544 — test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {",
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:226 — test('a creature arriving later is covered by the same layer', () => {",
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:269 — test('entering gives your creatures (itself too) hexproof and takes printed hexproof from opponents', () => {",
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:285 — test('opponents cannot target your creatures with spells, but you and your noncreature permanents are open', () => {",
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:294 — test('you can target an opposing creature that printed hexproof, and opponents among themselves still can', () => {",
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:309 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {",
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:327 — test('the grant ends when the Archetype leaves, and opponents can target again', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -10933,8 +10933,8 @@
         "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/firdochCore.test.ts:10",
-          "rules-engine/src/cardPlugins/homer.test.ts:134 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:146 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:432 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:84 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -16280,7 +16280,7 @@
           "rules-engine/src/cardPlugins/landfall.test.ts:88 — test('Scute Swarm makes an Insect while its controller has few lands', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:99 — test('Scute Swarm copies itself once the land that entered is the sixth', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:39 — test('the Sin Fall cards this pass covers stay registered', () => {",
-          "rules-engine/src/rules/dslTriggers.test.ts:547 — test('draws when your land enters and ignores opponent lands and nonlands', () => {"
+          "rules-engine/src/rules/dslTriggers.test.ts:554 — test('draws when your land enters and ignores opponent lands and nonlands', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [copySelf, createToken, if]",
@@ -17753,7 +17753,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:143 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {"
+          "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts:304 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [gainLife, grantUntilEot]",
@@ -18240,16 +18240,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:238 — test('an activated ability of an opponent cannot target a hexproof creature either', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:241 — test('without the commander it is a vanilla 5/5 trampler and its team is untouched', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:250 — test('with your commander out it is 7/7 and your other creatures get +2/+2 and trample', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:266 — test('another player commander does not count, and losing the commander removes everything', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:285 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:298 — test('the pump goes away with the Baloth', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:49",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:28 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:28 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:573 — test('Thunderfoot Baloth registers two commander-conditioned layer effects', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:111 — test('structuredClone keeps the staticBoardPump static effect', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:130 — test('without the commander it is a vanilla 5/5 trampler and its team is untouched', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:139 — test('with your commander out it is 7/7 and your other creatures get +2/+2 and trample', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:155 — test('another player commander does not count, and losing the commander removes everything', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:174 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -20253,16 +20253,16 @@
         "rules-engine/src/plugins/commander.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 25,
+        "matches": 24,
         "samples": [
           "rules-engine/src/actions.test.ts:306 — test('accounts for commander tax', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:285 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:56",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:57",
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:349 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:280 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:356 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:219 — test('a permanent a replacement sends elsewhere yields no token', () => {"
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:222 — test('a permanent a replacement sends elsewhere yields no token', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:118 — test('structuredClone keeps the staticBoardPump static effect', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:174 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
+          "rules-engine/src/formats.test.ts:18 — test('Commander supports an arbitrary three-player table', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20313,8 +20313,8 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:269 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:200 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:273 — test('command pattern copies an Elemental before the later damage query', () => {"
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:221 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:294 — test('command pattern copies an Elemental before the later damage query', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20372,7 +20372,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 156,
+        "matches": 155,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -20737,8 +20737,8 @@
         "matches": 35,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:196 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:255 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:209 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:268 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:131 — test('paid callback does not reuse the parent allocation for its fresh target', () => {",
           "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:173 — test('paid callback announces and consumes its own fresh distribution', () => {",
           "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:229 — test('paid callback keeps an entering parent occurrence through JSON restart', () => {",
@@ -21204,16 +21204,16 @@
         "rules-engine/src/cardPlugins/staticBoardPump.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 23,
+        "matches": 22,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:108 — test('entering gives your creatures (itself too) hexproof and takes printed hexproof from opponents', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:124 — test('opponents cannot target your creatures with spells, but you and your noncreature permanents are open', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:133 — test('you can target an opposing creature that printed hexproof, and opponents among themselves still can', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:148 — test('hexproof gained until end of turn is suppressed as well: an opponent cannot have or gain it', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:166 — test('the grant ends when the Archetype leaves, and opponents can target again', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:175 — test('a creature entering later is covered by the same layer', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:186 — test('your creature that changes controller loses your hexproof and gains none from the new side', () => {",
-          "rules-engine/src/cardPlugins/cirdanStatics.test.ts:200 — test(\"two Archetypes: each one's suppression beats the other's grant, so no creature has hexproof\", () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:28 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:246 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:544 — test('Archetype of Endurance registers a hexproof grant and opponent suppression', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:573 — test('Thunderfoot Baloth registers two commander-conditioned layer effects', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:75 — test('the Homer dumpster cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:111 — test('structuredClone keeps the staticBoardPump static effect', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:130 — test('without the commander it is a vanilla 5/5 trampler and its team is untouched', () => {",
+          "rules-engine/src/cardPlugins/staticBoardPump.test.ts:139 — test('with your commander out it is 7/7 and your other creatures get +2/+2 and trample', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",

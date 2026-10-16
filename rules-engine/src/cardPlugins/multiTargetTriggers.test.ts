@@ -12,6 +12,9 @@ import {
   entersTargeting,
   entersTargetingUpTo,
 } from './effects'
+import { PERMANENT_ENTERED } from './entersTapped'
+import { HOMER_CHOSEN, HOMER_NAME, homer } from './homer'
+import { pendingPlayerTargets } from './playerTargets'
 
 const NONCREATURE_PERMANENT = { zone: 'battlefield', permanent: true, noncreature: true } as const
 
@@ -312,5 +315,204 @@ describe('mandatory single triggered target', () => {
       min: 1,
       destinations: ['target'],
     })
+  })
+})
+
+const seaCard = (name: string, types: string[], subtypes: string[] = []) =>
+  cardTemplate(name, { types, subtypes })
+
+const homerGame = () => createServerGame(
+  commanderRules,
+  {
+    players: 4,
+    hands: { p1: [seaCard('Forest', ['Land'])] },
+    battlefield: {
+      p1: [
+        seaCard(HOMER_NAME, ['Creature'], ['Crab', 'Druid']),
+        seaCard('Two-Type Creature', ['Creature'], ['Crab', 'Lobster']),
+        seaCard('Bear', ['Creature'], ['Bear']),
+      ],
+    },
+    libraries: {
+      p1: Array.from({ length: 6 }, (_, index) => seaCard(`P1 ${index}`, ['Instant'])),
+      p2: Array.from({ length: 6 }, (_, index) => seaCard(`P2 ${index}`, ['Instant'])),
+      p3: Array.from({ length: 6 }, (_, index) => seaCard(`P3 ${index}`, ['Instant'])),
+      p4: Array.from({ length: 6 }, (_, index) => seaCard(`P4 ${index}`, ['Instant'])),
+    },
+  },
+  { random: () => 0, cardPlugins: [homer] },
+)
+
+describe('landfall player-target mill', () => {
+  test('triggers when a land token enters', () => {
+    const tokenLand = { ...seaCard('Land Token', ['Land']), token: true }
+    const server = createServerGame(
+      commanderRules,
+      { battlefield: { p1: [seaCard(HOMER_NAME, ['Creature'], ['Crab']), tokenLand] } },
+      { random: () => 0, cardPlugins: [homer] },
+    )
+    const tokenId = server.state.zoneOrder.p1.battlefield[1]
+    const triggered = ok(server.rules(server.state, {
+      type: 'custom',
+      name: PERMANENT_ENTERED,
+      seat: 'p1',
+      payload: { objectId: tokenId },
+    }))
+    expect(pendingPlayerTargets(triggered)?.source).toBe(HOMER_NAME)
+  })
+
+  test('triggers when a land spell resolves', () => {
+    const server = homerGame()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const cast = ok(server.rules(server.state, {
+      type: 'castSpell',
+      seat: 'p1',
+      objectId: landId,
+    }))
+    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+    expect(resolved.objects[landId].zone).toBe('battlefield')
+    expect(pendingPlayerTargets(resolved)?.source).toBe(HOMER_NAME)
+  })
+
+  test('landfall waits for any number of player targets, then mills each target', () => {
+    const server = homerGame()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    expect(pendingPlayerTargets(triggered)).toMatchObject({
+      controller: 'p1',
+      source: HOMER_NAME,
+      chosenEvent: HOMER_CHOSEN,
+    })
+    expect(server.rules(triggered, { type: 'passPriority', seat: 'p1' })).toMatchObject({
+      ok: false,
+    })
+    const stacked = ok(server.rules(triggered, {
+      type: 'custom',
+      name: HOMER_CHOSEN,
+      seat: 'p1',
+      payload: { targets: ['p2', 'p4'] },
+    }))
+    expect(pendingPlayerTargets(stacked)).toBeUndefined()
+    expect(stacked.stack[0]?.kind).toBe('ability')
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+    expect(resolved.zoneOrder.p1.graveyard).toHaveLength(0)
+    expect(resolved.zoneOrder.p2.graveyard).toHaveLength(4)
+    expect(resolved.zoneOrder.p3.graveyard).toHaveLength(0)
+    expect(resolved.zoneOrder.p4.graveyard).toHaveLength(4)
+  })
+
+  test('each sea-creature permanent counts once even with two relevant types', () => {
+    const server = homerGame()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    const stacked = ok(server.rules(triggered, {
+      type: 'custom',
+      name: HOMER_CHOSEN,
+      seat: 'p1',
+      payload: { targets: ['p1'] },
+    }))
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+    expect(resolved.zoneOrder.p1.graveyard).toHaveLength(4)
+  })
+
+  test('changeling counts a noncreature permanent as a Crab', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        hands: { p1: [seaCard('Forest', ['Land'])] },
+        battlefield: {
+          p1: [
+            seaCard(HOMER_NAME, ['Creature'], ['Crab']),
+            cardTemplate('Firdoch Core', {
+              types: ['Artifact'],
+              oracleText: 'Changeling (This card is every creature type.)',
+            }),
+          ],
+        },
+        libraries: {
+          p1: Array.from({ length: 4 }, (_, index) => seaCard(`Card ${index}`, ['Instant'])),
+        },
+      },
+      { random: () => 0, cardPlugins: [homer] },
+    )
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    const stacked = ok(server.rules(triggered, {
+      type: 'custom',
+      name: HOMER_CHOSEN,
+      seat: 'p1',
+      payload: { targets: ['p1'] },
+    }))
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+    expect(resolved.zoneOrder.p1.graveyard).toHaveLength(4)
+  })
+
+  test('counts sea creatures when the triggered ability resolves', () => {
+    const server = homerGame()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    let stacked = ok(server.rules(triggered, {
+      type: 'custom',
+      name: HOMER_CHOSEN,
+      seat: 'p1',
+      payload: { targets: ['p2'] },
+    }))
+    const otherCrab = stacked.zoneOrder.p1.battlefield.find(
+      (id) => stacked.objects[id].name === 'Two-Type Creature',
+    )!
+    stacked = ok(server.rules(stacked, {
+      type: 'move',
+      objectId: otherCrab,
+      to: 'graveyard',
+    }))
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+    expect(resolved.zoneOrder.p2.graveyard).toHaveLength(2)
+  })
+
+  test('choosing no targets is legal', () => {
+    const server = homerGame()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    const stacked = ok(server.rules(triggered, {
+      type: 'custom',
+      name: HOMER_CHOSEN,
+      seat: 'p1',
+      payload: { targets: [] },
+    }))
+    const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
+    expect(pendingPlayerTargets(resolved)).toBeUndefined()
+    expect(resolved.playerOrder.map((seat) => resolved.zoneOrder[seat].graveyard.length))
+      .toEqual([0, 0, 0, 0])
+  })
+
+  test('rejects duplicate, unknown, and wrong-controller target submissions', () => {
+    const server = homerGame()
+    const landId = server.state.zoneOrder.p1.hand[0]
+    const triggered = ok(server.rules(
+      server.state,
+      { type: 'playLand', seat: 'p1', objectId: landId },
+    ))
+    for (const event of [
+      { type: 'custom' as const, name: HOMER_CHOSEN, seat: 'p1', payload: { targets: ['p2', 'p2'] } },
+      { type: 'custom' as const, name: HOMER_CHOSEN, seat: 'p1', payload: { targets: ['nobody'] } },
+      { type: 'custom' as const, name: HOMER_CHOSEN, seat: 'p2', payload: { targets: ['p1'] } },
+    ]) {
+      expect(server.rules(triggered, event).ok).toBe(false)
+    }
   })
 })
