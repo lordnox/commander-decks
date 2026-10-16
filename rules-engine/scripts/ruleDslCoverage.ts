@@ -345,6 +345,7 @@ const effectRows = makeVariantRows(effectVariants, 'op', uses.effects, effectDis
 
 const pluginTestAliases: Record<string, string[]> = {
   starfieldOfNyx: ['enchantmentAnimation'],
+  homer: ['multiTargetTriggers'],
 }
 
 const pluginRows: VariantDisposition[] = sorted(builtInPlugins.map((plugin) => plugin.id)).map((variant) => {

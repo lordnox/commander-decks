@@ -87,6 +87,10 @@ describe('activationRestrictions', () => {
     expect(synced.ok).toBe(true)
     if (!synced.ok) return
     expect(activationPermission({ state: synced.state, sourceId: rock.id, payer: 'p1', action: 'activate' })).toContain('prohibited')
+    const blocked = server.rules(synced.state, {
+      type: 'activateAbility', seat: 'p1', objectId: rock.id, abilityId: '$.abilities[0]',
+    })
+    expect(blocked.ok).toBe(false)
     const resolved = server.rules(synced.state, { type: 'resolveTop' })
     expect(resolved.ok).toBe(true)
     if (resolved.ok) expect(resolved.state.zoneCounts.p1.hand).toBe(handBefore + 1)

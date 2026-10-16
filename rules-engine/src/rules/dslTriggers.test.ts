@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import { createJournal, restoreJournal } from '../journal'
-import { amount, card, chooseInstructions, compileCardRuleDefinition, createDefinitionSnapshot, draw, move, objects, players, ref, select, spell, target, whenever } from '../cardPlugins/dsl/v1'
+import { ability, actions, amount, card, chooseInstructions, compileCardRuleDefinition, createDefinitionSnapshot, draw, gainLife, keyword, loseLife, move, objects, players, ref, select, self, spell, target, whenever } from '../cardPlugins/dsl/v1'
 import { commanderRules } from '../formats'
+import { hasKeyword } from '../keywords'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
@@ -11,6 +12,12 @@ import { pendingOptionSelection } from './selectOptions'
 
 const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
+
+const reduce = (
+  server: ReturnType<typeof createServerGame>,
+  state: ReturnType<typeof createServerGame>['state'],
+  event: Parameters<typeof server.rules>[1],
+) => ok(server.rules(state, event))
 
 const canonicalDeathGain = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
   whenever(
@@ -599,5 +606,113 @@ describe('canonical triggered abilities', () => {
     expect(resolved.objects[entrant.id].zone).toBe('battlefield')
     expect(resolved.players.p1.life).toBe(41)
     expect(resolved.log.some((line) => line.includes('p1 gains 1 life'))).toBe(true)
+  })
+})
+
+describe('bloodArtist — integration', () => {
+
+  describe('Blood Artist pattern', () => {
+    test('simultaneous deaths keep captured control and player targets through resolution', () => {
+      const artist = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(
+          { kind: 'dies', filter: { any: [{ kind: 'contextRef', name: 'source' }, { type: 'Creature' }] } },
+          {
+            decisions: { targets: [select({ filter: players({ relation: 'any' }), count: 1 })] },
+            instructions: [
+              loseLife({ amount: 1, targets: target(0) }),
+              gainLife({ amount: 1, targets: ref('controller') }),
+            ],
+          },
+        ),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [
+            cardTemplate('Artist stand-in', { types: ['Creature'], power: 1, toughness: 0, ruleDefinition: artist }),
+            cardTemplate('Artist friend', { types: ['Creature'], power: 1, toughness: 0 }),
+          ],
+        },
+      }, { random: () => 0 })
+      let state = reduce(server, server.state, { type: 'passPriority', seat: 'p1' })
+      expect(state.pendingTriggers).toHaveLength(2)
+      const order = pendingSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates,
+      })
+      while (pendingPlayerSelectionFor(state, 'p1')) {
+        const playerChoice = pendingPlayerSelectionFor(state, 'p1')!
+        state = reduce(server, state, {
+          type: 'selectPlayers', seat: 'p1', selectionId: playerChoice.id, players: ['p2'],
+        })
+      }
+      state = resolveStack(server.rules, state)
+      expect(state.players.p2.life).toBe(38)
+      expect(state.players.p1.life).toBe(42)
+    })
+
+    test('an illegal player target suppresses both life loss and life gain', () => {
+      const artist = createDefinitionSnapshot(compileCardRuleDefinition(card([
+        whenever(
+          { kind: 'dies', filter: { type: 'Creature' } },
+          {
+            decisions: { targets: [select({ filter: players({ relation: 'any' }), count: 1 })] },
+            instructions: [
+              loseLife({ amount: 1, targets: target(0) }),
+              gainLife({ amount: 1, targets: ref('controller') }),
+            ],
+          },
+        ),
+      ])))
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        battlefield: {
+          p1: [cardTemplate('Solo artist', { types: ['Creature'], ruleDefinition: artist })],
+          p2: [cardTemplate('Solo victim', { types: ['Creature'], power: 1, toughness: 1 })],
+        },
+      }, { random: () => 0 })
+      const victim = named(server.state, 'Solo victim')
+      let state = reduce(server, server.state, { type: 'move', objectId: victim.id, to: 'graveyard' })
+      const targetChoice = pendingPlayerSelectionFor(state, 'p1')!
+      state = reduce(server, state, {
+        type: 'selectPlayers', seat: 'p1', selectionId: targetChoice.id, players: ['p2'],
+      })
+      state.players.p2.lost = true
+      const resolved = resolveStack(server.rules, state)
+      expect(resolved.players.p1.life).toBe(40)
+      expect(resolved.players.p2.life).toBe(40)
+    })
+  })
+})
+
+describe('wallOfOmens — integration', () => {
+
+  describe('Wall of Omens', () => {
+    const wallDefinition = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+      keyword.defender,
+      ability.whenever(self.enters, actions.draw.self.one),
+    ])))
+
+    test('the ETB draw trigger resolves even after the Wall leaves the battlefield', () => {
+      const server = createServerGame(commanderRules, {
+        players: 2,
+        libraries: { p1: [cardTemplate('Omens draw')] },
+        hands: {
+          p1: [cardTemplate('Wall of Omens', { types: ['Creature'], power: 0, toughness: 4, ruleDefinition: wallDefinition() })],
+        },
+      }, { random: () => 0 })
+      const wall = named(server.state, 'Wall of Omens')
+      let state = reduce(server, server.state, { type: 'move', objectId: wall.id, to: 'battlefield' })
+      expect(hasKeyword(named(state, 'Wall of Omens'), 'defender', state)).toBe(true)
+      const order = pendingSelectionFor(state, 'p1')
+      if (order?.triggerOrder) {
+        state = reduce(server, state, {
+          type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates,
+        })
+      }
+      state = reduce(server, state, { type: 'move', objectId: wall.id, to: 'graveyard' })
+      state = resolveStack(server.rules, state)
+      expect(Object.values(state.objects).some((object) => object.name === 'Omens draw' && object.zone === 'hand')).toBe(true)
+    })
   })
 })
