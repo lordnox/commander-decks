@@ -1,18 +1,34 @@
 import { describe, expect, test } from 'bun:test'
-import { onResolve } from './onResolve'
-import { draw, onResolve as onResolveEffect } from './effects'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import { courserOfKruphix } from './courserOfKruphix'
+import {
+  draw,
+  gainLife,
+  landfall,
+  onResolve as onResolveEffect,
+  staticPlayLandsFromLibraryTop,
+  staticRevealLibraryTop,
+} from './effects'
+import { onResolve } from './onResolve'
 
 const card = (name: string, types: string[] = ['Instant']) =>
   cardTemplate(name, { types })
 
 const forest = () => cardTemplate('Forest', { types: ['Land'], subtypes: ['Forest'] })
 
-const courserPlugins = { random: () => 0.5, cardPlugins: [onResolve, courserOfKruphix] }
+const revealer = () => cardTemplate('Fixture Library Top', {
+  types: ['Enchantment', 'Creature'],
+  effects: [
+    staticRevealLibraryTop(),
+    staticPlayLandsFromLibraryTop(),
+    landfall(gainLife(1)),
+  ],
+})
+
+const plugins = { random: () => 0.5, cardPlugins: [onResolve, courserOfKruphix] }
 
 const passAll = (server: ReturnType<typeof createServerGame>, state: Parameters<typeof server.rules>[0]) => {
   let current = state
@@ -22,16 +38,16 @@ const passAll = (server: ReturnType<typeof createServerGame>, state: Parameters<
   return current
 }
 
-describe('Courser of Kruphix', () => {
-  test('reveals the library top while Courser is on the battlefield', () => {
+describe('public library top', () => {
+  test('reveals the library top while a reveal-top source is on the battlefield', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [cardTemplate('Courser of Kruphix', { types: ['Enchantment', 'Creature'] })] },
+        battlefield: { p1: [revealer()] },
         libraries: { p1: [card('Card A'), card('Card B')] },
         players: 2,
       },
-      courserPlugins,
+      plugins,
     )
 
     const opponent = server.project(server.state, 'p2')
@@ -43,7 +59,7 @@ describe('Courser of Kruphix', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [cardTemplate('Courser of Kruphix', { types: ['Enchantment', 'Creature'] })] },
+        battlefield: { p1: [revealer()] },
         hands: { p1: [cardTemplate('Draw Three', {
           types: ['Sorcery'],
           effects: [onResolveEffect(draw(3))],
@@ -53,7 +69,7 @@ describe('Courser of Kruphix', () => {
         },
         players: 2,
       },
-      courserPlugins,
+      plugins,
     )
 
     expect(server.project(server.state, 'p2').players.p1.data.revealed_top).toEqual(['Card A'])
@@ -78,11 +94,11 @@ describe('Courser of Kruphix', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [cardTemplate('Courser of Kruphix', { types: ['Enchantment', 'Creature'] })] },
+        battlefield: { p1: [revealer()] },
         libraries: { p1: [forest(), card('Bolt')] },
         players: 2,
       },
-      courserPlugins,
+      plugins,
     )
 
     const landId = server.state.zoneOrder.p1.library[0]
@@ -96,21 +112,21 @@ describe('Courser of Kruphix', () => {
     expect(server.project(played, 'p2').players.p1.data.revealed_top).toEqual(['Bolt'])
   })
 
-  test('stops revealing the library top when Courser leaves', () => {
+  test('stops revealing the library top when the source leaves', () => {
     const server = createServerGame(
       commanderRules,
       {
-        battlefield: { p1: [cardTemplate('Courser of Kruphix', { types: ['Enchantment', 'Creature'] })] },
+        battlefield: { p1: [revealer()] },
         libraries: { p1: [card('Card A')] },
         players: 2,
       },
-      courserPlugins,
+      plugins,
     )
 
-    const courserId = server.state.zoneOrder.p1.battlefield[0]
+    const sourceId = server.state.zoneOrder.p1.battlefield[0]
     const left = ok(server.rules(server.state, {
       type: 'move',
-      objectId: courserId,
+      objectId: sourceId,
       to: 'graveyard',
     }))
 

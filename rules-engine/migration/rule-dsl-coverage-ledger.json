@@ -371,7 +371,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 122,
+        "matches": 117,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1618 — test('a grouped multi-target cast sends every selected object as a target', () => {",
@@ -805,7 +805,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 188,
+        "matches": 183,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2725 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -1108,7 +1108,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 422,
+        "matches": 417,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -3507,16 +3507,16 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 116,
+        "matches": 111,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:3318 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:103 — test('stops revealing the library top when Courser leaves', () => {",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:25",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:30 — test('reveals the library top while Courser is on the battlefield', () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:546 — test('High Market sacrifices a creature and gains 1 life', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:335 — test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {",
+          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:100 — test('Beza Fish tokens are blue', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -8898,13 +8898,8 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:103 — test('stops revealing the library top when Courser leaves', () => {",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:25",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:30 — test('reveals the library top while Courser is on the battlefield', () => {",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:46 — test('draw 3 during a resolving spell keeps each card known with no priority between draws', () => {",
-          "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:81 — test('may play a land from the top of the library', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:204 — test('Courser of Kruphix is registered', () => {"
         ]
       },
