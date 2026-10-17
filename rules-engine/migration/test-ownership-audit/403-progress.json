@@ -1,0 +1,10 @@
+{
+  "issue": 403,
+  "note": "Working-tree implementation record for #403. Inventory hashes stay pinned to auditedRevision 486f73779424dc94fdaaa2712337462994ebe2e6; do not rewrite inventory.json for test moves. Rows listed here have been relocated into mechanic, persistence, or host owners with unique lifecycle assertions preserved.",
+  "implemented": [
+    "courserOfKruphix:26",
+    "courserOfKruphix:42",
+    "courserOfKruphix:77",
+    "courserOfKruphix:99"
+  ]
+}
