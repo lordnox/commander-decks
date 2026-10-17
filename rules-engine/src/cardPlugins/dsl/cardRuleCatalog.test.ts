@@ -319,6 +319,6 @@ test('Diabolic Tutor supplies printed characteristics beside its canonical rules
     colors: ['B'],
     manaCost: '{2}{B}{B}',
     manaValue: 4,
-    ruleDefinition: cardRuleDefinitionSnapshotFor('Diabolic Tutor'),
+    ruleDefinition: cardRuleDefinitionSnapshotFor('Diabolic Tutor')!,
   })
 })
