@@ -5,4 +5,4 @@ export type CardTemplate = Pick<GameObject, 'types' | 'colors' | 'manaCost' | 'm
   ruleDefinition: CardRuleDefinitionSnapshotV1
 }
 
-export type CatalogEntry = CardTemplate | { ruleDefinition: CardRuleDefinitionSnapshotV1; types?: never }
+export type CatalogEntry = CardTemplate

@@ -3,5 +3,9 @@ import { snapshotFor } from './snapshot'
 import { keyword } from '../v1'
 
 export default {
-ruleDefinition: snapshotFor([keyword.trample]),
+  types: ["Creature"],
+  colors: ["G"],
+  manaCost: "{5}{G}{G}",
+  manaValue: 7,
+  ruleDefinition: snapshotFor([keyword.trample]),
 } satisfies CatalogEntry
