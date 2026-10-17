@@ -295,3 +295,20 @@ test('unmigrated Mulldrifter keeps CARD_RULES effects instead of a catalog snaps
   expect(cardTemplateDefaultsFor('Mulldrifter')).toBeUndefined()
   expect(effectsFor('Mulldrifter').length).toBeGreaterThan(0)
 })
+
+test('catalog lookup is exact and rejects inherited object keys', () => {
+  for (const name of ['counterspell', ' Counterspell', 'toString', 'constructor', '__proto__']) {
+    expect(cardRuleDefinitionSnapshotFor(name)).toBeUndefined()
+    expect(cardTemplateDefaultsFor(name)).toBeUndefined()
+  }
+})
+
+test('template callers own their characteristics and rule snapshot', () => {
+  const original = cardTemplateDefaultsFor('Counterspell')!
+  const edited = cardTemplateDefaultsFor('Counterspell')!
+  edited.types.push('Creature')
+  Reflect.set(edited.ruleDefinition.definition.abilities, 'length', 0)
+  expect(cardTemplateDefaultsFor('Counterspell')).toEqual(original)
+  expect(cardRuleDefinitionSnapshotFor('Counterspell')).toEqual(original.ruleDefinition)
+  expect(cardTemplateDefaultsFor('Absorb')).toBeUndefined()
+})
