@@ -25,6 +25,7 @@ import {ward} from './ward'
 
 
 
+import { deckCard } from './cirdanCreatureCards'
 const applyKernelChoice = (
   kernel: Parameters<typeof applyKernelChoiceImpl>[0],
   lobby: Parameters<typeof applyKernelChoiceImpl>[1],
@@ -680,4 +681,51 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
       expect(resolved.zoneOrder.p1.battlefield).toHaveLength(1)
     })
 
+})
+
+describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', () => {
+  const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
+    createServerGame(
+      commanderRules,
+      { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+
+  const attack = (server: ReturnType<typeof game>, state: GameState) => {
+    const ready = structuredClone(state)
+    ready.step = 'declareAttackers'
+    named(ready, 'It That Betrays').summoningSickness = false
+    return ok(server.rules(ready, {
+      type: 'declareAttackers',
+      seat: 'p1',
+      attackers: [{ objectId: named(ready, 'It That Betrays').id, defender: 'p2' }],
+    }))
+  }
+
+  const betrayer = () => deckCard('It That Betrays')
+
+  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
+
+  const filler = (count = 3) =>
+    Array.from({ length: count }, (_, index) =>
+      cardTemplate(`Library Card ${index + 1}`, { types: ['Instant'] }))
+
+    test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {
+      const server = game({
+        battlefield: { p1: [betrayer()], p2: [deckCard('Darksteel Colossus')] },
+      })
+      const choosing = ok(server.rules(attack(server, server.state), { type: 'resolveTop' }))
+      expect(pendingSelectionFor(choosing, 'p2')).toMatchObject({ count: 1 })
+      const sacrificed = ok(server.rules(choosing, {
+        type: 'selectCards',
+        seat: 'p2',
+        kind: 'sacrifice',
+        count: 1,
+        objectIds: [named(choosing, 'Darksteel Colossus').id],
+      }))
+      const settled = resolveStack(server.rules, sacrificed)
+      expect(settled.zoneOrder.p1.battlefield.map((id) => settled.objects[id].name))
+        .toEqual(['It That Betrays'])
+      expect(named(settled, 'Darksteel Colossus').zone).toBe('library')
+    })
 })

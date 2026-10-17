@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameEvent, GameState } from '../types'
+import type { GameEvent, GameState, PlayerId } from '../types'
 import {
   draw,
   enters,
@@ -13,6 +13,7 @@ import {
   mayFightGrantSource,
 } from './effects'
 import { grantCreatureTrigger } from './grantCreatureTrigger'
+import { artifact, deckCard, fixtureCreature, libraryOf } from './cirdanCreatureCards'
 
 const sliver = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
   cardTemplate(name, {
@@ -333,4 +334,188 @@ describe('grantCreatureTrigger to every other creature', () => {
     })))
     expect(named(fought, 'Raider').zone).toBe('graveyard')
   })
+})
+
+describe('relocated from cirdanGrothamaGuardian.test.ts → grantCreatureTrigger.test.ts', () => {
+  const handSize = (state: GameState, seat: string) => state.zoneOrder[seat].hand.length
+
+  const grothamaId = (state: GameState) => named(state, 'Grothama, All-Devouring').id
+
+  const attackEvent = (state: GameState, seat: PlayerId, names: string[]): GameEvent => ({
+    type: 'declareAttackers',
+    seat,
+    attackers: names.map((name) => ({ objectId: named(state, name).id, defender: 'p3' })),
+  })
+
+  /** A real entry syncs the grant onto creatures already in play. */
+  const withGrant = (server: ReturnType<typeof createServerGame>, state: GameState) =>
+    ok(server.rules(state, { type: 'custom', name: 'grantCreatureTrigger.sync' }))
+
+  const grothamaGame = (
+    battlefield: Record<string, CardTemplate[]>,
+    options: { first?: PlayerId } = {},
+  ) => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 4,
+        first: options.first ?? 'p2',
+        battlefield,
+        libraries: Object.fromEntries(['p1', 'p2', 'p3', 'p4'].map((seat) => [seat, libraryOf(seat, 20)])),
+      },
+      { random: () => 0.5 },
+    )
+    const ready = structuredClone(server.state)
+    for (const object of Object.values(ready.objects)) object.summoningSickness = false
+    ready.step = 'declareAttackers'
+    return { server, ready }
+  }
+
+  const brute = (name: string, power: number, toughness = 4) =>
+    fixtureCreature(name, { power, toughness })
+
+    const resolveFights = (
+      server: ReturnType<typeof createServerGame>,
+      start: GameState,
+      answers: boolean[] = [],
+    ) => {
+      let state = start
+      let offered = 0
+      for (let guard = 0; state.stack.length > 0 && guard < 40; guard += 1) {
+        state = ok(server.rules(state, { type: 'resolveTop' }))
+        const selection = pendingSelectionFor(state, state.active)
+        if (!selection) continue
+        const fight = answers[offered] ?? true
+        offered += 1
+        state = ok(server.rules(state, {
+          type: 'selectCards',
+          seat: selection.seat,
+          kind: 'choose',
+          count: 1,
+          objectIds: fight ? [grothamaId(state)] : [],
+        }))
+      }
+      return { state, offered }
+    }
+
+    test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring'), brute('P1 Bear', 2), artifact('P1 Rock')],
+        p2: [brute('P2 Bear', 2)],
+      })
+      const state = withGrant(server, ready)
+      const granted = (name: string) =>
+        (named(state, name).effects ?? []).filter((effect) => effect.op === 'trigger' && effect.on === 'attacks')
+      expect(granted('P1 Bear')).toHaveLength(1)
+      expect(granted('P2 Bear')).toHaveLength(1)
+      expect(granted('Grothama, All-Devouring')).toHaveLength(0)
+      expect(granted('P1 Rock')).toHaveLength(0)
+    })
+
+    test('a Grothama attack, on its own, triggers no fight', () => {
+      const { server, ready } = grothamaGame({ p1: [deckCard('Grothama, All-Devouring')] }, { first: 'p1' })
+      const state = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p1', ['Grothama, All-Devouring'])))
+      expect(state.stack).toEqual([])
+    })
+
+    test('declining one fight leaves that attacker alive and out of the ledger', () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring')],
+        p2: [brute('Raider', 3), brute('Ogre', 4)],
+      })
+      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre'])))
+      const { state, offered } = resolveFights(server, attacked, [false, true])
+      expect(offered).toBe(2)
+      const survivor = ['Raider', 'Ogre'].filter((name) => named(state, name).zone === 'battlefield')
+      expect(survivor).toHaveLength(1)
+      expect(named(state, 'Grothama, All-Devouring').damageDealtBy!.p2)
+        .toBe(survivor[0] === 'Raider' ? 4 : 3)
+    })
+
+    test('when Grothama dies, every player draws what their sources dealt: several fighters, several controllers', () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring')],
+        p2: [brute('Raider', 3), brute('Ogre', 2)],
+        p3: [brute('P3 Bear', 3)],
+      })
+      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider', 'Ogre'])))
+      let { state } = resolveFights(server, attacked)
+      expect(named(state, 'Grothama, All-Devouring').damageDealtBy).toEqual({ p2: 5 })
+      const before = Object.fromEntries(['p1', 'p2', 'p3', 'p4'].map((seat) => [seat, handSize(state, seat)]))
+
+      // A fighter from another controller brings it to lethal damage.
+      state = ok(server.rules(state, {
+        type: 'fight',
+        leftId: named(state, 'P3 Bear').id,
+        rightId: grothamaId(state),
+      }))
+      expect(named(state, 'Grothama, All-Devouring').zone).toBe('graveyard')
+      state = resolveStack(server.rules, state)
+      expect(handSize(state, 'p2') - before.p2).toBe(5)
+      expect(handSize(state, 'p3') - before.p3).toBe(3)
+      expect(handSize(state, 'p1') - before.p1).toBe(0)
+      expect(handSize(state, 'p4') - before.p4).toBe(0)
+    })
+
+    test('once Grothama is dead the remaining attack triggers offer no fight', () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring')],
+        p2: [brute('A', 4), brute('B', 4), brute('C', 4), brute('D', 4)],
+      })
+      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['A', 'B', 'C', 'D'])))
+      const { state, offered } = resolveFights(server, attacked)
+      expect(named(state, 'Grothama, All-Devouring').zone).toBe('graveyard')
+      expect(offered).toBe(2)
+      expect(['A', 'B', 'C', 'D'].filter((name) => named(state, name).zone === 'battlefield')).toHaveLength(2)
+      // The leaves trigger paid p2 for the eight damage its two fighters dealt.
+      expect(handSize(state, 'p2')).toBe(8)
+    })
+
+    test("the owner's own creature fighting counts for the owner", () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring'), brute('P1 Biter', 3, 10)],
+      }, { first: 'p1' })
+      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p1', ['P1 Biter'])))
+      const { state } = resolveFights(server, attacked)
+      expect(named(state, 'Grothama, All-Devouring').damageDealtBy).toEqual({ p1: 3 })
+      expect(named(state, 'P1 Biter').damageDealtBy).toEqual({ p1: 10 })
+      const exiled = ok(server.rules(state, { type: 'move', objectId: grothamaId(state), to: 'exile' }))
+      expect(handSize(resolveStack(server.rules, exiled), 'p1')).toBe(3)
+    })
+
+    test('leaving by exile still pays out, and a Grothama dealt nothing draws nobody anything', () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring')],
+        p2: [brute('Raider', 3)],
+      })
+      const untouched = resolveStack(server.rules, ok(server.rules(ready, {
+        type: 'move',
+        objectId: grothamaId(ready),
+        to: 'exile',
+      })))
+      for (const seat of ['p1', 'p2', 'p3', 'p4']) expect(handSize(untouched, seat)).toBe(0)
+
+      const attacked = ok(server.rules(withGrant(server, ready), attackEvent(ready, 'p2', ['Raider'])))
+      const { state } = resolveFights(server, attacked)
+      const exiled = resolveStack(server.rules, ok(server.rules(state, {
+        type: 'move',
+        objectId: grothamaId(state),
+        to: 'exile',
+      })))
+      expect(handSize(exiled, 'p2')).toBe(3)
+    })
+
+    test('the grant ends when Grothama leaves, so a later attacker has no fight', () => {
+      const { server, ready } = grothamaGame({
+        p1: [deckCard('Grothama, All-Devouring')],
+        p2: [brute('Raider', 3)],
+      })
+      const gone = resolveStack(server.rules, ok(server.rules(withGrant(server, ready), {
+        type: 'move',
+        objectId: grothamaId(ready),
+        to: 'graveyard',
+      })))
+      expect(gone.stack).toEqual([])
+      expect(ok(server.rules(gone, attackEvent(gone, 'p2', ['Raider']))).stack).toEqual([])
+    })
 })

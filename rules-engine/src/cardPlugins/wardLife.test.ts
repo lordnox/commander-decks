@@ -19,6 +19,7 @@ import {exiledWith} from './exiledWith'
 import { librarySearch } from './librarySearch'
 import {onResolve} from './onResolve'
 import {castCosts} from './castCosts'
+import {deckCard} from './cirdanCreatureCards'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -273,4 +274,97 @@ describe('relocated from sinFallFinishers.test.ts → wardLife.test.ts', () => {
       expect(paid.stack.some((item) => item.objectId === bolt.id)).toBe(true)
     })
 
+})
+
+describe('relocated from cirdanEldrazi.test.ts → wardLife.test.ts', () => {
+  const answer = (
+    server: ReturnType<typeof createServerGame>,
+    state: GameState,
+    optionId: string,
+  ) => server.rules(state, {
+    type: 'selectOption',
+    seat: 'p1',
+    selectionId: pendingOptionSelection(state, 'p1')!.id,
+    optionId,
+  })
+
+  const boltEvent = (state: GameState, target = 'Sire of Seven Deaths'): GameEvent => ({
+    type: 'castSpell',
+    seat: 'p1',
+    objectId: named(state, 'Lightning Bolt').id,
+    targets: [{ kind: 'object', objectId: named(state, target).id }],
+  })
+
+  const poker = () => cardTemplate('Fixture Poker', {
+    types: ['Creature'],
+    effects: [ability({ id: 'poker.poke', targets: 'creature' }, {}, { kind: 'gainLife', count: 1 })],
+  })
+
+  const bolt = () => cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })
+
+      const wardGame = (life = 40) => {
+        const server = createServerGame(commanderRules, {
+          hands: { p1: [bolt()] },
+          battlefield: {
+            p1: [poker(), deckCard('Sire of Seven Deaths', { name: 'Own Sire' })],
+            p2: [deckCard('Sire of Seven Deaths')],
+          },
+        }, { random: () => 0.5, cardPlugins: [wardPlugin, activated] })
+        const ready = structuredClone(server.state)
+        ready.players.p1.life = life
+        ready.players.p1.mana.R = 1
+        ready.priority = 'p1'
+        return { server, ready }
+      }
+
+      test('declining counters the spell and costs no life', () => {
+        const { server, ready } = wardGame()
+        const declined = ok(answer(server, ok(server.rules(ready, boltEvent(ready))), 'decline'))
+        expect(declined.players.p1.life).toBe(40)
+        expect(declined.stack).toHaveLength(0)
+        expect(named(declined, 'Lightning Bolt').zone).not.toBe('stack')
+        expect(declined.log.some((line) => line.includes('countered by Ward'))).toBe(true)
+      })
+
+      test('a caster at 6 life cannot pay seven and the spell is countered with no choice', () => {
+        const { server, ready } = wardGame(6)
+        const state = ok(server.rules(ready, boltEvent(ready)))
+        expect(pendingOptionSelection(state, 'p1')).toBeUndefined()
+        expect(state.stack).toHaveLength(0)
+        expect(state.players.p1.life).toBe(6)
+      })
+
+      test('rejects other seats, unknown options, and moving on while the choice is open', () => {
+        const { server, ready } = wardGame()
+        const warded = ok(server.rules(ready, boltEvent(ready)))
+        expect(answer(server, warded, 'bogus').ok).toBe(false)
+        expect(server.rules(warded, {
+          type: 'selectOption',
+          seat: 'p2',
+          selectionId: pendingOptionSelection(warded, 'p1')!.id,
+          optionId: 'pay',
+        }).ok).toBe(false)
+        expect(server.rules(warded, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+      })
+
+      test('its own controller is never warded against, and an activated ability is warded too', () => {
+        const { server, ready } = wardGame()
+        const own = ok(server.rules(ready, boltEvent(ready, 'Own Sire')))
+        expect(pendingOptionSelection(own, 'p1')).toBeUndefined()
+        expect(own.stack).toHaveLength(1)
+
+        const poke: GameEvent = {
+          type: 'activateAbility',
+          abilityId: 'poker.poke',
+          seat: 'p1',
+          objectId: named(ready, 'Fixture Poker').id,
+          targets: [{ kind: 'object', objectId: ready.zoneOrder.p2.battlefield[0] }],
+        }
+        const warded = ok(server.rules(ready, poke))
+        expect(pendingOptionSelection(warded, 'p1')).toBeDefined()
+        expect(warded.stack).toHaveLength(0)
+        const paid = ok(answer(server, warded, 'pay'))
+        expect(paid.players.p1.life).toBe(33)
+        expect(paid.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'poker.poke' })
+      })
 })

@@ -805,7 +805,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 183,
+        "matches": 188,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2725 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -1694,7 +1694,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:117 — test('the Eva and Sygg enter-tapped cards are registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:67 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:93 — test('Trade Routes discards a chosen land, not itself', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:686 — test('a bounce land asks which land to return', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:688 — test('a bounce land asks which land to return', () => {",
           "rules-engine/src/plugins/mana.test.ts:102 — test('a bounce land taps for both of its printed symbols', () => {"
         ]
       },
@@ -2340,11 +2340,11 @@
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/actions.test.ts:381 — test('instants and permanents with entry choices stay with the judge', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:100 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:109 — test('declining counters the spell and costs no life', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:39",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:48",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:28",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:37",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:72 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2395,14 +2395,13 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:38",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:386 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:42",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:46",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:251 — test('the Círdan creature group stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:251 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:697 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:728 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:269 — test('a creature put into a graveyard from the library or hand did not die', () => {",
+          "rules-engine/src/cardPlugins/watchedEnters.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2484,16 +2483,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 23,
+        "matches": 24,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:103 — test('the chosen permanent is destroyed and nothing else is', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:114 — test('it must target if it can, even its own permanent', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:124 — test('illegal picks are rejected: a creature, two targets, a duplicate, another seat', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:134 — test('with no noncreature permanent anywhere, the ability never goes on the stack', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:144 — test('an opponent permanent with hexproof cannot be chosen, but your own can', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:153 — test('an indestructible permanent survives', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:160 — test('a target that became a creature before resolution is illegal and survives', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:171 — test('a target that left the battlefield fizzles the ability', () => {"
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:50",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:59",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:72 — test('entering opens a private choice of any controller noncreature permanent, creatures excluded', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:86 — test('a host restart restores the open choice and the replayed pick resolves the same way', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:117 — test('a noncreature that is put into a graveyard does not trigger', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:144 — test('it returns with a -1/-1 counter, destroys another permanent, and then stays dead', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:166 — test('exiled instead of dying, it does not persist', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:178 — test('it returns under its owner, not the thief who killed it', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2516,14 +2515,14 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:432 — test('Terastodon draws for itself, and the Elephant tokens it makes for you do not draw', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:250 — test('it returns under its owner, not the thief who killed it', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:256 — test('it is a 9/9 whose targets are chosen privately, up to three, noncreature only', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:266 — test('choosing nothing is the \"you may\" declined: no stack item, nothing destroyed', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:279 — test('duplicate-named targets are separate permanents: each controller gets one Elephant per permanent', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:307 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:316 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:330 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:101 — test('a host restart restores the open choice and the replayed pick resolves the same way', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:107 — test('it is a 9/9 whose targets are chosen privately, up to three, noncreature only', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
+          "rules-engine/src/cardPlugins/registry.test.ts:253 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:609 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1011 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1020 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1034 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2547,8 +2546,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:172 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:590 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
-          "rules-engine/src/cardPlugins/wardLife.test.ts:247 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:591 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -2716,7 +2715,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 135,
+        "matches": 134,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2929,16 +2928,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 15,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:132 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:145 — test('a Grothama attack, on its own, triggers no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:152 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:173 — test('declining one fight leaves that attacker alive and out of the ledger', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:187 — test('when Grothama dies, every player draws what their sources dealt: several fighters, several controllers', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:212 — test('once Grothama is dead the remaining attack triggers offer no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:226 — test(\"the owner's own creature fighting counts for the owner\", () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:238 — test('leaving by exile still pays out, and a Grothama dealt nothing draws nobody anything', () => {"
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:104 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:16",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:51",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:82 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:342 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:403 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:416 — test('a Grothama attack, on its own, triggers no fight', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:423 — test('declining one fight leaves that attacker alive and out of the ledger', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3508,13 +3507,13 @@
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > gainLife goes through the life event"
       ],
       "candidateEvidence": {
-        "matches": 115,
+        "matches": 116,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:3318 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:45",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
           "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:103 — test('stops revealing the library top when Courser leaves', () => {",
           "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:25",
           "rules-engine/src/cardPlugins/courserOfKruphix.test.ts:30 — test('reveals the library top while Courser is on the battlefield', () => {"
@@ -4038,8 +4037,8 @@
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:172 — test('the Sin Fall finisher cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:232 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:590 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
-          "rules-engine/src/cardPlugins/wardLife.test.ts:247 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:591 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4146,7 +4145,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:810 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:812 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -4172,7 +4171,7 @@
           "live-runner/src/kernelFacts.test.ts:94 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:863 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:393 — test('a supported one-target spell carries its chosen target through the fast path', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:121 — test('Reanimate steals the creature and charges its mana value in life', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:123 — test('Reanimate steals the creature and charges its mana value in life', () => {",
           "rules-engine/src/replay.test.ts:330 — test('a spell on the stack announces what it targets', () => {",
           "site/src/TableBoard.test.tsx:352 — test('a targeted fast cast asks for its target after Cast', () => {"
         ]
@@ -4307,16 +4306,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 15,
+        "matches": 16,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:132 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:145 — test('a Grothama attack, on its own, triggers no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:152 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:173 — test('declining one fight leaves that attacker alive and out of the ledger', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:187 — test('when Grothama dies, every player draws what their sources dealt: several fighters, several controllers', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:212 — test('once Grothama is dead the remaining attack triggers offer no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:226 — test(\"the owner's own creature fighting counts for the owner\", () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:238 — test('leaving by exile still pays out, and a Grothama dealt nothing draws nobody anything', () => {"
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:104 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:16",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:51",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:82 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:214 — test('the stamped trigger names the permanent that granted it', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:342 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:403 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:416 — test('a Grothama attack, on its own, triggers no fight', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -4797,7 +4796,7 @@
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:70 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:705 — test('Join the Dead uses descend 4 for its full penalty', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:707 — test('Join the Dead uses descend 4 for its full penalty', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -5010,7 +5009,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:643 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:645 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -5303,14 +5302,13 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:38",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:386 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:42",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:46",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:251 — test('the Círdan creature group stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:251 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:697 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:728 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:269 — test('a creature put into a graveyard from the library or hand did not die', () => {",
+          "rules-engine/src/cardPlugins/watchedEnters.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -5474,7 +5472,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:643 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:645 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -5573,16 +5571,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 19,
+        "matches": 20,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:103 — test('the chosen permanent is destroyed and nothing else is', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:114 — test('it must target if it can, even its own permanent', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:124 — test('illegal picks are rejected: a creature, two targets, a duplicate, another seat', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:134 — test('with no noncreature permanent anywhere, the ability never goes on the stack', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:144 — test('an opponent permanent with hexproof cannot be chosen, but your own can', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:153 — test('an indestructible permanent survives', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:160 — test('a target that became a creature before resolution is illegal and survives', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:171 — test('a target that left the battlefield fizzles the ability', () => {"
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:50",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:59",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:72 — test('entering opens a private choice of any controller noncreature permanent, creatures excluded', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:86 — test('a host restart restores the open choice and the replayed pick resolves the same way', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:117 — test('a noncreature that is put into a graveyard does not trigger', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:144 — test('it returns with a -1/-1 counter, destroys another permanent, and then stays dead', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:166 — test('exiled instead of dying, it does not persist', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:178 — test('it returns under its owner, not the thief who killed it', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -5608,7 +5606,7 @@
         "matches": 8,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:740 — test('Stitch Together changes destination at threshold', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:742 — test('Stitch Together changes destination at threshold', () => {",
           "rules-engine/src/plugins/enchantmentAnimation.test.ts:27",
           "rules-engine/src/plugins/enchantmentAnimation.test.ts:276 — test('excludes itself, Auras, and opponents enchantments', () => {",
           "rules-engine/src/plugins/enchantmentAnimation.test.ts:312 — test('reverts below five enchantments and when Starfield leaves', () => {",
@@ -5819,7 +5817,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:296 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:661 — test('Lotus Field asks to sacrifice two lands on entry', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:662 — test('Lotus Field asks to sacrifice two lands on entry', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -7495,7 +7493,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:643 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:645 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [pumpTargetX, returnCreatureManaValueX]",
@@ -7592,16 +7590,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 11,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:14",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:224 — test('a token copy of it is not a card: it is not shuffled into a library, and it ceases to exist (CR 704.5d)', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:254 — test('blocked by a small creature it tramples over, infecting the blocker and the player', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:274 — test('lethal damage from a huge blocker does not destroy it because it is indestructible', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:362 — test('without the replacement an ordinary permanent is still taken, so the Colossus is the exception', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:51 — test('Oracle keywords come from the printed text, and only Blightsteel has infect', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:388 — test('a dead creature card blocks the next copy, but a shuffled-away Colossus never does', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:247 — test('the Círdan creature group stays registered', () => {"
+          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10",
+          "rules-engine/src/cardPlugins/dsl/counter.test.ts:261 — test('ward payment pauses priority before the targeted spell resolves', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:247 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:490 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
+          "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
+          "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:292 — test('without the replacement an ordinary permanent is still taken, so the Colossus is the exception', () => {",
+          "rules-engine/src/cardPlugins/watchedEnters.test.ts:388 — test('a dead creature card blocks the next copy, but a shuffled-away Colossus never does', () => {",
+          "rules-engine/src/plugins/combatKeywords.test.ts:456 — test('without a first or double striker there is only the regular damage step', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -9397,15 +9395,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:14",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:287 — test('trample past a chump blocker deals the rest as ordinary combat damage', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:373 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:51 — test('Oracle keywords come from the printed text, and only Blightsteel has infect', () => {",
+          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10",
+          "rules-engine/src/cardPlugins/dsl/counter.test.ts:261 — test('ward payment pauses priority before the targeted spell resolves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:248 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:490 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:817 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:817 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:715 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
+          "rules-engine/src/plugins/combatKeywords.test.ts:456 — test('without a first or double striker there is only the regular damage step', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -9436,8 +9435,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:51 — test('the Homer commander is registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:48 — test('Deathsprout rejects a noncreature target', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:74 — test('Deathsprout destroys its target and completes the private basic search', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:50 — test('Deathsprout rejects a noncreature target', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:76 — test('Deathsprout destroys its target and completes the private basic search', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [search, targetedResolve] and instructions []",
@@ -9788,7 +9787,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1446 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:525 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:527 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions []",
@@ -9860,7 +9859,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:413 — test('a sacrifice paid as a spell cost triggers it for each permanent', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:414 — test('a sacrifice paid as a spell cost triggers it for each permanent', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
@@ -10557,8 +10556,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:172 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:590 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
-          "rules-engine/src/cardPlugins/wardLife.test.ts:247 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:591 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler, static, trigger] and instructions [devour, lookTopPutLand]",
@@ -10721,7 +10720,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:810 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:812 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [loseLifeTargetController]",
@@ -11567,16 +11566,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 15,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:132 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:145 — test('a Grothama attack, on its own, triggers no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:152 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:173 — test('declining one fight leaves that attacker alive and out of the ledger', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:187 — test('when Grothama dies, every player draws what their sources dealt: several fighters, several controllers', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:212 — test('once Grothama is dead the remaining attack triggers offer no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:226 — test(\"the owner's own creature fighting counts for the owner\", () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:238 — test('leaving by exile still pays out, and a Grothama dealt nothing draws nobody anything', () => {"
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:104 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:16",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:51",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:82 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:342 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:403 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:416 — test('a Grothama attack, on its own, triggers no fight', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:423 — test('declining one fight leaves that attacker alive and out of the ledger', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [eachPlayerDrawDamageDealtToSource, mayFightGrantSource]",
@@ -11610,13 +11609,12 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:298 — test('a host restart restores the open fight choice', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:364 — test(\"an opponent's creature entering does not trigger it, and two Projects draw twice\", () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:53",
           "rules-engine/src/cardPlugins/registry.test.ts:250 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:533 — test('Guardian Project registers a unique-name enter watcher', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:533 — test('Guardian Project registers a unique-name enter watcher', () => {",
+          "rules-engine/src/cardPlugins/watchedEnters.test.ts:292 — test('a creature watching creatures you control also sees itself unless the filter says other', () => {",
+          "rules-engine/src/cardPlugins/watchedEnters.test.ts:364 — test(\"an opponent's creature entering does not trigger it, and two Projects draw twice\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [draw]",
@@ -12410,14 +12408,13 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:38",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:386 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:42",
-          "rules-engine/src/cardPlugins/cirdanColossi.test.ts:46",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:251 — test('the Círdan creature group stays registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:251 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:697 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:728 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:269 — test('a creature put into a graveyard from the library or hand did not die', () => {",
+          "rules-engine/src/cardPlugins/watchedEnters.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [defendingPlayerSacrifices, putTriggeringCardOntoBattlefield]",
@@ -12496,7 +12493,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:705 — test('Join the Dead uses descend 4 for its full penalty', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:707 — test('Join the Dead uses descend 4 for its full penalty', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [if, pump]",
@@ -12648,8 +12645,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:51 — test('the Homer commander is registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:151 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:190 — test('Keep Safe counters the targeted spell and draws a card', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:153 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:192 — test('Keep Safe counters the targeted spell and draws a card', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [draw]",
@@ -13013,13 +13010,13 @@
         "matches": 23,
         "samples": [
           "rules-engine/src/actions.test.ts:381 — test('instants and permanents with entry choices stay with the judge', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:100 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:109 — test('declining counters the spell and costs no life', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:39",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:48",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:28",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:37",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:72 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:36 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:36 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:31 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [dealDamageToChosenTarget]",
@@ -13180,7 +13177,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:296 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:661 — test('Lotus Field asks to sacrifice two lands on entry', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:662 — test('Lotus Field asks to sacrifice two lands on entry', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate, replacement, trigger] and instructions [addChosenColorMana, sacrificeControlled]",
@@ -13776,7 +13773,7 @@
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:639 — test('a queued ability resolves after Mirkwood Bats leaves', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:648 — test('Bats outside the battlefield or phased out do not trigger', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:662 — test('a token copy of Bats triggers on its own creation and sacrifice', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:477 — test('lands sacrificed while a search spell resolves trigger it', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:478 — test('lands sacrificed while a search spell resolves trigger it', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [loseLife]",
@@ -15148,7 +15145,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:462 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:464 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [surveil]",
@@ -15476,7 +15473,7 @@
           "live-runner/src/kernelFacts.test.ts:94 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:863 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:393 — test('a supported one-target spell carries its chosen target through the fast path', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:121 — test('Reanimate steals the creature and charges its mana value in life', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:123 — test('Reanimate steals the creature and charges its mana value in life', () => {",
           "rules-engine/src/replay.test.ts:330 — test('a spell on the stack announces what it targets', () => {",
           "site/src/TableBoard.test.tsx:352 — test('a targeted fast cast asks for its target after Cast', () => {"
         ]
@@ -16628,7 +16625,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:137 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:67 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:686 — test('a bounce land asks which land to return', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:688 — test('a bounce land asks which land to return', () => {",
           "rules-engine/src/plugins/mana.test.ts:102 — test('a bounce land taps for both of its printed symbols', () => {"
         ]
       },
@@ -16805,16 +16802,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 17,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:176 — test('vigilance: attacking does not tap it', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:182 — test('lifelink: unblocked it gains its controller seven life', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:193 — test('first strike: it kills two big blockers before they deal damage', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:208 — test('menace: a single blocker is rejected and two are accepted', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:222 — test('trample: the excess over a chump blocker reaches the defending player', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:23",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:238 — test('reach: it can block a flying attacker', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:36"
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:25",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:39",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:45",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:46",
+          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:61 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:252 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:500 — test('Sire of Seven Deaths registers only the Ward-pay-7-life stamp', () => {",
+          "rules-engine/src/cardPlugins/secretCouncil.test.ts:25 — test('Círdan entering opens a hidden vote and dumps for zero votes', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -17351,7 +17348,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:740 — test('Stitch Together changes destination at threshold', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:742 — test('Stitch Together changes destination at threshold', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [if, returnTargetFromGraveyard]",
@@ -17973,14 +17970,14 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:432 — test('Terastodon draws for itself, and the Elephant tokens it makes for you do not draw', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:250 — test('it returns under its owner, not the thief who killed it', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:256 — test('it is a 9/9 whose targets are chosen privately, up to three, noncreature only', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:266 — test('choosing nothing is the \"you may\" declined: no stack item, nothing destroyed', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:279 — test('duplicate-named targets are separate permanents: each controller gets one Elephant per permanent', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:307 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:316 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:330 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:101 — test('a host restart restores the open choice and the replayed pick resolves the same way', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:107 — test('it is a 9/9 whose targets are chosen privately, up to three, noncreature only', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
+          "rules-engine/src/cardPlugins/registry.test.ts:253 — test('the Círdan creature group stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:609 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1011 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1020 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1034 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyThenTokenForController]",
@@ -18757,7 +18754,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:406 — test('Valgavoth exiles opposing graveyard cards and casts them for life', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:174 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/wardLife.test.ts:207 — test('Valgavoth Ward sacrifices three nonlands or counters the spell', () => {"
+          "rules-engine/src/cardPlugins/wardLife.test.ts:208 — test('Valgavoth Ward sacrifices three nonlands or counters the spell', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [handler, static] and instructions []",
@@ -18914,7 +18911,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:72 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:594 — test('Victimize sacrifices then returns both targeted creatures tapped', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:596 — test('Victimize sacrifices then returns both targeted creatures tapped', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
@@ -18968,16 +18965,15 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:21",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:245 — test('reach: it can block a flying attacker', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:317 — test('the restriction ends the moment Void Winnower leaves the battlefield', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:336 — test('two Void Winnowers on opposite sides each restrict only the other player', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:387 — test('Void Winnower itself (mana value nine) is odd, and its controller blocks freely', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:409 — test('the restriction ends once Void Winnower is gone', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:255 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:510 — test('Void Winnower registers even-parity cast and block restrictions', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:510 — test('Void Winnower registers even-parity cast and block restrictions', () => {",
+          "rules-engine/src/plugins/opponentRestrictions.test.ts:122 — test('the restriction ends when the source leaves the battlefield', () => {",
+          "rules-engine/src/plugins/opponentRestrictions.test.ts:194 — test('the restriction ends the moment Void Winnower leaves the battlefield', () => {",
+          "rules-engine/src/plugins/opponentRestrictions.test.ts:213 — test('two Void Winnowers on opposite sides each restrict only the other player', () => {",
+          "rules-engine/src/plugins/opponentRestrictions.test.ts:262 — test('Void Winnower itself (mana value nine) is odd, and its controller blocks freely', () => {",
+          "rules-engine/src/plugins/opponentRestrictions.test.ts:284 — test('the restriction ends once Void Winnower is gone', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static] and instructions []",
@@ -19475,16 +19471,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 19,
+        "matches": 20,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:103 — test('the chosen permanent is destroyed and nothing else is', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:114 — test('it must target if it can, even its own permanent', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:124 — test('illegal picks are rejected: a creature, two targets, a duplicate, another seat', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:134 — test('with no noncreature permanent anywhere, the ability never goes on the stack', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:144 — test('an opponent permanent with hexproof cannot be chosen, but your own can', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:153 — test('an indestructible permanent survives', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:160 — test('a target that became a creature before resolution is illegal and survives', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:171 — test('a target that left the battlefield fizzles the ability', () => {"
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:50",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:59",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:72 — test('entering opens a private choice of any controller noncreature permanent, creatures excluded', () => {",
+          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:86 — test('a host restart restores the open choice and the replayed pick resolves the same way', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:117 — test('a noncreature that is put into a graveyard does not trigger', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:144 — test('it returns with a -1/-1 counter, destroys another permanent, and then stays dead', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:166 — test('exiled instead of dying, it does not persist', () => {",
+          "rules-engine/src/cardPlugins/persist.test.ts:178 — test('it returns under its owner, not the thief who killed it', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyTargetPermanent, returnSelfWithCounter]",
@@ -20266,12 +20262,12 @@
         "matches": 24,
         "samples": [
           "rules-engine/src/actions.test.ts:306 — test('accounts for commander tax', () => {",
-          "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:349 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:280 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:357 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:127 — test('structuredClone keeps the staticBoardPump static effect', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:183 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1053 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
           "rules-engine/src/formats.test.ts:18 — test('Commander supports an arbitrary three-player table', () => {"
         ]
       },
@@ -20341,7 +20337,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 78,
+        "matches": 77,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -20638,16 +20634,16 @@
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 17,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:132 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:145 — test('a Grothama attack, on its own, triggers no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:152 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:173 — test('declining one fight leaves that attacker alive and out of the ledger', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:187 — test('when Grothama dies, every player draws what their sources dealt: several fighters, several controllers', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:212 — test('once Grothama is dead the remaining attack triggers offer no fight', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:226 — test(\"the owner's own creature fighting counts for the owner\", () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:238 — test('leaving by exile still pays out, and a Grothama dealt nothing draws nobody anything', () => {"
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:104 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:16",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:51",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:82 — test('each attacker owner privately chooses whether to fight; fights kill the attackers and fill the ledger by controller', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:156 — test('stamped granted triggers clone without matchers', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:30",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:342 — test('a host restart restores the open fight choice', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:403 — test('every other creature, of any controller, is granted the attack trigger; Grothama and noncreatures are not', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -21917,7 +21913,7 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:238 — test('a surveil land both enters tapped and opens its surveil', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:282 — test('a surveil land fetched by Scapeshift keeps its trigger', () => {",
           "rules-engine/src/cardPlugins/lookTopPick.test.ts:230 — test('rejects another seat, another kind, and another count', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:500 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:502 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -22174,16 +22170,16 @@
         "rules-engine/src/cardPlugins/staticKeywordLayer.test.ts — static hexproof layer > removing the source restores printed hexproof and drops the granted hexproof"
       ],
       "candidateEvidence": {
-        "matches": 18,
+        "matches": 19,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2848 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:73",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:104 — test('leaving the lord removes the grant before another sliver enters', () => {",
+          "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:26",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:105 — test('leaving the lord removes the grant before another sliver enters', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:12",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:129 — test('stamped granted triggers clone without matchers', () => {",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:130 — test('stamped granted triggers clone without matchers', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:15",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:29",
-          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:32"
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:30",
+          "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:33"
         ]
       },
       "neededCanonicalNode": "generated/granted ability definition with independent source and version context",

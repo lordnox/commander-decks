@@ -7,6 +7,10 @@ import { createServerGame } from '../runtime'
 import { ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 
+import { allNamed, combatGame as cirdanCombatGame, deckCard, fixtureCreature, named } from '../cardPlugins/cirdanCreatureCards'
+import { shuffleIntoLibraryInstead } from '../cardPlugins/shuffleIntoLibraryInstead'
+import { targetedResolve } from '../cardPlugins/targetedResolve'
+import { hasKeyword } from '../keywords'
 const creature = (
   name: string,
   power: number,
@@ -446,4 +450,224 @@ describe('first strike and double strike', () => {
     state = game.advance(state)
     expect(state.step).toBe('combatDamage')
   })
+})
+
+describe('relocated from cirdanColossi.test.ts → combatKeywords.test.ts', () => {
+  const COLOSSI = ['Blightsteel Colossus', 'Darksteel Colossus']
+
+  const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
+    createServerGame(
+      commanderRules,
+      { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+
+  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
+
+  const filler = (count = 3) =>
+    Array.from({ length: count }, (_, index) =>
+      cardTemplate(`Library Card ${index + 1}`, { types: ['Instant'] }))
+
+    const attackGame = (blockers: ReturnType<typeof fixtureCreature>[] = []) => {
+      const server = game({
+        battlefield: { p1: [deckCard('Blightsteel Colossus')], p2: blockers },
+      })
+      const ready = structuredClone(server.state)
+      for (const object of Object.values(ready.objects)) object.summoningSickness = false
+      ready.step = 'declareAttackers'
+      const send = (state: GameState, event: GameEvent) => ok(server.rules(state, event))
+      const attacked = send(ready, {
+        type: 'declareAttackers',
+        seat: 'p1',
+        attackers: [{ objectId: named(ready, 'Blightsteel Colossus').id, defender: 'p2' }],
+      })
+      return { server, send, attacked }
+    }
+
+    test('Oracle keywords come from the printed text, and only Blightsteel has infect', () => {
+      const server = game({
+        battlefield: { p1: [deckCard('Blightsteel Colossus'), deckCard('Darksteel Colossus')] },
+      })
+      const blightsteel = named(server.state, 'Blightsteel Colossus')
+      const darksteel = named(server.state, 'Darksteel Colossus')
+      for (const keyword of ['trample', 'infect', 'indestructible']) {
+        expect(hasKeyword(blightsteel, keyword, server.state)).toBe(true)
+      }
+      expect(hasKeyword(darksteel, 'trample', server.state)).toBe(true)
+      expect(hasKeyword(darksteel, 'indestructible', server.state)).toBe(true)
+      expect(hasKeyword(darksteel, 'infect', server.state)).toBe(false)
+      expect([blightsteel.power, blightsteel.toughness]).toEqual([11, 11])
+      expect([darksteel.power, darksteel.toughness]).toEqual([11, 11])
+    })
+
+    test('unblocked, infect gives the player eleven poison counters and no life loss', () => {
+      const { send, attacked } = attackGame()
+      const blockers = send(attacked, { type: 'advanceStep' })
+      const damaged = send(blockers, { type: 'advanceStep' })
+      expect(damaged.players.p2.poison).toBe(11)
+      expect(damaged.players.p2.life).toBe(40)
+    })
+
+    test('blocked by a small creature it tramples over, infecting the blocker and the player', () => {
+      const { send, attacked } = attackGame([fixtureCreature('Chump Bear')])
+      const blocking = send(attacked, { type: 'advanceStep' })
+      const blocked = send(blocking, {
+        type: 'declareBlockers',
+        seat: 'p2',
+        blockers: [{
+          blockerId: named(blocking, 'Chump Bear').id,
+          attackerId: named(blocking, 'Blightsteel Colossus').id,
+        }],
+      })
+      const damaged = send(blocked, { type: 'advanceStep' })
+      // Lethal to a 2/2 is two; the other nine tramples through as poison.
+      expect(damaged.players.p2.poison).toBe(9)
+      expect(damaged.players.p2.life).toBe(40)
+      expect(named(damaged, 'Chump Bear').zone).toBe('graveyard')
+    })
+
+    test('lethal damage from a huge blocker does not destroy it because it is indestructible', () => {
+      const { send, attacked } = attackGame([
+        fixtureCreature('Huge Wall', { power: 20, toughness: 20 }),
+      ])
+      const blocking = send(attacked, { type: 'advanceStep' })
+      const blocked = send(blocking, {
+        type: 'declareBlockers',
+        seat: 'p2',
+        blockers: [{
+          blockerId: named(blocking, 'Huge Wall').id,
+          attackerId: named(blocking, 'Blightsteel Colossus').id,
+        }],
+      })
+      const damaged = send(blocked, { type: 'advanceStep' })
+      expect(named(damaged, 'Blightsteel Colossus').zone).toBe('battlefield')
+      expect(allNamed(damaged, 'Blightsteel Colossus')).toHaveLength(1)
+    })
+
+    test('trample past a chump blocker deals the rest as ordinary combat damage', () => {
+      const server = game({
+        battlefield: {
+          p1: [deckCard('Darksteel Colossus')],
+          p2: [fixtureCreature('Chump Bear')],
+        },
+      })
+      const ready = structuredClone(server.state)
+      for (const object of Object.values(ready.objects)) object.summoningSickness = false
+      ready.step = 'declareAttackers'
+      let state = ok(server.rules(ready, {
+        type: 'declareAttackers',
+        seat: 'p1',
+        attackers: [{ objectId: named(ready, 'Darksteel Colossus').id, defender: 'p2' }],
+      }))
+      state = ok(server.rules(state, { type: 'advanceStep' }))
+      state = ok(server.rules(state, {
+        type: 'declareBlockers',
+        seat: 'p2',
+        blockers: [{
+          blockerId: named(state, 'Chump Bear').id,
+          attackerId: named(state, 'Darksteel Colossus').id,
+        }],
+      }))
+      state = ok(server.rules(state, { type: 'advanceStep' }))
+      expect(state.players.p2.life).toBe(31)
+      expect(state.players.p2.poison).toBe(0)
+    })
+
+  for (const colossusName of COLOSSI) {
+        test('a destroy event on a permanent still fails because of indestructible', () => {
+          const server = game({ battlefield: { p1: [deckCard(colossusName)] } })
+          const id = named(server.state, colossusName).id
+          const damaged = structuredClone(server.state)
+          damaged.objects[id].damageMarked = 99
+          const state = ok(server.rules(damaged, { type: 'passPriority', seat: 'p1' }))
+          expect(state.objects[id].zone).toBe('battlefield')
+        })
+  }
+})
+
+describe('relocated from cirdanEldrazi.test.ts → combatKeywords.test.ts', () => {
+  const sireCard = () => deckCard('Sire of Seven Deaths')
+
+    test('every printed keyword comes from the Oracle text', () => {
+      const server = createServerGame(commanderRules, {
+        battlefield: { p1: [deckCard('Sire of Seven Deaths')] },
+      })
+      const sire = named(server.state, 'Sire of Seven Deaths')
+      for (const keyword of ['reach', 'first strike', 'vigilance', 'menace', 'trample', 'lifelink']) {
+        expect(hasKeyword(sire, keyword, server.state)).toBe(true)
+      }
+      for (const keyword of ['flying', 'deathtouch', 'indestructible', 'hexproof']) {
+        expect(hasKeyword(sire, keyword, server.state)).toBe(false)
+      }
+      expect([sire.power, sire.toughness]).toEqual([7, 7])
+    })
+
+      test('vigilance: attacking does not tap it', () => {
+        const game = cirdanCombatGame([sireCard()])
+        const state = game.attackWith(game.ready, 'Sire of Seven Deaths')
+        expect(named(state, 'Sire of Seven Deaths').tapped).toBe(false)
+      })
+
+      test('lifelink: unblocked it gains its controller seven life', () => {
+        const game = cirdanCombatGame([sireCard()])
+        const state = game.advance(game.advance(game.toBlockers('Sire of Seven Deaths')))
+        expect(state.players.p2.life).toBe(33)
+        expect(state.players.p1.life).toBe(47)
+      })
+
+      test('first strike: it kills two big blockers before they deal damage', () => {
+        const game = cirdanCombatGame([sireCard()], [
+          fixtureCreature('Brick A', { power: 20, toughness: 3 }),
+          fixtureCreature('Brick B', { power: 20, toughness: 3 }),
+        ])
+        let state = game.blockWith(
+          game.toBlockers('Sire of Seven Deaths'),
+          ['Brick A', 'Sire of Seven Deaths'],
+          ['Brick B', 'Sire of Seven Deaths'],
+        )
+        state = game.advance(state)
+        expect(named(state, 'Brick A').zone).toBe('graveyard')
+        expect(named(state, 'Brick B').zone).toBe('graveyard')
+        expect(named(state, 'Sire of Seven Deaths')).toMatchObject({ zone: 'battlefield', damageMarked: 0 })
+        // Lifelink counts all seven damage, and the one point past six toughness tramples over.
+        expect(state.players.p1.life).toBe(47)
+        expect(state.players.p2.life).toBe(39)
+      })
+
+      test('menace: a single blocker is rejected and two are accepted', () => {
+        const game = cirdanCombatGame([sireCard()], [fixtureCreature('Bear A'), fixtureCreature('Bear B')])
+        const state = game.toBlockers('Sire of Seven Deaths')
+        expect(game.blockError(state, ['Bear A', 'Sire of Seven Deaths'])).toContain('menace')
+        expect(game.blockError(
+          state,
+          ['Bear A', 'Sire of Seven Deaths'],
+          ['Bear B', 'Sire of Seven Deaths'],
+        )).toBeUndefined()
+      })
+
+      test('trample: the excess over a chump blocker reaches the defending player', () => {
+        const game = cirdanCombatGame([sireCard()], [
+          fixtureCreature('Bear A'),
+          fixtureCreature('Bear B'),
+        ])
+        let state = game.toBlockers('Sire of Seven Deaths')
+        state = game.blockWith(
+          state,
+          ['Bear A', 'Sire of Seven Deaths'],
+          ['Bear B', 'Sire of Seven Deaths'],
+        )
+        state = game.advance(state)
+        expect(named(state, 'Bear A').zone).toBe('graveyard')
+        expect(named(state, 'Bear B').zone).toBe('graveyard')
+        // Lethal to each 2/2 is two, so three of the seven tramples through.
+        expect(state.players.p2.life).toBe(37)
+      })
+
+      test('reach: it can block a flying attacker', () => {
+        const game = cirdanCombatGame(
+          [fixtureCreature('Drake', { oracleText: 'Flying' })],
+          [deckCard('Sire of Seven Deaths')],
+        )
+        expect(game.blockError(game.toBlockers('Drake'), ['Sire of Seven Deaths', 'Drake'])).toBeUndefined()
+      })
 })
