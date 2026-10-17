@@ -11,6 +11,9 @@ import { ward as wardPlugin } from '../ward'
 import { instructionSpell } from './instructionTestSupport'
 import { card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, target, untilCleanup } from './v1'
 
+import { deckCard } from '../cirdanCreatureCards'
+import { shuffleIntoLibraryInstead } from '../shuffleIntoLibraryInstead'
+import { targetedResolve } from '../targetedResolve'
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -252,4 +255,59 @@ describe('counterspellAndWard — integration', () => {
       expect(wardWaiting.stack.some((item) => item.kind === 'spell')).toBe(true)
     })
   })
+})
+
+describe('relocated from cirdanColossi.test.ts → counter.test.ts', () => {
+  const COLOSSI = ['Blightsteel Colossus', 'Darksteel Colossus']
+
+  const game = (zones: Parameters<typeof createServerGame>[1] = {}) =>
+    createServerGame(
+      commanderRules,
+      { players: 3, libraries: { p1: filler(), p2: filler() }, ...zones },
+      { random: () => 0.5, cardPlugins: plugins },
+    )
+
+  const plugins = [shuffleIntoLibraryInstead, targetedResolve]
+
+  const filler = (count = 3) =>
+    Array.from({ length: count }, (_, index) =>
+      cardTemplate(`Library Card ${index + 1}`, { types: ['Instant'] }))
+
+  for (const colossusName of COLOSSI) {
+      const expectInLibrary = (state: GameState, owner = 'p1') => {
+        const colossus = named(state, colossusName)
+        expect(colossus.zone).toBe('library')
+        expect(state.zoneOrder[owner].library).toContain(colossus.id)
+        expect(state.zoneOrder[owner].graveyard).not.toContain(colossus.id)
+        expect(state.log).toContain(`${owner} reveals ${colossusName} for ${colossusName}`)
+        expect(state.log).toContain(`${owner} shuffles`)
+      }
+
+        test('a spell countered by a real Counterspell is shuffled into the library', () => {
+          const server = game({
+            hands: {
+              p1: [deckCard(colossusName)],
+              p2: [cardTemplate('Counterspell')],
+            },
+          })
+          let state = structuredClone(server.state)
+          state.players.p1.mana.C = 12
+          state = ok(server.rules(state, {
+            type: 'castSpell',
+            seat: 'p1',
+            objectId: named(state, colossusName).id,
+          }))
+          state.priority = 'p2'
+          state.players.p2.mana.U = 2
+          state = ok(server.rules(state, {
+            type: 'castSpell',
+            seat: 'p2',
+            objectId: named(state, 'Counterspell').id,
+            targets: [{ kind: 'stackItem', stackId: state.stack.find(item => item.objectId === named(state, colossusName).id)!.id }],
+          }))
+          state = ok(server.rules(state, { type: 'resolveTop' }))
+          expectInLibrary(state)
+          expect(named(state, 'Counterspell').zone).toBe('graveyard')
+        })
+  }
 })

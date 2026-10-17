@@ -1,11 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
+import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import { conditionHolds, draw, gainLife, permanentEnters, triggeringCreatureNameUnique } from './effects'
-
+import { allNamed, artifact, choose, deckCard, fixtureCreature, libraries } from './cirdanCreatureCards'
+import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 const guardian = () => cardTemplate('Test Guardian Project', {
   types: ['Enchantment'],
   effects: [permanentEnters(
@@ -253,4 +255,194 @@ describe('permanentEnters watchers', () => {
       expect(bearEntered.players.p1.life).toBe(other ? 41 : 42)
     }
   })
+})
+
+describe('relocated from cirdanGrothamaGuardian.test.ts → watchedEnters.test.ts', () => {
+  const handSize = (state: GameState, seat: string) => state.zoneOrder[seat].hand.length
+
+  const answerTriggerOrder = (server: ReturnType<typeof createServerGame>, state: GameState) => {
+    const selection = pendingSelectionFor(state, 'p1')
+    return selection?.triggerOrder
+      ? ok(server.rules(state, {
+        type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose',
+        count: selection.count, objectIds: selection.candidates,
+      }))
+      : state
+  }
+
+  const enterId = (server: ReturnType<typeof createServerGame>, state: GameState, objectId: string) =>
+    ok(server.rules(state, { type: 'move', objectId, to: 'battlefield' }))
+
+  const inHand = (state: GameState, name: string) =>
+    Object.values(state.objects).find((object) => object.name === name && object.zone === 'hand')!
+
+  const bear = (name = 'Fixture Bear', extra: Partial<CardTemplate> = {}) =>
+    fixtureCreature(name, extra)
+
+  const projectGame = (zones: {
+    battlefield?: Record<string, CardTemplate[]>
+    hands?: Record<string, CardTemplate[]>
+  } = {}) => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        battlefield: {
+          ...zones.battlefield,
+          p1: [deckCard('Guardian Project'), ...(zones.battlefield?.p1 ?? [])],
+        },
+        hands: zones.hands,
+        libraries: libraries(['p1', 'p2', 'p3']),
+      },
+      { random: () => 0.5, cardPlugins: [shuffleIntoLibraryInstead] },
+    )
+    return { server, start: server.state }
+  }
+
+    test('a nontoken creature with a new name draws a card', () => {
+      const { server, start } = projectGame({ hands: { p1: [bear()] } })
+      const entered = enter(server, start, 'Fixture Bear')
+      expect(entered.stack).toHaveLength(1)
+      expect(handSize(entered, 'p1')).toBe(0)
+      expect(handSize(resolveStack(server.rules, entered), 'p1')).toBe(1)
+    })
+
+    test('a token does not trigger it', () => {
+      const { server, start } = projectGame({ hands: { p1: [bear('Token Bear', { token: true })] } })
+      expect(enter(server, start, 'Token Bear').stack).toEqual([])
+    })
+
+    test('another creature you control with the same name stops the draw, a token copy included', () => {
+      const real = projectGame({
+        battlefield: { p1: [bear('Twin')] },
+        hands: { p1: [bear('Twin')] },
+      })
+      expect(enterId(real.server, real.start, inHand(real.start, 'Twin').id).stack).toEqual([])
+
+      const copy = projectGame({
+        battlefield: { p1: [bear('Twin', { token: true })] },
+        hands: { p1: [bear('Twin')] },
+      })
+      expect(enterId(copy.server, copy.start, inHand(copy.start, 'Twin').id).stack).toEqual([])
+    })
+
+    test('a same-named creature controlled by an opponent does not stop the draw', () => {
+      const { server, start } = projectGame({
+        battlefield: { p2: [bear('Twin')] },
+        hands: { p1: [bear('Twin')] },
+      })
+      const entered = enterId(server, start, inHand(start, 'Twin').id)
+      expect(handSize(resolveStack(server.rules, entered), 'p1')).toBe(1)
+    })
+
+    test('a creature card of that name in your graveyard stops the draw; in an opponent graveyard it does not', () => {
+      const own = projectGame({
+        hands: { p1: [bear('Twin'), bear('Twin', { zone: 'graveyard' })] },
+      })
+      expect(enterId(own.server, own.start, inHand(own.start, 'Twin').id).stack).toEqual([])
+
+      const theirs = projectGame({
+        hands: { p1: [bear('Twin')], p2: [bear('Twin', { zone: 'graveyard' })] },
+      })
+      expect(enterId(theirs.server, theirs.start, inHand(theirs.start, 'Twin').id).stack).toHaveLength(1)
+    })
+
+    test('a noncreature card of that name in your graveyard does not count', () => {
+      const { server, start } = projectGame({
+        hands: {
+          p1: [bear('Echo'), cardTemplate('Echo', { types: ['Instant'], zone: 'graveyard' })],
+        },
+      })
+      expect(enterId(server, start, inHand(start, 'Echo').id).stack).toHaveLength(1)
+    })
+
+    test("an opponent's creature entering does not trigger it, and two Projects draw twice", () => {
+      const opposing = projectGame({ hands: { p2: [bear('Enemy Bear')] } })
+      expect(enter(opposing.server, opposing.start, 'Enemy Bear').stack).toEqual([])
+
+      const twice = projectGame({
+        battlefield: { p1: [deckCard('Guardian Project', { name: 'Guardian Project' })] },
+        hands: { p1: [bear('Fresh Bear')] },
+      })
+      const entered = enter(twice.server, twice.start, 'Fresh Bear')
+      expect(entered.stack).toHaveLength(2)
+      expect(handSize(resolveStack(twice.server.rules, entered), 'p1')).toBe(2)
+    })
+
+    test('a dead creature card blocks the next copy, but a shuffled-away Colossus never does', () => {
+      const copies = (name: string, make: () => CardTemplate) => projectGame({
+        battlefield: { p1: [make()] },
+        hands: { p1: [make()] },
+      })
+
+      const mortal = copies('Mortal Bear', () => bear('Mortal Bear'))
+      const buried = resolveStack(mortal.server.rules, ok(mortal.server.rules(mortal.start, {
+        type: 'sacrifice',
+        objectId: Object.values(mortal.start.objects).find((object) =>
+          object.name === 'Mortal Bear' && object.zone === 'battlefield')!.id,
+      })))
+      expect(Object.values(buried.objects).filter((object) =>
+        object.name === 'Mortal Bear' && object.zone === 'graveyard')).toHaveLength(1)
+      expect(enterId(mortal.server, buried, inHand(buried, 'Mortal Bear').id).stack).toEqual([])
+
+      const steel = copies('Blightsteel Colossus', () => deckCard('Blightsteel Colossus'))
+      const shuffled = resolveStack(steel.server.rules, ok(steel.server.rules(steel.start, {
+        type: 'sacrifice',
+        objectId: Object.values(steel.start.objects).find((object) =>
+          object.name === 'Blightsteel Colossus' && object.zone === 'battlefield')!.id,
+      })))
+      expect(Object.values(shuffled.objects).filter((object) =>
+        object.name === 'Blightsteel Colossus' && object.zone === 'graveyard')).toHaveLength(0)
+      expect(enterId(steel.server, shuffled, inHand(shuffled, 'Blightsteel Colossus').id).stack)
+        .toHaveLength(1)
+    })
+
+    test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {
+      const { server, start } = projectGame({
+        battlefield: {
+          p1: [deckCard('It That Betrays'), bear('Common Name')],
+          p2: [bear('Common Name'), bear('Uncommon Name'), artifact('Plain Rock')],
+        },
+      })
+      const stolenNew = resolveStack(server.rules, ok(server.rules(start, {
+        type: 'sacrifice',
+        objectId: named(start, 'Uncommon Name').id,
+      })))
+      expect(named(stolenNew, 'Uncommon Name')).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+      expect(handSize(stolenNew, 'p1')).toBe(1)
+
+      const p2Bear = allNamed(start, 'Common Name').find((object) => object.controller === 'p2')!
+      const stolenDuplicate = resolveStack(server.rules, ok(server.rules(start, {
+        type: 'sacrifice',
+        objectId: p2Bear.id,
+      })))
+      expect(stolenDuplicate.objects[p2Bear.id]).toMatchObject({ zone: 'battlefield', controller: 'p1' })
+      expect(handSize(stolenDuplicate, 'p1')).toBe(0)
+
+      const stolenRock = resolveStack(server.rules, ok(server.rules(start, {
+        type: 'sacrifice',
+        objectId: named(start, 'Plain Rock').id,
+      })))
+      expect(handSize(stolenRock, 'p1')).toBe(0)
+    })
+
+    test('Terastodon draws for itself, and the Elephant tokens it makes for you do not draw', () => {
+      const { server, start } = projectGame({
+        battlefield: { p1: [artifact('Own Rock')] },
+        hands: { p1: [deckCard('Terastodon')] },
+      })
+      const opened = enter(server, start, 'Terastodon')
+      const order = pendingSelectionFor(opened, 'p1')!
+      const ordered = order.triggerOrder
+        ? ok(server.rules(opened, {
+          type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose',
+          count: order.count, objectIds: order.candidates,
+        }))
+        : opened
+      const afterChoice = ok(server.rules(ordered, choose(ordered, ['Own Rock'], 3)))
+      const done = resolveStack(server.rules, answerTriggerOrder(server, afterChoice))
+      expect(done.zoneOrder.p1.battlefield.map((id) => done.objects[id].name)).toContain('Elephant')
+      // Terastodon drew one card; its Elephant did not.
+      expect(handSize(done, 'p1')).toBe(1)
+    })
 })

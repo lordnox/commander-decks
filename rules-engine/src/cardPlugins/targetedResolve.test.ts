@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { cardTemplate, forest } from '../newGame'
+import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
@@ -25,6 +25,8 @@ import {ward} from './ward'
 import { createServerGame as createRuntimeGame } from '../runtime'
 
 import { entersTapped } from './entersTapped'
+import { hasKeyword } from '../keywords'
+import { allNamed, artifact, choose, deckCard, enter, fixtureCreature, libraries } from './cirdanCreatureCards'
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
   return result.state
@@ -825,4 +827,240 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       expect(resolved.players.p2.life).toBe(38)
     })
 
+})
+
+describe('relocated from cirdanTriggers.test.ts → targetedResolve.test.ts', () => {
+  const pick = (state: GameState, ids: string[]): GameEvent => ({
+    type: 'selectCards',
+    seat: 'p1',
+    kind: 'choose',
+    count: 3,
+    objectIds: ids,
+  })
+
+  const terastodonGame = (battlefield: Record<string, CardTemplate[]>, hands: Record<string, CardTemplate[]> = {}) => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: { p1: [deckCard('Terastodon')], ...hands },
+        battlefield,
+        libraries: libraries(['p1', 'p2', 'p3']),
+      },
+      { random: () => 0.5 },
+    )
+    return { server, start: server.state }
+  }
+
+  const elephants = (state: GameState, seat: string) =>
+    state.zoneOrder[seat].battlefield
+      .map((id) => state.objects[id])
+      .filter((object) => object.name === 'Elephant')
+
+  const primusGame = (
+    battlefield: Record<string, CardTemplate[]> = {
+      p1: [artifact('Own Rock')],
+      p2: [artifact('Enemy Rock'), fixtureCreature('Enemy Bear')],
+      p3: [cardTemplate('Enemy Forest', { types: ['Land'] })],
+    },
+  ) => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        players: 3,
+        hands: { p1: [deckCard('Woodfall Primus')] },
+        battlefield,
+        libraries: libraries(['p1', 'p2', 'p3']),
+      },
+      { random: () => 0.5, cardPlugins: [choiceEffects] },
+    )
+    return { server, start: server.state }
+  }
+
+    test('Oracle trample comes from the printed text', () => {
+      const { start } = primusGame()
+      expect(hasKeyword(named(start, 'Woodfall Primus'), 'trample', start)).toBe(true)
+      expect([named(start, 'Woodfall Primus').power, named(start, 'Woodfall Primus').toughness]).toEqual([6, 6])
+    })
+
+    test('the chosen permanent is destroyed and nothing else is', () => {
+      const { server, start } = primusGame()
+      const opened = enter(server, start, 'Woodfall Primus')
+      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Enemy Rock']))))
+      expect(named(done, 'Enemy Rock').zone).toBe('graveyard')
+      expect(named(done, 'Own Rock').zone).toBe('battlefield')
+      expect(named(done, 'Enemy Bear').zone).toBe('battlefield')
+      expect(named(done, 'Enemy Forest').zone).toBe('battlefield')
+      expect(pendingSelectionFor(done, 'p1')).toBeUndefined()
+    })
+
+    test('it must target if it can, even its own permanent', () => {
+      const { server, start } = primusGame({ p1: [artifact('Own Rock')], p2: [fixtureCreature('Enemy Bear')] })
+      const opened = enter(server, start, 'Woodfall Primus')
+      expect(pendingSelectionFor(opened, 'p1')!.candidates.map((id) => opened.objects[id].name))
+        .toEqual(['Own Rock'])
+      expect(server.rules(opened, choose(opened, [])).ok).toBe(false)
+      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Own Rock']))))
+      expect(named(done, 'Own Rock').zone).toBe('graveyard')
+    })
+
+    test('illegal picks are rejected: a creature, two targets, a duplicate, another seat', () => {
+      const { server, start } = primusGame()
+      const opened = enter(server, start, 'Woodfall Primus')
+      expect(server.rules(opened, choose(opened, ['Enemy Bear'])).ok).toBe(false)
+      expect(server.rules(opened, choose(opened, ['Enemy Rock', 'Own Rock'], 2)).ok).toBe(false)
+      expect(server.rules(opened, choose(opened, ['Enemy Rock', 'Enemy Rock'], 2)).ok).toBe(false)
+      expect(server.rules(opened, choose(opened, ['Enemy Rock'], 1, 'p2')).ok).toBe(false)
+      expect(server.rules(opened, { type: 'passPriority', seat: 'p1' }).ok).toBe(false)
+    })
+
+    test('with no noncreature permanent anywhere, the ability never goes on the stack', () => {
+      const { server, start } = primusGame({ p2: [fixtureCreature('Enemy Bear')] })
+      const state = enter(server, start, 'Woodfall Primus')
+      expect(state.stack).toEqual([])
+      expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    })
+
+    test('an opponent permanent with hexproof cannot be chosen, but your own can', () => {
+      const { server, start } = primusGame({
+        p1: [artifact('Own Shroud', { oracleText: 'Hexproof' })],
+        p2: [artifact('Enemy Shroud', { oracleText: 'Hexproof' }), artifact('Enemy Rock')],
+      })
+      const opened = enter(server, start, 'Woodfall Primus')
+      expect(pendingSelectionFor(opened, 'p1')!.candidates.map((id) => opened.objects[id].name).sort())
+        .toEqual(['Enemy Rock', 'Own Shroud'])
+    })
+
+    test('an indestructible permanent survives', () => {
+      const { server, start } = primusGame({
+        p2: [artifact('Hardened Rock', { oracleText: 'Indestructible' })],
+      })
+      const opened = enter(server, start, 'Woodfall Primus')
+      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Hardened Rock']))))
+      expect(named(done, 'Hardened Rock').zone).toBe('battlefield')
+    })
+
+    test('a target that became a creature before resolution is illegal and survives', () => {
+      const { server, start } = primusGame()
+      const opened = enter(server, start, 'Woodfall Primus')
+      const stacked = ok(server.rules(opened, choose(opened, ['Enemy Rock'])))
+      expect(stacked.stack).toHaveLength(1)
+      const animated = structuredClone(stacked)
+      named(animated, 'Enemy Rock').types = ['Artifact', 'Creature']
+      const done = resolveStack(server.rules, animated)
+      expect(named(done, 'Enemy Rock').zone).toBe('battlefield')
+    })
+
+    test('a target that left the battlefield fizzles the ability', () => {
+      const { server, start } = primusGame()
+      const opened = enter(server, start, 'Woodfall Primus')
+      const stacked = ok(server.rules(opened, choose(opened, ['Enemy Rock'])))
+      const gone = ok(server.rules(stacked, {
+        type: 'move',
+        objectId: named(stacked, 'Enemy Rock').id,
+        to: 'exile',
+      }))
+      const done = resolveStack(server.rules, gone)
+      expect(named(done, 'Enemy Rock').zone).toBe('exile')
+      expect(done.stack).toEqual([])
+    })
+
+    test('choosing nothing is the "you may" declined: no stack item, nothing destroyed', () => {
+      const { server, start } = terastodonGame({ p2: [artifact('Enemy Rock')] })
+      const opened = enter(server, start, 'Terastodon')
+      const declined = ok(server.rules(opened, pick(opened, [])))
+      expect(declined.stack).toEqual([])
+      expect(named(declined, 'Enemy Rock').zone).toBe('battlefield')
+      expect(elephants(declined, 'p2')).toHaveLength(0)
+    })
+
+    test('duplicate-named targets are separate permanents: each controller gets one Elephant per permanent', () => {
+      const { server, start } = terastodonGame({
+        p1: [artifact('Rock')],
+        p2: [artifact('Rock'), artifact('Rock')],
+        p3: [artifact('Rock')],
+      })
+      const opened = enter(server, start, 'Terastodon')
+      const rocks = allNamed(opened, 'Rock')
+      expect(rocks).toHaveLength(4)
+      const p2Rocks = rocks.filter((rock) => rock.controller === 'p2').map((rock) => rock.id)
+      const p3Rock = rocks.find((rock) => rock.controller === 'p3')!.id
+      const done = resolveStack(
+        server.rules,
+        ok(server.rules(opened, pick(opened, [...p2Rocks, p3Rock]))),
+      )
+      for (const id of [...p2Rocks, p3Rock]) expect(done.objects[id].zone).toBe('graveyard')
+      expect(done.objects[rocks.find((rock) => rock.controller === 'p1')!.id].zone).toBe('battlefield')
+      expect(elephants(done, 'p2')).toHaveLength(2)
+      expect(elephants(done, 'p3')).toHaveLength(1)
+      expect(elephants(done, 'p1')).toHaveLength(0)
+      for (const elephant of [...elephants(done, 'p2'), ...elephants(done, 'p3')]) {
+        expect(elephant).toMatchObject({
+          token: true,
+          power: 3,
+          toughness: 3,
+          colors: ['G'],
+          subtypes: ['Elephant'],
+          types: ['Creature'],
+        })
+      }
+    })
+
+    test('a repeated pick of the same duplicate-named object is rejected', () => {
+      const { server, start } = terastodonGame({ p2: [artifact('Rock'), artifact('Rock')] })
+      const opened = enter(server, start, 'Terastodon')
+      const [first] = allNamed(opened, 'Rock')
+      expect(server.rules(opened, pick(opened, [first.id, first.id])).ok).toBe(false)
+    })
+
+    test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {
+      const { server, start } = terastodonGame({
+        p1: [artifact('Rock A'), artifact('Rock B'), artifact('Rock C')],
+      })
+      const opened = enter(server, start, 'Terastodon')
+      const done = resolveStack(
+        server.rules,
+        ok(server.rules(opened, choose(opened, ['Rock A', 'Rock B', 'Rock C'], 3))),
+      )
+      expect(elephants(done, 'p1')).toHaveLength(3)
+    })
+
+    test('the Elephant goes to whoever controlled the permanent, not its owner', () => {
+      const { server, start } = terastodonGame({
+        p2: [artifact('Stolen Rock')],
+      })
+      const prepared = structuredClone(start)
+      named(prepared, 'Stolen Rock').owner = 'p3'
+      const opened = enter(server, prepared, 'Terastodon')
+      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Stolen Rock'], 3))))
+      expect(named(done, 'Stolen Rock').zone).toBe('graveyard')
+      expect(elephants(done, 'p2')).toHaveLength(1)
+      expect(elephants(done, 'p3')).toHaveLength(0)
+    })
+
+    test('a token destroyed this way still gives its controller an Elephant', () => {
+      const { server, start } = terastodonGame({ p2: [artifact('Treasure Token', { token: true })] })
+      const opened = enter(server, start, 'Terastodon')
+      const done = resolveStack(server.rules, ok(server.rules(opened, choose(opened, ['Treasure Token'], 3))))
+      expect(elephants(done, 'p2')).toHaveLength(1)
+    })
+
+    test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {
+      const { server, start } = terastodonGame({
+        p2: [
+          artifact('Plain Rock'),
+          artifact('Hardened Rock', { oracleText: 'Indestructible' }),
+          artifact('Commander Relic', { tags: ['commander'] }),
+        ],
+      })
+      const opened = enter(server, start, 'Terastodon')
+      const done = resolveStack(
+        server.rules,
+        ok(server.rules(opened, choose(opened, ['Plain Rock', 'Hardened Rock', 'Commander Relic'], 3))),
+      )
+      expect(named(done, 'Plain Rock').zone).toBe('graveyard')
+      expect(named(done, 'Hardened Rock').zone).toBe('battlefield')
+      expect(named(done, 'Commander Relic').zone).toBe('command')
+      expect(elephants(done, 'p2')).toHaveLength(1)
+    })
 })
