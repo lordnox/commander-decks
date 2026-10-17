@@ -3,7 +3,7 @@ import { CARD_CATALOG } from './catalog'
 /** A caller owns its copy, including mutable types and the pinned rule snapshot. */
 export const cardTemplateDefaultsFor = (name: string) => {
   const entry = Object.hasOwn(CARD_CATALOG, name) ? CARD_CATALOG[name] : undefined
-  return entry?.types ? structuredClone(entry) : undefined
+  return entry ? structuredClone(entry) : undefined
 }
 
 /** Exact-name lookup; snapshots are compiled once by their owning card modules. */

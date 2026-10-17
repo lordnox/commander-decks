@@ -310,5 +310,15 @@ test('template callers own their characteristics and rule snapshot', () => {
   Reflect.set(edited.ruleDefinition.definition.abilities, 'length', 0)
   expect(cardTemplateDefaultsFor('Counterspell')).toEqual(original)
   expect(cardRuleDefinitionSnapshotFor('Counterspell')).toEqual(original.ruleDefinition)
-  expect(cardTemplateDefaultsFor('Absorb')).toBeUndefined()
+  expect(cardTemplateDefaultsFor('Absorb')).toMatchObject({ manaCost: '{W}{U}{U}', manaValue: 3 })
+})
+
+test('Diabolic Tutor supplies printed characteristics beside its canonical rules', () => {
+  expect(cardTemplateDefaultsFor('Diabolic Tutor')).toEqual({
+    types: ['Sorcery'],
+    colors: ['B'],
+    manaCost: '{2}{B}{B}',
+    manaValue: 4,
+    ruleDefinition: cardRuleDefinitionSnapshotFor('Diabolic Tutor'),
+  })
 })
