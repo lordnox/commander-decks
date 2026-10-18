@@ -11,6 +11,7 @@ import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
 import blightedWoodland from './blighted-woodland'
 import botanicalSanctum from './botanical-sanctum'
+import brokersHideout from './brokers-hideout'
 import buriedAlive from './buried-alive'
 import cabalCoffers from './cabal-coffers'
 import cabalStronghold from './cabal-stronghold'
@@ -62,6 +63,7 @@ import murder from './murder'
 import naturesLore from './natures-lore'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
+import obscuraStorefront from './obscura-storefront'
 import orzhovBasilica from './orzhov-basilica'
 import orzhovSignet from './orzhov-signet'
 import pollutedDelta from './polluted-delta'
@@ -69,6 +71,7 @@ import prismaticVista from './prismatic-vista'
 import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import reverberate from './reverberate'
+import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import seleniaDarkAngel from './selenia-dark-angel'
 import signInBlood from './sign-in-blood'
@@ -107,6 +110,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Blighted Woodland": blightedWoodland,
   "Botanical Sanctum": botanicalSanctum,
+  "Brokers Hideout": brokersHideout,
   "Buried Alive": buriedAlive,
   "Cabal Coffers": cabalCoffers,
   "Cabal Stronghold": cabalStronghold,
@@ -158,6 +162,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Nature's Lore": naturesLore,
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
+  "Obscura Storefront": obscuraStorefront,
   "Orzhov Basilica": orzhovBasilica,
   "Orzhov Signet": orzhovSignet,
   "Polluted Delta": pollutedDelta,
@@ -165,6 +170,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Rejuvenating Springs": rejuvenatingSprings,
   "Rest in Peace": restInPeace,
   "Reverberate": reverberate,
+  "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Sign in Blood": signInBlood,
