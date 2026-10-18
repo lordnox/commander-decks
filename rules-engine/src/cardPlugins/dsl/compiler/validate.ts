@@ -547,6 +547,11 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player', 'object'])
         validateReference(node.source, childPath(path, 'source'), env, ['object'])
         return
+      case 'fight':
+        exactKeys(node, path, ['kind', 'left', 'right'], ['kind', 'left', 'right'])
+        validateReference(node.left, childPath(path, 'left'), env, ['object'])
+        validateReference(node.right, childPath(path, 'right'), env, ['object'])
+        return
       case 'reveal':
       case 'tap':
       case 'untap':

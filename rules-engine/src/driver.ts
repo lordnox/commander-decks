@@ -123,6 +123,7 @@ const preflightInstructions = (
       case 'addMana':
       case 'gainLife':
       case 'loseLife':
+      case 'fight':
       case 'damage':
       case 'destroy':
       case 'sacrifice':
@@ -655,6 +656,17 @@ const actionEvents = (
         source: frame.source.ref.objectId,
         }]
       })
+    }
+    case 'fight': {
+      const left = evaluateObjectReference(instruction.left, context)
+      const right = evaluateObjectReference(instruction.right, context)
+      if (left.length !== 1 || right.length !== 1) return []
+      const first = left[0]!
+      const second = right[0]!
+      if (!isSameObject(context.state.objects[first.id], objectIdentity(first))
+        || !isSameObject(context.state.objects[second.id], objectIdentity(second))
+        || first.phasedOut || second.phasedOut) return []
+      return [{ type: 'fight' as const, leftId: first.id, rightId: second.id }]
     }
     case 'damage': {
       const damageRecipients = mixedRecipients(instruction.targets, context)

@@ -247,6 +247,8 @@ export type Instruction =
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
   /** Deal damage from the referenced source, allowing the normal damage pipeline to apply. */
   | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference }
+  /** Have two current battlefield creatures deal simultaneous noncombat damage. */
+  | { kind: 'fight'; left: ObjectReference; right: ObjectReference }
   /** Have each resolved player recipient draw the evaluated number of cards. */
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
