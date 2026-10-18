@@ -30,7 +30,10 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { canonicalManaAbilityForTap } from './cardPlugins/activated'
-import { activationPermission } from './cardPlugins/dsl/compiler'
+import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceSacrificeCost } from './cardPlugins/dsl/compiler'
+import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
+import { captureObject } from './objectIdentity'
+import type { CardRuleDefinitionV1, Cost } from './cardPlugins/dsl/schema/v1'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
@@ -1146,6 +1149,79 @@ const canPayActivateCosts = (
   (cost) => canFund(state, seat, cost),
 )
 
+type CanonicalTargetedAbility = Extract<CardRuleDefinitionV1['abilities'][number], { decisions: unknown }>
+
+const canonicalActionTargetGroups = (
+  state: GameState, object: GameObject, ability: CanonicalTargetedAbility, seat: PlayerId,
+  clauses = ability.decisions.targets,
+) => {
+  const candidates = canonicalTargetCandidates(state, object, ability, seat, undefined, clauses)
+  const context = { state, controller: seat, source: captureObject(object) }
+  return clauses.map((clause, clauseIndex) => {
+    const bounds = evaluateTargetBounds(clause, amountEvaluationContext(context))
+    return {
+      label: `Target ${clauseIndex + 1}`, min: bounds.min, max: bounds.max,
+      kind: clause.filter.kind === 'players' ? 'player' as const : 'object' as const,
+      targets: candidates[clauseIndex].map(target => {
+        switch (target.kind) {
+          case 'player': return { objectId: target.player, name: target.player, controller: target.player }
+          case 'stackItem': {
+            const item = state.stack.find(item => item.id === target.stackId)!
+            return { objectId: item.id, name: item.name, controller: item.controller }
+          }
+          case 'object': {
+            const candidate = state.objects[target.objectId]
+            return { objectId: candidate.id, name: candidate.name, controller: candidate.controller }
+          }
+        }
+      }),
+    }
+  })
+}
+
+const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId) => {
+  const context = { state, controller: seat, source: captureObject(object) }
+  return costs.flatMap(cost => {
+    if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return []
+    if (isSourceSacrificeCost(cost)) return []
+    const candidates = cost.filter.kind === 'objects'
+      ? evaluateObjectSelector(cost.filter, context) : evaluateObjectReference(cost.filter, context)
+    const count = evaluateRuntimeAmount(cost.count, context)
+    return [{ costKind: cost.kind, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
+      targets: candidates.filter(candidate => candidate.id !== object.id && candidate.controller === seat
+        && candidate.zone === (cost.kind === 'discard' ? 'hand' : 'battlefield'))
+        .map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller })),
+    } }]
+  })
+}
+
+const canonicalTargetRef = (state: GameState, id: string) => {
+  if (state.players[id]) return { kind: 'player' as const, player: id }
+  if (state.stack.some(item => item.id === id)) return { kind: 'stackItem' as const, stackId: id }
+  return { kind: 'object' as const, objectId: id }
+}
+
+const canonicalActivationActions = (state: GameState, object: GameObject, seat: PlayerId) => {
+  if (!object.ruleDefinition || object.controller !== seat) return []
+  const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
+  return definition.abilities.flatMap((ability, index) => {
+    if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
+    if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
+      sorcerySpeed: ability.timing === 'sorcery', availableFrom: ability.availableFrom })) return []
+    const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], undefined, undefined,
+      { targetClauses: [], deferPayment: true })
+    if (!announcement.ok) return []
+    const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
+      || isSourceSacrificeCost(cost))
+      ? new Set([object.id]) : new Set<string>()
+    if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
+    const targetGroups = canonicalActionTargetGroups(state, object, ability, seat)
+    if (targetGroups.some(group => group.targets.length < group.min)) return []
+    return [{ kind: 'activateAbility', objectId: object.id, name: object.name,
+      text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups }] satisfies AvailableAction[]
+  })
+}
+
 const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) => {
   if (object.controller !== seat) return []
   if (object.zone === 'graveyard' && object.owner !== seat) return []
@@ -1382,7 +1458,7 @@ export const availableActions = (
         }
       }
     }
-    const declaredActions = cardRuleActions(state, object, seat)
+    const declaredActions = [...cardRuleActions(state, object, seat), ...canonicalActivationActions(state, object, seat)]
     actions.push(...declaredActions)
     if (
       object.zone === 'battlefield'
@@ -1558,6 +1634,23 @@ const targetVariants = (
 ): AvailableAction[] => {
   if (action.kind !== 'castSpell') return [action]
   const source = state.objects[action.objectId]
+  if (source?.ruleDefinition) {
+    const definition = loadDefinitionSnapshot(source.ruleDefinition).definition
+    const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
+    const ability = definition.abilities[abilityIndex]
+    if (ability?.kind !== 'spell') return [{ ...action, targetGroups: [] }]
+    const costGroups = canonicalActionCostGroups(state, source, ability.costs, seat).map(entry => entry.group)
+    if (costGroups.some(group => group.targets.length < group.min)) return []
+    const variants = ability.modes && ability.decisions.modes
+      ? combinationsOf(ability.modes.map((_, index) => index), evaluateModeCount(ability.decisions.modes, { state, controller: seat, source: captureObject(source), variables: action.x === undefined ? undefined : { X: action.x } }))
+      : [undefined]
+    return variants.flatMap(modeIndices => {
+      const clauses = modeIndices ? modalTargetLayout(ability, abilityIndex, modeIndices).map(entry => entry.clause) : ability.decisions.targets
+      const groups = canonicalActionTargetGroups(state, source, ability, seat, clauses)
+      if (groups.some(group => group.targets.length < group.min)) return []
+      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...costGroups, ...groups] }]
+    })
+  }
   if (source && action.castOption === 'bestow' && bestowEffect(source)) {
     return Object.values(state.objects)
       .filter((object) =>
@@ -2249,6 +2342,27 @@ export const eventsForAvailableAction = (
   if (action.kind === 'activateAbility') {
     const object = state.objects[action.objectId]
     if (!object || !action.abilityId) return null
+    if (object.ruleDefinition && /^\$\.abilities\[\d+\]$/.test(action.abilityId)) {
+      const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
+      const abilityIndex = Number(/\[(\d+)\]/.exec(action.abilityId)![1])
+      const ability = definition.abilities[abilityIndex]
+      if (ability?.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return null
+      try {
+        const targets = (action.targetObjectIds ?? []).map(id => canonicalTargetRef(state, id))
+        const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat)
+          .map(binding => binding.recipients)
+        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, undefined, undefined, { deferPayment: true })
+        if (!announcement.ok) return null
+        const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
+          || isSourceSacrificeCost(cost))
+          ? new Set([object.id]) : new Set<string>()
+        const funding = fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded)
+        if (!funding) return null
+        return [...funding, { type: 'activateAbility', seat, objectId: object.id, abilityId: action.abilityId, targetClauses }]
+      } catch {
+        return null
+      }
+    }
     if (action.abilityId === SACRIFICE_LAND_FOR_BLACK) {
       return [{
         type: 'activateAbility',
@@ -2327,6 +2441,52 @@ export const eventsForAvailableAction = (
     ]
   }
   if (action.kind !== 'castSpell') return null
+  const canonicalSource = state.objects[action.objectId]
+  if (canonicalSource?.ruleDefinition) {
+    const definition = loadDefinitionSnapshot(canonicalSource.ruleDefinition).definition
+    const abilityIndex = definition.abilities.findIndex(ability => ability.kind === 'spell')
+    const ability = definition.abilities[abilityIndex]
+    try {
+      const costEntries = ability?.kind === 'spell' ? canonicalActionCostGroups(state, canonicalSource, ability.costs, seat) : []
+      const costGroups = costEntries.map(entry => entry.group)
+      const chosen = action.targetObjectIds ?? (action.targetObjectId ? [action.targetObjectId] : action.targetPlayerId ? [action.targetPlayerId] : [])
+      const costCount = costGroups.reduce((count, group) => count + group.min, 0)
+      if (chosen.length < costCount) return null
+      const costChoices = chosen.slice(0, costCount)
+      const discard: string[] = []
+      const sacrifice: string[] = []
+      let offset = 0
+      for (const { costKind, group } of costEntries) {
+        const selected = costChoices.slice(offset, offset + group.min)
+        if (costKind === 'discard') discard.push(...selected)
+        else sacrifice.push(...selected)
+        offset += group.min
+      }
+      const targets = chosen.slice(costCount).map(id => canonicalTargetRef(state, id))
+      const layout = ability?.kind === 'spell' && action.modeIndices ? modalTargetLayout(ability, abilityIndex, action.modeIndices) : undefined
+      const clauses = layout?.map(entry => entry.clause)
+      const targetClauses = ability?.kind === 'spell'
+        ? canonicalTargetBindings(state, canonicalSource, definition, abilityIndex, targets, undefined, undefined, seat, action.x,
+            clauses, layout?.map(entry => entry.scopeId), layout?.map(entry => entry.modeIndex)).map(binding => binding.recipients)
+        : []
+      const tax = taxFor(state, seat, canonicalSource)
+      const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, canonicalSource, seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
+        { deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
+      if (announcement && !announcement.ok) return null
+      const cost = announcement?.ok && announcement.transaction.lockedCost.mana
+        || spellCost(state, canonicalSource, { x: action.x, seat, additionalGeneric: taxFor(state, seat, canonicalSource) })
+      const funding = fundingEvents(state, seat, cost, new Set(costChoices), { phyrexianLife: action.phyrexianLife }, canonicalSource)
+      if (!funding) return null
+      return [...funding, { type: 'castSpell', seat, objectId: canonicalSource.id, targets, targetClauses,
+        ...(tax > 0 ? { additionalGeneric: tax } : {}),
+        ...(discard.length ? { discard } : {}), ...(sacrifice.length ? { sacrifice } : {}),
+        ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}), ...(action.x !== undefined ? { x: action.x } : {}),
+        ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
+      }]
+    } catch {
+      return null
+    }
+  }
   const card = state.objects[action.objectId]
   // CR 709.3b: only the chosen door is cast, so read this line off that door
   // rather than off the combined card.
