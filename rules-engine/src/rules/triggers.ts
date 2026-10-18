@@ -544,7 +544,7 @@ const canonicalTriggersForOccurrence = (
 
 /** Landfall listens to land drops and zone moves, not ability resolution. */
 const landEnteringObjectId = (event: GameEvent, state: GameState) => {
-  if (event.type === 'resolveTop') return null
+  if (event.type === 'resolveTop' || event.type === 'playLand') return null
   return enteringObjectId(event, state)
 }
 
@@ -553,6 +553,7 @@ const landEnteringObjectId = (event: GameEvent, state: GameState) => {
  * `resolveTop` must not reuse the source permanent as an entering object.
  */
 const permanentEnteringObjectId = (event: GameEvent, state: GameState) => {
+  if (event.type === 'playLand') return null
   if (event.type === 'resolveTop') {
     const item = state.stack[0]
     if (!item || item.kind !== 'spell') return null

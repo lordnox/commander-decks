@@ -6,6 +6,7 @@ import {
   replacement,
   staticAbility,
   wouldEnter,
+  modifyEvent,
   asThisEntersChooseColor,
   redirectEvent,
 } from './v1'
@@ -143,4 +144,43 @@ describe('entryReplacements', () => {
       chosenColor: 'U',
     })
   })
+})
+
+
+test.each(['playLand', 'move'] as const)('%s applies a land self-entry replacement before entry', (eventType) => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }))),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Entry fixture', { types: ['Land'], ruleDefinition: definition })] },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  const entered = ok(server.rules(server.state, eventType === 'playLand'
+    ? { type: 'playLand', seat: 'p1', objectId }
+    : { type: 'move', objectId, to: 'battlefield' }))
+  expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(entered.players.p1.landsPlayed).toBe(eventType === 'playLand' ? 1 : 0)
+  expect(entered.stack).toEqual([])
+})
+
+test('land entry choice restores before committing the move without spending a second land play', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    staticAbility(asThisEntersChooseColor()),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Entry fixture', { types: ['Land'], ruleDefinition: definition })] },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  const paused = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+  expect(paused.objects[objectId].zone).toBe('hand')
+  expect(paused.priority).toBeNull()
+  expect(paused.players.p1.landsPlayed).toBe(1)
+  const restored = JSON.parse(JSON.stringify(paused)) as GameState
+  const choice = pendingOptionSelection(restored, 'p1')!
+  const entered = ok(server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: 'G' }))
+  expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', chosenColor: 'G' })
+  expect(entered.players.p1.landsPlayed).toBe(1)
+  expect(pendingOptionSelection(entered, 'p1')).toBeUndefined()
 })

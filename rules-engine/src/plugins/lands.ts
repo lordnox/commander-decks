@@ -45,8 +45,10 @@ const apply: Plugin['apply'] = ({ event, draft }) => {
   const pending = draft.object(event.objectId)
   const face = pending ? landFaceOf(pending, event.face) : undefined
   if (pending && face) applyFace(pending, face)
-  const object = draft.move(event.objectId, 'battlefield')
+  const object = draft.object(event.objectId)
   if (!object) return
+  // Land entry uses the same replacement pipeline as every other battlefield move.
+  draft.enqueue({ type: 'move', objectId: object.id, to: 'battlefield' })
   delete object.adventureReady
   draft.players[event.seat].landsPlayed += 1
   draft.passedInRow = []
