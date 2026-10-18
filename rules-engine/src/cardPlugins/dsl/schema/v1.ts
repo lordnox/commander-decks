@@ -259,6 +259,8 @@ export type Instruction =
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
   | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; bindResult?: string }
+  /** Inspect and order the top cards of each selected player's library. */
+  | { kind: 'scry' | 'surveil'; targets: PlayerRecipient; count: Amount }
   /** Reveal each resolved object to every player through the ordinary visibility event. */
   | { kind: 'reveal'; targets: ObjectRecipient }
   /** Tap or untap each resolved object through the ordinary event pipeline. */

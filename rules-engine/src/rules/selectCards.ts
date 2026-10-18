@@ -146,7 +146,7 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram'
+    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck'
     replacementFrameId?: string
     payment?: {
       cost: Cost
@@ -430,6 +430,9 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   if (selection.kind !== event.kind) return `expected a ${selection.kind} selection`
   if (event.count !== selection.count) return `expected count ${selection.count}`
 
+  if (selection.canonicalChoice?.action === 'topDeck' && pendingSelection(state)?.id !== selection.id) {
+    return 'top-library choices must be answered in APNAP order'
+  }
   const expected = expectedCount(state, selection)
   if (selection.triggerOrder) {
     const objectIds = event.objectIds
@@ -549,14 +552,13 @@ const legalSelectCards = (state: GameState, event: GameEvent) => {
   }
 }
 
-const applyTopDeckChoices = (
-  draft: Draft,
-  seat: PlayerId,
+const topDeckChoiceEvents = (
   choices: CardSelectionChoice[],
   kind: 'scry' | 'surveil',
 ) => {
+  const events: GameEvent[] = []
   for (const choice of choices.filter(({ destination }) => destination === 'top').toReversed()) {
-    draft.enqueue({
+    events.push({
       type: 'move',
       objectId: choice.objectId,
       to: 'library',
@@ -564,11 +566,11 @@ const applyTopDeckChoices = (
     })
   }
   for (const choice of choices.filter(({ destination }) => destination === 'hand')) {
-    draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })
+    events.push({ type: 'move', objectId: choice.objectId, to: 'hand' })
   }
   if (kind === 'scry') {
     for (const choice of choices.filter(({ destination }) => destination === 'bottom')) {
-      draft.enqueue({
+      events.push({
         type: 'move',
         objectId: choice.objectId,
         to: 'library',
@@ -577,9 +579,23 @@ const applyTopDeckChoices = (
     }
   } else {
     for (const choice of choices.filter(({ destination }) => destination === 'graveyard')) {
-      draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'graveyard' })
+      events.push({ type: 'move', objectId: choice.objectId, to: 'graveyard' })
     }
   }
+  return events
+}
+
+/** Flush a simultaneous library action after every living chooser has answered. */
+export const finishCanonicalTopDeckChoices = (draft: Draft) => {
+  const frame = draft.resolution?.kind === 'canonicalSpell' ? draft.resolution : undefined
+  const pending = frame?.pendingTopDeck
+  if (!frame || !pending || pending.seats.some(seat => !draft.players[seat]?.lost)) return
+  const events = pending.events.filter(event => event.type !== 'move' || Boolean(draft.objects[event.objectId]))
+  frame.pendingEvents = [
+    ...(events.length > 1 ? [{ type: 'actionGroup' as const, events }] : events),
+    ...pending.completions.filter(event => 'seat' in event && event.seat !== undefined && !draft.players[event.seat]?.lost),
+  ]
+  delete frame.pendingTopDeck
 }
 
 const objectLeftZone = (state: GameState, identity: ObjectIdentity) => {
@@ -770,6 +786,17 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
 
   if (canonicalChoice && draft.resolution?.kind === 'canonicalSpell'
     && draft.resolution.stackId === canonicalChoice.stackId) {
+    if (canonicalChoice.action === 'topDeck' && (selection.kind === 'scry' || selection.kind === 'surveil')) {
+      const pending = draft.resolution.pendingTopDeck
+      const choices = parseChoices(event)
+      if (!pending || !choices) return
+      pending.events.push(...topDeckChoiceEvents(choices, selection.kind))
+      pending.seats = pending.seats.filter(seat => seat !== event.seat)
+      draft.note(`${event.seat} ${selection.kind === 'scry' ? 'scries' : 'surveils'} ${choices.length} card(s)`)
+      finishCanonicalTopDeckChoices(draft)
+      draft.priority = null
+      return
+    }
     if (canonicalChoice.action === 'resolutionPayment' && canonicalChoice.payment) {
       const payment = canonicalChoice.payment
       const frame = draft.resolution
@@ -1098,7 +1125,7 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
   if (selection.kind === 'scry' || selection.kind === 'surveil') {
     const choices = parseChoices(event)
     if (!choices) return
-    applyTopDeckChoices(draft, event.seat, choices, selection.kind)
+    for (const event of topDeckChoiceEvents(choices, selection.kind)) draft.enqueue(event)
     // The log reaches every seat, so name only the cards that become public.
     const binned = choices
       .filter(({ destination }) => destination === 'graveyard')

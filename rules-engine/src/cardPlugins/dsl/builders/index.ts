@@ -450,6 +450,9 @@ export const sacrifice = (input: {
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
 
+export const scry = (input: { count: AmountInput; targets: PlayerRecipient }) => immutableData({ kind: 'scry' as const, targets: input.targets, count: toAmount(input.count) }) satisfies Instruction
+export const surveil = (input: { count: AmountInput; targets: PlayerRecipient }) => immutableData({ kind: 'surveil' as const, targets: input.targets, count: toAmount(input.count) }) satisfies Instruction
+
 export const reveal = (targets: ObjectRecipient) => immutableData({ kind: 'reveal' as const, targets }) satisfies Instruction
 
 export const tap = (targets: ObjectRecipient) => immutableData({ kind: 'tap' as const, targets }) satisfies Instruction

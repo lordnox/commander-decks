@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 45,
     "customEventDispatchSites": 83,
-    "directMutationSites": 604,
+    "directMutationSites": 601,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 20,
     "cardRegistrationOnlyGaps": 16,
@@ -5775,7 +5775,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 26,
+        "matches": 28,
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1047 — test('a restored private choice survives a host restart', async () => {",
@@ -18586,7 +18586,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 208,
+        "matches": 213,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:399 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -19424,6 +19424,7 @@
       "variant": "surveil",
       "mechanic": "specialized legacy dialog",
       "currentRegistrations": [
+        "rules-engine/src/cardPlugins/dsl/builders/index.ts",
         "rules-engine/src/cardPlugins/effectDefinitions.ts",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts",
         "rules-engine/src/cardPlugins/instructions.ts"
@@ -19540,7 +19541,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1228"
+        "rules-engine/src/types.ts:1232"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -19673,7 +19674,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:644",
+        "rules-engine/src/kernel.ts:646",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -20174,12 +20175,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          696,
-          715
+          712,
+          731
         ],
         "samples": [
-          "696: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "715: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "712: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "731: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -20704,10 +20705,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1435
+          1437
         ],
         "samples": [
-          "1435: event.name === SEARCH_CHOSEN"
+          "1437: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -20742,14 +20743,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          277,
-          1270,
-          1299
+          279,
+          1298,
+          1327
         ],
         "samples": [
-          "277: const liveSource = draft.object(source.ref.objectId)",
-          "1270: const object = draft.object(item.objectId)",
-          "1299: const object = draft.object(completedItem.objectId)"
+          "279: const liveSource = draft.object(source.ref.objectId)",
+          "1298: const object = draft.object(item.objectId)",
+          "1327: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -21376,46 +21377,43 @@
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
           375,
-          559,
-          567,
-          571,
-          580,
-          782,
           809,
-          818,
           836,
-          855,
-          896,
-          906,
-          915,
-          928,
-          930,
+          845,
+          863,
+          882,
+          923,
+          933,
           942,
-          953,
+          955,
           957,
-          962,
-          965,
-          974,
+          969,
           980,
+          984,
+          989,
           992,
-          996,
-          1009,
-          1016,
-          1031,
-          1168,
-          1171,
-          1191,
+          1001,
+          1007,
+          1019,
+          1023,
+          1036,
+          1043,
+          1058,
+          1128,
           1195,
-          1204,
-          1210,
+          1198,
           1218,
-          1220,
-          1225
+          1222,
+          1231,
+          1237,
+          1245,
+          1247,
+          1252
         ],
         "samples": [
           "375: draft.enqueue({",
-          "559: draft.enqueue({",
-          "567: draft.enqueue({ type: 'move', objectId: choice.objectId, to: 'hand' })"
+          "809: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "836: const object = objectId ? draft.object(objectId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -23172,27 +23170,27 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          477,
-          530,
+          479,
           532,
-          536,
+          534,
           538,
-          548,
-          575,
-          578,
-          587,
-          621,
-          626,
-          659,
+          540,
+          550,
+          577,
+          580,
+          589,
+          623,
+          628,
           661,
-          667,
-          684,
-          689
+          663,
+          669,
+          686,
+          691
         ],
         "samples": [
-          "477: const object = draft.object(event.objectId)",
-          "530: const object = draft.object(event.objectId)",
-          "532: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "479: const object = draft.object(event.objectId)",
+          "532: const object = draft.object(event.objectId)",
+          "534: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

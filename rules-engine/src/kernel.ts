@@ -30,6 +30,7 @@ import {
   PENDING_STEAL_CAST,
   pendingSelection,
   pendingSelectionsFor,
+  finishCanonicalTopDeckChoices,
 } from './rules/selectCards'
 import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/selectPlayers'
 import { PENDING_OPTION_SELECTION, pendingOptionSelection, settleResolutionPayment } from './rules/selectOptions'
@@ -385,6 +386,7 @@ const leaveGame = (draft: Draft, seat: PlayerId) => {
       ...abandonedResumes,
     ]
   }
+  finishCanonicalTopDeckChoices(draft)
   draft.pendingTriggers = draft.pendingTriggers?.filter(
     (trigger) => !draft.players[trigger.execution.controller]?.lost,
   )

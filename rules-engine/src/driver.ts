@@ -151,6 +151,8 @@ const preflightInstructions = (
       case 'chooseInstructions':
       case 'chooseCards':
       case 'revealUntil':
+      case 'scry':
+      case 'surveil':
         return
       default:
         throw new Error(`${instructionPath}: unsupported canonical instruction`)
@@ -1125,6 +1127,32 @@ export const prepareResolutionStep = (draft: Draft) => {
       frame.phase = 'committing'
       frame.pendingEvents = []
       return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'scry' || instruction.kind === 'surveil') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const count = availableAmount(instruction.count, context) ?? 0
+      const selected = new Set(recipients(instruction.targets, context))
+      const waitingSeats: string[] = []
+      const completions: GameEvent[] = []
+      for (const seat of apnapSeats(draft).filter(seat => selected.has(seat))) {
+        if (count === 0) continue
+        completions.push({ type: instruction.kind, seat, count })
+        const candidates = draft.zoneOrder[seat].library.slice(0, count)
+        if (candidates.length === 0) continue
+        waitingSeats.push(seat)
+        openCardSelection(draft, {
+          seat, kind: instruction.kind, count: candidates.length, candidates,
+          sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+          fromSeat: seat, fromZone: 'library',
+          destinations: instruction.kind === 'scry' ? ['top', 'bottom'] : ['top', 'graveyard'],
+          sequence: waitingSeats.length - 1,
+          canonicalChoice: { stackId: frame.stackId, scopeId: scope.scopeId, binding: path, action: 'topDeck' },
+        })
+      }
+      if (waitingSeats.length > 0) frame.pendingTopDeck = { seats: waitingSeats, events: [], completions }
+      frame.phase = 'committing'
+      frame.pendingEvents = waitingSeats.length > 0 ? [] : completions
+      return { kind: 'events', events: frame.pendingEvents }
     }
     if (instruction.kind === 'revealUntil') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
