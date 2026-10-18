@@ -363,3 +363,23 @@ test("catalog Stitcher's Supplier mills its controller on entry and death", () =
     { kind: 'triggered', on: { kind: 'dies' }, instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }] },
   ])
 })
+
+
+test.each([
+  ['Botanical Sanctum', 'objects', 'gte', 3],
+  ['Concealed Courtyard', 'objects', 'gte', 3],
+  ['Eclipsed Steppe', 'objects', 'lte', 1],
+  ['Sunken Hollow', 'objects', 'lte', 1],
+  ['Castle Garenbrig', 'objects', 'eq', 0],
+  ['Drowned Catacomb', 'objects', 'eq', 0],
+  ['Glacial Fortress', 'objects', 'eq', 0],
+  ['Hinterland Harbor', 'objects', 'eq', 0],
+  ['Morphic Pool', 'players', 'lte', 1],
+  ['Rejuvenating Springs', 'players', 'lte', 1],
+  ['Vault of Champions', 'players', 'lte', 1],
+] as const)('catalog %s retains its conditional tapped entry', (name, selectorKind, operator, threshold) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+    kind: 'static', effects: [{ kind: 'replacement', when: { kind: 'compareAmount', left: { kind: 'count', of: { kind: selectorKind } }, operator, right: { kind: 'constant', value: threshold } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
+  }])
+})

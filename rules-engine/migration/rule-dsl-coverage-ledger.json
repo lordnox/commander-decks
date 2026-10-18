@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 368,
+    "cardRegistrations": 357,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 15,
     "cardRegistrationOnlyGaps": 19,
     "candidateOnlyInstructionRows": 175,
-    "candidateOnlyCardRows": 349
+    "candidateOnlyCardRows": 338
   },
   "cardEffects": [
     {
@@ -502,51 +502,40 @@
         "Bala Ged Recovery // Bala Ged Sanctuary:effects[0]",
         "Boggart Trawler // Boggart Bog:effects[0]",
         "Bojuka Bog:effects[0]",
-        "Botanical Sanctum:effects[0]",
         "Breeding Pool:effects[0]",
         "Bridgeworks Battle // Tanglespan Bridgeworks:effects[0]",
-        "Castle Garenbrig:effects[0]",
         "Choked Estuary:effects[0]",
-        "Concealed Courtyard:effects[0]",
         "Dakmor Salvage:effects[1]",
         "Dimir Aqueduct:effects[0]",
-        "Drowned Catacomb:effects[0]",
-        "Eclipsed Steppe:effects[0]",
         "Fell the Profane // Fell Mire:effects[0]",
         "Field of the Dead:effects[0]",
-        "Glacial Fortress:effects[0]",
         "Godless Shrine:effects[0]",
         "Golgari Rot Farm:effects[0]",
         "Hagra Mauling // Hagra Broodpit:effects[0]",
         "Hall of Storm Giants:effects[0]",
         "Hallowed Fountain:effects[0]",
         "Hedge Maze:effects[0]",
-        "Hinterland Harbor:effects[0]",
         "Khalni Ambush // Khalni Territory:effects[0]",
         "Lair of the Hydra:effects[0]",
         "Lotus Field:effects[0]",
         "Malakir Rebirth // Malakir Mire:effects[0]",
-        "Morphic Pool:effects[0]",
         "Myriad Landscape:effects[0]",
         "Mystic Sanctuary:effects[0]",
         "Orzhov Basilica:effects[0]",
         "Overgrown Tomb:effects[0]",
         "Pit of Offerings:effects[0]",
         "Raffine's Tower:effects[0]",
-        "Rejuvenating Springs:effects[0]",
         "Revitalizing Repast // Old-Growth Grove:effects[0]",
         "Sea Gate Restoration // Sea Gate, Reborn:effects[0]",
         "Secluded Steppe:effects[0]",
         "Shadowy Backstreet:effects[0]",
         "Simic Growth Chamber:effects[0]",
         "Sink into Stupor // Soporific Springs:effects[0]",
-        "Sunken Hollow:effects[0]",
         "Temple of Deceit:effects[0]",
         "Thawing Glaciers:effects[0]",
         "Undercity Sewers:effects[0]",
         "Underground Mortuary:effects[0]",
         "Utopia Sprawl:effects[0]",
-        "Vault of Champions:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[0]",
         "Watery Grave:effects[0]",
         "Zagoth Triome:effects[0]",
@@ -554,7 +543,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 77,
+        "matches": 76,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
@@ -7809,36 +7798,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Botanical Sanctum",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Botanical Sanctum"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:109 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Braids, Conjurer Adept",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8211,36 +8170,6 @@
       "pluginIds": [],
       "handlerIds": [
         "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Castle Garenbrig",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Castle Garenbrig"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:332 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -8673,40 +8602,6 @@
       "pluginIds": [],
       "handlerIds": [
         "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Concealed Courtyard",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Concealed Courtyard"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:335 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:525 — test('rejects duplicate, unknown, and wrong-controller target submissions', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:452 — test('Kambal added mana and graveyard cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:180 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
-          "rules-engine/src/plugins/doubleFaced.test.ts:124 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -9830,69 +9725,6 @@
       "pluginIds": [],
       "handlerIds": [
         "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Drowned Catacomb",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Drowned Catacomb"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:98 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:110 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Eclipsed Steppe",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Eclipsed Steppe"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:118 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:101 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:111 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -11309,38 +11141,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Glacial Fortress",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Glacial Fortress"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:97 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:110 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:112 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Glorious Protector",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -11910,36 +11710,6 @@
       "pluginIds": [],
       "handlerIds": [
         "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hinterland Harbor",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hinterland Harbor"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:111 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -13867,37 +13637,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Morphic Pool",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Morphic Pool"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:186 — test('Morphic Pool checks for two opponents', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:116 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Mossborn Hydra",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -15394,36 +15133,6 @@
         "choiceEffects",
         "onResolve",
         "reinsOfPower"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Rejuvenating Springs",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Rejuvenating Springs"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:112 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -17274,38 +16983,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Sunken Hollow",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Sunken Hollow"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:119 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:100 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:121 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Swan Song",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -18515,40 +18192,6 @@
       "handlerIds": [
         "stackCopy",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Vault of Champions",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Vault of Champions"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:335 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:525 — test('rejects duplicate, unknown, and wrong-controller target submissions', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:451 — test('Kambal added mana and graveyard cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:180 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
-          "rules-engine/src/plugins/doubleFaced.test.ts:124 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -21640,7 +21283,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2414",
+        "rules-engine/src/cardPlugins/cardRules.ts:2404",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -21766,7 +21409,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1314",
+        "rules-engine/src/cardPlugins/cardRules.ts:1308",
         "rules-engine/src/cardPlugins/cardRules.ts:300",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
