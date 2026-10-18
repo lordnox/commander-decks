@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
   amount,
+  activated,
   card,
   chooseModes,
   compileCardRuleDefinition,
@@ -555,4 +556,27 @@ describe('brokersConfluence — integration', () => {
       expect(resolved.objects[victim.id].phasedOut).toBe(true)
     })
   })
+})
+
+
+test.each(['spell', 'activated'] as const)('%s rejects malformed mode selections without throwing or committing state', kind => {
+  const program = { decisions: { modes: chooseModes({ count: 2 }) }, modes: [{ instructions: [] }, { instructions: [] }] }
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    kind === 'spell' ? spell(program) : activated(program),
+  ])))
+  const fixture = cardTemplate('Modal fixture', { types: kind === 'spell' ? ['Instant'] : ['Artifact'], manaCost: '{0}', ruleDefinition: definition })
+  const server = createServerGame(commanderRules, {
+    players: 2, ...(kind === 'spell' ? { hands: { p1: [fixture] } } : { battlefield: { p1: [fixture] } }),
+  }, { random: () => 0 })
+  const objectId = named(server.state, 'Modal fixture').id
+  for (const modeIndices of [undefined, [0], [0, 0], [0, 2]]) {
+    const event = kind === 'spell'
+      ? { type: 'castSpell' as const, seat: 'p1', objectId, modeIndices }
+      : { type: 'activateAbility' as const, seat: 'p1', objectId, abilityId: '$.abilities[0]', modeIndices }
+    const before = JSON.stringify(server.state)
+    const rejected = server.rules(server.state, event)
+    expect(rejected.ok).toBe(false)
+    expect(JSON.stringify(server.state)).toBe(before)
+    expect(rejected.state.stack).toEqual([])
+  }
 })

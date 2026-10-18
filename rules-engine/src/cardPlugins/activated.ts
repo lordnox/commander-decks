@@ -189,7 +189,12 @@ export const activated: Plugin = {
       const canonical = abilityIndex === undefined ? undefined : compiled.definition.abilities[Number(abilityIndex)]
       const activatedCanonical = canonical?.kind === 'activated' ? canonical : undefined
       if (activatedCanonical) {
-        const modal = activatedModalInputs(state, source, activatedCanonical, Number(abilityIndex), event)
+        let modal: ReturnType<typeof activatedModalInputs>
+        try {
+          modal = activatedModalInputs(state, source, activatedCanonical, Number(abilityIndex), event)
+        } catch (error) {
+          return `announcement: ${error instanceof Error ? error.message : String(error)}`
+        }
         const targetClauses = modal?.targetClauses ?? activatedCanonical.decisions.targets
         const manaClassification = canonicalManaClassification(activatedCanonical)
         if (event.manaAbility && !manaClassification.isManaAbility) return `${source.name} is not a mana ability`
