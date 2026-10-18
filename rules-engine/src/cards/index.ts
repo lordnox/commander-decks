@@ -5,6 +5,7 @@ import aesiTyrantOfGyreStrait from './aesi-tyrant-of-gyre-strait'
 import aetherize from './aetherize'
 import aftermathAnalyst from './aftermath-analyst'
 import anguishedUnmaking from './anguished-unmaking'
+import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
@@ -16,6 +17,8 @@ import commandersSphere from './commanders-sphere'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
 import cropRotation from './crop-rotation'
+import crypticCommand from './cryptic-command'
+import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
 import dismember from './dismember'
 import drownedCatacomb from './drowned-catacomb'
@@ -31,13 +34,16 @@ import fateUnraveler from './fate-unraveler'
 import fellMire from './fell-mire'
 import flameRift from './flame-rift'
 import foil from './foil'
+import franticSearch from './frantic-search'
 import geierReachSanitarium from './geier-reach-sanitarium'
+import githzeraiMonk from './githzerai-monk'
 import glacialFortress from './glacial-fortress'
 import gloriousAnthem from './glorious-anthem'
 import growthSpiral from './growth-spiral'
 import harrow from './harrow'
 import hinterlandHarbor from './hinterland-harbor'
 import malakirMire from './malakir-mire'
+import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
 import mindStone from './mind-stone'
 import mistvaultBridge from './mistvault-bridge'
 import morphicPool from './morphic-pool'
@@ -54,6 +60,7 @@ import signInBlood from './sign-in-blood'
 import skyDiamond from './sky-diamond'
 import splendidReclamation from './splendid-reclamation'
 import stitchersSupplier from './stitchers-supplier'
+import subjugatorAngel from './subjugator-angel'
 import sunkenHollow from './sunken-hollow'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
@@ -74,9 +81,10 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Aetherize": aetherize,
   "Aftermath Analyst": aftermathAnalyst,
   "Anguished Unmaking": anguishedUnmaking,
+  "Arbor Elf": arborElf,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
-  "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
+  "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Botanical Sanctum": botanicalSanctum,
   "Buried Alive": buriedAlive,
@@ -86,6 +94,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
   "Crop Rotation": cropRotation,
+  "Cryptic Command": crypticCommand,
+  "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
   "Dismember": dismember,
   "Drowned Catacomb": drownedCatacomb,
@@ -101,13 +111,16 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fell Mire": fellMire,
   "Flame Rift": flameRift,
   "Foil": foil,
+  "Frantic Search": franticSearch,
   "Geier Reach Sanitarium": geierReachSanitarium,
+  "Githzerai Monk": githzeraiMonk,
   "Glacial Fortress": glacialFortress,
   "Glorious Anthem": gloriousAnthem,
   "Growth Spiral": growthSpiral,
   "Harrow": harrow,
   "Hinterland Harbor": hinterlandHarbor,
   "Malakir Mire": malakirMire,
+  "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,
   "Mind Stone": mindStone,
   "Mistvault Bridge": mistvaultBridge,
   "Morphic Pool": morphicPool,
@@ -124,6 +137,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sky Diamond": skyDiamond,
   "Splendid Reclamation": splendidReclamation,
   "Stitcher's Supplier": stitchersSupplier,
+  "Subjugator Angel": subjugatorAngel,
   "Sunken Hollow": sunkenHollow,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,

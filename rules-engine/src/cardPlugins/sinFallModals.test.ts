@@ -67,7 +67,7 @@ describe('Sin-fall modal and saga behavior', () => {
       objectIds: toDiscard,
     }))
     const selection = pendingSelectionFor(state, 'p1')!
-    expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0, untapSelected: true })
+    expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0 })
     const toUntap = selection.candidates.slice(0, 2)
     state = ok(server.rules(state, {
       type: 'selectCards',

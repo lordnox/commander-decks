@@ -5,7 +5,7 @@ import { createServerGame, projectForViewer } from '../runtime'
 import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
-import { ok } from '../testHelpers'
+import { ok, resolveStack } from '../testHelpers'
 import type { GameState, Plugin, ReduceResult } from '../types'
 import { activated } from './activated'
 import { castCosts } from './castCosts'
@@ -141,7 +141,7 @@ describe('Lady Evangela remaining coverage', () => {
     let state = ready(server.state)
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'minamo.untap',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: minamo,
       targets: [{ kind: 'object', objectId: arcanis }],
@@ -331,34 +331,10 @@ describe('Lady Evangela remaining coverage', () => {
       { random: () => 0.5, cardPlugins: plugins },
     )
     let state = ready(server.state)
-    state = ok(server.rules(state, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(state, 'Cryptic Command').id,
-    }))
-    state = ok(server.rules(state, { type: 'resolveTop' }))
-    expect(pendingDialog(state)).toMatchObject({
-      kind: 'choose-modes',
-      source: 'Cryptic Command',
-      requirements: { target: { min: 2, max: 2 } },
-    })
-    expect(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { modes: ['Draw a card'] },
-    }).ok).toBe(false)
-    state = ok(server.rules(state, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: {
-        modes: [
-          'Tap all creatures your opponents control',
-          'Draw a card',
-        ],
-      },
-    }))
+    const command = named(state, 'Cryptic Command').id
+    expect(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: command, modeIndices: [3] }).ok).toBe(false)
+    state = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: command, modeIndices: [2, 3] }))
+    state = resolveStack(server.rules, state)
     expect(named(state, 'Grizzly Bears').tapped).toBe(true)
     expect(named(state, 'Bonus').zone).toBe('hand')
   })

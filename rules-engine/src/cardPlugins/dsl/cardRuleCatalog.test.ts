@@ -475,3 +475,34 @@ test('catalog Geier Reach Sanitarium draws for everyone before each player disca
 test('catalog Wall of Blood pays one life for a temporary source pump', () => {
   expect(cardRuleDefinitionSnapshotFor('Wall of Blood')!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'life', amount: { kind: 'constant', value: 1 } }], instructions: [{ kind: 'createEffect', targets: { kind: 'contextRef', name: 'source' }, duration: { kind: 'untilCleanup' }, effect: { kind: 'pump', power: { kind: 'constant', value: 1 }, toughness: { kind: 'constant', value: 1 } } }] })
 })
+
+
+test.each(['Arbor Elf', 'Deserted Temple', "Minamo, School at Water's Edge"])('catalog %s composes a targeted untap with its tap-symbol cost', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: expect.arrayContaining([{ kind: 'tapSource' }]), instructions: [{ kind: 'untap', targets: { kind: 'targetRef', clauseIndex: 0 } }] })
+})
+
+test.each(['Subjugator Angel', 'Githzerai Monk'])('catalog %s taps only other controllers creatures on entry', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'tap', targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } }] })
+})
+
+test('catalog Frantic Search draws and discards before a bounded untap choice', () => {
+  expect(effectsFor('Frantic Search')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Frantic Search')!.definition.abilities[0]).toMatchObject({ instructions: [
+    { kind: 'draw', count: { kind: 'constant', value: 2 } },
+    { kind: 'discard', count: { kind: 'constant', value: 2 } },
+    { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Land' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 3 } },
+    { kind: 'untap', targets: { kind: 'choiceRef', binding: 'lands' } },
+  ] })
+})
+
+test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {
+  expect(effectsFor('Cryptic Command')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Cryptic Command')!.definition.abilities[0]).toMatchObject({ decisions: { modes: { count: { kind: 'constant', value: 2 }, repeatable: false } }, modes: [
+    { decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } } }] }, instructions: [{ kind: 'counter' }] },
+    { decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield' } } }] }, instructions: [{ kind: 'move', to: 'hand' }] },
+    { instructions: [{ kind: 'tap' }] },
+    { instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+  ] })
+})
