@@ -65,3 +65,14 @@ test('a canonical mana ability pays its tap cost once without using the stack', 
   expect(state.priority).toBe('p1')
   expect(server.rules(state, activate(objectId)).ok).toBe(false)
 })
+
+test('a life cost may spend the controllers entire remaining life total', () => {
+  const server = setup(false, true)
+  const state = structuredClone(server.state)
+  state.players.p1.life = 2
+  const objectId = state.zoneOrder.p1.battlefield[0]!
+  const paid = ok(server.rules(state, activate(objectId)))
+  expect(paid.players.p1.life).toBe(0)
+  expect(paid.players.p1.lost).toBe(true)
+  expect(paid.objects[objectId]).toBeUndefined()
+})

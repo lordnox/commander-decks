@@ -534,7 +534,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana.C = 2
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'hedronArchive.draw',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: archiveId,
     }))

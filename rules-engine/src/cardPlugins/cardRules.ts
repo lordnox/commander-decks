@@ -1160,13 +1160,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landToGraveyard(putMilledLandTapped()),
     crew(1),
   ],
-  'Hedron Archive': [
-    ability(
-      { id: 'hedronArchive.draw' },
-      { mana: '{2}', tap: true, sacrifice: 'self' },
-      draw(2),
-    ),
-  ],
   'Hedron Crab': [landfallTargeting('player', millTarget(3))],
   'Hermit Druid': [
     activate({
@@ -1972,17 +1965,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     yourUpkeepTarget(
       { zone: 'graveyard', type: 'Enchantment', controller: 'you' },
       [returnTargetFromGraveyard('battlefield', false, true)],
-    ),
-  ],
-  'Stitch Together': [
-    targetOnResolve(
-      'select',
-      { zone: 'graveyard', type: 'Creature' },
-      branch(
-        graveyardCards(7),
-        [returnTargetFromGraveyard('battlefield')],
-        [returnTargetFromGraveyard('hand')],
-      ),
     ),
   ],
   'Summer Bloom': [onResolve(extraLandPlays(3))],
