@@ -25,14 +25,17 @@ import nightsWhisper from './nights-whisper'
 import restInPeace from './rest-in-peace'
 import reverberate from './reverberate'
 import signInBlood from './sign-in-blood'
+import splendidReclamation from './splendid-reclamation'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
+import twincast from './twincast'
+import unmarkedGrave from './unmarked-grave'
 import vampireHounds from './vampire-hounds'
 import wallOfOmens from './wall-of-omens'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
-  "Absorb": absorb,
+"Absorb": absorb,
   "Abundance": abundance,
   "Aesi, Tyrant of Gyre Strait": aesiTyrantOfGyreStrait,
   "Aetherize": aetherize,
@@ -58,8 +61,11 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Rest in Peace": restInPeace,
   "Reverberate": reverberate,
   "Sign in Blood": signInBlood,
+  "Splendid Reclamation": splendidReclamation,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
+  "Twincast": twincast,
+  "Unmarked Grave": unmarkedGrave,
   "Vampire Hounds": vampireHounds,
   "Wall of Omens": wallOfOmens,
 })

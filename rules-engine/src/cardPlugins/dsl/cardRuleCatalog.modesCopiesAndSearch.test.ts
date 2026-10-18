@@ -49,7 +49,7 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     expect(reverberate).toBeDefined()
     expect(tutor).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('esper charm')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Twincast')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Twincast')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Cryptic Command')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
     expect(charm).toBe(cardRuleDefinitionSnapshotFor('Esper Charm'))

@@ -236,7 +236,7 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Cultivate')?.handlerIds).toContain('librarySearch')
     expect(cardPluginEntry('Bushwhack')?.handlerIds).toContain('modalSpell')
     expect(cardPluginEntry('Beast Whisperer')?.handlerIds).toContain('castTriggers')
-    expect(cardPluginEntry('Twincast')?.handlerIds).toEqual(['targetedResolve', 'stackCopy'])
+    expect(cardPluginEntry('Twincast')).toBeUndefined()
     expect(cardPluginEntry('Rankle, Master of Pranks')?.handlerIds)
       .toEqual(['modalSpell', 'choiceEffects'])
   })
@@ -471,8 +471,8 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(['Sol Ring', 'Yurlok of Scorch Thrash'])).toEqual(['Sol Ring'])
   })
 
-  test('Twincast keeps a legacy CARD_RULES copy program', () => {
-    expect(effectsFor('Twincast').length).toBeGreaterThan(0)
+  test('copy spells use canonical definitions without legacy effects', () => {
+    expect(effectsFor('Twincast')).toEqual([])
     expect(effectsFor('Reverberate')).toEqual([])
   })
 

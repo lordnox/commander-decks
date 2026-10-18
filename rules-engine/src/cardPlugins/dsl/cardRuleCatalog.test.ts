@@ -18,6 +18,9 @@ test.each([
   ['Flame Rift', ['damage']],
   ["Night's Whisper", ['draw', 'loseLife']],
   ['Reverberate', ['copySpell']],
+  ['Twincast', ['copySpell']],
+  ['Splendid Reclamation', ['move']],
+  ['Unmarked Grave', ['sequence']],
   ['Diabolic Tutor', ['sequence']],
   ['Foil', ['counter']],
   ['Murder', ['destroy']],
@@ -320,5 +323,27 @@ test('Diabolic Tutor supplies printed characteristics beside its canonical rules
     manaCost: '{2}{B}{B}',
     manaValue: 4,
     ruleDefinition: cardRuleDefinitionSnapshotFor('Diabolic Tutor')!,
+  })
+})
+
+
+test('catalog Twincast retains spell-copy targeting and retargeting', () => {
+  expect(cardRuleDefinitionSnapshotFor('Twincast')!.definition)
+    .toEqual(cardRuleDefinitionSnapshotFor('Reverberate')!.definition)
+})
+
+test('catalog Splendid Reclamation moves only owned graveyard lands tapped', () => {
+  expect(cardRuleDefinitionSnapshotFor('Splendid Reclamation')!.definition.abilities[0]).toMatchObject({
+    instructions: [{ kind: 'move', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, to: 'battlefield', tapped: true }],
+  })
+})
+
+test('catalog Unmarked Grave filters legendary cards before moving and shuffling', () => {
+  expect(cardRuleDefinitionSnapshotFor('Unmarked Grave')!.definition.abilities[0]).toMatchObject({
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', not: { supertypes: ['Legendary'] } } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'graveyard' },
+      { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
+    ] }],
   })
 })

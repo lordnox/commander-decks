@@ -2235,7 +2235,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [grantUntilEot('indestructible')],
     }),
   ],
-  'Splendid Reclamation': [onResolve(returnOwnedGraveyardLands())],
   'Split Decision': [
     targetOnResolve(
       'select',
@@ -2491,9 +2490,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [fight('two-targets')],
     }),
   ],
-  'Twincast': [
-    targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
-  ],
   'Ugin, the Spirit Dragon': [
     ability({
       id: 'ugin.plus-two',
@@ -2515,15 +2511,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Undercity Sewers': [entersTapped(), enters(surveil(1))],
   'Underground Mortuary': [entersTapped(), enters(surveil(1))],
-  'Unmarked Grave': [
-    searchSpell({
-      prompt: 'Search your library for a nonlegendary card and put it into your graveyard.',
-      match: (object) => !object.supertypes.includes('Legendary'),
-      destination: 'graveyard',
-      min: 1,
-      max: 1,
-    }),
-  ],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   "Urza's Cave": [
     searchAbility({
