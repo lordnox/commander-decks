@@ -31,6 +31,8 @@ import {
   ref,
   replacement,
   select,
+  scry,
+  surveil,
   self,
   sequence,
   spell,
@@ -697,3 +699,46 @@ describeHostEnvelope(
     otherAnswer: (message) => retarget(message, 'Keep me'),
   },
 )
+
+
+for (const kind of ['scry', 'surveil'] as const) {
+  describeHostEnvelope(`canonical ${kind} host envelope`, () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([
+      spell({ instructions: [
+        (kind === 'scry' ? scry : surveil)({ count: 2, targets: ref('controller') }),
+        draw({ count: 1, targets: ref('controller') }),
+      ] }),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: { p1: [cardTemplate('Library instruction fixture', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })] },
+      libraries: { p1: [cardTemplate('Set aside'), cardTemplate('Kept on top')] },
+    }, { random: () => 0 })
+    const kernel = handleFor(server.rules, server.state)
+    expect(kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! }).ok).toBe(true)
+    expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+    const lobby = preparedLobby(kernel)
+    return {
+      kernel, lobby,
+      message: slotted(lobby, { type: 'topdeck', choices: [
+        { card: 'Set aside', destination: kind === 'scry' ? 'bottom' : 'graveyard' },
+        { card: 'Kept on top', destination: 'top' },
+      ] }),
+    }
+  }, {
+    request: { phase: 'resolution', purpose: 'choice', kind, cards: ['Set aside', 'Kept on top'] },
+    interaction: { phase: 'resolution', purpose: 'choice', selection: { kind: 'selectCards', min: 0, max: 2 } },
+    secrets: ['private-marker', 'pendingTopDeck', 'candidateIds'],
+    stillPending: ({ kernel }) => {
+      expect(kernel.history.current().zoneOrder.p1.hand).toHaveLength(0)
+      expect(named(kernel.history.current(), 'Set aside').zone).toBe('library')
+    },
+    afterAnswer: ({ kernel }) => {
+      const state = kernel.history.current()
+      expect(named(state, 'Set aside').zone).toBe(kind === 'scry' ? 'library' : 'graveyard')
+      expect(named(state, 'Kept on top').zone).toBe('hand')
+      expect(state.resolution).toBeUndefined()
+    },
+    otherAnswer: message => ({ ...message, choices: message.choices.map(choice => ({ ...choice, destination: 'top' as const })) }),
+  })
+}
