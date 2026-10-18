@@ -1,5 +1,5 @@
 import { hasKeyword } from '../keywords'
-import { targetObject } from '../objectIdentity'
+import { captureObject, objectIdentity, targetObject } from '../objectIdentity'
 import type { GameEvent, GameObject, Plugin } from '../types'
 import {
   isLegendaryCreature,
@@ -138,18 +138,20 @@ export const damage: Plugin = {
       ) return
       const leftPower = Math.max(0, left.power ?? 0)
       const rightPower = Math.max(0, right.power ?? 0)
-      draft.enqueue({
-        type: 'dealDamage',
-        sourceId: right.id,
-        target: { kind: 'object', objectId: left.id },
-        amount: rightPower,
-      })
-      draft.enqueue({
-        type: 'dealDamage',
-        sourceId: left.id,
-        target: { kind: 'object', objectId: right.id },
-        amount: leftPower,
-      })
+      // CR 701.14: both powers and sources are captured before damage is dealt.
+      // A creature fighting itself deals twice its power once (701.14c).
+      const events: GameEvent[] = []
+      const pairs = left.id === right.id
+        ? [{ source: left, target: left, amount: leftPower * 2 }]
+        : [{ source: left, target: right, amount: leftPower }, { source: right, target: left, amount: rightPower }]
+      for (const { source, target, amount } of pairs) {
+        if (amount === 0) continue
+        events.push({
+          type: 'dealDamage', sourceId: source.id, sourceSnapshot: captureObject(source),
+          target: { kind: 'object', ...objectIdentity(target) }, amount, combat: false,
+        })
+      }
+      if (events.length > 0) draft.enqueue({ type: 'actionGroup', events })
       draft.note(`${left.name} fights ${right.name}`)
       return
     }

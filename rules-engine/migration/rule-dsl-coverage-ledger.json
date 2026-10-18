@@ -28,7 +28,7 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 45,
     "customEventDispatchSites": 83,
-    "directMutationSites": 601,
+    "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 20,
     "cardRegistrationOnlyGaps": 16,
@@ -3177,8 +3177,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 4,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {",
           "rules-engine/src/cardPlugins/fight.test.ts:48 — test('Triangle of War fights two targeted creatures', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:221 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
@@ -20536,14 +20537,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          279,
-          1298,
-          1327
+          280,
+          1310,
+          1339
         ],
         "samples": [
-          "279: const liveSource = draft.object(source.ref.objectId)",
-          "1298: const object = draft.object(item.objectId)",
-          "1327: const object = draft.object(completedItem.objectId)"
+          "280: const liveSource = draft.object(source.ref.objectId)",
+          "1310: const object = draft.object(item.objectId)",
+          "1339: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -20695,11 +20696,10 @@
           118,
           129,
           130,
-          141,
-          147,
-          159,
-          164,
-          166
+          154,
+          161,
+          166,
+          168
         ],
         "samples": [
           "37: draft.enqueue({",
