@@ -95,6 +95,13 @@
     "cirdanPartBMana:442",
     "cirdanPartBMana:452",
     "cirdanPartBMana:459",
+    "cirdanPartBMana:470",
+    "cirdanPartBMana:487",
+    "cirdanPartBMana:509",
+    "cirdanPartBMana:535",
+    "cirdanPartBMana:553",
+    "cirdanPartBMana:602",
+    "cirdanPartBMana:625",
     "cirdanStatics:129",
     "cirdanStatics:137",
     "cirdanStatics:153",
@@ -309,6 +316,20 @@
       "destination": "rules-engine/src/cardPlugins/manaChoice.test.ts",
       "suite": "registered legacy cost and mana integration",
       "evidence": "Original test callback bodies and parameterizations preserved for hybrid filtering, life-paid mana, sacrifice-to-draw, and signet payment/planning. deckCardTemplate registrations retained; private choice/restart group remains in the source for #403."
+    },
+    {
+      "groups": [
+        "cirdanPartBMana:470",
+        "cirdanPartBMana:487",
+        "cirdanPartBMana:509",
+        "cirdanPartBMana:535",
+        "cirdanPartBMana:553",
+        "cirdanPartBMana:602",
+        "cirdanPartBMana:625"
+      ],
+      "destination": "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts",
+      "suite": "registered legacy enchanted-land mana integration",
+      "evidence": "Original test callback bodies preserved, including target restrictions, action-layer casts, fixed/chosen bonus mana, costed filter activation, land removal, and unresolved color choice. deckCardTemplate registrations and plugin execution retained. Private color-choice/restart case remains in the source for #403."
     }
   ]
 }
