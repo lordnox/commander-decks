@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from './actions'
-import { chooseModes, sacrificeCost, spell, tap, activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, manaCost, objects, ref, select, tapCost, target, untap } from './cardPlugins/dsl/v1'
+import { differentTargets, fight, chooseModes, sacrificeCost, spell, tap, activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, manaCost, objects, ref, select, tapCost, target, untap } from './cardPlugins/dsl/v1'
 import { commanderRules } from './formats'
 import { cardTemplate } from './newGame'
 import { createServerGame } from './runtime'
@@ -123,4 +123,39 @@ test('the planner chains fixed canonical mana production without a legacy regist
   expect(named(state, 'Filter fixture').tapped).toBe(true)
   expect(state.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
   expect(named(state, 'Funded creature').zone).toBe('stack')
+})
+
+
+test('canonical activations preserve distinct target clauses with overlapping candidate sets', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [tapCost()], decisions: { targets: [
+      select({ filter: objects({ zone: 'battlefield', type: 'Creature', controller: 'you' }), count: 1 }),
+      select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 }),
+    ], constraints: [differentTargets(0, 1)] }, instructions: [fight({ left: target(0), right: target(1) })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: {
+      p1: [cardTemplate('Action fixture', { types: ['Artifact'], ruleDefinition: definition }), cardTemplate('First creature', { types: ['Creature'], power: 2, toughness: 10 }), cardTemplate('Second creature', { types: ['Creature'], power: 1, toughness: 10 })],
+      p2: [cardTemplate('Other creature', { types: ['Creature'], power: 3, toughness: 10 })],
+    },
+  }, { random: () => 0 })
+  const state = server.state
+  const action = legalActsFor(state, 'p1').find(action => action.kind === 'activateAbility')!
+  if (action.kind !== 'activateAbility') throw new Error('expected activation offer')
+  expect(action.targetGroups?.map(group => group.targets.map(target => target.name))).toEqual([
+    ['First creature', 'Second creature'], ['First creature', 'Second creature', 'Other creature'],
+  ])
+  const first = named(state, 'First creature').id
+  const second = named(state, 'Second creature').id
+  expect(eventsForAvailableAction(state, 'p1', { ...action, targetObjectIds: [first, first] })).toBeNull()
+  const events = eventsForAvailableAction(state, 'p1', { ...action, targetObjectIds: [first, second] })!
+  expect(events.at(-1)).toMatchObject({ type: 'activateAbility', targetClauses: [[{ kind: 'object', objectId: first }], [{ kind: 'object', objectId: second }]] })
+  let current = state
+  for (const event of events) current = ok(server.rules(current, event))
+  expect(named(current, 'Action fixture').tapped).toBe(true)
+  const resolved = resolveStack(server.rules, JSON.parse(JSON.stringify(current)))
+  expect(named(resolved, 'First creature').damageMarked).toBe(1)
+  expect(named(resolved, 'Second creature').damageMarked).toBe(2)
+  expect(named(resolved, 'Other creature').damageMarked).toBe(0)
 })
