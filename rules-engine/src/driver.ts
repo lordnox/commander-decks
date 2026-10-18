@@ -127,6 +127,7 @@ const preflightInstructions = (
       case 'destroy':
       case 'sacrifice':
       case 'move':
+      case 'reveal':
       case 'tap':
       case 'untap':
       case 'phase':
@@ -693,6 +694,15 @@ const actionEvents = (
         to: instruction.to,
         ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
       }))
+    }
+    case 'reveal': {
+      const owners = new Map<string, string[]>()
+      for (const object of objectActions(instruction.targets, context)) {
+        const ids = owners.get(object.owner) ?? []
+        ids.push(object.id)
+        owners.set(object.owner, ids)
+      }
+      return [...owners].map(([seat, objectIds]) => ({ type: 'reveal' as const, seat, objectIds }))
     }
     case 'tap':
     case 'untap':

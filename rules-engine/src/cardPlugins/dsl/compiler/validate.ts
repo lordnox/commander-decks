@@ -545,6 +545,7 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player', 'object'])
         validateReference(node.source, childPath(path, 'source'), env, ['object'])
         return
+      case 'reveal':
       case 'tap':
       case 'untap':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
