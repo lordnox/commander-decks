@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 313,
+    "cardRegistrations": 311,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 20,
     "cardRegistrationOnlyGaps": 16,
     "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 297
+    "candidateOnlyCardRows": 295
   },
   "cardEffects": [
     {
@@ -62,7 +62,6 @@
         "Gilded Lotus:effects[0]",
         "Hall of Storm Giants:effects[1]",
         "Hedge Shredder:effects[2]",
-        "Hedron Archive:effects[0]",
         "Hermit Druid:effects[0]",
         "High Market:effects[0]",
         "Horizon of Progress:effects[0]",
@@ -113,7 +112,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 173,
+        "matches": 172,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
@@ -814,7 +813,6 @@
         "Sink into Stupor // Soporific Springs:effects[1]",
         "Snuff Out:effects[1]",
         "Split Decision:effects[0]",
-        "Stitch Together:effects[0]",
         "Swan Song:effects[0]",
         "Swords to Plowshares:effects[0]",
         "Tamiyo's Safekeeping:effects[0]",
@@ -825,7 +823,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 90,
+        "matches": 89,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -2406,9 +2404,9 @@
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:610 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1018 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1027 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1041 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1020 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1029 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1043 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2574,7 +2572,6 @@
         "Erestor of the Council:effects[0].do[2]",
         "Explore:effects[0].do[1]",
         "Guardian Project:effects[0].do[0]",
-        "Hedron Archive:effects[0].do[0]",
         "Horizon of Progress:effects[2].do[0]",
         "Illusion of Choice:effects[0].do[1]",
         "Infernal Contract:effects[0].do[0]",
@@ -3675,8 +3672,7 @@
         "Join the Dead:effects[0].do[0]",
         "Parting Gust:effects[1].do[0]",
         "Perch Protection:effects[1].do[4]",
-        "Scute Swarm:effects[0].do[0]",
-        "Stitch Together:effects[0].do[0]"
+        "Scute Swarm:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -3689,7 +3685,7 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:254 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:88 — test('Beza draws when an opponent has more cards in hand', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:585 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:81 — test('paid callback preserves chosen cards, paid result, and X across shroud and JSON restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:601 — test('catalog Stitch Together returns an owned creature according to its graveyard threshold', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -4022,7 +4018,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:819 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:821 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -5470,16 +5466,13 @@
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
         "Awaken the Honored Dead:effects[0].chapters[2].do[0].then.do[0]",
-        "Starfield of Nyx:effects[1].do[0]",
-        "Stitch Together:effects[0].do[0].whenFalse[0]",
-        "Stitch Together:effects[0].do[0].whenTrue[0]"
+        "Starfield of Nyx:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 7,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:749 — test('Stitch Together changes destination at threshold', () => {",
           "rules-engine/src/plugins/enchantmentAnimation.test.ts:27",
           "rules-engine/src/plugins/enchantmentAnimation.test.ts:276 — test('excludes itself, Auras, and opponents enchantments', () => {",
           "rules-engine/src/plugins/enchantmentAnimation.test.ts:312 — test('reverts below five enchantments and when Starfield leaves', () => {",
@@ -9681,7 +9674,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:819 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:821 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [loseLifeTargetController]",
@@ -10675,40 +10668,6 @@
       "handlerIds": [
         "activated",
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hedron Archive",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hedron Archive"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:522 — test('Hedron Archive sacrifices for two cards', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:298 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -15380,40 +15339,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Stitch Together",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Stitch Together"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:749 — test('Stitch Together changes destination at threshold', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [if, returnTargetFromGraveyard]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "if",
-        "returnTargetFromGraveyard"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Summer Bloom",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -15922,9 +15847,9 @@
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
           "rules-engine/src/cardPlugins/registry.test.ts:254 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:610 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1018 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1027 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1041 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1020 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1029 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1043 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyThenTokenForController]",
@@ -17749,7 +17674,6 @@
         "Gilded Lotus",
         "Hall of Storm Giants",
         "Hedge Shredder",
-        "Hedron Archive",
         "Hermit Druid",
         "High Market",
         "Horizon of Progress",
@@ -17940,7 +17864,7 @@
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:127 — test('structuredClone keeps the staticBoardPump static effect', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:183 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1060 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1062 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
           "rules-engine/src/formats.test.ts:18 — test('Commander supports an arbitrary three-player table', () => {"
         ]
       },
@@ -18051,7 +17975,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 160,
+        "matches": 161,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -18460,7 +18384,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 48,
+        "matches": 49,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -19660,7 +19584,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2126",
+        "rules-engine/src/cardPlugins/cardRules.ts:2108",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",

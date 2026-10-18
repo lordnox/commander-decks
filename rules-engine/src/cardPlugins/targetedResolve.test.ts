@@ -752,7 +752,9 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       )
       const spell = named(server.state, 'Stitch Together')
       const target = named(server.state, 'Returned')
-      const cast = ok(server.rules(server.state, {
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.B = 2
+      const cast = ok(server.rules(ready, {
         type: 'castSpell',
         seat: 'p1',
         objectId: spell.id,

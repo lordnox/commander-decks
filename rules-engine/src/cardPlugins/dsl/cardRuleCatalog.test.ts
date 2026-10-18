@@ -593,3 +593,19 @@ test.each([
     ],
   })
 })
+
+
+test('catalog Stitch Together returns an owned creature according to its graveyard threshold', () => {
+  expect(effectsFor('Stitch Together')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Stitch Together')!.definition.abilities[0]).toMatchObject({ kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Creature' } } }] }, instructions: [
+    { kind: 'if', condition: { kind: 'compareAmount', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you' } } }, operator: 'gte', right: { kind: 'constant', value: 7 } }, then: [{ kind: 'move', to: 'battlefield' }], otherwise: [{ kind: 'move', to: 'hand' }] },
+  ] })
+})
+
+
+test('catalog Hedron Archive pays two mana and taps and sacrifices itself for two cards', () => {
+  expect(effectsFor('Hedron Archive')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Hedron Archive')!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [
+    { kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } },
+  ], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } }] })
+})

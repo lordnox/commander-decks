@@ -50,6 +50,7 @@ import gloriousAnthem from './glorious-anthem'
 import golgariRotFarm from './golgari-rot-farm'
 import growthSpiral from './growth-spiral'
 import harrow from './harrow'
+import hedronArchive from './hedron-archive'
 import hinterlandHarbor from './hinterland-harbor'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
@@ -79,6 +80,7 @@ import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
 import skyDiamond from './sky-diamond'
 import splendidReclamation from './splendid-reclamation'
+import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
 import sunkenHollow from './sunken-hollow'
@@ -149,6 +151,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Golgari Rot Farm": golgariRotFarm,
   "Growth Spiral": growthSpiral,
   "Harrow": harrow,
+  "Hedron Archive": hedronArchive,
   "Hinterland Harbor": hinterlandHarbor,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
@@ -178,6 +181,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Simic Signet": simicSignet,
   "Sky Diamond": skyDiamond,
   "Splendid Reclamation": splendidReclamation,
+  "Stitch Together": stitchTogether,
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
   "Sunken Hollow": sunkenHollow,
