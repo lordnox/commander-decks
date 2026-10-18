@@ -43,6 +43,10 @@ export const landFaceOf = (object: GameObject, choice?: LandFaceChoice) =>
     : landFace(object)
 
 export const applyFace = (object: GameObject, face: FaceCharacteristics) => {
+  if (object.frontFace?.ruleDefinition || object.backFace?.ruleDefinition) {
+    if (face.ruleDefinition) object.ruleDefinition = structuredClone(face.ruleDefinition)
+    else delete object.ruleDefinition
+  }
   object.types = [...face.types]
   object.subtypes = [...face.subtypes]
   object.supertypes = [...face.supertypes]

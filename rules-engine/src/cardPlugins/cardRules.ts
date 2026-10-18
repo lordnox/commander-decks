@@ -609,10 +609,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     toughness: 1,
   }))],
   'Baird, Steward of Argive': [attackTax(1)],
-  'Bala Ged Recovery // Bala Ged Sanctuary': [
-    entersTapped(),
-    targetOnResolve('bounce', { zone: 'graveyard' }),
-  ],
   'Banisher Priest': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),

@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 343,
+    "cardRegistrations": 342,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 15,
     "cardRegistrationOnlyGaps": 17,
     "candidateOnlyInstructionRows": 175,
-    "candidateOnlyCardRows": 326
+    "candidateOnlyCardRows": 325
   },
   "cardEffects": [
     {
@@ -490,7 +490,6 @@
       "variant": "replacement",
       "mechanic": "replacement effect",
       "currentRegistrations": [
-        "Bala Ged Recovery // Bala Ged Sanctuary:effects[0]",
         "Boggart Trawler // Boggart Bog:effects[0]",
         "Bojuka Bog:effects[0]",
         "Breeding Pool:effects[0]",
@@ -800,7 +799,6 @@
       "currentRegistrations": [
         "An Offer You Can't Refuse:effects[0]",
         "Arcane Denial:effects[0]",
-        "Bala Ged Recovery // Bala Ged Sanctuary:effects[1]",
         "Black Sun's Twilight:effects[1]",
         "Broken Bond:effects[0]",
         "Cling to Dust:effects[1]",
@@ -7044,39 +7042,6 @@
       "pluginIds": [],
       "handlerIds": [
         "combatTax"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Bala Ged Recovery // Bala Ged Sanctuary",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Bala Ged Recovery // Bala Ged Sanctuary"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:242 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped",
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -20774,7 +20739,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2308",
+        "rules-engine/src/cardPlugins/cardRules.ts:2304",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -20799,7 +20764,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1227"
+        "rules-engine/src/types.ts:1228"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -20841,15 +20806,21 @@
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:258",
         "rules-engine/src/cardPlugins/instructionHandlers/zones.ts:342",
         "rules-engine/src/cardPlugins/librarySearch.ts:192",
-        "rules-engine/src/newGame.ts:134",
-        "rules-engine/src/newGame.ts:135",
-        "rules-engine/src/newGame.ts:137",
+        "rules-engine/src/cards/bala-ged-recovery.ts:16",
+        "rules-engine/src/cards/bala-ged-recovery.ts:20",
+        "rules-engine/src/cards/types.ts:4",
+        "rules-engine/src/newGame.ts:140",
+        "rules-engine/src/newGame.ts:141",
+        "rules-engine/src/newGame.ts:143",
+        "rules-engine/src/newGame.ts:40",
+        "rules-engine/src/newGame.ts:43",
         "rules-engine/src/plugins/battle.ts:173",
         "rules-engine/src/plugins/battle.ts:180",
         "rules-engine/src/plugins/doubleFaced.ts:34",
         "rules-engine/src/plugins/doubleFaced.ts:4",
-        "rules-engine/src/plugins/doubleFaced.ts:74",
+        "rules-engine/src/plugins/doubleFaced.ts:46",
         "rules-engine/src/plugins/doubleFaced.ts:78",
+        "rules-engine/src/plugins/doubleFaced.ts:82",
         "rules-engine/src/plugins/rooms.ts:105",
         "rules-engine/src/plugins/rooms.ts:140",
         "rules-engine/src/plugins/rooms.ts:146",
@@ -20866,16 +20837,16 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1129",
-        "rules-engine/src/types.ts:311",
-        "rules-engine/src/types.ts:313",
-        "rules-engine/src/types.ts:317"
+        "rules-engine/src/types.ts:312",
+        "rules-engine/src/types.ts:314",
+        "rules-engine/src/types.ts:318"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
         "rules-engine/src/plugins/rooms.test.ts — Room doors > casts either half and unlocks only the cast door as it enters"
       ],
       "candidateEvidence": {
-        "matches": 22,
+        "matches": 23,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2401 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
@@ -20900,7 +20871,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1239",
+        "rules-engine/src/cardPlugins/cardRules.ts:1235",
         "rules-engine/src/cardPlugins/cardRules.ts:296",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
@@ -20928,12 +20899,12 @@
         "rules-engine/src/index.ts:71",
         "rules-engine/src/kernel.ts:643",
         "rules-engine/src/newGame.ts:1",
-        "rules-engine/src/newGame.ts:123",
-        "rules-engine/src/newGame.ts:124",
-        "rules-engine/src/newGame.ts:125",
-        "rules-engine/src/newGame.ts:126",
-        "rules-engine/src/newGame.ts:177",
-        "rules-engine/src/newGame.ts:282",
+        "rules-engine/src/newGame.ts:129",
+        "rules-engine/src/newGame.ts:130",
+        "rules-engine/src/newGame.ts:131",
+        "rules-engine/src/newGame.ts:132",
+        "rules-engine/src/newGame.ts:183",
+        "rules-engine/src/newGame.ts:288",
         "rules-engine/src/plugins/index.ts:105",
         "rules-engine/src/plugins/index.ts:44",
         "rules-engine/src/plugins/rooms.ts:51",
@@ -20944,11 +20915,11 @@
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
-        "rules-engine/src/types.ts:155",
-        "rules-engine/src/types.ts:274",
-        "rules-engine/src/types.ts:335",
-        "rules-engine/src/types.ts:79",
-        "rules-engine/src/types.ts:96"
+        "rules-engine/src/types.ts:156",
+        "rules-engine/src/types.ts:275",
+        "rules-engine/src/types.ts:336",
+        "rules-engine/src/types.ts:80",
+        "rules-engine/src/types.ts:97"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts — grantCreatureTrigger to controlled subtype > leaving the lord removes the grant before another sliver enters",
@@ -22547,10 +22518,10 @@
       {
         "path": "rules-engine/src/plugins/doubleFaced.ts",
         "lines": [
-          67
+          71
         ],
         "samples": [
-          "67: const object = draft.object(event.objectId)"
+          "71: const object = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
