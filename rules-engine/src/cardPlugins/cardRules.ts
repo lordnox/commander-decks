@@ -118,7 +118,6 @@ import {
   modalCommanderChooseBoth,
   onResolve,
   onResolveIfCastOption,
-  optionalBasicLandEnters,
   optionalMill,
   otherLands,
   opponentsSacrifice,
@@ -622,9 +621,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     toughness: 1,
   }))],
   'Baird, Steward of Argive': [attackTax(1)],
-  'Bala Ged Recovery': [
-    targetOnResolve('bounce', { zone: 'graveyard' }),
-  ],
   'Bala Ged Recovery // Bala Ged Sanctuary': [
     entersTapped(),
     targetOnResolve('bounce', { zone: 'graveyard' }),
@@ -888,16 +884,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     yourUpkeep(optionalMill(2)),
     landToGraveyardOnce(insect),
   ],
-  'Crop Rotation': [
-    searchSpell({
-      prompt: 'Search your library for a land card and put it onto the battlefield.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'battlefield',
-      min: 1,
-      max: 1,
-      sacrificeLands: 1,
-    }),
-  ],
   'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
   'Cryptic Command': [modalChooseTwo(
     {
@@ -1108,21 +1094,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         shuffleAfter: true,
       })),
     ),
-  ],
-  'Farhaven Elf': [{
-    op: 'search',
-    via: 'enters',
-    spec: optionalBasicLandEnters(),
-  }],
-  Farseek: [
-    searchSpell({
-      prompt: 'Search your library for a Plains, Island, Swamp, or Mountain card. It enters tapped.',
-      match: hasSubtype('Plains', 'Island', 'Swamp', 'Mountain'),
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-    }),
   ],
   'Felidar Guardian': [
     enters(
@@ -2062,16 +2033,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
   ],
-  'Sakura-Tribe Elder': [
-    searchAbility({
-      prompt: 'Search your library for a basic land card. It enters tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-    }, { sacrifice: 'self' }),
-  ],
   'Sakura-Tribe Scout': [
     activate({
       id: 'putLand.sakura',
@@ -2102,9 +2063,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Secluded Steppe': [
     entersTapped(),
     typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
-  ],
-  'Selenia, Dark Angel': [
-    ability({ id: 'selenia.return' }, { life: 2 }, bounceSelf()),
   ],
   "Selvala's Stampede": [
     onResolve(vote(

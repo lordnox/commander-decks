@@ -5,6 +5,7 @@ import aesiTyrantOfGyreStrait from './aesi-tyrant-of-gyre-strait'
 import aetherize from './aetherize'
 import aftermathAnalyst from './aftermath-analyst'
 import anguishedUnmaking from './anguished-unmaking'
+import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
 import botanicalSanctum from './botanical-sanctum'
 import buriedAlive from './buried-alive'
@@ -12,6 +13,7 @@ import castleGarenbrig from './castle-garenbrig'
 import charcoalDiamond from './charcoal-diamond'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
+import cropRotation from './crop-rotation'
 import diabolicTutor from './diabolic-tutor'
 import dismember from './dismember'
 import drownedCatacomb from './drowned-catacomb'
@@ -20,6 +22,8 @@ import eclipsedSteppe from './eclipsed-steppe'
 import entomb from './entomb'
 import esperCharm from './esper-charm'
 import eternalWitness from './eternal-witness'
+import farhavenElf from './farhaven-elf'
+import farseek from './farseek'
 import fateUnraveler from './fate-unraveler'
 import fellMire from './fell-mire'
 import flameRift from './flame-rift'
@@ -38,6 +42,8 @@ import nightsWhisper from './nights-whisper'
 import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import reverberate from './reverberate'
+import sakuraTribeElder from './sakura-tribe-elder'
+import seleniaDarkAngel from './selenia-dark-angel'
 import signInBlood from './sign-in-blood'
 import skyDiamond from './sky-diamond'
 import splendidReclamation from './splendid-reclamation'
@@ -60,6 +66,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Aetherize": aetherize,
   "Aftermath Analyst": aftermathAnalyst,
   "Anguished Unmaking": anguishedUnmaking,
+  "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Botanical Sanctum": botanicalSanctum,
   "Buried Alive": buriedAlive,
@@ -67,6 +74,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Charcoal Diamond": charcoalDiamond,
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
+  "Crop Rotation": cropRotation,
   "Diabolic Tutor": diabolicTutor,
   "Dismember": dismember,
   "Drowned Catacomb": drownedCatacomb,
@@ -75,6 +83,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Entomb": entomb,
   "Esper Charm": esperCharm,
   "Eternal Witness": eternalWitness,
+  "Farhaven Elf": farhavenElf,
+  "Farseek": farseek,
   "Fate Unraveler": fateUnraveler,
   "Fell Mire": fellMire,
   "Flame Rift": flameRift,
@@ -93,6 +103,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Rejuvenating Springs": rejuvenatingSprings,
   "Rest in Peace": restInPeace,
   "Reverberate": reverberate,
+  "Sakura-Tribe Elder": sakuraTribeElder,
+  "Selenia, Dark Angel": seleniaDarkAngel,
   "Sign in Blood": signInBlood,
   "Sky Diamond": skyDiamond,
   "Splendid Reclamation": splendidReclamation,

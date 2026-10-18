@@ -383,3 +383,50 @@ test.each([
     kind: 'static', effects: [{ kind: 'replacement', when: { kind: 'compareAmount', left: { kind: 'count', of: { kind: selectorKind } }, operator, right: { kind: 'constant', value: threshold } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
   }])
 })
+
+
+test.each(['Crop Rotation', 'Farseek'])('catalog %s searches its controller library without legacy effects', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', to: 'battlefield' },
+      { kind: 'shuffle' },
+    ] }],
+  })
+})
+
+test('catalog Farseek restricts searches to its four named land types and enters tapped', () => {
+  expect(cardRuleDefinitionSnapshotFor('Farseek')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'sequence', instructions: [
+    { kind: 'chooseCards', filter: { kind: 'objects', filter: { any: [{ subtypes: ['Plains'] }, { subtypes: ['Island'] }, { subtypes: ['Swamp'] }, { subtypes: ['Mountain'] }] } } },
+    { kind: 'move', to: 'battlefield', tapped: true }, { kind: 'shuffle' },
+  ] }] })
+})
+
+test('catalog Crop Rotation sacrifices a controlled land as an additional cost', () => {
+  expect(cardRuleDefinitionSnapshotFor('Crop Rotation')!.definition.abilities[0]).toMatchObject({
+    costs: [{ kind: 'sacrifice', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } }, count: { kind: 'constant', value: 1 } }],
+  })
+})
+
+test('catalog Farhaven Elf offers its basic-land search on entry', () => {
+  expect(effectsFor('Farhaven Elf')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Farhaven Elf')!.definition.abilities[0]).toMatchObject({ kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'chooseInstructions', optional: true }] })
+})
+
+test('catalog Sakura-Tribe Elder sacrifices itself to search for a basic land tapped', () => {
+  expect(effectsFor('Sakura-Tribe Elder')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Sakura-Tribe Elder')!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }], instructions: [{ kind: 'sequence', instructions: [
+    { kind: 'chooseCards', filter: { kind: 'objects', filter: { type: 'Land', supertypes: ['Basic'] } } }, { kind: 'move', to: 'battlefield', tapped: true }, { kind: 'shuffle' },
+  ] }] })
+})
+
+test('catalog Bala Ged Recovery targets an owned graveyard card', () => {
+  expect(effectsFor('Bala Ged Recovery')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Bala Ged Recovery')!.definition.abilities[0]).toMatchObject({ kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you' } } }] }, instructions: [{ kind: 'move', to: 'hand' }] })
+})
+
+test('catalog Selenia pays two life to return its source to hand', () => {
+  expect(effectsFor('Selenia, Dark Angel')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Selenia, Dark Angel')!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'life', amount: { kind: 'constant', value: 2 } }], instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] })
+})
