@@ -16,6 +16,9 @@ export type AnnouncementManaPayment = {
   restricted?: boolean
 }
 
+export const isSourceSacrificeCost = (cost: Cost) =>
+  cost.kind === 'sacrifice' && cost.filter.kind === 'contextRef' && cost.filter.name === 'source'
+
 export type CostPlan = {
   mandatory: readonly Cost[]
   optional?: readonly Cost[]
@@ -483,7 +486,7 @@ export const beginAnnouncement = (
 /** Build the authoritative proposal used by the canonical spell legal/apply paths. */
 export const beginSpellAnnouncement = (
   state: GameState,
-  source: { id: string },
+  source: { id: string; manaCost?: string },
   payer: PlayerId,
   ability: SpellAbilityDefinition,
   targets: readonly (readonly TargetRef[])[] | undefined,
@@ -514,7 +517,9 @@ export const beginSpellAnnouncement = (
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
-      mandatory: ability.costs,
+      mandatory: ability.costs.some(cost => cost.kind === 'mana') || !source.manaCost
+        ? ability.costs
+        : [{ kind: 'mana' as const, amount: source.manaCost }, ...ability.costs],
       optional: ability.optionalCosts,
       alternative: ability.alternativeCosts,
       increases: ability.costIncreases,
