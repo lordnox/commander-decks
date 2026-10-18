@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 335,
+    "cardRegistrations": 332,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 19,
     "cardRegistrationOnlyGaps": 17,
     "candidateOnlyInstructionRows": 171,
-    "candidateOnlyCardRows": 318
+    "candidateOnlyCardRows": 315
   },
   "cardEffects": [
     {
@@ -55,7 +55,6 @@
         "Children of Korlis:effects[0]",
         "Collector's Vault:effects[0]",
         "Daily Bugle Newspaper:effects[0]",
-        "Dimir Signet:effects[0]",
         "Endless Sands:effects[1]",
         "Endless Sands:effects[2]",
         "Firdoch Core:effects[1]",
@@ -85,12 +84,10 @@
         "Nezahal, Primal Tide:effects[4]",
         "Nirkana Revenant:effects[1]",
         "Niv-Mizzet, Ghost Counsel:effects[1]",
-        "Orzhov Signet:effects[0]",
         "Otawara, Soaring City:effects[0]",
         "Raffine's Tower:effects[1]",
         "Sakura-Tribe Scout:effects[0]",
         "Secluded Steppe:effects[1]",
-        "Simic Signet:effects[0]",
         "Skull Prophet:effects[0]",
         "Skull Prophet:effects[1]",
         "Sokrates, Athenian Teacher:effects[1]",
@@ -119,7 +116,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 185,
+        "matches": 180,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -1129,22 +1126,19 @@
       "mechanic": "cost or announcement action",
       "currentRegistrations": [
         "Cephalid Coliseum:effects[0].do[0]",
-        "Dimir Signet:effects[0].do[0]",
-        "Millikin:effects[0].do[0]",
-        "Orzhov Signet:effects[0].do[0]",
-        "Simic Signet:effects[0].do[0]"
+        "Millikin:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 26,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
+          "rules-engine/src/actions.canonical.test.ts:110 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:90 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:19",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:29",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:38",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:26",
           "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:22"
         ]
       },
@@ -9167,40 +9161,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Dimir Signet",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Dimir Signet"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:232 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:313 — test('a listed Signet funds a spell by paying {1} from another land', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:385 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addMana]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addMana"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Dovin's Veto",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -13436,39 +13396,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Orzhov Signet",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Orzhov Signet"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:233 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:403 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addMana]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addMana"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Otawara, Soaring City",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -15470,45 +15397,6 @@
       "handlerIds": [
         "choiceEffects",
         "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Simic Signet",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Simic Signet"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 8,
-        "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:26",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:234 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:390 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:552 — test('the draw needs {1} and an untapped land', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:562 — test('{1}, {T} adds {G}{U}', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:570 — test('it is not a free tap and needs its {1}', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:442 — test('Círdan part-B mana cards stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addMana]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addMana"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -18519,7 +18407,6 @@
         "Children of Korlis",
         "Collector's Vault",
         "Daily Bugle Newspaper",
-        "Dimir Signet",
         "Endless Sands",
         "Firdoch Core",
         "Flooded Grove",
@@ -18545,12 +18432,10 @@
         "Nezahal, Primal Tide",
         "Nirkana Revenant",
         "Niv-Mizzet, Ghost Counsel",
-        "Orzhov Signet",
         "Otawara, Soaring City",
         "Raffine's Tower",
         "Sakura-Tribe Scout",
         "Secluded Steppe",
-        "Simic Signet",
         "Skull Prophet",
         "Sokrates, Athenian Teacher",
         "Soul of Eternity",
@@ -18571,7 +18456,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 169,
+        "matches": 164,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -20441,7 +20326,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2247",
+        "rules-engine/src/cardPlugins/cardRules.ts:2236",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -20499,9 +20384,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1266",
-        "rules-engine/src/actions.ts:1437",
-        "rules-engine/src/actions.ts:839",
+        "rules-engine/src/actions.ts:1267",
+        "rules-engine/src/actions.ts:1438",
+        "rules-engine/src/actions.ts:840",
         "rules-engine/src/cardPlugins/effectRuntime.ts:210",
         "rules-engine/src/cardPlugins/effectRuntime.ts:341",
         "rules-engine/src/cardPlugins/effectRuntime.ts:345",
@@ -20573,7 +20458,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1189",
+        "rules-engine/src/cardPlugins/cardRules.ts:1180",
         "rules-engine/src/cardPlugins/cardRules.ts:292",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
@@ -20599,7 +20484,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:643",
+        "rules-engine/src/kernel.ts:644",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -20702,17 +20587,17 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1673,
-          1682,
-          1700,
+          1674,
+          1683,
           1701,
-          2591,
-          2594
+          1702,
+          2592,
+          2595
         ],
         "samples": [
-          "1673: if (source?.name === 'Settle the Wreckage') {",
-          "1682: if (source?.name === 'Energy Arc') {",
-          "1700: if (source?.name === 'Ghostly Flicker') return [action]"
+          "1674: if (source?.name === 'Settle the Wreckage') {",
+          "1683: if (source?.name === 'Energy Arc') {",
+          "1701: if (source?.name === 'Ghostly Flicker') return [action]"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -21630,10 +21515,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1434
+          1435
         ],
         "samples": [
-          "1434: event.name === SEARCH_CHOSEN"
+          "1435: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -22935,12 +22820,12 @@
       {
         "path": "rules-engine/src/cardPlugins/manaChoice.ts",
         "lines": [
-          29,
-          48
+          32,
+          51
         ],
         "samples": [
-          "29: draft.enqueue({ type: 'addMana', seat: source.controller, mana: pools[named], sourceId: source.id })",
-          "48: draft.enqueue({"
+          "32: draft.enqueue({ type: 'addMana', seat: source.controller, mana: pools[named], sourceId: source.id })",
+          "51: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -24098,27 +23983,27 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          476,
-          529,
-          531,
-          535,
-          537,
-          547,
-          574,
-          577,
-          586,
-          620,
-          625,
-          658,
-          660,
-          666,
-          683,
-          688
+          477,
+          530,
+          532,
+          536,
+          538,
+          548,
+          575,
+          578,
+          587,
+          621,
+          626,
+          659,
+          661,
+          667,
+          684,
+          689
         ],
         "samples": [
-          "476: const object = draft.object(event.objectId)",
-          "529: const object = draft.object(event.objectId)",
-          "531: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "477: const object = draft.object(event.objectId)",
+          "530: const object = draft.object(event.objectId)",
+          "532: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

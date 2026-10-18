@@ -20,6 +20,7 @@ import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
+import dimirSignet from './dimir-signet'
 import dismember from './dismember'
 import drownedCatacomb from './drowned-catacomb'
 import duskdaleWurm from './duskdale-wurm'
@@ -51,12 +52,14 @@ import murder from './murder'
 import naturesLore from './natures-lore'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
+import orzhovSignet from './orzhov-signet'
 import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import reverberate from './reverberate'
 import sakuraTribeElder from './sakura-tribe-elder'
 import seleniaDarkAngel from './selenia-dark-angel'
 import signInBlood from './sign-in-blood'
+import simicSignet from './simic-signet'
 import skyDiamond from './sky-diamond'
 import splendidReclamation from './splendid-reclamation'
 import stitchersSupplier from './stitchers-supplier'
@@ -97,6 +100,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cryptic Command": crypticCommand,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
+  "Dimir Signet": dimirSignet,
   "Dismember": dismember,
   "Drowned Catacomb": drownedCatacomb,
   "Duskdale Wurm": duskdaleWurm,
@@ -128,12 +132,14 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Nature's Lore": naturesLore,
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
+  "Orzhov Signet": orzhovSignet,
   "Rejuvenating Springs": rejuvenatingSprings,
   "Rest in Peace": restInPeace,
   "Reverberate": reverberate,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Sign in Blood": signInBlood,
+  "Simic Signet": simicSignet,
   "Sky Diamond": skyDiamond,
   "Splendid Reclamation": splendidReclamation,
   "Stitcher's Supplier": stitchersSupplier,

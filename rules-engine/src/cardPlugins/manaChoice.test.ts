@@ -550,7 +550,7 @@ describe('registered legacy cost and mana integration', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: one(state, 'Simic Signet').id,
-      abilityId: 'signet.simic',
+      abilityId: '$.abilities[0]',
       manaAbility: true,
     })
 
