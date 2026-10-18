@@ -623,6 +623,7 @@ export const searchLibrary = (input: {
   min?: AmountInput
   max?: AmountInput
   to: Zone
+  tapped?: boolean
 }) => sequence(
   chooseCards({
     bindChoice: input.bindChoice,
@@ -631,7 +632,7 @@ export const searchLibrary = (input: {
     viewLibrary: true,
     ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
   }),
-  move({ targets: choice(input.bindChoice), to: input.to }),
+  move({ targets: choice(input.bindChoice), to: input.to, ...(input.tapped !== undefined ? { tapped: input.tapped } : {}) }),
   shuffle({ targets: input.chooser }),
 )
 

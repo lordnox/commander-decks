@@ -60,7 +60,7 @@ test('searchLibrary finishes resolving an empty library without a selection', ()
   expect(named(resolved, 'Instruction fixture').zone).toBe('graveyard')
 })
 
-const forestSearchSetup = () => createServerGame(commanderRules, {
+const forestSearchSetup = (tapped?: boolean) => createServerGame(commanderRules, {
   players: 2,
   hands: {
     p1: [
@@ -71,6 +71,7 @@ const forestSearchSetup = () => createServerGame(commanderRules, {
         min: 0,
         max: 1,
         to: 'battlefield',
+        ...(tapped !== undefined ? { tapped } : {}),
       })] }),
       cardTemplate('Hand Forest', { types: ['Land'], subtypes: ['Forest'] }),
     ],
@@ -84,8 +85,8 @@ const forestSearchSetup = () => createServerGame(commanderRules, {
   },
 }, { random: () => 0 })
 
-test('searchLibrary can privately move one filtered land onto the battlefield untapped', () => {
-  const server = forestSearchSetup()
+test.each([false, true])('searchLibrary moves a filtered land onto the battlefield with tapped=%s', (tapped) => {
+  const server = forestSearchSetup(tapped)
   const searching = singleSearchBegin(server)
   const pick = pendingSelectionFor(searching, 'p1')!
   expect(pick.candidates).toEqual([named(searching, 'Library Forest').id])
@@ -96,7 +97,7 @@ test('searchLibrary can privately move one filtered land onto the battlefield un
     type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1,
     objectIds: [named(restored, 'Library Forest').id],
   }))
-  expect(named(found, 'Library Forest')).toMatchObject({ zone: 'battlefield', controller: 'p1', tapped: false })
+  expect(named(found, 'Library Forest')).toMatchObject({ zone: 'battlefield', controller: 'p1', tapped })
   expect(named(found, 'Library Island').zone).toBe('library')
   expect(found.resolution).toBeUndefined()
   const played = ok(server.rules(found, {
