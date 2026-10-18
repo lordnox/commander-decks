@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 376,
+    "cardRegistrations": 368,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -28,12 +28,12 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 45,
     "customEventDispatchSites": 83,
-    "directMutationSites": 602,
+    "directMutationSites": 603,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 15,
-    "cardRegistrationOnlyGaps": 22,
+    "cardRegistrationOnlyGaps": 19,
     "candidateOnlyInstructionRows": 175,
-    "candidateOnlyCardRows": 354
+    "candidateOnlyCardRows": 349
   },
   "cardEffects": [
     {
@@ -500,21 +500,18 @@
       "mechanic": "replacement effect",
       "currentRegistrations": [
         "Bala Ged Recovery // Bala Ged Sanctuary:effects[0]",
-        "Bala Ged Sanctuary:effects[0]",
         "Boggart Trawler // Boggart Bog:effects[0]",
         "Bojuka Bog:effects[0]",
         "Botanical Sanctum:effects[0]",
         "Breeding Pool:effects[0]",
         "Bridgeworks Battle // Tanglespan Bridgeworks:effects[0]",
         "Castle Garenbrig:effects[0]",
-        "Charcoal Diamond:effects[0]",
         "Choked Estuary:effects[0]",
         "Concealed Courtyard:effects[0]",
         "Dakmor Salvage:effects[1]",
         "Dimir Aqueduct:effects[0]",
         "Drowned Catacomb:effects[0]",
         "Eclipsed Steppe:effects[0]",
-        "Fell Mire:effects[0]",
         "Fell the Profane // Fell Mire:effects[0]",
         "Field of the Dead:effects[0]",
         "Glacial Fortress:effects[0]",
@@ -528,9 +525,7 @@
         "Khalni Ambush // Khalni Territory:effects[0]",
         "Lair of the Hydra:effects[0]",
         "Lotus Field:effects[0]",
-        "Malakir Mire:effects[0]",
         "Malakir Rebirth // Malakir Mire:effects[0]",
-        "Mistvault Bridge:effects[0]",
         "Morphic Pool:effects[0]",
         "Myriad Landscape:effects[0]",
         "Mystic Sanctuary:effects[0]",
@@ -545,7 +540,6 @@
         "Shadowy Backstreet:effects[0]",
         "Simic Growth Chamber:effects[0]",
         "Sink into Stupor // Soporific Springs:effects[0]",
-        "Sky Diamond:effects[0]",
         "Sunken Hollow:effects[0]",
         "Temple of Deceit:effects[0]",
         "Thawing Glaciers:effects[0]",
@@ -555,13 +549,12 @@
         "Vault of Champions:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[0]",
         "Watery Grave:effects[0]",
-        "Worn Powerstone:effects[0]",
         "Zagoth Triome:effects[0]",
         "Zanarkand, Ancient Metropolis // Lasting Fayth:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 78,
+        "matches": 77,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
@@ -1073,8 +1066,6 @@
         "Spark Double:effects[0]",
         "Springheart Nantuko:effects[1]",
         "Starfield of Nyx:effects[1]",
-        "Stitcher's Supplier:effects[0]",
-        "Stitcher's Supplier:effects[1]",
         "Subjugator Angel:effects[0]",
         "Summer Bloom:effects[0]",
         "Sygg, River Cutthroat:effects[0]",
@@ -1105,7 +1096,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 416,
+        "matches": 414,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -6031,13 +6022,11 @@
         "Incarnation Technique:effects[0].do[0]",
         "Lumra, Bellow of the Woods:effects[1].do[0]",
         "Six:effects[0].do[0]",
-        "Stitcher's Supplier:effects[0].do[0]",
-        "Stitcher's Supplier:effects[1].do[0]",
         "Summon: Titan:effects[0].chapters[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
@@ -7200,34 +7189,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Bala Ged Sanctuary",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Bala Ged Sanctuary"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Banisher Priest",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8357,37 +8318,6 @@
       "handlerIds": [
         "activated",
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Charcoal Diamond",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Charcoal Diamond"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:43 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:108 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -10669,34 +10599,6 @@
       "pluginIds": [],
       "handlerIds": [
         "blink"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Fell Mire",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Fell Mire"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -13308,34 +13210,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Malakir Mire",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Malakir Mire"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Malakir Rebirth",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -13885,37 +13759,6 @@
       ],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Mistvault Bridge",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mistvault Bridge"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:45 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:115 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -16898,37 +16741,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Sky Diamond",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Sky Diamond"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:48 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:120 — test('the Eva and Sygg enter-tapped cards are registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Snuff Out",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -17329,37 +17141,6 @@
       "handlerIds": [
         "targetedResolve"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Stitcher's Supplier",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Stitcher's Supplier"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/zoneTriggers.test.ts:10",
-          "rules-engine/src/cardPlugins/zoneTriggers.test.ts:42 — test('mills three on enter and three on death, but not when bounced', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [selfMill]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "selfMill"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -19464,37 +19245,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Worn Powerstone",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Worn Powerstone"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:471 — test('Worn Powerstone enters the battlefield tapped', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:308 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -21890,7 +21640,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2421",
+        "rules-engine/src/cardPlugins/cardRules.ts:2414",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -21981,7 +21731,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1128",
+        "rules-engine/src/rules/triggers.ts:1129",
         "rules-engine/src/types.ts:311",
         "rules-engine/src/types.ts:313",
         "rules-engine/src/types.ts:317"
@@ -22016,7 +21766,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1317",
+        "rules-engine/src/cardPlugins/cardRules.ts:1314",
         "rules-engine/src/cardPlugins/cardRules.ts:300",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
@@ -22568,11 +22318,11 @@
           274,
           275,
           388,
-          737,
-          854,
-          1011,
-          1046,
-          1047
+          738,
+          855,
+          1012,
+          1047,
+          1048
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -23494,11 +23244,13 @@
         "path": "rules-engine/src/plugins/lands.ts",
         "lines": [
           45,
-          48
+          48,
+          51
         ],
         "samples": [
           "45: const pending = draft.object(event.objectId)",
-          "48: const object = draft.move(event.objectId, 'battlefield')"
+          "48: const object = draft.object(event.objectId)",
+          "51: draft.enqueue({ type: 'move', objectId: object.id, to: 'battlefield' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -23950,23 +23702,23 @@
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
           509,
-          592,
-          687,
-          721,
-          800,
-          865,
-          878,
-          918,
-          999,
-          1069,
-          1126,
-          1293,
-          1404
+          593,
+          688,
+          722,
+          801,
+          866,
+          879,
+          919,
+          1000,
+          1070,
+          1127,
+          1294,
+          1405
         ],
         "samples": [
           "509: const frequencySource = draft.object(source.id) ?? source",
-          "592: const live = draft.object(source.id)",
-          "687: const land = draft.object(objectId)"
+          "593: const live = draft.object(source.id)",
+          "688: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
