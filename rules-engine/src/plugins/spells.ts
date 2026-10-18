@@ -605,9 +605,14 @@ export const spells: Plugin = {
         const ability = abilityIndex >= 0 ? compiled.definition.abilities[abilityIndex] : undefined
         const precommitted = event.canonicalTransaction
         if (ability && 'decisions' in ability) {
-          const modal = ability.kind === 'spell'
-            ? modalInputs(state, spell, ability, abilityIndex, event, precommitted?.modeCount)
-            : undefined
+          let modal: ReturnType<typeof modalInputs>
+          try {
+            modal = ability.kind === 'spell'
+              ? modalInputs(state, spell, ability, abilityIndex, event, precommitted?.modeCount)
+              : undefined
+          } catch (error) {
+            return `announcement: ${error instanceof Error ? error.message : String(error)}`
+          }
           const targetClauses = modal?.targetClauses ?? ability.decisions.targets
           const variables = ability.decisions.variables ?? []
           for (const variable of variables) {
