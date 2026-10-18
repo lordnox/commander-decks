@@ -7,7 +7,7 @@ import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { objects, ref, searchLibrary } from './v1'
+import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, lifeCost, objects, ref, sacrificeCost, searchLibrary, tapCost } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const singleSearchSetup = (library = ['Prize', 'Filler A', 'Filler B']) => createServerGame(commanderRules, {
@@ -165,4 +165,31 @@ test('searchLibrary restores a private pending choice before moving two cards', 
   const restored = restoreJournal(createJournal(searching), server.rules).current()
   const event = boundedSearchSelection(searching, ['First', 'Second'])
   expect(ok(server.rules(restored, event))).toEqual(ok(server.rules(searching, event)))
+})
+
+
+test('an activated search pays life and source costs before its stack resolution opens a typed choice', () => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [lifeCost(1), tapCost(), sacrificeCost(ref('source'), 1)], instructions: [searchLibrary({ bindChoice: 'found', chooser: ref('controller'), filter: objects({ zone: 'library', owner: 'you', type: 'Land' }), min: 0, max: 1, to: 'battlefield', tapped: true })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Search source', { types: ['Land'], ruleDefinition })] },
+    libraries: { p1: [cardTemplate('Found land', { types: ['Land'] }), cardTemplate('Other card', { types: ['Artifact'] })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Search source').id
+  const activatedState = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  expect(activatedState.players.p1.life).toBe(39)
+  expect(activatedState.objects[source].zone).toBe('graveyard')
+  expect(activatedState.stack).toHaveLength(1)
+  expect(pendingSelectionFor(activatedState, 'p1')).toBeUndefined()
+  const searching = resolveStack(server.rules, JSON.parse(JSON.stringify(activatedState)))
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const found = named(searching, 'Found land').id
+  expect(pick.candidates).toEqual([found])
+  expect(server.rules(searching, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }).ok).toBe(false)
+  const resolved = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [found] }))
+  expect(resolved.objects[found]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(resolved.stack).toHaveLength(0)
+  expect(resolved.resolution).toBeUndefined()
 })

@@ -9,6 +9,7 @@ import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
+import blightedWoodland from './blighted-woodland'
 import botanicalSanctum from './botanical-sanctum'
 import buriedAlive from './buried-alive'
 import cabalCoffers from './cabal-coffers'
@@ -29,7 +30,9 @@ import duskdaleWurm from './duskdale-wurm'
 import eclipsedSteppe from './eclipsed-steppe'
 import entomb from './entomb'
 import esperCharm from './esper-charm'
+import esperPanorama from './esper-panorama'
 import eternalWitness from './eternal-witness'
+import evolvingWilds from './evolving-wilds'
 import expeditionMap from './expedition-map'
 import farhavenElf from './farhaven-elf'
 import farseek from './farseek'
@@ -47,15 +50,19 @@ import harrow from './harrow'
 import hinterlandHarbor from './hinterland-harbor'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
+import marshFlats from './marsh-flats'
 import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
 import mindStone from './mind-stone'
 import mistvaultBridge from './mistvault-bridge'
+import mistyRainforest from './misty-rainforest'
 import morphicPool from './morphic-pool'
 import murder from './murder'
 import naturesLore from './natures-lore'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
 import orzhovSignet from './orzhov-signet'
+import pollutedDelta from './polluted-delta'
+import prismaticVista from './prismatic-vista'
 import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import reverberate from './reverberate'
@@ -68,12 +75,14 @@ import splendidReclamation from './splendid-reclamation'
 import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
 import sunkenHollow from './sunken-hollow'
+import terramorphicExpanse from './terramorphic-expanse'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
 import twincast from './twincast'
 import unmarkedGrave from './unmarked-grave'
 import vampireHounds from './vampire-hounds'
 import vaultOfChampions from './vault-of-champions'
+import verdantCatacombs from './verdant-catacombs'
 import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
@@ -92,6 +101,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
+  "Blighted Woodland": blightedWoodland,
   "Botanical Sanctum": botanicalSanctum,
   "Buried Alive": buriedAlive,
   "Cabal Coffers": cabalCoffers,
@@ -112,7 +122,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Eclipsed Steppe": eclipsedSteppe,
   "Entomb": entomb,
   "Esper Charm": esperCharm,
+  "Esper Panorama": esperPanorama,
   "Eternal Witness": eternalWitness,
+  "Evolving Wilds": evolvingWilds,
   "Expedition Map": expeditionMap,
   "Farhaven Elf": farhavenElf,
   "Farseek": farseek,
@@ -130,15 +142,19 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hinterland Harbor": hinterlandHarbor,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
+  "Marsh Flats": marshFlats,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,
   "Mind Stone": mindStone,
   "Mistvault Bridge": mistvaultBridge,
+  "Misty Rainforest": mistyRainforest,
   "Morphic Pool": morphicPool,
   "Murder": murder,
   "Nature's Lore": naturesLore,
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
   "Orzhov Signet": orzhovSignet,
+  "Polluted Delta": pollutedDelta,
+  "Prismatic Vista": prismaticVista,
   "Rejuvenating Springs": rejuvenatingSprings,
   "Rest in Peace": restInPeace,
   "Reverberate": reverberate,
@@ -151,12 +167,14 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
   "Sunken Hollow": sunkenHollow,
+  "Terramorphic Expanse": terramorphicExpanse,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
   "Twincast": twincast,
   "Unmarked Grave": unmarkedGrave,
   "Vampire Hounds": vampireHounds,
   "Vault of Champions": vaultOfChampions,
+  "Verdant Catacombs": verdantCatacombs,
   "Wall of Blood": wallOfBlood,
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,

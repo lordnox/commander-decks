@@ -444,70 +444,11 @@ describe('librarySearch', () => {
     expect(state.players.p1.data['librarySearch.done']).toBeUndefined()
   })
 
-  test('a fetchland pays its life, sacrifices itself, and opens the search', () => {
-    const server = game({
-      battlefield: [card('Misty Rainforest', ['Land'])],
-      library: [forest('Wooded Foothills'), card('Mountain', ['Land'], { subtypes: ['Mountain'] })],
-    })
-    const fetch = server.state.zoneOrder.p1.battlefield[0]
-    const activation = server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: fetch,
-    })
-    const state = ok(activation)
 
-    expect(state.players.p1.life).toBe(39)
-    expect(state.objects[fetch].zone).toBe('graveyard')
-    expect(activation.trace.map(({ event }) => event.type))
-      .toEqual(['activateAbility', 'payLife', 'loseLife', 'tap', 'sacrifice', 'move'])
-    expect(pendingSearch(state, 'p1')?.via).toBe('ability')
-    expect(searchCandidates(state, 'p1', searchSpecFor('Misty Rainforest')!).map((o) => o.name))
-      .toEqual(['Wooded Foothills'])
-  })
 
-  test('an ability search needs no resolveTop to finish', () => {
-    const server = game({
-      battlefield: [card('Prismatic Vista', ['Land'])],
-      library: [forest()],
-    })
-    const fetch = server.state.zoneOrder.p1.battlefield[0]
-    const opened = ok(server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: fetch,
-    }))
-    const found = named(opened, 'Forest').id
-    const state = run(server, opened, [
-      { type: 'move', objectId: found, to: 'battlefield' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-    expect(state.objects[found].zone).toBe('battlefield')
-    expect(searchingSeat(state)).toBeUndefined()
-    expect(ok(server.rules(state, { type: 'passPriority', seat: 'p1' }))).toBeTruthy()
-  })
 
-  test('Evolving Wilds opens the same search without charging life', () => {
-    const server = game({
-      battlefield: [card('Evolving Wilds', ['Land'])],
-      library: [forest()],
-    })
-    const fetch = server.state.zoneOrder.p1.battlefield[0]
-    const state = ok(server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: fetch,
-    }))
 
-    expect(state.players.p1.life).toBe(40)
-    expect(state.objects[fetch].zone).toBe('graveyard')
-    expect(pendingSearch(state, 'p1')?.source).toBe('Evolving Wilds')
-    expect(searchSpecFor('Evolving Wilds')?.tapped).toBe(true)
-  })
+
 
   test('a Hideout sacrifices itself, gains life, and completes its typed basic search', () => {
     const server = game({
@@ -606,95 +547,13 @@ describe('librarySearch', () => {
     expect(pendingSearch(opened, 'p1')?.source).toBe('Dreamscape Artist')
   })
 
-  test('Blighted Woodland requires and pays four mana', () => {
-    const server = game({
-      battlefield: [card('Blighted Woodland', ['Land'])],
-      library: [forest(), island()],
-    })
-    const sourceId = server.state.zoneOrder.p1.battlefield[0]
-    const rejected = server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: sourceId,
-    })
-    expect(rejected.ok).toBe(false)
-    expect(rejected.ok === false && rejected.error).toContain('not enough mana')
 
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 4, C: 0 }
-    const opened = ok(server.rules(ready, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: sourceId,
-    }))
-    expect(opened.players.p1.mana.G).toBe(0)
-    expect(opened.objects[sourceId].zone).toBe('graveyard')
-    expect(searchSpecFor('Blighted Woodland')).toMatchObject({ min: 0, max: 2 })
-  })
 
-  test('a tapped fetchland cannot be activated', () => {
-    const server = game({
-      battlefield: [card('Polluted Delta', ['Land'], { tapped: true })],
-      library: [island()],
-    })
-    const result = server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: server.state.zoneOrder.p1.battlefield[0],
-    })
-    expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('already tapped')
-  })
 
-  test('a seat may pay its final life to crack a fetchland', () => {
-    const server = game({
-      battlefield: [card('Verdant Catacombs', ['Land'])],
-      library: [forest()],
-    })
-    const dying = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: { ...server.state.players.p1, life: 1 },
-      },
-    }
-    const result = server.rules(dying, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: server.state.zoneOrder.p1.battlefield[0],
-    })
-    expect(result.ok).toBe(true)
-    if (result.ok) expect(result.state.players.p1.life).toBe(0)
-  })
 
-  test('a second search cannot open while one is still unanswered', () => {
-    const server = game({
-      battlefield: [
-        card('Misty Rainforest', ['Land']),
-        card('Polluted Delta', ['Land']),
-      ],
-      library: [forest(), island()],
-    })
-    const [first, second] = server.state.zoneOrder.p1.battlefield
-    const opened = ok(server.rules(server.state, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: first,
-    }))
-    const result = server.rules(opened, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: second,
-    })
-    expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('another library search is still open')
-  })
+
+
+
 
   test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {
     const server = game({

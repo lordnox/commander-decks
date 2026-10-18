@@ -530,3 +530,32 @@ test.each([
     B: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land', subtypes: ['Swamp'], ...(basic ? { supertypes: ['Basic'] } : {}) } } },
   } }] })
 })
+
+
+test.each([
+  ['Evolving Wilds', true, true, 1, undefined, false],
+  ['Terramorphic Expanse', true, true, 1, undefined, false],
+  ['Prismatic Vista', true, false, 1, undefined, true],
+  ['Esper Panorama', true, true, 1, '{1}', false],
+  ['Blighted Woodland', true, true, 2, '{3}{G}', false],
+  ['Marsh Flats', false, false, 1, undefined, true],
+  ['Misty Rainforest', false, false, 1, undefined, true],
+  ['Polluted Delta', false, false, 1, undefined, true],
+  ['Verdant Catacombs', false, false, 1, undefined, true],
+] as const)('catalog %s composes its fetch costs with a bounded land search', (name, basic, tapped, max, mana, life) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    costs: [
+      ...(mana ? [{ kind: 'mana', amount: mana }] : []),
+      ...(life ? [{ kind: 'life', amount: { kind: 'constant', value: 1 } }] : []),
+      { kind: 'tapSource' },
+      { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } },
+    ],
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', ...(basic ? { supertypes: ['Basic'] } : {}) } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: max } },
+      { kind: 'move', to: 'battlefield', ...(tapped ? { tapped: true } : {}) },
+      { kind: 'shuffle' },
+    ] }],
+  })
+})

@@ -70,7 +70,7 @@ describe('available actions', () => {
       expect.objectContaining({
         kind: 'activateAbility',
         name: 'Misty Rainforest',
-        abilityId: 'librarySearch.fetch',
+        abilityId: '$.abilities[0]',
       }),
     ]))
   })

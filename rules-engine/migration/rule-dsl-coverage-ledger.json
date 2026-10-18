@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 329,
+    "cardRegistrations": 320,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -31,9 +31,9 @@
     "directMutationSites": 604,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 20,
-    "cardRegistrationOnlyGaps": 17,
+    "cardRegistrationOnlyGaps": 16,
     "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 312
+    "candidateOnlyCardRows": 304
   },
   "cardEffects": [
     {
@@ -607,38 +607,29 @@
       "currentRegistrations": [
         "Analyze the Pollen:effects[0]",
         "Archaeomancer's Map:effects[0]",
-        "Blighted Woodland:effects[0]",
         "Brokers Hideout:effects[0]",
         "Cultivate:effects[0]",
         "Deathsprout:effects[1]",
         "Dreamscape Artist:effects[0]",
         "Entish Restoration:effects[0]",
-        "Esper Panorama:effects[0]",
-        "Evolving Wilds:effects[0]",
         "Fabled Passage:effects[0]",
         "Finale of Devastation:effects[1]",
         "Kodama's Reach:effects[0]",
-        "Marsh Flats:effects[0]",
-        "Misty Rainforest:effects[0]",
         "Moonsilver Key:effects[0]",
         "Myriad Landscape:effects[1]",
         "Obscura Storefront:effects[0]",
-        "Polluted Delta:effects[0]",
-        "Prismatic Vista:effects[0]",
         "Riveteers Overlook:effects[0]",
         "Scapeshift:effects[0]",
-        "Terramorphic Expanse:effects[0]",
         "Thawing Glaciers:effects[1]",
         "Thrór's Map:effects[0]",
         "Urza's Cave:effects[0]",
-        "Verdant Catacombs:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[1]",
         "World Map:effects[0]",
         "World Map:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 52,
+        "matches": 43,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1726 — test('restores an interrupted Analyze the Pollen library search', async () => {",
@@ -647,7 +638,7 @@
           "live-runner/src/kernelHost.test.ts:2313 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
           "live-runner/src/kernelHost.test.ts:2622 — test('preserves two activation-cost groups in printed order', () => {",
           "rules-engine/src/actions.test.ts:457 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
-          "rules-engine/src/actions.test.ts:56 — test('offers declarative Ghost Town and fetchland abilities', () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {"
         ]
       },
       "neededCanonicalNode": "typed search instruction and continuation",
@@ -3589,8 +3580,8 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:869 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:917 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:728 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:776 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:174 — test('the Sin Fall finisher cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:227 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sharedHaste.test.ts:14 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
@@ -4780,8 +4771,8 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:869 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:917 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:728 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:776 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:570 — test('swaps creature control until cleanup', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:174 — test('the Sin Fall finisher cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:227 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -7257,37 +7248,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Blighted Woodland",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Blighted Woodland"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:611 — test('Blighted Woodland requires and pays four mana', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:124 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Blightsteel Colossus",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -7739,7 +7699,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:514 — test('a Hideout sacrifices itself, gains life, and completes its typed basic search', () => {"
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:455 — test('a Hideout sacrifices itself, gains life, and completes its typed basic search', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
@@ -8481,7 +8441,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:701 — test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:560 — test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "site/src/liveCompact.test.ts:124",
           "site/src/liveCompact.test.ts:189 — test('expand restores names from the four 99s', () => {",
@@ -9226,7 +9186,7 @@
         "matches": 2,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2622 — test('preserves two activation-cost groups in printed order', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:572 — test('Dreamscape Artist discards a card and sacrifices a land to search', () => {"
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:513 — test('Dreamscape Artist discards a card and sacrifices a land to search', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
@@ -9455,37 +9415,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Esper Panorama",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Esper Panorama"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:123 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:390 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Eureka",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -9582,36 +9511,6 @@
       "pluginIds": [],
       "handlerIds": [
         "combatPreventionCards"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Evolving Wilds",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Evolving Wilds"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:495 — test('Evolving Wilds opens the same search without charging life', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
       ],
       "embeddedRulePaths": []
     },
@@ -10044,8 +9943,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:869 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:917 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:728 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:776 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:174 — test('the Sin Fall finisher cards load their handlers', () => {"
         ]
       },
@@ -12444,36 +12343,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Marsh Flats",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Marsh Flats"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:397 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Masked Vandal",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -12743,39 +12612,6 @@
       ],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Misty Rainforest",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Misty Rainforest"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/actions.test.ts:56 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:449 — test('a fetchland pays its life, sacrifices itself, and opens the search', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:677 — test('a second search cannot open while one is still unanswered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:38 — test('the Sin Fall cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -13217,7 +13053,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:554 — test('a Hideout search does not expose library identities to another seat', () => {"
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:495 — test('a Hideout search does not expose library identities to another seat', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
@@ -13789,37 +13625,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Polluted Delta",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Polluted Delta"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:639 — test('a tapped fetchland cannot be activated', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:678 — test('a second search cannot open while one is still unanswered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Portal to Phyrexia",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -13888,36 +13693,6 @@
         "castCosts",
         "choiceEffects",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Prismatic Vista",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Prismatic Vista"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:472 — test('an ability search needs no resolveTop to finish', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
       ],
       "embeddedRulePaths": []
     },
@@ -16430,34 +16205,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Terramorphic Expanse",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Terramorphic Expanse"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Test of Endurance",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -17206,36 +16953,6 @@
       "handlerIds": [
         "stackCopy",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Verdant Catacombs",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Verdant Catacombs"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:654 — test('a seat may pay its final life to crack a fetchland', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
       ],
       "embeddedRulePaths": []
     },
@@ -18955,16 +18672,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 37,
+        "matches": 38,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:209 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:268 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:431 — test('catalog Selenia pays two life to return its source to hand', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:476 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:551 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
           "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:131 — test('paid callback does not reuse the parent allocation for its fresh target', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:173 — test('paid callback announces and consumes its own fresh distribution', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:229 — test('paid callback keeps an entering parent occurrence through JSON restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:173 — test('paid callback announces and consumes its own fresh distribution', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -19273,7 +18990,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 203,
+        "matches": 204,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:399 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -20202,7 +19919,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2224",
+        "rules-engine/src/cardPlugins/cardRules.ts:2163",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -20334,7 +20051,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1169",
+        "rules-engine/src/cardPlugins/cardRules.ts:1134",
         "rules-engine/src/cardPlugins/cardRules.ts:291",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
