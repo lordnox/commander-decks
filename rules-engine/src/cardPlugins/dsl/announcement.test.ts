@@ -478,3 +478,24 @@ describe('aetherTide — integration', () => {
     })
   })
 })
+
+test.each([false, true])('canonical spell announcements charge printed mana once with explicitMana=%s', explicitMana => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    spell({ costs: explicitMana ? [manaCost('{1}{G}')] : [], instructions: [] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Printed cost fixture', { types: ['Instant'], manaCost: '{1}{G}', ruleDefinition: definition })] },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  expect(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId }).ok).toBe(false)
+  expect(server.state.objects[objectId].zone).toBe('hand')
+  const funded = structuredClone(server.state)
+  funded.players.p1.mana.C = 3
+  funded.players.p1.mana.G = 1
+  const cast = server.rules(funded, { type: 'castSpell', seat: 'p1', objectId, additionalGeneric: 2 })
+  expect(cast.ok).toBe(true)
+  expect(cast.state.players.p1.mana.C).toBe(0)
+  expect(cast.state.players.p1.mana.G).toBe(0)
+  expect(cast.state.objects[objectId].zone).toBe('stack')
+})
