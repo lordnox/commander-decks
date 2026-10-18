@@ -332,19 +332,6 @@ const fetchBasic = (prompt: string, extra: {
   })
 }
 
-const fetchTypes = (prompt: string, subtypes: string[]): CardEffect =>
-  searchAbility({
-    prompt,
-    match: hasSubtype(...subtypes),
-    destination: 'battlefield',
-    min: 1,
-    max: 1,
-  }, {
-    tap: true,
-    life: 1,
-    sacrifice: 'self',
-  })
-
 const fetchHideout = (prompt: string, subtypes: string[]): CardEffect => ({
   op: 'search',
   via: 'enters',
@@ -627,14 +614,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Blanket of Night': [staticGrant('swampOverlay')],
-  'Blighted Woodland': [
-    fetchBasic('Search your library for up to two basic land cards. They enter tapped.', {
-      tapped: true,
-      min: 0,
-      max: 2,
-      manaCost: '{3}{G}',
-    }),
-  ],
   'Blightsteel Colossus': [shuffleIntoLibraryInstead()],
   Blitzball: [
     ability(
@@ -958,26 +937,12 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     scry({ voters: 'opponentsDisagreeing' }),
     draw(1),
   )],
-  'Esper Panorama': [
-    searchAbility({
-      prompt: 'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
-      match: (object) =>
-        basicLand(object) && hasSubtype('Plains', 'Island', 'Swamp')(object),
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 1,
-    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
-  ],
   'Eureka': [onResolve(putFromHand('each', { repeat: true }))],
   'Everflowing Chalice': [
     multikicker('{2}'),
     enters(putChargeCountersFromTimesKicked()),
   ],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Evolving Wilds': [
-    fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
-  ],
   'Exotic Orchard': [manaFrom('opponentsLands')],
   Explore: [onResolve(extraLandPlays(1), draw(1))],
   Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
@@ -1480,12 +1445,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [lockOrUnlockDoor()],
     }),
   ],
-  'Marsh Flats': [
-    fetchTypes('Search your library for a Plains or Swamp card and put it onto the battlefield.', [
-      'Plains',
-      'Swamp',
-    ]),
-  ],
   'Masked Vandal': [
     allCreatureTypes(),
     entersTarget(
@@ -1539,12 +1498,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Mister Negative': [
     entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
-  ],
-  'Misty Rainforest': [
-    fetchTypes('Search your library for a Forest or Island card and put it onto the battlefield.', [
-      'Forest',
-      'Island',
-    ]),
   ],
   'Mole Man, Moloid Master': [
     playLandsFromGraveyard(),
@@ -1726,12 +1679,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
   'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
   'Planar Genesis': [onResolve(lookTopPutLand(4, { orHand: true }))],
-  'Polluted Delta': [
-    fetchTypes('Search your library for an Island or Swamp card and put it onto the battlefield.', [
-      'Island',
-      'Swamp',
-    ]),
-  ],
   'Portal to Phyrexia': [
     enters(opponentsSacrifice('Creature', 3)),
     upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
@@ -1742,11 +1689,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       filter: { zone: 'battlefield', type: 'Creature', supertype: 'Legendary' },
     }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }, surveil(2)),
-  ],
-  'Prismatic Vista': [
-    fetchBasic('Search your library for a basic land card and put it onto the battlefield.', {
-      life: 1,
-    }),
   ],
   'Profane Command': [
     xMana(),
@@ -2189,9 +2131,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  'Terramorphic Expanse': [
-    fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
-  ],
   'Test of Endurance': [
     yourUpkeepIf(controllerLife(50), winGame()),
   ],
@@ -2337,12 +2276,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Vanish into Memory': [handler('blinkValue')],
   'Vantress Visions': [
     targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
-  ],
-  'Verdant Catacombs': [
-    fetchTypes('Search your library for a Swamp or Forest card and put it onto the battlefield.', [
-      'Swamp',
-      'Forest',
-    ]),
   ],
   'Victimize': [
     targetsOnResolve(
