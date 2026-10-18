@@ -2157,13 +2157,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       true,
     )),
   ],
-  'Triangle of War': [
-    activate({
-      id: 'fight.triangle',
-      costs: { mana: '{2}', sacrifice: 'self' },
-      do: [fight('two-targets')],
-    }),
-  ],
   'Ugin, the Spirit Dragon': [
     ability({
       id: 'ugin.plus-two',
@@ -2175,13 +2168,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ability({
       id: 'ugin.minus-ten',
     }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
-  ],
-  'Ulvenwald Tracker': [
-    activate({
-      id: 'fight.tracker',
-      costs: { mana: '{1}{G}', tap: true },
-      do: [fight('two-targets')],
-    }),
   ],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   "Urza's Cave": [

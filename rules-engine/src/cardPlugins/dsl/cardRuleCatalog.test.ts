@@ -650,3 +650,27 @@ test.each([
     { kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } }, instructions: [{ kind, targets: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 1 } }] },
   ])
 })
+
+test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {
+  expect(effectsFor('Triangle of War')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Triangle of War')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }],
+    decisions: { targets: [
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } },
+    ] },
+    instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }],
+  })
+})
+
+test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {
+  expect(effectsFor('Ulvenwald Tracker')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Ulvenwald Tracker')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated', costs: [{ kind: 'mana', amount: '{1}{G}' }, { kind: 'tapSource' }],
+    decisions: { targets: [
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } },
+    ], constraints: [{ kind: 'different', clauseIndices: [0, 1] }] },
+    instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }],
+  })
+})

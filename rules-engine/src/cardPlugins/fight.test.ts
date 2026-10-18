@@ -62,18 +62,18 @@ describe('fight', () => {
     }
     const activatedTriangle = ok(server.rules(withMana, {
       type: 'activateAbility',
-      abilityId: 'fight.triangle',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: named(withMana, 'Triangle of War').id,
-      targets: [
-        { kind: 'object', objectId: named(withMana, 'Kogla, the Titan Ape').id },
-        { kind: 'object', objectId: named(withMana, 'Grizzly Bears').id },
+      targetClauses: [
+        [{ kind: 'object', objectId: named(withMana, 'Kogla, the Titan Ape').id }],
+        [{ kind: 'object', objectId: named(withMana, 'Grizzly Bears').id }],
       ],
     }))
     // CR 602.2/608.2 — fight damage happens when the ability resolves.
     expect(activatedTriangle.objects[named(activatedTriangle, 'Grizzly Bears').id].zone)
       .toBe('battlefield')
-    expect(activatedTriangle.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'fight.triangle' })
+    expect(activatedTriangle.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[0]' })
     const resolved = ok(server.rules(activatedTriangle, { type: 'resolveTop' }))
     expect(resolved.objects[named(resolved, 'Grizzly Bears').id].zone).toBe('graveyard')
   })

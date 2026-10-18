@@ -91,7 +91,9 @@ import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
+import triangleOfWar from './triangle-of-war'
 import twincast from './twincast'
+import ulvenwaldTracker from './ulvenwald-tracker'
 import undercitySewers from './undercity-sewers'
 import undergroundMortuary from './underground-mortuary'
 import unmarkedGrave from './unmarked-grave'
@@ -199,7 +201,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Thalia's Lancers": thaliasLancers,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
+  "Triangle of War": triangleOfWar,
   "Twincast": twincast,
+  "Ulvenwald Tracker": ulvenwaldTracker,
   "Undercity Sewers": undercitySewers,
   "Underground Mortuary": undergroundMortuary,
   "Unmarked Grave": unmarkedGrave,

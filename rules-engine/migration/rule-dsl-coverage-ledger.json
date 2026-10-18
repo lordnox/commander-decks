@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 304,
+    "cardRegistrations": 302,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -31,9 +31,9 @@
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 20,
-    "cardRegistrationOnlyGaps": 16,
+    "cardRegistrationOnlyGaps": 15,
     "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 288
+    "candidateOnlyCardRows": 287
   },
   "cardEffects": [
     {
@@ -99,11 +99,9 @@
         "Thrór's Map:effects[1]",
         "Trade Routes:effects[0]",
         "Trade Routes:effects[1]",
-        "Triangle of War:effects[0]",
         "Ugin, the Spirit Dragon:effects[0]",
         "Ugin, the Spirit Dragon:effects[1]",
         "Ugin, the Spirit Dragon:effects[2]",
-        "Ulvenwald Tracker:effects[0]",
         "Voyager Staff:effects[0]",
         "Werefox Bodyguard:effects[3]",
         "Yurlok of Scorch Thrash:effects[1]",
@@ -112,7 +110,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 172,
+        "matches": 170,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
@@ -3171,18 +3169,16 @@
       "variant": "fight",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
-        "Khalni Ambush // Khalni Territory:effects[2].do[0]",
-        "Triangle of War:effects[0].do[0]",
-        "Ulvenwald Tracker:effects[0].do[0]"
+        "Khalni Ambush // Khalni Territory:effects[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
         "matches": 4,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:662 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:674 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
           "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {",
-          "rules-engine/src/cardPlugins/fight.test.ts:48 — test('Triangle of War fights two targeted creatures', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:221 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -16066,42 +16062,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Triangle of War",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Triangle of War"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/fight.test.ts:48 — test('Triangle of War fights two targeted creatures', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:221 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [fight]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "fight"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects",
-        "fight"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Ugin, the Spirit Dragon",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -16140,39 +16100,6 @@
       "pluginIds": [],
       "handlerIds": [
         "planeswalker"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Ulvenwald Tracker",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Ulvenwald Tracker"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [fight]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "fight"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects",
-        "fight"
       ],
       "embeddedRulePaths": []
     },
@@ -17429,8 +17356,6 @@
         "Thespian's Stage",
         "Thrór's Map",
         "Trade Routes",
-        "Triangle of War",
-        "Ulvenwald Tracker",
         "Voyager Staff",
         "Werefox Bodyguard",
         "Yurlok of Scorch Thrash",
@@ -18109,7 +18034,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 50,
+        "matches": 52,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
