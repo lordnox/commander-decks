@@ -50,6 +50,7 @@ import gloriousAnthem from './glorious-anthem'
 import golgariRotFarm from './golgari-rot-farm'
 import growthSpiral from './growth-spiral'
 import harrow from './harrow'
+import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
 import hinterlandHarbor from './hinterland-harbor'
 import magusOfTheCoffers from './magus-of-the-coffers'
@@ -75,6 +76,7 @@ import reverberate from './reverberate'
 import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import seleniaDarkAngel from './selenia-dark-angel'
+import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
 import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
@@ -84,11 +86,14 @@ import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
 import sunkenHollow from './sunken-hollow'
+import templeOfDeceit from './temple-of-deceit'
 import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
 import twincast from './twincast'
+import undercitySewers from './undercity-sewers'
+import undergroundMortuary from './underground-mortuary'
 import unmarkedGrave from './unmarked-grave'
 import vampireHounds from './vampire-hounds'
 import vaultOfChampions from './vault-of-champions'
@@ -153,6 +158,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Golgari Rot Farm": golgariRotFarm,
   "Growth Spiral": growthSpiral,
   "Harrow": harrow,
+  "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
   "Hinterland Harbor": hinterlandHarbor,
   "Magus of the Coffers": magusOfTheCoffers,
@@ -178,6 +184,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Selenia, Dark Angel": seleniaDarkAngel,
+  "Shadowy Backstreet": shadowyBackstreet,
   "Sign in Blood": signInBlood,
   "Simic Growth Chamber": simicGrowthChamber,
   "Simic Signet": simicSignet,
@@ -187,11 +194,14 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
   "Sunken Hollow": sunkenHollow,
+  "Temple of Deceit": templeOfDeceit,
   "Terramorphic Expanse": terramorphicExpanse,
   "Thalia's Lancers": thaliasLancers,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
   "Twincast": twincast,
+  "Undercity Sewers": undercitySewers,
+  "Underground Mortuary": undergroundMortuary,
   "Unmarked Grave": unmarkedGrave,
   "Vampire Hounds": vampireHounds,
   "Vault of Champions": vaultOfChampions,
