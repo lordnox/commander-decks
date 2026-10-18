@@ -144,7 +144,7 @@ export const sacrificeCost = (filter: ObjectRecipient, count: AmountInput): Cost
 export const drawCost = (count: AmountInput): Cost =>
   immutableData({ kind: 'draw', count: toAmount(count) })
 
-export const tapCost = (): Cost => immutableData({ kind: 'tapSource' })
+export const tapCost = () => immutableData({ kind: 'tapSource' as const }) satisfies Cost
 
 export const lifeCost = (value: AmountInput): Cost =>
   immutableData({ kind: 'life', amount: toAmount(value) })
@@ -449,6 +449,9 @@ export const sacrifice = (input: {
   targets: input.targets,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
+
+export const tap = (targets: ObjectRecipient) => immutableData({ kind: 'tap' as const, targets }) satisfies Instruction
+export const untap = (targets: ObjectRecipient) => immutableData({ kind: 'untap' as const, targets }) satisfies Instruction
 
 export const move = (input: {
   targets: Extract<Instruction, { kind: 'move' }>['targets']
