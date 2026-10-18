@@ -518,3 +518,15 @@ test.each([
     { kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: Object.fromEntries(colors.map(color => [color, { kind: 'constant', value: 1 }])) },
   ] })
 })
+
+
+test.each([
+  ['Cabal Coffers', '{2}', false],
+  ['Cabal Stronghold', '{3}', true],
+  ['Magus of the Coffers', '{2}', false],
+] as const)('catalog %s counts the required controlled Swamps for its mana', (name, mana, basic) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'mana', amount: mana }, { kind: 'tapSource' }], instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: {
+    B: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land', subtypes: ['Swamp'], ...(basic ? { supertypes: ['Basic'] } : {}) } } },
+  } }] })
+})

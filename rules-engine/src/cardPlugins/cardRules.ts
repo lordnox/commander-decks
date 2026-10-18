@@ -192,7 +192,6 @@ import {
   exchangeLifeWithOpponent,
   fight,
   fightUpToOne,
-  addManaPerSwamp,
   manaFrom,
   addUntilCleanupRule,
   gainLifeTargetPower,
@@ -415,14 +414,6 @@ const lootAndTreasure = (id: string): CardEffect => activate({
   costs: { mana: '{2}', tap: true },
   do: [draw(1), discardCards(1), createTreasures(1, 'you')],
 })
-
-const coffersMana = (id: string, cost: string, basic = false): CardEffect =>
-  activate({
-    id,
-    manaAbility: true,
-    costs: { mana: cost, tap: true },
-    do: [addManaPerSwamp(basic)],
-  })
 
 const cycleFromHand = (id: string, mana = '{3}') => cycleHand(id, mana)
 
@@ -748,8 +739,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [fightOwnedVsOpponent()],
     },
   )],
-  'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
-  'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
@@ -1464,7 +1453,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
   ],
-  'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
   'Malakir Rebirth': [
     targetOnResolve(
       'select',
