@@ -311,7 +311,7 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(state.players.p1.life).toBe(1)
     expect(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'selenia.return',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: selenia,
     }).ok).toBe(false)
@@ -321,7 +321,7 @@ describe('Lady Evangela life-total and X cards', () => {
     state = ok(server.rules(state, { type: 'gainLife', seat: 'p1', amount: 2 }))
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'selenia.return',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: selenia,
     }))

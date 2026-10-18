@@ -9,6 +9,8 @@ import {
   pendingDialog,
   pendingDialogLock,
 } from '../pendingDialog'
+import { pendingOptionSelection } from '../rules/selectOptions'
+import { resolveStack } from '../testHelpers'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { choiceEffects } from './choiceEffects'
 import { CARD_RULES } from './cardRules'
@@ -442,20 +444,6 @@ describe('librarySearch', () => {
     expect(state.players.p1.data['librarySearch.done']).toBeUndefined()
   })
 
-  test('Farseek only finds nonbasic-typed duals and basics it names', () => {
-    const spec = searchSpecFor('Farseek')!
-    const server = game({
-      library: [
-        forest(),
-        island(),
-        card('Watery Grave', ['Land'], { subtypes: ['Island', 'Swamp'] }),
-      ],
-    })
-    expect(searchCandidates(server.state, 'p1', spec).map((object) => object.name))
-      .toEqual(['Island', 'Watery Grave'])
-    expect(spec.tapped).toBe(true)
-  })
-
   test('a fetchland pays its life, sacrifices itself, and opens the search', () => {
     const server = game({
       battlefield: [card('Misty Rainforest', ['Land'])],
@@ -762,16 +750,11 @@ describe('librarySearch', () => {
         p1: { ...server.state.players.p1, mana: { W: 0, U: 0, B: 0, R: 0, G: 3, C: 0 } },
       },
     }, { type: 'castSpell', seat: 'p1', objectId: elf }))
-    const resolved = ok(server.rules(opened, { type: 'resolveTop' }))
-    expect(pendingDialog(resolved)).toMatchObject({
-      kind: 'may-search',
-      source: 'Farhaven Elf',
-    })
+    const resolved = resolveStack(server.rules, opened)
+    const choice = pendingOptionSelection(resolved, 'p1')!
+    expect(choice.options.map(option => option.label)).toEqual(['Accept', 'Decline'])
     const declined = ok(server.rules(resolved, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: false },
+      type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: choice.options[1].id,
     }))
     expect(pendingSearch(declined, 'p1')).toBeUndefined()
     expect(declined.objects[elf].zone).toBe('battlefield')
