@@ -1,4 +1,4 @@
-import { CARD_CATALOG } from './catalog'
+import { CARD_CATALOG } from '../../cards'
 
 /** A caller owns its copy, including mutable types and the pinned rule snapshot. */
 export const cardTemplateDefaultsFor = (name: string) => {
