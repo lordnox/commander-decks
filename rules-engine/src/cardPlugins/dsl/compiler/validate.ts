@@ -538,6 +538,8 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'loseLife': amountInstruction('amount', ['player']); return
       case 'gainLife': amountInstruction('amount', ['player']); return
       case 'draw': amountInstruction('count', ['player']); return
+      case 'scry':
+      case 'surveil':
       case 'mill': amountInstruction('count', ['player']); return
       case 'damage':
         exactKeys(node, path, ['kind', 'amount', 'targets', 'source'], ['kind', 'amount', 'targets', 'source'])

@@ -575,6 +575,8 @@ export type CanonicalResolutionFrame = {
   /** Events for the current instruction, persisted before the cursor may continue. */
   pendingEvents?: GameEvent[]
   /** Ordered private discard choices gathered before their action group commits. */
+  /** Simultaneous top-library choices wait for every player before moving cards. */
+  pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
   pendingProliferate?: { objectIds: string[]; binding?: string }
   pendingDiscard?: { scopeId?: string; seats: PlayerId[]; index: number; amount: number; selected: Array<{ seat: PlayerId; objectId: string }>; binding?: string }
   /** Instruction continuations blocked on a typed choice. */
@@ -1093,6 +1095,8 @@ export type GameEvent =
   | { type: 'discard'; seat: PlayerId; objectId: string }
   /** Canonical mill keeps the action distinct from an arbitrary move. */
   | { type: 'mill'; seat: PlayerId; objectId: string; sourceId?: string }
+  /** Emitted after the top-library action finishes, including an empty library. */
+  | { type: 'scry' | 'surveil'; seat: PlayerId; count: number }
   | { type: 'cycle'; seat: PlayerId; objectId: string }
   | { type: 'shuffleLibrary'; seat: PlayerId }
   | { type: 'reveal'; seat: PlayerId; objectIds: string[]; source?: string }
