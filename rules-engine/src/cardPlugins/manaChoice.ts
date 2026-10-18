@@ -3,6 +3,9 @@ import type { GameObject, GameState, ManaId, ManaPool, Plugin } from '../types'
 import { reducedActivationMana } from './activationCosts'
 import { effectsOf } from './cardRules'
 import { conditionHolds } from './effects'
+import { captureObject } from '../objectIdentity'
+import { evaluatePlayerReference, evaluatePlayerSelector, evaluateRuntimeAmount, isSourceSacrificeCost, loadDefinitionSnapshot, lockedManaCost } from './dsl/compiler'
+import type { Instruction } from './dsl/schema/v1'
 import type { InstructionHandler } from './instructionHandlers/types'
 
 const MANA_ORDER: ManaId[] = ['W', 'U', 'B', 'R', 'G', 'C']
@@ -74,6 +77,55 @@ const addPools = (left: Pool, right: Pool) => {
   return sum
 }
 
+// Recursive sequence evaluation needs an explicit result type.
+const fixedCanonicalMana = (
+  state: GameState, object: GameObject, instructions: readonly Instruction[],
+): Pool | undefined => {
+  let pool: Pool = {}
+  const context = { state, controller: object.controller, source: captureObject(object) }
+  for (const instruction of instructions) {
+    switch (instruction.kind) {
+      case 'sequence': {
+        const nested = fixedCanonicalMana(state, object, instruction.instructions)
+        if (!nested) return undefined
+        pool = addPools(pool, nested)
+        break
+      }
+      case 'addMana': {
+        const recipients = instruction.targets.kind === 'players'
+          ? evaluatePlayerSelector(instruction.targets, context) : evaluatePlayerReference(instruction.targets, context)
+        if (recipients.length !== 1 || recipients[0] !== object.controller) return undefined
+        for (const symbol of MANA_ORDER) {
+          const expression = instruction.amount[symbol]
+          if (!expression) continue
+          const amount = evaluateRuntimeAmount(expression, context)
+          if (amount < 0) return undefined
+          pool[symbol] = (pool[symbol] ?? 0) + amount
+        }
+        break
+      }
+      default: return undefined
+    }
+  }
+  return MANA_ORDER.some(symbol => (pool[symbol] ?? 0) > 0) ? pool : undefined
+}
+
+const canonicalManaOptions = (state: GameState, object: GameObject) => {
+  if (!object.ruleDefinition) return []
+  return loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.flatMap((ability, index) => {
+    if (ability.kind !== 'activated' || ability.modes || ability.decisions.targets.length > 0
+      || ability.decisions.variables?.length || !ability.availableFrom.includes(object.zone)
+      || ability.costs.some(cost => cost.kind !== 'mana' && cost.kind !== 'tapSource' && !isSourceSacrificeCost(cost))) return []
+    try {
+      const pool = fixedCanonicalMana(state, object, ability.instructions ?? [])
+      return pool ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool,
+        sacrifices: ability.costs.some(isSourceSacrificeCost) }] : []
+    } catch {
+      return []
+    }
+  })
+}
+
 /**
  * The costed mana abilities of a battlefield source whose result is known in
  * advance: `{1}, {T}: Add {G}{U}` (Signet),
@@ -85,7 +137,7 @@ export const activatedManaOptions = (
   state: GameState,
   object: GameObject,
 ): ActivatedManaOption[] =>
-  effectsOf(object).flatMap((effect): ActivatedManaOption[] => {
+  [...canonicalManaOptions(state, object), ...effectsOf(object).flatMap((effect): ActivatedManaOption[] => {
     if (
       effect.op !== 'activate'
       || !effect.manaAbility
@@ -109,4 +161,4 @@ export const activatedManaOptions = (
           choice: manaOptionId(pool),
           sacrifices,
         }))
-  })
+  })]
