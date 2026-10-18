@@ -244,6 +244,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   if (frame.pendingActivation) {
     const completed = makeDraft(current)
     if (frame.inlineManaAbility) {
+      completed.priority = frame.baseline.priority
       startCanonicalResolution(completed, {
         id: completed.allocId('inline'),
         ...frame.pendingActivation,

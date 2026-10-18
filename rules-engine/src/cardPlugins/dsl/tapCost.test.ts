@@ -62,5 +62,6 @@ test('a canonical mana ability pays its tap cost once without using the stack', 
   expect(state.objects[objectId].tapped).toBe(true)
   expect(state.players.p1.mana.G).toBe(1)
   expect(state.stack).toEqual([])
+  expect(state.priority).toBe('p1')
   expect(server.rules(state, activate(objectId)).ok).toBe(false)
 })
