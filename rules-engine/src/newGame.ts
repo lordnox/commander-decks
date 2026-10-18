@@ -35,7 +35,13 @@ export const cardTemplate = (
   const creatureStats = types.includes('Creature')
     ? { power: 1, toughness: 1 }
     : {}
-  return { ...defaultObject(), name, ...catalogDefaults, ...creatureStats, ...overrides }
+  return {
+    ...defaultObject(), name, ...catalogDefaults, ...creatureStats, ...overrides,
+    ...(catalogDefaults?.frontFace ? { frontFace: { ...catalogDefaults.frontFace, ...overrides.frontFace,
+      ...(overrides.ruleDefinition ? { ruleDefinition: overrides.ruleDefinition } : {}),
+    } } : {}),
+    ...(catalogDefaults?.backFace ? { backFace: { ...catalogDefaults.backFace, ...overrides.backFace } } : {}),
+  }
 }
 
 const player = (format: GameFormat, id: PlayerId): PlayerState => ({

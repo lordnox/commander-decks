@@ -76,6 +76,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Anguished Unmaking": anguishedUnmaking,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
   "Bala Ged Recovery": balaGedRecovery,
+  "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Botanical Sanctum": botanicalSanctum,
   "Buried Alive": buriedAlive,

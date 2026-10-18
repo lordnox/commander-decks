@@ -59,6 +59,7 @@ export type RestrictedMana = {
 }
 
 export type FaceCharacteristics = {
+  ruleDefinition?: CardRuleDefinitionSnapshotV1
   types: string[]
   subtypes: string[]
   supertypes: string[]

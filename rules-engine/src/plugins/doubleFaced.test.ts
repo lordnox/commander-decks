@@ -156,3 +156,18 @@ describe('relocated from kambalManaGraveyards.test.ts → doubleFaced.test.ts', 
     })
 
 })
+
+
+test('catalog face rules switch to the land entry program and restore the front program after leaving', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Bala Ged Recovery')] } })
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  const frontDefinition = server.state.objects[objectId].ruleDefinition!
+  const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+  expect(played.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: true, types: ['Land'] })
+  expect(played.objects[objectId].ruleDefinition).toEqual(played.objects[objectId].backFace!.ruleDefinition)
+  expect(played.objects[objectId].ruleDefinition!.definitionRevision).not.toBe(frontDefinition.definitionRevision)
+  const restored = JSON.parse(JSON.stringify(played))
+  const bounced = ok(server.rules(restored, { type: 'move', objectId, to: 'hand' }))
+  expect(bounced.objects[objectId]).toMatchObject({ zone: 'hand', types: ['Sorcery'] })
+  expect(bounced.objects[objectId].ruleDefinition).toEqual(frontDefinition)
+})
