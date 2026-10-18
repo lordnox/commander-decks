@@ -28,7 +28,6 @@ import {
   castModal,
   casts,
   cleave,
-  controlledBasicLands,
   controlledCreaturePower,
   controlledLands,
   controllerLife,
@@ -122,7 +121,6 @@ import {
   optionalBasicLandEnters,
   optionalMill,
   otherLands,
-  opponentsAtMost,
   opponentsSacrifice,
   opponentLostLifeThisTurn,
   playLandsFromGraveyard,
@@ -196,7 +194,6 @@ import {
   exchangeLifeWithOpponent,
   fight,
   fightUpToOne,
-  lacksControlledSubtype,
   addManaPerSwamp,
   manaFrom,
   addUntilCleanupRule,
@@ -741,7 +738,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  'Botanical Sanctum': [entersTapped(otherLands({ min: 3 }))],
   'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
   'Breeding Pool': [tapUnlessPayLife(2)],
   'Breena, the Demagogue': [
@@ -794,7 +790,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   )],
   'Cabal Coffers': [coffersMana('coffers.cabal', '{2}')],
   'Cabal Stronghold': [coffersMana('coffers.stronghold', '{3}', true)],
-  'Castle Garenbrig': [entersTapped(lacksControlledSubtype('Forest'))],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),
@@ -865,7 +860,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       draw(1),
     ),
   ],
-  'Concealed Courtyard': [entersTapped(otherLands({ min: 3 }))],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   Condemn: [
     targetOnResolve(
@@ -1021,8 +1015,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       max: 2,
     }, { mana: '{2}{U}', tap: true, discard: 'any', sacrificeTarget: 'land' }),
   ],
-  'Drowned Catacomb': [entersTapped(lacksControlledSubtype('Island', 'Swamp'))],
-  'Eclipsed Steppe': [entersTapped(controlledBasicLands({ max: 1 }))],
   'End-Raze Forerunners': [
     enters(
       pumpControlled(2, 2, { trample: true, other: true }),
@@ -1299,7 +1291,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Githzerai Monk': [
     enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'notController' })),
   ],
-  'Glacial Fortress': [entersTapped(lacksControlledSubtype('Plains', 'Island'))],
   'Glorious Protector': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),
@@ -1385,7 +1376,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       gainLife(1),
     ),
   ],
-  'Hinterland Harbor': [entersTapped(lacksControlledSubtype('Forest', 'Island'))],
   'Homer, the Hermit': [handler('homer')],
   'Horizon of Progress': [
     activate({
@@ -1730,7 +1720,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
-  'Morphic Pool': [entersTapped(opponentsAtMost(1))],
   'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
   Mulldrifter: [
     alternateCast('evoke', 'Evoke {2}{U}', '{2}{U}'),
@@ -1987,7 +1976,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Reflecting Pool': [manaFrom('controlledLands')],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
-  'Rejuvenating Springs': [entersTapped(opponentsAtMost(1))],
   'Reliquary Tower': [staticGrant('noMaxHand'), handler('noMaxHand')],
   'Repay in Kind': [onResolve(setAllLifeToLowest())],
   Reprocess: [
@@ -2287,7 +2275,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     { numbers: [2], do: [returnOwnedGraveyardLands()] },
     { numbers: [3], do: [pumpTargetEqualToLands(true)] },
   )],
-  'Sunken Hollow': [entersTapped(controlledBasicLands({ max: 1 }))],
   'Swan Song': [
     targetOnResolve(
       'counter',
@@ -2528,7 +2515,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Vantress Visions': [
     targetOnResolve('copy', { zone: 'stack', types: ['Instant', 'Sorcery'] }),
   ],
-  'Vault of Champions': [entersTapped(opponentsAtMost(1))],
   'Verdant Catacombs': [
     fetchTypes('Search your library for a Swamp or Forest card and put it onto the battlefield.', [
       'Swamp',
