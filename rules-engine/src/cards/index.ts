@@ -85,6 +85,7 @@ import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
 import sunkenHollow from './sunken-hollow'
 import terramorphicExpanse from './terramorphic-expanse'
+import thaliasLancers from './thalias-lancers'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
 import twincast from './twincast'
@@ -95,6 +96,7 @@ import verdantCatacombs from './verdant-catacombs'
 import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
+import worldMap from './world-map'
 import wornPowerstone from './worn-powerstone'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
@@ -186,6 +188,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Subjugator Angel": subjugatorAngel,
   "Sunken Hollow": sunkenHollow,
   "Terramorphic Expanse": terramorphicExpanse,
+  "Thalia's Lancers": thaliasLancers,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
   "Twincast": twincast,
@@ -196,5 +199,6 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Wall of Blood": wallOfBlood,
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,
+  "World Map": worldMap,
   "Worn Powerstone": wornPowerstone,
 })

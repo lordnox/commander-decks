@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 311,
+    "cardRegistrations": 309,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 20,
     "cardRegistrationOnlyGaps": 16,
     "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 295
+    "candidateOnlyCardRows": 293
   },
   "cardEffects": [
     {
@@ -615,9 +615,7 @@
         "Thawing Glaciers:effects[1]",
         "Thrór's Map:effects[0]",
         "Urza's Cave:effects[0]",
-        "Waterlogged Teachings // Inundated Archive:effects[1]",
-        "World Map:effects[0]",
-        "World Map:effects[1]"
+        "Waterlogged Teachings // Inundated Archive:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -1008,7 +1006,6 @@
         "Temple of Deceit:effects[1]",
         "Terastodon:effects[0]",
         "Test of Endurance:effects[0]",
-        "Thalia's Lancers:effects[0]",
         "Thorn Mammoth:effects[0]",
         "Toxic Deluge:effects[1]",
         "Trap the Trespassers:effects[0]",
@@ -5807,12 +5804,11 @@
         "Alabaster Host Intercessor:effects[2].do[0]",
         "Archdruid's Charm:effects[0].modes[0].do[0]",
         "Bushwhack:effects[0].modes[0].do[0]",
-        "Secluded Steppe:effects[1].do[0]",
-        "Thalia's Lancers:effects[0].do[0]"
+        "Secluded Steppe:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 7,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:407 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:51 — test('Bushwhack opens a mode choice before its instructions run', () => {",
@@ -5820,8 +5816,7 @@
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:95 — test('Alabaster Host Intercessor plainscycles from hand through library search', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:224 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:303 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:811 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:855 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:811 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -15902,40 +15897,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Thalia's Lancers",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Thalia's Lancers"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:855 — test('Dack part-37 inventory lists registered, kernel-only, or GAP with reasons', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [searchLibrary]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "searchLibrary"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Thawing Glaciers",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -17151,36 +17112,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "World Map",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.World Map"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:308 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "World Shaper",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -17714,7 +17645,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 158,
+        "matches": 159,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelFacts.test.ts:11",
@@ -18384,7 +18315,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 49,
+        "matches": 50,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -18655,7 +18586,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 207,
+        "matches": 208,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:399 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -19584,7 +19515,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2108",
+        "rules-engine/src/cardPlugins/cardRules.ts:2098",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -20811,14 +20742,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          276,
-          1260,
-          1289
+          277,
+          1270,
+          1299
         ],
         "samples": [
-          "276: const liveSource = draft.object(source.ref.objectId)",
-          "1260: const object = draft.object(item.objectId)",
-          "1289: const object = draft.object(completedItem.objectId)"
+          "277: const liveSource = draft.object(source.ref.objectId)",
+          "1270: const object = draft.object(item.objectId)",
+          "1299: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
