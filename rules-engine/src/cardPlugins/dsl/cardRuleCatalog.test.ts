@@ -347,3 +347,19 @@ test('catalog Unmarked Grave filters legendary cards before moving and shuffling
     ] }],
   })
 })
+
+
+test.each(['Charcoal Diamond', 'Sky Diamond', 'Worn Powerstone', 'Mistvault Bridge', 'Bala Ged Sanctuary', 'Fell Mire', 'Malakir Mire'])('catalog %s replaces its own entry with tapped entry', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+    kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
+  }])
+})
+
+test("catalog Stitcher's Supplier mills its controller on entry and death", () => {
+  expect(effectsFor("Stitcher's Supplier")).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor("Stitcher's Supplier")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }] },
+    { kind: 'triggered', on: { kind: 'dies' }, instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }] },
+  ])
+})

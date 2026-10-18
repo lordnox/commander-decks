@@ -632,7 +632,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     entersTapped(),
     targetOnResolve('bounce', { zone: 'graveyard' }),
   ],
-  'Bala Ged Sanctuary': [entersTapped()],
   'Banisher Priest': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),
@@ -815,7 +814,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [draw(3, 'target'), discardCards(3, 'target')],
     }),
   ],
-  'Charcoal Diamond': [entersTapped()],
   'Children of Korlis': [
     ability(
       { id: 'childrenOfKorlis.recover' },
@@ -1148,7 +1146,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  'Fell Mire': [entersTapped()],
   'Fell the Profane': [
     targetOnResolve(
       'destroy',
@@ -1603,7 +1600,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(selfMill(4), returnOwnedGraveyardLands()),
   ],
   'Magus of the Coffers': [coffersMana('coffers.magus', '{2}')],
-  'Malakir Mire': [entersTapped()],
   'Malakir Rebirth': [
     targetOnResolve(
       'select',
@@ -1706,7 +1702,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Mister Negative': [
     entersTargetingOpponent(exchangeLifeWithOpponent({ optional: true, drawLifeLost: true })),
   ],
-  'Mistvault Bridge': [entersTapped()],
   'Misty Rainforest': [
     fetchTypes('Search your library for a Forest or Island card and put it onto the battlefield.', [
       'Forest',
@@ -2196,7 +2191,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [],
     }),
   ],
-  'Sky Diamond': [entersTapped()],
   'Snuff Out': [
     alternateCast('pay-4-life', 'Pay 4 life', '', {
       life: 4,
@@ -2272,7 +2266,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ),
     ),
   ],
-  "Stitcher's Supplier": [enters(selfMill(3)), dies(selfMill(3))],
   'Subjugator Angel': [
     enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'opponent' })),
   ],
@@ -2665,7 +2658,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(optionalMill(3)),
     dies(returnOwnedGraveyardLands()),
   ],
-  'Worn Powerstone': [entersTapped()],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
   'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],
   'Yurlok of Scorch Thrash': [
