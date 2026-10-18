@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 379,
+    "cardRegistrations": 376,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -31,9 +31,9 @@
     "directMutationSites": 602,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 15,
-    "cardRegistrationOnlyGaps": 24,
+    "cardRegistrationOnlyGaps": 22,
     "candidateOnlyInstructionRows": 175,
-    "candidateOnlyCardRows": 355
+    "candidateOnlyCardRows": 354
   },
   "cardEffects": [
     {
@@ -675,7 +675,6 @@
         "Terramorphic Expanse:effects[0]",
         "Thawing Glaciers:effects[1]",
         "Thrór's Map:effects[0]",
-        "Unmarked Grave:effects[0]",
         "Urza's Cave:effects[0]",
         "Verdant Catacombs:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[1]",
@@ -883,14 +882,13 @@
         "Swords to Plowshares:effects[0]",
         "Tamiyo's Safekeeping:effects[0]",
         "Tear Asunder:effects[1]",
-        "Twincast:effects[0]",
         "Vantress Visions:effects[0]",
         "Victimize:effects[0]",
         "Wash Away:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 94,
+        "matches": 92,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1073,7 +1071,6 @@
         "Six:effects[0]",
         "Souls of the Faultless:effects[0]",
         "Spark Double:effects[0]",
-        "Splendid Reclamation:effects[0]",
         "Springheart Nantuko:effects[1]",
         "Starfield of Nyx:effects[1]",
         "Stitcher's Supplier:effects[0]",
@@ -1108,7 +1105,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 417,
+        "matches": 416,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
@@ -3293,7 +3290,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:107 — test('Summer Bloom grants three land plays on resolution', () => {",
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:126 — test('Explore also draws a card', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:238 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:241 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4120,7 +4117,7 @@
           "live-runner/src/kernelHost.test.ts:2847 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:64 — test('conditional branches are distinct nested program scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:134 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:137 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:605 — test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:639 — test('a queued ability resolves after Mirkwood Bats leaves', () => {",
@@ -4794,7 +4791,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:70 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:73 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
           "rules-engine/src/cardPlugins/targetedResolve.test.ts:707 — test('Join the Dead uses descend 4 for its full penalty', () => {"
@@ -5522,16 +5519,14 @@
       "mechanic": "semantic game action",
       "currentRegistrations": [
         "Lumra, Bellow of the Woods:effects[1].do[1]",
-        "Splendid Reclamation:effects[0].do[0]",
         "Summon: Titan:effects[0].chapters[1].do[0]",
         "Will of the Sultai:effects[0].modes[0].do[1]",
         "World Shaper:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:32 — test('Splendid Reclamation returns every land tapped and finishes resolving', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:74 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:189 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {",
           "rules-engine/src/plugins/cdaLifePt.test.ts:242 — test('Lumra CDA equals controlled lands', () => {"
@@ -17153,39 +17148,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Splendid Reclamation",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Splendid Reclamation"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:32 — test('Splendid Reclamation returns every land tapped and finishes resolving', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [returnOwnedGraveyardLands]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "returnOwnedGraveyardLands"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Split Decision",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -18425,40 +18387,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Twincast",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Twincast"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/copyPolitics.test.ts:284 — test('spell copies use the same typed stack-copy path without moving the original card', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.modesCopiesAndSearch.test.ts:52 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:233 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:475 — test('Twincast keeps a legacy CARD_RULES copy program', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "stackCopy",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Ugin, the Spirit Dragon",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -18605,34 +18533,6 @@
       "handlerIds": [
         "choiceEffects",
         "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Unmarked Grave",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Unmarked Grave"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
       ],
       "embeddedRulePaths": []
     },
@@ -18814,8 +18714,10 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 0,
-        "samples": []
+        "matches": 1,
+        "samples": [
+          "rules-engine/src/cardPlugins/copyPolitics.test.ts:284 — test('spell copies use the same typed stack-copy path without moving the original card', () => {"
+        ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
       "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
@@ -18823,7 +18725,7 @@
       "dependencyParts": [
         "04"
       ],
-      "status": "registration-only",
+      "status": "candidate-test-reference",
       "effectVariants": [
         "targetedResolve"
       ],
@@ -20315,7 +20217,7 @@
           "live-runner/src/kernelHost.test.ts:518 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:18",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:269 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:272 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:221 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
@@ -21988,7 +21890,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2422",
+        "rules-engine/src/cardPlugins/cardRules.ts:2421",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",

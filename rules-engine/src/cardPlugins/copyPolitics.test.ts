@@ -281,7 +281,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
   test('spell copies use the same typed stack-copy path without moving the original card', () => {
     const server = serverWith({
       hands: {
-        p1: [spell('Twincast', '{U}{U}', ['Instant'])],
+        p1: [spell('Vantress Visions', '{U}{U}', ['Instant'])],
         p2: [spell('Swords to Plowshares', '{W}', ['Instant'])],
       },
       battlefield: { p1: [creature('Copy Target')] },
@@ -300,7 +300,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
     state = ok(server.rules(state, {
       type: 'castSpell',
       seat: 'p1',
-      objectId: named(state, 'Twincast').id,
+      objectId: named(state, 'Vantress Visions').id,
       targets: [{ kind: 'object', objectId: swordsId }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
