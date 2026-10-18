@@ -3,13 +3,15 @@ import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
 import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
-import { cardTemplate, type CardTemplate } from '../newGame'
+import { cardTemplate } from '../newGame'
+import type { CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN } from '../pendingDialog'
 import { maximumHandSize } from '../plugins/turnStructure'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
+
 /**
  * Círdan part B (mana): Alchemist's Refuge, Arbor Elf, Flooded Grove,
  * Waterlogged Grove, Simic Signet, Wild Growth, Utopia Sprawl and
@@ -81,116 +83,14 @@ const castAura = (server: Server, state: GameState, name: string, targetId: stri
 const forest = () => deckCardTemplate('Forest')
 const island = () => deckCardTemplate('Island')
 
-const refuge = () => deckCardTemplate("Alchemist's Refuge")
-
 const growth = () => deckCardTemplate('Wild Growth')
 
 const sprawl = () => deckCardTemplate('Utopia Sprawl')
 
-const signet = () => deckCardTemplate('Simic Signet')
-
 const floodedGrove = () => deckCardTemplate('Flooded Grove')
-
-const waterloggedGrove = () => deckCardTemplate('Waterlogged Grove')
-
-const surprise = () => cardTemplate('Surprise Bear', {
-  types: ['Creature'],
-  manaCost: '{0}',
-  manaValue: 0,
-})
-
-const opponentsCombat = (state: GameState): GameState => ({
-  ...structuredClone(state),
-  active: 'p2',
-  step: 'declareBlockers',
-  priority: 'p1',
-})
 
 const held = (count: number) =>
   Array.from({ length: count }, (_, index) => cardTemplate(`Held ${index}`))
-
-describe("Alchemist's Refuge", () => {
-  const activateEvent = (state: GameState): GameEvent => ({
-    type: 'activateAbility',
-    seat: 'p1',
-    objectId: one(state, "Alchemist's Refuge").id,
-    abilityId: 'alchemistsRefuge.flash',
-  })
-  const castOf = (server: Server, state: GameState) =>
-    server.rules(state, { type: 'castSpell', seat: 'p1', objectId: one(state, 'Surprise Bear').id })
-
-  test('its free tap adds {C} and grants nothing', () => {
-    const server = game({ battlefield: [refuge()], hand: [surprise()] })
-    const tapped = ok(server.rules(server.state, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(server.state, "Alchemist's Refuge").id,
-    }))
-    expect(tapped.players.p1.mana).toEqual({ ...emptyMana(), C: 1 })
-    expect(tapped.rules.some((rule) => rule.pluginId === 'flashGrant')).toBe(false)
-  })
-
-  test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {
-    const server = game({ battlefield: [refuge()], hand: [surprise()] })
-    const off = opponentsCombat(server.state)
-    expect(castOf(server, off))
-      .toMatchObject({ ok: false, error: 'non-instant spells require the active player' })
-
-    const paid = withPool(server.state, { G: 1, U: 1 })
-    const activated = ok(server.rules(paid, activateEvent(paid)))
-    expect(activated.players.p1.mana).toEqual(emptyMana())
-    expect(one(activated, "Alchemist's Refuge").tapped).toBe(true)
-    // The grant waits on the stack and exists only once the ability resolves.
-    expect(activated.rules.some((rule) => rule.pluginId === 'flashGrant')).toBe(false)
-    const granted = resolveStack(server.rules, activated)
-    expect(granted.rules.find((rule) => rule.pluginId === 'flashGrant')?.params)
-      .toMatchObject({ untilCleanup: true, controller: 'p1' })
-
-    const bear = castOf(server, opponentsCombat(granted))
-    expect(ok(bear).stack[0]).toMatchObject({ name: 'Surprise Bear' })
-    expect(legalActsFor(opponentsCombat(granted), 'p1').some((act) =>
-      act.kind === 'castSpell' && act.name === 'Surprise Bear')).toBe(true)
-  })
-
-  test('it needs both colors, an untapped Refuge, and its controller', () => {
-    const server = game({ battlefield: [refuge()] })
-    const noMana = server.rules(server.state, activateEvent(server.state))
-    expect(noMana.ok).toBe(false)
-    const wrongColors = withPool(server.state, { G: 2 })
-    expect(server.rules(wrongColors, activateEvent(wrongColors)).ok).toBe(false)
-
-    const paid = withPool(server.state, { G: 1, U: 1 })
-    const tapped = ok(server.rules(paid, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(paid, "Alchemist's Refuge").id,
-    }))
-    expect(server.rules(withPool(tapped, { G: 1, U: 1 }), activateEvent(tapped)).ok).toBe(false)
-
-    expect(server.rules(paid, { ...activateEvent(paid), seat: 'p2' } as GameEvent).ok).toBe(false)
-  })
-
-  test('the grant is the controller\'s and ends at cleanup', () => {
-    const server = game({ battlefield: [refuge()], hand: [surprise()] })
-    const paid = withPool(server.state, { G: 1, U: 1 })
-    const granted = resolveStack(server.rules, ok(server.rules(paid, activateEvent(paid))))
-
-    const rival = { ...opponentsCombat(granted), active: 'p1', priority: 'p2' } as GameState
-    expect(server.rules(rival, {
-      type: 'castSpell',
-      seat: 'p2',
-      objectId: one(rival, 'Surprise Bear').id,
-    }).ok).toBe(false)
-
-    const ending = { ...structuredClone(granted), step: 'end' as const }
-    const cleanup = ok(server.rules(ending, { type: 'advanceStep' }))
-    expect(cleanup.step).toBe('cleanup')
-    expect(cleanup.rules.some((rule) => rule.pluginId === 'flashGrant')).toBe(false)
-    const later = { ...opponentsCombat(ok(server.rules(cleanup, { type: 'advanceStep' }))), priority: 'p1' }
-    expect(castOf(server, later as GameState))
-      .toMatchObject({ ok: false, error: 'non-instant spells require the active player' })
-  })
-})
 
 describe('Arbor Elf', () => {
   const setup = (sick = false) => {
@@ -274,40 +174,6 @@ describe('Flooded Grove', () => {
     ...(choices ? { choices } : {}),
   })
 
-  test('a free tap adds {C}', () => {
-    const server = game({ battlefield: [floodedGrove()] })
-    const tapped = ok(server.rules(server.state, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(server.state, 'Flooded Grove').id,
-    }))
-    expect(tapped.players.p1.mana).toEqual({ ...emptyMana(), C: 1 })
-  })
-
-  test.each([
-    ['GG', { G: 2 }],
-    ['UG', { G: 1, U: 1 }],
-    ['UU', { U: 2 }],
-  ])('{G/U}, {T} filters into %s', (choice, pool) => {
-    for (const paid of ['G', 'U'] as const) {
-      const server = game({ battlefield: [floodedGrove()] })
-      const state = withPool(server.state, { [paid]: 1 })
-      const next = ok(server.rules(state, filter(state, [choice])))
-      expect(next.players.p1.mana).toEqual({ ...emptyMana(), ...pool })
-      expect(one(next, 'Flooded Grove').tapped).toBe(true)
-    }
-  })
-
-  test('it cannot filter without {G} or {U}, with another color, or into an unprinted pool', () => {
-    const server = game({ battlefield: [floodedGrove()] })
-    expect(server.rules(server.state, filter(server.state, ['GG'])).ok).toBe(false)
-    const red = withPool(server.state, { R: 1 })
-    expect(server.rules(red, filter(red, ['GG'])).ok).toBe(false)
-    const green = withPool(server.state, { G: 1 })
-    expect(server.rules(green, filter(green, ['RR'])).ok).toBe(false)
-    expect(server.rules(green, filter(green, ['GGG'])).ok).toBe(false)
-  })
-
   test('without a named pool the controller chooses privately, and the choice survives a restart', () => {
     const server = game({ battlefield: [floodedGrove()] })
     const state = withPool(server.state, { U: 1 })
@@ -340,120 +206,6 @@ describe('Flooded Grove', () => {
     expect(resolved.players.p1.mana).toEqual({ ...emptyMana(), G: 1, U: 1 })
   })
 
-  test('the planner turns an Island into {G}{G} for a {G}{G} spell', () => {
-    const spell = cardTemplate('Planner Spell', { types: ['Creature'], manaCost: '{G}{G}' })
-    const server = game({ battlefield: [floodedGrove(), island()], hand: [spell] })
-    const act = castActs(server.state, 'Planner Spell')[0]
-    const events = eventsForAvailableAction(server.state, 'p1', act)!
-    expect(events.map((event) => event.type)).toEqual(['tapForMana', 'activateAbility', 'castSpell'])
-    expect(one(run(server, server.state, events), 'Planner Spell').zone).toBe('stack')
-  })
-})
-
-describe('Waterlogged Grove', () => {
-  const draw = (state: GameState): GameEvent => ({
-    type: 'activateAbility',
-    seat: 'p1',
-    objectId: one(state, 'Waterlogged Grove').id,
-    abilityId: 'waterloggedGrove.draw',
-  })
-
-  test.each(['G', 'U'] as const)('{T}, pay 1 life adds {%s}', (mana) => {
-    const server = game({ battlefield: [waterloggedGrove()] })
-    const next = ok(server.rules(server.state, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(server.state, 'Waterlogged Grove').id,
-      mana,
-    }))
-    const resolved = resolveStack(server.rules, next)
-    expect(resolved.players.p1.mana).toEqual({ ...emptyMana(), [mana]: 1 })
-    expect(resolved.players.p1.life).toBe(server.state.players.p1.life - 1)
-  })
-
-  test('it makes no colorless mana, and no mana at 0 life', () => {
-    const server = game({ battlefield: [waterloggedGrove()] })
-    expect(server.rules(server.state, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(server.state, 'Waterlogged Grove').id,
-      mana: 'C',
-    }).ok).toBe(false)
-    const dead = structuredClone(server.state)
-    dead.players.p1.life = 0
-    expect(server.rules(dead, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(dead, 'Waterlogged Grove').id,
-      mana: 'G',
-    }).ok).toBe(false)
-  })
-
-  test('{1}, {T}, sacrifice it: draw a card', () => {
-    const server = game({ battlefield: [waterloggedGrove()] })
-    const paid = withPool(server.state, { C: 1 })
-    const handBefore = paid.zoneOrder.p1.hand.length
-    const activated = ok(server.rules(paid, draw(paid)))
-    expect(one(activated, 'Waterlogged Grove').zone).toBe('graveyard')
-    expect(activated.players.p1.mana).toEqual(emptyMana())
-    const drawn = resolveStack(server.rules, activated)
-    expect(drawn.zoneOrder.p1.hand.length).toBe(handBefore + 1)
-  })
-
-  test('the draw needs {1} and an untapped land', () => {
-    const server = game({ battlefield: [waterloggedGrove()] })
-    expect(server.rules(server.state, draw(server.state)).ok).toBe(false)
-    const tapped = ok(server.rules(server.state, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(server.state, 'Waterlogged Grove').id,
-      mana: 'G',
-    }))
-    expect(server.rules(withPool(tapped, { C: 1 }), draw(tapped)).ok).toBe(false)
-  })
-})
-
-describe('Simic Signet', () => {
-  const filter = (state: GameState): GameEvent => ({
-    type: 'activateAbility',
-    seat: 'p1',
-    objectId: one(state, 'Simic Signet').id,
-    abilityId: 'signet.simic',
-    manaAbility: true,
-  })
-
-  test('{1}, {T} adds {G}{U}', () => {
-    const server = game({ battlefield: [signet()] })
-    const paid = withPool(server.state, { C: 1 })
-    const next = ok(server.rules(paid, filter(paid)))
-    expect(next.players.p1.mana).toEqual({ ...emptyMana(), G: 1, U: 1 })
-    expect(one(next, 'Simic Signet').tapped).toBe(true)
-  })
-
-  test('it is not a free tap and needs its {1}', () => {
-    const server = game({ battlefield: [signet()] })
-    expect(server.rules(server.state, {
-      type: 'tapForMana',
-      seat: 'p1',
-      objectId: one(server.state, 'Simic Signet').id,
-    }).ok).toBe(false)
-    expect(server.rules(server.state, filter(server.state)).ok).toBe(false)
-  })
-
-  test('an untapped Signet cannot be activated twice', () => {
-    const server = game({ battlefield: [signet()] })
-    const paid = withPool(server.state, { C: 2 })
-    const once = ok(server.rules(paid, filter(paid)))
-    expect(server.rules(once, filter(once)).ok).toBe(false)
-  })
-
-  test('the planner pays {1} from a land to cast a {G}{U} spell', () => {
-    const spell = cardTemplate('Planner Spell', { types: ['Creature'], manaCost: '{G}{U}' })
-    const server = game({ battlefield: [signet(), island()], hand: [spell] })
-    const events = eventsForAvailableAction(server.state, 'p1', castActs(server.state, 'Planner Spell')[0])!
-    expect(events.map((event) => event.type)).toEqual(['tapForMana', 'activateAbility', 'castSpell'])
-    expect(one(run(server, server.state, events), 'Planner Spell').zone).toBe('stack')
-  })
 })
 
 describe('Wild Growth', () => {

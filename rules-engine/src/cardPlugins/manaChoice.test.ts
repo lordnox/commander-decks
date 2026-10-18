@@ -1,16 +1,20 @@
 import { describe, expect, test } from 'bun:test'
-import { availableActions, eventsForAvailableAction } from '../actions'
+import { legalActsFor, availableActions, eventsForAvailableAction } from '../actions'
+import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
-import { cardTemplate, forest, type CardTemplate } from '../newGame'
+import { cardTemplate, forest } from '../newGame'
+import type { CardTemplate } from '../newGame'
 import { manaModes } from '../plugins/mana'
 import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
-import { ok } from '../testHelpers'
+import { resolveStack, ok } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
 import { activated } from './activated'
 import { activate, addManaChoice } from './effects'
 import { activatedManaOptions, manaChoice } from './manaChoice'
 
+const legacyManaPlugins = await loadCardPlugins(['Flooded Grove', 'Waterlogged Grove', 'Simic Signet', 'Island'])
 
 const GROVE_TEXT = '{T}: Add {C}.\n{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}.'
 
@@ -376,4 +380,211 @@ describe('relocated from firdochCore.test.ts → manaChoice.test.ts', () => {
     expect(result.state.objects[objectId].tapped).toBe(true)
   })
 
+})
+
+// Preserve registered legacy execution until the canonical mechanic migration (#383).
+describe('registered legacy cost and mana integration', () => {
+
+  const floodedGrove = () => deckCardTemplate('Flooded Grove')
+  const waterloggedGrove = () => deckCardTemplate('Waterlogged Grove')
+  const signet = () => deckCardTemplate('Simic Signet')
+  const island = () => deckCardTemplate('Island')
+  const game = (options: {
+    hand?: CardTemplate[]
+    battlefield?: CardTemplate[]
+    library?: number
+    opponent?: CardTemplate[]
+  }) =>
+    createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: { p1: options.hand ?? [] },
+        battlefield: { p1: options.battlefield ?? [], p2: options.opponent ?? [] },
+        libraries: {
+          p1: Array.from({ length: options.library ?? 12 }, (_, index) => cardTemplate(`Library ${index}`)),
+        },
+      },
+      { random: () => 0.5, cardPlugins: legacyManaPlugins },
+    )
+
+  type Server = ReturnType<typeof game>
+
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).filter((object) => object.name === name)
+
+  const one = (state: GameState, name: string) => named(state, name)[0]
+
+  const run = (server: Server, state: GameState, events: GameEvent[]) =>
+    events.reduce((current, event) => ok(server.rules(current, event)), state)
+
+  const withPool = (state: GameState, pool: Partial<GameState['players']['p1']['mana']>) => {
+    const next = structuredClone(state)
+    next.players.p1.mana = { ...emptyMana(), ...pool }
+    return next
+  }
+
+  const castActs = (state: GameState, name: string) =>
+    legalActsFor(state, 'p1').filter((act) =>
+      act.kind === 'castSpell' && act.name === name)
+
+  describe('hybrid-cost filter land', () => {
+    const filter = (state: GameState, choices?: string[]): GameEvent => ({
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: one(state, 'Flooded Grove').id,
+      abilityId: 'floodedGrove.filter',
+      manaAbility: true,
+      ...(choices ? { choices } : {}),
+    })
+
+    test('a free tap adds {C}', () => {
+      const server = game({ battlefield: [floodedGrove()] })
+      const tapped = ok(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(server.state, 'Flooded Grove').id,
+      }))
+      expect(tapped.players.p1.mana).toEqual({ ...emptyMana(), C: 1 })
+    })
+
+    test.each([
+      ['GG', { G: 2 }],
+      ['UG', { G: 1, U: 1 }],
+      ['UU', { U: 2 }],
+    ])('{G/U}, {T} filters into %s', (choice, pool) => {
+      for (const paid of ['G', 'U'] as const) {
+        const server = game({ battlefield: [floodedGrove()] })
+        const state = withPool(server.state, { [paid]: 1 })
+        const next = ok(server.rules(state, filter(state, [choice])))
+        expect(next.players.p1.mana).toEqual({ ...emptyMana(), ...pool })
+        expect(one(next, 'Flooded Grove').tapped).toBe(true)
+      }
+    })
+
+    test('it cannot filter without {G} or {U}, with another color, or into an unprinted pool', () => {
+      const server = game({ battlefield: [floodedGrove()] })
+      expect(server.rules(server.state, filter(server.state, ['GG'])).ok).toBe(false)
+      const red = withPool(server.state, { R: 1 })
+      expect(server.rules(red, filter(red, ['GG'])).ok).toBe(false)
+      const green = withPool(server.state, { G: 1 })
+      expect(server.rules(green, filter(green, ['RR'])).ok).toBe(false)
+      expect(server.rules(green, filter(green, ['GGG'])).ok).toBe(false)
+    })
+
+    test('the planner turns an Island into {G}{G} for a {G}{G} spell', () => {
+      const spell = cardTemplate('Planner Spell', { types: ['Creature'], manaCost: '{G}{G}' })
+      const server = game({ battlefield: [floodedGrove(), island()], hand: [spell] })
+      const act = castActs(server.state, 'Planner Spell')[0]
+      const events = eventsForAvailableAction(server.state, 'p1', act)!
+      expect(events.map((event) => event.type)).toEqual(['tapForMana', 'activateAbility', 'castSpell'])
+      expect(one(run(server, server.state, events), 'Planner Spell').zone).toBe('stack')
+    })
+  })
+
+  describe('life-paid mana and sacrifice-to-draw costs', () => {
+    const draw = (state: GameState): GameEvent => ({
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: one(state, 'Waterlogged Grove').id,
+      abilityId: 'waterloggedGrove.draw',
+    })
+
+    test.each(['G', 'U'] as const)('{T}, pay 1 life adds {%s}', (mana) => {
+      const server = game({ battlefield: [waterloggedGrove()] })
+      const next = ok(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(server.state, 'Waterlogged Grove').id,
+        mana,
+      }))
+      const resolved = resolveStack(server.rules, next)
+      expect(resolved.players.p1.mana).toEqual({ ...emptyMana(), [mana]: 1 })
+      expect(resolved.players.p1.life).toBe(server.state.players.p1.life - 1)
+    })
+
+    test('it makes no colorless mana, and no mana at 0 life', () => {
+      const server = game({ battlefield: [waterloggedGrove()] })
+      expect(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(server.state, 'Waterlogged Grove').id,
+        mana: 'C',
+      }).ok).toBe(false)
+      const dead = structuredClone(server.state)
+      dead.players.p1.life = 0
+      expect(server.rules(dead, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(dead, 'Waterlogged Grove').id,
+        mana: 'G',
+      }).ok).toBe(false)
+    })
+
+    test('{1}, {T}, sacrifice it: draw a card', () => {
+      const server = game({ battlefield: [waterloggedGrove()] })
+      const paid = withPool(server.state, { C: 1 })
+      const handBefore = paid.zoneOrder.p1.hand.length
+      const activated = ok(server.rules(paid, draw(paid)))
+      expect(one(activated, 'Waterlogged Grove').zone).toBe('graveyard')
+      expect(activated.players.p1.mana).toEqual(emptyMana())
+      const drawn = resolveStack(server.rules, activated)
+      expect(drawn.zoneOrder.p1.hand.length).toBe(handBefore + 1)
+    })
+
+    test('the draw needs {1} and an untapped land', () => {
+      const server = game({ battlefield: [waterloggedGrove()] })
+      expect(server.rules(server.state, draw(server.state)).ok).toBe(false)
+      const tapped = ok(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(server.state, 'Waterlogged Grove').id,
+        mana: 'G',
+      }))
+      expect(server.rules(withPool(tapped, { C: 1 }), draw(tapped)).ok).toBe(false)
+    })
+  })
+
+  describe('generic-cost two-color mana ability', () => {
+    const filter = (state: GameState): GameEvent => ({
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: one(state, 'Simic Signet').id,
+      abilityId: 'signet.simic',
+      manaAbility: true,
+    })
+
+    test('{1}, {T} adds {G}{U}', () => {
+      const server = game({ battlefield: [signet()] })
+      const paid = withPool(server.state, { C: 1 })
+      const next = ok(server.rules(paid, filter(paid)))
+      expect(next.players.p1.mana).toEqual({ ...emptyMana(), G: 1, U: 1 })
+      expect(one(next, 'Simic Signet').tapped).toBe(true)
+    })
+
+    test('it is not a free tap and needs its {1}', () => {
+      const server = game({ battlefield: [signet()] })
+      expect(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(server.state, 'Simic Signet').id,
+      }).ok).toBe(false)
+      expect(server.rules(server.state, filter(server.state)).ok).toBe(false)
+    })
+
+    test('an untapped Signet cannot be activated twice', () => {
+      const server = game({ battlefield: [signet()] })
+      const paid = withPool(server.state, { C: 2 })
+      const once = ok(server.rules(paid, filter(paid)))
+      expect(server.rules(once, filter(once)).ok).toBe(false)
+    })
+
+    test('the planner pays {1} from a land to cast a {G}{U} spell', () => {
+      const spell = cardTemplate('Planner Spell', { types: ['Creature'], manaCost: '{G}{U}' })
+      const server = game({ battlefield: [signet(), island()], hand: [spell] })
+      const events = eventsForAvailableAction(server.state, 'p1', castActs(server.state, 'Planner Spell')[0])!
+      expect(events.map((event) => event.type)).toEqual(['tapForMana', 'activateAbility', 'castSpell'])
+      expect(one(run(server, server.state, events), 'Planner Spell').zone).toBe('stack')
+    })
+  })
 })

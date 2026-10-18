@@ -569,8 +569,8 @@
           "live-runner/src/kernelFacts.test.ts:14",
           "live-runner/src/kernelHost.test.ts:1902 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:2313 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:202 — test('the grant is the controller\\'s and ends at cleanup', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:217 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:102",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:117 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {"
         ]
       },
       "neededCanonicalNode": "canonical replacement definition",
@@ -1157,7 +1157,7 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
           "rules-engine/src/cardPlugins/lifeEffects.test.ts:417 — test('Blood Celebrant naturally exposes five live mana choices and pays life', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:144 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:339 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {"
         ]
       },
@@ -1185,7 +1185,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 33,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
@@ -1193,8 +1193,8 @@
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:19",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:29",
           "rules-engine/src/cardPlugins/activationCostReduction.test.ts:38",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:416 — test('the draw needs {1} and an untapped land', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:26",
+          "rules-engine/src/cardPlugins/dsl/activationRestrictions.test.ts:22"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -1243,15 +1243,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:22",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:267 — test('a tapped Elf cannot untap a Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:282 — test('a free tap adds {C}', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:503 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:92",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:167 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:255 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:90",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:235 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:439 — test('Círdan part-B mana cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:446 — test('a free tap adds {C}', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -1422,16 +1423,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:112",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:116",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:127 — test('its free tap adds {C} and grants nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:142 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:166 — test('it needs both colors, an untapped Refuge, and its controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:20",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:84",
-          "rules-engine/src/cardPlugins/registry.test.ts:374 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:22",
+          "rules-engine/src/cardPlugins/registry.test.ts:374 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:437 — test('Círdan part-B mana cards stay registered', () => {",
+          "rules-engine/src/cardPlugins/sinFall.test.ts:290 — test('Rain of Filth grants an actionable land-sacrifice mana ability until cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:132 — test('the grant ends at cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:14",
+          "rules-engine/src/plugins/flashGrant.test.ts:193 — test('its free tap adds {C} and grants nothing', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:208 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -1456,7 +1457,7 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:324 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:69 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:131 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:339 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:84 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {",
@@ -2715,7 +2716,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 134,
+        "matches": 135,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2822,9 +2823,9 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:32",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:627 — test('no extra mana before a color is chosen', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('no extra mana before a color is chosen', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:444 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:967 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -4456,9 +4457,9 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:32",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:627 — test('no extra mana before a color is chosen', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('no extra mana before a color is chosen', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:444 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:967 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -6311,16 +6312,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 12,
+        "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:195 — test('the grant is the controller\\'s and ends at cleanup', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:21",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:219 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:229 — test('an Island or the Elf itself is not a legal target', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:235 — test('the action layer offers one activation per Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:249 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:262 — test('a tapped Elf cannot untap a Forest', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:127 — test(\"Minamo untaps a legendary creature\", () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:110",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:119 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:129 — test('an Island or the Elf itself is not a legal target', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:135 — test('the action layer offers one activation per Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:149 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:162 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:23",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:95"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -6466,16 +6467,15 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:112",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:116",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:127 — test('its free tap adds {C} and grants nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:142 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:166 — test('it needs both colors, an untapped Refuge, and its controller', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:20",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:84",
-          "rules-engine/src/cardPlugins/registry.test.ts:437 — test('Círdan part-B mana cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:22",
+          "rules-engine/src/cardPlugins/registry.test.ts:437 — test('Círdan part-B mana cards stay registered', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:132 — test('the grant ends at cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:14",
+          "rules-engine/src/plugins/flashGrant.test.ts:193 — test('its free tap adds {C} and grants nothing', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:208 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:232 — test('it needs both colors, an untapped Refuge, and its controller', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addUntilCleanupRule]",
@@ -6752,16 +6752,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:195 — test('the grant is the controller\\'s and ends at cleanup', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:21",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:219 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:229 — test('an Island or the Elf itself is not a legal target', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:235 — test('the action layer offers one activation per Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:249 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:262 — test('a tapped Elf cannot untap a Forest', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:438 — test('Círdan part-B mana cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:110",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:119 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:129 — test('an Island or the Elf itself is not a legal target', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:135 — test('the action layer offers one activation per Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:149 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:162 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:23",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:95"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [untapTarget]",
@@ -7928,11 +7928,11 @@
         "samples": [
           "live-runner/src/decisions.test.ts:252 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1902 — test('Joint Exploration put-land dispatches a kernel move', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:202 — test('the grant is the controller\\'s and ends at cleanup', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:217 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:240 — test('the action layer offers one activation per Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:30",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:547 — test('can enchant only a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:102",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:117 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:140 — test('the action layer offers one activation per Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:299 — test('can enchant only a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:32",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:93 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
       },
@@ -9711,7 +9711,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:232 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:309 — test('a listed Signet funds a spell by paying {1} from another land', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:313 — test('a listed Signet funds a spell by paying {1} from another land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:384 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
@@ -10932,7 +10932,7 @@
         "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:147 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:339 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:84 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
@@ -11036,15 +11036,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:22",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:267 — test('a tapped Elf cannot untap a Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:282 — test('a free tap adds {C}', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:503 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:92",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:167 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:255 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:90",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:235 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:439 — test('Círdan part-B mana cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:446 — test('a free tap adds {C}', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addManaChoice]",
@@ -16313,9 +16314,9 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:32",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:627 — test('no extra mana before a color is chosen', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('no extra mana before a color is chosen', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:444 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:967 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -16655,14 +16656,15 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 7,
+        "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:416 — test('the draw needs {1} and an untapped land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:430 — test('{1}, {T} adds {G}{U}', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:438 — test('it is not a free tap and needs its {1}', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:90",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:26",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:234 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:390 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:552 — test('the draw needs {1} and an untapped land', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:562 — test('{1}, {T} adds {G}{U}', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:570 — test('it is not a free tap and needs its {1}', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:441 — test('Círdan part-B mana cards stay registered', () => {"
         ]
       },
@@ -18707,10 +18709,10 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:26",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:536 — test('an Aura whose land left before it resolves does not enter', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:550 — test('can enchant only a Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:589 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:28",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:288 — test('an Aura whose land left before it resolves does not enter', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:302 — test('can enchant only a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:341 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:88",
           "rules-engine/src/cardPlugins/registry.test.ts:443 — test('Círdan part-B mana cards stay registered', () => {"
         ]
@@ -19175,16 +19177,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:23",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:353 — test('the planner turns an Island into {G}{G} for a {G}{G} spell', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('it makes no colorless mana, and no mana at 0 life', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:397 — test('{1}, {T}, sacrifice it: draw a card', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:409 — test('the draw needs {1} and an untapped land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:94",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:25",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:139 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:440 — test('Círdan part-B mana cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:389 — test('two sources and a filter land can chain into one cast', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:489 — test('the planner turns an Island into {G}{G} for a {G}{G} spell', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:511 — test('it makes no colorless mana, and no mana at 0 life', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:529 — test('{1}, {T}, sacrifice it: draw a card', () => {",
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:541 — test('the draw needs {1} and an untapped land', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [draw]",
@@ -19360,12 +19362,12 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:25",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:459 — test('the planner pays {1} from a land to cast a {G}{U} spell', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:467 — test('can enchant any land, and only a land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:481 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:506 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:529 — test('an Aura whose land left before it resolves does not enter', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:211 — test('without a named pool the controller chooses privately, and the choice survives a restart', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:219 — test('can enchant any land, and only a land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:233 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:258 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:281 — test('an Aura whose land left before it resolves does not enter', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:86",
           "rules-engine/src/cardPlugins/registry.test.ts:442 — test('Círdan part-B mana cards stay registered', () => {"
         ]
@@ -20112,7 +20114,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 188,
+        "matches": 189,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -20419,14 +20421,14 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:25",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:26",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:459 — test('the planner pays {1} from a land to cast a {G}{U} spell', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:467 — test('can enchant any land, and only a land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:481 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:506 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:529 — test('an Aura whose land left before it resolves does not enter', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:550 — test('can enchant only a Forest', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:211 — test('without a named pool the controller chooses privately, and the choice survives a restart', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:219 — test('can enchant any land, and only a land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:233 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:258 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:28",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:281 — test('an Aura whose land left before it resolves does not enter', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:302 — test('can enchant only a Forest', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20536,12 +20538,12 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:130 — test('its free tap adds {C} and grants nothing', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:144 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:188 — test('the grant is the controller\\'s and ends at cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:115 — test('the grant ends at cleanup', () => {",
-          "rules-engine/src/plugins/flashGrant.test.ts:25",
-          "rules-engine/src/plugins/flashGrant.test.ts:73 — test('the grant lets its controller cast non-instants outside their main phase', () => {"
+          "rules-engine/src/plugins/flashGrant.test.ts:120 — test('the grant ends at cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:196 — test('its free tap adds {C} and grants nothing', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:210 — test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:254 — test('the grant is the controller\\'s and ends at cleanup', () => {",
+          "rules-engine/src/plugins/flashGrant.test.ts:30",
+          "rules-engine/src/plugins/flashGrant.test.ts:78 — test('the grant lets its controller cast non-instants outside their main phase', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20782,10 +20784,10 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 41,
+        "matches": 43,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:63",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
           "rules-engine/src/cardPlugins/combatTax.test.ts:108 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:158 — test('an attacker cannot also tap to pay its own attack tax', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:188 — test('a vigilance attacker may tap for mana in the attack-cost window', () => {",
@@ -21660,7 +21662,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:673 — test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:425 — test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:161 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {"
         ]
       },

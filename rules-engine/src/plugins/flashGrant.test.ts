@@ -1,12 +1,17 @@
 import { describe, expect, test } from 'bun:test'
 import { legalActsFor } from '../actions'
-import { commanderRules } from '../formats'
-import { cardTemplate } from '../newGame'
-import { createServerGame } from '../runtime'
-import { ok } from '../testHelpers'
-import type { GameState } from '../types'
 import { addUntilCleanupRule, onResolve as onResolveEffect } from '../cardPlugins/effects'
 import { onResolve } from '../cardPlugins/onResolve'
+import { deckCardTemplate, loadCardPlugins } from '../deckCardFixtures'
+import { emptyMana } from '../draft'
+import { commanderRules } from '../formats'
+import { cardTemplate } from '../newGame'
+import type { CardTemplate } from '../newGame'
+import { createServerGame } from '../runtime'
+import { resolveStack, ok } from '../testHelpers'
+import type { GameEvent, GameState } from '../types'
+
+const legacyFlashPlugins = await loadCardPlugins(["Alchemist's Refuge"])
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -52,7 +57,7 @@ const castOf = (server: ReturnType<typeof game>, state: GameState, name: string,
 const opponentsTurn = (state: GameState): GameState => ({
   ...structuredClone(state),
   active: 'p2',
-  step: 'declareBlockers',
+  step: 'declareBlockers' as const,
   priority: 'p1',
 })
 
@@ -118,5 +123,138 @@ describe('turn-long flash grant', () => {
     const later = { ...opponentsTurn(nextTurn), priority: 'p1' }
     expect(castOf(server, later, 'Surprise Bear'))
       .toMatchObject({ ok: false, error: 'non-instant spells require the active player' })
+  })
+})
+
+// Preserve registered legacy execution until the canonical mechanic migration (#383).
+describe('registered legacy cost and mana integration', () => {
+
+  const refuge = () => deckCardTemplate("Alchemist's Refuge")
+  const game = (options: {
+    hand?: CardTemplate[]
+    battlefield?: CardTemplate[]
+    library?: number
+    opponent?: CardTemplate[]
+  }) =>
+    createServerGame(
+      commanderRules,
+      {
+        players: 2,
+        hands: { p1: options.hand ?? [] },
+        battlefield: { p1: options.battlefield ?? [], p2: options.opponent ?? [] },
+        libraries: {
+          p1: Array.from({ length: options.library ?? 12 }, (_, index) => cardTemplate(`Library ${index}`)),
+        },
+      },
+      { random: () => 0.5, cardPlugins: legacyFlashPlugins },
+    )
+
+  type Server = ReturnType<typeof game>
+
+  const named = (state: GameState, name: string) =>
+    Object.values(state.objects).filter((object) => object.name === name)
+
+  const one = (state: GameState, name: string) => named(state, name)[0]
+
+  const withPool = (state: GameState, pool: Partial<GameState['players']['p1']['mana']>) => {
+    const next = structuredClone(state)
+    next.players.p1.mana = { ...emptyMana(), ...pool }
+    return next
+  }
+
+  const surprise = () => cardTemplate('Surprise Bear', {
+    types: ['Creature'],
+    manaCost: '{0}',
+    manaValue: 0,
+  })
+
+  const opponentsCombat = (state: GameState) => ({
+    ...structuredClone(state),
+    active: 'p2',
+    step: 'declareBlockers' as const,
+    priority: 'p1',
+  })
+
+  describe("paid activation and controller-scoped flash duration", () => {
+    const activateEvent = (state: GameState): GameEvent => ({
+      type: 'activateAbility',
+      seat: 'p1',
+      objectId: one(state, "Alchemist's Refuge").id,
+      abilityId: 'alchemistsRefuge.flash',
+    })
+    const castOf = (server: Server, state: GameState) =>
+      server.rules(state, { type: 'castSpell', seat: 'p1', objectId: one(state, 'Surprise Bear').id })
+
+    test('its free tap adds {C} and grants nothing', () => {
+      const server = game({ battlefield: [refuge()], hand: [surprise()] })
+      const tapped = ok(server.rules(server.state, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(server.state, "Alchemist's Refuge").id,
+      }))
+      expect(tapped.players.p1.mana).toEqual({ ...emptyMana(), C: 1 })
+      expect(tapped.rules.some((rule) => rule.pluginId === 'flashGrant')).toBe(false)
+    })
+
+    test('{G}{U}, {T} grants flash for the turn: paid, tapped, then a creature is cast off-turn', () => {
+      const server = game({ battlefield: [refuge()], hand: [surprise()] })
+      const off = opponentsCombat(server.state)
+      expect(castOf(server, off))
+        .toMatchObject({ ok: false, error: 'non-instant spells require the active player' })
+
+      const paid = withPool(server.state, { G: 1, U: 1 })
+      const activated = ok(server.rules(paid, activateEvent(paid)))
+      expect(activated.players.p1.mana).toEqual(emptyMana())
+      expect(one(activated, "Alchemist's Refuge").tapped).toBe(true)
+      // The grant waits on the stack and exists only once the ability resolves.
+      expect(activated.rules.some((rule) => rule.pluginId === 'flashGrant')).toBe(false)
+      const granted = resolveStack(server.rules, activated)
+      expect(granted.rules.find((rule) => rule.pluginId === 'flashGrant')?.params)
+        .toMatchObject({ untilCleanup: true, controller: 'p1' })
+
+      const bear = castOf(server, opponentsCombat(granted))
+      expect(ok(bear).stack[0]).toMatchObject({ name: 'Surprise Bear' })
+      expect(legalActsFor(opponentsCombat(granted), 'p1').some((act) =>
+        act.kind === 'castSpell' && act.name === 'Surprise Bear')).toBe(true)
+    })
+
+    test('it needs both colors, an untapped Refuge, and its controller', () => {
+      const server = game({ battlefield: [refuge()] })
+      const noMana = server.rules(server.state, activateEvent(server.state))
+      expect(noMana.ok).toBe(false)
+      const wrongColors = withPool(server.state, { G: 2 })
+      expect(server.rules(wrongColors, activateEvent(wrongColors)).ok).toBe(false)
+
+      const paid = withPool(server.state, { G: 1, U: 1 })
+      const tapped = ok(server.rules(paid, {
+        type: 'tapForMana',
+        seat: 'p1',
+        objectId: one(paid, "Alchemist's Refuge").id,
+      }))
+      expect(server.rules(withPool(tapped, { G: 1, U: 1 }), activateEvent(tapped)).ok).toBe(false)
+
+      expect(server.rules(paid, { ...activateEvent(paid), seat: 'p2' } as GameEvent).ok).toBe(false)
+    })
+
+    test('the grant is the controller\'s and ends at cleanup', () => {
+      const server = game({ battlefield: [refuge()], hand: [surprise()] })
+      const paid = withPool(server.state, { G: 1, U: 1 })
+      const granted = resolveStack(server.rules, ok(server.rules(paid, activateEvent(paid))))
+
+      const rival = { ...opponentsCombat(granted), active: 'p1', priority: 'p2' } as GameState
+      expect(server.rules(rival, {
+        type: 'castSpell',
+        seat: 'p2',
+        objectId: one(rival, 'Surprise Bear').id,
+      }).ok).toBe(false)
+
+      const ending = { ...structuredClone(granted), step: 'end' as const }
+      const cleanup = ok(server.rules(ending, { type: 'advanceStep' }))
+      expect(cleanup.step).toBe('cleanup')
+      expect(cleanup.rules.some((rule) => rule.pluginId === 'flashGrant')).toBe(false)
+      const later = { ...opponentsCombat(ok(server.rules(cleanup, { type: 'advanceStep' }))), priority: 'p1' }
+      expect(castOf(server, later as GameState))
+        .toMatchObject({ ok: false, error: 'non-instant spells require the active player' })
+    })
   })
 })
