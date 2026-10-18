@@ -259,6 +259,9 @@ export type Instruction =
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
   | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; bindResult?: string }
+  /** Tap or untap each resolved object through the ordinary event pipeline. */
+  | { kind: 'tap'; targets: ObjectRecipient }
+  | { kind: 'untap'; targets: ObjectRecipient }
   /** Phase each resolved object out or in according to `out` during this resolution. */
   | { kind: 'phase'; targets: ObjectRecipient; out: boolean }
   /** Have each resolved player recipient choose permanents and players with counters to proliferate. */

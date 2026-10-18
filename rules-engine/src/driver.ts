@@ -127,6 +127,8 @@ const preflightInstructions = (
       case 'destroy':
       case 'sacrifice':
       case 'move':
+      case 'tap':
+      case 'untap':
       case 'phase':
       case 'proliferate':
       case 'createToken':
@@ -692,6 +694,9 @@ const actionEvents = (
         ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
       }))
     }
+    case 'tap':
+    case 'untap':
+      return objectActions(instruction.targets, context).map(object => ({ type: instruction.kind, objectId: object.id }))
     case 'phase': {
       const targets = objectActions(instruction.targets, context)
       return targets.map((object) => ({ type: instruction.out ? 'phaseOut' as const : 'phaseIn' as const, objectId: object.id }))
