@@ -2079,16 +2079,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Test of Endurance': [
     yourUpkeepIf(controllerLife(50), winGame()),
   ],
-  "Thalia's Lancers": [
-    enters(searchLibrary({
-      prompt: 'Search your library for a legendary card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => object.supertypes.includes('Legendary'),
-      destination: 'hand',
-      min: 0,
-      max: 1,
-      reveal: true,
-    })),
-  ],
   'Thawing Glaciers': [
     entersTapped(),
     searchAbility({
@@ -2312,24 +2302,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       destroyTargetPermanent(),
     ),
     persist(),
-  ],
-  'World Map': [
-    searchAbility({
-      prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
-      match: basicLand,
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
-    searchAbility({
-      prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }, { mana: '{3}', tap: true, sacrifice: 'self' }),
   ],
   'World Shaper': [
     attacks(optionalMill(3)),

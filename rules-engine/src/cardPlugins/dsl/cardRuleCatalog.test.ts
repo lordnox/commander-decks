@@ -609,3 +609,29 @@ test('catalog Hedron Archive pays two mana and taps and sacrifices itself for tw
     { kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } },
   ], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } }] })
 })
+
+
+test('catalog Thalias Lancers reveals its legendary search result before moving it to hand', () => {
+  expect(effectsFor("Thalia's Lancers")).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor("Thalia's Lancers")!.definition.abilities[0]).toMatchObject({ kind: 'triggered', on: { kind: 'enters' }, instructions: [
+    { kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', supertypes: ['Legendary'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'reveal', targets: { kind: 'choiceRef', binding: 'found' } },
+      { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+    ] },
+  ] })
+})
+
+test('catalog World Map offers distinct basic and unrestricted land searches at their printed costs', () => {
+  expect(effectsFor('World Map')).toEqual([])
+  const abilities = cardRuleDefinitionSnapshotFor('World Map')!.definition.abilities
+  expect(abilities).toHaveLength(2)
+  for (const [index, mana] of ['{1}', '{3}'].entries()) {
+    expect(abilities[index]).toMatchObject({ kind: 'activated', costs: [
+      { kind: 'mana', amount: mana }, { kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } },
+    ], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', ...(index === 0 ? { supertypes: ['Basic'] } : {}) } } },
+      { kind: 'reveal' }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+    ] }] })
+  }
+})
