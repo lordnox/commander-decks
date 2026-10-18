@@ -1,4 +1,5 @@
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
+import { hasKeyword } from '../../../keywords'
 import { captureObject } from '../../../objectIdentity'
 import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
@@ -179,7 +180,7 @@ const validateVariables = (variables: AnnouncementProposal['variables']) => {
 }
 
 const announcementRuntime = (
-  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
   payer: PlayerId,
   sourceId: string,
   x: number | undefined,
@@ -260,7 +261,7 @@ const sacrificeCostCandidates = (
 }
 
 export const resolveNonManaCostObjectChoices = (
-  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
   payer: PlayerId,
   excludedSourceId: string,
   costs: readonly Cost[],
@@ -307,7 +308,7 @@ export const resolveNonManaCostObjectChoices = (
 }
 
 const validateNonManaCosts = (
-  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
   payer: PlayerId,
   sourceId: string,
   costs: readonly Cost[],
@@ -318,14 +319,28 @@ const validateNonManaCosts = (
   const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
   let lifeTotal = 0
   const selectedObjects = new Set<string>()
+  let sourceTapped = false
   for (const cost of costs) {
-    if (cost.kind === 'life') {
-      lifeTotal += costAmount(cost.amount, x, runtime)
-      continue
-    }
-    if (cost.kind === 'draw') {
-      costAmount(cost.count, x, runtime)
-      continue
+    switch (cost.kind) {
+      case 'life':
+        lifeTotal += costAmount(cost.amount, x, runtime)
+        break
+      case 'draw':
+        costAmount(cost.count, x, runtime)
+        break
+      case 'tapSource': {
+        const source = state.objects[runtimeSourceId]
+        if (!source || source.zone !== 'battlefield' || source.phasedOut || source.controller !== payer) {
+          throw new TypeError('tap cost requires a controlled permanent on the battlefield')
+        }
+        if (source.tapped || sourceTapped) throw new TypeError('tap cost source is already tapped')
+        if (source.types.includes('Creature') && source.summoningSickness
+          && !hasKeyword(source, 'haste', state.rules ? { rules: state.rules } : undefined)) {
+          throw new TypeError('tap cost source has summoning sickness')
+        }
+        sourceTapped = true
+        break
+      }
     }
   }
   const explicitObjectCosts = costs.filter((cost) => cost.kind === 'discard' || cost.kind === 'sacrifice')
@@ -360,7 +375,7 @@ const targetIdentity = (target: TargetRef) => {
   }
 }
 
-const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'>, proposal: AnnouncementProposal) => {
+const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>, proposal: AnnouncementProposal) => {
   if (!proposal.targetClauses) return
   const targets = proposal.targets ?? []
   if (targets.length !== proposal.targetClauses.length) throw new TypeError('target clauses must be supplied in declaration order')
@@ -405,7 +420,7 @@ const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'>
 
 /** Validate and lock an announcement without changing the supplied GameState. */
 export const beginAnnouncement = (
-  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
   proposal: AnnouncementProposal,
   id = 'announcement',
 ): AnnouncementValidation => {
@@ -567,7 +582,7 @@ export const paymentFrame = (transaction: AnnouncementTransaction) => ({
 })
 
 export const prepareAction = (
-  state: Pick<GameState, 'players' | 'objects' | 'stack'>,
+  state: Pick<GameState, 'players' | 'objects' | 'stack'> & Partial<Pick<GameState, 'rules'>>,
   input: Omit<PrepareActionOffer, 'kind' | 'requiresInput'> & { proposal?: AnnouncementProposal },
 ): PrepareActionOffer => ({
   kind: 'prepareAction',

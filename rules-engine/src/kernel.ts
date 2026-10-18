@@ -64,6 +64,9 @@ const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransa
   let costIndex = 0
   for (const cost of transaction.lockedCost.nonMana) {
     switch (cost.kind) {
+      case 'tapSource':
+        paymentEvents.push({ type: 'tap', objectId: transaction.proposal.sourceId })
+        break
       case 'life':
         paymentEvents.push({
           type: 'payLife',

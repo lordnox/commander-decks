@@ -475,6 +475,9 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!node) return
     declarations.push({ path, kind: `cost:${String(node.kind)}` })
     switch (node.kind) {
+      case 'tapSource':
+        exactKeys(node, path, ['kind'], ['kind'])
+        return
       case 'discard':
       case 'sacrifice':
         exactKeys(node, path, ['kind', 'filter', 'count'], ['kind', 'filter', 'count'])
