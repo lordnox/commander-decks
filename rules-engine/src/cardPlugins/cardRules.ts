@@ -37,7 +37,6 @@ import {
   copySelf,
   copyTargetCreature,
   counterTargetSpell,
-  bounceTargetPermanent,
   counterUnlessPay,
   cycleHand,
   createTokenInstruction,
@@ -201,8 +200,6 @@ import {
   ifGiftNotPromised,
   preventCombatDamage,
   revealDrawLoseLife,
-  untapTarget,
-  untapUpToLands,
   ward,
   xMana,
   yourUpkeep,
@@ -244,7 +241,6 @@ import {
   loseHalfLifeRoundedUp,
   addManaAtNextMainFromTarget,
   gainLifeTargetToughness,
-  tapOpponentsCreatures,
   addPlusCountersToControlled,
   opponentMayDrawThenStealCast,
   flashback,
@@ -514,14 +510,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   "Animist's Awakening": [xMana(), onResolve(revealTopLandsTapped())],
   'Apex Altisaur': [enters(fightUpToOne())],
-  'Arbor Elf': [
-    activate({
-      id: 'arborElf.untap',
-      costs: { tap: true },
-      targets: { filter: { zone: 'battlefield', type: 'Land', subtype: 'Forest' } },
-      do: [untapTarget()],
-    }),
-  ],
   'Arcane Denial': [
     targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
   ],
@@ -862,28 +850,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landToGraveyardOnce(insect),
   ],
   'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
-  'Cryptic Command': [modalChooseTwo(
-    {
-      id: 'counter',
-      label: 'Counter target spell',
-      do: [counterTargetSpell()],
-    },
-    {
-      id: 'bounce',
-      label: "Return target permanent to its owner's hand",
-      do: [bounceTargetPermanent()],
-    },
-    {
-      id: 'tap',
-      label: 'Tap all creatures your opponents control',
-      do: [tapOpponentsCreatures()],
-    },
-    {
-      id: 'draw',
-      label: 'Draw a card',
-      do: [draw(1)],
-    },
-  )],
   'Cultivate': [searchSpell(splitBasicLandSearch())],
   'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
@@ -930,14 +896,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     },
   )],
   'Delighted Halfling': [restrictedLegendaryMana()],
-  'Deserted Temple': [
-    activate({
-      id: 'desertedTemple.untap',
-      costs: { mana: '{1}', tap: true },
-      targets: 'land',
-      do: [untapTarget()],
-    }),
-  ],
   Desertion: [
     targetOnResolve(
       'counter',
@@ -1179,7 +1137,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetForEachOtherPlayer(),
     ),
   ],
-  'Frantic Search': [onResolve(draw(2), discardCards(2), untapUpToLands(3))],
   'Getaway Glamer': [
     spree([
       spreeMode(
@@ -1217,9 +1174,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         { kind: 'addChosenColorMana' },
       ],
     }),
-  ],
-  'Githzerai Monk': [
-    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'notController' })),
   ],
   'Glorious Protector': [
     handler('linkedExile'),
@@ -1584,14 +1538,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       manaAbility: true,
       costs: { tap: true, mill: 1 },
       do: [{ kind: 'addMana', mana: { C: 1 } }],
-    }),
-  ],
-  "Minamo, School at Water's Edge": [
-    activate({
-      id: 'minamo.untap',
-      costs: { mana: '{U}', tap: true },
-      targets: 'legendary',
-      do: [untapTarget()],
     }),
   ],
   'Mirkwood Bats': [
@@ -2156,9 +2102,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         [returnTargetFromGraveyard('hand')],
       ),
     ),
-  ],
-  'Subjugator Angel': [
-    enters(tapAll({ zone: 'battlefield', type: 'Creature', controller: 'opponent' })),
   ],
   'Summer Bloom': [onResolve(extraLandPlays(3))],
   'Summon: Leviathan': [sagaChapters(

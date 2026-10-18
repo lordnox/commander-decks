@@ -50,7 +50,7 @@ describe('cardRuleCatalog — modesCopiesAndSearch', () => {
     expect(tutor).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('esper charm')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Twincast')).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('Cryptic Command')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Cryptic Command')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
     expect(charm).toBe(cardRuleDefinitionSnapshotFor('Esper Charm'))
     expect(charm!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)

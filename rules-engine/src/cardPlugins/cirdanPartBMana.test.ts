@@ -106,7 +106,7 @@ describe('Arbor Elf', () => {
     type: 'activateAbility',
     seat: 'p1',
     objectId: one(state, 'Arbor Elf').id,
-    abilityId: 'arborElf.untap',
+    abilityId: '$.abilities[0]',
     targets: [{ kind: 'object', objectId: one(state, targetName).id }],
   })
 

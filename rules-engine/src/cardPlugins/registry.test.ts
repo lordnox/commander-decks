@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, test } from 'bun:test'
+import { cardRuleDefinitionSnapshotFor } from './dsl/cardRuleCatalog'
 import { catalogEntry, deckCards } from '../deckCardFixtures'
 import { allHandlerIds, cardDefinition, effectsFor, handlerIdsForNames } from './cardRules'
 import {
@@ -361,7 +362,7 @@ describe('card plugin registry', () => {
       'Kuroki, Thief of Talents',
     ])).toEqual([])
     expect(cardPluginEntry('Kuroki, Thief of Talents')?.handlerIds).toContain('stealCast')
-    expect(cardPluginEntry('Cryptic Command')?.handlerIds).toContain('modalSpell')
+    expect(cardPluginEntry('Cryptic Command')).toBeUndefined()
   })
 
   test('the Lady Evangela foggy-blood pass stays registered', () => {
@@ -829,7 +830,7 @@ describe('card plugin registry', () => {
     expect(Object.keys(inventory)).toHaveLength(20)
     for (const [name, slot] of Object.entries(inventory)) {
       const effects = effectsFor(name)
-      if (slot === 'registered') expect(effects.length).toBeGreaterThan(0)
+      if (slot === 'registered') expect(effects.length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
       else expect(effects).toEqual([])
     }
     expect(effectsFor('Darksteel Colossus')).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
@@ -937,7 +938,7 @@ describe('card plugin registry', () => {
     for (const name of assigned) {
       const slot = status[name]
       if (slot === 'registered') {
-        expect(effectsFor(name).length).toBeGreaterThan(0)
+        expect(effectsFor(name).length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
         expect(gapReasons[name]).toBeUndefined()
       } else if (slot === 'kernel-only') {
         expect(effectsFor(name)).toEqual([])
