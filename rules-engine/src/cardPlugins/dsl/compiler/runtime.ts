@@ -1,3 +1,5 @@
+import { isSwamp } from '../../../plugins/swampOverlay'
+import { isForest } from '../../../plugins/forestOverlay'
 import { isSameObject } from '../../../objectIdentity'
 import type {
   CapturedObject,
@@ -231,7 +233,15 @@ const matchesObjectFilter = (
   if (filter.not && matchesObjectFilter(object, filter.not, context)) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
-  if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
+  if (filter.subtypes && !filter.subtypes.every(subtype => {
+    if (object.subtypes.includes(subtype)) return true
+    if (object.zone !== 'battlefield') return false
+    switch (subtype) {
+      case 'Swamp': return isSwamp(object, context.state)
+      case 'Forest': return isForest(object, context.state)
+      default: return false
+    }
+  })) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
   if (filter.controller && object.controller !== referencedPlayer(filter.controller, context)) return false
   if (filter.owner && object.owner !== referencedPlayer(filter.owner, context)) return false
