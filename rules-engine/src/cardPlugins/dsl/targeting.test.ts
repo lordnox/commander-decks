@@ -11,6 +11,9 @@ import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { targetingRequirement } from '../abilities'
 import type { Instruction, TargetClause } from './schema/v1'
+import { evaluateObjectSelector } from './compiler/runtime'
+import { swampOverlay } from '../../plugins/swampOverlay'
+import { forestOverlay } from '../../plugins/forestOverlay'
 import { canonicalTargetBindings } from './compiler/targeting'
 
 const ok = (result: ReduceResult) => {
@@ -577,4 +580,20 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
     expect(resolved.players.p1.life).toBe(40)
     expect(resolved.log.some((line) => line.includes('didNotResolve:interveningIf'))).toBe(true)
   })
+})
+
+
+test.each([
+  ['Swamp', swampOverlay],
+  ['Forest', forestOverlay],
+] as const)('object subtype filters see the %s overlay only on battlefield lands', (subtype, plugin) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Observer', { types: ['Artifact'] }), cardTemplate('Battlefield land', { types: ['Land'] })] },
+    libraries: { p1: [cardTemplate('Hidden land', { types: ['Land'] }), cardTemplate('Printed land', { types: ['Land'], subtypes: [subtype] })] },
+  }, { random: () => 0, cardPlugins: [plugin] })
+  const source = Object.values(server.state.objects).find(object => object.name === 'Observer')!
+  const state = ok(server.rules(server.state, { type: 'addRule', pluginId: plugin.id, sourceId: source.id }))
+  const selected = evaluateObjectSelector(objects({ subtypes: [subtype] }), { state, controller: 'p1', source: captureObject(state.objects[source.id]) })
+  expect(selected.map(object => object.name).sort()).toEqual(['Battlefield land', 'Printed land'])
 })
