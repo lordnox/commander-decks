@@ -23,6 +23,7 @@ import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
+import dimirAqueduct from './dimir-aqueduct'
 import dimirSignet from './dimir-signet'
 import dismember from './dismember'
 import drownedCatacomb from './drowned-catacomb'
@@ -45,6 +46,7 @@ import geierReachSanitarium from './geier-reach-sanitarium'
 import githzeraiMonk from './githzerai-monk'
 import glacialFortress from './glacial-fortress'
 import gloriousAnthem from './glorious-anthem'
+import golgariRotFarm from './golgari-rot-farm'
 import growthSpiral from './growth-spiral'
 import harrow from './harrow'
 import hinterlandHarbor from './hinterland-harbor'
@@ -60,6 +62,7 @@ import murder from './murder'
 import naturesLore from './natures-lore'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
+import orzhovBasilica from './orzhov-basilica'
 import orzhovSignet from './orzhov-signet'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
@@ -69,6 +72,7 @@ import reverberate from './reverberate'
 import sakuraTribeElder from './sakura-tribe-elder'
 import seleniaDarkAngel from './selenia-dark-angel'
 import signInBlood from './sign-in-blood'
+import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
 import skyDiamond from './sky-diamond'
 import splendidReclamation from './splendid-reclamation'
@@ -115,6 +119,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cryptic Command": crypticCommand,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
+  "Dimir Aqueduct": dimirAqueduct,
   "Dimir Signet": dimirSignet,
   "Dismember": dismember,
   "Drowned Catacomb": drownedCatacomb,
@@ -137,6 +142,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Githzerai Monk": githzeraiMonk,
   "Glacial Fortress": glacialFortress,
   "Glorious Anthem": gloriousAnthem,
+  "Golgari Rot Farm": golgariRotFarm,
   "Growth Spiral": growthSpiral,
   "Harrow": harrow,
   "Hinterland Harbor": hinterlandHarbor,
@@ -152,6 +158,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Nature's Lore": naturesLore,
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
+  "Orzhov Basilica": orzhovBasilica,
   "Orzhov Signet": orzhovSignet,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
@@ -161,6 +168,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Sign in Blood": signInBlood,
+  "Simic Growth Chamber": simicGrowthChamber,
   "Simic Signet": simicSignet,
   "Sky Diamond": skyDiamond,
   "Splendid Reclamation": splendidReclamation,

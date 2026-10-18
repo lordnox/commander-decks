@@ -863,7 +863,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Dig Through Time': [delve(), onResolve(lookTopPick(7, 2))],
-  'Dimir Aqueduct': [entersTapped(), enters(bounceChosenLand())],
   "Dovin's Veto": [
     uncounterable(),
     targetOnResolve('counter', { zone: 'stack', noncreature: true }),
@@ -1129,7 +1128,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     )),
   ],
   'Godless Shrine': [tapUnlessPayLife(2)],
-  'Golgari Rot Farm': [entersTapped(), enters(bounceChosenLand())],
   'Grothama, All-Devouring': [
     grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
     leaves(eachPlayerDrawDamageDealtToSource()),
@@ -1591,7 +1589,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ['Plains', 'Island', 'Swamp'],
     ),
   ],
-  'Orzhov Basilica': [entersTapped(), enters(bounceChosenLand())],
   'Otawara, Soaring City': [
     activate({
       id: 'channel.otawara',
@@ -1913,7 +1910,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       },
     ],
   }, { creatureOnly: true })],
-  'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
   "Sin, Spira's Punishment": [
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),

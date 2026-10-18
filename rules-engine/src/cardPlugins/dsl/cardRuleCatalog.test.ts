@@ -559,3 +559,15 @@ test.each([
     ] }],
   })
 })
+
+
+test.each(['Dimir Aqueduct', 'Golgari Rot Farm', 'Orzhov Basilica', 'Simic Growth Chamber'])('catalog %s enters tapped then chooses one controlled land to return', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'static' },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [
+      { kind: 'chooseCards', bindChoice: 'land', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'hand' },
+    ] },
+  ])
+})

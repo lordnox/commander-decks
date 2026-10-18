@@ -14,7 +14,6 @@ import { pendingSelectionFor } from '../rules/selectCards'
 import { legalActsFor } from '../actions'
 
 import {eventsForAvailableAction} from '../actions'
-import {pendingDialog} from '../pendingDialog'
 import {resolveStack} from '../testHelpers'
 import {activated} from './activated'
 
@@ -696,8 +695,16 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
         seat: 'p1',
         objectId: named(server.state, 'Simic Growth Chamber').id,
       })))
-      expect(pendingDialog(entered)?.kind).toBe('bounce-land')
+      expect(pendingSelectionFor(entered, 'p1')?.candidates).toEqual(expect.arrayContaining([
+        named(entered, 'Simic Growth Chamber').id, named(entered, 'Forest').id,
+      ]))
       expect(named(entered, 'Simic Growth Chamber').tapped).toBe(true)
+      const selection = pendingSelectionFor(entered, 'p1')!
+      const forest = named(entered, 'Forest').id
+      const returned = ok(server.rules(entered, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [forest] }))
+      expect(returned.objects[forest].zone).toBe('hand')
+      expect(named(returned, 'Simic Growth Chamber').zone).toBe('battlefield')
+      expect(returned.resolution).toBeUndefined()
     })
 
   test('Join the Dead uses descend 4 for its full penalty', () => {
