@@ -102,7 +102,7 @@ describe('Lady Evangela remaining coverage', () => {
     let state = ready(server.state)
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'arcanis.draw',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: arcanis,
     }))
@@ -110,7 +110,7 @@ describe('Lady Evangela remaining coverage', () => {
     expect(state.zoneOrder.p1.hand).toHaveLength(3)
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'arcanis.bounce',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: arcanis,
     }))

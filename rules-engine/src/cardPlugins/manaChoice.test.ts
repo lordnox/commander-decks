@@ -487,7 +487,7 @@ describe('registered legacy cost and mana integration', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: one(state, 'Waterlogged Grove').id,
-      abilityId: 'waterloggedGrove.draw',
+      abilityId: '$.abilities[0]',
     })
 
     test.each(['G', 'U'] as const)('{T}, pay 1 life adds {%s}', (mana) => {
