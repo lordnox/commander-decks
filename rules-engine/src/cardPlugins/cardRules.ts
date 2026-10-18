@@ -332,21 +332,6 @@ const fetchBasic = (prompt: string, extra: {
   })
 }
 
-const fetchHideout = (prompt: string, subtypes: string[]): CardEffect => ({
-  op: 'search',
-  via: 'enters',
-  spec: {
-    prompt,
-    match: (object) => basicLand(object) && subtypes.some((subtype) =>
-      object.subtypes.includes(subtype)),
-    destination: 'battlefield',
-    tapped: true,
-    min: 0,
-    max: 1,
-    gainLife: 1,
-  },
-})
-
 const insectToken = {
   name: 'Insect',
   types: ['Creature'],
@@ -684,12 +669,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       'destroy',
       { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
       putLandFromHand(),
-    ),
-  ],
-  'Brokers Hideout': [
-    fetchHideout(
-      'Search your library for a basic Forest, Plains, or Island card. It enters tapped.',
-      ['Forest', 'Plains', 'Island'],
     ),
   ],
   'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
@@ -1583,12 +1562,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [opponentsLoseLife(1), gainLife(1)],
     }),
   ],
-  'Obscura Storefront': [
-    fetchHideout(
-      'Search your library for a basic Plains, Island, or Swamp card. It enters tapped.',
-      ['Plains', 'Island', 'Swamp'],
-    ),
-  ],
   'Otawara, Soaring City': [
     activate({
       id: 'channel.otawara',
@@ -1811,12 +1784,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
   "Rishkar's Expertise": [
     onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
-  ],
-  'Riveteers Overlook': [
-    fetchHideout(
-      'Search your library for a basic Swamp, Mountain, or Forest card. It enters tapped.',
-      ['Swamp', 'Mountain', 'Forest'],
-    ),
   ],
   'Roaming Throne': [
     ward({ mana: 2 }),

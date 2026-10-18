@@ -223,19 +223,15 @@ describe('librarySearch', () => {
       { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
     ])
 
-    expect(asking.players.p1.life).toBe(41)
-    expect(pendingSearch(asking, 'p1')?.source).toBe('Riveteers Overlook')
-    expect(asking.objects[spell.id].zone).toBe('stack')
-
-    const mountain = named(asking, 'Mountain').id
-    const resolved = ([
-      { type: 'reveal', seat: 'p1', objectIds: [mountain], source: 'Riveteers Overlook' },
-      { type: 'move', objectId: mountain, to: 'battlefield' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ] as GameEvent[]).reduce((current, event) => ok(server.rules(current, event)), asking)
-    expect(resolved.objects[spell.id].zone).toBe('graveyard')
-    expect(pendingSearch(resolved, 'p1')).toBeUndefined()
+    expect(asking.objects[spell.id].zone).toBe('graveyard')
+    const searching = resolveStack(server.rules, asking)
+    const mountain = named(searching, 'Mountain').id
+    const selection = pendingSelectionFor(searching, 'p1')!
+    expect(selection.candidates).toEqual([mountain])
+    const resolved = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [mountain] }))
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.objects[mountain]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(resolved.resolution).toBeUndefined()
   })
 
   test('a surveil land fetched by Scapeshift keeps its trigger', () => {
@@ -460,34 +456,18 @@ describe('librarySearch', () => {
       ],
     })
     const hideout = server.state.zoneOrder.p1.hand[0]
-    const opened = ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: hideout,
-    }))
-
+    const opened = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'playLand', seat: 'p1', objectId: hideout,
+    })))
     expect(opened.objects[hideout].zone).toBe('graveyard')
-    expect(opened.players.p1.life).toBe(41)
-    expect(pendingSearch(opened, 'p1')).toMatchObject({
-      source: 'Brokers Hideout',
-      via: 'enters',
-    })
-    expect(searchCandidates(
-      opened,
-      'p1',
-      searchSpecFor('Brokers Hideout')!,
-    ).map((object) => object.name)).toEqual(['Forest', 'Island'])
-
+    expect(opened.players.p1.life).toBe(40)
+    const selection = pendingSelectionFor(opened, 'p1')!
+    expect(selection.candidates.map(id => opened.objects[id].name)).toEqual(['Forest', 'Island'])
     const found = named(opened, 'Forest').id
-    const resolved = run(server, opened, [
-      { type: 'move', objectId: found, to: 'battlefield' },
-      { type: 'tap', objectId: found },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-    expect(resolved.objects[found].zone).toBe('battlefield')
-    expect(resolved.objects[found].tapped).toBe(true)
-    expect(searchingSeat(resolved)).toBeUndefined()
+    const resolved = ok(server.rules(opened, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [found] }))
+    expect(resolved.objects[found]).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(resolved.players.p1.life).toBe(41)
+    expect(resolved.resolution).toBeUndefined()
   })
 
   test('a Hideout search does not expose library identities to another seat', () => {
@@ -495,16 +475,13 @@ describe('librarySearch', () => {
       hand: [card('Obscura Storefront', ['Land'])],
       library: [island()],
     })
-    const opened = ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: server.state.zoneOrder.p1.hand[0],
-    }))
+    const opened = resolveStack(server.rules, ok(server.rules(server.state, {
+      type: 'playLand', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+    })))
     const projected = server.project(opened, 'p2')
-
     expect(projected.zoneOrder.p1.library).toEqual([])
     expect(Object.values(projected.objects).some((object) => object.name === 'Island')).toBe(false)
-    expect(pendingSearch(projected, 'p1')?.source).toBe('Obscura Storefront')
+    expect(pendingSelectionFor(projected, 'p1')).toBeUndefined()
   })
 
   test('Dreamscape Artist discards a card and sacrifices a land to search', () => {

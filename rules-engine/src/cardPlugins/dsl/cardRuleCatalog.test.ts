@@ -571,3 +571,25 @@ test.each(['Dimir Aqueduct', 'Golgari Rot Farm', 'Orzhov Basilica', 'Simic Growt
     ] },
   ])
 })
+
+
+test.each([
+  ['Brokers Hideout', ['Forest', 'Plains', 'Island']],
+  ['Obscura Storefront', ['Plains', 'Island', 'Swamp']],
+  ['Riveteers Overlook', ['Swamp', 'Mountain', 'Forest']],
+] as const)('catalog %s conditions its basic search and life gain on sacrificing itself', (name, subtypes) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered', on: { kind: 'enters' }, instructions: [
+      { kind: 'sacrifice', targets: { kind: 'contextRef', name: 'source' }, bindResult: 'sacrificed' },
+      { kind: 'if', condition: { kind: 'resultIsTrue', value: { kind: 'resultRef', binding: 'sacrificed', field: 'sacrificed' } }, then: [
+        { kind: 'sequence', instructions: [
+          { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'], any: subtypes.map(subtype => ({ subtypes: [subtype] })) } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+          { kind: 'move', to: 'battlefield', tapped: true },
+          { kind: 'shuffle' },
+        ] },
+        { kind: 'gainLife', amount: { kind: 'constant', value: 1 } },
+      ] },
+    ],
+  })
+})
