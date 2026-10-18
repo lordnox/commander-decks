@@ -269,6 +269,8 @@ type ActCase = {
   taps?: boolean
   /** Offered only once its mana cost is already in the pool (not planner-funded). */
   poolGated?: boolean
+  /** The canonical planner can fund this previously pool-gated activation. */
+  plannerFunded?: boolean
 }
 
 const EVERY_COLOR: ActCase['adds'] = (['W', 'U', 'B', 'R', 'G'] as const)
@@ -301,24 +303,27 @@ const ACT_CASES: Record<string, ActCase> = {
   'Cabal Coffers': {
     helpers: ['Swamp', 'Swamp', 'Swamp'],
     pool: { C: 2 },
-    abilityId: 'coffers.cabal',
+    abilityId: '$.abilities[0]',
     poolGated: true,
+    plannerFunded: true,
     adds: [{ pool: { B: 3 } }],
     taps: true,
   },
   'Cabal Stronghold': {
     helpers: ['Swamp', 'Swamp', 'Swamp', 'Swamp'],
     pool: { C: 3 },
-    abilityId: 'coffers.stronghold',
+    abilityId: '$.abilities[0]',
     poolGated: true,
+    plannerFunded: true,
     adds: [{ pool: { B: 4 } }],
     taps: true,
   },
   'Magus of the Coffers': {
     helpers: ['Swamp', 'Swamp', 'Swamp'],
     pool: { C: 2 },
-    abilityId: 'coffers.magus',
+    abilityId: '$.abilities[0]',
     poolGated: true,
+    plannerFunded: true,
     adds: [{ pool: { B: 3 } }],
     taps: true,
   },
@@ -526,13 +531,21 @@ describe('act route: costed mana abilities are offered and add exactly their Ora
         })
       }
       if (scenario.poolGated) {
-        test('is not offered until its cost is in the pool', () => {
-          const { state, sourceId } = build(card, { helpers: scenario.helpers })
+        test('requires an available route to pay its activation cost', () => {
+          const { server, state, sourceId } = build(card, { helpers: scenario.helpers })
           state.players.p1.mana = emptyMana()
-          expect(legalActsFor(state, 'p1').filter((candidate) =>
-            candidate.kind === 'activateAbility'
-            && candidate.objectId === sourceId
-            && candidate.abilityId === scenario.abilityId)).toEqual([])
+          const actions = legalActsFor(state, 'p1').filter(candidate => candidate.kind === 'activateAbility'
+            && candidate.objectId === sourceId && candidate.abilityId === scenario.abilityId)
+          if (!scenario.plannerFunded) {
+            expect(actions).toEqual([])
+            return
+          }
+          expect(actions).toHaveLength(1)
+          const events = eventsForAvailableAction(state, 'p1', actions[0])!
+          expect(events.filter(event => event.type === 'tapForMana')).toHaveLength(scenario.pool!.C!)
+          const next = events.reduce((current, event) => ok(server.rules(current, event)), state)
+          expect(next.players.p1.mana).toEqual({ ...emptyMana(), ...scenario.adds[0].pool })
+          expect(next.objects[sourceId].tapped).toBe(true)
         })
       }
     })
@@ -726,7 +739,7 @@ describe('relocated from ladyEvangela.test.ts → liveTableMana.test.ts', () => 
       const coffersId = named(ready, 'Cabal Coffers').id
       const activatedMana = ok(server.rules(ready, {
         type: 'activateAbility',
-        abilityId: 'coffers.cabal',
+        abilityId: '$.abilities[0]',
         seat: 'p1',
         objectId: coffersId,
         manaAbility: true,

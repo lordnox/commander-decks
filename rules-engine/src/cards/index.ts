@@ -11,6 +11,8 @@ import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
 import botanicalSanctum from './botanical-sanctum'
 import buriedAlive from './buried-alive'
+import cabalCoffers from './cabal-coffers'
+import cabalStronghold from './cabal-stronghold'
 import castleGarenbrig from './castle-garenbrig'
 import charcoalDiamond from './charcoal-diamond'
 import commandersSphere from './commanders-sphere'
@@ -43,6 +45,7 @@ import gloriousAnthem from './glorious-anthem'
 import growthSpiral from './growth-spiral'
 import harrow from './harrow'
 import hinterlandHarbor from './hinterland-harbor'
+import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
 import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
 import mindStone from './mind-stone'
@@ -91,6 +94,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Botanical Sanctum": botanicalSanctum,
   "Buried Alive": buriedAlive,
+  "Cabal Coffers": cabalCoffers,
+  "Cabal Stronghold": cabalStronghold,
   "Castle Garenbrig": castleGarenbrig,
   "Charcoal Diamond": charcoalDiamond,
   "Commander's Sphere": commandersSphere,
@@ -123,6 +128,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Growth Spiral": growthSpiral,
   "Harrow": harrow,
   "Hinterland Harbor": hinterlandHarbor,
+  "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,
   "Mind Stone": mindStone,
