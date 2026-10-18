@@ -193,3 +193,18 @@ test('an activated search pays life and source costs before its stack resolution
   expect(resolved.stack).toHaveLength(0)
   expect(resolved.resolution).toBeUndefined()
 })
+
+test('searchLibrary reveals the chosen card before moving it into a publicly known hand', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [searchLibrary({ bindChoice: 'found', chooser: ref('controller'), filter: objects({ zone: 'library', owner: 'you' }), min: 0, max: 1, to: 'hand', reveal: true })] })] },
+    libraries: { p1: [cardTemplate('Chosen'), cardTemplate('Still secret')] },
+  }, { random: () => 0 })
+  const searching = singleSearchBegin(server)
+  expect(Object.values(server.project(searching, 'p2').objects).some(object => object.name === 'Chosen')).toBe(false)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const resolved = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [named(searching, 'Chosen').id] }))
+  const projected = server.project(resolved, 'p2')
+  expect(Object.values(projected.objects).find(object => object.name === 'Chosen')?.zone).toBe('hand')
+  expect(Object.values(projected.objects).some(object => object.name === 'Still secret')).toBe(false)
+})

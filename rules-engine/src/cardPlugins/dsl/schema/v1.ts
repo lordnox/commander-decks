@@ -259,6 +259,8 @@ export type Instruction =
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
   | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; bindResult?: string }
+  /** Reveal each resolved object to every player through the ordinary visibility event. */
+  | { kind: 'reveal'; targets: ObjectRecipient }
   /** Tap or untap each resolved object through the ordinary event pipeline. */
   | { kind: 'tap'; targets: ObjectRecipient }
   | { kind: 'untap'; targets: ObjectRecipient }

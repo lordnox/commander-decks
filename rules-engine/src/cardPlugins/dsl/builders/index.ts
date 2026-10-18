@@ -450,6 +450,8 @@ export const sacrifice = (input: {
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
 
+export const reveal = (targets: ObjectRecipient) => immutableData({ kind: 'reveal' as const, targets }) satisfies Instruction
+
 export const tap = (targets: ObjectRecipient) => immutableData({ kind: 'tap' as const, targets }) satisfies Instruction
 export const untap = (targets: ObjectRecipient) => immutableData({ kind: 'untap' as const, targets }) satisfies Instruction
 
@@ -629,6 +631,7 @@ export const searchLibrary = (input: {
   max?: AmountInput
   to: Zone
   tapped?: boolean
+  reveal?: boolean
 }) => sequence(
   chooseCards({
     bindChoice: input.bindChoice,
@@ -637,6 +640,7 @@ export const searchLibrary = (input: {
     viewLibrary: true,
     ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
   }),
+  ...(input.reveal ? [reveal(choice(input.bindChoice))] : []),
   move({ targets: choice(input.bindChoice), to: input.to, ...(input.tapped !== undefined ? { tapped: input.tapped } : {}) }),
   shuffle({ targets: input.chooser }),
 )
