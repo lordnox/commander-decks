@@ -6,7 +6,6 @@ import type { ReduceResult } from '../types'
 import {
   activated,
   GHOST_TOWN_RETURN,
-  OBORO_RETURN,
 } from './activated'
 
 const ok = (result: ReduceResult) => {
@@ -62,13 +61,13 @@ describe('self-bouncing lands', () => {
     ready.players.p1.mana.U = 1
     const afterActivate = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: OBORO_RETURN,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId,
     }))
     expect(afterActivate.players.p1.mana.U).toBe(0)
     expect(afterActivate.objects[objectId].zone).toBe('battlefield')
-    expect(afterActivate.stack[0]).toMatchObject({ kind: 'ability', abilityId: OBORO_RETURN })
+    expect(afterActivate.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[0]' })
     const returned = ok(server.rules(afterActivate, { type: 'resolveTop' }))
     expect(returned.objects[objectId].zone).toBe('hand')
   })
@@ -77,11 +76,11 @@ describe('self-bouncing lands', () => {
     const server = game('Oboro, Palace in the Clouds')
     const result = server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: OBORO_RETURN,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: server.state.zoneOrder.p1.battlefield[0],
     })
     expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('not enough mana')
+    expect(result.ok === false && result.error).toContain('locked total cost')
   })
 })

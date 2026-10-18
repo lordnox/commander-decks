@@ -430,3 +430,48 @@ test('catalog Selenia pays two life to return its source to hand', () => {
   expect(effectsFor('Selenia, Dark Angel')).toEqual([])
   expect(cardRuleDefinitionSnapshotFor('Selenia, Dark Angel')!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'life', amount: { kind: 'constant', value: 2 } }], instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] })
 })
+
+
+test.each([
+  ['Arcanis the Omnipotent', [['draw'], ['move']]],
+  ['Mind Stone', [['draw']]],
+  ['Waterlogged Grove', [['draw']]],
+  ["Commander's Sphere", [['draw']]],
+  ['Expedition Map', [['sequence']]],
+  ['Geier Reach Sanitarium', [['draw', 'discard']]],
+  ['Oboro, Palace in the Clouds', [['move']]],
+  ['Wall of Blood', [['createEffect']]],
+] as const)('catalog %s owns its activated programs without legacy registrations', (name, instructionKinds) => {
+  expect(effectsFor(name)).toEqual([])
+  const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities).toHaveLength(instructionKinds.length)
+  abilities.forEach((ability, index) => {
+    expect(ability.kind).toBe('activated')
+    if (ability.kind !== 'activated') throw new Error('expected activated configuration')
+    expect(ability.instructions!.map(instruction => instruction.kind)).toEqual([...instructionKinds[index]!])
+  })
+})
+
+test.each(['Mind Stone', 'Waterlogged Grove', 'Expedition Map'])('catalog %s pays mana and taps before sacrificing itself', name => {
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ costs: [
+    { kind: 'mana' }, { kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } },
+  ] })
+})
+
+test('catalog Arcanis separates tap-to-draw from its mana-paid return', () => {
+  expect(cardRuleDefinitionSnapshotFor('Arcanis the Omnipotent')!.definition.abilities).toMatchObject([
+    { costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 3 } }] },
+    { costs: [{ kind: 'mana', amount: '{2}{U}{U}' }], instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] },
+  ])
+})
+
+test('catalog Geier Reach Sanitarium draws for everyone before each player discards', () => {
+  expect(cardRuleDefinitionSnapshotFor('Geier Reach Sanitarium')!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }], instructions: [
+    { kind: 'draw', count: { kind: 'constant', value: 1 }, targets: { kind: 'players', filter: {} } },
+    { kind: 'discard', count: { kind: 'constant', value: 1 }, targets: { kind: 'players', filter: {} } },
+  ] })
+})
+
+test('catalog Wall of Blood pays one life for a temporary source pump', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wall of Blood')!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'life', amount: { kind: 'constant', value: 1 } }], instructions: [{ kind: 'createEffect', targets: { kind: 'contextRef', name: 'source' }, duration: { kind: 'untilCleanup' }, effect: { kind: 'pump', power: { kind: 'constant', value: 1 }, toughness: { kind: 'constant', value: 1 } } }] })
+})

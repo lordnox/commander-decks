@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 351,
+    "cardRegistrations": 343,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -28,12 +28,12 @@
     "embeddedRuleFamilies": 4,
     "cardNameDispatchSites": 45,
     "customEventDispatchSites": 83,
-    "directMutationSites": 603,
+    "directMutationSites": 604,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 15,
     "cardRegistrationOnlyGaps": 17,
     "candidateOnlyInstructionRows": 175,
-    "candidateOnlyCardRows": 334
+    "candidateOnlyCardRows": 326
   },
   "cardEffects": [
     {
@@ -44,8 +44,6 @@
         "Alchemist's Refuge:effects[0]",
         "Angel of Sanctions:effects[2]",
         "Arbor Elf:effects[0]",
-        "Arcanis the Omnipotent:effects[0]",
-        "Arcanis the Omnipotent:effects[1]",
         "Astral Drift:effects[1]",
         "Belonging:effects[2]",
         "Blitzball:effects[0]",
@@ -57,7 +55,6 @@
         "Cephalid Coliseum:effects[1]",
         "Children of Korlis:effects[0]",
         "Collector's Vault:effects[0]",
-        "Commander's Sphere:effects[0]",
         "Daily Bugle Newspaper:effects[0]",
         "Deserted Temple:effects[0]",
         "Dimir Signet:effects[0]",
@@ -66,7 +63,6 @@
         "Firdoch Core:effects[1]",
         "Firdoch Core:effects[2]",
         "Flooded Grove:effects[0]",
-        "Geier Reach Sanitarium:effects[0]",
         "Ghost Town:effects[0]",
         "Gilded Lotus:effects[0]",
         "Hall of Storm Giants:effects[1]",
@@ -88,12 +84,10 @@
         "Maskwood Nexus:effects[1]",
         "Millikin:effects[0]",
         "Minamo, School at Water's Edge:effects[0]",
-        "Mind Stone:effects[0]",
         "Mirror Universe:effects[0]",
         "Nezahal, Primal Tide:effects[4]",
         "Nirkana Revenant:effects[1]",
         "Niv-Mizzet, Ghost Counsel:effects[1]",
-        "Oboro, Palace in the Clouds:effects[0]",
         "Orzhov Signet:effects[0]",
         "Otawara, Soaring City:effects[0]",
         "Raffine's Tower:effects[1]",
@@ -121,8 +115,6 @@
         "Ugin, the Spirit Dragon:effects[2]",
         "Ulvenwald Tracker:effects[0]",
         "Voyager Staff:effects[0]",
-        "Wall of Blood:effects[0]",
-        "Waterlogged Grove:effects[0]",
         "Werefox Bodyguard:effects[3]",
         "Yurlok of Scorch Thrash:effects[1]",
         "Zagoth Triome:effects[1]",
@@ -130,7 +122,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 211,
+        "matches": 195,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -636,7 +628,6 @@
         "Entish Restoration:effects[0]",
         "Esper Panorama:effects[0]",
         "Evolving Wilds:effects[0]",
-        "Expedition Map:effects[0]",
         "Fabled Passage:effects[0]",
         "Finale of Devastation:effects[1]",
         "Kodama's Reach:effects[0]",
@@ -660,7 +651,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 53,
+        "matches": 52,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1726 — test('restores an interrupted Analyze the Pollen library search', async () => {",
@@ -1156,7 +1147,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 34,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
@@ -1684,23 +1675,18 @@
       "variant": "bounceSelf",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
-        "Arcanis the Omnipotent:effects[1].do[0]",
         "Ghost Town:effects[0].do[0]",
-        "Oboro, Palace in the Clouds:effects[0].do[0]",
         "Thawing Glaciers:effects[1].spec.after[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 5,
         "samples": [
           "rules-engine/src/actions.test.ts:55 — test('offers declarative Ghost Town and fetchland abilities', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:49 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:128 — test(\"Minamo untaps a legendary creature\", () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:88 — test('Arcanis taps to draw three and bounces itself', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:122 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:350 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:416 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:86 — test('the Homer dumpster cards this pass covers stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:86 — test('the Homer dumpster cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2550,8 +2536,8 @@
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:21",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:90 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:602 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:630 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:603 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:631 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
           "rules-engine/src/cardPlugins/eachPlayerChoices.test.ts:270 — test('Frantic Search draws two then discards two', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:117 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
@@ -2647,7 +2633,6 @@
       "variant": "draw",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Arcanis the Omnipotent:effects[0].do[0]",
         "Astral Drift:effects[1].do[0]",
         "Beast Whisperer:effects[0].do[0]",
         "Beza, the Bounding Spring:effects[0].do[3].whenTrue[0]",
@@ -2657,7 +2642,6 @@
         "Cling to Dust:effects[1].do[0].whenFalse[0]",
         "Coercive Portal:effects[0].do[0].outcome[0].whenFalse[0]",
         "Collector's Vault:effects[0].do[0]",
-        "Commander's Sphere:effects[0].do[0]",
         "Cryptic Command:effects[0].modes[3].do[0]",
         "Daily Bugle Newspaper:effects[0].do[0]",
         "Erestor of the Council:effects[0].do[2]",
@@ -2671,14 +2655,12 @@
         "Jace, Multiverse Architect:effects[1].do[0]",
         "Joint Exploration:effects[0].do[0]",
         "Keep Safe:effects[0].do[0]",
-        "Mind Stone:effects[0].do[0]",
         "Mulldrifter:effects[2].do[0]",
         "Nezahal, Primal Tide:effects[3].do[0]",
         "Raffine's Tower:effects[1].do[0]",
         "Thrór's Map:effects[1].do[0]",
         "Trade Routes:effects[1].do[0]",
         "Ugin, the Spirit Dragon:effects[2].do[1]",
-        "Waterlogged Grove:effects[0].do[0]",
         "Wedding Ring:effects[1].do[0]",
         "Zagoth Triome:effects[1].do[0]",
         "Zimone and Dina:effects[1].do[0]",
@@ -2686,7 +2668,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 135,
+        "matches": 121,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2839,21 +2821,20 @@
       "variant": "eachPlayerDiscard",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Geier Reach Sanitarium:effects[0].do[1]",
         "Rankle, Master of Pranks:effects[0].do[0].modes[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2847 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:232 — test('Geier Reach Sanitarium draws for each player when the ability resolves', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:174 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:240 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:295 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {"
+          "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
+          "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
+          "site/src/CombatOverlay.test.tsx:83 — test('calls out damage aimed at the viewer', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2867,21 +2848,20 @@
       "variant": "eachPlayerDraw",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Geier Reach Sanitarium:effects[0].do[0]",
         "Rankle, Master of Pranks:effects[0].do[0].modes[1].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2847 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:232 — test('Geier Reach Sanitarium draws for each player when the ability resolves', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:174 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:240 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:295 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {"
+          "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
+          "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
+          "site/src/CombatOverlay.test.tsx:83 — test('calls out damage aimed at the viewer', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -3485,7 +3465,7 @@
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:546 — test('High Market sacrifices a creature and gains 1 life', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:547 — test('High Market sacrifices a creature and gains 1 life', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart34LinkedExile.test.ts:335 — test('Werefox Bodyguard may exile zero or one non-Fox creature', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:100 — test('Beza Fish tokens are blue', () => {"
         ]
@@ -3776,8 +3756,8 @@
       "candidateEvidence": {
         "matches": 32,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:295 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:339 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:100 — test('Beza Fish tokens are blue', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:157 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:254 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
@@ -4762,8 +4742,9 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 5,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:476 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:73 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
@@ -4914,15 +4895,12 @@
       "variant": "pumpSelf",
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
-        "Nirkana Revenant:effects[1].do[0]",
-        "Wall of Blood:effects[0].do[0]"
+        "Nirkana Revenant:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:190 — test('Hatred pays X life and pumps only power', () => {",
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:284 — test('Wall of Blood and Selenia support repeatable exact life payments', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:151 — test('the Lady Evangela mana and extort cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:401 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
@@ -5004,7 +4982,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:379 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:380 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:293 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -5113,8 +5091,8 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:295 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:339 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:185 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:290 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:77 — test('the Homer dumpster cards this pass covers stay registered', () => {",
@@ -5917,7 +5895,7 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:406 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:407 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:51 — test('Bushwhack opens a mode choice before its instructions run', () => {",
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:61 — test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:95 — test('Alabaster Host Intercessor plainscycles from hand through library search', () => {",
@@ -6783,43 +6761,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Arcanis the Omnipotent",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Arcanis the Omnipotent"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:128 — test(\"Minamo untaps a legendary creature\", () => {",
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:88 — test('Arcanis taps to draw three and bounces itself', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:350 — test('the Lady Evangela remaining group stays registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:416 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [bounceSelf, draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "bounceSelf",
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Archaeomancer's Map",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -6829,8 +6770,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:295 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:339 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:290 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -8534,40 +8475,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Commander's Sphere",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Commander's Sphere"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:494 — test(\"Commander's Sphere sacrifices for a card\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:291 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Concordant Crossroads",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -9946,7 +9853,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:379 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:380 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:293 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -10058,38 +9965,6 @@
       "instructionVariants": [],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Expedition Map",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Expedition Map"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:268 — test('Expedition Map sacrifices itself and opens a hidden library search', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:294 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:390 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -10807,41 +10682,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Geier Reach Sanitarium",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Geier Reach Sanitarium"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:232 — test('Geier Reach Sanitarium draws for each player when the ability resolves', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:295 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [eachPlayerDiscard, eachPlayerDraw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "eachPlayerDiscard",
-        "eachPlayerDraw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Getaway Glamer",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10893,7 +10733,7 @@
         "samples": [
           "rules-engine/src/actions.test.ts:55 — test('offers declarative Ghost Town and fetchland abilities', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:122 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:30 — test('Ghost Town returns only outside its controller’s turn', () => {"
+          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [bounceSelf]",
@@ -11463,7 +11303,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:521 — test('Hedron Archive sacrifices for two cards', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:522 — test('Hedron Archive sacrifices for two cards', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:297 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -11561,7 +11401,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:546 — test('High Market sacrifices a creature and gains 1 life', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:547 — test('High Market sacrifices a creature and gains 1 life', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:298 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -13228,44 +13068,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Mind Stone",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mind Stone"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:86 — test('Mind Stone sacrifices for a card', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:299 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "site/src/cards.test.ts:14",
-          "site/src/cards.test.ts:28",
-          "site/src/cards.test.ts:35 — test('a name-only token stub inherits the printed card it copies', () => {",
-          "site/src/cards.test.ts:47 — test('a mana rock token sits with the lands', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Mirkwood Bats",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -13487,7 +13289,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:572 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:573 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:300 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -13603,7 +13405,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2313 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:674 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:675 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:46 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:125 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:301 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
@@ -13862,41 +13664,6 @@
       "handlerIds": [
         "activated",
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Oboro, Palace in the Clouds",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Oboro, Palace in the Clouds"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:130 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:59 — test('Oboro pays one mana and returns itself', () => {",
-          "rules-engine/src/cardPlugins/selfBounceLand.test.ts:77 — test('Oboro rejects an activation without mana', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [bounceSelf]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "bounceSelf"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -15751,7 +15518,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:406 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:407 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:302 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -17435,8 +17202,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:602 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:630 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:603 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:631 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:305 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -17846,7 +17613,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:438 — test(\"Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:439 — test(\"Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:306 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -18198,41 +17965,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Wall of Blood",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Wall of Blood"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:190 — test('Hatred pays X life and pumps only power', () => {",
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:284 — test('Wall of Blood and Selenia support repeatable exact life payments', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:413 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [pumpSelf]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "pumpSelf"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Wall of Shards",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -18304,46 +18036,6 @@
       "handlerIds": [
         "alternateCosts",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Waterlogged Grove",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Waterlogged Grove"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 9,
-        "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:25",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:139 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:389 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:489 — test('the planner turns an Island into {G}{G} for a {G}{G} spell', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:511 — test('it makes no colorless mana, and no mana at 0 life', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:529 — test('{1}, {T}, sacrifice it: draw a card', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:541 — test('the draw needs {1} and an untapped land', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -19147,7 +18839,6 @@
         "Alchemist's Refuge",
         "Angel of Sanctions",
         "Arbor Elf",
-        "Arcanis the Omnipotent",
         "Astral Drift",
         "Belonging",
         "Blitzball",
@@ -19158,14 +18849,12 @@
         "Cephalid Coliseum",
         "Children of Korlis",
         "Collector's Vault",
-        "Commander's Sphere",
         "Daily Bugle Newspaper",
         "Deserted Temple",
         "Dimir Signet",
         "Endless Sands",
         "Firdoch Core",
         "Flooded Grove",
-        "Geier Reach Sanitarium",
         "Ghost Town",
         "Gilded Lotus",
         "Hall of Storm Giants",
@@ -19185,12 +18874,10 @@
         "Maskwood Nexus",
         "Millikin",
         "Minamo, School at Water's Edge",
-        "Mind Stone",
         "Mirror Universe",
         "Nezahal, Primal Tide",
         "Nirkana Revenant",
         "Niv-Mizzet, Ghost Counsel",
-        "Oboro, Palace in the Clouds",
         "Orzhov Signet",
         "Otawara, Soaring City",
         "Raffine's Tower",
@@ -19210,8 +18897,6 @@
         "Triangle of War",
         "Ulvenwald Tracker",
         "Voyager Staff",
-        "Wall of Blood",
-        "Waterlogged Grove",
         "Werefox Bodyguard",
         "Yurlok of Scorch Thrash",
         "Zagoth Triome",
@@ -19219,7 +18904,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 192,
+        "matches": 175,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -19439,7 +19124,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 77,
+        "matches": 79,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -19480,7 +19165,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 155,
+        "matches": 158,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -19842,16 +19527,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 36,
+        "matches": 37,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:209 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:268 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:431 — test('catalog Selenia pays two life to return its source to hand', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:476 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:131 — test('paid callback does not reuse the parent allocation for its fresh target', () => {",
           "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:173 — test('paid callback announces and consumes its own fresh distribution', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:229 — test('paid callback keeps an entering parent occurrence through JSON restart', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:77 — test('paid callback preserves chosen cards, paid result, and X across shroud and JSON restart', () => {"
+          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:229 — test('paid callback keeps an entering parent occurrence through JSON restart', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -19889,7 +19574,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 44,
+        "matches": 47,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -21089,7 +20774,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2359",
+        "rules-engine/src/cardPlugins/cardRules.ts:2308",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -21215,7 +20900,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1276",
+        "rules-engine/src/cardPlugins/cardRules.ts:1239",
         "rules-engine/src/cardPlugins/cardRules.ts:296",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
@@ -21241,7 +20926,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:640",
+        "rules-engine/src/kernel.ts:643",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:123",
         "rules-engine/src/newGame.ts:124",
@@ -21312,10 +20997,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1166
+          1176
         ],
         "samples": [
-          "1166: if (object.name === 'Timetwister') {"
+          "1176: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -21516,12 +21201,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          239,
-          395
+          240,
+          410
         ],
         "samples": [
-          "239: if (filter.name && object.name !== filter.name) return false",
-          "395: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "240: if (filter.name && object.name !== filter.name) return false",
+          "410: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -22272,10 +21957,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1431
+          1434
         ],
         "samples": [
-          "1431: event.name === SEARCH_CHOSEN"
+          "1434: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -22596,31 +22281,32 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          872,
-          878,
-          955,
-          975,
-          977,
-          980,
-          989,
-          1005,
-          1006,
-          1011,
-          1012,
-          1111,
+          879,
+          885,
+          962,
+          982,
+          984,
+          987,
+          997,
+          1000,
+          1015,
+          1016,
+          1021,
+          1022,
           1121,
-          1142,
-          1157,
-          1173,
-          1175,
-          1181,
-          1193,
-          1214
+          1131,
+          1152,
+          1167,
+          1183,
+          1185,
+          1191,
+          1203,
+          1224
         ],
         "samples": [
-          "872: const moved = draft.object(event.objectId)",
-          "878: const object = draft.object(event.objectId)",
-          "955: .map((objectId) => draft.object(objectId))"
+          "879: const moved = draft.object(event.objectId)",
+          "885: const object = draft.object(event.objectId)",
+          "962: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -23687,8 +23373,8 @@
           369,
           373,
           384,
-          548,
-          580
+          551,
+          583
         ],
         "samples": [
           "369: const source = draft.object(event.objectId)",
@@ -24739,27 +24425,27 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          473,
-          526,
-          528,
-          532,
-          534,
-          544,
-          571,
+          476,
+          529,
+          531,
+          535,
+          537,
+          547,
           574,
-          583,
-          617,
-          622,
-          655,
-          657,
-          663,
-          680,
-          685
+          577,
+          586,
+          620,
+          625,
+          658,
+          660,
+          666,
+          683,
+          688
         ],
         "samples": [
-          "473: const object = draft.object(event.objectId)",
-          "526: const object = draft.object(event.objectId)",
-          "528: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "476: const object = draft.object(event.objectId)",
+          "529: const object = draft.object(event.objectId)",
+          "531: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

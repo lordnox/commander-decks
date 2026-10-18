@@ -99,7 +99,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 1 }
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'mindStone.draw',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: stoneId,
     }))
@@ -255,7 +255,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana.C = 2
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'geierReach.tableLoot',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: sanId,
     }))
@@ -280,14 +280,15 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.step = 'precombatMain'
     ready.active = 'p1'
     ready.players.p1.mana.C = 2
-    const opened = ok(server.rules(ready, {
+    const announced = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: mapId,
     }))
+    const opened = resolveStack(server.rules, announced)
     expect(opened.objects[mapId].zone).toBe('graveyard')
-    expect(pendingSearch(opened, 'p1')).toBeDefined()
+    expect(pendingSelectionFor(opened, 'p1')).toMatchObject({ kind: 'choose', min: 0, count: 1, viewLibrary: true })
     expect(projectForViewer(opened, 'p2').zoneOrder.p1.library).toEqual([])
   })
 
@@ -506,7 +507,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     tapped.objects[sphereId].tapped = true
     const activatedState = ok(server.rules(tapped, {
       type: 'activateAbility',
-      abilityId: 'commandersSphere.draw',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: sphereId,
     }))

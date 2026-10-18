@@ -525,18 +525,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Arcane Denial': [
     targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
   ],
-  'Arcanis the Omnipotent': [
-    activate({
-      id: 'arcanis.draw',
-      costs: { tap: true },
-      do: [draw(3)],
-    }),
-    activate({
-      id: 'arcanis.bounce',
-      costs: { mana: '{2}{U}{U}' },
-      do: [bounceSelf()],
-    }),
-  ],
   "Archaeomancer's Map": [
     {
       op: 'search',
@@ -849,13 +837,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(tapAttached(), pumpAttached(20, 20)),
   ],
   Comeuppance: [handler('combatPreventionCards')],
-  "Commander's Sphere": [
-    ability(
-      { id: 'commandersSphere.draw' },
-      { sacrifice: 'self' },
-      draw(1),
-    ),
-  ],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   Condemn: [
     targetOnResolve(
@@ -1064,16 +1045,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     fetchBasic('Search your library for a basic land card. It enters tapped.', { tapped: true }),
   ],
   'Exotic Orchard': [manaFrom('opponentsLands')],
-  'Expedition Map': [
-    searchAbility({
-      prompt: 'Search your library for a land card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }, { mana: '{2}', tap: true, sacrifice: 'self' }),
-  ],
   Explore: [onResolve(extraLandPlays(1), draw(1))],
   Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
   'Fabled Passage': [
@@ -1213,14 +1184,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Frantic Search': [onResolve(draw(2), discardCards(2), untapUpToLands(3))],
-  'Geier Reach Sanitarium': [
-    ability(
-      { id: 'geierReach.tableLoot' },
-      { mana: '{2}', tap: true },
-      eachPlayerDraw(1),
-      eachPlayerDiscard(1),
-    ),
-  ],
   'Getaway Glamer': [
     spree([
       spreeMode(
@@ -1635,13 +1598,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [untapTarget()],
     }),
   ],
-  'Mind Stone': [
-    ability(
-      { id: 'mindStone.draw' },
-      { mana: '{1}', tap: true, sacrifice: 'self' },
-      draw(1),
-    ),
-  ],
   'Mirkwood Bats': [
     enters({ filter: { controller: 'you', token: true }, createdOnly: true }, opponentsLoseLife(1)),
     permanentSacrificed({ controller: 'you', token: true }, opponentsLoseLife(1)),
@@ -1753,13 +1709,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       id: 'nivMizzetGhostCounsel.drain',
       costs: { tap: true },
       do: [opponentsLoseLife(1), gainLife(1)],
-    }),
-  ],
-  'Oboro, Palace in the Clouds': [
-    activate({
-      id: 'selfBounceLand.oboro',
-      costs: { mana: '{1}' },
-      do: [bounceSelf()],
     }),
   ],
   'Obscura Storefront': [
@@ -2500,9 +2449,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Walk-In Closet': [playLandsFromGraveyard()],
-  'Wall of Blood': [
-    ability({ id: 'wallOfBlood.pump' }, { life: 1 }, pumpSelf(1, 1)),
-  ],
   'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],
   'Wash Away': [
     cleave('{1}{U}{U}'),
@@ -2510,13 +2456,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       zone: 'stack',
       bracketed: { castFromNot: 'hand' },
     }),
-  ],
-  'Waterlogged Grove': [
-    ability(
-      { id: 'waterloggedGrove.draw' },
-      { mana: '{1}', tap: true, sacrifice: 'self' },
-      draw(1),
-    ),
   ],
   'Waterlogged Teachings // Inundated Archive': [
     entersTapped(),

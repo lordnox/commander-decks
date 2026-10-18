@@ -303,7 +303,7 @@ describe('Lady Evangela life-total and X cards', () => {
     for (let index = 0; index < 2; index += 1) {
       state = ok(server.rules(state, {
         type: 'activateAbility',
-        abilityId: 'wallOfBlood.pump',
+        abilityId: '$.abilities[0]',
         seat: 'p1',
         objectId: wall,
       }))
