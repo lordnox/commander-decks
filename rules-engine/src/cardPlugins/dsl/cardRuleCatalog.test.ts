@@ -506,3 +506,15 @@ test('catalog Cryptic Command chooses two modes with separate counter and perman
     { instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
   ] })
 })
+
+
+test.each([
+  ['Dimir Signet', ['U', 'B']],
+  ['Orzhov Signet', ['W', 'B']],
+  ['Simic Signet', ['G', 'U']],
+] as const)('catalog %s pays one mana and taps for its exact color pair', (name, colors) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }], instructions: [
+    { kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: Object.fromEntries(colors.map(color => [color, { kind: 'constant', value: 1 }])) },
+  ] })
+})

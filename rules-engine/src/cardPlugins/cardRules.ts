@@ -416,14 +416,6 @@ const lootAndTreasure = (id: string): CardEffect => activate({
   do: [draw(1), discardCards(1), createTreasures(1, 'you')],
 })
 
-const signet = (id: string, mana: Partial<{ W: number; U: number; B: number; R: number; G: number }>): CardEffect =>
-  activate({
-    id,
-    manaAbility: true,
-    costs: { mana: '{1}', tap: true },
-    do: [{ kind: 'addMana', mana }],
-  })
-
 const coffersMana = (id: string, cost: string, basic = false): CardEffect =>
   activate({
     id,
@@ -904,7 +896,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Dig Through Time': [delve(), onResolve(lookTopPick(7, 2))],
   'Dimir Aqueduct': [entersTapped(), enters(bounceChosenLand())],
-  'Dimir Signet': [signet('signet.dimir', { U: 1, B: 1 })],
   "Dovin's Veto": [
     uncounterable(),
     targetOnResolve('counter', { zone: 'stack', noncreature: true }),
@@ -1660,7 +1651,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Orzhov Basilica': [entersTapped(), enters(bounceChosenLand())],
-  'Orzhov Signet': [signet('signet.orzhov', { W: 1, B: 1 })],
   'Otawara, Soaring City': [
     activate({
       id: 'channel.otawara',
@@ -1994,7 +1984,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ],
   }, { creatureOnly: true })],
   'Simic Growth Chamber': [entersTapped(), enters(bounceChosenLand())],
-  'Simic Signet': [signet('signet.simic', { G: 1, U: 1 })],
   "Sin, Spira's Punishment": [
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),
