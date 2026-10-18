@@ -163,6 +163,7 @@ export type ManaCost = string
 export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
+  | { kind: 'tapSource' }
   | { kind: 'discard'; filter: ObjectSelector; count: Amount }
   | { kind: 'sacrifice'; filter: ObjectRecipient; count: Amount }
   | { kind: 'draw'; count: Amount }

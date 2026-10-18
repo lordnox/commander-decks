@@ -411,13 +411,16 @@ export const activated: Plugin = {
         }
         const costEvents: GameEvent[] = []
         for (const costPart of committed.lockedCost.nonMana) {
-          if (costPart.kind === 'life') {
-            costEvents.push({
-              type: 'payLife',
-              seat: event.seat,
-              amount: evaluateAnnouncementCostAmount(costPart.amount, event.x),
-              source: source.name,
-            })
+          switch (costPart.kind) {
+            case 'tapSource':
+              costEvents.push({ type: 'tap', objectId: source.id })
+              break
+            case 'life':
+              costEvents.push({
+                type: 'payLife', seat: event.seat,
+                amount: evaluateAnnouncementCostAmount(costPart.amount, event.x), source: source.name,
+              })
+              break
           }
         }
         const costObjectIds = resolveNonManaCostObjectChoices(

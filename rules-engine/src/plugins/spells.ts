@@ -553,19 +553,26 @@ export const spells: Plugin = {
     let choiceIndex = 0
     const costs: GameEvent[] = []
     for (const cost of committed.lockedCost.nonMana) {
-      if (cost.kind === 'life') {
-        const amount = evaluateAnnouncementCostAmount(cost.amount, event.x)
-        costs.push({ type: 'payLife', seat: event.seat, amount, source: object.id })
-      } else if (cost.kind === 'discard' || cost.kind === 'sacrifice') {
-        const count = evaluateAnnouncementCostAmount(cost.count, event.x)
-        for (const objectId of choices.slice(choiceIndex, choiceIndex + count)) {
-          costs.push(cost.kind === 'discard' ? { type: 'discard', seat: event.seat, objectId } : { type: 'sacrifice', objectId })
+      switch (cost.kind) {
+        case 'tapSource':
+          costs.push({ type: 'tap', objectId: object.id })
+          break
+        case 'life':
+          costs.push({ type: 'payLife', seat: event.seat, amount: evaluateAnnouncementCostAmount(cost.amount, event.x), source: object.id })
+          break
+        case 'discard':
+        case 'sacrifice': {
+          const count = evaluateAnnouncementCostAmount(cost.count, event.x)
+          for (const objectId of choices.slice(choiceIndex, choiceIndex + count)) {
+            costs.push(cost.kind === 'discard' ? { type: 'discard', seat: event.seat, objectId } : { type: 'sacrifice', objectId })
+          }
+          choiceIndex += count
+          break
         }
-        choiceIndex += count
-      } else if (cost.kind === 'draw') {
-        const count = evaluateAnnouncementCostAmount(cost.count, event.x)
-        for (let i = 0; i < count; i += 1) {
-          costs.push({ type: 'draw', seat: event.seat, count: 1 })
+        case 'draw': {
+          const count = evaluateAnnouncementCostAmount(cost.count, event.x)
+          for (let i = 0; i < count; i += 1) costs.push({ type: 'draw', seat: event.seat, count: 1 })
+          break
         }
       }
     }
@@ -985,13 +992,16 @@ export const spells: Plugin = {
         })
       }
       for (const costPart of event.canonicalTransaction ? [] : canonicalNonManaCosts) {
-        if (costPart.kind === 'life') {
-          draft.enqueue({
-            type: 'payLife',
-            seat: event.seat,
-            amount: evaluateAnnouncementCostAmount(costPart.amount, event.x),
-            source: object.name,
-          })
+        switch (costPart.kind) {
+          case 'tapSource':
+            draft.enqueue({ type: 'tap', objectId: object.id })
+            break
+          case 'life':
+            draft.enqueue({
+              type: 'payLife', seat: event.seat,
+              amount: evaluateAnnouncementCostAmount(costPart.amount, event.x), source: object.name,
+            })
+            break
         }
       }
       const selectedNonMana = object.ruleDefinition && !event.copy

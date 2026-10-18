@@ -144,6 +144,8 @@ export const sacrificeCost = (filter: ObjectRecipient, count: AmountInput): Cost
 export const drawCost = (count: AmountInput): Cost =>
   immutableData({ kind: 'draw', count: toAmount(count) })
 
+export const tapCost = (): Cost => immutableData({ kind: 'tapSource' })
+
 export const lifeCost = (value: AmountInput): Cost =>
   immutableData({ kind: 'life', amount: toAmount(value) })
 
