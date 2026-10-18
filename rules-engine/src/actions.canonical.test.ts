@@ -104,3 +104,23 @@ test('canonical spell cost picks remain separate from targets and cannot fund th
   expect(named(state, 'Funding land')).toMatchObject({ zone: 'battlefield', tapped: true })
   expect(named(state, 'Drawn').zone).toBe('hand')
 })
+
+test('the planner chains fixed canonical mana production without a legacy registration', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [manaCost('{1}'), tapCost()], instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { U: { kind: 'constant', value: 1 }, G: { kind: 'constant', value: 1 } } }] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Filter fixture', { types: ['Artifact'], ruleDefinition: definition }), cardTemplate('Funding land', { types: ['Land'], tapProduces: { C: 1 } })] },
+    hands: { p1: [cardTemplate('Funded creature', { types: ['Creature'], manaCost: '{G}{U}' })] },
+  }, { random: () => 0 })
+  const action = legalActsFor(server.state, 'p1').find(action => action.kind === 'castSpell')!
+  const events = eventsForAvailableAction(server.state, 'p1', action)!
+  expect(events.map(event => event.type)).toEqual(['tapForMana', 'activateAbility', 'castSpell'])
+  let state = server.state
+  for (const event of events) state = ok(server.rules(state, event))
+  expect(named(state, 'Funding land').tapped).toBe(true)
+  expect(named(state, 'Filter fixture').tapped).toBe(true)
+  expect(state.players.p1.mana).toEqual({ W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 })
+  expect(named(state, 'Funded creature').zone).toBe('stack')
+})

@@ -466,7 +466,8 @@ const manaPlays = (
   source: GameObject,
   spell?: GameObject,
 ): ManaPlay[] => {
-  const modes = manaModes(source, state)
+  const activatedOptions = activatedManaOptions(state, source)
+  const modes = source.ruleDefinition && activatedOptions.length > 0 ? [] : manaModes(source, state)
   const restriction = effectsOf(source).find(
     (effect): effect is Extract<CardEffect, { op: 'restrictedMana' }> => effect.op === 'restrictedMana',
   )
@@ -488,7 +489,7 @@ const manaPlays = (
           }]
         : []
     }),
-    ...activatedManaOptions(state, source).map(({ abilityId, cost, pool, choice, sacrifices }): ManaPlay => ({
+    ...activatedOptions.map(({ abilityId, cost, pool, choice, sacrifices }): ManaPlay => ({
       pool,
       cost,
       ...(sacrifices ? { sacrifices: true as const } : {}),
