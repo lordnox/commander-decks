@@ -99,8 +99,11 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(surveilLands)).toEqual([])
     for (const land of surveilLands) {
-      expect(cardPluginEntry(land)?.handlerIds?.toSorted())
-        .toEqual(['choiceEffects', 'entersTapped'])
+      expect(effectsFor(land)).toEqual([])
+      expect(cardRuleDefinitionSnapshotFor(land)?.definition.abilities).toMatchObject([
+        { kind: 'static' },
+        { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'surveil' }] },
+      ])
     }
   })
 

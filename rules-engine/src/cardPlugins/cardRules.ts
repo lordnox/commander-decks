@@ -1154,7 +1154,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       pumpTargetX(1, 0),
     ),
   ],
-  'Hedge Maze': [entersTapped(), enters(surveil(1))],
   'Hedge Shredder': [
     attacks(optionalMill(2)),
     landToGraveyard(putMilledLandTapped()),
@@ -1846,7 +1845,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     )),
   ],
   'Settle the Wreckage': [handler('combatPreventionCards')],
-  'Shadowy Backstreet': [entersTapped(), enters(surveil(1))],
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
@@ -2059,7 +2057,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, loyalty(-7), teferiSunsetEmblem()),
     handler('teferiSunset'),
   ],
-  'Temple of Deceit': [entersTapped(), enters(scry(1))],
   'Temple of the False God': [manaIf(controlledLands({ min: 5 }))],
   'Tenuous Truce': [playerAuraDeal()],
   Terastodon: [
@@ -2186,8 +2183,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [fight('two-targets')],
     }),
   ],
-  'Undercity Sewers': [entersTapped(), enters(surveil(1))],
-  'Underground Mortuary': [entersTapped(), enters(surveil(1))],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
   "Urza's Cave": [
     searchAbility({

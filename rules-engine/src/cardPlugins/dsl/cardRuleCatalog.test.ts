@@ -635,3 +635,18 @@ test('catalog World Map offers distinct basic and unrestricted land searches at 
     ] }] })
   }
 })
+
+
+test.each([
+  ['Hedge Maze', 'surveil'],
+  ['Shadowy Backstreet', 'surveil'],
+  ['Undercity Sewers', 'surveil'],
+  ['Underground Mortuary', 'surveil'],
+  ['Temple of Deceit', 'scry'],
+] as const)('catalog %s enters tapped and composes a controller-only %s instruction', (name, kind) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } }, instructions: [{ kind, targets: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 1 } }] },
+  ])
+})
