@@ -131,7 +131,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 210,
+        "matches": 211,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -561,7 +561,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 76,
+        "matches": 78,
         "samples": [
           "live-runner/src/decisions.test.ts:181 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
@@ -569,8 +569,8 @@
           "live-runner/src/kernelFacts.test.ts:14",
           "live-runner/src/kernelHost.test.ts:1902 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:2313 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:102",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:117 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:100",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:115 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {"
         ]
       },
       "neededCanonicalNode": "canonical replacement definition",
@@ -805,7 +805,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 183,
+        "matches": 184,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2725 — test('declares and pays for taxed blocks without judge fallback', async () => {",
@@ -1243,16 +1243,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:167 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:165 — test('a tapped Elf cannot untap a Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:255 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:90",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:88",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:470 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:235 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:446 — test('a free tap adds {C}', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -2823,9 +2823,9 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('no extra mana before a color is chosen', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:444 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:967 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -4457,9 +4457,9 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('no extra mana before a color is chosen', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:444 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:967 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -6314,14 +6314,14 @@
       "candidateEvidence": {
         "matches": 14,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:110",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:119 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:129 — test('an Island or the Elf itself is not a legal target', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:135 — test('the action layer offers one activation per Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:149 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:162 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:108",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:117 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:127 — test('an Island or the Elf itself is not a legal target', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:133 — test('the action layer offers one activation per Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:147 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:160 — test('a tapped Elf cannot untap a Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:23",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:95"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:93"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -6754,14 +6754,14 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:110",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:119 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:129 — test('an Island or the Elf itself is not a legal target', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:135 — test('the action layer offers one activation per Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:149 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:162 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:108",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:117 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:127 — test('an Island or the Elf itself is not a legal target', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:133 — test('the action layer offers one activation per Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:147 — test('it cannot activate while summoning sick, and it is not a mana ability', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:160 — test('a tapped Elf cannot untap a Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:23",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:95"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:93"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [untapTarget]",
@@ -7924,16 +7924,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 11,
         "samples": [
           "live-runner/src/decisions.test.ts:252 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1902 — test('Joint Exploration put-land dispatches a kernel move', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:102",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:117 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:140 — test('the action layer offers one activation per Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:299 — test('can enchant only a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:100",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:115 — test('taps to untap a Forest, a nonbasic Forest included, and nothing else', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:138 — test('the action layer offers one activation per Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:32",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:93 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:514 — test('can enchant only a Forest', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
@@ -11036,16 +11036,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:167 — test('a tapped Elf cannot untap a Forest', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:165 — test('a tapped Elf cannot untap a Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:255 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:90",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:88",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:470 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:235 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:446 — test('a free tap adds {C}', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addManaChoice]",
@@ -16314,9 +16314,9 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:379 — test('no extra mana before a color is chosen', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:251 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:444 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:967 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -18707,14 +18707,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 9,
         "samples": [
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:210 — test('without a named pool the controller chooses privately, and the choice survives a restart', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:245 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:28",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:288 — test('an Aura whose land left before it resolves does not enter', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:302 — test('can enchant only a Forest', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:341 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:88",
-          "rules-engine/src/cardPlugins/registry.test.ts:443 — test('Círdan part-B mana cards stay registered', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:86",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:423 — test('an enchanted overlay Forest is boosted too', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:507 — test('an Aura whose land left before it resolves does not enter', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:517 — test('can enchant only a Forest', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [replacement, static] and instructions []",
@@ -19362,13 +19364,13 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:211 — test('without a named pool the controller chooses privately, and the choice survives a restart', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:219 — test('can enchant any land, and only a land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:233 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:258 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:281 — test('an Aura whose land left before it resolves does not enter', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:86",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:421 — test('an enchanted overlay Forest is boosted too', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:434 — test('can enchant any land, and only a land', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:448 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:473 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:496 — test('an Aura whose land left before it resolves does not enter', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:442 — test('Círdan part-B mana cards stay registered', () => {"
         ]
       },
@@ -20114,7 +20116,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 189,
+        "matches": 190,
         "samples": [
           "live-runner/src/decisions.test.ts:108 — test('scry two preserves chosen order on top and bottom', () => {",
           "live-runner/src/decisions.test.ts:197 — test('untaps, draws, and lands in the first main phase', () => {",
@@ -20419,16 +20421,16 @@
         "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 15,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:211 — test('without a named pool the controller chooses privately, and the choice survives a restart', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:219 — test('can enchant any land, and only a land', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:233 — test('the enchanted land adds an extra {G} when tapped for mana, other lands do not', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:258 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:210 — test('without a named pool the controller chooses privately, and the choice survives a restart', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:245 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:27",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:28",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:281 — test('an Aura whose land left before it resolves does not enter', () => {",
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:302 — test('can enchant only a Forest', () => {"
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:86",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:269 — test('the boost ends when the enchanted land leaves and the Aura goes with it', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:421 — test('an enchanted overlay Forest is boosted too', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -20583,8 +20585,8 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:189 — test('an enchanted overlay Forest counts as a Forest', () => {",
-          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:344 — test('an enchanted overlay Forest is boosted too', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:196 — test('an enchanted overlay Forest counts as a Forest', () => {",
+          "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:351 — test('an enchanted overlay Forest is boosted too', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:122 — test('Yavimaya gives every land a green mana mode', () => {",
           "rules-engine/src/cardPlugins/targetFilterPredicates.test.ts:109 — test('the Forest subtype honors the forest overlay for every land', () => {",
           "rules-engine/src/cardPlugins/targetFilterPredicates.test.ts:44"
@@ -20784,7 +20786,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 43,
+        "matches": 44,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -21662,7 +21664,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:425 — test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {",
+          "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:297 — test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:161 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {"
         ]
       },
