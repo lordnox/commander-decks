@@ -797,3 +797,16 @@ test('Infernal Contract composes four draws with rounded-up half-life loss', () 
     ],
   })
 })
+
+
+test.each([
+  ['High Market', [['tapSource'], ['tapSource', 'sacrifice']], [['addMana'], ['gainLife']]],
+  ['Trade Routes', [['mana'], ['mana', 'discard']], [['move'], ['draw']]],
+  ['Sakura-Tribe Scout', [['tapSource']], [['chooseCards', 'move']]],
+] as const)('%s composes canonical utility activations', (name, costs, programs) => {
+  expect(effectsFor(name)).toEqual([])
+  const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+  expect(abilities.map(ability => ability.kind)).toEqual(costs.map(() => 'activated'))
+  expect(abilities.map(ability => ability.kind === 'activated' ? ability.costs.map(cost => cost.kind) : [])).toEqual(costs.map(group => [...group]))
+  expect(abilities.map(ability => ability.kind === 'activated' ? ability.instructions?.map(instruction => instruction.kind) : [])).toEqual(programs.map(group => [...group]))
+})

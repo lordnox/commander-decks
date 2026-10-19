@@ -160,6 +160,8 @@ export const applyKernelAct = (
         targetGroups: otherGroups.length > 0 ? otherGroups : undefined,
         ...(selectedTargets.length > 0 ? { targetObjectIds: selectedTargets } : {}),
       })
+    : action.kind === 'activateAbility' && state.objects[action.objectId]?.ruleDefinition
+    ? eventsForAvailableAction(state, seat, { ...action, targetObjectIds: [...choices, ...selectedTargets] })
     : action.kind === 'activateAbility' && action.targetGroups
     ? [{
         type: 'activateAbility' as const,

@@ -559,7 +559,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     const elfId = named(server.state, 'Elf').id
     const activatedState = ok(server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'highMarket.gain',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: marketId,
       choices: [elfId],
