@@ -1943,26 +1943,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  "Thrór's Map": [
-    {
-      op: 'search',
-      via: 'enters',
-      spec: {
-        prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
-        match: basicLand,
-        destination: 'hand',
-        min: 1,
-        max: 1,
-        reveal: true,
-      },
-    },
-    ability(
-      { id: 'throrsMap.loot' },
-      { mana: '{2}', tap: true },
-      draw(1),
-      discardCards(1),
-    ),
-  ],
   'Thunderfoot Baloth': [
     staticBoardPump(2, 2, ['Creature'], {
       if: { kind: 'controlsCommander' },
