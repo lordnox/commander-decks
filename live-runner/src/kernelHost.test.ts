@@ -12,6 +12,7 @@ import {
   commanderRules,
   createJournal,
   createServerGame,
+  legalActsFor,
   forest,
   projectForViewer,
   recordAccepted,
@@ -113,6 +114,10 @@ import { PENDING_SELECTION } from '../../rules-engine/src/rules/selectCards'
 import {
   amount,
   card as dslCard,
+  activated as dslActivated,
+  discardCost,
+  gainLife,
+  sacrificeCost,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   objects,
@@ -2596,8 +2601,8 @@ describe('kernel host journal', () => {
       type: 'act',
       kind: 'activateAbility',
       objectId: routes.id,
-      abilityId: 'tradeRoutes.draw',
-      text: 'tradeRoutes.draw',
+      abilityId: '$.abilities[1]',
+      text: 'Activate ability',
       targetObjectIds: [land.id],
     })
 
@@ -2606,7 +2611,7 @@ describe('kernel host journal', () => {
       type: 'activateAbility',
       objectId: routes.id,
       choices: [land.id],
-      targets: [],
+      targetClauses: [],
     })
   })
 
@@ -4246,4 +4251,25 @@ describe('same-named candidates are picked by position', () => {
       expect(after.objects[untouched].zone).toBe('library')
     }
   })
+})
+
+
+test('live canonical activations preserve implicit source costs alongside submitted discard choices', () => {
+  const ruleDefinition = createDefinitionSnapshot(compileCardRuleDefinition(dslCard([dslActivated({
+    costs: [sacrificeCost(ref('source'), 1), discardCost(objects({ zone: 'hand', type: 'Land' }), 1)],
+    instructions: [gainLife({ amount: 1, targets: ref('controller') })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Cost fixture', { types: ['Artifact'], ruleDefinition })] }, hands: { p1: [forest()] },
+  }, { random: () => 0 })
+  const sourceId = server.state.zoneOrder.p1.battlefield[0]
+  const discardId = server.state.zoneOrder.p1.hand[0]
+  const action = legalActsFor(server.state, 'p1').find(candidate => candidate.kind === 'activateAbility' && candidate.objectId === sourceId)!
+  if (action.kind !== 'activateAbility') throw new Error('expected canonical activation')
+  const kernel = handleFor(server.rules, server.state)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  applyKernelAct(kernel, lobby, 'p1', { type: 'act', kind: 'activateAbility', objectId: sourceId, abilityId: action.abilityId, text: action.text, targetObjectIds: [discardId] })
+  expect(kernel.history.current().objects[sourceId].zone).toBe('graveyard')
+  expect(kernel.history.current().objects[discardId].zone).toBe('graveyard')
 })

@@ -9,6 +9,10 @@ import {
 import { commanderRules } from './formats'
 import { bears, bolt, cardTemplate, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
+import { activated, discardCost, gainLife, move, objects, ref, sacrificeCost, select, tapCost, target } from './cardPlugins/dsl/v1'
+import { snapshotFor } from './cards/snapshot'
+import { createServerGame } from './runtime'
+import { ok, resolveStack } from './testHelpers'
 
 const empty = { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 } satisfies ManaPool
 
@@ -85,12 +89,12 @@ describe('available actions', () => {
     state.players.p1.mana.C = 1
     const action = legalActsFor(state, 'p1').find((candidate) =>
       candidate.kind === 'activateAbility'
-      && candidate.abilityId === 'tradeRoutes.draw')
+      && candidate.abilityId === '$.abilities[1]')
 
     expect(action).toMatchObject({
       kind: 'activateAbility',
       targetGroups: [{
-        label: 'Land card to discard',
+        label: 'Discard',
         purpose: 'cost',
         min: 1,
         max: 1,
@@ -505,4 +509,43 @@ describe('mana affordances', () => {
       name: 'Forest',
     })
   })
+})
+
+
+test('canonical activation actions separate implicit source costs, explicit costs and targets', () => {
+  const definition = snapshotFor([activated({
+    costs: [tapCost(), sacrificeCost(ref('source'), 1), discardCost(objects({ zone: 'hand', type: 'Land' }), 1)],
+    decisions: { targets: [select({ filter: objects({ zone: 'battlefield', controller: 'opponent', type: 'Creature' }), count: 1 })] },
+    instructions: [move({ targets: target(0), to: 'hand' })],
+  })])
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Cost fixture', { types: ['Artifact'], ruleDefinition: definition })], p2: [bears()] },
+    hands: { p1: [forest()] },
+  }, { random: () => 0 })
+  const sourceId = server.state.zoneOrder.p1.battlefield[0]
+  const discardId = server.state.zoneOrder.p1.hand[0]
+  const targetId = server.state.zoneOrder.p2.battlefield[0]
+  const action = legalActsFor(server.state, 'p1').find(candidate => candidate.kind === 'activateAbility' && candidate.objectId === sourceId)!
+  if (action.kind !== 'activateAbility') throw new Error('expected canonical activation')
+  expect(action.targetGroups?.map(group => group.purpose)).toEqual(['cost', undefined])
+  const events = eventsForAvailableAction(server.state, 'p1', { ...action, targetObjectIds: [discardId, targetId] })!
+  expect(events.at(-1)).toMatchObject({ type: 'activateAbility', choices: [sourceId, discardId], targetClauses: [[{ kind: 'object', objectId: targetId }]] })
+  let state = server.state
+  for (const event of events) state = ok(server.rules(state, event))
+  expect(state.objects[sourceId].zone).toBe('graveyard')
+  expect(state.objects[discardId].zone).toBe('graveyard')
+  expect(resolveStack(server.rules, state).objects[targetId].zone).toBe('hand')
+})
+
+test.each([false, true])('canonical cost previews require distinct cards across overlapping groups (extra=%s)', extra => {
+  const definition = snapshotFor([activated({
+    costs: [discardCost(objects({ zone: 'hand' }), 1), discardCost(objects({ zone: 'hand', type: 'Creature' }), 1)],
+    instructions: [gainLife({ targets: ref('controller'), amount: 1 })],
+  })])
+  const state = newGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Overlap fixture', { types: ['Enchantment'], ruleDefinition: definition })] },
+    hands: { p1: [bears(), ...(extra ? [forest()] : [])] },
+  })
+  const actions = legalActsFor(state, 'p1').filter(action => action.kind === 'activateAbility')
+  expect(actions).toHaveLength(extra ? 1 : 0)
 })
