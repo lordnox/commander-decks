@@ -933,6 +933,8 @@ export type DelayedTrigger = {
  * `loseLife`. Fog prevents at `combatDamage`; "prevent damage" at `dealDamage`.
  */
 export type GameEvent =
+  /** Internal canonical player allowance; expires at cleanup. */
+  | { type: 'grantLandPlays'; seat: PlayerId; count: number }
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }

@@ -260,6 +260,8 @@ export type Instruction =
   | { kind: 'blink'; targets: ObjectRecipient; returnController?: 'owner' | PlayerReference; tapped?: boolean }
   /** Have each resolved player recipient draw the evaluated number of cards. */
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
+  /** Grant each recipient additional land plays for the rest of this turn. */
+  | { kind: 'grantLandPlays'; count: Amount; targets: PlayerRecipient }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */
   | { kind: 'mill'; count: Amount; targets: PlayerRecipient }
   /** Shuffle each resolved player recipient's library (CR 701.19 after a search). */

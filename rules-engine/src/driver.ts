@@ -120,6 +120,7 @@ const preflightInstructions = (
     }
     switch (instruction.kind) {
       case 'draw':
+      case 'grantLandPlays':
       case 'addMana':
       case 'gainLife':
       case 'loseLife':
@@ -639,6 +640,11 @@ const actionEvents = (
         return typeof value === 'number' && value > 0 ? [[symbol, value]] : []
       }))
       return targets.map((seat) => ({ type: 'addMana' as const, seat, mana, sourceId: frame.source.ref.objectId }))
+    }
+    case 'grantLandPlays': {
+      const count = availableAmount(instruction.count, context)
+      if (count === undefined || count === 0) return []
+      return recipients(instruction.targets, context).map((seat) => ({ type: 'grantLandPlays' as const, seat, count }))
     }
     case 'draw': {
       const targets = recipients(instruction.targets, context)

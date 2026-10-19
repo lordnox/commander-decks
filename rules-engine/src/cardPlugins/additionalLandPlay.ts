@@ -34,16 +34,18 @@ const recompute = (draft: Draft) => {
   }
 }
 
-const isUntapWrap = (event: { type: string; name?: string }) =>
+const isStepAdvance = (event: { type: string; name?: string }) =>
   event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')
 
 export const additionalLandPlay: Plugin = {
   id: 'additionalLandPlay',
   apply: ({ event, draft }) => {
-    if (event.type === 'custom' && event.name === GRANT_EXTRA_LAND_PLAY && event.seat) {
-      const count = Number(event.payload?.count ?? 1)
+    if (event.type === 'grantLandPlays' || (event.type === 'custom' && event.name === GRANT_EXTRA_LAND_PLAY && event.seat)) {
+      const count = event.type === 'grantLandPlays' ? event.count : Number(event.payload?.count ?? 1)
       if (!Number.isSafeInteger(count) || count < 1) return
-      const player = draft.players[event.seat]
+      const seat = event.seat
+      if (!seat) return
+      const player = draft.players[seat]
       if (!player) return
       player.data[EXTRA_LAND_PLAYS] = extraFor(player.data) + count
       recompute(draft)
@@ -51,7 +53,7 @@ export const additionalLandPlay: Plugin = {
       return
     }
 
-    if (isUntapWrap(event) && draft.step === 'untap') {
+    if (isStepAdvance(event) && (draft.step === 'untap' || draft.step === 'cleanup')) {
       for (const seat of draft.playerOrder) delete draft.players[seat].data[EXTRA_LAND_PLAYS]
     }
 
