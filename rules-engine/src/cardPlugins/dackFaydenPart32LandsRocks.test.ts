@@ -456,18 +456,16 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana.C = 3
     const opened = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: caveId,
     }))
     expect(opened.objects[caveId].zone).toBe('graveyard')
-    const found = named(opened, 'Quarry Land').id
-    const finished = run(server, opened, [
-      { type: 'move', objectId: found, to: 'battlefield' },
-      { type: 'tap', objectId: found },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const resolving = resolveStack(server.rules, opened)
+    const found = named(resolving, 'Quarry Land').id
+    const finished = ok(server.rules(resolving, {
+      type: 'selectCards', seat: 'p1', kind: 'choose', count: 1, objectIds: [found],
+    }))
     expect(finished.objects[found].zone).toBe('battlefield')
     expect(finished.objects[found].tapped).toBe(true)
   })

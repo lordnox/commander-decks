@@ -2001,16 +2001,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }, loyalty(-10), gainLife(7), draw(7), putPermanentsFromHand(7)),
   ],
   'Urborg, Tomb of Yawgmoth': [staticGrant('swampOverlay')],
-  "Urza's Cave": [
-    searchAbility({
-      prompt: 'Search your library for a land card, put it onto the battlefield tapped, then shuffle.',
-      match: (object) => object.types.includes('Land'),
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-    }, { mana: '{3}', tap: true, sacrifice: 'self' }),
-  ],
   'Utopia Sprawl': [chooseColorOnEnter(), enchantedManaBoost({ chosenColor: true })],
   'Valgavoth, Terror Eater': [
     ward({ sacrifice: { count: 3, nonland: true } }),
