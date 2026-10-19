@@ -17,6 +17,7 @@ import cabalCoffers from './cabal-coffers'
 import cabalStronghold from './cabal-stronghold'
 import castleGarenbrig from './castle-garenbrig'
 import charcoalDiamond from './charcoal-diamond'
+import cloudshift from './cloudshift'
 import commandersSphere from './commanders-sphere'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
@@ -41,6 +42,7 @@ import farseek from './farseek'
 import fateUnraveler from './fate-unraveler'
 import fellMire from './fell-mire'
 import flameRift from './flame-rift'
+import flickerOfFate from './flicker-of-fate'
 import foil from './foil'
 import franticSearch from './frantic-search'
 import geierReachSanitarium from './geier-reach-sanitarium'
@@ -127,6 +129,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cabal Stronghold": cabalStronghold,
   "Castle Garenbrig": castleGarenbrig,
   "Charcoal Diamond": charcoalDiamond,
+  "Cloudshift": cloudshift,
   "Commander's Sphere": commandersSphere,
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
@@ -151,6 +154,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fate Unraveler": fateUnraveler,
   "Fell Mire": fellMire,
   "Flame Rift": flameRift,
+  "Flicker of Fate": flickerOfFate,
   "Foil": foil,
   "Frantic Search": franticSearch,
   "Geier Reach Sanitarium": geierReachSanitarium,

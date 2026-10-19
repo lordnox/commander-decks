@@ -10,13 +10,13 @@ import { instructionSpell } from './instructionTestSupport'
 import { blink, card, compileCardRuleDefinition, createDefinitionSnapshot, enters, gainLife, leaves, objects, players, ref, select, spell, target, whenever } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find(object => object.name === name)!
-const setup = (instruction: Parameters<typeof blink>[0] = { targets: target(0) }, extra: Parameters<typeof cardTemplate>[1] = {}, plugins: Plugin[] = []) => createServerGame(commanderRules, {
+const setup = (instruction: Parameters<typeof blink>[0] = { targets: target(0) }, extra: Parameters<typeof cardTemplate>[1] = {}, plugins: Plugin[] = [], owner = 'p1') => createServerGame(commanderRules, {
   players: 2,
   hands: { p1: [instructionSpell({
     decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
     instructions: [blink(instruction), gainLife({ targets: ref('controller'), amount: 1 })],
   })] },
-  battlefield: { p1: [cardTemplate('Permanent fixture', { types: ['Creature'], power: 2, toughness: 3, tapped: true, ...extra })] },
+  battlefield: { [owner]: [cardTemplate('Permanent fixture', { types: ['Creature'], power: 2, toughness: 3, tapped: true, ...extra })] },
 }, { random: () => 0, cardPlugins: plugins })
 const announce = (server: ReturnType<typeof setup>) => ok(server.rules(server.state, {
   type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
@@ -39,9 +39,9 @@ test('blink returns a new incarnation with fresh battlefield state before contin
 })
 
 test.each(['owner', 'controller'] as const)('blink returns a borrowed permanent under the specified %s', role => {
-  const server = setup({ targets: target(0), ...(role === 'controller' ? { returnController: ref('controller') } : {}) })
+  const server = setup({ targets: target(0), ...(role === 'controller' ? { returnController: ref('controller') } : {}) }, {}, [], 'p2')
   const state = structuredClone(announce(server))
-  named(state, 'Permanent fixture').owner = 'p2'
+  named(state, 'Permanent fixture').controller = 'p1'
   const returned = named(resolveStack(server.rules, state), 'Permanent fixture')
   expect(returned.controller).toBe(role === 'owner' ? 'p2' : 'p1')
   expect(returned.owner).toBe('p2')
