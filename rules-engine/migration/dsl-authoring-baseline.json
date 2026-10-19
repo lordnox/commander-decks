@@ -271,7 +271,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"3909019a50354e45f39defcc2e4661133fc337430757a0d06aab3486a5ce6598","card":"Queza, Augur of Agonies"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"1cf95d955d1ac4a042db1375c458f12f1cf939f98db05d999985534c62dd6941","card":"Otherworldly Journey"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"573d5a91d23e4f07c2b9392539d9b8d9fcb3ab4c319f4d063af598c3fb1d1da3","card":"Reflecting Pool"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"8000de230e28144886fdfc2466817d7f6dfaf0d2fd029116cf77fbffe9362adb","card":"Restoration Angel"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"75a7fcf5d5d007c64954c5b139872d9f52f63e8d77003a92f935d97e8f1aa7f1","card":"Raffine's Tower"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"b9efc282489397318794ca87153b262ed7cf60f2dafdb48e975ae66e67db467a","card":"Snuff Out"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"134785387322d15d5ba62748626b892da363ea0c472b6a0ea06a221fb0c06b86","card":"Phial of Galadriel"},

@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 298,
+    "cardRegistrations": 297,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 20,
     "cardRegistrationOnlyGaps": 15,
     "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 283
+    "candidateOnlyCardRows": 282
   },
   "cardEffects": [
     {
@@ -965,7 +965,6 @@
         "Reins of Power:effects[0]",
         "Repay in Kind:effects[0]",
         "Reprocess:effects[0]",
-        "Restoration Angel:effects[0]",
         "Retreat to Hagra:effects[0]",
         "Ripples of Undeath:effects[0]",
         "Rishkar's Expertise:effects[0]",
@@ -1012,7 +1011,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 399,
+        "matches": 398,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1473,7 +1472,6 @@
         "Nezahal, Primal Tide:effects[4].do[0]",
         "Otherworldly Journey:effects[0].do[0]",
         "Parting Gust:effects[1].do[0].whenTrue[0]",
-        "Restoration Angel:effects[0].do[0]",
         "Voyager Staff:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
@@ -6315,7 +6313,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:288 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:265 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:755 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -9832,7 +9830,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:199 — test('Flickerwisp cannot blink itself and returns another permanent at end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:198 — test('Flickerwisp cannot blink itself and returns another permanent at end step', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:750 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -10005,8 +10003,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:113 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:134 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:746 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -10266,7 +10264,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:236 — test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:235 — test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:754 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -12863,8 +12861,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:152 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:169 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:151 — test('Parting Gust without the gift blinks with a counter at the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:168 — test('Parting Gust with the gift exiles permanently and creates a tapped Fish', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:749 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -13726,39 +13724,6 @@
       "pluginIds": [],
       "handlerIds": [
         "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Restoration Angel",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Restoration Angel"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:265 — test('Restoration Angel cannot blink another Angel', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:751 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [blink]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "blink"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "blink"
       ],
       "embeddedRulePaths": []
     },
@@ -16272,7 +16237,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:17",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:75",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:95 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:323 — test('Voyager Staff cannot target itself', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:300 — test('Voyager Staff cannot target itself', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:484 — test('Voyager Staff is registered from its exact Oracle text', () => {"
         ]
       },
@@ -19096,7 +19061,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2066",
+        "rules-engine/src/cardPlugins/cardRules.ts:2052",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -19154,9 +19119,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1267",
-        "rules-engine/src/actions.ts:1438",
-        "rules-engine/src/actions.ts:840",
+        "rules-engine/src/actions.ts:1269",
+        "rules-engine/src/actions.ts:1440",
+        "rules-engine/src/actions.ts:842",
         "rules-engine/src/cardPlugins/effectRuntime.ts:210",
         "rules-engine/src/cardPlugins/effectRuntime.ts:341",
         "rules-engine/src/cardPlugins/effectRuntime.ts:345",
@@ -19230,12 +19195,12 @@
       "currentRegistrations": [
         "rules-engine/src/cardPlugins/cardRules.ts:1082",
         "rules-engine/src/cardPlugins/cardRules.ts:291",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:163",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:172",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:46",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:559",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:615",
-        "rules-engine/src/cardPlugins/continuousEffects.ts:64",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:164",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:173",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:47",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:562",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:618",
+        "rules-engine/src/cardPlugins/continuousEffects.ts:65",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:681",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:865",
         "rules-engine/src/cardPlugins/effectRuntime.ts:104",
@@ -19254,7 +19219,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:646",
+        "rules-engine/src/kernel.ts:649",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -19268,7 +19233,7 @@
         "rules-engine/src/plugins/rooms.ts:68",
         "rules-engine/src/plugins/rooms.ts:85",
         "rules-engine/src/plugins/rooms.ts:89",
-        "rules-engine/src/plugins/spells.ts:474",
+        "rules-engine/src/plugins/spells.ts:476",
         "rules-engine/src/replay.ts:1",
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
@@ -19325,10 +19290,10 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          1181
+          1184
         ],
         "samples": [
-          "1181: if (object.name === 'Timetwister') {"
+          "1184: if (object.name === 'Timetwister') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -19357,15 +19322,15 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1674,
-          1683,
-          1701,
-          2572
+          1676,
+          1685,
+          1703,
+          2574
         ],
         "samples": [
-          "1674: if (source?.name === 'Settle the Wreckage') {",
-          "1683: if (source?.name === 'Energy Arc') {",
-          "1701: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {"
+          "1676: if (source?.name === 'Settle the Wreckage') {",
+          "1685: if (source?.name === 'Energy Arc') {",
+          "1703: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -19990,14 +19955,14 @@
       {
         "path": "rules-engine/src/cardPlugins/continuousEffects.ts",
         "lines": [
-          967,
-          968,
-          970
+          970,
+          971,
+          973
         ],
         "samples": [
-          "967: const endTurnEffects = event.type === 'custom'",
-          "968: && event.name === 'advanceStep'",
-          "970: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
+          "970: const endTurnEffects = event.type === 'custom'",
+          "971: && event.name === 'advanceStep'",
+          "973: if (event.type === 'custom' && event.name === EXPIRE_EFFECTS) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -20283,10 +20248,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1437
+          1440
         ],
         "samples": [
-          "1437: event.name === SEARCH_CHOSEN"
+          "1440: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -20302,12 +20267,12 @@
       {
         "path": "rules-engine/src/draft.ts",
         "lines": [
-          179,
-          208
+          180,
+          209
         ],
         "samples": [
-          "179: const source = draft.object(cloned.objectId)",
-          "208: return draft.addToStack({"
+          "180: const source = draft.object(cloned.objectId)",
+          "209: return draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -20606,32 +20571,32 @@
       {
         "path": "rules-engine/src/plugins/spells.ts",
         "lines": [
-          884,
-          890,
-          967,
-          987,
-          989,
+          887,
+          893,
+          970,
+          990,
           992,
-          1002,
+          995,
           1005,
-          1020,
-          1021,
-          1026,
-          1027,
-          1126,
-          1136,
-          1157,
-          1172,
-          1188,
-          1190,
-          1196,
-          1208,
-          1229
+          1008,
+          1023,
+          1024,
+          1029,
+          1030,
+          1129,
+          1139,
+          1160,
+          1175,
+          1191,
+          1193,
+          1199,
+          1211,
+          1232
         ],
         "samples": [
-          "884: const moved = draft.object(event.objectId)",
-          "890: const object = draft.object(event.objectId)",
-          "967: .map((objectId) => draft.object(objectId))"
+          "887: const moved = draft.object(event.objectId)",
+          "893: const object = draft.object(event.objectId)",
+          "970: .map((objectId) => draft.object(objectId))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -22747,27 +22712,27 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          479,
-          532,
-          534,
-          538,
-          540,
-          550,
-          577,
+          480,
+          535,
+          537,
+          541,
+          543,
+          553,
           580,
-          589,
-          623,
-          628,
-          661,
-          663,
-          669,
-          686,
-          691
+          583,
+          592,
+          626,
+          631,
+          664,
+          666,
+          672,
+          689,
+          694
         ],
         "samples": [
-          "479: const object = draft.object(event.objectId)",
-          "532: const object = draft.object(event.objectId)",
-          "534: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
+          "480: const object = draft.object(event.objectId)",
+          "535: const object = draft.object(event.objectId)",
+          "537: draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

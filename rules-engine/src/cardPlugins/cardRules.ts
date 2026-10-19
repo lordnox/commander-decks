@@ -1696,20 +1696,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Reprocess: [
     onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
   ],
-  'Restoration Angel': [
-    enters(
-      blink({
-        optional: true,
-        filter: {
-          controller: 'you',
-          type: 'Creature',
-          excludeSubtypes: ['Angel'],
-        },
-        returnController: 'controller',
-        prompt: 'You may exile target non-Angel creature you control, then return it under your control.',
-      }),
-    ),
-  ],
   'Retreat to Hagra': [landfall(chooseModes('one', [
     {
       id: 'pump',

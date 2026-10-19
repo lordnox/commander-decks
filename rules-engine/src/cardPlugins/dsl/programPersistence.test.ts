@@ -577,34 +577,38 @@ describe('programPersistence', () => {
   })
 })
 
-test.each([false, true])('catalog targeted optional blink restores both choices with accept=%s', accept => {
+test.each([
+  ['Felidar Guardian', false], ['Felidar Guardian', true],
+  ['Restoration Angel', false], ['Restoration Angel', true],
+] as const)('catalog targeted optional blink restores both choices for %s with accept=%s', (cardName, accept) => {
   const server = createServerGame(commanderRules, {
     players: 2,
-    hands: { p1: [cardTemplate('Felidar Guardian')] },
+    hands: { p1: [cardTemplate(cardName)] },
     battlefield: {
-      p1: [cardTemplate('Friend fixture', { types: ['Artifact'] }), cardTemplate('Another fixture', { types: ['Creature'], power: 1, toughness: 1 })],
+      p1: [cardTemplate('Friend fixture', { types: [cardName === 'Restoration Angel' ? 'Creature' : 'Artifact'] }), cardTemplate('Another fixture', { types: ['Creature'], power: 1, toughness: 1 }), cardTemplate('Angel fixture', { types: ['Creature'], subtypes: ['Angel'], power: 1, toughness: 1 })],
       p2: [cardTemplate('Opponent fixture', { types: ['Artifact'] })],
     },
   }, { random: () => 0 })
   const ready = structuredClone(server.state)
   ready.players.p1.mana.W = 1
   ready.players.p1.mana.C = 3
-  const guardian = named(ready, 'Felidar Guardian').id
+  const sourceId = named(ready, cardName).id
   const friend = named(ready, 'Friend fixture').id
-  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: guardian }))
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: sourceId }))
   const waiting = resolveStack(server.rules, cast)
   const selection = pendingSelectionFor(waiting, 'p1')!
   expect(selection.min).toBe(1)
   expect(selection.candidates).toEqual(expect.arrayContaining([friend, named(waiting, 'Another fixture').id]))
-  expect(selection.candidates).not.toContain(guardian)
+  expect(selection.candidates).not.toContain(sourceId)
+  if (cardName === 'Restoration Angel') expect(selection.candidates).not.toContain(named(waiting, 'Angel fixture').id)
   expect(selection.candidates).not.toContain(named(waiting, 'Opponent fixture').id)
   expect(pendingSelectionFor(projectForViewer(waiting, 'p1'), 'p1')).toBeDefined()
   expect(pendingSelectionFor(projectForViewer(waiting, 'p2'), 'p1')).toBeUndefined()
   const restoredTarget = restoreJournal(createJournal(waiting), server.rules).current()
   expect(pendingSelectionFor(restoredTarget, 'p1')!.id).toBe(selection.id)
-  expect(server.rules(restoredTarget, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [guardian] }).ok).toBe(false)
+  expect(server.rules(restoredTarget, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [sourceId] }).ok).toBe(false)
   const selected = ok(server.rules(restoredTarget, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [friend] }))
-  const withoutSource = ok(server.rules(selected, { type: 'move', objectId: guardian, to: 'hand' }))
+  const withoutSource = ok(server.rules(selected, { type: 'move', objectId: sourceId, to: 'hand' }))
   const optional = resolveStack(server.rules, withoutSource)
   const pending = pendingOptionSelection(optional, 'p1')!
   expect(optional.objects[friend]!.incarnation).toBe(ready.objects[friend]!.incarnation)
@@ -616,7 +620,7 @@ test.each([false, true])('catalog targeted optional blink restores both choices 
   const answer = { type: 'selectOption' as const, seat: 'p1', selectionId: pending.id, optionId: pending.options[accept ? 0 : 1]!.id }
   const finished = ok(server.rules(restoredOptional, answer))
   expect(finished.objects[friend]).toMatchObject({ zone: 'battlefield', incarnation: ready.objects[friend]!.incarnation + (accept ? 2 : 0), owner: 'p1', controller: 'p1' })
-  expect(finished.objects[guardian]!.zone).toBe('hand')
+  expect(finished.objects[sourceId]!.zone).toBe('hand')
   expect(finished.resolution).toBeUndefined()
   expect(finished.stack).toHaveLength(0)
   expect(server.rules(finished, answer).ok).toBe(false)

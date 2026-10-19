@@ -712,3 +712,27 @@ test('catalog Felidar Guardian targets another controlled permanent before offer
     ] }],
   }])
 })
+
+test('catalog Restoration Angel composes flash, flying and optional controlled non-Angel blink', () => {
+  expect(effectsFor('Restoration Angel')).toEqual([])
+  expect(cardTemplateDefaultsFor('Restoration Angel')).toMatchObject({ types: ['Creature'], subtypes: ['Angel'], colors: ['W'], manaCost: '{3}{W}', manaValue: 4 })
+  expect(cardRuleDefinitionSnapshotFor('Restoration Angel')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flash' },
+    { kind: 'keyword', keyword: 'flying' },
+    { kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } }, decisions: { targets: [{
+      min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 },
+      filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature', not: { subtypes: ['Angel'] } } },
+    }] }, instructions: [{ kind: 'chooseInstructions', optional: true, options: [
+      { instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 }, returnController: { kind: 'contextRef', name: 'controller' } }] },
+      { instructions: [] },
+    ] }] },
+  ])
+})
+
+test('catalog Githzerai Monk declares flash and flying alongside its entry instruction', () => {
+  expect(cardTemplateDefaultsFor('Githzerai Monk')).toMatchObject({ subtypes: ['Gith', 'Monk'] })
+  expect(cardRuleDefinitionSnapshotFor('Githzerai Monk')!.definition.abilities).toEqual(expect.arrayContaining([
+    expect.objectContaining({ kind: 'keyword', keyword: 'flash' }),
+    expect.objectContaining({ kind: 'keyword', keyword: 'flying' }),
+  ]))
+})
