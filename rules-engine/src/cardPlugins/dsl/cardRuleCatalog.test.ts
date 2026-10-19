@@ -4,6 +4,7 @@ import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRu
 
 // Card configuration has structural coverage; instruction suites own execution.
 test.each([
+  ['Ghostly Flicker', ['blink']],
   ['Cloudshift', ['blink']],
   ['Flicker of Fate', ['blink']],
   ['Counterspell', ['counter']],
@@ -687,5 +688,14 @@ test('immediate blink catalog entries preserve targeting and return-controller d
   expect(cardRuleDefinitionSnapshotFor('Flicker of Fate')!.definition.abilities).toMatchObject([{
     kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', any: [{ type: 'Creature' }, { type: 'Enchantment' }] } } }] },
     instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  }])
+})
+
+test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {
+  expect(cardTemplateDefaultsFor('Ghostly Flicker')).toMatchObject({ types: ['Instant'], colors: ['U'], manaCost: '{2}{U}', manaValue: 3 })
+  expect(cardRuleDefinitionSnapshotFor('Ghostly Flicker')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 }, distinct: true,
+      filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } } }] },
+    instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 }, returnController: { kind: 'contextRef', name: 'controller' } }],
   }])
 })

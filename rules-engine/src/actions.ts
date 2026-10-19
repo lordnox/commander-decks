@@ -1698,7 +1698,6 @@ const targetVariants = (
       }],
     }]
   }
-  if (source?.name === 'Ghostly Flicker') return [action]
   if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
     return Object.values(state.objects)
       .filter((object) => validBlinkSpellTarget(source.name, object, seat))
@@ -1876,25 +1875,6 @@ const activationTargetGroups = (
   state: GameState,
   action: AvailableAction,
 ): AvailableAction => {
-  if (action.kind === 'castSpell' && action.name === 'Ghostly Flicker') {
-    const targets = Object.values(state.objects)
-      .filter((object) =>
-        object.zone === 'battlefield'
-        && object.controller === state.priority
-        && ['Artifact', 'Creature', 'Land'].some((type) => object.types.includes(type)))
-      .map((object) => ({
-        objectId: object.id,
-        name: object.name,
-        controller: object.controller,
-      }))
-    return {
-      ...action,
-      targetGroups: [
-        { label: 'First permanent', min: 1, max: 1, targets },
-        { label: 'Second permanent', min: 1, max: 1, targets },
-      ],
-    }
-  }
   if (action.kind !== 'activateAbility' || !action.abilityId) return action
   const source = state.objects[action.objectId]
   if (action.abilityId === 'loran.draw') {
@@ -2592,7 +2572,6 @@ export const eventsForAvailableAction = (
     ['Ephemerate', 'Vanish into Memory'].includes(object.name)
     && blinkTargets.length !== 1
   ) return null
-  if (object.name === 'Ghostly Flicker' && blinkTargets.length !== 2) return null
   const tax = taxFor(state, seat, object)
   const casting = face ? { ...object, ...face } : object
   const alternative = action.castOption

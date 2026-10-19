@@ -1,6 +1,5 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
-import { eventsForAvailableAction, legalActsFor } from '../actions'
 import { cardTemplate, forest } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
@@ -44,70 +43,6 @@ describe('Lady Evangela blink and value cards', () => {
       zone: 'battlefield',
       owner: 'p2',
       controller: 'p2',
-    })
-  })
-
-  test('Ghostly Flicker exiles up to two distinct controlled permanents and returns both', () => {
-    const server = createServerGame(commanderRules, {
-      hands: {
-        p1: [cardTemplate('Ghostly Flicker', { types: ['Instant'], manaCost: '{2}{U}' })],
-      },
-      battlefield: {
-        p1: [
-          forest(),
-          cardTemplate('Value Rock', { types: ['Artifact'] }),
-        ],
-      },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
-    const ready = mana(structuredClone(server.state))
-    const targets = [named(ready, 'Forest').id, named(ready, 'Value Rock').id]
-    const cast = ok(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Ghostly Flicker').id,
-      targets: targets.map((objectId) => ({ kind: 'object' as const, objectId })),
-    }))
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(targets.map((id) => resolved.objects[id].zone)).toEqual([
-      'battlefield',
-      'battlefield',
-    ])
-    expect(server.rules(ready, {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: named(ready, 'Ghostly Flicker').id,
-      targets: [
-        { kind: 'object', objectId: targets[0] },
-        { kind: 'object', objectId: targets[0] },
-      ],
-    })).toMatchObject({ ok: false })
-  })
-
-  test('Ghostly Flicker exposes a two-target live action and typed cast event', () => {
-    const server = createServerGame(commanderRules, {
-      hands: {
-        p1: [cardTemplate('Ghostly Flicker', { types: ['Instant'], manaCost: '{2}{U}' })],
-      },
-      battlefield: {
-        p1: [forest(), cardTemplate('Value Rock', { types: ['Artifact'] })],
-      },
-    }, { random: () => 0.5, cardPlugins: [blinkValue] })
-    const ready = mana(structuredClone(server.state))
-    const action = legalActsFor(ready, 'p1').find((candidate) =>
-      candidate.kind === 'castSpell' && candidate.name === 'Ghostly Flicker')
-    expect(action).toMatchObject({
-      kind: 'castSpell',
-      targetGroups: [
-        { label: 'First permanent', min: 1, max: 1 },
-        { label: 'Second permanent', min: 1, max: 1 },
-      ],
-    })
-    if (action?.kind !== 'castSpell') throw new Error('missing Ghostly Flicker action')
-    const objectIds = [named(ready, 'Forest').id, named(ready, 'Value Rock').id]
-    const events = eventsForAvailableAction(ready, 'p1', { ...action, targetObjectIds: objectIds })
-    expect(events?.at(-1)).toMatchObject({
-      type: 'castSpell',
-      targets: objectIds.map((objectId) => ({ kind: 'object', objectId })),
     })
   })
 
