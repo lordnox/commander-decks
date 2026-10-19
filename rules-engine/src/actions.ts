@@ -1182,20 +1182,42 @@ const canonicalActionTargetGroups = (
   })
 }
 
-const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId) => {
+const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: readonly Cost[], seat: PlayerId, options: { includeSourceCosts?: boolean; excludeSource?: boolean } = {}) => {
   const context = { state, controller: seat, source: captureObject(object) }
   return costs.flatMap(cost => {
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return []
-    if (isSourceSacrificeCost(cost)) return []
+    const sourceCost = isSourceSacrificeCost(cost)
+    if (sourceCost && !options.includeSourceCosts) return []
     const candidates = cost.filter.kind === 'objects'
       ? evaluateObjectSelector(cost.filter, context) : evaluateObjectReference(cost.filter, context)
     const count = evaluateRuntimeAmount(cost.count, context)
-    return [{ costKind: cost.kind, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
-      targets: candidates.filter(candidate => candidate.id !== object.id && candidate.controller === seat
+    return [{ costKind: cost.kind, sourceCost, group: { label: cost.kind === 'discard' ? 'Discard' : 'Sacrifice', purpose: 'cost' as const, min: count, max: count,
+      targets: candidates.filter(candidate => (options.excludeSource === false || candidate.id !== object.id) && candidate.controller === seat
         && candidate.zone === (cost.kind === 'discard' ? 'hand' : 'battlefield'))
         .map(candidate => ({ objectId: candidate.id, name: candidate.name, controller: candidate.controller })),
     } }]
   })
+}
+
+/** Find a disjoint assignment to object-cost slots without requiring the user to have chosen yet. */
+const canonicalCostPreviewChoices = (entries: ReturnType<typeof canonicalActionCostGroups>) => {
+  const slots = entries.flatMap(entry => Array.from({ length: entry.group.min }, () => entry.group.targets))
+  const occupied = new Map<string, number>()
+  const assigned: string[] = []
+  // Recursive augmenting paths require the explicit return type.
+  const assign = (slot: number, seen: Set<string>): boolean => {
+    for (const candidate of slots[slot]) {
+      if (seen.has(candidate.objectId)) continue
+      seen.add(candidate.objectId)
+      const previous = occupied.get(candidate.objectId)
+      if (previous !== undefined && !assign(previous, seen)) continue
+      occupied.set(candidate.objectId, slot)
+      assigned[slot] = candidate.objectId
+      return true
+    }
+    return false
+  }
+  return slots.every((_, slot) => assign(slot, new Set())) ? assigned : undefined
 }
 
 const canonicalTargetRef = (state: GameState, id: string) => {
@@ -1211,14 +1233,17 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
       sorcerySpeed: ability.timing === 'sorcery', availableFrom: ability.availableFrom })) return []
-    const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], undefined, undefined,
+    const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
+    const costChoices = canonicalCostPreviewChoices(costEntries)
+    if (!costChoices) return []
+    const announcement = beginActivatedAnnouncement(state, object, seat, ability, [], undefined, costChoices,
       { targetClauses: [], deferPayment: true })
     if (!announcement.ok) return []
     const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
       || isSourceSacrificeCost(cost))
       ? new Set([object.id]) : new Set<string>()
     if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
-    const targetGroups = canonicalActionTargetGroups(state, object, ability, seat)
+    const targetGroups = [...costEntries.filter(entry => !entry.sourceCost).map(entry => entry.group), ...canonicalActionTargetGroups(state, object, ability, seat)]
     if (targetGroups.some(group => group.targets.length < group.min)) return []
     return [{ kind: 'activateAbility', objectId: object.id, name: object.name,
       text: activatedText(object)[index] ?? 'Activate ability', abilityId: `$.abilities[${index}]`, targetGroups }] satisfies AvailableAction[]
@@ -2331,17 +2356,28 @@ export const eventsForAvailableAction = (
       const ability = definition.abilities[abilityIndex]
       if (ability?.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return null
       try {
-        const targets = (action.targetObjectIds ?? []).map(id => canonicalTargetRef(state, id))
+        const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
+        const chosen = action.targetObjectIds ?? []
+        const costCount = costEntries.filter(entry => !entry.sourceCost).reduce((total, entry) => total + entry.group.min, 0)
+        if (chosen.length < costCount) return null
+        let cursor = 0
+        const choices = costEntries.flatMap(entry => {
+          if (entry.sourceCost) return Array.from({ length: entry.group.min }, () => object.id)
+          const ids = chosen.slice(cursor, cursor + entry.group.min)
+          cursor += entry.group.min
+          return ids
+        })
+        const targets = chosen.slice(costCount).map(id => canonicalTargetRef(state, id))
         const targetClauses = canonicalTargetBindings(state, object, definition, abilityIndex, targets, undefined, undefined, seat)
           .map(binding => binding.recipients)
-        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, undefined, undefined, { deferPayment: true })
+        const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, undefined, choices, { deferPayment: true })
         if (!announcement.ok) return null
         const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
           || isSourceSacrificeCost(cost))
           ? new Set([object.id]) : new Set<string>()
         const funding = fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded)
         if (!funding) return null
-        return [...funding, { type: 'activateAbility', seat, objectId: object.id, abilityId: action.abilityId, targetClauses }]
+        return [...funding, { type: 'activateAbility', seat, objectId: object.id, abilityId: action.abilityId, targetClauses, ...(choices.length ? { choices } : {}) }]
       } catch {
         return null
       }

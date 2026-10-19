@@ -59,6 +59,7 @@ import guardianOfGhirapur from './guardian-of-ghirapur'
 import harrow from './harrow'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
+import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import infernalContract from './infernal-contract'
 import longRoadHome from './long-road-home'
@@ -86,6 +87,7 @@ import restorationAngel from './restoration-angel'
 import reverberate from './reverberate'
 import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
+import sakuraTribeScout from './sakura-tribe-scout'
 import seleniaDarkAngel from './selenia-dark-angel'
 import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
@@ -103,6 +105,7 @@ import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
+import tradeRoutes from './trade-routes'
 import triangleOfWar from './triangle-of-war'
 import twincast from './twincast'
 import ulvenwaldTracker from './ulvenwald-tracker'
@@ -182,6 +185,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Harrow": harrow,
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
+  "High Market": highMarket,
   "Hinterland Harbor": hinterlandHarbor,
   "Infernal Contract": infernalContract,
   "Long Road Home": longRoadHome,
@@ -209,6 +213,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Reverberate": reverberate,
   "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
+  "Sakura-Tribe Scout": sakuraTribeScout,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Shadowy Backstreet": shadowyBackstreet,
   "Sign in Blood": signInBlood,
@@ -226,6 +231,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Thalia's Lancers": thaliasLancers,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
+  "Trade Routes": tradeRoutes,
   "Triangle of War": triangleOfWar,
   "Twincast": twincast,
   "Ulvenwald Tracker": ulvenwaldTracker,

@@ -102,14 +102,14 @@ describe('simple card effects', () => {
 
     expect(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'tradeRoutes.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: routes,
     }).ok).toBe(false)
 
     const paid = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'tradeRoutes.draw',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: routes,
       choices: [forest],

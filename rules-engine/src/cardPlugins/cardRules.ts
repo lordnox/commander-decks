@@ -22,7 +22,6 @@ import {
   bestow,
   blink,
   blockTax,
-  bounceChosenLand,
   bounceSelf,
   branch,
   castModal,
@@ -1114,13 +1113,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [revealUntilBasicLand()],
     }),
   ],
-  'High Market': [
-    ability(
-      { id: 'highMarket.gain' },
-      { tap: true, sacrificeTarget: 'creature' },
-      gainLife(1),
-    ),
-  ],
   'Homer, the Hermit': [handler('homer')],
   'Horizon of Progress': [
     activate({
@@ -1718,13 +1710,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     legendRuleOff(),
     enters(copyControlledCreature({ keepName: true })),
   ],
-  'Sakura-Tribe Scout': [
-    activate({
-      id: 'putLand.sakura',
-      costs: { tap: true },
-      do: [putLandFromHand()],
-    }),
-  ],
   'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
   'Satyr Wayfinder': [enters(revealPick(4, { type: 'Land' }))],
   Scapeshift: [
@@ -2048,18 +2033,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Toxic Deluge': [payLifeX(), onResolve(pumpAllCreaturesByX())],
-  'Trade Routes': [
-    activate({
-      id: 'tradeRoutes.bounce',
-      costs: { mana: '{1}' },
-      do: [bounceChosenLand()],
-    }),
-    activate({
-      id: 'tradeRoutes.draw',
-      costs: { mana: '{1}', discard: 'land' },
-      do: [draw(1)],
-    }),
-  ],
   'Trap the Trespassers': [
     onResolve(vote(
       'Secretly vote for a creature the caster does not control.',
