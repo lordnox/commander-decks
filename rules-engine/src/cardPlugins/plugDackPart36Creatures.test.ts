@@ -209,8 +209,10 @@ describe('plug Dack part 36 registered creatures', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Meteor Golem').id,
-      targets: [{ kind: 'object', objectId: rockId }],
     }))
+    state = resolveStack(server.rules, state)
+    const selection = pendingSelectionFor(state, 'p1')!
+    state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [rockId] }))
     state = resolveStack(server.rules, state)
     expect(state.objects[rockId].zone).toBe('graveyard')
   })

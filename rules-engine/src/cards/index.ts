@@ -10,6 +10,7 @@ import arcanisTheOmnipotent from './arcanis-the-omnipotent'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
 import blightedWoodland from './blighted-woodland'
+import bojukaBog from './bojuka-bog'
 import botanicalSanctum from './botanical-sanctum'
 import brokersHideout from './brokers-hideout'
 import buriedAlive from './buried-alive'
@@ -23,6 +24,7 @@ import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
 import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
+import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
 import dimirAqueduct from './dimir-aqueduct'
@@ -59,13 +61,16 @@ import guardianOfGhirapur from './guardian-of-ghirapur'
 import harrow from './harrow'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
+import hedronCrab from './hedron-crab'
 import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import infernalContract from './infernal-contract'
+import joinTheDead from './join-the-dead'
 import longRoadHome from './long-road-home'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
 import marshFlats from './marsh-flats'
+import meteorGolem from './meteor-golem'
 import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
 import mindStone from './mind-stone'
 import mistvaultBridge from './mistvault-bridge'
@@ -103,6 +108,7 @@ import sunkenHollow from './sunken-hollow'
 import templeOfDeceit from './temple-of-deceit'
 import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
+import thornMammoth from './thorn-mammoth'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
 import tradeRoutes from './trade-routes'
@@ -136,6 +142,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Blighted Woodland": blightedWoodland,
+  "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
   "Brokers Hideout": brokersHideout,
   "Buried Alive": buriedAlive,
@@ -149,6 +156,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Counterspell": counterspell,
   "Crop Rotation": cropRotation,
   "Cryptic Command": crypticCommand,
+  "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
   "Dimir Aqueduct": dimirAqueduct,
@@ -185,13 +193,16 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Harrow": harrow,
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
+  "Hedron Crab": hedronCrab,
   "High Market": highMarket,
   "Hinterland Harbor": hinterlandHarbor,
   "Infernal Contract": infernalContract,
+  "Join the Dead": joinTheDead,
   "Long Road Home": longRoadHome,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
   "Marsh Flats": marshFlats,
+  "Meteor Golem": meteorGolem,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,
   "Mind Stone": mindStone,
   "Mistvault Bridge": mistvaultBridge,
@@ -229,6 +240,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Temple of Deceit": templeOfDeceit,
   "Terramorphic Expanse": terramorphicExpanse,
   "Thalia's Lancers": thaliasLancers,
+  "Thorn Mammoth": thornMammoth,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
   "Trade Routes": tradeRoutes,

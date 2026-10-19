@@ -8,7 +8,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState, Plugin } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { characteristic, createDefinitionSnapshot, gainLife, self, whenever, card, choice, compileCardRuleDefinition, loseLife, move, objects, putCounters, ref, select, spell, target } from './v1'
+import { characteristic, createDefinitionSnapshot, gainLife, self, whenever, card, choice, compileCardRuleDefinition, loseLife, move, objects, players, putCounters, ref, select, spell, target } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const names = (state: GameState, zone: 'battlefield' | 'graveyard') =>
@@ -236,4 +236,17 @@ test('entry-counter validation rejects non-battlefield moves, empty names and ne
     move({ targets: objects(), to: 'battlefield', enterCounters: { '': 1 } }),
     move({ targets: objects(), to: 'battlefield', enterCounters: { charge: -1 } }),
   ]) expect(() => compileCardRuleDefinition(card([spell({ instructions: [instruction] })]))).toThrow()
+})
+
+
+test('moving a targeted player graveyard uses ownership rather than every graveyard', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ decisions: { targets: [select({ filter: players(), count: 1 })] }, instructions: [move({ targets: objects({ zone: 'graveyard', owner: target(0) }), to: 'exile' })] }), cardTemplate('Own fixture')], p2: [cardTemplate('Chosen fixture')] },
+  }, { random: () => 0 })
+  let ready = ok(server.rules(server.state, { type: 'move', objectId: named(server.state, 'Own fixture').id, to: 'graveyard' }))
+  ready = ok(server.rules(ready, { type: 'move', objectId: named(ready, 'Chosen fixture').id, to: 'graveyard' }))
+  const casted = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'player', player: 'p2' }] }))
+  const resolved = resolveStack(server.rules, casted)
+  expect(named(resolved, 'Own fixture').zone).toBe('graveyard')
+  expect(named(resolved, 'Chosen fixture').zone).toBe('exile')
 })
