@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 290,
+    "cardRegistrations": 289,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 2,
-    "instructionUnobservedGaps": 20,
+    "instructionUnobservedGaps": 21,
     "cardRegistrationOnlyGaps": 15,
-    "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 275
+    "candidateOnlyInstructionRows": 169,
+    "candidateOnlyCardRows": 274
   },
   "cardEffects": [
     {
@@ -915,7 +915,6 @@
         "Icetill Explorer:effects[2]",
         "Illusion of Choice:effects[0]",
         "Incarnation Technique:effects[0]",
-        "Infernal Contract:effects[0]",
         "It That Betrays:effects[0]",
         "It That Betrays:effects[1]",
         "Jace, Multiverse Architect:effects[0]",
@@ -1004,7 +1003,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 394,
+        "matches": 393,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1472,8 +1471,8 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:906 — test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:959 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
           "rules-engine/src/cardPlugins/dsl/blink.test.ts:103 — test('blink rejects player recipients, object controller references and malformed options', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:689 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:703 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:691 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:705 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2537,7 +2536,6 @@
         "Guardian Project:effects[0].do[0]",
         "Horizon of Progress:effects[2].do[0]",
         "Illusion of Choice:effects[0].do[1]",
-        "Infernal Contract:effects[0].do[0]",
         "Jace, Multiverse Architect:effects[1].do[0]",
         "Joint Exploration:effects[0].do[0]",
         "Keep Safe:effects[0].do[0]",
@@ -2554,7 +2552,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 119,
+        "matches": 120,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1443 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -3124,7 +3122,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:248 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:250 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3148,8 +3146,8 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:669 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:681 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:671 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:683 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
           "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
@@ -3641,8 +3639,8 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:157 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:254 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:88 — test('Beza draws when an opponent has more cards in hand', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:592 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:608 — test('catalog Stitch Together returns an owned creature according to its graveyard threshold', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:594 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:610 — test('catalog Stitch Together returns an owned creature according to its graveyard threshold', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -3909,16 +3907,11 @@
     {
       "variant": "loseHalfLifeRoundedUp",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Infernal Contract:effects[0].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:219 — test('Infernal Contract draws four and loses half life rounded up', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:358 — test('the Lady Evangela remaining group stays registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3926,7 +3919,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3944,16 +3937,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 34,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2847 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:64 — test('conditional branches are distinct nested program scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:144 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:146 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:794 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:605 — test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:639 — test('a queued ability resolves after Mirkwood Bats leaves', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:648 — test('Bats outside the battlefield or phased out do not trigger', () => {"
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:639 — test('a queued ability resolves after Mirkwood Bats leaves', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4623,8 +4616,8 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:483 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:80 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:82 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
           "rules-engine/src/cardPlugins/targetedResolve.test.ts:714 — test('Join the Dead uses descend 4 for its full penalty', () => {"
@@ -5942,8 +5935,8 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:494 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:512 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:496 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:514 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:634 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
@@ -10698,41 +10691,6 @@
         "demonstrate",
         "onResolve",
         "stackCopy"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Infernal Contract",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Infernal Contract"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:219 — test('Infernal Contract draws four and loses half life rounded up', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:358 — test('the Lady Evangela remaining group stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [draw, loseHalfLifeRoundedUp]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "draw",
-        "loseHalfLifeRoundedUp"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -17129,8 +17087,8 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:518 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:25",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:279 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:27",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:281 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
@@ -17192,7 +17150,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 162,
+        "matches": 165,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -17532,7 +17490,7 @@
       "candidateEvidence": {
         "matches": 11,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:503 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:505 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:283 — test('pumps a stack target using linked exile power', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:101 — test('ETB branch skips draw when land counts are tied', () => {",
@@ -17554,16 +17512,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 38,
+        "matches": 42,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:209 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:268 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:438 — test('catalog Selenia pays two life to return its source to hand', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:483 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:558 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:131 — test('paid callback does not reuse the parent allocation for its fresh target', () => {",
-          "rules-engine/src/cardPlugins/dsl/reflexivePayment.test.ts:173 — test('paid callback announces and consumes its own fresh distribution', () => {"
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:11",
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:41 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:214 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:273 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:510 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:440 — test('catalog Selenia pays two life to return its source to hand', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -18802,7 +18760,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2014",
+        "rules-engine/src/cardPlugins/cardRules.ts:2012",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18934,8 +18892,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1074",
-        "rules-engine/src/cardPlugins/cardRules.ts:290",
+        "rules-engine/src/cardPlugins/cardRules.ts:1073",
+        "rules-engine/src/cardPlugins/cardRules.ts:289",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -19233,12 +19191,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          243,
-          413
+          251,
+          421
         ],
         "samples": [
-          "243: if (filter.name && object.name !== filter.name) return false",
-          "413: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "251: if (filter.name && object.name !== filter.name) return false",
+          "421: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",

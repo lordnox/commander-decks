@@ -60,6 +60,7 @@ import harrow from './harrow'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
 import hinterlandHarbor from './hinterland-harbor'
+import infernalContract from './infernal-contract'
 import longRoadHome from './long-road-home'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
@@ -182,6 +183,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
   "Hinterland Harbor": hinterlandHarbor,
+  "Infernal Contract": infernalContract,
   "Long Road Home": longRoadHome,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
