@@ -2,6 +2,7 @@ import type {
   ActivatedAbilityDefinition,
   Amount,
   AmountInput,
+  RoundingMode,
   CardRuleDefinitionInputV1,
   CardRuleDefinitionV1,
   ChoiceReference,
@@ -64,6 +65,9 @@ export const amount = (value: number): Amount => immutableData({ kind: 'constant
 
 export const toAmount = (value: AmountInput): Amount =>
   typeof value === 'number' ? amount(value) : immutableData(value)
+
+export const divide = (input: { value: AmountInput; by: number; rounding: RoundingMode }) =>
+  immutableData({ kind: 'divide' as const, value: toAmount(input.value), by: input.by, rounding: input.rounding })
 
 export const variable = (name: 'X'): Amount => immutableData({ kind: 'variable', name })
 

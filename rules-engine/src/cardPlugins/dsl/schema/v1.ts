@@ -80,10 +80,14 @@ export type Selector = PlayerSelector | ObjectSelector | StackItemSelector
 
 export type NumericCharacteristic = 'power' | 'toughness' | 'manaValue' | 'life'
 
+export const ROUNDING_MODES = { up: 'up', down: 'down' } as const
+export type RoundingMode = typeof ROUNDING_MODES[keyof typeof ROUNDING_MODES]
+
 export type Amount =
   | { kind: 'constant'; value: number }
   | { kind: 'variable'; name: 'X' }
   | { kind: 'eventAmount' }
+  | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }
   | {
       kind: 'characteristic'
