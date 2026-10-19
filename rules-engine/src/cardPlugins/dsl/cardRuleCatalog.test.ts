@@ -657,7 +657,7 @@ test('catalog Triangle of War sacrifices itself for a fight between controlled a
     kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }],
     decisions: { targets: [
       { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
-      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } },
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } } },
     ] },
     instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }],
   })
