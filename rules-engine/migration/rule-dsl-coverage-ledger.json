@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 299,
+    "cardRegistrations": 298,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 20,
     "cardRegistrationOnlyGaps": 15,
     "candidateOnlyInstructionRows": 170,
-    "candidateOnlyCardRows": 284
+    "candidateOnlyCardRows": 283
   },
   "cardEffects": [
     {
@@ -905,7 +905,6 @@
         "Exsanguinate:effects[1]",
         "Fact or Fiction:effects[0]",
         "Famished Worldsire:effects[2]",
-        "Felidar Guardian:effects[0]",
         "Field of the Dead:effects[1]",
         "Fiend Hunter:effects[2]",
         "Flickerwisp:effects[0]",
@@ -1013,7 +1012,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 401,
+        "matches": 399,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1467,7 +1466,6 @@
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
         "Astral Drift:effects[0].do[0]",
-        "Felidar Guardian:effects[0].do[0]",
         "Flickerwisp:effects[0].do[0]",
         "Getaway Glamer:effects[0].spree[0].do[0]",
         "Guardian of Ghirapur:effects[0].do[0]",
@@ -1480,7 +1478,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 28,
+        "matches": 27,
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:112 — test('exiles any creature, yours or an opponent\\'s, and returns it under its owner at the next end step', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:124 — test('cannot target a noncreature permanent', async () => {",
@@ -6317,7 +6315,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:337 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:288 — test('All-Fates Stalker cages a non-Assassin until it leaves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:755 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -9569,40 +9567,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Felidar Guardian",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Felidar Guardian"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:234 — test('Felidar Guardian optional blink survives host restart and selectCards', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:261 — test('optional blink selections are hidden from non-controllers', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:752 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [blink]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "blink"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "blink"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Fell the Profane",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10302,7 +10266,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:285 — test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:236 — test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:754 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -13775,7 +13739,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:314 — test('Restoration Angel cannot blink another Angel', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:265 — test('Restoration Angel cannot blink another Angel', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:751 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
@@ -16308,7 +16272,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:17",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:75",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:95 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:372 — test('Voyager Staff cannot target itself', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:323 — test('Voyager Staff cannot target itself', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:484 — test('Voyager Staff is registered from its exact Oracle text', () => {"
         ]
       },
@@ -19132,7 +19096,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:2080",
+        "rules-engine/src/cardPlugins/cardRules.ts:2066",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -19229,7 +19193,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1102",
+        "rules-engine/src/rules/triggers.ts:1103",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:314",
         "rules-engine/src/types.ts:318"
@@ -19264,7 +19228,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1096",
+        "rules-engine/src/cardPlugins/cardRules.ts:1082",
         "rules-engine/src/cardPlugins/cardRules.ts:291",
         "rules-engine/src/cardPlugins/continuousEffects.ts:163",
         "rules-engine/src/cardPlugins/continuousEffects.ts:172",
@@ -19413,10 +19377,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          201
+          202
         ],
         "samples": [
-          "201: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "202: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -19580,10 +19544,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          268
+          269
         ],
         "samples": [
-          "268: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "269: if (filter.name !== undefined && object.name !== filter.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -19811,14 +19775,14 @@
           67,
           127,
           145,
-          247,
           248,
-          361,
-          711,
-          828,
-          985,
-          1020,
-          1021
+          249,
+          362,
+          712,
+          829,
+          986,
+          1021,
+          1022
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -21194,24 +21158,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          482,
-          566,
-          661,
-          695,
-          774,
-          839,
-          852,
-          892,
-          973,
-          1043,
-          1100,
-          1267,
-          1378
+          483,
+          567,
+          662,
+          696,
+          775,
+          840,
+          853,
+          893,
+          974,
+          1044,
+          1101,
+          1268,
+          1379
         ],
         "samples": [
-          "482: const frequencySource = draft.object(source.id) ?? source",
-          "566: const live = draft.object(source.id)",
-          "661: const land = draft.object(objectId)"
+          "483: const frequencySource = draft.object(source.id) ?? source",
+          "567: const live = draft.object(source.id)",
+          "662: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

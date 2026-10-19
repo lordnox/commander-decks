@@ -40,6 +40,7 @@ import expeditionMap from './expedition-map'
 import farhavenElf from './farhaven-elf'
 import farseek from './farseek'
 import fateUnraveler from './fate-unraveler'
+import felidarGuardian from './felidar-guardian'
 import fellMire from './fell-mire'
 import flameRift from './flame-rift'
 import flickerOfFate from './flicker-of-fate'
@@ -153,6 +154,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Farhaven Elf": farhavenElf,
   "Farseek": farseek,
   "Fate Unraveler": fateUnraveler,
+  "Felidar Guardian": felidarGuardian,
   "Fell Mire": fellMire,
   "Flame Rift": flameRift,
   "Flicker of Fate": flickerOfFate,
