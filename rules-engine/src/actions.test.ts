@@ -9,7 +9,7 @@ import {
 import { commanderRules } from './formats'
 import { bears, bolt, cardTemplate, forest, newGame } from './newGame'
 import type { ManaPool } from './types'
-import { activated, discardCost, gainLife, move, objects, ref, sacrificeCost, select, tapCost, target } from './cardPlugins/dsl/v1'
+import { activated, chooseX, discardCost, gainLife, lifeCost, move, objects, ref, sacrificeCost, select, tapCost, target, spell, variable } from './cardPlugins/dsl/v1'
 import { snapshotFor } from './cards/snapshot'
 import { createServerGame } from './runtime'
 import { ok, resolveStack } from './testHelpers'
@@ -548,4 +548,23 @@ test.each([false, true])('canonical cost previews require distinct cards across 
   })
   const actions = legalActsFor(state, 'p1').filter(action => action.kind === 'activateAbility')
   expect(actions).toHaveLength(extra ? 1 : 0)
+})
+
+
+test.each([[0, 2, [0, 1, 2]], [1, 4, [1, 2, 3]]] as const)('canonical life-X spells expose bounded affordable X choices (min=%s max=%s)', (min, max, expected) => {
+  const ruleDefinition = snapshotFor([spell({
+    costs: [lifeCost(variable('X'))], decisions: { variables: [chooseX({ min, max })] }, instructions: [],
+  })])
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Life-X fixture', { types: ['Instant'], manaCost: '{B}', ruleDefinition })] } }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.life = 3
+  state.players.p1.mana.B = 1
+  const actions = legalActsFor(state, 'p1').filter(action => action.kind === 'castSpell')
+  expect(actions.map(action => action.x)).toEqual([...expected])
+  const action = actions.find(action => action.x === 2)!
+  const events = eventsForAvailableAction(state, 'p1', action)!
+  let casted = state
+  for (const event of events) casted = ok(server.rules(casted, event))
+  expect(casted.players.p1.life).toBe(1)
+  expect(casted.players.p1.mana.B).toBe(0)
 })

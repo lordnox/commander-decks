@@ -12,6 +12,7 @@ import type {
 } from '../../../types'
 import type {
   Amount,
+  StatDelta,
   AmountEvaluationContext,
   ChoiceReference,
   Condition,
@@ -361,7 +362,7 @@ export const evaluateRuntimeAmount = (
 ) => evaluateAmount(expression, amountEvaluationContext(context))
 
 export const evaluateRuntimeStatDelta = (
-  expression: Amount,
+  expression: StatDelta,
   context: RuleDslRuntimeContext,
 ) => evaluateStatDelta(expression, amountEvaluationContext(context))
 

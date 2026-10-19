@@ -333,6 +333,11 @@ export const validateDefinitionV1 = (root: unknown): {
       integer(node.value, childPath(path, 'value'), { min: -MAX_LITERAL_AMOUNT })
       return
     }
+    if (node?.kind === 'negate') {
+      exactKeys(node, path, ['kind', 'value'], ['kind', 'value'])
+      validateAmount(node.value, childPath(path, 'value'), env, 1)
+      return
+    }
     validateAmount(value, path, env)
   }
 

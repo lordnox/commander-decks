@@ -1,6 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  chooseX,
+  variable,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createToken,
@@ -18,6 +20,7 @@ import { ok, resolveStack } from '../../testHelpers'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingPlayerSelectionFor } from '../../rules/selectPlayers'
 import type { GameState } from '../../types'
+import { instructionSpell } from './instructionTestSupport'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -73,4 +76,23 @@ describe('tokenEntry — integration', () => {
       expect(Object.values(finished.objects).filter((object) => object.name === 'Part15 token' && object.zone === 'battlefield')).toHaveLength(1)
     })
   })
+})
+
+
+test.each([['Forest', 'G'], ['Island', 'U']] as const)('land creature tokens retain %s mana and creature tap restrictions', (subtype, mana) => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ decisions: { variables: [chooseX({ max: 3 })] }, instructions: [createToken({ count: variable('X'), targets: ref('controller'), token: { name: 'Land creature fixture', types: ['Land', 'Creature'], subtypes: [subtype], power: 1, toughness: 1 } })] })] },
+  }, { random: () => 0 })
+  const casted = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], x: 2 }))
+  const resolved = resolveStack(server.rules, casted)
+  const tokens = Object.values(resolved.objects).filter(object => object.token)
+  expect(tokens).toHaveLength(2)
+  const token = tokens[0]
+  expect(token).toMatchObject({ types: ['Land', 'Creature'], subtypes: [subtype], power: 1, toughness: 1, summoningSickness: true })
+  expect(server.rules(resolved, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana }).ok).toBe(false)
+  const ready = structuredClone(resolved)
+  ready.objects[token.id].summoningSickness = false
+  const tapped = ok(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana }))
+  expect(tapped.players.p1.mana[mana]).toBe(1)
+  expect(tapped.objects[token.id].tapped).toBe(true)
 })
