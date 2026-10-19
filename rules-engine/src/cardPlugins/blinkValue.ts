@@ -37,6 +37,7 @@ const validBlinkTarget = (source: string, object: GameObject | undefined, contro
 const legalBlinkSpell: Plugin['legal'] = ({ state, event }) => {
   if (event.type !== 'castSpell') return
   const source = state.objects[event.objectId]
+  if (source?.ruleDefinition) return
   if (!source || !['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(source.name)) {
     return
   }

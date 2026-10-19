@@ -10,6 +10,8 @@
     "ashlingsCommand.integration:105",
     "ashlingsCommand.integration:145",
     "ashlingsCommand.integration:164",
+    "blinkValue:63",
+    "blinkValue:99",
     "bloodArtist.integration:34",
     "bloodArtist.integration:73",
     "brokersConfluence.integration:34",
@@ -330,6 +332,22 @@
       "destination": "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts",
       "suite": "registered legacy enchanted-land mana integration",
       "evidence": "Original test callback bodies preserved, including target restrictions, action-layer casts, fixed/chosen bonus mana, costed filter activation, land removal, and unresolved color choice. deckCardTemplate registrations and plugin execution retained. Private color-choice/restart case remains in the source for #403."
+    },
+    {
+      "groups": [
+        "blinkValue:63"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/targeting.test.ts",
+      "suite": "two-recipient blink preserves per-target legality at resolution (%s)",
+      "evidence": "Ghostly Flicker migrates from CARD_RULES to its canonical catalog module in this change. Exchangeable instruction fixtures retain distinct-target rejection and two-object return coverage; add exact cardinality, eligibility, partial legality, incarnation changes, all-illegal resolution, and JSON restore. Grouped exile/return timing remains owned by dsl/blink.test.ts."
+    },
+    {
+      "groups": [
+        "blinkValue:99"
+      ],
+      "destination": "rules-engine/src/actions.canonical.test.ts",
+      "suite": "catalog multi-recipient actions retain canonical clauses with legacy handlers loaded=%s",
+      "evidence": "Reuse the canonical Ghostly Flicker catalog definition. Preserve action availability and typed cast-event target transport, replacing the removed hard-coded First/Second permanent groups with the declared single clause requiring two recipients. Verify return incarnations with and without the legacy plugin loaded. Catalog checks own selector, cardinality, distinctness, and return-controller composition."
     }
   ]
 }

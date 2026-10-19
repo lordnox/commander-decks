@@ -1071,7 +1071,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [bounceSelf()],
     }),
   ],
-  'Ghostly Flicker': [handler('blinkValue')],
   'Gilded Lotus': [
     activate({
       id: 'gildedLotus.mana',

@@ -46,6 +46,7 @@ import flickerOfFate from './flicker-of-fate'
 import foil from './foil'
 import franticSearch from './frantic-search'
 import geierReachSanitarium from './geier-reach-sanitarium'
+import ghostlyFlicker from './ghostly-flicker'
 import githzeraiMonk from './githzerai-monk'
 import glacialFortress from './glacial-fortress'
 import gloriousAnthem from './glorious-anthem'
@@ -158,6 +159,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Foil": foil,
   "Frantic Search": franticSearch,
   "Geier Reach Sanitarium": geierReachSanitarium,
+  "Ghostly Flicker": ghostlyFlicker,
   "Githzerai Monk": githzeraiMonk,
   "Glacial Fortress": glacialFortress,
   "Glorious Anthem": gloriousAnthem,

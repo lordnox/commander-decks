@@ -2,6 +2,7 @@ import { expect, test } from 'bun:test'
 import { eventsForAvailableAction, legalActsFor } from './actions'
 import { differentTargets, fight, chooseModes, sacrificeCost, spell, tap, activated, card, compileCardRuleDefinition, createDefinitionSnapshot, draw, manaCost, objects, ref, select, tapCost, target, untap } from './cardPlugins/dsl/v1'
 import { commanderRules } from './formats'
+import { blinkValue } from './cardPlugins/blinkValue'
 import { cardTemplate } from './newGame'
 import { createServerGame } from './runtime'
 import { ok, resolveStack } from './testHelpers'
@@ -158,4 +159,29 @@ test('canonical activations preserve distinct target clauses with overlapping ca
   expect(named(resolved, 'First creature').damageMarked).toBe(1)
   expect(named(resolved, 'Second creature').damageMarked).toBe(2)
   expect(named(resolved, 'Other creature').damageMarked).toBe(0)
+})
+
+test.each([false, true])('catalog multi-recipient actions retain canonical clauses with legacy handlers loaded=%s', legacy => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Ghostly Flicker')] },
+    battlefield: { p1: [cardTemplate('First fixture', { types: ['Land'] }), cardTemplate('Second fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0, cardPlugins: legacy ? [blinkValue] : [] })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.U = 1
+  ready.players.p1.mana.C = 2
+  const source = named(ready, 'Ghostly Flicker')
+  const action = legalActsFor(ready, 'p1').find(action => action.kind === 'castSpell' && action.objectId === source.id)
+  if (action?.kind !== 'castSpell') throw new Error('missing canonical cast action')
+  const ids = [named(ready, 'First fixture').id, named(ready, 'Second fixture').id]
+  expect(action.targetGroups).toMatchObject([{ min: 2, max: 2 }])
+  expect(action.targetGroups).toHaveLength(1)
+  expect(action.targetGroups![0]!.targets.map(target => target.objectId)).toEqual(expect.arrayContaining(ids))
+  const events = eventsForAvailableAction(ready, 'p1', { ...action, targetObjectIds: ids })!
+  expect(events.at(-1)).toMatchObject({ type: 'castSpell', targets: ids.map(objectId => ({ kind: 'object', objectId })) })
+  let cast = ready
+  for (const event of events) cast = ok(server.rules(cast, event))
+  expect(cast.stack[0]!.execution?.definitionSnapshot).toBeDefined()
+  const resolved = resolveStack(server.rules, cast)
+  for (const id of ids) expect(resolved.objects[id]).toMatchObject({ zone: 'battlefield', incarnation: ready.objects[id]!.incarnation + 2 })
 })
