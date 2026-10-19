@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 274,
+    "cardRegistrations": 273,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 262
+    "candidateOnlyCardRows": 261
   },
   "cardEffects": [
     {
@@ -489,7 +489,6 @@
         "Sea Gate Restoration // Sea Gate, Reborn:effects[0]",
         "Secluded Steppe:effects[0]",
         "Sink into Stupor // Soporific Springs:effects[0]",
-        "Thawing Glaciers:effects[0]",
         "Utopia Sprawl:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[0]",
         "Watery Grave:effects[0]",
@@ -593,7 +592,6 @@
         "Moonsilver Key:effects[0]",
         "Myriad Landscape:effects[1]",
         "Scapeshift:effects[0]",
-        "Thawing Glaciers:effects[1]",
         "Waterlogged Teachings // Inundated Archive:effects[1]"
       ],
       "executableCoverageEvidence": [],
@@ -1544,17 +1542,14 @@
       "variant": "bounceSelf",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
-        "Ghost Town:effects[0].do[0]",
-        "Thawing Glaciers:effects[1].spec.after[0].do[0]"
+        "Ghost Town:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 3,
         "samples": [
           "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:49 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:122 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:87 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/selfBounceLand.test.ts:29 — test('Ghost Town returns only outside its controller’s turn', () => {"
         ]
       },
@@ -2232,15 +2227,13 @@
       "variant": "delay",
       "mechanic": "delayed program",
       "currentRegistrations": [
-        "Malakir Rebirth:effects[0].do[1]",
-        "Thawing Glaciers:effects[1].spec.after[0]"
+        "Malakir Rebirth:effects[0].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:49 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -4825,8 +4818,8 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:154 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
-          "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:76 — test('a delayed program retains a parent card choice after JSON restart', () => {",
+          "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:155 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
+          "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:77 — test('a delayed program retains a parent card choice after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:213 — test('a granted callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:634 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
@@ -14934,44 +14927,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Thawing Glaciers",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Thawing Glaciers"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:49 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:87 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, search] and instructions [bounceSelf, delay]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "10",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "search"
-      ],
-      "instructionVariants": [
-        "bounceSelf",
-        "delay"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped",
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Thespian's Stage",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -16314,7 +16269,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 153,
+        "matches": 154,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelFacts.test.ts:11",
@@ -16984,7 +16939,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 56,
+        "matches": 57,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -18185,7 +18140,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1940",
+        "rules-engine/src/cardPlugins/cardRules.ts:1928",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
