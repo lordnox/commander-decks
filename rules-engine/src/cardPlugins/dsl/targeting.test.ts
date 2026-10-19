@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
+import { blink, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame, projectForViewer } from '../../runtime'
@@ -15,6 +15,8 @@ import { evaluateObjectSelector } from './compiler/runtime'
 import { swampOverlay } from '../../plugins/swampOverlay'
 import { forestOverlay } from '../../plugins/forestOverlay'
 import { canonicalTargetBindings } from './compiler/targeting'
+import { instructionSpell } from './instructionTestSupport'
+import { resolveStack } from '../../testHelpers'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -596,4 +598,44 @@ test.each([
   const state = ok(server.rules(server.state, { type: 'addRule', pluginId: plugin.id, sourceId: source.id }))
   const selected = evaluateObjectSelector(objects({ subtypes: [subtype] }), { state, controller: 'p1', source: captureObject(state.objects[source.id]) })
   expect(selected.map(object => object.name).sort()).toEqual(['Battlefield land', 'Printed land'])
+})
+
+test.each(['valid', 'control', 'leave', 'return', 'allInvalid'] as const)('two-recipient blink preserves per-target legality at resolution (%s)', change => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', controller: 'you', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] }), count: 2 })] },
+      instructions: [blink({ targets: target(0), returnController: ref('controller') }), gainLife({ targets: ref('controller'), amount: 1 })],
+    })] },
+    battlefield: {
+      p1: [cardTemplate('First', { types: ['Land'] }), cardTemplate('Second', { types: ['Artifact'] }), cardTemplate('Ineligible type', { types: ['Enchantment'] })],
+      p2: [cardTemplate('Opponent permanent', { types: ['Creature'], power: 1, toughness: 1 })],
+    },
+  }, { random: () => 0 })
+  const ids = ['First', 'Second'].map(name => named(server.state, name).id)
+  const cast = (targets: string[]) => server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id,
+    targets: targets.map(objectId => ({ kind: 'object', objectId })),
+  })
+  for (const invalid of [[], [ids[0]!], [...ids, named(server.state, 'Ineligible type').id], [ids[0]!, ids[0]!], [ids[0]!, named(server.state, 'Opponent permanent').id], [ids[0]!, named(server.state, 'Ineligible type').id]]) {
+    expect(cast(invalid).ok).toBe(false)
+  }
+  let state = ok(cast(ids))
+  switch (change) {
+    case 'valid': break
+    case 'control': state = structuredClone(state); state.objects[ids[1]!]!.controller = 'p2'; break
+    case 'leave': state = ok(server.rules(state, { type: 'move', objectId: ids[1]!, to: 'hand' })); break
+    case 'return':
+      state = ok(server.rules(state, { type: 'move', objectId: ids[1]!, to: 'exile' }))
+      state = ok(server.rules(state, { type: 'move', objectId: ids[1]!, to: 'battlefield' }))
+      break
+    case 'allInvalid':
+      for (const id of ids) state = ok(server.rules(state, { type: 'move', objectId: id, to: 'hand' }))
+      break
+  }
+  const before = ids.map(id => state.objects[id]!.incarnation)
+  const resolved = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(resolved.objects[ids[0]!]!.incarnation).toBe(before[0]! + (change === 'allInvalid' ? 0 : 2))
+  expect(resolved.objects[ids[1]!]!.incarnation).toBe(before[1]! + (change === 'valid' ? 2 : 0))
+  expect(resolved.players.p1.life).toBe(change === 'allInvalid' ? 40 : 41)
 })
