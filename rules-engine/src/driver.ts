@@ -737,6 +737,10 @@ const actionEvents = (
         objectId: object.id,
         to: instruction.to,
         ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
+        ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
+          const amount = availableAmount(count, context)
+          return amount === undefined || amount === 0 ? [] : [[counter, amount]]
+        })) } : {}),
       }))
     }
     case 'reveal': {

@@ -1,3 +1,4 @@
+import { counterPtBonus } from './definitions'
 import type { PluginCatalog } from './catalog'
 import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
 import type { Draft } from './draft'
@@ -641,6 +642,15 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       }
       if (event.chosenColor) object.chosenColor = event.chosenColor
       if (entered) {
+        if (event.enterCounters) {
+          const before = counterPtBonus(object)
+          for (const [counter, count] of Object.entries(event.enterCounters)) {
+            if (counter && Number.isSafeInteger(count) && count > 0) object.counters[counter] = (object.counters[counter] ?? 0) + count
+          }
+          const delta = counterPtBonus(object) - before
+          if (object.power !== null) object.power += delta
+          if (object.toughness !== null) object.toughness += delta
+        }
         enterResolvingCopyAsToken(object)
         // CR 302.6 tracks continuous control of the permanent, not how long it
         // has been a creature. This matters if a noncreature is animated later.

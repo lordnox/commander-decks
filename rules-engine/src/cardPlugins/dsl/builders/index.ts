@@ -469,6 +469,7 @@ export const move = (input: {
   targets: Extract<Instruction, { kind: 'move' }>['targets']
   to: Extract<Instruction, { kind: 'move' }>['to']
   tapped?: boolean
+  enterCounters?: Readonly<Record<string, AmountInput>>
   bindResult?: string
   bindChoice?: string
 }): Instruction => immutableData({
@@ -477,6 +478,7 @@ export const move = (input: {
   targets: input.targets,
   to: input.to,
   ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
+  ...(input.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(input.enterCounters).map(([counter, count]) => [counter, toAmount(count)])) } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
 

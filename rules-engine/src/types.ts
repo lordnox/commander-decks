@@ -1069,6 +1069,8 @@ export type GameEvent =
       replacedBy?: string[]
       replacementLineage?: ReplacementLineage
       tapped?: boolean
+      /** Counters supplied by the effect putting this permanent onto the battlefield. */
+      enterCounters?: Readonly<Record<string, number>>
       /** Color chosen as this object enters (CR 614.12). */
       chosenColor?: ManaId
     }
