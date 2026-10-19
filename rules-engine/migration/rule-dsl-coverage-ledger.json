@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 277,
+    "cardRegistrations": 276,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 265
+    "candidateOnlyCardRows": 264
   },
   "cardEffects": [
     {
@@ -59,7 +59,6 @@
         "Firdoch Core:effects[2]",
         "Flooded Grove:effects[0]",
         "Ghost Town:effects[0]",
-        "Gilded Lotus:effects[0]",
         "Hall of Storm Giants:effects[1]",
         "Hedge Shredder:effects[2]",
         "Hermit Druid:effects[0]",
@@ -105,7 +104,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 160,
+        "matches": 159,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
@@ -611,7 +610,7 @@
           "live-runner/src/kernelHost.test.ts:2318 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
           "live-runner/src/kernelHost.test.ts:2627 — test('preserves two activation-cost groups in printed order', () => {",
           "rules-engine/src/actions.test.ts:461 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {"
         ]
       },
       "neededCanonicalNode": "typed search instruction and continuation",
@@ -1016,9 +1015,6 @@
       "currentRegistrations": [
         "Blood Celebrant:effects[0].do[0]",
         "Firdoch Core:effects[1].do[0]",
-        "Gilded Lotus:effects[0].do[0]",
-        "Gilded Lotus:effects[0].do[1]",
-        "Gilded Lotus:effects[0].do[2]",
         "Lotus Field:effects[2].do[0]",
         "Lotus Field:effects[2].do[1]",
         "Lotus Field:effects[2].do[2]",
@@ -1027,16 +1023,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 16,
+        "matches": 14,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:112 — test('Gilded Lotus adds three of the chosen color', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
           "rules-engine/src/cardPlugins/lifeEffects.test.ts:417 — test('Blood Celebrant naturally exposes five live mana choices and pays life', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:144 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {"
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:377 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -1060,7 +1056,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 27,
+        "matches": 28,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -1399,7 +1395,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:138 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:142 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:308 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:695 — test(\"Endless Sands and Thespian's Stage list their handlers\", () => {"
         ]
@@ -2400,8 +2396,8 @@
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:603 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:631 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:607 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:635 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:117 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:309 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
@@ -3604,8 +3600,8 @@
       "candidateEvidence": {
         "matches": 32,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:344 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:100 — test('Beza Fish tokens are blue', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:157 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:254 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
@@ -4813,7 +4809,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:380 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:384 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:297 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -4921,8 +4917,8 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:344 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:185 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:294 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:78 — test('the Homer dumpster cards this pass covers stay registered', () => {",
@@ -5281,7 +5277,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:192 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:196 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:296 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:692 — test(\"Endless Sands and Thespian's Stage list their handlers\", () => {"
         ]
@@ -5720,7 +5716,7 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:407 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:411 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:51 — test('Bushwhack opens a mode choice before its instructions run', () => {",
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:61 — test('Alabaster Host Intercessor exiles an opponent creature until it leaves', () => {",
           "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:95 — test('Alabaster Host Intercessor plainscycles from hand through library search', () => {",
@@ -6525,8 +6521,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:344 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:294 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -8923,7 +8919,7 @@
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:76",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:192 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:196 — test('Endless Sands exiles your creature then returns it when sacrificed', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:296 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:692 — test(\"Endless Sands and Thespian's Stage list their handlers\", () => {"
         ]
@@ -9126,7 +9122,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:380 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:384 — test('Everflowing Chalice enters with charge counters from multikicker', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:297 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -9823,40 +9819,6 @@
       "pluginIds": [],
       "handlerIds": [
         "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Gilded Lotus",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Gilded Lotus"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:112 — test('Gilded Lotus adds three of the chosen color', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:300 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addChosenColorMana]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addChosenColorMana"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -11789,7 +11751,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:573 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:577 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:304 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -11905,7 +11867,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2318 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:675 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:679 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:46 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:125 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:305 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
@@ -13729,7 +13691,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:407 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:411 — test('Secluded Steppe plainscycles into hand after the search closes', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:306 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -15026,7 +14988,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:138 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:142 — test(\"Thespian's Stage copies a land and keeps its copy ability\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:308 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:695 — test(\"Endless Sands and Thespian's Stage list their handlers\", () => {"
         ]
@@ -15063,8 +15025,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:603 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:631 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:607 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:635 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:309 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -15256,7 +15218,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:439 — test(\"Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:443 — test(\"Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:310 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -16394,7 +16356,6 @@
         "Firdoch Core",
         "Flooded Grove",
         "Ghost Town",
-        "Gilded Lotus",
         "Hall of Storm Giants",
         "Hedge Shredder",
         "Hermit Druid",
@@ -18302,7 +18263,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1952",
+        "rules-engine/src/cardPlugins/cardRules.ts:1940",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18434,7 +18395,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1046",
+        "rules-engine/src/cardPlugins/cardRules.ts:1034",
         "rules-engine/src/cardPlugins/cardRules.ts:284",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",

@@ -854,3 +854,16 @@ test('X catalog cards preserve their life costs, signed deltas and land-creature
   expect(cardRuleDefinitionSnapshotFor('Toxic Deluge')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, effect: { kind: 'pump', power: { kind: 'negate', value: { kind: 'variable', name: 'X' } }, toughness: { kind: 'negate', value: { kind: 'variable', name: 'X' } } } }] })
   expect(cardRuleDefinitionSnapshotFor('Awaken the Woods')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createToken', count: { kind: 'variable', name: 'X' }, token: { name: 'Forest Dryad', types: ['Land', 'Creature'], subtypes: ['Forest', 'Dryad'], colors: ['G'], power: 1, toughness: 1 } }] })
 })
+
+test('Gilded Lotus offers exactly five single-color three-mana programs', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Gilded Lotus')!.definition.abilities[0]
+  expect(ability).toMatchObject({ kind: 'activated', costs: [{ kind: 'tapSource' }] })
+  if (ability.kind !== 'activated') throw new Error('Expected activated ability')
+  expect(ability.instructions).toEqual([expect.objectContaining({
+    kind: 'chooseInstructions',
+    options: ['W', 'U', 'B', 'R', 'G'].map((color) => ({
+      label: color,
+      instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { [color]: { kind: 'constant', value: 3 } } }],
+    })),
+  })])
+})
