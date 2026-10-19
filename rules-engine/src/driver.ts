@@ -123,6 +123,7 @@ const preflightInstructions = (
       case 'addMana':
       case 'gainLife':
       case 'loseLife':
+      case 'blink':
       case 'fight':
       case 'damage':
       case 'destroy':
@@ -657,6 +658,20 @@ const actionEvents = (
         }]
       })
     }
+    case 'blink': {
+      const targets = objectActions(instruction.targets, context).filter(object => object.zone === 'battlefield')
+      const controllers = instruction.returnController && instruction.returnController !== 'owner'
+        ? evaluatePlayerReference(instruction.returnController, context) : undefined
+      if (controllers && controllers.length !== 1) throw new RuleDslEvaluationError('blink return controller must resolve to exactly one player')
+      // Ordinary move(target(0)) cannot follow the new exile incarnation. Keep
+      // only the next incarnation this instruction is about to create (400.7j).
+      frame.pendingBlink = targets.filter(object => !object.token).map(object => ({
+        ref: { objectId: object.id, incarnation: object.incarnation + 1, zone: 'exile' },
+        controller: controllers?.[0] ?? object.owner,
+        ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
+      }))
+      return targets.map(object => ({ type: 'move' as const, objectId: object.id, to: 'exile' as const }))
+    }
     case 'fight': {
       const left = evaluateObjectReference(instruction.left, context)
       const right = evaluateObjectReference(instruction.right, context)
@@ -1005,6 +1020,16 @@ export const prepareResolutionStep = (draft: Draft) => {
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
   const item = draft.stack.find((candidate) => candidate.id === frame.stackId) ?? frame.inlineItem
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
+  if (frame.pendingBlink) {
+    const returns = frame.pendingBlink
+    delete frame.pendingBlink
+    const events = returns.filter(entry => isSameObject(draft.objects[entry.ref.objectId], entry.ref))
+      .map(entry => ({ type: 'move' as const, objectId: entry.ref.objectId, to: 'battlefield' as const, controller: entry.controller,
+        ...(entry.tapped !== undefined ? { tapped: entry.tapped } : {}) }))
+    frame.phase = 'committing'
+    frame.pendingEvents = events.length > 1 ? [{ type: 'actionGroup', events }] : events
+    return { kind: 'events', events: frame.pendingEvents }
+  }
   if (frame.pendingDiscard) {
     const pending = frame.pendingDiscard
     while (pending.index < pending.seats.length) {
