@@ -2482,3 +2482,10 @@ without inheriting the parent's target clauses or target bindings. Target
 references inside that callback are rejected. The default preserves existing
 programs that refer to parent targets. The end-step callback fires once and
 cannot follow a card that leaves and re-enters exile (CR 603.7c).
+
+
+### Temporary additional land plays
+
+`grantLandPlays({ count, targets })` gives each resolved player the evaluated number of additional land plays for this turn (CR 305.2). Grants add together with static `extraLandPlays` abilities and do not reset the number of lands already played. They do not change land-play timing or zone permissions. The allowance is independent of the resolving source and survives journal restore; its temporary portion expires at cleanup (CR 514.2).
+
+For example, Explore composes `grantLandPlays({ count: 1, targets: ref('controller') })` with `draw(1)`, while Summer Bloom grants three without a draw. Both live in the canonical card catalog.

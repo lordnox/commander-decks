@@ -4,6 +4,8 @@ import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRu
 
 // Card configuration has structural coverage; instruction suites own execution.
 test.each([
+  ['Explore', ['grantLandPlays', 'draw']],
+  ['Summer Bloom', ['grantLandPlays']],
   ['Ghostly Flicker', ['blink']],
   ['Cloudshift', ['blink']],
   ['Flicker of Fate', ['blink']],
@@ -753,4 +755,13 @@ test.each([
   })]))
   if (kind === 'activated') expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }] })
   else expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toEqual(expect.arrayContaining([expect.objectContaining({ kind: 'keyword', keyword: 'flying' })]))
+})
+
+
+test.each([['Explore', 1], ['Summer Bloom', 3]] as const)('%s grants its printed additional land plays', (name, count) => {
+  const ability = cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]!
+  expect(ability.kind).toBe('spell')
+  if (ability.kind !== 'spell') throw new Error('expected spell')
+  expect(ability.instructions?.[0]).toEqual({ kind: 'grantLandPlays', count: { kind: 'constant', value: count }, targets: { kind: 'contextRef', name: 'controller' } })
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2 })
 })

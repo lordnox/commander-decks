@@ -74,7 +74,6 @@ import {
   exileOpponentGraveyard,
   extraEnters,
   extraLandfall,
-  extraLandPlays,
   exileColoredPermanentsAtMostX,
   fightOwnedVsOpponent,
   gainControlPermanent,
@@ -915,7 +914,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Exotic Orchard': [manaFrom('opponentsLands')],
-  Explore: [onResolve(extraLandPlays(1), draw(1))],
   Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
   'Fabled Passage': [
     fetchBasic(
@@ -1901,7 +1899,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       [returnTargetFromGraveyard('battlefield', false, true)],
     ),
   ],
-  'Summer Bloom': [onResolve(extraLandPlays(3))],
   'Summon: Leviathan': [sagaChapters(
     {
       numbers: [1],

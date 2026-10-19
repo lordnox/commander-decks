@@ -37,6 +37,7 @@ import esperPanorama from './esper-panorama'
 import eternalWitness from './eternal-witness'
 import evolvingWilds from './evolving-wilds'
 import expeditionMap from './expedition-map'
+import explore from './explore'
 import farhavenElf from './farhaven-elf'
 import farseek from './farseek'
 import fateUnraveler from './fate-unraveler'
@@ -92,6 +93,7 @@ import splendidReclamation from './splendid-reclamation'
 import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
+import summerBloom from './summer-bloom'
 import sunkenHollow from './sunken-hollow'
 import templeOfDeceit from './temple-of-deceit'
 import terramorphicExpanse from './terramorphic-expanse'
@@ -155,6 +157,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Eternal Witness": eternalWitness,
   "Evolving Wilds": evolvingWilds,
   "Expedition Map": expeditionMap,
+  "Explore": explore,
   "Farhaven Elf": farhavenElf,
   "Farseek": farseek,
   "Fate Unraveler": fateUnraveler,
@@ -210,6 +213,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Stitch Together": stitchTogether,
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
+  "Summer Bloom": summerBloom,
   "Sunken Hollow": sunkenHollow,
   "Temple of Deceit": templeOfDeceit,
   "Terramorphic Expanse": terramorphicExpanse,
