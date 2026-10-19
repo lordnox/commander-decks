@@ -2442,3 +2442,18 @@ A replaced exile to a different zone or a later exile incarnation cannot be
 returned by this instruction. Tokens leave but cannot return (CR 111.8). Triggers
 wait for resolution to finish; there is no priority window between the moves.
 Delayed returns, rebound, and exile linked to a source are separate mechanics.
+
+### Flying and flash
+
+The shared `KEYWORDS` vocabulary includes `defender`, `trample`, `flying`, and
+`flash`. Author printed abilities with `keyword.flying` and `keyword.flash`, or
+use `grantKeywordEffect(KEYWORDS.flash)` for a temporary grant. Flying uses the
+ordinary blocking rules: only flying or reach creatures can block a flyer, while
+a flyer can block a ground creature.
+
+Flash functions in every zone from which a card may be played (CR 702.8a). It
+changes casting timing, including casting in response to another spell; it does
+not supply priority, mana, or permission to cast from another zone. A temporary
+flash grant can affect a card in hand, expires with its duration, and stays bound
+to that object incarnation. Characteristic changes made to a spell on the stack
+continue onto the permanent it becomes (CR 400.7a).

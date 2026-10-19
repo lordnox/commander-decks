@@ -2,6 +2,8 @@ import { captureObject, isSameObject } from '../../objectIdentity'
 import type { GameObject, GameState, PlayerId, PrintedStaticModifier, ZoneId } from '../../types'
 import { evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 import { compileCardRuleDefinition } from './compiler'
+import { KEYWORDS } from './schema/v1'
+import { ZONE_IDS } from '../../types'
 import type { AbilityDefinition, ContinuousEffectDefinition, Keyword, Zone } from './schema/v1'
 
 export type ActiveKeywordStatic = {
@@ -52,8 +54,9 @@ const abilityDefinition = (source: GameObject, abilityIndex: number): AbilityDef
   return compileCardRuleDefinition(source.ruleDefinition.definition).definition.abilities[abilityIndex]
 }
 
+// CR 702.8a: flash functions in any zone from which the card may be played.
 const abilityActiveIn = (ability: AbilityDefinition): readonly Zone[] => {
-  if (ability.kind === 'keyword') return ['battlefield']
+  if (ability.kind === 'keyword') return ability.keyword === KEYWORDS.flash ? ZONE_IDS : ['battlefield']
   if (ability.kind === 'static') return ability.activeIn
   return []
 }

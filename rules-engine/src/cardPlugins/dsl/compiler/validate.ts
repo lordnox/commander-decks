@@ -5,7 +5,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CARD_COLORS, PLAYER_RELATIONS, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { CARD_COLORS, KEYWORDS, PLAYER_RELATIONS, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT } from './evaluate'
@@ -695,7 +695,7 @@ export const validateDefinitionV1 = (root: unknown): {
               validateStatDelta(effect.toughness, childPath(childPath(path, 'effect'), 'toughness'), env)
               break
             case 'grantKeyword':
-              enumeration(effect.keyword, childPath(childPath(path, 'effect'), 'keyword'), new Set(['defender', 'trample']), 'granted keyword')
+              enumeration(effect.keyword, childPath(childPath(path, 'effect'), 'keyword'), new Set(Object.values(KEYWORDS)), 'granted keyword')
               break
             case 'grantAbility': {
               const ability = object(effect.ability, childPath(childPath(path, 'effect'), 'ability'))
@@ -1168,7 +1168,7 @@ export const validateDefinitionV1 = (root: unknown): {
       }
       case 'keyword':
         exactKeys(ability, path, ['kind', 'keyword'], ['kind', 'keyword'])
-        enumeration(ability.keyword, childPath(path, 'keyword'), new Set(['defender', 'trample']), 'keyword')
+        enumeration(ability.keyword, childPath(path, 'keyword'), new Set(Object.values(KEYWORDS)), 'keyword')
         return
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported ability kind: ${String(ability.kind)}`)
     }

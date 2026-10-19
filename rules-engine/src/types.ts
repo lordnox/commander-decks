@@ -120,7 +120,7 @@ export type ReversibleEffect =
   | { kind: 'goad'; sourceController: PlayerId }
   | { kind: 'protectionFromEverything' }
   /** Static-layer keywords: `suppress` ("can't have or gain") beats `grant`; read by `hasKeyword`. */
-  | { kind: 'staticKeywords'; grant: string[]; suppress: string[] }
+  | { kind: 'staticKeywords'; grant: string[]; suppress: string[]; incarnation?: number }
   /** Encore tokens must attack this player this turn if able. */
   | { kind: 'encoreAttack'; defender: PlayerId }
   /**

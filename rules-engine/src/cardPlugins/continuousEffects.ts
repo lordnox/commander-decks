@@ -16,6 +16,7 @@ import { effectsOf } from './cardRules'
 import type { CardEffect, LinkedExilePump, StaticBoardPumpSpec } from './effectDefinitions'
 import { applyCopy, serializableEffects } from './effectRuntime'
 import { printedStaticAbilityActive } from './dsl/staticModifierCore'
+import { KEYWORDS } from './dsl/schema/v1'
 import { pumpApplies, pumpSpecs } from './staticBoardPumpSpec'
 
 const EXPIRE_EFFECTS = 'continuousEffects.expire'
@@ -520,8 +521,10 @@ const effectHolds = (
   entry: NonNullable<GameObject['continuousEffects']>[number],
   endTurnEffects: boolean,
 ) =>
-  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange')
+  durationHolds(state, object, entry.duration, endTurnEffects, entry.effect.kind === 'colorChange'
+    || (entry.effect.kind === 'staticKeywords' && entry.effect.grant.includes(KEYWORDS.flash)))
   && (entry.effect.kind !== 'colorChange' || entry.effect.incarnation === object.incarnation)
+  && (entry.effect.kind !== 'staticKeywords' || entry.effect.incarnation === undefined || entry.effect.incarnation === object.incarnation)
   && (
     entry.effect.kind !== 'controller'
     || (

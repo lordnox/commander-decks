@@ -139,7 +139,8 @@ export const makeDraft = (state: GameState): Draft => {
       // CR 400.7a: characteristic changes follow a permanent spell as it resolves.
       if (from === 'stack' && to === 'battlefield') {
         for (const entry of object.continuousEffects ?? []) {
-          if (entry.effect.kind === 'colorChange' && entry.effect.incarnation === object.incarnation - 1) {
+          if ((entry.effect.kind === 'colorChange' || entry.effect.kind === 'staticKeywords')
+            && entry.effect.incarnation === object.incarnation - 1) {
             entry.effect.incarnation = object.incarnation
           }
         }
