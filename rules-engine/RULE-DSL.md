@@ -2496,3 +2496,10 @@ For example, Explore composes `grantLandPlays({ count: 1, targets: ref('controll
 A `move` to `battlefield` can include `enterCounters`, a map from counter names to DSL amounts. For example, `move({ targets: choice('exiled'), to: 'battlefield', enterCounters: { '+1/+1': 1 } })` returns the selected objects with counters already present when entry triggers capture them and before state-based actions run (CR 122.6). Amounts are evaluated when that move executes. Other destinations reject this field; a replacement that redirects the move away from the battlefield does not place the counters. A same-zone battlefield move does not place entry counters.
 
 `blinkUntil` accepts the same optional map and forwards it to its non-targeting delayed return. Long Road Home and Otherworldly Journey compose this with a single creature target and the next end step. They retain the captured exile identity and return the card under its owner's control.
+
+
+### Rounded fractional amounts
+
+`divide({ value, by, rounding })` composes a DSL amount with a positive integer divisor and an explicit `ROUNDING_MODES.up` or `ROUNDING_MODES.down` policy (CR 107.1a). Its input can be a constant, X, selector count, event amount, current characteristic, or another division. A characteristic used as the dividend may be signed; a negative calculated quantity becomes zero under CR 107.1b. Literal, runtime, binding and expression-depth limits still apply.
+
+Amounts in instructions are evaluated at that instruction; amounts in costs are locked at announcement. Infernal Contract uses an ordinary draw of four followed by life loss equal to rounded-up division of its controller's current life by two.

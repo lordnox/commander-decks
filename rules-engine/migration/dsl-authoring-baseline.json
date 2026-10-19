@@ -288,7 +288,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"babeb8fb24b5ceee91f825fb50ed12410e4a8afe9dffcaa6daa24d52ed16f20e","card":"Meteor Golem"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"6f1fe17fd838070fbbcc423d6e1946b2885dbb9bcf10139018e27de6337703ea","card":"Condemn"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"9472c24a9320ec1ca9e613b3e2944fb917635c98669db74789447ae89b10f226","card":"Hatred"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"c2b41a6d192c818333f42a25dd126b90625436c32ae41c6e0f181c48a0283cbd","card":"Infernal Contract"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"cef23a01d10db65ebbb4c8b333e1a7c6c42a750cea22505e1875edd26f849bd4","card":"Mana Drain"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"9e58503a3ba5755f2e8bed3bab2c29b5c494027d072e808f48da8a46718b2769","card":"Desertion"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"be3389ab76c2bcc9512c19f7d0fe93e003d23ff2a7fb5048652a41c503dd631c","card":"City of Brass"},

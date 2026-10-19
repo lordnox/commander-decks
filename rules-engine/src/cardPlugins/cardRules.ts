@@ -236,7 +236,6 @@ import {
   destroyAll,
   playerAuraDeal,
   targetingRequirement,
-  loseHalfLifeRoundedUp,
   addManaAtNextMainFromTarget,
   gainLifeTargetToughness,
   addPlusCountersToControlled,
@@ -1151,7 +1150,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
     handler('demonstrate'),
   ],
-  'Infernal Contract': [onResolve(draw(4), loseHalfLifeRoundedUp())],
   Inkshield: [handler('combatPreventionCards')],
   "Irenicus's Vile Duplication": [
     targetOnResolve(

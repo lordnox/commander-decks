@@ -1,4 +1,5 @@
 import { expect, test } from 'bun:test'
+import { ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -6,6 +7,7 @@ import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRu
 test.each([
   ['Long Road Home', ['sequence']],
   ['Otherworldly Journey', ['sequence']],
+  ['Infernal Contract', ['draw', 'loseLife']],
   ['Explore', ['grantLandPlays', 'draw']],
   ['Summer Bloom', ['grantLandPlays']],
   ['Ghostly Flicker', ['blink']],
@@ -780,5 +782,18 @@ test.each(['Long Road Home', 'Otherworldly Journey'])('%s returns the exiled cre
         { kind: 'move', targets: { kind: 'choiceRef', binding: 'exiled' }, to: 'battlefield', enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } },
       ] },
     ] }],
+  })
+})
+
+
+test('Infernal Contract composes four draws with rounded-up half-life loss', () => {
+  expect(cardTemplateDefaultsFor('Infernal Contract')).toMatchObject({ types: ['Sorcery'], colors: ['B'], manaCost: '{B}{B}{B}', manaValue: 3 })
+  expect(cardRuleDefinitionSnapshotFor('Infernal Contract')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell', instructions: [
+      { kind: 'draw', count: { kind: 'constant', value: 4 } },
+      { kind: 'loseLife', targets: { kind: 'contextRef', name: 'controller' }, amount: {
+        kind: 'divide', value: { kind: 'characteristic', of: { kind: 'contextRef', name: 'controller' }, characteristic: 'life', information: 'current' }, by: 2, rounding: ROUNDING_MODES.up,
+      } },
+    ],
   })
 })
