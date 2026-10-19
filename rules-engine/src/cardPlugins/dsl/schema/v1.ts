@@ -98,6 +98,10 @@ export type Amount =
 
 export type AmountInput = number | Amount
 
+/** Signed expressions are accepted only where a power/toughness delta is required. */
+export type StatDelta = Amount | { kind: 'negate'; value: Amount }
+export type StatDeltaInput = number | StatDelta
+
 export type ObjectOccurrenceFilter =
   | ObjectFilter
   | ObjectReference
@@ -217,7 +221,7 @@ export type PreventionEffectDefinition = {
 
 export type CreatedEffect =
   | { kind: 'setColors'; colors: readonly CardColor[] }
-  | { kind: 'pump'; power: Amount; toughness: Amount }
+  | { kind: 'pump'; power: StatDelta; toughness: StatDelta }
   | { kind: 'grantKeyword'; keyword: Keyword }
   | { kind: 'grantAbility'; ability: GeneratedAbility }
   | {
@@ -474,8 +478,8 @@ export type ContinuousEffectDefinition =
   | {
       kind: 'modifyStats'
       targets: ObjectSelector
-      power: Amount
-      toughness: Amount
+      power: StatDelta
+      toughness: StatDelta
       /** Layer 7b set-P/T when true; otherwise layer 7c +N/+N. */
       set?: true
     }

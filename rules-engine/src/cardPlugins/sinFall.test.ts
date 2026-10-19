@@ -54,7 +54,7 @@ describe('Sin Fall routine card support', () => {
       type: 'castSpell',
       seat: 'p1',
       objectId: spell,
-      x: 40,
+      x: 41,
     })
     expect(illegal.ok).toBe(false)
 

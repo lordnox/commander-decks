@@ -2,6 +2,7 @@ import type {
   ActivatedAbilityDefinition,
   Amount,
   AmountInput,
+  StatDeltaInput,
   RoundingMode,
   CardRuleDefinitionInputV1,
   CardRuleDefinitionV1,
@@ -68,6 +69,10 @@ export const toAmount = (value: AmountInput): Amount =>
 
 export const divide = (input: { value: AmountInput; by: number; rounding: RoundingMode }) =>
   immutableData({ kind: 'divide' as const, value: toAmount(input.value), by: input.by, rounding: input.rounding })
+
+export const negate = (value: AmountInput) => immutableData({ kind: 'negate' as const, value: toAmount(value) })
+
+const toStatDelta = (value: StatDeltaInput) => typeof value === 'number' ? amount(value) : immutableData(value)
 
 export const variable = (name: 'X'): Amount => immutableData({ kind: 'variable', name })
 
@@ -164,8 +169,8 @@ export const untilStep = (step: string, active?: PlayerReference): EffectDuratio
 export const forTurns = (count: AmountInput): EffectDuration => immutableData({ kind: 'forTurns', count: toAmount(count) })
 export const whileSourceOnBattlefield = (): EffectDuration => immutableData({ kind: 'whileSourceOnBattlefield' })
 
-export const pumpEffect = (power: AmountInput, toughness: AmountInput): CreatedEffect => immutableData({
-  kind: 'pump', power: toAmount(power), toughness: toAmount(toughness),
+export const pumpEffect = (power: StatDeltaInput, toughness: StatDeltaInput): CreatedEffect => immutableData({
+  kind: 'pump', power: toStatDelta(power), toughness: toStatDelta(toughness),
 })
 export const setColorsEffect = (colors: Extract<CreatedEffect, { kind: 'setColors' }>['colors']): CreatedEffect =>
   immutableData({ kind: 'setColors', colors })

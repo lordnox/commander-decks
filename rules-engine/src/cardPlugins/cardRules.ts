@@ -41,7 +41,6 @@ import {
   createTokenInstruction,
   createTreasures,
   crew,
-  createXTokens,
   devour,
   dies,
   discardCards,
@@ -123,7 +122,6 @@ import {
   pump,
   pumpTargetX,
   pumpSelf,
-  pumpAllCreaturesByX,
   pumpControlled,
   pumpControlledNonHuman,
   pumpFromLinkedExilePower,
@@ -539,13 +537,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       },
     ),
   ],
-  'Awaken the Woods': [onResolve(createXTokens({
-    name: 'Forest Dryad',
-    types: ['Land', 'Creature'],
-    subtypes: ['Forest', 'Dryad'],
-    power: 1,
-    toughness: 1,
-  }))],
   'Baird, Steward of Argive': [attackTax(1)],
   'Banisher Priest': [
     handler('linkedExile'),
@@ -1075,14 +1066,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Hallowed Fountain': [tapUnlessPayLife(2)],
-  Hatred: [
-    payLifeX(),
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      pumpTargetX(1, 0),
-    ),
-  ],
   'Hedge Shredder': [
     attacks(optionalMill(2)),
     landToGraveyard(putMilledLandTapped()),
@@ -2003,7 +1986,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       grantKeywords: ['trample'],
     }),
   ],
-  'Toxic Deluge': [payLifeX(), onResolve(pumpAllCreaturesByX())],
   'Trap the Trespassers': [
     onResolve(vote(
       'Secretly vote for a creature the caster does not control.',
