@@ -464,6 +464,12 @@ stackItems({ controller: 'teammate' })
 The same evaluator applies these matches during selection, target revalidation,
 and occurrence filtering for triggers.
 
+The runtime exposes paired `matchesPlayer` / `mismatchesPlayer`,
+`matchesController` / `mismatchesController`, and `matchesOwner` / `mismatchesOwner`
+helpers. Both return false when their constraint is absent. They are deliberately
+not boolean complements: a mismatch means a supplied constraint was violated.
+All pairs support every player relation, including `teammate`, and player references.
+
 These expressions illustrate the vocabulary, not one runnable program. Every
 reference used in a complete program must have a binding in its execution scope.
 

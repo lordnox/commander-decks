@@ -189,7 +189,8 @@ export const evaluateStackItemReference = (
   return item ? [item] : []
 })
 
-export const matchesPlayer = (player: PlayerId, match: PlayerMatch, context: RuleDslRuntimeContext) => {
+export const matchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) => {
+  if (match === undefined) return false
   if (!context.state.players[player] || context.state.players[player].lost) return false
   switch (match) {
     case PLAYER_RELATIONS.you: return player === context.controller
@@ -205,6 +206,22 @@ export const matchesPlayer = (player: PlayerId, match: PlayerMatch, context: Rul
   }
 }
 
+/** Absence is neither a match nor a mismatch; these helpers are not complements. */
+export const mismatchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) =>
+  match !== undefined && !matchesPlayer(player, match, context)
+
+export const matchesController = (object: { controller: PlayerId }, filter: Pick<ObjectFilter, 'controller'>, context: RuleDslRuntimeContext) =>
+  matchesPlayer(object.controller, filter.controller, context)
+
+export const mismatchesController = (object: { controller: PlayerId }, filter: Pick<ObjectFilter, 'controller'>, context: RuleDslRuntimeContext) =>
+  mismatchesPlayer(object.controller, filter.controller, context)
+
+export const matchesOwner = (object: { owner: PlayerId }, filter: Pick<ObjectFilter, 'owner'>, context: RuleDslRuntimeContext) =>
+  matchesPlayer(object.owner, filter.owner, context)
+
+export const mismatchesOwner = (object: { owner: PlayerId }, filter: Pick<ObjectFilter, 'owner'>, context: RuleDslRuntimeContext) =>
+  mismatchesPlayer(object.owner, filter.owner, context)
+
 // Recursive filter composition requires an explicit return type.
 const matchesPlayerFilter = (
   player: PlayerId,
@@ -214,7 +231,7 @@ const matchesPlayerFilter = (
   if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context))) return false
   if (filter.not && matchesPlayerFilter(player, filter.not, context)) return false
-  if (filter.relation && !matchesPlayer(player, filter.relation, context)) return false
+  if (mismatchesPlayer(player, filter.relation, context)) return false
   return true
 }
 
@@ -245,8 +262,8 @@ const matchesObjectFilter = (
     }
   })) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
-  if (filter.controller && !matchesPlayer(object.controller, filter.controller, context)) return false
-  if (filter.owner && !matchesPlayer(object.owner, filter.owner, context)) return false
+  if (mismatchesController(object, filter, context)) return false
+  if (mismatchesOwner(object, filter, context)) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
   if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
@@ -275,7 +292,7 @@ const matchesStackItemFilter = (
   }
   if (filter.color && !context.state.objects[item.objectId]?.colors.includes(filter.color)) return false
   if (filter.other && item.id === context.stackItemId) return false
-  if (filter.controller && !matchesPlayer(item.controller, filter.controller, context)) return false
+  if (mismatchesController(item, filter, context)) return false
   return true
 }
 
