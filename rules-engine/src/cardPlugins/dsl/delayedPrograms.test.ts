@@ -2,6 +2,8 @@ import { describe, expect, test } from 'bun:test'
 import {
   card,
   choice,
+  chooseX,
+  variable,
   move,
   select,
   stepDelayed,
@@ -175,7 +177,7 @@ describe('delayedPrograms', () => {
   })
 })
 
-test.each(['same', 'left', 'reexiled', 'token'] as const)('non-targeting delayed return follows only the captured exile incarnation (%s)', change => {
+test.each(['same', 'left', 'reexiled', 'token', 'duringEnd'] as const)('non-targeting delayed return follows only the captured exile incarnation (%s)', change => {
   const server = createServerGame(commanderRules, {
     players: 2,
     hands: { p1: [instructionSpell({
@@ -190,12 +192,18 @@ test.each(['same', 'left', 'reexiled', 'token'] as const)('non-targeting delayed
   const source = server.state.zoneOrder.p1.hand[0]!
   const id = server.state.zoneOrder.p2.battlefield[0]!
   const initialIncarnation = server.state.objects[id]!.incarnation
-  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source, targets: [{ kind: 'object', objectId: id }] })))
+  const starting = change === 'duringEnd' ? { ...server.state, step: 'end' as const } : server.state
+  let state = resolveStack(server.rules, ok(server.rules(starting, { type: 'castSpell', seat: 'p1', objectId: source, targets: [{ kind: 'object', objectId: id }] })))
   expect(state.delayedTriggers).toHaveLength(1)
   expect(state.delayedTriggers[0]!.canonical!.definitionSnapshot.definition.abilities[0]).toMatchObject({ kind: 'triggered', decisions: { targets: [] } })
   expect(state.delayedTriggers[0]!.canonical!.inheritedTargets).toBeUndefined()
   state = ok(server.rules(state, { type: 'move', objectId: source, to: 'exile' }))
   switch (change) {
+    case 'duringEnd':
+      state = ok(server.rules(state, { type: 'advanceStep' }))
+      expect(state.stack).toHaveLength(0)
+      expect(state.delayedTriggers).toHaveLength(1)
+      break
     case 'same': expect(state.objects[id]!.zone).toBe('exile'); break
     case 'left': state = ok(server.rules(state, { type: 'move', objectId: id, to: 'hand' })); break
     case 'reexiled': state = ok(server.rules(state, { type: 'move', objectId: id, to: 'exile' })); break
@@ -207,6 +215,7 @@ test.each(['same', 'left', 'reexiled', 'token'] as const)('non-targeting delayed
   expect(atEnd.delayedTriggers).toHaveLength(0)
   const resolved = resolveStack(server.rules, atEnd)
   switch (change) {
+    case 'duringEnd':
     case 'same': expect(resolved.objects[id]).toMatchObject({ zone: 'battlefield', controller: 'p2', owner: 'p2', incarnation: initialIncarnation + 2 }); break
     case 'left': expect(resolved.objects[id]!.zone).toBe('hand'); break
     case 'reexiled': expect(resolved.objects[id]!.zone).toBe('exile'); break
@@ -221,4 +230,44 @@ test('non-targeting delayed callbacks reject parent target references but retain
     decisions: { targets: [select({ filter: objects(), count: 1 })] },
     instructions: [createDelayed({ inheritTargets: false, condition: stepDelayed({ step: 'end' }), instructions: [move({ targets: target(0), to: 'hand' })] })],
   })]))).toThrow()
+})
+
+test.each([['Flickerwisp', true], ['Guardian of Ghirapur', true], ['Guardian of Ghirapur', false]] as const)('catalog entry blink persists a delayed return for %s with selected=%s', (name, selected) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate(name)] },
+    battlefield: { p1: [cardTemplate('Friendly fixture', { types: ['Artifact'] })], p2: [cardTemplate('Opponent fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.hand[0]!
+  const friendly = server.state.zoneOrder.p1.battlefield[0]!
+  const opponent = server.state.zoneOrder.p2.battlefield[0]!
+  const targetId = name === 'Flickerwisp' ? opponent : friendly
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: source, to: 'battlefield' }))
+  const pick = pendingSelectionFor(entered, 'p1')!
+  expect(pick.candidates).not.toContain(source)
+  expect(pick.candidates.includes(opponent)).toBe(name === 'Flickerwisp')
+  expect(pick.min).toBe(name === 'Flickerwisp' ? 1 : 0)
+  const restored = restoreJournal(createJournal(entered), server.rules).current()
+  const answer = ok(server.rules(restored, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: selected ? [targetId] : [] }))
+  let exiled = resolveStack(server.rules, answer)
+  expect(exiled.objects[targetId]!.zone).toBe(selected ? 'exile' : 'battlefield')
+  exiled = ok(server.rules(exiled, { type: 'move', objectId: source, to: 'hand' }))
+  const atEnd = ok(server.rules({ ...restoreJournal(createJournal(exiled), server.rules).current(), step: 'postcombatMain' }, { type: 'advanceStep' }))
+  const returned = resolveStack(server.rules, atEnd)
+  expect(returned.objects[targetId]).toMatchObject({ zone: 'battlefield', controller: server.state.objects[targetId]!.owner, incarnation: server.state.objects[targetId]!.incarnation + (selected ? 2 : 0) })
+  expect(returned.objects[source]!.zone).toBe('hand')
+})
+
+test('a non-targeting delayed callback retains announced variables across restore', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ decisions: { variables: [chooseX({ min: 0, max: 3 })] }, instructions: [
+      createDelayed({ inheritTargets: false, condition: stepDelayed({ step: 'end' }), instructions: [gainLife({ targets: ref('controller'), amount: variable('X') })] }),
+    ] })] },
+  }, { random: () => 0 })
+  const casted = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]!, x: 3 }))
+  const delayed = resolveStack(server.rules, casted)
+  const restored = restoreJournal(createJournal(delayed), server.rules).current()
+  const atEnd = ok(server.rules({ ...restored, step: 'postcombatMain' }, { type: 'advanceStep' }))
+  expect(resolveStack(server.rules, atEnd).players.p1.life).toBe(43)
 })

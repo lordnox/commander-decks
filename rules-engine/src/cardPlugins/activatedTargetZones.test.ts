@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+import { canonicalScopeId } from './dsl/compiler/targeting'
 import { commanderRules } from '../formats'
 import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -72,7 +73,7 @@ const advanceToEndStep = (server: ReturnType<typeof createServerGame>, state: Ga
   return current
 }
 
-const everyFilteredTargetNamesItsZone = ['Voyager Staff', 'Endless Sands', 'Otawara, Soaring City', 'Boseiju, Who Endures']
+const everyFilteredTargetNamesItsZone = ['Endless Sands', 'Otawara, Soaring City', 'Boseiju, Who Endures']
 
 describe('filtered activated-ability targets name the zone they must be in', () => {
   test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {
@@ -104,7 +105,7 @@ describe('Voyager Staff', () => {
     }, { random: () => 0.5, cardPlugins: await plugins() })
     return { server, state: ready(server.state) }
   }
-  const BLINK = 'voyagerStaff.blink'
+  const BLINK = canonicalScopeId(0)
 
   test('exiles any creature, yours or an opponent\'s, and returns it under its owner at the next end step', async () => {
     const { server, state } = await setup()

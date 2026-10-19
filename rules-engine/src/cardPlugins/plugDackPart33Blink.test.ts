@@ -191,74 +191,6 @@ describe('Dack party blink pass 2', () => {
     expect(afterEnd.objects[targetId].zone).toBe('exile')
   })
 
-  test('Flickerwisp cannot blink itself and returns another permanent at end step', () => {
-    const server = createServerGame(commanderRules, {
-      battlefield: {
-        p1: [
-          cardTemplate('Flickerwisp'),
-          cardTemplate('Wisp Rock', { types: ['Artifact'] }),
-        ],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const wispId = named(server.state, 'Flickerwisp').id
-    const rockId = named(server.state, 'Wisp Rock').id
-    const entered = ok(server.rules(server.state, {
-      type: 'move',
-      objectId: wispId,
-      to: 'battlefield',
-    }))
-    expect(server.rules(entered, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [wispId],
-    })).toMatchObject({ ok: false })
-    const picked = ok(server.rules(entered, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [rockId],
-    }))
-    const afterBlink = resolveStack(server.rules, picked)
-    expect(afterBlink.objects[rockId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, afterBlink)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[rockId].zone).toBe('battlefield')
-  })
-
-  test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {
-    const server = createServerGame(commanderRules, {
-      battlefield: {
-        p1: [
-          cardTemplate('Guardian of Ghirapur'),
-          cardTemplate('Ghirapur Relic', { types: ['Artifact'] }),
-        ],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const guardianId = named(server.state, 'Guardian of Ghirapur').id
-    const relicId = named(server.state, 'Ghirapur Relic').id
-    const entered = ok(server.rules(server.state, {
-      type: 'move',
-      objectId: guardianId,
-      to: 'battlefield',
-    }))
-    const waiting = resolveStack(server.rules, entered)
-    const picked = ok(server.rules(waiting, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [relicId],
-    }))
-    const afterBlink = resolveStack(server.rules, picked)
-    expect(afterBlink.objects[relicId].zone).toBe('exile')
-    const atEnd = advanceToEndStep(server, afterBlink)
-    const returned = resolveStack(server.rules, atEnd)
-    expect(returned.objects[relicId].zone).toBe('battlefield')
-  })
-
   test('All-Fates Stalker cages a non-Assassin until it leaves', () => {
     const server = createServerGame(commanderRules, {
       players: 3,
@@ -293,33 +225,5 @@ describe('Dack party blink pass 2', () => {
     expect(sacrificed.objects[bearId].zone).toBe('battlefield')
   })
 
-  test('Voyager Staff cannot target itself', () => {
-    const server = createServerGame(commanderRules, {
-      battlefield: {
-        p1: [
-          cardTemplate('Voyager Staff', { types: ['Artifact'] }),
-          cardTemplate('Staff Pet', { types: ['Creature'] }),
-        ],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const staffId = named(server.state, 'Voyager Staff').id
-    const petId = named(server.state, 'Staff Pet').id
-    expect(server.rules(mana(structuredClone(server.state)), {
-      type: 'activateAbility',
-      abilityId: 'voyagerStaff.blink',
-      seat: 'p1',
-      objectId: staffId,
-      targets: [{ kind: 'object', objectId: staffId }],
-    })).toMatchObject({ ok: false })
-    const afterActivate = ok(server.rules(mana(structuredClone(server.state)), {
-      type: 'activateAbility',
-      abilityId: 'voyagerStaff.blink',
-      seat: 'p1',
-      objectId: staffId,
-      targets: [{ kind: 'object', objectId: petId }],
-    }))
-    const resolved = resolveStack(server.rules, afterActivate)
-    expect(resolved.objects[staffId].zone).toBe('graveyard')
-    expect(resolved.objects[petId].zone).toBe('exile')
-  })
+
 })
