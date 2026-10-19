@@ -45,7 +45,7 @@ import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector } from '../cardPlugins/dsl/compiler/runtime'
+import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, matchesPlayer } from '../cardPlugins/dsl/compiler/runtime'
 import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
@@ -183,14 +183,9 @@ const canonicalFilterMatch = (
     ...(execution?.capturedOccurrence ? { capturedOccurrence: execution.capturedOccurrence } : {}),
     ...(execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: execution.capturedOccurrenceBindings } : {}),
   }
+  const context = { state, controller: source.controller, source: captureObject(source), occurrence, ...lexicalContext }
   if ('kind' in filter) {
-    const referenced = evaluateObjectReference(filter, {
-      state,
-      controller: source.controller,
-      source: captureObject(source),
-      occurrence,
-      ...lexicalContext,
-    }, 'currentOrLastKnown')
+    const referenced = evaluateObjectReference(filter, context, 'currentOrLastKnown')
     return referenced.some((candidate) => candidate.id === object.id && candidate.incarnation === object.incarnation)
   }
   if ('all' in filter && filter.all && !filter.all.every((part) =>
@@ -204,29 +199,9 @@ const canonicalFilterMatch = (
   if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
   if (plain.token !== undefined && object.token !== plain.token) return false
   if (plain.name !== undefined && object.name !== plain.name) return false
-  if (plain.controller !== undefined) {
-    const controller = plain.controller === 'you'
-      ? source.controller
-      : evaluatePlayerReference(plain.controller, {
-        state,
-        controller: source.controller,
-        source: captureObject(source),
-        occurrence,
-        ...lexicalContext,
-      })[0]
-    if (controller !== undefined && object.controller !== controller) return false
-  }
-  if (plain.owner !== undefined) {
-    const owner = plain.owner === 'you'
-      ? source.controller
-      : evaluatePlayerReference(plain.owner, {
-        state,
-        controller: source.controller,
-        source: captureObject(source),
-        occurrence,
-        ...lexicalContext,
-      })[0]
-    if (owner !== undefined && object.owner !== owner) return false
+  for (const key of ['controller', 'owner'] as const) {
+    const match = plain[key]
+    if (match !== undefined && !matchesPlayer(object[key], match, context)) return false
   }
   return true
 }

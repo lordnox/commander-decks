@@ -10,10 +10,15 @@ export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 
 export const CARD_COLORS = ['W', 'U', 'B', 'R', 'G'] as const
 export type CardColor = typeof CARD_COLORS[number]
 
-export type PlayerRelation = 'you' | 'opponent' | 'any'
+export const PLAYER_RELATIONS = {
+  you: 'you', opponent: 'opponent', anyone: 'any', teammate: 'teammate',
+} as const
+export type PlayerRelation = typeof PLAYER_RELATIONS[keyof typeof PLAYER_RELATIONS]
+/** The same relation or specific-player reference is accepted in every player role. */
+export type PlayerMatch = PlayerRelation | PlayerReference
 
 export type PlayerFilter = {
-  relation?: PlayerRelation
+  relation?: PlayerMatch
   all?: readonly PlayerFilter[]
   any?: readonly PlayerFilter[]
   not?: PlayerFilter
@@ -44,8 +49,8 @@ export type ObjectFilter = {
   type?: string
   subtypes?: readonly string[]
   supertypes?: readonly string[]
-  controller?: 'you' | PlayerReference
-  owner?: 'you' | PlayerReference
+  controller?: PlayerMatch
+  owner?: PlayerMatch
   token?: boolean
   name?: string
   attacking?: boolean
@@ -60,7 +65,7 @@ export type StackItemFilter = {
   type?: string
   color?: CardColor
   other?: boolean
-  controller?: 'you' | PlayerReference
+  controller?: PlayerMatch
   all?: readonly StackItemFilter[]
   any?: readonly StackItemFilter[]
   not?: StackItemFilter

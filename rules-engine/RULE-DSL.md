@@ -447,6 +447,23 @@ characteristic(ref('source'), 'power', { information: 'currentOrLastKnown' })
 format's opponent relation; other seats are opponents in the current free-for-all
 formats. Lost players are excluded from ordinary affected player groups.
 
+`PlayerRelation` is shared by player `relation`, object `controller` and `owner`,
+and stack-item `controller` filters: `you | opponent | any | teammate`. `any`
+means anyone; `teammate` means another active player who is not an opponent,
+using the format's opponent map. These fields also accept a `PlayerReference`
+through the shared `PlayerMatch` type. Ownership and control remain distinct
+object properties, with the same matching syntax:
+
+```ts
+objects({ controller: 'opponent' })
+objects({ owner: 'opponent' })
+objects({ not: { owner: 'you' } })
+stackItems({ controller: 'teammate' })
+```
+
+The same evaluator applies these matches during selection, target revalidation,
+and occurrence filtering for triggers.
+
 These expressions illustrate the vocabulary, not one runnable program. Every
 reference used in a complete program must have a binding in its execution scope.
 

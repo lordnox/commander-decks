@@ -21,6 +21,7 @@ import type {
   ObjectReference,
   ObjectSelector,
   PlayerFilter,
+  PlayerMatch,
   PlayerReference,
   PlayerSelector,
   Reference,
@@ -30,6 +31,7 @@ import type {
   StackItemSelector,
   TargetReference,
 } from '../schema/v1'
+import { PLAYER_RELATIONS } from '../schema/v1'
 import type { DistributionAllocation } from './modes'
 import { evaluateAmount, evaluateStatDelta } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
@@ -187,6 +189,22 @@ export const evaluateStackItemReference = (
   return item ? [item] : []
 })
 
+export const matchesPlayer = (player: PlayerId, match: PlayerMatch, context: RuleDslRuntimeContext) => {
+  if (!context.state.players[player] || context.state.players[player].lost) return false
+  switch (match) {
+    case PLAYER_RELATIONS.you: return player === context.controller
+    case PLAYER_RELATIONS.opponent: return context.state.opponents[context.controller].includes(player)
+    case PLAYER_RELATIONS.anyone: return true
+    case PLAYER_RELATIONS.teammate:
+      return player !== context.controller && !context.state.opponents[context.controller].includes(player)
+    default: {
+      const selected = evaluatePlayerReference(match, context)
+      if (selected.length > 1) throw new RuleDslEvaluationError('player filter reference must resolve to at most one player')
+      return selected[0] === player
+    }
+  }
+}
+
 // Recursive filter composition requires an explicit return type.
 const matchesPlayerFilter = (
   player: PlayerId,
@@ -196,11 +214,7 @@ const matchesPlayerFilter = (
   if (filter.all && !filter.all.every((part) => matchesPlayerFilter(player, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesPlayerFilter(player, part, context))) return false
   if (filter.not && matchesPlayerFilter(player, filter.not, context)) return false
-  if (filter.relation === 'you' && player !== context.controller) return false
-  if (
-    filter.relation === 'opponent'
-    && !context.state.opponents[context.controller].includes(player)
-  ) return false
+  if (filter.relation && !matchesPlayer(player, filter.relation, context)) return false
   return true
 }
 
@@ -209,18 +223,6 @@ export const evaluatePlayerSelector = (
   context: RuleDslRuntimeContext,
 ) => context.state.playerOrder.filter((player) =>
   !context.state.players[player].lost && matchesPlayerFilter(player, selector.filter, context))
-
-const referencedPlayer = (
-  value: 'you' | PlayerReference,
-  context: RuleDslRuntimeContext,
-) => {
-  if (value === 'you') return context.controller
-  const players = evaluatePlayerReference(value, context)
-  if (players.length > 1) {
-    throw new RuleDslEvaluationError('object filter player reference must resolve to at most one player')
-  }
-  return players[0]
-}
 
 // Recursive filter composition requires an explicit return type.
 const matchesObjectFilter = (
@@ -243,8 +245,8 @@ const matchesObjectFilter = (
     }
   })) return false
   if (filter.supertypes && !filter.supertypes.every((supertype) => object.supertypes.includes(supertype))) return false
-  if (filter.controller && object.controller !== referencedPlayer(filter.controller, context)) return false
-  if (filter.owner && object.owner !== referencedPlayer(filter.owner, context)) return false
+  if (filter.controller && !matchesPlayer(object.controller, filter.controller, context)) return false
+  if (filter.owner && !matchesPlayer(object.owner, filter.owner, context)) return false
   if (filter.token !== undefined && object.token !== filter.token) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
   if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
@@ -256,11 +258,6 @@ export const evaluateObjectSelector = (
   context: RuleDslRuntimeContext,
 ) => Object.values(context.state.objects).filter((object) =>
   !object.phasedOut && matchesObjectFilter(object, selector.filter, context))
-
-const stackController = (
-  value: 'you' | PlayerReference,
-  context: RuleDslRuntimeContext,
-) => referencedPlayer(value, context)
 
 // Recursive filter composition requires an explicit return type.
 const matchesStackItemFilter = (
@@ -278,7 +275,7 @@ const matchesStackItemFilter = (
   }
   if (filter.color && !context.state.objects[item.objectId]?.colors.includes(filter.color)) return false
   if (filter.other && item.id === context.stackItemId) return false
-  if (filter.controller && item.controller !== stackController(filter.controller, context)) return false
+  if (filter.controller && !matchesPlayer(item.controller, filter.controller, context)) return false
   return true
 }
 

@@ -5,7 +5,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CARD_COLORS, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { CARD_COLORS, PLAYER_RELATIONS, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT } from './evaluate'
@@ -124,7 +124,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
   }
 
-  const validatePlayerFilter = (value: unknown, path: string, depth = 0): void => {
+  const validatePlayerFilter = (value: unknown, path: string, env: Environment, depth = 0): void => {
     if (depth > MAX_TREE_DEPTH) {
       issue(path, 'depth-limit', `filter nesting is limited to ${MAX_TREE_DEPTH}`)
       return
@@ -132,12 +132,12 @@ export const validateDefinitionV1 = (root: unknown): {
     const node = object(value, path)
     if (!node) return
     exactKeys(node, path, ['relation', 'all', 'any', 'not'])
-    if (node.relation !== undefined) enumeration(node.relation, childPath(path, 'relation'), new Set(['you', 'opponent', 'any']), 'player relation')
+    if (node.relation !== undefined) validatePlayerMatch(node.relation, childPath(path, 'relation'), env)
     for (const key of ['all', 'any'] as const) if (node[key] !== undefined) {
       array(node[key], childPath(path, key), { nonempty: true }).forEach((part, index) =>
-        validatePlayerFilter(part, childPath(childPath(path, key), index), depth + 1))
+        validatePlayerFilter(part, childPath(childPath(path, key), index), env, depth + 1))
     }
-    if (node.not !== undefined) validatePlayerFilter(node.not, childPath(path, 'not'), depth + 1)
+    if (node.not !== undefined) validatePlayerFilter(node.not, childPath(path, 'not'), env, depth + 1)
   }
 
   const validateReference = (
@@ -201,6 +201,11 @@ export const validateDefinitionV1 = (root: unknown): {
     return domain
   }
 
+  const validatePlayerMatch = (value: unknown, path: string, env: Environment) => {
+    if (typeof value === 'string') enumeration(value, path, new Set(Object.values(PLAYER_RELATIONS)), 'player relation')
+    else validateReference(value, path, env, ['player'])
+  }
+
   const validateObjectFilter = (value: unknown, path: string, env: Environment, depth = 0): void => {
     if (depth > MAX_TREE_DEPTH) {
       issue(path, 'depth-limit', `filter nesting is limited to ${MAX_TREE_DEPTH}`)
@@ -219,8 +224,8 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.supertypes !== undefined) array(node.supertypes, childPath(path, 'supertypes')).forEach((part, index) => {
       if (typeof part !== 'string') issue(childPath(childPath(path, 'supertypes'), index), 'type', 'expected a string')
     })
-    for (const key of ['controller', 'owner'] as const) if (node[key] !== undefined && node[key] !== 'you') {
-      validateReference(node[key], childPath(path, key), env, ['player'])
+    for (const key of ['controller', 'owner'] as const) if (node[key] !== undefined) {
+      validatePlayerMatch(node[key], childPath(path, key), env)
     }
     for (const key of ['all', 'any'] as const) if (node[key] !== undefined) {
       array(node[key], childPath(path, key), { nonempty: true }).forEach((part, index) =>
@@ -241,7 +246,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.type !== undefined && typeof node.type !== 'string') issue(childPath(path, 'type'), 'type', 'expected a string')
     if (node.color !== undefined) enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
-    if (node.controller !== undefined && node.controller !== 'you') validateReference(node.controller, childPath(path, 'controller'), env, ['player'])
+    if (node.controller !== undefined) validatePlayerMatch(node.controller, childPath(path, 'controller'), env)
     for (const key of ['all', 'any'] as const) if (node[key] !== undefined) {
       array(node[key], childPath(path, key), { nonempty: true }).forEach((part, index) =>
         validateStackFilter(part, childPath(childPath(path, key), index), env, depth + 1))
@@ -254,7 +259,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!node) return undefined
     exactKeys(node, path, ['kind', 'filter'], ['kind'])
     switch (node.kind) {
-      case 'players': validatePlayerFilter(node.filter, childPath(path, 'filter')); return 'player'
+      case 'players': validatePlayerFilter(node.filter, childPath(path, 'filter'), env); return 'player'
       case 'objects': validateObjectFilter(node.filter, childPath(path, 'filter'), env); return 'object'
       case 'stackItems': validateStackFilter(node.filter, childPath(path, 'filter'), env); return 'stack'
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported selector kind: ${String(node.kind)}`); return undefined
@@ -1106,7 +1111,7 @@ export const validateDefinitionV1 = (root: unknown): {
               if (!filter) return
               exactKeys(filter, childPath(effectPath, 'filter'), ['abilitySource', 'activator'])
               if (filter.abilitySource !== undefined) validateObjectFilter(filter.abilitySource, childPath(childPath(effectPath, 'filter'), 'abilitySource'), baseEnvironment())
-              if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'))
+              if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'), baseEnvironment())
               return
             }
             case 'extraLandPlays': {
