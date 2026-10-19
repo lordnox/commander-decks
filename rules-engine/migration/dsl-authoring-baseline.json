@@ -135,7 +135,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"e11c25145457945ca410a6d84a2c4690186934e58262eebfe817189e63186e14","card":"Temple of the False God"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"999ebce2f25deba11af6e4656e76b2a3673d804b795a6a37f387dc21bcbff89b","card":"Thespian's Stage"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"62994f690872095ab0c2e80c5ac69fd5bedb31c6da915d30fa8f773da8369ee9","card":"Talon Gates of Madara"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"2eee140f4a156bba5a7e3458fce0d7930205d557a2ff2b261bffbd0a70aa7b62","card":"Thawing Glaciers"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"8105e185b3485413c663326ebc6cddda896938a89f747b3a9ee3073f30ee1a0e","card":"Teferi, Who Slows the Sunset"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"4e84547502d8e49cd505d581d629126338bdf36f097151dbc73f805047b328d8","card":"Ugin, the Spirit Dragon"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"ed0ec117ca3f6e81cae607539b4e762fddbe5fda8501a6109228215a34a8e8c8","card":"Windfall"},

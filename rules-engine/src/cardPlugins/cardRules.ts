@@ -264,7 +264,6 @@ import {
   optionalTargetOnResolve,
   upToTargetsOnResolve,
   addChosenColorMana,
-  delay,
   returnIfDiesThisTurn,
   destroyTargetPermanent,
   mayDiscard,
@@ -1920,18 +1919,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Test of Endurance': [
     yourUpkeepIf(controllerLife(50), winGame()),
-  ],
-  'Thawing Glaciers': [
-    entersTapped(),
-    searchAbility({
-      prompt: 'Search your library for a basic land card. It enters tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 1,
-      max: 1,
-      after: [delay({ kind: 'step', step: 'cleanup' }, bounceSelf())],
-    }, { tap: true, mana: '{1}' }),
   ],
   'Thespian\'s Stage': [
     ability(
