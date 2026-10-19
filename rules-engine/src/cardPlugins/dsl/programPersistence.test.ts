@@ -36,7 +36,7 @@ import { cardTemplate } from '../../newGame'
 import { createServerGame, projectForViewer } from '../../runtime'
 import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
 import type { EventTrace, GameEvent, GameState, Plugin } from '../../types'
 import { answerDiscard, chainsDefinition, ownDrawStep, pickReplacement } from './dslTestSupport'
 
@@ -575,4 +575,49 @@ describe('programPersistence', () => {
     expect(journalCopies[0].damageMarked).toBe(2)
     expect(fromJournal.objects[elemental.id].damageMarked).toBe(2)
   })
+})
+
+test.each([false, true])('catalog targeted optional blink restores both choices with accept=%s', accept => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Felidar Guardian')] },
+    battlefield: {
+      p1: [cardTemplate('Friend fixture', { types: ['Artifact'] }), cardTemplate('Another fixture', { types: ['Creature'], power: 1, toughness: 1 })],
+      p2: [cardTemplate('Opponent fixture', { types: ['Artifact'] })],
+    },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.W = 1
+  ready.players.p1.mana.C = 3
+  const guardian = named(ready, 'Felidar Guardian').id
+  const friend = named(ready, 'Friend fixture').id
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: guardian }))
+  const waiting = resolveStack(server.rules, cast)
+  const selection = pendingSelectionFor(waiting, 'p1')!
+  expect(selection.min).toBe(1)
+  expect(selection.candidates).toEqual(expect.arrayContaining([friend, named(waiting, 'Another fixture').id]))
+  expect(selection.candidates).not.toContain(guardian)
+  expect(selection.candidates).not.toContain(named(waiting, 'Opponent fixture').id)
+  expect(pendingSelectionFor(projectForViewer(waiting, 'p1'), 'p1')).toBeDefined()
+  expect(pendingSelectionFor(projectForViewer(waiting, 'p2'), 'p1')).toBeUndefined()
+  const restoredTarget = restoreJournal(createJournal(waiting), server.rules).current()
+  expect(pendingSelectionFor(restoredTarget, 'p1')!.id).toBe(selection.id)
+  expect(server.rules(restoredTarget, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [guardian] }).ok).toBe(false)
+  const selected = ok(server.rules(restoredTarget, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [friend] }))
+  const withoutSource = ok(server.rules(selected, { type: 'move', objectId: guardian, to: 'hand' }))
+  const optional = resolveStack(server.rules, withoutSource)
+  const pending = pendingOptionSelection(optional, 'p1')!
+  expect(optional.objects[friend]!.incarnation).toBe(ready.objects[friend]!.incarnation)
+  expect(pending.optionalAction).toBeDefined()
+  expect(pendingOptionSelection(projectForViewer(optional, 'p1'), 'p1')).toBeDefined()
+  expect(pendingOptionSelection(projectForViewer(optional, 'p2'), 'p1')).toBeUndefined()
+  const restoredOptional = restoreJournal(createJournal(optional), server.rules).current()
+  expect(pendingOptionSelection(restoredOptional, 'p1')!.id).toBe(pending.id)
+  const answer = { type: 'selectOption' as const, seat: 'p1', selectionId: pending.id, optionId: pending.options[accept ? 0 : 1]!.id }
+  const finished = ok(server.rules(restoredOptional, answer))
+  expect(finished.objects[friend]).toMatchObject({ zone: 'battlefield', incarnation: ready.objects[friend]!.incarnation + (accept ? 2 : 0), owner: 'p1', controller: 'p1' })
+  expect(finished.objects[guardian]!.zone).toBe('hand')
+  expect(finished.resolution).toBeUndefined()
+  expect(finished.stack).toHaveLength(0)
+  expect(server.rules(finished, answer).ok).toBe(false)
 })

@@ -5,6 +5,19 @@
     "courserOfKruphix:26",
     "courserOfKruphix:42",
     "courserOfKruphix:77",
-    "courserOfKruphix:99"
+    "courserOfKruphix:99",
+    "plugDackPart33Blink:300",
+    "plugDackPart33Blink:327"
+  ],
+  "relocations": [
+    {
+      "groups": [
+        "plugDackPart33Blink:300",
+        "plugDackPart33Blink:327"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "catalog targeted optional blink restores both choices with accept=%s",
+      "evidence": "Felidar Guardian migrates to its canonical catalog definition in this change. Reuse that definition for a noncreature permanent target, persist/restart the mandatory target choice and the subsequent optional resolution choice, and check both chooser-only projections. Verify accept versus decline through incarnation changes, preserve source independence, reject self/opponent targets, and reject duplicate option answers. Replaces source tests that only checked the final battlefield zone."
+    }
   ]
 }

@@ -936,20 +936,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       })),
     ),
   ],
-  'Felidar Guardian': [
-    enters(
-      blink({
-        optional: true,
-        filter: {
-          controller: 'you',
-          other: true,
-          permanent: true,
-        },
-        returnController: 'owner',
-        prompt: 'You may exile another target permanent you control, then return it under its owner\'s control.',
-      }),
-    ),
-  ],
   'Fell the Profane': [
     targetOnResolve(
       'destroy',

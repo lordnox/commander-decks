@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { eventsForAvailableAction, legalActsFor, projectForViewer } from '../index'
+import { eventsForAvailableAction, legalActsFor } from '../index'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
@@ -227,55 +227,6 @@ describe('Dack party blink pass 2', () => {
     const atEnd = advanceToEndStep(server, afterBlink)
     const returned = resolveStack(server.rules, atEnd)
     expect(returned.objects[rockId].zone).toBe('battlefield')
-  })
-
-  test('Felidar Guardian optional blink survives host restart and selectCards', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Felidar Guardian', { types: ['Creature'] })] },
-      battlefield: { p1: [cardTemplate('Felidar Friend', { types: ['Creature'] })] },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const guardianId = named(server.state, 'Felidar Guardian').id
-    const friendId = named(server.state, 'Felidar Friend').id
-    const cast = ok(server.rules(mana(structuredClone(server.state)), {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: guardianId,
-    }))
-    const waiting = resolveStack(server.rules, ok(server.rules(cast, { type: 'resolveTop' })))
-    const selection = pendingSelectionFor(waiting, 'p1')!
-    const restarted = structuredClone(waiting)
-    expect(pendingSelectionFor(restarted, 'p1')?.id).toBe(selection.id)
-    const chose = ok(server.rules(restarted, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'choose',
-      count: 1,
-      objectIds: [friendId],
-    }))
-    const resolved = resolveStack(server.rules, chose)
-    expect(resolved.objects[friendId].zone).toBe('battlefield')
-  })
-
-  test('optional blink selections are hidden from non-controllers', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Felidar Guardian', { types: ['Creature'] })] },
-      battlefield: {
-        p1: [
-          cardTemplate('Felidar Friend', { types: ['Creature'] }),
-          cardTemplate('Felidar Rock', { types: ['Artifact'] }),
-        ],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const guardianId = named(server.state, 'Felidar Guardian').id
-    const cast = ok(server.rules(mana(structuredClone(server.state)), {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: guardianId,
-    }))
-    const waiting = resolveStack(server.rules, ok(server.rules(cast, { type: 'resolveTop' })))
-    expect(pendingSelectionFor(waiting, 'p1')).toBeDefined()
-    expect(pendingSelectionFor(projectForViewer(waiting, 'p2'), 'p2')).toBeUndefined()
-    expect(pendingSelectionFor(projectForViewer(waiting, 'p1'), 'p1')).toBeDefined()
   })
 
   test('Guardian of Ghirapur optional blink returns another permanent at end step', () => {

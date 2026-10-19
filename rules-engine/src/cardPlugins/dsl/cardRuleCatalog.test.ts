@@ -699,3 +699,16 @@ test('catalog Ghostly Flicker declares exactly two distinct controlled artifact,
     instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 }, returnController: { kind: 'contextRef', name: 'controller' } }],
   }])
 })
+
+test('catalog Felidar Guardian targets another controlled permanent before offering its optional blink', () => {
+  expect(effectsFor('Felidar Guardian')).toEqual([])
+  expect(cardTemplateDefaultsFor('Felidar Guardian')).toMatchObject({ types: ['Creature'], colors: ['W'], manaCost: '{3}{W}', manaValue: 4 })
+  expect(cardRuleDefinitionSnapshotFor('Felidar Guardian')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
+    decisions: { targets: [{ min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', other: true } } }] },
+    instructions: [{ kind: 'chooseInstructions', optional: true, options: [
+      { instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 } }] },
+      { instructions: [] },
+    ] }],
+  }])
+})
