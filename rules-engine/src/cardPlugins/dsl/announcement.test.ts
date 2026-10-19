@@ -541,3 +541,12 @@ test('context-free fractional cost locking preserves the expression-depth limit'
   if (result.ok) throw new Error('expected excessive expression depth to fail')
   expect(result.error).toBe(AMOUNT_DEPTH_ERROR_MESSAGE)
 })
+
+
+test.each([[39, true], [40, true], [41, false]] as const)('life-X costs allow payment up to the available life total (%s)', (life, expected) => {
+  const result = beginAnnouncement({ ...state, players: { p1: { ...state.players.p1, life: 40 } } }, {
+    payer: 'p1', sourceId: 'spell', variables: { X: life }, costs: { mandatory: [lifeCost(variable('X'))] },
+  })
+  expect(result.ok).toBe(expected)
+  if (result.ok) expect(result.transaction.lockedCost.nonMana).toContainEqual(lifeCost(life))
+})

@@ -1,6 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  chooseX,
+  negate,
+  variable,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createEffect,
@@ -108,14 +111,14 @@ describe('staticModifierLifecycle', () => {
     expect(bounced.state.objects[bear.id].power).toBe(5)
   })
 
-  test('a negative temporary pump applies through the turn and expires at cleanup', () => {
+  test.each([false, true])('a negative temporary pump applies through the turn and expires at cleanup (X=%s)', fromX => {
     const reduction = createDefinitionSnapshot(compileCardRuleDefinition(card([{
       kind: 'spell',
       costs: [],
-      decisions: { targets: [] },
+      decisions: { targets: [], ...(fromX ? { variables: [chooseX()] } : {}) },
       instructions: [createEffect({
         targets: objects({ zone: 'battlefield', controller: 'you', type: 'Creature' }),
-        effect: pumpEffect(-5, -5),
+        effect: pumpEffect(fromX ? negate(variable('X')) : -5, fromX ? negate(variable('X')) : -5),
         duration: untilCleanup(),
       })],
     }])))
@@ -128,7 +131,7 @@ describe('staticModifierLifecycle', () => {
     }, { random: () => 0 })
     const creature = Object.values(server.state.objects).find((object) => object.name === 'Creature fixture')!
     const spell = Object.values(server.state.objects).find((object) => object.name === 'Temporary effect fixture')!
-    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id })
+    const cast = server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: spell.id, ...(fromX ? { x: 5 } : {}) })
     expect(cast.ok).toBe(true)
     if (!cast.ok) return
     const resolved = server.rules(cast.state, { type: 'resolveTop' })

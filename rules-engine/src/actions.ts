@@ -824,6 +824,13 @@ const alternateCastCostGroups = (
 const bestowEffect = (object: GameObject) =>
   effectsOf(object).find((effect) => effect.op === 'bestow')
 
+const canonicalSpellProgram = (object: GameObject) => object.ruleDefinition
+  ? loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.find(ability => ability.kind === 'spell')
+  : undefined
+
+const paysVariableLife = (object: GameObject) => effectsOf(object).some(effect => effect.op === 'castCost' && effect.lifeX)
+  || canonicalSpellProgram(object)?.costs.some(cost => cost.kind === 'life' && cost.amount.kind === 'variable') === true
+
 const castActions = (state: GameState, seat: PlayerId, object: GameObject): AvailableAction[] => {
   if (canPlayExiledWithLife(state, seat, object)) {
     const life = manaValueOf(object)
@@ -858,7 +865,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   if (isAdventureCard(object)) {
     const permanent = permanentFaceOf(object)
     const adventure = adventureFaceOf(object)
-    const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+    const paysLifeX = paysVariableLife(object)
     const fundedForFace = (
       face: FaceCharacteristics,
       base: Extract<AvailableAction, { kind: 'castSpell' }>,
@@ -904,7 +911,7 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
   }
   if (!canCastAtTiming(state, seat, object)) return []
   const alternatives = availableAlternateCastEffects(state, seat, object)
-  const paysLifeX = effectsOf(object).some((effect) => effect.op === 'castCost' && effect.lifeX)
+  const paysLifeX = paysVariableLife(object)
   const face = castFaceOf(object)
   const spell = face ? { ...object, ...face } : object
   const hasTargetReduction = effectsOf(object).some((effect) =>
@@ -1078,7 +1085,10 @@ const castActions = (state: GameState, seat: PlayerId, object: GameObject): Avai
       ? Math.min(manaUpper, state.players[seat].life)
       : manaUpper
   if (!state.castableZones.includes(object.zone)) return []
-  return Array.from({ length: upper + 1 }, (_, x) => x)
+  const variable = canonicalSpellProgram(object)?.decisions.variables?.[0]
+  const min = variable?.min ?? 0
+  const max = Math.min(upper, variable?.max ?? upper)
+  return Array.from({ length: Math.max(0, max - min + 1) }, (_, index) => min + index)
     .flatMap((x): AvailableAction[] => fundedVariants({
       kind: 'castSpell',
       objectId: object.id,

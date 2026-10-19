@@ -7,6 +7,7 @@ import aftermathAnalyst from './aftermath-analyst'
 import anguishedUnmaking from './anguished-unmaking'
 import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
+import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
 import blightedWoodland from './blighted-woodland'
@@ -59,6 +60,7 @@ import golgariRotFarm from './golgari-rot-farm'
 import growthSpiral from './growth-spiral'
 import guardianOfGhirapur from './guardian-of-ghirapur'
 import harrow from './harrow'
+import hatred from './hatred'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
 import hedronCrab from './hedron-crab'
@@ -111,6 +113,7 @@ import thaliasLancers from './thalias-lancers'
 import thornMammoth from './thorn-mammoth'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
+import toxicDeluge from './toxic-deluge'
 import tradeRoutes from './trade-routes'
 import triangleOfWar from './triangle-of-war'
 import twincast from './twincast'
@@ -138,6 +141,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Anguished Unmaking": anguishedUnmaking,
   "Arbor Elf": arborElf,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
+  "Awaken the Woods": awakenTheWoods,
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
@@ -191,6 +195,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Growth Spiral": growthSpiral,
   "Guardian of Ghirapur": guardianOfGhirapur,
   "Harrow": harrow,
+  "Hatred": hatred,
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
   "Hedron Crab": hedronCrab,
@@ -243,6 +248,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Thorn Mammoth": thornMammoth,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
+  "Toxic Deluge": toxicDeluge,
   "Trade Routes": tradeRoutes,
   "Triangle of War": triangleOfWar,
   "Twincast": twincast,

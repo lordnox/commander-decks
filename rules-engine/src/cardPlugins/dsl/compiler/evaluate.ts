@@ -1,4 +1,4 @@
-import type { Amount, AmountEvaluationContext, TargetClause } from '../schema/v1'
+import type { Amount, AmountEvaluationContext, StatDelta, TargetClause } from '../schema/v1'
 import { ROUNDING_MODES } from '../schema/v1'
 import { RuleDslEvaluationError } from './errors'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
@@ -63,11 +63,18 @@ export const evaluateAmount = (
 }
 
 export const evaluateStatDelta = (
-  expression: Amount,
+  expression: StatDelta,
   context: AmountEvaluationContext,
-): number => expression.kind === 'constant'
-  ? runtimeStatDelta(expression.value, 'stat delta')
-  : evaluateAmount(expression, context)
+) => {
+  switch (expression.kind) {
+    case 'constant': return runtimeStatDelta(expression.value, 'stat delta')
+    case 'negate': {
+      const value = evaluateAmount(expression.value, context, 1)
+      return runtimeStatDelta(value === 0 ? 0 : -value, 'negated stat delta')
+    }
+    default: return evaluateAmount(expression, context)
+  }
+}
 
 export const evaluateTargetBounds = (
   clause: TargetClause,

@@ -837,3 +837,20 @@ test('Thorn Mammoth fights up to one uncontrolled creature for every controlled 
     instructions: [{ kind: 'fight', left: { kind: 'contextRef', name: 'source' }, right: { kind: 'targetRef', clauseIndex: 0 } }],
   })
 })
+
+
+test.each([
+  ['Awaken the Woods', ['createToken']], ['Hatred', ['createEffect']], ['Toxic Deluge', ['createEffect']],
+] as const)('%s declares canonical X programs', (name, kinds) => {
+  expect(effectsFor(name)).toEqual([])
+  const ability = cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]!
+  if (ability.kind !== 'spell') throw new Error('expected spell')
+  expect(ability.decisions.variables?.map(variable => variable.name)).toEqual(['X'])
+  expect(ability.instructions?.map(instruction => instruction.kind)).toEqual([...kinds])
+})
+
+test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {
+  for (const name of ['Hatred', 'Toxic Deluge']) expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'life', amount: { kind: 'variable', name: 'X' } }] })
+  expect(cardRuleDefinitionSnapshotFor('Toxic Deluge')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, effect: { kind: 'pump', power: { kind: 'negate', value: { kind: 'variable', name: 'X' } }, toughness: { kind: 'negate', value: { kind: 'variable', name: 'X' } } } }] })
+  expect(cardRuleDefinitionSnapshotFor('Awaken the Woods')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createToken', count: { kind: 'variable', name: 'X' }, token: { name: 'Forest Dryad', types: ['Land', 'Creature'], subtypes: ['Forest', 'Dryad'], colors: ['G'], power: 1, toughness: 1 } }] })
+})

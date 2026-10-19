@@ -1,10 +1,11 @@
 import { expect, test } from 'bun:test'
 import type { Amount } from './v1'
-import { card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
+import { evaluateStatDelta } from './compiler/evaluate'
 import { instructionSpell } from './instructionTestSupport'
 
 const context = { variables: { X: 7 }, eventAmount: 5, count: () => 9, characteristic: () => 15 }
@@ -56,4 +57,17 @@ test('a draw and fractional life-loss program evaluates after preceding instruct
   expect(resolved.players.p1.life).toBe(9)
   expect(resolved.zoneOrder.p1.hand).toHaveLength(4)
   expect(resolved.players.p2.life).toBe(40)
+})
+
+
+test.each([0, 1, 7])('negated stat expressions retain signed values and normalize zero (%s)', value => {
+  expect(evaluateStatDelta(negate(variable('X')), { ...context, variables: { X: value } })).toBe(value === 0 ? 0 : -value)
+})
+
+test('negation is restricted to stat deltas and validates its operand bindings', () => {
+  expect(() => compileCardRuleDefinition(card([spell({ decisions: { variables: [chooseX()] }, instructions: [createEffect({ targets: objects({ zone: 'battlefield' }), effect: pumpEffect(negate(variable('X')), 0), duration: untilCleanup() })] })]))).not.toThrow()
+  for (const value of [negate(variable('X')), negate(-1)]) {
+    expect(() => compileCardRuleDefinition(card([spell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield' }), effect: pumpEffect(value, 0), duration: untilCleanup() })] })]))).toThrow()
+  }
+  expect(() => compileCardRuleDefinition({ ...card([]), abilities: [{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'draw', count: negate(2), targets: ref('controller') }] }] })).toThrow()
 })

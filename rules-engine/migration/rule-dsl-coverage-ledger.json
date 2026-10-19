@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 280,
+    "cardRegistrations": 277,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -29,11 +29,11 @@
     "cardNameDispatchSites": 43,
     "customEventDispatchSites": 83,
     "directMutationSites": 600,
-    "instructionRegistrationOnlyGaps": 2,
-    "instructionUnobservedGaps": 22,
-    "cardRegistrationOnlyGaps": 13,
-    "candidateOnlyInstructionRows": 168,
-    "candidateOnlyCardRows": 267
+    "instructionRegistrationOnlyGaps": 1,
+    "instructionUnobservedGaps": 24,
+    "cardRegistrationOnlyGaps": 12,
+    "candidateOnlyInstructionRows": 167,
+    "candidateOnlyCardRows": 265
   },
   "cardEffects": [
     {
@@ -199,28 +199,26 @@
         "Exsanguinate:effects[0]",
         "Finale of Devastation:effects[0]",
         "Getaway Glamer:effects[0]",
-        "Hatred:effects[0]",
         "Necrologia:effects[0]",
         "Parting Gust:effects[0]",
         "Perch Protection:effects[0]",
         "Pile On:effects[0]",
         "Price of Fame:effects[0]",
         "Profane Command:effects[0]",
-        "Tear Asunder:effects[0]",
-        "Toxic Deluge:effects[0]"
+        "Tear Asunder:effects[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 46,
+        "matches": 42,
         "samples": [
-          "live-runner/src/decisions.test.ts:254 — test('does not draw twice for one turn', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:142",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1446 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:147",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:151",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:170 — test('a human delves six cards, taps two Islands, and picks two cards through a restart', async () => {",
-          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:249 — test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:249 — test('only the caster sees the seven cards, and the opponent never learns the picks', async () => {",
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:263 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {"
         ]
       },
       "neededCanonicalNode": "typed cost modifier",
@@ -769,7 +767,6 @@
         "Fractured Identity:effects[0]",
         "Getaway Glamer:effects[1]",
         "Hagra Mauling // Hagra Broodpit:effects[1]",
-        "Hatred:effects[1]",
         "Irenicus's Vile Duplication:effects[0]",
         "Keep Safe:effects[0]",
         "Khalni Ambush // Khalni Territory:effects[1]",
@@ -799,7 +796,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 82,
+        "matches": 81,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -853,7 +850,6 @@
         "Apex Altisaur:effects[0]",
         "Archaeomancer's Map:effects[1]",
         "Astral Drift:effects[0]",
-        "Awaken the Woods:effects[0]",
         "Banisher Priest:effects[2]",
         "Beast Whisperer:effects[0]",
         "Belonging:effects[0]",
@@ -972,7 +968,6 @@
         "Talon Gates of Madara:effects[0]",
         "Terastodon:effects[0]",
         "Test of Endurance:effects[0]",
-        "Toxic Deluge:effects[1]",
         "Trap the Trespassers:effects[0]",
         "Wall of Shards:effects[0]",
         "Wedding Ring:effects[0]",
@@ -991,7 +986,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 392,
+        "matches": 391,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1976,7 +1971,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 35,
+        "matches": 36,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:471 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:552 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
@@ -2033,9 +2028,7 @@
     {
       "variant": "createXTokens",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Awaken the Woods:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
         "matches": 0,
@@ -2047,7 +2040,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "registration-only",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2533,7 +2526,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 117,
+        "matches": 118,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1448 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -4588,10 +4581,11 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:82 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:854 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {"
         ]
@@ -4610,16 +4604,11 @@
     {
       "variant": "pumpAllCreaturesByX",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Toxic Deluge:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "live-runner/src/decisions.test.ts:254 — test('does not draw twice for one turn', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:42 — test('Toxic Deluge pays life while casting and applies negative X globally', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed continuous effect with duration",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4629,7 +4618,7 @@
         "07",
         "10"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4791,15 +4780,12 @@
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
         "Black Sun's Twilight:effects[1].do[0]",
-        "Hatred:effects[1].do[0]",
         "Profane Command:effects[1].modes[2].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:188 — test('Hatred pays X life and pumps only power', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:357 — test('the Lady Evangela remaining group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
@@ -6746,38 +6732,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Awaken the Woods",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Awaken the Woods"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [createXTokens]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "createXTokens"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "onResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -10159,43 +10113,6 @@
       "handlerIds": [
         "choiceEffects",
         "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hatred",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hatred"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:188 — test('Hatred pays X life and pumps only power', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:357 — test('the Lady Evangela remaining group stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [pumpTargetX]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "pumpTargetX"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -15215,43 +15132,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Toxic Deluge",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Toxic Deluge"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "live-runner/src/decisions.test.ts:254 — test('does not draw twice for one turn', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:42 — test('Toxic Deluge pays life while casting and applies negative X globally', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [pumpAllCreaturesByX]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "08",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "pumpAllCreaturesByX"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Trap the Trespassers",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -16812,7 +16692,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 165,
+        "matches": 166,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -17174,11 +17054,11 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 42,
+        "matches": 43,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
-          "rules-engine/src/cardPlugins/dsl/amount.test.ts:11",
-          "rules-engine/src/cardPlugins/dsl/amount.test.ts:41 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:12",
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:216 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:275 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:512 — test('fractional life costs are evaluated and paid at announcement', () => {",
@@ -18422,7 +18302,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1969",
+        "rules-engine/src/cardPlugins/cardRules.ts:1952",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18480,9 +18360,9 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1294",
-        "rules-engine/src/actions.ts:1465",
-        "rules-engine/src/actions.ts:842",
+        "rules-engine/src/actions.ts:1304",
+        "rules-engine/src/actions.ts:1475",
+        "rules-engine/src/actions.ts:849",
         "rules-engine/src/cardPlugins/effectRuntime.ts:210",
         "rules-engine/src/cardPlugins/effectRuntime.ts:341",
         "rules-engine/src/cardPlugins/effectRuntime.ts:345",
@@ -18554,8 +18434,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1055",
-        "rules-engine/src/cardPlugins/cardRules.ts:286",
+        "rules-engine/src/cardPlugins/cardRules.ts:1046",
+        "rules-engine/src/cardPlugins/cardRules.ts:284",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -18683,15 +18563,15 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1701,
-          1710,
-          1728,
-          2610
+          1711,
+          1720,
+          1738,
+          2620
         ],
         "samples": [
-          "1701: if (source?.name === 'Settle the Wreckage') {",
-          "1710: if (source?.name === 'Energy Arc') {",
-          "1728: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {"
+          "1711: if (source?.name === 'Settle the Wreckage') {",
+          "1720: if (source?.name === 'Energy Arc') {",
+          "1738: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -18870,10 +18750,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          269
+          270
         ],
         "samples": [
-          "269: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "270: if (filter.name !== undefined && object.name !== filter.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
