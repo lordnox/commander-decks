@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 276,
+    "cardRegistrations": 275,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 264
+    "candidateOnlyCardRows": 263
   },
   "cardEffects": [
     {
@@ -596,12 +596,11 @@
         "Scapeshift:effects[0]",
         "Thawing Glaciers:effects[1]",
         "Thrór's Map:effects[0]",
-        "Urza's Cave:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 37,
+        "matches": 36,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1731 — test('restores an interrupted Analyze the Pollen library search', async () => {",
@@ -1056,7 +1055,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 28,
+        "matches": 29,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -2396,8 +2395,8 @@
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:607 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:635 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:605 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:633 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:117 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:309 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
@@ -11751,7 +11750,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:577 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:575 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:304 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -11867,7 +11866,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2318 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:679 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:677 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:46 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:125 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:305 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
@@ -15025,8 +15024,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:607 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:635 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:605 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:633 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:309 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
         ]
       },
@@ -15206,37 +15205,6 @@
         "swampOverlay"
       ],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Urza's Cave",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Urza's Cave"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:443 — test(\"Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:310 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -16392,7 +16360,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 151,
+        "matches": 152,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelFacts.test.ts:11",
@@ -17062,7 +17030,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 54,
+        "matches": 55,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -17333,7 +17301,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 214,
+        "matches": 215,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",

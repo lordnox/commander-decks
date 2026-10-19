@@ -122,6 +122,7 @@ import ulvenwaldTracker from './ulvenwald-tracker'
 import undercitySewers from './undercity-sewers'
 import undergroundMortuary from './underground-mortuary'
 import unmarkedGrave from './unmarked-grave'
+import urzasCave from './urzas-cave'
 import vampireHounds from './vampire-hounds'
 import vaultOfChampions from './vault-of-champions'
 import verdantCatacombs from './verdant-catacombs'
@@ -258,6 +259,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Undercity Sewers": undercitySewers,
   "Underground Mortuary": undergroundMortuary,
   "Unmarked Grave": unmarkedGrave,
+  "Urza's Cave": urzasCave,
   "Vampire Hounds": vampireHounds,
   "Vault of Champions": vaultOfChampions,
   "Verdant Catacombs": verdantCatacombs,
