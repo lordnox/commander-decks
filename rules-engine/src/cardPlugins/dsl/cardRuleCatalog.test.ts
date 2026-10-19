@@ -877,3 +877,16 @@ test("Urza's Cave composes its mana ability and sacrificed tapped land search", 
     ] }] },
   ])
 })
+
+test("Thrór's Map composes a revealed basic search and draw-before-discard activation", () => {
+  expect(cardRuleDefinitionSnapshotFor("Thrór's Map")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+      { kind: 'reveal' }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+    ] }] },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'draw', count: { kind: 'constant', value: 1 } },
+      { kind: 'discard', count: { kind: 'constant', value: 1 } },
+    ] },
+  ])
+})

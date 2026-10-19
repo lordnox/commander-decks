@@ -621,11 +621,9 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: spell }))
     const entered = resolveStack(server.rules, cast)
     const found = named(entered, 'Plains').id
-    const withPlains = run(server, entered, [
-      { type: 'move', objectId: found, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const withPlains = ok(server.rules(entered, {
+      type: 'selectCards', seat: 'p1', kind: 'choose', count: 1, objectIds: [found],
+    }))
     expect(named(withPlains, 'Plains').zone).toBe('hand')
   })
 
@@ -654,7 +652,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana.C = 2
     const lootStart = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'throrsMap.loot',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: mapId,
     }))
