@@ -108,7 +108,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"e9f5f2aacd05d87594ec53a9a43785de67ec18186ad96e86501ad60687c57d60","card":"Hallowed Fountain"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"2168a0aa2b3c8930c9cb1dd32c068938f9b76ba0e117cc7d5ee7713f077aa5a3","card":"Endless Sands"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"cf720a708d517db28320c8d24e5df39b630a0fde85919856373493fcece362c9","card":"Everflowing Chalice"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"d081b595737b972a6e2b71517d464fc2202ec81301c8a3f65589c76a51180b62","card":"Gilded Lotus"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"89ae7316cdf177191fac1ae289d11ac15bd52ede878956e0e3d58c8698532cfa","card":"Homer, the Hermit"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"3c8101f9a0164a48c2bfad46f9b80b2bb732d4c492174cb17d2c2b65a4cead17","card":"Icetill Explorer"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"3ddeb1524aab9fa65ebec412acf6a74a998cbc74c5eec07052d6ccba1c7c5c73","card":"Jace, Multiverse Architect"},

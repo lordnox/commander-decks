@@ -1021,18 +1021,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [bounceSelf()],
     }),
   ],
-  'Gilded Lotus': [
-    activate({
-      id: 'gildedLotus.mana',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [
-        { kind: 'addChosenColorMana' },
-        { kind: 'addChosenColorMana' },
-        { kind: 'addChosenColorMana' },
-      ],
-    }),
-  ],
   'Glorious Protector': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),
