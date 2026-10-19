@@ -191,7 +191,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"afdc611d9f6006e401327050877b6c56d9b951e406e993413a5603d6bcc487c8","card":"Vantress Visions"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"ac9b9477c1b0b35cc58b44757b2522b3207705f38c364264f219f9752e13e965","card":"Walk-In Closet"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"ae367bfe1c08c1bc1b192dbe8528150bfe2c1e5e0aef31ec0d90e541dc9fca44","card":"Thrór's Map"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"35047fc19a793885603ee99542fe2fb7633e4a0c1cf0f5f9d6646098fad06296","card":"Urza's Cave"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"816db21a3c3c16b6433c06449a24894fda18005a81f5b5d83e39412d62584701","card":"Forgotten Cellar"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"61313ee44514ea255ea684f0391ca2d541faa8fcea3edb0c40ddc0b6454dd7cc","card":"Wash Away"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"5405acf19858bf74ab8b41065080d155cf1603ce9a8997856146d45fa4ff8c7e","card":"Watery Grave"},

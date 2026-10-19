@@ -867,3 +867,13 @@ test('Gilded Lotus offers exactly five single-color three-mana programs', () => 
     })),
   })])
 })
+
+test("Urza's Cave composes its mana ability and sacrificed tapped land search", () => {
+  expect(cardRuleDefinitionSnapshotFor("Urza's Cave")!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land' } } },
+      { kind: 'move', to: 'battlefield', tapped: true }, { kind: 'shuffle' },
+    ] }] },
+  ])
+})
