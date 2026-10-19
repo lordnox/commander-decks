@@ -477,6 +477,12 @@ Object and player predicates are separate domains. Fields combine with AND;
 `all`, `any`, and `not` compose predicates. A selector identifies **all matching
 recipients**, unless an explicit choice or target clause requests a subset.
 
+`objects({ other: true })` excludes the executing source's captured object
+identity. It can combine with controller, type, and zone predicates, and also
+works in object occurrence filters. A second object with the same name still
+matches; a source that leaves and returns is a new object. `other: false` adds
+no restriction.
+
 Object references contain `objectId` plus a zone-change incarnation, not just the
 reusable ID. A creature that leaves and returns is a new target candidate, not the
 original target. Before/after references support explicit zone-change exceptions
