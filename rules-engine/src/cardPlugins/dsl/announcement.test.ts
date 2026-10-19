@@ -26,6 +26,7 @@ import {
   move,
   target,
 } from './v1'
+import { AMOUNT_DEPTH_ERROR_MESSAGE } from './compiler/constants'
 import { beginActivatedAnnouncement } from './compiler/announcement'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
@@ -33,6 +34,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import { instructionSpell } from './instructionTestSupport'
 import type { GameState } from '../../types'
+import type { Amount } from './v1'
 
 const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
 
@@ -526,4 +528,16 @@ test('context-free fractional costs lock constants and X without a source object
   expect(result.ok).toBe(true)
   if (!result.ok) throw new Error(result.error)
   expect(result.transaction.lockedCost.nonMana).toContainEqual(lifeCost(4))
+})
+
+
+test('context-free fractional cost locking preserves the expression-depth limit', () => {
+  let expression: Amount = { kind: 'constant', value: 1 }
+  for (let index = 0; index < 34; index += 1) expression = divide({ value: expression, by: 2, rounding: ROUNDING_MODES.up })
+  const result = beginAnnouncement({ ...state, players: { p1: { ...state.players.p1, life: 20 } } }, {
+    payer: 'p1', sourceId: 'missing-source', costs: { mandatory: [lifeCost(expression)] },
+  })
+  expect(result.ok).toBe(false)
+  if (result.ok) throw new Error('expected excessive expression depth to fail')
+  expect(result.error).toBe(AMOUNT_DEPTH_ERROR_MESSAGE)
 })
