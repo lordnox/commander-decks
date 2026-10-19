@@ -17517,9 +17517,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:11",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:41 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:214 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:273 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:510 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:216 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:275 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:512 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:440 — test('catalog Selenia pays two life to return its source to hand', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {"
         ]

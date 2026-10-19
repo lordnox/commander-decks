@@ -57,5 +57,3 @@ test('a draw and fractional life-loss program evaluates after preceding instruct
   expect(resolved.zoneOrder.p1.hand).toHaveLength(4)
   expect(resolved.players.p2.life).toBe(40)
 })
-
-
