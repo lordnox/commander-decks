@@ -194,6 +194,7 @@ const canonicalFilterMatch = (
     canonicalFilterMatch(state, source, object, part, occurrence, execution))) return false
   if ('not' in filter && filter.not && canonicalFilterMatch(state, source, object, filter.not, occurrence, execution)) return false
   const plain = filter as ObjectFilter
+  if (plain.other && isSameObject(object, context.source.ref)) return false
   if (plain.zone !== undefined && object.zone !== plain.zone) return false
   if (plain.type !== undefined && !object.types.includes(plain.type)) return false
   if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false

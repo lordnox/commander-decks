@@ -250,6 +250,7 @@ const matchesObjectFilter = (
   if (filter.all && !filter.all.every((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.any && !filter.any.some((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.not && matchesObjectFilter(object, filter.not, context)) return false
+  if (filter.other && isSameObject(object, context.source.ref)) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.subtypes && !filter.subtypes.every(subtype => {

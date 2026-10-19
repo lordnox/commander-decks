@@ -45,6 +45,8 @@ export type ObjectReference = ContextReference | TargetReference | ChoiceReferen
 export type StackItemReference = TargetReference | ChoiceReference
 
 export type ObjectFilter = {
+  /** Exclude the executing source's captured object identity. False adds no restriction. */
+  other?: boolean
   zone?: Zone
   type?: string
   subtypes?: readonly string[]
