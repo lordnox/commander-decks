@@ -5,7 +5,6 @@ import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
-import { pendingSelectionFor } from '../rules/selectCards'
 import { activated } from './activated'
 import { alternateCosts } from './alternateCosts'
 import { blinkPlugin } from './blink'
@@ -258,28 +257,6 @@ describe('Dack party blink pass 2', () => {
     const atEnd = advanceToEndStep(server, afterBlink)
     const returned = resolveStack(server.rules, atEnd)
     expect(returned.objects[relicId].zone).toBe('battlefield')
-  })
-
-  test('Restoration Angel cannot blink another Angel', () => {
-    const server = createServerGame(commanderRules, {
-      hands: { p1: [cardTemplate('Restoration Angel', { types: ['Creature'], subtypes: ['Angel'] })] },
-      battlefield: {
-        p1: [cardTemplate('Other Angel', {
-          types: ['Creature'],
-          subtypes: ['Angel'],
-        })],
-      },
-    }, { random: () => 0.5, cardPlugins: dackBlinkPlugins })
-    const angelId = named(server.state, 'Restoration Angel').id
-    const otherId = named(server.state, 'Other Angel').id
-    const cast = ok(server.rules(mana(structuredClone(server.state)), {
-      type: 'castSpell',
-      seat: 'p1',
-      objectId: angelId,
-    }))
-    const waiting = resolveStack(server.rules, ok(server.rules(cast, { type: 'resolveTop' })))
-    const selection = pendingSelectionFor(waiting, 'p1')
-    expect(selection?.candidates ?? []).not.toContain(otherId)
   })
 
   test('All-Fates Stalker cages a non-Assassin until it leaves', () => {

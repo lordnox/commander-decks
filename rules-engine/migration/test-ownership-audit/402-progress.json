@@ -225,6 +225,7 @@
     "mossborn-hydra:20",
     "pit-of-offerings:100",
     "pit-of-offerings:50",
+    "plugDackPart33Blink:380",
     "plugDackPart37:158",
     "plugDackPart37:196",
     "rankle:106",
@@ -348,6 +349,14 @@
       "destination": "rules-engine/src/actions.canonical.test.ts",
       "suite": "catalog multi-recipient actions retain canonical clauses with legacy handlers loaded=%s",
       "evidence": "Reuse the canonical Ghostly Flicker catalog definition. Preserve action availability and typed cast-event target transport, replacing the removed hard-coded First/Second permanent groups with the declared single clause requiring two recipients. Verify return incarnations with and without the legacy plugin loaded. Catalog checks own selector, cardinality, distinctness, and return-controller composition."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:380"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
+      "suite": "catalog targeted optional blink restores both choices for %s with accept=%s",
+      "evidence": "Restoration Angel migrates to its canonical catalog definition in this change. Reuse the existing targeted-optional-blink lifecycle scenario with the catalog card, asserting that neither the Angel source nor another Angel is eligible while non-Angel controlled creatures remain selectable. Catalog checks pin the Angel subtype and composed selector. Replaces the old negative-only test, which could pass when no selection existed."
     }
   ]
 }
