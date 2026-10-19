@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
@@ -125,13 +126,16 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.active = 'p1'
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'gildedLotus.mana',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: lotusId,
       manaAbility: true,
-      choices: ['W'],
     }))
-    expect(activatedState.players.p1.mana.W).toBe(3)
+    const pending = pendingOptionSelection(activatedState, 'p1')!
+    const selected = ok(server.rules(activatedState, {
+      type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: 'instruction:0',
+    }))
+    expect(selected.players.p1.mana.W).toBe(3)
   })
 
   test("Thespian's Stage copies a land and keeps its copy ability", () => {
