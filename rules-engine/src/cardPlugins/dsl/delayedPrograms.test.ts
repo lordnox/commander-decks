@@ -1,6 +1,11 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  choice,
+  move,
+  select,
+  stepDelayed,
+  target,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createDelayed,
@@ -13,6 +18,9 @@ import {
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
+import { createJournal, restoreJournal } from '../../journal'
+import { ok, resolveStack } from '../../testHelpers'
+import { instructionSpell } from './instructionTestSupport'
 import { pendingSelectionFor } from '../../rules/selectCards'
 
 describe('delayedPrograms', () => {
@@ -165,4 +173,52 @@ describe('delayedPrograms', () => {
     expect(resolved.ok).toBe(true)
     if (resolved.ok) expect(resolved.state.objects[get('Occurrence creature').id]?.counters['+1/+1']).toBe(1)
   })
+})
+
+test.each(['same', 'left', 'reexiled', 'token'] as const)('non-targeting delayed return follows only the captured exile incarnation (%s)', change => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [
+        move({ targets: target(0), to: 'exile', bindChoice: 'exiled' }),
+        createDelayed({ inheritTargets: false, condition: stepDelayed({ step: 'end' }), instructions: [move({ targets: choice('exiled'), to: 'battlefield' })] }),
+      ],
+    })] },
+    battlefield: { p2: [cardTemplate('Return fixture', { types: ['Creature'], power: 2, toughness: 2, token: change === 'token' })] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.hand[0]!
+  const id = server.state.zoneOrder.p2.battlefield[0]!
+  const initialIncarnation = server.state.objects[id]!.incarnation
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source, targets: [{ kind: 'object', objectId: id }] })))
+  expect(state.delayedTriggers).toHaveLength(1)
+  expect(state.delayedTriggers[0]!.canonical!.definitionSnapshot.definition.abilities[0]).toMatchObject({ kind: 'triggered', decisions: { targets: [] } })
+  expect(state.delayedTriggers[0]!.canonical!.inheritedTargets).toBeUndefined()
+  state = ok(server.rules(state, { type: 'move', objectId: source, to: 'exile' }))
+  switch (change) {
+    case 'same': expect(state.objects[id]!.zone).toBe('exile'); break
+    case 'left': state = ok(server.rules(state, { type: 'move', objectId: id, to: 'hand' })); break
+    case 'reexiled': state = ok(server.rules(state, { type: 'move', objectId: id, to: 'exile' })); break
+    case 'token': expect(state.objects[id]).toBeUndefined(); break
+  }
+  const restored = restoreJournal(createJournal(state), server.rules).current()
+  const atEnd = ok(server.rules({ ...restored, step: 'postcombatMain' }, { type: 'advanceStep' }))
+  expect(atEnd.stack).toHaveLength(1)
+  expect(atEnd.delayedTriggers).toHaveLength(0)
+  const resolved = resolveStack(server.rules, atEnd)
+  switch (change) {
+    case 'same': expect(resolved.objects[id]).toMatchObject({ zone: 'battlefield', controller: 'p2', owner: 'p2', incarnation: initialIncarnation + 2 }); break
+    case 'left': expect(resolved.objects[id]!.zone).toBe('hand'); break
+    case 'reexiled': expect(resolved.objects[id]!.zone).toBe('exile'); break
+    case 'token': expect(resolved.objects[id]).toBeUndefined(); break
+  }
+  const anotherEnd = ok(server.rules({ ...resolved, turn: resolved.turn + 1, step: 'postcombatMain' }, { type: 'advanceStep' }))
+  expect(anotherEnd.stack).toHaveLength(0)
+})
+
+test('non-targeting delayed callbacks reject parent target references but retain choices', () => {
+  expect(() => compileCardRuleDefinition(card([spell({
+    decisions: { targets: [select({ filter: objects(), count: 1 })] },
+    instructions: [createDelayed({ inheritTargets: false, condition: stepDelayed({ step: 'end' }), instructions: [move({ targets: target(0), to: 'hand' })] })],
+  })]))).toThrow()
 })

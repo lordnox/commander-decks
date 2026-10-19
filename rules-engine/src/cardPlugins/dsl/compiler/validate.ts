@@ -582,7 +582,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'sacrifice':
       case 'move': {
-        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'bindResult', 'tapped'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'bindResult', 'bindChoice', 'tapped'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
         if (node.kind === 'move' && node.tapped !== undefined && typeof node.tapped !== 'boolean') {
@@ -591,6 +591,10 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>([node.kind === 'move' ? 'moved' : 'sacrificed']) }, childPath(path, 'bindResult'))
+        }
+        if (node.kind === 'move' && node.bindChoice !== undefined) {
+          if (!new Set(['battlefield', 'graveyard', 'exile', 'command']).has(String(node.to))) issue(childPath(path, 'bindChoice'), 'move-binding-zone', 'move bindings require a public destination')
+          declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         }
         return
       }
@@ -738,7 +742,8 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'createDelayed': {
-        exactKeys(node, path, ['kind', 'condition', 'instructions'], ['kind', 'condition', 'instructions'])
+        exactKeys(node, path, ['kind', 'condition', 'instructions', 'inheritTargets'], ['kind', 'condition', 'instructions'])
+        if (node.inheritTargets !== undefined && typeof node.inheritTargets !== 'boolean') issue(childPath(path, 'inheritTargets'), 'type', 'expected a boolean')
         const condition = object(node.condition, childPath(path, 'condition'))
         if (condition) {
           exactKeys(condition, childPath(path, 'condition'), ['kind', 'type', 'objectId', 'from', 'to', 'step', 'active'], ['kind'])
@@ -753,7 +758,8 @@ export const validateDefinitionV1 = (root: unknown): {
             if (condition.active !== undefined) validateReference(condition.active, childPath(childPath(path, 'condition'), 'active'), env, ['player'])
           }
         }
-        validateInstructionList(node.instructions, childPath(path, 'instructions'), env, depth + 1)
+        const callbackEnv = node.inheritTargets === false ? { ...cloneEnv(env), targets: [], targetSingleton: [] } : env
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), callbackEnv, depth + 1)
         return
       }
       case 'discard': {

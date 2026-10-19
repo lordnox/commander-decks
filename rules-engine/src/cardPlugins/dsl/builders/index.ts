@@ -467,8 +467,10 @@ export const move = (input: {
   to: Extract<Instruction, { kind: 'move' }>['to']
   tapped?: boolean
   bindResult?: string
+  bindChoice?: string
 }): Instruction => immutableData({
   kind: 'move',
+  ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
   targets: input.targets,
   to: input.to,
   ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
@@ -566,6 +568,7 @@ export const payOptional = (input: {
 })
 
 export const createDelayed = (input: {
+  inheritTargets?: boolean
   condition: DelayedPattern
   instructions: readonly Instruction[]
 }): Instruction => immutableData({ kind: 'createDelayed', ...input })
