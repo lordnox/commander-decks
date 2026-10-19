@@ -2457,3 +2457,28 @@ not supply priority, mana, or permission to cast from another zone. A temporary
 flash grant can affect a card in hand, expires with its duration, and stays bound
 to that object incarnation. Characteristic changes made to a spell on the stack
 continue onto the permanent it becomes (CR 400.7a).
+
+### Following moved cards into a delayed program
+
+`move({ targets, to: 'exile', bindChoice: 'exiled' })` binds the resulting object
+identities after the move commits. `choice('exiled')` can then identify those
+objects despite the zone change. Bindings require a public destination
+(battlefield, graveyard, exile, or command); cards redirected elsewhere or with
+an unexpected incarnation are excluded.
+
+Compose delayed returns from ordinary instructions:
+
+```ts
+move({ targets: target(0), to: 'exile', bindChoice: 'exiled' })
+createDelayed({
+  inheritTargets: false,
+  condition: stepDelayed({ step: 'end' }),
+  instructions: [move({ targets: choice('exiled'), to: 'battlefield' })],
+})
+```
+
+`inheritTargets: false` creates a non-targeting callback with captured choices,
+without inheriting the parent's target clauses or target bindings. Target
+references inside that callback are rejected. The default preserves existing
+programs that refer to parent targets. The end-step callback fires once and
+cannot follow a card that leaves and re-enters exile (CR 603.7c).

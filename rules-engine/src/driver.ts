@@ -512,6 +512,7 @@ const registerCanonicalDelayed = (
   instructions: readonly Instruction[],
   frame: CanonicalResolutionFrame,
   context: RuleDslRuntimeContext,
+  inheritTargets = true,
 ) => {
   const eventCondition = condition.kind === 'event'
     ? (() => {
@@ -555,7 +556,7 @@ const registerCanonicalDelayed = (
     frame.results,
     [eventCondition],
   )
-  const loweredDecisions = inheritedDecisions
+  const loweredDecisions = inheritTargets ? inheritedDecisions : undefined
   const inheritedTargets = Boolean(loweredDecisions?.targets?.length)
   const capturedScopeId = context.scopeId ?? frame.scopeId
   draft.delayedTriggers.push({
@@ -574,7 +575,7 @@ const registerCanonicalDelayed = (
       source: structuredClone(frame.source),
       ...((context.capturedOccurrence ?? context.occurrence) ? { capturedOccurrence: structuredClone(context.capturedOccurrence ?? context.occurrence) } : {}),
       ...(captured.capturedBindings.occurrence ? { capturedOccurrenceBindings: captured.capturedBindings.occurrence } : {}),
-      ...(frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
+      ...(inheritTargets && frame.targetBindings ? { targetBindings: structuredClone(frame.targetBindings) } : {}),
       ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
       ...(frame.results ? { results: structuredClone(frame.results) } : {}),
       ...(Object.keys(captured.choiceAliases).length > 0 ? { capturedChoiceAliases: captured.choiceAliases } : {}),
@@ -716,6 +717,11 @@ const actionEvents = (
     }
     case 'move': {
       const targets = objectActions(instruction.targets, context)
+      if (instruction.bindChoice) frame.pendingMovedChoice = {
+        binding: instruction.bindChoice,
+        objects: targets.map(object => ({ objectId: object.id, zone: instruction.to,
+          incarnation: object.incarnation + (object.zone !== instruction.to || instruction.to === 'exile' || instruction.to === 'command' ? 1 : 0) })),
+      }
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'move' }
       return targets.map((object) => ({
         type: 'move' as const,
@@ -998,7 +1004,7 @@ const actionEvents = (
       }))
     }
     case 'createDelayed': {
-      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context)
+      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets)
       return []
     }
     default:
@@ -1020,6 +1026,13 @@ export const prepareResolutionStep = (draft: Draft) => {
   if (frame.kind !== 'canonicalSpell') throw new Error('active resolution is not canonical')
   const item = draft.stack.find((candidate) => candidate.id === frame.stackId) ?? frame.inlineItem
   if (!item) throw new Error(`resolution stack item ${frame.stackId} is missing`)
+  if (frame.pendingMovedChoice) {
+    const pending = frame.pendingMovedChoice
+    frame.choices = { ...frame.choices, [pending.binding]: pending.objects
+      .filter(ref => isSameObject(draft.objects[ref.objectId], ref))
+      .map(ref => ({ kind: 'object' as const, ...ref })) }
+    delete frame.pendingMovedChoice
+  }
   if (frame.pendingBlink) {
     const returns = frame.pendingBlink
     delete frame.pendingBlink

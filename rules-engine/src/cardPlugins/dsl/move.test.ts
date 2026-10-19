@@ -1,12 +1,14 @@
 import { expect, test } from 'bun:test'
+import { freezeDraft, makeDraft } from '../../draft'
+import { prepareResolutionStep, startCanonicalResolution } from '../../driver'
 import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
-import type { GameState } from '../../types'
+import type { GameState, Plugin } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { loseLife, move, objects, ref, select, target } from './v1'
+import { card, choice, compileCardRuleDefinition, loseLife, move, objects, putCounters, ref, select, spell, target } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const names = (state: GameState, zone: 'battlefield' | 'graveyard') =>
@@ -140,4 +142,55 @@ test('kernel move events honor tapped on battlefield enter', () => {
     tapped: true,
   }))
   expect(moved.objects[landId].tapped).toBe(true)
+})
+
+test('move binds fresh public-zone identities through grouped moves and subsequent actions', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [
+      move({ targets: objects({ zone: 'battlefield' }), to: 'exile', bindChoice: 'exiled' }),
+      move({ targets: choice('exiled'), to: 'battlefield', bindChoice: 'returned' }),
+      putCounters({ targets: choice('returned'), counter: '+1/+1', count: 1 }),
+    ] })] },
+    battlefield: { p1: [cardTemplate('First fixture', { types: ['Creature'], power: 1, toughness: 1 })], p2: [cardTemplate('Second fixture', { types: ['Creature'], power: 1, toughness: 1 })] },
+  }, { random: () => 0 })
+  const casted = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id }))
+  const resolved = resolveStack(server.rules, casted)
+  for (const name of ['First fixture', 'Second fixture']) expect(named(resolved, name)).toMatchObject({ zone: 'battlefield', incarnation: named(casted, name).incarnation + 2, counters: { '+1/+1': 1 } })
+})
+
+test('a redirected move cannot bind a card that did not reach the requested public zone', () => {
+  const redirect: Plugin = { id: 'test.redirectMove', replace: ({ event }) => event.type === 'move' && event.to === 'exile' ? { ...event, to: 'hand' } : undefined }
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [move({ targets: objects({ zone: 'battlefield' }), to: 'exile', bindChoice: 'exiled' }), move({ targets: choice('exiled'), to: 'battlefield' })] })] },
+    battlefield: { p1: [cardTemplate('Fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0, cardPlugins: [redirect] })
+  const resolved = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id })))
+  expect(named(resolved, 'Fixture').zone).toBe('hand')
+})
+
+test('move binding validation preserves lexical scope and requires a public destination', () => {
+  for (const instructions of [
+    [move({ targets: choice('missing'), to: 'exile' })],
+    [move({ targets: objects(), to: 'hand', bindChoice: 'hidden' })],
+    [move({ targets: objects(), to: 'exile', bindChoice: 'duplicate' }), move({ targets: objects(), to: 'exile', bindChoice: 'duplicate' })],
+  ]) expect(() => compileCardRuleDefinition(card([spell({ instructions })]))).toThrow()
+})
+
+test('a restored move continuation binds the committed incarnation before its next instruction', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [move({ targets: objects({ zone: 'battlefield' }), to: 'exile', bindChoice: 'exiled' }), move({ targets: choice('exiled'), to: 'battlefield' })] })] },
+    battlefield: { p1: [cardTemplate('Fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0 })
+  const state = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id }))
+  const draft = makeDraft(state)
+  startCanonicalResolution(draft, draft.stack[0]!)
+  prepareResolutionStep(draft)
+  const id = named(state, 'Fixture').id
+  draft.move(id, 'exile')
+  const restored = makeDraft(JSON.parse(JSON.stringify(freezeDraft(draft))))
+  expect(prepareResolutionStep(restored)).toEqual({ kind: 'events', events: [{ type: 'move', objectId: id, to: 'battlefield' }] })
+  expect(restored.resolution?.kind === 'canonicalSpell' && restored.resolution.choices?.exiled).toEqual([{ kind: 'object', objectId: id, zone: 'exile', incarnation: state.objects[id]!.incarnation + 1 }])
 })
