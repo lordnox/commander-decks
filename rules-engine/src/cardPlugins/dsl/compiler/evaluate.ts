@@ -1,5 +1,7 @@
 import type { Amount, AmountEvaluationContext, TargetClause } from '../schema/v1'
+import { ROUNDING_MODES } from '../schema/v1'
 import { RuleDslEvaluationError } from './errors'
+import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
 
 export const MAX_LITERAL_AMOUNT = 1_000_000
 export const MAX_RUNTIME_AMOUNT = 2_147_483_647
@@ -24,13 +26,29 @@ export const evaluateAmount = (
   context: AmountEvaluationContext,
   depth = 0,
 ): number => {
-  if (depth > MAX_EXPRESSION_DEPTH) throw new RuleDslEvaluationError('amount expression exceeds the maximum evaluation depth')
+  if (depth > MAX_EXPRESSION_DEPTH) throw new RuleDslEvaluationError(AMOUNT_DEPTH_ERROR_MESSAGE)
   switch (expression.kind) {
     case 'constant': return runtimeAmount(expression.value, 'constant')
     case 'variable': {
       const value = context.variables?.[expression.name]
       if (value === undefined) throw new RuleDslEvaluationError(`amount variable ${expression.name} is not bound`)
       return runtimeAmount(value, `variable ${expression.name}`)
+    }
+    case 'divide': {
+      if (depth >= MAX_EXPRESSION_DEPTH) throw new RuleDslEvaluationError(AMOUNT_DEPTH_ERROR_MESSAGE)
+      if (!Number.isSafeInteger(expression.by) || expression.by < 1 || expression.by > MAX_LITERAL_AMOUNT) {
+        throw new RuleDslEvaluationError('division requires a positive integer divisor within the literal amount limit')
+      }
+      // A characteristic can be negative; CR 107.1b treats a negative calculated amount as zero.
+      const value = expression.value.kind === 'characteristic'
+        ? runtimeStatDelta(context.characteristic(expression.value.of, expression.value.characteristic, expression.value.information), 'division characteristic')
+        : evaluateAmount(expression.value, context, depth + 1)
+      const quotient = value / expression.by
+      switch (expression.rounding) {
+        case ROUNDING_MODES.up: return runtimeAmount(Math.max(0, Math.ceil(quotient)), 'division')
+        case ROUNDING_MODES.down: return runtimeAmount(Math.max(0, Math.floor(quotient)), 'division')
+        default: throw new RuleDslEvaluationError('division requires a supported rounding mode')
+      }
     }
     case 'eventAmount': {
       if (context.eventAmount === undefined) throw new RuleDslEvaluationError('eventAmount is not available in this execution context')

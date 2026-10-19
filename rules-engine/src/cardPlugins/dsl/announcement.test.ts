@@ -1,5 +1,9 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  characteristic,
+  divide,
+  gainLife,
+  ROUNDING_MODES,
   beginAnnouncement,
   commitAnnouncement,
   manaCost,
@@ -26,7 +30,8 @@ import { beginActivatedAnnouncement } from './compiler/announcement'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
-import { ok } from '../../testHelpers'
+import { ok, resolveStack } from '../../testHelpers'
+import { instructionSpell } from './instructionTestSupport'
 import type { GameState } from '../../types'
 
 const state = { players: { p1: { mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 } } }, objects: {}, stack: [] } as unknown as Parameters<typeof beginAnnouncement>[0]
@@ -498,4 +503,27 @@ test.each([false, true])('canonical spell announcements charge printed mana once
   expect(cast.state.players.p1.mana.C).toBe(0)
   expect(cast.state.players.p1.mana.G).toBe(0)
   expect(cast.state.objects[objectId].zone).toBe('stack')
+})
+
+test('fractional life costs are evaluated and paid at announcement', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ costs: [lifeCost(divide({ value: characteristic(ref('controller'), 'life', { information: 'current' }), by: 2, rounding: ROUNDING_MODES.up }))], instructions: [gainLife({ targets: ref('controller'), amount: 1 })] })] },
+  }, { random: () => 0 })
+  const initial = structuredClone(server.state)
+  initial.players.p1.life = 15
+  const casted = ok(server.rules(initial, { type: 'castSpell', seat: 'p1', objectId: initial.zoneOrder.p1.hand[0] }))
+  expect(casted.players.p1.life).toBe(7)
+  expect(resolveStack(server.rules, casted).players.p1.life).toBe(8)
+})
+
+
+test('context-free fractional costs lock constants and X without a source object', () => {
+  const initial = { ...state, players: { p1: { ...state.players.p1, life: 20 } } }
+  const result = beginAnnouncement(initial, {
+    payer: 'p1', sourceId: 'missing-source', variables: { X: 7 },
+    costs: { mandatory: [lifeCost(divide({ value: variable('X'), by: 2, rounding: ROUNDING_MODES.up }))] },
+  })
+  expect(result.ok).toBe(true)
+  if (!result.ok) throw new Error(result.error)
+  expect(result.transaction.lockedCost.nonMana).toContainEqual(lifeCost(4))
 })

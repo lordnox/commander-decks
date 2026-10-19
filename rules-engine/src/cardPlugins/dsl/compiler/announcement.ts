@@ -1,12 +1,14 @@
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { hasKeyword } from '../../../keywords'
 import { captureObject } from '../../../objectIdentity'
-import type { ActivatedAbilityDefinition, Amount, Cost, SpellAbilityDefinition, TargetClause } from '../schema/v1'
+import type { ActivatedAbilityDefinition, Amount, Cost, ObjectRecipient, SpellAbilityDefinition, TargetClause } from '../schema/v1'
 import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage } from '../staticModifierCore'
-import { evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount, type RuleDslRuntimeContext } from './runtime'
-import type { ObjectRecipient } from '../schema/v1'
+import { evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
+import type { RuleDslRuntimeContext } from './runtime'
+import { evaluateAmount, MAX_EXPRESSION_DEPTH } from './evaluate'
+import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
 
 /** A mana unit committed by a proposal. `sourceId` is deliberately unique. */
 export type AnnouncementManaPayment = {
@@ -201,7 +203,9 @@ const announcementRuntime = (
   }
 }
 
-const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRuntimeContext | undefined) => {
+// The explicit return type is needed for recursive locking of divided cost amounts.
+const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRuntimeContext | undefined, depth = 0): Extract<Amount, { kind: 'constant' }> => {
+  if (depth > MAX_EXPRESSION_DEPTH) throw new TypeError(AMOUNT_DEPTH_ERROR_MESSAGE)
   switch (amount.kind) {
     case 'constant':
       return amount
@@ -209,12 +213,16 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
       if (x === undefined) throw new TypeError(`amount variable ${amount.name} is not bound`)
       return { kind: 'constant' as const, value: x }
     }
+    case 'divide': {
+      if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
+      return { kind: 'constant', value: evaluateAmount({ ...amount, value: lockAmount(amount.value, x, runtime, depth + 1) }, { count: () => 0, characteristic: () => 0 }) }
+    }
     case 'count': {
       if (!runtime) throw new TypeError('cost amount count requires an announcement source')
       return { kind: 'constant' as const, value: evaluateRuntimeAmount(amount, runtime) }
     }
     default:
-      throw new TypeError('cost amount must be a constant, X variable, or count')
+      throw new TypeError('cost amount must be a constant, X variable, count, or rounded division')
   }
 }
 

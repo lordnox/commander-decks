@@ -5,7 +5,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CARD_COLORS, KEYWORDS, PLAYER_RELATIONS, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { CARD_COLORS, KEYWORDS, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT } from './evaluate'
@@ -298,6 +298,12 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'name'], ['kind', 'name'])
         if (node.name !== 'X') issue(childPath(path, 'name'), 'unsupported-variable', `unsupported amount variable: ${String(node.name)}`)
         else if (!env.variables.has('X')) issue(childPath(path, 'name'), 'unresolved-binding', 'X is not declared in this program scope')
+        return
+      case 'divide':
+        exactKeys(node, path, ['kind', 'value', 'by', 'rounding'], ['kind', 'value', 'by', 'rounding'])
+        integer(node.by, childPath(path, 'by'), { min: 1 })
+        enumeration(node.rounding, childPath(path, 'rounding'), new Set(Object.values(ROUNDING_MODES)), 'rounding mode')
+        validateAmount(node.value, childPath(path, 'value'), env, depth + 1)
         return
       case 'eventAmount':
         exactKeys(node, path, ['kind'], ['kind'])
