@@ -583,11 +583,20 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'sacrifice':
       case 'move': {
-        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'bindResult', 'bindChoice', 'tapped'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'bindResult', 'bindChoice', 'tapped', 'enterCounters'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
         if (node.kind === 'move' && node.tapped !== undefined && typeof node.tapped !== 'boolean') {
           issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
+        }
+        if (node.kind === 'move' && node.enterCounters !== undefined) {
+          const countersPath = childPath(path, 'enterCounters')
+          if (node.to !== 'battlefield') issue(countersPath, 'domain', 'entry counters require a battlefield destination')
+          const counters = object(node.enterCounters, countersPath)
+          if (counters) for (const [counter, count] of Object.entries(counters)) {
+            if (counter.trim().length === 0) issue(countersPath, 'type', 'expected a nonempty counter name')
+            validateAmount(count, childPath(countersPath, counter), env)
+          }
         }
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))

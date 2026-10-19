@@ -8,7 +8,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState, Plugin } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { card, choice, compileCardRuleDefinition, loseLife, move, objects, putCounters, ref, select, spell, target } from './v1'
+import { characteristic, createDefinitionSnapshot, gainLife, self, whenever, card, choice, compileCardRuleDefinition, loseLife, move, objects, putCounters, ref, select, spell, target } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const names = (state: GameState, zone: 'battlefield' | 'graveyard') =>
@@ -193,4 +193,47 @@ test('a restored move continuation binds the committed incarnation before its ne
   const restored = makeDraft(JSON.parse(JSON.stringify(freezeDraft(draft))))
   expect(prepareResolutionStep(restored)).toEqual({ kind: 'events', events: [{ type: 'move', objectId: id, to: 'battlefield' }] })
   expect(restored.resolution?.kind === 'canonicalSpell' && restored.resolution.choices?.exiled).toEqual([{ kind: 'object', objectId: id, zone: 'exile', incarnation: state.objects[id]!.incarnation + 1 }])
+})
+
+test('entry counters exist before entry-trigger capture and keep a zero-toughness permanent alive', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, { instructions: [gainLife({ targets: ref('controller'), amount: characteristic(ref('triggering.object.after'), 'power', { information: 'currentOrLastKnown' }) })] }),
+  ])))
+  const fixture = cardTemplate('Entry fixture', { types: ['Creature'], power: 0, toughness: 0, ruleDefinition: definition })
+  const withFixture = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [move({ targets: objects({ zone: 'hand', type: 'Creature' }), to: 'battlefield', enterCounters: { '+1/+1': 1, charge: 2 } })] }), fixture] },
+  }, { random: () => 0 })
+  const casted = ok(withFixture.rules(withFixture.state, { type: 'castSpell', seat: 'p1', objectId: withFixture.state.zoneOrder.p1.hand[0] }))
+  const restored = restoreJournal(createJournal(casted), withFixture.rules).current()
+  const entered = ok(withFixture.rules(restored, { type: 'resolveTop' }))
+  expect(entered.stack).toHaveLength(1)
+  expect(named(entered, 'Entry fixture')).toMatchObject({ zone: 'battlefield', power: 1, toughness: 1, counters: { '+1/+1': 1, charge: 2 } })
+  const left = ok(withFixture.rules(entered, { type: 'move', objectId: named(entered, 'Entry fixture').id, to: 'hand' }))
+  const resolved = resolveStack(withFixture.rules, left)
+  expect(named(resolved, 'Entry fixture')).toMatchObject({ zone: 'hand', power: 0, toughness: 0, counters: {} })
+  expect(resolved.players.p1.life).toBe(41)
+})
+
+test.each(['redirect', 'tapped', 'sameZone'] as const)('entry counters respect the final move destination and actual entry (%s)', mode => {
+  const rewrite: Plugin = { id: 'test.entryRewrite', replace: ({ event }) => event.type === 'move' && event.to === 'battlefield'
+    ? { ...event, ...(mode === 'redirect' ? { to: 'hand' as const } : { tapped: true }) } : undefined }
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [move({ targets: objects({ type: 'Creature' }), to: 'battlefield', enterCounters: { '+1/+1': 2 } })] }), ...(mode === 'sameZone' ? [] : [cardTemplate('Entry fixture', { types: ['Creature'], power: 1, toughness: 1 })])] },
+    battlefield: { p1: mode === 'sameZone' ? [cardTemplate('Entry fixture', { types: ['Creature'], power: 1, toughness: 1 })] : [] },
+  }, { random: () => 0, cardPlugins: mode === 'sameZone' ? [] : [rewrite] })
+  const casted = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+  const resolved = resolveStack(server.rules, casted)
+  const fixture = named(resolved, 'Entry fixture')
+  expect(fixture.zone).toBe(mode === 'redirect' ? 'hand' : 'battlefield')
+  expect(fixture.counters).toEqual(mode === 'tapped' ? { '+1/+1': 2 } : {})
+  expect(fixture.power).toBe(mode === 'tapped' ? 3 : 1)
+  if (mode === 'tapped') expect(fixture.tapped).toBe(true)
+})
+
+test('entry-counter validation rejects non-battlefield moves, empty names and negative counts', () => {
+  for (const instruction of [
+    move({ targets: objects(), to: 'hand', enterCounters: { charge: 1 } }),
+    move({ targets: objects(), to: 'battlefield', enterCounters: { '': 1 } }),
+    move({ targets: objects(), to: 'battlefield', enterCounters: { charge: -1 } }),
+  ]) expect(() => compileCardRuleDefinition(card([spell({ instructions: [instruction] })]))).toThrow()
 })

@@ -271,7 +271,7 @@ export type Instruction =
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
-  | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; bindResult?: string; bindChoice?: string }
+  | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
   /** Inspect and order the top cards of each selected player's library. */
   | { kind: 'scry' | 'surveil'; targets: PlayerRecipient; count: Amount }
   /** Reveal each resolved object to every player through the ordinary visibility event. */
