@@ -4,6 +4,8 @@ import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRu
 
 // Card configuration has structural coverage; instruction suites own execution.
 test.each([
+  ['Cloudshift', ['blink']],
+  ['Flicker of Fate', ['blink']],
   ['Counterspell', ['counter']],
   ['Absorb', ['counter', 'gainLife']],
   ['Anguished Unmaking', ['move', 'loseLife']],
@@ -673,4 +675,17 @@ test('catalog Ulvenwald Tracker taps to fight a controlled creature with a diffe
     ], constraints: [{ kind: 'different', clauseIndices: [0, 1] }] },
     instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }],
   })
+})
+
+test('immediate blink catalog entries preserve targeting and return-controller differences', () => {
+  expect(cardTemplateDefaultsFor('Cloudshift')).toMatchObject({ types: ['Instant'], colors: ['W'], manaCost: '{W}', manaValue: 1 })
+  expect(cardRuleDefinitionSnapshotFor('Cloudshift')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } }] },
+    instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 }, returnController: { kind: 'contextRef', name: 'controller' } }],
+  }])
+  expect(cardTemplateDefaultsFor('Flicker of Fate')).toMatchObject({ types: ['Instant'], colors: ['W'], manaCost: '{1}{W}', manaValue: 2 })
+  expect(cardRuleDefinitionSnapshotFor('Flicker of Fate')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', any: [{ type: 'Creature' }, { type: 'Enchantment' }] } } }] },
+    instructions: [{ kind: 'blink', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  }])
 })

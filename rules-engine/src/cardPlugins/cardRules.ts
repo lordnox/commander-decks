@@ -735,13 +735,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ifTargetTypes(['Creature'], [gainLife(3)], [draw(1)]),
     ),
   ],
-  Cloudshift: [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature', controller: 'you' },
-      blink({ returnController: 'controller' }),
-    ),
-  ],
   'Coercive Portal': [yourUpkeep(vote(
     'Vote for carnage or homage.',
     {
@@ -1023,13 +1016,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       costs: { mana: '{4}' },
       do: [animateUntilEot(4, 4)],
     }),
-  ],
-  'Flicker of Fate': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', types: ['Creature', 'Enchantment'] },
-      blink({ returnController: 'owner' }),
-    ),
   ],
   Flickerwisp: [
     entersTarget(
