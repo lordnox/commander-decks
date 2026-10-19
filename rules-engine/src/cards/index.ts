@@ -44,6 +44,7 @@ import felidarGuardian from './felidar-guardian'
 import fellMire from './fell-mire'
 import flameRift from './flame-rift'
 import flickerOfFate from './flicker-of-fate'
+import flickerwisp from './flickerwisp'
 import foil from './foil'
 import franticSearch from './frantic-search'
 import geierReachSanitarium from './geier-reach-sanitarium'
@@ -53,6 +54,7 @@ import glacialFortress from './glacial-fortress'
 import gloriousAnthem from './glorious-anthem'
 import golgariRotFarm from './golgari-rot-farm'
 import growthSpiral from './growth-spiral'
+import guardianOfGhirapur from './guardian-of-ghirapur'
 import harrow from './harrow'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
@@ -105,6 +107,7 @@ import unmarkedGrave from './unmarked-grave'
 import vampireHounds from './vampire-hounds'
 import vaultOfChampions from './vault-of-champions'
 import verdantCatacombs from './verdant-catacombs'
+import voyagerStaff from './voyager-staff'
 import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
@@ -159,6 +162,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fell Mire": fellMire,
   "Flame Rift": flameRift,
   "Flicker of Fate": flickerOfFate,
+  "Flickerwisp": flickerwisp,
   "Foil": foil,
   "Frantic Search": franticSearch,
   "Geier Reach Sanitarium": geierReachSanitarium,
@@ -168,6 +172,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Glorious Anthem": gloriousAnthem,
   "Golgari Rot Farm": golgariRotFarm,
   "Growth Spiral": growthSpiral,
+  "Guardian of Ghirapur": guardianOfGhirapur,
   "Harrow": harrow,
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
@@ -221,6 +226,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Vault of Champions": vaultOfChampions,
   "Verdant Catacombs": verdantCatacombs,
   "Wall of Blood": wallOfBlood,
+  "Voyager Staff": voyagerStaff,
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,
   "World Map": worldMap,

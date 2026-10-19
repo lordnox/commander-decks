@@ -736,3 +736,21 @@ test('catalog Githzerai Monk declares flash and flying alongside its entry instr
     expect.objectContaining({ kind: 'keyword', keyword: 'flying' }),
   ]))
 })
+
+test.each([
+  ['Flickerwisp', 'triggered', { zone: 'battlefield', other: true }, 1],
+  ['Guardian of Ghirapur', 'triggered', { zone: 'battlefield', controller: 'you', other: true, any: [{ type: 'Creature' }, { type: 'Artifact' }] }, 0],
+  ['Voyager Staff', 'activated', { zone: 'battlefield', type: 'Creature' }, 1],
+] as const)('catalog %s composes a bounded target with a non-targeting delayed owner return', (name, kind, filter, min) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toEqual(expect.arrayContaining([expect.objectContaining({
+    kind,
+    decisions: expect.objectContaining({ targets: [expect.objectContaining({ filter: { kind: 'objects', filter }, min: { kind: 'constant', value: min }, max: { kind: 'constant', value: 1 } })] }),
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'exile', bindChoice: 'exiled' },
+      { kind: 'createDelayed', inheritTargets: false, condition: { kind: 'step', step: 'end' }, instructions: [{ kind: 'move', targets: { kind: 'choiceRef', binding: 'exiled' }, to: 'battlefield' }] },
+    ] }],
+  })]))
+  if (kind === 'activated') expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }] })
+  else expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toEqual(expect.arrayContaining([expect.objectContaining({ kind: 'keyword', keyword: 'flying' })]))
+})

@@ -1003,12 +1003,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [animateUntilEot(4, 4)],
     }),
   ],
-  Flickerwisp: [
-    entersTarget(
-      { zone: 'battlefield', other: true },
-      blink({ when: 'nextEndStep', returnController: 'owner' }),
-    ),
-  ],
   'Flooded Grove': [
     activate({
       id: 'floodedGrove.filter',
@@ -1086,21 +1080,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     permanentEnters(
       { type: 'Creature', controller: 'you', nontoken: true },
       { if: triggeringCreatureNameUnique(), do: [draw(1)] },
-    ),
-  ],
-  'Guardian of Ghirapur': [
-    enters(
-      blink({
-        optional: true,
-        filter: {
-          controller: 'you',
-          types: ['Creature', 'Artifact'],
-          other: true,
-        },
-        when: 'nextEndStep',
-        returnController: 'owner',
-        prompt: 'You may exile another target creature or artifact you control, then return it at the next end step.',
-      }),
     ),
   ],
   'Hagra Mauling // Hagra Broodpit': [
@@ -2161,14 +2140,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Void Winnower': [
     opponentsCantCast({ parity: 'even' }),
     opponentsCantBlock({ parity: 'even' }),
-  ],
-  'Voyager Staff': [
-    activate({
-      id: 'voyagerStaff.blink',
-      costs: { mana: '{2}', sacrifice: 'self' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
-      do: [blink({ when: 'nextEndStep', returnController: 'owner' })],
-    }),
   ],
   'Walk-In Closet': [playLandsFromGraveyard()],
   'Wall of Shards': [yourUpkeep(cumulativeUpkeepOpponentLife())],

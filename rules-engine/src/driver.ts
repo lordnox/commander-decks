@@ -556,7 +556,10 @@ const registerCanonicalDelayed = (
     frame.results,
     [eventCondition],
   )
-  const loweredDecisions = inheritTargets ? inheritedDecisions : undefined
+  const loweredDecisions = inheritTargets ? inheritedDecisions : {
+    targets: [],
+    ...(inheritedDecisions?.variables ? { variables: inheritedDecisions.variables } : {}),
+  }
   const inheritedTargets = Boolean(loweredDecisions?.targets?.length)
   const capturedScopeId = context.scopeId ?? frame.scopeId
   draft.delayedTriggers.push({

@@ -225,7 +225,10 @@
     "mossborn-hydra:20",
     "pit-of-offerings:100",
     "pit-of-offerings:50",
+    "plugDackPart33Blink:263",
+    "plugDackPart33Blink:349",
     "plugDackPart33Blink:380",
+    "plugDackPart33Blink:436",
     "plugDackPart37:158",
     "plugDackPart37:196",
     "rankle:106",
@@ -357,6 +360,23 @@
       "destination": "rules-engine/src/cardPlugins/dsl/programPersistence.test.ts",
       "suite": "catalog targeted optional blink restores both choices for %s with accept=%s",
       "evidence": "Restoration Angel migrates to its canonical catalog definition in this change. Reuse the existing targeted-optional-blink lifecycle scenario with the catalog card, asserting that neither the Angel source nor another Angel is eligible while non-Angel controlled creatures remain selectable. Catalog checks pin the Angel subtype and composed selector. Replaces the old negative-only test, which could pass when no selection existed."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:263",
+        "plugDackPart33Blink:349"
+      ],
+      "destination": "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts",
+      "suite": "catalog entry blink persists a delayed return for %s with selected=%s",
+      "evidence": "Flickerwisp and Guardian of Ghirapur migrate to canonical catalog definitions. Reuse their templates for real hand-to-battlefield entries, reject the source, preserve eligible target distinctions and owner-controlled delayed returns, restore target selection and the delayed program, and check Guardian selecting zero targets. Generic movement/delayed tests own new incarnation binding, source independence, tokens, and exile re-entry."
+    },
+    {
+      "groups": [
+        "plugDackPart33Blink:436"
+      ],
+      "destination": "rules-engine/src/cardPlugins/activatedTargetZones.test.ts",
+      "suite": "Voyager Staff / cannot target a noncreature permanent; exiles any creature, yours or an opponent's, and returns it under its owner at the next end step",
+      "evidence": "Voyager Staff migrates to its canonical catalog definition. Existing mechanic-owned integration rejects artifact/land/self targets and verifies successful creature targeting, paid mana, source sacrifice, delayed owner return, and a target leaving in response. Update the activation id to the canonical declaration path; catalog checks own the typed selector and costs."
     }
   ]
 }

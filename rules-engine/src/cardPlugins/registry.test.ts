@@ -480,16 +480,6 @@ describe('card plugin registry', () => {
     expect(effectsFor('Reverberate')).toEqual([])
   })
 
-  test('Voyager Staff is registered from its exact Oracle text', () => {
-    expect(effectsFor('Voyager Staff')).toEqual([{
-      op: 'activate',
-      id: 'voyagerStaff.blink',
-      costs: { mana: '{2}', sacrifice: 'self' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature' } },
-      do: [{ kind: 'blink', when: 'nextEndStep', returnController: 'owner' }],
-    }])
-  })
-
   test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {
     for (const name of ['Blightsteel Colossus', 'Darksteel Colossus']) {
       expect(effectsFor(name)).toEqual([{ op: 'static', shuffleIntoLibraryInstead: true }])
@@ -756,7 +746,6 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(names)).toEqual([])
     expect(handlerIdsForNames(names)).toEqual([
-      'activated',
       'alternateCosts',
       'blink',
       'blinkValue',
