@@ -81,14 +81,12 @@ import {
   grantUntilEot,
   graveyardCards,
   graveyardCardTypes,
-  graveyardPermanentCards,
   handler,
   handlerIdsFromEffects,
   hasSubtype,
   landToGraveyard,
   landToGraveyardOnce,
   landfall,
-  landfallTargeting,
   linkExile,
   linkedExileUntilLeaves,
   legendRuleOff,
@@ -625,10 +623,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     { op: 'replacement', on: 'enters', do: 'tapUnlessPayLife', life: 3, if: { kind: 'sourceType', type: 'Land' } },
     { op: 'trigger', on: 'enters', targets: 'player', sourceTypeAtTrigger: 'Creature', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
   ],
-  'Bojuka Bog': [
-    entersTapped(),
-    { op: 'trigger', on: 'enters', targets: 'player', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
-  ],
   'Boseiju, Who Endures': [
     activate({
       id: 'channel.boseiju',
@@ -800,17 +794,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
   Darkness: [onResolve(preventCombatDamage())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
-  Deathsprout: [
-    targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }),
-    searchSpell({
-      prompt: 'Search your library for a basic land card. It enters tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 1,
-    }),
-  ],
   'Debt to the Deathless': [xMana(), onResolve(drainOpponentsX(2))],
   'Decisive Denial': [modalChooseOne(
     {
@@ -1105,7 +1088,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landToGraveyard(putMilledLandTapped()),
     crew(1),
   ],
-  'Hedron Crab': [landfallTargeting('player', millTarget(3))],
   'Hermit Druid': [
     activate({
       id: 'hermitDruid.reveal',
@@ -1189,13 +1171,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       revealUntil(1, { types: ['Creature', 'Planeswalker'] }, 'battlefield', 'bottomRandom'),
     ),
     handler('optionalManaPay'),
-  ],
-  'Join the Dead': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      branch(graveyardPermanentCards(4), [pump(-10, -10)], [pump(-5, -5)]),
-    ),
   ],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
   'Kami of False Hope': [
@@ -1366,9 +1341,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         oracleText: 'Changeling',
       })],
     }),
-  ],
-  'Meteor Golem': [
-    targetOnResolve('destroy', { zone: 'battlefield', nonland: true, controller: 'opponent' }),
   ],
   Millikin: [
     activate({
@@ -2000,7 +1972,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       }),
     ),
   ],
-  'Thorn Mammoth': [enters(fightUpToOne())],
   "Thrór's Map": [
     {
       op: 'search',

@@ -810,3 +810,30 @@ test.each([
   expect(abilities.map(ability => ability.kind === 'activated' ? ability.costs.map(cost => cost.kind) : [])).toEqual(costs.map(group => [...group]))
   expect(abilities.map(ability => ability.kind === 'activated' ? ability.instructions?.map(instruction => instruction.kind) : [])).toEqual(programs.map(group => [...group]))
 })
+
+
+test.each([
+  ['Meteor Golem', ['triggered']], ['Bojuka Bog', ['static', 'triggered', 'activated']],
+  ['Hedron Crab', ['triggered']], ['Thorn Mammoth', ['keyword', 'triggered']],
+  ['Join the Dead', ['spell']], ['Deathsprout', ['spell']],
+] as const)('%s declares canonical targeted programs', (name, kinds) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.map(ability => ability.kind)).toEqual([...kinds])
+})
+
+test('graveyard-exile and landfall catalog entries bind their chosen player', () => {
+  expect(cardRuleDefinitionSnapshotFor('Bojuka Bog')!.definition.abilities[1]).toMatchObject({
+    kind: 'triggered', instructions: [{ kind: 'move', to: 'exile', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: { kind: 'targetRef', clauseIndex: 0 } } } }],
+  })
+  expect(cardRuleDefinitionSnapshotFor('Hedron Crab')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
+
+test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {
+  expect(cardRuleDefinitionSnapshotFor('Thorn Mammoth')!.definition.abilities[1]).toMatchObject({
+    kind: 'triggered', on: { kind: 'enters', filter: { type: 'Creature', controller: 'you' } },
+    decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } }] },
+    instructions: [{ kind: 'fight', left: { kind: 'contextRef', name: 'source' }, right: { kind: 'targetRef', clauseIndex: 0 } }],
+  })
+})
