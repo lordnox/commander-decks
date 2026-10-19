@@ -4,6 +4,8 @@ import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRu
 
 // Card configuration has structural coverage; instruction suites own execution.
 test.each([
+  ['Long Road Home', ['sequence']],
+  ['Otherworldly Journey', ['sequence']],
   ['Explore', ['grantLandPlays', 'draw']],
   ['Summer Bloom', ['grantLandPlays']],
   ['Ghostly Flicker', ['blink']],
@@ -764,4 +766,19 @@ test.each([['Explore', 1], ['Summer Bloom', 3]] as const)('%s grants its printed
   if (ability.kind !== 'spell') throw new Error('expected spell')
   expect(ability.instructions?.[0]).toEqual({ kind: 'grantLandPlays', count: { kind: 'constant', value: count }, targets: { kind: 'contextRef', name: 'controller' } })
   expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Sorcery'], colors: ['G'], manaCost: '{1}{G}', manaValue: 2 })
+})
+
+
+test.each(['Long Road Home', 'Otherworldly Journey'])('%s returns the exiled creature with an entry counter', name => {
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Instant'], colors: ['W'], manaCost: '{1}{W}', manaValue: 2 })
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } }] },
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'exile', bindChoice: 'exiled' },
+      { kind: 'createDelayed', inheritTargets: false, condition: { kind: 'step', step: 'end' }, instructions: [
+        { kind: 'move', targets: { kind: 'choiceRef', binding: 'exiled' }, to: 'battlefield', enterCounters: { '+1/+1': { kind: 'constant', value: 1 } } },
+      ] },
+    ] }],
+  })
 })

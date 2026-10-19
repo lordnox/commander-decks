@@ -1298,13 +1298,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [loseLife(2, 'triggeringPlayer')],
     }),
   ],
-  'Long Road Home': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
-    ),
-  ],
   'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Lotus Field': [
@@ -1517,13 +1510,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       },
       do: [removeTarget('bounce')],
     }),
-  ],
-  'Otherworldly Journey': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      blink({ when: 'nextEndStep', plusCounters: 1, returnController: 'owner' }),
-    ),
   ],
   'Overgrown Tomb': [tapUnlessPayLife(2)],
   'Overwhelming Stampede': [
