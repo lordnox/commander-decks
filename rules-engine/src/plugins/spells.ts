@@ -1,4 +1,6 @@
 import { isPermanentType } from '../definitions'
+import { hasKeyword } from '../keywords'
+import { KEYWORDS } from '../cardPlugins/dsl/schema/v1'
 import { captureObject } from '../objectIdentity'
 import { poolTotal, type Draft } from '../draft'
 import type {
@@ -769,6 +771,7 @@ export const spells: Plugin = {
 
       if (
         !spell.types.includes('Instant')
+        && !hasKeyword(spell, KEYWORDS.flash, state)
         && !mayCastAsThoughFlash(state, event.seat)
         && !(freeCast && !stealCast)
         && event.castOption !== 'exiledWithLife'

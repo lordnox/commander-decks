@@ -49,6 +49,7 @@ import {
   validTargetRef,
 } from './cardPlugins/targetedResolve'
 import { hasKeyword } from './keywords'
+import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
 import { CAST_TRANSFORMED_ACTION } from './plugins/battle'
 import {
   adventureFaceOf,
@@ -507,7 +508,7 @@ const manaPlays = (
 
 /** Sorcery-speed spells (and special actions) cannot be cast or taken while anything waits on the stack. */
 const needsEmptyStack = (state: GameState, seat: PlayerId, spell: GameObject) =>
-  !spell.types.includes('Instant') && !mayCastAsThoughFlash(state, seat)
+  !spell.types.includes('Instant') && !hasKeyword(spell, KEYWORDS.flash, state) && !mayCastAsThoughFlash(state, seat)
 
 /**
  * Tapping this source for mana puts a "becomes tapped" trigger on the stack
@@ -645,6 +646,7 @@ const canCastAtTiming = (
   if (
     !withoutPayingMana
     && !spell.types.includes('Instant')
+    && !hasKeyword(spell, KEYWORDS.flash, state)
     && !mayCastAsThoughFlash(state, seat)
     && (
       state.active !== seat

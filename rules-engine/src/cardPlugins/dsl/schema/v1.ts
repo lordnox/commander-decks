@@ -474,7 +474,10 @@ export type ContinuousEffectDefinition =
   | ReplacementEffectDefinition
   | PreventionEffectDefinition
 
-export type Keyword = 'defender' | 'trample'
+export const KEYWORDS = {
+  defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash',
+} as const
+export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 
 export type SpellAbilityDefinition = {
   kind: 'spell'

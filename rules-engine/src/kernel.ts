@@ -1,4 +1,5 @@
 import type { PluginCatalog } from './catalog'
+import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
 import type { Draft } from './draft'
 import { freezeDraft, makeDraft, nextPlayer } from './draft'
 import type {
@@ -477,7 +478,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
-      if (!object || (object.zone !== 'battlefield' && event.effect.kind !== 'setColors')) return
+      const anyZone = event.effect.kind === 'setColors'
+        || (event.effect.kind === 'grantKeyword' && event.effect.keyword === KEYWORDS.flash)
+      if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
         case 'setColors': {
@@ -500,7 +503,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         }
         case 'grantKeyword':
           object.continuousEffects = [...(object.continuousEffects ?? []), {
-            effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [] }, duration,
+            effect: { kind: 'staticKeywords', grant: [event.effect.keyword], suppress: [], incarnation: object.incarnation }, duration,
           }]
           break
         case 'grantAbility':
