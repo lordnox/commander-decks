@@ -114,6 +114,7 @@ import thaliasLancers from './thalias-lancers'
 import thornMammoth from './thorn-mammoth'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
+import throrsMap from './thrors-map'
 import toxicDeluge from './toxic-deluge'
 import tradeRoutes from './trade-routes'
 import triangleOfWar from './triangle-of-war'
@@ -251,6 +252,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Thorn Mammoth": thornMammoth,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,
+  "Thr\u00f3r's Map": throrsMap,
   "Toxic Deluge": toxicDeluge,
   "Trade Routes": tradeRoutes,
   "Triangle of War": triangleOfWar,

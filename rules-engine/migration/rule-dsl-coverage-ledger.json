@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 275,
+    "cardRegistrations": 274,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 263
+    "candidateOnlyCardRows": 262
   },
   "cardEffects": [
     {
@@ -93,7 +93,6 @@
         "Teferi, Who Slows the Sunset:effects[1]",
         "Teferi, Who Slows the Sunset:effects[2]",
         "Thespian's Stage:effects[0]",
-        "Thrór's Map:effects[1]",
         "Ugin, the Spirit Dragon:effects[0]",
         "Ugin, the Spirit Dragon:effects[1]",
         "Ugin, the Spirit Dragon:effects[2]",
@@ -104,7 +103,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 159,
+        "matches": 157,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
@@ -595,12 +594,11 @@
         "Myriad Landscape:effects[1]",
         "Scapeshift:effects[0]",
         "Thawing Glaciers:effects[1]",
-        "Thrór's Map:effects[0]",
         "Waterlogged Teachings // Inundated Archive:effects[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 36,
+        "matches": 34,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1731 — test('restores an interrupted Analyze the Pollen library search', async () => {",
@@ -2386,21 +2384,18 @@
         "Awaken the Honored Dead:effects[0].chapters[2].do[0]",
         "Cephalid Coliseum:effects[1].do[1]",
         "Collector's Vault:effects[0].do[1]",
-        "Daily Bugle Newspaper:effects[0].do[1]",
-        "Thrór's Map:effects[1].do[1]"
+        "Daily Bugle Newspaper:effects[0].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:605 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:633 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:117 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:309 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:765 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:765 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed choice instruction and continuation",
@@ -2512,7 +2507,6 @@
         "Mulldrifter:effects[2].do[0]",
         "Nezahal, Primal Tide:effects[3].do[0]",
         "Raffine's Tower:effects[1].do[0]",
-        "Thrór's Map:effects[1].do[0]",
         "Ugin, the Spirit Dragon:effects[2].do[1]",
         "Wedding Ring:effects[1].do[0]",
         "Zagoth Triome:effects[1].do[0]",
@@ -2521,7 +2515,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 118,
+        "matches": 116,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1448 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -11866,7 +11860,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2318 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:677 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:675 — test('Myriad Landscape sacrifices and fetches two basics that share a type', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:46 — test('a land drop that Oracle taps enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:125 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:305 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
@@ -15015,45 +15009,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Thrór's Map",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Thrór's Map"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:605 — test(\"Thrór's Map ETB finds a basic land to hand\", () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:633 — test(\"Thrór's Map loot draws then discards through a typed card choice\", () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:309 — test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, search] and instructions [discardCards, draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "search"
-      ],
-      "instructionVariants": [
-        "discardCards",
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects",
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Thunderfoot Baloth",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -16352,7 +16307,6 @@
         "Talon Gates of Madara",
         "Temple of the False God",
         "Thespian's Stage",
-        "Thrór's Map",
         "Werefox Bodyguard",
         "Yurlok of Scorch Thrash",
         "Zagoth Triome",
@@ -16360,7 +16314,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 152,
+        "matches": 153,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelFacts.test.ts:11",
@@ -16580,7 +16534,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 81,
+        "matches": 82,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -16621,7 +16575,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 166,
+        "matches": 167,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -17030,7 +16984,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 55,
+        "matches": 56,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -17301,7 +17255,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 215,
+        "matches": 216,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",
