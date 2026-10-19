@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
-  choice,
+  blinkUntil,
   chooseX,
   variable,
   move,
@@ -177,14 +177,13 @@ describe('delayedPrograms', () => {
   })
 })
 
-test.each(['same', 'left', 'reexiled', 'token', 'duringEnd'] as const)('non-targeting delayed return follows only the captured exile incarnation (%s)', change => {
+test.each((['same', 'left', 'reexiled', 'token', 'duringEnd'] as const).flatMap(change => [0, 1].map(counters => ({ change, counters }))))('non-targeting delayed return follows only the captured exile incarnation (%j)', ({ change, counters }) => {
   const server = createServerGame(commanderRules, {
     players: 2,
     hands: { p1: [instructionSpell({
       decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
       instructions: [
-        move({ targets: target(0), to: 'exile', bindChoice: 'exiled' }),
-        createDelayed({ inheritTargets: false, condition: stepDelayed({ step: 'end' }), instructions: [move({ targets: choice('exiled'), to: 'battlefield' })] }),
+        blinkUntil({ targets: target(0), bindChoice: 'exiled', condition: stepDelayed({ step: 'end' }), ...(counters ? { enterCounters: { '+1/+1': counters } } : {}) }),
       ],
     })] },
     battlefield: { p2: [cardTemplate('Return fixture', { types: ['Creature'], power: 2, toughness: 2, token: change === 'token' })] },
@@ -216,7 +215,7 @@ test.each(['same', 'left', 'reexiled', 'token', 'duringEnd'] as const)('non-targ
   const resolved = resolveStack(server.rules, atEnd)
   switch (change) {
     case 'duringEnd':
-    case 'same': expect(resolved.objects[id]).toMatchObject({ zone: 'battlefield', controller: 'p2', owner: 'p2', incarnation: initialIncarnation + 2 }); break
+    case 'same': expect(resolved.objects[id]).toMatchObject({ zone: 'battlefield', controller: 'p2', owner: 'p2', incarnation: initialIncarnation + 2, power: 2 + counters, toughness: 2 + counters, counters: counters ? { '+1/+1': counters } : {} }); break
     case 'left': expect(resolved.objects[id]!.zone).toBe('hand'); break
     case 'reexiled': expect(resolved.objects[id]!.zone).toBe('exile'); break
     case 'token': expect(resolved.objects[id]).toBeUndefined(); break

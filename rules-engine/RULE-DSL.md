@@ -2489,3 +2489,10 @@ cannot follow a card that leaves and re-enters exile (CR 603.7c).
 `grantLandPlays({ count, targets })` gives each resolved player the evaluated number of additional land plays for this turn (CR 305.2). Grants add together with static `extraLandPlays` abilities and do not reset the number of lands already played. They do not change land-play timing or zone permissions. The allowance is independent of the resolving source and survives journal restore; its temporary portion expires at cleanup (CR 514.2).
 
 For example, Explore composes `grantLandPlays({ count: 1, targets: ref('controller') })` with `draw(1)`, while Summer Bloom grants three without a draw. Both live in the canonical card catalog.
+
+
+### Movement with entry counters
+
+A `move` to `battlefield` can include `enterCounters`, a map from counter names to DSL amounts. For example, `move({ targets: choice('exiled'), to: 'battlefield', enterCounters: { '+1/+1': 1 } })` returns the selected objects with counters already present when entry triggers capture them and before state-based actions run (CR 122.6). Amounts are evaluated when that move executes. Other destinations reject this field; a replacement that redirects the move away from the battlefield does not place the counters. A same-zone battlefield move does not place entry counters.
+
+`blinkUntil` accepts the same optional map and forwards it to its non-targeting delayed return. Long Road Home and Otherworldly Journey compose this with a single creature target and the next end step. They retain the captured exile identity and return the card under its owner's control.

@@ -60,6 +60,7 @@ import harrow from './harrow'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
 import hinterlandHarbor from './hinterland-harbor'
+import longRoadHome from './long-road-home'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
 import marshFlats from './marsh-flats'
@@ -75,6 +76,7 @@ import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
 import obscuraStorefront from './obscura-storefront'
 import orzhovBasilica from './orzhov-basilica'
 import orzhovSignet from './orzhov-signet'
+import otherworldlyJourney from './otherworldly-journey'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
 import rejuvenatingSprings from './rejuvenating-springs'
@@ -180,6 +182,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
   "Hinterland Harbor": hinterlandHarbor,
+  "Long Road Home": longRoadHome,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
   "Marsh Flats": marshFlats,
@@ -195,6 +198,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Obscura Storefront": obscuraStorefront,
   "Orzhov Basilica": orzhovBasilica,
   "Orzhov Signet": orzhovSignet,
+  "Otherworldly Journey": otherworldlyJourney,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
   "Rejuvenating Springs": rejuvenatingSprings,
