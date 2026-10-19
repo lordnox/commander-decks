@@ -577,6 +577,8 @@ export type CanonicalResolutionFrame = {
   /** Ordered private discard choices gathered before their action group commits. */
   /** Simultaneous top-library choices wait for every player before moving cards. */
   pendingTopDeck?: { seats: PlayerId[]; events: GameEvent[]; completions: GameEvent[] }
+  /** Cards expected in exile after the first half of an immediate blink. */
+  pendingBlink?: Array<{ ref: ObjectIdentity; controller: PlayerId; tapped?: boolean }>
   pendingProliferate?: { objectIds: string[]; binding?: string }
   pendingDiscard?: { scopeId?: string; seats: PlayerId[]; index: number; amount: number; selected: Array<{ seat: PlayerId; objectId: string }>; binding?: string }
   /** Instruction continuations blocked on a typed choice. */

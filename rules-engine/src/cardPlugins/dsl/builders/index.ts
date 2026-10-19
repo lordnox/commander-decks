@@ -453,6 +453,8 @@ export const sacrifice = (input: {
 export const scry = (input: { count: AmountInput; targets: PlayerRecipient }) => immutableData({ kind: 'scry' as const, targets: input.targets, count: toAmount(input.count) }) satisfies Instruction
 export const surveil = (input: { count: AmountInput; targets: PlayerRecipient }) => immutableData({ kind: 'surveil' as const, targets: input.targets, count: toAmount(input.count) }) satisfies Instruction
 
+export const blink = (input: Omit<Extract<Instruction, { kind: 'blink' }>, 'kind'>) => immutableData({ kind: 'blink' as const, ...input }) satisfies Instruction
+
 export const fight = (input: { left: ObjectReference; right: ObjectReference }) => immutableData({ kind: 'fight' as const, ...input }) satisfies Instruction
 
 export const reveal = (targets: ObjectRecipient) => immutableData({ kind: 'reveal' as const, targets }) satisfies Instruction

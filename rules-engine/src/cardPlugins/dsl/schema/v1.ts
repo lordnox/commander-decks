@@ -254,6 +254,8 @@ export type Instruction =
   | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference }
   /** Have two current battlefield creatures deal simultaneous noncombat damage. */
   | { kind: 'fight'; left: ObjectReference; right: ObjectReference }
+  /** Exile permanents, then return the resulting cards as new objects (CR 400.7j). */
+  | { kind: 'blink'; targets: ObjectRecipient; returnController?: 'owner' | PlayerReference; tapped?: boolean }
   /** Have each resolved player recipient draw the evaluated number of cards. */
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
   /** Put the evaluated number of cards from each recipient's library into its graveyard. */

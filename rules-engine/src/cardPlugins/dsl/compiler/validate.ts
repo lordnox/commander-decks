@@ -552,6 +552,14 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player', 'object'])
         validateReference(node.source, childPath(path, 'source'), env, ['object'])
         return
+      case 'blink':
+        exactKeys(node, path, ['kind', 'targets', 'returnController', 'tapped'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.returnController !== undefined && node.returnController !== 'owner') {
+          validateReference(node.returnController, childPath(path, 'returnController'), env, ['player'])
+        }
+        if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
+        return
       case 'fight':
         exactKeys(node, path, ['kind', 'left', 'right'], ['kind', 'left', 'right'])
         validateReference(node.left, childPath(path, 'left'), env, ['object'])

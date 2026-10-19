@@ -2422,3 +2422,17 @@ independent of mana cost. The stored effect follows a permanent spell as it
 resolves (CR 400.7a), expires at its declared duration, and otherwise ends when
 the recipient becomes a new object. Surviving color effects retain timestamp
 order as older effects expire (CR 613.1e, 613.3).
+
+### Immediate blink
+
+`blink({ targets, returnController?, tapped? })` exiles the matching battlefield
+permanents, then returns the resulting nontoken cards. `returnController` defaults
+to `'owner'`; use a player reference such as `ref('controller')` for “under your
+control.” `tapped` controls the return entry state. Selectors support a group:
+all selected permanents leave before any return.
+
+The serializable continuation pins each expected exile incarnation (CR 400.7j).
+A replaced exile to a different zone or a later exile incarnation cannot be
+returned by this instruction. Tokens leave but cannot return (CR 111.8). Triggers
+wait for resolution to finish; there is no priority window between the moves.
+Delayed returns, rebound, and exile linked to a source are separate mechanics.
