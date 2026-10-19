@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 286,
+    "cardRegistrations": 280,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -31,9 +31,9 @@
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 2,
     "instructionUnobservedGaps": 22,
-    "cardRegistrationOnlyGaps": 14,
+    "cardRegistrationOnlyGaps": 13,
     "candidateOnlyInstructionRows": 168,
-    "candidateOnlyCardRows": 272
+    "candidateOnlyCardRows": 267
   },
   "cardEffects": [
     {
@@ -470,7 +470,6 @@
       "mechanic": "replacement effect",
       "currentRegistrations": [
         "Boggart Trawler // Boggart Bog:effects[0]",
-        "Bojuka Bog:effects[0]",
         "Breeding Pool:effects[0]",
         "Bridgeworks Battle // Tanglespan Bridgeworks:effects[0]",
         "Choked Estuary:effects[0]",
@@ -590,7 +589,6 @@
         "Analyze the Pollen:effects[0]",
         "Archaeomancer's Map:effects[0]",
         "Cultivate:effects[0]",
-        "Deathsprout:effects[1]",
         "Dreamscape Artist:effects[0]",
         "Entish Restoration:effects[0]",
         "Fabled Passage:effects[0]",
@@ -606,7 +604,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 40,
+        "matches": 37,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1731 — test('restores an interrupted Analyze the Pollen library search', async () => {",
@@ -760,7 +758,6 @@
         "Cling to Dust:effects[1]",
         "Colossification:effects[0]",
         "Condemn:effects[0]",
-        "Deathsprout:effects[0]",
         "Desertion:effects[0]",
         "Dovin's Veto:effects[1]",
         "Drag to the Roots:effects[1]",
@@ -774,14 +771,12 @@
         "Hagra Mauling // Hagra Broodpit:effects[1]",
         "Hatred:effects[1]",
         "Irenicus's Vile Duplication:effects[0]",
-        "Join the Dead:effects[0]",
         "Keep Safe:effects[0]",
         "Khalni Ambush // Khalni Territory:effects[1]",
         "Khalni Ambush // Khalni Territory:effects[2]",
         "Life from the Loam:effects[1]",
         "Malakir Rebirth:effects[0]",
         "Mana Drain:effects[0]",
-        "Meteor Golem:effects[0]",
         "Mirrorweave:effects[0]",
         "Nanogene Conversion:effects[0]",
         "Parting Gust:effects[1]",
@@ -804,7 +799,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 87,
+        "matches": 82,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -868,7 +863,6 @@
         "Blossoming Tortoise:effects[0]",
         "Blossoming Tortoise:effects[1]",
         "Boggart Trawler // Boggart Bog:effects[1]",
-        "Bojuka Bog:effects[1]",
         "Braids, Conjurer Adept:effects[0]",
         "Breena, the Demagogue:effects[0]",
         "Bubbling Muck:effects[0]",
@@ -905,7 +899,6 @@
         "Guardian Project:effects[0]",
         "Hedge Shredder:effects[0]",
         "Hedge Shredder:effects[1]",
-        "Hedron Crab:effects[0]",
         "Hostile Negotiations:effects[0]",
         "Hypergenesis:effects[0]",
         "Icetill Explorer:effects[2]",
@@ -979,7 +972,6 @@
         "Talon Gates of Madara:effects[0]",
         "Terastodon:effects[0]",
         "Test of Endurance:effects[0]",
-        "Thorn Mammoth:effects[0]",
         "Toxic Deluge:effects[1]",
         "Trap the Trespassers:effects[0]",
         "Wall of Shards:effects[0]",
@@ -999,7 +991,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 393,
+        "matches": 392,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -2357,9 +2349,9 @@
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
           "rules-engine/src/cardPlugins/registry.test.ts:257 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:603 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1020 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1029 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1043 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1017 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1026 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1040 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3000,8 +2992,7 @@
       "variant": "exileTargetPlayerGraveyard",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
-        "Boggart Trawler // Boggart Bog:effects[1].do[0]",
-        "Bojuka Bog:effects[1].do[0]"
+        "Boggart Trawler // Boggart Bog:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -3010,9 +3001,9 @@
           "rules-engine/src/cardPlugins/entersTapped.test.ts:335 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:381 — test('Boggart Bog cannot pay three life at two life', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:525 — test('rejects duplicate, unknown, and wrong-controller target submissions', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:542 — test('Bojuka Bog triggers on a land drop and can exile its controller graveyard', () => {",
+          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:554 — test('Bojuka Bog triggers on a land drop and can exile its controller graveyard', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:571 — test('Trawler exile still resolves after its source stops being a creature', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:457 — test('Kambal added mana and graveyard cards stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:458 — test('Kambal added mana and graveyard cards stay registered', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:180 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:191 — test('a token copy of Trawler carries its graveyard exile trigger', () => {"
         ]
@@ -3133,10 +3124,11 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:671 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:683 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:837 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
           "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:247 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
         ]
@@ -3183,8 +3175,7 @@
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
         "Apex Altisaur:effects[0].do[0]",
-        "Kogla, the Titan Ape:effects[0].do[0]",
-        "Thorn Mammoth:effects[0].do[0]"
+        "Kogla, the Titan Ape:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -3612,14 +3603,13 @@
         "Beza, the Bounding Spring:effects[0].do[3]",
         "Field of the Dead:effects[1].do[0]",
         "Finale of Devastation:effects[1].spec.then[0]",
-        "Join the Dead:effects[0].do[0]",
         "Parting Gust:effects[1].do[0]",
         "Perch Protection:effects[1].do[4]",
         "Scute Swarm:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 32,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:296 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:340 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
@@ -3956,7 +3946,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:821 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:818 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3982,7 +3972,7 @@
           "live-runner/src/kernelFacts.test.ts:94 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:868 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:397 — test('a supported one-target spell carries its chosen target through the fast path', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:122 — test('Reanimate steals the creature and charges its mana value in life', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:116 — test('Reanimate steals the creature and charges its mana value in life', () => {",
           "rules-engine/src/replay.test.ts:330 — test('a spell on the stack announces what it targets', () => {",
           "site/src/TableBoard.test.tsx:352 — test('a targeted fast cast asks for its target after Cast', () => {"
         ]
@@ -4195,14 +4185,12 @@
       "variant": "millTarget",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
-        "Hedron Crab:effects[0].do[0]",
         "Will of the Sultai:effects[0].modes[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
+        "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:284 — test('Hedron Crab mills a chosen player on landfall', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:189 — test('Will of the Sultai mills a chosen opponent and returns lands on the first mode', () => {"
         ]
       },
@@ -4596,19 +4584,16 @@
       "variant": "pump",
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
-        "Join the Dead:effects[0].do[0].whenFalse[0]",
-        "Join the Dead:effects[0].do[0].whenTrue[0]",
         "Retreat to Hagra:effects[0].do[0].modes[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:82 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:714 — test('Join the Dead uses descend 4 for its full penalty', () => {"
+          "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4818,7 +4803,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:644 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:638 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -5280,7 +5265,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:644 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:638 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -7092,7 +7077,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:644 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:638 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [pumpTargetX, returnCreatureManaValueX]",
@@ -7335,46 +7320,6 @@
       "pluginIds": [],
       "handlerIds": [
         "choiceEffects",
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Bojuka Bog",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Bojuka Bog"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:335 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:525 — test('rejects duplicate, unknown, and wrong-controller target submissions', () => {",
-          "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:542 — test('Bojuka Bog triggers on a land drop and can exile its controller graveyard', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:457 — test('Kambal added mana and graveyard cards stay registered', () => {",
-          "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:180 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
-          "rules-engine/src/plugins/doubleFaced.test.ts:124 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, trigger] and instructions [exileTargetPlayerGraveyard]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "exileTargetPlayerGraveyard"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
         "entersTapped"
       ],
       "embeddedRulePaths": []
@@ -8625,41 +8570,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Deathsprout",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Deathsprout"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:52 — test('the Homer commander is registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:49 — test('Deathsprout rejects a noncreature target', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:75 — test('Deathsprout destroys its target and completes the private basic search', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search, targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search",
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Debt to the Deathless",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8883,7 +8793,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1446 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:526 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:520 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions []",
@@ -9501,7 +9411,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:821 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:818 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [loseLifeTargetController]",
@@ -10332,37 +10242,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Hedron Crab",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hedron Crab"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:284 — test('Hedron Crab mills a chosen player on landfall', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [millTarget]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "millTarget"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Hermit Druid",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10794,42 +10673,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Join the Dead",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Join the Dead"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:714 — test('Join the Dead uses descend 4 for its full penalty', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [if, pump]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "if",
-        "pump"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Joint Exploration",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10955,8 +10798,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:52 — test('the Homer commander is registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:152 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:191 — test('Keep Safe counters the targeted spell and draws a card', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:146 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:185 — test('Keep Safe counters the targeted spell and draws a card', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [draw]",
@@ -11802,37 +11645,6 @@
       "pluginIds": [],
       "handlerIds": [
         "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Meteor Golem",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Meteor Golem"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/plugDackPart36Creatures.test.ts:193 — test('Meteor Golem destroys an opponent nonland on ETB', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:815 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -12964,7 +12776,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:463 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:457 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [surveil]",
@@ -13262,7 +13074,7 @@
           "live-runner/src/kernelFacts.test.ts:94 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:868 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:397 — test('a supported one-target spell carries its chosen target through the fast path', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:122 — test('Reanimate steals the creature and charges its mana value in life', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:116 — test('Reanimate steals the creature and charges its mana value in life', () => {",
           "rules-engine/src/replay.test.ts:330 — test('a spell on the stack announces what it targets', () => {",
           "site/src/TableBoard.test.tsx:352 — test('a targeted fast cast asks for its target after Cast', () => {"
         ]
@@ -15195,9 +15007,9 @@
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
           "rules-engine/src/cardPlugins/registry.test.ts:257 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:603 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1020 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1029 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1043 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1017 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1026 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1040 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyThenTokenForController]",
@@ -15321,38 +15133,6 @@
         "activated",
         "becomeCopyOfTarget",
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Thorn Mammoth",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Thorn Mammoth"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [fightUpToOne]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "fightUpToOne"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "fight"
       ],
       "embeddedRulePaths": []
     },
@@ -15766,7 +15546,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:73 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:595 — test('Victimize sacrifices then returns both targeted creatures tapped', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:589 — test('Victimize sacrifices then returns both targeted creatures tapped', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
@@ -16921,7 +16701,7 @@
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:127 — test('structuredClone keeps the staticBoardPump static effect', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:183 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1062 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1059 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
           "rules-engine/src/formats.test.ts:18 — test('Commander supports an arbitrary three-player table', () => {"
         ]
       },
@@ -17712,7 +17492,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 212,
+        "matches": 214,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -18642,7 +18422,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1997",
+        "rules-engine/src/cardPlugins/cardRules.ts:1969",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18774,8 +18554,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1072",
-        "rules-engine/src/cardPlugins/cardRules.ts:288",
+        "rules-engine/src/cardPlugins/cardRules.ts:1055",
+        "rules-engine/src/cardPlugins/cardRules.ts:286",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",

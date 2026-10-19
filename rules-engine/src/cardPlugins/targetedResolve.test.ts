@@ -4,9 +4,7 @@ import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
 import type { GameEvent, GameState, ReduceResult } from '../types'
 import {
-  SEARCH_CHOSEN,
   librarySearch,
-  pendingSearch,
 } from './librarySearch'
 import { targetedResolve } from './targetedResolve'
 import { targetOnResolve, targetsOnResolve } from './effects'
@@ -64,7 +62,7 @@ describe('targeted spell resolution', () => {
       targets: [{ kind: 'object', objectId: named(ready, 'Rock').id }],
     })
     expect(result.ok).toBe(false)
-    expect(result.ok === false && result.error).toContain('illegal target')
+    expect(result.ok === false && result.error).toContain('canonical targets')
   })
 
   test('Deathsprout destroys its target and completes the private basic search', () => {
@@ -95,19 +93,15 @@ describe('targeted spell resolution', () => {
       },
       { type: 'resolveTop' },
     ])
-    expect(pendingSearch(opened, 'p1')?.source).toBe('Deathsprout')
-    expect(opened.objects[bear].zone).toBe('battlefield')
+    const selection = pendingSelectionFor(opened, 'p1')!
+    expect(selection).toBeDefined()
+    expect(opened.objects[bear].zone).toBe('graveyard')
     const opponentView = server.project(opened, 'p2')
     expect(opponentView.zoneOrder.p1.library).toEqual([])
     expect(Object.values(opponentView.objects).some((object) => object.name === 'Forest')).toBe(false)
 
     const basic = named(opened, 'Forest').id
-    const resolved = run(server, opened, [
-      { type: 'move', objectId: basic, to: 'battlefield' },
-      { type: 'tap', objectId: basic },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const resolved = resolveStack(server.rules, ok(server.rules(opened, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [basic] })))
     expect(resolved.objects[bear].zone).toBe('graveyard')
     expect(resolved.objects[basic].zone).toBe('battlefield')
     expect(resolved.objects[basic].tapped).toBe(true)
@@ -727,7 +721,10 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       )
       const spell = named(server.state, 'Join the Dead')
       const target = named(server.state, 'Target')
-      const cast = ok(server.rules(server.state, {
+      const ready = structuredClone(server.state)
+      ready.players.p1.mana.B = 2
+      ready.players.p1.mana.C = 1
+      const cast = ok(server.rules(ready, {
         type: 'castSpell',
         seat: 'p1',
         objectId: spell.id,
