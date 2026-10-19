@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  activated,
   blinkUntil,
   chooseX,
   variable,
@@ -269,4 +270,29 @@ test('a non-targeting delayed callback retains announced variables across restor
   const restored = restoreJournal(createJournal(delayed), server.rules).current()
   const atEnd = ok(server.rules({ ...restored, step: 'postcombatMain' }, { type: 'advanceStep' }))
   expect(resolveStack(server.rules, atEnd).players.p1.life).toBe(43)
+})
+
+test.each([false, true])('cleanup delayed source movement preserves incarnation through restore (reentered=%s)', reentered => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+    costs: [],
+    instructions: [createDelayed({ condition: stepDelayed({ step: 'cleanup' }), instructions: [move({ targets: ref('source'), to: 'hand' })] })],
+  })])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Delayed permanent', { types: ['Artifact'], ruleDefinition: definition })] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.battlefield[0]!
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' })))
+  expect(state.objects[source].zone).toBe('battlefield')
+  expect(state.delayedTriggers).toHaveLength(1)
+  if (reentered) {
+    state = ok(server.rules(state, { type: 'move', objectId: source, to: 'hand' }))
+    state = ok(server.rules(state, { type: 'move', objectId: source, to: 'battlefield' }))
+  }
+  state = JSON.parse(JSON.stringify(state))
+  state = ok(server.rules({ ...state, step: 'end', priority: null }, { type: 'advanceStep' }))
+  expect(state.step).toBe('cleanup')
+  state = resolveStack(server.rules, state)
+  expect(state.objects[source].zone).toBe(reentered ? 'battlefield' : 'hand')
+  expect(state.delayedTriggers).toHaveLength(0)
 })

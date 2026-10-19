@@ -111,6 +111,7 @@ import sunkenHollow from './sunken-hollow'
 import templeOfDeceit from './temple-of-deceit'
 import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
+import thawingGlaciers from './thawing-glaciers'
 import thornMammoth from './thorn-mammoth'
 import thragtusk from './thragtusk'
 import threeVisits from './three-visits'
@@ -249,6 +250,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Temple of Deceit": templeOfDeceit,
   "Terramorphic Expanse": terramorphicExpanse,
   "Thalia's Lancers": thaliasLancers,
+  "Thawing Glaciers": thawingGlaciers,
   "Thorn Mammoth": thornMammoth,
   "Thragtusk": thragtusk,
   "Three Visits": threeVisits,

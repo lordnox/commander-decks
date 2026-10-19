@@ -890,3 +890,16 @@ test("Thrór's Map composes a revealed basic search and draw-before-discard acti
     ] },
   ])
 })
+
+test('Thawing Glaciers enters tapped and schedules its return after the basic land search', () => {
+  expect(cardRuleDefinitionSnapshotFor('Thawing Glaciers')!.definition.abilities).toMatchObject([
+    { kind: 'static' },
+    { kind: 'activated', costs: [{ kind: 'mana' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'sequence', instructions: [
+        { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+        { kind: 'move', to: 'battlefield', tapped: true }, { kind: 'shuffle' },
+      ] },
+      { kind: 'createDelayed', condition: { kind: 'step', step: 'cleanup' }, instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] },
+    ] },
+  ])
+})
