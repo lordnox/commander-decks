@@ -45,7 +45,7 @@ import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, matchesPlayer } from '../cardPlugins/dsl/compiler/runtime'
+import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
 import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
@@ -199,10 +199,8 @@ const canonicalFilterMatch = (
   if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
   if (plain.token !== undefined && object.token !== plain.token) return false
   if (plain.name !== undefined && object.name !== plain.name) return false
-  for (const key of ['controller', 'owner'] as const) {
-    const match = plain[key]
-    if (match !== undefined && !matchesPlayer(object[key], match, context)) return false
-  }
+  if (mismatchesController(object, plain, context)) return false
+  if (mismatchesOwner(object, plain, context)) return false
   return true
 }
 

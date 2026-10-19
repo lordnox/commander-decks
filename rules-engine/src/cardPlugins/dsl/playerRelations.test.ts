@@ -5,7 +5,7 @@ import { captureObject } from '../../objectIdentity'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './compiler/runtime'
+import { evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector, matchesController, matchesOwner, matchesPlayer, mismatchesController, mismatchesOwner, mismatchesPlayer } from './compiler/runtime'
 import type { RuleDslRuntimeContext } from './compiler/runtime'
 import { card, choice, compileCardRuleDefinition, createDefinitionSnapshot, destroy, enters, gainLife, objects, PLAYER_RELATIONS, players, ref, select, spell, stackItems, target, whenever } from './v1'
 
@@ -114,5 +114,22 @@ test.each(['controller', 'owner'] as const)('%s relation filters also govern cap
   for (const name of ['Teammate artifact', 'Opponent artifact']) {
     state = resolveStack(server.rules, ok(server.rules(state, { type: 'move', objectId: named(state, name).id, to: 'battlefield' })))
     expect(state.players.p1.life).toBe(41)
+  }
+})
+
+// Both predicates preserve fallthrough when the optional constraint is absent.
+test.each([undefined, ...Object.values(PLAYER_RELATIONS)])('paired relation helpers distinguish absence from mismatch (%s)', relation => {
+  const context = contextFor()
+  for (const player of seats) {
+    const expectedMatch = relation !== undefined && evaluatePlayerSelector(players({ relation }), context).includes(player)
+    const expectedMismatch = relation !== undefined && !expectedMatch
+    for (const [matches, mismatches] of [
+      [matchesPlayer(player, relation, context), mismatchesPlayer(player, relation, context)],
+      [matchesController({ controller: player }, { controller: relation }, context), mismatchesController({ controller: player }, { controller: relation }, context)],
+      [matchesOwner({ owner: player }, { owner: relation }, context), mismatchesOwner({ owner: player }, { owner: relation }, context)],
+    ]) {
+      expect(matches).toBe(expectedMatch)
+      expect(mismatches).toBe(expectedMismatch)
+    }
   }
 })
