@@ -426,6 +426,9 @@ export const damage = (input: {
   source: input.source,
 })
 
+export const grantLandPlays = (input: { count: AmountInput; targets: PlayerRecipient }) =>
+  immutableData({ kind: 'grantLandPlays' as const, count: toAmount(input.count), targets: input.targets })
+
 export const mill = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'mill', count: toAmount(input.count), targets: input.targets })
 

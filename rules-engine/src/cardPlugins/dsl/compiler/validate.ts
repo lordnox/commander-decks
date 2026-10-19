@@ -543,6 +543,7 @@ export const validateDefinitionV1 = (root: unknown): {
       }
       case 'loseLife': amountInstruction('amount', ['player']); return
       case 'gainLife': amountInstruction('amount', ['player']); return
+      case 'grantLandPlays':
       case 'draw': amountInstruction('count', ['player']); return
       case 'scry':
       case 'surveil':
