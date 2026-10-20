@@ -506,14 +506,14 @@ describe('librarySearch', () => {
 
     expect(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: artist,
     }).ok).toBe(false)
 
     const opened = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: artist,
       choices: [discarded, landId],
@@ -521,7 +521,11 @@ describe('librarySearch', () => {
     expect(opened.objects[artist]).toMatchObject({ zone: 'battlefield', tapped: true })
     expect(opened.objects[discarded].zone).toBe('graveyard')
     expect(opened.objects[landId].zone).toBe('graveyard')
-    expect(pendingSearch(opened, 'p1')?.source).toBe('Dreamscape Artist')
+    const searching = resolveStack(server.rules, opened)
+    const selection = pendingSelectionFor(searching, 'p1')!
+    expect(selection).toMatchObject({ kind: 'choose', min: 0, count: 2 })
+    const finished = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 2, objectIds: selection.candidates }))
+    for (const id of selection.candidates) expect(finished.objects[id]).toMatchObject({ zone: 'battlefield', tapped: false })
   })
 
 

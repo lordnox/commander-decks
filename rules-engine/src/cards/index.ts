@@ -33,6 +33,7 @@ import diabolicTutor from './diabolic-tutor'
 import dimirAqueduct from './dimir-aqueduct'
 import dimirSignet from './dimir-signet'
 import dismember from './dismember'
+import dreamscapeArtist from './dreamscape-artist'
 import drownedCatacomb from './drowned-catacomb'
 import duskdaleWurm from './duskdale-wurm'
 import eclipsedSteppe from './eclipsed-steppe'
@@ -174,6 +175,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Dimir Aqueduct": dimirAqueduct,
   "Dimir Signet": dimirSignet,
   "Dismember": dismember,
+  "Dreamscape Artist": dreamscapeArtist,
   "Drowned Catacomb": drownedCatacomb,
   "Duskdale Wurm": duskdaleWurm,
   "Eclipsed Steppe": eclipsedSteppe,

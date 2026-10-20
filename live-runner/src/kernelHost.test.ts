@@ -2644,12 +2644,15 @@ describe('kernel host journal', () => {
     const lobby = createLobby()
     lobby.phase = 'play'
 
+    const action = legalActsFor(initial, 'p1').find(candidate => candidate.kind === 'activateAbility' && candidate.objectId === artist.id)!
+    if (action.kind !== 'activateAbility') throw new Error('Expected activated ability')
+    expect(action.targetGroups).toHaveLength(2)
     applyKernelAct(kernel, lobby, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: artist.id,
-      abilityId: SEARCH_FETCH,
-      text: 'Search your library for up to two basic land cards.',
+      abilityId: '$.abilities[0]',
+      text: action.text,
       targetObjectIds: [card.id, land.id],
     })
 
@@ -2660,7 +2663,7 @@ describe('kernel host journal', () => {
       type: 'activateAbility',
       objectId: artist.id,
       choices: [card.id, land.id],
-      targets: [],
+      targetClauses: [],
     })
   })
 
