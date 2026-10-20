@@ -38,6 +38,7 @@ import { PENDING_PLAYER_SELECTION, pendingPlayerSelection } from './rules/select
 import { PENDING_OPTION_SELECTION, pendingOptionSelection, settleResolutionPayment } from './rules/selectOptions'
 import { PENDING_DIALOG, dialogCandidates, pendingDialog } from './pendingDialog'
 import { finishedSpellZone } from './cardPlugins/alternateCosts'
+import { canonicalCyclingEvent } from './cardPlugins/cycling'
 import {
   SEARCH_CHOSEN,
   SEARCH_PENDING,
@@ -1333,13 +1334,22 @@ const driveResolution = (
       }
     }
     const completed = makeDraft(current)
-    const completedInline = completed.resolution?.kind === 'canonicalSpell'
-      && Boolean(completed.resolution.inlineItem)
-    const completedInlineItem = completedInline && completed.resolution?.kind === 'canonicalSpell'
-      ? completed.resolution.inlineItem
+    const completedSpell = completed.resolution?.kind === 'canonicalSpell' ? completed.resolution : undefined
+    const completedInline = Boolean(completedSpell?.inlineItem)
+    const completedInlineItem = completedSpell?.inlineItem
+    const completedItem = completedSpell
+      ? completed.stack.find(item => item.id === completedSpell.stackId)
       : undefined
+    const cyclingEvent = !completedInline && completedItem ? canonicalCyclingEvent(completedItem) : undefined
     finishResolution(completed)
     let completedState = freezeDraft(completed)
+    if (cyclingEvent) {
+      const cycle = applyEventTree(completedState, cyclingEvent, catalog)
+      if (cycle.ok) {
+        entries.push(...nested(cycle.trace, 1))
+        completedState = cycle.state
+      }
+    }
     if (completedInline) {
       if (completedInlineItem?.execution?.abilityIndex !== undefined) {
         const completion = applyEventTree(completedState, {

@@ -108,6 +108,7 @@ describe('announcement transactions', () => {
         p2: {}, p3: {},
       },
       objects: {
+        tide: { id: 'tide', name: 'Tide', controller: 'p1', zone: 'hand', types: ['Sorcery'], token: false },
         a: { id: 'a', name: 'A', controller: 'p1', zone: 'hand', types: ['Land'], token: false },
         b: { id: 'b', name: 'B', controller: 'p1', zone: 'hand', types: ['Land'], token: false },
         c: { id: 'c', name: 'C', controller: 'p1', zone: 'hand', types: ['Land'], token: false },
