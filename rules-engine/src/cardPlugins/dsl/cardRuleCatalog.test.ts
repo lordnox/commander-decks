@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
+import { KEYWORDS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -933,4 +933,19 @@ test('Hermit Druid reveals through a basic land, putting the rest into the grave
       { kind: 'revealUntil', match: { kind: 'objects', filter: { zone: 'library', type: 'Land', supertypes: ['Basic'] } }, foundTo: 'hand', rest: REVEAL_UNTIL_REST.graveyard },
     ] },
   ])
+})
+
+test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {
+  const abilities = cardRuleDefinitionSnapshotFor('End-Raze Forerunners')!.definition.abilities
+  expect(abilities.slice(0, 3)).toEqual([KEYWORDS.vigilance, KEYWORDS.trample, KEYWORDS.haste].map(keyword => ({ kind: 'keyword', keyword })))
+  const trigger = abilities[3]
+  expect(trigger).toMatchObject({ kind: 'triggered', on: { kind: 'enters' } })
+  if (trigger.kind !== 'triggered') throw new Error('Expected entry trigger')
+  expect(trigger.instructions).toEqual([
+    { kind: 'pump', power: { kind: 'constant', value: 2 }, toughness: { kind: 'constant', value: 2 } },
+    { kind: 'grantKeyword', keyword: KEYWORDS.vigilance },
+    { kind: 'grantKeyword', keyword: KEYWORDS.trample },
+  ].map(effect => expect.objectContaining({
+    kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature', other: true } }, effect, duration: { kind: 'untilCleanup' },
+  })))
 })

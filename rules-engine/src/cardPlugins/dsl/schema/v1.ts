@@ -490,7 +490,7 @@ export type ContinuousEffectDefinition =
   | PreventionEffectDefinition
 
 export const KEYWORDS = {
-  defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash',
+  defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 

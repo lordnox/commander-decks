@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 269,
+    "cardRegistrations": 268,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 257
+    "candidateOnlyCardRows": 256
   },
   "cardEffects": [
     {
@@ -870,7 +870,6 @@
         "Darkness:effects[0]",
         "Debt to the Deathless:effects[1]",
         "Dig Through Time:effects[1]",
-        "End-Raze Forerunners:effects[0]",
         "Erestor of the Council:effects[0]",
         "Eureka:effects[0]",
         "Everflowing Chalice:effects[1]",
@@ -976,7 +975,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 391,
+        "matches": 390,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -3447,18 +3446,15 @@
       "variant": "grantControlled",
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
-        "End-Raze Forerunners:effects[0].do[1]",
         "Finale of Devastation:effects[1].spec.then[0].whenTrue[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/librarySearch.test.ts:709 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:757 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:177 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:230 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sharedHaste.test.ts:14 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:177 — test('the Sin Fall finisher cards load their handlers', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -4551,11 +4547,12 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:82 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:854 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:945 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {"
         ]
@@ -4619,7 +4616,6 @@
       "variant": "pumpControlled",
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
-        "End-Raze Forerunners:effects[0].do[0]",
         "Finale of Devastation:effects[1].spec.then[0].whenTrue[0]",
         "Overwhelming Stampede:effects[0].do[0]",
         "Pathbreaker Ibex:effects[0].do[0]",
@@ -4627,14 +4623,13 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/librarySearch.test.ts:709 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:757 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:570 — test('swaps creature control until cleanup', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:177 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:230 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sharedHaste.test.ts:14 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:233 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -8735,41 +8730,6 @@
       "handlerIds": [
         "alternateCosts",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "End-Raze Forerunners",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.End-Raze Forerunners"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:230 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sharedHaste.test.ts:14 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [grantControlled, pumpControlled]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "grantControlled",
-        "pumpControlled"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -17987,7 +17947,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1902",
+        "rules-engine/src/cardPlugins/cardRules.ts:1896",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18119,7 +18079,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1015",
+        "rules-engine/src/cardPlugins/cardRules.ts:1009",
         "rules-engine/src/cardPlugins/cardRules.ts:282",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
