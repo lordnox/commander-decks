@@ -213,7 +213,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'other', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'other', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
@@ -221,6 +221,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.powerAtLeast !== undefined) integer(node.powerAtLeast, childPath(path, 'powerAtLeast'), { min: -MAX_LITERAL_AMOUNT })
     if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
     if (node.attacking !== undefined && typeof node.attacking !== 'boolean') issue(childPath(path, 'attacking'), 'type', 'expected a boolean')
+    if (node.among !== undefined) validateReference(node.among, childPath(path, 'among'), env, ['object'])
     if (node.subtypes !== undefined) array(node.subtypes, childPath(path, 'subtypes')).forEach((part, index) => {
       if (typeof part !== 'string') issue(childPath(childPath(path, 'subtypes'), index), 'type', 'expected a string')
     })

@@ -2319,6 +2319,66 @@ describe('kernel host journal', () => {
     expect(state.objects[sourceId].zone).toBe('graveyard')
   })
 
+  test('Cultivate puts one basic onto the battlefield tapped and the other into hand', () => {
+    const server = createServerGame(
+      commanderRules,
+      {
+        first: 'p1',
+        hands: { p1: [cardTemplate('Cultivate', { types: ['Sorcery'], manaCost: '{2}{G}' })] },
+        libraries: {
+          p1: [
+            cardTemplate('Alpha Forest', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
+            cardTemplate('Beta Forest', { types: ['Land'], subtypes: ['Forest'], supertypes: ['Basic'] }),
+          ],
+        },
+      },
+      { random: () => 0 },
+    )
+    const initial = structuredClone(server.state)
+    initial.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 3, C: 0 }
+    const spellId = initial.zoneOrder.p1.hand[0]
+    const kernel = handleFor(server.rules, initial)
+    for (const event of [
+      { type: 'castSpell' as const, seat: 'p1', objectId: spellId },
+      { type: 'resolveTop' as const },
+    ]) {
+      const result = kernel.dispatch(event)
+      if (!result.ok) throw new Error(result.error)
+    }
+    const lobby = createLobby()
+    lobby.phase = 'play'
+    expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Alpha Forest', destination: 'target' },
+        { card: 'Beta Forest', destination: 'target' },
+      ],
+    }))).toBe(true)
+    expect(lobby.topdeck).toMatchObject({
+      seat: 'p1',
+      kind: 'choose',
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 1, max: 1 } },
+    })
+    expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
+      type: 'topdeck',
+      choices: [
+        { card: 'Alpha Forest', destination: 'target' },
+        { card: 'Beta Forest', destination: 'skip' },
+      ],
+    }))).toBe(true)
+
+    const state = kernel.history.current()
+    const alpha = Object.values(state.objects).find((object) => object.name === 'Alpha Forest')!
+    const beta = Object.values(state.objects).find((object) => object.name === 'Beta Forest')!
+    expect(alpha).toMatchObject({ zone: 'battlefield', tapped: true })
+    expect(beta.zone).toBe('hand')
+    expect(state.objects[spellId].zone).toBe('graveyard')
+    expect(state.stack).toHaveLength(0)
+    expect(lobby.topdeck).toBeUndefined()
+  })
+
   test('Myriad Landscape rejects basics that do not share a land type', () => {
     const { kernel, lobby } = abilitySearchGame(
       'Myriad Landscape',

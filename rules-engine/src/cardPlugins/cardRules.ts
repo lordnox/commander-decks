@@ -146,7 +146,6 @@ import {
   secretCouncil,
   selfMill,
   sharedBasicLandType,
-  splitBasicLandSearch,
   spree,
   spreeMode,
   staticExtraLandPlays,
@@ -706,7 +705,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landToGraveyardOnce(insect),
   ],
   'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
-  'Cultivate': [searchSpell(splitBasicLandSearch())],
   'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Dack Fayden, Helping Hand': [
@@ -1090,7 +1088,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [gainControlPermanent(true)],
     },
   )],
-  "Kodama's Reach": [searchSpell(splitBasicLandSearch())],
   'Kogla, the Titan Ape': [enters(fightUpToOne())],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),

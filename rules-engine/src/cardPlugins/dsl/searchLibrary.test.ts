@@ -7,7 +7,7 @@ import { createServerGame, projectForViewer } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, lifeCost, objects, ref, sacrificeCost, searchLibrary, tapCost } from './v1'
+import { activated, card, compileCardRuleDefinition, createDefinitionSnapshot, lifeCost, objects, ref, sacrificeCost, searchLibrary, splitSearchLibrary, tapCost } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find((object) => object.name === name)!
 const singleSearchSetup = (library = ['Prize', 'Filler A', 'Filler B']) => createServerGame(commanderRules, {
@@ -243,5 +243,96 @@ test('an optional basic search can find no card without untapping an existing la
   const finished = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [] }))
   expect(named(finished, 'Basic prize').zone).toBe('library')
   expect(finished.zoneOrder.p1.battlefield.every(id => finished.objects[id].tapped)).toBe(true)
+  expect(finished.resolution).toBeUndefined()
+})
+
+const splitSearchSetup = (library: string[]) => createServerGame(commanderRules, {
+  players: 2,
+  hands: { p1: [instructionSpell({ instructions: [splitSearchLibrary({
+    bindChoice: 'found',
+    subsetBindChoice: 'battlefieldLand',
+    chooser: ref('controller'),
+    filter: objects({ zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] }),
+    min: 0,
+    max: 2,
+    subset: { min: 1, max: 1, to: 'battlefield', tapped: true },
+    remainderTo: 'hand',
+  })] })] },
+  libraries: {
+    p1: library.map(name => name === 'Filler'
+      ? cardTemplate(name, { types: ['Instant'] })
+      : cardTemplate(name, { types: ['Land'], supertypes: ['Basic'], subtypes: ['Forest'] })),
+    p2: [cardTemplate('Their Secret')],
+  },
+}, { random: () => 0 })
+const splitSearchBegin = (server: ReturnType<typeof splitSearchSetup>) => {
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: named(server.state, 'Instruction fixture').id }))
+  return resolveStack(server.rules, cast)
+}
+const selectNamed = (server: ReturnType<typeof splitSearchSetup>, state: GameState, names: string[]) => {
+  const pick = pendingSelectionFor(state, 'p1')!
+  return ok(server.rules(state, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count,
+    objectIds: names.map(name => named(state, name).id),
+  }))
+}
+
+test('splitSearchLibrary puts one of two basics onto the battlefield tapped and the other into hand', () => {
+  const server = splitSearchSetup(['Alpha Forest', 'Beta Forest', 'Filler'])
+  const searching = splitSearchBegin(server)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  expect(pick.viewLibrary).toBe(true)
+  expect(pick.min).toBe(0)
+  expect(pick.count).toBe(2)
+  expect(pendingSelectionFor(projectForViewer(searching, 'p2'), 'p1')).toBeUndefined()
+  expect(Object.values(projectForViewer(searching, 'p2').objects).some(object => object.name === 'Alpha Forest')).toBe(false)
+  expect(server.rules(searching, {
+    type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 2,
+    objectIds: [named(searching, 'Alpha Forest').id, named(searching, 'Alpha Forest').id],
+  }).ok).toBe(false)
+
+  const choosingSubset = selectNamed(server, searching, ['Alpha Forest', 'Beta Forest'])
+  expect(server.project(choosingSubset, 'p2').players.p1.data.revealed_library).toEqual(['Alpha Forest', 'Beta Forest'])
+  expect(Object.values(server.project(choosingSubset, 'p2').objects).some(object => object.name === 'Filler')).toBe(false)
+  const subset = pendingSelectionFor(choosingSubset, 'p1')!
+  expect(subset.candidates).toEqual([named(choosingSubset, 'Alpha Forest').id, named(choosingSubset, 'Beta Forest').id])
+  expect(subset.min).toBe(1)
+  expect(subset.count).toBe(1)
+  expect(server.rules(choosingSubset, {
+    type: 'selectCards', seat: 'p1', selectionId: subset.id, kind: 'choose', count: 1, objectIds: [],
+  }).ok).toBe(false)
+  expect(server.rules(choosingSubset, {
+    type: 'selectCards', seat: 'p1', selectionId: subset.id, kind: 'choose', count: 1,
+    objectIds: [named(choosingSubset, 'Alpha Forest').id, named(choosingSubset, 'Beta Forest').id],
+  }).ok).toBe(false)
+
+  const restored = restoreJournal(createJournal(choosingSubset), server.rules).current()
+  const finished = selectNamed(server, restored, ['Alpha Forest'])
+  expect(named(finished, 'Alpha Forest')).toMatchObject({ zone: 'battlefield', tapped: true, controller: 'p1' })
+  expect(named(finished, 'Beta Forest').zone).toBe('hand')
+  expect(named(finished, 'Filler').zone).toBe('library')
+  expect(named(finished, 'Instruction fixture').zone).toBe('graveyard')
+  expect(finished.players.p1.landsPlayed).toBe(0)
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('splitSearchLibrary puts a single found basic onto the battlefield tapped', () => {
+  const server = splitSearchSetup(['Lone Forest', 'Filler'])
+  const searching = splitSearchBegin(server)
+  const choosingSubset = selectNamed(server, searching, ['Lone Forest'])
+  const finished = selectNamed(server, choosingSubset, ['Lone Forest'])
+  expect(named(finished, 'Lone Forest')).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(named(finished, 'Filler').zone).toBe('library')
+  expect(finished.zoneOrder.p1.hand).toEqual([])
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('splitSearchLibrary shuffles after finding no card', () => {
+  const server = splitSearchSetup(['Lone Forest', 'Filler'])
+  const searching = splitSearchBegin(server)
+  const finished = selectNamed(server, searching, [])
+  expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
+  expect(named(finished, 'Lone Forest').zone).toBe('library')
+  expect(finished.zoneOrder.p1.library).not.toEqual(searching.zoneOrder.p1.library)
   expect(finished.resolution).toBeUndefined()
 })
