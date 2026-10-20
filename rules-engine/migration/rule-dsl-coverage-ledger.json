@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 254,
+    "cardRegistrations": 253,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 27,
     "cardRegistrationOnlyGaps": 9,
     "candidateOnlyInstructionRows": 164,
-    "candidateOnlyCardRows": 245
+    "candidateOnlyCardRows": 244
   },
   "cardEffects": [
     {
@@ -912,7 +912,6 @@
         "Reins of Power:effects[0]",
         "Repay in Kind:effects[0]",
         "Reprocess:effects[0]",
-        "Retreat to Hagra:effects[0]",
         "Ripples of Undeath:effects[0]",
         "Rishkar's Expertise:effects[0]",
         "Roaming Throne:effects[2]",
@@ -953,7 +952,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 385,
+        "matches": 384,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1581,21 +1580,20 @@
       "variant": "chooseModes",
       "mechanic": "scoped announcement modes",
       "currentRegistrations": [
-        "Rankle, Master of Pranks:effects[0].do[0]",
-        "Retreat to Hagra:effects[0].do[0]"
+        "Rankle, Master of Pranks:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:106 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:172 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:244 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/selectCards.test.ts:131 — test('sacrifice moves a chosen battlefield creature to the graveyard', () => {",
-          "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {"
+          "rules-engine/src/rules/selectCards.test.ts:35 — test('opens a server-owned candidate list and resolves with selectCards', () => {",
+          "site/src/CombatOverlay.test.tsx:83 — test('calls out damage aimed at the viewer', () => {"
         ]
       },
       "neededCanonicalNode": "mode decision plus scoped program",
@@ -1726,11 +1724,11 @@
         "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/ladyEvangelaRemaining.test.ts:348 — test('Wedding Ring copies for the targeted opponent and mirrors their draws', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:109 — test('Scute Swarm copies itself once the land that entered is the sixth', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:198 — test('a land entering under another seat does not trigger landfall', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:214 — test('a nonland permanent entering does not trigger landfall', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:51 — test('CR 603.3: landfall triggers sit on the stack before resolution', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:98 — test('Scute Swarm makes an Insect while its controller has few lands', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:107 — test('Scute Swarm copies itself once the land that entered is the sixth', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:196 — test('a land entering under another seat does not trigger landfall', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:212 — test('a nonland permanent entering does not trigger landfall', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:49 — test('CR 603.3: landfall triggers sit on the stack before resolution', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:96 — test('Scute Swarm makes an Insect while its controller has few lands', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:363 — test('the Lady Evangela remaining group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:40 — test('the Sin Fall cards this pass covers stay registered', () => {"
         ]
@@ -2390,9 +2388,9 @@
       "candidateEvidence": {
         "matches": 15,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts:251 — test('enters with a +1/+1 counter when its spell resolves', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:122 — test('Mossborn Hydra doubles its counters on each land', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:147 — test('a 0/0 hydra survives its counters because printed values move with them', () => {",
+          "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts:252 — test('enters with a +1/+1 counter when its spell resolves', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:120 — test('Mossborn Hydra doubles its counters on each land', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:145 — test('a 0/0 hydra survives its counters because printed values move with them', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:262 — test('the action runner emits a no-target fixed loyalty activation', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:307 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
           "rules-engine/src/plugins/combat.test.ts:161 — test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {",
@@ -3227,7 +3225,6 @@
         "Cling to Dust:effects[1].do[0].whenTrue[0]",
         "Courser of Kruphix:effects[3].do[0]",
         "Niv-Mizzet, Ghost Counsel:effects[1].do[1]",
-        "Retreat to Hagra:effects[0].do[0].modes[1].do[1]",
         "Silverback Elder:effects[0].modal.modes[2].do[0]",
         "Souls of the Faultless:effects[0].do[0]",
         "Ugin, the Spirit Dragon:effects[2].do[0]",
@@ -3460,14 +3457,12 @@
       "variant": "grantUntilEot",
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
-        "Profane Command:effects[1].modes[3].do[0]",
-        "Retreat to Hagra:effects[0].do[0].modes[0].do[1]"
+        "Profane Command:effects[1].modes[3].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
+        "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {"
         ]
@@ -3822,7 +3817,6 @@
         "Mirkwood Bats:effects[1].do[0]",
         "Niv-Mizzet, Ghost Counsel:effects[1].do[0]",
         "Rankle, Master of Pranks:effects[0].do[0].modes[1].do[0]",
-        "Retreat to Hagra:effects[0].do[0].modes[1].do[0]",
         "Souls of the Faultless:effects[0].do[1]"
       ],
       "executableCoverageEvidence": [],
@@ -3834,9 +3828,9 @@
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1026 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1098 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1122 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:146 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:794 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:794 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4319,7 +4313,7 @@
           "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
           "rules-engine/src/cardPlugins/crew.test.ts:47",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:68 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:75 — test('Mole Man creates one Moloid for each land entry', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:73 — test('Mole Man creates one Moloid for each land entry', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:66 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/triggers.test.ts:103 — test('Crawling Sensation misses a turn whose first land hit the graveyard before it', () => {",
           "rules-engine/src/rules/triggers.test.ts:25 — test('Hedge Shredder mills a land onto the stack before it enters tapped', () => {"
@@ -4485,19 +4479,17 @@
     {
       "variant": "pump",
       "mechanic": "continuous or rule-changing effect",
-      "currentRegistrations": [
-        "Retreat to Hagra:effects[0].do[0].modes[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
         "matches": 6,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1119 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:485 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:82 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:854 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:945 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
-          "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {"
+          "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -5711,7 +5703,7 @@
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:167 — test('Icetill Explorer can play a land from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:162 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:160 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:641 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
@@ -9051,8 +9043,8 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:172 — test('Field of the Dead counts itself and needs seven differently named lands', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:187 — test('duplicate land names do not reach Field of the Dead\\'s threshold', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:170 — test('Field of the Dead counts itself and needs seven differently named lands', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:185 — test('duplicate land names do not reach Field of the Dead\\'s threshold', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:122 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:29 — test('a forest table does not load the whole handler catalog', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:36 — test('the Sin Fall cards this pass covers stay registered', () => {"
@@ -9867,7 +9859,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:167 — test('Icetill Explorer can play a land from the graveyard', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:162 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:160 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {"
         ]
       },
@@ -11157,7 +11149,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/graveyardLands.test.ts:68 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:75 — test('Mole Man creates one Moloid for each land entry', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:73 — test('Mole Man creates one Moloid for each land entry', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:88 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -11228,9 +11220,9 @@
       "candidateEvidence": {
         "matches": 15,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts:251 — test('enters with a +1/+1 counter when its spell resolves', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:122 — test('Mossborn Hydra doubles its counters on each land', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:147 — test('a 0/0 hydra survives its counters because printed values move with them', () => {",
+          "rules-engine/src/cardPlugins/dsl/entryTriggers.integration.test.ts:252 — test('enters with a +1/+1 counter when its spell resolves', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:120 — test('Mossborn Hydra doubles its counters on each land', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:145 — test('a 0/0 hydra survives its counters because printed values move with them', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:262 — test('the action runner emits a no-target fixed loyalty activation', () => {",
           "rules-engine/src/cardPlugins/planeswalker.test.ts:307 — test('+1 untaps controlled targets, taps opposing targets, and gains life', () => {",
           "rules-engine/src/plugins/combat.test.ts:161 — test('a trampling attacker assigns lethal to its blocker and the rest to the player', () => {",
@@ -12553,46 +12545,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Retreat to Hagra",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Retreat to Hagra"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [chooseModes, gainLife, grantUntilEot, loseLife, pump]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "09",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "chooseModes",
-        "gainLife",
-        "grantUntilEot",
-        "loseLife",
-        "pump"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "modalSpell"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Return of the Wildspeaker",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -12975,11 +12927,11 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:109 — test('Scute Swarm copies itself once the land that entered is the sixth', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:198 — test('a land entering under another seat does not trigger landfall', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:214 — test('a nonland permanent entering does not trigger landfall', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:51 — test('CR 603.3: landfall triggers sit on the stack before resolution', () => {",
-          "rules-engine/src/cardPlugins/landfall.test.ts:98 — test('Scute Swarm makes an Insect while its controller has few lands', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:107 — test('Scute Swarm copies itself once the land that entered is the sixth', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:196 — test('a land entering under another seat does not trigger landfall', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:212 — test('a nonland permanent entering does not trigger landfall', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:49 — test('CR 603.3: landfall triggers sit on the stack before resolution', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:96 — test('Scute Swarm makes an Insect while its controller has few lands', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:40 — test('the Sin Fall cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/dslTriggers.test.ts:554 — test('draws when your land enters and ignores opponent lands and nonlands', () => {"
         ]
@@ -15026,7 +14978,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/cardPlugins/landfall.test.ts:248 — test('Yarok makes landfall happen an extra time for Aesi', () => {",
+          "rules-engine/src/cardPlugins/landfall.test.ts:246 — test('Yarok makes landfall happen an extra time for Aesi', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:63 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -16444,7 +16396,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 219,
+        "matches": 220,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -17373,7 +17325,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1763",
+        "rules-engine/src/cardPlugins/cardRules.ts:1749",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17509,8 +17461,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:275",
-        "rules-engine/src/cardPlugins/cardRules.ts:955",
+        "rules-engine/src/cardPlugins/cardRules.ts:273",
+        "rules-engine/src/cardPlugins/cardRules.ts:953",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",

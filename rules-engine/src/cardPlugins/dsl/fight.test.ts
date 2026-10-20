@@ -6,7 +6,7 @@ import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { card, compileCardRuleDefinition, createEffect, fight, gainLife, objects, preventionCreatedEffect, ref, select, spell, target, untilCleanup } from './v1'
+import { card, compileCardRuleDefinition, createEffect, fight, gainLife, objects, preventionCreatedEffect, ref, select, spell, target, untilCleanup, createDefinitionSnapshot, keyword } from './v1'
 
 const named = (state: GameState, name: string) => Object.values(state.objects).find(object => object.name === name)!
 const setup = (left: Partial<CardTemplate> = {}, right: Partial<CardTemplate> = {}, options: { self?: boolean; followUp?: boolean; prevent?: boolean } = {}) => createServerGame(commanderRules, {
@@ -57,11 +57,11 @@ test('fight reads resolution-time power including counters and preserves source 
 })
 
 test('fight honors deathtouch and indestructible through the ordinary damage pipeline', () => {
-  const server = setup({ power: 1, toughness: 10, oracleText: 'Deathtouch' }, { power: 2, toughness: 10 })
+  const server = setup({ power: 1, toughness: 10, ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.deathtouch]))) }, { power: 2, toughness: 10 })
   const resolved = resolveStack(server.rules, announce(server))
   expect(named(resolved, 'Second').zone).toBe('graveyard')
   expect(named(resolved, 'First').damageMarked).toBe(2)
-  const shielded = setup({ power: 1, toughness: 10, oracleText: 'Deathtouch' }, { power: 2, toughness: 10, oracleText: 'Indestructible' })
+  const shielded = setup({ power: 1, toughness: 10, ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([keyword.deathtouch]))) }, { power: 2, toughness: 10, oracleText: 'Indestructible' })
   expect(named(resolveStack(shielded.rules, announce(shielded)), 'Second').zone).toBe('battlefield')
 })
 

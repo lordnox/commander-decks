@@ -74,7 +74,6 @@ import {
   gainControlPermanent,
   gainLife,
   grantControlledUntilEot,
-  grantUntilEot,
   graveyardCards,
   graveyardCardTypes,
   handler,
@@ -115,7 +114,6 @@ import {
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
-  pump,
   pumpTargetX,
   pumpSelf,
   pumpControlled,
@@ -1465,18 +1463,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   Reprocess: [
     onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),
   ],
-  'Retreat to Hagra': [landfall(chooseModes('one', [
-    {
-      id: 'pump',
-      label: 'Target creature gets +1/+0 and gains deathtouch until end of turn.',
-      do: [pump(1, 0), grantUntilEot('deathtouch')],
-    },
-    {
-      id: 'drain',
-      label: 'Each opponent loses 1 life and you gain 1 life.',
-      do: [opponentsLoseLife(1), gainLife(1)],
-    },
-  ]))],
   'Return of the Wildspeaker': [modalChooseOne(
     {
       id: 'draw',
