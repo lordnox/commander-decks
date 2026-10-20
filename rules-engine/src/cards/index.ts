@@ -42,6 +42,7 @@ import drownedCatacomb from './drowned-catacomb'
 import duskdaleWurm from './duskdale-wurm'
 import eclipsedSteppe from './eclipsed-steppe'
 import endRazeForerunners from './end-raze-forerunners'
+import entishRestoration from './entish-restoration'
 import entomb from './entomb'
 import esperCharm from './esper-charm'
 import esperPanorama from './esper-panorama'
@@ -81,6 +82,7 @@ import joinTheDead from './join-the-dead'
 import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
 import longRoadHome from './long-road-home'
+import lotusField from './lotus-field'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
 import marshFlats from './marsh-flats'
@@ -199,6 +201,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Duskdale Wurm": duskdaleWurm,
   "Eclipsed Steppe": eclipsedSteppe,
   "End-Raze Forerunners": endRazeForerunners,
+  "Entish Restoration": entishRestoration,
   "Entomb": entomb,
   "Esper Charm": esperCharm,
   "Esper Panorama": esperPanorama,
@@ -239,6 +242,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,
   "Long Road Home": longRoadHome,
+  "Lotus Field": lotusField,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
   "Marsh Flats": marshFlats,

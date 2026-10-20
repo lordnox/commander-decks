@@ -26,7 +26,6 @@ import {
   castModal,
   casts,
   cleave,
-  controlledCreaturePower,
   controlledLands,
   controllerLife,
   convoke,
@@ -238,7 +237,6 @@ import {
   pumpTargetEqualToLands,
   putTargetOnLibraryTop,
   revealTopLandsTapped,
-  sacrificeControlled,
   sagaChapters,
   tapAttached,
   destroyAllCreatures,
@@ -796,19 +794,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Energy Arc': [handler('combatPreventionCards')],
-  'Entish Restoration': [
-    searchSpell({
-      prompt: 'Search your library for basic land cards. They enter tapped.',
-      match: basicLand,
-      destination: 'battlefield',
-      tapped: true,
-      min: 0,
-      max: 2,
-      sacrificeLands: 1,
-      empoweredMax: 3,
-      empoweredIf: controlledCreaturePower(4),
-    }),
-  ],
   Ephemerate: [handler('blinkValue')],
   'Erestor of the Council': [onVotesFinished(
     forEachVoter('opponentsAgreeing', createTreasures(1, 'triggeringPlayer')),
@@ -1151,20 +1136,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
-  'Lotus Field': [
-    entersTapped(),
-    enters(sacrificeControlled(2, ['Land'])),
-    activate({
-      id: 'lotusField.mana',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [
-        { kind: 'addChosenColorMana' },
-        { kind: 'addChosenColorMana' },
-        { kind: 'addChosenColorMana' },
-      ],
-    }),
-  ],
   'Lumbering Battlement': [
     handler('linkedExile'),
     handler('exilePayoffs'),
