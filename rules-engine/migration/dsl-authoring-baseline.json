@@ -43,7 +43,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"1861472d6a4f109926f478bd5ff86b769a939fce389e28bf1410a3f94b1a1561","card":"Archdruid's Charm"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"6fe8e402088fad86648f0c7013c8a2fa2f8503035bec2d35c916f0c8b71e32be","card":"Colossification"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"9102a3139181cdce08745db9cf86c8e09f9e88c3b27cf4e0552fd459a6e79e1e","card":"Mirkwood Bats"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"ed3d684b261b4dd070132d0a72cdd65680ad76a5e8bdcaf2f61c851164dcc33a","card":"Retreat to Hagra"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"344b2d7028ab61d9ba0ab85f15c603f743d263299fccad41c7252df3df602ca7","card":"Singularity Rupture"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"b60657c2438176b8b51c43f8ee9ce64916ca56b00beabde6e647f278f38dbac5","card":"Profane Command"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"3b8557352824bfceb9851fc606b0b60095d44b5c5ac11d0ff6b0367fb203be8b","card":"Will of the Sultai"},

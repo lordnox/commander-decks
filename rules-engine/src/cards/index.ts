@@ -109,6 +109,7 @@ import reanimate from './reanimate'
 import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import restorationAngel from './restoration-angel'
+import retreatToHagra from './retreat-to-hagra'
 import reverberate from './reverberate'
 import revitalizingRepast from './revitalizing-repast'
 import riveteersOverlook from './riveteers-overlook'
@@ -272,6 +273,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Rejuvenating Springs": rejuvenatingSprings,
   "Rest in Peace": restInPeace,
   "Restoration Angel": restorationAngel,
+  "Retreat to Hagra": retreatToHagra,
   "Reverberate": reverberate,
   "Revitalizing Repast": revitalizingRepast,
   "Revitalizing Repast // Old-Growth Grove": revitalizingRepast,

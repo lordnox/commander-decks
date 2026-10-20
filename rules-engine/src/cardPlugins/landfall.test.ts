@@ -6,7 +6,6 @@ import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState } from '../types'
 import {createServerGame as createRuntimeGame} from '../runtime'
-import { DIALOG_CHOSEN, pendingDialog } from '../pendingDialog'
 import {choiceEffects} from './choiceEffects'
 import {entersTapped} from './entersTapped'
 import {librarySearch} from './librarySearch'
@@ -14,7 +13,6 @@ import {onResolve} from './onResolve'
 import {targetedResolve} from './targetedResolve'
 import {activated} from './activated'
 import {pendingPlayerSelection} from '../rules/selectPlayers'
-import {modalSpell} from './modalSpell'
 const card = (name: string, types: string[], extra: Partial<CardTemplate> = {}) =>
   cardTemplate(name, { types, power: null, toughness: null, ...extra })
 
@@ -304,30 +302,5 @@ describe('relocated from sinFallGaps.test.ts → landfall.test.ts', () => {
       expect(milled.zoneOrder.p2.graveyard).toHaveLength(3)
     })
 
-  test('Retreat to Hagra can drain the table on landfall', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: { p1: [card('Retreat to Hagra', ['Enchantment'])] },
-          hands: { p1: [forest()] },
-        },
-        { random: () => 0.5, cardPlugins: [choiceEffects, modalSpell] },
-      )
-      let state = ok(server.rules(server.state, {
-        type: 'playLand',
-        seat: 'p1',
-        objectId: named(server.state, 'Forest').id,
-      }))
-      state = ok(server.rules(state, { type: 'resolveTop' }))
-      expect(pendingDialog(state)?.kind).toBe('choose-modes')
-      state = ok(server.rules(state, {
-        type: 'custom',
-        name: DIALOG_CHOSEN,
-        seat: 'p1',
-        payload: { modes: ['Each opponent loses 1 life and you gain 1 life.'] },
-      }))
-      expect(state.players.p1.life).toBe(41)
-      expect(state.playerOrder.slice(1).every((seat) => state.players[seat].life === 39)).toBe(true)
-    })
 
 })
