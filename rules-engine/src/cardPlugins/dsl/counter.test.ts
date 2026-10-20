@@ -9,7 +9,7 @@ import type { GameState } from '../../types'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { instructionSpell } from './instructionTestSupport'
-import { card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, target, untilCleanup } from './v1'
+import { activated, tapCost, card, compileCardRuleDefinition, counter, createDefinitionSnapshot, createEffect, draw, gainLife, objects, ref, select, setColorsEffect, spell, stackItems, target, untilCleanup } from './v1'
 
 import { deckCard } from '../cirdanCreatureCards'
 import { shuffleIntoLibraryInstead } from '../shuffleIntoLibraryInstead'
@@ -310,4 +310,35 @@ describe('relocated from cirdanColossi.test.ts → counter.test.ts', () => {
           expect(named(state, 'Counterspell').zone).toBe('graveyard')
         })
   }
+})
+
+
+test('Stifle counters an activated ability without refunding its tap cost', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    activated({ costs: [tapCost()], instructions: [gainLife({ targets: ref('controller'), amount: 3 })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Activated fixture', { types: ['Artifact'], ruleDefinition: definition })] },
+    hands: { p1: [cardTemplate('Stifle')] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.battlefield[0]
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.U = 1
+  const abilityOnStack = ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  const cast = ok(server.rules(abilityOnStack, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: abilityOnStack.stack[0].id }] }))
+  const resolved = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  expect(resolved.stack).toHaveLength(0)
+  expect(resolved.objects[source].tapped).toBe(true)
+  expect(resolved.players.p1.life).toBe(40)
+  expect(resolved.players.p1.mana.U).toBe(0)
+})
+
+test('Stifle rejects a spell target', () => {
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Stifle'), cardTemplate('Spell fixture', { types: ['Instant'], manaCost: '{0}' })] } }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.U = 1
+  const stacked = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[1] }))
+  expect(server.rules(stacked, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: stacked.stack[0].id }] }).ok).toBe(false)
+  expect(stacked.players.p1.mana.U).toBe(1)
 })

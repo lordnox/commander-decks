@@ -55,6 +55,7 @@ export type ObjectFilter = {
   owner?: PlayerMatch
   token?: boolean
   name?: string
+  tapped?: boolean
   attacking?: boolean
   powerAtLeast?: number
   all?: readonly ObjectFilter[]

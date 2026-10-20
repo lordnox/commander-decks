@@ -46,3 +46,39 @@ test('a bounded untap choice resumes after restore and leaves unchosen lands tap
   expect(named(state, 'Third').tapped).toBe(true)
   expect(state.resolution).toBeUndefined()
 })
+
+
+test.each([
+  { seat: 'p1', tapped: true, matches: true },
+  { seat: 'p1', tapped: false, matches: false },
+  { seat: 'p2', tapped: true, matches: false },
+])('tapped-entry filtering checks controller and entry state (%j)', ({ seat, tapped, matches }) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Amulet of Vigor')] },
+    hands: { [seat]: [cardTemplate('Entry fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder[seat].hand[0]
+  const entered = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield', tapped }))
+  expect(entered.stack).toHaveLength(matches ? 1 : 0)
+  const resolved = resolveStack(server.rules, entered)
+  expect(resolved.objects[id].tapped).toBe(matches ? false : tapped)
+  const tappedLater = ok(server.rules(resolved, { type: 'tap', objectId: id }))
+  expect(tappedLater.stack).toHaveLength(0)
+})
+
+test('an untap instruction cannot affect an entering permanent that left and returned before its trigger resolves', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Amulet of Vigor')] },
+    hands: { p1: [cardTemplate('Returning fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]
+  let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield', tapped: true }))
+  expect(state.stack).toHaveLength(1)
+  state = ok(server.rules(state, { type: 'move', objectId: id, to: 'graveyard' }))
+  state = ok(server.rules(state, { type: 'move', objectId: id, to: 'battlefield' }))
+  state = ok(server.rules(state, { type: 'tap', objectId: id }))
+  const resolved = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(resolved.objects[id].tapped).toBe(true)
+})
