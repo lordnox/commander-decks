@@ -967,3 +967,9 @@ test('Skull Prophet offers two canonical mana modes and mills as an instruction 
     { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'mill', targets: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 2 } }] },
   ])
 })
+
+test('Beast Whisperer draws for its controller casting a creature spell', () => {
+  expect(cardRuleDefinitionSnapshotFor('Beast Whisperer')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'cast', filter: { type: 'Creature', controller: 'you' } }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+  ])
+})

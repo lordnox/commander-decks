@@ -536,7 +536,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(linkExile({ type: 'Creature', controller: 'opponent' })),
   ],
   'Batwing Brume': [handler('combatPreventionCards')],
-  'Beast Whisperer': [casts(draw(1), { creatureOnly: true })],
   Belonging: [
     enters(
       changelingShapeshifter(),

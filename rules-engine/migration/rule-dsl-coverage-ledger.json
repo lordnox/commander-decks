@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 266,
+    "cardRegistrations": 265,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 254
+    "candidateOnlyCardRows": 253
   },
   "cardEffects": [
     {
@@ -838,7 +838,6 @@
         "Archaeomancer's Map:effects[1]",
         "Astral Drift:effects[0]",
         "Banisher Priest:effects[2]",
-        "Beast Whisperer:effects[0]",
         "Belonging:effects[0]",
         "Beza, the Bounding Spring:effects[0]",
         "Bishop of Binding:effects[3]",
@@ -2465,7 +2464,6 @@
       "mechanic": "semantic game action",
       "currentRegistrations": [
         "Astral Drift:effects[1].do[0]",
-        "Beast Whisperer:effects[0].do[0]",
         "Beza, the Bounding Spring:effects[0].do[3].whenTrue[0]",
         "Blitzball:effects[0].do[0]",
         "Breena, the Demagogue:effects[0].do[0]",
@@ -2490,7 +2488,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 116,
+        "matches": 117,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1448 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -6792,39 +6790,6 @@
       "pluginIds": [],
       "handlerIds": [
         "combatPreventionCards"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Beast Whisperer",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Beast Whisperer"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:226 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castTriggers"
       ],
       "embeddedRulePaths": []
     },
@@ -16257,7 +16222,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 168,
+        "matches": 169,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -17867,7 +17832,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1876",
+        "rules-engine/src/cardPlugins/cardRules.ts:1875",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17964,7 +17929,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1103",
+        "rules-engine/src/rules/triggers.ts:1111",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:314",
         "rules-engine/src/types.ts:318"
@@ -17999,7 +17964,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1002",
+        "rules-engine/src/cardPlugins/cardRules.ts:1001",
         "rules-engine/src/cardPlugins/cardRules.ts:282",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
@@ -18546,14 +18511,14 @@
           67,
           127,
           145,
-          248,
-          249,
-          362,
-          712,
-          829,
-          986,
-          1021,
-          1022
+          253,
+          254,
+          370,
+          720,
+          837,
+          994,
+          1029,
+          1030
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -19929,24 +19894,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          483,
-          567,
-          662,
-          696,
-          775,
-          840,
-          853,
-          893,
-          974,
-          1044,
-          1101,
-          1268,
-          1379
+          491,
+          575,
+          670,
+          704,
+          783,
+          848,
+          861,
+          901,
+          982,
+          1052,
+          1109,
+          1276,
+          1387
         ],
         "samples": [
-          "483: const frequencySource = draft.object(source.id) ?? source",
-          "567: const live = draft.object(source.id)",
-          "662: const land = draft.object(objectId)"
+          "491: const frequencySource = draft.object(source.id) ?? source",
+          "575: const live = draft.object(source.id)",
+          "670: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

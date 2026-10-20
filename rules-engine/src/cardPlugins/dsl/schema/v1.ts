@@ -110,6 +110,7 @@ export type ObjectOccurrenceFilter =
   | { not: ObjectOccurrenceFilter }
 
 export type OccurrencePattern =
+  | { kind: 'cast'; filter: ObjectOccurrenceFilter }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
   | { kind: 'leaves'; filter: ObjectOccurrenceFilter }
