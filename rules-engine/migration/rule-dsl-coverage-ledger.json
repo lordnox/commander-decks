@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 273,
+    "cardRegistrations": 271,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 261
+    "candidateOnlyCardRows": 259
   },
   "cardEffects": [
     {
@@ -51,8 +51,6 @@
         "Cephalid Coliseum:effects[0]",
         "Cephalid Coliseum:effects[1]",
         "Children of Korlis:effects[0]",
-        "Collector's Vault:effects[0]",
-        "Daily Bugle Newspaper:effects[0]",
         "Endless Sands:effects[1]",
         "Endless Sands:effects[2]",
         "Firdoch Core:effects[1]",
@@ -103,7 +101,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 157,
+        "matches": 155,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
@@ -1959,7 +1957,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 36,
+        "matches": 37,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:471 — test('unearth is sorcery speed, needs {6}{U}, and leaving replaces to exile', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:552 — test('chapter II survives a host restart, refuses bad answers, and hides the choice from others', async () => {",
@@ -1986,22 +1984,20 @@
       "currentRegistrations": [
         "An Offer You Can't Refuse:effects[0].do[0]",
         "Beza, the Bounding Spring:effects[0].do[0].whenTrue[0]",
-        "Collector's Vault:effects[0].do[2]",
-        "Daily Bugle Newspaper:effects[0].do[2]",
         "Erestor of the Council:effects[0].do[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 9,
         "samples": [
           "rules-engine/src/cardPlugins/councilCards.test.ts:115",
           "rules-engine/src/cardPlugins/councilCards.test.ts:512 — test('an open vote survives a host restart and a tie still draws', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:532 — test('a Sail vote: agreeing opponents get Treasures, disagreeing ones size the scry, then the controller draws', () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:583 — test(\"Círdan's secret vote: Erestor hears it, with Treasures, a scry sized by disagreeing opponents, and a draw\", () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:100 — test('Beza Fish tokens are blue', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:88 — test('Beza draws when an opponent has more cards in hand', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
+          "rules-engine/src/cardPlugins/registry.test.ts:225 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:626 — test('council cards register the vote engine handlers they need', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -2375,19 +2371,15 @@
       "mechanic": "resolution choice",
       "currentRegistrations": [
         "Awaken the Honored Dead:effects[0].chapters[2].do[0]",
-        "Cephalid Coliseum:effects[1].do[1]",
-        "Collector's Vault:effects[0].do[1]",
-        "Daily Bugle Newspaper:effects[0].do[1]"
+        "Cephalid Coliseum:effects[1].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:22",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:91 — test('every object-targeting filtered activated ability on these cards requires the battlefield', () => {",
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:117 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:765 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:80 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
       },
@@ -2488,8 +2480,6 @@
         "Cephalid Coliseum:effects[1].do[0]",
         "Cling to Dust:effects[1].do[0].whenFalse[0]",
         "Coercive Portal:effects[0].do[0].outcome[0].whenFalse[0]",
-        "Collector's Vault:effects[0].do[0]",
-        "Daily Bugle Newspaper:effects[0].do[0]",
         "Erestor of the Council:effects[0].do[2]",
         "Guardian Project:effects[0].do[0]",
         "Horizon of Progress:effects[2].do[0]",
@@ -7838,42 +7828,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Collector's Vault",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Collector's Vault"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:765 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [createTreasures, discardCards, draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "createTreasures",
-        "discardCards",
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Colossification",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8294,43 +8248,6 @@
       "pluginIds": [],
       "handlerIds": [
         "permanentControl"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Daily Bugle Newspaper",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Daily Bugle Newspaper"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:138 — test('Daily Bugle Newspaper loot matches Vault pattern', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:766 — test('Dack party pass-35 inventory matches registered, kernel-only, or GAP', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [createTreasures, discardCards, draw]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "createTreasures",
-        "discardCards",
-        "draw"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
       ],
       "embeddedRulePaths": []
     },
@@ -16228,8 +16145,6 @@
         "Boseiju, Who Endures",
         "Cephalid Coliseum",
         "Children of Korlis",
-        "Collector's Vault",
-        "Daily Bugle Newspaper",
         "Endless Sands",
         "Firdoch Core",
         "Flooded Grove",
@@ -16269,7 +16184,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 154,
+        "matches": 153,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelFacts.test.ts:11",
@@ -16489,7 +16404,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 82,
+        "matches": 83,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -16530,7 +16445,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 167,
+        "matches": 168,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -18140,7 +18055,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1927",
+        "rules-engine/src/cardPlugins/cardRules.ts:1919",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18272,7 +18187,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1033",
+        "rules-engine/src/cardPlugins/cardRules.ts:1025",
         "rules-engine/src/cardPlugins/cardRules.ts:283",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",

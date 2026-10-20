@@ -903,3 +903,13 @@ test('Thawing Glaciers enters tapped and schedules its return after the basic la
     ] },
   ])
 })
+
+test.each(["Collector's Vault", 'Daily Bugle Newspaper'])('%s draws, discards, then creates an artifact mana token', name => {
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{2}' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'draw', count: { kind: 'constant', value: 1 } },
+      { kind: 'discard', count: { kind: 'constant', value: 1 } },
+      { kind: 'createToken', count: { kind: 'constant', value: 1 }, token: { name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'], colors: [] } },
+    ] },
+  ])
+})

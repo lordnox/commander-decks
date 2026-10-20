@@ -20,11 +20,13 @@ import cabalStronghold from './cabal-stronghold'
 import castleGarenbrig from './castle-garenbrig'
 import charcoalDiamond from './charcoal-diamond'
 import cloudshift from './cloudshift'
+import collectorsVault from './collectors-vault'
 import commandersSphere from './commanders-sphere'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
 import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
+import dailyBugleNewspaper from './daily-bugle-newspaper'
 import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
@@ -159,11 +161,13 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Castle Garenbrig": castleGarenbrig,
   "Charcoal Diamond": charcoalDiamond,
   "Cloudshift": cloudshift,
+  "Collector's Vault": collectorsVault,
   "Commander's Sphere": commandersSphere,
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
   "Crop Rotation": cropRotation,
   "Cryptic Command": crypticCommand,
+  "Daily Bugle Newspaper": dailyBugleNewspaper,
   "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,

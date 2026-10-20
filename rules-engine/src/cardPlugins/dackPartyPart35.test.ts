@@ -124,7 +124,7 @@ describe('Dack Party pass-35 cardRules', () => {
     const resolved = resolveLootAbility(
       server,
       server.state,
-      'collectorsVault.loot',
+      '$.abilities[0]',
       'Collector\'s Vault',
     )
     expect(named(resolved, 'Library Card').zone).toBe('hand')
@@ -142,7 +142,7 @@ describe('Dack Party pass-35 cardRules', () => {
     const resolved = resolveLootAbility(
       server,
       server.state,
-      'dailyBugle.loot',
+      '$.abilities[0]',
       'Daily Bugle Newspaper',
     )
     expect(named(resolved, 'Library Card').zone).toBe('hand')
