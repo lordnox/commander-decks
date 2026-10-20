@@ -50,6 +50,7 @@ import type {
   Selector,
   SpellAbilityDefinition,
   StackItemFilter,
+  StackItemReference,
   StackItemSelector,
   StaticAbilityDefinition,
   TargetClause,
@@ -98,6 +99,18 @@ const toStatDelta = (value: StatDeltaInput) => typeof value === 'number' ? amoun
 
 export const resultAmount = (binding: string, field: Extract<Amount, { kind: 'resultRef' }>['field'] = 'amount') =>
   immutableData({ kind: 'resultRef' as const, binding, field })
+
+export const capturePlayer = (input: { player: PlayerReference; bindResult: string }) =>
+  immutableData({ kind: 'capturePlayer' as const, ...input })
+
+export const controllerOf = (of: ObjectReference | StackItemReference) =>
+  immutableData({ kind: 'relatedPlayer' as const, relation: 'controller' as const, of })
+
+export const ownerOf = (of: ObjectReference) =>
+  immutableData({ kind: 'relatedPlayer' as const, relation: 'owner' as const, of })
+
+export const resultPlayer = (binding: string) =>
+  immutableData({ kind: 'resultRef' as const, binding, field: 'player' as const })
 
 export const captureAmount = (input: { amount: AmountInput; bindResult: string }) =>
   immutableData({ kind: 'captureAmount' as const, amount: toAmount(input.amount), bindResult: input.bindResult })
@@ -581,6 +594,7 @@ export const untap = (targets: ObjectRecipient) => immutableData({ kind: 'untap'
 export const move = (input: {
   targets: Extract<Instruction, { kind: 'move' }>['targets']
   to: Extract<Instruction, { kind: 'move' }>['to']
+  position?: 'top' | 'bottom'
   controller?: Extract<Instruction, { kind: 'move' }>['controller']
   tapped?: boolean
   enterCounters?: Readonly<Record<string, AmountInput>>
@@ -591,6 +605,7 @@ export const move = (input: {
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
   targets: input.targets,
   to: input.to,
+  ...(input.position !== undefined ? { position: input.position } : {}),
   ...(input.controller !== undefined ? { controller: input.controller } : {}),
   ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
   ...(input.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(input.enterCounters).map(([counter, count]) => [counter, toAmount(count)])) } : {}),

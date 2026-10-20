@@ -1,5 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  capturePlayer,
+  resultPlayer,
+  spell,
   activated,
   amount,
   card,
@@ -1228,4 +1231,21 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       expect(damaged.players.p1.life).toBe(40)
     })
 
+})
+
+
+test('created prevention captures player results independently of its source after restore', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Captured shield fixture', { types: ['Instant'], manaCost: '{0}', ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([
+      spell({ instructions: [
+        capturePlayer({ player: ref('controller'), bindResult: 'recipient' }),
+        createEffect({ targets: ref('source'), effect: preventionCreatedEffect({ recipient: resultPlayer('recipient') }, 3), duration: untilCleanup() }),
+      ] }),
+    ]))) })] }, battlefield: { p2: [cardTemplate('Damage source', { types: ['Creature'], power: 3, toughness: 3 })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] }))
+  const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
+  const damaged = ok(server.rules(JSON.parse(JSON.stringify(resolved)), { type: 'dealDamage', sourceId: resolved.zoneOrder.p2.battlefield[0]!, target: { kind: 'player', player: 'p1' }, amount: 3 }))
+  expect(damaged.players.p1.life).toBe(40)
+  expect(damaged.preventionInstances?.[0]?.remaining).toBe(0)
 })

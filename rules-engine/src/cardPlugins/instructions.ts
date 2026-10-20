@@ -207,8 +207,6 @@ export const addManaPerSwamp = (basic = false): CardInstruction => ({
 
 export const revealDrawLoseLife = (): CardInstruction => ({ kind: 'revealDrawLoseLife' })
 
-export const gainLifeTargetPower = (): CardInstruction => ({ kind: 'gainLifeTargetPower' })
-
 export const addUntilCleanupRule = (
   pluginId: string,
   params: Record<string, unknown> = {},
@@ -976,8 +974,6 @@ export const loseHalfLifeRoundedUp = (): CardInstruction => ({ kind: 'loseHalfLi
 export const addManaAtNextMainFromTarget = (): CardInstruction => ({
   kind: 'addManaAtNextMainFromTarget',
 })
-
-export const gainLifeTargetToughness = (): CardInstruction => ({ kind: 'gainLifeTargetToughness' })
 
 export const tapOpponentsCreatures = (): CardInstruction => ({ kind: 'tapOpponentsCreatures' })
 

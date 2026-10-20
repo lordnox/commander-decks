@@ -4,6 +4,10 @@ import abundance from './abundance'
 import aesiTyrantOfGyreStrait from './aesi-tyrant-of-gyre-strait'
 import aetherize from './aetherize'
 import aftermathAnalyst from './aftermath-analyst'
+import anOfferYouCantRefuse from './an-offer-you-cant-refuse'
+import condemn from './condemn'
+import swanSong from './swan-song'
+import swordsToPlowshares from './swords-to-plowshares'
 import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
 import arborElf from './arbor-elf'
@@ -184,6 +188,10 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "An Offer You Can't Refuse": anOfferYouCantRefuse,
+  "Condemn": condemn,
+  "Swan Song": swanSong,
+  "Swords to Plowshares": swordsToPlowshares,
   "Absorb": absorb,
   "Abundance": abundance,
   "Aesi, Tyrant of Gyre Strait": aesiTyrantOfGyreStrait,
