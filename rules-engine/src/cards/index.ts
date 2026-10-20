@@ -141,6 +141,7 @@ import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
 import worldMap from './world-map'
+import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
@@ -288,5 +289,6 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,
   "World Map": worldMap,
+  "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,
 })

@@ -245,6 +245,9 @@ const canonicalPatternMatches = (
     }).includes(player)
   }
   switch (pattern.kind) {
+    case 'attacks':
+      if (event.type !== 'declareAttackers' || !occurrence.object?.after) return false
+      break
     case 'cast':
       if (event.type !== 'castSpell' || occurrence.object?.after?.zone !== 'stack') return false
       break
@@ -323,6 +326,11 @@ const generatedPatternMatches = (
     case 'manaAdded': return event.type === 'addMana' && event.sourceId !== source.id
     case 'manaAbilityActivated': return canonicalManaActivationEvent(state, event)
     case 'manaAbilityResolved': return canonicalManaSourceEvent(state, event)
+    case 'attacks': {
+      const object = occurrence.object?.after
+      return event.type === 'declareAttackers' && Boolean(object
+        && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution))
+    }
     case 'cast': {
       const object = occurrence.object?.after
       return event.type === 'castSpell' && object?.zone === 'stack'
@@ -380,6 +388,14 @@ const generatedPatternMatches = (
   }
 }
 
+// A declaration contains simultaneous occurrences, one for each attacker (CR 508.3a).
+const occurrenceObjectIdsForPattern = (pattern: { kind: string }, event: GameEvent, state: GameState) => {
+  if (pattern.kind === 'attacks') return event.type === 'declareAttackers'
+    ? event.attackers.map(attacker => attacker.objectId)
+    : []
+  return [eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined]
+}
+
 const canonicalGrantedTriggersForOccurrence = (
   state: GameState,
   draft: Draft,
@@ -401,39 +417,40 @@ const canonicalGrantedTriggersForOccurrence = (
   const sources = [...sourcesById.values()]
   for (const source of sources) {
     source.canonicalGrantedAbilities?.forEach((grant, grantIndex) => {
-      const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
-      const occurrence = capturedOccurrence(
-        state,
-        draft,
-        event,
-        occurrenceObjectId,
-        occurrencePlayerForEvent(event, draft),
-        event.type === 'gainLife' ? event.amount : undefined,
-      )
-      if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
-      matches.push({
-        source,
-        effect: { do: [] },
-        canonical: {
-          definitionSnapshot: generatedAbilitySnapshot(grant.ability, grant.ability.decisions, grant.ability.capturedBindings),
-          abilityIndex: 0,
-        },
-        execution: {
-          ...triggerExecution(source, occurrence, draft),
-          ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
-          ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
-          ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
-          ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
-          ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
-          ...(grant.execution?.capturedOccurrence ? { capturedOccurrence: structuredClone(grant.execution.capturedOccurrence) } : {}),
-          ...(grant.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: structuredClone(grant.execution.capturedOccurrenceBindings) } : {}),
-          ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
-          ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
-        },
-        triggeringPlayer: occurrence.player ?? source.controller,
-        triggeringObjectId: occurrenceObjectId,
-        triggerAmount: occurrence.amount,
-        payload: { grantIndex, sourceId: grant.sourceId, sourceIncarnation: grant.sourceIncarnation },
+      occurrenceObjectIdsForPattern(grant.ability.on, event, state).forEach(occurrenceObjectId => {
+        const occurrence = capturedOccurrence(
+          state,
+          draft,
+          event,
+          occurrenceObjectId,
+          occurrencePlayerForEvent(event, draft),
+          event.type === 'gainLife' ? event.amount : undefined,
+        )
+        if (!generatedPatternMatches(state, state, draft, source, grant.ability.on, occurrence, event, grant.execution)) return
+        matches.push({
+          source,
+          effect: { do: [] },
+          canonical: {
+            definitionSnapshot: generatedAbilitySnapshot(grant.ability, grant.ability.decisions, grant.ability.capturedBindings),
+            abilityIndex: 0,
+          },
+          execution: {
+            ...triggerExecution(source, occurrence, draft),
+            ...(grant.execution?.targetBindings ? { targetBindings: structuredClone(grant.execution.targetBindings) } : {}),
+            ...(grant.execution?.choices ? { choices: structuredClone(grant.execution.choices) } : {}),
+            ...(grant.execution?.results ? { results: structuredClone(grant.execution.results) } : {}),
+            ...(grant.execution?.capturedChoiceAliases ? { capturedChoiceAliases: structuredClone(grant.execution.capturedChoiceAliases) } : {}),
+            ...(grant.execution?.capturedResultAliases ? { capturedResultAliases: structuredClone(grant.execution.capturedResultAliases) } : {}),
+            ...(grant.execution?.capturedOccurrence ? { capturedOccurrence: structuredClone(grant.execution.capturedOccurrence) } : {}),
+            ...(grant.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: structuredClone(grant.execution.capturedOccurrenceBindings) } : {}),
+            ...(grant.execution?.variables ? { variables: structuredClone(grant.execution.variables) } : {}),
+            ...(grant.execution?.scopeId ? { scopeId: grant.execution.scopeId } : {}),
+          },
+          triggeringPlayer: occurrence.player ?? source.controller,
+          triggeringObjectId: occurrenceObjectId,
+          triggerAmount: occurrence.amount,
+          payload: { grantIndex, sourceId: grant.sourceId, sourceIncarnation: grant.sourceIncarnation },
+        })
       })
     })
   }
@@ -467,58 +484,59 @@ const canonicalTriggersForOccurrence = (
     const compiled = loadDefinitionSnapshot(definitionSnapshot)
     compiled.definition.abilities.forEach((candidate, abilityIndex) => {
       if (candidate.kind !== 'triggered' || !candidate.activeIn.includes(source.zone)) return
-      const occurrenceObjectId = eventObjectId(event) ?? permanentEnteringObjectId(event, state) ?? undefined
-      const occurrence = capturedOccurrence(
-        state,
-        draft,
-        event,
-        occurrenceObjectId,
-        occurrencePlayerForEvent(event, draft),
-        event.type === 'gainLife' ? event.amount : undefined,
-      )
-      const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' ? state : draft
-      if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
-      const context = {
-        state: predicateState,
-        controller: source.controller,
-        source: captureObject(source),
-        occurrence,
-      }
-      const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${eventObjectId(event) ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
-      if (seen.has(occurrenceKey)) return
-      seen.add(occurrenceKey)
-      const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
-      const frequencySource = draft.object(source.id) ?? source
-      if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
-        if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
-        markFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)
-      }
-      if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
-      // An intervening-if condition gates both trigger creation and resolution.
-      // Capture evaluates it against the actual occurrence while the stack gate
-      // evaluates the same definition again when the ability resolves.
-      if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
-      if (candidate.frequency?.kind === 'onceEachTurn'
-        && !mayTriggerOnceEachTurn(frequencySource, frequencyKey, state.turn)) return
-      const pendingTrigger = {
-        source,
-        effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
-        canonical: {
-          definitionSnapshot: structuredClone(definitionSnapshot),
-          abilityIndex,
-        },
-        execution: triggerExecution(source, occurrence, draft),
-        triggerEffectKey: frequencyKey,
-        triggeringPlayer: occurrence.player ?? source.controller,
-        triggeringObjectId: occurrenceObjectId,
-        triggerAmount: occurrence.amount,
-        triggeredByAbility: false,
-      }
-      const copies = canonicalLandfallCopies(draft, source, candidate, occurrence)
-      for (let index = 0; index < copies; index += 1) matches.push(pendingTrigger)
-      if (candidate.frequency?.kind === 'onceEachTurn') {
-        markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
-      }
+      occurrenceObjectIdsForPattern(candidate.on, event, state).forEach(occurrenceObjectId => {
+        const occurrence = capturedOccurrence(
+          state,
+          draft,
+          event,
+          occurrenceObjectId,
+          occurrencePlayerForEvent(event, draft),
+          event.type === 'gainLife' ? event.amount : undefined,
+        )
+        const predicateState = candidate.on.kind === 'dies' || candidate.on.kind === 'leaves' ? state : draft
+        if (!canonicalPatternMatches(predicateState, state, source, candidate, candidate.on, occurrence, event)) return
+        const context = {
+          state: predicateState,
+          controller: source.controller,
+          source: captureObject(source),
+          occurrence,
+        }
+        const occurrenceKey = `${source.id}:${source.incarnation}:${abilityIndex}:${occurrence.eventType}:${occurrenceObjectId ?? ''}:${occurrence.player ?? ''}:${occurrence.amount ?? ''}`
+        if (seen.has(occurrenceKey)) return
+        seen.add(occurrenceKey)
+        const frequencyKey = `dsl:${definitionSnapshot.definitionRevision}@${abilityIndex}`
+        const frequencySource = draft.object(source.id) ?? source
+        if (candidate.frequency?.kind === 'firstMatchingEachTurn') {
+          if (!mayTriggerFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)) return
+          markFirstMatchingEachTurn(frequencySource, frequencyKey, state.turn)
+        }
+        if (candidate.triggerOnlyIf && !evaluateCondition(candidate.triggerOnlyIf, context)) return
+        // An intervening-if condition gates both trigger creation and resolution.
+        // Capture evaluates it against the actual occurrence while the stack gate
+        // evaluates the same definition again when the ability resolves.
+        if (candidate.interveningIf && !evaluateCondition(candidate.interveningIf, context)) return
+        if (candidate.frequency?.kind === 'onceEachTurn'
+          && !mayTriggerOnceEachTurn(frequencySource, frequencyKey, state.turn)) return
+        const pendingTrigger = {
+          source,
+          effect: { do: [], ...(candidate.interveningIf ? { if: candidate.interveningIf } : {}) },
+          canonical: {
+            definitionSnapshot: structuredClone(definitionSnapshot),
+            abilityIndex,
+          },
+          execution: triggerExecution(source, occurrence, draft),
+          triggerEffectKey: frequencyKey,
+          triggeringPlayer: occurrence.player ?? source.controller,
+          triggeringObjectId: occurrenceObjectId,
+          triggerAmount: occurrence.amount,
+          triggeredByAbility: false,
+        }
+        const copies = canonicalLandfallCopies(draft, source, candidate, occurrence)
+        for (let index = 0; index < copies; index += 1) matches.push(pendingTrigger)
+        if (candidate.frequency?.kind === 'onceEachTurn') {
+          markTriggeredOnceEachTurn(frequencySource, frequencyKey, state.turn)
+        }
+      })
     })
   }
   canonicalGrantedTriggersForOccurrence(state, draft, event, matches)

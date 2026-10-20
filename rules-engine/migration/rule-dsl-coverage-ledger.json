@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 265,
+    "cardRegistrations": 264,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -31,7 +31,7 @@
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 1,
     "instructionUnobservedGaps": 24,
-    "cardRegistrationOnlyGaps": 12,
+    "cardRegistrationOnlyGaps": 11,
     "candidateOnlyInstructionRows": 167,
     "candidateOnlyCardRows": 253
   },
@@ -962,8 +962,6 @@
         "Windfall:effects[0]",
         "Woodfall Primus:effects[0]",
         "Woodfall Primus:effects[1]",
-        "World Shaper:effects[0]",
-        "World Shaper:effects[1]",
         "Zanarkand, Ancient Metropolis // Lasting Fayth:effects[2]",
         "Zimone and Dina:effects[0]"
       ],
@@ -4358,8 +4356,7 @@
       "currentRegistrations": [
         "Crawling Sensation:effects[0].do[0]",
         "Hedge Shredder:effects[0].do[0]",
-        "Mole Man, Moloid Master:effects[1].do[0].token.effects[0].do[0]",
-        "World Shaper:effects[0].do[0]"
+        "Mole Man, Moloid Master:effects[1].do[0].token.effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -5259,8 +5256,7 @@
       "currentRegistrations": [
         "Lumra, Bellow of the Woods:effects[1].do[1]",
         "Summon: Titan:effects[0].chapters[1].do[0]",
-        "Will of the Sultai:effects[0].modes[0].do[1]",
-        "World Shaper:effects[1].do[0]"
+        "Will of the Sultai:effects[0].modes[0].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
@@ -15441,38 +15437,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "World Shaper",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.World Shaper"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [optionalMill, returnOwnedGraveyardLands]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "optionalMill",
-        "returnOwnedGraveyardLands"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Yarok, the Desecrated",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -16902,7 +16866,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 217,
+        "matches": 218,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -17832,7 +17796,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1875",
+        "rules-engine/src/cardPlugins/cardRules.ts:1874",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17929,7 +17893,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1111",
+        "rules-engine/src/rules/triggers.ts:1129",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:314",
         "rules-engine/src/types.ts:318"
@@ -17964,8 +17928,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1001",
-        "rules-engine/src/cardPlugins/cardRules.ts:282",
+        "rules-engine/src/cardPlugins/cardRules.ts:1000",
+        "rules-engine/src/cardPlugins/cardRules.ts:281",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -18511,14 +18475,14 @@
           67,
           127,
           145,
-          253,
-          254,
-          370,
-          720,
-          837,
-          994,
-          1029,
-          1030
+          256,
+          257,
+          378,
+          738,
+          855,
+          1012,
+          1047,
+          1048
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -19894,24 +19858,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          491,
-          575,
-          670,
-          704,
-          783,
-          848,
-          861,
-          901,
-          982,
-          1052,
-          1109,
-          1276,
-          1387
+          508,
+          593,
+          688,
+          722,
+          801,
+          866,
+          879,
+          919,
+          1000,
+          1070,
+          1127,
+          1294,
+          1405
         ],
         "samples": [
-          "491: const frequencySource = draft.object(source.id) ?? source",
-          "575: const live = draft.object(source.id)",
-          "670: const land = draft.object(objectId)"
+          "508: const frequencySource = draft.object(source.id) ?? source",
+          "593: const live = draft.object(source.id)",
+          "688: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
