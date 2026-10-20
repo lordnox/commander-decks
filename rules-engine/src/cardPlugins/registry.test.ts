@@ -238,7 +238,7 @@ describe('card plugin registry', () => {
     ]
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Cultivate')?.handlerIds).toContain('librarySearch')
-    expect(cardPluginEntry('Bushwhack')?.handlerIds).toContain('modalSpell')
+    expect(cardPluginEntry('Bushwhack')).toBeUndefined()
     expect(cardPluginEntry('Beast Whisperer')).toBeUndefined()
     expect(cardPluginEntry('Twincast')).toBeUndefined()
     expect(cardPluginEntry('Rankle, Master of Pranks')?.handlerIds)

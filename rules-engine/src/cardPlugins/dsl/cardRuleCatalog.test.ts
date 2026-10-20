@@ -994,3 +994,25 @@ test('protection cards compose canonical keywords, target restrictions, and temp
     ] },
   ])
 })
+
+test('green utility spells use scoped modal targets and ordered land choices', () => {
+  expect(cardRuleDefinitionSnapshotFor('Bushwhack')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: [
+      { instructions: [{ kind: 'sequence', instructions: [
+        { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+        { kind: 'reveal', targets: { kind: 'choiceRef', binding: 'land' } }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+      ] }] },
+      { decisions: { targets: [
+        { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
+        { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } },
+      ] }, instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }] },
+    ] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Broken Bond')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', any: [{ type: 'Artifact' }, { type: 'Enchantment' }] } } }] }, instructions: [
+      { kind: 'destroy', targets: { kind: 'targetRef', clauseIndex: 0 } },
+      { kind: 'chooseCards', bindChoice: 'land', chooser: { kind: 'contextRef', name: 'controller' }, filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you', type: 'Land' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield' },
+    ] },
+  ])
+})
