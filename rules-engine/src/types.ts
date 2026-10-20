@@ -696,11 +696,11 @@ export type EventProcessingFrame = {
   followUp?: GameEvent[]
   followUpPrograms?: PreventionFollowUpProgram[]
   program?: ReplacementInstructionProgramState
-  /** Choose/branch application procedure for a canonical replacement (not replaceWith). */
+  /** Choose/branch/pay application procedure for a canonical replacement (not replaceWith). */
   applicationProgram?: ReplacementProgramCursor
 }
 
-/** Durable cursor for a replacement's application procedure (`choose` / later branch). */
+/** Durable cursor for a replacement's application procedure (`choose` / `branch` / `payLife`). */
 export type ReplacementProgramCursor = {
   instructions: readonly ReplacementProgramInstruction[]
   index: number

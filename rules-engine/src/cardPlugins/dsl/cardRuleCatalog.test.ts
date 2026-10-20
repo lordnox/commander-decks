@@ -1167,6 +1167,29 @@ test('Burgeoning responds to opponent land plays with an optional hand-land move
   ])
 })
 
+test.each([
+  ['Breeding Pool', ['Forest', 'Island']],
+  ['Godless Shrine', ['Plains', 'Swamp']],
+  ['Hallowed Fountain', ['Plains', 'Island']],
+  ['Overgrown Tomb', ['Swamp', 'Forest']],
+  ['Watery Grave', ['Island', 'Swamp']],
+] as const)('catalog %s pays two life or enters tapped', (name, subtypes) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({ types: ['Land'], subtypes })
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+    kind: 'static',
+    effects: [{
+      kind: 'replacement',
+      event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } },
+      transform: { kind: 'modifyEvent', changes: {} },
+      program: [
+        { kind: 'choose', bindChoice: 'entryPayment' },
+        { kind: 'branch', condition: { kind: 'all' } },
+      ],
+    }],
+  }])
+})
+
 test.each(["Raffine's Tower", 'Zagoth Triome'] as const)('catalog %s enters tapped and cycles from hand for {3}', name => {
   expect(effectsFor(name)).toEqual([])
   expect(cardTemplateDefaultsFor(name)).toMatchObject({

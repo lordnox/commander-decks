@@ -17,6 +17,7 @@ import blightedWoodland from './blighted-woodland'
 import bloodCelebrant from './blood-celebrant'
 import bojukaBog from './bojuka-bog'
 import botanicalSanctum from './botanical-sanctum'
+import breedingPool from './breeding-pool'
 import brokenBond from './broken-bond'
 import brokersHideout from './brokers-hideout'
 import burgeoning from './burgeoning'
@@ -71,9 +72,11 @@ import gildedLotus from './gilded-lotus'
 import githzeraiMonk from './githzerai-monk'
 import glacialFortress from './glacial-fortress'
 import gloriousAnthem from './glorious-anthem'
+import godlessShrine from './godless-shrine'
 import golgariRotFarm from './golgari-rot-farm'
 import growthSpiral from './growth-spiral'
 import guardianOfGhirapur from './guardian-of-ghirapur'
+import hallowedFountain from './hallowed-fountain'
 import harrow from './harrow'
 import hatred from './hatred'
 import hedgeMaze from './hedge-maze'
@@ -108,6 +111,7 @@ import oldGrowthGrove from './old-growth-grove'
 import orzhovBasilica from './orzhov-basilica'
 import orzhovSignet from './orzhov-signet'
 import otherworldlyJourney from './otherworldly-journey'
+import overgrownTomb from './overgrown-tomb'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
 import raffinesTower from './raffines-tower'
@@ -163,6 +167,7 @@ import voyagerStaff from './voyager-staff'
 import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
+import wateryGrave from './watery-grave'
 import worldMap from './world-map'
 import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
@@ -189,6 +194,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Blood Celebrant": bloodCelebrant,
   "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
+  "Breeding Pool": breedingPool,
   "Broken Bond": brokenBond,
   "Brokers Hideout": brokersHideout,
   "Burgeoning": burgeoning,
@@ -243,9 +249,11 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Githzerai Monk": githzeraiMonk,
   "Glacial Fortress": glacialFortress,
   "Glorious Anthem": gloriousAnthem,
+  "Godless Shrine": godlessShrine,
   "Golgari Rot Farm": golgariRotFarm,
   "Growth Spiral": growthSpiral,
   "Guardian of Ghirapur": guardianOfGhirapur,
+  "Hallowed Fountain": hallowedFountain,
   "Harrow": harrow,
   "Hatred": hatred,
   "Hedge Maze": hedgeMaze,
@@ -281,6 +289,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Orzhov Basilica": orzhovBasilica,
   "Orzhov Signet": orzhovSignet,
   "Otherworldly Journey": otherworldlyJourney,
+  "Overgrown Tomb": overgrownTomb,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
   "Raffine's Tower": raffinesTower,
@@ -337,6 +346,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Voyager Staff": voyagerStaff,
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,
+  "Watery Grave": wateryGrave,
   "World Map": worldMap,
   "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,

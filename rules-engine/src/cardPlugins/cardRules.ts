@@ -597,7 +597,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
-  'Breeding Pool': [tapUnlessPayLife(2)],
   'Breena, the Demagogue': [
     triggerOn('playerAttacks', {
       do: [
@@ -921,7 +920,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { controlled: true, optional: true },
     )),
   ],
-  'Godless Shrine': [tapUnlessPayLife(2)],
   'Grothama, All-Devouring': [
     grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
     leaves(eachPlayerDrawDamageDealtToSource()),
@@ -945,7 +943,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [animateUntilEot(7, 7)],
     }),
   ],
-  'Hallowed Fountain': [tapUnlessPayLife(2)],
   'Hedge Shredder': [
     attacks(optionalMill(2)),
     landToGraveyard(putMilledLandTapped()),
@@ -1294,7 +1291,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [removeTarget('bounce')],
     }),
   ],
-  'Overgrown Tomb': [tapUnlessPayLife(2)],
   'Overwhelming Stampede': [
     onResolve(pumpControlled(0, 0, { trample: true, powerFromGreatest: true })),
   ],
@@ -1802,7 +1798,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       reveal: true,
     }),
   ],
-  'Watery Grave': [tapUnlessPayLife(2)],
   'Wedding Ring': [
     triggerOn('enters', {
       if: { fromSpell: true },

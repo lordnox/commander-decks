@@ -473,11 +473,15 @@ const settleApplicationStep = (
         followUpPrograms,
       )
     case 'complete':
-      return settleReplaceableEvent(
-        { ...stepped.state, eventProcessing: undefined },
-        stepped.event,
-        catalog,
-        options,
+      return attachFollowUps(
+        settleReplaceableEvent(
+          { ...stepped.state, eventProcessing: undefined },
+          stepped.event,
+          catalog,
+          options,
+        ),
+        [...followUp, ...stepped.followUp],
+        followUpPrograms,
       )
   }
 }
@@ -832,7 +836,7 @@ export const resumeReplacementProgramChoice = (
     reattachProcessing(settlement, state, frameId, resumeState)
   if (advanced.kind === 'invalid') return advanced
   const program = frame.applicationProgram
-  const settled = settleApplicationStep(
+  return finish(settleApplicationStep(
     advanced,
     frame.pendingEvent,
     frame.lineage,
@@ -843,9 +847,7 @@ export const resumeReplacementProgramChoice = (
     announcementOptions(frame.announcementTransactionId),
     pendingEvents,
     pendingPrograms,
-  )
-  if (settled.kind === 'waiting') return finish(settled)
-  return finish(attachFollowUps(settled, pendingEvents, pendingPrograms))
+  ))
 }
 
 export const enqueueReplacementSettlement = (draft: Draft, settlement: ReplacementSettlement) => {

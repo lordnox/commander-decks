@@ -3,6 +3,11 @@ export const RULE_DSL_SCHEMA_VERSION = 1 as const
 /** Binding stored on the entering object as `chosenColor` (CR 614.12). */
 export const CHOSEN_COLOR_BINDING = 'chosenColor' as const
 
+/** Binding for “as this enters, you may pay life” replacement choices. */
+export const ENTRY_PAYMENT_BINDING = 'entryPayment' as const
+export const PAY_LIFE_OPTION = 'pay' as const
+export const DECLINE_LIFE_OPTION = 'decline' as const
+
 export type RuleDslSchemaVersion = typeof RULE_DSL_SCHEMA_VERSION
 
 export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 'stack' | 'command'
@@ -244,6 +249,7 @@ export type CreatedEffect =
 export type Condition =
   | { kind: 'resultIsTrue'; value: ResultReference }
   | { kind: 'compareAmount'; left: Amount; operator: 'eq' | 'gte' | 'lte'; right: Amount }
+  | { kind: 'choiceIs'; binding: string; option: string }
   | { kind: 'all'; conditions: readonly Condition[] }
   | { kind: 'any'; conditions: readonly Condition[] }
   | { kind: 'not'; condition: Condition }
@@ -474,8 +480,10 @@ export type ReplacementTransform =
   | { kind: 'suppress' }
 
 export type ReplacementProgramInstruction =
-  | { kind: 'choose'; bindChoice: string; options: readonly { id: string; label: string }[] }
+  | { kind: 'choose'; bindChoice: string; options: readonly { id: string; label: string }[]; prompt?: string }
   | { kind: 'branch'; condition: Condition; then: readonly ReplacementProgramInstruction[]; otherwise?: readonly ReplacementProgramInstruction[] }
+  | { kind: 'modifyEvent'; changes: EventFieldChanges }
+  | { kind: 'payLife'; amount: Amount }
   | { kind: 'emit'; instructions: readonly Instruction[] }
 
 export type ReplacementEffectDefinition = {
