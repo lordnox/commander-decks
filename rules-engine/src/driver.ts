@@ -661,6 +661,10 @@ const actionEvents = (
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
       const amount = availableAmount(instruction.amount, context)
+      if (instruction.kind === 'loseLife' && instruction.bindResult) {
+        frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+        if (targets.length > 0 && amount) frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'loseLife', value: 0 }
+      }
       if (amount === undefined || amount === 0) return []
       return targets.flatMap((seat) => {
         const assigned = distributedAmount(instruction.targets, seat, context, amount)
@@ -700,11 +704,13 @@ const actionEvents = (
     }
     case 'damage': {
       const damageRecipients = mixedRecipients(instruction.targets, context)
+      if (instruction.bindResult) frame.results = { ...frame.results, [instruction.bindResult]: 0 }
       const amount = availableAmount(instruction.amount, context)
       if (amount === undefined || amount === 0) return []
       const sources = evaluateObjectReference(instruction.source, context, 'currentOrLastKnown')
       if (sources.length !== 1) return []
       const source = sources[0]
+      if (instruction.bindResult && damageRecipients.length > 0) frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'dealDamage', value: 0 }
       return damageRecipients.map((target) => ({
         type: 'dealDamage' as const,
         sourceId: source.id,

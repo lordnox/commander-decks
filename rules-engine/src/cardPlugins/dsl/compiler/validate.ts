@@ -7,8 +7,9 @@ import type {
 } from '../schema/v1'
 import { CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
-import { RuleDslValidationError, type RuleDslDiagnostic } from './errors'
-import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT } from './evaluate'
+import type { RuleDslDiagnostic } from './errors'
+import { RuleDslValidationError } from './errors'
+import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
 
 type Data = Record<string, unknown>
 type Domain = 'damage' | 'player' | 'object' | 'stack' | 'boolean' | 'number'
@@ -303,6 +304,12 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.name !== 'X') issue(childPath(path, 'name'), 'unsupported-variable', `unsupported amount variable: ${String(node.name)}`)
         else if (!env.variables.has('X')) issue(childPath(path, 'name'), 'unresolved-binding', 'X is not declared in this program scope')
         return
+      case 'multiply':
+      case 'minimum':
+        exactKeys(node, path, ['kind', 'left', 'right'], ['kind', 'left', 'right'])
+        validateAmount(node.left, childPath(path, 'left'), env, depth + 1)
+        validateAmount(node.right, childPath(path, 'right'), env, depth + 1)
+        return
       case 'divide':
         exactKeys(node, path, ['kind', 'value', 'by', 'rounding'], ['kind', 'value', 'by', 'rounding'])
         integer(node.by, childPath(path, 'by'), { min: 1 })
@@ -321,12 +328,16 @@ export const validateDefinitionV1 = (root: unknown): {
         validateSelector(node.of, childPath(path, 'of'), env)
         return
       case 'characteristic': {
-        exactKeys(node, path, ['kind', 'of', 'characteristic', 'information'], ['kind', 'of', 'characteristic', 'information'])
+        exactKeys(node, path, ['kind', 'of', 'characteristic', 'information', 'fallback'], ['kind', 'of', 'characteristic', 'information'])
         const domain = validateReference(node.of, childPath(path, 'of'), env)
-        const characteristic = enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(['power', 'toughness', 'manaValue', 'life']), 'numeric characteristic')
+        const characteristic = enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(['power', 'toughness', 'manaValue', 'life', 'loyalty']), 'numeric characteristic')
         enumeration(node.information, childPath(path, 'information'), new Set(['current', 'currentOrLastKnown']), 'information policy')
-        if (characteristic === 'life' && domain && domain !== 'player') issue(childPath(path, 'of'), 'domain', 'life requires a player reference')
-        if (characteristic && characteristic !== 'life' && domain && domain !== 'object') issue(childPath(path, 'of'), 'domain', `${characteristic} requires an object reference`)
+        if (node.fallback !== undefined) {
+          integer(node.fallback, childPath(path, 'fallback'), { max: MAX_RUNTIME_AMOUNT })
+          if (domain && !['player', 'object', 'damage'].includes(domain)) issue(childPath(path, 'of'), 'domain', 'a characteristic fallback requires a player or object reference')
+        }
+        if (node.fallback === undefined && characteristic === 'life' && domain && domain !== 'player') issue(childPath(path, 'of'), 'domain', 'life requires a player reference')
+        if (node.fallback === undefined && characteristic && characteristic !== 'life' && domain && domain !== 'object') issue(childPath(path, 'of'), 'domain', `${characteristic} requires an object reference`)
         return
       }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported amount kind: ${String(node.kind)}`)
@@ -441,13 +452,14 @@ export const validateDefinitionV1 = (root: unknown): {
       const entryPath = childPath(path, index)
       const node = object(entry, entryPath)
       if (!node) return
-      exactKeys(node, entryPath, ['name', 'min', 'max'], ['name', 'min', 'max'])
+      exactKeys(node, entryPath, ['name', 'min', 'max', 'manaColor'], ['name', 'min', 'max'])
       if (node.name !== 'X') issue(childPath(entryPath, 'name'), 'unsupported-variable', `unsupported decision variable: ${String(node.name)}`)
       else if (seen.has('X') || env.variables.has('X')) issue(childPath(entryPath, 'name'), 'duplicate-binding', 'X is declared more than once in this program scope')
       else {
         seen.add('X')
         ;(env.variables as Set<string>).add('X')
       }
+      if (node.manaColor !== undefined) enumeration(node.manaColor, childPath(entryPath, 'manaColor'), new Set(['W', 'U', 'B', 'R', 'G', 'C']), 'mana color')
       const min = integer(node.min, childPath(entryPath, 'min'))
       const max = integer(node.max, childPath(entryPath, 'max'))
       if (min !== undefined && max !== undefined && min > max) issue(entryPath, 'bounds', `variable minimum ${min} exceeds maximum ${max}`)
@@ -597,7 +609,12 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       }
-      case 'loseLife': amountInstruction('amount', ['player']); return
+      case 'loseLife':
+        exactKeys(node, path, ['kind', 'amount', 'targets', 'bindResult'], ['kind', 'amount', 'targets'])
+        validateAmount(node.amount, childPath(path, 'amount'), env)
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
+        return
       case 'gainLife': amountInstruction('amount', ['player']); return
       case 'grantLandPlays':
       case 'draw': amountInstruction('count', ['player']); return
@@ -605,10 +622,11 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'surveil':
       case 'mill': amountInstruction('count', ['player']); return
       case 'damage':
-        exactKeys(node, path, ['kind', 'amount', 'targets', 'source'], ['kind', 'amount', 'targets', 'source'])
+        exactKeys(node, path, ['kind', 'amount', 'targets', 'source', 'bindResult'], ['kind', 'amount', 'targets', 'source'])
         validateAmount(node.amount, childPath(path, 'amount'), env)
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player', 'object'])
         validateReference(node.source, childPath(path, 'source'), env, ['object'])
+        if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
         return
       case 'blink':
         exactKeys(node, path, ['kind', 'targets', 'returnController', 'tapped'], ['kind', 'targets'])

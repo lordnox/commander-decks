@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
   characteristic,
+  chooseX,
   divide,
   gainLife,
   ROUNDING_MODES,
@@ -550,4 +551,40 @@ test.each([[39, true], [40, true], [41, false]] as const)('life-X costs allow pa
   })
   expect(result.ok).toBe(expected)
   if (result.ok) expect(result.transaction.lockedCost.nonMana).toContainEqual(lifeCost(life))
+})
+
+
+test.each([0, 3])('colored X mana is enforced when locking spell payment (X=%s)', x => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    spell({ decisions: { variables: [chooseX({ manaColor: 'B' })] }, instructions: [] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [cardTemplate('Colored variable fixture', { types: ['Sorcery'], manaCost: '{X}{1}{B}', ruleDefinition: definition })] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.B = 1
+  ready.players.p1.mana.C = x + 1
+  const event = { type: 'castSpell' as const, seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], x }
+  expect(server.rules(ready, event).ok).toBe(x === 0)
+  ready.players.p1.mana.B = x + 1
+  ready.players.p1.mana.C = 1
+  const cast = server.rules(ready, event)
+  expect(cast.ok).toBe(true)
+  if (cast.ok) expect(Object.values(cast.state.players.p1.mana).reduce((sum, amount) => sum + amount, 0)).toBe(0)
+})
+
+
+test.each([1, 3, 4, 5])('generic reductions can reduce restricted X payment (reduction=%s)', reduction => {
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [instructionSpell({
+      decisions: { variables: [chooseX({ manaColor: 'B' })] },
+      costReductions: [{ generic: reduction }], instructions: [],
+    }, '{X}{1}{B}')] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.B = Math.max(0, 3 - reduction) + 1
+  ready.players.p1.mana.C = reduction > 3 ? 0 : 1
+  const cast = server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], x: 3 })
+  expect(cast.ok).toBe(true)
+  if (cast.ok) expect(Object.values(cast.state.players.p1.mana).reduce((sum, amount) => sum + amount, 0)).toBe(0)
 })

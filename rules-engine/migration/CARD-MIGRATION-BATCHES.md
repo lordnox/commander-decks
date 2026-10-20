@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after group 01 (Lightning Bolt, Loran of the Third Path, Malakir Rebirth and its combined-face registration). Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after groups 01 and 06. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**232 legacy registration keys, assigned exactly once to 40 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 232 is not a distinct-card count.
+**229 legacy registration keys, assigned exactly once to 39 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 229 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -14,7 +14,6 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 | Opponent-land color production | Exotic Orchard; Fellwar Stone | Same available-color query; permanent types differ. |
 | All lands gain Swamp type | Blanket of Night; Urborg, Tomb of Yawgmoth | Same overlay; Yavimaya is the Forest variant. |
 | Greatest-power team pump with trample | Overwhelming Stampede; Pathbreaker Ibex | Spell versus attack trigger; capture greatest power at the correct time. |
-| Opponent drain, gain actual life lost | Exsanguinate; Debt to the Deathless | X versus twice X. |
 | Token copy is not legendary | Irenicus’s Vile Duplication; Quantum Misalignment | Irenicus adds flying; Quantum has rebound. |
 | Dredge | Dakmor Salvage; Life from the Loam | Dredge 2 versus 3; each also has its ordinary land/spell program. |
 
@@ -27,6 +26,12 @@ Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutela
 ## Completed group 01
 
 Lightning Bolt, Loran of the Third Path, and both Malakir Rebirth registration keys now use canonical definitions. The batch adds single-target mixed player/permanent targeting, public graveyard-incarnation bindings for dies triggers, and identity-safe move actions. Tests cover damage recipient kinds, typed trigger pickers, live-host target mapping, temporary death-return behavior, and stale incarnations. The land face keeps tapped entry and black mana. Group numbers below stay stable.
+
+## Completed group 06 — Drain spells
+
+`Debt to the Deathless`; `Drain Life`; `Exsanguinate` (**3 registrations**).
+
+Canonical support now includes numeric multiplication/minimum, actual life-loss and damage result totals, optional characteristic fallbacks with pre-damage captures, and colored X spending restrictions that still permit generic cost reductions. Mechanic suites cover replacement-adjusted losses, partial/full damage prevention, player/creature/planeswalker caps, battles, JSON restore during replacement choices, and payment restrictions. The two unused legacy drain executors were removed.
 
 ## Complete primary assignment
 
@@ -41,16 +46,6 @@ Priority **A** · effort **L** · **5 registrations**
 **Shared work:** Unlimited combat prevention, combat/source/recipient filters, and announcement-time target capture now exist. Remaining cards need extra composition on that primitive.
 
 **Required support / secondary gates:** Bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
-
-### 06. Drain spells
-
-Priority **A** · effort **M** · **3 registrations**
-
-**Registrations:** `Debt to the Deathless`; `Drain Life`; `Exsanguinate`.
-
-**Shared work:** Exsanguinate and Debt to the Deathless drain all opponents and gain the life actually lost.
-
-**Required support / secondary gates:** Numeric multiplication plus actual life-loss result totals, not X times opponent count. Drain Life additionally needs actual damage, capped gain, any-target selection, and black-only X payment; stage it after the first two.
 
 ### 07. Object/stack controller follow-up
 

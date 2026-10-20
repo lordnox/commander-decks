@@ -90,7 +90,7 @@ export type AnyTargetSelector = { kind: 'anyTarget' }
 export const DAMAGEABLE_PERMANENT_TYPES = ['Creature', 'Planeswalker', 'Battle'] as const
 export type Selector = PlayerSelector | ObjectSelector | StackItemSelector | AnyTargetSelector
 
-export type NumericCharacteristic = 'power' | 'toughness' | 'manaValue' | 'life'
+export type NumericCharacteristic = 'power' | 'toughness' | 'manaValue' | 'life' | 'loyalty'
 
 export const ROUNDING_MODES = { up: 'up', down: 'down' } as const
 export type RoundingMode = typeof ROUNDING_MODES[keyof typeof ROUNDING_MODES]
@@ -100,6 +100,7 @@ export type Amount =
   | { kind: 'constant'; value: number }
   | { kind: 'variable'; name: 'X' }
   | { kind: 'eventAmount' }
+  | { kind: 'multiply' | 'minimum'; left: Amount; right: Amount }
   | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }
   | {
@@ -107,6 +108,7 @@ export type Amount =
       of: Reference
       characteristic: NumericCharacteristic
       information: 'current' | 'currentOrLastKnown'
+      fallback?: number
     }
 
 export type AmountInput = number | Amount
@@ -152,6 +154,7 @@ export type VariableSpec = {
   name: 'X'
   min: number
   max: number
+  manaColor?: ManaId
 }
 
 export type TargetClause = {
@@ -289,11 +292,11 @@ export type Instruction =
   /** Add the specified mana to each resolved player recipient's pool. */
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
-  | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient }
+  | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }
   /** Queue life gain for each resolved player recipient at this point in resolution. */
   | { kind: 'gainLife'; amount: Amount; targets: PlayerRecipient }
   /** Deal damage from the referenced source, allowing the normal damage pipeline to apply. */
-  | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference }
+  | { kind: 'damage'; amount: Amount; targets: DamageRecipient; source: ObjectReference; bindResult?: string }
   /** Have two current battlefield creatures deal simultaneous noncombat damage. */
   | { kind: 'fight'; left: ObjectReference; right: ObjectReference }
   /** Exile permanents, then return the resulting cards as new objects (CR 400.7j). */
@@ -648,5 +651,6 @@ export type AmountEvaluationContext = {
     reference: Reference,
     characteristic: NumericCharacteristic,
     information: 'current' | 'currentOrLastKnown',
+    fallback?: number,
   ) => number
 }

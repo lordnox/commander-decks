@@ -636,14 +636,7 @@ export const gainLife = (
   ? { kind: 'gainLife', count: value.amount, to: value.to }
   : { kind: 'gainLife', count: value }
 
-export const drainOpponentsX = (multiplier = 1): CardInstruction => ({
-  kind: 'drainOpponentsX',
-  multiplier,
-})
-
 export const drawX = (): CardInstruction => ({ kind: 'drawX' })
-
-export const dealDamageTargetX = (): CardInstruction => ({ kind: 'dealDamageTargetX' })
 
 export const setAllLifeToLowest = (): CardInstruction => ({ kind: 'setAllLifeToLowest' })
 

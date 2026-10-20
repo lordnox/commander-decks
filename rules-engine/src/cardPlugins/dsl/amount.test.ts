@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test'
 import type { Amount } from './v1'
-import { captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { minimum, multiply, captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
@@ -108,4 +108,18 @@ test('amount result bindings require an earlier numeric producer and the correct
   ]) expect(() => compileCardRuleDefinition(card([spell({ instructions })]))).toThrow()
   for (const value of [-1, 1.5, 2_147_483_648]) expect(() => evaluateAmount(resultAmount('saved'), { ...context, result: () => value })).toThrow()
   expect(() => evaluateAmount(resultAmount('saved'), context)).toThrow()
+})
+
+
+test('multiplication and minimum compose, validate bindings and enforce numeric limits', () => {
+  expect(evaluateAmount(minimum(multiply(variable('X'), 3), 20), context)).toBe(20)
+  expect(evaluateAmount(multiply(0, 9), context)).toBe(0)
+  for (const expression of [multiply(variable('X'), 2), minimum(variable('X'), 2)]) {
+    expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: expression, targets: ref('controller') })] })]))).toThrow()
+  }
+  expect(() => evaluateAmount(multiply(1_000_000, 1_000_000), context)).toThrow()
+  expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: multiply(-1, 2), targets: ref('controller') })] })]))).toThrow()
+  let deep: Amount = variable('X')
+  for (let index = 0; index < 34; index++) deep = minimum(deep, 2)
+  expect(() => evaluateAmount(deep, context)).toThrow()
 })
