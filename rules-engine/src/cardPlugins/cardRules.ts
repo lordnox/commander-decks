@@ -11,7 +11,6 @@ import {
   drawHandSize,
   enchantedManaBoost,
   noMaximumHandSize,
-  addPlusCountersInstruction,
   attachedCopyOrToken,
   attackTax,
   attacks,
@@ -169,7 +168,6 @@ import {
   teferiSunsetPlusOne,
   targetOnResolve,
   targetOnResolveKicked,
-  targetOnResolveAt,
   uniqueLandNames,
   upkeep,
   chooseModes,
@@ -181,7 +179,6 @@ import {
   eachPlayerSacrifice,
   exchangeControlUntilEot,
   exchangeLifeWithOpponent,
-  fight,
   fightUpToOne,
   manaFrom,
   addUntilCleanupRule,
@@ -1094,20 +1091,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       draw(1),
     ),
   ],
-  'Khalni Ambush // Khalni Territory': [
-    entersTapped(),
-    targetOnResolveAt(0, 'select', {
-      zone: 'battlefield',
-      type: 'Creature',
-      controller: 'you',
-    }),
-    targetOnResolveAt(
-      1,
-      'select',
-      { zone: 'battlefield', type: 'Creature', controller: 'opponent' },
-      fight('two-targets'),
-    ),
-  ],
   'Kindred Dominance': [onResolve(chooseCreatureType('destroyOthers'))],
   'Kiora Bests the Sea God': [sagaChapters(
     {
@@ -1541,15 +1524,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [pumpControlledNonHuman(3, 3)],
     },
   )],
-  'Revitalizing Repast // Old-Growth Grove': [
-    entersTapped(),
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      addPlusCountersInstruction(1),
-      grantUntilEot('indestructible'),
-    ),
-  ],
   'Rings of Brighthearth': [handler('stackCopy')],
   'Ripples of Undeath': [yourFirstMain(millThenRecover(3, { mana: '{1}', life: 3 }))],
   "Rishkar's Expertise": [

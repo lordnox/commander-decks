@@ -1027,3 +1027,37 @@ test('Reanimate captures graveyard mana value before returning a creature under 
     ] },
   ])
 })
+
+
+test.each([
+  ['Khalni Ambush // Khalni Territory', 'Khalni Ambush', 'Khalni Territory'],
+  ['Revitalizing Repast // Old-Growth Grove', 'Revitalizing Repast', 'Old-Growth Grove'],
+])('modal catalog %s pins independent front and land programs', (combined, front, back) => {
+  expect(effectsFor(combined)).toEqual([])
+  const entry = cardTemplateDefaultsFor(combined)!
+  expect(entry).toEqual(cardTemplateDefaultsFor(front)!)
+  expect(entry.frontFace!.ruleDefinition).toEqual(entry.ruleDefinition)
+  expect(entry.backFace!.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor(back)!)
+  expect(entry.ruleDefinition.definition.abilities[0].kind).toBe('spell')
+  expect(entry.backFace!.ruleDefinition!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+  ])
+})
+
+test('green modal spell fronts compose their fight and protection instructions', () => {
+  expect(cardRuleDefinitionSnapshotFor('Khalni Ambush')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'you' } } },
+      { filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', not: { controller: 'you' } } } },
+    ] }, instructions: [{ kind: 'fight', left: { kind: 'targetRef', clauseIndex: 0 }, right: { kind: 'targetRef', clauseIndex: 1 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Revitalizing Repast')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] }, instructions: [
+      { kind: 'putCounters', targets: { kind: 'targetRef', clauseIndex: 0 }, counter: '+1/+1', count: { kind: 'constant', value: 1 } },
+      { kind: 'createEffect', targets: { kind: 'targetRef', clauseIndex: 0 }, effect: { kind: 'grantKeyword', keyword: KEYWORDS.indestructible }, duration: { kind: 'untilCleanup' } },
+    ] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Old-Growth Grove')!.definition.abilities[1]).toMatchObject({ kind: 'activated', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: ['B', 'G'].map(color => ({ instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } } }] })) })
+  expect(cardRuleDefinitionSnapshotFor('Khalni Territory')!.definition.abilities[1]).toMatchObject({ kind: 'activated', instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } } }] })
+})

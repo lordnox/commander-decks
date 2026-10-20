@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 259,
+    "cardRegistrations": 257,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 25,
+    "instructionUnobservedGaps": 26,
     "cardRegistrationOnlyGaps": 10,
-    "candidateOnlyInstructionRows": 166,
-    "candidateOnlyCardRows": 249
+    "candidateOnlyInstructionRows": 165,
+    "candidateOnlyCardRows": 247
   },
   "cardEffects": [
     {
@@ -467,7 +467,6 @@
         "Hagra Mauling // Hagra Broodpit:effects[0]",
         "Hall of Storm Giants:effects[0]",
         "Hallowed Fountain:effects[0]",
-        "Khalni Ambush // Khalni Territory:effects[0]",
         "Lair of the Hydra:effects[0]",
         "Lotus Field:effects[0]",
         "Malakir Rebirth // Malakir Mire:effects[0]",
@@ -476,7 +475,6 @@
         "Overgrown Tomb:effects[0]",
         "Pit of Offerings:effects[0]",
         "Raffine's Tower:effects[0]",
-        "Revitalizing Repast // Old-Growth Grove:effects[0]",
         "Sea Gate Restoration // Sea Gate, Reborn:effects[0]",
         "Secluded Steppe:effects[0]",
         "Sink into Stupor // Soporific Springs:effects[0]",
@@ -752,8 +750,6 @@
         "Hagra Mauling // Hagra Broodpit:effects[1]",
         "Irenicus's Vile Duplication:effects[0]",
         "Keep Safe:effects[0]",
-        "Khalni Ambush // Khalni Territory:effects[1]",
-        "Khalni Ambush // Khalni Territory:effects[2]",
         "Life from the Loam:effects[1]",
         "Malakir Rebirth:effects[0]",
         "Mana Drain:effects[0]",
@@ -763,7 +759,6 @@
         "Pile On:effects[1]",
         "Price of Fame:effects[1]",
         "Quantum Misalignment:effects[0]",
-        "Revitalizing Repast // Old-Growth Grove:effects[1]",
         "Singularity Rupture:effects[1]",
         "Sink into Stupor // Soporific Springs:effects[1]",
         "Snuff Out:effects[1]",
@@ -1032,7 +1027,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 31,
+        "matches": 32,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -1163,15 +1158,11 @@
     {
       "variant": "addPlusCounters",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Revitalizing Repast // Old-Growth Grove:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:249 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -1179,7 +1170,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -3066,19 +3057,17 @@
     {
       "variant": "fight",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Khalni Ambush // Khalni Territory:effects[2].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
         "matches": 6,
         "samples": [
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1008 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1053 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:671 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:683 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:837 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
-          "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:248 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
+          "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3482,15 +3471,13 @@
       "mechanic": "continuous or rule-changing effect",
       "currentRegistrations": [
         "Profane Command:effects[1].modes[3].do[0]",
-        "Retreat to Hagra:effects[0].do[0].modes[0].do[1]",
-        "Revitalizing Repast // Old-Growth Grove:effects[1].do[1]"
+        "Retreat to Hagra:effects[0].do[0].modes[0].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:249 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {"
         ]
@@ -4766,16 +4753,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 10,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1057 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:155 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:77 — test('a delayed program retains a parent card choice after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:213 — test('a granted callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:634 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
-          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:381 — test('with no creature the caster does not control there is nothing to vote on', () => {"
+          "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -10321,44 +10308,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Khalni Ambush // Khalni Territory",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Khalni Ambush // Khalni Territory"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:248 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, targetedResolve] and instructions [fight]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "fight"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "entersTapped",
-        "fight",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Kindred Dominance",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -12798,45 +12747,6 @@
       "handlerIds": [
         "choiceEffects",
         "modalSpell"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Revitalizing Repast // Old-Growth Grove",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Revitalizing Repast // Old-Growth Grove"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:249 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, targetedResolve] and instructions [addPlusCounters, grantUntilEot]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "11",
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "addPlusCounters",
-        "grantUntilEot"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "entersTapped",
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -15716,7 +15626,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 148,
+        "matches": 150,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -17586,7 +17496,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1824",
+        "rules-engine/src/cardPlugins/cardRules.ts:1798",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17655,6 +17565,10 @@
         "rules-engine/src/cardPlugins/librarySearch.ts:192",
         "rules-engine/src/cards/bala-ged-recovery.ts:16",
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
+        "rules-engine/src/cards/khalni-ambush.ts:19",
+        "rules-engine/src/cards/khalni-ambush.ts:23",
+        "rules-engine/src/cards/revitalizing-repast.ts:19",
+        "rules-engine/src/cards/revitalizing-repast.ts:23",
         "rules-engine/src/cards/types.ts:4",
         "rules-engine/src/newGame.ts:140",
         "rules-engine/src/newGame.ts:141",
@@ -17693,16 +17607,16 @@
         "rules-engine/src/plugins/rooms.test.ts — Room doors > casts either half and unlocks only the cast door as it enters"
       ],
       "candidateEvidence": {
-        "matches": 23,
+        "matches": 24,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2406 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
           "live-runner/src/kernelHost.test.ts:2455 — test('casts one Room half and later unlocks the other from structured acts', () => {",
           "live-runner/src/kernelHost.test.ts:3196 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1039 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:114 — test('Scapeshift cannot find an MDFC whose front face is not a land', () => {",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:247 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
-          "rules-engine/src/cardPlugins/targetingMana.test.ts:347 — test('unlock may decline or put a graveyard permanent onto the battlefield', () => {",
-          "rules-engine/src/plugins/adventure.test.ts:17"
+          "rules-engine/src/cardPlugins/targetingMana.test.ts:347 — test('unlock may decline or put a graveyard permanent onto the battlefield', () => {"
         ]
       },
       "neededCanonicalNode": "face-aware definition reference and typed casting/room procedures",
@@ -17718,8 +17632,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:280",
-        "rules-engine/src/cardPlugins/cardRules.ts:973",
+        "rules-engine/src/cardPlugins/cardRules.ts:277",
+        "rules-engine/src/cardPlugins/cardRules.ts:970",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
