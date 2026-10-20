@@ -1201,6 +1201,7 @@ export type GameEvent =
       sourceRevision?: string
       additionalEffects?: readonly Instruction[]
       capturedBindings?: PreventionInstance['capturedBindings']
+      capturedSource?: CapturedObject
       createdTurn?: number
       durationUntilTurn?: number
       durationUntilStepTurn?: number
