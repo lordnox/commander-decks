@@ -123,6 +123,7 @@ const preflightInstructions = (
       case 'draw':
       case 'grantLandPlays':
       case 'addMana':
+      case 'capturePlayer':
       case 'captureAmount':
       case 'gainLife':
       case 'loseLife':
@@ -460,6 +461,10 @@ const mixedRecipients = (recipient: Extract<Instruction, { kind: 'damage' }>['ta
     case 'targetRef':
     case 'choiceRef':
       damageTargets.push(...evaluateBoundRecipients(recipient, context).flatMap(boundDamageRecipients)); break
+    case 'relatedPlayer':
+    case 'resultRef':
+      damageTargets.push(...evaluatePlayerReference(recipient, context).map(player => ({ kind: 'player' as const, player })))
+      break
     case 'contextRef':
       if (recipient.name === 'source') damageTargets.push(...objectRecipients(evaluateObjectReference(recipient, context, 'currentOrLastKnown')))
       else damageTargets.push(...evaluatePlayerReference(recipient, context).map((player) => ({ kind: 'player' as const, player })))
@@ -654,6 +659,12 @@ const actionEvents = (
       if (amount === undefined || amount === 0) return []
       return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
     }
+    case 'capturePlayer': {
+      const players = evaluatePlayerReference(instruction.player, context)
+      if (players.length !== 1) throw new RuleDslEvaluationError('capturePlayer requires exactly one player')
+      frame.results = { ...frame.results, [instruction.bindResult]: players[0]! }
+      return []
+    }
     case 'captureAmount':
       frame.results = { ...frame.results, [instruction.bindResult]: evaluateRuntimeAmount(instruction.amount, context) }
       return []
@@ -750,6 +761,7 @@ const actionEvents = (
         type: 'move' as const,
         objectId: object.id,
         to: instruction.to,
+        ...(instruction.position !== undefined ? { position: instruction.position } : {}),
         ...(controllers ? { controller: controllers[0] } : {}),
         ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
         ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
@@ -943,6 +955,7 @@ const actionEvents = (
           : availableAmount(preventionEffect.capacity, context) ?? 0
         if ((capacity !== 'unlimited' && capacity <= 0) || targets.length === 0) return []
         const capturedBindings = {
+          ...(context.results && Object.keys(context.results).length > 0 ? { results: structuredClone(context.results) } : {}),
           ...(context.targets && Object.keys(context.targets).length > 0
             ? { targets: structuredClone(context.targets) } : {}),
           ...(context.targetLegality ? { targetLegality: structuredClone(context.targetLegality) } : {}),

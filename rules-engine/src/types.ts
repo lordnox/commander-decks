@@ -3,7 +3,7 @@ import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
 import type { AnnouncementTransaction } from './cardPlugins/dsl/compiler/announcement'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
-import type { ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
+import type { InstructionResult, ActivationFilter, CardRuleDefinitionSnapshotV1, Cost, CreatedEffect, DecisionsInput, EffectDuration as DslEffectDuration, GeneratedAbility, Instruction, PreventionEffectDefinition, PreventionFilter, ReplacementEffectDefinition, ReplacementProgramInstruction, ReplacementTransform } from './cardPlugins/dsl/schema/v1'
 import type { ResolutionPaymentBindings } from './cardPlugins/dsl/resolutionPayment'
 
 /** Seat key. Arbitrary string; generated games use `p1`…`pN`. */
@@ -231,6 +231,7 @@ export type PreventionInstance = {
   filter: PreventionFilter
   /** Announcement-time targets/choices used when the filter names `targetRef` or `choiceRef`. */
   capturedBindings?: {
+    results?: Readonly<Record<string, InstructionResult>>
     targets?: Readonly<Record<number, readonly (
       | { kind: 'player'; playerId: PlayerId }
       | ({ kind: 'object' } & ObjectIdentity)
@@ -502,7 +503,7 @@ export type StackExecutionContext = {
   capturedOccurrenceBindings?: readonly ('player' | 'object.before' | 'object.after')[]
   /** Captured bindings inherited by a delayed/reflexive program. */
   variables?: Readonly<Partial<Record<'X', number>>>
-  results?: Record<string, boolean | number>
+  results?: Record<string, InstructionResult>
   scopeId?: string
   /** Exact canonical program pin; execution support remains disabled until Part 03. */
   definitionSnapshot?: CardRuleDefinitionSnapshotV1
@@ -577,7 +578,7 @@ export type CanonicalResolutionFrame = {
   /** Validated announcement-time allocations retained across resolution suspension. */
   distributionBindings?: DistributionAllocation[]
   choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
-  results?: Record<string, boolean | number>
+  results?: Record<string, InstructionResult>
   pendingResult?: {
     binding: string
     kind: 'counter' | 'action' | 'amount'
@@ -729,7 +730,7 @@ export type ReplacementProgramCursor = {
 export type ReplacementInstructionProgramState = {
   instructions: readonly Instruction[]
   scopes: Array<{ path: string; instructions: readonly Instruction[]; cursor: number }>
-  results?: Record<string, boolean | number>
+  results?: Record<string, InstructionResult>
   choices?: Record<string, readonly { kind: 'object'; objectId: string }[]>
   pendingDiscard?: {
     seats: PlayerId[]

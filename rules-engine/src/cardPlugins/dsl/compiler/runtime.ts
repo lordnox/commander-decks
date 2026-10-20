@@ -12,6 +12,7 @@ import type {
   StackItem,
 } from '../../../types'
 import type {
+  InstructionResult,
   Amount,
   StatDelta,
   AmountEvaluationContext,
@@ -48,7 +49,7 @@ export type RuntimeBindings = {
   targetLegality?: Readonly<Record<number, readonly boolean[]>>
   choices?: Readonly<Record<string, readonly BoundRecipient[]>>
   variables?: Readonly<Partial<Record<'X', number>>>
-  results?: Readonly<Record<string, boolean | number>>
+  results?: Readonly<Record<string, InstructionResult>>
   distributions?: readonly DistributionAllocation[]
   scopeId?: string
   capturedOccurrence?: OccurrenceSnapshot
@@ -136,9 +137,28 @@ export const evaluatePlayerReference = (
   reference: PlayerReference,
   context: RuleDslRuntimeContext,
 ) => {
-  if (reference.kind === 'contextRef') return playerContextReference(reference, context)
-  return unique(recipientsInDomain(reference, context, 'player', (recipient) => recipient.kind === 'player').map((recipient) =>
-    recipient.playerId))
+  switch (reference.kind) {
+    case 'resultRef': {
+      const value = context.results?.[reference.binding]
+      if (typeof value !== 'string' || !context.state.players[value]) throw new RuleDslEvaluationError(`player result ${reference.binding} is not bound`)
+      return [value]
+    }
+    case 'relatedPlayer': {
+      const referenced = reference.of
+      if (referenced.kind !== 'contextRef') {
+        const bound = recipients(referenced, context)
+        if (bound.every(recipient => recipient.kind === 'stackItem')) {
+          if (reference.relation !== 'controller') throw new RuleDslEvaluationError('stack items have a controller, not an owner')
+          return unique(evaluateStackItemReference(referenced, context).map(item => item.controller))
+        }
+      }
+      return unique(evaluateObjectReference(referenced, context).map(object => object[reference.relation]))
+    }
+    case 'contextRef': return playerContextReference(reference, context)
+    case 'targetRef':
+    case 'choiceRef':
+      return unique(recipientsInDomain(reference, context, 'player', (recipient) => recipient.kind === 'player').map(recipient => recipient.playerId))
+  }
 }
 
 const capturedOccurrenceObject = (
@@ -342,12 +362,12 @@ const oneReferenceValue = (
   }
   if (characteristic === 'life') {
     const players = reference.kind === 'resultRef'
-      ? []
+      ? reference.field === 'player' ? evaluatePlayerReference({ ...reference, field: 'player' }, context) : []
       : evaluatePlayerReference(reference, context)
     if (players.length !== 1) throw new RuleDslEvaluationError('life reference must resolve to exactly one player')
     return context.state.players[players[0]].life
   }
-  if (reference.kind === 'resultRef') {
+  if (reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') {
     throw new RuleDslEvaluationError(`${characteristic} cannot read an instruction result`)
   }
   const objects = evaluateObjectReference(reference, context, information)

@@ -1,5 +1,6 @@
 import { expect, test } from 'bun:test'
-import type { Plugin } from '../../types'
+import { cardTemplate } from '../../newGame'
+import type { GameState, Plugin } from '../../types'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
@@ -59,4 +60,38 @@ test('redirected life loss to an eliminated player contributes no actual loss', 
   const state = resolveStack(server.rules, ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0] })))
   expect(state.players.p1.life).toBe(40)
   expect(state.players.p2.life).toBe(40)
+})
+
+test.each(['Swords to Plowshares', 'Condemn'])('zone-change follow-up pays the captured controller using resolution-time stats (%s)', name => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate(name, { manaCost: '{0}' })] },
+    battlefield: { p2: [cardTemplate('Stolen creature', { types: ['Creature'], power: 4, toughness: 5 })] },
+    libraries: { p3: [cardTemplate('Top'), cardTemplate('Bottom')] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  const creature = ready.zoneOrder.p2.battlefield[0]!
+  ready.objects[creature].owner = 'p3'
+  ready.objects[creature].attacking = 'p1'
+  const cast = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: creature }] }))
+  const changed = JSON.parse(JSON.stringify(cast)) as GameState
+  changed.objects[creature].power = 7
+  changed.objects[creature].toughness = 8
+  const state = resolveStack(server.rules, changed)
+  expect(state.players.p1.life).toBe(40)
+  expect(state.players.p2.life).toBe(name === 'Condemn' ? 48 : 47)
+  expect(state.players.p3.life).toBe(40)
+  expect(state.objects[creature].zone).toBe(name === 'Condemn' ? 'library' : 'exile')
+  if (name === 'Condemn') expect(state.zoneOrder.p3.library.at(-1)).toBe(creature)
+})
+
+test.each([-2, 0, 4])('captured power produces nonnegative life gain even for an exiled token (%s)', power => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [cardTemplate('Swords to Plowshares', { manaCost: '{0}' })] },
+    battlefield: { p2: [cardTemplate('Token fixture', { types: ['Creature'], token: true, power, toughness: 5 })] },
+  }, { random: () => 0 })
+  const ready = server.state
+  const creature = ready.zoneOrder.p2.battlefield[0]!
+  const state = resolveStack(server.rules, ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: creature }] })))
+  expect(state.players.p2.life).toBe(40 + Math.max(0, power))
+  expect(state.objects[creature]).toBeUndefined()
 })

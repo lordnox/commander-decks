@@ -1,5 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import {
+  capturePlayer,
+  controllerOf,
+  resultPlayer,
   card,
   activated,
   blinkUntil,
@@ -295,4 +298,21 @@ test.each([false, true])('cleanup delayed source movement preserves incarnation 
   state = resolveStack(server.rules, state)
   expect(state.objects[source].zone).toBe(reentered ? 'battlefield' : 'hand')
   expect(state.delayedTriggers).toHaveLength(0)
+})
+
+
+test('a delayed callback retains captured player results after the referenced permanent leaves', () => {
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ decisions: { targets: [select({ filter: objects({ zone: 'battlefield' }), count: 1 })] }, instructions: [
+      capturePlayer({ player: controllerOf(target(0)), bindResult: 'recipient' }),
+      createDelayed({ inheritTargets: false, condition: stepDelayed({ step: 'end' }), instructions: [gainLife({ targets: resultPlayer('recipient'), amount: 3 })] }),
+      move({ targets: target(0), to: 'exile' }),
+    ] })] }, battlefield: { p2: [cardTemplate('Captured controller fixture', { types: ['Creature'], power: 2, toughness: 2 })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: server.state.zoneOrder.p2.battlefield[0] }] }))
+  const delayed = resolveStack(server.rules, cast)
+  const atEnd = ok(server.rules({ ...JSON.parse(JSON.stringify(delayed)), step: 'postcombatMain' }, { type: 'advanceStep' }))
+  const state = resolveStack(server.rules, atEnd)
+  expect(state.players.p2.life).toBe(43)
+  expect(state.players.p1.life).toBe(40)
 })

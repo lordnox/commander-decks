@@ -1,11 +1,12 @@
 import { describe, expect, test } from 'bun:test'
+import { hasKeyword } from '../../keywords'
 import { commanderRules } from '../../formats'
 import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { ok } from '../../testHelpers'
-import type { GameState } from '../../types'
+import type { GameEvent, GameState } from '../../types'
 import { ward as wardEffect } from '../effects'
 import { ward as wardPlugin } from '../ward'
 import { instructionSpell } from './instructionTestSupport'
@@ -341,4 +342,25 @@ test('Stifle rejects a spell target', () => {
   const stacked = ok(server.rules(ready, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[1] }))
   expect(server.rules(stacked, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: stacked.stack[0].id }] }).ok).toBe(false)
   expect(stacked.players.p1.mana.U).toBe(1)
+})
+
+// Follow-ups refer to the spell's controller even after the stack item disappears.
+test.each([false, true])('counter follow-up retains controller even if the spell cannot be countered (%s)', uncounterable => {
+  const server = createServerGame(commanderRules, {
+    hands: {
+      p1: [cardTemplate('Swan Song', { manaCost: '{0}' })],
+      p2: [cardTemplate('Spell fixture', { types: ['Instant'], manaCost: '{0}' })],
+    },
+  }, { random: () => 0, ...(uncounterable ? { cardPlugins: [{ id: 'fixture.suppressCounter', replace: ({ event }: { event: GameEvent }) => event.type === 'counterStackItem' ? null : undefined }] } : {}) })
+  const ready = structuredClone(server.state)
+  ready.priority = 'p2'
+  const stacked = ok(server.rules(ready, { type: 'castSpell', seat: 'p2', objectId: ready.zoneOrder.p2.hand[0] }))
+  const responding = structuredClone(stacked)
+  responding.priority = 'p1'
+  const cast = ok(server.rules(responding, { type: 'castSpell', seat: 'p1', objectId: ready.zoneOrder.p1.hand[0], targets: [{ kind: 'stackItem', stackId: stacked.stack[0]!.id }] }))
+  const state = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  const bird = Object.values(state.objects).find(object => object.token)!
+  expect(bird).toMatchObject({ controller: 'p2', types: ['Creature'], subtypes: ['Bird'], colors: ['U'], power: 2, toughness: 2 })
+  expect(hasKeyword(bird, 'flying')).toBe(true)
+  expect(state.objects[ready.zoneOrder.p2.hand[0]!].zone).toBe(uncounterable ? 'stack' : 'graveyard')
 })
