@@ -15,8 +15,10 @@ import blightedWoodland from './blighted-woodland'
 import bloodCelebrant from './blood-celebrant'
 import bojukaBog from './bojuka-bog'
 import botanicalSanctum from './botanical-sanctum'
+import brokenBond from './broken-bond'
 import brokersHideout from './brokers-hideout'
 import buriedAlive from './buried-alive'
+import bushwhack from './bushwhack'
 import cabalCoffers from './cabal-coffers'
 import cabalStronghold from './cabal-stronghold'
 import castleGarenbrig from './castle-garenbrig'
@@ -165,8 +167,10 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Blood Celebrant": bloodCelebrant,
   "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
+  "Broken Bond": brokenBond,
   "Brokers Hideout": brokersHideout,
   "Buried Alive": buriedAlive,
+  "Bushwhack": bushwhack,
   "Cabal Coffers": cabalCoffers,
   "Cabal Stronghold": cabalStronghold,
   "Castle Garenbrig": castleGarenbrig,
