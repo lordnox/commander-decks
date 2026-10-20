@@ -36,6 +36,7 @@ import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
 import cultivate from './cultivate'
 import dailyBugleNewspaper from './daily-bugle-newspaper'
+import darkness from './darkness'
 import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
@@ -87,6 +88,7 @@ import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import infernalContract from './infernal-contract'
 import joinTheDead from './join-the-dead'
+import kamiOfFalseHope from './kami-of-false-hope'
 import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
 import kodamasReach from './kodamas-reach'
@@ -213,6 +215,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cryptic Command": crypticCommand,
   "Cultivate": cultivate,
   "Daily Bugle Newspaper": dailyBugleNewspaper,
+  "Darkness": darkness,
   "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
@@ -264,6 +267,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hinterland Harbor": hinterlandHarbor,
   "Infernal Contract": infernalContract,
   "Join the Dead": joinTheDead,
+  "Kami of False Hope": kamiOfFalseHope,
   "Khalni Ambush": khalniAmbush,
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,

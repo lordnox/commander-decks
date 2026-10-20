@@ -926,11 +926,15 @@ const actionEvents = (
         : [])
     }
     case 'createEffect': {
-      const targets = objectActions(instruction.targets, context)
+      const targets = instruction.effect.kind === 'prevention' && instruction.targets.kind !== 'objects'
+        ? evaluateObjectReference(instruction.targets, context, 'currentOrLastKnown')
+        : objectActions(instruction.targets, context)
       if (instruction.effect.kind === 'prevention') {
         const preventionEffect = instruction.effect
-        const capacity = availableAmount(preventionEffect.capacity, context) ?? 0
-        if (capacity <= 0 || targets.length === 0) return []
+        const capacity = preventionEffect.capacity.kind === 'unlimited'
+          ? 'unlimited' as const
+          : availableAmount(preventionEffect.capacity, context) ?? 0
+        if ((capacity !== 'unlimited' && capacity <= 0) || targets.length === 0) return []
         return targets.map((object) => ({
           type: 'registerPrevention' as const,
           hostObjectId: object.id,

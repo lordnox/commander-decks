@@ -108,6 +108,12 @@ export type Amount =
 
 export type AmountInput = number | Amount
 
+/** Sentinel for “prevent all” rather than a numeric shield. */
+export const UNLIMITED_PREVENTION = { kind: 'unlimited' } as const
+export type UnlimitedPreventionCapacity = typeof UNLIMITED_PREVENTION
+export type PreventionCapacity = Amount | UnlimitedPreventionCapacity
+export type PreventionCapacityInput = AmountInput | UnlimitedPreventionCapacity
+
 /** Signed expressions are accepted only where a power/toughness delta is required. */
 export type StatDelta = Amount | { kind: 'negate'; value: Amount }
 export type StatDeltaInput = number | StatDelta
@@ -222,6 +228,8 @@ export type GeneratedAbility = {
 export type PreventionFilter = {
   recipient?: PlayerReference | PlayerSelector | ObjectReference | ObjectSelector
   source?: ObjectReference | ObjectSelector
+  /** When true, match only combat damage. When false, match only noncombat damage. */
+  combat?: boolean
 }
 
 export type PreventDamageTransform = { kind: 'preventDamage' }
@@ -229,7 +237,7 @@ export type PreventDamageTransform = { kind: 'preventDamage' }
 export type PreventionEffectDefinition = {
   kind: 'prevention'
   filter: PreventionFilter
-  capacity: Amount
+  capacity: PreventionCapacity
   additionalEffects?: readonly Instruction[]
   transform: PreventDamageTransform
 }
@@ -242,7 +250,7 @@ export type CreatedEffect =
   | {
       kind: 'prevention'
       filter: PreventionFilter
-      capacity: Amount
+      capacity: PreventionCapacity
       additionalEffects?: readonly Instruction[]
     }
 

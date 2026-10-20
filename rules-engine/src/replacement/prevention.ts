@@ -110,6 +110,8 @@ export const damageMatchesPreventionFilter = (
   hostSourceId: string,
   controller: PlayerId,
 ) => {
+  if (filter.combat === true && event.combat !== true) return false
+  if (filter.combat === false && event.combat === true) return false
   const runtime = runtimeFor(state, hostSourceId, controller)
   if (event.target.kind === 'player') {
     if (!matchesPlayerRecipient(filter, runtime, event.target)) return false
@@ -272,10 +274,19 @@ const staticPreventionFromPrintedModifiers = (state: GameState, sourceId: string
     if (!printedStaticAbilityActive(state, source, modifier.abilityIndex)) continue
     const key = printedStaticEffectKey(sourceId, modifier.abilityIndex, modifier.effectIndex)
     const effect = modifier.effect
-    const capacity = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
-    if (capacity <= 0) continue
+    let remaining: number | 'unlimited'
+    let capacity: number | 'unlimited'
+    if (effect.capacity.kind === 'unlimited') {
+      remaining = 'unlimited'
+      capacity = 'unlimited'
+    } else {
+      const value = evaluateRuntimeAmount(effect.capacity, runtimeFor(state, sourceId, source.controller))
+      if (value <= 0) continue
+      remaining = value
+      capacity = value
+    }
     next = registerInstance(next, {
-      remaining: capacity,
+      remaining,
       capacity,
       duration: { kind: 'whileSourceOnBattlefield', sourceId, sourceIncarnation: source.incarnation },
       hostSourceId: sourceId,
@@ -334,7 +345,7 @@ export const discoverPreventionCandidates = (
   if (event.type !== 'dealDamage') return []
   const candidates: PreventionCandidate[] = []
   for (const instance of state.preventionInstances ?? []) {
-    if (instance.remaining <= 0) continue
+    if (instance.remaining !== 'unlimited' && instance.remaining <= 0) continue
     if (usedInstanceIds.includes(instance.id)) continue
     if (!preventionInstanceHolds(state, instance, false)) continue
     const host = state.objects[instance.hostSourceId]
@@ -369,6 +380,7 @@ export const consumePrevention = (
   const index = instances.findIndex((instance) => instance.id === preventionId)
   if (index < 0) return state
   const instance = instances[index]!
+  if (instance.remaining === 'unlimited') return state
   const prevented = Math.min(instance.remaining, amount)
   const remaining = Math.max(0, instance.remaining - prevented)
   const nextInstances = [...instances]
@@ -389,7 +401,9 @@ export const applyPreventionToDamage = (
   if (event.unpreventable) {
     return { state, event, preventedAmount: 0 }
   }
-  const preventedAmount = Math.min(instance.remaining, event.amount)
+  const preventedAmount = instance.remaining === 'unlimited'
+    ? event.amount
+    : Math.min(instance.remaining, event.amount)
   const nextEvent = { ...event, amount: event.amount - preventedAmount }
   const nextState = preventedAmount > 0 ? consumePrevention(state, preventionId, preventedAmount) : state
   return { state: nextState, event: nextEvent, preventedAmount }

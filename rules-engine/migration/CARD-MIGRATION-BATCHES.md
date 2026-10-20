@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after pay-life land entry (Breeding Pool, Godless Shrine, Hallowed Fountain, Overgrown Tomb, Watery Grave). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after unlimited combat-damage prevention (Darkness, Kami of False Hope). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**239 legacy registration keys, assigned exactly once to 41 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 239 is not a distinct-card count.
+**237 legacy registration keys, assigned exactly once to 41 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 237 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -11,7 +11,6 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 | Shared rule | Registrations | Important difference / extra gate |
 | --- | --- | --- |
 | Reveal top card into hand, lose its mana value | Dark Confidant; Dark Tutelage | Same upkeep program; source card types differ. |
-| Prevent all combat damage this turn | Darkness; Kami of False Hope | Same resolving effect; spell versus sacrifice activation. |
 | Opponent-land color production | Exotic Orchard; Fellwar Stone | Same available-color query; permanent types differ. |
 | All lands gain Swamp type | Blanket of Night; Urborg, Tomb of Yawgmoth | Same overlay; Yavimaya is the Forest variant. |
 | Greatest-power team pump with trample | Overwhelming Stampede; Pathbreaker Ibex | Spell versus attack trigger; capture greatest power at the correct time. |
@@ -23,7 +22,7 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 **A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
 
-Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
+Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
 
 ## Complete primary assignment
 
@@ -41,13 +40,13 @@ Priority **A** · effort **S** · **4 registrations**
 
 ### 05. Combat-damage prevention
 
-Priority **A** · effort **L** · **8 registrations**
+Priority **A** · effort **L** · **6 registrations**
 
-**Registrations:** `Batwing Brume`; `Comeuppance`; `Darkness`; `Energy Arc`; `Inkshield`; `Kami of False Hope`; `Lady Evangela`; `Sokrates, Athenian Teacher`.
+**Registrations:** `Batwing Brume`; `Comeuppance`; `Energy Arc`; `Inkshield`; `Lady Evangela`; `Sokrates, Athenian Teacher`.
 
-**Shared work:** Unlimited prevention for the turn with combat/source/recipient filters. Darkness and Kami of False Hope have the same resolving prevention effect.
+**Shared work:** Unlimited combat prevention and combat/source/recipient filters now exist. Remaining cards need extra composition on that primitive.
 
-**Required support / secondary gates:** Add true unlimited capacity and combat filtering while honoring unpreventable damage. Then source-only Lady Evangela, bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
+**Required support / secondary gates:** Capture targeted source identities for Lady Evangela. Then bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
 
 ### 06. Drain spells
 

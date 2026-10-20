@@ -159,7 +159,8 @@ describe('available actions', () => {
       objectId: objectNamed(state, 'Kami of False Hope').id,
       name: 'Kami of False Hope',
       text: kami.oracleText,
-      abilityId: 'kami.fog',
+      abilityId: '$.abilities[0]',
+      targetGroups: [],
     })
 
     // Damage is behind us; a later combat declares attackers again.
