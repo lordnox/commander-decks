@@ -5,6 +5,7 @@ import {
   evaluatePlayerReference,
   evaluatePlayerSelector,
   evaluateRuntimeAmount,
+  withOccurrencePlayer,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
 import { RuleDslEvaluationError } from '../cardPlugins/dsl/compiler/errors'
@@ -23,6 +24,7 @@ import type {
   GameEvent,
   GameObject,
   GameState,
+  OccurrenceSnapshot,
   PlayerId,
   PreventionInstance,
   StepId,
@@ -476,15 +478,39 @@ const seatsFor = (
   return evaluatePlayerReference(targets as PlayerReference, runtime)
 }
 
+export const preventionFollowUpOccurrence = (
+  event: Extract<GameEvent, { type: 'dealDamage' }>,
+  preventedAmount: number,
+  state: GameState,
+): OccurrenceSnapshot => {
+  const sourceObject = event.sourceSnapshot?.snapshot ?? state.objects[event.sourceId]
+  return {
+    kind: 'event',
+    eventType: 'dealDamage',
+    amount: preventedAmount,
+    ...(event.target.kind === 'player' ? { player: event.target.player } : {}),
+    ...(sourceObject ? { object: { after: structuredClone(sourceObject) } } : {}),
+    ...(event.sourceSnapshot
+      ? { source: structuredClone(event.sourceSnapshot) }
+      : sourceObject
+        ? { source: captureObject(sourceObject) }
+        : {}),
+  }
+}
+
 /** Minimal CR 615.12 follow-ups for prevention side effects in tests and DSL shields. */
 export const eventsFromPreventionAdditional = (
   state: GameState,
   hostSourceId: string,
   controller: PlayerId,
   instructions: readonly Instruction[],
+  occurrence?: OccurrenceSnapshot,
 ): GameEvent[] => {
   const events: GameEvent[] = []
-  const runtime = runtimeFor(state, hostSourceId, controller)
+  const runtime = {
+    ...runtimeFor(state, hostSourceId, controller),
+    ...(occurrence ? { occurrence } : {}),
+  }
   const walk = (nodes: readonly Instruction[]) => {
     for (const instruction of nodes) {
       if (instruction.kind === 'sequence') {
@@ -492,9 +518,9 @@ export const eventsFromPreventionAdditional = (
         continue
       }
       if (instruction.kind === 'gainLife' || instruction.kind === 'loseLife') {
-        const amount = evaluateRuntimeAmount(instruction.amount, runtime)
-        if (amount <= 0) continue
         for (const seat of seatsFor(instruction.targets, runtime)) {
+          const amount = evaluateRuntimeAmount(instruction.amount, withOccurrencePlayer(runtime, seat))
+          if (amount <= 0) continue
           events.push({
             type: instruction.kind,
             seat,
@@ -505,9 +531,9 @@ export const eventsFromPreventionAdditional = (
         continue
       }
       if (instruction.kind === 'draw') {
-        const count = evaluateRuntimeAmount(instruction.count, runtime)
-        if (count <= 0) continue
         for (const seat of seatsFor(instruction.targets, runtime)) {
+          const count = evaluateRuntimeAmount(instruction.count, withOccurrencePlayer(runtime, seat))
+          if (count <= 0) continue
           events.push({ type: 'draw', seat, count })
         }
       }

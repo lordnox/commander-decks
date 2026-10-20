@@ -61,6 +61,10 @@ export const evaluateAmount = (
       if (context.eventAmount === undefined) throw new RuleDslEvaluationError('eventAmount is not available in this execution context')
       return runtimeAmount(context.eventAmount, 'eventAmount')
     }
+    case 'manaSpent': {
+      if (!context.manaSpent) throw new RuleDslEvaluationError('manaSpent is not available in this execution context')
+      return runtimeAmount(context.manaSpent(expression.color), 'manaSpent')
+    }
     case 'count': return runtimeAmount(context.count(expression.of), 'selector count')
     case 'characteristic': return runtimeAmount(
       context.characteristic(expression.of, expression.characteristic, expression.information, expression.fallback),

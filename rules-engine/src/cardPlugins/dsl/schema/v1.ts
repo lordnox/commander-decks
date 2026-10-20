@@ -36,6 +36,7 @@ export type ContextBinding =
   | 'triggering.player'
   | 'triggering.object.before'
   | 'triggering.object.after'
+  | 'triggering.object.controller'
 
 /** Player results store a seat ID; other action results remain boolean or numeric. */
 export type InstructionResult = boolean | number | string
@@ -105,6 +106,7 @@ export type Amount =
   | { kind: 'variable'; name: 'X' }
   | { kind: 'eventAmount' }
   | { kind: 'multiply' | 'minimum'; left: Amount; right: Amount }
+  | { kind: 'manaSpent'; color: CardColor }
   | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }
   | {
@@ -587,6 +589,7 @@ export type StaticAbilityDefinition = {
 export type KeywordAbilityDefinition = {
   kind: 'keyword'
   keyword: Keyword
+  when?: Condition
 }
 
 export type AbilityDefinition =
@@ -651,6 +654,7 @@ export type AmountEvaluationContext = {
   result?: (reference: Extract<Amount, { kind: 'resultRef' }>) => number | undefined
   variables?: Readonly<Partial<Record<'X', number>>>
   eventAmount?: number
+  manaSpent?: (color: CardColor) => number
   count: (selector: Selector) => number
   characteristic: (
     reference: Reference,

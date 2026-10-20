@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after groups 01 and 06 plus the first four registrations in group 07. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after group 05 (Batwing Brume, Comeuppance, Energy Arc, Inkshield, Sokrates, Athenian Teacher), groups 01 and 06, and the first four registrations in group 07. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**225 legacy registration keys, assigned exactly once to 39 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 225 is not a distinct-card count.
+**220 legacy registration keys, assigned exactly once to 38 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 220 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -27,6 +27,10 @@ Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutela
 
 Lightning Bolt, Loran of the Third Path, and both Malakir Rebirth registration keys now use canonical definitions. The batch adds single-target mixed player/permanent targeting, public graveyard-incarnation bindings for dies triggers, and identity-safe move actions. Tests cover damage recipient kinds, typed trigger pickers, live-host target mapping, temporary death-return behavior, and stale incarnations. The land face keeps tapped entry and black mana. Group numbers below stay stable.
 
+## Completed group 05
+
+Batwing Brume, Comeuppance, Energy Arc, Inkshield, and Sokrates, Athenian Teacher now use canonical definitions. Prevention follow-ups see the prevented `eventAmount` and the damage source, spent-color amounts read the resolving stack item, life-change amounts can count per seat, and keyword abilities can take a `when` condition. Everybody Lives! and Settle the Wreckage stay on the legacy combat-prevention plugin. Group numbers below stay stable.
+
 ## Completed group 06 — Drain spells
 
 `Debt to the Deathless`; `Drain Life`; `Exsanguinate` (**3 registrations**).
@@ -42,16 +46,6 @@ Canonical controller/owner references and persisted player-result captures survi
 ## Complete primary assignment
 
 Each numbered group below owns its listed registration keys. Cross-references in the notes do not add to its count.
-
-### 05. Combat-damage prevention
-
-Priority **A** · effort **L** · **5 registrations**
-
-**Registrations:** `Batwing Brume`; `Comeuppance`; `Energy Arc`; `Inkshield`; `Sokrates, Athenian Teacher`.
-
-**Shared work:** Unlimited combat prevention, combat/source/recipient filters, and announcement-time target capture now exist. Remaining cards need extra composition on that primitive.
-
-**Required support / secondary gates:** Bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
 
 ### 07. Object/stack controller follow-up — remaining slice
 

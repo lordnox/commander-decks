@@ -37,6 +37,10 @@ test.each([
   ['Murder', ['destroy']],
   ['Sign in Blood', ['draw', 'loseLife']],
   ['Darkness', ['createEffect']],
+  ['Batwing Brume', ['if', 'if']],
+  ['Comeuppance', ['createEffect', 'createEffect']],
+  ['Energy Arc', ['untap', 'createEffect', 'createEffect']],
+  ['Inkshield', ['createEffect']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -500,6 +504,28 @@ test('catalog Kami of False Hope sacrifices itself to prevent all combat damage 
       effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
     }],
   })
+})
+
+test('catalog Sokrates grants defender, conditional hexproof, and a combat-dialogue prevention', () => {
+  expect(effectsFor('Sokrates, Athenian Teacher')).toEqual([])
+  expect(cardTemplateDefaultsFor('Sokrates, Athenian Teacher')).toMatchObject({
+    types: ['Creature'], subtypes: ['Human', 'Advisor'], colors: ['W', 'U'], manaCost: '{1}{W}{U}', manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Sokrates, Athenian Teacher')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.defender },
+    { kind: 'keyword', keyword: KEYWORDS.hexproof, when: { kind: 'compareAmount' } },
+    {
+      kind: 'activated',
+      costs: [{ kind: 'tapSource' }],
+      decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+      instructions: [{
+        kind: 'createEffect',
+        targets: { kind: 'targetRef', clauseIndex: 0 },
+        duration: { kind: 'untilCleanup' },
+        effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
+      }],
+    },
+  ])
 })
 
 test('catalog Lady Evangela fogs combat damage from a targeted creature', () => {

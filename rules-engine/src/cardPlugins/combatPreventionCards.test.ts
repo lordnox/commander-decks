@@ -73,7 +73,7 @@ describe('Lady Evangela advanced combat prevention cards', () => {
     }
     const resolved = castAndResolve(server, ready, 'Batwing Brume')
     expect(resolved.players.p2.life).toBe(38)
-    expect(resolved.rules.some((rule) => rule.pluginId === 'fog')).toBe(true)
+    expect(resolved.preventionInstances?.[0]?.remaining).toBe('unlimited')
     expect(ok(server.rules(resolved, {
       type: 'combatDamage',
       sourceId: named(resolved, 'First Attacker').id,

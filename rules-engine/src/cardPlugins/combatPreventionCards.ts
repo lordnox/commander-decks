@@ -1,17 +1,11 @@
-import { hasKeyword } from '../keywords'
 import { everybodyLives } from '../plugins/advancedCombatPrevention'
 import { openCardSelection } from '../rules/selectCards'
 import type Draft from '../draft'
 import type { GameObject, Plugin, StackItem } from '../types'
 import { basicLand } from './effects'
-import { targetObject } from '../objectIdentity'
 
 const supported = new Set([
-  'Batwing Brume',
-  'Comeuppance',
-  'Energy Arc',
   'Everybody Lives!',
-  'Inkshield',
   'Settle the Wreckage',
 ])
 
@@ -74,23 +68,6 @@ export const combatPreventionCards: Plugin = {
     const source = state.objects[event.objectId]
     if (!source || !supported.has(source.name)) return
     const targets = event.targets ?? []
-    if (source.name === 'Energy Arc') {
-      const ids = targets.flatMap((target) => target.kind === 'object' ? [target.objectId] : [])
-      if (ids.length !== targets.length) return 'Energy Arc requires creature targets'
-      if (new Set(ids).size !== ids.length) return 'Energy Arc cannot target a creature twice'
-      if (ids.some((id) => {
-        const creature = state.objects[id]
-        return !creature
-          || creature.zone !== 'battlefield'
-          || !creature.types.includes('Creature')
-          || (
-            creature.controller !== event.seat
-            && hasKeyword(creature, 'hexproof', state)
-          )
-      })) {
-        return 'illegal target for Energy Arc'
-      }
-    }
     if (source.name === 'Settle the Wreckage') {
       if (targets.length !== 1 || targets[0].kind !== 'player') {
         return 'Settle the Wreckage requires one player target'
@@ -110,88 +87,11 @@ export const combatPreventionCards: Plugin = {
     if (!resolution) return
     const { item, source } = resolution
 
-    if (source.name === 'Batwing Brume') {
-      if ((item.manaSpent?.W ?? 0) > 0) {
-        draft.enqueue({
-          type: 'addRule',
-          pluginId: 'fog',
-          params: { untilCleanup: true },
-        })
-      }
-      if ((item.manaSpent?.B ?? 0) > 0) {
-        for (const seat of draft.playerOrder) {
-          const attackers = Object.values(draft.objects).filter((object) =>
-            object.zone === 'battlefield'
-            && object.controller === seat
-            && object.attacking !== null).length
-          if (attackers > 0) {
-            draft.enqueue({ type: 'loseLife', seat, amount: attackers, source: source.id })
-          }
-        }
-      }
-      return
-    }
-
-    if (source.name === 'Comeuppance') {
-      draft.enqueue({
-        type: 'addRule',
-        pluginId: 'advancedCombatPrevention',
-        params: {
-          mode: 'comeuppance',
-          controller: item.controller,
-          cardSourceId: source.id,
-          untilCleanup: true,
-        },
-      })
-      return
-    }
-
-    if (source.name === 'Energy Arc') {
-      const creatureIds = item.targets.flatMap((target) => {
-        if (target.kind !== 'object') return []
-        const creature = targetObject(draft, target)
-        if (
-          !creature
-          || creature.zone !== 'battlefield'
-          || !creature.types.includes('Creature')
-          || (
-            creature.controller !== item.controller
-            && hasKeyword(creature, 'hexproof', draft)
-          )
-        ) {
-          return []
-        }
-        draft.enqueue({ type: 'untap', objectId: creature.id })
-        return [creature.id]
-      })
-      if (creatureIds.length > 0) {
-        draft.enqueue({
-          type: 'addRule',
-          pluginId: 'fog',
-          params: { creatureIds, untilCleanup: true },
-        })
-      }
-      return
-    }
-
     if (source.name === 'Everybody Lives!') {
       draft.enqueue({
         type: 'addRule',
         pluginId: 'advancedCombatPrevention',
         params: { mode: 'everybodyLives', untilCleanup: true },
-      })
-      return
-    }
-
-    if (source.name === 'Inkshield') {
-      draft.enqueue({
-        type: 'addRule',
-        pluginId: 'advancedCombatPrevention',
-        params: {
-          mode: 'inkshield',
-          controller: item.controller,
-          untilCleanup: true,
-        },
       })
       return
     }

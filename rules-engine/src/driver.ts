@@ -12,6 +12,7 @@ import {
   amountEvaluationContext,
   evaluateCondition,
   evaluateStackItemSelector,
+  withOccurrencePlayer,
   type BoundRecipient,
   type RuleDslRuntimeContext,
 } from './cardPlugins/dsl/compiler/runtime'
@@ -655,9 +656,13 @@ const actionEvents = (
     }
     case 'draw': {
       const targets = recipients(instruction.targets, context)
-      const amount = availableAmount(instruction.count, context)
-      if (amount === undefined || amount === 0) return []
-      return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
+      return targets.flatMap((seat) => {
+        const amount = availableAmount(instruction.count, withOccurrencePlayer(context, seat))
+        if (amount === undefined || amount === 0) return []
+        const assigned = distributedAmount(instruction.targets, seat, context, amount)
+        if (assigned === 0) return []
+        return [{ type: 'draw' as const, seat, count: assigned }]
+      })
     }
     case 'capturePlayer': {
       const players = evaluatePlayerReference(instruction.player, context)
@@ -671,22 +676,25 @@ const actionEvents = (
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
-      const amount = availableAmount(instruction.amount, context)
       if (instruction.kind === 'loseLife' && instruction.bindResult) {
         frame.results = { ...frame.results, [instruction.bindResult]: 0 }
-        if (targets.length > 0 && amount) frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'loseLife', value: 0 }
       }
-      if (amount === undefined || amount === 0) return []
-      return targets.flatMap((seat) => {
+      const events = targets.flatMap((seat) => {
+        const amount = availableAmount(instruction.amount, withOccurrencePlayer(context, seat))
+        if (amount === undefined || amount === 0) return []
         const assigned = distributedAmount(instruction.targets, seat, context, amount)
         if (assigned === 0) return []
         return [{
-        type: instruction.kind,
-        seat,
-        amount: assigned,
-        source: frame.source.ref.objectId,
+          type: instruction.kind,
+          seat,
+          amount: assigned,
+          source: frame.source.ref.objectId,
         }]
       })
+      if (instruction.kind === 'loseLife' && instruction.bindResult && events.length > 0) {
+        frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'loseLife', value: 0 }
+      }
+      return events
     }
     case 'blink': {
       const targets = objectActions(instruction.targets, context).filter(object => object.zone === 'battlefield')

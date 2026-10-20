@@ -199,7 +199,6 @@ import {
   createHeroWithLandCounters,
   searchTargetControllerForBasicLandType,
   removeTarget,
-  combatDialogueUntilEot,
   copyTargetForEachOtherPlayer,
   exileVoteWinners,
   vote,
@@ -499,7 +498,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     linkedExileUntilLeaves(),
     enters(linkExile({ type: 'Creature', controller: 'opponent' })),
   ],
-  'Batwing Brume': [handler('combatPreventionCards')],
   Belonging: [
     enters(
       changelingShapeshifter(),
@@ -648,7 +646,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
     enters(tapAttached(), pumpAttached(20, 20)),
   ],
-  Comeuppance: [handler('combatPreventionCards')],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
   "Council's Judgment": [
     onResolve(vote(
@@ -739,7 +736,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       returnLinkedExile(),
     ),
   ],
-  'Energy Arc': [handler('combatPreventionCards')],
   Ephemerate: [handler('blinkValue')],
   'Erestor of the Council': [onVotesFinished(
     forEachVoter('opponentsAgreeing', createTreasures(1, 'triggeringPlayer')),
@@ -946,7 +942,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     onResolve(selfMill(5), reanimateCreatureFromGraveyards()),
     handler('demonstrate'),
   ],
-  Inkshield: [handler('combatPreventionCards')],
   "Irenicus's Vile Duplication": [
     targetOnResolve(
       'select',
@@ -1497,16 +1492,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       controlledSubtype: 'Swamp',
     }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature', nonblack: true }),
-  ],
-  'Sokrates, Athenian Teacher': [
-    targetingRequirement('hexproof-while-untapped'),
-    activate({
-      id: 'sokrates.dialogue',
-      costs: { tap: true },
-      targets: 'creature',
-      do: [combatDialogueUntilEot()],
-    }),
-    handler('combatDialogue'),
   ],
   'Soul of Eternity': [
     ptEqualsLife({ who: 'controller' }),

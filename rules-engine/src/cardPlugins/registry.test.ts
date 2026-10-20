@@ -289,8 +289,7 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Rings of Brighthearth')?.handlerIds).toContain('stackCopy')
     expect(cardPluginEntry("Council's Judgment")?.handlerIds).toContain('vote')
     expect(cardPluginEntry('Standard Bearer')?.handlerIds).toContain('targetingRequirements')
-    expect(cardPluginEntry('Sokrates, Athenian Teacher')?.handlerIds)
-      .toEqual(expect.arrayContaining(['activated', 'combatDialogue', 'targetingRequirements']))
+    expect(cardPluginEntry('Sokrates, Athenian Teacher')).toBeUndefined()
     expect(cardPluginEntry('Tenuous Truce')?.handlerIds).toContain('attackDeal')
   })
 
