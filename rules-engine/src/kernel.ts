@@ -1170,7 +1170,7 @@ const applySimultaneousSba = (
   return { ok: true, state: current, trace: entries }
 }
 
-const recordPendingCounterResult = (
+const recordPendingInstructionResult = (
   state: ReturnType<typeof freezeDraft>,
   trace: EventTrace[] = [],
 ) => {
@@ -1181,23 +1181,30 @@ const recordPendingCounterResult = (
   const draft = makeDraft(state)
   if (draft.resolution?.kind === 'canonicalSpell') {
     let result: boolean | number
-    if (pending.kind === 'action') {
-      if (!pending.eventType) {
-        result = pending.value ?? true
-      } else {
-        switch (pending.eventType) {
-          case 'createToken':
-          case 'copyPermanent':
-          case 'copySpell':
-            result = trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
-            break
-          default:
-            result = trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType)
-            break
+    switch (pending.kind) {
+      case 'amount':
+        result = typeof pending.value === 'number' ? pending.value : 0
+        if ((draft.resolution.pendingEvents?.length ?? 0) > 0 || draft.eventProcessing || hasOpenChoice(draft)) return state
+        break
+      case 'action':
+        if (!pending.eventType) {
+          result = pending.value ?? true
+        } else {
+          switch (pending.eventType) {
+            case 'createToken':
+            case 'copyPermanent':
+            case 'copySpell':
+              result = trace.filter((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType).length
+              break
+            default:
+              result = trace.some((entry) => entry.outcome === 'applied' && entry.event.type === pending.eventType)
+              break
+          }
         }
-      }
-    } else {
-      result = !draft.stack.some((item) => item.id === pending.stackId)
+        break
+      case 'counter':
+        result = !draft.stack.some((item) => item.id === pending.stackId)
+        break
     }
     draft.resolution.results = {
       ...draft.resolution.results,
@@ -1258,7 +1265,7 @@ const driveResolution = (
         const next = applyEventTree(current, event, catalog)
         entries.push(...nested(next.trace, 1))
         if (next.ok) {
-          current = recordPendingCounterResult(next.state, next.trace)
+          current = recordPendingInstructionResult(next.state, next.trace)
           if (event.type === 'addMana' && (frame.kind !== 'canonicalSpell' || !frame.inlineItem)) {
             const manaFrame = makeDraft(current)
             if (placePendingManaTriggers(manaFrame)) {
@@ -1320,13 +1327,13 @@ const driveResolution = (
     }
     current = freezeDraft(draft)
     if (step.kind === 'events') {
-      if ((step.events?.length ?? 0) === 0) current = recordPendingCounterResult(current, [])
+      if ((step.events?.length ?? 0) === 0) current = recordPendingInstructionResult(current, [])
       continue
     }
     if (step.event) {
       const next = applyEventTree(current, step.event, catalog)
       entries.push(...nested(next.trace, 1))
-      if (next.ok) current = recordPendingCounterResult(next.state, next.trace)
+      if (next.ok) current = recordPendingInstructionResult(next.state, next.trace)
       if (next.ok && (hasOpenChoice(current) || current.eventProcessing)) {
         const paused = makeDraft(current)
         if (paused.resolution?.kind === 'canonicalSpell') paused.resolution.phase = 'waiting'
@@ -1400,7 +1407,10 @@ const resumeCanonicalResolution = (
   }
   const answered = applyEventTree(state, event, catalog)
   if (!answered.ok) return answered
-  const draft = makeDraft(answered.state)
+  const resultState = answered.state.resolution?.kind === 'canonicalSpell'
+    && answered.state.resolution.pendingResult?.kind === 'amount'
+    ? recordPendingInstructionResult(answered.state, answered.trace) : answered.state
+  const draft = makeDraft(resultState)
   if (draft.resolution?.kind === 'canonicalSpell') {
     draft.resolution.phase = (draft.resolution.pendingEvents?.length ?? 0) > 0
         ? 'committing'

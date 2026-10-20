@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 232,
+    "cardRegistrations": 229,
     "cardEffects": 21,
-    "cardInstructions": 194,
-    "instructionHandlersDiscovered": 194,
+    "cardInstructions": 192,
+    "instructionHandlersDiscovered": 192,
     "builtInPlugins": 56,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 40,
+    "cardNameDispatchSites": 41,
     "customEventDispatchSites": 83,
-    "directMutationSites": 594,
+    "directMutationSites": 591,
     "instructionRegistrationOnlyGaps": 1,
     "instructionUnobservedGaps": 30,
     "cardRegistrationOnlyGaps": 9,
-    "candidateOnlyInstructionRows": 161,
-    "candidateOnlyCardRows": 223
+    "candidateOnlyInstructionRows": 159,
+    "candidateOnlyCardRows": 220
   },
   "cardEffects": [
     {
@@ -175,12 +175,9 @@
       "currentRegistrations": [
         "Animist's Awakening:effects[0]",
         "Black Sun's Twilight:effects[0]",
-        "Debt to the Deathless:effects[0]",
         "Dig Through Time:effects[0]",
         "Drag to the Roots:effects[0]",
-        "Drain Life:effects[0]",
         "Everflowing Chalice:effects[0]",
-        "Exsanguinate:effects[0]",
         "Finale of Devastation:effects[0]",
         "Getaway Glamer:effects[0]",
         "Necrologia:effects[0]",
@@ -193,7 +190,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 42,
+        "matches": 39,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:142",
@@ -716,7 +713,6 @@
         "Desertion:effects[0]",
         "Dovin's Veto:effects[1]",
         "Drag to the Roots:effects[1]",
-        "Drain Life:effects[1]",
         "Dread Return:effects[1]",
         "Fell the Profane // Fell Mire:effects[1]",
         "Fell the Profane:effects[0]",
@@ -747,7 +743,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 75,
+        "matches": 74,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -825,12 +821,10 @@
         "Dack Fayden, Helping Hand:effects[0]",
         "Dark Confidant:effects[0]",
         "Dark Tutelage:effects[0]",
-        "Debt to the Deathless:effects[1]",
         "Dig Through Time:effects[1]",
         "Erestor of the Council:effects[0]",
         "Eureka:effects[0]",
         "Everflowing Chalice:effects[1]",
-        "Exsanguinate:effects[1]",
         "Fact or Fiction:effects[0]",
         "Famished Worldsire:effects[2]",
         "Field of the Dead:effects[1]",
@@ -926,7 +920,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 364,
+        "matches": 362,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -2044,30 +2038,6 @@
       "handlerDiscovered": true
     },
     {
-      "variant": "dealDamageTargetX",
-      "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Drain Life:effects[1].do[0]"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:108 — test('Drain Life requires black X and gains no more than the target had', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:399 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "07",
-      "dependencyParts": [
-        "04",
-        "05"
-      ],
-      "status": "candidate-test-reference",
-      "handlerDiscovered": true
-    },
-    {
       "variant": "dealDamageToChosenTarget",
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
@@ -2372,29 +2342,6 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
-      "handlerDiscovered": true
-    },
-    {
-      "variant": "drainOpponentsX",
-      "mechanic": "specialized legacy instruction",
-      "currentRegistrations": [
-        "Debt to the Deathless:effects[1].do[0]",
-        "Exsanguinate:effects[1].do[0]"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:86 — test('Debt to the Deathless pays X mana and drains for twice X', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:396 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:19 — test('Exsanguinate drains each opponent for X and gains the total', () => {"
-        ]
-      },
-      "neededCanonicalNode": "new reusable canonical node required before migration",
-      "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [],
       "status": "candidate-test-reference",
       "handlerDiscovered": true
     },
@@ -7965,42 +7912,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Debt to the Deathless",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Debt to the Deathless"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:86 — test('Debt to the Deathless pays X mana and drains for twice X', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:396 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [drainOpponentsX]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "drainOpponentsX"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Decisive Denial",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8204,43 +8115,6 @@
         "targetedResolve"
       ],
       "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Drain Life",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Drain Life"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/lifeEffects.test.ts:108 — test('Drain Life requires black X and gains no more than the target had', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:399 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [dealDamageTargetX]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "dealDamageTargetX"
-      ],
       "pluginIds": [],
       "handlerIds": [
         "castCosts",
@@ -8555,42 +8429,6 @@
       "instructionVariants": [],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Exsanguinate",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Exsanguinate"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/registry.test.ts:405 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "rules-engine/src/cardPlugins/sinFall.test.ts:19 — test('Exsanguinate drains each opponent for X and gains the total', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [castCost, trigger] and instructions [drainOpponentsX]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "castCost",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "drainOpponentsX"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "castCosts",
-        "onResolve"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -14434,7 +14272,6 @@
       "crewVehicle",
       "cumulativeUpkeepOpponentLife",
       "damage",
-      "dealDamageTargetX",
       "dealDamageToChosenTarget",
       "dealDamageToSelf",
       "defendingPlayerSacrifices",
@@ -14446,7 +14283,6 @@
       "discardCards",
       "discardHandsThenDrawGreatest",
       "doublePlusCounters",
-      "drainOpponentsX",
       "draw",
       "drawAtNextUpkeep",
       "drawGreatestPower",
@@ -14845,16 +14681,16 @@
         "rules-engine/src/plugins/damage.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 38,
+        "matches": 39,
         "samples": [
           "live-runner/src/kernelHost.test.ts:528 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:241 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:272 — test('drain catalog entries compose numeric action results with life gain', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:29",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:309 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
-          "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {"
+          "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -15277,9 +15113,9 @@
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:13",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:43 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:217 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:276 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
-          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:513 — test('fractional life costs are evaluated and paid at announcement', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:218 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:277 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
+          "rules-engine/src/cardPlugins/dsl/announcement.test.ts:514 — test('fractional life costs are evaluated and paid at announcement', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1038 — test('Blood Celebrant pays black mana and life before choosing one of five colors', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:468 — test('catalog Selenia pays two life to return its source to hand', () => {"
         ]
@@ -16518,9 +16354,9 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1684",
+        "rules-engine/src/cardPlugins/cardRules.ts:1672",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:501",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
         "rules-engine/src/cardPlugins/effectRuntime.ts:402",
         "rules-engine/src/cardPlugins/effectRuntime.ts:518",
@@ -16532,9 +16368,9 @@
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:4",
         "rules-engine/src/cardPlugins/instructionHandlers/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:12",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:184",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:192",
-        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:226",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:169",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:177",
+        "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts:211",
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:4",
         "rules-engine/src/cardPlugins/instructionHandlers/index.ts:44",
         "rules-engine/src/cardPlugins/instructionHandlers/multiplayer.ts:126",
@@ -16543,7 +16379,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1255"
+        "rules-engine/src/types.ts:1258"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -16622,9 +16458,9 @@
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
         "rules-engine/src/rules/triggers.ts:1146",
-        "rules-engine/src/types.ts:326",
         "rules-engine/src/types.ts:328",
-        "rules-engine/src/types.ts:332"
+        "rules-engine/src/types.ts:330",
+        "rules-engine/src/types.ts:334"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/plugins/doubleFaced.test.ts — modal double-faced cards > casts the spell face and restores its front face after a land leaves",
@@ -16656,16 +16492,16 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:269",
-        "rules-engine/src/cardPlugins/cardRules.ts:921",
+        "rules-engine/src/cardPlugins/cardRules.ts:267",
+        "rules-engine/src/cardPlugins/cardRules.ts:909",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
         "rules-engine/src/cardPlugins/continuousEffects.ts:562",
         "rules-engine/src/cardPlugins/continuousEffects.ts:618",
         "rules-engine/src/cardPlugins/continuousEffects.ts:65",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:681",
-        "rules-engine/src/cardPlugins/effectDefinitions.ts:865",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:679",
+        "rules-engine/src/cardPlugins/effectDefinitions.ts:863",
         "rules-engine/src/cardPlugins/effectRuntime.ts:104",
         "rules-engine/src/cardPlugins/effectRuntime.ts:157",
         "rules-engine/src/cardPlugins/effectRuntime.ts:436",
@@ -16701,8 +16537,8 @@
         "rules-engine/src/replay.ts:176",
         "rules-engine/src/rules/triggers.ts:8",
         "rules-engine/src/types.ts:156",
-        "rules-engine/src/types.ts:289",
-        "rules-engine/src/types.ts:350",
+        "rules-engine/src/types.ts:291",
+        "rules-engine/src/types.ts:352",
         "rules-engine/src/types.ts:80",
         "rules-engine/src/types.ts:97"
       ],
@@ -16953,10 +16789,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/announcement.ts",
         "lines": [
-          407
+          423
         ],
         "samples": [
-          "407: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
+          "423: if (filter && filter.name && object.name !== filter.name) throw new TypeError(`target object ${target.objectId} does not satisfy its name filter`)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -16968,10 +16804,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          273
+          273,
+          340
         ],
         "samples": [
-          "273: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "273: if (filter.name !== undefined && object.name !== filter.name) return false",
+          "340: const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -17707,10 +17545,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1460
+          1470
         ],
         "samples": [
-          "1460: event.name === SEARCH_CHOSEN"
+          "1470: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -17746,13 +17584,13 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           284,
-          1384,
-          1413
+          1397,
+          1426
         ],
         "samples": [
           "284: const liveSource = draft.object(source.ref.objectId)",
-          "1384: const object = draft.object(item.objectId)",
-          "1413: const object = draft.object(completedItem.objectId)"
+          "1397: const object = draft.object(item.objectId)",
+          "1426: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -17849,17 +17687,17 @@
       {
         "path": "rules-engine/src/plugins/life.ts",
         "lines": [
-          70,
-          81,
-          88,
-          100,
-          106,
-          117
+          72,
+          83,
+          90,
+          102,
+          108,
+          119
         ],
         "samples": [
-          "70: draft.enqueue({",
-          "81: draft.enqueue({",
-          "88: draft.enqueue({"
+          "72: draft.enqueue({",
+          "83: draft.enqueue({",
+          "90: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -17896,23 +17734,23 @@
       {
         "path": "rules-engine/src/plugins/damage.ts",
         "lines": [
-          37,
-          63,
-          72,
-          94,
-          103,
-          118,
-          129,
-          130,
-          154,
-          161,
+          38,
+          67,
+          76,
+          99,
+          108,
+          123,
+          134,
+          135,
+          159,
           166,
-          168
+          171,
+          173
         ],
         "samples": [
-          "37: draft.enqueue({",
-          "63: draft.enqueue({",
-          "72: draft.enqueue({"
+          "38: draft.enqueue({",
+          "67: draft.enqueue({",
+          "76: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -19802,41 +19640,39 @@
           75,
           90,
           126,
-          147,
-          154,
-          159,
-          170,
-          183,
-          201,
-          219,
-          249,
-          256,
+          140,
+          151,
+          164,
+          182,
+          200,
+          230,
+          237,
+          264,
+          274,
           283,
           293,
           302,
-          312,
-          321,
-          330,
-          345,
-          381,
-          398,
-          453,
-          462,
-          474,
-          476,
-          491,
-          622,
-          629,
+          311,
+          326,
+          362,
+          379,
+          434,
+          443,
+          455,
+          457,
+          472,
+          603,
+          610,
+          618,
           637,
-          656,
-          667,
-          678,
-          694,
-          709,
-          762,
-          778,
-          813,
-          854
+          648,
+          659,
+          675,
+          690,
+          743,
+          759,
+          794,
+          835
         ],
         "samples": [
           "33: const object = typeof objectId === 'string' ? draft.object(objectId) : undefined",
@@ -19927,25 +19763,24 @@
         "path": "rules-engine/src/cardPlugins/instructionHandlers/combatCopy.ts",
         "lines": [
           23,
-          35,
-          63,
-          68,
-          82,
-          117,
-          145,
-          146,
-          148,
-          179,
-          191,
-          246,
-          262,
-          294,
-          329
+          48,
+          53,
+          67,
+          102,
+          130,
+          131,
+          133,
+          164,
+          176,
+          231,
+          247,
+          279,
+          314
         ],
         "samples": [
           "23: draft.enqueue({",
-          "35: draft.enqueue({",
-          "63: draft.enqueue({"
+          "48: draft.enqueue({",
+          "53: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

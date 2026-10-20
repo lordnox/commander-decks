@@ -39,6 +39,8 @@ export const evaluateAmount = (
       if (value === undefined) throw new RuleDslEvaluationError(`amount variable ${expression.name} is not bound`)
       return runtimeAmount(value, `variable ${expression.name}`)
     }
+    case 'multiply': return runtimeAmount(evaluateAmount(expression.left, context, depth + 1) * evaluateAmount(expression.right, context, depth + 1), 'multiplication')
+    case 'minimum': return Math.min(evaluateAmount(expression.left, context, depth + 1), evaluateAmount(expression.right, context, depth + 1))
     case 'divide': {
       if (depth >= MAX_EXPRESSION_DEPTH) throw new RuleDslEvaluationError(AMOUNT_DEPTH_ERROR_MESSAGE)
       if (!Number.isSafeInteger(expression.by) || expression.by < 1 || expression.by > MAX_LITERAL_AMOUNT) {
@@ -46,7 +48,7 @@ export const evaluateAmount = (
       }
       // A characteristic can be negative; CR 107.1b treats a negative calculated amount as zero.
       const value = expression.value.kind === 'characteristic'
-        ? runtimeStatDelta(context.characteristic(expression.value.of, expression.value.characteristic, expression.value.information), 'division characteristic')
+        ? runtimeStatDelta(context.characteristic(expression.value.of, expression.value.characteristic, expression.value.information, expression.value.fallback), 'division characteristic')
         : evaluateAmount(expression.value, context, depth + 1)
       const quotient = value / expression.by
       switch (expression.rounding) {
@@ -61,7 +63,7 @@ export const evaluateAmount = (
     }
     case 'count': return runtimeAmount(context.count(expression.of), 'selector count')
     case 'characteristic': return runtimeAmount(
-      context.characteristic(expression.of, expression.characteristic, expression.information),
+      context.characteristic(expression.of, expression.characteristic, expression.information, expression.fallback),
       `characteristic ${expression.characteristic}`,
     )
   }

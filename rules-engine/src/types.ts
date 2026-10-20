@@ -580,7 +580,7 @@ export type CanonicalResolutionFrame = {
   results?: Record<string, boolean | number>
   pendingResult?: {
     binding: string
-    kind: 'counter' | 'action'
+    kind: 'counter' | 'action' | 'amount'
     stackId?: string
     value?: boolean | number
     eventType?: GameEvent['type']

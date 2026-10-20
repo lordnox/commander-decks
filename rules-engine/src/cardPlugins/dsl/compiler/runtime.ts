@@ -327,7 +327,19 @@ const oneReferenceValue = (
   context: RuleDslRuntimeContext,
   characteristic: NumericCharacteristic,
   information: 'current' | 'currentOrLastKnown',
+  fallback?: number,
 ) => {
+  // A default allows reading an optional characteristic from a mixed-domain target.
+  if (fallback !== undefined && (reference.kind === 'targetRef' || reference.kind === 'choiceRef')) {
+    const bound = recipients(reference, context)
+    if (bound.length !== 1) throw new RuleDslEvaluationError('characteristic reference must resolve to exactly one recipient')
+    const recipient = bound[0]!
+    if ((characteristic === 'life') !== (recipient.kind === 'player')) return fallback
+  }
+  if (fallback !== undefined && reference.kind === 'contextRef') {
+    const playerReference = ['controller', 'event.player', 'triggering.player'].includes(reference.name)
+    if ((characteristic === 'life') !== playerReference) return fallback
+  }
   if (characteristic === 'life') {
     const players = reference.kind === 'resultRef'
       ? []
@@ -342,7 +354,10 @@ const oneReferenceValue = (
   if (objects.length !== 1) {
     throw new RuleDslEvaluationError(`${characteristic} reference must resolve to exactly one object`)
   }
-  const value = objects[0][characteristic]
+  const value = characteristic === 'loyalty'
+    ? (objects[0].types.includes('Planeswalker') ? objects[0].counters.loyalty ?? 0 : undefined)
+    : objects[0][characteristic]
+  if (typeof value !== 'number' && fallback !== undefined) return fallback
   if (typeof value !== 'number') throw new RuleDslEvaluationError(`${characteristic} is not numeric on the referenced object`)
   return value
 }
@@ -364,8 +379,8 @@ export const amountEvaluationContext = (
       case 'stackItems': return evaluateStackItemSelector(selector, context).length
     }
   },
-  characteristic: (reference, characteristic, information) =>
-    oneReferenceValue(reference, context, characteristic, information),
+  characteristic: (reference, characteristic, information, fallback) =>
+    oneReferenceValue(reference, context, characteristic, information, fallback),
 } satisfies AmountEvaluationContext)
 
 export const evaluateRuntimeAmount = (

@@ -254,3 +254,29 @@ test('group 1 catalog programs preserve any-target damage, Loran choices, and de
     ] },
   ])
 })
+
+
+test('drain catalog entries compose numeric action results with life gain', () => {
+  for (const name of ['Exsanguinate', 'Debt to the Deathless', 'Drain Life']) {
+    const entry = cardRuleDefinitionSnapshotFor(name)!
+    expect(entry).toBeDefined()
+    expect(effectsFor(name)).toEqual([])
+    const ability = entry.definition.abilities[0]!
+    expect(ability.kind).toBe('spell')
+    if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
+    expect(ability.decisions.variables).toHaveLength(1)
+    expect(ability.instructions.at(-1)?.kind).toBe('gainLife')
+    if (name === 'Drain Life') {
+      expect(ability.decisions.variables?.[0]?.manaColor).toBe('B')
+      expect(ability.decisions.targets[0]?.filter.kind).toBe('anyTarget')
+      expect(ability.instructions.map(instruction => instruction.kind)).toEqual(['captureAmount', 'damage', 'gainLife'])
+    } else {
+      expect(ability.decisions.targets).toEqual([])
+      expect(ability.instructions.map(instruction => instruction.kind)).toEqual(['loseLife', 'gainLife'])
+      const loss = ability.instructions[0]!
+      if (loss.kind !== 'loseLife') throw new Error('expected loss')
+      expect(loss.targets).toEqual({ kind: 'players', filter: { relation: 'opponent' } })
+      expect(loss.amount.kind).toBe(name === 'Exsanguinate' ? 'variable' : 'multiply')
+    }
+  }
+})

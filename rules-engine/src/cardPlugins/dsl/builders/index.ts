@@ -86,6 +86,12 @@ export const toPreventionCapacity = (value: PreventionCapacityInput): Prevention
 export const divide = (input: { value: AmountInput; by: number; rounding: RoundingMode }) =>
   immutableData({ kind: 'divide' as const, value: toAmount(input.value), by: input.by, rounding: input.rounding })
 
+export const multiply = (left: AmountInput, right: AmountInput) =>
+  immutableData({ kind: 'multiply' as const, left: toAmount(left), right: toAmount(right) })
+
+export const minimum = (left: AmountInput, right: AmountInput) =>
+  immutableData({ kind: 'minimum' as const, left: toAmount(left), right: toAmount(right) })
+
 export const negate = (value: AmountInput) => immutableData({ kind: 'negate' as const, value: toAmount(value) })
 
 const toStatDelta = (value: StatDeltaInput) => typeof value === 'number' ? amount(value) : immutableData(value)
@@ -105,12 +111,13 @@ export const count = (of: Selector): Amount => immutableData({ kind: 'count', of
 export const characteristic = (
   of: Reference,
   numericCharacteristic: NumericCharacteristic,
-  options: { information: 'current' | 'currentOrLastKnown' },
+  options: { information: 'current' | 'currentOrLastKnown'; fallback?: number },
 ): Amount => immutableData({
   kind: 'characteristic',
   of,
   characteristic: numericCharacteristic,
   information: options.information,
+  ...(options.fallback !== undefined ? { fallback: options.fallback } : {}),
 })
 
 export const ref = (name: ContextBinding | 'self'): ContextReference => immutableData({
@@ -156,8 +163,8 @@ export const select = (input: TargetClauseInput): TargetClause => {
   return immutableData({ filter: input.filter, min, max, distinct: true })
 }
 
-export const chooseX = (bounds: { min?: number; max?: number } = {}): VariableSpec =>
-  immutableData({ name: 'X', min: bounds.min ?? 0, max: bounds.max ?? 1_000_000 })
+export const chooseX = (bounds: { min?: number; max?: number; manaColor?: VariableSpec['manaColor'] } = {}): VariableSpec =>
+  immutableData({ name: 'X', min: bounds.min ?? 0, max: bounds.max ?? 1_000_000, ...(bounds.manaColor ? { manaColor: bounds.manaColor } : {}) })
 
 export const chooseModes = (input: { count: AmountInput; repeatable?: boolean }): ModeSpec =>
   immutableData({ count: toAmount(input.count), repeatable: input.repeatable ?? false })
@@ -513,8 +520,8 @@ export const draw = (input: number | { count: AmountInput; targets: PlayerRecipi
   return immutableData({ kind: 'draw' as const, count: toAmount(count), targets })
 }
 
-export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
-  immutableData({ kind: 'loseLife', amount: toAmount(input.amount), targets: input.targets })
+export const loseLife = (input: { amount: AmountInput; targets: PlayerRecipient; bindResult?: string }): Instruction =>
+  immutableData({ kind: 'loseLife', amount: toAmount(input.amount), targets: input.targets, ...(input.bindResult ? { bindResult: input.bindResult } : {}) })
 
 export const gainLife = (input: { amount: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'gainLife', amount: toAmount(input.amount), targets: input.targets })
@@ -523,11 +530,13 @@ export const damage = (input: {
   amount: AmountInput
   targets: Extract<Instruction, { kind: 'damage' }>['targets']
   source: ObjectReference
+  bindResult?: string
 }): Instruction => immutableData({
   kind: 'damage',
   amount: toAmount(input.amount),
   targets: input.targets,
   source: input.source,
+  ...(input.bindResult ? { bindResult: input.bindResult } : {}),
 })
 
 export const grantLandPlays = (input: { count: AmountInput; targets: PlayerRecipient }) =>
