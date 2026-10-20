@@ -4,6 +4,7 @@ import { legalActsFor } from '../actions'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { pendingPlayerSelectionFor } from '../rules/selectPlayers'
 import { ok, resolveStack } from '../testHelpers'
 import { lifeGainedThisTurn, lifeLostThisTurn } from '../plugins/life'
@@ -411,7 +412,7 @@ describe('Lady Evangela life-total and X cards', () => {
     expect(state.zoneOrder.p1.hand).toHaveLength(4)
   })
 
-  test('Blood Celebrant naturally exposes five live mana choices and pays life', () => {
+  test('Blood Celebrant opens five canonical mana choices and pays life', () => {
     const server = createServerGame(
       commanderRules,
       { battlefield: { p1: [card('Blood Celebrant', ['Creature'], '{B}')] } },
@@ -420,16 +421,19 @@ describe('Lady Evangela life-total and X cards', () => {
     const ready = withMana(structuredClone(server.state), 'p1', { B: 1 })
     const celebrant = ready.zoneOrder.p1.battlefield[0]
     const actions = legalActsFor(ready, 'p1').filter((action) => action.kind === 'activateAbility')
-      .filter((action) => action.abilityId === 'bloodCelebrant.mana')
-    expect(actions.map((action) => action.mana).sort()).toEqual(['B', 'G', 'R', 'U', 'W'])
-    const state = ok(server.rules(ready, {
+      .filter((action) => action.abilityId === '$.abilities[0]')
+    expect(actions).toHaveLength(1)
+    let state = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'bloodCelebrant.mana',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: celebrant,
       manaAbility: true,
-      choices: ['U'],
     }))
+    const pending = pendingOptionSelection(state, 'p1')!
+    expect(pending.options.map(option => option.label)).toEqual(['W', 'U', 'B', 'R', 'G'])
+    state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: pending.options.find(option => option.label === 'U')!.id }))
+    expect(state.stack).toHaveLength(0)
     expect(state.players.p1.life).toBe(39)
     expect(state.players.p1.mana.U).toBe(1)
     expect(state.players.p1.mana.B).toBe(0)

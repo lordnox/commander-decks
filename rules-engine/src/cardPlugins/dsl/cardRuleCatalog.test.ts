@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { KEYWORDS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
+import { CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -948,4 +948,13 @@ test('End-Raze Forerunners has native combat keywords and grants only other cont
   ].map(effect => expect.objectContaining({
     kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature', other: true } }, effect, duration: { kind: 'untilCleanup' },
   })))
+})
+
+test('Blood Celebrant pays black mana and life before choosing one of five colors', () => {
+  expect(cardRuleDefinitionSnapshotFor('Blood Celebrant')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{B}' }, { kind: 'life', amount: { kind: 'constant', value: 1 } }], instructions: [{
+      kind: 'chooseInstructions',
+      options: CARD_COLORS.map(color => ({ label: color, instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } }, targets: { kind: 'contextRef', name: 'controller' } }] })),
+    }] },
+  ])
 })
