@@ -1458,7 +1458,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Reflecting Pool': [manaFrom('controlledLands')],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
-  'Reliquary Tower': [staticGrant('noMaxHand'), handler('noMaxHand')],
   'Repay in Kind': [onResolve(setAllLifeToLowest())],
   Reprocess: [
     onResolve(sacrificePermanentsThenDraw(['Artifact', 'Creature', 'Land'])),

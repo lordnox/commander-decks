@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 253,
+    "cardRegistrations": 252,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 27,
     "cardRegistrationOnlyGaps": 9,
     "candidateOnlyInstructionRows": 164,
-    "candidateOnlyCardRows": 244
+    "candidateOnlyCardRows": 243
   },
   "cardEffects": [
     {
@@ -319,7 +319,6 @@
         "Pit of Offerings:effects[1]",
         "Queza, Augur of Agonies:effects[0]",
         "Reins of Power:effects[1]",
-        "Reliquary Tower:effects[1]",
         "Rings of Brighthearth:effects[0]",
         "Roaming Throne:effects[1]",
         "Settle the Wreckage:effects[0]",
@@ -673,7 +672,6 @@
         "Nirkana Revenant:effects[0]",
         "Phial of Galadriel:effects[0]",
         "Phyrexian Ingester:effects[0]",
-        "Reliquary Tower:effects[0]",
         "Roaming Throne:effects[0]",
         "Sakashima of a Thousand Faces:effects[0]",
         "Sire of Seven Deaths:effects[0]",
@@ -1016,7 +1014,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 34,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -4150,16 +4148,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 9,
+        "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1129 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:252 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:448 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:954 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
-          "rules-engine/src/cardPlugins/seaGate.test.ts:52 — test('instructions are clone-safe', () => {",
-          "rules-engine/src/plugins/doubleFaced.test.ts:89 — test('plans the cast from the spell face text, not the land face that \"enters tapped\"', () => {"
+          "rules-engine/src/cardPlugins/seaGate.test.ts:52 — test('instructions are clone-safe', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -12444,40 +12442,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Reliquary Tower",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Reliquary Tower"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:127 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:223 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [handler, static] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "13"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "handler",
-        "static"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [
-        "noMaxHand"
-      ],
-      "handlerIds": [
-        "noMaxHand"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Repay in Kind",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -15455,7 +15419,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 149,
+        "matches": 150,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -17325,7 +17289,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1749",
+        "rules-engine/src/cardPlugins/cardRules.ts:1748",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17918,10 +17882,10 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          167
+          173
         ],
         "samples": [
-          "167: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
+          "173: event.type === 'advanceStep' || (event.type === 'custom' && event.name === 'advanceStep')"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -19010,12 +18974,12 @@
       {
         "path": "rules-engine/src/plugins/turnStructure.ts",
         "lines": [
-          93,
-          104
+          99,
+          110
         ],
         "samples": [
-          "93: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
-          "104: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
+          "99: draft.enqueue({ type: 'draw', seat: draft.active, count: 1 })",
+          "110: if (attacking) draft.enqueue({ type: 'assignCombatDamage' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
