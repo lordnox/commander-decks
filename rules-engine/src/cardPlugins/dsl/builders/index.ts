@@ -39,6 +39,9 @@ import type {
   PlayerReference,
   PlayerRecipient,
   PlayerSelector,
+  PreventionCapacity,
+  PreventionCapacityInput,
+  PreventionFilter,
   Reference,
   ResolutionProgram,
   ResolutionProgramInput,
@@ -65,6 +68,7 @@ import {
   ENTRY_PAYMENT_BINDING,
   PAY_LIFE_OPTION,
   RULE_DSL_SCHEMA_VERSION,
+  UNLIMITED_PREVENTION,
 } from '../schema/v1'
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
@@ -73,6 +77,11 @@ export const amount = (value: number): Amount => immutableData({ kind: 'constant
 
 export const toAmount = (value: AmountInput): Amount =>
   typeof value === 'number' ? amount(value) : immutableData(value)
+
+export const unlimitedPrevention = () => immutableData(UNLIMITED_PREVENTION)
+
+export const toPreventionCapacity = (value: PreventionCapacityInput): PreventionCapacity =>
+  typeof value === 'object' && value.kind === 'unlimited' ? unlimitedPrevention() : toAmount(value)
 
 export const divide = (input: { value: AmountInput; by: number; rounding: RoundingMode }) =>
   immutableData({ kind: 'divide' as const, value: toAmount(input.value), by: input.by, rounding: input.rounding })
@@ -256,25 +265,25 @@ export const prevention = (
   filter: Extract<ContinuousEffectDefinition, { kind: 'prevention' }>['filter'],
   transform: Extract<ContinuousEffectDefinition, { kind: 'prevention' }>['transform'],
   options: {
-    capacity: AmountInput
+    capacity: PreventionCapacityInput
     additionalEffects?: readonly Instruction[]
   },
 ): Extract<ContinuousEffectDefinition, { kind: 'prevention' }> => immutableData({
   kind: 'prevention',
   filter,
   transform,
-  capacity: toAmount(options.capacity),
+  capacity: toPreventionCapacity(options.capacity),
   ...(options.additionalEffects ? { additionalEffects: options.additionalEffects } : {}),
 })
 
 export const preventionCreatedEffect = (
   filter: Extract<CreatedEffect, { kind: 'prevention' }>['filter'],
-  capacity: AmountInput,
+  capacity: PreventionCapacityInput,
   additionalEffects?: readonly Instruction[],
 ): Extract<CreatedEffect, { kind: 'prevention' }> => immutableData({
   kind: 'prevention',
   filter,
-  capacity: toAmount(capacity),
+  capacity: toPreventionCapacity(capacity),
   ...(additionalEffects ? { additionalEffects } : {}),
 })
 
@@ -650,6 +659,14 @@ export const createEffect = (input: {
   effect: CreatedEffect
   duration: EffectDuration
 }): Instruction => immutableData({ kind: 'createEffect', ...input })
+
+/** Prevent all combat damage that would be dealt this turn. Optional source or recipient filters stay. */
+export const preventAllCombatDamageThisTurn = (filter: Omit<PreventionFilter, 'combat'> = {}) =>
+  createEffect({
+    targets: ref('source'),
+    duration: untilCleanup(),
+    effect: preventionCreatedEffect({ combat: true, ...filter }, unlimitedPrevention()),
+  })
 
 export const payOptional = (input: {
   payer: Extract<Instruction, { kind: 'payOptional' }>['payer']

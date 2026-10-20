@@ -708,7 +708,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Dakmor Salvage': [dredge(2), entersTapped()],
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
-  Darkness: [onResolve(preventCombatDamage())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Debt to the Deathless': [xMana(), onResolve(drainOpponentsX(2))],
   'Decisive Denial': [modalChooseOne(
@@ -1026,13 +1025,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     handler('optionalManaPay'),
   ],
   'Joint Exploration': [onResolve(draw(1)), handler('jointExploration')],
-  'Kami of False Hope': [
-    activate({
-      id: 'kami.fog',
-      costs: { sacrifice: 'self' },
-      do: [preventCombatDamage()],
-    }),
-  ],
   'Kederekt Leviathan': [
     enters(bounceAll({ nonland: true, other: true })),
     unearth('{6}{U}'),

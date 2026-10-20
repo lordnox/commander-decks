@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 239,
+    "cardRegistrations": 237,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 27,
     "cardRegistrationOnlyGaps": 9,
     "candidateOnlyInstructionRows": 164,
-    "candidateOnlyCardRows": 230
+    "candidateOnlyCardRows": 228
   },
   "cardEffects": [
     {
@@ -61,7 +61,6 @@
         "Horizon of Progress:effects[2]",
         "Jace, Multiverse Architect:effects[1]",
         "Jace, Multiverse Architect:effects[2]",
-        "Kami of False Hope:effects[0]",
         "Kederekt Leviathan:effects[1]",
         "Lady Evangela:effects[0]",
         "Lair of the Hydra:effects[1]",
@@ -91,16 +90,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 136,
+        "matches": 132,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2583 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelHost.test.ts:3042 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "live-runner/src/opening.test.ts:57",
-          "rules-engine/src/actions.test.ts:136 — test('a free fog is offered only once an attacker threatens damage', () => {",
           "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {"
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {"
         ]
       },
       "neededCanonicalNode": "canonical activated ability and cost plan",
@@ -571,7 +570,7 @@
           "live-runner/src/kernelHost.test.ts:1736 — test('restores an interrupted Analyze the Pollen library search', async () => {",
           "live-runner/src/kernelHost.test.ts:2179 — test('Scapeshift sacrifices lands as it resolves, then opens its search', () => {",
           "live-runner/src/kernelHost.test.ts:2384 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "rules-engine/src/actions.test.ts:461 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
+          "rules-engine/src/actions.test.ts:462 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:344 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:564 — test('Moonsilver Key finds an artifact with a mana ability to hand', () => {"
@@ -599,7 +598,7 @@
         "samples": [
           "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:845 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:279 — test('a counterspell is not an action while the stack is empty', () => {",
+          "rules-engine/src/actions.test.ts:280 — test('a counterspell is not an action while the stack is empty', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:797 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:845 — test('the spell cannot be countered', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:888 — test('you have no maximum hand size while it is on the battlefield', async () => {",
@@ -693,7 +692,7 @@
           "live-runner/src/kernelHost.test.ts:3436 — test('publishes the persisted typed payment and applies the selected mana', () => {",
           "live-runner/src/kernelHost.test.ts:3661 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "live-runner/src/kernelHost.test.ts:853 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:250 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
+          "rules-engine/src/actions.test.ts:251 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {"
         ]
       },
@@ -760,7 +759,7 @@
           "live-runner/src/kernelHost.test.ts:1078 — test('a host restart rebuilds an open dredge replacement choice', () => {",
           "live-runner/src/kernelHost.test.ts:1453 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:845 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:279 — test('a counterspell is not an action while the stack is empty', () => {",
+          "rules-engine/src/actions.test.ts:280 — test('a counterspell is not an action while the stack is empty', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {"
         ]
       },
@@ -830,7 +829,6 @@
         "Dack Fayden, Helping Hand:effects[0]",
         "Dark Confidant:effects[0]",
         "Dark Tutelage:effects[0]",
-        "Darkness:effects[0]",
         "Debt to the Deathless:effects[1]",
         "Dig Through Time:effects[1]",
         "Erestor of the Council:effects[0]",
@@ -933,7 +931,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 383,
+        "matches": 382,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -1386,8 +1384,8 @@
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:906 — test('discarding three cards exiles it and returns it tapped at the next end step, through a live act', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:959 — test('the discard ability is not offered with fewer than three cards in hand', async () => {",
           "rules-engine/src/cardPlugins/dsl/blink.test.ts:103 — test('blink rejects player recipients, object controller references and malformed options', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:718 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:732 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:752 — test('immediate blink catalog entries preserve targeting and return-controller differences', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:766 — test('catalog Ghostly Flicker declares exactly two distinct controlled artifact, creature or land targets', () => {"
         ]
       },
       "neededCanonicalNode": "new reusable canonical node required before migration",
@@ -2087,7 +2085,7 @@
         "samples": [
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/actions.test.ts:385 — test('instants and permanents with entry choices stay with the judge', () => {",
+          "rules-engine/src/actions.test.ts:386 — test('instants and permanents with entry choices stay with the judge', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:28",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:37",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:72 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
@@ -2345,7 +2343,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/actions.test.ts:299 — test('a counterspell is not an action while the stack is empty', () => {",
+          "rules-engine/src/actions.test.ts:300 — test('a counterspell is not an action while the stack is empty', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:266 — test('Windfall discards every hand and draws the greatest discarded count', () => {"
         ]
       },
@@ -3005,7 +3003,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:277 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:278 — test('catalog Aesi composes extra land plays and a land-enter draw without legacy effects', () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -3027,11 +3025,11 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1035 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1080 — test('green modal spell fronts compose their fight and protection instructions', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:698 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:710 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:864 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1069 — test('green utility spells use scoped modal targets and ordered land choices', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1114 — test('green modal spell fronts compose their fight and protection instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:732 — test('catalog Triangle of War sacrifices itself for a fight between controlled and opposing creatures', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:744 — test('catalog Ulvenwald Tracker taps to fight a controlled creature with a different creature', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:898 — test('Thorn Mammoth fights up to one uncontrolled creature for every controlled creature entry', () => {",
           "rules-engine/src/cardPlugins/dsl/fight.test.ts:111 — test('fight compilation rejects a player reference and requires both participants', () => {"
         ]
       },
@@ -3502,8 +3500,8 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:157 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:254 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:88 — test('Beza draws when an opponent has more cards in hand', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1110 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1251 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1144 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1285 — test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -3803,11 +3801,11 @@
           "live-runner/src/kernelHost.test.ts:2921 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1053 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1125 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1149 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:173 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:821 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1087 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1159 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1183 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:174 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:855 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -4132,7 +4130,7 @@
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:251 — test('entering opens a private color choice that survives a restart and stores the pick', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:29",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:34",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1156 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1190 — test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:252 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:458 — test('Círdan part-B mana cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:961 — test('catalog entries keep the deck Oracle text of a double-faced land', () => {",
@@ -4213,7 +4211,7 @@
         "matches": 6,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
-          "rules-engine/src/actions.test.ts:435 — test('a spell whose only choice happens on resolution uses the fast path', () => {",
+          "rules-engine/src/actions.test.ts:436 — test('a spell whose only choice happens on resolution uses the fast path', () => {",
           "rules-engine/src/cardPlugins/opponentPiles.test.ts:172 — test('an untargeted public split asks an opponent, then the controller picks a pile', () => {",
           "rules-engine/src/cardPlugins/opponentPiles.test.ts:422 — test('Fact or Fiction uses a public opponent pile split', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:676 — test('Homer remaining cards keep their resolve composition', () => {",
@@ -4425,22 +4423,20 @@
       "variant": "preventCombatDamage",
       "mechanic": "damage prevention",
       "currentRegistrations": [
-        "Darkness:effects[0].do[0]",
-        "Kami of False Hope:effects[0].do[0]",
         "Lady Evangela:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 14,
+        "matches": 9,
         "samples": [
-          "live-runner/src/opening.test.ts:57",
-          "rules-engine/src/actions.test.ts:136 — test('a free fog is offered only once an attacker threatens damage', () => {",
-          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:679 — test('Darkness prevents combat damage until cleanup', () => {",
-          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:721 — test('Lady Evangela fogs only the targeted creature', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:395 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
+          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:874 — test('Lady Evangela fogs only the targeted creature', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:408 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "rules-engine/src/plugins/mana.test.ts:237 — test('Arcane Signet uses the generic commander-identity mana path', () => {",
           "rules-engine/src/plugins/mana.test.ts:274 — test(\"Command Tower produces only the commander's identity colors\", () => {",
-          "site/src/CombatOverlay.test.tsx:100 — test('shows who blocked and who got through', () => {"
+          "site/src/livePlayerState.test.ts:46 — test('private hand and command cards keep their kernel object IDs', () => {",
+          "site/src/livePlayerState.test.ts:8",
+          "site/src/TableBoard.test.tsx:168 — test('a chosen attacker shows its targets as art beside that card', () => {",
+          "site/src/TableBoard.test.tsx:223 — test('an unchosen attacker shows no target art', () => {"
         ]
       },
       "neededCanonicalNode": "prevention instruction/effect",
@@ -4461,11 +4457,11 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1146 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:512 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:84 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:881 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:972 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1006 — test('End-Raze Forerunners has native combat keywords and grants only other controlled creatures temporary bonuses', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1180 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:546 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:85 — test('catalog Dismember preserves its Phyrexian mana costs and temporary reduction', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:915 — test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {",
           "rules-engine/src/cardPlugins/dsl/programValidation.test.ts:33 — test('allows signed stat deltas without allowing negative draw counts', () => {"
         ]
       },
@@ -4713,7 +4709,7 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1084 — test('green modal spell fronts compose their fight and protection instructions', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1118 — test('green modal spell fronts compose their fight and protection instructions', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:155 — test('a delayed callback keeps its parent trigger occurrence after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/delayedPrograms.test.ts:77 — test('a delayed program retains a parent card choice after JSON restart', () => {",
           "rules-engine/src/cardPlugins/dsl/grantedAbilities.test.ts:120 — test('a granted program captures a parent card choice as a durable target binding', () => {",
@@ -5753,8 +5749,8 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:523 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:541 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:557 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:575 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:644 — test('Split Decision and Trap the Trespassers register vote handlers', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:267 — test('an open vote and an open copy choice both survive a host restart', () => {",
           "rules-engine/src/cardPlugins/splitTrapVotes.test.ts:324 — test('stun counters equal the votes, then the creature taps; unvoted creatures are untouched', () => {",
@@ -6567,7 +6563,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/actions.test.ts:250 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
+          "rules-engine/src/actions.test.ts:251 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:156 — test('an attacker cannot also tap to pay its own attack tax', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:186 — test('a vigilance attacker may tap for mana in the attack-cost window', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:29 — test('Baird taxes each creature attacking its controller or their planeswalker', () => {",
@@ -7959,40 +7955,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Darkness",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Darkness"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:679 — test('Darkness prevents combat damage until cleanup', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:395 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [preventCombatDamage]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "12"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "preventCombatDamage"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Darksteel Colossus",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8217,7 +8179,7 @@
         "samples": [
           "live-runner/src/kernelFacts.test.ts:85 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:845 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:279 — test('a counterspell is not an action while the stack is empty', () => {",
+          "rules-engine/src/actions.test.ts:280 — test('a counterspell is not an action while the stack is empty', () => {",
           "rules-engine/src/cardPlugins/ladyEvangelaGaps.test.ts:152 — test(\"Dovin's Veto remains a legal target but cannot be countered\", () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:164 — test('the Lady Evangela alternate and replacement cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:400 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
@@ -8669,7 +8631,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
-          "rules-engine/src/actions.test.ts:435 — test('a spell whose only choice happens on resolution uses the fast path', () => {",
+          "rules-engine/src/actions.test.ts:436 — test('a spell whose only choice happens on resolution uses the fast path', () => {",
           "rules-engine/src/cardPlugins/opponentPiles.test.ts:422 — test('Fact or Fiction uses a public opponent pile split', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:676 — test('Homer remaining cards keep their resolve composition', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:70 — test('the Homer dumpster cards this pass covers stay registered', () => {"
@@ -9871,43 +9833,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Kami of False Hope",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Kami of False Hope"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "live-runner/src/opening.test.ts:57",
-          "rules-engine/src/actions.test.ts:136 — test('a free fog is offered only once an attacker threatens damage', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:407 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
-          "site/src/CombatOverlay.test.tsx:100 — test('shows who blocked and who got through', () => {",
-          "site/src/CombatOverlay.test.tsx:86 — test('calls out damage aimed at the viewer', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [preventCombatDamage]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08",
-        "12"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "preventCombatDamage"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Kederekt Leviathan",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10137,7 +10062,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:721 — test('Lady Evangela fogs only the targeted creature', () => {",
+          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:874 — test('Lady Evangela fogs only the targeted creature', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:408 — test('the Lady Evangela foggy-blood pass stays registered', () => {",
           "rules-engine/src/plugins/mana.test.ts:237 — test('Arcane Signet uses the generic commander-identity mana path', () => {",
           "rules-engine/src/plugins/mana.test.ts:274 — test(\"Command Tower produces only the commander's identity colors\", () => {",
@@ -10255,7 +10180,7 @@
       "candidateEvidence": {
         "matches": 23,
         "samples": [
-          "rules-engine/src/actions.test.ts:385 — test('instants and permanents with entry choices stay with the judge', () => {",
+          "rules-engine/src/actions.test.ts:386 — test('instants and permanents with entry choices stay with the judge', () => {",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:28",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:37",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:72 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
@@ -12486,7 +12411,7 @@
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:2179 — test('Scapeshift sacrifices lands as it resolves, then opens its search', () => {",
-          "rules-engine/src/actions.test.ts:461 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
+          "rules-engine/src/actions.test.ts:462 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:128 — test('Scapeshift cannot find an MDFC whose front face is not a land', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:136 — test('Scapeshift sacrifices while it resolves, then searches for that many lands', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:177 — test('Scapeshift that sacrifices nothing finds nothing and finishes resolving', () => {",
@@ -14425,7 +14350,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/actions.test.ts:299 — test('a counterspell is not an action while the stack is empty', () => {",
+          "rules-engine/src/actions.test.ts:300 — test('a counterspell is not an action while the stack is empty', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:266 — test('Windfall discards every hand and draws the greatest discarded count', () => {"
         ]
       },
@@ -14906,7 +14831,6 @@
         "Hall of Storm Giants",
         "Hedge Shredder",
         "Horizon of Progress",
-        "Kami of False Hope",
         "Kederekt Leviathan",
         "Lady Evangela",
         "Lair of the Hydra",
@@ -14931,16 +14855,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 148,
+        "matches": 145,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:3042 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
-          "live-runner/src/opening.test.ts:57",
-          "rules-engine/src/actions.test.ts:136 — test('a free fog is offered only once an attacker threatens damage', () => {",
           "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:143 — test('a target exiled in response fizzles: it is not blinked back and nothing else happens', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:154 — test('a creature exiled by something else in response is not linked to the Sands or returned by them', async () => {",
-          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {"
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:165 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:19",
+          "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -15075,7 +14999,7 @@
       "candidateEvidence": {
         "matches": 24,
         "samples": [
-          "rules-engine/src/actions.test.ts:310 — test('accounts for commander tax', () => {",
+          "rules-engine/src/actions.test.ts:311 — test('accounts for commander tax', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:280 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:363 — .reduce((total, match) => total + (/^\\d+$/.test(match[1]) ? Number(match[1]) : 1), 0)",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
@@ -15130,7 +15054,7 @@
           "live-runner/src/kernelHost.test.ts:528 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:29",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:308 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:309 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
@@ -15375,11 +15299,10 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 5,
+        "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:76 — test('Batwing Brume independently uses every color actually spent', () => {",
-          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:692 — test('Darkness prevents combat damage until cleanup', () => {",
-          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:744 — test('Lady Evangela fogs only the targeted creature', () => {",
+          "rules-engine/src/cardPlugins/dsl/preventDamage.test.ts:897 — test('Lady Evangela fogs only the targeted creature', () => {",
           "rules-engine/src/plugins/combatLegendaryDamage.test.ts:106 — test('fog prevents combat damage and leaves the tracker empty', () => {",
           "rules-engine/src/plugins/damage.test.ts:163 — test('fog prevents combatDamage, so life and commander damage stay unchanged', () => {"
         ]
@@ -15532,8 +15455,8 @@
       "candidateEvidence": {
         "matches": 13,
         "samples": [
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1098 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:532 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1132 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:566 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
           "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:40 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:283 — test('pumps a stack target using linked exile power', () => {",
@@ -15562,8 +15485,8 @@
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:217 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:276 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:513 — test('fractional life costs are evaluated and paid at announcement', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:467 — test('catalog Selenia pays two life to return its source to hand', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:512 — test('catalog Wall of Blood pays one life for a temporary source pump', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1016 — test('Blood Celebrant pays black mana and life before choosing one of five colors', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:468 — test('catalog Selenia pays two life to return its source to hand', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -16800,7 +16723,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1711",
+        "rules-engine/src/cardPlugins/cardRules.ts:1703",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -16858,8 +16781,8 @@
       "variant": "frontFace/backFace/roomDoors",
       "mechanic": "face and Room rules embedded in GameObject",
       "currentRegistrations": [
-        "rules-engine/src/actions.ts:1304",
-        "rules-engine/src/actions.ts:1475",
+        "rules-engine/src/actions.ts:1318",
+        "rules-engine/src/actions.ts:1483",
         "rules-engine/src/actions.ts:849",
         "rules-engine/src/cardPlugins/effectRuntime.ts:210",
         "rules-engine/src/cardPlugins/effectRuntime.ts:341",
@@ -16917,7 +16840,7 @@
           "live-runner/src/kernelHost.test.ts:2472 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
           "live-runner/src/kernelHost.test.ts:2521 — test('casts one Room half and later unlocks the other from structured acts', () => {",
           "live-runner/src/kernelHost.test.ts:3262 — test('publishes and applies the defeated Siege casting choice', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1066 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1100 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:114 — test('Scapeshift cannot find an MDFC whose front face is not a land', () => {",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:247 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:347 — test('unlock may decline or put a graveyard permanent onto the battlefield', () => {"
@@ -16937,7 +16860,7 @@
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
         "rules-engine/src/cardPlugins/cardRules.ts:271",
-        "rules-engine/src/cardPlugins/cardRules.ts:924",
+        "rules-engine/src/cardPlugins/cardRules.ts:923",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -17065,15 +16988,15 @@
       {
         "path": "rules-engine/src/actions.ts",
         "lines": [
-          1711,
-          1720,
-          1738,
-          2620
+          1719,
+          1728,
+          1746,
+          2628
         ],
         "samples": [
-          "1711: if (source?.name === 'Settle the Wreckage') {",
-          "1720: if (source?.name === 'Energy Arc') {",
-          "1738: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {"
+          "1719: if (source?.name === 'Settle the Wreckage') {",
+          "1728: if (source?.name === 'Energy Arc') {",
+          "1746: if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -18028,13 +17951,13 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           284,
-          1371,
-          1400
+          1375,
+          1404
         ],
         "samples": [
           "284: const liveSource = draft.object(source.ref.objectId)",
-          "1371: const object = draft.object(item.objectId)",
-          "1400: const object = draft.object(completedItem.objectId)"
+          "1375: const object = draft.object(item.objectId)",
+          "1404: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

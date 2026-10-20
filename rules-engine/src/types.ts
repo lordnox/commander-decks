@@ -222,8 +222,8 @@ export type PrintedStaticModifier =
 /** Consumable damage-prevention shield tracked outside replacement lineage. */
 export type PreventionInstance = {
   id: string
-  remaining: number
-  capacity: number
+  remaining: number | 'unlimited'
+  capacity: number | 'unlimited'
   duration: EffectDuration
   hostSourceId: string
   hostSourceIncarnation: number
@@ -1178,7 +1178,7 @@ export type GameEvent =
       type: 'registerPrevention'
       hostObjectId: string
       filter: PreventionFilter
-      capacity: number
+      capacity: number | 'unlimited'
       duration: DslEffectDuration
       sourceId?: string
       sourceRef?: ObjectIdentity

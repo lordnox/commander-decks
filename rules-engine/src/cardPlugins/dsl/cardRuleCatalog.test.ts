@@ -36,6 +36,7 @@ test.each([
   ['Foil', ['counter']],
   ['Murder', ['destroy']],
   ['Sign in Blood', ['draw', 'loseLife']],
+  ['Darkness', ['createEffect']],
 ] as const)('catalog %s composes canonical instructions without legacy effects', (name, kinds) => {
   const definition = cardRuleDefinitionSnapshotFor(name)!
   expect(effectsFor(name)).toEqual([])
@@ -467,6 +468,39 @@ test('catalog Selenia pays two life to return its source to hand', () => {
   expect(cardRuleDefinitionSnapshotFor('Selenia, Dark Angel')!.definition.abilities[0]).toMatchObject({ kind: 'activated', costs: [{ kind: 'life', amount: { kind: 'constant', value: 2 } }], instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'source' }, to: 'hand' }] })
 })
 
+
+test('catalog Darkness prevents all combat damage this turn', () => {
+  expect(effectsFor('Darkness')).toEqual([])
+  expect(cardTemplateDefaultsFor('Darkness')).toMatchObject({
+    types: ['Instant'], colors: ['B'], manaCost: '{B}', manaValue: 1,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Darkness')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{
+      kind: 'createEffect',
+      targets: { kind: 'contextRef', name: 'source' },
+      duration: { kind: 'untilCleanup' },
+      effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
+    }],
+  })
+})
+
+test('catalog Kami of False Hope sacrifices itself to prevent all combat damage this turn', () => {
+  expect(effectsFor('Kami of False Hope')).toEqual([])
+  expect(cardTemplateDefaultsFor('Kami of False Hope')).toMatchObject({
+    types: ['Creature'], subtypes: ['Spirit'], colors: ['W'], manaCost: '{W}', manaValue: 1,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Kami of False Hope')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    costs: [{ kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }],
+    instructions: [{
+      kind: 'createEffect',
+      targets: { kind: 'contextRef', name: 'source' },
+      duration: { kind: 'untilCleanup' },
+      effect: { kind: 'prevention', capacity: { kind: 'unlimited' }, filter: { combat: true } },
+    }],
+  })
+})
 
 test.each([
   ['Arcanis the Omnipotent', [['draw'], ['move']]],
