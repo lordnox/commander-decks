@@ -980,3 +980,17 @@ test('World Shaper optionally mills on its own attack and returns only owned gra
     { kind: 'triggered', on: { kind: 'dies' }, instructions: [{ kind: 'move', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, to: 'battlefield', tapped: true }] },
   ])
 })
+
+
+test('protection cards compose canonical keywords, target restrictions, and temporary grants', () => {
+  expect(cardRuleDefinitionSnapshotFor('Spearbreaker Behemoth')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.indestructible },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }], decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } } }] }, instructions: [{ kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.indestructible }, duration: { kind: 'untilCleanup' } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor("Tamiyo's Safekeeping")!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you' } } }] }, instructions: [
+      ...[KEYWORDS.hexproof, KEYWORDS.indestructible].map(keyword => ({ kind: 'createEffect', targets: { kind: 'targetRef', clauseIndex: 0 }, effect: { kind: 'grantKeyword', keyword }, duration: { kind: 'untilCleanup' } })),
+      { kind: 'gainLife', amount: { kind: 'constant', value: 2 }, targets: { kind: 'contextRef', name: 'controller' } },
+    ] },
+  ])
+})

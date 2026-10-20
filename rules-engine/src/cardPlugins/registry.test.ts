@@ -659,13 +659,7 @@ describe('card plugin registry', () => {
     expect(effectsFor("Rishkar's Expertise")).toEqual([
       onResolve(drawGreatestPower(), mayCastFromHandWithoutPayingMana(5)),
     ])
-    expect(effectsFor('Spearbreaker Behemoth')).toEqual([{
-      op: 'activate',
-      id: 'spearbreaker.indestructible',
-      costs: { mana: '{1}' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
-      do: [{ kind: 'grantUntilEot', keywords: ['indestructible'] }],
-    }])
+    expect(cardPluginEntry('Spearbreaker Behemoth')).toBeUndefined()
   })
 
   test('Homer remaining cards keep their resolve composition', () => {

@@ -32,7 +32,7 @@ test.each([false, true])('canonical vigilance controls tapping when attacking (v
   if (result.ok) expect(result.state.objects[id].tapped).toBe(!vigilance)
 })
 
-test.each([KEYWORDS.haste, KEYWORDS.vigilance])('temporary canonical %s grants expire at cleanup', granted => {
+test.each([KEYWORDS.haste, KEYWORDS.vigilance, KEYWORDS.hexproof, KEYWORDS.indestructible])('temporary canonical %s grants expire at cleanup', granted => {
   const server = createServerGame(commanderRules, {
     players: 2,
     battlefield: { p1: [cardTemplate('Keyword recipient fixture', { types: ['Creature'], power: 2, toughness: 2 })] },
