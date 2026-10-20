@@ -181,8 +181,10 @@ const preventionDurationFromDsl = (
   state: GameState,
   host: GameObject,
   event: Extract<GameEvent, { type: 'registerPrevention' }>,
+  capturedSource?: CapturedObject,
 ): EffectDuration => {
   const createdTurn = event.createdTurn ?? state.turn
+  const runtime = () => runtimeFor(state, host.id, host.controller, undefined, capturedSource)
   switch (duration.kind) {
     case 'untilCleanup':
       return { kind: 'untilCleanup' }
@@ -190,7 +192,7 @@ const preventionDurationFromDsl = (
       return { kind: 'permanent' }
     case 'untilStep': {
       const active = duration.active
-        ? evaluatePlayerReference(duration.active, runtimeFor(state, host.id, host.controller))[0]
+        ? evaluatePlayerReference(duration.active, runtime())[0]
         : event.durationUntilStepActive
       return {
         kind: 'untilStep',
@@ -204,7 +206,7 @@ const preventionDurationFromDsl = (
     }
     case 'forTurns': {
       const untilTurn = event.durationUntilTurn
-        ?? createdTurn + evaluateRuntimeAmount(duration.count, runtimeFor(state, host.id, host.controller))
+        ?? createdTurn + evaluateRuntimeAmount(duration.count, runtime())
       return { kind: 'forTurns', untilTurn }
     }
     case 'whileSourceOnBattlefield':
@@ -269,10 +271,20 @@ const registerInstance = (
 }
 
 export const applyRegisterPrevention = (state: GameState, event: Extract<GameEvent, { type: 'registerPrevention' }>) => {
-  const host = state.objects[event.hostObjectId]
+  const live = state.objects[event.hostObjectId]
+  const capturedSource = live
+    ? captureObject(live)
+    : event.capturedSource
+      ? {
+          ...event.capturedSource,
+          snapshot: structuredClone(event.capturedSource.snapshot),
+          information: 'lastKnown' as const,
+        }
+      : undefined
+  const host = live ?? capturedSource?.snapshot
   if (!host) return state
   const createdTurn = event.createdTurn ?? state.turn
-  const duration = preventionDurationFromDsl(event.duration, state, host, event)
+  const duration = preventionDurationFromDsl(event.duration, state, host, event, capturedSource)
   return registerInstance(state, {
     remaining: event.capacity,
     capacity: event.capacity,
@@ -281,7 +293,7 @@ export const applyRegisterPrevention = (state: GameState, event: Extract<GameEve
     hostSourceIncarnation: host.incarnation,
     controller: host.controller,
     filter: structuredClone(event.filter),
-    capturedSource: captureObject(host),
+    capturedSource,
     ...(event.capturedBindings ? { capturedBindings: structuredClone(event.capturedBindings) } : {}),
     ...(event.staticKey ? { staticKey: event.staticKey } : {}),
     ...(event.additionalEffects ? { additionalEffects: structuredClone(event.additionalEffects) } : {}),

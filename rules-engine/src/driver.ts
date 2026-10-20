@@ -1,6 +1,6 @@
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { isPermanentType } from './definitions'
-import { isSameObject, objectIdentity } from './objectIdentity'
+import { captureObject, isSameObject, objectIdentity } from './objectIdentity'
 import {
   evaluateObjectReference,
   evaluateObjectSelector,
@@ -943,22 +943,29 @@ const actionEvents = (
           ...(context.choices && Object.keys(context.choices).length > 0
             ? { choices: structuredClone(context.choices) } : {}),
         }
-        return targets.map((object) => ({
-          type: 'registerPrevention' as const,
-          hostObjectId: object.id,
-          filter: structuredClone(preventionEffect.filter),
-          capacity,
-          duration: structuredClone(instruction.duration),
-          sourceId: frame.source.ref.objectId,
-          sourceRef: structuredClone(frame.source.ref),
-          sourceRevision: frame.definitionSnapshot.definitionRevision,
-          ...(preventionEffect.additionalEffects
-            ? { additionalEffects: structuredClone(preventionEffect.additionalEffects) }
-            : {}),
-          ...(Object.keys(capturedBindings).length > 0 ? { capturedBindings } : {}),
-          createdTurn: draft.turn,
-          ...durationMetadata(instruction.duration, context, draft),
-        }))
+        return targets.map((object) => {
+          const live = context.state.objects[object.id]
+          return {
+            type: 'registerPrevention' as const,
+            hostObjectId: object.id,
+            filter: structuredClone(preventionEffect.filter),
+            capacity,
+            duration: structuredClone(instruction.duration),
+            sourceId: frame.source.ref.objectId,
+            sourceRef: structuredClone(frame.source.ref),
+            sourceRevision: frame.definitionSnapshot.definitionRevision,
+            capturedSource: captureObject(
+              object,
+              live && isSameObject(live, objectIdentity(object)) ? 'current' : 'lastKnown',
+            ),
+            ...(preventionEffect.additionalEffects
+              ? { additionalEffects: structuredClone(preventionEffect.additionalEffects) }
+              : {}),
+            ...(Object.keys(capturedBindings).length > 0 ? { capturedBindings } : {}),
+            createdTurn: draft.turn,
+            ...durationMetadata(instruction.duration, context, draft),
+          }
+        })
       }
       const grant = instruction.effect.kind === 'grantAbility' ? instruction.effect.ability : undefined
       const grantChoices = grant
