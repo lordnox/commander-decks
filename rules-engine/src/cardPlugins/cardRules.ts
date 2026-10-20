@@ -629,13 +629,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Bridgeworks Battle // Tanglespan Bridgeworks': [tapUnlessPayLife(3)],
-  'Broken Bond': [
-    targetOnResolve(
-      'destroy',
-      { zone: 'battlefield', types: ['Artifact', 'Enchantment'] },
-      putLandFromHand(),
-    ),
-  ],
   'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
   Burgeoning: [
     triggerOn('playLand', {
@@ -643,25 +636,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [putLandFromHand()],
     }),
   ],
-  'Bushwhack': [modalChooseOne(
-    {
-      id: 'land',
-      label: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
-      do: [searchLibrary({
-        prompt: 'Search your library for a basic land card, reveal it, put it into your hand, then shuffle.',
-        match: basicLand,
-        destination: 'hand',
-        min: 1,
-        max: 1,
-        reveal: true,
-      })],
-    },
-    {
-      id: 'fight',
-      label: 'Target creature you control fights target creature you don\'t control.',
-      do: [fightOwnedVsOpponent()],
-    },
-  )],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),

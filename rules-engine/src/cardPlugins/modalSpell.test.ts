@@ -46,7 +46,7 @@ const run = (
 ) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
 describe('modalSpell', () => {
-  test('Bushwhack opens a mode choice before its instructions run', () => {
+  test('Bushwhack announces its canonical mode before resolving the chosen instructions', () => {
     const server = game({
       hand: [card('Bushwhack', ['Sorcery'], { manaCost: '{G}' })],
       library: [forest(), card('Island', ['Land'], { subtypes: ['Island'], supertypes: ['Basic'] })],
@@ -60,13 +60,11 @@ describe('modalSpell', () => {
       },
     }
     const opened = run(server, funded, [
-      { type: 'castSpell', seat: 'p1', objectId: spell },
+      { type: 'castSpell', seat: 'p1', objectId: spell, modeIndices: [0] },
       { type: 'resolveTop' },
     ])
-    expect(pendingDialog(opened)).toMatchObject({
-      kind: 'choose-modes',
-      source: 'Bushwhack',
-    })
+    expect(pendingDialog(opened)).toBeUndefined()
+    expect(pendingSelectionFor(opened, 'p1')?.candidates).toHaveLength(2)
   })
 
   test('Decisive Denial opens the same modal flow as other choose-one spells', () => {
