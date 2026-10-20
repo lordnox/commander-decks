@@ -19,6 +19,8 @@ test.each([
   ['Aetherize', ['move']],
   ['Dismember', ['createEffect']],
   ['Harrow', ['sequence']],
+  ['Cultivate', ['sequence']],
+  ["Kodama's Reach", ['sequence']],
   ['Growth Spiral', ['draw', 'sequence']],
   ['Three Visits', ['sequence']],
   ["Nature's Lore", ['sequence']],
@@ -82,6 +84,31 @@ test('catalog Dismember preserves its Phyrexian mana costs and temporary reducti
       effect: { kind: 'pump', power: { kind: 'constant', value: -5 }, toughness: { kind: 'constant', value: -5 } },
       duration: { kind: 'untilCleanup' },
     }],
+  })
+})
+
+test.each(['Cultivate', "Kodama's Reach"] as const)('catalog %s splits two basics between battlefield and hand', name => {
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({
+    types: ['Sorcery'], colors: ['G'], manaCost: '{2}{G}', manaValue: 3,
+  })
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', bindChoice: 'found', chooser: { kind: 'contextRef', name: 'controller' },
+        filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } },
+        min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 2 }, viewLibrary: true },
+      { kind: 'reveal', targets: { kind: 'choiceRef', binding: 'found' } },
+      { kind: 'chooseCards', bindChoice: 'battlefieldLand', chooser: { kind: 'contextRef', name: 'controller' },
+        filter: { kind: 'objects', filter: { among: { kind: 'choiceRef', binding: 'found' } } },
+        min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'battlefieldLand' }, to: 'battlefield', tapped: true },
+      { kind: 'move', targets: { kind: 'objects', filter: {
+        among: { kind: 'choiceRef', binding: 'found' },
+        not: { among: { kind: 'choiceRef', binding: 'battlefieldLand' } },
+      } }, to: 'hand' },
+      { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
+    ] }],
   })
 })
 

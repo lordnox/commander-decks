@@ -354,20 +354,6 @@ export const searchAbility = (spec: SearchSpec, costs: ActivateCost): CardEffect
   costs,
 })
 
-export const splitBasicLandSearch = (): SearchSpec => ({
-  prompt: 'Search your library for up to two basic land cards. Put one onto the battlefield tapped and the other into your hand.',
-  match: basicLand,
-  destination: 'battlefield',
-  min: 0,
-  max: 2,
-  split: {
-    battlefield: { min: 0, max: 1, tapped: true },
-    hand: { min: 0, max: 1 },
-    totalMax: 2,
-    paired: true,
-  },
-})
-
 export const optionalBasicLandEnters = (): SearchSpec => ({
   prompt: 'Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.',
   match: basicLand,

@@ -47,6 +47,8 @@ export type StackItemReference = TargetReference | ChoiceReference
 export type ObjectFilter = {
   /** Exclude the executing source's captured object identity. False adds no restriction. */
   other?: boolean
+  /** Restrict matches to the current identities of a bound object reference. */
+  among?: ObjectReference
   zone?: Zone
   type?: string
   subtypes?: readonly string[]
