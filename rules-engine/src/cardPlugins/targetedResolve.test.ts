@@ -117,6 +117,7 @@ describe('targeted spell resolution', () => {
           p2: [cardTemplate('Big Sphinx', {
             types: ['Creature'],
             manaCost: '{4}{U}{U}',
+            manaValue: 6,
             power: 5,
             toughness: 5,
           })],

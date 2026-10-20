@@ -32,7 +32,7 @@ export type ContextBinding =
   | 'triggering.object.before'
   | 'triggering.object.after'
 
-export type ResultField = 'discarded' | 'discardedCount' | 'countered' | 'paid' | 'moved' | 'destroyed' | 'sacrificed' | 'created'
+export type ResultField = 'amount' | 'discarded' | 'discardedCount' | 'countered' | 'paid' | 'moved' | 'destroyed' | 'sacrificed' | 'created'
 
 export type ContextReference = { kind: 'contextRef'; name: ContextBinding }
 export type TargetReference = { kind: 'targetRef'; clauseIndex: number }
@@ -85,6 +85,7 @@ export const ROUNDING_MODES = { up: 'up', down: 'down' } as const
 export type RoundingMode = typeof ROUNDING_MODES[keyof typeof ROUNDING_MODES]
 
 export type Amount =
+  | { kind: 'resultRef'; binding: string; field: 'amount' | 'discardedCount' | 'created' }
   | { kind: 'constant'; value: number }
   | { kind: 'variable'; name: 'X' }
   | { kind: 'eventAmount' }
@@ -260,6 +261,8 @@ export type TokenDefinition = {
 }
 
 export type Instruction =
+  /** Evaluate an amount now, preserving it for later instructions and continuations. */
+  | { kind: 'captureAmount'; amount: Amount; bindResult: string }
   /** Add the specified mana to each resolved player recipient's pool. */
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
@@ -285,7 +288,7 @@ export type Instruction =
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
-  | { kind: 'move'; targets: ObjectRecipient; to: Zone; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
+  | { kind: 'move'; targets: ObjectRecipient; to: Zone; controller?: PlayerReference; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
   /** Inspect and order the top cards of each selected player's library. */
   | { kind: 'scry' | 'surveil'; targets: PlayerRecipient; count: Amount }
   /** Reveal each resolved object to every player through the ordinary visibility event. */
@@ -609,6 +612,7 @@ export type CardRuleDefinitionSnapshotV1 = {
 }
 
 export type AmountEvaluationContext = {
+  result?: (reference: Extract<Amount, { kind: 'resultRef' }>) => number | undefined
   variables?: Readonly<Partial<Record<'X', number>>>
   eventAmount?: number
   count: (selector: Selector) => number

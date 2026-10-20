@@ -162,7 +162,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"ed7f42436ade10c968232fa530ab01cfbf2ec5155c0f900ad588c7bc450a277f","card":"Price of Fame"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"fe13f7bc1a82fe8f298cecbed6211620777d38148958a2fb0e587c7244fe2caa","card":"Quantum Misalignment"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"eddb5ad3f1dfdba9b89d70102755a14fb73fb02f4851cee526e0a8330e4ca423","card":"Raise the Palisade"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"3de1676c27b1df90e3204364478a38c6eb4cc8f2e66818841a1cced08c5a8828","card":"Reanimate"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"045deb2e469efeaf4cfd452b823362b26d51d9a24ca4bd9d21a5d493f0d6f2de","card":"Ripples of Undeath"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"bc698c6cd062801474c994585aba1deba97c577c744bb31289b430a3598b1feb","card":"Roaming Throne"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"3654e5512e271adaa915027469dd50989583908c90e3035852171df8478e0342","card":"Sakashima of a Thousand Faces"},

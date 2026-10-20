@@ -250,3 +250,49 @@ test('moving a targeted player graveyard uses ownership rather than every gravey
   expect(named(resolved, 'Own fixture').zone).toBe('graveyard')
   expect(named(resolved, 'Chosen fixture').zone).toBe('exile')
 })
+
+
+test.each([false, true])('move sets the chosen battlefield controller before entry triggers, preserving ownership (selected=%s)', selected => {
+  const entry = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever(self.enters, { instructions: [gainLife({ targets: ref('controller'), amount: 1 })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    libraries: { p2: [cardTemplate('Returning fixture', { types: ['Creature'], power: 2, toughness: 2, zone: 'graveyard', ruleDefinition: entry })] },
+    hands: { p1: [instructionSpell({
+      ...(selected ? { decisions: { targets: [select({ filter: players(), count: 1 })] } } : {}),
+      instructions: [move({ targets: objects({ zone: 'graveyard', type: 'Creature' }), to: 'battlefield', controller: selected ? target(0) : ref('controller'), tapped: selected })],
+    })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p2.graveyard[0]
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], targets: selected ? [{ kind: 'player', player: 'p2' }] : [] }))
+  const entered = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  const controller = selected ? 'p2' : 'p1'
+  expect(entered.objects[id]).toMatchObject({ zone: 'battlefield', controller, owner: 'p2', tapped: selected })
+  expect(entered.zoneOrder.p2.battlefield).toContain(id)
+  expect(entered.stack).toHaveLength(1)
+  const resolved = resolveStack(server.rules, entered)
+  expect(resolved.players[controller].life).toBe(41)
+  expect(resolved.players[selected ? 'p1' : 'p2'].life).toBe(40)
+})
+
+test('move controller references require the player domain and battlefield destination', () => {
+  for (const instruction of [
+    move({ targets: objects(), to: 'hand', controller: ref('controller') }),
+    move({ targets: objects(), to: 'battlefield', controller: ref('source') }),
+  ]) expect(() => compileCardRuleDefinition(card([spell({ instructions: [instruction] })]))).toThrow()
+})
+
+test('move rejects a controller reference resolving to multiple players', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    libraries: { p2: [cardTemplate('Control fixture', { types: ['Artifact'], zone: 'graveyard' })] },
+    hands: { p1: [instructionSpell({
+      decisions: { targets: [select({ filter: players(), count: 2 })] },
+      instructions: [move({ targets: objects({ zone: 'graveyard' }), to: 'battlefield', controller: target(0) })],
+    })] },
+  }, { random: () => 0 })
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], targets: [{ kind: 'player', player: 'p1' }, { kind: 'player', player: 'p2' }] }))
+  expect(server.rules(cast, { type: 'resolveTop' }).ok).toBe(false)
+  expect(cast.zoneOrder.p2.graveyard).toHaveLength(1)
+})

@@ -98,6 +98,7 @@ import orzhovSignet from './orzhov-signet'
 import otherworldlyJourney from './otherworldly-journey'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
+import reanimate from './reanimate'
 import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import restorationAngel from './restoration-angel'
@@ -250,6 +251,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Otherworldly Journey": otherworldlyJourney,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
+  "Reanimate": reanimate,
   "Rejuvenating Springs": rejuvenatingSprings,
   "Rest in Peace": restInPeace,
   "Restoration Angel": restorationAngel,

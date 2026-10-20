@@ -48,6 +48,7 @@ import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'captureAmount',
   'counter',
   'damage',
   'destroy',
@@ -122,6 +123,7 @@ const preflightInstructions = (
       case 'draw':
       case 'grantLandPlays':
       case 'addMana':
+      case 'captureAmount':
       case 'gainLife':
       case 'loseLife':
       case 'blink':
@@ -652,6 +654,9 @@ const actionEvents = (
       if (amount === undefined || amount === 0) return []
       return targets.map((seat) => ({ type: 'draw' as const, seat, count: distributedAmount(instruction.targets, seat, context, amount) }))
     }
+    case 'captureAmount':
+      frame.results = { ...frame.results, [instruction.bindResult]: evaluateRuntimeAmount(instruction.amount, context) }
+      return []
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
@@ -726,6 +731,8 @@ const actionEvents = (
     }
     case 'move': {
       const targets = objectActions(instruction.targets, context)
+      const controllers = instruction.controller ? evaluatePlayerReference(instruction.controller, context) : undefined
+      if (controllers && controllers.length !== 1) throw new RuleDslEvaluationError('move controller must resolve to exactly one player')
       if (instruction.bindChoice) frame.pendingMovedChoice = {
         binding: instruction.bindChoice,
         objects: targets.map(object => ({ objectId: object.id, zone: instruction.to,
@@ -736,6 +743,7 @@ const actionEvents = (
         type: 'move' as const,
         objectId: object.id,
         to: instruction.to,
+        ...(controllers ? { controller: controllers[0] } : {}),
         ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
         ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
           const amount = availableAmount(count, context)
