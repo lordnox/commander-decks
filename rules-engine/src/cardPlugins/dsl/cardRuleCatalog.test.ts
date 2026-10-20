@@ -1111,3 +1111,15 @@ test('Stifle targets only stack abilities', () => {
     { kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'ability' } } }] }, instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }] },
   ])
 })
+
+test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {
+  expect(cardRuleDefinitionSnapshotFor('Retreat to Hagra')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } }, decisions: { modes: { count: { kind: 'constant', value: 1 } } }, modes: [
+      { decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] }, instructions: [
+        { kind: 'createEffect', effect: { kind: 'pump' } },
+        { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.deathtouch } },
+      ] },
+      { instructions: [{ kind: 'loseLife', targets: { kind: 'players', filter: { relation: 'opponent' } } }, { kind: 'gainLife', targets: { kind: 'contextRef', name: 'controller' } }] },
+    ] },
+  ])
+})

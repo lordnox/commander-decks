@@ -1,3 +1,4 @@
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { describe, expect, test } from 'bun:test'
 import {
   card,
@@ -313,4 +314,36 @@ describe('relocated from homerPass2.test.ts → entryTriggers.integration.test.t
       expect(named(entered, 'Three').zone).toBe('graveyard')
     })
 
+})
+
+
+test.each([0, 1])('modal land-entry triggers announce mode %s before resolution', mode => {
+  const server = createServerGame(commanderRules, {
+    players: 3,
+    battlefield: { p1: [cardTemplate('Retreat to Hagra')], p2: [cardTemplate('Recipient', { types: ['Creature'], power: 2, toughness: 3 })] },
+    hands: { p1: [cardTemplate('Land fixture', { types: ['Land'] })] },
+  }, { random: () => 0 })
+  const creature = named(server.state, 'Recipient').id
+  let state = reduce(server, server.state, { type: 'playLand', seat: 'p1', objectId: named(server.state, 'Land fixture').id })
+  expect(state.stack).toHaveLength(0)
+  const choice = pendingOptionSelection(state, 'p1')!
+  expect(choice).toBeDefined()
+  state = reduce(server, JSON.parse(JSON.stringify(state)), { type: 'selectOption', seat: 'p1', selectionId: choice.id, optionId: `mode:${mode}` })
+  if (mode === 0) {
+    const targets = pendingSelectionFor(state, 'p1')!
+    expect(targets.candidates).toContain(creature)
+    state = reduce(server, state, { type: 'selectCards', seat: 'p1', selectionId: targets.id, kind: 'choose', count: 1, objectIds: [creature] })
+  }
+  expect(state.stack).toHaveLength(1)
+  expect(state.players.p1.life).toBe(40)
+  state = resolveStack(server.rules, state)
+  if (mode === 0) {
+    expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(true)
+    expect(state.players.p2.life).toBe(40)
+  } else {
+    expect(state.players.p1.life).toBe(41)
+    expect(state.players.p2.life).toBe(39)
+    expect(state.players.p3.life).toBe(39)
+    expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(false)
+  }
 })
