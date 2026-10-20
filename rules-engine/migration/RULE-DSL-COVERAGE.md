@@ -13,6 +13,9 @@ needed canonical node, compatibility route, and status.
 `candidateEvidence` is lexical only and does not prove behavior.
 `registration-only` and `unobserved` are explicit gaps.
 
+For the remaining card registrations grouped by shared mechanics, prerequisites,
+and suggested migration order, see [Card migration batches](CARD-MIGRATION-BATCHES.md).
+
 Regenerate and verify:
 
 ```bash
