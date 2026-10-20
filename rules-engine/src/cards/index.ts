@@ -10,6 +10,7 @@ import arcanisTheOmnipotent from './arcanis-the-omnipotent'
 import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
+import beastWhisperer from './beast-whisperer'
 import blightedWoodland from './blighted-woodland'
 import bloodCelebrant from './blood-celebrant'
 import bojukaBog from './bojuka-bog'
@@ -156,6 +157,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
+  "Beast Whisperer": beastWhisperer,
   "Blighted Woodland": blightedWoodland,
   "Blood Celebrant": bloodCelebrant,
   "Bojuka Bog": bojukaBog,

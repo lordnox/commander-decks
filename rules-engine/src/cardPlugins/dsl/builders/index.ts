@@ -397,6 +397,9 @@ export const cardRuleDefinition = (
   })
 }
 
+export const spellCast = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
+  immutableData({ kind: 'cast', filter: input.filter })
+
 export const enters = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'enters', filter: input.filter })
 
