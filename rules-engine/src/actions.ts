@@ -119,7 +119,7 @@ export type ActionTargetGroup = {
   label: string
   min: number
   max: number
-  kind?: 'object' | 'player'
+  kind?: 'object' | 'player' | 'anyTarget'
   purpose?: 'target' | 'cost'
   /** The cost group whose picks are exiled from the graveyard to pay generic mana. */
   delve?: true
@@ -1170,7 +1170,7 @@ const canonicalActionTargetGroups = (
     const bounds = evaluateTargetBounds(clause, amountEvaluationContext(context))
     return {
       label: `Target ${clauseIndex + 1}`, min: bounds.min, max: bounds.max,
-      kind: clause.filter.kind === 'players' ? 'player' as const : 'object' as const,
+      kind: clause.filter.kind === 'anyTarget' ? 'anyTarget' as const : clause.filter.kind === 'players' ? 'player' as const : 'object' as const,
       targets: candidates[clauseIndex].map(target => {
         switch (target.kind) {
           case 'player': return { objectId: target.player, name: target.player, controller: target.player }
@@ -2635,7 +2635,7 @@ export const eventsForAvailableAction = (
     : undefined
   const targets = action.targetObjectIds?.length
     ? action.targetObjectIds.map((objectId) => (
-        playerAura || action.targetGroups?.some((group) => group.kind === 'player')
+        playerAura || action.targetGroups?.some((group) => group.kind === 'player' || (group.kind === 'anyTarget' && Boolean(state.players[objectId])))
           ? { kind: 'player' as const, player: objectId }
           : { kind: 'object' as const, objectId }
       ))

@@ -251,7 +251,6 @@ import {
   optionalTargetOnResolve,
   upToTargetsOnResolve,
   addChosenColorMana,
-  returnIfDiesThisTurn,
   destroyTargetPermanent,
   mayDiscard,
   secondCardDrawn,
@@ -1079,8 +1078,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     dredge(3),
     upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
   ],
-  'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
-  'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Lumbering Battlement': [
     handler('linkedExile'),
@@ -1096,15 +1093,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
   ],
-  'Malakir Rebirth': [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      loseLife(2, 'controller'),
-      returnIfDiesThisTurn(),
-    ),
-  ],
-  'Malakir Rebirth // Malakir Mire': [entersTapped()],
   'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), eldraziSpawn)],
   'Mana Drain': [
     targetOnResolve(

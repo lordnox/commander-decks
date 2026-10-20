@@ -7,7 +7,7 @@ import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { effectsFor, effectsOf } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
-import { loadDefinitionSnapshot } from './v1'
+import { KEYWORDS, loadDefinitionSnapshot } from './v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -28,7 +28,7 @@ describe('cardRuleCatalog — targetedActions', () => {
     expect(sign).toBeDefined()
     expect(hounds).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('murder')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
     expect(murder).toBe(cardRuleDefinitionSnapshotFor('Murder'))
     expect(murder!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)
@@ -234,4 +234,23 @@ describe('cardRuleCatalog — targetedActions', () => {
     const restored = restoreJournal(createJournal(server.state), server.rules)
     expect(restored.current().objects[hounds.id].ruleDefinition?.definitionRevision).toBe(revision)
   })
+})
+
+test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {
+  expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'anyTarget' } }] }, instructions: [{ kind: 'damage', amount: { kind: 'constant', value: 3 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Loran of the Third Path')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.vigilance },
+    { kind: 'triggered', decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } }] }, instructions: [{ kind: 'destroy' }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], decisions: { targets: [{ filter: { kind: 'players', filter: { relation: 'opponent' } } }] }, instructions: [{ kind: 'draw', targets: { kind: 'contextRef', name: 'controller' } }, { kind: 'draw', targets: { kind: 'targetRef', clauseIndex: 0 } }] },
+  ])
+  const rebirth = cardRuleDefinitionSnapshotFor('Malakir Rebirth')!
+  expect(cardRuleDefinitionSnapshotFor('Malakir Rebirth // Malakir Mire')).toBe(rebirth)
+  expect(rebirth.definition.abilities).toMatchObject([
+    { kind: 'spell', instructions: [
+      { kind: 'loseLife', amount: { kind: 'constant', value: 2 } },
+      { kind: 'createEffect', duration: { kind: 'untilCleanup' }, effect: { kind: 'grantAbility', ability: { kind: 'triggered', on: { kind: 'dies' }, instructions: [{ kind: 'move', targets: { kind: 'contextRef', name: 'triggering.object.after' }, to: 'battlefield', tapped: true }] } } },
+    ] },
+  ])
 })

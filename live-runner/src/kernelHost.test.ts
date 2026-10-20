@@ -4342,3 +4342,24 @@ test('live canonical activations preserve implicit source costs alongside submit
   expect(kernel.history.current().objects[sourceId].zone).toBe('graveyard')
   expect(kernel.history.current().objects[discardId].zone).toBe('graveyard')
 })
+
+test.each(['player', 'object'] as const)('structured any-target casts preserve a chosen %s target', kind => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Lightning Bolt')] },
+    battlefield: { p2: [cardTemplate('Damage recipient', { types: ['Creature'], power: 1, toughness: 5 })] },
+  }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana.R = 1
+  const kernel = handleFor(server.rules, state)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  const targetId = kind === 'player' ? 'p2' : state.zoneOrder.p2.battlefield[0]
+  applyKernelAct(kernel, lobby, 'p1', {
+    type: 'act', kind: 'castSpell', objectId: state.zoneOrder.p1.hand[0], targetObjectIds: [targetId],
+  })
+  expect(kernel.history.current().stack[0].targets).toMatchObject([kind === 'player' ? { kind: 'player', player: 'p2' } : { kind: 'object', objectId: targetId }])
+  expect(kernel.dispatch({ type: 'resolveTop' }).ok).toBe(true)
+  if (kind === 'player') expect(kernel.history.current().players.p2.life).toBe(37)
+  else expect(kernel.history.current().objects[targetId].damageMarked).toBe(3)
+})

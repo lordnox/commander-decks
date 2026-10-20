@@ -1,3 +1,4 @@
+import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { isSwamp } from '../../../plugins/swampOverlay'
 import { isForest } from '../../../plugins/forestOverlay'
 import { isSameObject } from '../../../objectIdentity'
@@ -311,8 +312,10 @@ export const evaluateStackItemSelector = (
 export function evaluateSelector(selector: PlayerSelector, context: RuleDslRuntimeContext): PlayerId[]
 export function evaluateSelector(selector: ObjectSelector, context: RuleDslRuntimeContext): GameObject[]
 export function evaluateSelector(selector: StackItemSelector, context: RuleDslRuntimeContext): StackItem[]
+export function evaluateSelector(selector: Extract<Selector, { kind: 'anyTarget' }>, context: RuleDslRuntimeContext): (PlayerId | GameObject)[]
 export function evaluateSelector(selector: Selector, context: RuleDslRuntimeContext) {
   switch (selector.kind) {
+    case 'anyTarget': return [...evaluatePlayerSelector({ kind: 'players', filter: {} }, context), ...evaluateObjectSelector({ kind: 'objects', filter: { zone: 'battlefield', any: DAMAGEABLE_PERMANENT_TYPES.map(type => ({ type })) } }, context)]
     case 'players': return evaluatePlayerSelector(selector, context)
     case 'objects': return evaluateObjectSelector(selector, context)
     case 'stackItems': return evaluateStackItemSelector(selector, context)
@@ -355,6 +358,7 @@ export const amountEvaluationContext = (
   eventAmount: context.occurrence?.amount,
   count: (selector) => {
     switch (selector.kind) {
+      case 'anyTarget': return evaluateSelector(selector, context).length
       case 'players': return evaluatePlayerSelector(selector, context).length
       case 'objects': return evaluateObjectSelector(selector, context).length
       case 'stackItems': return evaluateStackItemSelector(selector, context).length

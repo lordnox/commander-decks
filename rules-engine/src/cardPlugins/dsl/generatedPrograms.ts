@@ -81,7 +81,7 @@ export const occurrenceBindingsForPattern = (pattern: { kind: string; active?: u
     case 'cycle': return ['player', 'object.after']
     case 'draw': return ['player']
     case 'enters': return ['object.after']
-    case 'dies':
+    case 'dies': return ['object.before', 'object.after']
     case 'leaves': return ['object.before']
     case 'step': return pattern.active === undefined ? [] : ['player']
     default: return []

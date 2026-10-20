@@ -93,11 +93,14 @@ import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
 import kodamasReach from './kodamas-reach'
 import ladyEvangela from './lady-evangela'
+import lightningBolt from './lightning-bolt'
 import lilianasCaress from './lilianas-caress'
 import longRoadHome from './long-road-home'
+import loranOfTheThirdPath from './loran-of-the-third-path'
 import lotusField from './lotus-field'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
+import malakirRebirth from './malakir-rebirth'
 import marshFlats from './marsh-flats'
 import meteorGolem from './meteor-golem'
 import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
@@ -274,11 +277,15 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Territory": khalniTerritory,
   "Kodama's Reach": kodamasReach,
   "Lady Evangela": ladyEvangela,
+  "Lightning Bolt": lightningBolt,
   "Liliana's Caress": lilianasCaress,
   "Long Road Home": longRoadHome,
+  "Loran of the Third Path": loranOfTheThirdPath,
   "Lotus Field": lotusField,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
+  "Malakir Rebirth": malakirRebirth,
+  "Malakir Rebirth // Malakir Mire": malakirRebirth,
   "Marsh Flats": marshFlats,
   "Meteor Golem": meteorGolem,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,

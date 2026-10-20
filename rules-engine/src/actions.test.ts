@@ -276,7 +276,7 @@ describe('available actions', () => {
 
   test('a counterspell is not an action while the stack is empty', () => {
     const veto = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: "Dovin's Veto",
       types: ['Instant'],
       manaCost: '{W}{U}',
@@ -394,7 +394,7 @@ describe('events for available actions', () => {
 
   test('a supported one-target spell carries its chosen target through the fast path', () => {
     const reanimate = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: 'Reanimate',
       types: ['Sorcery'],
       manaCost: '{B}',
@@ -432,7 +432,7 @@ describe('events for available actions', () => {
 
   test('a spell whose only choice happens on resolution uses the fast path', () => {
     const fact = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: 'Fact or Fiction',
       types: ['Instant'],
       manaCost: '{3}{U}',
@@ -458,7 +458,7 @@ describe('events for available actions', () => {
   // needs a choice and the fast path can send it straight to the stack.
   test('a spell whose only choices happen on resolution stays fast-castable', () => {
     const scapeshift = {
-      ...bolt(),
+      ...bolt(), ruleDefinition: undefined,
       name: 'Scapeshift',
       types: ['Sorcery'],
       manaCost: '{2}{G}{G}',
@@ -568,4 +568,22 @@ test.each([[0, 2, [0, 1, 2]], [1, 4, [1, 2, 3]]] as const)('canonical life-X spe
   for (const event of events) casted = ok(server.rules(casted, event))
   expect(casted.players.p1.life).toBe(1)
   expect(casted.players.p1.mana.B).toBe(0)
+})
+
+test.each(['player', 'object'] as const)('any-target action groups retain %s target kinds through the fast path', kind => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Lightning Bolt')] },
+    battlefield: { p2: [cardTemplate('Damage recipient', { types: ['Creature'], power: 1, toughness: 5 })] },
+  }, { random: () => 0 })
+  const state = structuredClone(server.state)
+  state.players.p1.mana.R = 1
+  const targetId = kind === 'player' ? 'p2' : state.zoneOrder.p2.battlefield[0]
+  const act = legalActsFor(state, 'p1').find(act => act.kind === 'castSpell')!
+  expect(act).toMatchObject({ targetGroups: [{ kind: 'anyTarget' }] })
+  const events = eventsForAvailableAction(state, 'p1', { ...act, targetObjectIds: [targetId] })!
+  const cast = events.reduce((state, event) => ok(server.rules(state, event)), state)
+  const finished = resolveStack(server.rules, cast)
+  if (kind === 'player') expect(finished.players.p2.life).toBe(37)
+  else expect(finished.objects[targetId].damageMarked).toBe(3)
 })

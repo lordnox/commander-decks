@@ -127,6 +127,8 @@ export const choice = (binding: string): ChoiceReference =>
 export const result = (binding: string, field: ResultField): ResultReference =>
   immutableData({ kind: 'resultRef', binding, field })
 
+export const anyTarget = () => immutableData({ kind: 'anyTarget' as const })
+
 export const players = (filter: PlayerFilter = {}): PlayerSelector =>
   immutableData({ kind: 'players', filter })
 
