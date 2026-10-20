@@ -90,7 +90,6 @@ import {
   legendRuleOff,
   loseAbilitiesBecome,
   loseLife,
-  loseLifeTargetManaValue,
   loseLifeTargetController,
   kicker,
   multikicker,
@@ -1510,13 +1509,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         },
       ])],
     }),
-  ],
-  'Reanimate': [
-    targetOnResolve(
-      'reanimate',
-      { zone: 'graveyard', type: 'Creature' },
-      loseLifeTargetManaValue(),
-    ),
   ],
   'Reflecting Pool': [manaFrom('controlledLands')],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],

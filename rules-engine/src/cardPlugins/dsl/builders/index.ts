@@ -74,6 +74,12 @@ export const negate = (value: AmountInput) => immutableData({ kind: 'negate' as 
 
 const toStatDelta = (value: StatDeltaInput) => typeof value === 'number' ? amount(value) : immutableData(value)
 
+export const resultAmount = (binding: string, field: Extract<Amount, { kind: 'resultRef' }>['field'] = 'amount') =>
+  immutableData({ kind: 'resultRef' as const, binding, field })
+
+export const captureAmount = (input: { amount: AmountInput; bindResult: string }) =>
+  immutableData({ kind: 'captureAmount' as const, amount: toAmount(input.amount), bindResult: input.bindResult })
+
 export const variable = (name: 'X'): Amount => immutableData({ kind: 'variable', name })
 
 export const eventAmount = (): Amount => immutableData({ kind: 'eventAmount' })
@@ -483,6 +489,7 @@ export const untap = (targets: ObjectRecipient) => immutableData({ kind: 'untap'
 export const move = (input: {
   targets: Extract<Instruction, { kind: 'move' }>['targets']
   to: Extract<Instruction, { kind: 'move' }>['to']
+  controller?: Extract<Instruction, { kind: 'move' }>['controller']
   tapped?: boolean
   enterCounters?: Readonly<Record<string, AmountInput>>
   bindResult?: string
@@ -492,6 +499,7 @@ export const move = (input: {
   ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
   targets: input.targets,
   to: input.to,
+  ...(input.controller !== undefined ? { controller: input.controller } : {}),
   ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
   ...(input.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(input.enterCounters).map(([counter, count]) => [counter, toAmount(count)])) } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),

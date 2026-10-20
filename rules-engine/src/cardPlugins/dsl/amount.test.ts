@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test'
 import type { Amount } from './v1'
-import { card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
@@ -70,4 +71,41 @@ test('negation is restricted to stat deltas and validates its operand bindings',
     expect(() => compileCardRuleDefinition(card([spell({ instructions: [createEffect({ targets: objects({ zone: 'battlefield' }), effect: pumpEffect(value, 0), duration: untilCleanup() })] })]))).toThrow()
   }
   expect(() => compileCardRuleDefinition({ ...card([]), abilities: [{ kind: 'spell', costs: [], decisions: { targets: [] }, instructions: [{ kind: 'draw', count: negate(2), targets: ref('controller') }] }] })).toThrow()
+})
+
+
+test('captured amounts survive object departure, later changes, optional choices, and restore', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p2: [cardTemplate('Amount fixture', { types: ['Creature'], power: 5, toughness: 5 })] },
+    hands: { p1: [instructionSpell({
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [
+        captureAmount({ bindResult: 'power', amount: characteristic(target(0), 'power', { information: 'current' }) }),
+        move({ targets: target(0), to: 'exile' }),
+        may(gainLife({ targets: ref('controller'), amount: resultAmount('power') })),
+      ],
+    })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p2.battlefield[0]
+  const cast = ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0], targets: [{ kind: 'object', objectId: id }] }))
+  const waiting = resolveStack(server.rules, cast)
+  expect(waiting.players.p1.life).toBe(40)
+  expect(waiting.objects[id].zone).toBe('exile')
+  const restored = JSON.parse(JSON.stringify(waiting))
+  restored.objects[id].power = 99
+  const pending = pendingOptionSelection(restored, 'p1')!
+  const resolved = ok(server.rules(restored, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: pending.options[0].id }))
+  expect(resolved.players.p1.life).toBe(45)
+})
+
+test('amount result bindings require an earlier numeric producer and the correct result field', () => {
+  for (const instructions of [
+    [gainLife({ targets: ref('controller'), amount: resultAmount('missing') })],
+    [captureAmount({ bindResult: 'saved', amount: 3 }), gainLife({ targets: ref('controller'), amount: resultAmount('saved', 'created') })],
+    [captureAmount({ bindResult: 'saved', amount: resultAmount('saved') })],
+    [captureAmount({ bindResult: 'saved', amount: 3 }), captureAmount({ bindResult: 'saved', amount: 4 })],
+  ]) expect(() => compileCardRuleDefinition(card([spell({ instructions })]))).toThrow()
+  for (const value of [-1, 1.5, 2_147_483_648]) expect(() => evaluateAmount(resultAmount('saved'), { ...context, result: () => value })).toThrow()
+  expect(() => evaluateAmount(resultAmount('saved'), context)).toThrow()
 })

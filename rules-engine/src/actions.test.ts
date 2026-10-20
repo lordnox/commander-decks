@@ -415,13 +415,13 @@ describe('events for available actions', () => {
     expect(action).toMatchObject({
       kind: 'castSpell',
       name: 'Reanimate',
-      targetName: 'Graveyard Creature',
-      targetObjectId: objectNamed(state, 'Graveyard Creature').id,
+      targetGroups: [{ min: 1, max: 1, targets: [{ name: 'Graveyard Creature', objectId: objectNamed(state, 'Graveyard Creature').id }] }],
     })
-    expect(eventsForAvailableAction(state, 'p1', action!)?.at(-1)).toEqual({
+    expect(eventsForAvailableAction(state, 'p1', { ...action!, targetObjectIds: [targetObject.id] })?.at(-1)).toEqual({
       type: 'castSpell',
       seat: 'p1',
       objectId: objectNamed(state, 'Reanimate').id,
+      targetClauses: [[{ kind: 'object', objectId: targetObject.id, zone: 'graveyard', incarnation: targetObject.incarnation }]],
       targets: [{
         kind: 'object',
         objectId: objectNamed(state, 'Graveyard Creature').id,

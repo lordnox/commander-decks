@@ -1016,3 +1016,14 @@ test('green utility spells use scoped modal targets and ordered land choices', (
     ] },
   ])
 })
+
+
+test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {
+  expect(cardRuleDefinitionSnapshotFor('Reanimate')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', type: 'Creature' } } }] }, instructions: [
+      { kind: 'captureAmount', bindResult: 'manaValue', amount: { kind: 'characteristic', of: { kind: 'targetRef', clauseIndex: 0 }, characteristic: 'manaValue', information: 'current' } },
+      { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'battlefield', controller: { kind: 'contextRef', name: 'controller' } },
+      { kind: 'loseLife', targets: { kind: 'contextRef', name: 'controller' }, amount: { kind: 'resultRef', binding: 'manaValue', field: 'amount' } },
+    ] },
+  ])
+})

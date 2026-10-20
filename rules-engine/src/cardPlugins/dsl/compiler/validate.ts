@@ -183,12 +183,12 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'resultRef': {
         exactKeys(node, path, ['kind', 'binding', 'field'], ['kind', 'binding', 'field'])
         const name = bindingName(node.binding, childPath(path, 'binding'))
-        const field = enumeration(node.field, childPath(path, 'field'), new Set(['discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
+        const field = enumeration(node.field, childPath(path, 'field'), new Set(['amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
         if (name && field) {
           const binding = env.locals.get(name)
           if (binding && binding.kind !== 'result') issue(childPath(path, 'binding'), 'binding-kind', `${name} is a choice binding, not a result binding`)
           else if (!binding?.fields?.has(field)) issue(childPath(path, 'field'), 'unresolved-binding', `result ${name}.${field} is not produced on every control-flow path`)
-          else domain = ['discardedCount', 'created'].includes(field) ? 'number' : 'boolean'
+          else domain = ['amount', 'discardedCount', 'created'].includes(field) ? 'number' : 'boolean'
         }
         break
       }
@@ -305,6 +305,9 @@ export const validateDefinitionV1 = (root: unknown): {
         integer(node.by, childPath(path, 'by'), { min: 1 })
         enumeration(node.rounding, childPath(path, 'rounding'), new Set(Object.values(ROUNDING_MODES)), 'rounding mode')
         validateAmount(node.value, childPath(path, 'value'), env, depth + 1)
+        return
+      case 'resultRef':
+        validateReference(node, path, env, ['number'])
         return
       case 'eventAmount':
         exactKeys(node, path, ['kind'], ['kind'])
@@ -543,6 +546,11 @@ export const validateDefinitionV1 = (root: unknown): {
       validateRecipient(node.targets, childPath(path, 'targets'), env, expected)
     }
     switch (node.kind) {
+      case 'captureAmount':
+        exactKeys(node, path, ['kind', 'amount', 'bindResult'], ['kind', 'amount', 'bindResult'])
+        validateAmount(node.amount, childPath(path, 'amount'), env)
+        declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
+        return
       case 'addMana': {
         exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
         const amount = object(node.amount, childPath(path, 'amount'))
@@ -595,11 +603,15 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'sacrifice':
       case 'move': {
-        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'bindResult', 'bindChoice', 'tapped', 'enterCounters'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
         if (node.kind === 'move' && node.tapped !== undefined && typeof node.tapped !== 'boolean') {
           issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
+        }
+        if (node.kind === 'move' && node.controller !== undefined) {
+          if (node.to !== 'battlefield') issue(childPath(path, 'controller'), 'domain', 'move controller requires a battlefield destination')
+          validateReference(node.controller, childPath(path, 'controller'), env, ['player'])
         }
         if (node.kind === 'move' && node.enterCounters !== undefined) {
           const countersPath = childPath(path, 'enterCounters')
@@ -1106,7 +1118,7 @@ export const validateDefinitionV1 = (root: unknown): {
             if (capturedResults) for (const [name, fields] of Object.entries(capturedResults)) {
               const resultName = bindingName(name, `${path}.capturedBindings.results.${name}`)
               const fieldList = array(fields, `${path}.capturedBindings.results.${name}`)
-                .map((field, index) => enumeration(field, `${path}.capturedBindings.results.${name}[${index}]`, new Set(['discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined)
+                .map((field, index) => enumeration(field, `${path}.capturedBindings.results.${name}[${index}]`, new Set(['amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined)
                 .filter((field): field is ResultField => field !== undefined)
               if (resultName) declareBinding(occurrenceBase, resultName, {
                 kind: 'result',

@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 260,
+    "cardRegistrations": 259,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 24,
+    "instructionUnobservedGaps": 25,
     "cardRegistrationOnlyGaps": 10,
-    "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 250
+    "candidateOnlyInstructionRows": 166,
+    "candidateOnlyCardRows": 249
   },
   "cardEffects": [
     {
@@ -763,7 +763,6 @@
         "Pile On:effects[1]",
         "Price of Fame:effects[1]",
         "Quantum Misalignment:effects[0]",
-        "Reanimate:effects[0]",
         "Revitalizing Repast // Old-Growth Grove:effects[1]",
         "Singularity Rupture:effects[1]",
         "Sink into Stupor // Soporific Springs:effects[1]",
@@ -778,7 +777,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 80,
+        "matches": 76,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -787,7 +786,7 @@
           "live-runner/src/kernelHost.test.ts:1448 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
           "live-runner/src/kernelHost.test.ts:840 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:279 — test('a counterspell is not an action while the stack is empty', () => {",
-          "rules-engine/src/actions.test.ts:397 — test('a supported one-target spell carries its chosen target through the fast path', () => {"
+          "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {"
         ]
       },
       "neededCanonicalNode": "target clauses and whole-item legality",
@@ -2308,9 +2307,9 @@
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
           "rules-engine/src/cardPlugins/registry.test.ts:257 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:603 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1017 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1026 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1040 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1018 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1027 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1041 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3852,16 +3851,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 35,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1026 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:146 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:794 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:605 — test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:639 — test('a queued ability resolves after Mirkwood Bats leaves', () => {"
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:605 — test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -3883,7 +3882,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:818 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:819 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -3899,20 +3898,11 @@
     {
       "variant": "loseLifeTargetManaValue",
       "mechanic": "cost or announcement action",
-      "currentRegistrations": [
-        "Reanimate:effects[0].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "live-runner/src/kernelFacts.test.ts:94 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "live-runner/src/kernelHost.test.ts:868 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:397 — test('a supported one-target spell carries its chosen target through the fast path', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:116 — test('Reanimate steals the creature and charges its mana value in life', () => {",
-          "rules-engine/src/replay.test.ts:330 — test('a spell on the stack announces what it targets', () => {",
-          "site/src/TableBoard.test.tsx:352 — test('a targeted fast cast asks for its target after Cast', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -3923,7 +3913,7 @@
         "06",
         "07"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -4731,7 +4721,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:638 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:639 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "typed continuous effect with duration",
@@ -5192,7 +5182,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:231 — test('Profane Command fear mode survives restart and grants fear to multiple creatures', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:638 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:639 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -6934,7 +6924,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:81 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:638 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:639 — test(\"Black Sun's Twilight casts with zero creature targets\", () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [pumpTargetX, returnCreatureManaValueX]",
@@ -8471,7 +8461,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1369 — test('the offer is private, survives a host restart, and is answered with live acts', async () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:1446 — test('a creature with power under 5, a non-creature, or a hexproof opponent creature cannot be targeted', async () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:520 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:521 — test('Drag to the Roots costs two less only with delirium and destroys its target', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions []",
@@ -9023,7 +9013,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:818 — test('Fell the Profane destroys and drains the target’s controller', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:819 — test('Fell the Profane destroys and drains the target’s controller', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [loseLifeTargetController]",
@@ -10306,8 +10296,8 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:52 — test('the Homer commander is registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:146 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:185 — test('Keep Safe counters the targeted spell and draws a card', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:147 — test('Keep Safe only targets a spell aimed at a controlled permanent', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:186 — test('Keep Safe counters the targeted spell and draws a card', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [draw]",
@@ -12284,7 +12274,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:457 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:458 — test('Price of Fame only reduces for a legendary target and still destroys then surveils', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [castCost, targetedResolve] and instructions [surveil]",
@@ -12566,44 +12556,6 @@
       "handlerIds": [
         "choiceEffects",
         "modalSpell"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Reanimate",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Reanimate"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 6,
-        "samples": [
-          "live-runner/src/kernelFacts.test.ts:94 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "live-runner/src/kernelHost.test.ts:868 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
-          "rules-engine/src/actions.test.ts:397 — test('a supported one-target spell carries its chosen target through the fast path', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:116 — test('Reanimate steals the creature and charges its mana value in life', () => {",
-          "rules-engine/src/replay.test.ts:330 — test('a spell on the stack announces what it targets', () => {",
-          "site/src/TableBoard.test.tsx:352 — test('a targeted fast cast asks for its target after Cast', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [loseLifeTargetManaValue]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "loseLifeTargetManaValue"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
       ],
       "embeddedRulePaths": []
     },
@@ -14405,9 +14357,9 @@
           "rules-engine/src/cardPlugins/cirdanTriggers.test.ts:25",
           "rules-engine/src/cardPlugins/registry.test.ts:257 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:603 — test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1017 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1026 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1040 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1018 — test('a repeated pick of the same duplicate-named object is rejected', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1027 — test('it can destroy three of its controller own permanents; their Elephants come back to its controller', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1041 — test('the Elephant goes to whoever controlled the permanent, not its owner', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [destroyThenTokenForController]",
@@ -14799,7 +14751,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:73 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:589 — test('Victimize sacrifices then returns both targeted creatures tapped', () => {"
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:590 — test('Victimize sacrifices then returns both targeted creatures tapped', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions []",
@@ -15914,7 +15866,7 @@
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:227 — test('a permanent a replacement sends elsewhere yields no token', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:127 — test('structuredClone keeps the staticBoardPump static effect', () => {",
           "rules-engine/src/cardPlugins/staticBoardPump.test.ts:183 — test('if the Baloth is the commander, it pumps itself and the rest of the team', () => {",
-          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1059 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
+          "rules-engine/src/cardPlugins/targetedResolve.test.ts:1060 — test('an indestructible permanent and a commander headed for the command zone give no Elephant', () => {",
           "rules-engine/src/formats.test.ts:18 — test('Commander supports an arbitrary three-player table', () => {"
         ]
       },
@@ -16390,8 +16342,8 @@
         "matches": 44,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
-          "rules-engine/src/cardPlugins/dsl/amount.test.ts:12",
-          "rules-engine/src/cardPlugins/dsl/amount.test.ts:42 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:13",
+          "rules-engine/src/cardPlugins/dsl/amount.test.ts:43 — test('division rejects invalid divisors, invalid rounding, unbound variables and excessive depth', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:216 — test('canonical announcements accept Phyrexian mana indexes on the printed cost', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:275 — test('public serializable transaction-shaped casts cannot bypass canonical payment', () => {",
           "rules-engine/src/cardPlugins/dsl/announcement.test.ts:512 — test('fractional life costs are evaluated and paid at announcement', () => {",
@@ -17634,7 +17586,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1832",
+        "rules-engine/src/cardPlugins/cardRules.ts:1824",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17766,8 +17718,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:281",
-        "rules-engine/src/cardPlugins/cardRules.ts:974",
+        "rules-engine/src/cardPlugins/cardRules.ts:280",
+        "rules-engine/src/cardPlugins/cardRules.ts:973",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -18859,14 +18811,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          282,
-          1361,
-          1390
+          284,
+          1369,
+          1398
         ],
         "samples": [
-          "282: const liveSource = draft.object(source.ref.objectId)",
-          "1361: const object = draft.object(item.objectId)",
-          "1390: const object = draft.object(completedItem.objectId)"
+          "284: const liveSource = draft.object(source.ref.objectId)",
+          "1369: const object = draft.object(item.objectId)",
+          "1398: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

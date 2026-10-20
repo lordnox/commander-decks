@@ -28,6 +28,11 @@ export const evaluateAmount = (
 ): number => {
   if (depth > MAX_EXPRESSION_DEPTH) throw new RuleDslEvaluationError(AMOUNT_DEPTH_ERROR_MESSAGE)
   switch (expression.kind) {
+    case 'resultRef': {
+      const value = context.result?.(expression)
+      if (value === undefined) throw new RuleDslEvaluationError(`amount result ${expression.binding}.${expression.field} is not bound`)
+      return runtimeAmount(value, 'instruction result')
+    }
     case 'constant': return runtimeAmount(expression.value, 'constant')
     case 'variable': {
       const value = context.variables?.[expression.name]
