@@ -1092,3 +1092,9 @@ test('Entish Restoration sacrifices on resolution before checking power for its 
     ] },
   ])
 })
+
+test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {
+  expect(cardRuleDefinitionSnapshotFor("Liliana's Caress")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'discard', filter: { player: { kind: 'players', filter: { relation: 'opponent' } } } }, instructions: [{ kind: 'loseLife', targets: { kind: 'contextRef', name: 'triggering.player' }, amount: { kind: 'constant', value: 2 } }] },
+  ])
+})

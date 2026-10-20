@@ -1128,12 +1128,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     upToTargetsOnResolve(3, 'bounce', { zone: 'graveyard', type: 'Land' }),
   ],
   'Lightning Bolt': [onResolve(dealDamageToChosenTarget(3))],
-  "Liliana's Caress": [
-    triggerOn('discard', {
-      if: { seat: 'opponent' },
-      do: [loseLife(2, 'triggeringPlayer')],
-    }),
-  ],
   'Loran of the Third Path': [handler('blinkValue')],
   'Lotho, Corrupt Shirriff': [handler('blinkValue')],
   'Lumbering Battlement': [
