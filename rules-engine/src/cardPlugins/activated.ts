@@ -16,13 +16,14 @@ import { effectsOf } from './cardRules'
 import { manaChoicePools } from './manaChoice'
 import { validTargetRef } from './targetedResolve'
 import { captureObject, targetObject } from '../objectIdentity'
-import { activationPermission, beginActivatedAnnouncement, classifyManaAbility, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
+import { activationPermission, beginActivatedAnnouncement, compileCardRuleDefinition, createDefinitionSnapshot, evaluateAnnouncementCostAmount, resolveNonManaCostObjectChoices } from './dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetError } from './dsl/compiler/targeting'
 import { payCost } from '../plugins/spells'
 import { startCanonicalResolution } from '../driver'
-import type { AbilityDefinition, Instruction } from './dsl/schema/v1'
+import type { AbilityDefinition } from './dsl/schema/v1'
 import { evaluateModeCount, resolveModalInputs, selectedDistributionScopeIds, selectedDistributionSpecs, validateScopedDistributions } from './dsl/compiler/modes'
 import { amountEvaluationContext } from './dsl/compiler/runtime'
+import { canonicalManaAbilityForTap, canonicalManaClassification } from './dsl/manaPrograms'
 
 const MAIN_STEPS = new Set(['precombatMain', 'postcombatMain'])
 
@@ -45,54 +46,6 @@ const activatedModalInputs = (state: GameState, source: GameObject, ability: Ext
       variables: event.x === undefined ? undefined : { X: event.x },
     }),
   }
-}
-
-export const instructionMovesLibrary = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
-  switch (instruction.kind) {
-    case 'draw':
-    case 'mill':
-      return true
-    case 'move':
-      return instruction.to === 'library'
-        || (instruction.targets.kind === 'objects' && instruction.targets.filter.zone === 'library')
-    case 'sequence':
-      return instructionMovesLibrary(instruction.instructions)
-    case 'if':
-      return instructionMovesLibrary(instruction.then) || instructionMovesLibrary(instruction.otherwise)
-    case 'chooseInstructions':
-      return instruction.options.some((option) => instructionMovesLibrary(option.instructions))
-    default:
-      return false
-  }
-})
-
-export const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
-  switch (instruction.kind) {
-    case 'addMana': return true
-    case 'sequence': return instructionAddsMana(instruction.instructions)
-    case 'if': return instructionAddsMana(instruction.then) || instructionAddsMana(instruction.otherwise)
-    case 'chooseInstructions': return instruction.options.some((option) => instructionAddsMana(option.instructions))
-    default: return false
-  }
-})
-
-export const canonicalManaClassification = (ability: Extract<ReturnType<typeof compileCardRuleDefinition>['definition']['abilities'][number], { kind: 'activated' }>) => {
-  return classifyManaAbility({
-    addsMana: instructionAddsMana(ability.instructions ?? []),
-    abilityKind: 'activated',
-    hasTargets: ability.decisions.targets.length > 0,
-    hasLoyaltyCost: false,
-    movesCards: instructionMovesLibrary(ability.instructions ?? []),
-  })
-}
-
-export const canonicalManaAbilityForTap = (source: GameObject) => {
-  if (!source.ruleDefinition) return undefined
-  const compiled = compileCardRuleDefinition(source.ruleDefinition.definition)
-  return compiled.definition.abilities
-    .map((ability, index) => ({ ability, index }))
-    .find((entry): entry is { ability: Extract<typeof entry.ability, { kind: 'activated' }>; index: number } =>
-      entry.ability.kind === 'activated' && canonicalManaClassification(entry.ability).isManaAbility)
 }
 
 const legalActivateTarget = (
@@ -128,7 +81,6 @@ const activatedTargetFilter = (
   return 'filter' in targets ? targets.filter : targets
 }
 
-export const SKULL_PROPHET_MILL = 'selfMill.skullProphet'
 export const MILLIKIN_MANA = 'selfMill.millikin'
 export const GHOST_TOWN_RETURN = 'selfBounceLand.ghostTown'
 export const OBORO_RETURN = 'selfBounceLand.oboro'
@@ -140,7 +92,7 @@ export const activated: Plugin = {
     if (event.type === 'tapForMana') {
       const source = state.objects[event.objectId]
       if (!source) return
-      const canonicalMana = canonicalManaAbilityForTap(source)
+      const canonicalMana = canonicalManaAbilityForTap(source, event.mana)
       if (canonicalMana) {
         const permissionError = activationPermission({
           state,
@@ -372,14 +324,14 @@ export const activated: Plugin = {
   apply: ({ event, draft, state }) => {
     if (event.type === 'tapForMana') {
       const source = draft.object(event.objectId)
-      const canonicalMana = source && canonicalManaAbilityForTap(source)
+      const canonicalMana = source && canonicalManaAbilityForTap(source, event.mana)
       if (source && canonicalMana) {
-        source.tapped = true
         draft.enqueue({
           type: 'activateAbility',
           seat: event.seat,
           objectId: source.id,
           abilityId: `$.abilities[${canonicalMana.index}]`,
+          ...(canonicalMana.modeIndices ? { modeIndices: canonicalMana.modeIndices } : {}),
           manaAbility: true,
         })
       }

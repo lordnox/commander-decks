@@ -29,7 +29,7 @@ import {
   sacrificeCostCandidates,
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
-import { canonicalManaAbilityForTap } from './cardPlugins/activated'
+import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
 import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceSacrificeCost } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'

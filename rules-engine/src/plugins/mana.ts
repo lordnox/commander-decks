@@ -1,3 +1,4 @@
+import { canonicalManaAbilityForTap } from '../cardPlugins/dsl/manaPrograms'
 import { addPools, emptyMana } from '../draft'
 import { hasKeyword } from '../keywords'
 import type { CardEffect } from '../cardPlugins/effects'
@@ -267,6 +268,7 @@ const apply: Plugin['apply'] = ({ state, event, draft }) => {
   if (event.type === 'tapForMana') {
     const object = draft.object(event.objectId)
     if (!object) return
+    if (canonicalManaAbilityForTap(object, event.mana)) return
     const pool = poolForChoice(object, event.mana, state)
     if (!pool) return
     object.tapped = true

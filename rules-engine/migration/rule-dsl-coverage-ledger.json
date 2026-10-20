@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 267,
+    "cardRegistrations": 266,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 255
+    "candidateOnlyCardRows": 254
   },
   "cardEffects": [
     {
@@ -77,8 +77,6 @@
         "Otawara, Soaring City:effects[0]",
         "Raffine's Tower:effects[1]",
         "Secluded Steppe:effects[1]",
-        "Skull Prophet:effects[0]",
-        "Skull Prophet:effects[1]",
         "Sokrates, Athenian Teacher:effects[1]",
         "Soul of Eternity:effects[1]",
         "Spearbreaker Behemoth:effects[0]",
@@ -99,7 +97,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 151,
+        "matches": 149,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2517 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -1006,21 +1004,20 @@
         "Lotus Field:effects[2].do[0]",
         "Lotus Field:effects[2].do[1]",
         "Lotus Field:effects[2].do[2]",
-        "Skull Prophet:effects[0].do[0]",
         "Talon Gates of Madara:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 8,
         "samples": [
           "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:145 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
+          "rules-engine/src/cardPlugins/liveTableMana.test.ts:148 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:84 — test('the Homer dumpster cards this pass covers stay registered', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:85 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:662 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:23 — test('Skull Prophet taps and mills exactly two', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:99 — test('Skull Prophet mills the last card instead of failing on two', () => {"
+          "rules-engine/src/cardPlugins/sinFallLands.test.ts:187 — test('Talon enters from hand, phases an optional target, and it phases in before untap', () => {",
+          "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -1044,7 +1041,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 30,
+        "matches": 31,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -3876,7 +3873,7 @@
         "samples": [
           "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
-          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:64 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:146 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:794 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {",
@@ -5454,7 +5451,7 @@
           "live-runner/src/kernelView.test.ts:67 — test('a declared attack reaches the combat panel and the card face', () => {",
           "live-runner/src/kernelView.test.ts:93 — test('declared blocks replace the possible blockers', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:118 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {",
+          "rules-engine/src/cardPlugins/selfMill.test.ts:120 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {",
           "rules-engine/src/cardPlugins/selfSacrificeMana.test.ts:254 — test('Malevolent Rumble creates a functional Eldrazi Spawn', () => {",
           "site/src/CombatOverlay.test.tsx:84 — test('calls out damage aimed at the viewer', () => {"
         ]
@@ -11294,10 +11291,10 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "rules-engine/src/cardPlugins/selfMill.test.ts:40 — test('Millikin mills one and adds colorless as a mana ability', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:57 — test('Millikin cannot use generic tap-for-mana and skip its mill cost', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:71 — test('Millikin rejects stack timing', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:84 — test('an empty library mills nothing and still produces mana', () => {"
+          "rules-engine/src/cardPlugins/selfMill.test.ts:41 — test('Millikin mills one and adds colorless as a mana ability', () => {",
+          "rules-engine/src/cardPlugins/selfMill.test.ts:58 — test('Millikin cannot use generic tap-for-mana and skip its mill cost', () => {",
+          "rules-engine/src/cardPlugins/selfMill.test.ts:72 — test('Millikin rejects stack timing', () => {",
+          "rules-engine/src/cardPlugins/selfMill.test.ts:85 — test('an empty library mills nothing and still produces mana', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addMana]",
@@ -13772,7 +13769,7 @@
         "matches": 2,
         "samples": [
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:118 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {"
+          "rules-engine/src/cardPlugins/selfMill.test.ts:120 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [static, trigger] and instructions [revealPick, selfMill]",
@@ -13795,42 +13792,6 @@
       "pluginIds": [],
       "handlerIds": [
         "alternateCosts",
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Skull Prophet",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Skull Prophet"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 4,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:145 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:84 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:23 — test('Skull Prophet taps and mills exactly two', () => {",
-          "rules-engine/src/cardPlugins/selfMill.test.ts:99 — test('Skull Prophet mills the last card instead of failing on two', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addChosenColorMana]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "addChosenColorMana"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
         "choiceEffects"
       ],
       "embeddedRulePaths": []
@@ -16021,7 +15982,6 @@
         "Otawara, Soaring City",
         "Raffine's Tower",
         "Secluded Steppe",
-        "Skull Prophet",
         "Sokrates, Athenian Teacher",
         "Soul of Eternity",
         "Spearbreaker Behemoth",
@@ -16036,7 +15996,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 152,
+        "matches": 151,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -17735,7 +17695,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "rules-engine/src/cardPlugins/selfMill.test.ts:148 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {"
+          "rules-engine/src/cardPlugins/selfMill.test.ts:150 — test('Six mills three then opens revealPick after its attack trigger resolves', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -17907,7 +17867,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1889",
+        "rules-engine/src/cardPlugins/cardRules.ts:1876",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -19260,16 +19220,16 @@
       {
         "path": "rules-engine/src/plugins/mana.ts",
         "lines": [
-          268,
-          273,
-          292,
-          299,
-          307
+          269,
+          275,
+          294,
+          301,
+          309
         ],
         "samples": [
-          "268: const object = draft.object(event.objectId)",
-          "273: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
-          "292: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
+          "269: const object = draft.object(event.objectId)",
+          "275: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
+          "294: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -20503,16 +20463,16 @@
       {
         "path": "rules-engine/src/cardPlugins/activated.ts",
         "lines": [
-          374,
-          378,
-          389,
-          556,
-          588
+          326,
+          329,
+          341,
+          508,
+          540
         ],
         "samples": [
-          "374: const source = draft.object(event.objectId)",
-          "378: draft.enqueue({",
-          "389: const source = draft.object(event.objectId)"
+          "326: const source = draft.object(event.objectId)",
+          "329: draft.enqueue({",
+          "341: const source = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

@@ -1695,19 +1695,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(selfMill(3), revealPick(3, { type: 'Land' })),
     grantRetrace(),
   ],
-  'Skull Prophet': [
-    activate({
-      id: 'skullProphet.mana',
-      manaAbility: true,
-      costs: { tap: true },
-      do: [addChosenColorMana(['B', 'G'])],
-    }),
-    activate({
-      id: 'selfMill.skullProphet',
-      costs: { tap: true, mill: 2 },
-      do: [],
-    }),
-  ],
   'Snuff Out': [
     alternateCast('pay-4-life', 'Pay 4 life', '', {
       life: 4,

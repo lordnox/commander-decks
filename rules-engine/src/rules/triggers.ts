@@ -49,7 +49,7 @@ import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, ev
 import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
-import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/activated'
+import { canonicalManaClassification, instructionAddsMana } from '../cardPlugins/dsl/manaPrograms'
 import { generatedAbilitySnapshot } from '../cardPlugins/dsl/generatedPrograms'
 import type { GeneratedAbility } from '../cardPlugins/dsl/schema/v1'
 

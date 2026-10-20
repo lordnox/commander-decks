@@ -958,3 +958,12 @@ test('Blood Celebrant pays black mana and life before choosing one of five color
     }] },
   ])
 })
+
+test('Skull Prophet offers two canonical mana modes and mills as an instruction rather than a cost', () => {
+  expect(cardRuleDefinitionSnapshotFor('Skull Prophet')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], decisions: { modes: { count: { kind: 'constant', value: 1 } } }, modes: ['B', 'G'].map(color => ({
+      instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { [color]: { kind: 'constant', value: 1 } } }],
+    })) },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'mill', targets: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 2 } }] },
+  ])
+})
