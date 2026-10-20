@@ -158,8 +158,8 @@ describe('relocated from kambalManaGraveyards.test.ts → doubleFaced.test.ts', 
 })
 
 
-test('catalog face rules switch to the land entry program and restore the front program after leaving', () => {
-  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate('Bala Ged Recovery')] } })
+test.each(['Bala Ged Recovery', 'Khalni Ambush // Khalni Territory', 'Revitalizing Repast // Old-Growth Grove'])('catalog %s switches to the land entry program and restores the front program after leaving', name => {
+  const server = createServerGame(commanderRules, { hands: { p1: [cardTemplate(name)] } })
   const objectId = server.state.zoneOrder.p1.hand[0]!
   const frontDefinition = server.state.objects[objectId].ruleDefinition!
   const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
@@ -168,6 +168,6 @@ test('catalog face rules switch to the land entry program and restore the front 
   expect(played.objects[objectId].ruleDefinition!.definitionRevision).not.toBe(frontDefinition.definitionRevision)
   const restored = JSON.parse(JSON.stringify(played))
   const bounced = ok(server.rules(restored, { type: 'move', objectId, to: 'hand' }))
-  expect(bounced.objects[objectId]).toMatchObject({ zone: 'hand', types: ['Sorcery'] })
+  expect(bounced.objects[objectId]).toMatchObject({ zone: 'hand', types: server.state.objects[objectId].frontFace!.types })
   expect(bounced.objects[objectId].ruleDefinition).toEqual(frontDefinition)
 })

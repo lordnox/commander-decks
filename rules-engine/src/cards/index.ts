@@ -78,6 +78,8 @@ import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import infernalContract from './infernal-contract'
 import joinTheDead from './join-the-dead'
+import khalniAmbush from './khalni-ambush'
+import khalniTerritory from './khalni-territory'
 import longRoadHome from './long-road-home'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
@@ -93,6 +95,7 @@ import naturesLore from './natures-lore'
 import nightsWhisper from './nights-whisper'
 import oboroPalaceInTheClouds from './oboro-palace-in-the-clouds'
 import obscuraStorefront from './obscura-storefront'
+import oldGrowthGrove from './old-growth-grove'
 import orzhovBasilica from './orzhov-basilica'
 import orzhovSignet from './orzhov-signet'
 import otherworldlyJourney from './otherworldly-journey'
@@ -103,6 +106,7 @@ import rejuvenatingSprings from './rejuvenating-springs'
 import restInPeace from './rest-in-peace'
 import restorationAngel from './restoration-angel'
 import reverberate from './reverberate'
+import revitalizingRepast from './revitalizing-repast'
 import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
@@ -231,6 +235,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hinterland Harbor": hinterlandHarbor,
   "Infernal Contract": infernalContract,
   "Join the Dead": joinTheDead,
+  "Khalni Ambush": khalniAmbush,
+  "Khalni Ambush // Khalni Territory": khalniAmbush,
+  "Khalni Territory": khalniTerritory,
   "Long Road Home": longRoadHome,
   "Magus of the Coffers": magusOfTheCoffers,
   "Malakir Mire": malakirMire,
@@ -246,6 +253,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Night's Whisper": nightsWhisper,
   "Oboro, Palace in the Clouds": oboroPalaceInTheClouds,
   "Obscura Storefront": obscuraStorefront,
+  "Old-Growth Grove": oldGrowthGrove,
   "Orzhov Basilica": orzhovBasilica,
   "Orzhov Signet": orzhovSignet,
   "Otherworldly Journey": otherworldlyJourney,
@@ -256,6 +264,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Rest in Peace": restInPeace,
   "Restoration Angel": restorationAngel,
   "Reverberate": reverberate,
+  "Revitalizing Repast": revitalizingRepast,
+  "Revitalizing Repast // Old-Growth Grove": revitalizingRepast,
   "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Sakura-Tribe Scout": sakuraTribeScout,
