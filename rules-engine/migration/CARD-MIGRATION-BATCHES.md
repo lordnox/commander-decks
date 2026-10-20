@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after targeted combat-source prevention (Lady Evangela). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after group 01 (Lightning Bolt, Loran of the Third Path, Malakir Rebirth and its combined-face registration). Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**236 legacy registration keys, assigned exactly once to 41 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 236 is not a distinct-card count.
+**232 legacy registration keys, assigned exactly once to 40 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 232 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -24,19 +24,13 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
 
+## Completed group 01
+
+Lightning Bolt, Loran of the Third Path, and both Malakir Rebirth registration keys now use canonical definitions. The batch adds single-target mixed player/permanent targeting, public graveyard-incarnation bindings for dies triggers, and identity-safe move actions. Tests cover damage recipient kinds, typed trigger pickers, live-host target mapping, temporary death-return behavior, and stale incarnations. The land face keeps tapped entry and black mana. Group numbers below stay stable.
+
 ## Complete primary assignment
 
 Each numbered group below owns its listed registration keys. Cross-references in the notes do not add to its count.
-
-### 01. Direct targeted effects
-
-Priority **A** · effort **S** · **4 registrations**
-
-**Registrations:** `Lightning Bolt`; `Loran of the Third Path`; `Malakir Rebirth`; `Malakir Rebirth // Malakir Mire`.
-
-**Shared work:** Damage; optional artifact/enchantment destruction; draw; temporary death-return grants.
-
-**Required support / secondary gates:** Check complete face handling for Malakir Rebirth and occurrence identity for the granted return. These are existing-primitive candidates, not certified ready cards.
 
 ### 05. Combat-damage prevention
 

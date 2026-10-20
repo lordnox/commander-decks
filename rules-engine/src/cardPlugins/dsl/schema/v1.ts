@@ -85,7 +85,10 @@ export type StackItemFilter = {
 export type PlayerSelector = { kind: 'players'; filter: PlayerFilter }
 export type ObjectSelector = { kind: 'objects'; filter: ObjectFilter }
 export type StackItemSelector = { kind: 'stackItems'; filter: StackItemFilter }
-export type Selector = PlayerSelector | ObjectSelector | StackItemSelector
+/** Single-target clause for a player, creature, planeswalker, or battle (CR 115.4). */
+export type AnyTargetSelector = { kind: 'anyTarget' }
+export const DAMAGEABLE_PERMANENT_TYPES = ['Creature', 'Planeswalker', 'Battle'] as const
+export type Selector = PlayerSelector | ObjectSelector | StackItemSelector | AnyTargetSelector
 
 export type NumericCharacteristic = 'power' | 'toughness' | 'manaValue' | 'life'
 

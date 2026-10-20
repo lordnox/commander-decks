@@ -35,12 +35,12 @@ const splitGroupSelection = (groups: ActionTargetGroup[], selected: string[]) =>
   return { choices, delve, targets: rest }
 }
 
-const targetRefs = (groups: ActionTargetGroup[], objectIds: string[]) =>
+const targetRefs = (groups: ActionTargetGroup[], objectIds: string[], state: GameState) =>
   objectIds.map((objectId) => {
     const group = groups.find((candidate) =>
       candidate.purpose !== 'cost'
       && candidate.targets.some((target) => target.objectId === objectId))
-    return group?.kind === 'player'
+    return group?.kind === 'player' || (group?.kind === 'anyTarget' && Boolean(state.players[objectId]))
       ? { kind: 'player' as const, player: objectId }
       : { kind: 'object' as const, objectId }
   })
@@ -146,7 +146,7 @@ export const applyKernelAct = (
   const { choices, delve, targets: selectedTargets } =
     splitGroupSelection(groups, message.targetObjectIds ?? [])
   const groupedTargets = message.targetClauses?.map((clause) => groups.length > 0
-    ? targetRefs(groups, clause)
+    ? targetRefs(groups, clause, state)
     : clause.map((objectId) => state.players[objectId]
       ? { kind: 'player' as const, player: objectId }
       : { kind: 'object' as const, objectId }))
@@ -168,7 +168,7 @@ export const applyKernelAct = (
         seat,
         objectId: action.objectId,
         abilityId: action.abilityId ?? '',
-        targets: targetRefs(activationGroups, selectedTargets),
+        targets: targetRefs(activationGroups, selectedTargets, state),
         choices,
         ...(message.modeIndices ? { modeIndices: message.modeIndices } : {}),
         ...(message.distributionBindings ? { distributionBindings: message.distributionBindings } : {}),
@@ -181,7 +181,7 @@ export const applyKernelAct = (
             : undefined
           const hasTargetGroup = castGroups.some(({ purpose }) => purpose !== 'cost')
           const spellTargets = hasTargetGroup
-            ? groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets)
+            ? groupedTargets?.flat() ?? targetRefs(castGroups, selectedTargets, state)
             : action.targetObjectId
               ? [{ kind: 'object' as const, objectId: action.targetObjectId }]
               : action.targetPlayerId

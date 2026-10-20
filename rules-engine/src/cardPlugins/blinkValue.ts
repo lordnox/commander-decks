@@ -1,4 +1,3 @@
-import { enteringObjectId } from './entersTapped'
 import { openCardSelection } from '../rules/selectCards'
 import { openPlayerSelection } from '../rules/selectPlayers'
 import type { GameObject, PlayerId, Plugin, StackItem } from '../types'
@@ -15,9 +14,6 @@ type VanishReturn = {
   toughness: number
   afterTurn: number
 }
-
-const permanent = (object: GameObject | undefined, types: string[]) =>
-  Boolean(object?.zone === 'battlefield' && types.some((type) => object.types.includes(type)))
 
 const targetObjects = (item: StackItem) =>
   item.targets.flatMap((target) => target.kind === 'object' ? [target.objectId] : [])
@@ -97,30 +93,6 @@ const blinkNow = (
       controller: source.name === 'Ghostly Flicker' ? item.controller : target.owner,
     })
   }
-}
-
-const openLoranTarget = (
-  draft: Parameters<NonNullable<Plugin['apply']>>[0]['draft'],
-  loran: GameObject,
-) => {
-  const candidates = draft.zoneOf('battlefield')
-    .filter((object) =>
-      object.id !== loran.id
-      && (object.types.includes('Artifact') || object.types.includes('Enchantment')))
-    .map((object) => object.id)
-  if (candidates.length === 0) return
-  openCardSelection(draft, {
-    seat: loran.controller,
-    kind: 'choose',
-    count: 1,
-    min: 0,
-    candidates,
-    sourceId: loran.id,
-    source: loran.name,
-    prompt: 'Choose target artifact or enchantment to destroy.',
-    destinations: ['target'],
-    triggerAbilityId: 'loran.destroy',
-  })
 }
 
 const openQuezaTarget = (
@@ -219,22 +191,7 @@ export const blinkValue: Plugin = {
       }
       return
     }
-    if (event.type !== 'activateAbility' || event.abilityId !== 'loran.draw') return
-    const source = state.objects[event.objectId]
-    if (source?.name !== 'Loran of the Third Path') return 'that is not Loran'
-    if (source.zone !== 'battlefield' || source.controller !== event.seat) {
-      return 'you do not control Loran'
-    }
-    if (source.tapped || source.summoningSickness) return 'Loran cannot tap'
-    const target = event.targets?.[0]
-    if (
-      event.targets?.length !== 1
-      || target?.kind !== 'player'
-      || target.player === event.seat
-      || state.players[target.player]?.lost
-    ) {
-      return 'Loran needs one target opponent'
-    }
+
   },
   apply: ({ state, event, draft }) => {
     if (event.type === 'castSpell') trackLotho(draft, event.seat)
@@ -244,44 +201,12 @@ export const blinkValue: Plugin = {
         openQuezaTarget(draft, queza)
       }
     }
-    const enteredId = enteringObjectId(event, state)
-    const entered = enteredId ? draft.object(enteredId) : undefined
-    if (entered?.name === 'Loran of the Third Path') openLoranTarget(draft, entered)
-
-    if (event.type === 'activateAbility' && event.abilityId === 'loran.draw') {
-      const source = draft.object(event.objectId)
-      if (!source) return
-      source.tapped = true
-      draft.addToStack({
-        kind: 'ability',
-        objectId: source.id,
-        controller: event.seat,
-        name: source.name,
-        targets: event.targets ?? [],
-        abilityId: event.abilityId,
-      })
-      draft.priority = event.seat
-      draft.passedInRow = []
-    }
-
     if (event.type === 'resolveTop') {
       const item = state.stack[0]
       if (!item) return
       if (item.kind === 'spell'
         && ['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(item.name)) {
         blinkNow(draft, item)
-      }
-      if (item.kind === 'ability' && item.abilityId === 'loran.destroy') {
-        const target = item.targets[0]
-        const object = target?.kind === 'object' ? targetObject(state, target) : undefined
-        if (permanent(object, ['Artifact', 'Enchantment'])) {
-          draft.enqueue({ type: 'move', objectId: object!.id, to: 'graveyard' })
-        }
-      }
-      if (item.kind === 'ability' && item.abilityId === 'loran.draw') {
-        const target = item.targets[0]
-        draft.enqueue({ type: 'draw', seat: item.controller })
-        if (target?.kind === 'player') draft.enqueue({ type: 'draw', seat: target.player })
       }
       if (item.kind === 'ability' && item.abilityId === 'vanish.return') {
         const target = item.targets[0]

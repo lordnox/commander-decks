@@ -1,3 +1,4 @@
+import { cardTemplate } from '../newGame'
 import { describe, expect, test } from 'bun:test'
 import { createCatalog } from '../catalog'
 import { onResolve } from '../cardPlugins/onResolve'
@@ -188,7 +189,7 @@ describe('spells', () => {
   test('the most recently cast spell resolves first', () => {
     const catalog = createCatalog([spells])
     const state = newGame({
-      hands: { p1: [bolt()], p2: [bolt()] },
+      hands: { p1: [cardTemplate('First response fixture', { types: ['Instant'], manaCost: '{R}' })], p2: [cardTemplate('Second response fixture', { types: ['Instant'], manaCost: '{R}' })] },
       builtinRules: ['spells'],
     })
     state.players.p1.mana.R = 1

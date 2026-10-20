@@ -1,6 +1,7 @@
+import { DAMAGEABLE_PERMANENT_TYPES } from '../cardPlugins/dsl/schema/v1'
 import type Draft from '../draft'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
-import { canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
+import { ANY_TARGET_KINDS, canonicalChoiceAnnouncement, continueCanonicalModeTargets, continueCanonicalTargetSelection, stackCanonical } from './canonicalAnnouncement'
 import type { CanonicalAnnouncement, CanonicalChoicePayload } from './canonicalAnnouncement'
 import { canonicalModeScopeId, canonicalTargetCandidates } from '../cardPlugins/dsl/compiler/targeting'
 import type { DistributionAllocation } from '../cardPlugins/dsl/compiler/modes'
@@ -177,7 +178,7 @@ export type PendingOptionSelection = {
     baseTargetModeIndices?: Array<number | undefined>
     modeScopeIds?: string[]
     distributionBounds?: Array<{ total: number; minEach: number }>
-  } | ({
+  } | ({ kind: 'putCanonicalTargetKind' } & CanonicalChoicePayload) | ({
     kind: 'putCanonicalStackTarget'
     selectedStackTargets: string[]
   } & CanonicalChoicePayload) | {
@@ -983,6 +984,21 @@ export const selectOptions: Plugin = {
       })
       draft.passedInRow = []
       draft.priority = null
+      return
+    }
+    if (selection.action.kind === 'putCanonicalTargetKind') {
+      const payload = selection.action
+      const targetClauses = payload.targetClauseDefinitions.map((clause, index) => index === payload.targetIndex
+        ? { ...clause, filter: event.optionId === ANY_TARGET_KINDS.player
+          ? { kind: 'players' as const, filter: {} }
+          : { kind: 'objects' as const, filter: { zone: 'battlefield' as const, any: DAMAGEABLE_PERMANENT_TYPES.map(type => ({ type })) } } }
+        : clause)
+      delete draft.players[event.seat].data[PENDING_OPTION_SELECTION]
+      continueCanonicalTargetSelection(draft, canonicalChoiceAnnouncement(payload, {
+        source: payload.execution.source.snapshot, sourceId: payload.sourceId,
+        targets: payload.selectedTargets, targetClauses,
+        clauseBounds: payload.targetClauses, clauseIndex: payload.targetIndex,
+      }))
       return
     }
     if (selection.action.kind === 'putCanonicalStackTarget') {

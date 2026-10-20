@@ -296,3 +296,22 @@ test('move rejects a controller reference resolving to multiple players', () => 
   expect(server.rules(cast, { type: 'resolveTop' }).ok).toBe(false)
   expect(cast.zoneOrder.p2.graveyard).toHaveLength(1)
 })
+
+test('a captured entry move cannot affect a replacement incarnation after restore', () => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    whenever({ kind: 'enters', filter: { type: 'Artifact' } }, { instructions: [move({ targets: ref('triggering.object.after'), to: 'hand' })] }),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Watcher fixture', { types: ['Enchantment'], ruleDefinition: definition })] },
+    hands: { p1: [cardTemplate('Returning fixture', { types: ['Artifact'] })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]
+  let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield' }))
+  const oldTrigger = state.stack[0].id
+  state = ok(server.rules(state, { type: 'move', objectId: id, to: 'graveyard' }))
+  state = ok(server.rules(state, { type: 'move', objectId: id, to: 'battlefield' }))
+  state = ok(server.rules(state, { type: 'counterStackItem', stackId: state.stack.find(item => item.id !== oldTrigger)!.id }))
+  state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+  expect(state.objects[id].zone).toBe('battlefield')
+})

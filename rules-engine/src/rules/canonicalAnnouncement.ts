@@ -12,6 +12,8 @@ import { openCardSelection, targetDestinations } from './selectCards'
 import { openOptionSelection } from './selectOptions'
 import { openPlayerSelection } from './selectPlayers'
 
+export const ANY_TARGET_KINDS = { player: 'player', permanent: 'permanent' } as const
+
 type ClauseBounds = { min: number; max: number }
 
 export type CanonicalAnnouncement = {
@@ -314,6 +316,20 @@ export const continueCanonicalTargetSelection = (
       ...announcement,
       clauseIndex: announcement.clauseIndex + 1,
     })
+  }
+  if (candidates.some(candidate => candidate.kind === 'player') && candidates.some(candidate => candidate.kind === 'object')) {
+    openOptionSelection(draft, {
+      seat: announcement.execution.controller,
+      sourceId: source.id,
+      source: source.name,
+      prompt: 'Choose a player or permanent target.',
+      options: [
+        { id: ANY_TARGET_KINDS.player, label: 'Player' },
+        { id: ANY_TARGET_KINDS.permanent, label: 'Creature, planeswalker, or battle' },
+      ],
+      action: { kind: 'putCanonicalTargetKind', ...canonicalChoicePayload(announcement, source.id) },
+    })
+    return true
   }
   if (candidates.every((candidate) => candidate.kind === 'player')) {
     openPlayerSelection(draft, {

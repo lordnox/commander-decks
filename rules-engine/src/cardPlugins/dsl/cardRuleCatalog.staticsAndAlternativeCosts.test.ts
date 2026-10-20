@@ -33,7 +33,7 @@ describe('cardRuleCatalog — staticsAndAlternativeCosts', () => {
     ]))
     expect(foil).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('glorious anthem')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
     expect(anthem).toBe(cardRuleDefinitionSnapshotFor('Glorious Anthem'))
     expect(anthem!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)

@@ -19,21 +19,21 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 236,
+    "cardRegistrations": 232,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
     "builtInPlugins": 56,
     "specializedDialogs": 28,
     "embeddedRuleFamilies": 4,
-    "cardNameDispatchSites": 42,
+    "cardNameDispatchSites": 40,
     "customEventDispatchSites": 83,
-    "directMutationSites": 600,
+    "directMutationSites": 594,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 28,
+    "instructionUnobservedGaps": 30,
     "cardRegistrationOnlyGaps": 9,
-    "candidateOnlyInstructionRows": 163,
-    "candidateOnlyCardRows": 227
+    "candidateOnlyInstructionRows": 161,
+    "candidateOnlyCardRows": 223
   },
   "cardEffects": [
     {
@@ -304,7 +304,6 @@
         "Inkshield:effects[0]",
         "Jace, Multiverse Architect:effects[3]",
         "Joint Exploration:effects[1]",
-        "Loran of the Third Path:effects[0]",
         "Lotho, Corrupt Shirriff:effects[0]",
         "Lumbering Battlement:effects[0]",
         "Lumbering Battlement:effects[1]",
@@ -325,7 +324,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 115,
+        "matches": 114,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1628 — test('a grouped multi-target cast sends every selected object as a target', () => {",
@@ -457,7 +456,6 @@
         "Hagra Mauling // Hagra Broodpit:effects[0]",
         "Hall of Storm Giants:effects[0]",
         "Lair of the Hydra:effects[0]",
-        "Malakir Rebirth // Malakir Mire:effects[0]",
         "Myriad Landscape:effects[0]",
         "Mystic Sanctuary:effects[0]",
         "Pit of Offerings:effects[0]",
@@ -729,7 +727,6 @@
         "Irenicus's Vile Duplication:effects[0]",
         "Keep Safe:effects[0]",
         "Life from the Loam:effects[1]",
-        "Malakir Rebirth:effects[0]",
         "Mana Drain:effects[0]",
         "Mirrorweave:effects[0]",
         "Nanogene Conversion:effects[0]",
@@ -750,7 +747,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 76,
+        "matches": 75,
         "samples": [
           "live-runner/src/decisions.test.ts:251 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -857,7 +854,6 @@
         "Kindred Dominance:effects[0]",
         "Kogla, the Titan Ape:effects[0]",
         "Kuroki, Thief of Talents:effects[0]",
-        "Lightning Bolt:effects[0]",
         "Lumbering Battlement:effects[4]",
         "Lumra, Bellow of the Woods:effects[1]",
         "Malevolent Rumble:effects[0]",
@@ -930,7 +926,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 382,
+        "matches": 364,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -2027,10 +2023,11 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 6,
+        "matches": 7,
         "samples": [
           "live-runner/src/kernelHost.test.ts:528 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:241 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
           "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
@@ -2075,21 +2072,20 @@
       "mechanic": "target-dependent semantic action",
       "currentRegistrations": [
         "Getaway Glamer:effects[0].spree[1].do[0]",
-        "Lightning Bolt:effects[0].do[0]",
         "Ugin, the Spirit Dragon:effects[0].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 9,
         "samples": [
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
-          "rules-engine/src/actions.test.ts:386 — test('instants and permanents with entry choices stay with the judge', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:28",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:37",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:72 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
+          "rules-engine/src/cardPlugins/planeswalker.test.ts:159 — test('−10 gains and draws seven, then puts only the chosen permanents onto the battlefield', () => {",
+          "rules-engine/src/cardPlugins/planeswalker.test.ts:18",
+          "rules-engine/src/cardPlugins/planeswalker.test.ts:33",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:112 — test('Getaway Glamer spree blink mode exiles until the next end step', () => {",
+          "rules-engine/src/cardPlugins/plugDackPart33Blink.test.ts:133 — test('Getaway Glamer spree kill mode removes the chosen creature', () => {",
+          "rules-engine/src/cardPlugins/registry.test.ts:740 — test('Dack party blink cards expose plugin definitions and handler ids', () => {"
         ]
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
@@ -2161,16 +2157,11 @@
     {
       "variant": "delay",
       "mechanic": "delayed program",
-      "currentRegistrations": [
-        "Malakir Rebirth:effects[0].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "durable delayed/reflexive program",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -2181,7 +2172,7 @@
         "06",
         "07"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -2433,7 +2424,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 113,
+        "matches": 114,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1453 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -3786,7 +3777,6 @@
       "variant": "loseLife",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Malakir Rebirth:effects[0].do[0]",
         "Mirkwood Bats:effects[0].do[0]",
         "Mirkwood Bats:effects[1].do[0]",
         "Niv-Mizzet, Ghost Counsel:effects[1].do[0]",
@@ -3795,11 +3785,11 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 33,
+        "matches": 32,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2921 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:252 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1109 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1181 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1205 — test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain at landfall', () => {",
@@ -5259,16 +5249,11 @@
     {
       "variant": "returnToOwnersControl",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Malakir Rebirth:effects[0].do[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -5276,7 +5261,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -10119,75 +10104,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Lightning Bolt",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Lightning Bolt"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 23,
-        "samples": [
-          "rules-engine/src/actions.test.ts:386 — test('instants and permanents with entry choices stay with the judge', () => {",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:28",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:37",
-          "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:72 — test('targeting it asks only the caster whether to pay 7 life; paying lets the spell resolve', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:55 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.drawAndKeywords.test.ts:29 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.staticsAndAlternativeCosts.test.ts:36 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:31 — test('lookup is exact card name and pins a compiled snapshot at module load', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [dealDamageToChosenTarget]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "dealDamageToChosenTarget"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "onResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Loran of the Third Path",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Loran of the Third Path"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/blinkValue.test.ts:92 — test('Loran chooses a typed ETB target and her activation draws for both players', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:443 — test('Lady Evangela blink-value cards stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [handler] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "handler"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "blinkValue"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Lotho, Corrupt Shirriff",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10290,73 +10206,6 @@
       ],
       "pluginIds": [],
       "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Malakir Rebirth",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Malakir Rebirth"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:79 — test('the Homer dumpster cards this pass covers stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [delay, loseLife, returnToOwnersControl]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07",
-        "10"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "delay",
-        "loseLife",
-        "returnToOwnersControl"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Malakir Rebirth // Malakir Mire",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Malakir Rebirth // Malakir Mire"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:244 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
       "embeddedRulePaths": []
     },
     {
@@ -14802,7 +14651,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 138,
+        "matches": 139,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:3042 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -14996,16 +14845,16 @@
         "rules-engine/src/plugins/damage.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 37,
+        "matches": 38,
         "samples": [
           "live-runner/src/kernelHost.test.ts:528 — test('publishes and validates a large typed allocation by entry identity', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.damageAndLeaves.test.ts:188 — test('Fate Unraveler deals one damage to the opponent who draws and ignores the controller drawing', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.targetedActions.test.ts:241 — test('group 1 catalog programs preserve any-target damage, Loran choices, and death return', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:29",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:309 — test('catalog Fate Unraveler composes an opponent-draw trigger without legacy effects', () => {",
           "rules-engine/src/cardPlugins/dsl/copySpell.test.ts:63 — test('copied lifelink damage uses the copied source and controller', () => {",
           "rules-engine/src/cardPlugins/dsl/distributions.test.ts:42 — test('server consumes modal damage allocations per bound recipient', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {",
-          "rules-engine/src/cardPlugins/dsl/modes.test.ts:295 — test('command pattern copies an Elemental before the later damage query', () => {"
+          "rules-engine/src/cardPlugins/dsl/modes.test.ts:222 — test('modal resolution gates untargeted modes only when every target is illegal', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -15063,7 +14912,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 172,
+        "matches": 173,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -15343,7 +15192,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "rules-engine/src/plugins/spells.test.ts:158 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {",
+          "rules-engine/src/plugins/spells.test.ts:159 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {",
           "rules-engine/src/plugins/turnStructure.test.ts:15"
         ]
       },
@@ -15741,7 +15590,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 223,
+        "matches": 224,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2239 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -15783,7 +15632,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 58,
+        "matches": 59,
         "samples": [
           "live-runner/src/kernelHost.test.ts:3422 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:794 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
@@ -15815,10 +15664,10 @@
           "rules-engine/src/plugins/commander.test.ts:70 — test('casting from the command zone pays that commander\\'s tax', () => {",
           "rules-engine/src/plugins/priority.test.ts:18",
           "rules-engine/src/plugins/saga.test.ts:27",
-          "rules-engine/src/plugins/spells.test.ts:114 — test('a planeswalker spell enters with its printed loyalty', () => {",
-          "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
-          "rules-engine/src/plugins/spells.test.ts:14",
-          "rules-engine/src/plugins/spells.test.ts:158 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {"
+          "rules-engine/src/plugins/spells.test.ts:115 — test('a planeswalker spell enters with its printed loyalty', () => {",
+          "rules-engine/src/plugins/spells.test.ts:135 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
+          "rules-engine/src/plugins/spells.test.ts:15",
+          "rules-engine/src/plugins/spells.test.ts:159 — test('Timetwister does not shuffle itself: it is still on the stack while its instructions run', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -15867,7 +15716,7 @@
           "rules-engine/src/plugins/damage.test.ts:71 — test('fight deals both creatures damage before state-based actions', () => {",
           "rules-engine/src/plugins/manaBurn.test.ts:26",
           "rules-engine/src/plugins/manaBurn.test.ts:72 — test('a permanent that grants manaBurn turns it on and off', () => {",
-          "rules-engine/src/plugins/spells.test.ts:134 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
+          "rules-engine/src/plugins/spells.test.ts:135 — test('Lightning Bolt targeting a planeswalker removes it through state-based actions', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:105 — test('a permanent the dying player only controlled goes back to its owner', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:122 — test('state-based actions put a zero-loyalty planeswalker into the graveyard', () => {",
           "rules-engine/src/plugins/stateBased.test.ts:147 — test('continuous recomputation settles before ordinary SBA collection', () => {"
@@ -16669,7 +16518,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1696",
+        "rules-engine/src/cardPlugins/cardRules.ts:1684",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -16740,6 +16589,8 @@
         "rules-engine/src/cards/bala-ged-recovery.ts:20",
         "rules-engine/src/cards/khalni-ambush.ts:19",
         "rules-engine/src/cards/khalni-ambush.ts:23",
+        "rules-engine/src/cards/malakir-rebirth.ts:26",
+        "rules-engine/src/cards/malakir-rebirth.ts:30",
         "rules-engine/src/cards/revitalizing-repast.ts:19",
         "rules-engine/src/cards/revitalizing-repast.ts:23",
         "rules-engine/src/cards/types.ts:4",
@@ -16805,8 +16656,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:270",
-        "rules-engine/src/cardPlugins/cardRules.ts:922",
+        "rules-engine/src/cardPlugins/cardRules.ts:269",
+        "rules-engine/src/cardPlugins/cardRules.ts:921",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -17062,20 +16913,18 @@
       {
         "path": "rules-engine/src/cardPlugins/blinkValue.ts",
         "lines": [
+          37,
           41,
-          45,
-          68,
-          97,
-          165,
-          224,
-          243,
-          249,
-          271
+          64,
+          93,
+          137,
+          200,
+          208
         ],
         "samples": [
-          "41: if (!source || !['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(source.name)) {",
-          "45: const required = source.name === 'Ghostly Flicker' ? [2, 2] : [1, 1]",
-          "68: if (source.name === 'Vanish into Memory') {"
+          "37: if (!source || !['Ephemerate', 'Ghostly Flicker', 'Vanish into Memory'].includes(source.name)) {",
+          "41: const required = source.name === 'Ghostly Flicker' ? [2, 2] : [1, 1]",
+          "64: if (source.name === 'Vanish into Memory') {"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -17119,10 +16968,10 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/compiler/runtime.ts",
         "lines": [
-          272
+          273
         ],
         "samples": [
-          "272: if (filter.name !== undefined && object.name !== filter.name) return false"
+          "273: if (filter.name !== undefined && object.name !== filter.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -17586,12 +17435,12 @@
       {
         "path": "rules-engine/src/cardPlugins/blinkValue.ts",
         "lines": [
-          345,
-          346
+          270,
+          271
         ],
         "samples": [
-          "345: event.type === 'custom'",
-          "346: && event.name === 'advanceStep'"
+          "270: event.type === 'custom'",
+          "271: && event.name === 'advanceStep'"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -17897,13 +17746,13 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           284,
-          1383,
-          1412
+          1384,
+          1413
         ],
         "samples": [
           "284: const liveSource = draft.object(source.ref.objectId)",
-          "1383: const object = draft.object(item.objectId)",
-          "1412: const object = draft.object(completedItem.objectId)"
+          "1384: const object = draft.object(item.objectId)",
+          "1413: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -18625,12 +18474,12 @@
       {
         "path": "rules-engine/src/rules/canonicalAnnouncement.ts",
         "lines": [
-          91,
-          265
+          93,
+          267
         ],
         "samples": [
-          "91: const live = draft.object(announcement.execution.source.ref.objectId)",
-          "265: draft.addToStack({"
+          "93: const live = draft.object(announcement.execution.source.ref.objectId)",
+          "267: draft.addToStack({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -18704,22 +18553,22 @@
       {
         "path": "rules-engine/src/rules/selectOptions.ts",
         "lines": [
-          353,
-          519,
-          616,
-          625,
-          706,
-          723,
-          753,
-          775,
-          827,
-          942,
-          969
+          354,
+          520,
+          617,
+          626,
+          707,
+          724,
+          754,
+          776,
+          828,
+          943,
+          970
         ],
         "samples": [
-          "353: const object = draft.object(identity.objectId)",
-          "519: const object = draft.object(recipient.objectId)",
-          "616: const source = draft.object(original.objectId)"
+          "354: const object = draft.object(identity.objectId)",
+          "520: const object = draft.object(recipient.objectId)",
+          "617: const source = draft.object(original.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -19457,27 +19306,21 @@
       {
         "path": "rules-engine/src/cardPlugins/blinkValue.ts",
         "lines": [
-          62,
-          65,
-          73,
-          74,
-          90,
-          93,
-          196,
-          248,
-          252,
-          255,
-          278,
-          283,
-          284,
-          301,
-          307,
-          328
+          58,
+          61,
+          69,
+          70,
+          86,
+          89,
+          168,
+          226,
+          232,
+          253
         ],
         "samples": [
-          "62: const source = draft.object(item.objectId)",
-          "65: .map((id) => draft.object(id))",
-          "73: draft.enqueue({ type: 'move', objectId: target.id, to: 'exile' })"
+          "58: const source = draft.object(item.objectId)",
+          "61: .map((id) => draft.object(id))",
+          "69: draft.enqueue({ type: 'move', objectId: target.id, to: 'exile' })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
