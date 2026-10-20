@@ -818,12 +818,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
     targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
   ],
-  'End-Raze Forerunners': [
-    enters(
-      pumpControlled(2, 2, { trample: true, other: true }),
-      { kind: 'grantControlled', keywords: ['Vigilance', 'Trample'], other: true },
-    ),
-  ],
   'Endless Sands': [
     handler('linkedExile'),
     ability(

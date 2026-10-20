@@ -79,7 +79,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"d7391503690b9500fce04abc6facdfdcd33da304d90454219e821529f0ae536c","card":"Courser of Kruphix"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"aac7f27d39c7cbdfd864d4ac2a188eae68a708a83b00c6e2da706fff67ad8f59","card":"Cultivate"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"0e597ad6ce52f878e72a8b08ad2b8fd2215a948cf662eedbf7a23b059c9bf19b","card":"Decisive Denial"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"1685447a6563e5ee36382a6f6acaab077722b995c9d7fa7b01552a418a307f10","card":"End-Raze Forerunners"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"f548e840fb6b757cb105754d407e7448ac8c72bca8e9b1efc78a3d122ca91194","card":"Eureka"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"5a73bfc4fdebb0e3b8bf3689e6d3184c160ab5f3cb460249ccd61d7e3876a860","card":"Famished Worldsire"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"25124e203d851d46a023e4f9e9a3d7d964c26f1f83574ab4c0f4c354677f3ef1","card":"Finale of Devastation"},
