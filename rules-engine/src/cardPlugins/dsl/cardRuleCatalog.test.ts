@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { ROUNDING_MODES } from './v1'
+import { REVEAL_UNTIL_REST, ROUNDING_MODES } from './v1'
 import { effectsFor } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor, cardTemplateDefaultsFor } from './cardRuleCatalog'
 
@@ -924,5 +924,13 @@ test('Dreamscape Artist pays discard before land sacrifice and searches for up t
       { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 2 }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
       { kind: 'move', to: 'battlefield' }, { kind: 'shuffle' },
     ] }] },
+  ])
+})
+
+test('Hermit Druid reveals through a basic land, putting the rest into the graveyard', () => {
+  expect(cardRuleDefinitionSnapshotFor('Hermit Druid')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{G}' }, { kind: 'tapSource' }], instructions: [
+      { kind: 'revealUntil', match: { kind: 'objects', filter: { zone: 'library', type: 'Land', supertypes: ['Basic'] } }, foundTo: 'hand', rest: REVEAL_UNTIL_REST.graveyard },
+    ] },
   ])
 })

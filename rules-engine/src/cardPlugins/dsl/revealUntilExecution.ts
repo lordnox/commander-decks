@@ -10,6 +10,7 @@ import {
   type RuleDslRuntimeContext,
 } from './compiler/runtime'
 import type { Instruction, PlayerRecipient } from './schema/v1'
+import { REVEAL_UNTIL_REST } from './schema/v1'
 
 export type RevealUntilInstruction = Instruction & { kind: 'revealUntil' }
 
@@ -79,28 +80,34 @@ export const runRevealUntil = (
       events.push({ type: 'move', objectId, to: instruction.foundTo })
     }
 
-    if (instruction.rest === 'orderBottom' && rest.length > 0) {
-      openCardSelection(draft, {
-        seat,
-        kind: 'scry',
-        count: rest.length,
-        candidates: rest,
-        sourceId: source.id,
-        source: source.name,
-        prompt: 'Put the other revealed cards on the bottom in any order.',
-        fromSeat: seat,
-        fromZone: 'library',
-        destinations: ['bottom'],
-        ...(resume ? {
-          canonicalChoice: {
-            stackId: resume.replacementFrameId,
-            binding: '__revealUntil_rest__',
-            action: 'replacementProgram',
-            replacementFrameId: resume.replacementFrameId,
-          },
-        } : {}),
-      })
-      waiting = true
+    switch (instruction.rest) {
+      case REVEAL_UNTIL_REST.graveyard:
+        for (const objectId of rest) events.push({ type: 'move', objectId, to: 'graveyard' })
+        break
+      case REVEAL_UNTIL_REST.orderBottom:
+        if (rest.length === 0) break
+        openCardSelection(draft, {
+          seat,
+          kind: 'scry',
+          count: rest.length,
+          candidates: rest,
+          sourceId: source.id,
+          source: source.name,
+          prompt: 'Put the other revealed cards on the bottom in any order.',
+          fromSeat: seat,
+          fromZone: 'library',
+          destinations: ['bottom'],
+          ...(resume ? {
+            canonicalChoice: {
+              stackId: resume.replacementFrameId,
+              binding: '__revealUntil_rest__',
+              action: 'replacementProgram',
+              replacementFrameId: resume.replacementFrameId,
+            },
+          } : {}),
+        })
+        waiting = true
+        break
     }
   }
 

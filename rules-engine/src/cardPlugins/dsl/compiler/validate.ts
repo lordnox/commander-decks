@@ -5,7 +5,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CARD_COLORS, KEYWORDS, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import { RuleDslValidationError, type RuleDslDiagnostic } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT } from './evaluate'
@@ -823,7 +823,7 @@ export const validateDefinitionV1 = (root: unknown): {
           issue(childPath(path, 'match'), 'domain', 'revealUntil requires an object selector')
         }
         if (node.count !== undefined) validateAmount(node.count, childPath(path, 'count'), env)
-        if (node.rest !== 'orderBottom') issue(childPath(path, 'rest'), 'unsupported-kind', 'Rule DSL v1 revealUntil supports only orderBottom rest handling')
+        if (!Object.values(REVEAL_UNTIL_REST).some(destination => destination === node.rest)) issue(childPath(path, 'rest'), 'unsupported-kind', 'Rule DSL v1 revealUntil requires a supported rest destination')
         if (node.bindFound !== undefined) {
           declareBinding(env, bindingName(node.bindFound, childPath(path, 'bindFound')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindFound'))
         }

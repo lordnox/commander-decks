@@ -39,7 +39,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"17246a950456e5d4201f0c03956437d9af5c7e2b325c4d9024cd41afca01fb4f","card":"Blood Celebrant"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"23b61953a08dca52f575780cad29b89ededda9170cd7bd406f31f0c4f902ea7a","card":"Fell the Profane // Fell Mire"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"e9ee92c77e7b6f8a6debb4aa9ea8f8a5942be2a1b17124b36570651c6bd7a3b3","card":"Hagra Mauling // Hagra Broodpit"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"46e3f060a5b2e26389dcdf7c6e99bf6fb3fb84df0b04275bc528af95d2c3d469","card":"Hermit Druid"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"9286108d4f17bbc0a28d12482c5c570e0d6052c41fd3ef01eb509a920f26ba4c","card":"Cling to Dust"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"35dad92341d41d223035a8129560615c590a208815ceb83655f350cd16721a39","card":"Planar Genesis"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"d95bf976af631b4da981ccc1131ba0412aeb7e6bff8df7d41281288683e043b6","card":"Animist's Awakening"},
