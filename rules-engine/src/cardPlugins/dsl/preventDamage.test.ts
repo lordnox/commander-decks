@@ -18,6 +18,8 @@ import {
   preventAllCombatDamageThisTurn,
   preventDamage,
   ref,
+  select,
+  target,
   unlimitedPrevention,
   replacement,
   sequence,
@@ -33,9 +35,6 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import type { GameState, ReduceResult } from '../../types'
 import { loseAbilitiesBecome, permanent, reviseContinuousEffects } from '../continuousEffects'
-
-
-import { activated } from '../activated'
 
 const ok = (result: ReduceResult) => {
   if (!result.ok) throw new Error(result.error)
@@ -753,6 +752,51 @@ describe('preventDamage', () => {
     expect(state.players.p1.life).toBe(40)
     expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
   })
+
+  test('createEffect source filter uses the bound target at damage time and after restore', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([{
+      kind: 'spell',
+      costs: [],
+      decisions: { targets: [select({ filter: objects({ zone: 'battlefield', type: 'Creature' }), count: 1 })] },
+      instructions: [preventAllCombatDamageThisTurn({ source: target(0) })],
+    }])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      hands: {
+        p1: [cardTemplate('Source fog', { types: ['Instant'], manaCost: '{0}', ruleDefinition: definition })],
+      },
+      battlefield: {
+        p2: [
+          cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
+          cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
+        ],
+      },
+    }, { random: () => 0 })
+    const angry = Object.values(server.state.objects).find((object) => object.name === 'Angry Bear')!.id
+    const quiet = Object.values(server.state.objects).find((object) => object.name === 'Quiet Bear')!.id
+    const fog = Object.values(server.state.objects).find((object) => object.name === 'Source fog')!.id
+    let state = ok(server.rules(server.state, {
+      type: 'castSpell', seat: 'p1', objectId: fog, targets: [{ kind: 'object', objectId: angry }],
+    }))
+    state = ok(server.rules(state, { type: 'resolveTop' }))
+    expect(state.preventionInstances?.[0]).toMatchObject({
+      remaining: 'unlimited',
+      filter: { combat: true, source: { kind: 'targetRef', clauseIndex: 0 } },
+    })
+    expect(state.preventionInstances?.[0]?.capturedBindings?.targets?.[0]?.[0]).toMatchObject({
+      kind: 'object', objectId: angry,
+    })
+    state = JSON.parse(JSON.stringify(state)) as GameState
+    state = ok(server.rules(state, {
+      type: 'dealDamage', sourceId: angry, target: { kind: 'player', player: 'p1' }, amount: 3, combat: true,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    state = ok(server.rules(state, {
+      type: 'dealDamage', sourceId: quiet, target: { kind: 'player', player: 'p1' }, amount: 2, combat: true,
+    }))
+    expect(state.players.p1.life).toBe(38)
+    expect(state.preventionInstances?.[0]?.remaining).toBe('unlimited')
+  })
 })
 
 describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => {
@@ -871,14 +915,14 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
         commanderRules,
         {
           battlefield: {
-            p1: [cardTemplate('Lady Evangela', { types: ['Creature'] })],
+            p1: [cardTemplate('Lady Evangela')],
             p2: [
               cardTemplate('Angry Bear', { types: ['Creature'], power: 3, toughness: 3 }),
               cardTemplate('Quiet Bear', { types: ['Creature'], power: 2, toughness: 2 }),
             ],
           },
         },
-        { random: () => 0.5, cardPlugins: [activated] },
+        { random: () => 0.5 },
       )
       const eva = named(server.state, 'Lady Evangela').id
       server.state.objects[eva].summoningSickness = false
@@ -887,14 +931,19 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       const angry = named(ready, 'Angry Bear').id
       const activatedAbility = ok(server.rules(ready, {
         type: 'activateAbility',
-        abilityId: 'ladyEvangela.fog',
+        abilityId: '$.abilities[0]',
         seat: 'p1',
         objectId: eva,
         targets: [{ kind: 'object', objectId: angry }],
       }))
       const resolved = passToEmpty(server.rules, activatedAbility)
-      expect(resolved.rules.some((rule) =>
-        rule.pluginId === 'fog' && rule.params.sourceId === angry)).toBe(true)
+      expect(resolved.preventionInstances?.[0]).toMatchObject({
+        remaining: 'unlimited',
+        filter: { combat: true, source: { kind: 'targetRef', clauseIndex: 0 } },
+      })
+      expect(resolved.preventionInstances?.[0]?.capturedBindings?.targets?.[0]?.[0]).toMatchObject({
+        kind: 'object', objectId: angry,
+      })
 
       let combat = structuredClone(resolved)
       combat.active = 'p2'
