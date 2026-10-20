@@ -973,3 +973,10 @@ test('Beast Whisperer draws for its controller casting a creature spell', () => 
     { kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'cast', filter: { type: 'Creature', controller: 'you' } }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
   ])
 })
+
+test('World Shaper optionally mills on its own attack and returns only owned graveyard lands tapped on death', () => {
+  expect(cardRuleDefinitionSnapshotFor('World Shaper')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'attacks', filter: { kind: 'contextRef', name: 'source' } }, instructions: [{ kind: 'chooseInstructions', optional: true, options: [{ instructions: [{ kind: 'mill', count: { kind: 'constant', value: 3 }, targets: { kind: 'contextRef', name: 'controller' } }] }, { instructions: [] }] }] },
+    { kind: 'triggered', on: { kind: 'dies' }, instructions: [{ kind: 'move', targets: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Land' } }, to: 'battlefield', tapped: true }] },
+  ])
+})

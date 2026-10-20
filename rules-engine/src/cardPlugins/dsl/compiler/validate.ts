@@ -948,6 +948,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     declarations.push({ path, kind: `occurrence:${String(node.kind)}` })
     switch (node.kind) {
+      case 'attacks':
       case 'cast':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.after', 'object'], ['triggering.player', 'player']])
