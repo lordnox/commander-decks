@@ -42,7 +42,6 @@ import {
   createTreasures,
   crew,
   devour,
-  dies,
   discardCards,
   discardHandsThenDrawGreatest,
   dredge,
@@ -2011,10 +2010,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       destroyTargetPermanent(),
     ),
     persist(),
-  ],
-  'World Shaper': [
-    attacks(optionalMill(3)),
-    dies(returnOwnedGraveyardLands()),
   ],
   'Yarok, the Desecrated': [extraEnters(1), extraLandfall(1)],
   'Yavimaya, Cradle of Growth': [staticGrant('forestOverlay')],

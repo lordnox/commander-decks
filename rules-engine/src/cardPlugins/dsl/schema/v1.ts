@@ -111,6 +111,7 @@ export type ObjectOccurrenceFilter =
 
 export type OccurrencePattern =
   | { kind: 'cast'; filter: ObjectOccurrenceFilter }
+  | { kind: 'attacks'; filter: ObjectOccurrenceFilter }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
   | { kind: 'dies'; filter: ObjectOccurrenceFilter }
   | { kind: 'leaves'; filter: ObjectOccurrenceFilter }
