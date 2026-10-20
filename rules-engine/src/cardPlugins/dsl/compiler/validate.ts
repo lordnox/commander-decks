@@ -1171,6 +1171,10 @@ export const validateDefinitionV1 = (root: unknown): {
               if (filter.activator !== undefined) validatePlayerFilter(filter.activator, childPath(childPath(effectPath, 'filter'), 'activator'), baseEnvironment())
               return
             }
+            case 'noMaximumHandSize': {
+              exactKeys(node, effectPath, ['kind'], ['kind'])
+              return
+            }
             case 'extraLandPlays': {
               exactKeys(node, effectPath, ['kind', 'count'], ['kind', 'count'])
               const count = node.count

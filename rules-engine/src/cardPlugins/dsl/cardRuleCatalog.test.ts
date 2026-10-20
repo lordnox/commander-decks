@@ -1123,3 +1123,10 @@ test('Retreat to Hagra declares targeted deathtouch or untargeted opponent drain
     ] },
   ])
 })
+
+test('Reliquary Tower declares unlimited hand size and colorless tap mana', () => {
+  expect(cardRuleDefinitionSnapshotFor('Reliquary Tower')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'noMaximumHandSize' }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { C: { kind: 'constant', value: 1 } } }] },
+  ])
+})
