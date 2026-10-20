@@ -110,12 +110,14 @@ import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
 import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
+import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
 import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
 import summerBloom from './summer-bloom'
 import sunkenHollow from './sunken-hollow'
+import tamiyosSafekeeping from './tamiyos-safekeeping'
 import templeOfDeceit from './temple-of-deceit'
 import terramorphicExpanse from './terramorphic-expanse'
 import thaliasLancers from './thalias-lancers'
@@ -258,12 +260,14 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Simic Signet": simicSignet,
   "Skull Prophet": skullProphet,
   "Sky Diamond": skyDiamond,
+  "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
   "Stitch Together": stitchTogether,
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
   "Summer Bloom": summerBloom,
   "Sunken Hollow": sunkenHollow,
+  "Tamiyo's Safekeeping": tamiyosSafekeeping,
   "Temple of Deceit": templeOfDeceit,
   "Terramorphic Expanse": terramorphicExpanse,
   "Thalia's Lancers": thaliasLancers,
