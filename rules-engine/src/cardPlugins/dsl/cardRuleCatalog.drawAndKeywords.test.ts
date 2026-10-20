@@ -26,7 +26,7 @@ describe('cardRuleCatalog — drawAndKeywords', () => {
     expect(whisper).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('wall of omens')).toBeUndefined()
     expect(cardRuleDefinitionSnapshotFor('Thunderfoot Baloth')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeDefined()
     expect(wall).toBe(cardRuleDefinitionSnapshotFor('Wall of Omens'))
     expect(wall!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)
     expect(wurm!.definitionRevision).not.toBe(wall!.definitionRevision)

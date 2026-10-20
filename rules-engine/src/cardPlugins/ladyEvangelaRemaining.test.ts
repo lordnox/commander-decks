@@ -440,7 +440,7 @@ describe('Lady Evangela remaining coverage', () => {
           })],
         },
         hands: {
-          p2: [cardTemplate('Lightning Bolt', { types: ['Instant'], manaCost: '{R}' })],
+          p2: [cardTemplate('Stolen instant fixture', { types: ['Instant'], manaCost: '{R}' })],
         },
         libraries: {
           p2: Array.from({ length: 4 }, (_, index) => cardTemplate(`Extra ${index}`)),
@@ -480,11 +480,11 @@ describe('Lady Evangela remaining coverage', () => {
     expect(accepted.zoneOrder.p2.hand.length).toBeGreaterThan(1)
     const steal = pendingSelectionFor(accepted, 'p1')
     expect(steal?.castWithoutPaying).toBe(true)
-    const bolt = named(accepted, 'Lightning Bolt').id
+    const bolt = named(accepted, 'Stolen instant fixture').id
     const p3 = projectForViewer(accepted, 'p3')
     expect(p3.objects[bolt]).toBeUndefined()
     const p1 = projectForViewer(accepted, 'p1')
-    expect(p1.objects[bolt]?.name).toBe('Lightning Bolt')
+    expect(p1.objects[bolt]?.name).toBe('Stolen instant fixture')
     accepted = ok(server.rules(accepted, {
       type: 'selectCards',
       seat: 'p1',

@@ -52,7 +52,7 @@ describe('cardRuleCatalog — damageAndLeaves', () => {
     expect(thragtusk).toBeDefined()
     expect(unraveler).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('flame rift')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeDefined()
     expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
     expect(rift).toBe(cardRuleDefinitionSnapshotFor('Flame Rift'))
     expect(rift!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)

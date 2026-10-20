@@ -730,7 +730,8 @@ const actionEvents = (
       return legal.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'move': {
-      const targets = objectActions(instruction.targets, context)
+      const targets = objectActions(instruction.targets, context).filter(object =>
+        isSameObject(context.state.objects[object.id], objectIdentity(object)))
       const controllers = instruction.controller ? evaluatePlayerReference(instruction.controller, context) : undefined
       if (controllers && controllers.length !== 1) throw new RuleDslEvaluationError('move controller must resolve to exactly one player')
       if (instruction.bindChoice) frame.pendingMovedChoice = {

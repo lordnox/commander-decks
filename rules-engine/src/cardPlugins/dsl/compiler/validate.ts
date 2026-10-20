@@ -11,7 +11,7 @@ import type { RuleDslDiagnostic } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT } from './evaluate'
 
 type Data = Record<string, unknown>
-type Domain = 'player' | 'object' | 'stack' | 'boolean' | 'number'
+type Domain = 'damage' | 'player' | 'object' | 'stack' | 'boolean' | 'number'
 type Binding = {
   kind: 'choice' | 'result'
   domain: Domain
@@ -195,7 +195,7 @@ export const validateDefinitionV1 = (root: unknown): {
       default:
         issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported reference kind: ${String(kind)}`)
     }
-    if (domain && expected && !expected.includes(domain)) {
+    if (domain && expected && !expected.includes(domain) && !(domain === 'damage' && expected.includes('player') && expected.includes('object'))) {
       issue(path, 'domain', `expected ${expected.join(' or ')} reference, received ${domain}`)
     }
     return domain
@@ -263,6 +263,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!node) return undefined
     exactKeys(node, path, ['kind', 'filter'], ['kind'])
     switch (node.kind) {
+      case 'anyTarget': exactKeys(node, path, ['kind'], ['kind']); return 'damage'
       case 'players': validatePlayerFilter(node.filter, childPath(path, 'filter'), env); return 'player'
       case 'objects': validateObjectFilter(node.filter, childPath(path, 'filter'), env); return 'object'
       case 'stackItems': validateStackFilter(node.filter, childPath(path, 'filter'), env); return 'stack'
@@ -281,7 +282,7 @@ export const validateDefinitionV1 = (root: unknown): {
     const domain = node.kind === 'players' || node.kind === 'objects' || node.kind === 'stackItems'
       ? validateSelector(node, path, env)
       : validateReference(node, path, env, expected)
-    if (domain && !expected.includes(domain)) issue(path, 'domain', `expected ${expected.join(' or ')} recipient, received ${domain}`)
+    if (domain && !expected.includes(domain) && !(domain === 'damage' && expected.includes('player') && expected.includes('object'))) issue(path, 'domain', `expected ${expected.join(' or ')} recipient, received ${domain}`)
     return domain
   }
 
@@ -422,6 +423,7 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.distinct !== true) issue(childPath(path, 'distinct'), 'constant', 'target clauses require distinct: true')
     const min = isData(node.min) && node.min.kind === 'constant' ? node.min.value : undefined
     const max = isData(node.max) && node.max.kind === 'constant' ? node.max.value : undefined
+    if (domain === 'damage' && max !== 1) issue(path, 'bounds', 'anyTarget clauses currently require a maximum of one target')
     if (typeof min === 'number' && typeof max === 'number' && min > max) issue(path, 'bounds', `target minimum ${min} exceeds maximum ${max}`)
     declarations.push({ path, kind: 'targetClause' })
     return domain
@@ -1008,6 +1010,10 @@ export const validateDefinitionV1 = (root: unknown): {
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
       case 'dies':
+        if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
+        env.context = new Map([...env.context, ['triggering.object.before', 'object'], ['triggering.object.after', 'object']])
+        validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
+        return env
       case 'leaves':
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.object.before', 'object']])

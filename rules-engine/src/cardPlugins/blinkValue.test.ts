@@ -123,7 +123,7 @@ describe('Lady Evangela blink and value cards', () => {
     state.priority = 'p1'
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'loran.draw',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: loran.id,
       targets: [{ kind: 'player', player: 'p2' }],

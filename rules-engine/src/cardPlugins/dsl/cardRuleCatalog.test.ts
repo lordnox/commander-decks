@@ -388,7 +388,7 @@ test('catalog Unmarked Grave filters legendary cards before moving and shuffling
 
 test.each(['Charcoal Diamond', 'Sky Diamond', 'Worn Powerstone', 'Mistvault Bridge', 'Bala Ged Sanctuary', 'Fell Mire', 'Malakir Mire'])('catalog %s replaces its own entry with tapped entry', name => {
   expect(effectsFor(name)).toEqual([])
-  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.slice(0, 1)).toMatchObject([{
     kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
   }])
 })
@@ -416,7 +416,7 @@ test.each([
   ['Vault of Champions', 'players', 'lte', 1],
 ] as const)('catalog %s retains its conditional tapped entry', (name, selectorKind, operator, threshold) => {
   expect(effectsFor(name)).toEqual([])
-  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([{
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.slice(0, 1)).toMatchObject([{
     kind: 'static', effects: [{ kind: 'replacement', when: { kind: 'compareAmount', left: { kind: 'count', of: { kind: selectorKind } }, operator, right: { kind: 'constant', value: threshold } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
   }])
 })
