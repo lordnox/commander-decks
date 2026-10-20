@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after Cultivate / Kodama’s Reach. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after cycling (Astral Drift, Raffine’s Tower, Secluded Steppe, Zagoth Triome). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**248 legacy registration keys, assigned exactly once to 43 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 248 is not a distinct-card count.
+**244 legacy registration keys, assigned exactly once to 42 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 244 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -11,7 +11,6 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 | Shared rule | Registrations | Important difference / extra gate |
 | --- | --- | --- |
 | Optional pay 2 life or enter tapped | Breeding Pool; Godless Shrine; Hallowed Fountain; Overgrown Tomb; Watery Grave | Printed land types and mana colors vary. |
-| Cycling lands | Raffine’s Tower; Zagoth Triome; Secluded Steppe | First two cycle for {3}; Steppe for {W}. All must emit cycling, not merely discard. |
 | Reveal top card into hand, lose its mana value | Dark Confidant; Dark Tutelage | Same upkeep program; source card types differ. |
 | Prevent all combat damage this turn | Darkness; Kami of False Hope | Same resolving effect; spell versus sacrifice activation. |
 | Opponent-land color production | Exotic Orchard; Fellwar Stone | Same available-color query; permanent types differ. |
@@ -25,7 +24,7 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 **A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
 
-Recommended opening sequence: pay-life land entry; cycling lands; native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
+Recommended opening sequence: pay-life land entry; native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
 
 ## Complete primary assignment
 
@@ -40,16 +39,6 @@ Priority **A** · effort **S** · **4 registrations**
 **Shared work:** Damage; optional artifact/enchantment destruction; draw; temporary death-return grants.
 
 **Required support / secondary gates:** Check complete face handling for Malakir Rebirth and occurrence identity for the granted return. These are existing-primitive candidates, not certified ready cards.
-
-### 03. Cycling and cycling triggers
-
-Priority **A** · effort **M** · **4 registrations**
-
-**Registrations:** `Astral Drift`; `Raffine's Tower`; `Secluded Steppe`; `Zagoth Triome`.
-
-**Shared work:** Tapped entry, printed mana production, hand activation that discards itself and draws. Raffine’s Tower and Zagoth Triome both cycle for {3}; Secluded Steppe cycles for {W}.
-
-**Required support / secondary gates:** Canonical cycling cost/event semantics, including cycling-trigger interoperability. Ordinary discard plus draw alone is insufficient; Secluded Steppe needs its printed cycling behavior checked against the legacy registration. Astral Drift is a follow-up consumer: add its cycle occurrence and delayed blink before removing its registration.
 
 ### 04. Pay-life land entry
 

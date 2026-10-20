@@ -1167,6 +1167,58 @@ test('Burgeoning responds to opponent land plays with an optional hand-land move
   ])
 })
 
+test.each(["Raffine's Tower", 'Zagoth Triome'] as const)('catalog %s enters tapped and cycles from hand for {3}', name => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardTemplateDefaultsFor(name)).toMatchObject({
+    types: ['Land'],
+    subtypes: name === 'Zagoth Triome' ? ['Swamp', 'Forest', 'Island'] : ['Plains', 'Island', 'Swamp'],
+  })
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
+      { kind: 'mana', amount: '{3}' },
+      { kind: 'discard', filter: { kind: 'contextRef', name: 'source' }, count: { kind: 'constant', value: 1 } },
+    ], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+  ])
+})
+
+test('catalog Secluded Steppe enters tapped, makes white, and cycles for {W}', () => {
+  expect(effectsFor('Secluded Steppe')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Secluded Steppe')!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { W: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
+      { kind: 'mana', amount: '{W}' },
+      { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } },
+    ], instructions: [{ kind: 'draw' }] },
+  ])
+})
+
+test('catalog Astral Drift cycles itself and blinks a creature after you cycle a card', () => {
+  expect(effectsFor('Astral Drift')).toEqual([])
+  expect(cardTemplateDefaultsFor('Astral Drift')).toMatchObject({ types: ['Enchantment'], colors: ['W'], manaCost: '{2}{W}', manaValue: 3 })
+  const exileUntilEnd = {
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+    instructions: [{ kind: 'chooseInstructions', optional: true, options: [
+      { instructions: [{ kind: 'sequence', instructions: [
+        { kind: 'move', targets: { kind: 'targetRef', clauseIndex: 0 }, to: 'exile', bindChoice: 'exiled' },
+        { kind: 'createDelayed', inheritTargets: false, condition: { kind: 'step', step: 'end' }, instructions: [
+          { kind: 'move', targets: { kind: 'choiceRef', binding: 'exiled' }, to: 'battlefield' },
+        ] },
+      ] }] },
+      { instructions: [] },
+    ] }],
+  }
+  expect(cardRuleDefinitionSnapshotFor('Astral Drift')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'cycle', filter: { player: { kind: 'players', filter: { relation: 'you' } } } }, activeIn: ['battlefield'], ...exileUntilEnd },
+    { kind: 'triggered', on: { kind: 'cycle', filter: { object: { kind: 'contextRef', name: 'source' } } }, activeIn: ['graveyard'], ...exileUntilEnd },
+    { kind: 'activated', cycling: true, availableFrom: ['hand'], costs: [
+      { kind: 'mana', amount: '{2}{W}' },
+      { kind: 'discard', filter: { kind: 'contextRef', name: 'source' } },
+    ], instructions: [{ kind: 'draw' }] },
+  ])
+})
+
 test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {
   expect(cardRuleDefinitionSnapshotFor('Fabled Passage')!.definition.abilities).toMatchObject([
     { kind: 'activated', costs: [{ kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }], instructions: [

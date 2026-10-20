@@ -505,7 +505,7 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'sacrifice':
         exactKeys(node, path, ['kind', 'filter', 'count'], ['kind', 'filter', 'count'])
         if (validateRecipient(node.filter, childPath(path, 'filter'), env, ['object']) !== 'object') {
-          issue(childPath(path, 'filter'), 'domain', `${node.kind} costs require an object ${node.kind === 'discard' ? 'selector' : 'recipient'}`)
+          issue(childPath(path, 'filter'), 'domain', `${node.kind} costs require an object recipient`)
         }
         validateAmount(node.count, childPath(path, 'count'), env)
         return
@@ -982,15 +982,17 @@ export const validateDefinitionV1 = (root: unknown): {
         return env
       case 'playLand':
       case 'discard':
+      case 'cycle':
       case 'draw': {
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
-        env.context = new Map([...env.context, ['triggering.player', 'player']])
+        env.context = new Map([...env.context, ['triggering.player', 'player'], ...(node.kind === 'cycle' ? [['triggering.object.after', 'object'] as const] : [])])
         if (node.kind === 'draw') env.eventAmount = true
         const filter = object(node.filter, childPath(path, 'filter'))
         if (filter) {
-          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep'] : ['player'])
+          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep'] : node.kind === 'cycle' ? ['player', 'object'] : ['player'])
           if (filter.player !== undefined) validateRecipient(filter.player, childPath(childPath(path, 'filter'), 'player'), env, ['player'])
           if (filter.firstDrawInOwnDrawStep !== undefined && typeof filter.firstDrawInOwnDrawStep !== 'boolean') issue(childPath(childPath(path, 'filter'), 'firstDrawInOwnDrawStep'), 'type', 'expected a boolean')
+          if (filter.object !== undefined) validateObjectOccurrenceFilter(filter.object, childPath(childPath(path, 'filter'), 'object'), env)
         }
         return env
       }
@@ -1090,10 +1092,11 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'activated': {
-        exactKeys(ability, path, [...commonProgramKeys, 'availableFrom', 'timing'], ['kind', 'availableFrom', 'timing', 'decisions', 'costs'])
+        exactKeys(ability, path, [...commonProgramKeys, 'availableFrom', 'timing', 'cycling'], ['kind', 'availableFrom', 'timing', 'decisions', 'costs'])
         array(ability.availableFrom, childPath(path, 'availableFrom'), { nonempty: true }).forEach((zone, index) =>
           enumeration(zone, childPath(childPath(path, 'availableFrom'), index), ZONES, 'zone'))
         enumeration(ability.timing, childPath(path, 'timing'), new Set(['anyTime', 'sorcery']), 'activation timing')
+        if (ability.cycling !== undefined && ability.cycling !== true) issue(childPath(path, 'cycling'), 'constant', 'cycling must be true when present')
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
         const costEnv: Environment = { ...cloneEnv(result.env), targets: [], targetSingleton: [], locals: new Map() }
         array(ability.costs, childPath(path, 'costs')).forEach((cost, index) => validateCost(cost, childPath(childPath(path, 'costs'), index), costEnv))

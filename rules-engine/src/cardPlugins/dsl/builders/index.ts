@@ -154,7 +154,7 @@ export const distribution = (input: {
   minEach: toAmount(input.minEach ?? 0),
 })
 
-export const discardCost = (filter: ObjectSelector, count: AmountInput): Cost =>
+export const discardCost = (filter: ObjectRecipient, count: AmountInput): Cost =>
   immutableData({ kind: 'discard', filter, count: toAmount(count) })
 
 export const sacrificeCost = (filter: ObjectRecipient, count: AmountInput): Cost =>
@@ -360,11 +360,13 @@ export const activated = (input: {
   availableFrom?: readonly Zone[]
   timing?: ActivatedAbilityDefinition['timing']
   decisions?: DecisionsInput
+  cycling?: true
 } & CostFieldsInput & ResolutionProgramInput) => immutableData({
   kind: 'activated' as const,
   availableFrom: input.availableFrom ?? ['battlefield'],
   timing: input.timing ?? 'anyTime',
   decisions: decisions(input.decisions),
+  ...(input.cycling ? { cycling: true as const } : {}),
   ...normalizeCostFields(input),
   ...normalizeProgram(input),
 }) satisfies ActivatedAbilityDefinition
@@ -418,6 +420,9 @@ export const landPlayed = (filter: { player?: PlayerReference | PlayerSelector }
 
 export const cardDiscarded = (filter: { player?: PlayerReference | PlayerSelector } = {}) =>
   immutableData({ kind: 'discard' as const, filter })
+
+export const cardCycled = (filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } = {}) =>
+  immutableData({ kind: 'cycle' as const, filter })
 
 export const spellCast = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'cast', filter: input.filter })
@@ -735,6 +740,15 @@ export const splitSearchLibrary = (input: {
   }),
   shuffle({ targets: input.chooser }),
 )
+
+/** Cycling from hand: pay mana, discard this card, then draw or a supplied program (CR 702.89). */
+export const cycleFromHand = (input: { mana: string; instructions?: readonly Instruction[] }) =>
+  activated({
+    availableFrom: ['hand'],
+    cycling: true,
+    costs: [manaCost(input.mana), discardCost(ref('source'), 1)],
+    instructions: input.instructions ? [...input.instructions] : [draw(1)],
+  })
 
 export const chooseInstructions = (input: {
   optional?: true

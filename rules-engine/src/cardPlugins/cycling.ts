@@ -1,5 +1,6 @@
 import type Draft from '../draft'
-import type { GameObject, PlayerId, Plugin, StackItem } from '../types'
+import type { GameEvent, GameObject, PlayerId, Plugin, StackItem } from '../types'
+import { loadDefinitionSnapshot } from './dsl/compiler'
 import { effectsOf } from './cardRules'
 import { activateEffect, type CardEffect } from './effects'
 
@@ -14,6 +15,16 @@ export const typecyclingFromHand = (object: GameObject) =>
 
 export const emitCycleEvent = (draft: Draft, seat: PlayerId, objectId: string) => {
   draft.enqueue({ type: 'cycle', seat, objectId })
+}
+
+/** CR 702.89 — after a canonical cycling program has fully resolved, including a paused search. */
+export const canonicalCyclingEvent = (item: StackItem): Extract<GameEvent, { type: 'cycle' }> | undefined => {
+  const snapshot = item.execution?.definitionSnapshot
+  const index = item.execution?.abilityIndex
+  if (!snapshot || typeof index !== 'number') return
+  const ability = loadDefinitionSnapshot(snapshot).definition.abilities[index]
+  if (ability?.kind !== 'activated' || ability.cycling !== true) return
+  return { type: 'cycle', seat: item.controller, objectId: item.objectId }
 }
 
 /** CR 702.89 — after draw-cycling resolution instructions (draw queued first). */

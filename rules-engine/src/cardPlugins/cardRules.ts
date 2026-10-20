@@ -35,7 +35,6 @@ import {
   copyTargetCreature,
   counterTargetSpell,
   counterUnlessPay,
-  cycleHand,
   createTokenInstruction,
   createTreasures,
   crew,
@@ -282,12 +281,6 @@ import {
   triggeringCreatureNameUnique,
 } from './effects'
 
-const astralDriftCycleBlink = blink({
-  optional: true,
-  when: 'nextEndStep',
-  filter: { zone: 'battlefield', type: 'Creature' },
-})
-
 const fetchBasic = (prompt: string, extra: {
   life?: number
   tapped?: boolean
@@ -361,8 +354,6 @@ const changelingShapeshifter = () => createTokenInstruction({
 })
 
 const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
-
-const cycleFromHand = (id: string, mana = '{3}') => cycleHand(id, mana)
 
 /**
  * Sin, Spira's Punishment: exile a random permanent card from your graveyard and
@@ -497,10 +488,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       controller: 'opponent',
       suppressKeywords: ['hexproof'],
     }),
-  ],
-  'Astral Drift': [
-    triggerOn('cycle', { do: [astralDriftCycleBlink] }),
-    cycleHand('cycling.astralDrift', '{2}{W}'),
   ],
   'Awaken the Honored Dead': [
     sagaChapters(
@@ -1415,7 +1402,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Queza, Augur of Agonies': [handler('blinkValue')],
-  "Raffine's Tower": [entersTapped(), cycleFromHand('cycling.raffinesTower')],
   'Rain of Filth': [
     onResolve(addUntilCleanupRule('sacrificeLandMana')),
   ],
@@ -1506,10 +1492,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Sea Gate Restoration // Sea Gate, Reborn': [
     tapUnlessPayLife(3),
     onResolve(drawHandSize(1), noMaximumHandSize()),
-  ],
-  'Secluded Steppe': [
-    entersTapped(),
-    typecycleHand('cycling.secludedSteppe', '{W}', 'Plains'),
   ],
   "Selvala's Stampede": [
     onResolve(vote(
@@ -1880,10 +1862,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       costs: { tap: true, mana: '{1}' },
       do: [{ kind: 'addManaToEachPlayer', mana: { B: 1, R: 1, G: 1 } }],
     }),
-  ],
-  'Zagoth Triome': [
-    entersTapped(),
-    cycleFromHand('cycling.zagothTriome'),
   ],
   'Zanarkand, Ancient Metropolis // Lasting Fayth': [
     entersTapped(),

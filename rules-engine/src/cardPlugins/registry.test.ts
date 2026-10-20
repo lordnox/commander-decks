@@ -239,6 +239,10 @@ describe('card plugin registry', () => {
     expect(missingCardPlugins(covered)).toEqual([])
     expect(cardPluginEntry('Cultivate')).toBeUndefined()
     expect(cardPluginEntry("Kodama's Reach")).toBeUndefined()
+    expect(cardPluginEntry('Astral Drift')).toBeUndefined()
+    expect(cardPluginEntry("Raffine's Tower")).toBeUndefined()
+    expect(cardPluginEntry('Secluded Steppe')).toBeUndefined()
+    expect(cardPluginEntry('Zagoth Triome')).toBeUndefined()
     expect(cardPluginEntry('Bushwhack')).toBeUndefined()
     expect(cardPluginEntry('Beast Whisperer')).toBeUndefined()
     expect(cardPluginEntry('Twincast')).toBeUndefined()
@@ -944,10 +948,7 @@ describe('card plugin registry', () => {
       ptEqualsLife({ who: 'controller' }),
       { op: 'activate', id: 'encore' },
     ])
-    expect(cardDefinition('Astral Drift')?.effects).toMatchObject([
-      { op: 'trigger', on: 'cycle' },
-      { op: 'activate', id: 'cycling.astralDrift', cycling: true },
-    ])
+    expect(cardDefinition('Astral Drift')).toBeUndefined()
   })
 
   test('catalog entries keep the deck Oracle text of a double-faced land', () => {

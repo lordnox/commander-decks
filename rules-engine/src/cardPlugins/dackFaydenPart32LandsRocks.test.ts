@@ -407,16 +407,10 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     expect(resolved.objects[spell].counters.charge).toBe(2)
   })
 
-  test('Secluded Steppe plainscycles into hand after the search closes', () => {
-    const steppe = cardTemplate('Secluded Steppe', {
-      types: ['Land'],
-      subtypes: ['Plains'],
-      tapProduces: { W: 1 },
-      effects: effectsFor('Secluded Steppe'),
-    })
+  test('Secluded Steppe cycles for {W} and draws from hand', () => {
     const server = createServerGame(
       commanderRules,
-      { hands: { p1: [steppe] }, libraries: { p1: [plains()] } },
+      { hands: { p1: [cardTemplate('Secluded Steppe')] }, libraries: { p1: [cardTemplate('Drawn card', { types: ['Creature'] })] } },
       { random: () => 0.5, cardPlugins: plugins },
     )
     const steppeId = named(server.state, 'Secluded Steppe').id
@@ -424,19 +418,14 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     ready.players.p1.mana.W = 1
     const cycled = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.secludedSteppe',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: steppeId,
     }))
-    const opened = ok(server.rules(cycled, { type: 'resolveTop' }))
-    const found = named(opened, 'Plains').id
-    const finished = run(server, opened, [
-      { type: 'move', objectId: found, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-    expect(named(finished, 'Plains').zone).toBe('hand')
-    expect(finished.objects[steppeId].zone).toBe('graveyard')
+    expect(cycled.objects[steppeId].zone).toBe('graveyard')
+    const finished = ok(server.rules(cycled, { type: 'resolveTop' }))
+    expect(named(finished, 'Drawn card').zone).toBe('hand')
+    expect(finished.stack).toHaveLength(0)
   })
 
   test("Urza's Cave sacrifices itself and puts a searched land onto the battlefield tapped", () => {

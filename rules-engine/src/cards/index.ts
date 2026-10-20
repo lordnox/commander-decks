@@ -8,6 +8,7 @@ import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
 import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
+import astralDrift from './astral-drift'
 import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
@@ -109,6 +110,7 @@ import orzhovSignet from './orzhov-signet'
 import otherworldlyJourney from './otherworldly-journey'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
+import raffinesTower from './raffines-tower'
 import reanimate from './reanimate'
 import rejuvenatingSprings from './rejuvenating-springs'
 import reliquaryTower from './reliquary-tower'
@@ -120,6 +122,7 @@ import revitalizingRepast from './revitalizing-repast'
 import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
+import secludedSteppe from './secluded-steppe'
 import seleniaDarkAngel from './selenia-dark-angel'
 import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
@@ -163,6 +166,7 @@ import waterloggedGrove from './waterlogged-grove'
 import worldMap from './world-map'
 import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
+import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
@@ -175,6 +179,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Anguished Unmaking": anguishedUnmaking,
   "Arbor Elf": arborElf,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
+  "Astral Drift": astralDrift,
   "Awaken the Woods": awakenTheWoods,
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
@@ -278,6 +283,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Otherworldly Journey": otherworldlyJourney,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
+  "Raffine's Tower": raffinesTower,
   "Reanimate": reanimate,
   "Rejuvenating Springs": rejuvenatingSprings,
   "Reliquary Tower": reliquaryTower,
@@ -290,6 +296,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Sakura-Tribe Scout": sakuraTribeScout,
+  "Secluded Steppe": secludedSteppe,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Shadowy Backstreet": shadowyBackstreet,
   "Sign in Blood": signInBlood,
@@ -333,4 +340,5 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "World Map": worldMap,
   "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,
+  "Zagoth Triome": zagothTriome,
 })
