@@ -37,6 +37,7 @@ import dreamscapeArtist from './dreamscape-artist'
 import drownedCatacomb from './drowned-catacomb'
 import duskdaleWurm from './duskdale-wurm'
 import eclipsedSteppe from './eclipsed-steppe'
+import endRazeForerunners from './end-raze-forerunners'
 import entomb from './entomb'
 import esperCharm from './esper-charm'
 import esperPanorama from './esper-panorama'
@@ -180,6 +181,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Drowned Catacomb": drownedCatacomb,
   "Duskdale Wurm": duskdaleWurm,
   "Eclipsed Steppe": eclipsedSteppe,
+  "End-Raze Forerunners": endRazeForerunners,
   "Entomb": entomb,
   "Esper Charm": esperCharm,
   "Esper Panorama": esperPanorama,

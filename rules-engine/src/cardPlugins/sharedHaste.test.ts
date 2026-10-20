@@ -11,7 +11,7 @@ const named = (state: ReturnType<typeof createServerGame>['state'], name: string
 describe('shared haste', () => {
   test('Concordant Crossroads lets a summoning-sick creature attack', () => {
     const roads = cardTemplate('Concordant Crossroads', { types: ['Enchantment'] })
-    const beast = cardTemplate('End-Raze Forerunners', {
+    const beast = cardTemplate('Shared haste fixture', {
       types: ['Creature'],
       power: 7,
       toughness: 7,
@@ -22,7 +22,7 @@ describe('shared haste', () => {
       { battlefield: { p1: [roads, beast] } },
       { random: () => 0.5, cardPlugins: [sharedHaste] },
     )
-    const creature = named(server.state, 'End-Raze Forerunners')
+    const creature = named(server.state, 'Shared haste fixture')
     expect(hasKeyword(creature, 'haste', server.state)).toBe(true)
   })
 })
