@@ -101,7 +101,7 @@ describe('Sin Fall routine card support', () => {
     const druid = ready.zoneOrder.p1.battlefield[0]
     const activatedState = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'hermitDruid.reveal',
+      abilityId: '$.abilities[0]',
       seat: 'p1',
       objectId: druid,
     }))

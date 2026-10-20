@@ -68,6 +68,7 @@ import hatred from './hatred'
 import hedgeMaze from './hedge-maze'
 import hedronArchive from './hedron-archive'
 import hedronCrab from './hedron-crab'
+import hermitDruid from './hermit-druid'
 import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import infernalContract from './infernal-contract'
@@ -210,6 +211,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hedge Maze": hedgeMaze,
   "Hedron Archive": hedronArchive,
   "Hedron Crab": hedronCrab,
+  "Hermit Druid": hermitDruid,
   "High Market": highMarket,
   "Hinterland Harbor": hinterlandHarbor,
   "Infernal Contract": infernalContract,

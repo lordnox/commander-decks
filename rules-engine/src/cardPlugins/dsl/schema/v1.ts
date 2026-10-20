@@ -243,6 +243,9 @@ export type ObjectRecipient = ObjectReference | ObjectSelector
 export type StackItemRecipient = StackItemReference | StackItemSelector
 export type DamageRecipient = PlayerRecipient | ObjectRecipient
 
+export const REVEAL_UNTIL_REST = { orderBottom: 'orderBottom', graveyard: 'graveyard' } as const
+export type RevealUntilRest = typeof REVEAL_UNTIL_REST[keyof typeof REVEAL_UNTIL_REST]
+
 export type TokenDefinition = {
   name: string
   types: string[]
@@ -365,7 +368,7 @@ export type Instruction =
       bindFound?: string
       bindRest?: string
       foundTo: Zone
-      rest: 'orderBottom'
+      rest: RevealUntilRest
     }
   /** Run nested instructions in order, resuming after any player choice pauses resolution. */
   | { kind: 'sequence'; instructions: readonly Instruction[] }

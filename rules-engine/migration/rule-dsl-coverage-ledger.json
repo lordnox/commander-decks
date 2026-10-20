@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 270,
+    "cardRegistrations": 269,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 258
+    "candidateOnlyCardRows": 257
   },
   "cardEffects": [
     {
@@ -59,7 +59,6 @@
         "Ghost Town:effects[0]",
         "Hall of Storm Giants:effects[1]",
         "Hedge Shredder:effects[2]",
-        "Hermit Druid:effects[0]",
         "Horizon of Progress:effects[0]",
         "Horizon of Progress:effects[2]",
         "Jace, Multiverse Architect:effects[1]",
@@ -101,7 +100,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 155,
+        "matches": 154,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
@@ -5503,7 +5502,6 @@
       "mechanic": "resolution choice",
       "currentRegistrations": [
         "Dack Fayden, Helping Hand:effects[0].do[0]",
-        "Hermit Druid:effects[0].do[0]",
         "Jace, Multiverse Architect:effects[2].do[1]",
         "Selvala's Stampede:effects[0].do[0].outcome[0]"
       ],
@@ -9988,39 +9986,6 @@
       "handlerIds": [
         "activated",
         "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Hermit Druid",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Hermit Druid"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/sinFall.test.ts:87 — test('Hermit Druid reveals through the first basic land', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [revealUntil]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate"
-      ],
-      "instructionVariants": [
-        "revealUntil"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated"
       ],
       "embeddedRulePaths": []
     },
@@ -16119,7 +16084,6 @@
         "Ghost Town",
         "Hall of Storm Giants",
         "Hedge Shredder",
-        "Hermit Druid",
         "Horizon of Progress",
         "Kami of False Hope",
         "Kederekt Leviathan",
@@ -16822,7 +16786,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 58,
+        "matches": 59,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -18023,7 +17987,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1910",
+        "rules-engine/src/cardPlugins/cardRules.ts:1902",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18155,8 +18119,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1016",
-        "rules-engine/src/cardPlugins/cardRules.ts:283",
+        "rules-engine/src/cardPlugins/cardRules.ts:1015",
+        "rules-engine/src/cardPlugins/cardRules.ts:282",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -21575,12 +21539,12 @@
       {
         "path": "rules-engine/src/cardPlugins/dsl/revealUntilExecution.ts",
         "lines": [
-          109,
-          110
+          116,
+          117
         ],
         "samples": [
-          "109: if (event.type === 'move') draft.move(event.objectId, event.to)",
-          "110: else draft.enqueue(event)"
+          "116: if (event.type === 'move') draft.move(event.objectId, event.to)",
+          "117: else draft.enqueue(event)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
