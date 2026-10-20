@@ -670,11 +670,11 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
       }))
       const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
       const selection = pendingSelectionFor(choosing, 'p1')!
-      expect(selection).toMatchObject({ kind: 'sacrifice', count: 2 })
+      expect(selection).toMatchObject({ kind: 'choose', count: 2 })
       const resolved = ok(server.rules(choosing, {
         type: 'selectCards',
         seat: 'p1',
-        kind: 'sacrifice',
+        kind: 'choose',
         count: 2,
         objectIds: selection.candidates.slice(0, 2),
       }))

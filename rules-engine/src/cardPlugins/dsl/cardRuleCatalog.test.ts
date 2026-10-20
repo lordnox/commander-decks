@@ -1061,3 +1061,34 @@ test('green modal spell fronts compose their fight and protection instructions',
   expect(cardRuleDefinitionSnapshotFor('Old-Growth Grove')!.definition.abilities[1]).toMatchObject({ kind: 'activated', decisions: { modes: { count: { kind: 'constant', value: 1 }, repeatable: false } }, modes: ['B', 'G'].map(color => ({ instructions: [{ kind: 'addMana', amount: { [color]: { kind: 'constant', value: 1 } } }] })) })
   expect(cardRuleDefinitionSnapshotFor('Khalni Territory')!.definition.abilities[1]).toMatchObject({ kind: 'activated', instructions: [{ kind: 'addMana', amount: { G: { kind: 'constant', value: 1 } } }] })
 })
+
+
+test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {
+  expect(cardRuleDefinitionSnapshotFor('Lotus Field')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.hexproof },
+    { kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield' }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }] },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [
+      { kind: 'chooseCards', bindChoice: 'lands', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } }, min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 } },
+      { kind: 'sacrifice', targets: { kind: 'choiceRef', binding: 'lands' } },
+    ] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'chooseInstructions', options: CARD_COLORS.map(color => ({ label: color, instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { [color]: { kind: 'constant', value: 3 } } }] })) }] },
+  ])
+})
+
+test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {
+  const ability = cardRuleDefinitionSnapshotFor('Entish Restoration')!.definition.abilities[0]
+  expect(ability).toMatchObject({ kind: 'spell', costs: [], instructions: [
+    { kind: 'chooseCards', bindChoice: 'sacrificedLand', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } }, min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+    { kind: 'sacrifice', targets: { kind: 'choiceRef', binding: 'sacrificedLand' } },
+    { kind: 'if', condition: { kind: 'compareAmount', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Creature', powerAtLeast: 4 } } }, operator: 'gte', right: { kind: 'constant', value: 1 } } },
+  ] })
+  if (ability.kind !== 'spell' || !ability.instructions || ability.instructions[2].kind !== 'if') throw new Error('Expected conditional search')
+  const instruction = ability.instructions[2]
+  for (const [branch, maximum] of [[instruction.then, 3], [instruction.otherwise, 2]] as const) expect(branch).toMatchObject([
+    { kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: maximum } },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'shuffle' },
+    ] },
+  ])
+})

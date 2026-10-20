@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 257,
+    "cardRegistrations": 255,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 83,
     "directMutationSites": 600,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 26,
-    "cardRegistrationOnlyGaps": 10,
-    "candidateOnlyInstructionRows": 165,
-    "candidateOnlyCardRows": 247
+    "instructionUnobservedGaps": 27,
+    "cardRegistrationOnlyGaps": 9,
+    "candidateOnlyInstructionRows": 164,
+    "candidateOnlyCardRows": 246
   },
   "cardEffects": [
     {
@@ -66,7 +66,6 @@
         "Kederekt Leviathan:effects[1]",
         "Lady Evangela:effects[0]",
         "Lair of the Hydra:effects[1]",
-        "Lotus Field:effects[2]",
         "Marina Vendrell:effects[1]",
         "Maskwood Nexus:effects[1]",
         "Millikin:effects[0]",
@@ -96,7 +95,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 145,
+        "matches": 143,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2517 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -468,7 +467,6 @@
         "Hall of Storm Giants:effects[0]",
         "Hallowed Fountain:effects[0]",
         "Lair of the Hydra:effects[0]",
-        "Lotus Field:effects[0]",
         "Malakir Rebirth // Malakir Mire:effects[0]",
         "Myriad Landscape:effects[0]",
         "Mystic Sanctuary:effects[0]",
@@ -486,7 +484,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 64,
+        "matches": 62,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1907 — test('Joint Exploration put-land dispatches a kernel move', () => {",
@@ -573,7 +571,6 @@
         "Analyze the Pollen:effects[0]",
         "Archaeomancer's Map:effects[0]",
         "Cultivate:effects[0]",
-        "Entish Restoration:effects[0]",
         "Fabled Passage:effects[0]",
         "Finale of Devastation:effects[1]",
         "Kodama's Reach:effects[0]",
@@ -884,7 +881,6 @@
         "Kuroki, Thief of Talents:effects[0]",
         "Lightning Bolt:effects[0]",
         "Liliana's Caress:effects[0]",
-        "Lotus Field:effects[1]",
         "Lumbering Battlement:effects[4]",
         "Lumra, Bellow of the Woods:effects[1]",
         "Malevolent Rumble:effects[0]",
@@ -958,7 +954,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 390,
+        "matches": 389,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -987,21 +983,16 @@
       "mechanic": "cost or announcement action",
       "currentRegistrations": [
         "Firdoch Core:effects[1].do[0]",
-        "Lotus Field:effects[2].do[0]",
-        "Lotus Field:effects[2].do[1]",
-        "Lotus Field:effects[2].do[2]",
         "Talon Gates of Madara:effects[1].do[0]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 8,
+        "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:148 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
           "rules-engine/src/cardPlugins/multiTargetTriggers.test.ts:437 — test('changeling counts a noncreature permanent as a Crab', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:85 — test('the Homer dumpster cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:662 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:187 — test('Talon enters from hand, phases an optional target, and it phases in before untap', () => {",
           "rules-engine/src/cardPlugins/untilEot.test.ts:276 — test('an expiring copy replays a later pump that remains active', () => {"
         ]
@@ -1027,7 +1018,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 33,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -3532,7 +3523,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 32,
+        "matches": 33,
         "samples": [
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
           "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:344 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {",
@@ -3540,8 +3531,8 @@
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:157 — test('Perch Protection gifts an extra turn and phases out on the promised gift', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:254 — test('Perch Protection gift recipient choice survives host restart projection', () => {",
           "rules-engine/src/cardPlugins/dackPartyPart35.test.ts:88 — test('Beza draws when an opponent has more cards in hand', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:594 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {",
-          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:610 — test('catalog Stitch Together returns an owned creature according to its graveyard threshold', () => {"
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1083 — test('Entish Restoration sacrifices on resolution before checking power for its basic-land search', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:594 — test('catalog Cryptic Command chooses two modes with separate counter and permanent targets', () => {"
         ]
       },
       "neededCanonicalNode": "sequence/condition/loop program node",
@@ -5498,17 +5489,11 @@
     {
       "variant": "sacrificeControlled",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Lotus Field:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:299 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:662 — test('Lotus Field asks to sacrifice two lands on entry', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -5516,7 +5501,7 @@
       "dependencyParts": [
         "03"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -8619,34 +8604,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Entish Restoration",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Entish Restoration"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Ephemerate",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -10729,48 +10686,6 @@
       "pluginIds": [],
       "handlerIds": [
         "blinkValue"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Lotus Field",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Lotus Field"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:214 — test('a land put onto the battlefield without being played still enters tapped', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:299 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:662 — test('Lotus Field asks to sacrifice two lands on entry', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, replacement, trigger] and instructions [addChosenColorMana, sacrificeControlled]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "08",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "replacement",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "addChosenColorMana",
-        "sacrificeControlled"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects",
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -15601,7 +15516,6 @@
         "Kederekt Leviathan",
         "Lady Evangela",
         "Lair of the Hydra",
-        "Lotus Field",
         "Malevolent Rumble",
         "Marina Vendrell",
         "Maskwood Nexus",
@@ -15626,7 +15540,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 150,
+        "matches": 149,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -16225,16 +16139,16 @@
         "rules-engine/src/plugins/lands.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 11,
+        "matches": 13,
         "samples": [
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1071 — test('Lotus Field uses native hexproof, tapped entry, a resolution sacrifice, and one-color mana', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:505 — test('catalog Frantic Search draws and discards before a bounded untap choice', () => {",
+          "rules-engine/src/cardPlugins/dsl/sacrifice.test.ts:40 — test('sacrifice ignores a card in hand and binds failure',()=>{",
           "rules-engine/src/cardPlugins/dsl/tap.test.ts:34 — test('a bounded untap choice resumes after restore and leaves unchosen lands tapped', () => {",
           "rules-engine/src/cardPlugins/exilePayoffs.test.ts:283 — test('pumps a stack target using linked exile power', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:101 — test('ETB branch skips draw when land counts are tied', () => {",
           "rules-engine/src/cardPlugins/opponentHasMore.test.ts:49 — test('serializableEffects keeps clone-safe opponentHasMore tags', () => {",
-          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:79 — test('ETB branch draws when an opponent controls more lands', () => {",
-          "rules-engine/src/plugins/lands.test.ts:24",
-          "rules-engine/src/plugins/lands.test.ts:28"
+          "rules-engine/src/cardPlugins/opponentHasMore.test.ts:79 — test('ETB branch draws when an opponent controls more lands', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -16567,7 +16481,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 218,
+        "matches": 219,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -17496,7 +17410,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1798",
+        "rules-engine/src/cardPlugins/cardRules.ts:1769",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17632,8 +17546,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:277",
-        "rules-engine/src/cardPlugins/cardRules.ts:970",
+        "rules-engine/src/cardPlugins/cardRules.ts:275",
+        "rules-engine/src/cardPlugins/cardRules.ts:955",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
