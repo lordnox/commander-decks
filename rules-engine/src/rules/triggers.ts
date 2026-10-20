@@ -222,12 +222,14 @@ const canonicalPatternMatches = (
     if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)
     return canonicalManaSourceEvent(state, event)
   }
-  if (pattern.kind === 'draw') {
-    if (event.type !== 'draw' || !occurrence.player) return false
+  if (pattern.kind === 'draw' || pattern.kind === 'discard') {
+    if (event.type !== pattern.kind || !occurrence.player) return false
+    if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
+      || occurrence.object.before.controller !== occurrence.player)) return false
     const player = occurrence.player
-    if (pattern.filter.firstDrawInOwnDrawStep === true
+    if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === true
       && !isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
-    if (pattern.filter.firstDrawInOwnDrawStep === false
+    if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false
       && isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
     if (!pattern.filter.player) return true
     if (pattern.filter.player.kind === 'players') {
@@ -301,11 +303,14 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'discard':
     case 'draw': {
-      if (event.type !== 'draw' || !occurrence.player) return false
-      if (pattern.filter.firstDrawInOwnDrawStep === true
+      if (event.type !== pattern.kind || !occurrence.player) return false
+      if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
+        || occurrence.object.before.controller !== occurrence.player)) return false
+      if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === true
         && !isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
-      if (pattern.filter.firstDrawInOwnDrawStep === false
+      if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false
         && isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
       if (!pattern.filter.player) return true
       return pattern.filter.player.kind === 'players'

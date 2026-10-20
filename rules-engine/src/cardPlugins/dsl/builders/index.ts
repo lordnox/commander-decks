@@ -406,6 +406,9 @@ export const cardRuleDefinition = (
 export const attacks = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'attacks', filter: input.filter })
 
+export const cardDiscarded = (filter: { player?: PlayerReference | PlayerSelector } = {}) =>
+  immutableData({ kind: 'discard' as const, filter })
+
 export const spellCast = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'cast', filter: input.filter })
 

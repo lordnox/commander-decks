@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 255,
+    "cardRegistrations": 254,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 27,
     "cardRegistrationOnlyGaps": 9,
     "candidateOnlyInstructionRows": 164,
-    "candidateOnlyCardRows": 246
+    "candidateOnlyCardRows": 245
   },
   "cardEffects": [
     {
@@ -880,7 +880,6 @@
         "Kogla, the Titan Ape:effects[0]",
         "Kuroki, Thief of Talents:effects[0]",
         "Lightning Bolt:effects[0]",
-        "Liliana's Caress:effects[0]",
         "Lumbering Battlement:effects[4]",
         "Lumra, Bellow of the Woods:effects[1]",
         "Malevolent Rumble:effects[0]",
@@ -954,7 +953,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 389,
+        "matches": 386,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -3818,7 +3817,6 @@
       "variant": "loseLife",
       "mechanic": "semantic game action",
       "currentRegistrations": [
-        "Liliana's Caress:effects[0].do[0]",
         "Malakir Rebirth:effects[0].do[0]",
         "Mirkwood Bats:effects[0].do[0]",
         "Mirkwood Bats:effects[1].do[0]",
@@ -3829,16 +3827,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 35,
+        "matches": 33,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:67 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1026 — test('Reanimate captures graveyard mana value before returning a creature under its caster’s control', () => {",
+          "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:1098 — test('Liliana’s Caress uses the discarded-card occurrence and the discarding opponent', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:146 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:794 — test('Infernal Contract composes four draws with rounded-up half-life loss', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:605 — test('creating three artifact tokens queues three abilities and drains every opponent on resolution', () => {"
+          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:580 — test('two drain sources trigger in APNAP order', () => {"
         ]
       },
       "neededCanonicalNode": "shared typed action primitive and outcome",
@@ -10597,41 +10595,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Liliana's Caress",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Liliana's Caress"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 5,
-        "samples": [
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:714 — test('two Bats each trigger for each token', () => {",
-          "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:787 — test('the discard mode drains through Liliana\\'s Caress', () => {",
-          "rules-engine/src/cardPlugins/modalSpell.test.ts:122 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
-          "rules-engine/src/journal.test.ts:128 — test('journal restores a typed discard and its durable source resolution', () => {",
-          "rules-engine/src/journal.test.ts:21"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [loseLife]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "trigger"
-      ],
-      "instructionVariants": [
-        "loseLife"
-      ],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Loran of the Third Path",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -15760,7 +15723,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 84,
+        "matches": 88,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
@@ -17410,7 +17373,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1769",
+        "rules-engine/src/cardPlugins/cardRules.ts:1763",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -17511,7 +17474,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1130",
+        "rules-engine/src/rules/triggers.ts:1135",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:314",
         "rules-engine/src/types.ts:318"
@@ -18093,14 +18056,14 @@
           67,
           127,
           145,
-          257,
-          258,
-          379,
-          739,
-          856,
-          1013,
-          1048,
-          1049
+          259,
+          260,
+          384,
+          744,
+          861,
+          1018,
+          1053,
+          1054
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -19476,24 +19439,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          509,
-          594,
-          689,
-          723,
-          802,
-          867,
-          880,
-          920,
-          1001,
-          1071,
-          1128,
-          1295,
-          1406
+          514,
+          599,
+          694,
+          728,
+          807,
+          872,
+          885,
+          925,
+          1006,
+          1076,
+          1133,
+          1300,
+          1411
         ],
         "samples": [
-          "509: const frequencySource = draft.object(source.id) ?? source",
-          "594: const live = draft.object(source.id)",
-          "689: const land = draft.object(objectId)"
+          "514: const frequencySource = draft.object(source.id) ?? source",
+          "599: const live = draft.object(source.id)",
+          "694: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

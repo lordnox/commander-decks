@@ -81,6 +81,7 @@ import infernalContract from './infernal-contract'
 import joinTheDead from './join-the-dead'
 import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
+import lilianasCaress from './lilianas-caress'
 import longRoadHome from './long-road-home'
 import lotusField from './lotus-field'
 import magusOfTheCoffers from './magus-of-the-coffers'
@@ -241,6 +242,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Ambush": khalniAmbush,
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,
+  "Liliana's Caress": lilianasCaress,
   "Long Road Home": longRoadHome,
   "Lotus Field": lotusField,
   "Magus of the Coffers": magusOfTheCoffers,
