@@ -237,7 +237,8 @@ describe('card plugin registry', () => {
       'Twincast',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Cultivate')?.handlerIds).toContain('librarySearch')
+    expect(cardPluginEntry('Cultivate')).toBeUndefined()
+    expect(cardPluginEntry("Kodama's Reach")).toBeUndefined()
     expect(cardPluginEntry('Bushwhack')).toBeUndefined()
     expect(cardPluginEntry('Beast Whisperer')).toBeUndefined()
     expect(cardPluginEntry('Twincast')).toBeUndefined()

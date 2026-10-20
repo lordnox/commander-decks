@@ -117,6 +117,10 @@ export const players = (filter: PlayerFilter = {}): PlayerSelector =>
 export const objects = (filter: ObjectFilter = {}): ObjectSelector =>
   immutableData({ kind: 'objects', filter })
 
+/** Objects still matching `from` after excluding a later subset choice. */
+export const remaining = (from: ObjectReference, except: ObjectReference) =>
+  objects({ among: from, not: { among: except } })
+
 export const stackItems = (filter: StackItemFilter = {}): StackItemSelector =>
   immutableData({ kind: 'stackItems', filter })
 
@@ -689,6 +693,46 @@ export const searchLibrary = (input: {
   }),
   ...(input.reveal ? [reveal(choice(input.bindChoice))] : []),
   move({ targets: choice(input.bindChoice), to: input.to, ...(input.tapped !== undefined ? { tapped: input.tapped } : {}) }),
+  shuffle({ targets: input.chooser }),
+)
+
+/** Search, reveal, choose a subset destination, then move the remaining identities. */
+export const splitSearchLibrary = (input: {
+  bindChoice: string
+  subsetBindChoice: string
+  chooser: PlayerReference
+  filter?: ObjectSelector
+  count?: AmountInput
+  min?: AmountInput
+  max?: AmountInput
+  subset: { min?: AmountInput, max?: AmountInput, to: Zone, tapped?: boolean }
+  remainderTo: Zone
+}) => sequence(
+  chooseCards({
+    bindChoice: input.bindChoice,
+    chooser: input.chooser,
+    filter: input.filter ?? objects({ zone: 'library', owner: 'you' }),
+    viewLibrary: true,
+    ...(input.count !== undefined ? { count: input.count } : { min: input.min, max: input.max }),
+  }),
+  reveal(choice(input.bindChoice)),
+  chooseCards({
+    bindChoice: input.subsetBindChoice,
+    chooser: input.chooser,
+    filter: objects({ among: choice(input.bindChoice) }),
+    ...(input.subset.min !== undefined || input.subset.max !== undefined
+      ? { min: input.subset.min, max: input.subset.max }
+      : { count: 1 }),
+  }),
+  move({
+    targets: choice(input.subsetBindChoice),
+    to: input.subset.to,
+    ...(input.subset.tapped !== undefined ? { tapped: input.subset.tapped } : {}),
+  }),
+  move({
+    targets: remaining(choice(input.bindChoice), choice(input.subsetBindChoice)),
+    to: input.remainderTo,
+  }),
   shuffle({ targets: input.chooser }),
 )
 

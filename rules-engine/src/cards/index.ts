@@ -32,6 +32,7 @@ import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
 import cropRotation from './crop-rotation'
 import crypticCommand from './cryptic-command'
+import cultivate from './cultivate'
 import dailyBugleNewspaper from './daily-bugle-newspaper'
 import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
@@ -84,6 +85,7 @@ import infernalContract from './infernal-contract'
 import joinTheDead from './join-the-dead'
 import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
+import kodamasReach from './kodamas-reach'
 import lilianasCaress from './lilianas-caress'
 import longRoadHome from './long-road-home'
 import lotusField from './lotus-field'
@@ -198,6 +200,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Counterspell": counterspell,
   "Crop Rotation": cropRotation,
   "Cryptic Command": crypticCommand,
+  "Cultivate": cultivate,
   "Daily Bugle Newspaper": dailyBugleNewspaper,
   "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
@@ -251,6 +254,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Ambush": khalniAmbush,
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,
+  "Kodama's Reach": kodamasReach,
   "Liliana's Caress": lilianasCaress,
   "Long Road Home": longRoadHome,
   "Lotus Field": lotusField,

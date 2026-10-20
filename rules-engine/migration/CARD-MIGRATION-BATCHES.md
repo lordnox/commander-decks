@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, card inventory at `edafa7722a00ff4a72c6f70c81e769c7744cf837` (after Fabled Passage). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after Cultivate / Kodama’s Reach. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**250 legacy registration keys, assigned exactly once to 44 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 250 is not a distinct-card count.
+**248 legacy registration keys, assigned exactly once to 43 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 248 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -10,7 +10,6 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 | Shared rule | Registrations | Important difference / extra gate |
 | --- | --- | --- |
-| Split basic-land search | Cultivate; Kodama’s Reach | Same rules text; share one selection/split implementation and mechanic suite. |
 | Optional pay 2 life or enter tapped | Breeding Pool; Godless Shrine; Hallowed Fountain; Overgrown Tomb; Watery Grave | Printed land types and mana colors vary. |
 | Cycling lands | Raffine’s Tower; Zagoth Triome; Secluded Steppe | First two cycle for {3}; Steppe for {W}. All must emit cycling, not merely discard. |
 | Reveal top card into hand, lose its mana value | Dark Confidant; Dark Tutelage | Same upkeep program; source card types differ. |
@@ -26,7 +25,7 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 **A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
 
-Recommended opening sequence: split basic searches; pay-life land entry; cycling lands; native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
+Recommended opening sequence: pay-life land entry; cycling lands; native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
 
 ## Complete primary assignment
 
@@ -41,16 +40,6 @@ Priority **A** · effort **S** · **4 registrations**
 **Shared work:** Damage; optional artifact/enchantment destruction; draw; temporary death-return grants.
 
 **Required support / secondary gates:** Check complete face handling for Malakir Rebirth and occurrence identity for the granted return. These are existing-primitive candidates, not certified ready cards.
-
-### 02. Split basic-land searches
-
-Priority **A** · effort **M** · **2 registrations**
-
-**Registrations:** `Cultivate`; `Kodama's Reach`.
-
-**Shared work:** Cultivate and Kodama’s Reach have the same rules text: find up to two basics, split battlefield tapped/hand, reveal, shuffle.
-
-**Required support / secondary gates:** Choose a subset of a bound selection and preserve the remaining identities; cover zero, one, and two finds once.
 
 ### 03. Cycling and cycling triggers
 
@@ -479,4 +468,4 @@ Priority **C** · effort **L** · **3 registrations**
 - Remove a legacy registration only after every behavior of that card/face is canonical. Shared support may unlock only part of a larger card.
 - Commit and push each coherent completed set to #432. A primary group can require several commits; unrelated secondary systems should remain separate.
 - After a migration, remove its key from this inventory and regenerate the coverage ledger. Update counts and priorities; keep aliases separate until their legacy keys are actually removed.
-- Snapshot validation: all 250 keys from the generated ledger are present exactly once; no unknown keys. This documentation change does not migrate cards. Hosted CI is not awaited on this branch, as requested.
+- Snapshot validation: remaining ledger keys are present exactly once; no unknown keys. Hosted CI is not awaited on this branch, as requested.
