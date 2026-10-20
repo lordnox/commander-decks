@@ -1,8 +1,11 @@
+import type { ManaId } from '../../types'
 import { describe, expect, test } from 'bun:test'
 import {
   classifyManaAbility,
   activationPermission,
   activated,
+  amount,
+  tapCost,
   card,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
@@ -105,4 +108,25 @@ describe('announcement transactions', () => {
       expect(result.state.players.p1.mana.G).toBe(2)
     }
   })
+})
+
+test.each([['C', 'C'], ['B', 'B'], ['G', 'G'], [undefined, 'B']] as const)('raw canonical tap mana pays once and chooses its declared mode (%s -> %s)', (chosen, expected) => {
+  const add = (color: ManaId) => ({ kind: 'addMana' as const, targets: ref('controller'), amount: { [color]: amount(1) } })
+  const ability = chosen === 'C'
+    ? activated({ costs: [tapCost()], instructions: [add('C')] })
+    : activated({ costs: [tapCost()], decisions: { modes: { count: amount(1), repeatable: false } }, modes: [{ instructions: [add('B')] }, { instructions: [add('G')] }] })
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Canonical tap fixture', { types: ['Artifact'], oracleText: chosen === 'C' ? '{T}: Add {C}.' : '{T}: Add {B} or {G}.', tapProduces: chosen === 'C' ? { C: 1 } : { B: 1 }, ruleDefinition: createDefinitionSnapshot(compileCardRuleDefinition(card([ability]))) })] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.battlefield[0]
+  expect(server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: source, mana: 'U' }).ok).toBe(false)
+  const result = server.rules(server.state, { type: 'tapForMana', seat: 'p1', objectId: source, ...(chosen ? { mana: chosen } : {}) })
+  expect(result.ok).toBe(true)
+  if (!result.ok) return
+  expect(result.state.objects[source].tapped).toBe(true)
+  expect(result.state.players.p1.mana[expected]).toBe(1)
+  expect(Object.values(result.state.players.p1.mana).reduce((sum, value) => sum + value, 0)).toBe(1)
+  expect(result.state.stack).toHaveLength(0)
+  expect(pendingOptionSelection(result.state, 'p1')).toBeUndefined()
 })

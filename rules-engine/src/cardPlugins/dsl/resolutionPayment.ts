@@ -1,7 +1,7 @@
 import type { CapturedObject, GameState, ManaId, PlayerId } from '../../types'
 import type { Cost } from './schema/v1'
 import { activationPermission, beginActivatedAnnouncement, lockedManaCost } from './compiler/announcement'
-import { canonicalManaAbilityForTap } from '../activated'
+import { canonicalManaAbilityForTap } from './manaPrograms'
 import { evaluateObjectReference, evaluateObjectSelector, type RuleDslRuntimeContext } from './compiler'
 import { manaModes, tapForManaError } from '../../plugins/mana'
 import { payCost } from '../../plugins/spells'
