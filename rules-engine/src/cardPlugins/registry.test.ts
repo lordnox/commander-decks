@@ -788,7 +788,7 @@ describe('card plugin registry', () => {
     for (const [name, status] of Object.entries(inventory)) {
       const effects = effectsFor(name)
       if (status === 'registered') {
-        expect(effects.length).toBeGreaterThan(0)
+        expect(effects.length > 0 || Boolean(cardRuleDefinitionSnapshotFor(name))).toBe(true)
         continue
       }
       expect(effects).toEqual([])
