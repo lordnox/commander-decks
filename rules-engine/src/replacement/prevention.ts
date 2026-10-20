@@ -59,6 +59,7 @@ const runtimeFor = (
     state,
     controller,
     source,
+    ...(bindings?.results ? { results: bindings.results } : {}),
     ...(bindings?.targets ? { targets: bindings.targets } : {}),
     ...(bindings?.targetLegality ? { targetLegality: bindings.targetLegality } : {}),
     ...(bindings?.choices ? { choices: bindings.choices } : {}),
@@ -116,7 +117,7 @@ const matchesObjectRecipient = (
       return evaluateObjectSelector(recipient, runtime)
         .some((object) => object.id === target.objectId)
     }
-    if (recipient.kind === 'players') return false
+    if (recipient.kind === 'players' || recipient.kind === 'relatedPlayer' || recipient.kind === 'resultRef') return false
     return evaluateObjectReference(recipient, runtime)
       .some((object) => object.id === target.objectId)
   }

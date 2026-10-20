@@ -3,11 +3,10 @@ import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameState, Plugin } from '../types'
+import type { Plugin } from '../types'
 import { activate, damage, gainLife, loseLife, opponentsLoseLife, players, type CardInstruction } from './effects'
 import { activated } from './activated'
 import { selectedPlayers } from './selectors'
-import { targetedResolve } from './targetedResolve'
 const game = (instructions: CardInstruction[], plugins: Plugin[] = [], oracleText = '') =>
   createServerGame(commanderRules, {
     players: 4, battlefield: { p1: [cardTemplate('Source', {
@@ -114,37 +113,4 @@ describe('parameterized player effects', () => {
     ])
     expect(life(resolveStack(server.rules, queue(server)))).toEqual([38, 37, 37, 37])
   })
-})
-
-describe('relocated from ladyEvangela.test.ts → playerEffects.test.ts', () => {
-  const named = (state: GameState, name: string) =>
-    Object.values(state.objects).find((object) => object.name === name)!
-
-
-  test('Swords to Plowshares exiles and gains life equal to power', () => {
-      const server = createServerGame(
-        commanderRules,
-        {
-          hands: {
-            p1: [cardTemplate('Swords to Plowshares', { types: ['Instant'], manaCost: '{W}' })],
-          },
-          battlefield: {
-            p2: [cardTemplate('Bear', { types: ['Creature'], power: 4, toughness: 4 })],
-          },
-        },
-        { random: () => 0.5, cardPlugins: [targetedResolve] },
-      )
-      const ready = structuredClone(server.state)
-      ready.players.p1.mana.W = 1
-      const opened = ok(server.rules(ready, {
-        type: 'castSpell',
-        seat: 'p1',
-        objectId: named(ready, 'Swords to Plowshares').id,
-        targets: [{ kind: 'object', objectId: named(ready, 'Bear').id }],
-      }))
-      const resolved = resolveStack(server.rules, opened)
-      expect(named(resolved, 'Bear').zone).toBe('exile')
-      expect(resolved.players.p1.life).toBe(44)
-    })
-
 })

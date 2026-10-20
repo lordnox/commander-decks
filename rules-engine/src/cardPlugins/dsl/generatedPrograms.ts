@@ -1,6 +1,6 @@
 import { definitionRevisionFor } from './builders/revision'
 import { RULE_DSL_SCHEMA_VERSION } from './schema/v1'
-import type { GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v1'
+import type { InstructionResult, GeneratedAbility, Instruction, ResultField, TriggeredAbilityDefinition } from './schema/v1'
 import type { ZoneId } from '../../types'
 
 /**
@@ -217,7 +217,7 @@ export const rewriteCapturedReferences = (
 export const captureLexicalBindings = (
   instructions: readonly Instruction[],
   choices: Readonly<Record<string, CapturedChoice>> = {},
-  results: Readonly<Record<string, boolean | number>> = {},
+  results: Readonly<Record<string, InstructionResult>> = {},
   additionalValues: readonly unknown[] = [],
   localOccurrenceBindings: readonly CapturedOccurrenceBinding[] = [],
 ) => {

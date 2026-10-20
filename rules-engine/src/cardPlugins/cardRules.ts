@@ -175,7 +175,6 @@ import {
   fightUpToOne,
   manaFrom,
   addUntilCleanupRule,
-  gainLifeTargetPower,
   gainLifeLostThisTurn,
   ifGiftNotPromised,
   revealDrawLoseLife,
@@ -218,7 +217,6 @@ import {
   playerAuraDeal,
   targetingRequirement,
   addManaAtNextMainFromTarget,
-  gainLifeTargetToughness,
   addPlusCountersToControlled,
   opponentMayDrawThenStealCast,
   flashback,
@@ -397,13 +395,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         { optional: true, max: 1 },
       )],
     },
-  ],
-  "An Offer You Can't Refuse": [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', noncreature: true },
-      createTreasures(2, 'targetController'),
-    ),
   ],
   'Analyze the Pollen': [
     searchSpell({
@@ -659,13 +650,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   Comeuppance: [handler('combatPreventionCards')],
   'Concordant Crossroads': [staticGrant('sharedHaste'), handler('sharedHaste')],
-  Condemn: [
-    targetOnResolve(
-      'libraryBottom',
-      { zone: 'battlefield', type: 'Creature', attacking: true },
-      gainLifeTargetToughness(),
-    ),
-  ],
   "Council's Judgment": [
     onResolve(vote(
       'Vote for a nonland permanent you do not control.',
@@ -1580,20 +1564,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     { numbers: [2], do: [returnOwnedGraveyardLands()] },
     { numbers: [3], do: [pumpTargetEqualToLands(true)] },
   )],
-  'Swan Song': [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack', types: ['Enchantment', 'Instant', 'Sorcery'] },
-      bird,
-    ),
-  ],
-  'Swords to Plowshares': [
-    targetOnResolve(
-      'exile',
-      { zone: 'battlefield', type: 'Creature' },
-      gainLifeTargetPower(),
-    ),
-  ],
   'Sygg, River Cutthroat': [
     triggerOn('end', {
       if: opponentLostLifeThisTurn(3),

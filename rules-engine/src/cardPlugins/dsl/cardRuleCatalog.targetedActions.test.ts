@@ -280,3 +280,33 @@ test('drain catalog entries compose numeric action results with life gain', () =
     }
   }
 })
+
+
+test('controller follow-up catalog programs capture their recipient before removing the target', () => {
+  for (const name of ["An Offer You Can't Refuse", 'Swan Song', 'Swords to Plowshares', 'Condemn']) {
+    const entry = cardRuleDefinitionSnapshotFor(name)!
+    expect(entry).toBeDefined()
+    expect(effectsFor(name)).toEqual([])
+    const ability = entry.definition.abilities[0]!
+    if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
+    expect(ability.instructions[0]).toEqual({ kind: 'capturePlayer', player: { kind: 'relatedPlayer', relation: 'controller', of: { kind: 'targetRef', clauseIndex: 0 } }, bindResult: 'targetController' })
+    expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({ targets: { kind: 'resultRef', binding: 'targetController', field: 'player' } }))
+    switch (name) {
+      case "An Offer You Can't Refuse":
+        expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'stackItems', filter: { kind: 'spell', not: { type: 'Creature' } } })
+        expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({ count: { kind: 'constant', value: 2 }, token: { name: 'Treasure', types: ['Artifact'], subtypes: ['Treasure'], colors: [] } }))
+        break
+      case 'Swan Song':
+        expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'stackItems', filter: { kind: 'spell', any: [{ type: 'Enchantment' }, { type: 'Instant' }, { type: 'Sorcery' }] } })
+        expect(ability.instructions.at(-1)).toEqual(expect.objectContaining({ token: expect.objectContaining({ colors: ['U'], power: 2, toughness: 2, oracleText: 'Flying' }) }))
+        break
+      case 'Swords to Plowshares':
+        expect(ability.instructions[2]).toEqual(expect.objectContaining({ kind: 'move', to: 'exile' }))
+        break
+      case 'Condemn':
+        expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', attacking: true } })
+        expect(ability.instructions[2]).toEqual(expect.objectContaining({ kind: 'move', to: 'library', position: 'bottom' }))
+        break
+    }
+  }
+})

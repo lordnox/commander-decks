@@ -180,15 +180,21 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         break
       }
+      case 'relatedPlayer':
+        exactKeys(node, path, ['kind', 'relation', 'of'], ['kind', 'relation', 'of'])
+        enumeration(node.relation, childPath(path, 'relation'), new Set(['controller', 'owner']), 'player role')
+        validateReference(node.of, childPath(path, 'of'), env, node.relation === 'owner' ? ['object'] : ['object', 'stack'])
+        domain = 'player'
+        break
       case 'resultRef': {
         exactKeys(node, path, ['kind', 'binding', 'field'], ['kind', 'binding', 'field'])
         const name = bindingName(node.binding, childPath(path, 'binding'))
-        const field = enumeration(node.field, childPath(path, 'field'), new Set(['amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
+        const field = enumeration(node.field, childPath(path, 'field'), new Set(['player', 'amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
         if (name && field) {
           const binding = env.locals.get(name)
           if (binding && binding.kind !== 'result') issue(childPath(path, 'binding'), 'binding-kind', `${name} is a choice binding, not a result binding`)
           else if (!binding?.fields?.has(field)) issue(childPath(path, 'field'), 'unresolved-binding', `result ${name}.${field} is not produced on every control-flow path`)
-          else domain = ['amount', 'discardedCount', 'created'].includes(field) ? 'number' : 'boolean'
+          else domain = field === 'player' ? 'player' : ['amount', 'discardedCount', 'created'].includes(field) ? 'number' : 'boolean'
         }
         break
       }
@@ -593,6 +599,11 @@ export const validateDefinitionV1 = (root: unknown): {
       validateRecipient(node.targets, childPath(path, 'targets'), env, expected)
     }
     switch (node.kind) {
+      case 'capturePlayer':
+        exactKeys(node, path, ['kind', 'player', 'bindResult'], ['kind', 'player', 'bindResult'])
+        validateReference(node.player, childPath(path, 'player'), env, ['player'])
+        declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'player', fields: new Set<ResultField>(['player']) }, childPath(path, 'bindResult'))
+        return
       case 'captureAmount':
         exactKeys(node, path, ['kind', 'amount', 'bindResult'], ['kind', 'amount', 'bindResult'])
         validateAmount(node.amount, childPath(path, 'amount'), env)
@@ -656,7 +667,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'sacrifice':
       case 'move': {
-        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters', 'position'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
         if (node.kind === 'move' && node.tapped !== undefined && typeof node.tapped !== 'boolean') {
@@ -678,6 +689,10 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>([node.kind === 'move' ? 'moved' : 'sacrificed']) }, childPath(path, 'bindResult'))
+        }
+        if (node.kind === 'move' && node.position !== undefined) {
+          enumeration(node.position, childPath(path, 'position'), new Set(['top', 'bottom']), 'library position')
+          if (node.to !== 'library') issue(childPath(path, 'position'), 'move-position', 'position requires the library destination')
         }
         if (node.kind === 'move' && node.bindChoice !== undefined) {
           if (!new Set(['battlefield', 'graveyard', 'exile', 'command']).has(String(node.to))) issue(childPath(path, 'bindChoice'), 'move-binding-zone', 'move bindings require a public destination')
@@ -1263,11 +1278,11 @@ export const validateDefinitionV1 = (root: unknown): {
             if (capturedResults) for (const [name, fields] of Object.entries(capturedResults)) {
               const resultName = bindingName(name, `${path}.capturedBindings.results.${name}`)
               const fieldList = array(fields, `${path}.capturedBindings.results.${name}`)
-                .map((field, index) => enumeration(field, `${path}.capturedBindings.results.${name}[${index}]`, new Set(['amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined)
+                .map((field, index) => enumeration(field, `${path}.capturedBindings.results.${name}[${index}]`, new Set(['player', 'amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined)
                 .filter((field): field is ResultField => field !== undefined)
               if (resultName) declareBinding(occurrenceBase, resultName, {
                 kind: 'result',
-                domain: fieldList.some((field) => field === 'discardedCount' || field === 'created') ? 'number' : 'boolean',
+                domain: fieldList.includes('player') ? 'player' : fieldList.some((field) => field === 'discardedCount' || field === 'created') ? 'number' : 'boolean',
                 fields: new Set(fieldList),
               }, `${path}.capturedBindings.results.${name}`)
             }

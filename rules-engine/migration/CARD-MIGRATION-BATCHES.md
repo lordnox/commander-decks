@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after groups 01 and 06. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after groups 01 and 06 plus the first four registrations in group 07. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**229 legacy registration keys, assigned exactly once to 39 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 229 is not a distinct-card count.
+**225 legacy registration keys, assigned exactly once to 39 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 225 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -21,7 +21,7 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 **A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
 
-Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
+Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; remaining controller follow-ups after copy, iteration, and per-target outcome support. Small existing-primitive candidates can be taken between these batches after full-card review.
 
 ## Completed group 01
 
@@ -32,6 +32,12 @@ Lightning Bolt, Loran of the Third Path, and both Malakir Rebirth registration k
 `Debt to the Deathless`; `Drain Life`; `Exsanguinate` (**3 registrations**).
 
 Canonical support now includes numeric multiplication/minimum, actual life-loss and damage result totals, optional characteristic fallbacks with pre-damage captures, and colored X spending restrictions that still permit generic cost reductions. Mechanic suites cover replacement-adjusted losses, partial/full damage prevention, player/creature/planeswalker caps, battles, JSON restore during replacement choices, and payment restrictions. The two unused legacy drain executors were removed.
+
+## Group 07 — completed first slice
+
+`An Offer You Can't Refuse`; `Swan Song`; `Swords to Plowshares`; `Condemn` (**4 registrations**).
+
+Canonical controller/owner references and persisted player-result captures survive target zone changes, generated callbacks, and JSON restore. Counter follow-ups remain unconditional when a counter is suppressed. Swords/Condemn capture the target's controller and nonnegative power/toughness at resolution; Condemn uses an explicit bottom-of-owner's-library move. Mechanic tests cover different controllers/owners, token disappearance, signed stats, delayed captures, and prevention filters. The Swords migration corrects the legacy caster-life-gain defect (#442) and replaces its incorrect assertion with mechanic coverage. Two obsolete legacy stat-to-life executors were removed. Three cards remain in group 07 below.
 
 ## Complete primary assignment
 
@@ -47,15 +53,15 @@ Priority **A** · effort **L** · **5 registrations**
 
 **Required support / secondary gates:** Bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
 
-### 07. Object/stack controller follow-up
+### 07. Object/stack controller follow-up — remaining slice
 
-Priority **A** · effort **M** · **7 registrations**
+Priority **A** · effort **L** · **3 registrations**
 
-**Registrations:** `An Offer You Can't Refuse`; `Condemn`; `Fractured Identity`; `Settle the Wreckage`; `Swan Song`; `Swords to Plowshares`; `Terastodon`.
+**Registrations:** `Fractured Identity`; `Settle the Wreckage`; `Terastodon`.
 
-**Shared work:** Target an object or spell, then perform a follow-up for its captured controller.
+**Shared work:** Controller/owner references, captured player results, power/toughness captures, and library positioning now exist. An Offer You Can't Refuse, Swan Song, Swords to Plowshares, and Condemn have migrated.
 
-**Required support / secondary gates:** Reusable controller/owner reference and capture before zone change; power/toughness capture; actual counter/move/destroy outcomes. Token copies, per-player iteration, counted basic searches, and Terastodon multi-target outcome attribution are later dependencies.
+**Required support / secondary gates:** Fractured Identity needs a captured copiable snapshot and per-player copy iteration; Settle the Wreckage needs per-player iteration plus actual exile counts for basic searches; Terastodon needs per-target destruction outcome attribution for its controller's token follow-up.
 
 ### 08. Top-of-library selection
 

@@ -448,7 +448,6 @@ export type CardInstruction =
     }
   | { kind: 'addManaPerSwamp'; basic?: boolean }
   | { kind: 'revealDrawLoseLife' }
-  | { kind: 'gainLifeTargetPower' }
   | { kind: 'mayCastFromExileWithoutPayingMana' }
   | { kind: 'mayCastFromHandWithoutPayingMana'; maxManaValue: number }
   | { kind: 'finishWarpExile' }
@@ -514,7 +513,6 @@ export type CardInstruction =
   | { kind: 'putLinkedExileToGraveyardGainLifeApply' }
   | { kind: 'loseHalfLifeRoundedUp' }
   | { kind: 'addManaAtNextMainFromTarget' }
-  | { kind: 'gainLifeTargetToughness' }
   | { kind: 'tapOpponentsCreatures' }
   /** `chosen` counters the spell this item already targeted instead of asking for one. */
   | { kind: 'counterTargetSpell'; chosen?: true }
