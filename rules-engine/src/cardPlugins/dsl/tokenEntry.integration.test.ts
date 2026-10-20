@@ -1,3 +1,4 @@
+import collectorsVault from '../../cards/collectors-vault'
 import { describe, expect, test } from 'bun:test'
 import {
   card,
@@ -95,4 +96,22 @@ test.each([['Forest', 'G'], ['Island', 'U']] as const)('land creature tokens ret
   const tapped = ok(server.rules(ready, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana }))
   expect(tapped.players.p1.mana[mana]).toBe(1)
   expect(tapped.objects[token.id].tapped).toBe(true)
+})
+
+test('canonical artifact tokens retain their sacrifice-for-colored-mana ability', () => {
+  const ability = collectorsVault.ruleDefinition.definition.abilities[0]
+  if (ability.kind !== 'activated' || !ability.instructions) throw new Error('Expected activated program')
+  const instruction = ability.instructions[2]
+  if (instruction.kind !== 'createToken') throw new Error('Expected token creation')
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [{ ...instruction, token: { ...instruction.token, name: 'Mana token fixture' } }] })] },
+  }, { random: () => 0 })
+  const resolved = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+  })))
+  const token = named(resolved, 'Mana token fixture')
+  expect(token).toMatchObject({ zone: 'battlefield', types: ['Artifact'], subtypes: ['Treasure'], token: true })
+  const spent = ok(server.rules(resolved, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana: 'G' }))
+  expect(spent.players.p1.mana.G).toBe(1)
+  expect(spent.objects[token.id]).toBeUndefined()
 })

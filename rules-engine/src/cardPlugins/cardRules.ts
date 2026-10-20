@@ -373,12 +373,6 @@ const changelingShapeshifter = () => createTokenInstruction({
 
 const perchBirds = (): CardInstruction[] => [bird, bird, bird, bird]
 
-const lootAndTreasure = (id: string): CardEffect => activate({
-  id,
-  costs: { mana: '{2}', tap: true },
-  do: [draw(1), discardCards(1), createTreasures(1, 'you')],
-})
-
 const cycleFromHand = (id: string, mana = '{3}') => cycleHand(id, mana)
 
 /**
@@ -728,7 +722,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       [draw(1)],
     )],
   ))],
-  'Collector\'s Vault': [lootAndTreasure('collectorsVault.loot')],
   Colossification: [
     targetOnResolve('select', { zone: 'battlefield', type: 'Creature' }),
     enters(tapAttached(), pumpAttached(20, 20)),
@@ -778,7 +771,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ),
     ),
   ],
-  'Daily Bugle Newspaper': [lootAndTreasure('dailyBugle.loot')],
   'Dakmor Salvage': [dredge(2), entersTapped()],
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
