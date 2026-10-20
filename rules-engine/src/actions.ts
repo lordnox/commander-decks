@@ -30,7 +30,7 @@ import {
 } from './cardPlugins/activationCosts'
 import { effectsOf } from './cardPlugins/cardRules'
 import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
-import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceSacrificeCost } from './cardPlugins/dsl/compiler'
+import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
 import type { CardRuleDefinitionV1, Cost } from './cardPlugins/dsl/schema/v1'
@@ -1196,7 +1196,7 @@ const canonicalActionCostGroups = (state: GameState, object: GameObject, costs: 
   const context = { state, controller: seat, source: captureObject(object) }
   return costs.flatMap(cost => {
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') return []
-    const sourceCost = isSourceSacrificeCost(cost)
+    const sourceCost = isSourceObjectCost(cost)
     if (sourceCost && !options.includeSourceCosts) return []
     const candidates = cost.filter.kind === 'objects'
       ? evaluateObjectSelector(cost.filter, context) : evaluateObjectReference(cost.filter, context)
@@ -1250,7 +1250,7 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
       { targetClauses: [], deferPayment: true })
     if (!announcement.ok) return []
     const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
-      || isSourceSacrificeCost(cost))
+      || isSourceObjectCost(cost))
       ? new Set([object.id]) : new Set<string>()
     if (fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded) === null) return []
     const targetGroups = [...costEntries.filter(entry => !entry.sourceCost).map(entry => entry.group), ...canonicalActionTargetGroups(state, object, ability, seat)]
@@ -2383,7 +2383,7 @@ export const eventsForAvailableAction = (
         const announcement = beginActivatedAnnouncement(state, object, seat, ability, targetClauses, undefined, choices, { deferPayment: true })
         if (!announcement.ok) return null
         const excluded = ability.costs.some(cost => cost.kind === 'tapSource'
-          || isSourceSacrificeCost(cost))
+          || isSourceObjectCost(cost))
           ? new Set([object.id]) : new Set<string>()
         const funding = fundingEvents(state, seat, announcement.transaction.lockedCost.mana ?? '', excluded)
         if (!funding) return null

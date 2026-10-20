@@ -223,10 +223,14 @@ const canonicalPatternMatches = (
     if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)
     return canonicalManaSourceEvent(state, event)
   }
-  if (pattern.kind === 'draw' || pattern.kind === 'discard' || pattern.kind === 'playLand') {
+  if (pattern.kind === 'draw' || pattern.kind === 'discard' || pattern.kind === 'playLand' || pattern.kind === 'cycle') {
     if (event.type !== pattern.kind || !occurrence.player) return false
     if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
       || occurrence.object.before.controller !== occurrence.player)) return false
+    if (pattern.kind === 'cycle' && pattern.filter.object) {
+      const object = occurrence.object?.after
+      if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence)) return false
+    }
     const player = occurrence.player
     if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === true
       && !isProtectedFirstDrawInOwnDrawStep(beforeState, player)) return false
@@ -306,10 +310,15 @@ const generatedPatternMatches = (
   switch (pattern.kind) {
     case 'playLand':
     case 'discard':
+    case 'cycle':
     case 'draw': {
       if (event.type !== pattern.kind || !occurrence.player) return false
       if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
         || occurrence.object.before.controller !== occurrence.player)) return false
+      if (pattern.kind === 'cycle' && pattern.filter.object) {
+        const object = occurrence.object?.after
+        if (!object || !canonicalFilterMatch(state, source, object, pattern.filter.object, occurrence, execution)) return false
+      }
       if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === true
         && !isProtectedFirstDrawInOwnDrawStep(beforeState, occurrence.player)) return false
       if (pattern.kind === 'draw' && pattern.filter.firstDrawInOwnDrawStep === false

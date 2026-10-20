@@ -170,18 +170,18 @@ describe('simple card effects', () => {
 
     const rejected = server.rules(server.state, {
       type: 'activateAbility',
-      abilityId: 'cycling.zagothTriome',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: triomeId,
     })
     expect(rejected.ok).toBe(false)
-    expect(rejected.ok === false && rejected.error).toContain('not enough mana')
+    expect(rejected.ok === false && rejected.error).toMatch(/not enough mana|payment does not cover/)
 
     const ready = structuredClone(server.state)
     ready.players.p1.mana.C = 3
     const cycled = ok(server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.zagothTriome',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: triomeId,
     }))
@@ -190,7 +190,7 @@ describe('simple card effects', () => {
     expect(cycled.players.p1.mana.C).toBe(0)
     expect(named(cycled, 'Drawn card').zone).toBe('library')
     expect(cycled.stack).toHaveLength(1)
-    expect(cycled.stack[0]).toMatchObject({ kind: 'ability', abilityId: 'cycling.zagothTriome' })
+    expect(cycled.stack[0]).toMatchObject({ kind: 'ability', abilityId: '$.abilities[1]' })
 
     const resolved = ok(server.rules(cycled, { type: 'resolveTop' }))
     expect(named(resolved, 'Drawn card').zone).toBe('hand')
@@ -214,7 +214,7 @@ describe('simple card effects', () => {
     ready.players.p1.mana.C = 3
     const result = server.rules(ready, {
       type: 'activateAbility',
-      abilityId: 'cycling.zagothTriome',
+      abilityId: '$.abilities[1]',
       seat: 'p1',
       objectId: named(ready, 'Zagoth Triome').id,
     })

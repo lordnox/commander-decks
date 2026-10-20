@@ -18,8 +18,13 @@ export type AnnouncementManaPayment = {
   restricted?: boolean
 }
 
+export const isSourceObjectCost = (cost: Cost) =>
+  (cost.kind === 'sacrifice' || cost.kind === 'discard')
+  && cost.filter.kind === 'contextRef'
+  && cost.filter.name === 'source'
+
 export const isSourceSacrificeCost = (cost: Cost) =>
-  cost.kind === 'sacrifice' && cost.filter.kind === 'contextRef' && cost.filter.name === 'source'
+  cost.kind === 'sacrifice' && isSourceObjectCost(cost)
 
 export type CostPlan = {
   mandatory: readonly Cost[]
@@ -244,20 +249,11 @@ const costAmount = (amount: Amount, x: number | undefined, runtime?: RuleDslRunt
 
 export const evaluateAnnouncementCostAmount = (amount: Amount, x: number | undefined) => costAmount(amount, x)
 
-const matchesCostFilter = (object: GameState['objects'][string], filter: Extract<Cost, { kind: 'discard' }>['filter']['filter']) => {
-  if (filter.zone && object.zone !== filter.zone) return false
-  if (filter.type && !object.types.includes(filter.type)) return false
-  if (filter.subtypes && !filter.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
-  if (filter.name && object.name !== filter.name) return false
-  if (filter.token !== undefined && object.token !== filter.token) return false
-  return true
-}
-
 const isSourceCostRecipient = (filter: ObjectRecipient) =>
   filter.kind === 'contextRef' && filter.name === 'source'
 
-const sacrificeCostCandidates = (
-  cost: Extract<Cost, { kind: 'sacrifice' }>,
+const objectCostCandidates = (
+  cost: Extract<Cost, { kind: 'discard' | 'sacrifice' }>,
   runtime: RuleDslRuntimeContext,
   payer: PlayerId,
   excludedSourceId: string,
@@ -267,7 +263,7 @@ const sacrificeCostCandidates = (
     : evaluateObjectReference(cost.filter, runtime)
   return resolved.filter((object) =>
     object.controller === payer
-    && object.zone === 'battlefield'
+    && object.zone === (cost.kind === 'discard' ? 'hand' : 'battlefield')
     && (!excludedSourceId || object.id !== excludedSourceId || isSourceCostRecipient(cost.filter)))
 }
 
@@ -285,22 +281,12 @@ export const resolveNonManaCostObjectChoices = (
   let choiceIndex = 0
   for (const cost of costs) {
     if (cost.kind !== 'discard' && cost.kind !== 'sacrifice') continue
-    const requiredZone = cost.kind === 'discard' ? 'hand' : 'battlefield'
-    const candidates = cost.kind === 'discard'
-      ? Object.values(state.objects).filter((object) =>
-        (excludedSourceId === '' || object.id !== excludedSourceId)
-        && object.controller === payer
-        && object.zone === requiredZone
-        && matchesCostFilter(object, cost.filter.filter))
-      : (() => {
-        if (!runtime) throw new TypeError('sacrifice costs require an announcement source')
-        return sacrificeCostCandidates(cost, runtime, payer, excludedSourceId)
-      })()
+    if (!runtime) throw new TypeError(`${cost.kind} costs require an announcement source`)
+    const candidates = objectCostCandidates(cost, runtime, payer, excludedSourceId)
     const count = costAmount(cost.count, x, runtime)
     if (candidates.length < count) throw new TypeError(`not enough cards to ${cost.kind} as a cost`)
     let selected = choices?.slice(choiceIndex, choiceIndex + count)
     if ((!selected || selected.length !== count)
-      && cost.kind === 'sacrifice'
       && isSourceCostRecipient(cost.filter)
       && count === 1
       && candidates.length === 1) {
@@ -623,7 +609,11 @@ export type ActivationPermissionInput = {
 export const activationPermission = (input: ActivationPermissionInput): string | undefined => {
   const source = input.state.objects[input.sourceId]
   if (!source) return 'activation source does not exist'
-  if (input.availableFrom && !input.availableFrom.includes(source.zone)) return `${source.name} is not in an available zone`
+  if (input.availableFrom && !input.availableFrom.includes(source.zone)) {
+    return input.availableFrom.length === 1 && input.availableFrom[0] === 'hand'
+      ? `${source.name} is not in hand`
+      : `${source.name} is not in an available zone`
+  }
   if (!input.availableFrom && source.zone !== 'battlefield') return `${source.name} is not on the battlefield`
   if (source.phasedOut) return `${source.name} is phased out`
   if (source.controller !== input.payer) return `${input.payer} does not control ${source.name}`

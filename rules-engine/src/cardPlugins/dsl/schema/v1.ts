@@ -117,6 +117,7 @@ export type ObjectOccurrenceFilter =
 export type OccurrencePattern =
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
+  | { kind: 'cycle'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }
   | { kind: 'cast'; filter: ObjectOccurrenceFilter }
   | { kind: 'attacks'; filter: ObjectOccurrenceFilter }
   | { kind: 'enters'; filter: ObjectOccurrenceFilter }
@@ -188,7 +189,7 @@ export type ManaId = 'W' | 'U' | 'B' | 'R' | 'G' | 'C'
 
 export type Cost =
   | { kind: 'tapSource' }
-  | { kind: 'discard'; filter: ObjectSelector; count: Amount }
+  | { kind: 'discard'; filter: ObjectRecipient; count: Amount }
   | { kind: 'sacrifice'; filter: ObjectRecipient; count: Amount }
   | { kind: 'draw'; count: Amount }
   | { kind: 'life'; amount: Amount }
@@ -521,6 +522,8 @@ export type ActivatedAbilityDefinition = {
   kind: 'activated'
   availableFrom: readonly Zone[]
   timing: ActivationTiming
+  /** CR 702.89 — emit a `cycle` event after this hand activation fully resolves. */
+  cycling?: true
   decisions: DecisionsSpec
   costs: readonly Cost[]
   optionalCosts?: readonly Cost[]
