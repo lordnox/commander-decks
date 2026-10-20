@@ -33,7 +33,7 @@ import { canonicalManaAbilityForTap } from './cardPlugins/dsl/manaPrograms'
 import { activationPermission, amountEvaluationContext, beginActivatedAnnouncement, beginSpellAnnouncement, evaluateModeCount, evaluateRuntimeAmount, evaluateTargetBounds, evaluateObjectSelector, evaluateObjectReference, loadDefinitionSnapshot, modalTargetLayout, isSourceObjectCost } from './cardPlugins/dsl/compiler'
 import { canonicalTargetBindings, canonicalTargetCandidates } from './cardPlugins/dsl/compiler/targeting'
 import { captureObject } from './objectIdentity'
-import type { CardRuleDefinitionV1, Cost } from './cardPlugins/dsl/schema/v1'
+import type { CardRuleDefinitionV1, Cost, Instruction } from './cardPlugins/dsl/schema/v1'
 import type { DistributionAllocation } from './cardPlugins/dsl/compiler/modes'
 import { spreeModesOf, spreeSubsetActions } from './spreeCost'
 import {
@@ -1135,12 +1135,8 @@ const canActivate = (
   // stop its controller at every step of every turn. Surface it once combat
   // damage is actually threatened; a later combat redeclares attackers and
   // reopens the window.
-  if (/prevent all combat damage[^.]*this turn/i.test(line)) {
-    if (!DAMAGE_PENDING_STEPS.has(state.step)) return false
-    const attacking = Object.values(state.objects).some(
-      (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
-    )
-    if (!attacking) return false
+  if (/prevent all combat damage[^.]*this turn/i.test(line) && !combatDamageIsThreatened(state)) {
+    return false
   }
   const manaCost = [...cost.matchAll(/\{(?:\d+|[WUBRGC](?:\/[WUBRGC])?)\}/gi)]
     .map((match) => match[0])
@@ -1236,6 +1232,23 @@ const canonicalTargetRef = (state: GameState, id: string) => {
   return { kind: 'object' as const, objectId: id }
 }
 
+const fogsAllCombatThisTurn = (instruction: Instruction): boolean => {
+  if (instruction.kind === 'sequence') return instruction.instructions.some(fogsAllCombatThisTurn)
+  if (instruction.kind !== 'createEffect' || instruction.effect.kind !== 'prevention') return false
+  const { effect, duration } = instruction
+  return effect.capacity.kind === 'unlimited'
+    && duration.kind === 'untilCleanup'
+    && effect.filter.combat === true
+    && effect.filter.source === undefined
+    && effect.filter.recipient === undefined
+}
+
+const combatDamageIsThreatened = (state: GameState) =>
+  DAMAGE_PENDING_STEPS.has(state.step)
+  && Object.values(state.objects).some(
+    (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
+  )
+
 const canonicalActivationActions = (state: GameState, object: GameObject, seat: PlayerId) => {
   if (!object.ruleDefinition || object.controller !== seat) return []
   const definition = loadDefinitionSnapshot(object.ruleDefinition).definition
@@ -1243,6 +1256,7 @@ const canonicalActivationActions = (state: GameState, object: GameObject, seat: 
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.variables?.length) return []
     if (activationPermission({ state, sourceId: object.id, payer: seat, action: 'activate',
       sorcerySpeed: ability.timing === 'sorcery', availableFrom: ability.availableFrom })) return []
+    if (ability.instructions.some(fogsAllCombatThisTurn) && !combatDamageIsThreatened(state)) return []
     const costEntries = canonicalActionCostGroups(state, object, ability.costs, seat, { includeSourceCosts: true, excludeSource: false })
     const costChoices = canonicalCostPreviewChoices(costEntries)
     if (!costChoices) return []
@@ -1322,13 +1336,7 @@ const cardRuleActions = (state: GameState, object: GameObject, seat: PlayerId) =
         instruction.kind === 'preventCombatDamage'
         && (instruction.from ?? 'all') === 'all'
         && !instruction.toController)
-      if (fogsAllCombat) {
-        if (!DAMAGE_PENDING_STEPS.has(state.step)) return []
-        const attacking = Object.values(state.objects).some(
-          (candidate) => candidate.zone === 'battlefield' && candidate.attacking,
-        )
-        if (!attacking) return []
-      }
+      if (fogsAllCombat && !combatDamageIsThreatened(state)) return []
       return [{
         kind: 'activateAbility',
         objectId: object.id,

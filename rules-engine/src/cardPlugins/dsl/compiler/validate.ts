@@ -347,6 +347,31 @@ export const validateDefinitionV1 = (root: unknown): {
     validateAmount(value, path, env)
   }
 
+  const validatePreventionCapacity = (value: unknown, path: string, env: Environment): void => {
+    const node = object(value, path)
+    if (!node) return
+    if (node.kind === 'unlimited') {
+      exactKeys(node, path, ['kind'], ['kind'])
+      return
+    }
+    validateAmount(value, path, env)
+  }
+
+  const validatePreventionFilter = (value: unknown, path: string, env: Environment): void => {
+    const node = object(value, path)
+    if (!node) return
+    exactKeys(node, path, ['recipient', 'source', 'combat'], [])
+    if (node.combat !== undefined && typeof node.combat !== 'boolean') {
+      issue(childPath(path, 'combat'), 'type', 'expected a boolean')
+    }
+    if (node.recipient !== undefined) {
+      validateRecipient(node.recipient, childPath(path, 'recipient'), env, ['player', 'object'])
+    }
+    if (node.source !== undefined) {
+      validateRecipient(node.source, childPath(path, 'source'), env, ['object'])
+    }
+  }
+
   const validateCondition = (value: unknown, path: string, env: Environment, depth = 0): void => {
     if (depth > MAX_TREE_DEPTH) {
       issue(path, 'depth-limit', `condition nesting is limited to ${MAX_TREE_DEPTH}`)
@@ -760,7 +785,8 @@ export const validateDefinitionV1 = (root: unknown): {
               break
             }
             case 'prevention':
-              validateAmount(effect.capacity, childPath(childPath(path, 'effect'), 'capacity'), env)
+              validatePreventionFilter(effect.filter, childPath(childPath(path, 'effect'), 'filter'), env)
+              validatePreventionCapacity(effect.capacity, childPath(childPath(path, 'effect'), 'capacity'), env)
               if (effect.additionalEffects !== undefined) {
                 validateInstructionList(effect.additionalEffects, childPath(childPath(path, 'effect'), 'additionalEffects'), env, depth + 1)
               }
@@ -1297,7 +1323,8 @@ export const validateDefinitionV1 = (root: unknown): {
             }
             case 'prevention': {
               exactKeys(node, effectPath, ['kind', 'filter', 'capacity', 'transform', 'additionalEffects'], ['kind', 'filter', 'capacity', 'transform'])
-              validateAmount(node.capacity, childPath(effectPath, 'capacity'), baseEnvironment())
+              validatePreventionFilter(node.filter, childPath(effectPath, 'filter'), baseEnvironment())
+              validatePreventionCapacity(node.capacity, childPath(effectPath, 'capacity'), baseEnvironment())
               const transform = object(node.transform, childPath(effectPath, 'transform'))
               if (transform && transform.kind !== 'preventDamage') {
                 issue(childPath(effectPath, 'transform'), 'unsupported-kind', 'prevention requires preventDamage transform')
