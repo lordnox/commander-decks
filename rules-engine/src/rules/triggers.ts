@@ -198,6 +198,7 @@ const canonicalFilterMatch = (
   if (plain.zone !== undefined && object.zone !== plain.zone) return false
   if (plain.type !== undefined && !object.types.includes(plain.type)) return false
   if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
+  if (plain.tapped !== undefined && object.tapped !== plain.tapped) return false
   if (plain.token !== undefined && object.token !== plain.token) return false
   if (plain.name !== undefined && object.name !== plain.name) return false
   if (plain.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < plain.powerAtLeast)) return false

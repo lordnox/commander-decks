@@ -269,6 +269,7 @@ const matchesObjectFilter = (
   if (filter.token !== undefined && object.token !== filter.token) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
   if (filter.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < filter.powerAtLeast)) return false
+  if (filter.tapped !== undefined && object.tapped !== filter.tapped) return false
   if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
   return true
 }

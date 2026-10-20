@@ -762,7 +762,9 @@ const actionEvents = (
     }
     case 'tap':
     case 'untap':
-      return objectActions(instruction.targets, context).map(object => ({ type: instruction.kind, objectId: object.id }))
+      return objectActions(instruction.targets, context)
+        .filter(object => isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .map(object => ({ type: instruction.kind, objectId: object.id }))
     case 'phase': {
       const targets = objectActions(instruction.targets, context)
       return targets.map((object) => ({ type: instruction.out ? 'phaseOut' as const : 'phaseIn' as const, objectId: object.id }))

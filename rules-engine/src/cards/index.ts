@@ -4,6 +4,7 @@ import abundance from './abundance'
 import aesiTyrantOfGyreStrait from './aesi-tyrant-of-gyre-strait'
 import aetherize from './aetherize'
 import aftermathAnalyst from './aftermath-analyst'
+import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
 import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
@@ -122,6 +123,7 @@ import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
+import stifle from './stifle'
 import stitchTogether from './stitch-together'
 import stitchersSupplier from './stitchers-supplier'
 import subjugatorAngel from './subjugator-angel'
@@ -163,6 +165,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Aesi, Tyrant of Gyre Strait": aesiTyrantOfGyreStrait,
   "Aetherize": aetherize,
   "Aftermath Analyst": aftermathAnalyst,
+  "Amulet of Vigor": amuletOfVigor,
   "Anguished Unmaking": anguishedUnmaking,
   "Arbor Elf": arborElf,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
@@ -284,6 +287,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sky Diamond": skyDiamond,
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
+  "Stifle": stifle,
   "Stitch Together": stitchTogether,
   "Stitcher's Supplier": stitchersSupplier,
   "Subjugator Angel": subjugatorAngel,
