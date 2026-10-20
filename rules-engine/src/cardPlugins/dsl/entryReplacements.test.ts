@@ -8,6 +8,9 @@ import {
   wouldEnter,
   modifyEvent,
   asThisEntersChooseColor,
+  asThisEntersPayLifeOrTap,
+  DECLINE_LIFE_OPTION,
+  PAY_LIFE_OPTION,
   redirectEvent,
 } from './v1'
 import { commanderRules } from '../../formats'
@@ -162,6 +165,75 @@ test.each(['playLand', 'move'] as const)('%s applies a land self-entry replaceme
   expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: true })
   expect(entered.players.p1.landsPlayed).toBe(eventType === 'playLand' ? 1 : 0)
   expect(entered.stack).toEqual([])
+})
+
+const shockLand = () => createDefinitionSnapshot(compileCardRuleDefinition(card([
+  staticAbility(asThisEntersPayLifeOrTap(2)),
+])))
+
+const playShockLand = (life = 40) => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Shock fixture', { types: ['Land'], subtypes: ['Island', 'Swamp'], ruleDefinition: shockLand() })] },
+  }, { random: () => 0 })
+  server.state.players.p1.life = life
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  const paused = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+  return { server, objectId, paused }
+}
+
+const chooseShock = (paused: GameState, optionId: string, server: ReturnType<typeof createServerGame>) => {
+  const restored = JSON.parse(JSON.stringify(paused)) as GameState
+  const choice = pendingOptionSelection(restored, 'p1')!
+  return ok(server.rules(restored, {
+    type: 'selectOption',
+    seat: 'p1',
+    selectionId: choice.id,
+    optionId,
+  }))
+}
+
+test('paying the printed life as a land enters leaves it untapped', () => {
+  const { server, objectId, paused } = playShockLand()
+  expect(paused.objects[objectId].zone).toBe('hand')
+  expect(paused.priority).toBeNull()
+  expect(paused.players.p1.landsPlayed).toBe(1)
+  const pending = pendingOptionSelection(paused, 'p1')!
+  expect(pending.action.kind).toBe('replacementProgramChoice')
+  expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+  const entered = chooseShock(paused, PAY_LIFE_OPTION, server)
+  expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: false })
+  expect(entered.players.p1.life).toBe(38)
+  expect(entered.players.p1.landsPlayed).toBe(1)
+  expect(pendingOptionSelection(entered, 'p1')).toBeUndefined()
+})
+
+test('declining the printed life as a land enters taps it', () => {
+  const { server, objectId, paused } = playShockLand()
+  const entered = chooseShock(paused, DECLINE_LIFE_OPTION, server)
+  expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(entered.players.p1.life).toBe(40)
+})
+
+test('choosing to pay without enough life still taps the land', () => {
+  const { server, objectId, paused } = playShockLand(1)
+  const entered = chooseShock(paused, PAY_LIFE_OPTION, server)
+  expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(entered.players.p1.life).toBe(1)
+})
+
+test('a move uses the same pay-life or tap replacement as a land drop', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Shock fixture', { types: ['Land'], ruleDefinition: shockLand() })] },
+  }, { random: () => 0 })
+  const objectId = server.state.zoneOrder.p1.hand[0]!
+  const paused = ok(server.rules(server.state, { type: 'move', objectId, to: 'battlefield' }))
+  expect(paused.objects[objectId].zone).not.toBe('battlefield')
+  const entered = chooseShock(paused, PAY_LIFE_OPTION, server)
+  expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', tapped: false })
+  expect(entered.players.p1.life).toBe(38)
+  expect(entered.players.p1.landsPlayed).toBe(0)
 })
 
 test('land entry choice restores before committing the move without spending a second land play', () => {

@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after cycling (Astral Drift, Raffine’s Tower, Secluded Steppe, Zagoth Triome). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after pay-life land entry (Breeding Pool, Godless Shrine, Hallowed Fountain, Overgrown Tomb, Watery Grave). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**244 legacy registration keys, assigned exactly once to 42 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 244 is not a distinct-card count.
+**239 legacy registration keys, assigned exactly once to 41 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 239 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -10,7 +10,6 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 | Shared rule | Registrations | Important difference / extra gate |
 | --- | --- | --- |
-| Optional pay 2 life or enter tapped | Breeding Pool; Godless Shrine; Hallowed Fountain; Overgrown Tomb; Watery Grave | Printed land types and mana colors vary. |
 | Reveal top card into hand, lose its mana value | Dark Confidant; Dark Tutelage | Same upkeep program; source card types differ. |
 | Prevent all combat damage this turn | Darkness; Kami of False Hope | Same resolving effect; spell versus sacrifice activation. |
 | Opponent-land color production | Exotic Orchard; Fellwar Stone | Same available-color query; permanent types differ. |
@@ -24,7 +23,7 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 **A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
 
-Recommended opening sequence: pay-life land entry; native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
+Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; unlimited combat prevention plus Darkness/Kami; controller capture plus Swords/Condemn/counter-token follow-ups. Small existing-primitive candidates can be taken between these batches after full-card review.
 
 ## Complete primary assignment
 
@@ -39,16 +38,6 @@ Priority **A** · effort **S** · **4 registrations**
 **Shared work:** Damage; optional artifact/enchantment destruction; draw; temporary death-return grants.
 
 **Required support / secondary gates:** Check complete face handling for Malakir Rebirth and occurrence identity for the granted return. These are existing-primitive candidates, not certified ready cards.
-
-### 04. Pay-life land entry
-
-Priority **A** · effort **M** · **5 registrations**
-
-**Registrations:** `Breeding Pool`; `Godless Shrine`; `Hallowed Fountain`; `Overgrown Tomb`; `Watery Grave`.
-
-**Shared work:** Breeding Pool, Godless Shrine, Hallowed Fountain, Overgrown Tomb, and Watery Grave share the same optional pay-2-life entry replacement.
-
-**Required support / secondary gates:** Reusable entry-time payment choice with tapped fallback; preserve intrinsic basic-land-type mana abilities and entry trigger snapshots.
 
 ### 05. Combat-damage prevention
 

@@ -121,7 +121,7 @@ describe('Sin-fall lands and alternate casting', () => {
         },
         libraries: {
           p2: [
-            card('Breeding Pool', ['Land'], { subtypes: ['Forest', 'Island'] }),
+            card('Found Island', ['Land'], { supertypes: ['Basic'], subtypes: ['Island'] }),
             card('No Type Land', ['Land']),
           ],
         },
@@ -155,16 +155,16 @@ describe('Sin-fall lands and alternate casting', () => {
     expect(search).toMatchObject({ min: 0, after: ['shuffleLibrary'] })
     expect(server.project(state, 'p1').players.p2.data['kernel.pendingSelection'])
       .toBeUndefined()
-    const breedingPool = named(state, 'Breeding Pool')
-    expect(search.candidates).toEqual([breedingPool.id])
+    const found = named(state, 'Found Island')
+    expect(search.candidates).toEqual([found.id])
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p2',
       kind: 'choose',
       count: 1,
-      objectIds: [breedingPool.id],
+      objectIds: [found.id],
     }))
-    expect(state.objects[breedingPool.id].zone).toBe('battlefield')
+    expect(state.objects[found.id].zone).toBe('battlefield')
 
     const otawara = named(state, 'Otawara, Soaring City')
     const creature = named(state, 'Bounce Me')

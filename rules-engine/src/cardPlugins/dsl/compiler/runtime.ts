@@ -60,6 +60,7 @@ export type RuleDslRuntimeContext = RuntimeBindings & {
   source: CapturedObject
   occurrence?: OccurrenceSnapshot
   stackItemId?: string
+  optionChoices?: Readonly<Record<string, string>>
 }
 
 const targetRecipients = (reference: TargetReference, context: RuleDslRuntimeContext) => {
@@ -393,6 +394,7 @@ export const evaluateCondition = (
         case 'lte': return left <= right
       }
     }
+    case 'choiceIs': return context.optionChoices?.[condition.binding] === condition.option
     case 'all': return condition.conditions.every((part) => evaluateCondition(part, context))
     case 'any': return condition.conditions.some((part) => evaluateCondition(part, context))
     case 'not': return !evaluateCondition(condition.condition, context)
