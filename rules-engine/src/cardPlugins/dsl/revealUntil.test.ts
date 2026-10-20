@@ -6,7 +6,7 @@ import { pendingSelectionFor } from '../../rules/selectCards'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
 import { instructionSpell } from './instructionTestSupport'
-import { objects, ref, revealUntil } from './v1'
+import { objects, ref, revealUntil, REVEAL_UNTIL_REST } from './v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
@@ -55,4 +55,18 @@ describe('revealUntil', () => {
     expect(named(state, 'First Spell').zone).toBe('library')
     expect(named(state, 'Next Spell').zone).toBe('library')
   })
+})
+
+test.each([0, 1, 3])('graveyard rest handling reveals through a match or the entire library (match index=%s)', matchIndex => {
+  const library = [card('First', ['Instant']), card('Second', ['Sorcery']), card('Third', ['Creature'])]
+  if (matchIndex < library.length) library[matchIndex] = card('Match', ['Land'])
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [instructionSpell({ instructions: [revealUntil({ targets: ref('controller'), match: objects({ zone: 'library', type: 'Land' }), foundTo: 'hand', rest: REVEAL_UNTIL_REST.graveyard })] })] },
+    libraries: { p1: library },
+  }, { random: () => 0 })
+  const state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0] })))
+  expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+  expect(state.zoneOrder.p1.hand.map(id => state.objects[id].name)).toEqual(matchIndex < library.length ? ['Match'] : [])
+  expect(state.zoneOrder.p1.graveyard.map(id => state.objects[id].name).filter(name => name !== 'Instruction fixture')).toEqual(library.slice(0, matchIndex).map(object => object.name))
+  expect(state.zoneOrder.p1.library.map(id => state.objects[id].name)).toEqual(library.slice(matchIndex + 1).map(object => object.name))
 })

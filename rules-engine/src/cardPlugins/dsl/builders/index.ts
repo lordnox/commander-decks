@@ -704,7 +704,7 @@ export const revealUntil = (input: {
   bindFound?: string
   bindRest?: string
   foundTo: Zone
-  rest: 'orderBottom'
+  rest: Extract<Instruction, { kind: 'revealUntil' }>['rest']
 }): Instruction => immutableData({
   kind: 'revealUntil',
   targets: input.targets,

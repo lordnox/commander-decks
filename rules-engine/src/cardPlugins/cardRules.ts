@@ -133,7 +133,6 @@ import {
   revealPick,
   revealMatchingToHand,
   revealUntil,
-  revealUntilBasicLand,
   goadRevealUntilMatches,
   pairDonateRevealUntilMatches,
   opponentMayPayMana,
@@ -1040,13 +1039,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(optionalMill(2)),
     landToGraveyard(putMilledLandTapped()),
     crew(1),
-  ],
-  'Hermit Druid': [
-    activate({
-      id: 'hermitDruid.reveal',
-      costs: { mana: '{G}', tap: true },
-      do: [revealUntilBasicLand()],
-    }),
   ],
   'Homer, the Hermit': [handler('homer')],
   'Horizon of Progress': [
