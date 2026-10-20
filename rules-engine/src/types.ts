@@ -243,6 +243,8 @@ export type PreventionInstance = {
       | { kind: 'stackItem'; stackId: string }
     )[]>>
   }
+  /** Host snapshot used when the live object has left `state.objects`. */
+  capturedSource?: CapturedObject
   /** Stable key for static abilities: `${sourceId}:${abilityIndex}:${effectIndex}`. */
   staticKey?: string
   additionalEffects?: readonly Instruction[]
