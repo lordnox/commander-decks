@@ -18,6 +18,7 @@ import type {
 } from '../cardPlugins/dsl/schema/v1'
 import { captureObject } from '../objectIdentity'
 import type {
+  CapturedObject,
   EffectDuration,
   GameEvent,
   GameObject,
@@ -45,13 +46,19 @@ const runtimeFor = (
   sourceId: string,
   controller: string,
   bindings?: PreventionInstance['capturedBindings'],
+  capturedSource?: CapturedObject,
 ): RuleDslRuntimeContext => {
-  const source = state.objects[sourceId]
-  if (!source) throw new Error('prevention source is missing')
+  const live = state.objects[sourceId]
+  const source = live
+    ? captureObject(live)
+    : capturedSource
+      ? { ...capturedSource, snapshot: structuredClone(capturedSource.snapshot), information: 'lastKnown' as const }
+      : undefined
+  if (!source) throw new RuleDslEvaluationError('prevention source is missing')
   return {
     state,
     controller,
-    source: captureObject(source),
+    source,
     ...(bindings?.targets ? { targets: bindings.targets } : {}),
     ...(bindings?.targetLegality ? { targetLegality: bindings.targetLegality } : {}),
     ...(bindings?.choices ? { choices: bindings.choices } : {}),
@@ -123,11 +130,12 @@ export const damageMatchesPreventionFilter = (
   hostSourceId: string,
   controller: PlayerId,
   bindings?: PreventionInstance['capturedBindings'],
+  capturedSource?: CapturedObject,
 ) => {
   if (filter.combat === true && event.combat !== true) return false
   if (filter.combat === false && event.combat === true) return false
   try {
-    const runtime = runtimeFor(state, hostSourceId, controller, bindings)
+    const runtime = runtimeFor(state, hostSourceId, controller, bindings, capturedSource)
     if (event.target.kind === 'player') {
       if (!matchesPlayerRecipient(filter, runtime, event.target)) return false
     } else if (event.target.kind === 'object') {
@@ -273,6 +281,7 @@ export const applyRegisterPrevention = (state: GameState, event: Extract<GameEve
     hostSourceIncarnation: host.incarnation,
     controller: host.controller,
     filter: structuredClone(event.filter),
+    capturedSource: captureObject(host),
     ...(event.capturedBindings ? { capturedBindings: structuredClone(event.capturedBindings) } : {}),
     ...(event.staticKey ? { staticKey: event.staticKey } : {}),
     ...(event.additionalEffects ? { additionalEffects: structuredClone(event.additionalEffects) } : {}),
@@ -313,6 +322,7 @@ const staticPreventionFromPrintedModifiers = (state: GameState, sourceId: string
       hostSourceIncarnation: source.incarnation,
       controller: source.controller,
       filter: structuredClone(effect.filter),
+      capturedSource: captureObject(source),
       staticKey: key,
       ...(effect.additionalEffects ? { additionalEffects: structuredClone(effect.additionalEffects) } : {}),
       createdTurn: state.turn,
@@ -373,7 +383,8 @@ export const discoverPreventionCandidates = (
     if (instance.staticKey && (!host || host.phasedOut)) continue
     if (!staticPreventionActive(state, instance)) continue
     if (!damageMatchesPreventionFilter(
-      state, event, instance.filter, instance.hostSourceId, instance.controller, instance.capturedBindings,
+      state, event, instance.filter, instance.hostSourceId, instance.controller,
+      instance.capturedBindings, instance.capturedSource,
     )) {
       continue
     }
@@ -382,7 +393,7 @@ export const discoverPreventionCandidates = (
       category: 'general',
       instanceId: instance.id,
       preventionId: instance.id,
-      label: host?.name ?? 'Prevention',
+      label: host?.name ?? instance.capturedSource?.snapshot.name ?? 'Prevention',
       optional: false,
       chooser: event.target.kind === 'player'
         ? event.target.player
