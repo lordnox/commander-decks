@@ -36,7 +36,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"e9230170a0c88ae36be02ab84f1a2f03d7b0fd8be6d5cda8a78733f746e9291d","card":"Mirror Universe"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"cc6a2e60d251f7173a6b3a16d383a8a3f59139c93221d4a887fe8eadfb0c8777","card":"Children of Korlis"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"65346ffc48faffc72f80f5adc4d909c7b92a70e26f6e19763d09dd246195abb8","card":"Tainted Sigil"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"17246a950456e5d4201f0c03956437d9af5c7e2b325c4d9024cd41afca01fb4f","card":"Blood Celebrant"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"23b61953a08dca52f575780cad29b89ededda9170cd7bd406f31f0c4f902ea7a","card":"Fell the Profane // Fell Mire"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"e9ee92c77e7b6f8a6debb4aa9ea8f8a5942be2a1b17124b36570651c6bd7a3b3","card":"Hagra Mauling // Hagra Broodpit"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"9286108d4f17bbc0a28d12482c5c570e0d6052c41fd3ef01eb509a920f26ba4c","card":"Cling to Dust"},

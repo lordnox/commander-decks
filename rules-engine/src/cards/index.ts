@@ -11,6 +11,7 @@ import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
 import blightedWoodland from './blighted-woodland'
+import bloodCelebrant from './blood-celebrant'
 import bojukaBog from './bojuka-bog'
 import botanicalSanctum from './botanical-sanctum'
 import brokersHideout from './brokers-hideout'
@@ -155,6 +156,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
   "Blighted Woodland": blightedWoodland,
+  "Blood Celebrant": bloodCelebrant,
   "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
   "Brokers Hideout": brokersHideout,

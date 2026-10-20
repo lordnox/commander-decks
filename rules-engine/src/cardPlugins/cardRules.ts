@@ -589,13 +589,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       draw(2),
     ),
   ],
-  'Blood Celebrant': [
-    ability(
-      { id: 'bloodCelebrant.mana', manaAbility: true },
-      { mana: '{B}', life: 1 },
-      { kind: 'addChosenColorMana' },
-    ),
-  ],
   'Blossoming Tortoise': [
     enters(selfMill(3), returnChosenLandFromGraveyard()),
     attacks(selfMill(3), returnChosenLandFromGraveyard()),

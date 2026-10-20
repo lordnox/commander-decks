@@ -10,6 +10,7 @@ import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN } from '../pendingDialog'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, ManaId, ManaPool } from '../types'
@@ -285,7 +286,7 @@ const ACT_CASES: Record<string, ActCase> = {
   },
   'Blood Celebrant': {
     pool: { B: 1 },
-    abilityId: 'bloodCelebrant.mana',
+    abilityId: '$.abilities[0]',
     adds: EVERY_COLOR,
     life: 1,
   },
@@ -520,10 +521,15 @@ describe('act route: costed mana abilities are offered and add exactly their Ora
             candidate.kind === 'activateAbility'
             && candidate.objectId === sourceId
             && candidate.abilityId === scenario.abilityId
-            && candidate.mana === mana)
+            && (candidate.mana === mana || (candidate.mana === undefined && Boolean(state.objects[sourceId].ruleDefinition))))
           expect(act).toBeDefined()
           const events = eventsForAvailableAction(state, 'p1', act!)!
-          const next = events.reduce((current, event) => ok(server.rules(current, event)), state)
+          let next = events.reduce((current, event) => ok(server.rules(current, event)), state)
+          const pending = pendingOptionSelection(next, 'p1')
+          if (pending) {
+            const option = pending.options.find(option => option.label === mana)!
+            next = ok(server.rules(next, { type: 'selectOption', seat: 'p1', selectionId: pending.id, optionId: option.id }))
+          }
           expect(next.players.p1.mana).toEqual({ ...emptyMana(), ...pool })
           expect(lifeBefore - next.players.p1.life).toBe(scenario.life ?? 0)
           expect(libraryBefore - next.zoneOrder.p1.library.length).toBe(scenario.milled ?? 0)
