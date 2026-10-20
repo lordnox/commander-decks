@@ -978,13 +978,14 @@ export const validateDefinitionV1 = (root: unknown): {
         env.context = new Map([...env.context, ['triggering.object.before', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
+      case 'discard':
       case 'draw': {
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')
         env.context = new Map([...env.context, ['triggering.player', 'player']])
-        env.eventAmount = true
+        if (node.kind === 'draw') env.eventAmount = true
         const filter = object(node.filter, childPath(path, 'filter'))
         if (filter) {
-          exactKeys(filter, childPath(path, 'filter'), ['player', 'firstDrawInOwnDrawStep'])
+          exactKeys(filter, childPath(path, 'filter'), node.kind === 'draw' ? ['player', 'firstDrawInOwnDrawStep'] : ['player'])
           if (filter.player !== undefined) validateRecipient(filter.player, childPath(childPath(path, 'filter'), 'player'), env, ['player'])
           if (filter.firstDrawInOwnDrawStep !== undefined && typeof filter.firstDrawInOwnDrawStep !== 'boolean') issue(childPath(childPath(path, 'filter'), 'firstDrawInOwnDrawStep'), 'type', 'expected a boolean')
         }
