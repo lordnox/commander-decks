@@ -12,6 +12,7 @@ import {
   createEffect,
   chooseCards,
   draw,
+  eventAmount,
   forTurns,
   gainLife,
   multiplyDamage,
@@ -383,7 +384,7 @@ describe('preventDamage', () => {
     expect(state.preventionInstances?.[0]?.remaining).toBe(0)
   })
 
-  test('unpreventable damage still runs prevention additional effects', () => {
+  test('unpreventable damage does not run prevention additional effects', () => {
     const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
       staticAbility(prevention(
         { recipient: players({ relation: 'you' }) },
@@ -407,7 +408,7 @@ describe('preventDamage', () => {
       amount: 3,
       unpreventable: true,
     }))
-    expect(state.players.p1.life).toBe(38)
+    expect(state.players.p1.life).toBe(37)
     expect(state.preventionInstances?.[0]?.remaining).toBe(2)
   })
 
@@ -1230,6 +1231,34 @@ describe('relocated from ladyEvangela.test.ts → preventDamage.test.ts', () => 
       }))
       expect(damaged.players.p1.life).toBe(40)
     })
+
+  test('prevention additionalEffects can use the prevented event amount', () => {
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+      staticAbility(prevention(
+        { recipient: players({ relation: 'you' }) },
+        preventDamage(),
+        {
+          capacity: amount(5),
+          additionalEffects: [draw({ count: eventAmount(), targets: ref('controller') })],
+        },
+      )),
+    ])))
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      libraries: { p1: [cardTemplate('Drawn A'), cardTemplate('Drawn B'), cardTemplate('Drawn C')] },
+      battlefield: {
+        p1: [cardTemplate('Shield', { types: ['Enchantment'], ruleDefinition: definition })],
+      },
+    }, { random: () => 0 })
+    const state = ok(server.rules(server.state, {
+      type: 'dealDamage',
+      sourceId: Object.values(server.state.objects)[0]!.id,
+      target: { kind: 'player', player: 'p1' },
+      amount: 3,
+    }))
+    expect(state.players.p1.life).toBe(40)
+    expect(state.zoneOrder.p1.hand).toHaveLength(3)
+  })
 
 })
 

@@ -1725,24 +1725,6 @@ const targetVariants = (
         targetName: player,
       }))
   }
-  if (source?.name === 'Energy Arc') {
-    const targets = Object.values(state.objects)
-      .filter((object) => object.zone === 'battlefield' && object.types.includes('Creature'))
-      .map((object) => ({
-        objectId: object.id,
-        name: object.name,
-        controller: object.controller,
-      }))
-    return [{
-      ...action,
-      targetGroups: [{
-        label: 'Creatures',
-        min: 0,
-        max: targets.length,
-        targets,
-      }],
-    }]
-  }
   if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
     return Object.values(state.objects)
       .filter((object) => validBlinkSpellTarget(source.name, object, seat))

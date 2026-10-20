@@ -7,7 +7,6 @@ import { ok } from '../testHelpers'
 import type { GameState, Plugin } from '../types'
 import { activated } from './activated'
 import { attackDeal } from './attackDeal'
-import { combatDialogue } from './combatDialogue'
 import { activate, draw } from './effects'
 import { stackCopy, stackCopyPending } from './stackCopy'
 import { targetedResolve } from './targetedResolve'
@@ -192,7 +191,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
         p1: [spell('P1 A', ''), spell('P1 B', '')],
         p2: [spell('P2 A', ''), spell('P2 B', '')],
       },
-    }, [activated, combatDialogue, targetingRequirements])
+    }, [activated, targetedResolve])
     let state = ready(server.state)
     const sokrates = named(state, 'Sokrates, Athenian Teacher')
     state.objects[sokrates.id].summoningSickness = false
@@ -206,7 +205,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
     expect(protectedCast.ok).toBe(false)
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'sokrates.dialogue',
+      abilityId: '$.abilities[2]',
       seat: 'p1',
       objectId: sokrates.id,
       targets: [{ kind: 'object', objectId: named(state, 'Attacker').id }],
@@ -378,7 +377,7 @@ describe('Lady Evangela copy and politics capabilities', () => {
         p1: [creature('Sokrates, Athenian Teacher', { power: 0, toughness: 4 })],
         p2: [creature('Dialogue Target')],
       },
-    }, [activated, attackDeal, combatDialogue, targetingRequirements])
+    }, [activated, attackDeal])
     const state = ready(server.state)
     const sokrates = named(state, 'Sokrates, Athenian Teacher')
     state.objects[sokrates.id].summoningSickness = false
@@ -389,10 +388,10 @@ describe('Lady Evangela copy and politics capabilities', () => {
       action.kind === 'castSpell' ? action.targetObjectId : undefined).sort())
       .toEqual(['p2', 'p3', 'p4'])
     const dialogue = actions.find((action) =>
-      action.kind === 'activateAbility' && action.abilityId === 'sokrates.dialogue')
+      action.kind === 'activateAbility' && action.abilityId === '$.abilities[2]')
     expect(dialogue?.kind === 'activateAbility' ? dialogue.targetGroups?.[0] : undefined)
       .toMatchObject({
-        label: 'Creature',
+        label: 'Target 1',
         min: 1,
         max: 1,
       })

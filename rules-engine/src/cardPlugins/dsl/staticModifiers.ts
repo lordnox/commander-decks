@@ -271,6 +271,13 @@ const modifiersOutOfSync = (state: GameState) => {
     const runtimePrinted = active.filter((entry) =>
       !isActiveKeywordStatic(entry) && isRuntimePrintedStaticEffect(entry))
     if ((source.printedStaticModifiers?.length ?? 0) !== runtimePrinted.length) return true
+    const activeKeys = new Set(active.map((entry) => `${entry.abilityIndex}:${entry.effectIndex}`))
+    for (const object of Object.values(state.objects)) {
+      for (const entry of object.continuousEffects ?? []) {
+        if (entry.duration.kind !== 'printedStatic' || entry.duration.sourceId !== source.id) continue
+        if (!activeKeys.has(`${entry.duration.abilityIndex}:${entry.duration.effectIndex}`)) return true
+      }
+    }
     for (const entry of active) {
       if (isActiveKeywordStatic(entry)) {
         if (printedStaticAbilityActive(state, source, entry.abilityIndex)

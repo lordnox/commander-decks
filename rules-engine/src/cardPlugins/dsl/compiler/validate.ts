@@ -328,6 +328,10 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind'], ['kind'])
         if (!env.eventAmount) issue(path, 'unresolved-binding', 'eventAmount is not available in this execution context')
         return
+      case 'manaSpent':
+        exactKeys(node, path, ['kind', 'color'], ['kind', 'color'])
+        enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
+        return
       case 'count':
         exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
         validateSelector(node.of, childPath(path, 'of'), env)
@@ -593,6 +597,11 @@ export const validateDefinitionV1 = (root: unknown): {
     const node = object(value, path)
     if (!node) return
     declarations.push({ path, kind: `instruction:${String(node.kind)}` })
+    const withEventPlayer = (base: Environment) => {
+      const next = cloneEnv(base)
+      next.context = new Map([...next.context, ['event.player', 'player']])
+      return next
+    }
     const amountInstruction = (field: 'amount' | 'count', expected: readonly Domain[]): void => {
       exactKeys(node, path, ['kind', field, 'targets'], ['kind', field, 'targets'])
       validateAmount(node[field], childPath(path, field), env)
@@ -621,13 +630,21 @@ export const validateDefinitionV1 = (root: unknown): {
       }
       case 'loseLife':
         exactKeys(node, path, ['kind', 'amount', 'targets', 'bindResult'], ['kind', 'amount', 'targets'])
-        validateAmount(node.amount, childPath(path, 'amount'), env)
+        validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         if (node.bindResult !== undefined) declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
         return
-      case 'gainLife': amountInstruction('amount', ['player']); return
-      case 'grantLandPlays':
-      case 'draw': amountInstruction('count', ['player']); return
+      case 'gainLife':
+        exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
+        validateAmount(node.amount, childPath(path, 'amount'), withEventPlayer(env))
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      case 'draw':
+        exactKeys(node, path, ['kind', 'count', 'targets'], ['kind', 'count', 'targets'])
+        validateAmount(node.count, childPath(path, 'count'), withEventPlayer(env))
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      case 'grantLandPlays': amountInstruction('count', ['player']); return
       case 'scry':
       case 'surveil':
       case 'mill': amountInstruction('count', ['player']); return
@@ -822,7 +839,12 @@ export const validateDefinitionV1 = (root: unknown): {
               validatePreventionFilter(effect.filter, childPath(childPath(path, 'effect'), 'filter'), env)
               validatePreventionCapacity(effect.capacity, childPath(childPath(path, 'effect'), 'capacity'), env)
               if (effect.additionalEffects !== undefined) {
-                validateInstructionList(effect.additionalEffects, childPath(childPath(path, 'effect'), 'additionalEffects'), env, depth + 1)
+                validateInstructionList(
+                  effect.additionalEffects,
+                  childPath(childPath(path, 'effect'), 'additionalEffects'),
+                  preventionFollowUpEnvironment(env),
+                  depth + 1,
+                )
               }
               break
             default: issue(childPath(childPath(path, 'effect'), 'kind'), 'unsupported-kind', `unsupported created effect: ${String(effect.kind)}`)
@@ -976,7 +998,11 @@ export const validateDefinitionV1 = (root: unknown): {
   const recipientIsProvablySingle = (value: unknown, env: Environment, domain: Domain): boolean => {
     if (!isData(value)) return false
     if (value.kind === 'contextRef') {
-      return domain === 'player' && (value.name === 'controller' || value.name === 'triggering.player')
+      return domain === 'player' && (
+        value.name === 'controller'
+        || value.name === 'triggering.player'
+        || value.name === 'triggering.object.controller'
+      )
     }
     if (value.kind === 'targetRef' && Number.isSafeInteger(value.clauseIndex)) {
       return env.targets[value.clauseIndex as number] === domain && env.targetSingleton[value.clauseIndex as number] === true
@@ -1216,6 +1242,18 @@ export const validateDefinitionV1 = (root: unknown): {
     eventAmount: false,
   })
 
+  const preventionFollowUpEnvironment = (env: Environment) => {
+    const next = cloneEnv(env)
+    next.eventAmount = true
+    next.context = new Map([
+      ...next.context,
+      ['triggering.player', 'player'],
+      ['triggering.object.after', 'object'],
+      ['triggering.object.controller', 'player'],
+    ])
+    return next
+  }
+
   const validateAbility = (value: unknown, path: string): void => {
     const ability = object(value, path)
     if (!ability) return
@@ -1296,7 +1334,9 @@ export const validateDefinitionV1 = (root: unknown): {
             })
           }
         }
-        const occurrenceEnv = validateOccurrence(ability.on, childPath(path, 'on'), occurrenceBase)
+        const occurrenceEnv = ability.generated === true
+          ? preventionFollowUpEnvironment(validateOccurrence(ability.on, childPath(path, 'on'), occurrenceBase))
+          : validateOccurrence(ability.on, childPath(path, 'on'), occurrenceBase)
         if (ability.triggerOnlyIf !== undefined) validateCondition(ability.triggerOnlyIf, childPath(path, 'triggerOnlyIf'), occurrenceEnv)
         if (ability.interveningIf !== undefined) validateCondition(ability.interveningIf, childPath(path, 'interveningIf'), occurrenceEnv)
         if (ability.frequency !== undefined) {
@@ -1368,7 +1408,11 @@ export const validateDefinitionV1 = (root: unknown): {
                 issue(childPath(effectPath, 'transform'), 'unsupported-kind', 'prevention requires preventDamage transform')
               }
               if (node.additionalEffects !== undefined) {
-                validateInstructionList(node.additionalEffects, childPath(effectPath, 'additionalEffects'), baseEnvironment())
+                validateInstructionList(
+                  node.additionalEffects,
+                  childPath(effectPath, 'additionalEffects'),
+                  preventionFollowUpEnvironment(baseEnvironment()),
+                )
               }
               return
             }
@@ -1379,8 +1423,9 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'keyword':
-        exactKeys(ability, path, ['kind', 'keyword'], ['kind', 'keyword'])
+        exactKeys(ability, path, ['kind', 'keyword', 'when'], ['kind', 'keyword'])
         enumeration(ability.keyword, childPath(path, 'keyword'), new Set(Object.values(KEYWORDS)), 'keyword')
+        if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), baseEnvironment())
         return
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported ability kind: ${String(ability.kind)}`)
     }

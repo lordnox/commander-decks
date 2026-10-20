@@ -121,7 +121,7 @@ const playerContextReference = (
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
       return [context.occurrence.player]
-    case 'triggering.player':
+    case 'triggering.player': {
       const occurrence = context.capturedOccurrenceBindings?.includes('player')
         ? context.capturedOccurrence
         : context.occurrence
@@ -129,6 +129,14 @@ const playerContextReference = (
         throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
       }
       return [occurrence.player]
+    }
+    case 'triggering.object.controller': {
+      const captured = capturedOccurrenceObject({ kind: 'contextRef', name: 'triggering.object.after' }, context)
+      if (!captured) {
+        throw new RuleDslEvaluationError(`${reference.name} was not captured by this occurrence`)
+      }
+      return [captured.controller]
+    }
     default: throw new RuleDslEvaluationError(`${reference.name} is not a player reference`)
   }
 }
@@ -382,6 +390,19 @@ const oneReferenceValue = (
   return value
 }
 
+export const withOccurrencePlayer = (
+  context: RuleDslRuntimeContext,
+  player: PlayerId,
+): RuleDslRuntimeContext => ({
+  ...context,
+  occurrence: {
+    ...context.occurrence,
+    kind: 'event',
+    eventType: context.occurrence?.eventType ?? 'playerAction',
+    player,
+  },
+})
+
 export const amountEvaluationContext = (
   context: RuleDslRuntimeContext,
 ) => ({
@@ -391,6 +412,12 @@ export const amountEvaluationContext = (
   },
   variables: context.variables,
   eventAmount: context.occurrence?.amount,
+  manaSpent: (color) => {
+    const item = context.stackItemId
+      ? context.state.stack.find((candidate) => candidate.id === context.stackItemId)
+      : undefined
+    return item?.manaSpent?.[color] ?? 0
+  },
   count: (selector) => {
     switch (selector.kind) {
       case 'anyTarget': return evaluateSelector(selector, context).length

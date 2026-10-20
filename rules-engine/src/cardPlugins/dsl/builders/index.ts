@@ -4,6 +4,7 @@ import type {
   AmountInput,
   StatDeltaInput,
   RoundingMode,
+  CardColor,
   CardRuleDefinitionInputV1,
   CardRuleDefinitionV1,
   ChoiceReference,
@@ -118,6 +119,8 @@ export const captureAmount = (input: { amount: AmountInput; bindResult: string }
 export const variable = (name: 'X'): Amount => immutableData({ kind: 'variable', name })
 
 export const eventAmount = (): Amount => immutableData({ kind: 'eventAmount' })
+
+export const manaSpent = (color: CardColor): Amount => immutableData({ kind: 'manaSpent', color })
 
 export const count = (of: Selector): Amount => immutableData({ kind: 'count', of })
 
@@ -479,8 +482,8 @@ export const staticAbility = (
   effects,
 })
 
-export const keywordAbility = (keyword: Keyword): KeywordAbilityDefinition =>
-  immutableData({ kind: 'keyword', keyword })
+export const keywordAbility = (keyword: Keyword, options: { when?: Condition } = {}): KeywordAbilityDefinition =>
+  immutableData({ kind: 'keyword', keyword, ...(options.when ? { when: options.when } : {}) })
 
 export const cardRuleDefinition = (
   schemaVersion: 1,

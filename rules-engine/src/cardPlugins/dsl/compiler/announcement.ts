@@ -6,7 +6,7 @@ import type { ActivatedAbilityDefinition, Amount, Cost, ObjectRecipient, SpellAb
 import type { CanonicalTargetBinding, GameState, ManaId, ManaPool, PlayerId, TargetRef } from '../../../types'
 import type { DistributionAllocation } from './modes'
 import { activationRestrictionMessage } from '../staticModifierCore'
-import { evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
+import { amountEvaluationContext, evaluateObjectReference, evaluateObjectSelector, evaluateRuntimeAmount } from './runtime'
 import type { RuleDslRuntimeContext } from './runtime'
 import { evaluateAmount, MAX_EXPRESSION_DEPTH } from './evaluate'
 import { AMOUNT_DEPTH_ERROR_MESSAGE } from './constants'
@@ -394,10 +394,21 @@ const validateTargets = (state: Pick<GameState, 'players' | 'objects' | 'stack'>
   if (targets.length !== proposal.targetClauses.length) throw new TypeError('target clauses must be supplied in declaration order')
   targets.forEach((clauseTargets, index) => {
     const clause = proposal.targetClauses![index]
+    const source = state.objects[proposal.sourceId]
     const bound = (amount: TargetClause['min']) => {
       if (amount.kind === 'constant') return amount.value
       if (amount.kind === 'variable') return proposal.variables?.[amount.name]
-      return undefined
+      if (!source) return undefined
+      try {
+        return evaluateAmount(amount, amountEvaluationContext({
+          state: state as GameState,
+          controller: proposal.payer,
+          source: captureObject(source),
+          variables: proposal.variables,
+        }))
+      } catch {
+        return undefined
+      }
     }
     const min = bound(clause.min)
     const max = bound(clause.max)
