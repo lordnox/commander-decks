@@ -92,6 +92,7 @@ import kamiOfFalseHope from './kami-of-false-hope'
 import khalniAmbush from './khalni-ambush'
 import khalniTerritory from './khalni-territory'
 import kodamasReach from './kodamas-reach'
+import ladyEvangela from './lady-evangela'
 import lilianasCaress from './lilianas-caress'
 import longRoadHome from './long-road-home'
 import lotusField from './lotus-field'
@@ -272,6 +273,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Khalni Ambush // Khalni Territory": khalniAmbush,
   "Khalni Territory": khalniTerritory,
   "Kodama's Reach": kodamasReach,
+  "Lady Evangela": ladyEvangela,
   "Liliana's Caress": lilianasCaress,
   "Long Road Home": longRoadHome,
   "Lotus Field": lotusField,

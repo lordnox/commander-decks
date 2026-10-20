@@ -229,6 +229,20 @@ export type PreventionInstance = {
   hostSourceIncarnation: number
   controller: PlayerId
   filter: PreventionFilter
+  /** Announcement-time targets/choices used when the filter names `targetRef` or `choiceRef`. */
+  capturedBindings?: {
+    targets?: Readonly<Record<number, readonly (
+      | { kind: 'player'; playerId: PlayerId }
+      | ({ kind: 'object' } & ObjectIdentity)
+      | { kind: 'stackItem'; stackId: string }
+    )[]>>
+    targetLegality?: Readonly<Record<number, readonly boolean[]>>
+    choices?: Readonly<Record<string, readonly (
+      | { kind: 'player'; playerId: PlayerId }
+      | ({ kind: 'object' } & ObjectIdentity)
+      | { kind: 'stackItem'; stackId: string }
+    )[]>>
+  }
   /** Stable key for static abilities: `${sourceId}:${abilityIndex}:${effectIndex}`. */
   staticKey?: string
   additionalEffects?: readonly Instruction[]
@@ -1184,6 +1198,7 @@ export type GameEvent =
       sourceRef?: ObjectIdentity
       sourceRevision?: string
       additionalEffects?: readonly Instruction[]
+      capturedBindings?: PreventionInstance['capturedBindings']
       createdTurn?: number
       durationUntilTurn?: number
       durationUntilStepTurn?: number

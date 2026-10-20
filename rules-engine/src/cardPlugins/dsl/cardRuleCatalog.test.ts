@@ -502,6 +502,28 @@ test('catalog Kami of False Hope sacrifices itself to prevent all combat damage 
   })
 })
 
+test('catalog Lady Evangela fogs combat damage from a targeted creature', () => {
+  expect(effectsFor('Lady Evangela')).toEqual([])
+  expect(cardTemplateDefaultsFor('Lady Evangela')).toMatchObject({
+    types: ['Creature'], subtypes: ['Human', 'Cleric'], colors: ['W', 'U', 'B'], manaCost: '{W}{U}{B}', manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Lady Evangela')!.definition.abilities[0]).toMatchObject({
+    kind: 'activated',
+    costs: [{ kind: 'mana', amount: '{W}{B}' }, { kind: 'tapSource' }],
+    decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } } }] },
+    instructions: [{
+      kind: 'createEffect',
+      targets: { kind: 'contextRef', name: 'source' },
+      duration: { kind: 'untilCleanup' },
+      effect: {
+        kind: 'prevention',
+        capacity: { kind: 'unlimited' },
+        filter: { combat: true, source: { kind: 'targetRef', clauseIndex: 0 } },
+      },
+    }],
+  })
+})
+
 test.each([
   ['Arcanis the Omnipotent', [['draw'], ['move']]],
   ['Mind Stone', [['draw']]],
