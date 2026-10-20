@@ -6,7 +6,7 @@ import type {
 import { RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { cloneJsonData, deepFreezeData, inspectJsonData } from './data'
 import { RuleDslValidationError } from './errors'
-import { asDefinitionV1, validateDefinitionV1 } from './validate'
+import { assertDefinitionV1, validateDefinitionV1 } from './validate'
 
 export { evaluateAmount, evaluateTargetBounds, MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
 export * from './runtime'
@@ -30,8 +30,8 @@ export const compileCardRuleDefinition = (input: unknown): CompiledCardRuleDefin
   if (dataDiagnostics.length > 0) throw new RuleDslValidationError(dataDiagnostics)
   const copy = cloneJsonData(input)
   const { diagnostics, declarations } = validateDefinitionV1(copy)
-  if (diagnostics.length > 0) throw new RuleDslValidationError(diagnostics)
-  const definition = deepFreezeData(asDefinitionV1(copy))
+  assertDefinitionV1(copy, diagnostics)
+  const definition = deepFreezeData(copy)
   return Object.freeze({
     schemaVersion: RULE_DSL_SCHEMA_VERSION,
     definitionRevision: definition.definitionRevision,
