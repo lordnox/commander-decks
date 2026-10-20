@@ -1139,3 +1139,14 @@ test('Burgeoning responds to opponent land plays with an optional hand-land move
     ] },
   ])
 })
+
+test('Fabled Passage searches a basic land before conditionally untapping its new identity', () => {
+  expect(cardRuleDefinitionSnapshotFor('Fabled Passage')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [{ kind: 'tapSource' }, { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } }], instructions: [
+      { kind: 'chooseCards', bindChoice: 'land', filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield', tapped: true, bindChoice: 'arrivedLand' },
+      { kind: 'shuffle' },
+      { kind: 'if', condition: { kind: 'compareAmount', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } }, operator: 'gte', right: { kind: 'constant', value: 4 } }, then: [{ kind: 'untap', targets: { kind: 'choiceRef', binding: 'arrivedLand' } }] },
+    ] },
+  ])
+})

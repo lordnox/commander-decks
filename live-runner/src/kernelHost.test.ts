@@ -367,6 +367,7 @@ const abilitySearchGame = (
   source: string,
   library: Array<{ name: string; subtypes: string[] }>,
   otherLands = 0,
+  abilityId: string = SEARCH_FETCH,
 ) => {
   const server = createServerGame(
     commanderRules,
@@ -374,7 +375,7 @@ const abilitySearchGame = (
       first: 'p1',
       battlefield: {
         p1: [
-          { ...forest(), name: source, supertypes: [] },
+          cardTemplate(source, { types: ['Land'], supertypes: [] }),
           ...Array.from({ length: otherLands }, (_, index) => ({
             ...forest(),
             name: `Land ${index + 1}`,
@@ -398,11 +399,15 @@ const abilitySearchGame = (
   const kernel = handleFor(server.rules, initial)
   const activated = kernel.dispatch({
     type: 'activateAbility',
-    abilityId: SEARCH_FETCH,
+    abilityId,
     seat: 'p1',
     objectId: sourceId,
   })
   if (!activated.ok) throw new Error(activated.error)
+  if (abilityId !== SEARCH_FETCH) {
+    const resolved = kernel.dispatch({ type: 'resolveTop' })
+    if (!resolved.ok) throw new Error(resolved.error)
+  }
   const lobby = createLobby()
   lobby.phase = 'play'
   return { kernel, lobby, sourceId }
@@ -2297,11 +2302,12 @@ describe('kernel host journal', () => {
       'Fabled Passage',
       [{ name: 'Forest', subtypes: ['Forest'] }],
       3,
+      '$.abilities[0]',
     )
     expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Forest', destination: 'battlefield' }],
+      choices: [{ card: 'Forest', destination: 'target' }],
     }))).toBe(true)
 
     const state = kernel.history.current()

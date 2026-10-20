@@ -52,6 +52,7 @@ import eternalWitness from './eternal-witness'
 import evolvingWilds from './evolving-wilds'
 import expeditionMap from './expedition-map'
 import explore from './explore'
+import fabledPassage from './fabled-passage'
 import farhavenElf from './farhaven-elf'
 import farseek from './farseek'
 import fateUnraveler from './fate-unraveler'
@@ -217,6 +218,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Evolving Wilds": evolvingWilds,
   "Expedition Map": expeditionMap,
   "Explore": explore,
+  "Fabled Passage": fabledPassage,
   "Farhaven Elf": farhavenElf,
   "Farseek": farseek,
   "Fate Unraveler": fateUnraveler,

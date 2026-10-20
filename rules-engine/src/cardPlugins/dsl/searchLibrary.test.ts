@@ -208,3 +208,40 @@ test('searchLibrary reveals the chosen card before moving it into a publicly kno
   expect(Object.values(projected.objects).find(object => object.name === 'Chosen')?.zone).toBe('hand')
   expect(Object.values(projected.objects).some(object => object.name === 'Still secret')).toBe(false)
 })
+
+
+test.each([2, 3, 4])('a searched land is counted before conditional untap with %s other lands', others => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Fabled Passage'), ...Array.from({ length: others }, (_, index) => cardTemplate(`Existing land ${index}`, { types: ['Land'], tapped: true }))] },
+    libraries: { p1: [cardTemplate('Basic prize', { types: ['Land'], supertypes: ['Basic'] }), cardTemplate('Nonbasic decoy', { types: ['Land'] })] },
+  }, { random: () => 0 })
+  const source = named(server.state, 'Fabled Passage').id
+  const activated = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: source, abilityId: '$.abilities[0]' }))
+  expect(activated.objects[source].zone).toBe('graveyard')
+  const searching = resolveStack(server.rules, activated)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const prize = named(searching, 'Basic prize').id
+  expect(pick.candidates).toEqual([prize])
+  const finished = ok(server.rules(JSON.parse(JSON.stringify(searching)), { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [prize] }))
+  expect(finished.objects[prize]).toMatchObject({ zone: 'battlefield', tapped: others < 3 })
+  expect(named(finished, 'Existing land 0').tapped).toBe(true)
+  expect(finished.players.p1.landsPlayed).toBe(0)
+  expect(finished.stack).toHaveLength(0)
+  expect(finished.resolution).toBeUndefined()
+})
+
+test('an optional basic search can find no card without untapping an existing land', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Fabled Passage'), ...Array.from({ length: 4 }, (_, index) => cardTemplate(`Existing land ${index}`, { types: ['Land'], tapped: true }))] },
+    libraries: { p1: [cardTemplate('Basic prize', { types: ['Land'], supertypes: ['Basic'] })] },
+  }, { random: () => 0 })
+  const activated = ok(server.rules(server.state, { type: 'activateAbility', seat: 'p1', objectId: named(server.state, 'Fabled Passage').id, abilityId: '$.abilities[0]' }))
+  const searching = resolveStack(server.rules, activated)
+  const pick = pendingSelectionFor(searching, 'p1')!
+  const finished = ok(server.rules(searching, { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: 1, objectIds: [] }))
+  expect(named(finished, 'Basic prize').zone).toBe('library')
+  expect(finished.zoneOrder.p1.battlefield.every(id => finished.objects[id].tapped)).toBe(true)
+  expect(finished.resolution).toBeUndefined()
+})
