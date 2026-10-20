@@ -698,6 +698,7 @@ export type PreventionFollowUpProgram = {
   hostSourceId: string
   controller: PlayerId
   instructions: readonly Instruction[]
+  occurrence?: OccurrenceSnapshot
 }
 
 /** Private durable replacement cursor; removed from client projections. */

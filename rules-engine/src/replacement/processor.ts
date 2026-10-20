@@ -18,6 +18,7 @@ import type {
   EventProcessingFrame,
   GameEvent,
   GameState,
+  OccurrenceSnapshot,
   PreventionFollowUpProgram,
   ReplacementLineage,
 } from '../types'
@@ -34,6 +35,7 @@ import {
   eventsFromPreventionAdditional,
   isImmediatePreventionAdditional,
   preventionAdditionalEffects,
+  preventionFollowUpOccurrence,
   syncStaticPreventionInstances,
 } from './prevention'
 import {
@@ -171,12 +173,14 @@ type FollowUpExtras = {
 const sideEffectsForPrevention = (
   state: GameState,
   candidate: Extract<ReplacementCandidate, { kind: 'prevention' }>,
+  occurrence: OccurrenceSnapshot,
 ): FollowUpExtras => {
-  const host = state.objects[(state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)?.hostSourceId ?? '']
+  const instance = (state.preventionInstances ?? []).find((entry) => entry.id === candidate.preventionId)
+  const host = state.objects[instance?.hostSourceId ?? '']
   const extra = preventionAdditionalEffects(state, candidate.preventionId)
   if (!extra?.length || !host) return {}
   if (extra.length === 1 && extra.every(isImmediatePreventionAdditional)) {
-    const followUp = eventsFromPreventionAdditional(state, host.id, host.controller, extra)
+    const followUp = eventsFromPreventionAdditional(state, host.id, host.controller, extra, occurrence)
     return followUp.length > 0 ? { followUp } : {}
   }
   return {
@@ -184,6 +188,7 @@ const sideEffectsForPrevention = (
       hostSourceId: host.id,
       controller: host.controller,
       instructions: structuredClone(extra),
+      occurrence: structuredClone(occurrence),
     }],
   }
 }
@@ -263,6 +268,7 @@ export const startPreventionAdditionalPrograms = (
         source: captureObject(host),
         definitionSnapshot,
         abilityIndex: 0,
+        ...(program.occurrence ? { occurrence: structuredClone(program.occurrence) } : {}),
       },
     }, { inline: true })
   }
@@ -276,11 +282,17 @@ const applyCandidate = (
 ): { result: ApplyResult; state: GameState } => {
   if (candidate.kind === 'prevention') {
     markInstanceUsed(lineage, candidate.instanceId)
-    const extras = sideEffectsForPrevention(state, candidate)
     if (proposal.type !== 'dealDamage') {
-      return { result: { kind: 'continue', event: proposal, ...extras }, state }
+      return { result: { kind: 'continue', event: proposal }, state }
     }
     const applied = applyPreventionToDamage(state, proposal, candidate.preventionId)
+    const extras = applied.preventedAmount > 0
+      ? sideEffectsForPrevention(
+        applied.state,
+        candidate,
+        preventionFollowUpOccurrence(proposal, applied.preventedAmount, applied.state),
+      )
+      : {}
     if (applied.event.amount <= 0) {
       return { result: { kind: 'prevented', ...extras }, state: applied.state }
     }

@@ -1,6 +1,6 @@
 import { captureObject, isSameObject } from '../../objectIdentity'
 import type { GameObject, GameState, PlayerId, PrintedStaticModifier, ZoneId } from '../../types'
-import { evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
+import { evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector } from './compiler/runtime'
 import { compileCardRuleDefinition } from './compiler'
 import { KEYWORDS } from './schema/v1'
 import { ZONE_IDS } from '../../types'
@@ -69,7 +69,15 @@ export const printedStaticAbilityActive = (
   if (!sourceStaticAbilitiesActive(source)) return false
   const ability = abilityDefinition(source, abilityIndex)
   if (!ability || (ability.kind !== 'static' && ability.kind !== 'keyword')) return false
-  return abilityActiveIn(ability).includes(source.zone as Zone)
+  if (!abilityActiveIn(ability).includes(source.zone as Zone)) return false
+  if (ability.kind === 'keyword' && ability.when) {
+    return evaluateCondition(ability.when, {
+      state,
+      controller: source.controller,
+      source: captureObject(source),
+    })
+  }
+  return true
 }
 
 /** CR 614.12: self-entry replacements apply as the object would exist on the battlefield. */

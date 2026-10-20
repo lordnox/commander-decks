@@ -16,6 +16,7 @@ import astralDrift from './astral-drift'
 import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
+import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
 import blightedWoodland from './blighted-woodland'
 import bloodCelebrant from './blood-celebrant'
@@ -33,6 +34,7 @@ import castleGarenbrig from './castle-garenbrig'
 import charcoalDiamond from './charcoal-diamond'
 import cloudshift from './cloudshift'
 import collectorsVault from './collectors-vault'
+import comeuppance from './comeuppance'
 import commandersSphere from './commanders-sphere'
 import concealedCourtyard from './concealed-courtyard'
 import counterspell from './counterspell'
@@ -55,6 +57,7 @@ import drownedCatacomb from './drowned-catacomb'
 import duskdaleWurm from './duskdale-wurm'
 import eclipsedSteppe from './eclipsed-steppe'
 import endRazeForerunners from './end-raze-forerunners'
+import energyArc from './energy-arc'
 import entishRestoration from './entish-restoration'
 import entomb from './entomb'
 import esperCharm from './esper-charm'
@@ -94,6 +97,7 @@ import hermitDruid from './hermit-druid'
 import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
 import infernalContract from './infernal-contract'
+import inkshield from './inkshield'
 import joinTheDead from './join-the-dead'
 import kamiOfFalseHope from './kami-of-false-hope'
 import khalniAmbush from './khalni-ambush'
@@ -147,6 +151,7 @@ import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
 import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
+import sokratesAthenianTeacher from './sokrates-athenian-teacher'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
 import stifle from './stifle'
@@ -206,6 +211,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
+  "Batwing Brume": batwingBrume,
   "Beast Whisperer": beastWhisperer,
   "Blighted Woodland": blightedWoodland,
   "Blood Celebrant": bloodCelebrant,
@@ -223,6 +229,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Charcoal Diamond": charcoalDiamond,
   "Cloudshift": cloudshift,
   "Collector's Vault": collectorsVault,
+  "Comeuppance": comeuppance,
   "Commander's Sphere": commandersSphere,
   "Concealed Courtyard": concealedCourtyard,
   "Counterspell": counterspell,
@@ -245,6 +252,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Duskdale Wurm": duskdaleWurm,
   "Eclipsed Steppe": eclipsedSteppe,
   "End-Raze Forerunners": endRazeForerunners,
+  "Energy Arc": energyArc,
   "Entish Restoration": entishRestoration,
   "Entomb": entomb,
   "Esper Charm": esperCharm,
@@ -284,6 +292,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "High Market": highMarket,
   "Hinterland Harbor": hinterlandHarbor,
   "Infernal Contract": infernalContract,
+  "Inkshield": inkshield,
   "Join the Dead": joinTheDead,
   "Kami of False Hope": kamiOfFalseHope,
   "Khalni Ambush": khalniAmbush,
@@ -340,6 +349,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Simic Signet": simicSignet,
   "Skull Prophet": skullProphet,
   "Sky Diamond": skyDiamond,
+  "Sokrates, Athenian Teacher": sokratesAthenianTeacher,
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
   "Stifle": stifle,
