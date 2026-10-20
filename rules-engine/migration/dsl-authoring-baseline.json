@@ -88,7 +88,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"0ec0dc713408f1e296b74b000261264f0aceeb7f9b59b8a0e088350c8680160e","card":"All-Fates Stalker"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"bd67d815adfca6c4abf0c90028fc481d2cf90b718de630fb135e1586567e2aa3","card":"Archaeomancer's Map"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"5057157fd32c4770a4d398d86f0f54d39af621d72dc32b1627bdaf3b4afa75e0","card":"Dakmor Salvage"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"a4e693f398a00d54695b4bf638cecedebd3f0fbca330ce96207d81eae2160f4f","card":"Fabled Passage"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"eb288d0daed870a3259c25d90d73b0ed6e962f358142f33235f8d1e73fadf763","card":"Field of the Dead"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"d3e6b21da04e1a51ea3f029611830d5ce0ed49fe907ef7b8f28dccccd50049d5","card":"Godless Shrine"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"6853dcef8028876ecf323577c057c527fff6d9983776ed71cf7df5f722d26dc3","card":"Ghost Town"},
