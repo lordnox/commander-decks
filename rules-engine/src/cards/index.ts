@@ -18,6 +18,7 @@ import bojukaBog from './bojuka-bog'
 import botanicalSanctum from './botanical-sanctum'
 import brokenBond from './broken-bond'
 import brokersHideout from './brokers-hideout'
+import burgeoning from './burgeoning'
 import buriedAlive from './buried-alive'
 import bushwhack from './bushwhack'
 import cabalCoffers from './cabal-coffers'
@@ -182,6 +183,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Botanical Sanctum": botanicalSanctum,
   "Broken Bond": brokenBond,
   "Brokers Hideout": brokersHideout,
+  "Burgeoning": burgeoning,
   "Buried Alive": buriedAlive,
   "Bushwhack": bushwhack,
   "Cabal Coffers": cabalCoffers,
