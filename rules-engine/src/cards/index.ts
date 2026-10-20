@@ -107,6 +107,7 @@ import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
 import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
+import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
 import splendidReclamation from './splendid-reclamation'
 import stitchTogether from './stitch-together'
@@ -252,6 +253,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sign in Blood": signInBlood,
   "Simic Growth Chamber": simicGrowthChamber,
   "Simic Signet": simicSignet,
+  "Skull Prophet": skullProphet,
   "Sky Diamond": skyDiamond,
   "Splendid Reclamation": splendidReclamation,
   "Stitch Together": stitchTogether,
