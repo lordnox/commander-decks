@@ -297,7 +297,7 @@ const ACT_CASES: Record<string, ActCase> = {
     taps: true,
   },
   'Lotus Field': {
-    abilityId: 'lotusField.mana',
+    abilityId: '$.abilities[3]',
     adds: (['W', 'U', 'B', 'R', 'G'] as const).map((mana) => ({ mana, pool: { [mana]: 3 } })),
     taps: true,
   },
