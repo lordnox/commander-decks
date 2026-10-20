@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 271,
+    "cardRegistrations": 270,
     "cardEffects": 21,
     "cardInstructions": 194,
     "instructionHandlersDiscovered": 194,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 24,
     "cardRegistrationOnlyGaps": 12,
     "candidateOnlyInstructionRows": 167,
-    "candidateOnlyCardRows": 259
+    "candidateOnlyCardRows": 258
   },
   "cardEffects": [
     {
@@ -106,7 +106,7 @@
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
           "live-runner/src/kernelHost.test.ts:2517 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
-          "live-runner/src/kernelHost.test.ts:2973 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
+          "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "live-runner/src/opening.test.ts:57",
@@ -344,10 +344,10 @@
           "live-runner/src/kernelHost.test.ts:1623 — test('a grouped multi-target cast sends every selected object as a target', () => {",
           "live-runner/src/kernelHost.test.ts:1900 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:2517 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
-          "live-runner/src/kernelHost.test.ts:2914 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "live-runner/src/kernelHost.test.ts:3065 — test('Settle publishes and restores its private basic-land search', () => {",
-          "live-runner/src/kernelHost.test.ts:3304 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
-          "live-runner/src/kernelHost.test.ts:3367 — test('publishes the persisted typed payment and applies the selected mana', () => {"
+          "live-runner/src/kernelHost.test.ts:2917 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3068 — test('Settle publishes and restores its private basic-land search', () => {",
+          "live-runner/src/kernelHost.test.ts:3307 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3370 — test('publishes the persisted typed payment and applies the selected mana', () => {"
         ]
       },
       "neededCanonicalNode": "canonical capability-derived plugin requirement",
@@ -582,7 +582,6 @@
         "Analyze the Pollen:effects[0]",
         "Archaeomancer's Map:effects[0]",
         "Cultivate:effects[0]",
-        "Dreamscape Artist:effects[0]",
         "Entish Restoration:effects[0]",
         "Fabled Passage:effects[0]",
         "Finale of Devastation:effects[1]",
@@ -594,16 +593,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 32,
         "samples": [
           "live-runner/src/decisions.test.ts:249 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1731 — test('restores an interrupted Analyze the Pollen library search', async () => {",
           "live-runner/src/kernelHost.test.ts:2174 — test('Scapeshift sacrifices lands as it resolves, then opens its search', () => {",
           "live-runner/src/kernelHost.test.ts:2297 — test('Fabled Passage untaps its find once the fourth land enters', () => {",
           "live-runner/src/kernelHost.test.ts:2318 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
-          "live-runner/src/kernelHost.test.ts:2627 — test('preserves two activation-cost groups in printed order', () => {",
           "rules-engine/src/actions.test.ts:461 — test('a spell whose only choices happen on resolution stays fast-castable', () => {",
-          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {"
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:300 — test(\"Archaeomancer's Map ETB finds up to two Plains and puts them in hand\", () => {",
+          "rules-engine/src/cardPlugins/dackFaydenPart32LandsRocks.test.ts:344 — test(\"Archaeomancer's Map offers a land drop when an ahead opponent plays a land\", () => {"
         ]
       },
       "neededCanonicalNode": "typed search instruction and continuation",
@@ -718,10 +717,10 @@
         "matches": 184,
         "samples": [
           "live-runner/src/kernelFacts.test.ts:64 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
-          "live-runner/src/kernelHost.test.ts:2730 — test('declares and pays for taxed blocks without judge fallback', async () => {",
-          "live-runner/src/kernelHost.test.ts:2920 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
-          "live-runner/src/kernelHost.test.ts:3367 — test('publishes the persisted typed payment and applies the selected mana', () => {",
-          "live-runner/src/kernelHost.test.ts:3592 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:2733 — test('declares and pays for taxed blocks without judge fallback', async () => {",
+          "live-runner/src/kernelHost.test.ts:2923 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3370 — test('publishes the persisted typed payment and applies the selected mana', () => {",
+          "live-runner/src/kernelHost.test.ts:3595 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "live-runner/src/kernelHost.test.ts:848 — test('an agent cannot pass the human response window inside another seat’s line', () => {",
           "rules-engine/src/actions.test.ts:250 — test('publishes defender-specific attack taxes and builds one paid declaration', () => {",
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {"
@@ -986,8 +985,8 @@
           "live-runner/src/kernelHost.test.ts:1232 — test('a host restart preserves the hidden Hostile Negotiations pile choice', () => {",
           "live-runner/src/kernelHost.test.ts:1900 — test('Joint Exploration put-land dispatches a kernel move', () => {",
           "live-runner/src/kernelHost.test.ts:2104 — test('typed life-exchange player choices round-trip through the live host', () => {",
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
-          "live-runner/src/kernelHost.test.ts:2920 — test('publishes and applies a Roaming Throne creature-type choice', () => {"
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2923 — test('publishes and applies a Roaming Throne creature-type choice', () => {"
         ]
       },
       "neededCanonicalNode": "occurrence pattern and pending trigger program",
@@ -1593,7 +1592,7 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2920 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2923 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:111 — test('Kindred Dominance destroys only other types and respects indestructible', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:135 — test('Raise the Palisade returns creatures outside the chosen type', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:166 — test('Roaming Throne stamps Ward {2}', () => {",
@@ -1624,7 +1623,7 @@
       "candidateEvidence": {
         "matches": 10,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:311 — test('Retreat to Hagra can drain the table on landfall', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
@@ -2657,7 +2656,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:174 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
@@ -2684,7 +2683,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:174 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
@@ -2787,7 +2786,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:174 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
@@ -3283,7 +3282,7 @@
         "matches": 110,
         "samples": [
           "live-runner/src/kernelHost.test.ts:1448 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
-          "live-runner/src/kernelHost.test.ts:3323 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3326 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelView.test.ts:107 — test('names a planeswalker combat defender while using its controller blockers', () => {",
           "live-runner/src/kernelView.test.ts:25",
           "rules-engine/src/cardPlugins/cirdanEldrazi.test.ts:34",
@@ -3456,8 +3455,8 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:705 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:753 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:709 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:757 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:177 — test('the Sin Fall finisher cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:230 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/sharedHaste.test.ts:14 — test('Concordant Crossroads lets a summoning-sick creature attack', () => {"
@@ -3882,7 +3881,7 @@
       "candidateEvidence": {
         "matches": 34,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/delayInstructions.test.ts:141 — test('Malakir Rebirth returns the target if it dies this turn', () => {",
           "rules-engine/src/cardPlugins/dsl/actionPrimitives.test.ts:64 — test('conditional branches are distinct nested program scopes', () => {",
           "rules-engine/src/cardPlugins/dsl/cardRuleCatalog.test.ts:146 — test('catalog instruction parameters preserve controller life changes and exile destination', () => {",
@@ -3965,7 +3964,7 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3324 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3327 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:78 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:128 — test('Zimone and Dina sacrifice another creature as the activation cost', () => {",
           "rules-engine/src/cardPlugins/sinFallModals.test.ts:132 — test('Profane Command rejects a single mode and drains the chosen player for X', () => {",
@@ -4351,7 +4350,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3009 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3012 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:189 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:223 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
         ]
@@ -4631,8 +4630,8 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:705 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:753 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:709 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:757 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/permanentControl.test.ts:570 — test('swaps creature control until cleanup', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:177 — test('the Sin Fall finisher cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:230 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
@@ -5102,7 +5101,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3009 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3012 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:641 — test('Incarnation Technique loads both the trigger and the copy handler', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:189 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
@@ -5132,7 +5131,7 @@
       "candidateEvidence": {
         "matches": 16,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2973 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
+          "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:184 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
@@ -5661,7 +5660,7 @@
         "samples": [
           "live-runner/src/host.test.ts:125 — test('a restored private choice keeps its dialog action', async () => {",
           "live-runner/src/kernelHost.test.ts:1052 — test('a restored private choice survives a host restart', async () => {",
-          "live-runner/src/kernelHost.test.ts:3900 — test('a top-of-library choice preserves its revealed order', () => {",
+          "live-runner/src/kernelHost.test.ts:3903 — test('a top-of-library choice preserves its revealed order', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:199 — test('a human delves six cards, taps two Islands, and picks two cards through a restart', async () => {",
           "rules-engine/src/cardPlugins/councilCards.test.ts:115",
           "rules-engine/src/cardPlugins/councilCards.test.ts:512 — test('an open vote survives a host restart and a tie still draws', () => {",
@@ -6535,7 +6534,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2730 — test('declares and pays for taxed blocks without judge fallback', async () => {",
+          "live-runner/src/kernelHost.test.ts:2733 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:105 — test('an attacking Archangel taxes blocks and a chosen blocker may tap to pay', () => {",
           "rules-engine/src/cardPlugins/combatTax.test.ts:82 — test('a tapped Archangel does not impose its attack tax', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:464 — test('Archangel and Baird register the reusable combat-tax handler', () => {"
@@ -8079,7 +8078,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3367 — test('publishes the persisted typed payment and applies the selected mana', () => {",
+          "live-runner/src/kernelHost.test.ts:3370 — test('publishes the persisted typed payment and applies the selected mana', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:707 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:153 — test('the Lady Evangela mana and extort cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:382 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
@@ -8115,7 +8114,7 @@
       "candidateEvidence": {
         "matches": 5,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:537 — test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:541 — test('Cultivate splits one basic to the battlefield tapped and one to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:228 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
           "site/src/liveCompact.test.ts:124",
           "site/src/liveCompact.test.ts:189 — test('expand restores names from the four 99s', () => {",
@@ -8738,37 +8737,6 @@
       "handlerIds": [
         "alternateCosts",
         "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Dreamscape Artist",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Dreamscape Artist"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "live-runner/src/kernelHost.test.ts:2627 — test('preserves two activation-cost groups in printed order', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:490 — test('Dreamscape Artist discards a card and sacrifices a land to search', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [search] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "search"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "librarySearch"
       ],
       "embeddedRulePaths": []
     },
@@ -9440,8 +9408,8 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:705 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
-          "rules-engine/src/cardPlugins/librarySearch.test.ts:753 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:709 — test('Finale of Devastation finds a graveyard creature without shuffling', () => {",
+          "rules-engine/src/cardPlugins/librarySearch.test.ts:757 — test('Finale of Devastation shuffles after a library find and pumps at X ≥ 10', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:177 — test('the Sin Fall finisher cards load their handlers', () => {"
         ]
       },
@@ -10066,7 +10034,7 @@
       "candidateEvidence": {
         "matches": 11,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2914 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2917 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:279 — test('Sakashima copies another creature and turns off the legend rule', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:322 — test('an opponent-owned clone entering under your control copies your creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:44 — test('Roaming Throne chooses a type without copying a creature', () => {",
@@ -12042,7 +12010,7 @@
       "candidateEvidence": {
         "matches": 7,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2973 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
+          "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:184 — test('the return ability has no timing restriction, so it works at instant speed', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:196 — test('a target that left the battlefield in response is not returned to hand', async () => {",
           "rules-engine/src/cardPlugins/activatedTargetZones.test.ts:20",
@@ -12523,7 +12491,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3009 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3012 — test('Portal publishes and resumes a typed graveyard reanimation choice', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:189 — test('Portal to Phyrexia makes each opponent sacrifice up to three creatures', () => {",
           "rules-engine/src/cardPlugins/sinFall.test.ts:223 — test('Portal upkeep choice survives restart and reanimates as a Phyrexian', () => {"
         ]
@@ -12669,7 +12637,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3304 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3307 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:163 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:435 — test('Lady Evangela blink-value cards stay registered', () => {",
           "rules-engine/src/rules/selectPlayers.test.ts:11 — test('selectPlayers rejects stale and duplicate typed target submissions', () => {"
@@ -12807,7 +12775,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2852 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2855 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:698 — test('two Bats each trigger for each token', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:108 — test('Decisive Denial opens the same modal flow as other choose-one spells', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:174 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
@@ -13275,7 +13243,7 @@
       "candidateEvidence": {
         "matches": 6,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2920 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2923 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:166 — test('Roaming Throne stamps Ward {2}', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:50 — test('Roaming Throne chooses a type without copying a creature', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:76 — test('rejects a creature type that was not offered', () => {",
@@ -13673,7 +13641,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3065 — test('Settle publishes and restores its private basic-land search', () => {",
+          "live-runner/src/kernelHost.test.ts:3068 — test('Settle publishes and restores its private basic-land search', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:261 — test('Settle exiles attackers and resumes a private typed basic-land search after restart', () => {",
           "rules-engine/src/cardPlugins/combatPreventionCards.test.ts:340 — test('live action enumeration exposes Settle player targets and Energy Arc multi-targets', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:410 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
@@ -16184,12 +16152,12 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 153,
+        "matches": 154,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelFacts.test.ts:11",
           "live-runner/src/kernelFacts.test.ts:83 — test('a responder the judge would rule tapped out is counted, never named', () => {",
-          "live-runner/src/kernelHost.test.ts:2973 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
+          "live-runner/src/kernelHost.test.ts:2976 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
           "live-runner/src/opening.test.ts:57",
           "rules-engine/src/actions.test.ts:136 — test('a free fog is offered only once an attacker threatens damage', () => {",
           "rules-engine/src/actions.test.ts:59 — test('offers declarative Ghost Town and fetchland abilities', () => {",
@@ -16404,16 +16372,16 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 83,
+        "matches": 84,
         "samples": [
           "live-runner/src/actions.test.ts:229 — test('stops the turn end for a discard when the hand is too big', () => {",
           "live-runner/src/decisions.test.ts:287 — test('asks the seat which card leaves a hand of eight', () => {",
           "live-runner/src/decisions.test.ts:304 — test('catches a turn that ended over the limit', () => {",
           "live-runner/src/decisions.test.ts:324 — test('discarding records the card and ends the turn', () => {",
           "live-runner/src/host.test.ts:175 — test('a dialog stage the router never heard of still reaches the kernel', async () => {",
-          "live-runner/src/kernelHost.test.ts:3147 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
-          "live-runner/src/kernelHost.test.ts:3271 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
-          "live-runner/src/kernelHost.test.ts:4013 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
+          "live-runner/src/kernelHost.test.ts:3150 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {",
+          "live-runner/src/kernelHost.test.ts:3274 — test('after illegal continueAction rollback shows state before the rejected choice', () => {",
+          "live-runner/src/kernelHost.test.ts:4016 — test('a discard pick of duplicate cards in hand discards the chosen copy', () => {"
         ]
       },
       "neededCanonicalNode": "capability-derived plugin/runtime requirement; plugin behavior remains shared engine code",
@@ -16565,7 +16533,7 @@
       "candidateEvidence": {
         "matches": 4,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3367 — test('publishes the persisted typed payment and applies the selected mana', () => {",
+          "live-runner/src/kernelHost.test.ts:3370 — test('publishes the persisted typed payment and applies the selected mana', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:707 — test('Crypt Ghast adds {B} when you tap a Swamp', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:153 — test('the Lady Evangela mana and extort cards stay registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:382 — test('the Lady Evangela foggy-blood pass stays registered', () => {"
@@ -16763,7 +16731,7 @@
         "matches": 5,
         "samples": [
           "live-runner/src/brain.test.ts:154 — test('smart mode omits a human with no plausible game action', () => {",
-          "live-runner/src/kernelHost.test.ts:2786 — test('declares and pays for taxed blocks without judge fallback', async () => {",
+          "live-runner/src/kernelHost.test.ts:2789 — test('declares and pays for taxed blocks without judge fallback', async () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:28 — test('rejects administrative, nested, and unexplained fallbacks', () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:49 — test('keeps committed primitive effects when a later fallback continuation is illegal', () => {",
           "rules-engine/src/plugins/judgeFallback.test.ts:9 — test('runs primitive effects through the normal reducer and traces the fallback', () => {"
@@ -16854,7 +16822,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 57,
+        "matches": 58,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:309 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:65",
@@ -17125,11 +17093,11 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 216,
+        "matches": 217,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2234 — test('a search reads the whole library, not only the cards it may take', () => {",
-          "live-runner/src/kernelHost.test.ts:3464 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3467 — test('rebuilds an optional graveyard-exile choice after a host restart', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:122 — test('stamped land ability copies mana production and keeps the copy ability', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:165 — test('stamped creature filter copies power and toughness', () => {",
           "rules-engine/src/cardPlugins/becomeCopyOfTarget.test.ts:196 — test('rejects targets outside the stamped filter', () => {",
@@ -17169,7 +17137,7 @@
       "candidateEvidence": {
         "matches": 58,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3353 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
+          "live-runner/src/kernelHost.test.ts:3356 — test('a typed player target choice is rebuilt after a lobby restart', () => {",
           "live-runner/src/kernelHost.test.ts:789 — test('cumulative upkeep choice is rebuilt after restart and paid through typed UI input', () => {",
           "rules-engine/src/cardPlugins/blinkValue.test.ts:170 — test('Queza queues a typed opponent choice and drains only the chosen player', () => {",
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:751 — test('casting it makes an 8/8 blue hexproof Kraken, then chapters II and III follow on later turns', async () => {",
@@ -17448,7 +17416,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2943 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
+          "live-runner/src/kernelHost.test.ts:2946 — test('publishes and applies a Roaming Throne creature-type choice', () => {",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:59 — test('Cavern chooses privately and its restricted mana only protects the matching creature', () => {"
         ]
       },
@@ -17475,7 +17443,7 @@
       "candidateEvidence": {
         "matches": 8,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2880 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2883 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "live-runner/src/kernelHost.test.ts:448 — test('publishes the server option bounds and actual source label', () => {",
           "rules-engine/src/cardPlugins/castTriggers.test.ts:140 — test('two watchers each trigger once, and a modal opponent trigger asks its controller', () => {",
           "rules-engine/src/cardPlugins/modalSpell.test.ts:180 — test('combat damage puts Rankle on the stack before its modes are chosen', () => {",
@@ -17582,7 +17550,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3166 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
+          "live-runner/src/kernelHost.test.ts:3169 — test('pauses on a waiting stack discard and resumes with continueAction', async () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -17603,7 +17571,7 @@
       "candidateEvidence": {
         "matches": 1,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:4104 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
+          "live-runner/src/kernelHost.test.ts:4107 — test('a graveyard pick between players\\' same-named cards targets the chosen one', () => {"
         ]
       },
       "neededCanonicalNode": "typed InteractionRequest offer/answer and server-owned continuation",
@@ -17685,7 +17653,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3240 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3243 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:166 — test('host restart keeps the optional mill dialog and still mills on accept', () => {",
           "rules-engine/src/cardPlugins/tokenCarriedTriggers.test.ts:89 — test('a token stamped with optional mill opens a may dialog when it attacks', () => {"
         ]
@@ -18000,7 +17968,7 @@
       "candidateEvidence": {
         "matches": 2,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:3623 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
+          "live-runner/src/kernelHost.test.ts:3626 — test('a restarted host rebuilds ward-pay and can counter the spell', () => {",
           "rules-engine/src/cardPlugins/creatureTypeChoice.test.ts:183 — test('Roaming Throne stamps Ward {2}', () => {"
         ]
       },
@@ -18055,7 +18023,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1919",
+        "rules-engine/src/cardPlugins/cardRules.ts:1910",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:503",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -18167,7 +18135,7 @@
           "live-runner/src/kernelFacts.test.ts:63 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
           "live-runner/src/kernelHost.test.ts:2406 — test('plays the chosen land face of a two-land card from a structured act', async () => {",
           "live-runner/src/kernelHost.test.ts:2455 — test('casts one Room half and later unlocks the other from structured acts', () => {",
-          "live-runner/src/kernelHost.test.ts:3193 — test('publishes and applies the defeated Siege casting choice', () => {",
+          "live-runner/src/kernelHost.test.ts:3196 — test('publishes and applies the defeated Siege casting choice', () => {",
           "rules-engine/src/cardPlugins/librarySearch.test.ts:114 — test('Scapeshift cannot find an MDFC whose front face is not a land', () => {",
           "rules-engine/src/cardPlugins/sinFallLands.test.ts:247 — test('Lasting Fayth creates the scaled Hero, exiles itself, then permits the land play', () => {",
           "rules-engine/src/cardPlugins/targetingMana.test.ts:347 — test('unlock may decline or put a graveyard permanent onto the battlefield', () => {",
@@ -18187,7 +18155,7 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:1025",
+        "rules-engine/src/cardPlugins/cardRules.ts:1016",
         "rules-engine/src/cardPlugins/cardRules.ts:283",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
@@ -18244,7 +18212,7 @@
       "candidateEvidence": {
         "matches": 19,
         "samples": [
-          "live-runner/src/kernelHost.test.ts:2853 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
+          "live-runner/src/kernelHost.test.ts:2856 — test('Rankle publishes its modes, then a sacrifice choice per player', () => {",
           "rules-engine/src/cardPlugins/cirdanGrothamaGuardian.test.ts:26",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:105 — test('leaving the lord removes the grant before another sliver enters', () => {",
           "rules-engine/src/cardPlugins/grantCreatureTrigger.test.ts:12",

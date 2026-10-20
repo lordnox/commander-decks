@@ -913,3 +913,16 @@ test.each(["Collector's Vault", 'Daily Bugle Newspaper'])('%s draws, discards, t
     ] },
   ])
 })
+
+test('Dreamscape Artist pays discard before land sacrifice and searches for up to two untapped basics', () => {
+  expect(cardRuleDefinitionSnapshotFor('Dreamscape Artist')!.definition.abilities).toMatchObject([
+    { kind: 'activated', costs: [
+      { kind: 'mana', amount: '{2}{U}' }, { kind: 'tapSource' },
+      { kind: 'discard', filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you' } } },
+      { kind: 'sacrifice', filter: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } },
+    ], instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 2 }, filter: { kind: 'objects', filter: { zone: 'library', owner: 'you', type: 'Land', supertypes: ['Basic'] } } },
+      { kind: 'move', to: 'battlefield' }, { kind: 'shuffle' },
+    ] }] },
+  ])
+})

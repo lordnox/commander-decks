@@ -819,15 +819,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
     targetOnResolve('reanimate', { zone: 'graveyard', type: 'Creature' }),
   ],
-  'Dreamscape Artist': [
-    searchAbility({
-      prompt: 'Search your library for up to two basic land cards.',
-      match: basicLand,
-      destination: 'battlefield',
-      min: 0,
-      max: 2,
-    }, { mana: '{2}{U}', tap: true, discard: 'any', sacrificeTarget: 'land' }),
-  ],
   'End-Raze Forerunners': [
     enters(
       pumpControlled(2, 2, { trample: true, other: true }),
