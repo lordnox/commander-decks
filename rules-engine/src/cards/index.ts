@@ -107,6 +107,7 @@ import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
 import reanimate from './reanimate'
 import rejuvenatingSprings from './rejuvenating-springs'
+import reliquaryTower from './reliquary-tower'
 import restInPeace from './rest-in-peace'
 import restorationAngel from './restoration-angel'
 import retreatToHagra from './retreat-to-hagra'
@@ -271,6 +272,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Prismatic Vista": prismaticVista,
   "Reanimate": reanimate,
   "Rejuvenating Springs": rejuvenatingSprings,
+  "Reliquary Tower": reliquaryTower,
   "Rest in Peace": restInPeace,
   "Restoration Angel": restorationAngel,
   "Retreat to Hagra": retreatToHagra,

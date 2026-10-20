@@ -1,3 +1,4 @@
+import { activePrintedStaticModifiers } from '../cardPlugins/dsl/staticModifierCore'
 import { emptyMana, nextPlayer, type Draft } from '../draft'
 import { strikesFirst } from '../keywords'
 import type { GameState, HookCtx, PlayerId, Plugin, StepId } from '../types'
@@ -51,6 +52,11 @@ export const NO_MAXIMUM_HAND_SIZE = 'noMaximumHandSize'
 
 export const maximumHandSize = (state: GameState, player: PlayerId) => {
   if (state.players[player].data[NO_MAXIMUM_HAND_SIZE] === true) return null
+  const unlimited = Object.values(state.objects).some(source =>
+    source.controller === player
+    && activePrintedStaticModifiers(state, source).some(entry =>
+      'effect' in entry && entry.effect.kind === 'noMaximumHandSize'))
+  if (unlimited) return null
   const configured = state.players[player].data.maximumHandSize
   if (configured === null) return null
   return typeof configured === 'number' && Number.isSafeInteger(configured)

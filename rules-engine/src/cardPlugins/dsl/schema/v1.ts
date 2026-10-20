@@ -486,6 +486,7 @@ export type ReplacementEffectDefinition = {
 export type ContinuousEffectDefinition =
   | { kind: 'prohibitActivation'; filter: ActivationFilter }
   | { kind: 'extraLandPlays'; count: number }
+  | { kind: 'noMaximumHandSize' }
   | {
       kind: 'modifyStats'
       targets: ObjectSelector
