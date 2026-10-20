@@ -1098,3 +1098,16 @@ test('Liliana’s Caress uses the discarded-card occurrence and the discarding o
     { kind: 'triggered', on: { kind: 'discard', filter: { player: { kind: 'players', filter: { relation: 'opponent' } } } }, instructions: [{ kind: 'loseLife', targets: { kind: 'contextRef', name: 'triggering.player' }, amount: { kind: 'constant', value: 2 } }] },
   ])
 })
+
+
+test('Amulet of Vigor filters tapped controlled entries and untaps the captured entrant without targeting', () => {
+  expect(cardRuleDefinitionSnapshotFor('Amulet of Vigor')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters', filter: { zone: 'battlefield', controller: 'you', tapped: true } }, decisions: { targets: [] }, instructions: [{ kind: 'untap', targets: { kind: 'contextRef', name: 'triggering.object.after' } }] },
+  ])
+})
+
+test('Stifle targets only stack abilities', () => {
+  expect(cardRuleDefinitionSnapshotFor('Stifle')!.definition.abilities).toMatchObject([
+    { kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'ability' } } }] }, instructions: [{ kind: 'counter', targets: { kind: 'targetRef', clauseIndex: 0 } }] },
+  ])
+})

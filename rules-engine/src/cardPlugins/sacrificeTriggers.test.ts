@@ -3,6 +3,7 @@ import { commanderRules } from '../formats'
 import { createJournal, recordAccepted, restoreJournal } from '../journal'
 import { cardTemplate } from '../newGame'
 import { createServerGame, projectForViewer } from '../runtime'
+import { pendingOptionSelection } from '../rules/selectOptions'
 import { PENDING_SELECTION, pendingSelectionFor } from '../rules/selectCards'
 import { DIALOG_CHOSEN, pendingDialogLock } from '../pendingDialog'
 import { ok, resolveStack } from '../testHelpers'
@@ -654,11 +655,11 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
   const named = (state: ReturnType<typeof createServerGame>['state'], name: string) =>
     Object.values(state.objects).find((object) => object.name === name)!
 
-  test('Lotus Field asks to sacrifice two lands on entry', () => {
+  test.each([0, 1, 2])('Lotus Field sacrifices as many lands as possible, including itself (other lands=%s)', otherLands => {
       const server = createServerGame(
         commanderRules,
         {
-          battlefield: { p1: [forest('Forest'), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })] },
+          battlefield: { p1: [forest('Forest'), cardTemplate('Island', { types: ['Land'], subtypes: ['Island'], tapProduces: { U: 1 } })].slice(0, otherLands) },
           hands: { p1: [card('Lotus Field', ['Land'])] },
         },
       )
@@ -670,15 +671,20 @@ describe('relocated from sinFallGaps.test.ts → sacrificeTriggers.test.ts', () 
       }))
       const choosing = ok(server.rules(entered, { type: 'resolveTop' }))
       const selection = pendingSelectionFor(choosing, 'p1')!
-      expect(selection).toMatchObject({ kind: 'choose', count: 2 })
+      expect(selection).toMatchObject({ kind: 'choose', count: Math.min(2, otherLands + 1) })
+      expect(selection.candidates).toHaveLength(otherLands + 1)
+      if (otherLands === 0) {
+        expect(selection.candidates).toEqual([lotus])
+        expect(server.rules(choosing, { type: 'selectCards', seat: 'p1', kind: 'choose', count: 0, objectIds: [] }).ok).toBe(false)
+      }
       const resolved = ok(server.rules(choosing, {
         type: 'selectCards',
         seat: 'p1',
         kind: 'choose',
-        count: 2,
+        count: Math.min(2, otherLands + 1),
         objectIds: selection.candidates.slice(0, 2),
       }))
-      expect(resolved.zoneOrder.p1.battlefield).toHaveLength(1)
+      expect(resolved.zoneOrder.p1.battlefield).toHaveLength(Math.max(0, otherLands - 1))
     })
 
 })
@@ -728,4 +734,57 @@ describe('relocated from cirdanColossi.test.ts → sacrificeTriggers.test.ts', (
         .toEqual(['It That Betrays'])
       expect(named(settled, 'Darksteel Colossus').zone).toBe('library')
     })
+})
+
+
+const lotusWithFloatingBlue = () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    battlefield: { p1: [cardTemplate('Amulet of Vigor')] },
+    hands: { p1: [cardTemplate('Lotus Field'), cardTemplate('Stifle')] },
+  }, { random: () => 0 })
+  const lotus = server.state.zoneOrder.p1.hand[0]
+  let state = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId: lotus }))
+  expect(state.objects[lotus].tapped).toBe(true)
+  const order = pendingSelectionFor(state, 'p1')!
+  expect(order?.triggerOrder?.entries).toHaveLength(2)
+  const entries = order.triggerOrder!.entries!
+  const sacrifice = entries.find(entry => entry.label.startsWith('Lotus Field'))!
+  const untap = entries.find(entry => entry.label.startsWith('Amulet of Vigor'))!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: 2, objectIds: [sacrifice.id, untap.id] }))
+  expect(state.stack.map(item => item.name)).toEqual(['Amulet of Vigor', 'Lotus Field'])
+  state = ok(server.rules(state, { type: 'resolveTop' }))
+  expect(state.objects[lotus].tapped).toBe(false)
+  expect(state.stack.map(item => item.name)).toEqual(['Lotus Field'])
+  state = ok(server.rules(state, { type: 'activateAbility', seat: 'p1', objectId: lotus, abilityId: '$.abilities[3]' }))
+  const color = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: color.id, optionId: color.options.find(option => option.label === 'U')!.id }))
+  expect(state.objects[lotus].tapped).toBe(true)
+  expect(state.players.p1.mana.U).toBe(3)
+  expect(state.stack.map(item => item.name)).toEqual(['Lotus Field'])
+  return { server, state, lotus }
+}
+
+test('Amulet untaps a lone Lotus Field so its three blue mana survive sacrificing the only available land', () => {
+  const { server, state, lotus } = lotusWithFloatingBlue()
+  const choosing = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  const selection = pendingSelectionFor(choosing, 'p1')!
+  expect(selection).toMatchObject({ kind: 'choose', count: 1, candidates: [lotus] })
+  const resolved = ok(server.rules(choosing, { type: 'selectCards', seat: 'p1', selectionId: selection.id, kind: 'choose', count: 1, objectIds: [lotus] }))
+  expect(resolved.objects[lotus].zone).toBe('graveyard')
+  expect(Object.values(resolved.objects).filter(object => object.zone === 'battlefield' && object.types.includes('Land'))).toHaveLength(0)
+  expect(resolved.players.p1.mana.U).toBe(3)
+  expect(resolved.stack).toHaveLength(0)
+})
+
+test('Stifle spends one floating blue to counter Lotus Field’s sacrifice trigger after Amulet untaps it', () => {
+  const { server, state, lotus } = lotusWithFloatingBlue()
+  const stifle = state.zoneOrder.p1.hand[0]
+  const cast = ok(server.rules(state, { type: 'castSpell', seat: 'p1', objectId: stifle, targets: [{ kind: 'stackItem', stackId: state.stack[0].id }] }))
+  expect(cast.players.p1.mana.U).toBe(2)
+  const resolved = ok(server.rules(JSON.parse(JSON.stringify(cast)), { type: 'resolveTop' }))
+  expect(resolved.objects[lotus]).toMatchObject({ zone: 'battlefield', tapped: true })
+  expect(resolved.players.p1.mana.U).toBe(2)
+  expect(resolved.stack).toHaveLength(0)
+  expect(pendingSelectionFor(resolved, 'p1')).toBeUndefined()
 })

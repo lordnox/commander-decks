@@ -953,7 +953,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 386,
+        "matches": 385,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/decisions.test.ts:314 — test('discarding records the card and ends the turn', () => {",
@@ -2168,8 +2168,8 @@
         "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:255 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:697 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:728 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:703 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:734 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:269 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/cardPlugins/watchedEnters.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {"
         ]
@@ -2314,7 +2314,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:176 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:591 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:592 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
           "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
       },
@@ -3756,7 +3756,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:176 — test('the Sin Fall finisher cards load their handlers', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:236 — test('the Círdan Show Me What You Got cards this pass covers stay registered', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:591 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:592 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
           "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
       },
@@ -4991,8 +4991,8 @@
         "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:255 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:697 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:728 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:703 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:734 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:269 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/cardPlugins/watchedEnters.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {"
         ]
@@ -8185,7 +8185,7 @@
           "rules-engine/src/cardPlugins/registry.test.ts:252 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:484 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:804 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:715 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:721 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/plugins/combatKeywords.test.ts:456 — test('without a first or double striker there is only the regular damage step', () => {"
         ]
@@ -8503,7 +8503,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:120 — test('a countered flashback spell is exiled', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:42 — test('Dread Return pays flashback, resolves from the graveyard, and still casts normally', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:414 — test('a sacrifice paid as a spell cost triggers it for each permanent', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:415 — test('a sacrifice paid as a spell cost triggers it for each permanent', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [alternateCast, targetedResolve] and instructions []",
@@ -8915,7 +8915,7 @@
         "matches": 3,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:176 — test('the Sin Fall finisher cards load their handlers', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:591 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:592 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
           "rules-engine/src/cardPlugins/wardLife.test.ts:248 — test('Famished Worldsire Ward {3} can be paid with mana', () => {"
         ]
       },
@@ -10040,8 +10040,8 @@
         "matches": 5,
         "samples": [
           "rules-engine/src/cardPlugins/registry.test.ts:255 — test('the Círdan creature group stays registered', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:697 — test('Lotus Field asks to sacrifice two lands on entry', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:728 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:703 — test('Famished Worldsire devours lands, gains counters, and puts tapped lands from the top', () => {",
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:734 — test('an opponent without annihilator choices sacrifices only the Colossus and It That Betrays gets nothing', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:269 — test('a creature put into a graveyard from the library or hand did not die', () => {",
           "rules-engine/src/cardPlugins/watchedEnters.test.ts:403 — test('a creature stolen by It That Betrays enters under your control and draws if its name is new', () => {"
         ]
@@ -11023,7 +11023,7 @@
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:639 — test('a queued ability resolves after Mirkwood Bats leaves', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:648 — test('Bats outside the battlefield or phased out do not trigger', () => {",
           "rules-engine/src/cardPlugins/generalizedTriggers.test.ts:662 — test('a token copy of Bats triggers on its own creation and sacrifice', () => {",
-          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:478 — test('lands sacrificed while a search spell resolves trigger it', () => {"
+          "rules-engine/src/cardPlugins/sacrificeTriggers.test.ts:479 — test('lands sacrificed while a search spell resolves trigger it', () => {"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [trigger] and instructions [loseLife]",
@@ -17474,7 +17474,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1135",
+        "rules-engine/src/rules/triggers.ts:1136",
         "rules-engine/src/types.ts:312",
         "rules-engine/src/types.ts:314",
         "rules-engine/src/types.ts:318"
@@ -17658,10 +17658,10 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          202
+          203
         ],
         "samples": [
-          "202: if (plain.name !== undefined && object.name !== plain.name) return false"
+          "203: if (plain.name !== undefined && object.name !== plain.name) return false"
         ],
         "mechanic": "card-name execution dispatch",
         "neededCanonicalNode": "typed name predicate only when Oracle text names a card; otherwise reusable rule nodes/capabilities",
@@ -18056,14 +18056,14 @@
           67,
           127,
           145,
-          259,
           260,
-          384,
-          744,
-          861,
-          1018,
-          1053,
-          1054
+          261,
+          385,
+          745,
+          862,
+          1019,
+          1054,
+          1055
         ],
         "samples": [
           "67: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -18603,13 +18603,13 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           284,
-          1369,
-          1398
+          1371,
+          1400
         ],
         "samples": [
           "284: const liveSource = draft.object(source.ref.objectId)",
-          "1369: const object = draft.object(item.objectId)",
-          "1398: const object = draft.object(completedItem.objectId)"
+          "1371: const object = draft.object(item.objectId)",
+          "1400: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -19439,24 +19439,24 @@
       {
         "path": "rules-engine/src/rules/triggers.ts",
         "lines": [
-          514,
-          599,
-          694,
-          728,
-          807,
-          872,
-          885,
-          925,
-          1006,
-          1076,
-          1133,
-          1300,
-          1411
+          515,
+          600,
+          695,
+          729,
+          808,
+          873,
+          886,
+          926,
+          1007,
+          1077,
+          1134,
+          1301,
+          1412
         ],
         "samples": [
-          "514: const frequencySource = draft.object(source.id) ?? source",
-          "599: const live = draft.object(source.id)",
-          "694: const land = draft.object(objectId)"
+          "515: const frequencySource = draft.object(source.id) ?? source",
+          "600: const live = draft.object(source.id)",
+          "695: const land = draft.object(objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
