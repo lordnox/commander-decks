@@ -1909,7 +1909,7 @@ describe('kernel host journal', () => {
       manaCost: '{1}{U}',
       tapProduces: undefined,
     }
-    const handLand = { ...forest(), name: 'Breeding Pool', supertypes: [] }
+    const handLand = { ...forest(), name: 'Hand Land', supertypes: [] }
     const server = createServerGame(
       commanderRules,
       {
@@ -1940,11 +1940,11 @@ describe('kernel host journal', () => {
     expect(lobby.topdeck?.kind).toBe('put-land')
     expect(applyKernelChoice(kernel, lobby, 'p1', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Breeding Pool', destination: 'battlefield' }],
+      choices: [{ card: 'Hand Land', destination: 'battlefield' }],
     }))).toBe(true)
 
     const state = kernel.history.current()
-    const land = Object.values(state.objects).find((object) => object.name === 'Breeding Pool')!
+    const land = Object.values(state.objects).find((object) => object.name === 'Hand Land')!
     expect(land.zone).toBe('battlefield')
     expect(kernel.journal.events).toContainEqual({
       type: 'move',

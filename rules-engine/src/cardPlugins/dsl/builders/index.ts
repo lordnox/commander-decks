@@ -26,6 +26,7 @@ import type {
   ModeDefinition,
   ModeInput,
   ReplacementEventPattern,
+  ReplacementProgramInstruction,
   ModeSpec,
   NumericCharacteristic,
   ObjectFilter,
@@ -58,7 +59,13 @@ import type {
   WheneverConfiguration,
   Zone,
 } from '../schema/v1'
-import { CHOSEN_COLOR_BINDING, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import {
+  CHOSEN_COLOR_BINDING,
+  DECLINE_LIFE_OPTION,
+  ENTRY_PAYMENT_BINDING,
+  PAY_LIFE_OPTION,
+  RULE_DSL_SCHEMA_VERSION,
+} from '../schema/v1'
 import { immutableData } from './immutable'
 import { definitionRevisionFor } from './revision'
 
@@ -302,9 +309,56 @@ export const chooseColor = (bindChoice = CHOSEN_COLOR_BINDING) =>
     options: COLOR_CHOICE_OPTIONS.map((option) => ({ id: option.id, label: option.label })),
   })
 
+export const chooseOption = (
+  bindChoice: string,
+  options: readonly { id: string; label: string }[],
+  extras: { prompt?: string } = {},
+) => immutableData({
+  kind: 'choose' as const,
+  bindChoice,
+  options: options.map((option) => ({ id: option.id, label: option.label })),
+  ...(extras.prompt ? { prompt: extras.prompt } : {}),
+})
+
+export const choiceIs = (binding: string, option: string): Condition =>
+  immutableData({ kind: 'choiceIs', binding, option })
+
+export const programBranch = (
+  condition: Condition,
+  then: readonly ReplacementProgramInstruction[],
+  otherwise: readonly ReplacementProgramInstruction[] = [],
+) => immutableData({
+  kind: 'branch' as const,
+  condition,
+  then,
+  ...(otherwise.length > 0 ? { otherwise } : {}),
+})
+
+export const payLife = (value: AmountInput) =>
+  immutableData({ kind: 'payLife' as const, amount: toAmount(value) })
+
 /** "As this enters, choose a color." Self-entry replacement; the object still enters. */
 export const asThisEntersChooseColor = () =>
   replacement(wouldEnter(), modifyEvent({}), { program: [chooseColor()] })
+
+/** "As this land enters, you may pay N life. If you don't, it enters tapped." */
+export const asThisEntersPayLifeOrTap = (life: number) =>
+  replacement(wouldEnter(), modifyEvent({}), {
+    program: [
+      chooseOption(ENTRY_PAYMENT_BINDING, [
+        { id: PAY_LIFE_OPTION, label: `Pay ${life} life` },
+        { id: DECLINE_LIFE_OPTION, label: 'Enter tapped' },
+      ], { prompt: `You may pay ${life} life. If you don't, this land enters tapped.` }),
+      programBranch(
+        allConditions(
+          choiceIs(ENTRY_PAYMENT_BINDING, PAY_LIFE_OPTION),
+          compareAmount(characteristic(ref('controller'), 'life', { information: 'current' }), 'gte', life),
+        ),
+        [payLife(life)],
+        [modifyEvent({ tapped: true })],
+      ),
+    ],
+  })
 
 export const modifyStats = (
   input: Omit<Extract<ContinuousEffectDefinition, { kind: 'modifyStats' }>, 'kind'>,

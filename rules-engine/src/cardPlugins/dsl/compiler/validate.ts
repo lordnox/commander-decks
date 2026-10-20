@@ -366,6 +366,13 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(node.operator, childPath(path, 'operator'), new Set(['eq', 'gte', 'lte']), 'amount comparison')
         validateAmount(node.right, childPath(path, 'right'), env)
         return
+      case 'choiceIs':
+        exactKeys(node, path, ['kind', 'binding', 'option'], ['kind', 'binding', 'option'])
+        bindingName(node.binding, childPath(path, 'binding'))
+        if (typeof node.option !== 'string' || node.option.length === 0) {
+          issue(childPath(path, 'option'), 'binding-name', 'choiceIs requires a nonempty option id')
+        }
+        return
       case 'all':
       case 'any':
         exactKeys(node, path, ['kind', 'conditions'], ['kind', 'conditions'])
@@ -1021,6 +1028,88 @@ export const validateDefinitionV1 = (root: unknown): {
     }
   }
 
+  const validateEventFieldChanges = (value: unknown, path: string): void => {
+    const node = object(value, path)
+    if (!node) return
+    exactKeys(node, path, ['to', 'tapped', 'amount'], [])
+    if (node.to !== undefined) enumeration(node.to, childPath(path, 'to'), ZONES, 'zone')
+    if (node.tapped !== undefined && typeof node.tapped !== 'boolean') {
+      issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
+    }
+  }
+
+  const validateReplacementProgram = (value: unknown, path: string, env: Environment, depth = 0): void => {
+    if (depth > MAX_TREE_DEPTH) {
+      issue(path, 'depth-limit', `program nesting is limited to ${MAX_TREE_DEPTH}`)
+      return
+    }
+    const optionBindings = new Set<string>()
+    const validateList = (list: unknown, listPath: string, bindings: Set<string>, nested: number): void => {
+      if (nested > MAX_TREE_DEPTH) {
+        issue(listPath, 'depth-limit', `program nesting is limited to ${MAX_TREE_DEPTH}`)
+        return
+      }
+      array(list, listPath).forEach((entry, index) => {
+        const entryPath = childPath(listPath, index)
+        const node = object(entry, entryPath)
+        if (!node) return
+        declarations.push({ path: entryPath, kind: `replacementProgram:${String(node.kind)}` })
+        switch (node.kind) {
+          case 'choose': {
+            exactKeys(node, entryPath, ['kind', 'bindChoice', 'options', 'prompt'], ['kind', 'bindChoice', 'options'])
+            const binding = bindingName(node.bindChoice, childPath(entryPath, 'bindChoice'))
+            if (binding) {
+              if (bindings.has(binding)) issue(childPath(entryPath, 'bindChoice'), 'duplicate-binding', `binding ${binding} is already declared in this program scope`)
+              else bindings.add(binding)
+            }
+            if (node.prompt !== undefined && (typeof node.prompt !== 'string' || node.prompt.length === 0)) {
+              issue(childPath(entryPath, 'prompt'), 'type', 'expected a nonempty string')
+            }
+            const options = array(node.options, childPath(entryPath, 'options'), { nonempty: true })
+            const seen = new Set<string>()
+            options.forEach((option, optionIndex) => {
+              const optionPath = childPath(childPath(entryPath, 'options'), optionIndex)
+              const optionNode = object(option, optionPath)
+              if (!optionNode) return
+              exactKeys(optionNode, optionPath, ['id', 'label'], ['id', 'label'])
+              if (typeof optionNode.id !== 'string' || !IDENTIFIER.test(optionNode.id)) {
+                issue(childPath(optionPath, 'id'), 'binding-name', 'option ids must start with a letter and contain at most 64 letters, digits, dots, underscores, or hyphens')
+              } else if (seen.has(optionNode.id)) {
+                issue(childPath(optionPath, 'id'), 'duplicate-binding', `option ${optionNode.id} is already declared`)
+              } else seen.add(optionNode.id)
+              if (typeof optionNode.label !== 'string' || optionNode.label.length === 0) {
+                issue(childPath(optionPath, 'label'), 'type', 'expected a nonempty string')
+              }
+            })
+            return
+          }
+          case 'branch': {
+            exactKeys(node, entryPath, ['kind', 'condition', 'then', 'otherwise'], ['kind', 'condition', 'then'])
+            validateCondition(node.condition, childPath(entryPath, 'condition'), env)
+            validateList(node.then, childPath(entryPath, 'then'), new Set(bindings), nested + 1)
+            if (node.otherwise !== undefined) validateList(node.otherwise, childPath(entryPath, 'otherwise'), new Set(bindings), nested + 1)
+            return
+          }
+          case 'modifyEvent':
+            exactKeys(node, entryPath, ['kind', 'changes'], ['kind', 'changes'])
+            validateEventFieldChanges(node.changes, childPath(entryPath, 'changes'))
+            return
+          case 'payLife':
+            exactKeys(node, entryPath, ['kind', 'amount'], ['kind', 'amount'])
+            validateAmount(node.amount, childPath(entryPath, 'amount'), env)
+            return
+          case 'emit':
+            exactKeys(node, entryPath, ['kind', 'instructions'], ['kind', 'instructions'])
+            validateInstructionList(node.instructions, childPath(entryPath, 'instructions'), env)
+            return
+          default:
+            issue(childPath(entryPath, 'kind'), 'unsupported-kind', `unsupported replacement program kind: ${String(node.kind)}`)
+        }
+      })
+    }
+    validateList(value, path, optionBindings, depth)
+  }
+
   const validateProgram = (
     ability: Data,
     path: string,
@@ -1203,6 +1292,7 @@ export const validateDefinitionV1 = (root: unknown): {
             case 'replacement': {
               exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
               if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
+              if (node.program !== undefined) validateReplacementProgram(node.program, childPath(effectPath, 'program'), baseEnvironment())
               return
             }
             case 'prevention': {
