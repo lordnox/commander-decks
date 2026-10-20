@@ -7,20 +7,21 @@ import { ok, resolveStack } from '../../testHelpers'
 import { activated, attacks, card, characteristic, compileCardRuleDefinition, createDefinitionSnapshot, createEffect, gainLife, grantAbilityEffect, ref, self, untilCleanup, whenever } from './v1'
 
 test.each([false, true].flatMap(granted => [
-  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: false, count: 2, expected: 5 },
-  { granted, relation: 'you' as const, attacker: 'p2', selfOnly: false, count: 2, expected: 0 },
-  { granted, relation: 'opponent' as const, attacker: 'p2', selfOnly: false, count: 2, expected: 5 },
-  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: true, count: 2, expected: 2 },
-  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: true, count: 1, expected: 0 },
-  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: false, count: 0, expected: 0 },
-]))('attack occurrences capture each matching declared creature (%j)', ({ granted, relation, attacker, selfOnly, count, expected }) => {
-  const pattern = selfOnly ? self.attacks : attacks({ filter: { type: 'Creature', controller: relation } })
+  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: false, count: 2, expected: 5, minimumPower: 0 },
+  { granted, relation: 'you' as const, attacker: 'p2', selfOnly: false, count: 2, expected: 0, minimumPower: 0 },
+  { granted, relation: 'opponent' as const, attacker: 'p2', selfOnly: false, count: 2, expected: 5, minimumPower: 0 },
+  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: true, count: 2, expected: 2, minimumPower: 0 },
+  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: true, count: 1, expected: 0, minimumPower: 0 },
+  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: false, count: 2, expected: 3, minimumPower: 3 },
+  { granted, relation: 'you' as const, attacker: 'p1', selfOnly: false, count: 0, expected: 0, minimumPower: 0 },
+]))('attack occurrences capture each matching declared creature (%j)', ({ granted, relation, attacker, selfOnly, count, expected, minimumPower }) => {
+  const pattern = selfOnly ? self.attacks : attacks({ filter: { type: 'Creature', controller: relation, powerAtLeast: minimumPower } })
   const instructions = [gainLife({ targets: ref('controller'), amount: characteristic(ref('triggering.object.after'), 'manaValue', { information: 'currentOrLastKnown' }) })]
   const ability = granted
     ? activated({ costs: [], instructions: [createEffect({ targets: ref('source'), effect: grantAbilityEffect({ kind: 'triggered', on: pattern, instructions }), duration: untilCleanup() })] })
     : whenever(pattern, { instructions })
   const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([ability])))
-  const creature = (name: string, manaValue: number) => cardTemplate(name, { types: ['Creature'], power: 2, toughness: 2, summoningSickness: false, manaValue })
+  const creature = (name: string, manaValue: number) => cardTemplate(name, { types: ['Creature'], power: manaValue, toughness: 3, summoningSickness: false, manaValue })
   const server = createServerGame(commanderRules, {
     players: 2,
     battlefield: {
@@ -38,7 +39,7 @@ test.each([false, true].flatMap(granted => [
   state = ok(server.rules(state, { type: 'declareAttackers', seat: attacker, attackers: ids.map(objectId => ({ objectId, defender: attacker === 'p1' ? 'p2' : 'p1' })) }))
   const order = pendingSelectionFor(state, 'p1')
   if (order?.triggerOrder) state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: order.id, kind: 'choose', count: order.count, objectIds: order.candidates }))
-  expect(state.stack).toHaveLength(expected === 0 ? 0 : selfOnly ? 1 : 2)
+  expect(state.stack).toHaveLength(expected === 5 ? 2 : expected === 0 ? 0 : 1)
   expect(state.players.p1.life).toBe(40)
   // Captured occurrences survive source removal, attacker departure and restore.
   for (const id of new Set([watcher, ...ids])) state = ok(server.rules(state, { type: 'move', objectId: id, to: 'graveyard' }))

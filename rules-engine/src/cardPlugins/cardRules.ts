@@ -1723,14 +1723,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     }),
   ],
   'Spark Double': [enters(copyControlledCreature({ notLegendary: true, plusCounters: 1 }))],
-  'Spearbreaker Behemoth': [
-    activate({
-      id: 'spearbreaker.indestructible',
-      costs: { mana: '{1}' },
-      targets: { filter: { zone: 'battlefield', type: 'Creature', powerAtLeast: 5 } },
-      do: [grantUntilEot('indestructible')],
-    }),
-  ],
   'Split Decision': [
     targetOnResolve(
       'select',
@@ -1818,14 +1810,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       costs: { mana: '{4}' },
       do: [putSelfOntoBattlefield()],
     }),
-  ],
-  "Tamiyo's Safekeeping": [
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', controller: 'you' },
-      grantUntilEot('hexproof', 'indestructible'),
-      gainLife(2),
-    ),
   ],
   'Tear Asunder': [
     kicker('{1}{B}'),

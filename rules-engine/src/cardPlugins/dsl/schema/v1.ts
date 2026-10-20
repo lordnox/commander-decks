@@ -56,6 +56,7 @@ export type ObjectFilter = {
   token?: boolean
   name?: string
   attacking?: boolean
+  powerAtLeast?: number
   all?: readonly ObjectFilter[]
   any?: readonly ObjectFilter[]
   not?: ObjectFilter
@@ -493,6 +494,7 @@ export type ContinuousEffectDefinition =
 
 export const KEYWORDS = {
   defender: 'defender', trample: 'trample', flying: 'flying', flash: 'flash', haste: 'haste', vigilance: 'vigilance',
+  hexproof: 'hexproof', indestructible: 'indestructible',
 } as const
 export type Keyword = typeof KEYWORDS[keyof typeof KEYWORDS]
 

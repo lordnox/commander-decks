@@ -200,6 +200,7 @@ const canonicalFilterMatch = (
   if (plain.subtypes !== undefined && !plain.subtypes.every((subtype) => object.subtypes.includes(subtype))) return false
   if (plain.token !== undefined && object.token !== plain.token) return false
   if (plain.name !== undefined && object.name !== plain.name) return false
+  if (plain.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < plain.powerAtLeast)) return false
   if (mismatchesController(object, plain, context)) return false
   if (mismatchesOwner(object, plain, context)) return false
   return true

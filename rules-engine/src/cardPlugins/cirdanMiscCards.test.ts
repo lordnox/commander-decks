@@ -1363,7 +1363,7 @@ describe("Rishkar's Expertise", () => {
 )
 
 describe('Spearbreaker Behemoth', () => {
-  const ABILITY = 'spearbreaker.indestructible'
+  const ABILITY = '$.abilities[1]'
 
   const setup = async () => {
     const plugins = await knownPlugins(['Spearbreaker Behemoth', 'Drag to the Roots'])
