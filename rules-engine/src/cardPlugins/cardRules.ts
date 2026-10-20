@@ -800,12 +800,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Exotic Orchard': [manaFrom('opponentsLands')],
   Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
-  'Fabled Passage': [
-    fetchBasic(
-      'Search your library for a basic land card. It enters tapped, then untaps if you control four or more lands.',
-      { tapped: true, untapWithFourLands: true },
-    ),
-  ],
   'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
   'Famished Worldsire': [
     ward({ mana: 3 }),
