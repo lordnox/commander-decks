@@ -180,7 +180,6 @@ import {
   gainLifeTargetPower,
   gainLifeLostThisTurn,
   ifGiftNotPromised,
-  preventCombatDamage,
   revealDrawLoseLife,
   ward,
   xMana,
@@ -1067,12 +1066,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Kogla, the Titan Ape': [enters(fightUpToOne())],
   'Kuroki, Thief of Talents': [
     yourEndTargetingOpponent(opponentMayDrawThenStealCast(4)),
-  ],
-  'Lady Evangela': [
-    ability({
-      id: 'ladyEvangela.fog',
-      targets: 'creature',
-    }, { mana: '{W}{B}', tap: true }, preventCombatDamage({ from: 'target' })),
   ],
   'Lair of the Hydra': [
     entersTapped(otherLands({ min: 2 })),

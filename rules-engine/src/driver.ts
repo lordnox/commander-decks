@@ -935,6 +935,13 @@ const actionEvents = (
           ? 'unlimited' as const
           : availableAmount(preventionEffect.capacity, context) ?? 0
         if ((capacity !== 'unlimited' && capacity <= 0) || targets.length === 0) return []
+        const capturedBindings = {
+          ...(context.targets && Object.keys(context.targets).length > 0
+            ? { targets: structuredClone(context.targets) } : {}),
+          ...(context.targetLegality ? { targetLegality: structuredClone(context.targetLegality) } : {}),
+          ...(context.choices && Object.keys(context.choices).length > 0
+            ? { choices: structuredClone(context.choices) } : {}),
+        }
         return targets.map((object) => ({
           type: 'registerPrevention' as const,
           hostObjectId: object.id,
@@ -947,6 +954,7 @@ const actionEvents = (
           ...(preventionEffect.additionalEffects
             ? { additionalEffects: structuredClone(preventionEffect.additionalEffects) }
             : {}),
+          ...(Object.keys(capturedBindings).length > 0 ? { capturedBindings } : {}),
           createdTurn: draft.turn,
           ...durationMetadata(instruction.duration, context, draft),
         }))

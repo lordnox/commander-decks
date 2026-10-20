@@ -7,6 +7,7 @@ import {
   evaluateRuntimeAmount,
   type RuleDslRuntimeContext,
 } from '../cardPlugins/dsl/compiler/runtime'
+import { RuleDslEvaluationError } from '../cardPlugins/dsl/compiler/errors'
 import type {
   EffectDuration as DslEffectDuration,
   Instruction,
@@ -39,10 +40,22 @@ export type PreventionCandidate = {
   chooser: string
 }
 
-const runtimeFor = (state: GameState, sourceId: string, controller: string): RuleDslRuntimeContext => {
+const runtimeFor = (
+  state: GameState,
+  sourceId: string,
+  controller: string,
+  bindings?: PreventionInstance['capturedBindings'],
+): RuleDslRuntimeContext => {
   const source = state.objects[sourceId]
   if (!source) throw new Error('prevention source is missing')
-  return { state, controller, source: captureObject(source) }
+  return {
+    state,
+    controller,
+    source: captureObject(source),
+    ...(bindings?.targets ? { targets: bindings.targets } : {}),
+    ...(bindings?.targetLegality ? { targetLegality: bindings.targetLegality } : {}),
+    ...(bindings?.choices ? { choices: bindings.choices } : {}),
+  }
 }
 
 const staticPreventionAbilityIndex = (instance: PreventionInstance) => {
@@ -109,28 +122,34 @@ export const damageMatchesPreventionFilter = (
   filter: PreventionFilter,
   hostSourceId: string,
   controller: PlayerId,
+  bindings?: PreventionInstance['capturedBindings'],
 ) => {
   if (filter.combat === true && event.combat !== true) return false
   if (filter.combat === false && event.combat === true) return false
-  const runtime = runtimeFor(state, hostSourceId, controller)
-  if (event.target.kind === 'player') {
-    if (!matchesPlayerRecipient(filter, runtime, event.target)) return false
-  } else if (event.target.kind === 'object') {
-    if (!matchesObjectRecipient(filter, runtime, event.target)) return false
-  } else return false
+  try {
+    const runtime = runtimeFor(state, hostSourceId, controller, bindings)
+    if (event.target.kind === 'player') {
+      if (!matchesPlayerRecipient(filter, runtime, event.target)) return false
+    } else if (event.target.kind === 'object') {
+      if (!matchesObjectRecipient(filter, runtime, event.target)) return false
+    } else return false
 
-  if (filter.source) {
-    const source = state.objects[event.sourceId]
-    if (!source) return false
-    const sourceFilter = filter.source
-    if (typeof sourceFilter === 'object' && 'kind' in sourceFilter) {
-      if (sourceFilter.kind === 'objects') {
-        return evaluateObjectSelector(sourceFilter, runtime).some((object) => object.id === source.id)
+    if (filter.source) {
+      const source = state.objects[event.sourceId]
+      if (!source) return false
+      const sourceFilter = filter.source
+      if (typeof sourceFilter === 'object' && 'kind' in sourceFilter) {
+        if (sourceFilter.kind === 'objects') {
+          return evaluateObjectSelector(sourceFilter, runtime).some((object) => object.id === source.id)
+        }
+        return evaluateObjectReference(sourceFilter, runtime).some((object) => object.id === source.id)
       }
-      return evaluateObjectReference(sourceFilter, runtime).some((object) => object.id === source.id)
     }
+    return true
+  } catch (error) {
+    if (error instanceof RuleDslEvaluationError) return false
+    throw error
   }
-  return true
 }
 
 const untilStepHolds = (
@@ -254,6 +273,7 @@ export const applyRegisterPrevention = (state: GameState, event: Extract<GameEve
     hostSourceIncarnation: host.incarnation,
     controller: host.controller,
     filter: structuredClone(event.filter),
+    ...(event.capturedBindings ? { capturedBindings: structuredClone(event.capturedBindings) } : {}),
     ...(event.staticKey ? { staticKey: event.staticKey } : {}),
     ...(event.additionalEffects ? { additionalEffects: structuredClone(event.additionalEffects) } : {}),
     createdTurn,
@@ -351,7 +371,9 @@ export const discoverPreventionCandidates = (
     const host = state.objects[instance.hostSourceId]
     if (!host || host.phasedOut) continue
     if (!staticPreventionActive(state, instance)) continue
-    if (!damageMatchesPreventionFilter(state, event, instance.filter, instance.hostSourceId, instance.controller)) {
+    if (!damageMatchesPreventionFilter(
+      state, event, instance.filter, instance.hostSourceId, instance.controller, instance.capturedBindings,
+    )) {
       continue
     }
     candidates.push({

@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after unlimited combat-damage prevention (Darkness, Kami of False Hope). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after targeted combat-source prevention (Lady Evangela). Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**237 legacy registration keys, assigned exactly once to 41 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 237 is not a distinct-card count.
+**236 legacy registration keys, assigned exactly once to 41 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Malakir Rebirth, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 236 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -40,13 +40,13 @@ Priority **A** · effort **S** · **4 registrations**
 
 ### 05. Combat-damage prevention
 
-Priority **A** · effort **L** · **6 registrations**
+Priority **A** · effort **L** · **5 registrations**
 
-**Registrations:** `Batwing Brume`; `Comeuppance`; `Energy Arc`; `Inkshield`; `Lady Evangela`; `Sokrates, Athenian Teacher`.
+**Registrations:** `Batwing Brume`; `Comeuppance`; `Energy Arc`; `Inkshield`; `Sokrates, Athenian Teacher`.
 
-**Shared work:** Unlimited combat prevention and combat/source/recipient filters now exist. Remaining cards need extra composition on that primitive.
+**Shared work:** Unlimited combat prevention, combat/source/recipient filters, and announcement-time target capture now exist. Remaining cards need extra composition on that primitive.
 
-**Required support / secondary gates:** Capture targeted source identities for Lady Evangela. Then bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
+**Required support / secondary gates:** Bidirectional Energy Arc, prevented-damage results for Inkshield/Comeuppance/Sokrates, and spent-color conditions for Batwing Brume.
 
 ### 06. Drain spells
 
