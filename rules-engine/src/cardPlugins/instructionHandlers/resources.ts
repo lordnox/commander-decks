@@ -136,25 +136,6 @@ const cumulativeUpkeepOpponentLife: InstructionHandler<'cumulativeUpkeepOpponent
   openCumulativeUpkeep(draft, source.id)
 }
 
-const drainOpponentsX: InstructionHandler<'drainOpponentsX'> = (
-  { draft, source, item },
-  instruction,
-) => {
-  const amount = Math.max(0, item?.x ?? 0) * instruction.multiplier
-  const opponents = draft.playerOrder.filter(
-    (seat) => seat !== source.controller && !draft.players[seat].lost,
-  )
-  draft.enqueue({
-    type: 'gainLife',
-    seat: source.controller,
-    amount: amount * opponents.length,
-    source: source.id,
-  })
-  for (const seat of opponents) {
-    draft.enqueue({ type: 'loseLife', seat, amount, source: source.id })
-  }
-}
-
 const drawX: InstructionHandler<'drawX'> = ({ draft, source, item }) => {
   draft.enqueue({
     type: 'draw',
@@ -907,7 +888,6 @@ export const resourceHandlers = {
   discardCards,
   gainLife,
   cumulativeUpkeepOpponentLife,
-  drainOpponentsX,
   drawX,
   setAllLifeToLowest,
   gainLifeLostThisTurn,

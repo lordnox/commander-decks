@@ -44,10 +44,8 @@ import {
   dredge,
   doublePlusCounters,
   dealDamageToChosenTarget,
-  dealDamageTargetX,
   draw,
   drawX,
-  drainOpponentsX,
   drawAtNextUpkeep,
   drawGreatestPower,
   drawHandDifference,
@@ -707,7 +705,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
-  'Debt to the Deathless': [xMana(), onResolve(drainOpponentsX(2))],
   'Decisive Denial': [modalChooseOne(
     {
       id: 'fight',
@@ -735,14 +732,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Drag to the Roots': [
     reduceGenericIf(2, graveyardCardTypes(4)),
     targetOnResolve('destroy', { zone: 'battlefield', nonland: true }),
-  ],
-  'Drain Life': [
-    xMana('black'),
-    targetOnResolve(
-      'select',
-      { zone: 'battlefield', types: ['Creature', 'Planeswalker'], players: 'any' },
-      dealDamageTargetX(),
-    ),
   ],
   'Dread Return': [
     flashback('Flashback—Sacrifice three creatures.', '', {
@@ -780,7 +769,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Everybody Lives!': [handler('combatPreventionCards')],
   'Exotic Orchard': [manaFrom('opponentsLands')],
-  Exsanguinate: [xMana(), onResolve(drainOpponentsX())],
   'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
   'Famished Worldsire': [
     ward({ mana: 3 }),

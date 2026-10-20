@@ -1,3 +1,4 @@
+import { expandVariableMana, variableManaColor } from '../variableMana'
 import { payCost, validPhyrexianLifePayment } from '../../../plugins/spells'
 import { hasKeyword } from '../../../keywords'
 import { captureObject } from '../../../objectIdentity'
@@ -27,6 +28,7 @@ export const isSourceSacrificeCost = (cost: Cost) =>
   cost.kind === 'sacrifice' && isSourceObjectCost(cost)
 
 export type CostPlan = {
+  xManaColor?: ManaId
   mandatory: readonly Cost[]
   optional?: readonly Cost[]
   alternative?: readonly (readonly Cost[])[]
@@ -154,16 +156,25 @@ const genericMana = (mana: string) => [...mana.matchAll(/\{(\d+)\}/g)]
   .reduce((total, match) => total + Number(match[1]), 0)
 
 export const lockedManaCost = (plan: CostPlan, x = 0, genericAdjustment = 0) => {
-  const mana = [
+  const printed = [
     ...(plan.mandatory.filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount)),
     ...(plan.optional ?? []).filter((cost): cost is Extract<Cost, { kind: 'mana' }> => cost.kind === 'mana').map((cost) => cost.amount),
     ...(plan.increases ?? []).map((increase) => increase.amount),
-  ].join('').replaceAll('{X}', `{${x}}`)
+  ].join('')
+  const mana = expandVariableMana(printed, x)
   const genericReduction = (plan.reductions ?? []).reduce((total, reduction) => {
     integer(reduction.generic, 'generic reduction')
     return total + reduction.generic
   }, 0)
   const generic = Math.max(0, genericMana(mana) + genericAdjustment - genericReduction)
+  if (plan.xManaColor) {
+    // A spending restriction does not turn X into a colored cost: reductions
+    // still reduce its generic portion before the remaining payment is restricted.
+    const variableAmount = [...printed.matchAll(/\{X\}/g)].length * x
+    const restricted = Math.max(0, Math.min(generic, variableAmount + Math.min(0, genericAdjustment - genericReduction)))
+    const otherGeneric = generic - restricted
+    return `${otherGeneric > 0 ? `{${otherGeneric}}` : ''}${mana.replaceAll(/\{\d+\}/g, '')}${`{${plan.xManaColor}}`.repeat(restricted)}`
+  }
   if (generic === genericMana(mana) && genericReduction === 0) return mana
   const nonGeneric = mana.replaceAll(/\{\d+\}/g, '')
   return `${generic > 0 ? `{${generic}}` : ''}${nonGeneric}`
@@ -218,6 +229,11 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
       if (x === undefined) throw new TypeError(`amount variable ${amount.name} is not bound`)
       return { kind: 'constant' as const, value: x }
     }
+    case 'multiply':
+    case 'minimum': {
+      if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
+      return { kind: 'constant', value: evaluateAmount({ ...amount, left: lockAmount(amount.left, x, runtime, depth + 1), right: lockAmount(amount.right, x, runtime, depth + 1) }, { count: () => 0, characteristic: () => 0 }) }
+    }
     case 'divide': {
       if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
       return { kind: 'constant', value: evaluateAmount({ ...amount, value: lockAmount(amount.value, x, runtime, depth + 1) }, { count: () => 0, characteristic: () => 0 }) }
@@ -227,7 +243,7 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
       return { kind: 'constant' as const, value: evaluateRuntimeAmount(amount, runtime) }
     }
     default:
-      throw new TypeError('cost amount must be a constant, X variable, count, or rounded division')
+      throw new TypeError('cost amount must be a constant, X variable, count, or arithmetic expression')
   }
 }
 
@@ -426,7 +442,7 @@ export const beginAnnouncement = (
     validateTargets(state, proposal)
     if (!state.players[proposal.payer]) return { ok: false, error: `unknown payer ${proposal.payer}` }
     const costs = selectedCosts(proposal)
-    const plan: CostPlan = { mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
+    const plan: CostPlan = { xManaColor: proposal.costs.xManaColor, mandatory: costs, increases: proposal.costs.increases, reductions: proposal.costs.reductions }
     validateNonManaCosts(
       state,
       proposal.payer,
@@ -511,6 +527,7 @@ export const beginSpellAnnouncement = (
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
+      xManaColor: variableManaColor(ability.decisions.variables),
       mandatory: ability.costs.some(cost => cost.kind === 'mana') || !source.manaCost
         ? ability.costs
         : [{ kind: 'mana' as const, amount: source.manaCost }, ...ability.costs],
@@ -547,6 +564,7 @@ export const beginActivatedAnnouncement = (
     targets,
     ...(ability.decisions.variables?.length ? { variables: { X: x } } : {}),
     costs: {
+      xManaColor: variableManaColor(ability.decisions.variables),
       mandatory: ability.costs,
       optional: ability.optionalCosts,
       alternative: ability.alternativeCosts,

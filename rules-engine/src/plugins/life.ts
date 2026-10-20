@@ -1,3 +1,4 @@
+import { recordInstructionAmount } from '../cardPlugins/dsl/instructionResults'
 import type { GameEvent, PlayerState, Plugin } from '../types'
 
 export const LIFE_GAINED_THIS_TURN = 'life.gainedThisTurn'
@@ -49,6 +50,7 @@ export const life: Plugin = {
     if (event.type === 'loseLife') {
       const player = draft.players[event.seat]
       if (!player || player.lost || event.amount === 0) return
+      recordInstructionAmount(draft, 'loseLife', event.amount)
       player.life -= event.amount
       player.data[LIFE_LOST_THIS_TURN] = lifeLostThisTurn(player) + event.amount
       draft.note(

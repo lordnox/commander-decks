@@ -37,6 +37,9 @@ import crypticCommand from './cryptic-command'
 import cultivate from './cultivate'
 import dailyBugleNewspaper from './daily-bugle-newspaper'
 import darkness from './darkness'
+import debtToTheDeathless from './debt-to-the-deathless'
+import drainLife from './drain-life'
+import exsanguinate from './exsanguinate'
 import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
@@ -220,6 +223,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Cultivate": cultivate,
   "Daily Bugle Newspaper": dailyBugleNewspaper,
   "Darkness": darkness,
+  "Debt to the Deathless": debtToTheDeathless,
+  "Drain Life": drainLife,
+  "Exsanguinate": exsanguinate,
   "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
