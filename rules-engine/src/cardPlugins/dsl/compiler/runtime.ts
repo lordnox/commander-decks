@@ -344,6 +344,10 @@ const oneReferenceValue = (
 export const amountEvaluationContext = (
   context: RuleDslRuntimeContext,
 ) => ({
+  result: (reference) => {
+    const value = context.results?.[reference.binding]
+    return typeof value === 'number' ? value : undefined
+  },
   variables: context.variables,
   eventAmount: context.occurrence?.amount,
   count: (selector) => {
