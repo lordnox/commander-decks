@@ -244,25 +244,28 @@ const canonicalPatternMatches = (
       occurrence,
     }).includes(player)
   }
-  const enteringId = permanentEnteringObjectId(event, state)
-  const createdToken = event.type === 'custom'
-    && event.name === 'cardPlugins.permanentEntered'
-    && event.payload?.createdToken === true
-  if (pattern.kind === 'enters' && (
-    !enteringId
-    || (!createdToken && occurrence.object?.before?.zone === 'battlefield')
-  )) return false
-  if (pattern.kind === 'dies' && (
-    event.type !== 'move'
-    || event.to !== 'graveyard'
-    || occurrence.object?.before?.zone !== 'battlefield'
-    || occurrence.object?.before?.types.includes('Creature') !== true
-  )) return false
-  if (pattern.kind === 'leaves' && (
-    event.type !== 'move'
-    || event.to === 'battlefield'
-    || occurrence.object?.before?.zone !== 'battlefield'
-  )) return false
+  switch (pattern.kind) {
+    case 'cast':
+      if (event.type !== 'castSpell' || occurrence.object?.after?.zone !== 'stack') return false
+      break
+    case 'enters': {
+      const enteringId = permanentEnteringObjectId(event, state)
+      const createdToken = event.type === 'custom'
+        && event.name === 'cardPlugins.permanentEntered'
+        && event.payload?.createdToken === true
+      if (!enteringId || (!createdToken && occurrence.object?.before?.zone === 'battlefield')) return false
+      break
+    }
+    case 'dies':
+      if (event.type !== 'move' || event.to !== 'graveyard'
+        || occurrence.object?.before?.zone !== 'battlefield'
+        || occurrence.object?.before?.types.includes('Creature') !== true) return false
+      break
+    case 'leaves':
+      if (event.type !== 'move' || event.to === 'battlefield'
+        || occurrence.object?.before?.zone !== 'battlefield') return false
+      break
+  }
   const object = pattern.kind === 'dies' || pattern.kind === 'leaves'
     ? occurrence.object?.before
     : occurrence.object?.after
@@ -320,6 +323,11 @@ const generatedPatternMatches = (
     case 'manaAdded': return event.type === 'addMana' && event.sourceId !== source.id
     case 'manaAbilityActivated': return canonicalManaActivationEvent(state, event)
     case 'manaAbilityResolved': return canonicalManaSourceEvent(state, event)
+    case 'cast': {
+      const object = occurrence.object?.after
+      return event.type === 'castSpell' && object?.zone === 'stack'
+        && canonicalFilterMatch(state, source, object, pattern.filter, occurrence, execution)
+    }
     case 'enters':
     case 'dies':
     case 'leaves': {
