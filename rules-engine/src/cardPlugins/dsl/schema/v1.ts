@@ -113,6 +113,7 @@ export type ObjectOccurrenceFilter =
   | { not: ObjectOccurrenceFilter }
 
 export type OccurrencePattern =
+  | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'cast'; filter: ObjectOccurrenceFilter }
   | { kind: 'attacks'; filter: ObjectOccurrenceFilter }

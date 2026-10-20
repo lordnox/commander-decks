@@ -223,7 +223,7 @@ const canonicalPatternMatches = (
     if (pattern.kind === 'manaAbilityActivated') return canonicalManaActivationEvent(state, event)
     return canonicalManaSourceEvent(state, event)
   }
-  if (pattern.kind === 'draw' || pattern.kind === 'discard') {
+  if (pattern.kind === 'draw' || pattern.kind === 'discard' || pattern.kind === 'playLand') {
     if (event.type !== pattern.kind || !occurrence.player) return false
     if (pattern.kind === 'discard' && (occurrence.object?.before?.zone !== 'hand'
       || occurrence.object.before.controller !== occurrence.player)) return false
@@ -304,6 +304,7 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'playLand':
     case 'discard':
     case 'draw': {
       if (event.type !== pattern.kind || !occurrence.player) return false

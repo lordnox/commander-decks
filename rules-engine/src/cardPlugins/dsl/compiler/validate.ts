@@ -979,6 +979,7 @@ export const validateDefinitionV1 = (root: unknown): {
         env.context = new Map([...env.context, ['triggering.object.before', 'object']])
         validateObjectOccurrenceFilter(node.filter, childPath(path, 'filter'), env)
         return env
+      case 'playLand':
       case 'discard':
       case 'draw': {
         if (node.filter === undefined) issue(childPath(path, 'filter'), 'missing-field', 'required field is missing')

@@ -622,12 +622,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Bridgeworks Battle // Tanglespan Bridgeworks': [tapUnlessPayLife(3)],
   'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
-  Burgeoning: [
-    triggerOn('playLand', {
-      if: { seat: 'opponent' },
-      do: [putLandFromHand()],
-    }),
-  ],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
     restrictedCreatureMana(),

@@ -1130,3 +1130,12 @@ test('Reliquary Tower declares unlimited hand size and colorless tap mana', () =
     { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' }, amount: { C: { kind: 'constant', value: 1 } } }] },
   ])
 })
+
+test('Burgeoning responds to opponent land plays with an optional hand-land move', () => {
+  expect(cardRuleDefinitionSnapshotFor('Burgeoning')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'playLand', filter: { player: { kind: 'players', filter: { relation: 'opponent' } } } }, instructions: [
+      { kind: 'chooseCards', bindChoice: 'land', filter: { kind: 'objects', filter: { zone: 'hand', owner: 'you', type: 'Land' } }, min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'land' }, to: 'battlefield' },
+    ] },
+  ])
+})
