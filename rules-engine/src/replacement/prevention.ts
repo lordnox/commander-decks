@@ -369,7 +369,8 @@ export const discoverPreventionCandidates = (
     if (usedInstanceIds.includes(instance.id)) continue
     if (!preventionInstanceHolds(state, instance, false)) continue
     const host = state.objects[instance.hostSourceId]
-    if (!host || host.phasedOut) continue
+    // Printed static prevention is tied to the host; a resolved createEffect is not.
+    if (instance.staticKey && (!host || host.phasedOut)) continue
     if (!staticPreventionActive(state, instance)) continue
     if (!damageMatchesPreventionFilter(
       state, event, instance.filter, instance.hostSourceId, instance.controller, instance.capturedBindings,
