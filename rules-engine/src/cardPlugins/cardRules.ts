@@ -123,8 +123,6 @@ import {
   revealMatchingToHand,
   revealPick,
   revealUntil,
-  goadRevealUntilMatches,
-  pairDonateRevealUntilMatches,
   opponentMayPayMana,
   attackBanUntilEot,
   putHandCardOnLibraryBottom,
@@ -654,18 +652,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Crypt Ghast': [staticGrant('extraSwampMana'), handler('extort')],
   'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
-  'Dack Fayden, Helping Hand': [
-    enters(
-      revealUntil(
-        'opponentCount',
-        { type: 'Creature' },
-        'battlefield',
-        'shuffle',
-        goadRevealUntilMatches(),
-        pairDonateRevealUntilMatches(),
-      ),
-    ),
-  ],
   'Dakmor Salvage': [dredge(2), entersTapped()],
   'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
   'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],

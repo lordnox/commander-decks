@@ -1,3 +1,5 @@
+import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
+import { changeControllerPermanent } from './cardPlugins/continuousEffects'
 import { counterPtBonus } from './definitions'
 import type { PluginCatalog } from './catalog'
 import { KEYWORDS } from './cardPlugins/dsl/schema/v1'
@@ -479,6 +481,13 @@ const canonicalEffectDuration = (
 
 const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
   switch (event.type) {
+    case CONTROL_EVENT.change: {
+      const object = draft.object(event.objectRef.objectId)
+      if (object?.zone === 'battlefield' && isSameObject(object, event.objectRef) && !draft.players[event.controller]?.lost) {
+        changeControllerPermanent(object, event.controller)
+      }
+      return
+    }
     case 'canonicalEffect': {
       const object = draft.object(event.objectId)
       const anyZone = event.effect.kind === 'setColors'
@@ -486,6 +495,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       if (!object || (object.zone !== 'battlefield' && !anyZone)) return
       const duration = canonicalEffectDuration(event, draft)
       switch (event.effect.kind) {
+        case 'goad':
+          if (event.effectPlayer) object.continuousEffects = [...(object.continuousEffects ?? []), {
+            effect: { kind: 'goad', sourceController: event.effectPlayer }, duration,
+          }]
+          break
         case 'setColors': {
           const before = [...object.colors]
           object.colors = [...new Set(event.effect.colors)]

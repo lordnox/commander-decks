@@ -894,13 +894,6 @@ export const pairDonateToOpponents = (
   distinctWhenBalanced,
 })
 
-export const pairDonateRevealUntilMatches = (distinctWhenBalanced = true): CardInstruction => ({
-  kind: 'pairDonateToOpponents',
-  objectIds: [],
-  objectIdsFromRevealUntil: true,
-  distinctWhenBalanced,
-})
-
 export const bounceAttacking = (): CardInstruction => ({ kind: 'bounceAttacking' })
 
 export const chooseVotesThisTurn = (): CardInstruction => ({ kind: 'chooseVotesThisTurn' })

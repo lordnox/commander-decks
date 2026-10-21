@@ -841,6 +841,9 @@ export const validateDefinitionV1 = (root: unknown): {
         if (effect) {
           exactKeys(effect, childPath(path, 'effect'), ['kind', 'power', 'toughness', 'keyword', 'ability', 'filter', 'capacity', 'additionalEffects', 'colors'], ['kind'])
           switch (effect.kind) {
+            case 'goad':
+              exactKeys(effect, childPath(path, 'effect'), ['kind'], ['kind'])
+              break
             case 'setColors':
               array(effect.colors, childPath(childPath(path, 'effect'), 'colors')).forEach((color, index) =>
                 enumeration(color, childPath(childPath(childPath(path, 'effect'), 'colors'), index), new Set(CARD_COLORS), 'card color'))
@@ -954,6 +957,13 @@ export const validateDefinitionV1 = (root: unknown): {
         declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         return
       }
+      case 'distributeControl':
+        exactKeys(node, path, ['kind', 'targets', 'chooser', 'recipients', 'distinct'], ['kind', 'targets', 'chooser', 'recipients', 'distinct'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
+        validateRecipient(node.recipients, childPath(path, 'recipients'), env, ['player'])
+        if (typeof node.distinct !== 'boolean') issue(childPath(path, 'distinct'), 'type', 'expected a boolean')
+        return
       case 'revealUntil': {
         exactKeys(node, path, ['kind', 'targets', 'match', 'count', 'bindFound', 'bindRest', 'foundTo', 'rest'], ['kind', 'targets', 'match', 'foundTo', 'rest'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
