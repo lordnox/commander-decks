@@ -5,7 +5,7 @@ import { pendingOptionSelection } from '../rules/selectOptions'
 import { createServerGame, projectForViewer } from '../runtime'
 import { pendingSelectionFor } from '../rules/selectCards'
 import { ok, resolveStack } from '../testHelpers'
-import type { GameEvent, GameState } from '../types'
+import type { GameState } from '../types'
 import { activated } from './activated'
 import { becomeCopyOfTarget } from './becomeCopyOfTarget'
 import { effectsFor } from './cardRules'
@@ -13,7 +13,6 @@ import { cycling } from './cycling'
 import { entersTapped } from './entersTapped'
 import {
   librarySearch,
-  SEARCH_CHOSEN,
   SEARCH_FETCH,
   searchCandidates,
   searchSpecFor,
@@ -30,12 +29,6 @@ const plugins = [
   linkedExile,
   onResolve,
 ]
-
-const run = (
-  server: ReturnType<typeof createServerGame>,
-  state: GameState,
-  events: GameEvent[],
-) => events.reduce((current, event) => ok(server.rules(current, event)), state)
 
 const forest = () =>
   cardTemplate('Forest', {
@@ -560,36 +553,6 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     const resolved = resolveStack(server.rules, activatedState)
     expect(resolved.objects[elfId].zone).toBe('graveyard')
     expect(resolved.players.p1.life).toBe(41)
-  })
-
-  test('Moonsilver Key finds an artifact with a mana ability to hand', () => {
-    const key = cardTemplate('Moonsilver Key', {
-      types: ['Artifact'],
-      effects: effectsFor('Moonsilver Key'),
-    })
-    const ring = solRing()
-    const server = createServerGame(
-      commanderRules,
-      { battlefield: { p1: [key] }, libraries: { p1: [ring] } },
-      { random: () => 0.5, cardPlugins: plugins },
-    )
-    const keyId = named(server.state, 'Moonsilver Key').id
-    const ready = structuredClone(server.state)
-    ready.players.p1.mana.C = 1
-    const opened = ok(server.rules(ready, {
-      type: 'activateAbility',
-      abilityId: SEARCH_FETCH,
-      seat: 'p1',
-      objectId: keyId,
-    }))
-    expect(opened.objects[keyId].zone).toBe('graveyard')
-    const found = named(opened, 'Sol Ring').id
-    const finished = run(server, opened, [
-      { type: 'move', objectId: found, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
-    expect(named(finished, 'Sol Ring').zone).toBe('hand')
   })
 
   test("Thrór's Map ETB finds a basic land to hand", () => {

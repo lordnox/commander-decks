@@ -237,6 +237,7 @@ export const captureLexicalBindings = (
   results: Readonly<Record<string, InstructionResult>> = {},
   additionalValues: readonly unknown[] = [],
   localOccurrenceBindings: readonly CapturedOccurrenceBinding[] = [],
+  playerChoiceBindings: readonly string[] = [],
 ) => {
   const referencedChoices = new Set<string>()
   const referencedResults = new Map<string, Set<string>>()
@@ -253,6 +254,7 @@ export const captureLexicalBindings = (
   referencedResults.forEach((_fields, binding) => {
     if (results[binding] !== undefined) resultAliases[binding] = bindingAlias('result', binding, usedBindings)
   })
+  const playerAliases = Object.entries(choiceAliases).filter(([binding]) => playerChoiceBindings.includes(binding) || choices[binding]?.[0]?.kind === 'player').map(([, alias]) => alias)
   const rewritten = rewriteInstructions(instructions, choiceAliases, resultAliases)
   const rewrittenAdditionalValues = additionalValues.map((value) => rewriteCapturedReferences(value, choiceAliases, resultAliases))
   return {
@@ -261,6 +263,7 @@ export const captureLexicalBindings = (
     resultAliases,
     rewrittenAdditionalValues,
     capturedBindings: {
+      ...(playerAliases.length ? { playerChoices: playerAliases } : {}),
       ...(Object.keys(choiceAliases).length > 0 ? { choices: Object.values(choiceAliases) } : {}),
       ...(Object.keys(resultAliases).length > 0
         ? {

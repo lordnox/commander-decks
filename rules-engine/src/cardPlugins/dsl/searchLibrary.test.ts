@@ -399,3 +399,22 @@ test.each(['Riveteers Overlook', 'Undercity Sewers'])('a fetched catalog land re
     expect(state.players.p1.life).toBe(41)
   }
 })
+
+test.each(['mana artifact', 'basic land', 'fail to find'])('a canonical artifact search accepts %s through the typed picker', selected => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: [cardTemplate('Moonsilver Key')] },
+    libraries: { p1: [
+      cardTemplate('Gilded Lotus'), cardTemplate('Basic fixture', { types: ['Land'], supertypes: ['Basic'] }),
+      cardTemplate('Mana text fixture', { types: ['Artifact'], oracleText: '{T}: Add {U}.' }), cardTemplate('Nonbasic fixture', { types: ['Land'] }),
+    ] },
+  }, { random: () => 0 })
+  const ready = structuredClone(server.state)
+  ready.players.p1.mana.C = 1
+  let state = resolveStack(server.rules, ok(server.rules(ready, { type: 'activateAbility', seat: 'p1', objectId: ready.zoneOrder.p1.battlefield[0]!, abilityId: '$.abilities[0]' })))
+  const pick = pendingSelectionFor(state, 'p1')!
+  expect(pick.candidates.map(id => state.objects[id]!.name).sort()).toEqual(['Basic fixture', 'Gilded Lotus'])
+  const chosen = selected === 'fail to find' ? [] : [named(state, selected === 'mana artifact' ? 'Gilded Lotus' : 'Basic fixture').id]
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'selectCards', seat: 'p1', selectionId: pick.id, kind: 'choose', count: pick.count, objectIds: chosen }))
+  expect(state.zoneOrder.p1.hand).toEqual(chosen)
+  expect(state.zoneOrder.p1.graveyard.map(id => state.objects[id]!.name)).toContain('Moonsilver Key')
+})

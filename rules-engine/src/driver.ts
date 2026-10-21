@@ -1,3 +1,4 @@
+import { PLAYER_PROGRAM_CHOICE_ACTION } from './cardPlugins/dsl/playerProgramConstants'
 import { CONTROL_CHOICE_ACTION } from './cardPlugins/dsl/controlConstants'
 import { pickRandomChoices } from './plugins/hiddenInformation'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
@@ -340,6 +341,7 @@ export const startCanonicalResolution = (
       ? { variables: { ...item.execution?.variables, ...(item.x !== undefined ? { X: item.x } : {}) } }
       : {}),
     ...(capturedChoices ? { choices: capturedChoices } : {}),
+    ...(capturedBindings?.playerChoices ? { playerChoiceBindings: [...capturedBindings.playerChoices] } : {}),
     ...(capturedResults ? { results: capturedResults } : {}),
     ...(item.execution?.distributionBindings ? { distributionBindings: structuredClone(item.execution.distributionBindings) } : {}),
     targetLegality: structuredClone(gate.targetLegality),
@@ -580,7 +582,7 @@ const registerCanonicalDelayed = (
     generated.instructions,
     frame.choices,
     frame.results,
-    [eventCondition],
+    [eventCondition], [], frame.playerChoiceBindings,
   )
   const loweredDecisions = inheritTargets ? inheritedDecisions : {
     targets: [],
@@ -1071,7 +1073,7 @@ const actionEvents = (
           frame.choices,
           frame.results,
           [grant.on],
-          occurrenceBindingsForPattern(grant.on),
+          occurrenceBindingsForPattern(grant.on), frame.playerChoiceBindings,
         )
         : undefined
       const grantDecisions = grant && grantChoices
@@ -1241,7 +1243,7 @@ export const prepareResolutionStep = (draft: Draft) => {
     if (scope.cursor >= scope.instructions.length || (scope.iterationPlayer && draft.players[scope.iterationPlayer]?.lost)) {
       frame.scopes.pop()
       if (scope.restoreBindings) {
-        for (const key of ['choices', 'results', 'choiceSnapshots', 'capturedCopies'] as const) {
+        for (const key of ['choices', 'results', 'choiceSnapshots', 'capturedCopies', 'playerChoiceBindings'] as const) {
           delete frame[key]
         }
         Object.assign(frame, structuredClone(scope.restoreBindings))
@@ -1263,8 +1265,10 @@ export const prepareResolutionStep = (draft: Draft) => {
     }
     if (instruction.kind === 'forEachPlayer') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
-      const players = evaluatePlayerSelector(instruction.of, context)
+      const selected = new Set(recipients(instruction.of, context))
+      const players = apnapSeats(draft).filter(player => selected.has(player))
       const restoreBindings = {
+        ...(frame.playerChoiceBindings ? { playerChoiceBindings: [...frame.playerChoiceBindings] } : {}),
         ...(frame.choices ? { choices: structuredClone(frame.choices) } : {}),
         ...(frame.results ? { results: structuredClone(frame.results) } : {}),
         ...(frame.choiceSnapshots ? { choiceSnapshots: structuredClone(frame.choiceSnapshots) } : {}),
@@ -1282,11 +1286,12 @@ export const prepareResolutionStep = (draft: Draft) => {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
       const candidates = evaluatePlayerSelector(instruction.filter, context)
+      frame.playerChoiceBindings = [...(frame.playerChoiceBindings ?? []), instruction.bindChoice]
       frame.choices = { ...frame.choices, [instruction.bindChoice]: [] }
       if (chooser && candidates.length > 0) openPlayerSelection(draft, {
         seat: chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
         prompt: 'Choose a player.', min: 1, max: 1, candidates,
-        action: { kind: 'canonicalChoosePlayer', stackId: frame.stackId, binding: instruction.bindChoice },
+        action: { kind: PLAYER_PROGRAM_CHOICE_ACTION.choose, stackId: frame.stackId, binding: instruction.bindChoice },
       })
       frame.phase = 'committing'
       frame.pendingEvents = []

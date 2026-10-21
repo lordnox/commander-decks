@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after 14-add and 14-greatest; continues #394 and #383. **189 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker are now canonical.
+Snapshot: PR #432 after group 15; continues #394 and #383. **184 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker are now canonical.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 14 available, 1 awaiting correctness follow-up, and 153 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 20 available, 1 awaiting correctness follow-up, and 147 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -25,7 +25,7 @@ No new legacy behavior or baseline allowances. Keep the existing one-PR workflow
 - **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
 - **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
 
-Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 197 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
+Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 185 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
 
 ## What changed from the card batches
 
@@ -43,6 +43,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **44 is retired as an implementation group:** its three cards now reference the actual mechanics—demonstrate, timing/hand casting, or counterability.
 - Correct planning shortcuts from the former list: Dack is a creature; Bender's Waterskin needs other-player untap participation; Rain of Filth grants activated abilities; Sail into the West uses public voting; Trap the Trespassers uses secret creature votes and existing stun counters. Niv-Mizzet has no established Room dependency.
 
+- **15 is available:** player choice/iteration, commander status, quantified player comparisons, mana-ability filters, and name queries are canonical. Beza, Guardian Project, Field of the Dead, Moonsilver Key, and Singularity Rupture have migrated. Other consumers retain their independent prerequisites.
+
 ## Suggested next work
 
 First review the composition candidates below. Then choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
@@ -53,7 +55,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
 | [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
-**No remaining composition candidates.** Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated using greatest-power amounts.
+**No remaining composition candidates.** Group 15 has migrated its five eligible consumers; the remaining cards retain other mechanic gates.
 
 ## Mechanic groups
 
@@ -145,7 +147,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
 | <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, and Braids have migrated. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
-| <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | — |
+| <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | None remaining |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Open | Untap a qualifying permanent during other players' untap steps; this is not an ordinary upkeep trigger. | — | `Bender's Waterskin` |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
 
@@ -165,12 +167,12 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="15-commander"></a>**15-commander — Commander predicates** | Open | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Thunderfoot Baloth`; `Will of the Sultai` |
-| <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Open | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. | — | `Beza, the Bounding Spring`; `Breena, the Demagogue` |
-| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Open | Run a scoped instruction program for each selected player; retain independent results and continuation data. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Singularity Rupture`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
-| <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Open | Select artifacts with mana abilities, using the canonical classification rather than name dispatch. | — | `Moonsilver Key` |
-| <a id="15-names"></a>**15-names — Distinct and matching names** | Open | Distinct-name counts and same-name exclusion across battlefield/graveyard. | — | `Field of the Dead`; `Guardian Project`; `Wedding Ring` |
-| <a id="15-player"></a>**15-player — Non-target player choice** | Open | Typed player selection during resolution with a reusable player binding; control distribution alone is not a generic player-choice instruction. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Sandstone Oracle`; `Wall of Shards` |
+| <a id="15-commander"></a>**15-commander — Commander predicates** | Available | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Thunderfoot Baloth`; `Will of the Sultai` |
+| <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Available | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. | — | `Breena, the Demagogue` |
+| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Available | Run per-player programs in APNAP order with scoped player context, independent local choices/results, typed continuations, and parent-binding restoration. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
+| <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Available | Select cards with intrinsic or canonically classified activated/eligible triggered mana abilities; targets and library movement follow the shared classifier. Moonsilver Key has migrated. | — | None remaining |
+| <a id="15-names"></a>**15-names — Distinct and matching names** | Available | Count distinct current names and compare against current/LKI object names across battlefield/graveyard; Field of the Dead and Guardian Project have migrated. | — | `Wedding Ring` |
+| <a id="15-player"></a>**15-player — Non-target player choice** | Available | Canonical choosePlayer reuses typed selectPlayers, binds a non-target player set, and preserves its player domain (including an empty set) in generated/delayed programs. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Sandstone Oracle`; `Wall of Shards` |
 
 ### 16. Modal faces
 

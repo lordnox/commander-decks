@@ -27,9 +27,6 @@ const fromRules = (name: string, extra: Parameters<typeof cardTemplate>[1] = {})
   cardTemplate(name, { effects: effectsFor(name), ...extra })
 
 const instant = (name: string) => cardTemplate(name, { types: ['Instant'] })
-const creature = (name: string, extra: Parameters<typeof cardTemplate>[1] = {}) =>
-  cardTemplate(name, { types: ['Creature'], ...extra })
-
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
 
@@ -81,40 +78,6 @@ const resolveLootAbility = (
 }
 
 describe('Dack Party pass-35 cardRules', () => {
-  test('Beza draws when an opponent has more cards in hand', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: {
-        p1: [fromRules('Beza, the Bounding Spring', { types: ['Creature'] })],
-        p2: [instant('Extra'), instant('Spare')],
-      },
-      libraries: { p1: [instant('Top Draw')] },
-    }, { random: () => 0.5 })
-    const resolved = playCreature(server, server.state, 'Beza, the Bounding Spring')
-    expect(named(resolved, 'Top Draw').zone).toBe('hand')
-  })
-
-  test('Beza Fish tokens are blue', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      hands: { p1: [fromRules('Beza, the Bounding Spring', { types: ['Creature'] })] },
-      battlefield: {
-        p2: [
-          creature('Opponent One', { power: 3, toughness: 3 }),
-          creature('Opponent Two', { power: 2, toughness: 2 }),
-        ],
-      },
-    }, { random: () => 0.5 })
-    const resolved = playCreature(server, server.state, 'Beza, the Bounding Spring')
-    const fishTokens = resolved.zoneOrder.p1.battlefield
-      .map((id) => resolved.objects[id])
-      .filter((object) => object.subtypes.includes('Fish'))
-    expect(fishTokens.length).toBeGreaterThanOrEqual(2)
-    for (const token of fishTokens) {
-      expect(token.colors).toEqual(['U'])
-    }
-  })
-
   test('Collector\'s Vault loot opens a discard choice then finishes with a Treasure', () => {
     const server = createServerGame(commanderRules, {
       battlefield: { p1: [fromRules('Collector\'s Vault', { types: ['Artifact'] })] },

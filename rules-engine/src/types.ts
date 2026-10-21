@@ -542,7 +542,7 @@ export type CanonicalChoiceRecipient = ({ kind: 'object' } & ObjectIdentity) | {
 
 export type ProgramScopeFrame = {
   iterationPlayer?: PlayerId
-  restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'choiceSnapshots' | 'capturedCopies'>
+  restoreBindings?: Pick<CanonicalResolutionFrame, 'choices' | 'results' | 'choiceSnapshots' | 'capturedCopies' | 'playerChoiceBindings'>
   path: string
   /** Target binding scope used by instructions in this frame. */
   scopeId?: string
@@ -576,6 +576,7 @@ export type CanonicalResolutionFrame = {
   targetLegalityByScope?: Record<string, Record<number, boolean[]>>
   /** Validated announcement-time allocations retained across resolution suspension. */
   distributionBindings?: DistributionAllocation[]
+  playerChoiceBindings?: string[]
   choices?: Record<string, CanonicalChoiceRecipient[]>
   results?: Record<string, InstructionResult>
   pendingResult?: {

@@ -58,7 +58,6 @@ import {
   grantProtectionFromEverything,
   lifeTotalCannotChange,
   opponentDealtCombatDamageByLegendaryThisTurn,
-  opponentHasMore,
   phaseOutControlled,
   exileOpponentGraveyard,
   extraEnters,
@@ -92,7 +91,6 @@ import {
   mayCastFromHandWithoutPayingMana,
   mayDraw,
   mayPayLifeDraw,
-  millHalfTargetPlayers,
   millTarget,
   modalChooseOne,
   modalChooseTwo,
@@ -152,7 +150,6 @@ import {
   teferiSunsetPlusOne,
   targetOnResolve,
   targetOnResolveKicked,
-  uniqueLandNames,
   upkeep,
   chooseModes,
   chooseCreatureType,
@@ -214,7 +211,6 @@ import {
   putTargetOnLibraryTop,
   sagaChapters,
   tapAttached,
-  destroyAllCreatures,
   bounceCreaturesExcept,
   addPlusCountersEqualToLands,
   escape,
@@ -251,8 +247,6 @@ import {
   entersTargeting,
   permanentSacrificed,
   putTriggeringCardOntoBattlefield,
-  permanentEnters,
-  triggeringCreatureNameUnique,
 } from './effects'
 
 const fetchBasic = (prompt: string, extra: {
@@ -299,15 +293,6 @@ const bird = createTokenInstruction({
   oracleText: 'Flying',
 })
 
-const fish = createTokenInstruction({
-  name: 'Fish',
-  types: ['Creature'],
-  subtypes: ['Fish'],
-  colors: ['U'],
-  power: 1,
-  toughness: 1,
-})
-
 const changelingShapeshifter = () => createTokenInstruction({
   name: 'Shapeshifter',
   types: ['Creature'],
@@ -328,15 +313,6 @@ const specificSinSpiraPunishmentTriggeredAbility = (): CardInstruction => ({
   repeatWhileType: 'Land',
   tapped: true,
 })
-
-const artifactWithManaAbility = (object: GameObject) =>
-  object.types.includes('Artifact')
-  && (
-    Boolean(object.tapProduces)
-    || /\{T\}: Add /i.test(object.oracleText)
-    || (object.effects ?? []).some((effect) =>
-      effect.op === 'activate' && effect.manaAbility)
-  )
 
 // Keep leftover registrations sorted by Unicode card name until this object is removed.
 export const CARD_RULES: Record<string, CardEffect[]> = {
@@ -431,14 +407,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     encore('{6}{W}{W}'),
   ],
   'Bender\'s Waterskin': [staticGrant('extraUntap')],
-  'Beza, the Bounding Spring': [
-    enters(
-      branch(opponentHasMore('lands'), [createTreasures(1, 'you')]),
-      branch(opponentHasMore('life'), [gainLife(4)]),
-      branch(opponentHasMore('creatures'), [fish, fish]),
-      branch(opponentHasMore('cardsInHand'), [draw(1)]),
-    ),
-  ],
   'Bishop of Binding': [
     handler('linkedExile'),
     handler('exilePayoffs'),
@@ -665,20 +633,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Fellwar Stone': [manaFrom('opponentsLands')],
-  'Field of the Dead': [
-    entersTapped(),
-    landfall({
-      kind: 'if',
-      if: uniqueLandNames(7),
-      whenTrue: [createTokenInstruction({
-        name: 'Zombie',
-        types: ['Creature'],
-        subtypes: ['Zombie'],
-        power: 2,
-        toughness: 2,
-      })],
-    }),
-  ],
   'Fiend Hunter': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),
@@ -769,12 +723,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Grothama, All-Devouring': [
     grantCreatureTrigger({ controller: 'any', other: true }, 'attacks', mayFightGrantSource()),
     leaves(eachPlayerDrawDamageDealtToSource()),
-  ],
-  'Guardian Project': [
-    permanentEnters(
-      { type: 'Creature', controller: 'you', nontoken: true },
-      { if: triggeringCreatureNameUnique(), do: [draw(1)] },
-    ),
   ],
   'Hagra Mauling // Hagra Broodpit': [
     entersTapped(),
@@ -1012,16 +960,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       oracleText: 'Whenever this token attacks, you may mill a card.',
       effects: [attacks(optionalMill(1))],
     })),
-  ],
-  'Moonsilver Key': [
-    searchAbility({
-      prompt: 'Search your library for an artifact card with a mana ability or a basic land card, reveal it, put it into your hand, then shuffle.',
-      match: (object) => basicLand(object) || artifactWithManaAbility(object),
-      destination: 'hand',
-      min: 1,
-      max: 1,
-      reveal: true,
-    }, { mana: '{1}', tap: true, sacrifice: 'self' }),
   ],
   'Mossborn Hydra': [landfall(doublePlusCounters()), handler('mossborn-hydra')],
   Mulldrifter: [
@@ -1282,10 +1220,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   "Sin, Spira's Punishment": [
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),
-  ],
-  'Singularity Rupture': [
-    onResolve(destroyAllCreatures(), millHalfTargetPlayers()),
-    targetOnResolve('select', { players: 'any' }),
   ],
   'Sink into Stupor // Soporific Springs': [
     tapUnlessPayLife(3),

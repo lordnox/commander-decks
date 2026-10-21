@@ -1539,3 +1539,41 @@ test('Arcane Denial captures the spell controller and creates two non-targeting 
     ],
   }])
 })
+
+test('group 15 consumers compose name, comparison, and mana-ability queries', () => {
+  expect(cardRuleDefinitionSnapshotFor('Beza, the Bounding Spring')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', instructions: [
+      { kind: 'if', condition: { kind: 'somePlayerHasMore', metric: 'lands' }, then: [{ kind: 'createToken', token: { name: 'Treasure' } }] },
+      { kind: 'if', condition: { metric: 'life' }, then: [{ kind: 'gainLife', amount: { value: 4 } }] },
+      { kind: 'if', condition: { metric: 'creatures' }, then: [{ kind: 'createToken', count: { value: 2 }, token: { name: 'Fish', colors: ['U'] } }] },
+      { kind: 'if', condition: { metric: 'hand' }, then: [{ kind: 'draw' }] },
+    ],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Guardian Project')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { filter: { token: false, controller: 'you', type: 'Creature' } },
+    interveningIf: { kind: 'all', conditions: [
+      { left: { of: { filter: { zone: 'battlefield', sameNameAs: { name: 'triggering.object.after' } } } } },
+      { left: { of: { filter: { zone: 'graveyard', sameNameAs: { name: 'triggering.object.after' } } } } },
+    ] }, instructions: [{ kind: 'draw' }],
+  }])
+  expect(cardRuleDefinitionSnapshotFor('Field of the Dead')!.definition.abilities).toMatchObject([
+    { kind: 'static' }, { kind: 'activated', instructions: [{ kind: 'addMana', amount: { C: { value: 1 } } }] },
+    { kind: 'triggered', interveningIf: { left: { kind: 'countDistinctNames' }, right: { value: 7 } }, instructions: [{ kind: 'createToken', token: { colors: ['B'], power: 2, toughness: 2 } }] },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Moonsilver Key')!.definition.abilities).toMatchObject([{
+    kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }],
+    instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { filter: { any: [{ type: 'Artifact', manaAbility: true }, { type: 'Land', supertypes: ['Basic'] }] } } },
+      { kind: 'reveal' }, { kind: 'move', to: 'hand' }, { kind: 'shuffle' },
+    ] }],
+  }])
+})
+
+test('Singularity Rupture wipes creatures before computing each selected player’s own half library', () => {
+  expect(cardRuleDefinitionSnapshotFor('Singularity Rupture')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'players' }, min: { value: 0 } }] },
+    instructions: [{ kind: 'destroy' }, { kind: 'forEachPlayer', of: { kind: 'targetRef', clauseIndex: 0 }, instructions: [
+      { kind: 'mill', targets: { name: 'event.player' }, count: { kind: 'divide', by: 2, rounding: 'down', value: { kind: 'count', of: { filter: { zone: 'library', owner: { name: 'event.player' } } } } } },
+    ] }],
+  }])
+})

@@ -318,7 +318,7 @@ export type TokenDefinition = {
 
 export type Instruction =
   | { kind: 'choosePlayer'; chooser: PlayerReference; filter: PlayerSelector; bindChoice: string }
-  | { kind: 'forEachPlayer'; of: PlayerSelector; instructions: readonly Instruction[] }
+  | { kind: 'forEachPlayer'; of: PlayerRecipient; instructions: readonly Instruction[] }
   /** Bind a bounded top-library segment without moving those objects. */
   | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
   /** Evaluate an amount now, preserving it for later instructions and continuations. */
@@ -605,6 +605,7 @@ export type TriggeredAbilityDefinition = {
   /** Lexical declarations captured by a generated snapshot before its occurrence is matched. */
   capturedBindings?: {
     choices?: readonly string[]
+    playerChoices?: readonly string[]
     results?: Readonly<Record<string, readonly ResultField[]>>
     occurrence?: readonly ('player' | 'object.before' | 'object.after')[]
   }
