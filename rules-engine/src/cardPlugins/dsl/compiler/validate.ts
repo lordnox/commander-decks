@@ -8,6 +8,7 @@ import type {
 import { LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
+import { RuleDslValidationError } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
 
 type Data = Record<string, unknown>
@@ -1499,4 +1500,9 @@ export const validateDefinitionV1 = (root: unknown): {
   return { diagnostics, declarations }
 }
 
-export const asDefinitionV1 = (value: unknown): CardRuleDefinitionV1 => value as CardRuleDefinitionV1
+export function assertDefinitionV1(
+  value: unknown,
+  diagnostics: readonly RuleDslDiagnostic[],
+): asserts value is CardRuleDefinitionV1 {
+  if (diagnostics.length > 0) throw new RuleDslValidationError(diagnostics)
+}
