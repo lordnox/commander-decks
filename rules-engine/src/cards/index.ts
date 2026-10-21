@@ -134,6 +134,7 @@ import lotusField from './lotus-field'
 import magusOfTheCoffers from './magus-of-the-coffers'
 import malakirMire from './malakir-mire'
 import malakirRebirth from './malakir-rebirth'
+import manaDrain from './mana-drain'
 import marshFlats from './marsh-flats'
 import meteorGolem from './meteor-golem'
 import minamoSchoolAtWatersEdge from './minamo-school-at-waters-edge'
@@ -362,6 +363,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Malakir Mire": malakirMire,
   "Malakir Rebirth": malakirRebirth,
   "Malakir Rebirth // Malakir Mire": malakirRebirth,
+  "Mana Drain": manaDrain,
   "Marsh Flats": marshFlats,
   "Meteor Golem": meteorGolem,
   "Minamo, School at Water's Edge": minamoSchoolAtWatersEdge,

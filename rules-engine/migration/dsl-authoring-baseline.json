@@ -185,7 +185,6 @@
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"244cdaeb9657361d6f8f8966cf5f1e923df10606ceed23e4d38d16c857cdec4f","card":"Werefox Bodyguard"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"229fd09490e030a549b6980be240984c79d7bcd59abd4083982ef16437af9c26","card":"Alabaster Host Intercessor"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"143abbf79fbbcbf1553d833832031b0e34bdb8df391dea1a66cd757be0e3a1db","card":"Curious Colossus"},
-  {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"cef23a01d10db65ebbb4c8b333e1a7c6c42a750cea22505e1875edd26f849bd4","card":"Mana Drain"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"9e58503a3ba5755f2e8bed3bab2c29b5c494027d072e808f48da8a46718b2769","card":"Desertion"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"be3389ab76c2bcc9512c19f7d0fe93e003d23ff2a7fb5048652a41c503dd631c","card":"City of Brass"},
   {"path":"rules-engine/src/cardPlugins/cardRules.ts","code":"legacy-card-registration","digest":"89e696f6c207cdff83c61ae70944f39ac35cfe669008ad2e73c7e58e604b7598","card":"Wedding Ring"},

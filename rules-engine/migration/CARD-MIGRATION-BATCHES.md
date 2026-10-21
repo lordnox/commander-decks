@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after native step triggers and Arcane Denial; continues #394 and #383. **193 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, and Arcane Denial are now canonical.
+Snapshot: PR #432 after 13-delayed-main; continues #394 and #383. **192 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, and Mana Drain are now canonical.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 11 available, 1 awaiting correctness follow-up, and 156 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 12 available, 1 awaiting correctness follow-up, and 155 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -33,7 +33,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 - **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time has migrated with **25-delve**. Famished Worldsire still needs **09-devour** and **21-ward**; Hostile Negotiations still needs **39-hidden**.
 - **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot; 09-devour still needs its entry-replacement/counter support. Deferred choices for the same player now reopen correctly (#444).
-- **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn; next-main scheduling remains a separate open contract.
+- **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn.
+- **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
@@ -46,12 +47,11 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [13-delayed-main](#13-delayed-main) | Mana Drain | Capture its target mana value; mana is independent of counter success. |
 | [10-colors](#10-colors) | Exotic Orchard; Fellwar Stone; Reflecting Pool; Horizon of Progress | Full ability review remains required; include colorless only where Oracle permits it. |
 | [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
 | [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
-**No remaining composition candidates.** Arcane Denial has migrated using captured players, non-targeting callbacks, and an explicit current-turn exclusion. Mana Drain still needs next-main scheduling.
+**No remaining composition candidates.** Mana Drain has migrated using captured stack mana value and next-main colorless production.
 
 ## Mechanic groups
 
@@ -95,7 +95,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. | — | `Angel of Sanctions`; `Belonging`; `Boseiju, Who Endures`; `Desertion`; `Irenicus's Vile Duplication`; `Mana Drain`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
+| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. | — | `Angel of Sanctions`; `Belonging`; `Boseiju, Who Endures`; `Desertion`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Thespian's Stage`; `Vanish into Memory` |
 | <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Open | Capture resulting identities of the cards milled this way for later optional recovery; retain replacement and zone-change behavior instead of substituting an unrelated inspect/move program. | [07](#07) | `Ripples of Undeath`; `Six` |
 
 ### 08. Top-library inspection and selection
@@ -142,8 +142,8 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, and Braids have migrated; delayed next-main scheduling is separate. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Mana Drain`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
-| <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Open | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | `Mana Drain` |
+| <a id="13-step"></a>**13-step — Native step triggers** | Available | Typed native step occurrences match actual transitions, capture the active player, support player filters and generated grants, and check intervening conditions at capture/resolution. Dark Confidant, Dark Tutelage, and Braids have migrated. | — | `All-Fates Stalker`; `Awaken the Honored Dead`; `Belonging`; `Coercive Portal`; `Crawling Sensation`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
+| <a id="13-delayed-main"></a>**13-delayed-main — Next main-phase scheduling** | Available | Schedule the next precombat or postcombat main phase of the specified player, whichever occurs first; retain captured amounts after the source leaves. | — | — |
 | <a id="13-untap"></a>**13-untap — Other-player untap participation** | Open | Untap a qualifying permanent during other players' untap steps; this is not an ordinary upkeep trigger. | — | `Bender's Waterskin` |
 | <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
 

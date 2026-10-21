@@ -345,10 +345,12 @@ export const validateDefinitionV1 = (root: unknown): {
         enumeration(node.information, childPath(path, 'information'), new Set(['current', 'currentOrLastKnown']), 'information policy')
         if (node.fallback !== undefined) {
           integer(node.fallback, childPath(path, 'fallback'), { max: MAX_RUNTIME_AMOUNT })
-          if (domain && !['player', 'object', 'damage'].includes(domain)) issue(childPath(path, 'of'), 'domain', 'a characteristic fallback requires a player or object reference')
+          if (domain && !['player', 'object', 'stack', 'damage'].includes(domain)) issue(childPath(path, 'of'), 'domain', 'a characteristic fallback requires a player or object reference')
         }
         if (node.fallback === undefined && characteristic === 'life' && domain && domain !== 'player') issue(childPath(path, 'of'), 'domain', 'life requires a player reference')
-        if (node.fallback === undefined && characteristic && characteristic !== 'life' && domain && domain !== 'object') issue(childPath(path, 'of'), 'domain', `${characteristic} requires an object reference`)
+        if (node.fallback === undefined && characteristic && characteristic !== 'life' && domain && !['object', 'stack'].includes(domain)) {
+          issue(childPath(path, 'of'), 'domain', `${characteristic} requires an object reference`)
+        }
         return
       }
       default: issue(childPath(path, 'kind'), 'unsupported-kind', `unsupported amount kind: ${String(node.kind)}`)
@@ -923,7 +925,7 @@ export const validateDefinitionV1 = (root: unknown): {
             if (condition.from !== undefined) enumeration(condition.from, childPath(childPath(path, 'condition'), 'from'), ZONES, 'source zone')
             if (condition.to !== undefined) enumeration(condition.to, childPath(childPath(path, 'condition'), 'to'), ZONES, 'destination zone')
           } else {
-            if (typeof condition.step !== 'string' || condition.step.length === 0) issue(childPath(childPath(path, 'condition'), 'step'), 'type', 'delayed step requires a step name')
+            validateStepList(condition.step, childPath(childPath(path, 'condition'), 'step'))
             if (condition.active !== undefined) validateReference(condition.active, childPath(childPath(path, 'condition'), 'active'), env, ['player'])
           }
         }
@@ -1101,6 +1103,17 @@ export const validateDefinitionV1 = (root: unknown): {
     if (!found) issue(path, 'empty-filter', 'occurrence filter must contain a predicate or reference')
   }
 
+  const validateStepList = (value: unknown, path: string) => {
+    const steps = Array.isArray(value) ? value : [value]
+    if (steps.length === 0) {
+      issue(path, 'type', 'delayed step requires a step name')
+      return
+    }
+    steps.forEach((step, index) => {
+      enumeration(step, Array.isArray(value) ? childPath(path, index) : path, new Set(STEP_IDS), 'step')
+    })
+  }
+
   const validateOccurrence = (value: unknown, path: string, baseEnv: Environment): Environment => {
     const env = cloneEnv(baseEnv)
     const node = object(value, path)
@@ -1175,7 +1188,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return env
       case 'step':
         exactKeys(node, path, ['kind', 'step', 'active'], ['kind', 'step'])
-        if (typeof node.step !== 'string' || node.step.length === 0) issue(childPath(path, 'step'), 'type', 'step occurrence requires a step name')
+        validateStepList(node.step, childPath(path, 'step'))
         if (node.active !== undefined) {
           validateReference(node.active, childPath(path, 'active'), env, ['player'])
           env.context = new Map([...env.context, ['triggering.player', 'player']])

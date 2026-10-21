@@ -12,6 +12,7 @@ import {
   select,
   stepDelayed,
   target,
+  captureAmount,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   createDelayed,
@@ -19,6 +20,7 @@ import {
   gainLife,
   objects,
   ref,
+  resultAmount,
   spell,
 } from './v1'
 import { cardTemplate } from '../../newGame'
@@ -336,6 +338,72 @@ test.each([false, true])('delayed callbacks can exclude the current turn without
   expect(state.stack).toHaveLength(notThisTurn ? 1 : 0)
   state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
   expect(state.players.p1.life).toBe(43)
+  expect(state.delayedTriggers).toHaveLength(0)
+})
+
+test('a delayed next-main program fires at the specified player\'s first matching main', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [createDelayed({
+      inheritTargets: false,
+      condition: stepDelayed({ step: ['precombatMain', 'postcombatMain'], active: ref('controller') }),
+      instructions: [gainLife({ targets: ref('controller'), amount: 3 })],
+    })] })] },
+  }, { random: () => 0 })
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! })))
+  expect(state.delayedTriggers).toHaveLength(1)
+  state = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), active: 'p2', priority: 'p2', step: 'draw' }, { type: 'advanceStep' }))
+  expect(state.step).toBe('precombatMain')
+  expect(state.stack).toHaveLength(0)
+  expect(state.delayedTriggers).toHaveLength(1)
+  state = ok(server.rules({ ...state, active: 'p1', priority: 'p1', step: 'draw' }, { type: 'advanceStep' }))
+  expect(state.step).toBe('precombatMain')
+  expect(state.stack).toHaveLength(1)
+  expect(state.delayedTriggers).toHaveLength(0)
+  state = resolveStack(server.rules, state)
+  expect(state.players.p1.life).toBe(43)
+})
+
+test('a delayed next-main program uses postcombat when that is next', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [createDelayed({
+      inheritTargets: false,
+      condition: stepDelayed({ step: ['precombatMain', 'postcombatMain'], active: ref('controller') }),
+      instructions: [gainLife({ targets: ref('controller'), amount: 2 })],
+    })] })] },
+  }, { random: () => 0 })
+  let state = resolveStack(server.rules, ok(server.rules({ ...server.state, step: 'precombatMain' }, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]!,
+  })))
+  expect(state.delayedTriggers).toHaveLength(1)
+  state = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), step: 'endCombat' }, { type: 'advanceStep' }))
+  expect(state.step).toBe('postcombatMain')
+  expect(state.stack).toHaveLength(1)
+  expect(state.delayedTriggers).toHaveLength(0)
+  state = resolveStack(server.rules, state)
+  expect(state.players.p1.life).toBe(42)
+})
+
+test('a delayed next-main program keeps a captured amount after its source leaves', () => {
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [instructionSpell({ instructions: [
+      captureAmount({ amount: 4, bindResult: 'paid' }),
+      createDelayed({
+        inheritTargets: false,
+        condition: stepDelayed({ step: ['precombatMain', 'postcombatMain'], active: ref('controller') }),
+        instructions: [{ kind: 'addMana', targets: ref('controller'), amount: { C: resultAmount('paid') } }],
+      }),
+    ] })] },
+  }, { random: () => 0 })
+  const source = server.state.zoneOrder.p1.hand[0]!
+  let state = resolveStack(server.rules, ok(server.rules(server.state, { type: 'castSpell', seat: 'p1', objectId: source })))
+  expect(state.objects[source]?.zone).toBe('graveyard')
+  expect(state.delayedTriggers).toHaveLength(1)
+  state = ok(server.rules({ ...JSON.parse(JSON.stringify(state)), step: 'draw' }, { type: 'advanceStep' }))
+  state = resolveStack(server.rules, state)
+  expect(state.players.p1.mana.C).toBe(4)
   expect(state.delayedTriggers).toHaveLength(0)
 })
 

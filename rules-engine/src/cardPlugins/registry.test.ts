@@ -646,6 +646,8 @@ describe('card plugin registry', () => {
   test('Círdan misc cards keep their handler composition', () => {
     expect(handlerIdsForNames(['Dig Through Time'])).toEqual([])
     expect(cardPluginEntry('Dig Through Time')).toBeUndefined()
+    expect(handlerIdsForNames(['Mana Drain'])).toEqual([])
+    expect(cardPluginEntry('Mana Drain')).toBeUndefined()
     expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])
     expect(handlerIdsForNames(['Nezahal, Primal Tide']).toSorted())
       .toEqual(['activated', 'blink', 'castTriggers', 'noMaxHand'])

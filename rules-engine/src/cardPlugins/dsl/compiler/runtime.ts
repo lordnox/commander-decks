@@ -221,6 +221,29 @@ export const evaluateStackItemReference = (
   return item ? [item] : []
 })
 
+const objectFromStackItem = (stackId: string, context: RuleDslRuntimeContext) => {
+  const item = context.state.stack.find(candidate => candidate.id === stackId)
+  return item ? context.state.objects[item.objectId] : undefined
+}
+
+const characteristicObjects = (
+  reference: Reference,
+  context: RuleDslRuntimeContext,
+  information: 'current' | 'currentOrLastKnown',
+) => {
+  if (reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') return []
+  if (reference.kind === 'targetRef' || reference.kind === 'choiceRef') {
+    const bound = recipients(reference, context)
+    if (bound.every(recipient => recipient.kind === 'stackItem')) {
+      return bound.flatMap(recipient => {
+        const object = objectFromStackItem(recipient.stackId, context)
+        return object ? [object] : []
+      })
+    }
+  }
+  return evaluateObjectReference(reference, context, information)
+}
+
 export const matchesPlayer = (player: PlayerId, match: PlayerMatch | undefined, context: RuleDslRuntimeContext) => {
   if (match === undefined) return false
   if (!context.state.players[player] || context.state.players[player].lost) return false
@@ -380,7 +403,7 @@ const oneReferenceValue = (
   if (reference.kind === 'resultRef' || reference.kind === 'relatedPlayer') {
     throw new RuleDslEvaluationError(`${characteristic} cannot read an instruction result`)
   }
-  const objects = evaluateObjectReference(reference, context, information)
+  const objects = characteristicObjects(reference, context, information)
   if (objects.length !== 1) {
     throw new RuleDslEvaluationError(`${characteristic} reference must resolve to exactly one object`)
   }
