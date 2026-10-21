@@ -160,6 +160,15 @@ const rewriteInstructions = (
         nested.shadowed.forEach((name) => shadowed.add(name))
         return { ...instruction, instructions: nested.instructions }
       }
+      case 'forEach': {
+        const nested = rewriteInstructions(instruction.instructions, choiceAliases, resultAliases, shadowed)
+        nested.shadowed.forEach((name) => shadowed.add(name))
+        return {
+          ...instruction,
+          of: rewriteValue(instruction.of) as typeof instruction.of,
+          instructions: nested.instructions,
+        }
+      }
       case 'if':
         return {
           ...instruction,

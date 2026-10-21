@@ -109,6 +109,9 @@ export const inspectTop = (input: { player: PlayerReference; count: AmountInput;
 export const capturePlayer = (input: { player: PlayerReference; bindResult: string }) =>
   immutableData({ kind: 'capturePlayer' as const, ...input })
 
+export const captureCopy = (input: { targets: ObjectRecipient; bindResult: string }) =>
+  immutableData({ kind: 'captureCopy' as const, ...input })
+
 export const controllerOf = (of: ObjectReference | StackItemReference) =>
   immutableData({ kind: 'relatedPlayer' as const, relation: 'controller' as const, of })
 
@@ -572,10 +575,12 @@ export const shuffle = (input: { targets: PlayerRecipient }) =>
 export const destroy = (input: {
   targets: Extract<Instruction, { kind: 'destroy' }>['targets']
   bindResult?: string
+  bindChoice?: string
 }): Instruction => immutableData({
   kind: 'destroy',
   targets: input.targets,
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
+  ...(input.bindChoice !== undefined ? { bindChoice: input.bindChoice } : {}),
 })
 
 export const sacrifice = (input: {
@@ -645,12 +650,14 @@ export const createToken = (input: {
 })
 
 export const copy = (input: {
-  targets: Extract<Instruction, { kind: 'copy' }>['targets']
+  targets?: ObjectRecipient
+  snapshot?: string
   controller?: Extract<Instruction, { kind: 'copy' }>['controller']
   bindResult?: string
 }): Instruction => immutableData({
   kind: 'copy',
-  targets: input.targets,
+  ...(input.targets !== undefined ? { targets: input.targets } : {}),
+  ...(input.snapshot !== undefined ? { snapshot: input.snapshot } : {}),
   ...(input.controller !== undefined ? { controller: input.controller } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
@@ -785,6 +792,9 @@ export const chooseCards = (input: {
 
 export const sequence = (...instructions: readonly Instruction[]): Instruction =>
   immutableData({ kind: 'sequence', instructions })
+
+export const forEach = (input: { of: ObjectRecipient; instructions: readonly Instruction[] }): Instruction =>
+  immutableData({ kind: 'forEach', of: input.of, instructions: input.instructions })
 
 /** Hidden-zone library search: typed `selectCards`, move the found cards, then shuffle. */
 export const searchLibrary = (input: {

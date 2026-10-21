@@ -52,6 +52,7 @@ import { isSameObject } from './objectIdentity'
 import { pendingOptionalManaPay } from './cardPlugins/optionalManaPay'
 import { hasKeyword } from './keywords'
 import { copyCharacteristics, createToken } from './cardPlugins/effectRuntime'
+import { recordInstructionAmount } from './cardPlugins/dsl/instructionResults'
 import { pendingExtort } from './cardPlugins/extort'
 import { stackCopyPending } from './cardPlugins/stackCopy'
 import { preparePlannedSpellAnnouncement } from './plugins/spells'
@@ -541,11 +542,12 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     }
     case 'copyPermanent': {
       const source = draft.object(event.objectId)
-      if (!source || source.zone !== 'battlefield') return
+      const token = event.token ?? (source?.zone === 'battlefield' ? copyCharacteristics(source) : undefined)
+      if (!token) return
       draft.enqueue({
         type: 'createToken',
         controller: event.controller,
-        token: { ...(event.token ?? copyCharacteristics(source)), dsl: true },
+        token: { ...token, dsl: true },
       })
       return
     }
@@ -627,6 +629,13 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
     case 'move': {
       const object = draft.object(event.objectId)
       if (!object) return
+      const frame = draft.resolution
+      if (frame?.kind === 'canonicalSpell'
+        && frame.pendingResult?.kind === 'amount'
+        && frame.pendingResult.eventType === 'move'
+        && frame.pendingResult.destination === event.to) {
+        recordInstructionAmount(draft, 'move', 1)
+      }
       const previous = object.zone
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'

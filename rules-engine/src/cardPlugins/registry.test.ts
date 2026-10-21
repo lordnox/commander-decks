@@ -609,22 +609,12 @@ describe('card plugin registry', () => {
   })
 
   test('Terastodon registers an up-to-three destroy with a per-controller Elephant', () => {
-    expect(effectsFor('Terastodon')).toEqual([{
-      op: 'trigger',
-      on: 'enters',
-      targets: { filter: { zone: 'battlefield', permanent: true, noncreature: true }, min: 0, max: 3 },
-      do: [{
-        kind: 'destroyThenTokenForController',
-        token: {
-          name: 'Elephant',
-          types: ['Creature'],
-          subtypes: ['Elephant'],
-          colors: ['G'],
-          power: 3,
-          toughness: 3,
-        },
-      }],
-    }])
+    expect(effectsFor('Terastodon')).toEqual([])
+    expect(cardRuleDefinitionSnapshotFor('Terastodon')!.definition.abilities[0]).toMatchObject({
+      kind: 'triggered',
+      decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Creature' } } } }] },
+      instructions: [{ kind: 'destroy', bindChoice: 'destroyed' }, { kind: 'forEach' }],
+    })
   })
 
   test('council cards register the vote engine handlers they need', () => {

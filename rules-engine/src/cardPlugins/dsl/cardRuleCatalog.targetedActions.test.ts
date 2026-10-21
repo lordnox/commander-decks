@@ -310,3 +310,33 @@ test('controller follow-up catalog programs capture their recipient before remov
     }
   }
 })
+
+test('catalog Fractured Identity captures a copy snapshot before exile', () => {
+  expect(effectsFor('Fractured Identity')).toEqual([])
+  const ability = cardRuleDefinitionSnapshotFor('Fractured Identity')!.definition.abilities[0]!
+  if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
+  expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Land' } } })
+  expect(ability.instructions.map(instruction => instruction.kind)).toEqual(['captureCopy', 'capturePlayer', 'move', 'copy'])
+  expect(ability.instructions[0]).toEqual({ kind: 'captureCopy', targets: { kind: 'targetRef', clauseIndex: 0 }, bindResult: 'copied' })
+  expect(ability.instructions[3]).toEqual(expect.objectContaining({ kind: 'copy', snapshot: 'copied' }))
+})
+
+test('catalog Settle the Wreckage searches basics for the actual exile count', () => {
+  expect(effectsFor('Settle the Wreckage')).toEqual([])
+  const ability = cardRuleDefinitionSnapshotFor('Settle the Wreckage')!.definition.abilities[0]!
+  if (ability.kind !== 'spell' || !ability.instructions) throw new Error('expected spell instructions')
+  expect(ability.decisions.targets[0]?.filter).toEqual({ kind: 'players', filter: { relation: 'any' } })
+  expect(ability.instructions[0]).toEqual(expect.objectContaining({ kind: 'move', to: 'exile', bindResult: 'exiled' }))
+  expect(ability.instructions[1]).toEqual(expect.objectContaining({ kind: 'sequence' }))
+})
+
+test('catalog Terastodon destroys up to three noncreatures then tokens their controllers', () => {
+  expect(effectsFor('Terastodon')).toEqual([])
+  const ability = cardRuleDefinitionSnapshotFor('Terastodon')!.definition.abilities[0]!
+  if (ability.kind !== 'triggered' || !ability.instructions) throw new Error('expected triggered instructions')
+  expect(ability.decisions.targets[0]).toEqual(expect.objectContaining({
+    filter: { kind: 'objects', filter: { zone: 'battlefield', not: { type: 'Creature' } } },
+  }))
+  expect(ability.instructions.map(instruction => instruction.kind)).toEqual(['destroy', 'forEach'])
+  expect(ability.instructions[0]).toEqual(expect.objectContaining({ kind: 'destroy', bindChoice: 'destroyed' }))
+})
