@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { keyword, blink, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
+import { activated, keyword, blink, gainLife, amount, card, characteristic, chooseX, compareAmount, compileCardRuleDefinition, createDefinitionSnapshot, destroy, damage, differentTargets, objects, players, ref, select, spell, target, counter, stackItems, variable, whenever } from './v1'
 import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame, projectForViewer } from '../../runtime'
@@ -350,16 +350,20 @@ describe('canonical Rule DSL target bindings and resolution gate', () => {
   })
 
   test('source departure does not re-gate a legal target and never retargets it', () => {
-    const server = canonicalServer(snapshotFor([
-      destroy({ targets: target(0) }),
-    ], [targetCreature()]))
+    const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([activated({
+      costs: [], decisions: { targets: [targetCreature()] }, instructions: [destroy({ targets: target(0) })],
+    })])))
+    const server = createServerGame(commanderRules, { battlefield: {
+      p1: [cardTemplate('Ability source', { types: ['Artifact'], ruleDefinition: definition })],
+      p2: [cardTemplate('Target Bear', { types: ['Creature'], power: 2, toughness: 2 })],
+    } }, { random: () => 0 })
     const targetObject = named(server.state, 'Target Bear')
-    const spellObject = named(server.state, 'Canonical Target Spell')
-    const cast = ok(server.rules(server.state, {
-      type: 'castSpell', seat: 'p1', objectId: spellObject.id,
+    const source = named(server.state, 'Ability source')
+    const announced = ok(server.rules(server.state, {
+      type: 'activateAbility', seat: 'p1', objectId: source.id, abilityId: '$.abilities[0]',
       targets: [{ kind: 'object', objectId: targetObject.id }],
     }))
-    const sourceGone = ok(server.rules(cast, { type: 'move', objectId: spellObject.id, to: 'graveyard' }))
+    const sourceGone = ok(server.rules(announced, { type: 'move', objectId: source.id, to: 'graveyard' }))
     const resolved = ok(server.rules(sourceGone, { type: 'resolveTop' }))
     expect(resolved.objects[targetObject.id].zone).toBe('graveyard')
   })

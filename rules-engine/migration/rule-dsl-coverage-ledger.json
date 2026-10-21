@@ -14485,7 +14485,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:687",
+        "rules-engine/src/kernel.ts:694",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -15500,10 +15500,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1498
+          1505
         ],
         "samples": [
-          "1498: event.name === SEARCH_CHOSEN"
+          "1505: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -17948,11 +17948,11 @@
           611,
           645,
           657,
-          702,
-          704,
-          710,
-          727,
-          732
+          709,
+          711,
+          717,
+          734,
+          739
         ],
         "samples": [
           "486: const object = draft.object(event.objectRef.objectId)",
