@@ -118,8 +118,15 @@ const canonicalManaOptions = (state: GameState, object: GameObject) => {
   return loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.flatMap<ActivatedManaOption>((ability, index) => {
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.targets.length > 0
       || ability.decisions.variables?.length || !ability.availableFrom.includes(object.zone)
-      || ability.costs.some(cost => cost.kind !== 'mana' && cost.kind !== 'life' && cost.kind !== 'tapSource' && !isSourceSacrificeCost(cost))) return []
+      || ability.costs.some(cost => cost.kind !== 'mill' && cost.kind !== 'mana' && cost.kind !== 'life' && cost.kind !== 'tapSource' && !isSourceSacrificeCost(cost))) return []
     try {
+      const runtime = { state, controller: object.controller, source: captureObject(object) }
+      const mill = ability.costs.reduce((total, cost) => total + (cost.kind === 'mill' ? evaluateRuntimeAmount(cost.count, runtime) : 0), 0)
+      if (mill > state.zoneOrder[object.controller]!.library.length) return []
+      if (ability.instructions?.length === 1 && ability.instructions[0]?.kind === 'chooseInstructions') return ability.instructions[0].options.flatMap(option => {
+        const pool = fixedCanonicalMana(state, object, option.instructions)
+        return pool && option.label ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool, choice: option.label, sacrifices: ability.costs.some(isSourceSacrificeCost) }] : []
+      })
       const instruction = ability.instructions?.length === 1 ? ability.instructions[0] : undefined
       if (instruction?.kind === 'addManaFrom') {
         const amount = evaluateRuntimeAmount(instruction.amount, { state, controller: object.controller, source: captureObject(object) })

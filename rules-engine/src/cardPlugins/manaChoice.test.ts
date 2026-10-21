@@ -433,7 +433,7 @@ describe('registered legacy cost and mana integration', () => {
       type: 'activateAbility',
       seat: 'p1',
       objectId: one(state, 'Flooded Grove').id,
-      abilityId: 'floodedGrove.filter',
+      abilityId: '$.abilities[1]',
       manaAbility: true,
       ...(choices ? { choices } : {}),
     })

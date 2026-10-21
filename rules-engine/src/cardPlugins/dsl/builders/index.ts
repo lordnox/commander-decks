@@ -237,6 +237,8 @@ export const discardCost = (filter: ObjectRecipient, count: AmountInput): Cost =
 export const sacrificeCost = (filter: ObjectRecipient, count: AmountInput): Cost =>
   immutableData({ kind: 'sacrifice', filter, count: toAmount(count) })
 
+export const millCost = (count: AmountInput): Cost => immutableData({ kind: 'mill', count: toAmount(count) })
+
 export const drawCost = (count: AmountInput): Cost =>
   immutableData({ kind: 'draw', count: toAmount(count) })
 

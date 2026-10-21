@@ -1,7 +1,6 @@
 import type { GameObject } from '../types'
 import {
   ability,
-  addManaChoice,
   alternateCast,
   activate,
   becomeCopyOfTarget,
@@ -572,14 +571,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       do: [animateUntilEot(4, 4)],
     }),
   ],
-  'Flooded Grove': [
-    activate({
-      id: 'floodedGrove.filter',
-      manaAbility: true,
-      costs: { mana: '{G/U}', tap: true },
-      do: [addManaChoice({ G: 2 }, { G: 1, U: 1 }, { U: 2 })],
-    }),
-  ],
   'Forgotten Cellar': [onUnlock()],
   "Fortune's Favor": [
     targetOnResolve(
@@ -798,14 +789,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         toughness: 2,
         oracleText: 'Changeling',
       })],
-    }),
-  ],
-  Millikin: [
-    activate({
-      id: 'selfMill.millikin',
-      manaAbility: true,
-      costs: { tap: true, mill: 1 },
-      do: [{ kind: 'addMana', mana: { C: 1 } }],
     }),
   ],
   'Mirkwood Bats': [

@@ -640,6 +640,7 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
         validateAmount(node.amount, childPath(path, 'amount'), env)
         return
+      case 'mill':
       case 'draw':
         exactKeys(node, path, ['kind', 'count'], ['kind', 'count'])
         validateAmount(node.count, childPath(path, 'count'), env)
@@ -650,7 +651,7 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'mana':
         exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
         if (typeof node.amount !== 'string' || node.amount.length === 0 || node.amount.length > 128
-          || !/^(?:\{(?:[0-9]+|[WUBRGCX]|[WUBRGC]\/P)\})+$/.test(node.amount)) {
+          || !/^(?:\{(?:[0-9]+|[WUBRGCX]|[WUBRGC]\/P|[WUBRG]\/[WUBRG])\})+$/.test(node.amount)) {
           issue(childPath(path, 'amount'), 'mana-cost', 'mana cost must contain only braced generic, W, U, B, R, G, C, X, or Phyrexian {W/P}{U/P}{B/P}{R/P}{G/P}{C/P} symbols')
         } else if (node.amount.includes('{X}') && !env.variables.has('X')) {
           issue(childPath(path, 'amount'), 'unresolved-binding', 'mana cost uses X but X is not declared in this program scope')
@@ -1517,7 +1518,7 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(ability, path, [...commonProgramKeys, 'availableFrom', 'timing', 'cycling'], ['kind', 'availableFrom', 'timing', 'decisions', 'costs'])
         array(ability.availableFrom, childPath(path, 'availableFrom'), { nonempty: true }).forEach((zone, index) =>
           enumeration(zone, childPath(childPath(path, 'availableFrom'), index), ZONES, 'zone'))
-        enumeration(ability.timing, childPath(path, 'timing'), new Set(['anyTime', 'sorcery']), 'activation timing')
+        enumeration(ability.timing, childPath(path, 'timing'), new Set(['anyTime', 'instant', 'sorcery']), 'activation timing')
         if (ability.cycling !== undefined && ability.cycling !== true) issue(childPath(path, 'cycling'), 'constant', 'cycling must be true when present')
         const result = validateDecisions(ability.decisions, childPath(path, 'decisions'), baseEnvironment(), true)
         if (ability.when !== undefined) validateCondition(ability.when, childPath(path, 'when'), result.env)

@@ -251,6 +251,7 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
 
 const lockCost = (cost: Cost, x: number | undefined, runtime: RuleDslRuntimeContext | undefined) => {
   switch (cost.kind) {
+    case 'mill':
     case 'draw':
     case 'discard':
     case 'sacrifice':
@@ -332,11 +333,15 @@ const validateNonManaCosts = (
   runtimeSourceId: string,
 ) => {
   const runtime = announcementRuntime(state, payer, runtimeSourceId, x)
+  let millTotal = 0
   let lifeTotal = 0
   const selectedObjects = new Set<string>()
   let sourceTapped = false
   for (const cost of costs) {
     switch (cost.kind) {
+      case 'mill':
+        millTotal += costAmount(cost.count, x, runtime)
+        break
       case 'life':
         lifeTotal += costAmount(cost.amount, x, runtime)
         break
@@ -379,6 +384,7 @@ const validateNonManaCosts = (
     )
     if (choices && choices.length !== explicitChoiceCount) throw new TypeError('unused nonmana cost selection')
   }
+  if (Object.values(state.objects).filter(object => object.zone === 'library' && object.owner === payer).length < millTotal) throw new TypeError('payer cannot mill enough cards for the cost')
   if (state.players[payer].life < lifeTotal) throw new TypeError(`payer cannot pay ${lifeTotal} life`)
 }
 
@@ -628,16 +634,18 @@ export const prepareAction = (
 })
 
 export type ActivationPermissionInput = {
-  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players' | 'zoneOrder'>
+  state: Pick<GameState, 'objects' | 'stack' | 'active' | 'step' | 'opponents' | 'playerOrder' | 'players' | 'zoneOrder'> & Partial<Pick<GameState, 'priority' | 'resolution' | 'provisionalAnnouncement'>>
   sourceId: string
   payer: PlayerId
   action: 'activate' | 'tapForMana' | 'nestedPayment' | 'manaPlanning'
+  instantSpeed?: boolean
   sorcerySpeed?: boolean
   availableFrom?: readonly GameState['objects'][string]['zone'][]
   when?: Condition
 }
 
 export const activatedPermissionFields = (ability: ActivatedAbilityDefinition) => ({
+  instantSpeed: ability.timing === 'instant',
   sorcerySpeed: ability.timing === 'sorcery',
   availableFrom: ability.availableFrom,
   ...(ability.when ? { when: ability.when } : {}),
@@ -714,6 +722,7 @@ export const activationPermission = (input: ActivationPermissionInput): string |
   const prohibited = activationRestrictionMessage(input)
   if (prohibited) return prohibited
   if (input.action === 'tapForMana' && source.tapped) return `${source.name} is already tapped`
+  if (input.instantSpeed && (input.state.priority !== input.payer || input.state.resolution || input.state.provisionalAnnouncement)) return `${source.name} can be activated only as an instant`
   if (input.sorcerySpeed && (
     input.state.active !== input.payer
     || !['precombatMain', 'postcombatMain'].includes(input.state.step)

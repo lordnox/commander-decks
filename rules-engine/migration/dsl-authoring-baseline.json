@@ -338,12 +338,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "cc33580772e88864e26c32e14ee88558384d18a3c536d1143989514a21271012",
-    "card": "Millikin"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "0c5d20cbe18fae709a4a5b288b04e472c03b72550cc60aa58b96399826a7c83b",
     "card": "Mole Man, Moloid Master"
   },
@@ -706,12 +700,6 @@
     "code": "legacy-card-registration",
     "digest": "4970f77ee20938dc1c20d44ce0f5212f039804ea91dde80c60670504843fd65d",
     "card": "Ephemerate"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
-    "digest": "c55e6be6a9849e5d33a69ff350e8e475fee51e044fcf7868105a22cbdb2a9e7b",
-    "card": "Flooded Grove"
   },
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",

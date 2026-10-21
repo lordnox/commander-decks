@@ -193,7 +193,10 @@ export const activated: Plugin = {
               return `announcement: ${error instanceof Error ? error.message : String(error)}`
             }
           }
-          const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
+          const programChoice = activatedCanonical.instructions?.length === 1 ? activatedCanonical.instructions[0] : undefined
+        if (canonicalManaClassification(activatedCanonical).isManaAbility && programChoice?.kind === 'chooseInstructions' && event.choices?.[0]
+          && !programChoice.options.some(option => option.label === event.choices![0])) return `${source.name} cannot add ${event.choices[0]}`
+        const announcement = beginActivatedAnnouncement(state, source, event.seat, activatedCanonical, groupedTargets, event.x, event.choices, {
             selectedOptional: event.selectedOptionalCosts,
             selectedAlternative: event.selectedAlternativeCost,
             targetClauses,
@@ -396,7 +399,14 @@ export const activated: Plugin = {
           }
         }
         let choiceIndex = 0
+        let millIndex = 0
         for (const costPart of committed.lockedCost.nonMana) {
+          if (costPart.kind === 'mill') {
+            const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
+            for (const objectId of draft.zoneOrder[event.seat]!.library.slice(millIndex, millIndex + count)) costEvents.push({ type: 'mill', seat: event.seat, objectId })
+            millIndex += count
+            continue
+          }
           if (costPart.kind === 'draw') {
             const count = evaluateAnnouncementCostAmount(costPart.count, event.x)
             for (let i = 0; i < count; i += 1) {

@@ -67,9 +67,10 @@ import { replaceEvent as settleReplaceableEvent, startPreventionAdditionalProgra
 
 const CHECKPOINT_CAP = 32
 
-const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransaction) => {
+const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransaction, state: GameState) => {
   const paymentEvents: GameEvent[] = []
   let costIndex = 0
+  let millIndex = 0
   for (const cost of transaction.lockedCost.nonMana) {
     switch (cost.kind) {
       case 'tapSource':
@@ -89,6 +90,12 @@ const announcementCostEvents = (payer: PlayerId, transaction: AnnouncementTransa
         paymentEvents.push(...(transaction.proposal.nonManaChoices ?? []).slice(costIndex, costIndex + amount).map((objectId) =>
           cost.kind === 'discard' ? { type: 'discard' as const, seat: payer, objectId } : { type: 'sacrifice' as const, objectId }))
         costIndex += amount
+        break
+      }
+      case 'mill': {
+        const amount = evaluateAnnouncementCostAmount(cost.count, transaction.lockedCost.x)
+        for (const objectId of state.zoneOrder[payer]!.library.slice(millIndex, millIndex + amount)) paymentEvents.push({ type: 'mill', seat: payer, objectId })
+        millIndex += amount
         break
       }
       case 'draw': {
@@ -145,7 +152,7 @@ const continueNestedManaPayment = (state: GameState, catalog: PluginCatalog, bas
   const paid = applyCostSequence(
     state,
     catalog,
-    announcementCostEvents(payer, nested.transaction),
+    announcementCostEvents(payer, nested.transaction, state),
     nested.plannedPaymentCursor,
     (draft, cursor) => {
       if (draft.provisionalAnnouncement?.nestedManaPayment) {
@@ -237,7 +244,7 @@ const continuePlannedAnnouncement = (state: GameState, catalog: PluginCatalog): 
   const paid = applyCostSequence(
     current,
     catalog,
-    announcementCostEvents(parent.payer, parent.transaction),
+    announcementCostEvents(parent.payer, parent.transaction, current),
     parent.plannedPaymentCursor ?? 0,
     (draft, nextCursor) => {
       if (draft.provisionalAnnouncement) draft.provisionalAnnouncement.plannedPaymentCursor = nextCursor

@@ -1,3 +1,5 @@
+import millikin from './millikin'
+import floodedGrove from './flooded-grove'
 import horizonOfProgress from './horizon-of-progress'
 import reflectingPool from './reflecting-pool'
 import fellwarStone from './fellwar-stone'
@@ -257,6 +259,8 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Millikin": millikin,
+  "Flooded Grove": floodedGrove,
   "Horizon of Progress": horizonOfProgress,
   "Reflecting Pool": reflectingPool,
   "Fellwar Stone": fellwarStone,

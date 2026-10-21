@@ -1459,6 +1459,12 @@ export const prepareResolutionStep = (draft: Draft) => {
     }
     if (instruction.kind === 'chooseInstructions') {
       const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const announced = frame.inlineItem && item.choices?.[0]
+      const selected = announced ? instruction.options.find(option => option.label === announced) : undefined
+      if (selected) {
+        frame.scopes.push({ path, scopeId: scope.scopeId, instructions: [...selected.instructions], cursor: 0 })
+        continue
+      }
       const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
       if (chooser && instruction.options.length > 0) {
         openOptionSelection(draft, {

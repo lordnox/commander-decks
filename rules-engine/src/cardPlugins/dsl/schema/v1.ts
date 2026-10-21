@@ -246,6 +246,7 @@ export type Cost =
   | { kind: 'tapSource' }
   | { kind: 'discard'; filter: ObjectRecipient; count: Amount }
   | { kind: 'sacrifice'; filter: ObjectRecipient; count: Amount }
+  | { kind: 'mill'; count: Amount }
   | { kind: 'draw'; count: Amount }
   | { kind: 'life'; amount: Amount }
   | { kind: 'mana'; amount: ManaCost }
@@ -530,7 +531,7 @@ export type CopySpellRetargeting =
   | { kind: 'keep' }
   | { kind: 'chooseNewTargets' }
 
-export type ActivationTiming = 'anyTime' | 'sorcery'
+export type ActivationTiming = 'anyTime' | 'instant' | 'sorcery'
 
 export type TriggerFrequency =
   | { kind: 'onceEachTurn' }

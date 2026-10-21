@@ -554,6 +554,7 @@ export const spells: Plugin = {
       : committedBase
     const choices = [...(event.discard ?? []), ...(event.sacrifice ?? [])]
     let choiceIndex = 0
+    let millIndex = 0
     const costs: GameEvent[] = []
     for (const cost of committed.lockedCost.nonMana) {
       switch (cost.kind) {
@@ -570,6 +571,12 @@ export const spells: Plugin = {
             costs.push(cost.kind === 'discard' ? { type: 'discard', seat: event.seat, objectId } : { type: 'sacrifice', objectId })
           }
           choiceIndex += count
+          break
+        }
+        case 'mill': {
+          const count = evaluateAnnouncementCostAmount(cost.count, event.x)
+          for (const objectId of state.zoneOrder[event.seat]!.library.slice(millIndex, millIndex + count)) costs.push({ type: 'mill', seat: event.seat, objectId })
+          millIndex += count
           break
         }
         case 'draw': {
