@@ -25,6 +25,7 @@ import type {
   LibraryVisibility,
   Keyword,
   KeywordAbilityDefinition,
+  LinkedExileReturn,
   ModeDefinition,
   ModeInput,
   ReplacementEventPattern,
@@ -583,6 +584,23 @@ export const grantLandPlays = (input: { count: AmountInput; targets: PlayerRecip
 
 export const grantNoMaximumHandSize = (input: { targets: PlayerRecipient }) =>
   immutableData({ kind: 'grantNoMaximumHandSize' as const, targets: input.targets })
+
+export const linkExile = (input: {
+  targets: ObjectRecipient
+  untilSourceLeaves?: true
+  returnTo?: LinkedExileReturn
+}) => immutableData({
+  kind: 'linkExile' as const,
+  targets: input.targets,
+  ...(input.untilSourceLeaves ? { untilSourceLeaves: true as const } : {}),
+  ...(input.returnTo ? { returnTo: input.returnTo } : {}),
+})
+
+export const returnLinkedExile = (input: { returnTo?: LinkedExileReturn } = {}) =>
+  immutableData({
+    kind: 'returnLinkedExile' as const,
+    ...(input.returnTo ? { returnTo: input.returnTo } : {}),
+  })
 
 export const mill = (input: { count: AmountInput; targets: PlayerRecipient }): Instruction =>
   immutableData({ kind: 'mill', count: toAmount(input.count), targets: input.targets })

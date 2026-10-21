@@ -827,6 +827,87 @@ test('catalog Restoration Angel composes flash, flying and optional controlled n
   ])
 })
 
+test('catalog Banisher Priest exiles an opponent creature until it leaves', () => {
+  expect(effectsFor('Banisher Priest')).toEqual([])
+  expect(cardTemplateDefaultsFor('Banisher Priest')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Human', 'Cleric'],
+    colors: ['W'],
+    manaCost: '{1}{W}{W}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Banisher Priest')!.definition.abilities).toMatchObject([{
+    kind: 'triggered',
+    on: { kind: 'enters' },
+    decisions: { targets: [{
+      min: { kind: 'constant', value: 1 },
+      max: { kind: 'constant', value: 1 },
+      filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', controller: 'opponent' } },
+    }] },
+    instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilSourceLeaves: true }],
+  }])
+})
+
+test('catalog Werefox Bodyguard optionally cages a non-Fox and may sacrifice for life', () => {
+  expect(effectsFor('Werefox Bodyguard')).toEqual([])
+  expect(cardTemplateDefaultsFor('Werefox Bodyguard')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Elf', 'Fox', 'Knight'],
+    colors: ['W'],
+    manaCost: '{1}{W}{W}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Werefox Bodyguard')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: 'flash' },
+    {
+      kind: 'triggered',
+      on: { kind: 'enters' },
+      decisions: { targets: [{
+        min: { kind: 'constant', value: 0 },
+        max: { kind: 'constant', value: 1 },
+        filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', other: true, not: { subtypes: ['Fox'] } } },
+      }] },
+      instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 }, untilSourceLeaves: true }],
+    },
+    {
+      kind: 'activated',
+      costs: [
+        { kind: 'mana', amount: '{1}{W}' },
+        { kind: 'sacrifice', filter: { kind: 'contextRef', name: 'source' } },
+      ],
+      instructions: [{ kind: 'gainLife', amount: { kind: 'constant', value: 2 } }],
+    },
+  ])
+})
+
+test('catalog Fiend Hunter links a separate leave trigger rather than until-leaves', () => {
+  expect(effectsFor('Fiend Hunter')).toEqual([])
+  expect(cardTemplateDefaultsFor('Fiend Hunter')).toMatchObject({
+    types: ['Creature'],
+    subtypes: ['Human', 'Cleric'],
+    colors: ['W'],
+    manaCost: '{1}{W}{W}',
+    manaValue: 3,
+  })
+  expect(cardRuleDefinitionSnapshotFor('Fiend Hunter')!.definition.abilities).toMatchObject([
+    {
+      kind: 'triggered',
+      on: { kind: 'enters' },
+      decisions: { targets: [{
+        min: { kind: 'constant', value: 0 },
+        max: { kind: 'constant', value: 1 },
+        filter: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature', other: true } },
+      }] },
+      instructions: [{ kind: 'linkExile', targets: { kind: 'targetRef', clauseIndex: 0 } }],
+    },
+    {
+      kind: 'triggered',
+      on: { kind: 'leaves' },
+      instructions: [{ kind: 'returnLinkedExile' }],
+    },
+  ])
+})
+
 test('catalog Githzerai Monk declares flash and flying alongside its entry instruction', () => {
   expect(cardTemplateDefaultsFor('Githzerai Monk')).toMatchObject({ subtypes: ['Gith', 'Monk'] })
   expect(cardRuleDefinitionSnapshotFor('Githzerai Monk')!.definition.abilities).toEqual(expect.arrayContaining([

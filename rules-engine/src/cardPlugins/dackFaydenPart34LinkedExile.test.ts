@@ -92,6 +92,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
     expect(state.objects[preyId]).toMatchObject({ zone: 'exile', exiledWith: hunterId })
 
     state = ok(server.rules(state, { type: 'move', objectId: hunterId, to: 'graveyard' }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.objects[preyId].zone).toBe('exile')
+    state = resolveStack(server.rules, state)
     expect(state.objects[preyId]).toMatchObject({
       zone: 'battlefield',
       controller: state.objects[preyId].owner,
@@ -111,6 +114,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
 
     let state = enterAndLinkExile(server, hunterId, 'p1', [preyId])
     state = ok(server.rules(state, { type: 'move', objectId: hunterId, to: 'hand' }))
+    expect(state.stack).toHaveLength(1)
+    expect(state.objects[preyId].zone).toBe('exile')
+    state = resolveStack(server.rules, state)
     expect(state.objects[preyId].zone).toBe('battlefield')
   })
 
@@ -404,6 +410,9 @@ describe('Dack Fayden part 34 — linked exile cages', () => {
       count: 1,
       objectIds: [preyId],
     }))
-    expect(finished.objects[preyId].zone).toBe('exile')
+    expect(pendingSelectionFor(finished, 'p1')).toBeUndefined()
+    expect(finished.stack).toHaveLength(1)
+    const resolved = resolveStack(server.rules, finished)
+    expect(resolved.objects[preyId].zone).toBe('exile')
   })
 })

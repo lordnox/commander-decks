@@ -137,6 +137,8 @@ const preflightInstructions = (
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
       case 'addManaFrom':
+      case 'linkExile':
+      case 'returnLinkedExile':
       case 'addMana':
       case 'inspectTop':
       case 'choosePlayer':
@@ -679,6 +681,30 @@ const actionEvents = (
     }
     case 'grantNoMaximumHandSize': {
       return recipients(instruction.targets, context).map((seat) => ({ type: 'grantNoMaximumHandSize' as const, seat }))
+    }
+    case 'linkExile': {
+      const sourceId = frame.source.ref.objectId
+      const source = draft.object(sourceId)
+      if (!source) return []
+      if (instruction.untilSourceLeaves && source.zone !== 'battlefield') return []
+      const objectIds = objectActions(instruction.targets, context)
+        .filter(object => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+        .map(object => object.id)
+      if (objectIds.length === 0) return []
+      return [{
+        type: 'linkExile' as const,
+        sourceId,
+        objectIds,
+        ...(instruction.untilSourceLeaves ? { untilSourceLeaves: true as const } : {}),
+        ...(instruction.returnTo ? { returnTo: instruction.returnTo } : {}),
+      }]
+    }
+    case 'returnLinkedExile': {
+      return [{
+        type: 'returnLinkedExile' as const,
+        sourceId: frame.source.ref.objectId,
+        ...(instruction.returnTo ? { returnTo: instruction.returnTo } : {}),
+      }]
     }
     case 'draw': {
       const targets = recipients(instruction.targets, context)

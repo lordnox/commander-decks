@@ -1,4 +1,5 @@
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
+import { linkExileSelected, releaseLinkedExile } from './cardPlugins/linkedExile'
 import { changeControllerPermanent } from './cardPlugins/continuousEffects'
 import { counterPtBonus } from './definitions'
 import type { PluginCatalog } from './catalog'
@@ -555,6 +556,20 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       draft.enqueue({ type: 'move', objectId: object.id, to: 'graveyard' })
       return
     }
+    case 'linkExile': {
+      const source = draft.object(event.sourceId)
+      if (!source) return
+      if (event.untilSourceLeaves && source.zone !== 'battlefield') return
+      linkExileSelected(draft, source, event.objectIds)
+      if (event.untilSourceLeaves) source.returnLinkedExile = event.returnTo ?? 'battlefield'
+      return
+    }
+    case 'returnLinkedExile': {
+      const source = draft.object(event.sourceId)
+      if (!source) return
+      releaseLinkedExile(draft, source, event.returnTo ?? 'battlefield')
+      return
+    }
     case 'copyPermanent': {
       const source = draft.object(event.objectId)
       const token = event.token ?? (source?.zone === 'battlefield' ? copyCharacteristics(source) : undefined)
@@ -667,6 +682,11 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
         draft.rules = draft.rules.filter((rule) => rule.sourceId !== event.objectId)
         if (previous === 'battlefield' && event.to === 'graveyard') {
           markPutIntoGraveyardFromBattlefieldThisTurn(object)
+        }
+        if (object.returnLinkedExile === 'battlefield' || object.returnLinkedExile === 'hand') {
+          const returnTo = object.returnLinkedExile
+          delete object.returnLinkedExile
+          releaseLinkedExile(draft, object, returnTo)
         }
         draft.note(`${object.name} leaves battlefield`)
       }

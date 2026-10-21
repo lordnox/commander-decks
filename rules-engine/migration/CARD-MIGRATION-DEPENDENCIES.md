@@ -19,7 +19,7 @@ Current readiness: **0 composition candidates**; **176 blocked or awaiting sourc
 | `Archetype of Endurance` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [21-suppress](CARD-MIGRATION-BATCHES.md#21-suppress) | Blocked by mechanics | — |
 | `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
 | `Baird, Steward of Argive` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
-| `Banisher Priest` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Blocked by mechanics | — |
+| `Banisher Priest` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Migrated | Canonical until-leaves exile. |
 | `Belonging` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Bender's Waterskin` | 10 | [13-untap](CARD-MIGRATION-BATCHES.md#13-untap) | Blocked by mechanics | Other-player untap-step rule, not a bonus-mana mechanic. |
 | `Bishop of Binding` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
@@ -61,7 +61,7 @@ Current readiness: **0 composition candidates**; **176 blocked or awaiting sourc
 | `Everybody Lives!` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player) | Blocked by mechanics | Creature hexproof/indestructible and player hexproof plus life/game-result restrictions. |
 | `Fact or Fiction` | 39 | [39-piles](CARD-MIGRATION-BATCHES.md#39-piles) | Blocked by mechanics | — |
 | `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection already exists; land devour and ward remain. Verify every printed clause before authoring. |
-| `Fiend Hunter` | 18 | [18-triggers](CARD-MIGRATION-BATCHES.md#18-triggers) | Blocked by mechanics | — |
+| `Fiend Hunter` | 18 | [18-triggers](CARD-MIGRATION-BATCHES.md#18-triggers) | Migrated | Separate ETB exile and LTB return. |
 | `Finale of Devastation` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [31-multizone](CARD-MIGRATION-BATCHES.md#31-multizone) | Blocked by mechanics | Search library and/or graveyard; shuffle only when searched; retain the high-X team bonus. |
 | `Firdoch Core` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
 | `Flooded Grove` | 10 | [10-filter](CARD-MIGRATION-BATCHES.md#10-filter) | Blocked by mechanics | — |
@@ -174,7 +174,7 @@ Current readiness: **0 composition candidates**; **176 blocked or awaiting sourc
 | `Wash Away` | 20 | [25-cleave](CARD-MIGRATION-BATCHES.md#25-cleave) | Blocked by mechanics | — |
 | `Waterlogged Teachings // Inundated Archive` | 31 | [31-flash](CARD-MIGRATION-BATCHES.md#31-flash), [01](CARD-MIGRATION-BATCHES.md#01) | Blocked by mechanics | Both faces; reuse modal handoff with ordinary tapped entry. No pay-life mechanic is required. |
 | `Wedding Ring` | 35 | [35-provenance](CARD-MIGRATION-BATCHES.md#35-provenance), [35-life](CARD-MIGRATION-BATCHES.md#35-life), [15-names](CARD-MIGRATION-BATCHES.md#15-names) | Blocked by mechanics | Retain the token copy's full triggered program and opponent/turn relationships. |
-| `Werefox Bodyguard` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Blocked by mechanics | Retain the independent sacrifice-for-life activation. |
+| `Werefox Bodyguard` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration) | Migrated | Until-leaves exile plus `{1}{W}` sacrifice-for-life. |
 | `Wild Growth` | 10 | [10-attached](CARD-MIGRATION-BATCHES.md#10-attached) | Blocked by mechanics | — |
 | `Will of the Sultai` | 14 | [25-modal](CARD-MIGRATION-BATCHES.md#25-modal) | Blocked by mechanics | Count lands and retain the commander-dependent announcement choice. |
 | `Windfall` | 33 | [33-discard](CARD-MIGRATION-BATCHES.md#33-discard) | Blocked by mechanics | — |

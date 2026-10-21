@@ -386,11 +386,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ),
   ],
   'Baird, Steward of Argive': [attackTax(1)],
-  'Banisher Priest': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', controller: 'opponent' })),
-  ],
   Belonging: [
     enters(
       changelingShapeshifter(),
@@ -623,11 +618,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         shuffleAfter: true,
       })),
     ),
-  ],
-  'Fiend Hunter': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile({ type: 'Creature', other: true }, { optional: true })),
   ],
   'Finale of Devastation': [
     xMana(),
@@ -1392,19 +1382,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       if: { seat: 'opponent', duringActiveTurn: true, opponentControlsSameName: true },
       do: [gainLife('triggerAmount')],
     }),
-  ],
-  'Werefox Bodyguard': [
-    handler('linkedExile'),
-    linkedExileUntilLeaves(),
-    enters(linkExile(
-      { type: 'Creature', other: true, excludeSubtypes: ['Fox'] },
-      { optional: true, max: 1 },
-    )),
-    ability(
-      { id: 'werefoxBodyguard.gain' },
-      { mana: '{W}', sacrifice: 'self' },
-      gainLife(2),
-    ),
   ],
   'Wild Growth': [enchantedManaBoost({ mana: 'G' })],
   'Will of the Sultai': [modalCommanderChooseBoth(

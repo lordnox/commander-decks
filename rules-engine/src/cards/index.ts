@@ -42,6 +42,7 @@ import astralDrift from './astral-drift'
 import awakenTheWoods from './awaken-the-woods'
 import balaGedRecovery from './bala-ged-recovery'
 import balaGedSanctuary from './bala-ged-sanctuary'
+import banisherPriest from './banisher-priest'
 import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
 import blightedWoodland from './blighted-woodland'
@@ -103,6 +104,7 @@ import fateUnraveler from './fate-unraveler'
 import felidarGuardian from './felidar-guardian'
 import fellMire from './fell-mire'
 import fellTheProfane from './fell-the-profane'
+import fiendHunter from './fiend-hunter'
 import flameRift from './flame-rift'
 import flickerOfFate from './flicker-of-fate'
 import flickerwisp from './flickerwisp'
@@ -233,6 +235,7 @@ import wallOfBlood from './wall-of-blood'
 import wallOfOmens from './wall-of-omens'
 import waterloggedGrove from './waterlogged-grove'
 import wateryGrave from './watery-grave'
+import werefoxBodyguard from './werefox-bodyguard'
 import worldMap from './world-map'
 import worldShaper from './world-shaper'
 import wornPowerstone from './worn-powerstone'
@@ -282,6 +285,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Bala Ged Recovery // Bala Ged Sanctuary": balaGedRecovery,
   "Bala Ged Recovery": balaGedRecovery,
   "Bala Ged Sanctuary": balaGedSanctuary,
+  "Banisher Priest": banisherPriest,
   "Batwing Brume": batwingBrume,
   "Beast Whisperer": beastWhisperer,
   "Blighted Woodland": blightedWoodland,
@@ -349,6 +353,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fell Mire": fellMire,
   "Fell the Profane": fellTheProfane,
   "Fell the Profane // Fell Mire": fellTheProfane,
+  "Fiend Hunter": fiendHunter,
   "Flame Rift": flameRift,
   "Flicker of Fate": flickerOfFate,
   "Flickerwisp": flickerwisp,
@@ -484,6 +489,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Wall of Omens": wallOfOmens,
   "Waterlogged Grove": waterloggedGrove,
   "Watery Grave": wateryGrave,
+  "Werefox Bodyguard": werefoxBodyguard,
   "World Map": worldMap,
   "World Shaper": worldShaper,
   "Worn Powerstone": wornPowerstone,

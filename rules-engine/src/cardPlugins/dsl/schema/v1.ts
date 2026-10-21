@@ -14,6 +14,10 @@ export type RuleDslSchemaVersion = typeof RULE_DSL_SCHEMA_VERSION
 
 export type Zone = 'library' | 'hand' | 'battlefield' | 'graveyard' | 'exile' | 'stack' | 'command'
 
+/** Destinations that can receive cards released from a linked exile. */
+export const LINKED_EXILE_RETURN = ['battlefield', 'hand'] as const
+export type LinkedExileReturn = typeof LINKED_EXILE_RETURN[number]
+
 export const CARD_COLORS = ['W', 'U', 'B', 'R', 'G'] as const
 export type CardColor = typeof CARD_COLORS[number]
 
@@ -339,6 +343,10 @@ export type Instruction =
   | { kind: 'fight'; left: ObjectReference; right: ObjectReference }
   /** Exile permanents, then return the resulting cards as new objects (CR 400.7j). */
   | { kind: 'blink'; targets: ObjectRecipient; returnController?: 'owner' | PlayerReference; tapped?: boolean }
+  /** Exile chosen permanents linked to the source; until-leaves stamps an immediate return. */
+  | { kind: 'linkExile'; targets: ObjectRecipient; untilSourceLeaves?: true; returnTo?: LinkedExileReturn }
+  /** Return cards currently linked to the executing source, typically from a separate leave trigger. */
+  | { kind: 'returnLinkedExile'; returnTo?: LinkedExileReturn }
   /** Have each resolved player recipient draw the evaluated number of cards. */
   | { kind: 'draw'; count: Amount; targets: PlayerRecipient }
   /** Grant each recipient additional land plays for the rest of this turn. */

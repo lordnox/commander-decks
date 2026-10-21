@@ -341,8 +341,12 @@ describe('card plugin registry', () => {
       'Werefox Bodyguard',
     ]
     expect(missingCardPlugins(covered)).toEqual([])
-    expect(cardPluginEntry('Fiend Hunter')?.handlerIds?.toSorted())
-      .toEqual(['choiceEffects', 'linkedExile'])
+    expect(cardPluginEntry('Banisher Priest')).toBeUndefined()
+    expect(cardPluginEntry('Fiend Hunter')).toBeUndefined()
+    expect(cardPluginEntry('Werefox Bodyguard')).toBeUndefined()
+    expect(cardRuleDefinitionSnapshotFor('Banisher Priest')).toBeDefined()
+    expect(cardRuleDefinitionSnapshotFor('Fiend Hunter')).toBeDefined()
+    expect(cardRuleDefinitionSnapshotFor('Werefox Bodyguard')).toBeDefined()
     expect(cardPluginEntry('Bishop of Binding')?.handlerIds?.toSorted())
       .toEqual(['choiceEffects', 'exilePayoffs', 'linkedExile'])
   })

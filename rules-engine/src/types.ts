@@ -359,6 +359,8 @@ export type GameObject = {
   exiledCards?: string[]
   /** Object id of the permanent whose ability exiled this card. */
   exiledWith?: string
+  /** Immediate return destination when this source leaves the battlefield. */
+  returnLinkedExile?: 'battlefield' | 'hand'
   /** Exiled until an opponent becomes the monarch (Palace Jailer shape). */
   exiledUntilOpponentMonarch?: boolean
   /** Stamped from the name-keyed card-rule table when the object is created. */
@@ -972,6 +974,10 @@ export type GameEvent =
   | { type: 'grantLandPlays'; seat: PlayerId; count: number }
   /** Internal canonical player grant; lasts for the rest of the game. */
   | { type: 'grantNoMaximumHandSize'; seat: PlayerId }
+  /** Exile chosen permanents and stamp them as linked to the source. */
+  | { type: 'linkExile'; sourceId: string; objectIds: string[]; untilSourceLeaves?: true; returnTo?: 'battlefield' | 'hand' }
+  /** Return cards currently linked to the named source. */
+  | { type: 'returnLinkedExile'; sourceId: string; returnTo?: 'battlefield' | 'hand' }
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }

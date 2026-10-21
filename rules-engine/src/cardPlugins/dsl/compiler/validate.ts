@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -697,6 +697,18 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'grantNoMaximumHandSize':
         exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
+      case 'linkExile':
+        exactKeys(node, path, ['kind', 'targets', 'untilSourceLeaves', 'returnTo'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (node.untilSourceLeaves !== undefined && node.untilSourceLeaves !== true) {
+          issue(childPath(path, 'untilSourceLeaves'), 'constant', 'untilSourceLeaves must be true when present')
+        }
+        if (node.returnTo !== undefined) enumeration(node.returnTo, childPath(path, 'returnTo'), new Set(LINKED_EXILE_RETURN), 'linked exile return')
+        return
+      case 'returnLinkedExile':
+        exactKeys(node, path, ['kind', 'returnTo'])
+        if (node.returnTo !== undefined) enumeration(node.returnTo, childPath(path, 'returnTo'), new Set(LINKED_EXILE_RETURN), 'linked exile return')
         return
       case 'scry':
       case 'surveil':

@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after 10-colors; continues #394 and #383. **176 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, Return of the Wildspeaker, Mystic Sanctuary, Choked Estuary, Sea Gate Restoration // Sea Gate, Reborn, and Sink into Stupor // Soporific Springs are now canonical.
+Snapshot: PR #432 after 10-colors and family 18 duration/triggers; continues #394 and #383. **173 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Banisher Priest, Werefox Bodyguard, Fiend Hunter, Exotic Orchard, Fellwar Stone, Reflecting Pool, and Horizon of Progress are now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 26 available, 1 awaiting correctness follow-up, and 141 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 28 available, 1 awaiting correctness follow-up, and 139 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -25,7 +25,7 @@ No new legacy behavior or baseline allowances. Keep the existing one-PR workflow
 - **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
 - **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
 
-Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 176 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
+Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 173 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
 
 ## What changed from the card batches
 
@@ -198,10 +198,10 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Open | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Banisher Priest`; `Bishop of Binding`; `Fiend Hunter`; `Glorious Protector`; `Lumbering Battlement`; `Werefox Bodyguard` |
+| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Available | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Bishop of Binding`; `Glorious Protector`; `Lumbering Battlement` |
 | <a id="18-links"></a>**18-links — Persistent linked-card sets** | Open | Retain one/many exiled identities for later activations or linked characteristics, including power, toughness, counts, and colors. | — | `Bishop of Binding`; `Endless Sands`; `Lumbering Battlement`; `Phyrexian Ingester`; `Pit of Offerings`; `Valgavoth, Terror Eater` |
 | <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Open | Become monarch, observe opponent monarch changes, and end linked exile on that event. | — | `Palace Jailer` |
-| <a id="18-triggers"></a>**18-triggers — Independent exile/return triggers** | Open | Link separate ETB/LTB abilities (Fiend Hunter style), preserving their different timing from until-source-leaves. | [18-duration](#18-duration) | `Fiend Hunter` |
+| <a id="18-triggers"></a>**18-triggers — Independent exile/return triggers** | Available | Link separate ETB/LTB abilities (Fiend Hunter style), preserving their different timing from until-source-leaves. | [18-duration](#18-duration) | None remaining |
 
 ### 19. Life totals and game outcomes
 
