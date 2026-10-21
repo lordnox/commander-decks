@@ -11,6 +11,7 @@ import { commanderRules } from '../formats'
 import { cardTemplate, forest, type CardTemplate } from '../newGame'
 import { DIALOG_CHOSEN } from '../pendingDialog'
 import { pendingOptionSelection } from '../rules/selectOptions'
+import { DECLINE_LIFE_OPTION } from './dsl/v1'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameState, ManaId, ManaPool } from '../types'
@@ -292,7 +293,7 @@ const ACT_CASES: Record<string, ActCase> = {
   },
   'Talon Gates of Madara': {
     pool: { C: 1 },
-    abilityId: 'talon.any-mana',
+    abilityId: '$.abilities[2]',
     adds: EVERY_COLOR,
     taps: true,
   },
@@ -444,7 +445,16 @@ const attempt = (
   let state = built
   if (scenario.play) {
     state = ok(server.rules(state, { type: 'playLand', seat: 'p1', objectId: sourceId }))
-    if (state.players.p1.data['kernel.pendingDialog']) {
+    const pending = pendingOptionSelection(state, 'p1')
+    if (pending) {
+      state = ok(server.rules(state, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: DECLINE_LIFE_OPTION,
+      }))
+    }
+    else if (state.players.p1.data['kernel.pendingDialog']) {
       state = ok(server.rules(state, {
         type: 'custom',
         name: DIALOG_CHOSEN,
@@ -453,6 +463,7 @@ const attempt = (
       }))
     }
     state.objects[sourceId].tapped = false
+    if (!state.priority) state.priority = state.active
   }
   scenario.setup?.(state, sourceId)
   const before = state.players.p1.life
