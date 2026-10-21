@@ -1,3 +1,4 @@
+import { hasManaAbility } from '../manaPrograms'
 import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
 import { isSwamp } from '../../../plugins/swampOverlay'
@@ -306,6 +307,9 @@ const matchesObjectFilter = (
   if (filter.any && !filter.any.some((part) => matchesObjectFilter(object, part, context))) return false
   if (filter.not && matchesObjectFilter(object, filter.not, context)) return false
   if (filter.other && isSameObject(object, context.source.ref)) return false
+  if (filter.commander !== undefined && object.tags.includes('commander') !== filter.commander) return false
+  if (filter.manaAbility !== undefined && hasManaAbility(object) !== filter.manaAbility) return false
+  if (filter.sameNameAs && !evaluateObjectReference(filter.sameNameAs, context, 'currentOrLastKnown').some(other => other.name === object.name)) return false
   if (filter.among && !evaluateObjectReference(filter.among, context).some(candidate => candidate.id === object.id)) return false
   if (filter.zone && object.zone !== filter.zone) return false
   if (filter.type && !object.types.includes(filter.type)) return false
@@ -443,11 +447,14 @@ export const amountEvaluationContext = (
       : undefined
     return item?.manaSpent?.[color] ?? 0
   },
-  count: (selector) => {
+  count: (selector: Selector, distinctNames?: true) => {
     switch (selector.kind) {
       case 'anyTarget': return evaluateSelector(selector, context).length
       case 'players': return evaluatePlayerSelector(selector, context).length
-      case 'objects': return evaluateObjectSelector(selector, context).length
+      case 'objects': {
+        const objects = evaluateObjectSelector(selector, context)
+        return distinctNames ? new Set(objects.map(object => object.name)).size : objects.length
+      }
       case 'stackItems': return evaluateStackItemSelector(selector, context).length
     }
   },
@@ -470,6 +477,21 @@ export const evaluateCondition = (
   context: RuleDslRuntimeContext,
 ): boolean => {
   switch (condition.kind) {
+    case 'somePlayerHasMore': {
+      const reference = evaluatePlayerReference(condition.than, context)
+      if (reference.length !== 1) throw new RuleDslEvaluationError('player comparison requires exactly one reference player')
+      const metric = (player: PlayerId) => {
+        switch (condition.metric) {
+          case 'life': return context.state.players[player].life
+          case 'hand': return context.state.zoneOrder[player].hand.length
+          case 'lands':
+          case 'creatures': return evaluateObjectSelector({ kind: 'objects', filter: { zone: 'battlefield', controller: { kind: 'contextRef', name: 'event.player' }, type: condition.metric === 'lands' ? 'Land' : 'Creature' } }, withOccurrencePlayer(context, player)).length
+        }
+      }
+      const baseline = metric(reference[0]!)
+      return evaluatePlayerSelector(condition.players, context).some(player => metric(player) > baseline)
+    }
+
     case 'resultIsTrue': {
       if (condition.value.kind !== 'resultRef') {
         throw new RuleDslEvaluationError('resultIsTrue requires a result reference')

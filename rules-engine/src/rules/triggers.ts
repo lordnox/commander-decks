@@ -46,7 +46,7 @@ import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
 import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
-import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
+import { objectMatchesSelector, evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
 import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
 import { startCanonicalResolution } from '../driver'
@@ -195,6 +195,11 @@ const canonicalFilterMatch = (
     canonicalFilterMatch(state, source, object, part, occurrence, execution))) return false
   if ('not' in filter && filter.not && canonicalFilterMatch(state, source, object, filter.not, occurrence, execution)) return false
   const plain = filter as ObjectFilter
+  if (!objectMatchesSelector(object, { kind: 'objects', filter: {
+    ...(plain.commander !== undefined ? { commander: plain.commander } : {}),
+    ...(plain.manaAbility !== undefined ? { manaAbility: plain.manaAbility } : {}),
+    ...(plain.sameNameAs ? { sameNameAs: plain.sameNameAs } : {}),
+  } }, context)) return false
   if (plain.other && isSameObject(object, context.source.ref)) return false
   if (plain.zone !== undefined && object.zone !== plain.zone) return false
   if (plain.type !== undefined && !object.types.includes(plain.type)) return false

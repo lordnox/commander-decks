@@ -68,3 +68,21 @@ export const canonicalManaAbilityForTap = (source: GameObject, mana?: ManaId) =>
   return modeIndex < 0 ? undefined : { ...entry, modeIndices: [modeIndex] }
 }
 
+
+/** Classify printed/intrinsic abilities; mana in reminder text is not an ability. */
+export const hasManaAbility = (source: GameObject) => {
+  if (Object.values(source.tapProduces ?? {}).some(value => typeof value === 'number' && value > 0)) return true
+  if (!source.ruleDefinition) return false
+  return compileCardRuleDefinition(source.ruleDefinition.definition).definition.abilities.some(ability => {
+    switch (ability.kind) {
+      case 'activated': return canonicalManaClassification(ability).isManaAbility
+      case 'triggered': return classifyManaAbility({
+        abilityKind: 'triggered',
+        addsMana: instructionAddsMana(ability.instructions ?? ability.modes?.flatMap(mode => mode.instructions) ?? []),
+        hasTargets: ability.decisions.targets.length > 0 || (ability.modes?.some(mode => mode.decisions.targets.length > 0) ?? false),
+        triggeredManaEligible: ['manaAdded', 'manaAbilityActivated', 'manaAbilityResolved'].includes(ability.on.kind),
+      }).isManaAbility
+      default: return false
+    }
+  })
+}

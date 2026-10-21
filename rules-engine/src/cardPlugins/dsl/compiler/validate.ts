@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -221,9 +221,11 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'other', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'other', 'commander', 'manaAbility', 'sameNameAs', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
+    for (const key of ['commander', 'manaAbility'] as const) if (node[key] !== undefined && typeof node[key] !== 'boolean') issue(childPath(path, key), 'type', 'expected a boolean')
+    if (node.sameNameAs !== undefined) validateReference(node.sameNameAs, childPath(path, 'sameNameAs'), env, ['object'])
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.powerAtLeast !== undefined) integer(node.powerAtLeast, childPath(path, 'powerAtLeast'), { min: -MAX_LITERAL_AMOUNT })
@@ -334,6 +336,10 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'color'], ['kind', 'color'])
         enumeration(node.color, childPath(path, 'color'), new Set(CARD_COLORS), 'card color')
         return
+      case 'countDistinctNames':
+        exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
+        if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') issue(childPath(path, 'of'), 'domain', 'countDistinctNames requires an object selector')
+        return
       case 'count':
         exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
         validateSelector(node.of, childPath(path, 'of'), env)
@@ -405,6 +411,13 @@ export const validateDefinitionV1 = (root: unknown): {
     const node = object(value, path)
     if (!node) return
     switch (node.kind) {
+      case 'somePlayerHasMore':
+        exactKeys(node, path, ['kind', 'players', 'than', 'metric'], ['kind', 'players', 'than', 'metric'])
+        if (validateSelector(node.players, childPath(path, 'players'), env) !== 'player') issue(childPath(path, 'players'), 'domain', 'comparison requires a player selector')
+        validateReference(node.than, childPath(path, 'than'), env, ['player'])
+        enumeration(node.metric, childPath(path, 'metric'), new Set(PLAYER_COMPARISON_METRICS), 'player comparison metric')
+        return
+
       case 'resultIsTrue':
         exactKeys(node, path, ['kind', 'value'], ['kind', 'value'])
         if (!isData(node.value) || node.value.kind !== 'resultRef') issue(childPath(path, 'value'), 'binding-kind', 'resultIsTrue requires a resultRef')
