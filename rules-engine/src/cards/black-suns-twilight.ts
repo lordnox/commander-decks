@@ -21,8 +21,17 @@ import {
   variable,
 } from '../cardPlugins/dsl/v1'
 
+/**
+ * Black Sun's Twilight — {X}{B} — Instant
+ * Scryfall: https://scryfall.com/card/one/84/black-suns-twilight
+ * Oracle ID: af105cda-1f7c-4868-9407-a97c46bd762d
+ * Oracle text verified against Scryfall on 2026-10-21:
+ * Up to one target creature gets -X/-X until end of turn. If X is 5 or more,
+ * return a creature card with mana value X or less from your graveyard to
+ * the battlefield tapped.
+ */
 export default {
-  types: ['Sorcery'], colors: ['B'], manaCost: '{X}{B}', manaValue: 1,
+  types: ['Instant'], colors: ['B'], manaCost: '{X}{B}', manaValue: 1,
   ruleDefinition: snapshotFor([
     spell({
       costs: [manaCost('{X}{B}')],

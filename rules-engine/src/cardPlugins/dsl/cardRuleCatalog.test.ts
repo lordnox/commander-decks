@@ -1026,6 +1026,7 @@ test.each([
 test('X catalog cards preserve their life costs, signed deltas and land-creature token characteristics', () => {
   for (const name of ['Hatred', 'Toxic Deluge']) expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities[0]).toMatchObject({ costs: [{ kind: 'life', amount: { kind: 'variable', name: 'X' } }] })
   expect(cardRuleDefinitionSnapshotFor('Toxic Deluge')!.definition.abilities[0]).toMatchObject({ instructions: [{ kind: 'createEffect', targets: { kind: 'objects', filter: { zone: 'battlefield', type: 'Creature' } }, effect: { kind: 'pump', power: { kind: 'negate', value: { kind: 'variable', name: 'X' } }, toughness: { kind: 'negate', value: { kind: 'variable', name: 'X' } } } }] })
+  expect(cardTemplateDefaultsFor("Black Sun's Twilight")).toMatchObject({ types: ['Instant'], manaCost: '{X}{B}', manaValue: 1 })
   expect(cardRuleDefinitionSnapshotFor("Black Sun's Twilight")!.definition.abilities[0]).toMatchObject({
     decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 } }] },
     instructions: [
