@@ -1,4 +1,5 @@
 import type { CatalogEntry } from './types'
+import dackFaydenHelpingHand from './dack-fayden-helping-hand'
 import absorb from './absorb'
 import abundance from './abundance'
 import aesiTyrantOfGyreStrait from './aesi-tyrant-of-gyre-strait'
@@ -202,6 +203,7 @@ import zagothTriome from './zagoth-triome'
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
   "Animist's Awakening": animistsAwakening,
+  "Dack Fayden, Helping Hand": dackFaydenHelpingHand,
   "Satyr Wayfinder": satyrWayfinder,
   "Malevolent Rumble": malevolentRumble,
   "Planar Genesis": planarGenesis,

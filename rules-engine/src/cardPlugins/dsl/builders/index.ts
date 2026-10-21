@@ -897,6 +897,9 @@ export const ifThen = (
   otherwise: branches.otherwise ?? [],
 })
 
+export const distributeControl = (input: Omit<Extract<Instruction, { kind: 'distributeControl' }>, 'kind'>): Instruction =>
+  immutableData({ kind: 'distributeControl', ...input })
+
 export const revealUntil = (input: {
   targets: PlayerRecipient
   match: ObjectSelector
