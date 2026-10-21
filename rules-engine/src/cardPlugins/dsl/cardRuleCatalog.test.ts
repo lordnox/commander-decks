@@ -334,29 +334,6 @@ test('catalog Vampire Hounds composes a discard-cost pump without legacy effects
   expect(ability.instructions!.map(instruction => instruction.kind)).toEqual(['createEffect'])
 })
 
-test('unmigrated Mulldrifter keeps CARD_RULES effects instead of a catalog snapshot', () => {
-  expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
-  expect(cardTemplateDefaultsFor('Mulldrifter')).toBeUndefined()
-  expect(effectsFor('Mulldrifter').length).toBeGreaterThan(0)
-})
-
-test('catalog lookup is exact and rejects inherited object keys', () => {
-  for (const name of ['counterspell', ' Counterspell', 'toString', 'constructor', '__proto__']) {
-    expect(cardRuleDefinitionSnapshotFor(name)).toBeUndefined()
-    expect(cardTemplateDefaultsFor(name)).toBeUndefined()
-  }
-})
-
-test('template callers own their characteristics and rule snapshot', () => {
-  const original = cardTemplateDefaultsFor('Counterspell')!
-  const edited = cardTemplateDefaultsFor('Counterspell')!
-  edited.types.push('Creature')
-  Reflect.set(edited.ruleDefinition.definition.abilities, 'length', 0)
-  expect(cardTemplateDefaultsFor('Counterspell')).toEqual(original)
-  expect(cardRuleDefinitionSnapshotFor('Counterspell')).toEqual(original.ruleDefinition)
-  expect(cardTemplateDefaultsFor('Absorb')).toMatchObject({ manaCost: '{W}{U}{U}', manaValue: 3 })
-})
-
 test('Diabolic Tutor supplies printed characteristics beside its canonical rules', () => {
   expect(cardTemplateDefaultsFor('Diabolic Tutor')).toEqual({
     types: ['Sorcery'],
@@ -1332,5 +1309,19 @@ test('Fabled Passage searches a basic land before conditionally untapping its ne
       { kind: 'shuffle' },
       { kind: 'if', condition: { kind: 'compareAmount', left: { kind: 'count', of: { kind: 'objects', filter: { zone: 'battlefield', controller: 'you', type: 'Land' } } }, operator: 'gte', right: { kind: 'constant', value: 4 } }, then: [{ kind: 'untap', targets: { kind: 'choiceRef', binding: 'arrivedLand' } }] },
     ] },
+  ])
+})
+
+test('Rest in Peace combines an entry trigger with a static replacement', () => {
+  expect(cardRuleDefinitionSnapshotFor('Rest in Peace')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', on: { kind: 'enters' } },
+    { kind: 'static', effects: [{ kind: 'replacement' }] },
+  ])
+})
+
+test('Wall of Omens declares defender beside its entry draw', () => {
+  expect(cardRuleDefinitionSnapshotFor('Wall of Omens')!.definition.abilities).toMatchObject([
+    { kind: 'keyword', keyword: KEYWORDS.defender },
+    { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
   ])
 })

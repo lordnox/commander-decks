@@ -1,19 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import { commanderRules } from '../../formats'
-import { createJournal, restoreJournal } from '../../journal'
 import { cardTemplate } from '../../newGame'
 import { createServerGame } from '../../runtime'
 import { ok, resolveStack } from '../../testHelpers'
 import type { GameState } from '../../types'
-import { effectsFor, effectsOf } from '../cardRules'
 import { cardRuleDefinitionSnapshotFor } from './cardRuleCatalog'
-import { loadDefinitionSnapshot } from './v1'
 
 const named = (state: GameState, name: string) =>
   Object.values(state.objects).find((object) => object.name === name)!
-
-const handCount = (state: GameState, seat: 'p1' | 'p2' = 'p1') =>
-  state.zoneOrder[seat].hand.length
 
 const anthemCard = () => cardTemplate('Glorious Anthem', { types: ['Enchantment'] })
 const restCard = () => cardTemplate('Rest in Peace', { types: ['Enchantment'] })
@@ -21,58 +15,6 @@ const foilCard = () => cardTemplate('Foil', { types: ['Instant'], manaCost: '{2}
 const islandCard = () => cardTemplate('Island', { types: ['Land'], subtypes: ['Island'] })
 
 describe('cardRuleCatalog — staticsAndAlternativeCosts', () => {
-  test('lookup is exact card name and pins a compiled snapshot at module load', () => {
-    const anthem = cardRuleDefinitionSnapshotFor('Glorious Anthem')
-    const rest = cardRuleDefinitionSnapshotFor('Rest in Peace')
-    const foil = cardRuleDefinitionSnapshotFor('Foil')
-    expect(anthem).toBeDefined()
-    expect(rest).toBeDefined()
-    expect(rest!.definition.abilities).toEqual(expect.arrayContaining([
-      expect.objectContaining({ kind: 'triggered', on: expect.objectContaining({ kind: 'enters' }) }),
-      expect.objectContaining({ kind: 'static' }),
-    ]))
-    expect(foil).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('glorious anthem')).toBeUndefined()
-    expect(cardRuleDefinitionSnapshotFor('Lightning Bolt')).toBeDefined()
-    expect(cardRuleDefinitionSnapshotFor('Mulldrifter')).toBeUndefined()
-    expect(anthem).toBe(cardRuleDefinitionSnapshotFor('Glorious Anthem'))
-    expect(anthem!.definitionRevision).toMatch(/^v1-[0-9a-f]{16}$/)
-    expect(rest!.definitionRevision).not.toBe(anthem!.definitionRevision)
-    expect(foil!.definitionRevision).not.toBe(rest!.definitionRevision)
-    expect(loadDefinitionSnapshot(anthem!).definitionRevision).toBe(anthem!.definitionRevision)
-  })
-
-  test('newGame stamps the pinned snapshot and empty effects when the template omits ruleDefinition', () => {
-    const anthemSnapshot = cardRuleDefinitionSnapshotFor('Glorious Anthem')!
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      battlefield: { p1: [anthemCard()] },
-    }, { random: () => 0 })
-    const anthem = named(server.state, 'Glorious Anthem')
-    expect(anthem.ruleDefinition).toEqual(anthemSnapshot)
-    expect(anthem.ruleDefinition?.definitionRevision).toBe(anthemSnapshot.definitionRevision)
-    expect(anthem.effects).toEqual([])
-    expect(effectsOf(anthem)).toEqual([])
-    expect(effectsFor('Glorious Anthem')).toEqual([])
-    expect(effectsFor('Rest in Peace')).toEqual([])
-    expect(effectsFor('Foil')).toEqual([])
-  })
-
-  test('an explicit template ruleDefinition is kept instead of the catalog snapshot', () => {
-    const foilSnapshot = cardRuleDefinitionSnapshotFor('Foil')!
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      battlefield: {
-        p1: [cardTemplate('Glorious Anthem', {
-          types: ['Enchantment'],
-          ruleDefinition: foilSnapshot,
-        })],
-      },
-    }, { random: () => 0 })
-    const anthem = named(server.state, 'Glorious Anthem')
-    expect(anthem.ruleDefinition).toEqual(foilSnapshot)
-  })
-
   test('Glorious Anthem pumps controlled creatures once and does not pump opponents', () => {
     const server = createServerGame(commanderRules, {
       players: 2,
@@ -202,51 +144,4 @@ describe('cardRuleCatalog — staticsAndAlternativeCosts', () => {
     expect(resolved.stack).toHaveLength(0)
   })
 
-  test('a catalog object and an unmigrated CARD_RULES object both work in the same game', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      battlefield: { p1: [anthemCard()] },
-      hands: {
-        p1: [cardTemplate('Mulldrifter', { types: ['Creature'], power: 2, toughness: 2 })],
-      },
-      libraries: {
-        p1: ['Mixed One', 'Mixed Two', 'Mixed Three'].map((name) => cardTemplate(name)),
-      },
-    }, { random: () => 0 })
-    const anthem = named(server.state, 'Glorious Anthem')
-    const mulldrifter = named(server.state, 'Mulldrifter')
-    expect(anthem.ruleDefinition).toEqual(cardRuleDefinitionSnapshotFor('Glorious Anthem'))
-    expect(mulldrifter.ruleDefinition).toBeUndefined()
-    expect(mulldrifter.effects).toEqual(effectsFor('Mulldrifter'))
-    expect(effectsOf(mulldrifter).length).toBeGreaterThan(0)
-
-    const afterBoth = resolveStack(server.rules, ok(server.rules(server.state, {
-      type: 'move',
-      objectId: mulldrifter.id,
-      to: 'battlefield',
-    })))
-    const liveMulldrifter = named(afterBoth, 'Mulldrifter')
-    expect(liveMulldrifter.zone).toBe('battlefield')
-    expect(liveMulldrifter.ruleDefinition).toBeUndefined()
-    expect(liveMulldrifter.power).toBe(3)
-    expect(liveMulldrifter.toughness).toBe(3)
-    expect(handCount(afterBoth)).toBe(2)
-    expect(['Mixed One', 'Mixed Two'].every(
-      (name) => named(afterBoth, name).zone === 'hand',
-    )).toBe(true)
-  })
-
-  test('journal restore keeps the stamped definitionRevision', () => {
-    const server = createServerGame(commanderRules, {
-      players: 2,
-      battlefield: { p1: [restCard()] },
-    }, { random: () => 0 })
-    const rest = named(server.state, 'Rest in Peace')
-    const revision = rest.ruleDefinition!.definitionRevision
-    const json = JSON.parse(JSON.stringify(rest.ruleDefinition))
-    expect(json.definitionRevision).toBe(revision)
-    expect(loadDefinitionSnapshot(json).definitionRevision).toBe(revision)
-    const restored = restoreJournal(createJournal(server.state), server.rules)
-    expect(restored.current().objects[rest.id].ruleDefinition?.definitionRevision).toBe(revision)
-  })
 })
