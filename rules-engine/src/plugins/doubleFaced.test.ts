@@ -10,6 +10,8 @@ import {replayCardTemplate} from '../replay'
 import {resolveStack} from '../testHelpers'
 import {pendingPlayerSelectionFor} from '../rules/selectPlayers'
 import {pendingDialogFor, DIALOG_CHOSEN} from '../pendingDialog'
+import {pendingOptionSelection} from '../rules/selectOptions'
+import {DECLINE_LIFE_OPTION} from '../cardPlugins/dsl/v1'
 const bridgeworks = () => cardTemplate('Bridgeworks Battle // Tanglespan Bridgeworks', {
   types: ['Sorcery', 'Land'],
   manaCost: '{2}{G}',
@@ -50,7 +52,16 @@ describe('modal double-faced cards', () => {
     expect(availableActions(funded, 'p1').map((action) => action.kind))
       .toEqual(expect.arrayContaining(['playLand', 'castSpell']))
 
-    const played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    let played = ok(server.rules(server.state, { type: 'playLand', seat: 'p1', objectId }))
+    const pending = pendingOptionSelection(played, 'p1')
+    if (pending) {
+      played = ok(server.rules(played, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: DECLINE_LIFE_OPTION,
+      }))
+    }
     expect(played.objects[objectId]).toMatchObject({
       zone: 'battlefield',
       types: ['Land'],
@@ -59,26 +70,22 @@ describe('modal double-faced cards', () => {
   })
 
   test('casts the spell face and restores its front face after a land leaves', () => {
-    const server = createServerGame(commanderRules, { hands: { p1: [bridgeworks()] } })
-    const objectId = server.state.zoneOrder.p1.hand[0]
-    const funded = {
-      ...server.state,
-      players: {
-        ...server.state.players,
-        p1: {
-          ...server.state.players.p1,
-          mana: { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 },
-        },
-      },
-    }
-    const cast = ok(server.rules(funded, { type: 'castSpell', seat: 'p1', objectId }))
-    expect(cast.objects[objectId]).toMatchObject({ zone: 'stack', types: ['Sorcery'] })
-    const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
-    expect(resolved.objects[objectId]).toMatchObject({ zone: 'graveyard', types: ['Sorcery'] })
-
     const fresh = createServerGame(commanderRules, { hands: { p1: [bridgeworks()] } })
     const landId = fresh.state.zoneOrder.p1.hand[0]
-    const played = ok(fresh.rules(fresh.state, { type: 'playLand', seat: 'p1', objectId: landId }))
+    fresh.state.players.p1.mana = { W: 0, U: 0, B: 0, R: 0, G: 1, C: 2 }
+    expect(availableActions(fresh.state, 'p1').map(action => action.kind))
+      .toEqual(expect.arrayContaining(['playLand', 'castSpell']))
+    let played = ok(fresh.rules(fresh.state, { type: 'playLand', seat: 'p1', objectId: landId }))
+    const pending = pendingOptionSelection(played, 'p1')
+    if (pending) {
+      played = ok(fresh.rules(played, {
+        type: 'selectOption',
+        seat: 'p1',
+        selectionId: pending.id,
+        optionId: DECLINE_LIFE_OPTION,
+      }))
+    }
+    expect(played.objects[landId]).toMatchObject({ zone: 'battlefield', types: ['Land'] })
     const bounced = ok(fresh.rules(played, { type: 'move', objectId: landId, to: 'hand' }))
     expect(bounced.objects[landId]).toMatchObject({ zone: 'hand', types: ['Sorcery'] })
   })

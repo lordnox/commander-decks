@@ -1,4 +1,5 @@
 import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
+import { hasKeyword } from '../../../keywords'
 import { isSwamp } from '../../../plugins/swampOverlay'
 import { isForest } from '../../../plugins/forestOverlay'
 import { isSameObject } from '../../../objectIdentity'
@@ -287,6 +288,7 @@ const matchesObjectFilter = (
   if (filter.type && !object.types.includes(filter.type)) return false
   if (filter.subtypes && !filter.subtypes.every(subtype => {
     if (object.subtypes.includes(subtype)) return true
+    if (hasKeyword(object, 'changeling')) return true
     if (object.zone !== 'battlefield') return false
     switch (subtype) {
       case 'Swamp': return isSwamp(object, context.state)
