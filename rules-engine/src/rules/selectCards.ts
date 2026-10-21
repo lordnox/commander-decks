@@ -13,7 +13,7 @@ import type {
   ZoneId,
 } from '../types'
 import { runInstructions, type CardInstruction, type TargetFilter } from '../cardPlugins/effects'
-import { linkExileSelected } from '../cardPlugins/linkedExile'
+import { linkExileSelected } from './linkExile'
 import { linkMonarchExileSelected } from '../cardPlugins/monarchExile'
 import { isKnownTo, markKnownTo, markKnownToAll } from '../knowledge'
 import { matchesTargetFilter, validTarget } from '../cardPlugins/targetedResolve'

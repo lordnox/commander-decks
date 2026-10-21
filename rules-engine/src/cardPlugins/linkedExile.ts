@@ -1,12 +1,14 @@
 import type Draft from '../draft'
 import { openCardSelection, targetDestinations } from '../rules/selectCards'
+import { linkExileSelected, releaseLinkedExile, type LinkedExileReturn } from '../rules/linkExile'
 import { apnapSeats } from '../turnOrder'
 import type { GameObject, Plugin, StackItem } from '../types'
 import { validTarget } from './targetedResolve'
 import type { TargetFilter } from './effectDefinitions'
 import type { InstructionHandler } from './instructionHandlers/types'
 
-export type LinkedExileReturn = 'battlefield' | 'hand'
+export type { LinkedExileReturn }
+export { linkExileSelected, releaseLinkedExile }
 
 const untilLeavesConfig = (object: GameObject) => {
   for (const effect of object.effects ?? []) {
@@ -18,51 +20,6 @@ const untilLeavesConfig = (object: GameObject) => {
 
 export const defaultLinkedReturn = (source: GameObject): LinkedExileReturn =>
   untilLeavesConfig(source)?.returnTo ?? 'battlefield'
-
-export const linkExileSelected = (
-  draft: Draft,
-  source: GameObject,
-  objectIds: string[],
-) => {
-  const linked = [...(source.exiledCards ?? [])]
-  for (const objectId of objectIds) {
-    const card = draft.object(objectId)
-    if (!card || card.zone !== 'battlefield') continue
-    card.exiledWith = source.id
-    linked.push(card.id)
-    draft.enqueue({ type: 'move', objectId: card.id, to: 'exile' })
-  }
-  source.exiledCards = linked
-  if (objectIds.length > 0) {
-    draft.note(`${source.name} exiles ${objectIds.length} card(s) linked to it`)
-  }
-}
-
-export const releaseLinkedExile = (
-  draft: Draft,
-  source: GameObject,
-  returnTo: LinkedExileReturn,
-) => {
-  const ids = source.exiledCards ?? []
-  if (ids.length === 0) return
-  source.exiledCards = []
-  for (const objectId of ids) {
-    const card = draft.object(objectId)
-    if (!card || card.exiledWith !== source.id) continue
-    delete card.exiledWith
-    if (returnTo === 'hand') {
-      draft.enqueue({ type: 'move', objectId: card.id, to: 'hand' })
-      continue
-    }
-    draft.enqueue({
-      type: 'move',
-      objectId: card.id,
-      to: 'battlefield',
-      controller: card.owner,
-    })
-  }
-  draft.note(`${source.name} releases its linked exiled card(s)`)
-}
 
 const stackObjectTargets = (item?: StackItem) =>
   item?.targets.flatMap((target) => target.kind === 'object' ? [target.objectId] : []) ?? []

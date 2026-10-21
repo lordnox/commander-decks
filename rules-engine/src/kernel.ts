@@ -1,5 +1,5 @@
 import { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
-import { linkExileSelected, releaseLinkedExile } from './cardPlugins/linkedExile'
+import { linkExileSelected, releaseLinkedExile } from './rules/linkExile'
 import { changeControllerPermanent } from './cardPlugins/continuousEffects'
 import { counterPtBonus } from './definitions'
 import type { PluginCatalog } from './catalog'
