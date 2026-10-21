@@ -10,6 +10,7 @@ import {
   select,
   self,
   target,
+  token,
   whenever,
 } from '../cardPlugins/dsl/v1'
 
@@ -25,7 +26,7 @@ export default {
           instructions: [createToken({
             count: 1,
             targets: ref('event.player'),
-            token: { name: 'Elephant', types: ['Creature'], subtypes: ['Elephant'], colors: ['G'], power: 3, toughness: 3 },
+            token: token('Elephant-3-3-G'),
           })],
         }),
       ],
