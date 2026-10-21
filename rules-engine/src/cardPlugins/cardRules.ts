@@ -170,7 +170,6 @@ import {
   addUntilCleanupRule,
   gainLifeLostThisTurn,
   ifGiftNotPromised,
-  revealDrawLoseLife,
   ward,
   xMana,
   yourUpkeep,
@@ -507,7 +506,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  'Braids, Conjurer Adept': [upkeep(putFromHand('active', { types: ['Artifact', 'Creature', 'Land'] }))],
   'Breena, the Demagogue': [
     triggerOn('playerAttacks', {
       do: [
@@ -596,8 +594,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Curious Colossus': [enters(loseAbilitiesBecome('Coward', 1, 1))],
   'Círdan the Shipwright': [enters(secretCouncil()), attacks(secretCouncil())],
   'Dakmor Salvage': [dredge(2), entersTapped()],
-  'Dark Confidant': [yourUpkeep(revealDrawLoseLife())],
-  'Dark Tutelage': [yourUpkeep(revealDrawLoseLife())],
   'Darksteel Colossus': [shuffleIntoLibraryInstead()],
   'Decisive Denial': [modalChooseOne(
     {

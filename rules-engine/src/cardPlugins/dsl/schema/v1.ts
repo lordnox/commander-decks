@@ -1,3 +1,5 @@
+import type { StepId } from '../../../types'
+
 export const RULE_DSL_SCHEMA_VERSION = 1 as const
 
 /** Binding stored on the entering object as `chosenColor` (CR 614.12). */
@@ -137,6 +139,7 @@ export type ObjectOccurrenceFilter =
   | { not: ObjectOccurrenceFilter }
 
 export type OccurrencePattern =
+  | { kind: 'stepBegins'; step: StepId; player?: PlayerReference | PlayerSelector }
   | { kind: 'playLand'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'discard'; filter: { player?: PlayerReference | PlayerSelector } }
   | { kind: 'cycle'; filter: { player?: PlayerReference | PlayerSelector; object?: ObjectOccurrenceFilter } }

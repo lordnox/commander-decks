@@ -45,6 +45,7 @@ import { isTriggerBindingIf, matchesTriggerEvent } from '../cardPlugins/triggers
 import { captureObject, isSameObject, objectIdentity, snapshotObject } from '../objectIdentity'
 import type { OccurrenceSnapshot, StackExecutionContext } from '../types'
 import { loadDefinitionSnapshot } from '../cardPlugins/dsl/compiler'
+import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import { evaluateCondition, evaluateObjectReference, evaluatePlayerReference, evaluatePlayerSelector, mismatchesController, mismatchesOwner } from '../cardPlugins/dsl/compiler/runtime'
 import type { CardRuleDefinitionSnapshotV1, ObjectFilter, ObjectOccurrenceFilter, OccurrencePattern, TriggeredAbilityDefinition } from '../cardPlugins/dsl/schema/v1'
 import { classifyManaAbility } from '../cardPlugins/dsl/compiler/announcement'
@@ -207,6 +208,25 @@ const canonicalFilterMatch = (
   return true
 }
 
+// CR 603.2b: match the committed transition, never a snapshot already in the step.
+const matchesBeginningStep = (
+  before: GameState,
+  after: GameState,
+  source: GameObject,
+  pattern: Extract<OccurrencePattern, { kind: 'stepBegins' }>,
+  occurrence: OccurrenceSnapshot,
+  event: GameEvent,
+  lexicalContext: Pick<RuleDslRuntimeContext, 'choices' | 'results' | 'variables'> = {},
+) => {
+  if (event.type !== 'custom' || event.name !== 'advanceStep' || after.step !== pattern.step
+    || (before.step === after.step && before.turn === after.turn && before.active === after.active)) return false
+  if (!pattern.player) return true
+  const context = { state: after, controller: source.controller, source: captureObject(source), occurrence, ...lexicalContext }
+  return pattern.player.kind === 'players'
+    ? evaluatePlayerSelector(pattern.player, context).includes(after.active)
+    : evaluatePlayerReference(pattern.player, context).includes(after.active)
+}
+
 const canonicalPatternMatches = (
   state: GameState,
   beforeState: GameState,
@@ -216,6 +236,7 @@ const canonicalPatternMatches = (
   occurrence: OccurrenceSnapshot,
   event: GameEvent,
 ) => {
+  if (pattern.kind === 'stepBegins') return matchesBeginningStep(beforeState, state, source, pattern, occurrence, event)
   if (pattern.kind === 'manaAdded') {
     return event.type === 'addMana' && event.sourceId !== source.id
   }
@@ -308,6 +329,7 @@ const generatedPatternMatches = (
     ...(execution?.variables ? { variables: execution.variables } : {}),
   }
   switch (pattern.kind) {
+    case 'stepBegins': return matchesBeginningStep(beforeState, afterState, source, pattern, occurrence, event, lexicalContext)
     case 'playLand':
     case 'discard':
     case 'cycle':

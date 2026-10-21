@@ -1,3 +1,4 @@
+import { STEP_IDS } from '../../../types'
 import { LIBRARY_INSTRUCTION_DIAGNOSTIC_CODE, LIBRARY_INSTRUCTION_DIAGNOSTIC_MESSAGE, OPTIONAL_ACTION_DIAGNOSTIC_CODE, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE } from './constants'
 import type {
   CardRuleDefinitionV1,
@@ -1103,12 +1104,18 @@ export const validateDefinitionV1 = (root: unknown): {
     const env = cloneEnv(baseEnv)
     const node = object(value, path)
     if (!node) return env
-    if (node.kind === 'event') {
-      exactKeys(node, path, ['kind', 'type', 'objectId', 'from', 'to'], ['kind', 'type'])
-    } else if (node.kind === 'step') {
-      exactKeys(node, path, ['kind', 'step', 'active'], ['kind', 'step'])
-    } else {
-      exactKeys(node, path, ['kind', 'filter'], ['kind'])
+    switch (node.kind) {
+      case 'event':
+        exactKeys(node, path, ['kind', 'type', 'objectId', 'from', 'to'], ['kind', 'type'])
+        break
+      case 'stepBegins':
+        exactKeys(node, path, ['kind', 'step', 'player'], ['kind', 'step'])
+        break
+      case 'step':
+        exactKeys(node, path, ['kind', 'step', 'active'], ['kind', 'step'])
+        break
+      default:
+        exactKeys(node, path, ['kind', 'filter'], ['kind'])
     }
     declarations.push({ path, kind: `occurrence:${String(node.kind)}` })
     switch (node.kind) {
@@ -1159,6 +1166,11 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.objectId !== undefined) validateReference(node.objectId, childPath(path, 'objectId'), env, ['object'])
         if (node.from !== undefined) enumeration(node.from, childPath(path, 'from'), ZONES, 'source zone')
         if (node.to !== undefined) enumeration(node.to, childPath(path, 'to'), ZONES, 'destination zone')
+        return env
+      case 'stepBegins':
+        enumeration(node.step, childPath(path, 'step'), new Set(STEP_IDS), 'step')
+        env.context = new Map([...env.context, ['triggering.player', 'player']])
+        if (node.player !== undefined) validateRecipient(node.player, childPath(path, 'player'), env, ['player'])
         return env
       case 'step':
         exactKeys(node, path, ['kind', 'step', 'active'], ['kind', 'step'])

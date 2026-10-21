@@ -514,6 +514,9 @@ export const cardRuleDefinition = (
 export const attacks = (input: { filter: ObjectOccurrenceFilter }): OccurrencePattern =>
   immutableData({ kind: 'attacks', filter: input.filter })
 
+export const stepBegins = (input: Omit<Extract<OccurrencePattern, { kind: 'stepBegins' }>, 'kind'>) =>
+  immutableData({ kind: 'stepBegins' as const, ...input })
+
 export const landPlayed = (filter: { player?: PlayerReference | PlayerSelector } = {}) =>
   immutableData({ kind: 'playLand' as const, filter })
 

@@ -155,3 +155,35 @@ test.each([0, 1])('a land-or-hand fallback handles an empty inspected segment wi
   expect(state.zoneOrder.p1.hand).toHaveLength(size)
   expect(state.resolution).toBeUndefined()
 })
+
+test.each(['Dark Confidant', 'Dark Tutelage'])('%s reveals into hand without drawing and uses the revealed mana value', name => {
+  for (const scenario of [
+    { size: 0, manaValue: 0, redirected: false },
+    { size: 1, manaValue: 0, redirected: false },
+    { size: 1, manaValue: 5, redirected: false },
+    { size: 1, manaValue: 5, redirected: true },
+  ]) {
+    const server = createServerGame(commanderRules, {
+      players: 2,
+      battlefield: { p1: [cardTemplate(name)] },
+      libraries: { p1: scenario.size ? [cardTemplate('Revealed fixture', { types: [scenario.manaValue ? 'Instant' : 'Land'], manaValue: scenario.manaValue })] : [] },
+    }, { random: () => 0, cardPlugins: [{
+      id: 'test.revealIsNotDraw',
+      replace: ({ event }) => {
+        if (event.type === 'draw') throw new Error('Putting the revealed card into hand must not draw')
+        if (scenario.redirected && event.type === 'move' && event.to === 'hand') return { ...event, to: 'exile' }
+      },
+    }] })
+    let state = ok(server.rules({ ...server.state, step: 'untap' }, { type: 'advanceStep' }))
+    expect(state.stack).toHaveLength(1)
+    state = resolveStack(server.rules, JSON.parse(JSON.stringify(state)))
+    expect(state.players.p1.life).toBe(40 - scenario.manaValue)
+    expect(state.players.p1.lost).toBe(false)
+    expect(state.zoneOrder.p1.library).toHaveLength(0)
+    if (scenario.size) {
+      const revealed = Object.values(state.objects).find(object => object.name === 'Revealed fixture')!
+      expect(revealed.zone).toBe(scenario.redirected ? 'exile' : 'hand')
+      expect(state.log.some(line => line.includes('Revealed fixture'))).toBe(true)
+    }
+  }
+})

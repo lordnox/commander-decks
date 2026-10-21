@@ -1,3 +1,4 @@
+import { STEP_IDS } from '../types'
 import { activePrintedStaticModifiers } from '../cardPlugins/dsl/staticModifierCore'
 import { emptyMana, nextPlayer, type Draft } from '../draft'
 import { strikesFirst } from '../keywords'
@@ -12,21 +13,7 @@ import { CARDS_DRAWN_THIS_TURN } from '../rules/draw'
 import { beginDrawStepInstance } from '../rules/drawStepHistory'
 import { untapStepUntaps } from '../rules/untap'
 
-export const STEPS: StepId[] = [
-  'untap',
-  'upkeep',
-  'draw',
-  'precombatMain',
-  'beginCombat',
-  'declareAttackers',
-  'declareBlockers',
-  'firstStrikeDamage',
-  'combatDamage',
-  'endCombat',
-  'postcombatMain',
-  'end',
-  'cleanup',
-]
+export const STEPS: StepId[] = [...STEP_IDS]
 
 export const nextLivingPlayer = (draft: Draft, from: PlayerId) => {
   let player = nextPlayer(draft, from)
