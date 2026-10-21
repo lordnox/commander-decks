@@ -1107,6 +1107,8 @@ export type GameEvent =
       enterCounters?: Readonly<Record<string, number>>
       /** Color chosen as this object enters (CR 614.12). */
       chosenColor?: ManaId
+      /** Take a non-resolving spell off the stack when this card leaves it (bounce, not counter). */
+      dropStackItem?: boolean
     }
   | { type: 'tap'; objectId: string }
   | { type: 'untap'; objectId: string }

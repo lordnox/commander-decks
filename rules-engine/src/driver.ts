@@ -829,18 +829,29 @@ const actionEvents = (
         frame.results = { ...frame.results, [instruction.bindResult]: 0 }
         frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'move', value: 0, destination: instruction.to }
       }
-      return targets.map((object) => ({
-        type: 'move' as const,
-        objectId: object.id,
-        to: instruction.to,
-        ...(instruction.position !== undefined ? { position: instruction.position } : {}),
-        ...(controllers ? { controller: controllers[0] } : {}),
-        ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
-        ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
-          const amount = availableAmount(count, context)
-          return amount === undefined || amount === 0 ? [] : [[counter, amount]]
-        })) } : {}),
-      }))
+      return targets.map((object) => {
+        const stackItem = object.zone === 'stack'
+          ? context.state.stack.find((item) => item.objectId === object.id)
+          : undefined
+        const dropStackItem = Boolean(
+          stackItem
+          && instruction.to !== 'stack'
+          && stackItem.id !== frame.stackId
+        )
+        return {
+          type: 'move' as const,
+          objectId: object.id,
+          to: instruction.to,
+          ...(dropStackItem ? { dropStackItem: true } : {}),
+          ...(instruction.position !== undefined ? { position: instruction.position } : {}),
+          ...(controllers ? { controller: controllers[0] } : {}),
+          ...(instruction.tapped !== undefined ? { tapped: instruction.tapped } : {}),
+          ...(instruction.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(instruction.enterCounters).flatMap(([counter, count]) => {
+            const amount = availableAmount(count, context)
+            return amount === undefined || amount === 0 ? [] : [[counter, amount]]
+          })) } : {}),
+        }
+      })
     }
     case 'reveal': {
       const owners = new Map<string, string[]>()

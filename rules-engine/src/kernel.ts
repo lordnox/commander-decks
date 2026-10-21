@@ -655,12 +655,7 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
       draft.move(event.objectId, event.to, event.position, event.sameZone)
-      // Legacy procedures can retain their spell item across out-of-frame choices.
-      // Preserve that compatibility path; returning a spell to hand still removes it.
-      if (previous === 'stack' && event.to !== 'stack' && (object.ruleDefinition || event.to === 'hand')) {
-        // Bounce of another spell must leave the stack. The currently resolving
-        // item stays until finishResolution; otherwise an as-this-enters
-        // replacement that commits the battlefield move drops the active frame.
+      if (event.dropStackItem && previous === 'stack' && event.to !== 'stack') {
         const resolvingId = draft.resolution?.stackId
         draft.stack = draft.stack.filter((item) =>
           item.objectId !== event.objectId || item.id === resolvingId)
