@@ -1,3 +1,4 @@
+import { manaFromPools } from '../cardPlugins/dsl/manaTypes'
 import { canonicalManaAbilityForTap } from '../cardPlugins/dsl/manaPrograms'
 import { addPools, emptyMana } from '../draft'
 import { hasKeyword } from '../keywords'
@@ -29,6 +30,7 @@ type ManaSource = {
   subtypes?: string[]
   effects?: CardEffect[]
   chosenType?: string
+  ruleDefinition?: GameObject['ruleDefinition']
   counters?: Record<string, number>
 }
 
@@ -109,6 +111,14 @@ export const manaModes = (
   state?: Pick<GameState, 'objects' | 'rules'>,
   visited = new Set<string>(),
 ): Partial<Record<ManaId, number>>[] => {
+  if (state && object.id && object.ruleDefinition) {
+    const source = state.objects[object.id]
+    const ability = object.ruleDefinition.definition.abilities.find(candidate => candidate.kind === 'activated'
+      && candidate.costs.every(cost => cost.kind === 'tapSource' || cost.kind === 'life')
+      && candidate.instructions?.length === 1 && candidate.instructions[0]?.kind === 'addManaFrom')
+    const instruction = ability && 'instructions' in ability ? ability.instructions?.[0] : undefined
+    if (source && instruction?.kind === 'addManaFrom') return manaFromPools(state as GameState, source, instruction)
+  }
   const nextVisited = new Set(visited)
   if (object.id) nextVisited.add(object.id)
   const modes: Partial<Record<ManaId, number>>[] = []

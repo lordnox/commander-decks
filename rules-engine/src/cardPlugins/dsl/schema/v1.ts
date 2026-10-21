@@ -327,6 +327,7 @@ export type Instruction =
   /** Persist copiable characteristics before the source leaves its current zone. */
   | { kind: 'captureCopy'; targets: ObjectRecipient; bindResult: string }
   /** Add the specified mana to each resolved player recipient's pool. */
+  | { kind: 'addManaFrom'; of: ObjectSelector; colorsOnly: boolean; amount: Amount; targets: PlayerRecipient }
   | { kind: 'addMana'; amount: Partial<Record<ManaId, Amount>>; targets: PlayerRecipient }
   /** Queue life loss for each resolved player recipient at this point in resolution. */
   | { kind: 'loseLife'; amount: Amount; targets: PlayerRecipient; bindResult?: string }

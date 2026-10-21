@@ -26,7 +26,8 @@ export const instructionMovesLibrary = (instructions: readonly Instruction[]): b
 
 export const instructionAddsMana = (instructions: readonly Instruction[]): boolean => instructions.some((instruction) => {
   switch (instruction.kind) {
-    case 'addMana': return true
+    case 'addMana':
+    case 'addManaFrom': return true
     case 'sequence':
     case 'forEachPlayer':
       case 'forEach':

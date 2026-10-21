@@ -947,3 +947,5 @@ export const forEachPlayer = (input: Omit<Extract<Instruction, { kind: 'forEachP
 
 export const countDistinctNames = (of: ObjectSelector) => immutableData({ kind: 'countDistinctNames' as const, of })
 export const somePlayerHasMore = (input: Omit<Extract<Condition, { kind: 'somePlayerHasMore' }>, 'kind'>) => immutableData({ kind: 'somePlayerHasMore' as const, ...input })
+
+export const addManaFrom = (input: { of: ObjectSelector; colorsOnly?: boolean; amount?: AmountInput; targets?: PlayerRecipient }) => immutableData({ kind: 'addManaFrom' as const, of: input.of, colorsOnly: input.colorsOnly ?? false, amount: toAmount(input.amount ?? 1), targets: input.targets ?? ref('controller') })

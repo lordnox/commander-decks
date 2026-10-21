@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after group 17; continues #394 and #383. **180 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, Return of the Wildspeaker, Mystic Sanctuary, Choked Estuary, Sea Gate Restoration // Sea Gate, Reborn, and Sink into Stupor // Soporific Springs are now canonical.
+Snapshot: PR #432 after 10-colors; continues #394 and #383. **176 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, Return of the Wildspeaker, Mystic Sanctuary, Choked Estuary, Sea Gate Restoration // Sea Gate, Reborn, and Sink into Stupor // Soporific Springs are now canonical.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 25 available, 1 awaiting correctness follow-up, and 142 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 26 available, 1 awaiting correctness follow-up, and 141 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -25,7 +25,7 @@ No new legacy behavior or baseline allowances. Keep the existing one-PR workflow
 - **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
 - **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
 
-Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 180 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
+Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 176 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
 
 ## What changed from the card batches
 
@@ -48,13 +48,14 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 
 - **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Everflowing Chalice, Famished Worldsire, Mossborn Hydra, and Spark Double retain their multikicker/devour/counter-mutation/copy-entry gates.
 
+- **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices stay open.
+
 ## Suggested next work
 
 First review the composition candidates below. Then choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
 
 | Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| [10-colors](#10-colors) | Exotic Orchard; Fellwar Stone; Reflecting Pool; Horizon of Progress | Full ability review remains required; include colorless only where Oracle permits it. |
 | [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
 | [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
@@ -124,7 +125,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="10-attached"></a>**10-attached — Attached-land bonus mana** | Open | Mana triggers referring to the enchanted land and its controller; retain chosen-color bindings. | [22-attachment](#22-attachment), [10-bonus](#10-bonus) | `Utopia Sprawl`; `Wild Growth` |
 | <a id="10-bonus"></a>**10-bonus — Tapped-for-mana triggers** | Open | Bonus mana keyed to land characteristics, controller, and the mana event; preserve mana-trigger timing. | — | `Bubbling Muck`; `Crypt Ghast`; `Nirkana Revenant`; `Utopia Sprawl`; `Wild Growth` |
-| <a id="10-colors"></a>**10-colors — Available mana types** | Open | Query what own/opponent lands could produce, including colorless where applicable; avoid recursive Reflecting Pool loops. | — | `Exotic Orchard`; `Fellwar Stone`; `Horizon of Progress`; `Reflecting Pool` |
+| <a id="10-colors"></a>**10-colors — Available mana types** | Available | Query what own/opponent lands could produce, including colorless where applicable; avoid recursive Reflecting Pool loops. | — | None remaining |
 | <a id="10-filter"></a>**10-filter — Hybrid/filter mana payments** | Open | Hybrid activation costs, mixed-color production choices, and planner support. | — | `Crypt Ghast`; `Flooded Grove` |
 | <a id="10-loss"></a>**10-loss — Mana-loss consequences** | Open | Observe unspent mana being lost and apply the corresponding life loss. | — | `Yurlok of Scorch Thrash` |
 | <a id="10-mill"></a>**10-mill — Mill as a cost** | Open | Pay a mill cost atomically before adding mana; reject an unpayable cost. | — | `Dakmor Salvage`; `Life from the Loam`; `Millikin` |

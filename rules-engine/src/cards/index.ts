@@ -1,3 +1,7 @@
+import horizonOfProgress from './horizon-of-progress'
+import reflectingPool from './reflecting-pool'
+import fellwarStone from './fellwar-stone'
+import exoticOrchard from './exotic-orchard'
 import chokedEstuary from './choked-estuary'
 import mysticSanctuary from './mystic-sanctuary'
 import singularityRupture from './singularity-rupture'
@@ -236,6 +240,10 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Horizon of Progress": horizonOfProgress,
+  "Reflecting Pool": reflectingPool,
+  "Fellwar Stone": fellwarStone,
+  "Exotic Orchard": exoticOrchard,
   "Choked Estuary": chokedEstuary,
   "Mystic Sanctuary": mysticSanctuary,
   "Singularity Rupture": singularityRupture,

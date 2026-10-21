@@ -332,6 +332,7 @@ export const activated: Plugin = {
           objectId: source.id,
           abilityId: `$.abilities[${canonicalMana.index}]`,
           ...(canonicalMana.modeIndices ? { modeIndices: canonicalMana.modeIndices } : {}),
+          ...(event.mana && canonicalMana.ability.instructions?.some(instruction => instruction.kind === 'addManaFrom') ? { choices: [event.mana] } : {}),
           manaAbility: true,
         })
       }

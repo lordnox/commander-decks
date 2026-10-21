@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after group 17. **180 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 10-colors. **176 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **180 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **176 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -59,10 +59,8 @@ Current readiness: **0 composition candidates**; **180 blocked or awaiting sourc
 | `Eureka` | 27 | [27-repeat](CARD-MIGRATION-BATCHES.md#27-repeat) | Blocked by mechanics | — |
 | `Everflowing Chalice` | 10 | [25-multikicker](CARD-MIGRATION-BATCHES.md#25-multikicker), [14-counters](CARD-MIGRATION-BATCHES.md#14-counters), [17-counters](CARD-MIGRATION-BATCHES.md#17-counters) | Blocked by mechanics | Multikicker count determines entry counters and mana production. |
 | `Everybody Lives!` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player) | Blocked by mechanics | Creature hexproof/indestructible and player hexproof plus life/game-result restrictions. |
-| `Exotic Orchard` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | — |
 | `Fact or Fiction` | 39 | [39-piles](CARD-MIGRATION-BATCHES.md#39-piles) | Blocked by mechanics | — |
 | `Famished Worldsire` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [09-devour](CARD-MIGRATION-BATCHES.md#09-devour), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | Dynamic-power inspection already exists; land devour and ward remain. Verify every printed clause before authoring. |
-| `Fellwar Stone` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | — |
 | `Fiend Hunter` | 18 | [18-triggers](CARD-MIGRATION-BATCHES.md#18-triggers) | Blocked by mechanics | — |
 | `Finale of Devastation` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [31-multizone](CARD-MIGRATION-BATCHES.md#31-multizone) | Blocked by mechanics | Search library and/or graveyard; shuffle only when searched; retain the high-X team bonus. |
 | `Firdoch Core` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |
@@ -76,7 +74,6 @@ Current readiness: **0 composition candidates**; **180 blocked or awaiting sourc
 | `Hagra Mauling // Hagra Broodpit` | 17 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | Complete both faces; land always enters tapped, while the spell reduction checks opponent basic lands. |
 | `Hall of Storm Giants` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
 | `Hedge Shredder` | 24 | [24-crew](CARD-MIGRATION-BATCHES.md#24-crew), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
-| `Horizon of Progress` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | Retain all three activations, including optional tapped land placement. |
 | `Hostile Negotiations` | 08 | [08](CARD-MIGRATION-BATCHES.md#08), [39-hidden](CARD-MIGRATION-BATCHES.md#39-hidden) | Blocked by mechanics | Reuse public/private inspection; hidden piles, opponent choice, result routing, and life loss compose afterward. |
 | `Hypergenesis` | 27 | [27-repeat](CARD-MIGRATION-BATCHES.md#27-repeat), [25-suspend](CARD-MIGRATION-BATCHES.md#25-suspend) | Blocked by mechanics | — |
 | `Icetill Explorer` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands) | Blocked by mechanics | — |
@@ -130,7 +127,6 @@ Current readiness: **0 composition candidates**; **180 blocked or awaiting sourc
 | `Rain of Filth` | 10 | [22-grants](CARD-MIGRATION-BATCHES.md#22-grants) | Blocked by mechanics | Grant sacrifice-for-mana activated abilities until cleanup. |
 | `Raise the Palisade` | 22 | [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Rankle, Master of Pranks` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [37-modes](CARD-MIGRATION-BATCHES.md#37-modes), [34-damage](CARD-MIGRATION-BATCHES.md#34-damage) | Blocked by mechanics | Combat-damage-to-player occurrence; retain all printed keywords and every mode. |
-| `Reflecting Pool` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | — |
 | `Reins of Power` | 28 | [28-exchange](CARD-MIGRATION-BATCHES.md#28-exchange) | Blocked by mechanics | — |
 | `Repay in Kind` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [14-signed-minimum](CARD-MIGRATION-BATCHES.md#14-signed-minimum) | Blocked by mechanics | — |
 | `Rings of Brighthearth` | 29 | [29-activation](CARD-MIGRATION-BATCHES.md#29-activation) | Blocked by mechanics | — |

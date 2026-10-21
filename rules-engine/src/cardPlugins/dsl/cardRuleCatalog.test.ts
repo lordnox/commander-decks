@@ -1597,3 +1597,16 @@ test('Singularity Rupture wipes creatures before computing each selected playerâ
     ] }],
   }])
 })
+
+test('available-mana lands and artifacts use canonical production queries with their complete costs', () => {
+  for (const [name, relation, colorsOnly] of [
+    ['Exotic Orchard', 'opponent', true], ['Fellwar Stone', 'opponent', true], ['Reflecting Pool', 'you', false], ['Horizon of Progress', 'you', false],
+  ] as const) {
+    const abilities = cardRuleDefinitionSnapshotFor(name)!.definition.abilities
+    expect(abilities[0]).toMatchObject({ kind: 'activated', costs: name === 'Horizon of Progress' ? [{ kind: 'tapSource' }, { kind: 'life', amount: { kind: 'constant', value: 1 } }] : [{ kind: 'tapSource' }], instructions: [{ kind: 'addManaFrom', of: { kind: 'objects', filter: { zone: 'battlefield', type: 'Land', controller: relation } }, colorsOnly, amount: { kind: 'constant', value: 1 } }] })
+    if (name === 'Horizon of Progress') expect(abilities.slice(1)).toMatchObject([
+      { kind: 'activated', costs: [{ kind: 'mana', amount: '{3}' }, { kind: 'tapSource' }], instructions: [{ kind: 'chooseCards', min: { kind: 'constant', value: 0 }, max: { kind: 'constant', value: 1 }, filter: { filter: { zone: 'hand', owner: 'you', type: 'Land' } } }, { kind: 'move', to: 'battlefield', tapped: true }] },
+      { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }, { kind: 'sacrifice' }], instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
+    ])
+  }
+})

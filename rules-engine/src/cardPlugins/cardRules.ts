@@ -157,7 +157,6 @@ import {
   exchangeControlUntilEot,
   exchangeLifeWithOpponent,
   fightUpToOne,
-  manaFrom,
   addUntilCleanupRule,
   gainLifeLostThisTurn,
   ifGiftNotPromised,
@@ -612,7 +611,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(putChargeCountersFromTimesKicked()),
   ],
   'Everybody Lives!': [handler('combatPreventionCards')],
-  'Exotic Orchard': [manaFrom('opponentsLands')],
   'Fact or Fiction': [onResolve(opponentPiles(5, { reveal: 'public', piles: 'public' }))],
   'Famished Worldsire': [
     ward({ mana: 3 }),
@@ -626,7 +624,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       })),
     ),
   ],
-  'Fellwar Stone': [manaFrom('opponentsLands')],
   'Fiend Hunter': [
     handler('linkedExile'),
     linkedExileUntilLeaves(),
@@ -735,19 +732,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     attacks(optionalMill(2)),
     landToGraveyard(putMilledLandTapped()),
     crew(1),
-  ],
-  'Horizon of Progress': [
-    activate({
-      id: 'horizon.putLand',
-      costs: { mana: '{3}', tap: true },
-      do: [putLandFromHand(true)],
-    }),
-    manaFrom('controlledLands'),
-    activate({
-      id: 'horizon.draw',
-      costs: { mana: '{1}', tap: true, sacrifice: 'self' },
-      do: [draw(1)],
-    }),
   ],
   'Hostile Negotiations': [onResolve(hiddenPileNegotiation(3, 3))],
   'Hypergenesis': [onResolve(putFromHand('each', {
@@ -1149,7 +1133,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ])],
     }),
   ],
-  'Reflecting Pool': [manaFrom('controlledLands')],
   'Reins of Power': [onResolve(exchangeControlUntilEot()), handler('reinsOfPower')],
   'Repay in Kind': [onResolve(setAllLifeToLowest())],
   'Rings of Brighthearth': [handler('stackCopy')],

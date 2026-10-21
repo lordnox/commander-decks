@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 180,
+    "cardRegistrations": 176,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 42,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 144,
-    "candidateOnlyCardRows": 175
+    "candidateOnlyCardRows": 171
   },
   "cardEffects": [
     {
@@ -57,8 +57,6 @@
         "Ghost Town:effects[0]",
         "Hall of Storm Giants:effects[1]",
         "Hedge Shredder:effects[2]",
-        "Horizon of Progress:effects[0]",
-        "Horizon of Progress:effects[2]",
         "Jace, Multiverse Architect:effects[1]",
         "Jace, Multiverse Architect:effects[2]",
         "Kederekt Leviathan:effects[1]",
@@ -86,7 +84,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 121,
+        "matches": 122,
         "samples": [
           "live-runner/src/kernelHost.test.ts:2573 — test('activates Teferi +1 with submitted targets and opens priority', () => {",
           "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -352,19 +350,11 @@
     {
       "variant": "manaCapability",
       "mechanic": "mana capability",
-      "currentRegistrations": [
-        "Exotic Orchard:effects[0]",
-        "Fellwar Stone:effects[0]",
-        "Horizon of Progress:effects[1]",
-        "Reflecting Pool:effects[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:171 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:153 — test('the Lady Evangela mana and extort cards stay registered', () => {"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "typed mana production capability",
       "compatibilityRoute": "Keep the legacy CardEffect route reachable; translate through an explicit adapter only after the owning part proves equivalent semantics.",
@@ -372,7 +362,7 @@
       "dependencyParts": [
         "07"
       ],
-      "status": "candidate-test-reference"
+      "status": "unobserved"
     },
     {
       "variant": "modal",
@@ -917,7 +907,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 42,
+        "matches": 43,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -970,16 +960,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 11,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:105",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:182 — test('a tapped Elf cannot untap a Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
+          "rules-engine/src/cardPlugins/dsl/manaTypes.test.ts:77 — test('mana-type queries include paid legacy filter outputs without paying or activating them', () => {",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:470 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:237 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:17"
         ]
       },
       "neededCanonicalNode": "typed cost/payment or nested cast node",
@@ -2241,7 +2231,6 @@
         "Cling to Dust:effects[1].do[0].whenFalse[0]",
         "Coercive Portal:effects[0].do[0].outcome[0].whenFalse[0]",
         "Erestor of the Council:effects[0].do[2]",
-        "Horizon of Progress:effects[2].do[0]",
         "Illusion of Choice:effects[0].do[1]",
         "Jace, Multiverse Architect:effects[1].do[0]",
         "Joint Exploration:effects[0].do[0]",
@@ -2255,7 +2244,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 104,
+        "matches": 105,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -4456,15 +4445,13 @@
       "variant": "putLandFromHand",
       "mechanic": "specialized legacy instruction",
       "currentRegistrations": [
-        "Horizon of Progress:effects[0].do[0]",
         "Zimone and Dina:effects[1].do[1]",
         "Zimone and Dina:effects[1].do[2].do[1]"
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 4,
+        "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:187 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/registry.test.ts:77 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/cardPlugins/simpleEffects.test.ts:128 — test('Zimone and Dina sacrifice another creature as the activation cost', () => {",
           "rules-engine/src/cardPlugins/triggerFrequency.test.ts:217 — test('Zimone and Dina drain on the second draw', () => {"
@@ -7471,35 +7458,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Exotic Orchard",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Exotic Orchard"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:171 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:153 — test('the Lady Evangela mana and extort cards stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [manaCapability] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "manaCapability"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Fact or Fiction",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -7576,34 +7534,6 @@
         "choiceEffects",
         "ward"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Fellwar Stone",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Fellwar Stone"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:176 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [manaCapability] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "manaCapability"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -7734,16 +7664,16 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 10,
+        "matches": 11,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:105",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:182 — test('a tapped Elf cannot untap a Forest', () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:24",
+          "rules-engine/src/cardPlugins/dsl/manaTypes.test.ts:77 — test('mana-type queries include paid legacy filter outputs without paying or activating them', () => {",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:26",
           "rules-engine/src/cardPlugins/enchantedManaBoost.test.ts:470 — test('the boost follows a costed {T} mana ability and ends with the land', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:237 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:17",
-          "rules-engine/src/cardPlugins/manaChoice.test.ts:388 — test('two sources and a filter land can chain into one cast', () => {"
+          "rules-engine/src/cardPlugins/manaChoice.test.ts:17"
         ]
       },
       "neededCanonicalNode": "canonical definition covering effects [activate] and instructions [addManaChoice]",
@@ -8092,42 +8022,6 @@
         "crewVehicle",
         "optionalMill",
         "putMilledLandTapped"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "activated",
-        "choiceEffects"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Horizon of Progress",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Horizon of Progress"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 1,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:187 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [activate, manaCapability] and instructions [draw, putLandFromHand]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "07",
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "activate",
-        "manaCapability"
-      ],
-      "instructionVariants": [
-        "draw",
-        "putLandFromHand"
       ],
       "pluginIds": [],
       "handlerIds": [
@@ -10119,35 +10013,6 @@
         "choiceEffects",
         "modalSpell"
       ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Reflecting Pool",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Reflecting Pool"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 2,
-        "samples": [
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:181 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
-          "rules-engine/src/cardPlugins/registry.test.ts:155 — test('the Lady Evangela mana and extort cards stay registered', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [manaCapability] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "08"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "manaCapability"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [],
       "embeddedRulePaths": []
     },
     {
@@ -12428,7 +12293,6 @@
         "Ghost Town",
         "Hall of Storm Giants",
         "Hedge Shredder",
-        "Horizon of Progress",
         "Kederekt Leviathan",
         "Lair of the Hydra",
         "Marina Vendrell",
@@ -12449,7 +12313,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 140,
+        "matches": 143,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -12710,7 +12574,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 186,
+        "matches": 187,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -13069,7 +12933,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 46,
+        "matches": 47,
         "samples": [
           "rules-engine/src/cardPlugins/castTriggers.test.ts:115 — test('a selected modal cast ability resolves separately from choosing its mode', () => {",
           "rules-engine/src/cardPlugins/dsl/amount.test.ts:13",
@@ -13116,7 +12980,7 @@
         "rules-engine/src/plugins/mana.test.ts — dedicated plugin/mechanic suite"
       ],
       "candidateEvidence": {
-        "matches": 66,
+        "matches": 67,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanMiscCards.test.ts:292 — test('delve is capped at the generic cost and cannot pay the blue mana', async () => {",
           "rules-engine/src/cardPlugins/cirdanPartBMana.test.ts:82",
@@ -14311,7 +14175,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1315",
+        "rules-engine/src/cardPlugins/cardRules.ts:1298",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -14336,7 +14200,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1276"
+        "rules-engine/src/types.ts:1278"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -14459,8 +14323,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:238",
-        "rules-engine/src/cardPlugins/cardRules.ts:718",
+        "rules-engine/src/cardPlugins/cardRules.ts:237",
+        "rules-engine/src/cardPlugins/cardRules.ts:715",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -14485,7 +14349,7 @@
         "rules-engine/src/formats.ts:124",
         "rules-engine/src/formats.ts:43",
         "rules-engine/src/index.ts:71",
-        "rules-engine/src/kernel.ts:694",
+        "rules-engine/src/kernel.ts:689",
         "rules-engine/src/newGame.ts:1",
         "rules-engine/src/newGame.ts:129",
         "rules-engine/src/newGame.ts:130",
@@ -15500,10 +15364,10 @@
       {
         "path": "rules-engine/src/kernel.ts",
         "lines": [
-          1505
+          1500
         ],
         "samples": [
-          "1505: event.name === SEARCH_CHOSEN"
+          "1500: event.name === SEARCH_CHOSEN"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -15538,14 +15402,14 @@
       {
         "path": "rules-engine/src/driver.ts",
         "lines": [
-          302,
-          1592,
-          1621
+          304,
+          1616,
+          1645
         ],
         "samples": [
-          "302: const liveSource = draft.object(source.ref.objectId)",
-          "1592: const object = draft.object(item.objectId)",
-          "1621: const object = draft.object(completedItem.objectId)"
+          "304: const liveSource = draft.object(source.ref.objectId)",
+          "1616: const object = draft.object(item.objectId)",
+          "1645: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -15666,16 +15530,16 @@
       {
         "path": "rules-engine/src/plugins/mana.ts",
         "lines": [
-          269,
-          275,
-          294,
-          301,
-          309
+          279,
+          285,
+          304,
+          311,
+          319
         ],
         "samples": [
-          "269: const object = draft.object(event.objectId)",
-          "275: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
-          "294: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
+          "279: const object = draft.object(event.objectId)",
+          "285: if (sacrificesForMana(object)) draft.enqueue({ type: 'sacrifice', objectId: object.id })",
+          "304: draft.enqueue({ type: 'addMana', seat: event.seat, mana: pool, sourceId: object.id })"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -16788,12 +16652,12 @@
       {
         "path": "rules-engine/src/cardPlugins/manaChoice.ts",
         "lines": [
-          32,
-          51
+          34,
+          53
         ],
         "samples": [
-          "32: draft.enqueue({ type: 'addMana', seat: source.controller, mana: pools[named], sourceId: source.id })",
-          "51: draft.enqueue({"
+          "34: draft.enqueue({ type: 'addMana', seat: source.controller, mana: pools[named], sourceId: source.id })",
+          "53: draft.enqueue({"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -16898,14 +16762,14 @@
         "lines": [
           326,
           329,
-          341,
-          508,
-          540
+          342,
+          509,
+          541
         ],
         "samples": [
           "326: const source = draft.object(event.objectId)",
           "329: draft.enqueue({",
-          "341: const source = draft.object(event.objectId)"
+          "342: const source = draft.object(event.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -17948,11 +17812,11 @@
           611,
           645,
           657,
-          709,
-          711,
-          717,
-          734,
-          739
+          704,
+          706,
+          712,
+          729,
+          734
         ],
         "samples": [
           "486: const object = draft.object(event.objectRef.objectId)",

@@ -1,3 +1,4 @@
+import { availableManaTypes } from './dsl/manaTypes'
 import { openOptionSelection, pendingOptionSelection } from '../rules/selectOptions'
 import type { GameObject, GameState, ManaId, ManaPool, Plugin } from '../types'
 import { reducedActivationMana } from './activationCosts'
@@ -22,10 +23,11 @@ const manaOptionLabel = (pool: Pool) =>
 export const manaChoicePools = (options: Pool[]) =>
   Object.fromEntries(options.map((pool) => [manaOptionId(pool), pool]))
 
-export const addManaChoiceInstruction: InstructionHandler<'addManaChoice'> = (
-  { draft, source, item },
-  instruction,
-) => {
+// Hoist the compatibility handler: mana queries also read legacy production options.
+export function addManaChoiceInstruction(
+  { draft, source, item }: Parameters<InstructionHandler<'addManaChoice'>>[0],
+  instruction: Parameters<InstructionHandler<'addManaChoice'>>[1],
+) {
   const pools = manaChoicePools(instruction.options)
   const named = item?.choices?.[0]
   if (named && pools[named]) {
@@ -113,11 +115,16 @@ const fixedCanonicalMana = (
 
 const canonicalManaOptions = (state: GameState, object: GameObject) => {
   if (!object.ruleDefinition) return []
-  return loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.flatMap((ability, index) => {
+  return loadDefinitionSnapshot(object.ruleDefinition).definition.abilities.flatMap<ActivatedManaOption>((ability, index) => {
     if (ability.kind !== 'activated' || ability.modes || ability.decisions.targets.length > 0
       || ability.decisions.variables?.length || !ability.availableFrom.includes(object.zone)
-      || ability.costs.some(cost => cost.kind !== 'mana' && cost.kind !== 'tapSource' && !isSourceSacrificeCost(cost))) return []
+      || ability.costs.some(cost => cost.kind !== 'mana' && cost.kind !== 'life' && cost.kind !== 'tapSource' && !isSourceSacrificeCost(cost))) return []
     try {
+      const instruction = ability.instructions?.length === 1 ? ability.instructions[0] : undefined
+      if (instruction?.kind === 'addManaFrom') {
+        const amount = evaluateRuntimeAmount(instruction.amount, { state, controller: object.controller, source: captureObject(object) })
+        return amount > 0 ? availableManaTypes(state, object, instruction.of, instruction.colorsOnly).map(type => ({ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool: { [type]: amount }, choice: type, sacrifices: ability.costs.some(isSourceSacrificeCost) })) : []
+      }
       const pool = fixedCanonicalMana(state, object, ability.instructions ?? [])
       return pool ? [{ abilityId: `$.abilities[${index}]`, cost: lockedManaCost({ mandatory: ability.costs }), pool,
         sacrifices: ability.costs.some(isSourceSacrificeCost) }] : []

@@ -660,6 +660,13 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['copied']) }, childPath(path, 'bindResult'))
         return
+      case 'addManaFrom':
+        exactKeys(node, path, ['kind', 'of', 'colorsOnly', 'amount', 'targets'], ['kind', 'of', 'colorsOnly', 'amount', 'targets'])
+        if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') issue(childPath(path, 'of'), 'type', 'expected an object selector')
+        if (typeof node.colorsOnly !== 'boolean') issue(childPath(path, 'colorsOnly'), 'type', 'expected a boolean')
+        validateAmount(node.amount, childPath(path, 'amount'), env)
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
       case 'addMana': {
         exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
         const amount = object(node.amount, childPath(path, 'amount'))

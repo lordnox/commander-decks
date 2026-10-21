@@ -1,3 +1,4 @@
+import { availableManaTypes } from './cardPlugins/dsl/manaTypes'
 import { PLAYER_PROGRAM_CHOICE_ACTION } from './cardPlugins/dsl/playerProgramConstants'
 import { CONTROL_CHOICE_ACTION } from './cardPlugins/dsl/controlConstants'
 import { pickRandomChoices } from './plugins/hiddenInformation'
@@ -135,6 +136,7 @@ const preflightInstructions = (
       case 'draw':
       case 'grantLandPlays':
       case 'grantNoMaximumHandSize':
+      case 'addManaFrom':
       case 'addMana':
       case 'inspectTop':
       case 'choosePlayer':
@@ -1346,6 +1348,17 @@ export const prepareResolutionStep = (draft: Draft) => {
           cursor: 0,
         })
       }
+      continue
+    }
+    if (instruction.kind === 'addManaFrom') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      if (availableAmount(instruction.amount, context) === 0) continue
+      const types = availableManaTypes(context.state, frame.source.snapshot, instruction.of, instruction.colorsOnly, context)
+      const selected = item.choices?.[0]
+      const options = types.map(type => ({ label: type, instructions: [{ kind: 'addMana' as const, targets: instruction.targets, amount: { [type]: instruction.amount } }] }))
+      const chosen = options.find(option => option.label === selected)
+      const next: Instruction[] = chosen ? chosen.instructions : options.length === 0 ? [] : [{ kind: 'chooseInstructions', chooser: { kind: 'contextRef', name: 'controller' }, count: { kind: 'constant', value: 1 }, options, whenInsufficient: 'chooseAvailable' }]
+      frame.scopes.push({ path, scopeId: scope.scopeId, instructions: next, cursor: 0 })
       continue
     }
     if (instruction.kind === 'chooseInstructions') {
