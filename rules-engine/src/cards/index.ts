@@ -1,3 +1,4 @@
+import mysticSanctuary from './mystic-sanctuary'
 import singularityRupture from './singularity-rupture'
 import moonsilverKey from './moonsilver-key'
 import guardianProject from './guardian-project'
@@ -230,6 +231,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Mystic Sanctuary": mysticSanctuary,
   "Singularity Rupture": singularityRupture,
   "Beza, the Bounding Spring": bezaTheBoundingSpring,
   "Field of the Dead": fieldOfTheDead,

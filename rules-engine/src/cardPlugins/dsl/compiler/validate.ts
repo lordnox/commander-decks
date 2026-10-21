@@ -1118,7 +1118,7 @@ export const validateDefinitionV1 = (root: unknown): {
       validateReference(node, path, env, ['object'])
       return
     }
-    const hasObjectFields = ['zone', 'type', 'subtypes', 'controller', 'owner', 'token', 'name'].some((key) => key in node)
+    const hasObjectFields = Object.keys(node).some(key => !['all', 'any', 'not'].includes(key))
     if (hasObjectFields) {
       validateObjectFilter(node, path, env, depth)
       return

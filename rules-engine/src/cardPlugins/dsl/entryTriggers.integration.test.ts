@@ -347,3 +347,33 @@ test.each([0, 1])('modal land-entry triggers announce mode %s before resolution'
     expect(hasKeyword(state.objects[creature], 'deathtouch', state)).toBe(false)
   }
 })
+
+test.each([
+  { forcedTapped: true, accept: true },
+  { forcedTapped: false, accept: true },
+  { forcedTapped: false, accept: false },
+])('untapped-entry occurrences use the actual entry state and make the return optional (%j)', ({ forcedTapped, accept }) => {
+  const server = createServerGame(commanderRules, {
+    battlefield: { p1: Array.from({ length: 3 }, (_, i) => cardTemplate(`Island ${i}`, { types: ['Land'], subtypes: ['Island'] })) },
+    hands: { p1: [cardTemplate('Mystic Sanctuary')] },
+    libraries: { p1: [cardTemplate('Return fixture', { types: ['Instant'], zone: 'graveyard' })] },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]!
+  const returning = server.state.zoneOrder.p1.graveyard[0]!
+  let state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield', tapped: forcedTapped }))
+  if (forcedTapped) {
+    expect(state.stack).toHaveLength(0)
+    expect(pendingSelectionFor(state, 'p1')).toBeUndefined()
+    return
+  }
+  const targetPick = pendingSelectionFor(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectCards', seat: 'p1', selectionId: targetPick.id, kind: 'choose', count: targetPick.count, objectIds: [returning] }))
+  // Tapping the Sanctuary or losing an Island later cannot undo its actual entry occurrence.
+  state = ok(server.rules(state, { type: 'tap', objectId: id }))
+  state = ok(server.rules(state, { type: 'move', objectId: server.state.zoneOrder.p1.battlefield[0]!, to: 'hand' }))
+  state = ok(server.rules(JSON.parse(JSON.stringify(state)), { type: 'resolveTop' }))
+  const optional = pendingOptionSelection(state, 'p1')!
+  state = ok(server.rules(state, { type: 'selectOption', seat: 'p1', selectionId: optional.id, optionId: accept ? 'instruction:0' : 'instruction:1' }))
+  expect(state.objects[returning]?.zone).toBe(accept ? 'library' : 'graveyard')
+  if (accept) expect(state.zoneOrder.p1.library[0]).toBe(returning)
+})

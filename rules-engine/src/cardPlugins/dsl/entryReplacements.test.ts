@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
   card,
+  compareAmount, count, objects,
   compileCardRuleDefinition,
   createDefinitionSnapshot,
   replacement,
@@ -255,4 +256,21 @@ test('land entry choice restores before committing the move without spending a s
   expect(entered.objects[objectId]).toMatchObject({ zone: 'battlefield', chosenColor: 'G' })
   expect(entered.players.p1.landsPlayed).toBe(1)
   expect(pendingOptionSelection(entered, 'p1')).toBeUndefined()
+})
+
+test.each([0, 1, 2, 3])('conditional entry counts other controlled lands prospectively (%s)', lands => {
+  const definition = createDefinitionSnapshot(compileCardRuleDefinition(card([
+    staticAbility(replacement(wouldEnter(), modifyEvent({ tapped: true }), {
+      when: compareAmount(count(objects({ zone: 'battlefield', type: 'Land', controller: 'you', other: true })), 'gte', 2),
+    })),
+  ])))
+  const server = createServerGame(commanderRules, {
+    players: 2,
+    hands: { p1: [cardTemplate('Entry fixture', { types: ['Land'], ruleDefinition: definition })] },
+    battlefield: { p1: [cardTemplate('Foreign land', { types: ['Land'] })], p2: Array.from({ length: lands }, (_, i) => cardTemplate(`Own land ${i}`, { types: ['Land'] })) },
+  }, { random: () => 0 })
+  const id = server.state.zoneOrder.p1.hand[0]!
+  const state = ok(server.rules(server.state, { type: 'move', objectId: id, to: 'battlefield', controller: 'p2' }))
+  expect(state.objects[id]?.tapped).toBe(lands >= 2)
+  expect(state.objects[id]?.controller).toBe('p2')
 })
