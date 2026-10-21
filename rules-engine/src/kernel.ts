@@ -656,7 +656,12 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
       draft.move(event.objectId, event.to, event.position, event.sameZone)
       if (previous === 'stack' && event.to !== 'stack') {
-        draft.stack = draft.stack.filter((item) => item.objectId !== event.objectId)
+        // Bounce of another spell must leave the stack. The currently resolving
+        // item stays until finishResolution; otherwise an as-this-enters
+        // replacement that commits the battlefield move drops the active frame.
+        const resolvingId = draft.resolution?.stackId
+        draft.stack = draft.stack.filter((item) =>
+          item.objectId !== event.objectId || item.id === resolvingId)
       }
       object.controller = event.to === 'battlefield'
         ? event.controller ?? object.controller
