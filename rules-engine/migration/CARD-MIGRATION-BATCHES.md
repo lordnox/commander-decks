@@ -236,7 +236,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
 | <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Open | Canonical keyword authoring and actual-damage life gain. | — | `Mister Negative`; `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
 | <a id="21-menace"></a>**21-menace — Menace** | Open | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
-| <a id="21-reach"></a>**21-reach — Reach** | Open | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six`; `Summon: Titan` |
+| <a id="21-reach"></a>**21-reach — Reach** | Available | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six`; `Summon: Titan` |
 | <a id="21-static"></a>**21-static — Continuous keyword grants** | Open | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Archetype of Endurance`; `Concordant Crossroads`; `Thunderfoot Baloth` |
 | <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Open | Layer-aware removal and cannot-have-or-gain precedence for a keyword. | [21-static](#21-static) | `Archetype of Endurance` |
 | <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Open | Flagbearer-style obligations while announcing targets; enforce if-able rules. | — | `Standard Bearer` |
