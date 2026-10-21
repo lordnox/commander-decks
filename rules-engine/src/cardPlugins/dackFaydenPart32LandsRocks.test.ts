@@ -15,7 +15,6 @@ import {
   librarySearch,
   SEARCH_CHOSEN,
   SEARCH_FETCH,
-  pendingSearch,
   searchCandidates,
   searchSpecFor,
 } from './librarySearch'
@@ -325,17 +324,19 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
       objectId: mapId,
     }))
     const resolved = resolveStack(server.rules, cast)
-    expect(pendingSearch(resolved, 'p1')).toMatchObject({ source: "Archaeomancer's Map", via: 'enters' })
-    const spec = searchSpecFor("Archaeomancer's Map")!
-    expect(searchCandidates(resolved, 'p1', spec).map((object) => object.name)).toEqual(['Plains', 'Plains Two'])
+    const pick = pendingSelectionFor(resolved, 'p1')!
+    expect(pick).toMatchObject({ kind: 'choose', min: 0, count: 2, viewLibrary: true })
+    expect(pick.candidates.map(id => resolved.objects[id].name)).toEqual(['Plains', 'Plains Two'])
     const first = named(resolved, 'Plains').id
     const second = named(resolved, 'Plains Two').id
-    const finished = run(server, resolved, [
-      { type: 'move', objectId: first, to: 'hand' },
-      { type: 'move', objectId: second, to: 'hand' },
-      { type: 'shuffleLibrary', seat: 'p1' },
-      { type: 'custom', name: SEARCH_CHOSEN, seat: 'p1' },
-    ])
+    const finished = ok(server.rules(resolved, {
+      type: 'selectCards',
+      seat: 'p1',
+      selectionId: pick.id,
+      kind: 'choose',
+      count: 2,
+      objectIds: [first, second],
+    }))
     expect(finished.zoneOrder.p1.hand).toHaveLength(2)
     expect(projectForViewer(finished, 'p2').zoneOrder.p1.library).toEqual([])
   })
@@ -372,6 +373,7 @@ describe('Dack Fayden part 32 — lands, rocks, maps', () => {
     state = ok(server.rules(state, {
       type: 'selectCards',
       seat: 'p1',
+      selectionId: selection.id,
       kind: 'choose',
       count: 1,
       objectIds: [landId],

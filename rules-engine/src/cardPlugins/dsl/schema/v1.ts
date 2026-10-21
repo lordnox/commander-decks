@@ -217,6 +217,8 @@ export type Cost =
   | { kind: 'draw'; count: Amount }
   | { kind: 'life'; amount: Amount }
   | { kind: 'mana'; amount: ManaCost }
+  /** Exile chosen graveyard cards while paying to cover generic mana only. */
+  | { kind: 'delve' }
 
 export type CostIncrease = { amount: ManaCost; reason?: string }
 export type CostReduction = { generic: number; reason?: string }

@@ -53,7 +53,6 @@ import {
   entersIfCastOption,
   entersTargetingOpponent,
   entersTarget,
-  entersTargetingUpToOne,
   entersTapped,
   gift,
   ifGiftPromised,
@@ -74,7 +73,6 @@ import {
   graveyardCardTypes,
   handler,
   handlerIdsFromEffects,
-  hasSubtype,
   landToGraveyard,
   landToGraveyardOnce,
   landfall,
@@ -83,7 +81,6 @@ import {
   legendRuleOff,
   loseAbilitiesBecome,
   loseLife,
-  loseLifeTargetController,
   kicker,
   multikicker,
   putChargeCountersFromTimesKicked,
@@ -134,7 +131,6 @@ import {
   returnLinkedExile,
   returnOwnedGraveyardLands,
   searchAbility,
-  searchLibrary,
   searchSpell,
   sacrificePermanentsThenDraw,
   secretCouncil,
@@ -191,8 +187,6 @@ import {
   uncounterable,
   restrictedCreatureMana,
   restrictedLegendaryMana,
-  phaseOutTarget,
-  putSelfOntoBattlefield,
   createHeroWithLandCounters,
   searchTargetControllerForBasicLandType,
   removeTarget,
@@ -245,7 +239,6 @@ import {
   secondCardDrawn,
   loseLifeTargetPlayer,
   onUnlock,
-  delve,
   unearth,
   bounceAll,
   blinkSelf,
@@ -401,54 +394,10 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Arcane Denial': [
     targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
   ],
-  "Archaeomancer's Map": [
-    {
-      op: 'search',
-      via: 'enters',
-      spec: {
-        prompt: 'Search your library for up to two basic Plains cards, reveal them, put them into your hand, then shuffle.',
-        match: (object) => basicLand(object) && hasSubtype('Plains')(object),
-        destination: 'hand',
-        min: 0,
-        max: 2,
-        reveal: true,
-      },
-    },
-    triggerOn('playLand', {
-      if: { seat: 'opponent' },
-      do: [
-        branch(opponentHasMore('lands'), [putLandFromHand()], []),
-      ],
-    }),
-  ],
   'Archangel of Tithes': [
     attackTax(1, { whileUntapped: true }),
     blockTax(1, { whileAttacking: true }),
   ],
-  "Archdruid's Charm": [modalChooseOne(
-    {
-      id: 'search',
-      label: 'Search your library for a creature or land card.',
-      do: [searchLibrary({
-        prompt: 'Search for a creature or land card.',
-        match: (object) => object.types.includes('Creature') || object.types.includes('Land'),
-        destination: 'hand',
-        min: 1,
-        max: 1,
-        reveal: true,
-      })],
-    },
-    {
-      id: 'fight',
-      label: 'Put a +1/+1 counter on a creature you control. It fights.',
-      do: [fightOwnedVsOpponent()],
-    },
-    {
-      id: 'exile',
-      label: 'Exile target artifact or enchantment.',
-      do: [{ kind: 'destroyTargetPermanent', types: ['Artifact', 'Enchantment'] }],
-    },
-  )],
   'Archetype of Endurance': [
     staticBoardPump(0, 0, ['Creature'], { grantKeywords: ['hexproof'] }),
     staticBoardPump(0, 0, ['Creature'], {
@@ -537,10 +486,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     reduceActivationCost(1),
     staticBoardPump(1, 1, ['Land']),
   ],
-  'Boggart Trawler // Boggart Bog': [
-    { op: 'replacement', on: 'enters', do: 'tapUnlessPayLife', life: 3, if: { kind: 'sourceType', type: 'Land' } },
-    { op: 'trigger', on: 'enters', targets: 'player', sourceTypeAtTrigger: 'Creature', do: [{ kind: 'exileTargetPlayerGraveyard' }] },
-  ],
   'Boseiju, Who Endures': [
     activate({
       id: 'channel.boseiju',
@@ -571,7 +516,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       ],
     }),
   ],
-  'Bridgeworks Battle // Tanglespan Bridgeworks': [tapUnlessPayLife(3)],
   'Bubbling Muck': [onResolve(addUntilCleanupRule('extraSwampMana', { each: true }))],
   'Cavern of Souls': [
     enters(chooseCreatureType('setChosenType')),
@@ -674,7 +618,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { zone: 'stack', stealIfTypes: ['Artifact', 'Creature'] },
     ),
   ],
-  'Dig Through Time': [delve(), onResolve(lookTopPick(7, 2))],
   "Dovin's Veto": [
     uncounterable(),
     targetOnResolve('counter', { zone: 'stack', noncreature: true }),
@@ -729,20 +672,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         tapped: true,
         shuffleAfter: true,
       })),
-    ),
-  ],
-  'Fell the Profane': [
-    targetOnResolve(
-      'destroy',
-      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
-      loseLifeTargetController(2),
-    ),
-  ],
-  'Fell the Profane // Fell Mire': [
-    tapUnlessPayLife(3),
-    targetOnResolve(
-      'destroy',
-      { zone: 'battlefield', types: ['Creature', 'Planeswalker'] },
     ),
   ],
   'Fellwar Stone': [manaFrom('opponentsLands')],
@@ -875,7 +804,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     landToGraveyard(putMilledLandTapped()),
     crew(1),
   ],
-  'Homer, the Hermit': [handler('homer')],
   'Horizon of Progress': [
     activate({
       id: 'horizon.putLand',
@@ -1297,7 +1225,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       copyTargetCreature({ notLegendary: true }),
     ),
   ],
-  'Queza, Augur of Agonies': [handler('blinkValue')],
   'Rain of Filth': [
     onResolve(addUntilCleanupRule('sacrificeLandMana')),
   ],
@@ -1367,9 +1294,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(copyControlledCreature({ keepName: true })),
   ],
   'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
-  'Scute Swarm': [
-    landfall(branch(controlledLands({ min: 6 }), [copySelf()], [insect])),
-  ],
   'Sea Gate Restoration // Sea Gate, Reborn': [
     tapUnlessPayLife(3),
     onResolve(drawHandSize(1), noMaximumHandSize()),
@@ -1485,24 +1409,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       { tap: true, sacrifice: 'self' },
       gainLifeLostThisTurn('all'),
     ),
-  ],
-  'Talon Gates of Madara': [
-    entersTargetingUpToOne(
-      { zone: 'battlefield', type: 'Creature' },
-      phaseOutTarget(),
-    ),
-    activate({
-      id: 'talon.any-mana',
-      manaAbility: true,
-      costs: { mana: '{1}', tap: true },
-      do: [{ kind: 'addChosenColorMana' }],
-    }),
-    activate({
-      id: 'talon.put',
-      zone: 'hand',
-      costs: { mana: '{4}' },
-      do: [putSelfOntoBattlefield()],
-    }),
   ],
   'Tear Asunder': [
     kicker('{1}{B}'),

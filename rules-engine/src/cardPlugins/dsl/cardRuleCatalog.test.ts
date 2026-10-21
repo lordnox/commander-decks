@@ -367,7 +367,7 @@ test('catalog Unmarked Grave filters legendary cards before moving and shuffling
 })
 
 
-test.each(['Charcoal Diamond', 'Sky Diamond', 'Worn Powerstone', 'Mistvault Bridge', 'Bala Ged Sanctuary', 'Fell Mire', 'Malakir Mire'])('catalog %s replaces its own entry with tapped entry', name => {
+test.each(['Charcoal Diamond', 'Sky Diamond', 'Worn Powerstone', 'Mistvault Bridge', 'Bala Ged Sanctuary', 'Malakir Mire'])('catalog %s replaces its own entry with tapped entry', name => {
   expect(effectsFor(name)).toEqual([])
   expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.slice(0, 1)).toMatchObject([{
     kind: 'static', effects: [{ kind: 'replacement', event: { kind: 'enterBattlefield', filter: { object: { kind: 'contextRef', name: 'source' } } }, transform: { kind: 'modifyEvent', changes: { tapped: true } } }],
@@ -1350,4 +1350,105 @@ test('sacrifice catalog programs bind actual counts or success before their foll
       { kind: 'if', condition: { kind: 'resultIsTrue', value: { binding: 'sacrificed', field: 'sacrificed' } }, then: [{ kind: 'move', to: 'battlefield', tapped: true }] },
     ],
   })
+})
+
+test.each([
+  ["Archaeomancer's Map", ['triggered', 'triggered']],
+  ['Dig Through Time', ['spell']],
+  ["Archdruid's Charm", ['spell']],
+  ['Boggart Trawler', ['triggered']],
+  ['Bridgeworks Battle', ['spell']],
+  ['Fell the Profane', ['spell']],
+  ['Homer, the Hermit', ['triggered']],
+  ['Queza, Augur of Agonies', ['triggered']],
+  ['Scute Swarm', ['triggered']],
+  ['Talon Gates of Madara', ['triggered', 'activated', 'activated', 'activated']],
+] as const)('catalog %s declares its canonical abilities', (name, kinds) => {
+  expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor(name)!.definition.abilities.map(ability => ability.kind)).toEqual([...kinds])
+})
+
+test.each([
+  ['Boggart Trawler // Boggart Bog', 'Boggart Trawler', 'Boggart Bog'],
+  ['Bridgeworks Battle // Tanglespan Bridgeworks', 'Bridgeworks Battle', 'Tanglespan Bridgeworks'],
+  ['Fell the Profane // Fell Mire', 'Fell the Profane', 'Fell Mire'],
+])('pay-life modal catalog %s pins independent front and land programs', (combined, front, back) => {
+  expect(effectsFor(combined)).toEqual([])
+  const entry = cardTemplateDefaultsFor(combined)!
+  expect(entry.frontFace!.ruleDefinition).toEqual(entry.ruleDefinition)
+  expect(entry.backFace!.ruleDefinition!.definition.abilities.map(ability => ability.kind)).toEqual(['static', 'activated'])
+  expect(cardRuleDefinitionSnapshotFor(back)!.definition.abilities).toMatchObject([
+    { kind: 'static', effects: [{ kind: 'replacement', program: [
+      { kind: 'choose', bindChoice: 'entryPayment' },
+      { kind: 'branch', condition: { kind: 'all' } },
+    ] }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }] },
+  ])
+})
+
+test('Dig Through Time delves then inspects seven for two', () => {
+  expect(cardRuleDefinitionSnapshotFor('Dig Through Time')!.definition.abilities[0]).toMatchObject({
+    kind: 'spell',
+    costs: [{ kind: 'delve' }],
+    instructions: [
+      { kind: 'inspectTop', count: { kind: 'constant', value: 7 } },
+      { kind: 'chooseCards', min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 } },
+      { kind: 'move', to: 'hand' },
+      { kind: 'move', to: 'library', position: 'bottom' },
+    ],
+  })
+})
+
+test("Archdruid's Charm searches by type, then damages from the pumped creature, then exiles", () => {
+  const ability = cardRuleDefinitionSnapshotFor("Archdruid's Charm")!.definition.abilities[0]
+  if (ability.kind !== 'spell') throw new Error('expected spell')
+  expect(ability.modes).toMatchObject([
+    { instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { any: [{ type: 'Creature' }, { type: 'Land' }] } } },
+      { kind: 'reveal' },
+      { kind: 'if', condition: { kind: 'compareAmount' } },
+      { kind: 'shuffle' },
+    ] },
+    { instructions: [
+      { kind: 'putCounters', counter: '+1/+1' },
+      { kind: 'damage', source: { kind: 'targetRef', clauseIndex: 0 } },
+    ] },
+    { instructions: [{ kind: 'move', to: 'exile' }] },
+  ])
+})
+
+test("Archaeomancer's Map searches Plains then offers a land drop when an opponent is ahead", () => {
+  expect(cardRuleDefinitionSnapshotFor("Archaeomancer's Map")!.definition.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'sequence', instructions: [
+      { kind: 'chooseCards', filter: { kind: 'objects', filter: { subtypes: ['Plains'], supertypes: ['Basic'] } } },
+      { kind: 'reveal' },
+      { kind: 'move', to: 'hand' },
+      { kind: 'shuffle' },
+    ] }] },
+    { kind: 'triggered', on: { kind: 'enters', filter: { type: 'Land', not: { controller: 'you' } } } },
+  ])
+})
+
+test('Homer mills twice the union of sea-creature subtypes to any number of players', () => {
+  expect(cardRuleDefinitionSnapshotFor('Homer, the Hermit')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered',
+    on: { kind: 'enters', filter: { type: 'Land', controller: 'you' } },
+    instructions: [{ kind: 'mill', count: { kind: 'multiply', left: { kind: 'constant', value: 2 } } }],
+  })
+})
+
+test('Scute Swarm copies itself at six lands and otherwise makes an Insect', () => {
+  expect(cardRuleDefinitionSnapshotFor('Scute Swarm')!.definition.abilities[0]).toMatchObject({
+    kind: 'triggered',
+    instructions: [{ kind: 'if', then: [{ kind: 'copy' }], otherwise: [{ kind: 'createToken', token: { name: 'Insect' } }] }],
+  })
+})
+
+test('Talon Gates phases out up to one creature, makes mana, and can enter from hand', () => {
+  expect(cardRuleDefinitionSnapshotFor('Talon Gates of Madara')!.definition.abilities).toMatchObject([
+    { kind: 'triggered', instructions: [{ kind: 'phase', out: true }] },
+    { kind: 'activated', costs: [{ kind: 'tapSource' }], instructions: [{ kind: 'addMana', amount: { C: { kind: 'constant', value: 1 } } }] },
+    { kind: 'activated', costs: [{ kind: 'mana', amount: '{1}' }, { kind: 'tapSource' }] },
+    { kind: 'activated', availableFrom: ['hand'], costs: [{ kind: 'mana', amount: '{4}' }], instructions: [{ kind: 'move', to: 'battlefield' }] },
+  ])
 })

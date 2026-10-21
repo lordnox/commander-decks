@@ -220,6 +220,9 @@ export const lifeCost = (value: AmountInput): Cost =>
 export const manaCost = (value: string): Cost =>
   immutableData({ kind: 'mana', amount: value })
 
+export const delve = (): Cost =>
+  immutableData({ kind: 'delve' as const }) satisfies Cost
+
 export const untilCleanup = (): EffectDuration => immutableData({ kind: 'untilCleanup' })
 export const permanentEffect = (): EffectDuration => immutableData({ kind: 'permanent' })
 export const untilStep = (step: string, active?: PlayerReference): EffectDuration => immutableData({

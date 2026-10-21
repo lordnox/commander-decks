@@ -1688,6 +1688,20 @@ const targetVariants = (
     const ability = definition.abilities[abilityIndex]
     if (ability?.kind !== 'spell') return [{ ...action, targetGroups: [] }]
     const costGroups = canonicalActionCostGroups(state, source, ability.costs, seat).map(entry => entry.group)
+    const printedCost = spellCost(state, source, {
+      additionalGeneric: taxFor(state, seat, source),
+      x: action.x,
+      castOption: action.castOption,
+      kicked: action.kicked,
+      spreeModes: action.spreeModes,
+      timesKicked: action.timesKicked,
+      seat,
+      withoutPayingMana: action.alternativeCost === 'withoutPayingMana',
+    })
+    const delveGroup = ability.costs.some(cost => cost.kind === 'delve')
+      ? delveGroupFor(state, seat, source, printedCost, action.phyrexianLife ?? [])
+      : undefined
+    if (delveGroup === null) return []
     if (costGroups.some(group => group.targets.length < group.min)) return []
     const variants = ability.modes && ability.decisions.modes
       ? combinationsOf(ability.modes.map((_, index) => index), evaluateModeCount(ability.decisions.modes, { state, controller: seat, source: captureObject(source), variables: action.x === undefined ? undefined : { X: action.x } }))
@@ -1696,7 +1710,7 @@ const targetVariants = (
       const clauses = modeIndices ? modalTargetLayout(ability, abilityIndex, modeIndices).map(entry => entry.clause) : ability.decisions.targets
       const groups = canonicalActionTargetGroups(state, source, ability, seat, clauses)
       if (groups.some(group => group.targets.length < group.min)) return []
-      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...costGroups, ...groups] }]
+      return [{ ...action, ...(modeIndices ? { modeIndices } : {}), targetGroups: [...(delveGroup ? [delveGroup] : []), ...costGroups, ...groups] }]
     })
   }
   if (source && action.castOption === 'bestow' && bestowEffect(source)) {
@@ -2485,13 +2499,17 @@ export const eventsForAvailableAction = (
       const announcement = ability?.kind === 'spell' ? beginSpellAnnouncement(state, canonicalSource, seat, ability, targetClauses, action.x, [...discard, ...sacrifice],
         { deferPayment: true, targetClauses: clauses, phyrexianLife: action.phyrexianLife, genericAdjustment: tax }) : undefined
       if (announcement && !announcement.ok) return null
-      const cost = announcement?.ok && announcement.transaction.lockedCost.mana
-        || spellCost(state, canonicalSource, { x: action.x, seat, additionalGeneric: taxFor(state, seat, canonicalSource) })
+      const cost = reduceGenericManaCost(
+        announcement?.ok && announcement.transaction.lockedCost.mana
+          || spellCost(state, canonicalSource, { x: action.x, seat, additionalGeneric: taxFor(state, seat, canonicalSource) }),
+        action.delve?.length ?? 0,
+      )
       const funding = fundingEvents(state, seat, cost, new Set(costChoices), { phyrexianLife: action.phyrexianLife }, canonicalSource)
       if (!funding) return null
       return [...funding, { type: 'castSpell', seat, objectId: canonicalSource.id, targets, targetClauses,
         ...(tax > 0 ? { additionalGeneric: tax } : {}),
         ...(discard.length ? { discard } : {}), ...(sacrifice.length ? { sacrifice } : {}),
+        ...(action.delve?.length ? { delve: action.delve } : {}),
         ...(action.modeIndices ? { modeIndices: action.modeIndices } : {}), ...(action.x !== undefined ? { x: action.x } : {}),
         ...(action.phyrexianLife ? { phyrexianLife: action.phyrexianLife } : {}),
       }]

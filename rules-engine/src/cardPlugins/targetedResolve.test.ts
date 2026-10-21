@@ -758,7 +758,7 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       })
     })
 
-  test('Fell the Profane destroys and drains the target’s controller', () => {
+  test('Fell the Profane destroys the target creature or planeswalker', () => {
       const server = createServerGame(
         commanderRules,
         {
@@ -768,6 +768,7 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
           },
         },
       )
+      server.state.players.p1.mana = { ...server.state.players.p1.mana, B: 2, C: 2 }
       const target = named(server.state, 'Target')
       const cast = ok(server.rules(server.state, {
         type: 'castSpell',
@@ -777,7 +778,7 @@ describe('relocated from homerRest.test.ts → targetedResolve.test.ts', () => {
       }))
       const resolved = ok(server.rules(cast, { type: 'resolveTop' }))
       expect(resolved.objects[target.id].zone).toBe('graveyard')
-      expect(resolved.players.p2.life).toBe(38)
+      expect(resolved.players.p2.life).toBe(40)
     })
 
 })

@@ -19,6 +19,8 @@ import silverbackElder from './silverback-elder'
 import animistsAwakening from './animists-awakening'
 import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
+import archaeomancersMap from './archaeomancers-map'
+import archdruidsCharm from './archdruids-charm'
 import arborElf from './arbor-elf'
 import arcanisTheOmnipotent from './arcanis-the-omnipotent'
 import astralDrift from './astral-drift'
@@ -29,9 +31,12 @@ import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
 import blightedWoodland from './blighted-woodland'
 import bloodCelebrant from './blood-celebrant'
+import boggartBog from './boggart-bog'
+import boggartTrawler from './boggart-trawler'
 import bojukaBog from './bojuka-bog'
 import botanicalSanctum from './botanical-sanctum'
 import breedingPool from './breeding-pool'
+import bridgeworksBattle from './bridgeworks-battle'
 import brokenBond from './broken-bond'
 import brokersHideout from './brokers-hideout'
 import burgeoning from './burgeoning'
@@ -58,6 +63,7 @@ import exsanguinate from './exsanguinate'
 import deathsprout from './deathsprout'
 import desertedTemple from './deserted-temple'
 import diabolicTutor from './diabolic-tutor'
+import digThroughTime from './dig-through-time'
 import dimirAqueduct from './dimir-aqueduct'
 import dimirSignet from './dimir-signet'
 import dismember from './dismember'
@@ -81,6 +87,7 @@ import farseek from './farseek'
 import fateUnraveler from './fate-unraveler'
 import felidarGuardian from './felidar-guardian'
 import fellMire from './fell-mire'
+import fellTheProfane from './fell-the-profane'
 import flameRift from './flame-rift'
 import flickerOfFate from './flicker-of-fate'
 import flickerwisp from './flickerwisp'
@@ -106,6 +113,7 @@ import hedronCrab from './hedron-crab'
 import hermitDruid from './hermit-druid'
 import highMarket from './high-market'
 import hinterlandHarbor from './hinterland-harbor'
+import homerTheHermit from './homer-the-hermit'
 import infernalContract from './infernal-contract'
 import inkshield from './inkshield'
 import joinTheDead from './join-the-dead'
@@ -141,6 +149,7 @@ import otherworldlyJourney from './otherworldly-journey'
 import overgrownTomb from './overgrown-tomb'
 import pollutedDelta from './polluted-delta'
 import prismaticVista from './prismatic-vista'
+import quezaAugurOfAgonies from './queza-augur-of-agonies'
 import raffinesTower from './raffines-tower'
 import reanimate from './reanimate'
 import rejuvenatingSprings from './rejuvenating-springs'
@@ -153,6 +162,7 @@ import revitalizingRepast from './revitalizing-repast'
 import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
+import scuteSwarm from './scute-swarm'
 import secludedSteppe from './secluded-steppe'
 import seleniaDarkAngel from './selenia-dark-angel'
 import settleTheWreckage from './settle-the-wreckage'
@@ -172,6 +182,8 @@ import subjugatorAngel from './subjugator-angel'
 import summerBloom from './summer-bloom'
 import sunkenHollow from './sunken-hollow'
 import tamiyosSafekeeping from './tamiyos-safekeeping'
+import talonGatesOfMadara from './talon-gates-of-madara'
+import tanglespanBridgeworks from './tanglespan-bridgeworks'
 import templeOfDeceit from './temple-of-deceit'
 import terastodon from './terastodon'
 import terramorphicExpanse from './terramorphic-expanse'
@@ -225,6 +237,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Aftermath Analyst": aftermathAnalyst,
   "Amulet of Vigor": amuletOfVigor,
   "Anguished Unmaking": anguishedUnmaking,
+  "Archaeomancer's Map": archaeomancersMap,
+  "Archdruid's Charm": archdruidsCharm,
   "Arbor Elf": arborElf,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
   "Astral Drift": astralDrift,
@@ -236,9 +250,14 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Beast Whisperer": beastWhisperer,
   "Blighted Woodland": blightedWoodland,
   "Blood Celebrant": bloodCelebrant,
+  "Boggart Bog": boggartBog,
+  "Boggart Trawler": boggartTrawler,
+  "Boggart Trawler // Boggart Bog": boggartTrawler,
   "Bojuka Bog": bojukaBog,
   "Botanical Sanctum": botanicalSanctum,
   "Breeding Pool": breedingPool,
+  "Bridgeworks Battle": bridgeworksBattle,
+  "Bridgeworks Battle // Tanglespan Bridgeworks": bridgeworksBattle,
   "Broken Bond": brokenBond,
   "Brokers Hideout": brokersHideout,
   "Burgeoning": burgeoning,
@@ -265,6 +284,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Deathsprout": deathsprout,
   "Deserted Temple": desertedTemple,
   "Diabolic Tutor": diabolicTutor,
+  "Dig Through Time": digThroughTime,
   "Dimir Aqueduct": dimirAqueduct,
   "Dimir Signet": dimirSignet,
   "Dismember": dismember,
@@ -288,6 +308,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Fate Unraveler": fateUnraveler,
   "Felidar Guardian": felidarGuardian,
   "Fell Mire": fellMire,
+  "Fell the Profane": fellTheProfane,
+  "Fell the Profane // Fell Mire": fellTheProfane,
   "Flame Rift": flameRift,
   "Flicker of Fate": flickerOfFate,
   "Flickerwisp": flickerwisp,
@@ -313,6 +335,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Hermit Druid": hermitDruid,
   "High Market": highMarket,
   "Hinterland Harbor": hinterlandHarbor,
+  "Homer, the Hermit": homerTheHermit,
   "Infernal Contract": infernalContract,
   "Inkshield": inkshield,
   "Join the Dead": joinTheDead,
@@ -350,6 +373,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Overgrown Tomb": overgrownTomb,
   "Polluted Delta": pollutedDelta,
   "Prismatic Vista": prismaticVista,
+  "Queza, Augur of Agonies": quezaAugurOfAgonies,
   "Raffine's Tower": raffinesTower,
   "Reanimate": reanimate,
   "Rejuvenating Springs": rejuvenatingSprings,
@@ -363,6 +387,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Riveteers Overlook": riveteersOverlook,
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Sakura-Tribe Scout": sakuraTribeScout,
+  "Scute Swarm": scuteSwarm,
   "Secluded Steppe": secludedSteppe,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Settle the Wreckage": settleTheWreckage,
@@ -382,6 +407,8 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Summer Bloom": summerBloom,
   "Sunken Hollow": sunkenHollow,
   "Tamiyo's Safekeeping": tamiyosSafekeeping,
+  "Talon Gates of Madara": talonGatesOfMadara,
+  "Tanglespan Bridgeworks": tanglespanBridgeworks,
   "Temple of Deceit": templeOfDeceit,
   "Terastodon": terastodon,
   "Terramorphic Expanse": terramorphicExpanse,

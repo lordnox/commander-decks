@@ -193,7 +193,7 @@ describe('Sin-fall lands and alternate casting', () => {
     const talon = named(state, 'Talon Gates of Madara')
     state = ok(server.rules(state, {
       type: 'activateAbility',
-      abilityId: 'talon.put',
+      abilityId: '$.abilities[3]',
       seat: 'p1',
       objectId: talon.id,
     }))

@@ -573,6 +573,9 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'count'], ['kind', 'count'])
         validateAmount(node.count, childPath(path, 'count'), env)
         return
+      case 'delve':
+        exactKeys(node, path, ['kind'], ['kind'])
+        return
       case 'mana':
         exactKeys(node, path, ['kind', 'amount'], ['kind', 'amount'])
         if (typeof node.amount !== 'string' || node.amount.length === 0 || node.amount.length > 128
