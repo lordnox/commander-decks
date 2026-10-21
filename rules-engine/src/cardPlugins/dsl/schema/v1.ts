@@ -255,6 +255,7 @@ export type PreventionEffectDefinition = {
 }
 
 export type CreatedEffect =
+  | { kind: 'goad' }
   | { kind: 'setColors'; colors: readonly CardColor[] }
   | { kind: 'pump'; power: StatDelta; toughness: StatDelta }
   | { kind: 'grantKeyword'; keyword: Keyword }
@@ -279,7 +280,7 @@ export type ObjectRecipient = ObjectReference | ObjectSelector
 export type StackItemRecipient = StackItemReference | StackItemSelector
 export type DamageRecipient = PlayerRecipient | ObjectRecipient
 
-export const REVEAL_UNTIL_REST = { orderBottom: 'orderBottom', graveyard: 'graveyard' } as const
+export const REVEAL_UNTIL_REST = { orderBottom: 'orderBottom', graveyard: 'graveyard', keep: 'keep' } as const
 export type RevealUntilRest = typeof REVEAL_UNTIL_REST[keyof typeof REVEAL_UNTIL_REST]
 
 export const LIBRARY_VISIBILITY = { private: 'private', public: 'public' } as const
@@ -418,6 +419,8 @@ export type Instruction =
       foundTo: Zone
       rest: RevealUntilRest
     }
+  /** Assign each permanent to a chosen recipient, then change control simultaneously. */
+  | { kind: 'distributeControl'; targets: ObjectRecipient; chooser: PlayerReference; recipients: PlayerRecipient; distinct: boolean }
   /** Run nested instructions in order, resuming after any player choice pauses resolution. */
   | { kind: 'sequence'; instructions: readonly Instruction[] }
   /** Run nested instructions once per resolved object, exposing that object's controller as event.player. */

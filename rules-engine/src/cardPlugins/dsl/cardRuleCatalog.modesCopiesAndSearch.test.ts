@@ -373,3 +373,18 @@ test('bounded-library catalog programs compose typed choices, remainder routing,
     }
   }
 })
+
+test('Dack catalog composes reveal, movement, shuffle, permanent goad, and distinct assignments', () => {
+  const snapshot = cardRuleDefinitionSnapshotFor('Dack Fayden, Helping Hand')!
+  expect(effectsFor('Dack Fayden, Helping Hand')).toEqual([])
+  expect(snapshot.definition.abilities).toMatchObject([{
+    kind: 'triggered', activeIn: ['battlefield'], on: { kind: 'enters', filter: { kind: 'contextRef', name: 'source' } },
+    instructions: [
+      { kind: 'revealUntil', count: { kind: 'count', of: { kind: 'players', filter: { relation: 'opponent' } } }, match: { kind: 'objects', filter: { zone: 'library', type: 'Creature' } }, foundTo: 'library', rest: 'keep', bindFound: 'found' },
+      { kind: 'move', targets: { kind: 'choiceRef', binding: 'found' }, to: 'battlefield', controller: { kind: 'contextRef', name: 'controller' }, bindChoice: 'entered' },
+      { kind: 'shuffle', targets: { kind: 'contextRef', name: 'controller' } },
+      { kind: 'createEffect', targets: { kind: 'choiceRef', binding: 'entered' }, effect: { kind: 'goad' }, duration: { kind: 'permanent' } },
+      { kind: 'distributeControl', targets: { kind: 'choiceRef', binding: 'entered' }, recipients: { kind: 'players', filter: { relation: 'opponent' } }, distinct: true },
+    ],
+  }])
+})

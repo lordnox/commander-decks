@@ -1,3 +1,4 @@
+import { CONTROL_CHOICE_ACTION } from './cardPlugins/dsl/controlConstants'
 import { pickRandomChoices } from './plugins/hiddenInformation'
 import { cardRuleDefinition } from './cardPlugins/dsl/builders'
 import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION } from './cardPlugins/dsl/schema/v1'
@@ -43,6 +44,7 @@ import type {
 import { hasKeyword } from './keywords'
 import { openOptionSelection, openNextCopySlot } from './rules/selectOptions'
 import { openCardSelection } from './rules/selectCards'
+import { openControlAssignment } from './cardPlugins/dsl/controlAssignment'
 import { openPlayerSelection } from './rules/selectPlayers'
 import { copyCharacteristics } from './cardPlugins/effectRuntime'
 import { apnapSeats } from './turnOrder'
@@ -54,6 +56,7 @@ import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlu
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
   'inspectTop',
+  'distributeControl',
   'captureAmount',
   'counter',
   'damage',
@@ -163,6 +166,7 @@ const preflightInstructions = (
         preflightInstructions(instruction.otherwise, `${instructionPath}.otherwise`)
         return
       case 'chooseInstructions':
+      case 'distributeControl':
       case 'chooseCards':
       case 'revealUntil':
       case 'scry':
@@ -1120,6 +1124,7 @@ const actionEvents = (
         type: 'canonicalEffect' as const,
         objectId: object.id,
         effect,
+        ...(effect.kind === 'goad' ? { effectPlayer: frame.controller } : {}),
         duration: structuredClone(instruction.duration),
         sourceId: frame.source.ref.objectId,
         sourceRef: structuredClone(frame.source.ref),
@@ -1301,6 +1306,20 @@ export const prepareResolutionStep = (draft: Draft) => {
           },
         })
       }
+      frame.phase = 'committing'
+      frame.pendingEvents = []
+      return { kind: 'events', events: [] }
+    }
+    if (instruction.kind === 'distributeControl') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const chooser = evaluatePlayerReference(instruction.chooser, context)[0]
+      const candidates = recipients(instruction.recipients, context)
+      const targets = objectActions(instruction.targets, context).filter(object => object.zone === 'battlefield')
+      if (chooser && targets.length && candidates.length) openControlAssignment(draft, {
+        kind: CONTROL_CHOICE_ACTION.assign, stackId: frame.stackId,
+        objects: targets.map(objectIdentity), candidates, distinct: instruction.distinct, assignments: [],
+        chooser, sourceId: frame.source.ref.objectId, source: frame.source.snapshot.name,
+      })
       frame.phase = 'committing'
       frame.pendingEvents = []
       return { kind: 'events', events: [] }

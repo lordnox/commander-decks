@@ -1,3 +1,4 @@
+import type { CONTROL_EVENT } from './cardPlugins/dsl/controlConstants'
 import type PluginCatalog from './catalog'
 import type Draft from './draft'
 import type { CardEffect, CardInstruction } from './cardPlugins/effects'
@@ -972,6 +973,8 @@ export type GameEvent =
   | { type: 'counterStackItem'; stackId: string; sourceId?: string; objectRef?: ObjectIdentity }
   /** Internal canonical instruction group; all members share one before-state. */
   | { type: 'actionGroup'; events: GameEvent[]; atomic?: boolean }
+  /** A resolved control-changing effect, guarded against a replacement incarnation. */
+  | { type: typeof CONTROL_EVENT.change; objectRef: ObjectIdentity; controller: PlayerId }
   /** Canonical semantic destruction; the kernel applies indestructible and replacement rules. */
   | { type: 'destroy'; objectId: string; sourceId?: string }
   /** Canonical copy action; resolves from the source snapshot at commit time. */
@@ -983,6 +986,7 @@ export type GameEvent =
       type: 'canonicalEffect'
       objectId: string
       effect: CreatedEffect
+      effectPlayer?: PlayerId
       duration: DslEffectDuration
       sourceId?: string
       sourceRef?: ObjectIdentity

@@ -295,7 +295,7 @@ describe('card plugin registry', () => {
 
   test('Dack Fayden, Helping Hand is registered', () => {
     expect(missingCardPlugins(['Dack Fayden, Helping Hand'])).toEqual([])
-    expect(cardPluginEntry('Dack Fayden, Helping Hand')?.handlerIds).toContain('permanentControl')
+    expect(cardPluginEntry('Dack Fayden, Helping Hand')?.handlerIds ?? []).not.toContain('permanentControl')
   })
 
   test('Dack Fayden part 32 lands, rocks, and maps stay registered', () => {
