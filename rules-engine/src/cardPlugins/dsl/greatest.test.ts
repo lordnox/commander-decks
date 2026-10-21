@@ -37,7 +37,7 @@ test('greatest rejects player life and evaluates through the amount context', ()
     information: 'current',
   }), { count: () => 0, greatest: () => 4, characteristic: () => 0 })).toBe(4)
   expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({
-    count: { kind: 'greatest', of: objects({ zone: 'battlefield' }), characteristic: 'life', information: 'current' },
+    count: { kind: 'greatest', of: objects({ zone: 'battlefield' }), characteristic: 'life' as 'power', information: 'current' },
     targets: ref('controller'),
   })] })]))).toThrow('numeric characteristic')
 })

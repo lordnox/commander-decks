@@ -203,7 +203,6 @@ import {
   ifYouDoExileFromGraveyard,
   ptEqualsCount,
   staticBoardPump,
-  optionalTargetOnResolve,
   upToTargetsOnResolve,
   addChosenColorMana,
   destroyTargetPermanent,
@@ -386,15 +385,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       targets: { filter: { type: 'Creature' } },
       do: [pumpFromLinkedExilePower('stackTarget')],
     },
-  ],
-  'Black Sun\'s Twilight': [
-    xMana(),
-    optionalTargetOnResolve(
-      'select',
-      { zone: 'battlefield', type: 'Creature' },
-      pumpTargetX(-1),
-      returnCreatureManaValueX(5, true),
-    ),
   ],
   'Blanket of Night': [staticGrant('swampOverlay')],
   'Blightsteel Colossus': [shuffleIntoLibraryInstead()],

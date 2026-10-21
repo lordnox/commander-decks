@@ -25,6 +25,12 @@ export const PLAYER_RELATIONS = {
   you: 'you', opponent: 'opponent', anyone: 'any', teammate: 'teammate',
 } as const
 export type PlayerRelation = typeof PLAYER_RELATIONS[keyof typeof PLAYER_RELATIONS]
+
+export const AMOUNT_COMPARE_OPERATORS = { eq: 'eq', gte: 'gte', lte: 'lte' } as const
+export type AmountCompareOperator = typeof AMOUNT_COMPARE_OPERATORS[keyof typeof AMOUNT_COMPARE_OPERATORS]
+
+export const OBJECT_NUMERIC_CHARACTERISTICS = ['power', 'toughness', 'manaValue', 'loyalty'] as const
+export type ObjectNumericCharacteristic = typeof OBJECT_NUMERIC_CHARACTERISTICS[number]
 /** The same relation or specific-player reference is accepted in every player role. */
 export type PlayerMatch = PlayerRelation | PlayerReference
 
@@ -79,6 +85,11 @@ export type ObjectFilter = {
   tapped?: boolean
   attacking?: boolean
   powerAtLeast?: number
+  compareCharacteristic?: {
+    characteristic: ObjectNumericCharacteristic
+    operator: AmountCompareOperator
+    than: Amount
+  }
   all?: readonly ObjectFilter[]
   any?: readonly ObjectFilter[]
   not?: ObjectFilter
@@ -125,7 +136,7 @@ export type Amount =
   | {
       kind: 'greatest'
       of: ObjectSelector
-      characteristic: NumericCharacteristic
+      characteristic: ObjectNumericCharacteristic
       information: 'current' | 'currentOrLastKnown'
     }
   | {
@@ -296,7 +307,7 @@ export type PlayerComparisonMetric = typeof PLAYER_COMPARISON_METRICS[number]
 export type Condition =
   | { kind: 'somePlayerHasMore'; players: PlayerSelector; than: PlayerReference; metric: PlayerComparisonMetric }
   | { kind: 'resultIsTrue'; value: ResultReference }
-  | { kind: 'compareAmount'; left: Amount; operator: 'eq' | 'gte' | 'lte'; right: Amount }
+  | { kind: 'compareAmount'; left: Amount; operator: AmountCompareOperator; right: Amount }
   | { kind: 'choiceIs'; binding: string; option: string }
   | { kind: 'activePlayer'; of: PlayerReference }
   | { kind: 'currentStep'; step: StepId | readonly StepId[] }

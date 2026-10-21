@@ -46,6 +46,7 @@ import balaGedSanctuary from './bala-ged-sanctuary'
 import banisherPriest from './banisher-priest'
 import batwingBrume from './batwing-brume'
 import beastWhisperer from './beast-whisperer'
+import blackSunsTwilight from './black-suns-twilight'
 import blightedWoodland from './blighted-woodland'
 import blossomingTortoise from './blossoming-tortoise'
 import bloodCelebrant from './blood-celebrant'
@@ -302,6 +303,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Banisher Priest": banisherPriest,
   "Batwing Brume": batwingBrume,
   "Beast Whisperer": beastWhisperer,
+  "Black Sun's Twilight": blackSunsTwilight,
   "Blighted Woodland": blightedWoodland,
   "Blossoming Tortoise": blossomingTortoise,
   "Blood Celebrant": bloodCelebrant,

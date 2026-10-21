@@ -428,12 +428,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "8dbf830a6d2eb9f799b474f1134db65479ef7d5d7cf550346381ef6f993c0d39",
-    "card": "Black Sun's Twilight"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "6081353024249c94a1eb9829c9a6a29737ddce7e9b18ba1d154cf71500a25e92",
     "card": "Crawling Sensation"
   },

@@ -1,6 +1,7 @@
 import type {
   ActivatedAbilityDefinition,
   Amount,
+  AmountCompareOperator,
   AmountInput,
   StatDeltaInput,
   RoundingMode,
@@ -34,6 +35,7 @@ import type {
   ReplacementProgramInstruction,
   ModeSpec,
   NumericCharacteristic,
+  ObjectNumericCharacteristic,
   ObjectFilter,
   ObjectOccurrenceFilter,
   ObjectReference,
@@ -105,9 +107,15 @@ export const addAmount = (left: AmountInput, right: AmountInput) =>
 
 export const greatest = (input: {
   of: ObjectSelector
-  characteristic: Exclude<NumericCharacteristic, 'life'>
+  characteristic: ObjectNumericCharacteristic
   information: 'current' | 'currentOrLastKnown'
 }) => immutableData({ kind: 'greatest' as const, ...input })
+
+export const compareCharacteristic = (
+  characteristic: ObjectNumericCharacteristic,
+  operator: AmountCompareOperator,
+  than: AmountInput,
+) => immutableData({ characteristic, operator, than: toAmount(than) })
 
 export const negate = (value: AmountInput) => immutableData({ kind: 'negate' as const, value: toAmount(value) })
 
@@ -264,7 +272,7 @@ export const stepDelayed = (input: Omit<Extract<DelayedPattern, { kind: 'step' }
 
 export const compareAmount = (
   left: AmountInput,
-  operator: 'eq' | 'gte' | 'lte',
+  operator: AmountCompareOperator,
   right: AmountInput,
 ): Condition => immutableData({
   kind: 'compareAmount',

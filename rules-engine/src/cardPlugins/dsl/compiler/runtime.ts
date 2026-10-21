@@ -16,6 +16,7 @@ import type {
 import type {
   InstructionResult,
   Amount,
+  AmountCompareOperator,
   StatDelta,
   AmountEvaluationContext,
   ChoiceReference,
@@ -24,6 +25,7 @@ import type {
   LifeLostCombine,
   NumericCharacteristic,
   ObjectFilter,
+  ObjectNumericCharacteristic,
   ObjectReference,
   ObjectSelector,
   PlayerFilter,
@@ -38,7 +40,7 @@ import type {
   StackItemSelector,
   TargetReference,
 } from '../schema/v1'
-import { LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v1'
+import { AMOUNT_COMPARE_OPERATORS, LIFE_LOST_COMBINE, PLAYER_RELATIONS } from '../schema/v1'
 import { lifeLostThisTurn as recordedLifeLostThisTurn } from '../../../plugins/life'
 import type { DistributionAllocation } from './modes'
 import { evaluateAmount, evaluateStatDelta } from './evaluate'
@@ -313,6 +315,25 @@ export const evaluatePlayerSelector = (
   (includeLost || !context.state.players[player].lost)
   && matchesPlayerFilter(player, selector.filter, context, includeLost))
 
+const compareAmounts = (left: number, operator: AmountCompareOperator, right: number) => {
+  switch (operator) {
+    case AMOUNT_COMPARE_OPERATORS.eq: return left === right
+    case AMOUNT_COMPARE_OPERATORS.gte: return left >= right
+    case AMOUNT_COMPARE_OPERATORS.lte: return left <= right
+  }
+}
+
+const objectNumericCharacteristic = (
+  object: GameObject,
+  characteristic: ObjectNumericCharacteristic,
+) => {
+  if (characteristic === 'loyalty') {
+    return object.types.includes('Planeswalker') ? object.counters.loyalty ?? 0 : undefined
+  }
+  const value = object[characteristic]
+  return typeof value === 'number' ? value : undefined
+}
+
 // Recursive filter composition requires an explicit return type.
 const matchesObjectFilter = (
   object: GameObject,
@@ -345,6 +366,13 @@ const matchesObjectFilter = (
   if (filter.token !== undefined && object.token !== filter.token) return false
   if (filter.name !== undefined && object.name !== filter.name) return false
   if (filter.powerAtLeast !== undefined && (typeof object.power !== 'number' || object.power < filter.powerAtLeast)) return false
+  if (filter.compareCharacteristic) {
+    const left = objectNumericCharacteristic(object, filter.compareCharacteristic.characteristic)
+    if (left === undefined) return false
+    if (!compareAmounts(left, filter.compareCharacteristic.operator, evaluateRuntimeAmount(filter.compareCharacteristic.than, context))) {
+      return false
+    }
+  }
   if (filter.tapped !== undefined && object.tapped !== filter.tapped) return false
   if (filter.attacking !== undefined && Boolean(object.attacking) !== filter.attacking) return false
   return true
@@ -540,15 +568,12 @@ export const evaluateCondition = (
       }
       return context.results?.[condition.value.binding] === true
     }
-    case 'compareAmount': {
-      const left = evaluateRuntimeAmount(condition.left, context)
-      const right = evaluateRuntimeAmount(condition.right, context)
-      switch (condition.operator) {
-        case 'eq': return left === right
-        case 'gte': return left >= right
-        case 'lte': return left <= right
-      }
-    }
+    case 'compareAmount':
+      return compareAmounts(
+        evaluateRuntimeAmount(condition.left, context),
+        condition.operator,
+        evaluateRuntimeAmount(condition.right, context),
+      )
     case 'choiceIs': return context.optionChoices?.[condition.binding] === condition.option
     case 'activePlayer': {
       const seats = evaluatePlayerReference(condition.of, context)

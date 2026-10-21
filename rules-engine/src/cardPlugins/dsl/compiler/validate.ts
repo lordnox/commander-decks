@@ -6,7 +6,7 @@ import type {
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { PLAYER_COMPARISON_METRICS, LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, LINKED_EXILE_RETURN, LIFE_LOST_COMBINE, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION, AMOUNT_COMPARE_OPERATORS, OBJECT_NUMERIC_CHARACTERISTICS } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import type { RuleDslDiagnostic } from './errors'
 import { RuleDslValidationError } from './errors'
@@ -221,7 +221,7 @@ export const validateDefinitionV1 = (root: unknown): {
     }
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'other', 'commander', 'manaAbility', 'sameNameAs', 'among', 'all', 'any', 'not'])
+    exactKeys(node, path, ['zone', 'type', 'subtypes', 'supertypes', 'controller', 'owner', 'token', 'name', 'tapped', 'attacking', 'powerAtLeast', 'compareCharacteristic', 'other', 'commander', 'manaAbility', 'sameNameAs', 'among', 'all', 'any', 'not'])
     if (node.zone !== undefined) enumeration(node.zone, childPath(path, 'zone'), ZONES, 'zone')
     for (const key of ['type', 'name'] as const) if (node[key] !== undefined && typeof node[key] !== 'string') issue(childPath(path, key), 'type', 'expected a string')
     for (const key of ['commander', 'manaAbility'] as const) if (node[key] !== undefined && typeof node[key] !== 'boolean') issue(childPath(path, key), 'type', 'expected a boolean')
@@ -229,6 +229,16 @@ export const validateDefinitionV1 = (root: unknown): {
     if (node.token !== undefined && typeof node.token !== 'boolean') issue(childPath(path, 'token'), 'type', 'expected a boolean')
     if (node.other !== undefined && typeof node.other !== 'boolean') issue(childPath(path, 'other'), 'type', 'expected a boolean')
     if (node.powerAtLeast !== undefined) integer(node.powerAtLeast, childPath(path, 'powerAtLeast'), { min: -MAX_LITERAL_AMOUNT })
+    if (node.compareCharacteristic !== undefined) {
+      const comparison = object(node.compareCharacteristic, childPath(path, 'compareCharacteristic'))
+      if (comparison) {
+        const comparisonPath = childPath(path, 'compareCharacteristic')
+        exactKeys(comparison, comparisonPath, ['characteristic', 'operator', 'than'], ['characteristic', 'operator', 'than'])
+        enumeration(comparison.characteristic, childPath(comparisonPath, 'characteristic'), new Set(OBJECT_NUMERIC_CHARACTERISTICS), 'numeric characteristic')
+        enumeration(comparison.operator, childPath(comparisonPath, 'operator'), new Set(Object.values(AMOUNT_COMPARE_OPERATORS)), 'amount comparison')
+        validateAmount(comparison.than, childPath(comparisonPath, 'than'), env)
+      }
+    }
     if (node.tapped !== undefined && typeof node.tapped !== 'boolean') issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
     if (node.attacking !== undefined && typeof node.attacking !== 'boolean') issue(childPath(path, 'attacking'), 'type', 'expected a boolean')
     if (node.among !== undefined) validateReference(node.among, childPath(path, 'among'), env, ['object'])
@@ -350,7 +360,7 @@ export const validateDefinitionV1 = (root: unknown): {
         if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') {
           issue(childPath(path, 'of'), 'domain', 'greatest requires an object selector')
         }
-        enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(['power', 'toughness', 'manaValue', 'loyalty']), 'numeric characteristic')
+        enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(OBJECT_NUMERIC_CHARACTERISTICS), 'numeric characteristic')
         enumeration(node.information, childPath(path, 'information'), new Set(['current', 'currentOrLastKnown']), 'information policy')
         return
       }
@@ -451,7 +461,7 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'compareAmount':
         exactKeys(node, path, ['kind', 'left', 'operator', 'right'], ['kind', 'left', 'operator', 'right'])
         validateAmount(node.left, childPath(path, 'left'), env)
-        enumeration(node.operator, childPath(path, 'operator'), new Set(['eq', 'gte', 'lte']), 'amount comparison')
+        enumeration(node.operator, childPath(path, 'operator'), new Set(Object.values(AMOUNT_COMPARE_OPERATORS)), 'amount comparison')
         validateAmount(node.right, childPath(path, 'right'), env)
         return
       case 'choiceIs':

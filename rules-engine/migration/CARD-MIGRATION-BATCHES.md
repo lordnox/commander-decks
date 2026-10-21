@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after family 19 life totals; continues #394 and #383. **169 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Children of Korlis, Tainted Sigil, Sygg, River Cutthroat, and Test of Endurance are now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after 14-filter; continues #394 and #383. **159 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 31 available, 1 awaiting correctness follow-up, and 136 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 36 available, 1 awaiting correctness follow-up, and 131 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -36,7 +36,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn.
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
-- **14-greatest is available:** maximum power (or toughness, mana value, loyalty) over an object set drives pump and draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. Rishkar's Expertise still needs **14-filter** and **26-hand**.
+- **14-greatest is available:** maximum power (or toughness, mana value, loyalty) over an object set drives pump and draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. Rishkar's Expertise still needs **26-hand**.
+- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. Finale of Devastation still needs **31-multizone**; Getaway Glamer still needs **25-spree**; Profane Command still needs **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon still needs **32-loyalty**.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
@@ -162,7 +163,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
 | <a id="14-counters"></a>**14-counters — Counter-count amounts** | Open | Read named counter counts for production, doubling, or other numeric effects. | — | `Everflowing Chalice`; `Mossborn Hydra` |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Open | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. | — | `Sandstone Oracle` |
-| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Open | Mana-value comparisons against X and other amounts, and relational power filters such as greatest-power ties. | — | `Black Sun's Twilight`; `Finale of Devastation`; `Getaway Glamer`; `Profane Command`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
+| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Profane Command`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
 | <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Open | Compute the lowest actual life total across players, including negative totals. | — | `Repay in Kind` |
 | <a id="14-result-max"></a>**14-result-max — Maximum action result** | Open | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. | — | `Windfall` |
