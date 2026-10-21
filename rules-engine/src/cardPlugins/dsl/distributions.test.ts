@@ -13,7 +13,7 @@ import { cardTemplate } from '../../newGame'
 import { commanderRules } from '../../formats'
 import { createServerGame } from '../../runtime'
 
-const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, characteristic: () => 0 }
+const context = { variables: { X: 4 }, eventAmount: undefined, count: () => 0, greatest: () => 0, characteristic: () => 0 }
 
 describe('distributions', () => {
   const modalSpellFixture = (modes: any[], count: any) => {

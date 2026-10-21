@@ -96,6 +96,15 @@ export const multiply = (left: AmountInput, right: AmountInput) =>
 export const minimum = (left: AmountInput, right: AmountInput) =>
   immutableData({ kind: 'minimum' as const, left: toAmount(left), right: toAmount(right) })
 
+export const addAmount = (left: AmountInput, right: AmountInput) =>
+  immutableData({ kind: 'add' as const, left: toAmount(left), right: toAmount(right) })
+
+export const greatest = (input: {
+  of: ObjectSelector
+  characteristic: Exclude<NumericCharacteristic, 'life'>
+  information: 'current' | 'currentOrLastKnown'
+}) => immutableData({ kind: 'greatest' as const, ...input })
+
 export const negate = (value: AmountInput) => immutableData({ kind: 'negate' as const, value: toAmount(value) })
 
 const toStatDelta = (value: StatDeltaInput) => typeof value === 'number' ? amount(value) : immutableData(value)

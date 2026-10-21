@@ -41,6 +41,11 @@ export const evaluateAmount = (
     }
     case 'multiply': return runtimeAmount(evaluateAmount(expression.left, context, depth + 1) * evaluateAmount(expression.right, context, depth + 1), 'multiplication')
     case 'minimum': return Math.min(evaluateAmount(expression.left, context, depth + 1), evaluateAmount(expression.right, context, depth + 1))
+    case 'add': return runtimeAmount(evaluateAmount(expression.left, context, depth + 1) + evaluateAmount(expression.right, context, depth + 1), 'addition')
+    case 'greatest': return runtimeAmount(
+      context.greatest(expression.of, expression.characteristic, expression.information),
+      'greatest characteristic',
+    )
     case 'divide': {
       if (depth >= MAX_EXPRESSION_DEPTH) throw new RuleDslEvaluationError(AMOUNT_DEPTH_ERROR_MESSAGE)
       if (!Number.isSafeInteger(expression.by) || expression.by < 1 || expression.by > MAX_LITERAL_AMOUNT) {

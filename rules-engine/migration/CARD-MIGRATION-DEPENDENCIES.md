@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after native step triggers and Arcane Denial. **193 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after 14-add and 14-greatest. **189 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **193 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **189 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -121,10 +121,8 @@ Current readiness: **0 composition candidates**; **193 blocked or awaiting sourc
 | `Nirkana Revenant` | 10 | [10-bonus](CARD-MIGRATION-BATCHES.md#10-bonus) | Blocked by mechanics | — |
 | `Niv-Mizzet, Ghost Counsel` | 43 | [35-life](CARD-MIGRATION-BATCHES.md#35-life) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved. Legacy life-gain/payment and drain helpers are clues, not a complete Oracle specification. No Room dependency is established. |
 | `Otawara, Soaring City` | 11 | [11-reduction](CARD-MIGRATION-BATCHES.md#11-reduction) | Blocked by mechanics | — |
-| `Overwhelming Stampede` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest) | Blocked by mechanics | — |
 | `Palace Jailer` | 18 | [18-monarch](CARD-MIGRATION-BATCHES.md#18-monarch) | Blocked by mechanics | — |
 | `Parting Gust` | 25 | [25-gift](CARD-MIGRATION-BATCHES.md#25-gift) | Blocked by mechanics | — |
-| `Pathbreaker Ibex` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest) | Blocked by mechanics | — |
 | `Perch Protection` | 42 | [42-player](CARD-MIGRATION-BATCHES.md#42-player), [42-turn](CARD-MIGRATION-BATCHES.md#42-turn) | Blocked by mechanics | Full gift, four Birds, phase-out, protection duration, and resolving exile. |
 | `Phial of Galadriel` | 42 | [42-conditional](CARD-MIGRATION-BATCHES.md#42-conditional) | Blocked by mechanics | — |
 | `Phyrexian Ingester` | 18 | [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Linked printed/current card characteristics drive the independent power/toughness bonus. |
@@ -141,7 +139,6 @@ Current readiness: **0 composition candidates**; **193 blocked or awaiting sourc
 | `Reflecting Pool` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | — |
 | `Reins of Power` | 28 | [28-exchange](CARD-MIGRATION-BATCHES.md#28-exchange) | Blocked by mechanics | — |
 | `Repay in Kind` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [14-signed-minimum](CARD-MIGRATION-BATCHES.md#14-signed-minimum) | Blocked by mechanics | — |
-| `Return of the Wildspeaker` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest) | Blocked by mechanics | Non-Human filters already compose through subtype exclusions; retain both modes. |
 | `Rings of Brighthearth` | 29 | [29-activation](CARD-MIGRATION-BATCHES.md#29-activation) | Blocked by mechanics | — |
 | `Ripples of Undeath` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill) | Blocked by mechanics | Paid recovery must choose from the cards actually milled by this trigger. |
 | `Rishkar's Expertise` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand) | Blocked by mechanics | — |

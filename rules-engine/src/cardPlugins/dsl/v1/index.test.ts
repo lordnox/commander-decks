@@ -687,6 +687,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
     expect(() => evaluateAmount(variable('X'), {
       variables: { X: 2_147_483_648 },
       count: () => 0,
+      greatest: () => 0,
       characteristic: () => 0,
     })).toThrow(RuleDslEvaluationError)
 
@@ -697,6 +698,7 @@ describe('Rule DSL v1 hostile data and numeric contracts', () => {
       distinct: true,
     }, {
       count: () => 0,
+      greatest: () => 0,
       characteristic: () => 0,
     })).toThrow('minimum 2 exceeds maximum 1')
   })

@@ -230,15 +230,17 @@ const lockAmount = (amount: Amount, x: number | undefined, runtime: RuleDslRunti
       return { kind: 'constant' as const, value: x }
     }
     case 'multiply':
-    case 'minimum': {
+    case 'minimum':
+    case 'add': {
       if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
-      return { kind: 'constant', value: evaluateAmount({ ...amount, left: lockAmount(amount.left, x, runtime, depth + 1), right: lockAmount(amount.right, x, runtime, depth + 1) }, { count: () => 0, characteristic: () => 0 }) }
+      return { kind: 'constant', value: evaluateAmount({ ...amount, left: lockAmount(amount.left, x, runtime, depth + 1), right: lockAmount(amount.right, x, runtime, depth + 1) }, { count: () => 0, greatest: () => 0, characteristic: () => 0 }) }
     }
     case 'divide': {
       if (runtime) return { kind: 'constant', value: evaluateRuntimeAmount(amount, runtime) }
-      return { kind: 'constant', value: evaluateAmount({ ...amount, value: lockAmount(amount.value, x, runtime, depth + 1) }, { count: () => 0, characteristic: () => 0 }) }
+      return { kind: 'constant', value: evaluateAmount({ ...amount, value: lockAmount(amount.value, x, runtime, depth + 1) }, { count: () => 0, greatest: () => 0, characteristic: () => 0 }) }
     }
-    case 'count': {
+    case 'count':
+    case 'greatest': {
       if (!runtime) throw new TypeError('cost amount count requires an announcement source')
       return { kind: 'constant' as const, value: evaluateRuntimeAmount(amount, runtime) }
     }

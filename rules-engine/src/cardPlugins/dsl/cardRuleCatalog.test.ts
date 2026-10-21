@@ -1479,6 +1479,33 @@ test('Braids offers an eligible hand permanent to the active upkeep player', () 
   }])
 })
 
+test('Overwhelming Stampede and Pathbreaker Ibex share a greatest-power trample pump', () => {
+  const stampede = cardRuleDefinitionSnapshotFor('Overwhelming Stampede')!.definition.abilities[0]!
+  expect(effectsFor('Overwhelming Stampede')).toEqual([])
+  expect(effectsFor('Pathbreaker Ibex')).toEqual([])
+  expect(stampede.kind).toBe('spell')
+  if (stampede.kind !== 'spell') throw new Error('expected spell')
+  expect(stampede.instructions).toMatchObject([
+    { kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'greatest', characteristic: 'power' }, toughness: { kind: 'greatest', characteristic: 'power' } } },
+    { kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.trample } },
+  ])
+  expect(cardRuleDefinitionSnapshotFor('Pathbreaker Ibex')!.definition.abilities).toMatchObject([{
+    kind: 'triggered', on: { kind: 'attacks' },
+    instructions: stampede.instructions,
+  }])
+})
+
+test('Return of the Wildspeaker chooses one draw from greatest non-Human power or a non-Human pump', () => {
+  expect(effectsFor('Return of the Wildspeaker')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Return of the Wildspeaker')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { modes: { count: { kind: 'constant', value: 1 } } },
+    modes: [
+      { instructions: [{ kind: 'draw', count: { kind: 'greatest', characteristic: 'power' } }] },
+      { instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'constant', value: 3 }, toughness: { kind: 'constant', value: 3 } } }] },
+    ],
+  }])
+})
+
 test('Mana Drain captures the spell mana value then pays colorless at the next main', () => {
   expect(effectsFor('Mana Drain')).toEqual([])
   expect(cardRuleDefinitionSnapshotFor('Mana Drain')!.definition.abilities).toMatchObject([{
