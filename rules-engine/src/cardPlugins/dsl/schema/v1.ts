@@ -59,6 +59,9 @@ export type StackItemReference = TargetReference | ChoiceReference
 export type ObjectFilter = {
   /** Exclude the executing source's captured object identity. False adds no restriction. */
   other?: boolean
+  commander?: boolean
+  manaAbility?: boolean
+  sameNameAs?: ObjectReference
   /** Restrict matches to the current identities of a bound object reference. */
   among?: ObjectReference
   zone?: Zone
@@ -111,6 +114,7 @@ export type Amount =
   | { kind: 'manaSpent'; color: CardColor }
   | { kind: 'divide'; value: Amount; by: number; rounding: RoundingMode }
   | { kind: 'count'; of: Selector }
+  | { kind: 'countDistinctNames'; of: ObjectSelector }
   | {
       kind: 'characteristic'
       of: Reference
@@ -272,7 +276,11 @@ export type CreatedEffect =
       additionalEffects?: readonly Instruction[]
     }
 
+export const PLAYER_COMPARISON_METRICS = ['life', 'hand', 'lands', 'creatures'] as const
+export type PlayerComparisonMetric = typeof PLAYER_COMPARISON_METRICS[number]
+
 export type Condition =
+  | { kind: 'somePlayerHasMore'; players: PlayerSelector; than: PlayerReference; metric: PlayerComparisonMetric }
   | { kind: 'resultIsTrue'; value: ResultReference }
   | { kind: 'compareAmount'; left: Amount; operator: 'eq' | 'gte' | 'lte'; right: Amount }
   | { kind: 'choiceIs'; binding: string; option: string }
@@ -678,7 +686,7 @@ export type AmountEvaluationContext = {
   variables?: Readonly<Partial<Record<'X', number>>>
   eventAmount?: number
   manaSpent?: (color: CardColor) => number
-  count: (selector: Selector) => number
+  count: (selector: Selector, distinctNames?: true) => number
   characteristic: (
     reference: Reference,
     characteristic: NumericCharacteristic,
