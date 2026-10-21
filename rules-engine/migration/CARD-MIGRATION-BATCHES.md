@@ -1,439 +1,454 @@
-# Remaining card-rule migration batches
+# Card migration strategy: mechanics first
 
-Snapshot: PR #432, after groups 01–07, and the first six registrations in group 08. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432 at `dbad61af`; continues #394 and #383. **211 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. No card or engine behavior changes in this strategy update.
 
-**211 legacy registration keys, assigned exactly once to 37 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 211 is not a distinct-card count.
+Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
+**167 mechanic entries:** 8 available, 1 awaiting correctness follow-up, and 158 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
-## Closest matches to batch first
+## How to use this plan
 
-| Shared rule | Registrations | Important difference / extra gate |
+1. Choose a focused **Open** mechanic, preferably one that completes the prerequisites of several cards. Check its prerequisite mechanics first.
+2. Verify current canonical support, current Oracle text/rulings, and matching GitHub reports. An open item describes the remaining contract to validate or implement; it does not imply that all of its infrastructure is absent. Split a large item further before coding when needed.
+3. Implement the reusable typed DSL schema, compiler/runtime semantics, and mechanic-owned behavior tests. Mark it **Available** only when its whole stated contract is supported. Push that coherent commit to #432.
+4. Re-evaluate the [card dependency list](CARD-MIGRATION-DEPENDENCIES.md), including transitive prerequisites. Cards with no known open prerequisite become **Composition candidates**, subject to full-card review. Verify every printed ability, face, cost, keyword, and alias before moving them; add any newly discovered dependency first.
+5. Compose the ready card in its own canonical `src/cards/<card-name>.ts` file. Keep named-card catalog tests structural, reuse existing mechanic coverage, remove the legacy registration and stale allowance, regenerate the coverage ledger, and push the card commit. A mechanic and its first cards can share one coherent commit when that is clearer.
+6. Stop at a sensible boundary when the next card needs a substantial missing mechanic. Report the completed mechanic/cards, the remaining dependencies, and why work stopped. Do not describe an entire card as migrated when only one behavior is canonical.
+
+No new legacy behavior or baseline allowances. Keep the existing one-PR workflow and push each completed step. Hosted CI is inspected but not awaited on this branch, as requested.
+
+## Status and evidence
+
+- **Available:** reusable canonical support exists for the stated scope. This does not assert complete engine coverage beyond that scope.
+- **Review:** canonical support exists, but identified correctness work remains. Cycling issues [#440](https://github.com/lordnox/commander-decks/issues/440) and [#441](https://github.com/lordnox/commander-decks/issues/441) are explicit gates, not silently completed work.
+- **Open:** implement or verify the missing reusable contract before depending on it. Multiple keywords/cost variants inside a row may warrant separate commits.
+- **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
+- **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
+
+Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 211 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
+
+## What changed from the card batches
+
+The historical family numbers 01–44 remain stable for earlier discussions. Suffixes identify independent mechanic work inside a family. A numbered family is a navigation heading, not a requirement to finish all of its rows together. New cross-family dependencies are explicit. The old unique card-to-batch ownership rule is retired. The **Former batch** column in the card list is historical provenance only.
+
+- **08 is available:** bounded top-library selection is complete as a mechanic. Six original cards have migrated, including Dack Fayden, Helping Hand. Dig Through Time now depends on **25-delve**; Famished Worldsire on **09-devour** and **21-ward**; Hostile Negotiations on **39-hidden** (which depends on ordinary piles/player choice). All three retain 08 as an available prerequisite in the card list.
+- **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
+- **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
+- **44 is retired as an implementation group:** its three cards now reference the actual mechanics—demonstrate, timing/hand casting, or counterability.
+- Correct planning shortcuts from the former list: Dack is a creature; Bender's Waterskin needs other-player untap participation; Rain of Filth grants activated abilities; Sail into the West uses public voting; Trap the Trespassers uses secret creature votes and existing stun counters. Niv-Mizzet has no established Room dependency.
+
+## Suggested next work
+
+First review the composition candidates below. Then choose a small mechanic that unlocks cards, rather than implementing entire broad families in numeric order:
+
+| Mechanic | Cards it can unlock after review | Other gates |
 | --- | --- | --- |
-| Reveal top card into hand, lose its mana value | Dark Confidant; Dark Tutelage | Same upkeep program; source card types differ. |
-| Opponent-land color production | Exotic Orchard; Fellwar Stone | Same available-color query; permanent types differ. |
-| All lands gain Swamp type | Blanket of Night; Urborg, Tomb of Yawgmoth | Same overlay; Yavimaya is the Forest variant. |
-| Greatest-power team pump with trample | Overwhelming Stampede; Pathbreaker Ibex | Spell versus attack trigger; capture greatest power at the correct time. |
-| Token copy is not legendary | Irenicus’s Vile Duplication; Quantum Misalignment | Irenicus adds flying; Quantum has rebound. |
-| Dredge | Dakmor Salvage; Life from the Loam | Dredge 2 versus 3; each also has its ordinary land/spell program. |
+| [25-delve](#25-delve) | Dig Through Time | 08 is already available. |
+| [09-count](#09-count) | Reprocess; Scapeshift; Victimize | Pitiless Carnage still needs plot; devour remains a separate entry replacement. |
+| [13-step](#13-step) | Dark Confidant; Dark Tutelage; Braids, Conjurer Adept; Arcane Denial; Mana Drain | Ripples also needs mill-result identities; other upkeep cards need win-game or cumulative upkeep. |
+| [10-colors](#10-colors) | Exotic Orchard; Fellwar Stone; Reflecting Pool; Horizon of Progress | Full ability review remains required; include colorless only where Oracle permits it. |
+| [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
+| [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
-## Priorities and effort
+**10 composition candidates with no known open mechanic gate:** `Archaeomancer's Map`; `Archdruid's Charm`; `Boggart Trawler // Boggart Bog`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Homer, the Hermit`; `Queza, Augur of Agonies`; `Scute Swarm`; `Talon Gates of Madara`. See their scope notes and verify the full program before migration.
 
-**A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
+## Mechanic groups
 
-Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair. Small existing-primitive candidates can be taken between these batches after full-card review.
+### 01. Targeting, captured identities, and death return
 
-## Completed group 01
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="01"></a>**01 — Mixed targeting and identity-safe actions** | Available | Player/permanent target kinds; typed announcement choices; captured death-return identities. | — | `Archdruid's Charm`; `Boggart Trawler // Boggart Bog`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Homer, the Hermit`; `Queza, Augur of Agonies`; `Talon Gates of Madara`; `Waterlogged Teachings // Inundated Archive` |
 
-Lightning Bolt, Loran of the Third Path, and both Malakir Rebirth registration keys now use canonical definitions. The batch adds single-target mixed player/permanent targeting, public graveyard-incarnation bindings for dies triggers, and identity-safe move actions. Tests cover damage recipient kinds, typed trigger pickers, live-host target mapping, temporary death-return behavior, and stale incarnations. The land face keeps tapped entry and black mana. Group numbers below stay stable.
+### 02. Library search and destination composition
 
-## Completed group 05
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="02"></a>**02 — Typed searches and split destinations** | Available | Search, reveal, select a subset, move to different destinations, and shuffle. | — | `Archaeomancer's Map`; `Archdruid's Charm`; `Boseiju, Who Endures`; `Finale of Devastation`; `Scapeshift` |
 
-Batwing Brume, Comeuppance, Energy Arc, Inkshield, and Sokrates, Athenian Teacher now use canonical definitions. Prevention follow-ups see the prevented `eventAmount` and the damage source, spent-color amounts read the resolving stack item, life-change amounts can count per seat, and keyword abilities can take a `when` condition. Everybody Lives! stays on the legacy combat-prevention plugin. Group numbers below stay stable.
+### 03. Cycling
 
-## Completed group 06 — Drain spells
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="03"></a>**03 — Cycling correctness follow-up** | Review | Canonical cycling exists, but #440 activation-time trigger timing and #441 self-cycling from exile still need correction. | — | `Alabaster Host Intercessor` |
 
-`Debt to the Deathless`; `Drain Life`; `Exsanguinate` (**3 registrations**).
+### 04. Pay-life entry replacements
 
-Canonical support now includes numeric multiplication/minimum, actual life-loss and damage result totals, optional characteristic fallbacks with pre-damage captures, and colored X spending restrictions that still permit generic cost reductions. Mechanic suites cover replacement-adjusted losses, partial/full damage prevention, player/creature/planeswalker caps, battles, JSON restore during replacement choices, and payment restrictions. The two unused legacy drain executors were removed.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="04"></a>**04 — Optional pay-life entry** | Available | Canonical optional life payment and tapped-entry branching; reuse for pay-3-life lands. | — | `Boggart Trawler // Boggart Bog`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Sea Gate Restoration // Sea Gate, Reborn`; `Sink into Stupor // Soporific Springs` |
 
-## Group 07 — completed first slice
+### 05. Damage prevention
 
-`An Offer You Can't Refuse`; `Swan Song`; `Swords to Plowshares`; `Condemn` (**4 registrations**).
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="05"></a>**05 — Captured prevention shields** | Available | Prevention capacities, damage follow-ups, source identities, and source-independent shield lifetime. Player life/game-result restrictions are separate in 42. | — | None remaining |
 
-Canonical controller/owner references and persisted player-result captures survive target zone changes, generated callbacks, and JSON restore. Counter follow-ups remain unconditional when a counter is suppressed. Swords/Condemn capture the target's controller and nonnegative power/toughness at resolution; Condemn uses an explicit bottom-of-owner's-library move. Mechanic tests cover different controllers/owners, token disappearance, signed stats, delayed captures, and prevention filters. The Swords migration corrects the legacy caster-life-gain defect (#442) and replaces its incorrect assertion with mechanic coverage. Two obsolete legacy stat-to-life executors were removed.
+### 06. Amount expressions and actual life/damage results
 
-## Completed group 07 — remaining slice
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="06"></a>**06 — Numeric results and amount composition** | Available | Multiplication, minimum, current/LKI characteristics, captured amounts, actual life-loss/damage totals, and colored X. | — | `Archdruid's Charm`; `Crypt Ghast`; `Dark Confidant`; `Dark Tutelage`; `Homer, the Hermit`; `Mirror Universe`; `Mister Negative`; `Necrologia`; `Queza, Augur of Agonies`; `Repay in Kind` |
 
-`Fractured Identity`; `Settle the Wreckage`; `Terastodon` (**3 registrations**).
+### 07. Action outcomes, captured players, and copy snapshots
 
-Canonical copy can persist a copiable snapshot before the source leaves, then iterate other players as copy controllers. Move results now total the number of objects that actually reached the requested zone after replacement, which drives Settle's targeted-player basic search. Destroy can bind the permanents that reached a graveyard this way, including ceased tokens, and `forEach` runs a follow-up for each object's pre-move controller. Everybody Lives! stays on the legacy combat-prevention plugin.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="07"></a>**07 — Object/player captures and outcome follow-ups** | Available | Controller/owner capture, actual move totals, destroyed-object snapshots, per-object follow-ups, persistent copiable snapshots, permanent control distribution, and lasting goad. | — | `Angel of Sanctions`; `Arcane Denial`; `Archaeomancer's Map`; `Belonging`; `Boggart Trawler // Boggart Bog`; `Boseiju, Who Endures`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Desertion`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Irenicus's Vile Duplication`; `Mana Drain`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Ripples of Undeath`; `Sakashima of a Thousand Faces`; `Scute Swarm`; `Sin, Spira's Punishment`; `Six`; `Soul of Eternity`; `Spark Double`; `Springheart Nantuko`; `Talon Gates of Madara`; `Thespian's Stage`; `Vanish into Memory`; `Victimize` |
+| <a id="07-mill"></a>**07-mill — Bind cards from a mill action** | Open | Capture resulting identities of the cards milled this way for later optional recovery; retain replacement and zone-change behavior instead of substituting an unrelated inspect/move program. | [07](#07) | `Ripples of Undeath`; `Six` |
 
-## Group 08 — completed first slice
+### 08. Top-library inspection and selection
 
-`Animist's Awakening`; `Dack Fayden, Helping Hand`; `Malevolent Rumble`; `Planar Genesis`; `Satyr Wayfinder`; `Silverback Elder` (**6 registrations**).
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="08"></a>**08 — Bounded inspection, reveal, and remainder movement** | Available | Public/private inspection, dynamic counts, eligible subsets, read-and-continue views, random bottom order, and new battlefield identity capture. The mechanic is available; remaining cards have dependencies elsewhere. | — | `Dark Confidant`; `Dark Tutelage`; `Dig Through Time`; `Fact or Fiction`; `Famished Worldsire`; `Fortune's Favor`; `Hostile Negotiations`; `Jace, Multiverse Architect`; `Marina Vendrell`; `Selvala's Stampede`; `Teferi, Who Slows the Sunset` |
 
-Canonical `inspectTop` binds a bounded segment without exposing deeper cards. Typed choices can display inspected context separately from eligible candidates; subset movement and seeded random bottom ordering preserve untouched library cards. Token definitions may author isolated canonical ability programs, used by the sacrifice-for-colorless Eldrazi Spawn. Animist's Awakening uses current graveyard spell counts and moved identities for spell mastery; Silverback Elder retains all three cast-triggered modes. Mechanic suites cover short/empty libraries, optional and mandatory choices, nonmatching/deeper rejection, chooser projection/privacy, random ordering, restore, modal scopes, and functional token mana. The now-unused legacy `revealTopLandsTapped` operation was removed. Dack Fayden, Helping Hand is a creature, not a loyalty program: its full entry trigger now composes variable-count reveal, battlefield identity capture, shuffle, permanent goad, and simultaneous control changes after distinct recipient assignments. Typed player choices preserve unfinished assignments across JSON and live-host restore. Three cards remain in group 08 below.
+### 09. Sacrifice outcomes and entry sacrifice
 
-## Complete primary assignment
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="09-count"></a>**09-count — Actual sacrifice counts** | Open | Choose any number; bind the number actually sacrificed after replacement; use it for draw/search or success branches. | — | `Famished Worldsire`; `It That Betrays`; `Pitiless Carnage`; `Reprocess`; `Scapeshift`; `Victimize` |
+| <a id="09-devour"></a>**09-devour — Devour as an entry replacement** | Open | Choose eligible permanents and sacrifice as the creature enters; derive entry counters from the actual result. Include land devour, not a later ETB trigger. | [09-count](#09-count), [17-counters](#17-counters) | `Famished Worldsire` |
 
-Each numbered group below owns its listed registration keys. Cross-references in the notes do not add to its count.
+### 10. Mana production
 
-### 08. Top-of-library selection — remaining slice
-
-Priority **A** · effort **L** · **3 registrations**
-
-**Registrations:** `Dig Through Time`; `Famished Worldsire`; `Hostile Negotiations`.
-
-**Shared work:** Bounded inspection/reveal, identity-bound subsets, private picker context, and random bottom movement now exist. Animist's Awakening, Malevolent Rumble, Planar Genesis, Satyr Wayfinder, and Silverback Elder have migrated.
-
-**Required support / secondary gates:** Dig Through Time needs delve; Famished Worldsire needs land devour/ward plus its dynamic-power look; Hostile Negotiations needs face-down piles and opponent choices. Their other top-library instructions can reuse the new primitives.
-
-### 09. Any-number sacrifice results
-
-Priority **A** · effort **M** · **4 registrations**
-
-**Registrations:** `Pitiless Carnage`; `Reprocess`; `Scapeshift`; `Victimize`.
-
-**Shared work:** Choose and sacrifice permanents, then use the actual sacrifice result for draw/search or conditional return.
-
-**Required support / secondary gates:** Reusable numeric sacrificed-count result and success condition. Reprocess/Scapeshift first; Pitiless Carnage also needs plot; Victimize has two announcement targets and a resolution sacrifice.
-
-### 10. Mana production families
-
-Priority **A** · effort **L** · **18 registrations**
-
-**Registrations:** `Bender's Waterskin`; `Bubbling Muck`; `City of Brass`; `Crypt Ghast`; `Everflowing Chalice`; `Exotic Orchard`; `Fellwar Stone`; `Flooded Grove`; `Horizon of Progress`; `Millikin`; `Nirkana Revenant`; `Rain of Filth`; `Reflecting Pool`; `Talon Gates of Madara`; `Temple of the False God`; `Utopia Sprawl`; `Wild Growth`; `Yurlok of Scorch Thrash`.
-
-**Shared work:** Mana triggers, dynamic available-color queries, conditional activation and special costs.
-
-**Required support / secondary gates:** Exotic Orchard/Fellwar Stone share opponent-land color availability; Reflecting Pool/Horizon use own-land availability. Bubbling Muck/Crypt Ghast/Nirkana share Swamp bonus mana; Wild Growth/Utopia Sprawl share attached-land mana triggers. Flooded Grove needs mixed-pool choice/planner support; Millikin needs mill as a cost; Temple needs an activation condition; Yurlok also needs mana-loss life loss. City of Brass needs a becomes-tapped occurrence, Everflowing Chalice multikicker/entry counters, and Talon Gates an ETB phase-out plus hand activation; those remain secondary gates.
-
-### 11. Timing and activation conditions
-
-Priority **A** · effort **M** · **7 registrations**
-
-**Registrations:** `Alchemist's Refuge`; `Blitzball`; `Boseiju, Who Endures`; `Cephalid Coliseum`; `Ghost Town`; `Necrologia`; `Otawara, Soaring City`.
-
-**Shared work:** Restrict activation/casting timing or grant flash permissions.
-
-**Required support / secondary gates:** Ghost Town: not-your-turn; Cephalid Coliseum: threshold and mana damage; Necrologia: own end step; Blitzball: combat-history condition; Alchemist’s Refuge: until-cleanup casting permission. Costs and draw/move primitives already exist. Boseiju/Otawara form their own channel sub-batch: hand discard costs plus per-legendary activation reductions; Boseiju additionally needs target-controller search.
-
-### 12. Dredge replacement
-
-Priority **A** · effort **M** · **2 registrations**
-
-**Registrations:** `Dakmor Salvage`; `Life from the Loam`.
-
-**Shared work:** Optional draw replacement with an exact mill cost and self-return from graveyard.
-
-**Required support / secondary gates:** Reusable dredge choice integrated with competing draw replacements, library sufficiency, and restore. Dakmor Salvage also uses tapped entry/mana; Life from the Loam uses up-to-three land targets.
-
-### 13. Native step triggers
-
-Priority **A** · effort **M** · **7 registrations**
-
-**Registrations:** `Arcane Denial`; `Braids, Conjurer Adept`; `Dark Confidant`; `Dark Tutelage`; `Ripples of Undeath`; `Test of Endurance`; `Wall of Shards`.
-
-**Shared work:** Upkeep/first-main timing with player/turn filters and intervening conditions.
-
-**Required support / secondary gates:** Dark Confidant/Dark Tutelage share the exact reveal/top-to-hand/mana-value life-loss program. Braids needs active-player optional hand placement; Ripples needs a paid recovery from the milled set; Test needs win-game instruction; Wall needs cumulative-upkeep payment and counters. Arcane Denial uses next-turn upkeep delayed draws rather than a permanent upkeep trigger; share scheduling, preserve its optional up-to-two draw.
-
-### 14. Greatest power and characteristic arithmetic
-
-Priority **A** · effort **M** · **13 registrations**
-
-**Registrations:** `Archdruid's Charm`; `Black Sun's Twilight`; `Blossoming Tortoise`; `Field of the Dead`; `Finale of Devastation`; `Overwhelming Stampede`; `Pathbreaker Ibex`; `Profane Command`; `Return of the Wildspeaker`; `Rishkar's Expertise`; `Sandstone Oracle`; `Singularity Rupture`; `Will of the Sultai`.
-
-**Shared work:** Counts/maxima/differences captured at the correct time and used in draw, search, pump or mill.
-
-**Required support / secondary gates:** Overwhelming Stampede/Pathbreaker Ibex share maximum-power team pump; Return of the Wildspeaker/Rishkar share maximum-power draw. Add max and numeric arithmetic, non-Human filters and per-player library counts. Other gates: multi-zone search/free casting, fear, nonzero/conditional modes, and correct Black Sun’s Twilight return behavior. Archdruid’s Charm needs land-versus-creature search destinations and one-way power damage (not fight). Blossoming Tortoise also needs land activation-cost reductions and static land-creature pump; Field of the Dead needs distinct land-name counting.
-
-### 15. Player and object comparison predicates
-
-Priority **A** · effort **M** · **6 registrations**
-
-**Registrations:** `Archaeomancer's Map`; `Beza, the Bounding Spring`; `Guardian Project`; `Homer, the Hermit`; `Moonsilver Key`; `Pit of Offerings`.
-
-**Shared work:** Compare land/creature/hand counts, distinct names, subtype unions, mana-ability predicates or linked colors.
-
-**Required support / secondary gates:** Archaeomancer’s Map/Beza share cross-player counts; Guardian Project needs same-name exclusion in two zones; Homer needs multiplication and subtype-union counts; Moonsilver requires mana-ability classification; Pit requires linked-exile color queries. Only some become ready after each predicate slice.
-
-### 16. Pay-life modal lands
-
-Priority **B** · effort **L** · **6 registrations**
-
-**Registrations:** `Boggart Trawler // Boggart Bog`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Sea Gate Restoration // Sea Gate, Reborn`; `Sink into Stupor // Soporific Springs`.
-
-**Shared work:** Modal face handoff plus optional pay-3-life entry replacement on the land face. Fell the Profane’s two keys are aliases of the same physical card.
-
-**Required support / secondary gates:** Depends on pay-life entry; full front-face programs also need fight/pump, stack-or-permanent bounce, hand-size arithmetic/permanent unlimited grant. Do not count the shared land face as a complete migration.
-
-### 17. Conditionally tapped lands
-
-Priority **B** · effort **M** · **3 registrations**
-
-**Registrations:** `Choked Estuary`; `Hagra Mauling // Hagra Broodpit`; `Mystic Sanctuary`.
-
-**Shared work:** Entry condition determines tapped state.
-
-**Required support / secondary gates:** Hand reveal payment (Choked Estuary); other-Island count and actual untapped entry trigger (Mystic Sanctuary); opponent basic-land condition for Hagra Mauling’s spell cost. These are related replacement/filter infrastructure, not identical cards.
-
-### 18. Linked exile and return
-
-Priority **B** · effort **L** · **12 registrations**
-
-**Registrations:** `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Banisher Priest`; `Bishop of Binding`; `Endless Sands`; `Fiend Hunter`; `Glorious Protector`; `Lumbering Battlement`; `Palace Jailer`; `Phyrexian Ingester`; `Werefox Bodyguard`.
-
-**Shared work:** Exile selected objects and retain their identities for a later return or linked characteristic query.
-
-**Required support / secondary gates:** Separate until-source-leaves duration from independent ETB/LTB triggers (Fiend Hunter); owner-controlled return; multiple linked cards; linked P/T/counts; monarch endpoint (Palace Jailer). Additional gates: cycling, warp, embalm, foretell, and ordinary activated abilities.
-
-### 19. Life-total and history operations
-
-Priority **B** · effort **L** · **8 registrations**
-
-**Registrations:** `Children of Korlis`; `Mirkwood Bats`; `Mirror Universe`; `Mister Negative`; `Repay in Kind`; `Souls of the Faultless`; `Sygg, River Cutthroat`; `Tainted Sigil`.
-
-**Shared work:** Life-loss history, actual life changes, totals/exchange, damage-triggered or token-triggered drains.
-
-**Required support / secondary gates:** History queries and aggregation; exchange/set-life semantics; damage/token/sacrifice and end-step occurrences; signed life-total minimum for Repay in Kind. Children of Korlis and Tainted Sigil share history infrastructure, but use different player scopes.
-
-### 20. Counter restrictions and alternatives
-
-Priority **B** · effort **L** · **6 registrations**
-
-**Registrations:** `Decisive Denial`; `Desertion`; `Dovin's Veto`; `Keep Safe`; `Mana Drain`; `Wash Away`.
-
-**Shared work:** Counter spells with conditional eligibility, payment, alternate casting, or a delayed follow-up.
-
-**Required support / secondary gates:** Targeting relationships (Keep Safe); unless-pay (Decisive Denial); uncounterable spells; casting-origin filter and cleave (Wash Away); counter-to-battlefield destination (Desertion); next-main mana (Mana Drain). Reuse controller references from the preceding group.
-
-### 21. Combat and keyword rules
-
-Priority **B** · effort **L** · **8 registrations**
-
-**Registrations:** `Archangel of Tithes`; `Archetype of Endurance`; `Baird, Steward of Argive`; `Concordant Crossroads`; `Sire of Seven Deaths`; `Standard Bearer`; `Thunderfoot Baloth`; `Void Winnower`.
-
-**Shared work:** Continuous keyword grants/suppression, combat restrictions, taxes and target requirements.
-
-**Required support / secondary gates:** Concordant Crossroads is the small first slice (static haste grant). Other slices need attack/block taxes, cannot-gain suppression, missing keywords/ward, commander condition, even-mana-value restrictions, or Flagbearer targeting obligations. Do not implement as one giant mechanic.
-
-### 22. Continuous types and characteristics
-
-Priority **B** · effort **L** · **10 registrations**
-
-**Registrations:** `Blanket of Night`; `Colossification`; `Curious Colossus`; `Kindred Dominance`; `Lumra, Bellow of the Woods`; `Maskwood Nexus`; `Mossborn Hydra`; `Raise the Palisade`; `Urborg, Tomb of Yawgmoth`; `Yavimaya, Cradle of Growth`.
-
-**Shared work:** Land type overlays, all-creature-types, Aura attachment effects, base characteristics and counter scaling.
-
-**Required support / secondary gates:** Blanket of Night/Urborg share Swamp overlay; Yavimaya is the Forest variant. Add layer-aware type changes/intrinsic mana, changeling in every applicable zone, attachment references and ability loss; counter-count arithmetic for Mossborn Hydra.
-
-### 23. Restricted and uncounterable mana
-
-Priority **B** · effort **M** · **2 registrations**
-
-**Registrations:** `Cavern of Souls`; `Delighted Halfling`.
-
-**Shared work:** Mana with spending restrictions and an uncounterable flag for qualifying spells.
-
-**Required support / secondary gates:** Typed mana provenance, spending restrictions, spell counterability, and chosen creature type (Cavern). Do not model these as unrestricted five-color mana.
-
-### 24. Land animation and crew
-
-Priority **B** · effort **L** · **4 registrations**
-
-**Registrations:** `Firdoch Core`; `Hall of Storm Giants`; `Hedge Shredder`; `Lair of the Hydra`.
-
-**Shared work:** Temporary type/base-P/T changes while retaining land/artifact characteristics.
-
-**Required support / secondary gates:** Firdoch Core needs changeling too; Hall needs ward and conditional tapped entry; Lair needs nonzero X. Hedge Shredder additionally needs crew costs and grouped library-to-graveyard land occurrences.
-
-### 25. Conditional casting costs
-
-Priority **B** · effort **L** · **12 registrations**
-
-**Registrations:** `Analyze the Pollen`; `Cling to Dust`; `Drag to the Roots`; `Dread Return`; `Getaway Glamer`; `Joint Exploration`; `Mulldrifter`; `Parting Gust`; `Pile On`; `Price of Fame`; `Snuff Out`; `Tear Asunder`.
-
-**Shared work:** Alternate/additional costs, conditional reductions and mode-dependent programs.
-
-**Required support / secondary gates:** Distinct reusable slices for kicker, collect evidence, delirium, flashback/escape, spree, gift, convoke, and alternative life payment. Joint Exploration/Tear Asunder form a kicker sub-batch; do not omit printed costs/clauses during migration.
-
-### 26. Graveyard and top-library play permissions
-
-Priority **B** · effort **L** · **9 registrations**
-
-**Registrations:** `Ancient Greenwarden`; `Courser of Kruphix`; `Forgotten Cellar`; `Icetill Explorer`; `Mole Man, Moloid Master`; `Six`; `Starfield of Nyx`; `Valgavoth, Terror Eater`; `Walk-In Closet`.
-
-**Shared work:** Play cards from a non-hand zone; scope permissions by card kind, turn and source.
-
-**Required support / secondary gates:** Walk-In Closet/Forgotten Cellar are two keys for the same Room. Ancient Greenwarden/Icetill/Mole Man/Six share graveyard land permissions but have additional mechanics. Courser needs public top-card visibility; Starfield needs upkeep return/animation; Valgavoth needs replacement-linked exile and life payment. Also retrace, Room unlock and trigger multiplication dependencies.
-
-### 27. Hand placement and repetition
-
-Priority **B** · effort **L** · **3 registrations**
-
-**Registrations:** `Eureka`; `Hypergenesis`; `Show and Tell`.
-
-**Shared work:** Each player may put a qualifying permanent from hand onto the battlefield in turn order.
-
-**Required support / secondary gates:** Show and Tell is the single-round base; Eureka/Hypergenesis repeat until an entire round declines. Preserve APNAP choices and trigger checkpoints. Hypergenesis additionally needs suspend/no-mana-cost casting support.
-
-### 28. Copy modifications and control
-
-Priority **B** · effort **L** · **9 registrations**
-
-**Registrations:** `Irenicus's Vile Duplication`; `It That Betrays`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Reins of Power`; `Sakashima of a Thousand Faces`; `Spark Double`; `Thespian's Stage`.
-
-**Shared work:** Token or temporary copy effects with exceptions, control changes and captured identities.
-
-**Required support / secondary gates:** Irenicus’s Vile Duplication and Quantum Misalignment share nonlegendary token-copy modifiers; Mirrorweave/Nanogene share temporary creature copying. Other gates: rebound, clone-as-entry, legend-rule exemption, copied abilities, sacrifice occurrence/annihilator (It That Betrays), and control exchange (Reins of Power).
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="10-attached"></a>**10-attached — Attached-land bonus mana** | Open | Mana triggers referring to the enchanted land and its controller; retain chosen-color bindings. | [22-attachment](#22-attachment), [10-bonus](#10-bonus) | `Utopia Sprawl`; `Wild Growth` |
+| <a id="10-bonus"></a>**10-bonus — Tapped-for-mana triggers** | Open | Bonus mana keyed to land characteristics, controller, and the mana event; preserve mana-trigger timing. | — | `Bubbling Muck`; `Crypt Ghast`; `Nirkana Revenant`; `Utopia Sprawl`; `Wild Growth` |
+| <a id="10-colors"></a>**10-colors — Available mana types** | Open | Query what own/opponent lands could produce, including colorless where applicable; avoid recursive Reflecting Pool loops. | — | `Exotic Orchard`; `Fellwar Stone`; `Horizon of Progress`; `Reflecting Pool` |
+| <a id="10-filter"></a>**10-filter — Hybrid/filter mana payments** | Open | Hybrid activation costs, mixed-color production choices, and planner support. | — | `Crypt Ghast`; `Flooded Grove` |
+| <a id="10-loss"></a>**10-loss — Mana-loss consequences** | Open | Observe unspent mana being lost and apply the corresponding life loss. | — | `Yurlok of Scorch Thrash` |
+| <a id="10-mill"></a>**10-mill — Mill as a cost** | Open | Pay a mill cost atomically before adding mana; reject an unpayable cost. | — | `Dakmor Salvage`; `Life from the Loam`; `Millikin` |
+| <a id="10-tapped"></a>**10-tapped — Becomes-tapped occurrence** | Open | Trigger on becoming tapped, including tapping for something other than mana. | — | `City of Brass` |
+
+### 11. Timing, conditions, and activation costs
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="11-activation"></a>**11-activation — Activation predicates** | Open | Not-your-turn, graveyard threshold, land-count, and other non-sorcery activation conditions. | — | `Blitzball`; `Cephalid Coliseum`; `Ghost Town`; `Mirror Universe`; `Temple of the False God` |
+| <a id="11-casting"></a>**11-casting — Casting timing restrictions** | Open | Restrict a spell to a particular player/step; distinguish this from a triggered ability. | — | `Necrologia` |
+| <a id="11-flash"></a>**11-flash — Player casting-timing permissions** | Open | Grant as-though-flash permissions to a player until the stated duration ends. | — | `Alchemist's Refuge` |
+| <a id="11-reduction"></a>**11-reduction — Dynamic activation-cost reductions** | Open | Per-legendary reductions and continuous reductions for activated abilities of filtered objects. | — | `Blossoming Tortoise`; `Boseiju, Who Endures`; `Otawara, Soaring City` |
+
+### 12. Dredge
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="12-dredge"></a>**12-dredge — Dredge draw replacement** | Open | Optional draw replacement, exact mill cost/library sufficiency, graveyard identity, competing replacements, and restore. | [10-mill](#10-mill) | `Dakmor Salvage`; `Life from the Loam` |
+
+### 13. Turn-step scheduling
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="13-step"></a>**13-step — Native step triggers** | Open | Upkeep/end-step/first-main occurrences, active-player filters, and intervening conditions; distinguish delayed from printed triggers. | — | `All-Fates Stalker`; `Arcane Denial`; `Awaken the Honored Dead`; `Belonging`; `Braids, Conjurer Adept`; `Coercive Portal`; `Crawling Sensation`; `Dark Confidant`; `Dark Tutelage`; `Ephemerate`; `Hypergenesis`; `Kederekt Leviathan`; `Kiora Bests the Sea God`; `Kuroki, Thief of Talents`; `Mana Drain`; `Portal to Phyrexia`; `Quantum Misalignment`; `Ripples of Undeath`; `Soul of Eternity`; `Starfield of Nyx`; `Summon: Leviathan`; `Summon: Titan`; `Sygg, River Cutthroat`; `Tenuous Truce`; `Test of Endurance`; `Wall of Shards` |
+| <a id="13-untap"></a>**13-untap — Other-player untap participation** | Open | Untap a qualifying permanent during other players' untap steps; this is not an ordinary upkeep trigger. | — | `Bender's Waterskin` |
+| <a id="13-upkeep"></a>**13-upkeep — Cumulative upkeep** | Open | Age counters, repeated payments, recipient choices, and sacrifice on failure. | [13-step](#13-step) | `Wall of Shards` |
+
+### 14. Amounts and characteristic queries
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="14-add"></a>**14-add — Amount addition** | Open | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | `Sea Gate Restoration // Sea Gate, Reborn` |
+| <a id="14-counters"></a>**14-counters — Counter-count amounts** | Open | Read named counter counts for production, doubling, or other numeric effects. | — | `Everflowing Chalice`; `Mossborn Hydra` |
+| <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Open | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. | — | `Sandstone Oracle` |
+| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Open | Mana-value comparisons against X and other amounts, and relational power filters such as greatest-power ties. | — | `Black Sun's Twilight`; `Finale of Devastation`; `Getaway Glamer`; `Profane Command`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
+| <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Open | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. | — | `Overwhelming Stampede`; `Pathbreaker Ibex`; `Return of the Wildspeaker`; `Rishkar's Expertise` |
+| <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Open | Compute the lowest actual life total across players, including negative totals. | — | `Repay in Kind` |
+| <a id="14-result-max"></a>**14-result-max — Maximum action result** | Open | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. | — | `Windfall` |
+
+### 15. Predicates and player iteration
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="15-commander"></a>**15-commander — Commander predicates** | Open | Identify a controlled commander for lieutenant and announcement-time conditions. | — | `Thunderfoot Baloth`; `Will of the Sultai` |
+| <a id="15-compare"></a>**15-compare — Quantified player comparisons** | Open | Test whether any relevant opponent has more lands/creatures/hand cards/life; evaluate each player in the right scope. | — | `Beza, the Bounding Spring`; `Breena, the Demagogue` |
+| <a id="15-each"></a>**15-each — Per-player instruction iteration** | Open | Run a scoped instruction program for each selected player; retain independent results and continuation data. | — | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Eureka`; `Hypergenesis`; `Illusion of Choice`; `Portal to Phyrexia`; `Rankle, Master of Pranks`; `Sail into the West`; `Selvala's Stampede`; `Show and Tell`; `Singularity Rupture`; `Split Decision`; `Trap the Trespassers`; `Windfall` |
+| <a id="15-mana"></a>**15-mana — Mana-ability classification filter** | Open | Select artifacts with mana abilities, using the canonical classification rather than name dispatch. | — | `Moonsilver Key` |
+| <a id="15-names"></a>**15-names — Distinct and matching names** | Open | Distinct-name counts and same-name exclusion across battlefield/graveyard. | — | `Field of the Dead`; `Guardian Project`; `Wedding Ring` |
+| <a id="15-player"></a>**15-player — Non-target player choice** | Open | Typed player selection during resolution with a reusable player binding; control distribution alone is not a generic player-choice instruction. | — | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations`; `Incarnation Technique`; `Parting Gust`; `Perch Protection`; `Sandstone Oracle`; `Wall of Shards` |
+
+### 16. Modal faces
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="16-faces"></a>**16-faces — Pay-life MDFC composition** | Available | Reuse the existing modal face handoff and pay-life replacement; migrate every front/back behavior and alias together. | [04](#04) | `Boggart Trawler // Boggart Bog`; `Bridgeworks Battle // Tanglespan Bridgeworks`; `Fell the Profane`; `Fell the Profane // Fell Mire`; `Sea Gate Restoration // Sea Gate, Reborn`; `Sink into Stupor // Soporific Springs` |
+| <a id="16-hand-limit"></a>**16-hand-limit — Duration-based player hand-size grant** | Open | Grant unlimited hand size for the rest of the game independently of the resolving source. | — | `Sea Gate Restoration // Sea Gate, Reborn` |
+| <a id="16-stack-object"></a>**16-stack-object — Mixed spell/permanent bounce** | Open | Target a spell or a nonland permanent in one clause and return its underlying card to its owner's hand. | — | `Sink into Stupor // Soporific Springs` |
+
+### 17. Conditional land entry
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="17-entry"></a>**17-entry — Conditional tapped entry** | Open | Count other lands/land types as entry is determined; preserve actual untapped-entry conditions for triggers. | — | `Hall of Storm Giants`; `Lair of the Hydra`; `Mystic Sanctuary` |
+| <a id="17-reveal"></a>**17-reveal — Reveal-from-hand entry choice** | Open | Optional hand reveal as an entry replacement, with private choice and public reveal semantics. | — | `Choked Estuary` |
+| <a id="17-counters"></a>**17-counters — Entry counters** | Open | Add counters as a permanent enters, from constants, paid-cost counts, or replacement results; entry observers must see them already present. | — | `Everflowing Chalice`; `Famished Worldsire`; `Mossborn Hydra`; `Spark Double` |
+
+### 18. Linked exile
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="18-duration"></a>**18-duration — Exile until a source leaves** | Open | Link resulting exiled identities to source incarnation; return under owners, including source departure before/after resolution. | — | `Alabaster Host Intercessor`; `All-Fates Stalker`; `Angel of Sanctions`; `Banisher Priest`; `Bishop of Binding`; `Fiend Hunter`; `Glorious Protector`; `Lumbering Battlement`; `Werefox Bodyguard` |
+| <a id="18-links"></a>**18-links — Persistent linked-card sets** | Open | Retain one/many exiled identities for later activations or linked characteristics, including power, toughness, counts, and colors. | — | `Bishop of Binding`; `Endless Sands`; `Lumbering Battlement`; `Phyrexian Ingester`; `Pit of Offerings`; `Valgavoth, Terror Eater` |
+| <a id="18-monarch"></a>**18-monarch — Monarch and linked duration** | Open | Become monarch, observe opponent monarch changes, and end linked exile on that event. | — | `Palace Jailer` |
+| <a id="18-triggers"></a>**18-triggers — Independent exile/return triggers** | Open | Link separate ETB/LTB abilities (Fiend Hunter style), preserving their different timing from until-source-leaves. | [18-duration](#18-duration) | `Fiend Hunter` |
+
+### 19. Life totals and game outcomes
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="19-exchange"></a>**19-exchange — Exchange and set life totals** | Open | Exchange as one semantic action, bind actual loss, and handle signed totals and life-change restrictions. | [06](#06) | `Mirror Universe`; `Mister Negative`; `Repay in Kind` |
+| <a id="19-history"></a>**19-history — Life-loss history** | Open | Query life lost this turn by one player or all players; preserve actual rather than attempted losses. | — | `Children of Korlis`; `Sygg, River Cutthroat`; `Tainted Sigil` |
+| <a id="19-win"></a>**19-win — Win-game instruction** | Open | Apply a canonical win instruction through game-result restrictions. | — | `Test of Endurance` |
+
+### 20. Countering and spell eligibility
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="20-counterability"></a>**20-counterability — Uncounterable spells** | Open | Persist and enforce spell counterability, including qualified mana provenance from 23. | — | `Cavern of Souls`; `Delighted Halfling`; `Dovin's Veto`; `Nezahal, Primal Tide` |
+| <a id="20-destination"></a>**20-destination — Conditional counter destination** | Open | On successful counter, move the original artifact/creature card to the battlefield instead of the graveyard. | [07](#07) | `Desertion` |
+| <a id="20-origin"></a>**20-origin — Cast-origin predicates** | Open | Filter by the zone/owner from which a spell was cast; also used by rebound and other provenance-dependent rules. | — | `All-Fates Stalker`; `Ephemerate`; `Incarnation Technique`; `Pitiless Carnage`; `Quantum Misalignment`; `Vantress Visions`; `Virtue of Knowledge`; `Wash Away`; `Wedding Ring`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
+| <a id="20-payment"></a>**20-payment — Counter unless a player pays** | Open | Resolution-time mana payment by the spell controller, with typed choices and mana opportunities. | — | `Decisive Denial`; `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
+| <a id="20-relationships"></a>**20-relationships — Stack targeting relationships** | Open | Filter spells by the permanents/players they target, and retain target object identities. | — | `Keep Safe` |
+
+### 21. Combat and keywords
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="21-annihilator"></a>**21-annihilator — Annihilator** | Open | Defending-player sacrifice on attack, through ordinary typed sacrifice choices. | [09-count](#09-count), [34-defender](#34-defender) | `It That Betrays` |
+| <a id="21-even"></a>**21-even — Even-mana-value restrictions** | Open | Apply parity restrictions to casting and blocking, including mana value zero. | — | `Void Winnower` |
+| <a id="21-fear"></a>**21-fear — Fear** | Open | Canonical keyword authoring and artifact-or-black blocker restriction. | — | `Profane Command` |
+| <a id="21-first-strike"></a>**21-first-strike — First strike** | Open | Canonical keyword authoring and first-strike damage steps. | — | `Sire of Seven Deaths` |
+| <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
+| <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Open | Canonical keyword authoring and actual-damage life gain. | — | `Mister Negative`; `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |
+| <a id="21-menace"></a>**21-menace — Menace** | Open | Canonical keyword authoring and minimum-blocker requirements. | — | `Kuroki, Thief of Talents`; `Sire of Seven Deaths` |
+| <a id="21-reach"></a>**21-reach — Reach** | Open | Canonical keyword authoring and blocking legality. | — | `Ancient Greenwarden`; `Lumra, Bellow of the Woods`; `Sire of Seven Deaths`; `Six`; `Summon: Titan` |
+| <a id="21-static"></a>**21-static — Continuous keyword grants** | Open | Filtered static keyword grants, including conditional grants; suppression/cannot-gain is a separate contract. | — | `Archetype of Endurance`; `Concordant Crossroads`; `Thunderfoot Baloth` |
+| <a id="21-suppress"></a>**21-suppress — Keyword suppression and cannot-gain** | Open | Layer-aware removal and cannot-have-or-gain precedence for a keyword. | [21-static](#21-static) | `Archetype of Endurance` |
+| <a id="21-targets"></a>**21-targets — Mandatory targeting requirements** | Open | Flagbearer-style obligations while announcing targets; enforce if-able rules. | — | `Standard Bearer` |
+| <a id="21-tax"></a>**21-tax — Attack/block taxes** | Open | Announcement and payment of attack/block taxes, including untapped/attacking source conditions. | — | `Archangel of Tithes`; `Baird, Steward of Argive` |
+| <a id="21-ward"></a>**21-ward — Ward** | Open | Opponent targeting occurrence, source/target capture, mana payment, and countering the targeted spell/ability on nonpayment. Separate rows extend the payment kind. | [20-payment](#20-payment) | `Famished Worldsire`; `Hall of Storm Giants`; `Roaming Throne`; `Sire of Seven Deaths`; `Summon: Leviathan`; `Valgavoth, Terror Eater` |
+| <a id="21-ward-life"></a>**21-ward-life — Life-payment ward** | Open | Extend ward to mandatory-or-counter life payment; preserve legal life-payment boundaries. | [21-ward](#21-ward) | `Sire of Seven Deaths` |
+| <a id="21-ward-sacrifice"></a>**21-ward-sacrifice — Sacrifice-payment ward** | Open | Extend ward to a chosen set of permanents as payment; require the full cost or counter the targeted item. | [21-ward](#21-ward) | `Valgavoth, Terror Eater` |
+
+### 22. Continuous characteristics and attachments
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="22-ability-loss"></a>**22-ability-loss — Ability loss and type/base-stat changes** | Open | Layer-correct ability removal, subtype additions, and base P/T setting without deleting unrelated characteristics. | — | `Curious Colossus` |
+| <a id="22-attachment"></a>**22-attachment — Attachment references and Aura rules** | Open | Enchant restrictions, attached object/player references, and attachment-dependent continuous effects. | — | `Colossification`; `Springheart Nantuko`; `Tenuous Truce`; `Utopia Sprawl`; `Wild Growth` |
+| <a id="22-changeling"></a>**22-changeling — All creature types** | Open | Changeling and all-creature-types effects in every applicable zone; preserve type unions and exclusions. | — | `Belonging`; `Firdoch Core`; `Masked Vandal`; `Maskwood Nexus` |
+| <a id="22-characteristics"></a>**22-characteristics — Continuous characteristic definitions** | Open | CDA power/toughness from a live amount, conditional animation/base stats, and continuous type/stat updates. | — | `Lumra, Bellow of the Woods`; `Soul of Eternity`; `Starfield of Nyx` |
+| <a id="22-choose-type"></a>**22-choose-type — Choose a creature type** | Open | Persist a non-target creature-type choice and use it in subsequent filters and continuous effects. | — | `Cavern of Souls`; `Kindred Dominance`; `Raise the Palisade`; `Roaming Throne` |
+| <a id="22-grants"></a>**22-grants — Grant activated ability programs** | Open | Grant canonical activated abilities with independent lexical/source bindings and duration; existing generated grants cover triggered abilities. | — | `Rain of Filth` |
+| <a id="22-land-types"></a>**22-land-types — Land-type overlays** | Open | Layer-aware addition of basic land types and the intrinsic mana abilities they confer. | — | `Blanket of Night`; `Urborg, Tomb of Yawgmoth`; `Yavimaya, Cradle of Growth` |
+| <a id="22-types"></a>**22-types — Additive type/subtype changes** | Open | Add a subtype to a returned/current permanent without replacing its existing types or making a copy. | — | `Portal to Phyrexia` |
+
+### 23. Mana provenance
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="23-mana"></a>**23-mana — Restricted mana and counterability** | Open | Typed spending restrictions, producer provenance, and qualifying-spell uncounterability. | [20-counterability](#20-counterability) | `Cavern of Souls`; `Delighted Halfling` |
+
+### 24. Animation and crew
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="24-animation"></a>**24-animation — Temporary animation** | Open | Temporary type/subtype/base P/T changes while retaining the permanent's other specified characteristics. | — | `Firdoch Core`; `Hall of Storm Giants`; `Hedge Shredder`; `Lair of the Hydra` |
+| <a id="24-crew"></a>**24-crew — Crew costs** | Open | Tap a selected creature set with sufficient total power as a cost; animate the Vehicle. | [24-animation](#24-animation) | `Hedge Shredder` |
+
+### 25. Casting costs and alternate casting
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="25-alternative"></a>**25-alternative — Conditional alternative life payment** | Open | Conditionally replace a mana cost with life; keep life payment distinct from damage. | — | `Snuff Out` |
+| <a id="25-cleave"></a>**25-cleave — Cleave** | Open | Alternate cost changes the spell's restrictions/target program. | [20-origin](#20-origin) | `Wash Away` |
+| <a id="25-convoke"></a>**25-convoke — Convoke** | Open | Creature tapping as mana contribution, preserving color and summoning-sickness rules. | — | `Pile On` |
+| <a id="25-delve"></a>**25-delve — Delve** | Open | Exile chosen graveyard cards during payment to cover generic mana only; preserve colored requirements, reductions, and restore. | — | `Dig Through Time` |
+| <a id="25-embalm"></a>**25-embalm — Embalm** | Open | Graveyard exile cost and modified white Zombie token copy with no mana cost. | [28-modifiers](#28-modifiers) | `Angel of Sanctions` |
+| <a id="25-escape"></a>**25-escape — Escape** | Open | Graveyard casting with mana plus exile-other-cards costs. | [26-graveyard-spells](#26-graveyard-spells) | `Cling to Dust` |
+| <a id="25-evidence"></a>**25-evidence — Collect evidence** | Open | Select graveyard cards whose total mana value meets the cost; retain paid status. | — | `Analyze the Pollen` |
+| <a id="25-evoke"></a>**25-evoke — Evoke** | Open | Alternate casting plus an entry sacrifice trigger tied to the paid casting option. | — | `Mulldrifter` |
+| <a id="25-flashback"></a>**25-flashback — Flashback** | Open | Cast from graveyard with alternate costs and the correct exile replacement. | [26-graveyard-spells](#26-graveyard-spells) | `Dread Return` |
+| <a id="25-foretell"></a>**25-foretell — Foretell** | Open | Private face-down exile, later-turn casting permission, and foretell cost. | [26-exile-play](#26-exile-play) | `Glorious Protector` |
+| <a id="25-gift"></a>**25-gift — Gift** | Open | Promise a gift at announcement; choose the recipient and apply the gift before the remaining effects. | [15-player](#15-player) | `Parting Gust`; `Perch Protection` |
+| <a id="25-kicker"></a>**25-kicker — Kicker** | Open | Persist a paid kicker option for targeting and resolution branches; repeatable multikicker is a separate extension. | — | `Everflowing Chalice`; `Joint Exploration`; `Tear Asunder` |
+| <a id="25-modal"></a>**25-modal — Conditional mode counts** | Open | Announcement-time conditions change how many modes may be chosen. | [15-commander](#15-commander) | `Will of the Sultai` |
+| <a id="25-plot"></a>**25-plot — Plot** | Open | Special-action exile from hand and later-turn sorcery casting permission without paying mana. | [26-exile-play](#26-exile-play), [20-origin](#20-origin) | `Pitiless Carnage` |
+| <a id="25-reductions"></a>**25-reductions — Conditional spell-cost reductions** | Open | Apply reductions from graveyard card-type diversity, target characteristics, or opponent basics. | — | `Drag to the Roots`; `Hagra Mauling // Hagra Broodpit`; `Price of Fame` |
+| <a id="25-spree"></a>**25-spree — Spree** | Open | Choose one or more paid modes and preserve mode-dependent costs/targets. | — | `Getaway Glamer` |
+| <a id="25-suspend"></a>**25-suspend — Suspend** | Open | Time counters, upkeep removal, no-mana-cost casting, and resulting haste. | [13-step](#13-step), [26-exile-play](#26-exile-play) | `Hypergenesis` |
+| <a id="25-warp"></a>**25-warp — Warp** | Open | Alternate hand casting, delayed exile, and later-turn casting from that exile. | [26-exile-play](#26-exile-play), [20-origin](#20-origin), [13-step](#13-step) | `All-Fates Stalker` |
+| <a id="25-multikicker"></a>**25-multikicker — Multikicker** | Open | Allow repeated kicker payment and retain the paid count for entry effects. | [25-kicker](#25-kicker) | `Everflowing Chalice` |
+
+### 26. Zone play permissions
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="26-exile"></a>**26-exile — Replacement-linked exile permission** | Open | Track cards exiled by a specific replacement and permit their play with an alternate life cost. | [26-exile-play](#26-exile-play), [18-links](#18-links) | `Valgavoth, Terror Eater` |
+| <a id="26-exile-play"></a>**26-exile-play — Play/cast from authorized exile** | Open | Apply exile identity, later-turn/duration, face, timing, cost-policy, and land/spell permissions. | [26-permission](#26-permission) | `All-Fates Stalker`; `Ephemerate`; `Glorious Protector`; `Hypergenesis`; `Pitiless Carnage`; `Quantum Misalignment`; `Valgavoth, Terror Eater` |
+| <a id="26-graveyard-lands"></a>**26-graveyard-lands — Land play from graveyard** | Open | Allow land plays from the authorized player's graveyard through ordinary land-play legality and limits. | [26-permission](#26-permission) | `Ancient Greenwarden`; `Forgotten Cellar`; `Icetill Explorer`; `Mole Man, Moloid Master`; `Walk-In Closet` |
+| <a id="26-graveyard-replacement"></a>**26-graveyard-replacement — Temporary graveyard-to-exile replacement** | Open | A scoped replacement sends cards that would enter the player's graveyard to exile for the remainder of the turn. | — | `Forgotten Cellar`; `Walk-In Closet` |
+| <a id="26-graveyard-spells"></a>**26-graveyard-spells — Spell casting from graveyard** | Open | Authorize canonical spell announcement from graveyard, keeping normal/alternate/additional costs and resulting-zone policies. | [26-permission](#26-permission) | `Cling to Dust`; `Dread Return`; `Forgotten Cellar`; `Six`; `Walk-In Closet` |
+| <a id="26-hand"></a>**26-hand — Cast from an offered hand** | Open | Optional/free casting during resolution from a private hand, with full announcement and continuation. | [26-permission](#26-permission) | `Kuroki, Thief of Talents`; `Rishkar's Expertise` |
+| <a id="26-library-lands"></a>**26-library-lands — Land play from library top** | Open | Authorize only the actual top land, preserve play limits and timing, and re-evaluate the top after each move. | [26-permission](#26-permission), [26-top](#26-top) | `Courser of Kruphix` |
+| <a id="26-permission"></a>**26-permission — Zone-permission infrastructure** | Open | Typed permission records scoped by source/duration, player, zone, card kind, and cost policy; integrate canonical announcement without hardcoded card names. | — | `All-Fates Stalker`; `Ancient Greenwarden`; `Cling to Dust`; `Courser of Kruphix`; `Dread Return`; `Ephemerate`; `Forgotten Cellar`; `Glorious Protector`; `Hypergenesis`; `Icetill Explorer`; `Kederekt Leviathan`; `Kuroki, Thief of Talents`; `Mole Man, Moloid Master`; `Pitiless Carnage`; `Quantum Misalignment`; `Rishkar's Expertise`; `Six`; `Valgavoth, Terror Eater`; `Vantress Visions`; `Virtue of Knowledge`; `Walk-In Closet`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
+| <a id="26-retrace"></a>**26-retrace — Retrace** | Open | Grant permanent spells in graveyard an additional land-discard cost during the right player's turn. | [26-graveyard-spells](#26-graveyard-spells) | `Six` |
+| <a id="26-top"></a>**26-top — Public top-card visibility** | Open | Continuously expose the actual top library card to all seats, including changes during multi-card actions. | — | `Courser of Kruphix` |
+
+### 27. Multi-player hand placement
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="27-place"></a>**27-place — APNAP optional hand placement** | Open | Each player chooses a qualifying card, then process the placement with correct visibility and trigger checkpoints. | [15-each](#15-each) | `Eureka`; `Hypergenesis`; `Show and Tell` |
+| <a id="27-repeat"></a>**27-repeat — Repeat placement rounds** | Open | Continue until an entire round declines; keep per-player continuation state. | [27-place](#27-place) | `Eureka`; `Hypergenesis` |
+
+### 28. Copy and control effects
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="28-demonstrate"></a>**28-demonstrate — Demonstrate** | Open | Optional spell copy plus an opponent's copy during the cast trigger, with separate controllers/targets. | [15-player](#15-player), [20-origin](#20-origin) | `Incarnation Technique` |
+| <a id="28-entry"></a>**28-entry — Copy as an entry replacement** | Open | Optional clone-as-entry with extra counters or retained abilities. | [28-modifiers](#28-modifiers) | `Sakashima of a Thousand Faces`; `Spark Double` |
+| <a id="28-exchange"></a>**28-exchange — Temporary control exchange** | Open | Exchange captured permanent sets, grant haste, and expire independently of source lifetime. Dack's permanent control distribution is already available. | — | `Reins of Power` |
+| <a id="28-legend"></a>**28-legend — Legend-rule exceptions and deck keywords** | Open | Continuous legend-rule exemption and any required commander/deck-construction keyword representation; verify full printed behavior. | — | `Sakashima of a Thousand Faces` |
+| <a id="28-modifiers"></a>**28-modifiers — Copy exceptions** | Open | Nonlegendary copies, added/retained abilities and types, colors, and removed mana costs; preserve copiable values. | [07](#07) | `Angel of Sanctions`; `Belonging`; `Irenicus's Vile Duplication`; `Mirrorweave`; `Nanogene Conversion`; `Quantum Misalignment`; `Sakashima of a Thousand Faces`; `Soul of Eternity`; `Spark Double`; `Thespian's Stage` |
+| <a id="28-rebound"></a>**28-rebound — Rebound** | Open | Hand-cast provenance, resolving exile, and optional free cast at the next upkeep. | [20-origin](#20-origin), [13-step](#13-step), [26-exile-play](#26-exile-play) | `Ephemerate`; `Quantum Misalignment` |
+| <a id="28-temporary"></a>**28-temporary — Temporary copy effects** | Open | Copy onto existing permanents for a duration and correctly restore/re-layer characteristics. | [28-modifiers](#28-modifiers) | `Mirrorweave`; `Nanogene Conversion`; `Thespian's Stage` |
 
 ### 29. Ability copies and trigger multiplication
 
-Priority **B** · effort **L** · **5 registrations**
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="29-activation"></a>**29-activation — Ability activation occurrence** | Open | Observe an activated ability being activated, including paid optional copy triggers. | [29-copy](#29-copy) | `Rings of Brighthearth` |
+| <a id="29-copy"></a>**29-copy — Copy a stack ability** | Open | Copy activated/triggered abilities with retargeting; exclude mana abilities where specified. | — | `Rings of Brighthearth`; `Vantress Visions`; `Virtue of Knowledge` |
+| <a id="29-multiply"></a>**29-multiply — Trigger multiplication** | Open | Duplicate qualifying triggers from entering objects or chosen creature types without multiplying the underlying event. | — | `Ancient Greenwarden`; `Roaming Throne`; `Vantress Visions`; `Virtue of Knowledge`; `Yarok, the Desecrated` |
+
+### 30. Alternative return mechanics
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="30-persist"></a>**30-persist — Persist** | Open | Dies trigger with last-known counters; return the correct graveyard identity with a -1/-1 counter. | — | `Woodfall Primus` |
+| <a id="30-return-result"></a>**30-return-result — Return-success-dependent follow-up** | Open | Capture returned identities/current toughness and branch on actual return success after replacement. | [07](#07) | `Vanish into Memory` |
+| <a id="30-unearth"></a>**30-unearth — Unearth** | Open | Graveyard activation, haste, end-step exile, and leave-battlefield exile replacement. | [13-step](#13-step), [26-permission](#26-permission) | `Kederekt Leviathan` |
+
+### 31. Relational searches
+
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="31-flash"></a>**31-flash — Ability predicates for library selection** | Open | Filter for cards with flash and other rule-granted ability predicates, not only Oracle text. | — | `Waterlogged Teachings // Inundated Archive` |
+| <a id="31-multizone"></a>**31-multizone — Multi-zone search** | Open | Search library and/or graveyard as one optional program; shuffle only when the library was searched. | [02](#02) | `Finale of Devastation` |
+| <a id="31-related"></a>**31-related — Relationships between selected cards** | Open | Selected basics must share a land type; preserve reveal, fail-to-find, and shuffle semantics. | — | `Myriad Landscape` |
+
+### 32. Loyalty and emblems
 
-**Registrations:** `Rings of Brighthearth`; `Roaming Throne`; `Vantress Visions`; `Virtue of Knowledge`; `Yarok, the Desecrated`.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="32-emblems"></a>**32-emblems — Emblems** | Open | Source-independent command-zone programs with ongoing abilities. | [32-loyalty](#32-loyalty) | `Teferi, Who Slows the Sunset` |
+| <a id="32-loyalty"></a>**32-loyalty — Loyalty activation** | Open | Loyalty costs including X, once-per-turn use, timing, and full announcement validation. | — | `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset`; `Ugin, the Spirit Dragon` |
 
-**Shared work:** Copy activated/triggered stack abilities; duplicate qualifying trigger occurrences.
+### 33. Simultaneous discard/draw
 
-**Required support / secondary gates:** Vantress Visions/Virtue of Knowledge are adventure/front-name registrations for the same physical card. Rings adds activation occurrence and optional payment; Roaming Throne adds chosen type/ward; Yarok needs all printed keywords. Ancient Greenwarden shares trigger multiplication but remains in the permission group.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="33-discard"></a>**33-discard — Actual per-player discard totals** | Open | Discard hands with correct shared checkpoints; retain each player's actual count and compute their maximum. | [15-each](#15-each), [14-result-max](#14-result-max) | `Windfall` |
 
-### 30. Delayed return and death recovery
+### 34. Damage and combat occurrences
 
-Priority **B** · effort **L** · **4 registrations**
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="34-damage"></a>**34-damage — Damage/enrage occurrences** | Open | Damage-recipient/source/amount bindings, combat filters, and repeatable enrage programs. | — | `Apex Altisaur`; `Blitzball`; `Grothama, All-Devouring`; `Rankle, Master of Pranks`; `Souls of the Faultless` |
+| <a id="34-defender"></a>**34-defender — Defending-player bindings** | Open | Capture attacking/defending player in combat triggers and use it in filters/choices. | — | `Belonging`; `Breena, the Demagogue`; `It That Betrays`; `Kogla, the Titan Ape`; `Soul of Eternity`; `Souls of the Faultless`; `Tenuous Truce` |
+| <a id="34-history"></a>**34-history — Source-attributed damage history** | Open | Track damage by particular objects/controllers through the relevant source's lifetime. | [34-damage](#34-damage) | `Blitzball`; `Grothama, All-Devouring` |
 
-**Registrations:** `Ephemerate`; `Kederekt Leviathan`; `Vanish into Memory`; `Woodfall Primus`.
+### 35. Event history and grouped occurrences
 
-**Shared work:** Return a captured card after a delayed event or death, with alternate-zone/casting rules.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="35-group"></a>**35-group — Grouped zone-change occurrences** | Open | One-or-more library/graveyard moves as one occurrence, with captured moved identities. | — | `Crawling Sensation`; `Hedge Shredder`; `It That Betrays` |
+| <a id="35-life"></a>**35-life — Life-gain occurrences** | Open | Capture player and actual gain amount, with turn/relationship filters. | — | `Niv-Mizzet, Ghost Counsel`; `Wedding Ring` |
+| <a id="35-ordinal"></a>**35-ordinal — Per-turn event ordinals** | Open | First/second cast, draw, or grouped zone-change event; keep scope and reset rules explicit. | — | `Crawling Sensation`; `Lotho, Corrupt Shirriff`; `Zimone and Dina` |
+| <a id="35-provenance"></a>**35-provenance — Was-cast and turn provenance** | Open | Distinguish a cast permanent from other entries and filter ongoing programs by the relevant player's turn. | [20-origin](#20-origin) | `Wedding Ring` |
+| <a id="35-repeat"></a>**35-repeat — Conditionally repeat a program once** | Open | Repeat draw/hand-placement instructions once at resolution after checking the current condition; preserve choices. | — | `Zimone and Dina` |
+| <a id="35-token"></a>**35-token — Token creation/sacrifice occurrences** | Open | Observe actual creation/sacrifice of tokens and preserve the required trigger cardinality. | — | `Mirkwood Bats` |
 
-**Required support / secondary gates:** Rebound (Ephemerate), unearth replacement/duration (Kederekt), delayed return-success-dependent discard (Vanish), persist and last-known counters (Woodfall). Shares captured identity and timing with linked exile but has different return rules.
+### 36. Optional exile on resolution
 
-### 31. Filtered library searches
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="36-exile"></a>**36-exile — Optional resolution exile with success binding** | Open | Choose a graveyard card after target announcement, exile it on resolution, and condition the effect on actual success. | — | `Masked Vandal` |
 
-Priority **B** · effort **M** · **2 registrations**
+### 37. Player sacrifice and modal triggers
 
-**Registrations:** `Myriad Landscape`; `Waterlogged Teachings // Inundated Archive`.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="37-modes"></a>**37-modes — Any-number triggered modes** | Open | Choose any allowed subset of modes when putting a triggered ability on the stack, including zero where printed. | — | `Rankle, Master of Pranks` |
+| <a id="37-sacrifice"></a>**37-sacrifice — Per-player sacrifice requests** | Open | Ask each affected player to choose the required permanents, choosing all available when insufficient. | [15-each](#15-each) | `Portal to Phyrexia`; `Rankle, Master of Pranks` |
 
-**Shared work:** Library selection with relationships or ability predicates beyond a single type.
+### 38. Random object choice and repetition
 
-**Required support / secondary gates:** Myriad Landscape requires selected basics to share a land type; Waterlogged Teachings needs instant-or-flash filtering and both faces. Moonsilver Key shares ability classification (see comparison-predicate group).
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="38-random"></a>**38-random — Random identity-bound object selection** | Open | Persist authoritative randomness and bind the chosen graveyard identity for copying/conditional repetition. | [07](#07) | `Sin, Spira's Punishment` |
+| <a id="38-tapped"></a>**38-tapped — Tapped copy tokens** | Open | Create a copiable token snapshot already tapped, before entry triggers observe it. | [07](#07) | `Sin, Spira's Punishment` |
+| <a id="38-repeat"></a>**38-repeat — Repeat while the result qualifies** | Open | Repeat a program while its latest result satisfies a predicate; handle an exhausted input set and persist each random result. This differs from Zimone's repeat-once rule. | — | `Sin, Spira's Punishment` |
+| <a id="38-token-refs"></a>**38-token-refs — Created-token identity bindings** | Open | Bind newly created token identities for subsequent instructions, including counters placed after creation; do not pick all similar tokens by name. | — | `Zanarkand, Ancient Metropolis // Lasting Fayth` |
 
-### 32. Loyalty abilities
+### 39. Piles and voting
 
-Priority **B** · effort **L** · **3 registrations**
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="39-control"></a>**39-control — Control or modify votes** | Open | Apply vote-controller/extra-vote effects with their own duration and player scope. | [39-vote](#39-vote) | `Illusion of Choice` |
+| <a id="39-finished"></a>**39-finished — Finished-voting occurrence** | Open | Expose recorded per-player ballots when a vote finishes so triggered programs can compare choices and count opponents. | [39-vote](#39-vote) | `Erestor of the Council` |
+| <a id="39-hidden"></a>**39-hidden — Face-down pile visibility** | Open | Per-seat knowledge of face-up/face-down piles through choices and restore; do not leak concealed identities. | [39-piles](#39-piles) | `Fortune's Favor`; `Hostile Negotiations` |
+| <a id="39-object"></a>**39-object — Object ballots** | Open | Vote for eligible object identities, then aggregate votes per object; combine with secret visibility when printed. | [39-vote](#39-vote) | `Trap the Trespassers` |
+| <a id="39-piles"></a>**39-piles — Pile division and opponent choices** | Open | Typed pile partition, opponent selection, choosing a pile, and identity-bound result routing. | [08](#08), [15-player](#15-player) | `Fact or Fiction`; `Fortune's Favor`; `Hostile Negotiations` |
+| <a id="39-secret"></a>**39-secret — Secret council** | Open | Private votes until reveal, per-player results, ties, and restore. | [39-vote](#39-vote) | `Círdan the Shipwright`; `Trap the Trespassers` |
+| <a id="39-vote"></a>**39-vote — Public voting** | Open | Typed sequential public votes, player choices, recorded ballots, totals/ties, and result-dependent continuation. | [15-each](#15-each) | `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Illusion of Choice`; `Sail into the West`; `Selvala's Stampede`; `Split Decision`; `Trap the Trespassers` |
 
-**Registrations:** `Jace, Multiverse Architect`; `Teferi, Who Slows the Sunset`; `Ugin, the Spirit Dragon`.
+### 40. Sagas
 
-**Shared work:** Loyalty costs, once-per-turn activation, mode/target announcement and permanent-source abilities.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="40-saga"></a>**40-saga — Lore and chapter scheduling** | Open | Entry/precombat-main lore counters, chapter triggers, and sacrifice after the final chapter. | [13-step](#13-step) | `Awaken the Honored Dead`; `Kiora Bests the Sea God`; `Summon: Leviathan`; `Summon: Titan` |
+| <a id="40-skip"></a>**40-skip — Skip the next untap** | Open | Duration-bound restrictions that consume the correct next untap event. | — | `Kiora Bests the Sea God` |
 
-**Required support / secondary gates:** Jace, Teferi and Ugin should share loyalty infrastructure before separate programs. Additional gates: emblems, damage targets, top-card selection, X/color/mana-value filters, and multi-card hand placement. Read complete Jace text before scoping its abilities.
+### 41. Encore and bestow
 
-### 33. Simultaneous discard and draw
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="41-bestow"></a>**41-bestow — Bestow** | Open | Alternate Aura casting and attachment/creature transitions; keep attached-copy landfall branching. | [22-attachment](#22-attachment) | `Springheart Nantuko` |
+| <a id="41-encore"></a>**41-encore — Encore** | Open | Graveyard exile cost; copy per opponent, haste, required defender, and end-step sacrifice. | [28-modifiers](#28-modifiers), [34-defender](#34-defender), [13-step](#13-step) | `Belonging`; `Soul of Eternity` |
 
-Priority **B** · effort **M** · **1 registration**
+### 42. Replacement, player restrictions, and protection
 
-**Registrations:** `Windfall`.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="42-conditional"></a>**42-conditional — Conditional draw/life replacement** | Open | Evaluate hand/life thresholds at each individual replaced event, including competing replacements. | — | `Phial of Galadriel` |
+| <a id="42-player"></a>**42-player — Player life, targeting, and game-result restrictions** | Open | Player hexproof/protection, cannot-lose/change-life, and cannot-win/lose-game with explicit durations. | — | `Everybody Lives!`; `Perch Protection` |
+| <a id="42-regeneration"></a>**42-regeneration — Cannot-regenerate destruction** | Open | Express and enforce a no-regeneration destruction constraint; check the engine's regeneration support before migration. | — | `Snuff Out` |
+| <a id="42-shuffle"></a>**42-shuffle — Reveal-and-shuffle graveyard replacement** | Open | Replace a graveyard move with reveal and shuffle of the specific card, including from nonbattlefield zones. | — | `Blightsteel Colossus`; `Darksteel Colossus` |
+| <a id="42-turn"></a>**42-turn — Extra turns** | Open | Schedule the gift recipient's extra turn in the correct order. | [25-gift](#25-gift) | `Perch Protection` |
 
-**Shared work:** Windfall uses the largest actual discarded count across players.
+### 43. Rooms and Adventures
 
-**Required support / secondary gates:** Per-player iteration, discard-hand count results, numeric maximum, and correct simultaneous-event checkpoints. Reuses result arithmetic but cannot use starting hand counts as a substitute.
+| Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
+| --- | --- | --- | --- | --- |
+| <a id="43-adventure"></a>**43-adventure — Adventure faces and permission** | Open | Resolve the Adventure face into the correct exile permission, then allow the permanent face. | [26-permission](#26-permission), [20-origin](#20-origin) | `Vantress Visions`; `Virtue of Knowledge`; `Zanarkand, Ancient Metropolis // Lasting Fayth` |
+| <a id="43-room"></a>**43-room — Room doors** | Open | Both door programs, casting/lock/unlock costs, sorcery timing, and unlock occurrences. | — | `Forgotten Cellar`; `Marina Vendrell`; `Walk-In Closet` |
 
-### 34. Damage occurrences and defending player
+### 44. Retired package bucket
 
-Priority **B** · effort **L** · **4 registrations**
+No new mechanic lives in this former package bucket. See Incarnation Technique, Kuroki, Thief of Talents, and Nezahal, Primal Tide in the [card dependency list](CARD-MIGRATION-DEPENDENCIES.md).
 
-**Registrations:** `Apex Altisaur`; `Breena, the Demagogue`; `Grothama, All-Devouring`; `Kogla, the Titan Ape`.
+## Maintenance and validation
 
-**Shared work:** Fight/damage and attack triggers that retain the affected or defending player.
+Keep mechanic IDs stable. When splitting a contract, add narrower IDs and update every affected card and prerequisite edge. Do not mark a parent contract available after implementing only one variant. Move a migrated card out of the dependency list only after removing its legacy registration; aliases remain separate rows until all exact keys are removed.
 
-**Required support / secondary gates:** Apex requires enrage; Grothama requires source-attributed damage history; Breena requires defender life comparisons; Kogla requires defending-player filters. Shared event references first, individual programs second.
+Before committing a plan update, verify that:
 
-### 35. Turn/event ordinals and grouped occurrences
+- Every remaining coverage-ledger `cardRegistrations[].card` appears exactly once in the card dependency table, with no unknown or missing registration keys.
+- Every referenced mechanic exists, every prerequisite graph is acyclic, and the reverse dependent lists include transitive requirements.
+- Card readiness is derived from **all** prerequisite statuses; source-review flags remain explicit. Same-physical-card aliases reference the full shared program.
+- Counts reflect exact legacy keys and mechanic entries, not a percentage of implementation effort.
 
-Priority **B** · effort **L** · **6 registrations**
-
-**Registrations:** `Crawling Sensation`; `Lotho, Corrupt Shirriff`; `Queza, Augur of Agonies`; `Scute Swarm`; `Wedding Ring`; `Zimone and Dina`.
-
-**Shared work:** First/second events, grouped occurrences, source-name or turn filters, and branching.
-
-**Required support / secondary gates:** Crawling Sensation needs first land-to-graveyard group; Lotho second spell; Zimone and Dina second draw and optional repeat. Scute needs token copy; Wedding Ring needs cast provenance, opponent membership and draw/life events; Queza primarily needs existing draw targeting composition. Start with Queza, then add the shared history queries.
-
-### 36. Conditional exile payment
-
-Priority **B** · effort **M** · **1 registration**
-
-**Registrations:** `Masked Vandal`.
-
-**Shared work:** Masked Vandal announces an artifact/enchantment target, then may exile a graveyard creature on resolution.
-
-**Required support / secondary gates:** Canonical changeling plus optional typed selection and exile-success condition. Shares ordinary exile/target infrastructure; avoid converting the resolution action into an announcement cost.
-
-### 37. Mass sacrifice and return triggers
-
-Priority **B** · effort **M** · **2 registrations**
-
-**Registrations:** `Portal to Phyrexia`; `Rankle, Master of Pranks`.
-
-**Shared work:** Per-player sacrifice choices and triggered programs.
-
-**Required support / secondary gates:** Portal has opponent sacrifice-three plus upkeep targeted reanimation/type addition; Rankle has combat-damage-to-player occurrence and any-number modes. Shared player iteration and sacrifice instructions, with distinct scheduling gates.
-
-### 38. Random exile and repeated copying
-
-Priority **B** · effort **L** · **1 registration**
-
-**Registrations:** `Sin, Spira's Punishment`.
-
-**Shared work:** Randomly exile a graveyard permanent, create a tapped copy, and repeat for a land.
-
-**Required support / secondary gates:** Sin requires random graveyard selection, captured-card copying, tapped tokens, and land-dependent repetition.
-
-### 39. Pile division and voting
-
-Priority **C** · effort **L** · **11 registrations**
-
-**Registrations:** `Coercive Portal`; `Council's Judgment`; `Círdan the Shipwright`; `Erestor of the Council`; `Fact or Fiction`; `Fortune's Favor`; `Illusion of Choice`; `Sail into the West`; `Selvala's Stampede`; `Split Decision`; `Trap the Trespassers`.
-
-**Shared work:** Player-owned choices over piles or public/secret votes, followed by result-dependent programs.
-
-**Required support / secondary gates:** Canonical typed vote/pile data, private visibility and restore, ties and voter aggregates. Fact or Fiction/Fortune’s Favor share division infrastructure but differ in who sees/chooses; council and secret-council variants are separate semantics.
-
-### 40. Saga chapter programs
-
-Priority **C** · effort **L** · **4 registrations**
-
-**Registrations:** `Awaken the Honored Dead`; `Kiora Bests the Sea God`; `Summon: Leviathan`; `Summon: Titan`.
-
-**Shared work:** Lore progression, chapter triggers and final-chapter sacrifice.
-
-**Required support / secondary gates:** Reusable Saga scheduling first, then chapter composition. Additional gates include reflexive discard trigger (Awaken), skip-untap/control gain (Kiora), creature-type exclusions and temporary attack triggers (Leviathan), and counted P/T grants (Titan).
-
-### 41. Token-copy activated alternatives
-
-Priority **C** · effort **L** · **3 registrations**
-
-**Registrations:** `Belonging`; `Soul of Eternity`; `Springheart Nantuko`.
-
-**Shared work:** Token generation/copy exceptions and alternate activation/casting mechanics.
-
-**Required support / secondary gates:** Encore with one token per opponent and attack requirements (Belonging/Soul); bestow and attached-copy branching (Springheart). Changeling and life-based characteristic definition are additional dependencies.
-
-### 42. Special replacement/protection packages
-
-Priority **C** · effort **L** · **6 registrations**
-
-**Registrations:** `Blightsteel Colossus`; `Darksteel Colossus`; `Everybody Lives!`; `Perch Protection`; `Phial of Galadriel`; `Tenuous Truce`.
-
-**Shared work:** Replacement, protection, phasing, player-level restrictions and attached-player relationships.
-
-**Required support / secondary gates:** Darksteel/Blightsteel share reveal-and-shuffle graveyard replacement (Blightsteel also infect). Phial shares conditional draw/life replacement. Everybody Lives/Perch need player life/game-result restrictions and protection; Tenuous Truce needs enchanted-player event relationships. Keep these as focused sub-batches.
-
-### 43. Adventure land and Room programs
-
-Priority **C** · effort **L** · **3 registrations**
-
-**Registrations:** `Marina Vendrell`; `Niv-Mizzet, Ghost Counsel`; `Zanarkand, Ancient Metropolis // Lasting Fayth`.
-
-**Shared work:** Multiple playable faces or unlocked doors with independent programs and permissions.
-
-**Required support / secondary gates:** Marina/Niv need full cached/source-text review and Room/eerie/door support; Zanarkand needs adventure exile permission and counted counters on the newly created token. Reuse face handoff; do not migrate just the easy land face.
-
-### 44. Delayed blink and special casting packages
-
-Priority **C** · effort **L** · **3 registrations**
-
-**Registrations:** `Incarnation Technique`; `Kuroki, Thief of Talents`; `Nezahal, Primal Tide`.
-
-**Shared work:** Programs that combine ordinary effects with casting/copy permissions or delayed returns.
-
-**Required support / secondary gates:** Incarnation Technique needs demonstrate and opponent spell copies; Kuroki needs end-step offer plus private opponent-hand casting permission; Nezahal needs uncounterability and delayed self-return in addition to existing cast triggers/unlimited hand size.
-
-## Completion and maintenance
-
-- Before starting a batch, check existing GitHub reports, confirm full Oracle behavior, and inspect the current DSL rather than assuming a legacy shortcut is correct.
-- Implement reusable semantics and mechanic-owned tests once. Use structural catalog checks for each definition and existing integration coverage where suitable.
-- Remove a legacy registration only after every behavior of that card/face is canonical. Shared support may unlock only part of a larger card.
-- Commit and push each coherent completed set to #432. A primary group can require several commits; unrelated secondary systems should remain separate.
-- After a migration, remove its key from this inventory and regenerate the coverage ledger. Update counts and priorities; keep aliases separate until their legacy keys are actually removed.
-- Snapshot validation: remaining ledger keys are present exactly once; no unknown keys. Hosted CI is not awaited on this branch, as requested.
+When implementing, continue the canonical authoring ratchet and test-ownership rules. Preserve open correctness reports separately from migration progress.
