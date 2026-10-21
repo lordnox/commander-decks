@@ -3047,17 +3047,20 @@ describe('kernel host journal', () => {
       .find((object) => object.name === 'Otawara, Soaring City')!
     const target = Object.values(ready.objects)
       .find((object) => object.name === 'Target Creature')!
+    const action = legalActsFor(kernel.history.current(), 'p1').find((candidate) =>
+      candidate.kind === 'activateAbility' && candidate.abilityId === '$.abilities[1]')
+    if (action?.kind !== 'activateAbility') throw new Error('Expected channel activation')
 
     expect(applyKernelAct(kernel, restarted, 'p1', {
       type: 'act',
       kind: 'activateAbility',
       objectId: source.id,
-      abilityId: 'channel.otawara',
-      text: 'channel.otawara',
+      abilityId: action.abilityId,
+      text: action.text,
       targetObjectIds: [target.id],
     })).toHaveLength(1)
     expect(kernel.history.current().stack[0]).toMatchObject({
-      abilityId: 'channel.otawara',
+      abilityId: '$.abilities[1]',
       targets: [{ kind: 'object', objectId: target.id }],
     })
   })

@@ -24,7 +24,7 @@ import { ok } from '../../testHelpers'
 const snapshot = (...abilities: Parameters<typeof card>[0]) =>
   createDefinitionSnapshot(compileCardRuleDefinition(card(abilities)))
 
-const land = (name: string, abilities: Parameters<typeof snapshot>) =>
+const land = (name: string, abilities: Parameters<typeof card>[0]) =>
   cardTemplate(name, { types: ['Land'], ruleDefinition: snapshot(...abilities) })
 
 describe('activation when', () => {
