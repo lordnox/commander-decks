@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 34. **144 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 34, reach, and fear. **143 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **144 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **143 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -13,7 +13,6 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Analyze the Pollen` | 25 | [25-evidence](CARD-MIGRATION-BATCHES.md#25-evidence) | Blocked by mechanics | — |
 | `Ancient Greenwarden` | 26 | [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | — |
 | `Angel of Sanctions` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-embalm](CARD-MIGRATION-BATCHES.md#25-embalm) | Blocked by mechanics | — |
-| `Apex Altisaur` | 34 | [34-damage](CARD-MIGRATION-BATCHES.md#34-damage) | Migrated | Entry and enrage fight up to one uncontrolled creature. |
 | `Archangel of Tithes` | 21 | [21-tax](CARD-MIGRATION-BATCHES.md#21-tax) | Blocked by mechanics | — |
 | `Archetype of Endurance` | 21 | [21-static](CARD-MIGRATION-BATCHES.md#21-static), [21-suppress](CARD-MIGRATION-BATCHES.md#21-suppress) | Blocked by mechanics | — |
 | `Awaken the Honored Dead` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga) | Blocked by mechanics | Reuse canonical optional payment/reflexive trigger support for the last chapter. |
@@ -23,8 +22,6 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Bishop of Binding` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | — |
 | `Blanket of Night` | 22 | [22-land-types](CARD-MIGRATION-BATCHES.md#22-land-types) | Blocked by mechanics | — |
 | `Blightsteel Colossus` | 42 | [42-shuffle](CARD-MIGRATION-BATCHES.md#42-shuffle), [21-infect](CARD-MIGRATION-BATCHES.md#21-infect) | Blocked by mechanics | — |
-| `Blitzball` | 11 | [11-activation](CARD-MIGRATION-BATCHES.md#11-activation), [34-history](CARD-MIGRATION-BATCHES.md#34-history) | Migrated | Tap for any color; tap and sacrifice draws two if a legendary dealt combat damage to an opponent this turn. |
-| `Breena, the Demagogue` | 34 | [34-defender](CARD-MIGRATION-BATCHES.md#34-defender), [15-compare](CARD-MIGRATION-BATCHES.md#15-compare) | Migrated | Flying; player-attacks on a richer opponent draws the attacker and puts two +1/+1 counters on a creature you control. |
 | `Cavern of Souls` | 23 | [23-mana](CARD-MIGRATION-BATCHES.md#23-mana), [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Cling to Dust` | 25 | [25-escape](CARD-MIGRATION-BATCHES.md#25-escape) | Blocked by mechanics | — |
 | `Coercive Portal` | 39 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | — |
@@ -57,7 +54,6 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Fortune's Favor` | 39 | [39-hidden](CARD-MIGRATION-BATCHES.md#39-hidden) | Blocked by mechanics | — |
 | `Getaway Glamer` | 25 | [25-spree](CARD-MIGRATION-BATCHES.md#25-spree), [14-filter](CARD-MIGRATION-BATCHES.md#14-filter) | Blocked by mechanics | — |
 | `Glorious Protector` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [25-foretell](CARD-MIGRATION-BATCHES.md#25-foretell) | Blocked by mechanics | — |
-| `Grothama, All-Devouring` | 34 | [34-history](CARD-MIGRATION-BATCHES.md#34-history) | Migrated | Other creatures may fight Grothama on attack; each player draws equal to damage their sources dealt to it this turn when it leaves. |
 | `Hagra Mauling // Hagra Broodpit` | 17 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | Complete both faces; land always enters tapped, while the spell reduction checks opponent basic lands. |
 | `Hall of Storm Giants` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry), [21-ward](CARD-MIGRATION-BATCHES.md#21-ward) | Blocked by mechanics | — |
 | `Hedge Shredder` | 24 | [24-crew](CARD-MIGRATION-BATCHES.md#24-crew), [35-group](CARD-MIGRATION-BATCHES.md#35-group) | Blocked by mechanics | — |
@@ -74,7 +70,6 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Keep Safe` | 20 | [20-relationships](CARD-MIGRATION-BATCHES.md#20-relationships) | Blocked by mechanics | — |
 | `Kindred Dominance` | 22 | [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
 | `Kiora Bests the Sea God` | 40 | [40-saga](CARD-MIGRATION-BATCHES.md#40-saga), [40-skip](CARD-MIGRATION-BATCHES.md#40-skip) | Blocked by mechanics | Permanent control gain is available from Dack; its chosen target must still use canonical targeting. |
-| `Kogla, the Titan Ape` | 34 | [34-defender](CARD-MIGRATION-BATCHES.md#34-defender) | Migrated | Entry fight, attack destroy of a defending-player artifact or enchantment, and Human bounce with indestructible. |
 | `Kuroki, Thief of Talents` | 44 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [26-hand](CARD-MIGRATION-BATCHES.md#26-hand), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace) | Blocked by mechanics | Opponent chooses whether to draw; cast from that opponent's private hand or put counters on Kuroki. |
 | `Lair of the Hydra` | 24 | [24-animation](CARD-MIGRATION-BATCHES.md#24-animation), [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Retain the nonzero-X bound on its animation activation. |
 | `Life from the Loam` | 12 | [12-dredge](CARD-MIGRATION-BATCHES.md#12-dredge) | Blocked by mechanics | Retain up-to-three graveyard land targets. |
@@ -104,7 +99,6 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Pitiless Carnage` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [25-plot](CARD-MIGRATION-BATCHES.md#25-plot) | Blocked by mechanics | — |
 | `Portal to Phyrexia` | 37 | [37-sacrifice](CARD-MIGRATION-BATCHES.md#37-sacrifice), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [22-types](CARD-MIGRATION-BATCHES.md#22-types) | Blocked by mechanics | Upkeep reanimation adds the Phyrexian type without replacing the original types. |
 | `Price of Fame` | 25 | [25-reductions](CARD-MIGRATION-BATCHES.md#25-reductions) | Blocked by mechanics | — |
-| `Profane Command` | 14 | [14-filter](CARD-MIGRATION-BATCHES.md#14-filter), [21-fear](CARD-MIGRATION-BATCHES.md#21-fear) | Blocked by mechanics | Choose exactly two modes; include fear and up-to-X targets. |
 | `Quantum Misalignment` | 28 | [28-modifiers](CARD-MIGRATION-BATCHES.md#28-modifiers), [28-rebound](CARD-MIGRATION-BATCHES.md#28-rebound) | Blocked by mechanics | — |
 | `Rain of Filth` | 10 | [22-grants](CARD-MIGRATION-BATCHES.md#22-grants) | Blocked by mechanics | Grant sacrifice-for-mana activated abilities until cleanup. |
 | `Raise the Palisade` | 22 | [22-choose-type](CARD-MIGRATION-BATCHES.md#22-choose-type) | Blocked by mechanics | — |
@@ -125,7 +119,6 @@ Current readiness: **0 composition candidates**; **144 blocked or awaiting sourc
 | `Six` | 26 | [26-retrace](CARD-MIGRATION-BATCHES.md#26-retrace), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach; attack mill and optional land recovery only from the milled set. |
 | `Snuff Out` | 25 | [25-alternative](CARD-MIGRATION-BATCHES.md#25-alternative), [42-regeneration](CARD-MIGRATION-BATCHES.md#42-regeneration) | Blocked by mechanics | — |
 | `Soul of Eternity` | 41 | [41-encore](CARD-MIGRATION-BATCHES.md#41-encore), [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics) | Blocked by mechanics | — |
-| `Souls of the Faultless` | 19 | [34-damage](CARD-MIGRATION-BATCHES.md#34-damage), [34-defender](CARD-MIGRATION-BATCHES.md#34-defender) | Migrated | Defender; combat damage gained as life, attacking player loses that much. |
 | `Spark Double` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [17-counters](CARD-MIGRATION-BATCHES.md#17-counters) | Blocked by mechanics | — |
 | `Split Decision` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote) | Blocked by mechanics | Retain counter-versus-copy results, stack targets, and copy retargeting. |
 | `Springheart Nantuko` | 41 | [41-bestow](CARD-MIGRATION-BATCHES.md#41-bestow), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Include attached +1/+1, optional copy payment, and fallback Insect only when no copy was created. |

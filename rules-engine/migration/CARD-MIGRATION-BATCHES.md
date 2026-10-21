@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after group 10 plus concurrent 11/14 work; continues #394 and #383. **150 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
+Snapshot: PR #432 after family 34, reach, and fear; continues #394 and #383. **143 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. Black Sun's Twilight is now canonical, along with the prior snapshot's catalog cards.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**169 mechanic entries:** 44 available, 1 awaiting correctness follow-up, and 124 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**169 mechanic entries:** 49 available, 1 awaiting correctness follow-up, and 119 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -38,7 +38,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
 - **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
 - **14-greatest is available:** maximum power (or toughness, mana value, loyalty) over an object set drives pump and draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. Rishkar's Expertise still needs **26-hand**.
-- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. Finale of Devastation still needs **31-multizone**; Getaway Glamer still needs **25-spree**; Profane Command still needs **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon still needs **32-loyalty**.
+- **14-filter is available:** object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. Finale of Devastation still needs **31-multizone**; Getaway Glamer still needs **25-spree**; Profane Command has migrated with **21-fear**; Rishkar's Expertise still needs **26-hand**; Ugin, the Spirit Dragon still needs **32-loyalty**.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
 - **09 separates sacrifice results from devour. 25 separates delve, kicker, evidence, and each alternate cost. 39 separates public piles, hidden piles, public votes, and secret votes.** Implementing one does not require completing its entire former bucket.
@@ -53,6 +53,8 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **10-colors is available:** canonical `addManaFrom` queries possible mana types at resolution and in planning, ignoring activation costs/tapped state and propagating types through a finite fixed point. Cyclic pools without a producer contribute no type. Exotic Orchard, Fellwar Stone, Reflecting Pool, and all three Horizon of Progress abilities have migrated; Horizon retains its life payment. The other six mana-production slices are now also available.
 
 - **10 is complete:** all seven mana-production contracts are available. The remaining nine consumers have migrated, preserving hybrid filters, strict mill costs/instant-only timing, actual tap transitions, immediate bonuses, recurring cleanup-scoped callbacks, extort from actual loss, Aura chosen colors/host controllers, and static mana-loss consequences. Typed Aura spell entry is tracked separately as **22-aura**; broader attachment mechanics remain open.
+
+**21-reach and 21-fear are available:** canonical printed and temporary keywords use the shared blocking checks. Fear admits artifact or black creatures and preserves other restrictions. Profane Command has migrated with all four modes; reach consumers retain their other gates.
 
 ## Suggested next work
 
@@ -166,7 +168,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
 | <a id="14-counters"></a>**14-counters — Counter-count amounts** | Open | Read named counter counts for production, doubling, or other numeric effects. | — | `Everflowing Chalice`; `Mossborn Hydra` |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Open | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. | — | `Sandstone Oracle` |
-| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Profane Command`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
+| <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Available | Object filters compare power, toughness, mana value, or loyalty against X and other amounts, including greatest-power ties. Black Sun's Twilight has migrated. | — | `Finale of Devastation`; `Getaway Glamer`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
 | <a id="14-greatest"></a>**14-greatest — Greatest characteristic** | Available | Compute/capture maximum power or another characteristic over an object set; use it for pump/draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. | — | `Rishkar's Expertise` |
 | <a id="14-signed-minimum"></a>**14-signed-minimum — Signed player-life minimum** | Open | Compute the lowest actual life total across players, including negative totals. | — | `Repay in Kind` |
 | <a id="14-result-max"></a>**14-result-max — Maximum action result** | Open | Compute a maximum over per-player action results such as actual discarded counts; this does not require an object-power query. | — | `Windfall` |
@@ -231,7 +233,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | --- | --- | --- | --- | --- |
 | <a id="21-annihilator"></a>**21-annihilator — Annihilator** | Open | Defending-player sacrifice on attack, through ordinary typed sacrifice choices. | [09-count](#09-count), [34-defender](#34-defender) | `It That Betrays` |
 | <a id="21-even"></a>**21-even — Even-mana-value restrictions** | Open | Apply parity restrictions to casting and blocking, including mana value zero. | — | `Void Winnower` |
-| <a id="21-fear"></a>**21-fear — Fear** | Open | Canonical keyword authoring and artifact-or-black blocker restriction. | — | `Profane Command` |
+| <a id="21-fear"></a>**21-fear — Fear** | Available | Canonical keyword authoring and artifact-or-black blocker restriction. Profane Command has migrated. | — | None remaining |
 | <a id="21-first-strike"></a>**21-first-strike — First strike** | Open | Canonical keyword authoring and first-strike damage steps. | — | `Sire of Seven Deaths` |
 | <a id="21-infect"></a>**21-infect — Infect** | Open | Canonical keyword authoring and poison/-1/-1-counter damage results. | — | `Blightsteel Colossus` |
 | <a id="21-lifelink"></a>**21-lifelink — Lifelink** | Open | Canonical keyword authoring and actual-damage life gain. | — | `Mister Negative`; `Sire of Seven Deaths`; `Valgavoth, Terror Eater`; `Yarok, the Desecrated` |

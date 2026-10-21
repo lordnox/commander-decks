@@ -1,3 +1,4 @@
+import profaneCommand from './profane-command'
 import yurlokOfScorchThrash from './yurlok-of-scorch-thrash'
 import wildGrowth from './wild-growth'
 import utopiaSprawl from './utopia-sprawl'
@@ -272,6 +273,7 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  'Profane Command': profaneCommand,
   "Yurlok of Scorch Thrash": yurlokOfScorchThrash,
   "Wild Growth": wildGrowth,
   "Utopia Sprawl": utopiaSprawl,

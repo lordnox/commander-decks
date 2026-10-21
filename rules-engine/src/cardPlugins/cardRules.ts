@@ -80,7 +80,6 @@ import {
   mayPayLifeDraw,
   millTarget,
   modalChooseOne,
-  modalChooseTwo,
   modalCommanderChooseBoth,
   onResolve,
   onResolveIfCastOption,
@@ -90,7 +89,6 @@ import {
   playLandsFromGraveyard,
   pluginIdsFromEffects,
   ptEqualsLife,
-  pumpTargetX,
   pumpControlled,
   pumpFromLinkedExilePower,
   pumpPerLinkedExile,
@@ -106,7 +104,6 @@ import {
   putHandCardOnLibraryBottom,
   reduceGenericIf,
   reanimateCreatureFromGraveyards,
-  returnCreatureManaValueX,
   returnTargetFromGraveyard,
   returnLinkedExile,
   returnOwnedGraveyardLands,
@@ -887,31 +884,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
       filter: { zone: 'battlefield', type: 'Creature', supertype: 'Legendary' },
     }),
     targetOnResolve('destroy', { zone: 'battlefield', type: 'Creature' }, surveil(2)),
-  ],
-  'Profane Command': [
-    xMana(),
-    modalChooseTwo(
-      {
-        id: 'drain',
-        label: 'Target player loses X life.',
-        do: [{ kind: 'loseLifeTargetPlayer', amount: 0 }],
-      },
-      {
-        id: 'reanimate',
-        label: 'Return a creature card with mana value X or less from your graveyard.',
-        do: [returnCreatureManaValueX()],
-      },
-      {
-        id: 'shrink',
-        label: 'Target creature gets -X/-X until end of turn.',
-        do: [pumpTargetX(-1)],
-      },
-      {
-        id: 'fear',
-        label: 'Up to X target creatures gain fear until end of turn.',
-        do: [{ kind: 'grantUntilEot', keywords: ['fear'], maxFromX: true }],
-      },
-    ),
   ],
   'Quantum Misalignment': [
     targetOnResolve(

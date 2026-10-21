@@ -110,12 +110,6 @@
   {
     "path": "rules-engine/src/cardPlugins/cardRules.ts",
     "code": "legacy-card-registration",
-    "digest": "b60657c2438176b8b51c43f8ee9ce64916ca56b00beabde6e647f278f38dbac5",
-    "card": "Profane Command"
-  },
-  {
-    "path": "rules-engine/src/cardPlugins/cardRules.ts",
-    "code": "legacy-card-registration",
     "digest": "3b8557352824bfceb9851fc606b0b60095d44b5c5ac11d0ff6b0367fb203be8b",
     "card": "Will of the Sultai"
   },

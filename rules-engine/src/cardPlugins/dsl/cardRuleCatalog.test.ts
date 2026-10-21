@@ -1889,3 +1889,21 @@ test('remaining mana-production cards retain costs, timing, triggers, Aura restr
     }
   }
 })
+
+
+test('Profane Command composes exactly two X modes with targeted return, shrink, and fear', () => {
+  const template = cardTemplateDefaultsFor('Profane Command')!
+  expect(template).toMatchObject({ types: ['Sorcery'], colors: ['B'], manaCost: '{X}{B}{B}', manaValue: 2 })
+  const ability = cardRuleDefinitionSnapshotFor('Profane Command')!.definition.abilities[0]!
+  expect(ability).toMatchObject({
+    kind: 'spell',
+    costs: [{ kind: 'mana', amount: '{X}{B}{B}' }],
+    decisions: { variables: [{ name: 'X' }], modes: { count: { kind: 'constant', value: 2 }, repeatable: false } },
+    modes: [
+      { decisions: { targets: [{ filter: { kind: 'players' } }] }, instructions: [{ kind: 'loseLife', targets: { kind: 'targetRef', clauseIndex: 0 }, amount: { kind: 'variable', name: 'X' } }] },
+      { decisions: { targets: [{ filter: { kind: 'objects', filter: { zone: 'graveyard', owner: 'you', type: 'Creature', compareCharacteristic: { characteristic: 'manaValue', operator: 'lte', than: { kind: 'variable', name: 'X' } } } } }] }, instructions: [{ kind: 'move', to: 'battlefield' }] },
+      { instructions: [{ kind: 'createEffect', effect: { kind: 'pump', power: { kind: 'negate', value: { kind: 'variable', name: 'X' } }, toughness: { kind: 'negate', value: { kind: 'variable', name: 'X' } } }, duration: { kind: 'untilCleanup' } }] },
+      { decisions: { targets: [{ min: { kind: 'constant', value: 0 }, max: { kind: 'variable', name: 'X' } }] }, instructions: [{ kind: 'createEffect', effect: { kind: 'grantKeyword', keyword: KEYWORDS.fear }, duration: { kind: 'untilCleanup' } }] },
+    ],
+  })
+})
