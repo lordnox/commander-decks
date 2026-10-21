@@ -203,7 +203,6 @@ import {
   destroyAll,
   playerAuraDeal,
   targetingRequirement,
-  addManaAtNextMainFromTarget,
   addPlusCountersToControlled,
   opponentMayDrawThenStealCast,
   flashback,
@@ -941,13 +940,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Lumra, Bellow of the Woods': [
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
-  ],
-  'Mana Drain': [
-    targetOnResolve(
-      'counter',
-      { zone: 'stack' },
-      addManaAtNextMainFromTarget(),
-    ),
   ],
   'Marina Vendrell': [
     enters(revealMatchingToHand(7, 'Enchantment')),

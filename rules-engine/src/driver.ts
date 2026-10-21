@@ -553,7 +553,7 @@ const registerCanonicalDelayed = (
       })()
     : {
         kind: 'step' as const,
-        step: condition.step as StepId,
+        step: (Array.isArray(condition.step) ? [...condition.step] : condition.step) as StepId | StepId[],
         ...(condition.active
           ? { active: evaluatePlayerReference(condition.active, context)[0] }
           : {}),

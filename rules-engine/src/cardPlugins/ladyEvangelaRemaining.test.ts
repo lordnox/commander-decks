@@ -242,7 +242,7 @@ describe('Lady Evangela remaining coverage', () => {
       {
         hands: {
           p1: [cardTemplate('Mana Drain', { types: ['Instant'], manaCost: '{U}{U}' })],
-          p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}' })],
+          p2: [cardTemplate('Fat Spell', { types: ['Sorcery'], manaCost: '{4}{G}', manaValue: 5 })],
         },
         libraries: { p1: [cardTemplate('Keep Alive')] },
       },
@@ -256,13 +256,14 @@ describe('Lady Evangela remaining coverage', () => {
       seat: 'p2',
       objectId: named(state, 'Fat Spell').id,
     }))
+    const stackId = state.stack[0]!.id
     state.priority = 'p1'
     state.players.p1.mana.U = 2
     state = ok(server.rules(state, {
       type: 'castSpell',
       seat: 'p1',
       objectId: named(state, 'Mana Drain').id,
-      targets: [{ kind: 'object', objectId: named(state, 'Fat Spell').id }],
+      targets: [{ kind: 'stackItem', stackId }],
     }))
     state = ok(server.rules(state, { type: 'resolveTop' }))
     expect(named(state, 'Fat Spell').zone).toBe('graveyard')

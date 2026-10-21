@@ -453,7 +453,7 @@ export type Instruction =
 
 export type DelayedPattern =
   | { kind: 'event'; type: string; objectId?: ObjectReference; from?: Zone; to?: Zone }
-  | { kind: 'step'; step: string; active?: PlayerReference }
+  | { kind: 'step'; step: StepId | readonly StepId[]; active?: PlayerReference }
 
 export type ResolutionProgram =
   | { instructions: readonly Instruction[]; modes?: never }

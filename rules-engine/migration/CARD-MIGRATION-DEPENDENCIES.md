@@ -101,7 +101,6 @@ Current readiness: **0 composition candidates**; **193 blocked or awaiting sourc
 | `Lotho, Corrupt Shirriff` | 35 | [35-ordinal](CARD-MIGRATION-BATCHES.md#35-ordinal) | Blocked by mechanics | — |
 | `Lumbering Battlement` | 18 | [18-duration](CARD-MIGRATION-BATCHES.md#18-duration), [18-links](CARD-MIGRATION-BATCHES.md#18-links) | Blocked by mechanics | Include linked-card count in continuous stat modification. |
 | `Lumra, Bellow of the Woods` | 22 | [22-characteristics](CARD-MIGRATION-BATCHES.md#22-characteristics), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach/vigilance, land-count CDA, and mill/return lands. |
-| `Mana Drain` | 20 | [13-delayed-main](CARD-MIGRATION-BATCHES.md#13-delayed-main), [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Capture target mana value and schedule the next-main mana; counter follow-up is not conditional on counter success. |
 | `Marina Vendrell` | 43 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [08](CARD-MIGRATION-BATCHES.md#08) | Resolve full source, then re-evaluate | Full source-text review required: cache lookup unresolved; include reveal-seven enchantments and door activation. |
 | `Masked Vandal` | 36 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling), [36-exile](CARD-MIGRATION-BATCHES.md#36-exile) | Blocked by mechanics | — |
 | `Maskwood Nexus` | 22 | [22-changeling](CARD-MIGRATION-BATCHES.md#22-changeling) | Blocked by mechanics | — |

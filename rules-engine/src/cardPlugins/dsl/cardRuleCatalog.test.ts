@@ -1479,6 +1479,20 @@ test('Braids offers an eligible hand permanent to the active upkeep player', () 
   }])
 })
 
+test('Mana Drain captures the spell mana value then pays colorless at the next main', () => {
+  expect(effectsFor('Mana Drain')).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Mana Drain')!.definition.abilities).toMatchObject([{
+    kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } } }] },
+    instructions: [
+      { kind: 'captureAmount', bindResult: 'manaValue' },
+      { kind: 'counter' },
+      { kind: 'createDelayed', inheritTargets: false, condition: { kind: 'step', step: ['precombatMain', 'postcombatMain'] }, instructions: [
+        { kind: 'addMana', targets: { kind: 'contextRef', name: 'controller' } },
+      ] },
+    ],
+  }])
+})
+
 test('Arcane Denial captures the spell controller and creates two non-targeting next-turn upkeep abilities', () => {
   expect(cardRuleDefinitionSnapshotFor('Arcane Denial')!.definition.abilities).toMatchObject([{
     kind: 'spell', decisions: { targets: [{ filter: { kind: 'stackItems', filter: { kind: 'spell' } } }] },
