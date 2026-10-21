@@ -1,10 +1,10 @@
 # Card migration strategy: mechanics first
 
-Snapshot: PR #432 after group 17; continues #394 and #383. **182 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker are now canonical.
+Snapshot: PR #432 after group 17; continues #394 and #383. **180 legacy registration keys remain.** This counts exact registration keys, including aliases/faces, rather than distinct physical cards. The ten composition candidates from the prior snapshot, plus Dig Through Time, Reprocess, Scapeshift, Victimize, Dark Confidant, Dark Tutelage, Braids, Arcane Denial, Mana Drain, Overwhelming Stampede, Pathbreaker Ibex, Return of the Wildspeaker, Mystic Sanctuary, Choked Estuary, Sea Gate Restoration // Sea Gate, Reborn, and Sink into Stupor // Soporific Springs are now canonical.
 
 Implement reusable mechanics independently, then migrate every card whose complete set of prerequisites is available. A card can depend on several mechanics and does not belong to one implementation group. Completing a mechanic does not require migrating cards blocked by another mechanic.
 
-**168 mechanic entries:** 23 available, 1 awaiting correctness follow-up, and 144 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
+**168 mechanic entries:** 25 available, 1 awaiting correctness follow-up, and 142 open work items. These are planning slices, not equal effort units. Counts of dependent cards overlap and must not be added.
 
 ## How to use this plan
 
@@ -25,7 +25,7 @@ No new legacy behavior or baseline allowances. Keep the existing one-PR workflow
 - **Composition candidate:** all *known* mechanic dependencies are available; still needs current Oracle/ruling review and composition validation. This is not a claim that the card is implemented.
 - **Source review:** the planning lookup did not resolve a complete cached source for that card. Its dependency set is provisional; resolve the complete specification before claiming readiness.
 
-Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 182 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
+Sources: the current canonical [schema](../src/cardPlugins/dsl/schema/v1.ts), builders/runtime, [coverage ledger](rule-dsl-coverage-ledger.json), legacy registrations, prior migration inventory, and cached `cards/*.json`. This is a dependency-planning pass, not a fresh live Oracle audit of all 180 registrations. Ordinary supported operations (draw, gain/lose life, selectors, typed choices, counters, moves, modes, and similar composition) are assumed; the lists emphasize additional mechanics and relevant already-available shared dependencies.
 
 ## What changed from the card batches
 
@@ -35,7 +35,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - **09-count is available:** Reprocess, Scapeshift, and Victimize have migrated. Pitiless Carnage still needs plot; 09-devour still needs its entry-replacement/counter support. Deferred choices for the same player now reopen correctly (#444).
 - **13-step is available:** native step triggers and their active-player context are canonical. Dark Confidant, Dark Tutelage, Braids, and Arcane Denial have migrated. Delayed callbacks can exclude the current turn.
 - **13-delayed-main is available:** next precombat or postcombat main of a specified player, whichever occurs first, retains captured amounts after the source leaves. Mana Drain has migrated.
-- **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration still needs **16-faces** and **16-hand-limit**.
+- **14-add is available:** unsigned amount addition composes with counts and other amounts. Sea Gate Restoration has migrated with **16-hand-limit** and **16-faces**.
 - **14-greatest is available:** maximum power (or toughness, mana value, loyalty) over an object set drives pump and draw. Overwhelming Stampede, Pathbreaker Ibex, and Return of the Wildspeaker have migrated. Rishkar's Expertise still needs **14-filter** and **26-hand**.
 - **25-delve is available:** Dig Through Time has migrated. Remaining 25-family costs stay open.
 - **07 is available:** both implementation slices landed. Fractured Identity, Settle the Wreckage, and Terastodon are no longer pending.
@@ -44,6 +44,7 @@ The historical family numbers 01–44 remain stable for earlier discussions. Suf
 - Correct planning shortcuts from the former list: Dack is a creature; Bender's Waterskin needs other-player untap participation; Rain of Filth grants activated abilities; Sail into the West uses public voting; Trap the Trespassers uses secret creature votes and existing stun counters. Niv-Mizzet has no established Room dependency.
 
 - **15 is available:** player choice/iteration, commander status, quantified player comparisons, mana-ability filters, and name queries are canonical. Beza, Guardian Project, Field of the Dead, Moonsilver Key, and Singularity Rupture have migrated. Other consumers retain their independent prerequisites.
+- **16-hand-limit and 16-stack-object are available:** Sea Gate Restoration // Sea Gate, Reborn and Sink into Stupor // Soporific Springs have migrated with pay-life MDFC composition.
 
 - **17 is available:** conditional tapped entry uses the prospective controller; optional hand reveals use private typed choices followed by public reveal; entry counters accept constants, paid-cost counts on the move, or captured replacement results before observers and state-based actions. Mystic Sanctuary and Choked Estuary have migrated. Hall of Storm Giants/Lair of the Hydra still need animation (and ward for Hall); Everflowing Chalice, Famished Worldsire, Mossborn Hydra, and Spark Double retain their multikicker/devour/counter-mutation/copy-entry gates.
 
@@ -57,7 +58,7 @@ First review the composition candidates below. Then choose a small mechanic that
 | [21-static](#21-static) | Concordant Crossroads | Archetype of Endurance also needs suppression; Thunderfoot Baloth needs a commander predicate. |
 | [22-land-types](#22-land-types) | Blanket of Night; Urborg, Tomb of Yawgmoth; Yavimaya, Cradle of Growth | Preserve intrinsic mana abilities and layers. |
 
-**No remaining composition candidates.** Groups 15 and 17 have migrated their seven eligible consumers; the remaining cards retain other mechanic gates.
+**No remaining composition candidates.** Groups 15–17 have migrated their nine eligible consumers; the remaining cards retain other mechanic gates.
 
 ## Mechanic groups
 
@@ -83,7 +84,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="04"></a>**04 — Optional pay-life entry** | Available | Canonical optional life payment and tapped-entry branching; reuse for pay-3-life lands. | — | `Sea Gate Restoration // Sea Gate, Reborn`; `Sink into Stupor // Soporific Springs` |
+| <a id="04"></a>**04 — Optional pay-life entry** | Available | Canonical optional life payment and tapped-entry branching; reuse for pay-3-life lands. | — | None remaining |
 
 ### 05. Damage prevention
 
@@ -157,7 +158,7 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | `Sea Gate Restoration // Sea Gate, Reborn` |
+| <a id="14-add"></a>**14-add — Amount addition** | Available | Add numeric amount expressions without using unsigned stat-delta shortcuts. | — | None remaining |
 | <a id="14-counters"></a>**14-counters — Counter-count amounts** | Open | Read named counter counts for production, doubling, or other numeric effects. | — | `Everflowing Chalice`; `Mossborn Hydra` |
 | <a id="14-difference"></a>**14-difference — Nonnegative amount difference** | Open | Subtract player/object counts with the correct nonnegative floor for draw/effect counts. | — | `Sandstone Oracle` |
 | <a id="14-filter"></a>**14-filter — Dynamic characteristic filters** | Open | Mana-value comparisons against X and other amounts, and relational power filters such as greatest-power ties. | — | `Black Sun's Twilight`; `Finale of Devastation`; `Getaway Glamer`; `Profane Command`; `Rishkar's Expertise`; `Ugin, the Spirit Dragon` |
@@ -180,9 +181,9 @@ First review the composition candidates below. Then choose a small mechanic that
 
 | Mechanic ID | Status | Reusable contract | Prerequisites | Known dependent registrations |
 | --- | --- | --- | --- | --- |
-| <a id="16-faces"></a>**16-faces — Pay-life MDFC composition** | Available | Reuse the existing modal face handoff and pay-life replacement; migrate every front/back behavior and alias together. | [04](#04) | `Sea Gate Restoration // Sea Gate, Reborn`; `Sink into Stupor // Soporific Springs` |
-| <a id="16-hand-limit"></a>**16-hand-limit — Duration-based player hand-size grant** | Open | Grant unlimited hand size for the rest of the game independently of the resolving source. | — | `Sea Gate Restoration // Sea Gate, Reborn` |
-| <a id="16-stack-object"></a>**16-stack-object — Mixed spell/permanent bounce** | Open | Target a spell or a nonland permanent in one clause and return its underlying card to its owner's hand. | — | `Sink into Stupor // Soporific Springs` |
+| <a id="16-faces"></a>**16-faces — Pay-life MDFC composition** | Available | Reuse the existing modal face handoff and pay-life replacement; migrate every front/back behavior and alias together. Sea Gate Restoration and Sink into Stupor have migrated. | [04](#04) | None remaining |
+| <a id="16-hand-limit"></a>**16-hand-limit — Duration-based player hand-size grant** | Available | Grant unlimited hand size for the rest of the game independently of the resolving source. Sea Gate Restoration has migrated. | — | None remaining |
+| <a id="16-stack-object"></a>**16-stack-object — Mixed spell/permanent bounce** | Available | Target a spell or a nonland permanent in one clause and return its underlying card to its owner's hand. Sink into Stupor has migrated. | — | None remaining |
 
 ### 17. Conditional land entry
 

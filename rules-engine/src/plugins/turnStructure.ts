@@ -176,6 +176,12 @@ const apply = ({ event, draft }: HookCtx) => {
     return
   }
   if (event.type === 'emptyManaPools') emptyAllManaPools(draft)
+  if (event.type === 'grantNoMaximumHandSize') {
+    const player = draft.players[event.seat]
+    if (!player) return
+    player.data[NO_MAXIMUM_HAND_SIZE] = true
+    draft.note(`${event.seat} has no maximum hand size for the rest of the game`)
+  }
 }
 
 export const turnStructure: Plugin = { id: 'turnStructure', legal, replace, apply }

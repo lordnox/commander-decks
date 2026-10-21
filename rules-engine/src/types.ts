@@ -970,6 +970,8 @@ export type DelayedTrigger = {
 export type GameEvent =
   /** Internal canonical player allowance; expires at cleanup. */
   | { type: 'grantLandPlays'; seat: PlayerId; count: number }
+  /** Internal canonical player grant; lasts for the rest of the game. */
+  | { type: 'grantNoMaximumHandSize'; seat: PlayerId }
   // — Priority / structure —
   | { type: 'passPriority'; seat: PlayerId }
   | { type: 'resolveTop' }

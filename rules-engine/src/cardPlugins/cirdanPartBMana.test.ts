@@ -5,9 +5,9 @@ import { emptyMana } from '../draft'
 import { commanderRules } from '../formats'
 import { cardTemplate } from '../newGame'
 import type { CardTemplate } from '../newGame'
-import { DIALOG_CHOSEN } from '../pendingDialog'
 import { maximumHandSize } from '../plugins/turnStructure'
 import { pendingOptionSelection } from '../rules/selectOptions'
+import { DECLINE_LIFE_OPTION, PAY_LIFE_OPTION } from './dsl/v1'
 import { createServerGame } from '../runtime'
 import { ok, resolveStack } from '../testHelpers'
 import type { GameEvent, GameState } from '../types'
@@ -58,6 +58,23 @@ const named = (state: GameState, name: string) =>
   Object.values(state.objects).filter((object) => object.name === name)
 
 const one = (state: GameState, name: string) => named(state, name)[0]
+
+const playSeaGate = (server: Server, state = server.state) =>
+  ok(server.rules(state, {
+    type: 'playLand',
+    seat: 'p1',
+    objectId: one(state, SEA_GATE).id,
+  }))
+
+const chooseSeaGateLife = (server: Server, state: GameState, optionId: string) => {
+  const pending = pendingOptionSelection(state, 'p1')!
+  return ok(server.rules(state, {
+    type: 'selectOption',
+    seat: 'p1',
+    selectionId: pending.id,
+    optionId,
+  }))
+}
 
 const run = (server: Server, state: GameState, events: GameEvent[]) =>
   events.reduce((current, event) => ok(server.rules(current, event)), state)
@@ -282,29 +299,14 @@ describe('Sea Gate Restoration // Sea Gate, Reborn', () => {
     }).ok).toBe(false)
   })
 
-  const play = (server: Server) =>
-    ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: one(server.state, SEA_GATE).id,
-    }))
-
   test('as a land you may pay exactly 3 life to have it untapped, and it taps for {U}', () => {
     const server = game({ hand: [card()] })
-    const asked = play(server)
-    expect(one(asked, SEA_GATE)).toMatchObject({ types: ['Land'], tapped: false })
-    const [dialog] = asked.players.p1.data['kernel.pendingDialog'] as Array<{ prompt: string }>
-    expect(dialog).toMatchObject({ source: SEA_GATE, kind: 'may-pay-life', count: 3 })
-    expect(dialog.prompt).toContain('pay 3 life')
-    const paid = ok(server.rules(asked, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: true },
-    }))
-    const settled = resolveStack(server.rules, paid)
+    const asked = playSeaGate(server)
+    const pending = pendingOptionSelection(asked, 'p1')!
+    expect(pending.options.map((option) => option.id)).toEqual([PAY_LIFE_OPTION, DECLINE_LIFE_OPTION])
+    const settled = chooseSeaGateLife(server, asked, PAY_LIFE_OPTION)
     expect(settled.players.p1.life).toBe(server.state.players.p1.life - 3)
-    expect(one(settled, SEA_GATE).tapped).toBe(false)
+    expect(one(settled, SEA_GATE)).toMatchObject({ types: ['Land'], tapped: false })
     const mana = ok(server.rules(settled, {
       type: 'tapForMana',
       seat: 'p1',
@@ -315,12 +317,7 @@ describe('Sea Gate Restoration // Sea Gate, Reborn', () => {
 
   test('declining the payment enters it tapped and costs no life', () => {
     const server = game({ hand: [card()] })
-    const declined = ok(server.rules(play(server), {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: false },
-    }))
+    const declined = chooseSeaGateLife(server, playSeaGate(server), DECLINE_LIFE_OPTION)
     expect(one(declined, SEA_GATE).tapped).toBe(true)
     expect(declined.players.p1.life).toBe(server.state.players.p1.life)
   })
@@ -329,17 +326,7 @@ describe('Sea Gate Restoration // Sea Gate, Reborn', () => {
     const server = game({ hand: [card()] })
     const low = structuredClone(server.state)
     low.players.p1.life = 2
-    const asked = ok(server.rules(low, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: one(low, SEA_GATE).id,
-    }))
-    const settled = ok(server.rules(asked, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: true },
-    }))
+    const settled = chooseSeaGateLife(server, playSeaGate(server, low), PAY_LIFE_OPTION)
     expect(settled.players.p1.life).toBe(2)
     expect(one(settled, SEA_GATE).tapped).toBe(true)
   })
@@ -348,34 +335,24 @@ describe('Sea Gate Restoration // Sea Gate, Reborn', () => {
     const server = game({ hand: [card()] })
     const edge = structuredClone(server.state)
     edge.players.p1.life = 3
-    const asked = ok(server.rules(edge, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: one(edge, SEA_GATE).id,
-    }))
-    const settled = ok(server.rules(asked, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p1',
-      payload: { accepted: true },
-    }))
+    const settled = chooseSeaGateLife(server, playSeaGate(server, edge), PAY_LIFE_OPTION)
     expect(settled.players.p1.life).toBe(0)
     expect(settled.players.p1.lost).toBe(true)
   })
 
   test('the life choice is private to its controller and survives a restart', () => {
     const server = game({ hand: [card()] })
-    const asked = play(server)
-    expect(server.project(asked, 'p2').players.p1.data['kernel.pendingDialog']).toBeUndefined()
+    const asked = playSeaGate(server)
+    expect(server.project(asked, 'p1').players.p1.data['kernel.pendingOptionSelection']).toBeDefined()
+    expect(server.project(asked, 'p2').players.p1.data['kernel.pendingOptionSelection']).toBeUndefined()
     const restarted = structuredClone(asked)
-    expect(restarted.players.p1.data['kernel.pendingDialog']).toMatchObject([{ count: 3 }])
+    const pending = pendingOptionSelection(restarted, 'p1')!
     const paid = ok(server.rules(restarted, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
+      type: 'selectOption',
       seat: 'p1',
-      payload: { accepted: true },
+      selectionId: pending.id,
+      optionId: PAY_LIFE_OPTION,
     }))
-    expect(resolveStack(server.rules, paid).players.p1.life)
-      .toBe(server.state.players.p1.life - 3)
+    expect(paid.players.p1.life).toBe(server.state.players.p1.life - 3)
   })
 })

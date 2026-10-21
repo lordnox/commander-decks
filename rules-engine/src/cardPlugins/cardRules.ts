@@ -8,9 +8,7 @@ import {
   allCreatureTypes,
   animateUntilEot,
   chooseColorOnEnter,
-  drawHandSize,
   enchantedManaBoost,
-  noMaximumHandSize,
   attachedCopyOrToken,
   attackTax,
   attacks,
@@ -143,7 +141,6 @@ import {
   surveil,
   tapAll,
   triggerOn,
-  tapUnlessPayLife,
   typecycleHand,
   teferiSunsetEmblem,
   teferiSunsetPlusOne,
@@ -1184,10 +1181,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(copyControlledCreature({ keepName: true })),
   ],
   'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
-  'Sea Gate Restoration // Sea Gate, Reborn': [
-    tapUnlessPayLife(3),
-    onResolve(drawHandSize(1), noMaximumHandSize()),
-  ],
   "Selvala's Stampede": [
     onResolve(vote(
       'Vote for wild or free.',
@@ -1207,13 +1200,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   "Sin, Spira's Punishment": [
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),
-  ],
-  'Sink into Stupor // Soporific Springs': [
-    tapUnlessPayLife(3),
-    targetOnResolve(
-      'bounce',
-      { zones: ['stack', 'battlefield'], nonland: true, controller: 'opponent' },
-    ),
   ],
   'Sire of Seven Deaths': [ward({ life: 7 })],
   Six: [
