@@ -3154,7 +3154,7 @@ describe('kernel host journal', () => {
           ],
         },
       },
-      { random: () => 0.5, cardPlugins: [combatPreventionCards] },
+      { random: () => 0.5 },
     )
     const initial = structuredClone(server.state)
     initial.players.p1.mana = { W: 2, U: 0, B: 0, R: 0, G: 0, C: 2 }
@@ -3182,12 +3182,12 @@ describe('kernel host journal', () => {
       seat: 'p2',
       kind: 'choose',
       cards: ['Plains'],
-      destinations: ['library', 'battlefield'],
-      requirements: { battlefield: { min: 0, max: 1 } },
+      destinations: ['target', 'skip'],
+      requirements: { target: { min: 0, max: 1 } },
     })
     expect(applyKernelChoice(restored, lobby, 'p2', slotted(lobby, {
       type: 'topdeck',
-      choices: [{ card: 'Plains', destination: 'battlefield' }],
+      choices: [{ card: 'Plains', destination: 'target' }],
     }))).toBe(true)
     const plains = Object.values(restored.history.current().objects)
       .find((object) => object.name === 'Plains')!

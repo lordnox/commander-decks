@@ -85,7 +85,8 @@ const fixedCanonicalMana = (
   const context = { state, controller: object.controller, source: captureObject(object) }
   for (const instruction of instructions) {
     switch (instruction.kind) {
-      case 'sequence': {
+      case 'sequence':
+      case 'forEach': {
         const nested = fixedCanonicalMana(state, object, instruction.instructions)
         if (!nested) return undefined
         pool = addPools(pool, nested)

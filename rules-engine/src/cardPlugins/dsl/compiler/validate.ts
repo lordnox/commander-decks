@@ -190,7 +190,7 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'resultRef': {
         exactKeys(node, path, ['kind', 'binding', 'field'], ['kind', 'binding', 'field'])
         const name = bindingName(node.binding, childPath(path, 'binding'))
-        const field = enumeration(node.field, childPath(path, 'field'), new Set(['player', 'amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created']), 'result field') as ResultField | undefined
+        const field = enumeration(node.field, childPath(path, 'field'), new Set(['player', 'amount', 'discarded', 'discardedCount', 'countered', 'paid', 'moved', 'destroyed', 'sacrificed', 'created', 'copied']), 'result field') as ResultField | undefined
         if (name && field) {
           const binding = env.locals.get(name)
           if (binding && binding.kind !== 'result') issue(childPath(path, 'binding'), 'binding-kind', `${name} is a choice binding, not a result binding`)
@@ -626,6 +626,11 @@ export const validateDefinitionV1 = (root: unknown): {
         validateAmount(node.amount, childPath(path, 'amount'), env)
         declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindResult'))
         return
+      case 'captureCopy':
+        exactKeys(node, path, ['kind', 'targets', 'bindResult'], ['kind', 'targets', 'bindResult'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        declareBinding(env, bindingName(node.bindResult, childPath(path, 'bindResult')), { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['copied']) }, childPath(path, 'bindResult'))
+        return
       case 'addMana': {
         exactKeys(node, path, ['kind', 'amount', 'targets'], ['kind', 'amount', 'targets'])
         const amount = object(node.amount, childPath(path, 'amount'))
@@ -683,11 +688,14 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         return
       case 'destroy':
-        exactKeys(node, path, ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, ['kind', 'targets', 'bindResult', 'bindChoice'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['destroyed']) }, childPath(path, 'bindResult'))
+        }
+        if (node.bindChoice !== undefined) {
+          declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
         }
         return
       case 'sacrifice':
@@ -713,7 +721,9 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
-          declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>([node.kind === 'move' ? 'moved' : 'sacrificed']) }, childPath(path, 'bindResult'))
+          declareBinding(env, name, node.kind === 'move'
+            ? { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }
+            : { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['sacrificed']) }, childPath(path, 'bindResult'))
         }
         if (node.kind === 'move' && node.order !== undefined) {
           if (node.order !== 'random') issue(childPath(path, 'order'), 'enum', 'unsupported move order')
@@ -758,15 +768,25 @@ export const validateDefinitionV1 = (root: unknown): {
         }
         return
       }
-      case 'copy':
-        exactKeys(node, path, ['kind', 'targets', 'controller', 'bindResult'], ['kind', 'targets'])
-        validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+      case 'copy': {
+        const hasTargets = node.targets !== undefined
+        const hasSnapshot = node.snapshot !== undefined
+        if (hasTargets === hasSnapshot) issue(path, 'instruction-shape', 'copy requires exactly one of targets or snapshot')
+        exactKeys(node, path, ['kind', 'targets', 'snapshot', 'controller', 'bindResult'], hasTargets ? ['kind', 'targets'] : ['kind', 'snapshot'])
+        if (hasTargets) validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
+        if (hasSnapshot) {
+          const name = bindingName(node.snapshot, childPath(path, 'snapshot'))
+          if (name && !env.locals.get(name)?.fields?.has('copied')) {
+            issue(childPath(path, 'snapshot'), 'unresolved-binding', `copy snapshot ${name} is not bound`)
+          }
+        }
         if (node.controller !== undefined) validateRecipient(node.controller, childPath(path, 'controller'), env, ['player'])
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'number', fields: new Set<ResultField>(['created']) }, childPath(path, 'bindResult'))
         }
         return
+      }
       case 'copySpell':
         exactKeys(node, path, ['kind', 'targets', 'controller', 'retarget', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['stack'])
@@ -954,6 +974,11 @@ export const validateDefinitionV1 = (root: unknown): {
       case 'sequence':
         exactKeys(node, path, ['kind', 'instructions'], ['kind', 'instructions'])
         validateInstructionList(node.instructions, childPath(path, 'instructions'), env, depth + 1)
+        return
+      case 'forEach':
+        exactKeys(node, path, ['kind', 'of', 'instructions'], ['kind', 'of', 'instructions'])
+        validateRecipient(node.of, childPath(path, 'of'), env, ['object'])
+        validateInstructionList(node.instructions, childPath(path, 'instructions'), withEventPlayer(env), depth + 1)
         return
       case 'chooseInstructions': {
         exactKeys(node, path, ['kind', 'chooser', 'count', 'options', 'whenInsufficient', 'prompt', 'optional'], ['kind', 'chooser', 'count', 'options', 'whenInsufficient'])

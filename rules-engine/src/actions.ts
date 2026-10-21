@@ -1233,7 +1233,9 @@ const canonicalTargetRef = (state: GameState, id: string) => {
 }
 
 const fogsAllCombatThisTurn = (instruction: Instruction): boolean => {
-  if (instruction.kind === 'sequence') return instruction.instructions.some(fogsAllCombatThisTurn)
+  if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
+    return instruction.instructions.some(fogsAllCombatThisTurn)
+  }
   if (instruction.kind !== 'createEffect' || instruction.effect.kind !== 'prevention') return false
   const { effect, duration } = instruction
   return effect.capacity.kind === 'unlimited'
@@ -1715,15 +1717,6 @@ const targetVariants = (
       targetObjectId: target.id,
       targetName: target.name,
     }))
-  }
-  if (source?.name === 'Settle the Wreckage') {
-    return state.playerOrder
-      .filter((player) => !state.players[player].lost)
-      .map((player) => ({
-        ...action,
-        targetPlayerId: player,
-        targetName: player,
-      }))
   }
   if (source?.name === 'Ephemerate' || source?.name === 'Vanish into Memory') {
     return Object.values(state.objects)

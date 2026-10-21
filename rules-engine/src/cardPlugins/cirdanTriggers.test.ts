@@ -107,7 +107,8 @@ describe('Terastodon', () => {
     expect([named(start, 'Terastodon').power, named(start, 'Terastodon').toughness]).toEqual([9, 9])
     const opened = enter(server, start, 'Terastodon')
     const selection = pendingSelectionFor(opened, 'p1')!
-    expect(selection).toMatchObject({ kind: 'choose', count: 3, min: 0, seat: 'p1' })
+    expect(selection).toMatchObject({ kind: 'choose', min: 0, seat: 'p1' })
+    expect(selection.count).toBe(selection.candidates.length)
     expect(selection.candidates.map((id) => opened.objects[id].name).sort()).toEqual(['Enemy Rock', 'Own Rock'])
     expect(pendingSelectionFor(projectForViewer(opened, 'p3'), 'p1')).toBeUndefined()
   })
@@ -128,7 +129,7 @@ describe('Terastodon', () => {
     expect(pendingSelectionFor(restored, 'p1')).toEqual(selection)
     const done = resolveStack(
       server.rules,
-      ok(server.rules(restored, choose(restored, ['Rock A', 'Rock B'], 3))),
+      ok(server.rules(restored, choose(restored, ['Rock A', 'Rock B'], selection.count))),
     )
     expect(elephants(done, 'p2')).toHaveLength(1)
     expect(elephants(done, 'p3')).toHaveLength(1)

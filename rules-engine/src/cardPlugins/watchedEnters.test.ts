@@ -439,7 +439,7 @@ describe('relocated from cirdanGrothamaGuardian.test.ts → watchedEnters.test.t
           count: order.count, objectIds: order.candidates,
         }))
         : opened
-      const afterChoice = ok(server.rules(ordered, choose(ordered, ['Own Rock'], 3)))
+      const afterChoice = ok(server.rules(ordered, choose(ordered, ['Own Rock'], pendingSelectionFor(ordered, 'p1')!.count)))
       const done = resolveStack(server.rules, answerTriggerOrder(server, afterChoice))
       expect(done.zoneOrder.p1.battlefield.map((id) => done.objects[id].name)).toContain('Elephant')
       // Terastodon drew one card; its Elephant did not.

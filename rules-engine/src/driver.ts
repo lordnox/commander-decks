@@ -3,7 +3,7 @@ import { cardRuleDefinition } from './cardPlugins/dsl/builders'
 import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION } from './cardPlugins/dsl/schema/v1'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { isPermanentType } from './definitions'
-import { captureObject, isSameObject, objectIdentity } from './objectIdentity'
+import { captureObject, isSameObject, objectIdentity, snapshotObject } from './objectIdentity'
 import {
   evaluateObjectReference,
   evaluateObjectSelector,
@@ -27,6 +27,7 @@ import type {
   DecisionsSpec,
   EffectDuration,
   Instruction,
+  ObjectRecipient,
   PlayerRecipient,
 } from './cardPlugins/dsl/schema/v1'
 import type Draft from './draft'
@@ -120,7 +121,7 @@ const preflightInstructions = (
 ) => {
   instructions.forEach((instruction, index) => {
     const instructionPath = `${path}[${index}]`
-    if (instruction.kind === 'sequence') {
+    if (instruction.kind === 'sequence' || instruction.kind === 'forEach') {
       preflightInstructions(instruction.instructions, `${instructionPath}.instructions`)
       return
     }
@@ -131,6 +132,7 @@ const preflightInstructions = (
       case 'inspectTop':
       case 'capturePlayer':
       case 'captureAmount':
+      case 'captureCopy':
       case 'gainLife':
       case 'loseLife':
       case 'blink':
@@ -378,7 +380,9 @@ const runtimeContext = (
   controller: frame.controller,
   source: frame.source,
   stackItemId: item.id,
-  ...(item.execution?.occurrence ? { occurrence: item.execution.occurrence } : {}),
+  ...((frame.scopes.at(-1)?.occurrence ?? item.execution?.occurrence)
+    ? { occurrence: frame.scopes.at(-1)?.occurrence ?? item.execution?.occurrence }
+    : {}),
   ...(item.execution?.capturedOccurrence ? { capturedOccurrence: item.execution.capturedOccurrence } : {}),
   ...(item.execution?.capturedOccurrenceBindings ? { capturedOccurrenceBindings: item.execution.capturedOccurrenceBindings } : {}),
   targets: (() => {
@@ -443,7 +447,7 @@ const objectRecipients = (objects: readonly GameObject[]) => objects.map((object
 })) as DamageRecipient[]
 
 const objectActions = (
-  recipient: Extract<Instruction, { kind: 'destroy' | 'sacrifice' | 'move' | 'phase' | 'copy' | 'putCounters' }>['targets'],
+  recipient: ObjectRecipient,
   context: RuleDslRuntimeContext,
 ) => recipient.kind === 'objects'
   ? evaluateObjectSelector(recipient, context)
@@ -690,6 +694,12 @@ const actionEvents = (
     case 'captureAmount':
       frame.results = { ...frame.results, [instruction.bindResult]: evaluateRuntimeAmount(instruction.amount, context) }
       return []
+    case 'captureCopy': {
+      const targets = objectActions(instruction.targets, context)
+      if (targets.length !== 1) throw new RuleDslEvaluationError('captureCopy requires exactly one object')
+      frame.capturedCopies = { ...frame.capturedCopies, [instruction.bindResult]: copyCharacteristics(targets[0]!) }
+      return []
+    }
     case 'gainLife':
     case 'loseLife': {
       const targets = recipients(instruction.targets, context)
@@ -763,6 +773,14 @@ const actionEvents = (
       const targets = objectActions(instruction.targets, context)
       const legal = targets.filter((object) => object.zone === 'battlefield' && !hasKeyword(object, 'indestructible', context.state))
       if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'destroy' }
+      if (instruction.bindChoice) frame.pendingDestroyedChoice = {
+        binding: instruction.bindChoice,
+        entries: legal.map(object => ({
+          objectId: object.id,
+          incarnation: object.incarnation,
+          snapshot: snapshotObject(object),
+        })),
+      }
       return legal.map((object) => ({ type: 'destroy' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'sacrifice': {
@@ -787,7 +805,10 @@ const actionEvents = (
         objects: targets.map(object => ({ objectId: object.id, zone: instruction.to,
           incarnation: object.incarnation + (object.zone !== instruction.to || instruction.to === 'exile' || instruction.to === 'command' ? 1 : 0) })),
       }
-      if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: true, eventType: 'move' }
+      if (instruction.bindResult) {
+        frame.results = { ...frame.results, [instruction.bindResult]: 0 }
+        frame.pendingResult = { binding: instruction.bindResult, kind: 'amount', eventType: 'move', value: 0, destination: instruction.to }
+      }
       return targets.map((object) => ({
         type: 'move' as const,
         objectId: object.id,
@@ -843,25 +864,34 @@ const actionEvents = (
       })))
     }
     case 'copy': {
-      const targets = objectActions(instruction.targets, context)
+      const sources = instruction.snapshot
+        ? (() => {
+          const snapshot = frame.capturedCopies?.[instruction.snapshot]
+          if (!snapshot) throw new RuleDslEvaluationError(`copy snapshot ${instruction.snapshot} is not bound`)
+          return [{ objectId: frame.source.ref.objectId, token: snapshot }]
+        })()
+        : objectActions(instruction.targets!, context).map(object => ({
+          objectId: object.id,
+          token: copyCharacteristics(object),
+        }))
       const controllers = instruction.controller
         ? (instruction.controller.kind === 'players'
           ? evaluatePlayerSelector(instruction.controller, context)
           : evaluatePlayerReference(instruction.controller, context))
         : [context.controller]
-      if (instruction.bindResult && targets.length > 0 && controllers.length > 0) {
+      if (instruction.bindResult && sources.length > 0 && controllers.length > 0) {
         frame.pendingResult = {
           binding: instruction.bindResult,
           kind: 'action',
-          value: targets.length * controllers.length,
+          value: sources.length * controllers.length,
           eventType: 'copyPermanent',
         }
       }
-      return targets.flatMap((object) => controllers.map((controller) => ({
+      return sources.flatMap((source) => controllers.map((controller) => ({
         type: 'copyPermanent' as const,
-        objectId: object.id,
+        objectId: source.objectId,
         controller,
-        token: copyCharacteristics(object),
+        token: source.token,
         sourceId: frame.source.ref.objectId,
       })))
     }
@@ -1129,6 +1159,24 @@ export const prepareResolutionStep = (draft: Draft) => {
       .map(ref => ({ kind: 'object' as const, ...ref })) }
     delete frame.pendingMovedChoice
   }
+  if (frame.pendingDestroyedChoice) {
+    const pending = frame.pendingDestroyedChoice
+    const kept = pending.entries.filter(entry => {
+      const current = draft.objects[entry.objectId]
+      return !current || current.zone === 'graveyard'
+    })
+    frame.choices = {
+      ...frame.choices,
+      [pending.binding]: kept.map(entry => {
+        const current = draft.objects[entry.objectId]
+        return current
+          ? { kind: 'object' as const, ...objectIdentity(current) }
+          : { kind: 'object' as const, objectId: entry.objectId, incarnation: entry.incarnation, zone: 'graveyard' as const }
+      }),
+    }
+    frame.choiceSnapshots = { ...frame.choiceSnapshots, [pending.binding]: kept.map(entry => structuredClone(entry.snapshot)) }
+    delete frame.pendingDestroyedChoice
+  }
   if (frame.pendingBlink) {
     const returns = frame.pendingBlink
     delete frame.pendingBlink
@@ -1190,6 +1238,28 @@ export const prepareResolutionStep = (draft: Draft) => {
         instructions: structuredClone(instruction.instructions),
         cursor: 0,
       })
+      continue
+    }
+    if (instruction.kind === 'forEach') {
+      const context = runtimeContext(draft, frame, item, scope.scopeId)
+      const snapshots = instruction.of.kind === 'choiceRef' && frame.choiceSnapshots?.[instruction.of.binding]
+        ? frame.choiceSnapshots[instruction.of.binding]!
+        : objectActions(instruction.of, context).map(snapshotObject)
+      for (let index = snapshots.length - 1; index >= 0; index -= 1) {
+        const snapshot = snapshots[index]!
+        frame.scopes.push({
+          path: `${path}.instructions`,
+          scopeId: scope.scopeId,
+          instructions: structuredClone(instruction.instructions),
+          cursor: 0,
+          occurrence: {
+            kind: 'event',
+            eventType: 'forEach',
+            player: snapshot.controller,
+            object: { after: snapshot },
+          },
+        })
+      }
       continue
     }
     if (instruction.kind === 'if') {

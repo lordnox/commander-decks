@@ -1,8 +1,8 @@
 # Remaining card-rule migration batches
 
-Snapshot: PR #432, after group 05 (Batwing Brume, Comeuppance, Energy Arc, Inkshield, Sokrates, Athenian Teacher), groups 01 and 06, the first four registrations in group 07, and the first five registrations in group 08. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
+Snapshot: PR #432, after groups 01–07, and the first five registrations in group 08. Includes the concurrently completed Lady Evangela migration. Continues #394 and #383. This is a planning inventory, not a claim of complete behavior coverage.
 
-**215 legacy registration keys, assigned exactly once to 38 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 215 is not a distinct-card count.
+**212 legacy registration keys, assigned exactly once to 37 primary groups.** A group is an implementation family, not necessarily identical Oracle text or one commit. Secondary dependencies are recorded with the group instead of counting the registration again. Some keys name the same physical card or different faces: for example Fell the Profane, Virtue of Knowledge/Vantress Visions, and Walk-In Closet/Forgotten Cellar. Therefore 212 is not a distinct-card count.
 
 Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the generated [`rule-dsl-coverage-ledger.json`](rule-dsl-coverage-ledger.json), cached `cards/*.json`, and the current canonical [`schema`](../src/cardPlugins/dsl/schema/v1.ts), builders, and runtime. Cached Oracle text is a planning aid; verify complete current Oracle text and relevant rulings before implementation. Legacy handler contents alone are not the behavioral specification. No live Oracle audit or new gameplay defect investigation was performed for this document.
 
@@ -21,7 +21,7 @@ Inventory sources: [`cardRules.ts`](../src/cardPlugins/cardRules.ts), the genera
 
 **A** means a recommended early reusable slice or a high-reuse dependency, not that every card in the row is ready. **B** follows prerequisite work. **C** is a larger package to defer until shared infrastructure exists. **S/M/L** are relative implementation effort for the family: composition, one focused mechanic, or multiple interacting mechanics. They are not time estimates and should not be summed. Large groups must be split into coherent commits.
 
-Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair; remaining controller follow-ups after copy, iteration, and per-target outcome support. Small existing-primitive candidates can be taken between these batches after full-card review.
+Recommended opening sequence: native upkeep scheduling plus the Confidant/Tutelage pair. Small existing-primitive candidates can be taken between these batches after full-card review.
 
 ## Completed group 01
 
@@ -29,7 +29,7 @@ Lightning Bolt, Loran of the Third Path, and both Malakir Rebirth registration k
 
 ## Completed group 05
 
-Batwing Brume, Comeuppance, Energy Arc, Inkshield, and Sokrates, Athenian Teacher now use canonical definitions. Prevention follow-ups see the prevented `eventAmount` and the damage source, spent-color amounts read the resolving stack item, life-change amounts can count per seat, and keyword abilities can take a `when` condition. Everybody Lives! and Settle the Wreckage stay on the legacy combat-prevention plugin. Group numbers below stay stable.
+Batwing Brume, Comeuppance, Energy Arc, Inkshield, and Sokrates, Athenian Teacher now use canonical definitions. Prevention follow-ups see the prevented `eventAmount` and the damage source, spent-color amounts read the resolving stack item, life-change amounts can count per seat, and keyword abilities can take a `when` condition. Everybody Lives! stays on the legacy combat-prevention plugin. Group numbers below stay stable.
 
 ## Completed group 06 — Drain spells
 
@@ -41,7 +41,13 @@ Canonical support now includes numeric multiplication/minimum, actual life-loss 
 
 `An Offer You Can't Refuse`; `Swan Song`; `Swords to Plowshares`; `Condemn` (**4 registrations**).
 
-Canonical controller/owner references and persisted player-result captures survive target zone changes, generated callbacks, and JSON restore. Counter follow-ups remain unconditional when a counter is suppressed. Swords/Condemn capture the target's controller and nonnegative power/toughness at resolution; Condemn uses an explicit bottom-of-owner's-library move. Mechanic tests cover different controllers/owners, token disappearance, signed stats, delayed captures, and prevention filters. The Swords migration corrects the legacy caster-life-gain defect (#442) and replaces its incorrect assertion with mechanic coverage. Two obsolete legacy stat-to-life executors were removed. Three cards remain in group 07 below.
+Canonical controller/owner references and persisted player-result captures survive target zone changes, generated callbacks, and JSON restore. Counter follow-ups remain unconditional when a counter is suppressed. Swords/Condemn capture the target's controller and nonnegative power/toughness at resolution; Condemn uses an explicit bottom-of-owner's-library move. Mechanic tests cover different controllers/owners, token disappearance, signed stats, delayed captures, and prevention filters. The Swords migration corrects the legacy caster-life-gain defect (#442) and replaces its incorrect assertion with mechanic coverage. Two obsolete legacy stat-to-life executors were removed.
+
+## Completed group 07 — remaining slice
+
+`Fractured Identity`; `Settle the Wreckage`; `Terastodon` (**3 registrations**).
+
+Canonical copy can persist a copiable snapshot before the source leaves, then iterate other players as copy controllers. Move results now total the number of objects that actually reached the requested zone after replacement, which drives Settle's targeted-player basic search. Destroy can bind the permanents that reached a graveyard this way, including ceased tokens, and `forEach` runs a follow-up for each object's pre-move controller. Everybody Lives! stays on the legacy combat-prevention plugin.
 
 ## Group 08 — completed first slice
 
@@ -52,16 +58,6 @@ Canonical `inspectTop` binds a bounded segment without exposing deeper cards. Ty
 ## Complete primary assignment
 
 Each numbered group below owns its listed registration keys. Cross-references in the notes do not add to its count.
-
-### 07. Object/stack controller follow-up — remaining slice
-
-Priority **A** · effort **L** · **3 registrations**
-
-**Registrations:** `Fractured Identity`; `Settle the Wreckage`; `Terastodon`.
-
-**Shared work:** Controller/owner references, captured player results, power/toughness captures, and library positioning now exist. An Offer You Can't Refuse, Swan Song, Swords to Plowshares, and Condemn have migrated.
-
-**Required support / secondary gates:** Fractured Identity needs a captured copiable snapshot and per-player copy iteration; Settle the Wreckage needs per-player iteration plus actual exile counts for basic searches; Terastodon needs per-target destruction outcome attribution for its controller's token follow-up.
 
 ### 08. Top-of-library selection — remaining slice
 
