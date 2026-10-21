@@ -700,7 +700,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'sacrifice':
       case 'move': {
-        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters', 'position', 'order'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters', 'position', 'order'] : ['kind', 'targets', 'bindResult', 'bindCount'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
         if (node.kind === 'move' && node.tapped !== undefined && typeof node.tapped !== 'boolean') {
@@ -724,6 +724,9 @@ export const validateDefinitionV1 = (root: unknown): {
           declareBinding(env, name, node.kind === 'move'
             ? { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }
             : { kind: 'result', domain: 'boolean', fields: new Set<ResultField>(['sacrificed']) }, childPath(path, 'bindResult'))
+        }
+        if (node.kind === 'sacrifice' && node.bindCount !== undefined) {
+          declareBinding(env, bindingName(node.bindCount, childPath(path, 'bindCount')), { kind: 'result', domain: 'number', fields: new Set<ResultField>(['amount']) }, childPath(path, 'bindCount'))
         }
         if (node.kind === 'move' && node.order !== undefined) {
           if (node.order !== 'random') issue(childPath(path, 'order'), 'enum', 'unsupported move order')

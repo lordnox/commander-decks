@@ -49,7 +49,7 @@ import {
   shuffleIntoLibraryInstead as shuffleEffect,
 } from './effects'
 import { alternateCosts } from './alternateCosts'
-import { librarySearch, SEARCH_CHOSEN } from './librarySearch'
+import { librarySearch } from './librarySearch'
 import { shuffleIntoLibraryInstead } from './shuffleIntoLibraryInstead'
 import { targetedResolve } from './targetedResolve'
 
@@ -457,19 +457,11 @@ describe('permanentSacrificed from other sacrifice paths', () => {
       objectId: named(ready, 'Scapeshift').id,
     }))
     const choosing = ok(server.rules(cast, { type: 'resolveTop' }))
-    let sacrificed = ok(server.rules(choosing, {
-      type: 'custom',
-      name: DIALOG_CHOSEN,
-      seat: 'p2',
-      payload: { objectIds: [named(choosing, 'First Forest').id] },
-    }))
-    expect(sacrificed.pendingTriggers?.[0]).toMatchObject({
-      source: { name: 'Test Betrayer' },
-    })
-    sacrificed = ok(server.rules(sacrificed, {
-      type: 'custom',
-      name: SEARCH_CHOSEN,
-      seat: 'p2',
+    const selection = pendingSelectionFor(choosing, 'p2')!
+    const sacrificed = ok(server.rules(choosing, {
+      type: 'selectCards', seat: 'p2', selectionId: selection.id,
+      kind: 'choose', count: selection.count,
+      objectIds: [named(choosing, 'First Forest').id],
     }))
     expect(sacrificed.stack.filter((item) => item.name === 'Test Betrayer')).toHaveLength(1)
   })

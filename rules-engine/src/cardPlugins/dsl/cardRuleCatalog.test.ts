@@ -1325,3 +1325,29 @@ test('Wall of Omens declares defender beside its entry draw', () => {
     { kind: 'triggered', on: { kind: 'enters' }, instructions: [{ kind: 'draw', count: { kind: 'constant', value: 1 } }] },
   ])
 })
+
+test('sacrifice catalog programs bind actual counts or success before their follow-up', () => {
+  for (const name of ['Reprocess', 'Scapeshift', 'Victimize']) expect(effectsFor(name)).toEqual([])
+  expect(cardRuleDefinitionSnapshotFor('Reprocess')!.definition.abilities[0]).toMatchObject({ instructions: [
+    { kind: 'chooseCards', min: { kind: 'constant', value: 0 }, filter: { filter: { controller: 'you', any: [{ type: 'Artifact' }, { type: 'Creature' }, { type: 'Land' }] } } },
+    { kind: 'sacrifice', bindCount: 'sacrificed' },
+    { kind: 'draw', count: { kind: 'resultRef', binding: 'sacrificed', field: 'amount' } },
+  ] })
+  expect(cardRuleDefinitionSnapshotFor('Scapeshift')!.definition.abilities[0]).toMatchObject({ instructions: [
+    { kind: 'chooseCards', filter: { filter: { type: 'Land', controller: 'you' } } },
+    { kind: 'sacrifice', bindCount: 'sacrificed' },
+    { kind: 'sequence', instructions: [
+      { kind: 'chooseCards', max: { kind: 'resultRef', binding: 'sacrificed', field: 'amount' } },
+      { kind: 'move', to: 'battlefield', tapped: true },
+      { kind: 'shuffle' },
+    ] },
+  ] })
+  expect(cardRuleDefinitionSnapshotFor('Victimize')!.definition.abilities[0]).toMatchObject({
+    decisions: { targets: [{ min: { kind: 'constant', value: 2 }, max: { kind: 'constant', value: 2 }, filter: { filter: { zone: 'graveyard', type: 'Creature', owner: 'you' } } }] },
+    instructions: [
+      { kind: 'chooseCards', min: { kind: 'constant', value: 1 }, max: { kind: 'constant', value: 1 } },
+      { kind: 'sacrifice', bindResult: 'sacrificed' },
+      { kind: 'if', condition: { kind: 'resultIsTrue', value: { binding: 'sacrificed', field: 'sacrificed' } }, then: [{ kind: 'move', to: 'battlefield', tapped: true }] },
+    ],
+  })
+})

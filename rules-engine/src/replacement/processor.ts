@@ -78,6 +78,13 @@ const processingStore = (frames: readonly EventProcessingFrame[]) => ({
 })
 
 const applyProcessingStore = (draft: Draft, source: GameState) => {
+  const active = source.eventProcessing
+  const choice = active?.chooser ? pendingOptionSelection(source, active.chooser) : undefined
+  if (active?.chooser && choice?.action.kind === 'replacementModifier' && choice.action.frameId === active.id) {
+    draft.players[active.chooser]!.data[PENDING_OPTION_SELECTION] = structuredClone(choice)
+    draft.nextId = Math.max(draft.nextId, source.nextId)
+    draft.priority = active.chooser
+  }
   if (source.eventProcessing) draft.eventProcessing = source.eventProcessing
   else delete draft.eventProcessing
   if (source.deferredEventProcessing?.length) {
@@ -118,6 +125,7 @@ const reattachProcessing = (
   original: GameState,
   completedId: string,
   fallback: GameState,
+  catalog: PluginCatalog,
 ): ReplacementSettlement => {
   const completedWasPrimary = original.eventProcessing?.id === completedId
   const remaining = processingFrames(original).filter((frame) => frame.id !== completedId)
@@ -129,7 +137,16 @@ const reattachProcessing = (
     return { ...settlement, state: { ...settlement.state, ...processingStore(frames) } }
   }
   const base = settlement.state ?? fallback
-  return { ...settlement, state: { ...base, ...processingStore(remaining) } }
+  const next = makeDraft({ ...base, ...processingStore(remaining) })
+  const active = next.eventProcessing
+  if (active?.chooser && active.awaitingCandidateIds.length > 0 && !pendingOptionSelection(next, active.chooser)) {
+    const candidates = discoverReplacementCandidates(
+      freezeDraft(next), active.pendingEvent, catalog,
+      active.lineage.usedInstanceIds, active.lineage.settledOptionalDeclines ?? [],
+    ).filter(candidate => active.awaitingCandidateIds.includes(candidate.instanceId))
+    if (candidates.length > 0) openModifierChoice(next, active, candidates, active.chooser)
+  }
+  return { ...settlement, state: freezeDraft(next) }
 }
 
 const lineageForProposal = (state: GameState, event: GameEvent) =>
@@ -737,7 +754,7 @@ export const resumeReplacementChoice = (
     deferredEventProcessing: isolated.deferredEventProcessing,
   }))
   const finish = (settlement: ReplacementSettlement) =>
-    reattachProcessing(settlement, state, frameId, resumeState)
+    reattachProcessing(settlement, state, frameId, resumeState, catalog)
   if (decline) {
     for (const id of frame.awaitingCandidateIds) markOptionalDeclined(lineage, id)
     return finish(attachFollowUps(
@@ -845,7 +862,7 @@ export const resumeReplacementProgramChoice = (
   }))
   const advanced = rememberApplicationChoice(resumeState, frameId, bindChoice, optionId)
   const finish = (settlement: ReplacementSettlement) =>
-    reattachProcessing(settlement, state, frameId, resumeState)
+    reattachProcessing(settlement, state, frameId, resumeState, catalog)
   if (advanced.kind === 'invalid') return advanced
   const program = frame.applicationProgram
   return finish(settleApplicationStep(

@@ -457,14 +457,7 @@ describe('events for available actions', () => {
   // Scapeshift's sacrifice happens on resolution, so nothing about casting it
   // needs a choice and the fast path can send it straight to the stack.
   test('a spell whose only choices happen on resolution stays fast-castable', () => {
-    const scapeshift = {
-      ...bolt(), ruleDefinition: undefined,
-      name: 'Scapeshift',
-      types: ['Sorcery'],
-      manaCost: '{2}{G}{G}',
-      oracleText: 'Sacrifice any number of lands. Search your library for up to that many '
-        + 'land cards, put them onto the battlefield tapped, then shuffle.',
-    }
+    const scapeshift = cardTemplate('Scapeshift')
     const state = newGame(commanderRules, { hands: { p1: [scapeshift] } })
     state.players.p1.mana = { ...empty, G: 2, C: 2 }
     const action = availableActions(state, 'p1').find(
@@ -473,6 +466,7 @@ describe('events for available actions', () => {
 
     expect(eventsForAvailableAction(state, 'p1', action)?.at(-1)).toEqual({
       type: 'castSpell',
+      targets: [], targetClauses: [],
       seat: 'p1',
       objectId: objectNamed(state, 'Scapeshift').id,
     })

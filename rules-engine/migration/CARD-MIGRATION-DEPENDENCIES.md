@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 at `dbad61af`. **211 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after the 09-count migration. **208 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **10 composition candidates**; **201 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **10 composition candidates**; **198 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -155,7 +155,6 @@ Current readiness: **10 composition candidates**; **201 blocked or awaiting sour
 | `Reflecting Pool` | 10 | [10-colors](CARD-MIGRATION-BATCHES.md#10-colors) | Blocked by mechanics | — |
 | `Reins of Power` | 28 | [28-exchange](CARD-MIGRATION-BATCHES.md#28-exchange) | Blocked by mechanics | — |
 | `Repay in Kind` | 19 | [19-exchange](CARD-MIGRATION-BATCHES.md#19-exchange), [14-signed-minimum](CARD-MIGRATION-BATCHES.md#14-signed-minimum) | Blocked by mechanics | — |
-| `Reprocess` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count) | Blocked by mechanics | — |
 | `Return of the Wildspeaker` | 14 | [14-greatest](CARD-MIGRATION-BATCHES.md#14-greatest) | Blocked by mechanics | Non-Human filters already compose through subtype exclusions; retain both modes. |
 | `Rings of Brighthearth` | 29 | [29-activation](CARD-MIGRATION-BATCHES.md#29-activation) | Blocked by mechanics | — |
 | `Ripples of Undeath` | 13 | [13-step](CARD-MIGRATION-BATCHES.md#13-step), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill) | Blocked by mechanics | Paid recovery must choose from the cards actually milled by this trigger. |
@@ -164,7 +163,6 @@ Current readiness: **10 composition candidates**; **201 blocked or awaiting sour
 | `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public will-of-the-council vote, not secret council. Return up to two graveyard cards per player or offer discard-hand/draw-seven; preserve the resolving exile branch. |
 | `Sakashima of a Thousand Faces` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [28-legend](CARD-MIGRATION-BATCHES.md#28-legend) | Blocked by mechanics | — |
 | `Sandstone Oracle` | 14 | [14-difference](CARD-MIGRATION-BATCHES.md#14-difference), [15-player](CARD-MIGRATION-BATCHES.md#15-player) | Blocked by mechanics | — |
-| `Scapeshift` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [02](CARD-MIGRATION-BATCHES.md#02) | Blocked by mechanics | — |
 | `Scute Swarm` | 35 | [07](CARD-MIGRATION-BATCHES.md#07) | Review & compose | Composition candidate: existing landfall/count/branch and source-snapshot token copy; verify copied trigger program. |
 | `Sea Gate Restoration // Sea Gate, Reborn` | 16 | [16-faces](CARD-MIGRATION-BATCHES.md#16-faces), [14-add](CARD-MIGRATION-BATCHES.md#14-add), [16-hand-limit](CARD-MIGRATION-BATCHES.md#16-hand-limit) | Blocked by mechanics | — |
 | `Selvala's Stampede` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | Votes determine the creature-reveal count and own-hand placement count; this is not multi-player hand placement. |
@@ -201,7 +199,6 @@ Current readiness: **10 composition candidates**; **201 blocked or awaiting sour
 | `Valgavoth, Terror Eater` | 26 | [26-exile](CARD-MIGRATION-BATCHES.md#26-exile), [21-ward-sacrifice](CARD-MIGRATION-BATCHES.md#21-ward-sacrifice), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
 | `Vanish into Memory` | 30 | [30-return-result](CARD-MIGRATION-BATCHES.md#30-return-result) | Blocked by mechanics | — |
 | `Vantress Visions` | 29 | [29-copy](CARD-MIGRATION-BATCHES.md#29-copy), [43-adventure](CARD-MIGRATION-BATCHES.md#43-adventure), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply) | Blocked by mechanics | Alias/Adventure face of Virtue of Knowledge; require complete shared physical-card behavior. |
-| `Victimize` | 09 | [09-count](CARD-MIGRATION-BATCHES.md#09-count), [07](CARD-MIGRATION-BATCHES.md#07) | Blocked by mechanics | Two targets are announced before the resolution sacrifice; require actual sacrifice success. |
 | `Virtue of Knowledge` | 29 | [29-copy](CARD-MIGRATION-BATCHES.md#29-copy), [29-multiply](CARD-MIGRATION-BATCHES.md#29-multiply), [43-adventure](CARD-MIGRATION-BATCHES.md#43-adventure) | Blocked by mechanics | — |
 | `Void Winnower` | 21 | [21-even](CARD-MIGRATION-BATCHES.md#21-even) | Blocked by mechanics | — |
 | `Walk-In Closet` | 26 | [43-room](CARD-MIGRATION-BATCHES.md#43-room), [26-graveyard-lands](CARD-MIGRATION-BATCHES.md#26-graveyard-lands), [26-graveyard-spells](CARD-MIGRATION-BATCHES.md#26-graveyard-spells), [26-graveyard-replacement](CARD-MIGRATION-BATCHES.md#26-graveyard-replacement) | Blocked by mechanics | Same physical Room as Forgotten Cellar: implement both doors and graveyard-exile replacement. |

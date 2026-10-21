@@ -585,10 +585,12 @@ export const destroy = (input: {
 
 export const sacrifice = (input: {
   targets: Extract<Instruction, { kind: 'sacrifice' }>['targets']
+  bindCount?: string
   bindResult?: string
 }): Instruction => immutableData({
   kind: 'sacrifice',
   targets: input.targets,
+  ...(input.bindCount !== undefined ? { bindCount: input.bindCount } : {}),
   ...(input.bindResult !== undefined ? { bindResult: input.bindResult } : {}),
 })
 

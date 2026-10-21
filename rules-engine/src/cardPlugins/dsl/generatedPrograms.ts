@@ -129,6 +129,7 @@ const inspectBindings = (
   }
   if (typeof node.bindChoice === 'string') used.add(node.bindChoice)
   if (typeof node.bindResult === 'string') used.add(node.bindResult)
+  if (typeof node.bindCount === 'string') used.add(node.bindCount)
   Object.values(node).forEach((part) => inspectBindings(part, choices, results, occurrences, used))
 }
 
@@ -191,6 +192,7 @@ const rewriteInstructions = (
     const rewrittenInstruction = rewriteValue(instruction) as Instruction
     if ('bindChoice' in instruction && typeof instruction.bindChoice === 'string') shadowed.add(instruction.bindChoice)
     if ('bindResult' in instruction && typeof instruction.bindResult === 'string') shadowed.add(instruction.bindResult)
+    if ('bindCount' in instruction && typeof instruction.bindCount === 'string') shadowed.add(instruction.bindCount)
     return rewrittenInstruction
   })
   return { instructions: rewritten, shadowed }

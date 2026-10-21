@@ -789,8 +789,13 @@ const actionEvents = (
     }
     case 'sacrifice': {
       const targets = objectActions(instruction.targets, context)
-      const legal = targets.filter((object) => object.zone === 'battlefield')
-      if (instruction.bindResult) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: legal.length > 0, eventType: 'sacrifice' }
+      const legal = targets.filter((object) => object.zone === 'battlefield' && isSameObject(context.state.objects[object.id], objectIdentity(object)))
+      if (instruction.bindResult || instruction.bindCount) frame.pendingResult = {
+        binding: instruction.bindCount ?? instruction.bindResult!,
+        kind: 'amount', value: 0, eventType: 'sacrifice',
+        ...(instruction.bindResult ? { booleanBinding: instruction.bindResult } : {}),
+        expectedObjects: legal.map(objectIdentity),
+      }
       return legal.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'move': {
