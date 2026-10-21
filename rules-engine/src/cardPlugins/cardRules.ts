@@ -208,7 +208,6 @@ import {
   opponentsLoseLife,
   pumpAttached,
   pumpTargetEqualToLands,
-  putTargetOnLibraryTop,
   sagaChapters,
   tapAttached,
   bounceCreaturesExcept,
@@ -979,16 +978,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
         validateSelection: sharedBasicLandType,
       },
     ),
-  ],
-  'Mystic Sanctuary': [
-    entersTapped(otherLands({ max: 2, subtype: 'Island' })),
-    {
-      op: 'trigger',
-      on: 'enters',
-      if: otherLands({ min: 3, subtype: 'Island' }),
-      targets: { filter: { zone: 'graveyard', types: ['Instant', 'Sorcery'], controller: 'you' } },
-      do: [putTargetOnLibraryTop()],
-    },
   ],
   'Nanogene Conversion': [
     targetOnResolve(

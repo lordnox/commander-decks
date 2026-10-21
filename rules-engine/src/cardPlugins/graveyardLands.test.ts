@@ -4,7 +4,6 @@ import { cardTemplate, type CardTemplate } from '../newGame'
 import { createServerGame } from '../runtime'
 import type { GameState, ReduceResult } from '../types'
 import { onResolve } from './onResolve'
-import { pendingSelectionFor } from '../rules/selectCards'
 import {cardDefinition} from './cardRules'
 import {targetedResolve} from './targetedResolve'
 
@@ -125,39 +124,6 @@ describe('relocated from sinFallGaps.test.ts → graveyardLands.test.ts', () => 
       expect(resolved.objects[first].zone).toBe('hand')
       expect(resolved.objects[second].zone).toBe('hand')
       expect(named(resolved, 'Third Land').zone).toBe('graveyard')
-    })
-
-  test('Mystic Sanctuary with three other Islands returns an instant to the top', () => {
-      const islands = [1, 2, 3].map((index) =>
-        card(`Island ${index}`, ['Land'], { subtypes: ['Island'] }))
-      const server = createServerGame(
-        commanderRules,
-        {
-          battlefield: { p1: islands },
-          hands: { p1: [card('Mystic Sanctuary', ['Land'], { subtypes: ['Island'] })] },
-          libraries: {
-            p1: [card('Brainstorm', ['Instant'], { zone: 'graveyard' })],
-          },
-        },
-      )
-      const sanctuary = named(server.state, 'Mystic Sanctuary').id
-      const instant = named(server.state, 'Brainstorm').id
-      const entered = ok(server.rules(server.state, {
-        type: 'playLand',
-        seat: 'p1',
-        objectId: sanctuary,
-      }))
-      const selection = pendingSelectionFor(entered, 'p1')!
-      expect(selection.candidates).toContain(instant)
-      const stacked = ok(server.rules(entered, {
-        type: 'selectCards',
-        seat: 'p1',
-        kind: 'choose',
-        count: 1,
-        objectIds: [instant],
-      }))
-      const resolved = ok(server.rules(stacked, { type: 'resolveTop' }))
-      expect(resolved.zoneOrder.p1.library[0]).toBe(instant)
     })
 
   test('Icetill Explorer can play a land from the graveyard', () => {

@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 184,
+    "cardRegistrations": 183,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -30,10 +30,10 @@
     "customEventDispatchSites": 84,
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
-    "instructionUnobservedGaps": 41,
+    "instructionUnobservedGaps": 42,
     "cardRegistrationOnlyGaps": 5,
-    "candidateOnlyInstructionRows": 145,
-    "candidateOnlyCardRows": 179
+    "candidateOnlyInstructionRows": 144,
+    "candidateOnlyCardRows": 178
   },
   "cardEffects": [
     {
@@ -239,7 +239,7 @@
           "rules-engine/src/cardPlugins/dredge.test.ts:76 — test('does not offer dredge when the library has fewer than N cards', () => {",
           "rules-engine/src/cardPlugins/dredge.test.ts:87 — test('offers every eligible dredger for at most one replacement', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:46 — test('a land drop that Oracle taps enters tapped', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:94 — test('Life from the Loam returns up to three lands to hand', () => {"
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:93 — test('Life from the Loam returns up to three lands to hand', () => {"
         ]
       },
       "neededCanonicalNode": "replacement definition over draw proposals",
@@ -435,7 +435,6 @@
         "Hall of Storm Giants:effects[0]",
         "Lair of the Hydra:effects[0]",
         "Myriad Landscape:effects[0]",
-        "Mystic Sanctuary:effects[0]",
         "Pit of Offerings:effects[0]",
         "Sea Gate Restoration // Sea Gate, Reborn:effects[0]",
         "Sink into Stupor // Soporific Springs:effects[0]",
@@ -445,7 +444,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 36,
+        "matches": 34,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:2374 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
@@ -813,7 +812,6 @@
         "Mossborn Hydra:effects[0]",
         "Mulldrifter:effects[1]",
         "Mulldrifter:effects[2]",
-        "Mystic Sanctuary:effects[1]",
         "Necrologia:effects[1]",
         "Nezahal, Primal Tide:effects[3]",
         "Niv-Mizzet, Ghost Counsel:effects[0]",
@@ -862,7 +860,7 @@
         "rules-engine/src/cardPlugins/generalizedTriggers.test.ts — shared trigger matching > death watches another white Knight token using pre-death controller and characteristics"
       ],
       "candidateEvidence": {
-        "matches": 294,
+        "matches": 292,
         "samples": [
           "live-runner/src/decisions.test.ts:248 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelFacts.test.ts:65 — test('a locked door is offered by name rather than as a blocker declaration', () => {",
@@ -4013,7 +4011,7 @@
           "rules-engine/src/cardPlugins/crew.test.ts:12",
           "rules-engine/src/cardPlugins/crew.test.ts:152 — test('legalActsFor exposes crew picks and crewing makes the Vehicle attack', () => {",
           "rules-engine/src/cardPlugins/crew.test.ts:47",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:68 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {",
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:67 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:73 — test('Mole Man creates one Moloid for each land entry', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:65 — test('the Homer dumpster cards this pass covers stay registered', () => {",
           "rules-engine/src/rules/triggers.test.ts:103 — test('Crawling Sensation misses a turn whose first land hit the graveyard before it', () => {",
@@ -4609,17 +4607,11 @@
     {
       "variant": "putTargetOnLibraryTop",
       "mechanic": "target-dependent semantic action",
-      "currentRegistrations": [
-        "Mystic Sanctuary:effects[1].do[0]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:87 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:137 — test('Mystic Sanctuary with three other Islands returns an instant to the top', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:109 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
+        "matches": 0,
+        "samples": []
       },
       "neededCanonicalNode": "shared action primitive consuming a canonical target reference",
       "compatibilityRoute": "Keep the legacy CardInstruction handler reachable; compile registrations through an adapter only after the canonical node has equivalent execution evidence.",
@@ -4628,7 +4620,7 @@
         "04",
         "05"
       ],
-      "status": "candidate-test-reference",
+      "status": "unobserved",
       "handlerDiscovered": true
     },
     {
@@ -5313,7 +5305,7 @@
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
           "rules-engine/src/cardPlugins/graveyardCasting.test.ts:169 — test('Six grants retrace only to eligible cards during its controller turn', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:167 — test('Icetill Explorer can play a land from the graveyard', () => {",
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:133 — test('Icetill Explorer can play a land from the graveyard', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:160 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/millThenRecover.test.ts:225 — test('Incarnation Technique reanimates a creature rather than a land', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {",
@@ -8279,7 +8271,7 @@
         "matches": 4,
         "samples": [
           "rules-engine/src/cardPlugins/additionalLandPlay.test.ts:93 — test('two static sources stack', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:167 — test('Icetill Explorer can play a land from the graveyard', () => {",
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:133 — test('Icetill Explorer can play a land from the graveyard', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:160 — test('Icetill Explorer mills the top card of its controller\\'s library', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:37 — test('the Sin Fall cards this pass covers stay registered', () => {"
         ]
@@ -8807,7 +8799,7 @@
           "rules-engine/src/cardPlugins/dredge.test.ts:39 — test('chooses dredge instead of drawing, or declines for a real draw', () => {",
           "rules-engine/src/cardPlugins/dredge.test.ts:76 — test('does not offer dredge when the library has fewer than N cards', () => {",
           "rules-engine/src/cardPlugins/dredge.test.ts:87 — test('offers every eligible dredger for at most one replacement', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:94 — test('Life from the Loam returns up to three lands to hand', () => {",
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:93 — test('Life from the Loam returns up to three lands to hand', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:667 — test('Homer remaining cards keep their resolve composition', () => {"
         ]
       },
@@ -9227,7 +9219,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:68 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {",
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:67 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {",
           "rules-engine/src/cardPlugins/landfall.test.ts:73 — test('Mole Man creates one Moloid for each land entry', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:87 — test('the Homer dumpster cards this pass covers stay registered', () => {"
         ]
@@ -9372,43 +9364,6 @@
       "handlerIds": [
         "entersTapped",
         "librarySearch"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
-      "card": "Mystic Sanctuary",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Mystic Sanctuary"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:87 — test('Mystic Sanctuary is untapped only behind three other Islands', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:137 — test('Mystic Sanctuary with three other Islands returns an instant to the top', () => {",
-          "rules-engine/src/cardPlugins/liveTableMana.test.ts:109 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement, trigger] and instructions [putTargetOnLibraryTop]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "06",
-        "07",
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement",
-        "trigger"
-      ],
-      "instructionVariants": [
-        "putTargetOnLibraryTop"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
       ],
       "embeddedRulePaths": []
     },
@@ -13566,7 +13521,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 232,
+        "matches": 231,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -14470,7 +14425,7 @@
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:45 — test('a copy carries the colors and mana value answers key off', () => {",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:5",
           "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts:56 — test('a planeswalker copy starts at its printed loyalty', () => {",
-          "rules-engine/src/cardPlugins/graveyardLands.test.ts:74 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {"
+          "rules-engine/src/cardPlugins/graveyardLands.test.ts:73 — test('Mole Man plays graveyard lands and stamps mill on Moloids', () => {"
         ]
       },
       "neededCanonicalNode": "token definition reference with pinned canonical abilities",
@@ -14492,7 +14447,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1342",
+        "rules-engine/src/cardPlugins/cardRules.ts:1331",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -14636,8 +14591,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:243",
-        "rules-engine/src/cardPlugins/cardRules.ts:724",
+        "rules-engine/src/cardPlugins/cardRules.ts:242",
+        "rules-engine/src/cardPlugins/cardRules.ts:723",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
