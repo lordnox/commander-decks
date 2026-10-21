@@ -1,3 +1,4 @@
+import arcaneDenial from './arcane-denial'
 import braidsConjurerAdept from './braids-conjurer-adept'
 import darkConfidant from './dark-confidant'
 import darkTutelage from './dark-tutelage'
@@ -243,6 +244,7 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Archaeomancer's Map": archaeomancersMap,
   "Archdruid's Charm": archdruidsCharm,
   "Arbor Elf": arborElf,
+  "Arcane Denial": arcaneDenial,
   "Arcanis the Omnipotent": arcanisTheOmnipotent,
   "Astral Drift": astralDrift,
   "Awaken the Woods": awakenTheWoods,

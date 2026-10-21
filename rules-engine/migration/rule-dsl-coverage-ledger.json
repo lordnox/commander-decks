@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 194,
+    "cardRegistrations": 193,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -31,7 +31,7 @@
     "directMutationSites": 575,
     "instructionRegistrationOnlyGaps": 1,
     "instructionUnobservedGaps": 39,
-    "cardRegistrationOnlyGaps": 6,
+    "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 147,
     "candidateOnlyCardRows": 188
   },
@@ -685,7 +685,6 @@
       "variant": "targetedResolve",
       "mechanic": "legacy positional targets",
       "currentRegistrations": [
-        "Arcane Denial:effects[0]",
         "Black Sun's Twilight:effects[1]",
         "Cling to Dust:effects[1]",
         "Colossification:effects[0]",
@@ -2290,7 +2289,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 106,
+        "matches": 107,
         "samples": [
           "live-runner/src/decisions.test.ts:232 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:1452 — test('Cling to Dust escape cost cards round-trip through a structured live act', () => {",
@@ -2314,10 +2313,7 @@
     {
       "variant": "drawAtNextUpkeep",
       "mechanic": "semantic game action",
-      "currentRegistrations": [
-        "Arcane Denial:effects[0].do[0]",
-        "Arcane Denial:effects[0].do[1]"
-      ],
+      "currentRegistrations": [],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/runInstructions.test.ts — runInstructions > drawAtNextUpkeep draws on the next upkeep"
       ],
@@ -5962,38 +5958,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Arcane Denial",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Arcane Denial"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 0,
-        "samples": []
-      },
-      "neededCanonicalNode": "canonical definition covering effects [targetedResolve] and instructions [drawAtNextUpkeep]",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "04",
-        "07"
-      ],
-      "status": "registration-only",
-      "effectVariants": [
-        "targetedResolve"
-      ],
-      "instructionVariants": [
-        "drawAtNextUpkeep"
-      ],
-      "pluginIds": [],
-      "handlerIds": [
-        "choiceEffects",
-        "targetedResolve"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "Archangel of Tithes",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -6404,7 +6368,7 @@
         "matches": 11,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10",
-          "rules-engine/src/cardPlugins/dsl/counter.test.ts:262 — test('ward payment pauses priority before the targeted spell resolves', () => {",
+          "rules-engine/src/cardPlugins/dsl/counter.test.ts:263 — test('ward payment pauses priority before the targeted spell resolves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:261 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:493 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
           "rules-engine/src/cardPlugins/shuffleIntoLibraryInstead.test.ts:247 — test('a creature put into a graveyard from the library or hand did not die', () => {",
@@ -7206,7 +7170,7 @@
         "matches": 10,
         "samples": [
           "rules-engine/src/cardPlugins/cirdanColossi.test.ts:10",
-          "rules-engine/src/cardPlugins/dsl/counter.test.ts:262 — test('ward payment pauses priority before the targeted spell resolves', () => {",
+          "rules-engine/src/cardPlugins/dsl/counter.test.ts:263 — test('ward payment pauses priority before the targeted spell resolves', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:262 — test('the Círdan creature group stays registered', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:493 — test('Blightsteel and Darksteel Colossus load only the shuffle replacement', () => {",
           "rules-engine/src/cardPlugins/registry.test.ts:804 — test('Dack part-36 creatures are registered, keywords-only, or an explicit GAP', () => {",
@@ -13288,7 +13252,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 179,
+        "matches": 180,
         "samples": [
           "live-runner/src/decisions.test.ts:188 — test('untaps, draws, and lands in the first main phase', () => {",
           "live-runner/src/decisions.test.ts:230 — test('does not draw twice for one turn', () => {",
@@ -13965,7 +13929,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 231,
+        "matches": 232,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -14891,7 +14855,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1439",
+        "rules-engine/src/cardPlugins/cardRules.ts:1435",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -14916,7 +14880,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1265"
+        "rules-engine/src/types.ts:1267"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -15000,7 +14964,7 @@
         "rules-engine/src/replay.ts:164",
         "rules-engine/src/replay.ts:167",
         "rules-engine/src/replay.ts:168",
-        "rules-engine/src/rules/triggers.ts:1168",
+        "rules-engine/src/rules/triggers.ts:1169",
         "rules-engine/src/types.ts:322",
         "rules-engine/src/types.ts:324",
         "rules-engine/src/types.ts:328"
@@ -15035,8 +14999,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:250",
-        "rules-engine/src/cardPlugins/cardRules.ts:776",
+        "rules-engine/src/cardPlugins/cardRules.ts:249",
+        "rules-engine/src/cardPlugins/cardRules.ts:772",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -15574,8 +15538,8 @@
           777,
           894,
           1051,
-          1086,
-          1087
+          1087,
+          1088
         ],
         "samples": [
           "68: if (event.type !== 'custom' || event.name !== 'cardPlugins.manaAbilityResolved') return false",
@@ -16115,13 +16079,13 @@
         "path": "rules-engine/src/driver.ts",
         "lines": [
           297,
-          1541,
-          1570
+          1543,
+          1572
         ],
         "samples": [
           "297: const liveSource = draft.object(source.ref.objectId)",
-          "1541: const object = draft.object(item.objectId)",
-          "1570: const object = draft.object(completedItem.objectId)"
+          "1543: const object = draft.object(item.objectId)",
+          "1572: const object = draft.object(completedItem.objectId)"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -16960,10 +16924,10 @@
           918,
           958,
           1039,
-          1109,
-          1166,
-          1333,
-          1444
+          1110,
+          1167,
+          1334,
+          1445
         ],
         "samples": [
           "547: const frequencySource = draft.object(source.id) ?? source",

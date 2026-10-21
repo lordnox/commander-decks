@@ -1058,6 +1058,7 @@ const delayedTriggerMatches = (
   draft: Draft,
   event: GameEvent,
 ) => {
+  if (trigger.notBeforeTurn !== undefined && draft.turn < trigger.notBeforeTurn) return false
   if (trigger.condition.kind === 'event') {
     if (event.type !== trigger.condition.type) return false
     if (

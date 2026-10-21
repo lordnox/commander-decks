@@ -535,6 +535,7 @@ const registerCanonicalDelayed = (
   frame: CanonicalResolutionFrame,
   context: RuleDslRuntimeContext,
   inheritTargets = true,
+  notThisTurn = false,
 ) => {
   const eventCondition = condition.kind === 'event'
     ? (() => {
@@ -592,6 +593,7 @@ const registerCanonicalDelayed = (
     sourceIncarnation: frame.source.ref.incarnation,
     sourceDefinitionRevision: frame.definitionSnapshot.definitionRevision,
     condition: eventCondition,
+    ...(notThisTurn ? { notBeforeTurn: draft.turn + 1 } : {}),
     instructions: [],
     timestamp: draft.allocTs(),
     objectRef: eventCondition.kind === 'event' ? eventCondition.objectRef : undefined,
@@ -1140,7 +1142,7 @@ const actionEvents = (
       }))
     }
     case 'createDelayed': {
-      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets)
+      registerCanonicalDelayed(draft, instruction.condition, instruction.instructions, frame, context, instruction.inheritTargets, instruction.notThisTurn)
       return []
     }
     default:

@@ -736,6 +736,7 @@ export const payOptional = (input: {
 })
 
 export const createDelayed = (input: {
+  notThisTurn?: true
   inheritTargets?: boolean
   condition: DelayedPattern
   instructions: readonly Instruction[]
