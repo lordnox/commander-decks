@@ -343,7 +343,6 @@ export type CardInstruction =
   | { kind: 'millHalfTargetPlayers' }
   | { kind: 'untapUpToLands'; count: number }
   | { kind: 'opponentsLoseLife'; amount: number }
-  | { kind: 'revealTopLandsTapped' }
   | { kind: 'pumpAttached'; power: number; toughness: number }
   | { kind: 'tapAttached' }
   | { kind: 'addPlusCountersEqualToLands' }

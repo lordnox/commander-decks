@@ -282,6 +282,9 @@ export type DamageRecipient = PlayerRecipient | ObjectRecipient
 export const REVEAL_UNTIL_REST = { orderBottom: 'orderBottom', graveyard: 'graveyard' } as const
 export type RevealUntilRest = typeof REVEAL_UNTIL_REST[keyof typeof REVEAL_UNTIL_REST]
 
+export const LIBRARY_VISIBILITY = { private: 'private', public: 'public' } as const
+export type LibraryVisibility = typeof LIBRARY_VISIBILITY[keyof typeof LIBRARY_VISIBILITY]
+
 export type TokenDefinition = {
   name: string
   types: string[]
@@ -290,9 +293,12 @@ export type TokenDefinition = {
   power?: number | null
   toughness?: number | null
   oracleText?: string
+  abilities?: readonly AbilityDefinition[]
 }
 
 export type Instruction =
+  /** Bind a bounded top-library segment without moving those objects. */
+  | { kind: 'inspectTop'; player: PlayerReference; count: Amount; bindChoice: string; visibility: LibraryVisibility }
   /** Evaluate an amount now, preserving it for later instructions and continuations. */
   | { kind: 'capturePlayer'; player: PlayerReference; bindResult: string }
   | { kind: 'captureAmount'; amount: Amount; bindResult: string }
@@ -321,7 +327,7 @@ export type Instruction =
   /** Sacrifice each resolved object recipient and optionally bind the aggregate result. */
   | { kind: 'sacrifice'; targets: ObjectRecipient; bindResult?: string }
   /** Move each resolved object recipient to the requested zone and optionally bind the result. */
-  | { kind: 'move'; targets: ObjectRecipient; to: Zone; position?: 'top' | 'bottom'; controller?: PlayerReference; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
+  | { kind: 'move'; targets: ObjectRecipient; to: Zone; position?: 'top' | 'bottom'; order?: 'random'; controller?: PlayerReference; tapped?: boolean; enterCounters?: Readonly<Record<string, Amount>>; bindResult?: string; bindChoice?: string }
   /** Inspect and order the top cards of each selected player's library. */
   | { kind: 'scry' | 'surveil'; targets: PlayerRecipient; count: Amount }
   /** Reveal each resolved object to every player through the ordinary visibility event. */
@@ -393,6 +399,7 @@ export type Instruction =
       filter: ObjectSelector
       /** Let the chooser inspect the full library while selecting matching cards. */
       viewLibrary?: true
+      viewCards?: ObjectReference
       min: Amount
       max: Amount
       distinct: true

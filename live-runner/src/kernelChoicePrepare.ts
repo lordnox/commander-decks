@@ -17,7 +17,7 @@ import { dialogCandidates, pendingDialogFor } from '../../rules-engine/src/pendi
 import { pendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import type { LobbyState } from './lobby'
 import type { KernelHandle } from './kernelHandle'
-import { discardOffer, sameNames, samePins, searchOffer, selectCardsOffer } from './kernelChoice'
+import { discardOffer, sameNames, samePins, searchOffer, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
 import {
   prepareCastTransformedChoice,
   prepareLibrarySearchChoice,
@@ -80,12 +80,7 @@ const kernelDialogIsStale = (kernel: KernelHandle, lobby: LobbyState) => {
     case 'select-cards': {
       const waiting = waitingSelectCards(state, decision.seat)
       const offer = waiting ? selectCardsOffer(waiting) : undefined
-      const library = waiting?.selection.viewLibrary
-        ? (state.zoneOrder[waiting.selection.fromSeat ?? decision.seat]?.library ?? [])
-          .map((objectId) => state.objects[objectId]?.name ?? '')
-          .filter(Boolean)
-          .sort((left, right) => left.localeCompare(right))
-        : undefined
+      const library = waiting ? selectCardsLibraryView(state, waiting.selection) : undefined
       return !waiting
         || waiting.selection.id !== decision.kernel.selectionId
         || !offer

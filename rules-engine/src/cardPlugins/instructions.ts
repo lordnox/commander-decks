@@ -350,8 +350,6 @@ export const untapUpToLands = (count: number): CardInstruction => ({
 export const opponentsLoseLife = (amount: number): CardInstruction =>
   loseLife({ amount, to: players('opponent') })
 
-export const revealTopLandsTapped = (): CardInstruction => ({ kind: 'revealTopLandsTapped' })
-
 export const pumpAttached = (power: number, toughness: number): CardInstruction => ({
   kind: 'pumpAttached',
   power,

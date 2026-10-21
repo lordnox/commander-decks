@@ -1,11 +1,11 @@
-import { OPTIONAL_ACTION_DIAGNOSTIC_CODE, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE } from './constants'
+import { LIBRARY_INSTRUCTION_DIAGNOSTIC_CODE, LIBRARY_INSTRUCTION_DIAGNOSTIC_MESSAGE, OPTIONAL_ACTION_DIAGNOSTIC_CODE, OPTIONAL_ACTION_DIAGNOSTIC_MESSAGE } from './constants'
 import type {
   CardRuleDefinitionV1,
   ContextBinding,
   DefinitionDeclaration,
   ResultField,
 } from '../schema/v1'
-import { CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
+import { LIBRARY_VISIBILITY, CARD_COLORS, KEYWORDS, REVEAL_UNTIL_REST, PLAYER_RELATIONS, ROUNDING_MODES, RULE_DSL_SCHEMA_VERSION } from '../schema/v1'
 import { definitionRevisionFor } from '../builders/revision'
 import { RuleDslValidationError, type RuleDslDiagnostic } from './errors'
 import { MAX_EXPRESSION_DEPTH, MAX_LITERAL_AMOUNT, MAX_RUNTIME_AMOUNT } from './evaluate'
@@ -608,6 +608,13 @@ export const validateDefinitionV1 = (root: unknown): {
       validateRecipient(node.targets, childPath(path, 'targets'), env, expected)
     }
     switch (node.kind) {
+      case 'inspectTop':
+        exactKeys(node, path, ['kind', 'player', 'count', 'bindChoice', 'visibility'], ['kind', 'player', 'count', 'bindChoice', 'visibility'])
+        validateReference(node.player, childPath(path, 'player'), env, ['player'])
+        validateAmount(node.count, childPath(path, 'count'), env)
+        enumeration(node.visibility, childPath(path, 'visibility'), new Set(Object.values(LIBRARY_VISIBILITY)), 'library visibility')
+        declareBinding(env, bindingName(node.bindChoice, childPath(path, 'bindChoice')), { kind: 'choice', domain: 'object' }, childPath(path, 'bindChoice'))
+        return
       case 'capturePlayer':
         exactKeys(node, path, ['kind', 'player', 'bindResult'], ['kind', 'player', 'bindResult'])
         validateReference(node.player, childPath(path, 'player'), env, ['player'])
@@ -684,7 +691,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'sacrifice':
       case 'move': {
-        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters', 'position'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
+        exactKeys(node, path, node.kind === 'move' ? ['kind', 'targets', 'to', 'controller', 'bindResult', 'bindChoice', 'tapped', 'enterCounters', 'position', 'order'] : ['kind', 'targets', 'bindResult'], ['kind', 'targets'])
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['object'])
         if (node.kind === 'move' && !ZONES.has(String(node.to))) issue(childPath(path, 'to'), 'enum', `unsupported destination: ${String(node.to)}`)
         if (node.kind === 'move' && node.tapped !== undefined && typeof node.tapped !== 'boolean') {
@@ -706,6 +713,10 @@ export const validateDefinitionV1 = (root: unknown): {
         if (node.bindResult !== undefined) {
           const name = bindingName(node.bindResult, childPath(path, 'bindResult'))
           declareBinding(env, name, { kind: 'result', domain: 'boolean', fields: new Set<ResultField>([node.kind === 'move' ? 'moved' : 'sacrificed']) }, childPath(path, 'bindResult'))
+        }
+        if (node.kind === 'move' && node.order !== undefined) {
+          if (node.order !== 'random') issue(childPath(path, 'order'), 'enum', 'unsupported move order')
+          if (node.to !== 'library' || node.position !== 'bottom') issue(childPath(path, 'order'), LIBRARY_INSTRUCTION_DIAGNOSTIC_CODE.MOVE_ORDER, LIBRARY_INSTRUCTION_DIAGNOSTIC_MESSAGE.MOVE_ORDER)
         }
         if (node.kind === 'move' && node.position !== undefined) {
           enumeration(node.position, childPath(path, 'position'), new Set(['top', 'bottom']), 'library position')
@@ -736,7 +747,8 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         const token = object(node.token, childPath(path, 'token'))
         if (token) {
-          exactKeys(token, childPath(path, 'token'), ['name', 'types', 'subtypes', 'colors', 'power', 'toughness', 'oracleText'], ['name', 'types'])
+          exactKeys(token, childPath(path, 'token'), ['name', 'types', 'subtypes', 'colors', 'power', 'toughness', 'oracleText', 'abilities'], ['name', 'types'])
+          if (token.abilities !== undefined) array(token.abilities, `${path}.token.abilities`).forEach((ability, index) => validateAbility(ability, `${path}.token.abilities[${index}]`))
           if (typeof token.name !== 'string' || !Array.isArray(token.types)) issue(childPath(path, 'token'), 'type', 'token requires name and types')
         }
         if (node.bindResult !== undefined) {
@@ -903,9 +915,11 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       }
       case 'chooseCards': {
-        exactKeys(node, path, ['kind', 'bindChoice', 'chooser', 'filter', 'viewLibrary', 'min', 'max', 'distinct', 'whenInsufficient'], ['kind', 'bindChoice', 'chooser', 'filter', 'min', 'max', 'distinct', 'whenInsufficient'])
+        exactKeys(node, path, ['kind', 'bindChoice', 'chooser', 'filter', 'viewLibrary', 'viewCards', 'min', 'max', 'distinct', 'whenInsufficient'], ['kind', 'bindChoice', 'chooser', 'filter', 'min', 'max', 'distinct', 'whenInsufficient'])
         validateReference(node.chooser, childPath(path, 'chooser'), env, ['player'])
         if (validateSelector(node.filter, childPath(path, 'filter'), env) !== 'object') issue(childPath(path, 'filter'), 'domain', 'chooseCards requires an object selector')
+        if (node.viewCards !== undefined) validateReference(node.viewCards, childPath(path, 'viewCards'), env, ['object'])
+        if (node.viewCards !== undefined && node.viewLibrary !== undefined) issue(path, LIBRARY_INSTRUCTION_DIAGNOSTIC_CODE.VIEW_SCOPE, LIBRARY_INSTRUCTION_DIAGNOSTIC_MESSAGE.VIEW_SCOPE)
         if (node.viewLibrary !== undefined && node.viewLibrary !== true) issue(childPath(path, 'viewLibrary'), 'constant', 'chooseCards viewLibrary must be true when present')
         if (node.viewLibrary === true && !(isData(node.filter) && isData(node.filter.filter) && node.filter.filter.zone === 'library')) {
           issue(childPath(path, 'viewLibrary'), 'zone', 'chooseCards viewLibrary requires a library filter')

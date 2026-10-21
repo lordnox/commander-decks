@@ -22,6 +22,7 @@ import type {
   EffectDuration,
   DistributionSpec,
   Instruction,
+  LibraryVisibility,
   Keyword,
   KeywordAbilityDefinition,
   ModeDefinition,
@@ -65,6 +66,7 @@ import type {
   Zone,
 } from '../schema/v1'
 import {
+  LIBRARY_VISIBILITY,
   CHOSEN_COLOR_BINDING,
   DECLINE_LIFE_OPTION,
   ENTRY_PAYMENT_BINDING,
@@ -100,6 +102,9 @@ const toStatDelta = (value: StatDeltaInput) => typeof value === 'number' ? amoun
 
 export const resultAmount = (binding: string, field: Extract<Amount, { kind: 'resultRef' }>['field'] = 'amount') =>
   immutableData({ kind: 'resultRef' as const, binding, field })
+
+export const inspectTop = (input: { player: PlayerReference; count: AmountInput; bindChoice: string; visibility?: LibraryVisibility }) =>
+  immutableData({ kind: 'inspectTop' as const, ...input, count: toAmount(input.count), visibility: input.visibility ?? LIBRARY_VISIBILITY.private })
 
 export const capturePlayer = (input: { player: PlayerReference; bindResult: string }) =>
   immutableData({ kind: 'capturePlayer' as const, ...input })
@@ -598,6 +603,7 @@ export const move = (input: {
   targets: Extract<Instruction, { kind: 'move' }>['targets']
   to: Extract<Instruction, { kind: 'move' }>['to']
   position?: 'top' | 'bottom'
+  order?: 'random'
   controller?: Extract<Instruction, { kind: 'move' }>['controller']
   tapped?: boolean
   enterCounters?: Readonly<Record<string, AmountInput>>
@@ -609,6 +615,7 @@ export const move = (input: {
   targets: input.targets,
   to: input.to,
   ...(input.position !== undefined ? { position: input.position } : {}),
+  ...(input.order !== undefined ? { order: input.order } : {}),
   ...(input.controller !== undefined ? { controller: input.controller } : {}),
   ...(input.tapped !== undefined ? { tapped: input.tapped } : {}),
   ...(input.enterCounters !== undefined ? { enterCounters: Object.fromEntries(Object.entries(input.enterCounters).map(([counter, count]) => [counter, toAmount(count)])) } : {}),
@@ -749,6 +756,7 @@ export const chooseCards = (input: {
   chooser: Extract<Instruction, { kind: 'chooseCards' }>['chooser']
   filter: ObjectSelector
   viewLibrary?: true
+  viewCards?: ObjectReference
   count?: AmountInput
   min?: AmountInput
   max?: AmountInput
@@ -767,6 +775,7 @@ export const chooseCards = (input: {
     chooser: input.chooser,
     filter: input.filter,
     ...(input.viewLibrary ? { viewLibrary: true as const } : {}),
+    ...(input.viewCards ? { viewCards: input.viewCards } : {}),
     min: clause.min,
     max: clause.max,
     distinct: true,

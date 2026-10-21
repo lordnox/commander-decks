@@ -1,6 +1,7 @@
 import collectorsVault from '../../cards/collectors-vault'
 import { describe, expect, test } from 'bun:test'
 import {
+  activated,
   card,
   chooseX,
   variable,
@@ -114,4 +115,11 @@ test('canonical artifact tokens retain their sacrifice-for-colored-mana ability'
   const spent = ok(server.rules(resolved, { type: 'tapForMana', seat: 'p1', objectId: token.id, mana: 'G' }))
   expect(spent.players.p1.mana.G).toBe(1)
   expect(spent.objects[token.id]).toBeUndefined()
+})
+
+test('token ability programs compile in their own lexical scope', () => {
+  const definition = card([spell({ decisions: { variables: [chooseX()] }, instructions: [createToken({ targets: ref('controller'), count: 1, token: {
+    name: 'Scoped token fixture', types: ['Artifact'], abilities: [activated({ instructions: [loseLife({ targets: ref('controller'), amount: variable('X') })] })],
+  } })] })])
+  expect(() => compileCardRuleDefinition(definition)).toThrow('X is not declared')
 })

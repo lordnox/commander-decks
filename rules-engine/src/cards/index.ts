@@ -8,6 +8,11 @@ import anOfferYouCantRefuse from './an-offer-you-cant-refuse'
 import condemn from './condemn'
 import swanSong from './swan-song'
 import swordsToPlowshares from './swords-to-plowshares'
+import satyrWayfinder from './satyr-wayfinder'
+import malevolentRumble from './malevolent-rumble'
+import planarGenesis from './planar-genesis'
+import silverbackElder from './silverback-elder'
+import animistsAwakening from './animists-awakening'
 import amuletOfVigor from './amulet-of-vigor'
 import anguishedUnmaking from './anguished-unmaking'
 import arborElf from './arbor-elf'
@@ -193,6 +198,11 @@ import zagothTriome from './zagoth-triome'
 
 /** Explicit imports keep browser and host builds independent of filesystem discovery. */
 export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freeze({
+  "Animist's Awakening": animistsAwakening,
+  "Satyr Wayfinder": satyrWayfinder,
+  "Malevolent Rumble": malevolentRumble,
+  "Planar Genesis": planarGenesis,
+  "Silverback Elder": silverbackElder,
   "An Offer You Can't Refuse": anOfferYouCantRefuse,
   "Condemn": condemn,
   "Swan Song": swanSong,

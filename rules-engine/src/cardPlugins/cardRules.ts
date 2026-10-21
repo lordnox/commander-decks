@@ -23,7 +23,6 @@ import {
   blockTax,
   bounceSelf,
   branch,
-  castModal,
   casts,
   cleave,
   controlledLands,
@@ -121,8 +120,8 @@ import {
   putLandFromHand,
   putMilledLandTapped,
   putPermanentsFromHand,
-  revealPick,
   revealMatchingToHand,
+  revealPick,
   revealUntil,
   goadRevealUntilMatches,
   pairDonateRevealUntilMatches,
@@ -226,7 +225,6 @@ import {
   pumpAttached,
   pumpTargetEqualToLands,
   putTargetOnLibraryTop,
-  revealTopLandsTapped,
   sagaChapters,
   tapAttached,
   destroyAllCreatures,
@@ -308,16 +306,6 @@ const insectToken = {
 }
 
 const insect = createTokenInstruction(insectToken)
-
-const eldraziSpawn = createTokenInstruction({
-  name: 'Eldrazi Spawn',
-  types: ['Creature'],
-  subtypes: ['Eldrazi', 'Spawn'],
-  power: 0,
-  toughness: 1,
-  oracleText: 'Sacrifice this token: Add {C}.',
-  sacrificeForMana: { C: 1 },
-})
 
 const bird = createTokenInstruction({
   name: 'Bird',
@@ -415,7 +403,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     embalm('{5}{W}', { colors: ['W'], extraSubtypes: ['Zombie'] }),
     enters(linkExile({ nonland: true, controller: 'opponent' }, { optional: true })),
   ],
-  "Animist's Awakening": [xMana(), onResolve(revealTopLandsTapped())],
   'Apex Altisaur': [enters(fightUpToOne())],
   'Arcane Denial': [
     targetOnResolve('counter', { zone: 'stack' }, drawAtNextUpkeep(1), drawAtNextUpkeep(2, 'targetController', true)),
@@ -1060,7 +1047,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     ptEqualsCount('Land'),
     enters(selfMill(4), returnOwnedGraveyardLands()),
   ],
-  'Malevolent Rumble': [onResolve(revealPick(4, { permanent: true }), eldraziSpawn)],
   'Mana Drain': [
     targetOnResolve(
       'counter',
@@ -1293,7 +1279,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   ],
   'Pit of Offerings': [entersTapped(), handler('pit-of-offerings')],
   'Pitiless Carnage': [onResolve(sacrificePermanentsThenDraw())],
-  'Planar Genesis': [onResolve(lookTopPutLand(4, { orHand: true }))],
   'Portal to Phyrexia': [
     enters(opponentsSacrifice('Creature', 3)),
     upkeep(reanimateCreatureFromGraveyards('Phyrexian')),
@@ -1410,7 +1395,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
     enters(copyControlledCreature({ keepName: true })),
   ],
   'Sandstone Oracle': [entersTargetingOpponent(drawHandDifference())],
-  'Satyr Wayfinder': [enters(revealPick(4, { type: 'Land' }))],
   Scapeshift: [
     searchSpell({
       prompt: 'Search your library for that many land cards. They enter tapped.',
@@ -1446,26 +1430,6 @@ export const CARD_RULES: Record<string, CardEffect[]> = {
   'Show and Tell': [onResolve(putFromHand('each', {
     types: ['Artifact', 'Creature', 'Enchantment', 'Land'],
   }))],
-  'Silverback Elder': [castModal({
-    choose: 'one',
-    modes: [
-      {
-        id: 'destroy',
-        label: 'Destroy target artifact or enchantment.',
-        do: [{ kind: 'destroyTargetPermanent', types: ['Artifact', 'Enchantment'] }],
-      },
-      {
-        id: 'land',
-        label: 'Look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped.',
-        do: [{ kind: 'lookTopPutLand', count: 5 }],
-      },
-      {
-        id: 'life',
-        label: 'You gain 4 life.',
-        do: [gainLife(4)],
-      },
-    ],
-  }, { creatureOnly: true })],
   "Sin, Spira's Punishment": [
     enters(specificSinSpiraPunishmentTriggeredAbility()),
     attacks(specificSinSpiraPunishmentTriggeredAbility()),

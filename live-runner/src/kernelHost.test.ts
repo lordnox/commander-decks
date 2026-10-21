@@ -4363,3 +4363,34 @@ test.each(['player', 'object'] as const)('structured any-target casts preserve a
   if (kind === 'player') expect(kernel.history.current().players.p2.life).toBe(37)
   else expect(kernel.history.current().objects[targetId].damageMarked).toBe(3)
 })
+
+test.each([true, false])('bounded library choices show context privately with selectable matches=%s', hasLand => {
+  const server = createServerGame(commanderRules, {
+    players: 2, hands: { p1: [cardTemplate('Planar Genesis', { manaCost: '{0}' })] },
+    libraries: { p1: [cardTemplate('Land fixture', { types: [hasLand ? 'Land' : 'Instant'] }), ...Array.from({ length: 5 }, (_, i) => cardTemplate(`Inspected ${i}`, { types: ['Instant'] }))] },
+  }, { random: () => 0 })
+  const kernel = handleFor(server.rules, server.state)
+  const lobby = createLobby()
+  lobby.phase = 'play'
+  const cast = kernel.dispatch({ type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0]! })
+  if (!cast.ok) throw new Error(cast.error)
+  const resolving = kernel.dispatch({ type: 'resolveTop' })
+  if (!resolving.ok) throw new Error(resolving.error)
+  expect(prepareKernelPendingChoice(kernel, lobby)).toBe(true)
+  expect(lobby.topdeck?.cards).toEqual(hasLand ? ['Land fixture'] : [])
+  expect(lobby.topdeck?.library).toEqual(['Land fixture', 'Inspected 0', 'Inspected 1', 'Inspected 2'])
+  const state = kernel.history.current()
+  const opponent = liveSnapshotFromState({ state: projectForViewer(state, 'p2'), lobby, viewer: 'p2' })
+  expect(opponent.topdeck).toBeUndefined()
+  expect(JSON.stringify(opponent)).not.toContain('Inspected 0')
+  expect(JSON.stringify(lobby.interactionLedger)).not.toContain('Inspected 0')
+  const restarted = createLobby()
+  restarted.phase = 'play'
+  expect(prepareKernelPendingChoice(kernel, restarted)).toBe(true)
+  expect(restarted.topdeck?.library).toEqual(lobby.topdeck?.library)
+  if (!hasLand) {
+    expect(applyKernelChoice(kernel, restarted, 'p1', slotted(restarted, { type: 'topdeck', choices: [] }))).toBe(true)
+    expect(restarted.topdeck?.cards).toEqual(['Inspected 0', 'Inspected 1', 'Inspected 2', 'Land fixture'])
+    expect(restarted.topdeck?.count).toBe(1)
+  }
+})
