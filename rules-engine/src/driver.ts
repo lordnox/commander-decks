@@ -1,3 +1,6 @@
+import { pickRandomChoices } from './plugins/hiddenInformation'
+import { cardRuleDefinition } from './cardPlugins/dsl/builders'
+import { LIBRARY_VISIBILITY, RULE_DSL_SCHEMA_VERSION } from './cardPlugins/dsl/schema/v1'
 import { resolvedSpellDestination } from './cardPlugins/alternateCosts'
 import { isPermanentType } from './definitions'
 import { captureObject, isSameObject, objectIdentity } from './objectIdentity'
@@ -18,7 +21,7 @@ import {
 } from './cardPlugins/dsl/compiler/runtime'
 import { canonicalModeScopeId, canonicalScopeId, canonicalWholeItemGate } from './cardPlugins/dsl/compiler/targeting'
 import { selectedDistributionScopeIds, selectedDistributionSpecs, validateModeSelection, validateScopedDistributions } from './cardPlugins/dsl/compiler/modes'
-import { loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
+import { compileCardRuleDefinition, createDefinitionSnapshot, loadDefinitionSnapshot } from './cardPlugins/dsl/compiler'
 import { RuleDslEvaluationError } from './cardPlugins/dsl/compiler/errors'
 import type {
   DecisionsSpec,
@@ -49,6 +52,7 @@ import type { DelayedPattern } from './cardPlugins/dsl/schema/v1'
 import { canPayResolutionMana, eligibleResolutionManaAbilities } from './cardPlugins/dsl/resolutionPayment'
 
 export const CANONICAL_RUNTIME_INSTRUCTIONS = [
+  'inspectTop',
   'captureAmount',
   'counter',
   'damage',
@@ -124,6 +128,7 @@ const preflightInstructions = (
       case 'draw':
       case 'grantLandPlays':
       case 'addMana':
+      case 'inspectTop':
       case 'capturePlayer':
       case 'captureAmount':
       case 'gainLife':
@@ -664,6 +669,18 @@ const actionEvents = (
         return [{ type: 'draw' as const, seat, count: assigned }]
       })
     }
+    case 'inspectTop': {
+      const players = evaluatePlayerReference(instruction.player, context)
+      if (players.length !== 1) throw new RuleDslEvaluationError('inspectTop requires exactly one library')
+      const count = availableAmount(instruction.count, context) ?? 0
+      const player = players[0]!
+      const ids = (draft.zoneOrder[player]?.library ?? []).slice(0, count)
+      frame.choices = { ...frame.choices, [instruction.bindChoice]: ids.map(id => ({ kind: 'object' as const, ...objectIdentity(draft.objects[id]!) })) }
+      if (ids.length === 0) return []
+      if (instruction.visibility === LIBRARY_VISIBILITY.public) return [{ type: 'reveal' as const, seat: player, objectIds: ids, source: frame.source.snapshot.name }]
+      draft.note(`${player} looks at the top ${ids.length} cards.`)
+      return []
+    }
     case 'capturePlayer': {
       const players = evaluatePlayerReference(instruction.player, context)
       if (players.length !== 1) throw new RuleDslEvaluationError('capturePlayer requires exactly one player')
@@ -755,8 +772,14 @@ const actionEvents = (
       return legal.map((object) => ({ type: 'sacrifice' as const, objectId: object.id, sourceId: frame.source.ref.objectId }))
     }
     case 'move': {
-      const targets = objectActions(instruction.targets, context).filter(object =>
+      let targets = objectActions(instruction.targets, context).filter(object =>
         isSameObject(context.state.objects[object.id], objectIdentity(object)))
+      if (instruction.order === 'random') {
+        const ordered = pickRandomChoices(draft, targets.map(object => object.id), targets.length)
+        const byId = new Map(targets.map(object => [object.id, object]))
+        targets = ordered.map(id => byId.get(id)!)
+        for (const object of targets) draft.objects[object.id]!.knownTo = []
+      }
       const controllers = instruction.controller ? evaluatePlayerReference(instruction.controller, context) : undefined
       if (controllers && controllers.length !== 1) throw new RuleDslEvaluationError('move controller must resolve to exactly one player')
       if (instruction.bindChoice) frame.pendingMovedChoice = {
@@ -804,11 +827,14 @@ const actionEvents = (
       const amount = availableAmount(instruction.count, context)
       if (!amount || !targets.length) return []
       if (instruction.bindResult && targets.length === 1) frame.pendingResult = { binding: instruction.bindResult, kind: 'action', value: amount, eventType: 'createToken' }
+      const { abilities, ...token } = instruction.token
+      const ruleDefinition = abilities ? createDefinitionSnapshot(compileCardRuleDefinition(cardRuleDefinition(RULE_DSL_SCHEMA_VERSION, { abilities }))) : undefined
       return targets.flatMap((seat) => Array.from({ length: amount }, () => ({
         type: 'createToken' as const,
         controller: seat,
         token: {
-          ...instruction.token,
+          ...token,
+          ...(ruleDefinition ? { ruleDefinition } : {}),
           types: [...instruction.token.types],
           ...(instruction.token.subtypes ? { subtypes: [...instruction.token.subtypes] } : {}),
           ...(instruction.token.colors ? { colors: [...instruction.token.colors] } : {}),
@@ -1220,17 +1246,20 @@ export const prepareResolutionStep = (draft: Draft) => {
         : requestedMin
       const max = Math.min(requestedMax, candidates.length)
       const fromZone = instruction.filter.filter.zone
-      if (chooser && candidates.length > 0 && max > 0) {
+      const visibleCards = instruction.viewCards ? evaluateObjectReference(instruction.viewCards, context).map(object => object.id) : undefined
+      // An empty eligible set still needs a private read-and-continue view.
+      if (chooser && ((candidates.length > 0 && max > 0) || (visibleCards?.length ?? 0) > 0)) {
         openCardSelection(draft, {
           seat: chooser,
           kind: 'choose',
           count: max,
           min,
           candidates: candidates.map((object) => object.id),
+          ...(visibleCards ? { visibleCards } : {}),
           targetIdentities: Object.fromEntries(candidates.map((object) => [object.id, objectIdentity(object)])),
           sourceId: frame.source.ref.objectId,
           source: frame.source.snapshot.name,
-          prompt: fromZone === 'library'
+          prompt: instruction.viewCards ? 'Choose from the inspected cards.' : fromZone === 'library'
             ? 'Search your library.'
             : 'Choose cards for the Rule DSL program.',
           destinations: ['target', 'skip'],

@@ -17,7 +17,7 @@ import {
 import type { LobbyState, TopdeckDecision } from './lobby'
 import { isSeatId, type SeatId } from './protocol'
 import type { KernelHandle } from './kernelHandle'
-import { discardOffer, openTopdeck, searchOffer, selectCardsOffer } from './kernelChoice'
+import { discardOffer, openTopdeck, searchOffer, selectCardsOffer, selectCardsLibraryView } from './kernelChoice'
 import { pendingOptionSelection, type PendingOptionSelection } from '../../rules-engine/src/rules/selectOptions'
 import { pendingVote } from '../../rules-engine/src/cardPlugins/vote'
 
@@ -281,6 +281,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
       : selection.handQuota !== undefined
         ? { hand: { min: Math.min(selection.handQuota, count), max: Math.min(selection.handQuota, count) } }
       : undefined
+  const library = selectCardsLibraryView(state, selection)
   return openTopdeck(
     lobby,
     {
@@ -292,12 +293,7 @@ export const prepareSelectCardsChoice = (kernel: KernelHandle, lobby: LobbyState
           : selection.kind,
       source: selection.source,
       cards: offer.names,
-      ...(selection.viewLibrary ? {
-        library: (state.zoneOrder[selection.fromSeat ?? seat]?.library ?? [])
-          .map((objectId) => state.objects[objectId]?.name ?? '')
-          .filter(Boolean)
-          .sort((left, right) => left.localeCompare(right)),
-      } : {}),
+      ...(library !== undefined ? { library } : {}),
       destinations,
       count,
       ...(requirements ? { requirements } : {}),
