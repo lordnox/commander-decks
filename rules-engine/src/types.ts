@@ -731,8 +731,10 @@ export type EventProcessingFrame = {
   applicationProgram?: ReplacementProgramCursor
 }
 
-/** Durable cursor for a replacement's application procedure (`choose` / `branch` / `payLife`). */
+/** Durable choices and results for a replacement's application procedure. */
 export type ReplacementProgramCursor = {
+  choices?: Record<string, ({ kind: 'object' } & ObjectIdentity)[]>
+  results?: Record<string, InstructionResult>
   instructions: readonly ReplacementProgramInstruction[]
   index: number
   bindings: Record<string, string>

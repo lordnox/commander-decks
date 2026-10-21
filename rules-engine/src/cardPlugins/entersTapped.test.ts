@@ -264,58 +264,6 @@ describe('entersTapped', () => {
     })
   })
 
-  test('Choked Estuary reveals a matching hand card or enters tapped', () => {
-    const estuary = land('Choked Estuary')
-    const island = land('Island', ['Island'])
-    const server = createServerGame(
-      commanderRules,
-      { hands: { p1: [estuary, island] } },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
-    )
-    const estuaryId = named(server.state, 'Choked Estuary').id
-    const islandId = named(server.state, 'Island').id
-    const played = ok(server.rules(server.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: estuaryId,
-    }))
-    expect(pendingSelectionFor(played, 'p1')).toMatchObject({
-      kind: 'reveal',
-      min: 0,
-      candidates: [islandId],
-    })
-
-    const revealed = ok(server.rules(played, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'reveal',
-      count: 1,
-      objectIds: [islandId],
-    }))
-    expect(revealed.objects[estuaryId].tapped).toBe(false)
-    expect(revealed.objects[islandId].knownTo).toEqual(revealed.playerOrder)
-
-    const declinedServer = createServerGame(
-      commanderRules,
-      { hands: { p1: [estuary, island] } },
-      { random: () => 0.5, cardPlugins: [entersTapped] },
-    )
-    const declinedId = named(declinedServer.state, 'Choked Estuary').id
-    const opened = ok(declinedServer.rules(declinedServer.state, {
-      type: 'playLand',
-      seat: 'p1',
-      objectId: declinedId,
-    }))
-    const declined = ok(declinedServer.rules(opened, {
-      type: 'selectCards',
-      seat: 'p1',
-      kind: 'reveal',
-      count: 1,
-      objectIds: [],
-    }))
-    expect(declined.objects[declinedId].tapped).toBe(true)
-  })
-
   test('another seat\'s lands are not counted for the conditional forms', () => {
     const server = createServerGame(
       commanderRules,

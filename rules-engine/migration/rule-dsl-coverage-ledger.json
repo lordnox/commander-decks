@@ -19,7 +19,7 @@
     ]
   },
   "summary": {
-    "cardRegistrations": 183,
+    "cardRegistrations": 182,
     "cardEffects": 21,
     "cardInstructions": 189,
     "instructionHandlersDiscovered": 189,
@@ -33,7 +33,7 @@
     "instructionUnobservedGaps": 42,
     "cardRegistrationOnlyGaps": 5,
     "candidateOnlyInstructionRows": 144,
-    "candidateOnlyCardRows": 178
+    "candidateOnlyCardRows": 177
   },
   "cardEffects": [
     {
@@ -429,7 +429,6 @@
       "variant": "replacement",
       "mechanic": "replacement effect",
       "currentRegistrations": [
-        "Choked Estuary:effects[0]",
         "Dakmor Salvage:effects[1]",
         "Hagra Mauling // Hagra Broodpit:effects[0]",
         "Hall of Storm Giants:effects[0]",
@@ -444,7 +443,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 34,
+        "matches": 31,
         "samples": [
           "live-runner/src/decisions.test.ts:250 — test('does not draw twice for one turn', () => {",
           "live-runner/src/kernelHost.test.ts:2374 — test('Myriad Landscape rejects basics that do not share a land type', () => {",
@@ -922,7 +921,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 41,
+        "matches": 42,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:13 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "rules-engine/src/actions.canonical.test.ts:111 — test('the planner chains fixed canonical mana production without a legacy registration', () => {",
@@ -1169,7 +1168,7 @@
       "candidateEvidence": {
         "matches": 9,
         "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:323 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
+          "rules-engine/src/cardPlugins/entersTapped.test.ts:271 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/entersTapped.test.ts:71 — test('Hall of Storm Giants enters untapped as an early land and tapped later', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:133 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/manaChoice.test.ts:343 — test('two sources and a filter land can chain into one cast', () => {",
@@ -6597,38 +6596,6 @@
       "embeddedRulePaths": []
     },
     {
-      "card": "Choked Estuary",
-      "mechanic": "CARD_RULES registration",
-      "currentRegistrations": [
-        "CARD_RULES.Choked Estuary"
-      ],
-      "executableCoverageEvidence": [],
-      "candidateEvidence": {
-        "matches": 3,
-        "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:268 — test('Choked Estuary reveals a matching hand card or enters tapped', () => {",
-          "rules-engine/src/cardPlugins/registry.test.ts:112 — test('the Eva and Sygg enter-tapped cards are registered', () => {",
-          "rules-engine/src/rules/selectCards.test.ts:248 — test('reveal optionally exposes one offered hand card without moving it', () => {"
-        ]
-      },
-      "neededCanonicalNode": "canonical definition covering effects [replacement] and instructions []",
-      "compatibilityRoute": "Keep the name-keyed registration active until Part 16 compiles this card to one pinned canonical definition with equivalent gameplay evidence.",
-      "ownerPart": "16",
-      "dependencyParts": [
-        "11"
-      ],
-      "status": "candidate-test-reference",
-      "effectVariants": [
-        "replacement"
-      ],
-      "instructionVariants": [],
-      "pluginIds": [],
-      "handlerIds": [
-        "entersTapped"
-      ],
-      "embeddedRulePaths": []
-    },
-    {
       "card": "City of Brass",
       "mechanic": "CARD_RULES registration",
       "currentRegistrations": [
@@ -8755,7 +8722,7 @@
       "candidateEvidence": {
         "matches": 3,
         "samples": [
-          "rules-engine/src/cardPlugins/entersTapped.test.ts:323 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
+          "rules-engine/src/cardPlugins/entersTapped.test.ts:271 — test('another seat\\'s lands are not counted for the conditional forms', () => {",
           "rules-engine/src/cardPlugins/liveTableMana.test.ts:134 — /** Life p1 must have lost after paying it (pain, Mana Confluence, ...). */",
           "rules-engine/src/cardPlugins/untilEot.test.ts:420 — test('Lair of the Hydra pays X and becomes an X/X', () => {"
         ]
@@ -12583,7 +12550,7 @@
       ],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 139,
+        "matches": 140,
         "samples": [
           "live-runner/src/kernelActs.plannedPayment.test.ts:12 — test('live host routes planned payment and cancellation through the kernel act protocol', () => {",
           "live-runner/src/kernelHost.test.ts:3032 — test('a restarted host rebuilds channel targeting and accepts the chosen permanent', () => {",
@@ -13521,7 +13488,7 @@
       "currentRegistrations": [],
       "executableCoverageEvidence": [],
       "candidateEvidence": {
-        "matches": 231,
+        "matches": 232,
         "samples": [
           "live-runner/src/kernelHost.interactionEnvelopes.test.ts:401 — test('stale, duplicate, and wrong-seat answers do not rerun effects', () => {",
           "live-runner/src/kernelHost.test.ts:2229 — test('a search reads the whole library, not only the cards it may take', () => {",
@@ -14447,7 +14414,7 @@
         "rules-engine/src/cardPlugins/becomeCopyOfTarget.ts:6",
         "rules-engine/src/cardPlugins/bestow.ts:12",
         "rules-engine/src/cardPlugins/bestow.ts:152",
-        "rules-engine/src/cardPlugins/cardRules.ts:1331",
+        "rules-engine/src/cardPlugins/cardRules.ts:1329",
         "rules-engine/src/cardPlugins/cardRules.ts:7",
         "rules-engine/src/cardPlugins/effectDefinitions.ts:499",
         "rules-engine/src/cardPlugins/effectRuntime.ts:163",
@@ -14472,7 +14439,7 @@
         "rules-engine/src/cardPlugins/instructions.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:108",
         "rules-engine/src/cardPlugins/randomExileCopy.ts:6",
-        "rules-engine/src/types.ts:1272"
+        "rules-engine/src/types.ts:1274"
       ],
       "executableCoverageEvidence": [
         "rules-engine/src/cardPlugins/copyTokenTemplate.test.ts — copy token template > a copy carries the colors and mana value answers key off",
@@ -14591,8 +14558,8 @@
       "variant": "grantedRules/effects/grantCreatureTrigger",
       "mechanic": "granted runtime rules and abilities",
       "currentRegistrations": [
-        "rules-engine/src/cardPlugins/cardRules.ts:242",
-        "rules-engine/src/cardPlugins/cardRules.ts:723",
+        "rules-engine/src/cardPlugins/cardRules.ts:241",
+        "rules-engine/src/cardPlugins/cardRules.ts:721",
         "rules-engine/src/cardPlugins/continuousEffects.ts:164",
         "rules-engine/src/cardPlugins/continuousEffects.ts:173",
         "rules-engine/src/cardPlugins/continuousEffects.ts:47",
@@ -15101,12 +15068,12 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          714,
-          733
+          716,
+          735
         ],
         "samples": [
-          "714: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
-          "733: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
+          "716: if (event.type !== 'custom' || event.name !== REPLACEMENT_DISCARD_RESUME) return",
+          "735: if (event.type === 'custom' && event.name === REPLACEMENT_DISCARD_RESUME) {"
         ],
         "mechanic": "custom event continuation/dispatch",
         "neededCanonicalNode": "typed answer or internal event variant plus server-owned continuation",
@@ -16278,17 +16245,17 @@
       {
         "path": "rules-engine/src/replacement/processor.ts",
         "lines": [
-          267,
-          889,
-          894,
-          896,
-          903,
-          905
+          280,
+          902,
+          907,
+          909,
+          916,
+          918
         ],
         "samples": [
-          "267: const host = draft.object(program.hostSourceId)",
-          "889: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
-          "894: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
+          "280: const host = draft.object(program.hostSourceId)",
+          "902: settlement.followUp?.forEach((entry) => draft.enqueue(entry))",
+          "907: settlement.followUp?.forEach((entry) => draft.enqueue(entry))"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",
@@ -16302,44 +16269,44 @@
       {
         "path": "rules-engine/src/rules/selectCards.ts",
         "lines": [
-          377,
-          811,
-          838,
-          847,
-          865,
-          884,
-          925,
-          935,
-          944,
-          957,
-          959,
-          971,
-          982,
-          986,
-          991,
+          379,
+          819,
+          846,
+          855,
+          873,
+          892,
+          933,
+          943,
+          952,
+          965,
+          967,
+          979,
+          990,
           994,
-          1003,
-          1009,
-          1021,
-          1025,
-          1038,
-          1045,
-          1060,
-          1130,
-          1197,
-          1200,
-          1220,
-          1224,
-          1233,
-          1239,
+          999,
+          1002,
+          1011,
+          1017,
+          1029,
+          1033,
+          1046,
+          1053,
+          1068,
+          1138,
+          1205,
+          1208,
+          1228,
+          1232,
+          1241,
           1247,
-          1249,
-          1254
+          1255,
+          1257,
+          1262
         ],
         "samples": [
-          "377: draft.enqueue({",
-          "811: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
-          "838: const object = objectId ? draft.object(objectId) : undefined"
+          "379: draft.enqueue({",
+          "819: selected: selected.map((objectId) => objectIdentity(draft.object(objectId)!)),",
+          "846: const object = objectId ? draft.object(objectId) : undefined"
         ],
         "mechanic": "direct draft mutation or low-level event scheduling",
         "neededCanonicalNode": "semantic action primitive/event proposal with typed result and occurrence",

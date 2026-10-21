@@ -1,3 +1,4 @@
+import { REPLACEMENT_APPLICATION_CARD_CHOICE } from '../replacement/constants'
 import type Draft from '../draft'
 import { freezeDraft } from '../draft'
 import type {
@@ -33,6 +34,7 @@ import type { ProgramStep } from '../replacement/instructionProgram'
 
 import {
   drawRemainderFollowUp,
+  resumeReplacementProgramChoice,
   enqueueReplacementSettlement,
   REPLACEMENT_DISCARD_RESUME,
 } from '../replacement/processor'
@@ -148,7 +150,7 @@ export type PendingCardSelection = {
     stackId: string
     scopeId?: string
     binding: string
-    action?: 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck'
+    action?: typeof REPLACEMENT_APPLICATION_CARD_CHOICE | 'choose' | 'discard' | 'proliferate' | 'copySpellTargets' | 'resolutionPayment' | 'replacementDiscard' | 'replacementProgram' | 'topDeck'
     replacementFrameId?: string
     payment?: {
       cost: Cost
@@ -746,6 +748,12 @@ const applySelectCards = (draft: Draft, event: GameEvent, catalog: PluginCatalog
   clearPendingSelection(draft, event.seat)
   const next = pendingSelection(draft)
   if (next) draft.priority = next.seat
+
+  if (canonicalChoice?.action === REPLACEMENT_APPLICATION_CARD_CHOICE && canonicalChoice.replacementFrameId) {
+    const settled = resumeReplacementProgramChoice(freezeDraft(draft), canonicalChoice.replacementFrameId, canonicalChoice.binding, event.objectIds ?? [], catalog)
+    if (settled.kind !== 'invalid') enqueueReplacementSettlement(draft, settled)
+    return
+  }
 
   if (canonicalChoice?.action === 'replacementDiscard' && canonicalChoice.replacementFrameId) {
     const pending = draft.eventProcessing?.program?.pendingDiscard

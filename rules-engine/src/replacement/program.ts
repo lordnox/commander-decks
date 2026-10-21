@@ -1,5 +1,8 @@
+import { captureObject } from '../objectIdentity'
+import { evaluateRuntimeAmount } from '../cardPlugins/dsl/compiler/runtime'
+import type { RuleDslRuntimeContext } from '../cardPlugins/dsl/compiler/runtime'
 import type { Instruction, ReplacementTransform } from '../cardPlugins/dsl/schema/v1'
-import type { GameEvent, ReplacementLineage } from '../types'
+import type { GameEvent, GameState, ReplacementLineage } from '../types'
 import type { CanonicalReplacementCandidate } from './canonical'
 import { descendantLineage, withLineage } from './lineage'
 
@@ -7,6 +10,7 @@ export const applyReplacementTransform = (
   proposal: GameEvent,
   transform: ReplacementTransform,
   lineage: ReplacementLineage,
+  context?: RuleDslRuntimeContext,
 ):
   | { kind: 'prevented' }
   | { kind: 'continue'; event: GameEvent }
@@ -27,8 +31,15 @@ export const applyReplacementTransform = (
         return { kind: 'continue', event: withLineage(next, descendantLineage(lineage)) }
       }
       if (proposal.type !== 'move') return { kind: 'continue', event: withLineage(proposal, descendantLineage(lineage)) }
+      const enterCounters = { ...proposal.enterCounters }
+      for (const [name, amount] of Object.entries(transform.changes.enterCounters ?? {})) {
+        const value = context ? evaluateRuntimeAmount(amount, context) : amount.kind === 'constant' ? amount.value : undefined
+        if (value === undefined) throw new Error('entry counter amounts require a runtime context')
+        enterCounters[name] = (enterCounters[name] ?? 0) + value
+      }
       const next = {
         ...proposal,
+        ...(transform.changes.enterCounters ? { enterCounters } : {}),
         ...(transform.changes.to ? { to: transform.changes.to } : {}),
         ...(transform.changes.tapped !== undefined ? { tapped: transform.changes.tapped } : {}),
       } as GameEvent
@@ -54,4 +65,11 @@ export const applyCanonicalTransform = (
   proposal: GameEvent,
   candidate: CanonicalReplacementCandidate,
   lineage: ReplacementLineage,
-) => applyReplacementTransform(proposal, candidate.effect.transform, lineage)
+  state: GameState,
+) => {
+  const source = state.objects[candidate.sourceId]!
+  return applyReplacementTransform(proposal, candidate.effect.transform, lineage, {
+    state, controller: candidate.category === 'self' && proposal.type === 'move' ? proposal.controller ?? source.controller : source.controller,
+    source: captureObject(source),
+  })
+}

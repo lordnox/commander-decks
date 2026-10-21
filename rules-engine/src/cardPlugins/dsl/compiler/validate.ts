@@ -1234,10 +1234,17 @@ export const validateDefinitionV1 = (root: unknown): {
     }
   }
 
-  const validateEventFieldChanges = (value: unknown, path: string): void => {
+  const validateEventFieldChanges = (value: unknown, path: string, env: Environment): void => {
     const node = object(value, path)
     if (!node) return
-    exactKeys(node, path, ['to', 'tapped', 'amount'], [])
+    exactKeys(node, path, ['to', 'tapped', 'amount', 'enterCounters'], [])
+    if (node.enterCounters !== undefined) {
+      const counters = object(node.enterCounters, childPath(path, 'enterCounters'))
+      if (counters) for (const [name, counterAmount] of Object.entries(counters)) {
+        if (!name) issue(childPath(path, 'enterCounters'), 'type', 'counter names must be nonempty')
+        validateAmount(counterAmount, childPath(childPath(path, 'enterCounters'), name), env)
+      }
+    }
     if (node.to !== undefined) enumeration(node.to, childPath(path, 'to'), ZONES, 'zone')
     if (node.tapped !== undefined && typeof node.tapped !== 'boolean') {
       issue(childPath(path, 'tapped'), 'type', 'expected a boolean')
@@ -1250,7 +1257,7 @@ export const validateDefinitionV1 = (root: unknown): {
       return
     }
     const optionBindings = new Set<string>()
-    const validateList = (list: unknown, listPath: string, bindings: Set<string>, nested: number): void => {
+    const validateList = (list: unknown, listPath: string, bindings: Set<string>, nested: number, programEnv = cloneEnv(env)): void => {
       if (nested > MAX_TREE_DEPTH) {
         issue(listPath, 'depth-limit', `program nesting is limited to ${MAX_TREE_DEPTH}`)
         return
@@ -1261,6 +1268,12 @@ export const validateDefinitionV1 = (root: unknown): {
         if (!node) return
         declarations.push({ path: entryPath, kind: `replacementProgram:${String(node.kind)}` })
         switch (node.kind) {
+          case 'chooseCards':
+          case 'reveal':
+          case 'captureAmount':
+            validateInstruction(node, entryPath, programEnv, nested)
+            return
+
           case 'choose': {
             exactKeys(node, entryPath, ['kind', 'bindChoice', 'options', 'prompt'], ['kind', 'bindChoice', 'options'])
             const binding = bindingName(node.bindChoice, childPath(entryPath, 'bindChoice'))
@@ -1291,22 +1304,22 @@ export const validateDefinitionV1 = (root: unknown): {
           }
           case 'branch': {
             exactKeys(node, entryPath, ['kind', 'condition', 'then', 'otherwise'], ['kind', 'condition', 'then'])
-            validateCondition(node.condition, childPath(entryPath, 'condition'), env)
-            validateList(node.then, childPath(entryPath, 'then'), new Set(bindings), nested + 1)
-            if (node.otherwise !== undefined) validateList(node.otherwise, childPath(entryPath, 'otherwise'), new Set(bindings), nested + 1)
+            validateCondition(node.condition, childPath(entryPath, 'condition'), programEnv)
+            validateList(node.then, childPath(entryPath, 'then'), new Set(bindings), nested + 1, cloneEnv(programEnv))
+            if (node.otherwise !== undefined) validateList(node.otherwise, childPath(entryPath, 'otherwise'), new Set(bindings), nested + 1, cloneEnv(programEnv))
             return
           }
           case 'modifyEvent':
             exactKeys(node, entryPath, ['kind', 'changes'], ['kind', 'changes'])
-            validateEventFieldChanges(node.changes, childPath(entryPath, 'changes'))
+            validateEventFieldChanges(node.changes, childPath(entryPath, 'changes'), programEnv)
             return
           case 'payLife':
             exactKeys(node, entryPath, ['kind', 'amount'], ['kind', 'amount'])
-            validateAmount(node.amount, childPath(entryPath, 'amount'), env)
+            validateAmount(node.amount, childPath(entryPath, 'amount'), programEnv)
             return
           case 'emit':
             exactKeys(node, entryPath, ['kind', 'instructions'], ['kind', 'instructions'])
-            validateInstructionList(node.instructions, childPath(entryPath, 'instructions'), env)
+            validateInstructionList(node.instructions, childPath(entryPath, 'instructions'), programEnv)
             return
           default:
             issue(childPath(entryPath, 'kind'), 'unsupported-kind', `unsupported replacement program kind: ${String(node.kind)}`)
@@ -1515,6 +1528,7 @@ export const validateDefinitionV1 = (root: unknown): {
             }
             case 'replacement': {
               exactKeys(node, effectPath, ['kind', 'event', 'transform', 'when', 'optional', 'program'], ['kind', 'event', 'transform'])
+              if (isData(node.transform) && node.transform.kind === 'modifyEvent' && isData(node.transform.changes) && node.transform.changes.enterCounters !== undefined) validateEventFieldChanges(node.transform.changes, `${effectPath}.transform.changes`, baseEnvironment())
               if (node.when !== undefined) validateCondition(node.when, childPath(effectPath, 'when'), baseEnvironment())
               if (node.program !== undefined) validateReplacementProgram(node.program, childPath(effectPath, 'program'), baseEnvironment())
               return
