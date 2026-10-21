@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test'
 import type { Amount } from './v1'
-import { minimum, multiply, captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
+import { addAmount, minimum, multiply, captureAmount, resultAmount, may, move, select, target, card, characteristic, compileCardRuleDefinition, count, divide, draw, evaluateAmount, eventAmount, gainLife, loseLife, negate, pumpEffect, createEffect, untilCleanup, chooseX, objects, ref, ROUNDING_MODES, spell, variable } from './v1'
 import { pendingOptionSelection } from '../../rules/selectOptions'
 import { commanderRules } from '../../formats'
 import { cardTemplate } from '../../newGame'
@@ -9,7 +9,7 @@ import { ok, resolveStack } from '../../testHelpers'
 import { evaluateStatDelta } from './compiler/evaluate'
 import { instructionSpell } from './instructionTestSupport'
 
-const context = { variables: { X: 7 }, eventAmount: 5, count: () => 9, characteristic: () => 15 }
+const context = { variables: { X: 7 }, eventAmount: 5, count: () => 9, greatest: () => 4, characteristic: () => 15 }
 const halfLife = divide({ value: characteristic(ref('controller'), 'life', { information: 'current' }), by: 2, rounding: ROUNDING_MODES.up })
 
 test.each([
@@ -111,15 +111,35 @@ test('amount result bindings require an earlier numeric producer and the correct
 })
 
 
-test('multiplication and minimum compose, validate bindings and enforce numeric limits', () => {
+test('multiplication, addition and minimum compose, validate bindings and enforce numeric limits', () => {
   expect(evaluateAmount(minimum(multiply(variable('X'), 3), 20), context)).toBe(20)
+  expect(evaluateAmount(addAmount(count(objects()), 1), context)).toBe(10)
   expect(evaluateAmount(multiply(0, 9), context)).toBe(0)
-  for (const expression of [multiply(variable('X'), 2), minimum(variable('X'), 2)]) {
+  for (const expression of [multiply(variable('X'), 2), minimum(variable('X'), 2), addAmount(variable('X'), 2)]) {
     expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: expression, targets: ref('controller') })] })]))).toThrow()
   }
   expect(() => evaluateAmount(multiply(1_000_000, 1_000_000), context)).toThrow()
+  expect(() => evaluateAmount(addAmount(2_147_483_647, 1), context)).toThrow()
   expect(() => compileCardRuleDefinition(card([spell({ instructions: [draw({ count: multiply(-1, 2), targets: ref('controller') })] })]))).toThrow()
   let deep: Amount = variable('X')
   for (let index = 0; index < 34; index++) deep = minimum(deep, 2)
   expect(() => evaluateAmount(deep, context)).toThrow()
+})
+
+test('addition draws hand size plus one from current objects', () => {
+  const extras = [cardTemplate('Keep'), cardTemplate('Also keep')]
+  const server = createServerGame(commanderRules, {
+    hands: { p1: [
+      instructionSpell({ instructions: [draw({
+        count: addAmount(count(objects({ zone: 'hand', controller: 'you' })), 1),
+        targets: ref('controller'),
+      })] }),
+      ...extras,
+    ] },
+    libraries: { p1: Array.from({ length: 4 }, (_, index) => cardTemplate(`Draw fixture ${index}`)) },
+  }, { random: () => 0 })
+  const resolved = resolveStack(server.rules, ok(server.rules(server.state, {
+    type: 'castSpell', seat: 'p1', objectId: server.state.zoneOrder.p1.hand[0],
+  })))
+  expect(resolved.zoneOrder.p1.hand).toHaveLength(5)
 })

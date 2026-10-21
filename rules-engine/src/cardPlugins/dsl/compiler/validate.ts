@@ -315,6 +315,7 @@ export const validateDefinitionV1 = (root: unknown): {
         return
       case 'multiply':
       case 'minimum':
+      case 'add':
         exactKeys(node, path, ['kind', 'left', 'right'], ['kind', 'left', 'right'])
         validateAmount(node.left, childPath(path, 'left'), env, depth + 1)
         validateAmount(node.right, childPath(path, 'right'), env, depth + 1)
@@ -344,6 +345,15 @@ export const validateDefinitionV1 = (root: unknown): {
         exactKeys(node, path, ['kind', 'of'], ['kind', 'of'])
         validateSelector(node.of, childPath(path, 'of'), env)
         return
+      case 'greatest': {
+        exactKeys(node, path, ['kind', 'of', 'characteristic', 'information'], ['kind', 'of', 'characteristic', 'information'])
+        if (validateSelector(node.of, childPath(path, 'of'), env) !== 'object') {
+          issue(childPath(path, 'of'), 'domain', 'greatest requires an object selector')
+        }
+        enumeration(node.characteristic, childPath(path, 'characteristic'), new Set(['power', 'toughness', 'manaValue', 'loyalty']), 'numeric characteristic')
+        enumeration(node.information, childPath(path, 'information'), new Set(['current', 'currentOrLastKnown']), 'information policy')
+        return
+      }
       case 'characteristic': {
         exactKeys(node, path, ['kind', 'of', 'characteristic', 'information', 'fallback'], ['kind', 'of', 'characteristic', 'information'])
         const domain = validateReference(node.of, childPath(path, 'of'), env)
