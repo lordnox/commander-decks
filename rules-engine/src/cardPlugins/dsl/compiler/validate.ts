@@ -687,6 +687,10 @@ export const validateDefinitionV1 = (root: unknown): {
         validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
         return
       case 'grantLandPlays': amountInstruction('count', ['player']); return
+      case 'grantNoMaximumHandSize':
+        exactKeys(node, path, ['kind', 'targets'], ['kind', 'targets'])
+        validateRecipient(node.targets, childPath(path, 'targets'), env, ['player'])
+        return
       case 'scry':
       case 'surveil':
       case 'mill': amountInstruction('count', ['player']); return

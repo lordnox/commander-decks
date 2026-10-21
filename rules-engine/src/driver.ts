@@ -134,6 +134,7 @@ const preflightInstructions = (
     switch (instruction.kind) {
       case 'draw':
       case 'grantLandPlays':
+      case 'grantNoMaximumHandSize':
       case 'addMana':
       case 'inspectTop':
       case 'choosePlayer':
@@ -673,6 +674,9 @@ const actionEvents = (
       const count = availableAmount(instruction.count, context)
       if (count === undefined || count === 0) return []
       return recipients(instruction.targets, context).map((seat) => ({ type: 'grantLandPlays' as const, seat, count }))
+    }
+    case 'grantNoMaximumHandSize': {
+      return recipients(instruction.targets, context).map((seat) => ({ type: 'grantNoMaximumHandSize' as const, seat }))
     }
     case 'draw': {
       const targets = recipients(instruction.targets, context)

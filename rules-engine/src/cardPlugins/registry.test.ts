@@ -458,6 +458,7 @@ describe('card plugin registry', () => {
       'Wild Growth',
       'Utopia Sprawl',
       'Sea Gate Restoration // Sea Gate, Reborn',
+      'Sink into Stupor // Soporific Springs',
     ])).toEqual([])
   })
 
@@ -640,6 +641,12 @@ describe('card plugin registry', () => {
     expect(cardPluginEntry('Dig Through Time')).toBeUndefined()
     expect(handlerIdsForNames(['Mana Drain'])).toEqual([])
     expect(cardPluginEntry('Mana Drain')).toBeUndefined()
+    expect(handlerIdsForNames([
+      'Sea Gate Restoration // Sea Gate, Reborn',
+      'Sink into Stupor // Soporific Springs',
+    ])).toEqual([])
+    expect(cardPluginEntry('Sea Gate Restoration // Sea Gate, Reborn')).toBeUndefined()
+    expect(cardPluginEntry('Sink into Stupor // Soporific Springs')).toBeUndefined()
     expect(handlerIdsForNames(['Kederekt Leviathan']).toSorted()).toEqual(['activated', 'unearth'])
     expect(handlerIdsForNames(['Nezahal, Primal Tide']).toSorted())
       .toEqual(['activated', 'blink', 'castTriggers', 'noMaxHand'])

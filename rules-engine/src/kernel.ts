@@ -655,6 +655,9 @@ const coreApply = (draft: ReturnType<typeof makeDraft>, event: GameEvent) => {
       const leftBattlefield = previous === 'battlefield' && event.to !== 'battlefield'
       const entered = previous !== 'battlefield' && event.to === 'battlefield'
       draft.move(event.objectId, event.to, event.position, event.sameZone)
+      if (previous === 'stack' && event.to !== 'stack') {
+        draft.stack = draft.stack.filter((item) => item.objectId !== event.objectId)
+      }
       object.controller = event.to === 'battlefield'
         ? event.controller ?? object.controller
         : object.owner

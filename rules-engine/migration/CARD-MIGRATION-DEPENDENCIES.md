@@ -1,10 +1,10 @@
 # Remaining card dependencies
 
-Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after group 15. **184 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
+Companion to the [mechanics-first strategy](CARD-MIGRATION-BATCHES.md). Snapshot: PR #432 after family 16. **181 exact legacy registration keys**, each listed once below; aliases/faces can describe the same physical card. The old primary group is retained only as **Former batch**. A card can require mechanics from any family.
 
 **Required mechanics** lists known direct prerequisites, including relevant already-available support. Follow each mechanic's prerequisite links as well; readiness below includes those transitive dependencies. Ordinary existing canonical operations are assumed. No row authorizes omitting an unlisted printed ability: review the complete current Oracle text/rulings before implementation and add any discovered prerequisite.
 
-Current readiness: **0 composition candidates**; **184 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
+Current readiness: **0 composition candidates**; **181 blocked or awaiting source review**. A composition candidate has no *known* open mechanic gate; it is still unmigrated and unverified as a complete card. Every row needs that full-card review before migration. Source-review flags identify especially incomplete planning inputs.
 
 | Exact card registration | Former batch | Required mechanics | Next action | Scope notes |
 | --- | --- | --- | --- | --- |
@@ -110,7 +110,6 @@ Current readiness: **0 composition candidates**; **184 blocked or awaiting sourc
 | `Mossborn Hydra` | 22 | [17-counters](CARD-MIGRATION-BATCHES.md#17-counters), [14-counters](CARD-MIGRATION-BATCHES.md#14-counters) | Blocked by mechanics | Enter with one +1/+1 counter; landfall adds the current counter count again. This is counter doubling, not a CDA. |
 | `Mulldrifter` | 25 | [25-evoke](CARD-MIGRATION-BATCHES.md#25-evoke) | Blocked by mechanics | — |
 | `Myriad Landscape` | 31 | [31-related](CARD-MIGRATION-BATCHES.md#31-related) | Blocked by mechanics | — |
-| `Mystic Sanctuary` | 17 | [17-entry](CARD-MIGRATION-BATCHES.md#17-entry) | Blocked by mechanics | Other-Island count and the actual untapped entry determine its graveyard-return trigger. |
 | `Nanogene Conversion` | 28 | [28-temporary](CARD-MIGRATION-BATCHES.md#28-temporary) | Blocked by mechanics | — |
 | `Necrologia` | 11 | [11-casting](CARD-MIGRATION-BATCHES.md#11-casting), [06](CARD-MIGRATION-BATCHES.md#06) | Blocked by mechanics | — |
 | `Nezahal, Primal Tide` | 44 | [20-counterability](CARD-MIGRATION-BATCHES.md#20-counterability) | Blocked by mechanics | Other effects are composition candidates: cast trigger, unlimited hand size, discard-three, captured exile and delayed tapped owner return. |
@@ -142,11 +141,9 @@ Current readiness: **0 composition candidates**; **184 blocked or awaiting sourc
 | `Sail into the West` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [15-each](CARD-MIGRATION-BATCHES.md#15-each) | Blocked by mechanics | Public will-of-the-council vote, not secret council. Return up to two graveyard cards per player or offer discard-hand/draw-seven; preserve the resolving exile branch. |
 | `Sakashima of a Thousand Faces` | 28 | [28-entry](CARD-MIGRATION-BATCHES.md#28-entry), [28-legend](CARD-MIGRATION-BATCHES.md#28-legend) | Blocked by mechanics | — |
 | `Sandstone Oracle` | 14 | [14-difference](CARD-MIGRATION-BATCHES.md#14-difference), [15-player](CARD-MIGRATION-BATCHES.md#15-player) | Blocked by mechanics | — |
-| `Sea Gate Restoration // Sea Gate, Reborn` | 16 | [16-faces](CARD-MIGRATION-BATCHES.md#16-faces), [14-add](CARD-MIGRATION-BATCHES.md#14-add), [16-hand-limit](CARD-MIGRATION-BATCHES.md#16-hand-limit) | Blocked by mechanics | — |
 | `Selvala's Stampede` | 39 | [39-vote](CARD-MIGRATION-BATCHES.md#39-vote), [08](CARD-MIGRATION-BATCHES.md#08) | Blocked by mechanics | Votes determine the creature-reveal count and own-hand placement count; this is not multi-player hand placement. |
 | `Show and Tell` | 27 | [27-place](CARD-MIGRATION-BATCHES.md#27-place) | Blocked by mechanics | — |
 | `Sin, Spira's Punishment` | 38 | [38-random](CARD-MIGRATION-BATCHES.md#38-random), [38-tapped](CARD-MIGRATION-BATCHES.md#38-tapped), [38-repeat](CARD-MIGRATION-BATCHES.md#38-repeat) | Blocked by mechanics | Entry or attack: repeat for as long as each randomly exiled card is a land. This is not a repeat-once or defending-player program. |
-| `Sink into Stupor // Soporific Springs` | 16 | [16-faces](CARD-MIGRATION-BATCHES.md#16-faces), [16-stack-object](CARD-MIGRATION-BATCHES.md#16-stack-object) | Blocked by mechanics | — |
 | `Sire of Seven Deaths` | 21 | [21-ward-life](CARD-MIGRATION-BATCHES.md#21-ward-life), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach), [21-first-strike](CARD-MIGRATION-BATCHES.md#21-first-strike), [21-menace](CARD-MIGRATION-BATCHES.md#21-menace), [21-lifelink](CARD-MIGRATION-BATCHES.md#21-lifelink) | Blocked by mechanics | — |
 | `Six` | 26 | [26-retrace](CARD-MIGRATION-BATCHES.md#26-retrace), [07-mill](CARD-MIGRATION-BATCHES.md#07-mill), [21-reach](CARD-MIGRATION-BATCHES.md#21-reach) | Blocked by mechanics | Reach; attack mill and optional land recovery only from the milled set. |
 | `Snuff Out` | 25 | [25-alternative](CARD-MIGRATION-BATCHES.md#25-alternative), [42-regeneration](CARD-MIGRATION-BATCHES.md#42-regeneration) | Blocked by mechanics | — |

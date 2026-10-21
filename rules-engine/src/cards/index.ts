@@ -177,6 +177,8 @@ import riveteersOverlook from './riveteers-overlook'
 import sakuraTribeElder from './sakura-tribe-elder'
 import sakuraTribeScout from './sakura-tribe-scout'
 import scuteSwarm from './scute-swarm'
+import seaGateReborn from './sea-gate-reborn'
+import seaGateRestoration from './sea-gate-restoration'
 import secludedSteppe from './secluded-steppe'
 import seleniaDarkAngel from './selenia-dark-angel'
 import settleTheWreckage from './settle-the-wreckage'
@@ -184,9 +186,11 @@ import shadowyBackstreet from './shadowy-backstreet'
 import signInBlood from './sign-in-blood'
 import simicGrowthChamber from './simic-growth-chamber'
 import simicSignet from './simic-signet'
+import sinkIntoStupor from './sink-into-stupor'
 import skullProphet from './skull-prophet'
 import skyDiamond from './sky-diamond'
 import sokratesAthenianTeacher from './sokrates-athenian-teacher'
+import soporificSprings from './soporific-springs'
 import spearbreakerBehemoth from './spearbreaker-behemoth'
 import splendidReclamation from './splendid-reclamation'
 import stifle from './stifle'
@@ -417,6 +421,9 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sakura-Tribe Elder": sakuraTribeElder,
   "Sakura-Tribe Scout": sakuraTribeScout,
   "Scute Swarm": scuteSwarm,
+  "Sea Gate Restoration": seaGateRestoration,
+  "Sea Gate Restoration // Sea Gate, Reborn": seaGateRestoration,
+  "Sea Gate, Reborn": seaGateReborn,
   "Secluded Steppe": secludedSteppe,
   "Selenia, Dark Angel": seleniaDarkAngel,
   "Settle the Wreckage": settleTheWreckage,
@@ -424,9 +431,12 @@ export const CARD_CATALOG: Readonly<Record<string, CatalogEntry>> = Object.freez
   "Sign in Blood": signInBlood,
   "Simic Growth Chamber": simicGrowthChamber,
   "Simic Signet": simicSignet,
+  "Sink into Stupor": sinkIntoStupor,
+  "Sink into Stupor // Soporific Springs": sinkIntoStupor,
   "Skull Prophet": skullProphet,
   "Sky Diamond": skyDiamond,
   "Sokrates, Athenian Teacher": sokratesAthenianTeacher,
+  "Soporific Springs": soporificSprings,
   "Spearbreaker Behemoth": spearbreakerBehemoth,
   "Splendid Reclamation": splendidReclamation,
   "Stifle": stifle,

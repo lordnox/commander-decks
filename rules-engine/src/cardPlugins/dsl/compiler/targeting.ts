@@ -2,13 +2,20 @@ import { DAMAGEABLE_PERMANENT_TYPES } from '../schema/v1'
 import { hasKeyword } from '../../../keywords'
 import { hasProtectionFromEverything } from '../../../plugins/protectionFromEverything'
 import { effectsOf } from '../../cardRules'
-import type { CardRuleDefinitionV1, TargetClause, TargetConstraint } from '../schema/v1'
+import type { CardRuleDefinitionV1, ObjectFilter, TargetClause, TargetConstraint, Zone } from '../schema/v1'
 import type { CanonicalTargetBinding, GameObject, GameState, OccurrenceSnapshot, PlayerId, StackExecutionContext, StackItem, TargetRef } from '../../../types'
 import { captureObject, objectIdentity, pinTarget, targetObject } from '../../../objectIdentity'
 import type { BoundRecipient, RuleDslRuntimeContext } from './runtime'
 import { amountEvaluationContext, evaluateCondition, evaluateObjectSelector, evaluatePlayerSelector, evaluateStackItemSelector } from './runtime'
 import { evaluateTargetBounds } from './evaluate'
 import { RuleDslEvaluationError } from './errors'
+
+const objectFilterMentionsZone = (filter: ObjectFilter, zone: Zone): boolean => {
+  if (filter.zone === zone) return true
+  if (filter.any?.some((part) => objectFilterMentionsZone(part, zone))) return true
+  if (filter.all?.some((part) => objectFilterMentionsZone(part, zone))) return true
+  return false
+}
 
 export const canonicalScopeId = (abilityIndex: number) => `$.abilities[${abilityIndex}]`
 
@@ -350,9 +357,10 @@ export const canonicalTargetCandidates = (
             undefined,
           ))
           .map((player) => ({ kind: 'player' as const, player }))
-      case 'objects':
+      case 'objects': {
+        const includeStack = objectFilterMentionsZone(clause.filter.filter, 'stack')
         return Object.values(state.objects)
-          .filter((object) => object.zone !== 'stack' && canonicalCandidate(
+          .filter((object) => (object.zone !== 'stack' || includeStack) && canonicalCandidate(
             state,
             { kind: 'object', ...objectIdentity(object) },
             clause,
@@ -360,6 +368,7 @@ export const canonicalTargetCandidates = (
             undefined,
           ))
           .map((object) => ({ kind: 'object' as const, ...objectIdentity(object) }))
+      }
       case 'stackItems':
         return state.stack
           .filter((item) => canonicalCandidate(
